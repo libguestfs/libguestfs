@@ -121,6 +121,27 @@ typedef void error_function_t (guestfs_h *g, int errnum, const char *fs, ...) __
 
 extern int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data, error_function_t error_function);
 
+/* This was proposed as an external API, but there's a problem: the
+ * generator is unable to bind a virDomainPtr in any language other
+ * than C.  For now this API is only used by virt-df and
+ * virt-alignment-scan (both C tools) and it's only exported
+ * internally within the libguestfs code, not to external users.
+ */
+
+struct guestfs___add_libvirt_dom_argv {
+  uint64_t bitmask;
+#define GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK (UINT64_C(1)<<0)
+  int readonly;
+#define GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK (UINT64_C(1)<<1)
+  const char *iface;
+#define GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK (UINT64_C(1)<<2)
+  int live;
+#define GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK (UINT64_C(1)<<3)
+  const char *readonlydisk;
+};
+
+extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);
+
 #endif /* HAVE_LIBVIRT && HAVE_LIBXML2 */
 
 #endif /* GUESTFS_INTERNAL_FRONTEND_H_ */

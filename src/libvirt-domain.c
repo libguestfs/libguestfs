@@ -46,20 +46,6 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
   /* empty */
 }
 
-struct guestfs___add_libvirt_dom_argv {
-  uint64_t bitmask;
-#define GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK (UINT64_C(1)<<0)
-  int readonly;
-#define GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK (UINT64_C(1)<<1)
-  const char *iface;
-#define GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK (UINT64_C(1)<<2)
-  int live;
-#define GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK (UINT64_C(1)<<3)
-  const char *readonlydisk;
-};
-
-static int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);
-
 int
 guestfs__add_domain (guestfs_h *g, const char *domain_name,
                      const struct guestfs_add_domain_argv *optargs)
@@ -150,8 +136,6 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   return r;
 }
 
-/* This was proposed as an external API, but it's not quite baked yet. */
-
 static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *data);
 static int connect_live (guestfs_h *g, virDomainPtr dom);
 
@@ -169,7 +153,7 @@ struct add_disk_data {
   struct guestfs_add_drive_opts_argv optargs;
 };
 
-static int
+GUESTFS_DLL_PUBLIC int
 guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
                            const struct guestfs___add_libvirt_dom_argv *optargs)
 {
