@@ -725,16 +725,6 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
   generate_all_structs internal_structs;
 
 pr "\
-/* Deprecated macros for internal functions. */
-
-";
-
-  List.iter (
-    fun { name = shortname } ->
-      pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
-  ) private_functions_sorted;
-
-pr "\
 
 #endif /* End of GUESTFS_PRIVATE. */
 
