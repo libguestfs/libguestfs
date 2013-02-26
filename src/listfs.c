@@ -182,7 +182,7 @@ check_with_vfs_type (guestfs_h *g, const char *device,
       add_vfs (g, mountable, safe_strdup (g, "btrfs"), ret, ret_size);
     }
 
-    v = safe_strdup (g, "btrfs");
+    v = vfs_type;
   }
   else {
     /* Ignore all "*_member" strings.  In libblkid these are returned
