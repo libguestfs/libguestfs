@@ -62,6 +62,10 @@
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
 
+#ifndef MIN
+#define MIN(a,b) ((a)<(b)?(a):(b))
+#endif
+
 #ifdef __APPLE__
 #define xdr_uint32_t xdr_u_int32_t
 #endif
