@@ -83,8 +83,10 @@ stamp-virt-df.pod: virt-df.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+TESTS =
+
 if ENABLE_APPLIANCE
-TESTS = test-virt-df.sh
+TESTS += test-virt-df.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
