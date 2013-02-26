@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-25 17:38+0000\n"
+"POT-Creation-Date: 2013-02-26 18:32+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -19,53 +19,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: align/domains.c:107 df/domains.c:111
-#, c-format
-msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
-msgstr ""
-
-#: align/domains.c:116 df/domains.c:120
-#, c-format
-msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
-msgstr ""
-
-#: align/domains.c:126 df/domains.c:130
-#, c-format
-msgid "%s: could not list running domains (code %d, domain %d): %s\n"
-msgstr ""
-
-#: align/domains.c:137 df/domains.c:141
-#, c-format
-msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
-msgstr ""
-
-#: align/domains.c:147 df/domains.c:151
-#, c-format
-msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
-msgstr ""
-
-#: align/domains.c:196 df/domains.c:207
-#, c-format
-msgid "%s: failed to analyze a disk, see error(s) above\n"
-msgstr ""
-
-#: align/domains.c:347 align/scan.c:123 cat/virt-cat.c:117
-#: cat/virt-filesystems.c:190 cat/virt-ls.c:182 df/domains.c:429 df/main.c:132
-#: edit/virt-edit.c:137 fish/fish.c:234 format/format.c:131
-#: fuse/guestmount.c:207 inspector/virt-inspector.c:130
-#: rescue/virt-rescue.c:138
-#, c-format
-msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: ஹாண்டிலை உருவாக்க முடியவில்லை\n"
-
-#: align/scan.c:60 cat/virt-cat.c:56 cat/virt-filesystems.c:87
-#: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:70 fish/fish.c:104
+#: align/scan.c:74 cat/virt-cat.c:56 cat/virt-filesystems.c:87
+#: cat/virt-ls.c:89 df/main.c:67 edit/virt-edit.c:70 fish/fish.c:104
 #: fuse/guestmount.c:99 inspector/virt-inspector.c:68 rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "`%s --help' க்கான கூடுதல் தகவலுக்கு முயற்சிக்கவும்.\n"
 
-#: align/scan.c:64
+#: align/scan.c:78
 #, c-format
 msgid ""
 "%s: check alignment of virtual machine partitions\n"
@@ -79,6 +40,7 @@ msgid ""
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
+"  -P nr_threads        Use at most nr_threads\n"
 "  -q|--quiet           No output, just exit code\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
@@ -86,29 +48,42 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:143 cat/virt-cat.c:139 cat/virt-filesystems.c:244
-#: cat/virt-ls.c:232 df/main.c:156 edit/virt-edit.c:159 fish/fish.c:297
+#: align/scan.c:136 cat/virt-cat.c:117 cat/virt-filesystems.c:190
+#: cat/virt-ls.c:182 df/main.c:135 edit/virt-edit.c:137 fish/fish.c:234
+#: format/format.c:131 fuse/guestmount.c:207 inspector/virt-inspector.c:130
+#: rescue/virt-rescue.c:138
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr "guestfs_create: ஹாண்டிலை உருவாக்க முடியவில்லை\n"
+
+#: align/scan.c:156 cat/virt-cat.c:139 cat/virt-filesystems.c:244
+#: cat/virt-ls.c:232 df/main.c:159 edit/virt-edit.c:159 fish/fish.c:297
 #: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:154
 #: rescue/virt-rescue.c:195
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
 
-#: align/scan.c:202 df/main.c:262
+#: align/scan.c:176 df/main.c:187
+#, c-format
+msgid "%s: -P option is not numeric\n"
+msgstr ""
+
+#: align/scan.c:229
 #, c-format
 msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr ""
 
-#: align/scan.c:208
+#: align/scan.c:235
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr ""
 
-#: align/scan.c:296
+#: align/scan.c:328
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:299
+#: align/scan.c:331
 msgid "alignment < 64K"
 msgstr ""
 
@@ -183,7 +158,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-filesystems.c:306 cat/virt-ls.c:336 df/main.c:250
+#: cat/virt-filesystems.c:306 cat/virt-ls.c:336 df/main.c:260
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -238,12 +213,32 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: df/domains.c:285
+#: df/domains.c:85
 #, c-format
-msgid "%s: ignoring %s, it has too many disks (%zu > %zu)\n"
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr ""
 
-#: df/main.c:70
+#: df/domains.c:94
+#, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
+msgstr ""
+
+#: df/domains.c:104
+#, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s\n"
+msgstr ""
+
+#: df/domains.c:115
+#, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
+msgstr ""
+
+#: df/domains.c:125
+#, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
+msgstr ""
+
+#: df/main.c:71
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -261,11 +256,17 @@ msgid ""
 "  --help               Display brief help\n"
 "  -i|--inodes          Display inodes\n"
 "  --one-per-guest      Separate appliance per guest\n"
+"  -P nr_threads        Use at most nr_threads\n"
 "  --uuid               Add UUIDs to --long output\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
+msgstr ""
+
+#: df/main.c:277
+#, c-format
+msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
 
 #: df/output.c:51
@@ -3723,24 +3724,24 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/for-each-disk.c:83 src/libvirt-domain.c:331
+#: src/for-each-disk.c:69 src/libvirt-domain.c:315
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/for-each-disk.c:94 src/libvirt-domain.c:339
+#: src/for-each-disk.c:78 src/libvirt-domain.c:323
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/for-each-disk.c:100 src/launch-libvirt.c:513 src/libvirt-domain.c:345
+#: src/for-each-disk.c:84 src/launch-libvirt.c:513 src/libvirt-domain.c:329
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/for-each-disk.c:107 src/libvirt-domain.c:360
+#: src/for-each-disk.c:91 src/libvirt-domain.c:344
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
-#: src/for-each-disk.c:201
+#: src/for-each-disk.c:185
 msgid "libvirt domain has no disks"
 msgstr ""
 
@@ -4095,30 +4096,30 @@ msgid ""
 "was compiled without libvirt or libxml2"
 msgstr ""
 
-#: src/libvirt-domain.c:93 src/libvirt-domain.c:209
+#: src/libvirt-domain.c:79 src/libvirt-domain.c:193
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
-#: src/libvirt-domain.c:101
+#: src/libvirt-domain.c:87
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
 
-#: src/libvirt-domain.c:122
+#: src/libvirt-domain.c:108
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
 
-#: src/libvirt-domain.c:203
+#: src/libvirt-domain.c:187
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/libvirt-domain.c:220
+#: src/libvirt-domain.c:204
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:234
+#: src/libvirt-domain.c:218
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4128,20 +4129,20 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:299
+#: src/libvirt-domain.c:283
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/libvirt-domain.c:388
+#: src/libvirt-domain.c:372
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:401
+#: src/libvirt-domain.c:385
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"

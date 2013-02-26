@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-25 17:38+0000\n"
+"POT-Creation-Date: 2013-02-26 18:32+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -22,55 +22,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: align/domains.c:107 df/domains.c:111
-#, c-format
-msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
-msgstr "%s: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
-
-#: align/domains.c:116 df/domains.c:120
-#, c-format
-msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
-msgstr ""
-"%s: kon het aantal draaiende domeinen niet krijgen (code %d, domein %d): %s\n"
-
-#: align/domains.c:126 df/domains.c:130
-#, c-format
-msgid "%s: could not list running domains (code %d, domain %d): %s\n"
-msgstr "%s: kon draaiende domeinen niet tonen (code %d, domein %d): %s\n"
-
-#: align/domains.c:137 df/domains.c:141
-#, c-format
-msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
-msgstr ""
-"%s: kon het aantal inactieve domeinen niet krijgen (code %d, domein %d): %s\n"
-
-#: align/domains.c:147 df/domains.c:151
-#, c-format
-msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
-msgstr "%s: kon inactieve domeinen niet tonen (code %d, domein %d): %s\n"
-
-#: align/domains.c:196 df/domains.c:207
-#, c-format
-msgid "%s: failed to analyze a disk, see error(s) above\n"
-msgstr "%s: analyseren van een schijf mislukte, zie fout(en) hierboven\n"
-
-#: align/domains.c:347 align/scan.c:123 cat/virt-cat.c:117
-#: cat/virt-filesystems.c:190 cat/virt-ls.c:182 df/domains.c:429 df/main.c:132
-#: edit/virt-edit.c:137 fish/fish.c:234 format/format.c:131
-#: fuse/guestmount.c:207 inspector/virt-inspector.c:130
-#: rescue/virt-rescue.c:138
-#, c-format
-msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: hendel aanmaken mislukte\n"
-
-#: align/scan.c:60 cat/virt-cat.c:56 cat/virt-filesystems.c:87
-#: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:70 fish/fish.c:104
+#: align/scan.c:74 cat/virt-cat.c:56 cat/virt-filesystems.c:87
+#: cat/virt-ls.c:89 df/main.c:67 edit/virt-edit.c:70 fish/fish.c:104
 #: fuse/guestmount.c:99 inspector/virt-inspector.c:68 rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie\n"
 
-#: align/scan.c:64
+#: align/scan.c:78
 #, c-format
 msgid ""
 "%s: check alignment of virtual machine partitions\n"
@@ -84,52 +43,50 @@ msgid ""
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
+"  -P nr_threads        Use at most nr_threads\n"
 "  -q|--quiet           No output, just exit code\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: check uitlijning van virtuele machine partities\n"
-"Copyright (C) 2011 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domnaam\n"
-"  %s [--opties] -a disk.img [-a disk.img ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  -d|--domain guest    Voegen schijven van libvirt gast toe\n"
-"  --format[=raw|..]    Forceer schijfformaat voor -a optie\n"
-"  --help               Toon korte hulp\n"
-"  -q|--quiet           Geen output, alleen exit code\n"
-"  -v|--verbose         Breedsprakige boodschapen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de manpagina %s(1).\n"
 
-#: align/scan.c:143 cat/virt-cat.c:139 cat/virt-filesystems.c:244
-#: cat/virt-ls.c:232 df/main.c:156 edit/virt-edit.c:159 fish/fish.c:297
+#: align/scan.c:136 cat/virt-cat.c:117 cat/virt-filesystems.c:190
+#: cat/virt-ls.c:182 df/main.c:135 edit/virt-edit.c:137 fish/fish.c:234
+#: format/format.c:131 fuse/guestmount.c:207 inspector/virt-inspector.c:130
+#: rescue/virt-rescue.c:138
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr "guestfs_create: hendel aanmaken mislukte\n"
+
+#: align/scan.c:156 cat/virt-cat.c:139 cat/virt-filesystems.c:244
+#: cat/virt-ls.c:232 df/main.c:159 edit/virt-edit.c:159 fish/fish.c:297
 #: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:154
 #: rescue/virt-rescue.c:195
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
 
-#: align/scan.c:202 df/main.c:262
+#: align/scan.c:176 df/main.c:187
+#, c-format
+msgid "%s: -P option is not numeric\n"
+msgstr ""
+
+#: align/scan.c:229
 #, c-format
 msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr "%s: gecompileerd zonder ondersteuning voor libvirt en/of libxml2.\n"
 
-#: align/scan.c:208
+#: align/scan.c:235
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr "%s: --uuid optie kan met een -a of -d gebruikt worden\n"
 
-#: align/scan.c:296
+#: align/scan.c:328
 msgid "alignment < 4K"
 msgstr "uitlijning < 4K"
 
-#: align/scan.c:299
+#: align/scan.c:331
 msgid "alignment < 64K"
 msgstr "uitlijning < 64K"
 
@@ -256,7 +213,7 @@ msgstr ""
 "  -x                   Traceer libguestfs API aanroepen\n"
 "Voor meer informatie, zie de man pagina %s(1).\n"
 
-#: cat/virt-filesystems.c:306 cat/virt-ls.c:336 df/main.c:250
+#: cat/virt-filesystems.c:306 cat/virt-ls.c:336 df/main.c:260
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: je kunt de -h en --csv opties ziet tezamen gebruiken.\n"
@@ -341,12 +298,34 @@ msgstr "%s: fout bij het verkrijgen van uitgebreide attributen voor %s %s\n"
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: error: kan xattr telling niet ontleden voor %s %s\n"
 
-#: df/domains.c:285
+#: df/domains.c:85
 #, c-format
-msgid "%s: ignoring %s, it has too many disks (%zu > %zu)\n"
-msgstr "%s: negeer %s, het heeft teveel schijven (%zu > %zu)\n"
+msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
+msgstr "%s: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
 
-#: df/main.c:70
+#: df/domains.c:94
+#, c-format
+msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
+msgstr ""
+"%s: kon het aantal draaiende domeinen niet krijgen (code %d, domein %d): %s\n"
+
+#: df/domains.c:104
+#, c-format
+msgid "%s: could not list running domains (code %d, domain %d): %s\n"
+msgstr "%s: kon draaiende domeinen niet tonen (code %d, domein %d): %s\n"
+
+#: df/domains.c:115
+#, c-format
+msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
+msgstr ""
+"%s: kon het aantal inactieve domeinen niet krijgen (code %d, domein %d): %s\n"
+
+#: df/domains.c:125
+#, c-format
+msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
+msgstr "%s: kon inactieve domeinen niet tonen (code %d, domein %d): %s\n"
+
+#: df/main.c:71
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -364,32 +343,18 @@ msgid ""
 "  --help               Display brief help\n"
 "  -i|--inodes          Display inodes\n"
 "  --one-per-guest      Separate appliance per guest\n"
+"  -P nr_threads        Use at most nr_threads\n"
 "  --uuid               Add UUIDs to --long output\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: toon vrije ruimte op virtuele bestandssystemen\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
-"Gebruik:\n"
-"  %s [--opties] -d domname\n"
-"  %s [--opties] -a disk.img [-a disk.img ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
-"  --csv                Toon als door komma's gescheiden waardes\n"
-"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
-"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
-"  -h|--human-readable  Leesbare groottes in --long output\n"
-"  --help               Toon korte hulp\n"
-"  -i|--inodes          Toon inodes\n"
-"  --one-per-guest      Onderscheid toepassingen per gast\n"
-"  --uuid               Voeg UUID's toe aan --long output\n"
-"  -v|--verbose         Breedsprakige boodschappen\n"
-"  -V|--version         Toon versie en sluit af\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie, zie de man pagina %s(1).\n"
+
+#: df/main.c:277
+#, c-format
+msgid "%s: compiled without support for libvirt.\n"
+msgstr ""
 
 #: df/output.c:51
 msgid "VirtualMachine"
@@ -4092,24 +4057,24 @@ msgstr ""
 "bestand-architectuur API is niet beschikbaar omdat deze versie van "
 "libguestfs gecompileerd werd zonder de libmagic bibliotheek"
 
-#: src/for-each-disk.c:83 src/libvirt-domain.c:331
+#: src/for-each-disk.c:69 src/libvirt-domain.c:315
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr "fout bij het lezen van libvirt XML informatie: %s"
 
-#: src/for-each-disk.c:94 src/libvirt-domain.c:339
+#: src/for-each-disk.c:78 src/libvirt-domain.c:323
 msgid "unable to parse XML information returned by libvirt"
 msgstr "kan XML informatie teruggegeven door libvirt niet ontleden"
 
-#: src/for-each-disk.c:100 src/launch-libvirt.c:513 src/libvirt-domain.c:345
+#: src/for-each-disk.c:84 src/launch-libvirt.c:513 src/libvirt-domain.c:329
 msgid "unable to create new XPath context"
 msgstr "kan nieuwe XPath context niet aanmaken"
 
-#: src/for-each-disk.c:107 src/libvirt-domain.c:360
+#: src/for-each-disk.c:91 src/libvirt-domain.c:344
 msgid "unable to evaluate XPath expression"
 msgstr "kan XPath expressie niet evalueren"
 
-#: src/for-each-disk.c:201
+#: src/for-each-disk.c:185
 msgid "libvirt domain has no disks"
 msgstr "libvirt domein heeft geen schijven"
 
@@ -4470,30 +4435,30 @@ msgid ""
 "was compiled without libvirt or libxml2"
 msgstr ""
 
-#: src/libvirt-domain.c:93 src/libvirt-domain.c:209
+#: src/libvirt-domain.c:79 src/libvirt-domain.c:193
 msgid "you cannot set both live and readonly flags"
 msgstr "je kunt niet zowel live als readonly vlaggen instellen"
 
-#: src/libvirt-domain.c:101
+#: src/libvirt-domain.c:87
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "kon niet naar libvirt converteren (code %d, domein %d): %s"
 
-#: src/libvirt-domain.c:122
+#: src/libvirt-domain.c:108
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr "geen libvirt domein aangeroepen '%s': %s"
 
-#: src/libvirt-domain.c:203
+#: src/libvirt-domain.c:187
 msgid "unknown readonlydisk parameter"
 msgstr "onbekende readonlydisk parameter"
 
-#: src/libvirt-domain.c:220
+#: src/libvirt-domain.c:204
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "fout bij verkrijgen van domein info: %s"
 
-#: src/libvirt-domain.c:234
+#: src/libvirt-domain.c:218
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4510,7 +4475,7 @@ msgstr ""
 "deze opties respectievelijk\n"
 "--ro of --live.  Raadpleeg de documentatie voor meer informatie."
 
-#: src/libvirt-domain.c:299
+#: src/libvirt-domain.c:283
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
@@ -4519,7 +4484,7 @@ msgstr ""
 "%s: schijf is in libvirt XML  <readonly/> gemarkeerd, en readonlydisk was "
 "ingesteld op \"error\""
 
-#: src/libvirt-domain.c:388
+#: src/libvirt-domain.c:372
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -4527,7 +4492,7 @@ msgstr ""
 "deze gast heeft geen libvirt <channel> definitie voor guestfsd\n"
 "Zie ATTACHING TO RUNNING DAEMONS in guestfs(3) voor meer informate."
 
-#: src/libvirt-domain.c:401
+#: src/libvirt-domain.c:385
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -6246,6 +6211,90 @@ msgstr "je kunt de opties --expand en --shrink niet tezamen gebruiken"
 #: ../sparsify/sparsify.ml:131 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
+
+#~ msgid "%s: failed to analyze a disk, see error(s) above\n"
+#~ msgstr "%s: analyseren van een schijf mislukte, zie fout(en) hierboven\n"
+
+#~ msgid ""
+#~ "%s: check alignment of virtual machine partitions\n"
+#~ "Copyright (C) 2011 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  -q|--quiet           No output, just exit code\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: check uitlijning van virtuele machine partities\n"
+#~ "Copyright (C) 2011 Red Hat Inc.\n"
+#~ "Gebruik:\n"
+#~ "  %s [--opties] -d domnaam\n"
+#~ "  %s [--opties] -a disk.img [-a disk.img ...]\n"
+#~ "Opties:\n"
+#~ "  -a|--add image       Voeg image toe\n"
+#~ "  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+#~ "  -d|--domain guest    Voegen schijven van libvirt gast toe\n"
+#~ "  --format[=raw|..]    Forceer schijfformaat voor -a optie\n"
+#~ "  --help               Toon korte hulp\n"
+#~ "  -q|--quiet           Geen output, alleen exit code\n"
+#~ "  -v|--verbose         Breedsprakige boodschapen\n"
+#~ "  -V|--version         Toon versie en sluit af\n"
+#~ "  -x                   Traceer libguestfs API aanroepen\n"
+#~ "Voor meer informatie, zie de manpagina %s(1).\n"
+
+#~ msgid "%s: ignoring %s, it has too many disks (%zu > %zu)\n"
+#~ msgstr "%s: negeer %s, het heeft teveel schijven (%zu > %zu)\n"
+
+#~ msgid ""
+#~ "%s: display free space on virtual filesystems\n"
+#~ "Copyright (C) 2010 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --csv                Output as Comma-Separated Values\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  -h|--human-readable  Human-readable sizes in --long output\n"
+#~ "  --help               Display brief help\n"
+#~ "  -i|--inodes          Display inodes\n"
+#~ "  --one-per-guest      Separate appliance per guest\n"
+#~ "  --uuid               Add UUIDs to --long output\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: toon vrije ruimte op virtuele bestandssystemen\n"
+#~ "Copyright (C) 2010 Red Hat Inc.\n"
+#~ "Gebruik:\n"
+#~ "  %s [--opties] -d domname\n"
+#~ "  %s [--opties] -a disk.img [-a disk.img ...]\n"
+#~ "Opties:\n"
+#~ "  -a|--add image       Voeg image toe\n"
+#~ "  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+#~ "  --csv                Toon als door komma's gescheiden waardes\n"
+#~ "  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
+#~ "  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
+#~ "  -h|--human-readable  Leesbare groottes in --long output\n"
+#~ "  --help               Toon korte hulp\n"
+#~ "  -i|--inodes          Toon inodes\n"
+#~ "  --one-per-guest      Onderscheid toepassingen per gast\n"
+#~ "  --uuid               Voeg UUID's toe aan --long output\n"
+#~ "  -v|--verbose         Breedsprakige boodschappen\n"
+#~ "  -V|--version         Toon versie en sluit af\n"
+#~ "  -x                   Traceer libguestfs API aanroepen\n"
+#~ "Voor meer informatie, zie de man pagina %s(1).\n"
 
 #~ msgid "get the current state"
 #~ msgstr "verkrijg de huidige toestand"
