@@ -39,14 +39,13 @@
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
+#include "estimate-max-threads.h"
 
 #include "ignore-value.h"
 
 #define TOTAL_TIME 60           /* Seconds, excluding launch. */
 #define DEBUG 1                 /* Print overview debugging messages. */
-#define MIN_THREADS 2
 #define MAX_THREADS 12
-#define MBYTES_PER_THREAD 900
 
 struct thread_state {
   pthread_t thread;             /* Thread handle. */
@@ -60,7 +59,6 @@ static size_t nr_threads;
 static void *start_thread (void *) __attribute__((noreturn));
 static void test_mountpoint (const char *mp);
 static void cleanup_thread_state (void);
-static char *read_line_from (const char *cmd);
 static int unmount (const char *mp, unsigned flags);
 #define UNMOUNT_SILENT 1
 #define UNMOUNT_RMDIR  2
@@ -81,8 +79,8 @@ catch_sigint (int signal)
 int
 main (int argc, char *argv[])
 {
-  size_t i, mbytes;
-  char *skip, *mbytes_s;
+  size_t i;
+  char *skip;
   struct sigaction sa;
   int fd, r, errors = 0;
   void *status;
@@ -110,20 +108,7 @@ main (int argc, char *argv[])
   }
 
   /* Choose the number of threads based on the amount of free memory. */
-  mbytes_s = read_line_from ("LANG=C free -m | "
-                             "grep 'buffers/cache' | awk '{print $NF}'");
-  if (!mbytes_s)
-    nr_threads = MIN_THREADS; /* default */
-  else {
-    if (sscanf (mbytes_s, "%zu", &mbytes) != 1)
-      error (EXIT_FAILURE, 0, "expecting integer but got \"%s\"", mbytes_s);
-    free (mbytes_s);
-    nr_threads = mbytes / MBYTES_PER_THREAD;
-    if (nr_threads < MIN_THREADS)
-      nr_threads = MIN_THREADS;
-    else if (nr_threads > MAX_THREADS)
-      nr_threads = MAX_THREADS;
-  }
+  nr_threads = MIN (MAX_THREADS, estimate_max_threads ());
 
   memset (&sa, 0, sizeof sa);
   sa.sa_handler = catch_sigint;
@@ -458,25 +443,4 @@ cleanup_thread_state (void)
       free (threads[i].mp);
     }
   }
-}
-
-/* Run external command and read the first line of output. */
-static char *
-read_line_from (const char *cmd)
-{
-  FILE *pp;
-  char *ret = NULL;
-  size_t allocsize;
-
-  pp = popen (cmd, "r");
-  if (pp == NULL)
-    error (EXIT_FAILURE, errno, "%s: external command failed", cmd);
-
-  if (getline (&ret, &allocsize, pp) == -1)
-    error (EXIT_FAILURE, errno, "could not read line from external command");
-
-  if (pclose (pp) == -1)
-    error (EXIT_FAILURE, errno, "pclose");
-
-  return ret;
 }

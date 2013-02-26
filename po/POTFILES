@@ -99,6 +99,7 @@ daemon/zero.c
 daemon/zerofree.c
 df/df.c
 df/domains.c
+df/estimate-max-threads.c
 df/main.c
 df/output.c
 edit/virt-edit.c
