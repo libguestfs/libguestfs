@@ -40,6 +40,8 @@
 
 #if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 
+static ssize_t for_each_disk (guestfs_h *g, virDomainPtr dom, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
+
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
 {
@@ -157,12 +159,14 @@ GUESTFS_DLL_PUBLIC int
 guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
                            const struct guestfs___add_libvirt_dom_argv *optargs)
 {
-  int r;
+  ssize_t r;
   int readonly;
   const char *iface;
   int live;
   /* Default for back-compat reasons: */
   enum readonlydisk readonlydisk = readonlydisk_write;
+  size_t ckp;
+  struct add_disk_data data;
 
   readonly =
     optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
@@ -225,7 +229,6 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   }
 
   /* Add the disks. */
-  struct add_disk_data data;
   data.optargs.bitmask = 0;
   data.readonly = readonly;
   data.readonlydisk = readonlydisk;
@@ -237,10 +240,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   /* Checkpoint the command line around the operation so that either
    * all disks are added or none are added.
    */
-  size_t cp = guestfs___checkpoint_drives (g);
-  r = guestfs___for_each_disk (g, dom, add_disk, &data);
+  ckp = guestfs___checkpoint_drives (g);
+  r = for_each_disk (g, dom, add_disk, &data);
   if (r == -1)
-    guestfs___rollback_drives (g, cp);
+    guestfs___rollback_drives (g, ckp);
 
   return r;
 }
@@ -377,6 +380,157 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   /* Got a path. */
   attach_method = safe_asprintf (g, "unix:%s", path);
   return guestfs_set_attach_method (g, attach_method);
+}
+
+/* The callback function 'f' is called once for each disk.
+ *
+ * Returns number of disks, or -1 if there was an error.
+ */
+static ssize_t
+for_each_disk (guestfs_h *g,
+               virDomainPtr dom,
+               int (*f) (guestfs_h *g,
+                         const char *filename, const char *format,
+                         int readonly,
+                         void *data),
+               void *data)
+{
+  size_t i, nr_added = 0, nr_nodes;
+  virErrorPtr err;
+  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
+  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
+  CLEANUP_FREE char *xml = NULL;
+  xmlNodeSetPtr nodes;
+
+  /* Domain XML. */
+  xml = virDomainGetXMLDesc (dom, 0);
+
+  if (!xml) {
+    err = virGetLastError ();
+    error (g, _("error reading libvirt XML information: %s"), err->message);
+    return -1;
+  }
+
+  /* Now the horrible task of parsing out the fields we need from the XML.
+   * http://www.xmlsoft.org/examples/xpath1.c
+   */
+  doc = xmlParseMemory (xml, strlen (xml));
+  if (doc == NULL) {
+    error (g, _("unable to parse XML information returned by libvirt"));
+    return -1;
+  }
+
+  xpathCtx = xmlXPathNewContext (doc);
+  if (xpathCtx == NULL) {
+    error (g, _("unable to create new XPath context"));
+    return -1;
+  }
+
+  /* This gives us a set of all the <disk> nodes. */
+  xpathObj = xmlXPathEvalExpression (BAD_CAST "//devices/disk", xpathCtx);
+  if (xpathObj == NULL) {
+    error (g, _("unable to evaluate XPath expression"));
+    return -1;
+  }
+
+  nodes = xpathObj->nodesetval;
+  nr_nodes = nodes->nodeNr;
+  for (i = 0; i < nr_nodes; ++i) {
+    CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpreadonly = NULL;
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
+    xmlAttrPtr attr;
+    int readonly;
+    int t;
+
+    /* Change the context to the current <disk> node.
+     * DV advises to reset this before each search since older versions of
+     * libxml2 might overwrite it.
+     */
+    xpathCtx->node = nodes->nodeTab[i];
+
+    /* Filename can be in <source dev=..> or <source file=..> attribute.
+     * Check the <disk type=..> attribute first to find out which one.
+     */
+    xptype = xmlXPathEvalExpression (BAD_CAST "./@type", xpathCtx);
+    if (xptype == NULL ||
+        xptype->nodesetval == NULL ||
+        xptype->nodesetval->nodeNr == 0) {
+      continue;                 /* no type attribute, skip it */
+    }
+    assert (xptype->nodesetval->nodeTab[0]);
+    assert (xptype->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+    attr = (xmlAttrPtr) xptype->nodesetval->nodeTab[0];
+    type = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+    if (STREQ (type, "file")) { /* type = "file" so look at source/@file */
+      xpathCtx->node = nodes->nodeTab[i];
+      xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@file", xpathCtx);
+      if (xpfilename == NULL ||
+          xpfilename->nodesetval == NULL ||
+          xpfilename->nodesetval->nodeNr == 0) {
+        continue;             /* disk filename not found, skip this */
+      }
+    } else if (STREQ (type, "block")) { /* type = "block", use source/@dev */
+      xpathCtx->node = nodes->nodeTab[i];
+      xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@dev", xpathCtx);
+      if (xpfilename == NULL ||
+          xpfilename->nodesetval == NULL ||
+          xpfilename->nodesetval->nodeNr == 0) {
+        continue;             /* disk filename not found, skip this */
+      }
+    } else
+      continue;               /* type <> "file" or "block", skip it */
+
+    assert (xpfilename);
+    assert (xpfilename->nodesetval);
+    assert (xpfilename->nodesetval->nodeTab[0]);
+    assert (xpfilename->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+    attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
+    filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+    /* Get the disk format (may not be set). */
+    xpathCtx->node = nodes->nodeTab[i];
+    xpformat = xmlXPathEvalExpression (BAD_CAST "./driver/@type", xpathCtx);
+    if (xpformat != NULL &&
+        xpformat->nodesetval &&
+        xpformat->nodesetval->nodeNr > 0) {
+      assert (xpformat->nodesetval->nodeTab[0]);
+      assert (xpformat->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+      attr = (xmlAttrPtr) xpformat->nodesetval->nodeTab[0];
+      format = (char *) xmlNodeListGetString (doc, attr->children, 1);
+    }
+
+    /* Get the <readonly/> flag. */
+    xpathCtx->node = nodes->nodeTab[i];
+    xpreadonly = xmlXPathEvalExpression (BAD_CAST "./readonly", xpathCtx);
+    readonly = 0;
+    if (xpreadonly != NULL &&
+        xpreadonly->nodesetval &&
+        xpreadonly->nodesetval->nodeNr > 0)
+      readonly = 1;
+
+    if (f)
+      t = f (g, filename, format, readonly, data);
+    else
+      t = 0;
+
+    if (t == -1)
+      return -1;
+
+    nr_added++;
+  }
+
+  if (nr_added == 0) {
+    error (g, _("libvirt domain has no disks"));
+    return -1;
+  }
+
+  /* Successful. */
+  return nr_added;
 }
 
 #else /* no libvirt or libxml2 at compile time */

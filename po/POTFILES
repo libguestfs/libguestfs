@@ -247,7 +247,6 @@ src/event-string.c
 src/events.c
 src/file.c
 src/filearch.c
-src/for-each-disk.c
 src/free-structs.c
 src/fuse.c
 src/handle.c

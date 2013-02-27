@@ -91,7 +91,6 @@ libguestfs_la_SOURCES = \
 	events.c \
 	file.c \
 	filearch.c \
-	for-each-disk.c \
 	free-structs.c \
 	fuse.c \
 	handle.c \
