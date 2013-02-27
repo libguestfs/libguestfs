@@ -318,75 +318,6 @@ add_disk (guestfs_h *g,
   return guestfs__add_drive_opts (g, filename, &optargs);
 }
 
-static int
-connect_live (guestfs_h *g, virDomainPtr dom)
-{
-  int i;
-  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
-  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
-  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
-  CLEANUP_FREE char *path = NULL, *attach_method = NULL;
-  xmlNodeSetPtr nodes;
-
-  /* Domain XML. */
-  if ((doc = get_domain_xml (g, dom)) == NULL)
-    return -1;
-
-  xpathCtx = xmlXPathNewContext (doc);
-  if (xpathCtx == NULL) {
-    error (g, _("unable to create new XPath context"));
-    return -1;
-  }
-
-  /* This gives us a set of all the <channel> nodes related to the
-   * guestfsd virtio-serial channel.
-   */
-  xpathObj = xmlXPathEvalExpression (BAD_CAST
-      "//devices/channel[@type=\"unix\" and "
-                        "./source/@mode=\"bind\" and "
-                        "./source/@path and "
-                        "./target/@type=\"virtio\" and "
-                        "./target/@name=\"org.libguestfs.channel.0\"]",
-                                     xpathCtx);
-  if (xpathObj == NULL) {
-    error (g, _("unable to evaluate XPath expression"));
-    return -1;
-  }
-
-  nodes = xpathObj->nodesetval;
-  for (i = 0; i < nodes->nodeNr; ++i) {
-    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
-    xmlAttrPtr attr;
-
-    /* See note in function above. */
-    xpathCtx->node = nodes->nodeTab[i];
-
-    /* The path is in <source path=..> attribute. */
-    xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
-    if (xppath == NULL ||
-        xppath->nodesetval == NULL ||
-        xppath->nodesetval->nodeNr == 0) {
-      xmlXPathFreeObject (xppath);
-      continue;                 /* no type attribute, skip it */
-    }
-    assert (xppath->nodesetval->nodeTab[0]);
-    assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-    attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
-    path = (char *) xmlNodeListGetString (doc, attr->children, 1);
-    break;
-  }
-
-  if (path == NULL) {
-    error (g, _("this guest has no libvirt <channel> definition for guestfsd\n"
-                "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."));
-    return -1;
-  }
-
-  /* Got a path. */
-  attach_method = safe_asprintf (g, "unix:%s", path);
-  return guestfs_set_attach_method (g, attach_method);
-}
-
 /* Find the <seclabel/> element in the libvirt XML, and if it exists
  * get the SELinux process label and image label from it.
  *
@@ -592,6 +523,75 @@ for_each_disk (guestfs_h *g,
 
   /* Successful. */
   return nr_added;
+}
+
+static int
+connect_live (guestfs_h *g, virDomainPtr dom)
+{
+  int i;
+  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
+  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
+  CLEANUP_FREE char *path = NULL, *attach_method = NULL;
+  xmlNodeSetPtr nodes;
+
+  /* Domain XML. */
+  if ((doc = get_domain_xml (g, dom)) == NULL)
+    return -1;
+
+  xpathCtx = xmlXPathNewContext (doc);
+  if (xpathCtx == NULL) {
+    error (g, _("unable to create new XPath context"));
+    return -1;
+  }
+
+  /* This gives us a set of all the <channel> nodes related to the
+   * guestfsd virtio-serial channel.
+   */
+  xpathObj = xmlXPathEvalExpression (BAD_CAST
+      "//devices/channel[@type=\"unix\" and "
+                        "./source/@mode=\"bind\" and "
+                        "./source/@path and "
+                        "./target/@type=\"virtio\" and "
+                        "./target/@name=\"org.libguestfs.channel.0\"]",
+                                     xpathCtx);
+  if (xpathObj == NULL) {
+    error (g, _("unable to evaluate XPath expression"));
+    return -1;
+  }
+
+  nodes = xpathObj->nodesetval;
+  for (i = 0; i < nodes->nodeNr; ++i) {
+    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
+    xmlAttrPtr attr;
+
+    /* See note in function above. */
+    xpathCtx->node = nodes->nodeTab[i];
+
+    /* The path is in <source path=..> attribute. */
+    xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
+    if (xppath == NULL ||
+        xppath->nodesetval == NULL ||
+        xppath->nodesetval->nodeNr == 0) {
+      xmlXPathFreeObject (xppath);
+      continue;                 /* no type attribute, skip it */
+    }
+    assert (xppath->nodesetval->nodeTab[0]);
+    assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+    attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
+    path = (char *) xmlNodeListGetString (doc, attr->children, 1);
+    break;
+  }
+
+  if (path == NULL) {
+    error (g, _("this guest has no libvirt <channel> definition for guestfsd\n"
+                "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."));
+    return -1;
+  }
+
+  /* Got a path. */
+  attach_method = safe_asprintf (g, "unix:%s", path);
+  return guestfs_set_attach_method (g, attach_method);
 }
 
 static xmlDocPtr
