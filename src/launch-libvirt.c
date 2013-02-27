@@ -138,6 +138,7 @@ static int make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv);
 static void drive_free_priv (void *);
 static void set_socket_create_context (guestfs_h *g);
 static void clear_socket_create_context (guestfs_h *g);
+static void selinux_warning (guestfs_h *g, const char *func, const char *selinux_op, const char *data);
 
 static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
@@ -588,30 +589,27 @@ set_socket_create_context (guestfs_h *g)
   context_t con;
 
   if (getcon (&scon) == -1) {
-    debug (g, "%s: getcon failed: %m", __func__);
+    selinux_warning (g, __func__, "getcon", NULL);
     return;
   }
 
   con = context_new (scon);
   if (!con) {
-    debug (g, "%s: context_new failed: %m", __func__);
+    selinux_warning (g, __func__, "context_new", scon);
     goto out1;
   }
 
   if (context_type_set (con, SOCKET_CONTEXT) == -1) {
-    debug (g, "%s: context_type_set failed: %m", __func__);
+    selinux_warning (g, __func__, "context_type_set", scon);
     goto out2;
   }
-
-#define SETSOCKCREATECON_WARNING_NOTICE "[you can ignore this UNLESS using SELinux + sVirt]"
 
   /* Note that setsockcreatecon sets the per-thread socket creation
    * context (/proc/self/task/<tid>/attr/sockcreate) so this is
    * thread-safe.
    */
   if (setsockcreatecon (context_str (con)) == -1) {
-    debug (g, "%s: setsockcreatecon (%s) failed: %m %s",
-           __func__, context_str (con), SETSOCKCREATECON_WARNING_NOTICE);
+    selinux_warning (g, __func__, "setsockcreatecon", context_str (con));
     goto out2;
   }
 
@@ -625,8 +623,7 @@ static void
 clear_socket_create_context (guestfs_h *g)
 {
   if (setsockcreatecon (NULL) == -1)
-    debug (g, "%s: setsockcreatecon (NULL) failed: %m %s", __func__,
-           SETSOCKCREATECON_WARNING_NOTICE);
+    selinux_warning (g, __func__, "setsockcreatecon", "NULL");
 }
 
 #else /* !HAVE_LIBSELINUX */
@@ -1452,6 +1449,15 @@ libvirt_error (guestfs_h *g, const char *fs, ...)
 
   /* NB. 'err' must not be freed! */
   free (msg);
+}
+
+static void
+selinux_warning (guestfs_h *g, const char *func,
+                 const char *selinux_op, const char *data)
+{
+  debug (g, "%s: %s failed: %s: %m"
+         " [you can ignore this UNLESS using SELinux + sVirt]",
+         func, selinux_op, data ? data : "(none)");
 }
 
 /* This backend assumes virtio-scsi is available. */
