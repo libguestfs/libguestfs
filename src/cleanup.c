@@ -29,8 +29,10 @@
 #include <libxml/xmlwriter.h>
 #endif
 
+#include "hash.h"
+
 #include "guestfs.h"
-#include "guestfs-internal.h"
+#include "guestfs-internal-frontend.h"
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
