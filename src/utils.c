@@ -24,7 +24,7 @@
 #include <string.h>
 
 #include "guestfs.h"
-#include "guestfs-internal.h"
+#include "guestfs-internal-frontend.h"
 
 void
 guestfs___free_string_list (char **argv)

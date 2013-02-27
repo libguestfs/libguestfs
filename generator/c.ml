@@ -879,7 +879,7 @@ and generate_client_cleanup_structs () =
 #include <stdlib.h>
 
 #include \"guestfs.h\"
-#include \"guestfs-internal.h\"
+#include \"guestfs-internal-frontend.h\"
 
 ";
 
