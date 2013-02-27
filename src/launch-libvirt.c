@@ -133,8 +133,8 @@ static int is_custom_qemu (guestfs_h *g);
 static int is_blk (const char *path);
 static int random_chars (char *ret, size_t len);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
-static char *make_qcow2_overlay (guestfs_h *g, const char *path, const char *format);
-static int make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv);
+static char *make_qcow2_overlay (guestfs_h *g, const char *path, const char *format, const char *selinux_imagelabel);
+static int make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv, const char *selinux_imagelabel);
 static void drive_free_priv (void *);
 static void set_socket_create_context (guestfs_h *g);
 static void clear_socket_create_context (guestfs_h *g);
@@ -235,13 +235,13 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    * Note that appliance can be NULL if using the old-style appliance.
    */
   if (appliance) {
-    params.appliance_overlay = make_qcow2_overlay (g, appliance, "raw");
+    params.appliance_overlay = make_qcow2_overlay (g, appliance, "raw", NULL);
     if (!params.appliance_overlay)
       goto cleanup;
   }
 
   ITER_DRIVES (g, i, drv) {
-    if (make_qcow2_overlay_for_drive (g, drv) == -1)
+    if (make_qcow2_overlay_for_drive (g, drv, g->virt_selinux_imagelabel) == -1)
       goto cleanup;
   }
 
@@ -1353,7 +1353,8 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
 
 /* Create a temporary qcow2 overlay on top of 'path'. */
 static char *
-make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
+make_qcow2_overlay (guestfs_h *g, const char *path, const char *format,
+                    const char *selinux_imagelabel)
 {
   char *tmpfile = NULL;
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
@@ -1384,6 +1385,15 @@ make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
     goto error;
   }
 
+#if HAVE_LIBSELINUX
+  if (selinux_imagelabel) {
+    debug (g, "setting SELinux label on %s to %s",
+           tmpfile, selinux_imagelabel);
+    if (setfilecon (tmpfile, (security_context_t) selinux_imagelabel) == -1)
+      selinux_warning (g, __func__, "setfilecon", tmpfile);
+  }
+#endif
+
   return tmpfile;               /* caller frees */
 
  error:
@@ -1393,7 +1403,8 @@ make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
 }
 
 static int
-make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv)
+make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv,
+                              const char *selinux_imagelabel)
 {
   char *path;
   struct drive_libvirt *drv_priv;
@@ -1417,7 +1428,8 @@ make_qcow2_overlay_for_drive (guestfs_h *g, struct drive *drv)
     drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
   }
   else {
-    drv_priv->path = make_qcow2_overlay (g, path, drv->format);
+    drv_priv->path = make_qcow2_overlay (g, path, drv->format,
+                                         selinux_imagelabel);
     free (path);
     if (!drv_priv->path)
       return -1;
@@ -1534,7 +1546,7 @@ hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
   /* Create overlay for read-only drive.  This works around lack of
    * support for <transient/> disks in libvirt.
    */
-  if (make_qcow2_overlay_for_drive (g, drv) == -1)
+  if (make_qcow2_overlay_for_drive (g, drv, g->virt_selinux_imagelabel) == -1)
     return -1;
 
   /* Create the XML for the new disk. */
