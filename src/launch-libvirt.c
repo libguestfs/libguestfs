@@ -855,6 +855,31 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
                                            BAD_CAST "none"));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
+  else if (g->virt_selinux_label && g->virt_selinux_imagelabel) {
+    /* Enable sVirt and pass a custom <seclabel/> inherited from the
+     * original libvirt domain (when guestfs_add_domain was called).
+     * https://bugzilla.redhat.com/show_bug.cgi?id=912499#c7
+     */
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                           BAD_CAST "static"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
+                                           BAD_CAST "selinux"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "relabel",
+                                           BAD_CAST "yes"));
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "label"));
+    XMLERROR (-1, xmlTextWriterWriteString (xo,
+                                            BAD_CAST g->virt_selinux_label));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "imagelabel"));
+    XMLERROR (-1, xmlTextWriterWriteString (xo,
+                                            BAD_CAST g->virt_selinux_imagelabel));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
 
   return 0;
 }
@@ -1603,3 +1628,14 @@ struct attach_ops attach_ops_libvirt = {
 };
 
 #endif /* no libvirt or libxml2 at compile time */
+
+int
+guestfs__internal_set_libvirt_selinux_label (guestfs_h *g, const char *label,
+                                             const char *imagelabel)
+{
+  free (g->virt_selinux_label);
+  g->virt_selinux_label = safe_strdup (g, label);
+  free (g->virt_selinux_imagelabel);
+  g->virt_selinux_imagelabel = safe_strdup (g, imagelabel);
+  return 0;
+}

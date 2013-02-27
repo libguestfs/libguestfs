@@ -322,6 +322,8 @@ struct guestfs_h
     virDomainPtr dom;           /* libvirt domain */
   } virt;
 #endif
+  char *virt_selinux_label;
+  char *virt_selinux_imagelabel;
 };
 
 /* Per-filesystem data stored for inspect_os. */

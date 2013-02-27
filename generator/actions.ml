@@ -2694,6 +2694,18 @@ the default.  Else C</var/tmp> is the default." };
     longdesc = "\
 Get the directory used by the handle to store the appliance cache." };
 
+  { defaults with
+    name = "internal_set_libvirt_selinux_label";
+    style = RErr, [String "label"; String "imagelabel"], [];
+    blocking = false;
+    visibility = VInternal;
+    shortdesc = "set SELinux label used by the libvirt attach method";
+    longdesc = "\
+This internal function sets the SELinux security label (in
+reality, two labels: the process label and the image label)
+used by the appliance when the libvirt attach method is selected
+(it is ignored by other attach methods)." };
+
 ]
 
 (* daemon_functions are any functions which cause some action

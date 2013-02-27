@@ -326,6 +326,8 @@ guestfs_close (guestfs_h *g)
 
   if (g->pda)
     hash_free (g->pda);
+  free (g->virt_selinux_label);
+  free (g->virt_selinux_imagelabel);
   free (g->tmpdir);
   free (g->env_tmpdir);
   free (g->int_tmpdir);
