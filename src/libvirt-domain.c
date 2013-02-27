@@ -40,7 +40,8 @@
 
 #if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
 
-static ssize_t for_each_disk (guestfs_h *g, virDomainPtr dom, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
+static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
+static ssize_t for_each_disk (guestfs_h *g, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
 
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
@@ -167,6 +168,7 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   enum readonlydisk readonlydisk = readonlydisk_write;
   size_t ckp;
   struct add_disk_data data;
+  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
 
   readonly =
     optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
@@ -228,6 +230,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
     }
   }
 
+  /* Domain XML. */
+  if ((doc = get_domain_xml (g, dom)) == NULL)
+    return -1;
+
   /* Add the disks. */
   data.optargs.bitmask = 0;
   data.readonly = readonly;
@@ -241,7 +247,7 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
    * all disks are added or none are added.
    */
   ckp = guestfs___checkpoint_drives (g);
-  r = for_each_disk (g, dom, add_disk, &data);
+  r = for_each_disk (g, doc, add_disk, &data);
   if (r == -1)
     guestfs___rollback_drives (g, ckp);
 
@@ -303,29 +309,15 @@ static int
 connect_live (guestfs_h *g, virDomainPtr dom)
 {
   int i;
-  virErrorPtr err;
   CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
   CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
   CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
-  CLEANUP_FREE char *xml = NULL, *path = NULL, *attach_method = NULL;
+  CLEANUP_FREE char *path = NULL, *attach_method = NULL;
   xmlNodeSetPtr nodes;
 
   /* Domain XML. */
-  xml = virDomainGetXMLDesc (dom, 0);
-
-  if (!xml) {
-    err = virGetLastError ();
-    error (g, _("error reading libvirt XML information: %s"),
-           err->message);
+  if ((doc = get_domain_xml (g, dom)) == NULL)
     return -1;
-  }
-
-  /* Parse XML to document. */
-  doc = xmlParseMemory (xml, strlen (xml));
-  if (doc == NULL) {
-    error (g, _("unable to parse XML information returned by libvirt"));
-    return -1;
-  }
 
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
@@ -388,7 +380,7 @@ connect_live (guestfs_h *g, virDomainPtr dom)
  */
 static ssize_t
 for_each_disk (guestfs_h *g,
-               virDomainPtr dom,
+               xmlDocPtr doc,
                int (*f) (guestfs_h *g,
                          const char *filename, const char *format,
                          int readonly,
@@ -396,31 +388,13 @@ for_each_disk (guestfs_h *g,
                void *data)
 {
   size_t i, nr_added = 0, nr_nodes;
-  virErrorPtr err;
-  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
   CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
   CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
-  CLEANUP_FREE char *xml = NULL;
   xmlNodeSetPtr nodes;
-
-  /* Domain XML. */
-  xml = virDomainGetXMLDesc (dom, 0);
-
-  if (!xml) {
-    err = virGetLastError ();
-    error (g, _("error reading libvirt XML information: %s"), err->message);
-    return -1;
-  }
 
   /* Now the horrible task of parsing out the fields we need from the XML.
    * http://www.xmlsoft.org/examples/xpath1.c
    */
-  doc = xmlParseMemory (xml, strlen (xml));
-  if (doc == NULL) {
-    error (g, _("unable to parse XML information returned by libvirt"));
-    return -1;
-  }
-
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
     error (g, _("unable to create new XPath context"));
@@ -531,6 +505,29 @@ for_each_disk (guestfs_h *g,
 
   /* Successful. */
   return nr_added;
+}
+
+static xmlDocPtr
+get_domain_xml (guestfs_h *g, virDomainPtr dom)
+{
+  virErrorPtr err;
+  xmlDocPtr doc;
+
+  CLEANUP_FREE char *xml = virDomainGetXMLDesc (dom, 0);
+  if (!xml) {
+    err = virGetLastError ();
+    error (g, _("error reading libvirt XML information: %s"), err->message);
+    return NULL;
+  }
+
+  /* Parse the domain XML into an XML document. */
+  doc = xmlParseMemory (xml, strlen (xml));
+  if (doc == NULL) {
+    error (g, _("unable to parse XML information returned by libvirt"));
+    return NULL;
+  }
+
+  return doc;
 }
 
 #else /* no libvirt or libxml2 at compile time */
