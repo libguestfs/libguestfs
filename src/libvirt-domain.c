@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <assert.h>
 
 #ifdef HAVE_LIBVIRT
@@ -42,6 +43,7 @@
 
 static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
 static ssize_t for_each_disk (guestfs_h *g, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
+static int libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc, char **label_rtn, char **imagelabel_rtn);
 
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
@@ -169,6 +171,7 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   size_t ckp;
   struct add_disk_data data;
   CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
+  CLEANUP_FREE char *label = NULL, *imagelabel = NULL;
 
   readonly =
     optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
@@ -233,6 +236,16 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   /* Domain XML. */
   if ((doc = get_domain_xml (g, dom)) == NULL)
     return -1;
+
+  /* Find and pass the SELinux security label to the libvirt back end. */
+  if (libvirt_selinux_label (g, doc, &label, &imagelabel) == -1)
+    return -1;
+  if (label && imagelabel) {
+    guestfs_internal_set_libvirt_selinux_label (g, label, imagelabel);
+    guestfs_internal_set_libvirt_selinux_norelabel_disks (g, 1);
+  }
+  else
+    guestfs_internal_set_libvirt_selinux_norelabel_disks (g, 0);
 
   /* Add the disks. */
   data.optargs.bitmask = 0;
@@ -372,6 +385,80 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   /* Got a path. */
   attach_method = safe_asprintf (g, "unix:%s", path);
   return guestfs_set_attach_method (g, attach_method);
+}
+
+/* Find the <seclabel/> element in the libvirt XML, and if it exists
+ * get the SELinux process label and image label from it.
+ *
+ * The reason for all this is because of sVirt:
+ * https://bugzilla.redhat.com/show_bug.cgi?id=912499#c7
+ */
+static int
+libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc,
+                       char **label_rtn, char **imagelabel_rtn)
+{
+  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
+  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
+  xmlNodeSetPtr nodes;
+  size_t nr_nodes;
+  xmlNodePtr node, child;
+  bool gotlabel = 0, gotimagelabel = 0;
+
+  xpathCtx = xmlXPathNewContext (doc);
+  if (xpathCtx == NULL) {
+    error (g, _("unable to create new XPath context"));
+    return -1;
+  }
+
+  /* Typical seclabel element looks like this:
+   *
+   * <domain>
+   *   <seclabel type='dynamic' model='selinux' relabel='yes'>
+   *     <label>system_u:system_r:svirt_t:s0:c24,c151</label>
+   *     <imagelabel>system_u:object_r:svirt_image_t:s0:c24,c151</imagelabel>
+   *   </seclabel>
+   *
+   * This code restricts our search to model=selinux labels (since in
+   * theory at least multiple seclabel elements might be present).
+   */
+  const char *xpath_expr = "/domain/seclabel[@model='selinux']";
+  xpathObj = xmlXPathEvalExpression (BAD_CAST xpath_expr, xpathCtx);
+  if (xpathObj == NULL) {
+    error (g, _("unable to evaluate XPath expression"));
+    return -1;
+  }
+
+  nodes = xpathObj->nodesetval;
+  nr_nodes = nodes->nodeNr;
+
+  if (nr_nodes == 0)
+    return 0;
+  if (nr_nodes > 1) {
+    debug (g, _("ignoring %zu nodes matching '%s'"), nr_nodes, xpath_expr);
+    return 0;
+  }
+
+  node = nodes->nodeTab[0];
+  if (node->type != XML_ELEMENT_NODE) {
+    error (g, _("expected <seclabel/> to be an XML element"));
+    return -1;
+  }
+
+  /* Find the <label/> and <imagelabel/> child nodes. */
+  for (child = node->children; child != NULL; child = child->next) {
+    if (!gotlabel && STREQ ((char *) child->name, "label")) {
+      /* Get the label content. */
+      *label_rtn = (char *) xmlNodeGetContent (child);
+      gotlabel = 1;
+    }
+    if (!gotimagelabel && STREQ ((char *) child->name, "imagelabel")) {
+      /* Get the imagelabel content. */
+      *imagelabel_rtn = (char *) xmlNodeGetContent (child);
+      gotimagelabel = 1;
+    }
+  }
+
+  return 0;
 }
 
 /* The callback function 'f' is called once for each disk.
