@@ -158,6 +158,11 @@ main (int argc, char *argv[])
     }
   }
 
+  if (optind < argc) {
+    fprintf (stderr, _("libguestfs-test-tool: extra arguments on the command line\n"));
+    exit (EXIT_FAILURE);
+  }
+
   /* Everyone ignores the documentation, so ... */
   printf ("     ************************************************************\n"
           "     *                    IMPORTANT NOTICE\n"
