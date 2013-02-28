@@ -72,7 +72,7 @@ static void thread_failure (const char *fn, int err) __attribute__((noreturn));
 static void *worker_thread (void *arg);
 
 struct thread_data {
-  guestfs_h *options_handle;
+  int trace, verbose;           /* Flags from the options_handle. */
   work_fn work;
 };
 
@@ -80,14 +80,18 @@ struct thread_data {
 void
 start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
 {
-  struct thread_data thread_data = { .options_handle = options_handle,
-                                     .work = work };
+  struct thread_data thread_data = { .trace = 0, .verbose = 0, .work = work };
   size_t i, nr_threads;
   int err;
   void *status;
 
   if (nr_domains == 0)          /* Nothing to do. */
     return;
+
+  if (options_handle) {
+    thread_data.trace = guestfs_get_trace (options_handle);
+    thread_data.verbose = guestfs_get_verbose (options_handle);
+  }
 
   /* If the user selected the -P option, then we use up to that many threads. */
   if (option_P > 0)
@@ -153,11 +157,8 @@ worker_thread (void *thread_data_vp)
     }
 
     /* Copy some settings from the options guestfs handle. */
-    if (thread_data->options_handle) {
-      guestfs_set_trace (g, guestfs_get_trace (thread_data->options_handle));
-      guestfs_set_verbose (g,
-                           guestfs_get_verbose (thread_data->options_handle));
-    }
+    guestfs_set_trace (g, thread_data->trace);
+    guestfs_set_verbose (g, thread_data->verbose);
 
     /* Do work. */
     thread_data->work (g, i, fp);
