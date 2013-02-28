@@ -324,6 +324,7 @@ struct guestfs_h
 #endif
   char *virt_selinux_label;
   char *virt_selinux_imagelabel;
+  bool virt_selinux_norelabel_disks;
 };
 
 /* Per-filesystem data stored for inspect_os. */

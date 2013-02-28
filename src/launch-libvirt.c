@@ -651,6 +651,7 @@ static int construct_libvirt_xml_lifecycle (guestfs_h *g, const struct libvirt_x
 static int construct_libvirt_xml_devices (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
+static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 
 /* Note this macro is rather specialized: It assumes that any local
@@ -1035,6 +1036,8 @@ construct_libvirt_xml_disk (guestfs_h *g,
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
                                            BAD_CAST drv_priv->path));
+    if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
+      return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
   else {
@@ -1046,6 +1049,8 @@ construct_libvirt_xml_disk (guestfs_h *g,
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
                                            BAD_CAST drv_priv->path));
+    if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
+      return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
 
@@ -1126,6 +1131,24 @@ construct_libvirt_xml_disk (guestfs_h *g,
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+  return 0;
+}
+
+static int
+construct_libvirt_xml_disk_source_seclabel (guestfs_h *g,
+                                            xmlTextWriterPtr xo)
+{
+  if (g->virt_selinux_norelabel_disks) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
+                                           BAD_CAST "selinux"));
+    XMLERROR (-1,
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "relabel",
+                                           BAD_CAST "no"));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
 
   return 0;
 }
@@ -1637,5 +1660,12 @@ guestfs__internal_set_libvirt_selinux_label (guestfs_h *g, const char *label,
   g->virt_selinux_label = safe_strdup (g, label);
   free (g->virt_selinux_imagelabel);
   g->virt_selinux_imagelabel = safe_strdup (g, imagelabel);
+  return 0;
+}
+
+int
+guestfs__internal_set_libvirt_selinux_norelabel_disks (guestfs_h *g, int flag)
+{
+  g->virt_selinux_norelabel_disks = flag;
   return 0;
 }
