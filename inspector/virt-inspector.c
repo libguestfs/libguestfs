@@ -786,6 +786,8 @@ do_xpath (const char *query)
   switch (xpathObj->type) {
   case XPATH_NODESET:
     nodes = xpathObj->nodesetval;
+    if (nodes == NULL)
+      break;
 
     saveCtx = xmlSaveToFd (STDOUT_FILENO, NULL, XML_SAVE_NO_DECL);
     if (saveCtx == NULL) {

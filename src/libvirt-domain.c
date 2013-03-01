@@ -362,26 +362,28 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   }
 
   nodes = xpathObj->nodesetval;
-  for (i = 0; i < nodes->nodeNr; ++i) {
-    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
-    xmlAttrPtr attr;
+  if (nodes != NULL) {
+    for (i = 0; i < nodes->nodeNr; ++i) {
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
+      xmlAttrPtr attr;
 
-    /* See note in function above. */
-    xpathCtx->node = nodes->nodeTab[i];
+      /* See note in function above. */
+      xpathCtx->node = nodes->nodeTab[i];
 
-    /* The path is in <source path=..> attribute. */
-    xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
-    if (xppath == NULL ||
-        xppath->nodesetval == NULL ||
-        xppath->nodesetval->nodeNr == 0) {
-      xmlXPathFreeObject (xppath);
-      continue;                 /* no type attribute, skip it */
+      /* The path is in <source path=..> attribute. */
+      xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
+      if (xppath == NULL ||
+          xppath->nodesetval == NULL ||
+          xppath->nodesetval->nodeNr == 0) {
+        xmlXPathFreeObject (xppath);
+        continue;               /* no type attribute, skip it */
+      }
+      assert (xppath->nodesetval->nodeTab[0]);
+      assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+      attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
+      path = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      break;
     }
-    assert (xppath->nodesetval->nodeTab[0]);
-    assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-    attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
-    path = (char *) xmlNodeListGetString (doc, attr->children, 1);
-    break;
   }
 
   if (path == NULL) {

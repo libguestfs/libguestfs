@@ -528,21 +528,24 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
 
   nodes = xpathObj->nodesetval;
   seen_qemu = seen_kvm = 0;
-  for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
-    CLEANUP_FREE char *type = NULL;
 
-    if (seen_qemu && seen_kvm)
-      break;
+  if (nodes != NULL) {
+    for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
+      CLEANUP_FREE char *type = NULL;
 
-    assert (nodes->nodeTab[i]);
-    assert (nodes->nodeTab[i]->type == XML_ATTRIBUTE_NODE);
-    attr = (xmlAttrPtr) nodes->nodeTab[i];
-    type = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      if (seen_qemu && seen_kvm)
+        break;
 
-    if (STREQ (type, "qemu"))
-      seen_qemu++;
-    else if (STREQ (type, "kvm"))
-      seen_kvm++;
+      assert (nodes->nodeTab[i]);
+      assert (nodes->nodeTab[i]->type == XML_ATTRIBUTE_NODE);
+      attr = (xmlAttrPtr) nodes->nodeTab[i];
+      type = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+      if (STREQ (type, "qemu"))
+        seen_qemu++;
+      else if (STREQ (type, "kvm"))
+        seen_kvm++;
+    }
   }
 
   /* This was RHBZ#886915: in that case the default libvirt URI
