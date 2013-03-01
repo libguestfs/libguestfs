@@ -360,6 +360,9 @@ libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc,
   }
 
   nodes = xpathObj->nodesetval;
+  if (nodes == NULL)
+    return 0;
+
   nr_nodes = nodes->nodeNr;
 
   if (nr_nodes == 0)
@@ -427,93 +430,97 @@ for_each_disk (guestfs_h *g,
   }
 
   nodes = xpathObj->nodesetval;
-  nr_nodes = nodes->nodeNr;
-  for (i = 0; i < nr_nodes; ++i) {
-    CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL;
-    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
-    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
-    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpreadonly = NULL;
-    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
-    xmlAttrPtr attr;
-    int readonly;
-    int t;
+  if (nodes != NULL) {
+    nr_nodes = nodes->nodeNr;
+    for (i = 0; i < nr_nodes; ++i) {
+      CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpreadonly = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
+      xmlAttrPtr attr;
+      int readonly;
+      int t;
 
-    /* Change the context to the current <disk> node.
-     * DV advises to reset this before each search since older versions of
-     * libxml2 might overwrite it.
-     */
-    xpathCtx->node = nodes->nodeTab[i];
-
-    /* Filename can be in <source dev=..> or <source file=..> attribute.
-     * Check the <disk type=..> attribute first to find out which one.
-     */
-    xptype = xmlXPathEvalExpression (BAD_CAST "./@type", xpathCtx);
-    if (xptype == NULL ||
-        xptype->nodesetval == NULL ||
-        xptype->nodesetval->nodeNr == 0) {
-      continue;                 /* no type attribute, skip it */
-    }
-    assert (xptype->nodesetval->nodeTab[0]);
-    assert (xptype->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-    attr = (xmlAttrPtr) xptype->nodesetval->nodeTab[0];
-    type = (char *) xmlNodeListGetString (doc, attr->children, 1);
-
-    if (STREQ (type, "file")) { /* type = "file" so look at source/@file */
+      /* Change the context to the current <disk> node.
+       * DV advises to reset this before each search since older versions of
+       * libxml2 might overwrite it.
+       */
       xpathCtx->node = nodes->nodeTab[i];
-      xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@file", xpathCtx);
-      if (xpfilename == NULL ||
-          xpfilename->nodesetval == NULL ||
-          xpfilename->nodesetval->nodeNr == 0) {
-        continue;             /* disk filename not found, skip this */
+
+      /* Filename can be in <source dev=..> or <source file=..> attribute.
+       * Check the <disk type=..> attribute first to find out which one.
+       */
+      xptype = xmlXPathEvalExpression (BAD_CAST "./@type", xpathCtx);
+      if (xptype == NULL ||
+          xptype->nodesetval == NULL ||
+          xptype->nodesetval->nodeNr == 0) {
+        continue;               /* no type attribute, skip it */
       }
-    } else if (STREQ (type, "block")) { /* type = "block", use source/@dev */
+      assert (xptype->nodesetval->nodeTab[0]);
+      assert (xptype->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+      attr = (xmlAttrPtr) xptype->nodesetval->nodeTab[0];
+      type = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+      if (STREQ (type, "file")) { /* type = "file" so look at source/@file */
+        xpathCtx->node = nodes->nodeTab[i];
+        xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@file",
+                                             xpathCtx);
+        if (xpfilename == NULL ||
+            xpfilename->nodesetval == NULL ||
+            xpfilename->nodesetval->nodeNr == 0) {
+          continue;           /* disk filename not found, skip this */
+      }
+      } else if (STREQ (type, "block")) { /* type = "block", use source/@dev */
+        xpathCtx->node = nodes->nodeTab[i];
+        xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@dev",
+                                             xpathCtx);
+        if (xpfilename == NULL ||
+            xpfilename->nodesetval == NULL ||
+            xpfilename->nodesetval->nodeNr == 0) {
+          continue;           /* disk filename not found, skip this */
+        }
+      } else
+        continue;             /* type <> "file" or "block", skip it */
+
+      assert (xpfilename);
+      assert (xpfilename->nodesetval);
+      assert (xpfilename->nodesetval->nodeTab[0]);
+      assert (xpfilename->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+      attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
+      filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+      /* Get the disk format (may not be set). */
       xpathCtx->node = nodes->nodeTab[i];
-      xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@dev", xpathCtx);
-      if (xpfilename == NULL ||
-          xpfilename->nodesetval == NULL ||
-          xpfilename->nodesetval->nodeNr == 0) {
-        continue;             /* disk filename not found, skip this */
+      xpformat = xmlXPathEvalExpression (BAD_CAST "./driver/@type", xpathCtx);
+      if (xpformat != NULL &&
+          xpformat->nodesetval &&
+          xpformat->nodesetval->nodeNr > 0) {
+        assert (xpformat->nodesetval->nodeTab[0]);
+        assert (xpformat->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+        attr = (xmlAttrPtr) xpformat->nodesetval->nodeTab[0];
+        format = (char *) xmlNodeListGetString (doc, attr->children, 1);
       }
-    } else
-      continue;               /* type <> "file" or "block", skip it */
 
-    assert (xpfilename);
-    assert (xpfilename->nodesetval);
-    assert (xpfilename->nodesetval->nodeTab[0]);
-    assert (xpfilename->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-    attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
-    filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      /* Get the <readonly/> flag. */
+      xpathCtx->node = nodes->nodeTab[i];
+      xpreadonly = xmlXPathEvalExpression (BAD_CAST "./readonly", xpathCtx);
+      readonly = 0;
+      if (xpreadonly != NULL &&
+          xpreadonly->nodesetval &&
+          xpreadonly->nodesetval->nodeNr > 0)
+        readonly = 1;
 
-    /* Get the disk format (may not be set). */
-    xpathCtx->node = nodes->nodeTab[i];
-    xpformat = xmlXPathEvalExpression (BAD_CAST "./driver/@type", xpathCtx);
-    if (xpformat != NULL &&
-        xpformat->nodesetval &&
-        xpformat->nodesetval->nodeNr > 0) {
-      assert (xpformat->nodesetval->nodeTab[0]);
-      assert (xpformat->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-      attr = (xmlAttrPtr) xpformat->nodesetval->nodeTab[0];
-      format = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      if (f)
+        t = f (g, filename, format, readonly, data);
+      else
+        t = 0;
+
+      if (t == -1)
+        return -1;
+
+      nr_added++;
     }
-
-    /* Get the <readonly/> flag. */
-    xpathCtx->node = nodes->nodeTab[i];
-    xpreadonly = xmlXPathEvalExpression (BAD_CAST "./readonly", xpathCtx);
-    readonly = 0;
-    if (xpreadonly != NULL &&
-        xpreadonly->nodesetval &&
-        xpreadonly->nodesetval->nodeNr > 0)
-      readonly = 1;
-
-    if (f)
-      t = f (g, filename, format, readonly, data);
-    else
-      t = 0;
-
-    if (t == -1)
-      return -1;
-
-    nr_added++;
   }
 
   if (nr_added == 0) {
@@ -561,26 +568,28 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   }
 
   nodes = xpathObj->nodesetval;
-  for (i = 0; i < nodes->nodeNr; ++i) {
-    CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
-    xmlAttrPtr attr;
+  if (nodes != NULL) {
+    for (i = 0; i < nodes->nodeNr; ++i) {
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
+      xmlAttrPtr attr;
 
-    /* See note in function above. */
-    xpathCtx->node = nodes->nodeTab[i];
+      /* See note in function above. */
+      xpathCtx->node = nodes->nodeTab[i];
 
-    /* The path is in <source path=..> attribute. */
-    xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
-    if (xppath == NULL ||
-        xppath->nodesetval == NULL ||
-        xppath->nodesetval->nodeNr == 0) {
-      xmlXPathFreeObject (xppath);
-      continue;                 /* no type attribute, skip it */
+      /* The path is in <source path=..> attribute. */
+      xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
+      if (xppath == NULL ||
+          xppath->nodesetval == NULL ||
+          xppath->nodesetval->nodeNr == 0) {
+        xmlXPathFreeObject (xppath);
+        continue;               /* no type attribute, skip it */
+      }
+      assert (xppath->nodesetval->nodeTab[0]);
+      assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+      attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
+      path = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      break;
     }
-    assert (xppath->nodesetval->nodeTab[0]);
-    assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-    attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
-    path = (char *) xmlNodeListGetString (doc, attr->children, 1);
-    break;
   }
 
   if (path == NULL) {

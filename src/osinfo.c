@@ -298,51 +298,53 @@ read_osinfo_db_xml (guestfs_h *g, const char *filename)
 
   nodes = xpathObj->nodesetval;
 
-  for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
-    iso_node = nodes->nodeTab[i];
-    assert (iso_node != NULL);
-    assert (STREQ ((const char *) iso_node->name, "iso"));
-    assert (iso_node->type == XML_ELEMENT_NODE);
+  if (nodes != NULL) {
+    for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
+      iso_node = nodes->nodeTab[i];
+      assert (iso_node != NULL);
+      assert (STREQ ((const char *) iso_node->name, "iso"));
+      assert (iso_node->type == XML_ELEMENT_NODE);
 
-    media_node = iso_node->parent;
-    assert (media_node != NULL);
-    assert (STREQ ((const char *) media_node->name, "media"));
-    assert (media_node->type == XML_ELEMENT_NODE);
+      media_node = iso_node->parent;
+      assert (media_node != NULL);
+      assert (STREQ ((const char *) media_node->name, "media"));
+      assert (media_node->type == XML_ELEMENT_NODE);
 
-    os_node = media_node->parent;
-    assert (os_node != NULL);
-    assert (STREQ ((const char *) os_node->name, "os"));
-    assert (os_node->type == XML_ELEMENT_NODE);
+      os_node = media_node->parent;
+      assert (os_node != NULL);
+      assert (STREQ ((const char *) os_node->name, "os"));
+      assert (os_node->type == XML_ELEMENT_NODE);
 
-    /* Allocate an osinfo record. */
-    osinfo_db_size++;
-    osinfo_db = safe_realloc (g, osinfo_db,
-                              sizeof (struct osinfo) * osinfo_db_size);
-    osinfo = &osinfo_db[osinfo_db_size-1];
-    memset (osinfo, 0, sizeof *osinfo);
+      /* Allocate an osinfo record. */
+      osinfo_db_size++;
+      osinfo_db = safe_realloc (g, osinfo_db,
+                                sizeof (struct osinfo) * osinfo_db_size);
+      osinfo = &osinfo_db[osinfo_db_size-1];
+      memset (osinfo, 0, sizeof *osinfo);
 
-    /* Read XML fields into the new osinfo record. */
-    if (read_iso_node (g, iso_node, osinfo) == -1 ||
-        read_media_node (g, xpathCtx, media_node, osinfo) == -1 ||
-        read_os_node (g, xpathCtx, os_node, osinfo) == -1) {
-      free_osinfo_db_entry (osinfo);
-      osinfo_db_size--;
-      return -1;
-    }
+      /* Read XML fields into the new osinfo record. */
+      if (read_iso_node (g, iso_node, osinfo) == -1 ||
+          read_media_node (g, xpathCtx, media_node, osinfo) == -1 ||
+          read_os_node (g, xpathCtx, os_node, osinfo) == -1) {
+        free_osinfo_db_entry (osinfo);
+        osinfo_db_size--;
+        return -1;
+      }
 
 #if 0
-    debug (g, "osinfo: %s: %s%s%s%s=> arch %s live %s product %s type %d distro %d version %d.%d",
-           filename,
-           osinfo->re_system_id ? "<system-id/> " : "",
-           osinfo->re_volume_id ? "<volume-id/> " : "",
-           osinfo->re_publisher_id ? "<publisher-id/> " : "",
-           osinfo->re_application_id ? "<application-id/> " : "",
-           osinfo->arch ? osinfo->arch : "(none)",
-           osinfo->is_live_disk ? "true" : "false",
-           osinfo->product_name ? osinfo->product_name : "(none)",
-           (int) osinfo->type, (int) osinfo->distro,
-           osinfo->major_version, osinfo->minor_version);
+      debug (g, "osinfo: %s: %s%s%s%s=> arch %s live %s product %s type %d distro %d version %d.%d",
+             filename,
+             osinfo->re_system_id ? "<system-id/> " : "",
+             osinfo->re_volume_id ? "<volume-id/> " : "",
+             osinfo->re_publisher_id ? "<publisher-id/> " : "",
+             osinfo->re_application_id ? "<application-id/> " : "",
+             osinfo->arch ? osinfo->arch : "(none)",
+             osinfo->is_live_disk ? "true" : "false",
+             osinfo->product_name ? osinfo->product_name : "(none)",
+             (int) osinfo->type, (int) osinfo->distro,
+             osinfo->major_version, osinfo->minor_version);
 #endif
+    }
   }
 
   return 0;
