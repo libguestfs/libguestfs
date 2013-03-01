@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-26 18:32+0000\n"
+"POT-Creation-Date: 2013-03-01 15:49+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -3505,22 +3505,22 @@ msgstr ""
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:792
+#: inspector/virt-inspector.c:794
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:799
+#: inspector/virt-inspector.c:801
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:804
+#: inspector/virt-inspector.c:806
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:811
+#: inspector/virt-inspector.c:813
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
@@ -3826,27 +3826,6 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/for-each-disk.c:69 src/libvirt-domain.c:315
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "libvirt XML ਜਾਣਕਾਰੀ ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ: %s"
-
-#: src/for-each-disk.c:78 src/libvirt-domain.c:323
-msgid "unable to parse XML information returned by libvirt"
-msgstr "libvirt ਦੁਆਰਾ ਦਿੱਤੀ XML ਜਾਣਕਾਰੀ ਨੂੰ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
-
-#: src/for-each-disk.c:84 src/launch-libvirt.c:513 src/libvirt-domain.c:329
-msgid "unable to create new XPath context"
-msgstr "ਨਵਾਂ XPath ਪ੍ਰਸੰਗ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ"
-
-#: src/for-each-disk.c:91 src/libvirt-domain.c:344
-msgid "unable to evaluate XPath expression"
-msgstr "XPath ਐਕਸਪ੍ਰੈਸ਼ਨ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
-
-#: src/for-each-disk.c:185
-msgid "libvirt domain has no disks"
-msgstr "libvirt ਡੋਮੇਨ ਵਿੱਚ ਕੋਈ ਡਿਸਕ ਨਹੀਂ ਹੈ"
-
 #: src/fuse.c:921
 msgid "filesystem is already mounted in another thread"
 msgstr ""
@@ -3983,7 +3962,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch-appliance.c:669 src/launch-libvirt.c:439
+#: src/launch-appliance.c:669 src/launch-libvirt.c:440
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
@@ -3994,38 +3973,43 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch-libvirt.c:167
+#: src/launch-libvirt.c:168
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:174
+#: src/launch-libvirt.c:175
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:189
+#: src/launch-libvirt.c:190
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:205
+#: src/launch-libvirt.c:206
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:363
+#: src/launch-libvirt.c:364
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:507
+#: src/launch-libvirt.c:508
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:523
+#: src/launch-libvirt.c:514 src/libvirt-domain.c:340 src/libvirt-domain.c:421
+#: src/libvirt-domain.c:551
+msgid "unable to create new XPath context"
+msgstr "ਨਵਾਂ XPath ਪ੍ਰਸੰਗ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ"
+
+#: src/launch-libvirt.c:524
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:553
+#: src/launch-libvirt.c:557
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4039,16 +4023,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:665
+#: src/launch-libvirt.c:666
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:984
+#: src/launch-libvirt.c:1010
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:1064
+#: src/launch-libvirt.c:1094
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4056,34 +4040,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1338
+#: src/launch-libvirt.c:1387
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1365
+#: src/launch-libvirt.c:1424
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1410
+#: src/launch-libvirt.c:1470
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1442
+#: src/launch-libvirt.c:1502
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1494
+#: src/launch-libvirt.c:1563
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1523
+#: src/launch-libvirt.c:1592
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1569
+#: src/launch-libvirt.c:1638
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4200,30 +4184,30 @@ msgid ""
 "was compiled without libvirt or libxml2"
 msgstr ""
 
-#: src/libvirt-domain.c:79 src/libvirt-domain.c:193
+#: src/libvirt-domain.c:84 src/libvirt-domain.c:202
 msgid "you cannot set both live and readonly flags"
 msgstr "ਤੁਸੀਂ ਲਾਈਵ ਅਤੇ ਸਿਰਫ-ਪੜ੍ਹਨ ਵਾਲੇ ਫਲੈਗ ਦੋਨੋਂ ਸੈੱਟ ਨਹੀਂ ਕਰ ਸਕਦੇ"
 
-#: src/libvirt-domain.c:87
+#: src/libvirt-domain.c:92
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "libvirt (ਕੋਡ %d, ਡੋਮੇਨ %d) ਨਾਲ ਜੁੜ ਨਹੀਂ ਸਕਿਆ: %s"
 
-#: src/libvirt-domain.c:108
+#: src/libvirt-domain.c:113
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr "ਕਿਸੇ libvirt ਡੋਮੇਨ ਨੂੰ '%s' ਨਹੀਂ ਕਿਹਾ ਜਾਂਦਾ: %s"
 
-#: src/libvirt-domain.c:187
+#: src/libvirt-domain.c:196
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/libvirt-domain.c:204
+#: src/libvirt-domain.c:213
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "ਡੋਮੇਨ ਜਾਣਕਾਰੀ ਲੈਣ ਸਮੇਂ ਗਲਤੀ: %s"
 
-#: src/libvirt-domain.c:218
+#: src/libvirt-domain.c:227
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4239,14 +4223,31 @@ msgstr ""
 "specify live access।  In most libguestfs tools these options are --ro or\n"
 "--live respectively।  Consult the documentation for further information।"
 
-#: src/libvirt-domain.c:283
+#: src/libvirt-domain.c:305
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/libvirt-domain.c:372
+#: src/libvirt-domain.c:358 src/libvirt-domain.c:428 src/libvirt-domain.c:566
+msgid "unable to evaluate XPath expression"
+msgstr "XPath ਐਕਸਪ੍ਰੈਸ਼ਨ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
+#: src/libvirt-domain.c:371
+#, c-format
+msgid "ignoring %zu nodes matching '%s'"
+msgstr ""
+
+#: src/libvirt-domain.c:377
+msgid "expected <seclabel/> to be an XML element"
+msgstr ""
+
+#: src/libvirt-domain.c:527
+msgid "libvirt domain has no disks"
+msgstr "libvirt ਡੋਮੇਨ ਵਿੱਚ ਕੋਈ ਡਿਸਕ ਨਹੀਂ ਹੈ"
+
+#: src/libvirt-domain.c:596
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -4254,7 +4255,16 @@ msgstr ""
 "ਇਸ ਗਿਸਟ ਉੱਪਰ guestfsd ਲਈ ਕੋਈ libvirt <channel> ਪਰਿਭਾਸ਼ਾ ਨਹੀਂ ਹੈ\n"
 "ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ATTACHING TO RUNNING DAEMONS ਨੂੰ guestfs(3) ਵਿੱਚ ਵੇਖੋ।"
 
-#: src/libvirt-domain.c:385
+#: src/libvirt-domain.c:615
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "libvirt XML ਜਾਣਕਾਰੀ ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ: %s"
+
+#: src/libvirt-domain.c:622
+msgid "unable to parse XML information returned by libvirt"
+msgstr "libvirt ਦੁਆਰਾ ਦਿੱਤੀ XML ਜਾਣਕਾਰੀ ਨੂੰ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
+#: src/libvirt-domain.c:632
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -4394,12 +4404,12 @@ msgstr "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: invalid timeout: %s\n"
 
-#: test-tool/test-tool.c:134 test-tool/test-tool.c:176
+#: test-tool/test-tool.c:134 test-tool/test-tool.c:181
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: failed to create libguestfs handle\n"
 
-#: test-tool/test-tool.c:139 test-tool/test-tool.c:234
+#: test-tool/test-tool.c:139 test-tool/test-tool.c:239
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version failed\n"
@@ -4409,49 +4419,54 @@ msgstr "libguestfs-test-tool: guestfs_version failed\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: unexpected command line option 0x%x\n"
 
-#: test-tool/test-tool.c:181
+#: test-tool/test-tool.c:162
+#, c-format
+msgid "libguestfs-test-tool: extra arguments on the command line\n"
+msgstr ""
+
+#: test-tool/test-tool.c:186
 #, c-format
 msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:226
+#: test-tool/test-tool.c:231
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: failed to add drive '%s'\n"
 
-#: test-tool/test-tool.c:274
+#: test-tool/test-tool.c:279
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: failed to launch appliance\n"
 
-#: test-tool/test-tool.c:286
+#: test-tool/test-tool.c:291
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:292
+#: test-tool/test-tool.c:297
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: failed to mkfs.ext2\n"
 
-#: test-tool/test-tool.c:298
+#: test-tool/test-tool.c:303
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 
-#: test-tool/test-tool.c:305
+#: test-tool/test-tool.c:310
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:316
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:344
+#: test-tool/test-tool.c:349
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4460,12 +4475,12 @@ msgstr ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 
-#: test-tool/test-tool.c:352
+#: test-tool/test-tool.c:357
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "ਬਾਇਨਰੀ '%s' ਬੰਦ ਨਹੀਂ ਹੋਇਆ ਜਾਂ ਚੱਲਣਯੋਗ ਨਹੀਂ ਹੈ\n"
 
-#: test-tool/test-tool.c:369
+#: test-tool/test-tool.c:374
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ਇੱਕ qemu ਸਰੋਤ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਲੱਗਦੀ\n"
