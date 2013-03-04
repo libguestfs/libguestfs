@@ -59,9 +59,9 @@ static size_t nr_threads;
 static void *start_thread (void *) __attribute__((noreturn));
 static void test_mountpoint (const char *mp);
 static void cleanup_thread_state (void);
-static int unmount (const char *mp, unsigned flags);
-#define UNMOUNT_SILENT 1
-#define UNMOUNT_RMDIR  2
+static int guestunmount (const char *mp, unsigned flags);
+#define GUESTUNMOUNT_SILENT 1
+#define GUESTUNMOUNT_RMDIR  2
 
 static volatile sig_atomic_t quit = 0;
 
@@ -365,8 +365,8 @@ test_mountpoint (const char *mp)
   ret = EXIT_SUCCESS;
  error:
   ignore_value (chdir (".."));
-  if (unmount (mp, 0) == -1)
-    error (EXIT_FAILURE, 0, "fusermount -u %s: failed, see earlier errors", mp);
+  if (guestunmount (mp, 0) == -1)
+    error (EXIT_FAILURE, 0, "guestunmount %s: failed, see earlier errors", mp);
 
   if (DEBUG) {
     printf ("%-8s > unmounted filesystem\n", mp);
@@ -376,49 +376,28 @@ test_mountpoint (const char *mp)
   exit (ret);
 }
 
-/* We may need to retry this a few times because of processes which
- * run in the background jumping into mountpoints.  Only display
- * errors if it still fails after many retries.
- */
 static int
-unmount (const char *mp, unsigned flags)
+guestunmount (const char *mp, unsigned flags)
 {
-  char logfile[256];
   char cmd[256];
-  int tries = 5, status, r;
+  int status, r;
 
-  if (flags & UNMOUNT_RMDIR) {
+  if (flags & GUESTUNMOUNT_RMDIR) {
     r = rmdir (mp);
     if (r == 0 || (r == -1 && errno != EBUSY && errno != ENOTCONN))
       return 0;
   }
 
-  snprintf (logfile, sizeof logfile, "%s.fusermount.tmp", mp);
-  unlink (logfile);
+  snprintf (cmd, sizeof cmd,
+            "../../fuse/guestunmount%s %s",
+            (flags & GUESTUNMOUNT_SILENT) ? " --quiet" : "", mp);
 
-  snprintf (cmd, sizeof cmd, "fusermount -u %s >> %s 2>&1", mp, logfile);
-
-  while (tries > 0) {
-    status = system (cmd);
-    if (WIFEXITED (status) && WEXITSTATUS (status) == 0)
-      break;
-    sleep (1);
-    tries--;
-  }
-
-  if (tries == 0) {             /* Failed. */
-    if (!(flags & UNMOUNT_SILENT)) {
-      fprintf (stderr, "fusermount -u %s: command failed:\n", mp);
-      snprintf (cmd, sizeof cmd, "cat %s", logfile);
-      ignore_value (system (cmd));
-    }
-    unlink (logfile);
+  status = system (cmd);
+  if (!WIFEXITED (status) ||
+      (WEXITSTATUS (status) != 0 && WEXITSTATUS (status) != 2))
     return -1;
-  }
 
-  unlink (logfile);
-
-  if (flags & UNMOUNT_RMDIR) {
+  if (flags & GUESTUNMOUNT_RMDIR) {
     if (rmdir (mp) == -1)
       return -1;
   }
@@ -439,7 +418,7 @@ cleanup_thread_state (void)
     }
 
     if (threads[i].mp) {
-      unmount (threads[i].mp, UNMOUNT_SILENT|UNMOUNT_RMDIR);
+      guestunmount (threads[i].mp, GUESTUNMOUNT_SILENT|GUESTUNMOUNT_RMDIR);
       free (threads[i].mp);
     }
   }

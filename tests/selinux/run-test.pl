@@ -175,28 +175,11 @@ sub run_fuse_tests
     }
 
     # Unmount the test directory.
-    unmount ($mpdir);
-
-    exit ($errors == 0 ? 0 : 1);
-}
-
-# Unmount the FUSE directory.  We may need to retry this a few times.
-sub unmount
-{
-    my $mpdir = shift;
-    my $retries = 5;
-
-    while ($retries > 0) {
-        if (system ("fusermount", "-u", $mpdir) == 0) {
-            last;
-        }
-        sleep 1;
-        $retries--;
-    }
-
-    if ($retries == 0) {
+    if (system ("../../fuse/guestunmount", $mpdir) != 0) {
         die "failed to unmount FUSE directory\n";
     }
+
+    exit ($errors == 0 ? 0 : 1);
 }
 
 # Test extended attributes, using the libguestfs API directly.

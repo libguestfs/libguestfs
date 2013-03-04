@@ -17,13 +17,22 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-EXTRA_DIST = guestmount.pod test-fuse.sh test-fuse-umount-race.sh
+EXTRA_DIST = \
+	guestmount.pod \
+	guestunmount.pod \
+	test-fuse.sh \
+	test-fuse-umount-race.sh \
+	test-guestunmount-not-mounted.sh
 
-CLEANFILES = stamp-guestmount.pod
+CLEANFILES = \
+	stamp-guestmount.pod \
+	stamp-guestunmount.pod
 
 if HAVE_FUSE
 
-bin_PROGRAMS = guestmount
+bin_PROGRAMS = \
+	guestmount \
+	guestunmount
 
 # These source files (all related to option parsing) are shared
 # between guestfish and guestmount.
@@ -34,6 +43,8 @@ SHARED_SOURCE_FILES = \
 	../fish/keys.c \
 	../fish/options.h \
 	../fish/options.c
+
+# guestmount
 
 guestmount_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
@@ -61,10 +72,35 @@ guestmount_LDADD = \
 	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
+# guestunmount
+
+guestunmount_SOURCES = \
+	guestunmount.c
+
+guestunmount_CPPFLAGS = \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+
+guestunmount_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+
+guestunmount_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	../gnulib/lib/libgnu.la
+
 # Documentation.
 
-man_MANS = guestmount.1
-noinst_DATA = $(top_builddir)/html/guestmount.1.html
+man_MANS = \
+	guestmount.1 \
+	guestunmount.1
+noinst_DATA = \
+	$(top_builddir)/html/guestmount.1.html \
+	$(top_builddir)/html/guestunmount.1.html
 
 guestmount.1 $(top_builddir)/html/guestmount.1.html: stamp-guestmount.pod
 
@@ -76,13 +112,50 @@ stamp-guestmount.pod: guestmount.pod
 	  $<
 	touch $@
 
+guestunmount.1 $(top_builddir)/html/guestunmount.1.html: stamp-guestunmount.pod
+
+stamp-guestunmount.pod: guestunmount.pod
+	$(PODWRAPPER) \
+	  --man guestunmount.1 \
+	  --html $(top_builddir)/html/guestunmount.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
 # Tests.
 
+TESTS = \
+	test-guestunmount-fd \
+	test-guestunmount-not-mounted.sh
+
 if ENABLE_APPLIANCE
-TESTS = test-fuse.sh test-fuse-umount-race.sh
+TESTS += \
+	test-fuse.sh \
+	test-fuse-umount-race.sh
 endif ENABLE_APPLIANCE
+
 TESTS_ENVIRONMENT = \
 	top_builddir=.. \
 	$(top_builddir)/run --test
+
+check_PROGRAMS = test-guestunmount-fd
+
+test_guestunmount_fd_SOURCES = \
+	test-guestunmount-fd.c
+
+test_guestunmount_fd_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+
+test_guestunmount_fd_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+
+test_guestunmount_fd_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	../gnulib/lib/libgnu.la
 
 endif HAVE_FUSE

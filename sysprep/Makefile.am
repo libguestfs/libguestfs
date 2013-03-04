@@ -155,6 +155,7 @@ sysprep-operations.pod: virt-sysprep
 TESTS_ENVIRONMENT = \
 	abs_builddir=$(abs_builddir) \
 	abs_srcdir=$(abs_srcdir) \
+	PATH=$(abs_top_builddir)/fuse:$(PATH) \
 	$(top_builddir)/run --test
 
 if ENABLE_APPLIANCE

@@ -33,8 +33,8 @@ manual page, or by looking at the examples below.
 FUSE lets you mount filesystems as non-root.  The mountpoint must be
 owned by you, and the filesystem will not be visible to any other
 users unless you make certain global configuration changes to
-C</etc/fuse.conf>.  To unmount the filesystem, use the C<fusermount -u>
-command.
+C</etc/fuse.conf>.  To unmount the filesystem, use the
+L<guestunmount(1)> command.
 
 =head1 EXAMPLES
 
@@ -70,6 +70,10 @@ If you want to debug the program, we recommend:
 
  guestmount [...] --trace --verbose /mnt
 
+To unmount the filesystem after using it:
+
+ guestunmount /mnt
+
 =head1 NOTES
 
 =head2 Other users cannot see the filesystem by default
@@ -96,22 +100,11 @@ the mountpoint you have just created, holding it open and preventing
 you from unmounting it.  The usual culprits are various GUI "indexing"
 programs.
 
-The popular workaround for this problem is to retry the
-C<fusermount -u> command a few times until it works.  Unfortunately
-this isn't a reliable fix if (for example) the mounted filesystem is
-particularly large and the intruding program particularly persistent.
-
- timeout=10
- 
- count=$timeout
- while ! fusermount -u $mountpoint && [ $count -gt 0 ]; do
-     sleep 1
-     ((count--))
- done
- if [ $count -eq 0 ]; then
-     echo "$0: fusermount failed after $timeout seconds"
-     exit 1
- fi
+The popular workaround for this problem is to retry the C<fusermount -u>
+command a few times until it works (L<guestunmount(1)> does this
+for you).  Unfortunately this isn't a reliable fix if (for example)
+the mounted filesystem is particularly large and the intruding program
+particularly persistent.
 
 A proper fix is to use a private mountpoint by creating a new mount
 namespace using the Linux-specific L<clone(2)>/L<unshare(2)> flag
@@ -120,35 +113,34 @@ would also probably need to add it as a feature to guestmount.
 
 =head2 Race conditions possible when shutting down the connection
 
-When C<fusermount -u> exits, guestmount may still be running and
-cleaning up the mountpoint.  The disk image will not be fully
-finalized.
+When L<guestunmount(1)>/L<fusermount(1)> exits, guestmount may still
+be running and cleaning up the mountpoint.  The disk image will not be
+fully finalized.
 
 This means that scripts like the following have a nasty race
 condition:
 
  guestmount -a disk.img -i /mnt
  # copy things into /mnt
- fusermount -u /mnt
+ guestunmount /mnt
  # immediately try to use 'disk.img' ** UNSAFE **
 
 The solution is to use the I<--pid-file> option to write the
-guestmount PID to a file, then after fusermount spin waiting for this
-PID to exit.
+guestmount PID to a file, then after guestunmount spin waiting for
+this PID to exit.
 
  guestmount -a disk.img -i --pid-file guestmount.pid /mnt
  
  # ...
  # ...
  
- # Save the PID of guestmount *before* calling fusermount.
+ # Save the PID of guestmount *before* calling guestunmount.
  pid="$(cat guestmount.pid)"
  
- timeout=10
+ # Unmount the filesystem.
+ guestunmount /mnt
  
- # fusermount retry code, see above
- # ...
- # ...
+ timeout=10
  
  count=$timeout
  while kill -0 "$pid" 2>/dev/null && [ $count -gt 0 ]; do
@@ -397,6 +389,8 @@ error.
 
 =head1 SEE ALSO
 
+L<guestunmount(1)>,
+L<fusermount(1)>,
 L<guestfish(1)>,
 L<virt-inspector(1)>,
 L<virt-cat(1)>,

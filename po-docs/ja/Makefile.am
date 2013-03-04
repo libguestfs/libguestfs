@@ -41,6 +41,7 @@ MANPAGES = \
 	guestfs-testing.1 \
 	guestfsd.8 \
 	guestmount.1 \
+	guestunmount.1 \
 	libguestfs-make-fixed-appliance.1 \
 	libguestfs-test-tool.1 \
 	virt-alignment-scan.1 \

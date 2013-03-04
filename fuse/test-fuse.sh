@@ -49,18 +49,24 @@ top_builddir=$(cd "$top_builddir" > /dev/null; pwd)
 # Paths to the other programs and files.  NB: Must be absolute paths.
 guestfish="$top_builddir/fish/guestfish"
 guestmount="$top_builddir/fuse/guestmount"
+guestunmount="$top_builddir/fuse/guestunmount"
 image="$top_builddir/fuse/test.img"
 mp="$top_builddir/fuse/test-mp"
 
-if [ ! -x "$guestfish" -o ! -x "$guestmount" ]; then
-    echo "$0: error: guestfish or guestmount are not available"
+if [ ! -x "$guestfish" -o ! -x "$guestmount" -o ! -x "$guestunmount" ]
+then
+    echo "$0: error: guestfish, guestmount or guestunmount are not available"
     exit 1
 fi
 
-# Ensure everything is cleaned up on exit.
+# Ensure the mountpoint directory exists and is not being used.
 rm -f "$image"
 mkdir -p "$mp"
 fusermount -u "$mp" >/dev/null 2>&1 ||:
+
+# Ensure everything is cleaned up on exit.
+mounted=
+
 function cleanup ()
 {
     status=$?
@@ -75,15 +81,9 @@ function cleanup ()
     # Who's using this?  Should be no one, but see below.
     if [ -x /sbin/fuser ]; then /sbin/fuser "$mp"; fi
 
-    # If you run this and you have GNOME running at the same time,
-    # then randomly /usr/libexec/gvfs-gdu-volume-monitor will decide
-    # to do whatever it does in the mountpoint directory, preventing
-    # you from unmounting it!  Hence the need for this loop.
-    count=10
-    while ! fusermount -u "$mp" && [ $count -gt 0 ]; do
-        sleep 1
-        ((count--))
-    done
+    if [ -n "$mounted" ]; then
+        $guestunmount "$mp"
+    fi
 
     rm -f "$image"
     rm -rf "$mp"
@@ -121,6 +121,7 @@ $guestmount \
     -o uid="$(id -u)" -o gid="$(id -g)" "$mp"
 # To debug guestmount, add this to the end of the preceding command:
 # -v -x & sleep 60
+mounted=yes
 
 stage Changing into mounted directory
 cd "$mp"

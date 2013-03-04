@@ -141,7 +141,11 @@ Makefile.in
 /format/virt-format.1
 /fuse/guestmount
 /fuse/guestmount.1
+/fuse/guestunmount
+/fuse/guestunmount.1
 /fuse/stamp-guestmount.pod
+/fuse/stamp-guestunmount.pod
+/fuse/test-guestunmount-fd
 /generator/.depend
 /generator/files-generated.txt
 /generator/generator
@@ -181,6 +185,7 @@ Makefile.in
 /html/guestfs-testing.1.html
 /html/guestfsd.8.html
 /html/guestmount.1.html
+/html/guestunmount.1.html
 /html/libguestfs-make-fixed-appliance.1.html
 /html/libguestfs-test-tool.1.html
 /html/virt-alignment-scan.1.html

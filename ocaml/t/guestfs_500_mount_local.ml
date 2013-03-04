@@ -142,40 +142,9 @@ and test_mountpoint mp =
   done;
 
   if debug then eprintf "%s > unmounting filesystem\n%!" mp;
-
-  unmount mp
-
-(* We may need to retry this a few times because of processes which
- * run in the background jumping into mountpoints.  Only display
- * errors if it still fails after many retries.
- *)
-and unmount mp =
-  let logfile = sprintf "%s.fusermount.log" mp in
-  let unlink_logfile () =
-    try unlink logfile with Unix_error _ -> ()
-  in
-  unlink_logfile ();
-
-  let run_command () =
-    Sys.command (sprintf "fusermount -u %s >> %s 2>&1"
-                   (Filename.quote mp) (Filename.quote logfile)) = 0
-  in
-
-  let rec loop tries =
-    if tries <= 5 then (
-      if not (run_command ()) then (
-        sleep 1;
-        loop (tries+1)
-      )
-    ) else (
-      ignore (Sys.command (sprintf "cat %s" (Filename.quote logfile)));
-      eprintf "fusermount: %s: failed, see earlier error messages\n" mp;
-      exit 1
-    )
-  in
-  loop 0;
-
-  unlink_logfile ()
+  ignore (
+    Sys.command (sprintf "../fuse/guestunmount %s" (Filename.quote mp))
+  )
 
 let () =
   match Array.to_list Sys.argv with

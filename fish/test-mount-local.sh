@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2012 Red Hat Inc.
+# Copyright (C) 2012-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -50,12 +50,8 @@ if [ $# -gt 0 -a "$1" = "--run-test" ]; then
 
     echo 'mount-local test successful' > mp/ok
 
-    # Unmount the mountpoint.  Might need to retry this.
-    count=10
-    while ! fusermount -u mp && [ $count -gt 0 ]; do
-        sleep 1
-        ((count--))
-    done
+    # Unmount the mountpoint.
+    ../fuse/guestunmount mp
 
     exit 0
 fi

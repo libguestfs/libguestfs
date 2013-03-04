@@ -48,15 +48,8 @@ pid="$(cat test.pid)"
 
 timeout=10
 
-count=$timeout
-while ! fusermount -u mp && [ $count -gt 0 ]; do
-    sleep 1
-    ((count--))
-done
-if [ $count -eq 0 ]; then
-    echo "$0: fusermount failed after $timeout seconds"
-    exit 1
-fi
+# Unmount the mountpoint.
+./guestunmount mp
 
 # Wait for guestmount to exit.
 count=$timeout

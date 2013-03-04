@@ -21,6 +21,7 @@
 ../fish/virt-tar-out.pod
 ../format/virt-format.pod
 ../fuse/guestmount.pod
+../fuse/guestunmount.pod
 ../guestfs-release-notes.pod
 ../inspector/virt-inspector.pod
 ../java/examples/guestfs-java.pod

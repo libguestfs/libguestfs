@@ -77,7 +77,7 @@ let rec script_perform (g : Guestfs.guestfs) root =
   []
 
 (* Run the scripts in the background and make sure they call
- * fusermount afterwards.
+ * guestunmount afterwards.
  *)
 and run_scripts mp scripts =
   let sh = "/bin/bash" in
@@ -89,19 +89,11 @@ cleanup ()
 {
   status=$?
   cd /
-  count=10
-  while ! fusermount -u %s >/dev/null 2>&1 && [ $count -gt 0 ]; do
-    sleep 1
-    ((count--))
-  done
-  if [ $count -eq 0 ]; then
-    echo \"fusermount: failed to unmount directory\" %s >&2
-    exit 1
-  fi
+  guestunmount %s ||:
   exit $status
 }
 trap cleanup INT TERM QUIT EXIT ERR\n"
-      (Filename.quote mp) (Filename.quote mp) ^
+      (Filename.quote mp) ^
       String.concat "\n" scripts in
   let args = [| sh; "-c"; cmd |] in
 

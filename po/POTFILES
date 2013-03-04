@@ -144,6 +144,8 @@ fish/tilde.c
 fish/time.c
 format/format.c
 fuse/guestmount.c
+fuse/guestunmount.c
+fuse/test-guestunmount-fd.c
 gobject/src/optargs-add_domain.c
 gobject/src/optargs-add_drive.c
 gobject/src/optargs-btrfs_filesystem_resize.c
