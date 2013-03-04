@@ -392,12 +392,6 @@ close_handles (void)
   while (handles) guestfs_close (handles);
 }
 
-void
-guestfs_user_cancel (guestfs_h *g)
-{
-  g->user_cancel = 1;
-}
-
 int
 guestfs__set_verbose (guestfs_h *g, int v)
 {

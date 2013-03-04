@@ -546,10 +546,6 @@ extern GUESTFS_DLL_PUBLIC void guestfs_set_close_callback (guestfs_h *g, guestfs
 extern GUESTFS_DLL_PUBLIC void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque)
   GUESTFS_DEPRECATED_BY(\"set_event_callback\");
 
-/* User cancellation. */
-#define GUESTFS_HAVE_USER_CANCEL 1
-extern GUESTFS_DLL_PUBLIC void guestfs_user_cancel (guestfs_h *g);
-
 /* Private data area. */
 #define GUESTFS_HAVE_SET_PRIVATE 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_private (guestfs_h *g, const char *key, void *data);
@@ -726,7 +722,6 @@ pr "\
 #define LIBGUESTFS_HAVE_DELETE_EVENT_CALLBACK 1
 #define LIBGUESTFS_HAVE_SET_CLOSE_CALLBACK 1
 #define LIBGUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
-#define LIBGUESTFS_HAVE_USER_CANCEL 1
 #define LIBGUESTFS_HAVE_SET_PRIVATE 1
 #define LIBGUESTFS_HAVE_GET_PRIVATE 1
 #define LIBGUESTFS_HAVE_FIRST_PRIVATE 1
@@ -1749,7 +1744,6 @@ and generate_linker_script () =
     "guestfs_set_private";
     "guestfs_set_progress_callback";
     "guestfs_set_subprocess_quit_callback";
-    "guestfs_user_cancel";
 
     (* Unofficial parts of the API: the bindings code use these
      * functions, so it is useful to export them.

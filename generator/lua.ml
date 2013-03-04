@@ -292,18 +292,6 @@ free_per_handle_table (lua_State *L, guestfs_h *g)
   lua_settable (L, LUA_REGISTRYINDEX);
 }
 
-/* User cancel. */
-static int
-guestfs_lua_user_cancel (lua_State *L)
-{
-  struct userdata *u = get_handle (L, 1);
-
-  if (u->g)
-    guestfs_user_cancel (u->g);
-
-  return 0;
-}
-
 /* Set an event callback. */
 static int
 guestfs_lua_set_event_callback (lua_State *L)
@@ -882,7 +870,6 @@ static luaL_Reg functions[] = {
 /* Methods. */
 static luaL_Reg methods[] = {
   { \"close\", guestfs_lua_close },
-  { \"user_cancel\", guestfs_lua_user_cancel },
   { \"set_event_callback\", guestfs_lua_set_event_callback },
   { \"delete_event_callback\", guestfs_lua_delete_event_callback },
 

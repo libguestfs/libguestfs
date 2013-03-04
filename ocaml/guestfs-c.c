@@ -54,7 +54,6 @@ value ocaml_guestfs_close (value gv);
 value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
 value ocaml_guestfs_delete_event_callback (value gv, value eh);
 value ocaml_guestfs_last_errno (value gv);
-value ocaml_guestfs_user_cancel (value gv);
 
 /* Allocate handles and deal with finalization. */
 static void
@@ -409,14 +408,4 @@ ocaml_guestfs_last_errno (value gv)
 
   rv = Val_int (r);
   CAMLreturn (rv);
-}
-
-/* NB: This is and must remain a "noalloc" function. */
-value
-ocaml_guestfs_user_cancel (value gv)
-{
-  guestfs_h *g = Guestfs_val (gv);
-  if (g)
-    guestfs_user_cancel (g);
-  return Val_unit;
 }

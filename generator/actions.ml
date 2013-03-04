@@ -2742,6 +2742,39 @@ the default.  Else C</var/tmp> is the default." };
     longdesc = "\
 Get the directory used by the handle to store the appliance cache." };
 
+  { defaults with
+    name = "user_cancel";
+    style = RErr, [], [];
+    blocking = false;
+    shortdesc = "cancel the current upload or download operation";
+    longdesc = "\
+This function cancels the current upload or download operation.
+
+Unlike most other libguestfs calls, this function is signal safe and
+thread safe.  You can call it from a signal handler or from another
+thread, without needing to do any locking.
+
+The transfer that was in progress (if there is one) will stop shortly
+afterwards, and will return an error.  The errno (see
+L</guestfs_last_errno>) is set to C<EINTR>, so you can test for this
+to find out if the operation was cancelled or failed because of
+another error.
+
+No cleanup is performed: for example, if a file was being uploaded
+then after cancellation there may be a partially uploaded file.  It is
+the caller's responsibility to clean up if necessary.
+
+There are two common places that you might call C<guestfs_user_cancel>:
+
+In an interactive text-based program, you might call it from a
+C<SIGINT> signal handler so that pressing C<^C> cancels the current
+operation.  (You also need to call L</guestfs_set_pgroup> so that
+child processes don't receive the C<^C> signal).
+
+In a graphical program, when the main thread is displaying a progress
+bar with a cancel button, wire up the cancel button to call this
+function." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
