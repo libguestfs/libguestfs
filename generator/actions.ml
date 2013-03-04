@@ -2072,8 +2072,7 @@ returns successfully.  The call will not return until the
 filesystem is unmounted.
 
 B<Note> you must I<not> make concurrent libguestfs calls
-on the same handle from another thread,
-with the exception of C<guestfs_umount_local>.
+on the same handle from another thread.
 
 You may call this from a different thread than the one which
 called C<guestfs_mount_local>, subject to the usual rules
