@@ -31,7 +31,7 @@ let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
                  deprecated_by = None; optional = None;
                  progress = false; camel_name = "";
                  cancellable = false; config_only = false;
-                 once_had_no_optargs = false; blocking = true;
+                 once_had_no_optargs = false; blocking = true; wrapper = true;
                  c_name = ""; c_function = ""; c_optarg_prefix = "";
                  non_c_aliases = [] }
 

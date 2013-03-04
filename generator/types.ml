@@ -413,6 +413,12 @@ type action = {
                                      set flags in the handle are marked
                                      non-blocking so that we don't add
                                      machinery in various bindings. *)
+  wrapper : bool;                 (* For non-daemon functions, generate a
+                                     wrapper which calls the underlying
+                                     guestfs__<name> function.  The wrapper
+                                     checks arguments and deals with trace
+                                     messages.  Set this to false for functions
+                                     that have to be thread-safe. *)
 
   (* "Internal" data attached by the generator at various stages.  This
    * doesn't need to (and shouldn't) be set when defining actions.

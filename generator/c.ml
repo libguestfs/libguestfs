@@ -1290,8 +1290,11 @@ and generate_client_actions hash () =
   in
 
   List.iter (
-    fun f ->
+    function
+    | { wrapper = true } as f ->
       if hash_matches hash f then generate_non_daemon_wrapper f
+    | { wrapper = false } ->
+      () (* no wrapper *)
   ) non_daemon_functions;
 
   (* Client-side stubs for each function. *)

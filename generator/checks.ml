@@ -243,6 +243,15 @@ let () =
     | { blocking = true } -> ()
   ) daemon_functions;
 
+  (* Check wrapper flag is set on all daemon functions. *)
+  List.iter (
+    function
+    | { name = name; wrapper = false } ->
+      failwithf "%s: wrapper flag should be 'true' on this daemon function"
+        name
+    | { wrapper = true } -> ()
+  ) daemon_functions;
+
   (* Non-fish functions must have correct camel_name. *)
   List.iter (
     fun { name = name; camel_name = camel_name } ->
