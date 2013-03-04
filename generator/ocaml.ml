@@ -125,10 +125,6 @@ val last_errno : t -> int
     so if you want to capture the errno correctly, you must call this
     in the {!Error} exception handler, before any other operation on [g]. *)
 
-val user_cancel : t -> unit
-(** Cancel current transfer.  This is safe to call from OCaml signal
-    handlers and threads. *)
-
 ";
   generate_ocaml_structure_decls ();
 
@@ -186,7 +182,6 @@ class guestfs : ?environment:bool -> ?close_on_exit:bool -> unit -> object
   method set_event_callback : event_callback -> event list -> event_handle
   method delete_event_callback : event_handle -> unit
   method last_errno : unit -> int
-  method user_cancel : unit -> unit
   method ocaml_handle : t
 ";
 
@@ -258,8 +253,6 @@ external event_to_string : event list -> string
 
 external last_errno : t -> int = \"ocaml_guestfs_last_errno\"
 
-external user_cancel : t -> unit = \"ocaml_guestfs_user_cancel\" \"noalloc\"
-
 (* Give the exceptions names, so they can be raised from the C code. *)
 let () =
   Callback.register_exception \"ocaml_guestfs_error\" (Error \"\");
@@ -285,7 +278,6 @@ class guestfs ?environment ?close_on_exit () =
     method set_event_callback = set_event_callback g
     method delete_event_callback = delete_event_callback g
     method last_errno () = last_errno g
-    method user_cancel () = user_cancel g
     method ocaml_handle = g
 ";
 

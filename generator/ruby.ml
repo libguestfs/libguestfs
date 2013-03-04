@@ -403,26 +403,6 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   return r;
 }
 
-/*
- * call-seq:
- *   g.user_cancel() -> nil
- *
- * Call
- * +guestfs_user_cancel+[http://libguestfs.org/guestfs.3.html#guestfs_user_cancel]
- * to cancel the current transfer.  This is safe to call from Ruby
- * signal handlers and threads.
- */
-static VALUE
-ruby_user_cancel (VALUE gv)
-{
-  guestfs_h *g;
-
-  Data_Get_Struct (gv, guestfs_h, g);
-  if (g)
-    guestfs_user_cancel (g);
-  return Qnil;
-}
-
 ";
 
   List.iter (
@@ -731,8 +711,6 @@ Init__guestfs (void)
                     ruby_delete_event_callback, 1);
   rb_define_module_function (m_guestfs, \"event_to_string\",
                     ruby_event_to_string, 1);
-  rb_define_method (c_guestfs, \"user_cancel\",
-                    ruby_user_cancel, 0);
 
 ";
 

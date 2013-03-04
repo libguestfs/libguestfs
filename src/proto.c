@@ -1219,3 +1219,10 @@ receive_file_data (guestfs_h *g, void **buf_r)
 
   return chunk.data.data_len;
 }
+
+int
+guestfs_user_cancel (guestfs_h *g)
+{
+  g->user_cancel = 1;
+  return 0;
+}
