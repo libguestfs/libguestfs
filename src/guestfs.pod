@@ -1099,7 +1099,9 @@ to use libguestfs asynchronously then you must create a thread.
 
 Only use the handle from a single thread.  Either use the handle
 exclusively from one thread, or provide your own mutex so that two
-threads cannot issue calls on the same handle at the same time.
+threads cannot issue calls on the same handle at the same time.  Even
+apparently innocent functions like L</guestfs_get_trace> are I<not>
+safe to be called from multiple threads without a mutex.
 
 See the graphical program guestfs-browser for one possible
 architecture for multithreaded programs using libvirt and libguestfs.
