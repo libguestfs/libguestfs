@@ -246,11 +246,6 @@ struct guestfs_h
   struct hash_table *pda;
   struct pda_entry *pda_next;
 
-  /* Used by src/actions.c:trace_* functions. */
-  FILE *trace_fp;
-  char *trace_buf;
-  size_t trace_len;
-
   /* User cancelled transfer.  Not signal-atomic, but it doesn't
    * matter for this case because we only care if it is != 0.
    */
@@ -461,10 +456,17 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
   while (0)
 
 /* actions-support.c */
+struct trace_buffer {
+  FILE *fp;
+  char *buf;
+  size_t len;
+  bool opened;
+};
+
 extern int guestfs___check_reply_header (guestfs_h *g, const struct guestfs_message_header *hdr, unsigned int proc_nr, unsigned int serial);
 extern int guestfs___check_appliance_up (guestfs_h *g, const char *caller);
-extern FILE *guestfs___trace_open (guestfs_h *g);
-extern void guestfs___trace_send_line (guestfs_h *g);
+extern void guestfs___trace_open (struct trace_buffer *tb);
+extern void guestfs___trace_send_line (guestfs_h *g, struct trace_buffer *tb);
 
 /* match.c */
 extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);

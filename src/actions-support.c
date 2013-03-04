@@ -77,37 +77,31 @@ guestfs___check_appliance_up (guestfs_h *g, const char *caller)
 }
 
 /* Convenience wrapper for tracing. */
-FILE *
-guestfs___trace_open (guestfs_h *g)
+void
+guestfs___trace_open (struct trace_buffer *tb)
 {
-  assert (g->trace_fp == NULL);
-  g->trace_buf = NULL;
-  g->trace_len = 0;
-  g->trace_fp = open_memstream (&g->trace_buf, &g->trace_len);
-  if (g->trace_fp)
-    return g->trace_fp;
-  else
-    return stderr;
+  tb->buf = NULL;
+  tb->len = 0;
+  tb->fp = open_memstream (&tb->buf, &tb->len);
+  if (tb->fp)
+    tb->opened = true;
+  else {
+    tb->opened = false;
+    /* Fall back to writing messages to stderr. */
+    free (tb->buf);
+    tb->buf = NULL;
+    tb->fp = stderr;
+  }
 }
 
 void
-guestfs___trace_send_line (guestfs_h *g)
+guestfs___trace_send_line (guestfs_h *g, struct trace_buffer *tb)
 {
-  char *buf;
-  size_t len;
-
-  if (g->trace_fp) {
-    fclose (g->trace_fp);
-    g->trace_fp = NULL;
-
-    /* The callback might invoke other libguestfs calls, so keep
-     * a copy of the pointer to the buffer and length.
-     */
-    buf = g->trace_buf;
-    len = g->trace_len;
-    g->trace_buf = NULL;
-    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, buf, len);
-
-    free (buf);
+  if (tb->opened) {
+    fclose (tb->fp);
+    tb->fp = NULL;
+    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, tb->buf, tb->len);
+    free (tb->buf);
+    tb->buf = NULL;
   }
 }
