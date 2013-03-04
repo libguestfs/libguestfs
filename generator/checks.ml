@@ -234,7 +234,7 @@ let () =
       )
   ) (all_functions @ fish_commands);
 
-  (* Checking blocking flag is set on all daemon functions. *)
+  (* Check blocking flag is set on all daemon functions. *)
   List.iter (
     function
     | { name = name; blocking = false } ->
