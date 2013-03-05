@@ -192,6 +192,7 @@ HTMLFILES = \
 	html/guestfsd.8.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
+	html/guestunmount.1.html \
 	html/libguestfs-make-fixed-appliance.1.html \
 	html/libguestfs-test-tool.1.html \
 	html/virt-alignment-scan.1.html \
