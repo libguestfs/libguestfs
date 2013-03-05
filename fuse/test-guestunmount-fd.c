@@ -25,9 +25,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+
+#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -68,6 +71,7 @@ main (int argc, char *argv[])
 
   /* Parent continues. */
   close (pipefd[0]);
+  ignore_value (fcntl (pipefd[1], F_SETFD, FD_CLOEXEC));
 
   /* Sleep a bit and test that the guestunmount process is still running. */
   sleep (2);
