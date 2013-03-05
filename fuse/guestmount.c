@@ -118,6 +118,7 @@ usage (int status)
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  --live               Connect to a live virtual machine\n"
              "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
+             "  --no-fork            Don't daemonize\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -o|--option opt      Pass extra option to FUSE\n"
              "  --pid-file filename  Write PID to filename\n"
@@ -161,6 +162,7 @@ main (int argc, char *argv[])
     { "keys-from-stdin", 0, 0, 0 },
     { "live", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
+    { "no-fork", 0, 0, 0 },
     { "no-sync", 0, 0, 'n' },
     { "option", 1, 0, 'o' },
     { "pid-file", 1, 0, 0 },
@@ -234,6 +236,8 @@ main (int argc, char *argv[])
         live = 1;
       } else if (STREQ (long_options[option_index].name, "pid-file")) {
         pid_file = optarg;
+      } else if (STREQ (long_options[option_index].name, "no-fork")) {
+        do_fork = 0;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);

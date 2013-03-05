@@ -268,6 +268,10 @@ filesystem can support them:
 
  -m /dev/sda1:/:acl,user_xattr
 
+=item B<--no-fork>
+
+Don't daemonize (or fork into the background).
+
 =item B<-n>
 
 =item B<--no-sync>
@@ -363,7 +367,8 @@ See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 Trace libguestfs calls and entry into each FUSE function.
 
-This also stops the daemon from forking into the background.
+This also stops the daemon from forking into the background
+(see I<--no-fork>).
 
 =back
 
