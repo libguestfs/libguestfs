@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-14 18:41+0000\n"
+"POT-Creation-Date: 2013-03-05 19:54+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -58,7 +58,7 @@ msgstr "%s: не вдалося проаналізувати диск. Вище 
 #: align/domains.c:347 align/scan.c:123 cat/virt-cat.c:117
 #: cat/virt-filesystems.c:190 cat/virt-ls.c:182 df/domains.c:429 df/main.c:132
 #: edit/virt-edit.c:137 fish/fish.c:234 format/format.c:131
-#: fuse/guestmount.c:207 inspector/virt-inspector.c:131
+#: fuse/guestmount.c:207 inspector/virt-inspector.c:130
 #: rescue/virt-rescue.c:138
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -66,7 +66,7 @@ msgstr "guestfs_create: не вдалося створити елемент ке
 
 #: align/scan.c:60 cat/virt-cat.c:56 cat/virt-filesystems.c:87
 #: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:70 fish/fish.c:104
-#: fuse/guestmount.c:99 inspector/virt-inspector.c:69 rescue/virt-rescue.c:57
+#: fuse/guestmount.c:99 inspector/virt-inspector.c:68 rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -110,7 +110,7 @@ msgstr ""
 
 #: align/scan.c:143 cat/virt-cat.c:139 cat/virt-filesystems.c:244
 #: cat/virt-ls.c:232 df/main.c:156 edit/virt-edit.c:159 fish/fish.c:297
-#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:155
+#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:154
 #: rescue/virt-rescue.c:195
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -173,7 +173,7 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1712
+#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1692
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -3110,12 +3110,12 @@ msgstr ""
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1389
+#: fish/fish.c:1369
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1706
+#: fish/fish.c:1686
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -3125,7 +3125,7 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1726
+#: fish/fish.c:1706
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -3135,7 +3135,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1745
+#: fish/fish.c:1725
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3221,12 +3221,12 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: некоректний діапазон\n"
 
-#: fish/inspect.c:78
+#: fish/inspect.c:58
 #, c-format
 msgid "%s: don't use --live and -i options together\n"
 msgstr "%s: не використовуйте одразу параметри --live і -i\n"
 
-#: fish/inspect.c:91
+#: fish/inspect.c:71
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -3263,7 +3263,7 @@ msgstr ""
 "відповідними командами guestfish (докладний опис можна знайти\n"
 "на сторінках довідника (man) щодо інструмента віртуалізації).\n"
 
-#: fish/inspect.c:112
+#: fish/inspect.c:92
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -3302,17 +3302,17 @@ msgstr ""
 "(докладний опис можна знайти на сторінках довідника (man)\n"
 "щодо інструмента віртуалізації).\n"
 
-#: fish/inspect.c:170
+#: fish/inspect.c:151
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: деякі з файлових систем не вдалося змонтувати (проігноровано)\n"
 
-#: fish/inspect.c:186
+#: fish/inspect.c:167
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Операційна система: %s\n"
 
-#: fish/inspect.c:203
+#: fish/inspect.c:185
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s змонтовано до %s\n"
@@ -3750,7 +3750,7 @@ msgstr "%s: параметр --live несумісний з параметром
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: вам слід вказати точку монтування у основній файловій системі\n"
 
-#: inspector/virt-inspector.c:73
+#: inspector/virt-inspector.c:72
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -3791,12 +3791,12 @@ msgstr ""
 "  --xpath query        Виконати запит XPath\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: inspector/virt-inspector.c:242
+#: inspector/virt-inspector.c:241
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr "%s: не можна використовувати --xpath разом з іншими параметрами.\n"
 
-#: inspector/virt-inspector.c:276
+#: inspector/virt-inspector.c:275
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3826,52 +3826,52 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: inspector/virt-inspector.c:291
+#: inspector/virt-inspector.c:290
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: помилка запису XML у «%s»: %m\n"
 
-#: inspector/virt-inspector.c:303
+#: inspector/virt-inspector.c:302
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: не вдалося відкрити stdout\n"
 
-#: inspector/virt-inspector.c:312
+#: inspector/virt-inspector.c:311
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: не вдалося створити процес запису libxml2\n"
 
-#: inspector/virt-inspector.c:778
+#: inspector/virt-inspector.c:768
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr "%s: не вдалося обробити код XML з stdin\n"
 
-#: inspector/virt-inspector.c:784
+#: inspector/virt-inspector.c:774
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr "%s: не вдалося створити контекст XPath\n"
 
-#: inspector/virt-inspector.c:791
+#: inspector/virt-inspector.c:781
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr "%s: не вдалося обробити вираз XPath\n"
 
-#: inspector/virt-inspector.c:802
+#: inspector/virt-inspector.c:794
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr "%s: помилка xmlSaveToFd\n"
 
-#: inspector/virt-inspector.c:809
+#: inspector/virt-inspector.c:801
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr "%s: помилка xmlNewDoc\n"
 
-#: inspector/virt-inspector.c:814
+#: inspector/virt-inspector.c:806
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr "%s: помилка xmlCopyNode\n"
 
-#: inspector/virt-inspector.c:821
+#: inspector/virt-inspector.c:813
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr "%s: помилка xmlSaveDoc\n"
@@ -4086,7 +4086,7 @@ msgstr ""
 "libvirt. Щоб усунути цю незручність, для методу attach буде примусово "
 "вибрано «appliance».\n"
 
-#: rescue/virt-rescue.c:410
+#: rescue/virt-rescue.c:400
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -4095,7 +4095,7 @@ msgstr ""
 "Вивчення віртуальної машини або образу диска...\n"
 "\n"
 
-#: rescue/virt-rescue.c:429
+#: rescue/virt-rescue.c:419
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -4108,7 +4108,7 @@ msgstr ""
 "запит ><rescue>) для монтування файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:439
+#: rescue/virt-rescue.c:429
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -4121,7 +4121,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/virt-rescue.c:496
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -4131,7 +4131,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:503
+#: rescue/virt-rescue.c:493
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -4145,12 +4145,12 @@ msgstr ""
 "відповідь на запит ><rescue>) для монтування цих файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:508
+#: rescue/virt-rescue.c:498
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
 
-#: rescue/virt-rescue.c:713
+#: rescue/virt-rescue.c:703
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
@@ -4236,6 +4236,27 @@ msgstr ""
 "файлово-архітектурний програмний інтерфейс недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки libmagic"
 
+#: src/for-each-disk.c:83 src/libvirt-domain.c:331
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "помилка під час читання XML-даних libvirt: %s"
+
+#: src/for-each-disk.c:94 src/libvirt-domain.c:339
+msgid "unable to parse XML information returned by libvirt"
+msgstr "не вдалося обробити дані XML, повернуті libvirt"
+
+#: src/for-each-disk.c:100 src/launch-libvirt.c:522 src/libvirt-domain.c:345
+msgid "unable to create new XPath context"
+msgstr "не вдалося створити контекст XPath"
+
+#: src/for-each-disk.c:107 src/libvirt-domain.c:360
+msgid "unable to evaluate XPath expression"
+msgstr "не вдалося сформувати вираз XPath"
+
+#: src/for-each-disk.c:201
+msgid "libvirt domain has no disks"
+msgstr "у домені libvirt немає дисків"
+
 #: src/fuse.c:921
 msgid "filesystem is already mounted in another thread"
 msgstr "файлову систему вже змонтовано у іншому потоці виконання команд"
@@ -4295,6 +4316,10 @@ msgid ""
 msgstr ""
 "libguestfs було зібрано з некоректним типовим методом attach, будемо "
 "використовувати замість нього метод «appliance»"
+
+#: src/handle.c:206
+msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
+msgstr ""
 
 #: src/handle.c:260
 #, c-format
@@ -4374,7 +4399,7 @@ msgstr "не вдалося обробити рядок у лапках побл
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-appliance.c:669 src/launch-libvirt.c:439
+#: src/launch-appliance.c:669 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -4393,46 +4418,42 @@ msgstr ""
 "звернути увагу\n"
 "на помилки, повідомлення про які може бути наведено вище."
 
-#: src/launch-libvirt.c:167
+#: src/launch-libvirt.c:170
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 "у методі attach libvirt ще не передбачено підтримки прапорця безпосереднього "
 "режиму"
 
-#: src/launch-libvirt.c:174
+#: src/launch-libvirt.c:177
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 "щоб скористатися методом attach libvirt, вам слід встановити libvirt >= %d."
 "%d.%d"
 
-#: src/launch-libvirt.c:189
+#: src/launch-libvirt.c:192
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:205
+#: src/launch-libvirt.c:208
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:363
+#: src/launch-libvirt.c:372
 msgid "could not create appliance through libvirt"
 msgstr "не вдалося створити систему для розгортання за допомогою libvirt"
 
-#: src/launch-libvirt.c:507
+#: src/launch-libvirt.c:516
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:513 src/libvirt-domain.c:203 src/libvirt-domain.c:529
-msgid "unable to create new XPath context"
-msgstr "не вдалося створити контекст XPath"
-
-#: src/launch-libvirt.c:523
+#: src/launch-libvirt.c:532
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:553
+#: src/launch-libvirt.c:565
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4446,16 +4467,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:665
+#: src/launch-libvirt.c:713
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "помилка під час спроби побудувати XML для libvirt у «%s»"
 
-#: src/launch-libvirt.c:984
+#: src/launch-libvirt.c:1032
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr "підтримки параметра «iface» у методі attach libvirt не передбачено"
 
-#: src/launch-libvirt.c:1064
+#: src/launch-libvirt.c:1112
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4468,34 +4489,34 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1338
+#: src/launch-libvirt.c:1386
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr "qemu-img create: не вдалося створити знімок над %s"
 
-#: src/launch-libvirt.c:1365
+#: src/launch-libvirt.c:1413
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1410
+#: src/launch-libvirt.c:1458
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1442
+#: src/launch-libvirt.c:1490
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1494
+#: src/launch-libvirt.c:1551
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1523
+#: src/launch-libvirt.c:1580
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
-#: src/launch-libvirt.c:1569
+#: src/launch-libvirt.c:1626
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4630,7 +4651,7 @@ msgstr ""
 "Програмні інтерфейси розпізнавання libvirt недоступні, оскільки цю версію "
 "libguestfs було зібрано без підтримки libvirt або libxml2"
 
-#: src/libvirt-domain.c:93 src/libvirt-domain.c:391
+#: src/libvirt-domain.c:93 src/libvirt-domain.c:209
 msgid "you cannot set both live and readonly flags"
 msgstr "не можна одночасно встановлювати атрибути live і readonly"
 
@@ -4644,33 +4665,16 @@ msgstr "не вдалося встановити з’єднання з libvirt 
 msgid "no libvirt domain called '%s': %s"
 msgstr "не виявлено домену libvirt з назвою «%s»: %s"
 
-#: src/libvirt-domain.c:187 src/libvirt-domain.c:515
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "помилка під час читання XML-даних libvirt: %s"
-
-#: src/libvirt-domain.c:197 src/libvirt-domain.c:523
-msgid "unable to parse XML information returned by libvirt"
-msgstr "не вдалося обробити дані XML, повернуті libvirt"
-
-#: src/libvirt-domain.c:210 src/libvirt-domain.c:544
-msgid "unable to evaluate XPath expression"
-msgstr "не вдалося сформувати вираз XPath"
-
-#: src/libvirt-domain.c:319
-msgid "libvirt domain has no disks"
-msgstr "у домені libvirt немає дисків"
-
-#: src/libvirt-domain.c:385
+#: src/libvirt-domain.c:203
 msgid "unknown readonlydisk parameter"
 msgstr "невідомий параметр readonlydisk"
 
-#: src/libvirt-domain.c:402
+#: src/libvirt-domain.c:220
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "помилка під час отримання даних щодо домену: %s"
 
-#: src/libvirt-domain.c:416
+#: src/libvirt-domain.c:234
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4689,7 +4693,7 @@ msgstr ""
 "інструментів libguestfs є --ro і --live. Докладніші дані можна знайти у "
 "документації."
 
-#: src/libvirt-domain.c:481
+#: src/libvirt-domain.c:299
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
@@ -4698,7 +4702,7 @@ msgstr ""
 "%s: диск позначено теґом <readonly/> у XML libvirt, readonlydisk було "
 "встановлено у значення «error»"
 
-#: src/libvirt-domain.c:572
+#: src/libvirt-domain.c:390
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -4708,7 +4712,7 @@ msgstr ""
 "Докладнішу довідкову інформацію можна знайти у розділі ATTACHING TO RUNNING "
 "DAEMONS сторінки довідника (man) guestfs(3)."
 
-#: src/libvirt-domain.c:595
+#: src/libvirt-domain.c:403
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -4750,57 +4754,68 @@ msgstr ""
 msgid "See earlier debug messages.\n"
 msgstr "Ознайомтеся з попередніми діагностичними повідомленнями.\n"
 
-#: src/proto.c:573
+#: src/proto.c:492
+msgid ""
+"This usually means the libguestfs appliance crashed.  Please enable\n"
+"debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at the\n"
+"debug messages output prior to this error."
+msgstr ""
+
+#: src/proto.c:497
+msgid "See earlier debug messages."
+msgstr ""
+
+#: src/proto.c:596
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "отримано керівну послідовність байтів від guestfsd, але маємо стан %d"
 
-#: src/proto.c:592
+#: src/proto.c:615
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "довжина повідомлення (%u) перевищує максимальний можливий розмір (%d)"
 
-#: src/proto.c:791
+#: src/proto.c:814
 msgid "xdr_guestfs_message_header failed"
 msgstr "помилка xdr_guestfs_message_header"
 
-#: src/proto.c:800
+#: src/proto.c:823
 msgid "dispatch failed to marshal args"
 msgstr "помилка розподілу на основні аргументи"
 
-#: src/proto.c:891 src/proto.c:1175
+#: src/proto.c:914 src/proto.c:1203
 msgid "operation cancelled by user"
 msgstr "дію скасовано користувачем"
 
-#: src/proto.c:954
+#: src/proto.c:977
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "помилка xdr_guestfs_chunk (буфер = %p, довжина буфера = %zu)"
 
-#: src/proto.c:1104
+#: src/proto.c:1132
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: помилка у кодуванні фрагмента"
 
-#: src/proto.c:1132
+#: src/proto.c:1160
 msgid "write to daemon socket"
 msgstr "записати до сокета фонової служби"
 
-#: src/proto.c:1155
+#: src/proto.c:1183
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
 
-#: src/proto.c:1160
+#: src/proto.c:1188
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: під час читання фрагментів файла отримано неочікуване "
 "значення прапорця"
 
-#: src/proto.c:1168
+#: src/proto.c:1196
 msgid "failed to parse file chunk"
 msgstr "не вдалося обробити фрагмент файла"
 
-#: src/proto.c:1179
+#: src/proto.c:1207
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 
@@ -4858,13 +4873,13 @@ msgstr "libguestfs-test-tool: невідомий довгий запис пар�
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: некоректне значення часу очікування: %s\n"
 
-#: test-tool/test-tool.c:134 test-tool/test-tool.c:176
+#: test-tool/test-tool.c:134 test-tool/test-tool.c:181
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: не вдалося створити елемент керування libguestfs\n"
 
-#: test-tool/test-tool.c:139 test-tool/test-tool.c:234
+#: test-tool/test-tool.c:139 test-tool/test-tool.c:239
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: помилка guestfs_version\n"
@@ -4874,49 +4889,54 @@ msgstr "libguestfs-test-tool: помилка guestfs_version\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
 
-#: test-tool/test-tool.c:181
+#: test-tool/test-tool.c:162
+#, c-format
+msgid "libguestfs-test-tool: extra arguments on the command line\n"
+msgstr ""
+
+#: test-tool/test-tool.c:186
 #, c-format
 msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:226
+#: test-tool/test-tool.c:231
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: не вдалося додати пристрій «%s»\n"
 
-#: test-tool/test-tool.c:274
+#: test-tool/test-tool.c:279
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:286
+#: test-tool/test-tool.c:291
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: не вдалося запустити part-disk\n"
 
-#: test-tool/test-tool.c:292
+#: test-tool/test-tool.c:297
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:298
+#: test-tool/test-tool.c:303
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:305
+#: test-tool/test-tool.c:310
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: не вдалося виконати touch для файла\n"
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:316
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: спроба завершення роботи зазнала невдачі\n"
 
-#: test-tool/test-tool.c:344
+#: test-tool/test-tool.c:349
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4925,12 +4945,12 @@ msgstr ""
 "Значення змінної середовища LIBGUESTFS_QEMU вже встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:352
+#: test-tool/test-tool.c:357
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:369
+#: test-tool/test-tool.c:374
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"

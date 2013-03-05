@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-02-14 18:41+0000\n"
+"POT-Creation-Date: 2013-03-05 19:54+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -53,7 +53,7 @@ msgstr ""
 #: align/domains.c:347 align/scan.c:123 cat/virt-cat.c:117
 #: cat/virt-filesystems.c:190 cat/virt-ls.c:182 df/domains.c:429 df/main.c:132
 #: edit/virt-edit.c:137 fish/fish.c:234 format/format.c:131
-#: fuse/guestmount.c:207 inspector/virt-inspector.c:131
+#: fuse/guestmount.c:207 inspector/virt-inspector.c:130
 #: rescue/virt-rescue.c:138
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -61,7 +61,7 @@ msgstr "guestfs_create: సంభాలికను సృష్టించు�
 
 #: align/scan.c:60 cat/virt-cat.c:56 cat/virt-filesystems.c:87
 #: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:70 fish/fish.c:104
-#: fuse/guestmount.c:99 inspector/virt-inspector.c:69 rescue/virt-rescue.c:57
+#: fuse/guestmount.c:99 inspector/virt-inspector.c:68 rescue/virt-rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "అధిక సమాచారము కొరకు `%s --help' ప్రయత్నించండి\n"
@@ -89,7 +89,7 @@ msgstr ""
 
 #: align/scan.c:143 cat/virt-cat.c:139 cat/virt-filesystems.c:244
 #: cat/virt-ls.c:232 df/main.c:156 edit/virt-edit.c:159 fish/fish.c:297
-#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:155
+#: format/format.c:183 fuse/guestmount.c:238 inspector/virt-inspector.c:154
 #: rescue/virt-rescue.c:195
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -135,7 +135,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1712
+#: cat/virt-cat.c:355 edit/virt-edit.c:639 fish/fish.c:1692
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2829,26 +2829,26 @@ msgstr ""
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1389
+#: fish/fish.c:1369
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" స్ట్రింగునందు రన్‌యెవే స్ట్రింగ్\n"
 
-#: fish/fish.c:1706
+#: fish/fish.c:1686
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1726
+#: fish/fish.c:1706
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1745
+#: fish/fish.c:1725
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -2914,12 +2914,12 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr ""
 
-#: fish/inspect.c:78
+#: fish/inspect.c:58
 #, c-format
 msgid "%s: don't use --live and -i options together\n"
 msgstr ""
 
-#: fish/inspect.c:91
+#: fish/inspect.c:71
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -2938,7 +2938,7 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:112
+#: fish/inspect.c:92
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -2957,17 +2957,17 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:170
+#: fish/inspect.c:151
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 
-#: fish/inspect.c:186
+#: fish/inspect.c:167
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:203
+#: fish/inspect.c:185
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr ""
@@ -3315,7 +3315,7 @@ msgstr ""
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s:హోస్టు ఫైల్‌సిస్టమ్ నందు మీరు తప్పక వొక మౌంట్‌పాయింట్‌ను తెలుపవలెను\n"
 
-#: inspector/virt-inspector.c:73
+#: inspector/virt-inspector.c:72
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -3338,12 +3338,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:242
+#: inspector/virt-inspector.c:241
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:276
+#: inspector/virt-inspector.c:275
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3360,52 +3360,52 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:291
+#: inspector/virt-inspector.c:290
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:303
+#: inspector/virt-inspector.c:302
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:312
+#: inspector/virt-inspector.c:311
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:778
+#: inspector/virt-inspector.c:768
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:784
+#: inspector/virt-inspector.c:774
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:791
+#: inspector/virt-inspector.c:781
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:802
+#: inspector/virt-inspector.c:794
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:809
+#: inspector/virt-inspector.c:801
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:814
+#: inspector/virt-inspector.c:806
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:821
+#: inspector/virt-inspector.c:813
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
@@ -3579,14 +3579,14 @@ msgid ""
 "at the moment.  As a workaround, forcing attach-method = 'appliance'.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:410
+#: rescue/virt-rescue.c:400
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:429
+#: rescue/virt-rescue.c:419
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3594,7 +3594,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:439
+#: rescue/virt-rescue.c:429
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3603,7 +3603,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:496
+#: rescue/virt-rescue.c:486
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -3613,7 +3613,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:503
+#: rescue/virt-rescue.c:493
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3622,12 +3622,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:508
+#: rescue/virt-rescue.c:498
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:713
+#: rescue/virt-rescue.c:703
 #, c-format
 msgid "%s: unknown child exit status (%d)\n"
 msgstr ""
@@ -3702,6 +3702,27 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
+#: src/for-each-disk.c:83 src/libvirt-domain.c:331
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr ""
+
+#: src/for-each-disk.c:94 src/libvirt-domain.c:339
+msgid "unable to parse XML information returned by libvirt"
+msgstr ""
+
+#: src/for-each-disk.c:100 src/launch-libvirt.c:522 src/libvirt-domain.c:345
+msgid "unable to create new XPath context"
+msgstr ""
+
+#: src/for-each-disk.c:107 src/libvirt-domain.c:360
+msgid "unable to evaluate XPath expression"
+msgstr ""
+
+#: src/for-each-disk.c:201
+msgid "libvirt domain has no disks"
+msgstr ""
+
 #: src/fuse.c:921
 msgid "filesystem is already mounted in another thread"
 msgstr ""
@@ -3756,6 +3777,10 @@ msgstr ""
 msgid ""
 "libguestfs was built with an invalid default attach-method, using "
 "'appliance' instead"
+msgstr ""
+
+#: src/handle.c:206
+msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 #: src/handle.c:260
@@ -3832,7 +3857,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launchకు ముందుగా మీరు guestfs_add_driveను పిలువవలెను"
 
-#: src/launch-appliance.c:669 src/launch-libvirt.c:439
+#: src/launch-appliance.c:669 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
@@ -3843,42 +3868,38 @@ msgid ""
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch-libvirt.c:167
+#: src/launch-libvirt.c:170
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:174
+#: src/launch-libvirt.c:177
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:189
+#: src/launch-libvirt.c:192
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:205
+#: src/launch-libvirt.c:208
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:363
+#: src/launch-libvirt.c:372
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:507
+#: src/launch-libvirt.c:516
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:513 src/libvirt-domain.c:203 src/libvirt-domain.c:529
-msgid "unable to create new XPath context"
-msgstr ""
-
-#: src/launch-libvirt.c:523
+#: src/launch-libvirt.c:532
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:553
+#: src/launch-libvirt.c:565
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -3892,16 +3913,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:665
+#: src/launch-libvirt.c:713
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:984
+#: src/launch-libvirt.c:1032
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:1064
+#: src/launch-libvirt.c:1112
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -3909,34 +3930,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1338
+#: src/launch-libvirt.c:1386
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1365
+#: src/launch-libvirt.c:1413
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1410
+#: src/launch-libvirt.c:1458
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1442
+#: src/launch-libvirt.c:1490
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1494
+#: src/launch-libvirt.c:1551
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1523
+#: src/launch-libvirt.c:1580
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1569
+#: src/launch-libvirt.c:1626
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4053,7 +4074,7 @@ msgid ""
 "was compiled without libvirt or libxml2"
 msgstr ""
 
-#: src/libvirt-domain.c:93 src/libvirt-domain.c:391
+#: src/libvirt-domain.c:93 src/libvirt-domain.c:209
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
@@ -4067,33 +4088,16 @@ msgstr ""
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
 
-#: src/libvirt-domain.c:187 src/libvirt-domain.c:515
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr ""
-
-#: src/libvirt-domain.c:197 src/libvirt-domain.c:523
-msgid "unable to parse XML information returned by libvirt"
-msgstr ""
-
-#: src/libvirt-domain.c:210 src/libvirt-domain.c:544
-msgid "unable to evaluate XPath expression"
-msgstr ""
-
-#: src/libvirt-domain.c:319
-msgid "libvirt domain has no disks"
-msgstr ""
-
-#: src/libvirt-domain.c:385
+#: src/libvirt-domain.c:203
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/libvirt-domain.c:402
+#: src/libvirt-domain.c:220
 #, c-format
 msgid "error getting domain info: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:416
+#: src/libvirt-domain.c:234
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -4103,20 +4107,20 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:481
+#: src/libvirt-domain.c:299
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/libvirt-domain.c:572
+#: src/libvirt-domain.c:390
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:595
+#: src/libvirt-domain.c:403
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt or libxml2"
@@ -4149,55 +4153,66 @@ msgstr ""
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:573
+#: src/proto.c:492
+msgid ""
+"This usually means the libguestfs appliance crashed.  Please enable\n"
+"debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at the\n"
+"debug messages output prior to this error."
+msgstr ""
+
+#: src/proto.c:497
+msgid "See earlier debug messages."
+msgstr ""
+
+#: src/proto.c:596
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "స్థితి %d నందు, guestfsd నుండి చమత్కార సంతకము పొందబడింది"
 
-#: src/proto.c:592
+#: src/proto.c:615
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "సందేశము పొడవు (%u) > సాధ్యమగు గరిష్ట పరిమాణము (%d)"
 
-#: src/proto.c:791
+#: src/proto.c:814
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header విఫలమైంది"
 
-#: src/proto.c:800
+#: src/proto.c:823
 msgid "dispatch failed to marshal args"
 msgstr "మార్షల్ argsకు చేరవేత విఫలమైంది"
 
-#: src/proto.c:891 src/proto.c:1175
+#: src/proto.c:914 src/proto.c:1203
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:954
+#: src/proto.c:977
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk విఫలమైంది (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1104
+#: src/proto.c:1132
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: చంకడ్ ఎన్కోడింగ్ నందు దోషము"
 
-#: src/proto.c:1132
+#: src/proto.c:1160
 msgid "write to daemon socket"
 msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
 
-#: src/proto.c:1155
+#: src/proto.c:1183
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: రిప్లై కాల్‌బ్యాక్ నందు పార్శ్ దోషము"
 
-#: src/proto.c:1160
+#: src/proto.c:1188
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
-#: src/proto.c:1168
+#: src/proto.c:1196
 msgid "failed to parse file chunk"
 msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
 
-#: src/proto.c:1179
+#: src/proto.c:1207
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 
@@ -4243,12 +4258,12 @@ msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చ
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
 
-#: test-tool/test-tool.c:134 test-tool/test-tool.c:176
+#: test-tool/test-tool.c:134 test-tool/test-tool.c:181
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:139 test-tool/test-tool.c:234
+#: test-tool/test-tool.c:139 test-tool/test-tool.c:239
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
@@ -4258,49 +4273,54 @@ msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
 
-#: test-tool/test-tool.c:181
+#: test-tool/test-tool.c:162
+#, c-format
+msgid "libguestfs-test-tool: extra arguments on the command line\n"
+msgstr ""
+
+#: test-tool/test-tool.c:186
 #, c-format
 msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:226
+#: test-tool/test-tool.c:231
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: డ్రైవ్ '%s' జతచేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:274
+#: test-tool/test-tool.c:279
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ఉపకరణము ఆరంభించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:286
+#: test-tool/test-tool.c:291
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:292
+#: test-tool/test-tool.c:297
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2కు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:298
+#: test-tool/test-tool.c:303
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1ను /పై మౌంట్ చేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:305
+#: test-tool/test-tool.c:310
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:316
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:344
+#: test-tool/test-tool.c:349
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -4309,12 +4329,12 @@ msgstr ""
 "LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ వేరియబుల్ యిప్పటికే అమర్చబడింది, అందువలన\n"
 "--qemu/--qemudir ఐచ్చికములు వుపయోగించలేము.\n"
 
-#: test-tool/test-tool.c:352
+#: test-tool/test-tool.c:357
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
 
-#: test-tool/test-tool.c:369
+#: test-tool/test-tool.c:374
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
