@@ -128,6 +128,8 @@ struct libvirt_xml_params {
 
 static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct libvirt_xml_params *params);
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params);
+static void debug_appliance_permissions (guestfs_h *g);
+static void debug_socket_permissions (guestfs_h *g);
 static void libvirt_error (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 static int is_custom_qemu (guestfs_h *g);
 static int is_blk (const char *path);
@@ -354,6 +356,12 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   xml = construct_libvirt_xml (g, &params);
   if (!xml)
     goto cleanup;
+
+  /* Debug permissions and SELinux contexts on appliance and sockets. */
+  if (g->verbose) {
+    debug_appliance_permissions (g);
+    debug_socket_permissions (g);
+  }
 
   /* Launch the libvirt guest. */
   if (g->verbose)
@@ -644,6 +652,46 @@ clear_socket_create_context (guestfs_h *g)
 }
 
 #endif /* !HAVE_LIBSELINUX */
+
+static void
+debug_permissions_cb (guestfs_h *g, void *data, const char *line, size_t len)
+{
+  debug (g, "%s", line);
+}
+
+static void
+debug_appliance_permissions (guestfs_h *g)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_FREE char *cachedir = guestfs_get_cachedir (g);
+  CLEANUP_FREE char *appliance = NULL;
+
+  appliance = safe_asprintf (g, "%s/.guestfs-%d", cachedir, geteuid ());
+
+  guestfs___cmd_add_arg (cmd, "ls");
+  guestfs___cmd_add_arg (cmd, "-a");
+  guestfs___cmd_add_arg (cmd, "-l");
+  guestfs___cmd_add_arg (cmd, "-Z");
+  guestfs___cmd_add_arg (cmd, appliance);
+  guestfs___cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
+  guestfs___cmd_run (cmd);
+}
+
+static void
+debug_socket_permissions (guestfs_h *g)
+{
+  if (g->tmpdir) {
+    CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+
+    guestfs___cmd_add_arg (cmd, "ls");
+    guestfs___cmd_add_arg (cmd, "-a");
+    guestfs___cmd_add_arg (cmd, "-l");
+    guestfs___cmd_add_arg (cmd, "-Z");
+    guestfs___cmd_add_arg (cmd, g->tmpdir);
+    guestfs___cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
+    guestfs___cmd_run (cmd);
+  }
+}
 
 static int construct_libvirt_xml_domain (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_name (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
