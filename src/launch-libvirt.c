@@ -123,7 +123,7 @@ struct libvirt_xml_params {
   char console_sock[UNIX_PATH_MAX];
   bool enable_svirt;            /* false if we decided to disable sVirt */
   bool is_kvm;                  /* false = qemu, true = kvm */
-  bool is_root;                 /* true = euid is root */
+  bool current_proc_is_root;    /* true = euid is root */
 };
 
 static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct libvirt_xml_params *params);
@@ -161,7 +161,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   struct drive *drv;
   size_t i;
 
-  params.is_root = geteuid () == 0;
+  params.current_proc_is_root = geteuid () == 0;
 
   /* XXX: It should be possible to make this work. */
   if (g->direct) {
@@ -309,13 +309,24 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   /* libvirt, if running as root, will run the qemu process as
    * qemu.qemu, which means it won't be able to access the socket.
    * There are roughly three things that get in the way:
+   *
    * (1) Permissions of the socket.
-   * (2) Permissions of the parent directory(-ies).  Remember this
-   *     if $TMPDIR is located in your home directory.
-   * (3) SELinux/sVirt will prevent access.  libvirt ought to
-   *     label the socket.
+   *
+   * (2) Permissions of the parent directory(-ies).  Remember this if
+   *     $TMPDIR is located in your home directory.
+   *
+   * (3) SELinux/sVirt will prevent access.  libvirt ought to label
+   *     the socket.
+   *
+   * Note that the 'current_proc_is_root' flag here just means that we
+   * are root.  It's also possible for non-root user to try to use the
+   * system libvirtd by specifying a qemu:///system URI (RHBZ#913774)
+   * but there's no sane way to test for that.
    */
-  if (params.is_root) {
+  if (params.current_proc_is_root) {
+    /* Current process is root, so try to create sockets that are
+     * owned by root.qemu with mode 0660 and hence accessible to qemu.
+     */
     struct group *grp;
 
     if (chmod (params.guestfsd_sock, 0660) == -1) {
