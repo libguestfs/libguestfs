@@ -318,12 +318,12 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   if (params.is_root) {
     struct group *grp;
 
-    if (chmod (params.guestfsd_sock, 0775) == -1) {
+    if (chmod (params.guestfsd_sock, 0660) == -1) {
       perrorf (g, "chmod: %s", params.guestfsd_sock);
       goto cleanup;
     }
 
-    if (chmod (params.console_sock, 0775) == -1) {
+    if (chmod (params.console_sock, 0660) == -1) {
       perrorf (g, "chmod: %s", params.console_sock);
       goto cleanup;
     }
