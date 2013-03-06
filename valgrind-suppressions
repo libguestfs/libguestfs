@@ -252,3 +252,12 @@
    ...
    fun:_dl_init
 }
+
+# Memory leak in libselinux (RHBZ#918572).
+{
+   libselinux_leak
+   Memcheck:Leak
+   ...
+   # Really this is 'setsockcreatecon'
+   fun:setprocattrcon.constprop.2
+}
