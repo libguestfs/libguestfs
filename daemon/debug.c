@@ -73,6 +73,7 @@ static char *debug_qtrace (const char *subcmd, size_t argc, char *const *const a
 static char *debug_segv (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_setenv (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_spew (const char *subcmd, size_t argc, char *const *const argv);
 static void deliberately_cause_a_segfault (void);
 
 static struct cmd cmds[] = {
@@ -89,6 +90,7 @@ static struct cmd cmds[] = {
   { "segv", debug_segv },
   { "setenv", debug_setenv },
   { "sh", debug_sh },
+  { "spew", debug_spew },
   { NULL, NULL }
 };
 
@@ -540,6 +542,42 @@ debug_core_pattern (const char *subcmd, size_t argc, char *const *const argv)
 
   char *ret = strdup ("ok");
   if (NULL == ret) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;
+}
+
+/* Generate lots of debug messages.  Each line of output is 72
+ * characters long (plus '\n'), so the total size of the output in
+ * bytes is n*73.
+ */
+static char *
+debug_spew (const char *subcmd, size_t argc, char *const *const argv)
+{
+  size_t i, n;
+  char *ret;
+
+  if (argc != 1) {
+    reply_with_error ("spew: expecting number of lines <n>");
+    return NULL;
+  }
+
+  if (sscanf (argv[0], "%zu", &n) != 1) {
+    reply_with_error ("spew: could not parse number of lines '%s'", argv[0]);
+    return NULL;
+  }
+
+  for (i = 0; i < n; ++i)
+    fprintf (stderr,
+             "abcdefghijklmnopqrstuvwxyz" /* 26 */
+             "ABCDEFGHIJKLMNOPQRSTUVWXYZ" /* 52 */
+             "01234567890123456789" /* 72 */
+             "\n");
+
+  ret = strdup ("ok");
+  if (!ret) {
     reply_with_perror ("strdup");
     return NULL;
   }
