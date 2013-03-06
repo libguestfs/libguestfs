@@ -371,8 +371,8 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
  * It also checks for EOF (qemu died) and passes that up through the
  * child_cleanup function above.
  */
-int
-guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
+static int
+send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
 {
   const char *buf = v_buf;
   fd_set rset, rset2;
@@ -838,7 +838,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
   xdr_uint32_t (&xdr, &len);
 
  again:
-  r = guestfs___send_to_daemon (g, msg_out, msg_out_size);
+  r = send_to_daemon (g, msg_out, msg_out_size);
   if (r == -2)                  /* Ignore stray daemon cancellations. */
     goto again;
   if (r == -1)
@@ -990,7 +990,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   xdrmem_create (&xdr, msg_out, 4, XDR_ENCODE);
   xdr_uint32_t (&xdr, &len);
 
-  r = guestfs___send_to_daemon (g, msg_out, msg_out_size);
+  r = send_to_daemon (g, msg_out, msg_out_size);
 
   /* Did the daemon send a cancellation message? */
   if (r == -2) {
