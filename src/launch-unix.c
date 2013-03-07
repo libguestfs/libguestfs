@@ -49,13 +49,13 @@ launch_unix (guestfs_h *g, const char *sockpath)
   /* Set this to nothing so we don't try to read from a random file
    * descriptor.
    */
-  g->fd = -1;
+  g->console_sock = -1;
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "connecting to %s", sockpath);
 
-  g->sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
-  if (g->sock == -1) {
+  g->daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
+  if (g->daemon_sock == -1) {
     perrorf (g, "socket");
     return -1;
   }
@@ -66,12 +66,12 @@ launch_unix (guestfs_h *g, const char *sockpath)
 
   g->state = LAUNCHING;
 
-  if (connect (g->sock, &addr, sizeof addr) == -1) {
+  if (connect (g->daemon_sock, &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup;
   }
 
-  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
     perrorf (g, "fcntl");
     goto cleanup;
   }
@@ -97,14 +97,14 @@ launch_unix (guestfs_h *g, const char *sockpath)
   return 0;
 
  cleanup:
-  close (g->sock);
+  close (g->daemon_sock);
   return -1;
 }
 
 static int
 shutdown_unix (guestfs_h *g, int check_for_errors)
 {
-  /* Merely closing g->sock is sufficient and that is already done
+  /* Merely closing g->daemon_sock is sufficient and that is already done
    * in the calling code.
    */
   return 0;

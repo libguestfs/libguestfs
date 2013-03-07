@@ -258,13 +258,13 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   set_socket_create_context (g);
 
-  g->sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
-  if (g->sock == -1) {
+  g->daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
+  if (g->daemon_sock == -1) {
     perrorf (g, "socket");
     goto cleanup;
   }
 
-  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
     perrorf (g, "fcntl");
     goto cleanup;
   }
@@ -272,12 +272,12 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   addr.sun_family = AF_UNIX;
   memcpy (addr.sun_path, params.guestfsd_sock, UNIX_PATH_MAX);
 
-  if (bind (g->sock, &addr, sizeof addr) == -1) {
+  if (bind (g->daemon_sock, &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup;
   }
 
-  if (listen (g->sock, 1) == -1) {
+  if (listen (g->daemon_sock, 1) == -1) {
     perrorf (g, "listen");
     goto cleanup;
   }
@@ -399,7 +399,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     goto cleanup;
   }
   console = -1;
-  g->fd = r;                /* This is the accepted console socket. */
+  g->console_sock = r;      /* This is the accepted console socket. */
 
   /* Wait for libvirt domain to start and to connect back to us via
    * virtio-serial and send the GUESTFS_LAUNCH_FLAG message.
@@ -416,15 +416,15 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    */
 
   /* Close the listening socket. */
-  if (close (g->sock) == -1) {
+  if (close (g->daemon_sock) == -1) {
     perrorf (g, "close: listening socket");
     close (r);
-    g->sock = -1;
+    g->daemon_sock = -1;
     goto cleanup;
   }
-  g->sock = r; /* This is the accepted data socket. */
+  g->daemon_sock = r; /* This is the accepted data socket. */
 
-  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
     perrorf (g, "fcntl");
     goto cleanup;
   }
@@ -475,13 +475,13 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   if (console >= 0)
     close (console);
-  if (g->fd >= 0) {
-    close (g->fd);
-    g->fd = -1;
+  if (g->console_sock >= 0) {
+    close (g->console_sock);
+    g->console_sock = -1;
   }
-  if (g->sock >= 0) {
-    close (g->sock);
-    g->sock = -1;
+  if (g->daemon_sock >= 0) {
+    close (g->daemon_sock);
+    g->daemon_sock = -1;
   }
 
   if (dom) {

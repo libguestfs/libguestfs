@@ -161,10 +161,10 @@ child_cleanup (guestfs_h *g)
   debug (g, "child_cleanup: %p: child process died", g);
 
   g->attach_ops->shutdown (g, 0);
-  if (g->fd >= 0) close (g->fd);
-  close (g->sock);
-  g->fd = -1;
-  g->sock = -1;
+  if (g->console_sock >= 0) close (g->console_sock);
+  close (g->daemon_sock);
+  g->console_sock = -1;
+  g->daemon_sock = -1;
   memset (&g->launch_t, 0, sizeof g->launch_t);
   guestfs___free_drives (g);
   g->state = CONFIG;
@@ -383,12 +383,12 @@ send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
   FD_ZERO (&rset);
   FD_ZERO (&wset);
 
-  if (g->fd >= 0)               /* Read qemu stdout for log messages & EOF. */
-    FD_SET (g->fd, &rset);
-  FD_SET (g->sock, &rset);      /* Read socket for cancellation & EOF. */
-  FD_SET (g->sock, &wset);      /* Write to socket to send the data. */
+  if (g->console_sock >= 0) /* Read qemu stdout for log messages & EOF. */
+    FD_SET (g->console_sock, &rset);
+  FD_SET (g->daemon_sock, &rset); /* Read socket for cancellation & EOF. */
+  FD_SET (g->daemon_sock, &wset); /* Write to socket to send the data. */
 
-  int max_fd = MAX (g->sock, g->fd);
+  int max_fd = MAX (g->daemon_sock, g->console_sock);
 
   while (n > 0) {
     rset2 = rset;
@@ -401,12 +401,12 @@ send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
       return -1;
     }
 
-    if (g->fd >= 0 && FD_ISSET (g->fd, &rset2)) {
-      if (read_log_message_or_eof (g, g->fd, 0) == -1)
+    if (g->console_sock >= 0 && FD_ISSET (g->console_sock, &rset2)) {
+      if (read_log_message_or_eof (g, g->console_sock, 0) == -1)
         return -1;
     }
-    if (FD_ISSET (g->sock, &rset2)) {
-      r = check_for_daemon_cancellation_or_eof (g, g->sock);
+    if (FD_ISSET (g->daemon_sock, &rset2)) {
+      r = check_for_daemon_cancellation_or_eof (g, g->daemon_sock);
       if (r == -1)
 	return r;
       if (r == -2) {
@@ -414,15 +414,15 @@ send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
 	 * synchronization we must write out the remainder of the
 	 * write buffer before we return (RHBZ#576879).
 	 */
-	if (xwrite (g->sock, buf, n) == -1) {
+	if (xwrite (g->daemon_sock, buf, n) == -1) {
 	  perrorf (g, "write");
 	  return -1;
 	}
 	return -2; /* cancelled */
       }
     }
-    if (FD_ISSET (g->sock, &wset2)) {
-      r = write (g->sock, buf, n);
+    if (FD_ISSET (g->daemon_sock, &wset2)) {
+      r = write (g->daemon_sock, buf, n);
       if (r == -1) {
         if (errno == EINTR || errno == EAGAIN)
           continue;
@@ -507,18 +507,18 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
    * socket connection just before this function is called, so just
    * return an error if this happens.
    */
-  if (g->sock == -1) {
+  if (g->daemon_sock == -1) {
     unexpected_closed_connection_from_daemon_error (g);
     return -1;
   }
 
   FD_ZERO (&rset);
 
-  if (g->fd >= 0)               /* Read qemu stdout for log messages & EOF. */
-    FD_SET (g->fd, &rset);
-  FD_SET (g->sock, &rset);      /* Read socket for data & EOF. */
+  if (g->console_sock >= 0) /* Read qemu stdout for log messages & EOF. */
+    FD_SET (g->console_sock, &rset);
+  FD_SET (g->daemon_sock, &rset); /* Read socket for data & EOF. */
 
-  max_fd = MAX (g->sock, g->fd);
+  max_fd = MAX (g->daemon_sock, g->console_sock);
 
   *size_rtn = 0;
   *buf_rtn = NULL;
@@ -546,16 +546,16 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
       return -1;
     }
 
-    if (g->fd >= 0 && FD_ISSET (g->fd, &rset2)) {
-      if (read_log_message_or_eof (g, g->fd, 0) == -1) {
+    if (g->console_sock >= 0 && FD_ISSET (g->console_sock, &rset2)) {
+      if (read_log_message_or_eof (g, g->console_sock, 0) == -1) {
         free (*buf_rtn);
         *buf_rtn = NULL;
         return -1;
       }
     }
-    if (FD_ISSET (g->sock, &rset2)) {
+    if (FD_ISSET (g->daemon_sock, &rset2)) {
       if (nr < 0) {    /* Have we read the message length word yet? */
-        r = read (g->sock, lenbuf+nr+4, -nr);
+        r = read (g->daemon_sock, lenbuf+nr+4, -nr);
         if (r == -1) {
           if (errno == EINTR || errno == EAGAIN)
             continue;
@@ -623,7 +623,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
       size_t sizetoread = message_size - nr;
       if (sizetoread > BUFSIZ) sizetoread = BUFSIZ;
 
-      r = read (g->sock, (char *) (*buf_rtn) + nr, sizetoread);
+      r = read (g->daemon_sock, (char *) (*buf_rtn) + nr, sizetoread);
       if (r == -1) {
         if (errno == EINTR || errno == EAGAIN)
           continue;
@@ -712,7 +712,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
   return 0;
 }
 
-/* This is very much like recv_from_daemon above, but g->sock is
+/* This is very much like recv_from_daemon above, but g->daemon_sock is
  * a listening socket and we are accepting a new connection on
  * that socket instead of reading anything.  Returns the newly
  * accepted socket.
@@ -726,11 +726,11 @@ guestfs___accept_from_daemon (guestfs_h *g)
 
   FD_ZERO (&rset);
 
-  if (g->fd >= 0)               /* Read qemu stdout for log messages & EOF. */
-    FD_SET (g->fd, &rset);
-  FD_SET (g->sock, &rset);      /* Read socket for accept. */
+  if (g->console_sock >= 0) /* Read qemu stdout for log messages & EOF. */
+    FD_SET (g->console_sock, &rset);
+  FD_SET (g->daemon_sock, &rset); /* Read socket for accept. */
 
-  int max_fd = MAX (g->sock, g->fd);
+  int max_fd = MAX (g->daemon_sock, g->console_sock);
   int sock = -1;
 
   while (sock == -1) {
@@ -758,12 +758,12 @@ guestfs___accept_from_daemon (guestfs_h *g)
       return -1;
     }
 
-    if (g->fd >= 0 && FD_ISSET (g->fd, &rset2)) {
-      if (read_log_message_or_eof (g, g->fd, 1) == -1)
+    if (g->console_sock >= 0 && FD_ISSET (g->console_sock, &rset2)) {
+      if (read_log_message_or_eof (g, g->console_sock, 1) == -1)
         return -1;
     }
-    if (FD_ISSET (g->sock, &rset2)) {
-      sock = accept4 (g->sock, NULL, NULL, SOCK_CLOEXEC);
+    if (FD_ISSET (g->daemon_sock, &rset2)) {
+      sock = accept4 (g->daemon_sock, NULL, NULL, SOCK_CLOEXEC);
       if (sock == -1) {
         if (errno == EINTR || errno == EAGAIN)
           continue;
@@ -1154,7 +1154,7 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
   xdr_uint32_t (&xdr, &flag);
   xdr_destroy (&xdr);
 
-  if (xwrite (g->sock, fbuf, sizeof fbuf) == -1) {
+  if (xwrite (g->daemon_sock, fbuf, sizeof fbuf) == -1) {
     perrorf (g, _("write to daemon socket"));
     return -1;
   }

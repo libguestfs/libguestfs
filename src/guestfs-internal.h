@@ -263,8 +263,8 @@ struct guestfs_h
   int unique;
 
   /*** Protocol. ***/
-  int fd;			/* Stdin/stdout of qemu. */
-  int sock;			/* Daemon communications socket. */
+  int console_sock;          /* Appliance console (for debug info). */
+  int daemon_sock;           /* Daemon communications socket. */
   int msg_next_serial;
 
 #if HAVE_FUSE

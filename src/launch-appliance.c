@@ -210,13 +210,13 @@ launch_appliance (guestfs_h *g, const char *arg)
   snprintf (guestfsd_sock, sizeof guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
   unlink (guestfsd_sock);
 
-  g->sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
-  if (g->sock == -1) {
+  g->daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
+  if (g->daemon_sock == -1) {
     perrorf (g, "socket");
     goto cleanup0;
   }
 
-  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
     perrorf (g, "fcntl");
     goto cleanup0;
   }
@@ -225,12 +225,12 @@ launch_appliance (guestfs_h *g, const char *arg)
   strncpy (addr.sun_path, guestfsd_sock, UNIX_PATH_MAX);
   addr.sun_path[UNIX_PATH_MAX-1] = '\0';
 
-  if (bind (g->sock, &addr, sizeof addr) == -1) {
+  if (bind (g->daemon_sock, &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup0;
   }
 
-  if (listen (g->sock, 1) == -1) {
+  if (listen (g->daemon_sock, 1) == -1) {
     perrorf (g, "listen");
     goto cleanup0;
   }
@@ -611,7 +611,7 @@ launch_appliance (guestfs_h *g, const char *arg)
       goto cleanup1;
     }
 
-    g->fd = sv[0];		/* stdin of child */
+    g->console_sock = sv[0];    /* stdin of child */
     sv[0] = -1;
   }
 
@@ -632,15 +632,15 @@ launch_appliance (guestfs_h *g, const char *arg)
    */
 
   /* Close the listening socket. */
-  if (close (g->sock) != 0) {
+  if (close (g->daemon_sock) != 0) {
     perrorf (g, "close: listening socket");
     close (r);
-    g->sock = -1;
+    g->daemon_sock = -1;
     goto cleanup1;
   }
-  g->sock = r; /* This is the accepted data socket. */
+  g->daemon_sock = r; /* This is the accepted data socket. */
 
-  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
     perrorf (g, "fcntl");
     goto cleanup1;
   }
@@ -686,16 +686,16 @@ launch_appliance (guestfs_h *g, const char *arg)
   if (g->app.recoverypid > 0) kill (g->app.recoverypid, 9);
   if (g->app.pid > 0) waitpid (g->app.pid, NULL, 0);
   if (g->app.recoverypid > 0) waitpid (g->app.recoverypid, NULL, 0);
-  if (g->fd >= 0) close (g->fd);
-  g->fd = -1;
+  if (g->console_sock >= 0) close (g->console_sock);
+  g->console_sock = -1;
   g->app.pid = 0;
   g->app.recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
 
  cleanup0:
-  if (g->sock >= 0) {
-    close (g->sock);
-    g->sock = -1;
+  if (g->daemon_sock >= 0) {
+    close (g->daemon_sock);
+    g->daemon_sock = -1;
   }
   g->state = CONFIG;
   return -1;
