@@ -98,6 +98,7 @@ launch_unix (guestfs_h *g, const char *sockpath)
 
  cleanup:
   close (g->daemon_sock);
+  g->daemon_sock = -1;
   return -1;
 }
 
