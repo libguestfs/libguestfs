@@ -42,9 +42,9 @@
 #include "estimate-max-threads.h"
 #include "parallel.h"
 
-#define DEBUG_PARALLEL 0
-
 #if defined(HAVE_LIBVIRT)
+
+#define DEBUG_PARALLEL 0
 
 /* Maximum number of threads we would ever run.  Note this should not
  * be > 20, unless libvirt is modified to increase the maximum number
