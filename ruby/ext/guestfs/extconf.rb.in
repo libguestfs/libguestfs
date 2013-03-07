@@ -34,4 +34,4 @@ $CFLAGS =
   "@WARN_CFLAGS@ @WERROR_CFLAGS@"
 
 create_header
-create_makefile(extension_name)
+create_makefile(extension_name, "@abs_srcdir@")

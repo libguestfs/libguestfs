@@ -29,7 +29,6 @@ EXTRA_DIST = \
 	Rakefile.in \
 	README.rdoc \
 	doc/site/index.html \
-	ext/guestfs/extconf.rb \
 	lib/guestfs.rb \
 	run-bindtests \
 	run-ruby-tests \
