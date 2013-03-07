@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-05 14:46+0000\n"
+"POT-Creation-Date: 2013-03-07 21:49+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -3829,6 +3829,26 @@ msgstr "सुरक्षा: कॅश्ड् अप्लायंस् %s
 msgid "external command failed, see earlier error messages"
 msgstr "बाहेरिल आदेश अपयशी, मागील त्रुटी संदेश पहा"
 
+#: src/conn-socket.c:59
+msgid "accept_connection called twice"
+msgstr ""
+
+#: src/conn-socket.c:130
+msgid "read_data: socket not connected"
+msgstr ""
+
+#: src/conn-socket.c:195
+msgid "can_read_data: socket not connected"
+msgstr ""
+
+#: src/conn-socket.c:224
+msgid "write_data: socket not connected"
+msgstr ""
+
+#: src/conn-socket.c:317
+msgid "error reading console messages from the appliance"
+msgstr ""
+
 #: src/dbdump.c:85
 #, c-format
 msgid "%s: command failed"
@@ -3923,17 +3943,17 @@ msgstr ""
 msgid "FUSE not supported"
 msgstr ""
 
-#: src/handle.c:121
+#: src/handle.c:119
 msgid ""
 "libguestfs was built with an invalid default attach-method, using "
 "'appliance' instead"
 msgstr ""
 
-#: src/handle.c:206
+#: src/handle.c:204
 msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:260
+#: src/handle.c:258
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: एकाच हँडलवर दोनवेळा कॉल केले\n"
@@ -3995,50 +4015,50 @@ msgstr ""
 "%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट साधणसह "
 "फंक्शनद्वारेच कॉल करा"
 
-#: src/launch-appliance.c:132
+#: src/launch-appliance.c:133
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-appliance.c:151
+#: src/launch-appliance.c:152
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-appliance.c:182
+#: src/launch-appliance.c:184
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch-appliance.c:669 src/launch-libvirt.c:440
+#: src/launch-appliance.c:658 src/launch-libvirt.c:446
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch-appliance.c:798
+#: src/launch-appliance.c:785
 msgid ""
 "qemu command failed\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
 "environment variable.  There may also be errors printed above."
 msgstr ""
 
-#: src/launch-libvirt.c:168
+#: src/launch-libvirt.c:171
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:175
+#: src/launch-libvirt.c:178
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:190
+#: src/launch-libvirt.c:193
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:206
+#: src/launch-libvirt.c:209
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:364
+#: src/launch-libvirt.c:379
 msgid "could not create appliance through libvirt"
 msgstr ""
 
@@ -4070,16 +4090,16 @@ msgid ""
 "or read the guestfs(3) man page"
 msgstr ""
 
-#: src/launch-libvirt.c:666
+#: src/launch-libvirt.c:706
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1010
+#: src/launch-libvirt.c:1050
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:1094
+#: src/launch-libvirt.c:1134
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -4087,34 +4107,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1387
+#: src/launch-libvirt.c:1427
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1424
+#: src/launch-libvirt.c:1464
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1470
+#: src/launch-libvirt.c:1510
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1502
+#: src/launch-libvirt.c:1542
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1563
+#: src/launch-libvirt.c:1603
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1592
+#: src/launch-libvirt.c:1632
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1638
+#: src/launch-libvirt.c:1678
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4125,11 +4145,11 @@ msgstr ""
 msgid "cannot set qemu parameters with the 'unix:' attach method"
 msgstr ""
 
-#: src/launch-unix.c:86
+#: src/launch-unix.c:82
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "guestfs_launch अपयशी, guestfsd पासून अनपेक्षित प्रारंभिक संदेश आढळले"
 
-#: src/launch-unix.c:94
+#: src/launch-unix.c:90
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd सह संपर्क केले, परंतु state != READY"
 
@@ -4184,23 +4204,38 @@ msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुट
 #: src/launch.c:700
 msgid ""
 "guestfs_launch failed.\n"
+"This usually means the libguestfs appliance failed to start or crashed.\n"
 "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"and/or run 'libguestfs-test-tool'."
+"or run 'libguestfs-test-tool' and post the *complete* output into a\n"
+"bug report or message to the libguestfs mailing list."
 msgstr ""
 
-#: src/launch.c:709
+#: src/launch.c:712
+msgid ""
+"appliance closed the connection unexpectedly, see earlier error messages"
+msgstr ""
+
+#: src/launch.c:714
+msgid ""
+"appliance closed the connection unexpectedly.\n"
+"This usually means the libguestfs appliance crashed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"for information about how to debug libguestfs and report bugs."
+msgstr ""
+
+#: src/launch.c:724
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:715
+#: src/launch.c:730
 msgid "the current attach-method does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:728
+#: src/launch.c:743
 msgid "the current attach-method does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:740
+#: src/launch.c:755
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
@@ -4327,84 +4362,62 @@ msgstr ""
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
 
-#: src/proto.c:354
+#: src/proto.c:201
 #, c-format
 msgid ""
-"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
-msgstr ""
-"check_for_daemon_cancellation_or_eof: डिमन पासून 0x%x वाचा, 0x%x अपेक्षीत\n"
-
-#: src/proto.c:476
-msgid ""
-"This usually means the libguestfs appliance failed to start up.  Please\n"
-"enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
-"the debug messages output prior to this error.\n"
+"check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
+"synchronization (bad!)\n"
 msgstr ""
 
-#: src/proto.c:482
-msgid "See earlier debug messages.\n"
-msgstr ""
-
-#: src/proto.c:492
-msgid ""
-"This usually means the libguestfs appliance crashed.  Please enable\n"
-"debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at the\n"
-"debug messages output prior to this error."
-msgstr ""
-
-#: src/proto.c:497
-msgid "See earlier debug messages."
-msgstr ""
-
-#: src/proto.c:596
-#, c-format
-msgid "received magic signature from guestfsd, but in state %d"
-msgstr "guestfsd पासून मॅजीक स्वाक्षरी प्राप्त, परंतु स्तर %d असे आढळले"
-
-#: src/proto.c:615
-#, c-format
-msgid "message length (%u) > maximum possible size (%d)"
-msgstr "संदेश लांबी (%u) > कमाल शक्य आकार (%d)"
-
-#: src/proto.c:814
+#: src/proto.c:247
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header अपयशी"
 
-#: src/proto.c:823
+#: src/proto.c:256
 msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
-#: src/proto.c:914 src/proto.c:1203
+#: src/proto.c:363 src/proto.c:848
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:977
+#: src/proto.c:426
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk अपयशी (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1132
+#: src/proto.c:523
+#, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr "guestfsd पासून मॅजीक स्वाक्षरी प्राप्त, परंतु स्तर %d असे आढळले"
+
+#: src/proto.c:542
+#, c-format
+msgid "message length (%u) > maximum possible size (%d)"
+msgstr "संदेश लांबी (%u) > कमाल शक्य आकार (%d)"
+
+#: src/proto.c:777
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: चंक्ड् एनकोडिंग मध्ये त्रुटी आढळली"
 
-#: src/proto.c:1160
+#: src/proto.c:805
 msgid "write to daemon socket"
 msgstr "डिमक सॉकट मध्ये लिहा"
 
-#: src/proto.c:1183
+#: src/proto.c:828
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: कॉलबॅक प्रतिसाद वाचतेवेळी त्रुटी"
 
-#: src/proto.c:1188
+#: src/proto.c:833
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: फाइल खंड वाचतेवेळी अनपेक्षीत फ्लॅग प्राप्त झाले"
 
-#: src/proto.c:1196
+#: src/proto.c:841
 msgid "failed to parse file chunk"
 msgstr "फाइल खंड वाचण्यास अपयशी"
 
-#: src/proto.c:1207
+#: src/proto.c:852
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
@@ -5820,6 +5833,12 @@ msgstr ""
 #: ../sparsify/sparsify.ml:131 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
+
+#~ msgid ""
+#~ "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x"
+#~ "%x\n"
+#~ msgstr ""
+#~ "check_for_daemon_cancellation_or_eof: डिमन पासून 0x%x वाचा, 0x%x अपेक्षीत\n"
 
 #~ msgid ""
 #~ "%s: display free space on virtual filesystems\n"
