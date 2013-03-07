@@ -66,7 +66,7 @@ MANPAGES = \
 	virt-tar-out.1 \
 	virt-win-reg.1
 
-podfiles := $(shell for f in `cat ../podfiles`; do basename $$f; done)
+podfiles := $(shell for f in `cat $(top_srcdir)/po-docs/podfiles`; do basename $$f; done)
 
 # Ship the POD files and the translated manpages in the tarball.  This
 # just simplifies building from the tarball, at a small cost in extra
@@ -83,9 +83,9 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 	  --man $@ \
 	  --section 3 \
 	  --license LGPLv2+ \
-	  --insert $(srcdir)/guestfs-actions.pod:__ACTIONS__ \
-	  --insert $(srcdir)/guestfs-availability.pod:__AVAILABILITY__ \
-	  --insert $(srcdir)/guestfs-structs.pod:__STRUCTS__ \
+	  --insert $(builddir)/guestfs-actions.pod:__ACTIONS__ \
+	  --insert $(builddir)/guestfs-availability.pod:__AVAILABILITY__ \
+	  --insert $(builddir)/guestfs-structs.pod:__STRUCTS__ \
 	  $<
 
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
@@ -93,8 +93,8 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	  --no-strict-checks \
 	  --man $@ \
 	  --license GPLv2+ \
-	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
-	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
+	  --insert $(builddir)/guestfish-actions.pod:__ACTIONS__ \
+	  --insert $(builddir)/guestfish-commands.pod:__FISH_COMMANDS__ \
 	  $<
 
 virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod
@@ -102,8 +102,8 @@ virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.po
 	  --no-strict-checks \
 	  --man $@ \
 	  --license GPLv2+ \
-          --insert sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
-          --insert sysprep-operations.pod:__OPERATIONS__ \
+          --insert $(builddir)/sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
+          --insert $(builddir)/sysprep-operations.pod:__OPERATIONS__ \
 	  $<
 
 %.1: %.pod
