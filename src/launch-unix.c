@@ -46,11 +46,10 @@ launch_unix (guestfs_h *g, const char *sockpath)
     return -1;
   }
 
-  /* Set these to nothing so we don't try to read from random file
-   * descriptors.
+  /* Set this to nothing so we don't try to read from a random file
+   * descriptor.
    */
-  g->fd[0] = -1;
-  g->fd[1] = -1;
+  g->fd = -1;
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "connecting to %s", sockpath);

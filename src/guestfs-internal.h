@@ -263,7 +263,7 @@ struct guestfs_h
   int unique;
 
   /*** Protocol. ***/
-  int fd[2];			/* Stdin/stdout of qemu. */
+  int fd;			/* Stdin/stdout of qemu. */
   int sock;			/* Daemon communications socket. */
   int msg_next_serial;
 

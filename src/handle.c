@@ -91,8 +91,7 @@ guestfs_create_flags (unsigned flags, ...)
 
   g->state = CONFIG;
 
-  g->fd[0] = -1;
-  g->fd[1] = -1;
+  g->fd = -1;
   g->sock = -1;
 
   guestfs___init_error_handler (g);
@@ -367,14 +366,11 @@ shutdown_backend (guestfs_h *g, int check_for_errors)
   }
 
   /* Close sockets. */
-  if (g->fd[0] >= 0)
-    close (g->fd[0]);
-  if (g->fd[1] >= 0)
-    close (g->fd[1]);
+  if (g->fd >= 0)
+    close (g->fd);
   if (g->sock >= 0)
     close (g->sock);
-  g->fd[0] = -1;
-  g->fd[1] = -1;
+  g->fd = -1;
   g->sock = -1;
 
   if (g->attach_ops->shutdown (g, check_for_errors) == -1)

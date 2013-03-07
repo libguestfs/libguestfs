@@ -167,7 +167,7 @@ static int
 launch_appliance (guestfs_h *g, const char *arg)
 {
   int r;
-  int wfd[2], rfd[2];
+  int sv[2];
   char guestfsd_sock[256];
   struct sockaddr_un addr;
   CLEANUP_FREE char *kernel = NULL, *initrd = NULL, *appliance = NULL;
@@ -235,8 +235,8 @@ launch_appliance (guestfs_h *g, const char *arg)
   }
 
   if (!g->direct) {
-    if (pipe (wfd) == -1 || pipe (rfd) == -1) {
-      perrorf (g, "pipe");
+    if (socketpair (AF_LOCAL, SOCK_STREAM, 0, sv) == -1) {
+      perrorf (g, "socketpair");
       goto cleanup0;
     }
   }
@@ -248,10 +248,8 @@ launch_appliance (guestfs_h *g, const char *arg)
   if (r == -1) {
     perrorf (g, "fork");
     if (!g->direct) {
-      close (wfd[0]);
-      close (wfd[1]);
-      close (rfd[0]);
-      close (rfd[1]);
+      close (sv[0]);
+      close (sv[1]);
     }
     goto cleanup0;
   }
@@ -484,17 +482,16 @@ launch_appliance (guestfs_h *g, const char *arg)
       /* Set up stdin, stdout, stderr. */
       close (0);
       close (1);
-      close (wfd[1]);
-      close (rfd[0]);
+      close (sv[0]);
 
       /* Stdin. */
-      if (dup (wfd[0]) == -1) {
+      if (dup (sv[1]) == -1) {
       dup_failed:
         perror ("dup failed");
         _exit (EXIT_FAILURE);
       }
       /* Stdout. */
-      if (dup (rfd[1]) == -1)
+      if (dup (sv[1]) == -1)
         goto dup_failed;
 
       /* Particularly since qemu 0.15, qemu spews all sorts of debug
@@ -502,11 +499,10 @@ launch_appliance (guestfs_h *g, const char *arg)
        * not confuse casual users, so send stderr to the pipe as well.
        */
       close (2);
-      if (dup (rfd[1]) == -1)
+      if (dup (sv[1]) == -1)
         goto dup_failed;
 
-      close (wfd[0]);
-      close (rfd[1]);
+      close (sv[1]);
     }
 
     /* Dump the command line (after setting up stderr above). */
@@ -600,19 +596,16 @@ launch_appliance (guestfs_h *g, const char *arg)
   }
 
   if (!g->direct) {
-    /* Close the other ends of the pipe. */
-    close (wfd[0]);
-    close (rfd[1]);
+    /* Close the other end of the socketpair. */
+    close (sv[1]);
 
-    if (fcntl (wfd[1], F_SETFL, O_NONBLOCK) == -1 ||
-        fcntl (rfd[0], F_SETFL, O_NONBLOCK) == -1) {
+    if (fcntl (sv[0], F_SETFL, O_NONBLOCK) == -1) {
       perrorf (g, "fcntl");
       goto cleanup1;
     }
 
-    g->fd[0] = wfd[1];		/* stdin of child */
-    g->fd[1] = rfd[0];		/* stdout of child */
-    wfd[1] = rfd[0] = -1;
+    g->fd = sv[0];		/* stdin of child */
+    sv[0] = -1;
   }
 
   g->state = LAUNCHING;
@@ -680,18 +673,14 @@ launch_appliance (guestfs_h *g, const char *arg)
   return 0;
 
  cleanup1:
-  if (!g->direct) {
-    if (wfd[1] >= 0) close (wfd[1]);
-    if (rfd[1] >= 0) close (rfd[0]);
-  }
+  if (!g->direct && sv[0] >= 0)
+    close (sv[0]);
   if (g->app.pid > 0) kill (g->app.pid, 9);
   if (g->app.recoverypid > 0) kill (g->app.recoverypid, 9);
   if (g->app.pid > 0) waitpid (g->app.pid, NULL, 0);
   if (g->app.recoverypid > 0) waitpid (g->app.recoverypid, NULL, 0);
-  if (g->fd[0] >= 0) close (g->fd[0]);
-  if (g->fd[1] >= 0) close (g->fd[1]);
-  g->fd[0] = -1;
-  g->fd[1] = -1;
+  if (g->fd >= 0) close (g->fd);
+  g->fd = -1;
   g->app.pid = 0;
   g->app.recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);

@@ -399,13 +399,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
     goto cleanup;
   }
   console = -1;
-  g->fd[0] = r; /* This is the accepted console socket. */
-
-  g->fd[1] = dup (g->fd[0]);
-  if (g->fd[1] == -1) {
-    perrorf (g, "dup");
-    goto cleanup;
-  }
+  g->fd = r;                /* This is the accepted console socket. */
 
   /* Wait for libvirt domain to start and to connect back to us via
    * virtio-serial and send the GUESTFS_LAUNCH_FLAG message.
@@ -481,13 +475,9 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   if (console >= 0)
     close (console);
-  if (g->fd[0] >= 0) {
-    close (g->fd[0]);
-    g->fd[0] = -1;
-  }
-  if (g->fd[1] >= 0) {
-    close (g->fd[1]);
-    g->fd[1] = -1;
+  if (g->fd >= 0) {
+    close (g->fd);
+    g->fd = -1;
   }
   if (g->sock >= 0) {
     close (g->sock);
