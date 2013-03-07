@@ -33,6 +33,7 @@
 
 #include <pcre.h>
 
+#include "cloexec.h"
 #include "ignore-value.h"
 
 #include "guestfs.h"
@@ -235,7 +236,7 @@ launch_appliance (guestfs_h *g, const char *arg)
   }
 
   if (!g->direct) {
-    if (socketpair (AF_LOCAL, SOCK_STREAM, 0, sv) == -1) {
+    if (socketpair (AF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC, 0, sv) == -1) {
       perrorf (g, "socketpair");
       goto cleanup0;
     }
@@ -483,6 +484,12 @@ launch_appliance (guestfs_h *g, const char *arg)
       close (0);
       close (1);
       close (sv[0]);
+
+      /* We set the FD_CLOEXEC flag on the socket above, but now (in
+       * the child) it's safe to unset this flag so qemu can use the
+       * socket.
+       */
+      set_cloexec_flag (sv[1], 0);
 
       /* Stdin. */
       if (dup (sv[1]) == -1) {
