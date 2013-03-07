@@ -167,6 +167,7 @@ add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
 static int
 launch_appliance (guestfs_h *g, const char *arg)
 {
+  int daemon_accept_sock = -1, console_sock = -1;
   int r;
   int sv[2];
   char guestfsd_sock[256];
@@ -210,14 +211,9 @@ launch_appliance (guestfs_h *g, const char *arg)
   snprintf (guestfsd_sock, sizeof guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
   unlink (guestfsd_sock);
 
-  g->daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
-  if (g->daemon_sock == -1) {
+  daemon_accept_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
+  if (daemon_accept_sock == -1) {
     perrorf (g, "socket");
-    goto cleanup0;
-  }
-
-  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
-    perrorf (g, "fcntl");
     goto cleanup0;
   }
 
@@ -225,12 +221,12 @@ launch_appliance (guestfs_h *g, const char *arg)
   strncpy (addr.sun_path, guestfsd_sock, UNIX_PATH_MAX);
   addr.sun_path[UNIX_PATH_MAX-1] = '\0';
 
-  if (bind (g->daemon_sock, &addr, sizeof addr) == -1) {
+  if (bind (daemon_accept_sock, &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup0;
   }
 
-  if (listen (g->daemon_sock, 1) == -1) {
+  if (listen (daemon_accept_sock, 1) == -1) {
     perrorf (g, "listen");
     goto cleanup0;
   }
@@ -606,12 +602,7 @@ launch_appliance (guestfs_h *g, const char *arg)
     /* Close the other end of the socketpair. */
     close (sv[1]);
 
-    if (fcntl (sv[0], F_SETFL, O_NONBLOCK) == -1) {
-      perrorf (g, "fcntl");
-      goto cleanup1;
-    }
-
-    g->console_sock = sv[0];    /* stdin of child */
+    console_sock = sv[0];       /* stdin of child */
     sv[0] = -1;
   }
 
@@ -620,9 +611,21 @@ launch_appliance (guestfs_h *g, const char *arg)
   /* Wait for qemu to start and to connect back to us via
    * virtio-serial and send the GUESTFS_LAUNCH_FLAG message.
    */
-  r = guestfs___accept_from_daemon (g);
+  g->conn =
+    guestfs___new_conn_socket_listening (g, daemon_accept_sock, console_sock);
+  if (!g->conn)
+    goto cleanup1;
+
+  /* g->conn now owns these sockets. */
+  daemon_accept_sock = console_sock = -1;
+
+  r = g->conn->ops->accept_connection (g, g->conn);
   if (r == -1)
     goto cleanup1;
+  if (r == 0) {
+    guestfs___launch_failed_error (g);
+    goto cleanup1;
+  }
 
   /* NB: We reach here just because qemu has opened the socket.  It
    * does not mean the daemon is up until we read the
@@ -630,20 +633,6 @@ launch_appliance (guestfs_h *g, const char *arg)
    * happen even if we reach here, even early failures like not being
    * able to open a drive.
    */
-
-  /* Close the listening socket. */
-  if (close (g->daemon_sock) != 0) {
-    perrorf (g, "close: listening socket");
-    close (r);
-    g->daemon_sock = -1;
-    goto cleanup1;
-  }
-  g->daemon_sock = r; /* This is the accepted data socket. */
-
-  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
-    perrorf (g, "fcntl");
-    goto cleanup1;
-  }
 
   r = guestfs___recv_from_daemon (g, &size, &buf);
 
@@ -686,16 +675,18 @@ launch_appliance (guestfs_h *g, const char *arg)
   if (g->app.recoverypid > 0) kill (g->app.recoverypid, 9);
   if (g->app.pid > 0) waitpid (g->app.pid, NULL, 0);
   if (g->app.recoverypid > 0) waitpid (g->app.recoverypid, NULL, 0);
-  if (g->console_sock >= 0) close (g->console_sock);
-  g->console_sock = -1;
   g->app.pid = 0;
   g->app.recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
 
  cleanup0:
-  if (g->daemon_sock >= 0) {
-    close (g->daemon_sock);
-    g->daemon_sock = -1;
+  if (daemon_accept_sock >= 0)
+    close (daemon_accept_sock);
+  if (console_sock >= 0)
+    close (console_sock);
+  if (g->conn) {
+    g->conn->ops->free_connection (g, g->conn);
+    g->conn = NULL;
   }
   g->state = CONFIG;
   return -1;

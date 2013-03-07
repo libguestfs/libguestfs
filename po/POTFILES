@@ -241,6 +241,7 @@ src/canonical-name.c
 src/cleanup-structs.c
 src/cleanup.c
 src/command.c
+src/conn-socket.c
 src/dbdump.c
 src/errnostring-gperf.c
 src/errnostring.c

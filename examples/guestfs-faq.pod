@@ -142,6 +142,9 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=806106>.
 
 =head2 "child process died unexpectedly"
 
+[This error message was changed in libguestfs 1.21.18 to something
+more explanatory.]
+
 This error indicates that qemu failed or the host kernel could not boot.
 To get further information about the failure, you have to run:
 

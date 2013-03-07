@@ -176,11 +176,12 @@ start_thread (void *vi)
     pthread_exit (vi);
   }
 
-  /* If this happens, it indicates a bug/race in the appliance
-   * building code which is what this regression test is designed to
-   * spot.
+  /* The error message should match the one printed by
+   * guestfs___launch_failed_error.  If not, it indicates a bug/race
+   * in the appliance building code which is what this regression test
+   * is designed to spot.
    */
-  if (STRNEQ (error, "child process died unexpectedly")) {
+  if (strstr (error, "guestfs_launch failed") == NULL) {
     fprintf (stderr, "rhbz790721: [thread %d]: error: %s\n", thread_id, error);
     *(int *)vi = -1;
     pthread_exit (vi);

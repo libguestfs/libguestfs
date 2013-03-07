@@ -36,7 +36,7 @@
 static int
 launch_unix (guestfs_h *g, const char *sockpath)
 {
-  int r;
+  int r, daemon_sock = -1;
   struct sockaddr_un addr;
   uint32_t size;
   void *buf = NULL;
@@ -46,16 +46,11 @@ launch_unix (guestfs_h *g, const char *sockpath)
     return -1;
   }
 
-  /* Set this to nothing so we don't try to read from a random file
-   * descriptor.
-   */
-  g->console_sock = -1;
-
   if (g->verbose)
     guestfs___print_timestamped_message (g, "connecting to %s", sockpath);
 
-  g->daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
-  if (g->daemon_sock == -1) {
+  daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
+  if (daemon_sock == -1) {
     perrorf (g, "socket");
     return -1;
   }
@@ -66,20 +61,22 @@ launch_unix (guestfs_h *g, const char *sockpath)
 
   g->state = LAUNCHING;
 
-  if (connect (g->daemon_sock, &addr, sizeof addr) == -1) {
+  if (connect (daemon_sock, &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup;
   }
 
-  if (fcntl (g->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
-    perrorf (g, "fcntl");
+  g->conn = guestfs___new_conn_socket_connected (g, daemon_sock, -1);
+  if (!g->conn)
     goto cleanup;
-  }
+
+  /* g->conn now owns this socket. */
+  daemon_sock = -1;
 
   r = guestfs___recv_from_daemon (g, &size, &buf);
   free (buf);
 
-  if (r == -1) return -1;
+  if (r == -1) goto cleanup;
 
   if (size != GUESTFS_LAUNCH_FLAG) {
     error (g, _("guestfs_launch failed, unexpected initial message from guestfsd"));
@@ -97,8 +94,12 @@ launch_unix (guestfs_h *g, const char *sockpath)
   return 0;
 
  cleanup:
-  close (g->daemon_sock);
-  g->daemon_sock = -1;
+  if (daemon_sock >= 0)
+    close (daemon_sock);
+  if (g->conn) {
+    g->conn->ops->free_connection (g, g->conn);
+    g->conn = NULL;
+  }
   return -1;
 }
 

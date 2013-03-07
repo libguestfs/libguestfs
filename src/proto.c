@@ -30,10 +30,7 @@
 #include <time.h>
 #include <errno.h>
 #include <sys/stat.h>
-#include <sys/select.h>
-#include <sys/socket.h>
 #include <sys/types.h>
-#include <sys/un.h>
 #include <sys/wait.h>
 #include <assert.h>
 
@@ -86,12 +83,10 @@
  * this in the current API, but they would be implemented as a
  * combination of cases (3) and (4).
  *
- * During all writes and reads, we also select(2) on qemu stdout
- * looking for messages (guestfsd stderr and guest kernel dmesg), and
- * anything received is passed up through the log_message_cb.  This is
- * also the reason why all the sockets are non-blocking.  We also have
- * to check for EOF (qemu died).  All of this is handled by the
- * functions send_to_daemon and recv_from_daemon.
+ * All read/write/etc operations are performed using the current
+ * connection module (g->conn).  During operations the connection
+ * module transparently handles log messages that appear on the
+ * console.
  */
 
 /* This is called if we detect EOF, ie. qemu died. */
@@ -101,123 +96,14 @@ child_cleanup (guestfs_h *g)
   debug (g, "child_cleanup: %p: child process died", g);
 
   g->attach_ops->shutdown (g, 0);
-  if (g->console_sock >= 0) close (g->console_sock);
-  close (g->daemon_sock);
-  g->console_sock = -1;
-  g->daemon_sock = -1;
+  if (g->conn) {
+    g->conn->ops->free_connection (g, g->conn);
+    g->conn = NULL;
+  }
   memset (&g->launch_t, 0, sizeof g->launch_t);
   guestfs___free_drives (g);
   g->state = CONFIG;
   guestfs___call_callbacks_void (g, GUESTFS_EVENT_SUBPROCESS_QUIT);
-}
-
-static int
-read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
-{
-  char buf[BUFSIZ];
-  ssize_t n;
-
-  /* QEMU's console emulates a 16550A serial port.  The real 16550A
-   * device has a small FIFO buffer (16 bytes) which means here we see
-   * lots of small reads of 1-16 bytes in length, usually single
-   * bytes.  Sleeping here for a very brief period groups reads
-   * together (so we usually get a few lines of output at once) and
-   * improves overall throughput, as well as making the event
-   * interface a bit more sane for callers.  With a virtio-serial
-   * based console (not yet implemented) we may be able to remove
-   * this.  XXX
-   */
-  usleep (1000);
-
-  n = read (fd, buf, sizeof buf);
-  if (n == 0) {
-    /* Hopefully this indicates the qemu child process has died. */
-    child_cleanup (g);
-
-    if (error_if_eof) {
-      /* We weren't expecting eof here (called from launch) so place
-       * something in the error buffer.  RHBZ#588851.
-       */
-      error (g, "child process died unexpectedly");
-    }
-    return -1;
-  }
-
-  if (n == -1) {
-    if (errno == EINTR || errno == EAGAIN)
-      return 0;
-
-    perrorf (g, "read");
-    return -1;
-  }
-
-  /* It's an actual log message, send it upwards if anyone is listening. */
-  guestfs___call_callbacks_message (g, GUESTFS_EVENT_APPLIANCE, buf, n);
-
-  /* This is a gross hack.  See the comment above
-   * guestfs___launch_send_progress.
-   */
-  if (g->state == LAUNCHING) {
-    const char *sentinel;
-    size_t len;
-
-    sentinel = "Linux version"; /* kernel up */
-    len = strlen (sentinel);
-    if (memmem (buf, n, sentinel, len) != NULL)
-      guestfs___launch_send_progress (g, 6);
-
-    sentinel = "Starting /init script"; /* /init running */
-    len = strlen (sentinel);
-    if (memmem (buf, n, sentinel, len) != NULL)
-      guestfs___launch_send_progress (g, 9);
-  }
-
-  return 0;
-}
-
-/* Read 'n' bytes, setting the socket to blocking temporarily so
- * that we really read the number of bytes requested.
- * Returns:  0 == EOF while reading
- *          -1 == error, error() function has been called
- *           n == read 'n' bytes in full
- */
-static ssize_t
-really_read_from_socket (guestfs_h *g, int sock, char *buf, size_t n)
-{
-  long flags;
-  ssize_t r;
-  size_t got;
-
-  /* Set socket to blocking. */
-  flags = fcntl (sock, F_GETFL);
-  if (flags == -1) {
-    perrorf (g, "fcntl");
-    return -1;
-  }
-  if (fcntl (sock, F_SETFL, flags & ~O_NONBLOCK) == -1) {
-    perrorf (g, "fcntl");
-    return -1;
-  }
-
-  got = 0;
-  while (got < n) {
-    r = read (sock, &buf[got], n-got);
-    if (r == -1) {
-      perrorf (g, "read");
-      return -1;
-    }
-    if (r == 0)
-      return 0; /* EOF */
-    got += r;
-  }
-
-  /* Restore original socket flags. */
-  if (fcntl (sock, F_SETFL, flags) == -1) {
-    perrorf (g, "fcntl");
-    return -1;
-  }
-
-  return (ssize_t) got;
 }
 
 /* Convenient wrapper to generate a progress message callback. */
@@ -236,22 +122,32 @@ guestfs___progress_message_callback (guestfs_h *g,
                                   array, sizeof array / sizeof array[0]);
 }
 
-static int
-check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
+/* Before writing to the daemon socket, check the read side of the
+ * daemon socket for any of these conditions:
+ *
+ *   - error:                       return -1
+ *   - daemon cancellation message: return -2
+ *   - progress message:            handle it here
+ *   - end of input / appliance exited unexpectedly: return 0
+ *   - anything else:               return 1
+ */
+static ssize_t
+check_daemon_socket (guestfs_h *g)
 {
   char buf[4];
   ssize_t n;
   uint32_t flag;
   XDR xdr;
 
-  n = really_read_from_socket (g, fd, buf, 4);
-  if (n == -1)
-    return -1;
-  if (n == 0) {
-    /* Hopefully this indicates the qemu child process has died. */
-    child_cleanup (g);
-    return -1;
-  }
+  assert (g->conn); /* callers must check this */
+
+ again:
+  if (! g->conn->ops->can_read_data (g, g->conn))
+    return 1;
+
+  n = g->conn->ops->read_data (g, g->conn, buf, 4);
+  if (n <= 0) /* 0 or -1 */
+    return n;
 
   xdrmem_create (&xdr, buf, 4, XDR_DECODE);
   xdr_uint32_t (&xdr, &flag);
@@ -262,13 +158,9 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
     char buf[PROGRESS_MESSAGE_SIZE];
     guestfs_progress message;
 
-    n = really_read_from_socket (g, fd, buf, PROGRESS_MESSAGE_SIZE);
-    if (n == -1)
-      return -1;
-    if (n == 0) {
-      child_cleanup (g);
-      return -1;
-    }
+    n = g->conn->ops->read_data (g, g->conn, buf, PROGRESS_MESSAGE_SIZE);
+    if (n <= 0) /* 0 or -1 */
+      return n;
 
     xdrmem_create (&xdr, buf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
     xdr_guestfs_progress (&xdr, &message);
@@ -276,427 +168,16 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
 
     guestfs___progress_message_callback (g, &message);
 
-    return 0;
+    goto again;
   }
 
   if (flag != GUESTFS_CANCEL_FLAG) {
-    error (g, _("check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"),
+    error (g, _("check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol synchronization (bad!)\n"),
            flag, GUESTFS_CANCEL_FLAG);
     return -1;
   }
 
   return -2;
-}
-
-/* This writes the whole N bytes of BUF to the daemon socket.
- *
- * If the whole write is successful, it returns 0.
- * If there was an error, it returns -1.
- * If the daemon sent a cancellation message, it returns -2.
- *
- * It also checks qemu stdout for log messages and passes those up
- * through log_message_cb.
- *
- * It also checks for EOF (qemu died) and passes that up through the
- * child_cleanup function above.
- */
-static int
-send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
-{
-  const char *buf = v_buf;
-  fd_set rset, rset2;
-  fd_set wset, wset2;
-
-  FD_ZERO (&rset);
-  FD_ZERO (&wset);
-
-  if (g->console_sock >= 0) /* Read qemu stdout for log messages & EOF. */
-    FD_SET (g->console_sock, &rset);
-  FD_SET (g->daemon_sock, &rset); /* Read socket for cancellation & EOF. */
-  FD_SET (g->daemon_sock, &wset); /* Write to socket to send the data. */
-
-  int max_fd = MAX (g->daemon_sock, g->console_sock);
-
-  while (n > 0) {
-    rset2 = rset;
-    wset2 = wset;
-    int r = select (max_fd+1, &rset2, &wset2, NULL, NULL);
-    if (r == -1) {
-      if (errno == EINTR || errno == EAGAIN)
-        continue;
-      perrorf (g, "select");
-      return -1;
-    }
-
-    if (g->console_sock >= 0 && FD_ISSET (g->console_sock, &rset2)) {
-      if (read_log_message_or_eof (g, g->console_sock, 0) == -1)
-        return -1;
-    }
-    if (FD_ISSET (g->daemon_sock, &rset2)) {
-      r = check_for_daemon_cancellation_or_eof (g, g->daemon_sock);
-      if (r == -1)
-	return r;
-      if (r == -2) {
-	/* Daemon sent cancel message.  But to maintain
-	 * synchronization we must write out the remainder of the
-	 * write buffer before we return (RHBZ#576879).
-	 */
-	if (xwrite (g->daemon_sock, buf, n) == -1) {
-	  perrorf (g, "write");
-	  return -1;
-	}
-	return -2; /* cancelled */
-      }
-    }
-    if (FD_ISSET (g->daemon_sock, &wset2)) {
-      r = write (g->daemon_sock, buf, n);
-      if (r == -1) {
-        if (errno == EINTR || errno == EAGAIN)
-          continue;
-        perrorf (g, "write");
-        if (errno == EPIPE) /* Disconnected from guest (RHBZ#508713). */
-          child_cleanup (g);
-        return -1;
-      }
-      buf += r;
-      n -= r;
-    }
-  }
-
-  return 0;
-}
-
-/* This reads a single message, file chunk, launch flag or
- * cancellation flag from the daemon.  If something was read, it
- * returns 0, otherwise -1.
- *
- * Both size_rtn and buf_rtn must be passed by the caller as non-NULL.
- *
- * *size_rtn returns the size of the returned message or it may be
- * GUESTFS_LAUNCH_FLAG or GUESTFS_CANCEL_FLAG.
- *
- * *buf_rtn is returned containing the message (if any) or will be set
- * to NULL.  *buf_rtn must be freed by the caller.
- *
- * It also checks qemu stdout for log messages and passes those up
- * through log_message_cb.
- *
- * It also checks for EOF (qemu died) and passes that up through the
- * child_cleanup function above.
- *
- * Progress notifications are handled transparently by this function.
- * If the callback exists, it is called.  The caller of this function
- * will not see GUESTFS_PROGRESS_FLAG.
- */
-
-static inline void
-unexpected_end_of_file_from_daemon_error (guestfs_h *g)
-{
-#define UNEXPEOF_ERROR "unexpected end of file when reading from daemon.\n"
-#define UNEXPEOF_TEST_TOOL \
-  "Or you can run 'libguestfs-test-tool' and post the complete output into\n" \
-  "a bug report or message to the libguestfs mailing list."
-  if (!g->verbose)
-    error (g, _(UNEXPEOF_ERROR
-"This usually means the libguestfs appliance failed to start up.  Please\n"
-"enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
-"the debug messages output prior to this error.\n"
-UNEXPEOF_TEST_TOOL));
-  else
-    error (g, _(UNEXPEOF_ERROR
-"See earlier debug messages.\n"
-UNEXPEOF_TEST_TOOL));
-}
-
-static inline void
-unexpected_closed_connection_from_daemon_error (guestfs_h *g)
-{
-#define UNEXPCLO_ERROR "connection to daemon was closed unexpectedly.\n"
-  if (!g->verbose)
-    error (g, _(UNEXPCLO_ERROR
-"This usually means the libguestfs appliance crashed.  Please enable\n"
-"debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at the\n"
-"debug messages output prior to this error."));
-  else
-    error (g, _(UNEXPCLO_ERROR
-"See earlier debug messages."));
-}
-
-static int
-recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
-{
-  fd_set rset, rset2;
-  int max_fd;
-  char lenbuf[4];
-  ssize_t nr;
-
-  /* RHBZ#914931: Along some (rare) paths, we might have closed the
-   * socket connection just before this function is called, so just
-   * return an error if this happens.
-   */
-  if (g->daemon_sock == -1) {
-    unexpected_closed_connection_from_daemon_error (g);
-    return -1;
-  }
-
-  FD_ZERO (&rset);
-
-  if (g->console_sock >= 0) /* Read qemu stdout for log messages & EOF. */
-    FD_SET (g->console_sock, &rset);
-  FD_SET (g->daemon_sock, &rset); /* Read socket for data & EOF. */
-
-  max_fd = MAX (g->daemon_sock, g->console_sock);
-
-  *size_rtn = 0;
-  *buf_rtn = NULL;
-
-  /* nr is the size of the message, but we prime it as -4 because we
-   * have to read the message length word first.
-   */
-  nr = -4;
-
-  for (;;) {
-    ssize_t message_size =
-      *size_rtn != GUESTFS_PROGRESS_FLAG ?
-      *size_rtn : PROGRESS_MESSAGE_SIZE;
-    if (nr >= message_size)
-      break;
-
-    rset2 = rset;
-    int r = select (max_fd+1, &rset2, NULL, NULL, NULL);
-    if (r == -1) {
-      if (errno == EINTR || errno == EAGAIN)
-        continue;
-      perrorf (g, "select");
-      free (*buf_rtn);
-      *buf_rtn = NULL;
-      return -1;
-    }
-
-    if (g->console_sock >= 0 && FD_ISSET (g->console_sock, &rset2)) {
-      if (read_log_message_or_eof (g, g->console_sock, 0) == -1) {
-        free (*buf_rtn);
-        *buf_rtn = NULL;
-        return -1;
-      }
-    }
-    if (FD_ISSET (g->daemon_sock, &rset2)) {
-      if (nr < 0) {    /* Have we read the message length word yet? */
-        r = read (g->daemon_sock, lenbuf+nr+4, -nr);
-        if (r == -1) {
-          if (errno == EINTR || errno == EAGAIN)
-            continue;
-          int err = errno;
-          perrorf (g, "read");
-          /* Under some circumstances we see "Connection reset by peer"
-           * here when the child dies suddenly.  Catch this and call
-           * the cleanup function, same as for EOF.
-           */
-          if (err == ECONNRESET)
-            child_cleanup (g);
-          return -1;
-        }
-        if (r == 0) {
-          unexpected_end_of_file_from_daemon_error (g);
-          child_cleanup (g);
-          return -1;
-        }
-        nr += r;
-
-        if (nr < 0)         /* Still not got the whole length word. */
-          continue;
-
-        XDR xdr;
-        xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
-        xdr_uint32_t (&xdr, size_rtn);
-        xdr_destroy (&xdr);
-
-        /* *size_rtn changed, recalculate message_size */
-        message_size =
-          *size_rtn != GUESTFS_PROGRESS_FLAG ?
-          *size_rtn : PROGRESS_MESSAGE_SIZE;
-
-        if (*size_rtn == GUESTFS_LAUNCH_FLAG) {
-          if (g->state != LAUNCHING)
-            error (g, _("received magic signature from guestfsd, but in state %d"),
-                   g->state);
-          else {
-            g->state = READY;
-            guestfs___call_callbacks_void (g, GUESTFS_EVENT_LAUNCH_DONE);
-          }
-          debug (g, "recv_from_daemon: received GUESTFS_LAUNCH_FLAG");
-          return 0;
-        }
-        else if (*size_rtn == GUESTFS_CANCEL_FLAG) {
-          debug (g, "recv_from_daemon: received GUESTFS_CANCEL_FLAG");
-          return 0;
-        }
-        else if (*size_rtn == GUESTFS_PROGRESS_FLAG)
-          /*FALLTHROUGH*/;
-        /* If this happens, it's pretty bad and we've probably lost
-         * synchronization.
-         */
-        else if (*size_rtn > GUESTFS_MESSAGE_MAX) {
-          error (g, _("message length (%u) > maximum possible size (%d)"),
-                 (unsigned) *size_rtn, GUESTFS_MESSAGE_MAX);
-          return -1;
-        }
-
-        /* Allocate the complete buffer, size now known. */
-        *buf_rtn = safe_malloc (g, message_size);
-        /*FALLTHROUGH*/
-      }
-
-      size_t sizetoread = message_size - nr;
-      if (sizetoread > BUFSIZ) sizetoread = BUFSIZ;
-
-      r = read (g->daemon_sock, (char *) (*buf_rtn) + nr, sizetoread);
-      if (r == -1) {
-        if (errno == EINTR || errno == EAGAIN)
-          continue;
-        perrorf (g, "read");
-        free (*buf_rtn);
-        *buf_rtn = NULL;
-        return -1;
-      }
-      if (r == 0) {
-        unexpected_end_of_file_from_daemon_error (g);
-        child_cleanup (g);
-        free (*buf_rtn);
-        *buf_rtn = NULL;
-        return -1;
-      }
-      nr += r;
-    }
-  }
-
-  /* Got the full message, caller can start processing it. */
-#ifdef ENABLE_PACKET_DUMP
-  if (g->verbose) {
-    ssize_t i, j;
-
-    for (i = 0; i < nr; i += 16) {
-      printf ("%04zx: ", i);
-      for (j = i; j < MIN (i+16, nr); ++j)
-        printf ("%02x ", (*(unsigned char **)buf_rtn)[j]);
-      for (; j < i+16; ++j)
-        printf ("   ");
-      printf ("|");
-      for (j = i; j < MIN (i+16, nr); ++j)
-        if (c_isprint ((*(char **)buf_rtn)[j]))
-          printf ("%c", (*(char **)buf_rtn)[j]);
-        else
-          printf (".");
-      for (; j < i+16; ++j)
-        printf (" ");
-      printf ("|\n");
-    }
-  }
-#endif
-
-  return 0;
-}
-
-int
-guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
-{
-  int r;
-
- again:
-  r = recv_from_daemon (g, size_rtn, buf_rtn);
-  if (r == -1)
-    return -1;
-
-  if (*size_rtn == GUESTFS_PROGRESS_FLAG) {
-    guestfs_progress message;
-    XDR xdr;
-
-    xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
-    xdr_guestfs_progress (&xdr, &message);
-    xdr_destroy (&xdr);
-
-    guestfs___progress_message_callback (g, &message);
-
-    free (*buf_rtn);
-    *buf_rtn = NULL;
-
-    /* Process next message. */
-    goto again;
-  }
-
-  if (*size_rtn == GUESTFS_LAUNCH_FLAG || *size_rtn == GUESTFS_CANCEL_FLAG)
-    return 0;
-
-  /* ... it's a normal message (not progress/launch/cancel) so display
-   * it if we're debugging.
-   */
-  assert (*buf_rtn != NULL);
-
-  return 0;
-}
-
-/* This is very much like recv_from_daemon above, but g->daemon_sock is
- * a listening socket and we are accepting a new connection on
- * that socket instead of reading anything.  Returns the newly
- * accepted socket.
- */
-int
-guestfs___accept_from_daemon (guestfs_h *g)
-{
-  fd_set rset, rset2;
-
-  debug (g, "accept_from_daemon: %p g->state = %d", g, g->state);
-
-  FD_ZERO (&rset);
-
-  if (g->console_sock >= 0) /* Read qemu stdout for log messages & EOF. */
-    FD_SET (g->console_sock, &rset);
-  FD_SET (g->daemon_sock, &rset); /* Read socket for accept. */
-
-  int max_fd = MAX (g->daemon_sock, g->console_sock);
-  int sock = -1;
-
-  while (sock == -1) {
-#if 0
-    /* RWMJ: Temporarily disable this.  It *should* happen that the
-     * zombie is cleaned up now on the usual close path, but we
-     * might need to reenable this if that is not the case.
-     * 2012-07-20.
-     */
-    /* If the qemu process has died, clean up the zombie (RHBZ#579155).
-     * By partially polling in the select below we ensure that this
-     * function will be called eventually.
-     */
-    waitpid (g->pid, NULL, WNOHANG);
-#endif
-
-    rset2 = rset;
-
-    struct timeval tv = { .tv_sec = 1, .tv_usec = 0 };
-    int r = select (max_fd+1, &rset2, NULL, NULL, &tv);
-    if (r == -1) {
-      if (errno == EINTR || errno == EAGAIN)
-        continue;
-      perrorf (g, "select");
-      return -1;
-    }
-
-    if (g->console_sock >= 0 && FD_ISSET (g->console_sock, &rset2)) {
-      if (read_log_message_or_eof (g, g->console_sock, 1) == -1)
-        return -1;
-    }
-    if (FD_ISSET (g->daemon_sock, &rset2)) {
-      sock = accept4 (g->daemon_sock, NULL, NULL, SOCK_CLOEXEC);
-      if (sock == -1) {
-        if (errno == EINTR || errno == EAGAIN)
-          continue;
-        perrorf (g, "accept");
-        return -1;
-      }
-    }
-  }
-
-  return sock;
 }
 
 int
@@ -708,9 +189,14 @@ guestfs___send (guestfs_h *g, int proc_nr,
   XDR xdr;
   u_int32_t len;
   int serial = g->msg_next_serial++;
-  int r;
+  ssize_t r;
   CLEANUP_FREE char *msg_out = NULL;
   size_t msg_out_size;
+
+  if (!g->conn) {
+    guestfs___unexpected_close_error (g);
+    return -1;
+  }
 
   /* We have to allocate this message buffer on the heap because
    * it is quite large (although will be mostly unused).  We
@@ -758,12 +244,28 @@ guestfs___send (guestfs_h *g, int proc_nr,
   xdrmem_create (&xdr, msg_out, 4, XDR_ENCODE);
   xdr_uint32_t (&xdr, &len);
 
- again:
-  r = send_to_daemon (g, msg_out, msg_out_size);
-  if (r == -2)                  /* Ignore stray daemon cancellations. */
-    goto again;
+  /* Look for stray daemon cancellation messages from earlier calls
+   * and ignore them.
+   */
+  r = check_daemon_socket (g);
+  /* r == -2 (cancellation) is ignored */
   if (r == -1)
     return -1;
+  if (r == 0) {
+    guestfs___unexpected_close_error (g);
+    child_cleanup (g);
+    return -1;
+  }
+
+  /* Send the message. */
+  r = g->conn->ops->write_data (g, g->conn, msg_out, msg_out_size);
+  if (r == -1)
+    return -1;
+  if (r == 0) {
+    guestfs___unexpected_close_error (g);
+    child_cleanup (g);
+    return -1;
+  }
 
   return serial;
 }
@@ -877,7 +379,7 @@ static int
 send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
 {
   u_int32_t len;
-  int r;
+  ssize_t r;
   guestfs_chunk chunk;
   XDR xdr;
   CLEANUP_FREE char *msg_out = NULL;
@@ -911,16 +413,194 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   xdrmem_create (&xdr, msg_out, 4, XDR_ENCODE);
   xdr_uint32_t (&xdr, &len);
 
-  r = send_to_daemon (g, msg_out, msg_out_size);
-
   /* Did the daemon send a cancellation message? */
+  r = check_daemon_socket (g);
   if (r == -2) {
     debug (g, "got daemon cancellation");
     return -2;
   }
-
   if (r == -1)
     return -1;
+  if (r == 0) {
+    guestfs___unexpected_close_error (g);
+    child_cleanup (g);
+    return -1;
+  }
+
+  /* Send the chunk. */
+  r = g->conn->ops->write_data (g, g->conn, msg_out, msg_out_size);
+  if (r == -1)
+    return -1;
+  if (r == 0) {
+    guestfs___unexpected_close_error (g);
+    child_cleanup (g);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* guestfs___recv_from_daemon: This reads a single message, file
+ * chunk, launch flag or cancellation flag from the daemon.  If
+ * something was read, it returns 0, otherwise -1.
+ *
+ * Both size_rtn and buf_rtn must be passed by the caller as non-NULL.
+ *
+ * *size_rtn returns the size of the returned message or it may be
+ * GUESTFS_LAUNCH_FLAG or GUESTFS_CANCEL_FLAG.
+ *
+ * *buf_rtn is returned containing the message (if any) or will be set
+ * to NULL.  *buf_rtn must be freed by the caller.
+ *
+ * This checks for EOF (appliance died) and passes that up through the
+ * child_cleanup function above.
+ *
+ * Log message, progress messages are handled transparently here.
+ */
+
+static int
+recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
+{
+  char lenbuf[4];
+  ssize_t n;
+  XDR xdr;
+  size_t message_size;
+
+  *size_rtn = 0;
+  *buf_rtn = NULL;
+
+  /* RHBZ#914931: Along some (rare) paths, we might have closed the
+   * socket connection just before this function is called, so just
+   * return an error if this happens.
+   */
+  if (!g->conn) {
+    guestfs___unexpected_close_error (g);
+    return -1;
+  }
+
+  /* Read the 4 byte size / flag. */
+  n = g->conn->ops->read_data (g, g->conn, lenbuf, 4);
+  if (n == -1)
+    return -1;
+  if (n == 0) {
+    guestfs___unexpected_close_error (g);
+    child_cleanup (g);
+    return -1;
+  }
+
+  xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
+  xdr_uint32_t (&xdr, size_rtn);
+  xdr_destroy (&xdr);
+
+  if (*size_rtn == GUESTFS_LAUNCH_FLAG) {
+    if (g->state != LAUNCHING)
+      error (g, _("received magic signature from guestfsd, but in state %d"),
+             g->state);
+    else {
+      g->state = READY;
+      guestfs___call_callbacks_void (g, GUESTFS_EVENT_LAUNCH_DONE);
+    }
+    debug (g, "recv_from_daemon: received GUESTFS_LAUNCH_FLAG");
+    return 0;
+  }
+  else if (*size_rtn == GUESTFS_CANCEL_FLAG) {
+    debug (g, "recv_from_daemon: received GUESTFS_CANCEL_FLAG");
+    return 0;
+  }
+  else if (*size_rtn == GUESTFS_PROGRESS_FLAG)
+    /*FALLTHROUGH*/;
+  else if (*size_rtn > GUESTFS_MESSAGE_MAX) {
+    /* If this happens, it's pretty bad and we've probably lost
+     * synchronization.
+     */
+    error (g, _("message length (%u) > maximum possible size (%d)"),
+           (unsigned) *size_rtn, GUESTFS_MESSAGE_MAX);
+    return -1;
+  }
+
+  /* Calculate the message size. */
+  message_size =
+    *size_rtn != GUESTFS_PROGRESS_FLAG ? *size_rtn : PROGRESS_MESSAGE_SIZE;
+
+  /* Allocate the complete buffer, size now known. */
+  *buf_rtn = safe_malloc (g, message_size);
+
+  /* Read the message. */
+  n = g->conn->ops->read_data (g, g->conn, *buf_rtn, message_size);
+  if (n == -1) {
+    free (*buf_rtn);
+    *buf_rtn = NULL;
+    return -1;
+  }
+  if (n == 0) {
+    guestfs___unexpected_close_error (g);
+    child_cleanup (g);
+    free (*buf_rtn);
+    *buf_rtn = NULL;
+    return -1;
+  }
+
+  /* ... it's a normal message (not progress/launch/cancel) so display
+   * it if we're debugging.
+   */
+#ifdef ENABLE_PACKET_DUMP
+  if (g->verbose) {
+    ssize_t i, j;
+
+    for (i = 0; i < nr; i += 16) {
+      printf ("%04zx: ", i);
+      for (j = i; j < MIN (i+16, nr); ++j)
+        printf ("%02x ", (*(unsigned char **)buf_rtn)[j]);
+      for (; j < i+16; ++j)
+        printf ("   ");
+      printf ("|");
+      for (j = i; j < MIN (i+16, nr); ++j)
+        if (c_isprint ((*(char **)buf_rtn)[j]))
+          printf ("%c", (*(char **)buf_rtn)[j]);
+        else
+          printf (".");
+      for (; j < i+16; ++j)
+        printf (" ");
+      printf ("|\n");
+    }
+  }
+#endif
+
+  return 0;
+}
+
+int
+guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
+{
+  int r;
+
+ again:
+  r = recv_from_daemon (g, size_rtn, buf_rtn);
+  if (r == -1)
+    return -1;
+
+  if (*size_rtn == GUESTFS_PROGRESS_FLAG) {
+    guestfs_progress message;
+    XDR xdr;
+
+    xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
+    xdr_guestfs_progress (&xdr, &message);
+    xdr_destroy (&xdr);
+
+    guestfs___progress_message_callback (g, &message);
+
+    free (*buf_rtn);
+    *buf_rtn = NULL;
+
+    /* Process next message. */
+    goto again;
+  }
+
+  if (*size_rtn == GUESTFS_LAUNCH_FLAG || *size_rtn == GUESTFS_CANCEL_FLAG)
+    return 0;
+
+  /* Got the full message, caller can start processing it. */
+  assert (*buf_rtn != NULL);
 
   return 0;
 }
@@ -1014,9 +694,27 @@ guestfs___recv_discard (guestfs_h *g, const char *fn)
 
 /* Receive a file. */
 
-/* Returns -1 = error, 0 = EOF, > 0 = more data */
+static int
+xwrite (int fd, const void *v_buf, size_t len)
+{
+  const char *buf = v_buf;
+  int r;
+
+  while (len > 0) {
+    r = write (fd, buf, len);
+    if (r == -1)
+      return -1;
+
+    buf += r;
+    len -= r;
+  }
+
+  return 0;
+}
+
 static ssize_t receive_file_data (guestfs_h *g, void **buf);
 
+/* Returns -1 = error, 0 = EOF, > 0 = more data */
 int
 guestfs___recv_file (guestfs_h *g, const char *filename)
 {
@@ -1077,7 +775,7 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
   xdr_uint32_t (&xdr, &flag);
   xdr_destroy (&xdr);
 
-  if (xwrite (g->daemon_sock, fbuf, sizeof fbuf) == -1) {
+  if (g->conn->ops->write_data (g, g->conn, fbuf, sizeof fbuf) == -1) {
     perrorf (g, _("write to daemon socket"));
     return -1;
   }

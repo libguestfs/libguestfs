@@ -698,8 +698,23 @@ guestfs___launch_failed_error (guestfs_h *g)
     error (g, _("guestfs_launch failed, see earlier error messages"));
   else
     error (g, _("guestfs_launch failed.\n"
+                "This usually means the libguestfs appliance failed to start or crashed.\n"
                 "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-                "and/or run 'libguestfs-test-tool'."));
+                "or run 'libguestfs-test-tool' and post the *complete* output into a\n"
+                "bug report or message to the libguestfs mailing list."));
+}
+
+/* As above, but for crashes that occur after launch. */
+void
+guestfs___unexpected_close_error (guestfs_h *g)
+{
+  if (g->verbose)
+    error (g, _("appliance closed the connection unexpectedly, see earlier error messages"));
+  else
+    error (g, _("appliance closed the connection unexpectedly.\n"
+                "This usually means the libguestfs appliance crashed.\n"
+                "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+                "for information about how to debug libguestfs and report bugs."));
 }
 
 int

@@ -149,6 +149,48 @@ extern struct attach_ops attach_ops_appliance;
 extern struct attach_ops attach_ops_libvirt;
 extern struct attach_ops attach_ops_unix;
 
+/* Connection module.  A 'connection' represents the appliance console
+ * connection plus the daemon connection.  It hides the underlying
+ * representation (POSIX sockets, virStreamPtr).
+ */
+struct connection {
+  const struct connection_ops *ops;
+
+  /* In the real struct, private data used by each connection module
+   * follows here.
+   */
+};
+
+struct connection_ops {
+  /* Close everything and free the connection struct and any internal data. */
+  void (*free_connection) (guestfs_h *g, struct connection *);
+
+  /* Accept the connection (back to us) from the daemon.
+   *
+   * Returns: 1 = accepted, 0 = appliance closed connection, -1 = error
+   */
+  int (*accept_connection) (guestfs_h *g, struct connection *);
+
+  /* Read/write the given buffer from/to the daemon.  The whole buffer is
+   * read or written.  Partial reads/writes are automatically completed
+   * if possible, and if this wasn't possible it returns an error.
+   *
+   * These functions also monitor the console socket and deliver log
+   * messages up as events.  This is entirely transparent to the caller.
+   *
+   * Normal return is number of bytes read/written.  Both functions
+   * return 0 to mean that the appliance closed the connection or
+   * otherwise went away.  -1 means there's an error.
+   */
+  ssize_t (*read_data) (guestfs_h *g, struct connection *, void *buf, size_t len);
+  ssize_t (*write_data) (guestfs_h *g, struct connection *, const void *buf, size_t len);
+
+  /* Test if data is available to read on the daemon socket, without blocking.
+   * Returns: 1 = yes, 0 = no, -1 = error
+   */
+  int (*can_read_data) (guestfs_h *g, struct connection *);
+};
+
 /* Stack of old error handlers. */
 struct error_cb_stack {
   struct error_cb_stack   *next;
@@ -263,8 +305,7 @@ struct guestfs_h
   int unique;
 
   /*** Protocol. ***/
-  int console_sock;          /* Appliance console (for debug info). */
-  int daemon_sock;           /* Daemon communications socket. */
+  struct connection *conn;              /* Connection to appliance. */
   int msg_next_serial;
 
 #if HAVE_FUSE
@@ -486,8 +527,11 @@ extern int guestfs___recv_discard (guestfs_h *g, const char *fn);
 extern int guestfs___send_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
-extern int guestfs___accept_from_daemon (guestfs_h *g);
 extern void guestfs___progress_message_callback (guestfs_h *g, const struct guestfs_progress *message);
+
+/* conn-socket.c */
+extern struct connection *guestfs___new_conn_socket_listening (guestfs_h *g, int daemon_accept_sock, int console_sock);
+extern struct connection *guestfs___new_conn_socket_connected (guestfs_h *g, int daemon_sock, int console_sock);
 
 /* events.c */
 extern void guestfs___call_callbacks_void (guestfs_h *g, uint64_t event);
@@ -510,6 +554,7 @@ extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern size_t guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___launch_failed_error (guestfs_h *g);
+extern void guestfs___unexpected_close_error (guestfs_h *g);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
 extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
