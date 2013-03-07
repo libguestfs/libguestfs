@@ -94,66 +94,6 @@
  * functions send_to_daemon and recv_from_daemon.
  */
 
-/* This is only used on the debug path, to generate a one-line
- * printable summary of a protocol message.  'workspace' is scratch
- * space used to format the message, and it must be at least
- * MAX_MESSAGE_SUMMARY bytes in size.
- */
-#define MAX_MESSAGE_SUMMARY 200 /* >= 5 * (4 * 3 + 2) + a few bytes overhead */
-
-static int
-xwrite (int fd, const void *v_buf, size_t len)
-{
-  const char *buf = v_buf;
-  int r;
-
-  while (len > 0) {
-    r = write (fd, buf, len);
-    if (r == -1)
-      return -1;
-
-    buf += r;
-    len -= r;
-  }
-
-  return 0;
-}
-
-static const char *
-message_summary (const void *buf, size_t n, char *workspace)
-{
-  const unsigned char *cbuf = buf;
-  size_t i = 0;
-  char *p = workspace;
-  int truncate = 0;
-
-  /* Print only up to 5 x 32 bits of the message.  That is enough to
-   * cover the message length, and the first four fields of the
-   * message header (prog, vers, proc, direction).
-   */
-  if (n > 5 * 4) {
-    n = 5 * 4;
-    truncate = 1;
-  }
-
-  while (n > 0) {
-    sprintf (p, "%02x ", cbuf[i]);
-    p += 3;
-    n--;
-    i++;
-
-    if ((i & 3) == 0) {
-      strcpy (p, "| ");
-      p += 2;
-    }
-  }
-
-  if (truncate)
-    strcpy (p, "...");
-
-  return workspace;
-}
-
 /* This is called if we detect EOF, ie. qemu died. */
 static void
 child_cleanup (guestfs_h *g)
@@ -176,11 +116,6 @@ read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
 {
   char buf[BUFSIZ];
   ssize_t n;
-
-#if 0
-  debug (g, "read_log_message_or_eof: %p g->state = %d, fd = %d",
-         g, g->state, fd);
-#endif
 
   /* QEMU's console emulates a 16550A serial port.  The real 16550A
    * device has a small FIFO buffer (16 bytes) which means here we see
@@ -304,7 +239,6 @@ guestfs___progress_message_callback (guestfs_h *g,
 static int
 check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
 {
-  char summary[MAX_MESSAGE_SUMMARY];
   char buf[4];
   ssize_t n;
   uint32_t flag;
@@ -318,9 +252,6 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
     child_cleanup (g);
     return -1;
   }
-
-  debug (g, "check_for_daemon_cancellation_or_eof: %s",
-         message_summary (buf, 4, summary));
 
   xdrmem_create (&xdr, buf, 4, XDR_DECODE);
   xdr_uint32_t (&xdr, &flag);
@@ -375,10 +306,6 @@ send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
   const char *buf = v_buf;
   fd_set rset, rset2;
   fd_set wset, wset2;
-  char summary[MAX_MESSAGE_SUMMARY];
-
-  debug (g, "send_to_daemon: %zu bytes: %s", n,
-         message_summary (v_buf, n, summary));
 
   FD_ZERO (&rset);
   FD_ZERO (&wset);
@@ -674,7 +601,6 @@ int
 guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
   int r;
-  char summary[MAX_MESSAGE_SUMMARY];
 
  again:
   r = recv_from_daemon (g, size_rtn, buf_rtn);
@@ -705,9 +631,6 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
    * it if we're debugging.
    */
   assert (*buf_rtn != NULL);
-
-  debug (g, "recv_from_daemon: %" PRIu32 " bytes: %s", *size_rtn,
-         message_summary (*buf_rtn, *size_rtn, summary));
 
   return 0;
 }
