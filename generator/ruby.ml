@@ -700,6 +700,9 @@ Init__guestfs (void)
   e_Error = rb_define_class_under (m_guestfs, \"Error\", rb_eStandardError);
 
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+#ifndef HAVE_TYPE_RB_ALLOC_FUNC_T
+#define rb_alloc_func_t void*
+#endif
   rb_define_alloc_func (c_guestfs, (rb_alloc_func_t) ruby_guestfs_create);
 #endif
 
