@@ -1160,14 +1160,6 @@ AS_IF([test "x$enable_ruby" != "xno"],[
             AC_MSG_RESULT([-l$libruby])
             AC_CHECK_LIB([$libruby],[ruby_init],
                          [have_libruby=1],[have_libruby=])
-
-            dnl Symbols that we substitute when missing.
-            AS_IF([test -n "$have_libruby"],[
-                old_LIBS="$LIBS"
-                LIBS="$LIBS -l$libruby"
-                AC_CHECK_FUNCS([rb_hash_lookup])
-                LIBS="$old_LIBS"
-            ])
         ],[
             AC_MSG_RESULT([not found])
         ])
