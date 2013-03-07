@@ -108,7 +108,7 @@ supermin.d/udev-rules.img: 99-guestfs-serial.rules
 	rm -f $@ $@-t
 	rm -rf tmp-u
 	mkdir -p tmp-u/etc/udev/rules.d
-	for f in $^; do ln $$f tmp-u/etc/udev/rules.d/$$f; done
+	for f in $^; do ln $$f tmp-u/etc/udev/rules.d/$$(basename $$f); done
 	( cd tmp-u && find | cpio --quiet -o -H newc ) > $@-t
 	rm -rf tmp-u
 	mv $@-t $@
