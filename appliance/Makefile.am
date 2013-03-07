@@ -35,11 +35,19 @@ superminfsdir = $(libdir)/guestfs/supermin.d
 
 fs_DATA =
 superminfs_DATA = \
-	supermin.d/base.img \
-	supermin.d/daemon.img \
 	supermin.d/init.img \
-	supermin.d/hostfiles \
 	supermin.d/udev-rules.img
+
+if ENABLE_DAEMON
+superminfs_DATA += \
+	supermin.d/daemon.img
+endif
+
+if ENABLE_APPLIANCE
+superminfs_DATA += \
+	supermin.d/base.img \
+	supermin.d/hostfiles
+endif
 
 # This used to be a configure-generated file (as is update.sh still).
 # However config.status always touches the destination file, which
