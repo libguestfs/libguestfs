@@ -318,31 +318,8 @@ handle_log_message (guestfs_h *g,
     return -1;
   }
 
-  /* It's an actual log message, send it upwards if anyone is listening. */
-  guestfs___call_callbacks_message (g, GUESTFS_EVENT_APPLIANCE, buf, n);
-
-  /* XXX This is a gross hack and massive layering violation.  See the
-   * comment above guestfs___launch_send_progress.
-   *
-   * Fix this gross hack by:
-   * (1) Have a guestfs___proto_log_message() function in proto.c.
-   * (2) Replace above guestfs___call_callbacks_message with (1).
-   * (3) Add the code below to guestfs___proto_log_message.
-   */
-  if (g->state == LAUNCHING) {
-    const char *sentinel;
-    size_t len;
-
-    sentinel = "Linux version"; /* kernel up */
-    len = strlen (sentinel);
-    if (memmem (buf, n, sentinel, len) != NULL)
-      guestfs___launch_send_progress (g, 6);
-
-    sentinel = "Starting /init script"; /* /init running */
-    len = strlen (sentinel);
-    if (memmem (buf, n, sentinel, len) != NULL)
-      guestfs___launch_send_progress (g, 9);
-  }
+  /* It's an actual log message, send it upwards. */
+  guestfs___log_message_callback (g, buf, n);
 
   return 1;
 }

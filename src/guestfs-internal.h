@@ -528,6 +528,7 @@ extern int guestfs___send_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
 extern void guestfs___progress_message_callback (guestfs_h *g, const struct guestfs_progress *message);
+extern void guestfs___log_message_callback (guestfs_h *g, const char *buf, size_t len);
 
 /* conn-socket.c */
 extern struct connection *guestfs___new_conn_socket_listening (guestfs_h *g, int daemon_accept_sock, int console_sock);

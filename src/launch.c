@@ -631,7 +631,7 @@ guestfs__launch (guestfs_h *g)
  * or removed in future.
  * (2) Messages are only sent if more than 5 seconds has elapsed
  * since the launch clock started.
- * (3) There is a gross hack in proto.c to make this work.
+ * (3) There is a hack in proto.c to make this work.
  */
 void
 guestfs___launch_send_progress (guestfs_h *g, int perdozen)

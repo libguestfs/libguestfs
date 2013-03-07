@@ -122,6 +122,32 @@ guestfs___progress_message_callback (guestfs_h *g,
                                   array, sizeof array / sizeof array[0]);
 }
 
+/* Connection modules call us back here when they get a log message. */
+void
+guestfs___log_message_callback (guestfs_h *g, const char *buf, size_t len)
+{
+  /* Send the log message upwards to anyone who is listening. */
+  guestfs___call_callbacks_message (g, GUESTFS_EVENT_APPLIANCE, buf, len);
+
+  /* This is used to generate launch progress messages.  See comment
+   * above guestfs___launch_send_progress.
+   */
+  if (g->state == LAUNCHING) {
+    const char *sentinel;
+    size_t slen;
+
+    sentinel = "Linux version"; /* kernel up */
+    slen = strlen (sentinel);
+    if (memmem (buf, len, sentinel, slen) != NULL)
+      guestfs___launch_send_progress (g, 6);
+
+    sentinel = "Starting /init script"; /* /init running */
+    slen = strlen (sentinel);
+    if (memmem (buf, len, sentinel, slen) != NULL)
+      guestfs___launch_send_progress (g, 9);
+  }
+}
+
 /* Before writing to the daemon socket, check the read side of the
  * daemon socket for any of these conditions:
  *
