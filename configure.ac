@@ -751,14 +751,6 @@ AC_CHECK_LIB([acl],[acl_from_text],[
     ], [])
 ],[AC_MSG_WARN([POSIX acl library not found])])
 
-dnl Linux capabilities library (libcap) (highly recommended)
-AC_CHECK_LIB([cap],[cap_from_text],[
-    AC_CHECK_HEADER([sys/capability.h],[
-        AC_SUBST([CAP_LIBS], [-lcap])
-        AC_DEFINE([HAVE_CAP], [1], [Define to 1 if the Linux capabilities library (libcap) is available.])
-    ], [])
-],[AC_MSG_WARN([Linux capabilities library (libcap) not found])])
-
 dnl libvirt (highly recommended)
 AC_ARG_WITH([libvirt],[
     AS_HELP_STRING([--without-libvirt],
