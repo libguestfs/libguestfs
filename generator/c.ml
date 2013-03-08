@@ -185,7 +185,7 @@ and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
         pr "%s, %s_size" n n
     | Mountable n | Mountable_or_Path n ->
         next ();
-        pr (if in_daemon then "&%s" else "%s") n
+        (if in_daemon then pr "&%s" else pr "%s") n
     | arg ->
         next ();
         pr "%s" (name_of_argt arg)
