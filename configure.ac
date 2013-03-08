@@ -279,6 +279,7 @@ AC_CHECK_HEADERS([\
 
 dnl Functions.
 AC_CHECK_FUNCS([\
+    be32toh \
     fsync \
     futimens \
     getxattr \
