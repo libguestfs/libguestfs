@@ -868,8 +868,8 @@ AS_IF([test "x$VALGRIND" != "xno"],[
     # No valgrind, so substitute VG with something that will break.
     VG=VALGRIND_IS_NOT_INSTALLED
 ])
-AC_SUBST([VG])
-AM_SUBST_NOTMAKE([VG])
+dnl AC_SUBST([VG])
+dnl AM_SUBST_NOTMAKE([VG])
 
 dnl Enable profiling?
 AC_ARG_ENABLE([code-profiling],
