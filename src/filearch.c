@@ -175,7 +175,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
                                      INITRD_BINARIES1);
   r = guestfs___cmd_run (cmd);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    perrorf (g, "cpio command failed");
+    error (g, _("cpio command failed (status 0x%x)"), r);
     goto out;
   }
 
