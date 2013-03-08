@@ -32,6 +32,18 @@
 #include <endian.h>
 #endif
 
+/* be32toh is usually a macro definend in <endian.h>, but it might be
+ * a function in some system so check both, and if neither is defined
+ * then define be32toh for RHEL 5.
+ */
+#if !defined(HAVE_BE32TOH) && !defined(be32toh)
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#define be32toh(x) __bswap_32 (x)
+#else
+#define be32toh(x) (x)
+#endif
+#endif
+
 #include <pcre.h>
 
 #include "xstrtol.h"
