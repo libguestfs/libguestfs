@@ -29,7 +29,7 @@ GNULIB_SRCDIR=.gnulib
 # Autoreconf runs aclocal before libtoolize, which causes spurious
 # warnings if the initial aclocal is confused by the libtoolized
 # (or worse out-of-date) macro directory.
-libtoolize --copy --install
+libtoolize --copy
 
 gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 <$gnulib_tool || exit
