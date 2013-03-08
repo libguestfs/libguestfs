@@ -115,14 +115,18 @@ is_regular_file (const char *filename)
   return lstat (filename, &statbuf) == 0 && S_ISREG (statbuf.st_mode);
 }
 
-/* Download and uncompress the cpio file to find binaries within.
- * Notes:
- * (1) Two lists must be identical.
- * (2) Implicit limit of 31 bytes for length of each element (see code
- * below).
- */
-#define INITRD_BINARIES1 "bin/ls bin/rm bin/modprobe sbin/modprobe bin/sh bin/bash bin/dash bin/nash"
-#define INITRD_BINARIES2 {"bin/ls", "bin/rm", "bin/modprobe", "sbin/modprobe", "bin/sh", "bin/bash", "bin/dash", "bin/nash"}
+/* Download and uncompress the cpio file to find binaries within. */
+static const char *initrd_binaries[] = {
+  "bin/ls",
+  "bin/rm",
+  "bin/modprobe",
+  "sbin/modprobe",
+  "bin/sh",
+  "bin/bash",
+  "bin/dash",
+  "bin/nash",
+  NULL
+};
 
 static char *
 cpio_arch (guestfs_h *g, const char *file, const char *path)
@@ -134,7 +138,6 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   const char *method;
   int64_t size;
   int r;
-  const char *bins[] = INITRD_BINARIES2;
   size_t i;
 
   if (asprintf (&dir, "%s/libguestfsXXXXXX", tmpdir) == -1) {
@@ -166,21 +169,26 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   if (guestfs_download (g, path, initrd) == -1)
     goto out;
 
+  /* Construct a command to extract named binaries from the initrd file. */
   guestfs___cmd_add_string_unquoted (cmd, "cd ");
   guestfs___cmd_add_string_quoted   (cmd, dir);
   guestfs___cmd_add_string_unquoted (cmd, " && ");
   guestfs___cmd_add_string_unquoted (cmd, method);
-  guestfs___cmd_add_string_unquoted (cmd,
-                                     " initrd | cpio --quiet -id "
-                                     INITRD_BINARIES1);
+  guestfs___cmd_add_string_unquoted (cmd, " initrd | cpio --quiet -id");
+  for (i = 0; initrd_binaries[i] != NULL; ++i) {
+    guestfs___cmd_add_string_unquoted (cmd, " ");
+    guestfs___cmd_add_string_quoted (cmd, initrd_binaries[i]);
+  }
+
   r = guestfs___cmd_run (cmd);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     error (g, _("cpio command failed (status 0x%x)"), r);
     goto out;
   }
 
-  for (i = 0; i < sizeof bins / sizeof bins[0]; ++i) {
-    CLEANUP_FREE char *bin = safe_asprintf (g, "%s/%s", dir, bins[i]);
+  for (i = 0; initrd_binaries[i] != NULL; ++i) {
+    CLEANUP_FREE char *bin =
+      safe_asprintf (g, "%s/%s", dir, initrd_binaries[i]);
 
     if (is_regular_file (bin)) {
       int flags = g->verbose ? MAGIC_DEBUG : 0;
