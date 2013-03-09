@@ -68,6 +68,7 @@ maintainer-makefile
 manywarnings
 memmem
 mkdtemp
+mkstemps
 netdb
 netinet_in
 openat
