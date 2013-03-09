@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
 #include <locale.h>
 
 #include <caml/alloc.h>
@@ -102,4 +103,13 @@ virt_resize_progress_bar_set (value barv,
   progress_bar_set (bar, position, total);
 
   CAMLreturn (Val_unit);
+}
+
+/* RHEL 5-era ocaml didn't have Unix.isatty. */
+value
+virt_resize_isatty_stdout (value unitv)
+{
+  CAMLparam1 (unitv);
+
+  CAMLreturn (isatty(1) ? Val_true : Val_false);
 }
