@@ -138,6 +138,7 @@
 /mgetgroups.m4
 /mkdir.m4
 /mkdtemp.m4
+/mkstemps.m4
 /mmap-anon.m4
 /mode_t.m4
 /msvc-inval.m4
