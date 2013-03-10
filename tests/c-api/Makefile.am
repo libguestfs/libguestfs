@@ -74,11 +74,14 @@ TESTS_ENVIRONMENT = \
 tests_SOURCES = tests.c
 tests_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
-tests_LDADD = $(top_builddir)/src/libguestfs.la
+tests_LDADD = \
+	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/gnulib/lib/libgnu.la
 
 # This binary must be statically linked.  It is used for testing
 # the "guestfs_command" and "guestfs_command_lines" functions.
@@ -140,12 +143,14 @@ test_add_drive_opts_LDADD = \
 
 test_last_errno_SOURCES = test-last-errno.c
 test_last_errno_CPPFLAGS = \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_last_errno_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_last_errno_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_private_data_SOURCES = test-private-data.c
 test_private_data_CPPFLAGS = \
@@ -158,13 +163,15 @@ test_private_data_LDADD = \
 
 test_user_cancel_SOURCES = test-user-cancel.c
 test_user_cancel_CPPFLAGS = \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_user_cancel_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_user_cancel_LDADD = \
-	$(top_builddir)/src/libguestfs.la -lm
+	$(top_builddir)/src/libguestfs.la -lm \
+	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_debug_to_file_SOURCES = test-debug-to-file.c
 test_debug_to_file_CPPFLAGS = \
