@@ -4170,6 +4170,14 @@ See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>.
 Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This
 has the same effect as calling C<guestfs_set_trace (g, 1)>.
 
+=item PATH
+
+Libguestfs may run some external programs, and relies on C<$PATH>
+being set to a reasonable value.  If using the libvirt attach-method,
+libvirt will not work at all unless C<$PATH> contains the path of
+qemu/KVM.  Note that PHP by default removes C<$PATH> from the
+environment which tends to break everything.
+
 =item SUPERMIN_KERNEL
 
 =item SUPERMIN_MODULES
