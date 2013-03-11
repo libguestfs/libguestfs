@@ -23,7 +23,7 @@ if (guestfs_add_drive ($g, "/dev/null", 1) == false) {
   echo ("Failed add_drive, one optional argument.\n");
   exit;
 }
-if (guestfs_add_drive ($g, "/dev/null", 1, "qcow2") == false) {
+if (guestfs_add_drive ($g, "/dev/null", 1, "raw") == false) {
   echo ("Failed add_drive, two optional arguments.\n");
   exit;
 }
