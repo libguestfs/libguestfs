@@ -173,7 +173,9 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   }
 
   virGetVersion (&version, NULL, NULL);
-  debug (g, "libvirt version = %lu", version);
+  debug (g, "libvirt version = %lu (%lu.%lu.%lu)",
+         version,
+         version / 1000000UL, version / 1000UL % 1000UL, version % 1000UL);
   if (version < MIN_LIBVIRT_VERSION) {
     error (g, _("you must have libvirt >= %d.%d.%d "
                 "to use the 'libvirt' attach-method"),
