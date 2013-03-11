@@ -51,6 +51,9 @@ extension/config.h: extension/config.m4 ../config.status
 	cd extension && ./configure --prefix=$(prefix) --libdir=$(libdir)
 	test -f "$@" && touch -- $@
 
+# Don't use --test because PHP always returns a success code.
+TESTS_ENVIRONMENT = $(top_builddir)/run
+
 TESTS = run-php-tests.sh
 
 # Before PHP 5.4.0, the extension directory didn't have a 'make clean'

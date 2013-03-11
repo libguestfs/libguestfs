@@ -5,6 +5,16 @@ Launch the appliance and run basic tests.
 
 // See comment in php/run-php-tests.sh.
 //putenv ('LIBGUESTFS_DEBUG=1');
+if (! $fp = fopen ("env", "r")) {
+  die ("Error: cannot open environment file 'env'\n");
+}
+while (($buffer = fgets ($fp)) != false) {
+  putenv (chop ($buffer, "\n"));
+}
+if (!feof ($fp)) {
+  die ("Error: unexpected failure of fgets\n");
+}
+fclose ($fp);
 
 $g = guestfs_create ();
 if ($g == false) {
