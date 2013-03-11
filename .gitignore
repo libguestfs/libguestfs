@@ -292,6 +292,7 @@ Makefile.in
 /php/extension/config.sub
 /php/extension/configure
 /php/extension/configure.in
+/php/extension/env
 /php/extension/guestfs_php.c
 /php/extension/guestfs_php_*.diff
 /php/extension/guestfs_php_*.exp
