@@ -1309,6 +1309,13 @@ Set C<LIBGUESTFS_TRACE=1> to enable command traces.
 The C<more> command uses C<$PAGER> as the pager.  If not
 set, it uses C<more>.
 
+=item PATH
+
+Libguestfs and guestfish may run some external programs, and rely on
+C<$PATH> being set to a reasonable value.  If using the libvirt
+attach-method, libvirt will not work at all unless C<$PATH> contains
+the path of qemu/KVM.
+
 =item SUPERMIN_KERNEL
 
 =item SUPERMIN_MODULES
