@@ -33,15 +33,44 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static int run_qemu_img_info (guestfs_h *g, const char *filename, cmd_stdout_callback cb, void *data);
+static char *old_parser_disk_format (guestfs_h *g, const char *filename);
+static int64_t old_parser_disk_virtual_size (guestfs_h *g, const char *filename);
+static int old_parser_disk_has_backing_file (guestfs_h *g, const char *filename);
+
+char *
+guestfs__disk_format (guestfs_h *g, const char *filename)
+{
+  return old_parser_disk_format (g, filename);
+}
+
+int64_t
+guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
+{
+  return old_parser_disk_virtual_size (g, filename);
+}
+
+int
+guestfs__disk_has_backing_file (guestfs_h *g, const char *filename)
+{
+  return old_parser_disk_has_backing_file (g, filename);
+}
+
+/*----------------------------------------------------------------------
+ * This is the old parser for the old / human-readable output of
+ * qemu-img info, ONLY used if EITHER you've got an old version of
+ * qemu-img, OR you're not using yajl.  It is highly recommended that
+ * you upgrade qemu-img and install yajl so that you can use the new,
+ * secure JSON parser above.
+ */
+
+static int old_parser_run_qemu_img_info (guestfs_h *g, const char *filename, cmd_stdout_callback cb, void *data);
 
 /* NB: For security reasons, the check_* callbacks MUST bail
  * after seeing the first line that matches /^backing file: /.  See:
  * https://lists.gnu.org/archive/html/qemu-devel/2012-09/msg00137.html
- * Eventually we should use the JSON output of qemu-img info.
  */
 
-struct check_data {
+struct old_parser_check_data {
   int stop, failed;
   union {
     char *ret;
@@ -50,18 +79,20 @@ struct check_data {
   };
 };
 
-static void check_disk_format (guestfs_h *g, void *data, const char *line, size_t len);
-static void check_disk_virtual_size (guestfs_h *g, void *data, const char *line, size_t len);
-static void check_disk_has_backing_file (guestfs_h *g, void *data, const char *line, size_t len);
+static void old_parser_check_disk_format (guestfs_h *g, void *data, const char *line, size_t len);
+static void old_parser_check_disk_virtual_size (guestfs_h *g, void *data, const char *line, size_t len);
+static void old_parser_check_disk_has_backing_file (guestfs_h *g, void *data, const char *line, size_t len);
 
-char *
-guestfs__disk_format (guestfs_h *g, const char *filename)
+static char *
+old_parser_disk_format (guestfs_h *g, const char *filename)
 {
-  struct check_data data;
+  struct old_parser_check_data data;
 
   memset (&data, 0, sizeof data);
 
-  if (run_qemu_img_info (g, filename, check_disk_format, &data) == -1) {
+  if (old_parser_run_qemu_img_info (g, filename,
+                                    old_parser_check_disk_format,
+                                    &data) == -1) {
     free (data.ret);
     return NULL;
   }
@@ -73,9 +104,10 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
 }
 
 static void
-check_disk_format (guestfs_h *g, void *datav, const char *line, size_t len)
+old_parser_check_disk_format (guestfs_h *g, void *datav,
+                              const char *line, size_t len)
 {
-  struct check_data *data = datav;
+  struct old_parser_check_data *data = datav;
   const char *p;
 
   if (data->stop)
@@ -93,14 +125,16 @@ check_disk_format (guestfs_h *g, void *datav, const char *line, size_t len)
   }
 }
 
-int64_t
-guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
+static int64_t
+old_parser_disk_virtual_size (guestfs_h *g, const char *filename)
 {
-  struct check_data data;
+  struct old_parser_check_data data;
 
   memset (&data, 0, sizeof data);
 
-  if (run_qemu_img_info (g, filename, check_disk_virtual_size, &data) == -1)
+  if (old_parser_run_qemu_img_info (g, filename,
+                                    old_parser_check_disk_virtual_size,
+                                    &data) == -1)
     return -1;
 
   if (data.failed)
@@ -110,10 +144,10 @@ guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
 }
 
 static void
-check_disk_virtual_size (guestfs_h *g, void *datav,
-                         const char *line, size_t len)
+old_parser_check_disk_virtual_size (guestfs_h *g, void *datav,
+                                    const char *line, size_t len)
 {
-  struct check_data *data = datav;
+  struct old_parser_check_data *data = datav;
   const char *p;
 
   if (data->stop)
@@ -134,24 +168,26 @@ check_disk_virtual_size (guestfs_h *g, void *datav,
   }
 }
 
-int
-guestfs__disk_has_backing_file (guestfs_h *g, const char *filename)
+static int
+old_parser_disk_has_backing_file (guestfs_h *g, const char *filename)
 {
-  struct check_data data;
+  struct old_parser_check_data data;
 
   memset (&data, 0, sizeof data);
 
-  if (run_qemu_img_info (g, filename, check_disk_has_backing_file, &data) == -1)
+  if (old_parser_run_qemu_img_info (g, filename,
+                                    old_parser_check_disk_has_backing_file,
+                                    &data) == -1)
     return -1;
 
   return data.reti;
 }
 
 static void
-check_disk_has_backing_file (guestfs_h *g, void *datav,
-                             const char *line, size_t len)
+old_parser_check_disk_has_backing_file (guestfs_h *g, void *datav,
+                                        const char *line, size_t len)
 {
-  struct check_data *data = datav;
+  struct old_parser_check_data *data = datav;
 
   if (data->stop)
     return;
@@ -163,8 +199,8 @@ check_disk_has_backing_file (guestfs_h *g, void *datav,
 }
 
 static int
-run_qemu_img_info (guestfs_h *g, const char *filename,
-                   cmd_stdout_callback fn, void *data)
+old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
+                              cmd_stdout_callback fn, void *data)
 {
   CLEANUP_FREE char *abs_filename = NULL;
   CLEANUP_FREE char *safe_filename = NULL;
