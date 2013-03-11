@@ -90,7 +90,8 @@
 /* Guestfs handle and associated structures. */
 
 /* State. */
-enum state { CONFIG, LAUNCHING, READY, NO_HANDLE };
+enum state { CONFIG = 0, LAUNCHING = 1, READY = 2,
+             NO_HANDLE = 0xebadebad };
 
 /* Attach method. */
 enum attach_method {
