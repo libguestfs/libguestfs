@@ -87,7 +87,9 @@
 /* Maximum size of Windows explorer.exe.  2.6MB on Windows 7. */
 #define MAX_WINDOWS_EXPLORER_SIZE (4 * 1000 * 1000)
 
-/* GuestFS handle and connection. */
+/* Guestfs handle and associated structures. */
+
+/* State. */
 enum state { CONFIG, LAUNCHING, READY, NO_HANDLE };
 
 /* Attach method. */
@@ -198,6 +200,7 @@ struct error_cb_stack {
   void *                   error_cb_data;
 };
 
+/* The libguestfs handle. */
 struct guestfs_h
 {
   struct guestfs_h *next;	/* Linked list of open handles. */
