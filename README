@@ -138,7 +138,8 @@ The full requirements are described below.
 | libldm       |             | O | Library (libldm) and 'ldmtool' for      |
 |              |             |   | handling Windows Dynamic Disks.         |
 +--------------+-------------+---+-----------------------------------------+
-| yajl         | 2           | O | JSON parser for parsing output of ldmtool.
+| yajl         | 2           | O | JSON parser for parsing output of       |
+|              |             |   | ldmtool and qemu-img info commands.     |
 +--------------+-------------+---+-----------------------------------------+
 | gdisk        |             | O | GPT disk support.                       |
 +--------------+-------------+---+-----------------------------------------+

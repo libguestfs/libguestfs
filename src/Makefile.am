@@ -131,7 +131,8 @@ libguestfs_la_CFLAGS = \
 	$(GCC_VISIBILITY_HIDDEN) \
 	$(PCRE_CFLAGS) \
 	$(LIBVIRT_CFLAGS) \
-	$(LIBXML2_CFLAGS)
+	$(LIBXML2_CFLAGS) \
+	$(YAJL_CFLAGS)
 
 libguestfs_la_LIBADD = \
 	liberrnostring.la \
@@ -139,6 +140,7 @@ libguestfs_la_LIBADD = \
 	libutils.la \
 	$(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
+	$(YAJL_LIBS) \
 	../gnulib/lib/libgnu.la \
 	$(GETADDRINFO_LIB) \
 	$(HOSTENT_LIB) \
