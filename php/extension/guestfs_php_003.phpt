@@ -12,19 +12,19 @@ if ($g == false) {
   exit;
 }
 if (guestfs_add_drive ($g, "/dev/null") == false) {
-  echo ("Failed add_drive, no optional arguments.\n");
+  echo ("Failed add_drive, no optional arguments: " . guestfs_last_error ($g) . "\n");
   exit;
 }
 if (guestfs_add_drive ($g, "/dev/null", 0) == false) {
-  echo ("Failed add_drive, one optional argument.\n");
+  echo ("Failed add_drive, one optional argument: " . guestfs_last_error ($g) . "\n");
   exit;
 }
 if (guestfs_add_drive ($g, "/dev/null", 1) == false) {
-  echo ("Failed add_drive, one optional argument.\n");
+  echo ("Failed add_drive, one optional argument: " . guestfs_last_error ($g) . "\n");
   exit;
 }
 if (guestfs_add_drive ($g, "/dev/null", 1, "raw") == false) {
-  echo ("Failed add_drive, two optional arguments.\n");
+  echo ("Failed add_drive, two optional arguments: " . guestfs_last_error ($g) . "\n");
   exit;
 }
 echo ("Completed tests OK.\n");
