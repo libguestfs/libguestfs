@@ -266,13 +266,6 @@ launch_appliance (guestfs_h *g, const char *arg)
      */
     alloc_cmdline (g);
 
-    /* Add any qemu parameters. */
-    for (qp = g->qemu_params; qp; qp = qp->next) {
-      add_cmdline (g, qp->qemu_param);
-      if (qp->qemu_value)
-        add_cmdline (g, qp->qemu_value);
-    }
-
     /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
      * devices.  The -global option must exist, but you can pass any
      * strings to it so we don't need to check for the specific virtio
@@ -350,13 +343,6 @@ launch_appliance (guestfs_h *g, const char *arg)
 
       appliance_dev[5] = virtio_scsi ? 's' : 'v';
       guestfs___drive_name (g->nr_drives, &appliance_dev[7]);
-    }
-
-    if (STRNEQ (QEMU_OPTIONS, "")) {
-      /* Add the extra options for the qemu command line specified
-       * at configure time.
-       */
-      add_cmdline_shell_unquoted (g, QEMU_OPTIONS);
     }
 
     /* The qemu -machine option (added 2010-12) is a bit more sane
@@ -475,6 +461,23 @@ launch_appliance (guestfs_h *g, const char *arg)
     CLEANUP_FREE char *cmdline =
       guestfs___appliance_command_line (g, appliance_dev, 0);
     add_cmdline (g, cmdline);
+
+    /* Note: custom command line parameters must come last so that
+     * qemu -set parameters can modify previously added options.
+     */
+
+    /* Add the extra options for the qemu command line specified
+     * at configure time.
+     */
+    if (STRNEQ (QEMU_OPTIONS, ""))
+      add_cmdline_shell_unquoted (g, QEMU_OPTIONS);
+
+    /* Add any qemu parameters. */
+    for (qp = g->qemu_params; qp; qp = qp->next) {
+      add_cmdline (g, qp->qemu_param);
+      if (qp->qemu_value)
+        add_cmdline (g, qp->qemu_value);
+    }
 
     /* Finish off the command line. */
     incr_cmdline_size (g);
