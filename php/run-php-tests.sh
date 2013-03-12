@@ -39,7 +39,7 @@ unset LIBGUESTFS_TRACE
 # This makes a file containing the environment variables we want to set.
 rm -f env
 echo "PATH=$PATH" > env
-printenv | grep -E '^(LIBGUESTFS_|LIBVIRT_|LD_|MALLOC_)' >> env
+printenv | grep -E '^(LIBGUESTFS|LIBVIRT|LIBVIRTD|VIRTLOCKD|LD|MALLOC)_' >> env
 
 TESTS=$(echo guestfs_php_*.phpt)
 echo TESTS: $TESTS
