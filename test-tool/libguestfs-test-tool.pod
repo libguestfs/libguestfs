@@ -92,6 +92,12 @@ for further information.
 
 =head1 TRYING OUT A DIFFERENT VERSION OF LIBVIRT
 
+To find out which attach-method is the default in your libguestfs
+package, do:
+
+ unset LIBGUESTFS_ATTACH_METHOD
+ guestfish get-attach-method
+
 If you are using the libvirt attach-method, then you can try out a
 different (eg. upstream) version of libvirt by running these commands
 (I<not> as root):
@@ -105,7 +111,39 @@ script (in the top-level libvirt build directory) to set some
 environment variables so that the alternate version of libvirt is used
 to run the program.
 
+=head1 TRYING OUT WITH / WITHOUT LIBVIRT
+
+To find out which attach-method is the default in your libguestfs
+package, do:
+
+ unset LIBGUESTFS_ATTACH_METHOD
+ guestfish get-attach-method
+
+If you are using the libvirt attach-method, you can try without
+(ie. libguestfs directly launching qemu) by doing:
+
+ export LIBGUESTFS_ATTACH_METHOD=appliance
+
+Or if you are using the default (appliance) attach-method, then you
+can try libvirt:
+
+ export LIBGUESTFS_ATTACH_METHOD=libvirt
+
+or with libvirt and a specific
+L<libvirt URI|http://libvirt.org/uri.html>:
+
+ export LIBGUESTFS_ATTACH_METHOD=libvirt:qemu:///session
+
 =head1 TRYING OUT DIFFERENT SELINUX SETTINGS
+
+To find out which attach-method is the default in your libguestfs
+package, do:
+
+ LIBGUESTFS_ATTACH_METHOD= guestfish get-attach-method
+
+To find out if SELinux is being used, do:
+
+ getenforce
 
 If you are using libvirt, SELinux and sVirt, then you can try to see
 if changing SELinux to "permissive" mode makes any difference.  Use
