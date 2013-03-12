@@ -1262,6 +1262,7 @@ default by doing:
 To find out if libguestfs was compiled with a different default
 attach method, do:
 
+ unset LIBGUESTFS_ATTACH_METHOD
  guestfish get-attach-method
 
 =head2 ATTACHING TO RUNNING DAEMONS
