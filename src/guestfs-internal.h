@@ -506,6 +506,9 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
   }                                                      \
   while (0)
 
+extern void guestfs___launch_failed_error (guestfs_h *g);
+extern void guestfs___unexpected_close_error (guestfs_h *g);
+
 /* actions-support.c */
 struct trace_buffer {
   FILE *fp;
@@ -564,8 +567,6 @@ extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, .
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern size_t guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, size_t);
-extern void guestfs___launch_failed_error (guestfs_h *g);
-extern void guestfs___unexpected_close_error (guestfs_h *g);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
 extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);

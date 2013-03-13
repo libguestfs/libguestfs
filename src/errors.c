@@ -269,3 +269,38 @@ guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size)
 {
   guestfs___print_BufferIn (out, buf, buf_size);
 }
+
+/* Some standard error messages for common failures. */
+
+/* Launch failed.  Since this is the most common error seen by people
+ * who have installation problems, buggy qemu, etc, and since no one
+ * reads the FAQ, describe in this error message what resources are
+ * available to debug launch problems.
+ */
+void
+guestfs___launch_failed_error (guestfs_h *g)
+{
+  if (g->verbose)
+    error (g, _("guestfs_launch failed, see earlier error messages"));
+  else
+    error (g, _(
+"guestfs_launch failed.\n"
+"This usually means the libguestfs appliance failed to start or crashed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"or run 'libguestfs-test-tool' and post the *complete* output into a\n"
+"bug report or message to the libguestfs mailing list."));
+}
+
+/* As above, but for crashes that occur after launch. */
+void
+guestfs___unexpected_close_error (guestfs_h *g)
+{
+  if (g->verbose)
+    error (g, _("appliance closed the connection unexpectedly, see earlier error messages"));
+  else
+    error (g, _(
+"appliance closed the connection unexpectedly.\n"
+"This usually means the libguestfs appliance crashed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"for information about how to debug libguestfs and report bugs."));
+}
