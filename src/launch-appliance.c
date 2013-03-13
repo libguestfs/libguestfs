@@ -798,7 +798,10 @@ test_qemu (guestfs_h *g)
   return 0;
 
  error:
-  error (g, _("qemu command failed\nIf qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\nenvironment variable.  There may also be errors printed above."));
+  if (r == -1)
+    return -1;
+
+  guestfs___external_command_failed (g, r, g->qemu, NULL);
   return -1;
 }
 
@@ -1008,7 +1011,7 @@ static int
 shutdown_appliance (guestfs_h *g, int check_for_errors)
 {
   int ret = 0;
-  int status, sig;
+  int status;
 
   /* Signal qemu to shutdown cleanly, and kill the recovery process. */
   if (g->app.pid > 0) {
@@ -1023,18 +1026,8 @@ shutdown_appliance (guestfs_h *g, int check_for_errors)
       perrorf (g, "waitpid (qemu)");
       ret = -1;
     }
-    else if (WIFEXITED (status) && WEXITSTATUS (status) != 0) {
-      error (g, "qemu failed (status %d)", WEXITSTATUS (status));
-      ret = -1;
-    }
-    else if (WIFSIGNALED (status)) {
-      sig = WTERMSIG (status);
-      error (g, "qemu terminated by signal %d (%s)", sig, strsignal (sig));
-      ret = -1;
-    }
-    else if (WIFSTOPPED (status)) {
-      sig = WSTOPSIG (status);
-      error (g, "qemu stopped by signal %d (%s)", sig, strsignal (sig));
+    else if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
+      guestfs___external_command_failed (g, status, g->qemu, NULL);
       ret = -1;
     }
   }

@@ -273,20 +273,14 @@ start_thread (void *statevp)
       perror ("waitpid");
       goto error;
     }
-    if (WIFEXITED (status)) {
-      if (WEXITSTATUS (status) != 0) {
-        fprintf (stderr, "%s: test exited with non-zero status %d\n",
-                 state->mp, WEXITSTATUS (status));
+    if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
+      char status_string[80];
+
+      fprintf (stderr, "%s: %s\n", state->mp,
+               guestfs___exit_status_to_string (status, "test",
+                                                status_string,
+                                                sizeof status_string));
         goto error;
-      }
-    } else if (WIFSIGNALED (status)) {
-      fprintf (stderr, "%s: subprocess killed by signal %d\n",
-               state->mp, WTERMSIG (status));
-      goto error;
-    } else if (WIFSTOPPED (status)) {
-      fprintf (stderr, "%s: subprocess stopped by signal %d\n",
-               state->mp, WSTOPSIG (status));
-      goto error;
     }
 
     if (r == -1) /* guestfs_mount_local_run above failed */

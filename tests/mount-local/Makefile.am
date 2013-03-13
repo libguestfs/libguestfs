@@ -37,7 +37,10 @@ test_parallel_mount_local_CFLAGS = \
 	$(FUSE_CFLAGS)
 test_parallel_mount_local_LDADD = \
 	$(FUSE_LIBS) \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 check-valgrind:

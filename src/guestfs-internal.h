@@ -455,6 +455,8 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
   }                                                      \
   while (0)
 
+extern void guestfs___external_command_failed (guestfs_h *g, int status, const char *cmd_name, const char *extra);
+
 /* actions-support.c */
 struct trace_buffer {
   FILE *fp;

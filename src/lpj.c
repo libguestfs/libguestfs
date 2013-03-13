@@ -142,8 +142,15 @@ read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
   guestfs___cmd_set_stdout_callback (cmd, read_all, &buf,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd);
-  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    debug (g, "%s: external command failed with code %d", func, r);
+  if (r == -1)
+    return -1;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    char status_string[80];
+
+    debug (g, "%s: %s", func,
+           guestfs___exit_status_to_string (r, "external command",
+                                            status_string,
+                                            sizeof status_string));
     return -1;
   }
 

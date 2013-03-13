@@ -1386,7 +1386,7 @@ make_qcow2_overlay (guestfs_h *g, const char *path, const char *format)
   if (r == -1)
     goto error;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, _("qemu-img create: could not create snapshot over %s"), path);
+    guestfs___external_command_failed (g, r, "qemu-img create", path);
     goto error;
   }
 

@@ -82,7 +82,7 @@ guestfs___read_db_dump (guestfs_h *g,
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, _("%s: command failed"), DB_DUMP);
+    guestfs___external_command_failed (g, r, DB_DUMP, NULL);
     return -1;
   }
   if (data.state != reading_finished) {

@@ -366,6 +366,7 @@ run_command (struct command *cmd)
   int i, fd, max_fd, r;
   int errorfd[2] = { -1, -1 };
   int outfd[2] = { -1, -1 };
+  char status_string[80];
 
   /* Set up a pipe to capture command output and send it to the error log. */
   if (cmd->capture_errors) {
@@ -470,16 +471,10 @@ run_command (struct command *cmd)
     }
     if (WIFEXITED (r))
       _exit (WEXITSTATUS (r));
-    if (WIFSIGNALED (r)) {
-      fprintf (stderr, "%s: received signal %d\n", cmd->string.str,
-               WTERMSIG (r));
-      _exit (EXIT_FAILURE);
-    }
-    if (WIFSTOPPED (r)) {
-      fprintf (stderr, "%s: stopped by signal %d\n", cmd->string.str,
-               WSTOPSIG (r));
-      _exit (EXIT_FAILURE);
-    }
+    fprintf (stderr, "%s\n",
+             guestfs___exit_status_to_string (r, cmd->string.str,
+                                              status_string,
+                                              sizeof status_string));
     _exit (EXIT_FAILURE);
 
   case COMMAND_STYLE_NOT_SELECTED:
