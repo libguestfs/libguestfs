@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-05 19:54+0000\n"
+"POT-Creation-Date: 2013-03-13 10:51+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
@@ -3693,12 +3693,17 @@ msgstr "libguestfs: ତ୍ରୁଟି: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/filearch.c:155
+#: src/filearch.c:158
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/filearch.c:258
+#: src/filearch.c:185
+#, c-format
+msgid "cpio command failed (status 0x%x)"
+msgstr ""
+
+#: src/filearch.c:266
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3713,7 +3718,7 @@ msgstr ""
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/for-each-disk.c:100 src/launch-libvirt.c:522 src/libvirt-domain.c:345
+#: src/for-each-disk.c:100 src/launch-libvirt.c:524 src/libvirt-domain.c:345
 msgid "unable to create new XPath context"
 msgstr ""
 
@@ -3859,11 +3864,11 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch-appliance.c:669 src/launch-libvirt.c:448
+#: src/launch-appliance.c:672 src/launch-libvirt.c:450
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch-appliance.c:798
+#: src/launch-appliance.c:801
 msgid ""
 "qemu command failed\n"
 "If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
@@ -3874,57 +3879,58 @@ msgstr ""
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:177
+#: src/launch-libvirt.c:179
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:192
+#: src/launch-libvirt.c:194
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:208
+#: src/launch-libvirt.c:210
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:372
+#: src/launch-libvirt.c:374
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:516
+#: src/launch-libvirt.c:518
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:532
+#: src/launch-libvirt.c:534
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:565
+#: src/launch-libvirt.c:567
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
 "so we cannot create the libguestfs appliance.\n"
-"The current attach-method is:\n"
-"  %s\n"
-"Try setting:\n"
+"The current attach-method is '%s'.\n"
+"Check that the PATH environment variable is set and contains\n"
+"the path to the qemu ('qemu-system-*') or KVM ('qemu-kvm', 'kvm' etc).\n"
+"Or: try setting:\n"
 "  export LIBGUESTFS_ATTACH_METHOD=libvirt:qemu:///session\n"
-"or if you want to have libguestfs run qemu directly, try:\n"
+"Or: if you want to have libguestfs run qemu directly, try:\n"
 "  export LIBGUESTFS_ATTACH_METHOD=appliance\n"
-"or read the guestfs(3) man page"
+"For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:713
+#: src/launch-libvirt.c:716
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1032
+#: src/launch-libvirt.c:1035
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:1112
+#: src/launch-libvirt.c:1115
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -3932,34 +3938,34 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1386
+#: src/launch-libvirt.c:1389
 #, c-format
 msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
-#: src/launch-libvirt.c:1413
+#: src/launch-libvirt.c:1416
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1458
+#: src/launch-libvirt.c:1461
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1490
+#: src/launch-libvirt.c:1493
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1551
+#: src/launch-libvirt.c:1554
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1580
+#: src/launch-libvirt.c:1583
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1626
+#: src/launch-libvirt.c:1629
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
