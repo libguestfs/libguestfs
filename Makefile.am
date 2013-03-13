@@ -241,7 +241,7 @@ dist-hook:
 	$(top_srcdir)/update-bugs.sh > BUGS-t
 	mv BUGS-t BUGS
 	cp BUGS $(distdir)/BUGS
-	git shortlog -se | awk -F'\t' '{print $$2}' > AUTHORS-t
+	git shortlog -se | awk -F'\t' '{print $$2}' | sort -f > AUTHORS-t
 	mv AUTHORS-t AUTHORS
 	cp AUTHORS $(distdir)/AUTHORS
 
