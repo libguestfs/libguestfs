@@ -689,7 +689,7 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, _("external command failed, see earlier error messages"));
+    guestfs___external_command_failed (g, r, SUPERMIN_HELPER, NULL);
     return -1;
   }
 

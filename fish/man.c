@@ -52,7 +52,12 @@ run_man (const char *cmd, size_t argc, char *argv[])
   if (r != 0)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    fprintf (stderr, _("the external 'man' program failed\n"));
+    char status_string[80];
+
+    fprintf (stderr, "%s\n",
+             guestfs___exit_status_to_string (r, "man",
+                                              status_string,
+                                              sizeof status_string));
     return -1;
   }
 

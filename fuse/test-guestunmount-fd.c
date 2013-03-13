@@ -35,8 +35,6 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
-static void display_exit_status (int status, FILE *fp);
-
 int
 main (int argc, char *argv[])
 {
@@ -82,9 +80,12 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
   if (r != 0) {
-    fprintf (stderr, "%s: test failed: guestunmount unexpectedly ", argv[0]);
-    display_exit_status (status, stderr);
-    fputc ('\n', stderr);
+    char status_string[80];
+
+    fprintf (stderr, "%s: test failed: %s\n", argv[0],
+             guestfs___exit_status_to_string (r, "guestunmount",
+                                              status_string,
+                                              sizeof status_string));
     exit (EXIT_FAILURE);
   }
 
@@ -100,27 +101,15 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
   if (!WIFEXITED (status) || WEXITSTATUS (status) != 2) {
-    fprintf (stderr, "%s: test failed: guestunmount didn't return status code 2; instead it ", argv[0]);
-    display_exit_status (status, stderr);
-    fputc ('\n', stderr);
+    char status_string[80];
+
+    fprintf (stderr, "%s: test failed: guestunmount didn't return status code 2; %s\n",
+             argv[0],
+             guestfs___exit_status_to_string (status, "guestunmount",
+                                              status_string,
+                                              sizeof status_string));
     exit (EXIT_FAILURE);
   }
 
   exit (EXIT_SUCCESS);
-}
-
-static void
-display_exit_status (int status, FILE *fp)
-{
-  if (WIFEXITED (status))
-    fprintf (fp, "exited with status code %d", WEXITSTATUS (status));
-  else if (WIFSIGNALED (status)) {
-    fprintf (fp, "exited on signal %d", WTERMSIG (status));
-    if (WCOREDUMP (status))
-      fprintf (fp, " and dumped core");
-  }
-  else if (WIFSTOPPED (status))
-    fprintf (fp, "stopped on signal %d", WSTOPSIG (status));
-  else
-    fprintf (fp, "<< unknown status %d >>", status);
 }

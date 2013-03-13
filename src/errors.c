@@ -304,3 +304,36 @@ guestfs___unexpected_close_error (guestfs_h *g)
 "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
 "for information about how to debug libguestfs and report bugs."));
 }
+
+/* External command failed. */
+void
+guestfs___external_command_failed (guestfs_h *g, int status,
+                                   const char *cmd_name, const char *extra)
+{
+  size_t len = 80 + strlen (cmd_name);
+  char status_string[len];
+
+  guestfs___exit_status_to_string (status, cmd_name, status_string, len);
+
+  if (g->verbose) {
+    if (!extra)
+      error (g, _("%s, see debug messages above"), status_string);
+    else
+      error (g, _("%s: %s: %s, see debug messages above"),
+             cmd_name, extra, status_string);
+  }
+  else {
+    if (!extra)
+      error (g, _(
+"%s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"),
+             status_string);
+    else
+      error (g, _(
+"%s: %s: %s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"),
+             cmd_name, extra, status_string);
+  }
+}

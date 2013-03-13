@@ -181,8 +181,10 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   }
 
   r = guestfs___cmd_run (cmd);
-  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, _("cpio command failed (status 0x%x)"), r);
+  if (r == -1)
+    goto out;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs___external_command_failed (g, r, "cpio", path);
     goto out;
   }
 

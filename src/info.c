@@ -246,7 +246,7 @@ get_json_output (guestfs_h *g, const char *filename)
   if (r == -1)
     return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, _("qemu-img info: %s: child process failed"), filename);
+    guestfs___external_command_failed (g, r, "qemu-img info", filename);
     return NULL;
   }
 
@@ -508,7 +508,7 @@ old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    error (g, _("qemu-img: %s: child process failed"), filename);
+    guestfs___external_command_failed (g, r, "qemu-img info", filename);
     return -1;
   }
 

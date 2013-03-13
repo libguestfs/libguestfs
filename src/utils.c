@@ -20,8 +20,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <libintl.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -48,4 +52,35 @@ guestfs___count_strings (char *const *argv)
     ;
 
   return r;
+}
+
+/* Translate a wait/system exit status into a printable string.  The
+ * string must be freed by the caller.
+ */
+char *
+guestfs___exit_status_to_string (int status, const char *cmd_name,
+                                 char *buffer, size_t buflen)
+{
+  if (WIFEXITED (status)) {
+    if (WEXITSTATUS (status) == 0)
+      snprintf (buffer, buflen, _("%s exited successfully"),
+                cmd_name);
+    else
+      snprintf (buffer, buflen, _("%s exited with error status %d"),
+                cmd_name, WEXITSTATUS (status));
+  }
+  else if (WIFSIGNALED (status)) {
+    snprintf (buffer, buflen, _("%s killed by signal %d (%s)"),
+              cmd_name, WTERMSIG (status), strsignal (WTERMSIG (status)));
+  }
+  else if (WIFSTOPPED (status)) {
+    snprintf (buffer, buflen, _("%s stopped by signal %d (%s)"),
+              cmd_name, WSTOPSIG (status), strsignal (WSTOPSIG (status)));
+  }
+  else {
+    snprintf (buffer, buflen, _("%s exited for an unknown reason (status %d)"),
+              cmd_name, status);
+  }
+
+  return buffer;
 }
