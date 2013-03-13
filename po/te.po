@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-11 22:53+0000\n"
+"POT-Creation-Date: 2013-03-13 18:44+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -3012,11 +3012,6 @@ msgstr "స్థానిక డైరెక్టరీను మార్చ�
 msgid "use 'man' without parameters to open the manual\n"
 msgstr ""
 
-#: fish/man.c:55
-#, c-format
-msgid "the external 'man' program failed\n"
-msgstr ""
-
 #: fish/more.c:42
 #, c-format
 msgid "use '%s filename' to page a file\n"
@@ -3690,11 +3685,6 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:703
-#, c-format
-msgid "%s: unknown child exit status (%d)\n"
-msgstr ""
-
 #: src/appliance.c:215
 #, c-format
 msgid ""
@@ -3717,10 +3707,6 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/appliance.c:692
-msgid "external command failed, see earlier error messages"
-msgstr ""
-
 #: src/conn-socket.c:59
 msgid "accept_connection called twice"
 msgstr ""
@@ -3739,11 +3725,6 @@ msgstr ""
 
 #: src/conn-socket.c:317
 msgid "error reading console messages from the appliance"
-msgstr ""
-
-#: src/dbdump.c:85
-#, c-format
-msgid "%s: command failed"
 msgstr ""
 
 #: src/dbdump.c:89
@@ -3774,17 +3755,64 @@ msgstr "libguestfs: దోషము: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
+#: src/errors.c:284
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
+
+#: src/errors.c:287
+msgid ""
+"guestfs_launch failed.\n"
+"This usually means the libguestfs appliance failed to start or crashed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"or run 'libguestfs-test-tool' and post the *complete* output into a\n"
+"bug report or message to the libguestfs mailing list."
+msgstr ""
+
+#: src/errors.c:299
+msgid ""
+"appliance closed the connection unexpectedly, see earlier error messages"
+msgstr ""
+
+#: src/errors.c:302
+msgid ""
+"appliance closed the connection unexpectedly.\n"
+"This usually means the libguestfs appliance crashed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"for information about how to debug libguestfs and report bugs."
+msgstr ""
+
+#: src/errors.c:320
+#, c-format
+msgid "%s, see debug messages above"
+msgstr ""
+
+#: src/errors.c:322
+#, c-format
+msgid "%s: %s: %s, see debug messages above"
+msgstr ""
+
+#: src/errors.c:328
+#, c-format
+msgid ""
+"%s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
+msgstr ""
+
+#: src/errors.c:334
+#, c-format
+msgid ""
+"%s: %s: %s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
+msgstr ""
+
 #: src/filearch.c:158
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/filearch.c:185
-#, c-format
-msgid "cpio command failed (status 0x%x)"
-msgstr ""
-
-#: src/filearch.c:266
+#: src/filearch.c:268
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3871,11 +3899,6 @@ msgstr ""
 msgid "qemu-img info: JSON output was not an object"
 msgstr ""
 
-#: src/info.c:249
-#, c-format
-msgid "qemu-img info: %s: child process failed"
-msgstr ""
-
 #: src/info.c:277
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
@@ -3888,11 +3911,6 @@ msgstr ""
 #: src/info.c:417
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
-msgstr ""
-
-#: src/info.c:511
-#, c-format
-msgid "qemu-img: %s: child process failed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:205
@@ -3954,16 +3972,9 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launchకు ముందుగా మీరు guestfs_add_driveను పిలువవలెను"
 
-#: src/launch-appliance.c:658 src/launch-libvirt.c:448
+#: src/launch-appliance.c:661 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
-
-#: src/launch-appliance.c:785
-msgid ""
-"qemu command failed\n"
-"If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
-"environment variable.  There may also be errors printed above."
-msgstr ""
 
 #: src/launch-libvirt.c:171
 msgid "direct mode flag is not supported yet for libvirt attach method"
@@ -4031,11 +4042,6 @@ msgid ""
 "could not auto-detect the format of '%s'\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-
-#: src/launch-libvirt.c:1430
-#, c-format
-msgid "qemu-img create: could not create snapshot over %s"
 msgstr ""
 
 #: src/launch-libvirt.c:1467
@@ -4123,45 +4129,19 @@ msgstr ""
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:698
-msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
-
-#: src/launch.c:700
-msgid ""
-"guestfs_launch failed.\n"
-"This usually means the libguestfs appliance failed to start or crashed.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"or run 'libguestfs-test-tool' and post the *complete* output into a\n"
-"bug report or message to the libguestfs mailing list."
-msgstr ""
-
-#: src/launch.c:712
-msgid ""
-"appliance closed the connection unexpectedly, see earlier error messages"
-msgstr ""
-
-#: src/launch.c:714
-msgid ""
-"appliance closed the connection unexpectedly.\n"
-"This usually means the libguestfs appliance crashed.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"for information about how to debug libguestfs and report bugs."
-msgstr ""
-
-#: src/launch.c:724
+#: src/launch.c:693
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:730
+#: src/launch.c:699
 msgid "the current attach-method does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:743
+#: src/launch.c:712
 msgid "the current attach-method does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:755
+#: src/launch.c:724
 msgid "qemu has not been launched yet"
 msgstr "qemu యింకా ఆరంభం కాలేదు"
 
@@ -4352,6 +4332,31 @@ msgstr ""
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: తాత్కాలిక డైరెక్టరీను సృష్టించలేదు"
+
+#: src/utils.c:66
+#, c-format
+msgid "%s exited successfully"
+msgstr ""
+
+#: src/utils.c:69
+#, c-format
+msgid "%s exited with error status %d"
+msgstr ""
+
+#: src/utils.c:73
+#, c-format
+msgid "%s killed by signal %d (%s)"
+msgstr ""
+
+#: src/utils.c:77
+#, c-format
+msgid "%s stopped by signal %d (%s)"
+msgstr ""
+
+#: src/utils.c:81
+#, c-format
+msgid "%s exited for an unknown reason (status %d)"
+msgstr ""
 
 #: test-tool/test-tool.c:56
 #, c-format

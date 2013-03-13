@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.21.19\n"
+"Project-Id-Version: libguestfs 1.21.20\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-03-11 22:53+0000\n"
+"POT-Creation-Date: 2013-03-13 18:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -343,7 +343,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:146 ../cat/virt-cat.pod:114 ../cat/virt-filesystems.pod:179 ../cat/virt-ls.pod:337 ../df/virt-df.pod:124 ../edit/virt-edit.pod:141 ../fish/guestfish.pod:242 ../fish/guestfish.pod:689 ../format/virt-format.pod:96 ../inspector/virt-inspector.pod:350 ../rescue/virt-rescue.pod:164 ../src/guestfs.pod:3728 ../sysprep/virt-sysprep.pod:112
+#: ../align/virt-alignment-scan.pod:146 ../cat/virt-cat.pod:114 ../cat/virt-filesystems.pod:179 ../cat/virt-ls.pod:337 ../df/virt-df.pod:124 ../edit/virt-edit.pod:141 ../fish/guestfish.pod:242 ../fish/guestfish.pod:689 ../format/virt-format.pod:96 ../inspector/virt-inspector.pod:350 ../rescue/virt-rescue.pod:164 ../src/guestfs.pod:3729 ../sysprep/virt-sysprep.pod:112
 msgid "For example:"
 msgstr ""
 
@@ -763,7 +763,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:353 ../appliance/libguestfs-make-fixed-appliance.pod:156 ../cat/virt-cat.pod:238 ../cat/virt-filesystems.pod:384 ../cat/virt-ls.pod:490 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:254 ../edit/virt-edit.pod:363 ../fish/guestfish.pod:1203 ../format/virt-format.pod:173 ../fuse/guestmount.pod:390 ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:697 ../sparsify/virt-sparsify.pod:273 ../sysprep/virt-sysprep.pod:481 ../test-tool/libguestfs-test-tool.pod:134
+#: ../align/virt-alignment-scan.pod:353 ../appliance/libguestfs-make-fixed-appliance.pod:156 ../cat/virt-cat.pod:238 ../cat/virt-filesystems.pod:384 ../cat/virt-ls.pod:490 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:254 ../edit/virt-edit.pod:363 ../fish/guestfish.pod:1203 ../format/virt-format.pod:173 ../fuse/guestmount.pod:390 ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:697 ../sparsify/virt-sparsify.pod:273 ../sysprep/virt-sysprep.pod:481 ../test-tool/libguestfs-test-tool.pod:172
 msgid "EXIT STATUS"
 msgstr ""
 
@@ -773,7 +773,7 @@ msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:359 ../align/virt-alignment-scan.pod:365 ../align/virt-alignment-scan.pod:371 ../align/virt-alignment-scan.pod:378 ../appliance/libguestfs-make-fixed-appliance.pod:24 ../appliance/libguestfs-make-fixed-appliance.pod:30 ../appliance/libguestfs-make-fixed-appliance.pod:36 ../appliance/libguestfs-make-fixed-appliance.pod:54 ../appliance/libguestfs-make-fixed-appliance.pod:75 ../cat/virt-cat.pod:177 ../cat/virt-cat.pod:182 ../cat/virt-cat.pod:187 ../cat/virt-cat.pod:198 ../cat/virt-cat.pod:202 ../edit/virt-edit.pod:266 ../edit/virt-edit.pod:271 ../edit/virt-edit.pod:276 ../edit/virt-edit.pod:287 ../edit/virt-edit.pod:291 ../examples/guestfs-faq.pod:162 ../examples/guestfs-faq.pod:168 ../examples/guestfs-faq.pod:207 ../examples/guestfs-faq.pod:213 ../examples/guestfs-performance.pod:107 ../examples/guestfs-performance.pod:113 ../examples/guestfs-performance.pod:118 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:258 ../examples/guestfs-performance.pod:263 ../examples/guestfs-recipes.pod:170 ../examples/guestfs-recipes.pod:174 ../examples/guestfs-recipes.pod:178 ../examples/guestfs-recipes.pod:204 ../examples/guestfs-recipes.pod:209 ../examples/guestfs-recipes.pod:299 ../examples/guestfs-recipes.pod:303 ../examples/guestfs-recipes.pod:307 ../examples/guestfs-recipes.pod:311 ../examples/guestfs-recipes.pod:315 ../examples/guestfs-testing.pod:124 ../examples/guestfs-testing.pod:128 ../examples/guestfs-testing.pod:132 ../fish/guestfish-actions.pod:486 ../fish/guestfish-actions.pod:494 ../fish/guestfish-actions.pod:501 ../fish/guestfish-actions.pod:508 ../fish/guestfish-actions.pod:1564 ../fish/guestfish-actions.pod:1568 ../fish/guestfish-actions.pod:1572 ../fish/guestfish-actions.pod:1576 ../fish/guestfish-actions.pod:1584 ../fish/guestfish-actions.pod:1588 ../fish/guestfish-actions.pod:1592 ../fish/guestfish-actions.pod:1602 ../fish/guestfish-actions.pod:1606 ../fish/guestfish-actions.pod:1610 ../fish/guestfish-actions.pod:1721 ../fish/guestfish-actions.pod:1725 ../fish/guestfish-actions.pod:1730 ../fish/guestfish-actions.pod:1772 ../fish/guestfish-actions.pod:1776 ../fish/guestfish-actions.pod:1781 ../fish/guestfish-actions.pod:2275 ../fish/guestfish-actions.pod:2282 ../fish/guestfish-actions.pod:2289 ../fish/guestfish-actions.pod:2871 ../fish/guestfish-actions.pod:2877 ../fish/guestfish-actions.pod:2885 ../fish/guestfish-actions.pod:2892 ../fish/guestfish-actions.pod:2899 ../fish/guestfish.pod:461 ../fish/guestfish.pod:465 ../fish/guestfish.pod:469 ../fish/guestfish.pod:473 ../guestfs-release-notes.pod:38 ../guestfs-release-notes.pod:42 ../guestfs-release-notes.pod:46 ../guestfs-release-notes.pod:108 ../guestfs-release-notes.pod:112 ../guestfs-release-notes.pod:116 ../guestfs-release-notes.pod:120 ../guestfs-release-notes.pod:124 ../guestfs-release-notes.pod:128 ../guestfs-release-notes.pod:133 ../guestfs-release-notes.pod:137 ../guestfs-release-notes.pod:141 ../guestfs-release-notes.pod:145 ../guestfs-release-notes.pod:341 ../guestfs-release-notes.pod:346 ../guestfs-release-notes.pod:351 ../inspector/virt-inspector.pod:514 ../inspector/virt-inspector.pod:518 ../resize/virt-resize.pod:365 ../resize/virt-resize.pod:369 ../resize/virt-resize.pod:378 ../resize/virt-resize.pod:384 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:53 ../sparsify/virt-sparsify.pod:57 ../sparsify/virt-sparsify.pod:63 ../sparsify/virt-sparsify.pod:68 ../sparsify/virt-sparsify.pod:73 ../src/guestfs-actions.pod:714 ../src/guestfs-actions.pod:722 ../src/guestfs-actions.pod:729 ../src/guestfs-actions.pod:736 ../src/guestfs-actions.pod:2602 ../src/guestfs-actions.pod:2606 ../src/guestfs-actions.pod:2610 ../src/guestfs-actions.pod:2614 ../src/guestfs-actions.pod:2622 ../src/guestfs-actions.pod:2626 ../src/guestfs-actions.pod:2630 ../src/guestfs-actions.pod:2640 ../src/guestfs-actions.pod:2644 ../src/guestfs-actions.pod:2648 ../src/guestfs-actions.pod:2820 ../src/guestfs-actions.pod:2824 ../src/guestfs-actions.pod:2829 ../src/guestfs-actions.pod:2890 ../src/guestfs-actions.pod:2894 ../src/guestfs-actions.pod:2899 ../src/guestfs-actions.pod:3695 ../src/guestfs-actions.pod:3702 ../src/guestfs-actions.pod:3709 ../src/guestfs-actions.pod:4580 ../src/guestfs-actions.pod:4586 ../src/guestfs-actions.pod:4594 ../src/guestfs-actions.pod:4601 ../src/guestfs-actions.pod:4608 ../src/guestfs.pod:397 ../src/guestfs.pod:402 ../src/guestfs.pod:407 ../src/guestfs.pod:411 ../src/guestfs.pod:416 ../src/guestfs.pod:420 ../src/guestfs.pod:425 ../src/guestfs.pod:430 ../src/guestfs.pod:828 ../src/guestfs.pod:832 ../src/guestfs.pod:838 ../src/guestfs.pod:917 ../src/guestfs.pod:922 ../src/guestfs.pod:926 ../src/guestfs.pod:932 ../src/guestfs.pod:936 ../src/guestfs.pod:940 ../src/guestfs.pod:945 ../src/guestfs.pod:1402 ../src/guestfs.pod:1406 ../src/guestfs.pod:1410 ../src/guestfs.pod:1415 ../src/guestfs.pod:1423 ../src/guestfs.pod:1442 ../src/guestfs.pod:1450 ../src/guestfs.pod:1467 ../src/guestfs.pod:1472 ../src/guestfs.pod:1476 ../src/guestfs.pod:1665 ../src/guestfs.pod:1669 ../src/guestfs.pod:1673 ../src/guestfs.pod:1677 ../src/guestfs.pod:1681 ../src/guestfs.pod:1685 ../src/guestfs.pod:2290 ../src/guestfs.pod:2295 ../src/guestfs.pod:2299 ../src/guestfs.pod:2403 ../src/guestfs.pod:2408 ../src/guestfs.pod:2412 ../src/guestfs.pod:2422 ../src/guestfs.pod:2840 ../src/guestfs.pod:2845 ../src/guestfs.pod:2851 ../src/guestfs.pod:2859 ../src/guestfs.pod:3376 ../src/guestfs.pod:3382 ../src/guestfs.pod:3387 ../src/guestfs.pod:3393 ../src/guestfs.pod:3925 ../src/guestfs.pod:3930 ../src/guestfs.pod:3934 ../src/guestfs.pod:3938 ../src/guestfs.pod:3942 ../src/guestfs.pod:3956 ../src/guestfs.pod:3960 ../src/guestfs.pod:3965 ../src/guestfs.pod:3969 ../sysprep/virt-sysprep.pod:231 ../sysprep/virt-sysprep.pod:235 ../sysprep/virt-sysprep.pod:239 ../sysprep/virt-sysprep.pod:243 ../sysprep/virt-sysprep.pod:258 ../sysprep/virt-sysprep.pod:262 ../sysprep/virt-sysprep.pod:266 ../sysprep/virt-sysprep.pod:270 ../sysprep/virt-sysprep.pod:274 ../sysprep/virt-sysprep.pod:327 ../sysprep/virt-sysprep.pod:339 ../sysprep/virt-sysprep.pod:343 ../sysprep/virt-sysprep.pod:351 ../sysprep/virt-sysprep.pod:357 ../tools/virt-win-reg.pl:197 ../tools/virt-win-reg.pl:202 ../tools/virt-win-reg.pl:208 ../tools/virt-win-reg.pl:717 ../tools/virt-win-reg.pl:723 ../tools/virt-win-reg.pl:729
+#: ../align/virt-alignment-scan.pod:359 ../align/virt-alignment-scan.pod:365 ../align/virt-alignment-scan.pod:371 ../align/virt-alignment-scan.pod:378 ../appliance/libguestfs-make-fixed-appliance.pod:24 ../appliance/libguestfs-make-fixed-appliance.pod:30 ../appliance/libguestfs-make-fixed-appliance.pod:36 ../appliance/libguestfs-make-fixed-appliance.pod:54 ../appliance/libguestfs-make-fixed-appliance.pod:75 ../cat/virt-cat.pod:177 ../cat/virt-cat.pod:182 ../cat/virt-cat.pod:187 ../cat/virt-cat.pod:198 ../cat/virt-cat.pod:202 ../edit/virt-edit.pod:266 ../edit/virt-edit.pod:271 ../edit/virt-edit.pod:276 ../edit/virt-edit.pod:287 ../edit/virt-edit.pod:291 ../examples/guestfs-faq.pod:162 ../examples/guestfs-faq.pod:168 ../examples/guestfs-faq.pod:207 ../examples/guestfs-faq.pod:213 ../examples/guestfs-performance.pod:107 ../examples/guestfs-performance.pod:113 ../examples/guestfs-performance.pod:118 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:258 ../examples/guestfs-performance.pod:263 ../examples/guestfs-recipes.pod:170 ../examples/guestfs-recipes.pod:174 ../examples/guestfs-recipes.pod:178 ../examples/guestfs-recipes.pod:204 ../examples/guestfs-recipes.pod:209 ../examples/guestfs-recipes.pod:299 ../examples/guestfs-recipes.pod:303 ../examples/guestfs-recipes.pod:307 ../examples/guestfs-recipes.pod:311 ../examples/guestfs-recipes.pod:315 ../examples/guestfs-testing.pod:124 ../examples/guestfs-testing.pod:128 ../examples/guestfs-testing.pod:132 ../fish/guestfish-actions.pod:486 ../fish/guestfish-actions.pod:494 ../fish/guestfish-actions.pod:501 ../fish/guestfish-actions.pod:508 ../fish/guestfish-actions.pod:1564 ../fish/guestfish-actions.pod:1568 ../fish/guestfish-actions.pod:1572 ../fish/guestfish-actions.pod:1576 ../fish/guestfish-actions.pod:1584 ../fish/guestfish-actions.pod:1588 ../fish/guestfish-actions.pod:1592 ../fish/guestfish-actions.pod:1602 ../fish/guestfish-actions.pod:1606 ../fish/guestfish-actions.pod:1610 ../fish/guestfish-actions.pod:1721 ../fish/guestfish-actions.pod:1725 ../fish/guestfish-actions.pod:1730 ../fish/guestfish-actions.pod:1772 ../fish/guestfish-actions.pod:1776 ../fish/guestfish-actions.pod:1781 ../fish/guestfish-actions.pod:2275 ../fish/guestfish-actions.pod:2282 ../fish/guestfish-actions.pod:2289 ../fish/guestfish-actions.pod:2871 ../fish/guestfish-actions.pod:2877 ../fish/guestfish-actions.pod:2885 ../fish/guestfish-actions.pod:2892 ../fish/guestfish-actions.pod:2899 ../fish/guestfish.pod:461 ../fish/guestfish.pod:465 ../fish/guestfish.pod:469 ../fish/guestfish.pod:473 ../guestfs-release-notes.pod:38 ../guestfs-release-notes.pod:42 ../guestfs-release-notes.pod:46 ../guestfs-release-notes.pod:108 ../guestfs-release-notes.pod:112 ../guestfs-release-notes.pod:116 ../guestfs-release-notes.pod:120 ../guestfs-release-notes.pod:124 ../guestfs-release-notes.pod:128 ../guestfs-release-notes.pod:133 ../guestfs-release-notes.pod:137 ../guestfs-release-notes.pod:141 ../guestfs-release-notes.pod:145 ../guestfs-release-notes.pod:341 ../guestfs-release-notes.pod:346 ../guestfs-release-notes.pod:351 ../inspector/virt-inspector.pod:514 ../inspector/virt-inspector.pod:518 ../resize/virt-resize.pod:365 ../resize/virt-resize.pod:369 ../resize/virt-resize.pod:378 ../resize/virt-resize.pod:384 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:53 ../sparsify/virt-sparsify.pod:57 ../sparsify/virt-sparsify.pod:63 ../sparsify/virt-sparsify.pod:68 ../sparsify/virt-sparsify.pod:73 ../src/guestfs-actions.pod:714 ../src/guestfs-actions.pod:722 ../src/guestfs-actions.pod:729 ../src/guestfs-actions.pod:736 ../src/guestfs-actions.pod:2602 ../src/guestfs-actions.pod:2606 ../src/guestfs-actions.pod:2610 ../src/guestfs-actions.pod:2614 ../src/guestfs-actions.pod:2622 ../src/guestfs-actions.pod:2626 ../src/guestfs-actions.pod:2630 ../src/guestfs-actions.pod:2640 ../src/guestfs-actions.pod:2644 ../src/guestfs-actions.pod:2648 ../src/guestfs-actions.pod:2820 ../src/guestfs-actions.pod:2824 ../src/guestfs-actions.pod:2829 ../src/guestfs-actions.pod:2890 ../src/guestfs-actions.pod:2894 ../src/guestfs-actions.pod:2899 ../src/guestfs-actions.pod:3695 ../src/guestfs-actions.pod:3702 ../src/guestfs-actions.pod:3709 ../src/guestfs-actions.pod:4580 ../src/guestfs-actions.pod:4586 ../src/guestfs-actions.pod:4594 ../src/guestfs-actions.pod:4601 ../src/guestfs-actions.pod:4608 ../src/guestfs.pod:397 ../src/guestfs.pod:402 ../src/guestfs.pod:407 ../src/guestfs.pod:411 ../src/guestfs.pod:416 ../src/guestfs.pod:420 ../src/guestfs.pod:425 ../src/guestfs.pod:430 ../src/guestfs.pod:828 ../src/guestfs.pod:832 ../src/guestfs.pod:838 ../src/guestfs.pod:917 ../src/guestfs.pod:922 ../src/guestfs.pod:926 ../src/guestfs.pod:932 ../src/guestfs.pod:936 ../src/guestfs.pod:940 ../src/guestfs.pod:945 ../src/guestfs.pod:1403 ../src/guestfs.pod:1407 ../src/guestfs.pod:1411 ../src/guestfs.pod:1416 ../src/guestfs.pod:1424 ../src/guestfs.pod:1443 ../src/guestfs.pod:1451 ../src/guestfs.pod:1468 ../src/guestfs.pod:1473 ../src/guestfs.pod:1477 ../src/guestfs.pod:1666 ../src/guestfs.pod:1670 ../src/guestfs.pod:1674 ../src/guestfs.pod:1678 ../src/guestfs.pod:1682 ../src/guestfs.pod:1686 ../src/guestfs.pod:2291 ../src/guestfs.pod:2296 ../src/guestfs.pod:2300 ../src/guestfs.pod:2404 ../src/guestfs.pod:2409 ../src/guestfs.pod:2413 ../src/guestfs.pod:2423 ../src/guestfs.pod:2841 ../src/guestfs.pod:2846 ../src/guestfs.pod:2852 ../src/guestfs.pod:2860 ../src/guestfs.pod:3377 ../src/guestfs.pod:3383 ../src/guestfs.pod:3388 ../src/guestfs.pod:3394 ../src/guestfs.pod:3926 ../src/guestfs.pod:3931 ../src/guestfs.pod:3935 ../src/guestfs.pod:3939 ../src/guestfs.pod:3943 ../src/guestfs.pod:3957 ../src/guestfs.pod:3961 ../src/guestfs.pod:3966 ../src/guestfs.pod:3970 ../sysprep/virt-sysprep.pod:231 ../sysprep/virt-sysprep.pod:235 ../sysprep/virt-sysprep.pod:239 ../sysprep/virt-sysprep.pod:243 ../sysprep/virt-sysprep.pod:258 ../sysprep/virt-sysprep.pod:262 ../sysprep/virt-sysprep.pod:266 ../sysprep/virt-sysprep.pod:270 ../sysprep/virt-sysprep.pod:274 ../sysprep/virt-sysprep.pod:327 ../sysprep/virt-sysprep.pod:339 ../sysprep/virt-sysprep.pod:343 ../sysprep/virt-sysprep.pod:351 ../sysprep/virt-sysprep.pod:357 ../tools/virt-win-reg.pl:197 ../tools/virt-win-reg.pl:202 ../tools/virt-win-reg.pl:208 ../tools/virt-win-reg.pl:717 ../tools/virt-win-reg.pl:723 ../tools/virt-win-reg.pl:729
 msgid "*"
 msgstr ""
 
@@ -788,7 +788,7 @@ msgid "successful exit, all partitions are aligned E<ge> 64K for best performanc
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:367 ../src/guestfs.pod:1893
+#: ../align/virt-alignment-scan.pod:367 ../src/guestfs.pod:1894
 msgid "1"
 msgstr ""
 
@@ -798,7 +798,7 @@ msgid "an error scanning the disk image or guest"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:373 ../src/guestfs.pod:1897
+#: ../align/virt-alignment-scan.pod:373 ../src/guestfs.pod:1898
 msgid "2"
 msgstr ""
 
@@ -810,7 +810,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:380 ../src/guestfs.pod:1901
+#: ../align/virt-alignment-scan.pod:380 ../src/guestfs.pod:1902
 msgid "3"
 msgstr ""
 
@@ -822,7 +822,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:387 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389 ../cat/virt-ls.pod:495 ../daemon/guestfsd.pod:92 ../df/virt-df.pod:259 ../edit/virt-edit.pod:368 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:53 ../examples/guestfs-faq.pod:911 ../examples/guestfs-performance.pod:530 ../examples/guestfs-recipes.pod:528 ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1394 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:177 ../fuse/guestmount.pod:395 ../fuse/guestunmount.pod:149 ../guestfs-release-notes.pod:1972 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:411 ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:305 ../src/guestfs.pod:4197 ../sysprep/virt-sysprep.pod:485 ../test-tool/libguestfs-test-tool.pod:144 ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267 ../tools/virt-make-fs.pl:627 ../tools/virt-tar.pl:294 ../tools/virt-win-reg.pl:753
+#: ../align/virt-alignment-scan.pod:387 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389 ../cat/virt-ls.pod:495 ../daemon/guestfsd.pod:92 ../df/virt-df.pod:259 ../edit/virt-edit.pod:368 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:53 ../examples/guestfs-faq.pod:911 ../examples/guestfs-performance.pod:530 ../examples/guestfs-recipes.pod:528 ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1394 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:177 ../fuse/guestmount.pod:395 ../fuse/guestunmount.pod:149 ../guestfs-release-notes.pod:1972 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:411 ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:305 ../src/guestfs.pod:4198 ../sysprep/virt-sysprep.pod:485 ../test-tool/libguestfs-test-tool.pod:182 ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267 ../tools/virt-make-fs.pl:627 ../tools/virt-tar.pl:294 ../tools/virt-win-reg.pl:753
 msgid "SEE ALSO"
 msgstr ""
 
@@ -844,7 +844,7 @@ msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:400 ../appliance/libguestfs-make-fixed-appliance.pod:179 ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404 ../cat/virt-ls.pod:511 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:271 ../edit/virt-edit.pod:386 ../erlang/examples/guestfs-erlang.pod:115 ../examples/guestfs-examples.pod:70 ../examples/guestfs-faq.pod:921 ../examples/guestfs-performance.pod:547 ../examples/guestfs-recipes.pod:546 ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1426 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:191 ../fuse/guestmount.pod:412 ../fuse/guestunmount.pod:162 ../guestfs-release-notes.pod:1987 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:99 ../lua/examples/guestfs-lua.pod:156 ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:58 ../python/examples/guestfs-python.pod:59 ../rescue/virt-rescue.pod:424 ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:53 ../sparsify/virt-sparsify.pod:322 ../src/guestfs.pod:4254 ../sysprep/virt-sysprep.pod:506 ../test-tool/libguestfs-test-tool.pod:154 ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:646 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:772
+#: ../align/virt-alignment-scan.pod:400 ../appliance/libguestfs-make-fixed-appliance.pod:179 ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404 ../cat/virt-ls.pod:511 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:271 ../edit/virt-edit.pod:386 ../erlang/examples/guestfs-erlang.pod:115 ../examples/guestfs-examples.pod:70 ../examples/guestfs-faq.pod:921 ../examples/guestfs-performance.pod:547 ../examples/guestfs-recipes.pod:546 ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1426 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:191 ../fuse/guestmount.pod:412 ../fuse/guestunmount.pod:162 ../guestfs-release-notes.pod:1987 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:99 ../lua/examples/guestfs-lua.pod:156 ../ocaml/examples/guestfs-ocaml.pod:96 ../perl/examples/guestfs-perl.pod:58 ../python/examples/guestfs-python.pod:59 ../rescue/virt-rescue.pod:424 ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:53 ../sparsify/virt-sparsify.pod:322 ../src/guestfs.pod:4255 ../sysprep/virt-sysprep.pod:506 ../test-tool/libguestfs-test-tool.pod:192 ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:646 ../tools/virt-tar.pl:313 ../tools/virt-win-reg.pl:772
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1128,12 +1128,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:161 ../edit/virt-edit.pod:343 ../fish/guestfish.pod:1208 ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:384 ../sparsify/virt-sparsify.pod:278 ../src/guestfs.pod:4102 ../test-tool/libguestfs-test-tool.pod:139
+#: ../appliance/libguestfs-make-fixed-appliance.pod:161 ../edit/virt-edit.pod:343 ../fish/guestfish.pod:1208 ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:384 ../sparsify/virt-sparsify.pod:278 ../src/guestfs.pod:4103 ../test-tool/libguestfs-test-tool.pod:177
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:163 ../test-tool/libguestfs-test-tool.pod:141
+#: ../appliance/libguestfs-make-fixed-appliance.pod:163 ../test-tool/libguestfs-test-tool.pod:179
 msgid ""
 "For the full list of environment variables which may affect libguestfs, "
 "please see the L<guestfs(3)> manual page."
@@ -1147,17 +1147,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:175 ../erlang/examples/guestfs-erlang.pod:111 ../examples/guestfs-examples.pod:66 ../examples/guestfs-faq.pod:917 ../examples/guestfs-performance.pod:543 ../examples/guestfs-recipes.pod:542 ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1422 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:408 ../fuse/guestunmount.pod:158 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:95 ../lua/examples/guestfs-lua.pod:152 ../ocaml/examples/guestfs-ocaml.pod:92 ../perl/examples/guestfs-perl.pod:54 ../python/examples/guestfs-python.pod:55 ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4250 ../sysprep/virt-sysprep.pod:500 ../test-tool/libguestfs-test-tool.pod:150
+#: ../appliance/libguestfs-make-fixed-appliance.pod:175 ../erlang/examples/guestfs-erlang.pod:111 ../examples/guestfs-examples.pod:66 ../examples/guestfs-faq.pod:917 ../examples/guestfs-performance.pod:543 ../examples/guestfs-recipes.pod:542 ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1422 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:408 ../fuse/guestunmount.pod:158 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:95 ../lua/examples/guestfs-lua.pod:152 ../ocaml/examples/guestfs-ocaml.pod:92 ../perl/examples/guestfs-perl.pod:54 ../python/examples/guestfs-python.pod:55 ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4251 ../sysprep/virt-sysprep.pod:500 ../test-tool/libguestfs-test-tool.pod:188
 msgid "AUTHORS"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:177 ../erlang/examples/guestfs-erlang.pod:113 ../examples/guestfs-examples.pod:68 ../examples/guestfs-faq.pod:919 ../examples/guestfs-performance.pod:545 ../examples/guestfs-recipes.pod:544 ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1424 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:160 ../java/examples/guestfs-java.pod:97 ../lua/examples/guestfs-lua.pod:154 ../ocaml/examples/guestfs-ocaml.pod:94 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:57 ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4252 ../test-tool/libguestfs-test-tool.pod:152
+#: ../appliance/libguestfs-make-fixed-appliance.pod:177 ../erlang/examples/guestfs-erlang.pod:113 ../examples/guestfs-examples.pod:68 ../examples/guestfs-faq.pod:919 ../examples/guestfs-performance.pod:545 ../examples/guestfs-recipes.pod:544 ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1424 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:160 ../java/examples/guestfs-java.pod:97 ../lua/examples/guestfs-lua.pod:154 ../ocaml/examples/guestfs-ocaml.pod:94 ../perl/examples/guestfs-perl.pod:56 ../python/examples/guestfs-python.pod:57 ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4253 ../test-tool/libguestfs-test-tool.pod:190
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:513 ../daemon/guestfsd.pod:103 ../df/virt-df.pod:273 ../edit/virt-edit.pod:388 ../examples/guestfs-recipes.pod:548 ../fish/guestfish.pod:1428 ../fuse/guestmount.pod:414 ../guestfs-release-notes.pod:1989 ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4256 ../test-tool/libguestfs-test-tool.pod:156 ../tools/virt-list-partitions.pl:285
+#: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:513 ../daemon/guestfsd.pod:103 ../df/virt-df.pod:273 ../edit/virt-edit.pod:388 ../examples/guestfs-recipes.pod:548 ../fish/guestfish.pod:1428 ../fuse/guestmount.pod:414 ../guestfs-release-notes.pod:1989 ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4257 ../test-tool/libguestfs-test-tool.pod:194 ../tools/virt-list-partitions.pl:285
 msgid "Copyright (C) 2009-2013 Red Hat Inc."
 msgstr ""
 
@@ -4709,7 +4709,7 @@ msgid "DOWNLOADING, INSTALLING, COMPILING LIBGUESTFS"
 msgstr ""
 
 #. type: =end
-#: ../examples/guestfs-faq.pod:230 ../examples/guestfs-faq.pod:235 ../examples/guestfs-faq.pod:568 ../examples/guestfs-faq.pod:573 ../examples/guestfs-faq.pod:694 ../examples/guestfs-faq.pod:699 ../src/guestfs.pod:2986 ../src/guestfs.pod:2991
+#: ../examples/guestfs-faq.pod:230 ../examples/guestfs-faq.pod:235 ../examples/guestfs-faq.pod:568 ../examples/guestfs-faq.pod:573 ../examples/guestfs-faq.pod:694 ../examples/guestfs-faq.pod:699 ../src/guestfs.pod:2987 ../src/guestfs.pod:2992
 msgid "html"
 msgstr ""
 
@@ -6368,7 +6368,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-performance.pod:161 ../examples/guestfs-performance.pod:211 ../examples/guestfs-recipes.pod:330 ../rescue/virt-rescue.pod:322 ../resize/virt-resize.pod:31 ../resize/virt-resize.pod:603 ../sparsify/virt-sparsify.pod:244 ../src/guestfs.pod:478 ../src/guestfs.pod:1487 ../src/guestfs.pod:1759 ../src/guestfs.pod:2006 ../src/guestfs.pod:3487
+#: ../examples/guestfs-performance.pod:161 ../examples/guestfs-performance.pod:211 ../examples/guestfs-recipes.pod:330 ../rescue/virt-rescue.pod:322 ../resize/virt-resize.pod:31 ../resize/virt-resize.pod:603 ../sparsify/virt-sparsify.pod:244 ../src/guestfs.pod:478 ../src/guestfs.pod:1488 ../src/guestfs.pod:1760 ../src/guestfs.pod:2007 ../src/guestfs.pod:3488
 msgid "1."
 msgstr ""
 
@@ -6380,7 +6380,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-performance.pod:167 ../examples/guestfs-performance.pod:218 ../examples/guestfs-recipes.pod:336 ../rescue/virt-rescue.pod:330 ../resize/virt-resize.pod:44 ../resize/virt-resize.pod:610 ../sparsify/virt-sparsify.pod:251 ../src/guestfs.pod:484 ../src/guestfs.pod:1491 ../src/guestfs.pod:1763 ../src/guestfs.pod:2010 ../src/guestfs.pod:3512
+#: ../examples/guestfs-performance.pod:167 ../examples/guestfs-performance.pod:218 ../examples/guestfs-recipes.pod:336 ../rescue/virt-rescue.pod:330 ../resize/virt-resize.pod:44 ../resize/virt-resize.pod:610 ../sparsify/virt-sparsify.pod:251 ../src/guestfs.pod:484 ../src/guestfs.pod:1492 ../src/guestfs.pod:1764 ../src/guestfs.pod:2011 ../src/guestfs.pod:3513
 msgid "2."
 msgstr ""
 
@@ -6395,7 +6395,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-performance.pod:175 ../examples/guestfs-performance.pod:224 ../examples/guestfs-recipes.pod:342 ../rescue/virt-rescue.pod:339 ../resize/virt-resize.pod:52 ../resize/virt-resize.pod:616 ../sparsify/virt-sparsify.pod:257 ../src/guestfs.pod:495 ../src/guestfs.pod:1495 ../src/guestfs.pod:2016
+#: ../examples/guestfs-performance.pod:175 ../examples/guestfs-performance.pod:224 ../examples/guestfs-recipes.pod:342 ../rescue/virt-rescue.pod:339 ../resize/virt-resize.pod:52 ../resize/virt-resize.pod:616 ../sparsify/virt-sparsify.pod:257 ../src/guestfs.pod:495 ../src/guestfs.pod:1496 ../src/guestfs.pod:2017
 msgid "3."
 msgstr ""
 
@@ -6828,7 +6828,7 @@ msgid "Save the following script as C<time.stap>:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:423 ../src/guestfs.pod:2934
+#: ../examples/guestfs-performance.pod:423 ../src/guestfs.pod:2935
 #, no-wrap
 msgid ""
 " global last;\n"
@@ -6836,7 +6836,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:425 ../src/guestfs.pod:2936
+#: ../examples/guestfs-performance.pod:425 ../src/guestfs.pod:2937
 #, no-wrap
 msgid ""
 " function display_time () {\n"
@@ -6849,7 +6849,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:432 ../src/guestfs.pod:2943
+#: ../examples/guestfs-performance.pod:432 ../src/guestfs.pod:2944
 #, no-wrap
 msgid ""
 "       printf (\"%d (+%d):\", now, delta);\n"
@@ -6858,7 +6858,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:435 ../src/guestfs.pod:2946
+#: ../examples/guestfs-performance.pod:435 ../src/guestfs.pod:2947
 #, no-wrap
 msgid ""
 " probe begin {\n"
@@ -6869,7 +6869,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:440 ../src/guestfs.pod:2951
+#: ../examples/guestfs-performance.pod:440 ../src/guestfs.pod:2952
 #, no-wrap
 msgid ""
 " /* Display all calls to static markers. */\n"
@@ -7534,7 +7534,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:200 ../fish/guestfish-actions.pod:1768 ../fish/guestfish-actions.pod:2271 ../fish/guestfish-actions.pod:2867 ../src/guestfs-actions.pod:2886 ../src/guestfs-actions.pod:3691 ../src/guestfs-actions.pod:4576 ../src/guestfs.pod:2286 ../tools/virt-win-reg.pl:713
+#: ../examples/guestfs-recipes.pod:200 ../fish/guestfish-actions.pod:1768 ../fish/guestfish-actions.pod:2271 ../fish/guestfish-actions.pod:2867 ../src/guestfs-actions.pod:2886 ../src/guestfs-actions.pod:3691 ../src/guestfs-actions.pod:4576 ../src/guestfs.pod:2287 ../tools/virt-win-reg.pl:713
 msgid "Notes:"
 msgstr ""
 
@@ -8269,7 +8269,7 @@ msgid "Run libguestfs-test-tool"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:32 ../examples/guestfs-testing.pod:145 ../src/guestfs.pod:3946
+#: ../examples/guestfs-testing.pod:32 ../examples/guestfs-testing.pod:145 ../src/guestfs.pod:3947
 msgid "Run:"
 msgstr ""
 
@@ -8343,7 +8343,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:68 ../examples/guestfs-testing.pod:175 ../examples/guestfs-testing.pod:188 ../examples/guestfs-testing.pod:248 ../lua/examples/guestfs-lua.pod:66 ../src/guestfs.pod:3589
+#: ../examples/guestfs-testing.pod:68 ../examples/guestfs-testing.pod:175 ../examples/guestfs-testing.pod:188 ../examples/guestfs-testing.pod:248 ../lua/examples/guestfs-lua.pod:66 ../src/guestfs.pod:3590
 msgid "or:"
 msgstr ""
 
@@ -9318,7 +9318,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish-actions.pod:206 ../src/guestfs-actions.pod:294 ../src/guestfs.pod:3807
+#: ../fish/guestfish-actions.pod:206 ../src/guestfs-actions.pod:294 ../src/guestfs.pod:3808
 msgid "C<format>"
 msgstr ""
 
@@ -12301,7 +12301,7 @@ msgid "You must call L</launch> before using this command."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:1641 ../src/guestfs-actions.pod:2692 ../src/guestfs.pod:2133
+#: ../fish/guestfish-actions.pod:1641 ../src/guestfs-actions.pod:2692 ../src/guestfs.pod:2134
 msgid ""
 "This is mainly useful as a negative test.  If this returns true, it doesn't "
 "mean that a particular filesystem can be mounted, since filesystems can fail "
@@ -25585,7 +25585,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:135 ../src/guestfs.pod:2975
+#: ../fish/guestfish.pod:135 ../src/guestfs.pod:2976
 #, no-wrap
 msgid ""
 " guestfish -N fs\n"
@@ -27884,7 +27884,7 @@ msgid "COMMANDS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1201 ../src/guestfs.pod:2111
+#: ../fish/guestfish.pod:1201 ../src/guestfs.pod:2112
 msgid "__ACTIONS__"
 msgstr ""
 
@@ -27908,17 +27908,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1217 ../src/guestfs.pod:4106
+#: ../fish/guestfish.pod:1217 ../src/guestfs.pod:4107
 msgid "FEBOOTSTRAP_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1219 ../src/guestfs.pod:4108
+#: ../fish/guestfish.pod:1219 ../src/guestfs.pod:4109
 msgid "FEBOOTSTRAP_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1221 ../src/guestfs.pod:4110
+#: ../fish/guestfish.pod:1221 ../src/guestfs.pod:4111
 msgid ""
 "When using supermin E<ge> 4.1.0, these have been renamed L</SUPERMIN_KERNEL> "
 "and L</SUPERMIN_MODULES>."
@@ -27983,17 +27983,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1250 ../src/guestfs.pod:4113
+#: ../fish/guestfish.pod:1250 ../src/guestfs.pod:4114
 msgid "LIBGUESTFS_APPEND"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1252 ../src/guestfs.pod:4115
+#: ../fish/guestfish.pod:1252 ../src/guestfs.pod:4116
 msgid "Pass additional options to the guest kernel."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1254 ../src/guestfs.pod:4117
+#: ../fish/guestfish.pod:1254 ../src/guestfs.pod:4118
 msgid "LIBGUESTFS_ATTACH_METHOD"
 msgstr ""
 
@@ -28005,12 +28005,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1259 ../src/guestfs.pod:4122
+#: ../fish/guestfish.pod:1259 ../src/guestfs.pod:4123
 msgid "LIBGUESTFS_CACHEDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1261 ../src/guestfs.pod:4124
+#: ../fish/guestfish.pod:1261 ../src/guestfs.pod:4125
 msgid ""
 "The location where libguestfs will cache its appliance, when using a "
 "supermin appliance.  The appliance is cached and shared between all handles "
@@ -28018,7 +28018,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1265 ../src/guestfs.pod:4128
+#: ../fish/guestfish.pod:1265 ../src/guestfs.pod:4129
 msgid ""
 "If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> "
 "is not set, then C</var/tmp> is used."
@@ -28030,7 +28030,7 @@ msgid "See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1270 ../src/guestfs.pod:4133
+#: ../fish/guestfish.pod:1270 ../src/guestfs.pod:4134
 msgid "LIBGUESTFS_DEBUG"
 msgstr ""
 
@@ -28042,17 +28042,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1275 ../src/guestfs.pod:4138
+#: ../fish/guestfish.pod:1275 ../src/guestfs.pod:4139
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1277 ../src/guestfs.pod:4140
+#: ../fish/guestfish.pod:1277 ../src/guestfs.pod:4141
 msgid "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1280 ../src/guestfs.pod:4143
+#: ../fish/guestfish.pod:1280 ../src/guestfs.pod:4144
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -28060,7 +28060,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1282 ../src/guestfs.pod:4145
+#: ../fish/guestfish.pod:1282 ../src/guestfs.pod:4146
 msgid "LIBGUESTFS_PATH"
 msgstr ""
 
@@ -28072,31 +28072,31 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1287 ../src/guestfs.pod:4150
+#: ../fish/guestfish.pod:1287 ../src/guestfs.pod:4151
 msgid "LIBGUESTFS_QEMU"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1289 ../src/guestfs.pod:4152
+#: ../fish/guestfish.pod:1289 ../src/guestfs.pod:4153
 msgid ""
 "Set the default qemu binary that libguestfs uses.  If not set, then the qemu "
 "which was found at compile time by the configure script is used."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1293 ../src/guestfs.pod:4158
+#: ../fish/guestfish.pod:1293 ../src/guestfs.pod:4159
 msgid "LIBGUESTFS_TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1295 ../src/guestfs.pod:4160
+#: ../fish/guestfish.pod:1295 ../src/guestfs.pod:4161
 msgid ""
 "The location where libguestfs will store temporary files used by each "
 "handle."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1298 ../src/guestfs.pod:4163
+#: ../fish/guestfish.pod:1298 ../src/guestfs.pod:4164
 msgid ""
 "If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> is "
 "not set, then C</tmp> is used."
@@ -28108,7 +28108,7 @@ msgid "See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1303 ../src/guestfs.pod:4168
+#: ../fish/guestfish.pod:1303 ../src/guestfs.pod:4169
 msgid "LIBGUESTFS_TRACE"
 msgstr ""
 
@@ -28130,7 +28130,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1312 ../src/guestfs.pod:1146 ../src/guestfs.pod:4173
+#: ../fish/guestfish.pod:1312 ../src/guestfs.pod:1146 ../src/guestfs.pod:4174
 msgid "PATH"
 msgstr ""
 
@@ -28144,17 +28144,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1319 ../src/guestfs.pod:4181
+#: ../fish/guestfish.pod:1319 ../src/guestfs.pod:4182
 msgid "SUPERMIN_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1321 ../src/guestfs.pod:4183
+#: ../fish/guestfish.pod:1321 ../src/guestfs.pod:4184
 msgid "SUPERMIN_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1323 ../src/guestfs.pod:4185
+#: ../fish/guestfish.pod:1323 ../src/guestfs.pod:4186
 msgid ""
 "These two environment variables allow the kernel that libguestfs uses in the "
 "appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the most "
@@ -28164,12 +28164,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1329 ../sparsify/virt-sparsify.pod:282 ../src/guestfs.pod:4191
+#: ../fish/guestfish.pod:1329 ../sparsify/virt-sparsify.pod:282 ../src/guestfs.pod:4192
 msgid "TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1331 ../src/guestfs.pod:4193
+#: ../fish/guestfish.pod:1331 ../src/guestfs.pod:4194
 msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
@@ -30463,7 +30463,7 @@ msgid "Code for temporarily ignoring/disabling errors now looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../guestfs-release-notes.pod:429 ../src/guestfs.pod:2076
+#: ../guestfs-release-notes.pod:429 ../src/guestfs.pod:2077
 #, no-wrap
 msgid ""
 " guestfs_push_error_handler (g, NULL, NULL);\n"
@@ -35202,7 +35202,7 @@ msgid "Calling any method on a closed handle raises the same exception."
 msgstr ""
 
 #. type: =head1
-#: ../java/examples/guestfs-java.pod:43 ../lua/examples/guestfs-lua.pod:100 ../src/guestfs.pod:2314
+#: ../java/examples/guestfs-java.pod:43 ../lua/examples/guestfs-lua.pod:100 ../src/guestfs.pod:2315
 msgid "EVENTS"
 msgstr ""
 
@@ -54513,7 +54513,7 @@ msgid "Possible attach methods are described below:"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1226 ../src/guestfs.pod:3767
+#: ../src/guestfs.pod:1226 ../src/guestfs.pod:3768
 msgid "C<appliance>"
 msgstr ""
 
@@ -54600,27 +54600,28 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1265
+#: ../src/guestfs.pod:1265 ../test-tool/libguestfs-test-tool.pod:98 ../test-tool/libguestfs-test-tool.pod:119
 #, no-wrap
 msgid ""
+" unset LIBGUESTFS_ATTACH_METHOD\n"
 " guestfish get-attach-method\n"
 "\n"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1267
+#: ../src/guestfs.pod:1268
 msgid "ATTACHING TO RUNNING DAEMONS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1269
+#: ../src/guestfs.pod:1270
 msgid ""
 "I<Note (1):> This is B<highly experimental> and has a tendency to eat "
 "babies.  Use with caution."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1272
+#: ../src/guestfs.pod:1273
 msgid ""
 "I<Note (2):> This section explains how to attach to a running daemon from a "
 "low level perspective.  For most users, simply using virt tools such as "
@@ -54628,12 +54629,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1276
+#: ../src/guestfs.pod:1277
 msgid "Using guestfs_set_attach_method"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1278
+#: ../src/guestfs.pod:1279
 msgid ""
 "By calling L</guestfs_set_attach_method> you can change how the library "
 "connects to the C<guestfsd> daemon in L</guestfs_launch> (read "
@@ -54641,7 +54642,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1282
+#: ../src/guestfs.pod:1283
 msgid ""
 "The normal attach method is C<appliance>, where a small appliance is created "
 "containing the daemon, and then the library connects to this.  C<libvirt> or "
@@ -54649,7 +54650,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1287
+#: ../src/guestfs.pod:1288
 msgid ""
 "Setting attach method to C<unix:I<path>> (where I<path> is the path of a "
 "Unix domain socket) causes L</guestfs_launch> to connect to an existing "
@@ -54657,7 +54658,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1291
+#: ../src/guestfs.pod:1292
 msgid ""
 "The normal use for this is to connect to a running virtual machine that "
 "contains a C<guestfsd> daemon, and send commands so you can read and write "
@@ -54665,12 +54666,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1295
+#: ../src/guestfs.pod:1296
 msgid "Using guestfs_add_domain with live flag"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1297
+#: ../src/guestfs.pod:1298
 msgid ""
 "L</guestfs_add_domain> provides some help for getting the correct attach "
 "method.  If you pass the C<live> option to this function, then (if the "
@@ -54679,7 +54680,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1303
+#: ../src/guestfs.pod:1304
 #, no-wrap
 msgid ""
 " <domain>\n"
@@ -54697,14 +54698,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1315
+#: ../src/guestfs.pod:1316
 msgid ""
 "L</guestfs_add_domain> extracts C</path/to/socket> and sets the attach "
 "method to C<unix:/path/to/socket>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1318
+#: ../src/guestfs.pod:1319
 msgid ""
 "Some of the libguestfs tools (including guestfish) support a I<--live> "
 "option which is passed through to L</guestfs_add_domain> thus allowing you "
@@ -54712,19 +54713,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1322
+#: ../src/guestfs.pod:1323
 msgid ""
 "The virtual machine needs to have been set up beforehand so that it has the "
 "virtio-serial channel and so that guestfsd is running inside it."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1326
+#: ../src/guestfs.pod:1327
 msgid "ABI GUARANTEE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1328
+#: ../src/guestfs.pod:1329
 msgid ""
 "We guarantee the libguestfs ABI (binary interface), for public, high-level "
 "actions as outlined in this section.  Although we will deprecate some "
@@ -54734,12 +54735,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1334
+#: ../src/guestfs.pod:1335
 msgid "BLOCK DEVICE NAMING"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1336
+#: ../src/guestfs.pod:1337
 msgid ""
 "In the kernel there is now quite a profusion of schemata for naming block "
 "devices (in this context, by I<block device> I mean a physical or virtual "
@@ -54754,7 +54755,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1348
+#: ../src/guestfs.pod:1349
 msgid ""
 "As discussed above, libguestfs uses a qemu appliance running an embedded "
 "Linux kernel to access block devices.  We can run a variety of appliances "
@@ -54762,7 +54763,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1352
+#: ../src/guestfs.pod:1353
 msgid ""
 "This causes a problem for libguestfs because many API calls use device or "
 "partition names.  Working scripts and the recipe (example) scripts that we "
@@ -54770,7 +54771,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1357
+#: ../src/guestfs.pod:1358
 msgid ""
 "Therefore libguestfs defines C</dev/sd*> as the I<standard naming scheme>.  "
 "Internally C</dev/sd*> names are translated, if necessary, to other names as "
@@ -54779,7 +54780,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1363
+#: ../src/guestfs.pod:1364
 msgid ""
 "Note that this I<only> applies to parameters.  The L</guestfs_list_devices>, "
 "L</guestfs_list_partitions> and similar calls return the true names of the "
@@ -54788,12 +54789,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1368
+#: ../src/guestfs.pod:1369
 msgid "DISK LABELS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1370
+#: ../src/guestfs.pod:1371
 msgid ""
 "In libguestfs E<ge> 1.20, you can give a label to a disk when you add it, "
 "using the optional C<label> parameter to L</guestfs_add_drive_opts>.  (Note "
@@ -54801,14 +54802,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1375
+#: ../src/guestfs.pod:1376
 msgid ""
 "Not all versions of libguestfs support setting a disk label, and when it is "
 "supported, it is limited to 20 ASCII characters C<[a-zA-Z]>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1378
+#: ../src/guestfs.pod:1379
 msgid ""
 "When you add a disk with a label, it can either be addressed using "
 "C</dev/sd*>, or using C</dev/disk/guestfs/I<label>>.  Partitions on the disk "
@@ -54816,7 +54817,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1383
+#: ../src/guestfs.pod:1384
 msgid ""
 "Listing devices (L</guestfs_list_devices>) and partitions "
 "(L</guestfs_list_partitions>) returns the raw block device name.  However "
@@ -54825,12 +54826,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1388
+#: ../src/guestfs.pod:1389
 msgid "ALGORITHM FOR BLOCK DEVICE NAME TRANSLATION"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1390
+#: ../src/guestfs.pod:1391
 msgid ""
 "Usually this translation is transparent.  However in some (very rare)  cases "
 "you may need to know the exact algorithm.  Such cases include where you use "
@@ -54840,7 +54841,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1396
+#: ../src/guestfs.pod:1397
 msgid ""
 "The algorithm is applied only to I<parameters> which are known to be either "
 "device or partition names.  Return values from functions such as "
@@ -54848,54 +54849,54 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1404
+#: ../src/guestfs.pod:1405
 msgid "Is the string a parameter which is a device or partition name?"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1408
+#: ../src/guestfs.pod:1409
 msgid "Does the string begin with C</dev/sd>?"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1412
+#: ../src/guestfs.pod:1413
 msgid ""
 "Does the named device exist? If so, we use that device.  However if I<not> "
 "then we continue with this algorithm."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1417
+#: ../src/guestfs.pod:1418
 msgid "Replace initial C</dev/sd> string with C</dev/hd>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1419
+#: ../src/guestfs.pod:1420
 msgid "For example, change C</dev/sda2> to C</dev/hda2>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1421
+#: ../src/guestfs.pod:1422
 msgid "If that named device exists, use it.  If not, continue."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1425
+#: ../src/guestfs.pod:1426
 msgid "Replace initial C</dev/sd> string with C</dev/vd>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1427
+#: ../src/guestfs.pod:1428
 msgid "If that named device exists, use it.  If not, return an error."
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1431
+#: ../src/guestfs.pod:1432
 msgid "PORTABILITY CONCERNS WITH BLOCK DEVICE NAMING"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1433
+#: ../src/guestfs.pod:1434
 msgid ""
 "Although the standard naming scheme and automatic translation is useful for "
 "simple programs and guestfish scripts, for larger programs it is best not to "
@@ -54903,38 +54904,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1437
+#: ../src/guestfs.pod:1438
 msgid ""
 "Where possible for maximum future portability programs using libguestfs "
 "should use these future-proof techniques:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1444
+#: ../src/guestfs.pod:1445
 msgid ""
 "Use L</guestfs_list_devices> or L</guestfs_list_partitions> to list actual "
 "device names, and then use those names directly."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1447
+#: ../src/guestfs.pod:1448
 msgid "Since those device names exist by definition, they will never be translated."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1452
+#: ../src/guestfs.pod:1453
 msgid ""
 "Use higher level ways to identify filesystems, such as LVM names, UUIDs and "
 "filesystem labels."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1457
+#: ../src/guestfs.pod:1458
 msgid "NULL DISKS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1459
+#: ../src/guestfs.pod:1460
 msgid ""
 "When adding a disk using, eg., L</guestfs_add_drive>, you can set the "
 "filename to C<\"/dev/null\">.  This string is treated specially by "
@@ -54942,46 +54943,46 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1463
+#: ../src/guestfs.pod:1464
 msgid "A null disk has the following properties:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1469
+#: ../src/guestfs.pod:1470
 msgid ""
 "A null disk will appear as a normal device, eg. in calls to "
 "L</guestfs_list_devices>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1474
+#: ../src/guestfs.pod:1475
 msgid "You may add C<\"/dev/null\"> multiple times."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1478
+#: ../src/guestfs.pod:1479
 msgid ""
 "You should not try to access a null disk in any way.  For example, you "
 "shouldn't try to read it or mount it."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1483
+#: ../src/guestfs.pod:1484
 msgid "Null disks are used for three main purposes:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1489
+#: ../src/guestfs.pod:1490
 msgid "Performance testing of libguestfs (see L<guestfs-performance(1)>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1493
+#: ../src/guestfs.pod:1494
 msgid "The internal test suite."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1497
+#: ../src/guestfs.pod:1498
 msgid ""
 "If you want to use libguestfs APIs that don't refer to disks, since "
 "libguestfs requires that at least one disk is added, you should add a null "
@@ -54989,12 +54990,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1501
+#: ../src/guestfs.pod:1502
 msgid "For example, to test if a feature is available, use code like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1503
+#: ../src/guestfs.pod:1504
 #, no-wrap
 msgid ""
 " guestfs_h *g;\n"
@@ -55003,7 +55004,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1506
+#: ../src/guestfs.pod:1507
 #, no-wrap
 msgid ""
 " g = guestfs_create ();\n"
@@ -55019,19 +55020,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1518
+#: ../src/guestfs.pod:1519
 msgid "DISK IMAGE FORMATS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1520
+#: ../src/guestfs.pod:1521
 msgid ""
 "Virtual disks come in a variety of formats.  Some common formats are listed "
 "below."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1523
+#: ../src/guestfs.pod:1524
 msgid ""
 "Note that libguestfs itself is not responsible for handling the disk format: "
 "this is done using L<qemu(1)>.  If support for a particular format is "
@@ -55039,24 +55040,24 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1527
+#: ../src/guestfs.pod:1528
 msgid "COMMON VIRTUAL DISK IMAGE FORMATS"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1531
+#: ../src/guestfs.pod:1532
 msgid "I<raw>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1533
+#: ../src/guestfs.pod:1534
 msgid ""
 "Raw format is simply a dump of the sequential bytes of the virtual hard "
 "disk.  There is no header, container, compression or processing of any sort."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1537
+#: ../src/guestfs.pod:1538
 msgid ""
 "Since raw format requires no translation to read or write, it is both fast "
 "and very well supported by qemu and all other hypervisors.  You can consider "
@@ -55064,7 +55065,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1542
+#: ../src/guestfs.pod:1543
 msgid ""
 "Raw format files are not compressed and so take up the full space of the "
 "original disk image even when they are empty.  A variation (on Linux/Unix at "
@@ -55075,12 +55076,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1549
+#: ../src/guestfs.pod:1550
 msgid "I<qcow2>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1551
+#: ../src/guestfs.pod:1552
 msgid ""
 "Qcow2 is the native disk image format used by qemu.  Internally it uses a "
 "two-level directory structure so that only blocks containing data are stored "
@@ -55089,19 +55090,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1556
+#: ../src/guestfs.pod:1557
 msgid ""
 "There are at least two distinct variants of this format, although qemu (and "
 "hence libguestfs) handles both transparently to the user."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1559
+#: ../src/guestfs.pod:1560
 msgid "I<vmdk>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1561
+#: ../src/guestfs.pod:1562
 msgid ""
 "VMDK is VMware's native disk image format.  There are many variations.  "
 "Modern qemu (hence libguestfs) supports most variations, but you should be "
@@ -55110,7 +55111,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1566
+#: ../src/guestfs.pod:1567
 msgid ""
 "Note that VMware ESX exposes files with the name C<guest-flat.vmdk>.  These "
 "are not VMDK.  They are raw format files which happen to have a C<.vmdk> "
@@ -55118,53 +55119,53 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1570
+#: ../src/guestfs.pod:1571
 msgid "I<vdi>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1572
+#: ../src/guestfs.pod:1573
 msgid ""
 "VDI is VirtualBox's native disk image format.  Qemu (hence libguestfs)  has "
 "generally good support for this."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1575
+#: ../src/guestfs.pod:1576
 msgid "I<vpc>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1577
+#: ../src/guestfs.pod:1578
 msgid "I<vhd>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1579
+#: ../src/guestfs.pod:1580
 msgid ""
 "VPC (old) and VHD (modern) are the native disk image format of Microsoft "
 "(and previously, Connectix) Virtual PC and Hyper-V."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1582
+#: ../src/guestfs.pod:1583
 msgid "Obsolete formats"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1584
+#: ../src/guestfs.pod:1585
 msgid ""
 "The following formats are obsolete and should not be used: I<qcow> (aka "
 "I<qcow1>), I<cow>, I<bochs>."
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1589
+#: ../src/guestfs.pod:1590
 msgid "DETECTING THE FORMAT OF A DISK IMAGE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1591
+#: ../src/guestfs.pod:1592
 msgid ""
 "Firstly note there is a security issue with auto-detecting the format of a "
 "disk image.  It may or may not apply in your use case.  Read "
@@ -55172,14 +55173,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1595
+#: ../src/guestfs.pod:1596
 msgid ""
 "Libguestfs offers an API to get the format of a disk image "
 "(L</guestfs_disk_format>, and it is safest to use this."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1598
+#: ../src/guestfs.pod:1599
 msgid ""
 "I<Don't> be tempted to try parsing the text / human-readable output of "
 "C<qemu-img> since it cannot be parsed reliably and securely.  Also do not "
@@ -55187,31 +55188,31 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:1603 ../sysprep/virt-sysprep.pod:424
+#: ../src/guestfs.pod:1604 ../sysprep/virt-sysprep.pod:424
 msgid "SECURITY"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1605
+#: ../src/guestfs.pod:1606
 msgid ""
 "This section discusses security implications of using libguestfs, "
 "particularly with untrusted or malicious guests or disk images."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1608
+#: ../src/guestfs.pod:1609
 msgid "SECURITY OF MOUNTING FILESYSTEMS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1610
+#: ../src/guestfs.pod:1611
 msgid ""
 "You should never mount an untrusted guest filesystem directly on your host "
 "kernel (eg. using loopback or kpartx)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1613
+#: ../src/guestfs.pod:1614
 msgid ""
 "When you mount a filesystem, mistakes in the kernel filesystem (VFS)  can be "
 "escalated into exploits by attackers creating a malicious filesystem.  These "
@@ -55226,19 +55227,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1625
+#: ../src/guestfs.pod:1626
 msgid ""
 "These exploits can be present in the kernel for a very long time "
 "(L<https://lwn.net/Articles/538898/>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1628
+#: ../src/guestfs.pod:1629
 msgid "Libguestfs provides a layered approach to protecting you from exploits:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1631
+#: ../src/guestfs.pod:1632
 #, no-wrap
 msgid ""
 "   untrusted filesystem\n"
@@ -55254,7 +55255,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1641
+#: ../src/guestfs.pod:1642
 msgid ""
 "We run a Linux kernel inside a qemu virtual machine, usually running as a "
 "non-root user.  The attacker would need to write a filesystem which first "
@@ -55268,19 +55269,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1652
+#: ../src/guestfs.pod:1653
 msgid ""
 "Callers can also reduce the attack surface by forcing the filesystem type "
 "when mounting (use L</guestfs_mount_vfs>)."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1655
+#: ../src/guestfs.pod:1656
 msgid "GENERAL SECURITY CONSIDERATIONS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1657
+#: ../src/guestfs.pod:1658
 msgid ""
 "Be careful with any files or data that you download from a guest (by "
 "\"download\" we mean not just the L</guestfs_download> command but any "
@@ -55290,42 +55291,42 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1667
+#: ../src/guestfs.pod:1668
 msgid "the data (file etc) not being present"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1671
+#: ../src/guestfs.pod:1672
 msgid "being present but empty"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1675
+#: ../src/guestfs.pod:1676
 msgid "being much larger than normal"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1679
+#: ../src/guestfs.pod:1680
 msgid "containing arbitrary 8 bit data"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1683
+#: ../src/guestfs.pod:1684
 msgid "being in an unexpected character encoding"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1687
+#: ../src/guestfs.pod:1688
 msgid "containing homoglyphs."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1691
+#: ../src/guestfs.pod:1692
 msgid "PROTOCOL SECURITY"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1693
+#: ../src/guestfs.pod:1694
 msgid ""
 "The protocol is designed to be secure, being based on RFC 4506 (XDR)  with a "
 "defined upper message size.  However a program that uses libguestfs must "
@@ -55335,12 +55336,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1699
+#: ../src/guestfs.pod:1700
 msgid "INSPECTION SECURITY"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1701
+#: ../src/guestfs.pod:1702
 msgid ""
 "Parts of the inspection API (see L</INSPECTION>) return untrusted strings "
 "directly from the guest, and these could contain any 8 bit data.  Callers "
@@ -55349,7 +55350,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1707
+#: ../src/guestfs.pod:1708
 msgid ""
 "Guest configuration may be altered in unusual ways by the administrator of "
 "the virtual machine, and may not reflect reality (particularly for untrusted "
@@ -55360,7 +55361,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1715
+#: ../src/guestfs.pod:1716
 msgid ""
 "The inspection API parses guest configuration using two external libraries: "
 "Augeas (Linux configuration) and hivex (Windows Registry).  Both are "
@@ -55370,12 +55371,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1721
+#: ../src/guestfs.pod:1722
 msgid "RUNNING UNTRUSTED GUEST COMMANDS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1723
+#: ../src/guestfs.pod:1724
 msgid ""
 "Be very cautious about running commands from the guest.  By running a "
 "command in the guest, you are giving CPU time to a binary that you do not "
@@ -55385,24 +55386,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1729
+#: ../src/guestfs.pod:1730
 msgid "CVE-2010-3851"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1731
+#: ../src/guestfs.pod:1732
 msgid "L<https://bugzilla.redhat.com/642934>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1733
+#: ../src/guestfs.pod:1734
 msgid ""
 "This security bug concerns the automatic disk format detection that qemu "
 "does on disk images."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1736
+#: ../src/guestfs.pod:1737
 msgid ""
 "A raw disk image is just the raw bytes, there is no header.  Other disk "
 "images like qcow2 contain a special header.  Qemu deals with this by looking "
@@ -55411,7 +55412,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1741
+#: ../src/guestfs.pod:1742
 msgid ""
 "This allows a guest which has been given a raw disk image to write some "
 "other header.  At next boot (or when the disk image is accessed by "
@@ -55420,7 +55421,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1746
+#: ../src/guestfs.pod:1747
 msgid ""
 "This in itself would not be a problem, but qcow2 offers many features, one "
 "of which is to allow a disk image to refer to another image (called the "
@@ -55432,24 +55433,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1754
+#: ../src/guestfs.pod:1755
 msgid "In libguestfs this is rather hard to exploit except under two circumstances:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1761
+#: ../src/guestfs.pod:1762
 msgid "You have enabled the network or have opened the disk in write mode."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1765
+#: ../src/guestfs.pod:1766
 msgid ""
 "You are also running untrusted code from the guest (see L</RUNNING "
 "COMMANDS>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1770
+#: ../src/guestfs.pod:1771
 msgid ""
 "The way to avoid this is to specify the expected disk format when adding "
 "disks (the optional C<format> option to L</guestfs_add_drive_opts>).  You "
@@ -55458,31 +55459,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1776
+#: ../src/guestfs.pod:1777
 msgid ""
 "For disks added from libvirt using calls like L</guestfs_add_domain>, the "
 "format is fetched from libvirt and passed through."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1779
+#: ../src/guestfs.pod:1780
 msgid ""
 "For libguestfs tools, use the I<--format> command line parameter as "
 "appropriate."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:1782
+#: ../src/guestfs.pod:1783
 msgid "CONNECTION MANAGEMENT"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1784
+#: ../src/guestfs.pod:1785
 msgid "guestfs_h *"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1786
+#: ../src/guestfs.pod:1787
 msgid ""
 "C<guestfs_h> is the opaque type representing a connection handle.  Create a "
 "handle by calling L</guestfs_create> or L</guestfs_create_flags>.  Call "
@@ -55490,19 +55491,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1791
+#: ../src/guestfs.pod:1792
 msgid ""
 "For information on using multiple handles and threads, see the section "
 "L</MULTIPLE HANDLES AND MULTIPLE THREADS> above."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1794
+#: ../src/guestfs.pod:1795
 msgid "guestfs_create"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1796
+#: ../src/guestfs.pod:1797
 #, no-wrap
 msgid ""
 " guestfs_h *guestfs_create (void);\n"
@@ -55510,19 +55511,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1798
+#: ../src/guestfs.pod:1799
 msgid "Create a connection handle."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1800 ../src/guestfs.pod:1819
+#: ../src/guestfs.pod:1801 ../src/guestfs.pod:1820
 msgid ""
 "On success this returns a non-NULL pointer to a handle.  On error it returns "
 "NULL."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1803
+#: ../src/guestfs.pod:1804
 msgid ""
 "You have to \"configure\" the handle after creating it.  This includes "
 "calling L</guestfs_add_drive_opts> (or one of the equivalent calls) on the "
@@ -55530,24 +55531,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1807
+#: ../src/guestfs.pod:1808
 msgid "After configuring the handle, you have to call L</guestfs_launch>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1809
+#: ../src/guestfs.pod:1810
 msgid ""
 "You may also want to configure error handling for the handle.  See the "
 "L</ERROR HANDLING> section below."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1812
+#: ../src/guestfs.pod:1813
 msgid "guestfs_create_flags"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1814
+#: ../src/guestfs.pod:1815
 #, no-wrap
 msgid ""
 " guestfs_h *guestfs_create_flags (unsigned flags [, ...]);\n"
@@ -55555,36 +55556,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1816
+#: ../src/guestfs.pod:1817
 msgid ""
 "Create a connection handle, supplying extra flags and extra arguments to "
 "control how the handle is created."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1822
+#: ../src/guestfs.pod:1823
 msgid "L</guestfs_create> is equivalent to calling C<guestfs_create_flags(0)>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1824
+#: ../src/guestfs.pod:1825
 msgid ""
 "The following flags may be logically ORed together.  (Currently no extra "
 "arguments are used)."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1829
+#: ../src/guestfs.pod:1830
 msgid "C<GUESTFS_CREATE_NO_ENVIRONMENT>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1831
+#: ../src/guestfs.pod:1832
 msgid "Don't parse any environment variables (such as C<LIBGUESTFS_DEBUG> etc)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1833
+#: ../src/guestfs.pod:1834
 msgid ""
 "You can call L</guestfs_parse_environment> or "
 "L</guestfs_parse_environment_list> afterwards to parse environment "
@@ -55593,45 +55594,45 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1838
+#: ../src/guestfs.pod:1839
 msgid ""
 "The default (if this flag is not given) is to implicitly call "
 "L</guestfs_parse_environment>."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1841
+#: ../src/guestfs.pod:1842
 msgid "C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1843
+#: ../src/guestfs.pod:1844
 msgid ""
 "Don't try to close the handle in an L<atexit(3)> handler if the program "
 "exits without explicitly closing the handle."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1846
+#: ../src/guestfs.pod:1847
 msgid ""
 "The default (if this flag is not given) is to install such an atexit "
 "handler."
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:1851
+#: ../src/guestfs.pod:1852
 msgid "USING C<GUESTFS_CREATE_NO_ENVIRONMENT>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1853
+#: ../src/guestfs.pod:1854
 msgid ""
 "You might use C<GUESTFS_CREATE_NO_ENVIRONMENT> and an explicit call to "
 "L</guestfs_parse_environment> like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1856
+#: ../src/guestfs.pod:1857
 #, no-wrap
 msgid ""
 " guestfs_h *g;\n"
@@ -55640,7 +55641,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1859
+#: ../src/guestfs.pod:1860
 #, no-wrap
 msgid ""
 " g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT);\n"
@@ -55655,14 +55656,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1868
+#: ../src/guestfs.pod:1869
 msgid ""
 "Or to create a handle which is unaffected by environment variables, omit the "
 "call to C<guestfs_parse_environment> from the above code."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1871
+#: ../src/guestfs.pod:1872
 msgid ""
 "The above code has another advantage which is that any errors from parsing "
 "the environment are passed through the error handler, whereas "
@@ -55670,12 +55671,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1875
+#: ../src/guestfs.pod:1876
 msgid "guestfs_close"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1877
+#: ../src/guestfs.pod:1878
 #, no-wrap
 msgid ""
 " void guestfs_close (guestfs_h *g);\n"
@@ -55683,19 +55684,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1879
+#: ../src/guestfs.pod:1880
 msgid ""
 "This closes the connection handle and frees up all resources used.  If a "
 "close callback was set on the handle, then it is called."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1882
+#: ../src/guestfs.pod:1883
 msgid "The correct way to close the handle is:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1884
+#: ../src/guestfs.pod:1885
 #, no-wrap
 msgid ""
 " if (guestfs_shutdown (g) == -1) {\n"
@@ -55706,51 +55707,51 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1889
+#: ../src/guestfs.pod:1890
 msgid "L</guestfs_shutdown> is only needed if B<all> of the following are true:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1895
+#: ../src/guestfs.pod:1896
 msgid "one or more disks were added in read-write mode, I<and>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1899
+#: ../src/guestfs.pod:1900
 msgid "guestfs_launch was called, I<and>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1903
+#: ../src/guestfs.pod:1904
 msgid "you made some changes, I<and>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:1905
+#: ../src/guestfs.pod:1906
 msgid "4"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1907
+#: ../src/guestfs.pod:1908
 msgid ""
 "you have a way to handle write errors (eg. by exiting with an error code or "
 "reporting something to the user)."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:1912
+#: ../src/guestfs.pod:1913
 msgid "ERROR HANDLING"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1914
+#: ../src/guestfs.pod:1915
 msgid ""
 "API functions can return errors.  For example, almost all functions that "
 "return C<int> will return C<-1> to indicate an error."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1917
+#: ../src/guestfs.pod:1918
 msgid ""
 "Additional information is available for errors: an error message string and "
 "optionally an error number (errno) if the thing that failed was a system "
@@ -55758,7 +55759,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1921
+#: ../src/guestfs.pod:1922
 msgid ""
 "You can get at the additional information about the last error on the handle "
 "by calling L</guestfs_last_error>, L</guestfs_last_errno>, and/or by setting "
@@ -55766,7 +55767,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1926
+#: ../src/guestfs.pod:1927
 msgid ""
 "When the handle is created, a default error handler is installed which "
 "prints the error message string to C<stderr>.  For small short-running "
@@ -55774,7 +55775,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1930
+#: ../src/guestfs.pod:1931
 #, no-wrap
 msgid ""
 " if (guestfs_launch (g) == -1)\n"
@@ -55783,14 +55784,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1933
+#: ../src/guestfs.pod:1934
 msgid ""
 "since the default error handler will ensure that an error message has been "
 "printed to C<stderr> before the program exits."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1936
+#: ../src/guestfs.pod:1937
 msgid ""
 "For other programs the caller will almost certainly want to install an "
 "alternate error handler or do error handling in-line as in the example "
@@ -55799,7 +55800,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1941
+#: ../src/guestfs.pod:1942
 #, no-wrap
 msgid ""
 " const char *msg;\n"
@@ -55808,7 +55809,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1944
+#: ../src/guestfs.pod:1945
 #, no-wrap
 msgid ""
 " /* This disables the default behaviour of printing errors\n"
@@ -55818,7 +55819,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1948
+#: ../src/guestfs.pod:1949
 #, no-wrap
 msgid ""
 " if (guestfs_launch (g) == -1) {\n"
@@ -55830,7 +55831,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1954
+#: ../src/guestfs.pod:1955
 #, no-wrap
 msgid ""
 "   fprintf (stderr, \"%s\", msg);\n"
@@ -55841,7 +55842,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1959
+#: ../src/guestfs.pod:1960
 #, no-wrap
 msgid ""
 "   /* ... */\n"
@@ -55850,7 +55851,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1962
+#: ../src/guestfs.pod:1963
 msgid ""
 "L</guestfs_create> returns C<NULL> if the handle cannot be created, and "
 "because there is no handle if this happens there is no way to get additional "
@@ -55861,7 +55862,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1969
+#: ../src/guestfs.pod:1970
 msgid ""
 "Out of memory errors are handled differently.  The default action is to call "
 "L<abort(3)>.  If this is undesirable, then you can set a handler using "
@@ -55869,12 +55870,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1973
+#: ../src/guestfs.pod:1974
 msgid "guestfs_last_error"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1975
+#: ../src/guestfs.pod:1976
 #, no-wrap
 msgid ""
 " const char *guestfs_last_error (guestfs_h *g);\n"
@@ -55882,14 +55883,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1977
+#: ../src/guestfs.pod:1978
 msgid ""
 "This returns the last error message that happened on C<g>.  If there has not "
 "been an error since the handle was created, then this returns C<NULL>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1981
+#: ../src/guestfs.pod:1982
 msgid ""
 "Note the returned string does I<not> have a newline character at the end.  "
 "Most error messages are single lines.  Some are split over multiple lines "
@@ -55897,7 +55898,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1986
+#: ../src/guestfs.pod:1987
 msgid ""
 "The lifetime of the returned string is until the next error occurs on the "
 "same handle, or L</guestfs_close> is called.  If you need to keep it longer, "
@@ -55905,12 +55906,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:1990
+#: ../src/guestfs.pod:1991
 msgid "guestfs_last_errno"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:1992
+#: ../src/guestfs.pod:1993
 #, no-wrap
 msgid ""
 " int guestfs_last_errno (guestfs_h *g);\n"
@@ -55918,36 +55919,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1994
+#: ../src/guestfs.pod:1995
 msgid "This returns the last error number (errno) that happened on C<g>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1996
+#: ../src/guestfs.pod:1997
 msgid "If successful, an errno integer not equal to zero is returned."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:1998
+#: ../src/guestfs.pod:1999
 msgid ""
 "In many cases the special errno C<ENOTSUP> is returned if you tried to call "
 "a function or use a feature which is not supported."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2001
+#: ../src/guestfs.pod:2002
 msgid ""
 "If no error number is available, this returns 0.  This call can return 0 in "
 "three situations:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2008
+#: ../src/guestfs.pod:2009
 msgid "There has not been any error on the handle."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2012
+#: ../src/guestfs.pod:2013
 msgid ""
 "There has been an error but the errno was meaningless.  This corresponds to "
 "the case where the error did not come from a failed system call, but for "
@@ -55955,14 +55956,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2018
+#: ../src/guestfs.pod:2019
 msgid ""
 "There was an error from a failed system call, but for some reason the errno "
 "was not captured and returned.  This usually indicates a bug in libguestfs."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2024
+#: ../src/guestfs.pod:2025
 msgid ""
 "Libguestfs tries to convert the errno from inside the applicance into a "
 "corresponding errno for the caller (not entirely trivial: the appliance "
@@ -55973,12 +55974,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2032
+#: ../src/guestfs.pod:2033
 msgid "guestfs_set_error_handler"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2034
+#: ../src/guestfs.pod:2035
 #, no-wrap
 msgid ""
 " typedef void (*guestfs_error_handler_cb) (guestfs_h *g,\n"
@@ -55991,7 +55992,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2041
+#: ../src/guestfs.pod:2042
 msgid ""
 "The callback C<cb> will be called if there is an error.  The parameters "
 "passed to the callback are an opaque data pointer and the error message "
@@ -55999,14 +56000,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2045
+#: ../src/guestfs.pod:2046
 msgid ""
 "C<errno> is not passed to the callback.  To get that the callback must call "
 "L</guestfs_last_errno>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2048
+#: ../src/guestfs.pod:2049
 msgid ""
 "Note that the message string C<msg> is freed as soon as the callback "
 "function returns, so if you want to stash it somewhere you must make your "
@@ -56014,22 +56015,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2052
+#: ../src/guestfs.pod:2053
 msgid "The default handler prints messages on C<stderr>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2054
+#: ../src/guestfs.pod:2055
 msgid "If you set C<cb> to C<NULL> then I<no> handler is called."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2056
+#: ../src/guestfs.pod:2057
 msgid "guestfs_get_error_handler"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2058
+#: ../src/guestfs.pod:2059
 #, no-wrap
 msgid ""
 " guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g,\n"
@@ -56038,17 +56039,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2061
+#: ../src/guestfs.pod:2062
 msgid "Returns the current error handler callback."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2063
+#: ../src/guestfs.pod:2064
 msgid "guestfs_push_error_handler"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2065
+#: ../src/guestfs.pod:2066
 #, no-wrap
 msgid ""
 " void guestfs_push_error_handler (guestfs_h *g,\n"
@@ -56058,7 +56059,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2069
+#: ../src/guestfs.pod:2070
 msgid ""
 "This is the same as L</guestfs_set_error_handler>, except that the old error "
 "handler is stashed away in a stack inside the handle.  You can restore the "
@@ -56066,17 +56067,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2074
+#: ../src/guestfs.pod:2075
 msgid "Use the following code to temporarily disable errors around a function:"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2080
+#: ../src/guestfs.pod:2081
 msgid "guestfs_pop_error_handler"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2082
+#: ../src/guestfs.pod:2083
 #, no-wrap
 msgid ""
 " void guestfs_pop_error_handler (guestfs_h *g);\n"
@@ -56084,24 +56085,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2084
+#: ../src/guestfs.pod:2085
 msgid "Restore the previous error handler (see L</guestfs_push_error_handler>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2086
+#: ../src/guestfs.pod:2087
 msgid ""
 "If you pop the stack too many times, then the default error handler is "
 "restored."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2089
+#: ../src/guestfs.pod:2090
 msgid "guestfs_set_out_of_memory_handler"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2091
+#: ../src/guestfs.pod:2092
 #, no-wrap
 msgid ""
 " typedef void (*guestfs_abort_cb) (void);\n"
@@ -56111,29 +56112,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2095
+#: ../src/guestfs.pod:2096
 msgid ""
 "The callback C<cb> will be called if there is an out of memory situation.  "
 "I<Note this callback must not return>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2098
+#: ../src/guestfs.pod:2099
 msgid "The default is to call L<abort(3)>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2100
+#: ../src/guestfs.pod:2101
 msgid "You cannot set C<cb> to C<NULL>.  You can't ignore out of memory situations."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2103
+#: ../src/guestfs.pod:2104
 msgid "guestfs_get_out_of_memory_handler"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2105
+#: ../src/guestfs.pod:2106
 #, no-wrap
 msgid ""
 " guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *g);\n"
@@ -56141,37 +56142,37 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2107
+#: ../src/guestfs.pod:2108
 msgid "This returns the current out of memory handler."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2109
+#: ../src/guestfs.pod:2110
 msgid "API CALLS"
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2113
+#: ../src/guestfs.pod:2114
 msgid "STRUCTURES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2115
+#: ../src/guestfs.pod:2116
 msgid "__STRUCTS__"
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2117
+#: ../src/guestfs.pod:2118
 msgid "AVAILABILITY"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2119
+#: ../src/guestfs.pod:2120
 msgid "GROUPS OF FUNCTIONALITY IN THE APPLIANCE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2121
+#: ../src/guestfs.pod:2122
 msgid ""
 "Using L</guestfs_available> you can test availability of the following "
 "groups of functions.  This test queries the appliance to see if the "
@@ -56179,29 +56180,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2126
+#: ../src/guestfs.pod:2127
 msgid "__AVAILABILITY__"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2128
+#: ../src/guestfs.pod:2129
 msgid "FILESYSTEM AVAILABLE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2130
+#: ../src/guestfs.pod:2131
 msgid ""
 "The L</guestfs_filesystem_available> call tests whether a filesystem type is "
 "supported by the appliance kernel."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2138
+#: ../src/guestfs.pod:2139
 msgid "GUESTFISH supported COMMAND"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2140
+#: ../src/guestfs.pod:2141
 msgid ""
 "In L<guestfish(3)> there is a handy interactive command C<supported> which "
 "prints out the available groups and whether they are supported by this build "
@@ -56209,19 +56210,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2145
+#: ../src/guestfs.pod:2146
 msgid "SINGLE CALLS AT COMPILE TIME"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2147
+#: ../src/guestfs.pod:2148
 msgid ""
 "Since version 1.5.8, C<E<lt>guestfs.hE<gt>> defines symbols for each C API "
 "function, such as:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2150
+#: ../src/guestfs.pod:2151
 #, no-wrap
 msgid ""
 " #define GUESTFS_HAVE_DD 1\n"
@@ -56229,12 +56230,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2152
+#: ../src/guestfs.pod:2153
 msgid "if L</guestfs_dd> is available."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2154
+#: ../src/guestfs.pod:2155
 msgid ""
 "Before version 1.5.8, if you needed to test whether a single libguestfs "
 "function is available at compile time, we recommended using build tools such "
@@ -56242,7 +56243,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2159
+#: ../src/guestfs.pod:2160
 #, no-wrap
 msgid ""
 " AC_CHECK_LIB([guestfs],[guestfs_create])\n"
@@ -56251,19 +56252,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2162
+#: ../src/guestfs.pod:2163
 msgid ""
 "which would result in C<HAVE_GUESTFS_DD> being either defined or not defined "
 "in your program."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2165
+#: ../src/guestfs.pod:2166
 msgid "SINGLE CALLS AT RUN TIME"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2167
+#: ../src/guestfs.pod:2168
 msgid ""
 "Testing at compile time doesn't guarantee that a function really exists in "
 "the library.  The reason is that you might be dynamically linked against a "
@@ -56273,7 +56274,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2174
+#: ../src/guestfs.pod:2175
 msgid ""
 "You can use L<dlopen(3)> to test if a function is available at run time, as "
 "in this example program (note that you still need the compile time check as "
@@ -56281,7 +56282,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2178
+#: ../src/guestfs.pod:2179
 #, no-wrap
 msgid ""
 " #include <stdio.h>\n"
@@ -56293,7 +56294,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2184
+#: ../src/guestfs.pod:2185
 #, no-wrap
 msgid ""
 " main ()\n"
@@ -56305,7 +56306,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2190
+#: ../src/guestfs.pod:2191
 #, no-wrap
 msgid ""
 "   /* Test if the function guestfs_dd is really available. */\n"
@@ -56320,7 +56321,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2199
+#: ../src/guestfs.pod:2200
 #, no-wrap
 msgid ""
 "   if (!has_function)\n"
@@ -56339,7 +56340,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2212
+#: ../src/guestfs.pod:2213
 msgid ""
 "You may think the above is an awful lot of hassle, and it is.  There are "
 "other ways outside of the C linking system to ensure that this kind of "
@@ -56347,7 +56348,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2217
+#: ../src/guestfs.pod:2218
 #, no-wrap
 msgid ""
 " Requires: libguestfs >= 1.0.80\n"
@@ -56355,12 +56356,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2219
+#: ../src/guestfs.pod:2220
 msgid "CALLS WITH OPTIONAL ARGUMENTS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2221
+#: ../src/guestfs.pod:2222
 msgid ""
 "A recent feature of the API is the introduction of calls which take optional "
 "arguments.  In C these are declared 3 ways.  The main way is as a call which "
@@ -56368,7 +56369,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2226
+#: ../src/guestfs.pod:2227
 #, no-wrap
 msgid ""
 " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
@@ -56376,14 +56377,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2228
+#: ../src/guestfs.pod:2229
 msgid ""
 "Call this with a list of optional arguments, terminated by C<-1>.  So to "
 "call with no optional arguments specified:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2231
+#: ../src/guestfs.pod:2232
 #, no-wrap
 msgid ""
 " guestfs_add_drive_opts (g, filename, -1);\n"
@@ -56391,12 +56392,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2233
+#: ../src/guestfs.pod:2234
 msgid "With a single optional argument:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2235
+#: ../src/guestfs.pod:2236
 #, no-wrap
 msgid ""
 " guestfs_add_drive_opts (g, filename,\n"
@@ -56406,12 +56407,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2239
+#: ../src/guestfs.pod:2240
 msgid "With two:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2241
+#: ../src/guestfs.pod:2242
 #, no-wrap
 msgid ""
 " guestfs_add_drive_opts (g, filename,\n"
@@ -56422,19 +56423,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2246
+#: ../src/guestfs.pod:2247
 msgid ""
 "and so forth.  Don't forget the terminating C<-1> otherwise Bad Things will "
 "happen!"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2249
+#: ../src/guestfs.pod:2250
 msgid "USING va_list FOR OPTIONAL ARGUMENTS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2251
+#: ../src/guestfs.pod:2252
 msgid ""
 "The second variant has the same name with the suffix C<_va>, which works the "
 "same way but takes a C<va_list>.  See the C manual for details.  For the "
@@ -56442,7 +56443,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2255
+#: ../src/guestfs.pod:2256
 #, no-wrap
 msgid ""
 " int guestfs_add_drive_opts_va (guestfs_h *g, const char *filename,\n"
@@ -56451,12 +56452,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2258
+#: ../src/guestfs.pod:2259
 msgid "CONSTRUCTING OPTIONAL ARGUMENTS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2260
+#: ../src/guestfs.pod:2261
 msgid ""
 "The third variant is useful where you need to construct these calls.  You "
 "pass in a structure where you fill in the optional fields.  The structure "
@@ -56466,7 +56467,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2266
+#: ../src/guestfs.pod:2267
 #, no-wrap
 msgid ""
 " struct guestfs_add_drive_opts_argv {\n"
@@ -56481,12 +56482,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2275
+#: ../src/guestfs.pod:2276
 msgid "You could call it like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2277
+#: ../src/guestfs.pod:2278
 #, no-wrap
 msgid ""
 " struct guestfs_add_drive_opts_argv optargs = {\n"
@@ -56499,7 +56500,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2284
+#: ../src/guestfs.pod:2285
 #, no-wrap
 msgid ""
 " guestfs_add_drive_opts_argv (g, filename, &optargs);\n"
@@ -56507,29 +56508,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2292
+#: ../src/guestfs.pod:2293
 msgid "The C<_BITMASK> suffix on each option name when specifying the bitmask."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2297
+#: ../src/guestfs.pod:2298
 msgid "You do not need to fill in all fields of the structure."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2301
+#: ../src/guestfs.pod:2302
 msgid ""
 "There must be a one-to-one correspondence between fields of the structure "
 "that are filled in, and bits set in the bitmask."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2306
+#: ../src/guestfs.pod:2307
 msgid "OPTIONAL ARGUMENTS IN OTHER LANGUAGES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2308
+#: ../src/guestfs.pod:2309
 msgid ""
 "In other languages, optional arguments are expressed in the way that is "
 "natural for that language.  We refer you to the language-specific "
@@ -56537,17 +56538,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2312
+#: ../src/guestfs.pod:2313
 msgid "For guestfish, see L<guestfish(1)/OPTIONAL ARGUMENTS>."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2316
+#: ../src/guestfs.pod:2317
 msgid "SETTING CALLBACKS TO HANDLE EVENTS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2318
+#: ../src/guestfs.pod:2319
 msgid ""
 "B<Note:> This section documents the generic event mechanism introduced in "
 "libguestfs 1.10, which you should use in new code if possible.  The old "
@@ -56559,7 +56560,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2327
+#: ../src/guestfs.pod:2328
 msgid ""
 "Handles generate events when certain things happen, such as log messages "
 "being generated, progress messages during long-running operations, or the "
@@ -56571,7 +56572,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2335
+#: ../src/guestfs.pod:2336
 msgid ""
 "In the current implementation, events are only generated synchronously: that "
 "means that events (and hence callbacks) can only happen while you are in the "
@@ -56580,31 +56581,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2340
+#: ../src/guestfs.pod:2341
 msgid ""
 "Events may contain a payload, usually nothing (void), an array of 64 bit "
 "unsigned integers, or a message buffer.  Payloads are discussed later on."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2344
+#: ../src/guestfs.pod:2345
 msgid "CLASSES OF EVENTS"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2348
+#: ../src/guestfs.pod:2349
 msgid "GUESTFS_EVENT_CLOSE (payload type: void)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2351
+#: ../src/guestfs.pod:2352
 msgid ""
 "The callback function will be called while the handle is being closed "
 "(synchronously from L</guestfs_close>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2354
+#: ../src/guestfs.pod:2355
 msgid ""
 "Note that libguestfs installs an L<atexit(3)> handler to try to clean up "
 "handles that are open when the program exits.  This means that this callback "
@@ -56615,19 +56616,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2361
+#: ../src/guestfs.pod:2362
 msgid ""
 "If no callback is registered: the handle is closed without any callback "
 "being invoked."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2364
+#: ../src/guestfs.pod:2365
 msgid "GUESTFS_EVENT_SUBPROCESS_QUIT (payload type: void)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2367
+#: ../src/guestfs.pod:2368
 msgid ""
 "The callback function will be called when the child process quits, either "
 "asynchronously or if killed by L</guestfs_kill_subprocess>.  (This "
@@ -56635,17 +56636,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2371 ../src/guestfs.pod:2380 ../src/guestfs.pod:2497
+#: ../src/guestfs.pod:2372 ../src/guestfs.pod:2381 ../src/guestfs.pod:2498
 msgid "If no callback is registered: the event is ignored."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2373
+#: ../src/guestfs.pod:2374
 msgid "GUESTFS_EVENT_LAUNCH_DONE (payload type: void)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2376
+#: ../src/guestfs.pod:2377
 msgid ""
 "The callback function will be called when the child process becomes ready "
 "first time after it has been launched.  (This corresponds to a transition "
@@ -56653,12 +56654,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2382
+#: ../src/guestfs.pod:2383
 msgid "GUESTFS_EVENT_PROGRESS (payload type: array of 4 x uint64_t)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2385
+#: ../src/guestfs.pod:2386
 msgid ""
 "Some long-running operations can generate progress messages.  If this "
 "callback is registered, then it will be called each time a progress message "
@@ -56668,14 +56669,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2391
+#: ../src/guestfs.pod:2392
 msgid ""
 "The callback receives in the payload four unsigned 64 bit numbers which are "
 "(in order): C<proc_nr>, C<serial>, C<position>, C<total>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2394
+#: ../src/guestfs.pod:2395
 msgid ""
 "The units of C<total> are not defined, although for some operations C<total> "
 "may relate in some way to the amount of data to be transferred (eg. in bytes "
@@ -56684,24 +56685,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2399
+#: ../src/guestfs.pod:2400
 msgid "The only defined and stable parts of the API are:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2405
+#: ../src/guestfs.pod:2406
 msgid ""
 "The callback can display to the user some type of progress bar or indicator "
 "which shows the ratio of C<position>:C<total>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2410
+#: ../src/guestfs.pod:2411
 msgid "0 E<lt>= C<position> E<lt>= C<total>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2414
+#: ../src/guestfs.pod:2415
 msgid ""
 "If any progress notification is sent during a call, then a final progress "
 "notification is always sent when C<position> = C<total> (I<unless> the call "
@@ -56709,7 +56710,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2418
+#: ../src/guestfs.pod:2419
 msgid ""
 "This is to simplify caller code, so callers can easily set the progress "
 "indicator to \"100%\" at the end of the operation, without requiring special "
@@ -56717,7 +56718,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2424
+#: ../src/guestfs.pod:2425
 msgid ""
 "For some calls we are unable to estimate the progress of the call, but we "
 "can still generate progress messages to indicate activity.  This is known as "
@@ -56726,7 +56727,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2429
+#: ../src/guestfs.pod:2430
 msgid ""
 "For these calls, zero or more progress messages are generated with "
 "C<position = 0> and C<total = 1>, followed by a final message with "
@@ -56734,14 +56735,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2433
+#: ../src/guestfs.pod:2434
 msgid ""
 "As noted above, if the call fails with an error then the final message may "
 "not be generated."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2438
+#: ../src/guestfs.pod:2439
 msgid ""
 "The callback also receives the procedure number (C<proc_nr>) and serial "
 "number (C<serial>) of the call.  These are only useful for debugging "
@@ -56750,31 +56751,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2444
+#: ../src/guestfs.pod:2445
 msgid "If no callback is registered: progress messages are discarded."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2446
+#: ../src/guestfs.pod:2447
 msgid "GUESTFS_EVENT_APPLIANCE (payload type: message buffer)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2449
+#: ../src/guestfs.pod:2450
 msgid ""
 "The callback function is called whenever a log message is generated by qemu, "
 "the appliance kernel, guestfsd (daemon), or utility programs."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2452
+#: ../src/guestfs.pod:2453
 msgid ""
 "If the verbose flag (L</guestfs_set_verbose>) is set before launch "
 "(L</guestfs_launch>) then additional debug messages are generated."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2455 ../src/guestfs.pod:2469
+#: ../src/guestfs.pod:2456 ../src/guestfs.pod:2470
 msgid ""
 "If no callback is registered: the messages are discarded unless the verbose "
 "flag is set in which case they are sent to stderr.  You can override the "
@@ -56782,62 +56783,62 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2460
+#: ../src/guestfs.pod:2461
 msgid "GUESTFS_EVENT_LIBRARY (payload type: message buffer)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2463
+#: ../src/guestfs.pod:2464
 msgid ""
 "The callback function is called whenever a log message is generated by the "
 "library part of libguestfs."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2466
+#: ../src/guestfs.pod:2467
 msgid ""
 "If the verbose flag (L</guestfs_set_verbose>) is set then additional debug "
 "messages are generated."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2474
+#: ../src/guestfs.pod:2475
 msgid "GUESTFS_EVENT_TRACE (payload type: message buffer)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2477
+#: ../src/guestfs.pod:2478
 msgid ""
 "The callback function is called whenever a trace message is generated.  This "
 "only applies if the trace flag (L</guestfs_set_trace>) is set."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2480
+#: ../src/guestfs.pod:2481
 msgid ""
 "If no callback is registered: the messages are sent to stderr.  You can "
 "override the printing of trace messages to stderr by setting up a callback."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2484
+#: ../src/guestfs.pod:2485
 msgid "GUESTFS_EVENT_ENTER (payload type: function name)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2487
+#: ../src/guestfs.pod:2488
 msgid "The callback function is called whenever a libguestfs function is entered."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2490
+#: ../src/guestfs.pod:2491
 msgid ""
 "The payload is a string which contains the name of the function that we are "
 "entering (not including C<guestfs_> prefix)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2493
+#: ../src/guestfs.pod:2494
 msgid ""
 "Note that libguestfs functions can call themselves, so you may see many "
 "events from a single call.  A few libguestfs functions do not generate this "
@@ -56845,12 +56846,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:2499
+#: ../src/guestfs.pod:2500
 msgid "GUESTFS_EVENT_LIBVIRT_AUTH (payload type: libvirt URI)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2502
+#: ../src/guestfs.pod:2503
 msgid ""
 "For any API function that opens a libvirt connection, this event may be "
 "generated to indicate that libvirt demands authentication information.  See "
@@ -56858,24 +56859,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2506
+#: ../src/guestfs.pod:2507
 msgid ""
 "If no callback is registered: C<virConnectAuthPtrDefault> is used (suitable "
 "for command-line programs only)."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2511
+#: ../src/guestfs.pod:2512
 msgid "EVENT API"
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:2513
+#: ../src/guestfs.pod:2514
 msgid "guestfs_set_event_callback"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2515
+#: ../src/guestfs.pod:2516
 #, no-wrap
 msgid ""
 " int guestfs_set_event_callback (guestfs_h *g,\n"
@@ -56887,14 +56888,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2521
+#: ../src/guestfs.pod:2522
 msgid ""
 "This function registers a callback (C<cb>) for all event classes in the "
 "C<event_bitmask>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2524
+#: ../src/guestfs.pod:2525
 msgid ""
 "For example, to register for all log message events, you could call this "
 "function with the bitmask C<GUESTFS_EVENT_APPLIANCE|GUESTFS_EVENT_LIBRARY>.  "
@@ -56903,40 +56904,40 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2530
+#: ../src/guestfs.pod:2531
 msgid "C<flags> should always be passed as 0."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2532
+#: ../src/guestfs.pod:2533
 msgid ""
 "C<opaque> is an opaque pointer which is passed to the callback.  You can use "
 "it for any purpose."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2535
+#: ../src/guestfs.pod:2536
 msgid ""
 "The return value is the event handle (an integer) which you can use to "
 "delete the callback (see below)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2538
+#: ../src/guestfs.pod:2539
 msgid ""
 "If there is an error, this function returns C<-1>, and sets the error in the "
 "handle in the usual way (see L</guestfs_last_error> etc.)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2541
+#: ../src/guestfs.pod:2542
 msgid ""
 "Callbacks remain in effect until they are deleted, or until the handle is "
 "closed."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2544
+#: ../src/guestfs.pod:2545
 msgid ""
 "In the case where multiple callbacks are registered for a particular event "
 "class, all of the callbacks are called.  The order in which multiple "
@@ -56944,12 +56945,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:2548
+#: ../src/guestfs.pod:2549
 msgid "guestfs_delete_event_callback"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2550
+#: ../src/guestfs.pod:2551
 #, no-wrap
 msgid ""
 " void guestfs_delete_event_callback (guestfs_h *g, int event_handle);\n"
@@ -56957,7 +56958,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2552
+#: ../src/guestfs.pod:2553
 msgid ""
 "Delete a callback that was previously registered.  C<event_handle> should be "
 "the integer that was returned by a previous call to "
@@ -56965,12 +56966,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:2556
+#: ../src/guestfs.pod:2557
 msgid "guestfs_event_to_string"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2558
+#: ../src/guestfs.pod:2559
 #, no-wrap
 msgid ""
 " char *guestfs_event_to_string (uint64_t event);\n"
@@ -56978,48 +56979,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2560
+#: ../src/guestfs.pod:2561
 msgid ""
 "C<event> is either a single event or a bitmask of events.  This returns a "
 "string representation (useful for debugging or printing events)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2564
+#: ../src/guestfs.pod:2565
 msgid "A single event is returned as the name in lower case, eg. C<\"close\">."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2566
+#: ../src/guestfs.pod:2567
 msgid ""
 "A bitmask of several events is returned as a comma-separated list, "
 "eg. C<\"close,progress\">."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2569
+#: ../src/guestfs.pod:2570
 msgid "If zero is passed, then the empty string C<\"\"> is returned."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2571
+#: ../src/guestfs.pod:2572
 msgid ""
 "On success this returns a string.  On error it returns NULL and sets "
 "C<errno>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2574
+#: ../src/guestfs.pod:2575
 msgid "The returned string must be freed by the caller."
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:2576
+#: ../src/guestfs.pod:2577
 msgid "guestfs_event_callback"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2578
+#: ../src/guestfs.pod:2579
 #, no-wrap
 msgid ""
 " typedef void (*guestfs_event_callback) (\n"
@@ -57034,12 +57035,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2587
+#: ../src/guestfs.pod:2588
 msgid "This is the type of the event callback function that you have to provide."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2590
+#: ../src/guestfs.pod:2591
 msgid ""
 "The basic parameters are: the handle (C<g>), the opaque user pointer "
 "(C<opaque>), the event class (eg. C<GUESTFS_EVENT_PROGRESS>), the event "
@@ -57047,7 +57048,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2594
+#: ../src/guestfs.pod:2595
 msgid ""
 "The remaining parameters contain the event payload (if any).  Each event may "
 "contain a payload, which usually relates to the event class, but for future "
@@ -57056,7 +57057,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2599
+#: ../src/guestfs.pod:2600
 msgid ""
 "C<buf> and C<buf_len> contain a message buffer (if C<buf_len == 0>, then "
 "there is no message buffer).  Note that this message buffer can contain "
@@ -57064,19 +57065,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2603
+#: ../src/guestfs.pod:2604
 msgid ""
 "C<array> and C<array_len> is an array of 64 bit unsigned integers.  At the "
 "moment this is only used for progress messages."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2606
+#: ../src/guestfs.pod:2607
 msgid "EXAMPLE: CAPTURING LOG MESSAGES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2608
+#: ../src/guestfs.pod:2609
 msgid ""
 "One motivation for the generic event API was to allow GUI programs to "
 "capture debug and other messages.  In libguestfs E<le> 1.8 these were sent "
@@ -57084,7 +57085,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2612
+#: ../src/guestfs.pod:2613
 msgid ""
 "Events associated with log messages are: C<GUESTFS_EVENT_LIBRARY>, "
 "C<GUESTFS_EVENT_APPLIANCE> and C<GUESTFS_EVENT_TRACE>.  (Note that error "
@@ -57092,14 +57093,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2617
+#: ../src/guestfs.pod:2618
 msgid ""
 "Programs have to set up a callback to capture the classes of events of "
 "interest:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2620
+#: ../src/guestfs.pod:2621
 #, no-wrap
 msgid ""
 " int eh =\n"
@@ -57115,14 +57116,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2630
+#: ../src/guestfs.pod:2631
 msgid ""
 "The callback can then direct messages to the appropriate place.  In this "
 "example, messages are directed to syslog:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2633
+#: ../src/guestfs.pod:2634
 #, no-wrap
 msgid ""
 " static void\n"
@@ -57143,12 +57144,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2648
+#: ../src/guestfs.pod:2649
 msgid "LIBVIRT AUTHENTICATION"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2650
+#: ../src/guestfs.pod:2651
 msgid ""
 "Some libguestfs API calls can open libvirt connections.  Currently the only "
 "ones are L</guestfs_add_domain>; and L</guestfs_launch> if the libvirt "
@@ -57160,14 +57161,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2658
+#: ../src/guestfs.pod:2659
 msgid ""
 "You may provide libvirt authentication data by registering a callback for "
 "events of type C<GUESTFS_EVENT_LIBVIRT_AUTH>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2661
+#: ../src/guestfs.pod:2662
 msgid ""
 "If no such event is registered, then libguestfs uses a libvirt function that "
 "provides command-line prompts (C<virConnectAuthPtrDefault>).  This is only "
@@ -57175,7 +57176,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2666
+#: ../src/guestfs.pod:2667
 msgid ""
 "To provide authentication, first call "
 "L</guestfs_set_libvirt_supported_credentials> with the list of credentials "
@@ -57185,7 +57186,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2673
+#: ../src/guestfs.pod:2674
 msgid ""
 "In the event handler, call L</guestfs_get_libvirt_requested_credentials> to "
 "get a list of the credentials that libvirt is asking for.  You then need to "
@@ -57198,19 +57199,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2684
+#: ../src/guestfs.pod:2685
 msgid "The example program below should make this clearer."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2686
+#: ../src/guestfs.pod:2687
 msgid ""
 "There is also a more substantial working example program supplied with the "
 "libguestfs sources, called C<libvirt-auth.c>."
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2689
+#: ../src/guestfs.pod:2690
 #, no-wrap
 msgid ""
 " main ()\n"
@@ -57222,7 +57223,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2695
+#: ../src/guestfs.pod:2696
 #, no-wrap
 msgid ""
 "   g = guestfs_create ();\n"
@@ -57231,7 +57232,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2698
+#: ../src/guestfs.pod:2699
 #, no-wrap
 msgid ""
 "   /* Tell libvirt what credentials the program supports. */\n"
@@ -57242,7 +57243,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2703
+#: ../src/guestfs.pod:2704
 #, no-wrap
 msgid ""
 "   /* Set up the event handler. */\n"
@@ -57255,7 +57256,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2710
+#: ../src/guestfs.pod:2711
 #, no-wrap
 msgid ""
 "   /* An example of a call that may ask for credentials. */\n"
@@ -57269,7 +57270,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2718
+#: ../src/guestfs.pod:2719
 #, no-wrap
 msgid ""
 "   exit (EXIT_SUCCESS);\n"
@@ -57278,7 +57279,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2721
+#: ../src/guestfs.pod:2722
 #, no-wrap
 msgid ""
 " static void\n"
@@ -57300,7 +57301,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2737
+#: ../src/guestfs.pod:2738
 #, no-wrap
 msgid ""
 "   // buf will be the libvirt URI.  buf_len may be ignored.\n"
@@ -57310,7 +57311,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2741
+#: ../src/guestfs.pod:2742
 #, no-wrap
 msgid ""
 "   // Ask libguestfs what credentials libvirt is demanding.\n"
@@ -57321,7 +57322,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2746
+#: ../src/guestfs.pod:2747
 #, no-wrap
 msgid ""
 "   // Now ask the user for answers.\n"
@@ -57339,7 +57340,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2758
+#: ../src/guestfs.pod:2759
 #, no-wrap
 msgid ""
 "       // Some code here to ask for the credential.\n"
@@ -57349,7 +57350,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2762
+#: ../src/guestfs.pod:2763
 #, no-wrap
 msgid ""
 "      r = guestfs_set_libvirt_requested_credential (g, i,\n"
@@ -57361,7 +57362,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2768
+#: ../src/guestfs.pod:2769
 #, no-wrap
 msgid ""
 "     free (creds[i]);\n"
@@ -57370,7 +57371,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2771
+#: ../src/guestfs.pod:2772
 #, no-wrap
 msgid ""
 "   free (creds);\n"
@@ -57379,12 +57380,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2774
+#: ../src/guestfs.pod:2775
 msgid "CANCELLING LONG TRANSFERS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2776
+#: ../src/guestfs.pod:2777
 msgid ""
 "Some operations can be cancelled by the caller while they are in progress.  "
 "Currently only operations that involve uploading or downloading data can be "
@@ -57393,19 +57394,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2781
+#: ../src/guestfs.pod:2782
 msgid ""
 "To cancel the transfer, call L</guestfs_user_cancel>.  For more information, "
 "read the description of L</guestfs_user_cancel>."
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2784
+#: ../src/guestfs.pod:2785
 msgid "PRIVATE DATA AREA"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2786
+#: ../src/guestfs.pod:2787
 msgid ""
 "You can attach named pieces of private data to the libguestfs handle, fetch "
 "them by name, and walk over them, for the lifetime of the handle.  This is "
@@ -57413,12 +57414,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2791
+#: ../src/guestfs.pod:2792
 msgid "To attach a named piece of data, use the following call:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2793
+#: ../src/guestfs.pod:2794
 #, no-wrap
 msgid ""
 " void guestfs_set_private (guestfs_h *g, const char *key, void *data);\n"
@@ -57426,7 +57427,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2795
+#: ../src/guestfs.pod:2796
 msgid ""
 "C<key> is the name to associate with this data, and C<data> is an arbitrary "
 "pointer (which can be C<NULL>).  Any previous item with the same key is "
@@ -57434,7 +57435,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2799
+#: ../src/guestfs.pod:2800
 msgid ""
 "You can use any C<key> string you want, but avoid keys beginning with an "
 "underscore character (libguestfs uses those for its own internal purposes, "
@@ -57443,12 +57444,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2805
+#: ../src/guestfs.pod:2806
 msgid "To retrieve the pointer, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2807
+#: ../src/guestfs.pod:2808
 #, no-wrap
 msgid ""
 " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
@@ -57456,7 +57457,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2809
+#: ../src/guestfs.pod:2810
 msgid ""
 "This function returns C<NULL> if either no data is found associated with "
 "C<key>, or if the user previously set the C<key>'s C<data> pointer to "
@@ -57464,7 +57465,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2813
+#: ../src/guestfs.pod:2814
 msgid ""
 "Libguestfs does not try to look at or interpret the C<data> pointer in any "
 "way.  As far as libguestfs is concerned, it need not be a valid pointer at "
@@ -57475,12 +57476,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2820
+#: ../src/guestfs.pod:2821
 msgid "To walk over all entries, use these two functions:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2822
+#: ../src/guestfs.pod:2823
 #, no-wrap
 msgid ""
 " void *guestfs_first_private (guestfs_h *g, const char **key_rtn);\n"
@@ -57488,7 +57489,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2824
+#: ../src/guestfs.pod:2825
 #, no-wrap
 msgid ""
 " void *guestfs_next_private (guestfs_h *g, const char **key_rtn);\n"
@@ -57496,7 +57497,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2826
+#: ../src/guestfs.pod:2827
 msgid ""
 "C<guestfs_first_private> returns the first key, pointer pair (\"first\" does "
 "not have any particular meaning -- keys are not returned in any defined "
@@ -57506,24 +57507,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2832
+#: ../src/guestfs.pod:2833
 msgid ""
 "C<guestfs_next_private> returns the next key, pointer pair.  The return "
 "value of this function is C<NULL> if there are no further entries to return."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2836
+#: ../src/guestfs.pod:2837
 msgid "Notes about walking over entries:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2842
+#: ../src/guestfs.pod:2843
 msgid "You must not call C<guestfs_set_private> while walking over the entries."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2847
+#: ../src/guestfs.pod:2848
 msgid ""
 "The handle maintains an internal iterator which is reset when you call "
 "C<guestfs_first_private>.  This internal iterator is invalidated when you "
@@ -57531,12 +57532,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2853
+#: ../src/guestfs.pod:2854
 msgid "If you have set the data pointer associated with a key to C<NULL>, ie:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2855
+#: ../src/guestfs.pod:2856
 #, no-wrap
 msgid ""
 " guestfs_set_private (g, key, NULL);\n"
@@ -57544,26 +57545,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2857
+#: ../src/guestfs.pod:2858
 msgid "then that C<key> is not returned when walking."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2861
+#: ../src/guestfs.pod:2862
 msgid ""
 "C<*key_rtn> is only valid until the next call to C<guestfs_first_private>, "
 "C<guestfs_next_private> or C<guestfs_set_private>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2867
+#: ../src/guestfs.pod:2868
 msgid ""
 "The following example code shows how to print all keys and data pointers "
 "that are associated with the handle C<g>:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2870
+#: ../src/guestfs.pod:2871
 #, no-wrap
 msgid ""
 " const char *key;\n"
@@ -57577,14 +57578,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2878
+#: ../src/guestfs.pod:2879
 msgid ""
 "More commonly you are only interested in keys that begin with an "
 "application-specific prefix C<foo_>.  Modify the loop like so:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2881
+#: ../src/guestfs.pod:2882
 #, no-wrap
 msgid ""
 " const char *key;\n"
@@ -57599,7 +57600,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2890
+#: ../src/guestfs.pod:2891
 msgid ""
 "If you need to modify keys while walking, then you have to jump back to the "
 "beginning of the loop.  For example, to delete all keys prefixed with "
@@ -57607,7 +57608,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2894
+#: ../src/guestfs.pod:2895
 #, no-wrap
 msgid ""
 "  const char *key;\n"
@@ -57629,7 +57630,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2910
+#: ../src/guestfs.pod:2911
 msgid ""
 "Note that the above loop is guaranteed to terminate because the keys are "
 "being deleted, but other manipulations of keys within the loop might not "
@@ -57638,12 +57639,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2915
+#: ../src/guestfs.pod:2916
 msgid "SYSTEMTAP"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2917
+#: ../src/guestfs.pod:2918
 msgid ""
 "The libguestfs C library can be probed using systemtap or DTrace.  This is "
 "true of any library, not just libguestfs.  However libguestfs also contains "
@@ -57651,12 +57652,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2921
+#: ../src/guestfs.pod:2922
 msgid "You can list all the static markers by doing:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2923
+#: ../src/guestfs.pod:2924
 #, no-wrap
 msgid ""
 " stap -l 'process(\"/usr/lib*/libguestfs.so.0\")\n"
@@ -57665,26 +57666,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2926
+#: ../src/guestfs.pod:2927
 msgid ""
 "B<Note:> These static markers are I<not> part of the stable API and may "
 "change in future versions."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:2929
+#: ../src/guestfs.pod:2930
 msgid "SYSTEMTAP SCRIPT EXAMPLE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2931
+#: ../src/guestfs.pod:2932
 msgid ""
 "This script contains examples of displaying both the static markers and some "
 "ordinary C entry points:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2958
+#: ../src/guestfs.pod:2959
 #, no-wrap
 msgid ""
 " /* Display all calls to guestfs_mkfs* functions. */\n"
@@ -57697,7 +57698,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2965
+#: ../src/guestfs.pod:2966
 msgid ""
 "The script above can be saved to C<test.stap> and run using the L<stap(1)> "
 "program.  Note that you either have to be root, or you have to add yourself "
@@ -57706,7 +57707,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2970
+#: ../src/guestfs.pod:2971
 #, no-wrap
 msgid ""
 " # stap /tmp/test.stap\n"
@@ -57715,17 +57716,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2973
+#: ../src/guestfs.pod:2974
 msgid "In another terminal, run a guestfish command such as this:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2977
+#: ../src/guestfs.pod:2978
 msgid "In the first terminal, stap trace output similar to this is shown:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2979
+#: ../src/guestfs.pod:2980
 #, no-wrap
 msgid ""
 " 1318248056692655 (+0):\tlaunch_start\n"
@@ -57739,19 +57740,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2988
+#: ../src/guestfs.pod:2989
 msgid ""
 "<!-- old anchor for the next section --> <a "
 "name=\"state_machine_and_low_level_event_api\"/>"
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:2993
+#: ../src/guestfs.pod:2994
 msgid "ARCHITECTURE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:2995
+#: ../src/guestfs.pod:2996
 msgid ""
 "Internally, libguestfs is implemented by running an appliance (a special "
 "type of small virtual machine) using L<qemu(1)>.  Qemu runs as a child "
@@ -57759,7 +57760,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:2999
+#: ../src/guestfs.pod:3000
 #, no-wrap
 msgid ""
 "  ___________________\n"
@@ -57785,14 +57786,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3019
+#: ../src/guestfs.pod:3020
 msgid ""
 "The library, linked to the main program, creates the child process and hence "
 "the appliance in the L</guestfs_launch> function."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3022
+#: ../src/guestfs.pod:3023
 msgid ""
 "Inside the appliance is a Linux kernel and a complete stack of userspace "
 "tools (such as LVM and ext2 programs) and a small controlling daemon called "
@@ -57804,7 +57805,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3031
+#: ../src/guestfs.pod:3032
 msgid ""
 "A common misunderstanding is that the appliance \"is\" the virtual machine.  "
 "Although the disk image you are attached to might also be used by some "
@@ -57815,17 +57816,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:3038
+#: ../src/guestfs.pod:3039
 msgid "STATE MACHINE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3040
+#: ../src/guestfs.pod:3041
 msgid "libguestfs uses a state machine to model the child process:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3042
+#: ../src/guestfs.pod:3043
 #, no-wrap
 msgid ""
 "                         |\n"
@@ -57853,7 +57854,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3064
+#: ../src/guestfs.pod:3065
 msgid ""
 "The normal transitions are (1) CONFIG (when the handle is created, but there "
 "is no child process), (2) LAUNCHING (when the child process is booting up), "
@@ -57862,7 +57863,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3069
+#: ../src/guestfs.pod:3070
 msgid ""
 "The guest may be killed by L</guestfs_kill_subprocess>, or may die "
 "asynchronously at any time (eg. due to some internal error), and that causes "
@@ -57870,14 +57871,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3073
+#: ../src/guestfs.pod:3074
 msgid ""
 "Configuration commands for qemu such as L</guestfs_set_path> can only be "
 "issued when in the CONFIG state."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3076
+#: ../src/guestfs.pod:3077
 msgid ""
 "The API offers one call that goes from CONFIG through LAUNCHING to READY.  "
 "L</guestfs_launch> blocks until the child process is READY to accept "
@@ -57886,7 +57887,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3082
+#: ../src/guestfs.pod:3083
 msgid ""
 "API actions such as L</guestfs_mount> can only be issued when in the READY "
 "state.  These API calls block waiting for the command to be carried out.  "
@@ -57895,7 +57896,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3087
+#: ../src/guestfs.pod:3088
 msgid ""
 "Finally, the child process sends asynchronous messages back to the main "
 "program, such as kernel log messages.  You can register a callback to "
@@ -57903,17 +57904,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:3091
+#: ../src/guestfs.pod:3092
 msgid "INTERNALS"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3093
+#: ../src/guestfs.pod:3094
 msgid "APPLIANCE BOOT PROCESS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3095
+#: ../src/guestfs.pod:3096
 msgid ""
 "This process has evolved and continues to evolve.  The description here "
 "corresponds only to the current version of libguestfs and is provided for "
@@ -57921,55 +57922,55 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3099
+#: ../src/guestfs.pod:3100
 msgid ""
 "In order to follow the stages involved below, enable libguestfs debugging "
 "(set the environment variable C<LIBGUESTFS_DEBUG=1>)."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3104
+#: ../src/guestfs.pod:3105
 msgid "Create the appliance"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3106
+#: ../src/guestfs.pod:3107
 msgid ""
 "C<supermin-helper> is invoked to create the kernel, a small initrd and the "
 "appliance."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3109
+#: ../src/guestfs.pod:3110
 msgid ""
 "The appliance is cached in C</var/tmp/.guestfs-E<lt>UIDE<gt>> (or in another "
 "directory if C<LIBGUESTFS_CACHEDIR> or C<TMPDIR> are set)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3112
+#: ../src/guestfs.pod:3113
 msgid ""
 "For a complete description of how the appliance is created and cached, read "
 "the L<supermin(8)> and L<supermin-helper(8)> man pages."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3116
+#: ../src/guestfs.pod:3117
 msgid "Start qemu and boot the kernel"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3118
+#: ../src/guestfs.pod:3119
 msgid "qemu is invoked to boot the kernel."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3120
+#: ../src/guestfs.pod:3121
 msgid "Run the initrd"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3122
+#: ../src/guestfs.pod:3123
 msgid ""
 "C<supermin-helper> builds a small initrd.  The initrd is not the appliance.  "
 "The purpose of the initrd is to load enough kernel modules in order that the "
@@ -57977,21 +57978,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3126
+#: ../src/guestfs.pod:3127
 msgid ""
 "The initrd is a cpio archive called "
 "C</var/tmp/.guestfs-E<lt>UIDE<gt>/initrd>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3129
+#: ../src/guestfs.pod:3130
 msgid ""
 "When the initrd has started you will see messages showing that kernel "
 "modules are being loaded, similar to this:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3132
+#: ../src/guestfs.pod:3133
 #, no-wrap
 msgid ""
 " supermin: ext2 mini initrd starting up\n"
@@ -58002,12 +58003,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3137
+#: ../src/guestfs.pod:3138
 msgid "Find and mount the appliance device"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3139
+#: ../src/guestfs.pod:3140
 msgid ""
 "The appliance is a sparse file containing an ext2 filesystem which contains "
 "a familiar (although reduced in size) Linux operating system.  It would "
@@ -58015,33 +58016,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3143
+#: ../src/guestfs.pod:3144
 msgid ""
 "The regular disks being inspected by libguestfs are the first devices "
 "exposed by qemu (eg. as C</dev/vda>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3146
+#: ../src/guestfs.pod:3147
 msgid ""
 "The last disk added to qemu is the appliance itself (eg. C</dev/vdb> if "
 "there was only one regular disk)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3149
+#: ../src/guestfs.pod:3150
 msgid ""
 "Thus the final job of the initrd is to locate the appliance disk, mount it, "
 "and switch root into the appliance, and run C</init> from the appliance."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3153
+#: ../src/guestfs.pod:3154
 msgid "If this works successfully you will see messages such as:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3155
+#: ../src/guestfs.pod:3156
 #, no-wrap
 msgid ""
 " supermin: picked /sys/block/vdb/dev as root device\n"
@@ -58053,19 +58054,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3161
+#: ../src/guestfs.pod:3162
 msgid ""
 "Note that C<Starting /init script ...> indicates that the appliance's init "
 "script is now running."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3164
+#: ../src/guestfs.pod:3165
 msgid "Initialize the appliance"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3166
+#: ../src/guestfs.pod:3167
 msgid ""
 "The appliance itself now initializes itself.  This involves starting certain "
 "processes like C<udev>, possibly printing some debug information, and "
@@ -58073,19 +58074,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3170
+#: ../src/guestfs.pod:3171
 msgid "The daemon"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3172
+#: ../src/guestfs.pod:3173
 msgid ""
 "Finally the daemon (C<guestfsd>) runs inside the appliance.  If it runs you "
 "should see:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3175
+#: ../src/guestfs.pod:3176
 #, no-wrap
 msgid ""
 " verbose daemon enabled\n"
@@ -58093,14 +58094,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3177
+#: ../src/guestfs.pod:3178
 msgid ""
 "The daemon expects to see a named virtio-serial port exposed by qemu and "
 "connected on the other end to the library."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3180
+#: ../src/guestfs.pod:3181
 msgid ""
 "The daemon connects to this port (and hence to the library) and sends a four "
 "byte message C<GUESTFS_LAUNCH_FLAG>, which initiates the communication "
@@ -58108,19 +58109,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3186
+#: ../src/guestfs.pod:3187
 msgid "COMMUNICATION PROTOCOL"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3188
+#: ../src/guestfs.pod:3189
 msgid ""
 "Don't rely on using this protocol directly.  This section documents how it "
 "currently works, but it may change at any time."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3191
+#: ../src/guestfs.pod:3192
 msgid ""
 "The protocol used to talk between the library and the daemon running inside "
 "the qemu virtual machine is a simple RPC mechanism built on top of XDR (RFC "
@@ -58128,14 +58129,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3195
+#: ../src/guestfs.pod:3196
 msgid ""
 "The detailed format of structures is in C<src/guestfs_protocol.x> (note: "
 "this file is automatically generated)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3198
+#: ../src/guestfs.pod:3199
 msgid ""
 "There are two broad cases, ordinary functions that don't have any C<FileIn> "
 "and C<FileOut> parameters, which are handled with very simple request/reply "
@@ -58145,17 +58146,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:3205
+#: ../src/guestfs.pod:3206
 msgid "ORDINARY FUNCTIONS (NO FILEIN/FILEOUT PARAMS)"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3207
+#: ../src/guestfs.pod:3208
 msgid "For ordinary functions, the request message is:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3209
+#: ../src/guestfs.pod:3210
 #, no-wrap
 msgid ""
 " total length (header + arguments,\n"
@@ -58166,7 +58167,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3214
+#: ../src/guestfs.pod:3215
 msgid ""
 "The total length field allows the daemon to allocate a fixed size buffer "
 "into which it slurps the rest of the message.  As a result, the total length "
@@ -58175,21 +58176,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3220
+#: ../src/guestfs.pod:3221
 msgid ""
 "Note also that many functions don't take any arguments, in which case the "
 "C<guestfs_I<foo>_args> is completely omitted."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3223
+#: ../src/guestfs.pod:3224
 msgid ""
 "The header contains the procedure number (C<guestfs_proc>) which is how the "
 "receiver knows what type of args structure to expect, or none at all."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3227
+#: ../src/guestfs.pod:3228
 msgid ""
 "For functions that take optional arguments, the optional arguments are "
 "encoded in the C<guestfs_I<foo>_args> structure in the same way as ordinary "
@@ -58201,12 +58202,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3235
+#: ../src/guestfs.pod:3236
 msgid "The reply message for ordinary functions is:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3237
+#: ../src/guestfs.pod:3238
 #, no-wrap
 msgid ""
 " total length (header + ret,\n"
@@ -58217,26 +58218,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3242
+#: ../src/guestfs.pod:3243
 msgid ""
 "As above the C<guestfs_I<foo>_ret> structure may be completely omitted for "
 "functions that return no formal return values."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3245
+#: ../src/guestfs.pod:3246
 msgid "As above the total length of the reply is limited to C<GUESTFS_MESSAGE_MAX>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3248
+#: ../src/guestfs.pod:3249
 msgid ""
 "In the case of an error, a flag is set in the header, and the reply message "
 "is slightly changed:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3251
+#: ../src/guestfs.pod:3252
 #, no-wrap
 msgid ""
 " total length (header + error,\n"
@@ -58247,19 +58248,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3256
+#: ../src/guestfs.pod:3257
 msgid ""
 "The C<guestfs_message_error> structure contains the error message as a "
 "string."
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:3259
+#: ../src/guestfs.pod:3260
 msgid "FUNCTIONS THAT HAVE FILEIN PARAMETERS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3261
+#: ../src/guestfs.pod:3262
 msgid ""
 "A C<FileIn> parameter indicates that we transfer a file I<into> the guest.  "
 "The normal request message is sent (see above).  However this is followed by "
@@ -58267,7 +58268,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3265
+#: ../src/guestfs.pod:3266
 #, no-wrap
 msgid ""
 " total length (header + arguments,\n"
@@ -58281,12 +58282,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3273
+#: ../src/guestfs.pod:3274
 msgid "The \"sequence of chunks\" is:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3275
+#: ../src/guestfs.pod:3276
 #, no-wrap
 msgid ""
 " length of chunk (not including length word itself)\n"
@@ -58300,7 +58301,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3283
+#: ../src/guestfs.pod:3284
 msgid ""
 "The final chunk has the C<data_len> field set to zero.  Additionally a flag "
 "is set in the final chunk to indicate either successful completion or early "
@@ -58308,7 +58309,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3287
+#: ../src/guestfs.pod:3288
 msgid ""
 "At time of writing there are no functions that have more than one FileIn "
 "parameter.  However this is (theoretically) supported, by sending the "
@@ -58317,7 +58318,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3292
+#: ../src/guestfs.pod:3293
 msgid ""
 "Both the library (sender) I<and> the daemon (receiver) may cancel the "
 "transfer.  The library does this by sending a chunk with a special flag set "
@@ -58326,7 +58327,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3298
+#: ../src/guestfs.pod:3299
 msgid ""
 "The daemon may also cancel.  It does this by writing a special word "
 "C<GUESTFS_CANCEL_FLAG> to the socket.  The library listens for this during "
@@ -58338,7 +58339,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3307
+#: ../src/guestfs.pod:3308
 msgid ""
 "This protocol allows the transfer of arbitrary sized files (no 32 bit "
 "limit), and also files where the size is not known in advance (eg. from "
@@ -58348,19 +58349,19 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:3313
+#: ../src/guestfs.pod:3314
 msgid "FUNCTIONS THAT HAVE FILEOUT PARAMETERS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3315
+#: ../src/guestfs.pod:3316
 msgid ""
 "The protocol for FileOut parameters is exactly the same as for FileIn "
 "parameters, but with the roles of daemon and library reversed."
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3318
+#: ../src/guestfs.pod:3319
 #, no-wrap
 msgid ""
 " total length (header + ret,\n"
@@ -58374,12 +58375,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:3326
+#: ../src/guestfs.pod:3327
 msgid "INITIAL MESSAGE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3328
+#: ../src/guestfs.pod:3329
 msgid ""
 "When the daemon launches it sends an initial word (C<GUESTFS_LAUNCH_FLAG>) "
 "which indicates that the guest and daemon is alive.  This is what "
@@ -58387,12 +58388,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../src/guestfs.pod:3332
+#: ../src/guestfs.pod:3333
 msgid "PROGRESS NOTIFICATION MESSAGES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3334
+#: ../src/guestfs.pod:3335
 msgid ""
 "The daemon may send progress notification messages at any time.  These are "
 "distinguished by the normal length word being replaced by "
@@ -58400,7 +58401,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3338
+#: ../src/guestfs.pod:3339
 msgid ""
 "The library turns them into progress callbacks (see "
 "L</GUESTFS_EVENT_PROGRESS>) if there is a callback registered, or discards "
@@ -58408,7 +58409,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3342
+#: ../src/guestfs.pod:3343
 msgid ""
 "The daemon self-limits the frequency of progress messages it sends (see "
 "C<daemon/proto.c:notify_progress>).  Not all calls generate progress "
@@ -58416,12 +58417,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:3346
+#: ../src/guestfs.pod:3347
 msgid "LIBGUESTFS VERSION NUMBERS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3348
+#: ../src/guestfs.pod:3349
 msgid ""
 "Since April 2010, libguestfs has started to make separate development and "
 "stable releases, along with corresponding branches in our git repository.  "
@@ -58429,7 +58430,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3353
+#: ../src/guestfs.pod:3354
 #, no-wrap
 msgid ""
 "                 even numbers for stable: 1.2.x, 1.4.x, ...\n"
@@ -58446,12 +58447,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3364
+#: ../src/guestfs.pod:3365
 msgid "Thus \"1.3.5\" is the 5th update to the development branch \"1.3\"."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3366
+#: ../src/guestfs.pod:3367
 msgid ""
 "As time passes we cherry pick fixes from the development branch and backport "
 "those into the stable branch, the effect being that the stable branch should "
@@ -58461,26 +58462,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3372
+#: ../src/guestfs.pod:3373
 msgid "Our criteria for backporting changes are:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3378
+#: ../src/guestfs.pod:3379
 msgid ""
 "Documentation changes which don't affect any code are backported unless the "
 "documentation refers to a future feature which is not in stable."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3384
+#: ../src/guestfs.pod:3385
 msgid ""
 "Bug fixes which are not controversial, fix obvious problems, and have been "
 "well tested are backported."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3389
+#: ../src/guestfs.pod:3390
 msgid ""
 "Simple rearrangements of code which shouldn't affect how it works get "
 "backported.  This is so that the code in the two branches doesn't get too "
@@ -58488,7 +58489,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3395
+#: ../src/guestfs.pod:3396
 msgid ""
 "We I<don't> backport new features, new APIs, new tools etc, except in one "
 "exceptional case: the new feature is required in order to implement an "
@@ -58496,7 +58497,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3401
+#: ../src/guestfs.pod:3402
 msgid ""
 "A new stable branch starts when we think the new features in development are "
 "substantial and compelling enough over the current stable branch to warrant "
@@ -58507,29 +58508,29 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:3409
+#: ../src/guestfs.pod:3410
 msgid "EXTENDING LIBGUESTFS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3411
+#: ../src/guestfs.pod:3412
 msgid "This section is for hackers who want to extend libguestfs itself."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3413
+#: ../src/guestfs.pod:3414
 msgid "OVERVIEW OF THE SOURCE CODE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3415
+#: ../src/guestfs.pod:3416
 msgid ""
 "Libguestfs source is located in the github repository "
 "L<https://github.com/libguestfs/libguestfs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3418
+#: ../src/guestfs.pod:3419
 msgid ""
 "Large amounts of boilerplate code in libguestfs (RPC, bindings, "
 "documentation) are generated.  This means that many source files will appear "
@@ -58539,7 +58540,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3424
+#: ../src/guestfs.pod:3425
 msgid ""
 "Libguestfs uses an autotools-based build system, with the main files being "
 "C<configure.ac> and C<Makefile.am>.  The C<generator> subdirectory contains "
@@ -58551,7 +58552,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3433
+#: ../src/guestfs.pod:3434
 msgid ""
 "Apart from the fact that all API entry points go via some generated code, "
 "the library is straightforward.  (In fact, even the generated code is "
@@ -58562,17 +58563,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3441
+#: ../src/guestfs.pod:3442
 msgid "To build from source, first read the C<README> file."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3443
+#: ../src/guestfs.pod:3444
 msgid "C<local*> FILES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3445
+#: ../src/guestfs.pod:3446
 msgid ""
 "Files in the top source directory that begin with the prefix C<local*> are "
 "ignored by git.  These files can contain local configuration or scripts that "
@@ -58580,7 +58581,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3449
+#: ../src/guestfs.pod:3450
 msgid ""
 "By convention, I have a file called C<localconfigure> which is a simple "
 "wrapper around C<autogen.sh> containing local configure customizations that "
@@ -58588,7 +58589,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3453
+#: ../src/guestfs.pod:3454
 #, no-wrap
 msgid ""
 " . localenv\n"
@@ -58602,12 +58603,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3461
+#: ../src/guestfs.pod:3462
 msgid "So I can use this to build libguestfs:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3463
+#: ../src/guestfs.pod:3464
 #, no-wrap
 msgid ""
 " ./localconfigure && make\n"
@@ -58615,7 +58616,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3465
+#: ../src/guestfs.pod:3466
 msgid ""
 "If there is a file in the top build directory called C<localenv>, then it "
 "will be sourced by C<make>.  This file can contain any local environment "
@@ -58623,7 +58624,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3469
+#: ../src/guestfs.pod:3470
 #, no-wrap
 msgid ""
 " # Use an alternate python binary.\n"
@@ -58634,7 +58635,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3474
+#: ../src/guestfs.pod:3475
 msgid ""
 "Note that C<localenv> is included by the top Makefile (so it's a Makefile "
 "fragment).  But if it is also sourced by your C<localconfigure> script then "
@@ -58642,31 +58643,31 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3478
+#: ../src/guestfs.pod:3479
 msgid "ADDING A NEW API ACTION"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3480
+#: ../src/guestfs.pod:3481
 msgid ""
 "Because large amounts of boilerplate code in libguestfs are generated, this "
 "makes it easy to extend the libguestfs API."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3483
+#: ../src/guestfs.pod:3484
 msgid "To add a new API action there are two changes:"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3489
+#: ../src/guestfs.pod:3490
 msgid ""
 "You need to add a description of the call (name, parameters, return type, "
 "tests, documentation) to C<generator/actions.ml>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3492
+#: ../src/guestfs.pod:3493
 msgid ""
 "There are two sorts of API action, depending on whether the call goes "
 "through to the daemon in the appliance, or is serviced entirely by the "
@@ -58677,7 +58678,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3500
+#: ../src/guestfs.pod:3501
 msgid ""
 "Most new actions are of the first type, and get added to the "
 "C<daemon_functions> list.  Each function has a unique procedure number used "
@@ -58687,7 +58688,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3506
+#: ../src/guestfs.pod:3507
 msgid ""
 "For library-only actions of the second type, add to the "
 "C<non_daemon_functions> list.  Since these functions are serviced by the "
@@ -58697,36 +58698,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3514
+#: ../src/guestfs.pod:3515
 msgid "Implement the action (in C):"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3516
+#: ../src/guestfs.pod:3517
 msgid ""
 "For daemon actions, implement the function C<do_E<lt>nameE<gt>> in the "
 "C<daemon/> directory."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3519
+#: ../src/guestfs.pod:3520
 msgid ""
 "For library actions, implement the function C<guestfs__E<lt>nameE<gt>> "
 "(note: double underscore) in the C<src/> directory."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3522
+#: ../src/guestfs.pod:3523
 msgid "In either case, use another function as an example of what to do."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3526
+#: ../src/guestfs.pod:3527
 msgid "After making these changes, use C<make> to compile."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3528
+#: ../src/guestfs.pod:3529
 msgid ""
 "Note that you don't need to implement the RPC, language bindings, manual "
 "pages or anything else.  It's all automatically generated from the OCaml "
@@ -58734,12 +58735,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3532
+#: ../src/guestfs.pod:3533
 msgid "ADDING TESTS FOR AN API ACTION"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3534
+#: ../src/guestfs.pod:3535
 msgid ""
 "You can supply zero or as many tests as you want per API call.  The tests "
 "can either be added as part of the API description "
@@ -58749,61 +58750,61 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3540
+#: ../src/guestfs.pod:3541
 msgid ""
 "The following describes the test environment used when you add an API test "
 "in C<actions.ml>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3543
+#: ../src/guestfs.pod:3544
 msgid "The test environment has 4 block devices:"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3547
+#: ../src/guestfs.pod:3548
 msgid "C</dev/sda> 500MB"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3549
+#: ../src/guestfs.pod:3550
 msgid "General block device for testing."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3551
+#: ../src/guestfs.pod:3552
 msgid "C</dev/sdb> 50MB"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3553
+#: ../src/guestfs.pod:3554
 msgid ""
 "C</dev/sdb1> is an ext2 filesystem used for testing filesystem write "
 "operations."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3556
+#: ../src/guestfs.pod:3557
 msgid "C</dev/sdc> 10MB"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3558
+#: ../src/guestfs.pod:3559
 msgid "Used in a few tests where two block devices are needed."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3560
+#: ../src/guestfs.pod:3561
 msgid "C</dev/sdd>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3562
+#: ../src/guestfs.pod:3563
 msgid "ISO with fixed content (see C<images/test.iso>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3566
+#: ../src/guestfs.pod:3567
 msgid ""
 "To be able to run the tests in a reasonable amount of time, the libguestfs "
 "appliance and block devices are reused between tests.  So don't try testing "
@@ -58811,7 +58812,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3570
+#: ../src/guestfs.pod:3571
 msgid ""
 "Each test starts with an initial scenario, selected using one of the "
 "C<Init*> expressions, described in C<generator/types.ml>.  These initialize "
@@ -58821,7 +58822,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3576
+#: ../src/guestfs.pod:3577
 msgid ""
 "You can add a prerequisite clause to any individual test.  This is a "
 "run-time check, which, if it fails, causes the test to be skipped.  Useful "
@@ -58831,14 +58832,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3582
+#: ../src/guestfs.pod:3583
 msgid ""
 "In addition, packagers can skip individual tests by setting environment "
 "variables before running C<make check>."
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3585
+#: ../src/guestfs.pod:3586
 #, no-wrap
 msgid ""
 " SKIP_TEST_<CMD>_<NUM>=1\n"
@@ -58846,12 +58847,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3587
+#: ../src/guestfs.pod:3588
 msgid "eg: C<SKIP_TEST_COMMAND_3=1> skips test #3 of L</guestfs_command>."
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3591
+#: ../src/guestfs.pod:3592
 #, no-wrap
 msgid ""
 " SKIP_TEST_<CMD>=1\n"
@@ -58859,17 +58860,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3593
+#: ../src/guestfs.pod:3594
 msgid "eg: C<SKIP_TEST_ZEROFREE=1> skips all L</guestfs_zerofree> tests."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3595
+#: ../src/guestfs.pod:3596
 msgid "Packagers can run only certain tests by setting for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3597
+#: ../src/guestfs.pod:3598
 #, no-wrap
 msgid ""
 " TEST_ONLY=\"vfs_type zerofree\"\n"
@@ -58877,29 +58878,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3599
+#: ../src/guestfs.pod:3600
 msgid ""
 "See C<tests/c-api/tests.c> for more details of how these environment "
 "variables work."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3602
+#: ../src/guestfs.pod:3603
 msgid "DEBUGGING NEW API ACTIONS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3604
+#: ../src/guestfs.pod:3605
 msgid "Test new actions work before submitting them."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3606
+#: ../src/guestfs.pod:3607
 msgid "You can use guestfish to try out new commands."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3608
+#: ../src/guestfs.pod:3609
 msgid ""
 "Debugging the daemon is a problem because it runs inside a minimal "
 "environment.  However you can fprintf messages in the daemon to stderr, and "
@@ -58907,12 +58908,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3612
+#: ../src/guestfs.pod:3613
 msgid "FORMATTING CODE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3614
+#: ../src/guestfs.pod:3615
 msgid ""
 "Our C source code generally adheres to some basic code-formatting "
 "conventions.  The existing code base is not totally consistent on this "
@@ -58922,14 +58923,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3620
+#: ../src/guestfs.pod:3621
 msgid ""
 "If you use Emacs, add the following to one of one of your start-up files "
 "(e.g., ~/.emacs), to help ensure that you get indentation right:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3623
+#: ../src/guestfs.pod:3624
 #, no-wrap
 msgid ""
 " ;;; In libguestfs, indent with spaces everywhere (not TABs).\n"
@@ -58945,7 +58946,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3633
+#: ../src/guestfs.pod:3634
 #, no-wrap
 msgid ""
 " ;;; When editing C sources in libguestfs, use this style.\n"
@@ -58963,17 +58964,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3645
+#: ../src/guestfs.pod:3646
 msgid "TESTING YOUR CHANGES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3647
+#: ../src/guestfs.pod:3648
 msgid "Enable warnings when compiling (and fix any problems this finds):"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3650
+#: ../src/guestfs.pod:3651
 #, no-wrap
 msgid ""
 " ./configure --enable-gcc-warnings\n"
@@ -58981,59 +58982,59 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3652
+#: ../src/guestfs.pod:3653
 msgid "Useful targets are:"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3656
+#: ../src/guestfs.pod:3657
 msgid "C<make check>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3658
+#: ../src/guestfs.pod:3659
 msgid "Runs the regular test suite."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3660
+#: ../src/guestfs.pod:3661
 msgid "C<make syntax-check -j1 -k>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3662
+#: ../src/guestfs.pod:3663
 msgid "Checks for various syntax and style problems in the code."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3664
+#: ../src/guestfs.pod:3665
 msgid "C<make check-valgrind>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3666
+#: ../src/guestfs.pod:3667
 msgid "Runs a subset of the test suite under valgrind."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3668
+#: ../src/guestfs.pod:3669
 msgid "C<make check-valgrind-local-guests>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3670
+#: ../src/guestfs.pod:3671
 msgid ""
 "Runs a subset of the test suite under valgrind using locally installed "
 "libvirt guests (read-only)."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3673
+#: ../src/guestfs.pod:3674
 msgid "C<make check-with-appliance>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3675
+#: ../src/guestfs.pod:3676
 msgid ""
 "Runs all tests using default appliance back-end.  This only has any effect "
 "if a non-default attach-method was selected using C<./configure "
@@ -59041,12 +59042,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3679
+#: ../src/guestfs.pod:3680
 msgid "C<make check-with-upstream-qemu>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3681
+#: ../src/guestfs.pod:3682
 msgid ""
 "Runs all tests using a local qemu binary.  It looks for the qemu binary in "
 "QEMUDIR (defaults to C<$HOME/d/qemu>), but you can set this to another "
@@ -59054,7 +59055,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3685
+#: ../src/guestfs.pod:3686
 #, no-wrap
 msgid ""
 " make check-with-upstream-qemu QEMUDIR=/usr/src/qemu\n"
@@ -59062,12 +59063,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3687
+#: ../src/guestfs.pod:3688
 msgid "C<make check-with-upstream-libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3689
+#: ../src/guestfs.pod:3690
 msgid ""
 "Runs all tests using a local libvirt.  This only has any effect if the "
 "libvirt attach-method was selected using C<./configure "
@@ -59075,14 +59076,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3693
+#: ../src/guestfs.pod:3694
 msgid ""
 "It looks for libvirt in LIBVIRTDIR (defaults to C<$HOME/d/libvirt>), but you "
 "can set this to another directory on the command line, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3696
+#: ../src/guestfs.pod:3697
 #, no-wrap
 msgid ""
 " make check-with-upstream-libvirt LIBVIRTDIR=/usr/src/libvirt\n"
@@ -59090,63 +59091,63 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3698
+#: ../src/guestfs.pod:3699
 msgid "C<make check-slow>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3700
+#: ../src/guestfs.pod:3701
 msgid "Runs some slow/long-running tests which are not run by default."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3702
+#: ../src/guestfs.pod:3703
 msgid "C<make extra-tests>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3704
+#: ../src/guestfs.pod:3705
 msgid "Equivalent to running all C<make check-*> rules (but not C<make check>)."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3709
+#: ../src/guestfs.pod:3710
 msgid "DAEMON CUSTOM PRINTF FORMATTERS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3711
+#: ../src/guestfs.pod:3712
 msgid ""
 "In the daemon code we have created custom printf formatters C<%Q> and C<%R>, "
 "which are used to do shell quoting."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3716
+#: ../src/guestfs.pod:3717
 msgid "%Q"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3718
+#: ../src/guestfs.pod:3719
 msgid ""
 "Simple shell quoted string.  Any spaces or other shell characters are "
 "escaped for you."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3721
+#: ../src/guestfs.pod:3722
 msgid "%R"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3723
+#: ../src/guestfs.pod:3724
 msgid ""
 "Same as C<%Q> except the string is treated as a path which is prefixed by "
 "the sysroot."
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3730
+#: ../src/guestfs.pod:3731
 #, no-wrap
 msgid ""
 " asprintf (&cmd, \"cat %R\", path);\n"
@@ -59154,12 +59155,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3732
+#: ../src/guestfs.pod:3733
 msgid "would produce C<cat /sysroot/some\\ path\\ with\\ spaces>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3734
+#: ../src/guestfs.pod:3735
 msgid ""
 "I<Note:> Do I<not> use these when you are passing parameters to the "
 "C<command{,r,v,rv}()> functions.  These parameters do NOT need to be quoted "
@@ -59168,12 +59169,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3740
+#: ../src/guestfs.pod:3741
 msgid "SUBMITTING YOUR NEW API ACTIONS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3742
+#: ../src/guestfs.pod:3743
 msgid ""
 "Submit patches to the mailing list: "
 "L<http://www.redhat.com/mailman/listinfo/libguestfs> and CC to "
@@ -59181,17 +59182,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3746
+#: ../src/guestfs.pod:3747
 msgid "INTERNATIONALIZATION (I18N) SUPPORT"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3748
+#: ../src/guestfs.pod:3749
 msgid "We support i18n (gettext anyhow) in the library."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3750
+#: ../src/guestfs.pod:3751
 msgid ""
 "However many messages come from the daemon, and we don't translate those at "
 "the moment.  One reason is that the appliance generally has all locale files "
@@ -59200,113 +59201,113 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3756
+#: ../src/guestfs.pod:3757
 msgid ""
 "Debugging messages are never translated, since they are intended for the "
 "programmers."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3759
+#: ../src/guestfs.pod:3760
 msgid "SOURCE CODE SUBDIRECTORIES"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3763
+#: ../src/guestfs.pod:3764
 msgid "C<align>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3765
+#: ../src/guestfs.pod:3766
 msgid "L<virt-alignment-scan(1)> command and documentation."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3769
+#: ../src/guestfs.pod:3770
 msgid "The libguestfs appliance, build scripts and so on."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3771
+#: ../src/guestfs.pod:3772
 msgid "C<build-aux>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3773
+#: ../src/guestfs.pod:3774
 msgid "Various build scripts used by autotools."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3775
+#: ../src/guestfs.pod:3776
 msgid "C<cat>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3777
+#: ../src/guestfs.pod:3778
 msgid ""
 "The L<virt-cat(1)>, L<virt-filesystems(1)> and L<virt-ls(1)> commands and "
 "documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3780
+#: ../src/guestfs.pod:3781
 msgid "C<contrib>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3782
+#: ../src/guestfs.pod:3783
 msgid "Outside contributions, experimental parts."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3784
+#: ../src/guestfs.pod:3785
 msgid "C<daemon>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3786
+#: ../src/guestfs.pod:3787
 msgid ""
 "The daemon that runs inside the libguestfs appliance and carries out "
 "actions."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3789
+#: ../src/guestfs.pod:3790
 msgid "C<df>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3791
+#: ../src/guestfs.pod:3792
 msgid "L<virt-df(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3793
+#: ../src/guestfs.pod:3794
 msgid "C<edit>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3795
+#: ../src/guestfs.pod:3796
 msgid "L<virt-edit(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3797
+#: ../src/guestfs.pod:3798
 msgid "C<examples>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3799
+#: ../src/guestfs.pod:3800
 msgid "C API example code."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3801
+#: ../src/guestfs.pod:3802
 msgid "C<fish>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3803
+#: ../src/guestfs.pod:3804
 msgid ""
 "L<guestfish(1)>, the command-line shell, and various shell scripts built on "
 "top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-tar-in(1)>, "
@@ -59314,101 +59315,101 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3809
+#: ../src/guestfs.pod:3810
 msgid "L<virt-format(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3811
+#: ../src/guestfs.pod:3812
 msgid "C<fuse>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3813
+#: ../src/guestfs.pod:3814
 msgid "L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3815
+#: ../src/guestfs.pod:3816
 msgid "C<generator>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3817
+#: ../src/guestfs.pod:3818
 msgid ""
 "The crucially important generator, used to automatically generate large "
 "amounts of boilerplate C code for things like RPC and bindings."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3820
+#: ../src/guestfs.pod:3821
 msgid "C<gnulib>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3822
+#: ../src/guestfs.pod:3823
 msgid ""
 "Gnulib is used as a portability library.  A copy of gnulib is included under "
 "here."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3825
+#: ../src/guestfs.pod:3826
 msgid "C<html>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3827
+#: ../src/guestfs.pod:3828
 msgid "Generated HTML manual pages."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3829
+#: ../src/guestfs.pod:3830
 msgid "C<inspector>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3831
+#: ../src/guestfs.pod:3832
 msgid "L<virt-inspector(1)>, the virtual machine image inspector."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3833
+#: ../src/guestfs.pod:3834
 msgid "C<logo>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3835
+#: ../src/guestfs.pod:3836
 msgid "Logo used on the website.  The fish is called Arthur by the way."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3837
+#: ../src/guestfs.pod:3838
 msgid "C<m4>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3839
+#: ../src/guestfs.pod:3840
 msgid "M4 macros used by autoconf."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3841
+#: ../src/guestfs.pod:3842
 msgid "C<po>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3843
+#: ../src/guestfs.pod:3844
 msgid "Translations of simple gettext strings."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3845
+#: ../src/guestfs.pod:3846
 msgid "C<po-docs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3847
+#: ../src/guestfs.pod:3848
 msgid ""
 "The build infrastructure and PO files for translations of manpages and POD "
 "files.  Eventually this will be combined with the C<po> directory, but that "
@@ -59416,84 +59417,84 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3851
+#: ../src/guestfs.pod:3852
 msgid "C<rescue>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3853
+#: ../src/guestfs.pod:3854
 msgid "L<virt-rescue(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3855
+#: ../src/guestfs.pod:3856
 msgid "C<resize>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3857
+#: ../src/guestfs.pod:3858
 msgid "L<virt-resize(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3859
+#: ../src/guestfs.pod:3860
 msgid "C<sparsify>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3861
+#: ../src/guestfs.pod:3862
 msgid "L<virt-sparsify(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3863
+#: ../src/guestfs.pod:3864
 msgid "C<src>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3865
+#: ../src/guestfs.pod:3866
 msgid "Source code to the C library."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3867
+#: ../src/guestfs.pod:3868
 msgid "C<sysprep>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3869
+#: ../src/guestfs.pod:3870
 msgid "L<virt-sysprep(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3871
+#: ../src/guestfs.pod:3872
 msgid "C<tests>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3873
+#: ../src/guestfs.pod:3874
 msgid "Tests."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3875
+#: ../src/guestfs.pod:3876
 msgid "C<test-tool>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3877
+#: ../src/guestfs.pod:3878
 msgid ""
 "Test tool for end users to test if their qemu/kernel combination will work "
 "with libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3880
+#: ../src/guestfs.pod:3881
 msgid "C<tmp>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3882
+#: ../src/guestfs.pod:3883
 msgid ""
 "Used for temporary files when running the tests (instead of C</tmp> etc).  "
 "The reason is so that you can run multiple parallel tests of libguestfs "
@@ -59502,82 +59503,82 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3887
+#: ../src/guestfs.pod:3888
 msgid "C<tools>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3889
+#: ../src/guestfs.pod:3890
 msgid "Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3891
+#: ../src/guestfs.pod:3892
 msgid "C<csharp>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3893
+#: ../src/guestfs.pod:3894
 msgid "C<erlang>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3895
+#: ../src/guestfs.pod:3896
 msgid "C<gobject>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3897
+#: ../src/guestfs.pod:3898
 msgid "C<haskell>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3899
+#: ../src/guestfs.pod:3900
 msgid "C<java>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3901
+#: ../src/guestfs.pod:3902
 msgid "C<lua>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3903
+#: ../src/guestfs.pod:3904
 msgid "C<ocaml>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3905
+#: ../src/guestfs.pod:3906
 msgid "C<php>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3907
+#: ../src/guestfs.pod:3908
 msgid "C<perl>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3909
+#: ../src/guestfs.pod:3910
 msgid "C<python>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3911
+#: ../src/guestfs.pod:3912
 msgid "C<ruby>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3913
+#: ../src/guestfs.pod:3914
 msgid "Language bindings."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3917
+#: ../src/guestfs.pod:3918
 msgid "MAKING A STABLE RELEASE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3919
+#: ../src/guestfs.pod:3920
 msgid ""
 "When we make a stable release, there are several steps documented here.  See "
 "L</LIBGUESTFS VERSION NUMBERS> for general information about the stable "
@@ -59585,32 +59586,32 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3927
+#: ../src/guestfs.pod:3928
 msgid "Check C<make && make check> works on at least Fedora, Debian and Ubuntu."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3932
+#: ../src/guestfs.pod:3933
 msgid "Finalize C<guestfs-release-notes.pod>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3936
+#: ../src/guestfs.pod:3937
 msgid "Update ROADMAP."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3940
+#: ../src/guestfs.pod:3941
 msgid "Run C<src/api-support/update-from-tarballs.sh>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3944
+#: ../src/guestfs.pod:3945
 msgid "Push and pull from Transifex."
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3948
+#: ../src/guestfs.pod:3949
 #, no-wrap
 msgid ""
 " tx push -s\n"
@@ -59618,12 +59619,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3950
+#: ../src/guestfs.pod:3951
 msgid "to push the latest POT files to Transifex.  Then run:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3952
+#: ../src/guestfs.pod:3953
 #, no-wrap
 msgid ""
 " ./tx-pull.sh\n"
@@ -59631,34 +59632,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3954
+#: ../src/guestfs.pod:3955
 msgid "which is a wrapper to pull the latest translated C<*.po> files."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3958
+#: ../src/guestfs.pod:3959
 msgid "Consider updating gnulib to latest upstream version."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3962
+#: ../src/guestfs.pod:3963
 msgid ""
 "Create new stable and development directories under "
 "L<http://libguestfs.org/download>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3967
+#: ../src/guestfs.pod:3968
 msgid "Edit C<index.html.in> on website."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3971
+#: ../src/guestfs.pod:3972
 msgid "Create the branch in git:"
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs.pod:3973
+#: ../src/guestfs.pod:3974
 #, no-wrap
 msgid ""
 " git tag -a 1.XX.0 -m \"Version 1.XX.0 (stable)\"\n"
@@ -59669,17 +59670,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../src/guestfs.pod:3980
+#: ../src/guestfs.pod:3981
 msgid "LIMITS"
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:3982
+#: ../src/guestfs.pod:3983
 msgid "PROTOCOL LIMITS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3984
+#: ../src/guestfs.pod:3985
 msgid ""
 "Internally libguestfs uses a message-based protocol to pass API calls and "
 "their responses to and from a small \"appliance\" (see L</INTERNALS> for "
@@ -59690,7 +59691,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:3992
+#: ../src/guestfs.pod:3993
 msgid ""
 "In libguestfs E<lt> 1.19.32, several calls had to encode either their entire "
 "argument list or their entire return value (or sometimes both)  in a single "
@@ -59706,7 +59707,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4005
+#: ../src/guestfs.pod:4006
 msgid ""
 "L</guestfs_cat>, L</guestfs_find>, L</guestfs_read_file>, "
 "L</guestfs_read_lines>, L</guestfs_write>, L</guestfs_write_append>, "
@@ -59715,19 +59716,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4010
+#: ../src/guestfs.pod:4011
 msgid ""
 "See also L</UPLOADING> and L</DOWNLOADING> for further information about "
 "copying large amounts of data into or out of a filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4013
+#: ../src/guestfs.pod:4014
 msgid "MAXIMUM NUMBER OF DISKS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4015
+#: ../src/guestfs.pod:4016
 msgid ""
 "In libguestfs E<ge> 1.19.7, you can query the maximum number of disks that "
 "may be added by calling L</guestfs_max_disks>.  In earlier versions of "
@@ -59736,14 +59737,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4020
+#: ../src/guestfs.pod:4021
 msgid ""
 "The rest of this section covers implementation details, which could change "
 "in future."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4023
+#: ../src/guestfs.pod:4024
 msgid ""
 "When using virtio-scsi disks (the default if available in qemu) the current "
 "limit is B<255> disks.  When using virtio-blk (the old default) the limit is "
@@ -59752,26 +59753,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4028
+#: ../src/guestfs.pod:4029
 msgid ""
 "Virtio-scsi as used by libguestfs is configured to use one target per disk, "
 "and 256 targets are available."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4031
+#: ../src/guestfs.pod:4032
 msgid ""
 "Virtio-blk consumes 1 virtual PCI slot per disk, and PCI is limited to 31 "
 "slots, but some of these are used for other purposes."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4034
+#: ../src/guestfs.pod:4035
 msgid "One virtual disk is used by libguestfs internally."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4036
+#: ../src/guestfs.pod:4037
 msgid ""
 "Before libguestfs 1.19.7, disk names had to be a single character "
 "(eg. C</dev/sda> through C</dev/sdz>), and since one disk is reserved, that "
@@ -59779,48 +59780,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4041
+#: ../src/guestfs.pod:4042
 msgid ""
 "In libguestfs E<ge> 1.20 it is possible to hot plug disks.  See "
 "L</HOTPLUGGING>."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4044
+#: ../src/guestfs.pod:4045
 msgid "MAXIMUM NUMBER OF PARTITIONS PER DISK"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4046
+#: ../src/guestfs.pod:4047
 msgid "Virtio limits the maximum number of partitions per disk to B<15>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4048
+#: ../src/guestfs.pod:4049
 msgid ""
 "This is because it reserves 4 bits for the minor device number (thus "
 "C</dev/vda>, and C</dev/vda1> through C</dev/vda15>)."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4051
+#: ../src/guestfs.pod:4052
 msgid ""
 "If you attach a disk with more than 15 partitions, the extra partitions are "
 "ignored by libguestfs."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4054
+#: ../src/guestfs.pod:4055
 msgid "MAXIMUM SIZE OF A DISK"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4056
+#: ../src/guestfs.pod:4057
 msgid "Probably the limit is between 2**63-1 and 2**64-1 bytes."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4058
+#: ../src/guestfs.pod:4059
 msgid ""
 "We have tested block devices up to 1 exabyte (2**60 or "
 "1,152,921,504,606,846,976 bytes) using sparse files backed by an XFS host "
@@ -59828,7 +59829,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4062
+#: ../src/guestfs.pod:4063
 msgid ""
 "Although libguestfs probably does not impose any limit, the underlying host "
 "storage will.  If you store disk images on a host ext4 filesystem, then the "
@@ -59838,19 +59839,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4068
+#: ../src/guestfs.pod:4069
 msgid ""
 "For the hugest disk image files, we recommend using XFS on the host for "
 "storage."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4071
+#: ../src/guestfs.pod:4072
 msgid "MAXIMUM SIZE OF A PARTITION"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4073
+#: ../src/guestfs.pod:4074
 msgid ""
 "The MBR (ie. classic MS-DOS) partitioning scheme uses 32 bit sector "
 "numbers.  Assuming a 512 byte sector size, this means that MBR cannot "
@@ -59858,7 +59859,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4077
+#: ../src/guestfs.pod:4078
 msgid ""
 "It is recommended that you use GPT partitions on disks which are larger than "
 "this size.  GPT uses 64 bit sector numbers and so can address partitions "
@@ -59866,12 +59867,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4082
+#: ../src/guestfs.pod:4083
 msgid "MAXIMUM SIZE OF A FILESYSTEM, FILES, DIRECTORIES"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4084
+#: ../src/guestfs.pod:4085
 msgid ""
 "This depends on the filesystem type.  libguestfs itself does not impose any "
 "known limit.  Consult Wikipedia or the filesystem documentation to find out "
@@ -59879,12 +59880,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4088
+#: ../src/guestfs.pod:4089
 msgid "MAXIMUM UPLOAD AND DOWNLOAD"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4090
+#: ../src/guestfs.pod:4091
 msgid ""
 "The API functions L</guestfs_upload>, L</guestfs_download>, "
 "L</guestfs_tar_in>, L</guestfs_tar_out> and the like allow unlimited sized "
@@ -59892,12 +59893,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4094
+#: ../src/guestfs.pod:4095
 msgid "INSPECTION LIMITS"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4096
+#: ../src/guestfs.pod:4097
 msgid ""
 "The inspection code has several arbitrary limits on things like the size of "
 "Windows Registry hive it will read, and the length of product name.  These "
@@ -59907,50 +59908,50 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4119
+#: ../src/guestfs.pod:4120
 msgid ""
 "Choose the default way to create the appliance.  See "
 "L</guestfs_set_attach_method> and L</ATTACH METHOD>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4131
+#: ../src/guestfs.pod:4132
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</guestfs_set_cachedir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4135
+#: ../src/guestfs.pod:4136
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as calling C<guestfs_set_verbose (g, 1)>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4147
+#: ../src/guestfs.pod:4148
 msgid ""
 "Set the path that libguestfs uses to search for a supermin appliance.  See "
 "the discussion of paths in section L</PATH> above."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4156
+#: ../src/guestfs.pod:4157
 msgid "See also L</QEMU WRAPPERS> above."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4166
+#: ../src/guestfs.pod:4167
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4170
+#: ../src/guestfs.pod:4171
 msgid ""
 "Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This has the same "
 "effect as calling C<guestfs_set_trace (g, 1)>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4175
+#: ../src/guestfs.pod:4176
 msgid ""
 "Libguestfs may run some external programs, and relies on C<$PATH> being set "
 "to a reasonable value.  If using the libvirt attach-method, libvirt will not "
@@ -59960,7 +59961,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4199
+#: ../src/guestfs.pod:4200
 msgid ""
 "L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-java(3)>, "
 "L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, "
@@ -59979,7 +59980,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4243
+#: ../src/guestfs.pod:4244
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, "
 "L<lvm(8)>, L<disktype(1)>."
@@ -61630,7 +61631,14 @@ msgid "TRYING OUT A DIFFERENT VERSION OF LIBVIRT"
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:95
+#: ../test-tool/libguestfs-test-tool.pod:95 ../test-tool/libguestfs-test-tool.pod:116 ../test-tool/libguestfs-test-tool.pod:139
+msgid ""
+"To find out which attach-method is the default in your libguestfs package, "
+"do:"
+msgstr ""
+
+#. type: textblock
+#: ../test-tool/libguestfs-test-tool.pod:101
 msgid ""
 "If you are using the libvirt attach-method, then you can try out a different "
 "(eg. upstream) version of libvirt by running these commands (I<not> as "
@@ -61638,7 +61646,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../test-tool/libguestfs-test-tool.pod:99
+#: ../test-tool/libguestfs-test-tool.pod:105
 #, no-wrap
 msgid ""
 " killall libvirtd lt-libvirtd\n"
@@ -61647,7 +61655,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:102
+#: ../test-tool/libguestfs-test-tool.pod:108
 msgid ""
 "The first command kills any session C<libvirtd> process(es) that may be "
 "running on the machine.  The second command uses libvirt's C<run> script (in "
@@ -61656,12 +61664,81 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../test-tool/libguestfs-test-tool.pod:108
-msgid "TRYING OUT DIFFERENT SELINUX SETTINGS"
+#: ../test-tool/libguestfs-test-tool.pod:114
+msgid "TRYING OUT WITH / WITHOUT LIBVIRT"
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:110
+#: ../test-tool/libguestfs-test-tool.pod:122
+msgid ""
+"If you are using the libvirt attach-method, you can try without "
+"(ie. libguestfs directly launching qemu) by doing:"
+msgstr ""
+
+#. type: verbatim
+#: ../test-tool/libguestfs-test-tool.pod:125
+#, no-wrap
+msgid ""
+" export LIBGUESTFS_ATTACH_METHOD=appliance\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../test-tool/libguestfs-test-tool.pod:127
+msgid ""
+"Or if you are using the default (appliance) attach-method, then you can try "
+"libvirt:"
+msgstr ""
+
+#. type: verbatim
+#: ../test-tool/libguestfs-test-tool.pod:130
+#, no-wrap
+msgid ""
+" export LIBGUESTFS_ATTACH_METHOD=libvirt\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../test-tool/libguestfs-test-tool.pod:132
+msgid "or with libvirt and a specific L<libvirt URI|http://libvirt.org/uri.html>:"
+msgstr ""
+
+#. type: verbatim
+#: ../test-tool/libguestfs-test-tool.pod:135
+#, no-wrap
+msgid ""
+" export LIBGUESTFS_ATTACH_METHOD=libvirt:qemu:///session\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: ../test-tool/libguestfs-test-tool.pod:137
+msgid "TRYING OUT DIFFERENT SELINUX SETTINGS"
+msgstr ""
+
+#. type: verbatim
+#: ../test-tool/libguestfs-test-tool.pod:142
+#, no-wrap
+msgid ""
+" LIBGUESTFS_ATTACH_METHOD= guestfish get-attach-method\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../test-tool/libguestfs-test-tool.pod:144
+msgid "To find out if SELinux is being used, do:"
+msgstr ""
+
+#. type: verbatim
+#: ../test-tool/libguestfs-test-tool.pod:146
+#, no-wrap
+msgid ""
+" getenforce\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../test-tool/libguestfs-test-tool.pod:148
 msgid ""
 "If you are using libvirt, SELinux and sVirt, then you can try to see if "
 "changing SELinux to \"permissive\" mode makes any difference.  Use this "
@@ -61669,7 +61746,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../test-tool/libguestfs-test-tool.pod:114
+#: ../test-tool/libguestfs-test-tool.pod:152
 #, no-wrap
 msgid ""
 " setenforce Permissive\n"
@@ -61677,14 +61754,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:116
+#: ../test-tool/libguestfs-test-tool.pod:154
 msgid ""
 "If this makes a difference, look in the audit logs for recent failures "
 "(\"AVCs\"):"
 msgstr ""
 
 #. type: verbatim
-#: ../test-tool/libguestfs-test-tool.pod:119
+#: ../test-tool/libguestfs-test-tool.pod:157
 #, no-wrap
 msgid ""
 " ausearch -m avc -ts recent\n"
@@ -61692,7 +61769,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:121
+#: ../test-tool/libguestfs-test-tool.pod:159
 msgid ""
 "You can convert AVCs into suggested SELinux policy rules using tools like "
 "L<audit2allow(1)>.  For more information, see the \"Security Enhanced Linux "
@@ -61700,12 +61777,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:125
+#: ../test-tool/libguestfs-test-tool.pod:163
 msgid "To reenable SELinux and sVirt, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../test-tool/libguestfs-test-tool.pod:127
+#: ../test-tool/libguestfs-test-tool.pod:165
 #, no-wrap
 msgid ""
 " setenforce Enforcing\n"
@@ -61713,26 +61790,26 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../test-tool/libguestfs-test-tool.pod:129
+#: ../test-tool/libguestfs-test-tool.pod:167
 msgid "SELF-DIAGNOSIS"
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:131
+#: ../test-tool/libguestfs-test-tool.pod:169
 msgid ""
 "Refer to L<guestfs(3)/APPLIANCE BOOT PROCESS> to understand the messages "
 "produced by libguestfs-test-tool and/or possible errors."
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:136
+#: ../test-tool/libguestfs-test-tool.pod:174
 msgid ""
 "libguestfs-test-tool returns I<0> if the tests completed without error, or "
 "I<1> if there was an error."
 msgstr ""
 
 #. type: textblock
-#: ../test-tool/libguestfs-test-tool.pod:146
+#: ../test-tool/libguestfs-test-tool.pod:184
 msgid "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 msgstr ""
 

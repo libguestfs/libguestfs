@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-11 22:53+0000\n"
+"POT-Creation-Date: 2013-03-13 18:44+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3319,11 +3319,6 @@ msgstr "скористайтеся командою «lcd каталог», що
 msgid "use 'man' without parameters to open the manual\n"
 msgstr "скористайтеся «man» без параметрів, щоб відкрити сторінку довідника\n"
 
-#: fish/man.c:55
-#, c-format
-msgid "the external 'man' program failed\n"
-msgstr "спроба використання зовнішньої програми «man» зазнала невдачі\n"
-
 #: fish/more.c:42
 #, c-format
 msgid "use '%s filename' to page a file\n"
@@ -4145,12 +4140,6 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
 
-#: rescue/virt-rescue.c:703
-#, c-format
-msgid "%s: unknown child exit status (%d)\n"
-msgstr ""
-"%s: невідоме повідомлення про стан завершення дочірнього процесу (%d)\n"
-
 #: src/appliance.c:215
 #, c-format
 msgid ""
@@ -4178,12 +4167,6 @@ msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/appliance.c:692
-msgid "external command failed, see earlier error messages"
-msgstr ""
-"спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
-"попередніми повідомленнями"
-
 #: src/conn-socket.c:59
 msgid "accept_connection called twice"
 msgstr ""
@@ -4203,11 +4186,6 @@ msgstr ""
 #: src/conn-socket.c:317
 msgid "error reading console messages from the appliance"
 msgstr ""
-
-#: src/dbdump.c:85
-#, c-format
-msgid "%s: command failed"
-msgstr "%s: не вдалося виконати команду"
 
 #: src/dbdump.c:89
 #, c-format
@@ -4238,17 +4216,66 @@ msgstr "libguestfs: помилка: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
 
+#: src/errors.c:284
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr ""
+"спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
+"повідомленнями"
+
+#: src/errors.c:287
+msgid ""
+"guestfs_launch failed.\n"
+"This usually means the libguestfs appliance failed to start or crashed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"or run 'libguestfs-test-tool' and post the *complete* output into a\n"
+"bug report or message to the libguestfs mailing list."
+msgstr ""
+
+#: src/errors.c:299
+msgid ""
+"appliance closed the connection unexpectedly, see earlier error messages"
+msgstr ""
+
+#: src/errors.c:302
+msgid ""
+"appliance closed the connection unexpectedly.\n"
+"This usually means the libguestfs appliance crashed.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"for information about how to debug libguestfs and report bugs."
+msgstr ""
+
+#: src/errors.c:320
+#, c-format
+msgid "%s, see debug messages above"
+msgstr ""
+
+#: src/errors.c:322
+#, c-format
+msgid "%s: %s: %s, see debug messages above"
+msgstr ""
+
+#: src/errors.c:328
+#, c-format
+msgid ""
+"%s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
+msgstr ""
+
+#: src/errors.c:334
+#, c-format
+msgid ""
+"%s: %s: %s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
+msgstr ""
+
 #: src/filearch.c:158
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
-#: src/filearch.c:185
-#, c-format
-msgid "cpio command failed (status 0x%x)"
-msgstr ""
-
-#: src/filearch.c:266
+#: src/filearch.c:268
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -4341,11 +4368,6 @@ msgstr ""
 msgid "qemu-img info: JSON output was not an object"
 msgstr ""
 
-#: src/info.c:249
-#, c-format
-msgid "qemu-img info: %s: child process failed"
-msgstr ""
-
 #: src/info.c:277
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
@@ -4359,11 +4381,6 @@ msgstr ""
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
 msgstr "%s: не вдалося визначити віртуальний розмір образу диска"
-
-#: src/info.c:511
-#, c-format
-msgid "qemu-img: %s: child process failed"
-msgstr "qemu-img: %s: помилка під час роботи дочірнього процесу"
 
 #: src/inspect-fs-unix.c:205
 #, c-format
@@ -4428,24 +4445,11 @@ msgstr "не вдалося обробити рядок у лапках побл
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-appliance.c:658 src/launch-libvirt.c:448
+#: src/launch-appliance.c:661 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
-
-#: src/launch-appliance.c:785
-msgid ""
-"qemu command failed\n"
-"If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
-"environment variable.  There may also be errors printed above."
-msgstr ""
-"Не вдалося виконати команду qemu\n"
-"Якщо виконуваний файл qemu зберігається у нестандартному каталозі, спробуйте "
-"встановити\n"
-"відповідне значення змінної середовища LIBGUESTFS_QEMU. Крім того, слід "
-"звернути увагу\n"
-"на помилки, повідомлення про які може бути наведено вище."
 
 #: src/launch-libvirt.c:171
 msgid "direct mode flag is not supported yet for libvirt attach method"
@@ -4523,11 +4527,6 @@ msgstr ""
 "допомогою\n"
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
-
-#: src/launch-libvirt.c:1430
-#, c-format
-msgid "qemu-img create: could not create snapshot over %s"
-msgstr "qemu-img create: не вдалося створити знімок над %s"
 
 #: src/launch-libvirt.c:1467
 #, c-format
@@ -4623,49 +4622,21 @@ msgstr "не можна використовувати параметр «%s»"
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:698
-msgid "guestfs_launch failed, see earlier error messages"
-msgstr ""
-"спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
-"повідомленнями"
-
-#: src/launch.c:700
-msgid ""
-"guestfs_launch failed.\n"
-"This usually means the libguestfs appliance failed to start or crashed.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"or run 'libguestfs-test-tool' and post the *complete* output into a\n"
-"bug report or message to the libguestfs mailing list."
-msgstr ""
-
-#: src/launch.c:712
-msgid ""
-"appliance closed the connection unexpectedly, see earlier error messages"
-msgstr ""
-
-#: src/launch.c:714
-msgid ""
-"appliance closed the connection unexpectedly.\n"
-"This usually means the libguestfs appliance crashed.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"for information about how to debug libguestfs and report bugs."
-msgstr ""
-
-#: src/launch.c:724
+#: src/launch.c:693
 msgid "get-pid can only be called after launch"
 msgstr "get-pid можна викликати лише після launch"
 
-#: src/launch.c:730
+#: src/launch.c:699
 msgid "the current attach-method does not support 'get-pid'"
 msgstr "у поточному методі attach не передбачено підтримки «get-pid»"
 
-#: src/launch.c:743
+#: src/launch.c:712
 msgid "the current attach-method does not allow max disks to be queried"
 msgstr ""
 "у поточному методі attach не передбачено опитування щодо максимальної "
 "кількості дисків"
 
-#: src/launch.c:755
+#: src/launch.c:724
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
@@ -4877,6 +4848,31 @@ msgstr ""
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
+
+#: src/utils.c:66
+#, c-format
+msgid "%s exited successfully"
+msgstr ""
+
+#: src/utils.c:69
+#, c-format
+msgid "%s exited with error status %d"
+msgstr ""
+
+#: src/utils.c:73
+#, c-format
+msgid "%s killed by signal %d (%s)"
+msgstr ""
+
+#: src/utils.c:77
+#, c-format
+msgid "%s stopped by signal %d (%s)"
+msgstr ""
+
+#: src/utils.c:81
+#, c-format
+msgid "%s exited for an unknown reason (status %d)"
+msgstr ""
 
 #: test-tool/test-tool.c:56
 #, c-format
@@ -6567,6 +6563,40 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid "the external 'man' program failed\n"
+#~ msgstr "спроба використання зовнішньої програми «man» зазнала невдачі\n"
+
+#~ msgid "%s: unknown child exit status (%d)\n"
+#~ msgstr ""
+#~ "%s: невідоме повідомлення про стан завершення дочірнього процесу (%d)\n"
+
+#~ msgid "external command failed, see earlier error messages"
+#~ msgstr ""
+#~ "спроба виконання зовнішньої команди зазнала невдачі, ознайомтеся з "
+#~ "попередніми повідомленнями"
+
+#~ msgid "%s: command failed"
+#~ msgstr "%s: не вдалося виконати команду"
+
+#~ msgid "qemu-img: %s: child process failed"
+#~ msgstr "qemu-img: %s: помилка під час роботи дочірнього процесу"
+
+#~ msgid ""
+#~ "qemu command failed\n"
+#~ "If qemu is located on a non-standard path, try setting the "
+#~ "LIBGUESTFS_QEMU\n"
+#~ "environment variable.  There may also be errors printed above."
+#~ msgstr ""
+#~ "Не вдалося виконати команду qemu\n"
+#~ "Якщо виконуваний файл qemu зберігається у нестандартному каталозі, "
+#~ "спробуйте встановити\n"
+#~ "відповідне значення змінної середовища LIBGUESTFS_QEMU. Крім того, слід "
+#~ "звернути увагу\n"
+#~ "на помилки, повідомлення про які може бути наведено вище."
+
+#~ msgid "qemu-img create: could not create snapshot over %s"
+#~ msgstr "qemu-img create: не вдалося створити знімок над %s"
 
 #~ msgid ""
 #~ "guestfs_launch failed.\n"
