@@ -18,6 +18,9 @@ mount -t proc /proc /proc
 if [ ! -d /sys ]; then rm -f /sys; fi
 mkdir -p /sys
 mount -t sysfs /sys /sys
+# taken from initramfs-tools/init --Hilko Bengen
+mkdir -p /run
+mount -t tmpfs -o "nosuid,size=20%,mode=0755" tmpfs /run
 mkdir -p /run/lock
 
 # devtmpfs is required since udev 176
