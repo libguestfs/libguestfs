@@ -489,6 +489,14 @@ fi
 AC_MSG_RESULT([$DISTRO])
 AC_SUBST([DISTRO])
 
+dnl Add extra packages to the appliance.
+AC_ARG_WITH([extra-packages],
+    [AS_HELP_STRING([--with-extra-packages],
+                    [add extra packages to the appliance])],
+    [EXTRA_PACKAGES="$withval"],
+    [EXTRA_PACKAGES=])
+AC_SUBST([EXTRA_PACKAGES])
+
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])

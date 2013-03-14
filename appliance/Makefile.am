@@ -49,9 +49,9 @@ superminfs_DATA += \
 	supermin.d/hostfiles
 endif
 
-# This used to be a configure-generated file (as is update.sh still).
-# However config.status always touches the destination file, which
-# means the appliance got rebuilt too often.
+# This used to be a configure-generated file.  However config.status
+# always touches the destination file, which means the appliance got
+# rebuilt too often.
 make.sh: make.sh.in $(top_builddir)/config.log $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  ./config.status --file=appliance/$@-t:appliance/$<
@@ -59,7 +59,7 @@ make.sh: make.sh.in $(top_builddir)/config.log $(top_builddir)/config.status
 	cmp -s $@ $@-t || mv $@-t $@
 	rm -f $@-t
 
-PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1
+PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1 -DEXTRA_PACKAGES="$(EXTRA_PACKAGES)"
 if VALGRIND_DAEMON
 PACKAGELIST_CPP_FLAGS += -DVALGRIND_DAEMON=1
 endif

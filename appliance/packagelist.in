@@ -11,6 +11,10 @@
  *
  * There is also a list of packages which are excluded if they appear
  * as dependencies of the packages below.  See: excludelist.in
+ *
+ * To add arbitrary extra packages, use:
+ *
+ *   ./configure --with-extra-packages="gdb valgrind [etc]"
  */
 
 /* Basically the same with a few minor tweaks. */
@@ -160,7 +164,5 @@ zerofree
 valgrind
 #endif
 
-/* Enable this to add useful debugging tools to the appliance. */
-#if 0
-gdb
-#endif
+/* Define this by doing: ./configure --with-extra-packages="..." */
+EXTRA_PACKAGES
