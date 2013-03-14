@@ -113,8 +113,22 @@ struct event {
 };
 
 /* Drives added to the handle. */
+enum drive_protocol {
+  drive_protocol_file,
+  drive_protocol_nbd,
+};
+union drive_source {
+  char *path;                   /* protocol = "file" */
+  struct {                      /* protocol = "nbd" */
+    char *server;
+    int port;
+    char *exportname;
+  } nbd;
+};
+
 struct drive {
-  char *path;
+  enum drive_protocol protocol;
+  union drive_source u;
 
   bool readonly;
   char *format;
@@ -123,7 +137,8 @@ struct drive {
   char *disk_label;
   bool use_cache_none;
 
-  void *priv;                   /* Data used by attach method. */
+  /* Data used by the attach method. */
+  void *priv;
   void (*free_priv) (void *);
 };
 

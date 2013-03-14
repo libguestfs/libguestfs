@@ -1247,7 +1247,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OString "server"; OInt "port"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -1318,6 +1318,40 @@ As well as its usual name in the API (such as C</dev/sda>),
 the drive will also be named C</dev/disk/guestfs/I<label>>.
 
 See L<guestfs(3)/DISK LABELS>.
+
+=item C<protocol>
+
+The optional protocol argument can be used to select an alternate
+source protocol:
+
+=over 4
+
+=item C<protocol = \"file\">
+
+C<filename> is interpreted as a local file or device.
+This is the default if the optional protocol parameter
+is omitted.
+
+=item C<protocol = \"nbd\">
+
+Connect to the Network Block Device server at C<server:port>.
+
+See: L<guestfs(3)/NETWORK BLOCK DEVICES>.
+
+=back
+
+=item C<server>
+
+For protocols which require access to a remote server, this
+is the name of the server.
+
+=item C<port>
+
+For protocols which require access to a remote server, this
+is the port number of the service.
+
+If not specified, this defaults to the standard port for
+the protocol, eg. 10809 when C<protocol> is C<\"nbd\">.
 
 =back" };
 

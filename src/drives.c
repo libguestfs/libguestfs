@@ -30,6 +30,8 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <netdb.h>
+#include <arpa/inet.h>
 #include <assert.h>
 
 #include "c-ctype.h"
@@ -41,21 +43,51 @@
 
 /* Create and free the 'drive' struct. */
 static struct drive *
-create_drive_struct (guestfs_h *g, const char *path,
-                     bool readonly, const char *format,
-                     const char *iface, const char *name,
-                     const char *disk_label,
-                     bool use_cache_none)
+create_drive_file (guestfs_h *g, const char *path,
+                   bool readonly, const char *format,
+                   const char *iface, const char *name,
+                   const char *disk_label,
+                   bool use_cache_none)
 {
   struct drive *drv = safe_malloc (g, sizeof (struct drive));
 
-  drv->path = safe_strdup (g, path);
+  drv->protocol = drive_protocol_file;
+  drv->u.path = safe_strdup (g, path);
+
   drv->readonly = readonly;
   drv->format = format ? safe_strdup (g, format) : NULL;
   drv->iface = iface ? safe_strdup (g, iface) : NULL;
   drv->name = name ? safe_strdup (g, name) : NULL;
   drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
   drv->use_cache_none = use_cache_none;
+
+  drv->priv = drv->free_priv = NULL;
+
+  return drv;
+}
+
+static struct drive *
+create_drive_nbd (guestfs_h *g,
+                  const char *server, int port, const char *exportname,
+                  bool readonly, const char *format,
+                  const char *iface, const char *name,
+                  const char *disk_label,
+                  bool use_cache_none)
+{
+  struct drive *drv = safe_malloc (g, sizeof (struct drive));
+
+  drv->protocol = drive_protocol_nbd;
+  drv->u.nbd.server = safe_strdup (g, server);
+  drv->u.nbd.port = port;
+  drv->u.nbd.exportname = safe_strdup (g, exportname);
+
+  drv->readonly = readonly;
+  drv->format = format ? safe_strdup (g, format) : NULL;
+  drv->iface = iface ? safe_strdup (g, iface) : NULL;
+  drv->name = name ? safe_strdup (g, name) : NULL;
+  drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
+  drv->use_cache_none = use_cache_none;
+
   drv->priv = drv->free_priv = NULL;
 
   return drv;
@@ -70,9 +102,9 @@ create_drive_struct (guestfs_h *g, const char *path,
  * a null drive.
  */
 static struct drive *
-create_null_drive_struct (guestfs_h *g, bool readonly, const char *format,
-                          const char *iface, const char *name,
-                          const char *disk_label)
+create_drive_dev_null (guestfs_h *g, bool readonly, const char *format,
+                       const char *iface, const char *name,
+                       const char *disk_label)
 {
   CLEANUP_FREE char *tmpfile = NULL;
   int fd = -1;
@@ -107,28 +139,80 @@ create_null_drive_struct (guestfs_h *g, bool readonly, const char *format,
     return NULL;
   }
 
-  return create_drive_struct (g, tmpfile, readonly, format, iface, name,
-                              disk_label, 0);
+  return create_drive_file (g, tmpfile, readonly, format, iface, name,
+                            disk_label, 0);
 }
 
 static struct drive *
-create_dummy_drive_struct (guestfs_h *g)
+create_drive_dummy (guestfs_h *g)
 {
   /* A special drive struct that is used as a dummy slot for the appliance. */
-  return create_drive_struct (g, "", 0, NULL, NULL, NULL, NULL, 0);
+  return create_drive_file (g, "", 0, NULL, NULL, NULL, NULL, 0);
 }
 
 static void
 free_drive_struct (struct drive *drv)
 {
-  free (drv->path);
+  switch (drv->protocol) {
+  case drive_protocol_file:
+    free (drv->u.path);
+    break;
+  case drive_protocol_nbd:
+    free (drv->u.nbd.server);
+    free (drv->u.nbd.exportname);
+    break;
+  default:
+    abort ();
+  }
+
   free (drv->format);
   free (drv->iface);
   free (drv->name);
   free (drv->disk_label);
+
   if (drv->priv && drv->free_priv)
     drv->free_priv (drv->priv);
+
   free (drv);
+}
+
+/* Convert a struct drive to a string for debugging.  The caller
+ * must free this string.
+ */
+static char *
+drive_to_string (guestfs_h *g, const struct drive *drv)
+{
+  CLEANUP_FREE char *p = NULL;
+
+  switch (drv->protocol) {
+  case drive_protocol_file:
+    p = safe_asprintf (g, "path=%s", drv->u.path);
+    break;
+  case drive_protocol_nbd:
+    if (STREQ (drv->u.nbd.exportname, ""))
+      p = safe_asprintf (g, "nbd=%s:%d", drv->u.nbd.server, drv->u.nbd.port);
+    else
+      p = safe_asprintf (g, "nbd=%s:%d:exportname=%s",
+                         drv->u.nbd.server, drv->u.nbd.port,
+                         drv->u.nbd.exportname);
+    break;
+  default:
+    abort ();
+  }
+
+  return safe_asprintf
+    (g, "%s%s%s%s%s%s%s%s%s%s%s",
+     p,
+     drv->readonly ? " readonly" : "",
+     drv->format ? " format=" : "",
+     drv->format ? : "",
+     drv->iface ? " iface=" : "",
+     drv->iface ? : "",
+     drv->name ? " name=" : "",
+     drv->name ? : "",
+     drv->disk_label ? " label=" : "",
+     drv->disk_label ? : "",
+     drv->use_cache_none ? " cache=none" : "");
 }
 
 /* Add struct drive to the g->drives vector at the given index. */
@@ -162,7 +246,7 @@ guestfs___add_dummy_appliance_drive (guestfs_h *g)
 {
   struct drive *drv;
 
-  drv = create_dummy_drive_struct (g);
+  drv = create_drive_dummy (g);
   add_drive_to_handle (g, drv);
 }
 
@@ -263,6 +347,37 @@ valid_disk_label (const char *str)
   return 1;
 }
 
+/* Check the server (hostname) is reasonable. */
+static int
+valid_server (const char *str)
+{
+  size_t len = strlen (str);
+
+  if (len == 0 || len > 255)
+    return 0;
+
+  while (len > 0) {
+    char c = *str++;
+    len--;
+    if (!c_isalnum (c) &&
+        c != '-' && c != '.' && c != ':' && c != '[' && c != ']')
+      return 0;
+  }
+  return 1;
+}
+
+static int
+nbd_port (void)
+{
+  struct servent *servent;
+
+  servent = getservbyname ("nbd", "tcp");
+  if (servent)
+    return ntohs (servent->s_port);
+  else
+    return 10809;
+}
+
 /* The low-level function that adds a drive. */
 static int
 add_drive (guestfs_h *g, struct drive *drv)
@@ -314,6 +429,9 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   const char *iface;
   const char *name;
   const char *disk_label;
+  const char *protocol;
+  const char *server;
+  int port;
   int use_cache_none;
   struct drive *drv;
 
@@ -324,15 +442,27 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   }
 
   readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
-             ? optargs->readonly : false;
+    ? optargs->readonly : false;
   format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
-           ? optargs->format : NULL;
+    ? optargs->format : NULL;
   iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
-          ? optargs->iface : NULL;
+    ? optargs->iface : NULL;
   name = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_NAME_BITMASK
-         ? optargs->name : NULL;
+    ? optargs->name : NULL;
   disk_label = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_LABEL_BITMASK
-         ? optargs->label : NULL;
+    ? optargs->label : NULL;
+  protocol = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_PROTOCOL_BITMASK
+    ? optargs->protocol : "file";
+  server = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_SERVER_BITMASK
+    ? optargs->server : NULL;
+  if (optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_PORT_BITMASK) {
+    port = optargs->port;
+    if (port <= 0 || port > 65535) {
+      error (g, _("invalid port number"));
+      return -1;
+    }
+  } else
+    port = 0;
 
   if (format && !valid_format_iface (format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
@@ -348,28 +478,50 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     error (g, _("label parameter is empty, too long, or contains disallowed characters"));
     return -1;
   }
+  if (server && !valid_server (server)) {
+    error (g, _("server parameter is empty, too long, or contains disallowed characters"));
+    return -1;
+  }
 
-  if (STREQ (filename, "/dev/null"))
-    drv = create_null_drive_struct (g, readonly, format, iface, name,
-                                    disk_label);
-  else {
-    /* For writable files, see if we can use cache=none.  This also
-     * checks for the existence of the file.  For readonly we have
-     * to do the check explicitly.
-     */
-    use_cache_none = readonly ? false : test_cache_none (g, filename);
-    if (use_cache_none == -1)
-      return -1;
-
-    if (readonly) {
-      if (access (filename, R_OK) == -1) {
-        perrorf (g, "%s", filename);
+  if (STREQ (protocol, "file")) {
+    if (STREQ (filename, "/dev/null"))
+      drv = create_drive_dev_null (g, readonly, format, iface, name,
+                                   disk_label);
+    else {
+      /* For writable files, see if we can use cache=none.  This also
+       * checks for the existence of the file.  For readonly we have
+       * to do the check explicitly.
+       */
+      use_cache_none = readonly ? false : test_cache_none (g, filename);
+      if (use_cache_none == -1)
         return -1;
-      }
-    }
 
-    drv = create_drive_struct (g, filename, readonly, format, iface, name,
+      if (readonly) {
+        if (access (filename, R_OK) == -1) {
+          perrorf (g, "%s", filename);
+          return -1;
+        }
+      }
+
+      drv = create_drive_file (g, filename, readonly, format, iface, name,
                                disk_label, use_cache_none);
+    }
+  }
+  else if (STREQ (protocol, "nbd")) {
+    if (!server) {
+      error (g, _("protocol nbd: missing server name"));
+      return -1;
+    }
+    if (port == 0)
+      port = nbd_port ();
+
+    drv = create_drive_nbd (g, server, port, filename,
+                            readonly, format, iface, name,
+                            disk_label, false);
+  }
+  else {
+    error (g, _("unknown protocol '%s'"), protocol);
+    return -1;
   }
 
   if (drv == NULL)
@@ -530,17 +682,7 @@ guestfs__debug_drives (guestfs_h *g)
 
   count = 0;
   ITER_DRIVES (g, i, drv) {
-    ret[count++] =
-      safe_asprintf (g, "path=%s%s%s%s%s%s%s%s%s",
-                     drv->path,
-                     drv->readonly ? " readonly" : "",
-                     drv->format ? " format=" : "",
-                     drv->format ? : "",
-                     drv->iface ? " iface=" : "",
-                     drv->iface ? : "",
-                     drv->name ? " name=" : "",
-                     drv->name ? : "",
-                     drv->use_cache_none ? " cache=none" : "");
+    ret[count++] = drive_to_string (g, drv);
   }
 
   ret[count] = NULL;

@@ -155,6 +155,8 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | static glibc |             | O | Used for testing only.                  |
 +--------------+-------------+---+-----------------------------------------+
+| qemu-nbd     |             | O | Used for testing only.                  |
++--------------+-------------+---+-----------------------------------------+
 | findlib      |             | O | For the OCaml bindings.                 |
 +--------------+-------------+---+-----------------------------------------+
 | ocaml-gettext|             | O | For localizing OCaml virt-* tools.      |

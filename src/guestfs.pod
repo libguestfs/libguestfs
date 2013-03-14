@@ -637,6 +637,40 @@ Backends that support hotplugging do not require that you add
 E<ge> 1 disk before calling launch.  When hotplugging is supported
 you don't need to add any disks.
 
+=head2 NETWORK BLOCK DEVICES
+
+Libguestfs can access Network Block Device (NBD) disks remotely.
+
+To do this, set the optional C<protocol> and C<server> parameters of
+L</guestfs_add_drive_opts> like this:
+
+ guestfs_add_drive_opts (g, "" /* export name - see below */,
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "nbd",
+                         GUESTFS_ADD_DRIVE_OPTS_SERVER, "localhost",
+                         -1);
+
+You can also specify the optional C<port> number if the NBD server is
+running on a non-default port.
+
+Notes:
+
+=over 4
+
+=item *
+
+The C<filename> parameter is the NBD export name.  Use an empty string
+to mean the default export.
+
+(Not all NBD servers support this feature.)
+
+=item *
+
+The libvirt backend requires that you set the C<format> parameter of
+L</guestfs_add_drive_opts> accurately when you use writable NBD disks.
+
+=back
+
 =head2 INSPECTION
 
 Libguestfs has APIs for inspecting an unknown disk image to find out

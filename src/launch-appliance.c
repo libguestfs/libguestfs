@@ -931,36 +931,45 @@ qemu_supports_virtio_scsi (guestfs_h *g)
   return g->app.virtio_scsi == 1;
 }
 
+/* Convert a struct drive into a qemu -drive parameter.  Note that if
+ * using virtio-scsi, then the code above adds a second -device
+ * parameter to connect this drive to the SCSI HBA, as is required by
+ * virtio-scsi.
+ */
 static char *
 qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 {
-  size_t i;
-  size_t len = 128;
-  const char *p;
-  char *r;
+  CLEANUP_FREE char *file = NULL, *escaped_file = NULL;
+  size_t i, len;
   const char *iface;
+  char *p;
 
-  len += strlen (drv->path) * 2; /* every "," could become ",," */
-  if (drv->iface)
-    len += strlen (drv->iface);
-  if (drv->format)
-    len += strlen (drv->format);
-  if (drv->disk_label)
-    len += strlen (drv->disk_label);
-
-  r = safe_malloc (g, len);
-
-  strcpy (r, "file=");
-  i = 5;
-
-  /* Copy the path in, escaping any "," as ",,". */
-  for (p = drv->path; *p; p++) {
-    if (*p == ',') {
-      r[i++] = ',';
-      r[i++] = ',';
-    } else
-      r[i++] = *p;
+  /* Make the file= parameter. */
+  switch (drv->protocol) {
+  case drive_protocol_file:
+    file = safe_strdup (g, drv->u.path);
+    break;
+  case drive_protocol_nbd:
+    if (STREQ (drv->u.nbd.exportname, ""))
+      file = safe_asprintf (g, "nbd:%s:%d", drv->u.nbd.server, drv->u.nbd.port);
+    else
+      file = safe_asprintf (g, "nbd:%s:%d:exportname=%s",
+                            drv->u.nbd.server, drv->u.nbd.port,
+                            drv->u.nbd.exportname);
+    break;
+  default:
+    abort ();
   }
+
+  /* Escape the file= parameter.  Every ',' becomes ',,'. */
+  len = strlen (file);
+  p = escaped_file = safe_malloc (g, len*2 + 1); /* max length of escaped name*/
+  for (i = 0; i < len; ++i) {
+    *p++ = file[i];
+    if (file[i] == ',')
+      *p++ = ',';
+  }
+  *p = '\0';
 
   if (drv->iface)
     iface = drv->iface;
@@ -969,17 +978,17 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
   else
     iface = "virtio";
 
-  snprintf (&r[i], len-i, "%s%s%s%s%s%s,id=hd%zu,if=%s",
-            drv->readonly ? ",snapshot=on" : "",
-            drv->use_cache_none ? ",cache=none" : "",
-            drv->format ? ",format=" : "",
-            drv->format ? drv->format : "",
-            drv->disk_label ? ",serial=" : "",
-            drv->disk_label ? drv->disk_label : "",
-            index,
-            iface);
-
-  return r;                     /* caller frees */
+  return safe_asprintf
+    (g, "file=%s%s%s%s%s%s%s,id=hd%zu,if=%s",
+     escaped_file,
+     drv->readonly ? ",snapshot=on" : "",
+     drv->use_cache_none ? ",cache=none" : "",
+     drv->format ? ",format=" : "",
+     drv->format ? drv->format : "",
+     drv->disk_label ? ",serial=" : "",
+     drv->disk_label ? drv->disk_label : "",
+     index,
+     iface);
 }
 
 /* https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/ */
