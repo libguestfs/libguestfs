@@ -115,7 +115,7 @@ struct event {
 struct drive {
   char *path;
 
-  int readonly;
+  bool readonly;
   char *format;
   char *iface;
   char *name;

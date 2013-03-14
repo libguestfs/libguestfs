@@ -42,10 +42,10 @@
 /* Create and free the 'drive' struct. */
 static struct drive *
 create_drive_struct (guestfs_h *g, const char *path,
-                     int readonly, const char *format,
+                     bool readonly, const char *format,
                      const char *iface, const char *name,
                      const char *disk_label,
-                     int use_cache_none)
+                     bool use_cache_none)
 {
   struct drive *drv = safe_malloc (g, sizeof (struct drive));
 
@@ -70,7 +70,7 @@ create_drive_struct (guestfs_h *g, const char *path,
  * a null drive.
  */
 static struct drive *
-create_null_drive_struct (guestfs_h *g, int readonly, const char *format,
+create_null_drive_struct (guestfs_h *g, bool readonly, const char *format,
                           const char *iface, const char *name,
                           const char *disk_label)
 {
@@ -86,9 +86,9 @@ create_null_drive_struct (guestfs_h *g, int readonly, const char *format,
     return NULL;
 
   /* Because we create a special file, there is no point forcing qemu
-   * to create an overlay as well.  Save time by setting readonly = 0.
+   * to create an overlay as well.  Save time by setting readonly = false.
    */
-  readonly = 0;
+  readonly = false;
 
   tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
   fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
@@ -309,7 +309,7 @@ int
 guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
 {
-  int readonly;
+  bool readonly;
   const char *format;
   const char *iface;
   const char *name;
@@ -324,7 +324,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   }
 
   readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
-             ? optargs->readonly : 0;
+             ? optargs->readonly : false;
   format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
            ? optargs->format : NULL;
   iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
@@ -357,7 +357,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
      * checks for the existence of the file.  For readonly we have
      * to do the check explicitly.
      */
-    use_cache_none = readonly ? 0 : test_cache_none (g, filename);
+    use_cache_none = readonly ? false : test_cache_none (g, filename);
     if (use_cache_none == -1)
       return -1;
 
@@ -389,7 +389,7 @@ guestfs__add_drive_ro (guestfs_h *g, const char *filename)
 {
   const struct guestfs_add_drive_opts_argv optargs = {
     .bitmask = GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK,
-    .readonly = 1,
+    .readonly = true,
   };
 
   return guestfs__add_drive_opts (g, filename, &optargs);
@@ -415,7 +415,7 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
     .bitmask = GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
              | GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK,
     .iface = iface,
-    .readonly = 1,
+    .readonly = true,
   };
 
   return guestfs__add_drive_opts (g, filename, &optargs);
