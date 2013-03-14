@@ -30,7 +30,7 @@ EXTRA_DIST = \
 
 if HAVE_ERLANG
 
-erlang_bindir = $(libdir)/erlang/lib/$(PACKAGE_NAME)-$(PACKAGE_VERSION)/ebin
+erlang_bindir = $(ERLANG_LIB_DIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION)/ebin
 
 erlang_bin_DATA = guestfs.beam
 
