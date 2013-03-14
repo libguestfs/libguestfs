@@ -39,6 +39,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+static mode_t get_umask (guestfs_h *g);
 static void free_drive_struct (struct drive *drv);
 
 size_t
@@ -612,6 +613,16 @@ guestfs__launch (guestfs_h *g)
   if (chmod (g->tmpdir, 0755) == -1)
     warning (g, "chmod: %s: %m (ignored)", g->tmpdir);
 
+  /* Some common debugging information. */
+  if (g->verbose) {
+    CLEANUP_FREE char *attach_method = guestfs__get_attach_method (g);
+
+    debug (g, "launch: attach-method=%s", attach_method);
+    debug (g, "launch: tmpdir=%s", g->tmpdir);
+    debug (g, "launch: umask=0%03o", get_umask (g));
+    debug (g, "launch: euid=%d", geteuid ());
+  }
+
   /* Launch the appliance. */
   g->attach_ops = get_attach_ops (g);
   return g->attach_ops->launch (g, g->attach_method_arg);
@@ -846,6 +857,37 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      g->verbose ? " guestfs_verbose=1" : "",
      term ? term : "linux",
      g->append ? " " : "", g->append ? g->append : "");
+
+  return ret;
+}
+
+/* glibc documents, but does not actually implement, a 'getumask(3)'
+ * call.  This implements a thread-safe way to get the umask.  Note
+ * this is only called when g->verbose is true and after g->tmpdir
+ * has been created.
+ */
+static mode_t
+get_umask (guestfs_h *g)
+{
+  mode_t ret;
+  int fd;
+  struct stat statbuf;
+  CLEANUP_FREE char *filename = safe_asprintf (g, "%s/umask-check", g->tmpdir);
+
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0777);
+  if (fd == -1)
+    return -1;
+
+  if (fstat (fd, &statbuf) == -1) {
+    close (fd);
+    return -1;
+  }
+
+  close (fd);
+
+  ret = statbuf.st_mode;
+  ret &= 0777;
+  ret = ret ^ 0777;
 
   return ret;
 }
