@@ -245,6 +245,10 @@ this command as root:
 
   make install
 
+Distro packagers should use this instead:
+
+ make INSTALLDIRS=vendor [DESTDIR=...] install
+
 You can run guestfish, guestmount and the virt tools without needing
 to install, using the "./run" script in the top directory.  This
 script sets up some environment variables.  For example:
