@@ -39,7 +39,97 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static void free_drive_struct (struct drive *drv);
+/* Create and free the 'drive' struct. */
+static struct drive *
+create_drive_struct (guestfs_h *g, const char *path,
+                     int readonly, const char *format,
+                     const char *iface, const char *name,
+                     const char *disk_label,
+                     int use_cache_none)
+{
+  struct drive *drv = safe_malloc (g, sizeof (struct drive));
+
+  drv->path = safe_strdup (g, path);
+  drv->readonly = readonly;
+  drv->format = format ? safe_strdup (g, format) : NULL;
+  drv->iface = iface ? safe_strdup (g, iface) : NULL;
+  drv->name = name ? safe_strdup (g, name) : NULL;
+  drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
+  drv->use_cache_none = use_cache_none;
+  drv->priv = drv->free_priv = NULL;
+
+  return drv;
+}
+
+/* Traditionally you have been able to use /dev/null as a filename, as
+ * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
+ * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
+ * any zero-sized file including /dev/null.  Therefore, we replace
+ * /dev/null with a non-zero sized temporary file.  This shouldn't
+ * make any difference since users are not supposed to try and access
+ * a null drive.
+ */
+static struct drive *
+create_null_drive_struct (guestfs_h *g, int readonly, const char *format,
+                          const char *iface, const char *name,
+                          const char *disk_label)
+{
+  CLEANUP_FREE char *tmpfile = NULL;
+  int fd = -1;
+
+  if (format && STRNEQ (format, "raw")) {
+    error (g, _("for device '/dev/null', format must be 'raw'"));
+    return NULL;
+  }
+
+  if (guestfs___lazy_make_tmpdir (g) == -1)
+    return NULL;
+
+  /* Because we create a special file, there is no point forcing qemu
+   * to create an overlay as well.  Save time by setting readonly = 0.
+   */
+  readonly = 0;
+
+  tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
+  fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
+  if (fd == -1) {
+    perrorf (g, "open: %s", tmpfile);
+    close (fd);
+    return NULL;
+  }
+  if (ftruncate (fd, 4096) == -1) {
+    perrorf (g, "truncate: %s", tmpfile);
+    close (fd);
+    return NULL;
+  }
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", tmpfile);
+    return NULL;
+  }
+
+  return create_drive_struct (g, tmpfile, readonly, format, iface, name,
+                              disk_label, 0);
+}
+
+static struct drive *
+create_dummy_drive_struct (guestfs_h *g)
+{
+  /* A special drive struct that is used as a dummy slot for the appliance. */
+  return create_drive_struct (g, "", 0, NULL, NULL, NULL, NULL, 0);
+}
+
+static void
+free_drive_struct (struct drive *drv)
+{
+  free (drv->path);
+  free (drv->format);
+  free (drv->iface);
+  free (drv->name);
+  free (drv->disk_label);
+  if (drv->priv && drv->free_priv)
+    drv->free_priv (drv->priv);
+  free (drv);
+}
 
 /* Add struct drive to the g->drives vector at the given index. */
 static void
@@ -66,34 +156,13 @@ add_drive_to_handle (guestfs_h *g, struct drive *d)
   add_drive_to_handle_at (g, d, g->nr_drives);
 }
 
-static struct drive *
-create_drive_struct (guestfs_h *g, const char *path,
-                     int readonly, const char *format,
-                     const char *iface, const char *name,
-                     const char *disk_label,
-                     int use_cache_none)
-{
-  struct drive *drv = safe_malloc (g, sizeof (struct drive));
-
-  drv->path = safe_strdup (g, path);
-  drv->readonly = readonly;
-  drv->format = format ? safe_strdup (g, format) : NULL;
-  drv->iface = iface ? safe_strdup (g, iface) : NULL;
-  drv->name = name ? safe_strdup (g, name) : NULL;
-  drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
-  drv->use_cache_none = use_cache_none;
-  drv->priv = drv->free_priv = NULL;
-
-  return drv;
-}
-
 /* Called during launch to add a dummy slot to g->drives. */
 void
 guestfs___add_dummy_appliance_drive (guestfs_h *g)
 {
   struct drive *drv;
 
-  drv = create_drive_struct (g, "", 0, NULL, NULL, NULL, NULL, 0);
+  drv = create_dummy_drive_struct (g);
   add_drive_to_handle (g, drv);
 }
 
@@ -112,20 +181,6 @@ guestfs___free_drives (guestfs_h *g)
 
   g->drives = NULL;
   g->nr_drives = 0;
-}
-
-/* Free a single drive struct. */
-static void
-free_drive_struct (struct drive *drv)
-{
-  free (drv->path);
-  free (drv->format);
-  free (drv->iface);
-  free (drv->name);
-  free (drv->disk_label);
-  if (drv->priv && drv->free_priv)
-    drv->free_priv (drv->priv);
-  free (drv);
 }
 
 /* cache=none improves reliability in the event of a host crash.
@@ -250,68 +305,6 @@ add_drive (guestfs_h *g, struct drive *drv)
   return 0;
 }
 
-/* Traditionally you have been able to use /dev/null as a filename, as
- * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
- * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
- * any zero-sized file including /dev/null.  Therefore, we replace
- * /dev/null with a non-zero sized temporary file.  This shouldn't
- * make any difference since users are not supposed to try and access
- * a null drive.
- */
-static int
-add_null_drive (guestfs_h *g, int readonly, const char *format,
-                const char *iface, const char *name, const char *disk_label)
-{
-  char *tmpfile = NULL;
-  int fd = -1, r;
-  struct drive *drv;
-
-  if (format && STRNEQ (format, "raw")) {
-    error (g, _("for device '/dev/null', format must be 'raw'"));
-    return -1;
-  }
-
-  if (guestfs___lazy_make_tmpdir (g) == -1)
-    return -1;
-
-  /* Because we create a special file, there is no point forcing qemu
-   * to create an overlay as well.  Save time by setting readonly = 0.
-   */
-  readonly = 0;
-
-  tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
-  fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
-  if (fd == -1) {
-    perrorf (g, "open: %s", tmpfile);
-    goto err;
-  }
-  if (ftruncate (fd, 4096) == -1) {
-    perrorf (g, "truncate: %s", tmpfile);
-    goto err;
-  }
-  if (close (fd) == -1) {
-    perrorf (g, "close: %s", tmpfile);
-    goto err;
-  }
-
-  drv = create_drive_struct (g, tmpfile, readonly, format, iface, name,
-                             disk_label, 0);
-  r = add_drive (g, drv);
-  free (tmpfile);
-  if (r == -1) {
-    free_drive_struct (drv);
-    return -1;
-  }
-
-  return 0;
-
- err:
-  free (tmpfile);
-  if (fd >= 0)
-    close (fd);
-  return -1;
-}
-
 int
 guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
@@ -357,25 +350,32 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   }
 
   if (STREQ (filename, "/dev/null"))
-    return add_null_drive (g, readonly, format, iface, name, disk_label);
-
-  /* For writable files, see if we can use cache=none.  This also
-   * checks for the existence of the file.  For readonly we have
-   * to do the check explicitly.
-   */
-  use_cache_none = readonly ? 0 : test_cache_none (g, filename);
-  if (use_cache_none == -1)
-    return -1;
-
-  if (readonly) {
-    if (access (filename, R_OK) == -1) {
-      perrorf (g, "%s", filename);
+    drv = create_null_drive_struct (g, readonly, format, iface, name,
+                                    disk_label);
+  else {
+    /* For writable files, see if we can use cache=none.  This also
+     * checks for the existence of the file.  For readonly we have
+     * to do the check explicitly.
+     */
+    use_cache_none = readonly ? 0 : test_cache_none (g, filename);
+    if (use_cache_none == -1)
       return -1;
+
+    if (readonly) {
+      if (access (filename, R_OK) == -1) {
+        perrorf (g, "%s", filename);
+        return -1;
+      }
     }
+
+    drv = create_drive_struct (g, filename, readonly, format, iface, name,
+                               disk_label, use_cache_none);
   }
 
-  drv = create_drive_struct (g, filename, readonly, format, iface, name,
-                             disk_label, use_cache_none);
+  if (drv == NULL)
+    return -1;
+
+  /* Add the drive. */
   if (add_drive (g, drv) == -1) {
     free_drive_struct (drv);
     return -1;
