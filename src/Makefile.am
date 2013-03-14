@@ -87,6 +87,7 @@ libguestfs_la_SOURCES = \
 	canonical-name.c \
 	conn-socket.c \
 	dbdump.c \
+	drives.c \
 	errors.c \
 	event-string.c \
 	events.c \

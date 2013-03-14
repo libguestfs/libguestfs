@@ -243,6 +243,7 @@ src/cleanup.c
 src/command.c
 src/conn-socket.c
 src/dbdump.c
+src/drives.c
 src/errnostring-gperf.c
 src/errnostring.c
 src/errors.c
