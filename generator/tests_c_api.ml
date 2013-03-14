@@ -190,7 +190,7 @@ main (int argc, char *argv[])
 
   g = guestfs_create ();
   if (g == NULL) {
-    printf (\"guestfs_create FAILED\\n\");
+    printf (\"FAIL: guestfs_create\\n\");
     exit (EXIT_FAILURE);
   }
 
@@ -212,7 +212,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, filename) == -1) {
-    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+    printf (\"FAIL: guestfs_add_drive %%s\\n\", filename);
     exit (EXIT_FAILURE);
   }
 
@@ -234,7 +234,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, filename) == -1) {
-    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+    printf (\"FAIL: guestfs_add_drive %%s\\n\", filename);
     exit (EXIT_FAILURE);
   }
 
@@ -256,12 +256,12 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, filename) == -1) {
-    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+    printf (\"FAIL: guestfs_add_drive %%s\\n\", filename);
     exit (EXIT_FAILURE);
   }
 
   if (guestfs_add_drive_ro (g, \"../data/test.iso\") == -1) {
-    printf (\"guestfs_add_drive_ro ../data/test.iso FAILED\\n\");
+    printf (\"FAIL: guestfs_add_drive_ro ../data/test.iso\\n\");
     exit (EXIT_FAILURE);
   }
 
@@ -269,7 +269,7 @@ main (int argc, char *argv[])
   alarm (600);
 
   if (guestfs_launch (g) == -1) {
-    printf (\"guestfs_launch FAILED\\n\");
+    printf (\"FAIL: guestfs_launch\\n\");
     exit (EXIT_FAILURE);
   }
 
@@ -278,11 +278,11 @@ main (int argc, char *argv[])
 
   /* Create ext2 filesystem on /dev/sdb1 partition. */
   if (guestfs_part_disk (g, \"/dev/sdb\", \"mbr\") == -1) {
-    printf (\"guestfs_part_disk FAILED\\n\");
+    printf (\"FAIL: guestfs_part_disk\\n\");
     exit (EXIT_FAILURE);
   }
   if (guestfs_mkfs (g, \"ext2\", \"/dev/sdb1\") == -1) {
-    printf (\"guestfs_mkfs (/dev/sdb1) FAILED\\n\");
+    printf (\"FAIL: guestfs_mkfs (/dev/sdb1)\\n\");
     exit (EXIT_FAILURE);
   }
 
@@ -293,7 +293,7 @@ main (int argc, char *argv[])
       pr "  test_num++;\n";
       pr "  next_test (g, test_num, nr_tests, \"%s\");\n" test_name;
       pr "  if (%s () == -1) {\n" test_name;
-      pr "    printf (\"%%s FAILED\\n\", \"%s\");\n" test_name;
+      pr "    printf (\"FAIL: %%s\\n\", \"%s\");\n" test_name;
       pr "    nr_failed++;\n";
       pr "  }\n";
   ) test_names;
@@ -306,7 +306,7 @@ main (int argc, char *argv[])
   guestfs_close (g);
 
   if (close_sentinel != 2) {
-    fprintf (stderr, \"close callback was not called\\n\");
+    fprintf (stderr, \"FAIL: close callback was not called\\n\");
     exit (EXIT_FAILURE);
   }
 
