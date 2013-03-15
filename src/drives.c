@@ -378,48 +378,6 @@ nbd_port (void)
     return 10809;
 }
 
-/* The low-level function that adds a drive. */
-static int
-add_drive (guestfs_h *g, struct drive *drv)
-{
-  size_t i, drv_index;
-
-  if (g->state == CONFIG) {
-    /* Not hotplugging, so just add it to the handle. */
-    add_drive_to_handle (g, drv);
-    return 0;
-  }
-
-  /* ... else, hotplugging case. */
-  if (!g->attach_ops || !g->attach_ops->hot_add_drive) {
-    error (g, _("the current attach-method does not support hotplugging drives"));
-    return -1;
-  }
-
-  if (!drv->disk_label) {
-    error (g, _("'label' is required when hotplugging drives"));
-    return -1;
-  }
-
-  /* Get the first free index, or add it at the end. */
-  drv_index = g->nr_drives;
-  for (i = 0; i < g->nr_drives; ++i)
-    if (g->drives[i] == NULL)
-      drv_index = i;
-
-  /* Hot-add the drive. */
-  if (g->attach_ops->hot_add_drive (g, drv, drv_index) == -1)
-    return -1;
-
-  add_drive_to_handle_at (g, drv, drv_index);
-
-  /* Call into the appliance to wait for the new drive to appear. */
-  if (guestfs_internal_hot_add_drive (g, drv->disk_label) == -1)
-    return -1;
-
-  return 0;
-}
-
 int
 guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
@@ -434,6 +392,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   int port;
   int use_cache_none;
   struct drive *drv;
+  size_t i, drv_index;
 
   if (strchr (filename, ':') != NULL) {
     error (g, _("filename cannot contain ':' (colon) character. "
@@ -528,10 +487,43 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     return -1;
 
   /* Add the drive. */
-  if (add_drive (g, drv) == -1) {
+  if (g->state == CONFIG) {
+    /* Not hotplugging, so just add it to the handle. */
+    add_drive_to_handle (g, drv); /* drv is now owned by the handle */
+    return 0;
+  }
+
+  /* ... else, hotplugging case. */
+  if (!g->attach_ops || !g->attach_ops->hot_add_drive) {
+    error (g, _("the current attach-method does not support hotplugging drives"));
     free_drive_struct (drv);
     return -1;
   }
+
+  if (!drv->disk_label) {
+    error (g, _("'label' is required when hotplugging drives"));
+    free_drive_struct (drv);
+    return -1;
+  }
+
+  /* Get the first free index, or add it at the end. */
+  drv_index = g->nr_drives;
+  for (i = 0; i < g->nr_drives; ++i)
+    if (g->drives[i] == NULL)
+      drv_index = i;
+
+  /* Hot-add the drive. */
+  if (g->attach_ops->hot_add_drive (g, drv, drv_index) == -1) {
+    free_drive_struct (drv);
+    return -1;
+  }
+
+  add_drive_to_handle_at (g, drv, drv_index);
+  /* drv is now owned by the handle */
+
+  /* Call into the appliance to wait for the new drive to appear. */
+  if (guestfs_internal_hot_add_drive (g, drv->disk_label) == -1)
+    return -1;
 
   return 0;
 }
