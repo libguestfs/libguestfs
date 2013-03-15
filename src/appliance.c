@@ -355,6 +355,7 @@ check_for_cached_appliance (guestfs_h *g,
   snprintf (filename, len, "%s/checksum", cachedir);
 
   ignore_value (mkdir (cachedir, 0755));
+  ignore_value (chmod (cachedir, 0755)); /* RHBZ#921292 */
 
   /* See if the cache directory exists and passes some simple checks
    * to make sure it has not been tampered with.
