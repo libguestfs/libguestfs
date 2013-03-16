@@ -789,8 +789,7 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
   case OS_TYPE_DOS:
   case OS_TYPE_OPENBSD:
   case OS_TYPE_UNKNOWN:
-  default:
-    /* nothing, keep GCC warnings happy */;
+    /* nothing */;
   }
 
   return 0;
@@ -1243,9 +1242,6 @@ map_md_devices(guestfs_h *g, Hash_table **map)
                 app->path);
           mdadm_app_free(entry);
           continue;
-
-        default:
-          ;;
       }
     } else
       free (dev);

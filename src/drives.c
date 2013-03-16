@@ -161,8 +161,6 @@ free_drive_struct (struct drive *drv)
     free (drv->u.nbd.server);
     free (drv->u.nbd.exportname);
     break;
-  default:
-    abort ();
   }
 
   free (drv->format);
@@ -196,8 +194,6 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
                          drv->u.nbd.server, drv->u.nbd.port,
                          drv->u.nbd.exportname);
     break;
-  default:
-    abort ();
   }
 
   return safe_asprintf

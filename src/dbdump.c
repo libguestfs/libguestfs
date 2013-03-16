@@ -163,9 +163,6 @@ read_db_dump_line (guestfs_h *g, void *datav, const char *line, size_t len)
     data->state = reading_key;
     return;
   }
-
-  default:
-    abort ();
   }
 }
 

@@ -58,9 +58,10 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
   case QEMU_IMG_INFO_OLD_PARSER:
     return old_parser_disk_format (g, filename);
   case QEMU_IMG_INFO_UNKNOWN_PARSER:
-  default:
     abort ();
   }
+
+  abort ();
 }
 
 int64_t
@@ -72,9 +73,10 @@ guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
   case QEMU_IMG_INFO_OLD_PARSER:
     return old_parser_disk_virtual_size (g, filename);
   case QEMU_IMG_INFO_UNKNOWN_PARSER:
-  default:
     abort ();
   }
+
+  abort ();
 }
 
 int
@@ -86,9 +88,10 @@ guestfs__disk_has_backing_file (guestfs_h *g, const char *filename)
   case QEMU_IMG_INFO_OLD_PARSER:
     return old_parser_disk_has_backing_file (g, filename);
   case QEMU_IMG_INFO_UNKNOWN_PARSER:
-  default:
     abort ();
   }
+
+  abort ();
 }
 
 #if HAVE_YAJL

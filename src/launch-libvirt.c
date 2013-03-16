@@ -1135,9 +1135,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
       return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
     break;
-
-  default:
-    abort ();
   }
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
@@ -1571,9 +1568,6 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
       drv_priv->format = safe_strdup (g, "qcow2");
     }
     break;
-
-  default:
-    abort ();
   }
 
   return 0;
@@ -1592,8 +1586,6 @@ drive_free_priv (void *priv)
     free (drv_priv->u.nbd.server);
     free (drv_priv->u.nbd.exportname);
     break;
-  default:
-    abort ();
   }
 
   free (drv_priv->format);

@@ -603,7 +603,7 @@ guestfs__set_attach_method (guestfs_h *g, const char *method)
 char *
 guestfs__get_attach_method (guestfs_h *g)
 {
-  char *ret;
+  char *ret = NULL;
 
   switch (g->attach_method) {
   case ATTACH_METHOD_APPLIANCE:
@@ -620,10 +620,10 @@ guestfs__get_attach_method (guestfs_h *g)
   case ATTACH_METHOD_UNIX:
     ret = safe_asprintf (g, "unix:%s", g->attach_method_arg);
     break;
-
-  default: /* keep GCC happy - this is not reached */
-    abort ();
   }
+
+  if (ret == NULL)
+    abort ();
 
   return ret;
 }

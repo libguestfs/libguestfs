@@ -957,8 +957,6 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
                             drv->u.nbd.server, drv->u.nbd.port,
                             drv->u.nbd.exportname);
     break;
-  default:
-    abort ();
   }
 
   /* Escape the file= parameter.  Every ',' becomes ',,'. */

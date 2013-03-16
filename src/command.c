@@ -323,7 +323,6 @@ finish_command (struct command *cmd)
     break;
 
   case COMMAND_STYLE_NOT_SELECTED:
-  default:
     abort ();
   }
 }
@@ -354,7 +353,6 @@ debug_command (struct command *cmd)
     break;
 
   case COMMAND_STYLE_NOT_SELECTED:
-  default:
     abort ();
   }
 }
@@ -478,7 +476,6 @@ run_command (struct command *cmd)
     _exit (EXIT_FAILURE);
 
   case COMMAND_STYLE_NOT_SELECTED:
-  default:
     abort ();
   }
   /*NOTREACHED*/
@@ -645,9 +642,6 @@ guestfs___cmd_close (struct command *cmd)
   case COMMAND_STYLE_SYSTEM:
     free (cmd->string.str);
     break;
-
-  default:
-    abort ();
   }
 
   if (cmd->errorfd >= 0)

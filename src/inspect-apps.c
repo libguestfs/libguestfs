@@ -147,8 +147,7 @@ guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
       case OS_PACKAGE_FORMAT_PISI:
       case OS_PACKAGE_FORMAT_PKGSRC:
       case OS_PACKAGE_FORMAT_UNKNOWN:
-      default:
-        /* nothing - keep GCC happy */;
+        ; /* nothing */
       }
       break;
 
@@ -163,8 +162,7 @@ guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
     case OS_TYPE_DOS:
     case OS_TYPE_OPENBSD:
     case OS_TYPE_UNKNOWN:
-    default:
-      /* nothing - keep GCC happy */;
+      ; /* nothing */
     }
   }
 

@@ -153,6 +153,7 @@ if test "$gl_gcc_warnings" = yes; then
     nw="$nw -Wsuggest-attribute=pure" # Don't suggest pure functions.
     nw="$nw -Wsuggest-attribute=const" # Don't suggest const functions.
     nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
+    nw="$nw -Wswitch-default"        # This warning is actively dangerous.
 
     gl_MANYWARN_ALL_GCC([ws])
     gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])

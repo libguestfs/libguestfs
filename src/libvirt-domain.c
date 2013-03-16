@@ -275,7 +275,7 @@ add_disk (guestfs_h *g,
   struct add_disk_data *data = datavp;
   /* Copy whole struct so we can make local changes: */
   struct guestfs_add_drive_opts_argv optargs = data->optargs;
-  int readonly, error = 0, skip = 0;
+  int readonly = -1, error = 0, skip = 0;
 
   if (readonly_in_xml) {        /* <readonly/> appears in the XML */
     if (data->readonly) {       /* asked to add disk read-only */
@@ -284,7 +284,6 @@ add_disk (guestfs_h *g,
       case readonlydisk_read: readonly = 1; break;
       case readonlydisk_write: readonly = 1; break;
       case readonlydisk_ignore: skip = 1; break;
-      default: abort ();
       }
     } else {                    /* asked to add disk for read/write */
       switch (data->readonlydisk) {
@@ -292,7 +291,6 @@ add_disk (guestfs_h *g,
       case readonlydisk_read: readonly = 1; break;
       case readonlydisk_write: readonly = 0; break;
       case readonlydisk_ignore: skip = 1; break;
-      default: abort ();
       }
     }
   } else                        /* no <readonly/> in XML */
@@ -306,6 +304,9 @@ add_disk (guestfs_h *g,
            filename);
     return -1;
   }
+
+  if (readonly == -1)
+    abort ();
 
   optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
   optargs.readonly = readonly;
