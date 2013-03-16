@@ -467,6 +467,7 @@ guestfs___check_package_format (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_BUILDROOT:
   case OS_DISTRO_CIRROS:
   case OS_DISTRO_FREEDOS:
+  case OS_DISTRO_OPENBSD:
   case OS_DISTRO_UNKNOWN:
   default:
     fs->package_format = OS_PACKAGE_FORMAT_UNKNOWN;
@@ -525,6 +526,7 @@ guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_BUILDROOT:
   case OS_DISTRO_CIRROS:
   case OS_DISTRO_FREEDOS:
+  case OS_DISTRO_OPENBSD:
   case OS_DISTRO_UNKNOWN:
   default:
     fs->package_management = OS_PACKAGE_MANAGEMENT_UNKNOWN;
