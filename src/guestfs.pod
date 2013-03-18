@@ -644,18 +644,21 @@ Libguestfs can access Network Block Device (NBD) disks remotely.
 To do this, set the optional C<protocol> and C<server> parameters of
 L</guestfs_add_drive_opts> like this:
 
+ char **server = { "nbd.example.org:3000", NULL };
  guestfs_add_drive_opts (g, "" /* export name - see below */,
                          GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                          GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "nbd",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, "localhost",
+                         GUESTFS_ADD_DRIVE_OPTS_SERVER, server,
                          -1);
-
-You can also specify the optional C<port> number if the NBD server is
-running on a non-default port.
 
 Notes:
 
 =over 4
+
+=item *
+
+If the port number is omitted then the standard NBD port is
+used (see C</etc/services>).
 
 =item *
 

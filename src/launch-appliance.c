@@ -951,10 +951,13 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
     break;
   case drive_protocol_nbd:
     if (STREQ (drv->src.u.exportname, ""))
-      file = safe_asprintf (g, "nbd:%s:%d", drv->src.server, drv->src.port);
+      file = safe_asprintf (g, "nbd:%s:%d",
+                            drv->src.servers[0].hostname,
+                            drv->src.servers[0].port);
     else
       file = safe_asprintf (g, "nbd:%s:%d:exportname=%s",
-                            drv->src.server, drv->src.port,
+                            drv->src.servers[0].hostname,
+                            drv->src.servers[0].port,
                             drv->src.u.exportname);
     break;
   }

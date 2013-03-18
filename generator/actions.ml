@@ -1247,7 +1247,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OString "server"; OInt "port"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -1343,15 +1343,14 @@ See: L<guestfs(3)/NETWORK BLOCK DEVICES>.
 =item C<server>
 
 For protocols which require access to a remote server, this
-is the name of the server.
+is a list of servers and port numbers.  Each element is a
+string in one of the following formats:
 
-=item C<port>
+ server
+ server:port
 
-For protocols which require access to a remote server, this
-is the port number of the service.
-
-If not specified, this defaults to the standard port for
-the protocol, eg. 10809 when C<protocol> is C<\"nbd\">.
+If the port number is omitted, then the standard port number
+for the protocol is used (see C</etc/services>).
 
 =back" };
 

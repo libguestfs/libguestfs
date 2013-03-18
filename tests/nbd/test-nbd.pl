@@ -60,7 +60,7 @@ for $readonly (1, 0) {
 
     # Add an NBD drive.
     $g->add_drive ("", readonly => $readonly, format => "raw",
-                   protocol => "nbd", server => "localhost", port => $port);
+                   protocol => "nbd", server => ["localhost:$port"]);
 
     # XXX qemu-nbd lacks any way to tell if it is awake and listening
     # for connections.  It could write a pid file or something.  Could

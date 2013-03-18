@@ -1125,8 +1125,9 @@ construct_libvirt_xml_disk (guestfs_h *g,
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "host"));
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                           BAD_CAST drv_priv->real_src.server));
-    snprintf (port_str, sizeof port_str, "%d", drv_priv->real_src.port);
+                                           BAD_CAST drv_priv->real_src.servers[0].hostname));
+    snprintf (port_str, sizeof port_str, "%d",
+              drv_priv->real_src.servers[0].port);
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "port",
                                            BAD_CAST port_str));
@@ -1542,10 +1543,7 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
 
   case drive_protocol_nbd:
     if (!drv->readonly) {
-      drv_priv->real_src.protocol = drive_protocol_nbd;
-      drv_priv->real_src.server = safe_strdup (g, drv->src.server);
-      drv_priv->real_src.port = drv->src.port;
-      drv_priv->real_src.u.exportname = safe_strdup (g, drv->src.u.exportname);
+      guestfs___copy_drive_source (g, &drv->src, &drv_priv->real_src);
       drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
     }
     else {
@@ -1553,11 +1551,14 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
 
       if (STREQ (drv->src.u.exportname, ""))
         nbd_device =
-          safe_asprintf (g, "nbd:%s:%d", drv->src.server, drv->src.port);
+          safe_asprintf (g, "nbd:%s:%d",
+                         drv->src.servers[0].hostname,
+                         drv->src.servers[0].port);
       else
         nbd_device =
           safe_asprintf (g, "nbd:%s:%d:exportname=%s",
-                         drv->src.server, drv->src.port,
+                         drv->src.servers[0].hostname,
+                         drv->src.servers[0].port,
                          drv->src.u.exportname);
 
       drv_priv->real_src.protocol = drive_protocol_file;

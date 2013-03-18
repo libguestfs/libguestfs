@@ -118,6 +118,11 @@ enum drive_protocol {
   drive_protocol_nbd,
 };
 
+struct drive_server {
+  char *hostname;               /* hostname or IP address as a string */
+  int port;                     /* port number */
+};
+
 struct drive_source {
   enum drive_protocol protocol;
 
@@ -127,9 +132,12 @@ struct drive_source {
     char *exportname;           /* name of export (nbd) */
   } u;
 
-  /* For network transports. */
-  char *server;                 /* server (nbd) */
-  int port;                     /* port number (nbd) */
+  /* For network transports, zero or more servers can be specified here.
+   *
+   * - for protocol "nbd": exactly one server
+   */
+  size_t nr_servers;
+  struct drive_server *servers;
 };
 
 struct drive {
@@ -584,6 +592,7 @@ extern size_t guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
+extern void guestfs___copy_drive_source (guestfs_h *g, const struct drive_source *src, struct drive_source *dest);
 extern void guestfs___free_drive_source (struct drive_source *src);
 
 /* appliance.c */
