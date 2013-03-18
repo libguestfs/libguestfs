@@ -227,22 +227,7 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
 {
   CLEANUP_FREE char *p = NULL;
 
-  switch (drv->src.protocol) {
-  case drive_protocol_file:
-    p = safe_asprintf (g, "path=%s", drv->src.u.path);
-    break;
-  case drive_protocol_nbd:
-    if (STREQ (drv->src.u.exportname, ""))
-      p = safe_asprintf (g, "nbd=%s:%d",
-                         drv->src.servers[0].hostname,
-                         drv->src.servers[0].port);
-    else
-      p = safe_asprintf (g, "nbd=%s:%d:exportname=%s",
-                         drv->src.servers[0].hostname,
-                         drv->src.servers[0].port,
-                         drv->src.u.exportname);
-    break;
-  }
+  p = guestfs___drive_source_qemu_param (g, &drv->src);
 
   return safe_asprintf
     (g, "%s%s%s%s%s%s%s%s%s%s%s",
@@ -797,8 +782,8 @@ guestfs__debug_drives (guestfs_h *g)
   return ret;                   /* caller frees */
 }
 
-/* The drive_source struct is also used in the libvirt attach-method,
- * so we also have these utility functions.
+/* The drive_source struct is also used in the attach methods, so we
+ * also have these utility functions.
  */
 void
 guestfs___copy_drive_source (guestfs_h *g,
@@ -817,6 +802,32 @@ guestfs___copy_drive_source (guestfs_h *g,
       dest->servers[i].hostname = safe_strdup (g, src->servers[i].hostname);
     dest->servers[i].port = src->servers[i].port;
   }
+}
+
+char *
+guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
+{
+  /* Note that the qemu parameter is the bit after "file=".  It is not
+   * escaped here, but would usually be escaped if passed to qemu as
+   * part of a full -drive parameter (but not for qemu-img).
+   */
+  switch (src->protocol) {
+  case drive_protocol_file:
+    return safe_strdup (g, src->u.path);
+
+  case drive_protocol_nbd:
+    if (STREQ (src->u.exportname, ""))
+      return safe_asprintf (g, "nbd:%s:%d",
+                            src->servers[0].hostname,
+                            src->servers[0].port);
+    else
+      return safe_asprintf (g, "nbd:%s:%d:exportname=%s",
+                            src->servers[0].hostname,
+                            src->servers[0].port,
+                            src->u.exportname);
+  }
+
+  abort ();
 }
 
 void

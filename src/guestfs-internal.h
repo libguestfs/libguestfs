@@ -593,6 +593,7 @@ extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
 extern void guestfs___copy_drive_source (guestfs_h *g, const struct drive_source *src, struct drive_source *dest);
+extern char *guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 extern void guestfs___free_drive_source (struct drive_source *src);
 
 /* appliance.c */

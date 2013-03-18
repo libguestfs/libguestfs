@@ -945,22 +945,7 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
   char *p;
 
   /* Make the file= parameter. */
-  switch (drv->src.protocol) {
-  case drive_protocol_file:
-    file = safe_strdup (g, drv->src.u.path);
-    break;
-  case drive_protocol_nbd:
-    if (STREQ (drv->src.u.exportname, ""))
-      file = safe_asprintf (g, "nbd:%s:%d",
-                            drv->src.servers[0].hostname,
-                            drv->src.servers[0].port);
-    else
-      file = safe_asprintf (g, "nbd:%s:%d:exportname=%s",
-                            drv->src.servers[0].hostname,
-                            drv->src.servers[0].port,
-                            drv->src.u.exportname);
-    break;
-  }
+  file = guestfs___drive_source_qemu_param (g, &drv->src);
 
   /* Escape the file= parameter.  Every ',' becomes ',,'. */
   len = strlen (file);

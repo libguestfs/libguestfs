@@ -1549,19 +1549,8 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
     else {
       CLEANUP_FREE char *nbd_device;
 
-      if (STREQ (drv->src.u.exportname, ""))
-        nbd_device =
-          safe_asprintf (g, "nbd:%s:%d",
-                         drv->src.servers[0].hostname,
-                         drv->src.servers[0].port);
-      else
-        nbd_device =
-          safe_asprintf (g, "nbd:%s:%d:exportname=%s",
-                         drv->src.servers[0].hostname,
-                         drv->src.servers[0].port,
-                         drv->src.u.exportname);
-
       drv_priv->real_src.protocol = drive_protocol_file;
+      nbd_device = guestfs___drive_source_qemu_param (g, &drv->src);
       drv_priv->real_src.u.path = make_qcow2_overlay (g, nbd_device,
                                                       drv->format,
                                                       selinux_imagelabel);
