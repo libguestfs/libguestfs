@@ -117,18 +117,22 @@ enum drive_protocol {
   drive_protocol_file,
   drive_protocol_nbd,
 };
-union drive_source {
-  char *path;                   /* protocol = "file" */
-  struct {                      /* protocol = "nbd" */
-    char *server;
-    int port;
-    char *exportname;
-  } nbd;
+struct drive_source {
+  enum drive_protocol protocol;
+
+  /* This field is always non-NULL.  It may be an empty string. */
+  union {
+    char *path;                 /* path to file (file) */
+    char *exportname;           /* name of export (nbd) */
+  } u;
+
+  /* For network transports. */
+  char *server;                 /* server (nbd) */
+  int port;                     /* port number (nbd) */
 };
 
 struct drive {
-  enum drive_protocol protocol;
-  union drive_source u;
+  struct drive_source src;
 
   bool readonly;
   char *format;

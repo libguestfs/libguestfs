@@ -49,10 +49,10 @@ create_drive_file (guestfs_h *g, const char *path,
                    const char *disk_label,
                    bool use_cache_none)
 {
-  struct drive *drv = safe_malloc (g, sizeof (struct drive));
+  struct drive *drv = safe_calloc (g, 1, sizeof *drv);
 
-  drv->protocol = drive_protocol_file;
-  drv->u.path = safe_strdup (g, path);
+  drv->src.protocol = drive_protocol_file;
+  drv->src.u.path = safe_strdup (g, path);
 
   drv->readonly = readonly;
   drv->format = format ? safe_strdup (g, format) : NULL;
@@ -74,12 +74,12 @@ create_drive_nbd (guestfs_h *g,
                   const char *disk_label,
                   bool use_cache_none)
 {
-  struct drive *drv = safe_malloc (g, sizeof (struct drive));
+  struct drive *drv = safe_calloc (g, 1, sizeof *drv);
 
-  drv->protocol = drive_protocol_nbd;
-  drv->u.nbd.server = safe_strdup (g, server);
-  drv->u.nbd.port = port;
-  drv->u.nbd.exportname = safe_strdup (g, exportname);
+  drv->src.protocol = drive_protocol_nbd;
+  drv->src.server = safe_strdup (g, server);
+  drv->src.port = port;
+  drv->src.u.exportname = safe_strdup (g, exportname);
 
   drv->readonly = readonly;
   drv->format = format ? safe_strdup (g, format) : NULL;
@@ -153,15 +153,8 @@ create_drive_dummy (guestfs_h *g)
 static void
 free_drive_struct (struct drive *drv)
 {
-  switch (drv->protocol) {
-  case drive_protocol_file:
-    free (drv->u.path);
-    break;
-  case drive_protocol_nbd:
-    free (drv->u.nbd.server);
-    free (drv->u.nbd.exportname);
-    break;
-  }
+  free (drv->src.u.path);
+  free (drv->src.server);
 
   free (drv->format);
   free (drv->iface);
@@ -182,17 +175,17 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
 {
   CLEANUP_FREE char *p = NULL;
 
-  switch (drv->protocol) {
+  switch (drv->src.protocol) {
   case drive_protocol_file:
-    p = safe_asprintf (g, "path=%s", drv->u.path);
+    p = safe_asprintf (g, "path=%s", drv->src.u.path);
     break;
   case drive_protocol_nbd:
-    if (STREQ (drv->u.nbd.exportname, ""))
-      p = safe_asprintf (g, "nbd=%s:%d", drv->u.nbd.server, drv->u.nbd.port);
+    if (STREQ (drv->src.u.exportname, ""))
+      p = safe_asprintf (g, "nbd=%s:%d", drv->src.server, drv->src.port);
     else
       p = safe_asprintf (g, "nbd=%s:%d:exportname=%s",
-                         drv->u.nbd.server, drv->u.nbd.port,
-                         drv->u.nbd.exportname);
+                         drv->src.server, drv->src.port,
+                         drv->src.u.exportname);
     break;
   }
 
