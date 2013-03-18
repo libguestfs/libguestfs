@@ -584,6 +584,7 @@ extern size_t guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
+extern void guestfs___free_drive_source (struct drive_source *src);
 
 /* appliance.c */
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);

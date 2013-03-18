@@ -150,12 +150,20 @@ create_drive_dummy (guestfs_h *g)
   return create_drive_file (g, "", 0, NULL, NULL, NULL, NULL, 0);
 }
 
+/* The drive_source struct is also used in the libvirt attach-method. */
+void
+guestfs___free_drive_source (struct drive_source *src)
+{
+  if (src) {
+    free (src->u.path);
+    free (src->server);
+  }
+}
+
 static void
 free_drive_struct (struct drive *drv)
 {
-  free (drv->src.u.path);
-  free (drv->src.server);
-
+  guestfs___free_drive_source (&drv->src);
   free (drv->format);
   free (drv->iface);
   free (drv->name);

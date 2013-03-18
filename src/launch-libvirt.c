@@ -1579,8 +1579,7 @@ drive_free_priv (void *priv)
 {
   struct drive_libvirt *drv_priv = priv;
 
-  free (drv_priv->real_src.u.path);
-  free (drv_priv->real_src.server);
+  guestfs___free_drive_source (&drv_priv->real_src);
   free (drv_priv->format);
   free (drv_priv);
 }
