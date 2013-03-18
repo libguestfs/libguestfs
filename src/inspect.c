@@ -32,10 +32,6 @@
 #include <endian.h>
 #endif
 
-#include <pcre.h>
-
-#include "xstrtol.h"
-
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
