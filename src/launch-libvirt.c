@@ -698,6 +698,7 @@ static int construct_libvirt_xml_lifecycle (guestfs_h *g, const struct libvirt_x
 static int construct_libvirt_xml_devices (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
+static int construct_libvirt_xml_disk_source_hosts (guestfs_h *g, xmlTextWriterPtr xo, const struct drive_source *src);
 static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 
@@ -1045,7 +1046,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
 {
   char drive_name[64] = "sd";
   char scsi_target[64];
-  char port_str[64];
   struct drive_libvirt *drv_priv = (struct drive_libvirt *) drv->priv;
   CLEANUP_FREE char *format = NULL;
   int is_host_device;
@@ -1109,6 +1109,10 @@ construct_libvirt_xml_disk (guestfs_h *g,
      *   <disk type=network device=disk>
      *     <source protocol=nbd>
      *       <host name='example.com' port='10809'/>
+     * or:
+     *   <disk type=network device=disk>
+     *     <source protocol=nbd>
+     *       <host transport='unix' socket='/path/to/socket'/>
      */
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
@@ -1122,16 +1126,9 @@ construct_libvirt_xml_disk (guestfs_h *g,
       XMLERROR (-1,
                 xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
                                              BAD_CAST drv_priv->real_src.u.exportname));
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "host"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                           BAD_CAST drv_priv->real_src.servers[0].hostname));
-    snprintf (port_str, sizeof port_str, "%d",
-              drv_priv->real_src.servers[0].port);
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "port",
-                                           BAD_CAST port_str));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    if (construct_libvirt_xml_disk_source_hosts (g, xo,
+                                                 &drv_priv->real_src) == -1)
+      return -1;
     if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
       return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
@@ -1221,6 +1218,55 @@ construct_libvirt_xml_disk (guestfs_h *g,
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
+
+  return 0;
+}
+
+static int
+construct_libvirt_xml_disk_source_hosts (guestfs_h *g,
+                                         xmlTextWriterPtr xo,
+                                         const struct drive_source *src)
+{
+  size_t i;
+
+  for (i = 0; i < src->nr_servers; ++i) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "host"));
+
+    switch (src->servers[i].transport) {
+    case drive_transport_none:
+    case drive_transport_tcp: {
+      const char *hostname;
+      int port;
+      char port_str[64];
+
+      hostname = src->servers[i].u.hostname;
+      port = src->servers[i].port;
+      snprintf (port_str, sizeof port_str, "%d", port);
+
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
+                                             BAD_CAST hostname));
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "port",
+                                             BAD_CAST port_str));
+      break;
+    }
+
+    case drive_transport_unix: {
+      const char *socket = src->servers[i].u.socket;
+
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "transport",
+                                             BAD_CAST "unix"));
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "socket",
+                                             BAD_CAST socket));
+      break;
+    }
+    }
+
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
 
   return 0;
 }

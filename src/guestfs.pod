@@ -657,8 +657,7 @@ Notes:
 
 =item *
 
-If the port number is omitted then the standard NBD port is
-used (see C</etc/services>).
+The C<server> string is documented in L</guestfs_add_drive_opts>.
 
 =item *
 

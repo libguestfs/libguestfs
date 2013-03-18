@@ -118,8 +118,21 @@ enum drive_protocol {
   drive_protocol_nbd,
 };
 
+enum drive_transport {
+  drive_transport_none = 0,     /* no transport specified */
+  drive_transport_tcp,          /* +tcp */
+  drive_transport_unix,         /* +unix */
+};
+
 struct drive_server {
-  char *hostname;               /* hostname or IP address as a string */
+  enum drive_transport transport;
+
+  /* This field is always non-NULL. */
+  union {
+    char *hostname;             /* hostname or IP address as a string */
+    char *socket;               /* Unix domain socket */
+  } u;
+
   int port;                     /* port number */
 };
 

@@ -197,9 +197,8 @@ free_drive_servers (struct drive_server *servers, size_t nr_servers)
   if (servers) {
     size_t i;
 
-    for (i = 0; i < nr_servers; ++i) {
-      free (servers[i].hostname);
-    }
+    for (i = 0; i < nr_servers; ++i)
+      free (servers[i].u.hostname);
     free (servers);
   }
 }
@@ -411,6 +410,27 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
   char *port_str;
   int port;
 
+  ret->transport = drive_transport_none;
+
+  if (STRPREFIX (server, "tcp:")) {
+    /* Explicit tcp: prefix means to skip the unix test. */
+    server += 4;
+    ret->transport = drive_transport_tcp;
+    goto skip_unix;
+  }
+
+  if (STRPREFIX (server, "unix:")) {
+    if (strlen (server) == 5) {
+      error (g, _("missing Unix domain socket path"));
+      return -1;
+    }
+    ret->transport = drive_transport_unix;
+    ret->u.socket = safe_strdup (g, server+5);
+    ret->port = 0;
+    return 0;
+  }
+ skip_unix:
+
   if (match2 (g, server, re_hostname_port, &hostname, &port_str)) {
     if (sscanf (port_str, "%d", &port) != 1 || !valid_port (port)) {
       error (g, _("invalid port number '%s'"), port_str);
@@ -424,7 +444,7 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
       free (hostname);
       return -1;
     }
-    ret->hostname = hostname;
+    ret->u.hostname = hostname;
     ret->port = port;
     return 0;
   }
@@ -435,7 +455,7 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
     return -1;
   }
 
-  ret->hostname = safe_strdup (g, server);
+  ret->u.hostname = safe_strdup (g, server);
   ret->port = 0;
   return 0;
 }
@@ -798,8 +818,9 @@ guestfs___copy_drive_source (guestfs_h *g,
   dest->servers = safe_calloc (g, src->nr_servers,
                                sizeof (struct drive_server));
   for (i = 0; i < src->nr_servers; ++i) {
-    if (src->servers[i].hostname)
-      dest->servers[i].hostname = safe_strdup (g, src->servers[i].hostname);
+    dest->servers[i].transport = src->servers[i].transport;
+    if (src->servers[i].u.hostname)
+      dest->servers[i].u.hostname = safe_strdup (g, src->servers[i].u.hostname);
     dest->servers[i].port = src->servers[i].port;
   }
 }
@@ -815,16 +836,29 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   case drive_protocol_file:
     return safe_strdup (g, src->u.path);
 
-  case drive_protocol_nbd:
+  case drive_protocol_nbd: {
+    CLEANUP_FREE char *p = NULL;
+    char *ret;
+
+    switch (src->servers[0].transport) {
+    case drive_transport_none:
+    case drive_transport_tcp:
+      p = safe_asprintf (g, "nbd:%s:%d",
+                         src->servers[0].u.hostname, src->servers[0].port);
+      break;
+    case drive_transport_unix:
+      p = safe_asprintf (g, "nbd:unix:%s", src->servers[0].u.socket);
+      break;
+    }
+    assert (p);
+
     if (STREQ (src->u.exportname, ""))
-      return safe_asprintf (g, "nbd:%s:%d",
-                            src->servers[0].hostname,
-                            src->servers[0].port);
+      ret = safe_strdup (g, p);
     else
-      return safe_asprintf (g, "nbd:%s:%d:exportname=%s",
-                            src->servers[0].hostname,
-                            src->servers[0].port,
-                            src->u.exportname);
+      ret = safe_asprintf (g, "%s:exportname=%s", p, src->u.exportname);
+
+    return ret;
+  }
   }
 
   abort ();

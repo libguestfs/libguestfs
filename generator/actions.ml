@@ -1348,6 +1348,9 @@ string in one of the following formats:
 
  server
  server:port
+ tcp:server
+ tcp:server:port
+ unix:/path/to/socket
 
 If the port number is omitted, then the standard port number
 for the protocol is used (see C</etc/services>).
