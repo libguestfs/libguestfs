@@ -669,6 +669,12 @@ to mean the default export.
 The libvirt backend requires that you set the C<format> parameter of
 L</guestfs_add_drive_opts> accurately when you use writable NBD disks.
 
+=item *
+
+The appliance backend does not support readonly connections because
+of a bug in qemu:
+L<https://bugs.launchpad.net/qemu/+bug/1155677>
+
 =back
 
 =head2 INSPECTION
