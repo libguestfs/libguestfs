@@ -117,6 +117,7 @@ enum drive_protocol {
   drive_protocol_file,
   drive_protocol_nbd,
 };
+
 struct drive_source {
   enum drive_protocol protocol;
 
