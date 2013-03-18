@@ -1334,22 +1334,28 @@ is omitted.
 
 =item C<protocol = \"nbd\">
 
-Connect to the Network Block Device server at C<server:port>.
+Connect to the Network Block Device server.
+The C<server> parameter must also be supplied - see below.
 
-See: L<guestfs(3)/NETWORK BLOCK DEVICES>.
+See also: L<guestfs(3)/NETWORK BLOCK DEVICES>.
 
 =back
 
 =item C<server>
 
 For protocols which require access to a remote server, this
-is a list of servers and port numbers.  Each element is a
-string in one of the following formats:
+is a list of server(s).
 
- server
- server:port
- tcp:server
- tcp:server:port
+For protocol C<\"file\">, this list must be empty (or the optional
+argument not passed at all).  For protocol C<\"nbd\">, this list
+must contain exactly one element.
+
+Each element is a string in one of the following formats:
+
+ hostname
+ hostname:port
+ tcp:hostname
+ tcp:hostname:port
  unix:/path/to/socket
 
 If the port number is omitted, then the standard port number

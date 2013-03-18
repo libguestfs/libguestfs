@@ -657,23 +657,44 @@ Notes:
 
 =item *
 
-The C<server> string is documented in L</guestfs_add_drive_opts>.
+C<server> is in fact a list of servers.  For NBD you must always
+supply a list with a single element.  (Other remote protocols require
+zero or more than one server, hence the requirement for this parameter
+to be a list).
+
+=item *
+
+The C<server> string is documented in L</guestfs_add_drive_opts>.  To
+connect to a local qemu-nbd instance over a Unix domain socket, use
+C<"unix:/path/to/socket">.
 
 =item *
 
 The C<filename> parameter is the NBD export name.  Use an empty string
-to mean the default export.
-
-(Not all NBD servers support this feature.)
-
-=item *
-
-The libvirt backend requires that you set the C<format> parameter of
-L</guestfs_add_drive_opts> accurately when you use writable NBD disks.
+to mean the default export.  Many NBD servers, including qemu-nbd, do
+not support export names.
 
 =item *
 
-The appliance backend does not support readonly connections because
+If using qemu-nbd as your server, you should always specify the C<-t>
+option.  The reason is that libguestfs may open several connections to
+the server.
+
+=item *
+
+The libvirt attach-method requires that you set the C<format>
+parameter of L</guestfs_add_drive_opts> accurately when you use
+writable NBD disks.
+
+=item *
+
+The libvirt attach-method has a bug that stops Unix domain socket
+connections from working:
+L<https://bugzilla.redhat.com/show_bug.cgi?id=922888>
+
+=item *
+
+The appliance attach-method does not support readonly connections because
 of a bug in qemu:
 L<https://bugs.launchpad.net/qemu/+bug/1155677>
 
