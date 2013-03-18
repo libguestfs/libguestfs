@@ -460,25 +460,31 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
   return 0;
 }
 
-static struct drive_server *
-parse_servers (guestfs_h *g, char * const *servers, size_t *nr_servers_rtn)
+static ssize_t
+parse_servers (guestfs_h *g, char *const *strs,
+               struct drive_server **servers_rtn)
 {
   size_t i;
-  size_t n = guestfs___count_strings (servers);
-  struct drive_server *ret;
+  size_t n = guestfs___count_strings (strs);
+  struct drive_server *servers;
 
-  ret = safe_calloc (g, n, sizeof (struct drive_server));
+  if (n == 0) {
+    *servers_rtn = NULL;
+    return 0;
+  }
+
+  servers = safe_calloc (g, n, sizeof (struct drive_server));
 
   for (i = 0; i < n; ++i) {
-    if (parse_one_server (g, servers[i], &ret[i]) == -1) {
+    if (parse_one_server (g, strs[i], &servers[i]) == -1) {
       if (i > 0)
-        free_drive_servers (ret, i-1);
-      return NULL;
+        free_drive_servers (servers, i-1);
+      return -1;
     }
   }
 
-  *nr_servers_rtn = n;
-  return ret;
+  *servers_rtn = servers;
+  return n;
 }
 
 static int
@@ -528,9 +534,10 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   protocol = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_PROTOCOL_BITMASK
     ? optargs->protocol : "file";
   if (optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_SERVER_BITMASK) {
-    servers = parse_servers (g, optargs->server, &nr_servers);
-    if (!servers)
+    ssize_t r = parse_servers (g, optargs->server, &servers);
+    if (r == -1)
       return -1;
+    nr_servers = r;
   }
 
   if (format && !valid_format_iface (format)) {
