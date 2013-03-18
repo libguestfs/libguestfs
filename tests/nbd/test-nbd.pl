@@ -35,6 +35,9 @@ if (! -r $disk || -z $disk) {
     exit 77
 }
 
+my $pid = 0;
+END { kill 15, $pid if $pid > 0 };
+
 # Since read-only and read-write paths are quite different, we have to
 # test both separately.
 my $readonly;
@@ -50,7 +53,7 @@ for $readonly (1, 0) {
 
     # Run the NBD server.
     print "Starting qemu-nbd server on port $port ...\n";
-    my $pid = fork ();
+    $pid = fork ();
     if ($pid == 0) {
         exec ("qemu-nbd", $disk, "-p", $port, "-t");
         die "qemu-nbd: $!";
@@ -79,6 +82,7 @@ for $readonly (1, 0) {
     $g->close ();
     kill 15, $pid;
     waitpid ($pid, 0) or die "waitpid: $pid: $!";
+    $pid = 0;
 }
 
 exit 0
