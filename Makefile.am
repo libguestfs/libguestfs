@@ -336,15 +336,6 @@ check-valgrind-local-guests:
 	  $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@ || exit $$?; \
 	done
 
-check-slow: build-test-guests
-	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
-	  echo $(MAKE) -C `dirname $$f` $@; \
-	  $(MAKE) -C `dirname $$f` $@ || exit $$?; \
-	done
-
-build-test-guests:
-	$(MAKE) -C tests/guests check
-
 check-with-appliance:
 	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
 	if [ "$$method" != "appliance" ]; then \
@@ -375,6 +366,15 @@ check-with-upstream-libvirt:
 	if [ "$$method" = "libvirt" ] && [ -x "$(LIBVIRTDIR)/run" ]; then \
 	  $(LIBVIRTDIR)/run $(MAKE) check || exit $$?; \
 	fi
+
+check-slow: build-test-guests
+	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
+	  echo $(MAKE) -C `dirname $$f` $@; \
+	  $(MAKE) -C `dirname $$f` $@ || exit $$?; \
+	done
+
+build-test-guests:
+	$(MAKE) -C tests/guests check
 
 # Print subdirs.
 #
