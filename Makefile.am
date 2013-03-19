@@ -319,8 +319,8 @@ quickcheck:
 
 extra-tests:
 	$(MAKE) -j1 \
-	  valgrind \
-	  valgrind-local-guests \
+	  check-valgrind \
+	  check-valgrind-local-guests \
 	  check-with-appliance \
 	  check-with-upstream-qemu \
 	  check-with-upstream-libvirt \
