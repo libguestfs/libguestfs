@@ -322,6 +322,7 @@ extra-tests:
 	  check-valgrind \
 	  check-valgrind-local-guests \
 	  check-with-appliance \
+	  check-valgrind-with-appliance \
 	  check-with-upstream-qemu \
 	  check-with-upstream-libvirt \
 	  check-slow
@@ -343,6 +344,12 @@ check-with-appliance:
 	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
 	if [ "$$method" != "appliance" ]; then \
 	  $(MAKE) LIBGUESTFS_ATTACH_METHOD=appliance check || exit $$?; \
+	fi
+
+check-valgrind-with-appliance:
+	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
+	if [ "$$method" != "appliance" ]; then \
+	  $(MAKE) LIBGUESTFS_ATTACH_METHOD=appliance check-valgrind || exit $$?; \
 	fi
 
 QEMUDIR = $(HOME)/d/qemu
@@ -404,12 +411,13 @@ help:
 	@echo "make -k check                       ... and display all errors at once."
 	@echo
 	@echo "make extra-tests                  ... runs all of the following tests:"
-	@echo "  make check-valgrind               Run a subset of the tests under valgrind."
-	@echo "  make check-valgrind-local-guests  Test under valgrind using local guests."
-	@echo "  make check-with-appliance         Test using appliance attach-method."
-	@echo "  make check-with-upstream-qemu     Test using upstream qemu."
-	@echo "  make check-with-upstream-libvirt  Test using upstream libvirt."
-	@echo "  make check-slow                   Slow/long-running tests."
+	@echo "  make check-valgrind                Run a subset of the tests under valgrind."
+	@echo "  make check-valgrind-local-guests   Test under valgrind using local guests."
+	@echo "  make check-with-appliance          Test using appliance attach-method."
+	@echo "  make check-valgrind-with-appliance Test valgrind + appliance attach-method."
+	@echo "  make check-with-upstream-qemu      Test using upstream qemu."
+	@echo "  make check-with-upstream-libvirt   Test using upstream libvirt."
+	@echo "  make check-slow                    Slow/long-running tests."
 	@echo
 	@echo "make syntax-check                 Check syntax and style problems in the code."
 	@echo "make print-subdirs                Print subdirectories."
