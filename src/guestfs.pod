@@ -3649,6 +3649,11 @@ Runs all tests using default appliance back-end.  This only
 has any effect if a non-default attach-method was selected
 using C<./configure --with-default-attach-method=...>
 
+=item C<make check-valgrind-with-appliance>
+
+Run a subset of the test suite under valgrind using the
+default appliance back-end.
+
 =item C<make check-with-upstream-qemu>
 
 Runs all tests using a local qemu binary.  It looks for the qemu
