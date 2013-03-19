@@ -115,13 +115,19 @@ struct event {
 /* Drives added to the handle. */
 enum drive_protocol {
   drive_protocol_file,
+  drive_protocol_gluster,
   drive_protocol_nbd,
+  drive_protocol_rbd,
+  drive_protocol_sheepdog,
 };
 
 enum drive_transport {
   drive_transport_none = 0,     /* no transport specified */
   drive_transport_tcp,          /* +tcp */
   drive_transport_unix,         /* +unix */
+  /* XXX In theory gluster+rdma could be supported here, but
+   * I have no idea what gluster+rdma URLs would look like.
+   */
 };
 
 struct drive_server {

@@ -637,7 +637,46 @@ Backends that support hotplugging do not require that you add
 E<ge> 1 disk before calling launch.  When hotplugging is supported
 you don't need to add any disks.
 
-=head2 NETWORK BLOCK DEVICES
+=head2 REMOTE STORAGE
+
+=head3 CEPH
+
+Libguestfs can access Ceph (librbd/RBD) disks.
+
+To do this, set the optional C<protocol> and C<server> parameters of
+L</guestfs_add_drive_opts> like this:
+
+ char **servers = { "ceph1.example.org:3000", /* ... */, NULL };
+ guestfs_add_drive_opts (g, "pool/image",
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "rbd",
+                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
+                         -1);
+
+C<servers> (the C<server> parameter) is a list of one or more Ceph
+servers.  The server string is documented in
+L</guestfs_add_drive_opts>.
+
+=head3 GLUSTER
+
+Libguestfs can access Gluster disks.
+
+To do this, set the optional C<protocol> and C<server> parameters of
+L</guestfs_add_drive_opts> like this:
+
+ char **servers = { "gluster.example.org:3000", NULL };
+ guestfs_add_drive_opts (g, "volname/image",
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "gluster",
+                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
+                         -1);
+
+C<servers> (the C<server> parameter) is a list which must have a
+single element.  The single element is a string defining the Gluster
+server.  The format of this string is documented in
+L</guestfs_add_drive_opts>.
+
+=head3 NETWORK BLOCK DEVICE
 
 Libguestfs can access Network Block Device (NBD) disks remotely.
 
@@ -699,6 +738,24 @@ of a bug in qemu:
 L<https://bugs.launchpad.net/qemu/+bug/1155677>
 
 =back
+
+=head3 SHEEPDOG
+
+Libguestfs can access Sheepdog disks.
+
+To do this, set the optional C<protocol> and C<server> parameters of
+L</guestfs_add_drive_opts> like this:
+
+ char **servers = { /* optional servers ... */ NULL };
+ guestfs_add_drive_opts (g, "volume",
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "sheepdog",
+                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
+                         -1);
+
+The optional list of C<servers> may be zero or more server addresses
+(C<"hostname:port">).  The format of the server strings is documented
+in L</guestfs_add_drive_opts>.
 
 =head2 INSPECTION
 

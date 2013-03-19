@@ -1322,7 +1322,9 @@ See L<guestfs(3)/DISK LABELS>.
 =item C<protocol>
 
 The optional protocol argument can be used to select an alternate
-source protocol:
+source protocol.
+
+See also: L<guestfs(3)/REMOTE STORAGE>.
 
 =over 4
 
@@ -1332,12 +1334,33 @@ C<filename> is interpreted as a local file or device.
 This is the default if the optional protocol parameter
 is omitted.
 
+=item C<protocol = \"gluster\">
+
+Connect to the GlusterFS server.
+The C<server> parameter must also be supplied - see below.
+
+See also: L<guestfs(3)/GLUSTER>
+
 =item C<protocol = \"nbd\">
 
 Connect to the Network Block Device server.
 The C<server> parameter must also be supplied - see below.
 
-See also: L<guestfs(3)/NETWORK BLOCK DEVICES>.
+See also: L<guestfs(3)/NETWORK BLOCK DEVICE>.
+
+=item C<protocol = \"rbd\">
+
+Connect to the Ceph (librbd/RBD) server.
+The C<server> parameter must also be supplied - see below.
+
+See also: L<guestfs(3)/CEPH>.
+
+=item C<protocol = \"sheepdog\">
+
+Connect to the Sheepdog server.
+The C<server> parameter may also be supplied - see below.
+
+See also: L<guestfs(3)/SHEEPDOG>.
 
 =back
 
@@ -1346,11 +1369,16 @@ See also: L<guestfs(3)/NETWORK BLOCK DEVICES>.
 For protocols which require access to a remote server, this
 is a list of server(s).
 
-For protocol C<\"file\">, this list must be empty (or the optional
-argument not passed at all).  For protocol C<\"nbd\">, this list
-must contain exactly one element.
+ Protocol       Number of servers required
+ --------       --------------------------
+ file           List must be empty or param not used at all
+ gluster        Exactly one
+ nbd            Exactly one
+ rbd            One or more
+ sheepdog       Zero or more
 
-Each element is a string in one of the following formats:
+Each list element is a string specifying a server.  The string must be
+in one of the following formats:
 
  hostname
  hostname:port

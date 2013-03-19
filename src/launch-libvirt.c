@@ -1045,6 +1045,7 @@ construct_libvirt_xml_disk (guestfs_h *g,
                             struct drive *drv, size_t drv_index)
 {
   char drive_name[64] = "sd";
+  const char *protocol_str;
   char scsi_target[64];
   struct drive_libvirt *drv_priv = (struct drive_libvirt *) drv->priv;
   CLEANUP_FREE char *format = NULL;
@@ -1104,24 +1105,31 @@ construct_libvirt_xml_disk (guestfs_h *g,
     }
     break;
 
-  case drive_protocol_nbd:
-    /* For NBD:
+    /* For network protocols:
      *   <disk type=network device=disk>
-     *     <source protocol=nbd>
+     *     <source protocol=[protocol] [name=exportname]>
+     * and then zero or more of:
      *       <host name='example.com' port='10809'/>
      * or:
-     *   <disk type=network device=disk>
-     *     <source protocol=nbd>
      *       <host transport='unix' socket='/path/to/socket'/>
      */
+  case drive_protocol_gluster:
+    protocol_str = "gluster"; goto network_protocols;
+  case drive_protocol_nbd:
+    protocol_str = "nbd"; goto network_protocols;
+  case drive_protocol_rbd:
+    protocol_str = "rbd"; goto network_protocols;
+  case drive_protocol_sheepdog:
+    protocol_str = "sheepdog";
+    /*FALLTHROUGH*/
+  network_protocols:
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
                                            BAD_CAST "network"));
-
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "protocol",
-                                           BAD_CAST "nbd"));
+                                           BAD_CAST protocol_str));
     if (STRNEQ (drv_priv->real_src.u.exportname, ""))
       XMLERROR (-1,
                 xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
@@ -1132,7 +1140,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
     if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
       return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
-    break;
   }
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
@@ -1498,12 +1505,6 @@ make_qcow2_overlay (guestfs_h *g, const char *backing_device,
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
 
-  /* Assert that backing_device is an absolute path, or it's an
-   * nbd device name.
-   */
-  assert (backing_device);
-  assert (backing_device[0] == '/' || STRPREFIX (backing_device, "nbd:"));
-
   tmpfile = safe_asprintf (g, "%s/snapshot%d", g->tmpdir, ++g->unique);
 
   guestfs___cmd_add_arg (cmd, "qemu-img");
@@ -1587,24 +1588,26 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
     }
     break;
 
+  case drive_protocol_gluster:
   case drive_protocol_nbd:
+  case drive_protocol_rbd:
+  case drive_protocol_sheepdog:
     if (!drv->readonly) {
       guestfs___copy_drive_source (g, &drv->src, &drv_priv->real_src);
       drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
     }
     else {
-      CLEANUP_FREE char *nbd_device;
+      CLEANUP_FREE char *qemu_device;
 
       drv_priv->real_src.protocol = drive_protocol_file;
-      nbd_device = guestfs___drive_source_qemu_param (g, &drv->src);
-      drv_priv->real_src.u.path = make_qcow2_overlay (g, nbd_device,
+      qemu_device = guestfs___drive_source_qemu_param (g, &drv->src);
+      drv_priv->real_src.u.path = make_qcow2_overlay (g, qemu_device,
                                                       drv->format,
                                                       selinux_imagelabel);
       if (!drv_priv->real_src.u.path)
         return -1;
       drv_priv->format = safe_strdup (g, "qcow2");
     }
-    break;
   }
 
   return 0;

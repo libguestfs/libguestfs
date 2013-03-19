@@ -104,20 +104,18 @@ create_drive_file (guestfs_h *g, const char *path,
 }
 
 static struct drive *
-create_drive_nbd (guestfs_h *g,
-                  struct drive_server *servers, size_t nr_servers,
-                  const char *exportname,
-                  bool readonly, const char *format,
-                  const char *iface, const char *name,
-                  const char *disk_label,
-                  bool use_cache_none)
+create_drive_non_file (guestfs_h *g,
+                       enum drive_protocol protocol,
+                       struct drive_server *servers, size_t nr_servers,
+                       const char *exportname,
+                       bool readonly, const char *format,
+                       const char *iface, const char *name,
+                       const char *disk_label,
+                       bool use_cache_none)
 {
   struct drive *drv = safe_calloc (g, 1, sizeof *drv);
 
-  /* Should have been checked by the calling code. */
-  assert (nr_servers == 1);
-
-  drv->src.protocol = drive_protocol_nbd;
+  drv->src.protocol = protocol;
   drv->src.servers = servers;
   drv->src.nr_servers = nr_servers;
   drv->src.u.exportname = safe_strdup (g, exportname);
@@ -132,6 +130,146 @@ create_drive_nbd (guestfs_h *g,
   drv->priv = drv->free_priv = NULL;
 
   return drv;
+}
+
+static struct drive *
+create_drive_gluster (guestfs_h *g,
+                      struct drive_server *servers, size_t nr_servers,
+                      const char *exportname,
+                      bool readonly, const char *format,
+                      const char *iface, const char *name,
+                      const char *disk_label,
+                      bool use_cache_none)
+{
+  if (nr_servers != 1) {
+    error (g, _("gluster: you must specify exactly one server"));
+    return NULL;
+  }
+
+  if ((servers[0].transport == drive_transport_none ||
+       servers[0].transport == drive_transport_tcp) &&
+      servers[0].port == 0) {
+    error (g, _("gluster: port number must be specified"));
+    return NULL;
+  }
+
+  if (STREQ (exportname, "")) {
+    error (g, _("gluster: volume name parameter should not be an empty string"));
+    return NULL;
+  }
+
+  return create_drive_non_file (g, drive_protocol_gluster,
+                                servers, nr_servers, exportname,
+                                readonly, format, iface, name, disk_label,
+                                use_cache_none);
+}
+
+static int
+nbd_port (void)
+{
+  struct servent *servent;
+
+  servent = getservbyname ("nbd", "tcp");
+  if (servent)
+    return ntohs (servent->s_port);
+  else
+    return 10809;
+}
+
+static struct drive *
+create_drive_nbd (guestfs_h *g,
+                  struct drive_server *servers, size_t nr_servers,
+                  const char *exportname,
+                  bool readonly, const char *format,
+                  const char *iface, const char *name,
+                  const char *disk_label,
+                  bool use_cache_none)
+{
+  if (nr_servers != 1) {
+    error (g, _("nbd: you must specify exactly one server"));
+    return NULL;
+  }
+
+  if (servers[0].port == 0)
+    servers[0].port = nbd_port ();
+
+  return create_drive_non_file (g, drive_protocol_nbd,
+                                servers, nr_servers, exportname,
+                                readonly, format, iface, name, disk_label,
+                                use_cache_none);
+}
+
+static struct drive *
+create_drive_rbd (guestfs_h *g,
+                  struct drive_server *servers, size_t nr_servers,
+                  const char *exportname,
+                  bool readonly, const char *format,
+                  const char *iface, const char *name,
+                  const char *disk_label,
+                  bool use_cache_none)
+{
+  size_t i;
+
+  if (nr_servers == 0) {
+    error (g, _("rbd: you must specify one or more servers"));
+    return NULL;
+  }
+
+  for (i = 0; i < nr_servers; ++i) {
+    if (servers[i].transport != drive_transport_none &&
+        servers[i].transport != drive_transport_tcp) {
+      error (g, _("rbd: only tcp transport is supported"));
+      return NULL;
+    }
+    if (servers[i].port == 0) {
+      error (g, _("rbd: port number must be specified"));
+      return NULL;
+    }
+  }
+
+  if (STREQ (exportname, "")) {
+    error (g, _("rbd: image name parameter should not be an empty string"));
+    return NULL;
+  }
+
+  return create_drive_non_file (g, drive_protocol_rbd,
+                                servers, nr_servers, exportname,
+                                readonly, format, iface, name, disk_label,
+                                use_cache_none);
+}
+
+static struct drive *
+create_drive_sheepdog (guestfs_h *g,
+                       struct drive_server *servers, size_t nr_servers,
+                       const char *exportname,
+                       bool readonly, const char *format,
+                       const char *iface, const char *name,
+                       const char *disk_label,
+                       bool use_cache_none)
+{
+  size_t i;
+
+  for (i = 0; i < nr_servers; ++i) {
+    if (servers[i].transport != drive_transport_none &&
+        servers[i].transport != drive_transport_tcp) {
+      error (g, _("sheepdog: only tcp transport is supported"));
+      return NULL;
+    }
+    if (servers[i].port == 0) {
+      error (g, _("sheepdog: port number must be specified"));
+      return NULL;
+    }
+  }
+
+  if (STREQ (exportname, "")) {
+    error (g, _("sheepdog: volume parameter should not be an empty string"));
+    return NULL;
+  }
+
+  return create_drive_non_file (g, drive_protocol_sheepdog,
+                                servers, nr_servers, exportname,
+                                readonly, format, iface, name, disk_label,
+                                use_cache_none);
 }
 
 /* Traditionally you have been able to use /dev/null as a filename, as
@@ -487,18 +625,6 @@ parse_servers (guestfs_h *g, char *const *strs,
   return n;
 }
 
-static int
-nbd_port (void)
-{
-  struct servent *servent;
-
-  servent = getservbyname ("nbd", "tcp");
-  if (servent)
-    return ntohs (servent->s_port);
-  else
-    return 10809;
-}
-
 int
 guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
@@ -588,24 +714,29 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                                disk_label, use_cache_none);
     }
   }
+  else if (STREQ (protocol, "gluster")) {
+    drv = create_drive_gluster (g, servers, nr_servers, filename,
+                                readonly, format, iface, name,
+                                disk_label, false);
+  }
   else if (STREQ (protocol, "nbd")) {
-    if (nr_servers == 0 || nr_servers > 1) {
-      error (g, _("protocol nbd: you must specify exactly one server"));
-      free_drive_servers (servers, nr_servers);
-      return -1;
-    }
-
-    if (servers[0].port == 0)
-      servers[0].port = nbd_port ();
-
     drv = create_drive_nbd (g, servers, nr_servers, filename,
                             readonly, format, iface, name,
                             disk_label, false);
   }
+  else if (STREQ (protocol, "rbd")) {
+    drv = create_drive_rbd (g, servers, nr_servers, filename,
+                            readonly, format, iface, name,
+                            disk_label, false);
+  }
+  else if (STREQ (protocol, "sheepdog")) {
+    drv = create_drive_sheepdog (g, servers, nr_servers, filename,
+                                 readonly, format, iface, name,
+                                 disk_label, false);
+  }
   else {
     error (g, _("unknown protocol '%s'"), protocol);
-    free_drive_servers (servers, nr_servers);
-    return -1;
+    drv = NULL; /*FALLTHROUGH*/
   }
 
   if (drv == NULL) {
@@ -843,6 +974,24 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   case drive_protocol_file:
     return safe_strdup (g, src->u.path);
 
+  case drive_protocol_gluster:
+    switch (src->servers[0].transport) {
+    case drive_transport_none:
+      /* XXX quoting */
+      return safe_asprintf (g, "gluster://%s:%d/%s",
+                            src->servers[0].u.hostname, src->servers[0].port,
+                            src->u.exportname);
+    case drive_transport_tcp:
+      /* XXX quoting */
+      return safe_asprintf (g, "gluster+tcp://%s:%d/%s",
+                            src->servers[0].u.hostname, src->servers[0].port,
+                            src->u.exportname);
+    case drive_transport_unix:
+      /* XXX quoting */
+      return safe_asprintf (g, "gluster+unix:///%s?socket=%s",
+                            src->u.exportname, src->servers[0].u.socket);
+    }
+
   case drive_protocol_nbd: {
     CLEANUP_FREE char *p = NULL;
     char *ret;
@@ -866,6 +1015,21 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
 
     return ret;
   }
+
+  case drive_protocol_rbd:
+    /* XXX Although libvirt allows multiple hosts to be specified,
+     * it's unclear how these are ever passed to Ceph.  Perhaps via
+     * environment variables?
+     */
+    return safe_asprintf (g, "rbd:%s", src->u.exportname);
+
+  case drive_protocol_sheepdog:
+    if (src->nr_servers == 0)
+      return safe_asprintf (g, "sheepdog:%s", src->u.exportname);
+    else                        /* XXX How to pass multiple hosts? */
+      return safe_asprintf (g, "sheepdog:%s:%d:%s",
+                            src->servers[0].u.hostname, src->servers[0].port,
+                            src->u.exportname);
   }
 
   abort ();
