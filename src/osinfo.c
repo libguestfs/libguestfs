@@ -569,11 +569,7 @@ free_osinfo_db_entry (struct osinfo *osinfo)
 #else /* !HAVE_LIBXML2 */
 
 int
-guestfs___osinfo_map (guestfs_h *g,
-                      const char *system_id,
-                      const char *volume_id,
-                      const char *publisher_id,
-                      const char *application_id,
+guestfs___osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo,
                       const struct osinfo **osinfo_ret)
 {
   debug (g, "osinfo: libxml2 not available");
