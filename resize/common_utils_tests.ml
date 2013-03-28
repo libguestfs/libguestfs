@@ -16,16 +16,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* This file tests the Resize_utils module. *)
+(* This file tests the Common_utils module. *)
 
-open Resize_utils
+open Common_utils
 
-(* Test Resize_utils.int_of_le32 and Resize_utils.le32_of_int. *)
+(* Test Common_utils.int_of_le32 and Common_utils.le32_of_int. *)
 let () =
   assert (int_of_le32 "\x80\x60\x40\x20" = 0x20406080L);
   assert (le32_of_int 0x20406080L = "\x80\x60\x40\x20")
 
-(* Test Resize_utils.parse_size. *)
+(* Test Common_utils.parse_size. *)
 let () =
   (* For absolute sizes, oldsize is ignored. *)
   assert (parse_size 100_L "100b" = 100_L);
@@ -64,7 +64,7 @@ let () =
   assert (parse_size 100000_L "+1.1%" = 101100_L);
   assert (parse_size 100000_L "+1.12%" = 101100_L)
 
-(* Test Resize_utils.human_size. *)
+(* Test Common_utils.human_size. *)
 let () =
   assert (human_size 100_L = "100");
   assert (human_size (-100_L) = "-100");

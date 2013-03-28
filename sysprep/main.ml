@@ -19,9 +19,9 @@
 open Unix
 open Printf
 
-open Sysprep_gettext.Gettext
+open Common_gettext.Gettext
 
-open Utils
+open Common_utils
 
 module G = Guestfs
 

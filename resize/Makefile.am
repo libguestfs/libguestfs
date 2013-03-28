@@ -32,13 +32,13 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize test.img
 
 # Alphabetical order.
 SOURCES = \
+	common_gettext.ml \
+	common_utils.ml \
+	common_utils_tests.ml \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
-	resize.ml \
-	resize_gettext.ml \
-	resize_utils.ml \
-	resize_utils_tests.ml
+	resize.ml
 
 if HAVE_OCAML
 
@@ -46,8 +46,8 @@ if HAVE_OCAML
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	progress-c.o \
-	resize_gettext.cmx \
-	resize_utils.cmx \
+	common_gettext.cmx \
+	common_utils.cmx \
 	progress.cmx \
 	resize.cmx
 
@@ -106,15 +106,15 @@ CLEANFILES += stamp-virt-resize.pod
 
 # Tests.
 
-check_SCRIPTS = resize_utils_tests
+check_SCRIPTS = common_utils_tests
 
-resize_utils_tests: resize_gettext.cmx resize_utils.cmx resize_utils_tests.cmx
+common_utils_tests: common_gettext.cmx common_utils.cmx common_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-TESTS = resize_utils_tests
+TESTS = common_utils_tests
 if ENABLE_APPLIANCE
 TESTS += test-virt-resize.sh
 endif

@@ -16,11 +16,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Utils
+open Common_utils
 
 open Printf
 
-open Sysprep_gettext.Gettext
+open Common_gettext.Gettext
 
 type flag = [ `Created_files ]
 

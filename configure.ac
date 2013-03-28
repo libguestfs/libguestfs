@@ -959,21 +959,18 @@ AS_IF([test "x$OCAMLC" != "xno"],[
     dnl Check for ocaml-gettext package to translate OCaml tools.
     AC_CHECK_OCAML_PKG(gettext)
 
-    dnl Write gettext modules for each OCaml tool.  If OCaml gettext
-    dnl is not available then we write dummy functions.
-    for program in resize sparsify sysprep; do
-        output=$program/${program}_gettext.ml
-        AC_MSG_NOTICE([creating $output])
-        rm -f $output
+    dnl Write a common gettext module used by each OCaml tool.
+    dnl If OCaml gettext is not available then we write dummy functions.
+    AC_MSG_NOTICE([creating resize/common_gettext.ml])
+    rm -f resize/common_gettext.ml
 
-        cat <<EOF > $output
+    cat <<EOF > resize/common_gettext.ml
 (* This file is generated automatically by ./configure. *)
 
-(** Gettext functions for virt-$program.
+(** Gettext functions for OCaml virt tools.
 
-    The ${program}_gettext module provides gettext functions for
-    $program, or dummy functions if ocaml-gettext was not available
-    at configure time.
+    The Common_gettext module provides gettext functions, or dummy
+    functions if ocaml-gettext was not available at configure time.
 
     {b Note}: Don't translate debug strings, or strings which are
     meant to be read/written only by machine.
@@ -1003,9 +1000,9 @@ v}
 
 EOF
 
-        if test "x$OCAML_PKG_gettext" != "xno"; then
-            # ocaml-gettext available: real module.
-            cat <<EOF >>$output
+    if test "x$OCAML_PKG_gettext" != "xno"; then
+        # ocaml-gettext available: real module.
+        cat <<EOF >>resize/common_gettext.ml
 module Gettext = Gettext.Program (
   struct
     let textdomain = "$PACKAGE_NAME"
@@ -1015,9 +1012,9 @@ module Gettext = Gettext.Program (
   end
 ) (GettextStub.Native)
 EOF
-        else
-            # No gettext: module containing dummy gettext functions.
-            cat <<EOF >>$output
+    else
+        # No gettext: module containing dummy gettext functions.
+        cat <<EOF >>resize/common_gettext.ml
 module Gettext = struct
   external s_ : string -> string = "%identity"
   external f_ : ('a, 'b, 'c, 'd, 'e, 'f) format6
@@ -1031,10 +1028,9 @@ module Gettext = struct
     = fun s p n -> if n = 1 then s else p
 end
 EOF
-        fi
+    fi
 
-        chmod -w $output
-    done
+    chmod -w resize/common_gettext.ml
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
