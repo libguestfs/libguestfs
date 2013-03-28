@@ -1198,14 +1198,18 @@ parse_btrfsvol (char *desc, mountable_t *mountable)
   while ((slash = strchr (slash + 1, '/'))) {
     *slash = '\0';
 
+    if (device_name_translation (device) == -1) {
+      perror (device);
+      continue;
+    }
+
     if (stat (device, &statbuf) == -1) {
       perror (device);
       return -1;
     }
 
     if (!S_ISDIR (statbuf.st_mode) &&
-        !is_root_device_stat (&statbuf) &&
-        device_name_translation (device) == 0)
+        !is_root_device_stat (&statbuf))
     {
       volume = slash + 1;
       break;
