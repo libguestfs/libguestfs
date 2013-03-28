@@ -1,0 +1,67 @@
+# guestmount bash completion script -*- shell-script -*-
+# Copyright (C) 2010-2013 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+# List all local libvirt domains.
+_guestfs_virsh_list ()
+{
+    local flag_ro=$1 flags
+
+    if [ "$flag_ro" -eq 1 ]; then
+        flags="--all"
+    else
+        flags="--inactive"
+    fi
+    virsh list $flags | head -n -1 | tail -n +3 | awk '{print $2}'
+}
+
+_guestmount ()
+{
+    local cur prev words cword split
+    local longopts flag_ro=0 c=1 word doms
+
+    _init_completion -s || return
+
+    longopts="$(guestmount --long-options)"
+
+    # See if user has specified certain options anywhere on the
+    # command line before the current word.
+    while [ $c -lt $COMP_CWORD ]; do
+        word="${COMP_WORDS[c]}"
+        case "$word" in
+            -r|--ro) flag_ro=1 ;;
+        esac
+        c=$((++c))
+    done
+
+    case "$prev" in
+        -d|--domain)
+            doms=$(_guestfs_virsh_list "$flag_ro")
+            COMPREPLY=( $(compgen -W "$doms" -- "$cur") )
+            return ;;
+    esac
+
+    case "$cur" in
+        --*)
+            # --options
+            COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
+            return ;;
+        *)
+            COMPREPLY=( $(compgen "$cur") )
+            return ;;
+    esac
+} &&
+complete -o default -F _guestmount guestmount

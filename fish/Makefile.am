@@ -47,7 +47,6 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	rc_protocol.x \
 	guestfish.pod \
-	libguestfs-bash-completion.sh \
 	libguestfs-tools.conf \
 	virt-copy-in \
 	virt-copy-out \
@@ -242,11 +241,6 @@ stamp-virt-tar-out.pod: virt-tar-out.pod
 
 toolsconfdir = $(sysconfdir)
 toolsconf_DATA = libguestfs-tools.conf
-
-# Bash completion script.
-
-bashcompletiondir = $(sysconfdir)/bash_completion.d
-bashcompletion_DATA = libguestfs-bash-completion.sh
 
 # Tests.
 

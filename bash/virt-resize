@@ -1,0 +1,46 @@
+# virt-resize, virt-sparsify bash completion script -*- shell-script -*-
+# Copyright (C) 2010-2013 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+_guestfs_options_only ()
+{
+    local cur prev words cword split
+    local longopts="$1"
+
+    _init_completion -s || return
+
+    case "$cur" in
+        --*)
+            # --options
+            COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
+            return ;;
+        *)
+            COMPREPLY=( $(compgen "$cur") )
+            return ;;
+    esac
+}
+
+_virt_resize ()
+{
+    _guestfs_options_only "$(virt-resize --long-options)"
+} &&
+complete -o default -F _virt_resize virt-resize
+
+_virt_sparsify ()
+{
+    _guestfs_options_only "$(virt-sparsify --long-options)"
+} &&
+complete -o default -F _virt_sparsify virt-sparsify

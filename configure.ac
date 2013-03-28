@@ -1483,6 +1483,19 @@ m4_ifdef([GTK_DOC_CHECK], [
     AM_CONDITIONAL([ENABLE_GTK_DOC], false)
 ])
 
+dnl Bash completion.
+PKG_CHECK_MODULES([BASH_COMPLETION], [bash-completion >= 2.0], [
+    bash_completion=yes
+    AC_MSG_CHECKING([for bash-completions directory])
+    BASH_COMPLETIONS_DIR="`pkg-config --variable=completionsdir bash-completion`"
+    AC_MSG_RESULT([$BASH_COMPLETIONS_DIR])
+    AC_SUBST([BASH_COMPLETIONS_DIR])
+],[
+    bash_completion=no
+    AC_MSG_WARN([bash-completion not installed])
+])
+AM_CONDITIONAL([HAVE_BASH_COMPLETION],[test "x$bash_completion" = "xyes"])
+
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)
@@ -1508,6 +1521,7 @@ AC_CONFIG_FILES([run],
 AC_CONFIG_FILES([Makefile
                  align/Makefile
                  appliance/Makefile
+                 bash/Makefile
                  cat/Makefile
                  csharp/Makefile
                  daemon/Makefile
@@ -1626,6 +1640,8 @@ AS_ECHO_N(["gobject bindings .................... "])
 if test "x$HAVE_GOBJECT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["gobject introspection ............... "])
 if test "x$HAVE_INTROSPECTION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+AS_ECHO_N(["bash completion ..................... "])
+if test "x$HAVE_BASH_COMPLETION_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceding messages."

@@ -45,6 +45,15 @@ Makefile.in
 /appliance/stamp-supermin
 /appliance/supermin.d
 /autom4te.cache
+/bash/virt-cat
+/bash/virt-df
+/bash/virt-edit
+/bash/virt-filesystems
+/bash/virt-format
+/bash/virt-inspector
+/bash/virt-ls
+/bash/virt-sysprep
+/bash/virt-sparsify
 /build-aux
 /cat/stamp-virt-*.pod
 /cat/virt-cat

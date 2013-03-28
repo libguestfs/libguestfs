@@ -69,6 +69,9 @@ SUBDIRS += fish
 # virt-tools in C.
 SUBDIRS += align cat df edit format inspector rescue
 
+# bash-completion
+SUBDIRS += bash
+
 # Language bindings.
 if HAVE_PERL
 SUBDIRS += perl perl/examples

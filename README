@@ -207,6 +207,8 @@ The full requirements are described below.
 | XML::XPath::XMLParser      | O | Perl module used by some virt-* tools.  |
 +--------------+-------------+---+-----------------------------------------+
 | perl-libintl |             | O | Perl module for localization.           |
++--------------+-------------+---+-----------------------------------------+
+| bash-completion            | O | For tab-completion of commands in bash. |
 +==============+=============+===+=========================================+
                                R = Required
                                O = Optional
