@@ -50,7 +50,14 @@ EXTRA_DIST = \
 	run-java-tests \
 	Makefile.inc
 
-CLEANFILES = doc-stamp $(builddir)/com/redhat/et/libguestfs/*.class com_redhat_et_libguestfs_GuestFS.h *.class *.jar api/com/redhat/et/libguestfs/*.html api/*
+CLEANFILES = \
+	doc-stamp \
+	$(builddir)/com/redhat/et/libguestfs/*.class \
+	com_redhat_et_libguestfs_GuestFS.h \
+	*.class \
+	*.jar \
+	api/com/redhat/et/libguestfs/*.html \
+	api/*
 
 if HAVE_JAVA
 
