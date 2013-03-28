@@ -126,7 +126,3 @@ depend: .depend
 endif
 
 .PHONY: depend docs
-
-# Parallel builds don't obey dependencies for some reason we
-# don't understand.
-.NOTPARALLEL:
