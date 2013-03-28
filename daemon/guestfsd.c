@@ -1184,26 +1184,27 @@ device_name_translation (char *device)
 int
 parse_btrfsvol (char *desc, mountable_t *mountable)
 {
+  char *device, *volume = NULL, *slash;
+  struct stat statbuf;
+
   mountable->type = MOUNTABLE_BTRFSVOL;
 
-  char *device = desc;
+  device = desc;
 
   if (! STRPREFIX (device, "/dev/"))
     return -1;
 
-  char *volume = NULL;
-  char *slash = device + strlen("/dev/") - 1;
+  slash = device + strlen ("/dev/") - 1;
   while ((slash = strchr (slash + 1, '/'))) {
     *slash = '\0';
 
-    struct stat statbuf;
     if (stat (device, &statbuf) == -1) {
       perror (device);
       return -1;
     }
 
     if (!S_ISDIR (statbuf.st_mode) &&
-        !is_root_device_stat(&statbuf) &&
+        !is_root_device_stat (&statbuf) &&
         device_name_translation (device) == 0)
     {
       volume = slash + 1;
