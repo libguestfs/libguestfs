@@ -1188,7 +1188,7 @@ parse_btrfsvol (char *desc, mountable_t *mountable)
 
   char *device = desc;
 
-  if (strncmp (device, "/dev/", strlen("/dev/")) == -1)
+  if (! STRPREFIX (device, "/dev/"))
     return -1;
 
   char *volume = NULL;
