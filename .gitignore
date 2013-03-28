@@ -266,6 +266,7 @@ Makefile.in
 /ocaml/guestfs.mli
 /ocamlinit-stamp
 /ocaml/META
+/ocaml/stamp-mlguestfs
 /ocaml/t/guestfs_005_load.bc
 /ocaml/t/guestfs_005_load.opt
 /ocaml/t/guestfs_010_basic.bc
