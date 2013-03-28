@@ -161,6 +161,7 @@ main (int argc, char *argv[])
     { "inspector", 0, 0, 'i' },
     { "keys-from-stdin", 0, 0, 0 },
     { "live", 0, 0, 0 },
+    { "long-options", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
     { "no-fork", 0, 0, 0 },
     { "no-sync", 0, 0, 'n' },
@@ -216,7 +217,9 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "dir-cache-timeout"))
+      if (STREQ (long_options[option_index].name, "long-options"))
+        display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "dir-cache-timeout"))
         dir_cache_timeout = atoi (optarg);
       else if (STREQ (long_options[option_index].name, "fuse-help"))
         fuse_help ();

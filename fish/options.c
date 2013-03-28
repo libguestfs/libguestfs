@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <libintl.h>
+#include <getopt.h>
 
 #include "guestfs.h"
 
@@ -195,4 +196,18 @@ free_mps (struct mp *mp)
    */
 
   free (mp);
+}
+
+/* Implements the internal 'tool --long-options' flag, which just
+ * lists out the long options available.  Used by bash completion.
+ */
+void
+display_long_options (const struct option *long_options)
+{
+  while (long_options->name) {
+    if (STRNEQ (long_options->name, "long-options"))
+      printf ("--%s\n", long_options->name);
+    long_options++;
+  }
+  exit (EXIT_SUCCESS);
 }

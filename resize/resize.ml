@@ -1,5 +1,5 @@
 (* virt-resize
- * Copyright (C) 2010-2012 Red Hat Inc.
+ * Copyright (C) 2010-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,6 +91,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     "--no-extra-partition", Arg.Clear extra_partition, " " ^ s_"Don't create extra partition";
     "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
     "--ignore",  Arg.String (add ignores),  s_"part" ^ " " ^ s_"Ignore partition";
+    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--lv-expand", Arg.String (add lv_expands), s_"lv" ^ " " ^ s_"Expand logical volume";
     "--LV-expand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
     "--lvexpand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
@@ -109,6 +110,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  " -\"-";
   ] in
+  long_options := argspec;
   let disks = ref [] in
   let anon_fun s = disks := s :: !disks in
   let usage_msg =

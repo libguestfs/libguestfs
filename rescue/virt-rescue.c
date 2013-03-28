@@ -110,6 +110,7 @@ main (int argc, char *argv[])
     { "domain", 1, 0, 'd' },
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
+    { "long-options", 0, 0, 0 },
     { "memsize", 1, 0, 'm' },
     { "network", 0, 0, 0 },
     { "ro", 0, 0, 'r' },
@@ -147,7 +148,9 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "selinux")) {
+      if (STREQ (long_options[option_index].name, "long-options"))
+        display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "selinux")) {
         if (guestfs_set_selinux (g, 1) == -1)
           exit (EXIT_FAILURE);
       } else if (STREQ (long_options[option_index].name, "append")) {

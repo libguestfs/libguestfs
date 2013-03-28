@@ -19,6 +19,8 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+#include <getopt.h>
+
 #include "guestfs-internal-frontend.h"
 
 /* Provided by guestfish or guestmount. */
@@ -100,6 +102,7 @@ extern char add_drives (struct drv *drv, char next_drive);
 extern void mount_mps (struct mp *mp);
 extern void free_drives (struct drv *drv);
 extern void free_mps (struct mp *mp);
+extern void display_long_options (const struct option *) __attribute__((noreturn));
 
 /* in virt.c */
 extern int add_libvirt_drives (const char *guest);

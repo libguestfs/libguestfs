@@ -114,6 +114,7 @@ main (int argc, char *argv[])
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "keys-from-stdin", 0, 0, 0 },
+    { "long-options", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { "xpath", 1, 0, 0 },
@@ -139,7 +140,9 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
+      if (STREQ (long_options[option_index].name, "long-options"))
+        display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;

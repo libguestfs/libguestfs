@@ -1,5 +1,5 @@
 (* virt-sysprep
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2012-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -109,6 +109,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     "--enable",  Arg.String set_enable,     s_"operations" ^ " " ^ s_"Enable specific operations";
     "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
     "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
+    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--selinux-relabel", Arg.Unit force_selinux_relabel, " " ^ s_"Force SELinux relabel";
@@ -123,6 +124,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
   let args =
     List.sort (fun (a,_,_) (b,_,_) -> compare_command_line_args a b) args in
   let argspec = Arg.align args in
+  long_options := argspec;
   let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
   let usage_msg =
     sprintf (f_"\

@@ -191,6 +191,7 @@ main (int argc, char *argv[])
     { "keys-from-stdin", 0, 0, 0 },
     { "listen", 0, 0, 0 },
     { "live", 0, 0, 0 },
+    { "long-options", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
     { "network", 0, 0, 0 },
     { "new", 1, 0, 'N' },
@@ -250,7 +251,9 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "listen"))
+      if (STREQ (long_options[option_index].name, "long-options"))
+        display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "listen"))
         remote_control_listen = 1;
       else if (STREQ (long_options[option_index].name, "remote")) {
         if (optarg) {

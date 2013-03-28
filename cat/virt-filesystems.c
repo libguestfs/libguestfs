@@ -156,9 +156,10 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "human-readable", 0, 0, 'h' },
     { "keys-from-stdin", 0, 0, 0 },
-    { "long", 0, 0, 'l' },
     { "logical-volumes", 0, 0, 0 },
     { "logvols", 0, 0, 0 },
+    { "long", 0, 0, 'l' },
+    { "long-options", 0, 0, 0 },
     { "lvs", 0, 0, 0 },
     { "no-title", 0, 0, 0 },
     { "parts", 0, 0, 0 },
@@ -199,7 +200,9 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
+      if (STREQ (long_options[option_index].name, "long-options"))
+        display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
