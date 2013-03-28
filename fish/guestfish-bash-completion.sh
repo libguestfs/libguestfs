@@ -1,5 +1,5 @@
 # guestfish bash completion script
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,32 +41,53 @@ _guestfish_virsh_list ()
 
 _guestfish ()
 {
-    local flag_i=0 flag_ro=0 c=1 word cmds doms
+    local flag_a=0 flag_d=0 flag_ro=0 c=1 word cmds doms
 
-    # See if user has specified -i option before the current word.
+    # See if user has specified certain options anywhere on the
+    # command line before the current word.
     while [ $c -lt $COMP_CWORD ]; do
         word="${COMP_WORDS[c]}"
         case "$word" in
-            -i|--inspector) flag_i=1 ;;
             -r|--ro) flag_ro=1 ;;
         esac
         c=$((++c))
     done
 
+    # Check for flags preceeding the current position.
+    c=$(($COMP_CWORD-1))
+    if [ "$c" -gt 0 ]; then
+        word="${COMP_WORDS[$c]}"
+        case "$word" in
+            -a|--add) flag_a=1 ;;
+            -d|--domain) flag_d=1 ;;
+        esac
+    fi
+
     # Now try to complete the current word.
     word="${COMP_WORDS[COMP_CWORD]}"
     case "$word" in
         --*)
+            # --options
             COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W '
                           --cmd-help
                           --add
+                          --connect
+                          --csh
+                          --domain
                           --no-dest-paths
                           --file
+                          --format
                           --inspector
+                          --keys-from-stdin
                           --listen
+                          --live
                           --mount
-                          --no-sync
+                          --network
                           --new
+                          --no-sync
+                          --pipe-error
+                          --progress-bars
+                          --no-progress-bars
                           --remote
                           --ro
                           --selinux
@@ -74,10 +95,15 @@ _guestfish ()
                           --version
                         ' -- "$word")) ;;
         *)
-            if [ "$flag_i" -eq 1 ]; then
+            if [ "$flag_d" -eq 1 ]; then
+                # -d <domain>
                 doms=$(_guestfish_virsh_list "$flag_ro")
                 COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W "$doms" -- "$word"))
+            elif [ "$flag_a" -eq 1 ]; then
+                # Ordinary filename expansion.
+                COMPREPLY=(${COMPREPLY[@]:-} $(compgen "$word"))
             else
+                # A guestfish command.
                 cmds=$(guestfish -h| head -n -1 | tail -n +2 | awk '{print $1}')
                 COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W "$cmds" -- "$word"))
             fi ;;
