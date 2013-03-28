@@ -131,7 +131,3 @@ Bindtests.class: Bindtests.java
 	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir) $<
 
 endif
-
-# Tell version 3.79 and up of GNU make to not build goals in this
-# directory in parallel.
-.NOTPARALLEL:
