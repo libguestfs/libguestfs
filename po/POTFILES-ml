@@ -1,14 +1,11 @@
+resize/common_gettext.ml
+resize/common_utils.ml
+resize/common_utils_tests.ml
 resize/progress.ml
 resize/resize.ml
-resize/resize_gettext.ml
-resize/resize_utils.ml
-resize/resize_utils_tests.ml
 sparsify/sparsify.ml
-sparsify/sparsify_gettext.ml
-sparsify/sparsify_utils.ml
 sysprep/firstboot.ml
 sysprep/main.ml
-sysprep/sysprep_gettext.ml
 sysprep/sysprep_operation.ml
 sysprep/sysprep_operation_abrt_data.ml
 sysprep/sysprep_operation_bash_history.ml
@@ -45,4 +42,3 @@ sysprep/sysprep_operation_udev_persistent_net.ml
 sysprep/sysprep_operation_user_account.ml
 sysprep/sysprep_operation_utmp.ml
 sysprep/sysprep_operation_yum_uuid.ml
-sysprep/utils.ml

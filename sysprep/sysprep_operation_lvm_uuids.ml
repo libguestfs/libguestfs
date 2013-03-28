@@ -19,7 +19,7 @@
 open Printf
 
 open Sysprep_operation
-open Sysprep_gettext.Gettext
+open Common_gettext.Gettext
 
 module G = Guestfs
 

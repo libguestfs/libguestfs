@@ -342,8 +342,8 @@ Makefile.in
 /rescue/virt-rescue
 /rescue/virt-rescue.1
 /resize/.depend
-/resize/resize_gettext.ml
-/resize/resize_utils_tests
+/resize/common_gettext.ml
+/resize/common_utils_tests
 /resize/stamp-virt-resize.pod
 /resize/virt-resize
 /resize/virt-resize.1
@@ -360,7 +360,6 @@ Makefile.in
 /ruby/Rakefile
 /run
 /sparsify/.depend
-/sparsify/sparsify_gettext.ml
 /sparsify/stamp-virt-sparsify.pod
 /sparsify/virt-sparsify
 /sparsify/virt-sparsify.1
@@ -395,7 +394,6 @@ Makefile.in
 /sysprep/stamp-script2.sh
 /sysprep/stamp-virt-sysprep.pod
 /sysprep/sysprep-extra-options.pod
-/sysprep/sysprep_gettext.ml
 /sysprep/sysprep-operations.pod
 /sysprep/virt-sysprep
 /sysprep/virt-sysprep.1

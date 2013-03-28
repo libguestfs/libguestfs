@@ -18,11 +18,11 @@
 
 open Printf
 
-open Resize_gettext.Gettext
+open Common_gettext.Gettext
 
 module G = Guestfs
 
-open Resize_utils
+open Common_utils
 
 (* Minimum surplus before we create an extra partition. *)
 let min_extra_partition = 10L *^ 1024L *^ 1024L

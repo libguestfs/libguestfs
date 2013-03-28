@@ -20,11 +20,11 @@ open Unix
 open Scanf
 open Printf
 
-open Sparsify_gettext.Gettext
+open Common_gettext.Gettext
 
 module G = Guestfs
 
-open Sparsify_utils
+open Common_utils
 
 let () = Random.self_init ()
 

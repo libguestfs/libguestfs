@@ -79,19 +79,16 @@ SOURCES = \
 	firstboot.ml \
 	firstboot.mli \
 	main.ml \
-	sysprep_gettext.ml \
 	sysprep_operation.ml \
 	sysprep_operation.mli \
-	$(patsubst %,sysprep_operation_%.ml,$(operations)) \
-	utils.ml \
-	utils.mli
+	$(patsubst %,sysprep_operation_%.ml,$(operations))
 
 if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \
-	sysprep_gettext.cmx \
-	utils.cmx \
+	$(top_builddir)/resize/common_gettext.cmx \
+	$(top_builddir)/resize/common_utils.cmx \
 	firstboot.cmx \
 	sysprep_operation.cmx \
 	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \
@@ -102,7 +99,7 @@ bin_SCRIPTS = virt-sysprep
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
-OCAMLPACKAGES = -package unix -I $(top_builddir)/src/.libs -I $(top_builddir)/ocaml
+OCAMLPACKAGES = -package str,unix -I $(top_builddir)/src/.libs -I $(top_builddir)/ocaml -I $(top_builddir)/resize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
@@ -177,7 +174,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(top_srcdir)/resize $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
