@@ -47,7 +47,7 @@
 static size_t worst_alignment = UINT_MAX;
 static pthread_mutex_t worst_alignment_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-static void scan (guestfs_h *g, const char *prefix, FILE *fp);
+static int scan (guestfs_h *g, const char *prefix, FILE *fp);
 
 #ifdef HAVE_LIBVIRT
 static void scan_work (guestfs_h *g, size_t i, FILE *fp);
@@ -234,6 +234,8 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 #endif
   } else {                      /* Single guest. */
+    int r;
+
     if (uuid) {
       fprintf (stderr, _("%s: --uuid option cannot be used with -a or -d\n"),
                program_name);
@@ -250,9 +252,12 @@ main (int argc, char *argv[])
     free_drives (drvs);
 
     /* Perform the scan. */
-    scan (g, NULL, stdout);
+    r = scan (g, NULL, stdout);
 
     guestfs_close (g);
+
+    if (r == -1)
+      exit (EXIT_FAILURE);
   }
 
   /* Decide on an appropriate exit code. */
@@ -266,7 +271,7 @@ main (int argc, char *argv[])
   exit (exit_code);
 }
 
-static void
+static int
 scan (guestfs_h *g, const char *prefix, FILE *fp)
 {
   size_t i, j;
@@ -276,7 +281,7 @@ scan (guestfs_h *g, const char *prefix, FILE *fp)
 
   CLEANUP_FREE_STRING_LIST char **devices = guestfs_list_devices (g);
   if (devices == NULL)
-    exit (EXIT_FAILURE);
+    return -1;
 
   for (i = 0; devices[i] != NULL; ++i) {
     CLEANUP_FREE char *name = NULL;
@@ -284,12 +289,12 @@ scan (guestfs_h *g, const char *prefix, FILE *fp)
     CLEANUP_FREE_PARTITION_LIST struct guestfs_partition_list *parts =
       guestfs_part_list (g, devices[i]);
     if (parts == NULL)
-      exit (EXIT_FAILURE);
+      return -1;
 
     /* Canonicalize the name of the device for printing. */
     name = guestfs_canonical_device_name (g, devices[i]);
     if (name == NULL)
-      exit (EXIT_FAILURE);
+      return -1;
 
     for (j = 0; j < parts->len; ++j) {
       /* Start offset of the partition in bytes. */
@@ -338,6 +343,8 @@ scan (guestfs_h *g, const char *prefix, FILE *fp)
       }
     }
   }
+
+  return 0;
 }
 
 #if defined(HAVE_LIBVIRT)
