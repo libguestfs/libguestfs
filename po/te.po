@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-28 14:57+0000\n"
+"POT-Creation-Date: 2013-03-29 21:47+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -76,16 +76,16 @@ msgstr ""
 msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr ""
 
-#: align/scan.c:238
+#: align/scan.c:240
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr ""
 
-#: align/scan.c:331
+#: align/scan.c:336
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:334
+#: align/scan.c:339
 msgid "alignment < 64K"
 msgstr ""
 

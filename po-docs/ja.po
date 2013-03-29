@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-03-28 15:16+0000\n"
+"POT-Creation-Date: 2013-03-29 21:47+0000\n"
 "PO-Revision-Date: 2012-12-11 17:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -1267,10 +1267,10 @@ msgstr "このプログラムは以下を返します:"
 #: ../src/guestfs.pod:2529 ../src/guestfs.pod:2533 ../src/guestfs.pod:2543
 #: ../src/guestfs.pod:2961 ../src/guestfs.pod:2966 ../src/guestfs.pod:2972
 #: ../src/guestfs.pod:2980 ../src/guestfs.pod:3497 ../src/guestfs.pod:3503
-#: ../src/guestfs.pod:3508 ../src/guestfs.pod:3514 ../src/guestfs.pod:4051
-#: ../src/guestfs.pod:4056 ../src/guestfs.pod:4060 ../src/guestfs.pod:4064
-#: ../src/guestfs.pod:4068 ../src/guestfs.pod:4082 ../src/guestfs.pod:4086
-#: ../src/guestfs.pod:4091 ../src/guestfs.pod:4095
+#: ../src/guestfs.pod:3508 ../src/guestfs.pod:3514 ../src/guestfs.pod:4055
+#: ../src/guestfs.pod:4060 ../src/guestfs.pod:4064 ../src/guestfs.pod:4068
+#: ../src/guestfs.pod:4072 ../src/guestfs.pod:4086 ../src/guestfs.pod:4090
+#: ../src/guestfs.pod:4095 ../src/guestfs.pod:4099
 #: ../sysprep/virt-sysprep.pod:231 ../sysprep/virt-sysprep.pod:235
 #: ../sysprep/virt-sysprep.pod:239 ../sysprep/virt-sysprep.pod:243
 #: ../sysprep/virt-sysprep.pod:258 ../sysprep/virt-sysprep.pod:262
@@ -1353,7 +1353,7 @@ msgstr ""
 #: ../perl/examples/guestfs-perl.pod:40
 #: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:411
 #: ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36
-#: ../sparsify/virt-sparsify.pod:305 ../src/guestfs.pod:4323
+#: ../sparsify/virt-sparsify.pod:305 ../src/guestfs.pod:4327
 #: ../sysprep/virt-sysprep.pod:485 ../test-tool/libguestfs-test-tool.pod:182
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
 #: ../tools/virt-make-fs.pl:627 ../tools/virt-tar.pl:294
@@ -1413,7 +1413,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../perl/examples/guestfs-perl.pod:58
 #: ../python/examples/guestfs-python.pod:59 ../rescue/virt-rescue.pod:424
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:53
-#: ../sparsify/virt-sparsify.pod:322 ../src/guestfs.pod:4380
+#: ../sparsify/virt-sparsify.pod:322 ../src/guestfs.pod:4384
 #: ../sysprep/virt-sysprep.pod:506 ../test-tool/libguestfs-test-tool.pod:192
 #: ../tools/virt-list-filesystems.pl:214 ../tools/virt-list-partitions.pl:283
 #: ../tools/virt-make-fs.pl:646 ../tools/virt-tar.pl:313
@@ -1743,7 +1743,7 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:161
 #: ../edit/virt-edit.pod:343 ../fish/guestfish.pod:1208
 #: ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:384
-#: ../sparsify/virt-sparsify.pod:278 ../src/guestfs.pod:4228
+#: ../sparsify/virt-sparsify.pod:278 ../src/guestfs.pod:4232
 #: ../test-tool/libguestfs-test-tool.pod:177
 msgid "ENVIRONMENT VARIABLES"
 msgstr "環境変数"
@@ -1784,7 +1784,7 @@ msgstr ""
 #: ../lua/examples/guestfs-lua.pod:152 ../ocaml/examples/guestfs-ocaml.pod:92
 #: ../perl/examples/guestfs-perl.pod:54
 #: ../python/examples/guestfs-python.pod:55
-#: ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4376
+#: ../ruby/examples/guestfs-ruby.pod:49 ../src/guestfs.pod:4380
 #: ../sysprep/virt-sysprep.pod:500 ../test-tool/libguestfs-test-tool.pod:188
 msgid "AUTHORS"
 msgstr "著者"
@@ -1801,7 +1801,7 @@ msgstr "著者"
 #: ../java/examples/guestfs-java.pod:97 ../lua/examples/guestfs-lua.pod:154
 #: ../ocaml/examples/guestfs-ocaml.pod:94 ../perl/examples/guestfs-perl.pod:56
 #: ../python/examples/guestfs-python.pod:57
-#: ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4378
+#: ../ruby/examples/guestfs-ruby.pod:51 ../src/guestfs.pod:4382
 #: ../test-tool/libguestfs-test-tool.pod:190
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
@@ -1811,7 +1811,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../daemon/guestfsd.pod:103 ../df/virt-df.pod:273 ../edit/virt-edit.pod:388
 #: ../examples/guestfs-recipes.pod:548 ../fish/guestfish.pod:1428
 #: ../fuse/guestmount.pod:414 ../guestfs-release-notes.pod:1989
-#: ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4382
+#: ../rescue/virt-rescue.pod:426 ../src/guestfs.pod:4386
 #: ../test-tool/libguestfs-test-tool.pod:194
 #: ../tools/virt-list-partitions.pl:285
 msgid "Copyright (C) 2009-2013 Red Hat Inc."
@@ -9981,7 +9981,7 @@ msgstr "libguestfs-test-tool の実行"
 
 #. type: textblock
 #: ../examples/guestfs-testing.pod:32 ../examples/guestfs-testing.pod:145
-#: ../src/guestfs.pod:4072
+#: ../src/guestfs.pod:4076
 msgid "Run:"
 msgstr "次を実行します:"
 
@@ -11211,7 +11211,7 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:206 ../src/guestfs-actions.pod:296
-#: ../src/guestfs.pod:3933
+#: ../src/guestfs.pod:3937
 msgid "C<format>"
 msgstr "C<format>"
 
@@ -31834,17 +31834,17 @@ msgstr ""
 "と、C<vi> を使用します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1217 ../src/guestfs.pod:4232
+#: ../fish/guestfish.pod:1217 ../src/guestfs.pod:4236
 msgid "FEBOOTSTRAP_KERNEL"
 msgstr "FEBOOTSTRAP_KERNEL"
 
 #. type: =item
-#: ../fish/guestfish.pod:1219 ../src/guestfs.pod:4234
+#: ../fish/guestfish.pod:1219 ../src/guestfs.pod:4238
 msgid "FEBOOTSTRAP_MODULES"
 msgstr "FEBOOTSTRAP_MODULES"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1221 ../src/guestfs.pod:4236
+#: ../fish/guestfish.pod:1221 ../src/guestfs.pod:4240
 msgid ""
 "When using supermin E<ge> 4.1.0, these have been renamed L</SUPERMIN_KERNEL> "
 "and L</SUPERMIN_MODULES>."
@@ -31911,17 +31911,17 @@ msgstr ""
 "さまざまなファイルを使用できます。 L</ファイル> 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1250 ../src/guestfs.pod:4239
+#: ../fish/guestfish.pod:1250 ../src/guestfs.pod:4243
 msgid "LIBGUESTFS_APPEND"
 msgstr "LIBGUESTFS_APPEND"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1252 ../src/guestfs.pod:4241
+#: ../fish/guestfish.pod:1252 ../src/guestfs.pod:4245
 msgid "Pass additional options to the guest kernel."
 msgstr "仮想マシンのカーネルに追加のオプションを渡します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1254 ../src/guestfs.pod:4243
+#: ../fish/guestfish.pod:1254 ../src/guestfs.pod:4247
 msgid "LIBGUESTFS_ATTACH_METHOD"
 msgstr ""
 
@@ -31933,12 +31933,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1259 ../src/guestfs.pod:4248
+#: ../fish/guestfish.pod:1259 ../src/guestfs.pod:4252
 msgid "LIBGUESTFS_CACHEDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1261 ../src/guestfs.pod:4250
+#: ../fish/guestfish.pod:1261 ../src/guestfs.pod:4254
 msgid ""
 "The location where libguestfs will cache its appliance, when using a "
 "supermin appliance.  The appliance is cached and shared between all handles "
@@ -31946,7 +31946,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1265 ../src/guestfs.pod:4254
+#: ../fish/guestfish.pod:1265 ../src/guestfs.pod:4258
 msgid ""
 "If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> "
 "is not set, then C</var/tmp> is used."
@@ -31958,7 +31958,7 @@ msgid "See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1270 ../src/guestfs.pod:4259
+#: ../fish/guestfish.pod:1270 ../src/guestfs.pod:4263
 msgid "LIBGUESTFS_DEBUG"
 msgstr "LIBGUESTFS_DEBUG"
 
@@ -31970,18 +31970,18 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1275 ../src/guestfs.pod:4264
+#: ../fish/guestfish.pod:1275 ../src/guestfs.pod:4268
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr "LIBGUESTFS_MEMSIZE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1277 ../src/guestfs.pod:4266
+#: ../fish/guestfish.pod:1277 ../src/guestfs.pod:4270
 msgid ""
 "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1280 ../src/guestfs.pod:4269
+#: ../fish/guestfish.pod:1280 ../src/guestfs.pod:4273
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -31991,7 +31991,7 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../fish/guestfish.pod:1282 ../src/guestfs.pod:4271
+#: ../fish/guestfish.pod:1282 ../src/guestfs.pod:4275
 msgid "LIBGUESTFS_PATH"
 msgstr "LIBGUESTFS_PATH"
 
@@ -32003,30 +32003,30 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1287 ../src/guestfs.pod:4276
+#: ../fish/guestfish.pod:1287 ../src/guestfs.pod:4280
 msgid "LIBGUESTFS_QEMU"
 msgstr "LIBGUESTFS_QEMU"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1289 ../src/guestfs.pod:4278
+#: ../fish/guestfish.pod:1289 ../src/guestfs.pod:4282
 msgid ""
 "Set the default qemu binary that libguestfs uses.  If not set, then the qemu "
 "which was found at compile time by the configure script is used."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1293 ../src/guestfs.pod:4284
+#: ../fish/guestfish.pod:1293 ../src/guestfs.pod:4288
 msgid "LIBGUESTFS_TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1295 ../src/guestfs.pod:4286
+#: ../fish/guestfish.pod:1295 ../src/guestfs.pod:4290
 msgid ""
 "The location where libguestfs will store temporary files used by each handle."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1298 ../src/guestfs.pod:4289
+#: ../fish/guestfish.pod:1298 ../src/guestfs.pod:4293
 msgid ""
 "If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> is "
 "not set, then C</tmp> is used."
@@ -32038,7 +32038,7 @@ msgid "See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1303 ../src/guestfs.pod:4294
+#: ../fish/guestfish.pod:1303 ../src/guestfs.pod:4298
 msgid "LIBGUESTFS_TRACE"
 msgstr "LIBGUESTFS_TRACE"
 
@@ -32061,7 +32061,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1312 ../src/guestfs.pod:1266 ../src/guestfs.pod:4299
+#: ../fish/guestfish.pod:1312 ../src/guestfs.pod:1266 ../src/guestfs.pod:4303
 msgid "PATH"
 msgstr "パス"
 
@@ -32074,17 +32074,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1319 ../src/guestfs.pod:4307
+#: ../fish/guestfish.pod:1319 ../src/guestfs.pod:4311
 msgid "SUPERMIN_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1321 ../src/guestfs.pod:4309
+#: ../fish/guestfish.pod:1321 ../src/guestfs.pod:4313
 msgid "SUPERMIN_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1323 ../src/guestfs.pod:4311
+#: ../fish/guestfish.pod:1323 ../src/guestfs.pod:4315
 msgid ""
 "These two environment variables allow the kernel that libguestfs uses in the "
 "appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the most "
@@ -32095,12 +32095,12 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:1329 ../sparsify/virt-sparsify.pod:282
-#: ../src/guestfs.pod:4317
+#: ../src/guestfs.pod:4321
 msgid "TMPDIR"
 msgstr "TMPDIR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1331 ../src/guestfs.pod:4319
+#: ../fish/guestfish.pod:1331 ../src/guestfs.pod:4323
 msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
@@ -68788,21 +68788,31 @@ msgstr "libguestfs アプライアンス、スクリプトなどを構築しま�
 
 #. type: =item
 #: ../src/guestfs.pod:3897
+msgid "C<bash>"
+msgstr ""
+
+#. type: textblock
+#: ../src/guestfs.pod:3899
+msgid "Bash tab-completion scripts."
+msgstr ""
+
+#. type: =item
+#: ../src/guestfs.pod:3901
 msgid "C<build-aux>"
 msgstr "C<build-aux>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3899
+#: ../src/guestfs.pod:3903
 msgid "Various build scripts used by autotools."
 msgstr "autotools により使用されるさまざまなビルドスクリプト。"
 
 #. type: =item
-#: ../src/guestfs.pod:3901
+#: ../src/guestfs.pod:3905
 msgid "C<cat>"
 msgstr "C<cat>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3903
+#: ../src/guestfs.pod:3907
 msgid ""
 "The L<virt-cat(1)>, L<virt-filesystems(1)> and L<virt-ls(1)> commands and "
 "documentation."
@@ -68811,64 +68821,64 @@ msgstr ""
 "ドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3906
+#: ../src/guestfs.pod:3910
 msgid "C<contrib>"
 msgstr "C<contrib>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3908
+#: ../src/guestfs.pod:3912
 msgid "Outside contributions, experimental parts."
 msgstr "外部の貢献、実験的な部分です。"
 
 #. type: =item
-#: ../src/guestfs.pod:3910
+#: ../src/guestfs.pod:3914
 msgid "C<daemon>"
 msgstr "C<daemon>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3912
+#: ../src/guestfs.pod:3916
 msgid ""
 "The daemon that runs inside the libguestfs appliance and carries out actions."
 msgstr ""
 "libguestfs アプライアンスの中で実行され、アクションを実行しているデーモン。"
 
 #. type: =item
-#: ../src/guestfs.pod:3915
+#: ../src/guestfs.pod:3919
 msgid "C<df>"
 msgstr "C<df>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3917
+#: ../src/guestfs.pod:3921
 msgid "L<virt-df(1)> command and documentation."
 msgstr "L<virt-df(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3919
+#: ../src/guestfs.pod:3923
 msgid "C<edit>"
 msgstr "C<edit>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3921
+#: ../src/guestfs.pod:3925
 msgid "L<virt-edit(1)> command and documentation."
 msgstr "L<virt-edit(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3923
+#: ../src/guestfs.pod:3927
 msgid "C<examples>"
 msgstr "C<examples>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3925
+#: ../src/guestfs.pod:3929
 msgid "C API example code."
 msgstr "C API のコード例。"
 
 #. type: =item
-#: ../src/guestfs.pod:3927
+#: ../src/guestfs.pod:3931
 msgid "C<fish>"
 msgstr "C<fish>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3929
+#: ../src/guestfs.pod:3933
 msgid ""
 "L<guestfish(1)>, the command-line shell, and various shell scripts built on "
 "top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-tar-in(1)>, "
@@ -68879,17 +68889,17 @@ msgstr ""
 "プト。"
 
 #. type: textblock
-#: ../src/guestfs.pod:3935
+#: ../src/guestfs.pod:3939
 msgid "L<virt-format(1)> command and documentation."
 msgstr "L<virt-format(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3937
+#: ../src/guestfs.pod:3941
 msgid "C<fuse>"
 msgstr "C<fuse>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3939
+#: ../src/guestfs.pod:3943
 msgid ""
 "L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs."
 msgstr ""
@@ -68897,24 +68907,24 @@ msgstr ""
 "システム)。"
 
 #. type: =item
-#: ../src/guestfs.pod:3941
+#: ../src/guestfs.pod:3945
 msgid "C<generator>"
 msgstr "C<generator>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3943
+#: ../src/guestfs.pod:3947
 msgid ""
 "The crucially important generator, used to automatically generate large "
 "amounts of boilerplate C code for things like RPC and bindings."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3946
+#: ../src/guestfs.pod:3950
 msgid "C<gnulib>"
 msgstr "C<gnulib>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3948
+#: ../src/guestfs.pod:3952
 msgid ""
 "Gnulib is used as a portability library.  A copy of gnulib is included under "
 "here."
@@ -68923,62 +68933,62 @@ msgstr ""
 "含まれます。"
 
 #. type: =item
-#: ../src/guestfs.pod:3951
+#: ../src/guestfs.pod:3955
 msgid "C<html>"
 msgstr "C<html>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3953
+#: ../src/guestfs.pod:3957
 msgid "Generated HTML manual pages."
 msgstr "生成された HTML マニュアルページ。"
 
 #. type: =item
-#: ../src/guestfs.pod:3955
+#: ../src/guestfs.pod:3959
 msgid "C<inspector>"
 msgstr "C<inspector>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3957
+#: ../src/guestfs.pod:3961
 msgid "L<virt-inspector(1)>, the virtual machine image inspector."
 msgstr "L<virt-inspector(1)>, 仮想マシンイメージ検査ツール。"
 
 #. type: =item
-#: ../src/guestfs.pod:3959
+#: ../src/guestfs.pod:3963
 msgid "C<logo>"
 msgstr "C<logo>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3961
+#: ../src/guestfs.pod:3965
 msgid "Logo used on the website.  The fish is called Arthur by the way."
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3963
+#: ../src/guestfs.pod:3967
 msgid "C<m4>"
 msgstr "C<m4>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3965
+#: ../src/guestfs.pod:3969
 msgid "M4 macros used by autoconf."
 msgstr "autoconf により使用される M4 マクロ。"
 
 #. type: =item
-#: ../src/guestfs.pod:3967
+#: ../src/guestfs.pod:3971
 msgid "C<po>"
 msgstr "C<po>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3969
+#: ../src/guestfs.pod:3973
 msgid "Translations of simple gettext strings."
 msgstr "シンプルな gettext 文字列の翻訳。"
 
 #. type: =item
-#: ../src/guestfs.pod:3971
+#: ../src/guestfs.pod:3975
 msgid "C<po-docs>"
 msgstr "C<po-docs>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3973
+#: ../src/guestfs.pod:3977
 msgid ""
 "The build infrastructure and PO files for translations of manpages and POD "
 "files.  Eventually this will be combined with the C<po> directory, but that "
@@ -68986,72 +68996,72 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:3977
+#: ../src/guestfs.pod:3981
 msgid "C<rescue>"
 msgstr "C<rescue>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3979
+#: ../src/guestfs.pod:3983
 msgid "L<virt-rescue(1)> command and documentation."
 msgstr "L<virt-rescue(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3981
+#: ../src/guestfs.pod:3985
 msgid "C<resize>"
 msgstr "C<resize>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3983
+#: ../src/guestfs.pod:3987
 msgid "L<virt-resize(1)> command and documentation."
 msgstr "L<virt-resize(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3985
+#: ../src/guestfs.pod:3989
 msgid "C<sparsify>"
 msgstr "C<sparsify>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3987
+#: ../src/guestfs.pod:3991
 msgid "L<virt-sparsify(1)> command and documentation."
 msgstr "L<virt-sparsify(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3989
+#: ../src/guestfs.pod:3993
 msgid "C<src>"
 msgstr "C<src>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3991
+#: ../src/guestfs.pod:3995
 msgid "Source code to the C library."
 msgstr "C ライブラリーのソースコード。"
 
 #. type: =item
-#: ../src/guestfs.pod:3993
+#: ../src/guestfs.pod:3997
 msgid "C<sysprep>"
 msgstr "C<sysprep>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3995
+#: ../src/guestfs.pod:3999
 msgid "L<virt-sysprep(1)> command and documentation."
 msgstr "L<virt-sysprep(1)> コマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:3997
+#: ../src/guestfs.pod:4001
 msgid "C<tests>"
 msgstr "C<tests>"
 
 #. type: textblock
-#: ../src/guestfs.pod:3999
+#: ../src/guestfs.pod:4003
 msgid "Tests."
 msgstr "テストします。"
 
 #. type: =item
-#: ../src/guestfs.pod:4001
+#: ../src/guestfs.pod:4005
 msgid "C<test-tool>"
 msgstr "C<test-tool>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4003
+#: ../src/guestfs.pod:4007
 msgid ""
 "Test tool for end users to test if their qemu/kernel combination will work "
 "with libguestfs."
@@ -69060,12 +69070,12 @@ msgstr ""
 "確認するためのテストツールです。"
 
 #. type: =item
-#: ../src/guestfs.pod:4006
+#: ../src/guestfs.pod:4010
 msgid "C<tmp>"
 msgstr "C<tmp>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4008
+#: ../src/guestfs.pod:4012
 msgid ""
 "Used for temporary files when running the tests (instead of C</tmp> etc).  "
 "The reason is so that you can run multiple parallel tests of libguestfs "
@@ -69073,12 +69083,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:4013
+#: ../src/guestfs.pod:4017
 msgid "C<tools>"
 msgstr "C<tools>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4015
+#: ../src/guestfs.pod:4019
 msgid ""
 "Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
 msgstr ""
@@ -69086,72 +69096,72 @@ msgstr ""
 "の)。"
 
 #. type: =item
-#: ../src/guestfs.pod:4017
+#: ../src/guestfs.pod:4021
 msgid "C<csharp>"
 msgstr "C<csharp>"
 
 #. type: =item
-#: ../src/guestfs.pod:4019
+#: ../src/guestfs.pod:4023
 msgid "C<erlang>"
 msgstr "C<erlang>"
 
 #. type: =item
-#: ../src/guestfs.pod:4021
+#: ../src/guestfs.pod:4025
 msgid "C<gobject>"
 msgstr "C<gobject>"
 
 #. type: =item
-#: ../src/guestfs.pod:4023
+#: ../src/guestfs.pod:4027
 msgid "C<haskell>"
 msgstr "C<haskell>"
 
 #. type: =item
-#: ../src/guestfs.pod:4025
+#: ../src/guestfs.pod:4029
 msgid "C<java>"
 msgstr "C<java>"
 
 #. type: =item
-#: ../src/guestfs.pod:4027
+#: ../src/guestfs.pod:4031
 msgid "C<lua>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:4029
+#: ../src/guestfs.pod:4033
 msgid "C<ocaml>"
 msgstr "C<ocaml>"
 
 #. type: =item
-#: ../src/guestfs.pod:4031
+#: ../src/guestfs.pod:4035
 msgid "C<php>"
 msgstr "C<php>"
 
 #. type: =item
-#: ../src/guestfs.pod:4033
+#: ../src/guestfs.pod:4037
 msgid "C<perl>"
 msgstr "C<perl>"
 
 #. type: =item
-#: ../src/guestfs.pod:4035
+#: ../src/guestfs.pod:4039
 msgid "C<python>"
 msgstr "C<python>"
 
 #. type: =item
-#: ../src/guestfs.pod:4037
+#: ../src/guestfs.pod:4041
 msgid "C<ruby>"
 msgstr "C<ruby>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4039
+#: ../src/guestfs.pod:4043
 msgid "Language bindings."
 msgstr "言語バインディング。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4043
+#: ../src/guestfs.pod:4047
 msgid "MAKING A STABLE RELEASE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4045
+#: ../src/guestfs.pod:4049
 msgid ""
 "When we make a stable release, there are several steps documented here.  See "
 "L</LIBGUESTFS VERSION NUMBERS> for general information about the stable "
@@ -69159,69 +69169,69 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4053
+#: ../src/guestfs.pod:4057
 msgid ""
 "Check C<make && make check> works on at least Fedora, Debian and Ubuntu."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4058
+#: ../src/guestfs.pod:4062
 msgid "Finalize C<guestfs-release-notes.pod>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4062
+#: ../src/guestfs.pod:4066
 msgid "Update ROADMAP."
 msgstr "ロードマップを更新します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4066
+#: ../src/guestfs.pod:4070
 msgid "Run C<src/api-support/update-from-tarballs.sh>."
 msgstr "C<src/api-support/update-from-tarballs.sh> を実行します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4070
+#: ../src/guestfs.pod:4074
 msgid "Push and pull from Transifex."
 msgstr "Transifex からのプッシュおよびプル。"
-
-#. type: verbatim
-#: ../src/guestfs.pod:4074
-#, no-wrap
-msgid ""
-" tx push -s\n"
-"\n"
-msgstr ""
-" tx push -s\n"
-"\n"
-
-#. type: textblock
-#: ../src/guestfs.pod:4076
-msgid "to push the latest POT files to Transifex.  Then run:"
-msgstr ""
-"最新の POT ファイルを Transifex にプッシュします。そして、次を実行します:"
 
 #. type: verbatim
 #: ../src/guestfs.pod:4078
 #, no-wrap
 msgid ""
-" ./tx-pull.sh\n"
+" tx push -s\n"
 "\n"
 msgstr ""
-" ./tx-pull.sh\n"
+" tx push -s\n"
 "\n"
 
 #. type: textblock
 #: ../src/guestfs.pod:4080
+msgid "to push the latest POT files to Transifex.  Then run:"
+msgstr ""
+"最新の POT ファイルを Transifex にプッシュします。そして、次を実行します:"
+
+#. type: verbatim
+#: ../src/guestfs.pod:4082
+#, no-wrap
+msgid ""
+" ./tx-pull.sh\n"
+"\n"
+msgstr ""
+" ./tx-pull.sh\n"
+"\n"
+
+#. type: textblock
+#: ../src/guestfs.pod:4084
 msgid "which is a wrapper to pull the latest translated C<*.po> files."
 msgstr "これは最新の翻訳された C<*.po> ファイルを取り出すためのラッパーです。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4084
+#: ../src/guestfs.pod:4088
 msgid "Consider updating gnulib to latest upstream version."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4088
+#: ../src/guestfs.pod:4092
 msgid ""
 "Create new stable and development directories under L<http://libguestfs.org/"
 "download>."
@@ -69230,17 +69240,17 @@ msgstr ""
 "リーを作成します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4093
+#: ../src/guestfs.pod:4097
 msgid "Edit C<index.html.in> on website."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4097
+#: ../src/guestfs.pod:4101
 msgid "Create the branch in git:"
 msgstr "git に分岐を作成します:"
 
 #. type: verbatim
-#: ../src/guestfs.pod:4099
+#: ../src/guestfs.pod:4103
 #, no-wrap
 msgid ""
 " git tag -a 1.XX.0 -m \"Version 1.XX.0 (stable)\"\n"
@@ -69256,17 +69266,17 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../src/guestfs.pod:4106
+#: ../src/guestfs.pod:4110
 msgid "LIMITS"
 msgstr "制限"
 
 #. type: =head2
-#: ../src/guestfs.pod:4108
+#: ../src/guestfs.pod:4112
 msgid "PROTOCOL LIMITS"
 msgstr "プロトコル制限"
 
 #. type: textblock
-#: ../src/guestfs.pod:4110
+#: ../src/guestfs.pod:4114
 msgid ""
 "Internally libguestfs uses a message-based protocol to pass API calls and "
 "their responses to and from a small \"appliance\" (see L</INTERNALS> for "
@@ -69277,7 +69287,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4118
+#: ../src/guestfs.pod:4122
 msgid ""
 "In libguestfs E<lt> 1.19.32, several calls had to encode either their entire "
 "argument list or their entire return value (or sometimes both)  in a single "
@@ -69293,7 +69303,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4131
+#: ../src/guestfs.pod:4135
 msgid ""
 "L</guestfs_cat>, L</guestfs_find>, L</guestfs_read_file>, L</"
 "guestfs_read_lines>, L</guestfs_write>, L</guestfs_write_append>, L</"
@@ -69306,19 +69316,19 @@ msgstr ""
 "guestfs_ls>."
 
 #. type: textblock
-#: ../src/guestfs.pod:4136
+#: ../src/guestfs.pod:4140
 msgid ""
 "See also L</UPLOADING> and L</DOWNLOADING> for further information about "
 "copying large amounts of data into or out of a filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4139
+#: ../src/guestfs.pod:4143
 msgid "MAXIMUM NUMBER OF DISKS"
 msgstr "ディスクの最大数"
 
 #. type: textblock
-#: ../src/guestfs.pod:4141
+#: ../src/guestfs.pod:4145
 msgid ""
 "In libguestfs E<ge> 1.19.7, you can query the maximum number of disks that "
 "may be added by calling L</guestfs_max_disks>.  In earlier versions of "
@@ -69327,14 +69337,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4146
+#: ../src/guestfs.pod:4150
 msgid ""
 "The rest of this section covers implementation details, which could change "
 "in future."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4149
+#: ../src/guestfs.pod:4153
 msgid ""
 "When using virtio-scsi disks (the default if available in qemu) the current "
 "limit is B<255> disks.  When using virtio-blk (the old default) the limit is "
@@ -69347,7 +69357,7 @@ msgstr ""
 "ているかどうかにより、変化する可能性があります。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4154
+#: ../src/guestfs.pod:4158
 msgid ""
 "Virtio-scsi as used by libguestfs is configured to use one target per disk, "
 "and 256 targets are available."
@@ -69356,7 +69366,7 @@ msgstr ""
 "用するよう設定されます。256 個のターゲットが利用可能です。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4157
+#: ../src/guestfs.pod:4161
 msgid ""
 "Virtio-blk consumes 1 virtual PCI slot per disk, and PCI is limited to 31 "
 "slots, but some of these are used for other purposes."
@@ -69365,12 +69375,12 @@ msgstr ""
 "されます。これらのいくつかは他の目的のために使用されます。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4160
+#: ../src/guestfs.pod:4164
 msgid "One virtual disk is used by libguestfs internally."
 msgstr "一つの仮想ディスクが libguestfs により内部的に使用されます。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4162
+#: ../src/guestfs.pod:4166
 msgid ""
 "Before libguestfs 1.19.7, disk names had to be a single character (eg. C</"
 "dev/sda> through C</dev/sdz>), and since one disk is reserved, that meant "
@@ -69381,7 +69391,7 @@ msgstr ""
 "は 25 でした。これはそれ以降のバージョンにおいて修正されました。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4167
+#: ../src/guestfs.pod:4171
 msgid ""
 "In libguestfs E<ge> 1.20 it is possible to hot plug disks.  See L</"
 "HOTPLUGGING>."
@@ -69389,17 +69399,17 @@ msgstr ""
 "libguestfs E<ge> 1.20 はディスクの活性挿入をできます。 L</HOTPLUGGING> 参照。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4170
+#: ../src/guestfs.pod:4174
 msgid "MAXIMUM NUMBER OF PARTITIONS PER DISK"
 msgstr "ディスクあたりの最大パーティション数"
 
 #. type: textblock
-#: ../src/guestfs.pod:4172
+#: ../src/guestfs.pod:4176
 msgid "Virtio limits the maximum number of partitions per disk to B<15>."
 msgstr "virtio はディスクあたりの最大パーティション数を B<15> に制限します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4174
+#: ../src/guestfs.pod:4178
 msgid ""
 "This is because it reserves 4 bits for the minor device number (thus C</dev/"
 "vda>, and C</dev/vda1> through C</dev/vda15>)."
@@ -69408,7 +69418,7 @@ msgstr ""
 "dev/vda>、および C</dev/vda1> から C</dev/vda15> まで）。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4177
+#: ../src/guestfs.pod:4181
 msgid ""
 "If you attach a disk with more than 15 partitions, the extra partitions are "
 "ignored by libguestfs."
@@ -69417,17 +69427,17 @@ msgstr ""
 "は libguestfs により無視されます。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4180
+#: ../src/guestfs.pod:4184
 msgid "MAXIMUM SIZE OF A DISK"
 msgstr "ディスクの最大容量"
 
 #. type: textblock
-#: ../src/guestfs.pod:4182
+#: ../src/guestfs.pod:4186
 msgid "Probably the limit is between 2**63-1 and 2**64-1 bytes."
 msgstr "制限はおそらく 2**63-1 から 2**64-1 バイトの間です。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4184
+#: ../src/guestfs.pod:4188
 msgid ""
 "We have tested block devices up to 1 exabyte (2**60 or "
 "1,152,921,504,606,846,976 bytes) using sparse files backed by an XFS host "
@@ -69435,7 +69445,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4188
+#: ../src/guestfs.pod:4192
 msgid ""
 "Although libguestfs probably does not impose any limit, the underlying host "
 "storage will.  If you store disk images on a host ext4 filesystem, then the "
@@ -69445,19 +69455,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4194
+#: ../src/guestfs.pod:4198
 msgid ""
 "For the hugest disk image files, we recommend using XFS on the host for "
 "storage."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4197
+#: ../src/guestfs.pod:4201
 msgid "MAXIMUM SIZE OF A PARTITION"
 msgstr "パーティションの最大容量"
 
 #. type: textblock
-#: ../src/guestfs.pod:4199
+#: ../src/guestfs.pod:4203
 msgid ""
 "The MBR (ie. classic MS-DOS) partitioning scheme uses 32 bit sector "
 "numbers.  Assuming a 512 byte sector size, this means that MBR cannot "
@@ -69465,7 +69475,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4203
+#: ../src/guestfs.pod:4207
 msgid ""
 "It is recommended that you use GPT partitions on disks which are larger than "
 "this size.  GPT uses 64 bit sector numbers and so can address partitions "
@@ -69473,12 +69483,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4208
+#: ../src/guestfs.pod:4212
 msgid "MAXIMUM SIZE OF A FILESYSTEM, FILES, DIRECTORIES"
 msgstr "ファイルシステム、ファイル、ディレクトリーの最大容量"
 
 #. type: textblock
-#: ../src/guestfs.pod:4210
+#: ../src/guestfs.pod:4214
 msgid ""
 "This depends on the filesystem type.  libguestfs itself does not impose any "
 "known limit.  Consult Wikipedia or the filesystem documentation to find out "
@@ -69486,12 +69496,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4214
+#: ../src/guestfs.pod:4218
 msgid "MAXIMUM UPLOAD AND DOWNLOAD"
 msgstr "最大アップロード数およびダウンロード数"
 
 #. type: textblock
-#: ../src/guestfs.pod:4216
+#: ../src/guestfs.pod:4220
 msgid ""
 "The API functions L</guestfs_upload>, L</guestfs_download>, L</"
 "guestfs_tar_in>, L</guestfs_tar_out> and the like allow unlimited sized "
@@ -69502,12 +69512,12 @@ msgstr ""
 "ありません。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4220
+#: ../src/guestfs.pod:4224
 msgid "INSPECTION LIMITS"
 msgstr "検査の制限"
 
 #. type: textblock
-#: ../src/guestfs.pod:4222
+#: ../src/guestfs.pod:4226
 msgid ""
 "The inspection code has several arbitrary limits on things like the size of "
 "Windows Registry hive it will read, and the length of product name.  These "
@@ -69517,43 +69527,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4245
+#: ../src/guestfs.pod:4249
 msgid ""
 "Choose the default way to create the appliance.  See L</"
 "guestfs_set_attach_method> and L</ATTACH METHOD>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4257
+#: ../src/guestfs.pod:4261
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</guestfs_set_cachedir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4261
+#: ../src/guestfs.pod:4265
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as calling C<guestfs_set_verbose (g, 1)>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4273
+#: ../src/guestfs.pod:4277
 msgid ""
 "Set the path that libguestfs uses to search for a supermin appliance.  See "
 "the discussion of paths in section L</PATH> above."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4282
+#: ../src/guestfs.pod:4286
 msgid "See also L</QEMU WRAPPERS> above."
 msgstr "上の L</QEMU WRAPPERS> 参照。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4292
+#: ../src/guestfs.pod:4296
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4296
+#: ../src/guestfs.pod:4300
 msgid ""
 "Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This has the same "
 "effect as calling C<guestfs_set_trace (g, 1)>."
@@ -69562,7 +69572,7 @@ msgstr ""
 "C<guestfs_set_trace (g, 1)> の呼び出しと同じ効果があります。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4301
+#: ../src/guestfs.pod:4305
 msgid ""
 "Libguestfs may run some external programs, and relies on C<$PATH> being set "
 "to a reasonable value.  If using the libvirt attach-method, libvirt will not "
@@ -69572,7 +69582,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4325
+#: ../src/guestfs.pod:4329
 #, fuzzy
 #| msgid ""
 #| "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, "
@@ -69607,7 +69617,7 @@ msgstr ""
 "L<display(1)>, L<hexedit(1)>, L<febootstrap-supermin-helper(8)>。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4369
+#: ../src/guestfs.pod:4373
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, L<lvm"
 "(8)>, L<disktype(1)>."
