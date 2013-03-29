@@ -134,7 +134,7 @@ t/%.class: t/%.java
 	mkdir -p t
 	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir)/t $<
 
-Bindtests.class: Bindtests.java
+Bindtests.class: Bindtests.java libguestfs-$(VERSION).jar
 	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir) $<
 
 endif
