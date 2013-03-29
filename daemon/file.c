@@ -504,7 +504,14 @@ do_file (const char *path)
   /* We need to remove the trailing \n from output of file(1). */
   size_t len = strlen (out);
   if (len > 0 && out[len-1] == '\n')
-    out[len-1] = '\0';
+    out[--len] = '\0';
+
+  /* Some upstream versions of file add a space at the end of the
+   * output.  This is fixed in the Fedora version, but we might as
+   * well fix it here too.  (RHBZ#928995).
+   */
+  if (len > 0 && out[len-1] == ' ')
+    out[--len] = '\0';
 
   return out;			/* caller frees */
 }
