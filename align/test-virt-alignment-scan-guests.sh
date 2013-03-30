@@ -19,7 +19,7 @@
 export LANG=C
 
 guestsdir="$(cd ../tests/guests && pwd)"
-libvirt_uri="test://$guestsdir/guests.xml"
+libvirt_uri="test://$guestsdir/guests-all-good.xml"
 
 $VG ./virt-alignment-scan -c "$libvirt_uri"
 r=$?

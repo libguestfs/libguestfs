@@ -450,6 +450,7 @@ Makefile.in
 /tests/guests/fedora-md1.img
 /tests/guests/fedora-md2.img
 /tests/guests/guests.xml
+/tests/guests/guests-all-good.xml
 /tests/guests/guest-aux/fedora-name.db
 /tests/guests/guest-aux/fedora-packages.db
 /tests/guests/stamp-fedora-md.img
