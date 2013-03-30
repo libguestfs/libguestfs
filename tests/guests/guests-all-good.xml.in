@@ -1,0 +1,224 @@
+<!--
+    libguestfs test images
+    @configure_input@
+    Copyright (C) 2013 Red Hat Inc.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+    To use the test guests by name, specify the following libvirt URI:
+    test://$(abs_builddir)/guests-all-good.xml
+
+    eg:
+    ./run ./df/virt-df -c test://@abs_builddir@/guests-all-good.xml
+    ./run ./align/virt-alignment-scan -c test://@abs_builddir@/guests-all-good.xml
+
+    Note this differs from 'guests.xml' just in that none of these guests
+    have missing disks, etc.
+-->
+<node>
+
+  <domain type='test'>
+    <name>blank-bootroot</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/blank-bootroot.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>blank-bootrootlv</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/blank-bootrootlv.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>blank-disk</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/blank-disk.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>blank-fs</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/blank-fs.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>blank-part</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/blank-part.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>debian</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/debian.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>fedora-btrfs</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/fedora-btrfs.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>fedora</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/fedora.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>fedora-md1</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/fedora-md1.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>fedora-md2</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/fedora-md2.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>ubuntu</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/ubuntu.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
+    <name>windows</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu'/>
+        <source file='@abs_builddir@/windows.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+</node>
