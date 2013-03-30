@@ -76,13 +76,16 @@ this:
   */
  guestfs_launch (g);
  
- /* Now you can examine what partitions, LVs etc are available.
-  */
+ /* Either: examine what partitions, LVs etc are available: */
  char **partitions = guestfs_list_partitions (g);
  char **logvols = guestfs_lvs (g);
  
- /* To access a filesystem in the image, you must mount it.
-  */
+ /* Or: ask libguestfs to find filesystems for you: */
+ char **filesystems = guestfs_list_filesystems (g);
+ 
+ /* Or: use inspection (see INSPECTION section below). */
+ 
+ /* To access a filesystem in the image, you must mount it. */
  guestfs_mount (g, "/dev/sda1", "/");
  
  /* Now you can perform filesystem actions on the guest
