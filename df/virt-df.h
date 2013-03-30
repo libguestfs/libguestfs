@@ -27,7 +27,7 @@ extern int uuid;                /* --uuid */
 /* df.c */
 extern int df_on_handle (guestfs_h *g, const char *name, const char *uuid, FILE *fp);
 #if defined(HAVE_LIBVIRT)
-extern void df_work (guestfs_h *g, size_t i, FILE *fp);
+extern int df_work (guestfs_h *g, size_t i, FILE *fp);
 #endif
 
 /* output.c */

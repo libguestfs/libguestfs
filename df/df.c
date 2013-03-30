@@ -92,7 +92,7 @@ df_on_handle (guestfs_h *g, const char *name, const char *uuid, FILE *fp)
  * in "parallel.c".
  */
 
-void
+int
 df_work (guestfs_h *g, size_t i, FILE *fp)
 {
   struct guestfs___add_libvirt_dom_argv optargs;
@@ -103,13 +103,14 @@ df_work (guestfs_h *g, size_t i, FILE *fp)
   optargs.readonly = 1;
   optargs.readonlydisk = "read";
 
+  /* Traditionally we have ignored errors from adding disks in virt-df. */
   if (guestfs___add_libvirt_dom (g, domains[i].dom, &optargs) == -1)
-    return;
+    return 0;
 
   if (guestfs_launch (g) == -1)
-    return;
+    return -1;
 
-  (void) df_on_handle (g, domains[i].name, domains[i].uuid, fp);
+  return df_on_handle (g, domains[i].name, domains[i].uuid, fp);
 }
 
 #endif /* HAVE_LIBVIRT */

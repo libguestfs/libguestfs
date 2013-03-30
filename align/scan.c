@@ -50,7 +50,7 @@ static pthread_mutex_t worst_alignment_mutex = PTHREAD_MUTEX_INITIALIZER;
 static int scan (guestfs_h *g, const char *prefix, FILE *fp);
 
 #ifdef HAVE_LIBVIRT
-static void scan_work (guestfs_h *g, size_t i, FILE *fp);
+static int scan_work (guestfs_h *g, size_t i, FILE *fp);
 #endif
 
 /* These globals are shared with options.c. */
@@ -131,6 +131,7 @@ main (int argc, char *argv[])
   int option_index;
   int exit_code;
   size_t max_threads = 0;
+  int r;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -226,16 +227,16 @@ main (int argc, char *argv[])
   if (drvs == NULL) {
 #if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
     get_all_libvirt_domains (libvirt_uri);
-    start_threads (max_threads, g, scan_work);
+    r = start_threads (max_threads, g, scan_work);
     free_domains ();
+    if (r == -1)
+      exit (EXIT_FAILURE);
 #else
     fprintf (stderr, _("%s: compiled without support for libvirt and/or libxml2.\n"),
              program_name);
     exit (EXIT_FAILURE);
 #endif
   } else {                      /* Single guest. */
-    int r;
-
     if (uuid) {
       fprintf (stderr, _("%s: --uuid option cannot be used with -a or -d\n"),
                program_name);
@@ -353,7 +354,7 @@ scan (guestfs_h *g, const char *prefix, FILE *fp)
  * in "parallel.c".
  */
 
-static void
+static int
 scan_work (guestfs_h *g, size_t i, FILE *fp)
 {
   struct guestfs___add_libvirt_dom_argv optargs;
@@ -365,12 +366,12 @@ scan_work (guestfs_h *g, size_t i, FILE *fp)
   optargs.readonlydisk = "read";
 
   if (guestfs___add_libvirt_dom (g, domains[i].dom, &optargs) == -1)
-    return;
+    return -1;
 
   if (guestfs_launch (g) == -1)
-    return;
+    return -1;
 
-  (void) scan (g, !uuid ? domains[i].name : domains[i].uuid, fp);
+  return scan (g, !uuid ? domains[i].name : domains[i].uuid, fp);
 }
 
 #endif /* HAVE_LIBVIRT */

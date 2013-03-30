@@ -68,30 +68,25 @@ static size_t next_domain_to_retire = 0;
 static pthread_mutex_t retire_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t retire_cond = PTHREAD_COND_INITIALIZER;
 
-static void thread_failure (const char *fn, int err) __attribute__((noreturn));
+static void thread_failure (const char *fn, int err);
 static void *worker_thread (void *arg);
 
 struct thread_data {
   int trace, verbose;           /* Flags from the options_handle. */
   work_fn work;
+  int r;                        /* Used to store the error status. */
 };
 
 /* Start threads. */
-void
+int
 start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
 {
-  struct thread_data thread_data = { .trace = 0, .verbose = 0, .work = work };
   size_t i, nr_threads;
-  int err;
+  int err, errors;
   void *status;
 
   if (nr_domains == 0)          /* Nothing to do. */
-    return;
-
-  if (options_handle) {
-    thread_data.trace = guestfs_get_trace (options_handle);
-    thread_data.verbose = guestfs_get_verbose (options_handle);
-  }
+    return 0;
 
   /* If the user selected the -P option, then we use up to that many threads. */
   if (option_P > 0)
@@ -99,21 +94,41 @@ start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
   else
     nr_threads = MIN (nr_domains, MIN (MAX_THREADS, estimate_max_threads ()));
 
+  struct thread_data thread_data[nr_threads];
   pthread_t threads[nr_threads];
+
+  for (i = 0; i < nr_threads; ++i) {
+    if (options_handle) {
+      thread_data[i].trace = guestfs_get_trace (options_handle);
+      thread_data[i].verbose = guestfs_get_verbose (options_handle);
+    }
+    else {
+      thread_data[i].trace = 0;
+      thread_data[i].verbose = 0;
+    }
+    thread_data[i].work = work;
+  }
 
   /* Start the worker threads. */
   for (i = 0; i < nr_threads; ++i) {
-    err = pthread_create (&threads[i], NULL, worker_thread, &thread_data);
+    err = pthread_create (&threads[i], NULL, worker_thread, &thread_data[i]);
     if (err != 0)
       error (EXIT_FAILURE, err, "pthread_create [%zu]", i);
   }
 
   /* Wait for the threads to exit. */
+  errors = 0;
   for (i = 0; i < nr_threads; ++i) {
     err = pthread_join (threads[i], &status);
-    if (err != 0)
-      error (EXIT_FAILURE, err, "pthread_join [%zu]", i);
+    if (err != 0) {
+      error (0, err, "pthread_join [%zu]", i);
+      errors++;
+    }
+    if (*(int *)status == -1)
+      errors++;
   }
+
+  return errors == 0 ? 0 : -1;
 }
 
 /* Worker thread. */
@@ -121,6 +136,8 @@ static void *
 worker_thread (void *thread_data_vp)
 {
   struct thread_data *thread_data = thread_data_vp;
+
+  thread_data->r = 0;
 
   while (1) {
     size_t i;               /* The current domain we're working on. */
@@ -132,10 +149,18 @@ worker_thread (void *thread_data_vp)
 
     /* Take the next domain from the list. */
     err = pthread_mutex_lock (&take_mutex);
-    if (err != 0) thread_failure ("pthread_mutex_lock", err);
+    if (err != 0) {
+      thread_failure ("pthread_mutex_lock", err);
+      thread_data->r = -1;
+      return &thread_data->r;
+    }
     i = next_domain_to_take++;
     err = pthread_mutex_unlock (&take_mutex);
-    if (err != 0) thread_failure ("pthread_mutex_unlock", err);
+    if (err != 0) {
+      thread_failure ("pthread_mutex_unlock", err);
+      thread_data->r = -1;
+      return &thread_data->r;
+    }
 
     if (i >= nr_domains)        /* Work finished. */
       break;
@@ -146,14 +171,16 @@ worker_thread (void *thread_data_vp)
     fp = open_memstream (&output, &output_len);
     if (fp == NULL) {
       perror ("open_memstream");
-      _exit (EXIT_FAILURE);
+      thread_data->r = -1;
+      return &thread_data->r;
     }
 
     /* Create a guestfs handle. */
     g = guestfs_create ();
     if (g == NULL) {
       perror ("guestfs_create");
-      _exit (EXIT_FAILURE);
+      thread_data->r = -1;
+      return &thread_data->r;
     }
 
     /* Copy some settings from the options guestfs handle. */
@@ -161,7 +188,8 @@ worker_thread (void *thread_data_vp)
     guestfs_set_verbose (g, thread_data->verbose);
 
     /* Do work. */
-    thread_data->work (g, i, fp);
+    if (thread_data->work (g, i, fp) == -1)
+      thread_data->r = -1;
 
     fclose (fp);
     guestfs_close (g);
@@ -170,10 +198,18 @@ worker_thread (void *thread_data_vp)
      * may mean waiting for another thread to finish here.
      */
     err = pthread_mutex_lock (&retire_mutex);
-    if (err != 0) thread_failure ("pthread_mutex_lock", err);
+    if (err != 0) {
+      thread_failure ("pthread_mutex_lock", err);
+      thread_data->r = -1;
+      return &thread_data->r;
+    }
     while (next_domain_to_retire != i) {
       err = pthread_cond_wait (&retire_cond, &retire_mutex);
-      if (err != 0) thread_failure ("pthread_cond_wait", err);
+      if (err != 0) {
+        thread_failure ("pthread_cond_wait", err);
+        thread_data->r = -1;
+        return &thread_data->r;
+      }
     }
 
     if (DEBUG_PARALLEL)
@@ -186,20 +222,23 @@ worker_thread (void *thread_data_vp)
     next_domain_to_retire = i+1;
     pthread_cond_broadcast (&retire_cond);
     err = pthread_mutex_unlock (&retire_mutex);
-    if (err != 0) thread_failure ("pthread_mutex_unlock", err);
+    if (err != 0) {
+      thread_failure ("pthread_mutex_unlock", err);
+      thread_data->r = -1;
+      return &thread_data->r;
+    }
   }
 
   if (DEBUG_PARALLEL)
     printf ("thread exiting\n");
 
-  return NULL;
+  return &thread_data->r;
 }
 
 static void
 thread_failure (const char *fn, int err)
 {
   fprintf (stderr, "%s: %s: %s\n", program_name, fn, strerror (err));
-  _exit (EXIT_FAILURE);
 }
 
 #endif /* HAVE_LIBVIRT */

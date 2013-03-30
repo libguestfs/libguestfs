@@ -130,6 +130,7 @@ main (int argc, char *argv[])
   int c;
   int option_index;
   size_t max_threads = 0;
+  int err;
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -274,7 +275,7 @@ main (int argc, char *argv[])
 #if defined(HAVE_LIBVIRT)
     get_all_libvirt_domains (libvirt_uri);
     print_title ();
-    start_threads (max_threads, g, df_work);
+    err = start_threads (max_threads, g, df_work);
     free_domains ();
 #else
     fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
@@ -302,7 +303,7 @@ main (int argc, char *argv[])
      * guestfs_add_domain so the UUID is not available easily for
      * single '-d' command-line options.
      */
-    (void) df_on_handle (g, name, NULL, stdout);
+    err = df_on_handle (g, name, NULL, stdout);
 
     /* Free up data structures, no longer needed after this point. */
     free_drives (drvs);
@@ -310,7 +311,7 @@ main (int argc, char *argv[])
 
   guestfs_close (g);
 
-  exit (EXIT_SUCCESS);
+  exit (err == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
 }
 
 /* Generate a display name for the single guest mode.  See comments in
