@@ -131,18 +131,19 @@ You can add a disk read-only using:
                          GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
                          -1);
 
-or by calling the older function L</guestfs_add_drive_ro>.  In either
-case libguestfs won't modify the file.
+or by calling the older function L</guestfs_add_drive_ro>.  If you
+use the readonly flag, libguestfs won't modify the file.
 (See also L</DISK IMAGE FORMATS> below).
 
 Be extremely cautious if the disk image is in use, eg. if it is being
 used by a virtual machine.  Adding it read-write will almost certainly
 cause disk corruption, but adding it read-only is safe.
 
-You must add at least one disk image, and you may add multiple disk
-images.  In the API, the disk images are usually referred to as
-C</dev/sda> (for the first one you added), C</dev/sdb> (for the second
-one you added), etc.
+You should usually add at least one disk image, and you may add
+multiple disk images.  If adding multiple disk images, they usually
+have to be "related", ie. from the same guest.  In the API, the disk
+images are usually referred to as C</dev/sda> (for the first one you
+added), C</dev/sdb> (for the second one you added), etc.
 
 Once L</guestfs_launch> has been called you cannot add any more images.
 You can call L</guestfs_list_devices> to get a list of the device
@@ -178,9 +179,9 @@ L</guestfs_file>.  To list just filesystems, use
 L</guestfs_list_filesystems>.
 
 Libguestfs also has a set of APIs for inspection of unknown disk
-images (see L</INSPECTION> below).  But you might find it easier to
-look at higher level programs built on top of libguestfs, in
-particular L<virt-inspector(1)>.
+images (see L</INSPECTION> below).  You might also want to look at
+higher level programs built on top of libguestfs, in particular
+L<virt-inspector(1)>.
 
 To mount a filesystem read-only, use L</guestfs_mount_ro>.  There are
 several other variations of the C<guestfs_mount_*> call.
@@ -261,8 +262,8 @@ L<http://tldp.org/HOWTO/LVM-HOWTO/>.
 =head2 DOWNLOADING
 
 Use L</guestfs_cat> to download small, text only files.  This call
-cannot handle files contain any ASCII NUL (C<\0>) characters.  However
-the API is very simple to use.
+cannot handle files containing any ASCII NUL (C<\0>) characters.
+However the API is very simple to use.
 
 L</guestfs_read_file> can be used to read files which contain
 arbitrary 8 bit data, since it returns a (pointer, size) pair.
@@ -274,9 +275,6 @@ To download multiple files, see L</guestfs_tar_out> and
 L</guestfs_tgz_out>.
 
 =head2 UPLOADING
-
-It's often the case that you want to write a file or files to the disk
-image.
 
 To write a small file with fixed content, use L</guestfs_write>.  To
 create a file of all zeroes, use L</guestfs_truncate_size> (sparse) or
