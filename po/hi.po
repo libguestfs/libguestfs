@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-29 21:47+0000\n"
+"POT-Creation-Date: 2013-03-30 22:55+0000\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -50,42 +50,42 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:137 cat/virt-cat.c:118 cat/virt-filesystems.c:191
-#: cat/virt-ls.c:183 df/main.c:136 edit/virt-edit.c:138 fish/fish.c:235
+#: align/scan.c:138 cat/virt-cat.c:118 cat/virt-filesystems.c:191
+#: cat/virt-ls.c:183 df/main.c:137 edit/virt-edit.c:138 fish/fish.c:235
 #: format/format.c:132 fuse/guestmount.c:210 inspector/virt-inspector.c:131
 #: rescue/virt-rescue.c:139
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: नियंत्रण बनाने में विफल\n"
 
-#: align/scan.c:159 cat/virt-cat.c:142 cat/virt-filesystems.c:247
-#: cat/virt-ls.c:235 df/main.c:162 edit/virt-edit.c:162 fish/fish.c:300
+#: align/scan.c:160 cat/virt-cat.c:142 cat/virt-filesystems.c:247
+#: cat/virt-ls.c:235 df/main.c:163 edit/virt-edit.c:162 fish/fish.c:300
 #: format/format.c:186 fuse/guestmount.c:245 fuse/guestunmount.c:128
 #: inspector/virt-inspector.c:157 rescue/virt-rescue.c:198
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
 
-#: align/scan.c:179 df/main.c:190
+#: align/scan.c:180 df/main.c:191
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr ""
 
-#: align/scan.c:232
+#: align/scan.c:235
 #, c-format
 msgid "%s: compiled without support for libvirt and/or libxml2.\n"
 msgstr ""
 
-#: align/scan.c:240
+#: align/scan.c:241
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr ""
 
-#: align/scan.c:336
+#: align/scan.c:337
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:339
+#: align/scan.c:340
 msgid "alignment < 64K"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-filesystems.c:309 cat/virt-ls.c:339 df/main.c:263
+#: cat/virt-filesystems.c:309 cat/virt-ls.c:339 df/main.c:264
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -266,7 +266,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: df/main.c:280
+#: df/main.c:281
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
