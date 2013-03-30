@@ -1126,41 +1126,6 @@ them.
 
 =over 4
 
-=item Autosync / forgetting to sync.
-
-I<Update:> Autosync is enabled by default for all API users starting
-from libguestfs 1.5.24.  This section only applies to older versions.
-
-When modifying a filesystem from C or another language, you B<must>
-unmount all filesystems and call L</guestfs_sync> explicitly before
-you close the libguestfs handle.  You can also call:
-
- guestfs_set_autosync (g, 1);
-
-to have the unmount/sync done automatically for you when the handle 'g'
-is closed.  (This feature is called "autosync", L</guestfs_set_autosync>
-q.v.)
-
-If you forget to do this, then it is entirely possible that your
-changes won't be written out, or will be partially written, or (very
-rarely) that you'll get disk corruption.
-
-Note that in L<guestfish(3)> autosync is the default.  So quick and
-dirty guestfish scripts that forget to sync will work just fine, which
-can make this very puzzling if you are trying to debug a problem.
-
-=item Mount option C<-o sync> should not be the default.
-
-I<Update:> L</guestfs_mount> no longer adds any options starting
-from libguestfs 1.13.16.  This section only applies to older versions.
-
-If you use L</guestfs_mount>, then C<-o sync,noatime> are added
-implicitly.  However C<-o sync> does not add any reliability benefit,
-but does have a very large performance impact.
-
-The work around is to use L</guestfs_mount_options> and set the mount
-options that you actually want to use.
-
 =item Read-only should be the default.
 
 In L<guestfish(3)>, I<--ro> should be the default, and you should
