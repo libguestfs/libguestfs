@@ -38,10 +38,11 @@ libguestfs works with any disk image, including ones created in
 VMware, KVM, qemu, VirtualBox, Xen, and many other hypervisors, and
 ones which you have created from scratch.
 
-S<Red Hat> sponsors (ie. pays for) development of libguestfs and a huge
-number of other open source projects.  But you can run libguestfs and
-the virt tools on many different Linux distros and Mac OS X.  Some
-virt tools have been ported to Windows.
+S<Red Hat> sponsors (ie. pays for) development of libguestfs and a
+huge number of other open source projects.  But you can run libguestfs
+and the virt tools on many different Linux distros and Mac OS X.  We
+try our best to support all Linux distros as first-class citizens.
+Some virt tools have been ported to Windows.
 
 =head2 How does libguestfs compare to other tools?
 
@@ -253,19 +254,21 @@ L<http://koji.fedoraproject.org/koji/packageinfo?packageID=8391>
 
 =item RHEL 5
 
-Use the package from EPEL 5:
+The version shipped in official RHEL 5 is very old and should not be
+used except in conjunction with virt-v2v.  Use the up-to-date
+libguestfs 1.20 package in EPEL 5:
 L<https://fedoraproject.org/wiki/EPEL>
 
-=item RHEL 6.2-6.4
+=item RHEL 6
 
-It is part of the default install.  On RHEL 6 (only) you have to
+It is part of the default install.  On RHEL 6 and 7 (only) you have to
 install C<libguestfs-winsupport> to get Windows guest support.
 
 =item RHEL 7
 
 It will be part of the default install, and based on libguestfs 1.20
-or 1.22.  As with RHEL 6 you will need to install
-C<libguestfs-winsupport> separately to get Windows guest support.
+or 1.22.  You will need to install C<libguestfs-winsupport> separately
+to get Windows guest support.
 
 =back
 
@@ -280,9 +283,9 @@ L<http://people.debian.org/~bengen/libguestfs/>
 
 =item Debian Wheezy and later (7+)
 
-Official Debian packages are available:
+Hilko Bengen generously supports libguestfs on Debian.  Official
+Debian packages are available:
 L<http://packages.debian.org/search?keywords=libguestfs>
-(thanks Hilko Bengen).
 
 =item Ubuntu
 
@@ -327,9 +330,18 @@ Also you need to do (see above):
 
 =item Gentoo
 
-Libguestfs was added to Gentoo in 2012-07.  Do:
+Libguestfs was added to Gentoo in 2012-07 by Andreis Vinogradovs
+(libguestfs) and Maxim Koltsov (mainly hivex).  Do:
 
  emerge libguestfs
+
+=item SuSE
+
+Libguestfs was added to SuSE in 2012 by Olaf Hering.
+
+=item ArchLinux
+
+Libguestfs was added to the AUR in 2010.
 
 =item Other Linux distro
 
