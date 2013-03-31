@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-13 10:51+0000\n"
+"POT-Creation-Date: 2013-03-31 11:19+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -2988,11 +2988,6 @@ msgstr "உள்ளமை அடைவை மாற்ற 'lcd அடைவை'
 msgid "use 'man' without parameters to open the manual\n"
 msgstr ""
 
-#: fish/man.c:55
-#, c-format
-msgid "the external 'man' program failed\n"
-msgstr ""
-
 #: fish/more.c:42
 #, c-format
 msgid "use '%s filename' to page a file\n"
@@ -3629,40 +3624,26 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:703
-#, c-format
-msgid "%s: unknown child exit status (%d)\n"
-msgstr ""
-
-#: src/appliance.c:215
+#: src/appliance.c:216
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:365
+#: src/appliance.c:367
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr ""
 
-#: src/appliance.c:370
+#: src/appliance.c:372
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:375
+#: src/appliance.c:377
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr ""
-
-#: src/appliance.c:692
-msgid "external command failed, see earlier error messages"
-msgstr ""
-
-#: src/dbdump.c:85
-#, c-format
-msgid "%s: command failed"
 msgstr ""
 
 #: src/dbdump.c:89
@@ -3676,6 +3657,37 @@ msgstr ""
 
 #: src/dbdump.c:228
 msgid "unexpected non-hex digits in output of db_dump command"
+msgstr ""
+
+#: src/drives.c:81
+msgid "for device '/dev/null', format must be 'raw'"
+msgstr ""
+
+#: src/drives.c:280 src/drives.c:473
+msgid "the current attach-method does not support hotplugging drives"
+msgstr ""
+
+#: src/drives.c:285
+msgid "'label' is required when hotplugging drives"
+msgstr ""
+
+#: src/drives.c:321 src/drives.c:428
+msgid ""
+"filename cannot contain ':' (colon) character. This is a limitation of qemu."
+msgstr ""
+
+#: src/drives.c:338 src/drives.c:343
+#, c-format
+msgid "%s parameter is empty or contains disallowed characters"
+msgstr ""
+
+#: src/drives.c:348
+msgid "label parameter is empty, too long, or contains disallowed characters"
+msgstr ""
+
+#: src/drives.c:458
+#, c-format
+msgid "disk with label '%s' not found"
 msgstr ""
 
 #: src/errors.c:69
@@ -3693,17 +3705,38 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
+#: src/errors.c:285
+#, c-format
+msgid "%s, see debug messages above"
+msgstr ""
+
+#: src/errors.c:287
+#, c-format
+msgid "%s: %s: %s, see debug messages above"
+msgstr ""
+
+#: src/errors.c:293
+#, c-format
+msgid ""
+"%s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
+msgstr ""
+
+#: src/errors.c:299
+#, c-format
+msgid ""
+"%s: %s: %s.\n"
+"To see full error messages you may need to enable debugging.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
+msgstr ""
+
 #: src/filearch.c:158
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/filearch.c:185
-#, c-format
-msgid "cpio command failed (status 0x%x)"
-msgstr ""
-
-#: src/filearch.c:266
+#: src/filearch.c:268
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -3800,24 +3833,19 @@ msgstr "guestfs_close: அதே ஹாண்டலில் இரண்டு 
 msgid "%s: cannot detect virtual size of disk image"
 msgstr ""
 
-#: src/info.c:199
-#, c-format
-msgid "qemu-img: %s: child process failed"
-msgstr ""
-
 #: src/inspect-fs-unix.c:206
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:333
-#: src/inspect-fs-unix.c:845 src/inspect-fs-unix.c:1486 src/inspect-fs.c:543
-#: src/inspect-fs.c:587 src/inspect.c:651
+#: src/inspect-fs-unix.c:846 src/inspect-fs-unix.c:1487 src/inspect-fs.c:545
+#: src/inspect-fs.c:589 src/inspect.c:647
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs-unix.c:888
+#: src/inspect-fs-unix.c:889
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
@@ -3826,24 +3854,24 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect-icon.c:602
+#: src/inspect-icon.c:604
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:324
+#: src/inspect.c:320
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:340
+#: src/inspect.c:336
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:687
+#: src/inspect.c:683
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:699
+#: src/inspect.c:695
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -3867,13 +3895,6 @@ msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு �
 #: src/launch-appliance.c:672 src/launch-libvirt.c:450
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
-
-#: src/launch-appliance.c:801
-msgid ""
-"qemu command failed\n"
-"If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU\n"
-"environment variable.  There may also be errors printed above."
-msgstr ""
 
 #: src/launch-libvirt.c:170
 msgid "direct mode flag is not supported yet for libvirt attach method"
@@ -3938,11 +3959,6 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1389
-#, c-format
-msgid "qemu-img create: could not create snapshot over %s"
-msgstr ""
-
 #: src/launch-libvirt.c:1416
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
@@ -3984,76 +4000,45 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:241 src/launch.c:488
-msgid "the current attach-method does not support hotplugging drives"
-msgstr ""
-
-#: src/launch.c:246
-msgid "'label' is required when hotplugging drives"
-msgstr ""
-
-#: src/launch.c:286
-msgid "for device '/dev/null', format must be 'raw'"
-msgstr ""
-
-#: src/launch.c:343 src/launch.c:443
-msgid ""
-"filename cannot contain ':' (colon) character. This is a limitation of qemu."
-msgstr ""
-
-#: src/launch.c:360 src/launch.c:365
-#, c-format
-msgid "%s parameter is empty or contains disallowed characters"
-msgstr ""
-
-#: src/launch.c:370
-msgid "label parameter is empty, too long, or contains disallowed characters"
-msgstr ""
-
-#: src/launch.c:473
-#, c-format
-msgid "disk with label '%s' not found"
-msgstr ""
-
-#: src/launch.c:517
-msgid "parameter must begin with '-' character"
-msgstr ""
-
-#: src/launch.c:531
-#, c-format
-msgid "parameter '%s' isn't allowed"
-msgstr ""
-
-#: src/launch.c:596
+#: src/launch.c:60
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:698
+#: src/launch.c:172
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch தோல்வியுற்றது, முந்தைய பிழைச் செய்தியைப் பார்"
 
-#: src/launch.c:700
+#: src/launch.c:174
 msgid ""
 "guestfs_launch failed.\n"
 "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
 "and/or run 'libguestfs-test-tool'."
 msgstr ""
 
-#: src/launch.c:709
+#: src/launch.c:183
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:715
+#: src/launch.c:189
 msgid "the current attach-method does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:728
+#: src/launch.c:202
 msgid "the current attach-method does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:740
+#: src/launch.c:214
 msgid "qemu has not been launched yet"
 msgstr "qemu இன்னும் துவங்கப்படவில்லை"
+
+#: src/launch.c:267
+msgid "parameter must begin with '-' character"
+msgstr ""
+
+#: src/launch.c:281
+#, c-format
+msgid "parameter '%s' isn't allowed"
+msgstr ""
 
 #: src/libvirt-auth.c:101
 #, c-format
@@ -4239,6 +4224,31 @@ msgstr ""
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
+
+#: src/utils.c:66
+#, c-format
+msgid "%s exited successfully"
+msgstr ""
+
+#: src/utils.c:69
+#, c-format
+msgid "%s exited with error status %d"
+msgstr ""
+
+#: src/utils.c:73
+#, c-format
+msgid "%s killed by signal %d (%s)"
+msgstr ""
+
+#: src/utils.c:77
+#, c-format
+msgid "%s stopped by signal %d (%s)"
+msgstr ""
+
+#: src/utils.c:81
+#, c-format
+msgid "%s exited for an unknown reason (status %d)"
+msgstr ""
 
 #: test-tool/test-tool.c:56
 #, c-format
@@ -4935,16 +4945,10 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr ""
 
-#: ../resize/resize_utils.ml:81
+#: ../resize/common_utils.ml:140
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
-msgstr ""
-
-#: ../sparsify/sparsify_utils.ml:109
-msgid ""
-"If reporting bugs, run virt-sparsify with the '-v' and '-x' options and "
-"include the complete output."
 msgstr ""
 
 #: ../sparsify/sparsify.ml:64
@@ -5559,7 +5563,7 @@ msgstr ""
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr ""
 
-#: ../resize/resize_utils.ml:77
+#: ../resize/common_utils.ml:136
 msgid "virt-resize: error: "
 msgstr ""
 
