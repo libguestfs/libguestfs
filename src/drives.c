@@ -752,8 +752,8 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   }
 
   /* ... else, hotplugging case. */
-  if (!g->attach_ops || !g->attach_ops->hot_add_drive) {
-    error (g, _("the current attach-method does not support hotplugging drives"));
+  if (!g->backend || !g->backend_ops->hot_add_drive) {
+    error (g, _("the current backend does not support hotplugging drives"));
     free_drive_struct (drv);
     return -1;
   }
@@ -771,7 +771,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
       drv_index = i;
 
   /* Hot-add the drive. */
-  if (g->attach_ops->hot_add_drive (g, drv, drv_index) == -1) {
+  if (g->backend_ops->hot_add_drive (g, drv, drv_index) == -1) {
     free_drive_struct (drv);
     return -1;
   }
@@ -871,15 +871,15 @@ guestfs__remove_drive (guestfs_h *g, const char *label)
     return 0;
   }
   else {                        /* Hotplugging. */
-    if (!g->attach_ops || !g->attach_ops->hot_remove_drive) {
-      error (g, _("the current attach-method does not support hotplugging drives"));
+    if (!g->backend_ops || !g->backend_ops->hot_remove_drive) {
+      error (g, _("the current backend does not support hotplugging drives"));
       return -1;
     }
 
     if (guestfs_internal_hot_remove_drive_precheck (g, label) == -1)
       return -1;
 
-    if (g->attach_ops->hot_remove_drive (g, drv, i) == -1)
+    if (g->backend_ops->hot_remove_drive (g, drv, i) == -1)
       return -1;
 
     free_drive_struct (drv);
@@ -940,7 +940,7 @@ guestfs__debug_drives (guestfs_h *g)
   return ret;                   /* caller frees */
 }
 
-/* The drive_source struct is also used in the attach methods, so we
+/* The drive_source struct is also used in the backends, so we
  * also have these utility functions.
  */
 void

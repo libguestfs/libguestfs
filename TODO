@@ -361,14 +361,14 @@ Interactive disk creator
 
 An interactive disk creator program.
 
-Attach method for disconnected operation
-----------------------------------------
+Backend for disconnected operation
+----------------------------------
 
-http://libguestfs.org/guestfs.3.html#guestfs_set_attach_method
+http://libguestfs.org/guestfs.3.html#guestfs_set_backend
 
 "Librarian" has an idea that he should be able to attach to a regular
 appliance, but disconnect from it and reconnect to it later.  This
-would be some sort of modified attach method (see link above).
+would be some sort of modified backend (see link above).
 
 The complexity here is that we would no longer have access to
 stdin/stdout (or we'd have to direct that somewhere else).
@@ -490,7 +490,7 @@ Optimize the appliance
 
 Pass -cpu host.  Anything else?
 
-[The libvirt attach-method uses 'host-model' which is basically
+[The libvirt backend uses 'host-model' which is basically
 the same as this]
 
 Sort out partitioning
@@ -534,8 +534,8 @@ as data is reliably written out when g.sync, g.shutdown or g.close
 return.  Also in libguestfs we effectively control the whole stack, so
 we can ensure write barriers happen when we want.
 
-libvirt attach-method
----------------------
+libvirt backend
+---------------
 
 Since libguestfs 1.19.24 this mostly works.  Here are some suggested
 items to work on:

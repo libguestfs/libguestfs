@@ -116,8 +116,8 @@ The full requirements are described below.
 | libconfig    |             | O | Used to parse libguestfs's own config   |
 |              |             |   | files eg. /etc/libguestfs-tools.conf.   |
 +--------------+-------------+---+-----------------------------------------+
-| libselinux   |             | O | Used by the libvirt attach-method to    |
-|              |             |   | securely confine the appliance (sVirt). |
+| libselinux   |             | O | Used by the libvirt backend to securely |
+|              |             |   | confine the appliance (sVirt).          |
 +--------------+-------------+---+-----------------------------------------+
 | augeas       | 0.5.0       | O | To inspect configuration of Linux guests.
 +--------------+-------------+---+-----------------------------------------+

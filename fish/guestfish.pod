@@ -1253,8 +1253,12 @@ Pass additional options to the guest kernel.
 
 =item LIBGUESTFS_ATTACH_METHOD
 
+This is the old way to set C<LIBGUESTFS_BACKEND>.
+
+=item LIBGUESTFS_BACKEND
+
 Choose the default way to create the appliance.  See
-L<guestfs(3)/guestfs_set_attach_method>.
+L<guestfs(3)/guestfs_set_backend>.
 
 =item LIBGUESTFS_CACHEDIR
 
@@ -1313,7 +1317,7 @@ set, it uses C<more>.
 
 Libguestfs and guestfish may run some external programs, and rely on
 C<$PATH> being set to a reasonable value.  If using the libvirt
-attach-method, libvirt will not work at all unless C<$PATH> contains
+backend, libvirt will not work at all unless C<$PATH> contains
 the path of qemu/KVM.
 
 =item SUPERMIN_KERNEL

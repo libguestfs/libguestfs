@@ -80,16 +80,25 @@ AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number.])
 AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number.])
 AC_DEFINE_UNQUOTED([PACKAGE_VERSION_EXTRA],["$libguestfs_extra"],[Extra version string.])
 
-dnl Default attach method.
-AC_MSG_CHECKING([if the user specified a default attach method])
+dnl Default backend.
+AC_MSG_CHECKING([if the user specified a default backend])
+AC_ARG_WITH([default-backend],
+    [AS_HELP_STRING([--with-default-backend="direct|libvirt|..."],
+        [set default backend @<:@default=direct@:>@])],
+    [DEFAULT_BACKEND="$withval"],
+    [DEFAULT_BACKEND=direct])
+AC_MSG_RESULT([$DEFAULT_BACKEND])
+AC_DEFINE_UNQUOTED([DEFAULT_BACKEND],["$DEFAULT_BACKEND"],
+                   [Default backend.])
+
+dnl Fail with error if user does --with-default-attach-method.
 AC_ARG_WITH([default-attach-method],
-    [AS_HELP_STRING([--with-default-attach-method="appliance|libvirt|..."],
-        [set default attach method @<:@default=appliance@:>@])],
-    [DEFAULT_ATTACH_METHOD="$withval"],
-    [DEFAULT_ATTACH_METHOD=appliance])
-AC_MSG_RESULT([$DEFAULT_ATTACH_METHOD])
-AC_DEFINE_UNQUOTED([DEFAULT_ATTACH_METHOD],["$DEFAULT_ATTACH_METHOD"],
-                   [Default attach method.])
+    [AS_HELP_STRING([--with-default-attach-method="..."],
+        [use --with-default-backend instead])],
+    [AC_MSG_FAILURE([--with-default-attach-method no longer works in
+this version of libguestfs, use
+  ./configure --with-default-backend=$withval
+instead.])])
 
 dnl Early gnulib initialization.
 gl_EARLY

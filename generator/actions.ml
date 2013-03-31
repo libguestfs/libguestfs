@@ -1887,29 +1887,61 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "set_attach_method";
-    style = RErr, [String "attachmethod"], [];
+    style = RErr, [String "backend"], [];
     fish_alias = ["attach-method"]; config_only = true;
     blocking = false;
-    shortdesc = "set the attach method";
+    deprecated_by = Some "set_backend";
+    shortdesc = "set the backend";
     longdesc = "\
-Set the method that libguestfs uses to connect to the back end
+Set the method that libguestfs uses to connect to the backend
 guestfsd daemon.
 
-See L<guestfs(3)/ATTACH METHOD>." };
+See L<guestfs(3)/BACKEND>." };
 
   { defaults with
     name = "get_attach_method";
-    style = RString "attachmethod", [], [];
+    style = RString "backend", [], [];
     blocking = false;
+    deprecated_by = Some "get_backend";
     tests = [
       InitNone, Always, TestRun (
         [["get_attach_method"]])
     ];
-    shortdesc = "get the attach method";
+    shortdesc = "get the backend";
     longdesc = "\
-Return the current attach method.
+Return the current backend.
 
-See C<guestfs_set_attach_method> and L<guestfs(3)/ATTACH METHOD>." };
+See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>." };
+
+  { defaults with
+    name = "set_backend";
+    style = RErr, [String "backend"], [];
+    fish_alias = ["backend"]; config_only = true;
+    blocking = false;
+    shortdesc = "set the backend";
+    longdesc = "\
+Set the method that libguestfs uses to connect to the backend
+guestfsd daemon.
+
+This handle property was previously called the \"attach method\".
+
+See L<guestfs(3)/BACKEND>." };
+
+  { defaults with
+    name = "get_backend";
+    style = RString "backend", [], [];
+    blocking = false;
+    tests = [
+      InitNone, Always, TestRun (
+        [["get_backend"]])
+    ];
+    shortdesc = "get the backend";
+    longdesc = "\
+Return the current backend.
+
+This handle property was previously called the \"attach method\".
+
+See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>." };
 
   { defaults with
     name = "inspect_get_product_variant";
@@ -2569,7 +2601,7 @@ labels (see the optional C<label> argument to C<guestfs_add_drive_opts>).
 If you didn't use a label, then they cannot be removed.
 
 You can call this function before or after launching the handle.
-If called after launch, if the attach-method supports it, we try to hot
+If called after launch, if the backend supports it, we try to hot
 unplug the drive: see L<guestfs(3)/HOTPLUGGING>.  The disk B<must not>
 be in use (eg. mounted) when you do this.  We try to detect if the
 disk is in use and stop you from doing this." };
@@ -2768,23 +2800,23 @@ Get the directory used by the handle to store the appliance cache." };
     style = RErr, [String "label"; String "imagelabel"], [];
     blocking = false;
     visibility = VInternal;
-    shortdesc = "set SELinux label used by the libvirt attach method";
+    shortdesc = "set SELinux label used by the libvirt backend";
     longdesc = "\
 This internal function sets the SELinux security label (in
 reality, two labels: the process label and the image label)
-used by the appliance when the libvirt attach method is selected
-(it is ignored by other attach methods)." };
+used by the appliance when the libvirt backend is selected
+(it is ignored by other backends)." };
 
   { defaults with
     name = "internal_set_libvirt_selinux_norelabel_disks";
     style = RErr, [Bool "norelabeldisks"], [];
     blocking = false;
     visibility = VInternal;
-    shortdesc = "tell libvirt attach method not to relabel disks";
+    shortdesc = "tell libvirt backend not to relabel disks";
     longdesc = "\
 This internal function adds E<lt>seclabel model=selinux relabel=noE<gt>
-to all application disks.  It is only used by the libvirt attach method
-and is ignored by other attach methods." };
+to all application disks.  It is only used by the libvirt backend
+and is ignored by other backends." };
 
   { defaults with
     name = "user_cancel";

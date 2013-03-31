@@ -324,8 +324,8 @@ extra-tests:
 	$(MAKE) -j1 \
 	  check-valgrind \
 	  check-valgrind-local-guests \
-	  check-with-appliance \
-	  check-valgrind-with-appliance \
+	  check-direct \
+	  check-valgrind-direct \
 	  check-with-upstream-qemu \
 	  check-with-upstream-libvirt \
 	  check-slow
@@ -343,17 +343,21 @@ check-valgrind-local-guests:
 	  $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@ || exit $$?; \
 	done
 
-check-with-appliance:
-	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
-	if [ "$$method" != "appliance" ]; then \
-	  $(MAKE) LIBGUESTFS_ATTACH_METHOD=appliance check || exit $$?; \
+check-direct:
+	@backend=`$(top_builddir)/run ./fish/guestfish get-backend`; \
+	if [ "$$backend" != "direct" ]; then \
+	  $(MAKE) LIBGUESTFS_BACKEND=direct check || exit $$?; \
 	fi
 
-check-valgrind-with-appliance:
-	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
-	if [ "$$method" != "appliance" ]; then \
-	  $(MAKE) LIBGUESTFS_ATTACH_METHOD=appliance check-valgrind || exit $$?; \
+check-with-appliance: check-direct
+
+check-valgrind-direct:
+	@backend=`$(top_builddir)/run ./fish/guestfish get-backend`; \
+	if [ "$$backend" != "direct" ]; then \
+	  $(MAKE) LIBGUESTFS_BACKEND=direct check-valgrind || exit $$?; \
 	fi
+
+check-valgrind-with-appliance: check-valgrind-direct
 
 QEMUDIR = $(HOME)/d/qemu
 QEMUBINARY = $(QEMUDIR)/x86_64-softmmu/qemu-system-x86_64
@@ -375,8 +379,8 @@ $(top_builddir)/qemu-wrapper.sh: Makefile
 LIBVIRTDIR = $(HOME)/d/libvirt
 
 check-with-upstream-libvirt:
-	@method=`$(top_builddir)/run ./fish/guestfish get-attach-method`; \
-	if [ "$$method" = "libvirt" ] && [ -x "$(LIBVIRTDIR)/run" ]; then \
+	@backend=`$(top_builddir)/run ./fish/guestfish get-backend`; \
+	if [ "$$backend" = "libvirt" ] && [ -x "$(LIBVIRTDIR)/run" ]; then \
 	  $(LIBVIRTDIR)/run $(MAKE) check || exit $$?; \
 	fi
 
@@ -416,8 +420,8 @@ help:
 	@echo "make extra-tests                  Runs all of the following tests:"
 	@echo "  make check-valgrind                Run a subset of the tests under valgrind."
 	@echo "  make check-valgrind-local-guests   Test under valgrind using local guests."
-	@echo "  make check-with-appliance          Test using appliance attach-method."
-	@echo "  make check-valgrind-with-appliance Test valgrind + appliance attach-method."
+	@echo "  make check-direct                  Test using direct backend."
+	@echo "  make check-valgrind-direct         Test valgrind + direct backend."
 	@echo "  make check-with-upstream-qemu      Test using upstream qemu."
 	@echo "  make check-with-upstream-libvirt   Test using upstream libvirt."
 	@echo "  make check-slow                    Slow/long-running tests."

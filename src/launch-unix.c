@@ -30,7 +30,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-/* Alternate attach method: instead of launching the appliance,
+/* Alternate backend: instead of launching the appliance,
  * connect to an existing unix socket.
  */
 static int
@@ -42,7 +42,7 @@ launch_unix (guestfs_h *g, const char *sockpath)
   void *buf = NULL;
 
   if (g->qemu_params) {
-    error (g, _("cannot set qemu parameters with the 'unix:' attach method"));
+    error (g, _("cannot set qemu parameters with the 'unix:' backend"));
     return -1;
   }
 
@@ -112,7 +112,7 @@ shutdown_unix (guestfs_h *g, int check_for_errors)
   return 0;
 }
 
-struct attach_ops attach_ops_unix = {
+struct backend_ops backend_ops_unix = {
   .launch = launch_unix,
   .shutdown = shutdown_unix,
 };

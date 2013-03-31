@@ -40,9 +40,9 @@ if [ -n "$SKIP_TEST_RHBZ690819_SH" ]; then
     exit 77
 fi
 
-method="$(../../fish/guestfish get-attach-method)"
-if [[ "$method" =~ ^libvirt ]]; then
-    echo "$0: test skipped because attach-method ($method) is 'libvirt'."
+backend="$(../../fish/guestfish get-backend)"
+if [[ "$backend" =~ ^libvirt ]]; then
+    echo "$0: test skipped because backend ($backend) is 'libvirt'."
     exit 77
 fi
 

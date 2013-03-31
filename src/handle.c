@@ -40,7 +40,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static int parse_attach_method (guestfs_h *g, const char *method);
+static int parse_backend (guestfs_h *g, const char *method);
 static int shutdown_backend (guestfs_h *g, int check_for_errors);
 static void close_handles (void);
 
@@ -115,9 +115,9 @@ guestfs_create_flags (unsigned flags, ...)
   g->qemu = strdup (QEMU);
   if (!g->qemu) goto error;
 
-  if (parse_attach_method (g, DEFAULT_ATTACH_METHOD) == -1) {
-    warning (g, _("libguestfs was built with an invalid default attach-method, using 'appliance' instead"));
-    g->attach_method = ATTACH_METHOD_APPLIANCE;
+  if (parse_backend (g, DEFAULT_BACKEND) == -1) {
+    warning (g, _("libguestfs was built with an invalid default backend, using 'direct' instead"));
+    g->backend = BACKEND_DIRECT;
   }
 
   if (!(flags & GUESTFS_CREATE_NO_ENVIRONMENT))
@@ -142,7 +142,7 @@ guestfs_create_flags (unsigned flags, ...)
   return g;
 
  error:
-  free (g->attach_method_arg);
+  free (g->backend_arg);
   free (g->path);
   free (g->qemu);
   free (g->append);
@@ -207,10 +207,17 @@ parse_environment (guestfs_h *g,
     guestfs_set_memsize (g, memsize);
   }
 
-  str = do_getenv (data, "LIBGUESTFS_ATTACH_METHOD");
+  str = do_getenv (data, "LIBGUESTFS_BACKEND");
   if (str) {
-    if (guestfs_set_attach_method (g, str) == -1)
+    if (guestfs_set_backend (g, str) == -1)
       return -1;
+  }
+  else {
+    str = do_getenv (data, "LIBGUESTFS_ATTACH_METHOD");
+    if (str) {
+      if (guestfs_set_backend (g, str) == -1)
+        return -1;
+    }
   }
 
   return 0;
@@ -370,7 +377,7 @@ shutdown_backend (guestfs_h *g, int check_for_errors)
     g->conn = NULL;
   }
 
-  if (g->attach_ops->shutdown (g, check_for_errors) == -1)
+  if (g->backend_ops->shutdown (g, check_for_errors) == -1)
     ret = -1;
 
   guestfs___free_drives (g);
@@ -518,14 +525,14 @@ guestfs__get_trace (guestfs_h *g)
 int
 guestfs__set_direct (guestfs_h *g, int d)
 {
-  g->direct = !!d;
+  g->direct_mode = !!d;
   return 0;
 }
 
 int
 guestfs__get_direct (guestfs_h *g)
 {
-  return g->direct;
+  return g->direct_mode;
 }
 
 int
@@ -555,33 +562,33 @@ guestfs__get_network (guestfs_h *g)
 }
 
 static int
-parse_attach_method (guestfs_h *g, const char *method)
+parse_backend (guestfs_h *g, const char *method)
 {
-  if (STREQ (method, "appliance")) {
-    g->attach_method = ATTACH_METHOD_APPLIANCE;
-    free (g->attach_method_arg);
-    g->attach_method_arg = NULL;
+  if (STREQ (method, "direct") || STREQ (method, "appliance")) {
+    g->backend = BACKEND_DIRECT;
+    free (g->backend_arg);
+    g->backend_arg = NULL;
     return 0;
   }
 
   if (STREQ (method, "libvirt")) {
-    g->attach_method = ATTACH_METHOD_LIBVIRT;
-    free (g->attach_method_arg);
-    g->attach_method_arg = NULL;
+    g->backend = BACKEND_LIBVIRT;
+    free (g->backend_arg);
+    g->backend_arg = NULL;
     return 0;
   }
 
   if (STRPREFIX (method, "libvirt:") && strlen (method) > 8) {
-    g->attach_method = ATTACH_METHOD_LIBVIRT;
-    free (g->attach_method_arg);
-    g->attach_method_arg = safe_strdup (g, method + 8);
+    g->backend = BACKEND_LIBVIRT;
+    free (g->backend_arg);
+    g->backend_arg = safe_strdup (g, method + 8);
     return 0;
   }
 
   if (STRPREFIX (method, "unix:") && strlen (method) > 5) {
-    g->attach_method = ATTACH_METHOD_UNIX;
-    free (g->attach_method_arg);
-    g->attach_method_arg = safe_strdup (g, method + 5);
+    g->backend = BACKEND_UNIX;
+    free (g->backend_arg);
+    g->backend_arg = safe_strdup (g, method + 5);
     /* Note that we don't check the path exists until launch is called. */
     return 0;
   }
@@ -590,35 +597,41 @@ parse_attach_method (guestfs_h *g, const char *method)
 }
 
 int
-guestfs__set_attach_method (guestfs_h *g, const char *method)
+guestfs__set_backend (guestfs_h *g, const char *method)
 {
-  if (parse_attach_method (g, method) == -1) {
-    error (g, "invalid attach method: %s", method);
+  if (parse_backend (g, method) == -1) {
+    error (g, "invalid backend: %s", method);
     return -1;
   }
 
   return 0;
 }
 
+int
+guestfs__set_attach_method (guestfs_h *g, const char *method)
+{
+  return guestfs__set_backend (g, method);
+}
+
 char *
-guestfs__get_attach_method (guestfs_h *g)
+guestfs__get_backend (guestfs_h *g)
 {
   char *ret = NULL;
 
-  switch (g->attach_method) {
-  case ATTACH_METHOD_APPLIANCE:
-    ret = safe_strdup (g, "appliance");
+  switch (g->backend) {
+  case BACKEND_DIRECT:
+    ret = safe_strdup (g, "direct");
     break;
 
-  case ATTACH_METHOD_LIBVIRT:
-    if (g->attach_method_arg == NULL)
+  case BACKEND_LIBVIRT:
+    if (g->backend_arg == NULL)
       ret = safe_strdup (g, "libvirt");
     else
-      ret = safe_asprintf (g, "libvirt:%s", g->attach_method_arg);
+      ret = safe_asprintf (g, "libvirt:%s", g->backend_arg);
     break;
 
-  case ATTACH_METHOD_UNIX:
-    ret = safe_asprintf (g, "unix:%s", g->attach_method_arg);
+  case BACKEND_UNIX:
+    ret = safe_asprintf (g, "unix:%s", g->backend_arg);
     break;
   }
 
@@ -626,6 +639,19 @@ guestfs__get_attach_method (guestfs_h *g)
     abort ();
 
   return ret;
+}
+
+char *
+guestfs__get_attach_method (guestfs_h *g)
+{
+  switch (g->backend) {
+  case BACKEND_DIRECT:
+    /* Return 'appliance' here for backwards compatibility. */
+    return safe_strdup (g, "appliance");
+
+  default:
+    return guestfs__get_backend (g);
+  }
 }
 
 int

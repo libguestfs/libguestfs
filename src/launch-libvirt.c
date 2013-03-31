@@ -168,8 +168,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
   params.current_proc_is_root = geteuid () == 0;
 
   /* XXX: It should be possible to make this work. */
-  if (g->direct) {
-    error (g, _("direct mode flag is not supported yet for libvirt attach method"));
+  if (g->direct_mode) {
+    error (g, _("direct mode flag is not supported yet for libvirt backend"));
     return -1;
   }
 
@@ -179,7 +179,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
          version / 1000000UL, version / 1000UL % 1000UL, version % 1000UL);
   if (version < MIN_LIBVIRT_VERSION) {
     error (g, _("you must have libvirt >= %d.%d.%d "
-                "to use the 'libvirt' attach-method"),
+                "to use the 'libvirt' backend"),
            MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR, MIN_LIBVIRT_MICRO);
     return -1;
   }
@@ -559,15 +559,15 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
     error (g,
            _("libvirt hypervisor doesn't support qemu or KVM,\n"
              "so we cannot create the libguestfs appliance.\n"
-             "The current attach-method is '%s'.\n"
+             "The current backend is '%s'.\n"
              "Check that the PATH environment variable is set and contains\n"
              "the path to the qemu ('qemu-system-*') or KVM ('qemu-kvm', 'kvm' etc).\n"
              "Or: try setting:\n"
-             "  export LIBGUESTFS_ATTACH_METHOD=libvirt:qemu:///session\n"
+             "  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
              "Or: if you want to have libguestfs run qemu directly, try:\n"
-             "  export LIBGUESTFS_ATTACH_METHOD=appliance\n"
+             "  export LIBGUESTFS_BACKEND=direct\n"
              "For further help, read the guestfs(3) man page and libguestfs FAQ."),
-           guestfs__get_attach_method (g));
+           guestfs__get_backend (g));
     return -1;
   }
 
@@ -1053,7 +1053,7 @@ construct_libvirt_xml_disk (guestfs_h *g,
 
   /* XXX We probably could support this if we thought about it some more. */
   if (drv->iface) {
-    error (g, _("'iface' parameter is not supported by the libvirt attach-method"));
+    error (g, _("'iface' parameter is not supported by the libvirt backend"));
     return -1;
   }
 
@@ -1792,7 +1792,7 @@ construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv,
   return ret;
 }
 
-struct attach_ops attach_ops_libvirt = {
+struct backend_ops backend_ops_libvirt = {
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,
@@ -1803,7 +1803,7 @@ struct attach_ops attach_ops_libvirt = {
 #else /* no libvirt or libxml2 at compile time */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("libvirt attach-method is not available because "         \
+  error (g, _("libvirt backend is not available because "         \
               "this version of libguestfs was compiled "                \
               "without libvirt or libvirt < %d.%d.%d or without libxml2"), \
          MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR, MIN_LIBVIRT_MICRO);      \
@@ -1827,7 +1827,7 @@ max_disks_libvirt (guestfs_h *g)
   NOT_IMPL (-1);
 }
 
-struct attach_ops attach_ops_libvirt = {
+struct backend_ops backend_ops_libvirt = {
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,

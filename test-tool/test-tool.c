@@ -244,8 +244,8 @@ main (int argc, char *argv[])
   guestfs_free_version (vers);
 
   printf ("guestfs_get_append: %s\n", guestfs_get_append (g) ? : "(null)");
-  p = guestfs_get_attach_method (g);
-  printf ("guestfs_get_attach_method: %s\n", p ? : "(null)");
+  p = guestfs_get_backend (g);
+  printf ("guestfs_get_backend: %s\n", p ? : "(null)");
   free (p);
   printf ("guestfs_get_autosync: %d\n", guestfs_get_autosync (g));
   p = guestfs_get_cachedir (g);

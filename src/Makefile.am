@@ -105,7 +105,7 @@ libguestfs_la_SOURCES = \
 	inspect-fs-windows.c \
 	inspect-icon.c \
 	launch.c \
-	launch-appliance.c \
+	launch-direct.c \
 	launch-libvirt.c \
 	launch-unix.c \
 	libvirt-auth.c \

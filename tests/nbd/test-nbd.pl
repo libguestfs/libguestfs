@@ -99,7 +99,7 @@ sub run_test {
 # Since read-only and read-write paths are quite different, we have to
 # test both separately.
 for my $readonly (1, 0) {
-    if ($readonly && Sys::Guestfs->new()->get_attach_method() eq "appliance") {
+    if ($readonly && Sys::Guestfs->new()->get_backend() eq "direct") {
         printf "skipping readonly + appliance case:\n";
         printf "https://bugs.launchpad.net/qemu/+bug/1155677\n";
         next;
@@ -109,7 +109,7 @@ for my $readonly (1, 0) {
 }
 
 # Test Unix domain socket codepath.
-if (Sys::Guestfs->new()->get_attach_method() !~ /^libvirt/) {
+if (Sys::Guestfs->new()->get_backend() !~ /^libvirt/) {
     run_test (0, 0);
 } else {
     printf "skipping Unix domain socket test:\n";

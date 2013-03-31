@@ -57,27 +57,27 @@ main (int argc, char *argv[])
   int data[NR_THREADS];
   int i, r, errors;
   guestfs_h *g;
-  char *attach_method;
+  char *backend;
 
-  /* Test is only meaningful if the attach-method "appliance" is used. */
+  /* Test is only meaningful if the backend "direct" is used. */
   g = guestfs_create ();
   if (!g) {
     perror ("guestfs_create");
     exit (EXIT_FAILURE);
   }
-  attach_method = guestfs_get_attach_method (g);
-  if (attach_method == NULL) {
+  backend = guestfs_get_backend (g);
+  if (backend == NULL) {
     guestfs_close (g);
     exit (EXIT_FAILURE);
   }
-  if (STRNEQ (attach_method, "appliance")) {
-    fprintf (stderr, "%s: test skipped because attach method isn't 'appliance'.\n",
+  if (STRNEQ (backend, "direct")) {
+    fprintf (stderr, "%s: test skipped because backend isn't 'direct'.\n",
              argv[0]);
-    free (attach_method);
+    free (backend);
     guestfs_close (g);
     exit (77);
   }
-  free (attach_method);
+  free (backend);
   guestfs_close (g);
 
   /* Ensure error messages are not translated. */

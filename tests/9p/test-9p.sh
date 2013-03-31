@@ -26,9 +26,9 @@ if [ -n "$SKIP_TEST_9P_SH" ]; then
     exit 77
 fi
 
-method="$(../../fish/guestfish get-attach-method)"
-if [[ "$method" != "appliance" ]]; then
-    echo "$0: test skipped because attach-method ($method) is not 'appliance'."
+backend="$(../../fish/guestfish get-backend)"
+if [[ "$backend" != "direct" ]]; then
+    echo "$0: test skipped because backend ($backend) is not 'direct'."
     exit 77
 fi
 

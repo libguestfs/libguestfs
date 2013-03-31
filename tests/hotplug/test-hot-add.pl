@@ -24,11 +24,11 @@ use Sys::Guestfs;
 
 my $g = Sys::Guestfs->new ();
 
-# Skip the test if the default attach-method isn't libvirt, since only
+# Skip the test if the default backend isn't libvirt, since only
 # the libvirt backend supports hotplugging.
-my $attach_method = $g->get_attach_method ();
-unless ($attach_method eq "libvirt" || $attach_method =~ /^libvirt:/) {
-    print "$0: test skipped because attach-method ($attach_method) is not libvirt\n";
+my $backend = $g->get_backend ();
+unless ($backend eq "libvirt" || $backend =~ /^libvirt:/) {
+    print "$0: test skipped because backend ($backend) is not libvirt\n";
     exit 77
 }
 

@@ -611,9 +611,9 @@ In libguestfs E<ge> 1.20, you may add drives and remove after calling
 L</guestfs_launch>.  There are some restrictions, see below.  This is
 called I<hotplugging>.
 
-Only a subset of the attach-method backends support hotplugging
-(currently only the libvirt attach-method has support).  It also
-requires that you use libvirt E<ge> 0.10.3 and qemu E<ge> 1.2.
+Only a subset of the backends support hotplugging (currently only the
+libvirt backend has support).  It also requires that you use libvirt
+E<ge> 0.10.3 and qemu E<ge> 1.2.
 
 To hot-add a disk, simply call L</guestfs_add_drive_opts> after
 L</guestfs_launch>.  It is mandatory to specify the C<label> parameter
@@ -722,19 +722,18 @@ the server.
 
 =item *
 
-The libvirt attach-method requires that you set the C<format>
-parameter of L</guestfs_add_drive_opts> accurately when you use
-writable NBD disks.
+The libvirt backend requires that you set the C<format> parameter of
+L</guestfs_add_drive_opts> accurately when you use writable NBD disks.
 
 =item *
 
-The libvirt attach-method has a bug that stops Unix domain socket
+The libvirt backend has a bug that stops Unix domain socket
 connections from working:
 L<https://bugzilla.redhat.com/show_bug.cgi?id=922888>
 
 =item *
 
-The appliance attach-method does not support readonly connections because
+The direct backend does not support readonly connections because
 of a bug in qemu:
 L<https://bugs.launchpad.net/qemu/+bug/1155677>
 
@@ -1294,24 +1293,34 @@ options into the C<args> array.
  
  exec qemu-kvm -machine pc,accel=tcg "${args[@]}"
 
-=head2 ATTACH METHOD
+=begin html
 
-The attach method controls how libguestfs creates and/or connects to
-the back-end daemon, eg. by starting qemu directly, or by using
-libvirt to manage an appliance, or connecting to an already running
-daemon.
+<!-- old anchor for the next section -->
+<a name="attach-method"/>
 
-You can set the attach method by calling
-L</guestfs_set_attach_method>, or by setting the environment variable
-C<LIBGUESTFS_ATTACH_METHOD>.
+=end html
 
-Possible attach methods are described below:
+=head2 BACKEND
+
+The backend (previously known as the "attach method") controls how
+libguestfs creates and/or connects to the backend daemon, eg. by
+starting qemu directly, or by using libvirt to manage an appliance, or
+connecting to an already running daemon.
+
+You can set the backend by calling L</guestfs_set_backend>, or by
+setting the environment variable C<LIBGUESTFS_BACKEND>.
+
+Possible backends are described below:
 
 =over 4
+
+=item C<direct>
 
 =item C<appliance>
 
 Run qemu directly to launch an appliance.
+
+C<direct> and C<appliance> are synonyms.
 
 This is the ordinary method and normally the default, but see the
 note below.
@@ -1323,10 +1332,10 @@ note below.
 Use libvirt to launch and manage the appliance.
 
 The optional I<URI> is the libvirt connection URI to use (see
-L<http://libvirt.org/uri.html>).  The typical libvirt attach method
+L<http://libvirt.org/uri.html>).  The typical libvirt backend
 with a URI would be C<libvirt:qemu:///session>
 
-The libvirt attach method supports more features, including
+The libvirt backend supports more features, including
 hotplugging (see L</HOTPLUGGING>) and sVirt.
 
 =item C<unix:I<path>>
@@ -1339,17 +1348,17 @@ L</ATTACHING TO RUNNING DAEMONS>.
 
 =back
 
-C<appliance> is usually the default attach method.  However since
-libguestfs E<ge> 1.19.24, libguestfs can be built with a different
-default by doing:
+C<direct> is usually the default backend.  However since libguestfs
+E<ge> 1.19.24, libguestfs can be built with a different default by
+doing:
 
- ./configure --with-default-attach-method=...
+ ./configure --with-default-backend=...
 
 To find out if libguestfs was compiled with a different default
-attach method, do:
+backend, do:
 
- unset LIBGUESTFS_ATTACH_METHOD
- guestfish get-attach-method
+ unset LIBGUESTFS_BACKEND
+ guestfish get-backend
 
 =head2 ATTACHING TO RUNNING DAEMONS
 
@@ -1360,19 +1369,19 @@ I<Note (2):> This section explains how to attach to a running daemon
 from a low level perspective.  For most users, simply using virt tools
 such as L<guestfish(1)> with the I<--live> option will "just work".
 
-=head3 Using guestfs_set_attach_method
+=head3 Using guestfs_set_backend
 
-By calling L</guestfs_set_attach_method> you can change how the
-library connects to the C<guestfsd> daemon in L</guestfs_launch>
-(read L</ARCHITECTURE> for some background).
+By calling L</guestfs_set_backend> you can change how the library
+connects to the C<guestfsd> daemon in L</guestfs_launch> (read
+L</ARCHITECTURE> for some background).
 
-The normal attach method is C<appliance>, where a small appliance is
-created containing the daemon, and then the library connects to this.
+The normal backend is C<direct>, where a small appliance is created
+containing the daemon, and then the library connects to this.
 C<libvirt> or C<libvirt:I<URI>> are alternatives that use libvirt to
 start the appliance.
 
-Setting attach method to C<unix:I<path>> (where I<path> is the path of
-a Unix domain socket) causes L</guestfs_launch> to connect to an
+Setting the backend to C<unix:I<path>> (where I<path> is the path of a
+Unix domain socket) causes L</guestfs_launch> to connect to an
 existing daemon over the Unix domain socket.
 
 The normal use for this is to connect to a running virtual machine
@@ -1381,11 +1390,10 @@ and write files inside the live virtual machine.
 
 =head3 Using guestfs_add_domain with live flag
 
-L</guestfs_add_domain> provides some help for getting the
-correct attach method.  If you pass the C<live> option to this
-function, then (if the virtual machine is running) it will
-examine the libvirt XML looking for a virtio-serial channel
-to connect to:
+L</guestfs_add_domain> provides some help for getting the correct
+backend.  If you pass the C<live> option to this function, then (if
+the virtual machine is running) it will examine the libvirt XML
+looking for a virtio-serial channel to connect to:
 
  <domain>
    ...
@@ -1399,8 +1407,8 @@ to connect to:
    </devices>
  </domain>
 
-L</guestfs_add_domain> extracts C</path/to/socket> and sets the attach
-method to C<unix:/path/to/socket>.
+L</guestfs_add_domain> extracts C</path/to/socket> and sets the
+backend to C<unix:/path/to/socket>.
 
 Some of the libguestfs tools (including guestfish) support a I<--live>
 option which is passed through to L</guestfs_add_domain> thus allowing
@@ -2736,10 +2744,10 @@ this example, messages are directed to syslog:
 
 Some libguestfs API calls can open libvirt connections.  Currently the
 only ones are L</guestfs_add_domain>; and L</guestfs_launch> if the
-libvirt attach-method has been selected.  Libvirt connections may
-require authentication, for example if they need to access a remote
-server or to access root services from non-root.  Libvirt
-authentication happens via a callback mechanism, see
+libvirt backend has been selected.  Libvirt connections may require
+authentication, for example if they need to access a remote server or
+to access root services from non-root.  Libvirt authentication happens
+via a callback mechanism, see
 L<http://libvirt.org/guide/html/Application_Development_Guide-Connections.html>
 
 You may provide libvirt authentication data by registering a callback
@@ -3539,7 +3547,7 @@ customizations that I need:
 
  . localenv
  ./autogen.sh \
-     --with-default-attach-method=libvirt \
+     --with-default-backend=libvirt \
      --enable-gcc-warnings \
      --enable-gtk-doc \
      -C \
@@ -3760,8 +3768,8 @@ using locally installed libvirt guests (read-only).
 =item C<make check-with-appliance>
 
 Runs all tests using default appliance back-end.  This only
-has any effect if a non-default attach-method was selected
-using C<./configure --with-default-attach-method=...>
+has any effect if a non-default backend was selected
+using C<./configure --with-default-backend=...>
 
 =item C<make check-valgrind-with-appliance>
 
@@ -3779,8 +3787,8 @@ to another directory on the command line, eg:
 =item C<make check-with-upstream-libvirt>
 
 Runs all tests using a local libvirt.  This only has any effect if the
-libvirt attach-method was selected using
-C<./configure --with-default-attach-method=libvirt>
+libvirt backend was selected using
+C<./configure --with-default-backend=libvirt>
 
 It looks for libvirt in LIBVIRTDIR (defaults to C<$HOME/d/libvirt>),
 but you can set this to another directory on the command line, eg:
@@ -4212,8 +4220,12 @@ Pass additional options to the guest kernel.
 
 =item LIBGUESTFS_ATTACH_METHOD
 
+This is the old way to set C<LIBGUESTFS_BACKEND>.
+
+=item LIBGUESTFS_BACKEND
+
 Choose the default way to create the appliance.  See
-L</guestfs_set_attach_method> and L</ATTACH METHOD>.
+L</guestfs_set_backend> and L</BACKEND>.
 
 =item LIBGUESTFS_CACHEDIR
 
@@ -4269,7 +4281,7 @@ has the same effect as calling C<guestfs_set_trace (g, 1)>.
 =item PATH
 
 Libguestfs may run some external programs, and relies on C<$PATH>
-being set to a reasonable value.  If using the libvirt attach-method,
+being set to a reasonable value.  If using the libvirt backend,
 libvirt will not work at all unless C<$PATH> contains the path of
 qemu/KVM.  Note that PHP by default removes C<$PATH> from the
 environment which tends to break everything.

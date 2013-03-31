@@ -540,7 +540,7 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
   CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
   CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
-  CLEANUP_FREE char *path = NULL, *attach_method = NULL;
+  CLEANUP_FREE char *path = NULL, *backend = NULL;
   xmlNodeSetPtr nodes;
 
   /* Domain XML. */
@@ -600,8 +600,8 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   }
 
   /* Got a path. */
-  attach_method = safe_asprintf (g, "unix:%s", path);
-  return guestfs_set_attach_method (g, attach_method);
+  backend = safe_asprintf (g, "unix:%s", path);
+  return guestfs_set_backend (g, backend);
 }
 
 static xmlDocPtr

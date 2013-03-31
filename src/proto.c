@@ -95,7 +95,7 @@ child_cleanup (guestfs_h *g)
 {
   debug (g, "child_cleanup: %p: child process died", g);
 
-  g->attach_ops->shutdown (g, 0);
+  g->backend_ops->shutdown (g, 0);
   if (g->conn) {
     g->conn->ops->free_connection (g, g->conn);
     g->conn = NULL;

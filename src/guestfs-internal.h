@@ -93,11 +93,11 @@
 enum state { CONFIG = 0, LAUNCHING = 1, READY = 2,
              NO_HANDLE = 0xebadebad };
 
-/* Attach method. */
-enum attach_method {
-  ATTACH_METHOD_APPLIANCE,
-  ATTACH_METHOD_LIBVIRT,
-  ATTACH_METHOD_UNIX,
+/* Backend. */
+enum backend {
+  BACKEND_DIRECT,
+  BACKEND_LIBVIRT,
+  BACKEND_UNIX,
 };
 
 /* Event. */
@@ -169,7 +169,7 @@ struct drive {
   char *disk_label;
   bool use_cache_none;
 
-  /* Data used by the attach method. */
+  /* Data used by the backend. */
   void *priv;
   void (*free_priv) (void *);
 };
@@ -182,8 +182,8 @@ struct qemu_param {
   char *qemu_value;             /* May be NULL. */
 };
 
-/* Backend (attach-method) operations. */
-struct attach_ops {
+/* Backend operations. */
+struct backend_ops {
   int (*launch) (guestfs_h *g, const char *arg); /* Initialize and launch. */
                                 /* Shutdown and cleanup. */
   int (*shutdown) (guestfs_h *g, int check_for_errors);
@@ -195,9 +195,9 @@ struct attach_ops {
   int (*hot_add_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
   int (*hot_remove_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
 };
-extern struct attach_ops attach_ops_appliance;
-extern struct attach_ops attach_ops_libvirt;
-extern struct attach_ops attach_ops_unix;
+extern struct backend_ops backend_ops_direct;
+extern struct backend_ops backend_ops_libvirt;
+extern struct backend_ops backend_ops_unix;
 
 /* Connection module.  A 'connection' represents the appliance console
  * connection plus the daemon connection.  It hides the underlying
@@ -258,7 +258,7 @@ struct guestfs_h
   bool verbose;                 /* Debugging. */
   bool trace;                   /* Trace calls. */
   bool autosync;                /* Autosync. */
-  bool direct;                  /* Direct mode. */
+  bool direct_mode;             /* Direct mode. */
   bool recovery_proc;           /* Create a recovery process. */
   bool enable_network;          /* Enable the network. */
   bool selinux;                 /* selinux enabled? */
@@ -281,7 +281,7 @@ struct guestfs_h
    * During launch, a dummy slot may be added which represents the
    * slot taken up by the appliance drive.
    *
-   * When hotplugging is supported by the attach method, drives can be
+   * When hotplugging is supported by the backend, drives can be
    * added to the end of this list after launch.  Also hot-removing a
    * drive causes a NULL slot to appear in the list.
    *
@@ -298,10 +298,10 @@ struct guestfs_h
   for (i = 0; i < (g)->nr_drives; ++i)    \
     if (((drv) = (g)->drives[i]) != NULL)
 
-  /* Attach method, and associated backend operations. */
-  enum attach_method attach_method;
-  char *attach_method_arg;
-  const struct attach_ops *attach_ops;
+  /* Backend, and associated backend operations. */
+  enum backend backend;
+  char *backend_arg;
+  const struct backend_ops *backend_ops;
 
   /**** Runtime information. ****/
   char *last_error;             /* Last error on handle. */
@@ -385,9 +385,9 @@ struct guestfs_h
   virConnectCredentialPtr requested_credentials;
 #endif
 
-  /**** Private data for attach-methods. ****/
+  /**** Private data for backends. ****/
   /* NB: This cannot be a union because of a pathological case where
-   * the user changes attach-method while reusing the handle to launch
+   * the user changes backend while reusing the handle to launch
    * multiple times (not a recommended thing to do).  Some fields here
    * cache things across launches so that would break if we used a
    * union.
@@ -407,7 +407,7 @@ struct guestfs_h
     size_t cmdline_size;
 
     int virtio_scsi;      /* See function qemu_supports_virtio_scsi */
-  } app;
+  } direct;
 
 #ifdef HAVE_LIBVIRT
   struct {                      /* Used only by src/launch-libvirt.c. */

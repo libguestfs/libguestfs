@@ -92,13 +92,13 @@ for further information.
 
 =head1 TRYING OUT A DIFFERENT VERSION OF LIBVIRT
 
-To find out which attach-method is the default in your libguestfs
+To find out which backend is the default in your libguestfs
 package, do:
 
- unset LIBGUESTFS_ATTACH_METHOD
- guestfish get-attach-method
+ unset LIBGUESTFS_BACKEND
+ guestfish get-backend
 
-If you are using the libvirt attach-method, then you can try out a
+If you are using the libvirt backend, then you can try out a
 different (eg. upstream) version of libvirt by running these commands
 (I<not> as root):
 
@@ -113,33 +113,34 @@ to run the program.
 
 =head1 TRYING OUT WITH / WITHOUT LIBVIRT
 
-To find out which attach-method is the default in your libguestfs
+To find out which backend is the default in your libguestfs
 package, do:
 
- unset LIBGUESTFS_ATTACH_METHOD
- guestfish get-attach-method
+ unset LIBGUESTFS_BACKEND
+ guestfish get-backend
 
-If you are using the libvirt attach-method, you can try without
+If you are using the libvirt backend, you can try without
 (ie. libguestfs directly launching qemu) by doing:
 
- export LIBGUESTFS_ATTACH_METHOD=appliance
+ export LIBGUESTFS_BACKEND=direct
 
-Or if you are using the default (appliance) attach-method, then you
+Or if you are using the default (direct) backend, then you
 can try libvirt:
 
- export LIBGUESTFS_ATTACH_METHOD=libvirt
+ export LIBGUESTFS_BACKEND=libvirt
 
 or with libvirt and a specific
 L<libvirt URI|http://libvirt.org/uri.html>:
 
- export LIBGUESTFS_ATTACH_METHOD=libvirt:qemu:///session
+ export LIBGUESTFS_BACKEND=libvirt:qemu:///session
 
 =head1 TRYING OUT DIFFERENT SELINUX SETTINGS
 
-To find out which attach-method is the default in your libguestfs
+To find out which backend is the default in your libguestfs
 package, do:
 
- LIBGUESTFS_ATTACH_METHOD= guestfish get-attach-method
+ unset LIBGUESTFS_BACKEND
+ guestfish get-backend
 
 To find out if SELinux is being used, do:
 

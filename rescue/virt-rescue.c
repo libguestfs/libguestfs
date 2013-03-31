@@ -312,14 +312,14 @@ main (int argc, char *argv[])
     /* The libvirt backend doesn't support direct mode.  As a temporary
      * workaround, force the appliance backend, but warn about it.
      */
-    CLEANUP_FREE char *attach_method = guestfs_get_attach_method (g);
-    if (attach_method) {
-      if (STREQ (attach_method, "libvirt") ||
-          STRPREFIX (attach_method, "libvirt:")) {
+    CLEANUP_FREE char *backend = guestfs_get_backend (g);
+    if (backend) {
+      if (STREQ (backend, "libvirt") ||
+          STRPREFIX (backend, "libvirt:")) {
         fprintf (stderr, _("%s: warning: virt-rescue doesn't work with the libvirt backend\n"
-                           "at the moment.  As a workaround, forcing attach-method = 'appliance'.\n"),
+                           "at the moment.  As a workaround, forcing backend = 'direct'.\n"),
                  program_name);
-        if (guestfs_set_attach_method (g, "appliance") == -1)
+        if (guestfs_set_backend (g, "direct") == -1)
           exit (EXIT_FAILURE);
       }
     }

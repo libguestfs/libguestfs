@@ -411,7 +411,8 @@ make changes to your SELinux policy - contact us on the mailing list.
 
 Once you have the requirements, do:
 
- ./configure --with-default-attach-method=libvirt
+ ./configure --with-default-backend=libvirt       # libguestfs >= 1.22
+ ./configure --with-default-attach-method=libvirt # libguestfs <= 1.20
  make
 
 Set SELinux to Enforcing mode, and sVirt should be used automatically.

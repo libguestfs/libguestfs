@@ -20,8 +20,8 @@
 
 set -e
 
-if [ "$(../../fish/guestfish get-attach-method)" != "appliance" ]; then
-    echo "$0: test skipped because default attach-method is not 'appliance'"
+if [ "$(../../fish/guestfish get-backend)" != "direct" ]; then
+    echo "$0: test skipped because default backend is not 'direct'"
     exit 77
 fi
 
