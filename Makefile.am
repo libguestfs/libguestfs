@@ -305,6 +305,7 @@ podwrapper.1: podwrapper.pl
 # Make clean.
 
 CLEANFILES = \
+	*~ \
 	html/*.html \
 	pod2htm?.tmp \
 	podwrapper.1 \
