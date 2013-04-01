@@ -919,7 +919,7 @@ AS_IF([test "x$VALGRIND" != "xno"],[
     fi
 
     # Substitute the whole valgrind command.
-    VG='$(VALGRIND) $(VALGRIND_NO_VGDB) --log-file=$(abs_top_builddir)/valgrind.log --leak-check=full --error-exitcode=119 --suppressions=$(abs_top_srcdir)/valgrind-suppressions'
+    VG='$(VALGRIND) $(VALGRIND_NO_VGDB) --log-file=$(abs_top_builddir)/tmp/valgrind-%q{T}-%p.log --leak-check=full --error-exitcode=119 --suppressions=$(abs_top_srcdir)/valgrind-suppressions'
     ],[
     # No valgrind, so substitute VG with something that will break.
     VG=VALGRIND_IS_NOT_INSTALLED

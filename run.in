@@ -44,6 +44,10 @@ fi
 # Find this script.
 b=@abs_builddir@
 
+# Set T to current date & time (mainly for valgrind logfile name).
+T=`date +%Y%m%d.%H.%M.%S`
+export T
+
 # Set tmpdir and cachedir so the appliance doesn't conflict with
 # globally installed libguestfs.
 #

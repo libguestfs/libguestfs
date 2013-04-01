@@ -2,3 +2,4 @@
 /guestfs.*
 /libguestfs??????/
 /run-*
+/valgrind-*.log
