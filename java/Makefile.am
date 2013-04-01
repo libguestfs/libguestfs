@@ -131,7 +131,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 noinst_DATA = Bindtests.class $(java_tests:.java=.class)
 
-t/%.class: t/%.java
+t/%.class: t/%.java libguestfs-$(VERSION).jar
 	mkdir -p t
 	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir)/t $<
 
