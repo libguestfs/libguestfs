@@ -55,9 +55,10 @@ CLEANFILES = \
 	$(builddir)/com/redhat/et/libguestfs/*.class \
 	com_redhat_et_libguestfs_GuestFS.h \
 	*.class \
-	*.jar \
-	api/com/redhat/et/libguestfs/*.html \
-	api/*
+	*.jar
+
+clean-local:
+	-rm -rf api
 
 if HAVE_JAVA
 
