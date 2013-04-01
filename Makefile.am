@@ -338,17 +338,21 @@ extra-tests:
 	  check-slow
 
 check-valgrind: build-test-guests
-	@for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
+	@errors=0; \
+	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
 	  echo $(MAKE) -C `dirname $$f` $@; \
-	  $(MAKE) -C `dirname $$f` $@ || exit $$?; \
-	done
+	  $(MAKE) -C `dirname $$f` $@ || (( errors++ )); \
+	done; \
+	exit $$(( $$errors ? 1 : 0 ))
 
 check-valgrind-local-guests:
 	@GUESTS=`$(top_builddir)/run ./pick-guests.pl 5`; \
+	errors=0; \
 	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
 	  echo $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@; \
-	  $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@ || exit $$?; \
-	done
+	  $(MAKE) GUESTS="$$GUESTS" -C `dirname $$f` $@ || (( errors++ )); \
+	done; \
+	exit $$(( $$errors ? 1 : 0 ))
 
 check-direct:
 	@backend=`$(top_builddir)/run ./fish/guestfish get-backend`; \
@@ -392,10 +396,12 @@ check-with-upstream-libvirt:
 	fi
 
 check-slow: build-test-guests
+	@errors=0; \
 	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
 	  echo $(MAKE) -C `dirname $$f` $@; \
-	  $(MAKE) -C `dirname $$f` $@ || exit $$?; \
-	done
+	  $(MAKE) -C `dirname $$f` $@ || (( errors++ )); \
+	done; \
+	exit $$(( $$errors ? 1 : 0 ))
 
 build-test-guests:
 	$(MAKE) -C tests/guests check
