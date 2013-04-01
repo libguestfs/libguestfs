@@ -448,4 +448,3 @@ Makefile.in
 /tools/test.img
 /tools/virt-*.1
 /tools/virt-*.pl
-/valgrind.log*
