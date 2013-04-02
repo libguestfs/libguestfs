@@ -760,11 +760,7 @@ in L</guestfs_add_drive_opts>.
 =head2 INSPECTION
 
 Libguestfs has APIs for inspecting an unknown disk image to find out
-if it contains operating systems, an install CD or a live CD.  (These
-APIs used to be in a separate Perl-only library called
-L<Sys::Guestfs::Lib(3)> but since version 1.5.3 the most frequently
-used part of this library has been rewritten in C and moved into the
-core code).
+if it contains operating systems, an install CD or a live CD.
 
 Add all disks belonging to the unknown virtual machine and call
 L</guestfs_launch> in the usual way.

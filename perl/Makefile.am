@@ -28,7 +28,6 @@ EXTRA_DIST = \
 	examples/README \
 	examples/LICENSE \
 	examples/*.pl \
-	lib/Sys/Guestfs/Lib.pm \
 	run-bindtests \
 	run-perl-tests \
 	t/*.t \

@@ -309,7 +309,6 @@ L<virt-copy-out(1)>,
 L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,
 L<Sys::Guestfs(3)>,
-L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,
 L<http://libguestfs.org/>.
 
