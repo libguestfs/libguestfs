@@ -165,6 +165,7 @@ expand_devicename (guestfs_h *g, const char *device)
   char **pp = NULL;
   char **ret = NULL;
   size_t size = 0;
+  const char *lvm2[] = { "lvm2", NULL };
 
   pp = guestfs_list_devices (g);
   if (pp == NULL) goto error;
@@ -181,7 +182,7 @@ expand_devicename (guestfs_h *g, const char *device)
   if (add_strings_matching (pp, device, &ret, &size) == -1) goto error;
   guestfs___free_string_list (pp);
 
-  if (feature_available (g, "lvm2")) {
+  if (guestfs_feature_available (g, (char **) lvm2)) {
     pp = guestfs_lvs (g);
     if (pp == NULL) goto error;
     if (add_strings_matching (pp, device, &ret, &size) == -1) goto error;

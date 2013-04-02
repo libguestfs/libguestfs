@@ -177,9 +177,9 @@ read the man page virt-resize(1).
     let g = new G.guestfs () in
     g#add_drive "/dev/null";
     g#launch ();
-    if feature_available g [| "ntfsprogs"; "ntfs3g" |] then
+    if g#feature_available [| "ntfsprogs"; "ntfs3g" |] then
       printf "ntfs\n";
-    if feature_available g [| "btrfs" |] then
+    if g#feature_available [| "btrfs" |] then
       printf "btrfs\n";
     exit 0
   );
@@ -222,8 +222,8 @@ let connect_both_disks () =
   g#lvm_set_filter [|"/dev/sda"|];
 
   (* Update features available in the daemon. *)
-  ntfs_available := feature_available g [|"ntfsprogs"; "ntfs3g"|];
-  btrfs_available := feature_available g [|"btrfs"|];
+  ntfs_available := g#feature_available [|"ntfsprogs"; "ntfs3g"|];
+  btrfs_available := g#feature_available [|"btrfs"|];
 
   g
 

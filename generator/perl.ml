@@ -1037,15 +1037,10 @@ containing useful introspection information about the method
   }
 
 To test if particular features are supported by the current
-build, use the L</available> method like the example below.  Note
+build, use the L</feature_available> method like the example below.  Note
 that the appliance must be launched first.
 
- $g->available ( [\"augeas\"] );
-
-Since the L</available> method croaks if the feature is not supported,
-you might also want to wrap this in an eval and return a boolean.
-In fact this has already been done for you: use
-L<Sys::Guestfs::Lib(3)/feature_available>.
+ $g->feature_available ( [\"augeas\"] );
 
 For further discussion on this topic, refer to
 L<guestfs(3)/AVAILABILITY>.

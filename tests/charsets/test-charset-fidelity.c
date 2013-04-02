@@ -68,7 +68,6 @@ static void test_latin1 (guestfs_h *g, const struct filesystem *fs);
 static void test_latin2 (guestfs_h *g, const struct filesystem *fs);
 static void test_chinese (guestfs_h *g, const struct filesystem *fs);
 static void ignore_lost_and_found (char **);
-static int feature_available (guestfs_h *g, const char *feature);
 
 int
 main (int argc, char *argv[])
@@ -126,7 +125,9 @@ main (int argc, char *argv[])
 static void
 test_filesystem (guestfs_h *g, const struct filesystem *fs)
 {
-  if (fs->fs_feature && !feature_available (g, fs->fs_feature)) {
+  const char *feature[] = { fs->fs_feature, NULL };
+
+  if (fs->fs_feature && !guestfs_feature_available (g, (char **) feature)) {
     printf ("skipped test of %s because %s feature not available\n",
             fs->fs_name, fs->fs_feature);
     return;
@@ -426,20 +427,4 @@ ignore_lost_and_found (char **files)
       files[j++] = files[i];
   }
   files[j] = NULL;
-}
-
-static int
-feature_available (guestfs_h *g, const char *feature)
-{
-  /* If there's an error we should ignore it, so to do that we have to
-   * temporarily replace the error handler with a null one.
-   */
-  guestfs_push_error_handler (g, NULL, NULL);
-
-  const char *groups[] = { feature, NULL };
-  int r = guestfs_available (g, (char * const *) groups);
-
-  guestfs_pop_error_handler (g);
-
-  return r == 0 ? 1 : 0;
 }

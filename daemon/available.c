@@ -33,8 +33,8 @@
 GUESTFSD_EXT_CMD(str_grep, grep);
 GUESTFSD_EXT_CMD(str_modprobe, modprobe);
 
-int
-do_available (char *const *groups)
+static int
+available (char *const *groups, int error_on_unavailable)
 {
   int av;
   size_t i, j;
@@ -44,8 +44,12 @@ do_available (char *const *groups)
       if (STREQ (groups[i], optgroups[j].group)) {
         av = optgroups[j].available ();
         if (!av) {
-          reply_with_error ("%s: group not available", optgroups[j].group);
-          return -1;
+          if (error_on_unavailable) {
+            reply_with_error ("%s: group not available", optgroups[j].group);
+            return -1;
+          }
+          else
+            return 0;
         }
         break; /* out of for (j) loop */
       }
@@ -58,6 +62,23 @@ do_available (char *const *groups)
     }
   }
 
+  /* All specified groups available. */
+  return 1;
+}
+
+int
+do_feature_available (char *const *groups)
+{
+  return available (groups, 0);
+}
+
+int
+do_available (char *const *groups)
+{
+  if (available (groups, 1) == -1)
+    return -1;
+
+  /* No error, so all groups available, just returns no error. */
   return 0;
 }
 

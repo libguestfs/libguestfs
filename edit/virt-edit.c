@@ -57,7 +57,6 @@ static void edit (const char *filename, const char *root);
 static char *edit_interactively (const char *tmpfile);
 static char *edit_non_interactively (const char *tmpfile);
 static int copy_attributes (const char *src, const char *dest);
-static int feature_available (guestfs_h *g, const char *feature);
 static int is_windows (guestfs_h *g, const char *root);
 static char *windows_path (guestfs_h *g, const char *root, const char *filename);
 static char *generate_random_name (const char *filename);
@@ -513,11 +512,12 @@ static int
 copy_attributes (const char *src, const char *dest)
 {
   CLEANUP_FREE_STAT struct guestfs_stat *stat = NULL;
+  const char *linuxxattrs[] = { "linuxxattrs", NULL };
   int has_linuxxattrs;
   CLEANUP_FREE char *selinux_context = NULL;
   size_t selinux_context_size;
 
-  has_linuxxattrs = feature_available (g, "linuxxattrs");
+  has_linuxxattrs = guestfs_feature_available (g, (char **) linuxxattrs);
 
   /* Get the mode. */
   stat = guestfs_stat (g, src);
@@ -551,22 +551,6 @@ copy_attributes (const char *src, const char *dest)
   }
 
   return 0;
-}
-
-static int
-feature_available (guestfs_h *g, const char *feature)
-{
-  /* If there's an error we should ignore it, so to do that we have to
-   * temporarily replace the error handler with a null one.
-   */
-  guestfs_push_error_handler (g, NULL, NULL);
-
-  const char *groups[] = { feature, NULL };
-  int r = guestfs_available (g, (char * const *) groups);
-
-  guestfs_pop_error_handler (g);
-
-  return r == 0 ? 1 : 0;
 }
 
 static int

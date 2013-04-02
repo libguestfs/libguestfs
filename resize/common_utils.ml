@@ -143,10 +143,6 @@ let error fs =
   in
   ksprintf display fs
 
-let feature_available (g : Guestfs.guestfs) names =
-  try g#available names; true
-  with G.Error _ -> false
-
 let read_whole_file path =
   let buf = Buffer.create 16384 in
   let chan = open_in path in

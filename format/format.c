@@ -54,7 +54,6 @@ static int have_wipefs;
 static void parse_vg_lv (const char *lvm);
 static int do_format (void);
 static int do_rescan (char **devices);
-static int feature_available (guestfs_h *g, const char *feature);
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -234,6 +233,8 @@ main (int argc, char *argv[])
    * to completely restart the guest.  Hence this complex retry logic.
    */
   for (retries = 0; retries <= 1; ++retries) {
+    const char *wipefs[] = { "wipefs", NULL };
+
     /* Add domains/drives from the command line (for a single guest). */
     add_drives (drvs, 'a');
 
@@ -241,7 +242,7 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
 
     /* Test if the wipefs API is available. */
-    have_wipefs = feature_available (g, "wipefs");
+    have_wipefs = guestfs_feature_available (g, (char **) wipefs);
 
     /* Perform the format. */
     retry = do_format ();
@@ -430,20 +431,4 @@ do_rescan (char **devices)
   guestfs_pop_error_handler (g);
 
   return errors ? 1 : 0;
-}
-
-static int
-feature_available (guestfs_h *g, const char *feature)
-{
-  /* If there's an error we should ignore it, so to do that we have to
-   * temporarily replace the error handler with a null one.
-   */
-  guestfs_push_error_handler (g, NULL, NULL);
-
-  const char *groups[] = { feature, NULL };
-  int r = guestfs_available (g, (char * const *) groups);
-
-  guestfs_pop_error_handler (g);
-
-  return r == 0 ? 1 : 0;
 }

@@ -19,7 +19,6 @@ use strict;
 use warnings;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(feature_available);
 
 # These are two SELinux labels that we assume everyone is allowed to
 # set under any policy.
@@ -111,7 +110,7 @@ close FILE or die "$testimg: $!";
 $g->add_drive ($testimg, format => "raw");
 $g->launch ();
 
-unless (feature_available ($g, "linuxxattrs")) {
+unless ($g->feature_available (["linuxxattrs"])) {
     print "$prog $test_type $test_via: test skipped because 'linuxxattrs' feature not available.\n";
     $g->close ();
     unlink $testimg;

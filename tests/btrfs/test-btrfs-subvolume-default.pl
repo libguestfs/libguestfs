@@ -22,7 +22,6 @@ use strict;
 use warnings;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(feature_available);
 
 # Allow the test to be skipped since btrfs is often broken.
 exit 77 if $ENV{SKIP_TEST_BTRFS_SUBVOLUME_DEFAULT_PL};
@@ -40,7 +39,7 @@ $g->add_drive ($testimg, format => "raw");
 $g->launch ();
 
 # If btrfs is not available, bail.
-unless (feature_available ($g, "btrfs")) {
+unless ($g->feature_available (["btrfs"])) {
     warn "$0: skipping test because btrfs is not available\n";
     exit 77;
 }

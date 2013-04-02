@@ -630,7 +630,6 @@ extern char *guestfs___drive_name (size_t index, char *ret);
 
 /* inspect.c */
 extern void guestfs___free_inspect_info (guestfs_h *g);
-extern int guestfs___feature_available (guestfs_h *g, const char *feature);
 extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
 extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
 

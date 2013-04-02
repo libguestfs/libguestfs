@@ -1921,19 +1921,3 @@ progress_callback (guestfs_h *g, void *data,
 
   progress_bar_set (bar, position, total);
 }
-
-int
-feature_available (guestfs_h *g, const char *feature)
-{
-  /* If there's an error we should ignore it, so to do that we have to
-   * temporarily replace the error handler with a null one.
-   */
-  guestfs_push_error_handler (g, NULL, NULL);
-
-  const char *groups[] = { feature, NULL };
-  int r = guestfs_available (g, (char * const *) groups);
-
-  guestfs_pop_error_handler (g);
-
-  return r == 0 ? 1 : 0;
-}

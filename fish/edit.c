@@ -182,11 +182,12 @@ static int
 copy_attributes (const char *src, const char *dest)
 {
   struct guestfs_stat *stat;
+  const char *linuxxattrs[] = { "linuxxattrs", NULL };
   int has_linuxxattrs;
   CLEANUP_FREE char *selinux_context = NULL;
   size_t selinux_context_size;
 
-  has_linuxxattrs = feature_available (g, "linuxxattrs");
+  has_linuxxattrs = guestfs_feature_available (g, (char **) linuxxattrs);
 
   /* Get the mode. */
   stat = guestfs_stat (g, src);

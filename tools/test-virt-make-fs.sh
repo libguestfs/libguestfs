@@ -23,13 +23,13 @@ set -e
 
 # Check which filesystems are supported by the appliance.
 eval $(
-perl -MSys::Guestfs '-MSys::Guestfs::Lib qw(feature_available)' -e '
+perl -MSys::Guestfs -e '
   $g = Sys::Guestfs->new();
   $g->add_drive ("/dev/null");
   $g->launch ();
-  feature_available ($g, "ntfs3g") and print "ntfs3g_available=yes\n";
-  feature_available ($g, "ntfsprogs") and print "ntfsprogs_available=yes\n";
-  feature_available ($g, "btrfs") and print "btrfs_available=yes\n";
+  $g->feature_available (["ntfs3g"]) and print "ntfs3g_available=yes\n";
+  $g->feature_available (["ntfsprogs"]) and print "ntfsprogs_available=yes\n";
+  $g->feature_available (["btrfs"]) and print "btrfs_available=yes\n";
 ')
 
 # Allow btrfs to be disabled when btrfs is broken (eg. RHBZ#863978).

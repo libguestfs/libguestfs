@@ -597,7 +597,7 @@ I<Note:> Don't use this call to test for availability
 of features.  In enterprise distributions we backport
 features from later versions into earlier versions,
 making this an unreliable way to test for features.
-Use C<guestfs_available> instead." };
+Use C<guestfs_available> or C<guestfs_feature_available> instead." };
 
   { defaults with
     name = "set_selinux";
@@ -7375,6 +7375,12 @@ I<Notes:>
 
 =item *
 
+C<guestfs_feature_available> is the same as this call, but
+with a slightly simpler to use API: that call returns a boolean
+true/false instead of throwing an error.
+
+=item *
+
 You must call C<guestfs_launch> before calling this function.
 
 The reason is because we don't know what groups are
@@ -7949,10 +7955,11 @@ allows you to specify the new size (in bytes) explicitly." };
 This command returns a list of all optional groups that this
 daemon knows about.  Note this returns both supported and unsupported
 groups.  To find out which ones the daemon can actually support
-you have to call C<guestfs_available> on each member of the
-returned list.
+you have to call C<guestfs_available> / C<guestfs_feature_available>
+on each member of the returned list.
 
-See also C<guestfs_available> and L<guestfs(3)/AVAILABILITY>." };
+See also C<guestfs_available>, C<guestfs_feature_available>
+and L<guestfs(3)/AVAILABILITY>." };
 
   { defaults with
     name = "fallocate64";
@@ -9798,7 +9805,8 @@ it doesn't mean that a particular filesystem can be mounted,
 since filesystems can fail for other reasons such as it being
 a later version of the filesystem, or having incompatible features.
 
-See also C<guestfs_available>, L<guestfs(3)/AVAILABILITY>." };
+See also C<guestfs_available>, C<guestfs_feature_available>,
+L<guestfs(3)/AVAILABILITY>." };
 
   { defaults with
     name = "fstrim";
@@ -10902,6 +10910,20 @@ Parse a mountable string." };
     longdesc = "\
 This is only used to debug RHBZ#914931.  Note that this
 deliberately crashes guestfsd." };
+
+  { defaults with
+    name = "feature_available";
+    style = RBool "isavailable", [StringList "groups"], [];
+    proc_nr = Some 398;
+    tests = [
+      InitNone, Always, TestOutputTrue [["feature_available"; ""]]
+    ];
+    shortdesc = "test availability of some parts of the API";
+    longdesc = "\
+This is the same as C<guestfs_available>, but unlike that
+call it returns a simple true/false boolean result, instead
+of throwing an exception if a feature is not found.  For
+other documentation see C<guestfs_available>." };
 
 ]
 
