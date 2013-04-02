@@ -20,7 +20,6 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest);
 use Win::Hivex;
 use Win::Hivex::Regedit qw(reg_import reg_export);
 
@@ -247,11 +246,20 @@ my $domname_or_image = shift @ARGV;
 
 warn "launching libguestfs ..." if $debug;
 
-my @lib_args = ([$domname_or_image]);
-push @lib_args, address => $uri if $uri;
-push @lib_args, rw => 1 if $merge;
+my @lib_args = ();
+push @lib_args, readonly => 1 unless $merge;
 push @lib_args, format => $format if defined $format;
-my $g = open_guest (@lib_args);
+
+my $g = Sys::Guestfs->new ();
+
+if (-e $domname_or_image) {
+    $g->add_drive ($domname_or_image, @lib_args);
+}
+else {
+    push @lib_args, libvirturi => $uri if defined $uri;
+    $g->add_domain ($domname_or_image, @lib_args);
+}
+
 $g->launch ();
 
 warn "inspecting guest ..." if $debug;

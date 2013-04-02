@@ -21,10 +21,11 @@
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest);
 
 $ENV{FAKE_LIBVIRT_XML} = "rhbz701814-faked.xml";
 my $abs_srcdir = $ENV{abs_srcdir};
 
-my $g = open_guest (["winxppro"],
-                    address => "test://$abs_srcdir/rhbz701814-node.xml");
+my $uri = "test://$abs_srcdir/rhbz701814-node.xml";
+
+my $g = Sys::Guestfs->new ();
+$g->add_domain ("winxppro", libvirturi => $uri, readonly => 1);

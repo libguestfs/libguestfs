@@ -20,7 +20,6 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest);
 use Pod::Usage;
 use Getopt::Long;
 use Locale::TextDomain 'libguestfs';
@@ -162,11 +161,17 @@ if ($version) {
 pod2usage (__"virt-list-partitions: no image or VM name given")
     if @ARGV <= 0;
 
-my $g;
-if ($uri) {
-    $g = open_guest (\@ARGV, address => $uri, format => $format);
-} else {
-    $g = open_guest (\@ARGV, format => $format);
+my $g = Sys::Guestfs->new ();
+
+my @args = (readonly => 1);
+push @args, format => $format if defined $format;
+
+if (-e $ARGV[0]) {
+    $g->add_drive ($_, @args) foreach @ARGV;
+}
+else {
+    push @args, libvirturi => $uri if defined $uri;
+    $g->add_domain ($_, @args) foreach @ARGV;
 }
 
 $g->launch ();
