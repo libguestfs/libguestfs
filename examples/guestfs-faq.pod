@@ -370,6 +370,9 @@ Patches to port supermin to more Linux distros are welcome.
 =head2 Why do I get an error when I try to rebuild from the source
 RPMs supplied by Red Hat / Fedora?
 
+[Note: This issue is fixed in libguestfs E<ge> 1.21.26 in
+Fedora E<ge> 19 and RHEL E<ge> 7]
+
 Because of the complexity of building the libguestfs appliance, the
 source RPMs provided cannot be rebuilt directly using C<rpmbuild> or
 C<mock>.
