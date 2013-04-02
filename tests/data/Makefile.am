@@ -135,7 +135,7 @@ $(builddir)/initrd: empty known-1 known-2 known-3 known-4 known-5
 	mv $@-t $@
 
 # Create a dummy initrd with a single file called 'bin/nash' which
-# is used to test the Sys::Guestfs::Lib::file_architecture function.
+# is used to test the file_architecture function.
 $(builddir)/initrd-x86_64.img: bin-x86_64-dynamic
 	rm -rf bin $@ $@-t
 	mkdir bin
