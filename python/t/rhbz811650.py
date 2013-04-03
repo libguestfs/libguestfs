@@ -22,7 +22,7 @@ f = open ("test.img", "w")
 f.truncate (500 * 1024 * 1024)
 f.close ()
 
-g = guestfs.GuestFS ()
+g = guestfs.GuestFS (python_return_dict=True)
 
 # Deliberate error: the disk format is supposed to be raw.
 g.add_drive ("test.img", format="qcow2");
