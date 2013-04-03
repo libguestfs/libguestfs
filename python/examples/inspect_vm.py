@@ -6,7 +6,11 @@ import guestfs
 assert (len (sys.argv) == 2)
 disk = sys.argv[1]
 
-g = guestfs.GuestFS ()
+# All new Python code should pass python_return_dict=True
+# to the constructor.  It indicates that your program wants
+# to receive Python dicts for methods in the API that return
+# hashtables.
+g = guestfs.GuestFS (python_return_dict=True)
 
 # Attach the disk image read-only to libguestfs.
 g.add_drive_opts (disk, readonly=1)
@@ -35,17 +39,10 @@ for root in roots:
     # Sort keys by length, shortest first, so that we end up
     # mounting the filesystems in the correct order.
     mps = g.inspect_get_mountpoints (root)
-    def compare (a, b):
-        if len(a[0]) > len(b[0]):
-            return 1
-        elif len(a[0]) == len(b[0]):
-            return 0
-        else:
-            return -1
-    mps.sort (compare)
-    for mp_dev in mps:
+    def compare (a, b): return len(a) - len(b)
+    for device in sorted (mps.keys(), compare):
         try:
-            g.mount_ro (mp_dev[1], mp_dev[0])
+            g.mount_ro (mps[device], device)
         except RuntimeError as msg:
             print "%s (ignored)" % msg
 

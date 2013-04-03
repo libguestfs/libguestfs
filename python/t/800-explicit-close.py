@@ -20,13 +20,13 @@
 import os
 import guestfs
 
-g = guestfs.GuestFS ()
+g = guestfs.GuestFS (python_return_dict=True)
 
 g.close ()                      # explicit close
 del g                           # implicit close - should be no error/warning
 
 # Expect an exception if we call a method on a closed handle.
-g = guestfs.GuestFS ()
+g = guestfs.GuestFS (python_return_dict=True)
 g.close ()
 try:
     g.set_memsize (512)
@@ -37,7 +37,7 @@ del g
 
 # Verify that the handle is really being closed by g.close, by setting
 # up a close event and testing that it happened.
-g = guestfs.GuestFS ()
+g = guestfs.GuestFS (python_return_dict=True)
 
 close_invoked = 0
 

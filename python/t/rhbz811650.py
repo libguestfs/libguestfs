@@ -17,7 +17,7 @@
 
 import guestfs
 
-g = guestfs.GuestFS ()
+g = guestfs.GuestFS (python_return_dict=True)
 
 g.add_drive_opts ("/dev/null", format="qcow2");
 
