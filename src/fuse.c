@@ -1476,24 +1476,29 @@ dir_cache_invalidate (guestfs_h *g, const char *path)
 
 #else /* !HAVE_FUSE */
 
+#define FUSE_NOT_SUPPORTED()                                            \
+  NOT_SUPPORTED (g, -1, _("FUSE is not supported in this build of "     \
+                          "libguestfs because libfuse was not found "   \
+                          "when libguestfs was compiled"))
+
 int
 guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
                       const struct guestfs_mount_local_argv *optargs)
 {
-  NOT_SUPPORTED (g, -1, _("FUSE not supported"));
+  FUSE_NOT_SUPPORTED ();
 }
 
 int
 guestfs__mount_local_run (guestfs_h *g)
 {
-  NOT_SUPPORTED (g, -1, _("FUSE not supported"));
+  FUSE_NOT_SUPPORTED ();
 }
 
 int
 guestfs__umount_local (guestfs_h *g,
                        const struct guestfs_umount_local_argv *optargs)
 {
-  NOT_SUPPORTED (g, -1, _("FUSE not supported"));
+  FUSE_NOT_SUPPORTED ();
 }
 
 #endif /* !HAVE_FUSE */

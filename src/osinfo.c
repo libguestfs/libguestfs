@@ -572,7 +572,7 @@ int
 guestfs___osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo,
                       const struct osinfo **osinfo_ret)
 {
-  debug (g, "osinfo: libxml2 not available");
+  debug (g, "osinfo: libxml2 not available at compile time");
   return 0;
 }
 

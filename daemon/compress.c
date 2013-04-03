@@ -109,7 +109,7 @@ do_compressX_out (const char *file, const char *filter, int is_device)
 #define CHECK_SUPPORTED(prog)                                           \
   if (!prog_exists (prog))                                              \
     /* note: substring "not supported" must appear in this error */     \
-    NOT_SUPPORTED (-1, "compression type %s is not supported", prog);
+    NOT_SUPPORTED (-1, "compression type %s is not supported, because external program '%s' is not available in the appliance", prog, prog);
 
 static int
 get_filter (const char *ctype, int level, char *ret, size_t n)
