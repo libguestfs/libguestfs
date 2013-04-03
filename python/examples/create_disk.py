@@ -5,7 +5,11 @@ import guestfs
 
 output = "disk.img"
 
-g = guestfs.GuestFS ()
+# All new Python code should pass python_return_dict=True
+# to the constructor.  It indicates that your program wants
+# to receive Python dicts for methods in the API that return
+# hashtables.
+g = guestfs.GuestFS (python_return_dict=True)
 
 # Create a raw-format sparse disk image, 512 MB in size.
 f = open (output, "w")

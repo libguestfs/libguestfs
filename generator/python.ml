@@ -601,7 +601,7 @@ and generate_python_py () =
 \"\"\"Python bindings for libguestfs
 
 import guestfs
-g = guestfs.GuestFS ()
+g = guestfs.GuestFS (python_return_dict=True)
 g.add_drive_opts (\"guest.img\", format=\"raw\")
 g.launch ()
 parts = g.list_partitions ()
@@ -667,12 +667,26 @@ class ClosedHandle(ValueError):
 class GuestFS(object):
     \"\"\"Instances of this class are libguestfs API handles.\"\"\"
 
-    def __init__ (self, environment=True, close_on_exit=True):
-        \"\"\"Create a new libguestfs handle.\"\"\"
+    def __init__ (self, python_return_dict=False,
+                  environment=True, close_on_exit=True):
+        \"\"\"Create a new libguestfs handle.
+
+        Note about \"python_return_dict\" flag:
+
+        Setting this flag to 'True' causes all functions
+        that internally return hashes to return a dict.  This is
+        natural for Python, and all new code should use
+        python_return_dict=True.
+
+        If this flag is not present then hashes are returned
+        as lists of pairs.  This was the only possible behaviour
+        in libguestfs <= 1.20.
+        \"\"\"
         flags = 0
         if not environment: flags |= 1
         if not close_on_exit: flags |= 2
         self._o = libguestfsmod.create (flags)
+        self._python_return_dict = python_return_dict
 
     def __del__ (self):
         if self._o:
@@ -681,6 +695,11 @@ class GuestFS(object):
     def _check_not_closed (self):
         if not self._o:
             raise ClosedHandle (\"GuestFS: method called on closed handle\")
+
+    def _maybe_convert_to_dict (self, r):
+        if self._python_return_dict == True:
+            r = dict (r)
+        return r
 
     def close (self):
         \"\"\"Explicitly close the guestfs handle.
@@ -754,7 +773,7 @@ class GuestFS(object):
           | RStructList (_, typ) ->
               doc ^ sprintf "\n\nThis function returns a list of %ss.  Each %s is represented as a dictionary." typ typ
           | RHashtable _ ->
-              doc ^ "\n\nThis function returns a dictionary." in
+              doc ^ "\n\nThis function returns a hash.  If the GuestFS constructor was called with python_return_dict=True (recommended) then the return value is in fact a Python dict.  Otherwise the return value is a list of pairs of strings, for compatibility with old code." in
         let doc =
           if f.protocol_limit_warning then
             doc ^ "\n\n" ^ protocol_limit_warning
@@ -782,10 +801,22 @@ class GuestFS(object):
             pr "        %s = list (%s)\n" n n
       ) args;
       pr "        self._check_not_closed ()\n";
-      pr "        return libguestfsmod.%s (self._o" f.name;
+      pr "        r = libguestfsmod.%s (self._o" f.name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg))
         (args @ args_of_optargs optargs);
-      pr ")\n\n";
+      pr ")\n";
+
+      (* For RHashtable, if self._python_return_dict=True then we
+       * have to convert the result to a dict.
+       *)
+      (match ret with
+      | RHashtable _ ->
+        pr "        r = self._maybe_convert_to_dict (r)\n";
+      | _ -> ()
+      );
+
+      pr "        return r\n";
+      pr "\n";
 
       (* Aliases. *)
       List.iter (

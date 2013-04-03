@@ -1,5 +1,5 @@
 # libguestfs Python bindings
-# Copyright (C) 2009-2013 Red Hat Inc.
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,23 +15,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# Test python-specific python_return_dict parameter.
+
+from types import *
 import os
 import guestfs
 
+g = guestfs.GuestFS (python_return_dict=False)
+
+r = g.internal_test_rhashtable ("5")
+if type(r) != list or r != [ ("0","0"), ("1","1"), ("2","2"), ("3","3"), ("4","4") ]:
+    raise Exception ("python_return_dict=False: internal_test_rhashtable returned %s" % r)
+
 g = guestfs.GuestFS (python_return_dict=True)
-f = open ("test.img", "w")
-f.truncate (500 * 1024 * 1024)
-f.close ()
-g.add_drive ("test.img")
-g.launch ()
 
-g.pvcreate ("/dev/sda")
-g.vgcreate ("VG", ["/dev/sda"])
-g.lvcreate ("LV1", "VG", 200)
-g.lvcreate ("LV2", "VG", 200)
-if (g.lvs () != ["/dev/VG/LV1", "/dev/VG/LV2"]):
-    raise "Error: g.lvs() returned incorrect result"
-g.shutdown ()
-g.close ()
-
-os.unlink ("test.img")
+r = g.internal_test_rhashtable ("5")
+if type(r) != dict or sorted (r.keys()) != ["0","1","2","3","4"] or r["0"] != "0" or r["1"] != "1" or r["2"] != "2" or r["3"] != "3" or r["4"] != "4":
+    raise Exception ("python_return_dict=True: internal_test_rhashtable returned %s" % r)

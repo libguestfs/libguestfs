@@ -18,7 +18,7 @@
 import os
 import guestfs
 
-g = guestfs.GuestFS()
+g = guestfs.GuestFS (python_return_dict=True)
 
 def log_callback (ev,eh,buf,array):
     if ev == guestfs.EVENT_APPLIANCE:
