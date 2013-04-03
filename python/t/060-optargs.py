@@ -18,7 +18,7 @@
 import os
 import guestfs
 
-g = guestfs.GuestFS()
+g = guestfs.GuestFS(python_return_dict=True)
 g.add_drive_opts ("/dev/null")
 g.add_drive_opts ("/dev/null", readonly = 1)
 g.add_drive_opts ("/dev/null", iface = "virtio", format = "raw")

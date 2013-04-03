@@ -7,7 +7,7 @@ guestfs-python - How to use libguestfs from Python
 =head1 SYNOPSIS
 
  import guestfs
- g = guestfs.GuestFS ()
+ g = guestfs.GuestFS (python_return_dict=True)
  g.add_drive_opts ("disk.img", format="raw", readonly=1)
  g.launch ()
 
@@ -17,6 +17,17 @@ This manual page documents how to call libguestfs from the Python
 programming language.  This page just documents the differences from
 the C API and gives some examples.  If you are not familiar with using
 libguestfs, you also need to read L<guestfs(3)>.
+
+=head2 python_return_dict=True
+
+All new code should construct the handle using:
+
+ g = guestfs.GuestFS (python_return_dict=True)
+
+This indicates that your program wants to receive Python dicts for
+methods in the API that return hashtables.
+
+In a future version of libguestfs, this will become the default.
 
 =head2 EXCEPTIONS
 
