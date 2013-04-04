@@ -222,7 +222,7 @@ PHP_FUNCTION (guestfs_last_error)
               pr "  char *optargs_t_%s = NULL;\n" n;
               pr "  int optargs_t_%s_size = -1;\n" n
           | OStringList n ->
-              pr "  zval *z_%s;\n" n
+              pr "  zval *optargs_t_%s;\n" n
         ) optargs
       );
 
@@ -278,7 +278,7 @@ PHP_FUNCTION (guestfs_last_error)
         | OString n ->
             pr ", &optargs_t_%s, &optargs_t_%s_size" n n
         | OStringList n ->
-            pr ", &z_%s" n
+            pr ", &optargs_t_%s" n
       ) optargs;
       pr ") == FAILURE) {\n";
       pr "    RETURN_FALSE;\n";
@@ -359,7 +359,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr "  }\n"
           | OStringList n ->
             let uc_n = String.uppercase n in
-            pr "  if (z_%s != NULL) {\n" n;
+            pr "  if (optargs_t_%s != NULL && ! ZVAL_IS_NULL (optargs_t_%s)) {\n" n n;
             pr "    char **r;\n";
             pr "    HashTable *a;\n";
             pr "    int n;\n";
@@ -367,7 +367,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr "    zval **d;\n";
             pr "    size_t c = 0;\n";
             pr "\n";
-            pr "    a = Z_ARRVAL_P (z_%s);\n" n;
+            pr "    a = Z_ARRVAL_P (optargs_t_%s);\n" n;
             pr "    n = zend_hash_num_elements (a);\n";
             pr "    r = safe_emalloc (n + 1, sizeof (char *), 0);\n";
             pr "    for (zend_hash_internal_pointer_reset_ex (a, &p);\n";
@@ -380,8 +380,8 @@ PHP_FUNCTION (guestfs_last_error)
             pr "      c++;\n";
             pr "    }\n";
             pr "    r[c] = NULL;\n";
-            pr "    optargs_s.%s = r;\n" n;
             pr "\n";
+            pr "    optargs_s.%s = r;\n" n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n";
         ) optargs;
