@@ -49,6 +49,7 @@ copy (const char *src, const char *src_display,
   char buf[BUFSIZ];
   size_t n;
   ssize_t r;
+  int err;
 
   if ((optargs_bitmask & GUESTFS_COPY_DEVICE_TO_DEVICE_SRCOFFSET_BITMASK)) {
     if (srcoffset < 0) {
@@ -116,8 +117,10 @@ copy (const char *src, const char *src_display,
 
     r = read (src_fd, buf, n);
     if (r == -1) {
+      err = errno;
       if (size == -1)
         pulse_mode_cancel ();
+      errno = err;
       reply_with_perror ("read: %s", src_display);
       close (src_fd);
       close (dest_fd);
@@ -134,8 +137,10 @@ copy (const char *src, const char *src_display,
     }
 
     if (xwrite (dest_fd, buf, r) == -1) {
+      err = errno;
       if (size == -1)
         pulse_mode_cancel ();
+      errno = err;
       reply_with_perror ("%s: write", dest_display);
       close (src_fd);
       close (dest_fd);
