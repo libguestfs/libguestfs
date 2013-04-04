@@ -671,6 +671,24 @@ C<UNMOUNTABLE_BOOT_VOLUME> BSOD.  This error is caused by having
 C<ExtendOemPartition=1> in the sysprep.inf file.  Removing this line
 before sysprepping should fix the problem.
 
+=head2 SPARSE COPYING
+
+You must create a fresh, zeroed target disk image for virt-resize to
+use.  Do not reuse a target, especially one which contains data
+already.
+
+Virt-resize performs sparse copying.  This means that it does not copy
+blocks from the source disk which are all zeroes.  This improves speed
+and efficiency, but will produce incorrect results if the target disk
+image contains unzeroed data.
+
+The main time this can be a problem is if the target is a host
+partition (eg. S<C<virt-resize source.img /dev/sda4>>) because the
+usual partitioning tools tend to leave whatever data happened to be on
+the disk when making partitions.  In rare cases you may need to
+S<C<dd if=/dev/zero of=/dev/sdXN>> first to ensure the target
+partition is zeroed.
+
 =head1 ALTERNATIVE TOOLS
 
 There are several proprietary tools for resizing partitions.  We

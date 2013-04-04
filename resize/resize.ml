@@ -1035,7 +1035,7 @@ let () =
 
         (match p.p_type with
          | ContentUnknown | ContentPV _ | ContentFS _ ->
-           g#copy_device_to_device ~size:copysize source target
+           g#copy_device_to_device ~size:copysize ~sparse:true source target
 
          | ContentExtendedPartition ->
            (* You can't just copy an extended partition by name, eg.

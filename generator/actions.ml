@@ -8784,7 +8784,7 @@ See also C<guestfs_part_to_dev>." };
 
   { defaults with
     name = "copy_device_to_device";
-    style = RErr, [Device "src"; Device "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"];
+    style = RErr, [Device "src"; Device "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"; OBool "sparse"];
     proc_nr = Some 294;
     progress = true;
     shortdesc = "copy from source device to destination device";
@@ -8806,11 +8806,17 @@ The source and destination may be the same object.  However
 overlapping regions may not be copied correctly.
 
 If the destination is a file, it is created if required.  If
-the destination file is not large enough, it is extended." };
+the destination file is not large enough, it is extended.
+
+If the C<sparse> flag is true then the call avoids writing
+blocks that contain only zeroes, which can help in some situations
+where the backing disk is thin-provisioned.  Note that unless
+the target is already zeroed, using this option will result
+in incorrect copying." };
 
   { defaults with
     name = "copy_device_to_file";
-    style = RErr, [Device "src"; Pathname "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"];
+    style = RErr, [Device "src"; Pathname "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"; OBool "sparse"];
     proc_nr = Some 295;
     progress = true;
     shortdesc = "copy from source device to destination file";
@@ -8820,7 +8826,7 @@ of this call." };
 
   { defaults with
     name = "copy_file_to_device";
-    style = RErr, [Pathname "src"; Device "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"];
+    style = RErr, [Pathname "src"; Device "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"; OBool "sparse"];
     proc_nr = Some 296;
     progress = true;
     shortdesc = "copy from source file to destination device";
@@ -8830,15 +8836,23 @@ of this call." };
 
   { defaults with
     name = "copy_file_to_file";
-    style = RErr, [Pathname "src"; Pathname "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"];
+    style = RErr, [Pathname "src"; Pathname "dest"], [OInt64 "srcoffset"; OInt64 "destoffset"; OInt64 "size"; OBool "sparse"];
     proc_nr = Some 297;
     progress = true;
     tests = [
       InitScratchFS, Always, TestOutputBuffer (
         [["mkdir"; "/copyff"];
          ["write"; "/copyff/src"; "hello, world"];
-         ["copy_file_to_file"; "/copyff/src"; "/copyff/dest"; ""; ""; ""];
-         ["read_file"; "/copyff/dest"]], "hello, world")
+         ["copy_file_to_file"; "/copyff/src"; "/copyff/dest"; ""; ""; ""; ""];
+         ["read_file"; "/copyff/dest"]], "hello, world");
+      let size = 1024 * 1024 in
+      InitScratchFS, Always, TestOutputTrue (
+        [["mkdir"; "/copyff2"];
+         ["fill"; "0"; string_of_int size; "/copyff2/src"];
+         ["touch"; "/copyff2/dest"];
+         ["truncate_size"; "/copyff2/dest"; string_of_int size];
+         ["copy_file_to_file"; "/copyff2/src"; "/copyff2/dest"; ""; ""; ""; "true"];
+         ["is_zero"; "/copyff2/dest"]])
     ];
     shortdesc = "copy from source file to destination file";
     longdesc = "\

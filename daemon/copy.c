@@ -42,7 +42,7 @@ static int
 copy (const char *src, const char *src_display,
       const char *dest, const char *dest_display,
       int wrflags, int wrmode,
-      int64_t srcoffset, int64_t destoffset, int64_t size)
+      int64_t srcoffset, int64_t destoffset, int64_t size, int sparse)
 {
   int64_t saved_size = size;
   int src_fd, dest_fd;
@@ -76,6 +76,9 @@ copy (const char *src, const char *src_display,
   }
   else
     size = -1;
+
+  if (! (optargs_bitmask & GUESTFS_COPY_DEVICE_TO_DEVICE_SPARSE_BITMASK))
+    sparse = 0;
 
   /* Open source and destination. */
   src_fd = open (src, O_RDONLY|O_CLOEXEC);
@@ -133,6 +136,18 @@ copy (const char *src, const char *src_display,
       return -1;
     }
 
+    if (sparse && is_zero (buf, r)) {
+      if (lseek (dest_fd, r, SEEK_CUR) == -1) {
+        if (size == -1)
+          pulse_mode_cancel ();
+        reply_with_perror ("%s: seek (because of sparse flag)", dest_display);
+        close (src_fd);
+        close (dest_fd);
+        return -1;
+      }
+      goto sparse_skip;
+    }
+
     if (xwrite (dest_fd, buf, r) == -1) {
       if (size == -1)
         pulse_mode_cancel ();
@@ -141,6 +156,7 @@ copy (const char *src, const char *src_display,
       close (dest_fd);
       return -1;
     }
+  sparse_skip:
 
     if (size != -1) {
       size -= r;
@@ -167,15 +183,17 @@ copy (const char *src, const char *src_display,
 
 int
 do_copy_device_to_device (const char *src, const char *dest,
-                          int64_t srcoffset, int64_t destoffset, int64_t size)
+                          int64_t srcoffset, int64_t destoffset, int64_t size,
+                          int sparse)
 {
   return copy (src, src, dest, dest, DEST_DEVICE_FLAGS,
-               srcoffset, destoffset, size);
+               srcoffset, destoffset, size, sparse);
 }
 
 int
 do_copy_device_to_file (const char *src, const char *dest,
-                        int64_t srcoffset, int64_t destoffset, int64_t size)
+                        int64_t srcoffset, int64_t destoffset, int64_t size,
+                        int sparse)
 {
   CLEANUP_FREE char *dest_buf = sysroot_path (dest);
 
@@ -185,12 +203,13 @@ do_copy_device_to_file (const char *src, const char *dest,
   }
 
   return copy (src, src, dest_buf, dest, DEST_FILE_FLAGS,
-               srcoffset, destoffset, size);
+               srcoffset, destoffset, size, sparse);
 }
 
 int
 do_copy_file_to_device (const char *src, const char *dest,
-                        int64_t srcoffset, int64_t destoffset, int64_t size)
+                        int64_t srcoffset, int64_t destoffset, int64_t size,
+                        int sparse)
 {
   CLEANUP_FREE char *src_buf = sysroot_path (src);
 
@@ -200,12 +219,13 @@ do_copy_file_to_device (const char *src, const char *dest,
   }
 
   return copy (src_buf, src, dest, dest, DEST_DEVICE_FLAGS,
-               srcoffset, destoffset, size);
+               srcoffset, destoffset, size, sparse);
 }
 
 int
 do_copy_file_to_file (const char *src, const char *dest,
-                      int64_t srcoffset, int64_t destoffset, int64_t size)
+                      int64_t srcoffset, int64_t destoffset, int64_t size,
+                      int sparse)
 {
   CLEANUP_FREE char *src_buf = NULL, *dest_buf = NULL;
 
@@ -222,5 +242,5 @@ do_copy_file_to_file (const char *src, const char *dest,
   }
 
   return copy (src_buf, src, dest_buf, dest, DEST_FILE_FLAGS,
-               srcoffset, destoffset, size);
+               srcoffset, destoffset, size, sparse);
 }
