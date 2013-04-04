@@ -1,0 +1,13 @@
+The tests in this directory simply run SYSLINUX/EXTLINUX (if
+available) to make sure they work.
+
+However if you want, you can also try booting the resultant guests,
+although this is not part of the test.
+
+  qemu-kvm -hda syslinux-guest.img
+  qemu-kvm -hda extlinux-guest.img
+
+Note that there is just a kernel, no operating system, inside these
+guests so the Linux kernel is expected to panic once it tries to find
+an init process to run.  (You could modify these tests to add an init
+process if you wanted to).

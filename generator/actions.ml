@@ -10939,6 +10939,71 @@ call it returns a simple true/false boolean result, instead
 of throwing an exception if a feature is not found.  For
 other documentation see C<guestfs_available>." };
 
+  { defaults with
+    name = "syslinux";
+    style = RErr, [Device "device"], [OString "directory"];
+    proc_nr = Some 399;
+    optional = Some "syslinux";
+    shortdesc = "install the SYSLINUX bootloader";
+    longdesc = "\
+Install the SYSLINUX bootloader on C<device>.
+
+The device parameter must be either a whole disk formatted
+as a FAT filesystem, or a partition formatted as a FAT filesystem.
+In the latter case, the partition should be marked as \"active\"
+(C<guestfs_part_set_bootable>) and a Master Boot Record must be
+installed (eg. using C<guestfs_pwrite_device>) on the first
+sector of the whole disk.
+The SYSLINUX package comes with some suitable Master Boot Records.
+See the L<syslinux(1)> man page for further information.
+
+The optional arguments are:
+
+=over 4
+
+=item C<directory>
+
+Install SYSLINUX in the named subdirectory, instead of in the
+root directory of the FAT filesystem.
+
+=back
+
+Additional configuration can be supplied to SYSLINUX by
+placing a file called C<syslinux.cfg> on the FAT filesystem,
+either in the root directory, or under C<directory> if that
+optional argument is being used.  For further information
+about the contents of this file, see L<syslinux(1)>.
+
+See also C<guestfs_extlinux>." };
+
+  { defaults with
+    name = "extlinux";
+    style = RErr, [Pathname "directory"], [];
+    proc_nr = Some 400;
+    optional = Some "extlinux";
+    shortdesc = "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem";
+    longdesc = "\
+Install the SYSLINUX bootloader on the device mounted at C<directory>.
+Unlike C<guestfs_syslinux> which requires a FAT filesystem, this can
+be used on an ext2/3/4 or btrfs filesystem.
+
+The C<directory> parameter can be either a mountpoint, or a
+directory within the mountpoint.
+
+You also have to marked the partition as \"active\"
+(C<guestfs_part_set_bootable>) and a Master Boot Record must
+be installed (eg. using C<guestfs_pwrite_device>) on the first
+sector of the whole disk.
+The SYSLINUX package comes with some suitable Master Boot Records.
+See the L<extlinux(1)> man page for further information.
+
+Additional configuration can be supplied to SYSLINUX by
+placing a file called C<extlinux.conf> on the filesystem
+under C<directory>.  For further information
+about the contents of this file, see L<extlinux(1)>.
+
+See also C<guestfs_syslinux>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

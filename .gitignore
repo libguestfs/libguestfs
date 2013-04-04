@@ -463,6 +463,8 @@ Makefile.in
 /tests/regressions/rhbz790721
 /tests/regressions/rhbz914931
 /tests/rsync/rsyncd.pid
+/tests/syslinux/extlinux-guest.img
+/tests/syslinux/syslinux-guest.img
 /test-tool/libguestfs-test-tool
 /test-tool/libguestfs-test-tool.1
 /test-tool/libguestfs-test-tool-helper

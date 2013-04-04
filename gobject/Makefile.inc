@@ -83,7 +83,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-hivex_open.h \
   include/guestfs-gobject/optargs-xfs_repair.h \
   include/guestfs-gobject/optargs-mke2fs.h \
-  include/guestfs-gobject/optargs-mktemp.h
+  include/guestfs-gobject/optargs-mktemp.h \
+  include/guestfs-gobject/optargs-syslinux.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -148,4 +149,5 @@ guestfs_gobject_sources= \
   src/optargs-hivex_open.c \
   src/optargs-xfs_repair.c \
   src/optargs-mke2fs.c \
-  src/optargs-mktemp.c
+  src/optargs-mktemp.c \
+  src/optargs-syslinux.c

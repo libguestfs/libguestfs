@@ -161,6 +161,7 @@ guestfsd_SOURCES = \
 	stubs.c \
 	swap.c \
 	sync.c \
+	syslinux.c \
 	tar.c \
 	truncate.c \
 	umask.c \

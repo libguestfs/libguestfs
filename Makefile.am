@@ -57,6 +57,7 @@ SUBDIRS += tests/bigdirs
 SUBDIRS += tests/disk-labels
 SUBDIRS += tests/hotplug
 SUBDIRS += tests/nbd
+SUBDIRS += tests/syslinux
 SUBDIRS += tests/regressions
 endif
 

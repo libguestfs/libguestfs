@@ -85,6 +85,7 @@ daemon/strings.c
 daemon/stubs.c
 daemon/swap.c
 daemon/sync.c
+daemon/syslinux.c
 daemon/tar.c
 daemon/truncate.c
 daemon/umask.c
@@ -179,6 +180,7 @@ gobject/src/optargs-rsync.c
 gobject/src/optargs-rsync_in.c
 gobject/src/optargs-rsync_out.c
 gobject/src/optargs-set_e2attrs.c
+gobject/src/optargs-syslinux.c
 gobject/src/optargs-tar_in.c
 gobject/src/optargs-tar_out.c
 gobject/src/optargs-tune2fs.c
