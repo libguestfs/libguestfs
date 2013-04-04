@@ -43,10 +43,6 @@ echo @SUPERMIN@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
 < supermin.d/hostfiles \
 grep -v '^/usr/lib/locale' |
 grep -v '^/usr/share/locale' |
-grep -v '^/usr/lib/gconv' |
-grep -v '^/usr/lib64/gconv' |
-grep -v '^/usr/bin/localedef' |
-grep -v '^/usr/sbin/build-locale-archive' |
 grep -v '^/usr/share/man/' |
 grep -v '^/usr/share/doc/' |
 grep -v '^/usr/share/info/' |
