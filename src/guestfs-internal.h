@@ -119,6 +119,7 @@ enum drive_protocol {
   drive_protocol_nbd,
   drive_protocol_rbd,
   drive_protocol_sheepdog,
+  drive_protocol_ssh,
 };
 
 enum drive_transport {
@@ -157,6 +158,9 @@ struct drive_source {
    */
   size_t nr_servers;
   struct drive_server *servers;
+
+  /* Optional username (may be NULL if not specified). */
+  char *username;
 };
 
 struct drive {

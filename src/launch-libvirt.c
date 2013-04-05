@@ -1120,7 +1120,9 @@ construct_libvirt_xml_disk (guestfs_h *g,
   case drive_protocol_rbd:
     protocol_str = "rbd"; goto network_protocols;
   case drive_protocol_sheepdog:
-    protocol_str = "sheepdog";
+    protocol_str = "sheepdog"; goto network_protocols;
+  case drive_protocol_ssh:
+    protocol_str = "ssh";
     /*FALLTHROUGH*/
   network_protocols:
     XMLERROR (-1,
@@ -1140,6 +1142,13 @@ construct_libvirt_xml_disk (guestfs_h *g,
     if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
       return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
+    if (drv_priv->real_src.username != NULL) {
+      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "auth"));
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "username",
+                                             BAD_CAST drv_priv->real_src.username));
+      XMLERROR (-1, xmlTextWriterEndElement (xo));
+    }
   }
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
@@ -1592,6 +1601,7 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
   case drive_protocol_nbd:
   case drive_protocol_rbd:
   case drive_protocol_sheepdog:
+  case drive_protocol_ssh:
     if (!drv->readonly) {
       guestfs___copy_drive_source (g, &drv->src, &drv_priv->real_src);
       drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;

@@ -1247,7 +1247,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -1362,6 +1362,15 @@ The C<server> parameter may also be supplied - see below.
 
 See also: L<guestfs(3)/SHEEPDOG>.
 
+=item C<protocol = \"ssh\">
+
+Connect to the Secure Shell (ssh) server.
+
+The C<server> parameter must be supplied.
+The C<username> parameter may be supplied.  See below.
+
+See also: L<guestfs(3)/SSH>.
+
 =back
 
 =item C<server>
@@ -1376,6 +1385,7 @@ is a list of server(s).
  nbd            Exactly one
  rbd            One or more
  sheepdog       Zero or more
+ ssh            Exactly one
 
 Each list element is a string specifying a server.  The string must be
 in one of the following formats:
@@ -1388,6 +1398,16 @@ in one of the following formats:
 
 If the port number is omitted, then the standard port number
 for the protocol is used (see C</etc/services>).
+
+=item C<username>
+
+For the C<ssh> protocol only, this specifies the remote username.
+
+If not given, then the local username is used.  But note this sometimes
+may give unexpected results, for example if using the libvirt backend
+and if the libvirt backend is configured to start the qemu appliance
+as a special user such as C<qemu.qemu>.  If in doubt, specify the
+remote username you want.
 
 =back" };
 

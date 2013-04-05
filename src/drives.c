@@ -107,7 +107,7 @@ static struct drive *
 create_drive_non_file (guestfs_h *g,
                        enum drive_protocol protocol,
                        struct drive_server *servers, size_t nr_servers,
-                       const char *exportname,
+                       const char *exportname, const char *username,
                        bool readonly, const char *format,
                        const char *iface, const char *name,
                        const char *disk_label,
@@ -119,6 +119,7 @@ create_drive_non_file (guestfs_h *g,
   drv->src.servers = servers;
   drv->src.nr_servers = nr_servers;
   drv->src.u.exportname = safe_strdup (g, exportname);
+  drv->src.username = username ? safe_strdup (g, username) : NULL;
 
   drv->readonly = readonly;
   drv->format = format ? safe_strdup (g, format) : NULL;
@@ -135,12 +136,17 @@ create_drive_non_file (guestfs_h *g,
 static struct drive *
 create_drive_gluster (guestfs_h *g,
                       struct drive_server *servers, size_t nr_servers,
-                      const char *exportname,
+                      const char *exportname, const char *username,
                       bool readonly, const char *format,
                       const char *iface, const char *name,
                       const char *disk_label,
                       bool use_cache_none)
 {
+  if (username != NULL) {
+    error (g, _("gluster: you cannot specify a username with this protocol"));
+    return NULL;
+  }
+
   if (nr_servers != 1) {
     error (g, _("gluster: you must specify exactly one server"));
     return NULL;
@@ -159,7 +165,7 @@ create_drive_gluster (guestfs_h *g,
   }
 
   return create_drive_non_file (g, drive_protocol_gluster,
-                                servers, nr_servers, exportname,
+                                servers, nr_servers, exportname, username,
                                 readonly, format, iface, name, disk_label,
                                 use_cache_none);
 }
@@ -179,12 +185,17 @@ nbd_port (void)
 static struct drive *
 create_drive_nbd (guestfs_h *g,
                   struct drive_server *servers, size_t nr_servers,
-                  const char *exportname,
+                  const char *exportname, const char *username,
                   bool readonly, const char *format,
                   const char *iface, const char *name,
                   const char *disk_label,
                   bool use_cache_none)
 {
+  if (username != NULL) {
+    error (g, _("nbd: you cannot specify a username with this protocol"));
+    return NULL;
+  }
+
   if (nr_servers != 1) {
     error (g, _("nbd: you must specify exactly one server"));
     return NULL;
@@ -194,7 +205,7 @@ create_drive_nbd (guestfs_h *g,
     servers[0].port = nbd_port ();
 
   return create_drive_non_file (g, drive_protocol_nbd,
-                                servers, nr_servers, exportname,
+                                servers, nr_servers, exportname, username,
                                 readonly, format, iface, name, disk_label,
                                 use_cache_none);
 }
@@ -202,13 +213,18 @@ create_drive_nbd (guestfs_h *g,
 static struct drive *
 create_drive_rbd (guestfs_h *g,
                   struct drive_server *servers, size_t nr_servers,
-                  const char *exportname,
+                  const char *exportname, const char *username,
                   bool readonly, const char *format,
                   const char *iface, const char *name,
                   const char *disk_label,
                   bool use_cache_none)
 {
   size_t i;
+
+  if (username != NULL) {
+    error (g, _("rbd: you cannot specify a username with this protocol"));
+    return NULL;
+  }
 
   if (nr_servers == 0) {
     error (g, _("rbd: you must specify one or more servers"));
@@ -233,7 +249,7 @@ create_drive_rbd (guestfs_h *g,
   }
 
   return create_drive_non_file (g, drive_protocol_rbd,
-                                servers, nr_servers, exportname,
+                                servers, nr_servers, exportname, username,
                                 readonly, format, iface, name, disk_label,
                                 use_cache_none);
 }
@@ -241,13 +257,18 @@ create_drive_rbd (guestfs_h *g,
 static struct drive *
 create_drive_sheepdog (guestfs_h *g,
                        struct drive_server *servers, size_t nr_servers,
-                       const char *exportname,
+                       const char *exportname, const char *username,
                        bool readonly, const char *format,
                        const char *iface, const char *name,
                        const char *disk_label,
                        bool use_cache_none)
 {
   size_t i;
+
+  if (username != NULL) {
+    error (g, _("sheepdog: you cannot specify a username with this protocol"));
+    return NULL;
+  }
 
   for (i = 0; i < nr_servers; ++i) {
     if (servers[i].transport != drive_transport_none &&
@@ -267,7 +288,43 @@ create_drive_sheepdog (guestfs_h *g,
   }
 
   return create_drive_non_file (g, drive_protocol_sheepdog,
-                                servers, nr_servers, exportname,
+                                servers, nr_servers, exportname, username,
+                                readonly, format, iface, name, disk_label,
+                                use_cache_none);
+}
+
+static struct drive *
+create_drive_ssh (guestfs_h *g,
+                  struct drive_server *servers, size_t nr_servers,
+                  const char *exportname, const char *username,
+                  bool readonly, const char *format,
+                  const char *iface, const char *name,
+                  const char *disk_label,
+                  bool use_cache_none)
+{
+  if (nr_servers != 1) {
+    error (g, _("ssh: you must specify exactly one server"));
+    return NULL;
+  }
+
+  if (servers[0].transport != drive_transport_none &&
+      servers[0].transport != drive_transport_tcp) {
+    error (g, _("ssh: only tcp transport is supported"));
+    return NULL;
+  }
+
+  if (STREQ (exportname, "")) {
+    error (g, _("ssh: pathname should not be an empty string"));
+    return NULL;
+  }
+
+  if (username && STREQ (username, "")) {
+    error (g, _("ssh: username should not be an empty string"));
+    return NULL;
+  }
+
+  return create_drive_non_file (g, drive_protocol_ssh,
+                                servers, nr_servers, exportname, username,
                                 readonly, format, iface, name, disk_label,
                                 use_cache_none);
 }
@@ -637,6 +694,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   const char *protocol;
   size_t nr_servers = 0;
   struct drive_server *servers = NULL;
+  const char *username;
   int use_cache_none;
   struct drive *drv;
   size_t i, drv_index;
@@ -665,6 +723,8 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
       return -1;
     nr_servers = r;
   }
+  username = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK
+    ? optargs->username : NULL;
 
   if (format && !valid_format_iface (format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
@@ -687,6 +747,11 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   if (STREQ (protocol, "file")) {
     if (servers != NULL) {
       error (g, _("you cannot specify a server with file-backed disks"));
+      free_drive_servers (servers, nr_servers);
+      return -1;
+    }
+    if (username != NULL) {
+      error (g, _("you cannot specify a username with file-backed disks"));
       free_drive_servers (servers, nr_servers);
       return -1;
     }
@@ -715,24 +780,29 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     }
   }
   else if (STREQ (protocol, "gluster")) {
-    drv = create_drive_gluster (g, servers, nr_servers, filename,
+    drv = create_drive_gluster (g, servers, nr_servers, filename, username,
                                 readonly, format, iface, name,
                                 disk_label, false);
   }
   else if (STREQ (protocol, "nbd")) {
-    drv = create_drive_nbd (g, servers, nr_servers, filename,
+    drv = create_drive_nbd (g, servers, nr_servers, filename, username,
                             readonly, format, iface, name,
                             disk_label, false);
   }
   else if (STREQ (protocol, "rbd")) {
-    drv = create_drive_rbd (g, servers, nr_servers, filename,
+    drv = create_drive_rbd (g, servers, nr_servers, filename, username,
                             readonly, format, iface, name,
                             disk_label, false);
   }
   else if (STREQ (protocol, "sheepdog")) {
-    drv = create_drive_sheepdog (g, servers, nr_servers, filename,
+    drv = create_drive_sheepdog (g, servers, nr_servers, filename, username,
                                  readonly, format, iface, name,
                                  disk_label, false);
+  }
+  else if (STREQ (protocol, "ssh")) {
+    drv = create_drive_ssh (g, servers, nr_servers, filename, username,
+                            readonly, format, iface, name,
+                            disk_label, false);
   }
   else {
     error (g, _("unknown protocol '%s'"), protocol);
@@ -1030,6 +1100,21 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
       return safe_asprintf (g, "sheepdog:%s:%d:%s",
                             src->servers[0].u.hostname, src->servers[0].port,
                             src->u.exportname);
+
+  case drive_protocol_ssh: {
+    CLEANUP_FREE char *username = NULL, *port = NULL;
+
+    if (src->username)
+      username = safe_asprintf (g, "%s@", username);
+    if (src->servers[0].port != 0)
+      port = safe_asprintf (g, ":%d", src->servers[0].port);
+
+    return safe_asprintf (g, "ssh://%s%s%s/%s",
+                          username ? username : "",
+                          src->servers[0].u.hostname,
+                          port ? port : "",
+                          src->u.exportname);
+  }
   }
 
   abort ();
@@ -1040,6 +1125,7 @@ guestfs___free_drive_source (struct drive_source *src)
 {
   if (src) {
     free (src->u.path);
+    free (src->username);
     free_drive_servers (src->servers, src->nr_servers);
   }
 }
