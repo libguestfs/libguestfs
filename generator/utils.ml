@@ -309,6 +309,7 @@ let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
   try Hashtbl.find pod2text_memo key
   with Not_found ->
     let filename, chan = Filename.open_temp_file "gen" ".tmp" in
+    fprintf chan "=encoding utf8\n\n";
     fprintf chan "=head1 %s\n\n%s\n" name longdesc;
     close_out chan;
     let cmd =

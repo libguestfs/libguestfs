@@ -515,6 +515,7 @@ if ($text) {
     $parser->output_string (\$output);
     $parser->parse_string_document ($content);
     open OUT, ">$text" or die "$progname: $text: $!";
+    binmode OUT, ":utf8";
     print OUT $output or die "$progname: $text: $!";
     close OUT or die "$progname: $text: $!";
     print "$progname: wrote $text\n";
