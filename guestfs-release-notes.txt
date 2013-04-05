@@ -2,6 +2,253 @@ NAME
 
     guestfs-release-notes - libguestfs Release Notes
 
+RELEASE NOTES FOR LIBGUESTFS 1.22
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.20.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+  API
+
+    Remote access to disks: Network Block Device (nbd), Gluster, Ceph (rbd)
+    and Sheepdog protocols are now supported.
+
+    The SYSLINUX and EXTLINUX bootloaders can now be installed in disk
+    images using the API.
+
+    Inspection can now handle filesystems such as btrfs where subvolumes
+    are separately mountable (Matthew Booth).
+
+    "Attach methods" are now known as "backends". Compatibility with
+    existing code is preserved.
+
+  Tools
+
+    Virt-alignment-scan and virt-df scan multiple guests in parallel.
+
+    Guestmount now passes errno accurately back to userspace in almost all
+    cases.
+
+    Guestfish allows only 1 true t yes y on 0 false f no n off for boolean
+    values (case insensitive), and gives an error for all other strings.
+
+    New tool guestunmount for unmounting FUSE filesystems safely.
+
+    guestmount --no-fork flag prevents guestmount from daemonizing.
+
+    Virt-resize now uses sparse copies by default, saving considerable
+    space for guests which are mostly empty.
+
+    Bash tab completion has been rewritten and can now handle most tools,
+    and correctly tab-complete --long options. In addition, bash completion
+    scripts are loaded on demand.
+
+  Language bindings
+
+    The Java API now supports events.
+
+    The Python object now inherits from the object base class.
+
+    Python methods which previously returned lists of tuples can now be
+    made to return a Python dict. For backwards compatibility, you have to
+    enable this by using the constructor option guestfs.GuestFS
+    (python_return_dict=True).
+
+    The PHP bindings are now tested properly, and have had multiple fixes.
+
+    The long-deprecated Perl Sys::Guestfs::Lib library has been removed.
+    https://www.redhat.com/archives/libguestfs/2013-April/msg00001.html
+
+  Other
+
+    Distributors can add arbitrary extra packages to the appliance by
+    doing:
+
+     ./configure --with-extra-packages="list of package names"
+
+ Security
+
+    No security issues were found in this release.
+
+ New APIs
+
+     extlinux
+     feature-available
+     is-whole-device
+     part-get-gpt-type
+     part-set-gpt-type
+     rename
+     syslinux
+
+    C only:
+
+     guestfs_event_to_string
+
+    Internal:
+
+     guestfs_internal_parse_mountable
+     guestfs_internal_set_libvirt_selinux_label
+     guestfs_internal_set_libvirt_selinux_norelabel_disks
+
+ Internals
+
+    The febootstrap tool has now been renamed to "supermin". Libguestfs can
+    use either, but now prefers "supermin".
+    http://people.redhat.com/~rjones/supermin/
+
+    Internal functions can no longer be used unless the caller defines
+    -DGUESTFS_PRIVATE=1.
+
+    Enable C compiler warnings in Python, Ruby bindings.
+
+    Fail early and clearly if libvirt does not support qemu/KVM (eg. if
+    default libvirt connection is to Xen).
+
+    make print-subdirs rule, useful for selectively running tests.
+
+    Multiple fixes to Haskell bindings.
+
+    ln and ln-f APIs now capture errno correctly.
+
+    Library code internally uses GCC __attribute__((cleanup)) (if
+    available) to simplify memory allocation.
+
+    Internal header files have been reorganized. See the comments in
+    src/guestfs-internal*.h
+
+    Internal code shared between the library and certain tools is now
+    located in a static libutils library.
+
+    Almost all subdirectories can now use parallel builds, although note
+    that the top-level directories still build in series.
+
+    Use of PATH_MAX and NAME_MAX has been eliminated from the code.
+
+    The Java API now requires JVM ≥ 1.6.
+
+    Force use of serial-tests with automake ≥ 1.12.
+
+    Use of sockets in the library protocol layer is abstracted, allowing
+    other non-POSIX layers to be added in future (see src/conn-socket.c).
+
+    qemu-img info --output json is used if available, for more secure
+    parsing of the output of this command.
+
+    Distros can now use make INSTALLDIRS=vendor install to place Ruby
+    bindings in vendordir. This eliminates a non-upstream patch carried by
+    both Fedora and Debian.
+
+    Valgrind log files are now written to tmp/valgrind-DATE-PID.log
+
+    make clean cleans the local tmp/ directory.
+
+ Bugs fixed
+
+    https://bugzilla.redhat.com/928995
+
+      file on zero-sized file now produces "empty " instead of "empty"
+
+    https://bugzilla.redhat.com/921292
+
+      qemu: could not open disk image /tmp/.../snapshot1: Permission denied
+
+    https://bugzilla.redhat.com/921040
+
+      "error: external command failed, see earlier error messages" message
+      needs to change
+
+    https://bugzilla.redhat.com/920225
+
+      libguestfs should use --output json (if supported) to safely parse
+      the output of qemu-img command
+
+    https://bugzilla.redhat.com/916780
+
+      feature request: guestmount --with-cleanup-pipefd
+
+    https://bugzilla.redhat.com/914934
+
+      oom-killer kills guestfsd when tar-in a lot of data
+
+    https://bugzilla.redhat.com/914931
+
+      FileIn commands cause segfault if appliance dies during the file copy
+      in
+
+    https://bugzilla.redhat.com/913145
+
+      Misc leaks in virNetClientProgramCall in libvirt 1.0.2
+
+    https://bugzilla.redhat.com/912499
+
+      Security context on image file gets reset
+
+    https://bugzilla.redhat.com/909836
+
+      libguestfs-test-tool --qemu segfaults
+
+    https://bugzilla.redhat.com/909624
+
+      Unexpected non-tail recursion in recv_from_daemon results in stack
+      overflow in very long-running API calls that send progress messages
+
+    https://bugzilla.redhat.com/908322
+
+      virt-tar fails on non-existent directory names "error in chunked
+      encoding at /home/rjones/d/libguestfs/tools/virt-tar line 272."
+
+    https://bugzilla.redhat.com/908321
+
+      virt-cat fails on directory names "/dev/stdout: error in chunked
+      encoding"
+
+    https://bugzilla.redhat.com/905341
+
+      "No such file or directory" when execute "hivex-commit"
+
+    https://bugzilla.redhat.com/903620
+
+      btrfs_subvolume_list broken due to change in subvolume list output
+
+    https://bugzilla.redhat.com/895910
+
+      guestmount: rename() incorrectly follows symbolic links
+
+    https://bugzilla.redhat.com/895905
+
+      guestmount: link() incorrectly returns ENOENT, when it should be
+      EXDEV
+
+    https://bugzilla.redhat.com/895904
+
+      checksums-out fail to compute the checksums of all regular files in
+      directory
+
+    https://bugzilla.redhat.com/894545
+
+      libguestfs FTBFS on Fedora 19 because of new ruby
+
+    https://bugzilla.redhat.com/887971
+
+      pvcreate fails if partition contains a swap signature
+
+    https://bugzilla.redhat.com/887520
+
+      zero_free_space: open: /sysroot//ujqqq135.rd3: Cannot allocate memory
+
+    https://bugzilla.redhat.com/886915
+
+      libguestfs with libvirt attach-method fails with odd error if default
+      hypervisor is Xen
+
+    https://bugzilla.redhat.com/847549
+
+      Addng a zero-length virtio-scsi disk causes: qemu-kvm:
+      hw/scsi-bus.c:1568: scsi_req_complete: Assertion `req->status == -1'
+      failed.
+
 RELEASE NOTES FOR LIBGUESTFS 1.20
 
     These release notes only cover the differences from the previous
@@ -1945,4 +2192,13 @@ BUGS
 
       * Run libguestfs-test-tool(1) and paste the complete, unedited output
       into the bug report.
+
+POD ERRORS
+
+    Hey! The above document had some coding errors, which are explained
+    below:
+
+    Around line 153:
+
+      Unterminated C<...> sequence
 
