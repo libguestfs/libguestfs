@@ -24,6 +24,7 @@ EXTRA_DIST = \
 	guestfs-testing.pod \
 	copy-over.c \
 	create-disk.c \
+	debug-logging.c \
 	display-icon.c \
 	inspect-vm.c \
 	libvirt-auth.c \
@@ -37,7 +38,7 @@ CLEANFILES = \
 	stamp-guestfs-recipes.pod \
 	stamp-guestfs-testing.pod
 
-noinst_PROGRAMS = create-disk display-icon inspect-vm
+noinst_PROGRAMS = create-disk debug-logging display-icon inspect-vm
 if HAVE_LIBVIRT
 noinst_PROGRAMS += copy-over libvirt-auth
 endif
@@ -84,6 +85,16 @@ create_disk_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 create_disk_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+debug_logging_SOURCES = debug-logging.c
+debug_logging_CPPFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+debug_logging_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+debug_logging_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 display_icon_SOURCES = display-icon.c
@@ -149,7 +160,7 @@ noinst_DATA = \
 
 guestfs-examples.3 $(top_builddir)/html/guestfs-examples.3.html: stamp-guestfs-examples.pod
 
-stamp-guestfs-examples.pod: guestfs-examples.pod copy-over.c create-disk.c display-icon.c inspect-vm.c libvirt-auth.c mount-local.c virt-dhcp-address.c
+stamp-guestfs-examples.pod: guestfs-examples.pod copy-over.c create-disk.c debug-logging.c display-icon.c inspect-vm.c libvirt-auth.c mount-local.c virt-dhcp-address.c
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-examples.3 \
