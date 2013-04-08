@@ -654,7 +654,8 @@ calling launch.
 =head2 How do I capture debug output and put it into my logging system?
 
 Use the event API.  For examples, see:
-L<guestfs(3)/SETTING CALLBACKS TO HANDLE EVENTS>.
+L<guestfs(3)/SETTING CALLBACKS TO HANDLE EVENTS> and the
+C<examples/debug-logging.c> program in the libguestfs sources.
 
 =head2 Digging deeper into the appliance boot process.
 

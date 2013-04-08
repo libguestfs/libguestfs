@@ -107,6 +107,7 @@ Makefile.in
 /erlang/test.img
 /examples/copy-over
 /examples/create-disk
+/examples/debug-logging
 /examples/display-icon
 /examples/guestfs-examples.3
 /examples/guestfs-faq.1

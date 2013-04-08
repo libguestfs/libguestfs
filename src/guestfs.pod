@@ -2696,6 +2696,9 @@ the moment this is only used for progress messages.
 
 =head2 EXAMPLE: CAPTURING LOG MESSAGES
 
+A working program demonstrating this can be found in
+C<examples/debug-logging.c> in the source of libguestfs.
+
 One motivation for the generic event API was to allow GUI programs to
 capture debug and other messages.  In libguestfs E<le> 1.8 these were
 sent unconditionally to C<stderr>.
