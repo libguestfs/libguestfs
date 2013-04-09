@@ -671,7 +671,7 @@ script (int prompt)
   if (prompt) {
     printf (_("\n"
               "Welcome to guestfish, the guest filesystem shell for\n"
-              "editing virtual machine filesystems.\n"
+              "editing virtual machine filesystems and disk images.\n"
               "\n"
               "Type: 'help' for help on commands\n"
               "      'man' to read the manual\n"
