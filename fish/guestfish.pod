@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-guestfish - the libguestfs Filesystem Interactive SHell
+guestfish - the guest filesystem shell
 
 =head1 SYNOPSIS
 
@@ -44,7 +44,7 @@ L<virt-rescue(1)> command.
 
  $ guestfish
  
- Welcome to guestfish, the libguestfs filesystem interactive shell for
+ Welcome to guestfish, the guest filesystem shell for
  editing virtual machine filesystems.
  
  Type: 'help' for a list of commands

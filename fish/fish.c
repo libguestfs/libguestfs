@@ -1,4 +1,4 @@
-/* guestfish - the filesystem interactive shell
+/* guestfish - guest filesystem shell
  * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -670,7 +670,7 @@ script (int prompt)
 
   if (prompt) {
     printf (_("\n"
-              "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
+              "Welcome to guestfish, the guest filesystem shell for\n"
               "editing virtual machine filesystems.\n"
               "\n"
               "Type: 'help' for help on commands\n"
