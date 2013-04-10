@@ -199,7 +199,7 @@ read_osinfo_db (guestfs_h *g)
   dir = opendir (LIBOSINFO_DB_OS_PATH);
   if (!dir) {
     debug (g, "osinfo: %s: %s", LIBOSINFO_DB_OS_PATH, strerror (errno));
-    return -1;
+    return 0; /* This is not an error: RHBZ#948324. */
   }
 
   debug (g, "osinfo: loading database from %s", LIBOSINFO_DB_OS_PATH);
