@@ -133,6 +133,7 @@ Makefile.in
 /fish/guestfish.1
 /fish/guestfish-actions.pod
 /fish/guestfish-commands.pod
+/fish/guestfish-prepopts.pod
 /fish/prepopts.c
 /fish/prepopts.h
 /fish/rc_protocol.c

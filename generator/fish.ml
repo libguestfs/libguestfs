@@ -938,7 +938,7 @@ extern const struct prep preps[];
 " (List.length prepopts);
 
   List.iter (
-    fun (name, shortdesc, args, longdesc) ->
+    fun (name, _, _, _) ->
       pr "\
 extern void prep_prelaunch_%s (const char *filename, prep_data *data);
 extern void prep_postlaunch_%s (const char *filename, prep_data *data, const char *device);
@@ -946,7 +946,6 @@ extern void prep_postlaunch_%s (const char *filename, prep_data *data, const cha
 " name name;
   ) prepopts;
 
-  pr "\n";
   pr "#endif /* PREPOPTS_H */\n"
 
 and generate_fish_prep_options_c () =
@@ -963,7 +962,7 @@ and generate_fish_prep_options_c () =
 ";
 
   List.iter (
-    fun (name, shortdesc, args, longdesc) ->
+    fun (name, _, args, _) ->
       pr "static struct prep_param %s_args[] = {\n" name;
       List.iter (
         fun (n, default, desc) ->
@@ -976,6 +975,22 @@ and generate_fish_prep_options_c () =
   pr "const struct prep preps[] = {\n";
   List.iter (
     fun (name, shortdesc, args, longdesc) ->
+      let longdesc = pod2text ~discard:true ~trim:true "NAME" longdesc in
+      let rec loop = function
+        | [] -> []
+        | [""] -> []
+        | x :: xs -> x :: loop xs
+      in
+      let longdesc = loop longdesc in
+      let rec loop = function
+        | [] -> []
+        | [x] -> ["  " ^ x]
+        | "" :: xs -> "\n" :: loop xs
+        | x :: xs -> ("  " ^ x ^ "\n") :: loop xs
+      in
+      let longdesc = loop longdesc in
+      let longdesc = String.concat "" longdesc in
+
       pr "  { \"%s\", %d, %s_args,
     \"%s\",
     \"%s\",
@@ -986,6 +1001,31 @@ and generate_fish_prep_options_c () =
         name name;
   ) prepopts;
   pr "};\n"
+
+and generate_fish_prep_options_pod () =
+  List.iter (
+    fun (name, shortdesc, args, longdesc) ->
+      pr "=head2 B<-N %s> - %s\n" name shortdesc;
+      pr "\n";
+      pr "C<guestfish -N %s" name;
+      let rec loop = function
+        | [] -> ()
+        | (n,_,_) :: args -> pr "[:I<%s>" n; loop args; pr "]";
+      in
+      loop args;
+      pr ">\n";
+      pr "\n";
+      pr "%s\n\n" longdesc;
+      if args <> [] then (
+        pr "The optional parameters are:\n\n";
+        pr " %-13s %s\n" "Name" "Default value";
+        List.iter (
+          fun (n, default, desc) ->
+            pr " %-13s %-13s %s\n" n default desc
+        ) args;
+        pr "\n"
+      )
+  ) prepopts
 
 and generate_fish_event_names () =
   generate_header CStyle GPLv2plus;

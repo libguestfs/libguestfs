@@ -88,13 +88,14 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 	  --insert $(builddir)/guestfs-structs.pod:__STRUCTS__ \
 	  $<
 
-guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
+guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfish-prepopts.pod
 	$(PODWRAPPER) \
 	  --no-strict-checks \
 	  --man $@ \
 	  --license GPLv2+ \
 	  --insert $(builddir)/guestfish-actions.pod:__ACTIONS__ \
 	  --insert $(builddir)/guestfish-commands.pod:__FISH_COMMANDS__ \
+	  --insert $(builddir)/guestfish-prepopts.pod:__PREPOPTS__ \
 	  $<
 
 virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod

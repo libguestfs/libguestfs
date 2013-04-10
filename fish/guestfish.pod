@@ -1053,10 +1053,6 @@ C<:> (colon) characters.  For example, I<-N fs> creates a default
 the partition formatted as ext2.  I<-N fs:ext4:1G> is the same, but
 for an ext4 filesystem on a 1GB disk instead.
 
-To list the available types and any extra parameters they take, run:
-
- guestfish -N help | less
-
 Note that the prepared filesystem is not mounted.  You would usually
 have to use the C<mount /dev/sda1 /> command or add the
 I<-m /dev/sda1> option.
@@ -1077,6 +1073,8 @@ Create a 32MB disk with a VFAT-formatted partition, and mount it:
 Create a blank 200MB disk:
 
  guestfish -N disk:200M
+
+__PREPOPTS__
 
 =head1 PROGRESS BARS
 

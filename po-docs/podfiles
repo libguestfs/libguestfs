@@ -14,6 +14,7 @@
 ../examples/guestfs-testing.pod
 ../fish/guestfish-actions.pod
 ../fish/guestfish-commands.pod
+../fish/guestfish-prepopts.pod
 ../fish/guestfish.pod
 ../fish/virt-copy-in.pod
 ../fish/virt-copy-out.pod

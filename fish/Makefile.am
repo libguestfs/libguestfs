@@ -34,6 +34,7 @@ generator_built = \
 	fish-cmds.h \
 	guestfish-actions.pod \
 	guestfish-commands.pod \
+	guestfish-prepopts.pod \
 	prepopts.h \
 	prepopts.c
 
@@ -187,12 +188,13 @@ noinst_DATA = \
 
 guestfish.1 $(top_builddir)/html/guestfish.1.html: stamp-guestfish.pod
 
-stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod
+stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfish-prepopts.pod
 	$(PODWRAPPER) \
 	  --man guestfish.1 \
 	  --html $(top_builddir)/html/guestfish.1.html \
 	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
 	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
+	  --insert $(srcdir)/guestfish-prepopts.pod:__PREPOPTS__ \
 	  --license GPLv2+ \
 	  $<
 	touch $@
