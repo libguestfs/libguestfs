@@ -124,4 +124,14 @@ extern int guestfs___for_each_disk (guestfs_h *g, virDomainPtr dom, int (*)(gues
 
 #endif /* HAVE_LIBVIRT && HAVE_LIBXML2 */
 
+/* Current program name.  Note <errno.h> must be included in all files
+ * that want to use 'program_name'.
+ */
+#if defined(HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME) && \
+    HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
+#  define program_name program_invocation_short_name
+#else
+#  define program_name "libguestfs"
+#endif
+
 #endif /* GUESTFS_INTERNAL_FRONTEND_H_ */

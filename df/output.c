@@ -24,6 +24,7 @@
 #include <string.h>
 #include <inttypes.h>
 #include <xvasprintf.h>
+#include <errno.h>
 #include <libintl.h>
 #include <math.h>
 #include <assert.h>
@@ -35,7 +36,6 @@
 
 #include "c-ctype.h"
 #include "human.h"
-#include "progname.h"
 
 #include "guestfs.h"
 #include "options.h"

@@ -29,7 +29,6 @@
 #include <libvirt/virterror.h>
 #endif
 
-#include "progname.h"
 #include "c-ctype.h"
 
 #include "guestfs.h"

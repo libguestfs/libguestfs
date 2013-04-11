@@ -75,7 +75,6 @@ openat
 perror
 pipe2
 pread
-progname
 read-file
 readlink
 select

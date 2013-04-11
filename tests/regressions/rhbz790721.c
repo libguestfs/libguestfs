@@ -72,7 +72,7 @@ main (int argc, char *argv[])
   }
   if (STRNEQ (attach_method, "appliance")) {
     fprintf (stderr, "%s: test skipped because attach method isn't 'appliance'.\n",
-             argv[0]);
+             program_name);
     free (attach_method);
     guestfs_close (g);
     exit (77);
