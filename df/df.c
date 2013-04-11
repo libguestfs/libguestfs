@@ -27,8 +27,6 @@
 #include <error.h>
 #include <errno.h>
 
-#include "progname.h"
-
 #include "guestfs.h"
 #include "options.h"
 #include "domains.h"

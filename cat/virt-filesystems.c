@@ -24,6 +24,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <errno.h>
 #include <locale.h>
 #include <assert.h>
 #include <string.h>
@@ -31,7 +32,6 @@
 
 #include "c-ctype.h"
 #include "human.h"
-#include "progname.h"
 
 #include "guestfs.h"
 #include "options.h"
@@ -131,9 +131,6 @@ usage (int status)
 int
 main (int argc, char *argv[])
 {
-  /* Set global program name that is not polluted with libtool artifacts.  */
-  set_program_name (argv[0]);
-
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
@@ -191,8 +188,6 @@ main (int argc, char *argv[])
     fprintf (stderr, _("guestfs_create: failed to create handle\n"));
     exit (EXIT_FAILURE);
   }
-
-  argv[0] = (char *) program_name;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);

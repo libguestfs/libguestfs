@@ -21,14 +21,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <libintl.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 #endif
-
-#include "progname.h"
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"

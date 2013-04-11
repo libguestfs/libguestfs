@@ -32,7 +32,6 @@ extern int inspector;
 extern int keys_from_stdin;
 extern int echo_keys;
 extern const char *libvirt_uri;
-extern const char *program_name;
 
 /* List of drives added via -a, -d or -N options.  NB: Unused fields
  * in this struct MUST be zeroed, ie. use calloc, not malloc.

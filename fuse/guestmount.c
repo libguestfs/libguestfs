@@ -26,6 +26,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 #include <getopt.h>
 #include <signal.h>
 #include <locale.h>
@@ -36,7 +37,6 @@
 
 #include "guestfs.h"
 
-#include "progname.h"
 #include "ignore-value.h"
 
 #include "options.h"
@@ -196,9 +196,6 @@ main (int argc, char *argv[])
 
   /* LC_ALL=C is required so we can parse error messages. */
   setenv ("LC_ALL", "C", 1);
-
-  /* Set global program name that is not polluted with libtool artifacts.  */
-  set_program_name (argv[0]);
 
   memset (&sa, 0, sizeof sa);
   sa.sa_handler = SIG_IGN;

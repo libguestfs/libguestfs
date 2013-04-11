@@ -27,6 +27,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -82,7 +83,7 @@ main (int argc, char *argv[])
   if (r != 0) {
     char status_string[80];
 
-    fprintf (stderr, "%s: test failed: %s\n", argv[0],
+    fprintf (stderr, "%s: test failed: %s\n", program_name,
              guestfs___exit_status_to_string (r, "guestunmount",
                                               status_string,
                                               sizeof status_string));
@@ -104,7 +105,7 @@ main (int argc, char *argv[])
     char status_string[80];
 
     fprintf (stderr, "%s: test failed: guestunmount didn't return status code 2; %s\n",
-             argv[0],
+             program_name,
              guestfs___exit_status_to_string (status, "guestunmount",
                                               status_string,
                                               sizeof status_string));

@@ -26,6 +26,7 @@
 #include <fcntl.h>
 #include <getopt.h>
 #include <signal.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <locale.h>
@@ -45,7 +46,6 @@
 
 #include "c-ctype.h"
 #include "closeout.h"
-#include "progname.h"
 
 /* Return from parse_command_line.  See description below. */
 struct parsed_command {
@@ -159,9 +159,6 @@ usage (int status)
 int
 main (int argc, char *argv[])
 {
-  /* Set global program name that is not polluted with libtool artifacts.  */
-  set_program_name (argv[0]);
-
   /* Initialize gnulib closeout module. */
   atexit (close_stdout);
 
@@ -235,15 +232,6 @@ main (int argc, char *argv[])
     fprintf (stderr, _("guestfs_create: failed to create handle\n"));
     exit (EXIT_FAILURE);
   }
-
-  /* CAUTION: we are careful to modify argv[0] here, only after
-   * using it just above.
-   *
-   * getopt_long uses argv[0], so give it the sanitized name.  Save a copy
-   * of the original, in case it's needed below.
-   */
-  //char *real_argv0 = argv[0];
-  argv[0] = (char *) program_name;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);

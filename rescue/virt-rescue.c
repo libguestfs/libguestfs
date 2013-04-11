@@ -30,7 +30,6 @@
 #include <libintl.h>
 
 #include "ignore-value.h"
-#include "progname.h"
 #include "xvasprintf.h"
 
 #include "guestfs.h"
@@ -91,9 +90,6 @@ usage (int status)
 int
 main (int argc, char *argv[])
 {
-  /* Set global program name that is not polluted with libtool artifacts.  */
-  set_program_name (argv[0]);
-
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
@@ -139,8 +135,6 @@ main (int argc, char *argv[])
     fprintf (stderr, _("guestfs_create: failed to create handle\n"));
     exit (EXIT_FAILURE);
   }
-
-  argv[0] = (char *) program_name;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);

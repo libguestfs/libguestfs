@@ -72,7 +72,7 @@ main (int argc, char *argv[])
   }
   if (STRNEQ (backend, "direct")) {
     fprintf (stderr, "%s: test skipped because backend isn't 'direct'.\n",
-             argv[0]);
+             program_name);
     free (backend);
     guestfs_close (g);
     exit (77);

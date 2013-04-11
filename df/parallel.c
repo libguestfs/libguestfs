@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <libintl.h>
+#include <errno.h>
 #include <error.h>
 #include <assert.h>
 
@@ -32,8 +33,6 @@
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 #endif
-
-#include "progname.h"
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"

@@ -37,7 +37,6 @@
 #include "guestfs-internal-frontend.h"
 
 #include "ignore-value.h"
-#include "progname.h"
 
 static int do_fusermount (const char *mountpoint, char **error_rtn);
 static void do_fuser (const char *mountpoint);
@@ -100,9 +99,6 @@ main (int argc, char *argv[])
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
-
-  /* Set global program name that is not polluted with libtool artifacts.  */
-  set_program_name (argv[0]);
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);

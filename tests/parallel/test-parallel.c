@@ -29,6 +29,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
+#include <errno.h>
 #include <error.h>
 
 #include <pthread.h>
@@ -77,7 +78,7 @@ main (int argc, char *argv[])
   skip = getenv ("SKIP_TEST_PARALLEL");
   if (skip && STREQ (skip, "1")) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             argv[0]);
+             program_name);
     exit (77);
   }
 

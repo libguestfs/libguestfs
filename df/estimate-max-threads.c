@@ -25,8 +25,6 @@
 #include <errno.h>
 #include <libintl.h>
 
-#include "progname.h"
-
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 #include "estimate-max-threads.h"

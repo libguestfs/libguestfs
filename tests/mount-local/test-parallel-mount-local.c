@@ -97,13 +97,13 @@ main (int argc, char *argv[])
   skip = getenv ("SKIP_TEST_PARALLEL_MOUNT_LOCAL");
   if (skip && STREQ (skip, "1")) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             argv[0]);
+             program_name);
     exit (77);
   }
 
   if (access ("/dev/fuse", W_OK) == -1) {
     fprintf (stderr, "%s: test skipped because /dev/fuse is not writable.\n",
-             argv[0]);
+             program_name);
     exit (77);
   }
 
