@@ -461,6 +461,19 @@ AC_ARG_WITH([febootstrap-packager-config],
 
 AC_SUBST([SUPERMIN_PACKAGER_CONFIG])
 
+dnl Pass additional supermin options.
+dnl
+SUPERMIN_EXTRA_OPTIONS=no
+AC_MSG_CHECKING([for --with-supermin-extra-options option])
+AC_ARG_WITH([supermin-extra-options],
+    [AS_HELP_STRING([--with-supermin-extra-options=STRING],
+        [Pass additional supermin options. @<:@default=no@:>@])],
+    [SUPERMIN_EXTRA_OPTIONS="$withval"
+     AC_MSG_RESULT([$SUPERMIN_EXTRA_OPTIONS"])],
+    [AC_MSG_RESULT([not set])])
+
+AC_SUBST([SUPERMIN_EXTRA_OPTIONS])
+
 if test "x$enable_appliance" = "xyes"; then
     test "x$SUPERMIN" = "xno" &&
         AC_MSG_ERROR([supermin (formerly called febootstrap) must be installed])
