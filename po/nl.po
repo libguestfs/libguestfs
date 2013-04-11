@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-31 11:19+0100\n"
+"POT-Creation-Date: 2013-04-11 17:31+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -4180,9 +4180,11 @@ msgstr ""
 msgid "could not initialize dir cache hashtables"
 msgstr "kon map cache hashtabellen niet initialiseren"
 
-#: src/fuse.c:1483 src/fuse.c:1489 src/fuse.c:1496
-msgid "FUSE not supported"
-msgstr "FUSE wordt niet ondersteund"
+#: src/fuse.c:1480
+msgid ""
+"FUSE is not supported in this build of libguestfs because libfuse was not "
+"found when libguestfs was compiled"
+msgstr ""
 
 #: src/handle.c:121
 msgid ""
@@ -6240,6 +6242,9 @@ msgstr "je kunt de opties --expand en --shrink niet tezamen gebruiken"
 #: ../sparsify/sparsify.ml:131 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
+
+#~ msgid "FUSE not supported"
+#~ msgstr "FUSE wordt niet ondersteund"
 
 #~ msgid "the external 'man' program failed\n"
 #~ msgstr "het externe 'man' programma mislukte\n"

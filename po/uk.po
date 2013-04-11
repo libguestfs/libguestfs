@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-31 11:19+0100\n"
+"POT-Creation-Date: 2013-04-11 17:31+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4345,9 +4345,11 @@ msgstr ""
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: src/fuse.c:1483 src/fuse.c:1489 src/fuse.c:1496
-msgid "FUSE not supported"
-msgstr "підтримки FUSE не передбачено"
+#: src/fuse.c:1480
+msgid ""
+"FUSE is not supported in this build of libguestfs because libfuse was not "
+"found when libguestfs was compiled"
+msgstr ""
 
 #: src/handle.c:121
 msgid ""
@@ -6522,6 +6524,9 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid "FUSE not supported"
+#~ msgstr "підтримки FUSE не передбачено"
 
 #~ msgid "the external 'man' program failed\n"
 #~ msgstr "спроба використання зовнішньої програми «man» зазнала невдачі\n"

@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.20.5\n"
+"Project-Id-Version: libguestfs 1.20.6\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-03-31 11:19+0100\n"
+"POT-Creation-Date: 2013-04-11 17:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3798,8 +3798,10 @@ msgstr ""
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: src/fuse.c:1483 src/fuse.c:1489 src/fuse.c:1496
-msgid "FUSE not supported"
+#: src/fuse.c:1480
+msgid ""
+"FUSE is not supported in this build of libguestfs because libfuse was not "
+"found when libguestfs was compiled"
 msgstr ""
 
 #: src/handle.c:121
