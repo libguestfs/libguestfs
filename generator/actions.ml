@@ -2851,6 +2851,32 @@ In a graphical program, when the main thread is displaying a progress
 bar with a cancel button, wire up the cancel button to call this
 function." };
 
+  { defaults with
+    name = "set_program";
+    style = RErr, [String "program"], [];
+    fish_alias = ["program"];
+    blocking = false;
+    shortdesc = "set the program name";
+    longdesc = "\
+Set the program name.  This is an informative string which the
+main program may optionally set in the handle.
+
+When the handle is created, the program name in the handle is
+set to the basename from C<argv[0]>.  If that was not possible,
+it is set to the empty string (but never C<NULL>)." };
+
+  { defaults with
+    name = "get_program";
+    style = RConstString "program", [], [];
+    blocking = false;
+    tests = [
+      InitNone, Always, TestRun (
+        [["get_program"]])
+    ];
+    shortdesc = "get the program name";
+    longdesc = "\
+Get the program name.  See C<guestfs_set_program>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action

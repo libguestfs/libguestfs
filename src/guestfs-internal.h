@@ -274,6 +274,8 @@ struct guestfs_h
 
   struct qemu_param *qemu_params; /* Extra qemu parameters. */
 
+  char *program;                /* Program name. */
+
   /* Array of drives added by add-drive* APIs.
    *
    * Before launch this list can be empty or contain some drives.

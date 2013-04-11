@@ -272,6 +272,9 @@ AC_CHECK_MEMBER([struct stat.st_blksize],[
 dnl Define a C symbol for the host CPU architecture.
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
+dnl Check if libc has program_invocation_short_name.
+AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
+
 dnl Headers.
 AC_CHECK_HEADERS([\
     attr/xattr.h \

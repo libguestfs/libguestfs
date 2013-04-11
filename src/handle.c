@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
@@ -115,6 +116,19 @@ guestfs_create_flags (unsigned flags, ...)
   g->qemu = strdup (QEMU);
   if (!g->qemu) goto error;
 
+  /* Get program name. */
+#if defined(HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME) && \
+    HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
+  if (STRPREFIX (program_invocation_short_name, "lt-"))
+    /* Remove libtool (lt-*) prefix from short name. */
+    g->program = strdup (program_invocation_short_name + 3);
+  else
+    g->program = strdup (program_invocation_short_name);
+#else
+  g->program = strdup ("");
+#endif
+  if (!g->program) goto error;
+
   if (parse_backend (g, DEFAULT_BACKEND) == -1) {
     warning (g, _("libguestfs was built with an invalid default backend, using 'direct' instead"));
     g->backend = BACKEND_DIRECT;
@@ -137,12 +151,14 @@ guestfs_create_flags (unsigned flags, ...)
     gl_lock_unlock (handles_lock);
   }
 
-  debug (g, "create: flags = %u, handle = %p", flags, g);
+  debug (g, "create: flags = %u, handle = %p, program = %s",
+         flags, g, g->program);
 
   return g;
 
  error:
   free (g->backend_arg);
+  free (g->program);
   free (g->path);
   free (g->qemu);
   free (g->append);
@@ -338,6 +354,7 @@ guestfs_close (guestfs_h *g)
   free (g->int_tmpdir);
   free (g->int_cachedir);
   free (g->last_error);
+  free (g->program);
   free (g->path);
   free (g->qemu);
   free (g->append);
@@ -559,6 +576,21 @@ int
 guestfs__get_network (guestfs_h *g)
 {
   return g->enable_network;
+}
+
+int
+guestfs__set_program (guestfs_h *g, const char *program)
+{
+  free (g->program);
+  g->program = safe_strdup (g, program);
+
+  return 0;
+}
+
+const char *
+guestfs__get_program (guestfs_h *g)
+{
+  return g->program;
 }
 
 static int
