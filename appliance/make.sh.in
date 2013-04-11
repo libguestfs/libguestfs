@@ -33,6 +33,9 @@ exec 5<&-
 if [ "x@SUPERMIN_PACKAGER_CONFIG@" != "xno" ]; then
     extra="--yum-config @SUPERMIN_PACKAGER_CONFIG@"
 fi
+if [ "x@SUPERMIN_EXTRA_OPTIONS@" != "xno" ]; then
+    extra="$extra @SUPERMIN_EXTRA_OPTIONS@"
+fi
 
 echo @SUPERMIN@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
 @SUPERMIN@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
