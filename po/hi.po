@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2012-11-22 14:06+0000\n"
+"POT-Creation-Date: 2013-04-11 18:30+0100\n"
 "PO-Revision-Date: 2012-01-23 13:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: align/scan.c:68 cat/virt-cat.c:61 cat/virt-filesystems.c:100
 #: cat/virt-ls.c:99 df/main.c:70 edit/virt-edit.c:75 fish/fish.c:101
-#: fuse/guestmount.c:954 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
+#: fuse/guestmount.c:962 inspector/virt-inspector.c:78 rescue/virt-rescue.c:62
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक सूचना के लिए `%s --help' आजमाएँ.\n"
@@ -50,7 +50,7 @@ msgstr ""
 
 #: align/scan.c:127 cat/virt-cat.c:121 cat/virt-filesystems.c:203
 #: cat/virt-ls.c:192 df/domains.c:431 df/main.c:136 edit/virt-edit.c:143
-#: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:1072
+#: fish/fish.c:226 format/format.c:136 fuse/guestmount.c:1080
 #: inspector/virt-inspector.c:140 rescue/virt-rescue.c:142
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -58,7 +58,7 @@ msgstr "guestfs_create: नियंत्रण बनाने में व�
 
 #: align/scan.c:145 cat/virt-cat.c:143 cat/virt-filesystems.c:257
 #: cat/virt-ls.c:242 df/main.c:160 edit/virt-edit.c:165 fish/fish.c:283
-#: format/format.c:188 fuse/guestmount.c:1116 inspector/virt-inspector.c:164
+#: format/format.c:188 fuse/guestmount.c:1124 inspector/virt-inspector.c:164
 #: rescue/virt-rescue.c:179
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2786,7 +2786,7 @@ msgstr ""
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
 
-#: fuse/guestmount.c:958
+#: fuse/guestmount.c:966
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2818,37 +2818,37 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:1111
+#: fuse/guestmount.c:1119
 #, c-format
 msgid "%s: --pid-file must be an absolute path (in 1.16.x only)\n"
 msgstr ""
 
-#: fuse/guestmount.c:1186
+#: fuse/guestmount.c:1194
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1196
+#: fuse/guestmount.c:1204
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1203
+#: fuse/guestmount.c:1211
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1218
+#: fuse/guestmount.c:1226
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1225
+#: fuse/guestmount.c:1233
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1234
+#: fuse/guestmount.c:1242
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: तुम्हें मेजबान फाइल सिस्टम में कोई माउंटप्वाइंट को जरूर निर्दिष्ट करना चाहिए\n"
@@ -3426,93 +3426,93 @@ msgid ""
 "without libvirt or libxml2"
 msgstr ""
 
-#: src/proto.c:188
+#: src/proto.c:193
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: called when in state %d != READY"
 
-#: src/proto.c:211
+#: src/proto.c:216
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: called when in state %d"
 
-#: src/proto.c:421
+#: src/proto.c:426
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/proto.c:543
+#: src/proto.c:548
 msgid ""
 "This usually means the libguestfs appliance failed to start up.  Please\n"
 "enable debugging (LIBGUESTFS_DEBUG=1) and rerun the command, then look at\n"
 "the debug messages output prior to this error.\n"
 msgstr ""
 
-#: src/proto.c:549
+#: src/proto.c:554
 msgid "See earlier debug messages.\n"
 msgstr ""
 
-#: src/proto.c:639
+#: src/proto.c:645
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd से जादुई हस्ताक्षर पाया , लेकिन %d स्थिति में"
 
-#: src/proto.c:658
+#: src/proto.c:664
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "message length (%u) > maximum possible size (%d)"
 
-#: src/proto.c:810
+#: src/proto.c:838
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/proto.c:834
+#: src/proto.c:862
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header failed"
 
-#: src/proto.c:843
+#: src/proto.c:871
 msgid "dispatch failed to marshal args"
 msgstr "dispatch failed to marshal args"
 
-#: src/proto.c:924 src/proto.c:1225
+#: src/proto.c:952 src/proto.c:1253
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:976
+#: src/proto.c:1004
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/proto.c:992
+#: src/proto.c:1020
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 
-#: src/proto.c:1151
+#: src/proto.c:1179
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/proto.c:1179
+#: src/proto.c:1207
 msgid "write to daemon socket"
 msgstr "डेमॉन सॉकेट में लिखें"
 
-#: src/proto.c:1202
+#: src/proto.c:1230
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/proto.c:1207
+#: src/proto.c:1235
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: unexpected flag received when reading file chunks"
 
-#: src/proto.c:1215
+#: src/proto.c:1243
 msgid "failed to parse file chunk"
 msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
 
-#: src/proto.c:1229
+#: src/proto.c:1257
 msgid "file receive cancelled by daemon"
 msgstr "फाइल प्राप्ति को डेमॉन के द्वारा रद्द किया गया"
 
