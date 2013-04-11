@@ -269,3 +269,11 @@
    ...
    fun:magic_getpath
 }
+
+# Another memory leak in libmagic.
+{
+   libmagic_leak_2
+   Memcheck:Leak
+   ...
+   fun:file_apprentice
+}
