@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # rjones <rjones@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-04-04 21:02+0100\n"
-"PO-Revision-Date: 2012-12-11 17:09+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/\n"
+"POT-Creation-Date: 2013-04-09 18:43+0100\n"
+"PO-Revision-Date: 2013-04-11 13:31+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
-"kn/)\n"
-"Language: kn\n"
+"Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/kn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: kn\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: align/scan.c:74 cat/virt-cat.c:56 cat/virt-filesystems.c:87
@@ -402,14 +400,11 @@ msgstr "ಒಂದು ಡ್ರೈವನ್ನು ಸ್ನಾಪ್‌ಶಾಟ�
 
 #: fish/cmds.c:3575
 msgid "add a drive read-only specifying the QEMU block emulation to use"
-msgstr ""
-"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಓದಲು ಮಾತ್ರ "
-"ಸೂಚಿಸು"
+msgstr "ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಓದಲು ಮಾತ್ರ ಸೂಚಿಸು"
 
 #: fish/cmds.c:3576
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
-"ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಸೂಚಿಸು"
+msgstr "ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಸೂಚಿಸು"
 
 #: fish/cmds.c:3577
 msgid "allocate and add a disk file"
@@ -2251,8 +2246,7 @@ msgstr "ಸಂಕುಚನಗೊಳಿಸಲಾದ ಒಂದು ಕಡತದಲ�
 
 #: fish/cmds.c:4073
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"ಒಂದು ಆಜ್ಞೆಯ ವಿವರವಾದ ನೆರವನ್ನು ಪಡೆದುಕೊಳ್ಳಲು -h <cmd> / help <cmd> ಅನ್ನು ಬಳಸಿ."
+msgstr "ಒಂದು ಆಜ್ಞೆಯ ವಿವರವಾದ ನೆರವನ್ನು ಪಡೆದುಕೊಳ್ಳಲು -h <cmd> / help <cmd> ಅನ್ನು ಬಳಸಿ."
 
 #: fish/cmds.c:4611 fish/cmds.c:4630 fish/cmds.c:4651 fish/cmds.c:4673
 #: fish/cmds.c:4696 fish/cmds.c:4720 fish/cmds.c:4741 fish/cmds.c:4763
@@ -2625,7 +2619,8 @@ msgstr ""
 #: fish/copy.c:51
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:69
@@ -2832,19 +2827,14 @@ msgid ""
 "help - display a list of commands or help on a command\n"
 "     help cmd\n"
 "     help\n"
-msgstr ""
-"help - ಆಜ್ಞೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು ಅಥವ ಒಂದು ಆಜ್ಞೆಯ ನೆರವನ್ನು ತೋರಿಸು\n"
-"     help cmd\n"
-"     help\n"
+msgstr "help - ಆಜ್ಞೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು ಅಥವ ಒಂದು ಆಜ್ಞೆಯ ನೆರವನ್ನು ತೋರಿಸು\n     help cmd\n     help\n"
 
 #: fish/fish.c:1206
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
-msgstr ""
-"quit - guestfish ಇಂದ ನಿರ್ಗಮಿಸು \n"
-"     quit\n"
+msgstr "quit - guestfish ಇಂದ ನಿರ್ಗಮಿಸು \n     quit\n"
 
 #: fish/fish.c:1211
 #, c-format
@@ -2909,8 +2899,7 @@ msgstr "glob: guestfs_glob_expand ಅನ್ನು ಕರೆಯಲು ವಿಫ�
 #: fish/help.c:39
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -3174,10 +3163,7 @@ msgstr "guestfish: ಪ್ರೊಟೊಕಾಲ್ ದೋಷ: 'hello' ಸಂದ�
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
-msgstr ""
-"guestfish: ಪ್ರೊಟೊಕಾಲ್ ದೋಷ: ಆವೃತ್ತಿ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ, '%s' ಎಂಬ ಪರಿಚಾರಕದ ಆವೃತ್ತಿಯು "
-"'%s' ಎಂಬ ಕ್ಲೈಂಟಿನ ಆವೃತ್ತಿಯೊಂದಿಗೆ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ.  ಎರಡೂ ಆವೃತ್ತಿಗಳು ಸರಿಯಾಗೆ "
-"ತಾಳೆಯಾಗಬೇಕು.\n"
+msgstr "guestfish: ಪ್ರೊಟೊಕಾಲ್ ದೋಷ: ಆವೃತ್ತಿ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ, '%s' ಎಂಬ ಪರಿಚಾರಕದ ಆವೃತ್ತಿಯು '%s' ಎಂಬ ಕ್ಲೈಂಟಿನ ಆವೃತ್ತಿಯೊಂದಿಗೆ ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ.  ಎರಡೂ ಆವೃತ್ತಿಗಳು ಸರಿಯಾಗೆ ತಾಳೆಯಾಗಬೇಕು.\n"
 
 #: fish/rc.c:352 fish/rc.c:366
 #, c-format
@@ -3187,15 +3173,12 @@ msgstr "guestfish: ದೂರಸ್ಥ: ಪರಿಚಾರಕವು ಚಾಲನ�
 #: fish/rc.c:378 fish/rc.c:392
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: protocol error: ಪರಿಚಾರಕಕ್ಕೆ ಆರಂಭಿಕ ಸ್ವಾಗತ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು "
-"ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+msgstr "guestfish: protocol error: ಪರಿಚಾರಕಕ್ಕೆ ಆರಂಭಿಕ ಸ್ವಾಗತ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
 #: fish/rc.c:403
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: protocol error: ಪರಿಚಾರಕದಿಂದ ಬಂದ ಪ್ರತ್ಯುತ್ತರವನ್ನು ಬಿಡಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+msgstr "guestfish: protocol error: ಪರಿಚಾರಕದಿಂದ ಬಂದ ಪ್ರತ್ಯುತ್ತರವನ್ನು ಬಿಡಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
 
 #: fish/reopen.c:39
 #, c-format
@@ -3425,12 +3408,10 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4188,8 +4169,7 @@ msgstr ""
 #: src/libvirt-domain.c:227
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -4442,9 +4422,7 @@ msgstr ""
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
-msgstr ""
-"LIBGUESTFS_QEMU ಪರಿಸರವನ್ನು ಈಗಾಗಲೆ ಹೊಂದಿಸಲಾಗಿದೆ, ಆದ್ದರಿಂದ\n"
-"--qemu/--qemudir ಆಯ್ಕೆಗಳನ್ನು ಬಳಸಲಾಗುವುದಿಲ್ಲ.\n"
+msgstr "LIBGUESTFS_QEMU ಪರಿಸರವನ್ನು ಈಗಾಗಲೆ ಹೊಂದಿಸಲಾಗಿದೆ, ಆದ್ದರಿಂದ\n--qemu/--qemudir ಆಯ್ಕೆಗಳನ್ನು ಬಳಸಲಾಗುವುದಿಲ್ಲ.\n"
 
 #: test-tool/test-tool.c:357
 #, c-format
@@ -4557,8 +4535,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4610,8 +4587,8 @@ msgstr ""
 
 #: ../resize/resize.ml:795
 msgid ""
-"  The surplus space is not large enough for an extra partition to be created "
-"and so it will just be ignored."
+"  The surplus space is not large enough for an extra partition to be created"
+" and so it will just be ignored."
 msgstr ""
 
 #: ../resize/resize.ml:797
@@ -4652,19 +4629,19 @@ msgstr ""
 #: ../resize/resize.ml:605
 msgid ""
 "%s: This partition has contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the '--resize-force' option,"
+" but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 
 #: ../resize/resize.ml:601
 msgid ""
-"%s: This partition has contains an LVM physical volume which will be damaged "
-"by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-"you want to shrink this partition, you need to use the '--resize-force' "
-"option, but that could destroy any data on this partition.  (This error came "
-"from '%s' option on the command line.)"
+"%s: This partition has contains an LVM physical volume which will be damaged"
+" by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If"
+" you want to shrink this partition, you need to use the '--resize-force' "
+"option, but that could destroy any data on this partition.  (This error came"
+" from '%s' option on the command line.)"
 msgstr ""
 
 #: ../resize/resize.ml:598
@@ -4731,8 +4708,8 @@ msgstr ""
 #: ../resize/resize.ml:539
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
-"option on the command line).  Try running this command: virt-filesystems --"
-"partitions --long -a %s"
+"option on the command line).  Try running this command: virt-filesystems "
+"--partitions --long -a %s"
 msgstr ""
 
 #: ../resize/resize.ml:426
@@ -4809,8 +4786,8 @@ msgstr ""
 
 #: ../sparsify/sparsify.ml:214
 msgid ""
-"--compress cannot be used for raw output.  Remove this option or use --"
-"convert qcow2."
+"--compress cannot be used for raw output.  Remove this option or use "
+"--convert qcow2."
 msgstr ""
 
 #: ../resize/resize.ml:60
@@ -4980,8 +4957,7 @@ msgstr ""
 
 #: ../resize/resize.ml:852
 msgid ""
-"Failed to initialize the partition table on the target disk.  You need to "
-"wipe or recreate the target disk and then run virt-resize again.\n"
+"Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n"
 "\n"
 "The underlying error was: %s"
 msgstr ""
@@ -5089,8 +5065,7 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid ""
-"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
-"(VGs),\n"
+"On Linux guests that have LVM2 physical volumes (PVs) or volume groups (VGs),\n"
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
@@ -5719,8 +5694,7 @@ msgstr ""
 
 #: ../resize/resize.ml:1087
 msgid ""
-"warning: first partition is NTFS but does not contain NTFS boot loader "
-"magic\n"
+"warning: first partition is NTFS but does not contain NTFS boot loader magic\n"
 "%!"
 msgstr ""
 
@@ -5731,22 +5705,3 @@ msgstr ""
 #: ../sparsify/sparsify.ml:133 ../resize/resize.ml:198
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
-
-#~ msgid ""
-#~ "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x"
-#~ "%x\n"
-#~ msgstr ""
-#~ "check_for_daemon_cancellation_or_eof: ಡೀಮನ್‌ನಿಂದ 0x%x ಅನ್ನು ಓದಲಾಗಿದೆ, ಆದರೆ 0x"
-#~ "%x ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗಿತ್ತು\n"
-
-#~ msgid "get the current state"
-#~ msgstr "ಪ್ರಸಕ್ತ ಸ್ಥಿತಿಯನ್ನು ಪಡೆದುಕೊ"
-
-#~ msgid "is busy processing a command"
-#~ msgstr "ಒಂದು ಆಜ್ಞೆಯನ್ನು ಸಂಸ್ಕರಿಸುವಲ್ಲಿ ಕಾರ್ಯನಿರತವಾಗಿದೆ"
-
-#~ msgid "is launching subprocess"
-#~ msgstr "ಒಂದು ಉಪಪ್ರಕ್ರಿಯೆನ್ನು ಆರಂಭಿಸುತ್ತಿದೆ"
-
-#~ msgid "is ready to accept commands"
-#~ msgstr "ಆಜ್ಞೆಗಳನ್ನು ಸ್ವೀಕರಿಸಲು ತಯಾರಾಗಿದೆ"
