@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2012-11-22 11:48+0000\n"
+"POT-Creation-Date: 2013-04-11 16:21+0200\n"
 "PO-Revision-Date: 2012-07-10 17:15+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1222,7 +1222,7 @@ msgstr ""
 #: ../format/virt-format.pod:177 ../fuse/guestmount.pod:398
 #: ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:45
 #: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40
-#: ../python/examples/guestfs-python.pod:42 ../rescue/virt-rescue.pod:340
+#: ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:340
 #: ../resize/virt-resize.pod:702 ../ruby/examples/guestfs-ruby.pod:36
 #: ../sparsify/virt-sparsify.pod:299 ../src/guestfs.pod:3549
 #: ../sysprep/virt-sysprep.pod:442 ../test-tool/libguestfs-test-tool.pod:106
@@ -1280,7 +1280,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../format/virt-format.pod:191 ../fuse/guestmount.pod:413
 #: ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:62
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57
-#: ../python/examples/guestfs-python.pod:58 ../rescue/virt-rescue.pod:353
+#: ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:353
 #: ../resize/virt-resize.pod:729 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:316 ../src/guestfs.pod:3604
 #: ../sysprep/virt-sysprep.pod:463 ../test-tool/libguestfs-test-tool.pod:116
@@ -1601,7 +1601,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:409 ../inspector/virt-inspector.pod:510
 #: ../java/examples/guestfs-java.pod:58 ../ocaml/examples/guestfs-ocaml.pod:91
 #: ../perl/examples/guestfs-perl.pod:53
-#: ../python/examples/guestfs-python.pod:54
+#: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:3600
 #: ../sysprep/virt-sysprep.pod:457 ../test-tool/libguestfs-test-tool.pod:112
 msgid "AUTHORS"
@@ -1617,7 +1617,7 @@ msgstr "АВТОРИ"
 #: ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53
 #: ../fuse/guestmount.pod:411 ../java/examples/guestfs-java.pod:60
 #: ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:55
-#: ../python/examples/guestfs-python.pod:56
+#: ../python/examples/guestfs-python.pod:67
 #: ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:3602
 #: ../test-tool/libguestfs-test-tool.pod:114
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
@@ -2080,7 +2080,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:258 ../cat/virt-filesystems.pod:406
 #: ../examples/guestfs-examples.pod:51 ../inspector/virt-inspector.pod:526
 #: ../ocaml/examples/guestfs-ocaml.pod:97
-#: ../python/examples/guestfs-python.pod:60 ../resize/virt-resize.pod:731
+#: ../python/examples/guestfs-python.pod:71 ../resize/virt-resize.pod:731
 #: ../ruby/examples/guestfs-ruby.pod:54 ../tools/virt-make-fs.pl:611
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr "© Red Hat Inc., 2010–2012"
@@ -4674,7 +4674,7 @@ msgstr "C<Аргумент> — назва невідомого аргумент
 #: ../erlang/examples/guestfs-erlang.pod:89
 #: ../examples/guestfs-examples.pod:25 ../java/examples/guestfs-java.pod:37
 #: ../ocaml/examples/guestfs-ocaml.pod:70 ../perl/examples/guestfs-perl.pod:32
-#: ../python/examples/guestfs-python.pod:34
+#: ../python/examples/guestfs-python.pod:45
 #: ../ruby/examples/guestfs-ruby.pod:28
 msgid "EXAMPLE 1: CREATE A DISK IMAGE"
 msgstr "ПРИКЛАД 1. СТВОРЕННЯ ОБРАЗУ ДИСКА"
@@ -4683,7 +4683,7 @@ msgstr "ПРИКЛАД 1. СТВОРЕННЯ ОБРАЗУ ДИСКА"
 #: ../erlang/examples/guestfs-erlang.pod:91
 #: ../examples/guestfs-examples.pod:27 ../java/examples/guestfs-java.pod:39
 #: ../ocaml/examples/guestfs-ocaml.pod:72 ../perl/examples/guestfs-perl.pod:34
-#: ../python/examples/guestfs-python.pod:36
+#: ../python/examples/guestfs-python.pod:47
 #: ../ruby/examples/guestfs-ruby.pod:30
 msgid "@EXAMPLE1@"
 msgstr "@EXAMPLE1@"
@@ -4692,7 +4692,7 @@ msgstr "@EXAMPLE1@"
 #: ../erlang/examples/guestfs-erlang.pod:93
 #: ../examples/guestfs-examples.pod:29 ../java/examples/guestfs-java.pod:41
 #: ../ocaml/examples/guestfs-ocaml.pod:74 ../perl/examples/guestfs-perl.pod:36
-#: ../python/examples/guestfs-python.pod:38
+#: ../python/examples/guestfs-python.pod:49
 #: ../ruby/examples/guestfs-ruby.pod:32
 msgid "EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE"
 msgstr "ПРИКЛАД 2. ПЕРЕВІРКА ОБРАЗУ ДИСКА ВІРТУАЛЬНОЇ МАШИНИ"
@@ -4701,7 +4701,7 @@ msgstr "ПРИКЛАД 2. ПЕРЕВІРКА ОБРАЗУ ДИСКА ВІРТУ�
 #: ../erlang/examples/guestfs-erlang.pod:95
 #: ../examples/guestfs-examples.pod:31 ../java/examples/guestfs-java.pod:43
 #: ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:38
-#: ../python/examples/guestfs-python.pod:40
+#: ../python/examples/guestfs-python.pod:51
 #: ../ruby/examples/guestfs-ruby.pod:34
 msgid "@EXAMPLE2@"
 msgstr "@EXAMPLE2@"
@@ -29030,7 +29030,7 @@ msgstr ""
 
 #. type: =head2
 #: ../java/examples/guestfs-java.pod:29 ../ocaml/examples/guestfs-ocaml.pod:60
-#: ../python/examples/guestfs-python.pod:21
+#: ../python/examples/guestfs-python.pod:32
 #: ../ruby/examples/guestfs-ruby.pod:22
 msgid "EXCEPTIONS"
 msgstr "ВИНЯТКИ"
@@ -29290,7 +29290,7 @@ msgstr ""
 #| "\n"
 msgid ""
 " import guestfs\n"
-" g = guestfs.GuestFS ()\n"
+" g = guestfs.GuestFS (python_return_dict=True)\n"
 " g.add_drive_opts (\"disk.img\", format=\"raw\", readonly=1)\n"
 " g.launch ()\n"
 "\n"
@@ -29311,25 +29311,55 @@ msgid ""
 "you also need to read L<guestfs(3)>."
 msgstr ""
 
+#. type: =head2
+#: ../python/examples/guestfs-python.pod:21
+msgid "python_return_dict=True"
+msgstr ""
+
 #. type: textblock
 #: ../python/examples/guestfs-python.pod:23
+msgid "All new code should construct the handle using:"
+msgstr ""
+
+#. type: verbatim
+#: ../python/examples/guestfs-python.pod:25
+#, no-wrap
+msgid ""
+" g = guestfs.GuestFS (python_return_dict=True)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../python/examples/guestfs-python.pod:27
+msgid ""
+"This indicates that your program wants to receive Python dicts for methods "
+"in the API that return hashtables."
+msgstr ""
+
+#. type: textblock
+#: ../python/examples/guestfs-python.pod:30
+msgid "In a future version of libguestfs, this will become the default."
+msgstr ""
+
+#. type: textblock
+#: ../python/examples/guestfs-python.pod:34
 msgid ""
 "Errors from libguestfs functions are mapped into C<RuntimeException> with a "
 "single string argument which is the error message."
 msgstr ""
 
 #. type: =head2
-#: ../python/examples/guestfs-python.pod:26
+#: ../python/examples/guestfs-python.pod:37
 msgid "MORE DOCUMENTATION"
 msgstr ""
 
 #. type: textblock
-#: ../python/examples/guestfs-python.pod:28
+#: ../python/examples/guestfs-python.pod:39
 msgid "Type:"
 msgstr "Тип:"
 
 #. type: verbatim
-#: ../python/examples/guestfs-python.pod:30
+#: ../python/examples/guestfs-python.pod:41
 #, no-wrap
 msgid ""
 " $ python\n"
@@ -29339,7 +29369,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../python/examples/guestfs-python.pod:44
+#: ../python/examples/guestfs-python.pod:55
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-java"
 "(3)>, L<guestfs-ocaml(3)>, L<guestfs-perl(3)>, L<guestfs-recipes(1)>, "
