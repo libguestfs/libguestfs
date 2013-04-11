@@ -75,6 +75,8 @@
   libpcre3
   libyajl2
   linux-image
+  /* syslinux 'suggests' mtools, but in reality it's a hard dependency: */
+  mtools
   nilfs-tools
   ntfs-3g
   ntfsprogs
