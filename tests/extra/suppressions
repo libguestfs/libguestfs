@@ -213,3 +213,11 @@
    ...
    fun:_dl_init
 }
+
+# Memory leak in libmagic.
+{
+   libmagic_leak
+   Memcheck:Leak
+   ...
+   fun:file_apprentice
+}
