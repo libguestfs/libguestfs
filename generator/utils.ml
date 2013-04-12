@@ -267,7 +267,6 @@ let seq_of_test = function
   | TestOutput (s, _) | TestOutputList (s, _)
   | TestOutputListOfDevices (s, _)
   | TestOutputLength (s, _) | TestOutputBuffer (s, _)
-  | TestOutputStruct (s, _)
   | TestOutputFileMD5 (s, _)
   | TestOutputDevice (s, _)
   | TestOutputHashtable (s, _) -> s

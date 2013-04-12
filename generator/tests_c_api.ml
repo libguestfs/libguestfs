@@ -41,6 +41,7 @@ let rec generate_tests () =
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <assert.h>
 
@@ -488,7 +489,7 @@ and generate_one_test_body name i test_name init test =
     ) seq;
     pr "  if (! (%s)) {\n" expr;
     pr "    fprintf (stderr, \"%%s: test failed: expression false: %%s\\n\",\n";
-    pr "             \"%s\", \"%s\");\n" test_name expr;
+    pr "             \"%s\", \"%s\");\n" test_name (c_quote expr);
     pr "    if (!guestfs_get_trace (g))\n";
     pr "      fprintf (stderr, \"Set LIBGUESTFS_TRACE=1 to see values returned from API calls.\\n\");\n";
     pr "    return -1;\n";
@@ -617,52 +618,6 @@ and generate_one_test_body name i test_name init test =
         pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
         pr "    return -1;\n";
         pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
-  | TestOutputStruct (seq, checks) ->
-      pr "  /* TestOutputStruct for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        List.iter (
-          function
-          | CompareWithInt (field, expected) ->
-              pr "  if (%s->%s != %d) {\n" ret field expected;
-              pr "    fprintf (stderr, \"%%s: %s was %%d, expected %d\\n\",\n"
-                field expected;
-              pr "             \"%s\", (int) %s->%s);\n" test_name ret field;
-              pr "    return -1;\n";
-              pr "  }\n"
-          | CompareWithIntOp (field, op, expected) ->
-              pr "  if (!(%s->%s %s %d)) {\n" ret field op expected;
-              pr "    fprintf (stderr, \"%%s: %s was %%d, expected %s %d\\n\",\n"
-                field op expected;
-              pr "             \"%s\", (int) %s->%s);\n" test_name ret field;
-              pr "    return -1;\n";
-              pr "  }\n"
-          | CompareWithString (field, expected) ->
-              pr "  if (STRNEQ (%s->%s, \"%s\")) {\n" ret field expected;
-              pr "    fprintf (stderr, \"%%s: %s was \\\"%%s\\\", expected \\\"%s\\\"\\n\",\n"
-                field expected;
-              pr "             \"%s\", %s->%s);\n" test_name ret field;
-              pr "    return -1;\n";
-              pr "  }\n"
-          | CompareFieldsIntEq (field1, field2) ->
-              pr "  if (%s->%s != r->%s) {\n" ret field1 field2;
-              pr "    fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
-                test_name field1 field2;
-              pr "             (int) %s->%s, (int) %s->%s);\n"
-                ret field1 ret field2;
-              pr "    return -1;\n";
-              pr "  }\n"
-          | CompareFieldsStrEq (field1, field2) ->
-              pr "  if (STRNEQ (%s->%s, r->%s)) {\n" ret field1 field2;
-              pr "    fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
-                test_name field1 field2;
-              pr "             %s->%s, %s->%s);\n" ret field1 ret field2;
-              pr "    return -1;\n";
-              pr "  }\n"
-        ) checks
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last

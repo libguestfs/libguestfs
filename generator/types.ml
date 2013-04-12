@@ -236,18 +236,9 @@ and test =
   | TestOutputListOfDevices of seq * string list
   | TestOutputLength of seq * int
   | TestOutputBuffer of seq * string
-  | TestOutputStruct of seq * test_field_compare list
   | TestOutputFileMD5 of seq * string
   | TestOutputDevice of seq * string
   | TestOutputHashtable of seq * (string * string) list
-
-(* For backwards compatibility - will be removed. *)
-and test_field_compare =
-  | CompareWithInt of string * int
-  | CompareWithIntOp of string * string * int
-  | CompareWithString of string * string
-  | CompareFieldsIntEq of string * string
-  | CompareFieldsStrEq of string * string
 
 (* Test prerequisites. *)
 and test_prereq =

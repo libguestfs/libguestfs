@@ -563,8 +563,8 @@ This is an internal call used for debugging and testing." };
     style = RStruct ("version", "version"), [], [];
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputStruct (
-        [["version"]], [CompareWithInt ("major", 1)])
+      InitNone, Always, TestResult (
+        [["version"]], "ret->major == 1")
     ];
     shortdesc = "get the library version number";
     longdesc = "\
@@ -3946,8 +3946,8 @@ See also: C<guestfs_sh_lines>" };
     style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
     proc_nr = Some 52;
     tests = [
-      InitISOFS, Always, TestOutputStruct (
-        [["stat"; "/empty"]], [CompareWithInt ("size", 0)])
+      InitISOFS, Always, TestResult (
+        [["stat"; "/empty"]], "ret->size == 0")
     ];
     shortdesc = "get file information";
     longdesc = "\
@@ -3960,8 +3960,8 @@ This is the same as the C<stat(2)> system call." };
     style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
     proc_nr = Some 53;
     tests = [
-      InitISOFS, Always, TestOutputStruct (
-        [["lstat"; "/empty"]], [CompareWithInt ("size", 0)])
+      InitISOFS, Always, TestResult (
+        [["lstat"; "/empty"]], "ret->size == 0")
     ];
     shortdesc = "get file information for a symbolic link";
     longdesc = "\
@@ -3978,8 +3978,8 @@ This is the same as the C<lstat(2)> system call." };
     style = RStruct ("statbuf", "statvfs"), [Pathname "path"], [];
     proc_nr = Some 54;
     tests = [
-      InitISOFS, Always, TestOutputStruct (
-        [["statvfs"; "/"]], [CompareWithInt ("namemax", 255)])
+      InitISOFS, Always, TestResult (
+        [["statvfs"; "/"]], "ret->namemax == 255")
     ];
     shortdesc = "get file system statistics";
     longdesc = "\
@@ -5633,13 +5633,15 @@ Create a swap partition on C<device> with UUID C<uuid>." };
     proc_nr = Some 133;
     optional = Some "mknod";
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mknod"; "0o10777"; "0"; "0"; "/mknod"];
          (* NB: default umask 022 means 0777 -> 0755 in these tests *)
-         ["stat"; "/mknod"]], [CompareWithInt ("mode", 0o10755)]);
-      InitScratchFS, Always, TestOutputStruct (
+         ["stat"; "/mknod"]],
+        "S_ISFIFO (ret->mode) && (ret->mode & 0777) == 0755");
+      InitScratchFS, Always, TestResult (
         [["mknod"; "0o60777"; "66"; "99"; "/mknod2"];
-         ["stat"; "/mknod2"]], [CompareWithInt ("mode", 0o60755)])
+         ["stat"; "/mknod2"]],
+        "S_ISBLK (ret->mode) && (ret->mode & 0777) == 0755")
     ];
     shortdesc = "make block, character or FIFO devices";
     longdesc = "\
@@ -5667,9 +5669,10 @@ The mode actually set is affected by the umask." };
     proc_nr = Some 134;
     optional = Some "mknod";
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mkfifo"; "0o777"; "/mkfifo"];
-         ["stat"; "/mkfifo"]], [CompareWithInt ("mode", 0o10755)])
+         ["stat"; "/mkfifo"]],
+        "S_ISFIFO (ret->mode) && (ret->mode & 0777) == 0755")
     ];
     shortdesc = "make FIFO (named pipe)";
     longdesc = "\
@@ -5685,9 +5688,10 @@ The mode actually set is affected by the umask." };
     proc_nr = Some 135;
     optional = Some "mknod";
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mknod_b"; "0o777"; "99"; "66"; "/mknod_b"];
-         ["stat"; "/mknod_b"]], [CompareWithInt ("mode", 0o60755)])
+         ["stat"; "/mknod_b"]],
+        "S_ISBLK (ret->mode) && (ret->mode & 0777) == 0755")
     ];
     shortdesc = "make block device node";
     longdesc = "\
@@ -5703,9 +5707,10 @@ The mode actually set is affected by the umask." };
     proc_nr = Some 136;
     optional = Some "mknod";
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mknod_c"; "0o777"; "99"; "66"; "/mknod_c"];
-         ["stat"; "/mknod_c"]], [CompareWithInt ("mode", 0o20755)])
+         ["stat"; "/mknod_c"]],
+        "S_ISCHR (ret->mode) && (ret->mode & 0777) == 0755")
     ];
     shortdesc = "make char device node";
     longdesc = "\
@@ -6244,11 +6249,11 @@ returned path has no C<.>, C<..> or symbolic link path elements." };
     style = RErr, [String "target"; Pathname "linkname"], [];
     proc_nr = Some 164;
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/ln"];
          ["touch"; "/ln/a"];
          ["ln"; "/ln/a"; "/ln/b"];
-         ["stat"; "/ln/b"]], [CompareWithInt ("nlink", 2)])
+         ["stat"; "/ln/b"]], "ret->nlink == 2")
     ];
     shortdesc = "create a hard link";
     longdesc = "\
@@ -6259,12 +6264,12 @@ This command creates a hard link using the C<ln> command." };
     style = RErr, [String "target"; Pathname "linkname"], [];
     proc_nr = Some 165;
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/ln_f"];
          ["touch"; "/ln_f/a"];
          ["touch"; "/ln_f/b"];
          ["ln_f"; "/ln_f/a"; "/ln_f/b"];
-         ["stat"; "/ln_f/b"]], [CompareWithInt ("nlink", 2)])
+         ["stat"; "/ln_f/b"]], "ret->nlink == 2")
     ];
     shortdesc = "create a hard link";
     longdesc = "\
@@ -6276,11 +6281,12 @@ The I<-f> option removes the link (C<linkname>) if it exists already." };
     style = RErr, [String "target"; Pathname "linkname"], [];
     proc_nr = Some 166;
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/ln_s"];
          ["touch"; "/ln_s/a"];
          ["ln_s"; "a"; "/ln_s/b"];
-         ["lstat"; "/ln_s/b"]], [CompareWithInt ("mode", 0o120777)])
+         ["lstat"; "/ln_s/b"]],
+        "S_ISLNK (ret->mode) && (ret->mode & 0777) == 0777")
     ];
     shortdesc = "create a symbolic link";
     longdesc = "\
@@ -6316,9 +6322,9 @@ This command reads the target of a symbolic link." };
     proc_nr = Some 169;
     deprecated_by = Some "fallocate64";
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["fallocate"; "/fallocate"; "1000000"];
-         ["stat"; "/fallocate"]], [CompareWithInt ("size", 1_000_000)])
+         ["stat"; "/fallocate"]], "ret->size == 1000000")
     ];
     shortdesc = "preallocate a file in the guest filesystem";
     longdesc = "\
@@ -6899,10 +6905,10 @@ For example a string such as C<ext3> or C<ntfs>." };
     style = RErr, [Pathname "path"], [];
     proc_nr = Some 199;
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["write"; "/truncate"; "some stuff so size is not zero"];
          ["truncate"; "/truncate"];
-         ["stat"; "/truncate"]], [CompareWithInt ("size", 0)])
+         ["stat"; "/truncate"]], "ret->size == 0")
     ];
     shortdesc = "truncate a file to zero size";
     longdesc = "\
@@ -6914,10 +6920,10 @@ file must exist already." };
     style = RErr, [Pathname "path"; Int64 "size"], [];
     proc_nr = Some 200;
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["touch"; "/truncate_size"];
          ["truncate_size"; "/truncate_size"; "1000"];
-         ["stat"; "/truncate_size"]], [CompareWithInt ("size", 1000)])
+         ["stat"; "/truncate_size"]], "ret->size == 1000")
     ];
     shortdesc = "truncate a file to a particular size";
     longdesc = "\
@@ -6936,30 +6942,30 @@ file of zeroes, use C<guestfs_fallocate64> instead." };
     proc_nr = Some 201;
     (* Test directories, named pipes etc (RHBZ#761451, RHBZ#761460) *)
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["touch"; "/utimens-file"];
          ["utimens"; "/utimens-file"; "12345"; "67890"; "9876"; "5432"];
-         ["stat"; "/utimens-file"]], [CompareWithInt ("mtime", 9876)]);
-      InitScratchFS, Always, TestOutputStruct (
+         ["stat"; "/utimens-file"]], "ret->mtime == 9876");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/utimens-dir"];
          ["utimens"; "/utimens-dir"; "12345"; "67890"; "9876"; "5432"];
-         ["stat"; "/utimens-dir"]], [CompareWithInt ("mtime", 9876)]);
-      InitScratchFS, Always, TestOutputStruct (
+         ["stat"; "/utimens-dir"]], "ret->mtime == 9876");
+      InitScratchFS, Always, TestResult (
         [["mkfifo"; "0o644"; "/utimens-fifo"];
          ["utimens"; "/utimens-fifo"; "12345"; "67890"; "9876"; "5432"];
-         ["stat"; "/utimens-fifo"]], [CompareWithInt ("mtime", 9876)]);
-      InitScratchFS, Always, TestOutputStruct (
+         ["stat"; "/utimens-fifo"]], "ret->mtime == 9876");
+      InitScratchFS, Always, TestResult (
         [["ln_sf"; "/utimens-file"; "/utimens-link"];
          ["utimens"; "/utimens-link"; "12345"; "67890"; "9876"; "5432"];
-         ["stat"; "/utimens-link"]], [CompareWithInt ("mtime", 9876)]);
-      InitScratchFS, Always, TestOutputStruct (
+         ["stat"; "/utimens-link"]], "ret->mtime == 9876");
+      InitScratchFS, Always, TestResult (
         [["mknod_b"; "0o644"; "8"; "0"; "/utimens-block"];
          ["utimens"; "/utimens-block"; "12345"; "67890"; "9876"; "5432"];
-         ["stat"; "/utimens-block"]], [CompareWithInt ("mtime", 9876)]);
-      InitScratchFS, Always, TestOutputStruct (
+         ["stat"; "/utimens-block"]], "ret->mtime == 9876");
+      InitScratchFS, Always, TestResult (
         [["mknod_c"; "0o644"; "1"; "3"; "/utimens-char"];
          ["utimens"; "/utimens-char"; "12345"; "67890"; "9876"; "5432"];
-         ["stat"; "/utimens-char"]], [CompareWithInt ("mtime", 9876)])
+         ["stat"; "/utimens-char"]], "ret->mtime == 9876")
     ];
     shortdesc = "set timestamp of a file with nanosecond precision";
     longdesc = "\
@@ -6985,9 +6991,10 @@ C<*secs> field is ignored in this case)." };
     style = RErr, [Pathname "path"; Int "mode"], [];
     proc_nr = Some 202;
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["mkdir_mode"; "/mkdir_mode"; "0o111"];
-         ["stat"; "/mkdir_mode"]], [CompareWithInt ("mode", 0o40111)])
+         ["stat"; "/mkdir_mode"]],
+        "S_ISDIR (ret->mode) && (ret->mode & 0777) == 0111")
     ];
     shortdesc = "create a directory with a particular mode";
     longdesc = "\
@@ -7992,9 +7999,9 @@ and L<guestfs(3)/AVAILABILITY>." };
     style = RErr, [Pathname "path"; Int64 "len"], [];
     proc_nr = Some 252;
     tests = [
-      InitScratchFS, Always, TestOutputStruct (
+      InitScratchFS, Always, TestResult (
         [["fallocate64"; "/fallocate64"; "1000000"];
-         ["stat"; "/fallocate64"]], [CompareWithInt ("size", 1_000_000)])
+         ["stat"; "/fallocate64"]], "ret->size == 1000000")
     ];
     shortdesc = "preallocate a file in the guest filesystem";
     longdesc = "\
@@ -9347,14 +9354,14 @@ this will create the largest possible LV." };
     style = RStruct ("isodata", "isoinfo"), [Device "device"], [];
     proc_nr = Some 313;
     tests = [
-      InitNone, Always, TestOutputStruct (
+      InitNone, Always, TestResult (
         [["isoinfo_device"; "/dev/sdd"]],
-        [CompareWithString ("iso_system_id", "LINUX");
-         CompareWithString ("iso_volume_id", "CDROM");
-         CompareWithString ("iso_volume_set_id", "");
-         CompareWithInt ("iso_volume_set_size", 1);
-         CompareWithInt ("iso_volume_sequence_number", 1);
-         CompareWithInt ("iso_logical_block_size", 2048)])
+        "STREQ (ret->iso_system_id, \"LINUX\") && "^
+          "STREQ (ret->iso_volume_id, \"CDROM\") && "^
+          "STREQ (ret->iso_volume_set_id, \"\") && "^
+          "ret->iso_volume_set_size == 1 && "^
+          "ret->iso_volume_sequence_number == 1 && "^
+          "ret->iso_logical_block_size == 2048")
     ];
     shortdesc = "get ISO information from primary volume descriptor of device";
     longdesc = "\
@@ -9913,13 +9920,11 @@ call C<guestfs_max_disks>." };
     proc_nr = Some 337;
     optional = Some "xfs";
     tests = [
-      InitEmpty, Always, TestOutputStruct (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
-         ["xfs_info"; "/"]],
-        [CompareWithInt ("xfs_blocksize", 4096);
-        ])
+         ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096")
     ];
     shortdesc = "get geometry of XFS filesystem";
     longdesc = "\
@@ -10012,7 +10017,7 @@ in the returned structure is defined by the API." };
     proc_nr = Some 343;
     optional = Some "xfs";
     tests = [
-      InitEmpty, Always, TestOutputStruct (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -10021,9 +10026,7 @@ in the returned structure is defined by the API." };
          ["lvresize"; "/dev/VG/LV"; "80"];
          ["mount"; "/dev/VG/LV"; "/"];
          ["xfs_growfs"; "/"; "true"; "false"; "false"; ""; ""; ""; ""; ""];
-         ["xfs_info"; "/"]],
-        [CompareWithInt ("xfs_blocksize", 4096);
-        ])
+         ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096");
     ];
     shortdesc = "expand an existing XFS filesystem";
     longdesc = "\
@@ -10147,14 +10150,12 @@ with zeroes)." };
     proc_nr = Some 349;
     optional = Some "xfs";
     tests = [
-      InitEmpty, Always, TestOutputStruct (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
-         ["xfs_info"; "/"]],
-        [CompareWithInt ("xfs_lazycount", 0);
-        ])
+         ["xfs_info"; "/"]], "ret->xfs_lazycount == 0");
     ];
     shortdesc = "change parameters of an XFS filesystem";
     longdesc = "\
