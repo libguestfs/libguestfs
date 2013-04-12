@@ -2279,17 +2279,20 @@ or C<guestfs_download> functions." };
     name = "find";
     style = RStringList "names", [Pathname "directory"], [];
     tests = [
-      InitBasicFS, Always, TestOutputList (
-        [["find"; "/"]], ["lost+found"]);
-      InitBasicFS, Always, TestOutputList (
+      InitBasicFS, Always, TestResult (
+        [["find"; "/"]],
+        "is_string_list (ret, 1, \"lost+found\")");
+      InitBasicFS, Always, TestResult (
         [["touch"; "/a"];
          ["mkdir"; "/b"];
          ["touch"; "/b/c"];
-         ["find"; "/"]], ["a"; "b"; "b/c"; "lost+found"]);
-      InitScratchFS, Always, TestOutputList (
+         ["find"; "/"]],
+        "is_string_list (ret, 4, \"a\", \"b\", \"b/c\", \"lost+found\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir_p"; "/find/b/c"];
          ["touch"; "/find/b/c/d"];
-         ["find"; "/find/b/"]], ["c"; "c/d"])
+         ["find"; "/find/b/"]],
+        "is_string_list (ret, 2, \"c\", \"c/d\")")
     ];
     shortdesc = "find all files and directories";
     longdesc = "\
@@ -2337,34 +2340,44 @@ handle files that contain embedded ASCII NUL characters." };
     name = "read_lines";
     style = RStringList "lines", [Pathname "path"], [];
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["read_lines"; "/known-4"]], ["abc"; "def"; "ghi"]);
-      InitISOFS, Always, TestOutputList (
-        [["read_lines"; "/empty"]], []);
-      InitScratchFS, Always, TestOutputList (
+      InitISOFS, Always, TestResult (
+        [["read_lines"; "/known-4"]],
+        "is_string_list (ret, 3, \"abc\", \"def\", \"ghi\")");
+      InitISOFS, Always, TestResult (
+        [["read_lines"; "/empty"]],
+        "is_string_list (ret, 0)");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines1"; "\n"];
-         ["read_lines"; "/read_lines1"]], [""]);
-      InitScratchFS, Always, TestOutputList (
+         ["read_lines"; "/read_lines1"]],
+        "is_string_list (ret, 1, \"\")");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines2"; "\r\n"];
-         ["read_lines"; "/read_lines2"]], [""]);
-      InitScratchFS, Always, TestOutputList (
+         ["read_lines"; "/read_lines2"]],
+        "is_string_list (ret, 1, \"\")");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines3"; "\n\r\n"];
-         ["read_lines"; "/read_lines3"]], [""; ""]);
-      InitScratchFS, Always, TestOutputList (
+         ["read_lines"; "/read_lines3"]],
+        "is_string_list (ret, 2, \"\", \"\")");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines4"; "a"];
-         ["read_lines"; "/read_lines4"]], ["a"]);
-      InitScratchFS, Always, TestOutputList (
+         ["read_lines"; "/read_lines4"]],
+        "is_string_list (ret, 1, \"a\")");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines5"; "a\nb"];
-         ["read_lines"; "/read_lines5"]], ["a"; "b"]);
-      InitScratchFS, Always, TestOutputList (
+         ["read_lines"; "/read_lines5"]],
+        "is_string_list (ret, 2, \"a\", \"b\")");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines6"; "a\nb\n"];
-         ["read_lines"; "/read_lines6"]], ["a"; "b"]);
-      InitScratchFS, Always, TestOutputList (
+         ["read_lines"; "/read_lines6"]],
+        "is_string_list (ret, 2, \"a\", \"b\")");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines7"; "a\nb\r\n"];
-         ["read_lines"; "/read_lines7"]], ["a"; "b"]);
-      InitScratchFS, Always, TestOutputList (
+         ["read_lines"; "/read_lines7"]],
+        "is_string_list (ret, 2, \"a\", \"b\")");
+      InitScratchFS, Always, TestResult (
         [["write"; "/read_lines8"; "a\nb\r\n\n"];
-         ["read_lines"; "/read_lines8"]], ["a"; "b"; ""]);
+         ["read_lines"; "/read_lines8"]],
+        "is_string_list (ret, 3, \"a\", \"b\", \"\")");
     ];
     shortdesc = "read file as lines";
     longdesc = "\
@@ -2497,12 +2510,13 @@ list a directory contents without making many round-trips." };
     name = "ls";
     style = RStringList "listing", [Pathname "directory"], [];
     tests = [
-      InitScratchFS, Always, TestOutputList (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/ls"];
          ["touch"; "/ls/new"];
          ["touch"; "/ls/newer"];
          ["touch"; "/ls/newest"];
-         ["ls"; "/ls"]], ["new"; "newer"; "newest"])
+         ["ls"; "/ls"]],
+        "is_string_list (ret, 3, \"new\", \"newer\", \"newest\")")
     ];
     shortdesc = "list the files in a directory";
     longdesc = "\
@@ -2973,8 +2987,9 @@ is I<not> intended that you try to parse the output string." };
     style = RStringList "devices", [], [];
     proc_nr = Some 7;
     tests = [
-      InitEmpty, Always, TestOutputListOfDevices (
-        [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"; "/dev/sdd"])
+      InitEmpty, Always, TestResult (
+        [["list_devices"]],
+        "is_device_list (ret, 4, \"/dev/sda\", \"/dev/sdb\", \"/dev/sdc\", \"/dev/sdd\")")
     ];
     shortdesc = "list the block devices";
     longdesc = "\
@@ -2989,14 +3004,16 @@ See also C<guestfs_list_filesystems>." };
     style = RStringList "partitions", [], [];
     proc_nr = Some 8;
     tests = [
-      InitBasicFS, Always, TestOutputListOfDevices (
-        [["list_partitions"]], ["/dev/sda1"; "/dev/sdb1"]);
-      InitEmpty, Always, TestOutputListOfDevices (
+      InitBasicFS, Always, TestResult (
+        [["list_partitions"]],
+        "is_device_list (ret, 2, \"/dev/sda1\", \"/dev/sdb1\")");
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
          ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
-         ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"; "/dev/sdb1"])
+         ["list_partitions"]],
+        "is_device_list (ret, 4, \"/dev/sda1\", \"/dev/sda2\", \"/dev/sda3\", \"/dev/sdb1\")")
     ];
     shortdesc = "list the partitions";
     longdesc = "\
@@ -3015,9 +3032,9 @@ See also C<guestfs_list_filesystems>." };
     proc_nr = Some 9;
     optional = Some "lvm2";
     tests = [
-      InitBasicFSonLVM, Always, TestOutputListOfDevices (
-        [["pvs"]], ["/dev/sda1"]);
-      InitEmpty, Always, TestOutputListOfDevices (
+      InitBasicFSonLVM, Always, TestResult (
+        [["pvs"]], "is_device_list (ret, 1, \"/dev/sda1\")");
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
@@ -3025,7 +3042,8 @@ See also C<guestfs_list_filesystems>." };
          ["pvcreate"; "/dev/sda1"];
          ["pvcreate"; "/dev/sda2"];
          ["pvcreate"; "/dev/sda3"];
-         ["pvs"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])
+         ["pvs"]],
+        "is_device_list (ret, 3, \"/dev/sda1\", \"/dev/sda2\", \"/dev/sda3\")")
     ];
     shortdesc = "list the LVM physical volumes (PVs)";
     longdesc = "\
@@ -3043,9 +3061,9 @@ See also C<guestfs_pvs_full>." };
     proc_nr = Some 10;
     optional = Some "lvm2";
     tests = [
-      InitBasicFSonLVM, Always, TestOutputList (
-        [["vgs"]], ["VG"]);
-      InitEmpty, Always, TestOutputList (
+      InitBasicFSonLVM, Always, TestResult (
+        [["vgs"]], "is_string_list (ret, 1, \"VG\")");
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
@@ -3055,7 +3073,8 @@ See also C<guestfs_pvs_full>." };
          ["pvcreate"; "/dev/sda3"];
          ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
          ["vgcreate"; "VG2"; "/dev/sda3"];
-         ["vgs"]], ["VG1"; "VG2"])
+         ["vgs"]],
+        "is_string_list (ret, 2, \"VG1\", \"VG2\")")
     ];
     shortdesc = "list the LVM volume groups (VGs)";
     longdesc = "\
@@ -3073,9 +3092,10 @@ See also C<guestfs_vgs_full>." };
     proc_nr = Some 11;
     optional = Some "lvm2";
     tests = [
-      InitBasicFSonLVM, Always, TestOutputList (
-        [["lvs"]], ["/dev/VG/LV"]);
-      InitEmpty, Always, TestOutputList (
+      InitBasicFSonLVM, Always, TestResult (
+        [["lvs"]],
+        "is_string_list (ret, 1, \"/dev/VG/LV\")");
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
@@ -3088,7 +3108,8 @@ See also C<guestfs_vgs_full>." };
          ["lvcreate"; "LV1"; "VG1"; "50"];
          ["lvcreate"; "LV2"; "VG1"; "50"];
          ["lvcreate"; "LV3"; "VG2"; "50"];
-         ["lvs"]], ["/dev/VG1/LV1"; "/dev/VG1/LV2"; "/dev/VG2/LV3"])
+         ["lvs"]],
+        "is_string_list (ret, 3, \"/dev/VG1/LV1\", \"/dev/VG1/LV2\", \"/dev/VG2/LV3\")")
     ];
     shortdesc = "list the LVM logical volumes (LVs)";
     longdesc = "\
@@ -3524,7 +3545,7 @@ See also C<guestfs_stat>." };
     proc_nr = Some 39;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, Always, TestOutputListOfDevices (
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
@@ -3532,7 +3553,8 @@ See also C<guestfs_stat>." };
          ["pvcreate"; "/dev/sda1"];
          ["pvcreate"; "/dev/sda2"];
          ["pvcreate"; "/dev/sda3"];
-         ["pvs"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])
+         ["pvs"]],
+        "is_device_list (ret, 3, \"/dev/sda1\", \"/dev/sda2\", \"/dev/sda3\")")
     ];
     shortdesc = "create an LVM physical volume";
     longdesc = "\
@@ -3546,7 +3568,7 @@ as C</dev/sda1>." };
     proc_nr = Some 40;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, Always, TestOutputList (
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
@@ -3556,7 +3578,8 @@ as C</dev/sda1>." };
          ["pvcreate"; "/dev/sda3"];
          ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
          ["vgcreate"; "VG2"; "/dev/sda3"];
-         ["vgs"]], ["VG1"; "VG2"])
+         ["vgs"]],
+        "is_string_list (ret, 2, \"VG1\", \"VG2\")")
     ];
     shortdesc = "create an LVM volume group";
     longdesc = "\
@@ -3569,7 +3592,7 @@ from the non-empty list of physical volumes C<physvols>." };
     proc_nr = Some 41;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, Always, TestOutputList (
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
@@ -3585,8 +3608,7 @@ from the non-empty list of physical volumes C<physvols>." };
          ["lvcreate"; "LV4"; "VG2"; "50"];
          ["lvcreate"; "LV5"; "VG2"; "50"];
          ["lvs"]],
-        ["/dev/VG1/LV1"; "/dev/VG1/LV2";
-         "/dev/VG2/LV3"; "/dev/VG2/LV4"; "/dev/VG2/LV5"])
+        "is_string_list (ret, 5, \"/dev/VG1/LV1\", \"/dev/VG1/LV2\", \"/dev/VG2/LV3\", \"/dev/VG2/LV4\", \"/dev/VG2/LV5\")")
     ];
     shortdesc = "create an LVM logical volume";
     longdesc = "\
@@ -3655,17 +3677,17 @@ characters does I<not> work, even if the length is specified." };
     fish_alias = ["unmount"];
     once_had_no_optargs = true;
     tests = [
-      InitEmpty, Always, TestOutputListOfDevices (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
-         ["mounts"]], ["/dev/sda1"]);
-      InitEmpty, Always, TestOutputList (
+         ["mounts"]], "is_device_list (ret, 1, \"/dev/sda1\")");
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
          ["umount"; "/"; "false"; "false"];
-         ["mounts"]], [])
+         ["mounts"]], "is_string_list (ret, 0)")
     ];
     shortdesc = "unmount a filesystem";
     longdesc = "\
@@ -3678,8 +3700,8 @@ contains the filesystem." };
     style = RStringList "devices", [], [];
     proc_nr = Some 46;
     tests = [
-      InitScratchFS, Always, TestOutputListOfDevices (
-        [["mounts"]], ["/dev/sdb1"])
+      InitScratchFS, Always, TestResult (
+        [["mounts"]], "is_device_list (ret, 1, \"/dev/sdb1\")")
     ];
     shortdesc = "show mounted filesystems";
     longdesc = "\
@@ -3696,11 +3718,11 @@ See also: C<guestfs_mountpoints>" };
     proc_nr = Some 47;
     fish_alias = ["unmount-all"];
     tests = [
-      InitScratchFS, Always, TestOutputList (
+      InitScratchFS, Always, TestResult (
         [["umount_all"];
-         ["mounts"]], []);
+         ["mounts"]], "is_string_list (ret, 0)");
       (* check that umount_all can unmount nested mounts correctly: *)
-      InitEmpty, Always, TestOutputList (
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
@@ -3715,7 +3737,7 @@ See also: C<guestfs_mountpoints>" };
          ["mount"; "/dev/sda3"; "/mp1/mp2"];
          ["mkdir"; "/mp1/mp2/mp3"];
          ["umount_all"];
-         ["mounts"]], [])
+         ["mounts"]], "is_string_list (ret, 0)")
     ];
     shortdesc = "unmount all filesystems";
     longdesc = "\
@@ -3878,61 +3900,72 @@ locations." };
     proc_nr = Some 51;
     protocol_limit_warning = true;
     tests = [
-      InitScratchFS, Always, TestOutputList (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines"];
          ["upload"; "test-command"; "/command_lines/test-command"];
          ["chmod"; "0o755"; "/command_lines/test-command"];
-         ["command_lines"; "/command_lines/test-command 1"]], ["Result1"]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines/test-command 1"]],
+        "is_string_list (ret, 1, \"Result1\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines2"];
          ["upload"; "test-command"; "/command_lines2/test-command"];
          ["chmod"; "0o755"; "/command_lines2/test-command"];
-         ["command_lines"; "/command_lines2/test-command 2"]], ["Result2"]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines2/test-command 2"]],
+        "is_string_list (ret, 1, \"Result2\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines3"];
          ["upload"; "test-command"; "/command_lines3/test-command"];
          ["chmod"; "0o755"; "/command_lines3/test-command"];
-         ["command_lines"; "/command_lines3/test-command 3"]], ["";"Result3"]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines3/test-command 3"]],
+        "is_string_list (ret, 2, \"\", \"Result3\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines4"];
          ["upload"; "test-command"; "/command_lines4/test-command"];
          ["chmod"; "0o755"; "/command_lines4/test-command"];
-         ["command_lines"; "/command_lines4/test-command 4"]], ["";"Result4"]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines4/test-command 4"]],
+        "is_string_list (ret, 2, \"\", \"Result4\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines5"];
          ["upload"; "test-command"; "/command_lines5/test-command"];
          ["chmod"; "0o755"; "/command_lines5/test-command"];
-         ["command_lines"; "/command_lines5/test-command 5"]], ["";"Result5";""]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines5/test-command 5"]],
+        "is_string_list (ret, 3, \"\", \"Result5\", \"\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines6"];
          ["upload"; "test-command"; "/command_lines6/test-command"];
          ["chmod"; "0o755"; "/command_lines6/test-command"];
-         ["command_lines"; "/command_lines6/test-command 6"]], ["";"";"Result6";""]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines6/test-command 6"]],
+        "is_string_list (ret, 4, \"\", \"\", \"Result6\", \"\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines7"];
          ["upload"; "test-command"; "/command_lines7/test-command"];
          ["chmod"; "0o755"; "/command_lines7/test-command"];
-         ["command_lines"; "/command_lines7/test-command 7"]], []);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines7/test-command 7"]],
+        "is_string_list (ret, 0)");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines8"];
          ["upload"; "test-command"; "/command_lines8/test-command"];
          ["chmod"; "0o755"; "/command_lines8/test-command"];
-         ["command_lines"; "/command_lines8/test-command 8"]], [""]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines8/test-command 8"]],
+        "is_string_list (ret, 1, \"\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines9"];
          ["upload"; "test-command"; "/command_lines9/test-command"];
          ["chmod"; "0o755"; "/command_lines9/test-command"];
-         ["command_lines"; "/command_lines9/test-command 9"]], ["";""]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines9/test-command 9"]],
+        "is_string_list (ret, 2, \"\", \"\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines10"];
          ["upload"; "test-command"; "/command_lines10/test-command"];
          ["chmod"; "0o755"; "/command_lines10/test-command"];
-         ["command_lines"; "/command_lines10/test-command 10"]], ["Result10-1";"Result10-2"]);
-      InitScratchFS, Always, TestOutputList (
+         ["command_lines"; "/command_lines10/test-command 10"]],
+        "is_string_list (ret, 2, \"Result10-1\", \"Result10-2\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/command_lines11"];
          ["upload"; "test-command"; "/command_lines11/test-command"];
          ["chmod"; "0o755"; "/command_lines11/test-command"];
-         ["command_lines"; "/command_lines11/test-command 11"]], ["Result11-1";"Result11-2"])
+         ["command_lines"; "/command_lines11/test-command 11"]],
+        "is_string_list (ret, 2, \"Result11-1\", \"Result11-2\")")
     ];
     shortdesc = "run a command, returning lines";
     longdesc = "\
@@ -4441,30 +4474,33 @@ to find out what you can do." };
     proc_nr = Some 77;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, Always, TestOutputList (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV1"; "VG"; "50"];
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["lvremove"; "/dev/VG/LV1"];
-         ["lvs"]], ["/dev/VG/LV2"]);
-      InitEmpty, Always, TestOutputList (
+         ["lvs"]],
+        "is_string_list (ret, 1, \"/dev/VG/LV2\")");
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV1"; "VG"; "50"];
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["lvremove"; "/dev/VG"];
-         ["lvs"]], []);
-      InitEmpty, Always, TestOutputList (
+         ["lvs"]],
+        "is_string_list (ret, 0)");
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV1"; "VG"; "50"];
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["lvremove"; "/dev/VG"];
-         ["vgs"]], ["VG"])
+         ["vgs"]],
+        "is_string_list (ret, 1, \"VG\")")
     ];
     shortdesc = "remove an LVM logical volume";
     longdesc = "\
@@ -4480,22 +4516,24 @@ the VG name, C</dev/VG>." };
     proc_nr = Some 78;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, Always, TestOutputList (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV1"; "VG"; "50"];
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["vgremove"; "VG"];
-         ["lvs"]], []);
-      InitEmpty, Always, TestOutputList (
+         ["lvs"]],
+        "is_string_list (ret, 0)");
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV1"; "VG"; "50"];
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["vgremove"; "VG"];
-         ["vgs"]], [])
+         ["vgs"]],
+        "is_string_list (ret, 0)")
     ];
     shortdesc = "remove an LVM volume group";
     longdesc = "\
@@ -4510,7 +4548,7 @@ group (if any)." };
     proc_nr = Some 79;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, Always, TestOutputListOfDevices (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -4518,8 +4556,9 @@ group (if any)." };
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["vgremove"; "VG"];
          ["pvremove"; "/dev/sda1"];
-         ["lvs"]], []);
-      InitEmpty, Always, TestOutputListOfDevices (
+         ["lvs"]],
+        "is_string_list (ret, 0)");
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -4527,8 +4566,9 @@ group (if any)." };
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["vgremove"; "VG"];
          ["pvremove"; "/dev/sda1"];
-         ["vgs"]], []);
-      InitEmpty, Always, TestOutputListOfDevices (
+         ["vgs"]],
+        "is_string_list (ret, 0)");
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -4536,7 +4576,8 @@ group (if any)." };
          ["lvcreate"; "LV2"; "VG"; "50"];
          ["vgremove"; "VG"];
          ["pvremove"; "/dev/sda1"];
-         ["pvs"]], [])
+         ["pvs"]],
+        "is_string_list (ret, 0)")
     ];
     shortdesc = "remove an LVM physical volume";
     longdesc = "\
@@ -4899,10 +4940,12 @@ The external L<cmp(1)> program is used for the comparison." };
     proc_nr = Some 94;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["strings"; "/known-5"]], ["abcdefghi"; "jklmnopqr"]);
-      InitISOFS, Always, TestOutputList (
-        [["strings"; "/empty"]], []);
+      InitISOFS, Always, TestResult (
+        [["strings"; "/known-5"]],
+        "is_string_list (ret, 2, \"abcdefghi\", \"jklmnopqr\")");
+      InitISOFS, Always, TestResult (
+        [["strings"; "/empty"]],
+        "is_string_list (ret, 0)");
       (* Test for RHBZ#579608, absolute symbolic links. *)
       InitISOFS, Always, TestRun (
         [["strings"; "/abssymlink"]])
@@ -4918,11 +4961,13 @@ the list of printable strings found." };
     proc_nr = Some 95;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["strings_e"; "b"; "/known-5"]], []);
-      InitScratchFS, Always, TestOutputList (
+      InitISOFS, Always, TestResult (
+        [["strings_e"; "b"; "/known-5"]],
+        "is_string_list (ret, 0)");
+      InitScratchFS, Always, TestResult (
         [["write"; "/strings_e"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"];
-         ["strings_e"; "b"; "/strings_e"]], ["hello"; "world"])
+         ["strings_e"; "b"; "/strings_e"]],
+        "is_string_list (ret, 2, \"hello\", \"world\")")
     ];
     shortdesc = "print the printable strings in a file";
     longdesc = "\
@@ -5249,21 +5294,24 @@ See also: C<guestfs_command_lines>" };
     style = RStringList "paths", [Pathname "pattern"], [];
     proc_nr = Some 113;
     tests = [
-      InitScratchFS, Always, TestOutputList (
+      InitScratchFS, Always, TestResult (
         [["mkdir_p"; "/glob_expand/b/c"];
          ["touch"; "/glob_expand/b/c/d"];
          ["touch"; "/glob_expand/b/c/e"];
-         ["glob_expand"; "/glob_expand/b/c/*"]], ["/glob_expand/b/c/d"; "/glob_expand/b/c/e"]);
-      InitScratchFS, Always, TestOutputList (
+         ["glob_expand"; "/glob_expand/b/c/*"]],
+        "is_string_list (ret, 2, \"/glob_expand/b/c/d\", \"/glob_expand/b/c/e\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir_p"; "/glob_expand2/b/c"];
          ["touch"; "/glob_expand2/b/c/d"];
          ["touch"; "/glob_expand2/b/c/e"];
-         ["glob_expand"; "/glob_expand2/*/c/*"]], ["/glob_expand2/b/c/d"; "/glob_expand2/b/c/e"]);
-      InitScratchFS, Always, TestOutputList (
+         ["glob_expand"; "/glob_expand2/*/c/*"]],
+        "is_string_list (ret, 2, \"/glob_expand2/b/c/d\", \"/glob_expand2/b/c/e\")");
+      InitScratchFS, Always, TestResult (
         [["mkdir_p"; "/glob_expand3/b/c"];
          ["touch"; "/glob_expand3/b/c/d"];
          ["touch"; "/glob_expand3/b/c/e"];
-         ["glob_expand"; "/glob_expand3/*/x/*"]], [])
+         ["glob_expand"; "/glob_expand3/*/x/*"]],
+        "is_string_list (ret, 0)")
     ];
     shortdesc = "expand a wildcard path";
     longdesc = "\
@@ -5414,11 +5462,13 @@ C<wc -c> external command." };
     proc_nr = Some 121;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["head"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"]);
+      InitISOFS, Always, TestResult (
+        [["head"; "/10klines"]],
+        "is_string_list (ret, 10, \"0abcdefghijklmnopqrstuvwxyz\", \"1abcdefghijklmnopqrstuvwxyz\", \"2abcdefghijklmnopqrstuvwxyz\", \"3abcdefghijklmnopqrstuvwxyz\", \"4abcdefghijklmnopqrstuvwxyz\", \"5abcdefghijklmnopqrstuvwxyz\", \"6abcdefghijklmnopqrstuvwxyz\", \"7abcdefghijklmnopqrstuvwxyz\", \"8abcdefghijklmnopqrstuvwxyz\", \"9abcdefghijklmnopqrstuvwxyz\")");
       (* Test for RHBZ#579608, absolute symbolic links. *)
-      InitISOFS, Always, TestOutputList (
-        [["head"; "/abssymlink"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"])
+      InitISOFS, Always, TestResult (
+        [["head"; "/abssymlink"]],
+        "is_string_list (ret, 10, \"0abcdefghijklmnopqrstuvwxyz\", \"1abcdefghijklmnopqrstuvwxyz\", \"2abcdefghijklmnopqrstuvwxyz\", \"3abcdefghijklmnopqrstuvwxyz\", \"4abcdefghijklmnopqrstuvwxyz\", \"5abcdefghijklmnopqrstuvwxyz\", \"6abcdefghijklmnopqrstuvwxyz\", \"7abcdefghijklmnopqrstuvwxyz\", \"8abcdefghijklmnopqrstuvwxyz\", \"9abcdefghijklmnopqrstuvwxyz\")")
     ];
     shortdesc = "return first 10 lines of a file";
     longdesc = "\
@@ -5431,12 +5481,15 @@ a list of strings." };
     proc_nr = Some 122;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["head_n"; "3"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
-      InitISOFS, Always, TestOutputList (
-        [["head_n"; "-9997"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
-      InitISOFS, Always, TestOutputList (
-        [["head_n"; "0"; "/10klines"]], [])
+      InitISOFS, Always, TestResult (
+        [["head_n"; "3"; "/10klines"]],
+        "is_string_list (ret, 3, \"0abcdefghijklmnopqrstuvwxyz\", \"1abcdefghijklmnopqrstuvwxyz\", \"2abcdefghijklmnopqrstuvwxyz\")");
+      InitISOFS, Always, TestResult (
+        [["head_n"; "-9997"; "/10klines"]],
+        "is_string_list (ret, 3, \"0abcdefghijklmnopqrstuvwxyz\", \"1abcdefghijklmnopqrstuvwxyz\", \"2abcdefghijklmnopqrstuvwxyz\")");
+      InitISOFS, Always, TestResult (
+        [["head_n"; "0"; "/10klines"]],
+        "is_string_list (ret, 0)")
     ];
     shortdesc = "return first N lines of a file";
     longdesc = "\
@@ -5454,8 +5507,9 @@ If the parameter C<nrlines> is zero, this returns an empty list." };
     proc_nr = Some 123;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["tail"; "/10klines"]], ["9990abcdefghijklmnopqrstuvwxyz";"9991abcdefghijklmnopqrstuvwxyz";"9992abcdefghijklmnopqrstuvwxyz";"9993abcdefghijklmnopqrstuvwxyz";"9994abcdefghijklmnopqrstuvwxyz";"9995abcdefghijklmnopqrstuvwxyz";"9996abcdefghijklmnopqrstuvwxyz";"9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"])
+      InitISOFS, Always, TestResult (
+        [["tail"; "/10klines"]],
+        "is_string_list (ret, 10, \"9990abcdefghijklmnopqrstuvwxyz\", \"9991abcdefghijklmnopqrstuvwxyz\", \"9992abcdefghijklmnopqrstuvwxyz\", \"9993abcdefghijklmnopqrstuvwxyz\", \"9994abcdefghijklmnopqrstuvwxyz\", \"9995abcdefghijklmnopqrstuvwxyz\", \"9996abcdefghijklmnopqrstuvwxyz\", \"9997abcdefghijklmnopqrstuvwxyz\", \"9998abcdefghijklmnopqrstuvwxyz\", \"9999abcdefghijklmnopqrstuvwxyz\")")
     ];
     shortdesc = "return last 10 lines of a file";
     longdesc = "\
@@ -5468,12 +5522,15 @@ a list of strings." };
     proc_nr = Some 124;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["tail_n"; "3"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
-      InitISOFS, Always, TestOutputList (
-        [["tail_n"; "-9998"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
-      InitISOFS, Always, TestOutputList (
-        [["tail_n"; "0"; "/10klines"]], [])
+      InitISOFS, Always, TestResult (
+        [["tail_n"; "3"; "/10klines"]],
+        "is_string_list (ret, 3, \"9997abcdefghijklmnopqrstuvwxyz\", \"9998abcdefghijklmnopqrstuvwxyz\", \"9999abcdefghijklmnopqrstuvwxyz\")");
+      InitISOFS, Always, TestResult (
+        [["tail_n"; "-9998"; "/10klines"]],
+        "is_string_list (ret, 3, \"9997abcdefghijklmnopqrstuvwxyz\", \"9998abcdefghijklmnopqrstuvwxyz\", \"9999abcdefghijklmnopqrstuvwxyz\")");
+      InitISOFS, Always, TestResult (
+        [["tail_n"; "0"; "/10klines"]],
+        "is_string_list (ret, 0)")
     ];
     shortdesc = "return last N lines of a file";
     longdesc = "\
@@ -5542,8 +5599,9 @@ The result is the estimated size in I<kilobytes>
     style = RStringList "filenames", [Pathname "path"], [];
     proc_nr = Some 128;
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3";"known-4"; "known-5"])
+      InitISOFS, Always, TestResult (
+        [["initrd_list"; "/initrd"]],
+        "is_string_list (ret, 6, \"empty\", \"known-1\", \"known-2\", \"known-3\", \"known-4\", \"known-5\")")
     ];
     shortdesc = "list files in an initrd";
     longdesc = "\
@@ -5993,47 +6051,49 @@ for full details." };
     proc_nr = Some 151;
     protocol_limit_warning = true; once_had_no_optargs = true;
     tests = [
-      InitISOFS, Always, TestOutputList (
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt"; ""; ""; ""; ""]],
-        ["abc"; "abc123"]);
-      InitISOFS, Always, TestOutputList (
-        [["grep"; "nomatch"; "/test-grep.txt"; ""; ""; ""; ""]], []);
+        "is_string_list (ret, 2, \"abc\", \"abc123\")");
+      InitISOFS, Always, TestResult (
+        [["grep"; "nomatch"; "/test-grep.txt"; ""; ""; ""; ""]],
+        "is_string_list (ret, 0)");
       (* Test for RHBZ#579608, absolute symbolic links. *)
-      InitISOFS, Always, TestOutputList (
-        [["grep"; "nomatch"; "/abssymlink"; ""; ""; ""; ""]], []);
-      InitISOFS, Always, TestOutputList (
+      InitISOFS, Always, TestResult (
+        [["grep"; "nomatch"; "/abssymlink"; ""; ""; ""; ""]],
+        "is_string_list (ret, 0)");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt"; "true"; ""; ""; ""]],
-        ["abc"; "abc123"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 2, \"abc\", \"abc123\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt"; ""; "true"; ""; ""]],
-        ["abc"; "abc123"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 2, \"abc\", \"abc123\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt"; ""; ""; "true"; ""]],
-        ["abc"; "abc123"; "ABC"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt"; "true"; ""; "true"; ""]],
-        ["abc"; "abc123"; "ABC"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt"; ""; "true"; "true"; ""]],
-        ["abc"; "abc123"; "ABC"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt.gz"; ""; ""; ""; "true"]],
-        ["abc"; "abc123"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 2, \"abc\", \"abc123\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt.gz"; "true"; ""; ""; "true"]],
-        ["abc"; "abc123"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 2, \"abc\", \"abc123\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt.gz"; ""; "true"; ""; "true"]],
-        ["abc"; "abc123"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 2, \"abc\", \"abc123\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt.gz"; ""; ""; "true"; "true"]],
-        ["abc"; "abc123"; "ABC"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt.gz"; "true"; ""; "true"; "true"]],
-        ["abc"; "abc123"; "ABC"]);
-      InitISOFS, Always, TestOutputList (
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")");
+      InitISOFS, Always, TestResult (
         [["grep"; "abc"; "/test-grep.txt.gz"; ""; "true"; "true"; "true"]],
-        ["abc"; "abc123"; "ABC"])
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6072,8 +6132,9 @@ compress- or gzip-compressed.
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["egrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])
+      InitISOFS, Always, TestResult (
+        [["egrep"; "abc"; "/test-grep.txt"]],
+        "is_string_list (ret, 2, \"abc\", \"abc123\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6087,8 +6148,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["fgrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])
+      InitISOFS, Always, TestResult (
+        [["fgrep"; "abc"; "/test-grep.txt"]],
+        "is_string_list (ret, 2, \"abc\", \"abc123\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6102,8 +6164,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["grepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])
+      InitISOFS, Always, TestResult (
+        [["grepi"; "abc"; "/test-grep.txt"]],
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6117,8 +6180,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["egrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])
+      InitISOFS, Always, TestResult (
+        [["egrepi"; "abc"; "/test-grep.txt"]],
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6132,8 +6196,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["fgrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])
+      InitISOFS, Always, TestResult (
+        [["fgrepi"; "abc"; "/test-grep.txt"]],
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6147,8 +6212,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["zgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])
+      InitISOFS, Always, TestResult (
+        [["zgrep"; "abc"; "/test-grep.txt.gz"]],
+        "is_string_list (ret, 2, \"abc\", \"abc123\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6162,8 +6228,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["zegrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])
+      InitISOFS, Always, TestResult (
+        [["zegrep"; "abc"; "/test-grep.txt.gz"]],
+        "is_string_list (ret, 2, \"abc\", \"abc123\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6177,8 +6244,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["zfgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])
+      InitISOFS, Always, TestResult (
+        [["zfgrep"; "abc"; "/test-grep.txt.gz"]],
+        "is_string_list (ret, 2, \"abc\", \"abc123\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6192,8 +6260,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["zgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])
+      InitISOFS, Always, TestResult (
+        [["zgrepi"; "abc"; "/test-grep.txt.gz"]],
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6207,8 +6276,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["zegrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])
+      InitISOFS, Always, TestResult (
+        [["zegrepi"; "abc"; "/test-grep.txt.gz"]],
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6222,8 +6292,9 @@ matching lines." };
     protocol_limit_warning = true;
     deprecated_by = Some "grep";
     tests = [
-      InitISOFS, Always, TestOutputList (
-        [["zfgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])
+      InitISOFS, Always, TestResult (
+        [["zfgrepi"; "abc"; "/test-grep.txt.gz"]],
+        "is_string_list (ret, 3, \"abc\", \"abc123\", \"ABC\")")
     ];
     shortdesc = "return lines matching a pattern";
     longdesc = "\
@@ -6517,13 +6588,14 @@ per libguestfs instance." };
     proc_nr = Some 180;
     optional = Some "inotify";
     tests = [
-      InitScratchFS, Always, TestOutputList (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/inotify_add_watch"];
          ["inotify_init"; "0"];
          ["inotify_add_watch"; "/inotify_add_watch"; "1073741823"];
          ["touch"; "/inotify_add_watch/a"];
          ["touch"; "/inotify_add_watch/b"];
-         ["inotify_files"]], ["a"; "b"])
+         ["inotify_files"]],
+        "is_string_list (ret, 2, \"a\", \"b\")")
     ];
     shortdesc = "add an inotify watch";
     longdesc = "\
@@ -7491,9 +7563,10 @@ To get the size of block devices, use C<guestfs_blockdev_getsize64>." };
     style = RErr, [String "logvol"; String "newlogvol"], [];
     proc_nr = Some 219;
     tests = [
-      InitBasicFSonLVM, Always, TestOutputList (
+      InitBasicFSonLVM, Always, TestResult (
         [["lvrename"; "/dev/VG/LV"; "/dev/VG/LV2"];
-         ["lvs"]], ["/dev/VG/LV2"])
+         ["lvs"]],
+        "is_string_list (ret, 1, \"/dev/VG/LV2\")")
     ];
     shortdesc = "rename an LVM logical volume";
     longdesc = "\
@@ -7504,13 +7577,14 @@ Rename a logical volume C<logvol> with the new name C<newlogvol>." };
     style = RErr, [String "volgroup"; String "newvolgroup"], [];
     proc_nr = Some 220;
     tests = [
-      InitBasicFSonLVM, Always, TestOutputList (
+      InitBasicFSonLVM, Always, TestResult (
         [["umount"; "/"; "false"; "false"];
          ["vg_activate"; "false"; "VG"];
          ["vgrename"; "VG"; "VG2"];
          ["vg_activate"; "true"; "VG2"];
          ["mount"; "/dev/VG2/LV"; "/"];
-         ["vgs"]], ["VG2"])
+         ["vgs"]],
+        "is_string_list (ret, 1, \"VG2\")")
     ];
     shortdesc = "rename an LVM volume group";
     longdesc = "\
@@ -8418,10 +8492,11 @@ See also C<guestfs_download>, C<guestfs_pread>." };
     proc_nr = Some 275;
     protocol_limit_warning = true;
     tests = [
-      InitPartition, Always, TestOutputListOfDevices (
+      InitPartition, Always, TestResult (
         [["pwrite_device"; "/dev/sda"; "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"; "446"];
          ["blockdev_rereadpt"; "/dev/sda"];
-         ["list_partitions"]], ["/dev/sdb1"])
+         ["list_partitions"]],
+        "is_device_list (ret, 1, \"/dev/sdb1\")")
     ];
     shortdesc = "write to part of a device";
     longdesc = "\
@@ -9331,7 +9406,7 @@ or after calling this, depending on your requirements." };
     proc_nr = Some 312;
     optional = Some "lvm2";
     tests = [
-      InitEmpty, Always, TestOutputList (
+      InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -9340,7 +9415,7 @@ or after calling this, depending on your requirements." };
          ["lvcreate_free"; "LV3"; "VG"; "50"];
          ["lvcreate_free"; "LV4"; "VG"; "100"];
          ["lvs"]],
-        ["/dev/VG/LV1"; "/dev/VG/LV2"; "/dev/VG/LV3"; "/dev/VG/LV4"])
+        "is_string_list (ret, 4, \"/dev/VG/LV1\", \"/dev/VG/LV2\", \"/dev/VG/LV3\", \"/dev/VG/LV4\")")
     ];
     shortdesc = "create an LVM logical volume in % remaining free space";
     longdesc = "\

@@ -67,6 +67,90 @@ incr (guestfs_h *g, void *iv)
   (*i)++;
 }
 
+static int compare_lists (char **, char **, int (*) (const char *, const char *));
+static int compare_devices (const char *, const char *);
+
+/* Compare 'ret' to the string list that follows. */
+static int
+is_string_list (char **ret, size_t n, ...)
+{
+  CLEANUP_FREE /* sic */ char **expected = malloc ((n+1) * sizeof (char *));
+  size_t i;
+  va_list args;
+
+  va_start (args, n);
+  for (i = 0; i < n; ++i)
+    expected[i] = va_arg (args, char *);
+  expected[n] = NULL;
+  va_end (args);
+  return compare_lists (ret, expected, strcmp);
+}
+
+/* Compare 'ret' to the device list that follows. */
+static int
+is_device_list (char **ret, size_t n, ...)
+{
+  CLEANUP_FREE /* sic */ char **expected = malloc ((n+1) * sizeof (char *));
+  size_t i;
+  va_list args;
+
+  va_start (args, n);
+  for (i = 0; i < n; ++i)
+    expected[i] = va_arg (args, char *);
+  expected[n] = NULL;
+  va_end (args);
+  return compare_lists (ret, expected, compare_devices);
+}
+
+static int
+compare_lists (char **ret, char **expected,
+               int (*compare) (const char *, const char *))
+{
+  size_t i;
+
+  for (i = 0; ret[i] != NULL; ++i) {
+    if (!expected[i]) {
+      fprintf (stderr, \"test failed: returned list is too long\\n\");
+      goto fail;
+    }
+    if (compare (ret[i], expected[i]) != 0) {
+      fprintf (stderr, \"test failed: elements differ at position %%zu\\n\", i);
+      goto fail;
+    }
+  }
+  if (expected[i]) {
+    fprintf (stderr, \"test failed: returned list is too short\\n\");
+    goto fail;
+  }
+
+  return 1; /* test expecting true for OK */
+
+ fail:
+  fprintf (stderr, \"returned list was:\\n\");
+  print_strings (ret);
+  fprintf (stderr, \"expected list was:\\n\");
+  print_strings (expected);
+  return 0; /* test expecting false for failure */
+}
+
+/* Compare two device names, ignoring hd/sd/vd */
+static int
+compare_devices (const char *dev1, const char *dev2)
+{
+  CLEANUP_FREE char *copy1 = NULL, *copy2 = NULL;
+
+  assert (dev1 && dev2);
+  if (strlen (dev1) < 6 || strlen (dev2) < 6)
+    return -1;
+
+  copy1 = strdup (dev1);
+  copy2 = strdup (dev2);
+  copy1[5] = 'h';
+  copy2[5] = 'h';
+
+  return strcmp (copy1, copy2);
+}
+
 /* Get md5sum of the named file. */
 static void
 md5sum (const char *filename, char *result)
@@ -536,55 +620,6 @@ and generate_one_test_body name i test_name init test =
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
-  | TestOutputList (seq, expected) ->
-      pr "  /* TestOutputList for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        iteri (
-          fun i str ->
-            pr "  if (!%s[%d]) {\n" ret i;
-            pr "    fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
-            pr "    print_strings (%s);\n" ret;
-            pr "    return -1;\n";
-            pr "  }\n";
-            pr "  if (STRNEQ (%s[%d], \"%s\")) {\n" ret i (c_quote str);
-            pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s[%d]);\n" test_name (c_quote str) ret i;
-            pr "    return -1;\n";
-            pr "  }\n";
-        ) expected;
-        pr "  if (%s[%d] != NULL) {\n" ret (List.length expected);
-        pr "    fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
-        pr "    print_strings (%s);\n" ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
-  | TestOutputListOfDevices (seq, expected) ->
-      pr "  /* TestOutputListOfDevices for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        iteri (
-          fun i str ->
-            pr "  if (!%s[%d]) {\n" ret i;
-            pr "    fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
-            pr "    print_strings (%s);\n" ret;
-            pr "    return -1;\n";
-            pr "  }\n";
-            pr "  %s[%d][5] = 's';\n" ret i;
-            pr "  if (STRNEQ (%s[%d], \"%s\")) {\n" ret i (c_quote str);
-            pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s[%d]);\n" test_name (c_quote str) ret i;
-            pr "    return -1;\n";
-            pr "  }\n";
-        ) expected;
-        pr "  if (%s[%d] != NULL) {\n" ret (List.length expected);
-        pr "    fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
-        pr "    print_strings (%s);\n" ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
   | TestOutputLength (seq, expected) ->
       pr "  /* TestOutputLength for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
@@ -811,7 +846,7 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
   | RString _ ->
     pr "  CLEANUP_FREE char *%s;\n" ret
   | RStringList _ | RHashtable _ ->
-    pr "  CLEANUP_FREE char **%s;\n" ret;
+    pr "  CLEANUP_FREE_STRING_LIST char **%s;\n" ret;
   | RStruct (_, typ) ->
     pr "  CLEANUP_FREE_%s struct guestfs_%s *%s;\n"
       (String.uppercase typ) typ ret

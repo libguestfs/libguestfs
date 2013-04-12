@@ -232,8 +232,6 @@ and test =
    * be replaced with 'TestResult'.
    *)
   | TestOutput of seq * string
-  | TestOutputList of seq * string list
-  | TestOutputListOfDevices of seq * string list
   | TestOutputLength of seq * int
   | TestOutputBuffer of seq * string
   | TestOutputFileMD5 of seq * string

@@ -264,8 +264,7 @@ let seq_of_test = function
   | TestResultTrue s
   | TestResultFalse s
   | TestLastFail s
-  | TestOutput (s, _) | TestOutputList (s, _)
-  | TestOutputListOfDevices (s, _)
+  | TestOutput (s, _)
   | TestOutputLength (s, _) | TestOutputBuffer (s, _)
   | TestOutputFileMD5 (s, _)
   | TestOutputDevice (s, _)
