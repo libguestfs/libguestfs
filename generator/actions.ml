@@ -401,7 +401,7 @@ disabled by default)." };
     style = RBool "autosync", [], [];
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputTrue (
+      InitNone, Always, TestResultTrue (
         [["get_autosync"]])
     ];
     shortdesc = "get autosync mode";
@@ -438,7 +438,7 @@ This returns the verbose messages flag." };
     visibility = VStateTest;
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputTrue (
+      InitNone, Always, TestResultTrue (
       [["is_ready"]])
     ];
     shortdesc = "is ready to accept commands";
@@ -453,7 +453,7 @@ For more information on states, see L<guestfs(3)>." };
     style = RBool "config", [], [];
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputFalse (
+      InitNone, Always, TestResultFalse (
       [["is_config"]])
     ];
     shortdesc = "is in configuration state";
@@ -469,7 +469,7 @@ For more information on states, see L<guestfs(3)>." };
     visibility = VStateTest;
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputFalse (
+      InitNone, Always, TestResultFalse (
         [["is_launching"]])
     ];
     shortdesc = "is launching subprocess";
@@ -485,7 +485,7 @@ For more information on states, see L<guestfs(3)>." };
     visibility = VStateTest;
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputFalse (
+      InitNone, Always, TestResultFalse (
         [["is_busy"]])
     ];
     shortdesc = "is busy processing a command";
@@ -633,7 +633,7 @@ see L<guestfs(3)>." };
     fish_alias = ["trace"];
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputFalse (
+      InitNone, Always, TestResultFalse (
         [["set_trace"; "false"];
          ["get_trace"]])
     ];
@@ -2571,11 +2571,11 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
     name = "disk_has_backing_file";
     style = RBool "backingfile", [String "filename"], [];
     tests = [
-      InitEmpty, Always, TestOutputFalse (
+      InitEmpty, Always, TestResultFalse (
         [["disk_has_backing_file"; "test1.img"]]);
-      InitEmpty, Always, TestOutputFalse (
+      InitEmpty, Always, TestResultFalse (
         [["disk_has_backing_file"; "test2.img"]]);
-      InitEmpty, Always, TestOutputFalse (
+      InitEmpty, Always, TestResultFalse (
         [["disk_has_backing_file"; "test3.img"]]);
     ];
     shortdesc = "return whether disk has a backing file";
@@ -2940,7 +2940,7 @@ closing the handle." };
     style = RErr, [Pathname "path"], [];
     proc_nr = Some 3;
     tests = [
-      InitScratchFS, Always, TestOutputTrue (
+      InitScratchFS, Always, TestResultTrue (
         [["touch"; "/touch"];
          ["exists"; "/touch"]])
     ];
@@ -3381,7 +3381,7 @@ Remove the single directory C<path>." };
     style = RErr, [Pathname "path"], [];
     proc_nr = Some 31;
     tests = [
-      InitScratchFS, Always, TestOutputFalse
+      InitScratchFS, Always, TestResultFalse
         [["mkdir"; "/rm_rf"];
          ["mkdir"; "/rm_rf/foo"];
          ["touch"; "/rm_rf/foo/bar"];
@@ -3399,7 +3399,7 @@ command." };
     style = RErr, [Pathname "path"], [];
     proc_nr = Some 32;
     tests = [
-      InitScratchFS, Always, TestOutputTrue
+      InitScratchFS, Always, TestResultTrue
         [["mkdir"; "/mkdir"];
          ["is_dir"; "/mkdir"]];
       InitScratchFS, Always, TestLastFail
@@ -3414,13 +3414,13 @@ Create a directory named C<path>." };
     style = RErr, [Pathname "path"], [];
     proc_nr = Some 33;
     tests = [
-      InitScratchFS, Always, TestOutputTrue
+      InitScratchFS, Always, TestResultTrue
         [["mkdir_p"; "/mkdir_p/foo/bar"];
          ["is_dir"; "/mkdir_p/foo/bar"]];
-      InitScratchFS, Always, TestOutputTrue
+      InitScratchFS, Always, TestResultTrue
         [["mkdir_p"; "/mkdir_p2/foo/bar"];
          ["is_dir"; "/mkdir_p2/foo"]];
-      InitScratchFS, Always, TestOutputTrue
+      InitScratchFS, Always, TestResultTrue
         [["mkdir_p"; "/mkdir_p3/foo/bar"];
          ["is_dir"; "/mkdir_p3"]];
       (* Regression tests for RHBZ#503133: *)
@@ -3470,9 +3470,9 @@ yourself (Augeas support makes this relatively easy)." };
     style = RBool "existsflag", [Pathname "path"], [];
     proc_nr = Some 36;
     tests = [
-      InitISOFS, Always, TestOutputTrue (
+      InitISOFS, Always, TestResultTrue (
         [["exists"; "/empty"]]);
-      InitISOFS, Always, TestOutputTrue (
+      InitISOFS, Always, TestResultTrue (
         [["exists"; "/directory"]])
     ];
     shortdesc = "test if file or directory exists";
@@ -3487,9 +3487,9 @@ See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>." };
     style = RBool "fileflag", [Pathname "path"], [];
     proc_nr = Some 37;
     tests = [
-      InitISOFS, Always, TestOutputTrue (
+      InitISOFS, Always, TestResultTrue (
         [["is_file"; "/known-1"]]);
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_file"; "/directory"]])
     ];
     shortdesc = "test if a regular file";
@@ -3505,9 +3505,9 @@ See also C<guestfs_stat>." };
     style = RBool "dirflag", [Pathname "path"], [];
     proc_nr = Some 38;
     tests = [
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_dir"; "/known-3"]]);
-      InitISOFS, Always, TestOutputTrue (
+      InitISOFS, Always, TestResultTrue (
         [["is_dir"; "/directory"]])
     ];
     shortdesc = "test if a directory";
@@ -4014,7 +4014,7 @@ that libguestfs was built against, and the filesystem itself." };
     style = RErr, [Device "device"], [];
     proc_nr = Some 56;
     tests = [
-      InitEmpty, Always, TestOutputTrue (
+      InitEmpty, Always, TestResultTrue (
         [["blockdev_setro"; "/dev/sda"];
          ["blockdev_getro"; "/dev/sda"]])
     ];
@@ -4029,7 +4029,7 @@ This uses the L<blockdev(8)> command." };
     style = RErr, [Device "device"], [];
     proc_nr = Some 57;
     tests = [
-      InitEmpty, Always, TestOutputFalse (
+      InitEmpty, Always, TestResultFalse (
         [["blockdev_setrw"; "/dev/sda"];
          ["blockdev_getro"; "/dev/sda"]])
     ];
@@ -4044,7 +4044,7 @@ This uses the L<blockdev(8)> command." };
     style = RBool "ro", [Device "device"], [];
     proc_nr = Some 58;
     tests = [
-      InitEmpty, Always, TestOutputTrue (
+      InitEmpty, Always, TestResultTrue (
         [["blockdev_setro"; "/dev/sda"];
          ["blockdev_getro"; "/dev/sda"]])
     ];
@@ -4702,7 +4702,7 @@ C<guestfs_is_zero_device>" };
      * https://bugzilla.redhat.com/show_bug.cgi?id=479760
      *)
     tests = [
-      InitBasicFS, Always, TestOutputTrue (
+      InitBasicFS, Always, TestResultTrue (
         [["mkdir_p"; "/boot/grub"];
          ["write"; "/boot/grub/device.map"; "(hd0) /dev/vda"];
          ["grub_install"; "/"; "/dev/vda"];
@@ -4756,7 +4756,7 @@ replacing C</dev/vda> with the name of the installation device.
          ["write"; "/cp/old"; "file content"];
          ["cp"; "/cp/old"; "/cp/new"];
          ["cat"; "/cp/new"]], "file content");
-      InitScratchFS, Always, TestOutputTrue (
+      InitScratchFS, Always, TestResultTrue (
         [["mkdir"; "/cp2"];
          ["write"; "/cp2/old"; "file content"];
          ["cp"; "/cp2/old"; "/cp2/new"];
@@ -4800,7 +4800,7 @@ recursively using the C<cp -a> command." };
          ["write"; "/mv/old"; "file content"];
          ["mv"; "/mv/old"; "/mv/new"];
          ["cat"; "/mv/new"]], "file content");
-      InitScratchFS, Always, TestOutputFalse (
+      InitScratchFS, Always, TestResultFalse (
         [["mkdir"; "/mv2"];
          ["write"; "/mv2/old"; "file content"];
          ["mv"; "/mv2/old"; "/mv2/new"];
@@ -4872,12 +4872,12 @@ or attached block device(s) in any other way." };
     style = RBool "equality", [Pathname "file1"; Pathname "file2"], [];
     proc_nr = Some 93;
     tests = [
-      InitScratchFS, Always, TestOutputTrue (
+      InitScratchFS, Always, TestResultTrue (
         [["mkdir"; "/equal"];
          ["write"; "/equal/file1"; "contents of a file"];
          ["cp"; "/equal/file1"; "/equal/file2"];
          ["equal"; "/equal/file1"; "/equal/file2"]]);
-      InitScratchFS, Always, TestOutputFalse (
+      InitScratchFS, Always, TestResultFalse (
         [["mkdir"; "/equal2"];
          ["write"; "/equal2/file1"; "contents of a file"];
          ["write"; "/equal2/file2"; "contents of another file"];
@@ -7687,7 +7687,7 @@ it contains." };
     style = RBool "bootable", [Device "device"; Int "partnum"], [];
     proc_nr = Some 234;
     tests = [
-      InitEmpty, Always, TestOutputTrue (
+      InitEmpty, Always, TestResultTrue (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "primary"; "1"; "-1"];
          ["part_set_bootable"; "/dev/sda"; "1"; "true"];
@@ -8200,9 +8200,9 @@ I<other> keys." };
     style = RBool "lvflag", [Device "device"], [];
     proc_nr = Some 264;
     tests = [
-      InitBasicFSonLVM, Always, TestOutputTrue (
+      InitBasicFSonLVM, Always, TestResultTrue (
         [["is_lv"; "/dev/VG/LV"]]);
-      InitBasicFSonLVM, Always, TestOutputFalse (
+      InitBasicFSonLVM, Always, TestResultFalse (
         [["is_lv"; "/dev/sda1"]])
     ];
     shortdesc = "test if device is a logical volume";
@@ -8239,9 +8239,9 @@ To find the label of a filesystem, use C<guestfs_vfs_label>." };
     style = RBool "flag", [Pathname "path"], [];
     proc_nr = Some 267;
     tests = [
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_chardev"; "/directory"]]);
-      InitScratchFS, Always, TestOutputTrue (
+      InitScratchFS, Always, TestResultTrue (
         [["mknod_c"; "0o777"; "99"; "66"; "/is_chardev"];
          ["is_chardev"; "/is_chardev"]])
     ];
@@ -8257,9 +8257,9 @@ See also C<guestfs_stat>." };
     style = RBool "flag", [Pathname "path"], [];
     proc_nr = Some 268;
     tests = [
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_blockdev"; "/directory"]]);
-      InitScratchFS, Always, TestOutputTrue (
+      InitScratchFS, Always, TestResultTrue (
         [["mknod_b"; "0o777"; "99"; "66"; "/is_blockdev"];
          ["is_blockdev"; "/is_blockdev"]])
     ];
@@ -8275,9 +8275,9 @@ See also C<guestfs_stat>." };
     style = RBool "flag", [Pathname "path"], [];
     proc_nr = Some 269;
     tests = [
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_fifo"; "/directory"]]);
-      InitScratchFS, Always, TestOutputTrue (
+      InitScratchFS, Always, TestResultTrue (
         [["mkfifo"; "0o777"; "/is_fifo"];
          ["is_fifo"; "/is_fifo"]])
     ];
@@ -8293,9 +8293,9 @@ See also C<guestfs_stat>." };
     style = RBool "flag", [Pathname "path"], [];
     proc_nr = Some 270;
     tests = [
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_symlink"; "/directory"]]);
-      InitISOFS, Always, TestOutputTrue (
+      InitISOFS, Always, TestResultTrue (
         [["is_symlink"; "/abssymlink"]])
     ];
     shortdesc = "test if symbolic link";
@@ -8311,7 +8311,7 @@ See also C<guestfs_stat>." };
     proc_nr = Some 271;
     (* XXX Need a positive test for sockets. *)
     tests = [
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_socket"; "/directory"]])
     ];
     shortdesc = "test if socket";
@@ -8605,9 +8605,9 @@ handle is closed." };
     style = RBool "zeroflag", [Pathname "path"], [];
     proc_nr = Some 283;
     tests = [
-      InitISOFS, Always, TestOutputTrue (
+      InitISOFS, Always, TestResultTrue (
         [["is_zero"; "/100kallzeroes"]]);
-      InitISOFS, Always, TestOutputFalse (
+      InitISOFS, Always, TestResultFalse (
         [["is_zero"; "/100kallspaces"]])
     ];
     shortdesc = "test if a file contains all zero bytes";
@@ -8620,11 +8620,11 @@ it contains all zero bytes." };
     style = RBool "zeroflag", [Device "device"], [];
     proc_nr = Some 284;
     tests = [
-      InitBasicFS, Always, TestOutputTrue (
+      InitBasicFS, Always, TestResultTrue (
         [["umount"; "/dev/sda1"; "false"; "false"];
          ["zero_device"; "/dev/sda1"];
          ["is_zero_device"; "/dev/sda1"]]);
-      InitBasicFS, Always, TestOutputFalse (
+      InitBasicFS, Always, TestResultFalse (
         [["is_zero_device"; "/dev/sda1"]])
     ];
     shortdesc = "test if a device contains all zero bytes";
@@ -8871,7 +8871,7 @@ of this call." };
          ["copy_file_to_file"; "/copyff/src"; "/copyff/dest"; ""; ""; ""; ""];
          ["read_file"; "/copyff/dest"]], "hello, world");
       let size = 1024 * 1024 in
-      InitScratchFS, Always, TestOutputTrue (
+      InitScratchFS, Always, TestResultTrue (
         [["mkdir"; "/copyff2"];
          ["fill"; "0"; string_of_int size; "/copyff2/src"];
          ["touch"; "/copyff2/dest"];
@@ -10390,7 +10390,7 @@ detected (returns C<1>) or was not detected (returns C<0>)." };
     style = RErr, [Pathname "path"], [];
     proc_nr = Some 367;
     tests = [
-      InitScratchFS, Always, TestOutputFalse
+      InitScratchFS, Always, TestResultFalse
         [["mkdir"; "/rm_f"];
          ["touch"; "/rm_f/foo"];
          ["rm_f"; "/rm_f/foo"];
@@ -10901,7 +10901,7 @@ for other partition types." };
     style = RErr, [Pathname "oldpath"; Pathname "newpath"], [];
     proc_nr = Some 394;
     tests = [
-      InitScratchFS, Always, TestOutputFalse (
+      InitScratchFS, Always, TestResultFalse (
         [["mkdir"; "/rename"];
          ["write"; "/rename/old"; "file content"];
          ["rename"; "/rename/old"; "/rename/new"];
@@ -10918,11 +10918,11 @@ you are better to use C<guestfs_mv> instead." };
     style = RBool "flag", [Device "device"], [];
     proc_nr = Some 395;
     tests = [
-      InitEmpty, Always, TestOutputTrue (
+      InitEmpty, Always, TestResultTrue (
         [["is_whole_device"; "/dev/sda"]]);
-      InitPartition, Always, TestOutputFalse (
+      InitPartition, Always, TestResultFalse (
         [["is_whole_device"; "/dev/sda1"]]);
-      InitBasicFSonLVM, Always, TestOutputFalse (
+      InitBasicFSonLVM, Always, TestResultFalse (
         [["is_whole_device"; "/dev/VG/LV"]]);
     ];
     shortdesc = "test if a device is a whole device";
@@ -10955,7 +10955,7 @@ deliberately crashes guestfsd." };
     style = RBool "isavailable", [StringList "groups"], [];
     proc_nr = Some 398;
     tests = [
-      InitNone, Always, TestOutputTrue [["feature_available"; ""]]
+      InitNone, Always, TestResultTrue [["feature_available"; ""]]
     ];
     shortdesc = "test availability of some parts of the API";
     longdesc = "\

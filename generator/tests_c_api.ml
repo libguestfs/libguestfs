@@ -506,7 +506,7 @@ and generate_one_test_body name i test_name init test =
     pr "  }\n"
 
   | TestResultFalse seq ->
-    pr "  /* TestResultTrue for %s (%d) */\n" name i;
+    pr "  /* TestResultFalse for %s (%d) */\n" name i;
     let seq, last = get_seq_last seq in
     List.iter (generate_test_command_call test_name) seq;
     generate_test_command_call test_name ~ret:"ret" last;
@@ -605,28 +605,6 @@ and generate_one_test_body name i test_name init test =
         pr "    fprintf (stderr, \"%%s: expected %s %d but got %%d\\n\",\n"
           op expected;
         pr "             \"%s\", (int) %s);\n" test_name ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
-  | TestOutputTrue seq ->
-      pr "  /* TestOutputTrue for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  if (!%s) {\n" ret;
-        pr "    fprintf (stderr, \"%%s: expected true, got false\\n\", \"%s\");\n" test_name;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
-  | TestOutputFalse seq ->
-      pr "  /* TestOutputFalse for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  if (%s) {\n" ret;
-        pr "    fprintf (stderr, \"%%s: expected false, got true\\n\", \"%s\");\n" test_name;
         pr "    return -1;\n";
         pr "  }\n"
       in

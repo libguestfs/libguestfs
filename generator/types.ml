@@ -217,6 +217,12 @@ and test =
      *)
   | TestResult of seq * string
 
+    (* Run the command sequence.  No command should fail, and the
+     * last command must return true or false.
+     *)
+  | TestResultTrue of seq
+  | TestResultFalse of seq
+
   (* Run the command sequence and expect the final command (only)
    * to fail.
    *)
@@ -230,8 +236,6 @@ and test =
   | TestOutputListOfDevices of seq * string list
   | TestOutputInt of seq * int
   | TestOutputIntOp of seq * string * int
-  | TestOutputTrue of seq
-  | TestOutputFalse of seq
   | TestOutputLength of seq * int
   | TestOutputBuffer of seq * string
   | TestOutputStruct of seq * test_field_compare list

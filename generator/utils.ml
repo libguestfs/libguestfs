@@ -261,11 +261,12 @@ let name_of_optargt = function
 let seq_of_test = function
   | TestRun s
   | TestResult (s, _)
+  | TestResultTrue s
+  | TestResultFalse s
   | TestLastFail s
   | TestOutput (s, _) | TestOutputList (s, _)
   | TestOutputListOfDevices (s, _)
   | TestOutputInt (s, _) | TestOutputIntOp (s, _, _)
-  | TestOutputTrue s | TestOutputFalse s
   | TestOutputLength (s, _) | TestOutputBuffer (s, _)
   | TestOutputStruct (s, _)
   | TestOutputFileMD5 (s, _)
