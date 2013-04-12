@@ -266,7 +266,6 @@ let seq_of_test = function
   | TestResultTrue s
   | TestResultFalse s
   | TestLastFail s
-  | TestOutputBuffer (s, _)
   | TestOutputHashtable (s, _) -> s
 
 let c_quote str =

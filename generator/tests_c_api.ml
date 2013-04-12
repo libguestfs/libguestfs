@@ -151,6 +151,17 @@ compare_devices (const char *dev1, const char *dev2)
   return strcmp (copy1, copy2);
 }
 
+/* Compare returned buffer with expected buffer.  Note the buffers have
+ * a length and may contain ASCII NUL characters.
+ */
+static int
+compare_buffers (const char *b1, size_t s1, const char *b2, size_t s2)
+{
+  if (s1 != s2)
+    return s1 - s2;
+  return memcmp (b1, b2, s1);
+}
+
 /* Get md5sum of the named file. */
 static void
 md5sum (const char *filename, char *result)
@@ -649,22 +660,6 @@ and generate_one_test_body name i test_name init test =
 
   (* Backwards compatible ... *)
 
-  | TestOutputBuffer (seq, expected) ->
-      pr "  /* TestOutputBuffer for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let len = String.length expected in
-      let test ret =
-        pr "  if (size != %d) {\n" len;
-        pr "    fprintf (stderr, \"%%s: returned size of buffer wrong, expected %d but got %%zu\\n\", \"%s\", size);\n" len test_name;
-        pr "    return -1;\n";
-        pr "  }\n";
-        pr "  if (STRNEQLEN (%s, \"%s\", size)) {\n" ret (c_quote expected);
-        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
   | TestOutputHashtable (seq, fields) ->
       pr "  /* TestOutputHashtable for %s (%d) */\n" name i;
       pr "  const char *key, *expected, *value;\n";

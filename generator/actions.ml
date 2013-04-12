@@ -2325,8 +2325,9 @@ The returned list is sorted." };
     name = "read_file";
     style = RBufferOut "content", [Pathname "path"], [];
     tests = [
-      InitISOFS, Always, TestOutputBuffer (
-        [["read_file"; "/known-4"]], "abc\ndef\nghi")
+      InitISOFS, Always, TestResult (
+        [["read_file"; "/known-4"]],
+        "compare_buffers (ret, size, \"abc\\ndef\\nghi\", 11) == 0")
     ];
     shortdesc = "read a file";
     longdesc = "\
@@ -7182,10 +7183,12 @@ into smaller groups of names." };
     proc_nr = Some 207;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputBuffer (
-        [["pread"; "/known-4"; "1"; "3"]], "\n");
-      InitISOFS, Always, TestOutputBuffer (
-        [["pread"; "/empty"; "0"; "100"]], "")
+      InitISOFS, Always, TestResult (
+        [["pread"; "/known-4"; "1"; "3"]],
+        "compare_buffers (ret, size, \"\\n\", 1) == 0");
+      InitISOFS, Always, TestResult (
+        [["pread"; "/empty"; "0"; "100"]],
+        "compare_buffers (ret, size, NULL, 0) == 0")
     ];
     shortdesc = "read part of a file";
     longdesc = "\
@@ -7428,9 +7431,10 @@ for a full list." };
     proc_nr = Some 215;
     progress = true;
     tests = [
-      InitScratchFS, Always, TestOutputBuffer (
+      InitScratchFS, Always, TestResult (
         [["fill"; "0x63"; "10"; "/fill"];
-         ["read_file"; "/fill"]], "cccccccccc")
+         ["read_file"; "/fill"]],
+        "compare_buffers (ret, size, \"cccccccccc\", 10) == 0")
     ];
     shortdesc = "fill a file with octets";
     longdesc = "\
@@ -7523,11 +7527,12 @@ See also C<guestfs_filesystem_available>." };
     proc_nr = Some 217;
     deprecated_by = Some "copy_device_to_device";
     tests = [
-      InitScratchFS, Always, TestOutputBuffer (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/dd"];
          ["write"; "/dd/src"; "hello, world"];
          ["dd"; "/dd/src"; "/dd/dest"];
-         ["read_file"; "/dd/dest"]], "hello, world")
+         ["read_file"; "/dd/dest"]],
+        "compare_buffers (ret, size, \"hello, world\", 12) == 0")
     ];
     shortdesc = "copy from source to destination using dd";
     longdesc = "\
@@ -7596,8 +7601,9 @@ Rename a volume group C<volgroup> with the new name C<newvolgroup>." };
     proc_nr = Some 221;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutputBuffer (
-        [["initrd_cat"; "/initrd"; "known-4"]], "abc\ndef\nghi")
+      InitISOFS, Always, TestResult (
+        [["initrd_cat"; "/initrd"; "known-4"]],
+        "compare_buffers (ret, size, \"abc\\ndef\\nghi\", 11) == 0")
     ];
     shortdesc = "list the contents of a single file in an initrd";
     longdesc = "\
@@ -7671,11 +7677,12 @@ See also C<guestfs_vgpvuuids>." };
     proc_nr = Some 227;
     progress = true; deprecated_by = Some "copy_device_to_device";
     tests = [
-      InitScratchFS, Always, TestOutputBuffer (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/copy_size"];
          ["write"; "/copy_size/src"; "hello, world"];
          ["copy_size"; "/copy_size/src"; "/copy_size/dest"; "5"];
-         ["read_file"; "/copy_size/dest"]], "hello")
+         ["read_file"; "/copy_size/dest"]],
+        "compare_buffers (ret, size, \"hello\", 5) == 0")
     ];
     shortdesc = "copy size bytes from source to destination using dd";
     longdesc = "\
@@ -7943,9 +7950,10 @@ coreutils info file." };
     proc_nr = Some 245;
     progress = true;
     tests = [
-      InitScratchFS, Always, TestOutputBuffer (
+      InitScratchFS, Always, TestResult (
         [["fill_pattern"; "abcdefghijklmnopqrstuvwxyz"; "28"; "/fill_pattern"];
-         ["read_file"; "/fill_pattern"]], "abcdefghijklmnopqrstuvwxyzab")
+         ["read_file"; "/fill_pattern"]],
+        "compare_buffers (ret, size, \"abcdefghijklmnopqrstuvwxyzab\", 28) == 0")
     ];
     shortdesc = "fill a file with a repeating pattern of bytes";
     longdesc = "\
@@ -8516,8 +8524,9 @@ See also C<guestfs_pwrite>." };
     proc_nr = Some 276;
     protocol_limit_warning = true;
     tests = [
-      InitEmpty, Always, TestOutputBuffer (
-        [["pread_device"; "/dev/sdd"; "8"; "32768"]], "\001CD001\001\000")
+      InitEmpty, Always, TestResult (
+        [["pread_device"; "/dev/sdd"; "8"; "32768"]],
+        "compare_buffers (ret, size, \"\\1CD001\\1\\0\", 8) == 0")
     ];
     shortdesc = "read part of a device";
     longdesc = "\
@@ -8947,11 +8956,12 @@ of this call." };
     proc_nr = Some 297;
     progress = true;
     tests = [
-      InitScratchFS, Always, TestOutputBuffer (
+      InitScratchFS, Always, TestResult (
         [["mkdir"; "/copyff"];
          ["write"; "/copyff/src"; "hello, world"];
          ["copy_file_to_file"; "/copyff/src"; "/copyff/dest"; ""; ""; ""; ""];
-         ["read_file"; "/copyff/dest"]], "hello, world");
+         ["read_file"; "/copyff/dest"]],
+        "compare_buffers (ret, size, \"hello, world\", 12) == 0");
       let size = 1024 * 1024 in
       InitScratchFS, Always, TestResultTrue (
         [["mkdir"; "/copyff2"];
