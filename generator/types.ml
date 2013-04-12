@@ -234,8 +234,6 @@ and test =
   | TestOutput of seq * string
   | TestOutputList of seq * string list
   | TestOutputListOfDevices of seq * string list
-  | TestOutputInt of seq * int
-  | TestOutputIntOp of seq * string * int
   | TestOutputLength of seq * int
   | TestOutputBuffer of seq * string
   | TestOutputStruct of seq * test_field_compare list

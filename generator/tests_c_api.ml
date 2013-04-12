@@ -584,32 +584,6 @@ and generate_one_test_body name i test_name init test =
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
-  | TestOutputInt (seq, expected) ->
-      pr "  /* TestOutputInt for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  if (%s != %d) {\n" ret expected;
-        pr "    fprintf (stderr, \"%%s: expected %d but got %%d\\n\",\n"
-          expected;
-        pr "             \"%s\", (int) %s);\n" test_name ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
-  | TestOutputIntOp (seq, op, expected) ->
-      pr "  /* TestOutputIntOp for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  if (! (%s %s %d)) {\n" ret op expected;
-        pr "    fprintf (stderr, \"%%s: expected %s %d but got %%d\\n\",\n"
-          op expected;
-        pr "             \"%s\", (int) %s);\n" test_name ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
   | TestOutputLength (seq, expected) ->
       pr "  /* TestOutputLength for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in

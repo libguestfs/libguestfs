@@ -530,8 +530,8 @@ see L<guestfs(3)>." };
     style = RInt "memsize", [], [];
     blocking = false;
     tests = [
-      InitNone, Always, TestOutputIntOp (
-      [["get_memsize"]], ">=", 256)
+      InitNone, Always, TestResult (
+      [["get_memsize"]], "ret >= 256")
     ];
     shortdesc = "get memory allocated to the qemu subprocess";
     longdesc = "\
@@ -2552,12 +2552,12 @@ See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
     name = "disk_virtual_size";
     style = RInt64 "size", [String "filename"], [];
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["disk_virtual_size"; "test1.img"]], 524288000);
-      InitEmpty, Always, TestOutputInt (
-        [["disk_virtual_size"; "test2.img"]], 52428800);
-      InitEmpty, Always, TestOutputInt (
-        [["disk_virtual_size"; "test3.img"]], 10485760);
+      InitEmpty, Always, TestResult (
+        [["disk_virtual_size"; "test1.img"]], "ret == UINT64_C (524288000)");
+      InitEmpty, Always, TestResult (
+        [["disk_virtual_size"; "test2.img"]], "ret == UINT64_C (52428800)");
+      InitEmpty, Always, TestResult (
+        [["disk_virtual_size"; "test3.img"]], "ret == UINT64_C (10485760)");
     ];
     shortdesc = "return virtual size of a disk";
     longdesc = "\
@@ -4060,8 +4060,8 @@ This uses the L<blockdev(8)> command." };
     style = RInt "sectorsize", [Device "device"], [];
     proc_nr = Some 59;
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["blockdev_getss"; "/dev/sda"]], 512)
+      InitEmpty, Always, TestResult (
+        [["blockdev_getss"; "/dev/sda"]], "ret == 512")
     ];
     shortdesc = "get sectorsize of block device";
     longdesc = "\
@@ -4106,8 +4106,8 @@ This uses the L<blockdev(8)> command." };
     style = RInt64 "sizeinsectors", [Device "device"], [];
     proc_nr = Some 62;
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["blockdev_getsz"; "/dev/sda"]], 1024000)
+      InitEmpty, Always, TestResult (
+        [["blockdev_getsz"; "/dev/sda"]], "ret == 1024000")
     ];
     shortdesc = "get total size of device in 512-byte sectors";
     longdesc = "\
@@ -4125,8 +4125,8 @@ This uses the L<blockdev(8)> command." };
     style = RInt64 "sizeinbytes", [Device "device"], [];
     proc_nr = Some 63;
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["blockdev_getsize64"; "/dev/sda"]], 524288000)
+      InitEmpty, Always, TestResult (
+        [["blockdev_getsize64"; "/dev/sda"]], "ret == UINT64_C (524288000)")
     ];
     shortdesc = "get total size of device in bytes";
     longdesc = "\
@@ -4629,13 +4629,13 @@ C<device>." };
     proc_nr = Some 84;
     fish_output = Some FishOutputHexadecimal;
     tests = [
-      InitBasicFS, Always, TestOutputInt (
+      InitBasicFS, Always, TestResult (
         [["umount"; "/dev/sda1"; "false"; "false"];
-         ["fsck"; "ext2"; "/dev/sda1"]], 0);
-      InitBasicFS, Always, TestOutputInt (
+         ["fsck"; "ext2"; "/dev/sda1"]], "ret == 0");
+      InitBasicFS, Always, TestResult (
         [["umount"; "/dev/sda1"; "false"; "false"];
          ["zero"; "/dev/sda1"];
-         ["fsck"; "ext2"; "/dev/sda1"]], 8)
+         ["fsck"; "ext2"; "/dev/sda1"]], "ret == 8")
     ];
     shortdesc = "run the filesystem checker";
     longdesc = "\
@@ -5184,14 +5184,14 @@ Sleep for C<secs> seconds." };
     proc_nr = Some 110;
     optional = Some "ntfs3g";
     tests = [
-      InitNone, Always, TestOutputInt (
+      InitNone, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 0);
-      InitNone, Always, TestOutputInt (
+         ["ntfs_3g_probe"; "true"; "/dev/sda1"]], "ret == 0");
+      InitNone, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 12)
+         ["ntfs_3g_probe"; "true"; "/dev/sda1"]], "ret == 12")
     ];
     shortdesc = "probe NTFS volume";
     longdesc = "\
@@ -5371,11 +5371,11 @@ See also: L<mkdtemp(3)>" };
     style = RInt "lines", [Pathname "path"], [];
     proc_nr = Some 118;
     tests = [
-      InitISOFS, Always, TestOutputInt (
-        [["wc_l"; "/10klines"]], 10000);
+      InitISOFS, Always, TestResult (
+        [["wc_l"; "/10klines"]], "ret == 10000");
       (* Test for RHBZ#579608, absolute symbolic links. *)
-      InitISOFS, Always, TestOutputInt (
-        [["wc_l"; "/abssymlink"]], 10000)
+      InitISOFS, Always, TestResult (
+        [["wc_l"; "/abssymlink"]], "ret == 10000")
     ];
     shortdesc = "count lines in a file";
     longdesc = "\
@@ -5387,8 +5387,8 @@ C<wc -l> external command." };
     style = RInt "words", [Pathname "path"], [];
     proc_nr = Some 119;
     tests = [
-      InitISOFS, Always, TestOutputInt (
-        [["wc_w"; "/10klines"]], 10000)
+      InitISOFS, Always, TestResult (
+        [["wc_w"; "/10klines"]], "ret == 10000")
     ];
     shortdesc = "count words in a file";
     longdesc = "\
@@ -5400,8 +5400,8 @@ C<wc -w> external command." };
     style = RInt "chars", [Pathname "path"], [];
     proc_nr = Some 120;
     tests = [
-      InitISOFS, Always, TestOutputInt (
-        [["wc_c"; "/100kallspaces"]], 102400)
+      InitISOFS, Always, TestResult (
+        [["wc_c"; "/100kallspaces"]], "ret == 102400")
     ];
     shortdesc = "count characters in a file";
     longdesc = "\
@@ -5522,8 +5522,8 @@ Use C<guestfs_statvfs> from programs." };
     proc_nr = Some 127;
     progress = true;
     tests = [
-      InitISOFS, Always, TestOutputInt (
-        [["du"; "/directory"]], 2 (* ISO fs blocksize is 2K *))
+      InitISOFS, Always, TestResult (
+        [["du"; "/directory"]], "ret == 2" (* ISO fs blocksize is 2K *))
     ];
     shortdesc = "estimate file space usage";
     longdesc = "\
@@ -5721,8 +5721,8 @@ The mode actually set is affected by the umask." };
     proc_nr = Some 137;
     fish_output = Some FishOutputOctal;
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["umask"; "0o22"]], 0o22)
+      InitEmpty, Always, TestResult (
+        [["umask"; "0o22"]], "ret == 022")
     ];
     shortdesc = "set file mode creation mask (umask)";
     longdesc = "\
@@ -7467,9 +7467,9 @@ This command cannot do partial copies
     style = RInt64 "size", [Pathname "file"], [];
     proc_nr = Some 218;
     tests = [
-      InitScratchFS, Always, TestOutputInt (
+      InitScratchFS, Always, TestResult (
         [["write"; "/filesize"; "hello, world"];
-         ["filesize"; "/filesize"]], 12)
+         ["filesize"; "/filesize"]], "ret == 12")
     ];
     shortdesc = "return the size of the file in bytes";
     longdesc = "\
@@ -7706,11 +7706,11 @@ See also C<guestfs_part_set_bootable>." };
     proc_nr = Some 235;
     fish_output = Some FishOutputHexadecimal;
     tests = [
-      InitEmpty, Always, TestOutputInt (
+      InitEmpty, Always, TestResult (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "primary"; "1"; "-1"];
          ["part_set_mbr_id"; "/dev/sda"; "1"; "0x7f"];
-         ["part_get_mbr_id"; "/dev/sda"; "1"]], 0x7f)
+         ["part_get_mbr_id"; "/dev/sda"; "1"]], "ret == 0x7f")
     ];
     shortdesc = "get the MBR type byte (ID byte) from a partition";
     longdesc = "\
@@ -7789,8 +7789,8 @@ is the same as the L<augtool(1)> C<clear> command." };
     proc_nr = Some 240;
     fish_output = Some FishOutputOctal;
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["get_umask"]], 0o22)
+      InitEmpty, Always, TestResult (
+        [["get_umask"]], "ret == 022")
     ];
     shortdesc = "get the current umask";
     longdesc = "\
@@ -8792,8 +8792,8 @@ as in C<guestfs_compress_out>." };
     style = RInt "partnum", [Device "partition"], [];
     proc_nr = Some 293;
     tests = [
-      InitPartition, Always, TestOutputInt (
-        [["part_to_partnum"; "/dev/sda1"]], 1);
+      InitPartition, Always, TestResult (
+        [["part_to_partnum"; "/dev/sda1"]], "ret == 1");
       InitEmpty, Always, TestLastFail (
         [["part_to_partnum"; "/dev/sda"]])
     ];
@@ -9646,10 +9646,10 @@ types will result in an error." };
     style = RInt64 "generation", [Pathname "file"], [];
     proc_nr = Some 320;
     tests = [
-      InitScratchFS, Always, TestOutputInt (
+      InitScratchFS, Always, TestResult (
         [["touch"; "/e2generation"];
          ["set_e2generation"; "/e2generation"; "123456"];
-         ["get_e2generation"; "/e2generation"]], 123456)
+         ["get_e2generation"; "/e2generation"]], "ret == 123456")
     ];
     shortdesc = "get ext2 file generation of a file";
     longdesc = "\
@@ -9877,8 +9877,8 @@ instead of, or after calling C<guestfs_zero_free_space>." };
     style = RInt "index", [Device "device"], [];
     proc_nr = Some 335;
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["device_index"; "/dev/sda"]], 0)
+      InitEmpty, Always, TestResult (
+        [["device_index"; "/dev/sda"]], "ret == 0")
     ];
     shortdesc = "convert device to index";
     longdesc = "\
@@ -9895,8 +9895,8 @@ See also C<guestfs_list_devices>, C<guestfs_part_to_dev>." };
     style = RInt "nrdisks", [], [];
     proc_nr = Some 336;
     tests = [
-      InitEmpty, Always, TestOutputInt (
-        [["nr_devices"]], 4)
+      InitEmpty, Always, TestResult (
+        [["nr_devices"]], "ret == 4")
     ];
     shortdesc = "return number of whole block devices (disks) added";
     longdesc = "\
