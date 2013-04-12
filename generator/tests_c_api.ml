@@ -37,10 +37,12 @@ let rec generate_tests () =
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <assert.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-internal-frontend.h\"
@@ -55,19 +57,6 @@ print_strings (char *const *argv)
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     printf (\"\\t%%s\\n\", argv[argc]);
-}
-
-static int
-is_available (const char *group)
-{
-  const char *groups[] = { group, NULL };
-  int r;
-
-  guestfs_push_error_handler (g, NULL, NULL);
-  r = guestfs_available (g, (char **) groups);
-  guestfs_pop_error_handler (g);
-
-  return r == 0;
 }
 
 static void
@@ -122,6 +111,22 @@ next_test (guestfs_h *g, size_t test_num, size_t nr_tests,
   if (guestfs_get_verbose (g))
     printf (\"-------------------------------------------------------------------------------\\n\");
   printf (\"%%3zu/%%3zu %%s\\n\", test_num, nr_tests, test_name);
+}
+
+static void
+skipped (const char *test_name, const char *fs, ...)
+{
+  va_list args;
+  CLEANUP_FREE char *reason = NULL;
+  int len;
+
+  va_start (args, fs);
+  len = vasprintf (&reason, fs, args);
+  va_end (args);
+  assert (len >= 0);
+
+  printf (\"        %%s skipped (reason: %%s)\\n\",
+          test_name, reason);
 }
 
 ";
@@ -351,7 +356,7 @@ static int
 %s (void)
 {
   if (%s_skip ()) {
-    printf (\"        %%s skipped (reason: environment variable set)\\n\", \"%s\");
+    skipped (\"%s\", \"environment variable set\");
     return 0;
   }
 
@@ -360,27 +365,31 @@ static int
   (* Optional functions should only be tested if the relevant
    * support is available in the daemon.
    *)
-  (match optional with
-  | Some group ->
-    pr "  if (!is_available (\"%s\")) {\n" group;
-    pr "    printf (\"        %%s skipped (reason: group %%s not available in daemon)\\n\", \"%s\", \"%s\");\n" test_name group;
+  let group_test group =
+    let sym = gensym "features" in
+    pr "  const char *%s[] = { \"%s\", NULL };\n" sym group;
+    pr "  if (!guestfs_feature_available (g, (char **) %s)) {\n" sym;
+    pr "    skipped (\"%s\", \"group %%s not available in daemon\",\n"
+      test_name;
+    pr "             %s[0]);\n" sym;
     pr "    return 0;\n";
     pr "  }\n";
+    pr "\n"
+  in
+
+  (match optional with
+  | Some group -> group_test group
   | None -> ()
   );
 
   (match prereq with
    | Disabled ->
-       pr "  printf (\"        %%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
+     pr "  skipped (\"%s\", \"test disabled in generator\");\n" test_name
    | IfAvailable group ->
-       pr "  if (!is_available (\"%s\")) {\n" group;
-       pr "    printf (\"        %%s skipped (reason: %%s not available)\\n\", \"%s\", \"%s\");\n" test_name group;
-       pr "    return 0;\n";
-       pr "  }\n";
-       pr "\n";
-       generate_one_test_body name i test_name init test;
+     group_test group;
+     generate_one_test_body name i test_name init test;
    | Always ->
-       generate_one_test_body name i test_name init test
+     generate_one_test_body name i test_name init test
   );
 
   pr "  return 0;\n";
@@ -453,6 +462,8 @@ and generate_one_test_body name i test_name init test =
           ["mount"; "/dev/sdb1"; "/"]]
   );
 
+  pr "\n";
+
   let get_seq_last = function
     | [] ->
         failwithf "%s: you cannot use [] (empty list) when expecting a command"
@@ -464,201 +475,241 @@ and generate_one_test_body name i test_name init test =
 
   match test with
   | TestRun seq ->
-      pr "  /* TestRun for %s (%d) */\n" name i;
-      List.iter (generate_test_command_call test_name) seq
+    pr "  /* TestRun for %s (%d) */\n" name i;
+    List.iter (generate_test_command_call test_name) seq
+
+  | TestResult (seq, expr) ->
+    pr "  /* TestResult for %s (%d) */\n" name i;
+    let n = List.length seq in
+    iteri (
+      fun i cmd ->
+        let ret = if i = n-1 then "ret" else sprintf "ret%d" (n-i-1) in
+        generate_test_command_call ~ret test_name cmd
+    ) seq;
+    pr "  if (! (%s)) {\n" expr;
+    pr "    fprintf (stderr, \"%%s: test failed: expression false: %%s\\n\",\n";
+    pr "             \"%s\", \"%s\");\n" test_name expr;
+    pr "    if (!guestfs_get_trace (g))\n";
+    pr "      fprintf (stderr, \"Set LIBGUESTFS_TRACE=1 to see values returned from API calls.\\n\");\n";
+    pr "    return -1;\n";
+    pr "  }\n"
+
+  | TestResultTrue seq ->
+    pr "  /* TestResultTrue for %s (%d) */\n" name i;
+    let seq, last = get_seq_last seq in
+    List.iter (generate_test_command_call test_name) seq;
+    generate_test_command_call test_name ~ret:"ret" last;
+    pr "  if (!ret) {\n";
+    pr "    fprintf (stderr, \"%%s: test failed: expected last command %%s to return 'true' but it returned 'false'\\n\",\n";
+    pr "             \"%s\", \"%s\");\n" test_name (List.hd last);
+    pr "    return -1;\n";
+    pr "  }\n"
+
+  | TestResultFalse seq ->
+    pr "  /* TestResultTrue for %s (%d) */\n" name i;
+    let seq, last = get_seq_last seq in
+    List.iter (generate_test_command_call test_name) seq;
+    generate_test_command_call test_name ~ret:"ret" last;
+    pr "  if (ret) {\n";
+    pr "    fprintf (stderr, \"%%s: test failed: expected last command %%s to return 'false' but it returned 'true'\\n\",\n";
+    pr "             \"%s\", \"%s\");\n" test_name (List.hd last);
+    pr "    return -1;\n";
+    pr "  }\n"
+
+  | TestLastFail seq ->
+    pr "  /* TestLastFail for %s (%d) */\n" name i;
+    let seq, last = get_seq_last seq in
+    List.iter (generate_test_command_call test_name) seq;
+    generate_test_command_call test_name ~expect_error:true last
+
+  (* Backwards compatible ... *)
+
   | TestOutput (seq, expected) ->
       pr "  /* TestOutput for %s (%d) */\n" name i;
-      pr "  const char *expected = \"%s\";\n" (c_quote expected);
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    if (STRNEQ (r, expected)) {\n";
-        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+      let test ret =
+        pr "  if (STRNEQ (%s, \"%s\")) {\n" ret (c_quote expected);
+        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputList (seq, expected) ->
       pr "  /* TestOutputList for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
+      let test ret =
         iteri (
           fun i str ->
-            pr "    if (!r[%d]) {\n" i;
-            pr "      fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
-            pr "      print_strings (r);\n";
-            pr "      return -1;\n";
-            pr "    }\n";
-            pr "    {\n";
-            pr "      const char *expected = \"%s\";\n" (c_quote str);
-            pr "      if (STRNEQ (r[%d], expected)) {\n" i;
-            pr "        fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r[%d]);\n" test_name i;
-            pr "        return -1;\n";
-            pr "      }\n";
-            pr "    }\n"
+            pr "  if (!%s[%d]) {\n" ret i;
+            pr "    fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
+            pr "    print_strings (%s);\n" ret;
+            pr "    return -1;\n";
+            pr "  }\n";
+            pr "  if (STRNEQ (%s[%d], \"%s\")) {\n" ret i (c_quote str);
+            pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s[%d]);\n" test_name (c_quote str) ret i;
+            pr "    return -1;\n";
+            pr "  }\n";
         ) expected;
-        pr "    if (r[%d] != NULL) {\n" (List.length expected);
-        pr "      fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
-        pr "      print_strings (r);\n";
-        pr "      return -1;\n";
-        pr "    }\n"
+        pr "  if (%s[%d] != NULL) {\n" ret (List.length expected);
+        pr "    fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
+        pr "    print_strings (%s);\n" ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputListOfDevices (seq, expected) ->
       pr "  /* TestOutputListOfDevices for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
+      let test ret =
         iteri (
           fun i str ->
-            pr "    if (!r[%d]) {\n" i;
-            pr "      fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
-            pr "      print_strings (r);\n";
-            pr "      return -1;\n";
-            pr "    }\n";
-            pr "    {\n";
-            pr "      const char *expected = \"%s\";\n" (c_quote str);
-            pr "      r[%d][5] = 's';\n" i;
-            pr "      if (STRNEQ (r[%d], expected)) {\n" i;
-            pr "        fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r[%d]);\n" test_name i;
-            pr "        return -1;\n";
-            pr "      }\n";
-            pr "    }\n"
+            pr "  if (!%s[%d]) {\n" ret i;
+            pr "    fprintf (stderr, \"%%s: short list returned from command\\n\", \"%s\");\n" test_name;
+            pr "    print_strings (%s);\n" ret;
+            pr "    return -1;\n";
+            pr "  }\n";
+            pr "  %s[%d][5] = 's';\n" ret i;
+            pr "  if (STRNEQ (%s[%d], \"%s\")) {\n" ret i (c_quote str);
+            pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s[%d]);\n" test_name (c_quote str) ret i;
+            pr "    return -1;\n";
+            pr "  }\n";
         ) expected;
-        pr "    if (r[%d] != NULL) {\n" (List.length expected);
-        pr "      fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
-        pr "      print_strings (r);\n";
-        pr "      return -1;\n";
-        pr "    }\n"
+        pr "  if (%s[%d] != NULL) {\n" ret (List.length expected);
+        pr "    fprintf (stderr, \"%%s: extra elements returned from command\\n\", \"%s\");\n" test_name;
+        pr "    print_strings (%s);\n" ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputInt (seq, expected) ->
       pr "  /* TestOutputInt for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    if (r != %d) {\n" expected;
-        pr "      fprintf (stderr, \"%%s: expected %d but got %%d\\n\","
+      let test ret =
+        pr "  if (%s != %d) {\n" ret expected;
+        pr "    fprintf (stderr, \"%%s: expected %d but got %%d\\n\",\n"
           expected;
-        pr "               \"%s\", (int) r);\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+        pr "             \"%s\", (int) %s);\n" test_name ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputIntOp (seq, op, expected) ->
       pr "  /* TestOutputIntOp for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    if (! (r %s %d)) {\n" op expected;
-        pr "      fprintf (stderr, \"%%s: expected %s %d but got %%d\\n\","
+      let test ret =
+        pr "  if (! (%s %s %d)) {\n" ret op expected;
+        pr "    fprintf (stderr, \"%%s: expected %s %d but got %%d\\n\",\n"
           op expected;
-        pr "               \"%s\", (int) r);\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+        pr "             \"%s\", (int) %s);\n" test_name ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputTrue seq ->
       pr "  /* TestOutputTrue for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    if (!r) {\n";
-        pr "      fprintf (stderr, \"%%s: expected true, got false\\n\", \"%s\");\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+      let test ret =
+        pr "  if (!%s) {\n" ret;
+        pr "    fprintf (stderr, \"%%s: expected true, got false\\n\", \"%s\");\n" test_name;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputFalse seq ->
       pr "  /* TestOutputFalse for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    if (r) {\n";
-        pr "      fprintf (stderr, \"%%s: expected false, got true\\n\", \"%s\");\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+      let test ret =
+        pr "  if (%s) {\n" ret;
+        pr "    fprintf (stderr, \"%%s: expected false, got true\\n\", \"%s\");\n" test_name;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputLength (seq, expected) ->
       pr "  /* TestOutputLength for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    int j;\n";
-        pr "    for (j = 0; j < %d; ++j)\n" expected;
-        pr "      if (r[j] == NULL) {\n";
-        pr "        fprintf (stderr, \"%%s: short list returned\\n\", \"%s\");\n" test_name;
-        pr "        print_strings (r);\n";
-        pr "        return -1;\n";
-        pr "      }\n";
-        pr "    if (r[j] != NULL) {\n";
-        pr "      fprintf (stderr, \"%%s: long list returned\\n\", \"%s\");\n"
-          test_name;
-        pr "      print_strings (r);\n";
+      let test ret =
+        pr "  int j;\n";
+        pr "  for (j = 0; j < %d; ++j)\n" expected;
+        pr "    if (%s[j] == NULL) {\n" ret;
+        pr "      fprintf (stderr, \"%%s: short list returned\\n\", \"%s\");\n" test_name;
+        pr "      print_strings (%s);\n" ret;
         pr "      return -1;\n";
-        pr "    }\n"
+        pr "    }\n";
+        pr "  if (%s[j] != NULL) {\n" ret;
+        pr "    fprintf (stderr, \"%%s: long list returned\\n\", \"%s\");\n"
+          test_name;
+        pr "    print_strings (%s);\n" ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputBuffer (seq, expected) ->
       pr "  /* TestOutputBuffer for %s (%d) */\n" name i;
-      pr "  const char *expected = \"%s\";\n" (c_quote expected);
       let seq, last = get_seq_last seq in
       let len = String.length expected in
-      let test () =
-        pr "    if (size != %d) {\n" len;
-        pr "      fprintf (stderr, \"%%s: returned size of buffer wrong, expected %d but got %%zu\\n\", \"%s\", size);\n" len test_name;
-        pr "      return -1;\n";
-        pr "    }\n";
-        pr "    if (STRNEQLEN (r, expected, size)) {\n";
-        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+      let test ret =
+        pr "  if (size != %d) {\n" len;
+        pr "    fprintf (stderr, \"%%s: returned size of buffer wrong, expected %d but got %%zu\\n\", \"%s\", size);\n" len test_name;
+        pr "    return -1;\n";
+        pr "  }\n";
+        pr "  if (STRNEQLEN (%s, \"%s\", size)) {\n" ret (c_quote expected);
+        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputStruct (seq, checks) ->
       pr "  /* TestOutputStruct for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
-      let test () =
+      let test ret =
         List.iter (
           function
           | CompareWithInt (field, expected) ->
-              pr "    if (r->%s != %d) {\n" field expected;
-              pr "      fprintf (stderr, \"%%s: %s was %%d, expected %d\\n\",\n"
+              pr "  if (%s->%s != %d) {\n" ret field expected;
+              pr "    fprintf (stderr, \"%%s: %s was %%d, expected %d\\n\",\n"
                 field expected;
-              pr "               \"%s\", (int) r->%s);\n" test_name field;
-              pr "      return -1;\n";
-              pr "    }\n"
+              pr "             \"%s\", (int) %s->%s);\n" test_name ret field;
+              pr "    return -1;\n";
+              pr "  }\n"
           | CompareWithIntOp (field, op, expected) ->
-              pr "    if (!(r->%s %s %d)) {\n" field op expected;
-              pr "      fprintf (stderr, \"%%s: %s was %%d, expected %s %d\\n\",\n"
+              pr "  if (!(%s->%s %s %d)) {\n" ret field op expected;
+              pr "    fprintf (stderr, \"%%s: %s was %%d, expected %s %d\\n\",\n"
                 field op expected;
-              pr "               \"%s\", (int) r->%s);\n" test_name field;
-              pr "      return -1;\n";
-              pr "    }\n"
+              pr "             \"%s\", (int) %s->%s);\n" test_name ret field;
+              pr "    return -1;\n";
+              pr "  }\n"
           | CompareWithString (field, expected) ->
-              pr "    if (STRNEQ (r->%s, \"%s\")) {\n" field expected;
-              pr "      fprintf (stderr, \"%%s: %s was \\\"%%s\\\", expected \\\"%s\\\"\\n\",\n"
+              pr "  if (STRNEQ (%s->%s, \"%s\")) {\n" ret field expected;
+              pr "    fprintf (stderr, \"%%s: %s was \\\"%%s\\\", expected \\\"%s\\\"\\n\",\n"
                 field expected;
-              pr "               \"%s\", r->%s);\n" test_name field;
-              pr "      return -1;\n";
-              pr "    }\n"
+              pr "             \"%s\", %s->%s);\n" test_name ret field;
+              pr "    return -1;\n";
+              pr "  }\n"
           | CompareFieldsIntEq (field1, field2) ->
-              pr "    if (r->%s != r->%s) {\n" field1 field2;
-              pr "      fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
+              pr "  if (%s->%s != r->%s) {\n" ret field1 field2;
+              pr "    fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
                 test_name field1 field2;
-              pr "               (int) r->%s, (int) r->%s);\n" field1 field2;
-              pr "      return -1;\n";
-              pr "    }\n"
+              pr "             (int) %s->%s, (int) %s->%s);\n"
+                ret field1 ret field2;
+              pr "    return -1;\n";
+              pr "  }\n"
           | CompareFieldsStrEq (field1, field2) ->
-              pr "    if (STRNEQ (r->%s, r->%s)) {\n" field1 field2;
-              pr "      fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
+              pr "  if (STRNEQ (%s->%s, r->%s)) {\n" ret field1 field2;
+              pr "    fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
                 test_name field1 field2;
-              pr "               r->%s, r->%s);\n" field1 field2;
-              pr "      return -1;\n";
-              pr "    }\n"
+              pr "             %s->%s, %s->%s);\n" ret field1 ret field2;
+              pr "    return -1;\n";
+              pr "  }\n"
         ) checks
       in
       List.iter (generate_test_command_call test_name) seq;
@@ -668,24 +719,23 @@ and generate_one_test_body name i test_name init test =
       pr "  char expected[33];\n";
       pr "  md5sum (\"%s\", expected);\n" filename;
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    if (STRNEQ (r, expected)) {\n";
-        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+      let test ret =
+        pr "  if (STRNEQ (%s, expected)) {\n" ret;
+        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, %s);\n" test_name ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
   | TestOutputDevice (seq, expected) ->
       pr "  /* TestOutputDevice for %s (%d) */\n" name i;
-      pr "  const char *expected = \"%s\";\n" (c_quote expected);
       let seq, last = get_seq_last seq in
-      let test () =
-        pr "    r[5] = 's';\n";
-        pr "    if (STRNEQ (r, expected)) {\n";
-        pr "      fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, r);\n" test_name;
-        pr "      return -1;\n";
-        pr "    }\n"
+      let test ret =
+        pr "  %s[5] = 's';\n" ret;
+        pr "  if (STRNEQ (%s, \"%s\")) {\n" ret (c_quote expected);
+        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
+        pr "    return -1;\n";
+        pr "  }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -693,258 +743,250 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputHashtable for %s (%d) */\n" name i;
       pr "  const char *key, *expected, *value;\n";
       let seq, last = get_seq_last seq in
-      let test () =
+      let test ret =
         List.iter (
           fun (key, value) ->
-            pr "    key = \"%s\";\n" (c_quote key);
-            pr "    expected = \"%s\";\n" (c_quote value);
-            pr "    value = get_key (r, key);\n";
-            pr "    if (value == NULL) {\n";
-            pr "      fprintf (stderr, \"%%s: key \\\"%%s\\\" not found in hash: expecting \\\"%%s\\\"\\n\", \"%s\", key, expected);\n" test_name;
-            pr "      return -1;\n";
-            pr "    }\n";
-            pr "    if (STRNEQ (value, expected)) {\n";
-            pr "      fprintf (stderr, \"%%s: key \\\"%%s\\\": expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", key, expected, value);\n" test_name;
-            pr "      return -1;\n";
-            pr "    }\n";
+            pr "  key = \"%s\";\n" (c_quote key);
+            pr "  expected = \"%s\";\n" (c_quote value);
+            pr "  value = get_key (%s, key);\n" ret;
+            pr "  if (value == NULL) {\n";
+            pr "    fprintf (stderr, \"%%s: key \\\"%%s\\\" not found in hash: expecting \\\"%%s\\\"\\n\", \"%s\", key, expected);\n" test_name;
+            pr "    return -1;\n";
+            pr "  }\n";
+            pr "  if (STRNEQ (value, expected)) {\n";
+            pr "    fprintf (stderr, \"%%s: key \\\"%%s\\\": expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", key, expected, value);\n" test_name;
+            pr "    return -1;\n";
+            pr "  }\n";
         ) fields
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
-  | TestLastFail seq ->
-      pr "  /* TestLastFail for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call test_name ~expect_error:true last
 
-(* Generate the code to run a command, leaving the result in 'r'.
- * If you expect to get an error then you should set expect_error:true.
+(* Generate the code to run a command, leaving the result in the C
+ * variable named 'ret'.  If you expect to get an error then you should
+ * set expect_error:true.
  *)
-and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
-  match cmd with
-  | [] -> assert false
-  | name :: args ->
-      (* Look up the function. *)
-      let f =
-        try List.find (fun { name = n } -> n = name) all_functions
-        with Not_found ->
-          failwithf "%s: in test, command %s was not found" test_name name in
+and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
+  let ret = match ret with Some ret -> ret | None -> gensym "ret" in
 
-      (* Look up the arguments and return type. *)
-      let style_ret, style_args, style_optargs = f.style in
+  let name, args =
+    match cmd with [] -> assert false | name :: args -> name, args in
 
-      (* Match up the arguments strings and argument types. *)
-      let args, optargs =
-        let rec loop argts args =
-          match argts, args with
-          | (t::ts), (s::ss) ->
-              let args, rest = loop ts ss in
-              ((t, s) :: args), rest
-          | [], ss -> [], ss
-          | ts, [] ->
-              failwithf "%s: in test, too few args given to function %s"
-                test_name name
-        in
-        let args, optargs = loop style_args args in
-        let optargs, rest = loop style_optargs optargs in
-        if rest <> [] then
-          failwithf "%s: in test, too many args given to function %s"
-            test_name name;
-        args, optargs in
+  (* Look up the function. *)
+  let f =
+    try List.find (fun { name = n } -> n = name) all_functions
+    with Not_found ->
+      failwithf "%s: in test, command %s was not found" test_name name in
 
-      pr "  {\n";
+  (* Look up the arguments and return type. *)
+  let style_ret, style_args, style_optargs = f.style in
 
-      List.iter (
-        function
-        | OptString n, "NULL" -> ()
-        | Pathname n, arg
-        | Device n, arg
-        | Mountable n, arg
-        | Dev_or_Path n, arg | Mountable_or_Path n, arg
-        | String n, arg
-        | OptString n, arg
-        | Key n, arg ->
-            pr "    const char *%s = \"%s\";\n" n (c_quote arg);
-        | BufferIn n, arg ->
-            pr "    const char *%s = \"%s\";\n" n (c_quote arg);
-            pr "    size_t %s_size = %d;\n" n (String.length arg)
-        | Int _, _
-        | Int64 _, _
-        | Bool _, _
-        | FileIn _, _ | FileOut _, _ -> ()
-        | StringList n, "" | DeviceList n, "" ->
-            pr "    const char *const %s[1] = { NULL };\n" n
-        | StringList n, arg | DeviceList n, arg ->
+  (* Match up the arguments strings and argument types. *)
+  let args, optargs =
+    let rec loop argts args =
+      match argts, args with
+      | (t::ts), (s::ss) ->
+        let args, rest = loop ts ss in
+        ((t, s) :: args), rest
+      | [], ss -> [], ss
+      | ts, [] ->
+        failwithf "%s: in test, too few args given to function %s"
+          test_name name
+    in
+    let args, optargs = loop style_args args in
+    let optargs, rest = loop style_optargs optargs in
+    if rest <> [] then
+      failwithf "%s: in test, too many args given to function %s"
+        test_name name;
+    args, optargs in
+
+  (* Generate a new symbol for each arg, and one for optargs. *)
+  let args = List.map (fun (arg, value) -> arg, value, gensym "arg") args in
+  let optargs_sym = gensym "optargs" in
+
+  List.iter (
+    function
+    | OptString _, "NULL", _ -> ()
+    | Pathname _, arg, sym
+    | Device _, arg, sym
+    | Mountable _, arg, sym
+    | Dev_or_Path _, arg, sym
+    | Mountable_or_Path _, arg, sym
+    | String _, arg, sym
+    | OptString _, arg, sym
+    | Key _, arg, sym ->
+      pr "  const char *%s = \"%s\";\n" sym (c_quote arg);
+    | BufferIn _, arg, sym ->
+      pr "  const char *%s = \"%s\";\n" sym (c_quote arg);
+      pr "  size_t %s_size = %d;\n" sym (String.length arg)
+    | Int _, _, _
+    | Int64 _, _, _
+    | Bool _, _, _
+    | FileIn _, _, _
+    | FileOut _, _, _ -> ()
+    | StringList _, "", sym
+    | DeviceList _, "", sym ->
+      pr "  const char *const %s[1] = { NULL };\n" sym
+    | StringList _, arg, sym
+    | DeviceList _, arg, sym ->
+      let strs = string_split " " arg in
+      iteri (
+        fun i str ->
+          pr "  const char *%s_%d = \"%s\";\n" sym i (c_quote str);
+      ) strs;
+      pr "  const char *const %s[] = {\n" sym;
+      iteri (
+        fun i _ -> pr "    %s_%d,\n" sym i
+      ) strs;
+      pr "    NULL\n";
+      pr "  };\n";
+    | Pointer _, _, _ ->
+      (* Difficult to make these pointers in order to run a test. *)
+      assert false
+  ) args;
+
+  if optargs <> [] then (
+    pr "  struct %s %s;\n" f.c_function optargs_sym;
+    let _, bitmask = List.fold_left (
+      fun (shift, bitmask) optarg ->
+        let is_set =
+          match optarg with
+          | OBool n, "" -> false
+          | OBool n, "true" ->
+            pr "  %s.%s = 1;\n" optargs_sym n; true
+          | OBool n, "false" ->
+            pr "  %s.%s = 0;\n" optargs_sym n; true
+          | OBool n, arg ->
+            failwithf "boolean optional arg '%s' should be empty string or \"true\" or \"false\"" n
+          | OInt n, "" -> false
+          | OInt n, i ->
+            let i =
+              try int_of_string i
+              with Failure _ -> failwithf "integer optional arg '%s' should be empty string or number" n in
+            pr "  %s.%s = %d;\n" optargs_sym n i; true
+          | OInt64 n, "" -> false
+          | OInt64 n, i ->
+            let i =
+              try Int64.of_string i
+              with Failure _ -> failwithf "int64 optional arg '%s' should be empty string or number" n in
+            pr "  %s.%s = %Ld;\n" optargs_sym n i; true
+          | OString n, "NOARG" -> false
+          | OString n, arg ->
+            pr "  %s.%s = \"%s\";\n" optargs_sym n (c_quote arg); true
+          | OStringList n, "NOARG" -> false
+          | OStringList n, "" ->
+            pr "  const char *const %s[1] = { NULL };\n" n; true
+          | OStringList n, arg ->
             let strs = string_split " " arg in
             iteri (
               fun i str ->
-                pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
+                pr "  const char *%s_%d = \"%s\";\n" n i (c_quote str);
             ) strs;
-            pr "    const char *const %s[] = {\n" n;
+            pr "  const char *const %s[] = {\n" n;
             iteri (
-              fun i _ -> pr "      %s_%d,\n" n i
+              fun i _ -> pr "    %s_%d,\n" n i
             ) strs;
-            pr "      NULL\n";
-            pr "    };\n";
-        | Pointer _, _ ->
-            (* Difficult to make these pointers in order to run a test. *)
-            assert false
-      ) args;
+            pr "    NULL\n";
+            pr "  };\n"; true in
+        let bit = if is_set then Int64.shift_left 1L shift else 0L in
+        let bitmask = Int64.logor bitmask bit in
+        let shift = shift + 1 in
+        (shift, bitmask)
+    ) (0, 0L) optargs in
+    pr "  %s.bitmask = UINT64_C(0x%Lx);\n" optargs_sym bitmask;
+  );
 
-      if optargs <> [] then (
-        pr "    struct %s optargs;\n" f.c_function;
-        let _, bitmask = List.fold_left (
-          fun (shift, bitmask) optarg ->
-            let is_set =
-              match optarg with
-              | OBool n, "" -> false
-              | OBool n, "true" ->
-                  pr "    optargs.%s = 1;\n" n; true
-              | OBool n, "false" ->
-                  pr "    optargs.%s = 0;\n" n; true
-              | OBool n, arg ->
-                  failwithf "boolean optional arg '%s' should be empty string or \"true\" or \"false\"" n
-              | OInt n, "" -> false
-              | OInt n, i ->
-                  let i =
-                    try int_of_string i
-                    with Failure _ -> failwithf "integer optional arg '%s' should be empty string or number" n in
-                  pr "    optargs.%s = %d;\n" n i; true
-              | OInt64 n, "" -> false
-              | OInt64 n, i ->
-                  let i =
-                    try Int64.of_string i
-                    with Failure _ -> failwithf "int64 optional arg '%s' should be empty string or number" n in
-                  pr "    optargs.%s = %Ld;\n" n i; true
-              | OString n, "NOARG" -> false
-              | OString n, arg ->
-                  pr "    optargs.%s = \"%s\";\n" n (c_quote arg); true
-              | OStringList n, "NOARG" -> false
-              | OStringList n, "" ->
-                  pr "    const char *const %s[1] = { NULL };\n" n; true
-              | OStringList n, arg ->
-                  let strs = string_split " " arg in
-                  iteri (
-                    fun i str ->
-                      pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
-                  ) strs;
-                  pr "    const char *const %s[] = {\n" n;
-                  iteri (
-                    fun i _ -> pr "      %s_%d,\n" n i
-                  ) strs;
-                  pr "      NULL\n";
-                  pr "    };\n"; true in
-            let bit = if is_set then Int64.shift_left 1L shift else 0L in
-            let bitmask = Int64.logor bitmask bit in
-            let shift = shift + 1 in
-            (shift, bitmask)
-        ) (0, 0L) optargs in
-        pr "    optargs.bitmask = UINT64_C(0x%Lx);\n" bitmask;
-      );
+  (match style_ret with
+  | RErr | RInt _ | RBool _ -> pr "  int %s;\n" ret
+  | RInt64 _ -> pr "  int64_t %s;\n" ret
+  | RConstString _ | RConstOptString _ ->
+    pr "  const char *%s;\n" ret
+  | RString _ ->
+    pr "  CLEANUP_FREE char *%s;\n" ret
+  | RStringList _ | RHashtable _ ->
+    pr "  CLEANUP_FREE char **%s;\n" ret;
+  | RStruct (_, typ) ->
+    pr "  CLEANUP_FREE_%s struct guestfs_%s *%s;\n"
+      (String.uppercase typ) typ ret
+  | RStructList (_, typ) ->
+    pr "  CLEANUP_FREE_%s_LIST struct guestfs_%s_list *%s;\n"
+      (String.uppercase typ) typ ret
+  | RBufferOut _ ->
+    pr "  CLEANUP_FREE char *%s;\n" ret;
+    pr "  size_t size;\n"
+  );
 
-      (match style_ret with
-       | RErr | RInt _ | RBool _ -> pr "    int r;\n"
-       | RInt64 _ -> pr "    int64_t r;\n"
-       | RConstString _ | RConstOptString _ ->
-           pr "    const char *r;\n"
-       | RString _ -> pr "    char *r;\n"
-       | RStringList _ | RHashtable _ ->
-           pr "    char **r;\n";
-           pr "    size_t i;\n"
-       | RStruct (_, typ) ->
-           pr "    struct guestfs_%s *r;\n" typ
-       | RStructList (_, typ) ->
-           pr "    struct guestfs_%s_list *r;\n" typ
-       | RBufferOut _ ->
-           pr "    char *r;\n";
-           pr "    size_t size;\n"
-      );
+  if expect_error then
+    pr "  guestfs_push_error_handler (g, NULL, NULL);\n";
+  pr "  %s = %s (g" ret f.c_function;
 
-      if expect_error then
-        pr "    guestfs_push_error_handler (g, NULL, NULL);\n";
-      pr "    r = %s (g" f.c_function;
+  (* Generate the parameters. *)
+  List.iter (
+    function
+    | OptString _, "NULL", _ -> pr ", NULL"
+    | Pathname _, _, sym
+    | Device _, _, sym
+    | Mountable _, _, sym
+    | Dev_or_Path _, _, sym
+    | Mountable_or_Path _, _, sym
+    | String _, _, sym
+    | OptString _, _, sym
+    | Key _, _, sym -> pr ", %s" sym
+    | BufferIn _, _, sym -> pr ", %s, %s_size" sym sym
+    | FileIn _, arg, _
+    | FileOut _, arg, _ -> pr ", \"%s\"" (c_quote arg)
+    | StringList _, _, sym | DeviceList _, _, sym -> pr ", (char **) %s" sym
+    | Int _, arg, _ ->
+      let i =
+        try int_of_string arg
+        with Failure "int_of_string" ->
+          failwithf "%s: expecting an int, but got '%s'" test_name arg in
+      pr ", %d" i
+    | Int64 _, arg, _ ->
+      let i =
+        try Int64.of_string arg
+        with Failure "int_of_string" ->
+          failwithf "%s: expecting an int64, but got '%s'" test_name arg in
+      pr ", %Ld" i
+    | Bool _, arg, _ ->
+      let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
+    | Pointer _, _, _ -> assert false
+  ) args;
 
-      (* Generate the parameters. *)
-      List.iter (
-        function
-        | OptString _, "NULL" -> pr ", NULL"
-        | Pathname n, _
-        | Device n, _ | Mountable n, _
-        | Dev_or_Path n, _ | Mountable_or_Path n, _
-        | String n, _
-        | OptString n, _
-        | Key n, _ ->
-            pr ", %s" n
-        | BufferIn n, _ ->
-            pr ", %s, %s_size" n n
-        | FileIn _, arg | FileOut _, arg ->
-            pr ", \"%s\"" (c_quote arg)
-        | StringList n, _ | DeviceList n, _ ->
-            pr ", (char **) %s" n
-        | Int _, arg ->
-            let i =
-              try int_of_string arg
-              with Failure "int_of_string" ->
-                failwithf "%s: expecting an int, but got '%s'" test_name arg in
-            pr ", %d" i
-        | Int64 _, arg ->
-            let i =
-              try Int64.of_string arg
-              with Failure "int_of_string" ->
-                failwithf "%s: expecting an int64, but got '%s'" test_name arg in
-            pr ", %Ld" i
-        | Bool _, arg ->
-            let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
-        | Pointer _, _ -> assert false
-      ) args;
+  (match style_ret with
+  | RBufferOut _ -> pr ", &size"
+  | _ -> ()
+  );
 
-      (match style_ret with
-       | RBufferOut _ -> pr ", &size"
-       | _ -> ()
-      );
+  if optargs <> [] then
+    pr ", &%s" optargs_sym;
 
-      if optargs <> [] then
-        pr ", &optargs";
+  pr ");\n";
 
-      pr ");\n";
+  if expect_error then
+    pr "  guestfs_pop_error_handler (g);\n";
 
-      if expect_error then
-        pr "    guestfs_pop_error_handler (g);\n";
+  (match errcode_of_ret style_ret, expect_error with
+  | `CannotReturnError, _ -> ()
+  | `ErrorIsMinusOne, false ->
+    pr "  if (%s == -1)\n" ret;
+    pr "    return -1;\n";
+  | `ErrorIsMinusOne, true ->
+    pr "  if (%s != -1)\n" ret;
+    pr "    return -1;\n";
+  | `ErrorIsNULL, false ->
+    pr "  if (%s == NULL)\n" ret;
+    pr "      return -1;\n";
+  | `ErrorIsNULL, true ->
+    pr "  if (%s != NULL)\n" ret;
+    pr "    return -1;\n";
+  );
 
-      (match errcode_of_ret style_ret, expect_error with
-       | `CannotReturnError, _ -> ()
-       | `ErrorIsMinusOne, false ->
-           pr "    if (r == -1)\n";
-           pr "      return -1;\n";
-       | `ErrorIsMinusOne, true ->
-           pr "    if (r != -1)\n";
-           pr "      return -1;\n";
-       | `ErrorIsNULL, false ->
-           pr "    if (r == NULL)\n";
-           pr "      return -1;\n";
-       | `ErrorIsNULL, true ->
-           pr "    if (r != NULL)\n";
-           pr "      return -1;\n";
-      );
+  (* Insert the test code. *)
+  (match test with
+  | None -> ()
+  | Some f -> f ret
+  )
 
-      (* Insert the test code. *)
-      (match test with
-       | None -> ()
-       | Some f -> f ()
-      );
-
-      (match style_ret with
-       | RErr | RInt _ | RInt64 _ | RBool _
-       | RConstString _ | RConstOptString _ -> ()
-       | RString _ | RBufferOut _ -> pr "    free (r);\n"
-       | RStringList _ | RHashtable _ ->
-           pr "    for (i = 0; r[i] != NULL; ++i)\n";
-           pr "      free (r[i]);\n";
-           pr "    free (r);\n"
-       | RStruct (_, typ) ->
-           pr "    guestfs_free_%s (r);\n" typ
-       | RStructList (_, typ) ->
-           pr "    guestfs_free_%s_list (r);\n" typ
-      );
-
-      pr "  }\n"
+and gensym prefix =
+  sprintf "_%s%d" prefix (unique ())

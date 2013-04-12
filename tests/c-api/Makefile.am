@@ -80,7 +80,10 @@ tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 tests_LDADD = \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 # This binary must be statically linked.  It is used for testing

@@ -259,7 +259,10 @@ let name_of_optargt = function
   | OBool n | OInt n | OInt64 n | OString n | OStringList n -> n
 
 let seq_of_test = function
-  | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
+  | TestRun s
+  | TestResult (s, _)
+  | TestLastFail s
+  | TestOutput (s, _) | TestOutputList (s, _)
   | TestOutputListOfDevices (s, _)
   | TestOutputInt (s, _) | TestOutputIntOp (s, _, _)
   | TestOutputTrue s | TestOutputFalse s
@@ -267,8 +270,7 @@ let seq_of_test = function
   | TestOutputStruct (s, _)
   | TestOutputFileMD5 (s, _)
   | TestOutputDevice (s, _)
-  | TestOutputHashtable (s, _)
-  | TestLastFail s -> s
+  | TestOutputHashtable (s, _) -> s
 
 let c_quote str =
   let str = replace_str str "\\" "\\\\" in

@@ -207,82 +207,39 @@ and test =
     (* Run the command sequence and just expect nothing to fail. *)
   | TestRun of seq
 
-    (* Run the command sequence and expect the output of the final
-     * command to be the string.
+    (* Run the command sequence.  No command should fail, and the
+     * output of the command(s) is tested using the C expression which
+     * should return true.
+     *
+     * In the C expression, 'ret' is the result of the final command,
+     * 'ret1' is the result of the last but one command, and so on
+     * backwards.
      *)
-  | TestOutput of seq * string
-
-    (* Run the command sequence and expect the output of the final
-     * command to be the list of strings.
-     *)
-  | TestOutputList of seq * string list
-
-    (* Run the command sequence and expect the output of the final
-     * command to be the list of block devices (could be either
-     * "/dev/sd.." or "/dev/hd.." form - we don't check the 5th
-     * character of each string).
-     *)
-  | TestOutputListOfDevices of seq * string list
-
-    (* Run the command sequence and expect the output of the final
-     * command to be the integer.
-     *)
-  | TestOutputInt of seq * int
-
-    (* Run the command sequence and expect the output of the final
-     * command to be <op> <int>, eg. ">=", "1".
-     *)
-  | TestOutputIntOp of seq * string * int
-
-    (* Run the command sequence and expect the output of the final
-     * command to be a true value (!= 0 or != NULL).
-     *)
-  | TestOutputTrue of seq
-
-    (* Run the command sequence and expect the output of the final
-     * command to be a false value (== 0 or == NULL, but not an error).
-     *)
-  | TestOutputFalse of seq
-
-    (* Run the command sequence and expect the output of the final
-     * command to be a list of the given length (but don't care about
-     * content).
-     *)
-  | TestOutputLength of seq * int
-
-    (* Run the command sequence and expect the output of the final
-     * command to be a buffer (RBufferOut), ie. string + size.
-     *)
-  | TestOutputBuffer of seq * string
-
-    (* Run the command sequence and expect the output of the final
-     * command to be a structure.
-     *)
-  | TestOutputStruct of seq * test_field_compare list
-
-    (* Run the command sequence and expect the output of the final
-     * command to be a string which is the hex MD5 of the content of
-     * the named file.
-     *)
-  | TestOutputFileMD5 of seq * string
-
-    (* Run the command sequence and expect the output of the final
-     * command to be a string which is a block device name (we don't
-     * check the 5th character of the string, so "/dev/sda" == "/dev/vda").
-     *)
-  | TestOutputDevice of seq * string
-
-    (* Run the command sequence and expect a hashtable.  Check
-     * one of more fields in the hashtable against known good
-     * strings.
-     *)
-  | TestOutputHashtable of seq * (string * string) list
+  | TestResult of seq * string
 
   (* Run the command sequence and expect the final command (only)
    * to fail.
    *)
   | TestLastFail of seq
 
+  (* The following are for backwards compatibility and will
+   * be replaced with 'TestResult'.
+   *)
+  | TestOutput of seq * string
+  | TestOutputList of seq * string list
+  | TestOutputListOfDevices of seq * string list
+  | TestOutputInt of seq * int
+  | TestOutputIntOp of seq * string * int
+  | TestOutputTrue of seq
+  | TestOutputFalse of seq
+  | TestOutputLength of seq * int
+  | TestOutputBuffer of seq * string
+  | TestOutputStruct of seq * test_field_compare list
+  | TestOutputFileMD5 of seq * string
+  | TestOutputDevice of seq * string
+  | TestOutputHashtable of seq * (string * string) list
+
+(* For backwards compatibility - will be removed. *)
 and test_field_compare =
   | CompareWithInt of string * int
   | CompareWithIntOp of string * string * int
