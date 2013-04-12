@@ -138,7 +138,7 @@ next_test (guestfs_h *g, size_t test_num, size_t nr_tests,
     fun { tests = tests } ->
       let tests = filter_map (
         function
-        | (_, (Always|If _|Unless _|IfAvailable _), test) -> Some test
+        | (_, (Always|IfAvailable _), test) -> Some test
         | (_, Disabled, _) -> None
       ) tests in
       let seq = List.concat (List.map seq_of_test tests) in
@@ -346,17 +346,6 @@ static int
 
 " test_name name (String.uppercase test_name) (String.uppercase name);
 
-  (match prereq with
-   | Disabled | Always | IfAvailable _ -> ()
-   | If code | Unless code ->
-       pr "static int\n";
-       pr "%s_prereq (void)\n" test_name;
-       pr "{\n";
-       pr "  %s\n" code;
-       pr "}\n";
-       pr "\n";
-  );
-
   pr "\
 static int
 %s (void)
@@ -383,20 +372,6 @@ static int
   (match prereq with
    | Disabled ->
        pr "  printf (\"        %%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
-   | If _ ->
-       pr "  if (! %s_prereq ()) {\n" test_name;
-       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
-       pr "    return 0;\n";
-       pr "  }\n";
-       pr "\n";
-       generate_one_test_body name i test_name init test;
-   | Unless _ ->
-       pr "  if (%s_prereq ()) {\n" test_name;
-       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
-       pr "    return 0;\n";
-       pr "  }\n";
-       pr "\n";
-       generate_one_test_body name i test_name init test;
    | IfAvailable group ->
        pr "  if (!is_available (\"%s\")) {\n" group;
        pr "    printf (\"        %%s skipped (reason: %%s not available)\\n\", \"%s\", \"%s\");\n" test_name group;
