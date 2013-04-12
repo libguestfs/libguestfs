@@ -266,7 +266,7 @@ let seq_of_test = function
   | TestResultTrue s
   | TestResultFalse s
   | TestLastFail s
-  | TestOutputLength (s, _) | TestOutputBuffer (s, _)
+  | TestOutputBuffer (s, _)
   | TestOutputFileMD5 (s, _)
   | TestOutputHashtable (s, _) -> s
 

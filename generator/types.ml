@@ -237,7 +237,6 @@ and test =
   (* The following are for backwards compatibility and will
    * be replaced with 'TestResult'.
    *)
-  | TestOutputLength of seq * int
   | TestOutputBuffer of seq * string
   | TestOutputFileMD5 of seq * string
   | TestOutputHashtable of seq * (string * string) list

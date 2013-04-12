@@ -633,26 +633,6 @@ and generate_one_test_body name i test_name init test =
 
   (* Backwards compatible ... *)
 
-  | TestOutputLength (seq, expected) ->
-      pr "  /* TestOutputLength for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  int j;\n";
-        pr "  for (j = 0; j < %d; ++j)\n" expected;
-        pr "    if (%s[j] == NULL) {\n" ret;
-        pr "      fprintf (stderr, \"%%s: short list returned\\n\", \"%s\");\n" test_name;
-        pr "      print_strings (%s);\n" ret;
-        pr "      return -1;\n";
-        pr "    }\n";
-        pr "  if (%s[j] != NULL) {\n" ret;
-        pr "    fprintf (stderr, \"%%s: long list returned\\n\", \"%s\");\n"
-          test_name;
-        pr "    print_strings (%s);\n" ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
   | TestOutputBuffer (seq, expected) ->
       pr "  /* TestOutputBuffer for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
