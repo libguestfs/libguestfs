@@ -261,13 +261,13 @@ let name_of_optargt = function
 let seq_of_test = function
   | TestRun s
   | TestResult (s, _)
+  | TestResultString (s, _)
+  | TestResultDevice (s, _)
   | TestResultTrue s
   | TestResultFalse s
   | TestLastFail s
-  | TestOutput (s, _)
   | TestOutputLength (s, _) | TestOutputBuffer (s, _)
   | TestOutputFileMD5 (s, _)
-  | TestOutputDevice (s, _)
   | TestOutputHashtable (s, _) -> s
 
 let c_quote str =

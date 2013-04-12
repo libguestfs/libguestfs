@@ -742,29 +742,29 @@ to specify the QEMU interface emulation to use at run time." };
     name = "file_architecture";
     style = RString "arch", [Pathname "filename"], [];
     tests = [
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-i586-dynamic"]], "i386");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-sparc-dynamic"]], "sparc");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-win32.exe"]], "i386");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-win64.exe"]], "x86_64");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-x86_64-dynamic"]], "x86_64");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-i586.so"]], "i386");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-sparc.so"]], "sparc");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-win32.dll"]], "i386");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-win64.dll"]], "x86_64");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-x86_64.so"]], "x86_64");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/initrd-x86_64.img"]], "x86_64");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/initrd-x86_64.img.gz"]], "x86_64");
     ];
     shortdesc = "detect the architecture of a binary file";
@@ -2263,7 +2263,7 @@ but note that any errors are ignored in that case." };
     name = "cat";
     style = RString "content", [Pathname "path"], [];
     tests = [
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["cat"; "/known-2"]], "abcdef\n")
     ];
     shortdesc = "list the contents of a file";
@@ -2395,22 +2395,22 @@ function and split the buffer into lines yourself." };
     name = "write";
     style = RErr, [Pathname "path"; BufferIn "content"], [];
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/write"; "new file contents"];
          ["cat"; "/write"]], "new file contents");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/write2"; "\nnew file contents\n"];
          ["cat"; "/write2"]], "\nnew file contents\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/write3"; "\n\n"];
          ["cat"; "/write3"]], "\n\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/write4"; ""];
          ["cat"; "/write4"]], "");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/write5"; "\n\n\n"];
          ["cat"; "/write5"]], "\n\n\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/write6"; "\n"];
          ["cat"; "/write6"]], "\n")
     ];
@@ -2425,7 +2425,7 @@ See also C<guestfs_write_append>." };
     name = "write_append";
     style = RErr, [Pathname "path"; BufferIn "content"], [];
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/write_append"; "line1\n"];
          ["write_append"; "/write_append"; "line2\n"];
          ["write_append"; "/write_append"; "line3a"];
@@ -2544,11 +2544,11 @@ data." };
     name = "disk_format";
     style = RString "format", [String "filename"], [];
     tests = [
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["disk_format"; "test1.img"]], "raw");
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["disk_format"; "test2.img"]], "raw");
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["disk_format"; "test3.img"]], "raw");
     ];
     shortdesc = "detect the disk format of a disk image";
@@ -2903,7 +2903,7 @@ let daemon_functions = [
     style = RErr, [Mountable "mountable"; String "mountpoint"], [];
     proc_nr = Some 1;
     tests = [
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
@@ -3760,15 +3760,15 @@ and physical volumes." };
     style = RString "description", [Dev_or_Path "path"], [];
     proc_nr = Some 49;
     tests = [
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file"; "/empty"]], "empty");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file"; "/known-1"]], "ASCII text");
       InitISOFS, Always, TestLastFail (
         [["file"; "/notexists"]]);
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file"; "/abssymlink"]], "symbolic link");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["file"; "/directory"]], "directory")
     ];
     shortdesc = "determine file type";
@@ -3796,57 +3796,57 @@ C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
     proc_nr = Some 50;
     protocol_limit_warning = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command"];
          ["upload"; "test-command"; "/command/test-command"];
          ["chmod"; "0o755"; "/command/test-command"];
          ["command"; "/command/test-command 1"]], "Result1");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command2"];
          ["upload"; "test-command"; "/command2/test-command"];
          ["chmod"; "0o755"; "/command2/test-command"];
          ["command"; "/command2/test-command 2"]], "Result2\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command3"];
          ["upload"; "test-command"; "/command3/test-command"];
          ["chmod"; "0o755"; "/command3/test-command"];
          ["command"; "/command3/test-command 3"]], "\nResult3");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command4"];
          ["upload"; "test-command"; "/command4/test-command"];
          ["chmod"; "0o755"; "/command4/test-command"];
          ["command"; "/command4/test-command 4"]], "\nResult4\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command5"];
          ["upload"; "test-command"; "/command5/test-command"];
          ["chmod"; "0o755"; "/command5/test-command"];
          ["command"; "/command5/test-command 5"]], "\nResult5\n\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command6"];
          ["upload"; "test-command"; "/command6/test-command"];
          ["chmod"; "0o755"; "/command6/test-command"];
          ["command"; "/command6/test-command 6"]], "\n\nResult6\n\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command7"];
          ["upload"; "test-command"; "/command7/test-command"];
          ["chmod"; "0o755"; "/command7/test-command"];
          ["command"; "/command7/test-command 7"]], "");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command8"];
          ["upload"; "test-command"; "/command8/test-command"];
          ["chmod"; "0o755"; "/command8/test-command"];
          ["command"; "/command8/test-command 8"]], "\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command9"];
          ["upload"; "test-command"; "/command9/test-command"];
          ["chmod"; "0o755"; "/command9/test-command"];
          ["command"; "/command9/test-command 9"]], "\n\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command10"];
          ["upload"; "test-command"; "/command10/test-command"];
          ["chmod"; "0o755"; "/command10/test-command"];
          ["command"; "/command10/test-command 10"]], "Result10-1\nResult10-2\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/command11"];
          ["upload"; "test-command"; "/command11/test-command"];
          ["chmod"; "0o755"; "/command11/test-command"];
@@ -3856,7 +3856,7 @@ C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
          ["upload"; "test-command"; "/command12/test-command"];
          ["chmod"; "0o755"; "/command12/test-command"];
          ["command"; "/command12/test-command"]]);
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/pwd"];
          ["upload"; "test-pwd"; "/pwd/test-pwd"];
          ["chmod"; "0o755"; "/pwd/test-pwd"];
@@ -4204,7 +4204,7 @@ This uses the L<blockdev(8)> command." };
     proc_nr = Some 66;
     progress = true; cancellable = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         (* Pick a file from cwd which isn't likely to change. *)
         [["mkdir"; "/upload"];
          ["upload"; "../../COPYING.LIB"; "/upload/COPYING.LIB"];
@@ -4226,7 +4226,7 @@ See also C<guestfs_download>." };
     proc_nr = Some 67;
     progress = true; cancellable = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         (* Pick a file from cwd which isn't likely to change. *)
         [["mkdir"; "/download"];
          ["upload"; "../../COPYING.LIB"; "/download/COPYING.LIB"];
@@ -4249,24 +4249,24 @@ See also C<guestfs_upload>, C<guestfs_cat>." };
     style = RString "checksum", [String "csumtype"; Pathname "path"], [];
     proc_nr = Some 68;
     tests = [
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "crc"; "/known-3"]], "2891671662");
       InitISOFS, Always, TestLastFail (
         [["checksum"; "crc"; "/notexists"]]);
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "sha1"; "/known-3"]], "b7ebccc3ee418311091c3eda0a45b83c0a770f15");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "sha224"; "/known-3"]], "d2cd1774b28f3659c14116be0a6dc2bb5c4b350ce9cd5defac707741");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "sha256"; "/known-3"]], "75bb71b90cd20cb13f86d2bea8dad63ac7194e7517c3b52b8d06ff52d3487d30");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "sha384"; "/known-3"]], "5fa7883430f357b5d7b7271d3a1d2872b51d73cba72731de6863d3dea55f30646af2799bef44d5ea776a5ec7941ac640");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "sha512"; "/known-3"]], "2794062c328c6b216dca90443b7f7134c5f40e56bd0ed7853123275a09982a6f992e6ca682f9d2fba34a4c5e870d8fe077694ff831e3032a004ee077e00603f6");
       (* Test for RHBZ#579608, absolute symbolic links. *)
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["checksum"; "sha512"; "/abssymlink"]], "5f57d0639bc95081c53afc63a449403883818edc64da48930ad6b1a4fb49be90404686877743fbcd7c99811f3def7df7bc22635c885c6a8cf79c806b43451c1a")
     ];
     shortdesc = "compute MD5, SHAx or CRC checksum of file";
@@ -4323,15 +4323,15 @@ To get the checksums for many files, use C<guestfs_checksums_out>." };
     once_had_no_optargs = true;
     cancellable = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in"];
          ["tar_in"; "../data/helloworld.tar"; "/tar_in"; "NOARG"];
          ["cat"; "/tar_in/hello"]], "hello\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in_gz"];
          ["tar_in"; "../data/helloworld.tar.gz"; "/tar_in_gz"; "gzip"];
          ["cat"; "/tar_in_gz/hello"]], "hello\n");
-      InitScratchFS, IfAvailable "xz", TestOutput (
+      InitScratchFS, IfAvailable "xz", TestResultString (
         [["mkdir"; "/tar_in_xz"];
          ["tar_in"; "../data/helloworld.tar.xz"; "/tar_in_xz"; "xz"];
          ["cat"; "/tar_in_xz/hello"]], "hello\n")
@@ -4388,7 +4388,7 @@ instead of user/group names.
     deprecated_by = Some "tar_in";
     cancellable = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tgz_in"];
          ["tgz_in"; "../data/helloworld.tar.gz"; "/tgz_in"];
          ["cat"; "/tgz_in/hello"]], "hello\n")
@@ -4418,7 +4418,7 @@ it to local file C<tarball>." };
         [["umount"; "/"; "false"; "false"];
          ["mount_ro"; "/dev/sda1"; "/"];
          ["touch"; "/new"]]);
-      InitBasicFS, Always, TestOutput (
+      InitBasicFS, Always, TestResultString (
         [["write"; "/new"; "data"];
          ["umount"; "/"; "false"; "false"];
          ["mount_ro"; "/dev/sda1"; "/"];
@@ -4594,7 +4594,7 @@ to remove those first." };
     proc_nr = Some 80;
     deprecated_by = Some "set_label";
     tests = [
-      InitBasicFS, Always, TestOutput (
+      InitBasicFS, Always, TestResultString (
         [["set_e2label"; "/dev/sda1"; "testlabel"];
          ["get_e2label"; "/dev/sda1"]], "testlabel")
     ];
@@ -4623,10 +4623,10 @@ C<device>." };
     proc_nr = Some 82;
     tests =
       (let uuid = uuidgen () in [
-        InitBasicFS, Always, TestOutput (
+        InitBasicFS, Always, TestResultString (
           [["set_e2uuid"; "/dev/sda1"; uuid];
            ["get_e2uuid"; "/dev/sda1"]], uuid);
-        InitBasicFS, Always, TestOutput (
+        InitBasicFS, Always, TestResultString (
           [["set_e2uuid"; "/dev/sda1"; "clear"];
            ["get_e2uuid"; "/dev/sda1"]], "");
         (* We can't predict what UUIDs will be, so just check
@@ -4654,7 +4654,7 @@ to return the existing UUID of a filesystem." };
     tests =
       (* Regression test for RHBZ#597112. *)
       (let uuid = uuidgen () in [
-        InitNone, Always, TestOutput (
+        InitNone, Always, TestResultString (
           [["mke2journal"; "1024"; "/dev/sdc"];
            ["set_e2uuid"; "/dev/sdc"; uuid];
            ["get_e2uuid"; "/dev/sdc"]], uuid)
@@ -4792,7 +4792,7 @@ replacing C</dev/vda> with the name of the installation device.
     style = RErr, [Pathname "src"; Pathname "dest"], [];
     proc_nr = Some 87;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/cp"];
          ["write"; "/cp/old"; "file content"];
          ["cp"; "/cp/old"; "/cp/new"];
@@ -4802,7 +4802,7 @@ replacing C</dev/vda> with the name of the installation device.
          ["write"; "/cp2/old"; "file content"];
          ["cp"; "/cp2/old"; "/cp2/new"];
          ["is_file"; "/cp2/old"]]);
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/cp3"];
          ["write"; "/cp3/old"; "file content"];
          ["mkdir"; "/cp3/dir"];
@@ -4819,7 +4819,7 @@ either a destination filename or destination directory." };
     style = RErr, [Pathname "src"; Pathname "dest"], [];
     proc_nr = Some 88;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/cp_a1"];
          ["mkdir"; "/cp_a2"];
          ["write"; "/cp_a1/file"; "file content"];
@@ -4836,7 +4836,7 @@ recursively using the C<cp -a> command." };
     style = RErr, [Pathname "src"; Pathname "dest"], [];
     proc_nr = Some 89;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/mv"];
          ["write"; "/mv/old"; "file content"];
          ["mv"; "/mv/old"; "/mv/new"];
@@ -5016,7 +5016,7 @@ The returned strings are transcoded to UTF-8." };
     proc_nr = Some 96;
     protocol_limit_warning = true;
     tests = [
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["hexdump"; "/known-4"]], "00000000  61 62 63 0a 64 65 66 0a  67 68 69                 |abc.def.ghi|\n0000000b\n");
       (* Test for RHBZ#501888c2 regression which caused large hexdump
        * commands to segfault.
@@ -5038,7 +5038,7 @@ the human-readable, canonical hex dump of the file." };
     proc_nr = Some 97;
     optional = Some "zerofree";
     tests = [
-      InitNone, Always, TestOutput (
+      InitNone, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext3"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
@@ -5159,7 +5159,7 @@ are activated or deactivated." };
     proc_nr = Some 105;
     optional = Some "lvm2";
     tests = [
-      InitNone, Always, TestOutput (
+      InitNone, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
@@ -6307,7 +6307,7 @@ matching lines." };
     proc_nr = Some 163;
     optional = Some "realpath";
     tests = [
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["realpath"; "/../directory"]], "/directory")
     ];
     shortdesc = "canonicalized absolute pathname";
@@ -6368,7 +6368,7 @@ This command creates a symbolic link using the C<ln -s> command." };
     style = RErr, [String "target"; Pathname "linkname"], [];
     proc_nr = Some 167;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir_p"; "/ln_sf/b"];
          ["touch"; "/ln_sf/b/c"];
          ["ln_sf"; "../d"; "/ln_sf/b/c"];
@@ -6689,7 +6689,7 @@ and C<guestfs_setcon>" };
     proc_nr = Some 187;
     deprecated_by = Some "mkfs";
     tests = [
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
          ["mount"; "/dev/sda1"; "/"];
@@ -6724,7 +6724,7 @@ the requested cluster size." };
     proc_nr = Some 188;
     deprecated_by = Some "mke2fs";
     tests = [
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
@@ -6747,7 +6747,7 @@ to the command:
     proc_nr = Some 189;
     deprecated_by = Some "mke2fs";
     tests = [
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
@@ -6769,7 +6769,7 @@ This creates an ext2 external journal on C<device> with label C<label>." };
     optional = Some "linuxfsuuid";
     tests =
       (let uuid = uuidgen () in [
-        InitEmpty, Always, TestOutput (
+        InitEmpty, Always, TestResultString (
           [["part_init"; "/dev/sda"; "mbr"];
            ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
            ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
@@ -6843,7 +6843,7 @@ was built (see C<appliance/kmod.whitelist.in> in the source)." };
     style = RString "output", [StringList "words"], [];
     proc_nr = Some 195;
     tests = [
-      InitNone, Always, TestOutput (
+      InitNone, Always, TestResultString (
         [["echo_daemon"; "This is a test"]], "This is a test"
       )
     ];
@@ -6893,20 +6893,20 @@ The result list is not sorted.
     style = RString "rpath", [Pathname "path"], [];
     proc_nr = Some 197;
     tests = [
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["case_sensitive_path"; "/DIRECTORY"]], "/directory");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["case_sensitive_path"; "/DIRECTORY/"]], "/directory");
-      InitISOFS, Always, TestOutput (
+      InitISOFS, Always, TestResultString (
         [["case_sensitive_path"; "/Known-1"]], "/known-1");
       InitISOFS, Always, TestLastFail (
         [["case_sensitive_path"; "/Known-1/"]]);
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/case_sensitive_path"];
          ["mkdir"; "/case_sensitive_path/bbb"];
          ["touch"; "/case_sensitive_path/bbb/c"];
          ["case_sensitive_path"; "/CASE_SENSITIVE_path/bbB/C"]], "/case_sensitive_path/bbb/c");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/case_sensitive_path2"];
          ["mkdir"; "/case_sensitive_path2/bbb"];
          ["touch"; "/case_sensitive_path2/bbb/c"];
@@ -6916,7 +6916,7 @@ The result list is not sorted.
          ["mkdir"; "/case_sensitive_path3/bbb"];
          ["touch"; "/case_sensitive_path3/bbb/c"];
          ["case_sensitive_path"; "/case_SENSITIVE_path3/bbb/../bbb/C"]]);
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/case_sensitive_path4"];
          ["case_sensitive_path"; "/case_SENSITIVE_path4/new_file"]], "/case_sensitive_path4/new_file")
     ];
@@ -6959,7 +6959,7 @@ See also C<guestfs_realpath>." };
     style = RString "fstype", [Mountable "mountable"], [];
     proc_nr = Some 198;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["vfs_type"; "/dev/sdb1"]], "ext2")
     ];
     shortdesc = "get the Linux VFS type corresponding to a mounted device";
@@ -7408,7 +7408,7 @@ Size of the partition in bytes.
     style = RString "parttype", [Device "device"], [];
     proc_nr = Some 214;
     tests = [
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "gpt"];
          ["part_get_parttype"; "/dev/sda"]], "gpt")
     ];
@@ -7711,7 +7711,7 @@ or growing unnecessarily." };
     deprecated_by = Some "tar_in";
     optional = Some "xz"; cancellable = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["mkdir"; "/txz_in"];
          ["txz_in"; "../data/helloworld.tar.xz"; "/txz_in"];
          ["cat"; "/txz_in/hello"]], "hello\n")
@@ -7899,7 +7899,7 @@ to find out what it is for." };
     proc_nr = Some 242;
     cancellable = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["base64_in"; "../data/hello.b64"; "/base64_in"];
          ["cat"; "/base64_in"]], "hello\n")
     ];
@@ -7961,22 +7961,22 @@ to ensure the length of the file is exactly C<len> bytes." };
     visibility = VInternal;
     protocol_limit_warning = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["internal_write"; "/internal_write"; "new file contents"];
          ["cat"; "/internal_write"]], "new file contents");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["internal_write"; "/internal_write2"; "\nnew file contents\n"];
          ["cat"; "/internal_write2"]], "\nnew file contents\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["internal_write"; "/internal_write3"; "\n\n"];
          ["cat"; "/internal_write3"]], "\n\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["internal_write"; "/internal_write4"; ""];
          ["cat"; "/internal_write4"]], "");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["internal_write"; "/internal_write5"; "\n\n\n"];
          ["cat"; "/internal_write5"]], "\n\n\n");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["internal_write"; "/internal_write6"; "\n"];
          ["cat"; "/internal_write6"]], "\n")
     ];
@@ -7993,15 +7993,15 @@ See also C<guestfs_write_append>." };
     proc_nr = Some 247;
     protocol_limit_warning = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/pwrite"; "new file contents"];
          ["pwrite"; "/pwrite"; "data"; "4"];
          ["cat"; "/pwrite"]], "new data contents");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/pwrite2"; "new file contents"];
          ["pwrite"; "/pwrite2"; "is extended"; "9"];
          ["cat"; "/pwrite2"]], "new file is extended");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/pwrite3"; "new file contents"];
          ["pwrite"; "/pwrite3"; ""; "4"];
          ["cat"; "/pwrite3"]], "new file contents")
@@ -8100,7 +8100,7 @@ a file in the host and attach it as a device." };
     style = RString "label", [Mountable "mountable"], [];
     proc_nr = Some 253;
     tests = [
-      InitBasicFS, Always, TestOutput (
+      InitBasicFS, Always, TestResultString (
         [["set_label"; "/dev/sda1"; "LTEST"];
          ["vfs_label"; "/dev/sda1"]], "LTEST")
     ];
@@ -8118,7 +8118,7 @@ To find a filesystem from the label, use C<guestfs_findfs_label>." };
     proc_nr = Some 254;
     tests =
       (let uuid = uuidgen () in [
-        InitBasicFS, Always, TestOutput (
+        InitBasicFS, Always, TestResultString (
           [["set_e2uuid"; "/dev/sda1"; uuid];
            ["vfs_uuid"; "/dev/sda1"]], uuid)
       ]);
@@ -8407,7 +8407,7 @@ See also C<guestfs_stat>." };
     style = RString "device", [Device "partition"], [];
     proc_nr = Some 272;
     tests = [
-      InitPartition, Always, TestOutputDevice (
+      InitPartition, Always, TestResultDevice (
         [["part_to_dev"; "/dev/sda1"]], "/dev/sda");
       InitEmpty, Always, TestLastFail (
         [["part_to_dev"; "/dev/sda"]])
@@ -8430,7 +8430,7 @@ See also C<guestfs_part_to_partnum>, C<guestfs_device_index>." };
     progress = true; cancellable = true;
     tests =
       (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in [
-        InitScratchFS, Always, TestOutput (
+        InitScratchFS, Always, TestResultString (
           [["upload_offset"; "../../COPYING.LIB"; "/upload_offset"; "0"];
            ["checksum"; "md5"; "/upload_offset"]], md5)
       ]);
@@ -8463,7 +8463,7 @@ See also C<guestfs_upload>, C<guestfs_pwrite>." };
        let offset = string_of_int 100 in
        let size = string_of_int ((Unix.stat "COPYING.LIB").Unix.st_size - 100) in
        [
-         InitScratchFS, Always, TestOutput (
+         InitScratchFS, Always, TestResultString (
            (* Pick a file from cwd which isn't likely to change. *)
            [["mkdir"; "/download_offset"];
             ["upload"; "../../COPYING.LIB"; "/download_offset/COPYING.LIB"];
@@ -8534,9 +8534,9 @@ See also C<guestfs_pread>." };
     style = RString "lv", [Device "lvname"], [];
     proc_nr = Some 277;
     tests = [
-      InitBasicFSonLVM, IfAvailable "lvm2", TestOutput (
+      InitBasicFSonLVM, IfAvailable "lvm2", TestResultString (
         [["lvm_canonical_lv_name"; "/dev/mapper/VG-LV"]], "/dev/VG/LV");
-      InitBasicFSonLVM, IfAvailable "lvm2", TestOutput (
+      InitBasicFSonLVM, IfAvailable "lvm2", TestResultString (
         [["lvm_canonical_lv_name"; "/dev/VG/LV"]], "/dev/VG/LV")
     ];
     shortdesc = "get canonical name of an LV";
@@ -8556,7 +8556,7 @@ See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>." };
     proc_nr = Some 278;
     once_had_no_optargs = true;
     tests = [
-      InitEmpty, Always, TestOutput (
+      InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
@@ -8822,7 +8822,7 @@ See also L<btrfs(8)>." };
     visibility = VInternal;
     protocol_limit_warning = true;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["write"; "/internal_write_append"; "line1\n"];
          ["internal_write_append"; "/internal_write_append"; "line2\n"];
          ["internal_write_append"; "/internal_write_append"; "line3a"];
@@ -9352,10 +9352,10 @@ any existing contents of this device." };
     style = RErr, [Mountable "mountable"; String "label"], [];
     proc_nr = Some 310;
     tests = [
-      InitBasicFS, Always, TestOutput (
+      InitBasicFS, Always, TestResultString (
         [["set_label"; "/dev/sda1"; "testlabel"];
          ["vfs_label"; "/dev/sda1"]], "testlabel");
-      InitPartition, IfAvailable "ntfs3g", TestOutput (
+      InitPartition, IfAvailable "ntfs3g", TestResultString (
         [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
          ["set_label"; "/dev/sda1"; "testlabel2"];
          ["vfs_label"; "/dev/sda1"]], "testlabel2");
@@ -9553,19 +9553,19 @@ To create general filesystems, use C<guestfs_mkfs>." };
     style = RString "attrs", [Pathname "file"], [];
     proc_nr = Some 318;
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["touch"; "/e2attrs1"];
          ["get_e2attrs"; "/e2attrs1"]], "");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["touch"; "/e2attrs2"];
          ["set_e2attrs"; "/e2attrs2"; "is"; "false"];
          ["get_e2attrs"; "/e2attrs2"]], "is");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["touch"; "/e2attrs3"];
          ["set_e2attrs"; "/e2attrs3"; "is"; "false"];
          ["set_e2attrs"; "/e2attrs3"; "i"; "true"];
          ["get_e2attrs"; "/e2attrs3"]], "s");
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["touch"; "/e2attrs4"];
          ["set_e2attrs"; "/e2attrs4"; "adst"; "false"];
          ["set_e2attrs"; "/e2attrs4"; "iS"; "false"];
@@ -10495,7 +10495,7 @@ or C<guestfs_rm_rf> to remove directories recursively." };
     tests =
       (let uuid = uuidgen () in
        let uuid_s = "UUID=" ^ uuid in [
-         InitEmpty, Always, TestOutput (
+         InitEmpty, Always, TestResultString (
            [["part_init"; "/dev/sda"; "mbr"];
             ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
             ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
@@ -10518,7 +10518,7 @@ or C<guestfs_rm_rf> to remove directories recursively." };
             ["mount"; "/dev/sda2"; "/"];
             ["write"; "/new"; "new file contents"];
             ["cat"; "/new"]], "new file contents");
-         InitEmpty, Always, TestOutput (
+         InitEmpty, Always, TestResultString (
            [["part_init"; "/dev/sda"; "mbr"];
             ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
             ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
@@ -10541,7 +10541,7 @@ or C<guestfs_rm_rf> to remove directories recursively." };
             ["mount"; "/dev/sda2"; "/"];
             ["write"; "/new"; "new file contents"];
             ["cat"; "/new"]], "new file contents");
-         InitEmpty, Always, TestOutput (
+         InitEmpty, Always, TestResultString (
            [["part_init"; "/dev/sda"; "mbr"];
             ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
             ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
@@ -10767,7 +10767,7 @@ The capabilities set is returned in text form (see L<cap_to_text(3)>)." };
     proc_nr = Some 379;
     optional = Some "linuxcaps";
     tests = [
-      InitScratchFS, Always, TestOutput (
+      InitScratchFS, Always, TestResultString (
         [["touch"; "/cap_set_file_0"];
          ["cap_set_file"; "/cap_set_file_0"; "cap_chown=p cap_chown+e"];
          ["cap_get_file"; "/cap_set_file_0"]], "= cap_chown+ep");
@@ -10960,7 +10960,7 @@ for a useful list of type GUIDs." };
     proc_nr = Some 393;
     optional = Some "gdisk";
     tests = [
-      InitGPT, Always, TestOutput (
+      InitGPT, Always, TestResultString (
         [["part_set_gpt_type"; "/dev/sda"; "1";
           "01234567-89AB-CDEF-0123-456789ABCDEF"];
          ["part_get_gpt_type"; "/dev/sda"; "1"]],

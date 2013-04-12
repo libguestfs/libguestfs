@@ -218,6 +218,12 @@ and test =
   | TestResult of seq * string
 
     (* Run the command sequence.  No command should fail, and the
+     * last command must return the given string or device name.
+     *)
+  | TestResultString of seq * string
+  | TestResultDevice of seq * string
+
+    (* Run the command sequence.  No command should fail, and the
      * last command must return true or false.
      *)
   | TestResultTrue of seq
@@ -231,11 +237,9 @@ and test =
   (* The following are for backwards compatibility and will
    * be replaced with 'TestResult'.
    *)
-  | TestOutput of seq * string
   | TestOutputLength of seq * int
   | TestOutputBuffer of seq * string
   | TestOutputFileMD5 of seq * string
-  | TestOutputDevice of seq * string
   | TestOutputHashtable of seq * (string * string) list
 
 (* Test prerequisites. *)

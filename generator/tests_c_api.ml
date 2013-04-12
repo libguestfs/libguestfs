@@ -579,6 +579,30 @@ and generate_one_test_body name i test_name init test =
     pr "    return -1;\n";
     pr "  }\n"
 
+  | TestResultString (seq, expected) ->
+    pr "  /* TestResultString for %s (%d) */\n" name i;
+    let seq, last = get_seq_last seq in
+    List.iter (generate_test_command_call test_name) seq;
+    generate_test_command_call test_name ~ret:"ret" last;
+    pr "  if (! STREQ (ret, \"%s\")) {\n" (c_quote expected);
+    pr "    fprintf (stderr, \"%%s: test failed: expected last command %%s to return \\\"%%s\\\" but it returned \\\"%%s\\\"\\n\",\n";
+    pr "             \"%s\", \"%s\", ret, \"%s\");\n"
+      test_name (List.hd last) (c_quote expected);
+    pr "    return -1;\n";
+    pr "  }\n"
+
+  | TestResultDevice (seq, expected) ->
+    pr "  /* TestResultDevice for %s (%d) */\n" name i;
+    let seq, last = get_seq_last seq in
+    List.iter (generate_test_command_call test_name) seq;
+    generate_test_command_call test_name ~ret:"ret" last;
+    pr "  if (compare_devices (ret, \"%s\") != 0) {\n" (c_quote expected);
+    pr "    fprintf (stderr, \"%%s: test failed: expected last command %%s to return \\\"%%s\\\" but it returned \\\"%%s\\\"\\n\",\n";
+    pr "             \"%s\", \"%s\", ret, \"%s\");\n"
+      test_name (List.hd last) (c_quote expected);
+    pr "    return -1;\n";
+    pr "  }\n"
+
   | TestResultTrue seq ->
     pr "  /* TestResultTrue for %s (%d) */\n" name i;
     let seq, last = get_seq_last seq in
@@ -609,17 +633,6 @@ and generate_one_test_body name i test_name init test =
 
   (* Backwards compatible ... *)
 
-  | TestOutput (seq, expected) ->
-      pr "  /* TestOutput for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  if (STRNEQ (%s, \"%s\")) {\n" ret (c_quote expected);
-        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
   | TestOutputLength (seq, expected) ->
       pr "  /* TestOutputLength for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
@@ -664,18 +677,6 @@ and generate_one_test_body name i test_name init test =
       let test ret =
         pr "  if (STRNEQ (%s, expected)) {\n" ret;
         pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, %s);\n" test_name ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
-  | TestOutputDevice (seq, expected) ->
-      pr "  /* TestOutputDevice for %s (%d) */\n" name i;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  %s[5] = 's';\n" ret;
-        pr "  if (STRNEQ (%s, \"%s\")) {\n" ret (c_quote expected);
-        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
         pr "    return -1;\n";
         pr "  }\n"
       in
