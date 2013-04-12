@@ -78,8 +78,10 @@ tests_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
+	$(PCRE_CFLAGS)
 tests_LDADD = \
+	$(PCRE_LIBS) \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \

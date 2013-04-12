@@ -234,11 +234,6 @@ and test =
    *)
   | TestLastFail of seq
 
-  (* The following are for backwards compatibility and will
-   * be replaced with 'TestResult'.
-   *)
-  | TestOutputHashtable of seq * (string * string) list
-
 (* Test prerequisites. *)
 and test_prereq =
     (* Test always runs. *)

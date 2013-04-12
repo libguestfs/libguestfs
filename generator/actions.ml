@@ -4028,10 +4028,10 @@ This is the same as the C<statvfs(2)> system call." };
     style = RHashtable "superblock", [Device "device"], [];
     proc_nr = Some 55;
     tests = [
-      InitScratchFS, Always, TestOutputHashtable (
+      InitScratchFS, Always, TestResult (
         [["tune2fs_l"; "/dev/sdb1"]],
-        ["Filesystem magic number", "0xEF53";
-         "Filesystem OS type", "Linux"])
+        "check_hash (ret, \"Filesystem magic number\", \"0xEF53\") == 0 && "^
+          "check_hash (ret, \"Filesystem OS type\", \"Linux\") == 0");
     ];
     shortdesc = "get ext2/ext3/ext4 superblock details";
     longdesc = "\
@@ -8987,26 +8987,26 @@ moving functions." };
     proc_nr = Some 298;
     camel_name = "Tune2FS";
     tests = [
-      InitScratchFS, Always, TestOutputHashtable (
+      InitScratchFS, Always, TestResult (
         [["tune2fs"; "/dev/sdb1"; "false"; "0"; ""; "NOARG"; ""; "0"; ""; "NOARG"; ""; ""];
          ["tune2fs_l"; "/dev/sdb1"]],
-        ["Check interval", "0 (<none>)";
-         "Maximum mount count", "-1"]);
-      InitScratchFS, Always, TestOutputHashtable (
+        "check_hash (ret, \"Check interval\", \"0 (<none>)\") == 0 && "^
+          "check_hash (ret, \"Maximum mount count\", \"-1\") == 0");
+      InitScratchFS, Always, TestResult (
         [["tune2fs"; "/dev/sdb1"; "false"; "0"; ""; "NOARG"; ""; "86400"; ""; "NOARG"; ""; ""];
          ["tune2fs_l"; "/dev/sdb1"]],
-        ["Check interval", "86400 (1 day)";
-         "Maximum mount count", "-1"]);
-      InitScratchFS, Always, TestOutputHashtable (
+        "check_hash (ret, \"Check interval\", \"86400 (1 day)\") == 0 && "^
+          "check_hash (ret, \"Maximum mount count\", \"-1\") == 0");
+      InitScratchFS, Always, TestResult (
         [["tune2fs"; "/dev/sdb1"; "false"; ""; ""; "NOARG"; "1"; ""; ""; "NOARG"; ""; "1"];
          ["tune2fs_l"; "/dev/sdb1"]],
-        ["Reserved blocks uid", "1 (user bin)";
-         "Reserved blocks gid", "1 (group bin)"]);
-      InitScratchFS, Always, TestOutputHashtable (
+        "match_re (get_key (ret, \"Reserved blocks uid\"), \"\\\\d+ \\\\(user \\\\S+\\\\)\") && "^
+          "match_re (get_key (ret, \"Reserved blocks gid\"), \"\\\\d+ \\\\(group \\\\S+\\\\)\")");
+      InitScratchFS, Always, TestResult (
         [["tune2fs"; "/dev/sdb1"; "false"; ""; ""; "NOARG"; "0"; ""; ""; "NOARG"; ""; "0"];
          ["tune2fs_l"; "/dev/sdb1"]],
-        ["Reserved blocks uid", "0 (user root)";
-         "Reserved blocks gid", "0 (group root)"])
+        "match_re (get_key (ret, \"Reserved blocks uid\"), \"\\\\d+ \\\\(user \\\\S+\\\\)\") && "^
+          "match_re (get_key (ret, \"Reserved blocks gid\"), \"\\\\d+ \\\\(group \\\\S+\\\\)\")");
     ];
     shortdesc = "adjust ext2/ext3/ext4 filesystem parameters";
     longdesc = "\
@@ -9202,14 +9202,14 @@ device is stopped, but it is not destroyed or zeroed." };
     style = RHashtable "info", [Device "device"], [];
     proc_nr = Some 303;
     tests = [
-      InitScratchFS, Always, TestOutputHashtable (
+      InitScratchFS, Always, TestResult (
         [["blkid"; "/dev/sdb1"]],
-        ["TYPE", "ext2";
-         "USAGE", "filesystem";
-         "PART_ENTRY_NUMBER", "1";
-         "PART_ENTRY_TYPE", "0x83";
-         "PART_ENTRY_OFFSET", "128";
-         "PART_ENTRY_SIZE", "102145"])
+        "check_hash (ret, \"TYPE\", \"ext2\") == 0 && "^
+          "check_hash (ret, \"USAGE\", \"filesystem\") == 0 && "^
+          "check_hash (ret, \"PART_ENTRY_NUMBER\", \"1\") == 0 && "^
+          "check_hash (ret, \"PART_ENTRY_TYPE\", \"0x83\") == 0 && "^
+          "check_hash (ret, \"PART_ENTRY_OFFSET\", \"128\") == 0 && "^
+          "check_hash (ret, \"PART_ENTRY_SIZE\", \"102145\") == 0");
     ];
     shortdesc = "print block device attributes";
     longdesc = "\

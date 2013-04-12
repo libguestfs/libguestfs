@@ -45,6 +45,8 @@ let rec generate_tests () =
 #include <fcntl.h>
 #include <assert.h>
 
+#include <pcre.h>
+
 #include \"guestfs.h\"
 #include \"guestfs-internal-frontend.h\"
 
@@ -214,6 +216,43 @@ get_key (char **hash, const char *key)
   }
 
   return NULL; /* key not found */
+}
+
+/* Compare hash key's value to expected value. */
+static int
+check_hash (char **ret, const char *key, const char *expected)
+{
+  const char *value = get_key (ret, key);
+
+  if (STRNEQ (value, expected)) {
+    fprintf (stderr, \"test failed: hash key %%s = \\\"%%s\\\" is not expected value \\\"%%s\\\"\\n\",
+             key, value, expected);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Match string with a PCRE regular expression. */
+static int
+match_re (const char *str, const char *pattern)
+{
+  const char *err;
+  int offset;
+  pcre *re;
+  size_t len = strlen (str);
+  int vec[30], r;
+
+  re = pcre_compile (pattern, 0, &err, &offset, NULL);
+  if (re == NULL) {
+    fprintf (stderr, \"tests: cannot compile regular expression '%%s': %%s\\n\",
+             pattern, err);
+    exit (EXIT_FAILURE);
+  }
+  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
+  pcre_free (re);
+
+  return r != PCRE_ERROR_NOMATCH;
 }
 
 static void
@@ -657,31 +696,6 @@ and generate_one_test_body name i test_name init test =
     let seq, last = get_seq_last seq in
     List.iter (generate_test_command_call test_name) seq;
     generate_test_command_call test_name ~expect_error:true last
-
-  (* Backwards compatible ... *)
-
-  | TestOutputHashtable (seq, fields) ->
-      pr "  /* TestOutputHashtable for %s (%d) */\n" name i;
-      pr "  const char *key, *expected, *value;\n";
-      let seq, last = get_seq_last seq in
-      let test ret =
-        List.iter (
-          fun (key, value) ->
-            pr "  key = \"%s\";\n" (c_quote key);
-            pr "  expected = \"%s\";\n" (c_quote value);
-            pr "  value = get_key (%s, key);\n" ret;
-            pr "  if (value == NULL) {\n";
-            pr "    fprintf (stderr, \"%%s: key \\\"%%s\\\" not found in hash: expecting \\\"%%s\\\"\\n\", \"%s\", key, expected);\n" test_name;
-            pr "    return -1;\n";
-            pr "  }\n";
-            pr "  if (STRNEQ (value, expected)) {\n";
-            pr "    fprintf (stderr, \"%%s: key \\\"%%s\\\": expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", key, expected, value);\n" test_name;
-            pr "    return -1;\n";
-            pr "  }\n";
-        ) fields
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
 
 (* Generate the code to run a command, leaving the result in the C
  * variable named 'ret'.  If you expect to get an error then you should

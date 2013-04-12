@@ -265,8 +265,7 @@ let seq_of_test = function
   | TestResultDevice (s, _)
   | TestResultTrue s
   | TestResultFalse s
-  | TestLastFail s
-  | TestOutputHashtable (s, _) -> s
+  | TestLastFail s -> s
 
 let c_quote str =
   let str = replace_str str "\\" "\\\\" in
