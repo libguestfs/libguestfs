@@ -8001,7 +8001,6 @@ I<other> keys." };
     name = "is_lv";
     style = RBool "lvflag", [Device "device"], [];
     proc_nr = Some 264;
-    optional = Some "lvm2";
     tests = [
       InitBasicFSonLVM, Always, TestOutputTrue (
         [["is_lv"; "/dev/VG/LV"]]);
