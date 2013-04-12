@@ -300,14 +300,6 @@ and test_prereq =
      *)
   | Disabled
 
-    (* 'string' is some C code (a function body) that should return
-     * true or false.  The test will run if the code returns true.
-     *)
-  | If of string
-
-    (* As for 'If' but the test runs _unless_ the code returns true. *)
-  | Unless of string
-
     (* Run the test only if 'string' is available in the daemon. *)
   | IfAvailable of string
 
