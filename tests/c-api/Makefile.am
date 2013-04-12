@@ -71,7 +71,10 @@ TESTS_ENVIRONMENT = \
 
 #SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi)
 
-tests_SOURCES = tests.c
+tests_SOURCES = \
+	tests.c \
+	tests.h \
+	tests-main.c
 tests_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
