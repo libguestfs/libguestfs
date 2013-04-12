@@ -173,6 +173,22 @@ md5sum (const char *filename, char *result)
   result[32] = '\\0';
 }
 
+/* Compare MD5 has to expected hash of a file. */
+static int
+check_file_md5 (const char *ret, const char *filename)
+{
+  char expected[33];
+
+  md5sum (filename, expected);
+  if (STRNEQ (ret, expected)) {
+    fprintf (stderr, \"test failed: MD5 returned (%%s) does not match MD5 of file %%s (%%s)\\n\",
+             ret, filename, expected);
+    return -1;
+  }
+
+  return 0;
+}
+
 /* Return the value for a key in a hashtable.
  * Note: the return value is part of the hash and should not be freed.
  */
@@ -644,19 +660,6 @@ and generate_one_test_body name i test_name init test =
         pr "  }\n";
         pr "  if (STRNEQLEN (%s, \"%s\", size)) {\n" ret (c_quote expected);
         pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", \"%s\", %s);\n" test_name (c_quote expected) ret;
-        pr "    return -1;\n";
-        pr "  }\n"
-      in
-      List.iter (generate_test_command_call test_name) seq;
-      generate_test_command_call ~test test_name last
-  | TestOutputFileMD5 (seq, filename) ->
-      pr "  /* TestOutputFileMD5 for %s (%d) */\n" name i;
-      pr "  char expected[33];\n";
-      pr "  md5sum (\"%s\", expected);\n" filename;
-      let seq, last = get_seq_last seq in
-      let test ret =
-        pr "  if (STRNEQ (%s, expected)) {\n" ret;
-        pr "    fprintf (stderr, \"%%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", \"%s\", expected, %s);\n" test_name ret;
         pr "    return -1;\n";
         pr "  }\n"
       in

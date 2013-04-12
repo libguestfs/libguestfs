@@ -238,7 +238,6 @@ and test =
    * be replaced with 'TestResult'.
    *)
   | TestOutputBuffer of seq * string
-  | TestOutputFileMD5 of seq * string
   | TestOutputHashtable of seq * (string * string) list
 
 (* Test prerequisites. *)

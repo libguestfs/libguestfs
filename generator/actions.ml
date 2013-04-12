@@ -7823,9 +7823,9 @@ types (see C<guestfs_part_get_parttype>)." };
     style = RString "checksum", [String "csumtype"; Device "device"], [];
     proc_nr = Some 237;
     tests = [
-      InitISOFS, Always, TestOutputFileMD5 (
+      InitISOFS, Always, TestResult (
         [["checksum_device"; "md5"; "/dev/sdd"]],
-        "../data/test.iso")
+        "check_file_md5 (ret, \"../data/test.iso\") == 0")
     ];
     shortdesc = "compute MD5, SHAx or CRC checksum of the contents of a device";
     longdesc = "\
