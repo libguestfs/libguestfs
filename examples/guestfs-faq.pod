@@ -601,6 +601,26 @@ standalone programs).
 
 =head1 DEBUGGING LIBGUESTFS
 
+B<In summary:> enable debugging by setting these two environment
+variables before running the program:
+
+ export LIBGUESTFS_DEBUG=1
+ export LIBGUESTFS_TRACE=1
+
+This will produce a lot of output.  Put the B<complete> output in an
+email message or pastebin and send it
+L<to the mailing list|/What mailing lists or chat rooms are available?>.
+B<Do not edit the output.>
+
+Include the version of libguestfs, the operating system version, and
+how you installed libguestfs (eg. from source, C<yum install>, etc.)
+
+If no libguestfs program works, run the program below and paste the
+B<complete, unedited> output into an email or pastebin and send it to
+the mailing list:
+
+ libguestfs-test-tool
+
 =head2 How do I debug when using any libguestfs program or tool
 (eg. virt-v2v or virt-df)?
 
