@@ -35,6 +35,7 @@
 
 static int is_uri (const char *arg);
 static void parse_uri (const char *arg, const char *format, struct drv *drv);
+static char *query_get (xmlURIPtr uri, const char *search_name);
 
 /* Handle the '-a' option when passed on the command line. */
 void
@@ -96,6 +97,7 @@ static void
 parse_uri (const char *arg, const char *format, struct drv *drv)
 {
   xmlURIPtr uri;
+  char *socket;
 
   uri = xmlParseURI (arg);
   if (!uri) {
@@ -110,35 +112,160 @@ parse_uri (const char *arg, const char *format, struct drv *drv)
    */
   if (uri->scheme == NULL) {
     /* Probably can never happen. */
-    fprintf (stderr, _("%s: --add: scheme of URI '%s' is NULL\n"),
+    fprintf (stderr, _("%s: --add %s: scheme of URI is NULL\n"),
              program_name, arg);
     exit (EXIT_FAILURE);
   }
 
+  socket = query_get (uri, "socket");
+
+  if (uri->server && STRNEQ (uri->server, "") && socket) {
+    fprintf (stderr, _("%s: --add %s: cannot both a server name and a socket query parameter\n"),
+             program_name, arg);
+    exit (EXIT_FAILURE);
+  }
+
+  /* Is this needed? XXX
+  if (socket && socket[0] != '/') {
+    fprintf (stderr, _("%s: --add %s: socket query parameter must be an absolute path\n"),
+             program_name, arg);
+    exit (EXIT_FAILURE);
+  }
+  */
+
   drv->type = drv_uri;
   drv->nr_drives = -1;
   drv->uri.uri = uri;
+  drv->uri.socket = socket;
   drv->uri.format = format;
 }
 
+/* Code inspired by libvirt src/util/viruri.c, written by danpb,
+ * released under a compatible license.
+ */
+static char *
+query_get (xmlURIPtr uri, const char *search_name)
+{
+  /* XXX libvirt uses deprecated uri->query field.  Why? */
+  const char *query = uri->query_raw;
+  const char *end, *eq;
+
+  if (!query || STREQ (query, ""))
+    return NULL;
+
+  while (*query) {
+    CLEANUP_FREE char *name = NULL;
+    char *value = NULL;
+
+    /* Find the next separator, or end of the string. */
+    end = strchr (query, '&');
+    if (!end)
+      end = strchr(query, ';');
+    if (!end)
+      end = query + strlen (query);
+
+    /* Find the first '=' character between here and end. */
+    eq = strchr(query, '=');
+    if (eq && eq >= end) eq = NULL;
+
+    /* Empty section (eg. "&&"). */
+    if (end == query)
+      goto next;
+
+    /* If there is no '=' character, then we have just "name"
+     * and consistent with CGI.pm we assume value is "".
+     */
+    else if (!eq) {
+      name = xmlURIUnescapeString (query, end - query, NULL);
+      if (!name) goto no_memory;
+    }
+    /* Or if we have "name=" here (works around annoying
+     * problem when calling xmlURIUnescapeString with len = 0).
+     */
+    else if (eq+1 == end) {
+      name = xmlURIUnescapeString (query, eq - query, NULL);
+      if (!name) goto no_memory;
+    }
+    /* If the '=' character is at the beginning then we have
+     * "=value" and consistent with CGI.pm we _ignore_ this.
+     */
+    else if (query == eq)
+      goto next;
+
+    /* Otherwise it's "name=value". */
+    else {
+      name = xmlURIUnescapeString (query, eq - query, NULL);
+      if (!name)
+        goto no_memory;
+      value = xmlURIUnescapeString (eq+1, end - (eq+1), NULL);
+      if (!value) {
+        goto no_memory;
+      }
+    }
+
+    /* Is it the name we're looking for? */
+    if (STREQ (name, search_name)) {
+      if (!value) {
+        value = strdup ("");
+        if (!value)
+          goto no_memory;
+      }
+      return value;
+    }
+
+    free (value);
+
+  next:
+    query = end;
+    if (*query)
+      query++; /* skip '&' separator */
+  }
+
+  /* search_name not found */
+  return NULL;
+
+ no_memory:
+  perror ("malloc");
+  exit (EXIT_FAILURE);
+}
+
+/* Construct either a tcp: server list of a unix: server list or
+ * nothing at all from '-a' option URI.
+ */
 static char **
-make_server (xmlURIPtr uri)
+make_server (xmlURIPtr uri, const char *socket)
 {
   char **ret;
   char *server;
 
-  if (uri->port == 0) {
-    if (asprintf (&server, "tcp:%s", uri->server) == -1) {
+  /* If the server part of the URI is specified, then this is a TCP
+   * connection.
+   */
+  if (uri->server && STRNEQ (uri->server, "")) {
+    if (uri->port == 0) {
+      if (asprintf (&server, "tcp:%s", uri->server) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+    }
+    else {
+      if (asprintf (&server, "tcp:%s:%d", uri->server, uri->port) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+    }
+  }
+  /* Otherwise, ?socket query parameter means it's a Unix domain
+   * socket connection.
+   */
+  else if (socket != NULL) {
+    if (asprintf (&server, "unix:%s", socket) == -1) {
       perror ("asprintf");
       exit (EXIT_FAILURE);
     }
   }
-  else {
-    if (asprintf (&server, "tcp:%s:%d", uri->server, uri->port) == -1) {
-      perror ("asprintf");
-      exit (EXIT_FAILURE);
-    }
-  }
+  /* Otherwise, no server parameter is needed. */
+  else return NULL;
 
   /* The .server parameter is in fact a list of strings, although
    * only a singleton is passed by us.
@@ -155,6 +282,7 @@ add_drives (struct drv *drv, char next_drive)
 {
   int r;
   struct guestfs_add_drive_opts_argv ad_optargs;
+  char **server;
 
   if (next_drive > 'z') {
     fprintf (stderr,
@@ -206,12 +334,9 @@ add_drives (struct drv *drv, char next_drive)
       }
       ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_PROTOCOL_BITMASK;
       ad_optargs.protocol = drv->uri.uri->scheme;
-      if (drv->uri.uri->server && STRNEQ (drv->uri.uri->server, "")) {
+      ad_optargs.server = server = make_server (drv->uri.uri, drv->uri.socket);
+      if (server)
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SERVER_BITMASK;
-        ad_optargs.server = make_server (drv->uri.uri);
-      }
-      else
-        ad_optargs.server = NULL;
       if (drv->uri.uri->user && STRNEQ (drv->uri.uri->user, "")) {
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK;
         ad_optargs.username = drv->uri.uri->user;
@@ -222,7 +347,7 @@ add_drives (struct drv *drv, char next_drive)
       if (r == -1)
         exit (EXIT_FAILURE);
 
-      guestfs___free_string_list ((char **) ad_optargs.server);
+      guestfs___free_string_list (server);
 
       drv->nr_drives = 1;
       next_drive++;
@@ -334,6 +459,7 @@ free_drives (struct drv *drv)
     break;
   case drv_uri:
     xmlFreeURI (drv->uri.uri);
+    free (drv->uri.socket);
     break;
   case drv_d:
     /* d.filename is optarg, don't free it */

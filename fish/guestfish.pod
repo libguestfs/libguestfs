@@ -1102,7 +1102,7 @@ block devices using a URI-style format, for example:
 URIs I<cannot> be used with the L</add> command.  The equivalent
 command using the API directly is:
 
- ><fs> add /disk.img protocol:ssh server:example.com username:root
+ ><fs> add /disk.img protocol:ssh server:tcp:example.com username:root
 
 The possible I<-a URI> formats are described below.
 
@@ -1120,19 +1120,28 @@ The server is the one running C<glusterd>, and may be C<localhost>.
 
 The equivalent API command would be:
 
- ><fs> add /disk protocol:gluster server:example.com
+ ><fs> add /disk protocol:gluster server:tcp:example.com
 
-=head2 B<-a nbd://example.com[:port][/exportname]>
+=head2 B<-a nbd://example.com[:port]>
+
+=head2 B<-a nbd://example.com[:port]/exportname>
+
+=head2 B<-a nbd://?socket=/socket>
+
+=head2 B<-a nbd:///exportname?socket=/socket>
 
 Add a disk located on Network Block Device (nbd) storage.
 
-The URI syntax only supports TCP.  Libguestfs can use Unix domain
-sockets if you use the L</add> API directly.  The I</exportname> part
-of the URI specifies an NBD export name, but is usually left empty.
+The I</exportname> part of the URI specifies an NBD export name, but
+is usually left empty.
+
+The optional I<?socket> parameter can be used to specify a Unix domain
+socket that we talk to the NBD server over.  Note that you cannot mix
+server name (ie. TCP/IP) and socket path.
 
 The equivalent API command would be (no export name):
 
- ><fs> add "" protocol:nbd server:example.com
+ ><fs> add "" protocol:nbd server:[tcp:example.com|unix:/socket]
 
 =head2 B<-a rbd://example.com[:port]/disk>
 
@@ -1143,7 +1152,7 @@ server can be specified when using this URI syntax.
 
 The equivalent API command would be:
 
- ><fs> add /disk protocol:rbd server:example.com
+ ><fs> add /disk protocol:rbd server:tcp:example.com
 
 =head2 B<-a sheepdog://[example.com[:port]]/volume/image>
 
@@ -1155,7 +1164,7 @@ when using this URI syntax.
 
 The equivalent API command would be:
 
- ><fs> add /disk protocol:sheepdog [server:example.com]
+ ><fs> add /disk protocol:sheepdog [server:tcp:example.com]
 
 =head2 B<-a ssh://[user@]example.com[:port]/disk.img>
 
@@ -1165,7 +1174,7 @@ major SSH servers.
 
 The equivalent API command would be:
 
- ><fs> add /disk protocol:ssh server:example.com [username:user]
+ ><fs> add /disk protocol:ssh server:tcp:example.com [username:user]
 
 =head1 PROGRESS BARS
 

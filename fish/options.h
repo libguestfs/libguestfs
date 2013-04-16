@@ -65,6 +65,7 @@ struct drv {
     } a;
     struct {
       xmlURIPtr uri;        /* URI */
+      char *socket;         /* ?socket parameter from URI. */
       const char *format;   /* format (NULL == autodetect) */
     } uri;
     struct {
