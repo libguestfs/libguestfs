@@ -125,17 +125,16 @@ static char **
 make_server (xmlURIPtr uri)
 {
   char **ret;
-  char *host_port;
+  char *server;
 
   if (uri->port == 0) {
-    host_port = strdup (uri->server);
-    if (host_port == NULL) {
-      perror ("strdup");
+    if (asprintf (&server, "tcp:%s", uri->server) == -1) {
+      perror ("asprintf");
       exit (EXIT_FAILURE);
     }
   }
   else {
-    if (asprintf (&host_port, "%s:%d", uri->server, uri->port) == -1) {
+    if (asprintf (&server, "tcp:%s:%d", uri->server, uri->port) == -1) {
       perror ("asprintf");
       exit (EXIT_FAILURE);
     }
@@ -145,7 +144,7 @@ make_server (xmlURIPtr uri)
    * only a singleton is passed by us.
    */
   ret = malloc (sizeof (char *) * 2);
-  ret[0] = host_port;
+  ret[0] = server;
   ret[1] = NULL;
 
   return ret;
