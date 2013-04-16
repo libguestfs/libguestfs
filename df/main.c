@@ -317,6 +317,7 @@ static char *
 single_drive_display_name (struct drv *drvs)
 {
   char *name = NULL;
+  char *p;
 
   assert (drvs != NULL);
   assert (drvs->next == NULL);
@@ -334,9 +335,8 @@ single_drive_display_name (struct drv *drvs)
       exit (EXIT_FAILURE);
     }
     break;
-  case drv_uri: {
-    char *p;
 
+  case drv_uri:
     name = (char *) xmlSaveUri (drvs->uri.uri);
     if (name == NULL) {
       fprintf (stderr, _("%s: xmlSaveUri: could not make printable URI\n"),
@@ -357,7 +357,7 @@ single_drive_display_name (struct drv *drvs)
       name = p;
     }
     break;
-    }
+
   case drv_d:
     name = strdup (drvs->d.guest);
     if (name == NULL) {
