@@ -51,7 +51,8 @@ virt_cat_CPPFLAGS = \
 virt_cat_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBCONFIG_CFLAGS)
+	$(LIBCONFIG_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
 virt_cat_LDADD = \
 	$(LIBCONFIG_LIBS) \
@@ -75,7 +76,8 @@ virt_filesystems_CPPFLAGS = \
 virt_filesystems_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBCONFIG_CFLAGS)
+	$(LIBCONFIG_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
 virt_filesystems_LDADD = \
 	$(LIBCONFIG_LIBS) \
@@ -99,7 +101,8 @@ virt_ls_CPPFLAGS = \
 virt_ls_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBCONFIG_CFLAGS)
+	$(LIBCONFIG_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
 virt_ls_LDADD = \
 	$(LIBCONFIG_LIBS) \

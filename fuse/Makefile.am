@@ -61,6 +61,7 @@ guestmount_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBCONFIG_CFLAGS) \
+	$(LIBXML2_CFLAGS) \
 	$(FUSE_CFLAGS)
 
 guestmount_LDADD = \

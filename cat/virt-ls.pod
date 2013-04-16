@@ -277,6 +277,12 @@ them with separate I<-a> options.
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
+=item B<-a URI>
+
+=item B<--add URI>
+
+Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
+
 =item B<--checksum>
 
 =item B<--checksum=crc|md5|sha1|sha224|sha256|sha384|sha512>

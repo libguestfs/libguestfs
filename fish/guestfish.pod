@@ -138,6 +138,12 @@ To list what is available do:
 
  guestfish -N help | less
 
+=head2 Remote drives
+
+Access a remote disk using ssh:
+
+ guestfish -a ssh://example.com/path/to/disk.img
+
 =head2 Remote control
 
  eval "`guestfish --listen`"
@@ -177,6 +183,12 @@ force a particular format use the I<--format=..> option.
 Using this flag is mostly equivalent to using the C<add> command,
 with C<readonly:true> if the I<--ro> flag was given, and
 with C<format:...> if the I<--format=...> flag was given.
+
+=item B<-a URI>
+
+=item B<--add URI>
+
+Add a remote disk.  See L</ADDING REMOTE STORAGE>.
 
 =item B<-c URI>
 
@@ -1075,6 +1087,85 @@ Create a blank 200MB disk:
  guestfish -N disk:200M
 
 __PREPOPTS__
+
+=head1 ADDING REMOTE STORAGE
+
+I<For API-level documentation on this topic, see
+L<guestfs(3)/guestfs_add_drive_opts> and
+L<guestfs(3)/REMOTE STORAGE>>.
+
+On the command line, you can use the I<-a> option to add network
+block devices using a URI-style format, for example:
+
+ guestfish -a ssh://root@example.com/disk.img
+
+URIs I<cannot> be used with the L</add> command.  The equivalent
+command using the API directly is:
+
+ ><fs> add /disk.img protocol:ssh server:example.com username:root
+
+The possible I<-a URI> formats are described below.
+
+=head2 B<-a disk.img>
+
+=head2 B<-a file:///path/to/disk.img>
+
+Add the local disk image (or device) called C<disk.img>.
+
+=head2 B<-a gluster://example.com[:port]/disk>
+
+Add a disk image located on GlusterFS storage.
+
+The server is the one running C<glusterd>, and may be C<localhost>.
+
+The equivalent API command would be:
+
+ ><fs> add /disk protocol:gluster server:example.com
+
+=head2 B<-a nbd://example.com[:port][/exportname]>
+
+Add a disk located on Network Block Device (nbd) storage.
+
+The URI syntax only supports TCP.  Libguestfs can use Unix domain
+sockets if you use the L</add> API directly.  The I</exportname> part
+of the URI specifies an NBD export name, but is usually left empty.
+
+The equivalent API command would be (no export name):
+
+ ><fs> add "" protocol:nbd server:example.com
+
+=head2 B<-a rbd://example.com[:port]/disk>
+
+Add a disk image located on a Ceph (RBD/librbd) storage volume.
+
+Although libguestfs and Ceph supports multiple servers, only a single
+server can be specified when using this URI syntax.
+
+The equivalent API command would be:
+
+ ><fs> add /disk protocol:rbd server:example.com
+
+=head2 B<-a sheepdog://[example.com[:port]]/volume/image>
+
+Add a disk image located on a Sheepdog volume.
+
+The server name is optional.  Although libguestfs and Sheepdog
+supports multiple servers, only at most one server can be specified
+when using this URI syntax.
+
+The equivalent API command would be:
+
+ ><fs> add /disk protocol:sheepdog [server:example.com]
+
+=head2 B<-a ssh://[user@]example.com[:port]/disk.img>
+
+Add a disk image located on a remote server, accessed using the Secure
+Shell (ssh) SFTP protocol.  SFTP is supported out of the box by all
+major SSH servers.
+
+The equivalent API command would be:
+
+ ><fs> add /disk protocol:ssh server:example.com [username:user]
 
 =head1 PROGRESS BARS
 

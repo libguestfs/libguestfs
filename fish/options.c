@@ -21,13 +21,151 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <errno.h>
 #include <libintl.h>
 #include <getopt.h>
 
-#include "guestfs.h"
+#ifdef HAVE_LIBXML2
+#include <libxml/uri.h>
+#endif
 
+#include "c-ctype.h"
+
+#include "guestfs.h"
 #include "options.h"
+
+static int is_uri (const char *arg);
+static void parse_uri (const char *arg, const char *format, struct drv *drv);
+
+/* Handle the '-a' option when passed on the command line. */
+void
+option_a (const char *arg, const char *format, struct drv **drvsp)
+{
+  struct drv *drv;
+
+  drv = calloc (1, sizeof (struct drv));
+  if (!drv) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  /* Does it look like a URI? */
+  if (is_uri (arg))
+    parse_uri (arg, format, drv);
+  else {
+    /* Ordinary file. */
+    if (access (arg, R_OK) != 0) {
+      perror (arg);
+      exit (EXIT_FAILURE);
+    }
+
+    drv->type = drv_a;
+    drv->nr_drives = -1;
+    drv->a.filename = optarg;
+    drv->a.format = format;
+  }
+
+  drv->next = *drvsp;
+  *drvsp = drv;
+}
+
+/* Does it "look like" a URI?  A short lower-case ASCII string
+ * followed by "://" will do.  Note that we properly parse the URI
+ * later on using libxml2.
+ */
+static int
+is_uri (const char *arg)
+{
+  const char *p;
+
+  p = strstr (arg, "://");
+  if (!p)
+    return 0;
+
+  if (p - arg >= 8)
+    return 0;
+
+  for (p--; p >= arg; p--) {
+    if (!c_islower (*p))
+      return 0;
+  }
+
+  return 1;
+}
+
+#ifdef HAVE_LIBXML2
+
+static void
+parse_uri (const char *arg, const char *format, struct drv *drv)
+{
+  xmlURIPtr uri;
+
+  uri = xmlParseURI (arg);
+  if (!uri) {
+    fprintf (stderr, _("%s: --add: could not parse URI '%s'\n"),
+             program_name, arg);
+    exit (EXIT_FAILURE);
+  }
+
+  /* Note we don't do much checking of the parsed URI, since the
+   * underlying function 'guestfs_add_drive_opts' will check for us.
+   * So just the basics here.
+   */
+  if (uri->scheme == NULL) {
+    /* Probably can never happen. */
+    fprintf (stderr, _("%s: --add: scheme of URI '%s' is NULL\n"),
+             program_name, arg);
+    exit (EXIT_FAILURE);
+  }
+
+  drv->type = drv_uri;
+  drv->nr_drives = -1;
+  drv->uri.uri = uri;
+  drv->uri.format = format;
+}
+
+static char **
+make_server (xmlURIPtr uri)
+{
+  char **ret;
+  char *host_port;
+
+  if (uri->port == 0) {
+    host_port = strdup (uri->server);
+    if (host_port == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+  else {
+    if (asprintf (&host_port, "%s:%d", uri->server, uri->port) == -1) {
+      perror ("asprintf");
+      exit (EXIT_FAILURE);
+    }
+  }
+
+  /* The .server parameter is in fact a list of strings, although
+   * only a singleton is passed by us.
+   */
+  ret = malloc (sizeof (char *) * 2);
+  ret[0] = host_port;
+  ret[1] = NULL;
+
+  return ret;
+}
+
+#else /* !HAVE_LIBXML2 */
+
+static void
+parse_uri (const char *arg, const char *format, struct drv *drv)
+{
+  fprintf (stderr, _("%s: compiled without support for libxml2, so '-a URI' is not allowed\n"),
+           program_name);
+  exit (EXIT_FAILURE);
+}
+
+#endif /* !HAVE_LIBXML2 */
 
 char
 add_drives (struct drv *drv, char next_drive)
@@ -72,6 +210,42 @@ add_drives (struct drv *drv, char next_drive)
       drv->nr_drives = 1;
       next_drive++;
       break;
+
+#ifdef HAVE_LIBXML2
+    case drv_uri:
+      ad_optargs.bitmask = 0;
+      if (read_only) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
+        ad_optargs.readonly = 1;
+      }
+      if (drv->uri.format) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+        ad_optargs.format = drv->uri.format;
+      }
+      ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_PROTOCOL_BITMASK;
+      ad_optargs.protocol = drv->uri.uri->scheme;
+      if (drv->uri.uri->server && STRNEQ (drv->uri.uri->server, "")) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SERVER_BITMASK;
+        ad_optargs.server = make_server (drv->uri.uri);
+      }
+      else
+        ad_optargs.server = NULL;
+      if (drv->uri.uri->user && STRNEQ (drv->uri.uri->user, "")) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK;
+        ad_optargs.username = drv->uri.uri->user;
+      }
+
+      r = guestfs_add_drive_opts_argv (g, drv->uri.uri->path ? : "",
+                                       &ad_optargs);
+      if (r == -1)
+        exit (EXIT_FAILURE);
+
+      guestfs___free_string_list ((char **) ad_optargs.server);
+
+      drv->nr_drives = 1;
+      next_drive++;
+      break;
+#endif /* HAVE_LIBXML2 */
 
     case drv_d:
       r = add_libvirt_drives (drv->d.guest);
@@ -174,8 +348,17 @@ free_drives (struct drv *drv)
   free (drv->device);
 
   switch (drv->type) {
-  case drv_a: /* a.filename and a.format are optargs, don't free them */ break;
-  case drv_d: /* d.filename is optarg, don't free it */ break;
+  case drv_a:
+    /* a.filename and a.format are optargs, don't free them */
+    break;
+#ifdef HAVE_LIBXML2
+  case drv_uri:
+    xmlFreeURI (drv->uri.uri);
+    break;
+#endif /* HAVE_LIBXML2 */
+  case drv_d:
+    /* d.filename is optarg, don't free it */
+    break;
 #if COMPILING_GUESTFISH
   case drv_N:
     free (drv->N.filename);

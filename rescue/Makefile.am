@@ -47,7 +47,8 @@ virt_rescue_CPPFLAGS = \
 virt_rescue_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBCONFIG_CFLAGS)
+	$(LIBCONFIG_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
 virt_rescue_LDADD = \
 	$(LIBCONFIG_LIBS) \

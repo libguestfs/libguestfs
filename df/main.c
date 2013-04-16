@@ -30,6 +30,10 @@
 #include <assert.h>
 #include <libintl.h>
 
+#ifdef HAVE_LIBXML2
+#include <libxml/uri.h>
+#endif
+
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
@@ -311,10 +315,10 @@ main (int argc, char *argv[])
 /* Generate a display name for the single guest mode.  See comments in
  * https://bugzilla.redhat.com/show_bug.cgi?id=880801
  */
-static const char *
+static char *
 single_drive_display_name (struct drv *drvs)
 {
-  const char *name;
+  char *name = NULL;
 
   assert (drvs != NULL);
   assert (drvs->next == NULL);
@@ -326,13 +330,49 @@ single_drive_display_name (struct drv *drvs)
       name = drvs->a.filename;
     else
       name++;                   /* skip '/' character */
+    name = strdup (name);
+    if (name == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
     break;
+#ifdef HAVE_LIBXML2
+  case drv_uri: {
+    char *p;
+
+    name = (char *) xmlSaveUri (drvs->uri.uri);
+    if (name == NULL) {
+      fprintf (stderr, _("%s: xmlSaveUri: could not make printable URI\n"),
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+    /* Try to shorten the URI to just the final element, if it will
+     * still make sense.
+     */
+    p = strrchr (name, '/');
+    if (p && strlen (p) > 1) {
+      p = strdup (p+1);
+      if (!p) {
+        perror ("strdup");
+        exit (EXIT_FAILURE);
+      }
+      free (name);
+      name = p;
+    }
+    break;
+    }
+#endif /* HAVE_LIBXML2 */
   case drv_d:
-    name = drvs->d.guest;
+    name = strdup (drvs->d.guest);
+    if (name == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
     break;
-  default:
-    abort ();
   }
+
+  if (!name)
+    abort ();
 
   return name;
 }
@@ -345,16 +385,9 @@ make_display_name (struct drv *drvs)
   assert (drvs != NULL);
 
   /* Single disk or domain. */
-  if (drvs->next == NULL) {
-    const char *name;
+  if (drvs->next == NULL)
+    ret = single_drive_display_name (drvs);
 
-    name = single_drive_display_name (drvs);
-    ret = strdup (name);
-    if (ret == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
-  }
   /* Multiple disks.  Multiple domains are possible, although that is
    * probably user error.  Choose the first name (last in the list),
    * and add '+' for each additional disk.
@@ -362,22 +395,20 @@ make_display_name (struct drv *drvs)
   else {
     size_t pluses = 0;
     size_t i, len;
-    const char *name;
 
     while (drvs->next != NULL) {
       drvs = drvs->next;
       pluses++;
     }
 
-    name = single_drive_display_name (drvs);
-    len = strlen (name);
+    ret = single_drive_display_name (drvs);
+    len = strlen (ret);
 
-    ret = malloc (len + pluses + 1);
+    ret = realloc (ret, len + pluses + 1);
     if (ret == NULL) {
-      perror ("malloc");
+      perror ("realloc");
       exit (EXIT_FAILURE);
     }
-    memcpy (ret, name, len);
     for (i = len; i < len + pluses; ++i)
       ret[i] = '+';
     ret[i] = '\0';
