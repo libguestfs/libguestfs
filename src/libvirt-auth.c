@@ -27,18 +27,16 @@
 #include <libvirt/virterror.h>
 #endif
 
-#ifdef HAVE_LIBXML2
 #include <libxml/xpath.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
+#if defined(HAVE_LIBVIRT)
 
 static struct {
   int credtype;
@@ -322,10 +320,10 @@ guestfs__set_libvirt_requested_credential (guestfs_h *g, int index,
   return 0;
 }
 
-#else /* no libvirt or libxml2 at compile time */
+#else /* no libvirt at compile time */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("libvirt authentication APIs not available since this version of libguestfs was compiled without libvirt or libxml2")); \
+  error (g, _("libvirt authentication APIs not available since this version of libguestfs was compiled without libvirt")); \
   return r
 
 int
@@ -364,4 +362,4 @@ guestfs__set_libvirt_requested_credential (guestfs_h *g, int index, const char *
   NOT_IMPL(-1);
 }
 
-#endif /* no libvirt or libxml2 at compile time */
+#endif /* no libvirt at compile time */

@@ -26,9 +26,7 @@
 #include <libintl.h>
 #include <getopt.h>
 
-#ifdef HAVE_LIBXML2
 #include <libxml/uri.h>
-#endif
 
 #include "c-ctype.h"
 
@@ -94,8 +92,6 @@ is_uri (const char *arg)
   return 1;
 }
 
-#ifdef HAVE_LIBXML2
-
 static void
 parse_uri (const char *arg, const char *format, struct drv *drv)
 {
@@ -155,18 +151,6 @@ make_server (xmlURIPtr uri)
   return ret;
 }
 
-#else /* !HAVE_LIBXML2 */
-
-static void
-parse_uri (const char *arg, const char *format, struct drv *drv)
-{
-  fprintf (stderr, _("%s: compiled without support for libxml2, so '-a URI' is not allowed\n"),
-           program_name);
-  exit (EXIT_FAILURE);
-}
-
-#endif /* !HAVE_LIBXML2 */
-
 char
 add_drives (struct drv *drv, char next_drive)
 {
@@ -211,7 +195,6 @@ add_drives (struct drv *drv, char next_drive)
       next_drive++;
       break;
 
-#ifdef HAVE_LIBXML2
     case drv_uri:
       ad_optargs.bitmask = 0;
       if (read_only) {
@@ -245,7 +228,6 @@ add_drives (struct drv *drv, char next_drive)
       drv->nr_drives = 1;
       next_drive++;
       break;
-#endif /* HAVE_LIBXML2 */
 
     case drv_d:
       r = add_libvirt_drives (drv->d.guest);
@@ -351,11 +333,9 @@ free_drives (struct drv *drv)
   case drv_a:
     /* a.filename and a.format are optargs, don't free them */
     break;
-#ifdef HAVE_LIBXML2
   case drv_uri:
     xmlFreeURI (drv->uri.uri);
     break;
-#endif /* HAVE_LIBXML2 */
   case drv_d:
     /* d.filename is optarg, don't free it */
     break;

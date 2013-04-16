@@ -111,11 +111,9 @@ extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
  */
 #include "guestfs-internal-frontend-cleanups.h"
 
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
+#if defined(HAVE_LIBVIRT)
 
-#ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
-#endif
 
 /* This was proposed as an external API, but there's a problem: the
  * generator is unable to bind a virDomainPtr in any language other
@@ -138,7 +136,7 @@ struct guestfs___add_libvirt_dom_argv {
 
 extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);
 
-#endif /* HAVE_LIBVIRT && HAVE_LIBXML2 */
+#endif /* HAVE_LIBVIRT */
 
 /* Current program name.  Note <errno.h> must be included in all files
  * that want to use 'program_name'.

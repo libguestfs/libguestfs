@@ -36,14 +36,12 @@
 #include <libvirt/virterror.h>
 #endif
 
-#ifdef HAVE_LIBXML2
 #include <libxml/xmlIO.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xpath.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xmlsave.h>
-#endif
 
 #if HAVE_LIBSELINUX
 #include <selinux/selinux.h>
@@ -73,8 +71,7 @@
                              MIN_LIBVIRT_MICRO)
 
 #if defined(HAVE_LIBVIRT) && \
-  LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION && \
-  defined(HAVE_LIBXML2)
+  LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
 
 #ifndef HAVE_XMLBUFFERDETACH
 /* Added in libxml2 2.8.0.  This is mostly a copy of the function from
@@ -1810,12 +1807,12 @@ struct backend_ops backend_ops_libvirt = {
   .hot_remove_drive = hot_remove_drive_libvirt,
 };
 
-#else /* no libvirt or libxml2 at compile time */
+#else /* no libvirt at compile time */
 
 #define NOT_IMPL(r)                                                     \
   error (g, _("libvirt backend is not available because "         \
               "this version of libguestfs was compiled "                \
-              "without libvirt or libvirt < %d.%d.%d or without libxml2"), \
+              "without libvirt or libvirt < %d.%d.%d"), \
          MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR, MIN_LIBVIRT_MICRO);      \
   return r
 
@@ -1843,7 +1840,7 @@ struct backend_ops backend_ops_libvirt = {
   .max_disks = max_disks_libvirt,
 };
 
-#endif /* no libvirt or libxml2 at compile time */
+#endif /* no libvirt at compile time */
 
 int
 guestfs__internal_set_libvirt_selinux_label (guestfs_h *g, const char *label,

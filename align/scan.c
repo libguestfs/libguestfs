@@ -219,14 +219,14 @@ main (int argc, char *argv[])
    * below.
    */
   if (drvs == NULL) {
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
+#if defined(HAVE_LIBVIRT)
     get_all_libvirt_domains (libvirt_uri);
     r = start_threads (max_threads, g, scan_work);
     free_domains ();
     if (r == -1)
       exit (EXIT_FAILURE);
 #else
-    fprintf (stderr, _("%s: compiled without support for libvirt and/or libxml2.\n"),
+    fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
              program_name);
     exit (EXIT_FAILURE);
 #endif

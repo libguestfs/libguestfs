@@ -56,18 +56,14 @@
 #include <assert.h>
 #include <sys/types.h>
 
-#ifdef HAVE_LIBXML2
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
-#endif
 
 #include "ignore-value.h"
 #include "glthread/lock.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-
-#ifdef HAVE_LIBXML2
 
 static pcre *re_major_minor;
 
@@ -565,15 +561,3 @@ free_osinfo_db_entry (struct osinfo *osinfo)
   if (osinfo->re_application_id)
     pcre_free (osinfo->re_application_id);
 }
-
-#else /* !HAVE_LIBXML2 */
-
-int
-guestfs___osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo,
-                      const struct osinfo **osinfo_ret)
-{
-  debug (g, "osinfo: libxml2 not available at compile time");
-  return 0;
-}
-
-#endif /* !HAVE_LIBXML2 */

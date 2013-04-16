@@ -21,9 +21,7 @@
 
 #include <getopt.h>
 
-#ifdef HAVE_LIBXML2
 #include <libxml/uri.h>
-#endif
 
 #include "guestfs-internal-frontend.h"
 
@@ -54,9 +52,7 @@ struct drv {
 
   enum {
     drv_a,                      /* -a option (without URI) */
-#ifdef HAVE_LIBXML2
     drv_uri,                    /* -a option (with URI) */
-#endif
     drv_d,                      /* -d option */
 #if COMPILING_GUESTFISH
     drv_N,                      /* -N option (guestfish only) */
@@ -67,12 +63,10 @@ struct drv {
       char *filename;       /* disk filename */
       const char *format;   /* format (NULL == autodetect) */
     } a;
-#ifdef HAVE_LIBXML2
     struct {
       xmlURIPtr uri;        /* URI */
       const char *format;   /* format (NULL == autodetect) */
     } uri;
-#endif
     struct {
       char *guest;          /* guest name */
     } d;

@@ -28,10 +28,8 @@
 #include <libvirt/libvirt.h>
 #endif
 
-#ifdef HAVE_LIBXML2
 #include <libxml/parser.h>
 #include <libxml/xmlversion.h>
-#endif
 
 #include "glthread/lock.h"
 #include "ignore-value.h"
@@ -61,19 +59,16 @@ static void init_libguestfs (void) __attribute__((constructor));
 static void
 init_libguestfs (void)
 {
-#if defined(HAVE_LIBVIRT) || defined(HAVE_LIBXML2)
   gl_lock_lock (init_lock);
-#endif
+
 #ifdef HAVE_LIBVIRT
   virInitialize ();
 #endif
-#ifdef HAVE_LIBXML2
+
   xmlInitParser ();
   LIBXML_TEST_VERSION;
-#endif
-#if defined(HAVE_LIBVIRT) || defined(HAVE_LIBXML2)
+
   gl_lock_unlock (init_lock);
-#endif
 }
 
 guestfs_h *

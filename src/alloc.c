@@ -23,11 +23,9 @@
 #include <unistd.h>
 #include <string.h>
 
-#ifdef HAVE_LIBXML2
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
 #include <libxml/xmlwriter.h>
-#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

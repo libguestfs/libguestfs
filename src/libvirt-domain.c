@@ -28,18 +28,16 @@
 #include <libvirt/virterror.h>
 #endif
 
-#ifdef HAVE_LIBXML2
 #include <libxml/xpath.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-#if defined(HAVE_LIBVIRT) && defined(HAVE_LIBXML2)
+#if defined(HAVE_LIBVIRT)
 
 static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
 static ssize_t for_each_disk (guestfs_h *g, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
@@ -627,10 +625,10 @@ get_domain_xml (guestfs_h *g, virDomainPtr dom)
   return doc;
 }
 
-#else /* no libvirt or libxml2 at compile time */
+#else /* no libvirt at compile time */
 
 #define NOT_IMPL(r)                                                     \
-  error (g, _("add-domain API not available since this version of libguestfs was compiled without libvirt or libxml2")); \
+  error (g, _("add-domain API not available since this version of libguestfs was compiled without libvirt")); \
   return r
 
 int
@@ -640,4 +638,4 @@ guestfs__add_domain (guestfs_h *g, const char *dom,
   NOT_IMPL(-1);
 }
 
-#endif /* no libvirt or libxml2 at compile time */
+#endif /* no libvirt at compile time */

@@ -30,9 +30,7 @@
 #include <assert.h>
 #include <libintl.h>
 
-#ifdef HAVE_LIBXML2
 #include <libxml/uri.h>
-#endif
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
@@ -336,7 +334,6 @@ single_drive_display_name (struct drv *drvs)
       exit (EXIT_FAILURE);
     }
     break;
-#ifdef HAVE_LIBXML2
   case drv_uri: {
     char *p;
 
@@ -361,7 +358,6 @@ single_drive_display_name (struct drv *drvs)
     }
     break;
     }
-#endif /* HAVE_LIBXML2 */
   case drv_d:
     name = strdup (drvs->d.guest);
     if (name == NULL) {
