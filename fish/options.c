@@ -64,6 +64,7 @@ add_drives (struct drv *drv, char next_drive)
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
         ad_optargs.format = drv->a.format;
       }
+
       r = guestfs_add_drive_opts_argv (g, drv->a.filename, &ad_optargs);
       if (r == -1)
         exit (EXIT_FAILURE);
