@@ -37,9 +37,7 @@ EXTRA_DIST = \
 	guest-aux/minimal-hive \
 	guests.xml.in
 
-# This is 'check_DATA' because we don't need it until 'make check'
-# time and we need the tools we have built in order to make it.
-check_DATA = \
+disk_images = \
 	blank-disk.img \
 	blank-part.img \
 	blank-fs.img \
@@ -52,6 +50,10 @@ check_DATA = \
 	fedora-btrfs.img \
 	ubuntu.img \
 	windows.img
+
+# This is 'check_DATA' because we don't need it until 'make check'
+# time and we need the tools we have built in order to make it.
+check_DATA = $(disk_images) guests-all-good.xml
 
 CLEANFILES = $(check_DATA) stamp-fedora-md.img *.tmp.*
 
@@ -141,6 +143,11 @@ guest-aux/windows-system: guest-aux/windows-system.reg
 	rm -f $@ $@-t
 	cp guest-aux/minimal-hive $@-t
 	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SYSTEM' $<
+	mv $@-t $@
+
+guests-all-good.xml: $(disk_images) guest-aux/make-guests-all-good.pl
+	rm -f $@ $@-t
+	guest-aux/make-guests-all-good.pl $(disk_images) > $@-t
 	mv $@-t $@
 
 # Don't construct the guests in parallel.  In automake 1.13, check_DATA
