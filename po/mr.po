@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-04-16 17:17+0100\n"
+"POT-Creation-Date: 2013-04-17 08:54+0100\n"
 "PO-Revision-Date: 2013-04-11 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -3107,34 +3107,39 @@ msgstr "मॅन्यूअल उघडण्यासाठी घटकव�
 msgid "use '%s filename' to page a file\n"
 msgstr "फाइल पेज करण्यासाठी '%s filename' याचा वापर करा\n"
 
-#: fish/options.c:102
+#: fish/options.c:104
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
 msgstr ""
 
-#: fish/options.c:113
+#: fish/options.c:115
 #, c-format
-msgid "%s: --add: scheme of URI '%s' is NULL\n"
+msgid "%s: --add %s: scheme of URI is NULL\n"
 msgstr ""
 
-#: fish/options.c:162
+#: fish/options.c:123
+#, c-format
+msgid "%s: --add %s: cannot both a server name and a socket query parameter\n"
+msgstr ""
+
+#: fish/options.c:289
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: एकापेक्षा जास्त ड्राइव्ह्स् आदेश ओळवर समाविष्ट केले\n"
 
-#: fish/options.c:306
+#: fish/options.c:430
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr ""
 
-#: fish/options.c:310
+#: fish/options.c:434
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
 
-#: fish/options.c:314
+#: fish/options.c:438
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
