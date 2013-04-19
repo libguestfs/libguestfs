@@ -575,29 +575,28 @@ show_file (const char *dir, const char *name,
            const struct guestfs_stat *stat,
            const struct guestfs_xattr_list *xattrs)
 {
-  char filetype[2];
+  const char *filetype;
   CLEANUP_FREE char *path = NULL, *csum = NULL, *link = NULL;
 
   /* Display the basic fields. */
   output_start_line ();
 
   if (is_reg (stat->mode))
-    filetype[0] = '-';
+    filetype = "-";
   else if (is_dir (stat->mode))
-    filetype[0] = 'd';
+    filetype = "d";
   else if (is_chr (stat->mode))
-    filetype[0] = 'c';
+    filetype = "c";
   else if (is_blk (stat->mode))
-    filetype[0] = 'b';
+    filetype = "b";
   else if (is_fifo (stat->mode))
-    filetype[0] = 'p';
+    filetype = "p";
   else if (is_lnk (stat->mode))
-    filetype[0] = 'l';
+    filetype = "l";
   else if (is_sock (stat->mode))
-    filetype[0] = 's';
+    filetype = "s";
   else
-    filetype[0] = 'u';
-  filetype[1] = '\0';
+    filetype = "u";
   output_string (filetype);
   output_int64_perms (stat->mode & 07777);
 
