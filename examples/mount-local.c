@@ -163,7 +163,8 @@ main (int argc, char *argv[])
       //FALLTHROUGH
     }
 
-    chdir ("/");
+    if (chdir ("/") == -1)
+      perror ("chdir: /");
     guestfs_umount_local (g, GUESTFS_UMOUNT_LOCAL_RETRY, 1, -1);
     _exit (EXIT_SUCCESS);
   }
