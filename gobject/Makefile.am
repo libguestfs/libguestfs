@@ -54,9 +54,8 @@ libguestfs_gobject_1_0_la_SOURCES = $(guestfs_gobject_sources)
 libguestfs_gobject_1_0_la_CFLAGS = -I$(top_srcdir)/src -I$(srcdir)/include \
                                    -DGUESTFS_PRIVATE=1 \
                                    $(GOBJECT_CFLAGS)
-libguestfs_gobject_1_0_la_LIBS = $(GOBJECT_LIBS)
 libguestfs_gobject_1_0_la_LDFLAGS = $(LDFLAGS) -L$(top_builddir)/src
-libguestfs_gobject_1_0_la_LIBADD = -lguestfs
+libguestfs_gobject_1_0_la_LIBADD = -lguestfs $(GOBJECT_LIBS)
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libguestfs-gobject-1.0.pc
