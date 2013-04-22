@@ -19,13 +19,22 @@
 export LANG=C
 set -e
 
+# Get a comma-separated list of the enabled-by-default operations.
+operations=$(
+  ./virt-sysprep --list-operations |
+    fgrep '*' |
+    awk '{printf ("%s,",$1)}' |
+    sed 's/,$//'
+)
+echo operations=$operations
+
 # virt-sysprep with the -n option doesn't modify the guest.  It ought
 # to be able to sysprep any of our test guests.
 
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
-	$VG ./virt-sysprep -q -n -a $f
+	$VG ./virt-sysprep -q -n --enable "$operations" -a $f
     fi
 done
 
