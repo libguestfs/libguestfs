@@ -4766,8 +4766,8 @@ C<guestfs_is_zero_device>" };
     tests = [
       InitBasicFS, Always, TestResultTrue (
         [["mkdir_p"; "/boot/grub"];
-         ["write"; "/boot/grub/device.map"; "(hd0) /dev/vda"];
-         ["grub_install"; "/"; "/dev/vda"];
+         ["write"; "/boot/grub/device.map"; "(hd0) /dev/sda"];
+         ["grub_install"; "/"; "/dev/sda"];
          ["is_dir"; "/boot"]])
     ];
     shortdesc = "install GRUB 1";
