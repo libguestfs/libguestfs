@@ -2193,12 +2193,3 @@ BUGS
       * Run libguestfs-test-tool(1) and paste the complete, unedited output
       into the bug report.
 
-POD ERRORS
-
-    Hey! The above document had some coding errors, which are explained
-    below:
-
-    Around line 153:
-
-      Unterminated C<...> sequence
-

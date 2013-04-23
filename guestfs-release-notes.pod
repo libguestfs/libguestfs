@@ -152,7 +152,7 @@ Force use of C<serial-tests> with automake E<ge> 1.12.
 
 Use of sockets in the library protocol layer is abstracted, allowing
 other non-POSIX layers to be added in future (see
-C<src/conn-socket.c).
+C<src/conn-socket.c>).
 
 C<qemu-img info --output json> is used if available, for more secure
 parsing of the output of this command.
