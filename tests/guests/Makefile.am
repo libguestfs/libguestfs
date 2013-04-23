@@ -35,6 +35,7 @@ EXTRA_DIST = \
 	guest-aux/windows-system \
 	guest-aux/windows-system.reg \
 	guest-aux/minimal-hive \
+	guest-aux/make-guests-all-good.pl \
 	guests.xml.in
 
 disk_images = \
