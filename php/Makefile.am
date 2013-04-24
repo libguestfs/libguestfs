@@ -39,12 +39,23 @@ php_DATA = guestfs_php.ini
 
 # In theory: EXTRA_LIBS="-lguestfs"  In fact this doesn't work
 # and we need to add the library to EXTRA_LDFLAGS.
-all: extension/config.h
+all: check-builddir-equals-srcdir extension/config.h
 	$(MAKE) -C extension \
 	  EXTRA_INCLUDES="-I$(abs_srcdir)/../src" \
 	  EXTRA_LDFLAGS="-L$(abs_srcdir)/../src/.libs -lguestfs" \
 	  EXTRA_CFLAGS="-DGUESTFS_PRIVATE=1" \
 	  all
+
+# It looks like this is going to be very hard to make work, so
+# disallow it for now.
+check-builddir-equals-srcdir:
+	@if [ $(builddir) != $(srcdir) ]; then \
+	  echo "***"; \
+	  echo "PHP cannot be built with builddir != srcdir"; \
+	  echo "Use ./configure --disable-php"; \
+	  echo "***"; \
+	  exit 1; \
+	fi
 
 extension/config.h: extension/config.m4 ../config.status
 	cd extension && phpize
