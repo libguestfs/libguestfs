@@ -27,7 +27,7 @@ generator_built = \
 	guestfs.mli \
 	guestfs.ml \
 	guestfs-c-actions.c \
-	bindtests.ml
+	$(srcdir)/bindtests.ml
 
 EXTRA_DIST = \
 	$(generator_built) \
