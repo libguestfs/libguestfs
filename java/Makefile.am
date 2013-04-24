@@ -26,7 +26,7 @@ generator_built = \
 	Makefile.inc \
 	$(java_built_sources) \
 	com_redhat_et_libguestfs_GuestFS.c \
-	Bindtests.java
+	$(srcdir)/Bindtests.java
 
 # Pull in automatically generated built sources
 include $(srcdir)/Makefile.inc
