@@ -18,7 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
-	Guestfs.hs \
+	$(srcdir)/Guestfs.hs \
 	Bindtests.hs
 
 # $(generator_built) isn't redundant below as the wildcard rule won't match, and
@@ -85,7 +85,7 @@ built_tests = Bindtests Guestfs010Load Guestfs030Config Guestfs050LVCreate
 # directories per target.
 
 $(built_tests): %: %.hs Guestfs.hs
-	$(GHC)  $(GHCFLAGS) --make -main-is $@ -odir .$@ -o $@ $< Guestfs.hs -lguestfs
+	$(GHC)  $(GHCFLAGS) --make -main-is $@ -odir .$@ -o $@ $< $(srcdir)/Guestfs.hs -lguestfs
 
 
 CLEANFILES = $(all_targets) *~ *.hi *.o test.img
