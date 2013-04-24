@@ -71,7 +71,7 @@ libguestfs_jardir = $(JAR_INSTALL_DIR)
 libguestfs_jar_DATA = libguestfs-${VERSION}.jar
 libguestfs_jar_class_files = $(java_sources:.java=.class)
 $(libguestfs_jar_class_files): %.class: %.java
-	$(JAVAC) $(JAVAC_FLAGS) -d $(builddir) -classpath $(srcdir):$(builddir) $(srcdir)/$<
+	$(JAVAC) $(JAVAC_FLAGS) -d $(builddir) -classpath $(srcdir):$(builddir) $<
 
 libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
 	$(JAR) cf $@ $^
