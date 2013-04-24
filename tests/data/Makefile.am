@@ -45,8 +45,7 @@ noinst_DATA = test.iso
 
 CLEANFILES = \
 	test.iso test.sqsh \
-	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
-	initrd
+	$(images_files_build)
 
 images_files_src = \
 	$(srcdir)/helloworld.tar \
