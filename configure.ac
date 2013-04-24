@@ -998,6 +998,9 @@ AS_IF([test "x$OCAMLC" != "xno"],[
     dnl If OCaml gettext is not available then we write dummy functions.
     AC_MSG_NOTICE([creating resize/common_gettext.ml])
     rm -f resize/common_gettext.ml
+    # If we're building in a different directory, then 'resize/' might
+    # not exist yet, so create it:
+    mkdir -p resize
 
     cat <<EOF > resize/common_gettext.ml
 (* This file is generated automatically by ./configure. *)
