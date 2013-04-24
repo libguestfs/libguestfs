@@ -41,9 +41,13 @@ if HAVE_PERL
 # src/ dependencies
 src_deps: $(top_builddir)/src/libguestfs.la $(generator_built)
 
-# Images used by tests
+# Images used by tests.
 test_images:
 	$(MAKE) -C $(top_builddir)/tests/data
+
+# Build the appliance.
+appliance:
+	$(MAKE) -C $(top_builddir)/appliance
 
 TESTS = run-bindtests
 test_prereq = src_deps all test_images
@@ -77,4 +81,4 @@ install-data-hook:
 
 endif
 
-.PHONY: src_deps test_images
+.PHONY: appliance src_deps test_images

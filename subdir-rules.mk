@@ -24,7 +24,3 @@ $(generator_built): $(top_builddir)/generator/stamp-generator
 $(top_builddir)/generator/stamp-generator: force
 	$(MAKE) -C $(top_builddir)/generator stamp-generator
 
-# A symbolic rule to regenerate the appliance
-.PHONY: appliance
-appliance: force
-	$(MAKE) -C $(top_builddir)/appliance
