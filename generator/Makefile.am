@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2010-2012 Red Hat Inc.
+# Copyright (C) 2010-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,70 +15,106 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-SOURCES = \
-	types.ml \
-	utils.mli \
-	utils.ml \
-	actions.mli \
+# In alphabetical order.
+sources = \
 	actions.ml \
-	structs.mli \
-	structs.ml \
-	api_versions.mli \
+	actions.mli \
 	api_versions.ml \
-	optgroups.ml \
-	prepopts.mli \
-	prepopts.ml \
-	events.ml \
-	pr.mli \
-	pr.ml \
-	docstrings.ml \
-	checks.ml \
+	api_versions.mli \
+	bindtests.ml \
 	c.ml \
-	xdr.ml \
+	checks.ml \
+	csharp.ml \
 	daemon.ml \
-	tests_c_api.ml \
+	docstrings.ml \
+	erlang.ml \
+	errnostring.ml \
+	events.ml \
 	fish.ml \
+	gobject.ml \
+	haskell.ml \
+	java.ml \
+	lua.ml \
+	main.ml \
 	ocaml.ml \
+	optgroups.ml \
 	perl.ml \
+	php.ml \
+	pr.ml \
+	pr.mli \
+	prepopts.ml \
+	prepopts.mli \
 	python.ml \
 	ruby.ml \
-	java.ml \
-	haskell.ml \
-	csharp.ml \
-	php.ml \
-	erlang.ml \
-	lua.ml \
-	gobject.ml \
-	bindtests.ml \
-	errnostring.ml \
-	main.ml
+	structs.ml \
+	structs.mli \
+	tests_c_api.ml \
+	types.ml \
+	utils.ml \
+	utils.mli \
+	xdr.ml
 
-SOURCES_ML = $(filter %.ml,$(SOURCES))
-OBJECTS = $(SOURCES_ML:.ml=.cmo)
+# In build dependency order.
+objects = \
+	types.cmo \
+	utils.cmo \
+	actions.cmo \
+	structs.cmo \
+	api_versions.cmo \
+	optgroups.cmo \
+	prepopts.cmo \
+	events.cmo \
+	pr.cmo \
+	docstrings.cmo \
+	checks.cmo \
+	c.cmo \
+	xdr.cmo \
+	daemon.cmo \
+	tests_c_api.cmo \
+	fish.cmo \
+	ocaml.cmo \
+	perl.cmo \
+	python.cmo \
+	ruby.cmo \
+	java.cmo \
+	haskell.cmo \
+	csharp.cmo \
+	php.cmo \
+	erlang.cmo \
+	lua.cmo \
+	gobject.cmo \
+	bindtests.cmo \
+	errnostring.cmo \
+	main.cmo
 
-EXTRA_DIST = $(SOURCES) files-generated.txt
+EXTRA_DIST = $(sources) files-generated.txt
 
-OCAMLCFLAGS = -warn-error CDEFLMPSUVYZX
-OCAMLCLIBS = unix.cma str.cma
+OCAMLCFLAGS = -warn-error CDEFLMPSUVYZX -I $(srcdir) -I $(builddir) -package unix,str
 
 noinst_PROGRAM = generator
 
 if HAVE_OCAML
 
-$(srcdir)/generator: $(OBJECTS)
-	$(OCAMLC) -I $(srcdir) -o $@ $(OCAMLCFLAGS) $(OCAMLCLIBS) $(OBJECTS)
+generator: $(objects)
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -linkpkg $^ -o $@
 
-.ml.cmo:
-	$(OCAMLC) -I $(srcdir) $(OCAMLCFLAGS) -c $< -o $@
-
-.mli.cmi:
-	$(OCAMLC) -I $(srcdir) $(OCAMLCFLAGS) -c $< -o $@
+# Dependencies.
+%.cmi: %.mli
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $(builddir)/$@
+%.cmi: %.ml
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $(builddir)/$@
+%.cmo: %.ml
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $(builddir)/$@
 
 depend: .depend
 
-.depend: $(SOURCES)
+.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLDEP) $^ | sed 's/  *$$//' > $@-t
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) $^ | \
+	  $(SED) 's/ *$$//' | \
+	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
+	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
+	  sort > $@-t
 	mv $@-t $@
 
 -include .depend
@@ -88,7 +124,7 @@ else
 # No OCaml compiler.  Just replace the generator with a script that
 # prints a warning.
 
-$(srcdir)/generator: $(SOURCES)
+generator:
 	rm -f $@ $@-t
 	echo 'echo Warning: Install OCaml compiler in order to rebuild the generated files.' > $@-t
 	chmod +x $@-t
@@ -110,7 +146,7 @@ stamp-generator: generator
 	mkdir -p $(top_srcdir)/gobject/src
 	mkdir -p $(top_srcdir)/gobject/include
 	mkdir -p $(top_srcdir)/gobject/include/guestfs-gobject
-	cd $(top_srcdir) && generator/generator
+	cd $(top_srcdir) && $(abs_builddir)/generator
 	touch $@
 
 CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
