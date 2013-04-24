@@ -99,13 +99,11 @@ stamp-fedora-md.img: guest-aux/make-fedora-img.pl \
 
 guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
 	rm -f $@ $@-t
-	mkdir -p guest-aux
 	$(DB_LOAD) $@-t < $<
 	mv $@-t $@
 
 guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
 	rm -f $@ $@-t
-	mkdir -p guest-aux
 	$(DB_LOAD) $@-t < $<
 	mv $@-t $@
 
