@@ -1528,7 +1528,19 @@ LIBTOOL='bash $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libt
 AC_SUBST([LIBTOOL])
 
 dnl Produce output files.
+
 AC_CONFIG_HEADERS([config.h])
+
+dnl For separated builds, make sure that certain build directories exist.
+dnl This avoids having to sprinkle 'mkdir -p' statements throughout
+dnl many Makefile.am rules.
+mkdir -p \
+    appliance/supermin.d \
+    java/t \
+    ocaml/html \
+    ocaml/t \
+    tests/guests/guest-aux
+
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
                 [chmod +x,-w appliance/libguestfs-make-fixed-appliance])
@@ -1540,6 +1552,7 @@ AC_CONFIG_FILES([podwrapper.pl],
                 [chmod +x,-w podwrapper.pl])
 AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
+
 AC_CONFIG_FILES([Makefile
                  align/Makefile
                  appliance/Makefile
