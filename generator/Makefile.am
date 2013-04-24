@@ -86,12 +86,11 @@ depend: .depend
 else
 
 # No OCaml compiler.  Just replace the generator with a script that
-# touches stamp-generator and prints a warning.
+# prints a warning.
 
 $(srcdir)/generator: $(SOURCES)
 	rm -f $@ $@-t
-	echo 'echo Warning: Install OCaml compiler in order to rebuild the generated files.' >> $@-t
-	echo 'touch generator/stamp-generator' >> $@-t
+	echo 'echo Warning: Install OCaml compiler in order to rebuild the generated files.' > $@-t
 	chmod +x $@-t
 	mv $@-t $@
 
@@ -112,6 +111,7 @@ stamp-generator: generator
 	mkdir -p $(top_srcdir)/gobject/include
 	mkdir -p $(top_srcdir)/gobject/include/guestfs-gobject
 	cd $(top_srcdir) && generator/generator
+	touch $@
 
 CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
 
