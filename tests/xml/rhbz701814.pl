@@ -22,7 +22,9 @@ use strict;
 
 use Sys::Guestfs;
 
-$ENV{FAKE_LIBVIRT_XML} = "rhbz701814-faked.xml";
+my $srcdir = $ENV{srcdir};
+die "\$srcdir environment variable is not set" unless defined $srcdir;
+$ENV{FAKE_LIBVIRT_XML} = "$srcdir/rhbz701814-faked.xml";
 my $abs_srcdir = $ENV{abs_srcdir};
 
 my $uri = "test://$abs_srcdir/rhbz701814-node.xml";
