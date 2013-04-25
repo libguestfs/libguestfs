@@ -128,9 +128,15 @@ $(builddir)/abssymlink:
 $(builddir)/hello.b64:
 	echo "hello" | base64 > $@
 
-$(builddir)/initrd: empty known-1 known-2 known-3 known-4 known-5
-	rm -f $@ $@-t
-	for f in $^; do echo $$f; done | cpio -o -H newc | gzip --best > $@-t
+# When builddir != srcdir, names like 'empty' are rewritten as
+# '../../tests/data/empty'.  We need to copy the files into a fresh
+# subdirectory in order to create the initrd correctly.
+initrd: empty known-1 known-2 known-3 known-4 known-5
+	rm -rf init.tmp $@ $@-t
+	mkdir -p init.tmp
+	cp $^ init.tmp
+	(cd init.tmp; ls -1 * | cpio -o -H newc | gzip --best) > $@-t
+	rm -r init.tmp
 	mv $@-t $@
 
 # Create a dummy initrd with a single file called 'bin/nash' which
