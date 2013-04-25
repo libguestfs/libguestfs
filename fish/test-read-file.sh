@@ -29,6 +29,6 @@ mount-ro /dev/sda /
 read-file /helloworld.tar
 EOF
 
-cmp ../tests/data/helloworld.tar test.out
+cmp $srcdir/../tests/data/helloworld.tar test.out
 
 rm -f test.out

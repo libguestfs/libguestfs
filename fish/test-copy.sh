@@ -33,7 +33,7 @@ rm -rf original copy
 
 mkdir original
 cp $srcdir/../tests/data/known* original
-cp -P $srcdir/../tests/data/abssymlink* original
+cp -P ../tests/data/abssymlink* original
 
 output=$(
 ./guestfish -N fs -m /dev/sda1 <<EOF
