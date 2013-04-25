@@ -81,6 +81,6 @@ grep -E 'set[-_]memsize|truncate[-_]size' test.err~ |
   grep -Ev 'proc 200' > test.err
 rm test.err~
 
-diff -u rhbz557655-expected.stdout test.out
-diff -u rhbz557655-expected.stderr test.err
+diff -u $srcdir/rhbz557655-expected.stdout test.out
+diff -u $srcdir/rhbz557655-expected.stderr test.err
 rm test.out test.err test1.img
