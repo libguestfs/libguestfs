@@ -179,11 +179,11 @@ check-valgrind:
 
 # Dependencies.
 %.cmi: %.mli
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $(builddir)/$@
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $@
 %.cmo: %.ml mlguestfs.cma
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $(builddir)/$@
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $@
 %.cmx: %.ml mlguestfs.cmxa
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $(builddir)/$@
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $@
 
 depend: .depend
 

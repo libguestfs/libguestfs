@@ -89,7 +89,7 @@ objects = \
 
 EXTRA_DIST = $(sources) files-generated.txt
 
-OCAMLCFLAGS = -warn-error CDEFLMPSUVYZX -I $(srcdir) -I $(builddir) -package unix,str
+OCAMLCFLAGS = -warn-error CDEFLMPSUVYZX -I $(srcdir) -I . -package unix,str
 
 noinst_PROGRAM = generator
 
@@ -100,11 +100,11 @@ generator: $(objects)
 
 # Dependencies.
 %.cmi: %.mli
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $(builddir)/$@
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 %.cmi: %.ml
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $(builddir)/$@
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 %.cmo: %.ml
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $(builddir)/$@
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 
 depend: .depend
 
