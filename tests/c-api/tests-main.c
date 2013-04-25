@@ -236,6 +236,44 @@ match_re (const char *str, const char *pattern)
   return r != PCRE_ERROR_NOMATCH;
 }
 
+/* Used for FileIn parameters in tests.  If the path starts with
+ * "$srcdir" then replace that with the contents of the $srcdir
+ * environment variable (this is set by automake and run time).  The
+ * caller must free the returned string.
+ */
+char *
+substitute_srcdir (const char *path)
+{
+  char *ret;
+
+  if (STRPREFIX (path, "$srcdir")) {
+    const char *srcdir;
+
+    srcdir = getenv ("srcdir");
+    if (!srcdir) {
+      fprintf (stderr, "tests: environment variable $srcdir is not defined.\n"
+               "Normally it is defined by automake.  If you are running the\n"
+               "tests directly, set $srcdir to point to the source tests/c-api\n"
+               "directory.\n");
+      exit (EXIT_FAILURE);
+    }
+
+    if (asprintf (&ret, "%s%s", srcdir, path + 7) == -1) {
+      perror ("asprintf");
+      exit (EXIT_FAILURE);
+    }
+  }
+  else {
+    ret = strdup (path);
+    if (!ret) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+
+  return ret;
+}
+
 void
 next_test (guestfs_h *g, size_t test_num, size_t nr_tests,
            const char *test_name)

@@ -4228,7 +4228,7 @@ This uses the L<blockdev(8)> command." };
       InitScratchFS, Always, TestResultString (
         (* Pick a file from cwd which isn't likely to change. *)
         [["mkdir"; "/upload"];
-         ["upload"; "../../COPYING.LIB"; "/upload/COPYING.LIB"];
+         ["upload"; "$srcdir/../../COPYING.LIB"; "/upload/COPYING.LIB"];
          ["checksum"; "md5"; "/upload/COPYING.LIB"]],
         Digest.to_hex (Digest.file "COPYING.LIB"))
     ];
@@ -4250,7 +4250,7 @@ See also C<guestfs_download>." };
       InitScratchFS, Always, TestResultString (
         (* Pick a file from cwd which isn't likely to change. *)
         [["mkdir"; "/download"];
-         ["upload"; "../../COPYING.LIB"; "/download/COPYING.LIB"];
+         ["upload"; "$srcdir/../../COPYING.LIB"; "/download/COPYING.LIB"];
          ["download"; "/download/COPYING.LIB"; "testdownload.tmp"];
          ["upload"; "testdownload.tmp"; "/download/upload"];
          ["checksum"; "md5"; "/download/upload"]],
@@ -4346,15 +4346,15 @@ To get the checksums for many files, use C<guestfs_checksums_out>." };
     tests = [
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in"];
-         ["tar_in"; "../data/helloworld.tar"; "/tar_in"; "NOARG"];
+         ["tar_in"; "$srcdir/../data/helloworld.tar"; "/tar_in"; "NOARG"];
          ["cat"; "/tar_in/hello"]], "hello\n");
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in_gz"];
-         ["tar_in"; "../data/helloworld.tar.gz"; "/tar_in_gz"; "gzip"];
+         ["tar_in"; "$srcdir/../data/helloworld.tar.gz"; "/tar_in_gz"; "gzip"];
          ["cat"; "/tar_in_gz/hello"]], "hello\n");
       InitScratchFS, IfAvailable "xz", TestResultString (
         [["mkdir"; "/tar_in_xz"];
-         ["tar_in"; "../data/helloworld.tar.xz"; "/tar_in_xz"; "xz"];
+         ["tar_in"; "$srcdir/../data/helloworld.tar.xz"; "/tar_in_xz"; "xz"];
          ["cat"; "/tar_in_xz/hello"]], "hello\n")
     ];
     shortdesc = "unpack tarfile to directory";
@@ -4411,7 +4411,7 @@ instead of user/group names.
     tests = [
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tgz_in"];
-         ["tgz_in"; "../data/helloworld.tar.gz"; "/tgz_in"];
+         ["tgz_in"; "$srcdir/../data/helloworld.tar.gz"; "/tgz_in"];
          ["cat"; "/tgz_in/hello"]], "hello\n")
     ];
     shortdesc = "unpack compressed tarball to directory";
@@ -7740,7 +7740,7 @@ or growing unnecessarily." };
     tests = [
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/txz_in"];
-         ["txz_in"; "../data/helloworld.tar.xz"; "/txz_in"];
+         ["txz_in"; "$srcdir/../data/helloworld.tar.xz"; "/txz_in"];
          ["cat"; "/txz_in/hello"]], "hello\n")
     ];
     shortdesc = "unpack compressed tarball to directory";
@@ -8459,7 +8459,7 @@ See also C<guestfs_part_to_partnum>, C<guestfs_device_index>." };
     tests =
       (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in [
         InitScratchFS, Always, TestResultString (
-          [["upload_offset"; "../../COPYING.LIB"; "/upload_offset"; "0"];
+          [["upload_offset"; "$srcdir/../../COPYING.LIB"; "/upload_offset"; "0"];
            ["checksum"; "md5"; "/upload_offset"]], md5)
       ]);
     shortdesc = "upload a file from the local machine with offset";
@@ -8494,7 +8494,7 @@ See also C<guestfs_upload>, C<guestfs_pwrite>." };
          InitScratchFS, Always, TestResultString (
            (* Pick a file from cwd which isn't likely to change. *)
            [["mkdir"; "/download_offset"];
-            ["upload"; "../../COPYING.LIB"; "/download_offset/COPYING.LIB"];
+            ["upload"; "$srcdir/../../COPYING.LIB"; "/download_offset/COPYING.LIB"];
             ["download_offset"; "/download_offset/COPYING.LIB"; "testdownload.tmp"; offset; size];
             ["upload_offset"; "testdownload.tmp"; "/download_offset/COPYING.LIB"; offset];
             ["checksum"; "md5"; "/download_offset/COPYING.LIB"]], md5)

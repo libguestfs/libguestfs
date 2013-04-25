@@ -400,8 +400,10 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
       pr "  size_t %s_size = %d;\n" sym (String.length arg)
     | Int _, _, _
     | Int64 _, _, _
-    | Bool _, _, _
-    | FileIn _, _, _
+    | Bool _, _, _ -> ()
+    | FileIn _, arg, sym ->
+      pr "  CLEANUP_FREE char *%s = substitute_srcdir (\"%s\");\n"
+        sym (c_quote arg)
     | FileOut _, _, _ -> ()
     | StringList _, "", sym
     | DeviceList _, "", sym ->
@@ -510,9 +512,9 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
     | Mountable_or_Path _, _, sym
     | String _, _, sym
     | OptString _, _, sym
-    | Key _, _, sym -> pr ", %s" sym
+    | Key _, _, sym
+    | FileIn _, _, sym -> pr ", %s" sym
     | BufferIn _, _, sym -> pr ", %s, %s_size" sym sym
-    | FileIn _, arg, _
     | FileOut _, arg, _ -> pr ", \"%s\"" (c_quote arg)
     | StringList _, _, sym | DeviceList _, _, sym -> pr ", (char **) %s" sym
     | Int _, arg, _ ->

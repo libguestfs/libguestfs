@@ -32,6 +32,7 @@ extern int check_file_md5 (const char *ret, const char *filename);
 extern const char *get_key (char **hash, const char *key);
 extern int check_hash (char **ret, const char *key, const char *expected);
 extern int match_re (const char *str, const char *pattern);
+extern char *substitute_srcdir (const char *path);
 extern void next_test (guestfs_h *g, size_t test_num, size_t nr_tests, const char *test_name);
 extern void skipped (const char *test_name, const char *fs, ...) __attribute__((format (printf,2,3)));
 
