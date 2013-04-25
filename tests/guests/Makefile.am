@@ -56,7 +56,10 @@ disk_images = \
 # time and we need the tools we have built in order to make it.
 check_DATA = $(disk_images) guests-all-good.xml
 
-CLEANFILES = $(check_DATA) stamp-fedora-md.img *.tmp.*
+CLEANFILES = $(check_DATA) \
+	guests-all-good.xml \
+	stamp-fedora-md.img \
+	*.tmp.*
 
 # Macro to display some information about each created disk, which
 # is useful for debugging.
@@ -104,16 +107,6 @@ fedora-btrfs.img: guest-aux/make-fedora-img.pl \
 	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test $<
 	$(call display,$@)
 
-guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
-	rm -f $@ $@-t
-	$(DB_LOAD) $@-t < $<
-	mv $@-t $@
-
-guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
-	rm -f $@ $@-t
-	$(DB_LOAD) $@-t < $<
-	mv $@-t $@
-
 # Make a (dummy) Debian image.
 debian.img: guest-aux/make-debian-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
@@ -130,8 +123,24 @@ windows.img: guest-aux/make-windows-img.sh \
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
 	$(call display,$@)
 
-# Since users might not have the tools needed to create this, we
-# also distribute these files.
+guests-all-good.xml: $(disk_images) guest-aux/make-guests-all-good.pl
+	rm -f $@ $@-t
+	guest-aux/make-guests-all-good.pl $(disk_images) > $@-t
+	mv $@-t $@
+
+# Since users might not have the tools needed to create this, we also
+# distribute these files and they are only cleaned by 'make distclean'
+# not regular 'make clean'.
+guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
+	rm -f $@ $@-t
+	$(DB_LOAD) $@-t < $<
+	mv $@-t $@
+
+guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
+	rm -f $@ $@-t
+	$(DB_LOAD) $@-t < $<
+	mv $@-t $@
+
 guest-aux/windows-software: guest-aux/windows-software.reg
 	rm -f $@ $@-t
 	cp guest-aux/minimal-hive $@-t
@@ -144,10 +153,11 @@ guest-aux/windows-system: guest-aux/windows-system.reg
 	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SYSTEM' $<
 	mv $@-t $@
 
-guests-all-good.xml: $(disk_images) guest-aux/make-guests-all-good.pl
-	rm -f $@ $@-t
-	guest-aux/make-guests-all-good.pl $(disk_images) > $@-t
-	mv $@-t $@
+DISTCLEANFILES = \
+	guest-aux/fedora-name.db \
+	guest-aux/fedora-packages.db \
+	guest-aux/windows-software \
+	guest-aux/windows-system
 
 # Don't construct the guests in parallel.  In automake 1.13, check_DATA
 # was changed so it can now run in parallel, but this causes everything
