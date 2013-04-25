@@ -18,6 +18,6 @@
 
 set -e
 
-for f in t/*.py; do
+for f in $srcdir/t/*.py; do
   $PYTHON $f
 done
