@@ -93,9 +93,11 @@ supermin.d/daemon.img: ../daemon/guestfsd guestfsd.suppressions
 	mv $@-t $@
 
 supermin.d/init.img: init
-	cmp -s $(srcdir)/init $(builddir)/init || cp $(srcdir)/init $(builddir)/init
-	rm -f $@ $@-t
-	echo "init" | cpio --quiet -o -H newc > $@-t
+	rm -rf init.tmp $@ $@-t
+	mkdir init.tmp
+	cp $< init.tmp
+	(cd init.tmp; echo "init" | cpio --quiet -o -H newc) > $@-t
+	rm -r init.tmp
 	mv $@-t $@
 
 # We should put this file in /lib/udev/rules.d, but put it in /etc so
