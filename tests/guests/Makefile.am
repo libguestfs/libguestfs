@@ -123,9 +123,9 @@ windows.img: guest-aux/make-windows-img.sh \
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
 	$(call display,$@)
 
-guests-all-good.xml: $(disk_images) guest-aux/make-guests-all-good.pl
+guests-all-good.xml: guest-aux/make-guests-all-good.pl $(disk_images)
 	rm -f $@ $@-t
-	guest-aux/make-guests-all-good.pl $(disk_images) > $@-t
+	$^ > $@-t
 	mv $@-t $@
 
 # Since users might not have the tools needed to create this, we also
@@ -143,13 +143,13 @@ guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
 
 guest-aux/windows-software: guest-aux/windows-software.reg
 	rm -f $@ $@-t
-	cp guest-aux/minimal-hive $@-t
+	cp $(srcdir)/guest-aux/minimal-hive $@-t
 	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SOFTWARE' $<
 	mv $@-t $@
 
 guest-aux/windows-system: guest-aux/windows-system.reg
 	rm -f $@ $@-t
-	cp guest-aux/minimal-hive $@-t
+	cp $(srcdir)/guest-aux/minimal-hive $@-t
 	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SYSTEM' $<
 	mv $@-t $@
 

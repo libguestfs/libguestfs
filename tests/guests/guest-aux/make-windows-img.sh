@@ -58,8 +58,8 @@ mkfs ntfs /dev/sda2
 mount /dev/sda2 /
 mkdir-p /Windows/System32/Config
 
-upload $SRCDIR/guest-aux/windows-software /Windows/System32/Config/SOFTWARE
-upload $SRCDIR/guest-aux/windows-system /Windows/System32/Config/SYSTEM
+upload guest-aux/windows-software /Windows/System32/Config/SOFTWARE
+upload guest-aux/windows-system /Windows/System32/Config/SYSTEM
 
 upload $SRCDIR/../data/bin-win32.exe /Windows/System32/cmd.exe
 
