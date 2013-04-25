@@ -87,6 +87,7 @@ export PYTHONPATH
 
 # For Ruby.
 export RUBY=@RUBY@
+export RAKE=@RAKE@
 if [ -z "$RUBYLIB" ]; then
     RUBYLIB="$b/ruby/lib:$b/ruby/ext/guestfs"
 else
