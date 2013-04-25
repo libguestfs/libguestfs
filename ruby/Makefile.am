@@ -61,7 +61,7 @@ install:
 	$(MKDIR_P) $(DESTDIR)$(RUBY_LIBDIR)
 	$(MKDIR_P) $(DESTDIR)$(RUBY_ARCHDIR)
 	$(INSTALL) -p -m 0644 $(srcdir)/lib/guestfs.rb $(DESTDIR)$(RUBY_LIBDIR)
-	$(INSTALL) -p -m 0755 $(builddir)/ext/guestfs/_guestfs.so $(DESTDIR)$(RUBY_ARCHDIR)
+	$(INSTALL) -p -m 0755 ext/guestfs/_guestfs.so $(DESTDIR)$(RUBY_ARCHDIR)
 
 TESTS = run-bindtests run-ruby-tests
 

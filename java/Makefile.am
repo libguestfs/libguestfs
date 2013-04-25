@@ -52,7 +52,7 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	doc-stamp \
-	$(builddir)/com/redhat/et/libguestfs/*.class \
+	com/redhat/et/libguestfs/*.class \
 	com_redhat_et_libguestfs_GuestFS.h \
 	*.class \
 	*.jar
@@ -71,7 +71,7 @@ libguestfs_jardir = $(JAR_INSTALL_DIR)
 libguestfs_jar_DATA = libguestfs-${VERSION}.jar
 libguestfs_jar_class_files = $(java_sources:.java=.class)
 $(libguestfs_jar_class_files): %.class: %.java
-	$(JAVAC) $(JAVAC_FLAGS) -d $(builddir) -classpath $(srcdir):$(builddir) $<
+	$(JAVAC) $(JAVAC_FLAGS) -d . -classpath $(srcdir):. $<
 
 libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
 	$(JAR) cf $@ $^
@@ -102,7 +102,7 @@ BUILT_SOURCES = com_redhat_et_libguestfs_GuestFS.h
 
 com_redhat_et_libguestfs_GuestFS.h: $(java_prefix)/GuestFS.class
 	rm -f $@
-	$(JAVAH) -classpath $(srcdir):$(builddir) com.redhat.et.libguestfs.GuestFS
+	$(JAVAH) -classpath $(srcdir):. com.redhat.et.libguestfs.GuestFS
 
 # Documentation.
 
@@ -132,9 +132,9 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 noinst_DATA = Bindtests.class $(java_tests:.java=.class)
 
 t/%.class: t/%.java libguestfs-$(VERSION).jar
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir)/t $<
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d t $<
 
 Bindtests.class: Bindtests.java libguestfs-$(VERSION).jar
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d $(builddir) $<
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d . $<
 
 endif
