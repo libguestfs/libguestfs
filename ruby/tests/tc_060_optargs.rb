@@ -28,6 +28,6 @@ class TestLoad < Test::Unit::TestCase
     g.add_drive("/dev/null", :readonly => 1)
     g.add_drive("/dev/null", :readonly => 1, :iface => "virtio")
     g.add_drive("/dev/null",
-                :readonly => 1, :iface => "virtio", :format => "qcow2")
+                :readonly => 1, :iface => "virtio", :format => "raw")
   end
 end
