@@ -18,4 +18,4 @@
 
 rm -rf test.img mp
 
-exec ./run-test.pl selinux fuse
+exec $srcdir/run-test.pl selinux fuse

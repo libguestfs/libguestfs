@@ -18,4 +18,4 @@
 
 rm -rf test.img mp
 
-exec ./run-test.pl xattrs fuse
+exec $srcdir/run-test.pl xattrs fuse

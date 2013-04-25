@@ -28,6 +28,9 @@ my $label2 = "unconfined_u:object_r:user_home_t:s0";
 my $prog = $0;
 $prog =~ s{.*/}{};
 
+my $srcdir = $ENV{srcdir};
+die "\$srcdir is not defined" unless $srcdir;
+
 my $errors = 0;
 
 if (@ARGV == 3 && $ARGV[0] eq "--test") {
@@ -140,7 +143,7 @@ if ($test_via eq "direct") {
     my $pid = fork ();
     die "fork: $!" unless defined $pid;
     if ($pid == 0) {
-        exec ("./run-test.pl", "--test", "mp", $test_type);
+        exec ("$srcdir/run-test.pl", "--test", "mp", $test_type);
         die "run-test.pl: exec failed: $!\n";
     }
 
