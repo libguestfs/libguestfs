@@ -123,6 +123,8 @@ $(builddir)/10klines:
 	done > $@-t
 	mv $@-t $@
 
+# XXX Make examines this file and believes that it does not exist,
+# resulting in the ISO being rebuilt every time.
 $(builddir)/abssymlink:
 	ln -sf /10klines $@
 
