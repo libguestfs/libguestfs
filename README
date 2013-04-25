@@ -104,7 +104,8 @@ The full requirements are described below.
 |              |             |   | Optional if compiling from tarball.     |
 |              |             |   | For localizing man pages.               |
 +--------------+-------------+---+-----------------------------------------+
-| hivex        | 1.2.7       | O | Windows Registry hive parser.           |
+| hivex        | 1.2.7       |R/O| Require if compiling from git.          |
+|              |             |   | Windows Registry hive parser.           |
 +--------------+-------------+---+-----------------------------------------+
 | libmagic     |             | O | The library used by the 'file' command. |
 +--------------+-------------+---+-----------------------------------------+
