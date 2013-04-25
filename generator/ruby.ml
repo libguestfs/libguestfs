@@ -191,8 +191,11 @@ ruby_guestfs_close (VALUE gv)
   guestfs_h *g;
   Data_Get_Struct (gv, guestfs_h, g);
 
-  ruby_guestfs_free (g);
+  /* Clear the data pointer first so there's no chance of a double
+   * close if a close callback does something bad like calling exit.
+   */
   DATA_PTR (gv) = NULL;
+  ruby_guestfs_free (g);
 
   return Qnil;
 }
@@ -361,11 +364,12 @@ ruby_event_callback_wrapper_wrapper (VALUE argvv)
 static VALUE
 ruby_event_callback_handle_exception (VALUE not_used, VALUE exn)
 {
-  /* Callbacks aren't supposed to throw exceptions.  The best we
-   * can do is to print the error.
+  /* Callbacks aren't supposed to throw exceptions. */
+  fprintf (stderr, \"libguestfs: exception in callback!\\n\");
+
+  /* XXX We could print the exception, but it's very difficult from
+   * a Ruby extension.
    */
-  fprintf (stderr, \"libguestfs: exception in callback: %%s\\n\",
-           StringValueCStr (exn));
 
   return Qnil;
 }
