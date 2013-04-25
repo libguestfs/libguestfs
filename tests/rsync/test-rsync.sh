@@ -91,11 +91,12 @@ EOF
 
 # Compare test data to copied data.
 # XXX Because we used the archive flag, dates must be preserved.
+# XXX Note for separated builds: only generated files are copied.
 
 if [ ! -f tmp/100kallnewlines ] || \
-   [ ! -f tmp/bin-x86_64-dynamic ] || \
+   [ ! -f tmp/hello.b64 ] || \
    [ ! -f tmp/initrd-x86_64.img.gz ] || \
-   [ ! -f tmp/mbr-ext2-empty.img.gz ]; then
+   [ ! -f tmp/test-grep.txt.gz ]; then
     echo "$0: some files failed to copy"
     exit 1
 fi
