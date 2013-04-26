@@ -1,4 +1,4 @@
-(* libguestfs OCaml bindings
+(* libguestfs OCaml tests
  * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,11 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-let _ = Guestfs.create
+let _ = Guestfs.create ()
 
-(* Also try the OO style. *)
-let _ =
-  let g = new Guestfs.guestfs () in
-  g#get_verbose ()
+(* OCaml only: also try the OO style. *)
+let _ = new Guestfs.guestfs ()
 
 let () = Gc.compact ()

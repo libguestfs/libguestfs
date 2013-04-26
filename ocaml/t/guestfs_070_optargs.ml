@@ -1,5 +1,5 @@
-(* libguestfs OCaml bindings
- * Copyright (C) 2010-2012 Red Hat Inc.
+(* libguestfs OCaml tests
+ * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,26 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-module G = Guestfs
-
 let () =
-  let g = G.create () in
+  let g = new Guestfs.guestfs () in
+  g#add_drive "/dev/null";
+  g#add_drive ~readonly:true "/dev/null";
+  g#add_drive ~readonly:true ~format:"raw" "/dev/null";
+  g#add_drive ~iface:"virtio" ~readonly:true ~format:"raw" "/dev/null"
 
-  G.add_drive g "/dev/null";
-  G.launch g;
-
-  let calls = ref 0 in
-  let cb _ _ _ _ _ = incr calls in
-  let eh = G.set_event_callback g cb [G.EVENT_PROGRESS] in
-  assert ("ok" = G.debug g "progress" [| "5" |]);
-  assert (!calls > 0);
-  calls := 0;
-  G.delete_event_callback g eh;
-  assert ("ok" = G.debug g "progress" [| "5" |]);
-  assert (!calls = 0);
-  ignore (G.set_event_callback g cb [G.EVENT_PROGRESS]);
-  assert ("ok" = G.debug g "progress" [| "5" |]);
-  assert (!calls > 0);
-
-  G.close g;
-  Gc.compact ()
+let () = Gc.compact ()

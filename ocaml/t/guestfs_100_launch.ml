@@ -1,4 +1,4 @@
-(* libguestfs OCaml bindings
+(* libguestfs OCaml tests
  * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,8 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* Test basic functionality. *)
-
 open Unix
 
 let () =
@@ -26,8 +24,6 @@ let () =
   let fd = openfile "test.img" [O_WRONLY;O_CREAT;O_NOCTTY;O_TRUNC] 0o666 in
   ftruncate fd (500 * 1024 * 1024);
   close fd;
-
-  g#set_autosync true;
 
   g#add_drive "test.img";
   g#launch ();
@@ -64,3 +60,5 @@ let () =
   g#shutdown ();
   g#close ();
   unlink "test.img"
+
+let () = Gc.compact ()

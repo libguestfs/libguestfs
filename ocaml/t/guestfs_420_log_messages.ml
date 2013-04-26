@@ -1,5 +1,5 @@
-(* libguestfs OCaml bindings
- * Copyright (C) 2011 Red Hat Inc.
+(* libguestfs OCaml tests
+ * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,44 +18,30 @@
 
 open Printf
 
+let log_invoked = ref 0
+
 let log g ev eh buf array =
   let eh : int = Obj.magic eh in
 
-  printf "ocaml event logged: event=%s eh=%d buf=%S array=[%s]\n"
+  printf "event logged: event=%s eh=%d buf=%S array=[%s]\n"
     (Guestfs.event_to_string [ev]) eh buf
-    (String.concat ", " (List.map Int64.to_string (Array.to_list array)))
+    (String.concat ", " (List.map Int64.to_string (Array.to_list array)));
 
-let close_invoked = ref 0
-
-let close g ev eh buf array =
-  incr close_invoked;
-  log g ev eh buf array
+  incr log_invoked
 
 let () =
   let g = new Guestfs.guestfs () in
-
-  (* Grab log, trace and daemon messages into our own custom handler
-   * which prints the messages with a particular prefix.
-   *)
-  let events = [Guestfs.EVENT_APPLIANCE; Guestfs.EVENT_LIBRARY;
-                Guestfs.EVENT_TRACE] in
+  let events = [ Guestfs.EVENT_APPLIANCE; Guestfs.EVENT_LIBRARY;
+                 Guestfs.EVENT_TRACE ] in
   ignore (g#set_event_callback log events);
 
-  (* Check that the close event is invoked. *)
-  ignore (g#set_event_callback close [Guestfs.EVENT_CLOSE]);
-
-  (* Now make sure we see some messages. *)
   g#set_trace true;
   g#set_verbose true;
-
-  (* Do some stuff. *)
   g#add_drive_ro "/dev/null";
   g#set_autosync true;
 
-  (* Close the handle -- should call the close callback. *)
-  assert (!close_invoked = 0);
   g#close ();
-  assert (!close_invoked = 1);
 
-  (* Run full garbage collection. *)
-  Gc.compact ()
+  assert (!log_invoked > 0)
+
+let () = Gc.compact ()

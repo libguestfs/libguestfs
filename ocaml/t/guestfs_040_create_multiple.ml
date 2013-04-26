@@ -1,5 +1,5 @@
-(* libguestfs OCaml bindings
- * Copyright (C) 2010 Red Hat Inc.
+(* libguestfs OCaml tests
+ * Copyright (C) 2009-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Unix
-
 let () =
-  let g = Guestfs.create () in
+  let g1 = new Guestfs.guestfs () in
+  let g2 = new Guestfs.guestfs () in
+  let g3 = new Guestfs.guestfs () in
+  ignore (g1, g2, g3)
 
-  Guestfs.add_drive g "/dev/null";
-  Guestfs.add_drive g ~readonly:true "/dev/null";
-  Guestfs.add_drive g ~readonly:true ~format:"raw" "/dev/null";
-  Guestfs.add_drive g ~iface:"virtio" ~readonly:true ~format:"raw" "/dev/null";
-
-  Guestfs.close g
+let () = Gc.compact ()
