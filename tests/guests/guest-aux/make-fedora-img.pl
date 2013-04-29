@@ -27,7 +27,7 @@ use warnings;
 use Sys::Guestfs;
 use File::Temp;
 
-my $IMAGE_SIZE = 512*1024*1024; # bytes
+my $IMAGE_SIZE = 1024*1024*1024; # bytes
 my $LEADING_SECTORS = 64;
 my $TRAILING_SECTORS = 64;
 my $SECTOR_SIZE = 512; # bytes
