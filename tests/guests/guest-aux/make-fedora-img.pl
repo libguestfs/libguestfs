@@ -27,6 +27,18 @@ use warnings;
 use Sys::Guestfs;
 use File::Temp;
 
+my $IMAGE_SIZE = 512*1024*1024; # bytes
+my $LEADING_SECTORS = 64;
+my $TRAILING_SECTORS = 64;
+my $SECTOR_SIZE = 512; # bytes
+
+my @PARTITIONS = (
+    # 32k blank space
+    ['p', $LEADING_SECTORS, $IMAGE_SIZE/2/$SECTOR_SIZE-1],
+    ['p', $IMAGE_SIZE/2/$SECTOR_SIZE, -$TRAILING_SECTORS],
+    # 32k blank space
+);
+
 my @images;
 my $g = Sys::Guestfs->new ();
 
@@ -49,15 +61,16 @@ EOF
   $bootdev = '/dev/sda1';
 
   open (my $img, '>', "fedora.img.tmp.$$") or die;
-  truncate ($img, 512*1024*1024) or die;
+  truncate ($img, $IMAGE_SIZE) or die;
   close ($img) or die;
 
   $g->add_drive ("fedora.img.tmp.$$");
   $g->launch ();
 
   $g->part_init ('/dev/sda', 'mbr');
-  $g->part_add ('/dev/sda', 'p', 64, 524287);
-  $g->part_add ('/dev/sda', 'p', 524288, -64);
+  foreach my $p (@PARTITIONS) {
+    $g->part_add('/dev/sda', @$p);
+  }
 
   init_lvm_root ('/dev/sda2');
 }
@@ -76,7 +89,7 @@ EOF
 
   foreach my $img (@images) {
     open (my $fh, '>', $img) or die;
-    truncate ($fh, 512*1024*1024) or die;
+    truncate ($fh, $IMAGE_SIZE) or die;
     close ($fh) or die;
 
     $g->add_drive ($img);
@@ -85,10 +98,11 @@ EOF
   $g->launch ();
 
   # Format the disks.
-  foreach ('a', 'b') {
-    $g->part_init ("/dev/sd$_", 'mbr');
-    $g->part_add ("/dev/sd$_", 'p', 64, 524287);
-    $g->part_add ("/dev/sd$_", 'p', 524288, -64);
+  foreach my $d ('a', 'b') {
+    $g->part_init ("/dev/sd$d", 'mbr');
+    foreach my $p (@PARTITIONS) {
+      $g->part_add("/dev/sd$d", @$p);
+    }
   }
 
   $g->md_create ('boot', ['/dev/sda1', '/dev/sdb1']);
@@ -127,7 +141,7 @@ EOF
   $bootdev = '/dev/sda1';
 
   open (my $img, '>', "fedora-btrfs.img.tmp.$$") or die;
-  truncate ($img, 512*1024*1024) or die;
+  truncate ($img, $IMAGE_SIZE) or die;
   close ($img) or die;
 
   $g->add_drive ("fedora-btrfs.img.tmp.$$");
