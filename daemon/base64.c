@@ -125,7 +125,7 @@ do_base64_out (const char *file)
   }
 
   /* Construct the command. */
-  if (asprintf_nowarn (&cmd, "%s %s", str_base64, buf) == -1) {
+  if (asprintf_nowarn (&cmd, "%s %Q", str_base64, buf) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
