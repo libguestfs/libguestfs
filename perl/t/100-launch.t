@@ -1,5 +1,5 @@
 # libguestfs Perl bindings -*- perl -*-
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More tests => 26;
 
 use Sys::Guestfs;
 
@@ -48,6 +48,29 @@ if (@lvs != 2 || $lvs[0] ne "/dev/VG/LV1" || $lvs[1] ne "/dev/VG/LV2") {
     die "g->lvs() returned incorrect result"
 }
 ok (1);
+
+$g->mkfs ("ext2", "/dev/VG/LV1");
+ok (1);
+$g->mount ("/dev/VG/LV1", "/");
+ok (1);
+$g->mkdir ("/p");
+ok (1);
+$g->touch ("/q");
+ok (1);
+
+my @dirs = $g->readdir ("/");
+@dirs = sort { $a->{name} cmp $b->{name} } @dirs;
+ok (@dirs == 5);
+ok ($dirs[0]{name} eq ".");
+ok ($dirs[0]{ftyp} eq "d");
+ok ($dirs[1]{name} eq "..");
+ok ($dirs[1]{ftyp} eq "d");
+ok ($dirs[2]{name} eq "lost+found");
+ok ($dirs[2]{ftyp} eq "d");
+ok ($dirs[3]{name} eq "p");
+ok ($dirs[3]{ftyp} eq "d");
+ok ($dirs[4]{name} eq "q");
+ok ($dirs[4]{ftyp} eq "r");
 
 $g->shutdown ();
 ok (1);
