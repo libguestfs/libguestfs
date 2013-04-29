@@ -342,7 +342,7 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   }
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "%s -C %s%s%s%s -cf - .",
+  if (asprintf_nowarn (&cmd, "%s -C %Q%s%s%s -cf - .",
                        str_tar,
                        buf, filter,
                        numericowner ? " --numeric-owner" : "",
