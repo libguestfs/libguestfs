@@ -20,7 +20,12 @@ import guestfs
 
 g = guestfs.GuestFS (python_return_dict=True)
 
+log_invoked = 0
+
 def log_callback (ev,eh,buf,array):
+    global log_invoked
+    log_invoked += 1
+
     if ev == guestfs.EVENT_APPLIANCE:
         buf = buf.rstrip()
 
@@ -28,19 +33,9 @@ def log_callback (ev,eh,buf,array):
     print ("python event logged: event=%s eh=%d buf='%s' array=%s" %
            (guestfs.event_to_string (ev), eh, buf, array))
 
-close_invoked = 0
-
-def close_callback (ev, eh, buf, array):
-    global close_invoked
-    close_invoked += 1
-    log_callback (ev, eh, buf, array)
-
 # Register an event callback for all log messages.
 events = guestfs.EVENT_APPLIANCE | guestfs.EVENT_LIBRARY | guestfs.EVENT_TRACE
 g.set_event_callback (log_callback, events)
-
-# Register a callback for the close event.
-g.set_event_callback (close_callback, guestfs.EVENT_CLOSE)
 
 # Now make sure we see some messages.
 g.set_trace (1)
@@ -50,9 +45,7 @@ g.set_verbose (1)
 g.add_drive_ro ("/dev/null")
 g.set_autosync (1)
 
-# Close the handle.  The close callback should be invoked.
-if close_invoked != 0:
-    raise "Error: close_invoked should be 0"
 g.close ()
-if close_invoked != 1:
-    raise "Error: close_invoked should be 1"
+
+if log_invoked == 0:
+    raise "Error: log_invoked should be > 0"
