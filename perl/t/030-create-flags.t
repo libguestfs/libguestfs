@@ -21,5 +21,5 @@ use Test::More tests => 1;
 
 use Sys::Guestfs;
 
-my $g = Sys::Guestfs->new (environment => 0);
+my $g = Sys::Guestfs->new (environment => 0, close_on_exit => 1);
 ok ($g);
