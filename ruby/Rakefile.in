@@ -70,7 +70,7 @@ desc "Build the native library"
 task :build => GUESTFS_MODULE
 
 Rake::TestTask.new(:test) do |t|
-    t.test_files = FileList['tests/tc_*.rb']
+    t.test_files = FileList['t/tc_*.rb']
     t.libs = [ 'lib', 'ext/guestfs' ]
 end
 task :test => :build
@@ -100,7 +100,7 @@ PKG_FILES = FileList[
   "Rakefile", "COPYING", "README", "NEWS", "@srcdir@/README.rdoc",
   "lib/**/*.rb",
   "ext/**/*.[ch]", "ext/**/MANIFEST", "ext/**/extconf.rb",
-  "tests/**/*",
+  "t/**/*",
   "spec/**/*"
 ]
 

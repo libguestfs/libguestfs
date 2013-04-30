@@ -1,5 +1,5 @@
 # libguestfs Ruby bindings -*- ruby -*-
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2011-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,9 @@ class TestLoad < Test::Unit::TestCase
   def test_events
     g = Guestfs::create()
 
+    log_invoked = 0
     log = Proc.new {| event, event_handle, buf, array |
+      log_invoked += 1
       if event == Guestfs::EVENT_APPLIANCE
         buf.chomp!
       end
@@ -32,19 +34,10 @@ class TestLoad < Test::Unit::TestCase
       puts "ruby event logged: event=#{event_string} eh=#{event_handle} buf='#{buf}' array=#{array}"
     }
 
-    close_invoked = 0
-    close = Proc.new {| event, event_handle, buf, array |
-      close_invoked += 1
-      log.call(event, event_handle, buf, array)
-    }
-
     # Grab log, trace and daemon messages into our custom callback.
     event_bitmask = Guestfs::EVENT_APPLIANCE | Guestfs::EVENT_LIBRARY |
       Guestfs::EVENT_TRACE
     g.set_event_callback(log, event_bitmask)
-
-    # Check that the close event is called.
-    g.set_event_callback(close, Guestfs::EVENT_CLOSE)
 
     # Make sure we see some messages.
     g.set_trace(1)
@@ -54,12 +47,9 @@ class TestLoad < Test::Unit::TestCase
     g.add_drive_ro("/dev/null")
     g.set_autosync(1)
 
-    if close_invoked != 0
-      raise "close_invoked should be 0"
-    end
     g.close()
-    if close_invoked != 1
-      raise "close_invoked should be 1"
+    if log_invoked == 0
+      raise "log_invoked should be > 0"
     end
   end
 end
