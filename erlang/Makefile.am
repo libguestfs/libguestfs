@@ -28,6 +28,10 @@ EXTRA_DIST = \
 	tests/*.erl \
 	README
 
+CLEANFILES = \
+	$(erlang_bin_DATA) \
+	$(bin_PROGRAMS)
+
 if HAVE_ERLANG
 
 erlang_bindir = $(ERLANG_LIB_DIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION)/ebin
