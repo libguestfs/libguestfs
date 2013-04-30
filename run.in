@@ -83,9 +83,9 @@ export PERL5LIB
 # For Python.
 export PYTHON=@PYTHON@
 if [ -z "$PYTHONPATH" ]; then
-    PYTHONPATH="$b/python:$b/python/.libs"
+    PYTHONPATH="$s/python:$b/python:$b/python/.libs"
 else
-    PYTHONPATH="$b/python:$b/python/.libs:$PYTHONPATH"
+    PYTHONPATH="$s/python:$b/python:$b/python/.libs:$PYTHONPATH"
 fi
 export PYTHONPATH
 
