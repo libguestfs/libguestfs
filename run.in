@@ -2,6 +2,8 @@
 # libguestfs 'run' programs locally script
 # Copyright (C) 2011-2013 Red Hat Inc.
 #
+# @configure_input@
+#
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
@@ -41,8 +43,10 @@ if [ "$1" = "--test" ]; then
     shift
 fi
 
-# Find this script.
-b=@abs_builddir@
+# Source and build directories (absolute paths so this works from any
+# directory).
+s="$(cd @abs_srcdir@ && pwd)"
+b="$(cd @abs_builddir@ && pwd)"
 
 # Set T to current date & time (mainly for valgrind logfile name).
 T=`date +%Y%m%d.%H.%M.%S`
