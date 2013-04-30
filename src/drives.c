@@ -1105,7 +1105,7 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     CLEANUP_FREE char *username = NULL, *port = NULL;
 
     if (src->username)
-      username = safe_asprintf (g, "%s@", username);
+      username = safe_asprintf (g, "%s@", src->username);
     if (src->servers[0].port != 0)
       port = safe_asprintf (g, ":%d", src->servers[0].port);
 
