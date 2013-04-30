@@ -17,7 +17,7 @@
  *)
 
 let () =
-  let g = new Guestfs.guestfs ~environment:false ~close_on_exit:false () in
+  let g = new Guestfs.guestfs ~environment:false ~close_on_exit:true () in
   g#parse_environment ()
 
 let () = Gc.compact ()
