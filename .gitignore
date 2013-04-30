@@ -104,6 +104,7 @@ Makefile.in
 /erlang/examples/stamp-guestfs-erlang.pod
 /erlang/guestfs.beam
 /erlang/guestfs.erl
+/erlang/libguestfs-1.*
 /erlang/test.img
 /examples/copy-over
 /examples/create-disk

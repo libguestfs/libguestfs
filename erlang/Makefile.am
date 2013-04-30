@@ -38,8 +38,17 @@ erlang_bindir = $(ERLANG_LIB_DIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION)/ebin
 
 erlang_bin_DATA = guestfs.beam
 
+# In order for the tests to work on the local copy, we have to create
+# a phony directory hierarchy:
+#
+# $(builddir)/erlang/libguestfs-$(VERSION)/ebin/guestfs.beam
+#
+# The ./run script will set $ERL_LIBS to point to $(builddir)/erlang.
+# (See: http://www.erlang.org/doc/man/code.html)
 guestfs.beam: guestfs.erl
 	$(ERLC) +debug_info $^
+	mkdir -p $(PACKAGE)-$(VERSION)/ebin
+	cp $@ $(PACKAGE)-$(VERSION)/ebin
 
 bin_PROGRAMS = erl-guestfs
 

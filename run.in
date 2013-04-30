@@ -118,6 +118,12 @@ fi
 export CLASSPATH
 
 # For Erlang.
+if [ -z "$ERL_LIBS" ]; then
+    ERL_LIBS="$b/erlang"
+else
+    ERL_LIBS="$b/erlang:$ERL_LIBS"
+fi
+export ERL_LIBS
 if [ -z "$PATH" ]; then
     PATH="$b/erlang"
 else
