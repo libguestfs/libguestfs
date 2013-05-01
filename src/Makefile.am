@@ -198,14 +198,14 @@ endif
 
 guestfs_protocol.c: guestfs_protocol.x
 	rm -f $@-t $@-t2
-	$(RPCGEN) $(RPCGEN_DEFS) -c -o $@-t $(srcdir)/$<
+	$(RPCGEN) $(RPCGEN_DEFS) -c -o $@-t $<
 	sed 's,\.\./\(\.\./\)*src,.,' < $@-t > $@-t2
 	rm $@-t
 	mv $@-t2 $@
 
 guestfs_protocol.h: guestfs_protocol.x
 	rm -f $@-t
-	$(RPCGEN) $(RPCGEN_DEFS) -h -o $@-t $(srcdir)/$<
+	$(RPCGEN) $(RPCGEN_DEFS) -h -o $@-t $<
 	mv $@-t $@
 endif
 
