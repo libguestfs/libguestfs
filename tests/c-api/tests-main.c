@@ -28,6 +28,11 @@
 
 #include <pcre.h>
 
+/* Warn about deprecated libguestfs functions, but only in this file,
+ * not in 'tests.c' (because we want to test deprecated functions).
+ */
+#define GUESTFS_WARN_DEPRECATED 1
+
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
@@ -160,7 +165,8 @@ print_strings (char *const *argv)
 }
 
 static void
-incr (guestfs_h *g, void *iv)
+incr (guestfs_h *g, void *iv, uint64_t event, int eh, int flags,
+      const char *buf, size_t buf_len, const uint64_t *array, size_t array_len)
 {
   int *i = (int *) iv;
   (*i)++;
@@ -527,7 +533,7 @@ main (int argc, char *argv[])
   nr_failed = perform_tests ();
 
   /* Check close callback is called. */
-  guestfs_set_close_callback (g, incr, &close_sentinel);
+  guestfs_set_event_callback (g, incr, GUESTFS_EVENT_CLOSE, 0, &close_sentinel);
 
   guestfs_close (g);
 
