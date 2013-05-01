@@ -102,7 +102,7 @@ let rec generate_tests () =
 
   pr "\
 size_t
-perform_tests (void)
+perform_tests (guestfs_h *g)
 {
   size_t test_num = 0;
   size_t nr_failed = 0;
@@ -113,7 +113,7 @@ perform_tests (void)
     fun i test_name ->
       pr "  test_num++;\n";
       pr "  next_test (g, test_num, nr_tests, \"%s\");\n" test_name;
-      pr "  if (%s () == -1) {\n" test_name;
+      pr "  if (%s (g) == -1) {\n" test_name;
       pr "    printf (\"FAIL: %%s\\n\", \"%s\");\n" test_name;
       pr "    nr_failed++;\n";
       pr "  }\n";
@@ -148,7 +148,7 @@ static int
 
   pr "\
 static int
-%s (void)
+%s (guestfs_h *g)
 {
   if (%s_skip ()) {
     skipped (\"%s\", \"environment variable set\");
@@ -195,28 +195,28 @@ static int
 and generate_one_test_body name i test_name init test =
   (match init with
    | InitNone ->
-     pr "  if (init_none () == -1)\n";
+     pr "  if (init_none (g) == -1)\n";
      pr "    return -1;\n"
    | InitEmpty ->
-     pr "  if (init_empty () == -1)\n";
+     pr "  if (init_empty (g) == -1)\n";
      pr "    return -1;\n"
    | InitPartition ->
-     pr "  if (init_partition () == -1)\n";
+     pr "  if (init_partition (g) == -1)\n";
      pr "    return -1;\n"
    | InitGPT ->
-     pr "  if (init_gpt () == -1)\n";
+     pr "  if (init_gpt (g) == -1)\n";
      pr "    return -1;\n"
    | InitBasicFS ->
-     pr "  if (init_basic_fs () == -1)\n";
+     pr "  if (init_basic_fs (g) == -1)\n";
      pr "    return -1;\n"
    | InitBasicFSonLVM ->
-     pr "  if (init_basic_fs_on_lvm () == -1)\n";
+     pr "  if (init_basic_fs_on_lvm (g) == -1)\n";
      pr "    return -1;\n"
    | InitISOFS ->
-     pr "  if (init_iso_fs () == -1)\n";
+     pr "  if (init_iso_fs (g) == -1)\n";
      pr "    return -1;\n"
    | InitScratchFS ->
-     pr "  if (init_scratch_fs () == -1)\n";
+     pr "  if (init_scratch_fs (g) == -1)\n";
      pr "    return -1;\n"
   );
 

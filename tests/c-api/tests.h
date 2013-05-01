@@ -19,18 +19,17 @@
 #ifndef TESTS_H_
 #define TESTS_H_
 
-extern guestfs_h *g;
 extern size_t nr_tests;
 
-extern int init_none (void);
-extern int init_empty (void);
-extern int init_partition (void);
-extern int init_gpt (void);
-extern int init_basic_fs (void);
-extern int init_basic_fs_on_lvm (void);
-extern int init_iso_fs (void);
-extern int init_scratch_fs (void);
-extern size_t perform_tests (void);
+extern int init_none (guestfs_h *g);
+extern int init_empty (guestfs_h *g);
+extern int init_partition (guestfs_h *g);
+extern int init_gpt (guestfs_h *g);
+extern int init_basic_fs (guestfs_h *g);
+extern int init_basic_fs_on_lvm (guestfs_h *g);
+extern int init_iso_fs (guestfs_h *g);
+extern int init_scratch_fs (guestfs_h *g);
+extern size_t perform_tests (guestfs_h *g);
 extern void no_test_warnings (void);
 extern int is_string_list (char **ret, size_t n, ...);
 extern int is_device_list (char **ret, size_t n, ...);

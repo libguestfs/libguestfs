@@ -38,21 +38,19 @@
 
 #include "tests.h"
 
-guestfs_h *g;
-
 int
-init_none (void)
+init_none (guestfs_h *g)
 {
   /* XXX At some point in the distant past, InitNone and InitEmpty
    * became folded together as the same thing.  Really we should make
    * InitNone do nothing at all, but the tests may need to be checked
    * to make sure this is OK.
    */
-  return init_empty ();
+  return init_empty (g);
 }
 
 int
-init_empty (void)
+init_empty (guestfs_h *g)
 {
   if (guestfs_blockdev_setrw (g, "/dev/sda") == -1)
     return -1;
@@ -67,9 +65,9 @@ init_empty (void)
 }
 
 int
-init_partition (void)
+init_partition (guestfs_h *g)
 {
-  if (init_empty () == -1)
+  if (init_empty (g) == -1)
     return -1;
 
   if (guestfs_part_disk (g, "/dev/sda", "mbr") == -1)
@@ -79,9 +77,9 @@ init_partition (void)
 }
 
 int
-init_gpt (void)
+init_gpt (guestfs_h *g)
 {
-  if (init_empty () == -1)
+  if (init_empty (g) == -1)
     return -1;
 
   if (guestfs_part_disk (g, "/dev/sda", "gpt") == -1)
@@ -91,9 +89,9 @@ init_gpt (void)
 }
 
 int
-init_basic_fs (void)
+init_basic_fs (guestfs_h *g)
 {
-  if (init_partition () == -1)
+  if (init_partition (g) == -1)
     return -1;
 
   if (guestfs_mkfs (g, "ext2", "/dev/sda1") == -1)
@@ -106,11 +104,11 @@ init_basic_fs (void)
 }
 
 int
-init_basic_fs_on_lvm (void)
+init_basic_fs_on_lvm (guestfs_h *g)
 {
   const char *pvs[] = { "/dev/sda1", NULL };
 
-  if (init_partition () == -1)
+  if (init_partition (g) == -1)
     return -1;
 
   if (guestfs_pvcreate (g, "/dev/sda1") == -1)
@@ -132,9 +130,9 @@ init_basic_fs_on_lvm (void)
 }
 
 int
-init_iso_fs (void)
+init_iso_fs (guestfs_h *g)
 {
-  if (init_empty () == -1)
+  if (init_empty (g) == -1)
     return -1;
 
   if (guestfs_mount_ro (g, "/dev/sdd", "/") == -1)
@@ -144,9 +142,9 @@ init_iso_fs (void)
 }
 
 int
-init_scratch_fs (void)
+init_scratch_fs (guestfs_h *g)
 {
-  if (init_empty () == -1)
+  if (init_empty (g) == -1)
     return -1;
 
   if (guestfs_mount (g, "/dev/sdb1", "/") == -1)
@@ -427,6 +425,7 @@ main (int argc, char *argv[])
   int fd;
   size_t nr_failed ;
   int close_sentinel = 1;
+  guestfs_h *g;
 
   setbuf (stdout, NULL);
 
@@ -530,7 +529,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  nr_failed = perform_tests ();
+  nr_failed = perform_tests (g);
 
   /* Check close callback is called. */
   guestfs_set_event_callback (g, incr, GUESTFS_EVENT_CLOSE, 0, &close_sentinel);
