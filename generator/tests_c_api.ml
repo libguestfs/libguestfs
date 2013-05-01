@@ -194,67 +194,30 @@ static int
 
 and generate_one_test_body name i test_name init test =
   (match init with
-   | InitNone (* XXX at some point, InitNone and InitEmpty became
-               * folded together as the same thing.  Really we should
-               * make InitNone do nothing at all, but the tests may
-               * need to be checked to make sure this is OK.
-               *)
+   | InitNone ->
+     pr "  if (init_none () == -1)\n";
+     pr "    return -1;\n"
    | InitEmpty ->
-       pr "  /* InitNone|InitEmpty for %s */\n" test_name;
-       List.iter (generate_test_command_call test_name)
-         [["blockdev_setrw"; "/dev/sda"];
-          ["umount_all"];
-          ["lvm_remove_all"]]
+     pr "  if (init_empty () == -1)\n";
+     pr "    return -1;\n"
    | InitPartition ->
-       pr "  /* InitPartition for %s: create /dev/sda1 */\n" test_name;
-       List.iter (generate_test_command_call test_name)
-         [["blockdev_setrw"; "/dev/sda"];
-          ["umount_all"];
-          ["lvm_remove_all"];
-          ["part_disk"; "/dev/sda"; "mbr"]]
+     pr "  if (init_partition () == -1)\n";
+     pr "    return -1;\n"
    | InitGPT ->
-       pr "  /* InitGPT for %s: create /dev/sda1 */\n" test_name;
-       List.iter (generate_test_command_call test_name)
-         [["blockdev_setrw"; "/dev/sda"];
-          ["umount_all"];
-          ["lvm_remove_all"];
-          ["part_disk"; "/dev/sda"; "gpt"]]
+     pr "  if (init_gpt () == -1)\n";
+     pr "    return -1;\n"
    | InitBasicFS ->
-       pr "  /* InitBasicFS for %s: create ext2 on /dev/sda1 */\n" test_name;
-       List.iter (generate_test_command_call test_name)
-         [["blockdev_setrw"; "/dev/sda"];
-          ["umount_all"];
-          ["lvm_remove_all"];
-          ["part_disk"; "/dev/sda"; "mbr"];
-          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-          ["mount"; "/dev/sda1"; "/"]]
+     pr "  if (init_basic_fs () == -1)\n";
+     pr "    return -1;\n"
    | InitBasicFSonLVM ->
-       pr "  /* InitBasicFSonLVM for %s: create ext2 on /dev/VG/LV */\n"
-         test_name;
-       List.iter (generate_test_command_call test_name)
-         [["blockdev_setrw"; "/dev/sda"];
-          ["umount_all"];
-          ["lvm_remove_all"];
-          ["part_disk"; "/dev/sda"; "mbr"];
-          ["pvcreate"; "/dev/sda1"];
-          ["vgcreate"; "VG"; "/dev/sda1"];
-          ["lvcreate"; "LV"; "VG"; "8"];
-          ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
-          ["mount"; "/dev/VG/LV"; "/"]]
+     pr "  if (init_basic_fs_on_lvm () == -1)\n";
+     pr "    return -1;\n"
    | InitISOFS ->
-       pr "  /* InitISOFS for %s */\n" test_name;
-       List.iter (generate_test_command_call test_name)
-         [["blockdev_setrw"; "/dev/sda"];
-          ["umount_all"];
-          ["lvm_remove_all"];
-          ["mount_ro"; "/dev/sdd"; "/"]]
+     pr "  if (init_iso_fs () == -1)\n";
+     pr "    return -1;\n"
    | InitScratchFS ->
-       pr "  /* InitScratchFS for %s */\n" test_name;
-       List.iter (generate_test_command_call test_name)
-         [["blockdev_setrw"; "/dev/sda"];
-          ["umount_all"];
-          ["lvm_remove_all"];
-          ["mount"; "/dev/sdb1"; "/"]]
+     pr "  if (init_scratch_fs () == -1)\n";
+     pr "    return -1;\n"
   );
 
   pr "\n";

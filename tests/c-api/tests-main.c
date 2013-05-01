@@ -35,6 +35,121 @@
 
 guestfs_h *g;
 
+int
+init_none (void)
+{
+  /* XXX At some point in the distant past, InitNone and InitEmpty
+   * became folded together as the same thing.  Really we should make
+   * InitNone do nothing at all, but the tests may need to be checked
+   * to make sure this is OK.
+   */
+  return init_empty ();
+}
+
+int
+init_empty (void)
+{
+  if (guestfs_blockdev_setrw (g, "/dev/sda") == -1)
+    return -1;
+
+  if (guestfs_umount_all (g) == -1)
+    return -1;
+
+  if (guestfs_lvm_remove_all (g) == -1)
+    return -1;
+
+  return 0;
+}
+
+int
+init_partition (void)
+{
+  if (init_empty () == -1)
+    return -1;
+
+  if (guestfs_part_disk (g, "/dev/sda", "mbr") == -1)
+    return -1;
+
+  return 0;
+}
+
+int
+init_gpt (void)
+{
+  if (init_empty () == -1)
+    return -1;
+
+  if (guestfs_part_disk (g, "/dev/sda", "gpt") == -1)
+    return -1;
+
+  return 0;
+}
+
+int
+init_basic_fs (void)
+{
+  if (init_partition () == -1)
+    return -1;
+
+  if (guestfs_mkfs (g, "ext2", "/dev/sda1") == -1)
+    return -1;
+
+  if (guestfs_mount (g, "/dev/sda1", "/") == -1)
+    return -1;
+
+  return 0;
+}
+
+int
+init_basic_fs_on_lvm (void)
+{
+  const char *pvs[] = { "/dev/sda1", NULL };
+
+  if (init_partition () == -1)
+    return -1;
+
+  if (guestfs_pvcreate (g, "/dev/sda1") == -1)
+    return -1;
+
+  if (guestfs_vgcreate (g, "VG", (char **) pvs) == -1)
+    return -1;
+
+  if (guestfs_lvcreate (g, "LV", "VG", 8) == -1)
+    return -1;
+
+  if (guestfs_mkfs (g, "ext2", "/dev/VG/LV") == -1)
+    return -1;
+
+  if (guestfs_mount (g, "/dev/VG/LV", "/") == -1)
+    return -1;
+
+  return 0;
+}
+
+int
+init_iso_fs (void)
+{
+  if (init_empty () == -1)
+    return -1;
+
+  if (guestfs_mount_ro (g, "/dev/sdd", "/") == -1)
+    return -1;
+
+  return 0;
+}
+
+int
+init_scratch_fs (void)
+{
+  if (init_empty () == -1)
+    return -1;
+
+  if (guestfs_mount (g, "/dev/sdb1", "/") == -1)
+    return -1;
+
+  return 0;
+}
+
 static void
 print_strings (char *const *argv)
 {

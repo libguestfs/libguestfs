@@ -22,6 +22,14 @@
 extern guestfs_h *g;
 extern size_t nr_tests;
 
+extern int init_none (void);
+extern int init_empty (void);
+extern int init_partition (void);
+extern int init_gpt (void);
+extern int init_basic_fs (void);
+extern int init_basic_fs_on_lvm (void);
+extern int init_iso_fs (void);
+extern int init_scratch_fs (void);
 extern size_t perform_tests (void);
 extern void no_test_warnings (void);
 extern int is_string_list (char **ret, size_t n, ...);
