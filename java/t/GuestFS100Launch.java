@@ -20,7 +20,7 @@ import java.io.*;
 import java.util.Map;
 import com.redhat.et.libguestfs.*;
 
-public class GuestFS010Basic
+public class GuestFS100Launch
 {
     public static void main (String[] argv)
     {

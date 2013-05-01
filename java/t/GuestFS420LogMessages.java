@@ -20,10 +20,12 @@ import java.io.*;
 import java.util.HashMap;
 import com.redhat.et.libguestfs.*;
 
-public class GuestFS400Events
+public class GuestFS420LogMessages
 {
-    static class PrintEvent implements EventCallback
+    static class LogEvent implements EventCallback
     {
+        private int log_invoked = 0;
+
         public void event (long event, int eh, String buffer, long[] array)
         {
             String msg = "event=" + GuestFS.eventToString (event) + " " +
@@ -40,22 +42,13 @@ public class GuestFS400Events
             }
 
             System.out.println ("java event logged: " + msg);
-        }
-    }
 
-    static class CloseInvoked extends PrintEvent
-    {
-        private int close_invoked = 0;
-
-        public void event (long event, int eh, String buffer, long[] array)
-        {
-            super.event (event, eh, buffer, array);
-            close_invoked++;
+            log_invoked++;
         }
 
-        public int getCloseInvoked ()
+        public int getLogInvoked ()
         {
-            return close_invoked;
+            return log_invoked;
         }
     }
 
@@ -66,13 +59,10 @@ public class GuestFS400Events
 
             // Grab all messages into an event handler that just
             // prints each event.
-            g.set_event_callback (new PrintEvent (),
+            LogEvent le = new LogEvent ();
+            g.set_event_callback (le,
                                   GuestFS.EVENT_APPLIANCE|GuestFS.EVENT_LIBRARY|
                                   GuestFS.EVENT_TRACE);
-
-            // Check that the close event is invoked.
-            CloseInvoked ci = new CloseInvoked ();
-            g.set_event_callback (ci, GuestFS.EVENT_CLOSE);
 
             // Now make sure we see some messages.
             g.set_trace (true);
@@ -82,10 +72,8 @@ public class GuestFS400Events
             g.add_drive_ro ("/dev/null");
             g.set_autosync (true);
 
-            // Close the handle.
-            assert ci.getCloseInvoked() == 0;
             g.close ();
-            assert ci.getCloseInvoked() == 1;
+            assert le.getLogInvoked() > 0;
         }
         catch (Exception exn) {
             System.err.println (exn);

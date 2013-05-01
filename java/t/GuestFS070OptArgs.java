@@ -1,5 +1,5 @@
 /* libguestfs Java bindings
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2011 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,14 +16,44 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+import java.io.*;
+import java.util.HashMap;
 import com.redhat.et.libguestfs.*;
 
-public class GuestFS005Load {
+public class GuestFS070OptArgs
+{
     public static void main (String[] argv)
     {
         try {
             GuestFS g = new GuestFS ();
-            g.close ();
+
+            g.add_drive ("/dev/null");
+
+            HashMap<String,Object> optargs;
+
+            optargs = new HashMap<String,Object>() {
+                {
+                    put ("readonly", Boolean.TRUE);
+                }
+            };
+            g.add_drive ("/dev/null", optargs);
+
+            optargs = new HashMap<String,Object>() {
+                {
+                    put ("readonly", Boolean.TRUE);
+                    put ("format", "raw");
+                }
+            };
+            g.add_drive ("/dev/null", optargs);
+
+            optargs = new HashMap<String,Object>() {
+                {
+                    put ("readonly", Boolean.TRUE);
+                    put ("format", "raw");
+                    put ("iface", "virtio");
+                }
+            };
+            g.add_drive ("/dev/null", optargs);
         }
         catch (Exception exn) {
             System.err.println (exn);

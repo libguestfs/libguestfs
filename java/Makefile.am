@@ -38,10 +38,11 @@ java_sources = \
 
 java_tests = \
 	Bindtests.java \
-	t/GuestFS005Load.java \
-	t/GuestFS010Basic.java \
-	t/GuestFS080OptArgs.java \
-	t/GuestFS400Events.java
+	t/GuestFS020Create.java \
+	t/GuestFS070OptArgs.java \
+	t/GuestFS100Launch.java \
+	t/GuestFS410CloseEvent.java \
+	t/GuestFS420LogMessages.java
 
 EXTRA_DIST = \
 	$(java_sources) \

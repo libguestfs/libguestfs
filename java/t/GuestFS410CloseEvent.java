@@ -1,5 +1,5 @@
 /* libguestfs Java bindings
- * Copyright (C) 2011 Red Hat Inc.
+ * Copyright (C) 2013 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,40 +20,36 @@ import java.io.*;
 import java.util.HashMap;
 import com.redhat.et.libguestfs.*;
 
-public class GuestFS080OptArgs
+public class GuestFS410CloseEvent
 {
+    static class CloseInvoked implements EventCallback
+    {
+        private int close_invoked = 0;
+
+        public void event (long event, int eh, String buffer, long[] array)
+        {
+            close_invoked++;
+        }
+
+        public int getCloseInvoked ()
+        {
+            return close_invoked;
+        }
+    }
+
     public static void main (String[] argv)
     {
         try {
             GuestFS g = new GuestFS ();
 
-            g.add_drive ("/dev/null");
+            // Check that the close event is invoked.
+            CloseInvoked ci = new CloseInvoked ();
+            g.set_event_callback (ci, GuestFS.EVENT_CLOSE);
 
-            HashMap<String,Object> optargs;
-
-            optargs = new HashMap<String,Object>() {
-                {
-                    put ("readonly", Boolean.TRUE);
-                }
-            };
-            g.add_drive ("/dev/null", optargs);
-
-            optargs = new HashMap<String,Object>() {
-                {
-                    put ("readonly", Boolean.TRUE);
-                    put ("format", "raw");
-                }
-            };
-            g.add_drive ("/dev/null", optargs);
-
-            optargs = new HashMap<String,Object>() {
-                {
-                    put ("readonly", Boolean.TRUE);
-                    put ("format", "raw");
-                    put ("iface", "virtio");
-                }
-            };
-            g.add_drive ("/dev/null", optargs);
+            // Close the handle.
+            assert ci.getCloseInvoked() == 0;
+            g.close ();
+            assert ci.getCloseInvoked() == 1;
         }
         catch (Exception exn) {
             System.err.println (exn);
