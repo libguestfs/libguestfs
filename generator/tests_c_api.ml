@@ -99,31 +99,12 @@ let rec generate_tests () =
   let nr_tests = List.length test_names in
   pr "size_t nr_tests = %d;\n" nr_tests;
   pr "\n";
-
-  pr "\
-size_t
-perform_tests (guestfs_h *g)
-{
-  size_t test_num = 0;
-  size_t nr_failed = 0;
-
-";
-
-  iteri (
-    fun i test_name ->
-      pr "  test_num++;\n";
-      pr "  next_test (g, test_num, nr_tests, \"%s\");\n" test_name;
-      pr "  if (%s (g) == -1) {\n" test_name;
-      pr "    printf (\"FAIL: %%s\\n\", \"%s\");\n" test_name;
-      pr "    nr_failed++;\n";
-      pr "  }\n";
+  pr "struct test tests[%d] = {\n" nr_tests;
+  List.iter (
+    fun name ->
+      pr "  { .name = \"%s\", .test_fn = %s },\n" (c_quote name) name
   ) test_names;
-
-  pr "\
-
-  return nr_failed;
-}
-"
+  pr "};\n"
 
 and generate_one_test name optional i (init, prereq, test) =
   let test_name = sprintf "test_%s_%d" name i in
@@ -349,6 +330,10 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
   List.iter (
     function
     | OptString _, "NULL", _ -> ()
+    | String _, arg, sym
+      when String.length arg >= 7 && String.sub arg 0 7 = "GETKEY:" ->
+      pr "  const char *%s = guestfs_get_private (g, \"%s\");\n"
+        sym (c_quote (String.sub arg 7 (String.length arg - 7)))
     | Pathname _, arg, sym
     | Device _, arg, sym
     | Mountable _, arg, sym

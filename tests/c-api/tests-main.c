@@ -162,14 +162,6 @@ print_strings (char *const *argv)
     printf ("\t%s\n", argv[argc]);
 }
 
-static void
-incr (guestfs_h *g, void *iv, uint64_t event, int eh, int flags,
-      const char *buf, size_t buf_len, const uint64_t *array, size_t array_len)
-{
-  int *i = (int *) iv;
-  (*i)++;
-}
-
 static int compare_lists (char **, char **, int (*) (const char *, const char *));
 
 /* Compare 'ret' to the string list that follows. */
@@ -393,9 +385,8 @@ substitute_srcdir (const char *path)
   return ret;
 }
 
-void
-next_test (guestfs_h *g, size_t test_num, size_t nr_tests,
-           const char *test_name)
+static void
+next_test (guestfs_h *g, size_t test_num, const char *test_name)
 {
   if (guestfs_get_verbose (g))
     printf ("-------------------------------------------------------------------------------\n");
@@ -418,18 +409,70 @@ skipped (const char *test_name, const char *fs, ...)
           test_name, reason);
 }
 
-int
-main (int argc, char *argv[])
+static void
+delete_file (guestfs_h *g, void *filenamev,
+             uint64_t event, int eh, int flags,
+             const char *buf, size_t buf_len,
+             const uint64_t *array, size_t array_len)
 {
-  const char *filename;
+  char *filename = filenamev;
+
+  unlink (filename);
+  free (filename);
+}
+
+static void
+add_disk (guestfs_h *g, const char *key, off_t size)
+{
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
+  char *filename;
   int fd;
-  size_t nr_failed ;
-  int close_sentinel = 1;
+
+  if (asprintf (&filename, "%s/diskXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    exit (EXIT_FAILURE);
+  }
+
+  fd = mkostemp (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC);
+  if (fd == -1) {
+    perror ("mkstemp");
+    exit (EXIT_FAILURE);
+  }
+  if (ftruncate (fd, size) == -1) {
+    perror ("ftruncate");
+    close (fd);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (close (fd) == -1) {
+    perror (filename);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf ("FAIL: guestfs_add_drive %s\n", filename);
+    exit (EXIT_FAILURE);
+  }
+
+  if (guestfs_set_event_callback (g, delete_file,
+                                  GUESTFS_EVENT_CLOSE, 0, filename) == -1) {
+    printf ("FAIL: guestfs_set_event_callback (GUESTFS_EVENT_CLOSE)\n");
+    exit (EXIT_FAILURE);
+  }
+
+  /* Record the real filename in the named private key.  Tests can
+   * retrieve these names using the magic "GETKEY:<key>" String
+   * parameter.
+   */
+  guestfs_set_private (g, key, filename);
+}
+
+/* Create the handle, with attached disks. */
+static guestfs_h *
+create_handle (void)
+{
   guestfs_h *g;
-
-  setbuf (stdout, NULL);
-
-  no_test_warnings ();
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -437,71 +480,11 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  filename = "test1.img";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
-  if (fd == -1) {
-    perror (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, 524288000) == -1) {
-    perror ("ftruncate");
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror (filename);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (guestfs_add_drive (g, filename) == -1) {
-    printf ("FAIL: guestfs_add_drive %s\n", filename);
-    exit (EXIT_FAILURE);
-  }
+  add_disk (g, "test1", 524288000);
 
-  filename = "test2.img";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
-  if (fd == -1) {
-    perror (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, 52428800) == -1) {
-    perror ("ftruncate");
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror (filename);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (guestfs_add_drive (g, filename) == -1) {
-    printf ("FAIL: guestfs_add_drive %s\n", filename);
-    exit (EXIT_FAILURE);
-  }
+  add_disk (g, "test2", 52428800);
 
-  filename = "test3.img";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
-  if (fd == -1) {
-    perror (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, 10485760) == -1) {
-    perror ("ftruncate");
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror (filename);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (guestfs_add_drive (g, filename) == -1) {
-    printf ("FAIL: guestfs_add_drive %s\n", filename);
-    exit (EXIT_FAILURE);
-  }
+  add_disk (g, "test3", 10485760);
 
   if (guestfs_add_drive_ro (g, "../data/test.iso") == -1) {
     printf ("FAIL: guestfs_add_drive_ro ../data/test.iso\n");
@@ -529,21 +512,43 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  nr_failed = perform_tests (g);
+  return g;
+}
 
-  /* Check close callback is called. */
-  guestfs_set_event_callback (g, incr, GUESTFS_EVENT_CLOSE, 0, &close_sentinel);
+static size_t
+perform_tests (guestfs_h *g)
+{
+  size_t test_num;
+  size_t nr_failed = 0;
+  struct test *t;
 
-  guestfs_close (g);
-
-  if (close_sentinel != 2) {
-    fprintf (stderr, "FAIL: close callback was not called\n");
-    exit (EXIT_FAILURE);
+  for (test_num = 0; test_num < nr_tests; ++test_num) {
+    t = &tests[test_num];
+    next_test (g, test_num, t->name);
+    if (t->test_fn (g) == -1) {
+      printf ("FAIL: %s\n", t->name);
+      nr_failed++;
+    }
   }
 
-  unlink ("test1.img");
-  unlink ("test2.img");
-  unlink ("test3.img");
+  return nr_failed;
+}
+
+int
+main (int argc, char *argv[])
+{
+  size_t nr_failed;
+  guestfs_h *g;
+
+  setbuf (stdout, NULL);
+
+  no_test_warnings ();
+
+  g = create_handle ();
+
+  nr_failed = perform_tests (g);
+
+  guestfs_close (g);
 
   if (nr_failed > 0) {
     printf ("***** %zu / %zu tests FAILED *****\n", nr_failed, nr_tests);

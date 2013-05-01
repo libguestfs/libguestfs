@@ -19,6 +19,11 @@
 #ifndef TESTS_H_
 #define TESTS_H_
 
+struct test {
+  int (*test_fn) (guestfs_h *g);
+  const char *name;
+};
+extern struct test tests[];
 extern size_t nr_tests;
 
 extern int init_none (guestfs_h *g);
@@ -29,7 +34,6 @@ extern int init_basic_fs (guestfs_h *g);
 extern int init_basic_fs_on_lvm (guestfs_h *g);
 extern int init_iso_fs (guestfs_h *g);
 extern int init_scratch_fs (guestfs_h *g);
-extern size_t perform_tests (guestfs_h *g);
 extern void no_test_warnings (void);
 extern int is_string_list (char **ret, size_t n, ...);
 extern int is_device_list (char **ret, size_t n, ...);
@@ -40,7 +44,6 @@ extern const char *get_key (char **hash, const char *key);
 extern int check_hash (char **ret, const char *key, const char *expected);
 extern int match_re (const char *str, const char *pattern);
 extern char *substitute_srcdir (const char *path);
-extern void next_test (guestfs_h *g, size_t test_num, size_t nr_tests, const char *test_name);
 extern void skipped (const char *test_name, const char *fs, ...) __attribute__((format (printf,2,3)));
 
 #endif /* TESTS_H_ */

@@ -2566,11 +2566,11 @@ data." };
     style = RString "format", [String "filename"], [];
     tests = [
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "test1.img"]], "raw");
+        [["disk_format"; "GETKEY:test1"]], "raw");
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "test2.img"]], "raw");
+        [["disk_format"; "GETKEY:test2"]], "raw");
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "test3.img"]], "raw");
+        [["disk_format"; "GETKEY:test3"]], "raw");
     ];
     shortdesc = "detect the disk format of a disk image";
     longdesc = "\
@@ -2588,11 +2588,11 @@ See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
     style = RInt64 "size", [String "filename"], [];
     tests = [
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "test1.img"]], "ret == UINT64_C (524288000)");
+        [["disk_virtual_size"; "GETKEY:test1"]], "ret == UINT64_C (524288000)");
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "test2.img"]], "ret == UINT64_C (52428800)");
+        [["disk_virtual_size"; "GETKEY:test2"]], "ret == UINT64_C (52428800)");
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "test3.img"]], "ret == UINT64_C (10485760)");
+        [["disk_virtual_size"; "GETKEY:test3"]], "ret == UINT64_C (10485760)");
     ];
     shortdesc = "return virtual size of a disk";
     longdesc = "\
@@ -2607,11 +2607,11 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
     style = RBool "backingfile", [String "filename"], [];
     tests = [
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "test1.img"]]);
+        [["disk_has_backing_file"; "GETKEY:test1"]]);
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "test2.img"]]);
+        [["disk_has_backing_file"; "GETKEY:test2"]]);
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "test3.img"]]);
+        [["disk_has_backing_file"; "GETKEY:test3"]]);
     ];
     shortdesc = "return whether disk has a backing file";
     longdesc = "\
