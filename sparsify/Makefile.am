@@ -125,4 +125,6 @@ depend: .depend
 
 endif
 
+DISTCLEANFILES = .depend
+
 .PHONY: depend docs

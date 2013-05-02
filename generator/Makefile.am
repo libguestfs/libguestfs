@@ -151,4 +151,6 @@ stamp-generator: generator
 
 CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
 
+DISTCLEANFILES = .depend
+
 SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly
