@@ -455,6 +455,7 @@ for_each_disk (guestfs_h *g,
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpprotocol = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xphost = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpusername = NULL;
       xmlAttrPtr attr;
       int readonly;
       int t;
@@ -522,6 +523,18 @@ for_each_disk (guestfs_h *g,
         protocol = (char *) xmlNodeListGetString (doc, attr->children, 1);
         debug(g, _("disk[%zu]: protocol: %s"), i, protocol);
 
+        xpusername = xmlXPathEvalExpression (BAD_CAST "./auth/@username",
+                                             xpathCtx);
+        if (xpusername != NULL &&
+            xpusername->nodesetval != NULL &&
+            xpusername->nodesetval->nodeNr != 0) {
+          assert (xpusername->nodesetval->nodeTab[0]);
+          assert (xpusername->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+          attr = (xmlAttrPtr) xpusername->nodesetval->nodeTab[0];
+          username = (char *) xmlNodeListGetString (doc, attr->children, 1);
+          debug(g, _("disk[%zu]: username: %s"), i, username);
+        }
+
         xphost = xmlXPathEvalExpression (BAD_CAST "./source/host",
                                              xpathCtx);
         if (xphost == NULL ||
@@ -552,7 +565,7 @@ for_each_disk (guestfs_h *g,
         server[xphost->nodesetval->nodeNr] = NULL;
 
         /*
-         * TODO: usernames, secrets: ./auth/secret/@type,
+         * TODO: secrets: ./auth/secret/@type,
          * ./auth/secret/@usage || ./auth/secret/@uuid
          */
       } else
