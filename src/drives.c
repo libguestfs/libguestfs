@@ -221,11 +221,6 @@ create_drive_rbd (guestfs_h *g,
 {
   size_t i;
 
-  if (username != NULL) {
-    error (g, _("rbd: you cannot specify a username with this protocol"));
-    return NULL;
-  }
-
   if (nr_servers == 0) {
     error (g, _("rbd: you must specify one or more servers"));
     return NULL;
@@ -1088,7 +1083,8 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
 
   case drive_protocol_rbd: {
     /* build the list of all the mon hosts */
-    CLEANUP_FREE char *mon_host = NULL;
+    CLEANUP_FREE char *mon_host = NULL, *username = NULL;
+    char *auth;
     size_t n = 0;
     for (int i = 0; i < src->nr_servers; i++) {
       n += strlen (src->servers[i].u.hostname);
@@ -1115,7 +1111,15 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     }
     mon_host[n] = '\0';
 
-    return safe_asprintf (g, "rbd:%s:mon_host=%s", src->u.exportname, mon_host);
+    if (src->username)
+        username = safe_asprintf (g, ":id=%s", src->username);
+    if (username)
+        auth = ":auth_supported=cephx\\;none";
+    else
+        auth = ":auth_supported=none";
+
+    return safe_asprintf (g, "rbd:%s:mon_host=%s%s%s", src->u.exportname, mon_host,
+            username ? username : "", auth);
   }
 
   case drive_protocol_sheepdog:

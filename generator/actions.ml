@@ -1352,6 +1352,7 @@ See also: L<guestfs(3)/NETWORK BLOCK DEVICE>.
 
 Connect to the Ceph (librbd/RBD) server.
 The C<server> parameter must also be supplied - see below.
+The C<username> parameter may be supplied.  See below.
 
 See also: L<guestfs(3)/CEPH>.
 
@@ -1401,13 +1402,13 @@ for the protocol is used (see C</etc/services>).
 
 =item C<username>
 
-For the C<ssh> protocol only, this specifies the remote username.
+For the C<ssh> and C<rbd> protocols only, this specifies the remote username.
 
-If not given, then the local username is used.  But note this sometimes
-may give unexpected results, for example if using the libvirt backend
-and if the libvirt backend is configured to start the qemu appliance
-as a special user such as C<qemu.qemu>.  If in doubt, specify the
-remote username you want.
+If not given, then the local username is used for C<ssh>, and 'admin' is used
+for C<rbd>.  But note this sometimes may give unexpected results, for example
+if using the libvirt backend and if the libvirt backend is configured to start
+the qemu appliance as a special user such as C<qemu.qemu>.  If in doubt,
+specify the remote username you want.
 
 =back" };
 
