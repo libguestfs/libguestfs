@@ -40,7 +40,7 @@
 #if defined(HAVE_LIBVIRT)
 
 static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
-static ssize_t for_each_disk (guestfs_h *g, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, void *data), void *data);
+static ssize_t for_each_disk (guestfs_h *g, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, void *data), void *data);
 static int libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc, char **label_rtn, char **imagelabel_rtn);
 
 static void
@@ -139,7 +139,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   return r;
 }
 
-static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, void *data);
+static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, void *data);
 static int connect_live (guestfs_h *g, virDomainPtr dom);
 
 enum readonlydisk {
@@ -268,6 +268,7 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
 static int
 add_disk (guestfs_h *g,
           const char *filename, const char *format, int readonly_in_xml,
+          const char *protocol, char *const *server, const char *username,
           void *datavp)
 {
   struct add_disk_data *data = datavp;
@@ -312,6 +313,18 @@ add_disk (guestfs_h *g,
   if (format) {
     optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
     optargs.format = format;
+  }
+  if (protocol) {
+    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_PROTOCOL_BITMASK;
+    optargs.protocol = protocol;
+  }
+  if (server) {
+    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SERVER_BITMASK;
+    optargs.server = server;
+  }
+  if (username) {
+    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK;
+    optargs.username = username;
   }
 
   return guestfs__add_drive_opts (g, filename, &optargs);
@@ -404,6 +417,8 @@ for_each_disk (guestfs_h *g,
                int (*f) (guestfs_h *g,
                          const char *filename, const char *format,
                          int readonly,
+                         const char *protocol, char *const *server,
+                         const char *username,
                          void *data),
                void *data)
 {
@@ -432,11 +447,14 @@ for_each_disk (guestfs_h *g,
   if (nodes != NULL) {
     nr_nodes = nodes->nodeNr;
     for (i = 0; i < nr_nodes; ++i) {
-      CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL;
+      CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL, *protocol = NULL, *username = NULL;
+      CLEANUP_FREE_STRING_LIST char **server = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpreadonly = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpfilename = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpprotocol = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xphost = NULL;
       xmlAttrPtr attr;
       int readonly;
       int t;
@@ -479,8 +497,66 @@ for_each_disk (guestfs_h *g,
             xpfilename->nodesetval->nodeNr == 0) {
           continue;           /* disk filename not found, skip this */
         }
+      } else if (STREQ (type, "network")) { /* type = "network", use source/@name */
+        debug(g, _("disk[%zu]: network device"), i);
+        xpathCtx->node = nodes->nodeTab[i];
+        xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@name",
+                                             xpathCtx);
+        if (xpfilename == NULL ||
+            xpfilename->nodesetval == NULL ||
+            xpfilename->nodesetval->nodeNr == 0) {
+          continue;
+        }
+
+        xpprotocol = xmlXPathEvalExpression (BAD_CAST "./source/@protocol",
+                                             xpathCtx);
+        /* Get the protocol (e.g. "rbd"). */
+        if (xpprotocol == NULL ||
+            xpprotocol->nodesetval == NULL ||
+            xpprotocol->nodesetval->nodeNr == 0) {
+          continue;
+        }
+        assert (xpprotocol->nodesetval->nodeTab[0]);
+        assert (xpprotocol->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+        attr = (xmlAttrPtr) xpprotocol->nodesetval->nodeTab[0];
+        protocol = (char *) xmlNodeListGetString (doc, attr->children, 1);
+        debug(g, _("disk[%zu]: protocol: %s"), i, protocol);
+
+        xphost = xmlXPathEvalExpression (BAD_CAST "./source/host",
+                                             xpathCtx);
+        if (xphost == NULL ||
+            xphost->nodesetval == NULL ||
+            xphost->nodesetval->nodeNr == 0) {
+          continue;
+        }
+        /* This gives us a list of <host> elements, which each have a
+         * 'name' and 'port' attribute which we want to put into a
+         * string, joined by a ':'.
+         */
+        server = safe_malloc (g, sizeof (char *) * (xphost->nodesetval->nodeNr + 1));
+        for (int hi = 0; hi < xphost->nodesetval->nodeNr ; hi++) {
+          xmlChar *name, *port;
+          xmlNodePtr h = xphost->nodesetval->nodeTab[hi];
+          assert (h);
+          assert (h->type == XML_ELEMENT_NODE);
+          name = xmlGetProp(h, "name");
+          assert(name);
+          port = xmlGetProp(h, "port");
+          assert(port);
+          debug(g, _("disk[%zu]: host: %s:%s"), i, name, port);
+          if (asprintf(&server[hi], "%s:%s", name, port) == -1) {
+            perror("asprintf");
+            return -1;
+          }
+        }
+        server[xphost->nodesetval->nodeNr] = NULL;
+
+        /*
+         * TODO: usernames, secrets: ./auth/secret/@type,
+         * ./auth/secret/@usage || ./auth/secret/@uuid
+         */
       } else
-        continue;             /* type <> "file" or "block", skip it */
+        continue;             /* type <> "file", "block", or "network", skip it */
 
       assert (xpfilename);
       assert (xpfilename->nodesetval);
@@ -488,6 +564,7 @@ for_each_disk (guestfs_h *g,
       assert (xpfilename->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
       attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
       filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      debug(g, _("disk[%zu]: filename: %s"), i, filename);
 
       /* Get the disk format (may not be set). */
       xpathCtx->node = nodes->nodeTab[i];
@@ -511,7 +588,7 @@ for_each_disk (guestfs_h *g,
         readonly = 1;
 
       if (f)
-        t = f (g, filename, format, readonly, data);
+        t = f (g, filename, format, readonly, protocol, server, username, data);
       else
         t = 0;
 
