@@ -652,11 +652,14 @@ L</guestfs_add_drive_opts> like this:
                          GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                          GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "rbd",
                          GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
+                         GUESTFS_ADD_DRIVE_OPTS_USERNAME, "rbduser",
+                         GUESTFS_ADD_DRIVE_OPTS_SECRET, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
                          -1);
 
 C<servers> (the C<server> parameter) is a list of one or more Ceph
 servers.  The server string is documented in
-L</guestfs_add_drive_opts>.
+L</guestfs_add_drive_opts>. The C<username> and C<secret> parameters are
+also optional, and if not given, then no authentication will be used.
 
 =head3 GLUSTER
 

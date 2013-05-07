@@ -1144,6 +1144,9 @@ construct_libvirt_xml_disk (guestfs_h *g,
       XMLERROR (-1,
                 xmlTextWriterWriteAttribute (xo, BAD_CAST "username",
                                              BAD_CAST drv_priv->real_src.username));
+      /* TODO: write the drive secret, after first storing it separately
+       * in libvirt
+       */
       XMLERROR (-1, xmlTextWriterEndElement (xo));
     }
   }

@@ -161,6 +161,8 @@ struct drive_source {
 
   /* Optional username (may be NULL if not specified). */
   char *username;
+  /* Optional secret (may be NULL if not specified). */
+  char *secret;
 };
 
 struct drive {

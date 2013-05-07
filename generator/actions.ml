@@ -1247,7 +1247,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -1353,6 +1353,7 @@ See also: L<guestfs(3)/NETWORK BLOCK DEVICE>.
 Connect to the Ceph (librbd/RBD) server.
 The C<server> parameter must also be supplied - see below.
 The C<username> parameter may be supplied.  See below.
+The C<secret> parameter may be supplied.  See below.
 
 See also: L<guestfs(3)/CEPH>.
 
@@ -1404,11 +1405,20 @@ for the protocol is used (see C</etc/services>).
 
 For the C<ssh> and C<rbd> protocols only, this specifies the remote username.
 
-If not given, then the local username is used for C<ssh>, and 'admin' is used
-for C<rbd>.  But note this sometimes may give unexpected results, for example
-if using the libvirt backend and if the libvirt backend is configured to start
-the qemu appliance as a special user such as C<qemu.qemu>.  If in doubt,
+If not given, then the local username is used for C<ssh>, and no authentication
+is attempted for ceph.  But note this sometimes may give unexpected results, for
+example if using the libvirt backend and if the libvirt backend is configured to
+start the qemu appliance as a special user such as C<qemu.qemu>.  If in doubt,
 specify the remote username you want.
+
+=item C<secret>
+
+For the C<rbd> protocol only, this specifies the 'secret' to use when
+connecting to the remote device.
+
+If not given, then a secret matching the given username will be looked up in the
+default keychain locations, or if no username is given, then no authentication
+will be used.
 
 =back" };
 
