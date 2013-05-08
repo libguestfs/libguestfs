@@ -552,9 +552,9 @@ for_each_disk (guestfs_h *g,
           xmlNodePtr h = xphost->nodesetval->nodeTab[hi];
           assert (h);
           assert (h->type == XML_ELEMENT_NODE);
-          name = xmlGetProp(h, "name");
+          name = xmlGetProp(h, BAD_CAST "name");
           assert(name);
-          port = xmlGetProp(h, "port");
+          port = xmlGetProp(h, BAD_CAST "port");
           assert(port);
           debug(g, _("disk[%zu]: host: %s:%s"), i, name, port);
           if (asprintf(&server[hi], "%s:%s", name, port) == -1) {
