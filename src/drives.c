@@ -1127,7 +1127,7 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   case drive_protocol_rbd: {
     /* build the list of all the mon hosts */
     CLEANUP_FREE char *mon_host = NULL, *username = NULL, *secret = NULL;
-    char *auth;
+    const char *auth;
     size_t n = 0;
     for (int i = 0; i < src->nr_servers; i++) {
       n += strlen (src->servers[i].u.hostname);
