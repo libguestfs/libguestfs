@@ -1166,8 +1166,12 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     else
         auth = ":auth_supported=none";
 
-    return safe_asprintf (g, "rbd:%s:mon_host=%s%s%s%s", src->u.exportname, mon_host,
-            username ? username : "", auth, secret ? secret : "");
+    return safe_asprintf (g, "rbd:%s:mon_host=%s%s%s%s",
+                          src->u.exportname,
+                          mon_host,
+                          username ? username : "",
+                          auth,
+                          secret ? secret : "");
   }
 
   case drive_protocol_sheepdog:
