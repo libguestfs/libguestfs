@@ -1129,23 +1129,26 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     CLEANUP_FREE char *mon_host = NULL, *username = NULL, *secret = NULL;
     const char *auth;
     size_t n = 0;
-    for (int i = 0; i < src->nr_servers; i++) {
+    size_t i, j;
+
+    for (i = 0; i < src->nr_servers; i++) {
       n += strlen (src->servers[i].u.hostname);
       n += 8; /* for slashes, colons, & port numbers */
     }
     n++; /* for \0 */
     mon_host = safe_malloc (g, sizeof (char *) * n);
     n = 0;
-    for (int i = 0; i < src->nr_servers; i++) {
-      for (int j = 0; j < strlen (src->servers[i].u.hostname); j++) {
+    for (i = 0; i < src->nr_servers; i++) {
+      CLEANUP_FREE char *port = NULL;
+
+      for (j = 0; j < strlen (src->servers[i].u.hostname); j++)
         mon_host[n++] = src->servers[i].u.hostname[j];
-      }
       mon_host[n++] = '\\';
       mon_host[n++] = ':';
-      CLEANUP_FREE char *port = safe_asprintf (g, "%d", src->servers[i].port);
-      for (int j = 0; j < strlen (port); j++) {
+      port = safe_asprintf (g, "%d", src->servers[i].port);
+      for (j = 0; j < strlen (port); j++)
         mon_host[n++] = port[j];
-      }
+
       /* join each host with \; */
       if (i != src->nr_servers - 1) {
         mon_host[n++] = '\\';
