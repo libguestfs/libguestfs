@@ -125,13 +125,12 @@ mount_mps (struct mp *mp)
     else
       options = "";
 
-    if (mp->fstype) {
-	    r = guestfs_mount_vfs (g, options, mp->fstype, mp->device,
-	                           mp->mountpoint);
-	  } else {
-	    r = guestfs_mount_options (g, options, mp->device,
+    if (mp->fstype)
+      r = guestfs_mount_vfs (g, options, mp->fstype, mp->device,
+                             mp->mountpoint);
+    else
+      r = guestfs_mount_options (g, options, mp->device,
                                  mp->mountpoint);
-    }
     if (r == -1) {
       display_mountpoints_on_failure (mp->device, mp->options);
       exit (EXIT_FAILURE);
