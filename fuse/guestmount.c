@@ -117,7 +117,7 @@ usage (int status)
              "  --help               Display help message and exit\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  --live               Connect to a live virtual machine\n"
-             "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
+             "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
              "  --no-fork            Don't daemonize\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -o|--option opt      Pass extra option to FUSE\n"

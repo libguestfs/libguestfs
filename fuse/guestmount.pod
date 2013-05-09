@@ -254,9 +254,9 @@ to try to read passphrases from the user by opening C</dev/tty>.
 Connect to a live virtual machine.
 (Experimental, see L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>).
 
-=item B<-m dev[:mountpoint[:options]]>
+=item B<-m dev[:mountpoint[:options[:fstype]]>
 
-=item B<--mount dev[:mountpoint[:options]]>
+=item B<--mount dev[:mountpoint[:options[:fstype]]]>
 
 Mount the named partition or logical volume on the given mountpoint
 B<in the guest> (this has nothing to do with mountpoints in the host).
@@ -273,6 +273,11 @@ would use this is to enable ACLs and/or extended attributes if the
 filesystem can support them:
 
  -m /dev/sda1:/:acl,user_xattr
+
+The fourth part of the parameter is the filesystem driver to use, such
+as C<ext3> or C<ntfs>. This is rarely needed, but can be useful if
+multiple drivers are valid for a filesystem (eg: C<ext2> and C<ext3>),
+or if libguestfs misidentifies a filesystem.
 
 =item B<--no-fork>
 
