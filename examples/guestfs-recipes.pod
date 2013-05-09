@@ -102,6 +102,10 @@ source directories over the target filesystems.
 Note this won't work (at least, not directly) for bootable virtual
 machine disks because it doesn't copy over the boot loader.
 
+=head1 Convert Windows DVD to bootable USB key
+
+L<http://rwmj.wordpress.com/2013/05/09/tip-convert-a-windows-dvd-iso-to-a-bootable-usb-key-using-guestfish/#content>
+
 =head1 Create empty disk images
 
 The L<virt-format(1)> tool can do this directly.
