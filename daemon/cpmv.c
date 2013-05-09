@@ -43,6 +43,12 @@ do_cp_a (const char *src, const char *dest)
 }
 
 int
+do_cp_r (const char *src, const char *dest)
+{
+  return cpmv_cmd (str_cp, "-rP", src, dest);
+}
+
+int
 do_mv (const char *src, const char *dest)
 {
   return cpmv_cmd (str_mv, NULL, src, dest);
