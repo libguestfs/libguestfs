@@ -125,7 +125,7 @@ usage (int status)
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  --listen             Listen for remote commands\n"
              "  --live               Connect to a live virtual machine\n"
-             "  -m|--mount dev[:mnt[:opts]] Mount dev on mnt (if omitted, /)\n"
+             "  -m|--mount dev[:mnt[:opts[:fstype]]] Mount dev on mnt (if omitted, /)\n"
              "  --network            Enable network\n"
              "  -N|--new type        Create prepared disk (test1.img, ...)\n"
              "  -n|--no-sync         Don't autosync\n"
