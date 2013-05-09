@@ -62,8 +62,14 @@ export LIBGUESTFS_CACHEDIR="$b/tmp"
 mkdir -p "$b/tmp"
 chcon --reference=/tmp tmp 2>/dev/null ||:
 
-# Set local environment relative to this script.
-export LIBGUESTFS_PATH="$b/appliance"
+# Only set path if the appliance was enabled.
+if [ "x@ENABLE_APPLIANCE@" = "xyes" ]; then
+    export LIBGUESTFS_PATH="$b/appliance"
+elif [ -z "$LIBGUESTFS_PATH" ]; then
+    echo "run: error: You used './configure --disable-appliance' so you must put an"
+    echo "run: error: appliance somewhere and set LIBGUESTFS_PATH to point to it."
+    exit 1
+fi
 
 if [ -z "$LD_LIBRARY_PATH" ]; then
     LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs"

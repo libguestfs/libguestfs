@@ -429,10 +429,11 @@ AC_MSG_CHECKING([if we should build the appliance])
 AC_ARG_ENABLE([appliance],
     [AS_HELP_STRING([--enable-appliance],
         [enable building the appliance @<:@default=yes@:>@])],
-        [],
-        [enable_appliance=yes])
-AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
-AC_MSG_RESULT([$enable_appliance])
+        [ENABLE_APPLIANCE="$enableval"],
+        [ENABLE_APPLIANCE=yes])
+AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$ENABLE_APPLIANCE" = "xyes"])
+AC_MSG_RESULT([$ENABLE_APPLIANCE])
+AC_SUBST([ENABLE_APPLIANCE])
 
 dnl Check for supermin >= 4.1.0 or febootstrap >= 3.20.
 AC_CHECK_PROGS([SUPERMIN],
@@ -486,7 +487,7 @@ AC_ARG_WITH([supermin-extra-options],
 
 AC_SUBST([SUPERMIN_EXTRA_OPTIONS])
 
-if test "x$enable_appliance" = "xyes"; then
+if test "x$ENABLE_APPLIANCE" = "xyes"; then
     test "x$SUPERMIN" = "xno" &&
         AC_MSG_ERROR([supermin (formerly called febootstrap) must be installed])
     dnl febootstrap 2.x did not support the --version parameter
@@ -1646,7 +1647,7 @@ echo
 echo "This is how we have configured the optional components for you today:"
 echo
 echo       "Daemon .............................. $enable_daemon"
-echo       "Appliance ........................... $enable_appliance"
+echo       "Appliance ........................... $ENABLE_APPLIANCE"
 echo       "QEMU ................................ $QEMU $QEMU_OPTIONS"
 echo       "guestfish and C-based virt tools .... yes"
 echo       "FUSE filesystem ..................... $enable_fuse"
