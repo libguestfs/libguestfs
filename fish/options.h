@@ -89,6 +89,7 @@ struct mp {
   char *device;
   char *mountpoint;
   char *options;
+  char *fstype;
 };
 
 /* in config.c */
@@ -142,6 +143,7 @@ extern int add_libvirt_drives (const char *guest);
     perror ("malloc");                          \
     exit (EXIT_FAILURE);                        \
   }                                             \
+  mp->fstype = NULL;                            \
   mp->options = NULL;                           \
   mp->mountpoint = (char *) "/";                \
   p = strchr (optarg, ':');                     \
@@ -154,6 +156,12 @@ extern int add_libvirt_drives (const char *guest);
       *p = '\0';                                \
       p++;                                      \
       mp->options = p;                          \
+      p = strchr (p, ':');                      \
+      if (p) {                                  \
+        *p = '\0';                              \
+        p++;                                    \
+        mp->fstype = p;                         \
+      }                                         \
     }                                           \
   }                                             \
   mp->device = optarg;                          \
