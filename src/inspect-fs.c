@@ -93,6 +93,8 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *mountable)
   CLEANUP_FREE char *vfs_type = NULL;
   int is_swap, r;
   struct inspect_fs *fs;
+  CLEANUP_FREE_INTERNAL_MOUNTABLE struct guestfs_internal_mountable *m = NULL;
+  int whole_device = 0;
 
   /* Get vfs-type in order to check if it's a Linux(?) swap device.
    * If there's an error we should ignore it, so to do that we have to
@@ -114,11 +116,11 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *mountable)
     return 0;
   }
 
-  CLEANUP_FREE_INTERNAL_MOUNTABLE struct guestfs_internal_mountable *m =
-    guestfs_internal_parse_mountable (g, mountable);
+  m = guestfs_internal_parse_mountable (g, mountable);
+  if (m == NULL)
+    return -1;
 
   /* If it's a whole device, see if it is an install ISO. */
-  int whole_device = 0;
   if (m->im_type == MOUNTABLE_DEVICE) {
     whole_device = guestfs_is_whole_device (g, m->im_device);
     if (whole_device == -1) {
