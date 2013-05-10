@@ -1112,6 +1112,8 @@ construct_libvirt_xml_disk (guestfs_h *g,
      */
   case drive_protocol_gluster:
     protocol_str = "gluster"; goto network_protocols;
+  case drive_protocol_iscsi:
+    protocol_str = "iscsi"; goto network_protocols;
   case drive_protocol_nbd:
     protocol_str = "nbd"; goto network_protocols;
   case drive_protocol_rbd:
@@ -1598,6 +1600,7 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
     break;
 
   case drive_protocol_gluster:
+  case drive_protocol_iscsi:
   case drive_protocol_nbd:
   case drive_protocol_rbd:
   case drive_protocol_sheepdog:

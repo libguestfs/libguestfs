@@ -680,6 +680,24 @@ single element.  The single element is a string defining the Gluster
 server.  The format of this string is documented in
 L</guestfs_add_drive_opts>.
 
+=head3 ISCSI
+
+Libguestfs can access iSCSI disks remotely.
+
+To do this, set the optional C<protocol> and C<server> parameters like
+this:
+
+ char **server = { "iscsi.example.org:3000", NULL };
+ guestfs_add_drive_opts (g, "target-iqn-name/lun",
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "iscsi",
+                         GUESTFS_ADD_DRIVE_OPTS_SERVER, server,
+                         -1);
+
+The C<server> parameter is a list which must have a single element.
+The single element is a string defining the iSCSI server.  The format
+of this string is documented in L</guestfs_add_drive_opts>.
+
 =head3 NETWORK BLOCK DEVICE
 
 Libguestfs can access Network Block Device (NBD) disks remotely.

@@ -116,6 +116,7 @@ struct event {
 enum drive_protocol {
   drive_protocol_file,
   drive_protocol_gluster,
+  drive_protocol_iscsi,
   drive_protocol_nbd,
   drive_protocol_rbd,
   drive_protocol_sheepdog,

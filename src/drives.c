@@ -354,6 +354,53 @@ create_drive_ssh (guestfs_h *g,
                                 use_cache_none);
 }
 
+static struct drive *
+create_drive_iscsi (guestfs_h *g,
+                    struct drive_server *servers, size_t nr_servers,
+                    const char *exportname,
+                    const char *username, const char *secret,
+                    bool readonly, const char *format,
+                    const char *iface, const char *name,
+                    const char *disk_label,
+                    bool use_cache_none)
+{
+  if (username != NULL) {
+    error (g, _("iscsi: you cannot specify a username with this protocol"));
+    return NULL;
+  }
+
+  if (secret != NULL) {
+    error (g, _("iscsi: you cannot specify a secret with this protocol"));
+    return NULL;
+  }
+
+  if (nr_servers != 1) {
+    error (g, _("iscsi: you must specify exactly one server"));
+    return NULL;
+  }
+
+  if (servers[0].transport != drive_transport_none &&
+      servers[0].transport != drive_transport_tcp) {
+    error (g, _("iscsi: only tcp transport is supported"));
+    return NULL;
+  }
+
+  /* If the exportname begins with a '/', skip it. */
+  if (exportname[0] == '/')
+    exportname++;
+
+  if (STREQ (exportname, "")) {
+    error (g, _("iscsi: target name should not be an empty string"));
+    return NULL;
+  }
+
+  return create_drive_non_file (g, drive_protocol_iscsi,
+                                servers, nr_servers, exportname,
+                                username, secret,
+                                readonly, format, iface, name, disk_label,
+                                use_cache_none);
+}
+
 /* Traditionally you have been able to use /dev/null as a filename, as
  * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
  * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
@@ -818,6 +865,12 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                                 readonly, format, iface, name,
                                 disk_label, false);
   }
+  else if (STREQ (protocol, "iscsi")) {
+    drv = create_drive_iscsi (g, servers, nr_servers, filename,
+                              username, secret,
+                              readonly, format, iface, name,
+                              disk_label, false);
+  }
   else if (STREQ (protocol, "nbd")) {
     drv = create_drive_nbd (g, servers, nr_servers, filename,
                             username, secret,
@@ -1099,6 +1152,23 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
       return safe_asprintf (g, "gluster+unix:///%s?socket=%s",
                             src->u.exportname, src->servers[0].u.socket);
     }
+
+  case drive_protocol_iscsi: {
+    char *ret;
+
+    /* XXX quoting */
+    if (src->servers[0].port == 0)
+      ret = safe_asprintf (g, "iscsi://%s/%s",
+                           src->servers[0].u.hostname,
+                           src->u.exportname);
+    else
+      ret = safe_asprintf (g, "iscsi://%s:%d/%s",
+                           src->servers[0].u.hostname,
+                           src->servers[0].port,
+                           src->u.exportname);
+
+    return ret;
+  }
 
   case drive_protocol_nbd: {
     CLEANUP_FREE char *p = NULL;

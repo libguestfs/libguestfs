@@ -1341,6 +1341,13 @@ The C<server> parameter must also be supplied - see below.
 
 See also: L<guestfs(3)/GLUSTER>
 
+=item C<protocol = \"iscsi\">
+
+Connect to the iSCSI server.
+The C<server> parameter must also be supplied - see below.
+
+See also: L<guestfs(3)/ISCSI>.
+
 =item C<protocol = \"nbd\">
 
 Connect to the Network Block Device server.
