@@ -1133,7 +1133,7 @@ Add a disk located on an iSCSI server.
 
 The equivalent API command would be:
 
- ><fs> add target-iqn-name/lun protocol:iscsi server:tcp:example.com
+ ><fs> add /target-iqn-name/lun protocol:iscsi server:tcp:example.com
 
 =head2 B<-a nbd://example.com[:port]>
 

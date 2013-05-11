@@ -261,6 +261,11 @@ create_drive_rbd (guestfs_h *g,
     return NULL;
   }
 
+  if (exportname[0] != '/') {
+    error (g, _("rbd: image name must begin with a '/'"));
+    return NULL;
+  }
+
   return create_drive_non_file (g, drive_protocol_rbd,
                                 servers, nr_servers, exportname,
                                 username, secret,
@@ -306,6 +311,11 @@ create_drive_sheepdog (guestfs_h *g,
     return NULL;
   }
 
+  if (exportname[0] != '/') {
+    error (g, _("sheepdog: volume parameter must begin with a '/'"));
+    return NULL;
+  }
+
   return create_drive_non_file (g, drive_protocol_sheepdog,
                                 servers, nr_servers, exportname,
                                 username, secret,
@@ -341,6 +351,11 @@ create_drive_ssh (guestfs_h *g,
 
   if (STREQ (exportname, "")) {
     error (g, _("ssh: pathname should not be an empty string"));
+    return NULL;
+  }
+
+  if (exportname[0] != '/') {
+    error (g, _("sheepdog: pathname must begin with a '/'"));
     return NULL;
   }
 
@@ -387,12 +402,13 @@ create_drive_iscsi (guestfs_h *g,
     return NULL;
   }
 
-  /* If the exportname begins with a '/', skip it. */
-  if (exportname[0] == '/')
-    exportname++;
-
   if (STREQ (exportname, "")) {
     error (g, _("iscsi: target name should not be an empty string"));
+    return NULL;
+  }
+
+  if (exportname[0] != '/') {
+    error (g, _("iscsi: target string must begin with a '/'"));
     return NULL;
   }
 
@@ -1194,7 +1210,8 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     if (STREQ (src->u.exportname, ""))
       ret = safe_strdup (g, p);
     else
-      ret = safe_asprintf (g, "%s:exportname=%s", p, src->u.exportname);
+      /* Skip the mandatory leading '/' character. */
+      ret = safe_asprintf (g, "%s:exportname=%s", p, &src->u.exportname[1]);
 
     return ret;
   }
@@ -1241,8 +1258,9 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     else
         auth = ":auth_supported=none";
 
+    /* Skip the mandatory leading '/' character on exportname. */
     return safe_asprintf (g, "rbd:%s:mon_host=%s%s%s%s",
-                          src->u.exportname,
+                          &src->u.exportname[1],
                           mon_host,
                           username ? username : "",
                           auth,
@@ -1250,12 +1268,13 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   }
 
   case drive_protocol_sheepdog:
+    /* Skip the mandatory leading '/' character on exportname. */
     if (src->nr_servers == 0)
-      return safe_asprintf (g, "sheepdog:%s", src->u.exportname);
+      return safe_asprintf (g, "sheepdog:%s", &src->u.exportname[1]);
     else                        /* XXX How to pass multiple hosts? */
       return safe_asprintf (g, "sheepdog:%s:%d:%s",
                             src->servers[0].u.hostname, src->servers[0].port,
-                            src->u.exportname);
+                            &src->u.exportname[1]);
 
   case drive_protocol_ssh:
     return make_uri (g, "ssh", src->username,
