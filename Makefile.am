@@ -422,6 +422,11 @@ build-test-guests:
 print-subdirs:
 	@echo $(SUBDIRS)
 
+# Tag HEAD with current version (only for maintainer).
+
+maintainer-tag:
+	git tag -a $(VERSION) -m "Version $(VERSION) (development)" -f
+
 # Provide help on common Makefile targets.
 
 help:
