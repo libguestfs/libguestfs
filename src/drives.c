@@ -355,7 +355,7 @@ create_drive_ssh (guestfs_h *g,
   }
 
   if (exportname[0] != '/') {
-    error (g, _("sheepdog: pathname must begin with a '/'"));
+    error (g, _("ssh: pathname must begin with a '/'"));
     return NULL;
   }
 
