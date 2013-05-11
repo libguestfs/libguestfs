@@ -138,6 +138,50 @@ create_drive_non_file (guestfs_h *g,
 }
 
 static struct drive *
+create_drive_curl (guestfs_h *g,
+                   enum drive_protocol protocol,
+                   struct drive_server *servers, size_t nr_servers,
+                   const char *exportname,
+                   const char *username, const char *secret,
+                   bool readonly, const char *format,
+                   const char *iface, const char *name,
+                   const char *disk_label,
+                   bool use_cache_none)
+{
+  if (secret != NULL) {
+    error (g, _("curl: you cannot specify a secret with this protocol"));
+    return NULL;
+  }
+
+  if (nr_servers != 1) {
+    error (g, _("curl: you must specify exactly one server"));
+    return NULL;
+  }
+
+  if (servers[0].transport != drive_transport_none &&
+      servers[0].transport != drive_transport_tcp) {
+    error (g, _("curl: only tcp transport is supported"));
+    return NULL;
+  }
+
+  if (STREQ (exportname, "")) {
+    error (g, _("curl: pathname should not be an empty string"));
+    return NULL;
+  }
+
+  if (exportname[0] != '/') {
+    error (g, _("curl: pathname must begin with a '/'"));
+    return NULL;
+  }
+
+  return create_drive_non_file (g, protocol,
+                                servers, nr_servers, exportname,
+                                username, secret,
+                                readonly, format, iface, name, disk_label,
+                                use_cache_none);
+}
+
+static struct drive *
 create_drive_gluster (guestfs_h *g,
                       struct drive_server *servers, size_t nr_servers,
                       const char *exportname,
@@ -871,11 +915,39 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                                disk_label, use_cache_none);
     }
   }
+  else if (STREQ (protocol, "ftp")) {
+    drv = create_drive_curl (g, drive_protocol_ftp,
+                             servers, nr_servers, filename,
+                             username, secret,
+                             readonly, format, iface, name,
+                             disk_label, false);
+  }
+  else if (STREQ (protocol, "ftps")) {
+    drv = create_drive_curl (g, drive_protocol_ftps,
+                             servers, nr_servers, filename,
+                             username, secret,
+                             readonly, format, iface, name,
+                             disk_label, false);
+  }
   else if (STREQ (protocol, "gluster")) {
     drv = create_drive_gluster (g, servers, nr_servers, filename,
                                 username, secret,
                                 readonly, format, iface, name,
                                 disk_label, false);
+  }
+  else if (STREQ (protocol, "http")) {
+    drv = create_drive_curl (g, drive_protocol_http,
+                             servers, nr_servers, filename,
+                             username, secret,
+                             readonly, format, iface, name,
+                             disk_label, false);
+  }
+  else if (STREQ (protocol, "https")) {
+    drv = create_drive_curl (g, drive_protocol_https,
+                             servers, nr_servers, filename,
+                             username, secret,
+                             readonly, format, iface, name,
+                             disk_label, false);
   }
   else if (STREQ (protocol, "iscsi")) {
     drv = create_drive_iscsi (g, servers, nr_servers, filename,
@@ -906,6 +978,13 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                             username, secret,
                             readonly, format, iface, name,
                             disk_label, false);
+  }
+  else if (STREQ (protocol, "tftp")) {
+    drv = create_drive_curl (g, drive_protocol_tftp,
+                             servers, nr_servers, filename,
+                             username, secret,
+                             readonly, format, iface, name,
+                             disk_label, false);
   }
   else {
     error (g, _("unknown protocol '%s'"), protocol);
@@ -1175,6 +1254,14 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     else
       return safe_asprintf (g, "./%s", src->u.path);
 
+  case drive_protocol_ftp:
+    return make_uri (g, "ftp", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_ftps:
+    return make_uri (g, "ftps", src->username,
+                     &src->servers[0], src->u.exportname);
+
   case drive_protocol_gluster:
     switch (src->servers[0].transport) {
     case drive_transport_none:
@@ -1185,6 +1272,14 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     case drive_transport_unix:
       return make_uri (g, "gluster+unix", NULL, &src->servers[0], NULL);
     }
+
+  case drive_protocol_http:
+    return make_uri (g, "http", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_https:
+    return make_uri (g, "https", src->username,
+                     &src->servers[0], src->u.exportname);
 
   case drive_protocol_iscsi:
     return make_uri (g, "iscsi", NULL, &src->servers[0], src->u.exportname);
@@ -1276,6 +1371,10 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
 
   case drive_protocol_ssh:
     return make_uri (g, "ssh", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_tftp:
+    return make_uri (g, "tftp", src->username,
                      &src->servers[0], src->u.exportname);
   }
 

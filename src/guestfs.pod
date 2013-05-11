@@ -661,6 +661,29 @@ servers.  The server string is documented in
 L</guestfs_add_drive_opts>. The C<username> and C<secret> parameters are
 also optional, and if not given, then no authentication will be used.
 
+=head3 FTP, HTTP AND TFTP
+
+Libguestfs can access remote disks over FTP, FTPS, HTTP, HTTPS
+or TFTP protocols.
+
+To do this, set the optional C<protocol> and C<server> parameters of
+L</guestfs_add_drive_opts> like this:
+
+ char **servers = { "www.example.org", NULL };
+ guestfs_add_drive_opts (g, "/disk.img",
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "http",
+                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
+                         -1);
+
+The C<protocol> can be one of C<"ftp">, C<"ftps">, C<"http">,
+C<"https"> or C<"tftp">.
+
+C<servers> (the C<server> parameter) is a list which must have a
+single element.  The single element is a string defining the Gluster
+server.  The format of this string is documented in
+L</guestfs_add_drive_opts>.
+
 =head3 GLUSTER
 
 Libguestfs can access Gluster disks.

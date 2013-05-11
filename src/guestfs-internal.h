@@ -115,12 +115,17 @@ struct event {
 /* Drives added to the handle. */
 enum drive_protocol {
   drive_protocol_file,
+  drive_protocol_ftp,
+  drive_protocol_ftps,
   drive_protocol_gluster,
+  drive_protocol_http,
+  drive_protocol_https,
   drive_protocol_iscsi,
   drive_protocol_nbd,
   drive_protocol_rbd,
   drive_protocol_sheepdog,
   drive_protocol_ssh,
+  drive_protocol_tftp,
 };
 
 enum drive_transport {

@@ -1151,6 +1151,18 @@ construct_libvirt_xml_disk (guestfs_h *g,
        */
       XMLERROR (-1, xmlTextWriterEndElement (xo));
     }
+    break;
+
+    /* libvirt doesn't support the qemu curl driver yet.  Give a
+     * reasonable error message instead of trying and failing.
+     */
+  case drive_protocol_ftp:
+  case drive_protocol_ftps:
+  case drive_protocol_http:
+  case drive_protocol_https:
+  case drive_protocol_tftp:
+    error (g, _("libvirt does not support the qemu curl driver protocols (ftp, http, etc.); try setting LIBGUESTFS_BACKEND=direct"));
+    return -1;
   }
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
@@ -1599,12 +1611,17 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
     }
     break;
 
+  case drive_protocol_ftp:
+  case drive_protocol_ftps:
   case drive_protocol_gluster:
+  case drive_protocol_http:
+  case drive_protocol_https:
   case drive_protocol_iscsi:
   case drive_protocol_nbd:
   case drive_protocol_rbd:
   case drive_protocol_sheepdog:
   case drive_protocol_ssh:
+  case drive_protocol_tftp:
     if (!drv->readonly) {
       guestfs___copy_drive_source (g, &drv->src, &drv_priv->real_src);
       drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
@@ -1621,6 +1638,7 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
         return -1;
       drv_priv->format = safe_strdup (g, "qcow2");
     }
+    break;
   }
 
   return 0;

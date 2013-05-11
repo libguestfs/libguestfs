@@ -1117,6 +1117,22 @@ The possible I<-a URI> formats are described below.
 
 Add the local disk image (or device) called C<disk.img>.
 
+=head2 B<-a ftp://[user@]example.com[:port]/disk.img>
+
+=head2 B<-a ftps://[user@]example.com[:port]/disk.img>
+
+=head2 B<-a http://[user@]example.com[:port]/disk.img>
+
+=head2 B<-a https://[user@]example.com[:port]/disk.img>
+
+=head2 B<-a tftp://[user@]example.com[:port]/disk.img>
+
+Add a disk located on a remote FTP, HTTP or TFTP server.
+
+The equivalent API command would be:
+
+ ><fs> add /disk.img protocol:(ftp|...) server:tcp:example.com
+
 =head2 B<-a gluster://example.com[:port]/disk>
 
 Add a disk image located on GlusterFS storage.
