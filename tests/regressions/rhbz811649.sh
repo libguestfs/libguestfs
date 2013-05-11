@@ -29,10 +29,10 @@ filenames[2]='='
 filenames[3]='水'
 filenames[4]='-'
 filenames[5]='-hda'
-#filenames[6]=':'     # a future version of qemu may allow colon
-#filenames[7]='http:'
-#filenames[8]='file:'
-#filenames[9]='raw:'
+filenames[6]=':'     # a future version of qemu may allow colon
+filenames[7]='http:'
+filenames[8]='file:'
+filenames[9]='raw:'
 
 rm -f -- test1.img "${filenames[@]}"
 

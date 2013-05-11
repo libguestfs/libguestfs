@@ -790,12 +790,6 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   struct drive *drv;
   size_t i, drv_index;
 
-  if (strchr (filename, ':') != NULL) {
-    error (g, _("filename cannot contain ':' (colon) character. "
-                "This is a limitation of qemu."));
-    return -1;
-  }
-
   readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
     ? optargs->readonly : false;
   format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
@@ -1175,7 +1169,11 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
    */
   switch (src->protocol) {
   case drive_protocol_file:
-    return safe_strdup (g, src->u.path);
+    /* We might need to rewrite the path if it contains a ':' character. */
+    if (src->u.path[0] == '/' || strchr (src->u.path, ':') != NULL)
+      return safe_strdup (g, src->u.path);
+    else
+      return safe_asprintf (g, "./%s", src->u.path);
 
   case drive_protocol_gluster:
     switch (src->servers[0].transport) {
