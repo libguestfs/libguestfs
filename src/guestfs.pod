@@ -680,8 +680,8 @@ The C<protocol> can be one of C<"ftp">, C<"ftps">, C<"http">,
 C<"https"> or C<"tftp">.
 
 C<servers> (the C<server> parameter) is a list which must have a
-single element.  The single element is a string defining the Gluster
-server.  The format of this string is documented in
+single element.  The single element is a string defining the web,
+FTP or TFTP server.  The format of this string is documented in
 L</guestfs_add_drive_opts>.
 
 =head3 GLUSTER
