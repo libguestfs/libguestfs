@@ -1391,6 +1391,7 @@ is a list of server(s).
  --------       --------------------------
  file           List must be empty or param not used at all
  gluster        Exactly one
+ iscsi          Exactly one
  nbd            Exactly one
  rbd            One or more
  sheepdog       Zero or more
@@ -1410,7 +1411,8 @@ for the protocol is used (see C</etc/services>).
 
 =item C<username>
 
-For the C<ssh> and C<rbd> protocols only, this specifies the remote username.
+For the C<iscsi>, C<rbd>, C<ssh> protocols only, this specifies the
+remote username.
 
 If not given, then the local username is used for C<ssh>, and no authentication
 is attempted for ceph.  But note this sometimes may give unexpected results, for
