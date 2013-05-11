@@ -36,6 +36,8 @@
 
 #include <pcre.h>
 
+#include <libxml/uri.h>
+
 #include "c-ctype.h"
 #include "ignore-value.h"
 
@@ -1124,6 +1126,30 @@ guestfs___copy_drive_source (guestfs_h *g,
   }
 }
 
+static char *
+make_uri (guestfs_h *g, const char *scheme, const char *user,
+          struct drive_server *server, const char *path)
+{
+  xmlURI uri = { .scheme = (char *) scheme,
+                 .path = (char *) path,
+                 .user = (char *) user };
+  CLEANUP_FREE char *query = NULL;
+
+  switch (server->transport) {
+  case drive_transport_none:
+  case drive_transport_tcp:
+    uri.server = server->u.hostname;
+    uri.port = server->port;
+    break;
+  case drive_transport_unix:
+    query = safe_asprintf (g, "socket=%s", server->u.socket);
+    uri.query_raw = query;
+    break;
+  }
+
+  return (char *) xmlSaveUri (&uri);
+}
+
 char *
 guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
 {
@@ -1138,37 +1164,16 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   case drive_protocol_gluster:
     switch (src->servers[0].transport) {
     case drive_transport_none:
-      /* XXX quoting */
-      return safe_asprintf (g, "gluster://%s:%d/%s",
-                            src->servers[0].u.hostname, src->servers[0].port,
-                            src->u.exportname);
+      return make_uri (g, "gluster", NULL, &src->servers[0], src->u.exportname);
     case drive_transport_tcp:
-      /* XXX quoting */
-      return safe_asprintf (g, "gluster+tcp://%s:%d/%s",
-                            src->servers[0].u.hostname, src->servers[0].port,
-                            src->u.exportname);
+      return make_uri (g, "gluster+tcp",
+                       NULL, &src->servers[0], src->u.exportname);
     case drive_transport_unix:
-      /* XXX quoting */
-      return safe_asprintf (g, "gluster+unix:///%s?socket=%s",
-                            src->u.exportname, src->servers[0].u.socket);
+      return make_uri (g, "gluster+unix", NULL, &src->servers[0], NULL);
     }
 
-  case drive_protocol_iscsi: {
-    char *ret;
-
-    /* XXX quoting */
-    if (src->servers[0].port == 0)
-      ret = safe_asprintf (g, "iscsi://%s/%s",
-                           src->servers[0].u.hostname,
-                           src->u.exportname);
-    else
-      ret = safe_asprintf (g, "iscsi://%s:%d/%s",
-                           src->servers[0].u.hostname,
-                           src->servers[0].port,
-                           src->u.exportname);
-
-    return ret;
-  }
+  case drive_protocol_iscsi:
+    return make_uri (g, "iscsi", NULL, &src->servers[0], src->u.exportname);
 
   case drive_protocol_nbd: {
     CLEANUP_FREE char *p = NULL;
@@ -1252,20 +1257,9 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
                             src->servers[0].u.hostname, src->servers[0].port,
                             src->u.exportname);
 
-  case drive_protocol_ssh: {
-    CLEANUP_FREE char *username = NULL, *port = NULL;
-
-    if (src->username)
-      username = safe_asprintf (g, "%s@", src->username);
-    if (src->servers[0].port != 0)
-      port = safe_asprintf (g, ":%d", src->servers[0].port);
-
-    return safe_asprintf (g, "ssh://%s%s%s/%s",
-                          username ? username : "",
-                          src->servers[0].u.hostname,
-                          port ? port : "",
-                          src->u.exportname);
-  }
+  case drive_protocol_ssh:
+    return make_uri (g, "ssh", src->username,
+                     &src->servers[0], src->u.exportname);
   }
 
   abort ();
