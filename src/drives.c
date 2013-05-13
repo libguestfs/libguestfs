@@ -1249,7 +1249,7 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   switch (src->protocol) {
   case drive_protocol_file:
     /* We might need to rewrite the path if it contains a ':' character. */
-    if (src->u.path[0] == '/' || strchr (src->u.path, ':') != NULL)
+    if (src->u.path[0] == '/' || strchr (src->u.path, ':') == NULL)
       return safe_strdup (g, src->u.path);
     else
       return safe_asprintf (g, "./%s", src->u.path);
