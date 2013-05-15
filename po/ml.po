@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-05-11 15:50+0100\n"
+"POT-Creation-Date: 2013-05-15 10:05+0100\n"
 "PO-Revision-Date: 2013-04-11 13:31+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -3670,193 +3670,213 @@ msgstr ""
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
-#: src/drives.c:151
-msgid "gluster: you cannot specify a username with this protocol"
+#: src/drives.c:152
+msgid "curl: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:155
-msgid "gluster: you cannot specify a secret with this protocol"
+#: src/drives.c:157
+msgid "curl: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:161
-msgid "gluster: you must specify exactly one server"
+#: src/drives.c:163
+msgid "curl: only tcp transport is supported"
 msgstr ""
 
 #: src/drives.c:168
-msgid "gluster: port number must be specified"
+msgid "curl: pathname should not be an empty string"
 msgstr ""
 
 #: src/drives.c:173
+msgid "curl: pathname must begin with a '/'"
+msgstr ""
+
+#: src/drives.c:195
+msgid "gluster: you cannot specify a username with this protocol"
+msgstr ""
+
+#: src/drives.c:199
+msgid "gluster: you cannot specify a secret with this protocol"
+msgstr ""
+
+#: src/drives.c:205
+msgid "gluster: you must specify exactly one server"
+msgstr ""
+
+#: src/drives.c:212
+msgid "gluster: port number must be specified"
+msgstr ""
+
+#: src/drives.c:217
 msgid "gluster: volume name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:207
+#: src/drives.c:251
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:211
+#: src/drives.c:255
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:216
+#: src/drives.c:260
 msgid "nbd: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:243
+#: src/drives.c:287
 msgid "rbd: you must specify one or more servers"
 msgstr ""
 
-#: src/drives.c:250
+#: src/drives.c:294
 msgid "rbd: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:254
+#: src/drives.c:298
 msgid "rbd: port number must be specified"
 msgstr ""
 
-#: src/drives.c:260
+#: src/drives.c:304
 msgid "rbd: image name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:265
+#: src/drives.c:309
 msgid "rbd: image name must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:289
+#: src/drives.c:333
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:293
+#: src/drives.c:337
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:300
+#: src/drives.c:344
 msgid "sheepdog: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:304
+#: src/drives.c:348
 msgid "sheepdog: port number must be specified"
 msgstr ""
 
-#: src/drives.c:310
+#: src/drives.c:354
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:315
+#: src/drives.c:359
 msgid "sheepdog: volume parameter must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:337
+#: src/drives.c:381
 msgid "ssh: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:342
+#: src/drives.c:386
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:348
+#: src/drives.c:392
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:353
+#: src/drives.c:397
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:358
-msgid "sheepdog: pathname must begin with a '/'"
+#: src/drives.c:402
+msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:363
+#: src/drives.c:407
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: src/drives.c:385
+#: src/drives.c:429
 msgid "iscsi: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:390
+#: src/drives.c:434
 msgid "iscsi: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:395
+#: src/drives.c:439
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:401
+#: src/drives.c:445
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:406
+#: src/drives.c:450
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: src/drives.c:411
+#: src/drives.c:455
 msgid "iscsi: target string must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:439
+#: src/drives.c:483
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:709
+#: src/drives.c:753
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:721
+#: src/drives.c:765
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:728
+#: src/drives.c:772
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:739
+#: src/drives.c:783
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:817 src/drives.c:823
+#: src/drives.c:861 src/drives.c:867
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:829
+#: src/drives.c:873
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:836
+#: src/drives.c:880
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:841
+#: src/drives.c:885
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:846
+#: src/drives.c:890
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:911
+#: src/drives.c:990
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:929 src/drives.c:1048
+#: src/drives.c:1008 src/drives.c:1127
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:935
+#: src/drives.c:1014
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1003
+#: src/drives.c:1082
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/drives.c:1033
+#: src/drives.c:1112
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -4158,43 +4178,49 @@ msgstr ""
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1190
+#: src/launch-libvirt.c:1164
+msgid ""
+"libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
+"try setting LIBGUESTFS_BACKEND=direct"
+msgstr ""
+
+#: src/launch-libvirt.c:1202
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1201
+#: src/launch-libvirt.c:1213
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1581
+#: src/launch-libvirt.c:1593
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1654
+#: src/launch-libvirt.c:1672
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1686
+#: src/launch-libvirt.c:1704
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1744
+#: src/launch-libvirt.c:1762
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1773
+#: src/launch-libvirt.c:1791
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1819
+#: src/launch-libvirt.c:1837
 #, c-format
 msgid ""
 "libvirt backend is not available because this version of libguestfs was "
