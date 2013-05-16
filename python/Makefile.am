@@ -43,7 +43,7 @@ libguestfsmod_la_SOURCES = guestfs-py.c guestfs-py.h guestfs-py-byhand.c
 
 libguestfsmod_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
-	-I$(PYTHON_INCLUDEDIR) \
+	$(PYTHON_CFLAGS) \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 
 libguestfsmod_la_CFLAGS = \
