@@ -138,7 +138,10 @@ static int make_drive_priv (guestfs_h *g, struct drive *drv, const char *selinux
 static void drive_free_priv (void *);
 static void set_socket_create_context (guestfs_h *g);
 static void clear_socket_create_context (guestfs_h *g);
+
+#if HAVE_LIBSELINUX
 static void selinux_warning (guestfs_h *g, const char *func, const char *selinux_op, const char *data);
+#endif
 
 static int
 launch_libvirt (guestfs_h *g, const char *libvirt_uri)
@@ -1716,6 +1719,7 @@ libvirt_error (guestfs_h *g, const char *fs, ...)
   free (msg);
 }
 
+#if HAVE_LIBSELINUX
 static void
 selinux_warning (guestfs_h *g, const char *func,
                  const char *selinux_op, const char *data)
@@ -1724,6 +1728,7 @@ selinux_warning (guestfs_h *g, const char *func,
          " [you can ignore this UNLESS using SELinux + sVirt]",
          func, selinux_op, data ? data : "(none)");
 }
+#endif
 
 /* This backend assumes virtio-scsi is available. */
 static int
