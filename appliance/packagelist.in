@@ -78,7 +78,6 @@
   mtools
   nilfs-tools
   ntfs-3g
-  ntfsprogs
   openssh-client
   reiserfsprogs
   sysvinit /* for /sbin/reboot */
