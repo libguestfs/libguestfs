@@ -19,12 +19,7 @@
 require 'rake/clean'
 require 'rake/testtask'
 
-# Used to be rake/rdoctask.  Now it's rdoc/task.
-begin
-  require 'rdoc/task'
-rescue
-  require 'rake/rdoctask'
-end
+require 'rake/rdoctask'
 
 # Used to be rake/gempackagetask.  Now it's rubygems/package_task.  Also
 # we need to use the appropriate class name below.
