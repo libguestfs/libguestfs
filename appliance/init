@@ -80,7 +80,7 @@ else
 fi
 
 if grep -sq selinux=1 /proc/cmdline; then
-  mount -t selinuxfs none /selinux
+  mount -t selinuxfs none /sys/fs/selinux
 fi
 
 # Update the system clock.
