@@ -698,14 +698,6 @@ working.
 ])
     fi
 
-    AC_MSG_CHECKING([for $QEMU version >= 1])
-    if $QEMU -version | grep -sq 'version @<:@1-@:>@'; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([$QEMU version must be >= 1.0.])
-    fi
-
     AC_MSG_CHECKING([that $QEMU -nographic -machine accel=kvm:tcg -device ? works])
     if $QEMU -nographic -machine accel=kvm:tcg -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
         AC_MSG_RESULT([yes])
