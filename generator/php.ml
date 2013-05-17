@@ -252,7 +252,11 @@ PHP_FUNCTION (guestfs_last_error)
                 | OBool _ -> "b"
                 | OInt _ | OInt64 _ -> "l"
                 | OString _ -> "s"
-                | OStringList _ -> "a"
+                | OStringList _ ->
+                  (* Because this is an optarg, it can be passed as
+                   * NULL, so we must add '!' afterwards.
+                   *)
+                  "a!"
               ) optargs
             )
         else param_string in
@@ -363,7 +367,10 @@ PHP_FUNCTION (guestfs_last_error)
             pr "  }\n"
           | OStringList n ->
             let uc_n = String.uppercase n in
-            pr "  if (optargs_t_%s != NULL && ! ZVAL_IS_NULL (optargs_t_%s)) {\n" n n;
+            pr "  /* We've seen PHP give us a *long* here when we asked for an array, so\n";
+            pr "   * positively check that it gave us an array, otherwise ignore it.\n";
+            pr "   */\n";
+            pr "  if (optargs_t_%s != NULL && Z_TYPE_P (optargs_t_%s) == IS_ARRAY) {\n" n n;
             pr "    char **r;\n";
             pr "    HashTable *a;\n";
             pr "    int n;\n";
