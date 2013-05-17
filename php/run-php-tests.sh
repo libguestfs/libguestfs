@@ -44,7 +44,5 @@ printenv | grep -E '^(LIBGUESTFS|LIBVIRT|LIBVIRTD|VIRTLOCKD|LD|MALLOC)_' >> env
 TESTS=$(echo guestfs_php_*.phpt)
 echo TESTS: $TESTS
 
-# By the way, we're actually testing the installed version of
-# libguestfs.  But don't worry, because PHP ignores the result of the
-# tests anyway!
+# PHP ignores the result of the tests!
 make test TESTS="$TESTS"
