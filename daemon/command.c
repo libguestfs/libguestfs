@@ -45,7 +45,7 @@ do_command (char *const *argv)
   int r;
   CLEANUP_FREE char *sysroot_dev = NULL, *sysroot_dev_pts = NULL,
     *sysroot_proc = NULL, *sysroot_selinux = NULL, *sysroot_sys = NULL;
-  int dev_ok, dev_pts_ok, proc_ok, selinux_ok, sys_ok;
+  int dev_ok, dev_pts_ok, proc_ok, sys_ok;
 
   /* We need a root filesystem mounted to do this. */
   NEED_ROOT (, return NULL);
@@ -70,7 +70,7 @@ do_command (char *const *argv)
   sysroot_dev = sysroot_path ("/dev");
   sysroot_dev_pts = sysroot_path ("/dev/pts");
   sysroot_proc = sysroot_path ("/proc");
-  sysroot_selinux = sysroot_path ("/selinux");
+  sysroot_selinux = sysroot_path ("/sys/fs/selinux");
   sysroot_sys = sysroot_path ("/sys");
 
   if (sysroot_dev == NULL || sysroot_dev_pts == NULL ||
@@ -86,8 +86,6 @@ do_command (char *const *argv)
   dev_pts_ok = r != -1;
   r = command (NULL, NULL, str_mount, "--bind", "/proc", sysroot_proc, NULL);
   proc_ok = r != -1;
-  r = command (NULL, NULL, str_mount, "--bind", "/selinux", sysroot_selinux, NULL);
-  selinux_ok = r != -1;
   r = command (NULL, NULL, str_mount, "--bind", "/sys", sysroot_sys, NULL);
   sys_ok = r != -1;
 
@@ -96,7 +94,6 @@ do_command (char *const *argv)
   CHROOT_OUT;
 
   if (sys_ok) umount_ignore_fail (sysroot_sys);
-  if (selinux_ok) umount_ignore_fail (sysroot_selinux);
   if (proc_ok) umount_ignore_fail (sysroot_proc);
   if (dev_pts_ok) umount_ignore_fail (sysroot_dev_pts);
   if (dev_ok) umount_ignore_fail (sysroot_dev);
