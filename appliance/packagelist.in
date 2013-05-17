@@ -75,7 +75,6 @@ ifelse(DEBIAN,1,
   mtools
   nilfs-tools
   ntfs-3g
-  ntfsprogs
   openssh-client
   reiserfsprogs
   sysvinit                  dnl for /sbin/reboot
