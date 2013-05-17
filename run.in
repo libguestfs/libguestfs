@@ -66,9 +66,10 @@ chcon --reference=/tmp tmp 2>/dev/null ||:
 if [ "x@ENABLE_APPLIANCE@" = "xyes" ]; then
     export LIBGUESTFS_PATH="$b/appliance"
 elif [ -z "$LIBGUESTFS_PATH" ]; then
-    echo "run: error: You used './configure --disable-appliance' so you must put an"
-    echo "run: error: appliance somewhere and set LIBGUESTFS_PATH to point to it."
-    exit 1
+    cat <<'EOF' >&2
+run: warning: You used './configure --disable-appliance' so LIBGUESTFS_PATH
+run: warning: has not been set automatically.
+EOF
 fi
 
 if [ -z "$LD_LIBRARY_PATH" ]; then
