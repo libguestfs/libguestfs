@@ -206,7 +206,11 @@ guestfsd_CFLAGS = \
 	$(PCRE_CFLAGS)
 
 # Manual pages and HTML files for the website.
+if INSTALL_DAEMON
 man_MANS = guestfsd.8
+else
+noinst_MANS = guestfsd.8
+endif
 noinst_DATA = $(top_builddir)/html/guestfsd.8.html
 
 guestfsd.8 $(top_builddir)/html/guestfsd.8.html: stamp-guestfsd.pod
