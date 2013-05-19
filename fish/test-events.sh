@@ -22,7 +22,7 @@ set -e
 
 rm -f test.out
 
-./guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' | grep -v 'library command' > test.out
+./guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' | grep -v 'library command' | grep -v 'get_path' > test.out
 trace true
 
 event ev1 * "echo $EVENT $@"
@@ -59,9 +59,6 @@ trace shutdown = 0
 enter get_autosync
 trace get_autosync
 trace get_autosync = 1
-enter get_path
-trace get_path
-trace get_path = "'$LIBGUESTFS_PATH'"
 enter get_pgroup
 trace get_pgroup
 trace get_pgroup = 0
