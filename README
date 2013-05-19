@@ -220,8 +220,10 @@ Building
 
 Build the daemon, library and root filesystem:
 
-  ./configure
-  make
+  building from tarball     building from git
+  ---------------------     -----------------
+    ./configure               ./autogen.sh
+    make                      make
 
 Run the tests:
 
