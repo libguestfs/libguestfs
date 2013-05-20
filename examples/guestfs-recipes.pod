@@ -16,9 +16,21 @@ guestfs-recipes - libguestfs, guestfish and virt tools recipes
 This page contains recipes for and links to things you can do using
 libguestfs, L<guestfish(1)> and the virt tools.
 
+=head1 Access a remote disk image using guestfish
+
+If the disk image is on a remote server which is accessible using SSH,
+HTTP, FTP, NBD, iSCSI, or similar, then you can open it directly.  See
+L<guestfish(1)/ADDING REMOTE STORAGE> for several examples.  This
+requires libguestfs E<ge> 1.22 and qemu E<ge> 1.5.
+
 =head1 Audit a virtual machine for setuid files
 
 See: L<virt-ls(1)/EXAMPLES>.
+
+=head1 Audit a virtual machine for vulnerabilities and security problems
+
+See:
+L<https://rwmj.wordpress.com/2013/05/16/scanning-offline-guests-using-openscap-and-guestmount/#content>
 
 =head1 Change the background image in a Windows XP VM
 
