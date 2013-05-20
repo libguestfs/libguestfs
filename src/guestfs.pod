@@ -691,7 +691,7 @@ Libguestfs can access Gluster disks.
 To do this, set the optional C<protocol> and C<server> parameters of
 L</guestfs_add_drive_opts> like this:
 
- char **servers = { "gluster.example.org:3000", NULL };
+ char **servers = { "gluster.example.org:24007", NULL };
  guestfs_add_drive_opts (g, "/volname/image",
                          GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                          GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "gluster",
