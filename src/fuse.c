@@ -1044,19 +1044,16 @@ int
 guestfs__umount_local (guestfs_h *g,
                        const struct guestfs_umount_local_argv *optargs)
 {
-  int ret = -1;
-  size_t i, tries;
-  char *localmountpoint;
-  char *fusermount_log = NULL;
-  FILE *fp;
-  char error_message[4096];
-  size_t n;
+  const char *retry;
+  int r;
+  CLEANUP_FREE char *localmountpoint = NULL;
+  CLEANUP_CMD_CLOSE struct command *cmd = NULL;
 
   /* How many times should we try the fusermount command? */
   if (optargs->bitmask & GUESTFS_UMOUNT_LOCAL_RETRY_BITMASK)
-    tries = optargs->retry ? 5 : 1;
+    retry = optargs->retry ? "--retry=5" : "--no-retry";
   else
-    tries = 1;
+    retry = "--no-retry";
 
   /* Make a local copy of g->localmountpoint.  It could be freed from
    * under us by another thread, except when we are holding the lock.
@@ -1070,63 +1067,24 @@ guestfs__umount_local (guestfs_h *g,
 
   if (!localmountpoint) {
     error (g, _("no filesystem is mounted"));
-    goto out;
+    return -1;
   }
 
-  /* Send all errors from fusermount to a temporary file.  Only after
-   * all 'tries' have failed do we print the contents of this file.  A
-   * temporary failure when retry == true will not cause any error.
-   */
-  fusermount_log = safe_asprintf (g, "%s/fusermount%d", g->tmpdir, ++g->unique);
+  /* Run guestunmount --retry=... localmountpoint. */
+  cmd = guestfs___new_command (g);
+  guestfs___cmd_add_arg (cmd, "guestunmount");
+  guestfs___cmd_add_arg (cmd, retry);
+  guestfs___cmd_add_arg (cmd, localmountpoint);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
+    return -1;
+  if (WIFEXITED (r) && WEXITSTATUS (r) == EXIT_SUCCESS)
+    /* External fusermount succeeded.  Note that the original thread
+     * is responsible for setting g->localmountpoint to NULL.
+     */
+    return 0;
 
-  for (i = 0; i < tries; ++i) {
-    int r;
-    CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
-
-    guestfs___cmd_add_string_unquoted (cmd, "fusermount -u ");
-    guestfs___cmd_add_string_quoted   (cmd, localmountpoint);
-    guestfs___cmd_add_string_unquoted (cmd, " > ");
-    guestfs___cmd_add_string_quoted   (cmd, fusermount_log);
-    guestfs___cmd_add_string_unquoted (cmd, " 2>&1");
-    guestfs___cmd_clear_capture_errors (cmd);
-    r = guestfs___cmd_run (cmd);
-    if (r == -1)
-      goto out;
-    if (WIFEXITED (r) && WEXITSTATUS (r) == EXIT_SUCCESS) {
-      /* External fusermount succeeded.  Note that the original thread
-       * is responsible for setting g->localmountpoint to NULL.
-       */
-      ret = 0;
-      break;
-    }
-
-    sleep (1);
-  }
-
-  if (ret == -1) {              /* fusermount failed */
-    /* Get the error message from the log file. */
-    fp = fopen (fusermount_log, "r");
-    if (fp != NULL) {
-      n = fread (error_message, 1, sizeof error_message, fp);
-      while (n > 0 && error_message[n-1] == '\n')
-        n--;
-      error_message[n] = '\0';
-      fclose (fp);
-      error (g, _("fusermount failed: %s: %s"), localmountpoint, error_message);
-    } else {
-      perrorf (g,
-               _("fusermount failed: %s: "
-                 "original error could not be preserved"), localmountpoint);
-    }
-  }
-
- out:
-  if (fusermount_log) {
-    unlink (fusermount_log);
-    free (fusermount_log);
-  }
-  free (localmountpoint);
-  return ret;
+  return -1;
 }
 
 /* Functions handling the directory cache.

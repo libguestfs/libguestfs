@@ -72,6 +72,15 @@ run: warning: has not been set automatically.
 EOF
 fi
 
+# Set the PATH to contain guestunmount (called by umount-local API).
+if [ -z "$PATH" ]; then
+    PATH="$b/fuse"
+else
+    PATH="$b/fuse:$PATH"
+fi
+export PATH
+
+# Set LD_LIBRARY_PATH to contain library.
 if [ -z "$LD_LIBRARY_PATH" ]; then
     LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs"
 else
