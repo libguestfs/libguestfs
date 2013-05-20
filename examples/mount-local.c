@@ -53,6 +53,11 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
+  if (argv[1][0] == '-') {
+    usage ();
+    exit (EXIT_FAILURE);
+  }
+
   printf ("\n"
           "This is the 'mount-local' demonstration program.  Follow the\n"
           "instructions on screen.\n"
