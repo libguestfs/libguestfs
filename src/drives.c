@@ -210,6 +210,11 @@ create_drive_gluster (guestfs_h *g,
     return NULL;
   }
 
+  if (exportname[0] != '/') {
+    error (g, _("gluster: pathname must begin with a '/'"));
+    return NULL;
+  }
+
   return create_drive_non_file (g, drive_protocol_gluster,
                                 servers, nr_servers, exportname,
                                 username, secret,
