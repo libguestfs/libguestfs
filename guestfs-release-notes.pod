@@ -172,12 +172,6 @@ C only:
 
  guestfs_event_to_string
 
-Internal:
-
- guestfs_internal_parse_mountable
- guestfs_internal_set_libvirt_selinux_label
- guestfs_internal_set_libvirt_selinux_norelabel_disks
-
 =head2 Internals
 
 The febootstrap tool has now been renamed to "supermin".  Libguestfs
