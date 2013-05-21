@@ -3863,6 +3863,9 @@ Useful targets are:
 
 Runs the regular test suite.
 
+This is implemented using the regular automake C<TESTS> target.  See
+the automake documentation for details.
+
 =item C<make syntax-check -j1 -k>
 
 Checks for various syntax and style problems in the code.
@@ -3870,6 +3873,9 @@ Checks for various syntax and style problems in the code.
 =item C<make check-valgrind>
 
 Runs a subset of the test suite under valgrind.
+
+Any C<Makefile.am> in the tree that has a C<check-valgrind:> target
+will be run by this rule.
 
 =item C<make check-valgrind-local-guests>
 
@@ -3909,6 +3915,9 @@ but you can set this to another directory on the command line, eg:
 =item C<make check-slow>
 
 Runs some slow/long-running tests which are not run by default.
+
+Any C<Makefile.am> in the tree that has a C<check-slow:> target will
+be run by this rule.
 
 =item C<make extra-tests>
 
