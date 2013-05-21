@@ -57,7 +57,7 @@ make.sh: make.sh.in $(top_builddir)/config.log $(top_builddir)/config.status
 	  ./config.status --file=appliance/$@-t:appliance/$<
 	chmod +x $@-t
 	cmp -s $@ $@-t || mv $@-t $@
-	rm $@-t
+	rm -f $@-t
 
 PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1 -DEXTRA_PACKAGES="$(EXTRA_PACKAGES)"
 if VALGRIND_DAEMON
@@ -68,13 +68,13 @@ packagelist: packagelist.in Makefile
 	cpp -undef $(PACKAGELIST_CPP_FLAGS) < $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	cmp -s $@ $@-t || mv $@-t $@
-	rm $@-t
+	rm -f $@-t
 
 excludelist: excludelist.in Makefile
 	cpp -undef $(PACKAGELIST_CPP_FLAGS) < $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	cmp -s $@ $@-t || mv $@-t $@
-	rm $@-t
+	rm -f $@-t
 
 supermin.d/base.img supermin.d/hostfiles: stamp-supermin
 stamp-supermin: make.sh packagelist excludelist
