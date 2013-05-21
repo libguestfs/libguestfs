@@ -50,17 +50,29 @@ let hostname_perform g root =
   in
 
   let update_etc_hostname () =
-    g#write "/etc/hostname" !hostname;
-    [ `Created_files ]
+    g#write "/etc/hostname" !hostname
+  in
+
+  let update_etc_machine_info () =
+    replace_line_in_file "/etc/machine-info" "PRETTY_HOSTNAME" !hostname
   in
 
   match typ, distro, major_version with
-    (* Fedora 18 (hence RHEL 7+) changed to using /etc/hostname
-     * (RHBZ#881953, RHBZ#858696).
-     *)
-  | "linux", "fedora", v when v >= 18 -> update_etc_hostname ()
-  | "linux", "rhel", v when v >= 7 -> update_etc_hostname ()
-  | "linux", ("debian"|"ubuntu"), _ -> update_etc_hostname ()
+  (* Fedora 18 (hence RHEL 7+) changed to using /etc/hostname
+   * (RHBZ#881953, RHBZ#858696).  We may also need to modify
+   * /etc/machine-info (RHBZ#890027).
+   *)
+  | "linux", "fedora", v when v >= 18 ->
+    update_etc_hostname ();
+    update_etc_machine_info ();
+    [ `Created_files ]
+  | "linux", "rhel", v when v >= 7 ->
+    update_etc_hostname ();
+    update_etc_machine_info ();
+    [ `Created_files ]
+  | "linux", ("debian"|"ubuntu"), _ ->
+    update_etc_hostname ();
+    [ `Created_files ]
 
   | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
     replace_line_in_file "/etc/sysconfig/network" "HOSTNAME" !hostname;
