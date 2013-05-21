@@ -99,6 +99,7 @@ guestfs_copy_file_to_file_va 1.13.25
 guestfs_copy_size 1.0.87
 guestfs_cp 1.0.18
 guestfs_cp_a 1.0.18
+guestfs_cp_r 1.21.38
 guestfs_create 0.3
 guestfs_create_flags 1.19.53
 guestfs_dd 1.0.80
@@ -130,8 +131,10 @@ guestfs_equal 1.0.18
 guestfs_event_callback 1.19.52
 guestfs_event_to_string 1.21.12
 guestfs_exists 0.8
+guestfs_extlinux 1.21.27
 guestfs_fallocate 1.0.66
 guestfs_fallocate64 1.3.17
+guestfs_feature_available 1.21.26
 guestfs_fgrep 1.0.66
 guestfs_fgrepi 1.0.66
 guestfs_file 0.9.1
@@ -153,6 +156,7 @@ guestfs_fstrim_va 1.19.6
 guestfs_get_append 1.0.26
 guestfs_get_attach_method 1.9.8
 guestfs_get_autosync 0.3
+guestfs_get_backend 1.21.26
 guestfs_get_cachedir 1.19.58
 guestfs_getcon 1.0.67
 guestfs_get_direct 1.0.72
@@ -172,6 +176,7 @@ guestfs_get_path 0.3
 guestfs_get_pgroup 1.11.18
 guestfs_get_pid 1.0.56
 guestfs_get_private 1.5.7
+guestfs_get_program 1.21.29
 guestfs_get_qemu 1.0.6
 guestfs_get_recovery_proc 1.0.77
 guestfs_get_selinux 1.0.67
@@ -262,6 +267,9 @@ guestfs_internal_mountable 1.21.11
 guestfs_internal_mountable_list 1.21.11
 guestfs_internal_parse_mountable 1.21.11
 guestfs_internal_readlinklist 1.19.32
+guestfs_internal_rhbz914931 1.21.14
+guestfs_internal_set_libvirt_selinux_label 1.21.16
+guestfs_internal_set_libvirt_selinux_norelabel_disks 1.21.16
 guestfs_internal_write 1.19.32
 guestfs_internal_write_append 1.19.32
 guestfs_is_blockdev 1.5.10
@@ -494,6 +502,7 @@ guestfs_scrub_freespace 1.0.52
 guestfs_set_append 1.0.26
 guestfs_set_attach_method 1.9.8
 guestfs_set_autosync 0.3
+guestfs_set_backend 1.21.26
 guestfs_set_cachedir 1.19.58
 guestfs_set_close_callback 1.19.52
 guestfs_setcon 1.0.67
@@ -517,6 +526,7 @@ guestfs_set_out_of_memory_handler 0.3
 guestfs_set_path 0.3
 guestfs_set_pgroup 1.11.18
 guestfs_set_private 1.5.7
+guestfs_set_program 1.21.29
 guestfs_set_progress_callback 1.19.52
 guestfs_set_qemu 1.0.6
 guestfs_set_recovery_proc 1.0.77
@@ -552,6 +562,9 @@ guestfs_swapon_file 1.0.66
 guestfs_swapon_label 1.0.66
 guestfs_swapon_uuid 1.0.66
 guestfs_sync 0.3
+guestfs_syslinux 1.21.27
+guestfs_syslinux_argv 1.21.27
+guestfs_syslinux_va 1.21.27
 guestfs_tail 1.0.54
 guestfs_tail_n 1.0.54
 guestfs_tar_in 1.0.3
