@@ -7,7 +7,7 @@ guestfs-release-notes - libguestfs Release Notes
 =begin comment
 
 NOTE!  Pre-release notes for the next stable version of libguestfs.
-Updated to commit f7c312ba6bc99a331f2b3996624dc3408a8cc3c0
+Updated to commit 5a69428f5ec197dfa054e98e80098b758b36d5b9
 
 =end comment
 
@@ -350,6 +350,10 @@ checksums-out fail to compute the checksums of all regular files in directory
 =item L<https://bugzilla.redhat.com/894545>
 
 libguestfs FTBFS on Fedora 19 because of new ruby
+
+=item L<https://bugzilla.redhat.com/890027>
+
+virt-sysprep: Setting hostname, domain name and pretty name on Fedora 18 correctly
 
 =item L<https://bugzilla.redhat.com/887971>
 

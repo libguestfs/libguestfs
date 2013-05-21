@@ -309,6 +309,11 @@ RELEASE NOTES FOR LIBGUESTFS 1.22
 
       libguestfs FTBFS on Fedora 19 because of new ruby
 
+    https://bugzilla.redhat.com/890027
+
+      virt-sysprep: Setting hostname, domain name and pretty name on Fedora
+      18 correctly
+
     https://bugzilla.redhat.com/887971
 
       pvcreate fails if partition contains a swap signature
