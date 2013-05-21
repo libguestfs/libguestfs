@@ -66,7 +66,7 @@ let hostname_perform g root =
     update_etc_hostname ();
     update_etc_machine_info ();
     [ `Created_files ]
-  | "linux", "rhel", v when v >= 7 ->
+  | "linux", ("rhel"|"centos"|"scientificlinux"|"redhat-based"), v when v >= 7 ->
     update_etc_hostname ();
     update_etc_machine_info ();
     [ `Created_files ]
