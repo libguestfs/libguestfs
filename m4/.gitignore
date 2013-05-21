@@ -145,6 +145,7 @@
 /msvc-inval.m4
 /msvc-nothrow.m4
 /multiarch.m4
+/nanosleep.m4
 /netdb_h.m4
 /netinet_in_h.m4
 /nls.m4
@@ -184,6 +185,8 @@
 /servent.m4
 /setenv.m4
 /setlocale.m4
+/sigaction.m4
+/signalblocking.m4
 /signal_h.m4
 /signed.m4
 /size_max.m4
@@ -240,7 +243,6 @@
 /unlinkat.m4
 /unlinkdir.m4
 /unlink.m4
-/usleep.m4
 /utimbuf.m4
 /utimecmp.m4
 /utimens.m4
