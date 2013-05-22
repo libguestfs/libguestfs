@@ -38,9 +38,8 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  int r = posix_fallocate (fd, 0, 1024*1024*1024);
-  if (r != 0) {
-    fprintf (stderr, "posix_fallocate " IMG " 1G: %s\n", strerror (r));
+  if (ftruncate (fd, 1024 * 1024 * 1024) == -1) {
+    perror ("truncate " IMG " 1G");
     unlink (IMG);
     exit (EXIT_FAILURE);
   }
