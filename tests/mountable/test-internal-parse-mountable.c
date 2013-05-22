@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2012-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,12 @@
 int
 main (int argc, char *argv[])
 {
-  int fd = open (IMG, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+  int fd;
+  guestfs_h *g;
+  struct guestfs_internal_mountable *mountable;
+  const char *devices[] = { "/dev/VG/LV", NULL };
+
+  fd = open (IMG, O_WRONLY | O_CREAT | O_TRUNC, 0600);
   if (fd == -1) {
     perror ("open " IMG);
     exit (EXIT_FAILURE);
@@ -50,7 +55,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  guestfs_h *g = guestfs_create ();
+  g = guestfs_create ();
   if (g == NULL) {
     perror ("could not create handle");
     exit (EXIT_FAILURE);
@@ -77,15 +82,13 @@ main (int argc, char *argv[])
 
   if (guestfs_lvcreate (g, "LV", "VG", 900) == -1) goto error;
 
-  const char *devices[] = { "/dev/VG/LV", NULL };
   if (guestfs_mkfs_btrfs (g, (char * const *)devices, -1) == -1) goto error;
 
   if (guestfs_mount (g, "/dev/VG/LV", "/") == -1) goto error;
 
   if (guestfs_btrfs_subvolume_create (g, "/sv") == -1) goto error;
 
-  struct guestfs_internal_mountable *mountable =
-    guestfs_internal_parse_mountable (g, "/dev/VG/LV");
+  mountable = guestfs_internal_parse_mountable (g, "/dev/VG/LV");
   if (mountable == NULL) goto error;
 
   if (mountable->im_type != MOUNTABLE_DEVICE ||
@@ -97,8 +100,7 @@ main (int argc, char *argv[])
 
   guestfs_free_internal_mountable (mountable);
 
-  mountable =
-    guestfs_internal_parse_mountable (g, "btrfsvol:/dev/VG/LV/sv");
+  mountable = guestfs_internal_parse_mountable (g, "btrfsvol:/dev/VG/LV/sv");
   if (mountable == NULL) goto error;
 
   if (mountable->im_type != MOUNTABLE_BTRFSVOL ||
