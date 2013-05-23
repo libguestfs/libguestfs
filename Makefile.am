@@ -425,7 +425,7 @@ print-subdirs:
 # Tag HEAD with current version (only for maintainer).
 
 maintainer-tag:
-	git tag -a $(VERSION) -m "Version $(VERSION) (development)" -f
+	git tag -a $(VERSION) -m "Version $(VERSION) ($(BRANCH_TYPE))" -f
 
 # Provide help on common Makefile targets.
 
