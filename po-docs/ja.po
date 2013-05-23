@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-05-21 18:21+0200\n"
+"POT-Creation-Date: 2013-05-23 12:04+0200\n"
 "PO-Revision-Date: 2013-05-21 13:14+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -5936,7 +5936,6 @@ msgstr ""
 #: ../examples/guestfs-faq.pod:231 ../examples/guestfs-faq.pod:236
 #: ../examples/guestfs-faq.pod:584 ../examples/guestfs-faq.pod:589
 #: ../examples/guestfs-faq.pod:731 ../examples/guestfs-faq.pod:736
-#: ../guestfs-release-notes.pod:14 ../guestfs-release-notes.pod:21
 #: ../src/guestfs.pod:1358 ../src/guestfs.pod:1363 ../src/guestfs.pod:3146
 #: ../src/guestfs.pod:3151
 msgid "html"
@@ -8552,6 +8551,7 @@ msgstr "Copyright (C) 2012 Red Hat Inc."
 #. type: =end
 #: ../examples/guestfs-recipes.pod:3 ../examples/guestfs-recipes.pod:8
 #: ../guestfs-release-notes.pod:7 ../guestfs-release-notes.pod:12
+#: ../guestfs-release-notes.pod:14 ../guestfs-release-notes.pod:21
 #: ../guestfs-release-notes.pod:244 ../guestfs-release-notes.pod:248
 #: ../guestfs-release-notes.pod:800 ../guestfs-release-notes.pod:804
 msgid "comment"
@@ -34716,7 +34716,7 @@ msgstr "guestfs-release-notes - libguestfs リリースノート"
 #: ../guestfs-release-notes.pod:9
 msgid ""
 "NOTE! Pre-release notes for the next stable version of libguestfs.  Updated "
-"to commit 5a69428f5ec197dfa054e98e80098b758b36d5b9"
+"to commit 3147500f15ca7299a09a48af514459d793d04c1a"
 msgstr ""
 
 #. type: textblock
