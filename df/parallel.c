@@ -25,7 +25,6 @@
 #include <libintl.h>
 #include <errno.h>
 #include <error.h>
-#include <assert.h>
 
 #include <pthread.h>
 

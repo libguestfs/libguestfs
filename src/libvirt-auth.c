@@ -20,7 +20,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>

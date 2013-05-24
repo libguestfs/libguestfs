@@ -25,7 +25,6 @@
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
-#include <assert.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

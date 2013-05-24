@@ -27,14 +27,12 @@
 #include <errno.h>
 #include <libintl.h>
 #include <math.h>
-#include <assert.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 #endif
 
-#include "c-ctype.h"
 #include "human.h"
 
 #include "guestfs.h"
