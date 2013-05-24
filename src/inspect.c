@@ -52,7 +52,7 @@ guestfs__inspect_os (guestfs_h *g)
    */
 
   CLEANUP_FREE_STRING_LIST char **fses = guestfs_list_filesystems (g);
-  if (fses == NULL) return NULL; 
+  if (fses == NULL) return NULL;
 
   for (char **fs = fses; *fs; fs += 2) {
     if (guestfs___check_for_filesystem_on (g, *fs)) {
