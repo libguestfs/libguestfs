@@ -445,7 +445,7 @@ help:
 	@echo "  make check-with-upstream-libvirt   Test using upstream libvirt."
 	@echo "  make check-slow                    Slow/long-running tests."
 	@echo
-	@echo "make syntax-check                 Check syntax and style problems in the code."
+	@echo "make syntax-check -j1 -k          Check syntax and style problems in the code."
 	@echo "make print-subdirs                Print subdirectories."
 	@echo
 	@echo "make install                      Install everything."
