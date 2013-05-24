@@ -112,8 +112,7 @@ guestfs_create_flags (unsigned flags, ...)
   if (!g->qemu) goto error;
 
   /* Get program name. */
-#if defined(HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME) && \
-    HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
+#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
   if (STRPREFIX (program_invocation_short_name, "lt-"))
     /* Remove libtool (lt-*) prefix from short name. */
     g->program = strdup (program_invocation_short_name + 3);
