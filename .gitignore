@@ -31,6 +31,7 @@ gmon.out
 Makefile
 Makefile.in
 
+/.sc-*
 /ABOUT-NLS
 /aclocal.m4
 /align/stamp-virt-alignment-scan.pod
