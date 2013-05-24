@@ -227,7 +227,7 @@ AC_LANG_SOURCE([[
 void
 freep (void *ptr)
 {
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
 
 void
@@ -240,7 +240,7 @@ int
 main (int argc, char *argv[])
 {
   test ();
-  exit (1);
+  exit (EXIT_FAILURE);
 }
 ]])
     ],[
