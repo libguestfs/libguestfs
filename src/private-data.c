@@ -23,7 +23,6 @@
 #include <string.h>
 #include <assert.h>
 
-#include "c-ctype.h"
 #include "hash.h"
 #include "hash-pjw.h"
 

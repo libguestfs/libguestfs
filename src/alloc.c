@@ -32,8 +32,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
-#include "hash.h"
-
 void *
 guestfs___safe_malloc (guestfs_h *g, size_t nbytes)
 {
