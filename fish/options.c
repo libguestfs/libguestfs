@@ -24,7 +24,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include <libintl.h>
-#include <getopt.h>
 
 #include <libxml/uri.h>
 

@@ -24,7 +24,6 @@
 #include <string.h>
 #include <inttypes.h>
 #include <unistd.h>
-#include <error.h>
 #include <errno.h>
 
 #include "guestfs.h"
