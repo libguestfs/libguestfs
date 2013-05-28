@@ -3651,6 +3651,10 @@ Runs some slow/long-running tests which are not run by default.
 Equivalent to running all C<make check-*> rules
 (but not C<make check>).
 
+=item C<make check-all>
+
+Equivalent to running all C<make check*> rules.
+
 =back
 
 =head2 DAEMON CUSTOM PRINTF FORMATTERS
