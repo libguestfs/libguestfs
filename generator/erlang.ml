@@ -298,9 +298,9 @@ extern int64_t get_int64 (ETERM *term);
           | FileIn n
           | FileOut n
           | Key n ->
-            pr "  char *%s = erl_iolist_to_string (ARG (%d));\n" n i
+            pr "  CLEANUP_FREE char *%s = erl_iolist_to_string (ARG (%d));\n" n i
           | OptString n ->
-            pr "  char *%s;\n" n;
+            pr "  CLEANUP_FREE char *%s;\n" n;
             pr "  if (atom_equals (ARG (%d), \"undefined\"))\n" i;
             pr "    %s = NULL;\n" n;
             pr "  else\n";
@@ -310,7 +310,7 @@ extern int64_t get_int64 (ETERM *term);
             pr "  const void *%s = ERL_BIN_PTR (%s_bin);\n" n n;
             pr "  size_t %s_size = ERL_BIN_SIZE (%s_bin);\n" n n
           | StringList n | DeviceList n ->
-            pr "  char **%s = get_string_list (ARG (%d));\n" n i
+            pr "  CLEANUP_FREE_STRING_LIST char **%s = get_string_list (ARG (%d));\n" n i
           | Bool n ->
             pr "  int %s = get_bool (ARG (%d));\n" n i
           | Int n ->
@@ -384,16 +384,6 @@ extern int64_t get_int64 (ETERM *term);
       pr ";\n";
 
       (* Free strings if we copied them above. *)
-      List.iter (
-        function
-        | Pathname n | Device n | Mountable n
-        | Dev_or_Path n | Mountable_or_Path n | String n
-        | OptString n | FileIn n | FileOut n | Key n ->
-            pr "  free (%s);\n" n
-        | StringList n | DeviceList n ->
-            pr "  guestfs___free_string_list (%s);\n" n;
-        | Bool _ | Int _ | Int64 _ | Pointer _ | BufferIn _ -> ()
-      ) args;
       List.iter (
         function
         | OBool _ | OInt _ | OInt64 _ -> ()
