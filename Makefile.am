@@ -328,6 +328,17 @@ quickcheck:
 
 # Non-standard tests.
 
+check-all:
+	$(MAKE) -j1 \
+	  check \
+	  check-valgrind \
+	  check-valgrind-local-guests \
+	  check-direct \
+	  check-valgrind-direct \
+	  check-with-upstream-qemu \
+	  check-with-upstream-libvirt \
+	  check-slow
+
 check-valgrind: build-test-guests
 	@errors=0; \
 	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
@@ -433,6 +444,8 @@ help:
 	@echo "make check-with-upstream-qemu     Test using upstream qemu."
 	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
 	@echo "make check-slow                   Slow/long-running tests."
+	@echo
+	@echo "make check-all                    Runs all 'check*' rules."
 	@echo
 	@echo "make syntax-check -j1 -k          Check syntax and style problems in the code."
 	@echo "make print-subdirs                Print subdirectories."
