@@ -287,7 +287,6 @@ Makefile.in
 /perl/MYMETA.json
 /perl/MYMETA.yml
 /perl/pm_to_blib
-/perl/run-perl-tests
 /php/extension/acinclude.m4
 /php/extension/aclocal.m4
 /php/extension/autom4te.cache

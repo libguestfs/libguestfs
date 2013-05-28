@@ -90,9 +90,9 @@ export LD_LIBRARY_PATH
 
 # For Perl.
 if [ -z "$PERL5LIB" ]; then
-    PERL5LIB="$s/perl/lib:$b/perl/blib/lib:$b/perl/blib/arch"
+    PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
 else
-    PERL5LIB="$s/perl/lib:$b/perl/blib/lib:$b/perl/blib/arch:$PERL5LIB"
+    PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch:$PERL5LIB"
 fi
 export PERL5LIB
 

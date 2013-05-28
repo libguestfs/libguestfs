@@ -18,4 +18,4 @@
 
 set -e
 
-make -C $srcdir -f @abs_builddir@/Makefile-pl test "$@"
+make -f Makefile-pl test "$@"

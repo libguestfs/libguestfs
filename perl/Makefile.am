@@ -64,20 +64,10 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 INSTALLDIRS = site
 
 all: Makefile-pl src_deps
-	$(MAKE) -C $(srcdir) -f $(abs_builddir)/Makefile-pl \
-		INST_ARCHLIB=$(abs_builddir)/blib/arch \
-		INST_SCRIPT=$(abs_builddir)/blib/script \
-		INST_BIN=$(abs_builddir)/blib/bin \
-		INST_LIB=$(abs_builddir)/blib/lib \
-		INST_MAN1DIR=$(abs_builddir)/blib/man1 \
-		INST_MAN3DIR=$(abs_builddir)/blib/man3 \
-		TEST_FILES=$(abs_srcdir)/t/*.t
+	$(MAKE) -f Makefile-pl
 
 Makefile-pl: Makefile.PL
-	cd $(srcdir); \
-	perl $(abs_builddir)/Makefile.PL \
-		INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
-	sed -i 's,Makefile.PL,$(abs_builddir)/Makefile.PL,' $@
+	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
 
 # No!  Otherwise it is deleted before the clean-local rule runs.
 #CLEANFILES = Makefile-pl
