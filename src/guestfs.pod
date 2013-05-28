@@ -3919,11 +3919,6 @@ Runs some slow/long-running tests which are not run by default.
 Any C<Makefile.am> in the tree that has a C<check-slow:> target will
 be run by this rule.
 
-=item C<make extra-tests>
-
-Equivalent to running all C<make check-*> rules
-(but not C<make check>).
-
 =back
 
 =head2 DAEMON CUSTOM PRINTF FORMATTERS

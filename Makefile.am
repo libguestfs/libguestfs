@@ -328,16 +328,6 @@ quickcheck:
 
 # Non-standard tests.
 
-extra-tests:
-	$(MAKE) -j1 \
-	  check-valgrind \
-	  check-valgrind-local-guests \
-	  check-direct \
-	  check-valgrind-direct \
-	  check-with-upstream-qemu \
-	  check-with-upstream-libvirt \
-	  check-slow
-
 check-valgrind: build-test-guests
 	@errors=0; \
 	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
@@ -436,14 +426,13 @@ help:
 	@echo "make check                        Run the standard tests"
 	@echo "make -k check                       ... and display all errors at once."
 	@echo
-	@echo "make extra-tests                  Runs all of the following tests:"
-	@echo "  make check-valgrind                Run a subset of the tests under valgrind."
-	@echo "  make check-valgrind-local-guests   Test under valgrind using local guests."
-	@echo "  make check-direct                  Test using direct backend."
-	@echo "  make check-valgrind-direct         Test valgrind + direct backend."
-	@echo "  make check-with-upstream-qemu      Test using upstream qemu."
-	@echo "  make check-with-upstream-libvirt   Test using upstream libvirt."
-	@echo "  make check-slow                    Slow/long-running tests."
+	@echo "make check-valgrind               Run a subset of the tests under valgrind."
+	@echo "make check-valgrind-local-guests  Test under valgrind using local guests."
+	@echo "make check-direct                 Test using direct backend."
+	@echo "make check-valgrind-direct        Test valgrind + direct backend."
+	@echo "make check-with-upstream-qemu     Test using upstream qemu."
+	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
+	@echo "make check-slow                   Slow/long-running tests."
 	@echo
 	@echo "make syntax-check -j1 -k          Check syntax and style problems in the code."
 	@echo "make print-subdirs                Print subdirectories."

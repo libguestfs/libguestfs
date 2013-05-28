@@ -37,7 +37,8 @@
 # If the script runs successfully, then run the test suite as normal:
 #
 #   make check
-#   make extra-tests
+#
+# (other make check-* rules can also be used here).
 #
 # To switch back to running the test suite on the locally built
 # version, do:
