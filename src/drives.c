@@ -493,7 +493,6 @@ create_drive_dev_null (guestfs_h *g, bool readonly, const char *format,
   fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
   if (fd == -1) {
     perrorf (g, "open: %s", tmpfile);
-    close (fd);
     return NULL;
   }
   if (ftruncate (fd, 4096) == -1) {
