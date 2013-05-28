@@ -236,7 +236,7 @@ Also:
 runs a subset of the test suite under valgrind (requires valgrind to
 be installed obviously).
 
- make extra-tests
+ make check-all
 
 runs check-valgrind + even more tests, but these require that you have
 some libvirt guests installed, that these guests' disks are accessible
