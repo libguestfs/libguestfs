@@ -10,10 +10,11 @@ This page has manual tests you can try on libguestfs.  Everyone has a
 slightly different combination of platform, hardware and guests, so
 this testing is very valuable.  Thanks for helping out!
 
-These tests require libguestfs E<ge> 1.14.
-
 Tests marked with a B<*> (asterisk) can B<destroy data> if you're not
 careful.  The others are safe and won't modify anything.
+
+Most of these tests will work with any libguestfs E<ge> 1.14.  Some of
+these tests (marked) require libguestfs E<ge> 1.22.
 
 You can report bugs you find through this link:
 
@@ -58,6 +59,86 @@ L<http://virt-tools.org/learning/check-hardware-virt/>
 
 If the command above does not work at all, use
 L<libguestfs-test-tool(1)>.
+
+=head2 Check which version of libguestfs, qemu, libvirt, etc is being used.
+
+Look at the output of C<libguestfs-test-tool> and check:
+
+=over 4
+
+=item *
+
+Which version of libguestfs is being used?  Near the beginning of the
+output you'll see a line like:
+
+ library version: 1.22.0fedora=19,release=1.fc19,libvirt
+
+=item *
+
+Is libvirt being used?  You can tell the difference by looking
+for the backend:
+
+ guestfs_get_backend: direct
+
+or:
+
+ guestfs_get_backend: libvirt
+
+=item *
+
+Which version of qemu is being used?  It may be printed out:
+
+ libguestfs: qemu version 1.5
+
+but note that if you're using libvirt then libguestfs doesn't have
+this information.
+
+=item *
+
+Which kernel is being used?  L<supermin(8)> will try to pick the
+latest kernel installed on your machine.  You can see the version in
+the appliance output, eg:
+
+ [    0.000000] Linux version 3.9.2-200.fc18.x86_64 [...]
+
+=back
+
+=head2 Try to open a local guest image with guestfish.
+
+You can use any guest disk image for this test.  Make sure you use the
+C<--ro> flag so that L<guestfish(1)> will open the disk image
+read-only.
+
+ guestfish --ro -a /path/to/disk.img -i
+
+If the command is successful, it should print out the guest operating
+system name and put you at the guestfish C<E<gt>E<lt>fsE<gt>> prompt.
+You can use guestfish commands like S<C<ll />> to look inside the disk
+image.  To exit, type C<exit>.
+
+If you get an error, try enabling debugging (add C<-v> to the command
+line).  Also make sure that L<libguestfs-test-tool(1)> succeeds.
+
+=head2 Try to open a remote guest image with guestfish.
+
+B<Note> this test requires S<libguestfs E<ge> 1.22> and S<qemu E<ge> 1.5>.
+You may also have to disable libvirt by setting this:
+
+ export LIBGUESTFS_BACKEND=direct
+
+If you have a disk image available over HTTP/FTP, try to open it.
+
+ guestfish --ro -i --format=raw -a http://www.example.com/disk.img
+
+For SSH you will need to make sure that ssh-agent is set up so you
+don't need a password to log in to the remote machine.  Then a command
+similar to this should work:
+
+ guestfish --ro -i --format=raw \
+   -a ssh://remote.example.com/path/to/disk.img
+
+If you get an error, try enabling debugging (add C<-v> to the command
+line).  Also make sure that L<libguestfs-test-tool(1)> succeeds.
 
 =head2 Run virt-alignment-scan on all your guests.
 
@@ -275,8 +356,8 @@ disk image smaller (use C<du> to check)?
 
 =head2 B<*> "sysprep" a B<shut off> Linux guest.
 
-Note that this really will mess up an existing guest, so it's better
-to clone the guest before trying this.
+B<Note> that this really will mess up an existing guest, so it's
+better to clone the guest before trying this.
 
  virt-sysprep --hostname newhost.example.com -a /path/to/disk.img
 
