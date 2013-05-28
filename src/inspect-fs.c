@@ -530,7 +530,7 @@ guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
 char *
 guestfs___first_line_of_file (guestfs_h *g, const char *filename)
 {
-  CLEANUP_FREE char **lines = NULL; /* sic: not CLEANUP_FREE_STRING_LIST */
+  char **lines = NULL; /* sic: not CLEANUP_FREE_STRING_LIST */
   int64_t size;
   char *ret;
 
@@ -558,6 +558,8 @@ guestfs___first_line_of_file (guestfs_h *g, const char *filename)
   /* lines[1] should be NULL because of '1' argument above ... */
 
   ret = lines[0];               /* caller frees */
+
+  free (lines);
 
   return ret;
 }
