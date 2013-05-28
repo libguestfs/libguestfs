@@ -270,6 +270,10 @@ make_server (xmlURIPtr uri, const char *socket)
    * only a singleton is passed by us.
    */
   ret = malloc (sizeof (char *) * 2);
+  if (ret == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
   ret[0] = server;
   ret[1] = NULL;
 
