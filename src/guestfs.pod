@@ -3928,6 +3928,35 @@ Equivalent to running all C<make check-*> rules
 
 Equivalent to running all C<make check*> rules.
 
+=item C<make check-release>
+
+Runs a subset of C<make check*> rules that are required to pass
+before a tarball can be released.  Currently this is:
+
+=over 4
+
+=item *
+
+check
+
+=item *
+
+check-valgrind
+
+=item *
+
+check-direct
+
+=item *
+
+check-valgrind-direct
+
+=item *
+
+check-slow
+
+=back
+
 =back
 
 =head2 DAEMON CUSTOM PRINTF FORMATTERS

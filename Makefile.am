@@ -349,6 +349,14 @@ check-all:
 	  check-with-upstream-libvirt \
 	  check-slow
 
+check-release:
+	$(MAKE) -j1 \
+	  check \
+	  check-valgrind \
+	  check-direct \
+	  check-valgrind-direct \
+	  check-slow
+
 check-valgrind: build-test-guests
 	@errors=0; \
 	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
@@ -457,6 +465,7 @@ help:
 	@echo "  make check-slow                    Slow/long-running tests."
 	@echo
 	@echo "make check-all                    Runs all 'check*' rules."
+	@echo "make check-release                Runs 'check*' rules required for release."
 	@echo
 	@echo "make syntax-check -j1 -k          Check syntax and style problems in the code."
 	@echo "make print-subdirs                Print subdirectories."
