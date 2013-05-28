@@ -1317,7 +1317,7 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
       n += 8; /* for slashes, colons, & port numbers */
     }
     n++; /* for \0 */
-    mon_host = safe_malloc (g, sizeof (char *) * n);
+    mon_host = safe_malloc (g, n);
     n = 0;
     for (i = 0; i < src->nr_servers; i++) {
       CLEANUP_FREE char *port = NULL;
