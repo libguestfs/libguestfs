@@ -67,6 +67,7 @@ all: Makefile-pl src_deps
 	$(MAKE) -f Makefile-pl
 
 Makefile-pl: Makefile.PL
+	-[ $(srcdir) != $(builddir) ] && cp -rsu $(abs_srcdir)/. $(builddir)/.
 	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
 
 # No!  Otherwise it is deleted before the clean-local rule runs.
