@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-05-23 12:04+0200\n"
+"POT-Creation-Date: 2013-05-28 17:21+0200\n"
 "PO-Revision-Date: 2013-05-21 13:14+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -1232,8 +1232,10 @@ msgstr "このプログラムは以下を返します:"
 #: ../examples/guestfs-recipes.pod:220 ../examples/guestfs-recipes.pod:225
 #: ../examples/guestfs-recipes.pod:315 ../examples/guestfs-recipes.pod:319
 #: ../examples/guestfs-recipes.pod:323 ../examples/guestfs-recipes.pod:327
-#: ../examples/guestfs-recipes.pod:331 ../examples/guestfs-testing.pod:124
-#: ../examples/guestfs-testing.pod:128 ../examples/guestfs-testing.pod:132
+#: ../examples/guestfs-recipes.pod:331 ../examples/guestfs-testing.pod:69
+#: ../examples/guestfs-testing.pod:76 ../examples/guestfs-testing.pod:87
+#: ../examples/guestfs-testing.pod:96 ../examples/guestfs-testing.pod:205
+#: ../examples/guestfs-testing.pod:209 ../examples/guestfs-testing.pod:213
 #: ../fish/guestfish-actions.pod:604 ../fish/guestfish-actions.pod:610
 #: ../fish/guestfish-actions.pod:618 ../fish/guestfish-actions.pod:625
 #: ../fish/guestfish-actions.pod:632 ../fish/guestfish-actions.pod:1741
@@ -1378,7 +1380,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:374 ../erlang/examples/guestfs-erlang.pod:97
 #: ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:948
 #: ../examples/guestfs-performance.pod:530 ../examples/guestfs-recipes.pod:544
-#: ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1525
+#: ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1525
 #: ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39
 #: ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41
 #: ../format/virt-format.pod:183 ../fuse/guestmount.pod:406
@@ -1438,7 +1440,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:115
 #: ../examples/guestfs-examples.pod:74 ../examples/guestfs-faq.pod:958
 #: ../examples/guestfs-performance.pod:547 ../examples/guestfs-recipes.pod:562
-#: ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1557
+#: ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1557
 #: ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53
 #: ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55
 #: ../format/virt-format.pod:197 ../fuse/guestmount.pod:423
@@ -1805,7 +1807,7 @@ msgstr ""
 #: ../erlang/examples/guestfs-erlang.pod:111
 #: ../examples/guestfs-examples.pod:70 ../examples/guestfs-faq.pod:954
 #: ../examples/guestfs-performance.pod:543 ../examples/guestfs-recipes.pod:558
-#: ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1553
+#: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1553
 #: ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49
 #: ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51
 #: ../fuse/guestmount.pod:419 ../fuse/guestunmount.pod:158
@@ -1823,7 +1825,7 @@ msgstr "著者"
 #: ../erlang/examples/guestfs-erlang.pod:113
 #: ../examples/guestfs-examples.pod:72 ../examples/guestfs-faq.pod:956
 #: ../examples/guestfs-performance.pod:545 ../examples/guestfs-recipes.pod:560
-#: ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1555
+#: ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1555
 #: ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51
 #: ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53
 #: ../fuse/guestmount.pod:421 ../fuse/guestunmount.pod:160
@@ -3175,7 +3177,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:41 ../examples/guestfs-testing.pod:196
+#: ../cat/virt-ls.pod:41 ../examples/guestfs-testing.pod:277
 msgid "List all setuid or setgid programs in a Linux virtual machine:"
 msgstr ""
 "Linux 仮想マシンにある setuid または setgid プログラムを一覧表示します:"
@@ -3191,7 +3193,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:45 ../examples/guestfs-testing.pod:200
+#: ../cat/virt-ls.pod:45 ../examples/guestfs-testing.pod:281
 msgid "List all public-writable directories in a Linux virtual machine:"
 msgstr ""
 "Linux 仮想マシンにあるすべての全体書き込み可能なディレクトリーを一覧表示しま"
@@ -3208,7 +3210,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:49 ../examples/guestfs-testing.pod:204
+#: ../cat/virt-ls.pod:49 ../examples/guestfs-testing.pod:285
 msgid "List all Unix domain sockets in a Linux virtual machine:"
 msgstr "Linux 仮想マシンにあるすべての Unix ドメインソケットを一覧表示します:"
 
@@ -3223,7 +3225,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:53 ../examples/guestfs-testing.pod:208
+#: ../cat/virt-ls.pod:53 ../examples/guestfs-testing.pod:289
 msgid "List all regular files with filenames ending in '.png':"
 msgstr "'.png' で終わるファイル名を持つすべての通常ファイルを表示するには:"
 
@@ -3253,7 +3255,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:61 ../examples/guestfs-testing.pod:216
+#: ../cat/virt-ls.pod:61 ../examples/guestfs-testing.pod:297
 msgid "Find everything modified in the last 7 days:"
 msgstr "7日以内に変更されたものをすべて検索します:"
 
@@ -3268,7 +3270,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:65 ../examples/guestfs-testing.pod:220
+#: ../cat/virt-ls.pod:65 ../examples/guestfs-testing.pod:301
 msgid "Find regular files modified in the last 24 hours:"
 msgstr "24時間以内に変更された通常のファイルを検索します:"
 
@@ -5287,7 +5289,7 @@ msgstr ""
 
 #. type: textblock
 #: ../erlang/examples/guestfs-erlang.pod:117
-#: ../examples/guestfs-testing.pod:318 ../fish/virt-copy-in.pod:66
+#: ../examples/guestfs-testing.pod:399 ../fish/virt-copy-in.pod:66
 #: ../fish/virt-copy-out.pod:55 ../fish/virt-tar-in.pod:64
 #: ../fish/virt-tar-out.pod:57 ../java/examples/guestfs-java.pod:101
 #: ../perl/examples/guestfs-perl.pod:60 ../sparsify/virt-sparsify.pod:324
@@ -5694,7 +5696,7 @@ msgid "Please use the following link to enter a bug in Bugzilla:"
 msgstr "Bugzilla にバグを入力するには、以下のリンクを使用してください:"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:123 ../examples/guestfs-testing.pod:20
+#: ../examples/guestfs-faq.pod:123 ../examples/guestfs-testing.pod:21
 msgid ""
 "L<https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools>"
@@ -5772,7 +5774,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-faq.pod:152 ../examples/guestfs-faq.pod:622
-#: ../examples/guestfs-testing.pod:34 ../test-tool/libguestfs-test-tool.pod:21
+#: ../examples/guestfs-testing.pod:35 ../test-tool/libguestfs-test-tool.pod:21
 #, no-wrap
 msgid ""
 " libguestfs-test-tool\n"
@@ -7500,7 +7502,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-performance.pod:29
-#: ../examples/guestfs-performance.pod:179 ../examples/guestfs-testing.pod:50
+#: ../examples/guestfs-performance.pod:179 ../examples/guestfs-testing.pod:51
 #, no-wrap
 msgid ""
 " time guestfish -a /dev/null run\n"
@@ -9121,7 +9123,7 @@ msgstr ""
 "copy-out(1)> を使用します:"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:214 ../examples/guestfs-testing.pod:107
+#: ../examples/guestfs-recipes.pod:214 ../examples/guestfs-testing.pod:188
 #, no-wrap
 msgid ""
 " virt-copy-out -d Guest /home .\n"
@@ -10015,23 +10017,25 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-testing.pod:13
-msgid "These tests require libguestfs E<ge> 1.14."
-msgstr "これらのテストは libguestfs E<ge> 1.14 が必要です。"
-
-#. type: textblock
-#: ../examples/guestfs-testing.pod:15
 msgid ""
 "Tests marked with a B<*> (asterisk) can B<destroy data> if you're not "
 "careful.  The others are safe and won't modify anything."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:18
+#: ../examples/guestfs-testing.pod:16
+msgid ""
+"Most of these tests will work with any libguestfs E<ge> 1.14.  Some of these "
+"tests (marked) require libguestfs E<ge> 1.22."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:19
 msgid "You can report bugs you find through this link:"
 msgstr "このリンクを使用して見つけたバグを報告できます:"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:22
+#: ../examples/guestfs-testing.pod:23
 msgid ""
 "or post on the mailing list (registration is B<not> required, but if you're "
 "not registered then you'll have to wait for a moderator to manually approve "
@@ -10039,28 +10043,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:26
+#: ../examples/guestfs-testing.pod:27
 msgid "L<https://www.redhat.com/mailman/listinfo/libguestfs>"
 msgstr "L<https://www.redhat.com/mailman/listinfo/libguestfs>"
 
 #. type: =head1
-#: ../examples/guestfs-testing.pod:28
+#: ../examples/guestfs-testing.pod:29
 msgid "TESTS"
 msgstr "テスト"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:30
+#: ../examples/guestfs-testing.pod:31
 msgid "Run libguestfs-test-tool"
 msgstr "libguestfs-test-tool の実行"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:32 ../examples/guestfs-testing.pod:145
+#: ../examples/guestfs-testing.pod:33 ../examples/guestfs-testing.pod:226
 #: ../src/guestfs.pod:4170
 msgid "Run:"
 msgstr "次を実行します:"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:36
+#: ../examples/guestfs-testing.pod:37
 msgid ""
 "This command does a very simple, non-destructive test that basic libguestfs "
 "is functioning.  You don't need to run it as root."
@@ -10069,7 +10073,7 @@ msgstr ""
 "なテストを実行します。root として実行する必要がありません。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:39
+#: ../examples/guestfs-testing.pod:40
 msgid ""
 "If it I<doesn't> print C<===== TEST FINISHED OK =====>, report it as a bug.  "
 "It is very important that you include the B<complete, unedited> output of "
@@ -10078,12 +10082,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:44
+#: ../examples/guestfs-testing.pod:45
 msgid "Check KVM acceleration is being used."
 msgstr "KVM アクセラレーションが使用されていることを確認します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:46
+#: ../examples/guestfs-testing.pod:47
 msgid ""
 "If your host has hardware virt acceleration, then with a hot cache "
 "libguestfs should be able to start up in a few seconds.  Run the following "
@@ -10091,24 +10095,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:52
+#: ../examples/guestfs-testing.pod:53
 msgid ""
 "After a few runs, the time should settle down to a few seconds (under 5 "
 "seconds on fast 64 bit hardware)."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:55
+#: ../examples/guestfs-testing.pod:56
 msgid "How to check for hardware virt:"
 msgstr "ハードウェア仮想化を確認する方法:"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:57
+#: ../examples/guestfs-testing.pod:58
 msgid "L<http://virt-tools.org/learning/check-hardware-virt/>"
 msgstr "L<http://virt-tools.org/learning/check-hardware-virt/>"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:59
+#: ../examples/guestfs-testing.pod:60
 msgid ""
 "If the command above does not work at all, use L<libguestfs-test-tool(1)>."
 msgstr ""
@@ -10116,19 +10120,220 @@ msgstr ""
 "す。"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:62
+#: ../examples/guestfs-testing.pod:63
+msgid "Check which version of libguestfs, qemu, libvirt, etc is being used."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:65
+msgid "Look at the output of C<libguestfs-test-tool> and check:"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:71
+msgid ""
+"Which version of libguestfs is being used? Near the beginning of the output "
+"you'll see a line like:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:74
+#, no-wrap
+msgid ""
+" library version: 1.22.0fedora=19,release=1.fc19,libvirt\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:78
+msgid ""
+"Is libvirt being used? You can tell the difference by looking for the "
+"backend:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:81
+#, fuzzy, no-wrap
+#| msgid "guestfs_get_direct"
+msgid ""
+" guestfs_get_backend: direct\n"
+"\n"
+msgstr "guestfs_get_direct"
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:83 ../examples/guestfs-testing.pod:149
+#: ../examples/guestfs-testing.pod:256 ../examples/guestfs-testing.pod:269
+#: ../examples/guestfs-testing.pod:329 ../lua/examples/guestfs-lua.pod:66
+#: ../src/guestfs.pod:3749
+msgid "or:"
+msgstr "または:"
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:85
+#, fuzzy, no-wrap
+#| msgid "guestfs_get_cachedir"
+msgid ""
+" guestfs_get_backend: libvirt\n"
+"\n"
+msgstr "guestfs_get_cachedir"
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:89
+msgid "Which version of qemu is being used? It may be printed out:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:91
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfish --version\n"
+#| "\n"
+msgid ""
+" libguestfs: qemu version 1.5\n"
+"\n"
+msgstr ""
+" guestfish --version\n"
+"\n"
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:93
+msgid ""
+"but note that if you're using libvirt then libguestfs doesn't have this "
+"information."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:98
+msgid ""
+"Which kernel is being used? L<supermin(8)> will try to pick the latest "
+"kernel installed on your machine.  You can see the version in the appliance "
+"output, eg:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:102
+#, no-wrap
+msgid ""
+" [    0.000000] Linux version 3.9.2-200.fc18.x86_64 [...]\n"
+"\n"
+msgstr ""
+
+#. type: =head2
+#: ../examples/guestfs-testing.pod:106
+msgid "Try to open a local guest image with guestfish."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:108
+msgid ""
+"You can use any guest disk image for this test.  Make sure you use the C<--"
+"ro> flag so that L<guestfish(1)> will open the disk image read-only."
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:112
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfish [--ro|--rw] -a disk.img -i\n"
+#| "\n"
+msgid ""
+" guestfish --ro -a /path/to/disk.img -i\n"
+"\n"
+msgstr ""
+" guestfish [--ro|--rw] -a disk.img -i\n"
+"\n"
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:114
+msgid ""
+"If the command is successful, it should print out the guest operating system "
+"name and put you at the guestfish C<E<gt>E<lt>fsE<gt>> prompt.  You can use "
+"guestfish commands like S<C<ll />> to look inside the disk image.  To exit, "
+"type C<exit>."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:119 ../examples/guestfs-testing.pod:140
+msgid ""
+"If you get an error, try enabling debugging (add C<-v> to the command "
+"line).  Also make sure that L<libguestfs-test-tool(1)> succeeds."
+msgstr ""
+
+#. type: =head2
+#: ../examples/guestfs-testing.pod:122
+msgid "Try to open a remote guest image with guestfish."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:124
+msgid ""
+"B<Note> this test requires S<libguestfs E<ge> 1.22> and S<qemu E<ge> 1.5>.  "
+"You may also have to disable libvirt by setting this:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:127
+#: ../test-tool/libguestfs-test-tool.pod:125
+#, no-wrap
+msgid ""
+" export LIBGUESTFS_BACKEND=direct\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:129
+msgid "If you have a disk image available over HTTP/FTP, try to open it."
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:131
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfish --format=raw -a disk.img\n"
+#| "\n"
+msgid ""
+" guestfish --ro -i --format=raw -a http://www.example.com/disk.img\n"
+"\n"
+msgstr ""
+" guestfish --format=raw -a disk.img\n"
+"\n"
+
+#. type: textblock
+#: ../examples/guestfs-testing.pod:133
+msgid ""
+"For SSH you will need to make sure that ssh-agent is set up so you don't "
+"need a password to log in to the remote machine.  Then a command similar to "
+"this should work:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-testing.pod:137
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfish --format=raw -a disk.img\n"
+#| "\n"
+msgid ""
+" guestfish --ro -i --format=raw \\\n"
+"   -a ssh://remote.example.com/path/to/disk.img\n"
+"\n"
+msgstr ""
+" guestfish --format=raw -a disk.img\n"
+"\n"
+
+#. type: =head2
+#: ../examples/guestfs-testing.pod:143
 msgid "Run virt-alignment-scan on all your guests."
 msgstr "すべての仮想マシンにおいて virt-alignment-scan を実行します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:64
+#: ../examples/guestfs-testing.pod:145
 msgid "Run L<virt-alignment-scan(1)> on guests or disk images:"
 msgstr ""
 "仮想マシンまたはディスクイメージにおいて L<virt-alignment-scan(1)> を実行しま"
 "す:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:66
+#: ../examples/guestfs-testing.pod:147
 #, no-wrap
 msgid ""
 " virt-alignment-scan -a /path/to/disk.img\n"
@@ -10136,16 +10341,9 @@ msgid ""
 msgstr ""
 " virt-alignment-scan -a /path/to/disk.img\n"
 "\n"
-
-#. type: textblock
-#: ../examples/guestfs-testing.pod:68 ../examples/guestfs-testing.pod:175
-#: ../examples/guestfs-testing.pod:188 ../examples/guestfs-testing.pod:248
-#: ../lua/examples/guestfs-lua.pod:66 ../src/guestfs.pod:3749
-msgid "or:"
-msgstr "または:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:70
+#: ../examples/guestfs-testing.pod:151
 #, no-wrap
 msgid ""
 " virt-alignment-scan -d Guest\n"
@@ -10155,24 +10353,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:72
+#: ../examples/guestfs-testing.pod:153
 msgid "Does the alignment report match how the guest partitions are aligned?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:74
+#: ../examples/guestfs-testing.pod:155
 msgid "Run virt-cat on some files in guests."
 msgstr "仮想マシンにあるいくつかのファイルにおいて virt-cat を実行します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:76
+#: ../examples/guestfs-testing.pod:157
 msgid "L<virt-cat(1)> can display files from guests.  For a Linux guest, try:"
 msgstr ""
 "L<virt-cat(1)> は仮想マシンからファイルを表示できます。 Linux 仮想マシンに対"
 "しては、次を試します:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:78
+#: ../examples/guestfs-testing.pod:159
 #, no-wrap
 msgid ""
 " virt-cat LinuxGuest /etc/passwd\n"
@@ -10182,12 +10380,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:80
+#: ../examples/guestfs-testing.pod:161
 msgid "A recent feature is support for Windows paths, for example:"
 msgstr "最近の機能は Windows のパスをサポートします、たとえば:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:82
+#: ../examples/guestfs-testing.pod:163
 #, no-wrap
 msgid ""
 " virt-cat WindowsGuest 'c:\\windows\\win.ini'\n"
@@ -10197,19 +10395,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:84
+#: ../examples/guestfs-testing.pod:165
 msgid ""
 "An even better test is if you have a Windows guest with multiple drives.  Do "
 "C<D:>, C<E:> etc paths work correctly?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:87
+#: ../examples/guestfs-testing.pod:168
 msgid "B<*> Copy some files into a B<shut off> guest."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:89
+#: ../examples/guestfs-testing.pod:170
 msgid ""
 "L<virt-copy-in(1)> can recursively copy files and directories into a guest "
 "or disk image."
@@ -10218,7 +10416,7 @@ msgstr ""
 "ディレクトリーを再帰的にコピーできます。"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:92
+#: ../examples/guestfs-testing.pod:173
 #, no-wrap
 msgid ""
 " virt-copy-in -d Guest /etc /tmp\n"
@@ -10228,7 +10426,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:94
+#: ../examples/guestfs-testing.pod:175
 msgid ""
 "This should copy local directory C</etc> to C</tmp/etc> in the guest "
 "(recursively).  If you boot the guest, can you see all of the copied files "
@@ -10236,12 +10434,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:98
+#: ../examples/guestfs-testing.pod:179
 msgid "Shut the guest down and try copying multiple files and directories:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:100
+#: ../examples/guestfs-testing.pod:181
 #, no-wrap
 msgid ""
 " virt-copy-in -d Guest /home /etc/issue /tmp\n"
@@ -10251,39 +10449,39 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:102
+#: ../examples/guestfs-testing.pod:183
 msgid "Copy some files out of a guest."
 msgstr "仮想マシンからいくつかのファイルをコピーします"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:104
+#: ../examples/guestfs-testing.pod:185
 msgid ""
 "L<virt-copy-out(1)> can recursively copy files and directories out of a "
 "guest or disk image."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:109
+#: ../examples/guestfs-testing.pod:190
 msgid "Note the final space and period in the command is not a typo."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:111
+#: ../examples/guestfs-testing.pod:192
 msgid "This should copy C</home> from the guest into the current directory."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:113
+#: ../examples/guestfs-testing.pod:194
 msgid "Run virt-df."
 msgstr "virt-df を実行します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:115
+#: ../examples/guestfs-testing.pod:196
 msgid "L<virt-df(1)> lists disk space.  Run:"
 msgstr "L<virt-df(1)> はディスク領域を一覧表示します。次を実行します:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:117
+#: ../examples/guestfs-testing.pod:198
 #, no-wrap
 msgid ""
 " virt-df\n"
@@ -10293,31 +10491,31 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:119
+#: ../examples/guestfs-testing.pod:200
 msgid ""
 "You can try comparing this to the results from L<df(1)> inside the guest, "
 "but there are some provisos:"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:126
+#: ../examples/guestfs-testing.pod:207
 msgid "The guest must be idle."
 msgstr "仮想マシンはアイドル状態にある必要があります。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:130
+#: ../examples/guestfs-testing.pod:211
 msgid "The guest disks must be synched using L<sync(1)>."
 msgstr "仮想マシンのディスクは L<sync(1)> を使用して同期する必要があります。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:134
+#: ../examples/guestfs-testing.pod:215
 msgid ""
 "Any action such as booting the guest will write log files causing the "
 "numbers to change."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:139
+#: ../examples/guestfs-testing.pod:220
 msgid ""
 "We don't guarantee that the numbers will be identical even under these "
 "circumstances.  They should be similar.  It would indicate a bug if you saw "
@@ -10325,12 +10523,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:143
+#: ../examples/guestfs-testing.pod:224
 msgid "Try importing virt-df CSV output into a spreadsheet or database."
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:147
+#: ../examples/guestfs-testing.pod:228
 #, no-wrap
 msgid ""
 " virt-df --csv > /tmp/report.csv\n"
@@ -10340,14 +10538,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:149
+#: ../examples/guestfs-testing.pod:230
 msgid ""
 "Now try to load this into your favorite spreadsheet or database.  Are the "
 "results reproduced faithfully in the spreadsheet/database?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:152
+#: ../examples/guestfs-testing.pod:233
 msgid ""
 "L<http://www.postgresql.org/docs/8.1/static/sql-copy.html> L<http://dev."
 "mysql.com/doc/refman/5.1/en/load-data.html>"
@@ -10356,12 +10554,12 @@ msgstr ""
 "mysql.com/doc/refman/5.1/en/load-data.html>"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:155
+#: ../examples/guestfs-testing.pod:236
 msgid "B<*> Edit a file in a B<shut off> guest."
 msgstr "B<*> B<シャットオフ>している仮想マシンにあるファイルを編集します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:157
+#: ../examples/guestfs-testing.pod:238
 msgid ""
 "L<virt-edit(1)> can edit files in guests.  Try this command on a RHEL or "
 "Fedora guest:"
@@ -10370,7 +10568,7 @@ msgstr ""
 "仮想マシンにおいてこのコマンドを試します:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:160
+#: ../examples/guestfs-testing.pod:241
 #, no-wrap
 msgid ""
 " virt-edit LinuxGuest /etc/sysconfig/network\n"
@@ -10380,12 +10578,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:162
+#: ../examples/guestfs-testing.pod:243
 msgid "On other Linux guests try editing other files such as:"
 msgstr "他の Linux 仮想マシンにおいて、次のように他のファイルの編集を試します:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:164
+#: ../examples/guestfs-testing.pod:245
 #, no-wrap
 msgid ""
 " virt-edit LinuxGuest /etc/motd\n"
@@ -10395,26 +10593,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:166
+#: ../examples/guestfs-testing.pod:247
 msgid "Are the changes seen inside the guest when it is booted?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:168
+#: ../examples/guestfs-testing.pod:249
 msgid "Display the filesystems / partitions / LVs in a guest."
 msgstr ""
 "仮想マシンにあるファイルシステム / パーティション / 論理ボリュームを表示しま"
 "す。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:170
+#: ../examples/guestfs-testing.pod:251
 msgid ""
 "L<virt-filesystems(1)> can be used to display filesystems in a guest.  Try "
 "this command on any disk image or guest:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:173
+#: ../examples/guestfs-testing.pod:254
 #, no-wrap
 msgid ""
 " virt-filesystems -a /path/to/disk.img --all --long -h\n"
@@ -10424,7 +10622,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:177
+#: ../examples/guestfs-testing.pod:258
 #, no-wrap
 msgid ""
 " virt-filesystems -d Guest --all --long -h\n"
@@ -10434,24 +10632,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:179
+#: ../examples/guestfs-testing.pod:260
 msgid "Do the results match what is seen in the guest?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:181
+#: ../examples/guestfs-testing.pod:262
 msgid "Run virt-inspector on all your guests."
 msgstr "すべての仮想マシンにおいて virt-inspector を実行します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:183
+#: ../examples/guestfs-testing.pod:264
 msgid ""
 "Use L<virt-inspector(1)> to get a report on all of your guests or disk "
 "images:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:186
+#: ../examples/guestfs-testing.pod:267
 #, no-wrap
 msgid ""
 " virt-inspector -a /path/to/disk.img | less\n"
@@ -10461,7 +10659,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:190
+#: ../examples/guestfs-testing.pod:271
 #, no-wrap
 msgid ""
 " virt-inspector -d Guest | less\n"
@@ -10471,17 +10669,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:192
+#: ../examples/guestfs-testing.pod:273
 msgid "Do the results match what is actually in the guest?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:194
+#: ../examples/guestfs-testing.pod:275
 msgid "Try the auditing features of virt-ls on all your guests."
 msgstr "すべての仮想マシンにおいて virt-ls の監査機能を試します。"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:198
+#: ../examples/guestfs-testing.pod:279
 #, no-wrap
 msgid ""
 " virt-ls -lR -d Guest / | grep '^- [42]'\n"
@@ -10491,7 +10689,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:202
+#: ../examples/guestfs-testing.pod:283
 #, no-wrap
 msgid ""
 " virt-ls -lR -d Guest / | grep '^d ...7'\n"
@@ -10501,7 +10699,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:206
+#: ../examples/guestfs-testing.pod:287
 #, no-wrap
 msgid ""
 " virt-ls -lR -d Guest / | grep '^s'\n"
@@ -10511,7 +10709,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:210
+#: ../examples/guestfs-testing.pod:291
 #, no-wrap
 msgid ""
 " virt-ls -lR -d Guest / | grep -i '^-.*\\.png$'\n"
@@ -10521,12 +10719,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:212
+#: ../examples/guestfs-testing.pod:293
 msgid "Display files larger than 10MB in home directories:"
 msgstr "ホームディレクトリーにある 10MB より大きなファイルを表示します:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:214
+#: ../examples/guestfs-testing.pod:295
 #, no-wrap
 msgid ""
 " virt-ls -lR -d Guest /home | awk '$3 > 10*1024*1024'\n"
@@ -10536,7 +10734,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:218
+#: ../examples/guestfs-testing.pod:299
 #, no-wrap
 msgid ""
 " virt-ls -lR -d Guest --time-days / | awk '$6 <= 7'\n"
@@ -10546,7 +10744,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:222
+#: ../examples/guestfs-testing.pod:303
 #, no-wrap
 msgid ""
 " virt-ls -lR -d Guest --time-days / | grep '^-' | awk '$6 < 1'\n"
@@ -10556,24 +10754,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:224
+#: ../examples/guestfs-testing.pod:305
 msgid "Do the results match what is in the guest?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:226
+#: ../examples/guestfs-testing.pod:307
 msgid "Create a disk image from a tarball."
 msgstr "tar ファイルからディスクイメージを作成します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:228
+#: ../examples/guestfs-testing.pod:309
 msgid ""
 "Use L<virt-make-fs(1)> to create a disk image from any tarball that you "
 "happen to have:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:231
+#: ../examples/guestfs-testing.pod:312
 #, no-wrap
 msgid ""
 " virt-make-fs --partition=mbr --type=vfat /any/tarball.tar.gz output.img\n"
@@ -10583,7 +10781,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:233
+#: ../examples/guestfs-testing.pod:314
 msgid ""
 "Add 'output.img' as a raw disk to an existing guest.  Check the guest can "
 "see the files.  This test is particularly useful if you try it with a "
@@ -10594,25 +10792,25 @@ msgstr ""
 "ストがとくに有用です。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:237
+#: ../examples/guestfs-testing.pod:318
 msgid "Try other partitioning schemes, eg. I<--partition=gpt>."
 msgstr "他のパーティションスキーマを試してください。例: I<--partition=gpt>"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:239
+#: ../examples/guestfs-testing.pod:320
 msgid "Try other filesystem formats, eg. I<--type=ntfs>, I<--type=ext2>."
 msgstr ""
 "他のファイルシステム形式を試してください。例: I<--type=ntfs>, I<--type=ext2>"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:241
+#: ../examples/guestfs-testing.pod:322
 msgid "B<*> Run virt-rescue on a B<shut off> disk image or guest."
 msgstr ""
 "B<*> B<停止状態>のディスクイメージまたは仮想マシンにおいて virt-rescue を実行"
 "します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:243
+#: ../examples/guestfs-testing.pod:324
 msgid ""
 "Use L<virt-rescue(1)> to examine, rescue or repair a B<shut off> guest or "
 "disk image:"
@@ -10621,7 +10819,7 @@ msgstr ""
 "は L<virt-rescue(1)> を使用します:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:246
+#: ../examples/guestfs-testing.pod:327
 #, no-wrap
 msgid ""
 " virt-rescue -a /path/to/disk.img\n"
@@ -10631,7 +10829,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:250
+#: ../examples/guestfs-testing.pod:331
 #, no-wrap
 msgid ""
 " virt-rescue -d Guest\n"
@@ -10641,17 +10839,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:252
+#: ../examples/guestfs-testing.pod:333
 msgid "Can you use ordinary shell commands to examine the guest?"
 msgstr "仮想マシンを検査するために通常のシェルコマンドを使用できますか？"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:254
+#: ../examples/guestfs-testing.pod:335
 msgid "B<*> Resize your guests."
 msgstr "B<*> 仮想マシンの容量を変更します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:256
+#: ../examples/guestfs-testing.pod:337
 msgid ""
 "Use L<virt-resize(1)> to give a guest some more disk space.  For example, if "
 "you have a disk image that is smaller than 30G, increase it to 30G by doing:"
@@ -10660,7 +10858,7 @@ msgstr ""
 "とえば、ディスクイメージが 30G より小さければ、次を実行して 30G に増やします:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:260
+#: ../examples/guestfs-testing.pod:341
 #, no-wrap
 msgid ""
 " truncate -s 30G newdisk.img\n"
@@ -10676,23 +10874,23 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:265
+#: ../examples/guestfs-testing.pod:346
 msgid "Does the guest still boot? Try expanding other partitions."
 msgstr "仮想マシンがまだ起動しますか？他のパーティションの拡張を試します。"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:267
+#: ../examples/guestfs-testing.pod:348
 msgid "B<*> Sparsify a guest disk."
 msgstr "B<*> 仮想マシンのディスクをスパースにします。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:269
+#: ../examples/guestfs-testing.pod:350
 msgid "Using L<virt-sparsify(1)>, make a disk image more sparse:"
 msgstr ""
 "L<virt-sparsify(1)> を使用して、ディスクイメージをよりスパースにします:"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:271
+#: ../examples/guestfs-testing.pod:352
 #, no-wrap
 msgid ""
 " virt-sparsify /path/to/olddisk.img newdisk.img\n"
@@ -10702,26 +10900,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:273
+#: ../examples/guestfs-testing.pod:354
 msgid ""
 "Is C<newdisk.img> still bootable after sparsifying? Is the resulting disk "
 "image smaller (use C<du> to check)?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:276
+#: ../examples/guestfs-testing.pod:357
 msgid "B<*> \"sysprep\" a B<shut off> Linux guest."
 msgstr "B<*> B<停止状態>の Linux 仮想マシンを \"sysprep\" します。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:278
+#: ../examples/guestfs-testing.pod:359
 msgid ""
-"Note that this really will mess up an existing guest, so it's better to "
+"B<Note> that this really will mess up an existing guest, so it's better to "
 "clone the guest before trying this."
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:281
+#: ../examples/guestfs-testing.pod:362
 #, no-wrap
 msgid ""
 " virt-sysprep --hostname newhost.example.com -a /path/to/disk.img\n"
@@ -10731,7 +10929,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:283
+#: ../examples/guestfs-testing.pod:364
 msgid ""
 "Was the sysprep successful? After booting, what changes were made and were "
 "they successful?"
@@ -10740,12 +10938,12 @@ msgstr ""
 "か？"
 
 #. type: =head2
-#: ../examples/guestfs-testing.pod:286
+#: ../examples/guestfs-testing.pod:367
 msgid "Dump the Windows Registry from your Windows guests."
 msgstr "Windows ゲストから Windows レジストリをダンプします。"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:288
+#: ../examples/guestfs-testing.pod:369
 msgid ""
 "Use L<virt-win-reg(1)> to dump out the Windows Registry from any Windows "
 "guests that you have."
@@ -10754,7 +10952,7 @@ msgstr ""
 "(1)> を使用します。"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:291
+#: ../examples/guestfs-testing.pod:372
 #, no-wrap
 msgid ""
 " virt-win-reg --unsafe-printable-strings WindowsGuest 'HKLM\\Software' |\n"
@@ -10766,7 +10964,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:294
+#: ../examples/guestfs-testing.pod:375
 #, no-wrap
 msgid ""
 " virt-win-reg --unsafe-printable-strings WindowsGuest 'HKLM\\System' |\n"
@@ -10778,19 +10976,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:297
+#: ../examples/guestfs-testing.pod:378
 msgid "Does the output match running C<regedit> inside the guest?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:299
+#: ../examples/guestfs-testing.pod:380
 msgid ""
 "A recent feature is the ability to dump user registries, so try this, "
 "replacing I<username> with the name of a local user in the guest:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-testing.pod:302
+#: ../examples/guestfs-testing.pod:383
 #, no-wrap
 msgid ""
 " virt-win-reg --unsafe-printable-strings WindowsGuest 'HKEY_USERS\\username' |\n"
@@ -10802,7 +11000,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-testing.pod:307
+#: ../examples/guestfs-testing.pod:388
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, L<http://libguestfs."
 "org/>."
@@ -73296,14 +73494,6 @@ msgid ""
 "directly launching qemu) by doing:"
 msgstr ""
 
-#. type: verbatim
-#: ../test-tool/libguestfs-test-tool.pod:125
-#, no-wrap
-msgid ""
-" export LIBGUESTFS_BACKEND=direct\n"
-"\n"
-msgstr ""
-
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:127
 msgid ""
@@ -75046,3 +75236,6 @@ msgstr ""
 #: ../tools/virt-win-reg.pl:781
 msgid "Copyright (C) 2010 Red Hat Inc."
 msgstr "Copyright (C) 2010 Red Hat Inc."
+
+#~ msgid "These tests require libguestfs E<ge> 1.14."
+#~ msgstr "これらのテストは libguestfs E<ge> 1.14 が必要です。"
