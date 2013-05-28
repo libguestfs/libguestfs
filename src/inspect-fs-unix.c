@@ -351,6 +351,8 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
     if (lines[1] == NULL)
       goto out;
     major = match1 (g, lines[1], re_sles_version);
+    if (major == NULL)
+      goto out;
     fs->major_version = guestfs___parse_unsigned_int (g, major);
     free (major);
     if (fs->major_version == -1)
@@ -360,6 +362,8 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
     if (lines[2] == NULL)
       goto out;
     minor = match1 (g, lines[2], re_sles_patchlevel);
+    if (minor == NULL)
+      goto out;
     fs->minor_version = guestfs___parse_unsigned_int (g, minor);
     free (minor);
     if (fs->minor_version == -1)
