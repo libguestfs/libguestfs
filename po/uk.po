@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-05-21 18:21+0100\n"
+"POT-Creation-Date: 2013-05-28 21:31+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -406,47 +406,47 @@ msgstr ""
 msgid "%s: xmlSaveUri: could not make printable URI\n"
 msgstr ""
 
-#: df/output.c:51
+#: df/output.c:49
 msgid "VirtualMachine"
 msgstr "Віртуальна машина"
 
-#: df/output.c:52
+#: df/output.c:50
 msgid "Filesystem"
 msgstr "Файлова система"
 
-#: df/output.c:55
+#: df/output.c:53
 msgid "1K-blocks"
 msgstr "1кБ-блоків"
 
-#: df/output.c:57
+#: df/output.c:55
 msgid "Size"
 msgstr "Розмір"
 
-#: df/output.c:58
+#: df/output.c:56
 msgid "Used"
 msgstr "Використано"
 
-#: df/output.c:59
+#: df/output.c:57
 msgid "Available"
 msgstr "Доступно"
 
-#: df/output.c:60
+#: df/output.c:58
 msgid "Use%"
 msgstr "% використання"
 
-#: df/output.c:62
+#: df/output.c:60
 msgid "Inodes"
 msgstr "Inode-и"
 
-#: df/output.c:63
+#: df/output.c:61
 msgid "IUsed"
 msgstr "IВикористано"
 
-#: df/output.c:64
+#: df/output.c:62
 msgid "IFree"
 msgstr "IВільно"
 
-#: df/output.c:65
+#: df/output.c:63
 msgid "IUse%"
 msgstr "% IВикористання"
 
@@ -3327,32 +3327,32 @@ msgstr ""
 "скористайтеся командою «%s назва_файла» для поділу вмісту файла під час "
 "перегляду на сторінки\n"
 
-#: fish/options.c:104
+#: fish/options.c:103
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
 msgstr ""
 
-#: fish/options.c:115
+#: fish/options.c:114
 #, c-format
 msgid "%s: --add %s: scheme of URI is NULL\n"
 msgstr ""
 
-#: fish/options.c:123
+#: fish/options.c:122
 #, c-format
 msgid "%s: --add %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 
-#: fish/options.c:289
+#: fish/options.c:292
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: у командному рядку вказано занадто багато пристроїв\n"
 
-#: fish/options.c:435
+#: fish/options.c:438
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: не вдалося змонтувати «%s».\n"
 
-#: fish/options.c:439
+#: fish/options.c:442
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -3362,7 +3362,7 @@ msgstr ""
 "параметрами «%s»\n"
 "%s: підтримуються файловою системою, яка монтується.\n"
 
-#: fish/options.c:443
+#: fish/options.c:446
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr "%s: ви хотіли змонтувати одну з цих файлових систем?\n"
@@ -4264,69 +4264,69 @@ msgstr ""
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr "для пристрою /dev/null слід вказувати формат raw"
 
-#: src/drives.c:750
+#: src/drives.c:749
 msgid "missing Unix domain socket path"
 msgstr "не вказано шляху до сокета домену Unix"
 
-#: src/drives.c:762
+#: src/drives.c:761
 #, c-format
 msgid "invalid port number '%s'"
 msgstr "некоректний номер порту, «%s»"
 
-#: src/drives.c:769
+#: src/drives.c:768
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr "некоректна назва вузла, «%s»"
 
-#: src/drives.c:780
+#: src/drives.c:779
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr "некоректний рядок назви вузла або сервера, «%s»"
 
-#: src/drives.c:858 src/drives.c:864
+#: src/drives.c:857 src/drives.c:863
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "параметр %s є порожнім або містить заборонені до використання символи"
 
-#: src/drives.c:870
+#: src/drives.c:869
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 "параметр мітки є порожнім, занадто довгим або містить заборонені символи"
 
-#: src/drives.c:877
+#: src/drives.c:876
 msgid "you cannot specify a server with file-backed disks"
 msgstr "не можна вказувати сервер з резервними копіями дисків у файлах"
 
-#: src/drives.c:882
+#: src/drives.c:881
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:887
+#: src/drives.c:886
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:987
+#: src/drives.c:986
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr "невідомий протокол «%s»"
 
-#: src/drives.c:1005 src/drives.c:1124
+#: src/drives.c:1004 src/drives.c:1123
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 "у поточному модулі не передбачено підтримки інтерактивного з’єднання дисків"
 
-#: src/drives.c:1011
+#: src/drives.c:1010
 msgid "'label' is required when hotplugging drives"
 msgstr "для інтерактивного з’єднання дисків слід вказати «label»"
 
-#: src/drives.c:1079
+#: src/drives.c:1078
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 "у назві файла не повинно бути символів «:» (двокрапок). Це обмеження, що "
 "накладається qemu."
 
-#: src/drives.c:1109
+#: src/drives.c:1108
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr "диска з міткою «%s» не знайдено"
@@ -4479,18 +4479,18 @@ msgstr ""
 "У цій збірці libguestfs не підтримується FUSE, оскільки під час збирання "
 "libguestfs не було виявлено libfuse"
 
-#: src/handle.c:128
+#: src/handle.c:127
 msgid ""
 "libguestfs was built with an invalid default backend, using 'direct' instead"
 msgstr ""
 "libguestfs було зібрано з некоректним типовим модулем, будемо "
 "використовувати замість нього модуль «direct»"
 
-#: src/handle.c:215
+#: src/handle.c:214
 msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
 msgstr "нечислове або надто мале значення LIBGUESTFS_MEMSIZE"
 
-#: src/handle.c:276
+#: src/handle.c:275
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
@@ -4535,13 +4535,13 @@ msgid "release file %s is empty or malformed"
 msgstr "файл випуску %s є порожнім або форматованим з помилками"
 
 #: src/inspect-fs-unix.c:250 src/inspect-fs-unix.c:332
-#: src/inspect-fs-unix.c:844 src/inspect-fs-unix.c:1500 src/inspect-fs.c:559
-#: src/inspect-fs.c:603 src/inspect.c:559
+#: src/inspect-fs-unix.c:848 src/inspect-fs-unix.c:1504 src/inspect-fs.c:559
+#: src/inspect-fs.c:605 src/inspect.c:559
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect-fs-unix.c:886
+#: src/inspect-fs-unix.c:890
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
@@ -4746,59 +4746,59 @@ msgstr "помилка guestfs_launch, мало бути початкове по
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:60
+#: src/launch.c:57
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:167
+#: src/launch.c:164
 msgid "get-pid can only be called after launch"
 msgstr "get-pid можна викликати лише після launch"
 
-#: src/launch.c:173
+#: src/launch.c:170
 msgid "the current backend does not support 'get-pid'"
 msgstr "у поточному модулі не передбачено підтримки «get-pid»"
 
-#: src/launch.c:186
+#: src/launch.c:183
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 "у поточному модулі не передбачено опитування щодо максимальної кількості "
 "дисків"
 
-#: src/launch.c:198
+#: src/launch.c:195
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:251
+#: src/launch.c:248
 msgid "parameter must begin with '-' character"
 msgstr "запис параметра має починатися з символу «-»"
 
-#: src/launch.c:265
+#: src/launch.c:262
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
 
-#: src/libvirt-auth.c:99
+#: src/libvirt-auth.c:98
 #, c-format
 msgid "unknown credential type '%s'"
 msgstr "невідомий тип реєстраційних даних, «%s»"
 
-#: src/libvirt-auth.c:104
+#: src/libvirt-auth.c:103
 msgid "list of supported credentials is too long"
 msgstr "список підтримуваних реєстраційних даних є надто довгим"
 
-#: src/libvirt-auth.c:211
+#: src/libvirt-auth.c:210
 #, c-format
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
 msgstr "%s слід викликати лише з обробника подій GUESTFS_EVENT_LIBVIRT_AUTH"
 
-#: src/libvirt-auth.c:245 src/libvirt-auth.c:265 src/libvirt-auth.c:285
-#: src/libvirt-auth.c:306
+#: src/libvirt-auth.c:244 src/libvirt-auth.c:264 src/libvirt-auth.c:284
+#: src/libvirt-auth.c:305
 msgid "credential index out of range"
 msgstr "індекс реєстраційних даних лежить поза допустимим діапазоном"
 
-#: src/libvirt-auth.c:326
+#: src/libvirt-auth.c:325
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
