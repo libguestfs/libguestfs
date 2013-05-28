@@ -361,7 +361,7 @@ guestfs___new_conn_socket_listening (guestfs_h *g,
                                      int daemon_accept_sock,
                                      int console_sock)
 {
-  struct connection_socket *conn = safe_malloc (g, sizeof *conn);
+  struct connection_socket *conn;
 
   assert (daemon_accept_sock >= 0);
 
@@ -376,6 +376,8 @@ guestfs___new_conn_socket_listening (guestfs_h *g,
       return NULL;
     }
   }
+
+  conn = safe_malloc (g, sizeof *conn);
 
   /* Set the operations. */
   conn->ops = &ops;
@@ -398,7 +400,7 @@ guestfs___new_conn_socket_connected (guestfs_h *g,
                                      int daemon_sock,
                                      int console_sock)
 {
-  struct connection_socket *conn = safe_malloc (g, sizeof *conn);
+  struct connection_socket *conn;
 
   assert (daemon_sock >= 0);
 
@@ -413,6 +415,8 @@ guestfs___new_conn_socket_connected (guestfs_h *g,
       return NULL;
     }
   }
+
+  conn = safe_malloc (g, sizeof *conn);
 
   /* Set the operations. */
   conn->ops = &ops;
