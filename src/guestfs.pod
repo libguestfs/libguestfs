@@ -1936,6 +1936,29 @@ the format is fetched from libvirt and passed through.
 For libguestfs tools, use the I<--format> command line parameter as
 appropriate.
 
+=head2 CVE-2011-4127
+
+L<https://bugzilla.redhat.com/752375>
+
+This is a bug in the kernel which allowed guests to overwrite
+parts of the host's drives which they should not normally
+have access to.
+
+It is sufficient to update libguestfs to any version E<ge> 1.16 which
+contains a change that mitigates the problem.
+
+=head2 CVE-2012-2690
+
+L<https://bugzilla.redhat.com/831117>
+
+Old versions of both virt-edit and the guestfish C<edit> command
+created a new file containing the changes but did not set the
+permissions, etc of the new file to match the old one.  The result of
+this was that if you edited a security sensitive file such as
+C</etc/shadow> then it would be left world-readable after the edit.
+
+It is sufficient to update libguestfs to any version E<ge> 1.16.
+
 =head2 CVE-2013-2124
 
 L<https://bugzilla.redhat.com/968306>
