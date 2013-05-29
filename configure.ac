@@ -1067,6 +1067,7 @@ AM_CONDITIONAL([HAVE_PERL],
 dnl Check for Python (optional, for Python bindings).
 PYTHON_PREFIX=
 PYTHON_VERSION=
+PYTHON_INCLUDEDIR=
 PYTHON_INSTALLDIR=
 
 AC_ARG_ENABLE([python],
@@ -1077,30 +1078,23 @@ AS_IF([test "x$enable_python" != "xno"],[
     AC_CHECK_PROG([PYTHON],[python],[python],[no])
 
     if test "x$PYTHON" != "xno"; then
+        AC_MSG_CHECKING([Python prefix])
+        PYTHON_PREFIX=`$PYTHON -c "import sys; print (sys.prefix)"`
+        AC_MSG_RESULT([$PYTHON_PREFIX])
+
 	AC_MSG_CHECKING([Python version])
         PYTHON_VERSION_MAJOR=`$PYTHON -c "import sys; print (sys.version_info@<:@0@:>@)"`
         PYTHON_VERSION_MINOR=`$PYTHON -c "import sys; print (sys.version_info@<:@1@:>@)"`
         PYTHON_VERSION="$PYTHON_VERSION_MAJOR.$PYTHON_VERSION_MINOR"
 	AC_MSG_RESULT([$PYTHON_VERSION])
-        # Debian: python-2.7.pc, python-3.2.pc
-        PKG_CHECK_MODULES([PYTHON], [python-"$PYTHON_VERSION"],[
-            AC_SUBST([PYTHON_CFLAGS])
-            AC_SUBST([PYTHON_LIBS])
-            AC_SUBST([PYTHON_VERSION])
-            AC_DEFINE([HAVE_PYTHON],[1],[Python library found at compile time])
-        ],[
-            PKG_CHECK_MODULES([PYTHON], [python],[
-                AC_SUBST([PYTHON_CFLAGS])
-                AC_SUBST([PYTHON_LIBS])
-                AC_SUBST([PYTHON_VERSION])
-                AC_DEFINE([HAVE_PYTHON],[1],[Python library found at compile time])
-            ],[
-                AC_MSG_WARN([python $PYTHON_VERSION not found])
-            ])
-        ])
-        AC_MSG_CHECKING([Python prefix])
-        PYTHON_PREFIX=`$PYTHON -c "import sys; print (sys.prefix)"`
-        AC_MSG_RESULT([$PYTHON_PREFIX])
+
+        AC_MSG_CHECKING([for Python include path])
+        if test -z "$PYTHON_INCLUDEDIR"; then
+            python_path=`$PYTHON -c "import distutils.sysconfig; \
+                                     print (distutils.sysconfig.get_python_inc ());"`
+            PYTHON_INCLUDEDIR=$python_path
+        fi
+        AC_MSG_RESULT([$PYTHON_INCLUDEDIR])
 
         AC_ARG_WITH([python-installdir],
                     [AS_HELP_STRING([--with-python-installdir],
@@ -1146,11 +1140,12 @@ AS_IF([test "x$enable_python" != "xno"],[
 
     AC_SUBST(PYTHON_PREFIX)
     AC_SUBST(PYTHON_VERSION)
+    AC_SUBST(PYTHON_INCLUDEDIR)
     AC_SUBST(PYTHON_INSTALLDIR)
     AC_SUBST(PYTHON_EXT_SUFFIX)
 ])
 AM_CONDITIONAL([HAVE_PYTHON],
-    [test "x$PYTHON" != "xno" && test "x$PYTHON_LIBS" != "x" ])
+    [test "x$PYTHON" != "xno" && test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_INSTALLDIR" != "x"])
 
 dnl Check for Ruby and rake (optional, for Ruby bindings).
 AC_ARG_ENABLE([ruby],
