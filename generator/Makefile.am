@@ -21,6 +21,9 @@ abs_builddir ?= $(shell pwd)
 # Old RHEL 5 autoconf doesn't have abs_srcdir.
 abs_srcdir ?= $(shell cd $(top_srcdir)/generator && pwd)
 
+# Old RHEL 5 autoconf doesn't have builddir.
+builddir ?= .
+
 # In alphabetical order.
 sources = \
 	actions.ml \
