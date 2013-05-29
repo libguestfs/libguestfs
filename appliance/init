@@ -83,6 +83,12 @@ if grep -sq selinux=1 /proc/cmdline; then
   mount -t selinuxfs none /sys/fs/selinux
 fi
 
+# Disk optimizations.
+# Increase the SCSI timeout so we can read remote images.
+for f in /sys/block/sd*/device/timeout; do echo 300 > $f; done
+# https://access.redhat.com/site/solutions/5427
+for f in /sys/block/[hsv]d*/queue/scheduler; do echo noop > $f; done
+
 # Update the system clock.
 hwclock -u -s
 
