@@ -108,11 +108,6 @@ lvm vgchange -ay --ignorelockingfailure
 # Scan for Windows dynamic disks.
 ldmtool create all
 
-# http://kbase.redhat.com/faq/docs/DOC-5428
-# Disabled this until https://bugzilla.redhat.com/show_bug.cgi?id=630583
-# is fixed (broken in Linux 2.6.36).
-#for f in /sys/block/[hsv]d*/queue/scheduler; do echo noop > $f; done
-
 # These are useful when debugging.
 if grep -sq guestfs_verbose=1 /proc/cmdline; then
     ls -lR /dev
