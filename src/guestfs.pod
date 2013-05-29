@@ -1936,6 +1936,17 @@ the format is fetched from libvirt and passed through.
 For libguestfs tools, use the I<--format> command line parameter as
 appropriate.
 
+=head2 CVE-2013-2124
+
+L<https://bugzilla.redhat.com/968306>
+
+This security bug was a flaw in inspection where an untrusted guest
+using a specially crafted file in the guest OS could cause a
+double-free in the C library (denial of service).
+
+It is sufficient to update libguestfs to a version that is not
+vulnerable: libguestfs E<ge> 1.20.7, E<ge> 1.22.1 or E<ge> 1.23.1.
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
