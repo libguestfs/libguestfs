@@ -28,6 +28,9 @@ use Pod::Simple::Text;
 use Pod::Simple::XHTML;
 use File::Basename;
 
+# https://www.redhat.com/archives/libguestfs/2013-May/thread.html#00088
+eval { $Text::Wrap::huge = "overflow" };
+
 =encoding utf8
 
 =head1 NAME
