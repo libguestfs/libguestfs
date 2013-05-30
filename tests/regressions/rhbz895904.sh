@@ -23,7 +23,7 @@
 set -e
 export LANG=C
 
-output=$(
+output=`
 ../../fish/guestfish -N fs -m /dev/sda1 <<EOF | sort -k 3
 mkdir /test
 touch /test/file1
@@ -31,7 +31,7 @@ mkdir /test/subdir
 write /test/subdir/file2 abc
 checksums-out crc /test -
 EOF
-)
+`
 
 if [ "$output" != "4294967295 0 ./file1
 1219131554 3 ./subdir/file2" ]; then
