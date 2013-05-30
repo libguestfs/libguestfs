@@ -2208,8 +2208,7 @@ RELEASE NOTES FOR HISTORICAL VERSIONS OF LIBGUESTFS
 
     2009-11-10 (1.0.78)
 
-      https://www.redhat.com/archives/libguestfs/2009-November/msg00095.htm
-      l
+      https://www.redhat.com/archives/libguestfs/2009-November/msg00095.html
 
     2009-09-13 (1.0.67)
 
@@ -2225,8 +2224,7 @@ RELEASE NOTES FOR HISTORICAL VERSIONS OF LIBGUESTFS
 
     2009-04-01 (the initial announcement)
 
-      http://rwmj.wordpress.com/2009/04/01/libguestfs-access-and-modify-vir
-      tual-machine-disk-images/
+      http://rwmj.wordpress.com/2009/04/01/libguestfs-access-and-modify-virtual-machine-disk-images/
 
 SEE ALSO
 
@@ -2261,12 +2259,10 @@ LICENSE
 BUGS
 
     To get a list of bugs against libguestfs, use this link:
-    https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Vi
-    rtualization+Tools
+    https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Virtualization+Tools
 
     To report a new bug against libguestfs, use this link:
-    https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=
-    Virtualization+Tools
+    https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools
 
     When reporting a bug, please supply:
 
