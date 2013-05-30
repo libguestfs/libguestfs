@@ -1629,6 +1629,7 @@ AC_CONFIG_FILES([Makefile
                  tests/guests/Makefile
                  tests/guests/guests.xml
                  tests/hotplug/Makefile
+                 tests/http/Makefile
                  tests/luks/Makefile
                  tests/lvm/Makefile
                  tests/md/Makefile
