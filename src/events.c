@@ -39,6 +39,8 @@ guestfs_set_event_callback (guestfs_h *g,
                             int flags,
                             void *opaque)
 {
+  int event_handle;
+
   if (flags != 0) {
     error (g, "flags parameter should be passed as 0 to this function");
     return -1;
@@ -54,7 +56,7 @@ guestfs_set_event_callback (guestfs_h *g,
     return -1;
   }
 
-  int event_handle = (int) g->nr_events;
+  event_handle = (int) g->nr_events;
   g->events =
     safe_realloc (g, g->events,
                   (g->nr_events+1) * sizeof (struct event));
@@ -78,6 +80,15 @@ guestfs_delete_event_callback (guestfs_h *g, int event_handle)
    * cannot match any event and therefore cannot be called.
    */
   g->events[event_handle].event_bitmask = 0;
+
+  /* If the program continually allocated and then deallocated event
+   * handlers, it would eventually run into the limit (of 1000) in the
+   * function above.  Avoid that here.  However this doesn't "fix" the
+   * problem that this structure is not well-suited to handling large
+   * numbers of event handlers.
+   */
+  if ((unsigned) event_handle == g->nr_events-1)
+    g->nr_events--;
 }
 
 /* Functions to generate an event with various payloads. */
