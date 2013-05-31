@@ -108,11 +108,15 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
       count++;
     }
 
-  /* Emulate the old-style handlers.  Callers can override
-   * print-on-stderr simply by registering a callback.
+  /* Emulate the old-style handlers. */
+
+  /* Callers can override print-on-stderr simply by registering a
+   * callback (so count > 0).
    */
-  if (count == 0 &&
-      (event == GUESTFS_EVENT_APPLIANCE ||
+  if (count > 0)
+    return;
+
+  if ((event == GUESTFS_EVENT_APPLIANCE ||
        event == GUESTFS_EVENT_LIBRARY ||
        event == GUESTFS_EVENT_TRACE) &&
       (g->verbose || event == GUESTFS_EVENT_TRACE)) {
