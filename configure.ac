@@ -1626,6 +1626,7 @@ AC_CONFIG_FILES([Makefile
                  tests/data/Makefile
                  tests/disks/Makefile
                  tests/disk-labels/Makefile
+                 tests/fuzz/Makefile
                  tests/guests/Makefile
                  tests/guests/guests.xml
                  tests/hotplug/Makefile
