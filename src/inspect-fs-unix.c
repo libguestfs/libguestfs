@@ -339,10 +339,11 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
   if (lines == NULL)
     return -1;
 
+  if (lines[0] != NULL)
+    goto out;
+
   /* First line is dist release name */
   fs->product_name = safe_strdup (g, lines[0]);
-  if (fs->product_name == NULL)
-    goto out;
 
   /* Match SLES first because openSuSE regex overlaps some SLES release strings */
   if (match (g, fs->product_name, re_sles) || match (g, fs->product_name, re_nld)) {
