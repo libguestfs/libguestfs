@@ -327,7 +327,7 @@ add_disk (guestfs_h *g,
     optargs.username = username;
   }
 
-  return guestfs__add_drive_opts (g, filename, &optargs);
+  return guestfs_add_drive_opts_argv (g, filename, &optargs);
 }
 
 /* Find the <seclabel/> element in the libvirt XML, and if it exists

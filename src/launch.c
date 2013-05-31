@@ -75,7 +75,7 @@ guestfs__launch (guestfs_h *g)
 
   /* Some common debugging information. */
   if (g->verbose) {
-    CLEANUP_FREE char *backend = guestfs__get_backend (g);
+    CLEANUP_FREE char *backend = guestfs_get_backend (g);
 
     debug (g, "launch: backend=%s", backend);
     debug (g, "launch: tmpdir=%s", g->tmpdir);
@@ -202,7 +202,7 @@ guestfs__wait_ready (guestfs_h *g)
 int
 guestfs__kill_subprocess (guestfs_h *g)
 {
-  return guestfs__shutdown (g);
+  return guestfs_shutdown (g);
 }
 
 /* Access current state. */

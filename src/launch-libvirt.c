@@ -567,7 +567,7 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
              "Or: if you want to have libguestfs run qemu directly, try:\n"
              "  export LIBGUESTFS_BACKEND=direct\n"
              "For further help, read the guestfs(3) man page and libguestfs FAQ."),
-           guestfs__get_backend (g));
+           guestfs_get_backend (g));
     return -1;
   }
 
