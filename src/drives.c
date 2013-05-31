@@ -1042,7 +1042,7 @@ guestfs__add_drive_ro (guestfs_h *g, const char *filename)
     .readonly = true,
   };
 
-  return guestfs__add_drive_opts (g, filename, &optargs);
+  return guestfs_add_drive_opts_argv (g, filename, &optargs);
 }
 
 int
@@ -1054,7 +1054,7 @@ guestfs__add_drive_with_if (guestfs_h *g, const char *filename,
     .iface = iface,
   };
 
-  return guestfs__add_drive_opts (g, filename, &optargs);
+  return guestfs_add_drive_opts_argv (g, filename, &optargs);
 }
 
 int
@@ -1068,7 +1068,7 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
     .readonly = true,
   };
 
-  return guestfs__add_drive_opts (g, filename, &optargs);
+  return guestfs_add_drive_opts_argv (g, filename, &optargs);
 }
 
 int
@@ -1085,7 +1085,7 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  return guestfs__config (g, "-cdrom", filename);
+  return guestfs_config (g, "-cdrom", filename);
 }
 
 /* Depending on whether we are hotplugging or not, this function

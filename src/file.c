@@ -146,7 +146,7 @@ guestfs__read_lines (guestfs_h *g, const char *file)
   char **ret = NULL;
 
   /* Read the whole file into memory. */
-  buf = guestfs__read_file (g, file, &size);
+  buf = guestfs_read_file (g, file, &size);
   if (buf == NULL)
     return NULL;
 

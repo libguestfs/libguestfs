@@ -636,7 +636,7 @@ guestfs__set_backend (guestfs_h *g, const char *method)
 int
 guestfs__set_attach_method (guestfs_h *g, const char *method)
 {
-  return guestfs__set_backend (g, method);
+  return guestfs_set_backend (g, method);
 }
 
 char *
@@ -676,7 +676,7 @@ guestfs__get_attach_method (guestfs_h *g)
     return safe_strdup (g, "appliance");
 
   default:
-    return guestfs__get_backend (g);
+    return guestfs_get_backend (g);
   }
 }
 
