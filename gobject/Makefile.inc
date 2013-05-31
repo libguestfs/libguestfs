@@ -84,7 +84,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-xfs_repair.h \
   include/guestfs-gobject/optargs-mke2fs.h \
   include/guestfs-gobject/optargs-mktemp.h \
-  include/guestfs-gobject/optargs-syslinux.h
+  include/guestfs-gobject/optargs-syslinux.h \
+  include/guestfs-gobject/optargs-remount.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -150,4 +151,5 @@ guestfs_gobject_sources= \
   src/optargs-xfs_repair.c \
   src/optargs-mke2fs.c \
   src/optargs-mktemp.c \
-  src/optargs-syslinux.c
+  src/optargs-syslinux.c \
+  src/optargs-remount.c

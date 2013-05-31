@@ -451,6 +451,41 @@ do_mount_loop (const char *file, const char *mountpoint)
   return 0;
 }
 
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_remount (const char *mountpoint, int rw)
+{
+  CLEANUP_FREE char *mp = NULL, *err = NULL;
+  const char *options;
+  int r;
+
+  /* In future we'll allow other flags / parameters to be adjusted.
+   * For now we just have to check rw was passed, but in future it
+   * will genuinely be an optional argument.
+   */
+  if (!(optargs_bitmask & GUESTFS_REMOUNT_RW_BITMASK)) {
+    reply_with_error ("parameter 'rw' must be specified");
+    return -1;
+  }
+  options = rw ? "remount,rw" : "remount,ro";
+
+  mp = sysroot_path (mountpoint);
+  if (!mp) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  /* XXX Do we need to check the mountpoint exists? */
+
+  r = command (NULL, &err, str_mount, "-o", options, mp, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s: %s", mountpoint, options, err);
+    return -1;
+  }
+
+  return 0;
+}
+
 /* Specialized calls mkmountpoint and rmmountpoint are really
  * variations on mkdir and rmdir which do no checking of the
  * is_root_mounted() flag.

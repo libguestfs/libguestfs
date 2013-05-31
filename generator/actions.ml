@@ -11185,6 +11185,28 @@ is useful when you don't want to preserve permissions, because
 the target filesystem does not support it (primarily when
 writing to DOS FAT filesystems)." };
 
+  { defaults with
+    name = "remount";
+    style = RErr, [Pathname "mountpoint"], [OBool "rw"];
+    proc_nr = Some 402;
+    tests = [
+      InitScratchFS, Always, TestLastFail (
+        [["remount"; "/"; "false"];
+         ["write"; "/remount1"; "data"]]);
+      InitScratchFS, Always, TestRun (
+        [["remount"; "/"; "false"];
+         ["remount"; "/"; "true"];
+         ["write"; "/remount2"; "data"]])
+    ];
+    shortdesc = "remount a filesystem with different options";
+    longdesc = "\
+This call allows you to change the C<rw> (readonly/read-write)
+flag on an already mounted filesystem at C<mountpoint>,
+converting a readonly filesystem to be read-write, or vice-versa.
+
+Note that at the moment you must supply the \"optional\" C<rw>
+parameter.  In future we may allow other flags to be adjusted." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

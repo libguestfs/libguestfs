@@ -176,6 +176,7 @@ gobject/src/optargs-mount_local.c
 gobject/src/optargs-ntfsclone_out.c
 gobject/src/optargs-ntfsfix.c
 gobject/src/optargs-ntfsresize.c
+gobject/src/optargs-remount.c
 gobject/src/optargs-rsync.c
 gobject/src/optargs-rsync_in.c
 gobject/src/optargs-rsync_out.c
