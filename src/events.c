@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <inttypes.h>
 #include <unistd.h>
 #include <assert.h>
@@ -120,7 +121,7 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
        event == GUESTFS_EVENT_LIBRARY ||
        event == GUESTFS_EVENT_TRACE) &&
       (g->verbose || event == GUESTFS_EVENT_TRACE)) {
-    int from_appliance = event == GUESTFS_EVENT_APPLIANCE;
+    bool from_appliance = event == GUESTFS_EVENT_APPLIANCE;
     size_t i, i0;
 
     /* APPLIANCE =>  <buf>
