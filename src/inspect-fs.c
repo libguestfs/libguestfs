@@ -258,14 +258,14 @@ check_filesystem (guestfs_h *g, const char *mountable,
   else if (is_dir_etc &&
            is_dir_bin &&
            is_dir_share &&
-           guestfs_exists (g, "/local") == 0 &&
+           guestfs_is_dir (g, "/local") == 0 &&
            guestfs_is_file (g, "/etc/fstab") == 0)
     ;
   /* Linux /usr? */
   else if (is_dir_etc &&
            is_dir_bin &&
            is_dir_share &&
-           guestfs_exists (g, "/local") > 0 &&
+           guestfs_is_dir (g, "/local") > 0 &&
            guestfs_is_file (g, "/etc/fstab") == 0)
     ;
   /* Linux /var? */
