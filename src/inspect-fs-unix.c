@@ -339,7 +339,7 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
   if (lines == NULL)
     return -1;
 
-  if (lines[0] != NULL)
+  if (lines[0] == NULL)
     goto out;
 
   /* First line is dist release name */
