@@ -20,7 +20,10 @@ include $(top_srcdir)/common-rules.mk
 ACLOCAL_AMFLAGS = -I m4
 
 # Gnulib - must be built and tested before the library.
-SUBDIRS = gnulib/lib gnulib/tests
+SUBDIRS = gnulib/lib
+if ENABLE_GNULIB_TESTS
+SUBDIRS += gnulib/tests
+endif
 
 # Basic source for the library.
 SUBDIRS += tests/data generator src examples po
