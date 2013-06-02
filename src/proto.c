@@ -376,7 +376,14 @@ guestfs___send_file (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  return send_file_complete (g);
+  err = send_file_complete (g);
+  if (err < 0) {
+    if (err == -2)              /* daemon sent cancellation */
+      send_file_cancellation (g);
+    return err;
+  }
+
+  return 0;
 }
 
 /* Send a chunk of file data. */
