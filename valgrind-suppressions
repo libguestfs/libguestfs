@@ -277,3 +277,47 @@
    ...
    fun:file_apprentice
 }
+
+# Perl
+# note: Perl leaks memory by design, this just suppresses them.
+{
+   perl_leak_1
+   Memcheck:Leak
+   ...
+   fun:Perl_safesysmalloc
+}
+
+{
+   perl_leak_2
+   Memcheck:Leak
+   ...
+   fun:Perl_safesysrealloc
+}
+
+{
+   perl_leak_3
+   Memcheck:Leak
+   ...
+   fun:Perl_safesyscalloc
+}
+
+{
+   perl_leak_4
+   Memcheck:Leak
+   ...
+   fun:Perl_yyparse
+}
+
+{
+   perl_leak_5
+   Memcheck:Leak
+   ...
+   fun:Perl_re_compile
+}
+
+{
+   perl_leak_6
+   Memcheck:Leak
+   fun:malloc
+   fun:Perl_refcounted_he_new_pvn
+}
