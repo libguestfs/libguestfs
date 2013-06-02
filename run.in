@@ -96,6 +96,13 @@ else
 fi
 export PERL5LIB
 
+# Enable Perl valgrinding.
+# XXX Unclear if this actually makes any difference.  It seems you
+# have to recompile the Perl interpreter with debugging enabled.
+export PERL_DEBUG=1
+export PERL_VALGRIND=1
+export PERL_DESTRUCT_LEVEL=2
+
 # For Python.
 export PYTHON=@PYTHON@
 if [ -z "$PYTHONPATH" ]; then
