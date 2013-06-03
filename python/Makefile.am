@@ -56,7 +56,7 @@ libguestfsmod_la_LIBADD = \
 	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
-libguestfsmod_la_LDFLAGS = -avoid-version -shared
+libguestfsmod_la_LDFLAGS = -avoid-version -shared -module -shrext $(PYTHON_EXT_SUFFIX)
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
