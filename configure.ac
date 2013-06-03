@@ -1163,6 +1163,14 @@ AS_IF([test "x$enable_python" != "xno"],[
             AC_MSG_RESULT([$PYTHON_INSTALLDIR])
         fi
 
+        AC_MSG_CHECKING([for Python extension suffix (PEP-3149)])
+        if test -z "$PYTHON_EXT_SUFFIX"; then
+            python_ext_suffix=`$PYTHON -c "import sysconfig; \
+                                         print (sysconfig.get_config_var('EXT_SUFFIX') or sysconfig.get_config_var('SO'))"`
+            PYTHON_EXT_SUFFIX=$python_ext_suffix
+        fi
+        AC_MSG_RESULT([$PYTHON_EXT_SUFFIX])
+
         dnl Look for some optional symbols in libpython.
         old_LIBS="$LIBS"
 
@@ -1183,6 +1191,7 @@ AS_IF([test "x$enable_python" != "xno"],[
     AC_SUBST(PYTHON_PREFIX)
     AC_SUBST(PYTHON_VERSION)
     AC_SUBST(PYTHON_INSTALLDIR)
+    AC_SUBST(PYTHON_EXT_SUFFIX)
 ])
 AM_CONDITIONAL([HAVE_PYTHON],
     [test "x$PYTHON" != "xno" && test "x$PYTHON_LIBS" != "x" ])
