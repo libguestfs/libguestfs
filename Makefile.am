@@ -257,21 +257,10 @@ dist-hook:
 # to DIST_SUBDIRS.
 all-local:
 	cd $(srcdir); \
-	find $(DIST_SUBDIRS) \
-	    -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
-	grep -v '^perl/blib/' | \
-	grep -v '^tests/' | \
-	grep -v '^daemon/lib/' | \
-	grep -v '^daemon/tests/' | \
-	grep -v '^examples/' | \
-	grep -v '^gnulib/' | \
-	grep -v '^perl/examples/' | \
-	grep -v '/guestfs_protocol.c' | \
-	grep -v '/rc_protocol.c' | \
-	grep -v '^po-docs/' | \
-	grep -v '^images/' | \
-	LC_ALL=C sort | \
-	sed 's,^\./,,' > po/POTFILES
+	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
+	grep -v -E '^(examples|gnulib|perl/(blib|examples)|po-docs|tests)/' | \
+	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
+	LC_ALL=C sort > po/POTFILES
 	cd $(srcdir); \
 	find resize sparsify sysprep -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
