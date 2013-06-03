@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-05-28 21:31+0100\n"
+"POT-Creation-Date: 2013-06-03 15:06+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -4056,13 +4056,13 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:250 src/inspect-fs-unix.c:332
-#: src/inspect-fs-unix.c:848 src/inspect-fs-unix.c:1504 src/inspect-fs.c:559
+#: src/inspect-fs-unix.c:849 src/inspect-fs-unix.c:1505 src/inspect-fs.c:559
 #: src/inspect-fs.c:605 src/inspect.c:559
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs-unix.c:890
+#: src/inspect-fs-unix.c:891
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
@@ -4417,47 +4417,47 @@ msgstr "xdr_guestfs_message_header ವಿಫಲಗೊಂಡಿದೆ"
 msgid "dispatch failed to marshal args"
 msgstr "ವಿಫಲಗೊಂಡವುಗಳನ್ನು ಮಾರ್ಶಲ್ ಆರ್ಗ್ಯುಮೆಂಟ್‌ಗಳಿಗೆ ರವಾನಿಸು"
 
-#: src/proto.c:363 src/proto.c:848
+#: src/proto.c:363 src/proto.c:855
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:426
+#: src/proto.c:433
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk ವಿಫಲಗೊಂಡಿದೆ (buf = %p, buflen = %zu)"
 
-#: src/proto.c:523
+#: src/proto.c:530
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ಇಂದ ಮ್ಯಾಜಿಕ್ ಸಹಿಯನ್ನು ಪಡೆಯಲಾಗಿದೆ, ಆದರೆ %d ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/proto.c:542
+#: src/proto.c:549
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "ಸಂದೇಶದ ಉದ್ದ (%u) > ಸಾಧ್ಯವಿರುವ ಗರಿಷ್ಟ ಉದ್ದ (%d)"
 
-#: src/proto.c:777
+#: src/proto.c:784
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ತುಂಡರಿಸಲಾದ ಎನ್ಕೋಡಿಂಗ್‌ನಲ್ಲಿ ದೋಷ"
 
-#: src/proto.c:805
+#: src/proto.c:812
 msgid "write to daemon socket"
 msgstr "ಡೀಮನ್ ಸಾಕೆಟ್‌ಗೆ ಬರೆಯುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
 
-#: src/proto.c:828
+#: src/proto.c:835
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: ಪ್ರತ್ಯುತ್ತರ ಕಾಲ್‌ಬ್ಯಾಕ್‌ನಲ್ಲಿ ಪಾರ್ಸ್ ದೋಷ"
 
-#: src/proto.c:833
+#: src/proto.c:840
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ಕಡತದ ತುಣುಕಗಳು ಓದುವಾಗ ಅನಿರೀಕ್ಷಿತ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆಯಲಾಗಿದೆ"
 
-#: src/proto.c:841
+#: src/proto.c:848
 msgid "failed to parse file chunk"
 msgstr "ಕಡತದ ತುಣುಕನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: src/proto.c:852
+#: src/proto.c:859
 msgid "file receive cancelled by daemon"
 msgstr "ಕಡತವನ್ನು ಸ್ವೀಕರಿಸುವುದನ್ನು ಡೆಮನ್ ರದ್ದುಗೊಳಿಸಿದೆ"
 

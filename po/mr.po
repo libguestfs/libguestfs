@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-05-28 21:31+0100\n"
+"POT-Creation-Date: 2013-06-03 15:06+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -4139,13 +4139,13 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:250 src/inspect-fs-unix.c:332
-#: src/inspect-fs-unix.c:848 src/inspect-fs-unix.c:1504 src/inspect-fs.c:559
+#: src/inspect-fs-unix.c:849 src/inspect-fs-unix.c:1505 src/inspect-fs.c:559
 #: src/inspect-fs.c:605 src/inspect.c:559
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
 
-#: src/inspect-fs-unix.c:890
+#: src/inspect-fs-unix.c:891
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
@@ -4509,47 +4509,47 @@ msgstr "xdr_guestfs_message_header अपयशी"
 msgid "dispatch failed to marshal args"
 msgstr "marshal args करीता डिस्पॅच अपयशी"
 
-#: src/proto.c:363 src/proto.c:848
+#: src/proto.c:363 src/proto.c:855
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:426
+#: src/proto.c:433
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk अपयशी (buf = %p, buflen = %zu)"
 
-#: src/proto.c:523
+#: src/proto.c:530
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd पासून मॅजीक स्वाक्षरी प्राप्त, परंतु स्तर %d असे आढळले"
 
-#: src/proto.c:542
+#: src/proto.c:549
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "संदेश लांबी (%u) > कमाल शक्य आकार (%d)"
 
-#: src/proto.c:777
+#: src/proto.c:784
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: चंक्ड् एनकोडिंग मध्ये त्रुटी आढळली"
 
-#: src/proto.c:805
+#: src/proto.c:812
 msgid "write to daemon socket"
 msgstr "डिमक सॉकट मध्ये लिहा"
 
-#: src/proto.c:828
+#: src/proto.c:835
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: कॉलबॅक प्रतिसाद वाचतेवेळी त्रुटी"
 
-#: src/proto.c:833
+#: src/proto.c:840
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: फाइल खंड वाचतेवेळी अनपेक्षीत फ्लॅग प्राप्त झाले"
 
-#: src/proto.c:841
+#: src/proto.c:848
 msgid "failed to parse file chunk"
 msgstr "फाइल खंड वाचण्यास अपयशी"
 
-#: src/proto.c:852
+#: src/proto.c:859
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
