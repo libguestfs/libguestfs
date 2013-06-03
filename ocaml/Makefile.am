@@ -82,8 +82,9 @@ if HAVE_OCAMLDOC
 
 noinst_DATA += html/index.html
 
-html/index.html: $(srcdir)/guestfs*.mli $(srcdir)/guestfs*.ml
+html/index.html: $(srcdir)/guestfs.mli $(srcdir)/guestfs.ml
 	-$(OCAMLDOC) -d html -html $^
+
 endif
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
