@@ -17,7 +17,6 @@
 
 -include $(top_builddir)/localenv
 
-include $(top_srcdir)/subdir-rules.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -131,7 +130,6 @@ SUBDIRS += po-docs
 endif
 
 EXTRA_DIST = \
-	$(generator_built) \
 	BUGS HACKING ROADMAP TODO \
 	.gitignore \
 	.lvimrc \
