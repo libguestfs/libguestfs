@@ -1,5 +1,5 @@
-# libguestfs Ruby examples
-# Copyright (C) 2010 Red Hat Inc.
+# libguestfs
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,28 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-include $(top_srcdir)/subdir-rules.mk
+# 'common-rules.mk' should be included in every Makefile.am.
+# cf. 'subdir-rules.mk'
 
-EXTRA_DIST = \
-	LICENSE \
-	create_disk.rb \
-	inspect_vm.rb \
-	guestfs-ruby.pod
+-include $(top_builddir)/localenv
 
-CLEANFILES = stamp-guestfs-ruby.pod
-
-man_MANS = guestfs-ruby.3
-noinst_DATA = $(top_builddir)/html/guestfs-ruby.3.html
-
-guestfs-ruby.3 $(top_builddir)/html/guestfs-ruby.3.html: stamp-guestfs-ruby.pod
-
-stamp-guestfs-ruby.pod: guestfs-ruby.pod create_disk.rb inspect_vm.rb
-	$(PODWRAPPER) \
-	  --section 3 \
-	  --man guestfs-ruby.3 \
-	  --html $(top_builddir)/html/guestfs-ruby.3.html \
-	  --verbatim $(srcdir)/create_disk.rb:@EXAMPLE1@ \
-	  --verbatim $(srcdir)/inspect_vm.rb:@EXAMPLE2@ \
-	  --license examples \
-	  $<
-	touch $@
+# Old RHEL 5 autoconf defines these, but RHEL 5 automake doesn't
+# create variables for them.  So define them here if they're not
+# defined already.
+builddir     ?= @builddir@
+abs_builddir ?= @abs_builddir@
+srcdir       ?= @srcdir@
+abs_srcdir   ?= @abs_srcdir@

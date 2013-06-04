@@ -15,6 +15,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# subdir-rules.mk should be included in every *subdirectory* Makefile.am.
+
+include $(top_srcdir)/common-rules.mk
+
 # Individual Makefile.am's should define generator_built if that
 # subdirectory contains any files which are built by the generator.
 # Set generator_built to the list of those files.

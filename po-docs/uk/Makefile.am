@@ -19,6 +19,8 @@
 # identical.  If you create a new $lang.po, create the $lang/
 # subdirectory and copy the Makefile.am from an existing language.
 
+include $(top_srcdir)/subdir-rules.mk
+
 LINGUA = $(shell basename -- `pwd`)
 
 CLEANFILES = *.1 *.3 stamp-update-po

@@ -15,6 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+include $(top_srcdir)/subdir-rules.mk
+
 # XXX The use of po4a is naive here.  Also we should integrate this
 # into the po/ directory and the translations into the usual
 # libguestfs.pot file.
