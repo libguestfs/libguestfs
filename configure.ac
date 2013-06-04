@@ -471,7 +471,7 @@ dnl
 SUPERMIN_EXTRA_OPTIONS=no
 AC_MSG_CHECKING([for --with-supermin-extra-options option])
 AC_ARG_WITH([supermin-extra-options],
-    [AS_HELP_STRING([--with-supermin-extra-options=STRING],
+    [AS_HELP_STRING([--with-supermin-extra-options="--opt1 --opt2 ..."],
         [Pass additional supermin options. @<:@default=no@:>@])],
     [SUPERMIN_EXTRA_OPTIONS="$withval"
      AC_MSG_RESULT([$SUPERMIN_EXTRA_OPTIONS"])],
@@ -657,8 +657,8 @@ dnl back to basic 'qemu'.  Allow the user to override it.
 qemu_system="`echo qemu-system-$host_cpu | $SED 's/i@<:@456@:>@86/i386/g'`"
 default_qemu="qemu-kvm kvm $qemu_system qemu"
 AC_ARG_WITH([qemu],
-    [AS_HELP_STRING([--with-qemu],
-        [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
+    [AS_HELP_STRING([--with-qemu="bin1 bin2 ..."],
+        [set default QEMU binary @<:@default="[qemu-kvm] qemu-system-<host> qemu"@:>@])],
         [],
         [with_qemu="$default_qemu"])
 AC_PATH_PROGS([QEMU],[$with_qemu],[no],
