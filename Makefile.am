@@ -18,6 +18,7 @@
 -include $(top_builddir)/localenv
 
 include $(top_srcdir)/subdir-rules.mk
+include $(top_srcdir)/common-rules.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
