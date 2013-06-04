@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,14 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-include $(top_srcdir)/common-rules.mk
+# 'common-rules.mk' should be included in every Makefile.am.
+# cf. 'subdir-rules.mk'
 
-# Define a force dependency which will always be rebuilt
-.PHONY: force
+-include $(top_builddir)/localenv
 
-# Automatically build targets defined in generator_built
-# generator_built is defined in individual Makefiles
-$(generator_built): $(top_builddir)/generator/stamp-generator
-$(top_builddir)/generator/stamp-generator: force
-	! test -f $(top_builddir)/generator/Makefile || \
-	  $(MAKE) -C $(top_builddir)/generator stamp-generator
+# Old RHEL 5 autoconf defines these, but RHEL 5 automake doesn't
+# create variables for them.  So define them here if they're not
+# defined already.
+builddir     ?= @builddir@
+abs_builddir ?= @abs_builddir@
+srcdir       ?= @srcdir@
+abs_srcdir   ?= @abs_srcdir@

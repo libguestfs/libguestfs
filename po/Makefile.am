@@ -17,9 +17,6 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-# Old RHEL 5 autoconf doesn't have abs_srcdir.
-abs_srcdir ?= $(shell cd $(top_srcdir)/po && pwd)
-
 DOMAIN = $(PACKAGE_NAME)
 COPYRIGHT_HOLDER = Red Hat Inc.
 MSGID_BUGS_ADDRESS = https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools
