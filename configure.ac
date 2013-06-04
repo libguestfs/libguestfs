@@ -519,6 +519,9 @@ fi
 if test -f /etc/arch-release; then
     DISTRO=ARCHLINUX
 fi
+if test -f /etc/SuSE-release; then
+    DISTRO=SUSE
+fi
 AC_MSG_RESULT([$DISTRO])
 AC_SUBST([DISTRO])
 
