@@ -108,7 +108,8 @@ static char *map_registry_disk_blob (guestfs_h *g, const void *blob);
  * *not* be Windows root disks.  (RHBZ#674130)
  */
 
-static int is_systemroot (guestfs_h *const g, const char *const systemroot)
+static int
+is_systemroot (guestfs_h *const g, const char *systemroot)
 {
   char path[256];
 
