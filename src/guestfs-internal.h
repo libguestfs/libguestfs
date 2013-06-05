@@ -668,8 +668,8 @@ extern int guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
 
 /* inspect-fs-windows.c */
 extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);
-extern int guestfs___has_windows_systemroot (guestfs_h *g);
-extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs);
+extern char * guestfs___get_windows_systemroot (guestfs_h *g);
+extern int guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs, char *windows_systemroot);
 
 /* inspect-fs-cd.c */
 extern int guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs);
