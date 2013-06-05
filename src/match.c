@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2010-2012 Red Hat Inc.
+ * Copyright (C) 2010-2013 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -100,6 +100,36 @@ guestfs___match3 (guestfs_h *g, const char *str, const pcre *re,
   if (r > 1) *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
   if (r > 2) *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
   if (r > 3) *ret3 = safe_strndup (g, &str[vec[6]], vec[7]-vec[6]);
+
+  return 1;
+}
+
+/* Match a regular expression which contains exactly six captures. */
+int
+guestfs___match6 (guestfs_h *g, const char *str, const pcre *re,
+                  char **ret1, char **ret2, char **ret3, char **ret4,
+                  char **ret5, char **ret6)
+{
+  size_t len = strlen (str);
+  int vec[30], r;
+
+  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
+  if (r == PCRE_ERROR_NOMATCH)
+    return 0;
+
+  *ret1 = NULL;
+  *ret2 = NULL;
+  *ret3 = NULL;
+  *ret4 = NULL;
+  *ret5 = NULL;
+  *ret6 = NULL;
+
+  if (r > 1) *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+  if (r > 2) *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
+  if (r > 3) *ret3 = safe_strndup (g, &str[vec[6]], vec[7]-vec[6]);
+  if (r > 4) *ret4 = safe_strndup (g, &str[vec[8]], vec[9]-vec[8]);
+  if (r > 5) *ret5 = safe_strndup (g, &str[vec[10]], vec[11]-vec[10]);
+  if (r > 6) *ret6 = safe_strndup (g, &str[vec[12]], vec[13]-vec[12]);
 
   return 1;
 }
