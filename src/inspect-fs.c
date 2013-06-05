@@ -168,6 +168,9 @@ static int
 check_filesystem (guestfs_h *g, const char *device,
                   int is_block, int is_partnum)
 {
+  /* Not CLEANUP_FREE, as it will be cleaned up with inspection info */
+  char *windows_systemroot = NULL;
+
   if (extend_fses (g) == -1)
     return -1;
 
@@ -258,10 +261,11 @@ check_filesystem (guestfs_h *g, const char *device,
            guestfs_is_dir (g, "/spool") > 0)
     ;
   /* Windows root? */
-  else if (guestfs___has_windows_systemroot (g) >= 0) {
+  else if ((windows_systemroot = guestfs___get_windows_systemroot (g)) != NULL)
+  {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
-    if (guestfs___check_windows_root (g, fs) == -1)
+    if (guestfs___check_windows_root (g, fs, windows_systemroot) == -1)
       return -1;
   }
   /* Windows volume with installed applications (but not root)? */
