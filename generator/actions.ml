@@ -11211,8 +11211,8 @@ let is_documented { visibility = v } = match v with
   | VBindTest | VDebug | VInternal -> false
 
 let is_fish { visibility = v } = match v with
-  | VPublic | VDebug -> true
-  | VStateTest | VBindTest | VInternal -> false
+  | VPublic | VDebug | VStateTest -> true
+  | VBindTest | VInternal -> false
 
 let external_functions =
   List.filter is_external all_functions
