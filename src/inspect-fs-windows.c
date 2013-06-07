@@ -154,7 +154,7 @@ guestfs___get_windows_systemroot (guestfs_h *g)
    * systemroot locations */
   CLEANUP_FREE char *boot_ini_path =
     guestfs___case_sensitive_path_silently (g, "/boot.ini");
-  if (boot_ini_path) {
+  if (boot_ini_path && guestfs_is_file (g, boot_ini_path) > 0) {
     CLEANUP_FREE_STRING_LIST char **boot_ini =
       guestfs_read_lines (g, boot_ini_path);
     if (!boot_ini) {
