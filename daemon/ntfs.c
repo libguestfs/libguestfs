@@ -69,13 +69,9 @@ int
 do_ntfsresize (const char *device, int64_t size, int force)
 {
   CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *cmd = NULL;
   int r;
-  const char *argv[MAX_ARGS];
-  size_t i = 0;
-  char size_str[32];
-
-  ADD_ARG (argv, i, str_ntfsresize);
-  ADD_ARG (argv, i, "-P");
+  char size_str[64];
 
   if (optargs_bitmask & GUESTFS_NTFSRESIZE_SIZE_BITMASK) {
     if (size <= 0) {
@@ -83,20 +79,28 @@ do_ntfsresize (const char *device, int64_t size, int force)
       return -1;
     }
 
-    snprintf (size_str, sizeof size_str, "%" PRIi64, size);
-    ADD_ARG (argv, i, "--size");
-    ADD_ARG (argv, i, size_str);
+    snprintf (size_str, sizeof size_str, " --size %" PRIi64, size);
+  }
+  else
+    size_str[0] = '\0';
+
+  if (!(optargs_bitmask & GUESTFS_NTFSRESIZE_FORCE_BITMASK))
+    force = 0;
+
+  if (asprintf_nowarn (&cmd, "yes | %s -P%s%s %Q",
+		       str_ntfsresize,
+		       size_str,
+		       force ? " --force" : "",
+		       device) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
   }
 
-  if (optargs_bitmask & GUESTFS_NTFSRESIZE_FORCE_BITMASK && force)
-    ADD_ARG (argv, i, "--force");
+  printf ("%s\n", cmd);
 
-  ADD_ARG (argv, i, device);
-  ADD_ARG (argv, i, NULL);
-
-  r = commandv (NULL, &err, argv);
-  if (r == -1) {
-    reply_with_error ("%s: %s", device, err);
+  r = system (cmd);
+  if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    reply_with_error ("command failed: %s (enable debug to see the full error message)", cmd);
     return -1;
   }
 
