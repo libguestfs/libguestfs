@@ -26,5 +26,17 @@ include $(top_srcdir)/common-rules.mk
 $(generator_built): $(top_builddir)/generator/stamp-generator
 
 $(top_builddir)/generator/stamp-generator: $(top_builddir)/generator/generator
-	! test -f $(top_builddir)/generator/Makefile || \
-	  $(MAKE) -C $(top_builddir)/generator stamp-generator
+	@if test -f $(top_builddir)/generator/Makefile; then \
+	  $(MAKE) -C $(top_builddir)/generator stamp-generator; \
+	else \
+	  echo "warning: Run 'make' at the top level to build $(generator_built)"; \
+	fi
+
+# If this file doesn't exist, just print a warning and continue.
+# During 'make distclean' we can end up deleting this file.
+$(top_builddir)/generator/generator:
+	@if test -f $(top_builddir)/generator/Makefile; then \
+	  $(MAKE) -C $(top_builddir)/generator generator; \
+	else \
+	  echo "warning: Run 'make' at the top level to build $@"; \
+	fi
