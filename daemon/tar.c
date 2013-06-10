@@ -405,5 +405,5 @@ int
 do_txz_out (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_OUT_COMPRESS_BITMASK;
-  return do_tar_out (dir, "bzip2", 0, NULL);
+  return do_tar_out (dir, "xz", 0, NULL);
 }
