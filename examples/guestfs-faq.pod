@@ -406,9 +406,9 @@ If you are using mock, do:
 
 =head2 How can I add support for sVirt?
 
-Note for Fedora/RHEL users: This configuration is the default starting
-with S<Fedora 18> and S<RHEL 7>.  If you find any problems, please let
-us know or file a bug.
+B<Note for Fedora/RHEL users:> This configuration is the default
+starting with S<Fedora 18> and S<RHEL 7>.  If you find any problems,
+please let us know or file a bug.
 
 L<SVirt|http://selinuxproject.org/page/SVirt> provides a hardened
 appliance using SELinux, making it very hard for a rogue disk image to
@@ -470,7 +470,7 @@ Debian in the approx(8) manual page.
 
 =head1 SPEED, DISK SPACE USED BY LIBGUESTFS
 
-Note: Most of the information in this section has moved:
+B<Note:> Most of the information in this section has moved:
 L<guestfs-performance(1)>.
 
 =head2 Upload or write seem very slow.
