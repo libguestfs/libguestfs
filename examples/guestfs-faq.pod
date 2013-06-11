@@ -955,6 +955,20 @@ If you want to suggest a useful feature but don't want to write the
 code, you can file a bug (see L</GETTING HELP AND REPORTING BUGS>)
 with C<"RFE: "> at the beginning of the Summary line.
 
+=head2 Who can commit to libguestfs git?
+
+About 5 people have commit access to github.  Patches should be posted
+on the list first and ACKed.  The policy for ACKing and pushing
+patches is outlined here:
+
+L<https://www.redhat.com/archives/libguestfs/2012-January/msg00023.html>
+
+=head2 Can I fork libguestfs?
+
+Of course you can.  Git makes it easy to fork libguestfs.  Github
+makes it even easier.  It's nice if you tell us on the mailing list
+about forks and the reasons for them.
+
 =head1 SEE ALSO
 
 L<guestfish(1)>,
