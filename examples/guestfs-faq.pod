@@ -264,6 +264,17 @@ L<https://fedoraproject.org/wiki/EPEL>
 It is part of the default install.  On RHEL 6 and 7 (only) you have to
 install C<libguestfs-winsupport> to get Windows guest support.
 
+=over 4
+
+=item RHEL 6.5
+
+There is a preview repository available for people who want to see
+what packages will be in RHEL 6.5.  Follow the instructions here:
+
+L<https://www.redhat.com/archives/libguestfs/2013-May/msg00100.html>
+
+=back
+
 =item RHEL 7
 
 It will be part of the default install, and based on libguestfs 1.20
