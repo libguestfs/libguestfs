@@ -311,6 +311,8 @@ So every user should do this:
 
  sudo chmod 0644 /boot/vmlinuz*
 
+=over 4
+
 =item Ubuntu 10.04
 
 See:
@@ -336,6 +338,8 @@ L<http://packages.ubuntu.com/quantal/seabios>
 Also you need to do (see above):
 
  sudo chmod 0644 /boot/vmlinuz*
+
+=back
 
 =back
 
