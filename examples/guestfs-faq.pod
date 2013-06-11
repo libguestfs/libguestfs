@@ -274,9 +274,9 @@ L<https://www.redhat.com/archives/libguestfs/2013-May/msg00100.html>
 
 =item RHEL 7
 
-It will be part of the default install, and based on libguestfs 1.20
-or 1.22.  You will need to install C<libguestfs-winsupport> separately
-to get Windows guest support.
+It will be part of the default install, and based on S<libguestfs 1.22>.
+You will need to install C<libguestfs-winsupport> separately to get
+Windows guest support.
 
 =back
 
