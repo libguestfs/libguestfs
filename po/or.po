@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-06-03 16:07+0100\n"
+"POT-Creation-Date: 2013-06-14 16:34+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
@@ -3841,8 +3841,8 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:251 src/inspect-fs-unix.c:333
-#: src/inspect-fs-unix.c:851 src/inspect-fs-unix.c:1492 src/inspect-fs.c:545
-#: src/inspect-fs.c:591 src/inspect.c:647
+#: src/inspect-fs-unix.c:851 src/inspect-fs-unix.c:1492 src/inspect-fs.c:549
+#: src/inspect-fs.c:595 src/inspect.c:647
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -3851,7 +3851,7 @@ msgstr ""
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
-#: src/inspect-fs.c:372 src/inspect-fs.c:385
+#: src/inspect-fs.c:376 src/inspect-fs.c:389
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""

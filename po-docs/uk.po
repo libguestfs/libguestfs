@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-06-03 16:07+0200\n"
+"POT-Creation-Date: 2013-06-14 16:34+0200\n"
 "PO-Revision-Date: 2012-12-11 17:11+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1253,7 +1253,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:243 ../cat/virt-filesystems.pod:389
 #: ../cat/virt-ls.pod:495 ../daemon/guestfsd.pod:92 ../df/virt-df.pod:267
 #: ../edit/virt-edit.pod:354 ../erlang/examples/guestfs-erlang.pod:97
-#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:944
+#: ../examples/guestfs-examples.pod:33 ../examples/guestfs-faq.pod:972
 #: ../examples/guestfs-performance.pod:530 ../examples/guestfs-recipes.pod:528
 #: ../examples/guestfs-testing.pod:305 ../fish/guestfish.pod:1399
 #: ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39
@@ -1312,7 +1312,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../cat/virt-cat.pod:256 ../cat/virt-filesystems.pod:404
 #: ../cat/virt-ls.pod:508 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:279
 #: ../edit/virt-edit.pod:369 ../erlang/examples/guestfs-erlang.pod:115
-#: ../examples/guestfs-examples.pod:50 ../examples/guestfs-faq.pod:954
+#: ../examples/guestfs-examples.pod:50 ../examples/guestfs-faq.pod:982
 #: ../examples/guestfs-performance.pod:547 ../examples/guestfs-recipes.pod:546
 #: ../examples/guestfs-testing.pod:316 ../fish/guestfish.pod:1431
 #: ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53
@@ -1666,7 +1666,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:175
 #: ../erlang/examples/guestfs-erlang.pod:111
-#: ../examples/guestfs-examples.pod:46 ../examples/guestfs-faq.pod:950
+#: ../examples/guestfs-examples.pod:46 ../examples/guestfs-faq.pod:978
 #: ../examples/guestfs-performance.pod:543 ../examples/guestfs-recipes.pod:542
 #: ../examples/guestfs-testing.pod:312 ../fish/guestfish.pod:1427
 #: ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49
@@ -1683,7 +1683,7 @@ msgstr "АВТОРИ"
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:177
 #: ../erlang/examples/guestfs-erlang.pod:113
-#: ../examples/guestfs-examples.pod:48 ../examples/guestfs-faq.pod:952
+#: ../examples/guestfs-examples.pod:48 ../examples/guestfs-faq.pod:980
 #: ../examples/guestfs-performance.pod:545 ../examples/guestfs-recipes.pod:544
 #: ../examples/guestfs-testing.pod:314 ../fish/guestfish.pod:1429
 #: ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51
@@ -5337,7 +5337,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:149 ../examples/guestfs-faq.pod:618
+#: ../examples/guestfs-faq.pod:149 ../examples/guestfs-faq.pod:632
 #: ../examples/guestfs-testing.pod:34 ../test-tool/libguestfs-test-tool.pod:21
 #, no-wrap
 msgid ""
@@ -5496,8 +5496,8 @@ msgstr "ОТРИМАННЯ, ВСТАНОВЛЕННЯ, ЗБИРАННЯ LIBGUESTF
 
 #. type: =end
 #: ../examples/guestfs-faq.pod:228 ../examples/guestfs-faq.pod:233
-#: ../examples/guestfs-faq.pod:580 ../examples/guestfs-faq.pod:585
-#: ../examples/guestfs-faq.pod:727 ../examples/guestfs-faq.pod:732
+#: ../examples/guestfs-faq.pod:594 ../examples/guestfs-faq.pod:599
+#: ../examples/guestfs-faq.pod:741 ../examples/guestfs-faq.pod:746
 #: ../src/guestfs.pod:2962 ../src/guestfs.pod:2967
 msgid "html"
 msgstr "html"
@@ -5581,37 +5581,59 @@ msgstr ""
 "системами Windows."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:264
+#: ../examples/guestfs-faq.pod:266
+#, fuzzy
+#| msgid "RHEL 6.4"
+msgid "RHEL 6.5"
+msgstr "RHEL 6.4"
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:268
+msgid ""
+"There is a preview repository available for people who want to see what "
+"packages will be in RHEL 6.5.  Follow the instructions here:"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:271
+#, fuzzy
+#| msgid ""
+#| "L<https://www.redhat.com/archives/libguestfs/2009-July/msg00059.html>"
+msgid "L<https://www.redhat.com/archives/libguestfs/2013-May/msg00100.html>"
+msgstr "L<https://www.redhat.com/archives/libguestfs/2009-July/msg00059.html>"
+
+#. type: =item
+#: ../examples/guestfs-faq.pod:275
 msgid "RHEL 7"
 msgstr "RHEL 7"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:266
+#: ../examples/guestfs-faq.pod:277
 #, fuzzy
 #| msgid ""
 #| "It is part of the default install.  On RHEL 6 (only) you have to install "
 #| "C<libguestfs-winsupport> to get Windows guest support."
 msgid ""
-"It will be part of the default install, and based on libguestfs 1.20 or "
-"1.22.  You will need to install C<libguestfs-winsupport> separately to get "
-"Windows guest support."
+"It will be part of the default install, and based on S<libguestfs 1.22>.  "
+"You will need to install C<libguestfs-winsupport> separately to get Windows "
+"guest support."
 msgstr ""
 "Є частиною типового набору для встановлення. У RHEL 6 (і лише тут) вам слід "
 "встановити C<libguestfs-winsupport>, щоб мати змогу працювати з гостьовими "
 "системами Windows."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:272
+#: ../examples/guestfs-faq.pod:283
 msgid "Debian and Ubuntu"
 msgstr "Debian і Ubuntu"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:276
+#: ../examples/guestfs-faq.pod:287
 msgid "Debian Squeeze (6)"
 msgstr "Debian Squeeze (6)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:278
+#: ../examples/guestfs-faq.pod:289
 msgid ""
 "Hilko Bengen has built libguestfs in squeeze backports: L<http://packages."
 "debian.org/search?keywords=guestfs&searchon=names&section=all&suite=squeeze-"
@@ -5619,12 +5641,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:281
+#: ../examples/guestfs-faq.pod:292
 msgid "Debian Wheezy and later (7+)"
 msgstr "Debian Wheezy та пізніші версії (7+)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:283
+#: ../examples/guestfs-faq.pod:294
 #, fuzzy
 #| msgid ""
 #| "Official Debian packages are available: L<http://packages.debian.org/"
@@ -5637,19 +5659,19 @@ msgstr ""
 "org/search?keywords=libguestfs> (завдяки Hilko Bengen)."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:287
+#: ../examples/guestfs-faq.pod:298
 msgid "Ubuntu"
 msgstr "Ubuntu"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:289
+#: ../examples/guestfs-faq.pod:300
 msgid ""
 "We don't have a full time Ubuntu maintainer, and the packages supplied by "
 "Canonical (which are outside our control) are sometimes broken."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:292
+#: ../examples/guestfs-faq.pod:303
 msgid ""
 "Canonical decided to change the permissions on the kernel so that it's not "
 "readable except by root.  This is completely stupid, but they won't change "
@@ -5658,7 +5680,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:298 ../examples/guestfs-faq.pod:324
+#: ../examples/guestfs-faq.pod:309 ../examples/guestfs-faq.pod:337
 #, no-wrap
 msgid ""
 " sudo chmod 0644 /boot/vmlinuz*\n"
@@ -5668,29 +5690,29 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:300
+#: ../examples/guestfs-faq.pod:313
 msgid "Ubuntu 10.04"
 msgstr "Ubuntu 10.04"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:302
+#: ../examples/guestfs-faq.pod:315
 msgid "See: L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>"
 msgstr "Див. L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:305
+#: ../examples/guestfs-faq.pod:318
 msgid "Ubuntu 12.04"
 msgstr "Ubuntu 12.04"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:307
+#: ../examples/guestfs-faq.pod:320
 msgid ""
 "libguestfs in this version of Ubuntu works, but you need to update "
 "febootstrap and seabios to the latest versions."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:310
+#: ../examples/guestfs-faq.pod:323
 msgid ""
 "You need febootstrap E<ge> 3.14-2 from: L<http://packages.ubuntu.com/precise/"
 "febootstrap>"
@@ -5699,12 +5721,12 @@ msgstr ""
 "com/precise/febootstrap>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:313
+#: ../examples/guestfs-faq.pod:326
 msgid "After installing or updating febootstrap, rebuild the appliance:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:315
+#: ../examples/guestfs-faq.pod:328
 #, no-wrap
 msgid ""
 " sudo update-guestfs-appliance\n"
@@ -5714,7 +5736,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:317
+#: ../examples/guestfs-faq.pod:330
 msgid ""
 "You need seabios E<ge> 0.6.2-0ubuntu2.1 or E<ge> 0.6.2-0ubuntu3 from: "
 "L<http://packages.ubuntu.com/precise-updates/seabios> or L<http://packages."
@@ -5725,24 +5747,24 @@ msgstr ""
 "L<http://packages.ubuntu.com/quantal/seabios>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:322
+#: ../examples/guestfs-faq.pod:335
 msgid "Also you need to do (see above):"
 msgstr "Крім того, вам слід виконати такі дії (див. вище):"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:328
+#: ../examples/guestfs-faq.pod:343
 msgid "Gentoo"
 msgstr "Gentoo"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:330
+#: ../examples/guestfs-faq.pod:345
 msgid ""
 "Libguestfs was added to Gentoo in 2012-07 by Andreis Vinogradovs "
 "(libguestfs) and Maxim Koltsov (mainly hivex).  Do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:333
+#: ../examples/guestfs-faq.pod:348
 #, no-wrap
 msgid ""
 " emerge libguestfs\n"
@@ -5752,54 +5774,54 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:335
+#: ../examples/guestfs-faq.pod:350
 msgid "SuSE"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:337
+#: ../examples/guestfs-faq.pod:352
 msgid "Libguestfs was added to SuSE in 2012 by Olaf Hering."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:339
+#: ../examples/guestfs-faq.pod:354
 #, fuzzy
 #| msgid "Arch Linux."
 msgid "ArchLinux"
 msgstr "Arch Linux."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:341
+#: ../examples/guestfs-faq.pod:356
 msgid "Libguestfs was added to the AUR in 2010."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:343
+#: ../examples/guestfs-faq.pod:358
 msgid "Other Linux distro"
 msgstr "Інші дистрибутиви Linux"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:345
+#: ../examples/guestfs-faq.pod:360
 msgid "Compile from source (next section)."
 msgstr "Можна зібрати з початкових кодів (наступний розділ)."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:347
+#: ../examples/guestfs-faq.pod:362
 msgid "Other non-Linux distro"
 msgstr "Інші дистрибутиви не-Linux"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:349
+#: ../examples/guestfs-faq.pod:364
 msgid "You'll have to compile from source, and port it."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:353
+#: ../examples/guestfs-faq.pod:368
 msgid "How can I compile and install libguestfs from source?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:355
+#: ../examples/guestfs-faq.pod:370
 msgid ""
 "If your Linux distro has a working port of supermin (that is, Fedora, S<Red "
 "Hat Enterprise Linux E<ge> 6.3>, Debian, Ubuntu and ArchLinux)  then you "
@@ -5809,40 +5831,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:361
+#: ../examples/guestfs-faq.pod:376
 msgid ""
 "If you I<don't> have supermin, you will need to use the \"fixed appliance "
 "method\".  See: L<http://libguestfs.org/download/binaries/appliance/>"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:365
+#: ../examples/guestfs-faq.pod:380
 msgid "Patches to port supermin to more Linux distros are welcome."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:367
+#: ../examples/guestfs-faq.pod:382
 msgid ""
 "Why do I get an error when I try to rebuild from the source RPMs supplied by "
 "Red Hat / Fedora?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:370
+#: ../examples/guestfs-faq.pod:385
 msgid ""
-"[Note: This issue is fixed in libguestfs E<ge> 1.21.26 in Fedora E<ge> 19 "
-"and RHEL E<ge> 7]"
+"B<Note:> This issue is fixed in S<Fedora E<ge> 19> and S<RHEL E<ge> 6.5>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:373
+#: ../examples/guestfs-faq.pod:387
 msgid ""
 "Because of the complexity of building the libguestfs appliance, the source "
 "RPMs provided cannot be rebuilt directly using C<rpmbuild> or C<mock>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:377
+#: ../examples/guestfs-faq.pod:391
 msgid ""
 "If you use Koji (which is open source software and may be installed "
 "locally), then the SRPMs can be rebuilt in Koji.  L<https://fedoraproject."
@@ -5850,7 +5871,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:381
+#: ../examples/guestfs-faq.pod:395
 msgid ""
 "If you don't have or want to use Koji, then you have to give libguestfs "
 "access to the network so it can download the RPMs for building the "
@@ -5859,7 +5880,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:387
+#: ../examples/guestfs-faq.pod:401
 #, no-wrap
 msgid ""
 " %libguestfs_buildnet   1\n"
@@ -5869,12 +5890,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:389
+#: ../examples/guestfs-faq.pod:403
 msgid "If you are using mock, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:391
+#: ../examples/guestfs-faq.pod:405
 #, no-wrap
 msgid ""
 " mock -D '%libguestfs_buildnet 1' [etc]\n"
@@ -5882,20 +5903,20 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:393
+#: ../examples/guestfs-faq.pod:407
 msgid "How can I add support for sVirt?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:395
+#: ../examples/guestfs-faq.pod:409
 msgid ""
-"Note for Fedora/RHEL users: This configuration is the default starting with "
-"S<Fedora 18> and S<RHEL 7>.  If you find any problems, please let us know or "
-"file a bug."
+"B<Note for Fedora/RHEL users:> This configuration is the default starting "
+"with S<Fedora 18> and S<RHEL 7>.  If you find any problems, please let us "
+"know or file a bug."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:399
+#: ../examples/guestfs-faq.pod:413
 msgid ""
 "L<SVirt|http://selinuxproject.org/page/SVirt> provides a hardened appliance "
 "using SELinux, making it very hard for a rogue disk image to \"escape\" from "
@@ -5906,7 +5927,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:407
+#: ../examples/guestfs-faq.pod:421
 msgid ""
 "Currently to enable sVirt you will need libvirt E<ge> 0.10.2 (1.0 or later "
 "preferred), libguestfs E<ge> 1.20, and the SELinux policies from recent "
@@ -5915,12 +5936,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:412
+#: ../examples/guestfs-faq.pod:426
 msgid "Once you have the requirements, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:414
+#: ../examples/guestfs-faq.pod:428
 #, no-wrap
 msgid ""
 " ./configure --with-default-attach-method=libvirt\n"
@@ -5929,12 +5950,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:417
+#: ../examples/guestfs-faq.pod:431
 msgid "Set SELinux to Enforcing mode, and sVirt should be used automatically."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:419
+#: ../examples/guestfs-faq.pod:433
 msgid ""
 "All, or almost all, features of libguestfs should work under sVirt.  There "
 "is one known shortcoming: L<virt-rescue(1)> will not use libvirt (hence "
@@ -5943,7 +5964,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:424
+#: ../examples/guestfs-faq.pod:438
 msgid ""
 "You can check if sVirt is being used by enabling libvirtd logging (see C</"
 "etc/libvirt/libvirtd.log>), killing and restarting libvirtd, and checking "
@@ -5951,29 +5972,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:428
+#: ../examples/guestfs-faq.pod:442
 msgid ""
 "In theory sVirt should support AppArmor, but we have not tried it.  It will "
 "almost certainly require patching libvirt and writing an AppArmor policy."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:432
+#: ../examples/guestfs-faq.pod:446
 msgid "Libguestfs has a really long list of dependencies!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:434
+#: ../examples/guestfs-faq.pod:448
 msgid "That's because it does a lot of things."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:436
+#: ../examples/guestfs-faq.pod:450
 msgid "How can I speed up libguestfs builds?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:438
+#: ../examples/guestfs-faq.pod:452
 msgid ""
 "By far the most important thing you can do is to install and properly "
 "configure Squid.  Note that the default configuration that ships with Squid "
@@ -5981,7 +6002,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:442
+#: ../examples/guestfs-faq.pod:456
 msgid ""
 "A very good place to start with Squid configuration is here: L<https://"
 "fedoraproject.org/wiki/Extras/"
@@ -5989,26 +6010,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:445
+#: ../examples/guestfs-faq.pod:459
 msgid ""
 "Make sure Squid is running, and that the environment variables C<"
 "$http_proxy> and C<$ftp_proxy> are pointing to it."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:448
+#: ../examples/guestfs-faq.pod:462
 msgid ""
 "With Squid running and correctly configured, appliance builds should be "
 "reduced to a few minutes."
 msgstr ""
 
 #. type: =head3
-#: ../examples/guestfs-faq.pod:451
+#: ../examples/guestfs-faq.pod:465
 msgid "How can I speed up libguestfs builds (Debian)?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:453
+#: ../examples/guestfs-faq.pod:467
 msgid ""
 "Hilko Bengen suggests using \"approx\" which is a Debian archive proxy "
 "(L<http://packages.debian.org/approx>).  This tool is documented on Debian "
@@ -6016,24 +6037,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:457
+#: ../examples/guestfs-faq.pod:471
 msgid "SPEED, DISK SPACE USED BY LIBGUESTFS"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:459
+#: ../examples/guestfs-faq.pod:473
 msgid ""
-"Note: Most of the information in this section has moved: L<guestfs-"
+"B<Note:> Most of the information in this section has moved: L<guestfs-"
 "performance(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:462
+#: ../examples/guestfs-faq.pod:476
 msgid "Upload or write seem very slow."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:464
+#: ../examples/guestfs-faq.pod:478
 msgid ""
 "In libguestfs E<lt> 1.13.16, the mount command (L<guestfs(3)/guestfs_mount>) "
 "enabled option C<-o sync> implicitly.  This causes very poor write "
@@ -6041,14 +6062,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:469
+#: ../examples/guestfs-faq.pod:483
 msgid ""
 "For libguestfs E<lt> 1.13.16, replace mount with C<mount-options>, leaving "
 "the first parameter as an empty string."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:472
+#: ../examples/guestfs-faq.pod:486
 msgid ""
 "You can also do this with more recent versions of libguestfs, but if you "
 "know that you are using libguestfs ≥ 1.13.16 then it's safe to use plain "
@@ -6056,7 +6077,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:476
+#: ../examples/guestfs-faq.pod:490
 msgid ""
 "If the underlying disk is not fully allocated (eg. sparse raw or qcow2) then "
 "writes can be slow because the host operating system has to do costly disk "
@@ -6066,17 +6087,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:482
+#: ../examples/guestfs-faq.pod:496
 msgid "Libguestfs uses too much disk space!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:484
+#: ../examples/guestfs-faq.pod:498
 msgid "libguestfs caches a large-ish appliance in:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:486
+#: ../examples/guestfs-faq.pod:500
 #, no-wrap
 msgid ""
 " /var/tmp/.guestfs-<UID>\n"
@@ -6086,26 +6107,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:488
+#: ../examples/guestfs-faq.pod:502
 msgid ""
 "If the environment variable C<TMPDIR> is defined, then C<$TMPDIR/.guestfs-"
 "E<lt>UIDE<gt>> is used instead."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:491
+#: ../examples/guestfs-faq.pod:505
 msgid "It is safe to delete this directory when you are not using libguestfs."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:493
+#: ../examples/guestfs-faq.pod:507
 msgid ""
 "virt-sparsify seems to make the image grow to the full size of the virtual "
 "disk"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:496
+#: ../examples/guestfs-faq.pod:510
 msgid ""
 "If the input to L<virt-sparsify(1)> is raw, then the output will be raw "
 "sparse.  Make sure you are measuring the output with a tool which "
@@ -6113,7 +6134,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:500 ../sparsify/virt-sparsify.pod:35
+#: ../examples/guestfs-faq.pod:514 ../sparsify/virt-sparsify.pod:35
 #, no-wrap
 msgid ""
 " $ ls -lh test1.img\n"
@@ -6129,19 +6150,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:505 ../sparsify/virt-sparsify.pod:40
+#: ../examples/guestfs-faq.pod:519 ../sparsify/virt-sparsify.pod:40
 msgid "(Compare the apparent size B<100M> vs the actual size B<3.6M>)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:507
+#: ../examples/guestfs-faq.pod:521
 msgid ""
 "If all this confuses you, use a non-sparse output format by specifying the "
 "I<--convert> option, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:510
+#: ../examples/guestfs-faq.pod:524
 #, no-wrap
 msgid ""
 " virt-sparsify --convert qcow2 disk.raw disk.qcow2\n"
@@ -6151,12 +6172,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:512
+#: ../examples/guestfs-faq.pod:526
 msgid "Why doesn't virt-resize work on the disk image in-place?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:514
+#: ../examples/guestfs-faq.pod:528
 msgid ""
 "Resizing a disk image is very tricky -- especially making sure that you "
 "don't lose data or break the bootloader.  The current method effectively "
@@ -6165,7 +6186,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:520
+#: ../examples/guestfs-faq.pod:534
 msgid ""
 "If we were to make virt-resize work in-place then there would have to be "
 "limitations: for example, you wouldn't be allowed to move existing "
@@ -6176,7 +6197,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:527
+#: ../examples/guestfs-faq.pod:541
 msgid ""
 "Another method we have considered is to place a snapshot over the original "
 "disk image, so that the original data is untouched and only differences are "
@@ -6187,19 +6208,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:535
+#: ../examples/guestfs-faq.pod:549
 msgid ""
 "In summary, this is a hard problem, and what we have now mostly works so we "
 "are reluctant to change it."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:538
+#: ../examples/guestfs-faq.pod:552
 msgid "Why doesn't virt-sparsify work on the disk image in-place?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:540
+#: ../examples/guestfs-faq.pod:554
 msgid ""
 "Eventually we plan to make virt-sparsify work on disk images in-place, "
 "instead of copying the disk image.  However it requires several changes to "
@@ -6210,7 +6231,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:548
+#: ../examples/guestfs-faq.pod:562
 msgid ""
 "Even with this implemented there may be some limitations: For example, it "
 "requires completely different steps (and is probably harder) to sparsify a "
@@ -6222,24 +6243,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:557
+#: ../examples/guestfs-faq.pod:571
 msgid "USING LIBGUESTFS IN YOUR OWN PROGRAMS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:559
+#: ../examples/guestfs-faq.pod:573
 msgid "The API has hundreds of methods, where do I start?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:561
+#: ../examples/guestfs-faq.pod:575
 msgid ""
 "We recommend you start by reading the API overview: L<guestfs(3)/API "
 "OVERVIEW>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:564
+#: ../examples/guestfs-faq.pod:578
 msgid ""
 "Although the API overview covers the C API, it is still worth reading even "
 "if you are going to use another programming language, because the API is the "
@@ -6247,7 +6268,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:569
+#: ../examples/guestfs-faq.pod:583
 #, no-wrap
 msgid ""
 "                  C  guestfs_ln_sf (g, target, linkname);\n"
@@ -6267,7 +6288,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:576
+#: ../examples/guestfs-faq.pod:590
 msgid ""
 "Once you're familiar with the API overview, you should look at this list of "
 "starting points for other language bindings: L<guestfs(3)/USING LIBGUESTFS "
@@ -6275,25 +6296,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:582
+#: ../examples/guestfs-faq.pod:596
 msgid "<!-- old anchor for the next section --> <a name=\"debug\"/>"
 msgstr "<!-- old anchor for the next section --> <a name=\"debug\"/>"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:587
+#: ../examples/guestfs-faq.pod:601
 msgid ""
 "Can I use libguestfs in my proprietary / closed source / commercial program?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:590
+#: ../examples/guestfs-faq.pod:604
 msgid ""
 "In general, yes.  However this is not legal advice - read the license that "
 "comes with libguestfs, and if you have specific questions contact a lawyer."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:594
+#: ../examples/guestfs-faq.pod:608
 msgid ""
 "In the source tree the license is in the file C<COPYING.LIB> (LGPLv2+ for "
 "the library and bindings) and C<COPYING> (GPLv2+ for the standalone "
@@ -6301,19 +6322,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:598
+#: ../examples/guestfs-faq.pod:612
 msgid "DEBUGGING LIBGUESTFS"
 msgstr "ДІАГНОСТИКА LIBGUESTFS"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:600
+#: ../examples/guestfs-faq.pod:614
 msgid ""
 "B<In summary:> enable debugging by setting these two environment variables "
 "before running the program:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:603
+#: ../examples/guestfs-faq.pod:617
 #, fuzzy, no-wrap
 #| msgid ""
 #| " export LIBGUESTFS_TRACE=1\n"
@@ -6329,7 +6350,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:606
+#: ../examples/guestfs-faq.pod:620
 msgid ""
 "This will produce a lot of output.  Put the B<complete> output in an email "
 "message or pastebin and send it L<to the mailing list|/What mailing lists or "
@@ -6337,14 +6358,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:611
+#: ../examples/guestfs-faq.pod:625
 msgid ""
 "Include the version of libguestfs, the operating system version, and how you "
 "installed libguestfs (eg. from source, C<yum install>, etc.)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:614
+#: ../examples/guestfs-faq.pod:628
 msgid ""
 "If no libguestfs program works, run the program below and paste the "
 "B<complete, unedited> output into an email or pastebin and send it to the "
@@ -6352,38 +6373,38 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:620
+#: ../examples/guestfs-faq.pod:634
 msgid ""
 "How do I debug when using any libguestfs program or tool (eg. virt-v2v or "
 "virt-df)?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:623
+#: ../examples/guestfs-faq.pod:637
 msgid ""
 "There are two C<LIBGUESTFS_*> environment variables you can set in order to "
 "get more information from libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:628
+#: ../examples/guestfs-faq.pod:642
 msgid "C<LIBGUESTFS_TRACE>"
 msgstr "C<LIBGUESTFS_TRACE>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:630
+#: ../examples/guestfs-faq.pod:644
 msgid ""
 "Set this to 1 and libguestfs will print out each command / API call in a "
 "format which is similar to guestfish commands."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:633
+#: ../examples/guestfs-faq.pod:647
 msgid "C<LIBGUESTFS_DEBUG>"
 msgstr "C<LIBGUESTFS_DEBUG>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:635
+#: ../examples/guestfs-faq.pod:649
 msgid ""
 "Set this to 1 in order to enable massive amounts of debug messages.  If you "
 "think there is some problem inside the libguestfs appliance, then you should "
@@ -6391,12 +6412,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:641
+#: ../examples/guestfs-faq.pod:655
 msgid "To set these from the shell, do this before running the program:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:643
+#: ../examples/guestfs-faq.pod:657
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_TRACE=1\n"
@@ -6408,12 +6429,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:646
+#: ../examples/guestfs-faq.pod:660
 msgid "For csh/tcsh the equivalent commands would be:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:648
+#: ../examples/guestfs-faq.pod:662
 #, no-wrap
 msgid ""
 " setenv LIBGUESTFS_TRACE 1\n"
@@ -6425,17 +6446,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:651
+#: ../examples/guestfs-faq.pod:665
 msgid "For further information, see: L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:653
+#: ../examples/guestfs-faq.pod:667
 msgid "How do I debug when using guestfish?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:655
+#: ../examples/guestfs-faq.pod:669
 msgid ""
 "You can use the same environment variables above.  Alternatively use the "
 "guestfish options -x (to trace commands) or -v (to get the full debug "
@@ -6443,36 +6464,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:659
+#: ../examples/guestfs-faq.pod:673
 msgid "For further information, see: L<guestfish(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:661
+#: ../examples/guestfs-faq.pod:675
 msgid "How do I debug when using the API?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:663
+#: ../examples/guestfs-faq.pod:677
 msgid ""
 "Call L<guestfs(3)/guestfs_set_trace> to enable command traces, and/or "
 "L<guestfs(3)/guestfs_set_verbose> to enable debug messages."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:666
+#: ../examples/guestfs-faq.pod:680
 msgid ""
 "For best results, call these functions as early as possible, just after "
 "creating the guestfs handle if you can, and definitely before calling launch."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:670
+#: ../examples/guestfs-faq.pod:684
 msgid "How do I capture debug output and put it into my logging system?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:672
+#: ../examples/guestfs-faq.pod:686
 msgid ""
 "Use the event API.  For examples, see: L<guestfs(3)/SETTING CALLBACKS TO "
 "HANDLE EVENTS> and the C<examples/debug-logging.c> program in the libguestfs "
@@ -6480,24 +6501,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:676
+#: ../examples/guestfs-faq.pod:690
 msgid "Digging deeper into the appliance boot process."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:678
+#: ../examples/guestfs-faq.pod:692
 msgid ""
 "Enable debugging and then read this documentation on the appliance boot "
 "process: L<guestfs(3)/INTERNALS>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:681
+#: ../examples/guestfs-faq.pod:695
 msgid "libguestfs hangs or fails during run/launch."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:683
+#: ../examples/guestfs-faq.pod:697
 msgid ""
 "Enable debugging and look at the full output.  If you cannot work out what "
 "is going on, file a bug report, including the I<complete> output of "
@@ -6505,17 +6526,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:687
+#: ../examples/guestfs-faq.pod:701
 msgid "DESIGN/INTERNALS OF LIBGUESTFS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:689
+#: ../examples/guestfs-faq.pod:703
 msgid "Why don't you do everything through the FUSE / filesystem interface?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:692
+#: ../examples/guestfs-faq.pod:706
 msgid ""
 "We offer a command called L<guestmount(1)> which lets you mount guest "
 "filesystems on the host.  This is implemented as a FUSE module.  Why don't "
@@ -6524,7 +6545,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:697
+#: ../examples/guestfs-faq.pod:711
 msgid ""
 "The reasons are twofold.  Firstly, libguestfs offers API calls for doing "
 "things like creating and deleting partitions and logical volumes, which "
@@ -6538,7 +6559,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:707
+#: ../examples/guestfs-faq.pod:721
 msgid ""
 "The second reason is for efficiency.  FUSE itself is reasonably efficient, "
 "but it does make lots of small, independent calls into the FUSE module.  In "
@@ -6551,17 +6572,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:717
+#: ../examples/guestfs-faq.pod:731
 msgid "Why don't you do everything through GVFS?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:719
+#: ../examples/guestfs-faq.pod:733
 msgid "The problems are similar to the problems with FUSE."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:721
+#: ../examples/guestfs-faq.pod:735
 msgid ""
 "GVFS is a better abstraction than POSIX/FUSE.  There is an FTP backend for "
 "GVFS, which is encouraging because FTP is conceptually similar to the "
@@ -6571,22 +6592,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:729
+#: ../examples/guestfs-faq.pod:743
 msgid "<!-- old anchor for the next section --> <a name=\"backup\"/>"
 msgstr "<!-- old anchor for the next section --> <a name=\"backup\"/>"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:734
+#: ../examples/guestfs-faq.pod:748
 msgid "Why can I write to the disk, even though I added it read-only?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:736
+#: ../examples/guestfs-faq.pod:750
 msgid "Why does C<--ro> appear to have no effect?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:738
+#: ../examples/guestfs-faq.pod:752
 msgid ""
 "When you add a disk read-only, libguestfs places a writable overlay on top "
 "of the underlying disk.  Writes go into this overlay, and are discarded when "
@@ -6594,7 +6615,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:742
+#: ../examples/guestfs-faq.pod:756
 msgid ""
 "There are two reasons for doing it this way: Firstly read-only disks aren't "
 "possible in many cases (eg. IDE simply doesn't support them, so you couldn't "
@@ -6603,7 +6624,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:747
+#: ../examples/guestfs-faq.pod:761
 msgid ""
 "Secondly and more importantly, even if read-only disks were possible, you "
 "wouldn't want them.  Mounting any filesystem that has a journal, even "
@@ -6613,7 +6634,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:753
+#: ../examples/guestfs-faq.pod:767
 msgid ""
 "To make it usable, we create the overlay as a place to temporarily store "
 "these writes, and then we discard it afterwards.  This ensures that the "
@@ -6621,7 +6642,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:757
+#: ../examples/guestfs-faq.pod:771
 msgid ""
 "Note also that there is a regression test for this when building libguestfs "
 "(in C<tests/qemu>).  This is one reason why it's important for packagers to "
@@ -6629,31 +6650,31 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:761
+#: ../examples/guestfs-faq.pod:775
 msgid "Does C<--ro> make all disks read-only?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:763
+#: ../examples/guestfs-faq.pod:777
 msgid ""
 "I<No!> The C<--ro> option only affects disks added on the command line, ie. "
 "using C<-a> and C<-d> options."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:766
+#: ../examples/guestfs-faq.pod:780
 msgid ""
 "In guestfish, if you use the C<add> command, then disk is added read-write "
 "(unless you specify the C<readonly:true> flag explicitly with the command)."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:770
+#: ../examples/guestfs-faq.pod:784
 msgid "Can I use C<guestfish --ro> as a way to backup my virtual machines?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:772
+#: ../examples/guestfs-faq.pod:786
 msgid ""
 "Usually this is I<not> a good idea.  The question is answered in more detail "
 "in this mailing list posting: L<https://www.redhat.com/archives/"
@@ -6661,24 +6682,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:776
+#: ../examples/guestfs-faq.pod:790
 #, fuzzy
 #| msgid "See also the I<--ignore> option."
 msgid "See also the next question."
 msgstr "Див. також опис параметра I<--ignore>."
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:778
+#: ../examples/guestfs-faq.pod:792
 msgid "Why can't I run fsck on a live filesystem using C<guestfish --ro>?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:780
+#: ../examples/guestfs-faq.pod:794
 msgid "This command will usually I<not> work:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:782
+#: ../examples/guestfs-faq.pod:796
 #, fuzzy, no-wrap
 #| msgid ""
 #| " $ guestfish --ro -a guest.img\n"
@@ -6695,7 +6716,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:784
+#: ../examples/guestfs-faq.pod:798
 msgid ""
 "The reason for this is that qemu creates a snapshot over the original "
 "filesystem, but it doesn't create a strict point-in-time snapshot.  Blocks "
@@ -6705,7 +6726,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:791
+#: ../examples/guestfs-faq.pod:805
 msgid ""
 "What you have to do is to create a point-in-time snapshot.  If it's a "
 "logical volume, use an LVM2 snapshot.  If the filesystem is located inside "
@@ -6715,7 +6736,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:797
+#: ../examples/guestfs-faq.pod:811
 msgid ""
 "Creating point-in-time snapshots of host devices and files is outside the "
 "scope of libguestfs, although libguestfs can operate on them once they are "
@@ -6723,19 +6744,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:801
+#: ../examples/guestfs-faq.pod:815
 msgid "What's the difference between guestfish and virt-rescue?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:803
+#: ../examples/guestfs-faq.pod:817
 msgid ""
 "A lot of people are confused by the two superficially similar tools we "
 "provide:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:806
+#: ../examples/guestfs-faq.pod:820
 #, no-wrap
 msgid ""
 " $ guestfish --ro -a guest.img\n"
@@ -6749,7 +6770,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:810
+#: ../examples/guestfs-faq.pod:824
 #, no-wrap
 msgid ""
 " $ virt-rescue --ro guest.img\n"
@@ -6761,7 +6782,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:813
+#: ../examples/guestfs-faq.pod:827
 msgid ""
 "And the related question which then arises is why you can't type in full "
 "shell commands with all the --options in guestfish (but you can in L<virt-"
@@ -6769,7 +6790,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:817
+#: ../examples/guestfs-faq.pod:831
 msgid ""
 "L<guestfish(1)> is a program providing structured access to the L<guestfs(3)"
 "> API.  It happens to be a nice interactive shell too, but its primary "
@@ -6780,7 +6801,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:824
+#: ../examples/guestfs-faq.pod:838
 msgid ""
 "L<virt-rescue(1)> is a free-for-all freeform way to boot the libguestfs "
 "appliance and make arbitrary changes to your VM. It's not structured, you "
@@ -6789,7 +6810,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:829
+#: ../examples/guestfs-faq.pod:843
 msgid ""
 "But, libguestfs also has a \"backdoor\" into the appliance allowing you to "
 "send arbitrary shell commands.  It's not as flexible as virt-rescue, because "
@@ -6797,7 +6818,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:834
+#: ../examples/guestfs-faq.pod:848
 #, no-wrap
 msgid ""
 " ><fs> debug sh \"cmd arg1 arg2 ...\"\n"
@@ -6805,7 +6826,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:836
+#: ../examples/guestfs-faq.pod:850
 msgid ""
 "Note that you should B<not> rely on this.  It could be removed or changed in "
 "future. If your program needs some operation, please add it to the "
@@ -6813,45 +6834,45 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:840
+#: ../examples/guestfs-faq.pod:854
 msgid "What's the deal with C<guestfish -i>?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:842
+#: ../examples/guestfs-faq.pod:856
 msgid ""
 "Why does virt-cat only work on a real VM image, but virt-df works on any "
 "disk image?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:845
+#: ../examples/guestfs-faq.pod:859
 msgid "What does \"no root device found in this operating system image\" mean?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:848
+#: ../examples/guestfs-faq.pod:862
 msgid ""
 "These questions are all related at a fundamental level which may not be "
 "immediately obvious."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:851
+#: ../examples/guestfs-faq.pod:865
 msgid ""
 "At the L<guestfs(3)> API level, a \"disk image\" is just a pile of "
 "partitions and filesystems."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:854
+#: ../examples/guestfs-faq.pod:868
 msgid ""
 "In contrast, when the virtual machine boots, it mounts those filesystems "
 "into a consistent hierarchy such as:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:857
+#: ../examples/guestfs-faq.pod:871
 #, no-wrap
 msgid ""
 " /          (/dev/sda2)\n"
@@ -6877,12 +6898,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:867
+#: ../examples/guestfs-faq.pod:881
 msgid "(or drive letters on Windows)."
 msgstr "(або літери дисків у Windows)."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:869
+#: ../examples/guestfs-faq.pod:883
 msgid ""
 "The API first of all sees the disk image at the \"pile of filesystems\" "
 "level.  But it also has a way to inspect the disk image to see if it "
@@ -6891,12 +6912,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:874
+#: ../examples/guestfs-faq.pod:888
 msgid "Users expect some tools (like L<virt-cat(1)>) to work with VM paths:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:876
+#: ../examples/guestfs-faq.pod:890
 #, no-wrap
 msgid ""
 " virt-cat fedora.img /var/log/messages\n"
@@ -6906,7 +6927,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:878
+#: ../examples/guestfs-faq.pod:892
 msgid ""
 "How does virt-cat know that C</var> is a separate partition? The trick is "
 "that virt-cat performs inspection on the disk image, and uses that to "
@@ -6914,7 +6935,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:882
+#: ../examples/guestfs-faq.pod:896
 msgid ""
 "Some tools (including L<virt-cat(1)>, L<virt-edit(1)>, L<virt-ls(1)>)  use "
 "inspection to map VM paths.  Other tools, such as L<virt-df(1)> and L<virt-"
@@ -6923,7 +6944,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:887
+#: ../examples/guestfs-faq.pod:901
 msgid ""
 "L<guestfish(1)> is in an interesting middle ground.  If you use the I<-a> "
 "and I<-m> command line options, then you have to tell guestfish exactly how "
@@ -6931,14 +6952,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:892
+#: ../examples/guestfs-faq.pod:906
 msgid ""
 "If you use the I<-i> option, libguestfs performs inspection and mounts the "
 "filesystems for you."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:895
+#: ../examples/guestfs-faq.pod:909
 msgid ""
 "The error C<no root device found in this operating system image> is related "
 "to this.  It means inspection was unable to locate an operating system "
@@ -6948,19 +6969,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:901
+#: ../examples/guestfs-faq.pod:915
 msgid "What do these C<debug*> and C<internal-*> functions do?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:903
+#: ../examples/guestfs-faq.pod:917
 msgid ""
 "There are some functions which are used for debugging and internal purposes "
 "which are I<not> part of the stable API."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:906
+#: ../examples/guestfs-faq.pod:920
 msgid ""
 "The C<debug*> (or C<guestfs_debug*>) functions, primarily L<guestfs(3)/"
 "guestfs_debug> and a handful of others, are used for debugging libguestfs.  "
@@ -6970,7 +6991,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:912
+#: ../examples/guestfs-faq.pod:926
 msgid ""
 "The C<internal-*> (or C<guestfs_internal_*>) functions are purely to be used "
 "by libguestfs itself.  There is no reason for programs to call them, and "
@@ -6979,17 +7000,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:918
+#: ../examples/guestfs-faq.pod:932
 msgid "DEVELOPERS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:920
+#: ../examples/guestfs-faq.pod:934
 msgid "Where do I send patches?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:922
+#: ../examples/guestfs-faq.pod:936
 msgid ""
 "Please send patches to the libguestfs mailing list L<https://www.redhat.com/"
 "mailman/listinfo/libguestfs>.  You don't have to be subscribed, but there "
@@ -6997,22 +7018,23 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:927
+#: ../examples/guestfs-faq.pod:941
 msgid ""
-"Please don't use github pull requests - they will be ignored.  The reasons "
-"are (a) we want to discuss and dissect patches on the mailing list, and (b) "
-"github pull requests turn into merge commits which we don't want."
+"B<Please don't use github pull requests - they will be ignored>.  The "
+"reasons are (a) we want to discuss and dissect patches on the mailing list, "
+"and (b) github pull requests turn into merge commits we prefer to have a "
+"linear history."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:932
+#: ../examples/guestfs-faq.pod:946
 #, fuzzy
 #| msgid "How do I report bugs?"
 msgid "How do I propose a feature?"
 msgstr "Як повідомити про вади?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:934
+#: ../examples/guestfs-faq.pod:948
 msgid ""
 "Large new features that you intend to contribute should be discussed on the "
 "mailing list first (L<https://www.redhat.com/mailman/listinfo/libguestfs>).  "
@@ -7021,20 +7043,57 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:940
+#: ../examples/guestfs-faq.pod:954
 msgid ""
 "If you want to suggest a useful feature but don't want to write the code, "
 "you can file a bug (see L</GETTING HELP AND REPORTING BUGS>)  with C<\"RFE: "
 "\"> at the beginning of the Summary line."
 msgstr ""
 
+#. type: =head2
+#: ../examples/guestfs-faq.pod:958
+msgid "Who can commit to libguestfs git?"
+msgstr ""
+
 #. type: textblock
-#: ../examples/guestfs-faq.pod:946
+#: ../examples/guestfs-faq.pod:960
+msgid ""
+"About 5 people have commit access to github.  Patches should be posted on "
+"the list first and ACKed.  The policy for ACKing and pushing patches is "
+"outlined here:"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:964
+#, fuzzy
+#| msgid ""
+#| "L<https://www.redhat.com/archives/libguestfs/2009-July/msg00023.html>"
+msgid ""
+"L<https://www.redhat.com/archives/libguestfs/2012-January/msg00023.html>"
+msgstr "L<https://www.redhat.com/archives/libguestfs/2009-July/msg00023.html>"
+
+#. type: =head2
+#: ../examples/guestfs-faq.pod:966
+#, fuzzy
+#| msgid "libguestfs"
+msgid "Can I fork libguestfs?"
+msgstr "libguestfs"
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:968
+msgid ""
+"Of course you can.  Git makes it easy to fork libguestfs.  Github makes it "
+"even easier.  It's nice if you tell us on the mailing list about forks and "
+"the reasons for them."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:974
 msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:956
+#: ../examples/guestfs-faq.pod:984
 #, fuzzy
 #| msgid "Copyright (C) 2009-2013 Red Hat Inc."
 msgid "Copyright (C) 2012-2013 Red Hat Inc."
