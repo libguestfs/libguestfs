@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let cron_spool_perform g root =
+let cron_spool_perform (g : Guestfs.guestfs) root =
   Array.iter g#rm_rf (g#glob_expand "/var/spool/cron/*");
   Array.iter g#rm (g#glob_expand "/var/spool/atjobs/*");
   Array.iter g#rm (g#glob_expand "/var/spool/atjobs/.SEQ");
