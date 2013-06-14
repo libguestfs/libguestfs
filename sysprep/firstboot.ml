@@ -77,7 +77,7 @@ WantedBy=default.target
 let failed fs =
   ksprintf (fun msg -> failwith (s_"firstboot: failed: " ^ msg)) fs
 
-let rec install_service g distro =
+let rec install_service (g : Guestfs.guestfs) distro =
   g#mkdir_p firstboot_dir;
   g#mkdir_p (sprintf "%s/scripts" firstboot_dir);
   g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
@@ -145,7 +145,7 @@ and install_sysvinit_debian g =
   g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
     "/etc/rc5.d/S99virt-sysprep-firstboot"
 
-let add_firstboot_script g root id content =
+let add_firstboot_script (g : Guestfs.guestfs) root id content =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with

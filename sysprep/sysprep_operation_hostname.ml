@@ -26,7 +26,7 @@ module G = Guestfs
 
 let hostname = ref "localhost.localdomain"
 
-let hostname_perform g root =
+let hostname_perform (g : Guestfs.guestfs) root =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   let major_version = g#inspect_get_major_version root in

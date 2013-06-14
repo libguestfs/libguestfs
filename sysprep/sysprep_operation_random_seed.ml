@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let random_seed_perform g root =
+let random_seed_perform (g : Guestfs.guestfs) root =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     let files = [

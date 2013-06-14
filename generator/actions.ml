@@ -3471,7 +3471,7 @@ command." };
     tests = [
       InitScratchFS, Always, TestResultTrue
         [["mkdir"; "/mkdir"];
-         ["is_dir"; "/mkdir"]];
+         ["is_dir"; "/mkdir"; ""]];
       InitScratchFS, Always, TestLastFail
         [["mkdir"; "/mkdir2/foo/bar"]]
     ];
@@ -3486,13 +3486,13 @@ Create a directory named C<path>." };
     tests = [
       InitScratchFS, Always, TestResultTrue
         [["mkdir_p"; "/mkdir_p/foo/bar"];
-         ["is_dir"; "/mkdir_p/foo/bar"]];
+         ["is_dir"; "/mkdir_p/foo/bar"; ""]];
       InitScratchFS, Always, TestResultTrue
         [["mkdir_p"; "/mkdir_p2/foo/bar"];
-         ["is_dir"; "/mkdir_p2/foo"]];
+         ["is_dir"; "/mkdir_p2/foo"; ""]];
       InitScratchFS, Always, TestResultTrue
         [["mkdir_p"; "/mkdir_p3/foo/bar"];
-         ["is_dir"; "/mkdir_p3"]];
+         ["is_dir"; "/mkdir_p3"; ""]];
       (* Regression tests for RHBZ#503133: *)
       InitScratchFS, Always, TestRun
         [["mkdir"; "/mkdir_p4"];
@@ -3554,13 +3554,16 @@ See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>." };
 
   { defaults with
     name = "is_file";
-    style = RBool "fileflag", [Pathname "path"], [];
+    style = RBool "fileflag", [Pathname "path"], [OBool "followsymlinks"];
     proc_nr = Some 37;
+    once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResultTrue (
-        [["is_file"; "/known-1"]]);
+        [["is_file"; "/known-1"; ""]]);
       InitISOFS, Always, TestResultFalse (
-        [["is_file"; "/directory"]])
+        [["is_file"; "/directory"; ""]]);
+      InitISOFS, Always, TestResultTrue (
+        [["is_file"; "/abssymlink"; "true"]])
     ];
     shortdesc = "test if a regular file";
     longdesc = "\
@@ -3568,23 +3571,32 @@ This returns C<true> if and only if there is a regular file
 with the given C<path> name.  Note that it returns false for
 other objects like directories.
 
+If the optional flag C<followsymlinks> is true, then a symlink
+(or chain of symlinks) that ends with a file also causes the
+function to return true.
+
 See also C<guestfs_stat>." };
 
   { defaults with
     name = "is_dir";
-    style = RBool "dirflag", [Pathname "path"], [];
+    style = RBool "dirflag", [Pathname "path"], [OBool "followsymlinks"];
     proc_nr = Some 38;
+    once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResultFalse (
-        [["is_dir"; "/known-3"]]);
+        [["is_dir"; "/known-3"; ""]]);
       InitISOFS, Always, TestResultTrue (
-        [["is_dir"; "/directory"]])
+        [["is_dir"; "/directory"; ""]])
     ];
     shortdesc = "test if a directory";
     longdesc = "\
 This returns C<true> if and only if there is a directory
 with the given C<path> name.  Note that it returns false for
 other objects like files.
+
+If the optional flag C<followsymlinks> is true, then a symlink
+(or chain of symlinks) that ends with a directory also causes the
+function to return true.
 
 See also C<guestfs_stat>." };
 
@@ -4796,7 +4808,7 @@ C<guestfs_is_zero_device>" };
         [["mkdir_p"; "/boot/grub"];
          ["write"; "/boot/grub/device.map"; "(hd0) /dev/sda"];
          ["grub_install"; "/"; "/dev/sda"];
-         ["is_dir"; "/boot"]])
+         ["is_dir"; "/boot"; ""]])
     ];
     shortdesc = "install GRUB 1";
     longdesc = "\
@@ -4850,7 +4862,7 @@ replacing C</dev/vda> with the name of the installation device.
         [["mkdir"; "/cp2"];
          ["write"; "/cp2/old"; "file content"];
          ["cp"; "/cp2/old"; "/cp2/new"];
-         ["is_file"; "/cp2/old"]]);
+         ["is_file"; "/cp2/old"; ""]]);
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/cp3"];
          ["write"; "/cp3/old"; "file content"];
@@ -4894,7 +4906,7 @@ recursively using the C<cp -a> command." };
         [["mkdir"; "/mv2"];
          ["write"; "/mv2/old"; "file content"];
          ["mv"; "/mv2/old"; "/mv2/new"];
-         ["is_file"; "/mv2/old"]])
+         ["is_file"; "/mv2/old"; ""]])
     ];
     shortdesc = "move a file";
     longdesc = "\
@@ -8373,55 +8385,70 @@ To find the label of a filesystem, use C<guestfs_vfs_label>." };
 
   { defaults with
     name = "is_chardev";
-    style = RBool "flag", [Pathname "path"], [];
+    style = RBool "flag", [Pathname "path"], [OBool "followsymlinks"];
     proc_nr = Some 267;
+    once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResultFalse (
-        [["is_chardev"; "/directory"]]);
+        [["is_chardev"; "/directory"; ""]]);
       InitScratchFS, Always, TestResultTrue (
         [["mknod_c"; "0o777"; "99"; "66"; "/is_chardev"];
-         ["is_chardev"; "/is_chardev"]])
+         ["is_chardev"; "/is_chardev"; ""]])
     ];
     shortdesc = "test if character device";
     longdesc = "\
 This returns C<true> if and only if there is a character device
 with the given C<path> name.
 
+If the optional flag C<followsymlinks> is true, then a symlink
+(or chain of symlinks) that ends with a chardev also causes the
+function to return true.
+
 See also C<guestfs_stat>." };
 
   { defaults with
     name = "is_blockdev";
-    style = RBool "flag", [Pathname "path"], [];
+    style = RBool "flag", [Pathname "path"], [OBool "followsymlinks"];
     proc_nr = Some 268;
+    once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResultFalse (
-        [["is_blockdev"; "/directory"]]);
+        [["is_blockdev"; "/directory"; ""]]);
       InitScratchFS, Always, TestResultTrue (
         [["mknod_b"; "0o777"; "99"; "66"; "/is_blockdev"];
-         ["is_blockdev"; "/is_blockdev"]])
+         ["is_blockdev"; "/is_blockdev"; ""]])
     ];
     shortdesc = "test if block device";
     longdesc = "\
 This returns C<true> if and only if there is a block device
 with the given C<path> name.
 
+If the optional flag C<followsymlinks> is true, then a symlink
+(or chain of symlinks) that ends with a block device also causes the
+function to return true.
+
 See also C<guestfs_stat>." };
 
   { defaults with
     name = "is_fifo";
-    style = RBool "flag", [Pathname "path"], [];
+    style = RBool "flag", [Pathname "path"], [OBool "followsymlinks"];
     proc_nr = Some 269;
+    once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResultFalse (
-        [["is_fifo"; "/directory"]]);
+        [["is_fifo"; "/directory"; ""]]);
       InitScratchFS, Always, TestResultTrue (
         [["mkfifo"; "0o777"; "/is_fifo"];
-         ["is_fifo"; "/is_fifo"]])
+         ["is_fifo"; "/is_fifo"; ""]])
     ];
     shortdesc = "test if FIFO (named pipe)";
     longdesc = "\
 This returns C<true> if and only if there is a FIFO (named pipe)
 with the given C<path> name.
+
+If the optional flag C<followsymlinks> is true, then a symlink
+(or chain of symlinks) that ends with a FIFO also causes the
+function to return true.
 
 See also C<guestfs_stat>." };
 
@@ -8444,17 +8471,22 @@ See also C<guestfs_stat>." };
 
   { defaults with
     name = "is_socket";
-    style = RBool "flag", [Pathname "path"], [];
+    style = RBool "flag", [Pathname "path"], [OBool "followsymlinks"];
     proc_nr = Some 271;
+    once_had_no_optargs = true;
     (* XXX Need a positive test for sockets. *)
     tests = [
       InitISOFS, Always, TestResultFalse (
-        [["is_socket"; "/directory"]])
+        [["is_socket"; "/directory"; ""]])
     ];
     shortdesc = "test if socket";
     longdesc = "\
 This returns C<true> if and only if there is a Unix domain socket
 with the given C<path> name.
+
+If the optional flag C<followsymlinks> is true, then a symlink
+(or chain of symlinks) that ends with a socket also causes the
+function to return true.
 
 See also C<guestfs_stat>." };
 
@@ -11039,7 +11071,7 @@ for other partition types." };
         [["mkdir"; "/rename"];
          ["write"; "/rename/old"; "file content"];
          ["rename"; "/rename/old"; "/rename/new"];
-         ["is_file"; "/rename/old"]])
+         ["is_file"; "/rename/old"; ""]])
     ];
     shortdesc = "rename a file on the same filesystem";
     longdesc = "\

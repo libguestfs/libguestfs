@@ -51,11 +51,17 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-inspect_get_icon.h \
   include/guestfs-gobject/optargs-mount_local.h \
   include/guestfs-gobject/optargs-umount_local.h \
+  include/guestfs-gobject/optargs-is_file.h \
+  include/guestfs-gobject/optargs-is_dir.h \
   include/guestfs-gobject/optargs-umount.h \
   include/guestfs-gobject/optargs-tar_in.h \
   include/guestfs-gobject/optargs-tar_out.h \
   include/guestfs-gobject/optargs-mkswap.h \
   include/guestfs-gobject/optargs-grep.h \
+  include/guestfs-gobject/optargs-is_chardev.h \
+  include/guestfs-gobject/optargs-is_blockdev.h \
+  include/guestfs-gobject/optargs-is_fifo.h \
+  include/guestfs-gobject/optargs-is_socket.h \
   include/guestfs-gobject/optargs-mkfs.h \
   include/guestfs-gobject/optargs-mount_9p.h \
   include/guestfs-gobject/optargs-ntfsresize.h \
@@ -117,11 +123,17 @@ guestfs_gobject_sources= \
   src/optargs-inspect_get_icon.c \
   src/optargs-mount_local.c \
   src/optargs-umount_local.c \
+  src/optargs-is_file.c \
+  src/optargs-is_dir.c \
   src/optargs-umount.c \
   src/optargs-tar_in.c \
   src/optargs-tar_out.c \
   src/optargs-mkswap.c \
   src/optargs-grep.c \
+  src/optargs-is_chardev.c \
+  src/optargs-is_blockdev.c \
+  src/optargs-is_fifo.c \
+  src/optargs-is_socket.c \
   src/optargs-mkfs.c \
   src/optargs-mount_9p.c \
   src/optargs-ntfsresize.c \
