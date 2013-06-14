@@ -225,7 +225,8 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   CLEANUP_FREE char *local = NULL;
   int r, w, h;
 
-  r = guestfs_is_file (g, filename);
+  r = guestfs_is_file_opts (g, filename,
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1);
   if (r == -1)
     return NULL; /* a real error */
   if (r == 0)
@@ -367,7 +368,8 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
   int r;
 
-  r = guestfs_is_file (g, CIRROS_LOGO);
+  r = guestfs_is_file_opts (g, CIRROS_LOGO,
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1);
   if (r == -1)
     return NULL; /* a real error */
   if (r == 0)

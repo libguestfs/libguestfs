@@ -404,7 +404,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
   fs->type = OS_TYPE_LINUX;
 
-  if (guestfs_is_file (g, "/etc/lsb-release") > 0) {
+  if (guestfs_is_file_opts (g, "/etc/lsb-release",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     r = parse_lsb_release (g, fs);
     if (r == -1)        /* error */
       return -1;
@@ -412,7 +413,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       goto skip_release_checks;
   }
 
-  if (guestfs_is_file (g, "/etc/redhat-release") > 0) {
+  if (guestfs_is_file_opts (g, "/etc/redhat-release",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_REDHAT_BASED; /* Something generic Red Hat-like. */
 
     if (parse_release_file (g, fs, "/etc/redhat-release") == -1)
@@ -493,7 +495,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       fs->minor_version = 0;
     }
   }
-  else if (guestfs_is_file (g, "/etc/debian_version") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/debian_version",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_DEBIAN;
 
     if (parse_release_file (g, fs, "/etc/debian_version") == -1)
@@ -502,7 +505,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
-  else if (guestfs_is_file (g, "/etc/pardus-release") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/pardus-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_PARDUS;
 
     if (parse_release_file (g, fs, "/etc/pardus-release") == -1)
@@ -511,14 +515,16 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
-  else if (guestfs_is_file (g, "/etc/arch-release") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/arch-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_ARCHLINUX;
 
     /* /etc/arch-release file is empty and I can't see a way to
      * determine the actual release or product string.
      */
   }
-  else if (guestfs_is_file (g, "/etc/gentoo-release") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/gentoo-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_GENTOO;
 
     if (parse_release_file (g, fs, "/etc/gentoo-release") == -1)
@@ -527,7 +533,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
-  else if (guestfs_is_file (g, "/etc/meego-release") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/meego-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_MEEGO;
 
     if (parse_release_file (g, fs, "/etc/meego-release") == -1)
@@ -536,7 +543,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
-  else if (guestfs_is_file (g, "/etc/slackware-version") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/slackware-version",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_SLACKWARE;
 
     if (parse_release_file (g, fs, "/etc/slackware-version") == -1)
@@ -545,7 +553,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
-  else if (guestfs_is_file (g, "/etc/ttylinux-target") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/ttylinux-target",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_TTYLINUX;
 
     if (parse_release_file (g, fs, "/etc/ttylinux-target") == -1)
@@ -554,7 +563,8 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs___parse_major_minor (g, fs) == -1)
       return -1;
   }
-  else if (guestfs_is_file (g, "/etc/SuSE-release") > 0) {
+  else if (guestfs_is_file_opts (g, "/etc/SuSE-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_SUSE_BASED;
 
     if (parse_suse_release (g, fs, "/etc/SuSE-release") == -1)
@@ -564,8 +574,10 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   /* Buildroot (http://buildroot.net) is an embedded Linux distro
    * toolkit.  It is used by specific distros such as Cirros.
    */
-  else if (guestfs_is_file (g, "/etc/br-version") > 0) {
-    if (guestfs_is_file (g, "/usr/share/cirros/logo") > 0)
+  else if (guestfs_is_file_opts (g, "/etc/br-version",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    if (guestfs_is_file_opts (g, "/usr/share/cirros/logo",
+                              GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0)
       fs->distro = OS_DISTRO_CIRROS;
     else
       fs->distro = OS_DISTRO_BUILDROOT;
@@ -610,7 +622,8 @@ guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
    * we'll use that anyway.
    */
 
-  if (guestfs_is_file (g, "/etc/motd") > 0) {
+  if (guestfs_is_file_opts (g, "/etc/motd",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     if (parse_release_file (g, fs, "/etc/motd") == -1)
       return -1;
 
@@ -638,7 +651,8 @@ int
 guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
 {
 
-  if (guestfs_is_file (g, "/etc/release") > 0) {
+  if (guestfs_is_file_opts (g, "/etc/release",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     char *major, *minor;
     if (parse_release_file (g, fs, "/etc/release") == -1)
       return -1;
@@ -683,7 +697,8 @@ guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
 {
   fs->type = OS_TYPE_HURD;
 
-  if (guestfs_is_file (g, "/etc/debian_version") > 0) {
+  if (guestfs_is_file_opts (g, "/etc/debian_version",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_DEBIAN;
 
     if (parse_release_file (g, fs, "/etc/debian_version") == -1)
@@ -1495,7 +1510,9 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
 {
   /* Security: Refuse to do this if a config file is too large. */
   for (const char **i = configfiles; *i != NULL; i++) {
-    if (guestfs_is_file (g, *i) == 0) continue;
+    if (guestfs_is_file_opts (g, *i,
+                              GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) == 0)
+      continue;
 
     int64_t size = guestfs_filesize (g, *i);
     if (size == -1)
