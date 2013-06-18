@@ -1525,10 +1525,6 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
     }
   }
 
-  /* If !feature_available (g, "augeas") then the next call will fail.
-   * Arguably we might want to fall back to a non-Augeas method in
-   * this case.
-   */
   if (guestfs_aug_init (g, "/", 16|32) == -1)
     return -1;
 

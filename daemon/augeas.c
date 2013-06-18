@@ -23,15 +23,18 @@
 #include <string.h>
 #include <unistd.h>
 
-#ifdef HAVE_AUGEAS
 #include <augeas.h>
-#endif
 
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"
 
-#ifdef HAVE_AUGEAS
+int
+optgroup_augeas_available (void)
+{
+  return 1;
+}
+
 /* The Augeas handle.  We maintain a single handle per daemon, which
  * is all that is necessary and reduces the complexity of the API
  * considerably.
@@ -57,12 +60,6 @@ aug_finalize (void)
     }									\
   }									\
   while (0)
-
-int
-optgroup_augeas_available (void)
-{
-  return 1;
-}
 
 /* We need to rewrite the root path so it is based at /sysroot. */
 int
@@ -105,7 +102,6 @@ do_aug_close (void)
 int
 do_aug_defvar (const char *name, const char *expr)
 {
-#ifdef HAVE_AUG_DEFVAR
   int r;
 
   NEED_AUG (-1);
@@ -116,16 +112,11 @@ do_aug_defvar (const char *name, const char *expr)
     return -1;
   }
   return r;
-#else
-  reply_with_error ("function not available");
-  return -1;
-#endif
 }
 
 guestfs_int_int_bool *
 do_aug_defnode (const char *name, const char *expr, const char *val)
 {
-#ifdef HAVE_AUG_DEFNODE
   guestfs_int_int_bool *r;
   int i, created;
 
@@ -147,10 +138,6 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
   r->b = created;
 
   return r;
-#else
-  reply_with_error ("function not available");
-  return NULL;
-#endif
 }
 
 char *
@@ -317,7 +304,6 @@ do_aug_save (void)
 int
 do_aug_load (void)
 {
-#ifdef HAVE_AUG_LOAD
   NEED_AUG (-1);
 
   if (aug_load (aug) == -1) {
@@ -326,10 +312,6 @@ do_aug_load (void)
   }
 
   return 0;
-#else
-  reply_with_error ("function not available");
-  return -1;
-#endif
 }
 
 /* Simpler version of aug-match, which also sorts the output. */
@@ -375,9 +357,3 @@ do_aug_ls (const char *path)
   sort_strings (matches, count_strings ((void *) matches));
   return matches;		/* Caller frees. */
 }
-
-#else /* !HAVE_AUGEAS */
-
-OPTGROUP_AUGEAS_NOT_AVAILABLE
-
-#endif
