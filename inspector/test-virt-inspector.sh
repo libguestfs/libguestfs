@@ -18,6 +18,10 @@
 
 export LANG=C
 set -e
+set -x
+
+# ntfs-3g can't set UUIDs right now, so ignore just that <uuid>.
+diff_ignore="-I <uuid>[0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]</uuid>"
 
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
@@ -26,7 +30,7 @@ for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
 	$VG ./virt-inspector -a "$f" > "actual-$b.xml"
         # This 'diff' command will fail (because of -e option) if there
         # are any differences.
-        diff -ur "expected-$b.xml" "actual-$b.xml"
+        diff -ur $diff_ignore "expected-$b.xml" "actual-$b.xml"
     fi
 done
 
