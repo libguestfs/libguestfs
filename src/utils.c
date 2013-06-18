@@ -54,6 +54,48 @@ guestfs___count_strings (char *const *argv)
   return r;
 }
 
+/* Note that near-identical functions exist in the daemon. */
+char *
+guestfs___concat_strings (char *const *argv)
+{
+  return guestfs___join_strings ("", argv);
+}
+
+char *
+guestfs___join_strings (const char *sep, char *const *argv)
+{
+  size_t i, len, seplen, rlen;
+  char *r;
+
+  seplen = strlen (sep);
+
+  len = 0;
+  for (i = 0; argv[i] != NULL; ++i) {
+    if (i > 0)
+      len += seplen;
+    len += strlen (argv[i]);
+  }
+  len++; /* for final \0 */
+
+  r = malloc (len);
+  if (r == NULL)
+    return NULL;
+
+  rlen = 0;
+  for (i = 0; argv[i] != NULL; ++i) {
+    if (i > 0) {
+      memcpy (&r[rlen], sep, seplen);
+      rlen += seplen;
+    }
+    len = strlen (argv[i]);
+    memcpy (&r[rlen], argv[i], len);
+    rlen += len;
+  }
+  r[rlen] = '\0';
+
+  return r;
+}
+
 /* Translate a wait/system exit status into a printable string.  The
  * string must be freed by the caller.
  */
