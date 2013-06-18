@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/sda2</root>
+    <name>linux</name>
+    <arch>x86_64</arch>
+    <distro>ubuntu</distro>
+    <product_name>Ubuntu 10.10 (Phony Pharaoh)</product_name>
+    <major_version>10</major_version>
+    <minor_version>10</minor_version>
+    <package_format>deb</package_format>
+    <package_management>apt</package_management>
+    <hostname>ubuntu.invalid</hostname>
+    <format>installed</format>
+    <mountpoints>
+      <mountpoint dev="/dev/sda2">/</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/mapper/cryptswap1"/>
+      <filesystem dev="/dev/sda1">
+        <type>ext2</type>
+        <label>BOOT</label>
+        <uuid>01234567-0123-0123-0123-012345678901</uuid>
+      </filesystem>
+      <filesystem dev="/dev/sda2">
+        <type>ext2</type>
+        <uuid>01234567-0123-0123-0123-012345678902</uuid>
+      </filesystem>
+    </filesystems>
+    <applications>
+      <application>
+        <name>test1</name>
+        <version>1.2.3</version>
+        <release>1</release>
+        <arch>amd64</arch>
+      </application>
+      <application>
+        <name>test2</name>
+        <version>1.2.3</version>
+        <release>1</release>
+        <arch>amd64</arch>
+      </application>
+      <application>
+        <name>test3</name>
+        <version>1.2.3</version>
+        <release>1</release>
+        <arch>amd64</arch>
+      </application>
+    </applications>
+  </operatingsystem>
+</operatingsystems>

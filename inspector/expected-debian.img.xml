@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/debian/root</root>
+    <name>linux</name>
+    <arch>x86_64</arch>
+    <distro>debian</distro>
+    <product_name>5.0.1</product_name>
+    <major_version>5</major_version>
+    <minor_version>0</minor_version>
+    <package_format>deb</package_format>
+    <package_management>apt</package_management>
+    <hostname>debian.invalid</hostname>
+    <format>installed</format>
+    <mountpoints>
+      <mountpoint dev="/dev/debian/root">/</mountpoint>
+      <mountpoint dev="/dev/debian/usr">/usr</mountpoint>
+      <mountpoint dev="/dev/debian/var">/var</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
+      <mountpoint dev="/dev/debian/home">/home</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/debian/home">
+        <type>ext2</type>
+        <uuid>01234567-0123-0123-0123-012345678905</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian/root">
+        <type>ext2</type>
+        <uuid>01234567-0123-0123-0123-012345678902</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian/usr">
+        <type>ext2</type>
+        <uuid>01234567-0123-0123-0123-012345678903</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian/var">
+        <type>ext2</type>
+        <uuid>01234567-0123-0123-0123-012345678904</uuid>
+      </filesystem>
+      <filesystem dev="/dev/sda1">
+        <type>ext2</type>
+        <label>BOOT</label>
+        <uuid>01234567-0123-0123-0123-012345678901</uuid>
+      </filesystem>
+    </filesystems>
+    <applications>
+      <application>
+        <name>test1</name>
+        <version>1.2.3</version>
+        <release>1</release>
+        <arch>amd64</arch>
+      </application>
+      <application>
+        <name>test2</name>
+        <version>1.2.3</version>
+        <release>1</release>
+        <arch>amd64</arch>
+      </application>
+      <application>
+        <name>test3</name>
+        <version>1.2.3</version>
+        <release>1</release>
+        <arch>amd64</arch>
+      </application>
+    </applications>
+  </operatingsystem>
+</operatingsystems>
