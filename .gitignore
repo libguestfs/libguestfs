@@ -222,6 +222,7 @@ Makefile.in
 /html/virt-tar-in.1.html
 /html/virt-tar-out.1.html
 /html/virt-win-reg.1.html
+/inspector/actual-*.xml
 /inspector/stamp-virt-inspector.pod
 /inspector/test-xmllint.sh
 /inspector/virt-inspector

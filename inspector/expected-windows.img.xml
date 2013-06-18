@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/sda2</root>
+    <name>windows</name>
+    <arch>i386</arch>
+    <distro>windows</distro>
+    <product_name>Microsoft Windows 7 Phony Edition</product_name>
+    <product_variant>Client</product_variant>
+    <major_version>6</major_version>
+    <minor_version>1</minor_version>
+    <windows_systemroot>/Windows</windows_systemroot>
+    <windows_current_control_set>ControlSet001</windows_current_control_set>
+    <hostname>windows.invalid</hostname>
+    <format>installed</format>
+    <mountpoints>
+      <mountpoint dev="/dev/sda2">/</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/sda2">
+        <type>ntfs</type>
+        <uuid>091A29CC586B609C</uuid>
+      </filesystem>
+    </filesystems>
+    <drive_mappings>
+      <drive_mapping name="C">/dev/sda2</drive_mapping>
+    </drive_mappings>
+    <applications>
+      <application>
+        <name>test1</name>
+        <display_name>Test1 is not real software</display_name>
+        <version>1.2.3</version>
+        <url>http://libguestfs.org/</url>
+      </application>
+      <application>
+        <name>test2</name>
+        <display_name>Test2 is not real software</display_name>
+        <version>1.2.4</version>
+        <url>http://libguestfs.org/</url>
+        <description>Longer description about phony test2 software</description>
+      </application>
+      <application>
+        <name>test3</name>
+        <display_name>Test3 is not real software</display_name>
+        <version>1.2.5</version>
+        <install_path>C:\Program Files\Red Hat\test3</install_path>
+        <publisher>Red Hat Inc.</publisher>
+      </application>
+      <application>
+        <name>test4</name>
+        <display_name>Test4 is not real software</display_name>
+        <version>1.2.6</version>
+        <publisher>Red Hat Inc.</publisher>
+        <description>WOW6432node is where 32 bit emulated apps are installed on 64 bit Windows</description>
+      </application>
+    </applications>
+  </operatingsystem>
+</operatingsystems>

@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs virt-inspector test script
-# Copyright (C) 2012 Red Hat Inc.
+# Copyright (C) 2012-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,11 @@ set -e
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
-	$VG ./virt-inspector -a $f
+        b=$(basename "$f" .xml)
+	$VG ./virt-inspector -a "$f" > "actual-$b.xml"
+        # This 'diff' command will fail (because of -e option) if there
+        # are any differences.
+        diff -ur "expected-$b.xml" "actual-$b.xml"
     fi
 done
 
