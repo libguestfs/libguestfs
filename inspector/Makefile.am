@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 example_xml = \
 	example-debian.xml \
 	example-fedora.xml \
+	example-rhel-6.xml \
 	example-ubuntu.xml \
 	example-windows.xml \
 	example-debian-netinst-cd.xml \
@@ -33,6 +34,10 @@ example_xml = \
 	example-windows-xp-cd.xml
 
 EXTRA_DIST = \
+	expected-debian.img.xml \
+	expected-fedora.img.xml \
+	expected-ubuntu.img.xml \
+	expected-windows.img.xml \
 	test-virt-inspector.sh \
 	test-xmllint.sh.in \
 	virt-inspector.pod
