@@ -17,7 +17,7 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-export EXAMPLE_XML = \
+example_xml = \
 	example-debian.xml \
 	example-fedora.xml \
 	example-ubuntu.xml \
@@ -42,7 +42,7 @@ CLEANFILES = stamp-virt-inspector.pod
 docdir = @docdir@
 dist_doc_DATA = \
 	virt-inspector.rng \
-	$(EXAMPLE_XML)
+	$(example_xml)
 
 bin_PROGRAMS = virt-inspector
 
@@ -106,28 +106,3 @@ check-valgrind-local-guests:
 	for g in $(GUESTS); do \
 	  $(top_builddir)/run --test @VG@ ./virt-inspector -c "$(libvirt_ro_uri)" -d "$$g" || exit $$?; \
 	done
-
-# These rules require virt-inspector so there is no good time that we
-# can run them.  Instead you can run them by hand.
-
-example-debian.xml:
-	rm -f $@ $@-t
-	$(top_builddir)/run --test \
-	    ./virt-inspector ../tests/guests/debian.img > $@-t
-	mv $@-t $@
-example-fedora.xml:
-	rm -f $@ $@-t
-	$(top_builddir)/run --test \
-	    ./virt-inspector ../tests/guests/fedora.img > $@-t
-	mv $@-t $@
-example-ubuntu.xml:
-	rm -f $@ $@-t
-	$(top_builddir)/run --test \
-	    ./virt-inspector ../tests/guests/ubuntu.img > $@-t
-	mv $@-t $@
-example-windows.xml:
-	rm -f $@ $@-t
-	$(top_builddir)/run --test \
-	    ./virt-inspector ../tests/guests/windows.img | \
-	    fgrep -v '<uuid>' > $@-t
-	mv $@-t $@
