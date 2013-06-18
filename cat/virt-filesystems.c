@@ -841,35 +841,6 @@ parents_of_vg (char *vg)
   return ret;
 }
 
-static char *
-join_comma (char **strings)
-{
-  size_t i, count;
-  char *ret;
-
-  for (count = i = 0; strings[i] != NULL; ++i) {
-    if (i > 0)
-      count++;
-    count += strlen (strings[i]);
-  }
-
-  ret = malloc (count + 1);
-  if (ret == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-
-  for (count = i = 0; strings[i] != NULL; ++i) {
-    if (i > 0)
-      ret[count++] = ',';
-    strcpy (&ret[count], strings[i]);
-    count += strlen (strings[i]);
-  }
-  ret[count] = 0;
-
-  return ret;
-}
-
 static void
 write_row (const char *name, const char *type,
            const char *vfs_type, const char *vfs_label, int mbr_id,
@@ -916,7 +887,7 @@ write_row (const char *name, const char *type,
   }
   if ((columns & COLUMN_PARENTS)) {
     /* Internally comma-separated field. */
-    parents_str = join_comma (parents);
+    parents_str = guestfs___join_strings (",", parents);
     strings[len++] = parents_str;
   }
   if ((columns & COLUMN_UUID))
