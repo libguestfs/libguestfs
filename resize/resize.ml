@@ -645,15 +645,34 @@ let () =
  * a surplus, if it is < 0 then it's a deficit.
  *)
 let calculate_surplus () =
-  (* We need some overhead for partitioning.  Worst case would be for
-   * EFI partitioning + massive per-partition alignment.
-   *)
-  let nr_partitions = List.length partitions in
-  let overhead = (Int64.of_int sectsize) *^ (
-    2L *^ 64L +^                                 (* GPT start and end *)
-    (alignment *^ (Int64.of_int (nr_partitions + 1))) (* Maximum alignment *)
-  ) +^
-  (Int64.of_int (max_bootloader - 64 * 512)) in  (* Bootloader *)
+  (* We need some overhead for partitioning. *)
+  let overhead =
+    let maxl64 = List.fold_left max 0L in
+
+    let nr_partitions = List.length partitions in
+
+    let gpt_start_sects = 64L in
+    let gpt_end_sects = gpt_start_sects in
+
+    let first_part_start_sects =
+      match partitions with
+      | { p_part = { G.part_start = start }} :: _ ->
+        start /^ Int64.of_int sectsize
+      | [] -> 0L in
+
+    let max_bootloader_sects = Int64.of_int max_bootloader /^ 512L in
+
+    (* Size of the unpartitioned space before the first partition. *)
+    let start_overhead_sects =
+      maxl64 [gpt_start_sects; max_bootloader_sects; first_part_start_sects] in
+
+    (* Maximum space lost because of alignment of partitions. *)
+    let alignment_sects = alignment *^ Int64.of_int (nr_partitions + 1) in
+
+    (* Add up the total max. overhead. *)
+    let overhead_sects =
+      start_overhead_sects +^ alignment_sects +^ gpt_end_sects in
+    Int64.of_int sectsize *^ overhead_sects in
 
   let required = List.fold_left (
     fun total p ->
