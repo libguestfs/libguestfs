@@ -31,6 +31,7 @@ TESTS = \
 	rhbz811649.sh \
 	rhbz895904.sh \
 	rhbz957772.sh \
+	rhbz975797.sh \
 	test-noexec-stack.pl
 
 tests_not_run = \
