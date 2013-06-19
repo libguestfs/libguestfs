@@ -75,6 +75,7 @@ free_regexps (void)
 }
 
 static int is_openable (guestfs_h *g, const char *path, int flags);
+static char *make_appliance_dev (guestfs_h *g, int virtio_scsi);
 static void print_qemu_command_line (guestfs_h *g, char **argv);
 static int qemu_supports (guestfs_h *g, const char *option);
 static int qemu_supports_device (guestfs_h *g, const char *device_name);
@@ -172,6 +173,7 @@ launch_appliance (guestfs_h *g, const char *arg)
   struct sockaddr_un addr;
   CLEANUP_FREE char *kernel = NULL, *initrd = NULL, *appliance = NULL;
   int has_appliance_drive;
+  CLEANUP_FREE char *appliance_dev = NULL;
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
 
@@ -317,8 +319,6 @@ launch_appliance (guestfs_h *g, const char *arg)
       }
     }
 
-    char appliance_dev[64] = "/dev/Xd";
-
     /* Add the ext2 appliance drive (after all the drives). */
     if (has_appliance_drive) {
       const char *cachemode = "";
@@ -341,8 +341,7 @@ launch_appliance (guestfs_h *g, const char *arg)
         add_cmdline (g, "scsi-hd,drive=appliance");
       }
 
-      appliance_dev[5] = virtio_scsi ? 's' : 'v';
-      guestfs___drive_name (g->nr_drives, &appliance_dev[7]);
+      appliance_dev = make_appliance_dev (g, virtio_scsi);
     }
 
     /* The qemu -machine option (added 2010-12) is a bit more sane
@@ -706,6 +705,40 @@ launch_appliance (guestfs_h *g, const char *arg)
   }
   g->state = CONFIG;
   return -1;
+}
+
+/* Calculate the appliance device name.
+ *
+ * The easy thing would be to use g->nr_drives (indeed, that's what we
+ * used to do).  However this breaks if some of the drives being added
+ * use the deprecated 'iface' parameter.  To further add confusion,
+ * the format of the 'iface' parameter has never been defined, but
+ * given existing usage we can assume it has one of only three values:
+ * NULL, "ide" or "virtio" (which means virtio-blk).  See RHBZ#975797.
+ */
+static char *
+make_appliance_dev (guestfs_h *g, int virtio_scsi)
+{
+  size_t i, index = 0;
+  struct drive *drv;
+  char dev[64] = "/dev/Xd";
+
+  /* Calculate the index of the drive. */
+  ITER_DRIVES (g, i, drv) {
+    if (virtio_scsi) {
+      if (drv->iface == NULL || STREQ (drv->iface, "ide"))
+        index++;
+    }
+    else /* virtio-blk */ {
+      if (drv->iface == NULL || STRNEQ (drv->iface, "virtio"))
+        index++;
+    }
+  }
+
+  dev[5] = virtio_scsi ? 's' : 'v';
+  guestfs___drive_name (index, &dev[7]);
+
+  return safe_strdup (g, dev);  /* Caller frees. */
 }
 
 /* This is called from the forked subprocess just before qemu runs, so

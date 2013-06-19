@@ -318,10 +318,14 @@ char *
 guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
                                   int flags)
 {
+  char root[64] = "";
   char *term = getenv ("TERM");
   char *ret;
   bool tcg = flags & APPLIANCE_COMMAND_LINE_IS_TCG;
   char lpj_s[64] = "";
+
+  if (appliance_dev)
+    snprintf (root, sizeof root, " root=%s", appliance_dev);
 
   if (tcg) {
     int lpj = guestfs___get_lpj (g);
@@ -342,13 +346,13 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " acpi=off"        /* we don't need ACPI, turn it off */
      " printk.time=1"   /* display timestamp before kernel messages */
      " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
-     " root=%s"                 /* root (appliance_dev) */
+     "%s"                       /* root=appliance_dev */
      " %s"                      /* selinux */
      "%s"                       /* verbose */
      " TERM=%s"                 /* TERM environment variable */
      "%s%s",                    /* append */
      lpj_s,
-     appliance_dev,
+     root,
      g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
      g->verbose ? " guestfs_verbose=1" : "",
      term ? term : "linux",
