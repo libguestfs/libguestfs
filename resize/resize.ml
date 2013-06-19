@@ -665,7 +665,13 @@ let calculate_surplus () =
       total +^ newsize
   ) 0L partitions in
 
-  outsize -^ (required +^ overhead)
+  let surplus = outsize -^ (required +^ overhead) in
+
+  if debug then
+    eprintf "calculate surplus: outsize=%Ld required=%Ld overhead=%Ld surplus=%Ld\n%!"
+      outsize required overhead surplus;
+
+  surplus
 
 (* Handle --expand and --shrink options. *)
 let () =
@@ -950,6 +956,10 @@ let partitions =
          let end_ = start +^ size in
          let next = roundup64 end_ alignment in
 
+         if debug then
+           eprintf "target partition %d: ignore or copy: start=%Ld end=%Ld\n%!"
+             partnum start (end_ -^ 1L);
+
          { p with p_target_start = start; p_target_end = end_ -^ 1L;
            p_target_partnum = partnum } :: loop (partnum+1) next ps
 
@@ -959,6 +969,10 @@ let partitions =
          (* Start of next partition + alignment. *)
          let next = start +^ size in
          let next = roundup64 next alignment in
+
+         if debug then
+           eprintf "target partition %d: resize: newsize=%Ld start=%Ld end=%Ld\n%!"
+             partnum newsize start (next -^ 1L);
 
          { p with p_target_start = start; p_target_end = next -^ 1L;
            p_target_partnum = partnum } :: loop (partnum+1) next ps
