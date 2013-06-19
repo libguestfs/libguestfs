@@ -20,18 +20,6 @@
 # mkfs fails creating a filesytem on a disk device when using a disk
 # with 'ide' interface
 
-# Allow this test to be skipped (eg. on ppc64)
-#
-# What happens on ppc64 is that we ask 'qemu-system-ppc64 -M pseries'
-# to create an IDE disk.  It either creates it, or ignores it (not
-# sure which), but the appliance fails to see the disk at all.  Thus
-# logical device /dev/sda points to the appliance root filesystem, and
-# the mkfs fails.  It's not clear how to solve this cleanly. XXX
-[ -n "$SKIP_TEST_RHBZ690819_SH" ] && {
-    echo "$0 skipped (environment variable set)"
-    exit 77
-}
-
 set -e
 export LANG=C
 
