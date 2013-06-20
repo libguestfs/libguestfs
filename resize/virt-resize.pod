@@ -635,19 +635,6 @@ meaningless for disks manufactured since the early 1990s, and doubly
 so for virtual hard drives.  Alignment of partitions to cylinders is
 not required by any modern operating system.
 
-=head2 RESIZING WINDOWS VIRTUAL MACHINES
-
-In Windows Vista and later versions, Microsoft switched to using a
-separate boot partition.  In these VMs, typically C</dev/sda1> is the
-boot partition and C</dev/sda2> is the main (C:) drive.  Resizing the
-first (boot) partition causes the bootloader to fail with
-C<0xC0000225> error.  Resizing the second partition (ie. C: drive)
-should work.
-
-Windows may initiate a lengthy "chkdsk" on first boot after a resize,
-if NTFS partitions have been expanded.  This is just a safety check
-and (unless it find errors) is nothing to worry about.
-
 =head2 GUEST BOOT STUCK AT "GRUB"
 
 If a Linux guest does not boot after resizing, and the boot is stuck
@@ -663,6 +650,27 @@ after printing C<GRUB> on the console, try reinstalling grub.
 For more flexible guest reconfiguration, including if you need to
 specify other parameters to grub-install, use L<virt-rescue(1)>.
 
+=head2 RESIZING WINDOWS BOOT PARTITIONS
+
+In Windows Vista and later versions, Microsoft switched to using a
+separate boot partition.  In these VMs, typically C</dev/sda1> is the
+boot partition and C</dev/sda2> is the main (C:) drive.  Resizing the
+first (boot) partition causes the bootloader to fail with
+C<0xC0000225> error.  Resizing the second partition (ie. C: drive)
+should work.
+
+=head2 WINDOWS CHKDSK
+
+Windows disks which use NTFS must be consistent before virt-resize can
+be used.  If the ntfsresize operation fails, try booting the original
+VM and running C<chkdsk /f> on all NTFS partitions, then shut down the
+VM cleanly.  For further information see:
+L<https://bugzilla.redhat.com/show_bug.cgi?id=975753>
+
+I<After resize> Windows may initiate a lengthy "chkdsk" on first boot
+if NTFS partitions have been expanded.  This is just a safety check
+and (unless it find errors) is nothing to worry about.
+
 =head2 WINDOWS UNMOUNTABLE_BOOT_VOLUME BSOD
 
 After sysprepping a Windows guest and then resizing it with
@@ -670,6 +678,12 @@ virt-resize, you may see the guest fail to boot with an
 C<UNMOUNTABLE_BOOT_VOLUME> BSOD.  This error is caused by having
 C<ExtendOemPartition=1> in the sysprep.inf file.  Removing this line
 before sysprepping should fix the problem.
+
+=head2 WINDOWS 8
+
+Windows 8 "fast startup" can prevent virt-resize from resizing NTFS
+partitions.  See
+L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>.
 
 =head1 ALTERNATIVE TOOLS
 
