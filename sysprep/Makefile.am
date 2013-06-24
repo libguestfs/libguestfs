@@ -55,6 +55,7 @@ operations = \
 	puppet_data_log \
 	random_seed \
 	rhn_systemid \
+	rpm_db \
 	samba_db_log \
 	script \
 	smolt_uuid \
