@@ -32,6 +32,7 @@ sysprep/sysprep_operation_pam_data.ml
 sysprep/sysprep_operation_puppet_data_log.ml
 sysprep/sysprep_operation_random_seed.ml
 sysprep/sysprep_operation_rhn_systemid.ml
+sysprep/sysprep_operation_rpm_db.ml
 sysprep/sysprep_operation_samba_db_log.ml
 sysprep/sysprep_operation_script.ml
 sysprep/sysprep_operation_smolt_uuid.ml
