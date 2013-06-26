@@ -47,8 +47,7 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   CLEANUP_FREE char *err = NULL;
   int extfs = 0;
 
-  if (STREQ (fstype, "ext2") || STREQ (fstype, "ext3") ||
-      STREQ (fstype, "ext4"))
+  if (fstype_is_extfs (fstype))
     extfs = 1;
 
   /* For ext2/3/4 run the mke2fs program directly.  This is because
