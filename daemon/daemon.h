@@ -187,6 +187,7 @@ extern int sync_disks (void);
 /*-- in ext2.c --*/
 /* Confirmed this is true up to ext4 from the Linux sources. */
 #define EXT2_LABEL_MAX 16
+extern int fstype_is_extfs (const char *fstype);
 
 /*-- in lvm.c --*/
 extern int lv_canonical (const char *device, char **ret);

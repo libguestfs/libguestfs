@@ -38,6 +38,14 @@ GUESTFSD_EXT_CMD(str_mke2fs, mke2fs);
 GUESTFSD_EXT_CMD(str_lsattr, lsattr);
 GUESTFSD_EXT_CMD(str_chattr, chattr);
 
+/* https://bugzilla.redhat.com/show_bug.cgi?id=978302#c1 */
+int
+fstype_is_extfs (const char *fstype)
+{
+  return STREQ (fstype, "ext2") || STREQ (fstype, "ext3")
+    || STREQ (fstype, "ext4");
+}
+
 char **
 do_tune2fs_l (const char *device)
 {
@@ -378,6 +386,11 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   CLEANUP_FREE char *err = NULL;
   int r;
 
+  if (!fstype_is_extfs (fstype)) {
+    reply_with_error ("%s: not a valid extended filesystem type", fstype);
+    return -1;
+  }
+
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
@@ -404,6 +417,11 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
 {
   CLEANUP_FREE char *err = NULL;
   int r;
+
+  if (!fstype_is_extfs (fstype)) {
+    reply_with_error ("%s: not a valid extended filesystem type", fstype);
+    return -1;
+  }
 
   if (strlen (label) > EXT2_LABEL_MAX) {
     reply_with_error ("%s: ext2 labels are limited to %d bytes",
@@ -437,6 +455,11 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
 {
   CLEANUP_FREE char *err = NULL;
   int r;
+
+  if (!fstype_is_extfs (fstype)) {
+    reply_with_error ("%s: not a valid extended filesystem type", fstype);
+    return -1;
+  }
 
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
@@ -972,6 +995,11 @@ do_mke2fs (const char *device,               /* 0 */
   }
   if (optargs_bitmask & GUESTFS_MKE2FS_FSTYPE_BITMASK) {
     if (fstype) {
+      if (!fstype_is_extfs (fstype)) {
+        reply_with_error ("%s: not a valid extended filesystem type", fstype);
+        return -1;
+      }
+
       ADD_ARG (argv, i, "-t");
       ADD_ARG (argv, i, fstype);
     }

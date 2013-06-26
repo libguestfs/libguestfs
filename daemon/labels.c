@@ -80,8 +80,7 @@ do_set_label (const char *device, const char *label)
   if (vfs_type == NULL)
     return -1;
 
-  if (STREQ (vfs_type, "ext2") || STREQ (vfs_type, "ext3")
-      || STREQ (vfs_type, "ext4"))
+  if (fstype_is_extfs (vfs_type))
     r = e2label (device, label);
 
   else if (STREQ (vfs_type, "ntfs"))
