@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-06-18 19:28+0100\n"
+"POT-Creation-Date: 2013-06-26 19:00+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -4373,22 +4373,22 @@ msgstr ""
 "%s: root apparaat niet gevonden: roep deze functie alleen aan met een root "
 "apparaat eerder teruggegeven door guestfs_inspect_os"
 
-#: src/launch-direct.c:134
+#: src/launch-direct.c:135
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 "niet afgesloten aanhalingsteken (%c) in commandoregel in de buurt van: %s"
 
-#: src/launch-direct.c:153
+#: src/launch-direct.c:154
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr "kan string in aanhalingstekens in de buurt van: %s niet ontleden"
 
-#: src/launch-direct.c:185
+#: src/launch-direct.c:187
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-direct.c:662 src/launch-libvirt.c:449
+#: src/launch-direct.c:661 src/launch-libvirt.c:449
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
@@ -5069,15 +5069,15 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
 
-#: ../resize/resize.ml:793
+#: ../resize/resize.ml:818
 msgid "  An extra partition will be created for the surplus."
 msgstr "  Voor de surplus zal een extra partitie aangemaakt worden."
 
-#: ../resize/resize.ml:778 ../resize/resize.ml:759
+#: ../resize/resize.ml:803 ../resize/resize.ml:784
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "  De %s op %s zal geëxpandeerd worden met de '%s' methode."
 
-#: ../resize/resize.ml:795
+#: ../resize/resize.ml:820
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -5085,7 +5085,7 @@ msgstr ""
 "De surplus ruimte is niet groot genoeg om een extra partitie aan te maken en "
 "wordt daarom genegeerd."
 
-#: ../resize/resize.ml:797
+#: ../resize/resize.ml:822
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -5123,37 +5123,27 @@ msgstr ""
 "deze partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
 "commandoregel.)"
 
-#: ../resize/resize.ml:775
+#: ../resize/resize.ml:800
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: Dit logische volume zal vergroot worden tot de maximale grootte."
 
 #: ../resize/resize.ml:605
 msgid ""
-"%s: This partition has contains a %s filesystem which will be damaged by "
+"%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
 "want to shrink this partition, you need to use the '--resize-force' option, "
 "but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
-"%s: Deze partitie bevat een %s bestandssysteem welke beschadigd zal worden "
-"als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg verkleinen "
-"tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet je de '--"
-"resize-force' optie gebruiken, maar deze kan data op deze partitie "
-"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:601
 msgid ""
-"%s: This partition has contains an LVM physical volume which will be damaged "
-"by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-"you want to shrink this partition, you need to use the '--resize-force' "
-"option, but that could destroy any data on this partition.  (This error came "
-"from '%s' option on the command line.)"
+"%s: This partition contains an LVM physical volume which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
 msgstr ""
-"%s: Deze partitie bevat een LVM fysieke volume welke beschadigd zal worden "
-"als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg verkleinen "
-"tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet je de '--"
-"resize-force' optie gebruiken, maar deze kan data op deze partitie "
-"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:598
 msgid ""
@@ -5167,7 +5157,7 @@ msgstr ""
 "resize-force' optie gebruiken, maar deze kan data op deze partitie "
 "vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
-#: ../resize/resize.ml:752
+#: ../resize/resize.ml:777
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -5175,15 +5165,15 @@ msgstr ""
 "%s: Deze partitie zal aangemaakt worden, maar de inhoud zal genegeerd worden "
 "(bijv. niet gekopieerd naar het doel)."
 
-#: ../resize/resize.ml:754
+#: ../resize/resize.ml:779
 msgid "%s: This partition will be deleted."
 msgstr "%s: Deze partitie zal verwijderd worden."
 
-#: ../resize/resize.ml:750
+#: ../resize/resize.ml:775
 msgid "%s: This partition will be left alone."
 msgstr "%s: Deze partitie wordt met rust gelaten."
 
-#: ../resize/resize.ml:756
+#: ../resize/resize.ml:781
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: De grootte van deze partitie wordt veranderd van %s naar %s."
 
@@ -5195,7 +5185,7 @@ msgstr "%s: lege --expand optie"
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: bestand is te klein om een schijf image te zijn (%Ld bytes)"
 
-#: ../resize/resize.ml:732
+#: ../resize/resize.ml:757
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -5400,7 +5390,7 @@ msgstr ""
 "Kopieer naar doel en maakt het sparse ...\n"
 "%!"
 
-#: ../resize/resize.ml:1034
+#: ../resize/resize.ml:1067
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -5510,7 +5500,7 @@ msgstr "Expandeer logische volume"
 msgid "Expand partition"
 msgstr "Expandeer partitie"
 
-#: ../resize/resize.ml:1181
+#: ../resize/resize.ml:1214
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
@@ -5518,7 +5508,7 @@ msgstr ""
 "%s wordt geëxpandeerd met de '%s' methode ...\n"
 "%!"
 
-#: ../resize/resize.ml:1164
+#: ../resize/resize.ml:1197
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -5526,7 +5516,7 @@ msgstr ""
 "%s%s wordt geëxpandeerd met de '%s' methode ...\n"
 "%!"
 
-#: ../resize/resize.ml:852
+#: ../resize/resize.ml:877
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -5555,7 +5545,7 @@ msgstr ""
 "Vul vrije ruimte in volgroep %s met nul in ...\n"
 "%!"
 
-#: ../resize/resize.ml:1090
+#: ../resize/resize.ml:1123
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -5733,6 +5723,16 @@ msgstr "Verwijder blkid tab in de gast"
 msgid "Remove email from the local mail spool directory"
 msgstr "Verwijder email uit de lokale mail spool map"
 
+#: ../sysprep/sysprep_operation_rpm_db.ml:40
+msgid "Remove host-specific RPM database files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rpm_db.ml:41
+msgid ""
+"Remove host-specific RPM database files and locks.  RPM will\n"
+"recreate these files automatically if needed."
+msgstr ""
+
 #: ../sysprep/sysprep_operation_logfiles.ml:96
 msgid "Remove many log files from the guest"
 msgstr "Verwijder veel log bestanden van de gast"
@@ -5859,7 +5859,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Verwijder at-jobs en cron-jobs van gebruiker"
 
-#: ../resize/resize.ml:1201
+#: ../resize/resize.ml:1234
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -5921,7 +5921,7 @@ msgstr "Stel libvirt gastnaam in"
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Stel partitie uitlijning in (standaard: 128 sectors)"
 
-#: ../resize/resize.ml:831
+#: ../resize/resize.ml:856
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -6089,7 +6089,7 @@ msgstr ""
 "De systeembrede procesaccounting zal opgeslagen worden in de pacct\n"
 "logbestandenfiles als procesaccounting aangezet is."
 
-#: ../resize/resize.ml:716
+#: ../resize/resize.ml:741
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -6098,7 +6098,7 @@ msgstr ""
 "die hoeveelheid groter maken of je verzoek om de grootte te veranderen "
 "aanpassen."
 
-#: ../resize/resize.ml:790
+#: ../resize/resize.ml:815
 msgid "There is a surplus of %s."
 msgstr "Er is een overschot van %s."
 
@@ -6142,7 +6142,7 @@ msgstr ""
 "\n"
 "Zie L</RANDOM SEED> hieronder."
 
-#: ../resize/resize.ml:687
+#: ../resize/resize.ml:712
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -6150,7 +6150,7 @@ msgstr ""
 "Je kunt --expand niet gebruiken als er geen surplus ruimte voor expansie "
 "is.  Je moet de doel schijf tenminste %s groter maken."
 
-#: ../resize/resize.ml:699
+#: ../resize/resize.ml:724
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -6288,7 +6288,7 @@ msgstr "part"
 msgid "part=size"
 msgstr "part=grootte"
 
-#: ../resize/resize.ml:889 ../resize/resize.ml:865
+#: ../resize/resize.ml:914 ../resize/resize.ml:890
 msgid "pread-device: short read"
 msgstr "pread-device: kort lezen"
 
@@ -6433,7 +6433,7 @@ msgstr ""
 "  boodschap: %s\n"
 "%!"
 
-#: ../resize/resize.ml:1087
+#: ../resize/resize.ml:1120
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
@@ -6443,13 +6443,41 @@ msgstr ""
 "magic\n"
 "%!"
 
-#: ../resize/resize.ml:675
+#: ../resize/resize.ml:700
 msgid "you cannot use options --expand and --shrink together"
 msgstr "je kunt de opties --expand en --shrink niet tezamen gebruiken"
 
 #: ../sparsify/sparsify.ml:133 ../resize/resize.ml:198
 msgid "you cannot use the same disk image for input and output"
 msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
+
+#~ msgid ""
+#~ "%s: This partition has contains a %s filesystem which will be damaged by "
+#~ "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
+#~ "you want to shrink this partition, you need to use the '--resize-force' "
+#~ "option, but that could destroy any data on this partition.  (This error "
+#~ "came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "%s: Deze partitie bevat een %s bestandssysteem welke beschadigd zal "
+#~ "worden als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg "
+#~ "verkleinen tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet "
+#~ "je de '--resize-force' optie gebruiken, maar deze kan data op deze "
+#~ "partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
+#~ "commandoregel.)"
+
+#~ msgid ""
+#~ "%s: This partition has contains an LVM physical volume which will be "
+#~ "damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld "
+#~ "bytes).  If you want to shrink this partition, you need to use the '--"
+#~ "resize-force' option, but that could destroy any data on this partition.  "
+#~ "(This error came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "%s: Deze partitie bevat een LVM fysieke volume welke beschadigd zal "
+#~ "worden als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg "
+#~ "verkleinen tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet "
+#~ "je de '--resize-force' optie gebruiken, maar deze kan data op deze "
+#~ "partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
+#~ "commandoregel.)"
 
 #~ msgid "fusermount failed: %s: %s"
 #~ msgstr "fusermount mislukte: %s: %s"

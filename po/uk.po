@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-06-18 19:28+0100\n"
+"POT-Creation-Date: 2013-06-26 19:00+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4587,21 +4587,21 @@ msgstr ""
 "кореневого пристрою, дані якого раніше було повернуто функцією "
 "guestfs_inspect_os"
 
-#: src/launch-direct.c:134
+#: src/launch-direct.c:135
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr "неврівноважений символ лапки (%c) у командному рядку поблизу від %s"
 
-#: src/launch-direct.c:153
+#: src/launch-direct.c:154
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr "не вдалося обробити рядок у лапках поблизу від %s"
 
-#: src/launch-direct.c:185
+#: src/launch-direct.c:187
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:662 src/launch-libvirt.c:449
+#: src/launch-direct.c:661 src/launch-libvirt.c:449
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -5334,15 +5334,15 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
 
-#: ../resize/resize.ml:793
+#: ../resize/resize.ml:818
 msgid "  An extra partition will be created for the surplus."
 msgstr "  На решті простору сховища буде створено додатковий розділ."
 
-#: ../resize/resize.ml:778 ../resize/resize.ml:759
+#: ../resize/resize.ml:803 ../resize/resize.ml:784
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "   %s на %s буде розширено за допомогою методу «%s»."
 
-#: ../resize/resize.ml:795
+#: ../resize/resize.ml:820
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -5350,7 +5350,7 @@ msgstr ""
 "  Залишок місця недостатньо великий для створення нового розділу, отже його "
 "буде просто проігноровано."
 
-#: ../resize/resize.ml:797
+#: ../resize/resize.ml:822
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -5389,41 +5389,27 @@ msgstr ""
 "(Це повідомлення про помилку є наслідком використання параметра «%s» у рядку "
 "команди.)"
 
-#: ../resize/resize.ml:775
+#: ../resize/resize.ml:800
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: цей логічний том буде розширено до максимального розміру."
 
 #: ../resize/resize.ml:605
 msgid ""
-"%s: This partition has contains a %s filesystem which will be damaged by "
+"%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
 "want to shrink this partition, you need to use the '--resize-force' option, "
 "but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
-"%s: на цьому розділі міститься файлова система %s, яку може бути пошкоджено "
-"під час зменшення розмірів розділу до об’єму, меншого за %Ld байтів (від "
-"користувача надійшов запит на зменшення розмірів до %Ld байтів). Якщо вам "
-"потрібно зменшити розміри цього розділу, скористайтеся параметром «--resize-"
-"force», але результатом може бути знищення даних на цьому розділі. (Це "
-"повідомлення про помилку є наслідком використання параметра «%s» у рядку "
-"команди.)"
 
 #: ../resize/resize.ml:601
 msgid ""
-"%s: This partition has contains an LVM physical volume which will be damaged "
-"by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-"you want to shrink this partition, you need to use the '--resize-force' "
-"option, but that could destroy any data on this partition.  (This error came "
-"from '%s' option on the command line.)"
+"%s: This partition contains an LVM physical volume which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
 msgstr ""
-"s: на цьому розділі міститься фізичний том LVM, який може бути пошкоджено "
-"під час зменшення розмірів розділу до об’єму, меншого за %Ld байтів (від "
-"користувача надійшов запит на зменшення розмірів до %Ld байтів). Якщо вам "
-"потрібно зменшити розміри цього розділу, скористайтеся параметром «--resize-"
-"force», але результатом може бути знищення даних на цьому розділі. (Це "
-"повідомлення про помилку є наслідком використання параметра «%s» у рядку "
-"команди.)"
 
 #: ../resize/resize.ml:598
 msgid ""
@@ -5438,7 +5424,7 @@ msgstr ""
 "бути знищення всіх даних на розділі. (Це повідомлення про помилку є "
 "наслідком використання параметра «%s» у рядку команди.)"
 
-#: ../resize/resize.ml:752
+#: ../resize/resize.ml:777
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -5446,15 +5432,15 @@ msgstr ""
 "%s: цей розділ буде створено, але дані буде проігноровано (тобто дані не "
 "буде скопійовано на отриманий у результаті розділ)."
 
-#: ../resize/resize.ml:754
+#: ../resize/resize.ml:779
 msgid "%s: This partition will be deleted."
 msgstr "%s: цей розділ буде вилучено."
 
-#: ../resize/resize.ml:750
+#: ../resize/resize.ml:775
 msgid "%s: This partition will be left alone."
 msgstr "%s: цей розділ не буде змінено."
 
-#: ../resize/resize.ml:756
+#: ../resize/resize.ml:781
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: розмір цього розділу буде змінено з %s на %s."
 
@@ -5466,7 +5452,7 @@ msgstr "%s: порожній аргумент параметра --expand"
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
 
-#: ../resize/resize.ml:732
+#: ../resize/resize.ml:757
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -5672,7 +5658,7 @@ msgstr ""
 "Скопіювати призначення і виконати розрідження…\n"
 "%!"
 
-#: ../resize/resize.ml:1034
+#: ../resize/resize.ml:1067
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -5782,7 +5768,7 @@ msgstr "Розширити логічний том"
 msgid "Expand partition"
 msgstr "Розширити розділ"
 
-#: ../resize/resize.ml:1181
+#: ../resize/resize.ml:1214
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
@@ -5790,7 +5776,7 @@ msgstr ""
 "Розширення %s за допомогою методу «%s»…\n"
 "%!"
 
-#: ../resize/resize.ml:1164
+#: ../resize/resize.ml:1197
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -5798,7 +5784,7 @@ msgstr ""
 "Розширення %s%s за допомогою методу «%s»…\n"
 "%!"
 
-#: ../resize/resize.ml:852
+#: ../resize/resize.ml:877
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -5827,7 +5813,7 @@ msgstr ""
 "Заповнити вільне місце у групі томів %s нулями…\n"
 "%!"
 
-#: ../resize/resize.ml:1090
+#: ../resize/resize.ml:1123
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -6008,6 +5994,16 @@ msgstr "Вилучити вкладку ідентифікаторів блок�
 msgid "Remove email from the local mail spool directory"
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера"
 
+#: ../sysprep/sysprep_operation_rpm_db.ml:40
+msgid "Remove host-specific RPM database files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rpm_db.ml:41
+msgid ""
+"Remove host-specific RPM database files and locks.  RPM will\n"
+"recreate these files automatically if needed."
+msgstr ""
+
 #: ../sysprep/sysprep_operation_logfiles.ml:96
 msgid "Remove many log files from the guest"
 msgstr "Вилучити з гостьової системи багато файлів журналів"
@@ -6133,7 +6129,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Вилучити завдання at та cron користувачів"
 
-#: ../resize/resize.ml:1201
+#: ../resize/resize.ml:1234
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -6195,7 +6191,7 @@ msgstr "Встановити назву гостьової системи libvir
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Встановити вирівнювання розділів (типове значення: 128 секторів)"
 
-#: ../resize/resize.ml:831
+#: ../resize/resize.ml:856
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -6363,7 +6359,7 @@ msgstr ""
 "Дані обліку процесів системи будуть зберігатися у файлах журналу\n"
 "pacct, якщо увімкнено облік процесів."
 
-#: ../resize/resize.ml:716
+#: ../resize/resize.ml:741
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -6371,7 +6367,7 @@ msgstr ""
 "Не вистачає %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
 "принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
 
-#: ../resize/resize.ml:790
+#: ../resize/resize.ml:815
 msgid "There is a surplus of %s."
 msgstr "Маємо надлишок у %s."
 
@@ -6413,7 +6409,7 @@ msgstr ""
 "\n"
 "Див. L</RANDOM SEED> нижче."
 
-#: ../resize/resize.ml:687
+#: ../resize/resize.ml:712
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -6421,7 +6417,7 @@ msgstr ""
 "Не можна використовувати --expand, якщо немає залишку місця для розширення. "
 "Вам слід зробити диск призначення більшим, принаймні на %s."
 
-#: ../resize/resize.ml:699
+#: ../resize/resize.ml:724
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -6560,7 +6556,7 @@ msgstr "частина"
 msgid "part=size"
 msgstr "частина=розмір"
 
-#: ../resize/resize.ml:889 ../resize/resize.ml:865
+#: ../resize/resize.ml:914 ../resize/resize.ml:890
 msgid "pread-device: short read"
 msgstr "pread-device: коротке читання"
 
@@ -6712,7 +6708,7 @@ msgstr ""
 "  повідомлення: %s\n"
 "%!"
 
-#: ../resize/resize.ml:1087
+#: ../resize/resize.ml:1120
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
@@ -6722,7 +6718,7 @@ msgstr ""
 "завантажувача NTFS\n"
 "%!"
 
-#: ../resize/resize.ml:675
+#: ../resize/resize.ml:700
 msgid "you cannot use options --expand and --shrink together"
 msgstr "не можна одночасно використовувати параметри --expand і --shrink"
 
@@ -6731,6 +6727,36 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid ""
+#~ "%s: This partition has contains a %s filesystem which will be damaged by "
+#~ "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
+#~ "you want to shrink this partition, you need to use the '--resize-force' "
+#~ "option, but that could destroy any data on this partition.  (This error "
+#~ "came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "%s: на цьому розділі міститься файлова система %s, яку може бути "
+#~ "пошкоджено під час зменшення розмірів розділу до об’єму, меншого за %Ld "
+#~ "байтів (від користувача надійшов запит на зменшення розмірів до %Ld "
+#~ "байтів). Якщо вам потрібно зменшити розміри цього розділу, скористайтеся "
+#~ "параметром «--resize-force», але результатом може бути знищення даних на "
+#~ "цьому розділі. (Це повідомлення про помилку є наслідком використання "
+#~ "параметра «%s» у рядку команди.)"
+
+#~ msgid ""
+#~ "%s: This partition has contains an LVM physical volume which will be "
+#~ "damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld "
+#~ "bytes).  If you want to shrink this partition, you need to use the '--"
+#~ "resize-force' option, but that could destroy any data on this partition.  "
+#~ "(This error came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "s: на цьому розділі міститься фізичний том LVM, який може бути пошкоджено "
+#~ "під час зменшення розмірів розділу до об’єму, меншого за %Ld байтів (від "
+#~ "користувача надійшов запит на зменшення розмірів до %Ld байтів). Якщо вам "
+#~ "потрібно зменшити розміри цього розділу, скористайтеся параметром «--"
+#~ "resize-force», але результатом може бути знищення даних на цьому розділі. "
+#~ "(Це повідомлення про помилку є наслідком використання параметра «%s» у "
+#~ "рядку команди.)"
 
 #~ msgid "gluster: port number must be specified"
 #~ msgstr "gluster: слід вказати номер порту"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-06-14 13:11+0200\n"
+"POT-Creation-Date: 2013-06-26 19:00+0200\n"
 "PO-Revision-Date: 2013-05-21 13:14+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -1168,7 +1168,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:383 ../cat/virt-ls.pod:489
 #: ../df/virt-df.pod:253 ../edit/virt-edit.pod:348
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:395
-#: ../resize/virt-resize.pod:708 ../sysprep/virt-sysprep.pod:474
+#: ../resize/virt-resize.pod:722 ../sysprep/virt-sysprep.pod:474
 #: ../tools/virt-list-filesystems.pl:195 ../tools/virt-list-partitions.pl:265
 #: ../tools/virt-make-fs.pl:619 ../tools/virt-tar.pl:294
 #: ../tools/virt-win-reg.pl:748
@@ -1180,7 +1180,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:491
 #: ../df/virt-df.pod:255 ../edit/virt-edit.pod:350
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:397
-#: ../resize/virt-resize.pod:710 ../sysprep/virt-sysprep.pod:476
+#: ../resize/virt-resize.pod:724 ../sysprep/virt-sysprep.pod:476
 #: ../tools/virt-list-filesystems.pl:197 ../tools/virt-list-partitions.pl:267
 #: ../tools/virt-make-fs.pl:621 ../tools/virt-tar.pl:296
 #: ../tools/virt-win-reg.pl:756
@@ -1199,7 +1199,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:355 ../fish/guestfish.pod:1330
 #: ../format/virt-format.pod:179 ../fuse/guestmount.pod:401
 #: ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496
-#: ../resize/virt-resize.pod:715 ../sparsify/virt-sparsify.pod:273
+#: ../resize/virt-resize.pod:729 ../sparsify/virt-sparsify.pod:273
 #: ../sysprep/virt-sysprep.pod:481 ../test-tool/libguestfs-test-tool.pod:173
 msgid "EXIT STATUS"
 msgstr "終了ステータス"
@@ -1390,7 +1390,7 @@ msgstr ""
 #: ../lua/examples/guestfs-lua.pod:138 ../ocaml/examples/guestfs-ocaml.pod:78
 #: ../perl/examples/guestfs-perl.pod:40
 #: ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:417
-#: ../resize/virt-resize.pod:720 ../ruby/examples/guestfs-ruby.pod:36
+#: ../resize/virt-resize.pod:734 ../ruby/examples/guestfs-ruby.pod:36
 #: ../sparsify/virt-sparsify.pod:305 ../src/guestfs.pod:4487
 #: ../sysprep/virt-sysprep.pod:485 ../test-tool/libguestfs-test-tool.pod:183
 #: ../tools/virt-list-filesystems.pl:202 ../tools/virt-list-partitions.pl:272
@@ -1413,7 +1413,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:510
 #: ../daemon/guestfsd.pod:97 ../df/virt-df.pod:273 ../edit/virt-edit.pod:371
 #: ../format/virt-format.pod:193 ../guestfs-release-notes.pod:2340
-#: ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:743
+#: ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:757
 #: ../sparsify/virt-sparsify.pod:318 ../tools/virt-list-filesystems.pl:214
 #: ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:641
 #: ../tools/virt-tar.pl:315 ../tools/virt-win-reg.pl:775
@@ -1425,7 +1425,7 @@ msgstr "著者"
 #: ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:512
 #: ../daemon/guestfsd.pod:99 ../df/virt-df.pod:275 ../edit/virt-edit.pod:373
 #: ../format/virt-format.pod:195 ../inspector/virt-inspector.pod:516
-#: ../rescue/virt-rescue.pod:428 ../resize/virt-resize.pod:745
+#: ../rescue/virt-rescue.pod:428 ../resize/virt-resize.pod:759
 #: ../sparsify/virt-sparsify.pod:320 ../sysprep/virt-sysprep.pod:502
 #: ../tools/virt-list-filesystems.pl:216 ../tools/virt-list-partitions.pl:285
 #: ../tools/virt-make-fs.pl:643 ../tools/virt-tar.pl:317
@@ -1450,7 +1450,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../lua/examples/guestfs-lua.pod:156 ../ocaml/examples/guestfs-ocaml.pod:96
 #: ../perl/examples/guestfs-perl.pod:58
 #: ../python/examples/guestfs-python.pod:70 ../rescue/virt-rescue.pod:430
-#: ../resize/virt-resize.pod:747 ../ruby/examples/guestfs-ruby.pod:53
+#: ../resize/virt-resize.pod:761 ../ruby/examples/guestfs-ruby.pod:53
 #: ../sparsify/virt-sparsify.pod:322 ../src/guestfs.pod:4544
 #: ../sysprep/virt-sysprep.pod:506 ../test-tool/libguestfs-test-tool.pod:193
 #: ../tools/virt-list-filesystems.pl:218 ../tools/virt-list-partitions.pl:287
@@ -2281,7 +2281,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:246 ../cat/virt-filesystems.pod:392
 #: ../cat/virt-ls.pod:498 ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262
 #: ../edit/virt-edit.pod:357 ../fuse/guestmount.pod:403
-#: ../inspector/virt-inspector.pod:498 ../resize/virt-resize.pod:717
+#: ../inspector/virt-inspector.pod:498 ../resize/virt-resize.pod:731
 #: ../sparsify/virt-sparsify.pod:275
 msgid ""
 "This program returns 0 if successful, or non-zero if there was an error."
@@ -2299,7 +2299,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-cat.pod:264 ../cat/virt-filesystems.pod:412
 #: ../inspector/virt-inspector.pod:526 ../ocaml/examples/guestfs-ocaml.pod:98
-#: ../python/examples/guestfs-python.pod:72 ../resize/virt-resize.pod:749
+#: ../python/examples/guestfs-python.pod:72 ../resize/virt-resize.pod:763
 #: ../ruby/examples/guestfs-ruby.pod:55 ../tools/virt-make-fs.pl:647
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
@@ -32996,8 +32996,9 @@ msgid "A bold black version of the ordinary prompt."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1298 ../sparsify/virt-sparsify.pod:268
-#: ../sysprep/virt-sysprep.pod:469 ../tools/virt-win-reg.pl:589
+#: ../fish/guestfish.pod:1298 ../resize/virt-resize.pod:682
+#: ../sparsify/virt-sparsify.pod:268 ../sysprep/virt-sysprep.pod:469
+#: ../tools/virt-win-reg.pl:589
 msgid "WINDOWS 8"
 msgstr ""
 
@@ -44205,41 +44206,18 @@ msgstr ""
 
 #. type: =head2
 #: ../resize/virt-resize.pod:638
-msgid "RESIZING WINDOWS VIRTUAL MACHINES"
-msgstr ""
-
-#. type: textblock
-#: ../resize/virt-resize.pod:640
-msgid ""
-"In Windows Vista and later versions, Microsoft switched to using a separate "
-"boot partition.  In these VMs, typically C</dev/sda1> is the boot partition "
-"and C</dev/sda2> is the main (C:) drive.  Resizing the first (boot) "
-"partition causes the bootloader to fail with C<0xC0000225> error.  Resizing "
-"the second partition (ie. C: drive)  should work."
-msgstr ""
-
-#. type: textblock
-#: ../resize/virt-resize.pod:647
-msgid ""
-"Windows may initiate a lengthy \"chkdsk\" on first boot after a resize, if "
-"NTFS partitions have been expanded.  This is just a safety check and (unless "
-"it find errors) is nothing to worry about."
-msgstr ""
-
-#. type: =head2
-#: ../resize/virt-resize.pod:651
 msgid "GUEST BOOT STUCK AT \"GRUB\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:653
+#: ../resize/virt-resize.pod:640
 msgid ""
 "If a Linux guest does not boot after resizing, and the boot is stuck after "
 "printing C<GRUB> on the console, try reinstalling grub."
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:656
+#: ../resize/virt-resize.pod:643
 #, no-wrap
 msgid ""
 " guestfish -i -a newdisk\n"
@@ -44259,19 +44237,59 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:663
+#: ../resize/virt-resize.pod:650
 msgid ""
 "For more flexible guest reconfiguration, including if you need to specify "
 "other parameters to grub-install, use L<virt-rescue(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:666
+#: ../resize/virt-resize.pod:653
+msgid "RESIZING WINDOWS BOOT PARTITIONS"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:655
+msgid ""
+"In Windows Vista and later versions, Microsoft switched to using a separate "
+"boot partition.  In these VMs, typically C</dev/sda1> is the boot partition "
+"and C</dev/sda2> is the main (C:) drive.  Resizing the first (boot) "
+"partition causes the bootloader to fail with C<0xC0000225> error.  Resizing "
+"the second partition (ie. C: drive)  should work."
+msgstr ""
+
+#. type: =head2
+#: ../resize/virt-resize.pod:662
+#, fuzzy
+#| msgid "WINDOWS PATHS"
+msgid "WINDOWS CHKDSK"
+msgstr "Windows のパス"
+
+#. type: textblock
+#: ../resize/virt-resize.pod:664
+msgid ""
+"Windows disks which use NTFS must be consistent before virt-resize can be "
+"used.  If the ntfsresize operation fails, try booting the original VM and "
+"running C<chkdsk /f> on all NTFS partitions, then shut down the VM cleanly.  "
+"For further information see: L<https://bugzilla.redhat.com/show_bug.cgi?"
+"id=975753>"
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:670
+msgid ""
+"I<After resize> Windows may initiate a lengthy \"chkdsk\" on first boot if "
+"NTFS partitions have been expanded.  This is just a safety check and (unless "
+"it find errors) is nothing to worry about."
+msgstr ""
+
+#. type: =head2
+#: ../resize/virt-resize.pod:674
 msgid "WINDOWS UNMOUNTABLE_BOOT_VOLUME BSOD"
 msgstr "Windows UNMOUNTABLE_BOOT_VOLUME BSOD"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:668
+#: ../resize/virt-resize.pod:676
 msgid ""
 "After sysprepping a Windows guest and then resizing it with virt-resize, you "
 "may see the guest fail to boot with an C<UNMOUNTABLE_BOOT_VOLUME> BSOD.  "
@@ -44284,20 +44302,28 @@ msgstr ""
 "起こされます。sysprep する前にこの行を削除することにより、この問題を解決でき"
 "ます。"
 
+#. type: textblock
+#: ../resize/virt-resize.pod:684
+msgid ""
+"Windows 8 \"fast startup\" can prevent virt-resize from resizing NTFS "
+"partitions.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
+"STARTUP>."
+msgstr ""
+
 #. type: =head2
-#: ../resize/virt-resize.pod:674
+#: ../resize/virt-resize.pod:688
 msgid "SPARSE COPYING"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:676
+#: ../resize/virt-resize.pod:690
 msgid ""
 "You must create a fresh, zeroed target disk image for virt-resize to use.  "
 "Do not reuse a target, especially one which contains data already."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:680
+#: ../resize/virt-resize.pod:694
 msgid ""
 "Virt-resize performs sparse copying.  This means that it does not copy "
 "blocks from the source disk which are all zeroes.  This improves speed and "
@@ -44306,7 +44332,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:685
+#: ../resize/virt-resize.pod:699
 msgid ""
 "The main time this can be a problem is if the target is a host partition "
 "(eg. S<C<virt-resize source.img /dev/sda4>>) because the usual partitioning "
@@ -44316,19 +44342,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../resize/virt-resize.pod:692
+#: ../resize/virt-resize.pod:706
 msgid "ALTERNATIVE TOOLS"
 msgstr "代替ツール"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:694
+#: ../resize/virt-resize.pod:708
 msgid ""
 "There are several proprietary tools for resizing partitions.  We won't "
 "mention any here."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:697
+#: ../resize/virt-resize.pod:711
 msgid ""
 "L<parted(8)> and its graphical shell gparted can do some types of resizing "
 "operations on disk images.  They can resize and move partitions, but I don't "
@@ -44337,7 +44363,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:702
+#: ../resize/virt-resize.pod:716
 msgid ""
 "L<guestfish(1)> can do everything that virt-resize can do and a lot more, "
 "but at a much lower level.  You will probably end up hand-calculating sector "
@@ -44347,7 +44373,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:722
+#: ../resize/virt-resize.pod:736
 msgid ""
 "L<virt-filesystems(1)>, L<virt-df(1)>, L<guestfs(3)>, L<guestfish(1)>, L<lvm"
 "(8)>, L<pvresize(8)>, L<lvresize(8)>, L<resize2fs(8)>, L<ntfsresize(8)>, "
@@ -73369,33 +73395,52 @@ msgstr "RHN システム ID を削除します。"
 
 #. type: =head2
 #: ../sysprep/sysprep-operations.pod:220
+msgid "B<rpm-db> *"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:223
+#, fuzzy
+#| msgid "Remove the database and log files of sssd."
+msgid "Remove host-specific RPM database files."
+msgstr "SSSD のデータベースとログファイルを削除します。"
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:225
+msgid ""
+"Remove host-specific RPM database files and locks.  RPM will recreate these "
+"files automatically if needed."
+msgstr ""
+
+#. type: =head2
+#: ../sysprep/sysprep-operations.pod:228
 msgid "B<samba-db-log> *"
 msgstr "B<samba-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:223
+#: ../sysprep/sysprep-operations.pod:231
 msgid "Remove the database and log files of Samba."
 msgstr "Samba のデータベースおよびログファイルを削除します。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:225
+#: ../sysprep/sysprep-operations.pod:233
 msgid "B<script> *"
 msgstr "B<script> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:228
+#: ../sysprep/sysprep-operations.pod:236
 msgid "Run arbitrary scripts against the guest."
 msgstr "仮想マシンに対して任意のスクリプトを実行します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:230
+#: ../sysprep/sysprep-operations.pod:238
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:233
+#: ../sysprep/sysprep-operations.pod:241
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -73403,14 +73448,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:237
+#: ../sysprep/sysprep-operations.pod:245
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:240
+#: ../sysprep/sysprep-operations.pod:248
 msgid ""
 "The script or program is run with its current directory being the guest's "
 "root directory, so relative paths should be used.  For example: C<rm etc/"
@@ -73419,14 +73464,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:246
+#: ../sysprep/sysprep-operations.pod:254
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:249
+#: ../sysprep/sysprep-operations.pod:257
 msgid ""
 "B<Note:> This is different from I<--firstboot> scripts (which run in the "
 "context of the guest when it is booting first time).  I<--script> scripts "
@@ -73434,34 +73479,34 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:253
+#: ../sysprep/sysprep-operations.pod:261
 msgid "B<smolt-uuid> *"
 msgstr "B<smolt-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:256
+#: ../sysprep/sysprep-operations.pod:264
 msgid "Remove the Smolt hardware UUID."
 msgstr "Smolt ハードウェア UUID を削除します。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:258
+#: ../sysprep/sysprep-operations.pod:266
 msgid "B<ssh-hostkeys> *"
 msgstr "B<ssh-hostkeys> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:261
+#: ../sysprep/sysprep-operations.pod:269
 msgid "Remove the SSH host keys in the guest."
 msgstr "仮想マシンの SSH ホストキーを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:263
+#: ../sysprep/sysprep-operations.pod:271
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
 msgstr "仮想マシンの次回起動時に（異なる） SSH ホストキーが再生成されます。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:266
+#: ../sysprep/sysprep-operations.pod:274
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
@@ -73470,7 +73515,7 @@ msgstr ""
 "という警告が ssh により表示されます:"
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:269
+#: ../sysprep/sysprep-operations.pod:277
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -73486,17 +73531,17 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:274
+#: ../sysprep/sysprep-operations.pod:282
 msgid "B<ssh-userdir> *"
 msgstr "B<ssh-userdir> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:277
+#: ../sysprep/sysprep-operations.pod:285
 msgid "Remove \".ssh\" directories in the guest."
 msgstr "仮想マシンにある \".ssh\" ディレクトリーを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:279
+#: ../sysprep/sysprep-operations.pod:287
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other users who have a "
 "C<.ssh> directory in their home directory."
@@ -73505,34 +73550,34 @@ msgstr ""
 "他のすべてのユーザーの、C<.ssh> ディレクトリーを削除します。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:282
+#: ../sysprep/sysprep-operations.pod:290
 msgid "B<sssd-db-log> *"
 msgstr "B<sssd-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:285
+#: ../sysprep/sysprep-operations.pod:293
 msgid "Remove the database and log files of sssd."
 msgstr "SSSD のデータベースとログファイルを削除します。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:287
+#: ../sysprep/sysprep-operations.pod:295
 msgid "B<udev-persistent-net> *"
 msgstr "B<udev-persistent-net> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:290
+#: ../sysprep/sysprep-operations.pod:298
 msgid "Remove udev persistent net rules."
 msgstr "udev persistent net ルールを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:292
+#: ../sysprep/sysprep-operations.pod:300
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:295
+#: ../sysprep/sysprep-operations.pod:303
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -73546,17 +73591,17 @@ msgstr ""
 "ます。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:300
+#: ../sysprep/sysprep-operations.pod:308
 msgid "B<user-account>"
 msgstr "B<user-account>"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:302
+#: ../sysprep/sysprep-operations.pod:310
 msgid "Remove the user accounts in the guest."
 msgstr "仮想マシンにあるユーザーアカウントを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:304
+#: ../sysprep/sysprep-operations.pod:312
 msgid ""
 "Remove all the user accounts and their home directories.  The \"root\" "
 "account is not removed."
@@ -73565,17 +73610,17 @@ msgstr ""
 "\" アカウントは削除されません。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:307
+#: ../sysprep/sysprep-operations.pod:315
 msgid "B<utmp> *"
 msgstr "B<utmp> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:310
+#: ../sysprep/sysprep-operations.pod:318
 msgid "Remove the utmp file."
 msgstr "utmp ファイルを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:312
+#: ../sysprep/sysprep-operations.pod:320
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -73586,17 +73631,17 @@ msgstr ""
 "ません。しかし、古いディストリビューションは、ディスクに保存していました。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:316
+#: ../sysprep/sysprep-operations.pod:324
 msgid "B<yum-uuid> *"
 msgstr "B<yum-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:319
+#: ../sysprep/sysprep-operations.pod:327
 msgid "Remove the yum UUID."
 msgstr "yum UUID を削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:321
+#: ../sysprep/sysprep-operations.pod:329
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."
