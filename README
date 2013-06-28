@@ -82,7 +82,7 @@ For basic functionality and the C tools:
 
 - libconfig (optional)
 
-- augeas >= 0.5.0 (http://augeas.net/) (optional)
+- augeas >= 1.0.0 (http://augeas.net/) (required)
 
 - Berkeley DB 'db_dump' and 'db_load' utilities
   (db4-utils or db4.X-util or similar) (optional)

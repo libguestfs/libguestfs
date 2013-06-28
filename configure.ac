@@ -526,19 +526,6 @@ AM_CONDITIONAL([HAVE_XDR_U_INT64_T],
 AM_CONDITIONAL([HAVE_XDR_UINT64_T],
                [test "x$ac_cv_search_xdr_uint64_t" != "xno"])
 
-dnl Check for Augeas (optional).
-PKG_CHECK_MODULES([AUGEAS],[augeas],[
-    AC_SUBST([AUGEAS_CFLAGS])
-    AC_SUBST([AUGEAS_LIBS])
-    AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas.])
-
-    old_LIBS="$LIBS"
-    LIBS="$LIBS $AUGEAS_LIBS"
-    dnl Check for functions not available in earlier versions of Augeas.
-    AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
-    LIBS="$old_LIBS"
-],[AC_MSG_WARN([augeas not found, some core features will be disabled])])
-
 dnl Check for libselinux (optional).
 AC_CHECK_HEADERS([selinux/selinux.h])
 AC_CHECK_LIB([selinux],[setexeccon],[
@@ -791,6 +778,9 @@ AS_IF([test "x$with_readline" != xno],[
 
 dnl Check for PCRE (required)
 PKG_CHECK_MODULES([PCRE], [libpcre])
+
+dnl Check for Augeas >= 1.0.0 (required).
+PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.0.0])
 
 dnl libmagic (highly recommended)
 AC_CHECK_LIB([magic],[magic_file],[
