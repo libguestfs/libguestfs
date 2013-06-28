@@ -1470,70 +1470,51 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
   return device;
 }
 
-/* Call 'f' with Augeas opened and having parsed 'filename' (this file
- * must exist).  As a security measure, this bails if the file is too
- * large for a reasonable configuration file.  After the call to 'f'
- * Augeas is closed.
+static char *make_augeas_path_expression (guestfs_h *g, const char **configfiles);
+
+/* Call 'f' with Augeas opened and having parsed 'configfiles' (these
+ * files must exist).  As a security measure, this bails if any file
+ * is too large for a reasonable configuration file.  After the call
+ * to 'f' the Augeas handle is closed.
  */
 static int
 inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
                      const char **configfiles,
                      int (*f) (guestfs_h *, struct inspect_fs *))
 {
-  /* Security: Refuse to do this if a config file is too large. */
-  for (const char **i = configfiles; *i != NULL; i++) {
-    if (guestfs_exists(g, *i) == 0) continue;
+  size_t i;
+  int64_t size;
+  int r;
+  CLEANUP_FREE char *pathexpr = NULL;
 
-    int64_t size = guestfs_filesize (g, *i);
+  /* Security: Refuse to do this if a config file is too large. */
+  for (i = 0; configfiles[i] != NULL; ++i) {
+    if (guestfs_exists(g, configfiles[i]) == 0) continue;
+
+    size = guestfs_filesize (g, configfiles[i]);
     if (size == -1)
       /* guestfs_filesize failed and has already set error in handle */
       return -1;
     if (size > MAX_AUGEAS_FILE_SIZE) {
       error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
-             *i, size);
+             configfiles[i], size);
       return -1;
     }
   }
 
-  if (guestfs_aug_init (g, "/", 16|32) == -1)
+  if (guestfs_aug_init (g, "/", 16|32 /* AUG_SAVE_NOOP|AUG_NO_LOAD */) == -1)
     return -1;
 
-  int r = -1;
+  r = -1;
 
-  /* Tell Augeas to only load one file (thanks Raphaël Pinson). */
-#define AUGEAS_LOAD "/augeas/load//incl[. != \""
-#define AUGEAS_LOAD_LEN (strlen(AUGEAS_LOAD))
-  size_t conflen = strlen(configfiles[0]);
-  size_t buflen = AUGEAS_LOAD_LEN + conflen + 1 /* Closing " */;
-  CLEANUP_FREE char *buf =
-    safe_malloc (g, buflen + 2 /* Closing ] + null terminator */);
-
-  memcpy(buf, AUGEAS_LOAD, AUGEAS_LOAD_LEN);
-  memcpy(buf + AUGEAS_LOAD_LEN, configfiles[0], conflen);
-  buf[buflen - 1] = '"';
-#undef AUGEAS_LOAD_LEN
-#undef AUGEAS_LOAD
-
-#define EXCL " and . != \""
-#define EXCL_LEN (strlen(EXCL))
-  for (const char **i = &configfiles[1]; *i != NULL; i++) {
-    size_t orig_buflen = buflen;
-    conflen = strlen(*i);
-    buflen += EXCL_LEN + conflen + 1 /* Closing " */;
-    buf = safe_realloc(g, buf, buflen + 2 /* Closing ] + null terminator */);
-    char *s = buf + orig_buflen;
-
-    memcpy(s, EXCL, EXCL_LEN);
-    memcpy(s + EXCL_LEN, *i, conflen);
-    buf[buflen - 1] = '"';
-  }
-#undef EXCL_LEN
-#undef EXCL
-
-  buf[buflen] = ']';
-  buf[buflen + 1] = '\0';
-
-  if (guestfs_aug_rm (g, buf) == -1)
+  /* Tell Augeas to only load configfiles and no other files.  This
+   * prevents a rogue guest from performing a denial of service attack
+   * by having large, over-complicated configuration files which are
+   * unrelated to the task at hand.  (Thanks Dominic Cleal).
+   * Note this requires Augeas >= 1.0.0 because of RHBZ#975412.
+   */
+  pathexpr = make_augeas_path_expression (g, configfiles);
+  if (guestfs_aug_rm (g, pathexpr) == -1)
     goto out;
 
   if (guestfs_aug_load (g) == -1)
@@ -1545,6 +1526,35 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
   guestfs_aug_close (g);
 
   return r;
+}
+
+/* Explained here: https://bugzilla.redhat.com/show_bug.cgi?id=975412#c0 */
+static char *
+make_augeas_path_expression (guestfs_h *g, const char **configfiles)
+{
+  size_t i;
+  size_t nr_files;
+  CLEANUP_FREE_STRING_LIST char **subexprs = NULL;
+  CLEANUP_FREE char *subexpr = NULL;
+  char *ret;
+
+  nr_files = guestfs___count_strings ((char **) configfiles);
+  subexprs = safe_malloc (g, sizeof (char *) * (nr_files + 1));
+
+  for (i = 0; i < nr_files; ++i) {
+    subexprs[i] = /*         v NB trailing '/' after filename */
+      safe_asprintf (g, "\"%s/\" !~ regexp('^') + glob(incl) + regexp('/.*')",
+                     configfiles[i]);
+  }
+  subexprs[nr_files] = NULL;
+
+  subexpr = guestfs___join_strings (" and ", subexprs);
+  if (subexpr == NULL)
+    g->abort_cb ();
+
+  ret = safe_asprintf (g, "/augeas/load/*[ %s ]", subexpr);
+  debug (g, "augeas pathexpr = %s", ret);
+  return ret;
 }
 
 static int
