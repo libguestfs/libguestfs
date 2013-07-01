@@ -104,6 +104,9 @@ endif
 if HAVE_GOBJECT
 SUBDIRS += gobject
 endif
+if HAVE_GOLANG
+SUBDIRS += golang
+endif
 
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp

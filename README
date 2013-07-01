@@ -191,6 +191,8 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | erl_interface|             | O | For the Erlang bindings.                |
 +--------------+-------------+---+-----------------------------------------+
+| golang       | 1.1.1       | O | For the Go bindings.                    |
++--------------+-------------+---+-----------------------------------------+
 | valgrind     |             | O | For testing for memory problems.        |
 +--------------+-------------+---+-----------------------------------------+
 | Sys::Virt    |             | O | Perl bindings for libvirt.              |

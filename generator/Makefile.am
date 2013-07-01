@@ -34,6 +34,7 @@ sources = \
 	events.ml \
 	fish.ml \
 	gobject.ml \
+	golang.ml \
 	haskell.ml \
 	java.ml \
 	lua.ml \
@@ -85,6 +86,7 @@ objects = \
 	erlang.cmo \
 	lua.cmo \
 	gobject.cmo \
+	golang.cmo \
 	bindtests.cmo \
 	errnostring.cmo \
 	main.cmo

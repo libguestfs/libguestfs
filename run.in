@@ -163,6 +163,15 @@ else
 fi
 export LUA_CPATH
 
+# For golang.
+export GOLANG=@GOLANG@
+if [ -z "$GOPATH" ]; then
+    GOPATH="$b/golang"
+else
+    GOPATH="$b/golang:$GOPATH"
+fi
+export GOPATH
+
 # For GObject, Javascript and friends.
 export GJS=@GJS@
 if [ -z "$GI_TYPELIB_PATH" ]; then

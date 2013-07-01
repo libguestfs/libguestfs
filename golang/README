@@ -1,0 +1,8 @@
+$GOPATH
+-------
+
+http://golang.org/doc/code.html
+
+Note that $GOPATH is set (by the ./run script) to the
+libguestfs/golang directory so that "installs" happen in the local
+build tree.
