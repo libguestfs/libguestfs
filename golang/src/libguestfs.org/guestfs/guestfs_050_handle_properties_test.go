@@ -57,7 +57,7 @@ func Test050HandleProperties (t *testing.T) {
 	if err != nil {
 		t.Errorf ("%s", err)
 	}
-	err = g.Set_path (p)
+	err = g.Set_path (&p)
 	if err != nil {
 		t.Errorf ("%s", err)
 	}

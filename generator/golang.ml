@@ -310,9 +310,9 @@ func return_hashtable (argv **C.char) map[string]string {
           | Pathname n
           | Dev_or_Path n
           | Mountable_or_Path n
-          | OptString n
           | Key n
           | FileIn n | FileOut n -> pr "%s string" n
+          | OptString n -> pr "%s *string" n
           | StringList n
           | DeviceList n -> pr "%s []string" n
           | BufferIn n -> pr "%s []byte" n
@@ -365,12 +365,18 @@ func return_hashtable (argv **C.char) map[string]string {
         | Pathname n
         | Dev_or_Path n
         | Mountable_or_Path n
-        | OptString n
         | Key n
         | FileIn n | FileOut n ->
           pr "\n";
           pr "    c_%s := C.CString (%s)\n" n n;
           pr "    defer C.free (unsafe.Pointer (c_%s))\n" n
+        | OptString n ->
+          pr "\n";
+          pr "    var c_%s *C.char = nil\n" n;
+          pr "    if %s != nil {\n" n;
+          pr "        c_%s = C.CString (*%s)\n" n n;
+          pr "        defer C.free (unsafe.Pointer (c_%s))\n" n;
+          pr "    }\n"
         | StringList n
         | DeviceList n ->
           pr "\n";
