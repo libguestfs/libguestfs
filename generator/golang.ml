@@ -112,8 +112,8 @@ func (e *GuestfsError) String() string {
 }
 
 func get_error_from_handle (g *Guestfs, op string) *GuestfsError {
+    // NB: DO NOT try to free c_errmsg!
     c_errmsg := C.guestfs_last_error (g.g)
-    defer C.free (unsafe.Pointer (c_errmsg))
     errmsg := C.GoString (c_errmsg)
 
     errno := syscall.Errno (C.guestfs_last_errno (g.g))
