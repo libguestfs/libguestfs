@@ -1455,7 +1455,7 @@ AS_IF([test "x$enable_golang" != "xno"],[
     AC_CHECK_PROG([GOLANG],[go],[go],[no])
     AS_IF([test "x$GOLANG" != "xno"],[
         AC_MSG_CHECKING([if $GOLANG is usable])
-        AS_IF([$GOLANG run golang/config-test.go],[
+        AS_IF([$GOLANG run golang/config-test.go 2>&AS_MESSAGE_LOG_FD],[
             AC_MSG_RESULT([yes])
 
             # Substitute some golang environment.
