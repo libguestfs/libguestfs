@@ -25,11 +25,13 @@ source_files = \
 	src/$(pkg)/guestfs_*_test.go
 
 generator_built = \
-	$(source_files)
+	$(source_files) \
+	bindtests.go
 
 EXTRA_DIST = \
 	$(generator_built) \
 	config-test.go \
+	run-bindtests \
 	run-tests
 
 if HAVE_GOLANG
@@ -47,7 +49,7 @@ golangsrc_DATA = $(source_files)
 
 TESTS_ENVIRONMENT = pkg=$(pkg) $(top_builddir)/run $(VG) # --test
 
-TESTS = run-tests
+TESTS = run-bindtests run-tests
 
 endif
 

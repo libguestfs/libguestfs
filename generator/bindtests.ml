@@ -795,6 +795,96 @@ and generate_lua_bindtests () =
   pr "\n";
   pr "print (\"EOF\")\n"
 
+and generate_golang_bindtests () =
+  generate_header CStyle GPLv2plus;
+
+  pr "package main\n";
+  pr "\n";
+  pr "import (\n";
+  pr "    \"fmt\"\n";
+  pr "    \"libguestfs.org/guestfs\"\n";
+  pr ")\n";
+  pr "\n";
+  pr "func main() {\n";
+  pr "    g, errno := guestfs.Create ()\n";
+  pr "    if errno != nil {\n";
+  pr "        panic (fmt.Sprintf (\"could not create handle: %%s\", errno))\n";
+  pr "    }\n";
+  pr "\n";
+
+  generate_lang_bindtests (
+    fun f args optargs ->
+
+      pr "    if err := g.%s (" (String.capitalize f);
+
+      let needs_comma = ref false in
+      List.iter (
+        fun arg ->
+          if !needs_comma then pr ", ";
+          needs_comma := true;
+
+          match arg with
+          | CallString s -> pr "\"%s\"" s
+          | CallOptString None -> pr "nil"
+          | CallOptString (Some s) -> pr "string_addr (\"%s\")" s
+          | CallStringList xs ->
+            pr "[]string{%s}"
+              (String.concat ", " (List.map (sprintf "\"%s\"") xs))
+          | CallInt i -> pr "%d" i
+          | CallInt64 i -> pr "%Ld" i
+          | CallBool b -> pr "%b" b
+          | CallBuffer s ->
+            let quote_char = function
+              | '\000' -> "'\\000'"
+              | c -> sprintf "'%c'" c
+            in
+            pr "[]byte{%s}"
+              (String.concat ", " (List.map quote_char (explode s)))
+      ) args;
+      if !needs_comma then pr ", ";
+      (match optargs with
+      | None -> pr "nil"
+      | Some optargs ->
+        pr "&guestfs.Optargs%s{" (String.capitalize f);
+        needs_comma := false;
+        List.iter (
+          fun optarg ->
+            if !needs_comma then pr ", ";
+            needs_comma := true;
+            match optarg with
+            | CallOBool (n, v) ->
+              let n = String.capitalize n in
+              pr "%s_is_set: true, %s: %b" n n v
+            | CallOInt (n, v) ->
+              let n = String.capitalize n in
+              pr "%s_is_set: true, %s: %d" n n v
+            | CallOInt64 (n, v) ->
+              let n = String.capitalize n in
+              pr "%s_is_set: true, %s: %Ld" n n v
+            | CallOString (n, v) ->
+              let n = String.capitalize n in
+              pr "%s_is_set: true, %s: \"%s\"" n n v
+            | CallOStringList (n, xs) ->
+              let n = String.capitalize n in
+              pr "%s_is_set: true, %s: []string{%s}"
+                n n (String.concat ", " (List.map (sprintf "\"%s\"") xs))
+        ) optargs;
+        pr "}";
+      );
+      pr "); err != nil {\n";
+      pr "        panic (fmt.Sprintf (\"error: %%s\", err))\n";
+      pr "    }\n";
+  );
+
+  pr "\n";
+  pr "    fmt.Printf (\"EOF\\n\")\n";
+  pr "}\n";
+  pr "\n";
+  pr "/* Work around golang lameness */\n";
+  pr "func string_addr (s string) *string {\n";
+  pr "    return &s;\n";
+  pr "}\n"
+
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
  *)
