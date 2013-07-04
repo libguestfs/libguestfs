@@ -21,8 +21,9 @@ package guestfs
 import "testing"
 
 func Test020Create (t *testing.T) {
-	_, err := Create ()
+	g, err := Create ()
 	if err != nil {
 		t.Errorf ("could not create handle: %s", err)
 	}
+	g.Close ()
 }

@@ -29,11 +29,13 @@ func Test100Launch (t *testing.T) {
 	if errno != nil {
 		t.Errorf ("could not create handle: %s", errno)
 	}
+	defer g.Close ()
 
 	f, ferr := os.Create ("test.img")
 	if ferr != nil {
 		t.Errorf ("could not create file: %s", ferr)
 	}
+	defer os.Remove ("test.img")
 	if ferr := f.Truncate (500 * 1024 * 1024); ferr != nil {
 		t.Errorf ("could not truncate file: %s", ferr)
 	}
@@ -105,12 +107,6 @@ func Test100Launch (t *testing.T) {
 	if err != nil {
 		t.Errorf ("%s", err)
 	}
-	err = g.Close ()
-	if err != nil {
-		t.Errorf ("%s", err)
-	}
-
-	os.Remove ("test.img")
 }
 
 /* - declared in guestfs_900_rstringlist_test.go

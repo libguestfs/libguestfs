@@ -25,6 +25,7 @@ func Test070Optargs (t *testing.T) {
 	if errno != nil {
 		t.Errorf ("could not create handle: %s", errno)
 	}
+	defer g.Close ()
 	err := g.Add_drive ("/dev/null", nil)
 	if err != nil {
 		t.Errorf ("%s", err)

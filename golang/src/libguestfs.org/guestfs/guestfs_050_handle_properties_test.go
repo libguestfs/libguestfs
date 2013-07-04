@@ -25,6 +25,7 @@ func Test050HandleProperties (t *testing.T) {
 	if errno != nil {
 		t.Errorf ("could not create handle: %s", errno)
 	}
+	defer g.Close ()
 
 	v, err := g.Get_verbose ()
 	if err != nil {

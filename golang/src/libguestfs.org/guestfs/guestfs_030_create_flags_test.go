@@ -25,10 +25,12 @@ func Test030CreateFlags (t *testing.T) {
 	if err != nil {
 		t.Errorf ("could not create handle: %s", err)
 	}
+	g.Close ()
 	g, err = Create_flags (CREATE_NO_ENVIRONMENT)
 	if err != nil {
 		t.Errorf ("could not create handle: %s", err)
 	}
+	defer g.Close ()
 	if err := g.Parse_environment (); err != nil {
 		t.Errorf ("could not parse environment: %s", err)
 	}

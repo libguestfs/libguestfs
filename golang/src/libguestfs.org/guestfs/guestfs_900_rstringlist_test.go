@@ -27,6 +27,7 @@ func Test900RStringLits (t *testing.T) {
 	if errno != nil {
 		t.Errorf ("could not create handle: %s", errno)
 	}
+	defer g.Close ()
 
 	actual, err := g.Internal_test_rstringlist ("16")
 	if err != nil {

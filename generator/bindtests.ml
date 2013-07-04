@@ -810,6 +810,7 @@ and generate_golang_bindtests () =
   pr "    if errno != nil {\n";
   pr "        panic (fmt.Sprintf (\"could not create handle: %%s\", errno))\n";
   pr "    }\n";
+  pr "    defer g.Close ()\n";
   pr "\n";
 
   generate_lang_bindtests (
