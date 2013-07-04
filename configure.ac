@@ -1617,6 +1617,7 @@ AC_CONFIG_FILES([Makefile
                  gobject/docs/Makefile
                  gobject/docs/guestfs-docs.sgml
                  golang/Makefile
+                 golang/examples/Makefile
                  haskell/Makefile
                  inspector/Makefile
                  java/Makefile

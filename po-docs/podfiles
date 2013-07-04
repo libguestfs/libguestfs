@@ -23,6 +23,7 @@
 ../format/virt-format.pod
 ../fuse/guestmount.pod
 ../fuse/guestunmount.pod
+../golang/examples/guestfs-golang.pod
 ../guestfs-release-notes.pod
 ../inspector/virt-inspector.pod
 ../java/examples/guestfs-java.pod

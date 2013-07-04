@@ -1092,20 +1092,7 @@ available.  See the C<gobject> directory in the source.
 
 =item B<Go>
 
-Experimental Go bindings are available.  See the C<golang> directory
-in the source.  These are incomplete:
-
-=over 4
-
-=item *
-
-No support for L</EVENTS>.
-
-=item *
-
-UUIDs cannot be returned in structures.
-
-=back
+See <guestfs-golang(3)>.
 
 =item B<Haskell>
 
@@ -4507,6 +4494,7 @@ See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 
 L<guestfs-examples(3)>,
 L<guestfs-erlang(3)>,
+L<guestfs-golang(3)>,
 L<guestfs-java(3)>,
 L<guestfs-lua(3)>,
 L<guestfs-ocaml(3)>,

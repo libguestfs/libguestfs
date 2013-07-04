@@ -31,6 +31,7 @@ MANPAGES = \
 	guestfs-erlang.3 \
 	guestfs-examples.3 \
 	guestfs-faq.1 \
+	guestfs-golang.3 \
 	guestfs-java.3 \
 	guestfs-lua.3 \
 	guestfs-ocaml.3 \

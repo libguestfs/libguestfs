@@ -105,7 +105,7 @@ if HAVE_GOBJECT
 SUBDIRS += gobject
 endif
 if HAVE_GOLANG
-SUBDIRS += golang
+SUBDIRS += golang golang/examples
 endif
 
 # Unconditional because nothing is built yet.
@@ -184,6 +184,7 @@ HTMLFILES = \
 	html/guestfs-examples.3.html \
 	html/guestfs-erlang.3.html \
 	html/guestfs-faq.1.html \
+	html/guestfs-golang.3.html \
 	html/guestfs-java.3.html \
 	html/guestfs-lua.3.html \
 	html/guestfs-ocaml.3.html \

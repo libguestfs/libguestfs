@@ -1,0 +1,99 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs-golang - How to use libguestfs from Go
+
+=head1 SYNOPSIS
+
+ import "libguestfs.org/guestfs"
+ 
+ g, errno := guestfs.Create ()
+ if errno != nil {
+     panic (fmt.Sprintf ("could not create handle: %s", errno))
+ }
+ defer g.Close ()
+ if err := g.Add_drive ("test.img"); err != nil {
+     panic (err)
+ }
+ if err := g.Launch (); err != nil {
+     panic (err)
+ }
+ if err := g.Shutdown (); err != nil {
+     panic (err)
+ }
+
+=head1 DESCRIPTION
+
+This manual page documents how to call libguestfs from the Go
+programming language.  This page just documents the differences from
+the C API and gives some examples.  If you are not familiar with using
+libguestfs, you also need to read L<guestfs(3)>.
+
+=head2 IMPORTING THE MODULE
+
+The module is called C<guestfs>.  The full package name to import is
+C<libguestfs.org/guestfs>.
+
+=head2 CREATING AND CLOSING THE HANDLE
+
+Use either C<guestfs.Create> or C<guestfs.Create_flags> to create the
+handle.  The handle is closed implicitly if it is garbage collected.
+However it is probably a good idea to close it explicitly, either by
+calling S<C<g.Close ()>> or by deferring the same.
+
+=head2 ERRORS
+
+C<guestfs.Create> and C<guestfs.Create_flags> return a simple
+C<*error>, which is really just a C C<errno> wrapped up in the
+appropriate golang struct.
+
+All other calls return a C<*GuestfsError> which (if non-nil) is a
+richer struct that contains the error string from libguestfs, the
+errno (if available) and the operation which failed.  This can also be
+converted to a string for display.
+
+=head2 LIMITATIONS
+
+=over 4
+
+=item *
+
+No support for events (see L<guestfs(3)/EVENTS>).
+
+=item *
+
+UUIDs are not returned in structures.
+
+=back
+
+=head1 EXAMPLE 1: CREATE A DISK IMAGE
+
+@EXAMPLE1@
+
+=head1 EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE
+
+@EXAMPLE2@
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfs-examples(3)>,
+L<guestfs-erlang(3)>,
+L<guestfs-java(3)>,
+L<guestfs-lua(3)>,
+L<guestfs-ocaml(3)>,
+L<guestfs-perl(3)>,
+L<guestfs-python(3)>,
+L<guestfs-recipes(1)>,
+L<guestfs-ruby(3)>,
+L<http://www.golang.org/>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2013 Red Hat Inc.
