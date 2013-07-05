@@ -339,6 +339,12 @@ do_hivex_commit (const char *filename)
    * cases will be NULL.
    */
   if (filename) {
+    /* There is no "OptPathname" in the generator, so we have
+     * to do the pathname checks explicitly here.  RHBZ#981683
+     */
+    ABS_PATH (filename, , return -1);
+    NEED_ROOT (, return -1);
+
     buf = sysroot_path (filename);
     if (!buf) {
       reply_with_perror ("malloc");
