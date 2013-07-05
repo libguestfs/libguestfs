@@ -10341,6 +10341,16 @@ C<guestfs_xfs_growfs> calls." };
     style = RErr, [Pathname "filename"], [OBool "verbose"; OBool "debug"; OBool "write"];
     proc_nr = Some 350;
     optional = Some "hivex";
+    tests = [
+      InitScratchFS, Always, TestRun (
+        [["upload"; "$srcdir/../data/minimal"; "/hivex_open"];
+         ["hivex_open"; "/hivex_open"; ""; ""; "false"];
+         ["hivex_root"]; (* in this hive, it returns 0x1020 *)
+         ["hivex_node_name"; "0x1020"];
+         ["hivex_node_children"; "0x1020"];
+         ["hivex_node_values"; "0x1020"];
+         ["hivex_close"]])
+    ];
     shortdesc = "open a Windows Registry hive file";
     longdesc = "\
 Open the Windows Registry hive file named C<filename>.
@@ -10480,6 +10490,19 @@ See also: C<guestfs_hivex_value_utf8>." };
     style = RErr, [OptString "filename"], [];
     proc_nr = Some 362;
     optional = Some "hivex";
+    tests = [
+      InitScratchFS, Always, TestRun (
+        [["upload"; "$srcdir/../data/minimal"; "/hivex_commit1"];
+         ["hivex_open"; "/hivex_commit1"; ""; ""; "true"];
+         ["hivex_commit"; "NULL"];
+         ["hivex_close"]]);
+      InitScratchFS, Always, TestResultTrue (
+        [["upload"; "$srcdir/../data/minimal"; "/hivex_commit2"];
+         ["hivex_open"; "/hivex_commit2"; ""; ""; "true"];
+         ["hivex_commit"; "/hivex_commit2_copy"];
+         ["hivex_close"];
+         ["is_file"; "/hivex_commit2_copy"; "false"]])
+    ];
     shortdesc = "commit (write) changes back to the hive";
     longdesc = "\
 Commit (write) changes to the hive.
