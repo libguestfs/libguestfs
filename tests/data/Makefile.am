@@ -36,7 +36,8 @@ EXTRA_DIST = \
 	lib-win32.dll \
 	lib-win64.dll \
 	lib-x86_64.so \
-	test-grep.txt
+	test-grep.txt \
+	minimal
 
 images_files_src = \
 	$(srcdir)/helloworld.tar \
@@ -58,7 +59,8 @@ images_files_src = \
 	$(srcdir)/lib-win32.dll \
 	$(srcdir)/lib-win64.dll \
 	$(srcdir)/lib-x86_64.so \
-	$(srcdir)/test-grep.txt
+	$(srcdir)/test-grep.txt \
+	$(srcdir)/minimal
 
 images_files_build = \
 	100kallzeroes \
