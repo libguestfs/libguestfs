@@ -3205,6 +3205,14 @@ of the L<lvs(8)> command.  The \"full\" version includes all fields." };
     style = RErr, [Pathname "root"; Int "flags"], [];
     proc_nr = Some 16;
     optional = Some "augeas";
+    tests = [
+      InitBasicFS, Always, TestRun (
+        [["mkdir"; "/etc"];
+         ["write"; "/etc/hostname"; "hostname-test.example.org"];
+         ["aug_init"; "/"; "0"];
+         ["aug_get"; "/files/etc/hostname/hostname"];
+         ["aug_close"]])
+    ];
     shortdesc = "create a new Augeas handle";
     longdesc = "\
 Create a new Augeas handle for editing configuration files.
