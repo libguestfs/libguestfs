@@ -9625,9 +9625,11 @@ C<ext3>.
 You must call C<guestfs_launch> before using this command.
 
 This is mainly useful as a negative test.  If this returns true,
-it doesn't mean that a particular filesystem can be mounted,
-since filesystems can fail for other reasons such as it being
-a later version of the filesystem, or having incompatible features.
+it doesn't mean that a particular filesystem can be created
+or mounted, since filesystems can fail for other reasons
+such as it being a later version of the filesystem,
+or having incompatible features, or lacking the right
+mkfs.E<lt>I<fs>E<gt> tool.
 
 See also C<guestfs_available>, L<guestfs(3)/AVAILABILITY>." };
 
