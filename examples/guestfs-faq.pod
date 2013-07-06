@@ -946,8 +946,8 @@ manually approved.
 
 B<Please don't use github pull requests - they will be ignored>.  The
 reasons are (a) we want to discuss and dissect patches on the mailing
-list, and (b) github pull requests turn into merge commits we prefer
-to have a linear history.
+list, and (b) github pull requests turn into merge commits but we
+prefer to have a linear history.
 
 =head2 How do I propose a feature?
 
