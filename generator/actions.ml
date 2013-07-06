@@ -3335,6 +3335,19 @@ C<guestfs_aug_clear> call." };
     style = RErr, [String "augpath"; String "label"; Bool "before"], [];
     proc_nr = Some 21;
     optional = Some "augeas";
+    tests = [
+      InitBasicFS, Always, TestResultString (
+        [["mkdir"; "/etc"];
+         ["write"; "/etc/hosts"; ""];
+         ["aug_init"; "/"; "0"];
+         ["aug_insert"; "/files/etc/hosts"; "1"; "false"];
+         ["aug_set"; "/files/etc/hosts/1/ipaddr"; "127.0.0.1"];
+         ["aug_set"; "/files/etc/hosts/1/canonical"; "foobar"];
+         ["aug_clear"; "/files/etc/hosts/1/canonical"];
+         ["aug_set"; "/files/etc/hosts/1/canonical"; "localhost"];
+         ["aug_save"];
+         ["cat"; "/etc/hosts"]], "\n127.0.0.1\tlocalhost\n"), [["aug_close"]]
+    ];
     shortdesc = "insert a sibling Augeas node";
     longdesc = "\
 Create a new sibling C<label> for C<path>, inserting it into
