@@ -3194,11 +3194,11 @@ of the L<lvs(8)> command.  The \"full\" version includes all fields." };
     proc_nr = Some 16;
     optional = Some "augeas";
     tests = [
-      InitBasicFS, Always, TestRun (
+      InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
-         ["write"; "/etc/hostname"; "hostname-test.example.org"];
+         ["write"; "/etc/hostname"; "test.example.org"];
          ["aug_init"; "/"; "0"];
-         ["aug_get"; "/files/etc/hostname/hostname"]]), [["aug_close"]]
+         ["aug_get"; "/files/etc/hostname/hostname"]], "test.example.org"), [["aug_close"]]
     ];
     shortdesc = "create a new Augeas handle";
     longdesc = "\
