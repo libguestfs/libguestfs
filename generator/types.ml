@@ -202,7 +202,7 @@ type fish_output_t =
   | FishOutputHexadecimal (* for int return, print in hex *)
 
 (* See guestfs(3)/EXTENDING LIBGUESTFS. *)
-type tests = (test_init * test_prereq * test) list
+type tests = (test_init * test_prereq * test * test_cleanup) list
 and test =
     (* Run the command sequence and just expect nothing to fail. *)
   | TestRun of seq
@@ -302,6 +302,9 @@ and test_init =
      *)
   | InitScratchFS
 
+(* Cleanup commands which are run whether the test succeeds or fails. *)
+and test_cleanup = cmd list
+
 (* Sequence of commands for testing. *)
 and seq = cmd list
 and cmd = string list
@@ -320,6 +323,7 @@ type action = {
   style : style;                  (* args and return value *)
   proc_nr : int option;           (* proc number, None for non-daemon *)
   tests : tests;                  (* tests *)
+  test_excuse : string;           (* if there's no tests ... *)
   shortdesc : string;             (* single line description *)
   longdesc : string;              (* longer documentation *)
 

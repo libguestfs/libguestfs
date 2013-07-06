@@ -59,13 +59,13 @@ let rec generate_tests () =
   let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
   List.iter (
     fun { tests = tests } ->
-      let tests = filter_map (
+      let seqs = filter_map (
         function
-        | (_, (Always|IfAvailable _), test) -> Some test
-        | (_, Disabled, _) -> None
+        | (_, (Always|IfAvailable _), test, cleanup) ->
+          Some (seq_of_test test @ cleanup)
+        | (_, Disabled, _, _) -> None
       ) tests in
-      let seq = List.concat (List.map seq_of_test tests) in
-      let cmds_tested = List.map List.hd seq in
+      let cmds_tested = List.map List.hd (List.concat seqs) in
       List.iter (fun cmd -> Hashtbl.replace hash cmd true) cmds_tested
   ) all_functions;
 
@@ -106,26 +106,18 @@ let rec generate_tests () =
   ) test_names;
   pr "};\n"
 
-and generate_one_test name optional i (init, prereq, test) =
+and generate_one_test name optional i (init, prereq, test, cleanup) =
   let test_name = sprintf "test_%s_%d" name i in
+  let not_disabled = prereq != Disabled in
 
-  pr "\
-static int
-%s_skip (void)
-{
-  const char *str;
+  pr "static int %s_skip (void);\n" test_name;
 
-  str = getenv (\"TEST_ONLY\");
-  if (str)
-    return strstr (str, \"%s\") == NULL;
-  str = getenv (\"SKIP_%s\");
-  if (str && STREQ (str, \"1\")) return 1;
-  str = getenv (\"SKIP_TEST_%s\");
-  if (str && STREQ (str, \"1\")) return 1;
-  return 0;
-}
-
-" test_name name (String.uppercase test_name) (String.uppercase name);
+  if not_disabled then (
+    pr "static int %s_perform (guestfs_h *);\n" test_name;
+    if cleanup <> [] then
+      pr "static int %s_cleanup (guestfs_h *);\n" test_name;
+  );
+  pr "\n";
 
   pr "\
 static int
@@ -160,20 +152,45 @@ static int
 
   (match prereq with
    | Disabled ->
-     pr "  skipped (\"%s\", \"test disabled in generator\");\n" test_name
+     pr "  skipped (\"%s\", \"test disabled in generator\");\n" test_name;
+     pr "  return 0;\n"
    | IfAvailable group ->
      group_test group;
-     generate_one_test_body name i test_name init test;
+     generate_one_test_body name i test_name init cleanup
    | Always ->
-     generate_one_test_body name i test_name init test
+     generate_one_test_body name i test_name init cleanup
   );
 
-  pr "  return 0;\n";
   pr "}\n";
   pr "\n";
+
+  pr "\
+static int
+%s_skip (void)
+{
+  const char *str;
+
+  str = getenv (\"TEST_ONLY\");
+  if (str)
+    return strstr (str, \"%s\") == NULL;
+  str = getenv (\"SKIP_%s\");
+  if (str && STREQ (str, \"1\")) return 1;
+  str = getenv (\"SKIP_TEST_%s\");
+  if (str && STREQ (str, \"1\")) return 1;
+  return 0;
+}
+
+" test_name name (String.uppercase test_name) (String.uppercase name);
+
+  if not_disabled then (
+    generate_test_perform name i test_name test;
+    if cleanup <> [] then
+      generate_test_cleanup test_name cleanup;
+  );
+
   test_name
 
-and generate_one_test_body name i test_name init test =
+and generate_one_test_body name i test_name init cleanup =
   (match init with
    | InitNone ->
      pr "  if (init_none (g) == -1)\n";
@@ -200,8 +217,24 @@ and generate_one_test_body name i test_name init test =
      pr "  if (init_scratch_fs (g) == -1)\n";
      pr "    return -1;\n"
   );
-
   pr "\n";
+
+  if cleanup = [] then
+    pr "  return %s_perform (g);\n" test_name
+  else (
+    pr "  int ret = %s_perform (g);\n" test_name;
+    pr "  if (%s_cleanup (g) == -1) {\n" test_name;
+    pr "    fprintf (stderr, \"%%s (%%d): unexpected error during test cleanups\\n\",\n";
+    pr "             \"%s\", %d);\n" name i;
+    pr "    return -1;\n";
+    pr "  }\n";
+    pr "  return ret;\n"
+  )
+
+and generate_test_perform name i test_name test =
+  pr "static int\n";
+  pr "%s_perform (guestfs_h *g)\n" test_name;
+  pr "{\n";
 
   let get_seq_last = function
     | [] ->
@@ -212,7 +245,7 @@ and generate_one_test_body name i test_name init test =
         List.rev (List.tl seq), List.hd seq
   in
 
-  match test with
+  (match test with
   | TestRun seq ->
     pr "  /* TestRun for %s (%d) */\n" name i;
     List.iter (generate_test_command_call test_name) seq
@@ -284,6 +317,20 @@ and generate_one_test_body name i test_name init test =
     let seq, last = get_seq_last seq in
     List.iter (generate_test_command_call test_name) seq;
     generate_test_command_call test_name ~expect_error:true last
+  );
+
+  pr "  return 0;\n";
+  pr "}\n";
+  pr "\n"
+
+and generate_test_cleanup test_name cleanup =
+  pr "static int\n";
+  pr "%s_cleanup (guestfs_h *g)\n" test_name;
+  pr "{\n";
+  List.iter (generate_test_command_call test_name) cleanup;
+  pr "  return 0;\n";
+  pr "}\n";
+  pr "\n"
 
 (* Generate the code to run a command, leaving the result in the C
  * variable named 'ret'.  If you expect to get an error then you should
@@ -518,4 +565,4 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
   )
 
 and gensym prefix =
-  sprintf "_%s%d" prefix (unique ())
+  sprintf "%s%d" prefix (unique ())
