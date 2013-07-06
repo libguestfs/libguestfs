@@ -67,9 +67,11 @@ access VirtualBox images directly.
 
 =item I<vs. qemu-nbd>
 
-nbd is like kpartx but for qcow2 images.  See the kpartx comparison
-above.  You can use libguestfs and qemu-nbd together for access to
-block devices over the network.
+NBD (Network Block Device) is a protocol for exporting block devices
+over the network.  qemu-nbd is an NBD server which can handle any disk
+format supported by qemu (eg. raw, qcow2).  You can use libguestfs and
+qemu-nbd together to access block devices over the network, for
+example: C<guestfish -a nbd://remote>
 
 =item I<vs. mounting filesystems in the host>
 
