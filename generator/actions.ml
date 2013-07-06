@@ -3419,6 +3419,14 @@ details." };
     style = RStringList "matches", [String "augpath"], [];
     proc_nr = Some 28;
     optional = Some "augeas";
+    tests = [
+      InitBasicFS, Always, TestResult (
+        [["mkdir"; "/etc"];
+         ["write"; "/etc/hosts"; "127.0.0.1 localhost"];
+         ["aug_init"; "/"; "0"];
+         ["aug_ls"; "/files/etc/hosts/1"]],
+        "is_string_list (ret, 2, \"/files/etc/hosts/1/canonical\", \"/files/etc/hosts/1/ipaddr\")"), [["aug_close"]]
+    ];
     shortdesc = "list Augeas nodes under augpath";
     longdesc = "\
 This is just a shortcut for listing C<guestfs_aug_match>
