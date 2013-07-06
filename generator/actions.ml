@@ -3313,6 +3313,14 @@ matches exactly one node, the C<value> is returned." };
     style = RErr, [String "augpath"; String "val"], [];
     proc_nr = Some 20;
     optional = Some "augeas";
+    tests = [
+      InitBasicFS, Always, TestResultString (
+        [["mkdir"; "/etc"];
+         ["write"; "/etc/hostname"; "test.example.org"];
+         ["aug_init"; "/"; "0"];
+         ["aug_set"; "/files/etc/hostname/hostname"; "replace.example.com"];
+         ["aug_get"; "/files/etc/hostname/hostname"]], "replace.example.com"), [["aug_close"]]
+    ];
     shortdesc = "set Augeas path to value";
     longdesc = "\
 Set the value associated with C<path> to C<val>.
