@@ -240,7 +240,7 @@ and generate_one_test_body name i test_name init test =
     generate_test_command_call test_name ~ret:"ret" last;
     pr "  if (! STREQ (ret, \"%s\")) {\n" (c_quote expected);
     pr "    fprintf (stderr, \"%%s: test failed: expected last command %%s to return \\\"%%s\\\" but it returned \\\"%%s\\\"\\n\",\n";
-    pr "             \"%s\", \"%s\", ret, \"%s\");\n"
+    pr "             \"%s\", \"%s\", \"%s\", ret);\n"
       test_name (List.hd last) (c_quote expected);
     pr "    return -1;\n";
     pr "  }\n"
@@ -252,7 +252,7 @@ and generate_one_test_body name i test_name init test =
     generate_test_command_call test_name ~ret:"ret" last;
     pr "  if (compare_devices (ret, \"%s\") != 0) {\n" (c_quote expected);
     pr "    fprintf (stderr, \"%%s: test failed: expected last command %%s to return \\\"%%s\\\" but it returned \\\"%%s\\\"\\n\",\n";
-    pr "             \"%s\", \"%s\", ret, \"%s\");\n"
+    pr "             \"%s\", \"%s\", \"%s\", ret);\n"
       test_name (List.hd last) (c_quote expected);
     pr "    return -1;\n";
     pr "  }\n"
