@@ -288,7 +288,7 @@ let () =
     | { name = name; tests = tests } ->
       let funcs =
         List.map (
-          fun (_, _, test) ->
+          fun (_, _, test, _) ->
             match seq_of_test test with
             | [] ->
               failwithf "%s has a test containing an empty sequence" name
@@ -309,7 +309,7 @@ let () =
     | { name = name; tests = tests; optional = Some optgroup } ->
       List.iter (
         function
-        | _, IfAvailable o, _ when o = optgroup ->
+        | _, IfAvailable o, _, _ when o = optgroup ->
           failwithf "%s test is marked 'IfAvailable %S', but since this function is in the %S optgroup, this is unnecessary; use 'Always' instead" name o optgroup
         | _ -> ()
       ) tests
