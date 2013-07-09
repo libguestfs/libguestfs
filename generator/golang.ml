@@ -37,11 +37,11 @@ let generate_golang_go () =
 package guestfs
 
 /*
-#cgo CFLAGS: -I../src -DGUESTFS_PRIVATE=1
-#cgo LDFLAGS: -L../src/.libs -lguestfs
+#cgo CFLAGS:  -DGUESTFS_PRIVATE=1
+#cgo LDFLAGS: -lguestfs
 #include <stdio.h>
 #include <stdlib.h>
-#include <guestfs.h>
+#include \"guestfs.h\"
 
 // cgo can't deal with variable argument functions.
 static guestfs_h *

@@ -171,6 +171,18 @@ else
     GOPATH="$b/golang:$GOPATH"
 fi
 export GOPATH
+if [ -z "$CGO_CFLAGS" ]; then
+    CGO_CFLAGS="-I$s/src"
+else
+    CGO_CFLAGS="$CGO_CFLAGS -I$s/src"
+fi
+export CGO_CFLAGS
+if [ -z "$CGO_LDFLAGS" ]; then
+    CGO_LDFLAGS="-L$b/src/.libs"
+else
+    CGO_LDFLAGS="$CGO_LDFLAGS -L$b/src/.libs"
+fi
+export CGO_LDFLAGS
 
 # For GObject, Javascript and friends.
 export GJS=@GJS@
