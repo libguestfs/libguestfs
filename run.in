@@ -214,28 +214,31 @@ export GNOME_KEYRING_PID=
 # Run the program.
 if [ -z "$test_mode" ]; then
     exec $libtool "$@"
-else
-    # For tests (./run --test), redirect all output to a file, and
-    # only print the file if the test fails.
-    pid=$$
-    tmpout=$b/tmp/run-$pid
-    rm -f $tmpout
-    start_t="$(date +'%s')"
-    $libtool "$@" > $tmpout 2>&1
-    fail=$?
-    end_t="$(date +'%s')"
-    if [ "$fail" -eq 0 ]; then
-        # Test successful.
-        echo $(($end_t - $start_t)) seconds: "$@"
-    elif [ "$fail" -eq 77 ]; then
-        # Tests return 77 to mean skipped.
-        cat $tmpout
-    else
-        # Test failed.
-        echo "$b/run --test" "$@"
-        cat $tmpout
-        echo "$b/run: command failed with exit code $fail"
-    fi
-    rm -f $tmpout
-    exit $fail
 fi
+
+# For tests (./run --test):
+#  - redirect all output to a file, and only print the file if the
+#    test fails
+#  - print how long it takes to run the test
+
+pid=$$
+tmpout=$b/tmp/run-$pid
+rm -f $tmpout
+start_t="$(date +'%s')"
+$libtool "$@" > $tmpout 2>&1
+fail=$?
+end_t="$(date +'%s')"
+if [ "$fail" -eq 0 ]; then
+    # Test successful.
+    echo $(($end_t - $start_t)) seconds: "$@"
+elif [ "$fail" -eq 77 ]; then
+    # Tests return 77 to mean skipped.
+    cat $tmpout
+else
+    # Test failed.
+    echo "$b/run --test" "$@"
+    cat $tmpout
+    echo "$b/run: command failed with exit code $fail"
+fi
+rm -f $tmpout
+exit $fail
