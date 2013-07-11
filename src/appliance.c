@@ -45,6 +45,7 @@
 static const char *kernel_name = "vmlinuz." host_cpu;
 static const char *initrd_name = "initramfs." host_cpu ".img";
 
+static int build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);
 static int dir_contains_file (const char *dir, const char *file);
 static int dir_contains_files (const char *dir, ...);
@@ -137,21 +138,44 @@ gl_lock_define_initialized (static, building_lock);
  */
 int
 guestfs___build_appliance (guestfs_h *g,
-                           char **kernel, char **initrd, char **appliance)
+                           char **kernel_rtn,
+                           char **initrd_rtn,
+                           char **appliance_rtn)
+{
+  int r;
+  char *kernel, *initrd, *appliance;
+
+  gl_lock_lock (building_lock);
+  r = build_appliance (g, &kernel, &initrd, &appliance);
+  gl_lock_unlock (building_lock);
+
+  if (r == -1)
+    return -1;
+
+  /* Don't assign these until we know we're going to succeed, to avoid
+   * the caller double-freeing (RHBZ#983218).
+   */
+  *kernel_rtn = kernel;
+  *initrd_rtn = initrd;
+  *appliance_rtn = appliance;
+  return 0;
+}
+
+static int
+build_appliance (guestfs_h *g,
+                 char **kernel,
+                 char **initrd,
+                 char **appliance)
 {
   int r;
   uid_t uid = geteuid ();
   CLEANUP_FREE char *supermin_path = NULL;
   CLEANUP_FREE char *path = NULL;
 
-  gl_lock_lock (building_lock);
-
   /* Step (1). */
   r = find_path (g, contains_supermin_appliance, NULL, &supermin_path);
-  if (r == -1) {
-    gl_lock_unlock (building_lock);
+  if (r == -1)
     return -1;
-  }
 
   if (r == 1) {
     /* Step (2): calculate checksum. */
@@ -161,25 +185,19 @@ guestfs___build_appliance (guestfs_h *g,
       /* Step (3): cached appliance exists? */
       r = check_for_cached_appliance (g, supermin_path, checksum, uid,
                                       kernel, initrd, appliance);
-      if (r != 0) {
-        gl_lock_unlock (building_lock);
+      if (r != 0)
         return r == 1 ? 0 : -1;
-      }
 
       /* Step (4): build supermin appliance. */
-      r = build_supermin_appliance (g, supermin_path, checksum, uid,
-                                    kernel, initrd, appliance);
-      gl_lock_unlock (building_lock);
-      return r;
+      return build_supermin_appliance (g, supermin_path, checksum, uid,
+                                       kernel, initrd, appliance);
     }
   }
 
   /* Step (5). */
   r = find_path (g, contains_fixed_appliance, NULL, &path);
-  if (r == -1) {
-    gl_lock_unlock (building_lock);
+  if (r == -1)
     return -1;
-  }
 
   if (r == 1) {
     size_t len = strlen (path);
@@ -189,17 +207,13 @@ guestfs___build_appliance (guestfs_h *g,
     sprintf (*kernel, "%s/kernel", path);
     sprintf (*initrd, "%s/initrd", path);
     sprintf (*appliance, "%s/root", path);
-
-    gl_lock_unlock (building_lock);
     return 0;
   }
 
   /* Step (6). */
   r = find_path (g, contains_old_style_appliance, NULL, &path);
-  if (r == -1) {
-    gl_lock_unlock (building_lock);
+  if (r == -1)
     return -1;
-  }
 
   if (r == 1) {
     size_t len = strlen (path);
@@ -208,14 +222,11 @@ guestfs___build_appliance (guestfs_h *g,
     sprintf (*kernel, "%s/%s", path, kernel_name);
     sprintf (*initrd, "%s/%s", path, initrd_name);
     *appliance = NULL;
-
-    gl_lock_unlock (building_lock);
     return 0;
   }
 
   error (g, _("cannot find any suitable libguestfs supermin, fixed or old-style appliance on LIBGUESTFS_PATH (search path: %s)"),
          g->path);
-  gl_lock_unlock (building_lock);
   return -1;
 }
 
