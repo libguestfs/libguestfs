@@ -179,11 +179,15 @@ fi
 #  - print how long it takes to run the test
 #  - timeout if the test takes too long to run
 
+# Originally 1h, but that is not long enough to run the C API
+# tests on Koji.
+timeout_period=4h
+
 # Do we have Padraig's timeout utility (from coreutils)?
 if timeout --help >/dev/null 2>&1; then
-    # Timeout (SIGTERM) after 1 hour.
+    # Timeout (SIGTERM) after $timeout_period.
     # Then send a second SIGKILL 30 seconds later.
-    timeout="timeout -k 30s 1h"
+    timeout="timeout -k 30s $timeout_period"
 fi
 
 pid=$$
@@ -203,7 +207,7 @@ elif [ "$fail" -eq 124 ]; then
     # Timed out.
     echo "$b/run --test" "$@"
     cat $tmpout
-    echo "$b/run: command timed out after 1 hour"
+    echo "$b/run: command timed out after $timeout_period"
 else
     # Test failed.
     echo "$b/run --test" "$@"
