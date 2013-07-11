@@ -177,12 +177,20 @@ fi
 #  - redirect all output to a file, and only print the file if the
 #    test fails
 #  - print how long it takes to run the test
+#  - timeout if the test takes too long to run
+
+# Do we have Padraig's timeout utility (from coreutils)?
+if timeout --help >/dev/null 2>&1; then
+    # Timeout (SIGTERM) after 1 hour.
+    # Then send a second SIGKILL 30 seconds later.
+    timeout="timeout -k 30s 1h"
+fi
 
 pid=$$
 tmpout=$b/tmp/run-$pid
 rm -f $tmpout
 start_t="$(date +'%s')"
-$libtool "$@" > $tmpout 2>&1
+$timeout $libtool "$@" > $tmpout 2>&1
 fail=$?
 end_t="$(date +'%s')"
 if [ "$fail" -eq 0 ]; then
@@ -191,6 +199,11 @@ if [ "$fail" -eq 0 ]; then
 elif [ "$fail" -eq 77 ]; then
     # Tests return 77 to mean skipped.
     cat $tmpout
+elif [ "$fail" -eq 124 ]; then
+    # Timed out.
+    echo "$b/run --test" "$@"
+    cat $tmpout
+    echo "$b/run: command timed out after 1 hour"
 else
     # Test failed.
     echo "$b/run --test" "$@"
