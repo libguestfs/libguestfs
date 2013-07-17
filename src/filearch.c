@@ -141,7 +141,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   size_t i;
 
   if (asprintf (&dir, "%s/libguestfsXXXXXX", tmpdir) == -1) {
-    perror ("asprintf");
+    perrorf (g, "asprintf");
     return NULL;
   }
 
