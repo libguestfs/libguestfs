@@ -86,20 +86,20 @@ gl_lock_define_initialized (static, mount_local_lock);
   } while (0)
 
 static struct guestfs_xattr_list *
-copy_xattr_list (const struct guestfs_xattr *first, size_t num)
+copy_xattr_list (guestfs_h *g, const struct guestfs_xattr *first, size_t num)
 {
   struct guestfs_xattr_list *xattrs;
 
   xattrs = malloc (sizeof *xattrs);
   if (xattrs == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     return NULL;
   }
 
   xattrs->len = num;
   xattrs->val = malloc (num * sizeof (struct guestfs_xattr));
   if (xattrs->val == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     free (xattrs);
     return NULL;
   }
@@ -209,7 +209,7 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
           for (; i < xattrs->len && strlen (xattrs->val[i].attrname) > 0; ++i)
             num++;
 
-          copy = copy_xattr_list (first, num);
+          copy = copy_xattr_list (g, first, num);
           if (copy)
             xac_insert (g, path, names[ni], now, copy);
 
@@ -1251,7 +1251,8 @@ dir_cache_remove_all_expired (guestfs_h *g, time_t now)
 }
 
 static int
-gen_replace (Hash_table *ht, struct entry_common *new_entry, Hash_data_freer freer)
+gen_replace (guestfs_h *g, Hash_table *ht,
+             struct entry_common *new_entry, Hash_data_freer freer)
 {
   struct entry_common *old_entry;
 
@@ -1260,7 +1261,7 @@ gen_replace (Hash_table *ht, struct entry_common *new_entry, Hash_data_freer fre
 
   old_entry = hash_insert (ht, new_entry);
   if (old_entry == NULL) {
-    perror ("hash_insert");
+    perrorf (g, "hash_insert");
     freer (new_entry);
     return -1;
   }
@@ -1278,14 +1279,14 @@ lsc_insert (guestfs_h *g,
 
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     return -1;
   }
 
   size_t len = strlen (path) + strlen (name) + 2;
   entry->c.pathname = malloc (len);
   if (entry->c.pathname == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     free (entry);
     return -1;
   }
@@ -1298,7 +1299,7 @@ lsc_insert (guestfs_h *g,
 
   entry->c.timeout = now + g->ml_dir_cache_timeout;
 
-  return gen_replace (g->lsc_ht, (struct entry_common *) entry, lsc_free);
+  return gen_replace (g, g->lsc_ht, (struct entry_common *) entry, lsc_free);
 }
 
 static int
@@ -1310,14 +1311,14 @@ xac_insert (guestfs_h *g,
 
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     return -1;
   }
 
   size_t len = strlen (path) + strlen (name) + 2;
   entry->c.pathname = malloc (len);
   if (entry->c.pathname == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     free (entry);
     return -1;
   }
@@ -1330,7 +1331,7 @@ xac_insert (guestfs_h *g,
 
   entry->c.timeout = now + g->ml_dir_cache_timeout;
 
-  return gen_replace (g->xac_ht, (struct entry_common *) entry, xac_free);
+  return gen_replace (g, g->xac_ht, (struct entry_common *) entry, xac_free);
 }
 
 static int
@@ -1342,14 +1343,14 @@ rlc_insert (guestfs_h *g,
 
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     return -1;
   }
 
   size_t len = strlen (path) + strlen (name) + 2;
   entry->c.pathname = malloc (len);
   if (entry->c.pathname == NULL) {
-    perror ("malloc");
+    perrorf (g, "malloc");
     free (entry);
     return -1;
   }
@@ -1362,7 +1363,7 @@ rlc_insert (guestfs_h *g,
 
   entry->c.timeout = now + g->ml_dir_cache_timeout;
 
-  return gen_replace (g->rlc_ht, (struct entry_common *) entry, rlc_free);
+  return gen_replace (g, g->rlc_ht, (struct entry_common *) entry, rlc_free);
 }
 
 static const struct stat *

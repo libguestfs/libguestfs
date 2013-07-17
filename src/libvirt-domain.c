@@ -560,7 +560,7 @@ for_each_disk (guestfs_h *g,
           assert (port);
           debug (g, _("disk[%zu]: host: %s:%s"), i, name, port);
           if (asprintf(&server[hi], "%s:%s", name, port) == -1) {
-            perror("asprintf");
+            perrorf (g, "asprintf");
             return -1;
           }
         }
