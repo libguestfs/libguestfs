@@ -10816,8 +10816,26 @@ C<path> is a directory.
     tests = [
       InitScratchFS, Always, TestRun (
         [["touch"; "/acl_set_file_0"];
-         ["acl_set_file"; "/acl_set_file_0"; "access"; "user::r-x,group::r-x,other::r-x"];
+         ["acl_set_file"; "/acl_set_file_0"; "access"; "u::r-x,g::r-x,o::r-x"];
          ["acl_get_file"; "/acl_set_file_0"; "access"]]), [];
+      InitScratchFS, Always, TestRun (
+        [["touch"; "/acl_set_file_1"];
+         ["acl_set_file"; "/acl_set_file_1"; "access"; "u::r-x,g::r-x,o::r-x,m::rwx,u:500:rw,g:600:x"]]), [];
+      InitScratchFS, Always, TestLastFail (
+        [["touch"; "/acl_set_file_2"];
+         (* m (mask) entry is required when setting user or group ACLs *)
+         ["acl_set_file"; "/acl_set_file_2"; "access"; "u::r-x,g::r-x,o::r-x,u:500:rw,g:600:x"]]), [];
+      InitScratchFS, Always, TestLastFail (
+        [["touch"; "/acl_set_file_3"];
+         (* user does not exist *)
+         ["acl_set_file"; "/acl_set_file_3"; "access"; "u::r-x,g::r-x,o::r-x,m::rwx,u:notauser:rw"]]), [];
+      InitScratchFS, Always, TestLastFail (
+        [["touch"; "/acl_set_file_4"];
+         (* cannot set default on a non-directory *)
+         ["acl_set_file"; "/acl_set_file_4"; "default"; "u::r-x,g::r-x,o::r-x"]]), [];
+      InitScratchFS, Always, TestRun (
+        [["mkdir"; "/acl_set_file_5"];
+         ["acl_set_file"; "/acl_set_file_5"; "default"; "u::r-x,g::r-x,o::r-x"]]), [];
     ];
     shortdesc = "set the POSIX ACL attached to a file";
     longdesc = "\
