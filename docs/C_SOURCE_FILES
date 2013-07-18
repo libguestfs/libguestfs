@@ -49,7 +49,6 @@ common/windows/windows.h
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
-daemon/9p.c
 daemon/acl.c
 daemon/actions.h
 daemon/augeas.c
