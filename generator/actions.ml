@@ -9359,29 +9359,6 @@ This returns true iff the device exists and contains all zero bytes.
 Note that for large devices this can take a long time to run." };
 
   { defaults with
-    name = "list_9p"; added = (1, 11, 12);
-    style = RStringList "mounttags", [], [];
-    proc_nr = Some 285;
-    shortdesc = "list 9p filesystems";
-    longdesc = "\
-List all 9p filesystems attached to the guest.  A list of
-mount tags is returned." };
-
-  { defaults with
-    name = "mount_9p"; added = (1, 11, 12);
-    style = RErr, [String "mounttag"; String "mountpoint"], [OString "options"];
-    proc_nr = Some 286;
-    camel_name = "Mount9P";
-    shortdesc = "mount 9p filesystem";
-    longdesc = "\
-Mount the virtio-9p filesystem with the tag C<mounttag> on the
-directory C<mountpoint>.
-
-If required, C<trans=virtio> will be automatically added to the options.
-Any other options required can be passed in the optional C<options>
-parameter." };
-
-  { defaults with
     name = "list_dm_devices"; added = (1, 11, 15);
     style = RStringList "devices", [], [];
     proc_nr = Some 287;

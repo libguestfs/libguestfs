@@ -83,7 +83,6 @@ endif
 # https://rwmj.wordpress.com/2015/09/30/make-and-queuing-theory/#content
 guestfsd_SOURCES = \
 	stubs.c \
-	9p.c \
 	acl.c \
 	actions.h \
 	available.c \
