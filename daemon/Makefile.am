@@ -84,7 +84,6 @@ guestfsd_SOURCES = \
 	../common/protocol/guestfs_protocol.h \
 	../common/utils/cleanups.h \
 	../common/utils/guestfs-utils.h \
-	9p.c \
 	acl.c \
 	actions.h \
 	available.c \

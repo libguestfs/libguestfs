@@ -26,7 +26,6 @@ common/utils/stringlists-utils.c
 common/utils/utils.c
 common/visit/visit.c
 common/windows/windows.c
-daemon/9p.c
 daemon/acl.c
 daemon/augeas.c
 daemon/available.c
@@ -264,7 +263,6 @@ gobject/src/optargs-mkfs_btrfs.c
 gobject/src/optargs-mksquashfs.c
 gobject/src/optargs-mkswap.c
 gobject/src/optargs-mktemp.c
-gobject/src/optargs-mount_9p.c
 gobject/src/optargs-mount_local.c
 gobject/src/optargs-ntfsclone_out.c
 gobject/src/optargs-ntfsfix.c

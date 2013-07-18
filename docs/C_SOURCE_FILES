@@ -43,7 +43,6 @@ common/visit/visit.c
 common/visit/visit.h
 common/windows/windows.c
 common/windows/windows.h
-daemon/9p.c
 daemon/acl.c
 daemon/actions.h
 daemon/augeas.c

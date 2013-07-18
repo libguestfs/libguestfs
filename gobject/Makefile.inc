@@ -94,7 +94,6 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-mksquashfs.h \
   include/guestfs-gobject/optargs-mkswap.h \
   include/guestfs-gobject/optargs-mktemp.h \
-  include/guestfs-gobject/optargs-mount_9p.h \
   include/guestfs-gobject/optargs-mount_local.h \
   include/guestfs-gobject/optargs-ntfsclone_out.h \
   include/guestfs-gobject/optargs-ntfsfix.h \
@@ -188,7 +187,6 @@ guestfs_gobject_sources= \
   src/optargs-mksquashfs.c \
   src/optargs-mkswap.c \
   src/optargs-mktemp.c \
-  src/optargs-mount_9p.c \
   src/optargs-mount_local.c \
   src/optargs-ntfsclone_out.c \
   src/optargs-ntfsfix.c \
