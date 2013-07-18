@@ -43,7 +43,6 @@ check-slow:
 check-valgrind:
 	$(MAKE) VG="@VG@" check
 
-TESTS += 9p/test-9p.sh
 EXTRA_DIST += 9p/test-9p.sh
 
 SLOW_TESTS += bigdirs/test-big-dirs.pl
