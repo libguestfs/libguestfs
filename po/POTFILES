@@ -39,7 +39,6 @@ customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
 customize/test-password.pl
-daemon/9p.c
 daemon/acl.c
 daemon/augeas.c
 daemon/available.c
@@ -266,7 +265,6 @@ gobject/src/optargs-mkfs_btrfs.c
 gobject/src/optargs-mksquashfs.c
 gobject/src/optargs-mkswap.c
 gobject/src/optargs-mktemp.c
-gobject/src/optargs-mount_9p.c
 gobject/src/optargs-mount_local.c
 gobject/src/optargs-ntfsclone_out.c
 gobject/src/optargs-ntfsfix.c

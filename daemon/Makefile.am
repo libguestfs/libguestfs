@@ -49,7 +49,6 @@ endif
 guestfsd_SOURCES = \
 	../common/errnostring/errnostring.h \
 	../common/protocol/guestfs_protocol.h \
-	9p.c \
 	acl.c \
 	actions.h \
 	available.c \
