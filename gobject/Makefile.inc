@@ -57,7 +57,6 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-mkswap.h \
   include/guestfs-gobject/optargs-grep.h \
   include/guestfs-gobject/optargs-mkfs.h \
-  include/guestfs-gobject/optargs-mount_9p.h \
   include/guestfs-gobject/optargs-ntfsresize.h \
   include/guestfs-gobject/optargs-btrfs_filesystem_resize.h \
   include/guestfs-gobject/optargs-compress_out.h \
@@ -122,7 +121,6 @@ guestfs_gobject_sources= \
   src/optargs-mkswap.c \
   src/optargs-grep.c \
   src/optargs-mkfs.c \
-  src/optargs-mount_9p.c \
   src/optargs-ntfsresize.c \
   src/optargs-btrfs_filesystem_resize.c \
   src/optargs-compress_out.c \
