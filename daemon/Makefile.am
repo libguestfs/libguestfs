@@ -77,7 +77,6 @@ noinst_PROGRAMS = guestfsd
 endif
 
 guestfsd_SOURCES = \
-	9p.c \
 	acl.c \
 	actions.h \
 	available.c \
