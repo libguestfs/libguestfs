@@ -10822,8 +10822,7 @@ C<path> is a directory.
     shortdesc = "set the POSIX ACL attached to a file";
     longdesc = "\
 This function sets the POSIX Access Control List (ACL) attached
-to C<path>.  The C<acl> parameter is the new ACL in either
-\"long text form\" or \"short text form\" (see L<acl(5)>).
+to C<path>.
 
 The C<acltype> parameter may be:
 
@@ -10839,7 +10838,24 @@ other filesystem object.
 Set the default ACL.  Normally this only makes sense if
 C<path> is a directory.
 
-=back" };
+=back
+
+The C<acl> parameter is the new ACL in either \"long text form\"
+or \"short text form\" (see L<acl(5)>).  The new ACL completely
+replaces any previous ACL on the file.  The ACL must contain the
+full Unix permissions (eg. C<u::rwx,g::rx,o::rx>).
+
+If you are specifying individual users or groups, then the
+mask field is also required (eg. C<m::rwx>), followed by the
+C<u:I<ID>:...> and/or C<g:I<ID>:...> field(s).  A full ACL
+string might therefore look like this:
+
+ u::rwx,g::rwx,o::rwx,m::rwx,u:500:rwx,g:500:rwx
+ \\ Unix permissions / \\mask/ \\      ACL        /
+
+You should use numeric UIDs and GIDs.  To map usernames and
+groupnames to the correct numeric ID in the context of the
+guest, use the Augeas functions (see C<guestfs_aug_init>)." };
 
   { defaults with
     name = "acl_delete_def_file";
