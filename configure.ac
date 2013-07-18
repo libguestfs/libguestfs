@@ -1655,6 +1655,7 @@ AC_CONFIG_FILES([Makefile
                  tests/charsets/Makefile
                  tests/data/Makefile
                  tests/disks/Makefile
+                 tests/disk-info/Makefile
                  tests/disk-labels/Makefile
                  tests/fuzz/Makefile
                  tests/guests/Makefile
