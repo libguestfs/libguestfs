@@ -2593,11 +2593,19 @@ data." };
     style = RString "format", [String "filename"], [];
     tests = [
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "GETKEY:test1"]], "raw"), [];
+        [["disk_format"; "../data/blank-disk-1s.raw"]], "raw"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "GETKEY:test2"]], "raw"), [];
+        [["disk_format"; "../data/blank-disk-1s.qcow2"]], "qcow2"), [];
       InitEmpty, Always, TestResultString (
-        [["disk_format"; "GETKEY:test3"]], "raw"), [];
+        [["disk_format"; "../data/blank-disk-1K.raw"]], "raw"), [];
+      InitEmpty, Always, TestResultString (
+        [["disk_format"; "../data/blank-disk-1K.qcow2"]], "qcow2"), [];
+      InitEmpty, Always, TestResultString (
+        [["disk_format"; "../data/blank-disk-1M.raw"]], "raw"), [];
+      InitEmpty, Always, TestResultString (
+        [["disk_format"; "../data/blank-disk-1M.qcow2"]], "qcow2"), [];
+      InitEmpty, Always, TestResultString (
+        [["disk_format"; "../data/blank-disk-with-backing.qcow2"]], "qcow2"), [];
     ];
     shortdesc = "detect the disk format of a disk image";
     longdesc = "\
@@ -2615,11 +2623,19 @@ See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
     style = RInt64 "size", [String "filename"], [];
     tests = [
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "GETKEY:test1"]], "ret == UINT64_C (524288000)"), [];
+        [["disk_virtual_size"; "../data/blank-disk-1s.raw"]], "ret == 512"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "GETKEY:test2"]], "ret == UINT64_C (52428800)"), [];
+        [["disk_virtual_size"; "../data/blank-disk-1s.qcow2"]], "ret == 512"), [];
       InitEmpty, Always, TestResult (
-        [["disk_virtual_size"; "GETKEY:test3"]], "ret == UINT64_C (10485760)"), [];
+        [["disk_virtual_size"; "../data/blank-disk-1K.raw"]], "ret == 1024"), [];
+      InitEmpty, Always, TestResult (
+        [["disk_virtual_size"; "../data/blank-disk-1K.qcow2"]], "ret == 1024"), [];
+      InitEmpty, Always, TestResult (
+        [["disk_virtual_size"; "../data/blank-disk-1M.raw"]], "ret == 1024*1024"), [];
+      InitEmpty, Always, TestResult (
+        [["disk_virtual_size"; "../data/blank-disk-1M.qcow2"]], "ret == 1024*1024"), [];
+      InitEmpty, Always, TestResult (
+        [["disk_virtual_size"; "../data/blank-disk-with-backing.qcow2"]], "ret == 1024*1024"), [];
     ];
     shortdesc = "return virtual size of a disk";
     longdesc = "\
@@ -2634,11 +2650,19 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
     style = RBool "backingfile", [String "filename"], [];
     tests = [
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "GETKEY:test1"]]), [];
+        [["disk_has_backing_file"; "../data/blank-disk-1s.raw"]]), [];
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "GETKEY:test2"]]), [];
+        [["disk_has_backing_file"; "../data/blank-disk-1s.qcow2"]]), [];
       InitEmpty, Always, TestResultFalse (
-        [["disk_has_backing_file"; "GETKEY:test3"]]), [];
+        [["disk_has_backing_file"; "../data/blank-disk-1K.raw"]]), [];
+      InitEmpty, Always, TestResultFalse (
+        [["disk_has_backing_file"; "../data/blank-disk-1K.qcow2"]]), [];
+      InitEmpty, Always, TestResultFalse (
+        [["disk_has_backing_file"; "../data/blank-disk-1M.raw"]]), [];
+      InitEmpty, Always, TestResultFalse (
+        [["disk_has_backing_file"; "../data/blank-disk-1M.qcow2"]]), [];
+      InitEmpty, Always, TestResultTrue (
+        [["disk_has_backing_file"; "../data/blank-disk-with-backing.qcow2"]]), [];
     ];
     shortdesc = "return whether disk has a backing file";
     longdesc = "\
