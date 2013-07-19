@@ -29,12 +29,7 @@ my $g = Sys::Guestfs->new ();
 my $nr_files = 1000000;
 my $image_size = 2*1024*1024*1024;
 
-unlink "test.img";
-open FILE, ">test.img" or die "test.img: $!";
-truncate FILE, $image_size or die "test.img: truncate: $!";
-close FILE or die "test.img: $!";
-
-$g->add_drive ("test.img", format => "raw");
+$g->add_drive_scratch ($image_size);
 
 $g->launch ();
 
@@ -79,5 +74,3 @@ die unless @a == $nr_files;
 
 $g->shutdown ();
 $g->close ();
-
-unlink "test.img"

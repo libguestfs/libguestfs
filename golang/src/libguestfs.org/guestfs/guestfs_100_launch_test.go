@@ -20,7 +20,6 @@ package guestfs
 
 import (
 	"testing"
-	"os"
 //	"sort"
 )
 
@@ -31,17 +30,7 @@ func Test100Launch (t *testing.T) {
 	}
 	defer g.Close ()
 
-	f, ferr := os.Create ("test.img")
-	if ferr != nil {
-		t.Errorf ("could not create file: %s", ferr)
-	}
-	defer os.Remove ("test.img")
-	if ferr := f.Truncate (500 * 1024 * 1024); ferr != nil {
-		t.Errorf ("could not truncate file: %s", ferr)
-	}
-	f.Close ()
-
-	err := g.Add_drive ("test.img", nil)
+	err := g.Add_drive_scratch (500 * 1024 * 1024, nil);
 	if err != nil {
 		t.Errorf ("%s", err)
 	}

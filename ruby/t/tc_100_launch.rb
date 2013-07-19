@@ -24,11 +24,7 @@ class TestLoad < Test::Unit::TestCase
   def test_launch
     g = Guestfs::create()
 
-    File.open("test.img", "w") {
-      |f| f.seek(500*1024*1024); f.write("\0")
-    }
-
-    g.add_drive("test.img")
+    g.add_drive_scratch(500*1024*1024)
     g.launch()
 
     g.pvcreate("/dev/sda")
@@ -42,7 +38,5 @@ class TestLoad < Test::Unit::TestCase
     end
 
     g.sync()
-
-    File.unlink("test.img")
   end
 end

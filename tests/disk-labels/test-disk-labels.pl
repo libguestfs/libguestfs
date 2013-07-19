@@ -28,12 +28,8 @@ exit 77 if $ENV{SKIP_TEST_DISK_LABELS_PL};
 my $g = Sys::Guestfs->new ();
 
 # Add two drives.
-foreach (["test1.img", "a"], ["test2.img", "b"]) {
-    my ($output, $label) = @$_;
-    open FILE, ">$output" or die "$output: $!";
-    truncate FILE, 512 * 1024 * 1024 or die "$output: truncate: $!";
-    close FILE or die "$output: $!";
-    $g->add_drive ($output, readonly => 0, format => "raw", label => $label);
+foreach ("a", "b") {
+    $g->add_drive_scratch (512*1024*1024, label => $_);
 }
 
 $g->launch ();
@@ -67,8 +63,5 @@ die unless exists $labels{"b1"};
 die unless $labels{"b1"} eq "/dev/sdb1";
 die unless exists $labels{"b2"};
 die unless $labels{"b2"} eq "/dev/sdb2";
-
-unlink "test1.img";
-unlink "test2.img";
 
 exit 0

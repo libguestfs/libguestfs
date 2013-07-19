@@ -23,19 +23,12 @@ require 'guestfs'
 class TestLoad < Test::Unit::TestCase
   def test_rhbz507346
     g = Guestfs::create()
-
-    File.open("test.img", "w") {
-      |f| f.seek(10*1024*1024); f.write("\0")
-    }
-
-    g.add_drive("test.img")
+    g.add_drive_scratch(10*1024*1024)
     g.launch()
 
     exception = assert_raise TypeError do
         g.command(1)
     end
     assert_match /wrong argument type Fixnum \(expected Array\)/, exception.message
-
-    File.unlink("test.img")
   end
 end

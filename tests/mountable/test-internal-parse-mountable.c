@@ -27,33 +27,12 @@
 #include "guestfs.h"
 #include "guestfs-internal-all.h"
 
-#define IMG "test.img"
-
 int
 main (int argc, char *argv[])
 {
-  int fd;
   guestfs_h *g;
   struct guestfs_internal_mountable *mountable;
   const char *devices[] = { "/dev/VG/LV", NULL };
-
-  fd = open (IMG, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-  if (fd == -1) {
-    perror ("open " IMG);
-    exit (EXIT_FAILURE);
-  }
-
-  if (ftruncate (fd, 1024 * 1024 * 1024) == -1) {
-    perror ("truncate " IMG " 1G");
-    unlink (IMG);
-    exit (EXIT_FAILURE);
-  }
-
-  if (close (fd) == -1) {
-    perror ("close " IMG);
-    unlink (IMG);
-    exit (EXIT_FAILURE);
-  }
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -61,13 +40,9 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_add_drive_opts (g, IMG,
-                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                              GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
-                              -1) == -1) {
+  if (guestfs_add_drive_scratch (g, 1024*1024*1024, -1) == -1) {
   error:
     guestfs_close (g);
-    unlink (IMG);
     exit (EXIT_FAILURE);
   }
 
@@ -113,7 +88,6 @@ main (int argc, char *argv[])
   guestfs_free_internal_mountable (mountable);
 
   guestfs_close (g);
-  unlink (IMG);
 
   exit (EXIT_SUCCESS);
 }

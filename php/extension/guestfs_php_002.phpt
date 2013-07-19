@@ -22,15 +22,7 @@ if ($g == false) {
   exit;
 }
 
-$tmp = dirname(__FILE__)."/test.img";
-$size = 100 * 1024 * 1024;
-if (! $fp = fopen ($tmp, 'w+')) {
-  die ("Error: cannot create file '".$tmp."'\n");
-}
-ftruncate ($fp, $size);
-fclose ($fp);
-
-if (! guestfs_add_drive ($g, $tmp) ||
+if (! guestfs_add_drive_scratch ($g, 100 * 1024 * 1024) ||
     ! guestfs_launch ($g) ||
     ! guestfs_part_disk ($g, "/dev/sda", "mbr") ||
     ! guestfs_pvcreate ($g, "/dev/sda1") ||
@@ -51,8 +43,6 @@ if (!is_int ($version["major"]) ||
     !is_string ($version["extra"])) {
   echo ("Error: incorrect return type from guestfs_version\n");
 }
-
-unlink ($tmp);
 
 echo ("OK\n");
 ?>

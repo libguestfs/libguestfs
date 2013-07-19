@@ -23,12 +23,7 @@ local G = require "guestfs"
 
 local g = G.create ()
 
-file = io.open ("test.img", "w")
-file:seek ("set", 10 * 1024 * 1024)
-file:write (' ')
-file:close ()
-
-g:add_drive ("test.img")
+g:add_drive_scratch (10 * 1024 * 1024)
 
 g:launch ()
 
@@ -60,5 +55,3 @@ assert (dirs[5]["name"] == "q", "incorrect name in slot 5")
 g:shutdown ()
 
 g:close ()
-
-os.remove ("test.img")

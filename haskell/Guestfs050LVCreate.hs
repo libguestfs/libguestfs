@@ -24,6 +24,8 @@ import Control.Monad
 
 main = do
   g <- G.create
+  {- XXX replace with a call to add_drive_scratch once
+         optional arguments are supported -}
   fd <- openFile "test.img" WriteMode
   hSetFileSize fd (500 * 1024 * 1024)
   hClose fd

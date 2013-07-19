@@ -22,16 +22,9 @@ use warnings;
 
 use Sys::Guestfs;
 
-my $testimg = "test.img";
-
-unlink $testimg;
-open FILE, ">$testimg" or die "$testimg: $!";
-truncate FILE, 256*1024*1024 or die "$testimg: truncate: $!";
-close FILE or die "$testimg: $!";
-
 my $g = Sys::Guestfs->new ();
 
-$g->add_drive ($testimg, format => "raw");
+$g->add_drive_scratch (256 * 1024 * 1024);
 $g->launch ();
 
 # Create an arrangement of PVs, VGs and LVs.
@@ -92,5 +85,3 @@ unless (@lvs_in_VG == 3 &&
 }
 
 undef $g;
-
-unlink $testimg or die "$testimg: unlink: $!";

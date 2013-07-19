@@ -25,16 +25,8 @@ public class GuestFS100Launch
     public static void main (String[] argv)
     {
         try {
-            // Delete any previous test file if one was left around.
-            File old = new File ("test.img");
-            old.delete ();
-
-            RandomAccessFile f = new RandomAccessFile ("test.img", "rw");
-            f.setLength (500 * 1024 * 1024);
-            f.close ();
-
             GuestFS g = new GuestFS ();
-            g.add_drive ("test.img");
+            g.add_drive_scratch (500 * 1024 * 1024, null);
             g.launch ();
 
             g.pvcreate ("/dev/sda");
@@ -57,9 +49,6 @@ public class GuestFS100Launch
 
             g.shutdown ();
             g.close ();
-
-            File f2 = new File ("test.img");
-            f2.delete ();
         }
         catch (Exception exn) {
             System.err.println (exn);

@@ -32,15 +32,7 @@ printf "max_disks is %d\n", $max_disks;
 # Create large number of disks.
 my ($name, $i, $j);
 for ($i = 0; $i < $max_disks; ++$i) {
-    $name = sprintf "test%d.img", $i;
-    #print "adding $name => /dev/sd", drive_name($i), "\n";
-
-    unlink $name;
-    open FILE, ">$name" or die "$name: $!";
-    truncate FILE, 1024*1024 or die "$name: truncate: $!";
-    close FILE or die "$name: $!";
-
-    $g->add_drive ($name, format => "raw");
+    $g->add_drive_scratch (1024*1024);
 }
 
 $g->launch ();
@@ -142,11 +134,6 @@ for ($i = 0, $j = 0; $i < $max_disks; ++$i) {
 
 $g->shutdown ();
 $g->close ();
-
-for ($i = 0; $i < $max_disks; ++$i) {
-    $name = sprintf "test%d.img", $i;
-    unlink $name;
-}
 
 exit ($errors == 0 ? 0 : 1);
 

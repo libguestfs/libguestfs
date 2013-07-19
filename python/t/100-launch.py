@@ -19,10 +19,7 @@ import os
 import guestfs
 
 g = guestfs.GuestFS (python_return_dict=True)
-f = open ("test.img", "w")
-f.truncate (500 * 1024 * 1024)
-f.close ()
-g.add_drive ("test.img")
+g.add_drive_scratch (500 * 1024 * 1024)
 g.launch ()
 
 g.pvcreate ("/dev/sda")
@@ -33,5 +30,3 @@ if (g.lvs () != ["/dev/VG/LV1", "/dev/VG/LV2"]):
     raise "Error: g.lvs() returned incorrect result"
 g.shutdown ()
 g.close ()
-
-os.unlink ("test.img")

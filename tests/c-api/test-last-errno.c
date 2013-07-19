@@ -36,9 +36,8 @@ int
 main (int argc, char *argv[])
 {
   guestfs_h *g;
-  int fd, r, err;
+  int r, err;
   struct guestfs_stat *stat;
-  const char *filename = "test1.img";
 
   g = guestfs_create ();
   if (g == NULL) {
@@ -46,26 +45,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
-  if (fd == -1) {
-    perror (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, 524288000) == -1) {
-    perror (filename);
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror (filename);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-
-  if (guestfs_add_drive_opts (g, filename,
-                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                              -1) == -1)
+  if (guestfs_add_drive_scratch (g, 524288000, -1) == -1)
     exit (EXIT_FAILURE);
 
   if (guestfs_launch (g) == -1)
@@ -136,8 +116,6 @@ main (int argc, char *argv[])
   }
 
   guestfs_close (g);
-
-  unlink (filename);
 
   exit (EXIT_SUCCESS);
 }

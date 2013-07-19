@@ -20,12 +20,7 @@ open Unix
 
 let () =
   let g = new Guestfs.guestfs () in
-
-  let fd = openfile "test.img" [O_WRONLY;O_CREAT;O_NOCTTY;O_TRUNC] 0o666 in
-  ftruncate fd (500 * 1024 * 1024);
-  close fd;
-
-  g#add_drive "test.img";
+  g#add_drive_scratch (Int64.of_int (500 * 1024 * 1024));
   g#launch ();
 
   g#pvcreate "/dev/sda";
@@ -58,7 +53,6 @@ let () =
     failwith "Guestfs.readdir returned incorrect result";
 
   g#shutdown ();
-  g#close ();
-  unlink "test.img"
+  g#close ()
 
 let () = Gc.compact ()

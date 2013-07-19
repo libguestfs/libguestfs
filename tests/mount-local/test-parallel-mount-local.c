@@ -49,7 +49,6 @@
 
 struct thread_state {
   pthread_t thread;             /* Thread handle. */
-  char *filename;               /* Disk image. */
   char *mp;                     /* Mount point. */
   int exit_status;              /* Thread exit status. */
 };
@@ -82,7 +81,7 @@ main (int argc, char *argv[])
   size_t i;
   char *skip;
   struct sigaction sa;
-  int fd, r, errors = 0;
+  int r, errors = 0;
   void *status;
 
   srandom (time (NULL));
@@ -120,28 +119,7 @@ main (int argc, char *argv[])
     printf ("starting test with %zu threads\n", nr_threads);
 
   for (i = 0; i < nr_threads; ++i) {
-    /* Create an image file and a mount point for this thread to use. */
-    if (asprintf (&threads[i].filename, "test%zu.img", i) == -1)
-      error (EXIT_FAILURE, errno, "asprintf");
-    if (asprintf (&threads[i].mp, "mp%zu", i) == -1)
-      error (EXIT_FAILURE, errno, "asprintf");
-
-    fd = open (threads[i].filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
-    if (fd == -1) {
-      cleanup_thread_state ();
-      error (EXIT_FAILURE, errno, "open: %s", threads[i].filename);
-    }
-
-    if (ftruncate (fd, 512*1024*1024) == -1) {
-      cleanup_thread_state ();
-      error (EXIT_FAILURE, errno, "truncate: %s", threads[i].filename);
-    }
-
-    if (close (fd) == -1) {
-      cleanup_thread_state ();
-      error (EXIT_FAILURE, errno, "close: %s", threads[i].filename);
-    }
-
+    /* Create a mount point for this thread to use. */
     rmdir (threads[i].mp);
     if (mkdir (threads[i].mp, 0700) == -1) {
       cleanup_thread_state ();
@@ -196,8 +174,7 @@ start_thread (void *statevp)
     pthread_exit (&state->exit_status);
   }
 
-  if (guestfs_add_drive_opts (g, state->filename,
-                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw", -1) == -1)
+  if (guestfs_add_drive_scratch (g, 512*1024*1024, -1) == -1)
     goto error;
   if (guestfs_launch (g) == -1)
     goto error;
@@ -406,11 +383,6 @@ cleanup_thread_state (void)
   size_t i;
 
   for (i = 0; i < nr_threads; ++i) {
-    if (threads[i].filename) {
-      unlink (threads[i].filename);
-      free (threads[i].filename);
-    }
-
     if (threads[i].mp) {
       guestunmount (threads[i].mp, GUESTUNMOUNT_SILENT|GUESTUNMOUNT_RMDIR);
       free (threads[i].mp);

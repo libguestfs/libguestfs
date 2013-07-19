@@ -45,9 +45,7 @@
 #define DEFAULT_TIMEOUT 600
 
 static int timeout = DEFAULT_TIMEOUT;
-static char tmpf[] = P_tmpdir "/libguestfs-test-tool-sda-XXXXXX";
 
-static void make_files (void);
 static void set_qemu (guestfs_h *g, const char *path, int use_wrapper);
 
 static void
@@ -192,8 +190,6 @@ main (int argc, char *argv[])
   if (qemu)
     set_qemu (g, qemu, qemu_use_wrapper);
 
-  make_files ();
-
   /* Print out any environment variables which may relate to this test. */
   for (i = 0; environ[i] != NULL; ++i) {
     if (STRPREFIX (environ[i], "LIBGUESTFS_"))
@@ -224,12 +220,9 @@ main (int argc, char *argv[])
   ignore_value (system ("getenforce"));
 
   /* Configure the handle. */
-  if (guestfs_add_drive_opts (g, tmpf,
-                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                              -1) == -1) {
+  if (guestfs_add_drive_scratch (g, 100*1024*1024, -1) == -1) {
     fprintf (stderr,
-             _("libguestfs-test-tool: failed to add drive '%s'\n"),
-             tmpf);
+             _("libguestfs-test-tool: failed to add scratch drive\n"));
     exit (EXIT_FAILURE);
   }
 
@@ -400,41 +393,4 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
 
   guestfs_set_qemu (g, qemuwrapper);
   atexit (cleanup_wrapper);
-}
-
-static void
-cleanup_tmpfiles (void)
-{
-  unlink (tmpf);
-}
-
-static void
-make_files (void)
-{
-  int fd;
-
-  /* Allocate the sparse file for /dev/sda. */
-  fd = mkstemp (tmpf);
-  if (fd == -1) {
-    perror (tmpf);
-    exit (EXIT_FAILURE);
-  }
-
-  if (lseek (fd, 100 * 1024 * 1024 - 1, SEEK_SET) == -1) {
-    perror ("lseek");
-    close (fd);
-    unlink (tmpf);
-    exit (EXIT_FAILURE);
-  }
-
-  if (write (fd, "\0", 1) == -1) {
-    perror ("write");
-    close (fd);
-    unlink (tmpf);
-    exit (EXIT_FAILURE);
-  }
-
-  close (fd);
-
-  atexit (cleanup_tmpfiles);	/* Removes tmpf. */
 }

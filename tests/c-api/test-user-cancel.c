@@ -47,10 +47,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
-static const char *filename = "test.img";
 static const off_t filesize = 1024*1024*1024;
 
-static void remove_test_img (void);
 static void *start_test_thread (void *) __attribute__((noreturn));
 static off_t random_cancel_posn (void);
 
@@ -68,8 +66,6 @@ int
 main (int argc, char *argv[])
 {
   guestfs_h *g;
-  int fd;
-  char c = 0;
   pthread_t test_thread;
   struct test_thread_data data;
   int fds[2], r, op_error, op_errno, errors = 0;
@@ -83,35 +79,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  /* Create a test image and test data. */
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
-  if (fd == -1) {
-    perror (filename);
-    exit (EXIT_FAILURE);
-  }
-
-  atexit (remove_test_img);
-
-  if (lseek (fd, filesize - 1, SEEK_SET) == (off_t) -1) {
-    perror ("lseek");
-    close (fd);
-    exit (EXIT_FAILURE);
-  }
-
-  if (write (fd, &c, 1) != 1) {
-    perror ("write");
-    close (fd);
-    exit (EXIT_FAILURE);
-  }
-
-  if (close (fd) == -1) {
-    perror ("test.img");
-    exit (EXIT_FAILURE);
-  }
-
-  if (guestfs_add_drive_opts (g, filename,
-                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                              -1) == -1)
+  if (guestfs_add_drive_scratch (g, filesize, -1) == -1)
     exit (EXIT_FAILURE);
 
   if (guestfs_launch (g) == -1)
@@ -254,12 +222,6 @@ main (int argc, char *argv[])
   }
 
   exit (errors == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
-}
-
-static void
-remove_test_img (void)
-{
-  unlink (filename);
 }
 
 static char buffer[BUFSIZ];

@@ -33,8 +33,6 @@ $progname =~ s{.*/}{};
 
 my $trace_depth = 0;
 
-my $testimg = "test1.img";
-
 my $srcdir = $ENV{srcdir} || ".";
 # Location of tests/data.
 my $datasrcdir = $srcdir . "/../data";
@@ -86,15 +84,6 @@ $| = 1;
 print "$progname: random seed: $seed\n";
 
 my $disksize = 1024 * 1024 * 1024;
-eval { unlink $testimg };
-open FILE, ">$testimg" or die "$testimg: $!";
-truncate FILE, $disksize or die "$testimg: truncate: $disksize: $!";
-close FILE or die "$testimg: $!";
-
-END {
-    eval { unlink $testimg }
-};
-
 my $g = Sys::Guestfs->new ();
 
 # Note this is a fuzz test so the results are different each time it
@@ -102,7 +91,7 @@ my $g = Sys::Guestfs->new ();
 # results can be reproduced.
 $g->set_trace (1);
 
-$g->add_drive ($testimg, format => "raw");
+$g->add_drive_scratch ($disksize);
 $g->launch ();
 
 if ($iterations == 0) {

@@ -105,18 +105,12 @@ my $g = Sys::Guestfs->new ();
 
 #$g->set_selinux (1) if $test_type eq "selinux";
 
-my $testimg = "test.img";
-open FILE, ">$testimg" or die "$testimg: $!";
-truncate FILE, 256*1024*1024 or die "$testimg: truncate: $!";
-close FILE or die "$testimg: $!";
-
-$g->add_drive ($testimg, format => "raw");
+$g->add_drive_scratch (256*1024*1024);
 $g->launch ();
 
 unless ($g->feature_available (["linuxxattrs"])) {
     print "$prog $test_type $test_via: test skipped because 'linuxxattrs' feature not available.\n";
     $g->close ();
-    unlink $testimg;
     exit 77
 }
 
@@ -158,7 +152,6 @@ if ($test_via eq "direct") {
 # Finish up.
 $g->shutdown ();
 $g->close ();
-unlink $testimg or die "$testimg: $!";
 
 exit ($errors == 0 ? 0 : 1);
 

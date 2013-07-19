@@ -19,7 +19,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 15;
+use Test::More tests => 14;
 
 use Errno;
 
@@ -27,13 +27,7 @@ use Sys::Guestfs;
 
 my $g = Sys::Guestfs->new ();
 ok ($g);
-
-open FILE, ">test.img";
-truncate FILE, 500*1024*1024;
-close FILE;
-ok (1);
-
-$g->add_drive ("test.img", format => "raw");
+$g->add_drive_scratch (500*1024*1024);
 ok (1);
 
 $g->launch ();
@@ -72,5 +66,3 @@ ok ($err != Errno::EEXIST());
 
 undef $g;
 ok (1);
-
-unlink ("test.img");

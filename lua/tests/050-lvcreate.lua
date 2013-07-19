@@ -23,12 +23,7 @@ local G = require "guestfs"
 
 local g = G.create ()
 
-file = io.open ("test.img", "w")
-file:seek ("set", 500 * 1024 * 1024)
-file:write (' ')
-file:close ()
-
-g:add_drive ("test.img")
+g:add_drive_scratch (500 * 1024 * 1024)
 
 g:launch ()
 
@@ -45,5 +40,3 @@ assert (table.getn (lvs) == 2 and
 g:shutdown ()
 
 g:close ()
-
-os.remove ("test.img")

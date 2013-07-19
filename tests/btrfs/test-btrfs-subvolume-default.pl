@@ -26,16 +26,9 @@ use Sys::Guestfs;
 # Allow the test to be skipped since btrfs is often broken.
 exit 77 if $ENV{SKIP_TEST_BTRFS_SUBVOLUME_DEFAULT_PL};
 
-my $testimg = "test1.img";
-
-unlink $testimg;
-open FILE, ">$testimg" or die "$testimg: $!";
-truncate FILE, 1024*1024*1024 or die "$testimg: truncate: $!";
-close FILE or die "$testimg: $!";
-
 my $g = Sys::Guestfs->new ();
 
-$g->add_drive ($testimg, format => "raw");
+$g->add_drive_scratch (1024*1024*1024);
 $g->launch ();
 
 # If btrfs is not available, bail.
@@ -94,5 +87,3 @@ $g->mkdir ("/test1/foo/bar/baz");
 
 $g->shutdown ();
 $g->close ();
-
-unlink $testimg or die "$testimg: unlink: $!";

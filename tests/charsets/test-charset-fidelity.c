@@ -74,8 +74,6 @@ main (int argc, char *argv[])
 {
   char *str;
   guestfs_h *g;
-  char tmp[] = "/tmp/charsetXXXXXX";
-  int fd;
   size_t i;
   struct filesystem *fs;
 
@@ -91,17 +89,7 @@ main (int argc, char *argv[])
   if (g == NULL)
     error (EXIT_FAILURE, 0, "failed to create handle");
 
-  fd = mkstemp (tmp);
-  if (fd == -1)
-    error (EXIT_FAILURE, errno, "mkstemp");
-
-  if (ftruncate (fd, 1024 * 1024 * 1024) == -1)
-    error (EXIT_FAILURE, errno, "ftruncate: %s", tmp);
-
-  if (close (fd) == -1)
-    error (EXIT_FAILURE, errno, "close: %s", tmp);
-
-  if (guestfs_add_drive_opts (g, tmp, -1) == -1)
+  if (guestfs_add_drive_scratch (g, 1024*1024*1024, -1) == -1)
     exit (EXIT_FAILURE);
 
   if (guestfs_launch (g) == -1)
@@ -116,7 +104,6 @@ main (int argc, char *argv[])
   }
 
   guestfs_close (g);
-  unlink (tmp);
 
   exit (EXIT_SUCCESS);
 }
