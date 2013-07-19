@@ -21,21 +21,21 @@
 
 set -e
 
-rm -f test.img
+rm -f test-reopen.img
 
 ./guestfish <<'EOF'
 reopen
 reopen
 reopen
 
-alloc test.img 5M
+alloc test-reopen.img 5M
 run
 reopen
 
-alloc test.img 5M
+alloc test-reopen.img 5M
 run
 reopen
 
 EOF
 
-rm -f test.img
+rm test-reopen.img

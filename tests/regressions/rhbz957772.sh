@@ -23,11 +23,11 @@
 set -e
 export LANG=C
 
-../../fish/guestfish -N fs -m /dev/sda1 <<EOF
+../../fish/guestfish -N rhbz957772.img=fs -m /dev/sda1 <<EOF
 mkdir "/test 1"
 touch "/test 2"
 tar-out "/test 1" /dev/null
 base64-out "/test 2" /dev/null
 EOF
 
-rm test1.img
+rm rhbz957772.img

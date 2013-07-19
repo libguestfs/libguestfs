@@ -22,13 +22,13 @@
 
 set -e
 
-rm -f test1.img
+rm -f liveness1.img
 
-../../fish/guestfish sparse test1.img 100M
-test1_md5sum="$(md5sum test1.img | awk '{print $1}')"
+../../fish/guestfish sparse liveness1.img 100M
+liveness1_md5sum="$(md5sum liveness1.img | awk '{print $1}')"
 
 ../../fish/guestfish <<'EOF'
-add test1.img format:raw
+add liveness1.img format:raw
 run
 
 part-disk /dev/sda mbr
@@ -41,7 +41,7 @@ write /test "This is a test"
 EOF
 
 # Verify that the disk has changed.
-if [ "$(md5sum test1.img | awk '{print $1}')" = "$test1_md5sum" ]; then
+if [ "$(md5sum liveness1.img | awk '{print $1}')" = "$liveness1_md5sum" ]; then
     echo "***** ERROR *****"
     echo "Write operations are not modifying an attached disk."
     echo
@@ -49,4 +49,4 @@ if [ "$(md5sum test1.img | awk '{print $1}')" = "$test1_md5sum" ]; then
     exit 1
 fi
 
-rm test1.img
+rm liveness1.img

@@ -20,17 +20,18 @@
 
 set -e
 
-rm -f test1.img test2.img test3.img test4.img test.xml test.out
+rm -f test-add-domain-{1,2,3,4}.img
+rm -f test-add-domain.xml test-add-domain.out
 
 cwd="$(pwd)"
 
-./guestfish sparse test1.img 1M
-./guestfish sparse test2.img 1M
-./guestfish sparse test3.img 1M
-./guestfish sparse test4.img 1M
+./guestfish sparse test-add-domain-1.img 1M
+./guestfish sparse test-add-domain-2.img 1M
+./guestfish sparse test-add-domain-3.img 1M
+./guestfish sparse test-add-domain-4.img 1M
 
 # Libvirt test XML, see libvirt.git/examples/xml/test/testnode.xml
-cat > test.xml <<EOF
+cat > test-add-domain.xml <<EOF
 <node>
   <domain type="test">
     <name>guest</name>
@@ -41,22 +42,22 @@ cat > test.xml <<EOF
     <memory>524288</memory>
     <devices>
       <disk type="file">
-        <source file="$cwd/test1.img"/>
+        <source file="$cwd/test-add-domain-1.img"/>
         <target dev="hda"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test2.img"/>
+        <source file="$cwd/test-add-domain-2.img"/>
         <target dev="hdb"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="qcow2"/>
-        <source file="$cwd/test3.img"/>
+        <source file="$cwd/test-add-domain-3.img"/>
         <target dev="hdc"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test4.img"/>
+        <source file="$cwd/test-add-domain-4.img"/>
         <target dev="hdd"/>
         <readonly/>
       </disk>
@@ -65,35 +66,36 @@ cat > test.xml <<EOF
 </node>
 EOF
 
-./guestfish >test.out <<EOF
-  domain guest libvirturi:test://$cwd/test.xml readonly:true
+./guestfish >test-add-domain.out <<EOF
+  domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true
   debug-drives
 EOF
-grep -sq "test1.img readonly" test.out
-! grep -sq "test1.img.*format" test.out
-grep -sq "test2.img readonly format=raw" test.out
-grep -sq "test3.img readonly format=qcow2" test.out
+grep -sq "test-add-domain-1.img readonly" test-add-domain.out
+! grep -sq "test-add-domain-1.img.*format" test-add-domain.out
+grep -sq "test-add-domain-2.img readonly format=raw" test-add-domain.out
+grep -sq "test-add-domain-3.img readonly format=qcow2" test-add-domain.out
 
 # Test readonlydisk = "ignore".
-./guestfish >test.out <<EOF
-  -domain guest libvirturi:test://$cwd/test.xml readonly:true readonlydisk:ignore
+./guestfish >test-add-domain.out <<EOF
+  -domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true readonlydisk:ignore
   debug-drives
 EOF
-grep -sq "test1.img" test.out
-grep -sq "test2.img" test.out
-grep -sq "test3.img" test.out
-! grep -sq "test4.img" test.out
+grep -sq "test-add-domain-1.img" test-add-domain.out
+grep -sq "test-add-domain-2.img" test-add-domain.out
+grep -sq "test-add-domain-3.img" test-add-domain.out
+! grep -sq "test-add-domain-4.img" test-add-domain.out
 
 # Test atomicity.
-rm test3.img
+rm test-add-domain-3.img
 
-./guestfish >test.out <<EOF
-  -domain guest libvirturi:test://$cwd/test.xml readonly:true
+./guestfish >test-add-domain.out <<EOF
+  -domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true
   debug-drives
 EOF
-! grep -sq "test1.img" test.out
-! grep -sq "test2.img" test.out
-! grep -sq "test3.img" test.out
-! grep -sq "test4.img" test.out
+! grep -sq "test-add-domain-1.img" test-add-domain.out
+! grep -sq "test-add-domain-2.img" test-add-domain.out
+! grep -sq "test-add-domain-3.img" test-add-domain.out
+! grep -sq "test-add-domain-4.img" test-add-domain.out
 
-rm -f test1.img test2.img test3.img test4.img test.xml test.out
+rm test-add-domain-{1,2,4}.img
+rm test-add-domain.xml test-add-domain.out

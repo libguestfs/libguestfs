@@ -24,10 +24,10 @@ export LANG=C
 
 guestfish=../../fish/guestfish
 
-rm -f test.img test.output
+rm -f test.output
 
 $guestfish > test.output <<EOF
-sparse test.img 100M
+scratch 100M
 run
 part-init /dev/sda mbr
 # Create an unordered layout.
@@ -49,7 +49,7 @@ false" ]; then
 fi
 
 $guestfish > test.output <<EOF
-sparse test.img 100M
+scratch 100M
 run
 part-init /dev/sda mbr
 part-add /dev/sda p 1 1000
@@ -68,4 +68,4 @@ if [ "$(cat test.output)" != "false" ]; then
     exit 1
 fi
 
-rm -f test.img test.output
+rm test.output

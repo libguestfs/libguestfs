@@ -38,14 +38,14 @@ if ! $guestfish -a /dev/null run : available btrfs; then
     exit 77
 fi
 
-rm -f test[1234].img
+rm -f test-btrfs-devices-{1,2,3,4}.img
 
 $guestfish <<EOF
 # Add four empty disks
-sparse test1.img 1G
-sparse test2.img 1G
-sparse test3.img 1G
-sparse test4.img 1G
+sparse test-btrfs-devices-1.img 1G
+sparse test-btrfs-devices-2.img 1G
+sparse test-btrfs-devices-3.img 1G
+sparse test-btrfs-devices-4.img 1G
 run
 
 part-disk /dev/sda mbr
@@ -95,4 +95,4 @@ btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 EOF
 
-rm -f test[1234].img
+rm test-btrfs-devices-{1,2,3,4}.img

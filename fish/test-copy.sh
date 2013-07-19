@@ -28,22 +28,22 @@ test -d /dev/fd || {
 
 set -e
 
-rm -f test1.img
-rm -rf original copy
+rm -f test-copy.img
+rm -rf test-copy-original test-copy-copy
 
-mkdir original
-cp $srcdir/../tests/data/known* original
-cp -P ../tests/data/abssymlink* original
+mkdir test-copy-original
+cp $srcdir/../tests/data/known* test-copy-original
+cp -P ../tests/data/abssymlink* test-copy-original
 
 output=$(
-./guestfish -N fs -m /dev/sda1 <<EOF
+./guestfish -N test-copy.img=fs -m /dev/sda1 <<EOF
 mkdir /data
 # This creates a directory /data/data/
-copy-in original /data
-is-file /data/original/known-1
-is-file /data/original/known-3
-is-file /data/original/known-5
-is-symlink /data/original/abssymlink
+copy-in test-copy-original /data
+is-file /data/test-copy-original/known-1
+is-file /data/test-copy-original/known-3
+is-file /data/test-copy-original/known-5
+is-symlink /data/test-copy-original/abssymlink
 is-file /data/known-1
 is-file /known-1
 EOF
@@ -61,22 +61,22 @@ false" ]; then
     exit 1
 fi
 
-mkdir copy
+mkdir test-copy-copy
 
-./guestfish --ro -a test1.img -m /dev/sda1 <<EOF
-copy-out /data/original copy
+./guestfish --ro -a test-copy.img -m /dev/sda1 <<EOF
+copy-out /data/test-copy-original test-copy-copy
 EOF
 
-if test ! -f copy/original/known-1 || \
-   test ! -f copy/original/known-3 || \
-   test ! -f copy/original/known-5 || \
-   test ! -L copy/original/abssymlink || \
-   test -f copy/known-1 || \
+if test ! -f test-copy-copy/test-copy-original/known-1 || \
+   test ! -f test-copy-copy/test-copy-original/known-3 || \
+   test ! -f test-copy-copy/test-copy-original/known-5 || \
+   test ! -L test-copy-copy/test-copy-original/abssymlink || \
+   test -f test-copy-copy/known-1 || \
    test -f known-1
 then
     echo "$0: error: copy-out command failed"
     exit 1
 fi
 
-rm -f test1.img
-rm -rf original copy
+rm test-copy.img
+rm -r test-copy-original test-copy-copy

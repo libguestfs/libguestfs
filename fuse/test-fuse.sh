@@ -50,8 +50,8 @@ top_builddir=$(cd "$top_builddir" > /dev/null; pwd)
 guestfish="$top_builddir/fish/guestfish"
 guestmount="$top_builddir/fuse/guestmount"
 guestunmount="$top_builddir/fuse/guestunmount"
-image="$top_builddir/fuse/test.img"
-mp="$top_builddir/fuse/test-mp"
+image="$top_builddir/fuse/test-fuse.img"
+mp="$top_builddir/fuse/test-fuse-mp"
 
 if [ ! -x "$guestfish" -o ! -x "$guestmount" -o ! -x "$guestunmount" ]
 then

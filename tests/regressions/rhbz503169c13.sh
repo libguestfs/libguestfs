@@ -26,12 +26,10 @@
 
 set -e
 
-rm -f test1.img
-
-../../fish/guestfish -N fs -m /dev/sda1 <<EOF
+../../fish/guestfish -N rhbz503169c13.img=fs -m /dev/sda1 <<EOF
 mkdir /dev
 -command /ignore-this-error
 unmount-all
 EOF
 
-rm test1.img
+rm rhbz503169c13.img

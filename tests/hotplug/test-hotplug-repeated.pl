@@ -35,13 +35,17 @@ unless ($backend eq "libvirt" || $backend =~ /^libvirt:/) {
 $g->launch ();
 
 # Create a temporary disk.
-open FILE, ">test1.img" or die "test1.img: $!";
-truncate FILE, 512 * 1024 * 1024 or die "test1.img: truncate: $!";
-close FILE;
+open FILE, ">test-hotplug-repeated.img" or
+    die "test-hotplug-repeated.img: $!";
+truncate FILE, 512 * 1024 * 1024 or
+    die "test-hotplug-repeated.img: truncate: $!";
+close FILE or
+    die "test-hotplug-repeated.img: close: $!";
 
 my $start_t = time ();
 while (time () - $start_t <= 60) {
-    $g->add_drive ("test1.img", label => "a", format => "raw");
+    $g->add_drive ("test-hotplug-repeated.img",
+                   label => "a", format => "raw");
     $g->remove_drive ("a");
 }
 
@@ -52,6 +56,6 @@ die unless 0 == @devices;
 $g->shutdown ();
 $g->close ();
 
-unlink "test1.img";
+unlink "test-hotplug-repeated.img";
 
 exit 0

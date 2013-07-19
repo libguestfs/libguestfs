@@ -20,7 +20,7 @@
 
 set -e
 
-rm -f test.img
+rm -f test-stringlist.img
 
 eval `./guestfish --listen`
 
@@ -39,7 +39,7 @@ function check_echo {
     fi
 }
 
-./guestfish --remote alloc test.img 10M
+./guestfish --remote alloc test-stringlist.img 10M
 ./guestfish --remote run
 
 check_echo "' '"            " "
@@ -55,6 +55,6 @@ check_echo " 'foo'"         "foo"
 
 ./guestfish --remote exit
 
-rm -f test.img
+rm test-stringlist.img
 
 exit $error

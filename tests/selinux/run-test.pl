@@ -18,6 +18,8 @@
 use strict;
 use warnings;
 
+use File::Temp qw/tempdir/;
+
 use Sys::Guestfs;
 
 # These are two SELinux labels that we assume everyone is allowed to
@@ -130,14 +132,14 @@ if ($test_via eq "direct") {
     }
 } else {
     # Make a local mountpoint and mount it.
-    mkdir "mp" or die "mkdir: mp: $!";
-    $g->mount_local ("mp");
+    my $mpdir = tempdir (CLEANUP => 1);
+    $g->mount_local ($mpdir);
 
     # Run the test in another process.
     my $pid = fork ();
     die "fork: $!" unless defined $pid;
     if ($pid == 0) {
-        exec ("$srcdir/run-test.pl", "--test", "mp", $test_type);
+        exec ("$srcdir/run-test.pl", "--test", $mpdir, $test_type);
         die "run-test.pl: exec failed: $!\n";
     }
 
@@ -145,8 +147,6 @@ if ($test_via eq "direct") {
 
     waitpid ($pid, 0);
     $errors++ if $?;
-
-    rmdir "mp" or die "rmdir: mp: $!";
 }
 
 # Finish up.

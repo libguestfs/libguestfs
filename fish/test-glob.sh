@@ -20,12 +20,9 @@
 
 set -e
 
-rm -f test.img test.out
+rm -f test-glob.img test-glob.out
 
-./guestfish > test.out <<EOF
-
-sparse test.img 1G
-run
+./guestfish -N test-glob.img=disk:1G > test-glob.out <<EOF
 
 pvcreate /dev/sda
 # Because glob doesn't do device name translation, we cannot test
@@ -66,7 +63,7 @@ glob echo /dev/a*/* /dev/a*/*
 echo end
 EOF
 
-if [ "$(cat test.out)" != "files
+if [ "$(cat test-glob.out)" != "files
 /foo/
 /foo/bar1
 /foo/bar2
@@ -98,8 +95,8 @@ devices
 /dev/abc/lv3 /dev/abc/lv3
 end" ]; then
     echo "$0: error: unexpected output from glob command"
-    cat test.out
+    cat test-glob.out
     exit 1
 fi
 
-rm -f test.img test.out
+rm test-glob.img test-glob.out

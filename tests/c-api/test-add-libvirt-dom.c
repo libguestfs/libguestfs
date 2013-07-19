@@ -46,17 +46,17 @@ make_test_xml (FILE *fp, const char *cwd)
            "    <memory>524288</memory>\n"
            "    <devices>\n"
            "      <disk type='file'>\n"
-           "        <source file='%s/test1.img'/>\n"
+           "        <source file='%s/test-add-libvirt-dom-1.img'/>\n"
            "        <target dev='hda'/>\n"
            "      </disk>\n"
            "      <disk type='file'>\n"
            "        <driver name='qemu' type='raw'/>\n"
-           "        <source file='%s/test2.img'/>\n"
+           "        <source file='%s/test-add-libvirt-dom-2.img'/>\n"
            "        <target dev='hdb'/>\n"
            "      </disk>\n"
            "      <disk type='file'>\n"
            "        <driver name='qemu' type='qcow2'/>\n"
-           "        <source file='%s/test3.img'/>\n"
+           "        <source file='%s/test-add-libvirt-dom-3.img'/>\n"
            "        <target dev='hdc'/>\n"
            "      </disk>\n"
            "    </devices>\n"
@@ -80,32 +80,34 @@ main (int argc, char *argv[])
 
   cwd = xgetcwd ();
 
-  /* Create the libvirt XML and test images in the current directory. */
-  fp = fopen ("test.xml", "w");
+  /* Create the libvirt XML and test images in the current
+   * directory.
+   */
+  fp = fopen ("test-add-libvirt-dom.xml", "w");
   if (fp == NULL) {
-    perror ("test.xml");
+    perror ("test-add-libvirt-dom.xml");
     exit (EXIT_FAILURE);
   }
   make_test_xml (fp, cwd);
   fclose (fp);
 
-  fp = fopen ("test1.img", "w");
+  fp = fopen ("test-add-libvirt-dom-1.img", "w");
   if (fp == NULL) {
-    perror ("test1.img");
+    perror ("test-add-libvirt-dom-1.img");
     exit (EXIT_FAILURE);
   }
   fclose (fp);
 
-  fp = fopen ("test2.img", "w");
+  fp = fopen ("test-add-libvirt-dom-2.img", "w");
   if (fp == NULL) {
-    perror ("test2.img");
+    perror ("test-add-libvirt-dom-2.img");
     exit (EXIT_FAILURE);
   }
   fclose (fp);
 
-  fp = fopen ("test3.img", "w");
+  fp = fopen ("test-add-libvirt-dom-3.img", "w");
   if (fp == NULL) {
-    perror ("test3.img");
+    perror ("test-add-libvirt-dom-3.img");
     exit (EXIT_FAILURE);
   }
   fclose (fp);
@@ -118,7 +120,7 @@ main (int argc, char *argv[])
   }
 
   /* Create the libvirt connection. */
-  snprintf (libvirt_uri, sizeof libvirt_uri, "test://%s/test.xml", cwd);
+  snprintf (libvirt_uri, sizeof libvirt_uri, "test://%s/test-add-libvirt-dom.xml", cwd);
   conn = virConnectOpenReadOnly (libvirt_uri);
   if (!conn) {
     err = virGetLastError ();
@@ -143,10 +145,10 @@ main (int argc, char *argv[])
 
   guestfs_close (g);
 
-  unlink ("test.xml");
-  unlink ("test1.img");
-  unlink ("test2.img");
-  unlink ("test3.img");
+  unlink ("test-add-libvirt-dom.xml");
+  unlink ("test-add-libvirt-dom-1.img");
+  unlink ("test-add-libvirt-dom-2.img");
+  unlink ("test-add-libvirt-dom-3.img");
 
   exit (EXIT_SUCCESS);
 }

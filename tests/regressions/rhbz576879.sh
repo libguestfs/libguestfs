@@ -22,12 +22,10 @@
 
 set -e
 
-rm -f test1.img
-
-../../fish/guestfish -N disk <<EOF
+../../fish/guestfish <<EOF
+scratch 100M
+run
 -upload $srcdir/rhbz576879.sh /test.sh
 # Shouldn't lose synchronization, so next command should work:
 ping-daemon
 EOF
-
-rm -f test1.img

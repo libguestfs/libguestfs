@@ -22,21 +22,21 @@
 
 set -e
 
-rm -f test1.img test2.img test3.img
+rm -f isolation1.img isolation2.img isolation3.img
 
-../../fish/guestfish sparse test1.img 100M
-test1_md5sum="$(md5sum test1.img | awk '{print $1}')"
-../../fish/guestfish sparse test2.img 100M
-test2_md5sum="$(md5sum test2.img | awk '{print $1}')"
-qemu-img create -f qcow2 test3.img 100M
-test3_md5sum="$(md5sum test3.img | awk '{print $1}')"
+../../fish/guestfish sparse isolation1.img 100M
+isolation1_md5sum="$(md5sum isolation1.img | awk '{print $1}')"
+../../fish/guestfish sparse isolation2.img 100M
+isolation2_md5sum="$(md5sum isolation2.img | awk '{print $1}')"
+qemu-img create -f qcow2 isolation3.img 100M
+isolation3_md5sum="$(md5sum isolation3.img | awk '{print $1}')"
 
 # The vitally important calls are 'add-drive-ro' and
 # 'add-drive-opts ... readonly:true'.
 ../../fish/guestfish <<'EOF'
-add-drive-ro test1.img
-add-drive-opts test2.img format:raw readonly:true
-add-drive-opts test3.img format:qcow2 readonly:true
+add-drive-ro isolation1.img
+add-drive-opts isolation2.img format:raw readonly:true
+add-drive-opts isolation3.img format:qcow2 readonly:true
 run
 
 part-disk /dev/sda mbr
@@ -78,14 +78,14 @@ function serious_error
     exit 1
 }
 
-if [ "$(md5sum test1.img | awk '{print $1}')" != "$test1_md5sum" ]; then
+if [ "$(md5sum isolation1.img | awk '{print $1}')" != "$isolation1_md5sum" ]; then
     serious_error
 fi
-if [ "$(md5sum test2.img | awk '{print $1}')" != "$test2_md5sum" ]; then
+if [ "$(md5sum isolation2.img | awk '{print $1}')" != "$isolation2_md5sum" ]; then
     serious_error
 fi
-if [ "$(md5sum test3.img | awk '{print $1}')" != "$test3_md5sum" ]; then
+if [ "$(md5sum isolation3.img | awk '{print $1}')" != "$isolation3_md5sum" ]; then
     serious_error
 fi
 
-rm test1.img test2.img test3.img
+rm isolation1.img isolation2.img isolation3.img

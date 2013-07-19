@@ -26,10 +26,10 @@ main = do
   g <- G.create
   {- XXX replace with a call to add_drive_scratch once
          optional arguments are supported -}
-  fd <- openFile "test.img" WriteMode
+  fd <- openFile "test-lv-create.img" WriteMode
   hSetFileSize fd (500 * 1024 * 1024)
   hClose fd
-  G.add_drive_ro g "test.img"
+  G.add_drive_ro g "test-lv-create.img"
   G.launch g
 
   G.pvcreate g "/dev/sda"
@@ -41,4 +41,4 @@ main = do
   when (lvs /= ["/dev/VG/LV1", "/dev/VG/LV2"]) $
     fail "invalid list of LVs returned"
 
-  removeLink "test.img"
+  removeLink "test-lv-create.img"

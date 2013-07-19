@@ -25,9 +25,9 @@ if [ "$(../../fish/guestfish get-backend)" != "direct" ]; then
     exit 77
 fi
 
-rm -f test1.img
-
-../../fish/guestfish -N disk <<'EOF'
+../../fish/guestfish <<'EOF'
+scratch 100M
+run
 # Kill the subprocess.
 kill-subprocess
 
@@ -35,9 +35,7 @@ kill-subprocess
 -sleep 1
 
 # We should now be able to rerun the subprocess.
-add test1.img
+scratch 100M
 run
 ping-daemon
 EOF
-
-rm -f test1.img

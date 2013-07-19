@@ -25,19 +25,21 @@ if [ "$(../../fish/guestfish get-backend)" != "direct" ]; then
     exit 77
 fi
 
-rm -f test.pid test1.img
+rm -f qemudie-midcommand.pid
 
-../../fish/guestfish -N disk <<'EOF'
+../../fish/guestfish <<'EOF'
+scratch 100M
+run
 # Kill the subprocess after a short wait.
-pid | cat > test.pid
-! sleep 2 ; kill $(cat test.pid) &
+pid | cat > qemudie-midcommand.pid
+! sleep 2 ; kill $(cat qemudie-midcommand.pid) &
 
 -sleep 1000
 
 # We should now be able to rerun the subprocess.
-add test1.img
+scratch 100M
 run
 ping-daemon
 EOF
 
-rm -f test.pid test1.img
+rm qemudie-midcommand.pid

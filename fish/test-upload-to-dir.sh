@@ -22,18 +22,18 @@
 
 set -e
 
-rm -f test1.img test.out
+rm -f test-upload-to-dir.img test-upload-to-dir.out
 
-if ./guestfish -N fs -m /dev/sda1 upload ../tests/data/test.iso / 2>test.out
+if ./guestfish -N test-upload-to-dir.img=fs -m /dev/sda1 upload ../tests/data/test.iso / 2>test-upload-to-dir.out
 then
   echo "$0: expecting guestfish to return an error"
   exit 1
 fi
 
-if ! grep -q "upload: /: Is a directory" test.out; then
+if ! grep -q "upload: /: Is a directory" test-upload-to-dir.out; then
   echo "$0: unexpected error message from guestfish"
-  cat test.out
+  cat test-upload-to-dir.out
   exit 1
 fi
 
-rm -f test1.img test.out
+rm test-upload-to-dir.img test-upload-to-dir.out

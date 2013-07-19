@@ -28,13 +28,13 @@ test -d /dev/fd || {
 
 set -e
 
-rm -f test1.img
+rm -f test-edit.img
 
 # The command will be 'echo ... >>/tmp/tmpfile'
 export EDITOR="echo second line of text >>"
 
 output=$(
-./guestfish -N fs -m /dev/sda1 <<EOF
+./guestfish -N test-edit.img=fs -m /dev/sda1 <<EOF
 write /file.txt "this is a test\n"
 chmod 0600 /file.txt
 chown 10 11 /file.txt
@@ -57,4 +57,4 @@ gid: 11" ]; then
     exit 1
 fi
 
-rm -f test1.img
+rm test-edit.img

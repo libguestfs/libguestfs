@@ -34,7 +34,7 @@ if [[ "$backend" =~ ^libvirt ]]; then
     exit 77
 fi
 
-rm -f test1.img test2.img test3.img
+rm -f rhbz975797-*.img
 
 # The timeout utility was not available in RHEL 5.
 if timeout --help >/dev/null 2>&1; then
@@ -43,15 +43,15 @@ fi
 
 # Use real disk images here since the code for adding /dev/null may
 # take shortcuts.
-truncate -s 1G test1.img
-truncate -s 1G test2.img
-truncate -s 1G test3.img
+truncate -s 1G rhbz975797-1.img
+truncate -s 1G rhbz975797-2.img
+truncate -s 1G rhbz975797-3.img
 
 $timeout ../../fish/guestfish <<EOF
-add-drive test1.img iface:virtio
-add-drive test2.img iface:ide
-add-drive test3.img
+add-drive rhbz975797-1.img iface:virtio
+add-drive rhbz975797-2.img iface:ide
+add-drive rhbz975797-3.img
 run
 EOF
 
-rm test1.img test2.img test3.img
+rm rhbz975797-*.img

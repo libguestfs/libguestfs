@@ -25,14 +25,14 @@ if [ -n "$SKIP_TEST_MDADM_SH" ]; then
     exit 77
 fi
 
-rm -f md-test1.img md-test2.img md-test3.img md-test4.img
+rm -f mdadm-{1,2,3,4}.img
 
 ../../fish/guestfish <<EOF
 # Add four empty disks
-sparse md-test1.img 100M
-sparse md-test2.img 100M
-sparse md-test3.img 100M
-sparse md-test4.img 100M
+sparse mdadm-1.img 100M
+sparse mdadm-2.img 100M
+sparse mdadm-3.img 100M
+sparse mdadm-4.img 100M
 run
 
 # Create lots of test partitions.
@@ -98,10 +98,10 @@ write /r5t3/baz "testing"
 EOF
 
 eval `../../fish/guestfish --listen`
-../../fish/guestfish --remote add-ro md-test1.img
-../../fish/guestfish --remote add-ro md-test2.img
-../../fish/guestfish --remote add-ro md-test3.img
-../../fish/guestfish --remote add-ro md-test4.img
+../../fish/guestfish --remote add-ro mdadm-1.img
+../../fish/guestfish --remote add-ro mdadm-2.img
+../../fish/guestfish --remote add-ro mdadm-3.img
+../../fish/guestfish --remote add-ro mdadm-4.img
 ../../fish/guestfish --remote run
 
 for md in `../../fish/guestfish --remote list-md-devices`; do
@@ -156,10 +156,10 @@ done
 ../../fish/guestfish --remote exit
 
 eval `../../fish/guestfish --listen`
-../../fish/guestfish --remote add-ro md-test1.img
-../../fish/guestfish --remote add-ro md-test2.img
-../../fish/guestfish --remote add-ro md-test3.img
-../../fish/guestfish --remote add-ro md-test4.img
+../../fish/guestfish --remote add-ro mdadm-1.img
+../../fish/guestfish --remote add-ro mdadm-2.img
+../../fish/guestfish --remote add-ro mdadm-3.img
+../../fish/guestfish --remote add-ro mdadm-4.img
 ../../fish/guestfish --remote run
 
 for md in `../../fish/guestfish --remote list-md-devices`; do
@@ -168,4 +168,4 @@ done
 
 ../../fish/guestfish --remote exit
 
-rm -f md-detail.out md-test1.img md-test2.img md-test3.img md-test4.img
+rm md-detail.out mdadm-1.img mdadm-2.img mdadm-3.img mdadm-4.img

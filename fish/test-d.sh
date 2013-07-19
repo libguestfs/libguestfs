@@ -20,17 +20,18 @@
 
 set -e
 
-rm -f test1.img test2.img test3.img test4.img test.xml test.out
+rm -f test-d-{1,2,3,4}.img
+rm -f test-d.xml test-d.out
 
 cwd="$(pwd)"
 
-./guestfish sparse test1.img 1M
-./guestfish sparse test2.img 1M
-./guestfish sparse test3.img 1M
-./guestfish sparse test4.img 1M
+./guestfish sparse test-d-1.img 1M
+./guestfish sparse test-d-2.img 1M
+./guestfish sparse test-d-3.img 1M
+./guestfish sparse test-d-4.img 1M
 
 # Libvirt test XML, see libvirt.git/examples/xml/test/testnode.xml
-cat > test.xml <<EOF
+cat > test-d.xml <<EOF
 <node>
   <domain type="test">
     <name>guest</name>
@@ -41,22 +42,22 @@ cat > test.xml <<EOF
     <memory>524288</memory>
     <devices>
       <disk type="file">
-        <source file="$cwd/test1.img"/>
+        <source file="$cwd/test-d-1.img"/>
         <target dev="hda"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test2.img"/>
+        <source file="$cwd/test-d-2.img"/>
         <target dev="hdb"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="qcow2"/>
-        <source file="$cwd/test3.img"/>
+        <source file="$cwd/test-d-3.img"/>
         <target dev="hdc"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test4.img"/>
+        <source file="$cwd/test-d-4.img"/>
         <target dev="hdd"/>
         <readonly/>
       </disk>
@@ -65,12 +66,13 @@ cat > test.xml <<EOF
 </node>
 EOF
 
-./guestfish -c "test://$cwd/test.xml" --ro -d guest \
-  debug-drives </dev/null >test.out
-grep -sq "test1.img readonly" test.out
-! grep -sq "test1.img.*format" test.out
-grep -sq "test2.img readonly format=raw" test.out
-grep -sq "test3.img readonly format=qcow2" test.out
-grep -sq "test4.img readonly format=raw" test.out
+./guestfish -c "test://$cwd/test-d.xml" --ro -d guest \
+  debug-drives </dev/null >test-d.out
+grep -sq "test-d-1.img readonly" test-d.out
+! grep -sq "test-d-1.img.*format" test-d.out
+grep -sq "test-d-2.img readonly format=raw" test-d.out
+grep -sq "test-d-3.img readonly format=qcow2" test-d.out
+grep -sq "test-d-4.img readonly format=raw" test-d.out
 
-rm -f test1.img test2.img test3.img test4.img test.xml test.out
+rm test-d-{1,2,3,4}.img
+rm test-d.xml test-d.out

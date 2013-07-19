@@ -21,10 +21,10 @@
 # "guestfish number parsing should not use atoi, should support '0...' for octal and '0x...' for hexadecimal"
 
 set -e
-rm -f test.out test.err
+rm -f rhbz557655.out rhbz557655.err
 export LANG=C
 
-../../fish/guestfish >> test.out 2>> test.err <<EOF
+../../fish/guestfish >> rhbz557655.out 2>> rhbz557655.err <<EOF
 # set-memsize is just a convenient non-daemon function that
 # takes a single integer argument.
 set-memsize 0
@@ -48,7 +48,7 @@ get-memsize
 -set-memsize 123L
 EOF
 
-../../fish/guestfish -N fs -m /dev/sda1 >> test.out 2>> test.err <<EOF
+../../fish/guestfish -N rhbz557655.img=fs -m /dev/sda1 >> rhbz557655.out 2>> rhbz557655.err <<EOF
 touch /test
 
 # truncate-size takes an Int64 argument
@@ -72,15 +72,15 @@ filesize /test
 EOF
 
 # If we are running with debugging enabled (or even if not), then
-# other messages and warnings can end up in the test.err (stderr) log.
-# Thus filter out only lines we expect.  'proc 200' is the procedure
-# number of truncate_size.
-mv test.err test.err~
-grep -E 'set[-_]memsize|truncate[-_]size' test.err~ |
+# other messages and warnings can end up in the rhbz557655.err
+# (stderr) log.  Thus filter out only lines we expect.  'proc 200' is
+# the procedure number of truncate_size.
+mv rhbz557655.err rhbz557655.err~
+grep -E 'set[-_]memsize|truncate[-_]size' rhbz557655.err~ |
   grep -Ev 'libguestfs: trace:' |
-  grep -Ev 'proc 200' > test.err
-rm test.err~
+  grep -Ev 'proc 200' > rhbz557655.err
+rm rhbz557655.err~
 
-diff -u $srcdir/rhbz557655-expected.stdout test.out
-diff -u $srcdir/rhbz557655-expected.stderr test.err
-rm test.out test.err test1.img
+diff -u $srcdir/rhbz557655-expected.stdout rhbz557655.out
+diff -u $srcdir/rhbz557655-expected.stderr rhbz557655.err
+rm rhbz557655.out rhbz557655.err rhbz557655.img

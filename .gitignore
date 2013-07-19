@@ -106,7 +106,6 @@ Makefile.in
 /erlang/guestfs.beam
 /erlang/guestfs.erl
 /erlang/libguestfs-1.*
-/erlang/test.img
 /examples/copy-over
 /examples/create-disk
 /examples/debug-logging
@@ -251,7 +250,6 @@ Makefile.in
 /lua/examples/stamp-guestfs-lua.pod
 /lua/guestfs.so
 /lua/lua-guestfs.c
-/lua/test.img
 /m4/ChangeLog
 /m4/gnulib-cache.m4
 /m4/intmax.m4
@@ -405,8 +403,6 @@ Makefile.in
 /sysprep/sysprep-operations.pod
 /sysprep/virt-sysprep
 /sysprep/virt-sysprep.1
-/test1.img
-/test2.img
 /test.err
 /test.out
 /tests/c-api/test-add-drive-opts

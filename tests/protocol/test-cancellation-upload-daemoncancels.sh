@@ -22,14 +22,13 @@
 
 set -e
 
-rm -f test1.img
-
-../../fish/guestfish -N fs -m /dev/sda1 <<'EOF'
+../../fish/guestfish -N test-cancellation-upload-daemoncancels.img=fs \
+    -m /dev/sda1 <<'EOF'
 # Upload image, daemon should cancel because the image is too large
 # to upload into itself.
--upload test.img /test
+-upload test-cancellation-upload-daemoncancels.img /test
 
 ping-daemon
 EOF
 
-rm -f test1.img
+rm test-cancellation-upload-daemoncancels.img

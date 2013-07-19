@@ -25,13 +25,13 @@ export LANG=C
 guestfish=../../fish/guestfish
 canonical="sed s,/dev/vd,/dev/sd,g"
 
-rm -f test1.qcow2 test.fstab test.output
+rm -f inspect-fstab-1.qcow2 inspect-fstab.fstab inspect-fstab.output
 
 # Start with the regular (good) fedora image, modify /etc/fstab
 # and then inspect it.
-qemu-img create -F raw -b ../guests/fedora.img -f qcow2 test1.qcow2
+qemu-img create -F raw -b ../guests/fedora.img -f qcow2 inspect-fstab-1.qcow2
 
-cat <<'EOF' > test.fstab
+cat <<'EOF' > inspect-fstab.fstab
 /dev/VG/Root / ext2 default 0 0
 
 # Xen-style partition names.
@@ -49,18 +49,18 @@ cat <<'EOF' > test.fstab
 /dev/disk/by-id/ata-QEMU_HARDDISK_QM00001-part3 /id3 ext2 default 0 0
 EOF
 
-$guestfish -a test1.qcow2 <<'EOF'
+$guestfish -a inspect-fstab-1.qcow2 <<'EOF'
   run
   mount /dev/VG/Root /
-  upload test.fstab /etc/fstab
+  upload inspect-fstab.fstab /etc/fstab
 EOF
 
 # This will give a warning, but should not fail.
-$guestfish -a test1.qcow2 -i <<'EOF' | sort | $canonical > test.output
+$guestfish -a inspect-fstab-1.qcow2 -i <<'EOF' | sort | $canonical > inspect-fstab.output
   inspect-get-mountpoints /dev/VG/Root
 EOF
 
-if [ "$(cat test.output)" != "/: /dev/VG/Root
+if [ "$(cat inspect-fstab.output)" != "/: /dev/VG/Root
 /boot: /dev/sda1
 /id1: /dev/sda1
 /id3: /dev/disk/by-id/ata-QEMU_HARDDISK_QM00001-part3
@@ -68,41 +68,41 @@ if [ "$(cat test.output)" != "/: /dev/VG/Root
 /nosuchfile: /dev/VG/LV1
 /var: /dev/sdb3" ]; then
     echo "$0: error #1: unexpected output from inspect-get-mountpoints command"
-    cat test.output
+    cat inspect-fstab.output
     exit 1
 fi
 
 # Test device name hints
 
-cat <<'EOF' > test.fstab
+cat <<'EOF' > inspect-fstab.fstab
 /dev/VG/Root / ext2 default 0 0
 
 # Device name which requires a hint
 /dev/xvdg1 /boot ext2 default 0 0
 EOF
 
-$guestfish -a test1.qcow2 <<'EOF'
+$guestfish -a inspect-fstab-1.qcow2 <<'EOF'
   run
   mount /dev/VG/Root /
-  upload test.fstab /etc/fstab
+  upload inspect-fstab.fstab /etc/fstab
 EOF
 
-$guestfish <<'EOF' | $canonical > test.output
-  add test1.qcow2 readonly:true name:xvdg
+$guestfish <<'EOF' | $canonical > inspect-fstab.output
+  add inspect-fstab-1.qcow2 readonly:true name:xvdg
   run
   inspect-os
   inspect-get-mountpoints /dev/VG/Root
 EOF
 
-if [ "$(cat test.output)" != "/dev/VG/Root
+if [ "$(cat inspect-fstab.output)" != "/dev/VG/Root
 /: /dev/VG/Root
 /boot: /dev/sda1" ]; then
     echo "$0: error #2: unexpected output from inspect-get-mountpoints command"
-    cat test.output
+    cat inspect-fstab.output
     exit 1
 fi
 
-cat <<'EOF' > test.fstab
+cat <<'EOF' > inspect-fstab.fstab
 /dev/VG/Root / ext2 default 0 0
 
 # cciss device which requires a hint
@@ -112,28 +112,28 @@ cat <<'EOF' > test.fstab
 /dev/cciss/c1d3 /var ext2 default 0 0
 EOF
 
-$guestfish -a test1.qcow2 <<'EOF'
+$guestfish -a inspect-fstab-1.qcow2 <<'EOF'
   run
   mount /dev/VG/Root /
-  upload test.fstab /etc/fstab
+  upload inspect-fstab.fstab /etc/fstab
 EOF
 
-$guestfish <<'EOF' | $canonical > test.output
-  add test1.qcow2 readonly:true name:cciss/c1d3
+$guestfish <<'EOF' | $canonical > inspect-fstab.output
+  add inspect-fstab-1.qcow2 readonly:true name:cciss/c1d3
   run
   inspect-os
   inspect-get-mountpoints /dev/VG/Root
 EOF
 
-if [ "$(cat test.output)" != "/dev/VG/Root
+if [ "$(cat inspect-fstab.output)" != "/dev/VG/Root
 /: /dev/VG/Root
 /boot: /dev/sda1
 /var: /dev/sda" ]; then
     echo "$0: error #3: unexpected output from inspect-get-mountpoints command"
-    cat test.output
+    cat inspect-fstab.output
     exit 1
 fi
 
-rm test.fstab
-rm test1.qcow2
-rm test.output
+rm inspect-fstab.fstab
+rm inspect-fstab-1.qcow2
+rm inspect-fstab.output

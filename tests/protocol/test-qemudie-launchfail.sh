@@ -20,10 +20,8 @@
 
 set -e
 
-rm -f test.img
-
 ../../fish/guestfish <<'EOF'
-alloc test.img 10M
+scratch 100M
 
 append "root=/dev/null"
 -run
@@ -33,5 +31,3 @@ append ""
 run
 ping-daemon
 EOF
-
-rm -f test.img

@@ -33,20 +33,20 @@ unless ($backend eq "libvirt" || $backend =~ /^libvirt:/) {
 }
 
 # Create some temporary disks.
-open FILE, ">test1.img" or die "test1.img: $!";
-truncate FILE, 512 * 1024 * 1024 or die "test1.img: truncate: $!";
+open FILE, ">test-hot-remove-1.img" or die "test-hot-remove-1.img: $!";
+truncate FILE, 512 * 1024 * 1024 or die "test-hot-remove-1.img: truncate: $!";
 close FILE;
 
-open FILE, ">test2.img" or die "test2.img: $!";
-truncate FILE, 512 * 1024 * 1024 or die "test2.img: truncate: $!";
+open FILE, ">test-hot-remove-2.img" or die "test-hot-remove-2.img: $!";
+truncate FILE, 512 * 1024 * 1024 or die "test-hot-remove-2.img: truncate: $!";
 close FILE;
 
-die unless system ("qemu-img create -f qcow2 test3.img 1G") == 0;
+die unless system ("qemu-img create -f qcow2 test-hot-remove-3.img 1G") == 0;
 
 # Hot-add them.  Labels are required.
-$g->add_drive ("test1.img", label => "a"); # autodetect format
-$g->add_drive ("test2.img", label => "b", format => "raw", readonly => 1);
-$g->add_drive ("test3.img", label => "c", format => "qcow2");
+$g->add_drive ("test-hot-remove-1.img", label => "a"); # autodetect format
+$g->add_drive ("test-hot-remove-2.img", label => "b", format => "raw", readonly => 1);
+$g->add_drive ("test-hot-remove-3.img", label => "c", format => "qcow2");
 
 # Remove them (before launch).
 $g->remove_drive ("a");
@@ -60,9 +60,9 @@ my @devices = $g->list_devices ();
 die unless 0 == @devices;
 
 # Add them again (after launch).
-$g->add_drive ("test1.img", label => "a"); # autodetect format
-$g->add_drive ("test2.img", label => "b", format => "raw", readonly => 1);
-$g->add_drive ("test3.img", label => "c", format => "qcow2");
+$g->add_drive ("test-hot-remove-1.img", label => "a"); # autodetect format
+$g->add_drive ("test-hot-remove-2.img", label => "b", format => "raw", readonly => 1);
+$g->add_drive ("test-hot-remove-3.img", label => "c", format => "qcow2");
 
 # Check we can use the disks immediately.
 $g->part_disk ("/dev/disk/guestfs/a", "mbr");
@@ -81,8 +81,8 @@ die unless 0 == @devices;
 $g->shutdown ();
 $g->close ();
 
-unlink "test1.img";
-unlink "test2.img";
-unlink "test3.img";
+unlink "test-hot-remove-1.img";
+unlink "test-hot-remove-2.img";
+unlink "test-hot-remove-3.img";
 
 exit 0

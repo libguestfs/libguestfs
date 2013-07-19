@@ -22,7 +22,7 @@ EXTRA_DIST = \
 	virt-sparsify.pod \
 	test-virt-sparsify.sh
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify test.img
+CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 
 # Alphabetical order.
 SOURCES = \

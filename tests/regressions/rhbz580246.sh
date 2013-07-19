@@ -23,22 +23,22 @@
 set -e
 export LANG=C
 
-rm -f test.img test.tar
+rm -f rhbz580246.img rhbz580246.tar
 
-dd if=/dev/zero of=test.img bs=1M count=2
-tar cf test.tar test.img
+dd if=/dev/zero of=rhbz580246.img bs=1M count=2
+tar cf rhbz580246.tar rhbz580246.img
 
 output=$(
 ../../fish/guestfish 2>&1 <<'EOF'
-add test.img
+add rhbz580246.img
 run
 mkfs ext2 /dev/sda
 mount /dev/sda /
--tar-in test.tar /
+-tar-in rhbz580246.tar /
 EOF
 )
 
-rm -f test.img test.tar
+rm -f rhbz580246.img rhbz580246.tar
 
 # Check for error message in the output.
 if [[ ! $output =~ libguestfs:.error:.tar_in ]]; then

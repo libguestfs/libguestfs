@@ -26,14 +26,14 @@
 
 set -e
 
-rm -f test.img
+tmpfile=`mktemp`
 
 size=$(awk 'BEGIN{ srand(); print int(16*1024*rand()) }')
 echo "$0: test size $size (bytes)"
 
 ../../fish/guestfish <<EOF
 # We want the file to be fully allocated.
-alloc test.img 10M
+alloc $tmpfile 10M
 run
 
 part-disk /dev/sda mbr
@@ -50,4 +50,4 @@ ping-daemon
 
 EOF
 
-rm -f test.img
+rm $tmpfile

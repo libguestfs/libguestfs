@@ -24,20 +24,21 @@ set -e
 # This exercises a number of interesting codepaths including resizing
 # LV content, handling GPT, and using qcow2 as a target.
 
-$VG ../fish/guestfish -N bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt </dev/null
+$VG ../fish/guestfish \
+    -N test-virt-resize-1.img=bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt </dev/null
 
-qemu-img create -f qcow2 test2.img 500M
+qemu-img create -f qcow2 test-virt-resize-2.img 500M
 $VG ./virt-resize -d --debug-gc \
     --expand /dev/sda2 \
     --lv-expand /dev/VG/LV \
     --format raw --output-format qcow2 \
-    test1.img test2.img
+    test-virt-resize-1.img test-virt-resize-2.img
 
 # Test shrinking in a semi-realistic scenario.  Although the disk
 # image created above contains no data, we will nevertheless use
 # similar operations to ones that might be used by a real admin.
 
-../fish/guestfish -a test1.img <<EOF
+../fish/guestfish -a test-virt-resize-1.img <<EOF
 run
 resize2fs-size /dev/VG/LV 190M
 lvresize /dev/VG/LV 190
@@ -45,10 +46,10 @@ pvresize-size /dev/sda2 200M
 fsck ext4 /dev/VG/LV
 EOF
 
-rm -f test2.img; ../fish/guestfish sparse test2.img 300M
+rm -f test-virt-resize-2.img; ../fish/guestfish sparse test-virt-resize-2.img 300M
 $VG ./virt-resize -d --debug-gc \
     --shrink /dev/sda2 \
     --format raw --output-format raw \
-    test1.img test2.img
+    test-virt-resize-1.img test-virt-resize-2.img
 
-rm -f test1.img test2.img
+rm test-virt-resize-1.img test-virt-resize-2.img

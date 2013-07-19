@@ -37,43 +37,43 @@ fi
 
 guestfish=../../fish/guestfish
 
-rm -f test1.img test.fstab test.output
+rm -f inspect-fstab-md-{1,2}.img inspect-fstab-md.fstab inspect-fstab-md.output
 
 # First, test the regular fedora image, which specifies /boot as /dev/md0
-cp ../guests/fedora-md1.img test1.img
-cp ../guests/fedora-md2.img test2.img
+cp ../guests/fedora-md1.img inspect-fstab-md-1.img
+cp ../guests/fedora-md2.img inspect-fstab-md-2.img
 
-$guestfish -i test[12].img <<'EOF' | sort > test.output
+$guestfish -i inspect-fstab-md-[12].img <<'EOF' | sort > inspect-fstab-md.output
   exists /boot/grub/grub.conf
 EOF
 
-if [ "$(cat test.output)" != "true" ]; then
+if [ "$(cat inspect-fstab-md.output)" != "true" ]; then
     echo "$0: /boot not correctly mounted (/dev/md0)"
     exit 1
 fi
 
 # Test inspection when /boot is specfied as /dev/md/boot
-cat <<'EOF' > test.fstab
+cat <<'EOF' > inspect-fstab-md.fstab
 /dev/VG/Root / ext2 default 0 0
 /dev/md/boot /boot ext2 default 0 0
 EOF
 
-$guestfish -a test1.img -a test2.img <<'EOF'
+$guestfish -a inspect-fstab-md-1.img -a inspect-fstab-md-2.img <<'EOF'
   run
   mount /dev/VG/Root /
-  upload test.fstab /etc/fstab
+  upload inspect-fstab-md.fstab /etc/fstab
 EOF
 
-$guestfish -i test[12].img <<'EOF' | sort > test.output
+$guestfish -i inspect-fstab-md-[12].img <<'EOF' | sort > inspect-fstab-md.output
   exists /boot/grub/grub.conf
 EOF
 
-if [ "$(cat test.output)" != "true" ]; then
+if [ "$(cat inspect-fstab-md.output)" != "true" ]; then
     echo "$0: error: /boot not correctly mounted (/dev/md/boot)"
-    cat test.output
+    cat inspect-fstab-md.output
     exit 1
 fi
 
-rm test.fstab
-rm test[12].img
-rm test.output
+rm inspect-fstab-md.fstab
+rm inspect-fstab-md-[12].img
+rm inspect-fstab-md.output

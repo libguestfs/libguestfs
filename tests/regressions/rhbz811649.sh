@@ -34,16 +34,16 @@ filenames[7]='http:'
 filenames[8]='file:'
 filenames[9]='raw:'
 
-rm -f -- test1.img "${filenames[@]}"
+rm -f -- rhbz811649.img "${filenames[@]}"
 
-../../fish/guestfish sparse test1.img 10M
+../../fish/guestfish sparse rhbz811649.img 10M
 
 for f in "${filenames[@]}"; do
-    ln -- test1.img "$f"
+    ln -- rhbz811649.img "$f"
     ../../fish/guestfish <<EOF
 add "$f"
 run
 EOF
 done
 
-rm -f -- test1.img "${filenames[@]}"
+rm -- rhbz811649.img "${filenames[@]}"

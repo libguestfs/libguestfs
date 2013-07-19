@@ -72,11 +72,11 @@ display = \
 # include them in the libvirt fake XML to make sure that virt-df and
 # virt-alignment-scan don't break when they encounter them.
 blank-%.img:
-	rm -f $@ test1.img
+	rm -f $@ $@-t
 	$(top_builddir)/run \
 	  ../../fish/guestfish \
-	    -N "$$(echo $@ | sed -e 's/blank-//' -e 's/.img//')" exit
-	mv test1.img $@
+	    -N $@-t="$$(echo $@ | sed -e 's/blank-//' -e 's/.img//')" exit
+	mv $@-t $@
 	$(call display,$@)
 
 # Make a (dummy) Fedora image.

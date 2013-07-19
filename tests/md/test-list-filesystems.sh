@@ -25,7 +25,7 @@ if [ -n "$SKIP_TEST_LIST_FILESYSTEMS_SH" ]; then
     exit 77
 fi
 
-rm -f test.output
+rm -f list-fs.output
 
 # Create 2 disks partitioned as:
 # sda1: 20M ext3
@@ -37,10 +37,10 @@ rm -f test.output
 # md127 : 20M ext4
 # vg0 : 16M LV (lv0)
 # lv0 : 16M vfat
-../../fish/guestfish <<EOF | sed s,/dev/vd,/dev/sd,g > test.output
+../../fish/guestfish <<EOF | sed s,/dev/vd,/dev/sd,g > list-fs.output
 # Add 2 empty disks
-sparse fs-test1.img 50M
-sparse fs-test2.img 50M
+scratch 50M
+scratch 50M
 run
 
 part-init /dev/sda mbr
@@ -71,11 +71,11 @@ expected="/dev/sda1: ext3
 /dev/vg0/lv0: vfat"
 
 # Check the output of list-filesystems
-if [ "$(cat test.output)" != "$expected" ]; then
+if [ "$(cat list-fs.output)" != "$expected" ]; then
     echo "$0: error: output of list-filesystems did not match expected output"
     printf "%s\n" "$output"
     exit 1;
 fi
 
 
-rm -f fs-test1.img fs-test2.img test.output
+rm list-fs.output

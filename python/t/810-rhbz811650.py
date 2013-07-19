@@ -18,14 +18,14 @@
 import os
 import guestfs
 
-f = open ("test.img", "w")
+f = open ("rhbz811650.img", "w")
 f.truncate (500 * 1024 * 1024)
 f.close ()
 
 g = guestfs.GuestFS (python_return_dict=True)
 
 # Deliberate error: the disk format is supposed to be raw.
-g.add_drive ("test.img", format="qcow2");
+g.add_drive ("rhbz811650.img", format="qcow2");
 
 # Because error() wasn't being called, guestfs_last_error would return
 # NULL, causing a segfault in the Python bindings (RHBZ#811650).
@@ -34,4 +34,4 @@ try:
 except:
     pass
 
-os.unlink ("test.img")
+os.unlink ("rhbz811650.img")

@@ -22,7 +22,7 @@ EXTRA_DIST = \
 	virt-resize.pod \
 	test-virt-resize.sh
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize test.img
+CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize
 
 # Alphabetical order.
 SOURCES = \

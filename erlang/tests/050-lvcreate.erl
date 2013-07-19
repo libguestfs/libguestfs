@@ -21,7 +21,7 @@
 main(_) ->
     {ok, G} = guestfs:create(),
 
-    Disk_image = "test.img",
+    Disk_image = "test-lvcreate.img",
 
     {ok, File} = file:open(Disk_image, [raw, write, binary]),
     {ok, _} = file:position(File, 512 * 1024 * 1024 - 1),

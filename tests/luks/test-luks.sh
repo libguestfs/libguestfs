@@ -25,10 +25,10 @@ set -e
     exit 77
 }
 
-rm -f test1.img
+rm -f test-luks.img
 
 ../../fish/guestfish --keys-from-stdin <<EOF
-sparse test1.img 1G
+sparse test-luks.img 1G
 run
 part-disk /dev/sda mbr
 
@@ -90,4 +90,4 @@ luks-close /dev/mapper/lukstest
 
 EOF
 
-rm -f test1.img
+rm test-luks.img

@@ -25,10 +25,10 @@ set -e
     exit 77
 }
 
-rm -f test1.img test.output
+rm -f test-luks-list.img test-luks-list.out
 
-../../fish/guestfish --keys-from-stdin > test.output <<'EOF'
-sparse test1.img 1G
+../../fish/guestfish --keys-from-stdin > test-luks-list.out <<'EOF'
+sparse test-luks-list.img 1G
 run
 part-init /dev/sda mbr
 part-add /dev/sda p 64 1048575
@@ -83,7 +83,7 @@ pvs | sed 's,^/dev/[hv]d,/dev/sd,'
 EOF
 
 # Expected vs actual output.
-if [ "$(cat test.output)" != "\
+if [ "$(cat test-luks-list.out)" != "\
 test 1
 /dev/mapper/lukstest
 test 2
@@ -103,9 +103,9 @@ VG
 test 8
 /dev/sda2" ]; then
     echo "test-luks-list.sh: Unexpected output from test:"
-    cat test.output
+    cat test-luks-list.out
     echo "[end of output]"
     exit 1
 fi
 
-rm -f test1.img test.output
+rm test-luks-list.img test-luks-list.out

@@ -34,15 +34,15 @@ if [[ "$backend" =~ ^libvirt ]]; then
     exit 77
 fi
 
-rm -f test.img
+rm -f rhbz690819.img
 
-../../fish/guestfish sparse test.img 100M
+../../fish/guestfish sparse rhbz690819.img 100M
 
 ../../fish/guestfish <<EOF
-add-drive-with-if test.img ide
+add-drive-with-if rhbz690819.img ide
 run
 mkfs ext3 /dev/sda
 mount /dev/sda /
 EOF
 
-rm -f test.img
+rm rhbz690819.img

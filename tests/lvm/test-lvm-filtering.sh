@@ -20,11 +20,11 @@
 
 set -e
 
-rm -f test1.img test2.img
+rm -f test-lvm-filtering-1.img test-lvm-filtering-2.img
 
 actual=$(../../fish/guestfish <<'EOF'
-sparse test1.img 1G
-sparse test2.img 1G
+sparse test-lvm-filtering-1.img 1G
+sparse test-lvm-filtering-2.img 1G
 
 run
 
@@ -83,7 +83,7 @@ VG2
 VG1
 VG2"
 
-rm -f test1.img test2.img
+rm test-lvm-filtering-1.img test-lvm-filtering-2.img
 
 if [ "$actual" != "$expected" ]; then
     echo "LVM filter test failed.  Actual output was:"

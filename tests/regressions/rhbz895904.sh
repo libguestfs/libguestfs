@@ -24,7 +24,8 @@ set -e
 export LANG=C
 
 output=$(
-../../fish/guestfish -N fs -m /dev/sda1 <<EOF | sort -k 3
+../../fish/guestfish -N rhbz895904.img=fs \
+    -m /dev/sda1 <<EOF | sort -k 3
 mkdir /test
 touch /test/file1
 mkdir /test/subdir
@@ -40,4 +41,4 @@ if [ "$output" != "4294967295 0 ./file1
     exit 1
 fi
 
-rm test1.img
+rm rhbz895904.img

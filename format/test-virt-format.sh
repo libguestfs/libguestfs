@@ -25,15 +25,15 @@ if [ -n "$SKIP_TEST_VIRT_FORMAT_SH" ]; then
     exit 77
 fi
 
-rm -f test1.img
+rm -f test-virt-format.img
 
-$VG ../fish/guestfish -N bootrootlv exit
+$VG ../fish/guestfish -N test-virt-format.img=bootrootlv exit
 
-$VG ./virt-format --filesystem=ext3 -a test1.img
+$VG ./virt-format --filesystem=ext3 -a test-virt-format.img
 
-if [ "$($VG ../cat/virt-filesystems -a test1.img)" != "/dev/sda1" ]; then
+if [ "$($VG ../cat/virt-filesystems -a test-virt-format.img)" != "/dev/sda1" ]; then
     echo "$0: unexpected output after using virt-format"
     exit 1
 fi
 
-rm -f test1.img
+rm test-virt-format.img

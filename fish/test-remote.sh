@@ -20,11 +20,11 @@
 
 set -e
 
-rm -f test.img
+rm -f test-remote.img
 
 eval `./guestfish --listen`
 
-./guestfish --remote alloc test.img 10M
+./guestfish --remote alloc test-remote.img 10M
 ./guestfish --remote run
 ./guestfish --remote part-disk /dev/sda mbr
 ./guestfish --remote mkfs ext2 /dev/sda1
@@ -41,6 +41,6 @@ fi
 
 ./guestfish --remote exit
 
-rm -f test.img
+rm test-remote.img
 
 exit $error

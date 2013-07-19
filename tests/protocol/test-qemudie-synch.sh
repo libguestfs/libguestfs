@@ -25,20 +25,22 @@ if [ "$(../../fish/guestfish get-backend)" != "direct" ]; then
     exit 77
 fi
 
-rm -f test.pid test1.img
+rm -f qemudie-synch.pid
 
-../../fish/guestfish -N disk <<'EOF'
+../../fish/guestfish <<'EOF'
+scratch 100M
+run
 # Kill subprocess.
-pid | cat > test.pid
-! kill $(cat test.pid) ; sleep 2
+pid | cat > qemudie-synch.pid
+! kill $(cat qemudie-synch.pid) ; sleep 2
 
 # XXX The following sleep should NOT be necessary.
 -sleep 1
 
 # We should now be able to rerun the subprocess.
-add test1.img
+scratch 100M
 run
 ping-daemon
 EOF
 
-rm -f test.pid test1.img
+rm qemudie-synch.pid

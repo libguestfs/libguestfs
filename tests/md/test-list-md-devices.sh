@@ -28,8 +28,8 @@ fi
 output=$(
 ../../fish/guestfish <<EOF
 # Add 2 empty disks
-sparse md-test1.img 100M
-sparse md-test2.img 100M
+sparse list-md-devices-1.img 100M
+sparse list-md-devices-2.img 100M
 run
 
 # list-md-devices should return nothing
@@ -49,7 +49,7 @@ fi
 
 # Ensure list-md-devices now returns the newly created md device
 output=$(
-../../fish/guestfish -a md-test1.img -a md-test2.img <<EOF
+../../fish/guestfish -a list-md-devices-1.img -a list-md-devices-2.img <<EOF
 run
 list-md-devices
 EOF
@@ -61,4 +61,4 @@ if [ "$output" != "/dev/md127" ]; then
     exit 1
 fi
 
-rm -f md-test1.img md-test2.img
+rm list-md-devices-1.img list-md-devices-2.img

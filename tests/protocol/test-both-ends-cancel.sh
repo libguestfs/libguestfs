@@ -22,11 +22,9 @@
 
 set -e
 
-rm -f test1.img
-
-../../fish/guestfish -N disk <<EOF
+../../fish/guestfish <<EOF
+scratch 100M
+run
 -tar-in /tmp/nosuchfile /blah
 ping-daemon
 EOF
-
-rm -f test1.img

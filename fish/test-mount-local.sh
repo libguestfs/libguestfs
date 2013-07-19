@@ -35,34 +35,34 @@ set -e
 
 if [ $# -gt 0 -a "$1" = "--run-test" ]; then
     # Create some files and read them back.
-    echo 'hello' > mp/hello
-    chmod 0600 mp/hello
-    rm mp/hello
+    echo 'hello' > test-mount-local-mp/hello
+    chmod 0600 test-mount-local-mp/hello
+    rm test-mount-local-mp/hello
 
-    echo 'hello' > mp/hello
-    ln -s mp/hello mp/goodbye
-    ln mp/hello mp/link
-    rm mp/goodbye mp/link
+    echo 'hello' > test-mount-local-mp/hello
+    ln -s test-mount-local-mp/hello test-mount-local-mp/goodbye
+    ln test-mount-local-mp/hello test-mount-local-mp/link
+    rm test-mount-local-mp/goodbye test-mount-local-mp/link
 
-    dd if=/dev/zero of=mp/zero bs=10k count=10
+    dd if=/dev/zero of=test-mount-local-mp/zero bs=10k count=10
     sync
-    rm mp/zero
+    rm test-mount-local-mp/zero
 
-    echo 'mount-local test successful' > mp/ok
+    echo 'mount-local test successful' > test-mount-local-mp/ok
 
     # Unmount the mountpoint.
-    ../fuse/guestunmount mp
+    ../fuse/guestunmount test-mount-local-mp
 
     exit 0
 fi
 
-rm -f test1.img test.errors
-rm -rf mp
+rm -f test-mount-local.img test-mount-local.errors
+rm -rf test-mount-local-mp
 
-mkdir mp
+mkdir test-mount-local-mp
 
-if ! ./guestfish -N fs -m /dev/sda1 2>test.errors <<EOF; then
-mount-local mp
+if ! ./guestfish -N test-mount-local.img=fs -m /dev/sda1 2>test-mount-local.errors <<EOF; then
+mount-local test-mount-local-mp
 ! $0 --run-test &
 mount-local-run
 
@@ -72,9 +72,9 @@ cat /ok
 
 EOF
     echo "$0: test failed."
-    cat test.errors
+    cat test-mount-local.errors
     exit 1
 fi
 
-rm -f test1.img test.errors
-rm -rf mp
+rm test-mount-local.img test-mount-local.errors
+rm -r test-mount-local-mp
