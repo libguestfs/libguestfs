@@ -11588,7 +11588,9 @@ danger you could run out of real disk space during a write operation.
 
 For more advanced image creation, see L<qemu-img(1)> utility.
 
-Size can be specified using standard suffixes, eg. C<1M>." };
+Size can be specified using standard suffixes, eg. C<1M>.
+
+See also the guestfish L</scratch> command." };
 
   { defaults with
     name = "supported";
