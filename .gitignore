@@ -435,6 +435,8 @@ Makefile.in
 /tests/data/100krandom
 /tests/data/10klines
 /tests/data/abssymlink
+/tests/data/blank-disk-*
+/tests/data/blank-disk-*
 /tests/data/hello.b64
 /tests/data/initrd
 /tests/data/initrd-x86_64.img

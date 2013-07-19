@@ -69,6 +69,13 @@ images_files_build = \
 	100krandom \
 	10klines \
 	abssymlink \
+	blank-disk-1s.raw \
+	blank-disk-1s.qcow2 \
+	blank-disk-1K.raw \
+	blank-disk-1K.qcow2 \
+	blank-disk-1M.raw \
+	blank-disk-1M.qcow2 \
+	blank-disk-with-backing.qcow2 \
 	hello.b64 \
 	initrd \
 	initrd-x86_64.img \
@@ -123,6 +130,31 @@ test.iso: $(images_files)
 # resulting in the ISO being rebuilt every time.
 abssymlink:
 	ln -sf /10klines $@
+
+# Blank disk images in various sizes and formats.
+blank-disk-1s.raw:
+	rm -f $@
+	truncate -s 512 $@
+
+blank-disk-1s.qcow2:
+	qemu-img create -f qcow2 $@ 512
+
+blank-disk-1K.raw:
+	rm -f $@
+	truncate -s 1K $@
+
+blank-disk-1K.qcow2:
+	qemu-img create -f qcow2 $@ 1K
+
+blank-disk-1M.raw:
+	rm -f $@
+	truncate -s 1M $@
+
+blank-disk-1M.qcow2:
+	qemu-img create -f qcow2 $@ 1M
+
+blank-disk-with-backing.qcow2: blank-disk-1M.raw
+	qemu-img create -f qcow2 -b $^ $@
 
 hello.b64:
 	echo "hello" | base64 > $@
