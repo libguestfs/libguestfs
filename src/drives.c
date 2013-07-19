@@ -33,6 +33,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <assert.h>
+#include <sys/types.h>
 
 #include <pcre.h>
 
@@ -1069,6 +1070,58 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
   };
 
   return guestfs_add_drive_opts_argv (g, filename, &optargs);
+}
+
+int
+guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
+                                 const struct guestfs_add_drive_scratch_argv *optargs)
+{
+  struct guestfs_add_drive_opts_argv add_drive_optargs;
+  CLEANUP_FREE char *filename = NULL;
+  int fd;
+
+  /* Some parameters we always set. */
+  add_drive_optargs.bitmask = GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+  add_drive_optargs.format = "raw";
+
+  /* Copy the optional arguments through to guestfs_add_drive_opts. */
+  if (optargs->bitmask & GUESTFS_ADD_DRIVE_SCRATCH_NAME_BITMASK) {
+    add_drive_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_NAME_BITMASK;
+    add_drive_optargs.name = optargs->name;
+  }
+  if (optargs->bitmask & GUESTFS_ADD_DRIVE_SCRATCH_LABEL_BITMASK) {
+    add_drive_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_LABEL_BITMASK;
+    add_drive_optargs.label = optargs->label;
+  }
+
+  /* Create the temporary file.  We don't have to worry about cleanup
+   * because everything in g->tmpdir is 'rm -rf'd when the handle is
+   * closed.
+   */
+  if (guestfs___lazy_make_tmpdir (g) == -1)
+    return -1;
+  filename = safe_asprintf (g, "%s/scratch.%d", g->tmpdir, ++g->unique);
+
+  /* Create a raw format temporary disk. */
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0600);
+  if (fd == -1) {
+    perrorf (g, "open: %s", filename);
+    return -1;
+  }
+
+  if (ftruncate (fd, size) == -1) {
+    perrorf (g, "ftruncate: %s", filename);
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", filename);
+    return -1;
+  }
+
+  /* Call guestfs_add_drive_opts to add the drive. */
+  return guestfs_add_drive_opts_argv (g, filename, &add_drive_optargs);
 }
 
 int
