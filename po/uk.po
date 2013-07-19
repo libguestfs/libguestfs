@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-06-26 19:00+0100\n"
+"POT-Creation-Date: 2013-07-19 09:04+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4064,7 +4064,7 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
 
-#: src/appliance.c:216
+#: src/appliance.c:228
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -4074,17 +4074,17 @@ msgstr ""
 "або розгортання у застарілому стилі за адресою LIBGUESTFS_PATH (каталог "
 "пошуку: %s)"
 
-#: src/appliance.c:367
+#: src/appliance.c:378
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "безпека: кешований пристрій %s не належить UID %d"
 
-#: src/appliance.c:372
+#: src/appliance.c:383
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "безпека: кешований пристрій %s не є каталогом (режим %o)"
 
-#: src/appliance.c:377
+#: src/appliance.c:388
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -4480,7 +4480,7 @@ msgstr "не змонтовано жодної файлової системи"
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: src/fuse.c:1438
+#: src/fuse.c:1439
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -4504,36 +4504,42 @@ msgstr "нечислове або надто мале значення LIBGUESTF
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/info.c:142
+#: src/info.c:143
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «format»"
 
-#: src/info.c:173
+#: src/info.c:174
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 "Інформація від qemu-img: «virtual-size» не можна представити як 64-бітове "
 "ціле число"
 
-#: src/info.c:181
+#: src/info.c:182
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «virtual-size»"
 
-#: src/info.c:219
+#: src/info.c:220
 msgid "qemu-img info: JSON output was not an object"
 msgstr "Інформація від qemu-img: дані, виведені JSON, не є об’єктом"
 
-#: src/info.c:280
+#: src/info.c:286
+msgid ""
+"qemu-img info command produced no output, but didn't return an error status "
+"code"
+msgstr ""
+
+#: src/info.c:320
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr "Інформація від qemu-img: помилка під час обробки JSON: %s"
 
-#: src/info.c:282
+#: src/info.c:322
 msgid "qemu-img info: unknown JSON parse error"
 msgstr "Інформація від qemu-img: невідома помилка під час обробки JSON"
 
-#: src/info.c:420
+#: src/info.c:460
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
 msgstr "%s: не вдалося визначити віртуальний розмір образу диска"
