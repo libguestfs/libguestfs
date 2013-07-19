@@ -460,12 +460,6 @@ add_disk (guestfs_h *g, const char *key, off_t size)
     printf ("FAIL: guestfs_set_event_callback (GUESTFS_EVENT_CLOSE)\n");
     exit (EXIT_FAILURE);
   }
-
-  /* Record the real filename in the named private key.  Tests can
-   * retrieve these names using the magic "GETKEY:<key>" String
-   * parameter.
-   */
-  guestfs_set_private (g, key, filename);
 }
 
 /* Create the handle, with attached disks. */

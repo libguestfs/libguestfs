@@ -377,10 +377,6 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
   List.iter (
     function
     | OptString _, "NULL", _ -> ()
-    | String _, arg, sym
-      when String.length arg >= 7 && String.sub arg 0 7 = "GETKEY:" ->
-      pr "  const char *%s = guestfs_get_private (g, \"%s\");\n"
-        sym (c_quote (String.sub arg 7 (String.length arg - 7)))
     | Pathname _, arg, sym
     | Device _, arg, sym
     | Mountable _, arg, sym
