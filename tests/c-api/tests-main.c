@@ -409,59 +409,6 @@ skipped (const char *test_name, const char *fs, ...)
           test_name, reason);
 }
 
-static void
-delete_file (guestfs_h *g, void *filenamev,
-             uint64_t event, int eh, int flags,
-             const char *buf, size_t buf_len,
-             const uint64_t *array, size_t array_len)
-{
-  char *filename = filenamev;
-
-  unlink (filename);
-  free (filename);
-}
-
-static void
-add_disk (guestfs_h *g, const char *key, off_t size)
-{
-  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
-  char *filename;
-  int fd;
-
-  if (asprintf (&filename, "%s/diskXXXXXX", tmpdir) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-
-  fd = mkostemp (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC);
-  if (fd == -1) {
-    perror ("mkstemp");
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, size) == -1) {
-    perror ("ftruncate");
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror (filename);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-
-  if (guestfs_add_drive (g, filename) == -1) {
-    printf ("FAIL: guestfs_add_drive %s\n", filename);
-    exit (EXIT_FAILURE);
-  }
-
-  if (guestfs_set_event_callback (g, delete_file,
-                                  GUESTFS_EVENT_CLOSE, 0, filename) == -1) {
-    printf ("FAIL: guestfs_set_event_callback (GUESTFS_EVENT_CLOSE)\n");
-    exit (EXIT_FAILURE);
-  }
-}
-
 /* Create the handle, with attached disks. */
 static guestfs_h *
 create_handle (void)
@@ -474,11 +421,20 @@ create_handle (void)
     exit (EXIT_FAILURE);
   }
 
-  add_disk (g, "test1", 524288000);
+  if (guestfs_add_drive_scratch (g, 524288000, -1) == -1) {
+    printf ("FAIL: guestfs_add_drive_scratch\n");
+    exit (EXIT_FAILURE);
+  }
 
-  add_disk (g, "test2", 52428800);
+  if (guestfs_add_drive_scratch (g, 52428800, -1) == -1) {
+    printf ("FAIL: guestfs_add_drive_scratch\n");
+    exit (EXIT_FAILURE);
+  }
 
-  add_disk (g, "test3", 10485760);
+  if (guestfs_add_drive_scratch (g, 10485760, -1) == -1) {
+    printf ("FAIL: guestfs_add_drive_scratch\n");
+    exit (EXIT_FAILURE);
+  }
 
   if (guestfs_add_drive_ro (g, "../data/test.iso") == -1) {
     printf ("FAIL: guestfs_add_drive_ro ../data/test.iso\n");
