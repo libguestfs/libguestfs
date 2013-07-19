@@ -31,9 +31,6 @@ close FILE or die "$testimg: $!";
 
 my $g = Sys::Guestfs->new ();
 
-#$g->set_verbose (1);
-#$g->set_trace (1);
-
 $g->add_drive ($testimg, format => "raw");
 $g->launch ();
 
