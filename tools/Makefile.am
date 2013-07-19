@@ -28,8 +28,6 @@ EXTRA_DIST = \
 	$(tools:%=virt-%) \
 	test-virt-*.sh
 
-CLEANFILES = test.img
-
 if HAVE_TOOLS
 
 bin_SCRIPTS = $(tools:%=virt-%)
