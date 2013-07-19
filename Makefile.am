@@ -58,7 +58,6 @@ SUBDIRS += tests/nbd
 SUBDIRS += tests/http
 SUBDIRS += tests/syslinux
 SUBDIRS += tests/fuzz
-SUBDIRS += tests/disk-info
 SUBDIRS += tests/regressions
 endif
 
