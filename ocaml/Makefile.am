@@ -90,32 +90,42 @@ endif
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 
-test_progs = \
-	t/guestfs_010_load \
-	t/guestfs_020_create \
-	t/guestfs_030_create_flags \
-	t/guestfs_040_create_multiple \
-	t/guestfs_050_handle_properties \
-	t/guestfs_060_explicit_close \
-	t/guestfs_070_optargs \
-	t/guestfs_410_close_event \
-	t/guestfs_420_log_messages
+test_progs_bc = \
+	t/guestfs_010_load.bc \
+	t/guestfs_020_create.bc \
+	t/guestfs_030_create_flags.bc \
+	t/guestfs_040_create_multiple.bc \
+	t/guestfs_050_handle_properties.bc \
+	t/guestfs_060_explicit_close.bc \
+	t/guestfs_070_optargs.bc \
+	t/guestfs_410_close_event.bc \
+	t/guestfs_420_log_messages.bc
+
+test_progs_opt = \
+	t/guestfs_010_load.opt \
+	t/guestfs_020_create.opt \
+	t/guestfs_030_create_flags.opt \
+	t/guestfs_040_create_multiple.opt \
+	t/guestfs_050_handle_properties.opt \
+	t/guestfs_060_explicit_close.opt \
+	t/guestfs_070_optargs.opt \
+	t/guestfs_410_close_event.opt \
+	t/guestfs_420_log_messages.opt
 
 if ENABLE_APPLIANCE
-test_progs += \
-	t/guestfs_100_launch \
-	t/guestfs_430_progress_messages
+test_progs_bc += \
+	t/guestfs_100_launch.bc \
+	t/guestfs_430_progress_messages.bc
+test_progs_opt += \
+	t/guestfs_100_launch.opt \
+	t/guestfs_430_progress_messages.opt
 endif
 
-TESTS = run-bindtests \
-	$(sort \
-		$(patsubst %,%.bc,$(test_progs)) \
-		$(patsubst %,%.opt,$(test_progs)))
+test_progs_all = $(test_progs_bc) $(test_progs_opt)
 
-noinst_DATA += \
-	bindtests.bc bindtests.opt \
-	$(test_progs:%=%.bc) \
-	$(test_progs:%=%.opt)
+TESTS = run-bindtests $(test_progs_all)
+
+noinst_DATA += bindtests.bc bindtests.opt $(test_progs_all)
 
 %.bc: %.cmo mlguestfs.cma
 	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
