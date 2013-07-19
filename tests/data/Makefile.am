@@ -74,6 +74,13 @@ images_files_build = \
 	$(builddir)/100krandom \
 	$(builddir)/10klines \
 	$(builddir)/abssymlink \
+	$(builddir)/blank-disk-1s.raw \
+	$(builddir)/blank-disk-1s.qcow2 \
+	$(builddir)/blank-disk-1K.raw \
+	$(builddir)/blank-disk-1K.qcow2 \
+	$(builddir)/blank-disk-1M.raw \
+	$(builddir)/blank-disk-1M.qcow2 \
+	$(builddir)/blank-disk-with-backing.qcow2 \
 	$(builddir)/hello.b64 \
 	$(builddir)/initrd \
 	$(builddir)/initrd-x86_64.img \
@@ -124,6 +131,31 @@ $(builddir)/10klines:
 # resulting in the ISO being rebuilt every time.
 $(builddir)/abssymlink:
 	ln -sf /10klines $@
+
+# Blank disk images in various sizes and formats.
+$(builddir)/blank-disk-1s.raw:
+	rm -f $@
+	truncate -s 512 $@
+
+$(builddir)/blank-disk-1s.qcow2:
+	qemu-img create -f qcow2 $@ 512
+
+$(builddir)/blank-disk-1K.raw:
+	rm -f $@
+	truncate -s 1K $@
+
+$(builddir)/blank-disk-1K.qcow2:
+	qemu-img create -f qcow2 $@ 1K
+
+$(builddir)/blank-disk-1M.raw:
+	rm -f $@
+	truncate -s 1M $@
+
+$(builddir)/blank-disk-1M.qcow2:
+	qemu-img create -f qcow2 $@ 1M
+
+$(builddir)/blank-disk-with-backing.qcow2: blank-disk-1M.raw
+	qemu-img create -f qcow2 -b $^ $@
 
 $(builddir)/hello.b64:
 	echo "hello" | base64 > $@
