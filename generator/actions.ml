@@ -2954,6 +2954,21 @@ it is set to the empty string (but never C<NULL>)." };
     longdesc = "\
 Get the program name.  See C<guestfs_set_program>." };
 
+  { defaults with
+    name = "add_drive_scratch";
+    style = RErr, [Int64 "size"], [OString "name"; OString "label"];
+    blocking = false;
+    fish_alias = ["scratch"];
+    shortdesc = "add a temporary scratch drive";
+    longdesc = "\
+This command adds a temporary scratch drive to the handle.  The
+C<size> parameter is the virtual size (in bytes).  The scratch
+drive is blank initially (all reads return zeroes until you start
+writing to it).  The drive is deleted when the handle is closed.
+
+The optional arguments C<name> and C<label> are passed through to
+C<guestfs_add_drive>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
