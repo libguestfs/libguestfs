@@ -207,6 +207,9 @@ extern int sync_disks (void);
 #define EXT2_LABEL_MAX 16
 extern int fstype_is_extfs (const char *fstype);
 
+/*-- in blkid.c --*/
+extern char *get_blkid_tag (const char *device, const char *tag);
+
 /*-- in lvm.c --*/
 extern int lv_canonical (const char *device, char **ret);
 
