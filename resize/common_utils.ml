@@ -252,3 +252,26 @@ let display_long_options () =
         printf "%s\n" arg
   ) !long_options;
   exit 0
+
+let uuidgen () =
+  let cmd = "uuidgen -r" in
+  let chan = Unix.open_process_in cmd in
+  let uuid = input_line chan in
+  let stat = Unix.close_process_in chan in
+  (match stat with
+  | Unix.WEXITED 0 -> ()
+  | Unix.WEXITED i ->
+    error (f_"external command '%s' exited with error %d") cmd i
+  | Unix.WSIGNALED i ->
+    error (f_"external command '%s' killed by signal %d") cmd i
+  | Unix.WSTOPPED i ->
+    error (f_"external command '%s' stopped by signal %d") cmd i
+  );
+  let len = String.length uuid in
+  let uuid, len =
+    if len > 0 && uuid.[len-1] = '\n' then
+      String.sub uuid 0 (len-1), len-1
+    else
+      uuid, len in
+  if len < 10 then assert false; (* sanity check on uuidgen *)
+  uuid
