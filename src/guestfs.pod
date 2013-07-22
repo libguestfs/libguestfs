@@ -526,6 +526,34 @@ L</guestfs_chmod> after creating each file or directory.
 
 For more information about umask, see L<umask(2)>.
 
+=head2 LABELS AND UUIDS
+
+Many filesystems, devices and logical volumes support either labels
+(short strings like "BOOT" which might not be unique) and/or UUIDs
+(globally unique IDs).
+
+For filesystems, use L</guestfs_vfs_label> or L</guestfs_vfs_uuid> to
+read the label or UUID.  Some filesystems let you call
+L</guestfs_set_label> or L</guestfs_set_uuid> to change the label or
+UUID.
+
+You can locate a filesystem by its label or UUID using
+L</guestfs_findfs_label> or L</guestfs_findfs_uuid>.
+
+For LVM2 (which supports only UUIDs), there is a rich set of APIs for
+fetching UUIDs, fetching UUIDs of the contained objects, and changing
+UUIDs.  See:
+L</guestfs_lvuuid>,
+L</guestfs_vguuid>,
+L</guestfs_pvuuid>,
+L</guestfs_vglvuuids>,
+L</guestfs_vgpvuuids>,
+L</guestfs_vgchange_uuid>, L</guestfs_vgchange_uuid_all>,
+L</guestfs_pvchange_uuid>, L</guestfs_pvchange_uuid_all>.
+
+Note when cloning a filesystem, device or whole guest, it is a good
+idea to set new randomly generated UUIDs on the copy.
+
 =head2 ENCRYPTED DISKS
 
 Libguestfs allows you to access Linux guests which have been
