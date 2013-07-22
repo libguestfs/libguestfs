@@ -41,6 +41,7 @@ operations = \
 	dovecot_data \
 	flag_reconfiguration \
 	firstboot \
+	fs_uuids \
 	hostname \
 	kerberos_data \
 	lvm_uuids \
