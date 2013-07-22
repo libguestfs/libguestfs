@@ -9494,12 +9494,29 @@ Set the filesystem label on C<mountable> to C<label>.
 Only some filesystem types support labels, and libguestfs supports
 setting labels on only a subset of these.
 
-On ext2/3/4 filesystems, labels are limited to 16 bytes.
+=over 4
 
-On NTFS filesystems, labels are limited to 128 unicode characters.
+=item ext2, ext3, ext4
 
-Setting the label on a btrfs subvolume will set the label on its parent
-filesystem.
+Labels are limited to 16 bytes.
+
+=item NTFS
+
+Labels are limited to 128 unicode characters.
+
+=item XFS
+
+The label is limited to 12 bytes.  The filesystem must not
+be mounted when trying to set the label.
+
+=item btrfs
+
+The label is limited to 256 bytes and some characters are
+not allowed.  Setting the label on a btrfs subvolume will set the
+label on its parent filesystem.  The filesystem must not be mounted
+when trying to set the label.
+
+=back
 
 To read the label on a filesystem, call C<guestfs_vfs_label>." };
 
