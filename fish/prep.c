@@ -66,6 +66,10 @@ guestfish -N %-8s - %s\n\
   printf (_("\
 Prepared disk images are written to file \"test1.img\" in the local\n\
 directory.  (\"test2.img\" etc if -N option is given multiple times).\n\
+You can override the name by providing a filename before the type, eg:\n\
+\n\
+  guestfish -N blank.img=fs\n\
+\n\
 For more information see the guestfish(1) manual.\n"));
 }
 

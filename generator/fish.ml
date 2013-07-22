@@ -1007,7 +1007,7 @@ and generate_fish_prep_options_pod () =
     fun (name, shortdesc, args, longdesc) ->
       pr "=head2 B<-N %s> - %s\n" name shortdesc;
       pr "\n";
-      pr "C<guestfish -N %s" name;
+      pr "C<guestfish -N [I<filename>=]%s" name;
       let rec loop = function
         | [] -> ()
         | (n,_,_) :: args -> pr "[:I<%s>" n; loop args; pr "]";

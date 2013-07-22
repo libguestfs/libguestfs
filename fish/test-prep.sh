@@ -18,16 +18,18 @@
 
 set -e
 
-rm -f test*.img
+rm -f prep*.img
 
 # It would be nice if we could keep this automatically in sync
 # with the prepared disk types.  XXX
 $VG ./guestfish \
-    -N disk -N part -N fs \
-    -N lv:/dev/VG1/LV \
-    -N lvfs:/dev/VG2/LV \
-    -N bootroot \
-    -N bootrootlv:/dev/VG3/LV \
+    -N prep1.img=disk \
+    -N prep2.img=part \
+    -N prep3.img=fs \
+    -N prep4.img=lv:/dev/VG1/LV \
+    -N prep5.img=lvfs:/dev/VG2/LV \
+    -N prep6.img=bootroot \
+    -N prep7.img=bootrootlv:/dev/VG3/LV \
     exit
 
-rm test*.img
+rm prep*.img

@@ -128,7 +128,8 @@ usage (int status)
              "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
              "                       Mount dev on mnt (if omitted, /)\n"
              "  --network            Enable network\n"
-             "  -N|--new type        Create prepared disk (test1.img, ...)\n"
+             "  -N|--new [filename=]type\n"
+             "                       Create prepared disk (test<N>.img or filename)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  --pipe-error         Pipe commands can detect write errors\n"
              "  --progress-bars      Enable progress bars even when not interactive\n"
@@ -342,7 +343,9 @@ main (int argc, char *argv[])
       OPTION_n;
       break;
 
-    case 'N':
+    case 'N': {
+      char *p;
+
       if (STRCASEEQ (optarg, "list") ||
           STRCASEEQ (optarg, "help") ||
           STRCASEEQ (optarg, "h") ||
@@ -357,16 +360,30 @@ main (int argc, char *argv[])
       }
       drv->type = drv_N;
       drv->nr_drives = -1;
-      if (asprintf (&drv->N.filename, "test%d.img",
-                    next_prepared_drive++) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
+      p = strchr (optarg, '=');
+      if (p != NULL) {
+        *p = '\0';
+        p = p+1;
+        drv->N.filename = strdup (optarg);
+        if (drv->N.filename == NULL) {
+          perror ("strdup");
+          exit (EXIT_FAILURE);
+        }
+      } else {
+        if (asprintf (&drv->N.filename, "test%d.img",
+                      next_prepared_drive) == -1) {
+          perror ("asprintf");
+          exit (EXIT_FAILURE);
+        }
+        p = optarg;
       }
-      drv->N.data = create_prepared_file (optarg, drv->N.filename);
+      drv->N.data = create_prepared_file (p, drv->N.filename);
       drv->N.data_free = free_prep_data;
       drv->next = drvs;
       drvs = drv;
+      next_prepared_drive++;
       break;
+    }
 
     case 'r':
       OPTION_r;
