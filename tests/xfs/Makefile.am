@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009-2013 Red Hat Inc.
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
-	test-btrfs-misc.pl \
-	test-btrfs-devices.sh \
-	test-btrfs-subvolume-default.pl
+	test-xfs-misc.pl
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 

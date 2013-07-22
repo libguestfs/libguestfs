@@ -27,8 +27,10 @@
 #include "actions.h"
 #include "optgroups.h"
 
+GUESTFSD_EXT_CMD(str_btrfs, btrfs);
 GUESTFSD_EXT_CMD(str_e2label, e2label);
 GUESTFSD_EXT_CMD(str_ntfslabel, ntfslabel);
+GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
 
 static int
 e2label (const char *device, const char *label)
@@ -70,6 +72,45 @@ ntfslabel (const char *device, const char *label)
   return 0;
 }
 
+static int
+xfslabel (const char *device, const char *label)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  /* Don't allow the special value "---".  If people want to clear
+   * the label we'll have to add another call to do that.
+   */
+  if (STREQ (label, "---")) {
+    reply_with_error ("xfs: invalid new label");
+    return -1;
+  }
+
+  r = command (NULL, &err, str_xfs_admin, "-L", label, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}
+
+static int
+btrfslabel (const char *device, const char *label)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  r = command (NULL, &err, str_btrfs, "filesystem", "label",
+               device, label, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}
+
 int
 do_set_label (const mountable_t *mountable, const char *label)
 {
@@ -85,6 +126,12 @@ do_set_label (const mountable_t *mountable, const char *label)
 
   else if (STREQ (vfs_type, "ntfs"))
     r = ntfslabel (mountable->device, label);
+
+  else if (STREQ (vfs_type, "xfs"))
+    r = xfslabel (mountable->device, label);
+
+  else if (STREQ (vfs_type, "btrfs"))
+    r = btrfslabel (mountable->device, label);
 
   else {
     reply_with_error ("don't know how to set the label for '%s' filesystems",

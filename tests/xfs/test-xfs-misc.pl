@@ -1,5 +1,6 @@
+#!/usr/bin/perl
 # libguestfs
-# Copyright (C) 2009-2013 Red Hat Inc.
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,14 +16,35 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-include $(top_srcdir)/subdir-rules.mk
+# Miscellaneous xfs features.
 
-TESTS = \
-	test-btrfs-misc.pl \
-	test-btrfs-devices.sh \
-	test-btrfs-subvolume-default.pl
+use strict;
+use warnings;
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
+use Sys::Guestfs;
 
-EXTRA_DIST = \
-	$(TESTS)
+exit 77 if $ENV{SKIP_TEST_XFS_MISC_PL};
+
+my $g = Sys::Guestfs->new ();
+
+$g->add_drive_scratch (1024*1024*1024);
+$g->launch ();
+
+# If xfs is not available, bail.
+unless ($g->feature_available (["xfs"])) {
+    warn "$0: skipping test because xfs is not available\n";
+    exit 77;
+}
+
+$g->part_disk ("/dev/sda", "mbr");
+
+$g->mkfs ("xfs", "/dev/sda1");
+
+# Setting label.
+$g->set_label ("/dev/sda1", "newlabel");
+my $label = $g->vfs_label ("/dev/sda1");
+die "unexpected label: expecting 'newlabel' but got '$label'"
+    unless $label eq "newlabel";
+
+$g->shutdown ();
+$g->close ();
