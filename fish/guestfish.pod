@@ -1074,8 +1074,8 @@ Note that the prepared filesystem is not mounted.  You would usually
 have to use the C<mount /dev/sda1 /> command or add the
 I<-m /dev/sda1> option.
 
-If any I<-N> or I<--new> options are given, the guest is automatically
-launched.
+If any I<-N> or I<--new> options are given, the libguestfs appliance
+is automatically launched.
 
 =head2 EXAMPLES
 
