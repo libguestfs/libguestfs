@@ -29,7 +29,7 @@
 
 GUESTFSD_EXT_CMD(str_blkid, blkid);
 
-static char *
+char *
 get_blkid_tag (const char *device, const char *tag)
 {
   char *out;

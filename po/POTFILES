@@ -92,6 +92,7 @@ daemon/umask.c
 daemon/upload.c
 daemon/utimens.c
 daemon/utsname.c
+daemon/uuids.c
 daemon/wc.c
 daemon/xattr.c
 daemon/xfs.c

@@ -4742,6 +4742,7 @@ C<device>." };
     name = "set_e2uuid";
     style = RErr, [Device "device"; String "uuid"], [];
     proc_nr = Some 82;
+    deprecated_by = Some "set_uuid";
     tests =
       (let uuid = uuidgen () in [
         InitBasicFS, Always, TestResultString (
@@ -4764,8 +4765,8 @@ C<device> to C<uuid>.  The format of the UUID and alternatives
 such as C<clear>, C<random> and C<time> are described in the
 L<tune2fs(8)> manpage.
 
-You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2uuid>
-to return the existing UUID of a filesystem." };
+You can use C<guestfs_vfs_uuid> to return the existing UUID
+of a filesystem." };
 
   { defaults with
     name = "get_e2uuid";
@@ -11299,6 +11300,24 @@ Most users should use C<guestfs_cp_a> instead.  This command
 is useful when you don't want to preserve permissions, because
 the target filesystem does not support it (primarily when
 writing to DOS FAT filesystems)." };
+
+  { defaults with
+    name = "set_uuid";
+    style = RErr, [Device "device"; String "uuid"], [];
+    proc_nr = Some 403;
+    tests =
+      (let uuid = uuidgen () in [
+        InitBasicFS, Always, TestResultString (
+          [["set_uuid"; "/dev/sda1"; uuid];
+           ["vfs_uuid"; "/dev/sda1"]], uuid), [];
+      ]);
+    shortdesc = "set the filesystem UUID";
+    longdesc = "\
+Set the filesystem UIUD on C<device> to C<label>.
+
+Only some filesystem types support setting UUIDs.
+
+To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
 
 ]
 

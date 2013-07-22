@@ -46,5 +46,12 @@ my $label = $g->vfs_label ("/dev/sda1");
 die "unexpected label: expecting 'newlabel' but got '$label'"
     unless $label eq "newlabel";
 
+# Setting UUID.
+my $newuuid = "01234567-0123-0123-0123-0123456789ab";
+$g->set_uuid ("/dev/sda1", $newuuid);
+my $uuid = $g->vfs_uuid ("/dev/sda1");
+die "unexpected UUID: expecting '$newuuid' but got '$uuid'"
+    unless $uuid eq $newuuid;
+
 $g->shutdown ();
 $g->close ();

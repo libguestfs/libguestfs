@@ -168,6 +168,7 @@ guestfsd_SOURCES = \
 	upload.c \
 	utimens.c \
 	utsname.c \
+	uuids.c \
 	wc.c \
 	xattr.c \
 	xfs.c \
