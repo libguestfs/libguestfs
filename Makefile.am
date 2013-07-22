@@ -49,6 +49,7 @@ SUBDIRS += tests/md
 SUBDIRS += tests/selinux
 SUBDIRS += tests/ntfsclone
 SUBDIRS += tests/btrfs
+SUBDIRS += tests/xfs
 SUBDIRS += tests/charsets
 SUBDIRS += tests/xml
 SUBDIRS += tests/mount-local

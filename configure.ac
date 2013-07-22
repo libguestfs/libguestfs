@@ -1654,6 +1654,7 @@ AC_CONFIG_FILES([Makefile
                  tests/selinux/Makefile
                  tests/syslinux/Makefile
                  tests/tmpdirs/Makefile
+                 tests/xfs/Makefile
                  tests/xml/Makefile
                  tools/Makefile])
 AC_OUTPUT
