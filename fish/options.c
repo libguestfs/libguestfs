@@ -367,13 +367,10 @@ add_drives (struct drv *drv, char next_drive)
 
 #if COMPILING_GUESTFISH
     case drv_N:
-      /* guestfs_add_drive (ie. autodetecting) should be safe here
-       * since we have just created the prepared disk.  At the moment
-       * it will always be "raw" but in a theoretical future we might
-       * create other formats.
-       */
       /* -N option is not affected by --ro */
-      r = guestfs_add_drive (g, drv->N.filename);
+      r = guestfs_add_drive_opts (g, drv->N.filename,
+                                  GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                                  -1);
       if (r == -1)
         exit (EXIT_FAILURE);
 
