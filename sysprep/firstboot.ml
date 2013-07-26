@@ -111,11 +111,11 @@ and install_sysvinit_redhat g =
   g#mkdir_p "/etc/rc.d/rc3.d";
   g#mkdir_p "/etc/rc.d/rc5.d";
   g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/rc.d/rc2.d/99virt-sysprep-firstboot";
+    "/etc/rc.d/rc2.d/S99virt-sysprep-firstboot";
   g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/rc.d/rc3.d/99virt-sysprep-firstboot";
+    "/etc/rc.d/rc3.d/S99virt-sysprep-firstboot";
   g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/rc.d/rc5.d/99virt-sysprep-firstboot"
+    "/etc/rc.d/rc5.d/S99virt-sysprep-firstboot"
 
 (* Make firstboot.sh look like a runlevel script to avoid insserv warnings. *)
 and install_sysvinit_suse g =
