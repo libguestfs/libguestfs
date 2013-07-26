@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-06-14 16:34+0100\n"
+"POT-Creation-Date: 2013-07-26 18:00+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: align/domains.c:348 align/scan.c:119 cat/virt-cat.c:114
 #: cat/virt-filesystems.c:187 cat/virt-ls.c:179 df/domains.c:428 df/main.c:128
-#: edit/virt-edit.c:134 fish/fish.c:231 format/format.c:127
+#: edit/virt-edit.c:134 fish/fish.c:232 format/format.c:127
 #: fuse/guestmount.c:204 inspector/virt-inspector.c:126
 #: rescue/virt-rescue.c:134
 #, c-format
@@ -104,7 +104,7 @@ msgstr ""
 "For more information, see the manpage %s(1).\n"
 
 #: align/scan.c:137 cat/virt-cat.c:134 cat/virt-filesystems.c:239
-#: cat/virt-ls.c:227 df/main.c:150 edit/virt-edit.c:154 fish/fish.c:285
+#: cat/virt-ls.c:227 df/main.c:150 edit/virt-edit.c:154 fish/fish.c:286
 #: format/format.c:177 fuse/guestmount.c:235 inspector/virt-inspector.c:148
 #: rescue/virt-rescue.c:189
 #, c-format
@@ -168,7 +168,7 @@ msgstr ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1)।\n"
 
-#: cat/virt-cat.c:350 edit/virt-edit.c:634 fish/fish.c:1680
+#: cat/virt-cat.c:350 edit/virt-edit.c:634 fish/fish.c:1681
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2767,7 +2767,8 @@ msgid ""
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --listen             Listen for remote commands\n"
 "  --live               Connect to a live virtual machine\n"
-"  -m|--mount dev[:mnt[:opts[:fstype]]] Mount dev on mnt (if omitted, /)\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
 "  --network            Enable network\n"
 "  -N|--new type        Create prepared disk (test1.img, ...)\n"
 "  -n|--no-sync         Don't autosync\n"
@@ -2793,38 +2794,38 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:246
+#: fish/fish.c:247
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ਇੱਕ ਨੰਬਰ ਨਹੀਂ ਸੀ: %s\n"
 
-#: fish/fish.c:253
+#: fish/fish.c:254
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID ਦਾ ਮੁੱਲ ਰਿਮੋਟ ਕਾਰਜ ਦਾ PID ਹੋਣਾ ਜਰੂਰੀ ਹੈ\n"
 
-#: fish/fish.c:309
+#: fish/fish.c:310
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: only one -f parameter can be given\n"
 
-#: fish/fish.c:481
+#: fish/fish.c:482
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: cannot use --listen and --remote options at the same time\n"
 
-#: fish/fish.c:489
+#: fish/fish.c:490
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters on the command line with --listen flag\n"
 
-#: fish/fish.c:495
+#: fish/fish.c:496
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: cannot use --listen and --file options at the same time\n"
 
-#: fish/fish.c:657
+#: fish/fish.c:658
 #, c-format
 msgid ""
 "\n"
@@ -2845,50 +2846,50 @@ msgstr ""
 "      'quit' to quit the shell\n"
 "\n"
 
-#: fish/fish.c:808 fish/fish.c:824
+#: fish/fish.c:809 fish/fish.c:825
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ਕਮਾਂਡ ਆਰਗੂਮੈਂਟ ਸਪੇਸ ਨਾਲ ਵੱਖ ਨਹੀਂ ਕੀਤਾ\n"
 
-#: fish/fish.c:818
+#: fish/fish.c:819
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: unterminated single quote\n"
 
-#: fish/fish.c:848
+#: fish/fish.c:849
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: internal error parsing string at '%s'\n"
 
-#: fish/fish.c:865
+#: fish/fish.c:866
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ਆਰਗੂਮੈਂਟ ਜਿਆਦਾ ਹਨ\n"
 
-#: fish/fish.c:940
+#: fish/fish.c:941
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:949
+#: fish/fish.c:950
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: unterminated double quote\n"
 
-#: fish/fish.c:1012
+#: fish/fish.c:1013
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ਕਮਾਂਡ ਲਾਈਨ ਤੇ ਖਾਲੀ ਕਮਾਂਡ\n"
 
-#: fish/fish.c:1170
+#: fish/fish.c:1171
 msgid "display a list of commands or help on a command"
 msgstr "ਕਮਾਂਡਾਂ ਦੀ ਸੂਚੀ ਜਾਂ ਕਮਾਂਡ ਬਾਰੇ ਸਹਾਇਤਾ ਵੇਖਾਓ"
 
-#: fish/fish.c:1172
+#: fish/fish.c:1173
 msgid "quit guestfish"
 msgstr "quit guestfish"
 
-#: fish/fish.c:1183
+#: fish/fish.c:1184
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2899,7 +2900,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1191
+#: fish/fish.c:1192
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2908,12 +2909,12 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1196
+#: fish/fish.c:1197
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: command not known, use -h to list all commands\n"
 
-#: fish/fish.c:1212
+#: fish/fish.c:1213
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2924,31 +2925,31 @@ msgstr ""
 "ਕਮਾਂਡਾਂ ਦੀ ਸੂਚੀ ਲਈ:             guestfish -h\n"
 "ਮੁਕੰਮਲ ਦਸਤਾਵੇਜੀ ਲਈ:         man guestfish\n"
 
-#: fish/fish.c:1221
+#: fish/fish.c:1222
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1357
+#: fish/fish.c:1358
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ਸਤਰ \"%s\" ਵਿੱਚ ਗਲਤ ਸ਼ਬਦਾਵਲੀ ਹੈ\n"
 
-#: fish/fish.c:1674
+#: fish/fish.c:1675
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1694
+#: fish/fish.c:1695
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1713
+#: fish/fish.c:1714
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3106,19 +3107,19 @@ msgstr "ਫਾਇਲ ਪੇਜ਼ ਕਰਨ ਲਈ '%s filename' ਵਰਤੋ\n"
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: ਕਮਾਂਡ ਲਾਈਨ ਤੇ ਬਹੁਤ ਸਾਰੀਆਂ ਡਰਾਈਵਾਂ ਜੋੜੀਆਂ ਗਈਆਂ ਹਨ\n"
 
-#: fish/options.c:154
+#: fish/options.c:151
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr ""
 
-#: fish/options.c:158
+#: fish/options.c:155
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
 
-#: fish/options.c:162
+#: fish/options.c:159
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
@@ -3762,24 +3763,24 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: src/appliance.c:216
+#: src/appliance.c:228
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:367
+#: src/appliance.c:378
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "ਸੁਰੱਖਿਆ: ਕੈਸ਼ ਜੰਤਰ %s ਨੂੰ UID %d ਦੁਆਰਾ ਨਹੀਂ ਰੋਕਿਆ ਹੈ"
 
-#: src/appliance.c:372
+#: src/appliance.c:383
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "security: cached appliance %s is not a directory (mode %o)"
 
-#: src/appliance.c:377
+#: src/appliance.c:388
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr "ਸੁਰੱਖਿਆ: ਕੈਸ਼ ਜੰਤਰ %s ਗਰੁੱਪ ਜਾਂ ਹੋਰ (mode %o) ਦੁਆਰਾ ਲਿਖਣਯੋਗ ਹੈ"
@@ -3947,7 +3948,7 @@ msgstr ""
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: src/fuse.c:1480
+#: src/fuse.c:1481
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -4020,21 +4021,21 @@ msgstr ""
 "%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ "
 "guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
 
-#: src/launch-appliance.c:132
+#: src/launch-appliance.c:133
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-appliance.c:151
+#: src/launch-appliance.c:152
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-appliance.c:182
+#: src/launch-appliance.c:184
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch-appliance.c:672 src/launch-libvirt.c:453
+#: src/launch-appliance.c:671 src/launch-libvirt.c:453
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
@@ -4665,21 +4666,21 @@ msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਡਾਊਨਲੋ
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: ਰਜਿਸਟਰੀ ਫਾਇਲ ਨੂੰ ਅੱਪਲੋਡ ਨਹੀਂ ਕਰ ਸਕਦਾ: {err}\n"
 
-#: ../resize/resize.ml:791
+#: ../resize/resize.ml:816
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:776 ../resize/resize.ml:757
+#: ../resize/resize.ml:801 ../resize/resize.ml:782
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:793
+#: ../resize/resize.ml:818
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:795
+#: ../resize/resize.ml:820
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -4710,13 +4711,13 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:773
+#: ../resize/resize.ml:798
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
 #: ../resize/resize.ml:603
 msgid ""
-"%s: This partition has contains a %s filesystem which will be damaged by "
+"%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
 "want to shrink this partition, you need to use the '--resize-force' option, "
 "but that could destroy any data on this partition.  (This error came from "
@@ -4725,11 +4726,11 @@ msgstr ""
 
 #: ../resize/resize.ml:599
 msgid ""
-"%s: This partition has contains an LVM physical volume which will be damaged "
-"by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-"you want to shrink this partition, you need to use the '--resize-force' "
-"option, but that could destroy any data on this partition.  (This error came "
-"from '%s' option on the command line.)"
+"%s: This partition contains an LVM physical volume which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
 msgstr ""
 
 #: ../resize/resize.ml:596
@@ -4740,21 +4741,21 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:750
+#: ../resize/resize.ml:775
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:752
+#: ../resize/resize.ml:777
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:748
+#: ../resize/resize.ml:773
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:754
+#: ../resize/resize.ml:779
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
@@ -4766,7 +4767,7 @@ msgstr ""
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: ../resize/resize.ml:730
+#: ../resize/resize.ml:755
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -4931,7 +4932,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1032
+#: ../resize/resize.ml:1065
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -5031,19 +5032,19 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1179
+#: ../resize/resize.ml:1212
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1162
+#: ../resize/resize.ml:1195
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:850
+#: ../resize/resize.ml:875
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -5063,7 +5064,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1088
+#: ../resize/resize.ml:1121
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -5329,7 +5330,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../resize/resize.ml:1199
+#: ../resize/resize.ml:1232
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -5379,7 +5380,7 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../resize/resize.ml:829
+#: ../resize/resize.ml:854
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -5477,13 +5478,13 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../resize/resize.ml:714
+#: ../resize/resize.ml:739
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../resize/resize.ml:788
+#: ../resize/resize.ml:813
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -5511,13 +5512,13 @@ msgid ""
 "See L</RANDOM SEED> below."
 msgstr ""
 
-#: ../resize/resize.ml:685
+#: ../resize/resize.ml:710
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:697
+#: ../resize/resize.ml:722
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -5644,7 +5645,7 @@ msgstr ""
 msgid "part=size"
 msgstr ""
 
-#: ../resize/resize.ml:887 ../resize/resize.ml:863
+#: ../resize/resize.ml:912 ../resize/resize.ml:888
 msgid "pread-device: short read"
 msgstr ""
 
@@ -5778,14 +5779,14 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1085
+#: ../resize/resize.ml:1118
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:673
+#: ../resize/resize.ml:698
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 

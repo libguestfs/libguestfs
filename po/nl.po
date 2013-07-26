@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-06-14 16:34+0100\n"
+"POT-Creation-Date: 2013-07-26 18:00+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -56,7 +56,7 @@ msgstr "%s: analyseren van een schijf mislukte, zie fout(en) hierboven\n"
 
 #: align/domains.c:348 align/scan.c:119 cat/virt-cat.c:114
 #: cat/virt-filesystems.c:187 cat/virt-ls.c:179 df/domains.c:428 df/main.c:128
-#: edit/virt-edit.c:134 fish/fish.c:231 format/format.c:127
+#: edit/virt-edit.c:134 fish/fish.c:232 format/format.c:127
 #: fuse/guestmount.c:204 inspector/virt-inspector.c:126
 #: rescue/virt-rescue.c:134
 #, c-format
@@ -108,7 +108,7 @@ msgstr ""
 "Voor meer informatie, zie de manpagina %s(1).\n"
 
 #: align/scan.c:137 cat/virt-cat.c:134 cat/virt-filesystems.c:239
-#: cat/virt-ls.c:227 df/main.c:150 edit/virt-edit.c:154 fish/fish.c:285
+#: cat/virt-ls.c:227 df/main.c:150 edit/virt-edit.c:154 fish/fish.c:286
 #: format/format.c:177 fuse/guestmount.c:235 inspector/virt-inspector.c:148
 #: rescue/virt-rescue.c:189
 #, c-format
@@ -172,7 +172,7 @@ msgstr ""
 "  -x                   Trace libguestfs API calls\n"
 "Voor meer informatie, zie de manpagina %s(1).\n"
 
-#: cat/virt-cat.c:350 edit/virt-edit.c:634 fish/fish.c:1680
+#: cat/virt-cat.c:350 edit/virt-edit.c:634 fish/fish.c:1681
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -2842,7 +2842,8 @@ msgid ""
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --listen             Listen for remote commands\n"
 "  --live               Connect to a live virtual machine\n"
-"  -m|--mount dev[:mnt[:opts[:fstype]]] Mount dev on mnt (if omitted, /)\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
 "  --network            Enable network\n"
 "  -N|--new type        Create prepared disk (test1.img, ...)\n"
 "  -n|--no-sync         Don't autosync\n"
@@ -2868,12 +2869,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:246
+#: fish/fish.c:247
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID was geen getal: %s\n"
 
-#: fish/fish.c:253
+#: fish/fish.c:254
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
@@ -2881,30 +2882,30 @@ msgstr ""
 "%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op "
 "afstand\n"
 
-#: fish/fish.c:309
+#: fish/fish.c:310
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: er kan slechts een -f parameter opgegeven worden\n"
 
-#: fish/fish.c:481
+#: fish/fish.c:482
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: de --listen en --remote opties kunnen niet tegelijkertijd gebruikt "
 "worden\n"
 
-#: fish/fish.c:489
+#: fish/fish.c:490
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters op de commando regel met --listen vlag\n"
 
-#: fish/fish.c:495
+#: fish/fish.c:496
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
 
-#: fish/fish.c:657
+#: fish/fish.c:658
 #, c-format
 msgid ""
 "\n"
@@ -2925,50 +2926,50 @@ msgstr ""
 "      'quit' om de shell af te sluiten\n"
 "\n"
 
-#: fish/fish.c:808 fish/fish.c:824
+#: fish/fish.c:809 fish/fish.c:825
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: commando argumenten niet gescheiden door spaties\n"
 
-#: fish/fish.c:818
+#: fish/fish.c:819
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niet afgesloten enkel aanhalingsteken\n"
 
-#: fish/fish.c:848
+#: fish/fish.c:849
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: interne fout bij ontleden van tekenreeks op '%s'\n"
 
-#: fish/fish.c:865
+#: fish/fish.c:866
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: teveel argumenten\n"
 
-#: fish/fish.c:940
+#: fish/fish.c:941
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr "%s: ongeldige escape volgorde in string (begint bij offset %d)\n"
 
-#: fish/fish.c:949
+#: fish/fish.c:950
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niet afgesloten dubbel aanhalingsteken\n"
 
-#: fish/fish.c:1012
+#: fish/fish.c:1013
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: leeg commando op commando regel\n"
 
-#: fish/fish.c:1170
+#: fish/fish.c:1171
 msgid "display a list of commands or help on a command"
 msgstr "laat een lijst van commando's of hulp over een commando zien"
 
-#: fish/fish.c:1172
+#: fish/fish.c:1173
 msgid "quit guestfish"
 msgstr "sluit guestfish af"
 
-#: fish/fish.c:1183
+#: fish/fish.c:1184
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -2979,7 +2980,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1191
+#: fish/fish.c:1192
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -2988,12 +2989,12 @@ msgstr ""
 "quit - sluit guestfish af\n"
 "     quit\n"
 
-#: fish/fish.c:1196
+#: fish/fish.c:1197
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: commando niet bekend, gebruik -h om alle commando's te tonen\n"
 
-#: fish/fish.c:1212
+#: fish/fish.c:1213
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -3004,17 +3005,17 @@ msgstr ""
 "Voor een lijst commando's:         guestfish -h\n"
 "Voor complete documentatie:        man guestfish\n"
 
-#: fish/fish.c:1221
+#: fish/fish.c:1222
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: fout: %s\n"
 
-#: fish/fish.c:1357
+#: fish/fish.c:1358
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Los aanhalingsteken in tekenreeks \"%s\"\n"
 
-#: fish/fish.c:1674
+#: fish/fish.c:1675
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -3023,7 +3024,7 @@ msgstr ""
 "%s: om Windows station letters te gebruiken, moet je de gast inspecteren (\"-"
 "i\" optie of draai het \"inspect-os\" commando)\n"
 
-#: fish/fish.c:1694
+#: fish/fish.c:1695
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -3033,7 +3034,7 @@ msgstr ""
 "je uit:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1713
+#: fish/fish.c:1714
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3233,12 +3234,12 @@ msgstr "gebruik '%s bestandsnaam' voor het pagen van een bestand\n"
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: te veel apparaten toegevoegd op de commando-regel\n"
 
-#: fish/options.c:154
+#: fish/options.c:151
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: '%s' kon niet aangekoppeld worden.\n"
 
-#: fish/options.c:158
+#: fish/options.c:155
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -3247,7 +3248,7 @@ msgstr ""
 "%s: Check mount(8) man pagina om er zeker van te zijn dat opties '%s'\n"
 "%s: ondersteund worden door het bestandssysteem dat aangekoppeld wordt.\n"
 
-#: fish/options.c:162
+#: fish/options.c:159
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
@@ -3987,7 +3988,7 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr "# %s heeft type '%s'\n"
 
-#: src/appliance.c:216
+#: src/appliance.c:228
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -3996,17 +3997,17 @@ msgstr ""
 "kan geen geschikte libguestfs supermin vinden, fixed of oude-stijl "
 "toepassing op LIBGUESTFS_PATH (zoek pad: %s)"
 
-#: src/appliance.c:367
+#: src/appliance.c:378
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "beveiliging: UID %2$d is geen eigenaar van toepassing %1$s in cache"
 
-#: src/appliance.c:372
+#: src/appliance.c:383
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "beveiliging: toepassing %s in cache is geen map (mode %o)"
 
-#: src/appliance.c:377
+#: src/appliance.c:388
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -4180,7 +4181,7 @@ msgstr ""
 msgid "could not initialize dir cache hashtables"
 msgstr "kon map cache hashtabellen niet initialiseren"
 
-#: src/fuse.c:1480
+#: src/fuse.c:1481
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -4253,22 +4254,22 @@ msgstr ""
 "%s: root apparaat niet gevonden: roep deze functie alleen aan met een root "
 "apparaat eerder teruggegeven door guestfs_inspect_os"
 
-#: src/launch-appliance.c:132
+#: src/launch-appliance.c:133
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 "niet afgesloten aanhalingsteken (%c) in commandoregel in de buurt van: %s"
 
-#: src/launch-appliance.c:151
+#: src/launch-appliance.c:152
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr "kan string in aanhalingstekens in de buurt van: %s niet ontleden"
 
-#: src/launch-appliance.c:182
+#: src/launch-appliance.c:184
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-appliance.c:672 src/launch-libvirt.c:453
+#: src/launch-appliance.c:671 src/launch-libvirt.c:453
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
@@ -4930,15 +4931,15 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
 
-#: ../resize/resize.ml:791
+#: ../resize/resize.ml:816
 msgid "  An extra partition will be created for the surplus."
 msgstr "  Voor de surplus zal een extra partitie aangemaakt worden."
 
-#: ../resize/resize.ml:776 ../resize/resize.ml:757
+#: ../resize/resize.ml:801 ../resize/resize.ml:782
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "  De %s op %s zal geëxpandeerd worden met de '%s' methode."
 
-#: ../resize/resize.ml:793
+#: ../resize/resize.ml:818
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -4946,7 +4947,7 @@ msgstr ""
 "De surplus ruimte is niet groot genoeg om een extra partitie aan te maken en "
 "wordt daarom genegeerd."
 
-#: ../resize/resize.ml:795
+#: ../resize/resize.ml:820
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -4984,37 +4985,27 @@ msgstr ""
 "deze partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
 "commandoregel.)"
 
-#: ../resize/resize.ml:773
+#: ../resize/resize.ml:798
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: Dit logische volume zal vergroot worden tot de maximale grootte."
 
 #: ../resize/resize.ml:603
 msgid ""
-"%s: This partition has contains a %s filesystem which will be damaged by "
+"%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
 "want to shrink this partition, you need to use the '--resize-force' option, "
 "but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
-"%s: Deze partitie bevat een %s bestandssysteem welke beschadigd zal worden "
-"als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg verkleinen "
-"tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet je de '--"
-"resize-force' optie gebruiken, maar deze kan data op deze partitie "
-"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:599
 msgid ""
-"%s: This partition has contains an LVM physical volume which will be damaged "
-"by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
-"you want to shrink this partition, you need to use the '--resize-force' "
-"option, but that could destroy any data on this partition.  (This error came "
-"from '%s' option on the command line.)"
+"%s: This partition contains an LVM physical volume which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
 msgstr ""
-"%s: Deze partitie bevat een LVM fysieke volume welke beschadigd zal worden "
-"als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg verkleinen "
-"tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet je de '--"
-"resize-force' optie gebruiken, maar deze kan data op deze partitie "
-"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:596
 msgid ""
@@ -5028,7 +5019,7 @@ msgstr ""
 "resize-force' optie gebruiken, maar deze kan data op deze partitie "
 "vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
-#: ../resize/resize.ml:750
+#: ../resize/resize.ml:775
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -5036,15 +5027,15 @@ msgstr ""
 "%s: Deze partitie zal aangemaakt worden, maar de inhoud zal genegeerd worden "
 "(bijv. niet gekopieerd naar het doel)."
 
-#: ../resize/resize.ml:752
+#: ../resize/resize.ml:777
 msgid "%s: This partition will be deleted."
 msgstr "%s: Deze partitie zal verwijderd worden."
 
-#: ../resize/resize.ml:748
+#: ../resize/resize.ml:773
 msgid "%s: This partition will be left alone."
 msgstr "%s: Deze partitie wordt met rust gelaten."
 
-#: ../resize/resize.ml:754
+#: ../resize/resize.ml:779
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: De grootte van deze partitie wordt veranderd van %s naar %s."
 
@@ -5056,7 +5047,7 @@ msgstr "%s: lege --expand optie"
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: bestand is te klein om een schijf image te zijn (%Ld bytes)"
 
-#: ../resize/resize.ml:730
+#: ../resize/resize.ml:755
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -5259,7 +5250,7 @@ msgstr ""
 "Kopieer naar doel en maakt het sparse ...\n"
 "%!"
 
-#: ../resize/resize.ml:1032
+#: ../resize/resize.ml:1065
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -5369,7 +5360,7 @@ msgstr "Expandeer logische volume"
 msgid "Expand partition"
 msgstr "Expandeer partitie"
 
-#: ../resize/resize.ml:1179
+#: ../resize/resize.ml:1212
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
@@ -5377,7 +5368,7 @@ msgstr ""
 "%s wordt geëxpandeerd met de '%s' methode ...\n"
 "%!"
 
-#: ../resize/resize.ml:1162
+#: ../resize/resize.ml:1195
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -5385,7 +5376,7 @@ msgstr ""
 "%s%s wordt geëxpandeerd met de '%s' methode ...\n"
 "%!"
 
-#: ../resize/resize.ml:850
+#: ../resize/resize.ml:875
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -5414,7 +5405,7 @@ msgstr ""
 "Vul vrije ruimte in volgroep %s met nul in ...\n"
 "%!"
 
-#: ../resize/resize.ml:1088
+#: ../resize/resize.ml:1121
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -5708,7 +5699,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Verwijder at-jobs en cron-jobs van gebruiker"
 
-#: ../resize/resize.ml:1199
+#: ../resize/resize.ml:1232
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -5768,7 +5759,7 @@ msgstr "Stel libvirt gastnaam in"
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Stel partitie uitlijning in (standaard: 128 sectors)"
 
-#: ../resize/resize.ml:829
+#: ../resize/resize.ml:854
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -5890,7 +5881,7 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../resize/resize.ml:714
+#: ../resize/resize.ml:739
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -5899,7 +5890,7 @@ msgstr ""
 "die hoeveelheid groter maken of je verzoek om de grootte te veranderen "
 "aanpassen."
 
-#: ../resize/resize.ml:788
+#: ../resize/resize.ml:813
 msgid "There is a surplus of %s."
 msgstr "Er is een overschot van %s."
 
@@ -5943,7 +5934,7 @@ msgstr ""
 "\n"
 "Zie L</RANDOM SEED> hieronder."
 
-#: ../resize/resize.ml:685
+#: ../resize/resize.ml:710
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -5951,7 +5942,7 @@ msgstr ""
 "Je kunt --expand niet gebruiken als er geen surplus ruimte voor expansie "
 "is.  Je moet de doel schijf tenminste %s groter maken."
 
-#: ../resize/resize.ml:697
+#: ../resize/resize.ml:722
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -6089,7 +6080,7 @@ msgstr "part"
 msgid "part=size"
 msgstr "part=grootte"
 
-#: ../resize/resize.ml:887 ../resize/resize.ml:863
+#: ../resize/resize.ml:912 ../resize/resize.ml:888
 msgid "pread-device: short read"
 msgstr "pread-device: kort lezen"
 
@@ -6225,7 +6216,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1085
+#: ../resize/resize.ml:1118
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
@@ -6235,13 +6226,41 @@ msgstr ""
 "magic\n"
 "%!"
 
-#: ../resize/resize.ml:673
+#: ../resize/resize.ml:698
 msgid "you cannot use options --expand and --shrink together"
 msgstr "je kunt de opties --expand en --shrink niet tezamen gebruiken"
 
 #: ../sparsify/sparsify.ml:131 ../resize/resize.ml:196
 msgid "you cannot use the same disk image for input and output"
 msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
+
+#~ msgid ""
+#~ "%s: This partition has contains a %s filesystem which will be damaged by "
+#~ "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If "
+#~ "you want to shrink this partition, you need to use the '--resize-force' "
+#~ "option, but that could destroy any data on this partition.  (This error "
+#~ "came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "%s: Deze partitie bevat een %s bestandssysteem welke beschadigd zal "
+#~ "worden als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg "
+#~ "verkleinen tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet "
+#~ "je de '--resize-force' optie gebruiken, maar deze kan data op deze "
+#~ "partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
+#~ "commandoregel.)"
+
+#~ msgid ""
+#~ "%s: This partition has contains an LVM physical volume which will be "
+#~ "damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld "
+#~ "bytes).  If you want to shrink this partition, you need to use the '--"
+#~ "resize-force' option, but that could destroy any data on this partition.  "
+#~ "(This error came from '%s' option on the command line.)"
+#~ msgstr ""
+#~ "%s: Deze partitie bevat een LVM fysieke volume welke beschadigd zal "
+#~ "worden als het verkleind wordt tot minden dan %Ld bytes (gebruiker vroeg "
+#~ "verkleinen tot %Ld bytes).  Als je deze partitie wilt verkleinen dan moet "
+#~ "je de '--resize-force' optie gebruiken, maar deze kan data op deze "
+#~ "partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
+#~ "commandoregel.)"
 
 #~ msgid "FUSE not supported"
 #~ msgstr "FUSE wordt niet ondersteund"
