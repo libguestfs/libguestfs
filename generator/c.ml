@@ -1317,7 +1317,10 @@ and generate_client_actions hash () =
 
     handle_null_optargs optargs c_name;
 
-    (match args with
+    let args_passed_to_daemon =
+      List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
+        args in
+    (match args_passed_to_daemon with
     | [] -> ()
     | _ -> pr "  struct guestfs_%s_args args;\n" name
     );
@@ -1385,7 +1388,7 @@ and generate_client_actions hash () =
     pr "\n";
 
     (* Send the main header and arguments. *)
-    if args = [] && optargs = [] then (
+    if args_passed_to_daemon = [] && optargs = [] then (
       pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint, 0,\n"
         (String.uppercase name);
       pr "                           NULL, NULL);\n"
@@ -1407,7 +1410,6 @@ and generate_client_actions hash () =
           pr "  args.%s = %s;\n" n n
         | Int64 n ->
           pr "  args.%s = %s;\n" n n
-        | FileIn _ | FileOut _ -> ()
         | BufferIn n ->
           pr "  /* Just catch grossly large sizes. XDR encoding will make this precise. */\n";
           pr "  if (%s_size >= GUESTFS_MESSAGE_MAX) {\n" n;
@@ -1418,8 +1420,8 @@ and generate_client_actions hash () =
           pr "  }\n";
           pr "  args.%s.%s_val = (char *) %s;\n" n n n;
           pr "  args.%s.%s_len = %s_size;\n" n n n
-        | Pointer _ -> assert false
-      ) args;
+        | FileIn _ | FileOut _ | Pointer _ -> assert false
+      ) args_passed_to_daemon;
 
       List.iter (
         fun argt ->
