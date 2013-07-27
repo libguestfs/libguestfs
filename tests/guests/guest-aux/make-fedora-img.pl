@@ -202,6 +202,7 @@ $g->mkdir ('/etc');
 $g->mkdir ('/etc/sysconfig');
 $g->mkdir ('/usr');
 $g->mkdir_p ('/var/lib/rpm');
+$g->mkdir_p ('/var/log/journal');
 
 $g->write ('/etc/shadow', "root::15440:0:99999:7:::\n");
 $g->chmod (0, '/etc/shadow');
@@ -222,6 +223,8 @@ $g->upload ('guest-aux/fedora-name.db', '/var/lib/rpm/Name');
 $g->upload ('guest-aux/fedora-packages.db', '/var/lib/rpm/Packages');
 
 $g->upload ($ENV{SRCDIR}.'/../data/bin-x86_64-dynamic', '/bin/ls');
+
+$g->txz_in ('guest-aux/fedora-journal.tar.xz', '/var/log/journal');
 
 $g->mkdir ('/boot/grub');
 $g->touch ('/boot/grub/grub.conf');
