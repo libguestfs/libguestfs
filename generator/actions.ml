@@ -2969,6 +2969,28 @@ writing to it).  The drive is deleted when the handle is closed.
 The optional arguments C<name> and C<label> are passed through to
 C<guestfs_add_drive>." };
 
+  { defaults with
+    name = "journal_get";
+    style = RStructList ("fields", "xattr"), [], [];
+    optional = Some "journal";
+    shortdesc = "read the current journal entry";
+    longdesc = "\
+Read the current journal entry.  This returns all the fields
+in the journal as a set of C<(attrname, attrval)> pairs.  The
+C<attrname> is the field name (a string).
+
+The C<attrval> is the field value (a binary blob, often but
+not always a string).  Please note that C<attrval> is a byte
+array, I<not> a \\0-terminated C string.
+
+The length of data may be truncated to the data threshold
+(see: C<guestfs_journal_set_data_threshold>,
+C<guestfs_journal_get_data_threshold>).
+
+If you set the data threshold to unlimited (C<0>) then this call
+can read a journal entry of any size, ie. it is not limited by
+the libguestfs protocol." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -11356,6 +11378,100 @@ Set the filesystem UIUD on C<device> to C<label>.
 Only some filesystem types support setting UUIDs.
 
 To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
+
+  { defaults with
+    name = "journal_open";
+    style = RErr, [Pathname "directory"], [];
+    proc_nr = Some 404;
+    optional = Some "journal";
+    shortdesc = "open the systemd journal";
+    longdesc = "\
+Open the systemd journal located in C<directory>.  Any previously
+opened journal handle is closed.
+
+The contents of the journal can be read using C<guestfs_journal_next>
+and C<guestfs_journal_get>.
+
+After you have finished using the journal, you should close the
+handle by calling C<guestfs_journal_close>." };
+
+  { defaults with
+    name = "journal_close";
+    style = RErr, [], [];
+    proc_nr = Some 405;
+    optional = Some "journal";
+    shortdesc = "close the systemd journal";
+    longdesc = "\
+Close the journal handle." };
+
+  { defaults with
+    name = "journal_next";
+    style = RBool "more", [], [];
+    proc_nr = Some 406;
+    optional = Some "journal";
+    shortdesc = "move to the next journal entry";
+    longdesc = "\
+Move to the next journal entry.  You have to call this
+at least once after opening the handle before you are able
+to read data.
+
+The returned boolean tells you if there are any more journal
+records to read.  C<true> means you can read the next record
+(eg. using C<guestfs_journal_get_data>), and C<false> means you
+have reached the end of the journal." };
+
+  { defaults with
+    name = "journal_skip";
+    style = RInt64 "rskip", [Int64 "skip"], [];
+    proc_nr = Some 407;
+    optional = Some "journal";
+    shortdesc = "skip forwards or backwards in the journal";
+    longdesc = "\
+Skip forwards (C<skip E<ge> 0>) or backwards (C<skip E<lt> 0>) in the
+journal.
+
+The number of entries actually skipped is returned (note S<C<rskip E<ge> 0>>).
+If this is not the same as the absolute value of the skip parameter
+(C<|skip|>) you passed in then it means you have reached the end or
+the start of the journal." };
+
+  { defaults with
+    name = "internal_journal_get";
+    style = RErr, [FileOut "filename"], [];
+    proc_nr = Some 408;
+    visibility = VInternal;
+    optional = Some "journal";
+    shortdesc = "internal journal reading operation";
+    longdesc = "\
+This function is used internally when reading the journal." };
+
+  { defaults with
+    name = "journal_get_data_threshold";
+    style = RInt64 "threshold", [], [];
+    proc_nr = Some 409;
+    optional = Some "journal";
+    shortdesc = "get the data threshold for reading journal entries";
+    longdesc = "\
+Get the current data threshold for reading journal entries.
+This is a hint to the journal that it may truncate data fields to
+this size when reading them (note also that it may not truncate them).
+If this returns C<0>, then the threshold is unlimited.
+
+See also C<guestfs_journal_set_data_threshold>." };
+
+  { defaults with
+    name = "journal_set_data_threshold";
+    style = RErr, [Int64 "threshold"], [];
+    proc_nr = Some 410;
+    optional = Some "journal";
+    shortdesc = "set the data threshold for reading journal entries";
+    longdesc = "\
+Set the data threshold for reading journal entries.
+This is a hint to the journal that it may truncate data fields to
+this size when reading them (note also that it may not truncate them).
+If you set this to C<0>, then the threshold is unlimited.
+
+See also C<guestfs_journal_get_data_threshold>." };
 
 ]
 

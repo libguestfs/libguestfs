@@ -50,6 +50,7 @@ daemon/inotify.c
 daemon/internal.c
 daemon/is.c
 daemon/isoinfo.c
+daemon/journal.c
 daemon/labels.c
 daemon/ldm.c
 daemon/link.c
@@ -272,6 +273,7 @@ src/inspect-fs-windows.c
 src/inspect-fs.c
 src/inspect-icon.c
 src/inspect.c
+src/journal.c
 src/launch-direct.c
 src/launch-libvirt.c
 src/launch-unix.c

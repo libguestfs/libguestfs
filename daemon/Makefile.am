@@ -125,6 +125,7 @@ guestfsd_SOURCES = \
 	internal.c \
 	is.c \
 	isoinfo.c \
+	journal.c \
 	labels.c \
 	ldm.c \
 	link.c \
@@ -184,6 +185,7 @@ guestfsd_LDADD = \
 	$(SELINUX_LIB) \
 	$(AUGEAS_LIBS) \
 	$(HIVEX_LIBS) \
+	$(SD_JOURNAL_LIBS) \
 	$(top_builddir)/gnulib/lib/.libs/libgnu.a \
 	$(GETADDRINFO_LIB) \
 	$(HOSTENT_LIB) \
@@ -203,6 +205,7 @@ guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(AUGEAS_CFLAGS) \
 	$(HIVEX_CFLAGS) \
+	$(SD_JOURNAL_CFLAGS) \
 	$(YAJL_CFLAGS) \
 	$(PCRE_CFLAGS)
 

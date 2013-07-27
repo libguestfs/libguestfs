@@ -468,6 +468,14 @@ If you don't want to use Augeas (you fool!) then try calling
 L</guestfs_read_lines> to get the file as a list of lines which
 you can iterate over.
 
+=head2 SYSTEMD JOURNAL FILES
+
+To read the systemd journal from a Linux guest, use the
+C<guestfs_journal_*> APIs starting with L</guestfs_journal_open>.
+
+Consult the journal documentation here:
+L<sd-journal(3)>, L<sd_journal_open(3)>.
+
 =head2 SELINUX
 
 We support SELinux guests.  To ensure that labeling happens correctly
@@ -4563,6 +4571,7 @@ L<supermin-helper(8)>,
 L<qemu(1)>,
 L<hivex(3)>,
 L<stap(1)>,
+L<sd-journal(3)>,
 L<http://libguestfs.org/>.
 
 Tools with a similar purpose:
