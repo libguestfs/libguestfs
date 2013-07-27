@@ -92,7 +92,7 @@ let generate_xdr () =
   pr "/* Function arguments and return values. */\n";
   pr "\n";
   List.iter (
-    fun { name =shortname; style = ret, args, optargs } ->
+    fun { name = shortname; style = ret, args, optargs } ->
       let name = "guestfs_" ^ shortname in
 
       (* Ordinary arguments and optional arguments are concatenated
