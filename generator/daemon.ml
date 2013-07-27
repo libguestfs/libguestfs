@@ -56,7 +56,11 @@ let generate_daemon_actions_h () =
 
   List.iter (
     fun { name = name; style = ret, args, optargs } ->
-      let style = ret, args @ args_of_optargs optargs, [] in
+      let args_passed_to_daemon = args @ args_of_optargs optargs in
+      let args_passed_to_daemon =
+        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
+          args_passed_to_daemon in
+      let style = ret, args_passed_to_daemon, [] in
       generate_prototype
         ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
         name style;
@@ -107,7 +111,11 @@ and generate_daemon_actions () =
            pr "  char *r;\n"
       );
 
-      if args <> [] || optargs <> [] then (
+      let args_passed_to_daemon = args @ args_of_optargs optargs in
+      let args_passed_to_daemon =
+        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
+          args_passed_to_daemon in
+      if args_passed_to_daemon <> [] then (
         pr "  struct guestfs_%s_args args;\n" name;
         List.iter (
           function
@@ -120,12 +128,11 @@ and generate_daemon_actions () =
           | Bool n -> pr "  int %s;\n" n
           | Int n -> pr "  int %s;\n" n
           | Int64 n -> pr "  int64_t %s;\n" n
-          | FileIn _ | FileOut _ -> ()
           | BufferIn n ->
               pr "  const char *%s;\n" n;
               pr "  size_t %s_size;\n" n
-          | Pointer _ -> assert false
-        ) (args @ args_of_optargs optargs)
+          | FileIn _ | FileOut _ | Pointer _ -> assert false
+        ) args_passed_to_daemon
       );
       pr "\n";
 
@@ -175,7 +182,7 @@ and generate_daemon_actions () =
       pr "\n";
 
       (* Decode arguments. *)
-      if args <> [] || optargs <> [] then (
+      if args_passed_to_daemon <> [] then (
         pr "  memset (&args, 0, sizeof args);\n";
         pr "\n";
         pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
@@ -231,12 +238,11 @@ and generate_daemon_actions () =
           | Bool n -> pr "  %s = args.%s;\n" n n
           | Int n -> pr "  %s = args.%s;\n" n n
           | Int64 n -> pr "  %s = args.%s;\n" n n
-          | FileIn _ | FileOut _ -> ()
           | BufferIn n ->
               pr "  %s = args.%s.%s_val;\n" n n n;
               pr "  %s_size = args.%s.%s_len;\n" n n n
-          | Pointer _ -> assert false
-        ) (args @ args_of_optargs optargs);
+          | FileIn _ | FileOut _ | Pointer _ -> assert false
+        ) args_passed_to_daemon;
         pr "\n"
       );
 
@@ -341,7 +347,7 @@ and generate_daemon_actions () =
 
       (* Free the args. *)
       pr "done:\n";
-      (match args with
+      (match args_passed_to_daemon with
        | [] -> ()
        | _ ->
            pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
