@@ -2973,6 +2973,7 @@ C<guestfs_add_drive>." };
     name = "journal_get";
     style = RStructList ("fields", "xattr"), [], [];
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "read the current journal entry";
     longdesc = "\
 Read the current journal entry.  This returns all the fields
@@ -11384,6 +11385,7 @@ To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
     style = RErr, [Pathname "directory"], [];
     proc_nr = Some 404;
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "open the systemd journal";
     longdesc = "\
 Open the systemd journal located in C<directory>.  Any previously
@@ -11400,6 +11402,7 @@ handle by calling C<guestfs_journal_close>." };
     style = RErr, [], [];
     proc_nr = Some 405;
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "close the systemd journal";
     longdesc = "\
 Close the journal handle." };
@@ -11409,6 +11412,7 @@ Close the journal handle." };
     style = RBool "more", [], [];
     proc_nr = Some 406;
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "move to the next journal entry";
     longdesc = "\
 Move to the next journal entry.  You have to call this
@@ -11425,6 +11429,7 @@ have reached the end of the journal." };
     style = RInt64 "rskip", [Int64 "skip"], [];
     proc_nr = Some 407;
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "skip forwards or backwards in the journal";
     longdesc = "\
 Skip forwards (C<skip E<ge> 0>) or backwards (C<skip E<lt> 0>) in the
@@ -11441,6 +11446,7 @@ the start of the journal." };
     proc_nr = Some 408;
     visibility = VInternal;
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "internal journal reading operation";
     longdesc = "\
 This function is used internally when reading the journal." };
@@ -11450,6 +11456,7 @@ This function is used internally when reading the journal." };
     style = RInt64 "threshold", [], [];
     proc_nr = Some 409;
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "get the data threshold for reading journal entries";
     longdesc = "\
 Get the current data threshold for reading journal entries.
@@ -11464,6 +11471,7 @@ See also C<guestfs_journal_set_data_threshold>." };
     style = RErr, [Int64 "threshold"], [];
     proc_nr = Some 410;
     optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
     shortdesc = "set the data threshold for reading journal entries";
     longdesc = "\
 Set the data threshold for reading journal entries.
