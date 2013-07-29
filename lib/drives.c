@@ -166,34 +166,6 @@ create_drive_non_file (guestfs_h *g,
   return drv;
 }
 
-static struct drive *
-create_drive_curl (guestfs_h *g,
-                   const struct drive_create_data *data)
-{
-  if (data->nr_servers != 1) {
-    error (g, _("curl: you must specify exactly one server"));
-    return NULL;
-  }
-
-  if (data->servers[0].transport != drive_transport_none &&
-      data->servers[0].transport != drive_transport_tcp) {
-    error (g, _("curl: only tcp transport is supported"));
-    return NULL;
-  }
-
-  if (STREQ (data->exportname, "")) {
-    error (g, _("curl: pathname should not be an empty string"));
-    return NULL;
-  }
-
-  if (data->exportname[0] != '/') {
-    error (g, _("curl: pathname must begin with a '/'"));
-    return NULL;
-  }
-
-  return create_drive_non_file (g, data);
-}
-
 static int
 nbd_port (void)
 {
@@ -255,67 +227,6 @@ create_drive_rbd (guestfs_h *g,
 
   if (data->exportname[0] == '/') {
     error (g, _("rbd: image name must not begin with a '/'"));
-    return NULL;
-  }
-
-  return create_drive_non_file (g, data);
-}
-
-static struct drive *
-create_drive_ssh (guestfs_h *g,
-                  const struct drive_create_data *data)
-{
-  if (data->nr_servers != 1) {
-    error (g, _("ssh: you must specify exactly one server"));
-    return NULL;
-  }
-
-  if (data->servers[0].transport != drive_transport_none &&
-      data->servers[0].transport != drive_transport_tcp) {
-    error (g, _("ssh: only tcp transport is supported"));
-    return NULL;
-  }
-
-  if (STREQ (data->exportname, "")) {
-    error (g, _("ssh: pathname should not be an empty string"));
-    return NULL;
-  }
-
-  if (data->exportname[0] != '/') {
-    error (g, _("ssh: pathname must begin with a '/'"));
-    return NULL;
-  }
-
-  if (data->username && STREQ (data->username, "")) {
-    error (g, _("ssh: username should not be an empty string"));
-    return NULL;
-  }
-
-  return create_drive_non_file (g, data);
-}
-
-static struct drive *
-create_drive_iscsi (guestfs_h *g,
-                    const struct drive_create_data *data)
-{
-  if (data->nr_servers != 1) {
-    error (g, _("iscsi: you must specify exactly one server"));
-    return NULL;
-  }
-
-  if (data->servers[0].transport != drive_transport_none &&
-      data->servers[0].transport != drive_transport_tcp) {
-    error (g, _("iscsi: only tcp transport is supported"));
-    return NULL;
-  }
-
-  if (STREQ (data->exportname, "")) {
-    error (g, _("iscsi: target name should not be an empty string"));
-    return NULL;
-  }
-
-  if (data->exportname[0] == '/') {
-    error (g, _("iscsi: target string must not begin with a '/'"));
     return NULL;
   }
 
@@ -768,26 +679,6 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
       drv = create_drive_file (g, &data);
     }
   }
-  else if (STREQ (protocol, "ftp")) {
-    data.protocol = drive_protocol_ftp;
-    drv = create_drive_curl (g, &data);
-  }
-  else if (STREQ (protocol, "ftps")) {
-    data.protocol = drive_protocol_ftps;
-    drv = create_drive_curl (g, &data);
-  }
-  else if (STREQ (protocol, "http")) {
-    data.protocol = drive_protocol_http;
-    drv = create_drive_curl (g, &data);
-  }
-  else if (STREQ (protocol, "https")) {
-    data.protocol = drive_protocol_https;
-    drv = create_drive_curl (g, &data);
-  }
-  else if (STREQ (protocol, "iscsi")) {
-    data.protocol = drive_protocol_iscsi;
-    drv = create_drive_iscsi (g, &data);
-  }
   else if (STREQ (protocol, "nbd")) {
     data.protocol = drive_protocol_nbd;
     drv = create_drive_nbd (g, &data);
@@ -795,10 +686,6 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   else if (STREQ (protocol, "rbd")) {
     data.protocol = drive_protocol_rbd;
     drv = create_drive_rbd (g, &data);
-  }
-  else if (STREQ (protocol, "ssh")) {
-    data.protocol = drive_protocol_ssh;
-    drv = create_drive_ssh (g, &data);
   }
   else {
     error (g, _("unknown protocol ‘%s’"), protocol);
