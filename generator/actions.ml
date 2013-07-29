@@ -10529,7 +10529,9 @@ attached to directory C<dir>." };
     shortdesc = "get the Linux capabilities attached to a file";
     longdesc = "\
 This function returns the Linux capabilities attached to C<path>.
-The capabilities set is returned in text form (see L<cap_to_text(3)>)." };
+The capabilities set is returned in text form (see L<cap_to_text(3)>).
+
+If no capabilities are attached to a file, an empty string is returned." };
 
   { defaults with
     name = "cap_set_file";
