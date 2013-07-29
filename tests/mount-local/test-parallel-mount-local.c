@@ -120,6 +120,9 @@ main (int argc, char *argv[])
 
   for (i = 0; i < nr_threads; ++i) {
     /* Create a mount point for this thread to use. */
+    if (asprintf (&threads[i].mp, "mp%zu", i) == -1)
+      error (EXIT_FAILURE, errno, "asprintf");
+
     rmdir (threads[i].mp);
     if (mkdir (threads[i].mp, 0700) == -1) {
       cleanup_thread_state ();
