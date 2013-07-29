@@ -37,14 +37,6 @@ function fail ()
 $VG guestfish -x -a file://$(pwd)/test-add-uri.img </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive ".*/test-add-uri.img"' test-add-uri.out || fail
 
-# curl
-$VG guestfish -x -a ftp://user@example.com/disk.img </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/disk.img" "protocol:ftp" "server:tcp:example.com" "username:user"' test-add-uri.out || fail
-
-# gluster
-$VG guestfish -x -a gluster://example.com/disk </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "disk" "protocol:gluster" "server:tcp:example.com"' test-add-uri.out || fail
-
 # NBD
 $VG guestfish -x -a nbd://example.com </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive "" "protocol:nbd" "server:tcp:example.com"' test-add-uri.out || fail
@@ -63,30 +55,6 @@ $VG guestfish -x -a rbd://example.com:6789/pool/disk </dev/null >test-add-uri.ou
 grep -sq 'add_drive "pool/disk" "protocol:rbd" "server:tcp:example.com:6789"' test-add-uri.out || fail
 $VG guestfish -x -a rbd:///pool/disk </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive "pool/disk" "protocol:rbd"' test-add-uri.out || fail
-
-# sheepdog
-$VG guestfish -x -a sheepdog:///volume/image </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "volume/image" "protocol:sheepdog"' test-add-uri.out || fail
-
-$VG guestfish -x -a sheepdog://example.com:3000/volume/image </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "volume/image" "protocol:sheepdog" "server:tcp:example.com:3000"' test-add-uri.out || fail
-
-# ssh
-$VG guestfish -x -a ssh://example.com/disk.img </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/disk.img" "protocol:ssh" "server:tcp:example.com"' test-add-uri.out || fail
-
-$VG guestfish -x -a ssh://user@example.com/disk.img </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/disk.img" "protocol:ssh" "server:tcp:example.com" "username:user"' test-add-uri.out || fail
-
-$VG guestfish -x -a ssh://user@example.com:2000/disk.img </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/disk.img" "protocol:ssh" "server:tcp:example.com:2000" "username:user"' test-add-uri.out || fail
-
-# iSCSI
-$VG guestfish -x -a iscsi://example.com/iqn.2015-12.com.libguestfs:test1/0 </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "iqn.2015-12.com.libguestfs:test1/0" "protocol:iscsi" "server:tcp:example.com"' test-add-uri.out || fail
-
-$VG guestfish -x -a iscsi://user:password@example.com/iqn.2015-12.com.libguestfs:test2/0 </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "iqn.2015-12.com.libguestfs:test2/0" "protocol:iscsi" "server:tcp:example.com" "username:user" "secret:password"' test-add-uri.out || fail
 
 rm test-add-uri.out
 rm test-add-uri.img

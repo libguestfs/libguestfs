@@ -61,45 +61,6 @@ check_output
 grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
-# HTTP.
-
-guestfish <<EOF ||:
-  add "/disk.img" "format:raw" "protocol:http" "server:www.example.com"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=http://www.example.com/disk.img,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-# Gluster.
-
-guestfish <<EOF ||:
-  add "volname/image" "format:raw" "protocol:gluster" "server:www.example.com:24007"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=gluster://www.example.com:24007/volname/image,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-# iSCSI.
-
-guestfish <<EOF ||:
-  add "target-iqn-name/lun" "format:raw" "protocol:iscsi" "server:www.example.com:3000"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=iscsi://www.example.com:3000/target-iqn-name/lun,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-guestfish <<EOF ||:
-  add "target-iqn-name/lun" "format:raw" "protocol:iscsi" "server:www.example.com:3000" \
-    "username:user" "secret:pass"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=iscsi://user%pass@www.example.com:3000/target-iqn-name/lun,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
 # NBD.
 
 guestfish <<EOF ||:
@@ -116,25 +77,4 @@ guestfish <<EOF ||:
 EOF
 check_output
 grep -sq -- '-drive file=nbd:unix:/socket,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-# Sheepdog.
-
-guestfish <<EOF ||:
-  add "volume" "format:raw" "protocol:sheepdog"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=sheepdog:volume,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-# SSH.
-
-guestfish <<EOF ||:
-  add "/disk.img" "format:raw" "protocol:ssh" "server:example.com" \
-    "username:rich"
-  run
-EOF
-check_output
-grep -sq -- '-drive file=ssh://rich@example.com/disk.img,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"

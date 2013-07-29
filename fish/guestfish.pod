@@ -131,9 +131,9 @@ To list what is available do:
 
 =head2 Remote drives
 
-Access a remote disk using ssh:
+Access a remote disk using NBD:
 
- guestfish -a ssh://example.com/path/to/disk.img
+ guestfish -a nbd://example.com
 
 =head2 Remote control
 
@@ -1118,12 +1118,12 @@ L<guestfs(3)/REMOTE STORAGE>>.
 On the command line, you can use the I<-a> option to add network
 block devices using a URI-style format, for example:
 
- guestfish -a ssh://root@example.com/disk.img
+ guestfish -a nbd://example.com
 
 URIs I<cannot> be used with the L</add> command.  The equivalent
 command using the API directly is:
 
- ><fs> add /disk.img protocol:ssh server:tcp:example.com username:root
+ ><fs> add /disk.img protocol:nbd server:tcp:example.com
 
 The possible I<-a URI> formats are described below.
 
@@ -1132,40 +1132,6 @@ The possible I<-a URI> formats are described below.
 =head2 B<-a file:///path/to/disk.img>
 
 Add the local disk image (or device) called F<disk.img>.
-
-=head2 B<-a ftp://[user@]example.com[:port]/disk.img>
-
-=head2 B<-a ftps://[user@]example.com[:port]/disk.img>
-
-=head2 B<-a http://[user@]example.com[:port]/disk.img>
-
-=head2 B<-a https://[user@]example.com[:port]/disk.img>
-
-=head2 B<-a tftp://[user@]example.com[:port]/disk.img>
-
-Add a disk located on a remote FTP, HTTP or TFTP server.
-
-The equivalent API command would be:
-
- ><fs> add /disk.img protocol:(ftp|...) server:tcp:example.com
-
-=head2 B<-a gluster://example.com[:port]/volname/image>
-
-Add a disk image located on GlusterFS storage.
-
-The server is the one running C<glusterd>, and may be C<localhost>.
-
-The equivalent API command would be:
-
- ><fs> add volname/image protocol:gluster server:tcp:example.com
-
-=head2 B<-a iscsi://example.com[:port]/target-iqn-name[/lun]>
-
-Add a disk located on an iSCSI server.
-
-The equivalent API command would be:
-
- ><fs> add target-iqn-name/lun protocol:iscsi server:tcp:example.com
 
 =head2 B<-a nbd://example.com[:port]>
 
@@ -1200,28 +1166,6 @@ server can be specified when using this URI syntax.
 The equivalent API command would be:
 
  ><fs> add pool/disk protocol:rbd server:tcp:example.com:port
-
-=head2 B<-a sheepdog://[example.com[:port]]/volume/image>
-
-Add a disk image located on a Sheepdog volume.
-
-The server name is optional.  Although libguestfs and Sheepdog
-supports multiple servers, only at most one server can be specified
-when using this URI syntax.
-
-The equivalent API command would be:
-
- ><fs> add volume protocol:sheepdog [server:tcp:example.com]
-
-=head2 B<-a ssh://[user@]example.com[:port]/disk.img>
-
-Add a disk image located on a remote server, accessed using the Secure
-Shell (ssh) SFTP protocol.  SFTP is supported out of the box by all
-major SSH servers.
-
-The equivalent API command would be:
-
- ><fs> add /disk protocol:ssh server:tcp:example.com [username:user]
 
 =head1 PROGRESS BARS
 
