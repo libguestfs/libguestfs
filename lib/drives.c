@@ -165,6 +165,7 @@ create_drive_non_file (guestfs_h *g,
   return drv;
 }
 
+#if 0 /* DISABLED IN RHEL 7 */
 static struct drive *
 create_drive_curl (guestfs_h *g,
                    const struct drive_create_data *data)
@@ -223,6 +224,7 @@ create_drive_gluster (guestfs_h *g,
 
   return create_drive_non_file (g, data);
 }
+#endif /* DISABLED IN RHEL 7 */
 
 static int
 nbd_port (void)
@@ -291,6 +293,7 @@ create_drive_rbd (guestfs_h *g,
   return create_drive_non_file (g, data);
 }
 
+#if 0 /* DISABLED IN RHEL 7 */
 static struct drive *
 create_drive_sheepdog (guestfs_h *g,
                        const struct drive_create_data *data)
@@ -391,6 +394,7 @@ create_drive_iscsi (guestfs_h *g,
 
   return create_drive_non_file (g, data);
 }
+#endif /* DISABLED IN RHEL 7 */
 
 /**
  * Create the special F</dev/null> drive.
@@ -826,6 +830,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
       drv = create_drive_file (g, &data);
     }
   }
+#if 0 /* DISABLED IN RHEL 7 */
   else if (STREQ (protocol, "ftp")) {
     data.protocol = drive_protocol_ftp;
     drv = create_drive_curl (g, &data);
@@ -850,6 +855,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     data.protocol = drive_protocol_iscsi;
     drv = create_drive_iscsi (g, &data);
   }
+#endif /* DISABLED IN RHEL 7 */
   else if (STREQ (protocol, "nbd")) {
     data.protocol = drive_protocol_nbd;
     drv = create_drive_nbd (g, &data);
@@ -858,6 +864,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     data.protocol = drive_protocol_rbd;
     drv = create_drive_rbd (g, &data);
   }
+#if 0 /* DISABLED IN RHEL 7 */
   else if (STREQ (protocol, "sheepdog")) {
     data.protocol = drive_protocol_sheepdog;
     drv = create_drive_sheepdog (g, &data);
@@ -870,6 +877,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     data.protocol = drive_protocol_tftp;
     drv = create_drive_curl (g, &data);
   }
+#endif /* DISABLED IN RHEL 7 */
   else {
     error (g, _("unknown protocol '%s'"), protocol);
     drv = NULL; /*FALLTHROUGH*/
