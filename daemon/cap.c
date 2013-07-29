@@ -48,6 +48,18 @@ do_cap_get_file (const char *path)
   CHROOT_OUT;
 
   if (cap == NULL) {
+    /* The getcap utility (part of libcap) ignores ENODATA.  It just
+     * means there is no capability attached to the file (RHBZ#989356).
+     */
+    if (errno == ENODATA) {
+      ret = strdup ("");
+      if (ret == NULL) {
+        reply_with_perror ("strdup");
+        return NULL;
+      }
+      return ret;
+    }
+
     reply_with_perror ("%s", path);
     return NULL;
   }
