@@ -695,70 +695,6 @@ servers.  The server string is documented in
 L</guestfs_add_drive_opts>. The C<username> and C<secret> parameters are
 also optional, and if not given, then no authentication will be used.
 
-=head3 FTP, HTTP AND TFTP
-
-Libguestfs can access remote disks over FTP, FTPS, HTTP, HTTPS
-or TFTP protocols.
-
-To do this, set the optional C<protocol> and C<server> parameters of
-L</guestfs_add_drive_opts> like this:
-
- char **servers = { "www.example.org", NULL };
- guestfs_add_drive_opts (g, "/disk.img",
-                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "http",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
-                         -1);
-
-The C<protocol> can be one of C<"ftp">, C<"ftps">, C<"http">,
-C<"https"> or C<"tftp">.
-
-C<servers> (the C<server> parameter) is a list which must have a
-single element.  The single element is a string defining the web,
-FTP or TFTP server.  The format of this string is documented in
-L</guestfs_add_drive_opts>.
-
-=head3 GLUSTER
-
-Libguestfs can access Gluster disks.
-
-To do this, set the optional C<protocol> and C<server> parameters of
-L</guestfs_add_drive_opts> like this:
-
- char **servers = { "gluster.example.org:24007", NULL };
- guestfs_add_drive_opts (g, "volname/image",
-                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "gluster",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
-                         -1);
-
-C<servers> (the C<server> parameter) is a list which must have a
-single element.  The single element is a string defining the Gluster
-server.  The format of this string is documented in
-L</guestfs_add_drive_opts>.
-
-Note that gluster usually requires the client process (ie. libguestfs)
-to run as B<root> and will give unfathomable errors if it is not
-(eg. "No data available").
-
-=head3 ISCSI
-
-Libguestfs can access iSCSI disks remotely.
-
-To do this, set the optional C<protocol> and C<server> parameters like
-this:
-
- char **server = { "iscsi.example.org:3000", NULL };
- guestfs_add_drive_opts (g, "target-iqn-name/lun",
-                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "iscsi",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, server,
-                         -1);
-
-The C<server> parameter is a list which must have a single element.
-The single element is a string defining the iSCSI server.  The format
-of this string is documented in L</guestfs_add_drive_opts>.
-
 =head3 NETWORK BLOCK DEVICE
 
 Libguestfs can access Network Block Device (NBD) disks remotely.
@@ -820,42 +756,6 @@ of a bug in qemu:
 L<https://bugs.launchpad.net/qemu/+bug/1155677>
 
 =back
-
-=head3 SHEEPDOG
-
-Libguestfs can access Sheepdog disks.
-
-To do this, set the optional C<protocol> and C<server> parameters of
-L</guestfs_add_drive_opts> like this:
-
- char **servers = { /* optional servers ... */ NULL };
- guestfs_add_drive_opts (g, "volume",
-                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "sheepdog",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
-                         -1);
-
-The optional list of C<servers> may be zero or more server addresses
-(C<"hostname:port">).  The format of the server strings is documented
-in L</guestfs_add_drive_opts>.
-
-=head3 SSH
-
-Libguestfs can access disks over a Secure Shell (SSH) connection.
-
-To do this, set the C<protocol> and C<server> and (optionally)
-C<username> parameters of L</guestfs_add_drive_opts> like this:
-
- char **server = { "remote.example.com", NULL };
- guestfs_add_drive_opts (g, "/path/to/disk.img",
-                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
-                         GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "ssh",
-                         GUESTFS_ADD_DRIVE_OPTS_SERVER, server,
-                         GUESTFS_ADD_DRIVE_OPTS_USERNAME, "remoteuser",
-                         -1);
-
-The format of the server string is documented in
-L</guestfs_add_drive_opts>.
 
 =head2 INSPECTION
 

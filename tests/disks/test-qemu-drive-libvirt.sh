@@ -76,34 +76,6 @@ check_output
 grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
-# Gluster.
-
-$guestfish -d gluster run ||:
-check_output
-grep -sq -- '-drive file=gluster://1.2.3.4:1234/volname/image,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-# iSCSI.
-
-$guestfish -d iscsi run ||:
-check_output
-grep -sq -- '-drive file=iscsi://1.2.3.4:1234/iqn.2003-01.org.linux-iscsi.fedora,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-# NBD.
-
-$guestfish -d nbd run ||:
-check_output
-grep -sq -- '-drive file=nbd:1.2.3.4:1234,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
-# Sheepdog.
-
-$guestfish -d sheepdog run ||:
-check_output
-grep -sq -- '-drive file=sheepdog:volume,' "$DEBUG_QEMU_FILE" || fail
-rm "$DEBUG_QEMU_FILE"
-
 # To do:
 
 # HTTP - curl not yet supported by libvirt

@@ -117,27 +117,6 @@ image.  To exit, type C<exit>.
 If you get an error, try enabling debugging (add C<-v> to the command
 line).  Also make sure that L<libguestfs-test-tool(1)> succeeds.
 
-=head2 Try to open a remote guest image with guestfish.
-
-B<Note> this test requires S<libguestfs E<ge> 1.22> and S<qemu E<ge> 1.5>.
-You may also have to disable libvirt by setting this:
-
- export LIBGUESTFS_BACKEND=direct
-
-If you have a disk image available over HTTP/FTP, try to open it.
-
- guestfish --ro -i --format=raw -a http://www.example.com/disk.img
-
-For SSH you will need to make sure that ssh-agent is set up so you
-don't need a password to log in to the remote machine.  Then a command
-similar to this should work:
-
- guestfish --ro -i --format=raw \
-   -a ssh://remote.example.com/path/to/disk.img
-
-If you get an error, try enabling debugging (add C<-v> to the command
-line).  Also make sure that L<libguestfs-test-tool(1)> succeeds.
-
 =head2 Run virt-alignment-scan on all your guests.
 
 Run L<virt-alignment-scan(1)> on guests or disk images:
