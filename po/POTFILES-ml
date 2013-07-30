@@ -4,6 +4,7 @@ resize/common_utils_tests.ml
 resize/progress.ml
 resize/resize.ml
 resize/tTY.ml
+resize/uRI.ml
 sparsify/sparsify.ml
 sysprep/firstboot.ml
 sysprep/main.ml
