@@ -35,19 +35,25 @@ SOURCES = \
 	resize.ml \
 	tty-c.c \
 	tTY.mli \
-	tTY.ml
+	tTY.ml \
+	uri-c.c \
+	uRI.mli \
+	uRI.ml
 
 if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
+	$(top_builddir)/fish/guestfish-uri.o \
 	tty-c.o \
 	progress-c.o \
+	uri-c.o \
 	common_gettext.cmx \
 	common_utils.cmx \
 	tTY.cmx \
 	progress.cmx \
+	uRI.cmx \
 	resize.cmx
 
 bin_SCRIPTS = virt-resize
@@ -63,10 +69,15 @@ endif
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
+OCAMLCLIBS  = \
+	$(LIBXML2_LIBS) -lncurses \
+	-L../src/.libs -lutils \
+	-L../gnulib/lib/.libs -lgnu
+
 virt-resize: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib -lncurses \
+	  -cclib '$(OCAMLCLIBS)' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 
