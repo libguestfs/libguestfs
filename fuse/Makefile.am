@@ -42,7 +42,9 @@ SHARED_SOURCE_FILES = \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
-	../fish/options.c
+	../fish/options.c \
+	../fish/uri.h \
+	../fish/uri.c
 
 # guestmount
 

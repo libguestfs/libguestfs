@@ -256,7 +256,11 @@ main (int argc, char *argv[])
           exit (EXIT_FAILURE);
         }
         drv->type = drv_a;
-        drv->a.filename = argv[optind];
+        drv->a.filename = strdup (argv[optind]);
+        if (!drv->a.filename) {
+          perror ("strdup");
+          exit (EXIT_FAILURE);
+        }
         drv->next = drvs;
         drvs = drv;
       } else {                  /* simulate -d option */
@@ -570,7 +574,11 @@ add_scratch_disk (struct drv **drvs)
   }
   drv->type = drv_a;
   drv->nr_drives = -1;
-  drv->a.filename = filename;
+  drv->a.filename = strdup (filename);
+  if (!drv->a.filename) {
+    perror ("strdup");
+    exit (EXIT_FAILURE);
+  }
   drv->a.format = "raw";
   drv->next = *drvs;
   *drvs = drv;

@@ -70,7 +70,9 @@ SHARED_SOURCE_FILES = \
 	options.h \
 	options.c \
 	progress.h \
-	progress.c
+	progress.c \
+	uri.h \
+	uri.c
 
 guestfish_SOURCES = \
 	$(generator_built) \
