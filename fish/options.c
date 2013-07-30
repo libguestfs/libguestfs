@@ -61,7 +61,7 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
 
     drv->type = drv_a;
     drv->nr_drives = -1;
-    drv->a.filename = optarg;
+    drv->a.filename = (char *) arg;
     drv->a.format = format;
   }
 
