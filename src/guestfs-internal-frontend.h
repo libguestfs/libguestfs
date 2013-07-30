@@ -47,6 +47,8 @@
   __attribute__((cleanup(guestfs___cleanup_xmlBufferFree)))
 #define CLEANUP_XMLFREEDOC                                      \
   __attribute__((cleanup(guestfs___cleanup_xmlFreeDoc)))
+#define CLEANUP_XMLFREEURI                                              \
+  __attribute__((cleanup(guestfs___cleanup_xmlFreeURI)))
 #define CLEANUP_XMLFREETEXTWRITER                               \
   __attribute__((cleanup(guestfs___cleanup_xmlFreeTextWriter)))
 #define CLEANUP_XMLXPATHFREECONTEXT                                     \
@@ -60,6 +62,7 @@
 #define CLEANUP_UNLINK_FREE
 #define CLEANUP_XMLBUFFERFREE
 #define CLEANUP_XMLFREEDOC
+#define CLEANUP_XMLFREEURI
 #define CLEANUP_XMLFREETEXTWRITER
 #define CLEANUP_XMLXPATHFREECONTEXT
 #define CLEANUP_XMLXPATHFREEOBJECT
@@ -104,6 +107,7 @@ extern void guestfs___cleanup_hash_free (void *ptr);
 extern void guestfs___cleanup_unlink_free (void *ptr);
 extern void guestfs___cleanup_xmlBufferFree (void *ptr);
 extern void guestfs___cleanup_xmlFreeDoc (void *ptr);
+extern void guestfs___cleanup_xmlFreeURI (void *ptr);
 extern void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
 extern void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
 extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
