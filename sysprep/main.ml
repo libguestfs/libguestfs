@@ -50,9 +50,14 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     printf "virt-sysprep %Ld.%Ld.%Ld%s\n"
       version.G.major version.G.minor version.G.release version.G.extra;
     exit 0
-  and add_file file =
+  and add_file arg =
+    let uri =
+      try URI.parse_uri arg
+      with Invalid_argument "URI.parse_uri" ->
+        eprintf "Error parsing URI '%s'. Look for error messages printed above.\n" arg;
+        exit 1 in
     let format = match !format with "auto" -> None | fmt -> Some fmt in
-    files := (file, format) :: !files
+    files := (uri, format) :: !files
   and set_domain dom =
     if !domain <> None then (
       eprintf (f_"%s: --domain option can only be given once\n") prog;
@@ -162,8 +167,10 @@ read the man page virt-sysprep(1).
     | files, None ->
       fun g readonly ->
         List.iter (
-          fun (file, format) ->
-            g#add_drive ~readonly ?format file
+          fun (uri, format) ->
+            let { URI.path = path; protocol = protocol;
+                  server = server; username = username } = uri in
+            g#add_drive ~readonly ?format ~protocol ?server ?username path
         ) files
   in
 

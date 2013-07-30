@@ -80,6 +80,9 @@ if HAVE_OCAML
 OBJECTS = \
 	$(top_builddir)/resize/common_gettext.cmx \
 	$(top_builddir)/resize/common_utils.cmx \
+	$(top_builddir)/fish/guestfish-uri.o \
+	$(top_builddir)/resize/uri-c.o \
+	$(top_builddir)/resize/uRI.cmx \
 	firstboot.cmx \
 	sysprep_operation.cmx \
 	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \
@@ -98,10 +101,15 @@ endif
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
+OCAMLCLIBS  = \
+	$(LIBXML2_LIBS) -lncurses \
+	-L../src/.libs -lutils \
+	-L../gnulib/lib/.libs -lgnu
+
 virt-sysprep: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib -lncurses \
+	  -cclib '$(OCAMLCLIBS)' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 
