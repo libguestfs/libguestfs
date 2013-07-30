@@ -32,16 +32,21 @@ SOURCES = \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
-	resize.ml
+	resize.ml \
+	tty-c.c \
+	tTY.mli \
+	tTY.ml
 
 if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
+	tty-c.o \
 	progress-c.o \
 	common_gettext.cmx \
 	common_utils.cmx \
+	tTY.cmx \
 	progress.cmx \
 	resize.cmx
 

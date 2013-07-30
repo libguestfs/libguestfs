@@ -104,12 +104,3 @@ virt_resize_progress_bar_set (value barv,
 
   CAMLreturn (Val_unit);
 }
-
-/* RHEL 5-era ocaml didn't have Unix.isatty. */
-value
-virt_resize_isatty_stdout (value unitv)
-{
-  CAMLparam1 (unitv);
-
-  CAMLreturn (isatty(1) ? Val_true : Val_false);
-}
