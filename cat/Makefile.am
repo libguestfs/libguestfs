@@ -35,7 +35,9 @@ SHARED_SOURCE_FILES = \
 	../fish/inspect.c \
 	../fish/keys.c \
 	../fish/options.h \
-	../fish/options.c
+	../fish/options.c \
+	../fish/uri.h \
+	../fish/uri.c
 
 virt_cat_SOURCES = \
 	$(SHARED_SOURCE_FILES) \

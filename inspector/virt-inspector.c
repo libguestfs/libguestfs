@@ -199,7 +199,11 @@ main (int argc, char *argv[])
           exit (EXIT_FAILURE);
         }
         drv->type = drv_a;
-        drv->a.filename = argv[optind];
+        drv->a.filename = strdup (argv[optind]);
+        if (!drv->a.filename) {
+          perror ("strdup");
+          exit (EXIT_FAILURE);
+        }
         drv->next = drvs;
         drvs = drv;
       } else {                  /* simulate -d option */

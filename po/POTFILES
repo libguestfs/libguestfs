@@ -143,6 +143,7 @@ fish/setenv.c
 fish/supported.c
 fish/tilde.c
 fish/time.c
+fish/uri.c
 format/format.c
 fuse/guestmount.c
 fuse/guestunmount.c

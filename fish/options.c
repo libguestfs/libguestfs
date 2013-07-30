@@ -25,22 +25,15 @@
 #include <errno.h>
 #include <libintl.h>
 
-#include <libxml/uri.h>
-
-#include "c-ctype.h"
-
 #include "guestfs.h"
 #include "options.h"
-
-static int is_uri (const char *arg);
-static void parse_uri (const char *arg, const char *format, struct drv *drv);
-static char *query_get (xmlURIPtr uri, const char *search_name);
-static char **make_server (xmlURIPtr uri, const char *socket);
+#include "uri.h"
 
 /* Handle the '-a' option when passed on the command line. */
 void
 option_a (const char *arg, const char *format, struct drv **drvsp)
 {
+  struct uri uri;
   struct drv *drv;
 
   drv = calloc (1, sizeof (struct drv));
@@ -49,266 +42,37 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
     exit (EXIT_FAILURE);
   }
 
-  /* Does it look like a URI? */
-  if (is_uri (arg))
-    parse_uri (arg, format, drv);
-  else {
+  if (parse_uri (arg, &uri) == -1)
+    exit (EXIT_FAILURE);
+
+  if (STREQ (uri.protocol, "file")) {
     /* Ordinary file. */
-    if (access (arg, R_OK) != 0) {
-      perror (arg);
+    if (access (uri.path, R_OK) != 0) {
+      perror (uri.path);
       exit (EXIT_FAILURE);
     }
 
     drv->type = drv_a;
     drv->nr_drives = -1;
-    drv->a.filename = (char *) arg;
+    drv->a.filename = uri.path;
     drv->a.format = format;
+
+    free (uri.protocol);
+  }
+  else {
+    /* Remote storage. */
+    drv->type = drv_uri;
+    drv->nr_drives = -1;
+    drv->uri.path = uri.path;
+    drv->uri.protocol = uri.protocol;
+    drv->uri.server = uri.server;
+    drv->uri.username = uri.username;
+    drv->uri.format = format;
+    drv->uri.orig_uri = arg;
   }
 
   drv->next = *drvsp;
   *drvsp = drv;
-}
-
-/* Does it "look like" a URI?  A short lower-case ASCII string
- * followed by "://" will do.  Note that we properly parse the URI
- * later on using libxml2.
- */
-static int
-is_uri (const char *arg)
-{
-  const char *p;
-
-  p = strstr (arg, "://");
-  if (!p)
-    return 0;
-
-  if (p - arg >= 8)
-    return 0;
-
-  for (p--; p >= arg; p--) {
-    if (!c_islower (*p))
-      return 0;
-  }
-
-  return 1;
-}
-
-static void
-parse_uri (const char *arg, const char *format, struct drv *drv)
-{
-  CLEANUP_XMLFREEURI xmlURIPtr uri = NULL;
-  CLEANUP_FREE char *socket = NULL;
-  char *path;
-  char *protocol;
-  char **server;
-  char *username;
-
-  uri = xmlParseURI (arg);
-  if (!uri) {
-    fprintf (stderr, _("%s: --add: could not parse URI '%s'\n"),
-             program_name, arg);
-    exit (EXIT_FAILURE);
-  }
-
-  /* Note we don't do much checking of the parsed URI, since the
-   * underlying function 'guestfs_add_drive_opts' will check for us.
-   * So just the basics here.
-   */
-  if (uri->scheme == NULL) {
-    /* Probably can never happen. */
-    fprintf (stderr, _("%s: --add %s: scheme of URI is NULL\n"),
-             program_name, arg);
-    exit (EXIT_FAILURE);
-  }
-
-  socket = query_get (uri, "socket");
-
-  if (uri->server && STRNEQ (uri->server, "") && socket) {
-    fprintf (stderr, _("%s: --add %s: cannot both a server name and a socket query parameter\n"),
-             program_name, arg);
-    exit (EXIT_FAILURE);
-  }
-
-  /* Is this needed? XXX
-  if (socket && socket[0] != '/') {
-    fprintf (stderr, _("%s: --add %s: socket query parameter must be an absolute path\n"),
-             program_name, arg);
-    exit (EXIT_FAILURE);
-  }
-  */
-
-  protocol = strdup (uri->scheme);
-  if (protocol == NULL) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
-
-  server = make_server (uri, socket);
-
-  if (uri->user && STRNEQ (uri->user, "")) {
-    username = strdup (uri->user);
-    if (!username) {
-      perror ("username");
-      exit (EXIT_FAILURE);
-    }
-  }
-  else username = NULL;
-
-  path = strdup (uri->path ? uri->path : "");
-  if (!path) {
-    perror ("path");
-    exit (EXIT_FAILURE);
-  }
-
-  drv->type = drv_uri;
-  drv->nr_drives = -1;
-  drv->uri.path = path;
-  drv->uri.protocol = protocol;
-  drv->uri.server = server;
-  drv->uri.username = username;
-  drv->uri.format = format;
-  drv->uri.orig_uri = arg;
-}
-
-/* Code inspired by libvirt src/util/viruri.c, written by danpb,
- * released under a compatible license.
- */
-static char *
-query_get (xmlURIPtr uri, const char *search_name)
-{
-  /* XXX libvirt uses deprecated uri->query field.  Why? */
-  const char *query = uri->query_raw;
-  const char *end, *eq;
-
-  if (!query || STREQ (query, ""))
-    return NULL;
-
-  while (*query) {
-    CLEANUP_FREE char *name = NULL;
-    char *value = NULL;
-
-    /* Find the next separator, or end of the string. */
-    end = strchr (query, '&');
-    if (!end)
-      end = strchr(query, ';');
-    if (!end)
-      end = query + strlen (query);
-
-    /* Find the first '=' character between here and end. */
-    eq = strchr(query, '=');
-    if (eq && eq >= end) eq = NULL;
-
-    /* Empty section (eg. "&&"). */
-    if (end == query)
-      goto next;
-
-    /* If there is no '=' character, then we have just "name"
-     * and consistent with CGI.pm we assume value is "".
-     */
-    else if (!eq) {
-      name = xmlURIUnescapeString (query, end - query, NULL);
-      if (!name) goto no_memory;
-    }
-    /* Or if we have "name=" here (works around annoying
-     * problem when calling xmlURIUnescapeString with len = 0).
-     */
-    else if (eq+1 == end) {
-      name = xmlURIUnescapeString (query, eq - query, NULL);
-      if (!name) goto no_memory;
-    }
-    /* If the '=' character is at the beginning then we have
-     * "=value" and consistent with CGI.pm we _ignore_ this.
-     */
-    else if (query == eq)
-      goto next;
-
-    /* Otherwise it's "name=value". */
-    else {
-      name = xmlURIUnescapeString (query, eq - query, NULL);
-      if (!name)
-        goto no_memory;
-      value = xmlURIUnescapeString (eq+1, end - (eq+1), NULL);
-      if (!value) {
-        goto no_memory;
-      }
-    }
-
-    /* Is it the name we're looking for? */
-    if (STREQ (name, search_name)) {
-      if (!value) {
-        value = strdup ("");
-        if (!value)
-          goto no_memory;
-      }
-      return value;
-    }
-
-    free (value);
-
-  next:
-    query = end;
-    if (*query)
-      query++; /* skip '&' separator */
-  }
-
-  /* search_name not found */
-  return NULL;
-
- no_memory:
-  perror ("malloc");
-  exit (EXIT_FAILURE);
-}
-
-/* Construct either a tcp: server list of a unix: server list or
- * nothing at all from '-a' option URI.
- */
-static char **
-make_server (xmlURIPtr uri, const char *socket)
-{
-  char **ret;
-  char *server;
-
-  /* If the server part of the URI is specified, then this is a TCP
-   * connection.
-   */
-  if (uri->server && STRNEQ (uri->server, "")) {
-    if (uri->port == 0) {
-      if (asprintf (&server, "tcp:%s", uri->server) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
-    }
-    else {
-      if (asprintf (&server, "tcp:%s:%d", uri->server, uri->port) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
-    }
-  }
-  /* Otherwise, ?socket query parameter means it's a Unix domain
-   * socket connection.
-   */
-  else if (socket != NULL) {
-    if (asprintf (&server, "unix:%s", socket) == -1) {
-      perror ("asprintf");
-      exit (EXIT_FAILURE);
-    }
-  }
-  /* Otherwise, no server parameter is needed. */
-  else return NULL;
-
-  /* The .server parameter is in fact a list of strings, although
-   * only a singleton is passed by us.
-   */
-  ret = malloc (sizeof (char *) * 2);
-  if (ret == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-  ret[0] = server;
-  ret[1] = NULL;
-
-  return ret;
 }
 
 char
@@ -488,7 +252,8 @@ free_drives (struct drv *drv)
 
   switch (drv->type) {
   case drv_a:
-    /* a.filename and a.format are optargs, don't free them */
+    free (drv->a.filename);
+    /* a.format is an optarg, so don't free it */
     break;
   case drv_uri:
     free (drv->uri.path);
