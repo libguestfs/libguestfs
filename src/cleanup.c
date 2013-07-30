@@ -24,6 +24,7 @@
 #include <string.h>
 
 #ifdef HAVE_LIBXML2
+#include <libxml/uri.h>
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
 #include <libxml/xmlwriter.h>
@@ -94,6 +95,15 @@ guestfs___cleanup_xmlFreeDoc (void *ptr)
 #else
   abort ();
 #endif
+}
+
+void
+guestfs___cleanup_xmlFreeURI (void *ptr)
+{
+  xmlURIPtr uri = * (xmlURIPtr *) ptr;
+
+  if (uri)
+    xmlFreeURI (uri);
 }
 
 void
