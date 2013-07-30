@@ -30,8 +30,6 @@
 #include <assert.h>
 #include <libintl.h>
 
-#include <libxml/uri.h>
-
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
@@ -337,10 +335,9 @@ single_drive_display_name (struct drv *drvs)
     break;
 
   case drv_uri:
-    name = (char *) xmlSaveUri (drvs->uri.uri);
+    name = strdup (drvs->uri.orig_uri);
     if (name == NULL) {
-      fprintf (stderr, _("%s: xmlSaveUri: could not make printable URI\n"),
-               program_name);
+      perror ("strdup");
       exit (EXIT_FAILURE);
     }
     /* Try to shorten the URI to just the final element, if it will
