@@ -35,6 +35,7 @@
 static int is_uri (const char *arg);
 static void parse_uri (const char *arg, const char *format, struct drv *drv);
 static char *query_get (xmlURIPtr uri, const char *search_name);
+static char **make_server (xmlURIPtr uri, const char *socket);
 
 /* Handle the '-a' option when passed on the command line. */
 void
@@ -95,8 +96,12 @@ is_uri (const char *arg)
 static void
 parse_uri (const char *arg, const char *format, struct drv *drv)
 {
-  xmlURIPtr uri;
-  char *socket;
+  CLEANUP_XMLFREEURI xmlURIPtr uri = NULL;
+  CLEANUP_FREE char *socket = NULL;
+  char *path;
+  char *protocol;
+  char **server;
+  char *username;
 
   uri = xmlParseURI (arg);
   if (!uri) {
@@ -132,11 +137,37 @@ parse_uri (const char *arg, const char *format, struct drv *drv)
   }
   */
 
+  protocol = strdup (uri->scheme);
+  if (protocol == NULL) {
+    perror ("strdup");
+    exit (EXIT_FAILURE);
+  }
+
+  server = make_server (uri, socket);
+
+  if (uri->user && STRNEQ (uri->user, "")) {
+    username = strdup (uri->user);
+    if (!username) {
+      perror ("username");
+      exit (EXIT_FAILURE);
+    }
+  }
+  else username = NULL;
+
+  path = strdup (uri->path ? uri->path : "");
+  if (!path) {
+    perror ("path");
+    exit (EXIT_FAILURE);
+  }
+
   drv->type = drv_uri;
   drv->nr_drives = -1;
-  drv->uri.uri = uri;
-  drv->uri.socket = socket;
+  drv->uri.path = path;
+  drv->uri.protocol = protocol;
+  drv->uri.server = server;
+  drv->uri.username = username;
   drv->uri.format = format;
+  drv->uri.orig_uri = arg;
 }
 
 /* Code inspired by libvirt src/util/viruri.c, written by danpb,
@@ -285,7 +316,6 @@ add_drives (struct drv *drv, char next_drive)
 {
   int r;
   struct guestfs_add_drive_opts_argv ad_optargs;
-  char **server;
 
   if (next_drive > 'z') {
     fprintf (stderr,
@@ -336,21 +366,19 @@ add_drives (struct drv *drv, char next_drive)
         ad_optargs.format = drv->uri.format;
       }
       ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_PROTOCOL_BITMASK;
-      ad_optargs.protocol = drv->uri.uri->scheme;
-      ad_optargs.server = server = make_server (drv->uri.uri, drv->uri.socket);
-      if (server)
+      ad_optargs.protocol = drv->uri.protocol;
+      if (drv->uri.server) {
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SERVER_BITMASK;
-      if (drv->uri.uri->user && STRNEQ (drv->uri.uri->user, "")) {
+        ad_optargs.server = drv->uri.server;
+      }
+      if (drv->uri.username) {
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK;
-        ad_optargs.username = drv->uri.uri->user;
+        ad_optargs.username = drv->uri.username;
       }
 
-      r = guestfs_add_drive_opts_argv (g, drv->uri.uri->path ? : "",
-                                       &ad_optargs);
+      r = guestfs_add_drive_opts_argv (g, drv->uri.path, &ad_optargs);
       if (r == -1)
         exit (EXIT_FAILURE);
-
-      guestfs___free_string_list (server);
 
       drv->nr_drives = 1;
       next_drive++;
@@ -463,8 +491,10 @@ free_drives (struct drv *drv)
     /* a.filename and a.format are optargs, don't free them */
     break;
   case drv_uri:
-    xmlFreeURI (drv->uri.uri);
-    free (drv->uri.socket);
+    free (drv->uri.path);
+    free (drv->uri.protocol);
+    guestfs___free_string_list (drv->uri.server);
+    free (drv->uri.username);
     break;
   case drv_d:
     /* d.filename is optarg, don't free it */
