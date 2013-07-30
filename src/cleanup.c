@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <string.h>
 
+#include <libxml/uri.h>
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
 #include <libxml/xmlwriter.h>
@@ -84,6 +85,15 @@ guestfs___cleanup_xmlFreeDoc (void *ptr)
 
   if (doc)
     xmlFreeDoc (doc);
+}
+
+void
+guestfs___cleanup_xmlFreeURI (void *ptr)
+{
+  xmlURIPtr uri = * (xmlURIPtr *) ptr;
+
+  if (uri)
+    xmlFreeURI (uri);
 }
 
 void
