@@ -254,6 +254,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = \
 	test-a.sh \
 	test-add-domain.sh \
+	test-add-uri.sh \
 	test-d.sh \
 	test-escapes.sh \
 	test-events.sh \
@@ -283,6 +284,7 @@ check-valgrind:
 EXTRA_DIST += \
 	test-a.sh \
 	test-add-domain.sh \
+	test-add-uri.sh \
 	test-copy.sh \
 	test-d.sh \
 	test-edit.sh \
