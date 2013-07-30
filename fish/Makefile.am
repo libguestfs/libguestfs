@@ -279,7 +279,7 @@ TESTS += \
 endif
 
 check-valgrind:
-	$(MAKE) TESTS="test-inspect.sh test-prep.sh test-run.sh" VG="$(top_builddir)/run @VG@" check
+	$(MAKE) TESTS="test-a.sh test-add-domain.sh test-add-uri.sh test-copy.sh test-d.sh test-edit.sh test-escapes.sh test-events.sh test-find0.sh test-glob.sh test-inspect.sh test-prep.sh test-read-file.sh test-remote.sh test-remote-events.sh test-reopen.sh test-run.sh test-stringlist.sh test-tilde.sh test-upload-to-dir.sh" VG="$(top_builddir)/run @VG@" check
 
 EXTRA_DIST += \
 	test-a.sh \

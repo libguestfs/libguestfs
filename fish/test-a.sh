@@ -23,25 +23,25 @@ set -e
 rm -f test-a.out
 rm -f test-a.img
 
-./guestfish sparse test-a.img 100M
+$VG ./guestfish sparse test-a.img 100M
 
-./guestfish -x -a test-a.img </dev/null >test-a.out 2>&1
+$VG ./guestfish -x -a test-a.img </dev/null >test-a.out 2>&1
 
 ! grep -sq 'add_drive.*format' test-a.out
 
-./guestfish -x --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
+$VG ./guestfish -x --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
 
 grep -sq 'add_drive.*format:qcow2' test-a.out
 
-./guestfish -x --ro --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
+$VG ./guestfish -x --ro --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
 
 grep -sq 'add_drive.*readonly:true.*format:qcow2' test-a.out
 
-./guestfish -x --format -a test-a.img </dev/null >test-a.out 2>&1
+$VG ./guestfish -x --format -a test-a.img </dev/null >test-a.out 2>&1
 
 ! grep -sq 'add_drive.*format' test-a.out
 
-./guestfish -x -a test-a.img --format=qcow2 </dev/null >test-a.out 2>&1
+$VG ./guestfish -x -a test-a.img --format=qcow2 </dev/null >test-a.out 2>&1
 
 ! grep -sq 'add_drive.*format' test-a.out
 
