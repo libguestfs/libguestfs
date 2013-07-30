@@ -33,9 +33,11 @@ if HAVE_OCAML
 # Note this list must be in dependency order.
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
+	$(top_builddir)/resize/tty-c.o \
 	$(top_builddir)/resize/progress-c.o \
 	$(top_builddir)/resize/common_gettext.cmx \
 	$(top_builddir)/resize/common_utils.cmx \
+	$(top_builddir)/resize/tTY.cmx \
 	$(top_builddir)/resize/progress.cmx \
 	sparsify.cmx
 
