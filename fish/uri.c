@@ -88,7 +88,7 @@ is_uri (const char *arg)
   if (!p)
     return 0;
 
-  if (p - arg >= 8)
+  if (p - arg > 8)
     return 0;
 
   for (p--; p >= arg; p--) {
