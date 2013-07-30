@@ -231,6 +231,7 @@ python/guestfs-py.c
 rescue/test-virt-rescue.pl
 rescue/virt-rescue.c
 resize/progress-c.c
+resize/tty-c.c
 ruby/ext/guestfs/_guestfs.c
 src/actions-0.c
 src/actions-1.c

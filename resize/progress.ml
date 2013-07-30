@@ -28,13 +28,12 @@ external progress_bar_reset : progress_bar -> unit
   = "virt_resize_progress_bar_reset"
 external progress_bar_set : progress_bar -> int64 -> int64 -> unit
   = "virt_resize_progress_bar_set"
-external isatty_stdout : unit -> bool = "virt_resize_isatty_stdout"
 
 let set_up_progress_bar ?(machine_readable = false) (g : Guestfs.guestfs) =
   (* Only display progress bars if the machine_readable flag is set or
    * the output is a tty.
    *)
-  if machine_readable || isatty_stdout () then (
+  if machine_readable || TTY.isatty_stdout () then (
     (* Initialize the C mini library. *)
     let bar = progress_bar_init ~machine_readable in
 
