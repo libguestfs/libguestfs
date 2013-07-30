@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-07-28 22:38+0100\n"
+"POT-Creation-Date: 2013-07-30 18:14+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: align/scan.c:73 cat/virt-cat.c:56 cat/virt-filesystems.c:87
-#: cat/virt-ls.c:89 df/main.c:68 edit/virt-edit.c:69 fish/fish.c:104
+#: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:69 fish/fish.c:104
 #: fuse/guestmount.c:99 fuse/guestunmount.c:52 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:56
 #, c-format
@@ -53,7 +53,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:134 cat/virt-cat.c:115 cat/virt-filesystems.c:188
-#: cat/virt-ls.c:180 df/main.c:135 edit/virt-edit.c:134 fish/fish.c:234
+#: cat/virt-ls.c:180 df/main.c:133 edit/virt-edit.c:134 fish/fish.c:234
 #: format/format.c:126 fuse/guestmount.c:207 inspector/virt-inspector.c:127
 #: rescue/virt-rescue.c:135
 #, c-format
@@ -61,19 +61,19 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: align/scan.c:154 cat/virt-cat.c:137 cat/virt-filesystems.c:242
-#: cat/virt-ls.c:230 df/main.c:159 edit/virt-edit.c:156 fish/fish.c:290
+#: cat/virt-ls.c:230 df/main.c:157 edit/virt-edit.c:156 fish/fish.c:290
 #: format/format.c:178 fuse/guestmount.c:242 fuse/guestunmount.c:124
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: onbekende lange optie: %s (%d)\n"
 
-#: align/scan.c:174 df/main.c:187
+#: align/scan.c:174 df/main.c:185
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr ""
 
-#: align/scan.c:229 df/main.c:277
+#: align/scan.c:229 df/main.c:279
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
@@ -130,13 +130,13 @@ msgstr ""
 "  -x                   Trace libguestfs API calls\n"
 "Voor meer informatie, zie de manpagina %s(1).\n"
 
-#: cat/virt-cat.c:353 edit/virt-edit.c:621 fish/fish.c:1716
+#: cat/virt-cat.c:357 edit/virt-edit.c:625 fish/fish.c:1720
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: om Windows schijf letters te gebruiken, moet dit een Windows gast zijn\n"
 
-#: cat/virt-cat.c:367 edit/virt-edit.c:635
+#: cat/virt-cat.c:371 edit/virt-edit.c:639
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr "%s: starion '%c:' niet gevonden.\n"
@@ -214,7 +214,7 @@ msgstr ""
 "  -x                   Traceer libguestfs API aanroepen\n"
 "Voor meer informatie, zie de man pagina %s(1).\n"
 
-#: cat/virt-filesystems.c:304 cat/virt-ls.c:334 df/main.c:260
+#: cat/virt-filesystems.c:304 cat/virt-ls.c:338 df/main.c:262
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: je kunt de -h en --csv opties ziet tezamen gebruiken.\n"
@@ -280,7 +280,7 @@ msgstr ""
 "  -x                   Traceer libguestfs API aanroepen\n"
 "Voor meer informatie, zie de man pagina %s(1).\n"
 
-#: cat/virt-ls.c:325
+#: cat/virt-ls.c:329
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -289,12 +289,12 @@ msgstr ""
 "%s: gebruikte een vlag die alleen met de -lR mode gecombeneerd kan worden\n"
 "Voor meer informatie, lees de virt-ls(1) man pagina.\n"
 
-#: cat/virt-ls.c:505
+#: cat/virt-ls.c:509
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: fout bij het verkrijgen van uitgebreide attributen voor %s %s\n"
 
-#: cat/virt-ls.c:515
+#: cat/virt-ls.c:519
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: error: kan xattr telling niet ontleden voor %s %s\n"
@@ -326,7 +326,7 @@ msgstr ""
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr "%s: kon inactieve domeinen niet tonen (code %d, domein %d): %s\n"
 
-#: df/main.c:72
+#: df/main.c:70
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -350,11 +350,6 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr ""
-
-#: df/main.c:342
-#, c-format
-msgid "%s: xmlSaveUri: could not make printable URI\n"
 msgstr ""
 
 #: df/output.c:49
@@ -2923,25 +2918,25 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: er kan slechts een -f parameter opgegeven worden\n"
 
-#: fish/fish.c:502
+#: fish/fish.c:506
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: de --listen en --remote opties kunnen niet tegelijkertijd gebruikt "
 "worden\n"
 
-#: fish/fish.c:510
+#: fish/fish.c:514
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters op de commando regel met --listen vlag\n"
 
-#: fish/fish.c:516
+#: fish/fish.c:520
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
 
-#: fish/fish.c:678
+#: fish/fish.c:682
 #, c-format
 msgid ""
 "\n"
@@ -2954,50 +2949,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:829 fish/fish.c:845
+#: fish/fish.c:833 fish/fish.c:849
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: commando argumenten niet gescheiden door spaties\n"
 
-#: fish/fish.c:839
+#: fish/fish.c:843
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niet afgesloten enkel aanhalingsteken\n"
 
-#: fish/fish.c:869
+#: fish/fish.c:873
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: interne fout bij ontleden van tekenreeks op '%s'\n"
 
-#: fish/fish.c:886
+#: fish/fish.c:890
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: teveel argumenten\n"
 
-#: fish/fish.c:961
+#: fish/fish.c:965
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr "%s: ongeldige escape volgorde in string (begint bij offset %d)\n"
 
-#: fish/fish.c:970
+#: fish/fish.c:974
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niet afgesloten dubbel aanhalingsteken\n"
 
-#: fish/fish.c:1033
+#: fish/fish.c:1037
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: leeg commando op commando regel\n"
 
-#: fish/fish.c:1191
+#: fish/fish.c:1195
 msgid "display a list of commands or help on a command"
 msgstr "laat een lijst van commando's of hulp over een commando zien"
 
-#: fish/fish.c:1193
+#: fish/fish.c:1197
 msgid "quit guestfish"
 msgstr "sluit guestfish af"
 
-#: fish/fish.c:1204
+#: fish/fish.c:1208
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -3008,7 +3003,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1212
+#: fish/fish.c:1216
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -3017,12 +3012,12 @@ msgstr ""
 "quit - sluit guestfish af\n"
 "     quit\n"
 
-#: fish/fish.c:1217
+#: fish/fish.c:1221
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: commando niet bekend, gebruik -h om alle commando's te tonen\n"
 
-#: fish/fish.c:1233
+#: fish/fish.c:1237
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -3033,22 +3028,22 @@ msgstr ""
 "Voor een lijst commando's:         guestfish -h\n"
 "Voor complete documentatie:        man guestfish\n"
 
-#: fish/fish.c:1242
+#: fish/fish.c:1246
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: fout: %s\n"
 
-#: fish/fish.c:1285
+#: fish/fish.c:1289
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
 
-#: fish/fish.c:1393
+#: fish/fish.c:1397
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Los aanhalingsteken in tekenreeks \"%s\"\n"
 
-#: fish/fish.c:1710
+#: fish/fish.c:1714
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -3057,7 +3052,7 @@ msgstr ""
 "%s: om Windows station letters te gebruiken, moet je de gast inspecteren (\"-"
 "i\" optie of draai het \"inspect-os\" commando)\n"
 
-#: fish/fish.c:1730
+#: fish/fish.c:1734
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -3067,7 +3062,7 @@ msgstr ""
 "je uit:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1749
+#: fish/fish.c:1753
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3262,32 +3257,17 @@ msgstr "gebruik 'man' zonder parameters om de manual te openen\n"
 msgid "use '%s filename' to page a file\n"
 msgstr "gebruik '%s bestandsnaam' voor het pagen van een bestand\n"
 
-#: fish/options.c:103
-#, c-format
-msgid "%s: --add: could not parse URI '%s'\n"
-msgstr ""
-
-#: fish/options.c:114
-#, c-format
-msgid "%s: --add %s: scheme of URI is NULL\n"
-msgstr ""
-
-#: fish/options.c:122
-#, c-format
-msgid "%s: --add %s: cannot both a server name and a socket query parameter\n"
-msgstr ""
-
-#: fish/options.c:292
+#: fish/options.c:86
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: te veel apparaten toegevoegd op de commando-regel\n"
 
-#: fish/options.c:435
+#: fish/options.c:227
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: '%s' kon niet aangekoppeld worden.\n"
 
-#: fish/options.c:439
+#: fish/options.c:231
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -3296,7 +3276,7 @@ msgstr ""
 "%s: Check mount(8) man pagina om er zeker van te zijn dat opties '%s'\n"
 "%s: ondersteund worden door het bestandssysteem dat aangekoppeld wordt.\n"
 
-#: fish/options.c:443
+#: fish/options.c:235
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
@@ -3489,6 +3469,21 @@ msgstr "nee"
 #, c-format
 msgid "use 'time command [args...]'\n"
 msgstr "gebruik 'time command [args...]'\n"
+
+#: fish/uri.c:111
+#, c-format
+msgid "%s: --add: could not parse URI '%s'\n"
+msgstr ""
+
+#: fish/uri.c:122
+#, c-format
+msgid "%s: %s: scheme of URI is NULL or empty\n"
+msgstr ""
+
+#: fish/uri.c:130
+#, c-format
+msgid "%s: %s: cannot both a server name and a socket query parameter\n"
+msgstr ""
 
 #: format/format.c:61
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
@@ -3722,12 +3717,12 @@ msgstr ""
 "  --xpath query        Voer een XPath bevraging uit\n"
 "Voor meer informatie, referre ja naar de man pagina %s(1).\n"
 
-#: inspector/virt-inspector.c:238
+#: inspector/virt-inspector.c:242
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr "%s: kan --xpath niet samen met andere opties gebruiken.\n"
 
-#: inspector/virt-inspector.c:272
+#: inspector/virt-inspector.c:276
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3757,52 +3752,52 @@ msgstr ""
 "Als je vindt dat dit een fout is, dien dan een bug rapport in met\n"
 "zo veel mogelijk informatie over de schijf image.\n"
 
-#: inspector/virt-inspector.c:287
+#: inspector/virt-inspector.c:291
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: XML schrijf fout bij \"%s\": %m\n"
 
-#: inspector/virt-inspector.c:299
+#: inspector/virt-inspector.c:303
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: stdout openen mislukte\n"
 
-#: inspector/virt-inspector.c:308
+#: inspector/virt-inspector.c:312
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: libxml2 schrijver aanmaken mislukte\n"
 
-#: inspector/virt-inspector.c:765
+#: inspector/virt-inspector.c:769
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr "%s: kan XML niet van stdin parsen\n"
 
-#: inspector/virt-inspector.c:771
+#: inspector/virt-inspector.c:775
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr "%s: kan geen nieuwe XPath context creëren\n"
 
-#: inspector/virt-inspector.c:778
+#: inspector/virt-inspector.c:782
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr "%s: niet in staat XPath expressie te evalueren\n"
 
-#: inspector/virt-inspector.c:791
+#: inspector/virt-inspector.c:795
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr "%s: xmlSaveToFd mislukte\n"
 
-#: inspector/virt-inspector.c:798
+#: inspector/virt-inspector.c:802
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr "%s: xmlNewDoc mislukte\n"
 
-#: inspector/virt-inspector.c:803
+#: inspector/virt-inspector.c:807
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr "%s: xmlCopyNode mislukte\n"
 
-#: inspector/virt-inspector.c:810
+#: inspector/virt-inspector.c:814
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr "%s: xmlSaveDoc mislukte\n"
@@ -3861,14 +3856,14 @@ msgstr "%s: --scratch parameter '%s' moet >= 1 zijn\n"
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s:kon geheugen grootte niet ontleden '%s'\n"
 
-#: rescue/virt-rescue.c:313
+#: rescue/virt-rescue.c:317
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
 "at the moment.  As a workaround, forcing backend = 'direct'.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:397
+#: rescue/virt-rescue.c:401
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -3877,7 +3872,7 @@ msgstr ""
 "Inspecteren van virtuele machine of disk image ...\n"
 "\n"
 
-#: rescue/virt-rescue.c:416
+#: rescue/virt-rescue.c:420
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3889,7 +3884,7 @@ msgstr ""
 "aankoppelen van bestandssystemen.\n"
 "\n"
 
-#: rescue/virt-rescue.c:426
+#: rescue/virt-rescue.c:430
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3902,7 +3897,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/virt-rescue.c:483
+#: rescue/virt-rescue.c:487
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -3912,7 +3907,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:490
+#: rescue/virt-rescue.c:494
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3926,7 +3921,7 @@ msgstr ""
 "><rescue> prompt) om dze bestandssystemen aan te koppelen.\n"
 "\n"
 
-#: rescue/virt-rescue.c:495
+#: rescue/virt-rescue.c:499
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s heeft type '%s'\n"
@@ -5142,19 +5137,19 @@ msgstr ""
 "De surplus ruimte wordt genegeerd.  Indien gewenst voer je in de gast een "
 "partitioneringsprogramma uit om deze extra ruimte te partitioneren."
 
-#: ../sysprep/main.ml:209
+#: ../sysprep/main.ml:216
 msgid "%s (ignored)\n"
 msgstr "%s (ignored)\n"
 
-#: ../sysprep/main.ml:58
+#: ../sysprep/main.ml:63
 msgid "%s: --domain option can only be given once\n"
 msgstr "%s: --domain optie kan slechts een keer opgegeven worden\n"
 
-#: ../sysprep/main.ml:70
+#: ../sysprep/main.ml:75
 msgid "%s: --enable option can only be given once\n"
 msgstr "%s: --enable optie kan slechts een keer opgegeven worden\n"
 
-#: ../sysprep/main.ml:82
+#: ../sysprep/main.ml:87
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: '%s' is geen bekende bewerking\n"
 
@@ -5252,7 +5247,7 @@ msgstr "%s: ontbrekend grootte veld in '%s' optie"
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: nieuwe partitie grootte is nul of negatief"
 
-#: ../sysprep/main.ml:195
+#: ../sysprep/main.ml:202
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: In de gast image werden geen besturingssystemen gevonden\n"
 
@@ -5288,7 +5283,7 @@ msgstr "%s: partitie grootte %Ld < fysieke volume grootte %Ld"
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: fysieke volume niet teruggeven door pvs_full"
 
-#: ../sysprep/main.ml:130
+#: ../sysprep/main.ml:135
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -5360,15 +5355,15 @@ msgstr ""
 "%s: onbekend partitie tabel type\n"
 "virt-resize ondersteunt alleen MBR (DOS) en GPT partitie tabellen."
 
-#: ../sysprep/main.ml:159
+#: ../sysprep/main.ml:164
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr "%s: je kunt de -a en -d opties niet tegelijkertijd opgeven\n"
 
-#: ../sysprep/main.ml:74
+#: ../sysprep/main.ml:79
 msgid "%s: you cannot pass an empty argument to --enable\n"
 msgstr "%s: je kunt geen leeg argument doorgeven met --enable\n"
 
-#: ../sysprep/main.ml:150
+#: ../sysprep/main.ml:155
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: je moet de -a of de -d optie opgeven\n"
 
@@ -5388,7 +5383,7 @@ msgstr "--expand optie wordt tweemaal opgegeven"
 msgid "--shrink option given twice"
 msgstr "--shrink optie wordt tweemaal opgegeven"
 
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "Add disk image file"
 msgstr "Voeg schijf image bestand toe"
 
@@ -5463,7 +5458,7 @@ msgstr ""
 msgid "Debug GC and memory allocations"
 msgstr "Debug GC en geheugen toewijzingen"
 
-#: ../sysprep/main.ml:101
+#: ../sysprep/main.ml:106
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Debug GC en geheugen toewijzingen (intern)"
 
@@ -5472,7 +5467,7 @@ msgid "Delete partition"
 msgstr "Verwijder partitie"
 
 #. ../resize/resize.ml:110
-#: ../sysprep/main.ml:120 ../sysprep/main.ml:119 ../sparsify/sparsify.ml:72
+#: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:72
 msgid "Display version and exit"
 msgstr "Toon versie en sluit af"
 
@@ -5492,7 +5487,7 @@ msgstr "Expandeer de inhoud niet"
 msgid "Don't perform changes"
 msgstr "Maak geen veranderingen"
 
-#: ../sysprep/main.ml:114 ../sysprep/main.ml:113
+#: ../sysprep/main.ml:119 ../sysprep/main.ml:118
 msgid "Don't print log messages"
 msgstr "Print geen log boodschappen"
 
@@ -5500,24 +5495,24 @@ msgstr "Print geen log boodschappen"
 msgid "Don't print the summary"
 msgstr "Print de samenvatting niet"
 
-#: ../sysprep/main.ml:107
+#: ../sysprep/main.ml:112
 msgid "Dump POD (internal)"
 msgstr "Dump POD (intern)"
 
-#: ../sysprep/main.ml:108
+#: ../sysprep/main.ml:113
 msgid "Dump POD for options (internal)"
 msgstr "Dump POD voor opties (intern)"
 
 #. ../resize/resize.ml:85
-#: ../sysprep/main.ml:118 ../sysprep/main.ml:117 ../sparsify/sparsify.ml:70
+#: ../sysprep/main.ml:123 ../sysprep/main.ml:122 ../sparsify/sparsify.ml:70
 msgid "Enable debugging messages"
 msgstr "Zet debug boodschappen aan"
 
-#: ../sysprep/main.ml:109
+#: ../sysprep/main.ml:114
 msgid "Enable specific operations"
 msgstr "Zet specifieke bewerkingen aan"
 
-#: ../sysprep/main.ml:121 ../sparsify/sparsify.ml:74
+#: ../sysprep/main.ml:126 ../sparsify/sparsify.ml:74
 msgid "Enable tracing of libguestfs calls"
 msgstr "Zet traceren van libguestfs aanroepen aan"
 
@@ -5537,7 +5532,7 @@ msgstr ""
 "%s wordt onderzocht ...\n"
 "%!"
 
-#: ../sysprep/main.ml:180
+#: ../sysprep/main.ml:187
 msgid ""
 "Examining the guest ...\n"
 "%!"
@@ -5619,7 +5614,7 @@ msgstr ""
 "Voor Fedora en Red Hat Enterprise Linux,\n"
 "is dit verwijderd uit C<ifcfg-*> bestanden."
 
-#: ../sysprep/main.ml:115
+#: ../sysprep/main.ml:120
 msgid "Force SELinux relabel"
 msgstr "Forceer SELinux opnieuw labelen"
 
@@ -5663,11 +5658,11 @@ msgstr "Negeer bestandssysteem"
 msgid "Ignore partition"
 msgstr "Negeer partitie"
 
-#: ../sysprep/main.ml:112 ../sparsify/sparsify.ml:65 ../resize/resize.ml:94
+#: ../sysprep/main.ml:117 ../sparsify/sparsify.ml:65 ../resize/resize.ml:94
 msgid "List long options"
 msgstr ""
 
-#: ../sysprep/main.ml:111
+#: ../sysprep/main.ml:116
 msgid "List supported operations"
 msgstr "Toon ondersteunde bewerkingen"
 
@@ -5679,7 +5674,7 @@ msgstr "Maak output leesbaar voor machines"
 msgid "Mount point on host"
 msgstr "Aankoppel punt op host"
 
-#: ../sysprep/main.ml:116
+#: ../sysprep/main.ml:121
 msgid "Never do SELinux relabel"
 msgstr "Voer nooit een SELinux relabel uit"
 
@@ -5722,7 +5717,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../sysprep/main.ml:106 ../sysprep/main.ml:105 ../sysprep/main.ml:104
+#: ../sysprep/main.ml:111 ../sysprep/main.ml:110 ../sysprep/main.ml:109
 msgid "Perform a dry run"
 msgstr "Voer een test run uit"
 
@@ -5730,7 +5725,7 @@ msgstr "Voer een test run uit"
 msgid "Quiet output"
 msgstr "Stille output"
 
-#: ../sysprep/main.ml:160 ../sysprep/main.ml:151
+#: ../sysprep/main.ml:165 ../sysprep/main.ml:156
 msgid "Read virt-sysprep(1) man page for further information.\n"
 msgstr "Lees virt-sysprep(1) man pagina voor verdere informatie.\n"
 
@@ -5964,15 +5959,15 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr "Script of programma welke op de gast uitgevoerd moet worden"
 
-#: ../sysprep/main.ml:110
+#: ../sysprep/main.ml:115
 msgid "Set format (default: auto)"
 msgstr "Stel formaat in (standaad: auto)"
 
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
+#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "Set libvirt URI"
 msgstr "Stel libvirt URI in"
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
 msgid "Set libvirt guest name"
 msgstr "Stel libvirt gastnaam in"
 
@@ -6254,7 +6249,7 @@ msgstr "kan input schijfformaat niet detecteren; gebruik de --format parameter"
 msgid "dir"
 msgstr "dir"
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
 msgid "domain"
 msgstr "domain"
 
@@ -6278,11 +6273,11 @@ msgstr "extern commando '%s' werd gestopt door signaal %d"
 msgid "external command failed: %s"
 msgstr "extern commando mislukte: %s"
 
-#: ../sysprep/main.ml:128
+#: ../sysprep/main.ml:133
 msgid "extra parameter on the command line"
 msgstr "extra parameter op de commandoregel"
 
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "file"
 msgstr "bestand"
 
@@ -6292,7 +6287,7 @@ msgstr "firstboot: mislukte: "
 
 #. ../resize/resize.ml:104
 #. ../resize/resize.ml:92
-#: ../sysprep/main.ml:110 ../sparsify/sparsify.ml:63
+#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:63
 #: ../sparsify/sparsify.ml:61
 msgid "format"
 msgstr "formaat"
@@ -6326,7 +6321,7 @@ msgstr "nooit|altijd|auto"
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../sysprep/main.ml:109
+#: ../sysprep/main.ml:114
 msgid "operations"
 msgstr "bewerkingen"
 
@@ -6392,21 +6387,21 @@ msgstr "script mislukte"
 msgid "sectors"
 msgstr "sectoren"
 
-#: ../sysprep/main.ml:256
+#: ../sysprep/main.ml:263
 msgid "sysprep operation failed: %s\n"
 msgstr "sysprep bewerking faalde: %s\n"
 
-#: ../sysprep/main.ml:268
+#: ../sysprep/main.ml:275
 msgid "sysprep operation failed: exception: %s\n"
 msgstr "sysprep bewerking faalde: uitzondering: %s\n"
 
-#: ../sysprep/main.ml:265
+#: ../sysprep/main.ml:272
 msgid ""
 "sysprep operation failed: internal error: Not_found exception was thrown\n"
 msgstr ""
 "sysprep bewerking faalde: interne fout: Not_found uitzondering trad op\n"
 
-#: ../sysprep/main.ml:262
+#: ../sysprep/main.ml:269
 msgid ""
 "sysprep operation failed: internal error: assertion failed at %s, line %d, "
 "char %d\n"
@@ -6414,7 +6409,7 @@ msgstr ""
 "sysprep bewerking faalde: interne fout: stelling faalde op %s, regel %d, "
 "karakter %d\n"
 
-#: ../sysprep/main.ml:259
+#: ../sysprep/main.ml:266
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr "sysprep bewerking faalde: interne fout: ongeldig argument: %s\n"
 
@@ -6426,7 +6421,7 @@ msgstr "de bron schijf heeft geen partities"
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "onbekende --align-first optie: gebruik nooit|altijd|auto"
 
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
+#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "uri"
 msgstr "uri"
 

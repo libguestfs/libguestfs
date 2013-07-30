@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-07-28 22:38+0100\n"
+"POT-Creation-Date: 2013-07-30 18:14+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: align/scan.c:73 cat/virt-cat.c:56 cat/virt-filesystems.c:87
-#: cat/virt-ls.c:89 df/main.c:68 edit/virt-edit.c:69 fish/fish.c:104
+#: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:69 fish/fish.c:104
 #: fuse/guestmount.c:99 fuse/guestunmount.c:52 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:56
 #, c-format
@@ -70,7 +70,7 @@ msgstr ""
 "З докладнішими даними можна ознайомитися на сторінці довідника (man) %s(1).\n"
 
 #: align/scan.c:134 cat/virt-cat.c:115 cat/virt-filesystems.c:188
-#: cat/virt-ls.c:180 df/main.c:135 edit/virt-edit.c:134 fish/fish.c:234
+#: cat/virt-ls.c:180 df/main.c:133 edit/virt-edit.c:134 fish/fish.c:234
 #: format/format.c:126 fuse/guestmount.c:207 inspector/virt-inspector.c:127
 #: rescue/virt-rescue.c:135
 #, c-format
@@ -78,19 +78,19 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
 #: align/scan.c:154 cat/virt-cat.c:137 cat/virt-filesystems.c:242
-#: cat/virt-ls.c:230 df/main.c:159 edit/virt-edit.c:156 fish/fish.c:290
+#: cat/virt-ls.c:230 df/main.c:157 edit/virt-edit.c:156 fish/fish.c:290
 #: format/format.c:178 fuse/guestmount.c:242 fuse/guestunmount.c:124
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: невідомий довгий запис параметра: %s (%d)\n"
 
-#: align/scan.c:174 df/main.c:187
+#: align/scan.c:174 df/main.c:185
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr "%s: аргумент параметра -P не є числом\n"
 
-#: align/scan.c:229 df/main.c:277
+#: align/scan.c:229 df/main.c:279
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr "%s: зібрано без підтримки libvirt.\n"
@@ -147,14 +147,14 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-cat.c:353 edit/virt-edit.c:621 fish/fish.c:1716
+#: cat/virt-cat.c:357 edit/virt-edit.c:625 fish/fish.c:1720
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для використання літерних позначень дисків Windows ваша система має бути "
 "гостьовою системою Windows\n"
 
-#: cat/virt-cat.c:367 edit/virt-edit.c:635
+#: cat/virt-cat.c:371 edit/virt-edit.c:639
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr "%s: диск '%c:' не знайдено.\n"
@@ -236,7 +236,7 @@ msgstr ""
 "  -x                   Показати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-filesystems.c:304 cat/virt-ls.c:334 df/main.c:260
+#: cat/virt-filesystems.c:304 cat/virt-ls.c:338 df/main.c:262
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: не можна одночасно використовувати параметри -h та --csv.\n"
@@ -302,7 +302,7 @@ msgstr ""
 "  -x                   Трасувати виклики API libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-ls.c:325
+#: cat/virt-ls.c:329
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -312,12 +312,12 @@ msgstr ""
 "lR\n"
 "Докладніші дані наведено на сторінці довідника (man) virt-ls(1).\n"
 
-#: cat/virt-ls.c:505
+#: cat/virt-ls.c:509
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: помилка під час спроби отримання розширених атрибутів %s %s\n"
 
-#: cat/virt-ls.c:515
+#: cat/virt-ls.c:519
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: помилка: не вдалося обробити числове значення xattr для %s %s\n"
@@ -352,7 +352,7 @@ msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: не вдалося побудувати список неактивних доменів (код %d, домен %d): %s\n"
 
-#: df/main.c:72
+#: df/main.c:70
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -400,11 +400,6 @@ msgstr ""
 "  -V|--version         Показати дані щодо версії і завершити роботу\n"
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
-
-#: df/main.c:342
-#, c-format
-msgid "%s: xmlSaveUri: could not make printable URI\n"
-msgstr ""
 
 #: df/output.c:49
 msgid "VirtualMachine"
@@ -3031,22 +3026,22 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: можна вказувати лише один параметр -f\n"
 
-#: fish/fish.c:502
+#: fish/fish.c:506
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --remote\n"
 
-#: fish/fish.c:510
+#: fish/fish.c:514
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: зайві параметри у командному рядку з прапорцем --listen\n"
 
-#: fish/fish.c:516
+#: fish/fish.c:520
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --file\n"
 
-#: fish/fish.c:678
+#: fish/fish.c:682
 #, c-format
 msgid ""
 "\n"
@@ -3059,51 +3054,51 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:829 fish/fish.c:845
+#: fish/fish.c:833 fish/fish.c:849
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:839
+#: fish/fish.c:843
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:869
+#: fish/fish.c:873
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:886
+#: fish/fish.c:890
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:961
+#: fish/fish.c:965
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:970
+#: fish/fish.c:974
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:1033
+#: fish/fish.c:1037
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: порожня команда або командний рядок\n"
 
-#: fish/fish.c:1191
+#: fish/fish.c:1195
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1193
+#: fish/fish.c:1197
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1204
+#: fish/fish.c:1208
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -3114,7 +3109,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1212
+#: fish/fish.c:1216
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -3123,13 +3118,13 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1217
+#: fish/fish.c:1221
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
 
-#: fish/fish.c:1233
+#: fish/fish.c:1237
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -3140,22 +3135,22 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1242
+#: fish/fish.c:1246
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1285
+#: fish/fish.c:1289
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr "%s: «%s»: некоректне булеве значення, має бути 'true' або 'false'\n"
 
-#: fish/fish.c:1393
+#: fish/fish.c:1397
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1710
+#: fish/fish.c:1714
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -3165,7 +3160,7 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1730
+#: fish/fish.c:1734
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -3175,7 +3170,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1749
+#: fish/fish.c:1753
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3379,32 +3374,17 @@ msgstr ""
 "скористайтеся командою «%s назва_файла» для поділу вмісту файла під час "
 "перегляду на сторінки\n"
 
-#: fish/options.c:103
-#, c-format
-msgid "%s: --add: could not parse URI '%s'\n"
-msgstr ""
-
-#: fish/options.c:114
-#, c-format
-msgid "%s: --add %s: scheme of URI is NULL\n"
-msgstr ""
-
-#: fish/options.c:122
-#, c-format
-msgid "%s: --add %s: cannot both a server name and a socket query parameter\n"
-msgstr ""
-
-#: fish/options.c:292
+#: fish/options.c:86
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: у командному рядку вказано занадто багато пристроїв\n"
 
-#: fish/options.c:435
+#: fish/options.c:227
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: не вдалося змонтувати «%s».\n"
 
-#: fish/options.c:439
+#: fish/options.c:231
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -3414,7 +3394,7 @@ msgstr ""
 "параметрами «%s»\n"
 "%s: підтримуються файловою системою, яка монтується.\n"
 
-#: fish/options.c:443
+#: fish/options.c:235
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr "%s: ви хотіли змонтувати одну з цих файлових систем?\n"
@@ -3614,6 +3594,21 @@ msgstr "ні"
 #, c-format
 msgid "use 'time command [args...]'\n"
 msgstr "скористайтеся командою «time команда [аргументи...]»\n"
+
+#: fish/uri.c:111
+#, c-format
+msgid "%s: --add: could not parse URI '%s'\n"
+msgstr ""
+
+#: fish/uri.c:122
+#, c-format
+msgid "%s: %s: scheme of URI is NULL or empty\n"
+msgstr ""
+
+#: fish/uri.c:130
+#, c-format
+msgid "%s: %s: cannot both a server name and a socket query parameter\n"
+msgstr ""
 
 #: format/format.c:61
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
@@ -3864,12 +3859,12 @@ msgstr ""
 "  --xpath query        Виконати запит XPath\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: inspector/virt-inspector.c:238
+#: inspector/virt-inspector.c:242
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr "%s: не можна використовувати --xpath разом з іншими параметрами.\n"
 
-#: inspector/virt-inspector.c:272
+#: inspector/virt-inspector.c:276
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3899,52 +3894,52 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: inspector/virt-inspector.c:287
+#: inspector/virt-inspector.c:291
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: помилка запису XML у «%s»: %m\n"
 
-#: inspector/virt-inspector.c:299
+#: inspector/virt-inspector.c:303
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: не вдалося відкрити stdout\n"
 
-#: inspector/virt-inspector.c:308
+#: inspector/virt-inspector.c:312
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: не вдалося створити процес запису libxml2\n"
 
-#: inspector/virt-inspector.c:765
+#: inspector/virt-inspector.c:769
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr "%s: не вдалося обробити код XML з stdin\n"
 
-#: inspector/virt-inspector.c:771
+#: inspector/virt-inspector.c:775
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr "%s: не вдалося створити контекст XPath\n"
 
-#: inspector/virt-inspector.c:778
+#: inspector/virt-inspector.c:782
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr "%s: не вдалося обробити вираз XPath\n"
 
-#: inspector/virt-inspector.c:791
+#: inspector/virt-inspector.c:795
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr "%s: помилка xmlSaveToFd\n"
 
-#: inspector/virt-inspector.c:798
+#: inspector/virt-inspector.c:802
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr "%s: помилка xmlNewDoc\n"
 
-#: inspector/virt-inspector.c:803
+#: inspector/virt-inspector.c:807
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr "%s: помилка xmlCopyNode\n"
 
-#: inspector/virt-inspector.c:810
+#: inspector/virt-inspector.c:814
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr "%s: помилка xmlSaveDoc\n"
@@ -4027,7 +4022,7 @@ msgstr "%s: значенням у параметрі --scratch «%s» має б�
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: не вдалося обробити запис об’єму пам’яті «%s»\n"
 
-#: rescue/virt-rescue.c:313
+#: rescue/virt-rescue.c:317
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
@@ -4036,7 +4031,7 @@ msgstr ""
 "%s: попередження: у поточній версії virt-rescue не може працювати з модулем\n"
 "libvirt Щоб усунути цю незручність, буде примусово вибрано модуль «direct».\n"
 
-#: rescue/virt-rescue.c:397
+#: rescue/virt-rescue.c:401
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -4045,7 +4040,7 @@ msgstr ""
 "Вивчення віртуальної машини або образу диска...\n"
 "\n"
 
-#: rescue/virt-rescue.c:416
+#: rescue/virt-rescue.c:420
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -4058,7 +4053,7 @@ msgstr ""
 "запит ><rescue>) для монтування файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:426
+#: rescue/virt-rescue.c:430
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -4071,7 +4066,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/virt-rescue.c:483
+#: rescue/virt-rescue.c:487
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -4088,7 +4083,7 @@ msgstr ""
 "створити розділи, логічні томи та файлові системи на порожньому\n"
 "диску.\n"
 
-#: rescue/virt-rescue.c:490
+#: rescue/virt-rescue.c:494
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -4102,7 +4097,7 @@ msgstr ""
 "відповідь на запит ><rescue>) для монтування цих файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:495
+#: rescue/virt-rescue.c:499
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
@@ -5407,19 +5402,19 @@ msgstr ""
 "  Залишок місця буде проігноровано. Запустіть програму керування розділами "
 "гостьової системи, якщо бажаєте розподілити це залишок місця."
 
-#: ../sysprep/main.ml:209
+#: ../sysprep/main.ml:216
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
-#: ../sysprep/main.ml:58
+#: ../sysprep/main.ml:63
 msgid "%s: --domain option can only be given once\n"
 msgstr "%s: параметр --domain можна вказувати лише один раз\n"
 
-#: ../sysprep/main.ml:70
+#: ../sysprep/main.ml:75
 msgid "%s: --enable option can only be given once\n"
 msgstr "%s: параметр --enable можна вказувати лише один раз\n"
 
-#: ../sysprep/main.ml:82
+#: ../sysprep/main.ml:87
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
@@ -5520,7 +5515,7 @@ msgstr "%s: не вказано аргумент розміру у параме�
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
-#: ../sysprep/main.ml:195
+#: ../sysprep/main.ml:202
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
 
@@ -5558,7 +5553,7 @@ msgstr "%s: розмір розділу, %Ld < розмір фізичного �
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: фізичний тому не повернуто pvs_full"
 
-#: ../sysprep/main.ml:130
+#: ../sysprep/main.ml:135
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -5627,15 +5622,15 @@ msgstr ""
 "%s: невідомий тип таблиці розділів\n"
 "У virt-resize передбачено підтримку лише таблиць MBR (DOS) та GPT."
 
-#: ../sysprep/main.ml:159
+#: ../sysprep/main.ml:164
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr "%s: не можна передавати одночасно параметри -a і -d\n"
 
-#: ../sysprep/main.ml:74
+#: ../sysprep/main.ml:79
 msgid "%s: you cannot pass an empty argument to --enable\n"
 msgstr "%s: параметру --enable не можна передавати порожніх аргументів\n"
 
-#: ../sysprep/main.ml:150
+#: ../sysprep/main.ml:155
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: вам слід передати параметр -a або -d\n"
 
@@ -5655,7 +5650,7 @@ msgstr "параметр --expand вказано двічі"
 msgid "--shrink option given twice"
 msgstr "параметр --shrink вказано двічі"
 
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "Add disk image file"
 msgstr "Додати файл образу диска"
 
@@ -5731,7 +5726,7 @@ msgstr ""
 msgid "Debug GC and memory allocations"
 msgstr "Діагностика GC та розподілу пам’яті"
 
-#: ../sysprep/main.ml:101
+#: ../sysprep/main.ml:106
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностика GC та розподілу пам’яті (внутрішня)"
 
@@ -5740,7 +5735,7 @@ msgid "Delete partition"
 msgstr "Вилучити розділ"
 
 #. ../resize/resize.ml:110
-#: ../sysprep/main.ml:120 ../sysprep/main.ml:119 ../sparsify/sparsify.ml:72
+#: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:72
 msgid "Display version and exit"
 msgstr "Показати номер версії і вийти"
 
@@ -5760,7 +5755,7 @@ msgstr "Не розширювати область даних"
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
-#: ../sysprep/main.ml:114 ../sysprep/main.ml:113
+#: ../sysprep/main.ml:119 ../sysprep/main.ml:118
 msgid "Don't print log messages"
 msgstr "Не виводити повідомлень до журналу"
 
@@ -5768,24 +5763,24 @@ msgstr "Не виводити повідомлень до журналу"
 msgid "Don't print the summary"
 msgstr "Не виводити даних резюме"
 
-#: ../sysprep/main.ml:107
+#: ../sysprep/main.ml:112
 msgid "Dump POD (internal)"
 msgstr "Створити дамп POD (вбудоване)"
 
-#: ../sysprep/main.ml:108
+#: ../sysprep/main.ml:113
 msgid "Dump POD for options (internal)"
 msgstr "Створити дамп POD для параметрів (вбудоване)"
 
 #. ../resize/resize.ml:85
-#: ../sysprep/main.ml:118 ../sysprep/main.ml:117 ../sparsify/sparsify.ml:70
+#: ../sysprep/main.ml:123 ../sysprep/main.ml:122 ../sparsify/sparsify.ml:70
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../sysprep/main.ml:109
+#: ../sysprep/main.ml:114
 msgid "Enable specific operations"
 msgstr "Увімкнути виконання специфічних дій"
 
-#: ../sysprep/main.ml:121 ../sparsify/sparsify.ml:74
+#: ../sysprep/main.ml:126 ../sparsify/sparsify.ml:74
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -5805,7 +5800,7 @@ msgstr ""
 "Вивчення %s…\n"
 "%!"
 
-#: ../sysprep/main.ml:180
+#: ../sysprep/main.ml:187
 msgid ""
 "Examining the guest ...\n"
 "%!"
@@ -5887,7 +5882,7 @@ msgstr ""
 "Для Fedora і Red Hat Enterprise Linux\n"
 "це вилучається з файлів C<ifcfg-*>."
 
-#: ../sysprep/main.ml:115
+#: ../sysprep/main.ml:120
 msgid "Force SELinux relabel"
 msgstr "Примусова зміна міток SELinux"
 
@@ -5933,11 +5928,11 @@ msgstr "Ігнорувати файлову систему"
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../sysprep/main.ml:112 ../sparsify/sparsify.ml:65 ../resize/resize.ml:94
+#: ../sysprep/main.ml:117 ../sparsify/sparsify.ml:65 ../resize/resize.ml:94
 msgid "List long options"
 msgstr "Показати список повних версій параметрів"
 
-#: ../sysprep/main.ml:111
+#: ../sysprep/main.ml:116
 msgid "List supported operations"
 msgstr "Показати список підтримуваних команд"
 
@@ -5949,7 +5944,7 @@ msgstr "Зробити машину виведення даних придатн
 msgid "Mount point on host"
 msgstr "Точка монтування у основній системі"
 
-#: ../sysprep/main.ml:116
+#: ../sysprep/main.ml:121
 msgid "Never do SELinux relabel"
 msgstr "Ніколи не виконувати зміни міток SELinux"
 
@@ -5991,7 +5986,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../sysprep/main.ml:106 ../sysprep/main.ml:105 ../sysprep/main.ml:104
+#: ../sysprep/main.ml:111 ../sysprep/main.ml:110 ../sysprep/main.ml:109
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
@@ -5999,7 +5994,7 @@ msgstr "Виконати тестовий запуск"
 msgid "Quiet output"
 msgstr "Режим з мінімальним виведенням даних"
 
-#: ../sysprep/main.ml:160 ../sysprep/main.ml:151
+#: ../sysprep/main.ml:165 ../sysprep/main.ml:156
 msgid "Read virt-sysprep(1) man page for further information.\n"
 msgstr ""
 "Ознайомтеся зі сторінкою підручника (man) virt-sysprep(1), щоб дізнатися "
@@ -6234,15 +6229,15 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
 
-#: ../sysprep/main.ml:110
+#: ../sysprep/main.ml:115
 msgid "Set format (default: auto)"
 msgstr "Встановити формат (типовий формат: auto)"
 
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
+#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "Set libvirt URI"
 msgstr "Встановити адресу libvirt"
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
 msgid "Set libvirt guest name"
 msgstr "Встановити назву гостьової системи libvirt"
 
@@ -6522,7 +6517,7 @@ msgstr ""
 msgid "dir"
 msgstr "каталог"
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
 msgid "domain"
 msgstr "домен"
 
@@ -6546,11 +6541,11 @@ msgstr "роботу зовнішньої програми «%s» зупинен
 msgid "external command failed: %s"
 msgstr "помилка зовнішньої програми: %s"
 
-#: ../sysprep/main.ml:128
+#: ../sysprep/main.ml:133
 msgid "extra parameter on the command line"
 msgstr "зайвий параметр у командному рядку"
 
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "file"
 msgstr "файл"
 
@@ -6560,7 +6555,7 @@ msgstr "firstboot: помилка: "
 
 #. ../resize/resize.ml:104
 #. ../resize/resize.ml:92
-#: ../sysprep/main.ml:110 ../sparsify/sparsify.ml:63
+#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:63
 #: ../sparsify/sparsify.ml:61
 msgid "format"
 msgstr "формат"
@@ -6594,7 +6589,7 @@ msgstr "never|always|auto"
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../sysprep/main.ml:109
+#: ../sysprep/main.ml:114
 msgid "operations"
 msgstr "дії"
 
@@ -6664,22 +6659,22 @@ msgstr "помилка скрипту"
 msgid "sectors"
 msgstr "сектори"
 
-#: ../sysprep/main.ml:256
+#: ../sysprep/main.ml:263
 msgid "sysprep operation failed: %s\n"
 msgstr "помилка під час дії sysprep: %s\n"
 
-#: ../sysprep/main.ml:268
+#: ../sysprep/main.ml:275
 msgid "sysprep operation failed: exception: %s\n"
 msgstr "помилка під час дії sysprep: виключення: %s\n"
 
-#: ../sysprep/main.ml:265
+#: ../sysprep/main.ml:272
 msgid ""
 "sysprep operation failed: internal error: Not_found exception was thrown\n"
 msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: сталося виключення "
 "Not_found\n"
 
-#: ../sysprep/main.ml:262
+#: ../sysprep/main.ml:269
 msgid ""
 "sysprep operation failed: internal error: assertion failed at %s, line %d, "
 "char %d\n"
@@ -6687,7 +6682,7 @@ msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: помилка твердження у %s, "
 "рядок %d, символ %d\n"
 
-#: ../sysprep/main.ml:259
+#: ../sysprep/main.ml:266
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: некоректний аргумент: %s\n"
@@ -6700,7 +6695,7 @@ msgstr "на початковому диску немає розділів"
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: слід вказати never|always|auto"
 
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
+#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "uri"
 msgstr "адреса"
 
