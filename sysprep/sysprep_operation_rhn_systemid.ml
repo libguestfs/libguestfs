@@ -28,6 +28,7 @@ let rhn_systemid_perform g root =
   match typ, distro with
   | "linux", "rhel" ->
     (try g#rm "/etc/sysconfig/rhn/systemid" with G.Error _ -> ());
+    (try g#rm "/etc/sysconfig/rhn/osad-auth.conf" with G.Error _ -> ());
     []
   | _ -> []
 
