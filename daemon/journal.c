@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include <string.h>
 #include <endian.h>
 
@@ -131,7 +132,8 @@ do_journal_skip (int64_t skip)
   else /* skip < 0 */
     r = sd_journal_previous_skip (j, (uint64_t) -skip);
   if (r < 0) {
-    reply_with_perror_errno (-r, "failed to skip %zd journal entries", skip);
+    reply_with_perror_errno (-r, "failed to skip %" PRIi64 " journal entries",
+			     skip);
     return -1;
   }
 
