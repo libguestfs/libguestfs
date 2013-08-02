@@ -42,7 +42,12 @@ let rec fs_uuids_perform g root =
 
 let fs_uuids_op = {
   name = "fs-uuids";
-  enabled_by_default = true;
+  (* NB: This is disabled by default now because doing this
+   * properly requires us to find all places in the image
+   * where the UUID might be used.  This includes /etc/fstab
+   * and possibly the initramfs.  XXX
+   *)
+  enabled_by_default = false;
   heading = s_"Change filesystem UUIDs";
   pod_description = Some (s_"\
 On guests and filesystem types where this is supported,
