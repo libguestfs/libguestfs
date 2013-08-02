@@ -6,6 +6,7 @@ resize/resize.ml
 resize/tTY.ml
 resize/uRI.ml
 sparsify/sparsify.ml
+sysprep/crypt.ml
 sysprep/firstboot.ml
 sysprep/main.ml
 sysprep/sysprep_operation.ml
@@ -32,6 +33,7 @@ sysprep/sysprep_operation_net_hwaddr.ml
 sysprep/sysprep_operation_pacct_log.ml
 sysprep/sysprep_operation_package_manager_cache.ml
 sysprep/sysprep_operation_pam_data.ml
+sysprep/sysprep_operation_password.ml
 sysprep/sysprep_operation_puppet_data_log.ml
 sysprep/sysprep_operation_random_seed.ml
 sysprep/sysprep_operation_rhn_systemid.ml

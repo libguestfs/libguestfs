@@ -53,6 +53,7 @@ operations = \
 	pacct_log \
 	package_manager_cache \
 	pam_data \
+	password \
 	puppet_data_log \
 	random_seed \
 	rhn_systemid \
@@ -69,6 +70,9 @@ operations = \
 
 # Alphabetical order.
 SOURCES = \
+	crypt-c.c \
+	crypt.ml \
+	crypt.mli \
 	firstboot.ml \
 	firstboot.mli \
 	main.ml \
@@ -85,6 +89,8 @@ OBJECTS = \
 	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/resize/uri-c.o \
 	$(top_builddir)/resize/uRI.cmx \
+	crypt-c.o \
+	crypt.cmx \
 	firstboot.cmx \
 	sysprep_operation.cmx \
 	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \
@@ -104,7 +110,7 @@ OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 OCAMLCLIBS  = \
-	$(LIBXML2_LIBS) -lncurses \
+	$(LIBXML2_LIBS) -lncurses -lcrypt \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu
 
@@ -121,6 +127,14 @@ virt-sysprep: $(OBJECTS)
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
+
+# automake will decide we don't need C support in this file.  Really
+# we do, so we have to provide it ourselves.
+
+DEFAULT_INCLUDES = -I. -I$(top_builddir) -I$(shell $(OCAMLC) -where)
+
+.c.o:
+	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-sysprep.1

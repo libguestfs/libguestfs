@@ -291,6 +291,7 @@ src/private-data.c
 src/proto.c
 src/tmpdirs.c
 src/utils.c
+sysprep/crypt-c.c
 test-tool/test-tool.c
 tools/virt-list-filesystems.pl
 tools/virt-list-partitions.pl
