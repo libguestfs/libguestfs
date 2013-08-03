@@ -199,9 +199,11 @@ See L</OPTIONS> above for details of these options.
 
 This operation is enabled by default, but it only does something
 if there is at least one I<--root-password> or I<--password>
-argument given.
+argument given.");
 
-Currently this only works for Linux guests.");
+    pod_notes = Some (s_"\
+Currently this only works for glibc-based Linux guests that
+use shadow passwords.");
 
     extra_args = [
       ("--root-password", Arg.String set_root_password,

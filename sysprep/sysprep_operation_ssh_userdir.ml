@@ -41,6 +41,10 @@ let op = {
     pod_description = Some (s_"\
 Remove the C<.ssh> directory of user \"root\" and any other
 users who have a C<.ssh> directory in their home directory.");
+    pod_notes = Some (s_"\
+Currently this only looks in C</root> and C</home/*> for
+home directories, so users with home directories in other
+locations won't have the ssh files removed.");
     perform_on_filesystems = Some ssh_userdir_perform;
 }
 

@@ -41,6 +41,10 @@ let op = {
     pod_description = Some (s_"\
 Remove the bash history of user \"root\" and any other users
 who have a C<.bash_history> file in their home directory.");
+    pod_notes = Some (s_"\
+Currently this only looks in C</root> and C</home/*> for
+home directories, so users with home directories in other
+locations won't have the bash history removed.");
     perform_on_filesystems = Some bash_history_perform;
 }
 
