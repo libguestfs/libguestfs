@@ -45,16 +45,15 @@ let pacct_log_perform g root =
 
   | _ -> []
 
-let pacct_log_op = {
-  name = "pacct-log";
-  enabled_by_default = true;
-  heading = s_"Remove the process accounting log files";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "pacct-log";
+    enabled_by_default = true;
+    heading = s_"Remove the process accounting log files";
+    pod_description = Some (s_"\
 The system wide process accounting will store to the pacct
 log files if the process accounting is on.");
-  extra_args = [];
-  perform_on_filesystems = Some pacct_log_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some pacct_log_perform;
 }
 
-let () = register_operation pacct_log_op
+let () = register_operation op

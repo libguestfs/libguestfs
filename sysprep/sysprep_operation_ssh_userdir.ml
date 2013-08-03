@@ -33,16 +33,15 @@ let ssh_userdir_perform g root =
   )
   else []
 
-let ssh_userdir_op = {
-  name = "ssh-userdir";
-  enabled_by_default = true;
-  heading = s_"Remove \".ssh\" directories in the guest";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "ssh-userdir";
+    enabled_by_default = true;
+    heading = s_"Remove \".ssh\" directories in the guest";
+    pod_description = Some (s_"\
 Remove the C<.ssh> directory of user \"root\" and any other
 users who have a C<.ssh> directory in their home directory.");
-  extra_args = [];
-  perform_on_filesystems = Some ssh_userdir_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some ssh_userdir_perform;
 }
 
-let () = register_operation ssh_userdir_op
+let () = register_operation op

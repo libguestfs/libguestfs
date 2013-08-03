@@ -32,14 +32,12 @@ let dovecot_data_perform g root =
   )
   else []
 
-let dovecot_data_op = {
-  name = "dovecot-data";
-  enabled_by_default = true;
-  heading = s_"Remove Dovecot (mail server) data";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some dovecot_data_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "dovecot-data";
+    enabled_by_default = true;
+    heading = s_"Remove Dovecot (mail server) data";
+    perform_on_filesystems = Some dovecot_data_perform;
 }
 
-let () = register_operation dovecot_data_op
+let () = register_operation op

@@ -34,16 +34,15 @@ let rpm_db_perform g root =
   )
   else []
 
-let rpm_db_op = {
-  name = "rpm-db";
-  enabled_by_default = true;
-  heading = s_"Remove host-specific RPM database files";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "rpm-db";
+    enabled_by_default = true;
+    heading = s_"Remove host-specific RPM database files";
+    pod_description = Some (s_"\
 Remove host-specific RPM database files and locks.  RPM will
 recreate these files automatically if needed.");
-  extra_args = [];
-  perform_on_filesystems = Some rpm_db_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some rpm_db_perform;
 }
 
-let () = register_operation rpm_db_op
+let () = register_operation op

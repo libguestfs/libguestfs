@@ -75,6 +75,9 @@ type operation = {
       operation to work directly on block devices, LVs etc. *)
 }
 
+val defaults : operation
+(** This is so operations can write [let op = { defaults with ... }]. *)
+
 val register_operation : operation -> unit
 (** Register an operation. *)
 

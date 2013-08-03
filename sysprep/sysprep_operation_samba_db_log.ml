@@ -41,14 +41,12 @@ let samba_db_log_perform g root =
   )
   else []
 
-let samba_db_log_op = {
-  name = "samba-db-log";
-  enabled_by_default = true;
-  heading = s_"Remove the database and log files of Samba";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some samba_db_log_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "samba-db-log";
+    enabled_by_default = true;
+    heading = s_"Remove the database and log files of Samba";
+    perform_on_filesystems = Some samba_db_log_perform;
 }
 
-let () = register_operation samba_db_log_op
+let () = register_operation op

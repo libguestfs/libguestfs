@@ -25,14 +25,12 @@ let dhcp_server_state_perform g root =
   Array.iter g#rm_rf (g#glob_expand "/var/lib/dhcpd/*");
   []
 
-let dhcp_server_state_op = {
-  name = "dhcp-server-state";
-  enabled_by_default = true;
-  heading = s_"Remove DHCP server leases";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some dhcp_server_state_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "dhcp-server-state";
+    enabled_by_default = true;
+    heading = s_"Remove DHCP server leases";
+    perform_on_filesystems = Some dhcp_server_state_perform;
 }
 
-let () = register_operation dhcp_server_state_op
+let () = register_operation op

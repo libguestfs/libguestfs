@@ -45,18 +45,17 @@ let random_seed_perform (g : Guestfs.guestfs) root =
   )
   else []
 
-let random_seed_op = {
-  name = "random-seed";
-  enabled_by_default = true;
-  heading = s_"Generate random seed for guest";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "random-seed";
+    enabled_by_default = true;
+    heading = s_"Generate random seed for guest";
+    pod_description = Some (s_"\
 Write some random bytes from the host into the random seed file of the
 guest.
 
 See L</RANDOM SEED> below.");
-  extra_args = [];
-  perform_on_filesystems = Some random_seed_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some random_seed_perform;
 }
 
-let () = register_operation random_seed_op
+let () = register_operation op

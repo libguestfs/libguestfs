@@ -40,14 +40,12 @@ let pam_data_perform g root =
   )
   else []
 
-let pam_data_op = {
-  name = "pam-data";
-  enabled_by_default = true;
-  heading = s_"Remove the PAM data in the guest";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some pam_data_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "pam-data";
+    enabled_by_default = true;
+    heading = s_"Remove the PAM data in the guest";
+    perform_on_filesystems = Some pam_data_perform;
 }
 
-let () = register_operation pam_data_op
+let () = register_operation op

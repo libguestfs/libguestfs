@@ -40,21 +40,20 @@ let rec fs_uuids_perform g root =
   ) fses;
   []
 
-let fs_uuids_op = {
-  name = "fs-uuids";
-  (* NB: This is disabled by default now because doing this
-   * properly requires us to find all places in the image
-   * where the UUID might be used.  This includes /etc/fstab
-   * and possibly the initramfs.  XXX
-   *)
-  enabled_by_default = false;
-  heading = s_"Change filesystem UUIDs";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "fs-uuids";
+    (* NB: This is disabled by default now because doing this
+     * properly requires us to find all places in the image
+     * where the UUID might be used.  This includes /etc/fstab
+     * and possibly the initramfs.  XXX
+     *)
+    enabled_by_default = false;
+    heading = s_"Change filesystem UUIDs";
+    pod_description = Some (s_"\
 On guests and filesystem types where this is supported,
 new random UUIDs are generated and assigned to filesystems.");
-  extra_args = [];
-  perform_on_filesystems = None;
-  perform_on_devices = Some fs_uuids_perform;
+    perform_on_devices = Some fs_uuids_perform;
 }
 
-let () = register_operation fs_uuids_op
+let () = register_operation op

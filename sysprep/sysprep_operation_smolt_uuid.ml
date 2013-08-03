@@ -35,14 +35,12 @@ let smolt_uuid_perform g root =
   )
   else []
 
-let smolt_uuid_op = {
-  name = "smolt-uuid";
-  enabled_by_default = true;
-  heading = s_"Remove the Smolt hardware UUID";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some smolt_uuid_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "smolt-uuid";
+    enabled_by_default = true;
+    heading = s_"Remove the Smolt hardware UUID";
+    perform_on_filesystems = Some smolt_uuid_perform;
 }
 
-let () = register_operation smolt_uuid_op
+let () = register_operation op

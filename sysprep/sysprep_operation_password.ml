@@ -174,16 +174,17 @@ and encrypt password crypto =
   (*printf "password: encrypt %s with salt %s -> %s\n" password salt r;*)
   r
 
-let password_op = {
-  name = "password";
+let op = {
+  defaults with
+    name = "password";
 
-  (* enabled_by_default because we only do anything if the
-   * --password or --root-password parameter is used.
-   *)
-  enabled_by_default = true;
+    (* enabled_by_default because we only do anything if the
+     * --password or --root-password parameter is used.
+     *)
+    enabled_by_default = true;
 
-  heading = s_"Set root or user password";
-  pod_description = Some (s_"\
+    heading = s_"Set root or user password";
+    pod_description = Some (s_"\
 Set root or another user's password.
 
 Use the I<--root-password> option to specify a replacement root
@@ -202,10 +203,10 @@ argument given.
 
 Currently this only works for Linux guests.");
 
-  extra_args = [
-    ("--root-password", Arg.String set_root_password,
-     s_"..." ^ " " ^ s_"set root password (see man page)"),
-    s_"\
+    extra_args = [
+      ("--root-password", Arg.String set_root_password,
+       s_"..." ^ " " ^ s_"set root password (see man page)"),
+      s_"\
 Set the root password.  The following formats may be used
 for this option:
 
@@ -227,9 +228,9 @@ can see the cleartext password using L<ps(1)>.
 
 =back";
 
-    ("--password", Arg.String set_user_password,
-     s_"..." ^ " " ^ s_"set user password (see man page)"),
-    s_"\
+      ("--password", Arg.String set_user_password,
+       s_"..." ^ " " ^ s_"set user password (see man page)"),
+      s_"\
 Set a user password.  The user must exist already (this option
 does I<not> create users).  The following formats may be used
 for this option:
@@ -254,9 +255,9 @@ can see the cleartext password using L<ps(1)>.
 
 =back";
 
-    ("--password-crypto", Arg.String set_password_crypto,
-     s_"md5|sha256|sha512" ^ " " ^ s_"set password crypto"),
-    s_"\
+      ("--password-crypto", Arg.String set_password_crypto,
+       s_"md5|sha256|sha512" ^ " " ^ s_"set password crypto"),
+      s_"\
 Set the password encryption to C<md5>, C<sha256> or C<sha512>.
 
 C<sha256> and C<sha512> require glibc E<ge> 2.7
@@ -269,10 +270,9 @@ The default is C<sha512> unless libguestfs detects an old guest
 that didn't have support for SHA-512, in which case it will use C<md5>.
 You can override libguestfs by specifying this option.";
 
-  ];
+    ];
 
-  perform_on_filesystems = Some password_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some password_perform;
 }
 
-let () = register_operation password_op
+let () = register_operation op

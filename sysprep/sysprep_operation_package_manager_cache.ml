@@ -36,14 +36,12 @@ let package_manager_cache_perform g root =
   | Some dirs -> Array.iter g#rm_rf dirs; []
   | _ -> []
 
-let package_manager_cache_op = {
-  name = "package-manager-cache";
-  enabled_by_default = true;
-  heading = s_"Remove package manager cache";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some package_manager_cache_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "package-manager-cache";
+    enabled_by_default = true;
+    heading = s_"Remove package manager cache";
+    perform_on_filesystems = Some package_manager_cache_perform;
 }
 
-let () = register_operation package_manager_cache_op
+let () = register_operation op

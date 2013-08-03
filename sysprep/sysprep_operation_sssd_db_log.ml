@@ -39,14 +39,12 @@ let sssd_db_log_perform g root =
   )
   else []
 
-let sssd_db_log_op = {
-  name = "sssd-db-log";
-  enabled_by_default = true;
-  heading = s_"Remove the database and log files of sssd";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some sssd_db_log_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "sssd-db-log";
+    enabled_by_default = true;
+    heading = s_"Remove the database and log files of sssd";
+    perform_on_filesystems = Some sssd_db_log_perform;
 }
 
-let () = register_operation sssd_db_log_op
+let () = register_operation op

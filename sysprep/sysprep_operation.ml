@@ -35,6 +35,15 @@ type operation = {
   perform_on_filesystems : callback option;
   perform_on_devices : callback option;
 }
+let defaults = {
+  name = "";
+  enabled_by_default = false;
+  heading = "";
+  pod_description = None;
+  extra_args = [];
+  perform_on_filesystems = None;
+  perform_on_devices = None;
+}
 
 let all_operations = ref []
 let enabled_by_default_operations = ref []

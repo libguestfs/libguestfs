@@ -38,16 +38,15 @@ let rec lvm_uuids_perform g root =
   );
   []
 
-let lvm_uuids_op = {
-  name = "lvm-uuids";
-  enabled_by_default = true;
-  heading = s_"Change LVM2 PV and VG UUIDs";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "lvm-uuids";
+    enabled_by_default = true;
+    heading = s_"Change LVM2 PV and VG UUIDs";
+    pod_description = Some (s_"\
 On Linux guests that have LVM2 physical volumes (PVs) or volume groups (VGs),
 new random UUIDs are generated and assigned to those PVs and VGs.");
-  extra_args = [];
-  perform_on_filesystems = None;
-  perform_on_devices = Some lvm_uuids_perform;
+    perform_on_devices = Some lvm_uuids_perform;
 }
 
-let () = register_operation lvm_uuids_op
+let () = register_operation op
