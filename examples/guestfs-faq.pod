@@ -532,6 +532,66 @@ to ensure libguestfs is basically working.
 
 =back
 
+=head2 Errors during launch on Fedora E<ge> 18, RHEL E<ge> 7
+
+In Fedora E<ge> 18 and RHEL E<ge> 7, libguestfs uses libvirt to manage
+the appliance.  Previously (and upstream) libguestfs runs qemu
+directly:
+
+ +----------------------------------+
+ | libguestfs                       |
+ +----------------+-----------------+
+ | direct backend | libvirt backend |
+ +----------------+-----------------+
+        |                  |
+        v                  v
+    +-------+         +----------+
+    | qemu  |         | libvirtd |
+    +-------+         +----------+
+                           |
+                           v
+                       +-------+
+                       | qemu  |
+                       +-------+
+ 
+    upstream          Fedora 18+
+    non-Fedora         RHEL 7+
+    non-RHEL
+
+The libvirt backend is more sophisticated, supporting SELinux/sVirt
+(see above), hotplugging and more.  It is, however, more complex and
+so less robust.
+
+If you have permissions problems using the libvirt backend, you can
+switch to the direct backend by setting this environment variable:
+
+ export LIBGUESTFS_BACKEND=direct
+
+before running any libguestfs program or virt tool.
+
+=head2 How can I switch to a fixed / prebuilt appliance?
+
+This may improve the stability and performance of libguestfs on Fedora
+and RHEL.
+
+Any time after installing libguestfs, run the following commands as
+root:
+
+ mkdir -p /usr/local/lib/guestfs/appliance
+ libguestfs-make-fixed-appliance /usr/local/lib/guestfs/appliance
+ ls -l /usr/local/lib/guestfs/appliance
+
+Now set the following environment variable before using libguestfs or
+any virt tool:
+
+ export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance
+
+Of course you can change the path to any directory you want.  You can
+share the appliance across machines that have the same architecture
+(eg. all x86-64), but note that libvirt will prevent you from sharing
+the appliance across NFS because of permissions problems (so either
+switch to the direct backend or don't use NFS).
+
 =head2 How can I speed up libguestfs builds?
 
 By far the most important thing you can do is to install and properly
