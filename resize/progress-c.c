@@ -80,27 +80,27 @@ virt_resize_progress_bar_init (value machine_readablev)
   CAMLreturn (barv);
 }
 
+/* NB: "noalloc" function. */
 value
 virt_resize_progress_bar_reset (value barv)
 {
-  CAMLparam1 (barv);
   struct progress_bar *bar = Bar_val (barv);
 
   progress_bar_reset (bar);
 
-  CAMLreturn (Val_unit);
+  return Val_unit;
 }
 
+/* NB: "noalloc" function. */
 value
 virt_resize_progress_bar_set (value barv,
                               value positionv, value totalv)
 {
-  CAMLparam3 (barv, positionv, totalv);
   struct progress_bar *bar = Bar_val (barv);
   uint64_t position = Int64_val (positionv);
   uint64_t total = Int64_val (totalv);
 
   progress_bar_set (bar, position, total);
 
-  CAMLreturn (Val_unit);
+  return Val_unit;
 }
