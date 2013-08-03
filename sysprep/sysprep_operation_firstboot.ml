@@ -67,10 +67,11 @@ configuration that must run in the context of the guest
 operating system, for example C<yum update>.
 
 Output or errors from the scripts are written to
-C<~root/virt-sysprep-firstboot.log> (in the guest).
+C<~root/virt-sysprep-firstboot.log> (in the guest).");
 
+    pod_notes = Some (s_"\
 Currently this is only implemented for Linux guests using
-either System V init, or systemd.");
+either SysVinit-style scripts, Upstart or systemd.");
 
     extra_args = [
       ("--firstboot", Arg.String (fun s -> files := s :: !files),

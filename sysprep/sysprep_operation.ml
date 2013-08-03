@@ -31,6 +31,7 @@ type operation = {
   enabled_by_default : bool;
   heading : string;
   pod_description : string option;
+  pod_notes : string option;
   extra_args : ((Arg.key * Arg.spec * Arg.doc) * string) list;
   perform_on_filesystems : callback option;
   perform_on_devices : callback option;
@@ -40,6 +41,7 @@ let defaults = {
   enabled_by_default = false;
   heading = "";
   pod_description = None;
+  pod_notes = None;
   extra_args = [];
   perform_on_filesystems = None;
   perform_on_devices = None;
@@ -123,6 +125,20 @@ and check op =
         op.name;
       exit 1
     )
+  );
+  (match op.pod_notes with
+  | None -> ()
+  | Some notes ->
+    let n = String.length notes in
+    if n = 0 then (
+      eprintf (f_"virt-sysprep: operation %s has no POD notes\n") op.name;
+      exit 1
+    );
+    if notes.[n-1] = '\n' then (
+      eprintf (f_"virt-sysprep: POD notes for %s must not end with newline\n")
+        op.name;
+      exit 1
+    )
   )
 
 let extra_args () =
@@ -147,6 +163,14 @@ let dump_pod () =
       (match op.pod_description with
       | None -> ()
       | Some description -> printf "%s\n\n" description
+      );
+      (match op.pod_notes with
+      | None -> ()
+      | Some notes ->
+        printf "=head3 ";
+        printf (f_"Notes on %s") op.name;
+        printf "\n\n";
+        printf "%s\n\n" notes
       )
   ) !all_operations
 

@@ -66,6 +66,10 @@ let op = {
     pod_description = Some (s_"\
 Remove all the user accounts and their home directories.
 The \"root\" account is not removed.");
+    pod_notes = Some (s_"\
+Currently this does not remove the user accounts from
+C</etc/shadow>.  This is because there is no lens for
+the shadow password file in Augeas.");
     perform_on_filesystems = Some user_account_perform;
 }
 

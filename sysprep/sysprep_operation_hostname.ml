@@ -89,17 +89,23 @@ let op = {
     name = "hostname";
     enabled_by_default = true;
     heading = s_"Change the hostname of the guest";
+
     pod_description = Some (s_"\
 This operation changes the hostname of the guest to the value
 given in the I<--hostname> parameter.
 
 If the I<--hostname> parameter is not given, then the hostname is changed
 to C<localhost.localdomain>.");
+
+    pod_notes = Some (s_"\
+Currently this can only set the hostname on Linux guests.");
+
     extra_args = [
       ("--hostname", Arg.Set_string hostname, s_"hostname" ^ " " ^ s_"New hostname"),
       s_"\
 Change the hostname.  If not given, defaults to C<localhost.localdomain>."
     ];
+
     perform_on_filesystems = Some hostname_perform;
 }
 
