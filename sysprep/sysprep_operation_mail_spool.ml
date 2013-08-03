@@ -30,14 +30,12 @@ let mail_spool_perform g root =
   ];
   []
 
-let mail_spool_op = {
-  name = "mail-spool";
-  enabled_by_default = true;
-  heading = s_"Remove email from the local mail spool directory";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some mail_spool_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "mail-spool";
+    enabled_by_default = true;
+    heading = s_"Remove email from the local mail spool directory";
+    perform_on_filesystems = Some mail_spool_perform;
 }
 
-let () = register_operation mail_spool_op
+let () = register_operation op

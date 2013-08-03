@@ -33,14 +33,12 @@ let cron_spool_perform (g : Guestfs.guestfs) root =
   Array.iter g#rm (g#glob_expand "/var/spool/at/spool/*");
   []
 
-let cron_spool_op = {
-  name = "cron-spool";
-  enabled_by_default = true;
-  heading = s_"Remove user at-jobs and cron-jobs";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some cron_spool_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "cron-spool";
+    enabled_by_default = true;
+    heading = s_"Remove user at-jobs and cron-jobs";
+    perform_on_filesystems = Some cron_spool_perform;
 }
 
-let () = register_operation cron_spool_op
+let () = register_operation op

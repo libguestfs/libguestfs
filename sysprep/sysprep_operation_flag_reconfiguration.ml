@@ -29,16 +29,15 @@ let flag_reconfiguration g root =
   )
   else []
 
-let flag_reconfiguration_op = {
-  name = "flag-reconfiguration";
-  enabled_by_default = false;
-  heading = s_"Flag the system for reconfiguration";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "flag-reconfiguration";
+    enabled_by_default = false;
+    heading = s_"Flag the system for reconfiguration";
+    pod_description = Some (s_"\
 Note that this may require user intervention when the
 guest is booted.");
-  extra_args = [];
-  perform_on_filesystems = Some flag_reconfiguration;
-  perform_on_devices = None;
+    perform_on_filesystems = Some flag_reconfiguration;
 }
 
-let () = register_operation flag_reconfiguration_op;
+let () = register_operation op;

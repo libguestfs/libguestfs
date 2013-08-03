@@ -30,14 +30,12 @@ let dhcp_client_state_perform g root =
   );
   []
 
-let dhcp_client_state_op = {
-  name = "dhcp-client-state";
-  enabled_by_default = true;
-  heading = s_"Remove DHCP client leases";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some dhcp_client_state_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "dhcp-client-state";
+    enabled_by_default = true;
+    heading = s_"Remove DHCP client leases";
+    perform_on_filesystems = Some dhcp_client_state_perform;
 }
 
-let () = register_operation dhcp_client_state_op
+let () = register_operation op

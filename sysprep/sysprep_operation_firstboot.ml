@@ -48,16 +48,17 @@ let firstboot_perform g root =
   ) !files;
   [ `Created_files ]
 
-let firstboot_op = {
-  name = "firstboot";
+let op = {
+  defaults with
+    name = "firstboot";
 
-  (* enabled_by_default because we only do anything if the
-   * --firstboot parameter is used.
-   *)
-  enabled_by_default = true;
+    (* enabled_by_default because we only do anything if the
+     * --firstboot parameter is used.
+     *)
+    enabled_by_default = true;
 
-  heading = s_"Add scripts to run once at next boot";
-  pod_description = Some (s_"\
+    heading = s_"Add scripts to run once at next boot";
+    pod_description = Some (s_"\
 Supply one of more shell scripts (using the I<--firstboot> option).
 
 These are run the first time the guest boots, and then are
@@ -71,16 +72,15 @@ C<~root/virt-sysprep-firstboot.log> (in the guest).
 Currently this is only implemented for Linux guests using
 either System V init, or systemd.");
 
-  extra_args = [
-    ("--firstboot", Arg.String (fun s -> files := s :: !files),
-     s_"script" ^ " " ^ s_"run script once next time guest boots"),
-    s_"\
+    extra_args = [
+      ("--firstboot", Arg.String (fun s -> files := s :: !files),
+       s_"script" ^ " " ^ s_"run script once next time guest boots"),
+      s_"\
 Run script(s) once next time the guest boots.  You can supply
 the I<--firstboot> option as many times as needed."
-  ];
+    ];
 
-  perform_on_filesystems = Some firstboot_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some firstboot_perform;
 }
 
-let () = register_operation firstboot_op
+let () = register_operation op

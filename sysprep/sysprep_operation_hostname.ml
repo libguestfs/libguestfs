@@ -84,23 +84,23 @@ let hostname_perform (g : Guestfs.guestfs) root =
 
   | _ -> []
 
-let hostname_op = {
-  name = "hostname";
-  enabled_by_default = true;
-  heading = s_"Change the hostname of the guest";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "hostname";
+    enabled_by_default = true;
+    heading = s_"Change the hostname of the guest";
+    pod_description = Some (s_"\
 This operation changes the hostname of the guest to the value
 given in the I<--hostname> parameter.
 
 If the I<--hostname> parameter is not given, then the hostname is changed
 to C<localhost.localdomain>.");
-  extra_args = [
-    ("--hostname", Arg.Set_string hostname, s_"hostname" ^ " " ^ s_"New hostname"),
-    s_"\
+    extra_args = [
+      ("--hostname", Arg.Set_string hostname, s_"hostname" ^ " " ^ s_"New hostname"),
+      s_"\
 Change the hostname.  If not given, defaults to C<localhost.localdomain>."
-  ];
-  perform_on_filesystems = Some hostname_perform;
-  perform_on_devices = None;
+    ];
+    perform_on_filesystems = Some hostname_perform;
 }
 
-let () = register_operation hostname_op
+let () = register_operation op

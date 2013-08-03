@@ -40,14 +40,12 @@ let puppet_data_log_perform g root =
   )
   else []
 
-let puppet_data_log_op = {
-  name = "puppet-data-log";
-  enabled_by_default = true;
-  heading = s_"Remove the data and log files of puppet";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some puppet_data_log_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "puppet-data-log";
+    enabled_by_default = true;
+    heading = s_"Remove the data and log files of puppet";
+    perform_on_filesystems = Some puppet_data_log_perform;
 }
 
-let () = register_operation puppet_data_log_op
+let () = register_operation op

@@ -104,11 +104,12 @@ trap cleanup INT TERM QUIT EXIT ERR\n"
   );
   pid
 
-let script_op = {
-  name = "script";
-  enabled_by_default = true;
-  heading = s_"Run arbitrary scripts against the guest";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "script";
+    enabled_by_default = true;
+    heading = s_"Run arbitrary scripts against the guest";
+    pod_description = Some (s_"\
 The C<script> module lets you run arbitrary shell scripts or programs
 against the guest.
 
@@ -131,9 +132,9 @@ can choose a specific one by using the I<--scriptdir> parameter.
 B<Note:> This is different from I<--firstboot> scripts (which run
 in the context of the guest when it is booting first time).
 I<--script> scripts run on the host, not in the guest.");
-  extra_args = [
-    ("--scriptdir", Arg.String set_scriptdir, s_"dir" ^ " " ^ s_"Mount point on host"),
-    s_"\
+    extra_args = [
+      ("--scriptdir", Arg.String set_scriptdir, s_"dir" ^ " " ^ s_"Mount point on host"),
+      s_"\
 The mount point (an empty directory on the host) used when
 the C<script> operation is enabled and one or more scripts
 are specified using I<--script> parameter(s).
@@ -142,17 +143,16 @@ B<Note:> C<scriptdir> B<must> be an absolute path.
 
 If I<--scriptdir> is not specified then a temporary mountpoint
 will be created.";
-    ("--script", Arg.String add_script, s_"script" ^ " " ^ s_"Script or program to run on guest"),
-    s_"\
+      ("--script", Arg.String add_script, s_"script" ^ " " ^ s_"Script or program to run on guest"),
+      s_"\
 Run the named C<script> (a shell script or program) against the
 guest.  The script can be any program on the host.  The script's
 current directory will be the guest's root directory.
 
 B<Note:> If the script is not on the $PATH, then you must give
 the full absolute path to the script.";
-  ];
-  perform_on_filesystems = Some script_perform;
-  perform_on_devices = None;
+    ];
+    perform_on_filesystems = Some script_perform;
 }
 
-let () = register_operation script_op
+let () = register_operation op

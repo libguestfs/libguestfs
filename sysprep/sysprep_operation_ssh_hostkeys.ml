@@ -30,11 +30,12 @@ let ssh_hostkeys_perform g root =
   )
   else []
 
-let ssh_hostkeys_op = {
-  name = "ssh-hostkeys";
-  enabled_by_default = true;
-  heading = s_"Remove the SSH host keys in the guest";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "ssh-hostkeys";
+    enabled_by_default = true;
+    heading = s_"Remove the SSH host keys in the guest";
+    pod_description = Some (s_"\
 The SSH host keys are regenerated (differently) next time the guest is
 booted.
 
@@ -45,9 +46,7 @@ you a stark warning about the host key changing:
  @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!");
-  extra_args = [];
-  perform_on_filesystems = Some ssh_hostkeys_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some ssh_hostkeys_perform;
 }
 
-let () = register_operation ssh_hostkeys_op
+let () = register_operation op
