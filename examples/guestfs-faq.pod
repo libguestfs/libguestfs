@@ -153,6 +153,13 @@ To get further information about the failure, you have to run:
 If, after using this, you still don't understand the failure, contact
 us (see previous section).
 
+=head2 libguestfs: error: cannot find any suitable libguestfs supermin, fixed or old-style appliance on LIBGUESTFS_PATH
+
+If you see this error on Debian/Ubuntu, you need to run the following
+command as root:
+
+ update-guestfs-appliance
+
 =head2 Non-ASCII characters don't appear on VFAT filesystems.
 
 Typical symptoms of this problem:
