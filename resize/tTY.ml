@@ -16,4 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-external isatty_stdout : unit -> bool = "virt_resize_isatty_stdout"
+external isatty_stdout : unit -> bool = "virt_resize_isatty_stdout" "noalloc"

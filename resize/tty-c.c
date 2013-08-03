@@ -25,11 +25,14 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
-/* RHEL 5-era ocaml didn't have Unix.isatty. */
+/* RHEL 5-era ocaml didn't have Unix.isatty.
+ *
+ * Note this function is marked as "noalloc" so it must not call any
+ * OCaml allocation functions:
+ * http://camltastic.blogspot.co.uk/2008/08/tip-calling-c-functions-directly-with.html
+ */
 value
 virt_resize_isatty_stdout (value unitv)
 {
-  CAMLparam1 (unitv);
-
-  CAMLreturn (isatty (1) ? Val_true : Val_false);
+  return isatty (1) ? Val_true : Val_false;
 }
