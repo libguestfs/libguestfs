@@ -294,56 +294,6 @@ launch_appliance (guestfs_h *g, const char *arg)
 
     add_cmdline (g, "-nographic");
 
-    /* Add drives */
-    struct drive *drv;
-    size_t i;
-
-    if (virtio_scsi) {
-      /* Create the virtio-scsi bus. */
-      add_cmdline (g, "-device");
-      add_cmdline (g, "virtio-scsi-pci,id=scsi");
-    }
-
-    ITER_DRIVES (g, i, drv) {
-      /* Construct the final -drive parameter. */
-      CLEANUP_FREE char *buf = qemu_drive_param (g, drv, i);
-
-      add_cmdline (g, "-drive");
-      add_cmdline (g, buf);
-
-      if (virtio_scsi && drv->iface == NULL) {
-        char buf2[64];
-        snprintf (buf2, sizeof buf2, "scsi-hd,drive=hd%zu", i);
-        add_cmdline (g, "-device");
-        add_cmdline (g, buf2);
-      }
-    }
-
-    /* Add the ext2 appliance drive (after all the drives). */
-    if (has_appliance_drive) {
-      const char *cachemode = "";
-      if (qemu_supports (g, "cache=")) {
-        if (qemu_supports (g, "unsafe"))
-          cachemode = ",cache=unsafe";
-        else if (qemu_supports (g, "writeback"))
-          cachemode = ",cache=writeback";
-      }
-
-      size_t buf2_len = strlen (appliance) + 64;
-      char buf2[buf2_len];
-      add_cmdline (g, "-drive");
-      snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s%s",
-                appliance, virtio_scsi ? "none" : "virtio", cachemode);
-      add_cmdline (g, buf2);
-
-      if (virtio_scsi) {
-        add_cmdline (g, "-device");
-        add_cmdline (g, "scsi-hd,drive=appliance");
-      }
-
-      appliance_dev = make_appliance_dev (g, virtio_scsi);
-    }
-
     /* The qemu -machine option (added 2010-12) is a bit more sane
      * since it falls back through various different acceleration
      * modes, so try that first (thanks Markus Armbruster).
@@ -396,6 +346,61 @@ launch_appliance (guestfs_h *g, const char *arg)
 
     if (qemu_supports (g, "-rtc-td-hack"))
       add_cmdline (g, "-rtc-td-hack");
+
+    add_cmdline (g, "-kernel");
+    add_cmdline (g, kernel);
+    add_cmdline (g, "-initrd");
+    add_cmdline (g, initrd);
+
+    /* Add drives */
+    struct drive *drv;
+    size_t i;
+
+    if (virtio_scsi) {
+      /* Create the virtio-scsi bus. */
+      add_cmdline (g, "-device");
+      add_cmdline (g, "virtio-scsi-pci,id=scsi");
+    }
+
+    ITER_DRIVES (g, i, drv) {
+      /* Construct the final -drive parameter. */
+      CLEANUP_FREE char *buf = qemu_drive_param (g, drv, i);
+
+      add_cmdline (g, "-drive");
+      add_cmdline (g, buf);
+
+      if (virtio_scsi && drv->iface == NULL) {
+        char buf2[64];
+        snprintf (buf2, sizeof buf2, "scsi-hd,drive=hd%zu", i);
+        add_cmdline (g, "-device");
+        add_cmdline (g, buf2);
+      }
+    }
+
+    /* Add the ext2 appliance drive (after all the drives). */
+    if (has_appliance_drive) {
+      const char *cachemode = "";
+      if (qemu_supports (g, "cache=")) {
+        if (qemu_supports (g, "unsafe"))
+          cachemode = ",cache=unsafe";
+        else if (qemu_supports (g, "writeback"))
+          cachemode = ",cache=writeback";
+      }
+
+      size_t buf2_len = strlen (appliance) + 64;
+      char buf2[buf2_len];
+      add_cmdline (g, "-drive");
+      snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s%s",
+                appliance, virtio_scsi ? "none" : "virtio", cachemode);
+      add_cmdline (g, buf2);
+
+      if (virtio_scsi) {
+        add_cmdline (g, "-device");
+        add_cmdline (g, "scsi-hd,drive=appliance");
+      }
+
+      appliance_dev = make_appliance_dev (g, virtio_scsi);
+    }
 
     /* Create the virtio serial bus. */
     add_cmdline (g, "-device");
@@ -450,11 +455,6 @@ launch_appliance (guestfs_h *g, const char *arg)
       add_cmdline (g, "-device");
       add_cmdline (g, "virtio-net-pci,netdev=usernet");
     }
-
-    add_cmdline (g, "-kernel");
-    add_cmdline (g, kernel);
-    add_cmdline (g, "-initrd");
-    add_cmdline (g, initrd);
 
     add_cmdline (g, "-append");
     CLEANUP_FREE char *cmdline =
