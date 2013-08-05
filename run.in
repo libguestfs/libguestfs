@@ -182,12 +182,17 @@ fi
 # Originally 1h, but that is not long enough to run the C API
 # tests on Koji.
 timeout_period=4h
+timeout_kill=30s
 
 # Do we have Padraig's timeout utility (from coreutils)?
 if timeout --help >/dev/null 2>&1; then
+    # Does this version of timeout have the -k option?  (Not on RHEL 6)
+    if timeout -k 10s 10s true >/dev/null 2>&1; then
+        timeout_k_opt="-k $timeout_kill"
+    fi
     # Timeout (SIGTERM) after $timeout_period.
-    # Then send a second SIGKILL 30 seconds later.
-    timeout="timeout -k 30s $timeout_period"
+    # Then send a second SIGKILL $timeout_kill seconds later.
+    timeout="timeout $timeout_k_opt $timeout_period"
 fi
 
 pid=$$
