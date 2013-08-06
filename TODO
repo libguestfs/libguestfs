@@ -95,10 +95,22 @@ two sides to a pty, and one has to be handled after the fork).
 work.  qemu is implementing its own ptys, and they are broken.  Need
 to fix qemu.]
 
-Windows-based daemon/appliance
-------------------------------
+Port to Windows
+---------------
 
-See discussion on list:
+"Port to Windows" means different things to different people.
+
+The easiest is to port the library to Windows, but reuse the Linux
+appliance/daemon.  This would allow people to use libguestfs on
+Windows hosts and link libguestfs to Windows programs.  Doing this is
+just a matter of chugging through the code fixing portability issues,
+using gnulib as far as possible as the portability layer.
+
+The hardest is probably a port of the daemon to Windows.  The reason
+to do this is so that you can use the native NTFS drivers (in Windows)
+in order to edit Windows guests.  Although back in 2009 we did some
+work on this, I am now dubious about the utility of this, since
+ntfs-3g works very well.  See also discussion on list:
 https://www.redhat.com/archives/libguestfs/2009-November/msg00165.html
 
 virt-disk-explore
@@ -141,11 +153,8 @@ http://sourceforge.net/projects/aide/
 http://osiris.shmoo.com/
 http://sourceforge.net/projects/tripwire/
 
-Freeze/thaw filesystems
------------------------
-
-Access to these ioctls:
-http://git.kernel.org/linus/fcccf502540e3d7
+See also: virt-aide;
+https://rwmj.wordpress.com/2013/05/16/scanning-offline-guests-using-openscap-and-guestmount/#content
 
 Tips for new users in guestfish
 -------------------------------
@@ -198,7 +207,7 @@ There are some places where we call out to the 'blkid' program.  This
 might be replaced by direct use of the library (if this is easier).
 
 But it is very hard to be compatible between RHEL6 and RHEL5 when
-using direct library.
+using the library directly.
 
 Visualization
 -------------
@@ -388,18 +397,8 @@ virt-sysprep ideas
    . run external guestfish script   virt-sysprep --fish=/tmp/foo.fish
  - if drives are encrypted, then dm-crypt key should be changed
    and drives all re-encrypted
- - /etc/pki
-   (Steve says ...)
-   Rpm uses nss. Nss sets up its crypto database in
-   /etc/pki. Depending on how long the machine ran before cloning, you
-   may have picked up some certificates or things. This is an area
-   that you would want to look into.
  - secure erase of inodes etc using scrub (Steve Grubb)
- - other directories that could require cleaning include:
-    /var/run/*
-   (thanks Marko Myllynen, James Antill)
- - remove or modify UUIDs in /etc/fstab (eg. on Ubuntu)
-   (thanks Joshua Daniel Franklin)
+ - fix the virt-sysprep fs-uuids plugin
 
 Kazuo Moriwaka adds:
 
@@ -423,16 +422,9 @@ customized with the organization logo etc.  Some ideas:
  - change the sign-on messages (/etc/issue.net etc)
  - Windows login script/service
 
-Launch remote sessions over ssh
--------------------------------
-
-We had an idea you could add a launch method that uses ssh, ie.  all
-supermin and qemu commands happen the same as now, but prefixed by
-ssh so it happens on a remote machine.
-
-Note that proper remote support and integration with libvirt is
-different from this, and people are working on that.  ssh would just
-be "remote-lite".
+Note that virt-sysprep has gradually gained some of these features,
+eg. setting hostname, changing passwords.  Since this precedent has
+now been set, it could do more of the same.
 
 virt-make-fs and virt-win-reg need to not be in Perl
 ----------------------------------------------------
@@ -534,21 +526,6 @@ as data is reliably written out when g.sync, g.shutdown or g.close
 return.  Also in libguestfs we effectively control the whole stack, so
 we can ensure write barriers happen when we want.
 
-libvirt attach-method
----------------------
-
-Since libguestfs 1.19.24 this mostly works.  Here are some suggested
-items to work on:
-
- - SELinux labelling of guestfsd.sock, console.sock
-   https://bugzilla.redhat.com/show_bug.cgi?id=842307
-   Once this is fixed, remove <seclabel type=none> from libvirt XML
-
- - Check feature parity between src/launch-appliance.c and
-   src/launch-libvirt.c.
-
- - Remote support.  (This requires work on libvirt)
-
 virt-sparsify should use discard
 --------------------------------
 
@@ -558,18 +535,13 @@ throughout the entire stack.
 Reimplement some APIs to avoid protocol limits
 ----------------------------------------------
 
-We should reimplement the following APIs to avoid protocol limits.
-These would be changed from daemon_functions to non_daemon_functions,
-with the non-daemon versions implemented using guestfs_upload and
-guestfs_download (and others).  This change should be transparent from
-the p.o.v of the API and ABI.
+Mostly this item was done (eg. commits a69f44f56f and before).  The
+most notable API with a protocol limit remaining is:
 
  - guestfs_readdir
 
 hivex
 -----
-
-Add more of hivex to the API, especially for writing.
 
 Reimplement virt-win-reg to use this API.  (This is difficult because
 the Perl libraries underneath access the hivex API directly).
