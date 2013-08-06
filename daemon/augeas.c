@@ -64,6 +64,23 @@ optgroup_augeas_available (void)
   return 1;
 }
 
+/* Calls reply_with_error, but includes the Augeas error details. */
+#define AUGEAS_ERROR(fs,...)                                            \
+  do {                                                                  \
+      int code = aug_error (aug);                                       \
+      if (code == AUG_ENOMEM)                                           \
+        reply_with_error (fs ": augeas out of memory", ##__VA_ARGS__);  \
+      else {                                                            \
+            const char *message = aug_error_message (aug);              \
+            const char *minor = aug_error_minor_message (aug);          \
+            const char *details = aug_error_details (aug);              \
+            reply_with_error (fs ": %s%s%s%s%s", ##__VA_ARGS__,         \
+                                message,                                \
+                                minor ? ": " : "", minor ? minor : "",  \
+                                details ? ": " : "", details ? details : ""); \
+            }                                                           \
+  } while (0)
+
 /* We need to rewrite the root path so it is based at /sysroot. */
 int
 do_aug_init (const char *root, int flags)
@@ -112,7 +129,7 @@ do_aug_defvar (const char *name, const char *expr)
 
   r = aug_defvar (aug, name, expr);
   if (r == -1) {
-    reply_with_error ("Augeas defvar failed");
+    AUGEAS_ERROR ("aug_defvar: %s: %s", name, expr);
     return -1;
   }
   return r;
@@ -133,7 +150,7 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
 
   i = aug_defnode (aug, name, expr, val, &created);
   if (i == -1) {
-    reply_with_error ("Augeas defnode failed");
+    AUGEAS_ERROR ("aug_defnode: %s: %s: %s", name, expr, val);
     return NULL;
   }
 
@@ -168,7 +185,7 @@ do_aug_get (const char *path)
     return NULL;
   }
   if (r != 1) {
-    reply_with_error ("Augeas get failed");
+    AUGEAS_ERROR ("aug_get: %s", path);
     return NULL;
   }
 
@@ -200,7 +217,7 @@ do_aug_set (const char *path, const char *val)
 
   r = aug_set (aug, path, val);
   if (r == -1) {
-    reply_with_error ("Augeas set failed");
+    AUGEAS_ERROR ("aug_set: %s: %s", path, val);
     return -1;
   }
 
@@ -216,7 +233,7 @@ do_aug_clear (const char *path)
 
   r = aug_set (aug, path, NULL);
   if (r == -1) {
-    reply_with_error ("Augeas clear failed");
+    AUGEAS_ERROR ("aug_clear: %s", path);
     return -1;
   }
 
@@ -232,7 +249,7 @@ do_aug_insert (const char *path, const char *label, int before)
 
   r = aug_insert (aug, path, label, before);
   if (r == -1) {
-    reply_with_error ("Augeas insert failed");
+    AUGEAS_ERROR ("aug_insert: %s: %s [before=%d]", path, label, before);
     return -1;
   }
 
@@ -248,7 +265,7 @@ do_aug_rm (const char *path)
 
   r = aug_rm (aug, path);
   if (r == -1) {
-    reply_with_error ("Augeas rm failed");
+    AUGEAS_ERROR ("aug_rm: %s", path);
     return -1;
   }
 
@@ -264,7 +281,7 @@ do_aug_mv (const char *src, const char *dest)
 
   r = aug_mv (aug, src, dest);
   if (r == -1) {
-    reply_with_error ("Augeas mv failed");
+    AUGEAS_ERROR ("aug_mv: %s: %s", src, dest);
     return -1;
   }
 
@@ -282,7 +299,7 @@ do_aug_match (const char *path)
 
   r = aug_match (aug, path, &matches);
   if (r == -1) {
-    reply_with_error ("Augeas match failed");
+    AUGEAS_ERROR ("aug_match: %s", path);
     return NULL;
   }
 
@@ -307,7 +324,7 @@ do_aug_save (void)
   NEED_AUG (-1);
 
   if (aug_save (aug) == -1) {
-    reply_with_error ("Augeas save failed");
+    AUGEAS_ERROR ("aug_save");
     return -1;
   }
 
@@ -321,7 +338,7 @@ do_aug_load (void)
   NEED_AUG (-1);
 
   if (aug_load (aug) == -1) {
-    reply_with_error ("Augeas load failed");
+    AUGEAS_ERROR ("aug_load");
     return -1;
   }
 
