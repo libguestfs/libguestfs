@@ -26,12 +26,15 @@ module G = Guestfs
 
 open Common_utils
 
+external statvfs_free_space : string -> int64 =
+  "virt_sparsify_statvfs_free_space"
+
 let () = Random.self_init ()
 
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let indisk, outdisk, compress, convert, debug_gc,
+let indisk, outdisk, check_tmpdir, compress, convert, debug_gc,
   format, ignores, machine_readable,
   option, quiet, verbose, trace, zeroes =
   let display_version () =
@@ -43,6 +46,17 @@ let indisk, outdisk, compress, convert, debug_gc,
   in
 
   let add xs s = xs := s :: !xs in
+
+  let check_tmpdir = ref `Warn in
+  let set_check_tmpdir = function
+    | "ignore" | "i" -> check_tmpdir := `Ignore
+    | "continue" | "cont" | "c" -> check_tmpdir := `Continue
+    | "warn" | "warning" | "w" -> check_tmpdir := `Warn
+    | "fail" | "f" | "error" -> check_tmpdir := `Fail
+    | str ->
+      eprintf (f_"--check-tmpdir: unknown argument `%s'\n") str;
+      exit 1
+  in
 
   let compress = ref false in
   let convert = ref "" in
@@ -57,6 +71,7 @@ let indisk, outdisk, compress, convert, debug_gc,
   let zeroes = ref [] in
 
   let argspec = Arg.align [
+    "--check-tmpdir", Arg.String set_check_tmpdir,  "ignore|..." ^ " " ^ s_"Check there is enough space in $TMPDIR";
     "--compress", Arg.Set compress,         " " ^ s_"Compressed output format";
     "--convert", Arg.Set_string convert,    s_"format" ^ " " ^ s_"Format of output disk (default: same as input)";
     "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations";
@@ -90,6 +105,7 @@ read the man page virt-sparsify(1).
   Arg.parse argspec anon_fun usage_msg;
 
   (* Dereference the rest of the args. *)
+  let check_tmpdir = !check_tmpdir in
   let compress = !compress in
   let convert = match !convert with "" -> None | str -> Some str in
   let debug_gc = !debug_gc in
@@ -151,7 +167,7 @@ read the man page virt-sparsify(1).
   if contains_colon outdisk then
     error (f_"output filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") outdisk;
 
-  indisk, outdisk, compress, convert,
+  indisk, outdisk, check_tmpdir, compress, convert,
     debug_gc, format, ignores, machine_readable,
     option, quiet, verbose, trace, zeroes
 
@@ -213,9 +229,58 @@ let () =
   if output_format = "raw" && compress then
     error (f_"--compress cannot be used for raw output.  Remove this option or use --convert qcow2.")
 
+(* Get virtual size of the input disk. *)
+let virtual_size = (new G.guestfs ())#disk_virtual_size indisk
 let () =
   if not quiet then
-    printf (f_"Create overlay file to protect source disk ...\n%!")
+    printf (f_"Input disk virtual size = %Ld bytes (%s)\n%!")
+      virtual_size (human_size virtual_size)
+
+(* Check there is enough space in $TMPDIR. *)
+let tmpdir = Filename.get_temp_dir_name ()
+
+let () =
+  let print_warning () =
+    let free_space = statvfs_free_space tmpdir in
+    let extra_needed = virtual_size -^ free_space in
+    if extra_needed > 0L then (
+      eprintf (f_"\
+
+WARNING: There may not be enough free space on %s.
+You may need to set TMPDIR to point to a directory with more free space.
+
+Max needed: %s.  Free: %s.  May need another %s.
+
+Note this is an overestimate.  If the guest disk is full of data
+then not as much free space would be required.
+
+You can ignore this warning or change it to a hard failure using the
+--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sysprep(1).
+
+%!")
+        tmpdir (human_size virtual_size)
+        (human_size free_space) (human_size extra_needed);
+      true
+    ) else false
+  in
+
+  match check_tmpdir with
+  | `Ignore -> ()
+  | `Continue -> ignore (print_warning ())
+  | `Warn ->
+    if print_warning () then (
+      eprintf "Press RETURN to continue or ^C to quit.\n%!";
+      ignore (read_line ())
+    );
+  | `Fail ->
+    if print_warning () then (
+      eprintf "Exiting because --check-tmpdir=fail was set.\n%!";
+      exit 2
+    )
+
+let () =
+  if not quiet then
+    printf (f_"Create overlay file in %s to protect source disk ...\n%!") tmpdir
 
 (* Create the temporary overlay file. *)
 let overlaydisk =

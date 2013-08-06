@@ -239,6 +239,7 @@ resize/progress-c.c
 resize/tty-c.c
 resize/uri-c.c
 ruby/ext/guestfs/_guestfs.c
+sparsify/statvfs-c.c
 src/actions-0.c
 src/actions-1.c
 src/actions-2.c

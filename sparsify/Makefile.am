@@ -26,7 +26,8 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 
 # Alphabetical order.
 SOURCES = \
-	sparsify.ml
+	sparsify.ml \
+	statvfs-c.c
 
 if HAVE_OCAML
 
@@ -39,6 +40,7 @@ OBJECTS = \
 	$(top_builddir)/resize/common_utils.cmx \
 	$(top_builddir)/resize/tTY.cmx \
 	$(top_builddir)/resize/progress.cmx \
+	statvfs-c.o \
 	sparsify.cmx
 
 bin_SCRIPTS = virt-sparsify

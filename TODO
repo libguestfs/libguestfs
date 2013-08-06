@@ -465,11 +465,6 @@ opened with O_CLOEXEC.  Therefore we need to examine every call to:
 virt-sparsify enhancements
 --------------------------
 
-TMPDIR should be checked to ensure that we won't run out of space
-during the conversion, since current behaviour is very bad when this
-happens (it usually causes virt-sparsify to hang).  This requires
-writing a small C binding to statvfs for OCaml.
-
 'virt-sparsify --whitelist' option to generate skeletons (for
 debugging, bug forensics, diagnosis).  The whilelist option would
 specify a list of files to be *preserved*.  All other files in the
