@@ -11483,6 +11483,48 @@ If you set this to C<0>, then the threshold is unlimited.
 
 See also C<guestfs_journal_get_data_threshold>." };
 
+  { defaults with
+    name = "aug_setm";
+    style = RInt "nodes", [String "base"; OptString "sub"; String "val"], [];
+    proc_nr = Some 411;
+    optional = Some "augeas";
+    tests = [
+      InitBasicFS, Always, TestResultString (
+        [["mkdir"; "/etc"];
+         ["write"; "/etc/passwd"; "root:x:0:0:root:/root:/bin/bash\nbin:x:1:1:bin:/bin:/sbin/nologin\ndaemon:x:2:2:daemon:/sbin:/bin/csh\n"];
+         ["aug_init"; "/"; "0"];
+         ["aug_setm"; "/files/etc/passwd/*"; "shell"; "/sbin/nologin"];
+         ["aug_save"];
+         ["cat"; "/etc/passwd"]], "root:x:0:0:root:/root:/sbin/nologin\nbin:x:1:1:bin:/bin:/sbin/nologin\ndaemon:x:2:2:daemon:/sbin:/sbin/nologin\n"), [["aug_close"]]
+    ];
+    shortdesc = "set multiple Augeas nodes";
+    longdesc = "\
+Change multiple Augeas nodes in a single operation.  C<base> is
+an expression matching multiple nodes.  C<sub> is a path expression
+relative to C<base>.  All nodes matching C<base> are found, and then
+for each node, C<sub> is changed to C<val>.  C<sub> may also be C<NULL>
+in which case the C<base> nodes are modified.
+
+This returns the number of nodes modified." };
+
+  { defaults with
+    name = "aug_label";
+    style = RString "label", [String "augpath"], [];
+    proc_nr = Some 412;
+    optional = Some "augeas";
+    tests = [
+      InitBasicFS, Always, TestResultString (
+        [["mkdir"; "/etc"];
+         ["write"; "/etc/passwd"; "root:x:0:0:root:/root:/bin/bash\nbin:x:1:1:bin:/bin:/sbin/nologin\ndaemon:x:2:2:daemon:/sbin:/bin/csh\n"];
+         ["aug_init"; "/"; "0"];
+         ["aug_label"; "/files/etc/passwd/*[last()]"]], "daemon"), [["aug_close"]]
+    ];
+    shortdesc = "return the label from an Augeas path expression";
+    longdesc = "\
+The label (name of the last element) of the Augeas path expression
+C<augpath> is returned.  C<augpath> must match exactly one node, else
+this function returns an error." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

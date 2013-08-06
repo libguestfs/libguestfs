@@ -374,3 +374,55 @@ do_aug_ls (const char *path)
   sort_strings (matches, count_strings ((void *) matches));
   return matches;		/* Caller frees. */
 }
+
+int
+do_aug_setm (const char *base, const char *sub, const char *val)
+{
+  int r;
+
+  NEED_AUG (-1);
+
+  r = aug_setm (aug, base, sub, val);
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_setm: %s: %s: %s", base, sub ? sub : "(null)", val);
+    return -1;
+  }
+
+  return r;
+}
+
+char *
+do_aug_label (const char *augpath)
+{
+  int r;
+  const char *label;
+  char *ret;
+
+  NEED_AUG (NULL);
+
+  r = aug_label (aug, augpath, &label);
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_label: %s", augpath);
+    return NULL;
+  }
+  if (r == 0) {
+    reply_with_error ("no matching nodes found");
+    return NULL;
+  }
+
+  if (label == NULL) {
+    reply_with_error ("internal error: expected label != NULL (r = %d)", r);
+    return NULL;
+  }
+
+  /* 'label' points to an interior field in the Augeas handle, so
+   * we must return a copy.
+   */
+  ret = strdup (label);
+  if (ret == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;                   /* caller frees */
+}
