@@ -125,6 +125,7 @@ read the man page virt-sparsify(1).
     printf "virt-sparsify\n";
     printf "linux-swap\n";
     printf "zero\n";
+    printf "check-tmpdir\n";
     let g = new G.guestfs () in
     g#add_drive "/dev/null";
     g#launch ();
