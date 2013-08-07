@@ -628,7 +628,7 @@ do_part_get_bootable (const char *device, int partnum)
     if (boot == NULL)
       return -1;
 
-    return STREQ (boot, "boot");
+    return strstr (boot, "boot") != NULL;
   }
   else {
     /* Old-style: First look for the line matching "^Number". */
