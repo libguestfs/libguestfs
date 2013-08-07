@@ -47,8 +47,8 @@ optgroup_hivex_available (void)
 static hive_h *h = NULL;
 
 /* Clean up the hivex handle on daemon exit. */
-static void hivex_finalize (void) __attribute__((destructor));
-static void
+void hivex_finalize (void) __attribute__((destructor));
+void
 hivex_finalize (void)
 {
   if (h) {

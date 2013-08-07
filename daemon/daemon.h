@@ -216,6 +216,10 @@ extern void copy_lvm (void);
 /*-- in zero.c --*/
 extern void wipe_device_before_mkfs (const char *device);
 
+/*-- in augeas.c, hivex.c --*/
+extern void aug_finalize (void);
+extern void hivex_finalize (void);
+
 /*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 
