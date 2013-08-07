@@ -45,8 +45,8 @@ optgroup_journal_available (void)
 static sd_journal *j = NULL;
 
 /* Clean up the handle on daemon exit. */
-static void journal_finalize (void) __attribute__((destructor));
-static void
+void journal_finalize (void) __attribute__((destructor));
+void
 journal_finalize (void)
 {
   if (j) {
