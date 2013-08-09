@@ -97,6 +97,7 @@ enum state { CONFIG = 0, LAUNCHING = 1, READY = 2,
 enum backend {
   BACKEND_DIRECT,
   BACKEND_LIBVIRT,
+  BACKEND_UML,
   BACKEND_UNIX,
 };
 
@@ -209,6 +210,7 @@ struct backend_ops {
 };
 extern struct backend_ops backend_ops_direct;
 extern struct backend_ops backend_ops_libvirt;
+extern struct backend_ops backend_ops_uml;
 extern struct backend_ops backend_ops_unix;
 
 /* Connection module.  A 'connection' represents the appliance console
@@ -432,6 +434,17 @@ struct guestfs_h
   char *virt_selinux_label;
   char *virt_selinux_imagelabel;
   bool virt_selinux_norelabel_disks;
+
+  struct {                      /* Used only by src/launch-uml.c. */
+    pid_t pid;                  /* vmlinux PID. */
+    pid_t recoverypid;          /* Recovery process PID. */
+
+#define UML_UMID_LEN 16
+    char umid[UML_UMID_LEN+1];  /* umid=<...> unique ID. */
+
+    char **cmdline;   /* Only used in child, does not need freeing. */
+    size_t cmdline_size;
+  } uml;
 };
 
 /* Per-filesystem data stored for inspect_os. */

@@ -1406,8 +1406,8 @@ options into the C<args> array.
 
 The backend (previously known as the "attach method") controls how
 libguestfs creates and/or connects to the backend daemon, eg. by
-starting qemu directly, or by using libvirt to manage an appliance, or
-connecting to an already running daemon.
+starting qemu directly, or using libvirt to manage an appliance,
+running User-Mode Linux, or connecting to an already running daemon.
 
 You can set the backend by calling L</guestfs_set_backend>, or by
 setting the environment variable C<LIBGUESTFS_BACKEND>.
@@ -1439,6 +1439,17 @@ with a URI would be C<libvirt:qemu:///session>
 
 The libvirt backend supports more features, including
 hotplugging (see L</HOTPLUGGING>) and sVirt.
+
+=item C<uml>
+
+Run the User-Mode Linux kernel.  The location of the kernel is set
+using C<$LIBGUESTFS_QEMU> or using the L</guestfs_set_qemu> API (note
+that qemu is not involved, we just reuse the same variable in the
+handle for convenience).
+
+User-Mode Linux can be much faster, simpler and more lightweight than
+using a full-blown virtual machine, but it also has some shortcomings.
+See L</USER-MODE LINUX BACKEND> below.
 
 =item C<unix:I<path>>
 
@@ -1519,6 +1530,43 @@ you to attach to and modify live virtual machines.
 The virtual machine needs to have been set up beforehand so that it
 has the virtio-serial channel and so that guestfsd is running inside
 it.
+
+=head2 USER-MODE LINUX BACKEND
+
+B<This is an experimental feature> which you should use with care.
+
+Setting the following environment variables (or the equivalent in the
+API) selects the User-Mode Linux backend:
+
+ export LIBGUESTFS_BACKEND=uml
+ export LIBGUESTFS_QEMU=/path/to/vmlinux
+
+C<vmlinux> (or it may be called C<linux>) is the Linux binary,
+compiled to run as a userspace process.  Note that we reuse the qemu
+variable in the handle for convenience; qemu is not involved.  Your
+Linux distro may provide C<vmlinux>, or you may need to compile it
+yourself from the kernel source (which is dead easy, follow the
+instructions here:
+L<http://user-mode-linux.sourceforge.net/source.html>).
+
+User-Mode Linux can be faster and more lightweight than running a
+full-blown virtual machine as the backend (especially if you are
+already running libguestfs in a virtual machine or cloud instance),
+but it also has some important shortcomings.  The main ones are:
+
+=over 4
+
+=item UML only supports raw-format images
+
+Only plain raw-format images will work.  No qcow2, no backing files.
+
+=item UML does not support any remote drives
+
+No NBD, etc.
+
+=item UML only works on ix86 and x86-64
+
+=back
 
 =head2 ABI GUARANTEE
 

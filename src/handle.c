@@ -604,6 +604,13 @@ parse_backend (guestfs_h *g, const char *method)
     return 0;
   }
 
+  if (STREQ (method, "uml")) {
+    g->backend = BACKEND_UML;
+    free (g->backend_arg);
+    g->backend_arg = NULL;
+    return 0;
+  }
+
   if (STRPREFIX (method, "unix:") && strlen (method) > 5) {
     g->backend = BACKEND_UNIX;
     free (g->backend_arg);
@@ -647,6 +654,10 @@ guestfs__get_backend (guestfs_h *g)
       ret = safe_strdup (g, "libvirt");
     else
       ret = safe_asprintf (g, "libvirt:%s", g->backend_arg);
+    break;
+
+  case BACKEND_UML:
+    ret = safe_strdup (g, "uml");
     break;
 
   case BACKEND_UNIX:

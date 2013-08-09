@@ -44,6 +44,7 @@ get_backend_ops (guestfs_h *g)
   switch (g->backend) {
   case BACKEND_DIRECT:    return &backend_ops_direct;
   case BACKEND_LIBVIRT:   return &backend_ops_libvirt;
+  case BACKEND_UML:       return &backend_ops_uml;
   case BACKEND_UNIX:      return &backend_ops_unix;
   default: abort ();
   }
