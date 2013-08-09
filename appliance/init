@@ -167,4 +167,9 @@ else
 fi
 
 sync
-reboot -f
+
+if ! grep -sq guestfs_noreboot=1 /proc/cmdline; then
+  # qemu has the -no-reboot flag, so issuing a reboot here actually
+  # causes qemu to exit gracefully.
+  reboot -f
+fi
