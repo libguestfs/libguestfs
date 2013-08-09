@@ -41,6 +41,7 @@
 #include <netinet/in.h>
 #include <errno.h>
 #include <assert.h>
+#include <termios.h>
 
 #ifdef HAVE_PRINTF_H
 # include <printf.h>
@@ -78,6 +79,7 @@ static dev_t root_device = 0;
 
 int verbose = 0;
 
+static void makeraw (const char *channel, int fd);
 static int print_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
 static int print_sysroot_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
 #ifdef HAVE_REGISTER_PRINTF_SPECIFIER
@@ -210,8 +212,6 @@ main (int argc, char *argv[])
       printf ("could not read linux command line\n");
   }
 
-  free (cmdline);
-
 #ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */
   struct sigaction sa;
@@ -254,7 +254,22 @@ main (int argc, char *argv[])
   copy_lvm ();
 
   /* Connect to virtio-serial channel. */
-  int sock = open (VIRTIO_SERIAL_CHANNEL, O_RDWR|O_CLOEXEC);
+  char *channel, *p;
+  if (cmdline && (p = strstr (cmdline, "guestfs_channel=")) != NULL) {
+    p += 16;
+    channel = strndup (p, strcspn (p, " \n"));
+  }
+  else
+    channel = strdup (VIRTIO_SERIAL_CHANNEL);
+  if (!channel) {
+    perror ("strdup");
+    exit (EXIT_FAILURE);
+  }
+
+  if (verbose)
+    printf ("trying to open virtio-serial channel '%s'\n", channel);
+
+  int sock = open (channel, O_RDWR|O_CLOEXEC);
   if (sock == -1) {
     fprintf (stderr,
              "\n"
@@ -269,9 +284,19 @@ main (int argc, char *argv[])
              "output to the libguestfs developers, either in a bug report\n"
              "or on the libguestfs redhat com mailing list.\n"
              "\n");
-    perror (VIRTIO_SERIAL_CHANNEL);
+    perror (channel);
     exit (EXIT_FAILURE);
   }
+
+  /* If it's a serial-port like device then it probably has echoing
+   * enabled.  Put it into complete raw mode.
+   */
+  if (STRPREFIX (channel, "/dev/ttyS"))
+    makeraw (channel, sock);
+
+  /* cmdline, channel not used after this point */
+  free (cmdline);
+  free (channel);
 
   /* Wait for udev devices to be created.  If you start libguestfs,
    * especially with disks that contain complex (eg. mdadm) data
@@ -353,6 +378,25 @@ read_cmdline (void)
   }
 
   return r;
+}
+
+/* Try to make the socket raw, but don't fail if it's not possible. */
+static void
+makeraw (const char *channel, int fd)
+{
+  struct termios tt;
+
+  if (tcgetattr (fd, &tt) == -1) {
+    fprintf (stderr, "tcgetattr: ");
+    perror (channel);
+    return;
+  }
+
+  cfmakeraw (&tt);
+  if (tcsetattr (fd, TCSANOW, &tt) == -1) {
+    fprintf (stderr, "tcsetattr: ");
+    perror (channel);
+  }
 }
 
 /* Return true iff device is the root device (and therefore should be
