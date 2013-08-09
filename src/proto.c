@@ -580,14 +580,14 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
   if (g->verbose) {
     ssize_t i, j;
 
-    for (i = 0; i < nr; i += 16) {
+    for (i = 0; i < n; i += 16) {
       printf ("%04zx: ", i);
-      for (j = i; j < MIN (i+16, nr); ++j)
+      for (j = i; j < MIN (i+16, n); ++j)
         printf ("%02x ", (*(unsigned char **)buf_rtn)[j]);
       for (; j < i+16; ++j)
         printf ("   ");
       printf ("|");
-      for (j = i; j < MIN (i+16, nr); ++j)
+      for (j = i; j < MIN (i+16, n); ++j)
         if (c_isprint ((*(char **)buf_rtn)[j]))
           printf ("%c", (*(char **)buf_rtn)[j]);
         else
