@@ -116,6 +116,7 @@ ldmtool create all
 
 # These are useful when debugging.
 if grep -sq guestfs_verbose=1 /proc/cmdline; then
+    uname -a
     ls -lR /dev
     cat /proc/mounts
     lvm pvs
