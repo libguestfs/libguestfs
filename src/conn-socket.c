@@ -169,12 +169,22 @@ read_data (guestfs_h *g, struct connection *connv, void *bufv, size_t len)
         if (errno == EINTR || errno == EAGAIN)
           continue;
         if (errno == ECONNRESET) /* essentially the same as EOF case */
-          return 0;
+          goto closed;
         perrorf (g, "read_data: read");
         return -1;
       }
-      if (n == 0)
+      if (n == 0) {
+      closed:
+        /* Even though qemu has gone away, there could be more log
+         * messages in the console socket buffer in the kernel.  Read
+         * them out here.
+         */
+        if (g->verbose && conn->console_sock >= 0) {
+          while (handle_log_message (g, conn) == 1)
+            ;
+        }
         return 0;
+      }
 
       buf += n;
       len -= n;
