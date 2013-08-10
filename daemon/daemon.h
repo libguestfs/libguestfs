@@ -36,8 +36,8 @@
 
 typedef struct {
   mountable_type_t type;
-  const char *device;
-  const char *volume;
+  char *device;
+  char *volume;
 } mountable_t;
 
 /*-- in guestfsd.c --*/
@@ -130,9 +130,9 @@ extern int is_power_of_2 (unsigned long v);
 
 extern void trim (char *str);
 
-extern int device_name_translation (char *device);
+extern char *device_name_translation (const char *device);
 
-extern int parse_btrfsvol (char *desc, mountable_t *mountable);
+extern int parse_btrfsvol (const char *desc, mountable_t *mountable);
 
 extern int prog_exists (const char *prog);
 

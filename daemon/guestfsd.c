@@ -1129,77 +1129,105 @@ print_arginfo (const struct printf_info *info, size_t n, int *argtypes)
 #endif
 #endif
 
-/* Perform device name translation.  Don't call this directly -
- * use the RESOLVE_DEVICE macro.
+/* Perform device name translation.  See guestfs(3) for the algorithm.
+ * Usually you should not call this directly.
  *
- * See guestfs(3) for the algorithm.
+ * It returns a newly allocated string which the caller must free.
  *
- * We have to open the device and test for ENXIO, because
- * the device nodes themselves will exist in the appliance.
+ * It returns NULL on error.  *Note* it does *NOT* call reply_with_*.
+ *
+ * We have to open the device and test for ENXIO, because the device
+ * nodes may exist in the appliance.
  */
-int
-device_name_translation (char *device)
+char *
+device_name_translation (const char *device)
 {
   int fd;
+  char *ret;
 
   fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd >= 0) {
-  close_ok:
     close (fd);
-    return 0;
+    return strdup (device);
   }
 
   if (errno != ENXIO && errno != ENOENT)
-    return -1;
+    return NULL;
 
   /* If the name begins with "/dev/sd" then try the alternatives. */
-  if (STRNEQLEN (device, "/dev/sd", 7))
-    return -1;
+  if (!STRPREFIX (device, "/dev/sd"))
+    return NULL;
+  device += 7;                  /* device == "a1" etc. */
 
-  device[5] = 'h';		/* /dev/hd (old IDE driver) */
-  fd = open (device, O_RDONLY|O_CLOEXEC);
-  if (fd >= 0)
-    goto close_ok;
+  /* /dev/vd (virtio-blk) */
+  if (asprintf (&ret, "/dev/vd%s", device) == -1)
+    return NULL;
+  fd = open (ret, O_RDONLY|O_CLOEXEC);
+  if (fd >= 0) {
+    close (fd);
+    return ret;
+  }
+  free (ret);
 
-  device[5] = 'v';		/* /dev/vd (for virtio devices) */
-  fd = open (device, O_RDONLY|O_CLOEXEC);
-  if (fd >= 0)
-    goto close_ok;
+  /* /dev/hd (old IDE driver) */
+  if (asprintf (&ret, "/dev/hd%s", device) == -1)
+    return NULL;
+  fd = open (ret, O_RDONLY|O_CLOEXEC);
+  if (fd >= 0) {
+    close (fd);
+    return ret;
+  }
+  free (ret);
 
-  device[5] = 's';		/* Restore original device name. */
-  return -1;
+  /* User-Mode Linux */
+  if (asprintf (&ret, "/dev/ubd%s", device) == -1)
+    return NULL;
+  fd = open (ret, O_RDONLY|O_CLOEXEC);
+  if (fd >= 0) {
+    close (fd);
+    return ret;
+  }
+  free (ret);
+
+  return NULL;
 }
 
-/* Parse the mountable descriptor for a btrfs subvolume.  Don't call this
- * directly - use the RESOLVE_MOUNTABLE macro.
+/* Parse the mountable descriptor for a btrfs subvolume.  Don't call
+ * this directly; it is only used from the stubs.
  *
  * A btrfs subvolume is given as:
  *
  * btrfsvol:/dev/sda3/root
  *
- * where /dev/sda3 is a block device containing a btrfs filesystem, and root is
- * the name of a subvolume on it. This function is passed the string following
- * 'btrfsvol:'.
+ * where /dev/sda3 is a block device containing a btrfs filesystem,
+ * and root is the name of a subvolume on it. This function is passed
+ * the string following 'btrfsvol:'.
+ *
+ * On success, mountable->device & mountable->volume must be freed by
+ * the caller.
  */
 int
-parse_btrfsvol (char *desc, mountable_t *mountable)
+parse_btrfsvol (const char *desc_orig, mountable_t *mountable)
 {
-  char *device, *volume = NULL, *slash;
+  size_t len = strlen (desc_orig);
+  char desc[len+1];
+  char *device = NULL, *volume = NULL, *slash;
   struct stat statbuf;
 
   mountable->type = MOUNTABLE_BTRFSVOL;
 
-  device = desc;
+  memcpy (desc, desc_orig, len+1);
 
-  if (! STRPREFIX (device, "/dev/"))
+  if (! STRPREFIX (desc, "/dev/"))
     return -1;
 
-  slash = device + strlen ("/dev/") - 1;
+  slash = desc + strlen ("/dev/") - 1;
   while ((slash = strchr (slash + 1, '/'))) {
     *slash = '\0';
 
-    if (device_name_translation (device) == -1) {
-      perror (device);
+    device = device_name_translation (desc);
+    if (!device) {
+      perror (desc);
       continue;
     }
 
@@ -1209,8 +1237,7 @@ parse_btrfsvol (char *desc, mountable_t *mountable)
     }
 
     if (!S_ISDIR (statbuf.st_mode) &&
-        !is_root_device_stat (&statbuf))
-    {
+        !is_root_device_stat (&statbuf)) {
       volume = slash + 1;
       break;
     }
@@ -1218,7 +1245,14 @@ parse_btrfsvol (char *desc, mountable_t *mountable)
     *slash = '/';
   }
 
+  if (!device) return -1;
+
   if (!volume) return -1;
+  volume = strdup (volume);
+  if (!volume) {
+    perror ("strdup");
+    return -1;
+  }
 
   mountable->device = device;
   mountable->volume = volume;

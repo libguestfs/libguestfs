@@ -124,18 +124,22 @@ do_tune2fs_l (const char *device)
 int
 do_set_e2label (const char *device, const char *label)
 {
-  mountable_t mountable;
-  mountable.type = MOUNTABLE_DEVICE;
-  mountable.device = device;
+  const mountable_t mountable = {
+    .type = MOUNTABLE_DEVICE,
+    .device = /* not really ... */ (char *) device,
+    .volume = NULL,
+  };
   return do_set_label (&mountable, label);
 }
 
 char *
 do_get_e2label (const char *device)
 {
-  mountable_t mountable;
-  mountable.type = MOUNTABLE_DEVICE;
-  mountable.device = device;
+  const mountable_t mountable = {
+    .type = MOUNTABLE_DEVICE,
+    .device = /* not really ... */ (char *) device,
+    .volume = NULL,
+  };
   return do_vfs_label (&mountable);
 }
 
@@ -157,9 +161,11 @@ do_set_e2uuid (const char *device, const char *uuid)
 char *
 do_get_e2uuid (const char *device)
 {
-  mountable_t mountable;
-  mountable.type = MOUNTABLE_DEVICE;
-  mountable.device = device;
+  const mountable_t mountable = {
+    .type = MOUNTABLE_DEVICE,
+    .device = /* not really ... */ (char *) device,
+    .volume = NULL,
+  };
   return do_vfs_uuid (&mountable);
 }
 
@@ -859,6 +865,7 @@ do_mke2fs (const char *device,               /* 0 */
   char bytesperinode_s[64];
   char inodesize_s[64];
   char journalsize_s[64];
+  CLEANUP_FREE char *journaldevice_translated = NULL;
   CLEANUP_FREE char *journaldevice_s = NULL;
   char reservedblockspercentage_s[64];
   char numberofinodes_s[64];
@@ -951,19 +958,29 @@ do_mke2fs (const char *device,               /* 0 */
           reply_with_error ("%s: device not found", journaldevice);
           return -1;
         }
-        if (device_name_translation ((char *) journaldevice) == -1) {
+        journaldevice_translated = device_name_translation (journaldevice);
+        if (journaldevice_translated == NULL) {
           reply_with_perror ("%s", journaldevice);
           return -1;
         }
-      }
 
-      journaldevice_s = malloc (strlen (journaldevice) + 8);
-      if (!journaldevice_s) {
-        reply_with_perror ("malloc");
-        return -1;
-      }
+        journaldevice_s = malloc (strlen (journaldevice_translated) + 8);
+        if (!journaldevice_s) {
+          reply_with_perror ("malloc");
+          return -1;
+        }
 
-      sprintf (journaldevice_s, "device=%s", journaldevice);
+        sprintf (journaldevice_s, "device=%s", journaldevice_translated);
+      }
+      else {
+        journaldevice_s = malloc (strlen (journaldevice) + 8);
+        if (!journaldevice_s) {
+          reply_with_perror ("malloc");
+          return -1;
+        }
+
+        sprintf (journaldevice_s, "device=%s", journaldevice);
+      }
 
       ADD_ARG (argv, i, "-J");
       ADD_ARG (argv, i, journaldevice_s);

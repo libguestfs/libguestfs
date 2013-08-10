@@ -102,7 +102,7 @@ and generate_daemon_actions () =
  *
  * NB. Cannot be used for FileIn functions.
  */
-#define RESOLVE_DEVICE(path,cancel_stmt,fail_stmt)                      \\
+#define RESOLVE_DEVICE(path,path_out,cancel_stmt,fail_stmt)             \\
   do {									\\
     if (STRNEQLEN ((path), \"/dev/\", 5)) {				\\
       cancel_stmt;                                                      \\
@@ -114,7 +114,8 @@ and generate_daemon_actions () =
       reply_with_error (\"%%s: %%s: device not found\", __func__, path);    \\
       fail_stmt;                                                        \\
     }                                                                   \\
-    if (device_name_translation ((path)) == -1) {                       \\
+    (path_out) = device_name_translation ((path));                      \\
+    if ((path_out) == NULL) {                                           \\
       int err = errno;                                                  \\
       cancel_stmt;                                                      \\
       errno = err;                                                      \\
@@ -141,12 +142,11 @@ and generate_daemon_actions () =
         fail_stmt;                                                      \\
       }                                                                 \\
     }                                                                   \\
-                                                                        \\
     else {                                                              \\
       (mountable).type = MOUNTABLE_DEVICE;                              \\
-      (mountable).device = (string);                                    \\
+      (mountable).device = NULL;                                        \\
       (mountable).volume = NULL;                                        \\
-      RESOLVE_DEVICE((string), cancel_stmt, fail_stmt);                 \\
+      RESOLVE_DEVICE ((string), (mountable).device, cancel_stmt, fail_stmt); \\
     }                                                                   \\
   } while (0)
 
@@ -160,13 +160,19 @@ and generate_daemon_actions () =
  * because we intend in future to make device parameters a distinct
  * type from filenames.
  */
-#define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,cancel_stmt,fail_stmt)      \\
+#define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,path_out,cancel_stmt,fail_stmt) \\
   do {									\\
     if (STREQLEN ((path), \"/dev/\", 5))                                  \\
-      RESOLVE_DEVICE ((path), cancel_stmt, fail_stmt);                  \\
+      RESOLVE_DEVICE ((path), (path_out), cancel_stmt, fail_stmt);      \\
     else {								\\
       NEED_ROOT (cancel_stmt, fail_stmt);                               \\
       ABS_PATH ((path), cancel_stmt, fail_stmt);                        \\
+      (path_out) = strdup ((path));                                     \\
+      if ((path_out) == NULL) {                                         \\
+        cancel_stmt;                                                    \\
+        reply_with_perror (\"strdup\");                                   \\
+        fail_stmt;                                                      \\
+      }                                                                 \\
     }									\\
   } while (0)
 
@@ -176,16 +182,40 @@ and generate_daemon_actions () =
 #define REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE(string, mountable,            \\
                                           cancel_stmt, fail_stmt)       \\
   do {                                                                  \\
-    if (STREQLEN ((string), \"/dev/\", strlen (\"/dev/\")) || (string)[0] != '/') {\\
+    if (STRPREFIX ((string), \"/dev/\") || (string)[0] != '/') {\\
       RESOLVE_MOUNTABLE (string, mountable, cancel_stmt, fail_stmt);    \\
     }                                                                   \\
-                                                                        \\
     else {                                                              \\
       NEED_ROOT (cancel_stmt, fail_stmt);                               \\
+      /* NB: It's a path, not a device. */                              \\
       (mountable).type = MOUNTABLE_PATH;                                \\
-      (mountable).device = (string);                                    \\
+      (mountable).device = strdup ((string));                           \\
+      (mountable).volume = NULL;                                        \\
+      if ((mountable).device == NULL) {                                 \\
+        cancel_stmt;                                                    \\
+        reply_with_perror (\"strdup\");                                   \\
+        fail_stmt;                                                      \\
+      }                                                                 \\
     }                                                                   \\
   } while (0)                                                           \\
+
+/* Free the mountable.device & mountable.volume fields which are
+ * allocated by the above macros.
+ */
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_FREE_MOUNTABLE __attribute__((cleanup(cleanup_free_mountable)))
+#else
+#define CLEANUP_FREE_MOUNTABLE_DEVICE
+#endif
+
+static void
+cleanup_free_mountable (mountable_t *mountable)
+{
+  if (mountable) {
+    free (mountable->device);
+    free (mountable->volume);
+  }
+}
 
 ";
 
@@ -218,10 +248,17 @@ and generate_daemon_actions () =
         pr "  struct guestfs_%s_args args;\n" name;
         List.iter (
           function
-          | Device n | Dev_or_Path n
-          | Pathname n | String n | Key n | OptString n -> pr "  char *%s;\n" n
-          | Mountable n | Mountable_or_Path n -> pr "  mountable_t %s;\n" n
-          | StringList n | DeviceList n -> pr "  char **%s;\n" n
+          | Device n | Dev_or_Path n ->
+            pr "  CLEANUP_FREE char *%s;\n" n
+          | Pathname n | String n | Key n | OptString n ->
+            pr "  const char *%s;\n" n
+          | Mountable n | Mountable_or_Path n ->
+            pr "  CLEANUP_FREE_MOUNTABLE mountable_t %s\n" n;
+            pr "      = { .device = NULL, .volume = NULL };\n"
+          | StringList n ->
+            pr "  char **%s;\n" n
+          | DeviceList n ->
+            pr "  CLEANUP_FREE_STRING_LIST char **%s;\n" n
           | Bool n -> pr "  int %s;\n" n
           | Int n -> pr "  int %s;\n" n
           | Int64 n -> pr "  int64_t %s;\n" n
@@ -291,18 +328,6 @@ and generate_daemon_actions () =
         let pr_args n =
           pr "  %s = args.%s;\n" n n
         in
-        let pr_list_handling_code n =
-          pr "  %s = realloc (args.%s.%s_val,\n" n n n;
-          pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
-          pr "  if (%s == NULL) {\n" n;
-          if is_filein then
-            pr "    cancel_receive ();\n";
-          pr "    reply_with_perror (\"realloc\");\n";
-          pr "    goto done;\n";
-          pr "  }\n";
-          pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
-          pr "  args.%s.%s_val = %s;\n" n n n;
-        in
         List.iter (
           function
           | Pathname n ->
@@ -310,34 +335,44 @@ and generate_daemon_actions () =
               pr "  ABS_PATH (%s, %s, goto done);\n"
                 n (if is_filein then "cancel_receive ()" else "");
           | Device n ->
-              pr_args n;
-              pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
-                n (if is_filein then "cancel_receive ()" else "");
+              pr "  RESOLVE_DEVICE (args.%s, %s, %s, goto done);\n"
+                n n (if is_filein then "cancel_receive ()" else "");
           | Mountable n ->
-              pr "  RESOLVE_MOUNTABLE(args.%s, %s, %s, goto done);\n"
+              pr "  RESOLVE_MOUNTABLE (args.%s, %s, %s, goto done);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | Dev_or_Path n ->
-              pr_args n;
-              pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
-                n (if is_filein then "cancel_receive ()" else "");
+              pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (args.%s, %s, %s, goto done);\n"
+                n n (if is_filein then "cancel_receive ()" else "");
           | Mountable_or_Path n ->
-              pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE(args.%s, %s, %s, goto done);\n"
+              pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE (args.%s, %s, %s, goto done);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | String n | Key n -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
           | StringList n ->
-              pr_list_handling_code n;
+            pr "  /* Ugly, but safe and avoids copying the strings. */\n";
+            pr "  %s = realloc (args.%s.%s_val,\n" n n n;
+            pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
+            pr "  if (%s == NULL) {\n" n;
+            if is_filein then
+              pr "    cancel_receive ();\n";
+            pr "    reply_with_perror (\"realloc\");\n";
+            pr "    goto done;\n";
+            pr "  }\n";
+            pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
+            pr "  args.%s.%s_val = %s;\n" n n n
           | DeviceList n ->
-              pr_list_handling_code n;
-              pr "  /* Ensure that each is a device,\n";
-              pr "   * and perform device name translation.\n";
-              pr "   */\n";
-              pr "  {\n";
-              pr "    size_t i;\n";
-              pr "    for (i = 0; %s[i] != NULL; ++i)\n" n;
-              pr "      RESOLVE_DEVICE (%s[i], %s, goto done);\n" n
-                (if is_filein then "cancel_receive ()" else "");
-              pr "  }\n";
+            pr "  /* Copy the string list and apply device name translation\n";
+            pr "   * to each one.\n";
+            pr "   */\n";
+            pr "  %s = malloc (sizeof (char *) * (args.%s.%s_len+1));\n" n n n;
+            pr "  {\n";
+            pr "    size_t i;\n";
+            pr "    for (i = 0; i < args.%s.%s_len; ++i)\n" n n;
+            pr "      RESOLVE_DEVICE (args.%s.%s_val[i], %s[i],\n" n n n;
+            pr "                      %s, goto done);\n"
+              (if is_filein then "cancel_receive ()" else "");
+            pr "    %s[i] = NULL;\n" n;
+            pr "  }\n"
           | Bool n -> pr "  %s = args.%s;\n" n n
           | Int n -> pr "  %s = args.%s;\n" n n
           | Int64 n -> pr "  %s = args.%s;\n" n n
