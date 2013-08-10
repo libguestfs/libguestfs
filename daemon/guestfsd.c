@@ -1086,7 +1086,7 @@ split_lines (char *str)
   char *p, *pend;
 
   if (STREQ (str, ""))
-    goto empty_list;
+    return empty_list ();
 
   p = str;
   while (p) {
@@ -1107,11 +1107,21 @@ split_lines (char *str)
     p = pend;
   }
 
- empty_list:
   if (end_stringsbuf (&lines) == -1)
     return NULL;
 
   return lines.argv;
+}
+
+char **
+empty_list (void)
+{
+  DECLARE_STRINGSBUF (ret);
+
+  if (end_stringsbuf (&ret) == -1)
+    return NULL;
+
+  return ret.argv;
 }
 
 /* Skip leading and trailing whitespace, updating the original string
