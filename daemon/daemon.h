@@ -105,6 +105,8 @@ extern char *join_strings (const char *separator, char *const *argv);
 
 extern char **split_lines (char *str);
 
+extern char **empty_list (void);
+
 #define command(out,err,name,...) commandf((out),(err),0,(name),__VA_ARGS__)
 #define commandr(out,err,name,...) commandrf((out),(err),0,(name),__VA_ARGS__)
 #define commandv(out,err,argv) commandvf((out),(err),0,(argv))

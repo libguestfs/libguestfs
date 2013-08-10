@@ -20,6 +20,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <glob.h>
 
 #if HAVE_YAJL
@@ -91,6 +94,16 @@ get_devices (const char *pattern)
 char **
 do_list_ldm_volumes (void)
 {
+  struct stat buf;
+
+  /* If /dev/mapper doesn't exist at all, don't give an error. */
+  if (stat ("/dev/mapper", &buf) == -1) {
+    if (errno == ENOENT)
+      return empty_list ();
+    reply_with_perror ("/dev/mapper");
+    return NULL;
+  }
+
   return get_devices ("/dev/mapper/ldm_vol_*");
 }
 
@@ -98,6 +111,16 @@ do_list_ldm_volumes (void)
 char **
 do_list_ldm_partitions (void)
 {
+  struct stat buf;
+
+  /* If /dev/mapper doesn't exist at all, don't give an error. */
+  if (stat ("/dev/mapper", &buf) == -1) {
+    if (errno == ENOENT)
+      return empty_list ();
+    reply_with_perror ("/dev/mapper");
+    return NULL;
+  }
+
   return get_devices ("/dev/mapper/ldm_part_*");
 }
 
