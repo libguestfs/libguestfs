@@ -67,9 +67,10 @@ main (int argc, char *argv[])
   if (mountable == NULL) goto error;
 
   if (mountable->im_type != MOUNTABLE_DEVICE ||
-      !STREQ ("/dev/VG/LV", mountable->im_device))
+      STRNEQ ("/dev/VG/LV", mountable->im_device))
   {
-    fprintf (stderr, "incorrectly parsed /dev/VG/LV");
+    fprintf (stderr, "incorrectly parsed /dev/VG/LV: im_device=%s\n",
+             mountable->im_device);
     goto error;
   }
 
@@ -79,10 +80,11 @@ main (int argc, char *argv[])
   if (mountable == NULL) goto error;
 
   if (mountable->im_type != MOUNTABLE_BTRFSVOL ||
-      !STREQ ("/dev/VG/LV", mountable->im_device) ||
-      !STREQ ("sv", mountable->im_volume))
+      STRNEQ ("/dev/VG/LV", mountable->im_device) ||
+      STRNEQ ("sv", mountable->im_volume))
   {
-    fprintf (stderr, "incorrectly parsed /dev/VG/LV/sv");
+    fprintf (stderr, "incorrectly parsed /dev/VG/LV/sv: im_device=%s, im_volume=%s\n",
+             mountable->im_device, mountable->im_volume);
     goto error;
   }
   guestfs_free_internal_mountable (mountable);
