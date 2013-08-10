@@ -44,7 +44,7 @@ do_command (char *const *argv)
   CLEANUP_FREE char *err;
   int r;
   CLEANUP_FREE char *sysroot_dev = NULL, *sysroot_dev_pts = NULL,
-    *sysroot_proc = NULL, *sysroot_selinux = NULL, *sysroot_sys = NULL;
+    *sysroot_proc = NULL, *sysroot_sys = NULL;
   int dev_ok, dev_pts_ok, proc_ok, sys_ok;
 
   /* We need a root filesystem mounted to do this. */
@@ -70,12 +70,10 @@ do_command (char *const *argv)
   sysroot_dev = sysroot_path ("/dev");
   sysroot_dev_pts = sysroot_path ("/dev/pts");
   sysroot_proc = sysroot_path ("/proc");
-  sysroot_selinux = sysroot_path ("/sys/fs/selinux");
   sysroot_sys = sysroot_path ("/sys");
 
   if (sysroot_dev == NULL || sysroot_dev_pts == NULL ||
-      sysroot_proc == NULL || sysroot_selinux == NULL ||
-      sysroot_sys == NULL) {
+      sysroot_proc == NULL || sysroot_sys == NULL) {
     reply_with_perror ("malloc");
     return NULL;
   }
