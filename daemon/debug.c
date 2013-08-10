@@ -258,6 +258,8 @@ debug_sh (const char *subcmd, size_t argc, char *const *const argv)
     setenv ("sd", "sd", 1);
   else if (access ("/sys/block/hda", F_OK) == 0)
     setenv ("sd", "hd", 1);
+  else if (access ("/sys/block/ubda", F_OK) == 0)
+    setenv ("sd", "ubd", 1);
   else if (access ("/sys/block/vda", F_OK) == 0)
     setenv ("sd", "vd", 1);
 

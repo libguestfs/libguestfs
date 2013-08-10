@@ -594,7 +594,7 @@ free_stringslen (char **argv, size_t len)
 int
 compare_device_names (const char *a, const char *b)
 {
-  size_t a_devlen, b_devlen;
+  size_t alen, blen;
   int r;
   int a_partnum, b_partnum;
 
@@ -604,30 +604,32 @@ compare_device_names (const char *a, const char *b)
   if (STRPREFIX (b, "/dev/"))
     b += 5;
 
-  /* Skip sd/hd/vd. */
-  assert (a[1] == 'd');
-  a += 2;
-  assert (b[1] == 'd');
-  b += 2;
+  /* Skip sd/hd/ubd/vd. */
+  alen = strcspn (a, "d");
+  blen = strcspn (a, "d");
+  assert (alen > 0 && alen <= 2);
+  assert (blen > 0 && blen <= 2);
+  a += alen + 1;
+  b += blen + 1;
 
   /* Get device name part, that is, just 'a', 'ab' etc. */
-  a_devlen = strcspn (a, "0123456789");
-  b_devlen = strcspn (b, "0123456789");
+  alen = strcspn (a, "0123456789");
+  blen = strcspn (b, "0123456789");
 
   /* If device name part is longer, it is always greater, eg.
    * "/dev/sdz" < "/dev/sdaa".
    */
-  if (a_devlen != b_devlen)
-    return a_devlen - b_devlen;
+  if (alen != blen)
+    return alen - blen;
 
   /* Device name parts are the same length, so do a regular compare. */
-  r = strncmp (a, b, a_devlen);
+  r = strncmp (a, b, alen);
   if (r != 0)
     return r;
 
   /* Compare partitions numbers. */
-  a += a_devlen;
-  b += a_devlen;
+  a += alen;
+  b += alen;
 
   /* If no partition numbers, bail -- the devices are the same.  This
    * can happen in one peculiar case: where you have a mix of devices

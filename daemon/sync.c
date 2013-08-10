@@ -102,6 +102,7 @@ fsync_devices (void)
 
     if (STREQLEN (d->d_name, "sd", 2) ||
         STREQLEN (d->d_name, "hd", 2) ||
+        STREQLEN (d->d_name, "ubd", 3) ||
         STREQLEN (d->d_name, "vd", 2) ||
         STREQLEN (d->d_name, "sr", 2)) {
       snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
