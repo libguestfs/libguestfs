@@ -321,6 +321,20 @@ handle_log_message (guestfs_h *g,
   /* It's an actual log message, send it upwards. */
   guestfs___log_message_callback (g, buf, n);
 
+#ifdef VALGRIND_DAEMON
+  /* Find the canary printed by appliance/init if valgrinding of the
+   * daemon fails, and exit abruptly.  Note this is only used in
+   * developer builds, and should never be enabled in ordinary/
+   * production builds.
+   */
+  if (g->verbose) {
+    const char *valgrind_canary = "DAEMON VALGRIND FAILED";
+
+    if (memmem (buf, n, valgrind_canary, strlen (valgrind_canary)) != NULL)
+      exit (119);
+  }
+#endif
+
   return 1;
 }
 
