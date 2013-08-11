@@ -330,8 +330,14 @@ handle_log_message (guestfs_h *g,
   if (g->verbose) {
     const char *valgrind_canary = "DAEMON VALGRIND FAILED";
 
-    if (memmem (buf, n, valgrind_canary, strlen (valgrind_canary)) != NULL)
+    if (memmem (buf, n, valgrind_canary, strlen (valgrind_canary)) != NULL) {
+      fprintf (stderr,
+               "Detected valgrind failure in the daemon!  Exiting with exit code 119.\n"
+               "See log messages printed above.\n"
+               "Note: This happens because libguestfs was configured with\n"
+               "'--enable-valgrind-daemon' which should not be used in production builds.\n");
       exit (119);
+    }
   }
 #endif
 
