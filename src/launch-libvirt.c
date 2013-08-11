@@ -131,7 +131,6 @@ static void debug_socket_permissions (guestfs_h *g);
 static void libvirt_error (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 static int is_custom_qemu (guestfs_h *g);
 static int is_blk (const char *path);
-static int random_chars (char *ret, size_t len);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
 static char *make_qcow2_overlay (guestfs_h *g, const char *backing_device, const char *format, const char *selinux_imagelabel);
 static int make_drive_priv (guestfs_h *g, struct drive *drv, const char *selinux_imagelabel);
@@ -791,8 +790,8 @@ construct_libvirt_xml_name (guestfs_h *g,
 {
   char name[DOMAIN_NAME_LEN+1];
 
-  if (random_chars (name, DOMAIN_NAME_LEN) == -1) {
-    perrorf (g, "/dev/urandom");
+  if (guestfs___random_string (name, DOMAIN_NAME_LEN) == -1) {
+    perrorf (g, "guestfs___random_string");
     return -1;
   }
 
@@ -1486,35 +1485,6 @@ is_blk (const char *path)
   if (stat (path, &statbuf) == -1)
     return 0;
   return S_ISBLK (statbuf.st_mode);
-}
-
-static int
-random_chars (char *ret, size_t len)
-{
-  int fd;
-  size_t i;
-  unsigned char c;
-  int saved_errno;
-
-  fd = open ("/dev/urandom", O_RDONLY|O_CLOEXEC);
-  if (fd == -1)
-    return -1;
-
-  for (i = 0; i < len; ++i) {
-    if (read (fd, &c, 1) != 1) {
-      saved_errno = errno;
-      close (fd);
-      errno = saved_errno;
-      return -1;
-    }
-    ret[i] = "0123456789abcdefghijklmnopqrstuvwxyz"[c % 36];
-  }
-  ret[len] = '\0';
-
-  if (close (fd) == -1)
-    return -1;
-
-  return 0;
 }
 
 static void
