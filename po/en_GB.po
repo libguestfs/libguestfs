@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-06 14:40+0100\n"
+"POT-Creation-Date: 2013-08-11 23:05+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -3746,15 +3746,15 @@ msgstr ""
 msgid "read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:195
+#: src/conn-socket.c:205
 msgid "can_read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:224
+#: src/conn-socket.c:234
 msgid "write_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:317
+#: src/conn-socket.c:327
 msgid "error reading console messages from the appliance"
 msgstr ""
 
@@ -4207,51 +4207,51 @@ msgstr ""
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:187
+#: src/launch-direct.c:187 src/launch-uml.c:133
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-direct.c:665 src/launch-libvirt.c:449
+#: src/launch-direct.c:655 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-libvirt.c:172
+#: src/launch-libvirt.c:171
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:181
+#: src/launch-libvirt.c:180
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:196
+#: src/launch-libvirt.c:195
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:212
+#: src/launch-libvirt.c:211
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:382
+#: src/launch-libvirt.c:381
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:511
+#: src/launch-libvirt.c:510
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:517 src/libvirt-domain.c:352 src/libvirt-domain.c:435
+#: src/launch-libvirt.c:516 src/libvirt-domain.c:352 src/libvirt-domain.c:435
 #: src/libvirt-domain.c:642
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:527
+#: src/launch-libvirt.c:526
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:560
+#: src/launch-libvirt.c:559
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4266,62 +4266,90 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:711
+#: src/launch-libvirt.c:710
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1057
+#: src/launch-libvirt.c:1056
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1168
+#: src/launch-libvirt.c:1167
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1206
+#: src/launch-libvirt.c:1205
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1217
+#: src/launch-libvirt.c:1216
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1599
+#: src/launch-libvirt.c:1569
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1678
+#: src/launch-libvirt.c:1648
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1710
+#: src/launch-libvirt.c:1680
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1770
+#: src/launch-libvirt.c:1740
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1799
+#: src/launch-libvirt.c:1769
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1845
+#: src/launch-libvirt.c:1815
 #, c-format
 msgid ""
 "libvirt backend is not available because this version of libguestfs was "
 "compiled without libvirt or libvirt < %d.%d.%d"
+msgstr ""
+
+#: src/launch-uml.c:83
+msgid "uml backend does not support networking"
+msgstr ""
+
+#: src/launch-uml.c:87
+msgid "uml backend does not support SMP"
+msgstr ""
+
+#: src/launch-uml.c:93
+msgid "uml backend does not support remote drives"
+msgstr ""
+
+#: src/launch-uml.c:97
+msgid "uml backend does not support non-raw-format drives"
+msgstr ""
+
+#: src/launch-uml.c:102
+msgid "uml backend does not support drives with 'iface' parameter"
+msgstr ""
+
+#: src/launch-uml.c:107
+msgid "uml backend does not support drives with 'label' parameter"
+msgstr ""
+
+#: src/launch-uml.c:476
+msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
 #: src/launch-unix.c:45
@@ -4336,31 +4364,31 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:57
+#: src/launch.c:58
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:164
+#: src/launch.c:165
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:170
+#: src/launch.c:171
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:183
+#: src/launch.c:184
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:195
+#: src/launch.c:196
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:248
+#: src/launch.c:249
 msgid "parameter must begin with '-' character"
 msgstr ""
 
-#: src/launch.c:262
+#: src/launch.c:263
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
@@ -4578,27 +4606,27 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/utils.c:108
+#: src/utils.c:109
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:111
+#: src/utils.c:112
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:115
+#: src/utils.c:116
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:119
+#: src/utils.c:120
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:123
+#: src/utils.c:124
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
@@ -4853,7 +4881,7 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:247
+#: ../sparsify/sparsify.ml:248
 msgid ""
 "\n"
 "WARNING: There may not be enough free space on %s.\n"
@@ -5081,7 +5109,7 @@ msgstr ""
 msgid "--check-tmpdir: unknown argument `%s'\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:230
+#: ../sparsify/sparsify.ml:231
 msgid ""
 "--compress cannot be used for raw output.  Remove this option or use --"
 "convert qcow2."
@@ -5137,7 +5165,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:382
+#: ../sparsify/sparsify.ml:383
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -5147,7 +5175,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:436
+#: ../sparsify/sparsify.ml:437
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -5159,7 +5187,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:283
+#: ../sparsify/sparsify.ml:284
 msgid ""
 "Create overlay file in %s to protect source disk ...\n"
 "%!"
@@ -5264,7 +5292,7 @@ msgstr ""
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:319
+#: ../sparsify/sparsify.ml:320
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -5310,13 +5338,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:366
+#: ../sparsify/sparsify.ml:367
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:417
+#: ../sparsify/sparsify.ml:418
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -5381,7 +5409,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:236
+#: ../sparsify/sparsify.ml:237
 msgid ""
 "Input disk virtual size = %Ld bytes (%s)\n"
 "%!"
@@ -5767,7 +5795,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:455
+#: ../sparsify/sparsify.ml:456
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -5919,7 +5947,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:356
+#: ../sparsify/sparsify.ml:357
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -5933,7 +5961,7 @@ msgstr ""
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:224
+#: ../sparsify/sparsify.ml:225
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
@@ -5953,15 +5981,15 @@ msgstr ""
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:190 ../resize/common_utils.ml:266
+#: ../sparsify/sparsify.ml:191 ../resize/common_utils.ml:266
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:192 ../resize/common_utils.ml:268
+#: ../sparsify/sparsify.ml:193 ../resize/common_utils.ml:268
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:449 ../sparsify/sparsify.ml:313
+#: ../sparsify/sparsify.ml:450 ../sparsify/sparsify.ml:314
 msgid "external command failed: %s"
 msgstr ""
 
@@ -5992,7 +6020,7 @@ msgstr ""
 msgid "hostname"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:165
+#: ../sparsify/sparsify.ml:166
 msgid ""
 "input filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
@@ -6023,7 +6051,7 @@ msgstr ""
 msgid "option"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:168
+#: ../sparsify/sparsify.ml:169
 msgid ""
 "output filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
@@ -6046,11 +6074,11 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:391
+#: ../sparsify/sparsify.ml:392
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:209
+#: ../sparsify/sparsify.ml:210
 msgid ""
 "qemu-img version %g\n"
 "%!"
@@ -6227,7 +6255,7 @@ msgstr ""
 msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:203
+#: ../sparsify/sparsify.ml:204
 msgid ""
 "warning: failed to read qemu-img version\n"
 "  line: %S\n"
@@ -6246,6 +6274,6 @@ msgstr ""
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:149 ../resize/resize.ml:198
+#: ../sparsify/sparsify.ml:150 ../resize/resize.ml:198
 msgid "you cannot use the same disk image for input and output"
 msgstr ""

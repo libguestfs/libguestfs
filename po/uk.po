@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-06 14:40+0100\n"
+"POT-Creation-Date: 2013-08-11 23:05+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4185,15 +4185,15 @@ msgstr "accept_connection викликано двічі"
 msgid "read_data: socket not connected"
 msgstr "read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:195
+#: src/conn-socket.c:205
 msgid "can_read_data: socket not connected"
 msgstr "can_read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:224
+#: src/conn-socket.c:234
 msgid "write_data: socket not connected"
 msgstr "write_data: сокет не з’єднано"
 
-#: src/conn-socket.c:317
+#: src/conn-socket.c:327
 msgid "error reading console messages from the appliance"
 msgstr "помилка під час читання повідомлень консолі з базової системи"
 
@@ -4700,56 +4700,56 @@ msgstr "неврівноважений символ лапки (%c) у кома�
 msgid "cannot parse quoted string near: %s"
 msgstr "не вдалося обробити рядок у лапках поблизу від %s"
 
-#: src/launch-direct.c:187
+#: src/launch-direct.c:187 src/launch-uml.c:133
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:665 src/launch-libvirt.c:449
+#: src/launch-direct.c:655 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-libvirt.c:172
+#: src/launch-libvirt.c:171
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: src/launch-libvirt.c:181
+#: src/launch-libvirt.c:180
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
 
-#: src/launch-libvirt.c:196
+#: src/launch-libvirt.c:195
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:212
+#: src/launch-libvirt.c:211
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:382
+#: src/launch-libvirt.c:381
 msgid "could not create appliance through libvirt"
 msgstr "не вдалося створити систему для розгортання за допомогою libvirt"
 
-#: src/launch-libvirt.c:511
+#: src/launch-libvirt.c:510
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: src/launch-libvirt.c:517 src/libvirt-domain.c:352 src/libvirt-domain.c:435
+#: src/launch-libvirt.c:516 src/libvirt-domain.c:352 src/libvirt-domain.c:435
 #: src/libvirt-domain.c:642
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: src/launch-libvirt.c:527
+#: src/launch-libvirt.c:526
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: src/launch-libvirt.c:560
+#: src/launch-libvirt.c:559
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4777,16 +4777,16 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:711
+#: src/launch-libvirt.c:710
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "помилка під час спроби побудувати XML для libvirt у «%s»"
 
-#: src/launch-libvirt.c:1057
+#: src/launch-libvirt.c:1056
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1168
+#: src/launch-libvirt.c:1167
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4794,7 +4794,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1206
+#: src/launch-libvirt.c:1205
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4806,7 +4806,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1217
+#: src/launch-libvirt.c:1216
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4819,29 +4819,29 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1599
+#: src/launch-libvirt.c:1569
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1678
+#: src/launch-libvirt.c:1648
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1710
+#: src/launch-libvirt.c:1680
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1770
+#: src/launch-libvirt.c:1740
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1799
+#: src/launch-libvirt.c:1769
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
-#: src/launch-libvirt.c:1845
+#: src/launch-libvirt.c:1815
 #, c-format
 msgid ""
 "libvirt backend is not available because this version of libguestfs was "
@@ -4849,6 +4849,34 @@ msgid ""
 msgstr ""
 "модуль libvirt є недоступним, оскільки цю версію libguestfs було зібрано без "
 "підтримки libvirt, з підтримкою libvirt < %d.%d.%d"
+
+#: src/launch-uml.c:83
+msgid "uml backend does not support networking"
+msgstr ""
+
+#: src/launch-uml.c:87
+msgid "uml backend does not support SMP"
+msgstr ""
+
+#: src/launch-uml.c:93
+msgid "uml backend does not support remote drives"
+msgstr ""
+
+#: src/launch-uml.c:97
+msgid "uml backend does not support non-raw-format drives"
+msgstr ""
+
+#: src/launch-uml.c:102
+msgid "uml backend does not support drives with 'iface' parameter"
+msgstr ""
+
+#: src/launch-uml.c:107
+msgid "uml backend does not support drives with 'label' parameter"
+msgstr ""
+
+#: src/launch-uml.c:476
+msgid "vmlinux launched and contacted daemon, but state != READY"
+msgstr ""
 
 #: src/launch-unix.c:45
 msgid "cannot set qemu parameters with the 'unix:' backend"
@@ -4862,33 +4890,33 @@ msgstr "помилка guestfs_launch, мало бути початкове по
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
-#: src/launch.c:57
+#: src/launch.c:58
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:164
+#: src/launch.c:165
 msgid "get-pid can only be called after launch"
 msgstr "get-pid можна викликати лише після launch"
 
-#: src/launch.c:170
+#: src/launch.c:171
 msgid "the current backend does not support 'get-pid'"
 msgstr "у поточному модулі не передбачено підтримки «get-pid»"
 
-#: src/launch.c:183
+#: src/launch.c:184
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 "у поточному модулі не передбачено опитування щодо максимальної кількості "
 "дисків"
 
-#: src/launch.c:195
+#: src/launch.c:196
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:248
+#: src/launch.c:249
 msgid "parameter must begin with '-' character"
 msgstr "запис параметра має починатися з символу «-»"
 
-#: src/launch.c:262
+#: src/launch.c:263
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
@@ -5129,27 +5157,27 @@ msgstr "тимчасовий каталог «%s» не є каталогом"
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/utils.c:108
+#: src/utils.c:109
 #, c-format
 msgid "%s exited successfully"
 msgstr "Успішно завершено роботу %s"
 
-#: src/utils.c:111
+#: src/utils.c:112
 #, c-format
 msgid "%s exited with error status %d"
 msgstr "Роботу %s завершено зі станом виходу %d"
 
-#: src/utils.c:115
+#: src/utils.c:116
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr "Роботу %s припинено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:119
+#: src/utils.c:120
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr "Роботу %s завершено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:123
+#: src/utils.c:124
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "Роботу %s завершено з невідомої причини (стан %d)"
@@ -5445,7 +5473,7 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
 
-#: ../sparsify/sparsify.ml:247
+#: ../sparsify/sparsify.ml:248
 msgid ""
 "\n"
 "WARNING: There may not be enough free space on %s.\n"
@@ -5722,7 +5750,7 @@ msgstr "%s: вам слід передати параметр -a або -d\n"
 msgid "--check-tmpdir: unknown argument `%s'\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:230
+#: ../sparsify/sparsify.ml:231
 msgid ""
 "--compress cannot be used for raw output.  Remove this option or use --"
 "convert qcow2."
@@ -5783,7 +5811,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:382
+#: ../sparsify/sparsify.ml:383
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -5795,7 +5823,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr "Стиснений формат виведення даних"
 
-#: ../sparsify/sparsify.ml:436
+#: ../sparsify/sparsify.ml:437
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -5811,7 +5839,7 @@ msgstr ""
 "Копіювання %s ...\n"
 "%!"
 
-#: ../sparsify/sparsify.ml:283
+#: ../sparsify/sparsify.ml:284
 msgid ""
 "Create overlay file in %s to protect source disk ...\n"
 "%!"
@@ -5916,7 +5944,7 @@ msgstr "Увімкнути виконання специфічних дій"
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
-#: ../sparsify/sparsify.ml:319
+#: ../sparsify/sparsify.ml:320
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -5977,7 +6005,7 @@ msgstr ""
 "\n"
 "Повідомлення про помилку: %s"
 
-#: ../sparsify/sparsify.ml:366
+#: ../sparsify/sparsify.ml:367
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
@@ -5985,7 +6013,7 @@ msgstr ""
 "Заповнити вільне місце у %s нулями…\n"
 "%!"
 
-#: ../sparsify/sparsify.ml:417
+#: ../sparsify/sparsify.ml:418
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -6060,7 +6088,7 @@ msgstr "Ігнорувати файлову систему"
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../sparsify/sparsify.ml:236
+#: ../sparsify/sparsify.ml:237
 msgid ""
 "Input disk virtual size = %Ld bytes (%s)\n"
 "%!"
@@ -6488,7 +6516,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr "Зменшити розмір розділу"
 
-#: ../sparsify/sparsify.ml:455
+#: ../sparsify/sparsify.ml:456
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -6715,7 +6743,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Занулити файлову систему"
 
-#: ../sparsify/sparsify.ml:356
+#: ../sparsify/sparsify.ml:357
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -6731,7 +6759,7 @@ msgstr "значенням вирівнювання не може бути чи�
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
-#: ../sparsify/sparsify.ml:224
+#: ../sparsify/sparsify.ml:225
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 "не вдалося визначити формат диска з вхідними даними; скористайтеся "
@@ -6753,15 +6781,15 @@ msgstr "порожній параметр --shrink"
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:190 ../resize/common_utils.ml:266
+#: ../sparsify/sparsify.ml:191 ../resize/common_utils.ml:266
 msgid "external command '%s' killed by signal %d"
 msgstr "роботу зовнішньої програми «%s» перервано з сигналом %d"
 
-#: ../sparsify/sparsify.ml:192 ../resize/common_utils.ml:268
+#: ../sparsify/sparsify.ml:193 ../resize/common_utils.ml:268
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
-#: ../sparsify/sparsify.ml:449 ../sparsify/sparsify.ml:313
+#: ../sparsify/sparsify.ml:450 ../sparsify/sparsify.ml:314
 msgid "external command failed: %s"
 msgstr "помилка зовнішньої програми: %s"
 
@@ -6792,7 +6820,7 @@ msgstr "файлова система"
 msgid "hostname"
 msgstr "назва_вузла"
 
-#: ../sparsify/sparsify.ml:165
+#: ../sparsify/sparsify.ml:166
 msgid ""
 "input filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
@@ -6825,7 +6853,7 @@ msgstr "дії"
 msgid "option"
 msgstr "параметр"
 
-#: ../sparsify/sparsify.ml:168
+#: ../sparsify/sparsify.ml:169
 msgid ""
 "output filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
@@ -6850,13 +6878,13 @@ msgstr "pread-device: коротке читання"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/sparsify.ml:391
+#: ../sparsify/sparsify.ml:392
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
 "(свопінгу)"
 
-#: ../sparsify/sparsify.ml:209
+#: ../sparsify/sparsify.ml:210
 msgid ""
 "qemu-img version %g\n"
 "%!"
@@ -7045,7 +7073,7 @@ msgstr "virt-sysprep: скрипт: перервано сигналом (%d)\n"
 msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:203
+#: ../sparsify/sparsify.ml:204
 msgid ""
 "warning: failed to read qemu-img version\n"
 "  line: %S\n"
@@ -7071,7 +7099,7 @@ msgstr ""
 msgid "you cannot use options --expand and --shrink together"
 msgstr "не можна одночасно використовувати параметри --expand і --shrink"
 
-#: ../sparsify/sparsify.ml:149 ../resize/resize.ml:198
+#: ../sparsify/sparsify.ml:150 ../resize/resize.ml:198
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
