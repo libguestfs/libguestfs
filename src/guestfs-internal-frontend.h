@@ -97,6 +97,7 @@ extern size_t guestfs___count_strings (char *const *);
 extern char *guestfs___concat_strings (char *const *);
 extern char *guestfs___join_strings (const char *sep, char *const *);
 extern char *guestfs___exit_status_to_string (int status, const char *cmd_name, char *buffer, size_t buflen);
+extern int guestfs___random_string (char *ret, size_t len);
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
