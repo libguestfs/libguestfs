@@ -249,7 +249,7 @@ cleanup_free_mountable (mountable_t *mountable)
         List.iter (
           function
           | Device n | Dev_or_Path n ->
-            pr "  CLEANUP_FREE char *%s;\n" n
+            pr "  CLEANUP_FREE char *%s = NULL;\n" n
           | Pathname n | String n | Key n | OptString n ->
             pr "  const char *%s;\n" n
           | Mountable n | Mountable_or_Path n ->
@@ -258,7 +258,7 @@ cleanup_free_mountable (mountable_t *mountable)
           | StringList n ->
             pr "  char **%s;\n" n
           | DeviceList n ->
-            pr "  CLEANUP_FREE_STRING_LIST char **%s;\n" n
+            pr "  CLEANUP_FREE_STRING_LIST char **%s = NULL;\n" n
           | Bool n -> pr "  int %s;\n" n
           | Int n -> pr "  int %s;\n" n
           | Int64 n -> pr "  int64_t %s;\n" n
