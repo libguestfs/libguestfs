@@ -73,7 +73,7 @@ expected="/dev/sda1: ext3
 # Check the output of list-filesystems
 if [ "$(cat list-fs.output)" != "$expected" ]; then
     echo "$0: error: output of list-filesystems did not match expected output"
-    printf "%s\n" "$output"
+    cat list-fs.output
     exit 1;
 fi
 
