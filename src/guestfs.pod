@@ -3916,13 +3916,13 @@ will be run by this rule.
 Runs a subset of the test suite under valgrind
 using locally installed libvirt guests (read-only).
 
-=item C<make check-with-appliance>
+=item C<make check-direct>
 
 Runs all tests using default appliance back-end.  This only
 has any effect if a non-default backend was selected
 using C<./configure --with-default-backend=...>
 
-=item C<make check-valgrind-with-appliance>
+=item C<make check-valgrind-direct>
 
 Run a subset of the test suite under valgrind using the
 default appliance back-end.
