@@ -654,7 +654,20 @@ hard_link_to_cached_appliance (guestfs_h *g,
     perrorf (g, "link: %s %s", filename, *appliance);
     goto error;
   }
-  (void) utime (filename, NULL);
+  /* Checking backend != "uml" is a big hack.  UML encodes the mtime
+   * of the original backing file (in this case, the appliance) in the
+   * COW file, and checks it when adding it to the VM.  If there are
+   * multiple threads running and one touches the appliance here, it
+   * will disturb the mtime and UML will give an error.
+   *
+   * We can get rid of this hack as soon as UML fixes the
+   * ubdN=cow,original parsing bug, since we won't need to run
+   * uml_mkcow separately, so there is no possible race.
+   *
+   * XXX
+   */
+  if (g->backend != BACKEND_UML)
+    (void) utime (filename, NULL);
 
   return 0;
 
