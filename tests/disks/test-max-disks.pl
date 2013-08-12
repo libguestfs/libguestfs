@@ -47,7 +47,7 @@ if (@devices != $max_disks) {
 
 for ($i = 0; $i < $max_disks; ++$i) {
     my $expected = drive_name ($i);
-    unless ($devices[$i] =~ m{/dev/.d$expected$}) {
+    unless ($devices[$i] =~ m{/dev/[abce-ln-z]+d$expected$}) {
         print STDERR "$0: incorrect device name at index $i: ",
             "expected /dev/sd$expected, but got $devices[$i]\n";
         $errors++;
@@ -106,26 +106,26 @@ if (@partitions != $max_disks + 14*2) {
 for ($i = 0, $j = 0; $i < $max_disks; ++$i) {
     my $expected = drive_name ($i);
     if ($i == 0 || $i == $max_disks-1) {
-        unless ($partitions[$j++] =~ m{/dev/.d${expected}1$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}2$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}3$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}4$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}5$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}6$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}7$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}8$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}9$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}10$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}11$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}12$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}13$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}14$} &&
-                $partitions[$j++] =~ m{/dev/.d${expected}15$}) {
+        unless ($partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}1$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}2$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}3$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}4$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}5$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}6$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}7$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}8$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}9$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}10$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}11$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}12$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}13$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}14$} &&
+                $partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}15$}) {
             print STDERR "$0: incorrect partition name at index $i\n";
             $errors++;
         }
     } else {
-        unless ($partitions[$j++] =~ m{/dev/.d${expected}1$}) {
+        unless ($partitions[$j++] =~ m{/dev/[abce-ln-z]+d${expected}1$}) {
             print STDERR "$0: incorrect partition name at index $i\n";
             $errors++;
         }
