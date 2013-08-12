@@ -752,6 +752,8 @@ print_qemu_command_line (guestfs_h *g, char **argv)
     if (needs_quote) fputc ('\'', stderr);
     i++;
   }
+
+  fputc ('\n', stderr);
 }
 
 static void parse_qemu_version (guestfs_h *g);
