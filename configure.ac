@@ -286,6 +286,7 @@ AC_CHECK_HEADERS([\
     byteswap.h \
     endian.h \
     errno.h \
+    linux/raid/md_u.h \
     printf.h \
     sys/inotify.h \
     sys/socket.h \
