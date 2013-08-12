@@ -19,6 +19,11 @@
 export LANG=C
 set -e
 
+if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+    echo "$0: skipping test because uml backend does not support qcow2"
+    exit 77
+fi
+
 rm -f test.qcow2
 
 # Make a copy of the Fedora image so we can write to it then
