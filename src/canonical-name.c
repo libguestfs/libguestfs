@@ -30,11 +30,12 @@ char *
 guestfs__canonical_device_name (guestfs_h *g, const char *device)
 {
   char *ret;
+  size_t len;
 
-  if (STRPREFIX (device, "/dev/hd") ||
-      STRPREFIX (device, "/dev/vd")) {
-    ret = safe_strdup (g, device);
-    ret[5] = 's';
+  /* /dev/hd etc. */
+  if (STRPREFIX (device, "/dev/") &&
+      ((len = strcspn (device+5, "d")) > 0 && len <= 2)) {
+    ret = safe_asprintf (g, "/dev/sd%s", &device[5+len+1]);
   }
   else if (STRPREFIX (device, "/dev/mapper/") ||
            STRPREFIX (device, "/dev/dm-")) {
