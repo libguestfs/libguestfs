@@ -20,6 +20,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -30,6 +32,13 @@ GUESTFSD_EXT_CMD(str_modprobe, modprobe);
 int
 optgroup_linuxmodules_available (void)
 {
+  /* If /proc/modules doesn't exist, then the appliance kernel
+   * probably has modules support compiled out.  This means modprobe
+   * is not supported.
+   */
+  if (access ("/proc/modules", R_OK) == -1 && errno == ENOENT)
+    return 0;
+
   return prog_exists (str_modprobe);
 }
 
@@ -37,7 +46,9 @@ int
 do_modprobe (const char *module)
 {
   CLEANUP_FREE char *err = NULL;
-  int r = command (NULL, &err, str_modprobe, module, NULL);
+  int r;
+
+  r = command (NULL, &err, str_modprobe, module, NULL);
 
   if (r == -1) {
     reply_with_error ("%s", err);
