@@ -71,7 +71,8 @@ foreach my $uuid (@lvuuids_in_VG) {
 @lvs_in_VG = sort @lvs_in_VG;
 
 unless (@pvs_in_VG == 2 &&
-        $pvs_in_VG[0] =~ m{/dev/.da1} && $pvs_in_VG[1] =~ m{/dev/.da2}) {
+        $pvs_in_VG[0] =~ m{/dev/[abce-ln-z]+da1} &&
+        $pvs_in_VG[1] =~ m{/dev/[abce-ln-z]+da2}) {
     die "unexpected set of PVs for volume group VG: [",
       join (", ", @pvs_in_VG), "]\n"
 }
