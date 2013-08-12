@@ -35,6 +35,11 @@ if ! rsync --help >/dev/null 2>&1; then
     exit 77
 fi
 
+if [ "$($guestfish get-backend)" = "uml" ]; then
+    echo "$0: skipping test because networking is not available in the UML backend"
+    exit 77
+fi
+
 # If rsync is not available, bail.
 if ! $guestfish -a /dev/null run : available rsync; then
     echo "$0: skipping test because rsync is not available in the appliance"

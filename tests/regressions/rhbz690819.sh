@@ -34,6 +34,11 @@ if [[ "$backend" =~ ^libvirt ]]; then
     exit 77
 fi
 
+if [ "$backend" = "uml" ]; then
+    echo "$0: test skipped because uml backend does not support 'iface' param."
+    exit 77
+fi
+
 rm -f rhbz690819.img
 
 ../../fish/guestfish sparse rhbz690819.img 100M
