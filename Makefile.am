@@ -342,7 +342,11 @@ check-release:
 	  check \
 	  check-valgrind \
 	  check-direct \
-	  check-valgrind-direct \
+	  check-valgrind-direct
+	$(MAKE) -j1 LIBGUESTFS_QEMU=$(HOME)/d/linux/vmlinux \
+	  check-uml \
+	  check-valgrind-uml
+	$(MAKE) -j1 \
 	  check-slow
 
 check-valgrind: build-test-guests

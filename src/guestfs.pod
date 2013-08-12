@@ -4128,6 +4128,14 @@ check-valgrind-direct
 
 =item *
 
+check-uml
+
+=item *
+
+check-valgrind-uml
+
+=item *
+
 check-slow
 
 =back
