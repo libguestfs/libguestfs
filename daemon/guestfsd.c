@@ -606,7 +606,7 @@ compare_device_names (const char *a, const char *b)
 
   /* Skip sd/hd/ubd/vd. */
   alen = strcspn (a, "d");
-  blen = strcspn (a, "d");
+  blen = strcspn (b, "d");
   assert (alen > 0 && alen <= 2);
   assert (blen > 0 && blen <= 2);
   a += alen + 1;
