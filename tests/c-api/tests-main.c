@@ -227,22 +227,27 @@ compare_lists (char **ret, char **expected,
   return 0; /* test expecting false for failure */
 }
 
-/* Compare two device names, ignoring hd/sd/vd */
+/* Compare two device names, ignoring hd/sd/ubd/vd */
 int
-compare_devices (const char *dev1, const char *dev2)
+compare_devices (const char *a, const char *b)
 {
-  CLEANUP_FREE char *copy1 = NULL, *copy2 = NULL;
+  size_t alen, blen;
 
-  assert (dev1 && dev2);
-  if (strlen (dev1) < 6 || strlen (dev2) < 6)
-    return -1;
+  /* Skip /dev/ prefix if present. */
+  if (STRPREFIX (a, "/dev/"))
+    a += 5;
+  if (STRPREFIX (b, "/dev/"))
+    b += 5;
 
-  copy1 = strdup (dev1);
-  copy2 = strdup (dev2);
-  copy1[5] = 'h';
-  copy2[5] = 'h';
+  /* Skip sd/hd/ubd/vd. */
+  alen = strcspn (a, "d");
+  blen = strcspn (b, "d");
+  assert (alen > 0 && alen <= 2);
+  assert (blen > 0 && blen <= 2);
+  a += alen + 1;
+  b += blen + 1;
 
-  return strcmp (copy1, copy2);
+  return strcmp (a, b);
 }
 
 /* Compare returned buffer with expected buffer.  Note the buffers have
