@@ -202,18 +202,21 @@ do_list_md_devices (void)
   }
 
   for (size_t i = 0; i < mds.gl_pathc; i++) {
-    size_t len = strlen (mds.gl_pathv[i]) - strlen (PREFIX) - strlen (SUFFIX);
+    size_t len;
+    char *dev, *n;
+
+    len = strlen (mds.gl_pathv[i]) - strlen (PREFIX) - strlen (SUFFIX);
 
 #define DEV "/dev/md"
-    char *dev = malloc (strlen(DEV) + len  + 1);
+    dev = malloc (strlen (DEV) + len + 1);
     if (NULL == dev) {
-      reply_with_perror("malloc");
+      reply_with_perror ("malloc");
       goto error;
     }
 
-    char *n = dev;
-    n = mempcpy(n, DEV, strlen(DEV));
-    n = mempcpy(n, &mds.gl_pathv[i][strlen(PREFIX)], len);
+    n = dev;
+    n = mempcpy (n, DEV, strlen (DEV));
+    n = mempcpy (n, &mds.gl_pathv[i][strlen(PREFIX)], len);
     *n = '\0';
 
     if (add_string_nodup (&ret, dev) == -1) goto error;
