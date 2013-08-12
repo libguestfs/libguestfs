@@ -736,14 +736,16 @@ get_pid_uml (guestfs_h *g)
   }
 }
 
-/* XXX This is a guess.  UML appears to use a single major, and puts
- * ubda at minor 0 with each partition at minors 1-15, ubdb at minor
- * 16, etc, so my guess is that the maximum is 256/16.
+/* UML appears to use a single major, and puts ubda at minor 0 with
+ * each partition at minors 1-15, ubdb at minor 16, etc.  So the
+ * maximum is 256/16 = 16.  However one disk is used by the appliance,
+ * so it's one less than this.  I tested both 15 & 16 disks, and found
+ * that 15 worked and 16 failed.
  */
 static int
 max_disks_uml (guestfs_h *g)
 {
-  return 256/16;
+  return 15;
 }
 
 struct backend_ops backend_ops_uml = {
