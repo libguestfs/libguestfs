@@ -23,7 +23,7 @@ set -e
 export LANG=C
 
 guestfish=../../fish/guestfish
-canonical="sed s,/dev/vd,/dev/sd,g"
+canonical="sed -r s,/dev/[abce-ln-z]+d,/dev/sd,g"
 
 rm -f inspect-fstab-1.qcow2 inspect-fstab.fstab inspect-fstab.output
 
