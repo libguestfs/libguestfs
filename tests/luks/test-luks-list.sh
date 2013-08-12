@@ -70,15 +70,15 @@ list-dm-devices
 
 # Check LUKS device doesn't appear in any of the other lists.
 echo test 4
-list-devices | sed 's,^/dev/[hv]d,/dev/sd,'
+list-devices | sed -r 's,^/dev/[abce-ln-z]+d,/dev/sd,'
 echo test 5
-list-partitions | sed 's,^/dev/[hv]d,/dev/sd,'
+list-partitions | sed -r 's,^/dev/[abce-ln-z]+d,/dev/sd,'
 echo test 6
 lvs
 echo test 7
 vgs
 echo test 8
-pvs | sed 's,^/dev/[hv]d,/dev/sd,'
+pvs | sed -r 's,^/dev/[abce-ln-z]+d,/dev/sd,'
 
 EOF
 
