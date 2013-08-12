@@ -28,6 +28,11 @@ if [ -n "$SKIP_TEST_MOUNTABLE_INSPECT_SH" ]; then
     exit 77
 fi
 
+if [ "$($guestfish get-backend)" = "uml" ]; then
+    echo "$0: skipping test because uml backend does not support qcow2"
+    exit 77
+fi
+
 # Bail if btrfs is not available.
 if ! $guestfish -a /dev/null run : available btrfs; then
     echo "$0: skipping test because btrfs is not available"
