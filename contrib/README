@@ -5,10 +5,6 @@ autobuild/
         The autobuild script that we use to build and test the
         tarballs on Debian and elsewhere.
 
-guestfsd-in-wine.sh
-        Run a Windows-compiled guestfsd under Wine.  Read the
-        instructions at the top of this file carefully.
-
 intro/ "Slides" for an intro to libguestfs.  This is a short (10-15
         min) talk that I give to introduce the main features of
         libguestfs.  The slides are in the form of a complete
