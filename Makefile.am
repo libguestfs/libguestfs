@@ -343,7 +343,7 @@ check-release:
 	  check-valgrind \
 	  check-direct \
 	  check-valgrind-direct
-	$(MAKE) -j1 LIBGUESTFS_QEMU=$(HOME)/d/linux/vmlinux \
+	$(MAKE) -j1 LIBGUESTFS_QEMU=$(HOME)/d/linux-um/vmlinux \
 	  check-uml \
 	  check-valgrind-uml
 	$(MAKE) -j1 \

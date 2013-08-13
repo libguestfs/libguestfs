@@ -1533,8 +1533,6 @@ it.
 
 =head2 USER-MODE LINUX BACKEND
 
-B<This is an experimental feature> which you should use with care.
-
 Setting the following environment variables (or the equivalent in the
 API) selects the User-Mode Linux backend:
 
@@ -4065,7 +4063,7 @@ Runs all tests using the User-Mode Linux backend.
 As there is no standard location for the User-Mode Linux kernel, you
 I<have> to set C<LIBGUESTFS_QEMU> to point to the kernel image, eg:
 
- make check-uml LIBGUESTFS_QEMU=~/d/linux/vmlinux
+ make check-uml LIBGUESTFS_QEMU=~/d/linux-um/vmlinux
 
 =item C<make check-valgrind-uml>
 
