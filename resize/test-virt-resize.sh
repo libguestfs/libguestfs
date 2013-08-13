@@ -19,6 +19,11 @@
 export LANG=C
 set -e
 
+if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+    echo "$0: skipping test because uml backend does not support qcow2"
+    exit 77
+fi
+
 # Test expanding.
 #
 # This exercises a number of interesting codepaths including resizing
