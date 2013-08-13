@@ -508,7 +508,7 @@ options, so use a qemu wrapper script like this:
 Now run guestfish or another libguestfs tool with the qemu wrapper
 (see L<guestfs(3)/QEMU WRAPPERS> to understand what this is doing):
 
- LIBGUESTFS_QEMU=/path/to/qemu-wrapper guestfish -a /dev/null -v run
+ LIBGUESTFS_HV=/path/to/qemu-wrapper guestfish -a /dev/null -v run
 
 This should pause just after qemu launches.  In another window, attach
 to qemu using gdb:

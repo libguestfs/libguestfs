@@ -1410,6 +1410,12 @@ See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>.
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the
 same effect as using the B<-v> option.
 
+=item LIBGUESTFS_HV
+
+Set the default hypervisor (usually qemu) binary that libguestfs uses.
+If not set, then the qemu which was found at compile time by the
+configure script is used.
+
 =item LIBGUESTFS_MEMSIZE
 
 Set the memory allocated to the qemu process, in megabytes.  For
@@ -1424,9 +1430,7 @@ See the discussion of paths in L<guestfs(3)>.
 
 =item LIBGUESTFS_QEMU
 
-Set the default qemu binary that libguestfs uses.  If not set, then
-the qemu which was found at compile time by the configure script is
-used.
+This is the old way to set C<LIBGUESTFS_HV>.
 
 =item LIBGUESTFS_TMPDIR
 

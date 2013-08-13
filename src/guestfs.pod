@@ -1364,10 +1364,10 @@ qemu from source:
  exec $qemudir/x86_64-softmmu/qemu-system-x86_64 -L $qemudir/pc-bios "$@"
 
 Save this script as C</tmp/qemu.wrapper> (or wherever), C<chmod +x>,
-and then use it by setting the LIBGUESTFS_QEMU environment variable.
+and then use it by setting the LIBGUESTFS_HV environment variable.
 For example:
 
- LIBGUESTFS_QEMU=/tmp/qemu.wrapper guestfish
+ LIBGUESTFS_HV=/tmp/qemu.wrapper guestfish
 
 Note that libguestfs also calls qemu with the -help and -version
 options in order to determine features.
@@ -1443,7 +1443,7 @@ hotplugging (see L</HOTPLUGGING>) and sVirt.
 =item C<uml>
 
 Run the User-Mode Linux kernel.  The location of the kernel is set
-using C<$LIBGUESTFS_QEMU> or using the L</guestfs_set_qemu> API (note
+using C<$LIBGUESTFS_HV> or using the L</guestfs_set_qemu> API (note
 that qemu is not involved, we just reuse the same variable in the
 handle for convenience).
 
@@ -1537,7 +1537,7 @@ Setting the following environment variables (or the equivalent in the
 API) selects the User-Mode Linux backend:
 
  export LIBGUESTFS_BACKEND=uml
- export LIBGUESTFS_QEMU=/path/to/vmlinux
+ export LIBGUESTFS_HV=/path/to/vmlinux
 
 C<vmlinux> (or it may be called C<linux>) is the Linux binary,
 compiled to run as a userspace process.  Note that we reuse the qemu
@@ -1582,7 +1582,7 @@ the image.
  make ARCH=um
 
 This will leave a file called C<linux> or C<vmlinux> in the top-level
-directory.  This is the UML kernel.  You should set C<LIBGUESTFS_QEMU>
+directory.  This is the UML kernel.  You should set C<LIBGUESTFS_HV>
 to point to this file.
 
 =back
@@ -4061,15 +4061,15 @@ default appliance back-end.
 Runs all tests using the User-Mode Linux backend.
 
 As there is no standard location for the User-Mode Linux kernel, you
-I<have> to set C<LIBGUESTFS_QEMU> to point to the kernel image, eg:
+I<have> to set C<LIBGUESTFS_HV> to point to the kernel image, eg:
 
- make check-uml LIBGUESTFS_QEMU=~/d/linux-um/vmlinux
+ make check-uml LIBGUESTFS_HV=~/d/linux-um/vmlinux
 
 =item C<make check-valgrind-uml>
 
 Runs all tests using the User-Mode Linux backend, under valgrind.
 
-As above, you have to set C<LIBGUESTFS_QEMU> to point to the kernel.
+As above, you have to set C<LIBGUESTFS_HV> to point to the kernel.
 
 =item C<make check-with-upstream-qemu>
 
@@ -4579,6 +4579,14 @@ See also L</LIBGUESTFS_TMPDIR>, L</guestfs_set_cachedir>.
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
 has the same effect as calling C<guestfs_set_verbose (g, 1)>.
 
+=item LIBGUESTFS_HV
+
+Set the default hypervisor (usually qemu) binary that libguestfs uses.
+If not set, then the qemu which was found at compile time by the
+configure script is used.
+
+See also L</QEMU WRAPPERS> above.
+
 =item LIBGUESTFS_MEMSIZE
 
 Set the memory allocated to the qemu process, in megabytes.  For
@@ -4593,11 +4601,7 @@ See the discussion of paths in section L</PATH> above.
 
 =item LIBGUESTFS_QEMU
 
-Set the default qemu binary that libguestfs uses.  If not set, then
-the qemu which was found at compile time by the configure script is
-used.
-
-See also L</QEMU WRAPPERS> above.
+This is the old way to set C<LIBGUESTFS_HV>.
 
 =item LIBGUESTFS_TMPDIR
 

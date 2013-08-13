@@ -577,7 +577,7 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
 static int
 is_custom_qemu (guestfs_h *g)
 {
-  return g->qemu && STRNEQ (g->qemu, QEMU);
+  return g->hv && STRNEQ (g->hv, QEMU);
 }
 
 #if HAVE_LIBSELINUX
@@ -966,7 +966,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
    */
   if (is_custom_qemu (g)) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "emulator"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST g->qemu));
+    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST g->hv));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
 
@@ -1410,7 +1410,7 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
                                     const struct libvirt_xml_params *params,
                                     xmlTextWriterPtr xo)
 {
-  struct qemu_param *qp;
+  struct hv_param *hp;
   CLEANUP_FREE char *tmpdir = NULL;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:commandline"));
@@ -1460,18 +1460,18 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
   }
 
   /* The qemu command line arguments requested by the caller. */
-  for (qp = g->qemu_params; qp; qp = qp->next) {
+  for (hp = g->hv_params; hp; hp = hp->next) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST qp->qemu_param));
+                                           BAD_CAST hp->hv_param));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-    if (qp->qemu_value) {
+    if (hp->hv_value) {
       XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
       XMLERROR (-1,
                 xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                             BAD_CAST qp->qemu_value));
+                                             BAD_CAST hp->hv_value));
       XMLERROR (-1, xmlTextWriterEndElement (xo));
     }
   }

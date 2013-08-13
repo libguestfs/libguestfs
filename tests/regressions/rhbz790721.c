@@ -137,8 +137,8 @@ start_thread (void *vi)
     pthread_exit (vi);
   }
 
-  /* Fake out qemu. */
-  if (guestfs_set_qemu (g, "/bin/true") == -1) {
+  /* Fake out hypervisor. */
+  if (guestfs_set_hv (g, "/bin/true") == -1) {
     *(int *)vi = -1;
     pthread_exit (vi);
   }

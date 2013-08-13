@@ -52,7 +52,7 @@ alloc_cmdline (guestfs_h *g)
 {
   g->uml.cmdline_size = 1;
   g->uml.cmdline = safe_malloc (g, sizeof (char *));
-  g->uml.cmdline[0] = g->qemu;
+  g->uml.cmdline[0] = g->hv;
 }
 
 static void
@@ -196,7 +196,7 @@ launch_uml (guestfs_h *g, const char *arg)
 
   if (r == 0) {                 /* Child (vmlinux). */
     char *buf;
-    struct qemu_param *qp;
+    struct hv_param *hp;
     char *term = getenv ("TERM");
 
     /* Set up the full command line.  Do this in the subprocess so we
@@ -295,10 +295,10 @@ launch_uml (guestfs_h *g, const char *arg)
 #endif
 
     /* Add any vmlinux parameters. */
-    for (qp = g->qemu_params; qp; qp = qp->next) {
-      add_cmdline (g, qp->qemu_param);
-      if (qp->qemu_value)
-        add_cmdline (g, qp->qemu_value);
+    for (hp = g->hv_params; hp; hp = hp->next) {
+      add_cmdline (g, hp->hv_param);
+      if (hp->hv_value)
+        add_cmdline (g, hp->hv_value);
     }
 
     /* Finish off the command line. */
@@ -345,8 +345,8 @@ launch_uml (guestfs_h *g, const char *arg)
 
     setenv ("LC_ALL", "C", 1);
 
-    execv (g->qemu, g->uml.cmdline); /* Run vmlinux. */
-    perror (g->qemu);
+    execv (g->hv, g->uml.cmdline); /* Run vmlinux. */
+    perror (g->hv);
     _exit (EXIT_FAILURE);
   }
 
@@ -714,7 +714,7 @@ shutdown_uml (guestfs_h *g, int check_for_errors)
      */
     else if (!(WIFSIGNALED (status) && WTERMSIG (status) == SIGTERM) &&
              !(WIFEXITED (status) && WEXITSTATUS (status) == 0)) {
-      guestfs___external_command_failed (g, status, g->qemu, NULL);
+      guestfs___external_command_failed (g, status, g->hv, NULL);
       ret = -1;
     }
   }

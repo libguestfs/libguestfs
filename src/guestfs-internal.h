@@ -187,12 +187,12 @@ struct drive {
   void (*free_priv) (void *);
 };
 
-/* Extra qemu parameters (from guestfs_config). */
-struct qemu_param {
-  struct qemu_param *next;
+/* Extra hv parameters (from guestfs_config). */
+struct hv_param {
+  struct hv_param *next;
 
-  char *qemu_param;
-  char *qemu_value;             /* May be NULL. */
+  char *hv_param;
+  char *hv_value;               /* May be NULL. */
 };
 
 /* Backend operations. */
@@ -279,14 +279,14 @@ struct guestfs_h
   bool pgroup;                  /* Create process group for children? */
   bool close_on_exit;           /* Is this handle on the atexit list? */
 
-  int smp;                      /* If > 1, -smp flag passed to qemu. */
+  int smp;                      /* If > 1, -smp flag passed to hv. */
   int memsize;			/* Size of RAM (megabytes). */
 
   char *path;			/* Path to the appliance. */
-  char *qemu;			/* Qemu binary. */
+  char *hv;			/* Hypervisor (HV) binary. */
   char *append;			/* Append to kernel command line. */
 
-  struct qemu_param *qemu_params; /* Extra qemu parameters. */
+  struct hv_param *hv_params;   /* Extra hv parameters. */
 
   char *program;                /* Program name. */
 

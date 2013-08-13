@@ -108,8 +108,8 @@ guestfs_create_flags (unsigned flags, ...)
   g->path = strdup (GUESTFS_DEFAULT_PATH);
   if (!g->path) goto error;
 
-  g->qemu = strdup (QEMU);
-  if (!g->qemu) goto error;
+  g->hv = strdup (QEMU);
+  if (!g->hv) goto error;
 
   /* Get program name. */
 #if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
@@ -154,7 +154,7 @@ guestfs_create_flags (unsigned flags, ...)
   free (g->backend_arg);
   free (g->program);
   free (g->path);
-  free (g->qemu);
+  free (g->hv);
   free (g->append);
   free (g);
   return NULL;
@@ -200,9 +200,14 @@ parse_environment (guestfs_h *g,
   if (str)
     guestfs_set_path (g, str);
 
-  str = do_getenv (data, "LIBGUESTFS_QEMU");
+  str = do_getenv (data, "LIBGUESTFS_HV");
   if (str)
-    guestfs_set_qemu (g, str);
+    guestfs_set_hv (g, str);
+  else {
+    str = do_getenv (data, "LIBGUESTFS_QEMU");
+    if (str)
+      guestfs_set_hv (g, str);
+  }
 
   str = do_getenv (data, "LIBGUESTFS_APPEND");
   if (str)
@@ -267,7 +272,7 @@ guestfs__parse_environment_list (guestfs_h *g, char * const *strings)
 void
 guestfs_close (guestfs_h *g)
 {
-  struct qemu_param *qp, *qp_next;
+  struct hv_param *hp, *hp_next;
   guestfs_h **gg;
 
   if (g->state == NO_HANDLE) {
@@ -321,11 +326,11 @@ guestfs_close (guestfs_h *g)
   guestfs___free_inspect_info (g);
   guestfs___free_drives (g);
 
-  for (qp = g->qemu_params; qp; qp = qp_next) {
-    free (qp->qemu_param);
-    free (qp->qemu_value);
-    qp_next = qp->next;
-    free (qp);
+  for (hp = g->hv_params; hp; hp = hp_next) {
+    free (hp->hv_param);
+    free (hp->hv_value);
+    hp_next = hp->next;
+    free (hp);
   }
 
   while (g->error_cb_stack)
@@ -342,7 +347,7 @@ guestfs_close (guestfs_h *g)
   free (g->last_error);
   free (g->program);
   free (g->path);
-  free (g->qemu);
+  free (g->hv);
   free (g->append);
   free (g);
 }
@@ -445,17 +450,29 @@ guestfs__get_path (guestfs_h *g)
 int
 guestfs__set_qemu (guestfs_h *g, const char *qemu)
 {
-  free (g->qemu);
-  g->qemu = NULL;
-
-  g->qemu = qemu == NULL ? safe_strdup (g, QEMU) : safe_strdup (g, qemu);
+  free (g->hv);
+  g->hv = qemu == NULL ? safe_strdup (g, QEMU) : safe_strdup (g, qemu);
   return 0;
 }
 
 const char *
 guestfs__get_qemu (guestfs_h *g)
 {
-  return g->qemu;
+  return g->hv;
+}
+
+int
+guestfs__set_hv (guestfs_h *g, const char *hv)
+{
+  free (g->hv);
+  g->hv = safe_strdup (g, hv);
+  return 0;
+}
+
+char *
+guestfs__get_hv (guestfs_h *g)
+{
+  return safe_strdup (g, g->hv);
 }
 
 int

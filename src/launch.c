@@ -241,35 +241,38 @@ guestfs__get_state (guestfs_h *g)
 /* Add arbitrary qemu parameters.  Useful for testing. */
 int
 guestfs__config (guestfs_h *g,
-                 const char *qemu_param, const char *qemu_value)
+                 const char *hv_param, const char *hv_value)
 {
-  struct qemu_param *qp;
+  struct hv_param *hp;
 
-  if (qemu_param[0] != '-') {
+  /*
+    XXX For qemu this made sense, but not for uml.
+  if (hv_param[0] != '-') {
     error (g, _("parameter must begin with '-' character"));
     return -1;
   }
+  */
 
   /* A bit fascist, but the user will probably break the extra
    * parameters that we add if they try to set any of these.
    */
-  if (STREQ (qemu_param, "-kernel") ||
-      STREQ (qemu_param, "-initrd") ||
-      STREQ (qemu_param, "-nographic") ||
-      STREQ (qemu_param, "-serial") ||
-      STREQ (qemu_param, "-full-screen") ||
-      STREQ (qemu_param, "-std-vga") ||
-      STREQ (qemu_param, "-vnc")) {
-    error (g, _("parameter '%s' isn't allowed"), qemu_param);
+  if (STREQ (hv_param, "-kernel") ||
+      STREQ (hv_param, "-initrd") ||
+      STREQ (hv_param, "-nographic") ||
+      STREQ (hv_param, "-serial") ||
+      STREQ (hv_param, "-full-screen") ||
+      STREQ (hv_param, "-std-vga") ||
+      STREQ (hv_param, "-vnc")) {
+    error (g, _("parameter '%s' isn't allowed"), hv_param);
     return -1;
   }
 
-  qp = safe_malloc (g, sizeof *qp);
-  qp->qemu_param = safe_strdup (g, qemu_param);
-  qp->qemu_value = qemu_value ? safe_strdup (g, qemu_value) : NULL;
+  hp = safe_malloc (g, sizeof *hp);
+  hp->hv_param = safe_strdup (g, hv_param);
+  hp->hv_value = hv_value ? safe_strdup (g, hv_value) : NULL;
 
-  qp->next = g->qemu_params;
-  g->qemu_params = qp;
+  hp->next = g->hv_params;
+  g->hv_params = hp;
 
   return 0;
 }

@@ -344,7 +344,7 @@ check-release:
 	  check-valgrind \
 	  check-direct \
 	  check-valgrind-direct
-	$(MAKE) -j1 LIBGUESTFS_QEMU=$(HOME)/d/linux-um/vmlinux \
+	$(MAKE) -j1 LIBGUESTFS_HV=$(HOME)/d/linux-um/vmlinux \
 	  check-uml \
 	  check-valgrind-uml
 	$(MAKE) -j1 \
@@ -407,7 +407,7 @@ check-with-upstream-qemu:
 
 check-with-upstream-qemu-1: $(top_builddir)/qemu-wrapper.sh
 	$(QEMUBINARY) --version
-	$(MAKE) LIBGUESTFS_QEMU=$(abs_top_builddir)/qemu-wrapper.sh check
+	$(MAKE) LIBGUESTFS_HV=$(abs_top_builddir)/qemu-wrapper.sh check
 
 $(top_builddir)/qemu-wrapper.sh: Makefile
 	rm -f $@ $@-t

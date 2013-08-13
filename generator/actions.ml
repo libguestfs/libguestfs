@@ -199,11 +199,8 @@ You probably don't want to call this function." };
     name = "launch";
     style = RErr, [], [];
     fish_alias = ["run"]; progress = true; config_only = true;
-    shortdesc = "launch the qemu subprocess";
+    shortdesc = "launch the backend";
     longdesc = "\
-Internally libguestfs is implemented by running a virtual machine
-using L<qemu(1)>.
-
 You should call this after configuring the handle
 (eg. adding drives) but before performing any actions.
 
@@ -218,7 +215,7 @@ very cheap to create, so create a new one for each launch." };
     visibility = VStateTest;
     deprecated_by = Some "launch";
     blocking = false;
-    shortdesc = "wait until the qemu subprocess launches (no op)";
+    shortdesc = "wait until the hypervisor launches (no op)";
     longdesc = "\
 This function is a no op.
 
@@ -235,9 +232,9 @@ versions of the API." };
     name = "kill_subprocess";
     style = RErr, [], [];
     deprecated_by = Some "shutdown";
-    shortdesc = "kill the qemu subprocess";
+    shortdesc = "kill the hypervisor";
     longdesc = "\
-This kills the qemu subprocess.
+This kills the hypervisor.
 
 Do not call this.  See: C<guestfs_shutdown> instead." };
 
@@ -267,56 +264,99 @@ automatically." };
 
   { defaults with
     name = "config";
-    style = RErr, [String "qemuparam"; OptString "qemuvalue"], [];
+    style = RErr, [String "hvparam"; OptString "hvvalue"], [];
     config_only = true;
     blocking = false;
-    shortdesc = "add qemu parameters";
+    shortdesc = "add hypervisor parameters";
     longdesc = "\
-This can be used to add arbitrary qemu command line parameters
-of the form I<-param value>.  Actually it's not quite arbitrary - we
+This can be used to add arbitrary hypervisor parameters of the
+form I<-param value>.  Actually it's not quite arbitrary - we
 prevent you from setting some parameters which would interfere with
 parameters that we use.
 
-The first character of C<qemuparam> string must be a C<-> (dash).
+The first character of C<hvparam> string must be a C<-> (dash).
 
-C<qemuvalue> can be NULL." };
+C<hvvalue> can be NULL." };
 
   { defaults with
     name = "set_qemu";
-    style = RErr, [OptString "qemu"], [];
+    style = RErr, [OptString "hv"], [];
     fish_alias = ["qemu"]; config_only = true;
     blocking = false;
-    shortdesc = "set the qemu binary";
+    deprecated_by = Some "set_hv";
+    shortdesc = "set the hypervisor binary (usually qemu)";
     longdesc = "\
-Set the qemu binary that we will use.
+Set the hypervisor binary (usually qemu) that we will use.
 
 The default is chosen when the library was compiled by the
 configure script.
 
-You can also override this by setting the C<LIBGUESTFS_QEMU>
+You can also override this by setting the C<LIBGUESTFS_HV>
 environment variable.
 
-Setting C<qemu> to C<NULL> restores the default qemu binary.
+Setting C<hv> to C<NULL> restores the default qemu binary.
 
 Note that you should call this function as early as possible
 after creating the handle.  This is because some pre-launch
 operations depend on testing qemu features (by running C<qemu -help>).
 If the qemu binary changes, we don't retest features, and
 so you might see inconsistent results.  Using the environment
-variable C<LIBGUESTFS_QEMU> is safest of all since that picks
+variable C<LIBGUESTFS_HV> is safest of all since that picks
 the qemu binary at the same time as the handle is created." };
 
   { defaults with
     name = "get_qemu";
-    style = RConstString "qemu", [], [];
+    style = RConstString "hv", [], [];
     blocking = false;
+    deprecated_by = Some "get_hv";
     tests = [
       InitNone, Always, TestRun (
         [["get_qemu"]]), []
     ];
-    shortdesc = "get the qemu binary";
+    shortdesc = "get the hypervisor binary (usually qemu)";
     longdesc = "\
-Return the current qemu binary.
+Return the current hypervisor binary (usually qemu).
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default qemu binary name." };
+
+  { defaults with
+    name = "set_hv";
+    style = RErr, [String "hv"], [];
+    fish_alias = ["hv"]; config_only = true;
+    blocking = false;
+    shortdesc = "set the hypervisor binary";
+    longdesc = "\
+Set the hypervisor binary that we will use.  The hypervisor
+depends on the backend, but is usually the location of the
+qemu/KVM hypervisor.  For the uml backend, it is the location
+of the C<linux> or C<vmlinux> binary.
+
+The default is chosen when the library was compiled by the
+configure script.
+
+You can also override this by setting the C<LIBGUESTFS_HV>
+environment variable.
+
+Note that you should call this function as early as possible
+after creating the handle.  This is because some pre-launch
+operations depend on testing qemu features (by running C<qemu -help>).
+If the qemu binary changes, we don't retest features, and
+so you might see inconsistent results.  Using the environment
+variable C<LIBGUESTFS_HV> is safest of all since that picks
+the qemu binary at the same time as the handle is created." };
+
+  { defaults with
+    name = "get_hv";
+    style = RString "hv", [], [];
+    blocking = false;
+    tests = [
+      InitNone, Always, TestRun (
+        [["get_hv"]]), []
+    ];
+    shortdesc = "get the hypervisor binary";
+    longdesc = "\
+Return the current hypervisor binary.
 
 This is always non-NULL.  If it wasn't set already, then this will
 return the default qemu binary name." };
@@ -512,10 +552,10 @@ For more information on states, see L<guestfs(3)>." };
     style = RErr, [Int "memsize"], [];
     fish_alias = ["memsize"]; config_only = true;
     blocking = false;
-    shortdesc = "set memory allocated to the qemu subprocess";
+    shortdesc = "set memory allocated to the hypervisor";
     longdesc = "\
 This sets the memory size in megabytes allocated to the
-qemu subprocess.  This only has any effect if called before
+hypervisor.  This only has any effect if called before
 C<guestfs_launch>.
 
 You can also change this by setting the environment
@@ -533,10 +573,10 @@ see L<guestfs(3)>." };
       InitNone, Always, TestResult (
       [["get_memsize"]], "ret >= 256"), []
     ];
-    shortdesc = "get memory allocated to the qemu subprocess";
+    shortdesc = "get memory allocated to the hypervisor";
     longdesc = "\
 This gets the memory size in megabytes allocated to the
-qemu subprocess.
+hypervisor.
 
 If C<guestfs_set_memsize> was not called
 on this handle, and if C<LIBGUESTFS_MEMSIZE> was not set,
@@ -550,10 +590,10 @@ see L<guestfs(3)>." };
     style = RInt "pid", [], [];
     fish_alias = ["pid"];
     blocking = false;
-    shortdesc = "get PID of qemu subprocess";
+    shortdesc = "get PID of hypervisor";
     longdesc = "\
-Return the process ID of the qemu subprocess.  If there is no
-qemu subprocess, then this will return an error.
+Return the process ID of the hypervisor.  If there is no
+hypervisor running, then this will return an error.
 
 This is an internal call used for debugging and testing." };
 
@@ -697,7 +737,7 @@ Return the direct appliance mode flag." };
     longdesc = "\
 If this is called with the parameter C<false> then
 C<guestfs_launch> does not create a recovery process.  The
-purpose of the recovery process is to stop runaway qemu
+purpose of the recovery process is to stop runaway hypervisor
 processes in the case where the main program aborts abruptly.
 
 This only has any effect if called before C<guestfs_launch>,
@@ -707,7 +747,7 @@ About the only time when you would want to disable this is
 if the main process will fork itself into the background
 (\"daemonize\" itself).  In this case the recovery process
 thinks that the main program has disappeared and so kills
-qemu, which is not very helpful." };
+the hypervisor, which is not very helpful." };
 
   { defaults with
     name = "get_recovery_proc";
@@ -2288,7 +2328,7 @@ Other strings are returned unmodified." };
   { defaults with
     name = "shutdown";
     style = RErr, [], [];
-    shortdesc = "shutdown the qemu subprocess";
+    shortdesc = "shutdown the hypervisor";
     longdesc = "\
 This is the opposite of C<guestfs_launch>.  It performs an orderly
 shutdown of the backend process(es).  If the autosync flag is set
@@ -4606,7 +4646,7 @@ as for the L<mount(8)> I<-o> and I<-t> flags." };
     longdesc = "\
 The C<guestfs_debug> command exposes some internals of
 C<guestfsd> (the guestfs daemon) that runs inside the
-qemu subprocess.
+hypervisor.
 
 There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
@@ -5049,7 +5089,7 @@ running the program." };
     shortdesc = "ping the guest daemon";
     longdesc = "\
 This is a test probe into the guestfs daemon running inside
-the qemu subprocess.  Calling this function checks that the
+the hypervisor.  Calling this function checks that the
 daemon responds to the ping message, without affecting the daemon
 or attached block device(s) in any other way." };
 

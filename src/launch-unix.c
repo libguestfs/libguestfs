@@ -41,8 +41,8 @@ launch_unix (guestfs_h *g, const char *sockpath)
   uint32_t size;
   void *buf = NULL;
 
-  if (g->qemu_params) {
-    error (g, _("cannot set qemu parameters with the 'unix:' backend"));
+  if (g->hv_params) {
+    error (g, _("cannot set hv parameters with the 'unix:' backend"));
     return -1;
   }
 
