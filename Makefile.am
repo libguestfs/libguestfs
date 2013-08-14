@@ -144,7 +144,6 @@ EXTRA_DIST = \
 	autogen.sh \
 	bindtests \
 	contrib/autobuild/autobuild.sh \
-	contrib/guestfsd-in-wine.sh \
 	contrib/intro/libguestfs-intro.html \
 	contrib/intro/overview.png \
 	contrib/intro/overview.svg \
