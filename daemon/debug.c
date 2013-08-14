@@ -68,6 +68,7 @@ static char *debug_fds (const char *subcmd, size_t argc, char *const *const argv
 static char *debug_ldd (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_ls (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_ll (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_print (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_progress (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_qtrace (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, size_t argc, char *const *const argv);
@@ -85,6 +86,7 @@ static struct cmd cmds[] = {
   { "ldd", debug_ldd },
   { "ls", debug_ls },
   { "ll", debug_ll },
+  { "print", debug_print },
   { "progress", debug_progress },
   { "qtrace", debug_qtrace },
   { "segv", debug_segv },
@@ -436,6 +438,31 @@ debug_ll (const char *subcmd, size_t argc, char *const *const argv)
   }
 
   return out;
+}
+
+/* Print something on the serial console.  Used to check that
+ * debugging messages are being emitted.
+ */
+static char *
+debug_print (const char *subcmd, size_t argc, char *const *const argv)
+{
+  size_t i;
+  char *ret;
+
+  for (i = 0; i < argc; ++i) {
+    if (i > 0)
+      fputc (' ', stderr);
+    fprintf (stderr, "%s", argv[i]);
+  }
+  fputc ('\n', stderr);
+
+  ret = strdup ("ok");
+  if (ret == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;
 }
 
 /* Generate progress notification messages in order to test progress bars. */
