@@ -823,17 +823,21 @@ construct_libvirt_xml_cpu (guestfs_h *g,
   /* It is faster to pass the CPU host model to the appliance,
    * allowing maximum speed for things like checksums, encryption.
    * Note this may cause problems on some CPUs.  See: RHBZ#870071.
+   * Only do this with KVM.  It is broken in subtle ways on TCG, and
+   * fairly pointless anyway.
    */
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cpu"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
-                                         BAD_CAST "host-model"));
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "model"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "fallback",
-                                         BAD_CAST "allow"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  if (params->is_kvm) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cpu"));
+    XMLERROR (-1,
+	      xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
+					   BAD_CAST "host-model"));
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "model"));
+    XMLERROR (-1,
+	      xmlTextWriterWriteAttribute (xo, BAD_CAST "fallback",
+					   BAD_CAST "allow"));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "vcpu"));
   XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->smp));
