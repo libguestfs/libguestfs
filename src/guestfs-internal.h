@@ -621,6 +621,6 @@ extern void guestfs___cmd_close (struct command *);
 #else
 #define CLEANUP_CMD_CLOSE
 #endif
-extern void guestfs___cleanup_cmd_close (void *ptr);
+extern void guestfs___cleanup_cmd_close (struct command **);
 
 #endif /* GUESTFS_INTERNAL_H_ */

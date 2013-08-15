@@ -680,9 +680,9 @@ guestfs___cmd_close (struct command *cmd)
 }
 
 void
-guestfs___cleanup_cmd_close (void *ptr)
+guestfs___cleanup_cmd_close (struct command **ptr)
 {
-  guestfs___cmd_close (* (struct command **) ptr);
+  guestfs___cmd_close (*ptr);
 }
 
 /* Deal with buffering stdout for the callback. */
