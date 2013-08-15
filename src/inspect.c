@@ -84,34 +84,21 @@ compare_strings (const void *vp1, const void *vp2)
 char **
 guestfs__inspect_get_roots (guestfs_h *g)
 {
+  size_t i;
+  DECLARE_STRINGSBUF (ret);
+
   /* NB. Doesn't matter if g->nr_fses == 0.  We just return an empty
    * list in this case.
    */
-
-  size_t i;
-  size_t count = 0;
-  for (i = 0; i < g->nr_fses; ++i)
-    if (g->fses[i].is_root)
-      count++;
-
-  char **ret = calloc (count+1, sizeof (char *));
-  if (ret == NULL) {
-    perrorf (g, "calloc");
-    return NULL;
-  }
-
-  count = 0;
   for (i = 0; i < g->nr_fses; ++i) {
-    if (g->fses[i].is_root) {
-      ret[count] = safe_strdup (g, g->fses[i].mountable);
-      count++;
-    }
+    if (g->fses[i].is_root)
+      guestfs___add_string (g, &ret, g->fses[i].mountable);
   }
-  ret[count] = NULL;
+  guestfs___end_stringsbuf (g, &ret);
 
-  qsort (ret, count, sizeof (char *), compare_strings);
+  qsort (ret.argv, ret.size-1, sizeof (char *), compare_strings);
 
-  return ret;
+  return ret.argv;
 }
 
 char *
@@ -392,37 +379,21 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
 char **
 guestfs__inspect_get_drive_mappings (guestfs_h *g, const char *root)
 {
-  char **ret;
-  size_t i, count;
+  DECLARE_STRINGSBUF (ret);
+  size_t i;
   struct inspect_fs *fs;
 
   fs = guestfs___search_for_root (g, root);
   if (!fs)
     return NULL;
 
-  /* If no drive mappings, return an empty hashtable. */
-  if (!fs->drive_mappings)
-    count = 0;
-  else {
-    for (count = 0; fs->drive_mappings[count] != NULL; count++)
-      ;
+  if (fs->drive_mappings) {
+    for (i = 0; fs->drive_mappings[i] != NULL; ++i)
+      guestfs___add_string (g, &ret, fs->drive_mappings[i]);
   }
 
-  ret = calloc (count+1, sizeof (char *));
-  if (ret == NULL) {
-    perrorf (g, "calloc");
-    return NULL;
-  }
-
-  /* We need to make a deep copy of the hashtable since the caller
-   * will free it.
-   */
-  for (i = 0; i < count; ++i)
-    ret[i] = safe_strdup (g, fs->drive_mappings[i]);
-
-  ret[count] = NULL;
-
-  return ret;
+  guestfs___end_stringsbuf (g, &ret);
+  return ret.argv;
 }
 
 char *

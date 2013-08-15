@@ -39,15 +39,14 @@
  */
 
 static void remove_from_list (char **list, const char *item);
-static void check_with_vfs_type (guestfs_h *g, const char *dev, char ***ret, size_t *ret_size);
+static void check_with_vfs_type (guestfs_h *g, const char *dev, struct stringsbuf *sb);
 static int is_mbr_partition_type_42 (guestfs_h *g, const char *partition);
 
 char **
 guestfs__list_filesystems (guestfs_h *g)
 {
   size_t i;
-  char **ret;
-  size_t ret_size = 0;
+  DECLARE_STRINGSBUF (ret);
   const char *lvm2[] = { "lvm2", NULL };
   const char *ldm[] = { "ldm", NULL };
 
@@ -57,13 +56,6 @@ guestfs__list_filesystems (guestfs_h *g)
   CLEANUP_FREE_STRING_LIST char **lvs = NULL;
   CLEANUP_FREE_STRING_LIST char **ldmvols = NULL;
   CLEANUP_FREE_STRING_LIST char **ldmparts = NULL;
-
-  /* We need to initialize this with an empty list so that if there
-   * are no filesystems at all, we return an empty list (not NULL).
-   * See also add_vfs function below.
-   */
-  ret = safe_malloc (g, sizeof (char *));
-  ret[0] = NULL;
 
   /* Look to see if any devices directly contain filesystems
    * (RHBZ#590167).  However vfs-type will fail to tell us anything
@@ -86,17 +78,17 @@ guestfs__list_filesystems (guestfs_h *g)
 
   /* Use vfs-type to check for filesystems on devices. */
   for (i = 0; devices[i] != NULL; ++i)
-    check_with_vfs_type (g, devices[i], &ret, &ret_size);
+    check_with_vfs_type (g, devices[i], &ret);
 
   /* Use vfs-type to check for filesystems on partitions. */
   for (i = 0; partitions[i] != NULL; ++i) {
     if (! is_mbr_partition_type_42 (g, partitions[i]))
-      check_with_vfs_type (g, partitions[i], &ret, &ret_size);
+      check_with_vfs_type (g, partitions[i], &ret);
   }
 
   /* Use vfs-type to check for filesystems on md devices. */
   for (i = 0; mds[i] != NULL; ++i)
-    check_with_vfs_type (g, mds[i], &ret, &ret_size);
+    check_with_vfs_type (g, mds[i], &ret);
 
   if (guestfs_feature_available (g, (char **) lvm2)) {
     /* Use vfs-type to check for filesystems on LVs. */
@@ -104,7 +96,7 @@ guestfs__list_filesystems (guestfs_h *g)
     if (lvs == NULL) goto error;
 
     for (i = 0; lvs[i] != NULL; ++i)
-      check_with_vfs_type (g, lvs[i], &ret, &ret_size);
+      check_with_vfs_type (g, lvs[i], &ret);
   }
 
   if (guestfs_feature_available (g, (char **) ldm)) {
@@ -113,19 +105,21 @@ guestfs__list_filesystems (guestfs_h *g)
     if (ldmvols == NULL) goto error;
 
     for (i = 0; ldmvols[i] != NULL; ++i)
-      check_with_vfs_type (g, ldmvols[i], &ret, &ret_size);
+      check_with_vfs_type (g, ldmvols[i], &ret);
 
     ldmparts = guestfs_list_ldm_partitions (g);
     if (ldmparts == NULL) goto error;
 
     for (i = 0; ldmparts[i] != NULL; ++i)
-      check_with_vfs_type (g, ldmparts[i], &ret, &ret_size);
+      check_with_vfs_type (g, ldmparts[i], &ret);
   }
 
-  return ret;
+  /* Finish off the list and return it. */
+  guestfs___end_stringsbuf (g, &ret);
+  return ret.argv;
 
  error:
-  if (ret) guestfs___free_string_list (ret);
+  guestfs___free_stringsbuf (&ret);
   return NULL;
 }
 
@@ -145,50 +139,34 @@ remove_from_list (char **list, const char *item)
     }
 }
 
-static void
-add_vfs (guestfs_h *g, char *mountable, char *vfs_type,
-         char ***ret, size_t *ret_size)
-{
-  /* Extend the return array. */
-  size_t i = *ret_size;
-  *ret_size += 2;
-  *ret = safe_realloc (g, *ret, (*ret_size + 1) * sizeof (char *));
-
-  (*ret)[i] = mountable;
-  (*ret)[i+1] = vfs_type;
-  (*ret)[i+2] = NULL;
-}
-
 /* Use vfs-type to look for a filesystem of some sort on 'dev'.
  * Apart from some types which we ignore, add the result to the
  * 'ret' string list.
  */
 static void
-check_with_vfs_type (guestfs_h *g, const char *device,
-                     char ***ret, size_t *ret_size)
+check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
 {
-  char *v;
-  char *vfs_type;
+  const char *v;
+  CLEANUP_FREE char *vfs_type = NULL;
 
   guestfs_push_error_handler (g, NULL, NULL);
   vfs_type = guestfs_vfs_type (g, device);
   guestfs_pop_error_handler (g);
 
   if (!vfs_type)
-    v = safe_strdup (g, "unknown");
-  else if (STREQ (vfs_type, "")) {
-    v = safe_strdup (g, "unknown");
-    free (vfs_type);
-  }
+    v = "unknown";
+  else if (STREQ (vfs_type, ""))
+    v = "unknown";
   else if (STREQ (vfs_type, "btrfs")) {
     CLEANUP_FREE_BTRFSSUBVOLUME_LIST struct guestfs_btrfssubvolume_list *vols =
       guestfs_btrfs_subvolume_list (g, device);
 
     for (size_t i = 0; i < vols->len; i++) {
       struct guestfs_btrfssubvolume *this = &vols->val[i];
-      char *mountable = safe_asprintf (g, "btrfsvol:%s/%s",
-                                       device, this->btrfssubvolume_path);
-      add_vfs (g, mountable, safe_strdup (g, "btrfs"), ret, ret_size);
+      guestfs___add_sprintf (g, sb,
+                             "btrfsvol:%s/%s",
+                             device, this->btrfssubvolume_path);
+      guestfs___add_string (g, sb, "btrfs");
     }
 
     v = vfs_type;
@@ -199,21 +177,18 @@ check_with_vfs_type (guestfs_h *g, const char *device,
      * importantly "LVM2_member" which is a PV.
      */
     size_t n = strlen (vfs_type);
-    if (n >= 7 && STREQ (&vfs_type[n-7], "_member")) {
-      free (vfs_type);
+    if (n >= 7 && STREQ (&vfs_type[n-7], "_member"))
       return;
-    }
 
     /* Ignore LUKS-encrypted partitions.  These are also containers. */
-    if (STREQ (vfs_type, "crypto_LUKS")) {
-      free (vfs_type);
+    if (STREQ (vfs_type, "crypto_LUKS"))
       return;
-    }
 
     v = vfs_type;
   }
 
-  add_vfs (g, safe_strdup (g, device), v, ret, ret_size);
+  guestfs___add_string (g, sb, device);
+  guestfs___add_string (g, sb, v);
 }
 
 /* We should ignore partitions that have MBR type byte 0x42, because
