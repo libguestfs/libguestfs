@@ -47,41 +47,11 @@ struct backend_uml_data {
 
 #define UML_UMID_LEN 16
   char umid[UML_UMID_LEN+1];    /* umid=<...> unique ID. */
-
-  /* XXX Remove this from the struct. */
-  char **cmdline;     /* Only used in child, does not need freeing. */
-  size_t cmdline_size;
 };
 
 static void print_vmlinux_command_line (guestfs_h *g, char **argv);
 static char *make_cow_overlay (guestfs_h *g, const char *original);
 static int kill_vmlinux (guestfs_h *g, struct backend_uml_data *data, int signum);
-
-/* Functions to build up the vmlinux command line.  These are only run
- * in the child process so no clean-up is required.
- */
-static void
-alloc_cmdline (guestfs_h *g, struct backend_uml_data *data)
-{
-  data->cmdline_size = 1;
-  data->cmdline = safe_malloc (g, sizeof (char *));
-  data->cmdline[0] = g->hv;
-}
-
-static void
-incr_cmdline_size (guestfs_h *g, struct backend_uml_data *data)
-{
-  data->cmdline_size++;
-  data->cmdline =
-    safe_realloc (g, data->cmdline, sizeof (char *) * data->cmdline_size);
-}
-
-static void
-add_cmdline (guestfs_h *g, struct backend_uml_data *data, const char *str)
-{
-  incr_cmdline_size (g, data);
-  data->cmdline[data->cmdline_size-1] = safe_strdup (g, str);
-}
 
 /* Test for features which are not supported by the UML backend.
  * Possibly some of these should just be warnings, not errors.
@@ -129,6 +99,7 @@ static int
 launch_uml (guestfs_h *g, void *datav, const char *arg)
 {
   struct backend_uml_data *data = datav;
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (cmdline);
   int console_sock = -1, daemon_sock = -1;
   int r;
   int csv[2], dsv[2];
@@ -139,6 +110,8 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   CLEANUP_FREE void *buf = NULL;
   struct drive *drv;
   size_t i;
+  struct hv_param *hp;
+  char *term = getenv ("TERM");
 
   if (!uml_supported (g))
     return -1;
@@ -196,6 +169,98 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
     }
   }
 
+  /* Construct the vmlinux command line.  We have to do this before
+   * forking, because after fork we are not allowed to use
+   * non-signal-safe functions such as malloc.
+   */
+#define ADD_CMDLINE(str) \
+  guestfs___add_string (g, &cmdline, (str))
+#define ADD_CMDLINE_PRINTF(fs,...) \
+  guestfs___add_sprintf (g, &cmdline, (fs), ##__VA_ARGS__)
+
+  ADD_CMDLINE (g->hv);
+
+  /* UMID: *NB* This must be the first parameter on the command line
+   * because of kill_vmlinux below.
+   */
+  ADD_CMDLINE_PRINTF ("umid=%s", data->umid);
+
+  /* Set memory size. */
+  ADD_CMDLINE_PRINTF ("mem=%dM", g->memsize);
+
+  /* vmlinux appears to ignore this, but let's add it anyway. */
+  ADD_CMDLINE_PRINTF ("initrd=%s", initrd);
+
+  /* Make sure our appliance init script runs first. */
+  ADD_CMDLINE ("init=/init");
+
+  /* This tells the /init script not to reboot at the end. */
+  ADD_CMDLINE ("guestfs_noreboot=1");
+
+  /* Root filesystem should be mounted read-write (default seems to
+   * be "ro").
+   */
+  ADD_CMDLINE ("rw");
+
+  /* See also guestfs___appliance_command_line. */
+  if (g->verbose)
+    ADD_CMDLINE ("guestfs_verbose=1");
+
+  ADD_CMDLINE ("panic=1");
+
+  ADD_CMDLINE_PRINTF ("TERM=%s", term ? term : "linux");
+
+  if (g->selinux)
+    ADD_CMDLINE ("selinux=1 enforcing=0");
+  else
+    ADD_CMDLINE ("selinux=0");
+
+  /* XXX This isn't quite right.  Multiple append args won't work. */
+  if (g->append)
+    ADD_CMDLINE (g->append);
+
+  /* Add the drives. */
+  ITER_DRIVES (g, i, drv) {
+    if (!drv->readonly)
+      ADD_CMDLINE_PRINTF ("ubd%zu=%s", i, drv->src.u.path);
+    else
+      ADD_CMDLINE_PRINTF ("ubd%zu=%s", i, (char *) drv->priv);
+  }
+
+  /* Add the ext2 appliance drive (after all the drives). */
+  if (has_appliance_drive) {
+    char drv_name[64] = "ubd";
+    guestfs___drive_name (g->nr_drives, &drv_name[3]);
+
+    ADD_CMDLINE_PRINTF ("ubd%zu=%s", g->nr_drives, appliance_cow);
+    ADD_CMDLINE_PRINTF ("root=/dev/%s", drv_name);
+  }
+
+  /* Create the daemon socket. */
+  ADD_CMDLINE_PRINTF ("ssl3=fd:%d", dsv[1]);
+  ADD_CMDLINE ("guestfs_channel=/dev/ttyS3");
+
+#if 0 /* XXX This could be made to work. */
+#ifdef VALGRIND_DAEMON
+  /* Set up virtio-serial channel for valgrind messages. */
+  ADD_CMDLINE ("-chardev");
+  ADD_CMDLINE_PRINTF ("file,path=%s/valgrind.log.%d,id=valgrind",
+                      VALGRIND_LOG_PATH, getpid ());
+  ADD_CMDLINE ("-device");
+  ADD_CMDLINE ("virtserialport,chardev=valgrind,name=org.libguestfs.valgrind");
+#endif
+#endif
+
+  /* Add any vmlinux parameters. */
+  for (hp = g->hv_params; hp; hp = hp->next) {
+    ADD_CMDLINE (hp->hv_param);
+    if (hp->hv_value)
+      ADD_CMDLINE (hp->hv_value);
+    }
+
+  /* Finish off the command line. */
+  guestfs___end_stringsbuf (g, &cmdline);
+
   r = fork ();
   if (r == -1) {
     perrorf (g, "fork");
@@ -209,115 +274,9 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   }
 
   if (r == 0) {                 /* Child (vmlinux). */
-    char *buf;
-    struct hv_param *hp;
-    char *term = getenv ("TERM");
-
-    /* Set up the full command line.  Do this in the subprocess so we
-     * don't need to worry about cleaning up.
-     */
-    alloc_cmdline (g, data);
-
-    /* UMID: *NB* This must be the first parameter on the command line
-     * because of kill_vmlinux below.
-     */
-    buf = safe_asprintf (g, "umid=%s", data->umid);
-    add_cmdline (g, data, buf);
-    free (buf);
-
-    /* Set memory size. */
-    buf = safe_asprintf (g, "mem=%dM", g->memsize);
-    add_cmdline (g, data, buf);
-    free (buf);
-
-    /* vmlinux appears to ignore this, but let's add it anyway. */
-    buf = safe_asprintf (g, "initrd=%s", initrd);
-    add_cmdline (g, data, buf);
-    free (buf);
-
-    /* Make sure our appliance init script runs first. */
-    add_cmdline (g, data, "init=/init");
-
-    /* This tells the /init script not to reboot at the end. */
-    add_cmdline (g, data, "guestfs_noreboot=1");
-
-    /* Root filesystem should be mounted read-write (default seems to
-     * be "ro").
-     */
-    add_cmdline (g, data, "rw");
-
-    /* See also guestfs___appliance_command_line. */
-    if (g->verbose)
-      add_cmdline (g, data, "guestfs_verbose=1");
-
-    add_cmdline (g, data, "panic=1");
-
-    buf = safe_asprintf (g, "TERM=%s", term ? term : "linux");
-    add_cmdline (g, data, buf);
-    free (buf);
-
-    if (g->selinux)
-      add_cmdline (g, data, "selinux=1 enforcing=0");
-    else
-      add_cmdline (g, data, "selinux=0");
-
-    /* XXX This isn't quite right.  Multiple append args won't work. */
-    if (g->append)
-      add_cmdline (g, data, g->append);
-
-    /* Add the drives. */
-    ITER_DRIVES (g, i, drv) {
-      if (!drv->readonly)
-        buf = safe_asprintf (g, "ubd%zu=%s", i, drv->src.u.path);
-      else
-        buf = safe_asprintf (g, "ubd%zu=%s", i, (char *) drv->priv);
-      add_cmdline (g, data, buf);
-      free (buf);
-    }
-
-    /* Add the ext2 appliance drive (after all the drives). */
-    if (has_appliance_drive) {
-      char drv_name[64] = "ubd";
-      guestfs___drive_name (g->nr_drives, &drv_name[3]);
-
-      buf = safe_asprintf (g, "ubd%zu=%s", g->nr_drives, appliance_cow);
-      add_cmdline (g, data, buf);
-      free (buf);
-      buf = safe_asprintf (g, "root=/dev/%s", drv_name);
-      add_cmdline (g, data, buf);
-      free (buf);
-    }
-
-    /* Create the daemon socket. */
+    /* Set up the daemon socket for the child. */
     close (dsv[0]);
     set_cloexec_flag (dsv[1], 0); /* so it doesn't close across exec */
-    buf = safe_asprintf (g, "ssl3=fd:%d", dsv[1]);
-    add_cmdline (g, data, buf);
-    free (buf);
-    add_cmdline (g, data, "guestfs_channel=/dev/ttyS3");
-
-#if 0 /* XXX This could be made to work. */
-#ifdef VALGRIND_DAEMON
-    /* Set up virtio-serial channel for valgrind messages. */
-    add_cmdline (g, data, "-chardev");
-    snprintf (buf, sizeof buf, "file,path=%s/valgrind.log.%d,id=valgrind",
-              VALGRIND_LOG_PATH, getpid ());
-    add_cmdline (g, data, buf);
-    add_cmdline (g, data, "-device");
-    add_cmdline (g, data, "virtserialport,chardev=valgrind,name=org.libguestfs.valgrind");
-#endif
-#endif
-
-    /* Add any vmlinux parameters. */
-    for (hp = g->hv_params; hp; hp = hp->next) {
-      add_cmdline (g, data, hp->hv_param);
-      if (hp->hv_value)
-        add_cmdline (g, data, hp->hv_value);
-    }
-
-    /* Finish off the command line. */
-    incr_cmdline_size (g, data);
-    data->cmdline[data->cmdline_size-1] = NULL;
 
     if (!g->direct_mode) {
       /* Set up stdin, stdout, stderr. */
@@ -351,7 +310,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
 
     /* Dump the command line (after setting up stderr above). */
     if (g->verbose)
-      print_vmlinux_command_line (g, data->cmdline);
+      print_vmlinux_command_line (g, cmdline.argv);
 
     /* Put vmlinux in a new process group. */
     if (g->pgroup)
@@ -359,7 +318,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
 
     setenv ("LC_ALL", "C", 1);
 
-    execv (g->hv, data->cmdline); /* Run vmlinux. */
+    execv (g->hv, cmdline.argv); /* Run vmlinux. */
     perror (g->hv);
     _exit (EXIT_FAILURE);
   }

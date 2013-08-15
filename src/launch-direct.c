@@ -88,10 +88,6 @@ struct backend_direct_data {
   /* qemu version (0, 0 if unable to parse). */
   int qemu_version_major, qemu_version_minor;
 
-  /* XXX Remove this from the struct. */
-  char **cmdline;     /* Only used in child, does not need freeing. */
-  size_t cmdline_size;
-
   int virtio_scsi;        /* See function qemu_supports_virtio_scsi */
 };
 
@@ -103,38 +99,11 @@ static int qemu_supports_device (guestfs_h *g, struct backend_direct_data *, con
 static int qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *);
 static char *qemu_drive_param (guestfs_h *g, struct backend_direct_data *data, const struct drive *drv, size_t index);
 
-/* Functions to build up the qemu command line.  These are only run
- * in the child process so no clean-up is required.
- */
-static void
-alloc_cmdline (guestfs_h *g, struct backend_direct_data *data)
-{
-  data->cmdline_size = 1;
-  data->cmdline = safe_malloc (g, sizeof (char *));
-  data->cmdline[0] = g->hv;
-}
-
-static void
-incr_cmdline_size (guestfs_h *g, struct backend_direct_data *data)
-{
-  data->cmdline_size++;
-  data->cmdline =
-    safe_realloc (g, data->cmdline,
-                  sizeof (char *) * data->cmdline_size);
-}
-
-static void
-add_cmdline (guestfs_h *g, struct backend_direct_data *data, const char *str)
-{
-  incr_cmdline_size (g, data);
-  data->cmdline[data->cmdline_size-1] = safe_strdup (g, str);
-}
-
 /* Like 'add_cmdline' but allowing a shell-quoted string of zero or
  * more options.  XXX The unquoting is not very clever.
  */
 static void
-add_cmdline_shell_unquoted (guestfs_h *g, struct backend_direct_data *data,
+add_cmdline_shell_unquoted (guestfs_h *g, struct stringsbuf *sb,
                             const char *options)
 {
   char quote;
@@ -179,9 +148,8 @@ add_cmdline_shell_unquoted (guestfs_h *g, struct backend_direct_data *data,
     while (*nextp && *nextp == ' ')
       nextp++;
 
-    incr_cmdline_size (g, data);
-    data->cmdline[data->cmdline_size-1] =
-      safe_strndup (g, startp, endp-startp);
+    guestfs___add_string_nodup (g, sb,
+                                safe_strndup (g, startp, endp-startp));
 
     options = nextp;
   }
@@ -191,6 +159,7 @@ static int
 launch_direct (guestfs_h *g, void *datav, const char *arg)
 {
   struct backend_direct_data *data = datav;
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (cmdline);
   int daemon_accept_sock = -1, console_sock = -1;
   int r;
   int sv[2];
@@ -201,6 +170,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   CLEANUP_FREE char *appliance_dev = NULL;
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
+  struct drive *drv;
+  size_t i;
+  int virtio_scsi;
+  struct hv_param *hp;
+  bool has_kvm;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -266,6 +240,225 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (g->verbose)
     guestfs___print_timestamped_message (g, "finished testing qemu features");
 
+  /* Construct the qemu command line.  We have to do this before
+   * forking, because after fork we are not allowed to use
+   * non-signal-safe functions such as malloc.
+   */
+#define ADD_CMDLINE(str) \
+  guestfs___add_string (g, &cmdline, (str))
+#define ADD_CMDLINE_STRING_NODUP(str) \
+  guestfs___add_string_nodup (g, &cmdline, (str))
+#define ADD_CMDLINE_PRINTF(fs,...) \
+  guestfs___add_sprintf (g, &cmdline, (fs), ##__VA_ARGS__)
+
+  ADD_CMDLINE (g->hv);
+
+  /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
+   * devices.  The -global option must exist, but you can pass any
+   * strings to it so we don't need to check for the specific virtio
+   * feature.
+   */
+  if (qemu_supports (g, data, "-global")) {
+    ADD_CMDLINE ("-global");
+    ADD_CMDLINE ("virtio-blk-pci.scsi=off");
+  }
+
+  if (qemu_supports (g, data, "-nodefconfig"))
+    ADD_CMDLINE ("-nodefconfig");
+
+  /* Newer versions of qemu (from around 2009/12) changed the
+   * behaviour of monitors so that an implicit '-monitor stdio' is
+   * assumed if we are in -nographic mode and there is no other
+   * -monitor option.  Only a single stdio device is allowed, so
+   * this broke the '-serial stdio' option.  There is a new flag
+   * called -nodefaults which gets rid of all this default crud, so
+   * let's use that to avoid this and any future surprises.
+   */
+  if (qemu_supports (g, data, "-nodefaults"))
+    ADD_CMDLINE ("-nodefaults");
+
+  ADD_CMDLINE ("-nographic");
+
+  /* Try to guess if KVM is available.  We are just checking that
+   * /dev/kvm is openable.  That's not reliable, since /dev/kvm
+   * might be openable by qemu but not by us (think: SELinux) in
+   * which case the user would not get hardware virtualization,
+   * although at least shouldn't fail.
+   */
+  has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
+
+  /* The qemu -machine option (added 2010-12) is a bit more sane
+   * since it falls back through various different acceleration
+   * modes, so try that first (thanks Markus Armbruster).
+   */
+  if (qemu_supports (g, data, "-machine")) {
+    ADD_CMDLINE ("-machine");
+    ADD_CMDLINE ("accel=kvm:tcg");
+  } else {
+    /* qemu sometimes needs this option to enable hardware
+     * virtualization, but some versions of 'qemu-kvm' will use KVM
+     * regardless (even where this option appears in the help text).
+     * It is rumoured that there are versions of qemu where
+     * supplying this option when hardware virtualization is not
+     * available will cause qemu to fail.  A giant clusterfuck with
+     * the qemu command line, again.
+     */
+    if (qemu_supports (g, data, "-enable-kvm") && has_kvm)
+      ADD_CMDLINE ("-enable-kvm");
+  }
+
+  /* -cpu host only works if KVM is available. */
+  if (has_kvm) {
+    /* Specify the host CPU for speed, and kvmclock for stability. */
+    ADD_CMDLINE ("-cpu");
+    ADD_CMDLINE ("host,+kvmclock");
+  } else {
+    /* Specify default CPU for speed, and kvmclock for stability. */
+    ADD_CMDLINE ("-cpu");
+    ADD_CMDLINE_PRINTF ("qemu%d,+kvmclock", SIZEOF_LONG*8);
+  }
+
+  if (g->smp > 1) {
+    ADD_CMDLINE ("-smp");
+    ADD_CMDLINE_PRINTF ("%d", g->smp);
+  }
+
+  ADD_CMDLINE ("-m");
+  ADD_CMDLINE_PRINTF ("%d", g->memsize);
+
+  /* Force exit instead of reboot on panic */
+  ADD_CMDLINE ("-no-reboot");
+
+  /* These options recommended by KVM developers to improve reliability. */
+#ifndef __arm__
+  /* qemu-system-arm advertises the -no-hpet option but if you try
+   * to use it, it usefully says:
+   *   "Option no-hpet not supported for this target".
+   * Cheers qemu developers.  How many years have we been asking for
+   * capabilities?  Could be 3 or 4 years, I forget.
+   */
+  if (qemu_supports (g, data, "-no-hpet"))
+    ADD_CMDLINE ("-no-hpet");
+#endif
+
+  if (qemu_supports (g, data, "-rtc-td-hack"))
+    ADD_CMDLINE ("-rtc-td-hack");
+
+  ADD_CMDLINE ("-kernel");
+  ADD_CMDLINE (kernel);
+  ADD_CMDLINE ("-initrd");
+  ADD_CMDLINE (initrd);
+
+  /* Add drives */
+  virtio_scsi = qemu_supports_virtio_scsi (g, data);
+
+  if (virtio_scsi) {
+    /* Create the virtio-scsi bus. */
+    ADD_CMDLINE ("-device");
+    ADD_CMDLINE ("virtio-scsi-pci,id=scsi");
+  }
+
+  ITER_DRIVES (g, i, drv) {
+    /* Construct the final -drive parameter. */
+    char *buf = qemu_drive_param (g, data, drv, i);
+
+    ADD_CMDLINE ("-drive");
+    ADD_CMDLINE_STRING_NODUP (buf);
+
+    if (virtio_scsi && drv->iface == NULL) {
+      ADD_CMDLINE ("-device");
+      ADD_CMDLINE_PRINTF ("scsi-hd,drive=hd%zu", i);
+    }
+  }
+
+  /* Add the ext2 appliance drive (after all the drives). */
+  if (has_appliance_drive) {
+    const char *cachemode = "";
+    if (qemu_supports (g, data, "cache=")) {
+      if (qemu_supports (g, data, "unsafe"))
+        cachemode = ",cache=unsafe";
+      else if (qemu_supports (g, data, "writeback"))
+        cachemode = ",cache=writeback";
+    }
+
+    ADD_CMDLINE ("-drive");
+    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,if=%s%s",
+                        appliance, virtio_scsi ? "none" : "virtio", cachemode);
+
+    if (virtio_scsi) {
+      ADD_CMDLINE ("-device");
+      ADD_CMDLINE ("scsi-hd,drive=appliance");
+      }
+
+    appliance_dev = make_appliance_dev (g, virtio_scsi);
+  }
+
+  /* Create the virtio serial bus. */
+  ADD_CMDLINE ("-device");
+  ADD_CMDLINE ("virtio-serial");
+
+#if 0
+  /* Use virtio-console (a variant form of virtio-serial) for the
+   * guest's serial console.
+   */
+  ADD_CMDLINE ("-chardev");
+  ADD_CMDLINE ("stdio,id=console");
+  ADD_CMDLINE ("-device");
+  ADD_CMDLINE ("virtconsole,chardev=console,name=org.libguestfs.console.0");
+#else
+  /* When the above works ...  until then: */
+  ADD_CMDLINE ("-serial");
+  ADD_CMDLINE ("stdio");
+#endif
+
+  if (qemu_supports_device (g, data, "Serial Graphics Adapter")) {
+    /* Use sgabios instead of vgabios.  This means we'll see BIOS
+     * messages on the serial port, and also works around this bug
+     * in qemu 1.1.0:
+     * https://bugs.launchpad.net/qemu/+bug/1021649
+     * QEmu has included sgabios upstream since just before 1.0.
+     */
+    ADD_CMDLINE ("-device");
+    ADD_CMDLINE ("sga");
+  }
+
+  /* Set up virtio-serial for the communications channel. */
+  ADD_CMDLINE ("-chardev");
+  ADD_CMDLINE_PRINTF ("socket,path=%s,id=channel0", guestfsd_sock);
+  ADD_CMDLINE ("-device");
+  ADD_CMDLINE ("virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
+
+  /* Enable user networking. */
+  if (g->enable_network) {
+    ADD_CMDLINE ("-netdev");
+    ADD_CMDLINE ("user,id=usernet,net=169.254.0.0/16");
+    ADD_CMDLINE ("-device");
+    ADD_CMDLINE ("virtio-net-pci,netdev=usernet");
+    }
+
+  ADD_CMDLINE ("-append");
+  ADD_CMDLINE_STRING_NODUP (guestfs___appliance_command_line (g, appliance_dev, 0));
+
+  /* Note: custom command line parameters must come last so that
+   * qemu -set parameters can modify previously added options.
+   */
+
+  /* Add the extra options for the qemu command line specified
+   * at configure time.
+   */
+  if (STRNEQ (QEMU_OPTIONS, ""))
+    add_cmdline_shell_unquoted (g, &cmdline, QEMU_OPTIONS);
+
+  /* Add any qemu parameters. */
+  for (hp = g->hv_params; hp; hp = hp->next) {
+    ADD_CMDLINE (hp->hv_param);
+    if (hp->hv_value)
+      ADD_CMDLINE (hp->hv_value);
+  }
+
+  /* Finish off the command line. */
+  guestfs___end_stringsbuf (g, &cmdline);
+
   r = fork ();
   if (r == -1) {
     perrorf (g, "fork");
@@ -277,235 +470,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   if (r == 0) {			/* Child (qemu). */
-    char buf[256];
-    int virtio_scsi = qemu_supports_virtio_scsi (g, data);
-    struct hv_param *hp;
-    bool has_kvm;
-
-    /* Set up the full command line.  Do this in the subprocess so we
-     * don't need to worry about cleaning up.
-     */
-    alloc_cmdline (g, data);
-
-    /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
-     * devices.  The -global option must exist, but you can pass any
-     * strings to it so we don't need to check for the specific virtio
-     * feature.
-     */
-    if (qemu_supports (g, data, "-global")) {
-      add_cmdline (g, data, "-global");
-      add_cmdline (g, data, "virtio-blk-pci.scsi=off");
-    }
-
-    if (qemu_supports (g, data, "-nodefconfig"))
-      add_cmdline (g, data, "-nodefconfig");
-
-    /* Newer versions of qemu (from around 2009/12) changed the
-     * behaviour of monitors so that an implicit '-monitor stdio' is
-     * assumed if we are in -nographic mode and there is no other
-     * -monitor option.  Only a single stdio device is allowed, so
-     * this broke the '-serial stdio' option.  There is a new flag
-     * called -nodefaults which gets rid of all this default crud, so
-     * let's use that to avoid this and any future surprises.
-     */
-    if (qemu_supports (g, data, "-nodefaults"))
-      add_cmdline (g, data, "-nodefaults");
-
-    add_cmdline (g, data, "-nographic");
-
-    /* Try to guess if KVM is available.  We are just checking that
-     * /dev/kvm is openable.  That's not reliable, since /dev/kvm
-     * might be openable by qemu but not by us (think: SELinux) in
-     * which case the user would not get hardware virtualization,
-     * although at least shouldn't fail.
-     */
-    has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
-
-    /* The qemu -machine option (added 2010-12) is a bit more sane
-     * since it falls back through various different acceleration
-     * modes, so try that first (thanks Markus Armbruster).
-     */
-    if (qemu_supports (g, data, "-machine")) {
-      add_cmdline (g, data, "-machine");
-      add_cmdline (g, data, "accel=kvm:tcg");
-    } else {
-      /* qemu sometimes needs this option to enable hardware
-       * virtualization, but some versions of 'qemu-kvm' will use KVM
-       * regardless (even where this option appears in the help text).
-       * It is rumoured that there are versions of qemu where
-       * supplying this option when hardware virtualization is not
-       * available will cause qemu to fail.  A giant clusterfuck with
-       * the qemu command line, again.
-       */
-      if (qemu_supports (g, data, "-enable-kvm") && has_kvm)
-        add_cmdline (g, data, "-enable-kvm");
-    }
-
-    /* -cpu host only works if KVM is available. */
-    if (has_kvm) {
-      /* Specify the host CPU for speed, and kvmclock for stability. */
-      add_cmdline (g, data, "-cpu");
-      add_cmdline (g, data, "host,+kvmclock");
-    } else {
-      /* Specify default CPU for speed, and kvmclock for stability. */
-      snprintf (buf, sizeof buf, "qemu%d,+kvmclock", SIZEOF_LONG*8);
-      add_cmdline (g, data, "-cpu");
-      add_cmdline (g, data, buf);
-    }
-
-    if (g->smp > 1) {
-      snprintf (buf, sizeof buf, "%d", g->smp);
-      add_cmdline (g, data, "-smp");
-      add_cmdline (g, data, buf);
-    }
-
-    snprintf (buf, sizeof buf, "%d", g->memsize);
-    add_cmdline (g, data, "-m");
-    add_cmdline (g, data, buf);
-
-    /* Force exit instead of reboot on panic */
-    add_cmdline (g, data, "-no-reboot");
-
-    /* These options recommended by KVM developers to improve reliability. */
-#ifndef __arm__
-    /* qemu-system-arm advertises the -no-hpet option but if you try
-     * to use it, it usefully says:
-     *   "Option no-hpet not supported for this target".
-     * Cheers qemu developers.  How many years have we been asking for
-     * capabilities?  Could be 3 or 4 years, I forget.
-     */
-    if (qemu_supports (g, data, "-no-hpet"))
-      add_cmdline (g, data, "-no-hpet");
-#endif
-
-    if (qemu_supports (g, data, "-rtc-td-hack"))
-      add_cmdline (g, data, "-rtc-td-hack");
-
-    add_cmdline (g, data, "-kernel");
-    add_cmdline (g, data, kernel);
-    add_cmdline (g, data, "-initrd");
-    add_cmdline (g, data, initrd);
-
-    /* Add drives */
-    struct drive *drv;
-    size_t i;
-
-    if (virtio_scsi) {
-      /* Create the virtio-scsi bus. */
-      add_cmdline (g, data, "-device");
-      add_cmdline (g, data, "virtio-scsi-pci,id=scsi");
-    }
-
-    ITER_DRIVES (g, i, drv) {
-      /* Construct the final -drive parameter. */
-      CLEANUP_FREE char *buf = qemu_drive_param (g, data, drv, i);
-
-      add_cmdline (g, data, "-drive");
-      add_cmdline (g, data, buf);
-
-      if (virtio_scsi && drv->iface == NULL) {
-        char buf2[64];
-        snprintf (buf2, sizeof buf2, "scsi-hd,drive=hd%zu", i);
-        add_cmdline (g, data, "-device");
-        add_cmdline (g, data, buf2);
-      }
-    }
-
-    /* Add the ext2 appliance drive (after all the drives). */
-    if (has_appliance_drive) {
-      const char *cachemode = "";
-      if (qemu_supports (g, data, "cache=")) {
-        if (qemu_supports (g, data, "unsafe"))
-          cachemode = ",cache=unsafe";
-        else if (qemu_supports (g, data, "writeback"))
-          cachemode = ",cache=writeback";
-      }
-
-      size_t buf2_len = strlen (appliance) + 64;
-      char buf2[buf2_len];
-      add_cmdline (g, data, "-drive");
-      snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s%s",
-                appliance, virtio_scsi ? "none" : "virtio", cachemode);
-      add_cmdline (g, data, buf2);
-
-      if (virtio_scsi) {
-        add_cmdline (g, data, "-device");
-        add_cmdline (g, data, "scsi-hd,drive=appliance");
-      }
-
-      appliance_dev = make_appliance_dev (g, virtio_scsi);
-    }
-
-    /* Create the virtio serial bus. */
-    add_cmdline (g, data, "-device");
-    add_cmdline (g, data, "virtio-serial");
-
-#if 0
-    /* Use virtio-console (a variant form of virtio-serial) for the
-     * guest's serial console.
-     */
-    add_cmdline (g, data, "-chardev");
-    add_cmdline (g, data, "stdio,id=console");
-    add_cmdline (g, data, "-device");
-    add_cmdline (g, data, "virtconsole,chardev=console,name=org.libguestfs.console.0");
-#else
-    /* When the above works ...  until then: */
-    add_cmdline (g, data, "-serial");
-    add_cmdline (g, data, "stdio");
-#endif
-
-    if (qemu_supports_device (g, data, "Serial Graphics Adapter")) {
-      /* Use sgabios instead of vgabios.  This means we'll see BIOS
-       * messages on the serial port, and also works around this bug
-       * in qemu 1.1.0:
-       * https://bugs.launchpad.net/qemu/+bug/1021649
-       * QEmu has included sgabios upstream since just before 1.0.
-       */
-      add_cmdline (g, data, "-device");
-      add_cmdline (g, data, "sga");
-    }
-
-    /* Set up virtio-serial for the communications channel. */
-    add_cmdline (g, data, "-chardev");
-    snprintf (buf, sizeof buf, "socket,path=%s,id=channel0", guestfsd_sock);
-    add_cmdline (g, data, buf);
-    add_cmdline (g, data, "-device");
-    add_cmdline (g, data, "virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
-
-    /* Enable user networking. */
-    if (g->enable_network) {
-      add_cmdline (g, data, "-netdev");
-      add_cmdline (g, data, "user,id=usernet,net=169.254.0.0/16");
-      add_cmdline (g, data, "-device");
-      add_cmdline (g, data, "virtio-net-pci,netdev=usernet");
-    }
-
-    add_cmdline (g, data, "-append");
-    CLEANUP_FREE char *cmdline =
-      guestfs___appliance_command_line (g, appliance_dev, 0);
-    add_cmdline (g, data, cmdline);
-
-    /* Note: custom command line parameters must come last so that
-     * qemu -set parameters can modify previously added options.
-     */
-
-    /* Add the extra options for the qemu command line specified
-     * at configure time.
-     */
-    if (STRNEQ (QEMU_OPTIONS, ""))
-      add_cmdline_shell_unquoted (g, data, QEMU_OPTIONS);
-
-    /* Add any qemu parameters. */
-    for (hp = g->hv_params; hp; hp = hp->next) {
-      add_cmdline (g, data, hp->hv_param);
-      if (hp->hv_value)
-        add_cmdline (g, data, hp->hv_value);
-    }
-
-    /* Finish off the command line. */
-    incr_cmdline_size (g, data);
-    data->cmdline[data->cmdline_size-1] = NULL;
-
     if (!g->direct_mode) {
       /* Set up stdin, stdout, stderr. */
       close (0);
@@ -541,7 +505,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
     /* Dump the command line (after setting up stderr above). */
     if (g->verbose)
-      print_qemu_command_line (g, data->cmdline);
+      print_qemu_command_line (g, cmdline.argv);
 
     /* Put qemu in a new process group. */
     if (g->pgroup)
@@ -551,7 +515,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
     TRACE0 (launch_run_qemu);
 
-    execv (g->hv, data->cmdline); /* Run qemu. */
+    execv (g->hv, cmdline.argv); /* Run qemu. */
     perror (g->hv);
     _exit (EXIT_FAILURE);
   }
