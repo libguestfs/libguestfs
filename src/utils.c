@@ -31,6 +31,11 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
+/* Note that functions in libutils are used by the tools and language
+ * bindings.  Therefore these must not call internal library functions
+ * such as safe_*, error or perrorf.
+ */
+
 void
 guestfs___free_string_list (char **argv)
 {
@@ -163,4 +168,22 @@ guestfs___random_string (char *ret, size_t len)
     return -1;
 
   return 0;
+}
+
+/* This turns a drive index (eg. 27) into a drive name (eg. "ab").
+ * Drive indexes count from 0.  The return buffer has to be large
+ * enough for the resulting string, and the returned pointer points to
+ * the *end* of the string.
+ *
+ * https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/
+ */
+char *
+guestfs___drive_name (size_t index, char *ret)
+{
+  if (index >= 26)
+    ret = guestfs___drive_name (index/26 - 1, ret);
+  index %= 26;
+  *ret++ = 'a' + index;
+  *ret = '\0';
+  return ret;
 }
