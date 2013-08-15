@@ -291,6 +291,7 @@ src/match.c
 src/osinfo.c
 src/private-data.c
 src/proto.c
+src/stringsbuf.c
 src/tmpdirs.c
 src/utils.c
 sysprep/crypt-c.c

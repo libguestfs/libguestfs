@@ -610,6 +610,30 @@ extern int guestfs___match6 (guestfs_h *g, const char *str, const pcre *re, char
 #define match3 guestfs___match3
 #define match6 guestfs___match6
 
+/* stringsbuf.c */
+struct stringsbuf {
+  char **argv;
+  size_t size;
+  size_t alloc;
+};
+#define DECLARE_STRINGSBUF(v) \
+  struct stringsbuf (v) = { .argv = NULL, .size = 0, .alloc = 0 }
+
+extern void guestfs___add_string_nodup (guestfs_h *g, struct stringsbuf *sb, char *str);
+extern void guestfs___add_string (guestfs_h *g, struct stringsbuf *sb, const char *str);
+extern void guestfs___add_sprintf (guestfs_h *g, struct stringsbuf *sb, const char *fs, ...)
+  __attribute__((format (printf,3,4)));
+extern void guestfs___end_stringsbuf (guestfs_h *g, struct stringsbuf *sb);
+
+extern void guestfs___free_stringsbuf (struct stringsbuf *sb);
+
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_FREE_STRINGSBUF __attribute__((cleanup(guestfs___cleanup_free_stringsbuf)))
+#else
+#define CLEANUP_FREE_STRINGSBUF
+#endif
+extern void guestfs___cleanup_free_stringsbuf (struct stringsbuf *sb);
+
 /* proto.c */
 extern int guestfs___send (guestfs_h *g, int proc_nr, uint64_t progress_hint, uint64_t optargs_bitmask, xdrproc_t xdrp, char *args);
 extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
