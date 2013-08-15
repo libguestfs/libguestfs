@@ -641,9 +641,6 @@ extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
 
-/* launch-appliance.c */
-extern char *guestfs___drive_name (size_t index, char *ret);
-
 /* inspect.c */
 extern void guestfs___free_inspect_info (guestfs_h *g);
 extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
