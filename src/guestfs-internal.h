@@ -93,14 +93,6 @@
 enum state { CONFIG = 0, LAUNCHING = 1, READY = 2,
              NO_HANDLE = 0xebadebad };
 
-/* Backend. */
-enum backend {
-  BACKEND_DIRECT,
-  BACKEND_LIBVIRT,
-  BACKEND_UML,
-  BACKEND_UNIX,
-};
-
 /* Event. */
 struct event {
   uint64_t event_bitmask;
@@ -197,29 +189,35 @@ struct hv_param {
 
 /* Backend operations. */
 struct backend_ops {
-  int (*launch) (guestfs_h *g, const char *arg); /* Initialize and launch. */
-                                /* Shutdown and cleanup. */
-  int (*shutdown) (guestfs_h *g, int check_for_errors);
+  /* Size (in bytes) of the per-handle data structure needed by this
+   * backend.  The data pointer is allocated and freed by libguestfs
+   * and passed to the functions in the 'void *data' parameter.
+   * Inside the data structure is opaque to libguestfs.  Any strings
+   * etc pointed to by it must be freed by the backend during
+   * shutdown.
+   */
+  size_t data_size;
 
-  int (*get_pid) (guestfs_h *g);         /* get-pid API. */
-  int (*max_disks) (guestfs_h *g);       /* max-disks API. */
+  /* Launch and shut down. */
+  int (*launch) (guestfs_h *g, void *data, const char *arg);
+  int (*shutdown) (guestfs_h *g, void *data, int check_for_errors);
+
+  /* Miscellaneous. */
+  int (*get_pid) (guestfs_h *g, void *data);
+  int (*max_disks) (guestfs_h *g, void *data);
 
   /* Hotplugging drives. */
-  int (*hot_add_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
-  int (*hot_remove_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
+  int (*hot_add_drive) (guestfs_h *g, void *data, struct drive *drv, size_t drv_index);
+  int (*hot_remove_drive) (guestfs_h *g, void *data, struct drive *drv, size_t drv_index);
 
   /* These are a hack used to communicate between guestfs_add_domain and
    * the libvirt backend.  We will probably remove these in a future
    * version once we can find a better way to pass this information
    * around.
    */
-  int (*set_libvirt_selinux_label) (guestfs_h *g, const char *label, const char *imagelabel);
-  int (*set_libvirt_selinux_norelabel_disks) (guestfs_h *g, int flag);
+  int (*set_libvirt_selinux_label) (guestfs_h *g, void *data, const char *label, const char *imagelabel);
+  int (*set_libvirt_selinux_norelabel_disks) (guestfs_h *g, void *data, int flag);
 };
-extern struct backend_ops backend_ops_direct;
-extern struct backend_ops backend_ops_libvirt;
-extern struct backend_ops backend_ops_uml;
-extern struct backend_ops backend_ops_unix;
 
 /* Connection module.  A 'connection' represents the appliance console
  * connection plus the daemon connection.  It hides the underlying
@@ -322,10 +320,11 @@ struct guestfs_h
   for (i = 0; i < (g)->nr_drives; ++i)    \
     if (((drv) = (g)->drives[i]) != NULL)
 
-  /* Backend, and associated backend operations. */
-  enum backend backend;
-  char *backend_arg;
+  /* Backend.  NB: Use guestfs___set_backend to change the backend. */
+  char *backend;                /* The full string, always non-NULL. */
+  char *backend_arg;            /* Pointer to the argument part. */
   const struct backend_ops *backend_ops;
+  void *backend_data;           /* Per-handle data. */
 
   /**** Runtime information. ****/
   char *last_error;             /* Last error on handle. */
@@ -408,51 +407,6 @@ struct guestfs_h
   unsigned int nr_requested_credentials;
   virConnectCredentialPtr requested_credentials;
 #endif
-
-  /**** Private data for backends. ****/
-  /* NB: This cannot be a union because of a pathological case where
-   * the user changes backend while reusing the handle to launch
-   * multiple times (not a recommended thing to do).  Some fields here
-   * cache things across launches so that would break if we used a
-   * union.
-   */
-  struct {                      /* Used only by src/launch-appliance.c. */
-    pid_t pid;                  /* Qemu PID. */
-    pid_t recoverypid;          /* Recovery process PID. */
-
-    char *qemu_help;            /* Output of qemu -help. */
-    char *qemu_version;         /* Output of qemu -version. */
-    char *qemu_devices;         /* Output of qemu -device ? */
-
-    /* qemu version (0, 0 if unable to parse). */
-    int qemu_version_major, qemu_version_minor;
-
-    char **cmdline;   /* Only used in child, does not need freeing. */
-    size_t cmdline_size;
-
-    int virtio_scsi;      /* See function qemu_supports_virtio_scsi */
-  } direct;
-
-#ifdef HAVE_LIBVIRT
-  struct {                      /* Used only by src/launch-libvirt.c. */
-    virConnectPtr conn;         /* libvirt connection */
-    virDomainPtr dom;           /* libvirt domain */
-    char *selinux_label;
-    char *selinux_imagelabel;
-    bool selinux_norelabel_disks;
-  } virt;
-#endif
-
-  struct {                      /* Used only by src/launch-uml.c. */
-    pid_t pid;                  /* vmlinux PID. */
-    pid_t recoverypid;          /* Recovery process PID. */
-
-#define UML_UMID_LEN 16
-    char umid[UML_UMID_LEN+1];  /* umid=<...> unique ID. */
-
-    char **cmdline;   /* Only used in child, does not need freeing. */
-    size_t cmdline_size;
-  } uml;
 };
 
 /* Per-filesystem data stored for inspect_os. */
@@ -685,6 +639,8 @@ extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, .
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
+extern void guestfs___register_backend (const char *name, const struct backend_ops *);
+extern int guestfs___set_backend (guestfs_h *g, const char *method);
 
 /* inspect.c */
 extern void guestfs___free_inspect_info (guestfs_h *g);

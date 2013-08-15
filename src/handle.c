@@ -39,7 +39,6 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static int parse_backend (guestfs_h *g, const char *method);
 static int shutdown_backend (guestfs_h *g, int check_for_errors);
 static void close_handles (void);
 
@@ -123,9 +122,12 @@ guestfs_create_flags (unsigned flags, ...)
 #endif
   if (!g->program) goto error;
 
-  if (parse_backend (g, DEFAULT_BACKEND) == -1) {
+  if (guestfs___set_backend (g, DEFAULT_BACKEND) == -1) {
     warning (g, _("libguestfs was built with an invalid default backend, using 'direct' instead"));
-    g->backend = BACKEND_DIRECT;
+    if (guestfs___set_backend (g, "direct") == -1) {
+      warning (g, _("'direct' backend does not work"));
+      goto error;
+    }
   }
 
   if (!(flags & GUESTFS_CREATE_NO_ENVIRONMENT))
@@ -151,7 +153,7 @@ guestfs_create_flags (unsigned flags, ...)
   return g;
 
  error:
-  free (g->backend_arg);
+  free (g->backend);
   free (g->program);
   free (g->path);
   free (g->hv);
@@ -346,6 +348,8 @@ guestfs_close (guestfs_h *g)
   free (g->program);
   free (g->path);
   free (g->hv);
+  free (g->backend);
+  free (g->backend_data);
   free (g->append);
   free (g);
 }
@@ -378,7 +382,7 @@ shutdown_backend (guestfs_h *g, int check_for_errors)
   }
 
   /* Shut down the backend. */
-  if (g->backend_ops->shutdown (g, check_for_errors) == -1)
+  if (g->backend_ops->shutdown (g, g->backend_data, check_for_errors) == -1)
     ret = -1;
 
   /* Close sockets. */
@@ -595,52 +599,10 @@ guestfs__get_program (guestfs_h *g)
   return g->program;
 }
 
-static int
-parse_backend (guestfs_h *g, const char *method)
-{
-  if (STREQ (method, "direct") || STREQ (method, "appliance")) {
-    g->backend = BACKEND_DIRECT;
-    free (g->backend_arg);
-    g->backend_arg = NULL;
-    return 0;
-  }
-
-  if (STREQ (method, "libvirt")) {
-    g->backend = BACKEND_LIBVIRT;
-    free (g->backend_arg);
-    g->backend_arg = NULL;
-    return 0;
-  }
-
-  if (STRPREFIX (method, "libvirt:") && strlen (method) > 8) {
-    g->backend = BACKEND_LIBVIRT;
-    free (g->backend_arg);
-    g->backend_arg = safe_strdup (g, method + 8);
-    return 0;
-  }
-
-  if (STREQ (method, "uml")) {
-    g->backend = BACKEND_UML;
-    free (g->backend_arg);
-    g->backend_arg = NULL;
-    return 0;
-  }
-
-  if (STRPREFIX (method, "unix:") && strlen (method) > 5) {
-    g->backend = BACKEND_UNIX;
-    free (g->backend_arg);
-    g->backend_arg = safe_strdup (g, method + 5);
-    /* Note that we don't check the path exists until launch is called. */
-    return 0;
-  }
-
-  return -1;
-}
-
 int
 guestfs__set_backend (guestfs_h *g, const char *method)
 {
-  if (parse_backend (g, method) == -1) {
+  if (guestfs___set_backend (g, method) == -1) {
     error (g, "invalid backend: %s", method);
     return -1;
   }
@@ -657,46 +619,17 @@ guestfs__set_attach_method (guestfs_h *g, const char *method)
 char *
 guestfs__get_backend (guestfs_h *g)
 {
-  char *ret = NULL;
-
-  switch (g->backend) {
-  case BACKEND_DIRECT:
-    ret = safe_strdup (g, "direct");
-    break;
-
-  case BACKEND_LIBVIRT:
-    if (g->backend_arg == NULL)
-      ret = safe_strdup (g, "libvirt");
-    else
-      ret = safe_asprintf (g, "libvirt:%s", g->backend_arg);
-    break;
-
-  case BACKEND_UML:
-    ret = safe_strdup (g, "uml");
-    break;
-
-  case BACKEND_UNIX:
-    ret = safe_asprintf (g, "unix:%s", g->backend_arg);
-    break;
-  }
-
-  if (ret == NULL)
-    abort ();
-
-  return ret;
+  return safe_strdup (g, g->backend);
 }
 
 char *
 guestfs__get_attach_method (guestfs_h *g)
 {
-  switch (g->backend) {
-  case BACKEND_DIRECT:
+  if (STREQ (g->backend, "direct"))
     /* Return 'appliance' here for backwards compatibility. */
     return safe_strdup (g, "appliance");
 
-  default:
-    return guestfs_get_backend (g);
-  }
+  return guestfs_get_backend (g);
 }
 
 int

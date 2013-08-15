@@ -96,6 +96,15 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
+/* Per-handle data. */
+struct backend_libvirt_data {
+  virConnectPtr conn;         /* libvirt connection */
+  virDomainPtr dom;           /* libvirt domain */
+  char *selinux_label;
+  char *selinux_imagelabel;
+  bool selinux_norelabel_disks;
+};
+
 /* Pointed to by 'struct drive *' -> priv field. */
 struct drive_libvirt {
   /* The drive that we actually add.  If using an overlay, then this
@@ -112,6 +121,7 @@ struct drive_libvirt {
  * keep them all in a structure for convenience!
  */
 struct libvirt_xml_params {
+  struct backend_libvirt_data *data;
   char *kernel;                 /* paths to kernel and initrd */
   char *initrd;
   char *appliance_overlay;      /* path to qcow2 overlay backed by appliance */
@@ -143,14 +153,16 @@ static void selinux_warning (guestfs_h *g, const char *func, const char *selinux
 #endif
 
 static int
-launch_libvirt (guestfs_h *g, const char *libvirt_uri)
+launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 {
+  struct backend_libvirt_data *data = datav;
   int daemon_accept_sock = -1, console_sock = -1;
   unsigned long version;
   virConnectPtr conn = NULL;
   virDomainPtr dom = NULL;
   CLEANUP_FREE char *capabilities_xml = NULL;
   struct libvirt_xml_params params = {
+    .data = data,
     .kernel = NULL,
     .initrd = NULL,
     .appliance_overlay = NULL,
@@ -246,7 +258,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    * may be that we create qcow2 overlays for drives.
    */
   ITER_DRIVES (g, i, drv) {
-    if (make_drive_priv (g, drv, g->virt.selinux_imagelabel) == -1)
+    if (make_drive_priv (g, drv, data->selinux_imagelabel) == -1)
       goto cleanup;
   }
 
@@ -456,8 +468,8 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   guestfs___launch_send_progress (g, 12);
 
-  g->virt.conn = conn;
-  g->virt.dom = dom;
+  data->conn = conn;
+  data->dom = dom;
 
   free (params.kernel);
   free (params.initrd);
@@ -696,9 +708,9 @@ static int construct_libvirt_xml_seclabel (guestfs_h *g, const struct libvirt_xm
 static int construct_libvirt_xml_lifecycle (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_devices (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
-static int construct_libvirt_xml_disk (guestfs_h *g, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
+static int construct_libvirt_xml_disk (guestfs_h *g, const struct backend_libvirt_data *data, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
 static int construct_libvirt_xml_disk_source_hosts (guestfs_h *g, xmlTextWriterPtr xo, const struct drive_source *src);
-static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, xmlTextWriterPtr xo);
+static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, const struct backend_libvirt_data *data, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 
 /* Note this macro is rather specialized: It assumes that any local
@@ -908,7 +920,7 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
                                            BAD_CAST "none"));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
-  else if (g->virt.selinux_label && g->virt.selinux_imagelabel) {
+  else if (params->data->selinux_label && params->data->selinux_imagelabel) {
     /* Enable sVirt and pass a custom <seclabel/> inherited from the
      * original libvirt domain (when guestfs_add_domain was called).
      * https://bugzilla.redhat.com/show_bug.cgi?id=912499#c7
@@ -925,11 +937,11 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
                                            BAD_CAST "yes"));
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "label"));
     XMLERROR (-1, xmlTextWriterWriteString (xo,
-                                            BAD_CAST g->virt.selinux_label));
+                                            BAD_CAST params->data->selinux_label));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "imagelabel"));
     XMLERROR (-1, xmlTextWriterWriteString (xo,
-                                            BAD_CAST g->virt.selinux_imagelabel));
+                                            BAD_CAST params->data->selinux_imagelabel));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
@@ -985,7 +997,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
 
   /* Disks. */
   ITER_DRIVES (g, i, drv) {
-    if (construct_libvirt_xml_disk (g, xo, drv, i) == -1)
+    if (construct_libvirt_xml_disk (g, params->data, xo, drv, i) == -1)
       return -1;
   }
 
@@ -1045,6 +1057,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
 
 static int
 construct_libvirt_xml_disk (guestfs_h *g,
+                            const struct backend_libvirt_data *data,
                             xmlTextWriterPtr xo,
                             struct drive *drv, size_t drv_index)
 {
@@ -1090,7 +1103,7 @@ construct_libvirt_xml_disk (guestfs_h *g,
       XMLERROR (-1,
                 xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
                                              BAD_CAST drv_priv->real_src.u.path));
-      if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
+      if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
         return -1;
       XMLERROR (-1, xmlTextWriterEndElement (xo));
     }
@@ -1103,7 +1116,7 @@ construct_libvirt_xml_disk (guestfs_h *g,
       XMLERROR (-1,
                 xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
                                              BAD_CAST drv_priv->real_src.u.path));
-      if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
+      if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
         return -1;
       XMLERROR (-1, xmlTextWriterEndElement (xo));
     }
@@ -1145,7 +1158,7 @@ construct_libvirt_xml_disk (guestfs_h *g,
     if (construct_libvirt_xml_disk_source_hosts (g, xo,
                                                  &drv_priv->real_src) == -1)
       return -1;
-    if (construct_libvirt_xml_disk_source_seclabel (g, xo) == -1)
+    if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
       return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
     if (drv_priv->real_src.username != NULL) {
@@ -1312,9 +1325,10 @@ construct_libvirt_xml_disk_source_hosts (guestfs_h *g,
 
 static int
 construct_libvirt_xml_disk_source_seclabel (guestfs_h *g,
+                                            const struct backend_libvirt_data *data,
                                             xmlTextWriterPtr xo)
 {
-  if (g->virt.selinux_norelabel_disks) {
+  if (data->selinux_norelabel_disks) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
@@ -1635,10 +1649,11 @@ drive_free_priv (void *priv)
 }
 
 static int
-shutdown_libvirt (guestfs_h *g, int check_for_errors)
+shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
 {
-  virConnectPtr conn = g->virt.conn;
-  virDomainPtr dom = g->virt.dom;
+  struct backend_libvirt_data *data = datav;
+  virConnectPtr conn = data->conn;
+  virDomainPtr dom = data->dom;
   int ret = 0;
   int flags;
 
@@ -1658,13 +1673,13 @@ shutdown_libvirt (guestfs_h *g, int check_for_errors)
   if (conn != NULL)
     virConnectClose (conn);
 
-  g->virt.conn = NULL;
-  g->virt.dom = NULL;
+  data->conn = NULL;
+  data->dom = NULL;
 
-  free (g->virt.selinux_label);
-  g->virt.selinux_label = NULL;
-  free (g->virt.selinux_imagelabel);
-  g->virt.selinux_imagelabel = NULL;
+  free (data->selinux_label);
+  data->selinux_label = NULL;
+  free (data->selinux_imagelabel);
+  data->selinux_imagelabel = NULL;
 
   return ret;
 }
@@ -1714,19 +1729,21 @@ selinux_warning (guestfs_h *g, const char *func,
 
 /* This backend assumes virtio-scsi is available. */
 static int
-max_disks_libvirt (guestfs_h *g)
+max_disks_libvirt (guestfs_h *g, void *datav)
 {
   return 255;
 }
 
-static xmlChar *construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv, size_t drv_index);
+static xmlChar *construct_libvirt_xml_hot_add_disk (guestfs_h *g, const struct backend_libvirt_data *data, struct drive *drv, size_t drv_index);
 
 /* Hot-add a drive.  Note the appliance is up when this is called. */
 static int
-hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
+hot_add_drive_libvirt (guestfs_h *g, void *datav,
+                       struct drive *drv, size_t drv_index)
 {
-  virConnectPtr conn = g->virt.conn;
-  virDomainPtr dom = g->virt.dom;
+  struct backend_libvirt_data *data = datav;
+  virConnectPtr conn = data->conn;
+  virDomainPtr dom = data->dom;
   CLEANUP_FREE xmlChar *xml = NULL;
 
   if (!conn || !dom) {
@@ -1735,11 +1752,11 @@ hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
     return -1;
   }
 
-  if (make_drive_priv (g, drv, g->virt.selinux_imagelabel) == -1)
+  if (make_drive_priv (g, drv, data->selinux_imagelabel) == -1)
     return -1;
 
   /* Create the XML for the new disk. */
-  xml = construct_libvirt_xml_hot_add_disk (g, drv, drv_index);
+  xml = construct_libvirt_xml_hot_add_disk (g, data, drv, drv_index);
   if (xml == NULL)
     return -1;
 
@@ -1755,10 +1772,12 @@ hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
 
 /* Hot-remove a drive.  Note the appliance is up when this is called. */
 static int
-hot_remove_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
+hot_remove_drive_libvirt (guestfs_h *g, void *datav,
+                          struct drive *drv, size_t drv_index)
 {
-  virConnectPtr conn = g->virt.conn;
-  virDomainPtr dom = g->virt.dom;
+  struct backend_libvirt_data *data = datav;
+  virConnectPtr conn = data->conn;
+  virDomainPtr dom = data->dom;
   CLEANUP_FREE xmlChar *xml = NULL;
 
   if (!conn || !dom) {
@@ -1768,7 +1787,7 @@ hot_remove_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
   }
 
   /* Re-create the XML for the disk. */
-  xml = construct_libvirt_xml_hot_add_disk (g, drv, drv_index);
+  xml = construct_libvirt_xml_hot_add_disk (g, data, drv, drv_index);
   if (xml == NULL)
     return -1;
 
@@ -1783,7 +1802,9 @@ hot_remove_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
 }
 
 static xmlChar *
-construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv,
+construct_libvirt_xml_hot_add_disk (guestfs_h *g,
+                                    const struct backend_libvirt_data *data,
+                                    struct drive *drv,
                                     size_t drv_index)
 {
   xmlChar *ret = NULL;
@@ -1799,7 +1820,7 @@ construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv,
   XMLERROR_RET (-1, xmlTextWriterSetIndentString (xo, BAD_CAST "  "), NULL);
   XMLERROR_RET (-1, xmlTextWriterStartDocument (xo, NULL, NULL, NULL), NULL);
 
-  if (construct_libvirt_xml_disk (g, xo, drv, drv_index) == -1)
+  if (construct_libvirt_xml_disk (g, data, xo, drv, drv_index) == -1)
     return NULL;
 
   XMLERROR_RET (-1, xmlTextWriterEndDocument (xo), NULL);
@@ -1811,24 +1832,29 @@ construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv,
 }
 
 static int
-set_libvirt_selinux_label (guestfs_h *g, const char *label,
-                           const char *imagelabel)
+set_libvirt_selinux_label (guestfs_h *g, void *datav,
+                           const char *label, const char *imagelabel)
 {
-  free (g->virt.selinux_label);
-  g->virt.selinux_label = safe_strdup (g, label);
-  free (g->virt.selinux_imagelabel);
-  g->virt.selinux_imagelabel = safe_strdup (g, imagelabel);
+  struct backend_libvirt_data *data = datav;
+
+  free (data->selinux_label);
+  data->selinux_label = safe_strdup (g, label);
+  free (data->selinux_imagelabel);
+  data->selinux_imagelabel = safe_strdup (g, imagelabel);
   return 0;
 }
 
 static int
-set_libvirt_selinux_norelabel_disks (guestfs_h *g, int flag)
+set_libvirt_selinux_norelabel_disks (guestfs_h *g, void *datav, int flag)
 {
-  g->virt.selinux_norelabel_disks = flag;
+  struct backend_libvirt_data *data = datav;
+
+  data->selinux_norelabel_disks = flag;
   return 0;
 }
 
-struct backend_ops backend_ops_libvirt = {
+static struct backend_ops backend_libvirt_ops = {
+  .data_size = sizeof (struct backend_libvirt_data),
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,
@@ -1838,37 +1864,11 @@ struct backend_ops backend_ops_libvirt = {
   .set_libvirt_selinux_norelabel_disks = set_libvirt_selinux_norelabel_disks,
 };
 
-#else /* no libvirt at compile time */
-
-#define NOT_IMPL(r)                                                     \
-  error (g, _("libvirt backend is not available because "         \
-              "this version of libguestfs was compiled "                \
-              "without libvirt or libvirt < %d.%d.%d"), \
-         MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR, MIN_LIBVIRT_MICRO);      \
-  return r
-
-static int
-launch_libvirt (guestfs_h *g, const char *arg)
+static void init_backend (void) __attribute__((constructor));
+static void
+init_backend (void)
 {
-  NOT_IMPL (-1);
+  guestfs___register_backend ("libvirt", &backend_libvirt_ops);
 }
 
-static int
-shutdown_libvirt (guestfs_h *g, int check_for_errors)
-{
-  NOT_IMPL (-1);
-}
-
-static int
-max_disks_libvirt (guestfs_h *g)
-{
-  NOT_IMPL (-1);
-}
-
-struct backend_ops backend_ops_libvirt = {
-  .launch = launch_libvirt,
-  .shutdown = shutdown_libvirt,
-  .max_disks = max_disks_libvirt,
-};
-
-#endif /* no libvirt at compile time */
+#endif

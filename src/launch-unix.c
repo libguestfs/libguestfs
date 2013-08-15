@@ -33,8 +33,9 @@
 /* Alternate backend: instead of launching the appliance,
  * connect to an existing unix socket.
  */
+
 static int
-launch_unix (guestfs_h *g, const char *sockpath)
+launch_unix (guestfs_h *g, void *datav, const char *sockpath)
 {
   int r, daemon_sock = -1;
   struct sockaddr_un addr;
@@ -104,7 +105,7 @@ launch_unix (guestfs_h *g, const char *sockpath)
 }
 
 static int
-shutdown_unix (guestfs_h *g, int check_for_errors)
+shutdown_unix (guestfs_h *g, void *datav, int check_for_errors)
 {
   /* Merely closing g->daemon_sock is sufficient and that is already done
    * in the calling code.
@@ -112,7 +113,15 @@ shutdown_unix (guestfs_h *g, int check_for_errors)
   return 0;
 }
 
-struct backend_ops backend_ops_unix = {
+static struct backend_ops backend_unix_ops = {
+  .data_size = 0,
   .launch = launch_unix,
   .shutdown = shutdown_unix,
 };
+
+static void init_backend (void) __attribute__((constructor));
+static void
+init_backend (void)
+{
+  guestfs___register_backend ("unix", &backend_unix_ops);
+}

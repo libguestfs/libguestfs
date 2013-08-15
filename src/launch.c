@@ -30,25 +30,20 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <assert.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static mode_t get_umask (guestfs_h *g);
+static struct backend {
+  struct backend *next;
+  const char *name;
+  const struct backend_ops *ops;
+} *backends = NULL;
 
-static const struct backend_ops *
-get_backend_ops (guestfs_h *g)
-{
-  switch (g->backend) {
-  case BACKEND_DIRECT:    return &backend_ops_direct;
-  case BACKEND_LIBVIRT:   return &backend_ops_libvirt;
-  case BACKEND_UML:       return &backend_ops_uml;
-  case BACKEND_UNIX:      return &backend_ops_unix;
-  default: abort ();
-  }
-}
+static mode_t get_umask (guestfs_h *g);
 
 int
 guestfs__launch (guestfs_h *g)
@@ -76,8 +71,11 @@ guestfs__launch (guestfs_h *g)
 
   /* Some common debugging information. */
   if (g->verbose) {
+    struct backend *b;
     CLEANUP_FREE char *backend = guestfs_get_backend (g);
 
+    for (b = backends; b != NULL; b = b->next)
+      debug (g, "launch: backend registered: %s", b->name);
     debug (g, "launch: backend=%s", backend);
     debug (g, "launch: tmpdir=%s", g->tmpdir);
     debug (g, "launch: umask=0%03o", get_umask (g));
@@ -85,8 +83,7 @@ guestfs__launch (guestfs_h *g)
   }
 
   /* Launch the appliance. */
-  g->backend_ops = get_backend_ops (g);
-  return g->backend_ops->launch (g, g->backend_arg);
+  return g->backend_ops->launch (g, g->backend_data, g->backend_arg);
 }
 
 /* launch (of the appliance) generates approximate progress
@@ -170,45 +167,42 @@ guestfs__get_pid (guestfs_h *g)
     NOT_SUPPORTED (g, -1,
                    _("the current backend does not support 'get-pid'"));
 
-  return g->backend_ops->get_pid (g);
+  return g->backend_ops->get_pid (g, g->backend_data);
 }
 
 /* Maximum number of disks. */
 int
 guestfs__max_disks (guestfs_h *g)
 {
-  const struct backend_ops *backend_ops = get_backend_ops (g);
-
-  if (backend_ops->max_disks == NULL)
+  if (g->backend_ops->max_disks == NULL)
     NOT_SUPPORTED (g, -1,
                    _("the current backend does not allow max disks to be queried"));
 
-  return backend_ops->max_disks (g);
+  return g->backend_ops->max_disks (g, g->backend_data);
 }
 
 int
 guestfs__internal_set_libvirt_selinux_label (guestfs_h *g, const char *label,
                                              const char *imagelabel)
 {
-  const struct backend_ops *backend_ops = get_backend_ops (g);
-
-  if (backend_ops->set_libvirt_selinux_label == NULL)
+  if (g->backend_ops->set_libvirt_selinux_label == NULL)
     /* Not an error, just ignore it. */
     return 0;
 
-  return backend_ops->set_libvirt_selinux_label (g, label, imagelabel);
+  return g->backend_ops->set_libvirt_selinux_label (g, g->backend_data,
+                                                    label, imagelabel);
 }
 
 int
 guestfs__internal_set_libvirt_selinux_norelabel_disks (guestfs_h *g, int flag)
 {
-  const struct backend_ops *backend_ops = get_backend_ops (g);
-
-  if (backend_ops->set_libvirt_selinux_norelabel_disks == NULL)
+  if (g->backend_ops->set_libvirt_selinux_norelabel_disks == NULL)
     /* Not an error, just ignore it. */
     return 0;
 
-  return backend_ops->set_libvirt_selinux_norelabel_disks (g, flag);
+  return g->backend_ops->set_libvirt_selinux_norelabel_disks (g,
+                                                              g->backend_data,
+                                                              flag);
 }
 
 /* You had to call this function after launch in versions <= 1.0.70,
@@ -406,4 +400,65 @@ get_umask (guestfs_h *g)
   ret = ret ^ 0777;
 
   return ret;
+}
+
+/* Register backends in a global list when the library is loaded. */
+void
+guestfs___register_backend (const char *name, const struct backend_ops *ops)
+{
+  struct backend *b;
+
+  b = malloc (sizeof *b);
+  if (!b) abort ();
+
+  b->name = name;
+  b->ops = ops;
+
+  b->next = backends;
+  backends = b;
+}
+
+/* Set the current backend.  Notes:
+ * (1) Callers must ensure this is only called in the config state.
+ * (2) This shouldn't call 'error' since it may be called early in
+ * handle initialization.  It can return an error code however.
+ */
+int
+guestfs___set_backend (guestfs_h *g, const char *method)
+{
+  struct backend *b;
+  size_t len, arg_offs = 0;
+
+  assert (g->state == CONFIG);
+
+  for (b = backends; b != NULL; b = b->next) {
+    if (STREQ (method, b->name))
+      break;
+    len = strlen (b->name);
+    if (STRPREFIX (method, b->name) && method[len] == ':') {
+      arg_offs = len+1;
+      break;
+    }
+  }
+
+  if (b == NULL)
+    return -1;                  /* Not found. */
+
+  /* At this point, we know it's a valid method. */
+  free (g->backend);
+  g->backend = safe_strdup (g, method);
+  if (arg_offs > 0)
+    g->backend_arg = &g->backend[arg_offs];
+  else
+    g->backend_arg = NULL;
+
+  g->backend_ops = b->ops;
+
+  free (g->backend_data);
+  if (b->ops->data_size > 0)
+    g->backend_data = safe_calloc (g, 1, b->ops->data_size);
+  else
+    g->backend_data = NULL;
+
+  return 0;
 }

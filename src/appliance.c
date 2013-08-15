@@ -666,7 +666,7 @@ hard_link_to_cached_appliance (guestfs_h *g,
    *
    * XXX
    */
-  if (g->backend != BACKEND_UML)
+  if (STRNEQ (g->backend, "uml"))
     (void) utime (filename, NULL);
 
   return 0;

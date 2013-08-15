@@ -76,46 +76,66 @@ free_regexps (void)
   pcre_free (re_major_minor);
 }
 
+/* Per-handle data. */
+struct backend_direct_data {
+  pid_t pid;                  /* Qemu PID. */
+  pid_t recoverypid;          /* Recovery process PID. */
+
+  char *qemu_help;            /* Output of qemu -help. */
+  char *qemu_version;         /* Output of qemu -version. */
+  char *qemu_devices;         /* Output of qemu -device ? */
+
+  /* qemu version (0, 0 if unable to parse). */
+  int qemu_version_major, qemu_version_minor;
+
+  /* XXX Remove this from the struct. */
+  char **cmdline;     /* Only used in child, does not need freeing. */
+  size_t cmdline_size;
+
+  int virtio_scsi;        /* See function qemu_supports_virtio_scsi */
+};
+
 static int is_openable (guestfs_h *g, const char *path, int flags);
 static char *make_appliance_dev (guestfs_h *g, int virtio_scsi);
 static void print_qemu_command_line (guestfs_h *g, char **argv);
-static int qemu_supports (guestfs_h *g, const char *option);
-static int qemu_supports_device (guestfs_h *g, const char *device_name);
-static int qemu_supports_virtio_scsi (guestfs_h *g);
-static char *qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index);
+static int qemu_supports (guestfs_h *g, struct backend_direct_data *, const char *option);
+static int qemu_supports_device (guestfs_h *g, struct backend_direct_data *, const char *device_name);
+static int qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *);
+static char *qemu_drive_param (guestfs_h *g, struct backend_direct_data *data, const struct drive *drv, size_t index);
 
 /* Functions to build up the qemu command line.  These are only run
  * in the child process so no clean-up is required.
  */
 static void
-alloc_cmdline (guestfs_h *g)
+alloc_cmdline (guestfs_h *g, struct backend_direct_data *data)
 {
-  g->direct.cmdline_size = 1;
-  g->direct.cmdline = safe_malloc (g, sizeof (char *));
-  g->direct.cmdline[0] = g->hv;
+  data->cmdline_size = 1;
+  data->cmdline = safe_malloc (g, sizeof (char *));
+  data->cmdline[0] = g->hv;
 }
 
 static void
-incr_cmdline_size (guestfs_h *g)
+incr_cmdline_size (guestfs_h *g, struct backend_direct_data *data)
 {
-  g->direct.cmdline_size++;
-  g->direct.cmdline =
-    safe_realloc (g, g->direct.cmdline,
-                  sizeof (char *) * g->direct.cmdline_size);
+  data->cmdline_size++;
+  data->cmdline =
+    safe_realloc (g, data->cmdline,
+                  sizeof (char *) * data->cmdline_size);
 }
 
 static void
-add_cmdline (guestfs_h *g, const char *str)
+add_cmdline (guestfs_h *g, struct backend_direct_data *data, const char *str)
 {
-  incr_cmdline_size (g);
-  g->direct.cmdline[g->direct.cmdline_size-1] = safe_strdup (g, str);
+  incr_cmdline_size (g, data);
+  data->cmdline[data->cmdline_size-1] = safe_strdup (g, str);
 }
 
 /* Like 'add_cmdline' but allowing a shell-quoted string of zero or
  * more options.  XXX The unquoting is not very clever.
  */
 static void
-add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
+add_cmdline_shell_unquoted (guestfs_h *g, struct backend_direct_data *data,
+                            const char *options)
 {
   char quote;
   const char *startp, *endp, *nextp;
@@ -159,8 +179,8 @@ add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
     while (*nextp && *nextp == ' ')
       nextp++;
 
-    incr_cmdline_size (g);
-    g->direct.cmdline[g->direct.cmdline_size-1] =
+    incr_cmdline_size (g, data);
+    data->cmdline[data->cmdline_size-1] =
       safe_strndup (g, startp, endp-startp);
 
     options = nextp;
@@ -168,8 +188,9 @@ add_cmdline_shell_unquoted (guestfs_h *g, const char *options)
 }
 
 static int
-launch_direct (guestfs_h *g, const char *arg)
+launch_direct (guestfs_h *g, void *datav, const char *arg)
 {
+  struct backend_direct_data *data = datav;
   int daemon_accept_sock = -1, console_sock = -1;
   int r;
   int sv[2];
@@ -206,7 +227,7 @@ launch_direct (guestfs_h *g, const char *arg)
     guestfs___print_timestamped_message (g, "begin testing qemu features");
 
   /* Get qemu help text and version. */
-  if (qemu_supports (g, NULL) == -1)
+  if (qemu_supports (g, data, NULL) == -1)
     goto cleanup0;
 
   /* Using virtio-serial, we need to create a local Unix domain socket
@@ -257,27 +278,27 @@ launch_direct (guestfs_h *g, const char *arg)
 
   if (r == 0) {			/* Child (qemu). */
     char buf[256];
-    int virtio_scsi = qemu_supports_virtio_scsi (g);
+    int virtio_scsi = qemu_supports_virtio_scsi (g, data);
     struct hv_param *hp;
     bool has_kvm;
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
      */
-    alloc_cmdline (g);
+    alloc_cmdline (g, data);
 
     /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
      * devices.  The -global option must exist, but you can pass any
      * strings to it so we don't need to check for the specific virtio
      * feature.
      */
-    if (qemu_supports (g, "-global")) {
-      add_cmdline (g, "-global");
-      add_cmdline (g, "virtio-blk-pci.scsi=off");
+    if (qemu_supports (g, data, "-global")) {
+      add_cmdline (g, data, "-global");
+      add_cmdline (g, data, "virtio-blk-pci.scsi=off");
     }
 
-    if (qemu_supports (g, "-nodefconfig"))
-      add_cmdline (g, "-nodefconfig");
+    if (qemu_supports (g, data, "-nodefconfig"))
+      add_cmdline (g, data, "-nodefconfig");
 
     /* Newer versions of qemu (from around 2009/12) changed the
      * behaviour of monitors so that an implicit '-monitor stdio' is
@@ -287,10 +308,10 @@ launch_direct (guestfs_h *g, const char *arg)
      * called -nodefaults which gets rid of all this default crud, so
      * let's use that to avoid this and any future surprises.
      */
-    if (qemu_supports (g, "-nodefaults"))
-      add_cmdline (g, "-nodefaults");
+    if (qemu_supports (g, data, "-nodefaults"))
+      add_cmdline (g, data, "-nodefaults");
 
-    add_cmdline (g, "-nographic");
+    add_cmdline (g, data, "-nographic");
 
     /* Try to guess if KVM is available.  We are just checking that
      * /dev/kvm is openable.  That's not reliable, since /dev/kvm
@@ -304,9 +325,9 @@ launch_direct (guestfs_h *g, const char *arg)
      * since it falls back through various different acceleration
      * modes, so try that first (thanks Markus Armbruster).
      */
-    if (qemu_supports (g, "-machine")) {
-      add_cmdline (g, "-machine");
-      add_cmdline (g, "accel=kvm:tcg");
+    if (qemu_supports (g, data, "-machine")) {
+      add_cmdline (g, data, "-machine");
+      add_cmdline (g, data, "accel=kvm:tcg");
     } else {
       /* qemu sometimes needs this option to enable hardware
        * virtualization, but some versions of 'qemu-kvm' will use KVM
@@ -316,34 +337,34 @@ launch_direct (guestfs_h *g, const char *arg)
        * available will cause qemu to fail.  A giant clusterfuck with
        * the qemu command line, again.
        */
-      if (qemu_supports (g, "-enable-kvm") && has_kvm)
-        add_cmdline (g, "-enable-kvm");
+      if (qemu_supports (g, data, "-enable-kvm") && has_kvm)
+        add_cmdline (g, data, "-enable-kvm");
     }
 
     /* -cpu host only works if KVM is available. */
     if (has_kvm) {
       /* Specify the host CPU for speed, and kvmclock for stability. */
-      add_cmdline (g, "-cpu");
-      add_cmdline (g, "host,+kvmclock");
+      add_cmdline (g, data, "-cpu");
+      add_cmdline (g, data, "host,+kvmclock");
     } else {
       /* Specify default CPU for speed, and kvmclock for stability. */
       snprintf (buf, sizeof buf, "qemu%d,+kvmclock", SIZEOF_LONG*8);
-      add_cmdline (g, "-cpu");
-      add_cmdline (g, buf);
+      add_cmdline (g, data, "-cpu");
+      add_cmdline (g, data, buf);
     }
 
     if (g->smp > 1) {
       snprintf (buf, sizeof buf, "%d", g->smp);
-      add_cmdline (g, "-smp");
-      add_cmdline (g, buf);
+      add_cmdline (g, data, "-smp");
+      add_cmdline (g, data, buf);
     }
 
     snprintf (buf, sizeof buf, "%d", g->memsize);
-    add_cmdline (g, "-m");
-    add_cmdline (g, buf);
+    add_cmdline (g, data, "-m");
+    add_cmdline (g, data, buf);
 
     /* Force exit instead of reboot on panic */
-    add_cmdline (g, "-no-reboot");
+    add_cmdline (g, data, "-no-reboot");
 
     /* These options recommended by KVM developers to improve reliability. */
 #ifndef __arm__
@@ -353,17 +374,17 @@ launch_direct (guestfs_h *g, const char *arg)
      * Cheers qemu developers.  How many years have we been asking for
      * capabilities?  Could be 3 or 4 years, I forget.
      */
-    if (qemu_supports (g, "-no-hpet"))
-      add_cmdline (g, "-no-hpet");
+    if (qemu_supports (g, data, "-no-hpet"))
+      add_cmdline (g, data, "-no-hpet");
 #endif
 
-    if (qemu_supports (g, "-rtc-td-hack"))
-      add_cmdline (g, "-rtc-td-hack");
+    if (qemu_supports (g, data, "-rtc-td-hack"))
+      add_cmdline (g, data, "-rtc-td-hack");
 
-    add_cmdline (g, "-kernel");
-    add_cmdline (g, kernel);
-    add_cmdline (g, "-initrd");
-    add_cmdline (g, initrd);
+    add_cmdline (g, data, "-kernel");
+    add_cmdline (g, data, kernel);
+    add_cmdline (g, data, "-initrd");
+    add_cmdline (g, data, initrd);
 
     /* Add drives */
     struct drive *drv;
@@ -371,98 +392,98 @@ launch_direct (guestfs_h *g, const char *arg)
 
     if (virtio_scsi) {
       /* Create the virtio-scsi bus. */
-      add_cmdline (g, "-device");
-      add_cmdline (g, "virtio-scsi-pci,id=scsi");
+      add_cmdline (g, data, "-device");
+      add_cmdline (g, data, "virtio-scsi-pci,id=scsi");
     }
 
     ITER_DRIVES (g, i, drv) {
       /* Construct the final -drive parameter. */
-      CLEANUP_FREE char *buf = qemu_drive_param (g, drv, i);
+      CLEANUP_FREE char *buf = qemu_drive_param (g, data, drv, i);
 
-      add_cmdline (g, "-drive");
-      add_cmdline (g, buf);
+      add_cmdline (g, data, "-drive");
+      add_cmdline (g, data, buf);
 
       if (virtio_scsi && drv->iface == NULL) {
         char buf2[64];
         snprintf (buf2, sizeof buf2, "scsi-hd,drive=hd%zu", i);
-        add_cmdline (g, "-device");
-        add_cmdline (g, buf2);
+        add_cmdline (g, data, "-device");
+        add_cmdline (g, data, buf2);
       }
     }
 
     /* Add the ext2 appliance drive (after all the drives). */
     if (has_appliance_drive) {
       const char *cachemode = "";
-      if (qemu_supports (g, "cache=")) {
-        if (qemu_supports (g, "unsafe"))
+      if (qemu_supports (g, data, "cache=")) {
+        if (qemu_supports (g, data, "unsafe"))
           cachemode = ",cache=unsafe";
-        else if (qemu_supports (g, "writeback"))
+        else if (qemu_supports (g, data, "writeback"))
           cachemode = ",cache=writeback";
       }
 
       size_t buf2_len = strlen (appliance) + 64;
       char buf2[buf2_len];
-      add_cmdline (g, "-drive");
+      add_cmdline (g, data, "-drive");
       snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s%s",
                 appliance, virtio_scsi ? "none" : "virtio", cachemode);
-      add_cmdline (g, buf2);
+      add_cmdline (g, data, buf2);
 
       if (virtio_scsi) {
-        add_cmdline (g, "-device");
-        add_cmdline (g, "scsi-hd,drive=appliance");
+        add_cmdline (g, data, "-device");
+        add_cmdline (g, data, "scsi-hd,drive=appliance");
       }
 
       appliance_dev = make_appliance_dev (g, virtio_scsi);
     }
 
     /* Create the virtio serial bus. */
-    add_cmdline (g, "-device");
-    add_cmdline (g, "virtio-serial");
+    add_cmdline (g, data, "-device");
+    add_cmdline (g, data, "virtio-serial");
 
 #if 0
     /* Use virtio-console (a variant form of virtio-serial) for the
      * guest's serial console.
      */
-    add_cmdline (g, "-chardev");
-    add_cmdline (g, "stdio,id=console");
-    add_cmdline (g, "-device");
-    add_cmdline (g, "virtconsole,chardev=console,name=org.libguestfs.console.0");
+    add_cmdline (g, data, "-chardev");
+    add_cmdline (g, data, "stdio,id=console");
+    add_cmdline (g, data, "-device");
+    add_cmdline (g, data, "virtconsole,chardev=console,name=org.libguestfs.console.0");
 #else
     /* When the above works ...  until then: */
-    add_cmdline (g, "-serial");
-    add_cmdline (g, "stdio");
+    add_cmdline (g, data, "-serial");
+    add_cmdline (g, data, "stdio");
 #endif
 
-    if (qemu_supports_device (g, "Serial Graphics Adapter")) {
+    if (qemu_supports_device (g, data, "Serial Graphics Adapter")) {
       /* Use sgabios instead of vgabios.  This means we'll see BIOS
        * messages on the serial port, and also works around this bug
        * in qemu 1.1.0:
        * https://bugs.launchpad.net/qemu/+bug/1021649
        * QEmu has included sgabios upstream since just before 1.0.
        */
-      add_cmdline (g, "-device");
-      add_cmdline (g, "sga");
+      add_cmdline (g, data, "-device");
+      add_cmdline (g, data, "sga");
     }
 
     /* Set up virtio-serial for the communications channel. */
-    add_cmdline (g, "-chardev");
+    add_cmdline (g, data, "-chardev");
     snprintf (buf, sizeof buf, "socket,path=%s,id=channel0", guestfsd_sock);
-    add_cmdline (g, buf);
-    add_cmdline (g, "-device");
-    add_cmdline (g, "virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
+    add_cmdline (g, data, buf);
+    add_cmdline (g, data, "-device");
+    add_cmdline (g, data, "virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
 
     /* Enable user networking. */
     if (g->enable_network) {
-      add_cmdline (g, "-netdev");
-      add_cmdline (g, "user,id=usernet,net=169.254.0.0/16");
-      add_cmdline (g, "-device");
-      add_cmdline (g, "virtio-net-pci,netdev=usernet");
+      add_cmdline (g, data, "-netdev");
+      add_cmdline (g, data, "user,id=usernet,net=169.254.0.0/16");
+      add_cmdline (g, data, "-device");
+      add_cmdline (g, data, "virtio-net-pci,netdev=usernet");
     }
 
-    add_cmdline (g, "-append");
+    add_cmdline (g, data, "-append");
     CLEANUP_FREE char *cmdline =
       guestfs___appliance_command_line (g, appliance_dev, 0);
-    add_cmdline (g, cmdline);
+    add_cmdline (g, data, cmdline);
 
     /* Note: custom command line parameters must come last so that
      * qemu -set parameters can modify previously added options.
@@ -472,18 +493,18 @@ launch_direct (guestfs_h *g, const char *arg)
      * at configure time.
      */
     if (STRNEQ (QEMU_OPTIONS, ""))
-      add_cmdline_shell_unquoted (g, QEMU_OPTIONS);
+      add_cmdline_shell_unquoted (g, data, QEMU_OPTIONS);
 
     /* Add any qemu parameters. */
     for (hp = g->hv_params; hp; hp = hp->next) {
-      add_cmdline (g, hp->hv_param);
+      add_cmdline (g, data, hp->hv_param);
       if (hp->hv_value)
-        add_cmdline (g, hp->hv_value);
+        add_cmdline (g, data, hp->hv_value);
     }
 
     /* Finish off the command line. */
-    incr_cmdline_size (g);
-    g->direct.cmdline[g->direct.cmdline_size-1] = NULL;
+    incr_cmdline_size (g, data);
+    data->cmdline[data->cmdline_size-1] = NULL;
 
     if (!g->direct_mode) {
       /* Set up stdin, stdout, stderr. */
@@ -520,7 +541,7 @@ launch_direct (guestfs_h *g, const char *arg)
 
     /* Dump the command line (after setting up stderr above). */
     if (g->verbose)
-      print_qemu_command_line (g, g->direct.cmdline);
+      print_qemu_command_line (g, data->cmdline);
 
     /* Put qemu in a new process group. */
     if (g->pgroup)
@@ -530,24 +551,24 @@ launch_direct (guestfs_h *g, const char *arg)
 
     TRACE0 (launch_run_qemu);
 
-    execv (g->hv, g->direct.cmdline); /* Run qemu. */
+    execv (g->hv, data->cmdline); /* Run qemu. */
     perror (g->hv);
     _exit (EXIT_FAILURE);
   }
 
   /* Parent (library). */
-  g->direct.pid = r;
+  data->pid = r;
 
   /* Fork the recovery process off which will kill qemu if the parent
    * process fails to do so (eg. if the parent segfaults).
    */
-  g->direct.recoverypid = -1;
+  data->recoverypid = -1;
   if (g->recovery_proc) {
     r = fork ();
     if (r == 0) {
       int i, fd, max_fd;
       struct sigaction sa;
-      pid_t qemu_pid = g->direct.pid;
+      pid_t qemu_pid = data->pid;
       pid_t parent_pid = getppid ();
 
       /* Remove all signal handlers.  See the justification here:
@@ -605,7 +626,7 @@ launch_direct (guestfs_h *g, const char *arg)
     /* Don't worry, if the fork failed, this will be -1.  The recovery
      * process isn't essential.
      */
-    g->direct.recoverypid = r;
+    data->recoverypid = r;
   }
 
   if (!g->direct_mode) {
@@ -681,12 +702,12 @@ launch_direct (guestfs_h *g, const char *arg)
  cleanup1:
   if (!g->direct_mode && sv[0] >= 0)
     close (sv[0]);
-  if (g->direct.pid > 0) kill (g->direct.pid, 9);
-  if (g->direct.recoverypid > 0) kill (g->direct.recoverypid, 9);
-  if (g->direct.pid > 0) waitpid (g->direct.pid, NULL, 0);
-  if (g->direct.recoverypid > 0) waitpid (g->direct.recoverypid, NULL, 0);
-  g->direct.pid = 0;
-  g->direct.recoverypid = 0;
+  if (data->pid > 0) kill (data->pid, 9);
+  if (data->recoverypid > 0) kill (data->recoverypid, 9);
+  if (data->pid > 0) waitpid (data->pid, NULL, 0);
+  if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
+  data->pid = 0;
+  data->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
 
  cleanup0:
@@ -769,7 +790,7 @@ print_qemu_command_line (guestfs_h *g, char **argv)
   fputc ('\n', stderr);
 }
 
-static void parse_qemu_version (guestfs_h *g);
+static void parse_qemu_version (guestfs_h *g, struct backend_direct_data *data);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 
 /* Test qemu binary (or wrapper) runs, and do 'qemu -help' and
@@ -777,24 +798,24 @@ static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
  * the version.
  */
 static int
-test_qemu (guestfs_h *g)
+test_qemu (guestfs_h *g, struct backend_direct_data *data)
 {
   CLEANUP_CMD_CLOSE struct command *cmd1 = guestfs___new_command (g);
   CLEANUP_CMD_CLOSE struct command *cmd2 = guestfs___new_command (g);
   CLEANUP_CMD_CLOSE struct command *cmd3 = guestfs___new_command (g);
   int r;
 
-  free (g->direct.qemu_help);
-  g->direct.qemu_help = NULL;
-  free (g->direct.qemu_version);
-  g->direct.qemu_version = NULL;
-  free (g->direct.qemu_devices);
-  g->direct.qemu_devices = NULL;
+  free (data->qemu_help);
+  data->qemu_help = NULL;
+  free (data->qemu_version);
+  data->qemu_version = NULL;
+  free (data->qemu_devices);
+  data->qemu_devices = NULL;
 
   guestfs___cmd_add_arg (cmd1, g->hv);
   guestfs___cmd_add_arg (cmd1, "-nographic");
   guestfs___cmd_add_arg (cmd1, "-help");
-  guestfs___cmd_set_stdout_callback (cmd1, read_all, &g->direct.qemu_help,
+  guestfs___cmd_set_stdout_callback (cmd1, read_all, &data->qemu_help,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd1);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -803,13 +824,13 @@ test_qemu (guestfs_h *g)
   guestfs___cmd_add_arg (cmd2, g->hv);
   guestfs___cmd_add_arg (cmd2, "-nographic");
   guestfs___cmd_add_arg (cmd2, "-version");
-  guestfs___cmd_set_stdout_callback (cmd2, read_all, &g->direct.qemu_version,
+  guestfs___cmd_set_stdout_callback (cmd2, read_all, &data->qemu_version,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd2);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
-  parse_qemu_version (g);
+  parse_qemu_version (g, data);
 
   guestfs___cmd_add_arg (cmd3, g->hv);
   guestfs___cmd_add_arg (cmd3, "-nographic");
@@ -819,7 +840,7 @@ test_qemu (guestfs_h *g)
   guestfs___cmd_add_arg (cmd3, "?");
   guestfs___cmd_clear_capture_errors (cmd3);
   guestfs___cmd_set_stderr_to_stdout (cmd3);
-  guestfs___cmd_set_stdout_callback (cmd3, read_all, &g->direct.qemu_devices,
+  guestfs___cmd_set_stdout_callback (cmd3, read_all, &data->qemu_devices,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs___cmd_run (cmd3);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -835,25 +856,25 @@ test_qemu (guestfs_h *g)
   return -1;
 }
 
-/* Parse g->direct.qemu_version (if not NULL) into the major and minor
+/* Parse data->qemu_version (if not NULL) into the major and minor
  * version of qemu, but don't fail if parsing is not possible.
  */
 static void
-parse_qemu_version (guestfs_h *g)
+parse_qemu_version (guestfs_h *g, struct backend_direct_data *data)
 {
   CLEANUP_FREE char *major_s = NULL, *minor_s = NULL;
   int major_i, minor_i;
 
-  g->direct.qemu_version_major = 0;
-  g->direct.qemu_version_minor = 0;
+  data->qemu_version_major = 0;
+  data->qemu_version_minor = 0;
 
-  if (!g->direct.qemu_version)
+  if (!data->qemu_version)
     return;
 
-  if (!match2 (g, g->direct.qemu_version, re_major_minor, &major_s, &minor_s)) {
+  if (!match2 (g, data->qemu_version, re_major_minor, &major_s, &minor_s)) {
   parse_failed:
     debug (g, "%s: failed to parse qemu version string '%s'",
-           __func__, g->direct.qemu_version);
+           __func__, data->qemu_version);
     return;
   }
 
@@ -865,8 +886,8 @@ parse_qemu_version (guestfs_h *g)
   if (minor_i == -1)
     goto parse_failed;
 
-  g->direct.qemu_version_major = major_i;
-  g->direct.qemu_version_minor = minor_i;
+  data->qemu_version_major = major_i;
+  data->qemu_version_minor = minor_i;
 
   debug (g, "qemu version %d.%d", major_i, minor_i);
 }
@@ -890,31 +911,33 @@ read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
  * error doing that.
  */
 static int
-qemu_supports (guestfs_h *g, const char *option)
+qemu_supports (guestfs_h *g, struct backend_direct_data *data,
+               const char *option)
 {
-  if (!g->direct.qemu_help) {
-    if (test_qemu (g) == -1)
+  if (!data->qemu_help) {
+    if (test_qemu (g, data) == -1)
       return -1;
   }
 
   if (option == NULL)
     return 1;
 
-  return strstr (g->direct.qemu_help, option) != NULL;
+  return strstr (data->qemu_help, option) != NULL;
 }
 
 /* Test if device is supported by qemu (currently just greps the -device ?
  * output).
  */
 static int
-qemu_supports_device (guestfs_h *g, const char *device_name)
+qemu_supports_device (guestfs_h *g, struct backend_direct_data *data,
+                      const char *device_name)
 {
-  if (!g->direct.qemu_devices) {
-    if (test_qemu (g) == -1)
+  if (!data->qemu_devices) {
+    if (test_qemu (g, data) == -1)
       return -1;
   }
 
-  return strstr (g->direct.qemu_devices, device_name) != NULL;
+  return strstr (data->qemu_devices, device_name) != NULL;
 }
 
 /* Check if a file can be opened. */
@@ -931,10 +954,10 @@ is_openable (guestfs_h *g, const char *path, int flags)
 }
 
 static int
-old_or_broken_virtio_scsi (guestfs_h *g)
+old_or_broken_virtio_scsi (guestfs_h *g, struct backend_direct_data *data)
 {
   /* qemu 1.1 claims to support virtio-scsi but in reality it's broken. */
-  if (g->direct.qemu_version_major == 1 && g->direct.qemu_version_minor < 2)
+  if (data->qemu_version_major == 1 && data->qemu_version_minor < 2)
     return 1;
 
   return 0;
@@ -942,36 +965,36 @@ old_or_broken_virtio_scsi (guestfs_h *g)
 
 /* Returns 1 = use virtio-scsi, or 0 = use virtio-blk. */
 static int
-qemu_supports_virtio_scsi (guestfs_h *g)
+qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *data)
 {
   int r;
 
-  if (!g->direct.qemu_help) {
-    if (test_qemu (g) == -1)
+  if (!data->qemu_help) {
+    if (test_qemu (g, data) == -1)
       return 0;                 /* safe option? */
   }
 
-  /* g->direct.virtio_scsi has these values:
+  /* data->virtio_scsi has these values:
    *   0 = untested (after handle creation)
    *   1 = supported
    *   2 = not supported (use virtio-blk)
    *   3 = test failed (use virtio-blk)
    */
-  if (g->direct.virtio_scsi == 0) {
-    if (old_or_broken_virtio_scsi (g))
-      g->direct.virtio_scsi = 2;
+  if (data->virtio_scsi == 0) {
+    if (old_or_broken_virtio_scsi (g, data))
+      data->virtio_scsi = 2;
     else {
-      r = qemu_supports_device (g, "virtio-scsi-pci");
+      r = qemu_supports_device (g, data, "virtio-scsi-pci");
       if (r > 0)
-        g->direct.virtio_scsi = 1;
+        data->virtio_scsi = 1;
       else if (r == 0)
-        g->direct.virtio_scsi = 2;
+        data->virtio_scsi = 2;
       else
-        g->direct.virtio_scsi = 3;
+        data->virtio_scsi = 3;
     }
   }
 
-  return g->direct.virtio_scsi == 1;
+  return data->virtio_scsi == 1;
 }
 
 /* Convert a struct drive into a qemu -drive parameter.  Note that if
@@ -980,7 +1003,8 @@ qemu_supports_virtio_scsi (guestfs_h *g)
  * virtio-scsi.
  */
 static char *
-qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
+qemu_drive_param (guestfs_h *g, struct backend_direct_data *data,
+                  const struct drive *drv, size_t index)
 {
   CLEANUP_FREE char *file = NULL, *escaped_file = NULL;
   size_t i, len;
@@ -1002,7 +1026,7 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 
   if (drv->iface)
     iface = drv->iface;
-  else if (qemu_supports_virtio_scsi (g))
+  else if (qemu_supports_virtio_scsi (g, data))
     iface = "none"; /* sic */
   else
     iface = "virtio";
@@ -1021,21 +1045,22 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 }
 
 static int
-shutdown_direct (guestfs_h *g, int check_for_errors)
+shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
 {
+  struct backend_direct_data *data = datav;
   int ret = 0;
   int status;
 
   /* Signal qemu to shutdown cleanly, and kill the recovery process. */
-  if (g->direct.pid > 0) {
-    debug (g, "sending SIGTERM to process %d", g->direct.pid);
-    kill (g->direct.pid, SIGTERM);
+  if (data->pid > 0) {
+    debug (g, "sending SIGTERM to process %d", data->pid);
+    kill (data->pid, SIGTERM);
   }
-  if (g->direct.recoverypid > 0) kill (g->direct.recoverypid, 9);
+  if (data->recoverypid > 0) kill (data->recoverypid, 9);
 
   /* Wait for subprocess(es) to exit. */
-  if (g->direct.pid > 0) {
-    if (waitpid (g->direct.pid, &status, 0) == -1) {
+  if (data->pid > 0) {
+    if (waitpid (data->pid, &status, 0) == -1) {
       perrorf (g, "waitpid (qemu)");
       ret = -1;
     }
@@ -1044,25 +1069,27 @@ shutdown_direct (guestfs_h *g, int check_for_errors)
       ret = -1;
     }
   }
-  if (g->direct.recoverypid > 0) waitpid (g->direct.recoverypid, NULL, 0);
+  if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
 
-  g->direct.pid = g->direct.recoverypid = 0;
+  data->pid = data->recoverypid = 0;
 
-  free (g->direct.qemu_help);
-  g->direct.qemu_help = NULL;
-  free (g->direct.qemu_version);
-  g->direct.qemu_version = NULL;
-  free (g->direct.qemu_devices);
-  g->direct.qemu_devices = NULL;
+  free (data->qemu_help);
+  data->qemu_help = NULL;
+  free (data->qemu_version);
+  data->qemu_version = NULL;
+  free (data->qemu_devices);
+  data->qemu_devices = NULL;
 
   return ret;
 }
 
 static int
-get_pid_direct (guestfs_h *g)
+get_pid_direct (guestfs_h *g, void *datav)
 {
-  if (g->direct.pid > 0)
-    return g->direct.pid;
+  struct backend_direct_data *data = datav;
+
+  if (data->pid > 0)
+    return data->pid;
   else {
     error (g, "get_pid: no qemu subprocess");
     return -1;
@@ -1071,17 +1098,27 @@ get_pid_direct (guestfs_h *g)
 
 /* Maximum number of disks. */
 static int
-max_disks_direct (guestfs_h *g)
+max_disks_direct (guestfs_h *g, void *datav)
 {
-  if (qemu_supports_virtio_scsi (g))
+  struct backend_direct_data *data = datav;
+
+  if (qemu_supports_virtio_scsi (g, data))
     return 255;
   else
     return 27;                  /* conservative estimate */
 }
 
-struct backend_ops backend_ops_direct = {
+static struct backend_ops backend_direct_ops = {
+  .data_size = sizeof (struct backend_direct_data),
   .launch = launch_direct,
   .shutdown = shutdown_direct,
   .get_pid = get_pid_direct,
   .max_disks = max_disks_direct,
 };
+
+static void init_backend (void) __attribute__((constructor));
+static void
+init_backend (void)
+{
+  guestfs___register_backend ("direct", &backend_direct_ops);
+}
