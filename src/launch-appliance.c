@@ -1030,18 +1030,6 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
   return r;                     /* caller frees */
 }
 
-/* https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/ */
-char *
-guestfs___drive_name (size_t index, char *ret)
-{
-  if (index >= 26)
-    ret = guestfs___drive_name (index/26 - 1, ret);
-  index %= 26;
-  *ret++ = 'a' + index;
-  *ret = '\0';
-  return ret;
-}
-
 static int
 shutdown_appliance (guestfs_h *g, int check_for_errors)
 {
