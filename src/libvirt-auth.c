@@ -215,20 +215,18 @@ guestfs___open_libvirt_connection (guestfs_h *g, const char *uri,
 char **
 guestfs__get_libvirt_requested_credentials (guestfs_h *g)
 {
-  char **ret;
+  DECLARE_STRINGSBUF (ret);
   size_t i;
 
   CHECK_IN_EVENT_HANDLER (NULL);
 
   /* Convert the requested_credentials types to a list of strings. */
-  ret = safe_malloc (g, sizeof (char *) * (g->nr_requested_credentials+1));
-  for (i = 0; i < g->nr_requested_credentials; ++i) {
-    ret[i] = safe_strdup (g,
-      get_string_of_credtype (g->requested_credentials[i].type));
-  }
-  ret[i] = NULL;
+  for (i = 0; i < g->nr_requested_credentials; ++i)
+    guestfs___add_string (g, &ret,
+                          get_string_of_credtype (g->requested_credentials[i].type));
+  guestfs___end_stringsbuf (g, &ret);
 
-  return ret;                   /* caller frees */
+  return ret.argv;              /* caller frees */
 }
 
 char *

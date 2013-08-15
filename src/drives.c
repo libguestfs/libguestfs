@@ -1167,25 +1167,17 @@ guestfs___rollback_drives (guestfs_h *g, size_t old_i)
 char **
 guestfs__debug_drives (guestfs_h *g)
 {
-  size_t i, count;
-  char **ret;
+  size_t i;
+  DECLARE_STRINGSBUF (ret);
   struct drive *drv;
 
-  count = 0;
   ITER_DRIVES (g, i, drv) {
-    count++;
+    guestfs___add_string_nodup (g, &ret, drive_to_string (g, drv));
   }
 
-  ret = safe_malloc (g, sizeof (char *) * (count + 1));
+  guestfs___end_stringsbuf (g, &ret);
 
-  count = 0;
-  ITER_DRIVES (g, i, drv) {
-    ret[count++] = drive_to_string (g, drv);
-  }
-
-  ret[count] = NULL;
-
-  return ret;                   /* caller frees */
+  return ret.argv;              /* caller frees */
 }
 
 /* The drive_source struct is also used in the backends, so we

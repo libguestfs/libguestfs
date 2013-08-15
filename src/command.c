@@ -108,10 +108,7 @@ struct command
   enum command_style style;
   union {
     /* COMMAND_STYLE_EXECV */
-    struct {
-      char **args;
-      size_t len, alloc;
-    } argv;
+    struct stringsbuf argv;
     /* COMMAND_STYLE_SYSTEM */
     struct {
       char *str;
@@ -161,16 +158,7 @@ add_arg_no_strdup (struct command *cmd, char *arg)
   assert (cmd->style != COMMAND_STYLE_SYSTEM);
   cmd->style = COMMAND_STYLE_EXECV;
 
-  if (cmd->argv.len >= cmd->argv.alloc) {
-    if (cmd->argv.alloc == 0)
-      cmd->argv.alloc = 16;
-    else
-      cmd->argv.alloc *= 2;
-    cmd->argv.args = safe_realloc (cmd->g, cmd->argv.args,
-                                   cmd->argv.alloc * sizeof (char *));
-  }
-  cmd->argv.args[cmd->argv.len] = arg;
-  cmd->argv.len++;
+  guestfs___add_string_nodup (cmd->g, &cmd->argv, arg);
 }
 
 static void
@@ -328,7 +316,7 @@ finish_command (struct command *cmd)
 {
   switch (cmd->style) {
   case COMMAND_STYLE_EXECV:
-    add_arg_no_strdup (cmd, NULL);
+    guestfs___end_stringsbuf (cmd->g, &cmd->argv);
     break;
 
   case COMMAND_STYLE_SYSTEM:
@@ -347,17 +335,17 @@ debug_command (struct command *cmd)
 
   switch (cmd->style) {
   case COMMAND_STYLE_EXECV:
-    debug (cmd->g, "command: run: %s", cmd->argv.args[0]);
-    last = cmd->argv.len-1;     /* omit final NULL pointer */
+    debug (cmd->g, "command: run: %s", cmd->argv.argv[0]);
+    last = cmd->argv.size-1;     /* omit final NULL pointer */
     for (i = 1; i < last; ++i) {
       if (i < last-1 &&
-          cmd->argv.args[i][0] == '-' && cmd->argv.args[i+1][0] != '-') {
+          cmd->argv.argv[i][0] == '-' && cmd->argv.argv[i+1][0] != '-') {
         debug (cmd->g, "command: run: \\ %s %s",
-               cmd->argv.args[i], cmd->argv.args[i+1]);
+               cmd->argv.argv[i], cmd->argv.argv[i+1]);
         i++;
       }
       else
-        debug (cmd->g, "command: run: \\ %s", cmd->argv.args[i]);
+        debug (cmd->g, "command: run: \\ %s", cmd->argv.argv[i]);
     }
     break;
 
@@ -472,8 +460,8 @@ run_command (struct command *cmd)
   /* Run the command. */
   switch (cmd->style) {
   case COMMAND_STYLE_EXECV:
-    execvp (cmd->argv.args[0], cmd->argv.args);
-    perror (cmd->argv.args[0]);
+    execvp (cmd->argv.argv[0], cmd->argv.argv);
+    perror (cmd->argv.argv[0]);
     _exit (EXIT_FAILURE);
 
   case COMMAND_STYLE_SYSTEM:
@@ -638,8 +626,6 @@ guestfs___cmd_run (struct command *cmd)
 void
 guestfs___cmd_close (struct command *cmd)
 {
-  size_t i;
-
   if (!cmd)
     return;
 
@@ -649,9 +635,7 @@ guestfs___cmd_close (struct command *cmd)
     break;
 
   case COMMAND_STYLE_EXECV:
-    for (i = 0; i < cmd->argv.len; ++i)
-      free (cmd->argv.args[i]);
-    free (cmd->argv.args);
+    guestfs___free_stringsbuf (&cmd->argv);
     break;
 
   case COMMAND_STYLE_SYSTEM:
