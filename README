@@ -160,6 +160,8 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | qemu-nbd     |             | O | Used for testing only.                  |
 +--------------+-------------+---+-----------------------------------------+
+| uml_mkcow    |             | O | For the UML backend.                    |
++--------------+-------------+---+-----------------------------------------+
 | findlib      |             | O | For the OCaml bindings.                 |
 +--------------+-------------+---+-----------------------------------------+
 | ocaml-gettext|             | O | For localizing OCaml virt-* tools.      |
