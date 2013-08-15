@@ -46,7 +46,7 @@ char **
 guestfs__list_filesystems (guestfs_h *g)
 {
   size_t i;
-  char **ret = NULL;
+  char **ret;
   size_t ret_size = 0;
   const char *lvm2[] = { "lvm2", NULL };
   const char *ldm[] = { "ldm", NULL };
@@ -57,6 +57,13 @@ guestfs__list_filesystems (guestfs_h *g)
   CLEANUP_FREE_STRING_LIST char **lvs = NULL;
   CLEANUP_FREE_STRING_LIST char **ldmvols = NULL;
   CLEANUP_FREE_STRING_LIST char **ldmparts = NULL;
+
+  /* We need to initialize this with an empty list so that if there
+   * are no filesystems at all, we return an empty list (not NULL).
+   * See also add_vfs function below.
+   */
+  ret = safe_malloc (g, sizeof (char *));
+  ret[0] = NULL;
 
   /* Look to see if any devices directly contain filesystems
    * (RHBZ#590167).  However vfs-type will fail to tell us anything
