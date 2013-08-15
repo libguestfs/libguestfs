@@ -186,6 +186,31 @@ guestfs__max_disks (guestfs_h *g)
   return backend_ops->max_disks (g);
 }
 
+int
+guestfs__internal_set_libvirt_selinux_label (guestfs_h *g, const char *label,
+                                             const char *imagelabel)
+{
+  const struct backend_ops *backend_ops = get_backend_ops (g);
+
+  if (backend_ops->set_libvirt_selinux_label == NULL)
+    /* Not an error, just ignore it. */
+    return 0;
+
+  return backend_ops->set_libvirt_selinux_label (g, label, imagelabel);
+}
+
+int
+guestfs__internal_set_libvirt_selinux_norelabel_disks (guestfs_h *g, int flag)
+{
+  const struct backend_ops *backend_ops = get_backend_ops (g);
+
+  if (backend_ops->set_libvirt_selinux_norelabel_disks == NULL)
+    /* Not an error, just ignore it. */
+    return 0;
+
+  return backend_ops->set_libvirt_selinux_norelabel_disks (g, flag);
+}
+
 /* You had to call this function after launch in versions <= 1.0.70,
  * but it is now a no-op.
  */

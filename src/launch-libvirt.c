@@ -246,7 +246,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
    * may be that we create qcow2 overlays for drives.
    */
   ITER_DRIVES (g, i, drv) {
-    if (make_drive_priv (g, drv, g->virt_selinux_imagelabel) == -1)
+    if (make_drive_priv (g, drv, g->virt.selinux_imagelabel) == -1)
       goto cleanup;
   }
 
@@ -908,7 +908,7 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
                                            BAD_CAST "none"));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
-  else if (g->virt_selinux_label && g->virt_selinux_imagelabel) {
+  else if (g->virt.selinux_label && g->virt.selinux_imagelabel) {
     /* Enable sVirt and pass a custom <seclabel/> inherited from the
      * original libvirt domain (when guestfs_add_domain was called).
      * https://bugzilla.redhat.com/show_bug.cgi?id=912499#c7
@@ -925,11 +925,11 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
                                            BAD_CAST "yes"));
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "label"));
     XMLERROR (-1, xmlTextWriterWriteString (xo,
-                                            BAD_CAST g->virt_selinux_label));
+                                            BAD_CAST g->virt.selinux_label));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "imagelabel"));
     XMLERROR (-1, xmlTextWriterWriteString (xo,
-                                            BAD_CAST g->virt_selinux_imagelabel));
+                                            BAD_CAST g->virt.selinux_imagelabel));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
@@ -1314,7 +1314,7 @@ static int
 construct_libvirt_xml_disk_source_seclabel (guestfs_h *g,
                                             xmlTextWriterPtr xo)
 {
-  if (g->virt_selinux_norelabel_disks) {
+  if (g->virt.selinux_norelabel_disks) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
@@ -1661,6 +1661,11 @@ shutdown_libvirt (guestfs_h *g, int check_for_errors)
   g->virt.conn = NULL;
   g->virt.dom = NULL;
 
+  free (g->virt.selinux_label);
+  g->virt.selinux_label = NULL;
+  free (g->virt.selinux_imagelabel);
+  g->virt.selinux_imagelabel = NULL;
+
   return ret;
 }
 
@@ -1730,7 +1735,7 @@ hot_add_drive_libvirt (guestfs_h *g, struct drive *drv, size_t drv_index)
     return -1;
   }
 
-  if (make_drive_priv (g, drv, g->virt_selinux_imagelabel) == -1)
+  if (make_drive_priv (g, drv, g->virt.selinux_imagelabel) == -1)
     return -1;
 
   /* Create the XML for the new disk. */
@@ -1805,12 +1810,32 @@ construct_libvirt_xml_hot_add_disk (guestfs_h *g, struct drive *drv,
   return ret;
 }
 
+static int
+set_libvirt_selinux_label (guestfs_h *g, const char *label,
+                           const char *imagelabel)
+{
+  free (g->virt.selinux_label);
+  g->virt.selinux_label = safe_strdup (g, label);
+  free (g->virt.selinux_imagelabel);
+  g->virt.selinux_imagelabel = safe_strdup (g, imagelabel);
+  return 0;
+}
+
+static int
+set_libvirt_selinux_norelabel_disks (guestfs_h *g, int flag)
+{
+  g->virt.selinux_norelabel_disks = flag;
+  return 0;
+}
+
 struct backend_ops backend_ops_libvirt = {
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,
   .hot_add_drive = hot_add_drive_libvirt,
   .hot_remove_drive = hot_remove_drive_libvirt,
+  .set_libvirt_selinux_label = set_libvirt_selinux_label,
+  .set_libvirt_selinux_norelabel_disks = set_libvirt_selinux_norelabel_disks,
 };
 
 #else /* no libvirt at compile time */
@@ -1847,21 +1872,3 @@ struct backend_ops backend_ops_libvirt = {
 };
 
 #endif /* no libvirt at compile time */
-
-int
-guestfs__internal_set_libvirt_selinux_label (guestfs_h *g, const char *label,
-                                             const char *imagelabel)
-{
-  free (g->virt_selinux_label);
-  g->virt_selinux_label = safe_strdup (g, label);
-  free (g->virt_selinux_imagelabel);
-  g->virt_selinux_imagelabel = safe_strdup (g, imagelabel);
-  return 0;
-}
-
-int
-guestfs__internal_set_libvirt_selinux_norelabel_disks (guestfs_h *g, int flag)
-{
-  g->virt_selinux_norelabel_disks = flag;
-  return 0;
-}

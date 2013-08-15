@@ -207,6 +207,14 @@ struct backend_ops {
   /* Hotplugging drives. */
   int (*hot_add_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
   int (*hot_remove_drive) (guestfs_h *g, struct drive *drv, size_t drv_index);
+
+  /* These are a hack used to communicate between guestfs_add_domain and
+   * the libvirt backend.  We will probably remove these in a future
+   * version once we can find a better way to pass this information
+   * around.
+   */
+  int (*set_libvirt_selinux_label) (guestfs_h *g, const char *label, const char *imagelabel);
+  int (*set_libvirt_selinux_norelabel_disks) (guestfs_h *g, int flag);
 };
 extern struct backend_ops backend_ops_direct;
 extern struct backend_ops backend_ops_libvirt;
@@ -429,11 +437,11 @@ struct guestfs_h
   struct {                      /* Used only by src/launch-libvirt.c. */
     virConnectPtr conn;         /* libvirt connection */
     virDomainPtr dom;           /* libvirt domain */
+    char *selinux_label;
+    char *selinux_imagelabel;
+    bool selinux_norelabel_disks;
   } virt;
 #endif
-  char *virt_selinux_label;
-  char *virt_selinux_imagelabel;
-  bool virt_selinux_norelabel_disks;
 
   struct {                      /* Used only by src/launch-uml.c. */
     pid_t pid;                  /* vmlinux PID. */
