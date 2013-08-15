@@ -116,6 +116,7 @@ libguestfs_la_SOURCES = \
 	osinfo.c \
 	private-data.c \
 	proto.c \
+	stringsbuf.c \
 	tmpdirs.c \
 	libguestfs.syms
 
