@@ -102,9 +102,9 @@ extern char *guestfs___drive_name (size_t index, char *ret);
  * Don't call them directly.
  */
 extern void guestfs___cleanup_free (void *ptr);
-extern void guestfs___cleanup_free_string_list (void *ptr);
+extern void guestfs___cleanup_free_string_list (char ***ptr);
 extern void guestfs___cleanup_hash_free (void *ptr);
-extern void guestfs___cleanup_unlink_free (void *ptr);
+extern void guestfs___cleanup_unlink_free (char **ptr);
 extern void guestfs___cleanup_xmlBufferFree (void *ptr);
 extern void guestfs___cleanup_xmlFreeDoc (void *ptr);
 extern void guestfs___cleanup_xmlFreeURI (void *ptr);
