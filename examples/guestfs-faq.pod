@@ -731,13 +731,6 @@ Once you're familiar with the API overview, you should look at this
 list of starting points for other language bindings:
 L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES>.
 
-=begin html
-
-<!-- old anchor for the next section -->
-<a name="debug"/>
-
-=end html
-
 =head2 Can I use libguestfs in my proprietary / closed source /
 commercial program?
 
@@ -748,6 +741,13 @@ a lawyer.
 In the source tree the license is in the file C<COPYING.LIB> (LGPLv2+
 for the library and bindings) and C<COPYING> (GPLv2+ for the
 standalone programs).
+
+=begin html
+
+<!-- old anchor for the next section -->
+<a name="debug"/>
+
+=end html
 
 =head1 DEBUGGING LIBGUESTFS
 
