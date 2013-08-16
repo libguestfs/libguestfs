@@ -44,9 +44,9 @@ guestfs___cleanup_free (void *ptr)
 }
 
 void
-guestfs___cleanup_free_string_list (void *ptr)
+guestfs___cleanup_free_string_list (char ***ptr)
 {
-  guestfs___free_string_list (* (char ***) ptr);
+  guestfs___free_string_list (*ptr);
 }
 
 void
@@ -59,9 +59,9 @@ guestfs___cleanup_hash_free (void *ptr)
 }
 
 void
-guestfs___cleanup_unlink_free (void *ptr)
+guestfs___cleanup_unlink_free (char **ptr)
 {
-  char *filename = * (char **) ptr;
+  char *filename = *ptr;
 
   if (filename) {
     unlink (filename);
