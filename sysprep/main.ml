@@ -31,7 +31,7 @@ let () = Sysprep_operation.bake ()
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let debug_gc, operations, g, selinux_relabel, quiet =
+let debug_gc, operations, g, selinux_relabel, quiet, mount_opts =
   let debug_gc = ref false in
   let domain = ref None in
   let dryrun = ref false in
@@ -43,6 +43,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
   let selinux_relabel = ref `Auto in
   let trace = ref false in
   let verbose = ref false in
+  let mount_opts = ref "" in
 
   let display_version () =
     let g = new G.guestfs () in
@@ -79,7 +80,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
       eprintf (f_"%s: you cannot pass an empty argument to --enable\n") prog;
       exit 1
     );
-    let ops = string_split "," ops in
+    let ops = string_nsplit "," ops in
     let opset = List.fold_left (
       fun opset op_name ->
         try Sysprep_operation.add_to_set op_name opset
@@ -115,6 +116,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
     "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (/:noatime;/var:rw,noatime)";
     "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--selinux-relabel", Arg.Unit force_selinux_relabel, " " ^ s_"Force SELinux relabel";
@@ -183,6 +185,15 @@ read the man page virt-sysprep(1).
   let trace = !trace in
   let verbose = !verbose in
 
+  (* Parse the mount options string into a function that maps the
+   * mountpoint to the mount options.
+   *)
+  let mount_opts = !mount_opts in
+  let mount_opts =
+    List.map (string_split ":") (string_nsplit ";" mount_opts) in
+  let mount_opts mp =
+    try List.assoc mp mount_opts with Not_found -> "" in
+
   if not quiet then
     printf (f_"Examining the guest ...\n%!");
 
@@ -193,7 +204,7 @@ read the man page virt-sysprep(1).
   add g dryrun;
   g#launch ();
 
-  debug_gc, operations, g, selinux_relabel, quiet
+  debug_gc, operations, g, selinux_relabel, quiet, mount_opts
 
 let do_sysprep () =
   (* Inspection. *)
@@ -212,7 +223,10 @@ let do_sysprep () =
         let mps = List.sort cmp mps in
         List.iter (
           fun (mp, dev) ->
-            try g#mount dev mp
+            (* Get mount options for this mountpoint. *)
+            let opts = mount_opts mp in
+
+            try g#mount_options opts dev mp;
             with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
         ) mps;
 

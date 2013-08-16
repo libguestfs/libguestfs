@@ -108,7 +108,8 @@ let rec replace_str s s1 s2 =
     s' ^ s2 ^ replace_str s'' s1 s2
   )
 
-let rec string_split sep str =
+(* Split a string into multiple strings at each separator. *)
+let rec string_nsplit sep str =
   let len = String.length str in
   let seplen = String.length sep in
   let i = string_find str sep in
@@ -116,7 +117,21 @@ let rec string_split sep str =
   else (
     let s' = String.sub str 0 i in
     let s'' = String.sub str (i+seplen) (len-i-seplen) in
-    s' :: string_split sep s''
+    s' :: string_nsplit sep s''
+  )
+
+(* Split a string at the first occurrence of the separator, returning
+ * the part before and the part after.  If separator is not found,
+ * return the whole string and an empty string.
+ *)
+let string_split sep str =
+  let len = String.length sep in
+  let seplen = String.length str in
+  let i = string_find str sep in
+
+  if i = -1 then str, ""
+  else (
+    String.sub str 0 i, String.sub str (i + len) (seplen - i - len)
   )
 
 let string_random8 =

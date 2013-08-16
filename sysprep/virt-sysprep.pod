@@ -153,6 +153,22 @@ fields on the same line are the description of the operation.
 Before libguestfs 1.17.33 only the first (operation name) field was
 shown and all operations were enabled by default.
 
+=item B<--mount-options> mp:opts[;mp:opts;...]
+
+Set the mount options for each mountpoint in the guest.  Use a
+semicolon-separated list of C<mountpoint:options> pairs.  You may need
+to quote this list to protect it from the shell.
+
+For example:
+
+ --mount-options "/:noatime"
+
+will mount the root directory with C<notime>.  This example:
+
+ --mount-options "/:noatime;/var:rw,nodiratime"
+
+will do the same, plus mount C</var> with C<rw,nodiratime>.
+
 =item B<-q>
 
 =item B<--quiet>
