@@ -322,11 +322,6 @@ So every user should do this:
 
 =over 4
 
-=item Ubuntu 10.04
-
-See:
-L<http://libguestfs.org/download/binaries/ubuntu1004-packages/>
-
 =item Ubuntu 12.04
 
 libguestfs in this version of Ubuntu works, but you need to update
