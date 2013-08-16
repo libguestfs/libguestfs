@@ -31,7 +31,7 @@ let () = Sysprep_operation.bake ()
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let debug_gc, operations, g, selinux_relabel, quiet =
+let debug_gc, operations, g, selinux_relabel, quiet, mount_opts =
   let debug_gc = ref false in
   let domain = ref None in
   let dryrun = ref false in
@@ -43,6 +43,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
   let selinux_relabel = ref `Auto in
   let trace = ref false in
   let verbose = ref false in
+  let mount_opts = ref "" in
 
   let display_version () =
     let g = new G.guestfs () in
@@ -70,6 +71,7 @@ let debug_gc, operations, g, selinux_relabel, quiet =
   and dump_pod_options () =
     Sysprep_operation.dump_pod_options ();
     exit 0
+
   and set_enable ops =
     if !operations <> None then (
       eprintf (f_"%s: --enable option can only be given once\n") prog;
@@ -97,10 +99,11 @@ let debug_gc, operations, g, selinux_relabel, quiet =
     Sysprep_operation.list_operations ();
     exit 0
   in
-
+  
   let basic_args = [
     "-a",        Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
     "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
+    "--mount-options",     Arg.Set_string mount_opts,       s_"opts" ^ " " ^ s_"Set mount options"; 
     "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
     "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
     "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations (internal)";
@@ -167,10 +170,8 @@ read the man page virt-sysprep(1).
     | files, None ->
       fun g readonly ->
         List.iter (
-          fun (uri, format) ->
-            let { URI.path = path; protocol = protocol;
-                  server = server; username = username } = uri in
-            g#add_drive ~readonly ?format ~protocol ?server ?username path
+          fun (file, format) ->
+            g#add_drive ~readonly ?format file
         ) files
   in
 
@@ -193,7 +194,7 @@ read the man page virt-sysprep(1).
   add g dryrun;
   g#launch ();
 
-  debug_gc, operations, g, selinux_relabel, quiet
+  debug_gc, operations, g, selinux_relabel, quiet, mount_opts
 
 let do_sysprep () =
   (* Inspection. *)
@@ -210,10 +211,24 @@ let do_sysprep () =
         let mps = g#inspect_get_mountpoints root in
         let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
         let mps = List.sort cmp mps in
+        let create_assoc s = List.map (fun s -> string_ssplit ":" s ) ( string_split ";" s ) in
+        let mount_assoc = create_assoc !mount_opts in 
+
         List.iter (
           fun (mp, dev) ->
-            try g#mount dev mp
-            with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
+            
+            let opts = try List.assoc mp mount_assoc with Not_found -> "" in
+
+            if opts <> "" then ( 
+                try (
+                    g#mount_options opts dev mp;
+                )
+                with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
+            ) else ( 
+                try g#mount dev mp
+                with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
+            );
+
         ) mps;
 
         (* Perform the filesystem operations. *)

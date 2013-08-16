@@ -119,6 +119,16 @@ let rec string_split sep str =
     s' :: string_split sep s''
   )
 
+let string_ssplit sep str =
+    let len = String.length sep in
+    let seplen = String.length str in
+    let i = string_find str sep in
+
+    if i = -1 then str, ""
+    else ( 
+        String.sub str 0 i, String.sub str (i + len) (seplen - i - len)
+    ) 
+
 let string_random8 =
   let chars = "abcdefghijklmnopqrstuvwxyz0123456789" in
   fun () ->
