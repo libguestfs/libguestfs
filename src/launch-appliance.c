@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <unistd.h>
@@ -262,6 +263,15 @@ launch_appliance (guestfs_h *g, const char *arg)
     char buf[256];
     int virtio_scsi = qemu_supports_virtio_scsi (g);
     struct qemu_param *qp;
+    bool has_kvm;
+
+    /* Try to guess if KVM is available.  We are just checking that
+     * /dev/kvm is openable.  That's not reliable, since /dev/kvm
+     * might be openable by qemu but not by us (think: SELinux) in
+     * which case the user would not get hardware virtualization,
+     * although at least shouldn't fail.
+     */
+    has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
@@ -305,23 +315,26 @@ launch_appliance (guestfs_h *g, const char *arg)
       /* qemu sometimes needs this option to enable hardware
        * virtualization, but some versions of 'qemu-kvm' will use KVM
        * regardless (even where this option appears in the help text).
-       * It is rumoured that there are versions of qemu where supplying
-       * this option when hardware virtualization is not available will
-       * cause qemu to fail, so we we have to check at least that
-       * /dev/kvm is openable.  That's not reliable, since /dev/kvm
-       * might be openable by qemu but not by us (think: SELinux) in
-       * which case the user would not get hardware virtualization,
-       * although at least shouldn't fail.  A giant clusterfuck with the
-       * qemu command line, again.
+       * It is rumoured that there are versions of qemu where
+       * supplying this option when hardware virtualization is not
+       * available will cause qemu to fail.  A giant clusterfuck with
+       * the qemu command line, again.
        */
-      if (qemu_supports (g, "-enable-kvm") &&
-          is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC))
+      if (qemu_supports (g, "-enable-kvm") && has_kvm)
         add_cmdline (g, "-enable-kvm");
     }
 
-    /* Specify the host CPU for speed, and kvmclock for stability. */
-    add_cmdline (g, "-cpu");
-    add_cmdline (g, "host,+kvmclock");
+    /* -cpu host only works if KVM is available. */
+    if (has_kvm) {
+      /* Specify the host CPU for speed, and kvmclock for stability. */
+      add_cmdline (g, "-cpu");
+      add_cmdline (g, "host,+kvmclock");
+    } else {
+      /* Specify default CPU for speed, and kvmclock for stability. */
+      snprintf (buf, sizeof buf, "qemu%d,+kvmclock", SIZEOF_LONG*8);
+      add_cmdline (g, "-cpu");
+      add_cmdline (g, buf);
+    }
 
     if (g->smp > 1) {
       snprintf (buf, sizeof buf, "%d", g->smp);
