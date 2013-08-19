@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-14 23:28+0100\n"
+"POT-Creation-Date: 2013-08-19 18:59+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -3931,7 +3931,7 @@ msgstr ""
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:1005 src/drives.c:1176
+#: src/drives.c:1005 src/drives.c:1177
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
@@ -3939,12 +3939,12 @@ msgstr ""
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1131
+#: src/drives.c:1132
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/drives.c:1161
+#: src/drives.c:1162
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -4069,16 +4069,20 @@ msgid ""
 "found when libguestfs was compiled"
 msgstr ""
 
-#: src/handle.c:127
+#: src/handle.c:126
 msgid ""
 "libguestfs was built with an invalid default backend, using 'direct' instead"
 msgstr ""
 
-#: src/handle.c:219
+#: src/handle.c:128
+msgid "'direct' backend does not work"
+msgstr ""
+
+#: src/handle.c:221
 msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:280
+#: src/handle.c:282
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: அதே ஹாண்டலில் இரண்டு முறை அழைக்கப்பட்டது\n"
@@ -4126,7 +4130,7 @@ msgstr ""
 
 #: src/inspect-fs-unix.c:250 src/inspect-fs-unix.c:332
 #: src/inspect-fs-unix.c:864 src/inspect-fs-unix.c:1529 src/inspect-fs.c:563
-#: src/inspect-fs.c:609 src/inspect.c:559
+#: src/inspect-fs.c:609 src/inspect.c:530
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -4145,80 +4149,80 @@ msgstr ""
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:242
+#: src/inspect.c:229
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:258
+#: src/inspect.c:245
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:595
+#: src/inspect.c:566
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:607
+#: src/inspect.c:578
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch-direct.c:136
+#: src/launch-direct.c:125
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:155
+#: src/launch-direct.c:144
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:188 src/launch-uml.c:133
+#: src/launch-direct.c:183 src/launch-uml.c:119
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/launch-direct.c:668 src/launch-libvirt.c:448
+#: src/launch-direct.c:653 src/launch-libvirt.c:460
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
-#: src/launch-libvirt.c:171
+#: src/launch-libvirt.c:183
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:180
+#: src/launch-libvirt.c:192
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:195
+#: src/launch-libvirt.c:207
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:211
+#: src/launch-libvirt.c:223
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:381
+#: src/launch-libvirt.c:393
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:510
+#: src/launch-libvirt.c:522
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:516 src/libvirt-domain.c:352 src/libvirt-domain.c:435
+#: src/launch-libvirt.c:528 src/libvirt-domain.c:352 src/libvirt-domain.c:435
 #: src/libvirt-domain.c:642
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:526
+#: src/launch-libvirt.c:538
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:559
+#: src/launch-libvirt.c:571
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4233,125 +4237,118 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:710
+#: src/launch-libvirt.c:722
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1060
+#: src/launch-libvirt.c:1073
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1171
+#: src/launch-libvirt.c:1184
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1209
+#: src/launch-libvirt.c:1222
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1220
+#: src/launch-libvirt.c:1233
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1573
+#: src/launch-libvirt.c:1587
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1652
+#: src/launch-libvirt.c:1667
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1684
+#: src/launch-libvirt.c:1704
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1744
+#: src/launch-libvirt.c:1766
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1773
+#: src/launch-libvirt.c:1797
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1819
-#, c-format
-msgid ""
-"libvirt backend is not available because this version of libguestfs was "
-"compiled without libvirt or libvirt < %d.%d.%d"
-msgstr ""
-
-#: src/launch-uml.c:83
+#: src/launch-uml.c:65
 msgid "uml backend does not support networking"
 msgstr ""
 
-#: src/launch-uml.c:87
+#: src/launch-uml.c:69
 msgid "uml backend does not support SMP"
 msgstr ""
 
-#: src/launch-uml.c:93
+#: src/launch-uml.c:75
 msgid "uml backend does not support remote drives"
 msgstr ""
 
-#: src/launch-uml.c:97
+#: src/launch-uml.c:79
 msgid "uml backend does not support non-raw-format drives"
 msgstr ""
 
-#: src/launch-uml.c:102
+#: src/launch-uml.c:84
 msgid "uml backend does not support drives with 'iface' parameter"
 msgstr ""
 
-#: src/launch-uml.c:107
+#: src/launch-uml.c:89
 msgid "uml backend does not support drives with 'label' parameter"
 msgstr ""
 
-#: src/launch-uml.c:476
+#: src/launch-uml.c:446
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-unix.c:45
+#: src/launch-unix.c:46
 msgid "cannot set hv parameters with the 'unix:' backend"
 msgstr ""
 
-#: src/launch-unix.c:82
+#: src/launch-unix.c:83
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch-unix.c:90
+#: src/launch-unix.c:91
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:58
+#: src/launch.c:53
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:165
+#: src/launch.c:162
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:171
+#: src/launch.c:168
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:184
+#: src/launch.c:179
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:196
+#: src/launch.c:215
 msgid "qemu has not been launched yet"
 msgstr "qemu இன்னும் துவங்கப்படவில்லை"
 
-#: src/launch.c:266
+#: src/launch.c:285
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
@@ -4372,12 +4369,12 @@ msgid ""
 "handler"
 msgstr ""
 
-#: src/libvirt-auth.c:244 src/libvirt-auth.c:264 src/libvirt-auth.c:284
-#: src/libvirt-auth.c:305
+#: src/libvirt-auth.c:242 src/libvirt-auth.c:262 src/libvirt-auth.c:282
+#: src/libvirt-auth.c:303
 msgid "credential index out of range"
 msgstr ""
 
-#: src/libvirt-auth.c:325
+#: src/libvirt-auth.c:323
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
@@ -4569,27 +4566,27 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
 
-#: src/utils.c:109
+#: src/utils.c:114
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:112
+#: src/utils.c:117
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:116
+#: src/utils.c:121
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:120
+#: src/utils.c:125
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:124
+#: src/utils.c:129
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
@@ -4881,19 +4878,19 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../sysprep/main.ml:216
+#: ../sysprep/main.ml:230
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../sysprep/main.ml:63
+#: ../sysprep/main.ml:64
 msgid "%s: --domain option can only be given once\n"
 msgstr ""
 
-#: ../sysprep/main.ml:75
+#: ../sysprep/main.ml:76
 msgid "%s: --enable option can only be given once\n"
 msgstr ""
 
-#: ../sysprep/main.ml:87
+#: ../sysprep/main.ml:88
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
@@ -4977,7 +4974,7 @@ msgstr ""
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: ../sysprep/main.ml:202
+#: ../sysprep/main.ml:213
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
@@ -5008,7 +5005,7 @@ msgstr ""
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
-#: ../sysprep/main.ml:135
+#: ../sysprep/main.ml:137
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -5056,15 +5053,15 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../sysprep/main.ml:164
+#: ../sysprep/main.ml:166
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr ""
 
-#: ../sysprep/main.ml:79
+#: ../sysprep/main.ml:80
 msgid "%s: you cannot pass an empty argument to --enable\n"
 msgstr ""
 
-#: ../sysprep/main.ml:155
+#: ../sysprep/main.ml:157
 msgid "%s: you must give either -a or -d options\n"
 msgstr ""
 
@@ -5091,7 +5088,7 @@ msgstr ""
 msgid "..."
 msgstr ""
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:104 ../sysprep/main.ml:103
 msgid "Add disk image file"
 msgstr ""
 
@@ -5197,7 +5194,7 @@ msgstr ""
 msgid "Debug GC and memory allocations"
 msgstr ""
 
-#: ../sysprep/main.ml:106
+#: ../sysprep/main.ml:107
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -5206,7 +5203,7 @@ msgid "Delete partition"
 msgstr ""
 
 #. ../resize/resize.ml:110
-#: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:87
+#: ../sysprep/main.ml:127 ../sysprep/main.ml:126 ../sparsify/sparsify.ml:87
 msgid "Display version and exit"
 msgstr ""
 
@@ -5226,7 +5223,7 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../sysprep/main.ml:119 ../sysprep/main.ml:118
+#: ../sysprep/main.ml:121 ../sysprep/main.ml:120
 msgid "Don't print log messages"
 msgstr ""
 
@@ -5234,24 +5231,24 @@ msgstr ""
 msgid "Don't print the summary"
 msgstr ""
 
-#: ../sysprep/main.ml:112
+#: ../sysprep/main.ml:113
 msgid "Dump POD (internal)"
 msgstr ""
 
-#: ../sysprep/main.ml:113
+#: ../sysprep/main.ml:114
 msgid "Dump POD for options (internal)"
 msgstr ""
 
 #. ../resize/resize.ml:85
-#: ../sysprep/main.ml:123 ../sysprep/main.ml:122 ../sparsify/sparsify.ml:85
+#: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:85
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../sysprep/main.ml:114
+#: ../sysprep/main.ml:115
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../sysprep/main.ml:126 ../sparsify/sparsify.ml:89
+#: ../sysprep/main.ml:128 ../sparsify/sparsify.ml:89
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -5267,7 +5264,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:187
+#: ../sysprep/main.ml:198
 msgid ""
 "Examining the guest ...\n"
 "%!"
@@ -5330,7 +5327,7 @@ msgid ""
 "this is removed from C<ifcfg-*> files."
 msgstr ""
 
-#: ../sysprep/main.ml:120
+#: ../sysprep/main.ml:122
 msgid "Force SELinux relabel"
 msgstr ""
 
@@ -5358,7 +5355,7 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr ""
 
-#: ../resize/common_utils.ml:140
+#: ../resize/common_utils.ml:155
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
@@ -5378,11 +5375,11 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:117 ../sparsify/sparsify.ml:80 ../resize/resize.ml:94
+#: ../sysprep/main.ml:118 ../sparsify/sparsify.ml:80 ../resize/resize.ml:94
 msgid "List long options"
 msgstr ""
 
-#: ../sysprep/main.ml:116
+#: ../sysprep/main.ml:117
 msgid "List supported operations"
 msgstr ""
 
@@ -5394,7 +5391,7 @@ msgstr ""
 msgid "Mount point on host"
 msgstr ""
 
-#: ../sysprep/main.ml:121
+#: ../sysprep/main.ml:123
 msgid "Never do SELinux relabel"
 msgstr ""
 
@@ -5432,7 +5429,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../sysprep/main.ml:111 ../sysprep/main.ml:110 ../sysprep/main.ml:109
+#: ../sysprep/main.ml:112 ../sysprep/main.ml:111 ../sysprep/main.ml:110
 msgid "Perform a dry run"
 msgstr ""
 
@@ -5440,7 +5437,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../sysprep/main.ml:165 ../sysprep/main.ml:156
+#: ../sysprep/main.ml:167 ../sysprep/main.ml:158
 msgid "Read virt-sysprep(1) man page for further information.\n"
 msgstr ""
 
@@ -5670,16 +5667,20 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../sysprep/main.ml:115
+#: ../sysprep/main.ml:116
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
+#: ../sysprep/main.ml:106 ../sysprep/main.ml:105
 msgid "Set libvirt URI"
 msgstr ""
 
-#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
+#: ../sysprep/main.ml:109 ../sysprep/main.ml:108
 msgid "Set libvirt guest name"
+msgstr ""
+
+#: ../sysprep/main.ml:119
+msgid "Set mount options (/:noatime;/var:rw,noatime)"
 msgstr ""
 
 #: ../resize/resize.ml:83
@@ -5932,7 +5933,7 @@ msgstr ""
 msgid "dir"
 msgstr ""
 
-#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
+#: ../sysprep/main.ml:109 ../sysprep/main.ml:108
 msgid "domain"
 msgstr ""
 
@@ -5940,15 +5941,15 @@ msgstr ""
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../resize/common_utils.ml:264
+#: ../resize/common_utils.ml:279
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:191 ../resize/common_utils.ml:266
+#: ../sparsify/sparsify.ml:191 ../resize/common_utils.ml:281
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:193 ../resize/common_utils.ml:268
+#: ../sparsify/sparsify.ml:193 ../resize/common_utils.ml:283
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -5956,11 +5957,11 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:133
+#: ../sysprep/main.ml:135
 msgid "extra parameter on the command line"
 msgstr ""
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:104 ../sysprep/main.ml:103
 msgid "file"
 msgstr ""
 
@@ -5970,7 +5971,7 @@ msgstr ""
 
 #. ../resize/resize.ml:104
 #. ../resize/resize.ml:92
-#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:78
+#: ../sysprep/main.ml:116 ../sparsify/sparsify.ml:78
 #: ../sparsify/sparsify.ml:76
 msgid "format"
 msgstr ""
@@ -6006,12 +6007,16 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../sysprep/main.ml:114
+#: ../sysprep/main.ml:115
 msgid "operations"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:82
 msgid "option"
+msgstr ""
+
+#: ../sysprep/main.ml:119
+msgid "opts"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:169
@@ -6080,26 +6085,26 @@ msgstr ""
 msgid "set user password (see man page)"
 msgstr ""
 
-#: ../sysprep/main.ml:263
+#: ../sysprep/main.ml:277
 msgid "sysprep operation failed: %s\n"
 msgstr ""
 
-#: ../sysprep/main.ml:275
+#: ../sysprep/main.ml:289
 msgid "sysprep operation failed: exception: %s\n"
 msgstr ""
 
-#: ../sysprep/main.ml:272
+#: ../sysprep/main.ml:286
 msgid ""
 "sysprep operation failed: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../sysprep/main.ml:269
+#: ../sysprep/main.ml:283
 msgid ""
 "sysprep operation failed: internal error: assertion failed at %s, line %d, "
 "char %d\n"
 msgstr ""
 
-#: ../sysprep/main.ml:266
+#: ../sysprep/main.ml:280
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -6111,7 +6116,7 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
+#: ../sysprep/main.ml:106 ../sysprep/main.ml:105
 msgid "uri"
 msgstr ""
 
@@ -6123,7 +6128,7 @@ msgstr ""
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr ""
 
-#: ../resize/common_utils.ml:136
+#: ../resize/common_utils.ml:151
 msgid "virt-resize: error: "
 msgstr ""
 
