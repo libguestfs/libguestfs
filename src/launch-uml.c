@@ -478,21 +478,6 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   return -1;
 }
 
-static bool
-is_numeric (const char *name)
-{
-  if (!*name)
-    return false;
-
-  while (*name) {
-    if (!c_isdigit (*name))
-      return false;
-    name++;
-  }
-
-  return true;
-}
-
 /* Run uml_mkcow to create a COW overlay.  This works around a kernel
  * bug in UML option parsing.
  */
