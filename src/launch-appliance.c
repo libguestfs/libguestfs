@@ -319,6 +319,10 @@ launch_appliance (guestfs_h *g, const char *arg)
         add_cmdline (g, "-enable-kvm");
     }
 
+    /* Specify the host CPU for speed, and kvmclock for stability. */
+    add_cmdline (g, "-cpu");
+    add_cmdline (g, "host,+kvmclock");
+
     if (g->smp > 1) {
       snprintf (buf, sizeof buf, "%d", g->smp);
       add_cmdline (g, "-smp");

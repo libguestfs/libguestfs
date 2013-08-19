@@ -477,14 +477,6 @@ image would be replaced by equivalent files of zeroes, thus minimizing
 the size of the debug image that needs to be shipped to us by the
 customer.
 
-Optimize the appliance
-----------------------
-
-Pass -cpu host.  Anything else?
-
-[The libvirt attach-method uses 'host-model' which is basically
-the same as this]
-
 Sort out partitioning
 ---------------------
 
