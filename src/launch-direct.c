@@ -1023,7 +1023,7 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
   if (data->recoverypid > 0) kill (data->recoverypid, 9);
 
   /* Wait for subprocess(es) to exit. */
-  if (data->pid > 0) {
+  if (g->recovery_proc /* RHBZ#998482 */ && data->pid > 0) {
     if (waitpid (data->pid, &status, 0) == -1) {
       perrorf (g, "waitpid (qemu)");
       ret = -1;
