@@ -682,12 +682,15 @@ shutdown_uml (guestfs_h *g, void *datav, int check_for_errors)
       perrorf (g, "waitpid (vmlinux)");
       ret = -1;
     }
-    /* Note it's normal for the vmlinux process to exit with status
-     * "killed by signal 15" (where 15 == SIGTERM).  So don't consider
-     * that to be an error.
+    /* Note it's normal for the pre-3.11 vmlinux process to exit with
+     * status "killed by signal 15" (where 15 == SIGTERM).  Post 3.11
+     * the exit status can normally be 1.
+     *
+     * So don't consider those to be an error.
      */
     else if (!(WIFSIGNALED (status) && WTERMSIG (status) == SIGTERM) &&
-             !(WIFEXITED (status) && WEXITSTATUS (status) == 0)) {
+             !(WIFEXITED (status) && WEXITSTATUS (status) == 0) &&
+             !(WIFEXITED (status) && WEXITSTATUS (status) == 1)) {
       guestfs___external_command_failed (g, status, g->hv, NULL);
       ret = -1;
     }
