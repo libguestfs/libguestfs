@@ -785,7 +785,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
 {
   struct guestfs_message_header hdr;
   XDR xdr;
-  u_int32_t len;
+  uint32_t len;
   int serial = g->msg_next_serial++;
   int r;
   CLEANUP_FREE char *msg_out = NULL;
@@ -962,7 +962,7 @@ send_file_complete (guestfs_h *g)
 static int
 send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
 {
-  u_int32_t len;
+  uint32_t len;
   int r;
   guestfs_chunk chunk;
   XDR xdr;
