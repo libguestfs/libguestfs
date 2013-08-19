@@ -38,7 +38,7 @@ EXTRA_DIST = \
 	lib-x86_64.so \
 	test-grep.txt
 
-noinst_DATA = test.iso
+check_DATA = test.iso
 
 CLEANFILES = \
 	test.iso test.sqsh \
