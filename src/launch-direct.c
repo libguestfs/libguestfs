@@ -1017,7 +1017,7 @@ shutdown_direct (guestfs_h *g, int check_for_errors)
   if (g->direct.recoverypid > 0) kill (g->direct.recoverypid, 9);
 
   /* Wait for subprocess(es) to exit. */
-  if (g->direct.pid > 0) {
+  if (g->recovery_proc /* RHBZ#998482 */ && g->direct.pid > 0) {
     if (waitpid (g->direct.pid, &status, 0) == -1) {
       perrorf (g, "waitpid (qemu)");
       ret = -1;
