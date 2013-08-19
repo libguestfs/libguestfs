@@ -1039,6 +1039,24 @@ and cleans up guestfish when the script exits:
  
  # ...
 
+=head2 REMOTE CONTROL DOES NOT WORK WITH I<-a> ETC. OPTIONS
+
+Options such as I<-a>, I<--add>, I<-N>, I<--new> etc don't interact
+properly with remote support.  They are processed locally, and not
+sent through to the remote guestfish.  In particular this won't do
+what you expect:
+
+ guestfish --remote --add disk.img
+
+Don't use these options.  Use the equivalent commands instead, eg:
+
+ guestfish --remote add-drive disk.img
+
+or:
+
+ guestfish --remote
+ ><fs> add disk.img
+
 =head2 REMOTE CONTROL RUN COMMAND HANGING
 
 Using the C<run> (or C<launch>) command remotely in a command
