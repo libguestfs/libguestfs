@@ -1044,7 +1044,7 @@ shutdown_appliance (guestfs_h *g, int check_for_errors)
   if (g->app.recoverypid > 0) kill (g->app.recoverypid, 9);
 
   /* Wait for subprocess(es) to exit. */
-  if (g->app.pid > 0) {
+  if (g->recovery_proc /* RHBZ#998482 */ && g->app.pid > 0) {
     if (waitpid (g->app.pid, &status, 0) == -1) {
       perrorf (g, "waitpid (qemu)");
       ret = -1;
