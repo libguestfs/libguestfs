@@ -51,7 +51,6 @@ struct backend_uml_data {
 
 static void print_vmlinux_command_line (guestfs_h *g, char **argv);
 static char *make_cow_overlay (guestfs_h *g, const char *original);
-static int kill_vmlinux (guestfs_h *g, struct backend_uml_data *data, int signum);
 
 /* Test for features which are not supported by the UML backend.
  * Possibly some of these should just be warnings, not errors.
@@ -180,9 +179,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
 
   ADD_CMDLINE (g->hv);
 
-  /* UMID: *NB* This must be the first parameter on the command line
-   * because of kill_vmlinux below.
-   */
+  /* Give this instance a unique random ID. */
   ADD_CMDLINE_PRINTF ("umid=%s", data->umid);
 
   /* Set memory size. */
@@ -384,7 +381,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
           _exit (EXIT_SUCCESS);
         if (kill (parent_pid, 0) == -1) {
           /* Parent's gone away, vmlinux still around, so kill vmlinux. */
-          kill_vmlinux (g, data, SIGKILL);
+          kill (data->pid, SIGKILL);
           _exit (EXIT_SUCCESS);
         }
         sleep (2);
@@ -460,7 +457,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
     close (csv[0]);
   if (dsv[0] >= 0)
     close (dsv[0]);
-  if (data->pid > 0) kill_vmlinux (g, data, SIGKILL);
+  if (data->pid > 0) kill (data->pid, SIGKILL);
   if (data->recoverypid > 0) kill (data->recoverypid, SIGKILL);
   if (data->pid > 0) waitpid (data->pid, NULL, 0);
   if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
@@ -494,113 +491,6 @@ is_numeric (const char *name)
   }
 
   return true;
-}
-
-/* You can't just kill the parent vmlinux PID (data->pid) and have
- * the whole process go away.  You have to kill all related vmlinux
- * PIDs.  I think this is related to a 'FIXME' in the UML code (in
- * function 'kill_off_processes') which seems to indicate that it
- * doesn't kill any UML-userspace processes.
- *
- * We use the 'umid=' on the command line (by reading /proc/PID/cmdline)
- * to identify the related PIDs so we can kill them too.
- *
- * XXX Possibly insecure if a process spoofs umid= argument for some
- * reason.
- */
-static int
-kill_vmlinux (guestfs_h *g, struct backend_uml_data *data, int signum)
-{
-  DIR *dir;
-
-  kill (data->pid, signum);
-
-  /* Find the related processes. */
-  dir = opendir ("/proc");
-  if (dir == NULL) {
-    perrorf (g, "opendir: /proc");
-    return -1;
-  }
-
-  for (;;) {
-    pid_t pid;
-    struct dirent *d;
-    FILE *fp;
-    char procname[64];
-    size_t i;
-    char umid[UML_UMID_LEN+1];
-
-    errno = 0;
-    d = readdir (dir);
-    if (d == NULL) break;
-
-    /* Ignore anything which is not numeric. */
-    if (! is_numeric (d->d_name))
-      continue;
-
-    if (sscanf (d->d_name, "%d", &pid) != 1)
-      continue;
-
-    if (pid <= 0)
-      continue;
-
-    snprintf (procname, sizeof procname, "/proc/%d/cmdline", pid);
-    fp = fopen (procname, "r");
-    if (fp == NULL)
-      continue;                 /* Ignore it, there are many reasons
-                                 * this could legitimately fail.
-                                 */
-
-    /* /proc/PID/cmdline is argv[0].. with each string separated by a \0.
-     * As umid= parameter is always argv[1], search for the first \0
-     * followed by 'u' 'm' 'i' 'd' '='.
-     */
-    for (;;) {
-      int c = fgetc (fp);
-      if (c == 0)
-        goto found_0;
-      if (c == EOF)
-        goto not_found;
-    }
-
-  found_0:
-    if (fgetc (fp) != 'u' ||
-        fgetc (fp) != 'm' ||
-        fgetc (fp) != 'i' ||
-        fgetc (fp) != 'd' ||
-        fgetc (fp) != '=')
-      goto not_found;
-
-    for (i = 0; i < UML_UMID_LEN; ++i) {
-      int c = fgetc (fp);
-      if (c == 0 || c == EOF)
-        goto not_found;
-      umid[i] = c;
-    }
-    umid[i] = '\0';
-
-    if (STRNEQ (umid, data->umid))
-      goto not_found;
-
-    /* Found a related process - kill it! */
-    kill (pid, signum);
-
-  not_found:
-    fclose (fp);
-  }
-
-  if (errno != 0) {
-    perrorf (g, "readdir: /proc");
-    closedir (dir);
-    return -1;
-  }
-
-  if (closedir (dir) == -1) {
-    perrorf (g, "closedir: /proc");
-    return -1;
-  }
-
-  return 0;
 }
 
 /* Run uml_mkcow to create a COW overlay.  This works around a kernel
@@ -672,7 +562,7 @@ shutdown_uml (guestfs_h *g, void *datav, int check_for_errors)
   /* Signal vmlinux to shutdown cleanly, and kill the recovery process. */
   if (data->pid > 0) {
     debug (g, "sending SIGTERM to process %d", data->pid);
-    kill_vmlinux (g, data, SIGTERM);
+    kill (data->pid, SIGTERM);
   }
   if (data->recoverypid > 0) kill (data->recoverypid, 9);
 
