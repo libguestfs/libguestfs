@@ -82,7 +82,7 @@ images_files_build = \
 	initrd-x86_64.img.gz \
 	test-grep.txt.gz
 
-noinst_DATA = $(images_files_build) test.iso
+check_DATA = $(images_files_build) test.iso
 
 CLEANFILES = $(images_files_build) test.iso
 
