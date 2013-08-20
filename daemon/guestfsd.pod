@@ -85,7 +85,27 @@ The virtio serial port which C<guestfsd> connects to.
 
 =item C</proc/cmdline>
 
-The Linux command line is parsed to discover C<guestfs_*> flags.
+The Linux command line is parsed to discover C<guestfs_*> flags.  The
+following flags are understood:
+
+=over 4
+
+=item B<guestfs_verbose=1>
+
+Enable verbose messages.  This flag is passed by the libguestfs
+library to the appliance to make the daemon more verbose (it acts like
+the I<-v> flag on the command line).  Unrelated to the daemon, it also
+causes the appliance init script to print out a lot more debugging
+information.
+
+=item B<guestfs_channel=PATH>
+
+Set the path to the virtio-serial channel to something other than the
+default (which is C</dev/virtio-ports/org.libguestfs.channel.0>).
+This is used by the User-Mode Linux backend to use a regular emulated
+serial port instead of virtio-serial.
+
+=back
 
 =back
 
