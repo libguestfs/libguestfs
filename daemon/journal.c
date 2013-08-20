@@ -216,6 +216,11 @@ do_journal_set_data_threshold (int64_t threshold)
 
 #else /* !HAVE_SD_JOURNAL */
 
-OPTGROUP_SD_JOURNAL_NOT_AVAILABLE
+OPTGROUP_JOURNAL_NOT_AVAILABLE
+
+void
+journal_finalize (void)
+{
+}
 
 #endif /* !HAVE_SD_JOURNAL */
