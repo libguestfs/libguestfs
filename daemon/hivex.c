@@ -417,4 +417,9 @@ do_hivex_node_set_value (int64_t nodeh,
 
 OPTGROUP_HIVEX_NOT_AVAILABLE
 
+void
+hivex_finalize (void)
+{
+}
+
 #endif /* !HAVE_HIVEX */
