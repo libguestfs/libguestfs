@@ -117,10 +117,8 @@ guestfs__journal_get (guestfs_h *g)
              "size=%zu, i=%zu", size, i);
       goto err;
     }
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-align"
-    len = be64toh (* (uint64_t *) &buf[i]);
-#pragma GCC diagnostic pop
+    memcpy(&len, &buf[i], sizeof(len));
+    len = be64toh (len);
     i += 8;
     eofield = &buf[i+len];
     if (eofield > eobuf) {
