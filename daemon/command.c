@@ -41,7 +41,7 @@ char *
 do_command (char *const *argv)
 {
   char *out;
-  CLEANUP_FREE char *err;
+  CLEANUP_FREE char *err = NULL;
   int r;
   CLEANUP_FREE char *sysroot_dev = NULL, *sysroot_dev_pts = NULL,
     *sysroot_proc = NULL, *sysroot_sys = NULL;
