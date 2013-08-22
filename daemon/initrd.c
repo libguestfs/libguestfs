@@ -86,7 +86,7 @@ char *
 do_initrd_cat (const char *path, const char *filename, size_t *size_r)
 {
   char tmpdir[] = "/tmp/initrd-cat-XXXXXX";
-  CLEANUP_FREE char *cmd;
+  CLEANUP_FREE char *cmd = NULL;
   struct stat statbuf;
   int fd, r;
   char *ret = NULL;

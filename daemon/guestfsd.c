@@ -710,7 +710,7 @@ commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 {
   va_list args;
   /* NB: Mustn't free the strings which are on the stack. */
-  CLEANUP_FREE const char **argv;
+  CLEANUP_FREE const char **argv = NULL;
   char *s;
   size_t i;
   int r;
@@ -754,7 +754,7 @@ int
 commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 {
   va_list args;
-  CLEANUP_FREE const char **argv;
+  CLEANUP_FREE const char **argv = NULL;
   char *s;
   int i, r;
 

@@ -492,7 +492,7 @@ do_file (const char *path)
   const char *flags = is_dev ? "-zbsL" : "-zb";
 
   char *out;
-  CLEANUP_FREE char *err;
+  CLEANUP_FREE char *err = NULL;
   int r = command (&out, &err, str_file, flags, path, NULL);
 
   if (r == -1) {

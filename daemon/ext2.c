@@ -649,9 +649,9 @@ char *
 do_get_e2attrs (const char *filename)
 {
   int r;
-  CLEANUP_FREE char *buf;
+  CLEANUP_FREE char *buf = NULL;
   char *out;
-  CLEANUP_FREE char *err;
+  CLEANUP_FREE char *err = NULL;
   size_t i, j;
 
   buf = sysroot_path (filename);

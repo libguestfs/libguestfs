@@ -325,7 +325,7 @@ debug_binaries (const char *subcmd, size_t argc, char *const *const argv)
 {
   int r;
   char *out;
-  CLEANUP_FREE char *err;
+  CLEANUP_FREE char *err = NULL;
   char cmd[256];
 
   snprintf (cmd, sizeof (cmd),
@@ -395,7 +395,7 @@ debug_ls (const char *subcmd, size_t argc, char *const *const argv)
   size_t i;
   int r;
   char *out;
-  CLEANUP_FREE char *err;
+  CLEANUP_FREE char *err = NULL;
 
   cargv[0] = str_ls;
   cargv[1] = "-a";
@@ -422,7 +422,7 @@ debug_ll (const char *subcmd, size_t argc, char *const *const argv)
   size_t i;
   int r;
   char *out;
-  CLEANUP_FREE char *err;
+  CLEANUP_FREE char *err = NULL;
 
   cargv[0] = str_ls;
   cargv[1] = "-la";

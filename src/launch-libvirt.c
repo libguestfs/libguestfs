@@ -1621,7 +1621,7 @@ make_drive_priv (guestfs_h *g, struct drive *drv,
       drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
     }
     else {
-      CLEANUP_FREE char *qemu_device;
+      CLEANUP_FREE char *qemu_device = NULL;
 
       drv_priv->real_src.protocol = drive_protocol_file;
       qemu_device = guestfs___drive_source_qemu_param (g, &drv->src);

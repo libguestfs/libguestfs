@@ -480,7 +480,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     if (STRCASEEQLEN (key, "\\DosDevices\\", 12) &&
         c_isalpha (key[12]) && key[13] == ':') {
       /* Get the binary value.  Is it a fixed disk? */
-      CLEANUP_FREE char *blob;
+      CLEANUP_FREE char *blob = NULL;
       char *device;
       size_t len;
       int64_t type;

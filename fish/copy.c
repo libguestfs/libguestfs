@@ -217,7 +217,7 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
   /* Download each remote one at a time using tar-out. */
   int i, r;
   for (i = 0; i < nr_remotes; ++i) {
-    CLEANUP_FREE char *remote;
+    CLEANUP_FREE char *remote = NULL;
 
     /* Allow win:... prefix on remotes. */
     remote = win_prefix (argv[i]);
