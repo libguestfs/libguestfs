@@ -280,7 +280,7 @@ do_internal_lxattrlist (const char *path, char *const *names)
 
   for (k = 0; names[k] != NULL; ++k) {
     void *newptr;
-    CLEANUP_FREE char *pathname;
+    CLEANUP_FREE char *pathname = NULL;
 
     /* Be careful in this loop about which errors cause the whole call
      * to abort, and which errors allow us to continue processing

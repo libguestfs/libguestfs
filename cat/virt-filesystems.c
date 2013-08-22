@@ -688,7 +688,7 @@ do_output_blockdevs (void)
   for (i = 0; devices[i] != NULL; ++i) {
     int64_t size = -1;
     CLEANUP_FREE_STRING_LIST char **parents = NULL;
-    CLEANUP_FREE char *dev;
+    CLEANUP_FREE char *dev = NULL;
 
     dev = guestfs_canonical_device_name (g, devices[i]);
     if (!dev)

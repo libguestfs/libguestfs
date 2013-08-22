@@ -892,7 +892,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
   CLEANUP_FREE_STRING_LIST char **entries = NULL;
   char **entry;
   char augpath[256];
-  CLEANUP_HASH_FREE Hash_table *md_map;
+  CLEANUP_HASH_FREE Hash_table *md_map = NULL;
 
   /* Generate a map of MD device paths listed in /etc/mdadm.conf to MD device
    * paths in the guestfs appliance */

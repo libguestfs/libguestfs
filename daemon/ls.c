@@ -131,7 +131,7 @@ do_llz (const char *path)
   int r;
   char *out;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *spath;
+  CLEANUP_FREE char *spath = NULL;
 
   spath = sysroot_path (path);
   if (!spath) {

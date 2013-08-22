@@ -161,7 +161,7 @@ print_inspect_prompt (void)
 {
   size_t i;
   CLEANUP_FREE char *name = NULL;
-  CLEANUP_FREE_STRING_LIST char **mountpoints;
+  CLEANUP_FREE_STRING_LIST char **mountpoints = NULL;
 
   name = guestfs_inspect_get_product_name (g, root);
   if (name && STRNEQ (name, "unknown"))

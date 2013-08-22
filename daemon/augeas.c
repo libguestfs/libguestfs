@@ -373,7 +373,7 @@ do_aug_ls (const char *path)
   if (STREQ (path, "/"))
     matches = do_aug_match ("/*");
   else {
-    CLEANUP_FREE char *buf;
+    CLEANUP_FREE char *buf = NULL;
 
     len += 3;			/* / * + terminating \0 */
     buf = malloc (len);
