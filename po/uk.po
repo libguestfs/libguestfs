@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-07-26 17:53+0100\n"
+"POT-Creation-Date: 2013-08-27 11:52+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: align/scan.c:73 cat/virt-cat.c:56 cat/virt-filesystems.c:87
-#: cat/virt-ls.c:89 df/main.c:68 edit/virt-edit.c:69 fish/fish.c:104
+#: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:69 fish/fish.c:104
 #: fuse/guestmount.c:99 fuse/guestunmount.c:52 inspector/virt-inspector.c:67
 #: rescue/virt-rescue.c:56
 #, c-format
@@ -70,7 +70,7 @@ msgstr ""
 "З докладнішими даними можна ознайомитися на сторінці довідника (man) %s(1).\n"
 
 #: align/scan.c:134 cat/virt-cat.c:115 cat/virt-filesystems.c:188
-#: cat/virt-ls.c:180 df/main.c:135 edit/virt-edit.c:134 fish/fish.c:233
+#: cat/virt-ls.c:180 df/main.c:133 edit/virt-edit.c:134 fish/fish.c:233
 #: format/format.c:126 fuse/guestmount.c:207 inspector/virt-inspector.c:127
 #: rescue/virt-rescue.c:135
 #, c-format
@@ -78,19 +78,19 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
 #: align/scan.c:154 cat/virt-cat.c:137 cat/virt-filesystems.c:242
-#: cat/virt-ls.c:230 df/main.c:159 edit/virt-edit.c:156 fish/fish.c:289
+#: cat/virt-ls.c:230 df/main.c:157 edit/virt-edit.c:156 fish/fish.c:289
 #: format/format.c:178 fuse/guestmount.c:242 fuse/guestunmount.c:124
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: невідомий довгий запис параметра: %s (%d)\n"
 
-#: align/scan.c:174 df/main.c:187
+#: align/scan.c:174 df/main.c:185
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr "%s: аргумент параметра -P не є числом\n"
 
-#: align/scan.c:229 df/main.c:277
+#: align/scan.c:229 df/main.c:279
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr "%s: зібрано без підтримки libvirt.\n"
@@ -147,14 +147,14 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-cat.c:353 edit/virt-edit.c:621 fish/fish.c:1699
+#: cat/virt-cat.c:357 edit/virt-edit.c:625 fish/fish.c:1703
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для використання літерних позначень дисків Windows ваша система має бути "
 "гостьовою системою Windows\n"
 
-#: cat/virt-cat.c:367 edit/virt-edit.c:635
+#: cat/virt-cat.c:371 edit/virt-edit.c:639
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr "%s: диск '%c:' не знайдено.\n"
@@ -236,7 +236,7 @@ msgstr ""
 "  -x                   Показати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-filesystems.c:304 cat/virt-ls.c:334 df/main.c:260
+#: cat/virt-filesystems.c:304 cat/virt-ls.c:338 df/main.c:262
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: не можна одночасно використовувати параметри -h та --csv.\n"
@@ -302,7 +302,7 @@ msgstr ""
 "  -x                   Трасувати виклики API libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/virt-ls.c:325
+#: cat/virt-ls.c:329
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -312,12 +312,12 @@ msgstr ""
 "lR\n"
 "Докладніші дані наведено на сторінці довідника (man) virt-ls(1).\n"
 
-#: cat/virt-ls.c:505
+#: cat/virt-ls.c:509
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: помилка під час спроби отримання розширених атрибутів %s %s\n"
 
-#: cat/virt-ls.c:515
+#: cat/virt-ls.c:519
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: помилка: не вдалося обробити числове значення xattr для %s %s\n"
@@ -352,7 +352,7 @@ msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: не вдалося побудувати список неактивних доменів (код %d, домен %d): %s\n"
 
-#: df/main.c:72
+#: df/main.c:70
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -400,11 +400,6 @@ msgstr ""
 "  -V|--version         Показати дані щодо версії і завершити роботу\n"
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
-
-#: df/main.c:342
-#, c-format
-msgid "%s: xmlSaveUri: could not make printable URI\n"
-msgstr ""
 
 #: df/output.c:49
 msgid "VirtualMachine"
@@ -2984,22 +2979,22 @@ msgstr ""
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: можна вказувати лише один параметр -f\n"
 
-#: fish/fish.c:485
+#: fish/fish.c:489
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --remote\n"
 
-#: fish/fish.c:493
+#: fish/fish.c:497
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: зайві параметри у командному рядку з прапорцем --listen\n"
 
-#: fish/fish.c:499
+#: fish/fish.c:503
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --file\n"
 
-#: fish/fish.c:661
+#: fish/fish.c:665
 #, c-format
 msgid ""
 "\n"
@@ -3012,51 +3007,51 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:812 fish/fish.c:828
+#: fish/fish.c:816 fish/fish.c:832
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:822
+#: fish/fish.c:826
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:852
+#: fish/fish.c:856
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:869
+#: fish/fish.c:873
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:944
+#: fish/fish.c:948
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:953
+#: fish/fish.c:957
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:1016
+#: fish/fish.c:1020
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: порожня команда або командний рядок\n"
 
-#: fish/fish.c:1174
+#: fish/fish.c:1178
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1176
+#: fish/fish.c:1180
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1187
+#: fish/fish.c:1191
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -3067,7 +3062,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1195
+#: fish/fish.c:1199
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -3076,13 +3071,13 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1200
+#: fish/fish.c:1204
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
 
-#: fish/fish.c:1216
+#: fish/fish.c:1220
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -3093,22 +3088,22 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1225
+#: fish/fish.c:1229
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1268
+#: fish/fish.c:1272
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr "%s: «%s»: некоректне булеве значення, має бути 'true' або 'false'\n"
 
-#: fish/fish.c:1376
+#: fish/fish.c:1380
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1693
+#: fish/fish.c:1697
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -3118,7 +3113,7 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1713
+#: fish/fish.c:1717
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -3128,7 +3123,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1732
+#: fish/fish.c:1736
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -3332,32 +3327,17 @@ msgstr ""
 "скористайтеся командою «%s назва_файла» для поділу вмісту файла під час "
 "перегляду на сторінки\n"
 
-#: fish/options.c:103
-#, c-format
-msgid "%s: --add: could not parse URI '%s'\n"
-msgstr ""
-
-#: fish/options.c:114
-#, c-format
-msgid "%s: --add %s: scheme of URI is NULL\n"
-msgstr ""
-
-#: fish/options.c:122
-#, c-format
-msgid "%s: --add %s: cannot both a server name and a socket query parameter\n"
-msgstr ""
-
-#: fish/options.c:292
+#: fish/options.c:86
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: у командному рядку вказано занадто багато пристроїв\n"
 
-#: fish/options.c:435
+#: fish/options.c:227
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: не вдалося змонтувати «%s».\n"
 
-#: fish/options.c:439
+#: fish/options.c:231
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -3367,7 +3347,7 @@ msgstr ""
 "параметрами «%s»\n"
 "%s: підтримуються файловою системою, яка монтується.\n"
 
-#: fish/options.c:443
+#: fish/options.c:235
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr "%s: ви хотіли змонтувати одну з цих файлових систем?\n"
@@ -3567,6 +3547,21 @@ msgstr "ні"
 #, c-format
 msgid "use 'time command [args...]'\n"
 msgstr "скористайтеся командою «time команда [аргументи...]»\n"
+
+#: fish/uri.c:111
+#, c-format
+msgid "%s: --add: could not parse URI '%s'\n"
+msgstr ""
+
+#: fish/uri.c:122
+#, c-format
+msgid "%s: %s: scheme of URI is NULL or empty\n"
+msgstr ""
+
+#: fish/uri.c:130
+#, c-format
+msgid "%s: %s: cannot both a server name and a socket query parameter\n"
+msgstr ""
 
 #: format/format.c:61
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
@@ -3817,12 +3812,12 @@ msgstr ""
 "  --xpath query        Виконати запит XPath\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: inspector/virt-inspector.c:238
+#: inspector/virt-inspector.c:242
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr "%s: не можна використовувати --xpath разом з іншими параметрами.\n"
 
-#: inspector/virt-inspector.c:272
+#: inspector/virt-inspector.c:276
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3852,52 +3847,52 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: inspector/virt-inspector.c:287
+#: inspector/virt-inspector.c:291
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr "%s: помилка запису XML у «%s»: %m\n"
 
-#: inspector/virt-inspector.c:299
+#: inspector/virt-inspector.c:303
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr "%s: xmlOutputBufferCreateFd: не вдалося відкрити stdout\n"
 
-#: inspector/virt-inspector.c:308
+#: inspector/virt-inspector.c:312
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: не вдалося створити процес запису libxml2\n"
 
-#: inspector/virt-inspector.c:765
+#: inspector/virt-inspector.c:769
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr "%s: не вдалося обробити код XML з stdin\n"
 
-#: inspector/virt-inspector.c:771
+#: inspector/virt-inspector.c:775
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr "%s: не вдалося створити контекст XPath\n"
 
-#: inspector/virt-inspector.c:778
+#: inspector/virt-inspector.c:782
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr "%s: не вдалося обробити вираз XPath\n"
 
-#: inspector/virt-inspector.c:791
+#: inspector/virt-inspector.c:795
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr "%s: помилка xmlSaveToFd\n"
 
-#: inspector/virt-inspector.c:798
+#: inspector/virt-inspector.c:802
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr "%s: помилка xmlNewDoc\n"
 
-#: inspector/virt-inspector.c:803
+#: inspector/virt-inspector.c:807
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr "%s: помилка xmlCopyNode\n"
 
-#: inspector/virt-inspector.c:810
+#: inspector/virt-inspector.c:814
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr "%s: помилка xmlSaveDoc\n"
@@ -3980,7 +3975,7 @@ msgstr "%s: значенням у параметрі --scratch «%s» має б�
 msgid "%s: could not parse memory size '%s'\n"
 msgstr "%s: не вдалося обробити запис об’єму пам’яті «%s»\n"
 
-#: rescue/virt-rescue.c:313
+#: rescue/virt-rescue.c:317
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
@@ -3989,7 +3984,7 @@ msgstr ""
 "%s: попередження: у поточній версії virt-rescue не може працювати з модулем\n"
 "libvirt Щоб усунути цю незручність, буде примусово вибрано модуль «direct».\n"
 
-#: rescue/virt-rescue.c:397
+#: rescue/virt-rescue.c:401
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -3998,7 +3993,7 @@ msgstr ""
 "Вивчення віртуальної машини або образу диска...\n"
 "\n"
 
-#: rescue/virt-rescue.c:416
+#: rescue/virt-rescue.c:420
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -4011,7 +4006,7 @@ msgstr ""
 "запит ><rescue>) для монтування файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:426
+#: rescue/virt-rescue.c:430
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -4024,7 +4019,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/virt-rescue.c:483
+#: rescue/virt-rescue.c:487
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -4041,7 +4036,7 @@ msgstr ""
 "створити розділи, логічні томи та файлові системи на порожньому\n"
 "диску.\n"
 
-#: rescue/virt-rescue.c:490
+#: rescue/virt-rescue.c:494
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -4055,7 +4050,7 @@ msgstr ""
 "відповідь на запит ><rescue>) для монтування цих файлових систем.\n"
 "\n"
 
-#: rescue/virt-rescue.c:495
+#: rescue/virt-rescue.c:499
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
@@ -4095,15 +4090,15 @@ msgstr "accept_connection викликано двічі"
 msgid "read_data: socket not connected"
 msgstr "read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:195
+#: src/conn-socket.c:205
 msgid "can_read_data: socket not connected"
 msgstr "can_read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:224
+#: src/conn-socket.c:234
 msgid "write_data: socket not connected"
 msgstr "write_data: сокет не з’єднано"
 
-#: src/conn-socket.c:317
+#: src/conn-socket.c:327
 msgid "error reading console messages from the appliance"
 msgstr "помилка під час читання повідомлень консолі з базової системи"
 
@@ -4547,7 +4542,7 @@ msgstr "файл випуску %s є порожнім або форматова
 
 #: src/inspect-fs-unix.c:250 src/inspect-fs-unix.c:332
 #: src/inspect-fs-unix.c:864 src/inspect-fs-unix.c:1529 src/inspect-fs.c:563
-#: src/inspect-fs.c:609 src/inspect.c:559
+#: src/inspect-fs.c:609 src/inspect.c:530
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
@@ -4566,20 +4561,20 @@ msgstr "не вдалося обробити ціле число у номері
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
 
-#: src/inspect.c:242
+#: src/inspect.c:229
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:258
+#: src/inspect.c:245
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 "не є гостьовою системою Windows або не вдалося визначити CurrentControlSet"
 
-#: src/inspect.c:595
+#: src/inspect.c:566
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:607
+#: src/inspect.c:578
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -4603,52 +4598,52 @@ msgstr "не вдалося обробити рядок у лапках побл
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:661 src/launch-libvirt.c:449
+#: src/launch-direct.c:651 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-libvirt.c:172
+#: src/launch-libvirt.c:171
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: src/launch-libvirt.c:181
+#: src/launch-libvirt.c:180
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
 
-#: src/launch-libvirt.c:196
+#: src/launch-libvirt.c:195
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:212
+#: src/launch-libvirt.c:211
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:382
+#: src/launch-libvirt.c:381
 msgid "could not create appliance through libvirt"
 msgstr "не вдалося створити систему для розгортання за допомогою libvirt"
 
-#: src/launch-libvirt.c:511
+#: src/launch-libvirt.c:510
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: src/launch-libvirt.c:517 src/libvirt-domain.c:352 src/libvirt-domain.c:435
+#: src/launch-libvirt.c:516 src/libvirt-domain.c:352 src/libvirt-domain.c:435
 #: src/libvirt-domain.c:642
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: src/launch-libvirt.c:527
+#: src/launch-libvirt.c:526
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: src/launch-libvirt.c:560
+#: src/launch-libvirt.c:559
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4676,22 +4671,22 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:711
+#: src/launch-libvirt.c:710
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "помилка під час спроби побудувати XML для libvirt у «%s»"
 
-#: src/launch-libvirt.c:1056
+#: src/launch-libvirt.c:1055
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1167
+#: src/launch-libvirt.c:1166
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1205
+#: src/launch-libvirt.c:1204
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4703,7 +4698,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1216
+#: src/launch-libvirt.c:1215
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4716,29 +4711,29 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1598
+#: src/launch-libvirt.c:1568
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1677
+#: src/launch-libvirt.c:1647
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1709
+#: src/launch-libvirt.c:1679
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1769
+#: src/launch-libvirt.c:1739
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1798
+#: src/launch-libvirt.c:1768
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
-#: src/launch-libvirt.c:1844
+#: src/launch-libvirt.c:1814
 #, c-format
 msgid ""
 "libvirt backend is not available because this version of libguestfs was "
@@ -4804,12 +4799,12 @@ msgid ""
 "handler"
 msgstr "%s слід викликати лише з обробника подій GUESTFS_EVENT_LIBVIRT_AUTH"
 
-#: src/libvirt-auth.c:244 src/libvirt-auth.c:264 src/libvirt-auth.c:284
-#: src/libvirt-auth.c:305
+#: src/libvirt-auth.c:242 src/libvirt-auth.c:262 src/libvirt-auth.c:282
+#: src/libvirt-auth.c:303
 msgid "credential index out of range"
 msgstr "індекс реєстраційних даних лежить поза допустимим діапазоном"
 
-#: src/libvirt-auth.c:325
+#: src/libvirt-auth.c:323
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
@@ -5020,27 +5015,27 @@ msgstr "тимчасовий каталог «%s» не є каталогом"
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/utils.c:108
+#: src/utils.c:114
 #, c-format
 msgid "%s exited successfully"
 msgstr "Успішно завершено роботу %s"
 
-#: src/utils.c:111
+#: src/utils.c:117
 #, c-format
 msgid "%s exited with error status %d"
 msgstr "Роботу %s завершено зі станом виходу %d"
 
-#: src/utils.c:115
+#: src/utils.c:121
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr "Роботу %s припинено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:119
+#: src/utils.c:125
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr "Роботу %s завершено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:123
+#: src/utils.c:129
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "Роботу %s завершено з невідомої причини (стан %d)"
@@ -5360,19 +5355,19 @@ msgstr ""
 "  Залишок місця буде проігноровано. Запустіть програму керування розділами "
 "гостьової системи, якщо бажаєте розподілити це залишок місця."
 
-#: ../sysprep/main.ml:209
+#: ../sysprep/main.ml:216
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
-#: ../sysprep/main.ml:58
+#: ../sysprep/main.ml:63
 msgid "%s: --domain option can only be given once\n"
 msgstr "%s: параметр --domain можна вказувати лише один раз\n"
 
-#: ../sysprep/main.ml:70
+#: ../sysprep/main.ml:75
 msgid "%s: --enable option can only be given once\n"
 msgstr "%s: параметр --enable можна вказувати лише один раз\n"
 
-#: ../sysprep/main.ml:82
+#: ../sysprep/main.ml:87
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
@@ -5473,7 +5468,7 @@ msgstr "%s: не вказано аргумент розміру у параме�
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
-#: ../sysprep/main.ml:195
+#: ../sysprep/main.ml:202
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
 
@@ -5511,7 +5506,7 @@ msgstr "%s: розмір розділу, %Ld < розмір фізичного �
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: фізичний тому не повернуто pvs_full"
 
-#: ../sysprep/main.ml:130
+#: ../sysprep/main.ml:135
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -5580,15 +5575,15 @@ msgstr ""
 "%s: невідомий тип таблиці розділів\n"
 "У virt-resize передбачено підтримку лише таблиць MBR (DOS) та GPT."
 
-#: ../sysprep/main.ml:159
+#: ../sysprep/main.ml:164
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr "%s: не можна передавати одночасно параметри -a і -d\n"
 
-#: ../sysprep/main.ml:74
+#: ../sysprep/main.ml:79
 msgid "%s: you cannot pass an empty argument to --enable\n"
 msgstr "%s: параметру --enable не можна передавати порожніх аргументів\n"
 
-#: ../sysprep/main.ml:150
+#: ../sysprep/main.ml:155
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: вам слід передати параметр -a або -d\n"
 
@@ -5608,7 +5603,7 @@ msgstr "параметр --expand вказано двічі"
 msgid "--shrink option given twice"
 msgstr "параметр --shrink вказано двічі"
 
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "Add disk image file"
 msgstr "Додати файл образу диска"
 
@@ -5616,7 +5611,7 @@ msgstr "Додати файл образу диска"
 msgid "Add qemu-img options"
 msgstr "Додати параметри qemu-img"
 
-#: ../sysprep/sysprep_operation_firstboot.ml:59
+#: ../sysprep/sysprep_operation_firstboot.ml:60
 msgid "Add scripts to run once at next boot"
 msgstr ""
 "Додати скрипти для одноразового запуску під час наступного завантаження"
@@ -5625,15 +5620,15 @@ msgstr ""
 msgid "Align first partition (default: auto)"
 msgstr "Вирівняти перший розділ (типове значення: auto)"
 
-#: ../sysprep/sysprep_operation_lvm_uuids.ml:44
+#: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid "Change LVM2 PV and VG UUIDs"
 msgstr "Змінити UUID ФТ і ГТ LVM2"
 
-#: ../sysprep/sysprep_operation_hostname.ml:90
+#: ../sysprep/sysprep_operation_hostname.ml:91
 msgid "Change the hostname of the guest"
 msgstr "Змінити назву вузла гостьової системи"
 
-#: ../sysprep/sysprep_operation_hostname.ml:99
+#: ../sysprep/sysprep_operation_hostname.ml:105
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -5676,11 +5671,42 @@ msgstr ""
 "Створити файл накладки для захисту диска початкових даних…\n"
 "%!"
 
+#: ../sysprep/sysprep_operation_hostname.ml:100
+msgid "Currently this can only set the hostname on Linux guests."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:69
+msgid ""
+"Currently this does not remove the user accounts from\n"
+"C</etc/shadow>.  This is because there is no lens for\n"
+"the shadow password file in Augeas."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firstboot.ml:72
+msgid ""
+"Currently this is only implemented for Linux guests using\n"
+"either SysVinit-style scripts, Upstart or systemd."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_bash_history.ml:44
+msgid ""
+"Currently this only looks in C</root> and C</home/*> for\n"
+"home directories, so users with home directories in other\n"
+"locations won't have the bash history removed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:44
+msgid ""
+"Currently this only looks in C</root> and C</home/*> for\n"
+"home directories, so users with home directories in other\n"
+"locations won't have the ssh files removed."
+msgstr ""
+
 #: ../sparsify/sparsify.ml:62 ../resize/resize.ml:87
 msgid "Debug GC and memory allocations"
 msgstr "Діагностика GC та розподілу пам’яті"
 
-#: ../sysprep/main.ml:101
+#: ../sysprep/main.ml:106
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностика GC та розподілу пам’яті (внутрішня)"
 
@@ -5689,7 +5715,7 @@ msgid "Delete partition"
 msgstr "Вилучити розділ"
 
 #. ../resize/resize.ml:110
-#: ../sysprep/main.ml:120 ../sysprep/main.ml:119 ../sparsify/sparsify.ml:72
+#: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:72
 msgid "Display version and exit"
 msgstr "Показати номер версії і вийти"
 
@@ -5709,7 +5735,7 @@ msgstr "Не розширювати область даних"
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
-#: ../sysprep/main.ml:114 ../sysprep/main.ml:113
+#: ../sysprep/main.ml:119 ../sysprep/main.ml:118
 msgid "Don't print log messages"
 msgstr "Не виводити повідомлень до журналу"
 
@@ -5717,24 +5743,24 @@ msgstr "Не виводити повідомлень до журналу"
 msgid "Don't print the summary"
 msgstr "Не виводити даних резюме"
 
-#: ../sysprep/main.ml:107
+#: ../sysprep/main.ml:112
 msgid "Dump POD (internal)"
 msgstr "Створити дамп POD (вбудоване)"
 
-#: ../sysprep/main.ml:108
+#: ../sysprep/main.ml:113
 msgid "Dump POD for options (internal)"
 msgstr "Створити дамп POD для параметрів (вбудоване)"
 
 #. ../resize/resize.ml:85
-#: ../sysprep/main.ml:118 ../sysprep/main.ml:117 ../sparsify/sparsify.ml:70
+#: ../sysprep/main.ml:123 ../sysprep/main.ml:122 ../sparsify/sparsify.ml:70
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../sysprep/main.ml:109
+#: ../sysprep/main.ml:114
 msgid "Enable specific operations"
 msgstr "Увімкнути виконання специфічних дій"
 
-#: ../sysprep/main.ml:121 ../sparsify/sparsify.ml:74
+#: ../sysprep/main.ml:126 ../sparsify/sparsify.ml:74
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -5754,7 +5780,7 @@ msgstr ""
 "Вивчення %s…\n"
 "%!"
 
-#: ../sysprep/main.ml:180
+#: ../sysprep/main.ml:187
 msgid ""
 "Examining the guest ...\n"
 "%!"
@@ -5823,12 +5849,12 @@ msgstr ""
 "Виправлення завантажувального запису першого розділу NTFS…\n"
 "%!"
 
-#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:35
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
 msgid "Flag the system for reconfiguration"
 msgstr "Позначити систему для зміни налаштувань"
 
-#. ../sysprep/sysprep_operation_net_hostname.ml:50
-#: ../sysprep/sysprep_operation_net_hwaddr.ml:50
+#. ../sysprep/sysprep_operation_net_hostname.ml:51
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:51
 msgid ""
 "For Fedora and Red Hat Enterprise Linux,\n"
 "this is removed from C<ifcfg-*> files."
@@ -5836,7 +5862,7 @@ msgstr ""
 "Для Fedora і Red Hat Enterprise Linux\n"
 "це вилучається з файлів C<ifcfg-*>."
 
-#: ../sysprep/main.ml:115
+#: ../sysprep/main.ml:120
 msgid "Force SELinux relabel"
 msgstr "Примусова зміна міток SELinux"
 
@@ -5862,7 +5888,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../sysprep/sysprep_operation_random_seed.ml:51
+#: ../sysprep/sysprep_operation_random_seed.ml:52
 msgid "Generate random seed for guest"
 msgstr "Створити породжувач випадкових чисел для гостьової системи"
 
@@ -5882,11 +5908,11 @@ msgstr "Ігнорувати файлову систему"
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../sysprep/main.ml:112 ../sparsify/sparsify.ml:65 ../resize/resize.ml:94
+#: ../sysprep/main.ml:117 ../sparsify/sparsify.ml:65 ../resize/resize.ml:94
 msgid "List long options"
 msgstr "Показати список повних версій параметрів"
 
-#: ../sysprep/main.ml:111
+#: ../sysprep/main.ml:116
 msgid "List supported operations"
 msgstr "Показати список підтримуваних команд"
 
@@ -5894,19 +5920,19 @@ msgstr "Показати список підтримуваних команд"
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення даних придатною для читання даних"
 
-#: ../sysprep/sysprep_operation_script.ml:135
+#: ../sysprep/sysprep_operation_script.ml:136
 msgid "Mount point on host"
 msgstr "Точка монтування у основній системі"
 
-#: ../sysprep/main.ml:116
+#: ../sysprep/main.ml:121
 msgid "Never do SELinux relabel"
 msgstr "Ніколи не виконувати зміни міток SELinux"
 
-#: ../sysprep/sysprep_operation_hostname.ml:98
+#: ../sysprep/sysprep_operation_hostname.ml:104
 msgid "New hostname"
 msgstr "Нова назва вузла"
 
-#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:37
 msgid ""
 "Note that this may require user intervention when the\n"
 "guest is booted."
@@ -5914,7 +5940,11 @@ msgstr ""
 "Зауважте, що це може потребувати втручання користувача під\n"
 "час завантаження гостьової системи."
 
-#: ../sysprep/sysprep_operation_lvm_uuids.ml:45
+#: ../sysprep/sysprep_operation.ml:171
+msgid "Notes on %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_lvm_uuids.ml:46
 msgid ""
 "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
 "(VGs),\n"
@@ -5924,7 +5954,7 @@ msgstr ""
 "(ГТ) LVM2\n"
 "для ФТ і ГТ буде створено і призначено випадкові UUID."
 
-#: ../sysprep/sysprep_operation_logfiles.ml:98
+#: ../sysprep/sysprep_operation_logfiles.ml:99
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -5934,7 +5964,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../sysprep/main.ml:106 ../sysprep/main.ml:105 ../sysprep/main.ml:104
+#: ../sysprep/main.ml:111 ../sysprep/main.ml:110 ../sysprep/main.ml:109
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
@@ -5942,45 +5972,45 @@ msgstr "Виконати тестовий запуск"
 msgid "Quiet output"
 msgstr "Режим з мінімальним виведенням даних"
 
-#: ../sysprep/main.ml:160 ../sysprep/main.ml:151
+#: ../sysprep/main.ml:165 ../sysprep/main.ml:156
 msgid "Read virt-sysprep(1) man page for further information.\n"
 msgstr ""
 "Ознайомтеся зі сторінкою підручника (man) virt-sysprep(1), щоб дізнатися "
 "більше.\n"
 
-#: ../sysprep/sysprep_operation_ssh_userdir.ml:39
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:40
 msgid "Remove \".ssh\" directories in the guest"
 msgstr "Вилучити каталоги «.ssh» у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_ca_certificates.ml:53
+#: ../sysprep/sysprep_operation_ca_certificates.ml:54
 msgid "Remove CA certificates in the guest"
 msgstr "Вилучити сертифікати CA у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_dhcp_client_state.ml:36
+#: ../sysprep/sysprep_operation_dhcp_client_state.ml:37
 msgid "Remove DHCP client leases"
 msgstr "Вилучити надані клієнтські адреси DHCP"
 
-#: ../sysprep/sysprep_operation_dhcp_server_state.ml:31
+#: ../sysprep/sysprep_operation_dhcp_server_state.ml:32
 msgid "Remove DHCP server leases"
 msgstr "Вилучити надані серверні адреси DHCP"
 
-#: ../sysprep/sysprep_operation_dovecot_data.ml:38
+#: ../sysprep/sysprep_operation_dovecot_data.ml:39
 msgid "Remove Dovecot (mail server) data"
 msgstr "Вилучити дані Dovecot (поштового сервера)"
 
-#: ../sysprep/sysprep_operation_net_hostname.ml:49
+#: ../sysprep/sysprep_operation_net_hostname.ml:50
 msgid "Remove HOSTNAME in network interface configuration"
 msgstr "Вилучити HOSTNAME у налаштуваннях інтерфейсу мережі"
 
-#: ../sysprep/sysprep_operation_net_hwaddr.ml:49
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:50
 msgid "Remove HWADDR (hard-coded MAC address) configuration"
 msgstr "Вилучити налаштування HWADDR (апаратної адреси MAC)"
 
-#: ../sysprep/sysprep_operation_kerberos_data.ml:46
+#: ../sysprep/sysprep_operation_kerberos_data.ml:47
 msgid "Remove Kerberos data in the guest"
 msgstr "Вилучити дані Kerberos у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_user_account.ml:65
+#: ../sysprep/sysprep_operation_user_account.ml:66
 msgid ""
 "Remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed."
@@ -5988,23 +6018,23 @@ msgstr ""
 "Вилучити всі облікові записи користувачів та відповідні домашні каталоги.\n"
 "Обліковий запис «root» вилучено не буде."
 
-#: ../sysprep/sysprep_operation_blkid_tab.ml:49
+#: ../sysprep/sysprep_operation_blkid_tab.ml:50
 msgid "Remove blkid tab in the guest"
 msgstr "Вилучити вкладку ідентифікаторів блоків у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_mail_spool.ml:36
+#: ../sysprep/sysprep_operation_mail_spool.ml:37
 msgid "Remove email from the local mail spool directory"
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера"
 
-#: ../sysprep/sysprep_operation_logfiles.ml:96
+#: ../sysprep/sysprep_operation_logfiles.ml:97
 msgid "Remove many log files from the guest"
 msgstr "Вилучити з гостьової системи багато файлів журналів"
 
-#: ../sysprep/sysprep_operation_package_manager_cache.ml:42
+#: ../sysprep/sysprep_operation_package_manager_cache.ml:43
 msgid "Remove package manager cache"
 msgstr "Вилучити кеш керування пакунками"
 
-#: ../sysprep/sysprep_operation_ssh_userdir.ml:40
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:41
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other\n"
 "users who have a C<.ssh> directory in their home directory."
@@ -6012,23 +6042,23 @@ msgstr ""
 "Вилучити каталог C<.ssh> користувача «root» та всіх інших користувачів,\n"
 "домашні каталоги яких містять каталог C<.ssh>."
 
-#: ../sysprep/sysprep_operation_pam_data.ml:46
+#: ../sysprep/sysprep_operation_pam_data.ml:47
 msgid "Remove the PAM data in the guest"
 msgstr "Вилучити дані PAM у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_rhn_systemid.ml:37
+#: ../sysprep/sysprep_operation_rhn_systemid.ml:38
 msgid "Remove the RHN system ID"
 msgstr "Вилучити ідентифікатор системи у RHN"
 
-#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:36
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:37
 msgid "Remove the SSH host keys in the guest"
 msgstr "Вилучити ключі вузла SSH у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_smolt_uuid.ml:41
+#: ../sysprep/sysprep_operation_smolt_uuid.ml:42
 msgid "Remove the Smolt hardware UUID"
 msgstr "Вилучити UUID обладнання Smolt"
 
-#: ../sysprep/sysprep_operation_abrt_data.ml:39
+#: ../sysprep/sysprep_operation_abrt_data.ml:40
 msgid ""
 "Remove the automatically generated ABRT crash data in\n"
 "C</var/spool/abrt/>."
@@ -6036,15 +6066,15 @@ msgstr ""
 "Вилучити автоматично створені ABRT дані щодо аварії у\n"
 "C</var/spool/abrt/>."
 
-#: ../sysprep/sysprep_operation_crash_data.ml:40
+#: ../sysprep/sysprep_operation_crash_data.ml:41
 msgid "Remove the automatically generated kdump kernel crash data."
 msgstr "Вилучити автоматично створені kdump дані аварії ядра."
 
-#: ../sysprep/sysprep_operation_bash_history.ml:39
+#: ../sysprep/sysprep_operation_bash_history.ml:40
 msgid "Remove the bash history in the guest"
 msgstr "Вилучити журнал команд bash у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_bash_history.ml:40
+#: ../sysprep/sysprep_operation_bash_history.ml:41
 msgid ""
 "Remove the bash history of user \"root\" and any other users\n"
 "who have a C<.bash_history> file in their home directory."
@@ -6052,51 +6082,51 @@ msgstr ""
 "Вилучити журнал команд bash користувача «root» та всіх інших користувачів,\n"
 "у домашніх каталогах яких містяться файли C<.bash_history>."
 
-#: ../sysprep/sysprep_operation_abrt_data.ml:38
+#: ../sysprep/sysprep_operation_abrt_data.ml:39
 msgid "Remove the crash data generated by ABRT"
 msgstr "Вилучити дані щодо аварії, створені ABRT"
 
-#: ../sysprep/sysprep_operation_crash_data.ml:39
+#: ../sysprep/sysprep_operation_crash_data.ml:40
 msgid "Remove the crash data generated by kexec-tools"
 msgstr "Вилучити дані щодо аварії, створені kexec-tools"
 
-#: ../sysprep/sysprep_operation_puppet_data_log.ml:46
+#: ../sysprep/sysprep_operation_puppet_data_log.ml:47
 msgid "Remove the data and log files of puppet"
 msgstr "Вилучити дані та файли журналів puppet"
 
-#: ../sysprep/sysprep_operation_samba_db_log.ml:47
+#: ../sysprep/sysprep_operation_samba_db_log.ml:48
 msgid "Remove the database and log files of Samba"
 msgstr "Вилучити бази даних та файли журналів Samba"
 
-#: ../sysprep/sysprep_operation_sssd_db_log.ml:45
+#: ../sysprep/sysprep_operation_sssd_db_log.ml:46
 msgid "Remove the database and log files of sssd"
 msgstr "Вилучити бази даних і файли журналів sssd"
 
-#: ../sysprep/sysprep_operation_machine_id.ml:37
+#: ../sysprep/sysprep_operation_machine_id.ml:38
 msgid "Remove the local machine ID"
 msgstr "Вилучити ідентифікатор локального комп’ютера"
 
-#: ../sysprep/sysprep_operation_pacct_log.ml:51
+#: ../sysprep/sysprep_operation_pacct_log.ml:52
 msgid "Remove the process accounting log files"
 msgstr "Вилучити файли журналу обліку процесів"
 
-#: ../sysprep/sysprep_operation_user_account.ml:64
+#: ../sysprep/sysprep_operation_user_account.ml:65
 msgid "Remove the user accounts in the guest"
 msgstr "Вилучити облікові записи користувачів у гостьовій системі"
 
-#: ../sysprep/sysprep_operation_utmp.ml:35
+#: ../sysprep/sysprep_operation_utmp.ml:36
 msgid "Remove the utmp file"
 msgstr "Вилучити файл utmp"
 
-#: ../sysprep/sysprep_operation_yum_uuid.ml:35
+#: ../sysprep/sysprep_operation_yum_uuid.ml:36
 msgid "Remove the yum UUID"
 msgstr "Вилучити UUID yum"
 
-#: ../sysprep/sysprep_operation_udev_persistent_net.ml:36
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:37
 msgid "Remove udev persistent net rules"
 msgstr "Вилучити постійні правила мережі udev"
 
-#: ../sysprep/sysprep_operation_udev_persistent_net.ml:37
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:38
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC\n"
 "address to a fixed ethernet device (eg. eth0).\n"
@@ -6117,7 +6147,7 @@ msgstr ""
 "зазвичай є небажаним. За допомогою вилучення постійних правил мережі udev\n"
 "цьому можна запобігти."
 
-#: ../sysprep/sysprep_operation_cron_spool.ml:39
+#: ../sysprep/sysprep_operation_cron_spool.ml:40
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Вилучити завдання at та cron користувачів"
 
@@ -6134,11 +6164,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../sysprep/sysprep_operation_script.ml:110
+#: ../sysprep/sysprep_operation_script.ml:111
 msgid "Run arbitrary scripts against the guest"
 msgstr "Запустити довільні скрипти дій над гостьовою системою"
 
-#: ../sysprep/sysprep_operation_firstboot.ml:77
+#: ../sysprep/sysprep_operation_firstboot.ml:79
 msgid ""
 "Run script(s) once next time the guest boots.  You can supply\n"
 "the I<--firstboot> option as many times as needed."
@@ -6146,7 +6176,7 @@ msgstr ""
 "Запустити скрипти одноразово під час наступного завантаження гостьової\n"
 "системи. Кількість параметрів I<--firstboot> у рядку команди не обмежено."
 
-#: ../sysprep/sysprep_operation_script.ml:146
+#: ../sysprep/sysprep_operation_script.ml:147
 msgid ""
 "Run the named C<script> (a shell script or program) against the\n"
 "guest.  The script can be any program on the host.  The script's\n"
@@ -6163,19 +6193,19 @@ msgstr ""
 "B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
 "слід вказати шлях до скрипту повністю."
 
-#: ../sysprep/sysprep_operation_script.ml:145
+#: ../sysprep/sysprep_operation_script.ml:146
 msgid "Script or program to run on guest"
 msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
 
-#: ../sysprep/main.ml:110
+#: ../sysprep/main.ml:115
 msgid "Set format (default: auto)"
 msgstr "Встановити формат (типовий формат: auto)"
 
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
+#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "Set libvirt URI"
 msgstr "Встановити адресу libvirt"
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
 msgid "Set libvirt guest name"
 msgstr "Встановити назву гостьової системи libvirt"
 
@@ -6204,7 +6234,7 @@ msgstr ""
 "уважно перевірте, чи завантажується новий диск і чи працює він належним "
 "чином.\n"
 
-#: ../sysprep/sysprep_operation_firstboot.ml:60
+#: ../sysprep/sysprep_operation_firstboot.ml:61
 msgid ""
 "Supply one of more shell scripts (using the I<--firstboot> option).\n"
 "\n"
@@ -6214,28 +6244,10 @@ msgid ""
 "operating system, for example C<yum update>.\n"
 "\n"
 "Output or errors from the scripts are written to\n"
-"C<~root/virt-sysprep-firstboot.log> (in the guest).\n"
-"\n"
-"Currently this is only implemented for Linux guests using\n"
-"either System V init, or systemd."
+"C<~root/virt-sysprep-firstboot.log> (in the guest)."
 msgstr ""
-"Вкажіть один або декілька скриптів оболонки (за допомогою параметра I<--"
-"firstboot>).\n"
-"\n"
-"Ці скрипти буде одноразово виконано під час першого завантаження\n"
-"гостьової системи і після цього вилучено. Такими скриптами зручно\n"
-"користуватися для остаточного налаштовування, яке має бути\n"
-"виконано у контексті гостьової операційної системи, наприклад\n"
-"C<yum update>.\n"
-"\n"
-"Виведені дані і повідомлення про помилки для таких скриптів\n"
-"буде записано до C<~root/virt-sysprep-firstboot.log>\n"
-"(у гостьовій системі).\n"
-"\n"
-"У поточній версії цю можливість реалізовано лише для гостьових\n"
-"систем Linux, у яких використовується System V init або systemd."
 
-#: ../sysprep/sysprep_operation_script.ml:111
+#: ../sysprep/sysprep_operation_script.ml:112
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs\n"
 "against the guest.\n"
@@ -6286,7 +6298,7 @@ msgstr ""
 "її першого завантаження). Скрипти I<--script> виконуються у\n"
 "основній, а не у гостьовій системі."
 
-#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:37
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:38
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is\n"
 "booted.\n"
@@ -6310,7 +6322,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../sysprep/sysprep_operation_machine_id.ml:38
+#: ../sysprep/sysprep_operation_machine_id.ml:39
 msgid ""
 "The machine ID is usually generated from a random source during system\n"
 "installation and stays constant for all subsequent boots.  Optionally,\n"
@@ -6323,7 +6335,7 @@ msgstr ""
 "стану цей ідентифікатор створюється під час роботи завантажувача,\n"
 "якщо буде виявлено порожнє значення."
 
-#: ../sysprep/sysprep_operation_script.ml:136
+#: ../sysprep/sysprep_operation_script.ml:137
 msgid ""
 "The mount point (an empty directory on the host) used when\n"
 "the C<script> operation is enabled and one or more scripts\n"
@@ -6343,7 +6355,7 @@ msgstr ""
 "Якщо I<--scriptdir> не вказано, буде створено тимчасову\n"
 "точку монтування."
 
-#: ../sysprep/sysprep_operation_pacct_log.ml:52
+#: ../sysprep/sysprep_operation_pacct_log.ml:53
 msgid ""
 "The system wide process accounting will store to the pacct\n"
 "log files if the process accounting is on."
@@ -6363,7 +6375,7 @@ msgstr ""
 msgid "There is a surplus of %s."
 msgstr "Маємо надлишок у %s."
 
-#: ../sysprep/sysprep_operation_utmp.ml:36
+#: ../sysprep/sysprep_operation_utmp.ml:37
 msgid ""
 "This file records who is currently logged in on a machine.  In modern\n"
 "Linux distros it is stored in a ramdisk and hence not part of the\n"
@@ -6374,7 +6386,7 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../sysprep/sysprep_operation_hostname.ml:91
+#: ../sysprep/sysprep_operation_hostname.ml:93
 msgid ""
 "This operation changes the hostname of the guest to the value\n"
 "given in the I<--hostname> parameter.\n"
@@ -6388,7 +6400,7 @@ msgstr ""
 "Якщо параметр I<--hostname> не буде вказано, назву вузла буде змінено\n"
 "на C<localhost.localdomain>."
 
-#: ../sysprep/sysprep_operation_random_seed.ml:52
+#: ../sysprep/sysprep_operation_random_seed.ml:53
 msgid ""
 "Write some random bytes from the host into the random seed file of the\n"
 "guest.\n"
@@ -6417,7 +6429,7 @@ msgstr ""
 "Не можна використовувати --shrink, якщо немає запасу (див. «deficit» на "
 "сторінці підручника (man) virt-resize(1))."
 
-#: ../sysprep/sysprep_operation_yum_uuid.ml:36
+#: ../sysprep/sysprep_operation_yum_uuid.ml:37
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the\n"
 "original UUID has been erased."
@@ -6451,11 +6463,11 @@ msgstr ""
 "не вдалося визначити формат диска з вхідними даними; скористайтеся "
 "параметром --format"
 
-#: ../sysprep/sysprep_operation_script.ml:135
+#: ../sysprep/sysprep_operation_script.ml:136
 msgid "dir"
 msgstr "каталог"
 
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+#: ../sysprep/main.ml:108 ../sysprep/main.ml:107
 msgid "domain"
 msgstr "домен"
 
@@ -6475,11 +6487,11 @@ msgstr "роботу зовнішньої програми «%s» зупинен
 msgid "external command failed: %s"
 msgstr "помилка зовнішньої програми: %s"
 
-#: ../sysprep/main.ml:128
+#: ../sysprep/main.ml:133
 msgid "extra parameter on the command line"
 msgstr "зайвий параметр у командному рядку"
 
-#: ../sysprep/main.ml:98 ../sysprep/main.ml:97
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
 msgid "file"
 msgstr "файл"
 
@@ -6489,7 +6501,7 @@ msgstr "firstboot: помилка: "
 
 #. ../resize/resize.ml:104
 #. ../resize/resize.ml:92
-#: ../sysprep/main.ml:110 ../sparsify/sparsify.ml:63
+#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:63
 #: ../sparsify/sparsify.ml:61
 msgid "format"
 msgstr "формат"
@@ -6498,7 +6510,7 @@ msgstr "формат"
 msgid "fs"
 msgstr "файлова система"
 
-#: ../sysprep/sysprep_operation_hostname.ml:98
+#: ../sysprep/sysprep_operation_hostname.ml:104
 msgid "hostname"
 msgstr "назва_вузла"
 
@@ -6523,7 +6535,7 @@ msgstr "never|always|auto"
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../sysprep/main.ml:109
+#: ../sysprep/main.ml:114
 msgid "operations"
 msgstr "дії"
 
@@ -6574,14 +6586,14 @@ msgstr ""
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../sysprep/sysprep_operation_firstboot.ml:76
+#: ../sysprep/sysprep_operation_firstboot.ml:78
 msgid "run script once next time guest boots"
 msgstr ""
 "запустити скрипт одного разу під час наступного завантаження гостьової "
 "системи"
 
-#. ../sysprep/sysprep_operation_firstboot.ml:76
-#: ../sysprep/sysprep_operation_script.ml:145
+#. ../sysprep/sysprep_operation_firstboot.ml:78
+#: ../sysprep/sysprep_operation_script.ml:146
 msgid "script"
 msgstr "скрипт"
 
@@ -6593,22 +6605,22 @@ msgstr "помилка скрипту"
 msgid "sectors"
 msgstr "сектори"
 
-#: ../sysprep/main.ml:256
+#: ../sysprep/main.ml:263
 msgid "sysprep operation failed: %s\n"
 msgstr "помилка під час дії sysprep: %s\n"
 
-#: ../sysprep/main.ml:268
+#: ../sysprep/main.ml:275
 msgid "sysprep operation failed: exception: %s\n"
 msgstr "помилка під час дії sysprep: виключення: %s\n"
 
-#: ../sysprep/main.ml:265
+#: ../sysprep/main.ml:272
 msgid ""
 "sysprep operation failed: internal error: Not_found exception was thrown\n"
 msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: сталося виключення "
 "Not_found\n"
 
-#: ../sysprep/main.ml:262
+#: ../sysprep/main.ml:269
 msgid ""
 "sysprep operation failed: internal error: assertion failed at %s, line %d, "
 "char %d\n"
@@ -6616,7 +6628,7 @@ msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: помилка твердження у %s, "
 "рядок %d, символ %d\n"
 
-#: ../sysprep/main.ml:259
+#: ../sysprep/main.ml:266
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: некоректний аргумент: %s\n"
@@ -6629,7 +6641,7 @@ msgstr "на початковому диску немає розділів"
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: слід вказати never|always|auto"
 
-#: ../sysprep/main.ml:100 ../sysprep/main.ml:99
+#: ../sysprep/main.ml:105 ../sysprep/main.ml:104
 msgid "uri"
 msgstr "адреса"
 
@@ -6649,34 +6661,42 @@ msgstr "virt-resize: помилка: "
 msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
 msgstr "virt-sysprep: --scriptdir не можна використовувати декілька разів\n"
 
-#: ../sysprep/sysprep_operation.ml:113
+#: ../sysprep/sysprep_operation.ml:124
 msgid "virt-sysprep: POD for %s must not end with newline\n"
 msgstr ""
 "virt-sysprep: POD для %s не повинен завершуватися символом нового рядка\n"
 
-#: ../sysprep/sysprep_operation.ml:90
+#: ../sysprep/sysprep_operation.ml:138
+msgid "virt-sysprep: POD notes for %s must not end with newline\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:101
 msgid "virt-sysprep: disallowed character (%c) in operation name\n"
 msgstr "virt-sysprep: заборонений символ (%c) у назві дії\n"
 
-#: ../sysprep/sysprep_operation.ml:74
+#: ../sysprep/sysprep_operation.ml:85
 msgid "virt-sysprep: duplicate operation name (%s)\n"
 msgstr "virt-sysprep: дубльована назва дії (%s)\n"
 
-#: ../sysprep/sysprep_operation.ml:100
+#: ../sysprep/sysprep_operation.ml:111
 msgid "virt-sysprep: heading for %s must not end with newline or period\n"
 msgstr ""
 "virt-sysprep: заголовок %s не повинен завершуватися символом нового рядка "
 "або крапкою\n"
 
-#: ../sysprep/sysprep_operation.ml:109
+#: ../sysprep/sysprep_operation.ml:120
 msgid "virt-sysprep: operation %s has no POD\n"
 msgstr "virt-sysprep: для дії %s немає POD\n"
 
-#: ../sysprep/sysprep_operation.ml:96
+#: ../sysprep/sysprep_operation.ml:134
+msgid "virt-sysprep: operation %s has no POD notes\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:107
 msgid "virt-sysprep: operation %s has no heading\n"
 msgstr "virt-sysprep: для дії %s немає заголовка\n"
 
-#: ../sysprep/sysprep_operation.ml:83
+#: ../sysprep/sysprep_operation.ml:94
 msgid "virt-sysprep: operation name is an empty string\n"
 msgstr "virt-sysprep: назвою дії є порожній рядок\n"
 
@@ -6719,6 +6739,36 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid ""
+#~ "Supply one of more shell scripts (using the I<--firstboot> option).\n"
+#~ "\n"
+#~ "These are run the first time the guest boots, and then are\n"
+#~ "deleted.  So these are useful for performing last minute\n"
+#~ "configuration that must run in the context of the guest\n"
+#~ "operating system, for example C<yum update>.\n"
+#~ "\n"
+#~ "Output or errors from the scripts are written to\n"
+#~ "C<~root/virt-sysprep-firstboot.log> (in the guest).\n"
+#~ "\n"
+#~ "Currently this is only implemented for Linux guests using\n"
+#~ "either System V init, or systemd."
+#~ msgstr ""
+#~ "Вкажіть один або декілька скриптів оболонки (за допомогою параметра I<--"
+#~ "firstboot>).\n"
+#~ "\n"
+#~ "Ці скрипти буде одноразово виконано під час першого завантаження\n"
+#~ "гостьової системи і після цього вилучено. Такими скриптами зручно\n"
+#~ "користуватися для остаточного налаштовування, яке має бути\n"
+#~ "виконано у контексті гостьової операційної системи, наприклад\n"
+#~ "C<yum update>.\n"
+#~ "\n"
+#~ "Виведені дані і повідомлення про помилки для таких скриптів\n"
+#~ "буде записано до C<~root/virt-sysprep-firstboot.log>\n"
+#~ "(у гостьовій системі).\n"
+#~ "\n"
+#~ "У поточній версії цю можливість реалізовано лише для гостьових\n"
+#~ "систем Linux, у яких використовується System V init або systemd."
 
 #~ msgid ""
 #~ "%s: This partition has contains a %s filesystem which will be damaged by "
