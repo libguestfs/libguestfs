@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-07-26 18:00+0100\n"
+"POT-Creation-Date: 2013-08-27 12:02+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -19,37 +19,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: align/domains.c:108 df/domains.c:110
+#: align/domains.c:106 df/domains.c:110
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:117 df/domains.c:119
+#: align/domains.c:115 df/domains.c:119
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:127 df/domains.c:129
+#: align/domains.c:125 df/domains.c:129
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:138 df/domains.c:140
+#: align/domains.c:136 df/domains.c:140
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:148 df/domains.c:150
+#: align/domains.c:146 df/domains.c:150
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: align/domains.c:197 df/domains.c:206
+#: align/domains.c:195 df/domains.c:206
 #, c-format
 msgid "%s: failed to analyze a disk, see error(s) above\n"
 msgstr ""
 
-#: align/domains.c:348 align/scan.c:119 cat/virt-cat.c:114
+#: align/domains.c:346 align/scan.c:119 cat/virt-cat.c:114
 #: cat/virt-filesystems.c:187 cat/virt-ls.c:179 df/domains.c:428 df/main.c:128
 #: edit/virt-edit.c:134 fish/fish.c:232 format/format.c:127
 #: fuse/guestmount.c:204 inspector/virt-inspector.c:126
@@ -3752,7 +3752,7 @@ msgstr ""
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/for-each-disk.c:100 src/launch-libvirt.c:527 src/libvirt-domain.c:345
+#: src/for-each-disk.c:100 src/launch-libvirt.c:526 src/libvirt-domain.c:345
 msgid "unable to create new XPath context"
 msgstr ""
 
@@ -3895,42 +3895,42 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/launch-appliance.c:671 src/launch-libvirt.c:453
+#: src/launch-appliance.c:671 src/launch-libvirt.c:452
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
-#: src/launch-libvirt.c:173
+#: src/launch-libvirt.c:172
 msgid "direct mode flag is not supported yet for libvirt attach method"
 msgstr ""
 
-#: src/launch-libvirt.c:182
+#: src/launch-libvirt.c:181
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:197
+#: src/launch-libvirt.c:196
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:213
+#: src/launch-libvirt.c:212
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:377
+#: src/launch-libvirt.c:376
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:521
+#: src/launch-libvirt.c:520
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:537
+#: src/launch-libvirt.c:536
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:570
+#: src/launch-libvirt.c:569
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -3945,16 +3945,16 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:719
+#: src/launch-libvirt.c:718
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1038
+#: src/launch-libvirt.c:1037
 msgid "'iface' parameter is not supported by the libvirt attach-method"
 msgstr ""
 
-#: src/launch-libvirt.c:1118
+#: src/launch-libvirt.c:1117
 #, c-format
 msgid ""
 "could not auto-detect the format of '%s'\n"
@@ -3962,29 +3962,29 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1419
+#: src/launch-libvirt.c:1389
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1464
+#: src/launch-libvirt.c:1434
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1496
+#: src/launch-libvirt.c:1466
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1559
+#: src/launch-libvirt.c:1529
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1588
+#: src/launch-libvirt.c:1558
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1634
+#: src/launch-libvirt.c:1604
 #, c-format
 msgid ""
 "libvirt attach-method is not available because this version of libguestfs "
@@ -4228,27 +4228,27 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
 
-#: src/utils.c:66
+#: src/utils.c:72
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:69
+#: src/utils.c:75
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:73
+#: src/utils.c:79
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:77
+#: src/utils.c:83
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:81
+#: src/utils.c:87
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
