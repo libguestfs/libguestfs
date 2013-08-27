@@ -29,8 +29,6 @@
 #include <libvirt/virterror.h>
 #endif
 
-#include "progname.h"
-
 #include "guestfs.h"
 #include "options.h"
 #include "scan.h"
