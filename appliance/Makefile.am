@@ -35,14 +35,18 @@ superminfs_DATA = \
 	supermin.d/init.img \
 	supermin.d/udev-rules.img
 
+if SUPERMIN_HELPER_COMPRESSED_CPIO
+GZ = .gz
+endif
+
 if ENABLE_DAEMON
 superminfs_DATA += \
-	supermin.d/daemon.img
+	supermin.d/daemon.img$(GZ)
 endif
 
 if ENABLE_APPLIANCE
 superminfs_DATA += \
-	supermin.d/base.img \
+	supermin.d/base.img$(GZ) \
 	supermin.d/hostfiles
 endif
 
@@ -73,20 +77,27 @@ excludelist: excludelist.in Makefile
 	cmp -s $@ $@-t || mv $@-t $@
 	rm -f $@-t
 
-supermin.d/base.img supermin.d/hostfiles: stamp-supermin
+supermin.d/base.img$(GZ) supermin.d/hostfiles: stamp-supermin
 stamp-supermin: make.sh packagelist excludelist
-	rm -f $@ supermin.d/base.img supermin.d/hostfiles
+	rm -f $@ supermin.d/base.img$(GZ) supermin.d/hostfiles
 	./make.sh
+if SUPERMIN_HELPER_COMPRESSED_CPIO
+	gzip -9 supermin.d/base.img
+endif
 	touch $@
 
-supermin.d/daemon.img: ../daemon/guestfsd guestfsd.suppressions
-	rm -f $@ $@-t
+supermin.d/daemon.img$(GZ): ../daemon/guestfsd guestfsd.suppressions
+	rm -f $@ $@-t $@-tt
 	rm -rf tmp-d
 	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc
 	ln ../daemon/guestfsd tmp-d$(DAEMON_SUPERMIN_DIR)/guestfsd
 	ln $(srcdir)/guestfsd.suppressions tmp-d/etc/guestfsd.suppressions
 	( cd tmp-d && find | cpio --quiet -o -H newc ) > $@-t
 	rm -r tmp-d
+if SUPERMIN_HELPER_COMPRESSED_CPIO
+	gzip -9 -c $@-t > $@-tt
+	mv $@-tt $@-t
+endif
 	mv $@-t $@
 
 supermin.d/init.img: init

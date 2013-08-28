@@ -446,6 +446,21 @@ AC_CHECK_PROGS([SUPERMIN],
 AC_CHECK_PROGS([SUPERMIN_HELPER],
                [supermin-helper febootstrap-supermin-helper],[no])
 
+dnl supermin >= 4.1.4 supports compressed cpio images.
+AC_MSG_CHECKING([for supermin-helper version])
+supermin_helper_version=`$SUPERMIN_HELPER --version | awk '{print $2}'`
+AC_MSG_RESULT([$supermin_helper_version])
+AC_MSG_CHECKING([if supermin-helper supports compressed cpio images])
+supermin_helper_version_int=`echo "$supermin_helper_version" | awk -F. '{print $1 * 1000000 + $2 * 1000 + $3}'`
+if test $supermin_helper_version_int -ge 4001004; then
+    supermin_helper_compressed_cpio=yes
+else
+    supermin_helper_compressed_cpio=yes
+fi
+AC_MSG_RESULT([$supermin_helper_compressed_cpio])
+AM_CONDITIONAL([SUPERMIN_HELPER_COMPRESSED_CPIO],
+               [test "x$supermin_helper_compressed_cpio" = "xyes"])
+
 dnl Pass supermin --packager-config option.
 dnl
 dnl Note that in febootstrap >= 3.21 / supermin >= 4.1.0, this option
