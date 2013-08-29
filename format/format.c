@@ -364,6 +364,31 @@ do_format (void)
         exit (EXIT_FAILURE);
       }
       free_dev = 1;
+
+      /* Set the partition type byte appropriately, otherwise Windows
+       * won't see the filesystem (RHBZ#1000428).
+       */
+      if (STREQ (ptype, "mbr") || STREQ (ptype, "msdos")) {
+        int mbr_id = 0;
+
+        if (vg && lv)
+          mbr_id = 0x8e;
+        else if (filesystem) {
+          if (STREQ (filesystem, "msdos"))
+            mbr_id = 0x01;
+          else if (STREQ (filesystem, "fat") || STREQ (filesystem, "vfat"))
+            mbr_id = 0x0b;
+          else if (STREQ (filesystem, "ntfs"))
+            mbr_id = 0x07;
+          else if (STRPREFIX (filesystem, "ext"))
+            mbr_id = 0x83;
+          else if (STREQ (filesystem, "minix"))
+            mbr_id = 0x81;
+        }
+
+        if (mbr_id > 0)
+          guestfs_part_set_mbr_id (g, devices[i], 1, mbr_id);
+      }
     }
 
     if (vg && lv) {
