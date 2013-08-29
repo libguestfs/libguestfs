@@ -10347,7 +10347,14 @@ The format of the remote server string is defined by L<rsync(1)>.
 Note that there is no way to supply a password or passphrase
 so the target must be set up not to require one.
 
-The optional arguments are the same as those of C<guestfs_rsync>." };
+The optional arguments are the same as those of C<guestfs_rsync>.
+
+Globbing does not happen on the C<src> parameter.  In programs
+which use the API directly you have to expand wildcards yourself
+(see C<guestfs_glob_expand>).  In guestfish you can use the C<glob>
+command (see L<guestfish(1)/glob>), for example:
+
+ ><fs> glob rsync-out /* rsync://remote/" };
 
   { defaults with
     name = "ls0";
