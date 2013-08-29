@@ -239,41 +239,60 @@ do_txz_in (const char *dir)
   return do_tar_in (dir, "xz");
 }
 
-/* Turn list 'excludes' into list of " --excludes=..." strings, all
- * properly quoted.  Caller must free the returned string.
+/* Turn list 'excludes' into a temporary file, and return a string
+ * containing the temporary file name.  Caller must unlink the file
+ * and free the string.
  */
 static char *
-make_excludes_args (char *const *excludes)
+make_exclude_from_file (char *const *excludes)
 {
-  DECLARE_STRINGSBUF (strings);
   size_t i;
-  char *s, *ret;
+  int fd;
+  char template[] = "/tmp/excludesXXXXXX";
+  char *ret;
+
+  fd = mkstemp (template);
+  if (fd == -1) {
+    reply_with_perror ("mkstemp");
+    return NULL;
+  }
 
   for (i = 0; excludes[i] != NULL; ++i) {
-    if (asprintf_nowarn (&s, " --exclude=%Q", excludes[i]) == -1) {
-      reply_with_perror ("asprintf");
-      free_stringslen (strings.argv, strings.size);
-      return NULL;
+    if (strchr (excludes[i], '\n')) {
+      reply_with_error ("tar-out: excludes file patterns cannot contain \\n character");
+      goto error;
     }
-    if (add_string_nodup (&strings, s) == -1) {
-      free (s);
-      return NULL;
+
+    if (xwrite (fd, excludes[i], strlen (excludes[i])) == -1 ||
+        xwrite (fd, "\n", 1) == -1) {
+      reply_with_perror ("write");
+      goto error;
     }
+
+    if (verbose)
+      fprintf (stderr, "tar-out: adding excludes pattern '%s'\n", excludes[i]);
   }
 
-  if (end_stringsbuf (&strings) == -1)
-    return NULL;
-
-  ret = concat_strings (strings.argv);
-  if (!ret) {
-    reply_with_perror ("concat");
-    free_stringslen (strings.argv, strings.size);
-    return NULL;
+  if (close (fd) == -1) {
+    reply_with_perror ("close");
+    fd = -1;
+    goto error;
   }
+  fd = -1;
 
-  free_stringslen (strings.argv, strings.size);
+  ret = strdup (template);
+  if (ret == NULL) {
+    reply_with_perror ("strdup");
+    goto error;
+  }
 
   return ret;
+
+ error:
+  if (fd >= 0)
+    close (fd);
+  unlink (template);
+  return NULL;
 }
 
 /* Has one FileOut parameter. */
@@ -287,7 +306,7 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   const char *filter;
   int r;
   FILE *fp;
-  CLEANUP_FREE char *excludes_args = NULL;
+  CLEANUP_UNLINK_FREE char *exclude_from_file = NULL;
   CLEANUP_FREE char *cmd = NULL;
   char buffer[GUESTFS_MAX_CHUNK_SIZE];
 
@@ -313,15 +332,9 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
     numericowner = 0;
 
   if ((optargs_bitmask & GUESTFS_TAR_OUT_EXCLUDES_BITMASK)) {
-    excludes_args = make_excludes_args (excludes);
-    if (!excludes_args)
+    exclude_from_file = make_exclude_from_file (excludes);
+    if (!exclude_from_file)
       return -1;
-  } else {
-    excludes_args = strdup ("");
-    if (excludes_args == NULL) {
-      reply_with_perror ("strdup");
-      return -1;
-    }
   }
 
   /* Check the filename exists and is a directory (RHBZ#908322). */
@@ -342,11 +355,12 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   }
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "%s -C %Q%s%s%s -cf - .",
+  if (asprintf_nowarn (&cmd, "%s -C %Q%s%s%s%s -cf - .",
                        str_tar,
                        buf, filter,
                        numericowner ? " --numeric-owner" : "",
-                       excludes_args) == -1) {
+                       exclude_from_file ? " -X " : "",
+                       exclude_from_file ? exclude_from_file : "") == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
