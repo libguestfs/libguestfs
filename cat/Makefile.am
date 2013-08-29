@@ -41,7 +41,7 @@ SHARED_SOURCE_FILES = \
 
 virt_cat_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	virt-cat.c
+	cat.c
 
 virt_cat_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
@@ -66,7 +66,7 @@ virt_cat_LDADD = \
 
 virt_filesystems_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	virt-filesystems.c
+	filesystems.c
 
 virt_filesystems_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
@@ -91,7 +91,7 @@ virt_filesystems_LDADD = \
 
 virt_ls_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	virt-ls.c
+	ls.c
 
 virt_ls_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \

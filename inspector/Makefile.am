@@ -63,7 +63,7 @@ SHARED_SOURCE_FILES = \
 
 virt_inspector_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	virt-inspector.c
+	inspector.c
 
 virt_inspector_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
