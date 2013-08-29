@@ -251,6 +251,14 @@ here.
 
 =cut
 
+my $label;
+
+=item B<--label=E<lt>LABELE<gt>>
+
+Set the filesystem label.
+
+=cut
+
 my $partition;
 
 =item B<--partition>
@@ -292,6 +300,7 @@ GetOptions ("help|?" => \$help,
             "s|size=s" => \$size,
             "F|format=s" => \$format,
             "t|type=s" => \$type,
+            "label=s" => \$label,
             "partition:s" => \$partition,
     ) or pod2usage (2);
 pod2usage (1) if $help;
@@ -507,6 +516,11 @@ eval {
         }
     } else {
         $g->mkfs_btrfs ([$dev], datatype => "single", metadata => "single");
+    }
+
+    # Set label.
+    if (defined $label) {
+        $g->set_label ($dev, $label);
     }
 
     # Mount it.
