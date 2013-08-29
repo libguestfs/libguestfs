@@ -37,7 +37,7 @@ SHARED_SOURCE_FILES = \
 
 virt_edit_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	virt-edit.c
+	edit.c
 
 virt_edit_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \

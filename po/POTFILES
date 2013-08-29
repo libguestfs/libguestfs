@@ -1,7 +1,7 @@
 align/scan.c
-cat/virt-cat.c
-cat/virt-filesystems.c
-cat/virt-ls.c
+cat/cat.c
+cat/filesystems.c
+cat/ls.c
 daemon/9p.c
 daemon/acl.c
 daemon/augeas.c
@@ -105,7 +105,7 @@ df/estimate-max-threads.c
 df/main.c
 df/output.c
 df/parallel.c
-edit/virt-edit.c
+edit/edit.c
 erlang/erl-guestfs-proto.c
 erlang/erl-guestfs.c
 fish/alloc.c
@@ -222,7 +222,7 @@ gobject/src/struct-version.c
 gobject/src/struct-xattr.c
 gobject/src/struct-xfsinfo.c
 gobject/src/tristate.c
-inspector/virt-inspector.c
+inspector/inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 lua/lua-guestfs.c
 ocaml/guestfs-c-actions.c
@@ -233,8 +233,8 @@ perl/lib/Sys/Guestfs.pm
 php/extension/guestfs_php.c
 python/guestfs-py-byhand.c
 python/guestfs-py.c
+rescue/rescue.c
 rescue/test-virt-rescue.pl
-rescue/virt-rescue.c
 resize/progress-c.c
 resize/tty-c.c
 resize/uri-c.c
