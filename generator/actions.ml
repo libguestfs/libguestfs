@@ -10327,11 +10327,15 @@ or C<guestfs_rm_rf> to remove directories recursively." };
             ["cat"; "/new"]], "new file contents")
        ]);
     shortdesc = "create an ext2/ext3/ext4 filesystem on device";
+    (* XXX document optional args properly *)
     longdesc = "\
 C<mke2fs> is used to create an ext2, ext3, or ext4 filesystem
-on C<device>.  The optional C<blockscount> is the size of the
-filesystem in blocks.  If omitted it defaults to the size of
-C<device>." (* XXX document optional args properly *) };
+on C<device>.
+
+The optional C<blockscount> is the size of the filesystem in blocks.
+If omitted it defaults to the size of C<device>.  Note if the
+filesystem is too small to contain a journal, C<mke2fs> will
+silently create an ext2 filesystem instead." };
 
   { defaults with
     name = "list_disk_labels";
