@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-19 18:59+0100\n"
+"POT-Creation-Date: 2013-08-29 18:30+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: align/scan.c:134 cat/virt-cat.c:115 cat/virt-filesystems.c:188
 #: cat/virt-ls.c:180 df/main.c:133 edit/virt-edit.c:134 fish/fish.c:234
-#: format/format.c:126 fuse/guestmount.c:207 inspector/virt-inspector.c:127
+#: format/format.c:129 fuse/guestmount.c:207 inspector/virt-inspector.c:127
 #: rescue/virt-rescue.c:135
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -60,7 +60,7 @@ msgstr "guestfs_create: సంభాలికను సృష్టించు�
 
 #: align/scan.c:154 cat/virt-cat.c:137 cat/virt-filesystems.c:242
 #: cat/virt-ls.c:230 df/main.c:157 edit/virt-edit.c:156 fish/fish.c:290
-#: format/format.c:178 fuse/guestmount.c:242 fuse/guestunmount.c:124
+#: format/format.c:183 fuse/guestmount.c:242 fuse/guestunmount.c:124
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3315,18 +3315,18 @@ msgstr ""
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 
-#: format/format.c:61
+#: format/format.c:62
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr ""
 
-#: format/format.c:64
+#: format/format.c:65
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
 msgstr ""
 
-#: format/format.c:68
+#: format/format.c:69
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -3341,6 +3341,7 @@ msgid ""
 "  --filesystem=..      Create empty filesystem\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
+"  --label=..           Set filesystem label\n"
 "  --lvm=..             Create Linux LVM2 logical volume\n"
 "  --partition=..       Create / set partition type\n"
 "  -v|--verbose         Verbose messages\n"
@@ -3353,17 +3354,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: format/format.c:147
+#: format/format.c:150
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr ""
 
-#: format/format.c:155
+#: format/format.c:158
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr ""
 
-#: format/format.c:261
+#: format/format.c:266
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -3372,7 +3373,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:302
+#: format/format.c:307
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
@@ -4703,66 +4704,66 @@ msgstr ""
 msgid "virt-list-partitions: no image or VM name given"
 msgstr ""
 
-#: tools/virt-make-fs.pl:305
+#: tools/virt-make-fs.pl:314
 msgid "virt-make-fs input output\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:335
+#: tools/virt-make-fs.pl:344
 msgid "unexpected output from 'du' command"
 msgstr ""
 
-#: tools/virt-make-fs.pl:347 tools/virt-make-fs.pl:361
-#: tools/virt-make-fs.pl:546
+#: tools/virt-make-fs.pl:356 tools/virt-make-fs.pl:370
+#: tools/virt-make-fs.pl:560
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:412
+#: tools/virt-make-fs.pl:421
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:433
+#: tools/virt-make-fs.pl:442
 msgid "cannot dup STDOUT"
 msgstr ""
 
-#: tools/virt-make-fs.pl:434
+#: tools/virt-make-fs.pl:443
 msgid "cannot dup STDERR"
 msgstr ""
 
-#: tools/virt-make-fs.pl:437
+#: tools/virt-make-fs.pl:446
 msgid "cannot redirect STDOUT"
 msgstr ""
 
-#: tools/virt-make-fs.pl:438
+#: tools/virt-make-fs.pl:447
 msgid "cannot redirect STDERR"
 msgstr ""
 
-#: tools/virt-make-fs.pl:440
+#: tools/virt-make-fs.pl:449
 msgid "cannot restore STDOUT"
 msgstr ""
 
-#: tools/virt-make-fs.pl:441
+#: tools/virt-make-fs.pl:450
 msgid "cannot restore STDERR"
 msgstr ""
 
-#: tools/virt-make-fs.pl:444
+#: tools/virt-make-fs.pl:453
 msgid "qemu-img create: failed to create disk image:\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:460
+#: tools/virt-make-fs.pl:469
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:530
+#: tools/virt-make-fs.pl:544
 msgid "tar: failed, see earlier messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:552
+#: tools/virt-make-fs.pl:566
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 
-#: tools/virt-make-fs.pl:586
+#: tools/virt-make-fs.pl:600
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"

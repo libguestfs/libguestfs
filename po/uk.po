@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-19 18:59+0100\n"
+"POT-Creation-Date: 2013-08-29 18:30+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: align/scan.c:134 cat/virt-cat.c:115 cat/virt-filesystems.c:188
 #: cat/virt-ls.c:180 df/main.c:133 edit/virt-edit.c:134 fish/fish.c:234
-#: format/format.c:126 fuse/guestmount.c:207 inspector/virt-inspector.c:127
+#: format/format.c:129 fuse/guestmount.c:207 inspector/virt-inspector.c:127
 #: rescue/virt-rescue.c:135
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -79,7 +79,7 @@ msgstr "guestfs_create: не вдалося створити елемент ке
 
 #: align/scan.c:154 cat/virt-cat.c:137 cat/virt-filesystems.c:242
 #: cat/virt-ls.c:230 df/main.c:157 edit/virt-edit.c:156 fish/fish.c:290
-#: format/format.c:178 fuse/guestmount.c:242 fuse/guestunmount.c:124
+#: format/format.c:183 fuse/guestmount.c:242 fuse/guestunmount.c:124
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3636,11 +3636,11 @@ msgstr ""
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 
-#: format/format.c:61
+#: format/format.c:62
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr "ВАЖЛИВЕ ЗАУВАЖЕННЯ: ця програма ВИТИРАЄ ВСІ ДАНІ з дисків."
 
-#: format/format.c:64
+#: format/format.c:65
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
@@ -3649,7 +3649,7 @@ msgstr ""
 "Щоб дізнатися більше, віддайте команду «%s --help».\n"
 "%s\n"
 
-#: format/format.c:68
+#: format/format.c:69
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -3664,6 +3664,7 @@ msgid ""
 "  --filesystem=..      Create empty filesystem\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
+"  --label=..           Set filesystem label\n"
 "  --lvm=..             Create Linux LVM2 logical volume\n"
 "  --partition=..       Create / set partition type\n"
 "  -v|--verbose         Verbose messages\n"
@@ -3675,40 +3676,18 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
-"%s: витирання даних і створення порожнього диска\n"
-"© Red Hat Inc., 2012\n"
-"\n"
-"%s\n"
-"\n"
-"Використання:\n"
-"  %s [--options] -a образ.img [-a образ.img ...]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  --filesystem=..      Створити порожню файлову систему\n"
-"  --format[=raw|..]    Встановити формат диска для параметра -a\n"
-"  --help               Показати коротку довідку\n"
-"  --lvm=..             Створити том LVM2 Linux\n"
-"  --partition=..       Створити розділ або встановити тип розділу\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  --wipe               Записати весь диск нулями\n"
-"  -x                   Трасувати виклики інтерфейсу libguestfs\n"
-"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
-"\n"
-"%s\n"
-"\n"
 
-#: format/format.c:147
+#: format/format.c:150
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr "%s: не вказано файлової системи\n"
 
-#: format/format.c:155
+#: format/format.c:158
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr "%s: параметр --lvm можна визначати лише один раз\n"
 
-#: format/format.c:261
+#: format/format.c:266
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -3722,7 +3701,7 @@ msgstr ""
 "Якщо ви вважаєте, що зіткнулися з вадою, будь ласка,\n"
 "повідомте про це на сайті http://libguestfs.org/\n"
 
-#: format/format.c:302
+#: format/format.c:307
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr "%s: не вдалося обробити параметр --lvm (%s)\n"
@@ -5312,68 +5291,68 @@ msgstr "virt-list-filesystems: не вказано образу або назв�
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-make-fs.pl:305
+#: tools/virt-make-fs.pl:314
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs вхідні_дані вихідні_дані\n"
 
-#: tools/virt-make-fs.pl:335
+#: tools/virt-make-fs.pl:344
 msgid "unexpected output from 'du' command"
 msgstr "несподівані вихідні дані від команди «du»"
 
-#: tools/virt-make-fs.pl:347 tools/virt-make-fs.pl:361
-#: tools/virt-make-fs.pl:546
+#: tools/virt-make-fs.pl:356 tools/virt-make-fs.pl:370
+#: tools/virt-make-fs.pl:560
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: невідомий формат вхідних даних: {fmt}\n"
 
-#: tools/virt-make-fs.pl:412
+#: tools/virt-make-fs.pl:421
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: не вдалося обробити параметр розміру: {sz}\n"
 
-#: tools/virt-make-fs.pl:433
+#: tools/virt-make-fs.pl:442
 msgid "cannot dup STDOUT"
 msgstr "не вдалося здублювати STDOUT"
 
-#: tools/virt-make-fs.pl:434
+#: tools/virt-make-fs.pl:443
 msgid "cannot dup STDERR"
 msgstr "не вдалося здублювати STDERR"
 
-#: tools/virt-make-fs.pl:437
+#: tools/virt-make-fs.pl:446
 msgid "cannot redirect STDOUT"
 msgstr "не вдалося переспрямувати STDOUT"
 
-#: tools/virt-make-fs.pl:438
+#: tools/virt-make-fs.pl:447
 msgid "cannot redirect STDERR"
 msgstr "не вдалося переспрямувати STDERR"
 
-#: tools/virt-make-fs.pl:440
+#: tools/virt-make-fs.pl:449
 msgid "cannot restore STDOUT"
 msgstr "не вдалося відновити STDOUT"
 
-#: tools/virt-make-fs.pl:441
+#: tools/virt-make-fs.pl:450
 msgid "cannot restore STDERR"
 msgstr "не вдалося відновити STDERR"
 
-#: tools/virt-make-fs.pl:444
+#: tools/virt-make-fs.pl:453
 msgid "qemu-img create: failed to create disk image:\n"
 msgstr "qemu-img create: не вдалося створити образ диска:\n"
 
-#: tools/virt-make-fs.pl:460
+#: tools/virt-make-fs.pl:469
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: підтримку NTFS було вимкнено під час збирання libguestfs\n"
 
-#: tools/virt-make-fs.pl:530
+#: tools/virt-make-fs.pl:544
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: помилка, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:552
+#: tools/virt-make-fs.pl:566
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "помилка команди розпакування, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:586
+#: tools/virt-make-fs.pl:600
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -7110,6 +7089,53 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid ""
+#~ "%s: erase and make a blank disk\n"
+#~ "Copyright (C) 2012 Red Hat Inc.\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  --filesystem=..      Create empty filesystem\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  --lvm=..             Create Linux LVM2 logical volume\n"
+#~ "  --partition=..       Create / set partition type\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  --wipe               Write zeroes over whole disk\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ msgstr ""
+#~ "%s: витирання даних і створення порожнього диска\n"
+#~ "© Red Hat Inc., 2012\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Використання:\n"
+#~ "  %s [--options] -a образ.img [-a образ.img ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  --filesystem=..      Створити порожню файлову систему\n"
+#~ "  --format[=raw|..]    Встановити формат диска для параметра -a\n"
+#~ "  --help               Показати коротку довідку\n"
+#~ "  --lvm=..             Створити том LVM2 Linux\n"
+#~ "  --partition=..       Створити розділ або встановити тип розділу\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  --wipe               Записати весь диск нулями\n"
+#~ "  -x                   Трасувати виклики інтерфейсу libguestfs\n"
+#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
 
 #~ msgid ""
 #~ "libvirt backend is not available because this version of libguestfs was "

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-19 18:59+0100\n"
+"POT-Creation-Date: 2013-08-29 18:30+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: align/scan.c:134 cat/virt-cat.c:115 cat/virt-filesystems.c:188
 #: cat/virt-ls.c:180 df/main.c:133 edit/virt-edit.c:134 fish/fish.c:234
-#: format/format.c:126 fuse/guestmount.c:207 inspector/virt-inspector.c:127
+#: format/format.c:129 fuse/guestmount.c:207 inspector/virt-inspector.c:127
 #: rescue/virt-rescue.c:135
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -62,7 +62,7 @@ msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: align/scan.c:154 cat/virt-cat.c:137 cat/virt-filesystems.c:242
 #: cat/virt-ls.c:230 df/main.c:157 edit/virt-edit.c:156 fish/fish.c:290
-#: format/format.c:178 fuse/guestmount.c:242 fuse/guestunmount.c:124
+#: format/format.c:183 fuse/guestmount.c:242 fuse/guestunmount.c:124
 #: inspector/virt-inspector.c:151 rescue/virt-rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -3503,11 +3503,11 @@ msgstr ""
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 
-#: format/format.c:61
+#: format/format.c:62
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr "BELANGRIJK: Dit programma WIST ALLE DATA op schijven."
 
-#: format/format.c:64
+#: format/format.c:65
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
@@ -3516,7 +3516,7 @@ msgstr ""
 "Probeer `%s --help' voor meer informatie.\n"
 "%s\n"
 
-#: format/format.c:68
+#: format/format.c:69
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -3531,6 +3531,7 @@ msgid ""
 "  --filesystem=..      Create empty filesystem\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
+"  --label=..           Set filesystem label\n"
 "  --lvm=..             Create Linux LVM2 logical volume\n"
 "  --partition=..       Create / set partition type\n"
 "  -v|--verbose         Verbose messages\n"
@@ -3542,40 +3543,18 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
-"%s: wis en maak een lege schijf\n"
-"Copyright (C) 2012 Red Hat Inc.\n"
-"\n"
-"%s\n"
-"\n"
-"Gebruik:\n"
-"  %s [--opties] -a disk.img [-a disk.img ...]\n"
-"Opties:\n"
-"  -a|--add image       Voeg image toe\n"
-"  --filesystem=..      Maak leeg bestandssysteem aan\n"
-"  --format[=raw|..]    Forceer schijfformaat voor -a optie  --"
-"help               Toon korte hulp\n"
-"  --lvm=..             Maak Linux LVM2 logische volume aan\n"
-"  --partition=..       Aanmaken / instellen partitie type\n"
-"  -v|--verbose         Uitgebreide boodschappen\n"
-"  -V|--version         Toon versie en sluitaf\n"
-"  --wipe               Schrijf nullen naar de hele schijf\n"
-"  -x                   Traceer libguestfs API aanroepen\n"
-"Voor meer informatie referre je naar de man pagina %s(1).\n"
-"\n"
-"%s\n"
-"\n"
 
-#: format/format.c:147
+#: format/format.c:150
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr "%s: er was geen bestandssysteem gespecificeerd\n"
 
-#: format/format.c:155
+#: format/format.c:158
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr "%s: --lvm optie kan niet meerdere malen worden gegeven\n"
 
-#: format/format.c:261
+#: format/format.c:266
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -3588,7 +3567,7 @@ msgstr ""
 "data is die we niet kuinnen verwijderen.  Als je denkt dat\n"
 "dit een bug is, maak je een bug aan op http://libguestfs.org/\n"
 
-#: format/format.c:302
+#: format/format.c:307
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr "%s: kan --lvm optie (%s) niet parsen\n"
@@ -4995,68 +4974,68 @@ msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: geen image of VM naam opgegeven"
 
-#: tools/virt-make-fs.pl:305
+#: tools/virt-make-fs.pl:314
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs input output\n"
 
-#: tools/virt-make-fs.pl:335
+#: tools/virt-make-fs.pl:344
 msgid "unexpected output from 'du' command"
 msgstr "onverwachte output  van 'du' commando"
 
-#: tools/virt-make-fs.pl:347 tools/virt-make-fs.pl:361
-#: tools/virt-make-fs.pl:546
+#: tools/virt-make-fs.pl:356 tools/virt-make-fs.pl:370
+#: tools/virt-make-fs.pl:560
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: onbekend invoer formaat: {fmt}\n"
 
-#: tools/virt-make-fs.pl:412
+#: tools/virt-make-fs.pl:421
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: kan size parameter niet ontleden: {sz}\n"
 
-#: tools/virt-make-fs.pl:433
+#: tools/virt-make-fs.pl:442
 msgid "cannot dup STDOUT"
 msgstr "kan STDOUT niet dupliceren"
 
-#: tools/virt-make-fs.pl:434
+#: tools/virt-make-fs.pl:443
 msgid "cannot dup STDERR"
 msgstr "kan STDERR niet dupliceren"
 
-#: tools/virt-make-fs.pl:437
+#: tools/virt-make-fs.pl:446
 msgid "cannot redirect STDOUT"
 msgstr "kan STDOUT niet omleiden"
 
-#: tools/virt-make-fs.pl:438
+#: tools/virt-make-fs.pl:447
 msgid "cannot redirect STDERR"
 msgstr "kan STDERR niet omleiden"
 
-#: tools/virt-make-fs.pl:440
+#: tools/virt-make-fs.pl:449
 msgid "cannot restore STDOUT"
 msgstr "kan STDOUT niet herstellen"
 
-#: tools/virt-make-fs.pl:441
+#: tools/virt-make-fs.pl:450
 msgid "cannot restore STDERR"
 msgstr "kan STDERR niet herstellen"
 
-#: tools/virt-make-fs.pl:444
+#: tools/virt-make-fs.pl:453
 msgid "qemu-img create: failed to create disk image:\n"
 msgstr "qemu-img create: schijfimage aanmaken mislukte:\n"
 
-#: tools/virt-make-fs.pl:460
+#: tools/virt-make-fs.pl:469
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: NTFS ondersteuning was uitgezet toen libguestfs gecompileerd "
 "werd\n"
 
-#: tools/virt-make-fs.pl:530
+#: tools/virt-make-fs.pl:544
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: misluket, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:552
+#: tools/virt-make-fs.pl:566
 msgid "uncompress command failed, see earlier messages\n"
 msgstr "decomprimeer commando mislukte, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:586
+#: tools/virt-make-fs.pl:600
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -6779,6 +6758,53 @@ msgstr "je kunt de opties --expand en --shrink niet tezamen gebruiken"
 #: ../sparsify/sparsify.ml:150 ../resize/resize.ml:198
 msgid "you cannot use the same disk image for input and output"
 msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
+
+#~ msgid ""
+#~ "%s: erase and make a blank disk\n"
+#~ "Copyright (C) 2012 Red Hat Inc.\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  --filesystem=..      Create empty filesystem\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  --lvm=..             Create Linux LVM2 logical volume\n"
+#~ "  --partition=..       Create / set partition type\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  --wipe               Write zeroes over whole disk\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ msgstr ""
+#~ "%s: wis en maak een lege schijf\n"
+#~ "Copyright (C) 2012 Red Hat Inc.\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Gebruik:\n"
+#~ "  %s [--opties] -a disk.img [-a disk.img ...]\n"
+#~ "Opties:\n"
+#~ "  -a|--add image       Voeg image toe\n"
+#~ "  --filesystem=..      Maak leeg bestandssysteem aan\n"
+#~ "  --format[=raw|..]    Forceer schijfformaat voor -a optie  --"
+#~ "help               Toon korte hulp\n"
+#~ "  --lvm=..             Maak Linux LVM2 logische volume aan\n"
+#~ "  --partition=..       Aanmaken / instellen partitie type\n"
+#~ "  -v|--verbose         Uitgebreide boodschappen\n"
+#~ "  -V|--version         Toon versie en sluitaf\n"
+#~ "  --wipe               Schrijf nullen naar de hele schijf\n"
+#~ "  -x                   Traceer libguestfs API aanroepen\n"
+#~ "Voor meer informatie referre je naar de man pagina %s(1).\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
 
 #~ msgid "add qemu parameters"
 #~ msgstr "voeg qemu parameters toe"
