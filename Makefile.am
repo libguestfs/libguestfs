@@ -385,11 +385,14 @@ check-valgrind-with-appliance: check-valgrind-direct
 # Tests which currently fail under UML:
 # - blockdev --setro seems to have no effect on /dev/ubd* devices [*]
 # - RHBZ#914931: test is sent a SIGTERM, apparently by UML [*]
+# - tests/md/test-inspect-fstab-md.sh hangs at various places during the
+#   test, eg. running mdadm, mounting MD filesystem [*]
 # [*] = likely to be a bug in UML itself
 SKIP_TESTS_FAILING_IN_UML = \
 	SKIP_TEST_BLOCKDEV_GETRO=1 \
 	SKIP_TEST_BLOCKDEV_SETRO=1 \
-	SKIP_TEST_RHBZ914931=1
+	SKIP_TEST_RHBZ914931=1 \
+	SKIP_TEST_INSPECT_FSTAB_MD_SH=1
 
 check-uml:
 	$(MAKE) LIBGUESTFS_BACKEND=uml $(SKIP_TESTS_FAILING_IN_UML) check
