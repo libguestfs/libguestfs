@@ -28,9 +28,41 @@
 #include "optgroups.h"
 
 GUESTFSD_EXT_CMD(str_btrfs, btrfs);
+GUESTFSD_EXT_CMD(str_dosfslabel, dosfslabel);
 GUESTFSD_EXT_CMD(str_e2label, e2label);
 GUESTFSD_EXT_CMD(str_ntfslabel, ntfslabel);
 GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
+
+static int
+btrfslabel (const char *device, const char *label)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  r = command (NULL, &err, str_btrfs, "filesystem", "label",
+               device, label, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}
+
+static int
+dosfslabel (const char *device, const char *label)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  r = command (NULL, &err, str_dosfslabel, device, label, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}
 
 static int
 e2label (const char *device, const char *label)
@@ -95,22 +127,6 @@ xfslabel (const char *device, const char *label)
   return 0;
 }
 
-static int
-btrfslabel (const char *device, const char *label)
-{
-  int r;
-  CLEANUP_FREE char *err = NULL;
-
-  r = command (NULL, &err, str_btrfs, "filesystem", "label",
-               device, label, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
-
-  return 0;
-}
-
 int
 do_set_label (const mountable_t *mountable, const char *label)
 {
@@ -121,7 +137,15 @@ do_set_label (const mountable_t *mountable, const char *label)
   if (vfs_type == NULL)
     return -1;
 
-  if (fstype_is_extfs (vfs_type))
+  if (STREQ (vfs_type, "btrfs"))
+    r = btrfslabel (mountable->device, label);
+
+  else if (STREQ (vfs_type, "msdos") ||
+           STREQ (vfs_type, "fat") ||
+           STREQ (vfs_type, "vfat"))
+    r = dosfslabel (mountable->device, label);
+
+  else if (fstype_is_extfs (vfs_type))
     r = e2label (mountable->device, label);
 
   else if (STREQ (vfs_type, "ntfs"))
@@ -129,9 +153,6 @@ do_set_label (const mountable_t *mountable, const char *label)
 
   else if (STREQ (vfs_type, "xfs"))
     r = xfslabel (mountable->device, label);
-
-  else if (STREQ (vfs_type, "btrfs"))
-    r = btrfslabel (mountable->device, label);
 
   else {
     reply_with_error ("don't know how to set the label for '%s' filesystems",
