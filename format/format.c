@@ -47,6 +47,7 @@ const char *libvirt_uri = NULL;
 static const char *filesystem = NULL;
 static const char *vg = NULL, *lv = NULL;
 static const char *partition = "DEFAULT";
+static const char *label = NULL;
 static int wipe = 0;
 static int have_wipefs;
 
@@ -77,6 +78,7 @@ usage (int status)
              "  --filesystem=..      Create empty filesystem\n"
              "  --format[=raw|..]    Force disk format for -a option\n"
              "  --help               Display brief help\n"
+             "  --label=..           Set filesystem label\n"
              "  --lvm=..             Create Linux LVM2 logical volume\n"
              "  --partition=..       Create / set partition type\n"
              "  -v|--verbose         Verbose messages\n"
@@ -107,6 +109,7 @@ main (int argc, char *argv[])
     { "filesystem", 1, 0, 0 },
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
+    { "label", 1, 0, 0 },
     { "long-options", 0, 0, 0 },
     { "lvm", 2, 0, 0 },
     { "partition", 2, 0, 0 },
@@ -174,6 +177,8 @@ main (int argc, char *argv[])
           partition = optarg;
       } else if (STREQ (long_options[option_index].name, "wipe")) {
         wipe = 1;
+      } else if (STREQ (long_options[option_index].name, "label")) {
+        label = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -415,6 +420,11 @@ do_format (void)
     if (filesystem) {
       if (guestfs_mkfs_opts (g, filesystem, dev, -1) == -1)
         exit (EXIT_FAILURE);
+
+      if (label) {
+        if (guestfs_set_label (g, dev, label) == -1)
+          exit (EXIT_FAILURE);
+      }
     }
 
     if (free_dev)
