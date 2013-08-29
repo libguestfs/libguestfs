@@ -114,6 +114,10 @@ If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
 
+=item B<--label=LABEL>
+
+Set the filesystem label.
+
 =item B<--lvm=/dev/I<VG>/I<LV>>
 
 Create a Linux LVM2 logical volume called C</dev/I<VG>/I<LV>>.  You
