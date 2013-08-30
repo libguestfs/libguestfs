@@ -452,10 +452,11 @@ supermin_helper_version=`$SUPERMIN_HELPER --version | awk '{print $2}'`
 AC_MSG_RESULT([$supermin_helper_version])
 AC_MSG_CHECKING([if supermin-helper supports compressed cpio images])
 supermin_helper_version_int=`echo "$supermin_helper_version" | awk -F. '{print $1 * 1000000 + $2 * 1000 + $3}'`
+echo supermin_helper_version_int=$supermin_helper_version_int >&AS_MESSAGE_LOG_FD
 if test $supermin_helper_version_int -ge 4001004; then
     supermin_helper_compressed_cpio=yes
 else
-    supermin_helper_compressed_cpio=yes
+    supermin_helper_compressed_cpio=no
 fi
 AC_MSG_RESULT([$supermin_helper_compressed_cpio])
 AM_CONDITIONAL([SUPERMIN_HELPER_COMPRESSED_CPIO],
