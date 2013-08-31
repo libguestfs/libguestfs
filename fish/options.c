@@ -63,6 +63,10 @@ add_drives (struct drv *drv, char next_drive)
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
         ad_optargs.format = drv->a.format;
       }
+      if (drv->a.cachemode) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK;
+        ad_optargs.cachemode = drv->a.cachemode;
+      }
 
       r = guestfs_add_drive_opts_argv (g, drv->a.filename, &ad_optargs);
       if (r == -1)
@@ -175,7 +179,10 @@ free_drives (struct drv *drv)
   free (drv->device);
 
   switch (drv->type) {
-  case drv_a: /* a.filename and a.format are optargs, don't free them */ break;
+  case drv_a:
+    /* a.filename and a.format are optargs, don't free them */
+    /* a.cachemode is a static string, so don't free it */
+    break;
   case drv_d: /* d.filename is optarg, don't free it */ break;
 #if COMPILING_GUESTFISH
   case drv_N:

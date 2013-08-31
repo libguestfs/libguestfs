@@ -569,6 +569,7 @@ add_scratch_disk (struct drv **drvs)
   drv->nr_drives = -1;
   drv->a.filename = filename;
   drv->a.format = "raw";
+  drv->a.cachemode = "unsafe"; /* because it's a scratch disk */
   drv->next = *drvs;
   *drvs = drv;
 }
