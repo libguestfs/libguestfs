@@ -996,10 +996,10 @@ qemu_drive_param (guestfs_h *g, struct backend_direct_data *data,
     iface = "virtio";
 
   return safe_asprintf
-    (g, "file=%s%s%s%s%s%s%s,id=hd%zu,if=%s",
+    (g, "file=%s%s,cache=%s%s%s%s%s,id=hd%zu,if=%s",
      escaped_file,
      drv->readonly ? ",snapshot=on" : "",
-     drv->use_cache_none ? ",cache=none" : "",
+     drv->cachemode ? drv->cachemode : "writeback",
      drv->format ? ",format=" : "",
      drv->format ? drv->format : "",
      drv->disk_label ? ",serial=" : "",

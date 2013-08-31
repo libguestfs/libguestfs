@@ -1286,7 +1286,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -1475,6 +1475,34 @@ connecting to the remote device.
 If not given, then a secret matching the given username will be looked up in the
 default keychain locations, or if no username is given, then no authentication
 will be used.
+
+=item C<cachemode>
+
+Choose whether or not libguestfs will obey sync operations (safe but slow)
+or not (unsafe but fast).  The possible values for this string are:
+
+=over 4
+
+=item C<cachemode = \"writeback\">
+
+This is the default.
+
+Write operations in the API do not return until a L<write(2)>
+call has completed in the host [but note this does not imply
+that anything gets written to disk].
+
+Sync operations in the API, including implicit syncs caused by
+filesystem journalling, will not return until an L<fdatasync(2)>
+call has completed in the host, indicating that data has been
+committed to disk.
+
+=item C<cachemode = \"unsafe\">
+
+In this mode, there are no guarantees.  Libguestfs may cache
+anything and ignore sync requests.  This is suitable only
+for scratch or temporary disks.
+
+=back
 
 =back" };
 

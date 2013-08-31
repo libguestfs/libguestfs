@@ -172,7 +172,7 @@ struct drive {
   char *iface;
   char *name;
   char *disk_label;
-  bool use_cache_none;
+  char *cachemode;
 
   /* Data used by the backend. */
   void *priv;
