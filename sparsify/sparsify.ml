@@ -182,42 +182,33 @@ let () =
   let do_sigint _ = exit 1 in
   Sys.set_signal Sys.sigint (Sys.Signal_handle do_sigint)
 
-(* Try to determine the version of the 'qemu-img' program.
- * All known versions of qemu-img display the following first
- * line when you run 'qemu-img --help':
- *
- *   "qemu-img version x.y.z, Copyright [...]"
- *
- * Parse out 'x.y'.
+(* Try to determine which flag options qemu-img supports for qcow2.
+ * We do this by creating and disposing of a few test images.  This
+ * also detects if qemu-img is completely broken.
  *)
-let qemu_img_version =
-  let cmd = "qemu-img --help" in
-  let chan = open_process_in cmd in
-  let line = input_line chan in
-  let stat = close_process_in chan in
-  (match stat with
-  | WEXITED _ -> ()
-  | WSIGNALED i ->
-    error (f_"external command '%s' killed by signal %d") cmd i
-  | WSTOPPED i ->
-    error (f_"external command '%s' stopped by signal %d") cmd i
+let qemu_img_supports_compat11, qemu_img_supports_lazy_refcounts =
+  let test options =
+    let tmp = Filename.temp_file "test" ".qcow2" in
+    unlink_on_exit tmp;
+    let cmd = "qemu-img create -f qcow2" ^
+      (match options with None -> "" | Some opts -> " -o " ^ opts) ^
+      " " ^ tmp ^ " 128K > /dev/null" in
+    if verbose then printf "testing if '%s' works ... %!" cmd;
+    let r = Sys.command cmd = 0 in
+    if verbose then printf "%b\n" r;
+    r
+  in
+  if not (test None) then (
+    eprintf (f_"\
+'qemu-img create' cannot create qcow2 files.  Check the 'qemu-img'
+program is installed and working, and that it matches the version\
+of qemu installed.\n");
+    exit 1
   );
-
-  try
-    sscanf line "qemu-img version %d.%d" (
-      fun major minor ->
-        let minor = if minor > 9 then 9 else minor in
-        float major +. float minor /. 10.
-    )
-  with
-    Scan_failure msg ->
-      eprintf (f_"warning: failed to read qemu-img version\n  line: %S\n  message: %s\n%!")
-        line msg;
-      0.9
-
-let () =
-  if not quiet then
-    printf (f_"qemu-img version %g\n%!") qemu_img_version
+  let supports_compat11 = test (Some "compat=1.1") in
+  let supports_lazy_refcounts =
+    test (Some "compat=1.1,lazy_refcounts") in
+  supports_compat11, supports_lazy_refcounts
 
 (* What should the output format be?  If the user specified an
  * input format, use that, else detect it from the source image.
@@ -307,11 +298,20 @@ let overlaydisk =
         match format with
         | None -> []
         | Some fmt -> [sprintf "backing_fmt=%s" fmt] in
-      let version3 =
-        if qemu_img_version >= 1.1 then ["compat=1.1"] else [] in
-      backing_file_option @ backing_fmt_option @ version3 in
+      let compat11 =
+        if qemu_img_supports_compat11 then ["compat=1.1"] else [] in
+      let lazy_refcounts =
+        if qemu_img_supports_lazy_refcounts then
+          ["lazy_refcounts"]
+        else [] in
+      String.concat "," (
+        backing_file_option @
+        backing_fmt_option @
+        compat11 @
+        lazy_refcounts
+      ) in
     sprintf "qemu-img create -f qcow2 -o %s %s > /dev/null"
-      (Filename.quote (String.concat "," options)) (Filename.quote tmp) in
+      (Filename.quote options) (Filename.quote tmp) in
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
