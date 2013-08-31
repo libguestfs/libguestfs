@@ -120,7 +120,7 @@ struct drive {
   char *iface;
   char *name;
   char *disk_label;
-  bool use_cache_none;
+  char *cachemode;
 
   void *priv;                   /* Data used by attach method. */
   void (*free_priv) (void *);

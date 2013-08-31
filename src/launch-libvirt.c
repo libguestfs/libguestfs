@@ -1125,11 +1125,12 @@ construct_libvirt_xml_disk (guestfs_h *g,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
                                            BAD_CAST format));
   }
-  if (drv->use_cache_none) {
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "cache",
-                                           BAD_CAST "none"));
-  }
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "cache",
+                                         BAD_CAST (drv->cachemode ?
+                                                   drv->cachemode :
+                                                   "writeback")));
+
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   if (drv->disk_label) {

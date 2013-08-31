@@ -1035,9 +1035,9 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
   else
     iface = "virtio";
 
-  snprintf (&r[i], len-i, "%s%s%s%s%s%s,id=hd%zu,if=%s",
+  snprintf (&r[i], len-i, "%s,cache=%s%s%s%s%s,id=hd%zu,if=%s",
             drv->readonly ? ",snapshot=on" : "",
-            drv->use_cache_none ? ",cache=none" : "",
+            drv->cachemode ? drv->cachemode : "writeback",
             drv->format ? ",format=" : "",
             drv->format ? drv->format : "",
             drv->disk_label ? ",serial=" : "",
