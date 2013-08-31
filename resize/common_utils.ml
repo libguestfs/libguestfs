@@ -252,3 +252,24 @@ let display_long_options () =
         printf "%s\n" arg
   ) !long_options;
   exit 0
+
+(* Unlink a temporary file on exit. *)
+let unlink_on_exit =
+  let files = ref [] in
+  let registered_handlers = ref false in
+
+  let rec unlink_files () =
+    List.iter (
+      fun file -> try Unix.unlink file with _ -> ()
+    ) !files
+  and register_handlers () =
+    (* Unlink on exit. *)
+    at_exit unlink_files
+  in
+
+  fun file ->
+    files := file :: !files;
+    if not !registered_handlers then (
+      register_handlers ();
+      registered_handlers := true
+    )

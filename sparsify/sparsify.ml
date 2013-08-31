@@ -155,6 +155,16 @@ read the man page virt-sparsify(1).
     debug_gc, format, ignores, machine_readable,
     option, quiet, verbose, trace, zeroes
 
+(* Once we have got past argument parsing and start to create
+ * temporary files (including the potentially massive overlay file), we
+ * need to catch SIGINT (^C) and exit cleanly so the temporary file
+ * goes away.  Note that we don't delete temporaries in the signal
+ * handler.
+ *)
+let () =
+  let do_sigint _ = exit 1 in
+  Sys.set_signal Sys.sigint (Sys.Signal_handle do_sigint)
+
 (* Try to determine the version of the 'qemu-img' program.
  * All known versions of qemu-img display the following first
  * line when you run 'qemu-img --help':
@@ -220,13 +230,7 @@ let () =
 (* Create the temporary overlay file. *)
 let overlaydisk =
   let tmp = Filename.temp_file "sparsify" ".qcow2" in
-  let unlink_tmp () = try unlink tmp with _ -> () in
-
-  (* Unlink on exit. *)
-  at_exit unlink_tmp;
-
-  (* Unlink on sigint. *)
-  Sys.set_signal Sys.sigint (Sys.Signal_handle (fun _ -> unlink_tmp ()));
+  unlink_on_exit tmp;
 
   (* Create it with the indisk as the backing file. *)
   let cmd =
@@ -266,6 +270,14 @@ let g =
   g#launch ();
 
   g
+
+(* Modify SIGINT handler (set first above) to cancel the handle. *)
+let () =
+  let do_sigint _ =
+    g#user_cancel ();
+    exit 1
+  in
+  Sys.set_signal Sys.sigint (Sys.Signal_handle do_sigint)
 
 (* Get the size in bytes of the input disk. *)
 let insize = g#blockdev_getsize64 "/dev/sda"
@@ -362,6 +374,11 @@ let () =
 let () =
   g#shutdown ();
   g#close ()
+
+(* Modify SIGINT handler (set first above) to just exit. *)
+let () =
+  let do_sigint _ = exit 1 in
+  Sys.set_signal Sys.sigint (Sys.Signal_handle do_sigint)
 
 (* Now run qemu-img convert which copies the overlay to the
  * destination and automatically does sparsification.
