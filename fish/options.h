@@ -60,6 +60,7 @@ struct drv {
     struct {
       char *filename;       /* disk filename */
       const char *format;   /* format (NULL == autodetect) */
+      const char *cachemode;/* cachemode (NULL == default) */
     } a;
     struct {
       char *path;           /* disk path */
