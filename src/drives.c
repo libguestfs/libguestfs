@@ -1030,13 +1030,15 @@ int
 guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
                                  const struct guestfs_add_drive_scratch_argv *optargs)
 {
-  struct guestfs_add_drive_opts_argv add_drive_optargs;
+  struct guestfs_add_drive_opts_argv add_drive_optargs = { .bitmask = 0 };
   CLEANUP_FREE char *filename = NULL;
   int fd;
 
   /* Some parameters we always set. */
-  add_drive_optargs.bitmask = GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+  add_drive_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
   add_drive_optargs.format = "raw";
+  add_drive_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK;
+  add_drive_optargs.cachemode = "unsafe";
 
   /* Copy the optional arguments through to guestfs_add_drive_opts. */
   if (optargs->bitmask & GUESTFS_ADD_DRIVE_SCRATCH_NAME_BITMASK) {
