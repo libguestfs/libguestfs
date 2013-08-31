@@ -110,6 +110,10 @@ add_drives (struct drv *drv, char next_drive)
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
         ad_optargs.format = drv->a.format;
       }
+      if (drv->a.cachemode) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK;
+        ad_optargs.cachemode = drv->a.cachemode;
+      }
 
       r = guestfs_add_drive_opts_argv (g, drv->a.filename, &ad_optargs);
       if (r == -1)
@@ -254,6 +258,7 @@ free_drives (struct drv *drv)
   case drv_a:
     free (drv->a.filename);
     /* a.format is an optarg, so don't free it */
+    /* a.cachemode is a static string, so don't free it */
     break;
   case drv_uri:
     free (drv->uri.path);

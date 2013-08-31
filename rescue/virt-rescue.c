@@ -580,6 +580,7 @@ add_scratch_disk (struct drv **drvs)
     exit (EXIT_FAILURE);
   }
   drv->a.format = "raw";
+  drv->a.cachemode = "unsafe"; /* because it's a scratch disk */
   drv->next = *drvs;
   *drvs = drv;
 }
