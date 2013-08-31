@@ -267,6 +267,10 @@ do_is_zero_device (const char *device)
  * to allow better implementations in future, including
  * sparsification.
  */
+/* XXX This function really should be cancellable (for the benefit of
+ * virt-sparsify).  However currently the library can only handle
+ * cancellation for FileIn/FileOut operations.
+ */
 int
 do_zero_free_space (const char *dir)
 {
