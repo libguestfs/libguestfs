@@ -879,12 +879,10 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     }
     if (username != NULL) {
       error (g, _("you cannot specify a username with file-backed disks"));
-      free_drive_servers (servers, nr_servers);
       return -1;
     }
     if (secret != NULL) {
       error (g, _("you cannot specify a secret with file-backed disks"));
-      free_drive_servers (servers, nr_servers);
       return -1;
     }
 
