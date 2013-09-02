@@ -98,26 +98,20 @@ do_aug_init (const char *root, int flags)
     return -1;
   }
 
-#ifdef AUG_NO_ERR_CLOSE
   /* Pass AUG_NO_ERR_CLOSE so we can display detailed errors. */
   aug = aug_init (buf, NULL, flags | AUG_NO_ERR_CLOSE);
-#else
-  aug = aug_init (buf, NULL, flags);
-#endif
 
   if (!aug) {
     reply_with_error ("augeas initialization failed");
     return -1;
   }
 
-#ifdef AUG_NO_ERR_CLOSE
   if (aug_error (aug) != AUG_NOERROR) {
     AUGEAS_ERROR ("aug_init: %s (flags %d)", root, flags);
     aug_close (aug);
     aug = NULL;
     return -1;
   }
-#endif
 
   return 0;
 }
