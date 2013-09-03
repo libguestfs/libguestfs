@@ -42,8 +42,6 @@
 
 #if defined(HAVE_LIBVIRT)
 
-#define DEBUG_PARALLEL 0
-
 /* Maximum number of threads we would ever run.  Note this should not
  * be > 20, unless libvirt is modified to increase the maximum number
  * of clients.
@@ -70,6 +68,7 @@ static void thread_failure (const char *fn, int err);
 static void *worker_thread (void *arg);
 
 struct thread_data {
+  size_t thread_num;            /* Thread number. */
   int trace, verbose;           /* Flags from the options_handle. */
   work_fn work;
   int r;                        /* Used to store the error status. */
@@ -96,6 +95,7 @@ start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
   pthread_t threads[nr_threads];
 
   for (i = 0; i < nr_threads; ++i) {
+    thread_data[i].thread_num = i;
     if (options_handle) {
       thread_data[i].trace = guestfs_get_trace (options_handle);
       thread_data[i].verbose = guestfs_get_verbose (options_handle);
@@ -137,6 +137,9 @@ worker_thread (void *thread_data_vp)
 
   thread_data->r = 0;
 
+  if (thread_data->verbose)
+    printf ("thread %zu starting\n", thread_data->thread_num);
+
   while (1) {
     size_t i;               /* The current domain we're working on. */
     FILE *fp;
@@ -146,6 +149,9 @@ worker_thread (void *thread_data_vp)
     int err;
 
     /* Take the next domain from the list. */
+    if (thread_data->verbose)
+      printf ("thread %zu waiting to get work\n", thread_data->thread_num);
+
     err = pthread_mutex_lock (&take_mutex);
     if (err != 0) {
       thread_failure ("pthread_mutex_lock", err);
@@ -163,8 +169,8 @@ worker_thread (void *thread_data_vp)
     if (i >= nr_domains)        /* Work finished. */
       break;
 
-    if (DEBUG_PARALLEL)
-      printf ("thread taking domain %zu\n", i);
+    if (thread_data->verbose)
+      printf ("thread %zu taking domain %zu\n", thread_data->thread_num, i);
 
     fp = open_memstream (&output, &output_len);
     if (fp == NULL) {
@@ -195,6 +201,10 @@ worker_thread (void *thread_data_vp)
     /* Retire this domain.  We have to retire domains in order, which
      * may mean waiting for another thread to finish here.
      */
+    if (thread_data->verbose)
+      printf ("thread %zu waiting to retire domain %zu\n",
+              thread_data->thread_num, i);
+
     err = pthread_mutex_lock (&retire_mutex);
     if (err != 0) {
       thread_failure ("pthread_mutex_lock", err);
@@ -210,8 +220,8 @@ worker_thread (void *thread_data_vp)
       }
     }
 
-    if (DEBUG_PARALLEL)
-      printf ("thread retiring domain %zu\n", i);
+    if (thread_data->verbose)
+      printf ("thread %zu retiring domain %zu\n", thread_data->thread_num, i);
 
     /* Retire domain. */
     printf ("%s", output);
@@ -227,8 +237,9 @@ worker_thread (void *thread_data_vp)
     }
   }
 
-  if (DEBUG_PARALLEL)
-    printf ("thread exiting\n");
+  if (thread_data->verbose)
+    printf ("thread %zu exiting (r = %d)\n",
+            thread_data->thread_num, thread_data->r);
 
   return &thread_data->r;
 }
