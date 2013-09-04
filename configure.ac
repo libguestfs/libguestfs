@@ -196,7 +196,8 @@ if test "$gl_gcc_warnings" = yes; then
     AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
     AH_VERBATIM([FORTIFY_SOURCE],[
 /* Enable compile-time and run-time bounds-checking, and some warnings. */
-#if __OPTIMIZE__
+#if __OPTIMIZE__ && (! defined (_FORTIFY_SOURCE) || _FORTIFY_SOURCE < 2)
+# undef _FORTIFY_SOURCE
 # define _FORTIFY_SOURCE 2
 #endif])
 fi
