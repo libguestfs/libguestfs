@@ -79,6 +79,9 @@ let globs = List.sort compare [
 
   (* man pages cache *)
   "/var/cache/man/*";
+
+  (* log file of sysstat *)
+  "/var/log/sa/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
