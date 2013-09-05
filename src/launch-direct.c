@@ -279,6 +279,12 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   ADD_CMDLINE ("-nographic");
 
+#ifdef __arm__
+  /* Use the Versatile Express A9 emulation (for now). */
+  ADD_CMDLINE ("-M");
+  ADD_CMDLINE ("vexpress-a9");
+#endif
+
   /* Try to guess if KVM is available.  We are just checking that
    * /dev/kvm is openable.  That's not reliable, since /dev/kvm
    * might be openable by qemu but not by us (think: SELinux) in
