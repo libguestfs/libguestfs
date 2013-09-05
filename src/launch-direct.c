@@ -394,20 +394,26 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     }
     else {
       ADD_CMDLINE ("-drive");
-      ADD_CMDLINE_PRINTF ("%s,if=virtio", param);
+      ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
+      ADD_CMDLINE ("-device");
+      ADD_CMDLINE_PRINTF ("virtio-blk,drive=hd%zu", i);
     }
   }
 
   /* Add the ext2 appliance drive (after all the drives). */
   if (has_appliance_drive) {
     ADD_CMDLINE ("-drive");
-    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,cache=unsafe,if=%s",
-                        appliance, virtio_scsi ? "none" : "virtio");
+    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,cache=unsafe,if=none",
+                        appliance);
 
     if (virtio_scsi) {
       ADD_CMDLINE ("-device");
       ADD_CMDLINE ("scsi-hd,drive=appliance");
-      }
+    }
+    else {
+      ADD_CMDLINE ("-device");
+      ADD_CMDLINE ("virtio-blk,drive=appliance");
+    }
 
     appliance_dev = make_appliance_dev (g, virtio_scsi);
   }
