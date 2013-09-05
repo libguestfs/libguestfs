@@ -97,7 +97,7 @@ static void print_qemu_command_line (guestfs_h *g, char **argv);
 static int qemu_supports (guestfs_h *g, struct backend_direct_data *, const char *option);
 static int qemu_supports_device (guestfs_h *g, struct backend_direct_data *, const char *device_name);
 static int qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *);
-static char *qemu_drive_param (guestfs_h *g, struct backend_direct_data *data, const struct drive *drv, size_t index);
+static char *qemu_escape_param (guestfs_h *g, const char *param);
 
 /* Like 'add_cmdline' but allowing a shell-quoted string of zero or
  * more options.  XXX The unquoting is not very clever.
@@ -359,15 +359,42 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   ITER_DRIVES (g, i, drv) {
-    /* Construct the final -drive parameter. */
-    char *buf = qemu_drive_param (g, data, drv, i);
+    CLEANUP_FREE char *file = NULL, *escaped_file = NULL, *param = NULL;
 
-    ADD_CMDLINE ("-drive");
-    ADD_CMDLINE_STRING_NODUP (buf);
+    /* Make the file= parameter. */
+    file = guestfs___drive_source_qemu_param (g, &drv->src);
+    escaped_file = qemu_escape_param (g, file);
 
-    if (virtio_scsi && drv->iface == NULL) {
+    /* Make the first part of the -drive parameter, everything up to
+     * the if=... at the end.
+     */
+    param = safe_asprintf
+      (g, "file=%s%s,cache=%s%s%s%s%s,id=hd%zu",
+       escaped_file,
+       drv->readonly ? ",snapshot=on" : "",
+       drv->cachemode ? drv->cachemode : "writeback",
+       drv->format ? ",format=" : "",
+       drv->format ? drv->format : "",
+       drv->disk_label ? ",serial=" : "",
+       drv->disk_label ? drv->disk_label : "",
+       i);
+
+    /* If there's an explicit 'iface', use it.  Otherwise default to
+     * virtio-scsi if available.  Otherwise default to virtio-blk.
+     */
+    if (drv->iface) {
+      ADD_CMDLINE ("-drive");
+      ADD_CMDLINE_PRINTF ("%s,if=%s", param, drv->iface);
+    }
+    else if (virtio_scsi) {
+      ADD_CMDLINE ("-drive");
+      ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
       ADD_CMDLINE ("-device");
       ADD_CMDLINE_PRINTF ("scsi-hd,drive=hd%zu", i);
+    }
+    else {
+      ADD_CMDLINE ("-drive");
+      ADD_CMDLINE_PRINTF ("%s,if=virtio", param);
     }
   }
 
@@ -961,51 +988,24 @@ qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *data)
   return data->virtio_scsi == 1;
 }
 
-/* Convert a struct drive into a qemu -drive parameter.  Note that if
- * using virtio-scsi, then the code above adds a second -device
- * parameter to connect this drive to the SCSI HBA, as is required by
- * virtio-scsi.
+/* Escape a qemu parameter.  Every ',' becomes ',,'.  The caller must
+ * free the returned string.
  */
 static char *
-qemu_drive_param (guestfs_h *g, struct backend_direct_data *data,
-                  const struct drive *drv, size_t index)
+qemu_escape_param (guestfs_h *g, const char *param)
 {
-  CLEANUP_FREE char *file = NULL, *escaped_file = NULL;
-  size_t i, len;
-  const char *iface;
-  char *p;
+  size_t i, len = strlen (param);
+  char *p, *ret;
 
-  /* Make the file= parameter. */
-  file = guestfs___drive_source_qemu_param (g, &drv->src);
-
-  /* Escape the file= parameter.  Every ',' becomes ',,'. */
-  len = strlen (file);
-  p = escaped_file = safe_malloc (g, len*2 + 1); /* max length of escaped name*/
+  ret = p = safe_malloc (g, len*2 + 1); /* max length of escaped name*/
   for (i = 0; i < len; ++i) {
-    *p++ = file[i];
-    if (file[i] == ',')
+    *p++ = param[i];
+    if (param[i] == ',')
       *p++ = ',';
   }
   *p = '\0';
 
-  if (drv->iface)
-    iface = drv->iface;
-  else if (qemu_supports_virtio_scsi (g, data))
-    iface = "none"; /* sic */
-  else
-    iface = "virtio";
-
-  return safe_asprintf
-    (g, "file=%s%s,cache=%s%s%s%s%s,id=hd%zu,if=%s",
-     escaped_file,
-     drv->readonly ? ",snapshot=on" : "",
-     drv->cachemode ? drv->cachemode : "writeback",
-     drv->format ? ",format=" : "",
-     drv->format ? drv->format : "",
-     drv->disk_label ? ",serial=" : "",
-     drv->disk_label ? drv->disk_label : "",
-     index,
-     iface);
+  return ret;
 }
 
 static int
