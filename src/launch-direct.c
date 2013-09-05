@@ -98,10 +98,12 @@ struct backend_direct_data {
 #define VIRTIO_BLK "virtio-blk-pci"
 #define VIRTIO_SCSI "virtio-scsi-pci"
 #define VIRTIO_SERIAL "virtio-serial-pci"
+#define VIRTIO_NET "virtio-net-pci"
 #else /* __arm__ */
 #define VIRTIO_BLK "virtio-blk-device"
 #define VIRTIO_SCSI "virtio-scsi-device"
 #define VIRTIO_SERIAL "virtio-serial-device"
+#define VIRTIO_NET "virtio-net-device"
 #endif /* __arm__ */
 
 static int is_openable (guestfs_h *g, const char *path, int flags);
@@ -479,7 +481,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     ADD_CMDLINE ("-netdev");
     ADD_CMDLINE ("user,id=usernet,net=169.254.0.0/16");
     ADD_CMDLINE ("-device");
-    ADD_CMDLINE ("virtio-net-pci,netdev=usernet");
+    ADD_CMDLINE (VIRTIO_NET ",netdev=usernet");
     }
 
   ADD_CMDLINE ("-append");
