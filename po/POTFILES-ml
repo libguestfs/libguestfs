@@ -19,6 +19,7 @@ sysprep/sysprep_operation_cron_spool.ml
 sysprep/sysprep_operation_dhcp_client_state.ml
 sysprep/sysprep_operation_dhcp_server_state.ml
 sysprep/sysprep_operation_dovecot_data.ml
+sysprep/sysprep_operation_firewall_rules.ml
 sysprep/sysprep_operation_firstboot.ml
 sysprep/sysprep_operation_flag_reconfiguration.ml
 sysprep/sysprep_operation_fs_uuids.ml

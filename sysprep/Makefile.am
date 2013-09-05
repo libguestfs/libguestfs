@@ -40,6 +40,7 @@ operations = \
 	dhcp_server_state \
 	dovecot_data \
 	flag_reconfiguration \
+	firewall_rules \
 	firstboot \
 	fs_uuids \
 	hostname \
