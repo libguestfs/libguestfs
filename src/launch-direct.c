@@ -400,17 +400,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Add the ext2 appliance drive (after all the drives). */
   if (has_appliance_drive) {
-    const char *cachemode = "";
-    if (qemu_supports (g, data, "cache=")) {
-      if (qemu_supports (g, data, "unsafe"))
-        cachemode = ",cache=unsafe";
-      else if (qemu_supports (g, data, "writeback"))
-        cachemode = ",cache=writeback";
-    }
-
     ADD_CMDLINE ("-drive");
-    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,if=%s%s",
-                        appliance, virtio_scsi ? "none" : "virtio", cachemode);
+    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,cache=unsafe,if=%s",
+                        appliance, virtio_scsi ? "none" : "virtio");
 
     if (virtio_scsi) {
       ADD_CMDLINE ("-device");
