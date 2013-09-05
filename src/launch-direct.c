@@ -91,6 +91,19 @@ struct backend_direct_data {
   int virtio_scsi;        /* See function qemu_supports_virtio_scsi */
 };
 
+/* Differences in device names on ARM (virtio-mmio) vs normal
+ * hardware with PCI.
+ */
+#ifndef __arm__
+#define VIRTIO_BLK "virtio-blk-pci"
+#define VIRTIO_SCSI "virtio-scsi-pci"
+#define VIRTIO_SERIAL "virtio-serial-pci"
+#else /* __arm__ */
+#define VIRTIO_BLK "virtio-blk-device"
+#define VIRTIO_SCSI "virtio-scsi-device"
+#define VIRTIO_SERIAL "virtio-serial-device"
+#endif /* __arm__ */
+
 static int is_openable (guestfs_h *g, const char *path, int flags);
 static char *make_appliance_dev (guestfs_h *g, int virtio_scsi);
 static void print_qemu_command_line (guestfs_h *g, char **argv);
@@ -260,7 +273,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   if (qemu_supports (g, data, "-global")) {
     ADD_CMDLINE ("-global");
-    ADD_CMDLINE ("virtio-blk-pci.scsi=off");
+    ADD_CMDLINE (VIRTIO_BLK ".scsi=off");
   }
 
   if (qemu_supports (g, data, "-nodefconfig"))
@@ -363,7 +376,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (virtio_scsi) {
     /* Create the virtio-scsi bus. */
     ADD_CMDLINE ("-device");
-    ADD_CMDLINE ("virtio-scsi-pci,id=scsi");
+    ADD_CMDLINE (VIRTIO_SCSI ",id=scsi");
   }
 
   ITER_DRIVES (g, i, drv) {
@@ -404,7 +417,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       ADD_CMDLINE ("-drive");
       ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
       ADD_CMDLINE ("-device");
-      ADD_CMDLINE_PRINTF ("virtio-blk,drive=hd%zu", i);
+      ADD_CMDLINE_PRINTF (VIRTIO_BLK ",drive=hd%zu", i);
     }
   }
 
@@ -420,7 +433,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     }
     else {
       ADD_CMDLINE ("-device");
-      ADD_CMDLINE ("virtio-blk,drive=appliance");
+      ADD_CMDLINE (VIRTIO_BLK ",drive=appliance");
     }
 
     appliance_dev = make_appliance_dev (g, virtio_scsi);
@@ -428,7 +441,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Create the virtio serial bus. */
   ADD_CMDLINE ("-device");
-  ADD_CMDLINE ("virtio-serial");
+  ADD_CMDLINE (VIRTIO_SERIAL);
 
 #if 0
   /* Use virtio-console (a variant form of virtio-serial) for the
