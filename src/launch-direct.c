@@ -392,19 +392,11 @@ launch_direct (guestfs_h *g, const char *arg)
 
     /* Add the ext2 appliance drive (after all the drives). */
     if (has_appliance_drive) {
-      const char *cachemode = "";
-      if (qemu_supports (g, "cache=")) {
-        if (qemu_supports (g, "unsafe"))
-          cachemode = ",cache=unsafe";
-        else if (qemu_supports (g, "writeback"))
-          cachemode = ",cache=writeback";
-      }
-
       size_t buf2_len = strlen (appliance) + 64;
       char buf2[buf2_len];
       add_cmdline (g, "-drive");
-      snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s%s",
-                appliance, virtio_scsi ? "none" : "virtio", cachemode);
+      snprintf (buf2, buf2_len, "file=%s,snapshot=on,id=appliance,if=%s",
+                appliance, virtio_scsi ? "none" : "virtio");
       add_cmdline (g, buf2);
 
       if (virtio_scsi) {
