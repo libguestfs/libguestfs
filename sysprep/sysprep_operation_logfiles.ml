@@ -82,6 +82,9 @@ let globs = List.sort compare [
 
   (* log file of sysstat *)
   "/var/log/sa/*";
+
+  (* log file of gdm *)
+  "/var/log/gdm/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
