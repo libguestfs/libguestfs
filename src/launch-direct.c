@@ -560,6 +560,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       setpgid (0, 0);
 
     setenv ("LC_ALL", "C", 1);
+    setenv ("QEMU_AUDIO_DRV", "none", 1); /* Prevents qemu opening /dev/dsp */
 
     TRACE0 (launch_run_qemu);
 
