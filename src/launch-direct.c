@@ -307,6 +307,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       ADD_CMDLINE ("-enable-kvm");
   }
 
+#if defined(__i386__) || defined (__x86_64__)
   /* -cpu host only works if KVM is available. */
   if (has_kvm) {
     /* Specify the host CPU for speed, and kvmclock for stability. */
@@ -317,6 +318,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     ADD_CMDLINE ("-cpu");
     ADD_CMDLINE_PRINTF ("qemu%d,+kvmclock", SIZEOF_LONG*8);
   }
+#endif
 
   if (g->smp > 1) {
     ADD_CMDLINE ("-smp");
