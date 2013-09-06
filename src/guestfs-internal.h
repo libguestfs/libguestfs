@@ -631,7 +631,7 @@ extern char *guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive
 extern void guestfs___free_drive_source (struct drive_source *src);
 
 /* appliance.c */
-extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
+extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **dtb, char **initrd, char **appliance);
 
 /* launch.c */
 extern int64_t guestfs___timeval_diff (const struct timeval *x, const struct timeval *y);

@@ -463,6 +463,18 @@ AC_MSG_RESULT([$supermin_helper_compressed_cpio])
 AM_CONDITIONAL([SUPERMIN_HELPER_COMPRESSED_CPIO],
                [test "x$supermin_helper_compressed_cpio" = "xyes"])
 
+dnl supermin >= 4.1.5 supports device trees and uses a new style command
+dnl syntax.
+AC_MSG_CHECKING([if supermin-helper supports device trees and new style command syntax])
+if test $supermin_helper_version_int -ge 4001005; then
+    supermin_helper_new_style_syntax=yes
+    AC_DEFINE([SUPERMIN_HELPER_NEW_STYLE_SYNTAX],[1],
+              [Define to 1 if you have supermin-helper >= 4.1.5.])
+else
+    supermin_helper_new_style_syntax=no
+fi
+AC_MSG_RESULT([$supermin_helper_new_style_syntax])
+
 dnl Pass supermin --packager-config option.
 dnl
 dnl Note that in febootstrap >= 3.21 / supermin >= 4.1.0, this option

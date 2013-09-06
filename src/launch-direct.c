@@ -180,7 +180,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   int sv[2];
   char guestfsd_sock[256];
   struct sockaddr_un addr;
-  CLEANUP_FREE char *kernel = NULL, *initrd = NULL, *appliance = NULL;
+  CLEANUP_FREE char *kernel = NULL, *dtb = NULL,
+    *initrd = NULL, *appliance = NULL;
   int has_appliance_drive;
   CLEANUP_FREE char *appliance_dev = NULL;
   uint32_t size;
@@ -204,7 +205,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   TRACE0 (launch_build_appliance_start);
 
   /* Locate and/or build the appliance. */
-  if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1)
+  if (guestfs___build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
     return -1;
   has_appliance_drive = appliance != NULL;
 
@@ -369,6 +370,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   ADD_CMDLINE ("-kernel");
   ADD_CMDLINE (kernel);
+  if (dtb) {
+    ADD_CMDLINE ("-dtb");
+    ADD_CMDLINE (dtb);
+  }
   ADD_CMDLINE ("-initrd");
   ADD_CMDLINE (initrd);
 

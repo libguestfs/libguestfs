@@ -41,11 +41,16 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+/* Architectures that use device trees. */
+#ifdef __arm__
+#define ARCH_HAS_DEVICE_TREE 1
+#endif
+
 /* Old-style appliance is going to be obsoleted. */
 static const char *kernel_name = "vmlinuz." host_cpu;
 static const char *initrd_name = "initramfs." host_cpu ".img";
 
-static int build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
+static int build_appliance (guestfs_h *g, char **kernel, char **dtb, char **initrd, char **appliance);
 static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);
 static int dir_contains_file (const char *dir, const char *file);
 static int dir_contains_files (const char *dir, ...);
@@ -53,9 +58,9 @@ static int contains_old_style_appliance (guestfs_h *g, const char *path, void *d
 static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
 static char *calculate_supermin_checksum (guestfs_h *g, const char *supermin_path);
-static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
-static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **initrd, char **appliance);
-static int hard_link_to_cached_appliance (guestfs_h *g, const char *cachedir, char **kernel, char **initrd, char **appliance);
+static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **dtb, char **initrd, char **appliance);
+static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, uid_t uid, char **kernel, char **dtb, char **initrd, char **appliance);
+static int hard_link_to_cached_appliance (guestfs_h *g, const char *cachedir, char **kernel, char **dtb, char **initrd, char **appliance);
 static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir);
 
 /* RHBZ#790721: It makes no sense to have multiple threads racing to
@@ -101,10 +106,11 @@ gl_lock_define_initialized (static, building_lock);
  * If one is found, return it.
  *
  * The supermin appliance cache directory lives in
- * $TMPDIR/.guestfs-$UID/ and consists of four files:
+ * $TMPDIR/.guestfs-$UID/ and consists of up to five files:
  *
  *   $TMPDIR/.guestfs-$UID/checksum       - the checksum
  *   $TMPDIR/.guestfs-$UID/kernel         - the kernel
+ *   $TMPDIR/.guestfs-$UID/dtb            - the device tree (on ARM)
  *   $TMPDIR/.guestfs-$UID/initrd         - the supermin initrd
  *   $TMPDIR/.guestfs-$UID/root           - the appliance
  *
@@ -118,6 +124,7 @@ gl_lock_define_initialized (static, building_lock);
  * appliance afterwards:
  *
  *   $TMPDIR/.guestfs-$UID/kernel.$PID
+ *   $TMPDIR/.guestfs-$UID/dtb.$PID
  *   $TMPDIR/.guestfs-$UID/initrd.$PID
  *   $TMPDIR/.guestfs-$UID/root.$PID
  *
@@ -139,14 +146,15 @@ gl_lock_define_initialized (static, building_lock);
 int
 guestfs___build_appliance (guestfs_h *g,
                            char **kernel_rtn,
+                           char **dtb_rtn,
                            char **initrd_rtn,
                            char **appliance_rtn)
 {
   int r;
-  char *kernel, *initrd, *appliance;
+  char *kernel, *dtb, *initrd, *appliance;
 
   gl_lock_lock (building_lock);
-  r = build_appliance (g, &kernel, &initrd, &appliance);
+  r = build_appliance (g, &kernel, &dtb, &initrd, &appliance);
   gl_lock_unlock (building_lock);
 
   if (r == -1)
@@ -156,6 +164,7 @@ guestfs___build_appliance (guestfs_h *g,
    * the caller double-freeing (RHBZ#983218).
    */
   *kernel_rtn = kernel;
+  *dtb_rtn = dtb;
   *initrd_rtn = initrd;
   *appliance_rtn = appliance;
   return 0;
@@ -164,6 +173,7 @@ guestfs___build_appliance (guestfs_h *g,
 static int
 build_appliance (guestfs_h *g,
                  char **kernel,
+                 char **dtb,
                  char **initrd,
                  char **appliance)
 {
@@ -184,13 +194,13 @@ build_appliance (guestfs_h *g,
     if (checksum) {
       /* Step (3): cached appliance exists? */
       r = check_for_cached_appliance (g, supermin_path, checksum, uid,
-                                      kernel, initrd, appliance);
+                                      kernel, dtb, initrd, appliance);
       if (r != 0)
         return r == 1 ? 0 : -1;
 
       /* Step (4): build supermin appliance. */
       return build_supermin_appliance (g, supermin_path, checksum, uid,
-                                       kernel, initrd, appliance);
+                                       kernel, dtb, initrd, appliance);
     }
   }
 
@@ -207,6 +217,14 @@ build_appliance (guestfs_h *g,
     sprintf (*kernel, "%s/kernel", path);
     sprintf (*initrd, "%s/initrd", path);
     sprintf (*appliance, "%s/root", path);
+
+    /* The dtb file may or may not exist in the fixed appliance. */
+    if (dir_contains_file (path, "dtb")) {
+      *dtb = safe_malloc (g, len + 3 /* "dtb" */ + 2);
+      sprintf (*dtb, "%s/dtb", path);
+    }
+    else
+      *dtb = NULL;
     return 0;
   }
 
@@ -218,6 +236,7 @@ build_appliance (guestfs_h *g,
   if (r == 1) {
     size_t len = strlen (path);
     *kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
+    *dtb = NULL;
     *initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
     sprintf (*kernel, "%s/%s", path, kernel_name);
     sprintf (*initrd, "%s/%s", path, initrd_name);
@@ -262,48 +281,6 @@ read_checksum (guestfs_h *g, void *checksumv, const char *line, size_t len)
   strcpy (checksum, line);
 }
 
-/* supermin_path is a path which is known to contain a supermin
- * appliance.  Using supermin-helper -f checksum calculate
- * the checksum so we can see if it is cached.
- */
-static char *
-calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
-{
-  size_t len;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
-  int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
-  char checksum[MAX_CHECKSUM_LEN + 1] = { 0 };
-
-  guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
-  if (g->verbose)
-    guestfs___cmd_add_arg (cmd, "--verbose");
-  if (pass_u_g_args) {
-    guestfs___cmd_add_arg (cmd, "-u");
-    guestfs___cmd_add_arg_format (cmd, "%d", geteuid ());
-    guestfs___cmd_add_arg (cmd, "-g");
-    guestfs___cmd_add_arg_format (cmd, "%d", getegid ());
-  }
-  guestfs___cmd_add_arg (cmd, "-f");
-  guestfs___cmd_add_arg (cmd, "checksum");
-  guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
-  guestfs___cmd_add_arg (cmd, host_cpu);
-  guestfs___cmd_set_stdout_callback (cmd, read_checksum, checksum, 0);
-
-  /* Errors here are non-fatal, so we don't need to call error(). */
-  if (guestfs___cmd_run (cmd) == -1)
-    return NULL;
-
-  debug (g, "checksum of existing appliance: %s", checksum);
-
-  len = strlen (checksum);
-  if (len < 16) {               /* sanity check */
-    warning (g, "supermin-helper -f checksum returned a short string");
-    return NULL;
-  }
-
-  return safe_strndup (g, checksum, len);
-}
-
 static int
 process_exists (int pid)
 {
@@ -317,8 +294,8 @@ process_exists (int pid)
 }
 
 /* Garbage collect appliance hard links.  Files that match
- * (kernel|initrd|root).$PID where the corresponding PID doesn't exist
- * are deleted.  Note that errors in this function don't matter.
+ * (kernel|dtb|initrd|root).$PID where the corresponding PID doesn't
+ * exist are deleted.  Note that errors in this function don't matter.
  * There may also be other libguestfs processes racing to do the same
  * thing here.
  */
@@ -337,6 +314,9 @@ garbage_collect_appliances (const char *cachedir)
     if (sscanf (d->d_name, "kernel.%d", &pid) == 1 &&
         process_exists (pid) == 0)
       unlinkat (dirfd (dir), d->d_name, 0);
+    else if (sscanf (d->d_name, "dtb.%d", &pid) == 1 &&
+             process_exists (pid) == 0)
+      unlinkat (dirfd (dir), d->d_name, 0);
     else if (sscanf (d->d_name, "initrd.%d", &pid) == 1 &&
              process_exists (pid) == 0)
       unlinkat (dirfd (dir), d->d_name, 0);
@@ -352,7 +332,8 @@ static int
 check_for_cached_appliance (guestfs_h *g,
                             const char *supermin_path, const char *checksum,
                             uid_t uid,
-                            char **kernel, char **initrd, char **appliance)
+                            char **kernel, char **dtb,
+			    char **initrd, char **appliance)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
 
@@ -440,7 +421,7 @@ check_for_cached_appliance (guestfs_h *g,
    * a read lock on the checksum file.  Make hard links to the files.
    */
   if (hard_link_to_cached_appliance (g, cachedir,
-                                     kernel, initrd, appliance) == -1) {
+                                     kernel, dtb, initrd, appliance) == -1) {
     close (fd);
     return -1;
   }
@@ -452,6 +433,7 @@ check_for_cached_appliance (guestfs_h *g,
      * freed along this error path.
      */
     free (*kernel);
+    free (*dtb);
     free (*initrd);
     free (*appliance);
     return -1;
@@ -471,7 +453,8 @@ static int
 build_supermin_appliance (guestfs_h *g,
                           const char *supermin_path, const char *checksum,
                           uid_t uid,
-                          char **kernel, char **initrd, char **appliance)
+                          char **kernel, char **dtb,
+			  char **initrd, char **appliance)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
   size_t len;
@@ -571,6 +554,18 @@ build_supermin_appliance (guestfs_h *g,
     return -1;
   }
 
+#if ARCH_HAS_DEVICE_TREE
+  snprintf (filename, len, "%s/dtb", tmpcd);
+  snprintf (filename2, len, "%s/dtb", cachedir);
+  unlink (filename2);
+  if (rename (filename, filename2) == -1) {
+    perrorf (g, "rename: %s %s", filename, filename2);
+    close (fd);
+    guestfs___recursive_remove_dir (g, tmpcd);
+    return -1;
+  }
+#endif
+
   snprintf (filename, len, "%s/initrd", tmpcd);
   snprintf (filename2, len, "%s/initrd", cachedir);
   unlink (filename2);
@@ -595,7 +590,7 @@ build_supermin_appliance (guestfs_h *g,
 
   /* Now finish off by linking to the cached appliance and returning it. */
   if (hard_link_to_cached_appliance (g, cachedir,
-                                     kernel, initrd, appliance) == -1) {
+                                     kernel, dtb, initrd, appliance) == -1) {
     close (fd);
     return -1;
   }
@@ -607,6 +602,7 @@ build_supermin_appliance (guestfs_h *g,
      * freed along this error path.
      */
     free (*kernel);
+    free (*dtb);
     free (*initrd);
     free (*appliance);
     return -1;
@@ -619,15 +615,18 @@ build_supermin_appliance (guestfs_h *g,
 static int
 hard_link_to_cached_appliance (guestfs_h *g,
                                const char *cachedir,
-                               char **kernel, char **initrd, char **appliance)
+                               char **kernel, char **dtb,
+			       char **initrd, char **appliance)
 {
   pid_t pid = getpid ();
   size_t len = strlen (cachedir) + 32;
 
   *kernel = safe_malloc (g, len);
+  *dtb = safe_malloc (g, len);
   *initrd = safe_malloc (g, len);
   *appliance = safe_malloc (g, len);
   snprintf (*kernel, len, "%s/kernel.%d", cachedir, pid);
+  snprintf (*dtb, len, "%s/dtb.%d", cachedir, pid);
   snprintf (*initrd, len, "%s/initrd.%d", cachedir, pid);
   snprintf (*appliance, len, "%s/root.%d", cachedir, pid);
 
@@ -637,6 +636,20 @@ hard_link_to_cached_appliance (guestfs_h *g,
   if (link (filename, *kernel) == -1) {
     perrorf (g, "link: %s %s", filename, *kernel);
     goto error;
+  }
+  (void) utimes (filename, NULL);
+
+  snprintf (filename, len, "%s/dtb", cachedir);
+  (void) unlink (*dtb);
+  if (link (filename, *dtb) == -1) {
+    if (errno == ENOENT) {
+      /* dtb doesn't exist -- this is OK */
+      free (*dtb);
+      *dtb = NULL;
+    } else {
+      perrorf (g, "link: %s %s", filename, *kernel);
+      goto error;
+    }
   }
   (void) utimes (filename, NULL);
 
@@ -673,6 +686,7 @@ hard_link_to_cached_appliance (guestfs_h *g,
 
  error:
   free (*kernel);
+  free (*dtb);
   free (*initrd);
   free (*appliance);
   return -1;
@@ -681,6 +695,153 @@ hard_link_to_cached_appliance (guestfs_h *g,
 /* Run supermin-helper and tell it to generate the
  * appliance.
  */
+
+#ifdef SUPERMIN_HELPER_NEW_STYLE_SYNTAX
+
+/* supermin_path is a path which is known to contain a supermin
+ * appliance.  Using supermin-helper -f checksum calculate
+ * the checksum so we can see if it is cached.
+ */
+static char *
+calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
+{
+  size_t len;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
+  char checksum[MAX_CHECKSUM_LEN + 1] = { 0 };
+
+  guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
+  if (g->verbose)
+    guestfs___cmd_add_arg (cmd, "--verbose");
+  if (pass_u_g_args) {
+    guestfs___cmd_add_arg (cmd, "-u");
+    guestfs___cmd_add_arg_format (cmd, "%d", geteuid ());
+    guestfs___cmd_add_arg (cmd, "-g");
+    guestfs___cmd_add_arg_format (cmd, "%d", getegid ());
+  }
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "checksum");
+  guestfs___cmd_add_arg (cmd, "--host-cpu");
+  guestfs___cmd_add_arg (cmd, host_cpu);
+  guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
+  guestfs___cmd_set_stdout_callback (cmd, read_checksum, checksum, 0);
+
+  /* Errors here are non-fatal, so we don't need to call error(). */
+  if (guestfs___cmd_run (cmd) == -1)
+    return NULL;
+
+  debug (g, "checksum of existing appliance: %s", checksum);
+
+  len = strlen (checksum);
+  if (len < 16) {               /* sanity check */
+    warning (g, "supermin-helper -f checksum returned a short string");
+    return NULL;
+  }
+
+  return safe_strndup (g, checksum, len);
+}
+
+static int
+run_supermin_helper (guestfs_h *g, const char *supermin_path,
+                     const char *cachedir)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  int r;
+  uid_t uid = getuid ();
+  uid_t euid = geteuid ();
+  gid_t gid = getgid ();
+  gid_t egid = getegid ();
+  int pass_u_g_args = uid != euid || gid != egid;
+
+  guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
+  if (g->verbose)
+    guestfs___cmd_add_arg (cmd, "--verbose");
+  if (pass_u_g_args) {
+    guestfs___cmd_add_arg (cmd, "-u");
+    guestfs___cmd_add_arg_format (cmd, "%d", euid);
+    guestfs___cmd_add_arg (cmd, "-g");
+    guestfs___cmd_add_arg_format (cmd, "%d", egid);
+  }
+  guestfs___cmd_add_arg (cmd, "--copy-kernel");
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "ext2");
+  guestfs___cmd_add_arg (cmd, "--host-cpu");
+  guestfs___cmd_add_arg (cmd, host_cpu);
+#if ARCH_HAS_DEVICE_TREE
+  guestfs___cmd_add_arg (cmd, "--dtb");
+  guestfs___cmd_add_arg (cmd, "vexpress*a9.dtb");
+#endif
+  guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
+  guestfs___cmd_add_arg (cmd, "--output-kernel");
+  guestfs___cmd_add_arg_format (cmd, "%s/kernel", cachedir);
+#if ARCH_HAS_DEVICE_TREE
+  guestfs___cmd_add_arg (cmd, "--output-dtb");
+  guestfs___cmd_add_arg_format (cmd, "%s/dtb", cachedir);
+#endif
+  guestfs___cmd_add_arg (cmd, "--output-initrd");
+  guestfs___cmd_add_arg_format (cmd, "%s/initrd", cachedir);
+  guestfs___cmd_add_arg (cmd, "--output-appliance");
+  guestfs___cmd_add_arg_format (cmd, "%s/root", cachedir);
+
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
+    return -1;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs___external_command_failed (g, r, SUPERMIN_HELPER, NULL);
+    return -1;
+  }
+
+  return 0;
+}
+
+#else /* ! SUPERMIN_HELPER_NEW_STYLE_SYNTAX */
+
+#if ARCH_HAS_DEVICE_TREE
+#error "This architecture has device trees, so requires supermin-helper >= 4.1.5"
+#endif
+
+/* supermin_path is a path which is known to contain a supermin
+ * appliance.  Using supermin-helper -f checksum calculate
+ * the checksum so we can see if it is cached.
+ */
+static char *
+calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
+{
+  size_t len;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
+  char checksum[MAX_CHECKSUM_LEN + 1] = { 0 };
+
+  guestfs___cmd_add_arg (cmd, SUPERMIN_HELPER);
+  if (g->verbose)
+    guestfs___cmd_add_arg (cmd, "--verbose");
+  if (pass_u_g_args) {
+    guestfs___cmd_add_arg (cmd, "-u");
+    guestfs___cmd_add_arg_format (cmd, "%d", geteuid ());
+    guestfs___cmd_add_arg (cmd, "-g");
+    guestfs___cmd_add_arg_format (cmd, "%d", getegid ());
+  }
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "checksum");
+  guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
+  guestfs___cmd_add_arg (cmd, host_cpu);
+  guestfs___cmd_set_stdout_callback (cmd, read_checksum, checksum, 0);
+
+  /* Errors here are non-fatal, so we don't need to call error(). */
+  if (guestfs___cmd_run (cmd) == -1)
+    return NULL;
+
+  debug (g, "checksum of existing appliance: %s", checksum);
+
+  len = strlen (checksum);
+  if (len < 16) {               /* sanity check */
+    warning (g, "supermin-helper -f checksum returned a short string");
+    return NULL;
+  }
+
+  return safe_strndup (g, checksum, len);
+}
+
 static int
 run_supermin_helper (guestfs_h *g, const char *supermin_path,
                      const char *cachedir)
@@ -721,6 +882,8 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
 
   return 0;
 }
+
+#endif /* ! SUPERMIN_HELPER_NEW_STYLE_SYNTAX */
 
 /* Search elements of g->path, returning the first path element which
  * matches the predicate function 'pred'.
