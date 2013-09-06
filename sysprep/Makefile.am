@@ -65,6 +65,7 @@ operations = \
 	ssh_hostkeys \
 	ssh_userdir \
 	sssd_db_log \
+	tmp_files \
 	udev_persistent_net \
 	user_account \
 	utmp yum_uuid
