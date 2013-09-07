@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-09-01 16:32+0100\n"
+"POT-Creation-Date: 2013-09-07 01:07+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
@@ -3682,24 +3682,24 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: src/appliance.c:228
+#: src/appliance.c:247
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:378
+#: src/appliance.c:359
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr ""
 
-#: src/appliance.c:383
+#: src/appliance.c:364
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:388
+#: src/appliance.c:369
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -4171,61 +4171,61 @@ msgid ""
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch-direct.c:125
+#: src/launch-direct.c:140
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:144
+#: src/launch-direct.c:159
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:183 src/launch-uml.c:119
+#: src/launch-direct.c:199 src/launch-uml.c:120
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch-direct.c:653 src/launch-libvirt.c:460
+#: src/launch-direct.c:707 src/launch-libvirt.c:462
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch-libvirt.c:183
+#: src/launch-libvirt.c:185
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:192
+#: src/launch-libvirt.c:194
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:207
+#: src/launch-libvirt.c:209
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:223
+#: src/launch-libvirt.c:225
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:393
+#: src/launch-libvirt.c:395
 msgid "could not create appliance through libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:522
+#: src/launch-libvirt.c:526
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:528 src/libvirt-domain.c:352 src/libvirt-domain.c:435
+#: src/launch-libvirt.c:532 src/libvirt-domain.c:352 src/libvirt-domain.c:435
 #: src/libvirt-domain.c:642
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:538
+#: src/launch-libvirt.c:542
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:571
+#: src/launch-libvirt.c:575
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4240,54 +4240,54 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:722
+#: src/launch-libvirt.c:726
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1073
+#: src/launch-libvirt.c:1083
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1184
+#: src/launch-libvirt.c:1194
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1222
+#: src/launch-libvirt.c:1232
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1233
+#: src/launch-libvirt.c:1243
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1588
+#: src/launch-libvirt.c:1598
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1668
+#: src/launch-libvirt.c:1678
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1705
+#: src/launch-libvirt.c:1715
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1767
+#: src/launch-libvirt.c:1777
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1798
+#: src/launch-libvirt.c:1808
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -4315,7 +4315,7 @@ msgstr ""
 msgid "uml backend does not support drives with 'label' parameter"
 msgstr ""
 
-#: src/launch-uml.c:446
+#: src/launch-uml.c:447
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -5426,7 +5426,7 @@ msgid ""
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:99
+#: ../sysprep/sysprep_operation_logfiles.ml:107
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -5507,12 +5507,16 @@ msgid ""
 "recreate these files automatically if needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:97
+#: ../sysprep/sysprep_operation_logfiles.ml:105
 msgid "Remove many log files from the guest"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_package_manager_cache.ml:43
 msgid "Remove package manager cache"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_tmp_files.ml:46
+msgid "Remove temporary files"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_ssh_userdir.ml:41
@@ -5575,6 +5579,10 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_sssd_db_log.ml:46
 msgid "Remove the database and log files of sssd"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firewall_rules.ml:47
+msgid "Remove the firewall rules"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_machine_id.ml:38
@@ -5889,6 +5897,19 @@ msgid ""
 "\n"
 "If the I<--hostname> parameter is not given, then the hostname is changed\n"
 "to C<localhost.localdomain>."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firewall_rules.ml:48
+msgid ""
+"This removes custom firewall rules by removing C</etc/sysconfig/iptables>\n"
+"or custom firewalld configuration in C</etc/firewalld/*/*>.\n"
+"\n"
+"Note this is I<not> enabled by default since it may expose guests to\n"
+"exploits.  Use with care."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_tmp_files.ml:47
+msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_random_seed.ml:53
