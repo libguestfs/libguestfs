@@ -140,7 +140,7 @@ static xmlChar *construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_pa
 static void debug_appliance_permissions (guestfs_h *g);
 static void debug_socket_permissions (guestfs_h *g);
 static void libvirt_error (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
-static int is_custom_qemu (guestfs_h *g);
+static int is_custom_hv (guestfs_h *g);
 static int is_blk (const char *path);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
 static char *make_qcow2_overlay (guestfs_h *g, const char *backing_device, const char *format, const char *selinux_imagelabel);
@@ -374,7 +374,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   params.appliance_index = g->nr_drives;
   strcpy (params.appliance_dev, "/dev/sd");
   guestfs___drive_name (params.appliance_index, &params.appliance_dev[7]);
-  params.enable_svirt = ! is_custom_qemu (g);
+  params.enable_svirt = ! is_custom_hv (g);
 
   xml = construct_libvirt_xml (g, &params);
   if (!xml)
@@ -591,7 +591,7 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
 }
 
 static int
-is_custom_qemu (guestfs_h *g)
+is_custom_hv (guestfs_h *g)
 {
   return g->hv && STRNEQ (g->hv, QEMU);
 }
@@ -983,10 +983,10 @@ construct_libvirt_xml_devices (guestfs_h *g,
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "devices"));
 
-  /* Path to qemu.  Only write this if the user has changed the
+  /* Path to hypervisor.  Only write this if the user has changed the
    * default, otherwise allow libvirt to choose the best one.
    */
-  if (is_custom_qemu (g)) {
+  if (is_custom_hv (g)) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "emulator"));
     XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST g->hv));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
