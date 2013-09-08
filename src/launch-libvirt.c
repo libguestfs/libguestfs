@@ -836,6 +836,7 @@ construct_libvirt_xml_cpu (guestfs_h *g,
   XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->memsize));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
+#ifndef __arm__
   /* It is faster to pass the CPU host model to the appliance,
    * allowing maximum speed for things like checksums, encryption.
    * Note this may cause problems on some CPUs.  See: RHBZ#870071.
@@ -854,6 +855,7 @@ construct_libvirt_xml_cpu (guestfs_h *g,
     XMLERROR (-1, xmlTextWriterEndElement (xo));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
+#endif
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "vcpu"));
   XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->smp));
