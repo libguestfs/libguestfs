@@ -893,6 +893,14 @@ construct_libvirt_xml_boot (guestfs_h *g,
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "os"));
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "type"));
+#ifdef __arm__
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "arch",
+                                         BAD_CAST "armv7l"));
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "machine",
+                                         BAD_CAST "vexpress-a9"));
+#endif
   XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST "hvm"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
