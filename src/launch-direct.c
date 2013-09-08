@@ -419,6 +419,12 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
      */
     if (drv->iface && STREQ (drv->iface, "virtio")) /* virtio-blk */
       goto virtio_blk;
+#ifdef __arm__
+    else if (drv->iface && STREQ (drv->iface, "ide")) {
+      error (g, "'ide' interface does not work on ARM");
+      goto cleanup0;
+    }
+#endif
     else if (drv->iface) {
       ADD_CMDLINE ("-drive");
       ADD_CMDLINE_PRINTF ("%s,if=%s", param, drv->iface);
