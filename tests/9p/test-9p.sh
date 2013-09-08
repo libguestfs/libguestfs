@@ -32,13 +32,24 @@ if [[ "$backend" != "direct" ]]; then
     exit 77
 fi
 
+# The name of the virtio-9p device is different on virtio-pci and virtio-mmio.
+arch="$(uname -m)"
+if [[ "$arch" =~ ^arm ]]; then
+    virtio_mmio=yes
+fi
+if [ "$virtio_mmio" != "yes" ]; then
+    virtio_9p=virtio-9p-pci
+else
+    virtio_9p=virtio-9p-device
+fi
+
 rm -f test-9p.img test-9p.out
 
 ../../fish/guestfish <<EOF
 # This dummy disk is not actually used, but libguestfs requires one.
 sparse test-9p.img 1M
 
-config -device 'virtio-9p-pci,fsdev=test9p,mount_tag=test9p'
+config -device '$virtio_9p,fsdev=test9p,mount_tag=test9p'
 config -fsdev 'local,id=test9p,path=$(pwd),security_model=passthrough'
 
 run
