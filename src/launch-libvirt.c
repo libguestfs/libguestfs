@@ -1001,6 +1001,16 @@ construct_libvirt_xml_devices (guestfs_h *g,
     XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST g->hv));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
+#ifdef __arm__
+  /* Hopefully temporary hack to make ARM work (otherwise libvirt
+   * chooses to run /usr/bin/qemu-kvm).
+   */
+  else {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "emulator"));
+    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST QEMU));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
+#endif
 
   /* virtio-scsi controller. */
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "controller"));
