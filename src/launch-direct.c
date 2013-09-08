@@ -417,7 +417,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     /* If there's an explicit 'iface', use it.  Otherwise default to
      * virtio-scsi if available.  Otherwise default to virtio-blk.
      */
-    if (drv->iface) {
+    if (drv->iface && STREQ (drv->iface, "virtio")) /* virtio-blk */
+      goto virtio_blk;
+    else if (drv->iface) {
       ADD_CMDLINE ("-drive");
       ADD_CMDLINE_PRINTF ("%s,if=%s", param, drv->iface);
     }
@@ -428,6 +430,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       ADD_CMDLINE_PRINTF ("scsi-hd,drive=hd%zu", i);
     }
     else {
+    virtio_blk:
       ADD_CMDLINE ("-drive");
       ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
       ADD_CMDLINE ("-device");
