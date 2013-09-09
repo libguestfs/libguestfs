@@ -1003,7 +1003,7 @@ qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *data)
     if (old_or_broken_virtio_scsi (g, data))
       data->virtio_scsi = 2;
     else {
-      r = qemu_supports_device (g, data, "virtio-scsi-pci");
+      r = qemu_supports_device (g, data, VIRTIO_SCSI);
       if (r > 0)
         data->virtio_scsi = 1;
       else if (r == 0)
