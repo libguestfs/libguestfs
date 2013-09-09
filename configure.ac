@@ -1710,6 +1710,7 @@ AC_CONFIG_FILES([Makefile
                  tests/mount-local/Makefile
                  tests/mountable/Makefile
                  tests/nbd/Makefile
+                 tests/network/Makefile
                  tests/ntfsclone/Makefile
                  tests/parallel/Makefile
                  tests/protocol/Makefile

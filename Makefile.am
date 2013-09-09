@@ -41,6 +41,7 @@ SUBDIRS += tests/events
 SUBDIRS += tests/parallel
 SUBDIRS += tests/disks
 SUBDIRS += tests/mountable
+SUBDIRS += tests/network
 SUBDIRS += tests/lvm
 SUBDIRS += tests/luks
 SUBDIRS += tests/md
