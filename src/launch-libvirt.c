@@ -1500,7 +1500,7 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST "virtio-net-pci,netdev=usernet"));
+                                           BAD_CAST VIRTIO_NET ",netdev=usernet"));
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
 

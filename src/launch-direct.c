@@ -91,21 +91,6 @@ struct backend_direct_data {
   int virtio_scsi;        /* See function qemu_supports_virtio_scsi */
 };
 
-/* Differences in device names on ARM (virtio-mmio) vs normal
- * hardware with PCI.
- */
-#ifndef __arm__
-#define VIRTIO_BLK "virtio-blk-pci"
-#define VIRTIO_SCSI "virtio-scsi-pci"
-#define VIRTIO_SERIAL "virtio-serial-pci"
-#define VIRTIO_NET "virtio-net-pci"
-#else /* __arm__ */
-#define VIRTIO_BLK "virtio-blk-device"
-#define VIRTIO_SCSI "virtio-scsi-device"
-#define VIRTIO_SERIAL "virtio-serial-device"
-#define VIRTIO_NET "virtio-net-device"
-#endif /* __arm__ */
-
 static int is_openable (guestfs_h *g, const char *path, int flags);
 static char *make_appliance_dev (guestfs_h *g, int virtio_scsi);
 static void print_qemu_command_line (guestfs_h *g, char **argv);

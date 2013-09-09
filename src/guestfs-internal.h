@@ -87,6 +87,21 @@
 /* Maximum size of Windows explorer.exe.  2.6MB on Windows 7. */
 #define MAX_WINDOWS_EXPLORER_SIZE (4 * 1000 * 1000)
 
+/* Differences in device names on ARM (virtio-mmio) vs normal
+ * hardware with PCI.
+ */
+#ifndef __arm__
+#define VIRTIO_BLK "virtio-blk-pci"
+#define VIRTIO_SCSI "virtio-scsi-pci"
+#define VIRTIO_SERIAL "virtio-serial-pci"
+#define VIRTIO_NET "virtio-net-pci"
+#else /* __arm__ */
+#define VIRTIO_BLK "virtio-blk-device"
+#define VIRTIO_SCSI "virtio-scsi-device"
+#define VIRTIO_SERIAL "virtio-serial-device"
+#define VIRTIO_NET "virtio-net-device"
+#endif /* __arm__ */
+
 /* Guestfs handle and associated structures. */
 
 /* State. */
