@@ -378,39 +378,6 @@ Don't enable GCC warnings (ie. *don't* use
 './configure --enable-gcc-warnings').
 
 
-Note on using non-x86 architectures
-----------------------------------------------------------------------
-
-In theory libguestfs should work on non-x86 architectures.  Usually if
-it doesn't it's because qemu isn't available or cannot boot the
-kernel.
-
-For ARM you will need to specify the exact machine type and CPU
-variant that is required to boot the Linux kernel (there's no way to
-know this except by looking at how the Linux kernel was configured).
-For example:
-
-  ./configure \
-        --with-qemu="qemu-system-arm" \
-        --with-qemu-options="-M versatilepb -cpu arm926"
-  ./configure \
-        --with-qemu="qemu-system-arm" \
-        --with-qemu-options="-M vexpress-a15 -cpu cortex-a15"
-
-Note that since virtio is required by libguestfs, and virtio is a
-PCI-based architecture, whatever architecture qemu emulates MUST
-support PCI.
-
-For PPC64 you will need to specify the IBM pSeries machine type:
-
-  ./configure \
-        --with-qemu="qemu-system-ppc64" \
-        --with-qemu-options="-M pseries"
-
-After building libguestfs, run 'make quickcheck' and pay close
-attention to the qemu command line and kernel output.
-
-
 Copyright and license information
 ----------------------------------------------------------------------
 
