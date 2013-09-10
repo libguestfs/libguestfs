@@ -439,8 +439,16 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
   /* Download %systemroot%\explorer.exe */
   filename = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
-  filename_case = guestfs___case_sensitive_path_silently (g, filename);
+  filename_case = guestfs_case_sensitive_path (g, filename);
   if (filename_case == NULL)
+    return NULL;
+
+  guestfs_push_error_handler (g, NULL, NULL);
+  r = guestfs_is_file (g, filename_case);
+  guestfs_pop_error_handler (g);
+  if (r == -1)
+    return NULL;
+  if (r == 0)
     return NOT_FOUND;
 
   filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
@@ -481,8 +489,16 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
   /* Download %systemroot%\explorer.exe */
   filename = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
-  filename_case = guestfs___case_sensitive_path_silently (g, filename);
+  filename_case = guestfs_case_sensitive_path (g, filename);
   if (filename_case == NULL)
+    return NULL;
+
+  guestfs_push_error_handler (g, NULL, NULL);
+  r = guestfs_is_file (g, filename_case);
+  guestfs_pop_error_handler (g);
+  if (r == -1)
+    return NULL;
+  if (r == 0)
     return NOT_FOUND;
 
   filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
@@ -522,11 +538,20 @@ icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
   CLEANUP_FREE char *filename_case = NULL;
   CLEANUP_FREE char *filename_downloaded = NULL;
+  int r;
   char *ret;
 
   filename_case = guestfs___case_sensitive_path_silently
     (g, "/ProgramData/Microsoft/Windows Live/WLive48x48.png");
   if (filename_case == NULL)
+    return NOT_FOUND; /* Not an error since a parent dir might not exist. */
+
+  guestfs_push_error_handler (g, NULL, NULL);
+  r = guestfs_is_file (g, filename_case);
+  guestfs_pop_error_handler (g);
+  if (r == -1)
+    return NULL;
+  if (r == 0)
     return NOT_FOUND;
 
   filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
