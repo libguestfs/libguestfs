@@ -57,8 +57,18 @@
 #endif
 
 /* Default, minimum appliance memory size. */
+#ifndef __powerpc__
 #define DEFAULT_MEMSIZE 500
 #define MIN_MEMSIZE 128
+#else
+/* Needs to be larger on ppc64 because of the larger page size (64K).
+ * For example, test-max-disks won't pass unless we increase the
+ * default memory size since the system runs out of memory when
+ * creating device nodes.
+ */
+#define DEFAULT_MEMSIZE 768
+#define MIN_MEMSIZE 256
+#endif
 
 /* Some limits on what the inspection code will read, for safety. */
 
