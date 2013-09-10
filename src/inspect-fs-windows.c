@@ -599,6 +599,10 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
   return safe_asprintf (g, "%s%d", devices[i], partitions->val[j].part_num);
 }
 
+/* NB: This function DOES NOT test for the existence of the file.  It
+ * will return non-NULL even if the file/directory does not exist.
+ * You have to call guestfs_is_file{,_opts} etc.
+ */
 char *
 guestfs___case_sensitive_path_silently (guestfs_h *g, const char *path)
 {
