@@ -1501,25 +1501,6 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
 
-#ifdef __arm__
-  /* Set kernel_irqchip=off.  Unclear why this is needed.  Is qemu or
-   * the kernel broken?  See:
-   * http://www.mail-archive.com/arm@lists.fedoraproject.org/msg05546.html
-   */
-  if (params->is_kvm) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-	      xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-					   BAD_CAST "-machine"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-	      xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-					   BAD_CAST "kernel_irqchip=off"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-#endif
-
   /* The qemu command line arguments requested by the caller. */
   for (hp = g->hv_params; hp; hp = hp->next) {
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
