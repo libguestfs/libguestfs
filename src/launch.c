@@ -343,6 +343,9 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
   ret = safe_asprintf
     (g,
      "panic=1"             /* force kernel to panic if daemon exits */
+#ifdef __arm__
+     " mem=%dM"		   /* required on ARM to override device tree info */
+#endif
 #ifdef VALGRIND_DAEMON
      " guestfs_valgrind_daemon=1"
 #endif
@@ -361,6 +364,9 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      "%s"                       /* verbose */
      " TERM=%s"                 /* TERM environment variable */
      "%s%s",                    /* append */
+#ifdef __arm__
+     g->memsize,
+#endif
      lpj_s,
      root,
      g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
