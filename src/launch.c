@@ -344,7 +344,7 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
     (g,
      "panic=1"             /* force kernel to panic if daemon exits */
 #ifdef __arm__
-     " mem=%dM"		   /* required on ARM to override device tree info */
+     " mem=%dM"
 #endif
 #ifdef VALGRIND_DAEMON
      " guestfs_valgrind_daemon=1"
