@@ -114,14 +114,12 @@
 
 /* Machine types.  XXX Make these configurable. */
 #ifdef __arm__
-/* Note: vexpress-a15 ought to work (and ought to more accurately
- * match what qemu actually models).  However I could not get it to
- * work at all for me.  In future, we can use mach-virt and drop the
- * device tree completely (because the plan is for qemu to entirely
- * generate the device tree internally when using mach-virt).
+/* In future, we can use mach-virt and drop the device tree completely
+ * (because the plan is for qemu to entirely generate the device tree
+ * internally when using mach-virt).
  */
-#define MACHINE_TYPE "vexpress-a9"
-#define DTB_WILDCARD "vexpress*a9.dtb"
+#define MACHINE_TYPE "vexpress-a15"
+#define DTB_WILDCARD "vexpress*a15-tc1.dtb"
 #endif
 #ifdef __powerpc__
 #define MACHINE_TYPE "pseries"
