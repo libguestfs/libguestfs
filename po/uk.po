@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-09-07 01:07+0100\n"
+"POT-Creation-Date: 2013-09-11 02:08+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4656,7 +4656,7 @@ msgstr "не вдалося обробити /etc/fstab або порожній 
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:606
+#: src/inspect-icon.c:631
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
@@ -4684,21 +4684,21 @@ msgstr ""
 "кореневого пристрою, дані якого раніше було повернуто функцією "
 "guestfs_inspect_os"
 
-#: src/launch-direct.c:140
+#: src/launch-direct.c:125
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr "неврівноважений символ лапки (%c) у командному рядку поблизу від %s"
 
-#: src/launch-direct.c:159
+#: src/launch-direct.c:144
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr "не вдалося обробити рядок у лапках поблизу від %s"
 
-#: src/launch-direct.c:199 src/launch-uml.c:120
+#: src/launch-direct.c:184 src/launch-uml.c:120
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:707 src/launch-libvirt.c:462
+#: src/launch-direct.c:713 src/launch-libvirt.c:462
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -4776,11 +4776,11 @@ msgstr ""
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "помилка під час спроби побудувати XML для libvirt у «%s»"
 
-#: src/launch-libvirt.c:1083
+#: src/launch-libvirt.c:1103
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1194
+#: src/launch-libvirt.c:1214
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4788,7 +4788,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1232
+#: src/launch-libvirt.c:1252
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4800,7 +4800,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1243
+#: src/launch-libvirt.c:1263
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4813,25 +4813,25 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1598
+#: src/launch-libvirt.c:1637
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1678
+#: src/launch-libvirt.c:1717
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1715
+#: src/launch-libvirt.c:1754
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1777
+#: src/launch-libvirt.c:1816
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1808
+#: src/launch-libvirt.c:1847
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 

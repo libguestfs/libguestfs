@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-09-07 01:07+0100\n"
+"POT-Creation-Date: 2013-09-11 02:08+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -4233,7 +4233,7 @@ msgstr "/etc/fstab किंवा रिकामी फाइल वाचण�
 msgid "could not parse integer in version number: %s"
 msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
 
-#: src/inspect-icon.c:606
+#: src/inspect-icon.c:631
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
@@ -4259,21 +4259,21 @@ msgstr ""
 "%s: रूट साधण आढळले नाही: guestfs_inspect_os द्वारे पूर्वी पुरवलेल्या रूट साधणसह "
 "फंक्शनद्वारेच कॉल करा"
 
-#: src/launch-direct.c:140
+#: src/launch-direct.c:125
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:159
+#: src/launch-direct.c:144
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:199 src/launch-uml.c:120
+#: src/launch-direct.c:184 src/launch-uml.c:120
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch-direct.c:707 src/launch-libvirt.c:462
+#: src/launch-direct.c:713 src/launch-libvirt.c:462
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
@@ -4333,49 +4333,49 @@ msgstr ""
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1083
+#: src/launch-libvirt.c:1103
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1194
+#: src/launch-libvirt.c:1214
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1232
+#: src/launch-libvirt.c:1252
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1243
+#: src/launch-libvirt.c:1263
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1598
+#: src/launch-libvirt.c:1637
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1678
+#: src/launch-libvirt.c:1717
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1715
+#: src/launch-libvirt.c:1754
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1777
+#: src/launch-libvirt.c:1816
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1808
+#: src/launch-libvirt.c:1847
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
