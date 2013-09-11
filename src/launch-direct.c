@@ -280,15 +280,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   ADD_CMDLINE ("-nographic");
 
-#ifdef __arm__
-  /* Use the Versatile Express A9 emulation (for now). */
+#ifdef MACHINE_TYPE
   ADD_CMDLINE ("-M");
-  ADD_CMDLINE ("vexpress-a9");
-#endif
-
-#ifdef __powerpc__
-  ADD_CMDLINE ("-M");
-  ADD_CMDLINE ("pseries");
+  ADD_CMDLINE (MACHINE_TYPE);
 #endif
 
   /* Try to guess if KVM is available.  We are just checking that

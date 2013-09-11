@@ -112,6 +112,15 @@
 #define VIRTIO_NET "virtio-net-device"
 #endif /* __arm__ */
 
+/* Machine types.  XXX Make these configurable. */
+#ifdef __arm__
+#define MACHINE_TYPE "vexpress-a9"
+#define DTB_WILDCARD "vexpress*a9.dtb"
+#endif
+#ifdef __powerpc__
+#define MACHINE_TYPE "pseries"
+#endif
+
 /* Guestfs handle and associated structures. */
 
 /* State. */

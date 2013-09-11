@@ -41,11 +41,6 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-/* Architectures that use device trees. */
-#ifdef __arm__
-#define ARCH_HAS_DEVICE_TREE 1
-#endif
-
 /* Old-style appliance is going to be obsoleted. */
 static const char *kernel_name = "vmlinuz." host_cpu;
 static const char *initrd_name = "initramfs." host_cpu ".img";
@@ -554,7 +549,7 @@ build_supermin_appliance (guestfs_h *g,
     return -1;
   }
 
-#if ARCH_HAS_DEVICE_TREE
+#ifdef DTB_WILDCARD
   snprintf (filename, len, "%s/dtb", tmpcd);
   snprintf (filename2, len, "%s/dtb", cachedir);
   unlink (filename2);
@@ -767,14 +762,14 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   guestfs___cmd_add_arg (cmd, "ext2");
   guestfs___cmd_add_arg (cmd, "--host-cpu");
   guestfs___cmd_add_arg (cmd, host_cpu);
-#if ARCH_HAS_DEVICE_TREE
+#ifdef DTB_WILDCARD
   guestfs___cmd_add_arg (cmd, "--dtb");
-  guestfs___cmd_add_arg (cmd, "vexpress*a9.dtb");
+  guestfs___cmd_add_arg (cmd, DTB_WILDCARD);
 #endif
   guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
   guestfs___cmd_add_arg (cmd, "--output-kernel");
   guestfs___cmd_add_arg_format (cmd, "%s/kernel", cachedir);
-#if ARCH_HAS_DEVICE_TREE
+#ifdef DTB_WILDCARD
   guestfs___cmd_add_arg (cmd, "--output-dtb");
   guestfs___cmd_add_arg_format (cmd, "%s/dtb", cachedir);
 #endif
@@ -796,7 +791,7 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
 
 #else /* ! SUPERMIN_HELPER_NEW_STYLE_SYNTAX */
 
-#if ARCH_HAS_DEVICE_TREE
+#ifdef DTB_WILDCARD
 #error "This architecture has device trees, so requires supermin-helper >= 4.1.5"
 #endif
 
