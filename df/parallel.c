@@ -78,6 +78,8 @@ struct thread_data {
 int
 start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
 {
+  const int trace = options_handle ? guestfs_get_trace (options_handle) : 0;
+  const int verbose = options_handle ? guestfs_get_verbose (options_handle) : 0;
   size_t i, nr_threads;
   int err, errors;
   void *status;
@@ -91,19 +93,16 @@ start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
   else
     nr_threads = MIN (nr_domains, MIN (MAX_THREADS, estimate_max_threads ()));
 
+  if (verbose)
+    fprintf (stderr, "parallel: creating %zu threads\n", nr_threads);
+
   struct thread_data thread_data[nr_threads];
   pthread_t threads[nr_threads];
 
   for (i = 0; i < nr_threads; ++i) {
     thread_data[i].thread_num = i;
-    if (options_handle) {
-      thread_data[i].trace = guestfs_get_trace (options_handle);
-      thread_data[i].verbose = guestfs_get_verbose (options_handle);
-    }
-    else {
-      thread_data[i].trace = 0;
-      thread_data[i].verbose = 0;
-    }
+    thread_data[i].trace = trace;
+    thread_data[i].verbose = verbose;
     thread_data[i].work = work;
   }
 
@@ -138,7 +137,8 @@ worker_thread (void *thread_data_vp)
   thread_data->r = 0;
 
   if (thread_data->verbose)
-    printf ("thread %zu starting\n", thread_data->thread_num);
+    fprintf (stderr, "parallel: thread %zu starting\n",
+             thread_data->thread_num);
 
   while (1) {
     size_t i;               /* The current domain we're working on. */
@@ -150,7 +150,8 @@ worker_thread (void *thread_data_vp)
 
     /* Take the next domain from the list. */
     if (thread_data->verbose)
-      printf ("thread %zu waiting to get work\n", thread_data->thread_num);
+      fprintf (stderr, "parallel: thread %zu waiting to get work\n",
+               thread_data->thread_num);
 
     err = pthread_mutex_lock (&take_mutex);
     if (err != 0) {
@@ -170,7 +171,8 @@ worker_thread (void *thread_data_vp)
       break;
 
     if (thread_data->verbose)
-      printf ("thread %zu taking domain %zu\n", thread_data->thread_num, i);
+      fprintf (stderr, "parallel: thread %zu taking domain %zu\n",
+               thread_data->thread_num, i);
 
     fp = open_memstream (&output, &output_len);
     if (fp == NULL) {
@@ -202,8 +204,8 @@ worker_thread (void *thread_data_vp)
      * may mean waiting for another thread to finish here.
      */
     if (thread_data->verbose)
-      printf ("thread %zu waiting to retire domain %zu\n",
-              thread_data->thread_num, i);
+      fprintf (stderr, "parallel: thread %zu waiting to retire domain %zu\n",
+               thread_data->thread_num, i);
 
     err = pthread_mutex_lock (&retire_mutex);
     if (err != 0) {
@@ -221,7 +223,8 @@ worker_thread (void *thread_data_vp)
     }
 
     if (thread_data->verbose)
-      printf ("thread %zu retiring domain %zu\n", thread_data->thread_num, i);
+      fprintf (stderr, "parallel: thread %zu retiring domain %zu\n",
+               thread_data->thread_num, i);
 
     /* Retire domain. */
     printf ("%s", output);
@@ -238,8 +241,8 @@ worker_thread (void *thread_data_vp)
   }
 
   if (thread_data->verbose)
-    printf ("thread %zu exiting (r = %d)\n",
-            thread_data->thread_num, thread_data->r);
+    fprintf (stderr, "parallel: thread %zu exiting (r = %d)\n",
+             thread_data->thread_num, thread_data->r);
 
   return &thread_data->r;
 }
