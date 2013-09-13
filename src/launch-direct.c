@@ -349,6 +349,29 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   ADD_CMDLINE (MACHINE_TYPE);
 #endif
 
+  /* If this is uncommented, then qemu won't start running the
+   * appliance immediately.  It will wait for you to connect to it
+   * using gdb:
+   *
+   *   $ gdb
+   *   (gdb) symbol-file /path/to/vmlinux
+   *   (gdb) target remote tcp::1234
+   *   (gdb) cont
+   *
+   * You can then debug the appliance kernel, which is useful to debug
+   * boot failures (especially ones where there are no debug messages
+   * printed - tip: look in the kernel log_buf).
+   *
+   * On Fedora, install kernel-debuginfo for the vmlinux file
+   * (containing symbols).  Make sure the symbols precisely match the
+   * kernel being used.
+   */
+#if 0
+  ADD_CMDLINE ("-S");
+  ADD_CMDLINE ("-s");
+  warning (g, "qemu debugging is enabled, connect gdb to tcp::1234 to begin");
+#endif
+
   /* Try to guess if KVM is available.  We are just checking that
    * /dev/kvm is openable.  That's not reliable, since /dev/kvm
    * might be openable by qemu but not by us (think: SELinux) in
