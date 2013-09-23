@@ -54,9 +54,9 @@ Add I<file> which should be a disk image from a virtual machine.
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format> option.
 
-=item B<-a URI>
+=item B<-a> URI
 
-=item B<--add URI>
+=item B<--add> URI
 
 Add a remote disk.  The URI format is compatible with guestfish.
 See L<guestfish(1)/ADDING REMOTE STORAGE>.
