@@ -123,9 +123,9 @@ Or use L<virsh(1)> vol-create-as to create a libvirt storage volume:
 
 =item 5. Resize
 
-virt-resize takes two mandatory parameters, the input disk (eg. device
-or file) and the output disk.  The output disk is the one created in
-the previous step.
+virt-resize takes two mandatory parameters, the input disk
+(eg. device, file, or a URI to a remote disk) and the output disk.
+The output disk is the one created in the previous step.
 
  # virt-resize indisk outdisk
 
@@ -160,6 +160,12 @@ equivalent of calling a command such as L<pvresize(8)>,
 L<resize2fs(8)>, L<ntfsresize(8)> or L<btrfs(8)>.  However virt-resize
 does not know how to resize some filesystems, so you would have to
 online resize them after booting the guest.
+
+ # virt-resize --expand /dev/sda2 nbd://example.com outdisk
+
+The input disk can be a URI, in order to use a remote disk as the
+source.  The URI format is compatible with guestfish.  See
+L<guestfish(1)/ADDING REMOTE STORAGE>.
 
 Other options are covered below.
 

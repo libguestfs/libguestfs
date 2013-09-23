@@ -174,6 +174,7 @@ read the man page virt-resize(1).
     printf "128-sector-alignment\n";
     printf "alignment\n";
     printf "align-first\n";
+    printf "infile-uri\n";
     let g = new G.guestfs () in
     g#add_drive "/dev/null";
     g#launch ();
@@ -197,6 +198,13 @@ read the man page virt-resize(1).
   if infile = outfile then
     error (f_"you cannot use the same disk image for input and output");
 
+  (* infile can be a URI. *)
+  let infile =
+    try (infile, URI.parse_uri infile)
+    with Invalid_argument "URI.parse_uri" ->
+      error (f_"error parsing URI '%s'. Look for error messages printed above.")
+        infile in
+
   infile, outfile, align_first, alignment, copy_boot_loader,
   debug, debug_gc, deletes,
   dryrun, expand, expand_content, extra_partition, format, ignores,
@@ -211,7 +219,9 @@ let btrfs_available = ref true
 let connect_both_disks () =
   let g = new G.guestfs () in
   if debug then g#set_trace true;
-  g#add_drive ?format ~readonly:true infile;
+  let _, { URI.path = path; protocol = protocol;
+           server = server; username = username } = infile in
+  g#add_drive ?format ~readonly:true ~protocol ?server ?username path;
   g#add_drive ?format:output_format ~readonly:false outfile;
   if not quiet then Progress.set_up_progress_bar ~machine_readable g;
   g#launch ();
@@ -229,7 +239,7 @@ let connect_both_disks () =
 
 let g =
   if not quiet then
-    printf (f_"Examining %s ...\n%!") infile;
+    printf (f_"Examining %s ...\n%!") (fst infile);
 
   let g = connect_both_disks () in
 
@@ -246,7 +256,7 @@ let sectsize, insize, outsize =
   let insize = g#blockdev_getsize64 "/dev/sda" in
   let outsize = g#blockdev_getsize64 "/dev/sdb" in
   if debug then (
-    eprintf "%s size %Ld bytes\n" infile insize;
+    eprintf "%s size %Ld bytes\n" (fst infile) insize;
     eprintf "%s size %Ld bytes\n" outfile outsize
   );
   sectsize, insize, outsize
@@ -268,7 +278,7 @@ let max_bootloader =
 let () =
   if insize < Int64.of_int max_bootloader then
     error (f_"%s: file is too small to be a disk image (%Ld bytes)")
-      infile insize;
+      (fst infile) insize;
   if outsize < Int64.of_int max_bootloader then
     error (f_"%s: file is too small to be a disk image (%Ld bytes)")
       outfile outsize
@@ -284,7 +294,7 @@ let parttype, parttype_string =
   | "msdos" -> MBR, "msdos"
   | "gpt" -> GPT, "gpt"
   | _ ->
-    error (f_"%s: unknown partition table type\nvirt-resize only supports MBR (DOS) and GPT partition tables.") infile
+    error (f_"%s: unknown partition table type\nvirt-resize only supports MBR (DOS) and GPT partition tables.") (fst infile)
 
 (* Build a data structure describing the source disk's partition layout.
  *
@@ -537,7 +547,7 @@ let find_partition =
       try Hashtbl.find hash name
       with Not_found ->
         error (f_"%s: partition not found in the source disk image (this error came from '%s' option on the command line).  Try running this command: virt-filesystems --partitions --long -a %s")
-          name option infile in
+          name option (fst infile) in
 
     if partition.p_operation = OpIgnore then
       error (f_"%s: partition already ignored, you cannot use it in '%s' option")
@@ -755,7 +765,7 @@ let () =
         try Hashtbl.find hash name
         with Not_found ->
           error (f_"%s: logical volume not found in the source disk image (this error came from '--lv-expand' option on the command line).  Try running this command: virt-filesystems --logical-volumes --long -a %s")
-            name infile in
+            name (fst infile) in
       lv.lv_operation <- LVOpExpand
   ) lv_expands
 
