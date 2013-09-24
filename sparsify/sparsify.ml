@@ -257,7 +257,7 @@ Note this is an overestimate.  If the guest disk is full of data
 then not as much free space would be required.
 
 You can ignore this warning or change it to a hard failure using the
---check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sysprep(1).
+--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sparsify(1).
 
 %!")
         tmpdir (human_size virtual_size)
