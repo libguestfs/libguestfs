@@ -137,7 +137,12 @@ virt-sysprep: $(OBJECTS)
 # automake will decide we don't need C support in this file.  Really
 # we do, so we have to provide it ourselves.
 
-DEFAULT_INCLUDES = -I. -I$(top_builddir) -I$(shell $(OCAMLC) -where)
+DEFAULT_INCLUDES = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/fish
 
 .c.o:
 	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
