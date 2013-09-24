@@ -1,3 +1,9 @@
+mllib/common_gettext.ml
+mllib/common_utils.ml
+mllib/common_utils_tests.ml
+mllib/progress.ml
+mllib/tTY.ml
+mllib/uRI.ml
 resize/resize.ml
 sparsify/sparsify.ml
 sysprep/crypt.ml

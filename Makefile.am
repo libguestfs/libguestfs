@@ -267,7 +267,7 @@ all-local:
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	LC_ALL=C sort > po/POTFILES
 	cd $(srcdir); \
-	find resize sparsify sysprep -name '*.ml' | \
+	find mllib resize sparsify sysprep -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
 
 # Manual pages in top level directory.
