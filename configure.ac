@@ -1036,13 +1036,13 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 
     dnl Write a common gettext module used by each OCaml tool.
     dnl If OCaml gettext is not available then we write dummy functions.
-    AC_MSG_NOTICE([creating resize/common_gettext.ml])
-    rm -f resize/common_gettext.ml
-    # If we're building in a different directory, then 'resize/' might
+    AC_MSG_NOTICE([creating mllib/common_gettext.ml])
+    rm -f mllib/common_gettext.ml
+    # If we're building in a different directory, then 'mllib/' might
     # not exist yet, so create it:
-    mkdir -p resize
+    mkdir -p mllib
 
-    cat <<EOF > resize/common_gettext.ml
+    cat <<EOF > mllib/common_gettext.ml
 (* This file is generated automatically by ./configure. *)
 
 (** Gettext functions for OCaml virt tools.
@@ -1080,7 +1080,7 @@ EOF
 
     if test "x$OCAML_PKG_gettext" != "xno"; then
         # ocaml-gettext available: real module.
-        cat <<EOF >>resize/common_gettext.ml
+        cat <<EOF >>mllib/common_gettext.ml
 module Gettext = Gettext.Program (
   struct
     let textdomain = "$PACKAGE_NAME"
@@ -1092,7 +1092,7 @@ module Gettext = Gettext.Program (
 EOF
     else
         # No gettext: module containing dummy gettext functions.
-        cat <<EOF >>resize/common_gettext.ml
+        cat <<EOF >>mllib/common_gettext.ml
 module Gettext = struct
   external s_ : string -> string = "%identity"
   external f_ : ('a, 'b, 'c, 'd, 'e, 'f) format6
@@ -1108,7 +1108,7 @@ end
 EOF
     fi
 
-    chmod -w resize/common_gettext.ml
+    chmod -w mllib/common_gettext.ml
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
@@ -1665,6 +1665,7 @@ AC_CONFIG_FILES([Makefile
                  java/examples/Makefile
                  lua/Makefile
                  lua/examples/Makefile
+                 mllib/Makefile
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile

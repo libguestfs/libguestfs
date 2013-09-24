@@ -1,10 +1,4 @@
-resize/common_gettext.ml
-resize/common_utils.ml
-resize/common_utils_tests.ml
-resize/progress.ml
 resize/resize.ml
-resize/tTY.ml
-resize/uRI.ml
 sparsify/sparsify.ml
 sysprep/crypt.ml
 sysprep/firstboot.ml

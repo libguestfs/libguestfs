@@ -1,5 +1,5 @@
-# libguestfs virt-sparsify tool
-# Copyright (C) 2011 Red Hat Inc.
+# libguestfs OCaml tools common code
+# Copyright (C) 2011-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,41 +18,49 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES) \
-	virt-sparsify.pod \
-	test-virt-sparsify.sh
+	$(SOURCES)
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
+CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o
 
 # Alphabetical order.
 SOURCES = \
-	sparsify.ml \
-	statvfs-c.c
+	common_gettext.ml \
+	common_utils.ml \
+	common_utils_tests.ml \
+	progress-c.c \
+	progress.mli \
+	progress.ml \
+	tty-c.c \
+	tTY.mli \
+	tTY.ml \
+	uri-c.c \
+	uRI.mli \
+	uRI.ml
 
 if HAVE_OCAML
 
-# Note this list must be in dependency order.
+# Notes:
+# - We're not actually building a functioning program here, we're just
+#   linking everything together to check all the modules build OK.
+# - This list must be in dependency order.
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
-	$(top_builddir)/mllib/tty-c.o \
-	$(top_builddir)/mllib/progress-c.o \
-	$(top_builddir)/mllib/common_gettext.cmx \
-	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/tTY.cmx \
-	$(top_builddir)/mllib/progress.cmx \
-	statvfs-c.o \
-	sparsify.cmx
+	$(top_builddir)/fish/guestfish-uri.o \
+	tty-c.o \
+	progress-c.o \
+	uri-c.o \
+	common_gettext.cmx \
+	common_utils.cmx \
+	tTY.cmx \
+	progress.cmx \
+	uRI.cmx
 
-bin_SCRIPTS = virt-sparsify
+noinst_SCRIPTS = dummy
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
-OCAMLPACKAGES = \
-	-package str,unix \
-	-I $(top_builddir)/src/.libs \
-	-I $(top_builddir)/ocaml \
-	-I $(top_builddir)/mllib
+OCAMLPACKAGES = -package str,unix -I $(top_builddir)/src/.libs -I ../ocaml
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
@@ -60,10 +68,15 @@ endif
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
-virt-sparsify: $(OBJECTS)
+OCAMLCLIBS  = \
+	$(LIBXML2_LIBS) -lncurses \
+	-L../src/.libs -lutils \
+	-L../gnulib/lib/.libs -lgnu
+
+dummy: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib -lncurses \
+	  -cclib '$(OCAMLCLIBS)' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 
@@ -82,31 +95,17 @@ DEFAULT_INCLUDES = -I. -I$(top_builddir) -I$(shell $(OCAMLC) -where) -I$(top_src
 .c.o:
 	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
 
-# Manual pages and HTML files for the website.
-
-man_MANS = virt-sparsify.1
-
-noinst_DATA = $(top_builddir)/html/virt-sparsify.1.html
-
-virt-sparsify.1 $(top_builddir)/html/virt-sparsify.1.html: stamp-virt-sparsify.pod
-
-stamp-virt-sparsify.pod: virt-sparsify.pod
-	$(PODWRAPPER) \
-	  --man virt-sparsify.1 \
-	  --html $(top_builddir)/html/virt-sparsify.1.html \
-	  --license GPLv2+ \
-	  $<
-	touch $@
-
-CLEANFILES += stamp-virt-sparsify.pod
-
 # Tests.
+
+check_SCRIPTS = common_utils_tests
+
+common_utils_tests: common_gettext.cmx common_utils.cmx common_utils_tests.cmx
+	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
+	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-if ENABLE_APPLIANCE
-TESTS = test-virt-sparsify.sh
-endif ENABLE_APPLIANCE
+TESTS = common_utils_tests
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
@@ -116,7 +115,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(top_srcdir)/mllib $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

@@ -225,6 +225,9 @@ gobject/src/tristate.c
 inspector/inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 lua/lua-guestfs.c
+mllib/progress-c.c
+mllib/tty-c.c
+mllib/uri-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c.c
 perl/Guestfs.c
@@ -235,9 +238,6 @@ python/guestfs-py-byhand.c
 python/guestfs-py.c
 rescue/rescue.c
 rescue/test-virt-rescue.pl
-resize/progress-c.c
-resize/tty-c.c
-resize/uri-c.c
 ruby/ext/guestfs/_guestfs.c
 sparsify/statvfs-c.c
 src/actions-0.c
