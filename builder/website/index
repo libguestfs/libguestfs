@@ -1,0 +1,35 @@
+[fedora-18]
+name=Fedora® 18
+osinfo=fedora18
+file=fedora-18.xz
+sig=fedora-18.xz.sig
+format=raw
+size=6442450944
+compressed_size=148947524
+expand=/dev/sda3
+notes=This Fedora image contains only unmodified @Core group packages.
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs git tree:
+ libguestfs.git/builder/website/fedora-18.ks
+ libguestfs.git/builder/website/fedora-18.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-19]
+name=Fedora® 19
+osinfo=fedora19
+file=fedora-19.xz
+sig=fedora-19.xz.sig
+format=raw
+size=4294967296
+compressed_size=172190964
+expand=/dev/sda3
+notes=This Fedora image contains only unmodified @Core group packages.
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs git tree:
+ libguestfs.git/builder/website/fedora-19.ks
+ libguestfs.git/builder/website/fedora-19.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/

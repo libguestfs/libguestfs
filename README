@@ -162,6 +162,16 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | uml_mkcow    |             | O | For the UML backend.                    |
 +--------------+-------------+---+-----------------------------------------+
+| curl         |             | O | Used by virt-builder for downloads      |
++--------------+-------------+---+-----------------------------------------+
+| gpg          |             | O | Used by virt-builder for digital        |
+|              |             |   | signatures                              |
++--------------+-------------+---+-----------------------------------------+
+| xz           |             | O | Used by virt-builder for compression    |
++--------------+-------------+---+-----------------------------------------+
+| nbdkit       |             | O | Used by virt-builder to speed up        |
+|              |             |   | template xz-decompression               |
++--------------+-------------+---+-----------------------------------------+
 | findlib      |             | O | For the OCaml bindings.                 |
 +--------------+-------------+---+-----------------------------------------+
 | ocaml-gettext|             | O | For localizing OCaml virt-* tools.      |

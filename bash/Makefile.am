@@ -21,6 +21,7 @@ scripts = \
 	guestfish \
 	guestmount \
 	virt-alignment-scan \
+	virt-builder \
 	virt-cat \
 	virt-df \
 	virt-edit \
@@ -55,6 +56,8 @@ virt-ls:
 virt-sysprep:
 	ln -sf virt-alignment-scan $@
 
+virt-builder:
+	ln -sf virt-resize $@
 virt-sparsify:
 	ln -sf virt-resize $@
 

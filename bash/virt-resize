@@ -1,4 +1,5 @@
-# virt-resize, virt-sparsify bash completion script -*- shell-script -*-
+# virt-resize, virt-builder, virt-sparsify bash completion script
+# -*- shell-script -*-
 # Copyright (C) 2010-2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -32,6 +33,12 @@ _guestfs_options_only ()
             return ;;
     esac
 }
+
+_virt_builder ()
+{
+    _guestfs_options_only "$(virt-builder --long-options)"
+} &&
+complete -o default -F _virt_builder virt-builder
 
 _virt_resize ()
 {

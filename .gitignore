@@ -46,6 +46,7 @@ Makefile.in
 /appliance/stamp-supermin
 /appliance/supermin.d
 /autom4te.cache
+/bash/virt-builder
 /bash/virt-cat
 /bash/virt-df
 /bash/virt-edit
@@ -56,6 +57,10 @@ Makefile.in
 /bash/virt-sysprep
 /bash/virt-sparsify
 /build-aux
+/builder/.depend
+/builder/stamp-virt-builder.pod
+/builder/virt-builder
+/builder/virt-builder.1
 /cat/stamp-virt-*.pod
 /cat/virt-cat
 /cat/virt-cat.1
@@ -206,6 +211,7 @@ Makefile.in
 /html/libguestfs-make-fixed-appliance.1.html
 /html/libguestfs-test-tool.1.html
 /html/virt-alignment-scan.1.html
+/html/virt-builder.1.html
 /html/virt-cat.1.html
 /html/virt-copy-in.1.html
 /html/virt-copy-out.1.html
@@ -264,6 +270,7 @@ Makefile.in
 /mllib/common_gettext.ml
 /mllib/common_utils_tests
 /mllib/dummy
+/mllib/libdir.ml
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml

@@ -118,7 +118,7 @@ SUBDIRS += csharp
 # OCaml tools.  Note 'mllib' contains random shared code used by
 # all of the OCaml tools.
 if HAVE_OCAML
-SUBDIRS += mllib resize sparsify sysprep
+SUBDIRS += mllib builder resize sparsify sysprep
 endif
 
 # Perl tools.
@@ -206,6 +206,7 @@ HTMLFILES = \
 	html/libguestfs-make-fixed-appliance.1.html \
 	html/libguestfs-test-tool.1.html \
 	html/virt-alignment-scan.1.html \
+	html/virt-builder.1.html \
 	html/virt-cat.1.html \
 	html/virt-copy-in.1.html \
 	html/virt-copy-out.1.html \
@@ -275,7 +276,7 @@ all-local:
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	LC_ALL=C sort > po/POTFILES
 	cd $(srcdir); \
-	find mllib resize sparsify sysprep -name '*.ml' | \
+	find builder mllib resize sparsify sysprep -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
 
 # Manual pages in top level directory.

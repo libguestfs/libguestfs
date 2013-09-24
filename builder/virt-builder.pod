@@ -1,0 +1,986 @@
+=encoding utf8
+
+=head1 NAME
+
+virt-builder - Build virtual machine images quickly
+
+=head1 SYNOPSIS
+
+ virt-builder [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]
+    [--attach ISOFILE]
+    [--install PKG,[PKG...]]
+    [--root-password ...]
+    [--upload FILE:DEST]
+    [--run SCRIPT] [--run-command 'CMD ARGS ...']
+    [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
+    [--firstboot-install PKG,[PKG...]]
+    os-version
+
+ virt-builder -l|--list [--long]
+
+ virt-builder --delete-cache
+
+ virt-builder --get-kernel DISKIMAGE
+    [--format raw|qcow2] [--output OUTPUTDIR]
+
+=head1 DESCRIPTION
+
+Virt-builder is a tool for quickly building new virtual machines.  You
+can build a variety of VMs for local or cloud use, usually within a
+few minutes or less.  Virt-builder also has many ways to customize
+these VMs.  Everything is run from the command line and nothing
+requires root privileges, so automation and scripting is simple.
+
+Note that virt-builder does not install guests from scratch.  It takes
+cleanly prepared, digitally signed OSes and customizes them.  This
+approach is used because it is much faster, but if you need to do
+fresh installs you may want to look at L<virt-install(1)> and
+L<oz-install(1)>.
+
+The easiest way to get started is by looking at the examples in the
+next section.
+
+=head1 EXAMPLES
+
+=head2 List the virtual machines available
+
+ virt-builder --list
+
+will list out the operating systems available to install.  A selection
+of freely redistributable OSes is available as standard.  You can add
+your own too (see below).
+
+=head2 Build a virtual machine
+
+ virt-builder fedora-20
+
+will build a Fedora 20 image.  This will have all default
+configuration (minimal size, no user accounts, random root password,
+only the bare minimum installed software, etc.).
+
+Note you I<do not need to run this command as root>.
+
+The first time this runs it has to download the template over the
+network, but this gets cached (see L</CACHING>).
+
+The name of the output file is derived from the template name, so
+above it will be C<fedora-20.img>.  You can change the output filename
+using the I<-o> option:
+
+ virt-builder fedora-20 -o mydisk.img
+
+You can also use the I<-o> option to write to existing devices or
+logical volumes.
+
+ virt-builder fedora-20 --format qcow2
+
+As above, but write the output in qcow2 format to C<fedora-20.qcow2>.
+
+ virt-builder fedora-20 --size 20G
+
+As above, but the output size will be 20 GB.  The guest OS is resized
+as it is copied to the output (automatically, using
+L<virt-resize(1)>).
+
+=head2 Setting the root password
+
+ virt-builder fedora-20 --root-password file:/tmp/rootpw
+
+Create a Fedora 20 image.  The root password is taken from the file
+C</tmp/rootpw>.
+
+Note if you I<don't> set I<--root-password> then the guest is given
+a I<random> root password.
+
+You can also create user accounts.  See L</USERS AND PASSWORDS> below.
+
+=head2 Installing software
+
+To install packages from the ordinary (guest) software repository
+(eg. yum or apt):
+
+ virt-builder fedora-20 --install "inkscape,+Xfce Desktop"
+
+C<+> is used to install groups of packages (see L<yum(8)>).
+
+=head2 Customizing the installation
+
+There are four options that let you run shell scripts to customize the
+installation.  They are: I<--run>/I<--run-command>, which run a shell
+script or command while the disk image is being generated and lets you
+add or edit files that go into the disk image.  And
+I<--firstboot>/I<--firstboot-command>, which let you add
+scripts/commands that are run the first time the guest boots.
+
+For example:
+
+ cat <<'EOF' > /tmp/yum-update.sh
+ yum -y update
+ EOF
+ 
+ virt-builder fedora-20 --firstboot /tmp/yum-update.sh
+
+or simply:
+
+ virt-builder fedora-20 --firstboot-command 'yum -y update'
+
+which makes the C<yum update> command run once the first time the
+guest boots.
+
+Or:
+
+ cat <<'EOF' > /tmp/no-gpg-sigs.sh
+ sed -i 's/gpgcheck=1/gpgcheck=0/' /etc/yum.conf
+ EOF
+ 
+ virt-builder fedora-20 --run /tmp/no-gpg-sigs.sh
+
+which edits C</etc/yum.conf> inside the disk image (during disk image
+creation, long before boot).
+
+You can combine these options, and have multiple of either or both
+sets of scripts.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<--attach> ISOFILE
+
+During the customization phase, the given disk is attached to the
+libguestfs appliance.  This is used to provide extra software
+repositories or other data for customization.
+
+You probably want to ensure the volume(s) or filesystems in the
+attached disks are labelled (or an ISO volume name) so that you can
+mount them by label in your run-scripts:
+
+ mkdir /tmp/mount
+ mount LABEL=EXTRA /tmp/mount
+
+You can have multiple I<--attach> options, and the format can be any
+disk format (not just an ISO).
+
+See also: I<--run>,
+L</Installing packages at build time from a side repository>,
+L<virt-make-fs(1)>.
+
+=item B<--attach-format> FORMAT
+
+Specify the disk format for the next I<--attach> option.  The
+C<FORMAT> is usually C<raw> or C<qcow2>.  Use C<raw> for ISOs.
+
+=item B<--cache> DIR
+
+=item B<--no-cache>
+
+I<--cache> DIR sets the directory to use/check for cached template
+files.  If not set, defaults to either
+C<$XDG_CACHE_HOME/virt-builder/> or C<$HOME/.cache/virt-builder/>.
+
+I<--no-cache> disables template caching.
+
+=item B<--check-signature>
+
+=item B<--no-check-signature>
+
+Check/don't check the digital signature of the OS template.  The
+default is to check the signature and exit if it is not correct.
+Using I<--no-check-signature> bypasses this check.
+
+See also I<--fingerprint>.
+
+=item B<--curl> CURL
+
+Specify an alternate L<curl(1)> binary.  You can also use this to add
+curl parameters, for example to disable https certificate checks:
+
+ virt-builder --curl "curl --insecure" [...]
+
+=item B<--delete-cache>
+
+Delete the template cache.  See L</CACHING>.
+
+=item B<--fingerprint> 'AAAA BBBB ...'
+
+Check that the digital signature is signed by the key with the given
+fingerprint.  (The fingerprint is a long string, usually written as 10
+groups of 4 hexadecimal digits).
+
+If signature checking is enabled and the I<--fingerprint> option is
+not given, then this checks the download was signed by
+S<F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0> (which is
+S<Richard W.M. Jones's> key).
+
+You can also set the C<VIRT_BUILDER_FINGERPRINT> environment variable.
+
+=item B<--firstboot> SCRIPT
+
+=item B<--firstboot-command> 'CMD ARGS ...'
+
+Install C<SCRIPT> inside the guest, so that when the guest first boots
+up, the script runs (as root, late in the boot process).
+
+The script is automatically chmod +x after installation in the guest.
+
+The alternative version I<--firstboot-command> is the same, but it
+conveniently wraps the command up in a single line script for you.
+
+You can have multiple I<--firstboot> and I<--firstboot-command>
+options.  They run in the same order that they appear on the command
+line.
+
+See also I<--run>.
+
+=item B<--firstboot-install> PKG[,PKG,...]
+
+Install the named packages (a comma-separated list).  These are
+installed when the guest first boots using the guest's package manager
+(eg. apt, yum, etc.) and the guest's network connection.
+
+For an overview on the different ways to install packages, see
+L</INSTALLING PACKAGES>.
+
+=item B<--format> qcow2
+
+=item B<--format> raw
+
+Select the output format.  The default is I<raw>.
+
+=item B<--get-kernel> IMAGE
+
+This option extracts the kernel and initramfs from a previously built
+disk image called C<IMAGE> (in fact it works for any VM disk image,
+not just ones built using virt-builder).
+
+The kernel and initramfs are written to the current directory, unless
+you also specify the I<--output> C<outputdir> B<directory> name.
+
+The format of the disk image is automatically detected unless you
+specify it by using the I<--format> option.
+
+In the case where the guest contains multiple kernels, the one with
+the highest version number is chosen.  To extract arbitrary kernels
+from the disk image, see L<guestfish(1)>.  To extract the entire
+C</boot> directory of a guest, see L<virt-copy-out(1)>.
+
+=item B<--gpg> GPG
+
+Specify an alternate L<gpg(1)> (GNU Privacy Guard) binary.  You can
+also use this to add gpg parameters, for example to specify an
+alternate home directory:
+
+ virt-builder --gpg "gpg --homedir /tmp" [...]
+
+=item B<--install> PKG[,PKG,...]
+
+Install the named packages (a comma-separated list).  These are
+installed during the image build using the guest's package manager
+(eg. apt, yum, etc.) and the host's network connection.
+
+For an overview on the different ways to install packages, see
+L</INSTALLING PACKAGES>.
+
+=item B<-l>
+
+=item B<--list>
+
+=item B<--list --long>
+
+List available templates.
+
+The alternative I<--list --long> form shows lots more details about
+each operating system option.
+
+See also: I<--source>, L</CREATING YOUR OWN TEMPLATES>.
+
+=item B<--network>
+
+=item B<--no-network>
+
+Enable or disable network access from the guest during the installation.
+
+Enabled is the default.  Use I<--no-network> to disable access.
+
+If you use I<--no-network> then certain other options such as
+I<--install> will not work.
+
+This does not affect whether the guest can access the network once it
+has been booted, because that is controlled by your hypervisor or
+cloud environment and has nothing to do with virt-builder.
+
+Generally speaking you should I<not> use I<--no-network>.  But here
+are some reasons why you might want to:
+
+=over 4
+
+=item 1.
+
+Because the libguestfs backend that you are using doesn't support the
+network.  (See: L<guestfs(3)/BACKEND>).
+
+=item 2.
+
+Any software you need to install comes from an attached ISO, so you
+don't need the network.
+
+=item 3.
+
+You don't want untrusted guest code trying to access your host network
+when running virt-builder.  This is particularly an issue when you
+don't trust the source of the operating system templates.
+
+=item 4.
+
+You don't have a host network (eg. in secure/restricted environments).
+
+=back
+
+=item B<-o> filename
+
+=item B<--output> filename
+
+Write the output to C<filename>.  If you don't specify this option,
+then the output filename is generated by taking the C<os-version> or
+basename of the template, removing any extensions, and adding C<.img>
+(for raw format) or C<.qcow2> (for qcow2 format).
+
+Note that the output filename could be a device, partition or logical
+volume.
+
+=item B<--password-crypto> password-crypto
+
+Set the password encryption to C<md5>, C<sha256> or C<sha512>.
+
+C<sha256> and C<sha512> require glibc E<ge> 2.7 (check crypt(3) inside
+the guest).
+
+C<md5> will work with relatively old Linux guests (eg. RHEL 3), but
+is not secure against modern attacks.
+
+The default is C<sha512> unless libguestfs detects an old guest that
+didn't have support for SHA-512, in which case it will use C<md5>.
+You can override libguestfs by specifying this option.
+
+=item B<--quiet>
+
+Don't print ordinary progress messages.
+
+=item B<--root-password> PASSWORD
+
+Set the root password.
+
+See L</USERS AND PASSWORDS> below for the format of the C<PASSWORD>
+field, and also how to set up user accounts.
+
+Note if you I<don't> set I<--root-password> then the guest is given
+a I<random> root password.
+
+=item B<--run> SCRIPT
+
+=item B<--run-command> 'CMD ARGS ...'
+
+Run the shell script (or any program) called C<SCRIPT> on the disk
+image.  The script runs virtualized inside a small appliance, chrooted
+into the guest filesystem.
+
+The script is automatically chmod +x.
+
+If libguestfs supports it then a limited network connection is
+available but it only allows outgoing network connections.  You can
+also attach data disks (eg. ISO files) as another way to provide data
+(eg. software packages) to the script without needing a network
+connection.
+
+The alternative version I<--run-command> is the same, but it
+conveniently wraps the command up in a single line script for you.
+
+You can have multiple I<--run> and I<--run-command> options.  They run
+in the same order that they appear on the command line.
+
+See also I<--firstboot>, I<--attach>.
+
+=item B<--size> SIZE
+
+Select the size, where the size can be specified using common names
+such as C<32G> (32 gigabytes) etc.
+
+If the size is not specified, then one of two things happens.  If the
+output is a file, then the size is the same as the template (this is
+most likely I<not> what you want).  If the output is a device,
+partition, etc then the size of that device is used.
+
+=item B<--source> URL
+
+Set the source URL to look for templates.  If not specified it
+defaults to L<http://libguestfs.org/download/builder/index.asc>
+
+See also L</CREATING YOUR OWN TEMPLATES> below.
+
+You can also set the C<VIRT_BUILDER_SOURCE> environment variable.
+
+Note that you should not point I<--source> to sources that you don't
+trust (unless the source is signed by someone you do trust).  See also
+the I<--no-network> option.
+
+=item B<--upload> FILE:DEST
+
+Upload local file C<FILE> to destination C<DEST> in the disk image.
+File owner and permissions from the original are preserved, so you
+should set them to what you want them to be in the disk image.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable debug messages and/or produce verbose output.
+
+When reporting bugs, use this option and attach the complete output to
+your bug report.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=back
+
+=head1 REFERENCE
+
+=head2 INSTALLING PACKAGES
+
+There are several approaches to installing packages or applications in
+the guest which have different trade-offs.
+
+=head3 Installing packages at build time
+
+If the guest OS you are installing is similar to the host OS (eg.
+both are Linux), and if libguestfs supports network connections, then
+you can use I<--install> to install packages like this:
+
+ virt-builder fedora-20 --install inkscape
+
+This uses the guest's package manager but the host's network
+connection.
+
+=head3 Installing packages at first boot
+
+Another option is to install the packages when the guest first boots:
+
+ virt-builder fedora-20 --firstboot-install inkscape
+
+This uses the guest's package manager and the guest's network
+connection.
+
+The downsides are that it will take the guest a lot longer to boot
+first time, and there's nothing much you can do if package
+installation fails (eg. because a network problem means the guest
+can't reach the package repositories).
+
+=head3 Installing packages at build time from a side repository
+
+If the software you want to install is not available in the main
+package repository of the guest, then you can add a side repository.
+Usually this is presented as an ISO (CD disk image) file containing
+extra packages.
+
+Create a script that mounts the ISO and sets up the repository.  For
+yum, create /tmp/install.sh containing:
+
+ mkdir /tmp/mount
+ 
+ # Assume the volume label of the CD is 'EXTRA':
+ mount LABEL=EXTRA /tmp/mount
+ 
+ cat <<'EOF' > /etc/yum.repos.d/extra.repo
+ [extra]
+ name=extra
+ baseurl=file:///tmp/mount
+ enabled=1
+ EOF
+ 
+ yum -y install famousdatabase
+
+For apt, create /tmp/install.sh containing:
+
+ mkdir /tmp/mount
+ 
+ # Assume the volume label of the CD is 'EXTRA':
+ mount LABEL=EXTRA /tmp/mount
+ 
+ apt-cdrom -d=/tmp/mount add
+ apt-get -y install famousdatabase
+
+Use the I<--attach> option to attach the CD:
+
+ virt-builder fedora 20 --attach extra.iso --run /tmp/install.sh
+
+=head2 USERS AND PASSWORDS
+
+The I<--root-password> option is used to change the root password
+(otherwise a random password is used).  This option has the following
+formats:
+
+=over 4
+
+=item B<--root-password> file:FILENAME
+
+Read the root password from C<FILENAME>.  The whole first line
+of this file is the replacement password.  Any other lines are
+ignored.  You should create the file with mode 0600 to ensure
+no one else can read it.
+
+=item B<--root-password> password:PASSWORD
+
+Set the root password to the literal string C<PASSWORD>.
+
+B<Note: this is not secure> since any user on the same machine can
+see the cleartext password using L<ps(1)>.
+
+=back
+
+=head3 Creating user accounts
+
+To create user accounts, use the L<useradd(8)> command with
+L<--firstboot-command> like this:
+
+ virt-sysprep --firstboot-command \
+    'useradd -m -p "" rjones ; chage -d 0 rjones'
+
+The above command will create an C<rjones> account with no password,
+and force the user to set a password when they first log in.  There
+are other ways to manage passwords, see L<useradd(8)> for details.
+
+=head2 INSTALLATION PROCESS
+
+When you invoke virt-builder, installation proceeds as follows:
+
+=over 4
+
+=item *
+
+The template image is downloaded.
+
+If the template image is present in the cache, the cached version
+is used instead.  (See L</CACHING>).
+
+=item *
+
+The template signature is checked.
+
+=item *
+
+If the template image is xz-compressed: If L<nbdkit(1)> and
+L<nbdkit-xz-plugin(1)> are both installed, nbdkit is used to
+transparently uncompress the image on the fly.  Else it is
+uncompressed to a temporary disk which takes more disk space.
+
+=item *
+
+The template image is resized into the destination, using
+L<virt-resize(1)>.
+
+=item *
+
+Extra disks are attached (I<--attach>).
+
+=item *
+
+A new random seed is generated for the guest.
+
+=item *
+
+Packages are installed (I<--install>).
+
+=item *
+
+The root password is changed (I<--root-password>).
+
+=item *
+
+Files are uploaded (I<--upload>).
+
+=item *
+
+Firstboot scripts are installed (I<--firstboot>,
+I<--firstboot-command>, I<--firstboot-install>).
+
+Note that although firstboot scripts are installed at this step, they
+do not run until the guest is booted first time.  Firstboot scripts
+will run in the order they appear on the command line.
+
+=item *
+
+Scripts are run (I<--run>, I<--run-command>).
+
+Scripts run in the order they appear on the command line.
+
+=back
+
+=head2 CREATING YOUR OWN TEMPLATES
+
+For serious virt-builder use, you may want to create your own
+repository of templates.
+
+Out of the box, virt-builder downloads the file
+L<http://libguestfs.org/download/builder/index.asc> which is an index
+of available templates plus some information about each one, wrapped
+up in a digital signature.  The command C<virt-builder --list> lists
+out the information in this index file.
+
+You can set up your own site containing an index file and some
+templates, and then point virt-builder at the site by using the
+I<--source> option:
+
+ virt-builder --source https://example.com/builder/index.asc \
+    --fingerprint 'AAAA BBBB ...' \
+    --list
+
+(Note setting the environment variables C<VIRT_BUILDER_SOURCE> and
+C<VIRT_BUILDER_FINGERPRINT> may be easier to type!)
+
+=head3 Setting up a GPG key
+
+If you don't have a GnuPG key, you will need to set one up.  (Strictly
+speaking this is optional, but if your index and template files are
+not signed then virt-builder users will have to use the
+I<--no-check-signature> flag every time they use virt-builder.)
+
+To create a key, see the GPG manual
+L<http://www.gnupg.org/gph/en/manual.html>.
+
+Export your GPG public key and add it to the keyring of all
+virt-builder users:
+
+ gpg --export -a "you@example.com" > pubkey
+ 
+ # For each virt-builder user:
+ gpg --import pubkey
+
+Also find the fingerprint of your key:
+
+ gpg --list-keys --fingerprint
+
+=head3 Create the templates
+
+There are many ways to create the templates.  For example you could
+clone existing guests (see L<virt-sysprep(1)>), or you could install a
+guest by hand (L<virt-install(1)>).  To see how the templates were
+created for virt-builder, look at the scripts in
+C<libguestfs.git/builder/website>
+
+For best results when compressing the templates, use the following xz
+options (see L<nbdkit-xz-plugin(1)> for further explanation):
+
+ xz --best --block-size=16777216 disk
+
+=head3 Creating and signing the index file
+
+The index file has a simple text format (shown here without the
+digital signature):
+
+ [fedora-18]
+ name=Fedora® 18
+ osinfo=fedora18
+ file=fedora-18.xz
+ sig=fedora-18.xz.sig
+ format=raw
+ size=6442450944
+ compressed_size=148947524
+ expand=/dev/sda3
+ 
+ [fedora-19]
+ name=Fedora® 19
+ osinfo=fedora19
+ file=fedora-19.xz
+ sig=fedora-19.xz.sig
+ revision=3
+ format=raw
+ size=4294967296
+ compressed_size=172190964
+ expand=/dev/sda3
+
+The part in square brackets is the C<os-version>, which is the same
+string that is used on the virt-builder command line to build that OS.
+
+After preparing the C<index> file in the correct format, clearsign it
+using the following command:
+
+ gpg --clearsign --armor index
+
+This will create the final file called C<index.asc> which can be
+uploaded to the server (and is the I<--source> URL).  As noted above,
+signing the index file is optional, but recommended.
+
+The following fields can appear:
+
+=over 4
+
+=item C<name=NAME>
+
+The user-friendly name of this template.  This is displayed in the
+I<--list> output but is otherwise not significant.
+
+=item C<osinfo=ID>
+
+This optional field maps the operating system to the associated
+libosinfo ID.  Virt-builder does not use it (yet).
+
+=item C<file=PATH>
+
+The path (relative to the index) of the xz-compressed template.
+
+Note that absolute paths or URIs are B<not> permitted here.  This is
+because virt-builder has a "same origin" policy for templates so they
+cannot come from other servers.
+
+=item C<sig=PATH>
+
+The path (relative to the index) of the GPG detached signature of the
+xz file.
+
+Note that absolute paths or URIs are B<not> permitted here.  This is
+because virt-builder has a "same origin" policy for templates so they
+cannot come from other servers.
+
+The file can be created as follows:
+
+ gpg --detach-sign --armor -o disk.xz.sig disk.xz
+
+The signature is optional, but if you don't have it then virt-builder
+users will need to use the I<--no-check-signature> option in order
+to install from this template.
+
+=item C<revision=N>
+
+The revision is an integer which is used to control the template
+cache.  Increasing the revision number causes clients to download the
+template again even if they have a copy in the cache.
+
+The revision number is optional.  If omitted it defaults to C<1>.
+
+=item C<format=raw>
+
+=item C<format=qcow2>
+
+Specify the format of the disk image (before it was compressed).  If
+not given, the format is autodetected, but generally it is better to
+be explicit about the intended format.
+
+Note this is the source format, which is different from the
+I<--format> option (requested output format).  Virt-builder does
+on-the-fly conversion from the source format to the requested output
+format.
+
+=item C<size=NNN>
+
+The virtual size of the image in bytes.  This is the size of the image
+when uncompressed.  If using a non-raw format such as qcow2 then it
+means the virtual disk size, not the size of the qcow2 file.
+
+This field is required.
+
+Virt-builder also uses this as the minimum size that users can request
+via the I<--size> option, or as the default size if there is no
+I<--size> option.
+
+=item C<compressed_size=NNN>
+
+The compressed size of the disk image in bytes.  This is just used for
+information (when using I<--list --long>).
+
+=item C<expand=/dev/sdaX>
+
+When expanding the image to its final size, instruct L<virt-resize(1)>
+to expand the named partition in the guest image to fill up all
+available space.  This works like the virt-resize I<--expand> option.
+
+You should usually put the device name of the guest's root filesystem here.
+
+It's a good idea to use this, but not required.  If the field is
+omitted then virt-resize will create an extra partition at the end of
+the disk to cover the free space, which is much less user-friendly.
+
+=item C<lvexpand=/dev/VolGroup/LogVol>
+
+When expanding the image to its final size, instruct L<virt-resize(1)>
+to expand the named logical volume in the guest image to fill up all
+available space.  This works like the virt-resize I<--lv-expand> option.
+
+If the guest uses LVM2 you should usually put the LV of the guest's
+root filesystem here.  If the guest does not use LVM2 or its root
+filesystem is not on an LV, don't use this option.
+
+=item C<notes=NOTES>
+
+Any notes that go with this image, especially notes describing what
+packages are in the image, how the image was prepared, and licensing
+information.
+
+You can use multi-line notes here by indenting each new line with at
+least one character of whitespace (even on blank lines):
+
+ notes=This image was prepared using
+  the following kickstart script:
+                                <-- one space at beginning of line
+  timezone Europe/London
+  part /boot --fstype ext3
+
+=item C<hidden=true>
+
+Using the hidden flag prevents the template from being listed by the
+I<--list> option (but it is still installable).  This is used for test
+images.
+
+=back
+
+=head3 Running virt-builder against the alternate repository
+
+Ensure each virt-builder user has imported your public key into
+their gpg keyring (see above).
+
+Each virt-builder user should export these environment variables:
+
+=over 4
+
+=item *
+
+C<VIRT_BUILDER_SOURCE> to point to the URL of the C<index.asc> file.
+
+=item *
+
+C<VIRT_BUILDER_FINGERPRINT> to contain the fingerprint (long hex
+string) of the user who signed the index file and the templates.
+
+=back
+
+Now run virt-builder commands as normal, eg:
+
+ virt-builder --list --long
+
+ virt-builder os-version
+
+To debug problems, add the C<-v> option to these commands.
+
+=head3 Licensing of templates
+
+You should be aware of the licensing of images that you distribute.
+For open source guests, provide a link to the source code in the
+C<notes> field and comply with other requirements (eg. around
+trademarks).
+
+=head2 CACHING
+
+Since the templates are usually very large, downloaded templates are
+cached in the user's home directory.
+
+The location of the cache is C<$XDG_CACHE_HOME/virt-builder/> or
+C<$HOME/.cache/virt-builder>.  This directory can be deleted after use
+if you want to save space by doing:
+
+ virt-builder --delete-cache
+
+To disable the template cache, use I<--no-cache>.
+
+Only templates are cached.  The index and detached digital signatures
+are not cached.
+
+Virt-builder uses L<curl(1)> to download files.  Since curl obeys
+C<http_proxy> (etc) environment variables, files might also be cached
+by your proxy if you have one.
+
+=head2 DIGITAL SIGNATURES
+
+Virt-builder uses GNU Privacy Guard (GnuPG or gpg) to verify that the
+index and templates have not been tampered with.
+
+The source points to an index file, which is optionally signed.
+
+Virt-builder downloads the index and checks that the signature is
+valid and the signer's fingerprint matches the specified fingerprint
+(ie. I<--fingerprint>, C<VIRT_BUILDER_FINGERPRINT>, or a built-in
+fingerprint, in that order).
+
+For checking against the built-in public key/fingerprint, this
+requires importing the public key into the user's local gpg keyring
+(that's just the way that gpg works).
+
+When a template is downloaded, its signature is checked in the same
+way.
+
+Although the signatures are optional, if you don't have them then
+virt-builder users will have to use I<--no-check-signature> on the
+command line.  This prevents an attacker from replacing the signed
+index file with an unsigned index file and having virt-builder
+silently work without checking the signature.  In any case it is
+highly recommended that you always create signed index and templates.
+
+=head1 ENVIRONMENT VARIABLES
+
+For other environment variables which affect all libguestfs programs,
+see L<guestfs(3)/ENVIRONMENT VARIABLES>.
+
+=over 4
+
+=item C<http_proxy>
+
+=item C<https_proxy>
+
+=item C<no_proxy>
+
+Set the proxy for downloads.  These environment variables (and more)
+are actually interpreted by L<curl(1)>, not virt-builder.
+
+=item C<HOME>
+
+Used to determine the location of the template cache.  See L</CACHING>.
+
+=item C<VIRT_BUILDER_FINGERPRINT>
+
+Set the default value for the GPG signature fingerprint (see
+I<--fingerprint> option).
+
+=item C<VIRT_BUILDER_SOURCE>
+
+Set the default value for the source URL for the template repository
+(see I<--source> option).
+
+=item C<XDG_CACHE_HOME>
+
+Used to determine the location of the template cache.  See L</CACHING>.
+
+=back
+
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
+=head1 SEE ALSO
+
+L<virt-resize(1)>,
+L<virt-install(1)>,
+L<virt-sysprep(1)>,
+L<oz-install(1)>,
+L<guestmount(1)>,
+L<nbdkit(1)>,
+L<nbdkit-xz-plugin(1)>,
+L<gpg(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-copy-out(1)>,
+L<curl(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2013 Red Hat Inc.

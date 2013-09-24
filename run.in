@@ -72,11 +72,12 @@ run: warning: has not been set automatically.
 EOF
 fi
 
-# Set the PATH to contain guestunmount (called by umount-local API).
+# Set the PATH to contain guestunmount (called by umount-local API)
+# and virt-resize (called by virt-builder).
 if [ -z "$PATH" ]; then
-    PATH="$b/fuse"
+    PATH="$b/fuse:$b/resize"
 else
-    PATH="$b/fuse:$PATH"
+    PATH="$b/fuse:$b/resize:$PATH"
 fi
 export PATH
 
@@ -87,6 +88,13 @@ else
     LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs:$LD_LIBRARY_PATH"
 fi
 export LD_LIBRARY_PATH
+
+# Make virt-builder use the local website copy to avoid hitting
+# the network all the time.
+if [ -z "$VIRT_BUILDER_SOURCE" ]; then
+    VIRT_BUILDER_SOURCE="file://$s/builder/website/index.asc"
+    export VIRT_BUILDER_SOURCE
+fi
 
 # For Perl.
 if [ -z "$PERL5LIB" ]; then

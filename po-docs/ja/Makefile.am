@@ -51,6 +51,7 @@ MANPAGES = \
 	libguestfs-make-fixed-appliance.1 \
 	libguestfs-test-tool.1 \
 	virt-alignment-scan.1 \
+	virt-builder.1 \
 	virt-cat.1 \
 	virt-copy-in.1 \
 	virt-copy-out.1 \

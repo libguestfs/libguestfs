@@ -1639,6 +1639,7 @@ AC_CONFIG_FILES([Makefile
                  align/Makefile
                  appliance/Makefile
                  bash/Makefile
+                 builder/Makefile
                  cat/Makefile
                  csharp/Makefile
                  daemon/Makefile

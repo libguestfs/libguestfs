@@ -1557,6 +1557,7 @@ a different filename by using the C<filename=> prefix.
 L<guestfs(3)>,
 L<http://libguestfs.org/>,
 L<virt-alignment-scan(1)>,
+L<virt-builder(1)>,
 L<virt-cat(1)>,
 L<virt-copy-in(1)>,
 L<virt-copy-out(1)>,
