@@ -57,8 +57,26 @@
 #endif
 
 /* Default, minimum appliance memory size. */
-#define DEFAULT_MEMSIZE 500
-#define MIN_MEMSIZE 128
+
+/* Valgrind has a fairly hefty memory overhead.  Using the defaults
+ * caused the C API tests to fail.
+ */
+#ifdef VALGRIND_DAEMON
+#  ifndef DEFAULT_MEMSIZE
+#    define DEFAULT_MEMSIZE 768
+#  endif
+#  ifndef MIN_MEMSIZE
+#    define MIN_MEMSIZE 256
+#  endif
+#endif
+
+/* The default and minimum memory size for most users. */
+#ifndef DEFAULT_MEMSIZE
+#  define DEFAULT_MEMSIZE 500
+#endif
+#ifndef MIN_MEMSIZE
+#  define MIN_MEMSIZE 128
+#endif
 
 /* Some limits on what the inspection code will read, for safety. */
 
