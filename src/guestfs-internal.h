@@ -56,18 +56,36 @@
 #define TRACE4(name, arg1, arg2, arg3, arg4)
 #endif
 
-/* Default, minimum appliance memory size. */
-#ifndef __powerpc__
-#define DEFAULT_MEMSIZE 500
-#define MIN_MEMSIZE 128
-#else
+/* Default and minimum appliance memory size. */
+
 /* Needs to be larger on ppc64 because of the larger page size (64K).
  * For example, test-max-disks won't pass unless we increase the
  * default memory size since the system runs out of memory when
  * creating device nodes.
  */
-#define DEFAULT_MEMSIZE 768
-#define MIN_MEMSIZE 256
+#ifdef __powerpc__
+#  define DEFAULT_MEMSIZE 768
+#  define MIN_MEMSIZE 256
+#endif
+
+/* Valgrind has a fairly hefty memory overhead.  Using the defaults
+ * caused the C API tests to fail.
+ */
+#ifdef VALGRIND_DAEMON
+#  ifndef DEFAULT_MEMSIZE
+#    define DEFAULT_MEMSIZE 768
+#  endif
+#  ifndef MIN_MEMSIZE
+#    define MIN_MEMSIZE 256
+#  endif
+#endif
+
+/* The default and minimum memory size for most users. */
+#ifndef DEFAULT_MEMSIZE
+#  define DEFAULT_MEMSIZE 500
+#endif
+#ifndef MIN_MEMSIZE
+#  define MIN_MEMSIZE 128
 #endif
 
 /* Some limits on what the inspection code will read, for safety. */
