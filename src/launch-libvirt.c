@@ -839,7 +839,6 @@ construct_libvirt_xml_cpu (guestfs_h *g,
 #ifndef __arm__
   /* It is faster to pass the CPU host model to the appliance,
    * allowing maximum speed for things like checksums, encryption.
-   * Note this may cause problems on some CPUs.  See: RHBZ#870071.
    * Only do this with KVM.  It is broken in subtle ways on TCG, and
    * fairly pointless anyway.
    */
@@ -847,7 +846,7 @@ construct_libvirt_xml_cpu (guestfs_h *g,
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cpu"));
     XMLERROR (-1,
 	      xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
-					   BAD_CAST "host-model"));
+					   BAD_CAST "host-passthrough"));
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "model"));
     XMLERROR (-1,
 	      xmlTextWriterWriteAttribute (xo, BAD_CAST "fallback",
