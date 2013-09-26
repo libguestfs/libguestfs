@@ -26,12 +26,13 @@ MSGID_BUGS_ADDRESS = https://bugzilla.redhat.com/enter_bug.cgi?component=libgues
 linguas     := en_GB es gu hi kn ml mr nl or pa pl ta te uk
 
 POTFILES    := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES)
+POTFILES_PL := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES-pl)
 POTFILES_ML := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES-ml)
 POFILES     := $(linguas:%=%.po)
 GMOFILES    := $(linguas:%=%.gmo)
 
 EXTRA_DIST = \
-	POTFILES POTFILES-ml \
+	POTFILES POTFILES-pl POTFILES-ml \
 	$(DOMAIN).pot \
 	$(POFILES) \
 	$(GMOFILES)
@@ -49,24 +50,32 @@ update-po:
 
 update-gmo: Makefile $(GMOFILES)
 
-$(DOMAIN).pot: Makefile $(POTFILES) $(POTFILES-ml)
-	rm -f $@-t $@-ml
-	$(XGETTEXT) \
-	  -o $@-t \
-	  --default-domain=$(DOMAIN) \
-	  --add-comments=TRANSLATORS: \
-	  --keyword=_ --keyword=N_ --keyword=__ --keyword=__x \
-	  --flag=error:3:c-format \
-	  --flag=error_at_line:5:c-format \
-	  --flag=asprintf:2:c-format \
-	  --flag=vasprintf:2:c-format \
-	  --flag=xasprintf:1:c-format \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --package-name="$(PACKAGE_NAME)" \
-	  --package-version="$(PACKAGE_VERSION)" \
-	  --msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
-	  --directory=$(top_srcdir) \
+XGETTEXT_ARGS = \
+	--default-domain=$(DOMAIN) \
+	--add-comments=TRANSLATORS: \
+	--keyword=_ --keyword=N_ --keyword=__ --keyword=__x \
+	--flag=error:3:c-format \
+	--flag=error_at_line:5:c-format \
+	--flag=asprintf:2:c-format \
+	--flag=vasprintf:2:c-format \
+	--flag=xasprintf:1:c-format \
+	--copyright-holder='$(COPYRIGHT_HOLDER)' \
+	--package-name="$(PACKAGE_NAME)" \
+	--package-version="$(PACKAGE_VERSION)" \
+	--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
+	--directory=$(top_srcdir)
+
+$(DOMAIN).pot: Makefile $(POTFILES) $(POTFILES-pl) $(POTFILES-ml)
+	rm -f $@-t $@-pl $@-ml
+	$(XGETTEXT) -o $@-t $(XGETTEXT_ARGS) \
 	  --files-from=$(abs_srcdir)/POTFILES
+	$(XGETTEXT) -o $@-pl $(XGETTEXT_ARGS) --language=Perl \
+	  --files-from=$(abs_srcdir)/POTFILES-pl
+# Don't trust msgcat since it will definitely screw up.  Instead, chop
+# the head from the second file and append it to the first.
+	echo >> $@-t
+	awk '/^#:/{i++}i{print}' < $@-pl >> $@-t
+	rm $@-pl
 if HAVE_OCAML_GETTEXT
 	$(OCAML_GETTEXT) --action extract --extract-pot $@-ml $(POTFILES_ML)
 # Don't trust msgcat since it will definitely screw up.  Instead, chop

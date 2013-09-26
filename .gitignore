@@ -332,7 +332,6 @@ Makefile.in
 /po-docs/*/*.1
 /po-docs/*/*.3
 /po-docs/*/*.8
-/po-docs/*/*.pl
 /po-docs/po4a.conf
 /po-docs/*/*.pod
 /po-docs/*/stamp-update-po
@@ -470,4 +469,3 @@ Makefile.in
 /test-tool/libguestfs-test-tool-helper
 /test-tool/stamp-libguestfs-test-tool.pod
 /tools/virt-*.1
-/tools/virt-*.pl

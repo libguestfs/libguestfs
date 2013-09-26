@@ -24,6 +24,9 @@ tools = \
 	tar \
 	win-reg
 
+# Before 1.23.23, there were symlinks called *.pl.  Need to delete these.
+CLEANFILES = *.pl
+
 EXTRA_DIST = \
 	$(tools:%=virt-%) \
 	test-virt-*.sh
@@ -65,11 +68,5 @@ endif ENABLE_APPLIANCE
 
 endif
 
-# Make symlinks from virt-foo.pl to virt-foo.  This is just to keep
-# xgettext happy since it uses the file extension to determine the
-# implementation language of a file.
-
-all-local: $(tools:%=virt-%.pl)
-
-virt-%.pl: virt-%
-	ln -sf $< $@
+all-local:
+	for f in $(tools:%=tools/virt-%); do echo $$f; done > $(top_srcdir)/po/POTFILES-pl

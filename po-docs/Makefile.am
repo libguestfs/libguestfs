@@ -64,8 +64,8 @@ po4a.conf: podfiles
 	echo "[po_directory] $(srcdir)" >> $@-t
 	echo >> $@-t
 	for f in `cat podfiles`; do \
-	  b=`basename -- $$f`; \
-	  echo "[type: pod] $$f \$$lang:\$$lang/$$b" >> $@-t; \
+	  out=`basename -- $$f .pod`.pod; \
+	  echo "[type: pod] $$f \$$lang:\$$lang/$$out" >> $@-t; \
 	  echo >> $@-t; \
 	done;
 	mv $@-t $@
@@ -78,6 +78,6 @@ podfiles: Makefile
 	  grep -v /po-docs/ | \
 	  grep -v /stamp- \
 	  > $@-t
-	find $(top_srcdir)/tools -name 'virt-*.pl' >> $@-t
+	for f in `cat $(top_srcdir)/po/POTFILES-pl`; do echo $(top_srcdir)/$$f; done >> $@-t
 	LC_ALL=C sort -o $@-t $@-t
 	mv $@-t $@

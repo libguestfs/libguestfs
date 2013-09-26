@@ -257,7 +257,15 @@ dist-hook:
 	mv AUTHORS-t AUTHORS
 	cp AUTHORS $(distdir)/AUTHORS
 
-# Update the list of translatable files (po/POTFILES po/POTFILES-ml).
+# Update the list of translatable files.  These are separated into:
+#
+#  po/POTFILES - files with ordinary extensions, but not OCaml files
+#  po/POTFILES-pl - Perl files that don't end in *.pl, which need a
+#                   special xgettext option [not generated here]
+#  po/POTFILES-ml - OCaml files, which need a special tool to translate
+#
+# See po/Makefile.am.
+#
 # This has to be in the top-level Makefile.am so that we have access
 # to DIST_SUBDIRS.
 all-local:
