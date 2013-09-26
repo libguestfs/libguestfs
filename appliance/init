@@ -83,6 +83,13 @@ if grep -sq selinux=1 /proc/cmdline; then
   mount -t selinuxfs none /sys/fs/selinux
 fi
 
+# Set up kmod static-nodes (RHBZ#1011907).
+mkdir -p /run/tmpfiles.d
+kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/kmod.conf
+
+# Set up tmpfiles (must run after kmod.conf is created above).
+systemd-tmpfiles --prefix=/dev --create
+
 # Disk optimizations.
 # Increase the SCSI timeout so we can read remote images.
 for f in /sys/block/sd*/device/timeout; do echo 300 > $f; done
