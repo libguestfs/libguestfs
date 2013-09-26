@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-09-07 01:07+0200\n"
+"POT-Creation-Date: 2013-09-26 21:46+0200\n"
 "PO-Revision-Date: 2013-08-06 13:33+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -41,10 +41,9 @@ msgstr ""
 #: ../rescue/virt-rescue.pod:3 ../resize/virt-resize.pod:3
 #: ../ruby/examples/guestfs-ruby.pod:3 ../sparsify/virt-sparsify.pod:3
 #: ../src/guestfs.pod:3 ../sysprep/virt-sysprep.pod:3
-#: ../test-tool/libguestfs-test-tool.pod:3
-#: ../tools/virt-list-filesystems.pl:29 ../tools/virt-list-partitions.pl:29
-#: ../tools/virt-make-fs.pl:35 ../tools/virt-tar.pl:30
-#: ../tools/virt-win-reg.pl:34
+#: ../test-tool/libguestfs-test-tool.pod:3 ../tools/virt-list-filesystems:29
+#: ../tools/virt-list-partitions:29 ../tools/virt-make-fs:35
+#: ../tools/virt-tar:30 ../tools/virt-win-reg:34
 msgid "NAME"
 msgstr "名前"
 
@@ -71,9 +70,8 @@ msgstr ""
 #: ../resize/virt-resize.pod:7 ../ruby/examples/guestfs-ruby.pod:7
 #: ../sparsify/virt-sparsify.pod:7 ../src/guestfs.pod:7
 #: ../sysprep/virt-sysprep.pod:7 ../test-tool/libguestfs-test-tool.pod:7
-#: ../tools/virt-list-filesystems.pl:33 ../tools/virt-list-partitions.pl:33
-#: ../tools/virt-make-fs.pl:39 ../tools/virt-tar.pl:34
-#: ../tools/virt-win-reg.pl:38
+#: ../tools/virt-list-filesystems:33 ../tools/virt-list-partitions:33
+#: ../tools/virt-make-fs:39 ../tools/virt-tar:34 ../tools/virt-win-reg:38
 msgid "SYNOPSIS"
 msgstr "書式"
 
@@ -126,9 +124,8 @@ msgstr ""
 #: ../resize/virt-resize.pod:13 ../ruby/examples/guestfs-ruby.pod:15
 #: ../sparsify/virt-sparsify.pod:11 ../src/guestfs.pod:24
 #: ../sysprep/virt-sysprep.pod:13 ../test-tool/libguestfs-test-tool.pod:11
-#: ../tools/virt-list-filesystems.pl:44 ../tools/virt-list-partitions.pl:44
-#: ../tools/virt-make-fs.pl:47 ../tools/virt-tar.pl:76
-#: ../tools/virt-win-reg.pl:62
+#: ../tools/virt-list-filesystems:44 ../tools/virt-list-partitions:44
+#: ../tools/virt-make-fs:47 ../tools/virt-tar:76 ../tools/virt-win-reg:62
 msgid "DESCRIPTION"
 msgstr "説明"
 
@@ -377,11 +374,10 @@ msgstr ""
 #: ../fish/virt-tar-out.pod:36 ../format/virt-format.pod:59
 #: ../fuse/guestmount.pod:161 ../fuse/guestunmount.pod:72
 #: ../inspector/virt-inspector.pod:54 ../rescue/virt-rescue.pod:115
-#: ../resize/virt-resize.pod:262 ../sparsify/virt-sparsify.pod:108
+#: ../resize/virt-resize.pod:268 ../sparsify/virt-sparsify.pod:108
 #: ../sysprep/virt-sysprep.pod:40 ../test-tool/libguestfs-test-tool.pod:36
-#: ../tools/virt-list-filesystems.pl:54 ../tools/virt-list-partitions.pl:55
-#: ../tools/virt-make-fs.pl:151 ../tools/virt-tar.pl:102
-#: ../tools/virt-win-reg.pl:95
+#: ../tools/virt-list-filesystems:54 ../tools/virt-list-partitions:55
+#: ../tools/virt-make-fs:151 ../tools/virt-tar:102 ../tools/virt-win-reg:95
 msgid "OPTIONS"
 msgstr "オプション"
 
@@ -393,11 +389,10 @@ msgstr "オプション"
 #: ../fish/guestfish.pod:158 ../format/virt-format.pod:63
 #: ../fuse/guestmount.pod:235 ../fuse/guestunmount.pod:81
 #: ../inspector/virt-inspector.pod:58 ../rescue/virt-rescue.pod:119
-#: ../resize/virt-resize.pod:266 ../sparsify/virt-sparsify.pod:112
+#: ../resize/virt-resize.pod:272 ../sparsify/virt-sparsify.pod:112
 #: ../sysprep/virt-sysprep.pod:44 ../test-tool/libguestfs-test-tool.pod:40
-#: ../tools/virt-list-filesystems.pl:62 ../tools/virt-list-partitions.pl:63
-#: ../tools/virt-make-fs.pl:159 ../tools/virt-tar.pl:110
-#: ../tools/virt-win-reg.pl:103
+#: ../tools/virt-list-filesystems:62 ../tools/virt-list-partitions:63
+#: ../tools/virt-make-fs:159 ../tools/virt-tar:110 ../tools/virt-win-reg:103
 msgid "B<--help>"
 msgstr "B<--help>"
 
@@ -407,9 +402,8 @@ msgstr "B<--help>"
 #: ../daemon/guestfsd.pod:53 ../df/virt-df.pod:79 ../edit/virt-edit.pod:68
 #: ../format/virt-format.pod:65 ../inspector/virt-inspector.pod:60
 #: ../rescue/virt-rescue.pod:121 ../sysprep/virt-sysprep.pod:46
-#: ../tools/virt-list-filesystems.pl:64 ../tools/virt-list-partitions.pl:65
-#: ../tools/virt-make-fs.pl:161 ../tools/virt-tar.pl:112
-#: ../tools/virt-win-reg.pl:105
+#: ../tools/virt-list-filesystems:64 ../tools/virt-list-partitions:65
+#: ../tools/virt-make-fs:161 ../tools/virt-tar:112 ../tools/virt-win-reg:105
 msgid "Display brief help."
 msgstr "簡単なヘルプを表示します。"
 
@@ -454,7 +448,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:110 ../cat/virt-ls.pod:280 ../df/virt-df.pod:92
 #: ../edit/virt-edit.pod:81 ../fish/guestfish.pod:187
 #: ../format/virt-format.pod:78 ../fuse/guestmount.pod:174
-#: ../rescue/virt-rescue.pod:134 ../sysprep/virt-sysprep.pod:57
+#: ../rescue/virt-rescue.pod:134
 msgid "B<-a URI>"
 msgstr ""
 
@@ -463,7 +457,7 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:112 ../cat/virt-ls.pod:282 ../df/virt-df.pod:94
 #: ../edit/virt-edit.pod:83 ../fish/guestfish.pod:189
 #: ../format/virt-format.pod:80 ../fuse/guestmount.pod:176
-#: ../rescue/virt-rescue.pod:136 ../sysprep/virt-sysprep.pod:59
+#: ../rescue/virt-rescue.pod:136
 msgid "B<--add URI>"
 msgstr ""
 
@@ -495,9 +489,9 @@ msgstr "B<--connect> URI"
 #: ../cat/virt-filesystems.pod:135 ../cat/virt-ls.pod:301
 #: ../df/virt-df.pod:102 ../edit/virt-edit.pod:105
 #: ../inspector/virt-inspector.pod:77 ../rescue/virt-rescue.pod:148
-#: ../sysprep/virt-sysprep.pod:68 ../tools/virt-list-filesystems.pl:82
-#: ../tools/virt-list-partitions.pl:83 ../tools/virt-tar.pl:130
-#: ../tools/virt-win-reg.pl:131
+#: ../sysprep/virt-sysprep.pod:68 ../tools/virt-list-filesystems:82
+#: ../tools/virt-list-partitions:83 ../tools/virt-tar:130
+#: ../tools/virt-win-reg:131
 msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
@@ -675,14 +669,14 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:179 ../fuse/guestunmount.pod:85
-#: ../resize/virt-resize.pod:497 ../sparsify/virt-sparsify.pod:220
+#: ../resize/virt-resize.pod:503 ../sparsify/virt-sparsify.pod:220
 #: ../sysprep/virt-sysprep.pod:172
 msgid "B<-q>"
 msgstr "B<-q>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:181 ../fuse/guestunmount.pod:87
-#: ../resize/virt-resize.pod:499 ../sparsify/virt-sparsify.pod:222
+#: ../resize/virt-resize.pod:505 ../sparsify/virt-sparsify.pod:222
 #: ../sysprep/virt-sysprep.pod:174
 msgid "B<--quiet>"
 msgstr "B<--quiet>"
@@ -762,7 +756,7 @@ msgstr "デバッグ用の冗長なメッセージを有効にします。"
 #: ../fish/guestfish.pod:430 ../format/virt-format.pod:161
 #: ../fuse/guestmount.pod:360 ../fuse/guestunmount.pod:107
 #: ../inspector/virt-inspector.pod:124 ../rescue/virt-rescue.pod:246
-#: ../resize/virt-resize.pod:567 ../sparsify/virt-sparsify.pod:232
+#: ../resize/virt-resize.pod:573 ../sparsify/virt-sparsify.pod:232
 #: ../sysprep/virt-sysprep.pod:196 ../test-tool/libguestfs-test-tool.pod:61
 msgid "B<-V>"
 msgstr "B<-V>"
@@ -775,11 +769,10 @@ msgstr "B<-V>"
 #: ../fish/guestfish.pod:432 ../format/virt-format.pod:163
 #: ../fuse/guestmount.pod:362 ../fuse/guestunmount.pod:109
 #: ../inspector/virt-inspector.pod:126 ../rescue/virt-rescue.pod:248
-#: ../resize/virt-resize.pod:569 ../sparsify/virt-sparsify.pod:234
+#: ../resize/virt-resize.pod:575 ../sparsify/virt-sparsify.pod:234
 #: ../sysprep/virt-sysprep.pod:198 ../test-tool/libguestfs-test-tool.pod:63
-#: ../tools/virt-list-filesystems.pl:70 ../tools/virt-list-partitions.pl:71
-#: ../tools/virt-make-fs.pl:167 ../tools/virt-tar.pl:118
-#: ../tools/virt-win-reg.pl:111
+#: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
+#: ../tools/virt-make-fs:167 ../tools/virt-tar:118 ../tools/virt-win-reg:111
 msgid "B<--version>"
 msgstr "B<--version>"
 
@@ -788,11 +781,10 @@ msgstr "B<--version>"
 #: ../cat/virt-filesystems.pod:277 ../cat/virt-ls.pod:441
 #: ../df/virt-df.pod:195 ../edit/virt-edit.pod:177
 #: ../format/virt-format.pod:165 ../inspector/virt-inspector.pod:128
-#: ../rescue/virt-rescue.pod:250 ../resize/virt-resize.pod:571
+#: ../rescue/virt-rescue.pod:250 ../resize/virt-resize.pod:577
 #: ../sparsify/virt-sparsify.pod:236 ../sysprep/virt-sysprep.pod:200
-#: ../tools/virt-list-filesystems.pl:72 ../tools/virt-list-partitions.pl:73
-#: ../tools/virt-make-fs.pl:169 ../tools/virt-tar.pl:120
-#: ../tools/virt-win-reg.pl:113
+#: ../tools/virt-list-filesystems:72 ../tools/virt-list-partitions:73
+#: ../tools/virt-make-fs:169 ../tools/virt-tar:120 ../tools/virt-win-reg:113
 msgid "Display version number and exit."
 msgstr "バージョン番号を表示して終了します。"
 
@@ -803,7 +795,7 @@ msgstr "バージョン番号を表示して終了します。"
 #: ../format/virt-format.pod:177 ../fuse/guestmount.pod:375
 #: ../inspector/virt-inspector.pod:130 ../rescue/virt-rescue.pod:261
 #: ../sparsify/virt-sparsify.pod:238 ../sysprep/virt-sysprep.pod:202
-#: ../tools/virt-tar.pl:157
+#: ../tools/virt-tar:157
 msgid "B<-x>"
 msgstr "B<-x>"
 
@@ -1171,10 +1163,9 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:383 ../cat/virt-ls.pod:489
 #: ../df/virt-df.pod:253 ../edit/virt-edit.pod:348
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:395
-#: ../resize/virt-resize.pod:726 ../sysprep/virt-sysprep.pod:497
-#: ../tools/virt-list-filesystems.pl:183 ../tools/virt-list-partitions.pl:265
-#: ../tools/virt-make-fs.pl:633 ../tools/virt-tar.pl:294
-#: ../tools/virt-win-reg.pl:748
+#: ../resize/virt-resize.pod:732 ../sysprep/virt-sysprep.pod:497
+#: ../tools/virt-list-filesystems:183 ../tools/virt-list-partitions:265
+#: ../tools/virt-make-fs:633 ../tools/virt-tar:294 ../tools/virt-win-reg:748
 msgid "SHELL QUOTING"
 msgstr ""
 
@@ -1183,10 +1174,9 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:491
 #: ../df/virt-df.pod:255 ../edit/virt-edit.pod:350
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:397
-#: ../resize/virt-resize.pod:728 ../sysprep/virt-sysprep.pod:499
-#: ../tools/virt-list-filesystems.pl:185 ../tools/virt-list-partitions.pl:267
-#: ../tools/virt-make-fs.pl:635 ../tools/virt-tar.pl:296
-#: ../tools/virt-win-reg.pl:756
+#: ../resize/virt-resize.pod:734 ../sysprep/virt-sysprep.pod:499
+#: ../tools/virt-list-filesystems:185 ../tools/virt-list-partitions:267
+#: ../tools/virt-make-fs:635 ../tools/virt-tar:296 ../tools/virt-win-reg:756
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -1202,7 +1192,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:355 ../fish/guestfish.pod:1355
 #: ../format/virt-format.pod:183 ../fuse/guestmount.pod:401
 #: ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496
-#: ../resize/virt-resize.pod:733 ../sparsify/virt-sparsify.pod:307
+#: ../resize/virt-resize.pod:739 ../sparsify/virt-sparsify.pod:307
 #: ../sysprep/virt-sysprep.pod:504 ../test-tool/libguestfs-test-tool.pod:173
 msgid "EXIT STATUS"
 msgstr "終了ステータス"
@@ -1277,8 +1267,8 @@ msgstr "このプログラムは以下を返します:"
 #: ../guestfs-release-notes.pod:502 ../guestfs-release-notes.pod:698
 #: ../guestfs-release-notes.pod:703 ../guestfs-release-notes.pod:708
 #: ../inspector/virt-inspector.pod:514 ../inspector/virt-inspector.pod:518
-#: ../resize/virt-resize.pod:365 ../resize/virt-resize.pod:369
-#: ../resize/virt-resize.pod:378 ../resize/virt-resize.pod:384
+#: ../resize/virt-resize.pod:371 ../resize/virt-resize.pod:375
+#: ../resize/virt-resize.pod:384 ../resize/virt-resize.pod:390
 #: ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:53
 #: ../sparsify/virt-sparsify.pod:57 ../sparsify/virt-sparsify.pod:63
 #: ../sparsify/virt-sparsify.pod:68 ../sparsify/virt-sparsify.pod:73
@@ -1319,10 +1309,10 @@ msgstr "このプログラムは以下を返します:"
 #: ../src/guestfs.pod:3699 ../src/guestfs.pod:3705 ../src/guestfs.pod:3710
 #: ../src/guestfs.pod:3716 ../src/guestfs.pod:4111 ../src/guestfs.pod:4115
 #: ../src/guestfs.pod:4119 ../src/guestfs.pod:4123 ../src/guestfs.pod:4127
-#: ../src/guestfs.pod:4131 ../src/guestfs.pod:4135 ../src/guestfs.pod:4365
-#: ../src/guestfs.pod:4370 ../src/guestfs.pod:4374 ../src/guestfs.pod:4378
-#: ../src/guestfs.pod:4382 ../src/guestfs.pod:4396 ../src/guestfs.pod:4400
-#: ../src/guestfs.pod:4405 ../src/guestfs.pod:4409
+#: ../src/guestfs.pod:4131 ../src/guestfs.pod:4135 ../src/guestfs.pod:4370
+#: ../src/guestfs.pod:4375 ../src/guestfs.pod:4379 ../src/guestfs.pod:4383
+#: ../src/guestfs.pod:4387 ../src/guestfs.pod:4401 ../src/guestfs.pod:4405
+#: ../src/guestfs.pod:4410 ../src/guestfs.pod:4414
 #: ../sysprep/virt-sysprep.pod:254 ../sysprep/virt-sysprep.pod:258
 #: ../sysprep/virt-sysprep.pod:262 ../sysprep/virt-sysprep.pod:266
 #: ../sysprep/virt-sysprep.pod:281 ../sysprep/virt-sysprep.pod:285
@@ -1330,9 +1320,9 @@ msgstr "このプログラムは以下を返します:"
 #: ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:350
 #: ../sysprep/virt-sysprep.pod:362 ../sysprep/virt-sysprep.pod:366
 #: ../sysprep/virt-sysprep.pod:374 ../sysprep/virt-sysprep.pod:380
-#: ../tools/virt-win-reg.pl:196 ../tools/virt-win-reg.pl:201
-#: ../tools/virt-win-reg.pl:207 ../tools/virt-win-reg.pl:725
-#: ../tools/virt-win-reg.pl:731 ../tools/virt-win-reg.pl:737
+#: ../tools/virt-win-reg:196 ../tools/virt-win-reg:201
+#: ../tools/virt-win-reg:207 ../tools/virt-win-reg:725
+#: ../tools/virt-win-reg:731 ../tools/virt-win-reg:737
 msgid "*"
 msgstr "*"
 
@@ -1404,12 +1394,11 @@ msgstr ""
 #: ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138
 #: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40
 #: ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:417
-#: ../resize/virt-resize.pod:738 ../ruby/examples/guestfs-ruby.pod:36
-#: ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4645
+#: ../resize/virt-resize.pod:744 ../ruby/examples/guestfs-ruby.pod:36
+#: ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4650
 #: ../sysprep/virt-sysprep.pod:508 ../test-tool/libguestfs-test-tool.pod:183
-#: ../tools/virt-list-filesystems.pl:190 ../tools/virt-list-partitions.pl:272
-#: ../tools/virt-make-fs.pl:640 ../tools/virt-tar.pl:301
-#: ../tools/virt-win-reg.pl:761
+#: ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272
+#: ../tools/virt-make-fs:640 ../tools/virt-tar:301 ../tools/virt-win-reg:761
 msgid "SEE ALSO"
 msgstr "関連項目"
 
@@ -1427,10 +1416,10 @@ msgstr ""
 #: ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:510
 #: ../daemon/guestfsd.pod:117 ../df/virt-df.pod:273 ../edit/virt-edit.pod:371
 #: ../format/virt-format.pod:197 ../guestfs-release-notes.pod:2340
-#: ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:761
-#: ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems.pl:202
-#: ../tools/virt-list-partitions.pl:283 ../tools/virt-make-fs.pl:655
-#: ../tools/virt-tar.pl:315 ../tools/virt-win-reg.pl:775
+#: ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:767
+#: ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems:202
+#: ../tools/virt-list-partitions:283 ../tools/virt-make-fs:655
+#: ../tools/virt-tar:315 ../tools/virt-win-reg:775
 msgid "AUTHOR"
 msgstr "著者"
 
@@ -1439,11 +1428,10 @@ msgstr "著者"
 #: ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:512
 #: ../daemon/guestfsd.pod:119 ../df/virt-df.pod:275 ../edit/virt-edit.pod:373
 #: ../format/virt-format.pod:199 ../inspector/virt-inspector.pod:516
-#: ../rescue/virt-rescue.pod:428 ../resize/virt-resize.pod:763
+#: ../rescue/virt-rescue.pod:428 ../resize/virt-resize.pod:769
 #: ../sparsify/virt-sparsify.pod:354 ../sysprep/virt-sysprep.pod:525
-#: ../tools/virt-list-filesystems.pl:204 ../tools/virt-list-partitions.pl:285
-#: ../tools/virt-make-fs.pl:657 ../tools/virt-tar.pl:317
-#: ../tools/virt-win-reg.pl:777
+#: ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285
+#: ../tools/virt-make-fs:657 ../tools/virt-tar:317 ../tools/virt-win-reg:777
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 
@@ -1464,12 +1452,11 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../java/examples/guestfs-java.pod:100 ../lua/examples/guestfs-lua.pod:157
 #: ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59
 #: ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:430
-#: ../resize/virt-resize.pod:765 ../ruby/examples/guestfs-ruby.pod:54
-#: ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4704
+#: ../resize/virt-resize.pod:771 ../ruby/examples/guestfs-ruby.pod:54
+#: ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4709
 #: ../sysprep/virt-sysprep.pod:529 ../test-tool/libguestfs-test-tool.pod:193
-#: ../tools/virt-list-filesystems.pl:206 ../tools/virt-list-partitions.pl:287
-#: ../tools/virt-make-fs.pl:659 ../tools/virt-tar.pl:319
-#: ../tools/virt-win-reg.pl:779
+#: ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287
+#: ../tools/virt-make-fs:659 ../tools/virt-tar:319 ../tools/virt-win-reg:779
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
 
@@ -1795,7 +1782,7 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:161
 #: ../edit/virt-edit.pod:335 ../fish/guestfish.pod:1360
 #: ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:390
-#: ../sparsify/virt-sparsify.pod:312 ../src/guestfs.pod:4542
+#: ../sparsify/virt-sparsify.pod:312 ../src/guestfs.pod:4547
 #: ../test-tool/libguestfs-test-tool.pod:178
 msgid "ENVIRONMENT VARIABLES"
 msgstr "環境変数"
@@ -1831,7 +1818,7 @@ msgstr ""
 #: ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:93
 #: ../perl/examples/guestfs-perl.pod:55
 #: ../python/examples/guestfs-python.pod:67
-#: ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4700
+#: ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4705
 #: ../sysprep/virt-sysprep.pod:523 ../test-tool/libguestfs-test-tool.pod:189
 msgid "AUTHORS"
 msgstr "著者"
@@ -1849,7 +1836,7 @@ msgstr "著者"
 #: ../java/examples/guestfs-java.pod:98 ../lua/examples/guestfs-lua.pod:155
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:69
-#: ../ruby/examples/guestfs-ruby.pod:52 ../src/guestfs.pod:4702
+#: ../ruby/examples/guestfs-ruby.pod:52 ../src/guestfs.pod:4707
 #: ../test-tool/libguestfs-test-tool.pod:191
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
@@ -1859,9 +1846,8 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../daemon/guestfsd.pod:123 ../df/virt-df.pod:279 ../edit/virt-edit.pod:377
 #: ../examples/guestfs-recipes.pod:565 ../fish/guestfish.pod:1589
 #: ../fuse/guestmount.pod:425 ../guestfs-release-notes.pod:2346
-#: ../rescue/virt-rescue.pod:432 ../src/guestfs.pod:4706
-#: ../test-tool/libguestfs-test-tool.pod:195
-#: ../tools/virt-list-partitions.pl:289
+#: ../rescue/virt-rescue.pod:432 ../src/guestfs.pod:4711
+#: ../test-tool/libguestfs-test-tool.pod:195 ../tools/virt-list-partitions:289
 msgid "Copyright (C) 2009-2013 Red Hat Inc."
 msgstr ""
 
@@ -1948,7 +1934,7 @@ msgstr ""
 #: ../fish/virt-copy-out.pod:21 ../fish/virt-tar-in.pod:30
 #: ../fish/virt-tar-out.pod:24 ../fuse/guestmount.pod:39
 #: ../resize/virt-resize.pod:27 ../sparsify/virt-sparsify.pod:84
-#: ../tools/virt-tar.pl:49
+#: ../tools/virt-tar:49
 msgid "EXAMPLES"
 msgstr "例"
 
@@ -2297,7 +2283,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:246 ../cat/virt-filesystems.pod:392
 #: ../cat/virt-ls.pod:498 ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262
 #: ../edit/virt-edit.pod:357 ../fuse/guestmount.pod:403
-#: ../inspector/virt-inspector.pod:498 ../resize/virt-resize.pod:735
+#: ../inspector/virt-inspector.pod:498 ../resize/virt-resize.pod:741
 #: ../sparsify/virt-sparsify.pod:309
 msgid ""
 "This program returns 0 if successful, or non-zero if there was an error."
@@ -2315,8 +2301,8 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-cat.pod:264 ../cat/virt-filesystems.pod:412
 #: ../inspector/virt-inspector.pod:526 ../ocaml/examples/guestfs-ocaml.pod:99
-#: ../python/examples/guestfs-python.pod:73 ../resize/virt-resize.pod:767
-#: ../ruby/examples/guestfs-ruby.pod:56 ../tools/virt-make-fs.pl:661
+#: ../python/examples/guestfs-python.pod:73 ../resize/virt-resize.pod:773
+#: ../ruby/examples/guestfs-ruby.pod:56 ../tools/virt-make-fs:661
 msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
@@ -2553,7 +2539,7 @@ msgstr ""
 "使用します。"
 
 #. type: =item
-#: ../cat/virt-filesystems.pod:116 ../tools/virt-list-filesystems.pl:122
+#: ../cat/virt-filesystems.pod:116 ../tools/virt-list-filesystems:122
 msgid "B<--all>"
 msgstr "B<--all>"
 
@@ -2675,13 +2661,13 @@ msgstr ""
 #. type: =item
 #: ../cat/virt-filesystems.pod:200 ../cat/virt-ls.pod:358
 #: ../df/virt-df.pod:145 ../fish/guestfish.pod:162
-#: ../tools/virt-list-partitions.pl:110
+#: ../tools/virt-list-partitions:110
 msgid "B<-h>"
 msgstr "B<-h>"
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:202 ../cat/virt-ls.pod:360
-#: ../df/virt-df.pod:147 ../tools/virt-list-partitions.pl:112
+#: ../df/virt-df.pod:147 ../tools/virt-list-partitions:112
 msgid "B<--human-readable>"
 msgstr "B<--human-readable>"
 
@@ -2692,13 +2678,13 @@ msgstr "I<--long> モードでは、読みやすい形式で容量を表示し�
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:211 ../cat/virt-ls.pod:372
-#: ../tools/virt-list-filesystems.pl:109 ../tools/virt-list-partitions.pl:120
+#: ../tools/virt-list-filesystems:109 ../tools/virt-list-partitions:120
 msgid "B<-l>"
 msgstr "B<-l>"
 
 #. type: =item
 #: ../cat/virt-filesystems.pod:213 ../cat/virt-ls.pod:374
-#: ../tools/virt-list-filesystems.pl:111 ../tools/virt-list-partitions.pl:122
+#: ../tools/virt-list-filesystems:111 ../tools/virt-list-partitions:122
 msgid "B<--long>"
 msgstr "B<--long>"
 
@@ -4485,8 +4471,8 @@ msgstr ""
 #. type: =head1
 #: ../edit/virt-edit.pod:21 ../fish/guestfish.pod:23
 #: ../fish/virt-copy-in.pod:13 ../fish/virt-tar-in.pod:15
-#: ../fuse/guestmount.pod:15 ../rescue/virt-rescue.pod:21
-#: ../tools/virt-tar.pl:63 ../tools/virt-win-reg.pl:50
+#: ../fuse/guestmount.pod:15 ../rescue/virt-rescue.pod:21 ../tools/virt-tar:63
+#: ../tools/virt-win-reg:50
 msgid "WARNING"
 msgstr "警告"
 
@@ -4652,23 +4638,23 @@ msgstr "初期設定では、バックアップファイルは作成されませ
 #. type: =item
 #: ../edit/virt-edit.pod:101 ../fish/guestfish.pod:193
 #: ../fuse/guestmount.pod:180 ../inspector/virt-inspector.pod:73
-#: ../tools/virt-list-filesystems.pl:78 ../tools/virt-list-partitions.pl:79
-#: ../tools/virt-tar.pl:126 ../tools/virt-win-reg.pl:127
+#: ../tools/virt-list-filesystems:78 ../tools/virt-list-partitions:79
+#: ../tools/virt-tar:126 ../tools/virt-win-reg:127
 msgid "B<-c URI>"
 msgstr "B<-c URI>"
 
 #. type: =item
 #: ../edit/virt-edit.pod:103 ../fish/guestfish.pod:195
 #: ../fuse/guestmount.pod:182 ../inspector/virt-inspector.pod:75
-#: ../tools/virt-list-filesystems.pl:80 ../tools/virt-list-partitions.pl:81
-#: ../tools/virt-tar.pl:128 ../tools/virt-win-reg.pl:129
+#: ../tools/virt-list-filesystems:80 ../tools/virt-list-partitions:81
+#: ../tools/virt-tar:128 ../tools/virt-win-reg:129
 msgid "B<--connect URI>"
 msgstr "B<--connect URI>"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:108 ../tools/virt-list-filesystems.pl:85
-#: ../tools/virt-list-partitions.pl:86 ../tools/virt-tar.pl:133
-#: ../tools/virt-win-reg.pl:134
+#: ../edit/virt-edit.pod:108 ../tools/virt-list-filesystems:85
+#: ../tools/virt-list-partitions:86 ../tools/virt-tar:133
+#: ../tools/virt-win-reg:134
 msgid ""
 "If you specify guest block devices directly, then libvirt is not used at all."
 msgstr ""
@@ -6461,7 +6447,7 @@ msgstr ""
 #: ../examples/guestfs-faq.pod:463 ../examples/guestfs-performance.pod:161
 #: ../examples/guestfs-performance.pod:211 ../examples/guestfs-recipes.pod:346
 #: ../rescue/virt-rescue.pod:328 ../resize/virt-resize.pod:31
-#: ../resize/virt-resize.pod:603 ../sparsify/virt-sparsify.pod:278
+#: ../resize/virt-resize.pod:609 ../sparsify/virt-sparsify.pod:278
 #: ../src/guestfs.pod:487 ../src/guestfs.pod:1773 ../src/guestfs.pod:2045
 #: ../src/guestfs.pod:2326 ../src/guestfs.pod:3810
 msgid "1."
@@ -6486,7 +6472,7 @@ msgstr ""
 #: ../examples/guestfs-faq.pod:473 ../examples/guestfs-performance.pod:167
 #: ../examples/guestfs-performance.pod:218 ../examples/guestfs-recipes.pod:352
 #: ../rescue/virt-rescue.pod:336 ../resize/virt-resize.pod:44
-#: ../resize/virt-resize.pod:610 ../sparsify/virt-sparsify.pod:285
+#: ../resize/virt-resize.pod:616 ../sparsify/virt-sparsify.pod:285
 #: ../src/guestfs.pod:493 ../src/guestfs.pod:1777 ../src/guestfs.pod:2049
 #: ../src/guestfs.pod:2330 ../src/guestfs.pod:3835
 msgid "2."
@@ -6504,7 +6490,7 @@ msgstr ""
 #: ../examples/guestfs-faq.pod:479 ../examples/guestfs-performance.pod:175
 #: ../examples/guestfs-performance.pod:224 ../examples/guestfs-recipes.pod:358
 #: ../rescue/virt-rescue.pod:345 ../resize/virt-resize.pod:52
-#: ../resize/virt-resize.pod:616 ../sparsify/virt-sparsify.pod:291
+#: ../resize/virt-resize.pod:622 ../sparsify/virt-sparsify.pod:291
 #: ../src/guestfs.pod:504 ../src/guestfs.pod:1781 ../src/guestfs.pod:2336
 msgid "3."
 msgstr "3."
@@ -9533,7 +9519,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2572 ../fish/guestfish-actions.pod:3168
 #: ../src/guestfs-actions.pod:3218 ../src/guestfs-actions.pod:4078
 #: ../src/guestfs-actions.pod:4963 ../src/guestfs.pod:778
-#: ../src/guestfs.pod:2606 ../tools/virt-win-reg.pl:721
+#: ../src/guestfs.pod:2606 ../tools/virt-win-reg:721
 msgid "Notes:"
 msgstr "注:"
 
@@ -10453,7 +10439,7 @@ msgstr "libguestfs-test-tool の実行"
 
 #. type: textblock
 #: ../examples/guestfs-testing.pod:33 ../examples/guestfs-testing.pod:226
-#: ../src/guestfs.pod:4386
+#: ../src/guestfs.pod:4391
 msgid "Run:"
 msgstr "次を実行します:"
 
@@ -31652,7 +31638,7 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:367 ../fuse/guestmount.pod:286
-#: ../resize/virt-resize.pod:441 ../sysprep/virt-sysprep.pod:81
+#: ../resize/virt-resize.pod:447 ../sysprep/virt-sysprep.pod:81
 msgid "B<-n>"
 msgstr "B<-n>"
 
@@ -33961,9 +33947,9 @@ msgid "A bold black version of the ordinary prompt."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1323 ../resize/virt-resize.pod:682
+#: ../fish/guestfish.pod:1323 ../resize/virt-resize.pod:688
 #: ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:492
-#: ../tools/virt-win-reg.pl:589
+#: ../tools/virt-win-reg:589
 msgid "WINDOWS 8"
 msgstr ""
 
@@ -34068,17 +34054,17 @@ msgstr ""
 "と、C<vi> を使用します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1369 ../src/guestfs.pod:4546
+#: ../fish/guestfish.pod:1369 ../src/guestfs.pod:4551
 msgid "FEBOOTSTRAP_KERNEL"
 msgstr "FEBOOTSTRAP_KERNEL"
 
 #. type: =item
-#: ../fish/guestfish.pod:1371 ../src/guestfs.pod:4548
+#: ../fish/guestfish.pod:1371 ../src/guestfs.pod:4553
 msgid "FEBOOTSTRAP_MODULES"
 msgstr "FEBOOTSTRAP_MODULES"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1373 ../src/guestfs.pod:4550
+#: ../fish/guestfish.pod:1373 ../src/guestfs.pod:4555
 msgid ""
 "When using supermin E<ge> 4.1.0, these have been renamed L</SUPERMIN_KERNEL> "
 "and L</SUPERMIN_MODULES>."
@@ -34145,27 +34131,27 @@ msgstr ""
 "さまざまなファイルを使用できます。 L</ファイル> 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1402 ../src/guestfs.pod:4553
+#: ../fish/guestfish.pod:1402 ../src/guestfs.pod:4558
 msgid "LIBGUESTFS_APPEND"
 msgstr "LIBGUESTFS_APPEND"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1404 ../src/guestfs.pod:4555
+#: ../fish/guestfish.pod:1404 ../src/guestfs.pod:4560
 msgid "Pass additional options to the guest kernel."
 msgstr "仮想マシンのカーネルに追加のオプションを渡します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1406 ../src/guestfs.pod:4557
+#: ../fish/guestfish.pod:1406 ../src/guestfs.pod:4562
 msgid "LIBGUESTFS_ATTACH_METHOD"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1408 ../src/guestfs.pod:4559
+#: ../fish/guestfish.pod:1408 ../src/guestfs.pod:4564
 msgid "This is the old way to set C<LIBGUESTFS_BACKEND>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1410 ../src/guestfs.pod:4561
+#: ../fish/guestfish.pod:1410 ../src/guestfs.pod:4566
 msgid "LIBGUESTFS_BACKEND"
 msgstr ""
 
@@ -34177,12 +34163,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1415 ../src/guestfs.pod:4566
+#: ../fish/guestfish.pod:1415 ../src/guestfs.pod:4571
 msgid "LIBGUESTFS_CACHEDIR"
 msgstr "LIBGUESTFS_CACHEDIR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1417 ../src/guestfs.pod:4568
+#: ../fish/guestfish.pod:1417 ../src/guestfs.pod:4573
 msgid ""
 "The location where libguestfs will cache its appliance, when using a "
 "supermin appliance.  The appliance is cached and shared between all handles "
@@ -34190,7 +34176,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1421 ../src/guestfs.pod:4572
+#: ../fish/guestfish.pod:1421 ../src/guestfs.pod:4577
 msgid ""
 "If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> "
 "is not set, then C</var/tmp> is used."
@@ -34202,7 +34188,7 @@ msgid "See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1426 ../src/guestfs.pod:4577
+#: ../fish/guestfish.pod:1426 ../src/guestfs.pod:4582
 msgid "LIBGUESTFS_DEBUG"
 msgstr "LIBGUESTFS_DEBUG"
 
@@ -34214,14 +34200,14 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1431 ../src/guestfs.pod:4582
+#: ../fish/guestfish.pod:1431 ../src/guestfs.pod:4587
 #, fuzzy
 #| msgid "LIBGUESTFS_PATH"
 msgid "LIBGUESTFS_HV"
 msgstr "LIBGUESTFS_PATH"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1433 ../src/guestfs.pod:4584
+#: ../fish/guestfish.pod:1433 ../src/guestfs.pod:4589
 msgid ""
 "Set the default hypervisor (usually qemu) binary that libguestfs uses.  If "
 "not set, then the qemu which was found at compile time by the configure "
@@ -34229,18 +34215,18 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1437 ../src/guestfs.pod:4590
+#: ../fish/guestfish.pod:1437 ../src/guestfs.pod:4595
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr "LIBGUESTFS_MEMSIZE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1439 ../src/guestfs.pod:4592
+#: ../fish/guestfish.pod:1439 ../src/guestfs.pod:4597
 msgid ""
 "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1442 ../src/guestfs.pod:4595
+#: ../fish/guestfish.pod:1442 ../src/guestfs.pod:4600
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -34250,7 +34236,7 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../fish/guestfish.pod:1444 ../src/guestfs.pod:4597
+#: ../fish/guestfish.pod:1444 ../src/guestfs.pod:4602
 msgid "LIBGUESTFS_PATH"
 msgstr "LIBGUESTFS_PATH"
 
@@ -34262,28 +34248,28 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1449 ../src/guestfs.pod:4602
+#: ../fish/guestfish.pod:1449 ../src/guestfs.pod:4607
 msgid "LIBGUESTFS_QEMU"
 msgstr "LIBGUESTFS_QEMU"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1451 ../src/guestfs.pod:4604
+#: ../fish/guestfish.pod:1451 ../src/guestfs.pod:4609
 msgid "This is the old way to set C<LIBGUESTFS_HV>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1453 ../src/guestfs.pod:4606
+#: ../fish/guestfish.pod:1453 ../src/guestfs.pod:4611
 msgid "LIBGUESTFS_TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1455 ../src/guestfs.pod:4608
+#: ../fish/guestfish.pod:1455 ../src/guestfs.pod:4613
 msgid ""
 "The location where libguestfs will store temporary files used by each handle."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1458 ../src/guestfs.pod:4611
+#: ../fish/guestfish.pod:1458 ../src/guestfs.pod:4616
 msgid ""
 "If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> is "
 "not set, then C</tmp> is used."
@@ -34295,7 +34281,7 @@ msgid "See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1463 ../src/guestfs.pod:4616
+#: ../fish/guestfish.pod:1463 ../src/guestfs.pod:4621
 msgid "LIBGUESTFS_TRACE"
 msgstr "LIBGUESTFS_TRACE"
 
@@ -34318,7 +34304,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1472 ../src/guestfs.pod:1333 ../src/guestfs.pod:4621
+#: ../fish/guestfish.pod:1472 ../src/guestfs.pod:1333 ../src/guestfs.pod:4626
 msgid "PATH"
 msgstr "パス"
 
@@ -34331,17 +34317,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1479 ../src/guestfs.pod:4629
+#: ../fish/guestfish.pod:1479 ../src/guestfs.pod:4634
 msgid "SUPERMIN_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1481 ../src/guestfs.pod:4631
+#: ../fish/guestfish.pod:1481 ../src/guestfs.pod:4636
 msgid "SUPERMIN_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1483 ../src/guestfs.pod:4633
+#: ../fish/guestfish.pod:1483 ../src/guestfs.pod:4638
 msgid ""
 "These two environment variables allow the kernel that libguestfs uses in the "
 "appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the most "
@@ -34352,12 +34338,12 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:1489 ../sparsify/virt-sparsify.pod:316
-#: ../src/guestfs.pod:4639
+#: ../src/guestfs.pod:4644
 msgid "TMPDIR"
 msgstr "TMPDIR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1491 ../src/guestfs.pod:4641
+#: ../fish/guestfish.pod:1491 ../src/guestfs.pod:4646
 msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
@@ -35034,7 +35020,7 @@ msgid "B<--label=LABEL>"
 msgstr ""
 
 #. type: textblock
-#: ../format/virt-format.pod:119 ../tools/virt-make-fs.pl:258
+#: ../format/virt-format.pod:119 ../tools/virt-make-fs:258
 #, fuzzy
 #| msgid "Choose the output filesystem type."
 msgid "Set the filesystem label."
@@ -35077,7 +35063,7 @@ msgid "Create no logical volume.  This is the default."
 msgstr "論理ボリュームを作成しません。  これがデフォルトです。"
 
 #. type: =item
-#: ../format/virt-format.pod:135 ../tools/virt-make-fs.pl:264
+#: ../format/virt-format.pod:135 ../tools/virt-make-fs:264
 msgid "B<--partition>"
 msgstr "B<--partition>"
 
@@ -35359,7 +35345,7 @@ msgstr ""
 
 #. type: =head1
 #: ../fuse/guestmount.pod:77 ../rescue/virt-rescue.pod:96
-#: ../resize/virt-resize.pod:627
+#: ../resize/virt-resize.pod:633
 msgid "NOTES"
 msgstr "注記"
 
@@ -41659,18 +41645,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../inspector/virt-inspector.pod:102 ../tools/virt-list-filesystems.pl:94
-#: ../tools/virt-list-partitions.pl:95 ../tools/virt-tar.pl:142
-#: ../tools/virt-win-reg.pl:143
+#: ../inspector/virt-inspector.pod:102 ../tools/virt-list-filesystems:94
+#: ../tools/virt-list-partitions:95 ../tools/virt-tar:142
+#: ../tools/virt-win-reg:143
 msgid ""
 "Specify the format of disk images given on the command line.  If this is "
 "omitted then the format is autodetected from the content of the disk image."
 msgstr ""
 
 #. type: textblock
-#: ../inspector/virt-inspector.pod:106 ../tools/virt-list-filesystems.pl:98
-#: ../tools/virt-list-partitions.pl:99 ../tools/virt-tar.pl:146
-#: ../tools/virt-win-reg.pl:147
+#: ../inspector/virt-inspector.pod:106 ../tools/virt-list-filesystems:98
+#: ../tools/virt-list-partitions:99 ../tools/virt-tar:146
+#: ../tools/virt-win-reg:147
 msgid ""
 "If disk images are requested from libvirt, then this program asks libvirt "
 "for this information.  In this case, the value of the format parameter is "
@@ -41678,10 +41664,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../inspector/virt-inspector.pod:110 ../resize/virt-resize.pod:397
-#: ../resize/virt-resize.pod:489 ../sparsify/virt-sparsify.pod:187
-#: ../tools/virt-list-filesystems.pl:102 ../tools/virt-list-partitions.pl:103
-#: ../tools/virt-tar.pl:150 ../tools/virt-win-reg.pl:151
+#: ../inspector/virt-inspector.pod:110 ../resize/virt-resize.pod:403
+#: ../resize/virt-resize.pod:495 ../sparsify/virt-sparsify.pod:187
+#: ../tools/virt-list-filesystems:102 ../tools/virt-list-partitions:103
+#: ../tools/virt-tar:150 ../tools/virt-win-reg:151
 msgid ""
 "If working with untrusted raw-format guest disk images, you should ensure "
 "the format is always specified."
@@ -44194,9 +44180,9 @@ msgstr "5. 容量を変更します"
 #. type: textblock
 #: ../resize/virt-resize.pod:126
 msgid ""
-"virt-resize takes two mandatory parameters, the input disk (eg. device or "
-"file) and the output disk.  The output disk is the one created in the "
-"previous step."
+"virt-resize takes two mandatory parameters, the input disk (eg. device, "
+"file, or a URI to a remote disk) and the output disk.  The output disk is "
+"the one created in the previous step."
 msgstr ""
 
 #. type: verbatim
@@ -44281,29 +44267,50 @@ msgid ""
 "filesystems, so you would have to online resize them after booting the guest."
 msgstr ""
 
-#. type: textblock
+#. type: verbatim
 #: ../resize/virt-resize.pod:164
-msgid "Other options are covered below."
-msgstr "他のオプションは以下に記載しています。"
-
-#. type: =item
-#: ../resize/virt-resize.pod:166
-msgid "6. Test"
-msgstr "6. テストします"
+#, fuzzy, no-wrap
+#| msgid ""
+#| " # virt-resize --expand /dev/sda2 indisk outdisk\n"
+#| "\n"
+msgid ""
+" # virt-resize --expand /dev/sda2 nbd://example.com outdisk\n"
+"\n"
+msgstr ""
+" # virt-resize --expand /dev/sda2 indisk outdisk\n"
+"\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:168
-msgid "Thoroughly test the new disk image I<before> discarding the old one."
+#: ../resize/virt-resize.pod:166
+msgid ""
+"The input disk can be a URI, in order to use a remote disk as the source.  "
+"The URI format is compatible with guestfish.  See L<guestfish(1)/ADDING "
+"REMOTE STORAGE>."
 msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:170
+msgid "Other options are covered below."
+msgstr "他のオプションは以下に記載しています。"
+
+#. type: =item
+#: ../resize/virt-resize.pod:172
+msgid "6. Test"
+msgstr "6. テストします"
+
+#. type: textblock
+#: ../resize/virt-resize.pod:174
+msgid "Thoroughly test the new disk image I<before> discarding the old one."
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:176
 msgid "If you are using libvirt, edit the XML to point at the new disk:"
 msgstr ""
 "libvirt を使用しているならば、新しいディスクを指し示すよう XML を編集します:"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:172
+#: ../resize/virt-resize.pod:178
 #, no-wrap
 msgid ""
 " # virsh edit guestname\n"
@@ -44313,7 +44320,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:174
+#: ../resize/virt-resize.pod:180
 msgid ""
 "Change E<lt>source ...E<gt>, see L<http://libvirt.org/formatdomain."
 "html#elementsDisks>"
@@ -44322,12 +44329,12 @@ msgstr ""
 "html#elementsDisks> を参照してください。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:177
+#: ../resize/virt-resize.pod:183
 msgid "Then start up the domain with the new, resized disk:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:179
+#: ../resize/virt-resize.pod:185
 #, no-wrap
 msgid ""
 " # virsh start guestname\n"
@@ -44337,24 +44344,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:181
+#: ../resize/virt-resize.pod:187
 msgid ""
 "and check that it still works.  See also the L</NOTES> section below for "
 "additional information."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:184
+#: ../resize/virt-resize.pod:190
 msgid "7. Resize LVs etc inside the guest"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:186
+#: ../resize/virt-resize.pod:192
 msgid "(This can also be done offline using L<guestfish(1)>)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:188
+#: ../resize/virt-resize.pod:194
 msgid ""
 "Once the guest has booted you should see the new space available, at least "
 "for filesystems that virt-resize knows how to resize, and for PVs.  The user "
@@ -44363,19 +44370,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:195
+#: ../resize/virt-resize.pod:201
 msgid "SHRINKING A VIRTUAL MACHINE DISK"
 msgstr "仮想マシンのディスクの縮小"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:197
+#: ../resize/virt-resize.pod:203
 msgid ""
 "Shrinking is somewhat more complex than expanding, and only an overview is "
 "given here."
 msgstr "縮小は拡張よりもいくらか複雑です。ここでは概要のみを示します。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:200
+#: ../resize/virt-resize.pod:206
 msgid ""
 "Firstly virt-resize will not attempt to shrink any partition content (PVs, "
 "filesystems).  The user has to shrink content before passing the disk image "
@@ -44384,30 +44391,30 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:205
+#: ../resize/virt-resize.pod:211
 msgid "(Shrinking can also be done offline using L<guestfish(1)>)"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:207
+#: ../resize/virt-resize.pod:213
 msgid ""
 "After shrinking PVs and filesystems, shut down the guest, and proceed with "
 "steps 3 and 4 above to allocate a new disk image."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:210
+#: ../resize/virt-resize.pod:216
 msgid ""
 "Then run virt-resize with any of the I<--shrink> and/or I<--resize> options."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:213
+#: ../resize/virt-resize.pod:219
 msgid "IGNORING OR DELETING PARTITIONS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:215
+#: ../resize/virt-resize.pod:221
 msgid ""
 "virt-resize also gives a convenient way to ignore or delete partitions when "
 "copying from the input disk to the output disk.  Ignoring a partition speeds "
@@ -44418,12 +44425,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:222
+#: ../resize/virt-resize.pod:228
 msgid "QCOW2 AND NON-SPARSE RAW FORMATS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:224
+#: ../resize/virt-resize.pod:230
 msgid ""
 "If the input disk is in qcow2 format, then you may prefer that the output is "
 "in qcow2 format as well.  Alternately, virt-resize can convert the format on "
@@ -44432,49 +44439,49 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:230
-#, no-wrap
-msgid ""
-" qemu-img create [-c] -f qcow2 outdisk [size]\n"
-"\n"
-msgstr ""
-" qemu-img create [-c] -f qcow2 outdisk [size]\n"
-"\n"
-
-#. type: textblock
-#: ../resize/virt-resize.pod:232
-msgid "instead of the truncate command (use I<-c> for a compressed disk)."
-msgstr ""
-
-#. type: textblock
-#: ../resize/virt-resize.pod:234
-msgid "Similarly, to get non-sparse raw output use:"
-msgstr ""
-
-#. type: verbatim
 #: ../resize/virt-resize.pod:236
 #, no-wrap
 msgid ""
-" fallocate -l size outdisk\n"
+" qemu-img create [-c] -f qcow2 outdisk [size]\n"
 "\n"
 msgstr ""
-" fallocate -l size outdisk\n"
+" qemu-img create [-c] -f qcow2 outdisk [size]\n"
 "\n"
 
 #. type: textblock
 #: ../resize/virt-resize.pod:238
+msgid "instead of the truncate command (use I<-c> for a compressed disk)."
+msgstr ""
+
+#. type: textblock
+#: ../resize/virt-resize.pod:240
+msgid "Similarly, to get non-sparse raw output use:"
+msgstr ""
+
+#. type: verbatim
+#: ../resize/virt-resize.pod:242
+#, no-wrap
+msgid ""
+" fallocate -l size outdisk\n"
+"\n"
+msgstr ""
+" fallocate -l size outdisk\n"
+"\n"
+
+#. type: textblock
+#: ../resize/virt-resize.pod:244
 msgid ""
 "(on older systems that don't have the L<fallocate(1)> command use C<dd if=/"
 "dev/zero of=outdisk bs=1M count=..>)"
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:241
+#: ../resize/virt-resize.pod:247
 msgid "LOGICAL PARTITIONS"
 msgstr "論理パーティション"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:243
+#: ../resize/virt-resize.pod:249
 msgid ""
 "Logical partitions (a.k.a. C</dev/sda5+> on disks using DOS partition "
 "tables) cannot be resized."
@@ -44483,7 +44490,7 @@ msgstr ""
 "C</dev/sda5+> とも言う）は容量変更できません。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:246
+#: ../resize/virt-resize.pod:252
 msgid ""
 "To understand what is going on, firstly one of the four partitions C</dev/"
 "sda1-4> will have MBR partition type C<05> or C<0f>.  This is called the "
@@ -44492,12 +44499,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:251
+#: ../resize/virt-resize.pod:257
 msgid "Logical partitions live inside the extended partition."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:253
+#: ../resize/virt-resize.pod:259
 msgid ""
 "The extended partition can be expanded, but not shrunk (unless you force it, "
 "which is not advisable).  When the extended partition is copied across, all "
@@ -44507,41 +44514,41 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:259
+#: ../resize/virt-resize.pod:265
 msgid ""
 "You cannot specify a logical partition (C</dev/sda5+>) at all on the command "
 "line.  Doing so will give an error."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:268 ../sparsify/virt-sparsify.pod:114
+#: ../resize/virt-resize.pod:274 ../sparsify/virt-sparsify.pod:114
 msgid "Display help."
 msgstr "ヘルプを表示します。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:270
+#: ../resize/virt-resize.pod:276
 msgid "B<--align-first auto>"
 msgstr "B<--align-first auto>"
 
 #. type: =item
-#: ../resize/virt-resize.pod:272
+#: ../resize/virt-resize.pod:278
 msgid "B<--align-first never>"
 msgstr "B<--align-first never>"
 
 #. type: =item
-#: ../resize/virt-resize.pod:274
+#: ../resize/virt-resize.pod:280
 msgid "B<--align-first always>"
 msgstr "B<--align-first always>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:276
+#: ../resize/virt-resize.pod:282
 msgid ""
 "Align the first partition for improved performance (see also the I<--"
 "alignment> option)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:279
+#: ../resize/virt-resize.pod:285
 msgid ""
 "The default is I<--align-first auto> which only aligns the first partition "
 "if it is safe to do so.  That is, only when we know how to fix the "
@@ -44550,14 +44557,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:284
+#: ../resize/virt-resize.pod:290
 msgid ""
 "I<--align-first never> means we never move the first partition.  This is the "
 "safest option.  Try this if the guest does not boot after resizing."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:288
+#: ../resize/virt-resize.pod:294
 msgid ""
 "I<--align-first always> means we always align the first partition (if it "
 "needs to be aligned).  For some guests this will break the bootloader, "
@@ -44565,31 +44572,31 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:292
+#: ../resize/virt-resize.pod:298
 msgid "B<--alignment N>"
 msgstr "B<--alignment N>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:294
+#: ../resize/virt-resize.pod:300
 msgid ""
 "Set the alignment of partitions to C<N> sectors.  The default in virt-resize "
 "E<lt> 1.13.19 was 64 sectors, and after that is 128 sectors."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:298
+#: ../resize/virt-resize.pod:304
 msgid ""
 "Assuming 512 byte sector size inside the guest, here are some suitable "
 "values for this:"
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:303
+#: ../resize/virt-resize.pod:309
 msgid "I<--alignment 1> (512 bytes)"
 msgstr "I<--alignment 1> (512 バイト)"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:305
+#: ../resize/virt-resize.pod:311
 msgid ""
 "The partitions would be packed together as closely as possible, but would be "
 "completely unaligned.  In some cases this can cause very poor performance.  "
@@ -44597,76 +44604,76 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:309
+#: ../resize/virt-resize.pod:315
 msgid "I<--alignment 8> (4K)"
 msgstr "I<--alignment 8> (4K)"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:311
+#: ../resize/virt-resize.pod:317
 msgid ""
 "This would be the minimum acceptable alignment for reasonable performance on "
 "modern hosts."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:314
+#: ../resize/virt-resize.pod:320
 msgid "I<--alignment 128> (64K)"
 msgstr "I<--alignment 128> (64K)"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:316
+#: ../resize/virt-resize.pod:322
 msgid ""
 "This alignment provides good performance when the host is using high end "
 "network storage."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:319
+#: ../resize/virt-resize.pod:325
 msgid "I<--alignment 2048> (1M)"
 msgstr "I<--alignment 2048> (1M)"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:321
+#: ../resize/virt-resize.pod:327
 msgid ""
 "This is the standard alignment used by all newly installed guests since "
 "around 2008."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:326
+#: ../resize/virt-resize.pod:332
 msgid "B<-d>"
 msgstr "B<-d>"
 
 #. type: =item
-#: ../resize/virt-resize.pod:328 ../tools/virt-make-fs.pl:175
-#: ../tools/virt-win-reg.pl:119
+#: ../resize/virt-resize.pod:334 ../tools/virt-make-fs:175
+#: ../tools/virt-win-reg:119
 msgid "B<--debug>"
 msgstr "B<--debug>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:330 ../tools/virt-win-reg.pl:121
+#: ../resize/virt-resize.pod:336 ../tools/virt-win-reg:121
 msgid "Enable debugging messages."
 msgstr "デバッグメッセージを有効にします。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:332 ../sparsify/virt-sparsify.pod:174
+#: ../resize/virt-resize.pod:338 ../sparsify/virt-sparsify.pod:174
 msgid "B<--debug-gc>"
 msgstr "B<--debug-gc>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:334
+#: ../resize/virt-resize.pod:340
 msgid ""
 "Debug garbage collection and memory allocation.  This is only useful when "
 "debugging memory problems in virt-resize or the OCaml libguestfs bindings."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:338
+#: ../resize/virt-resize.pod:344
 msgid "B<--delete part>"
 msgstr "B<--delete part>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:340
+#: ../resize/virt-resize.pod:346
 msgid ""
 "Delete the named partition.  It would be more accurate to describe this as "
 "\"don't copy it over\", since virt-resize doesn't do in-place changes and "
@@ -44674,7 +44681,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:344
+#: ../resize/virt-resize.pod:350
 msgid ""
 "Note that when you delete a partition, then anything contained in the "
 "partition is also deleted.  Furthermore, this causes any partitions that "
@@ -44682,25 +44689,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:349 ../resize/virt-resize.pod:410
-#: ../resize/virt-resize.pod:537 ../sparsify/virt-sparsify.pod:200
+#: ../resize/virt-resize.pod:355 ../resize/virt-resize.pod:416
+#: ../resize/virt-resize.pod:543 ../sparsify/virt-sparsify.pod:200
 msgid "You can give this option multiple times."
 msgstr "このオプションは複数回指定できます。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:351
+#: ../resize/virt-resize.pod:357
 msgid "B<--expand part>"
 msgstr "B<--expand part>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:353
+#: ../resize/virt-resize.pod:359
 msgid ""
 "Expand the named partition so it uses up all extra space (space left over "
 "after any other resize changes that you request have been done)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:356
+#: ../resize/virt-resize.pod:362
 msgid ""
 "If virt-resize knows how, it will expand the direct content of the "
 "partition.  For example, if the partition is an LVM PV, it will expand the "
@@ -44709,22 +44716,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:361
+#: ../resize/virt-resize.pod:367
 msgid "Currently virt-resize can resize:"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:367
+#: ../resize/virt-resize.pod:373
 msgid "ext2, ext3 and ext4 filesystems."
 msgstr "ext2, ext3, ext4 ファイルシステム。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:371
+#: ../resize/virt-resize.pod:377
 msgid "NTFS filesystems, if libguestfs was compiled with support for NTFS."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:373
+#: ../resize/virt-resize.pod:379
 msgid ""
 "The filesystem must have been shut down consistently last time it was used.  "
 "Additionally, L<ntfsresize(8)> marks the resized filesystem as requiring a "
@@ -44733,7 +44740,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:380
+#: ../resize/virt-resize.pod:386
 msgid ""
 "LVM PVs (physical volumes).  virt-resize does not usually resize anything "
 "inside the PV, but see the I<--LV-expand> option.  The user could also "
@@ -44741,43 +44748,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:386
+#: ../resize/virt-resize.pod:392
 msgid "Btrfs filesystems, if libguestfs was compiled with support for btrfs."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:390 ../resize/virt-resize.pod:565
+#: ../resize/virt-resize.pod:396 ../resize/virt-resize.pod:571
 msgid "Note that you cannot use I<--expand> and I<--shrink> together."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:392 ../sparsify/virt-sparsify.pod:180
-#: ../tools/virt-list-filesystems.pl:92 ../tools/virt-list-partitions.pl:93
-#: ../tools/virt-tar.pl:140 ../tools/virt-win-reg.pl:141
+#: ../resize/virt-resize.pod:398 ../sparsify/virt-sparsify.pod:180
+#: ../tools/virt-list-filesystems:92 ../tools/virt-list-partitions:93
+#: ../tools/virt-tar:140 ../tools/virt-win-reg:141
 msgid "B<--format> raw"
 msgstr "B<--format> raw"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:394 ../sparsify/virt-sparsify.pod:184
+#: ../resize/virt-resize.pod:400 ../sparsify/virt-sparsify.pod:184
 msgid ""
 "Specify the format of the input disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:400
+#: ../resize/virt-resize.pod:406
 msgid ""
 "Note that this option I<does not> affect the output format.  See L</QCOW2 "
 "AND NON-SPARSE RAW FORMATS>."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:403
+#: ../resize/virt-resize.pod:409
 msgid "B<--ignore part>"
 msgstr "B<--ignore part>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:405
+#: ../resize/virt-resize.pod:411
 msgid ""
 "Ignore the named partition.  Effectively this means the partition is "
 "allocated on the destination disk, but the content is not copied across from "
@@ -44786,12 +44793,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:412
+#: ../resize/virt-resize.pod:418
 msgid "B<--LV-expand logvol>"
 msgstr "B<--LV-expand logvol>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:414
+#: ../resize/virt-resize.pod:420
 msgid ""
 "This takes the logical volume and, as a final step, expands it to fill all "
 "the space available in its volume group.  A typical usage, assuming a Linux "
@@ -44800,7 +44807,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:419
+#: ../resize/virt-resize.pod:425
 #, no-wrap
 msgid ""
 " virt-resize indisk outdisk \\\n"
@@ -44812,14 +44819,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:422
+#: ../resize/virt-resize.pod:428
 msgid ""
 "This would first expand the partition (and PV), and then expand the root "
 "device to fill the extra space in the PV."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:425
+#: ../resize/virt-resize.pod:431
 msgid ""
 "The contents of the LV are also resized if virt-resize knows how to do "
 "that.  You can stop virt-resize from trying to expand the content by using "
@@ -44827,14 +44834,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:429
+#: ../resize/virt-resize.pod:435
 msgid "Use L<virt-filesystems(1)> to list the filesystems in the guest."
 msgstr ""
 "仮想マシンにあるファイルシステムを一覧表示するには L<virt-filesystems(1)> を"
 "使用します。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:431
+#: ../resize/virt-resize.pod:437
 msgid ""
 "You can give this option multiple times, I<but> it doesn't make sense to do "
 "this unless the logical volumes you specify are all in different volume "
@@ -44842,12 +44849,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:435 ../sparsify/virt-sparsify.pod:202
+#: ../resize/virt-resize.pod:441 ../sparsify/virt-sparsify.pod:202
 msgid "B<--machine-readable>"
 msgstr "B<--machine-readable>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:437 ../sparsify/virt-sparsify.pod:204
+#: ../resize/virt-resize.pod:443 ../sparsify/virt-sparsify.pod:204
 msgid ""
 "This option is used to make the output more machine friendly when being "
 "parsed by other programs.  See L</MACHINE READABLE OUTPUT> below."
@@ -44856,22 +44863,22 @@ msgstr ""
 "力を作成するために使用されます。以下の L</マシン可読な出力> 参照。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:443
+#: ../resize/virt-resize.pod:449
 msgid "B<--dryrun>"
 msgstr "B<--dryrun>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:445
+#: ../resize/virt-resize.pod:451
 msgid "Print a summary of what would be done, but don't do anything."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:447
+#: ../resize/virt-resize.pod:453
 msgid "B<--no-copy-boot-loader>"
 msgstr "B<--no-copy-boot-loader>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:449
+#: ../resize/virt-resize.pod:455
 msgid ""
 "By default, virt-resize copies over some sectors at the start of the disk "
 "(up to the beginning of the first partition).  Commonly these sectors "
@@ -44880,19 +44887,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:454
+#: ../resize/virt-resize.pod:460
 msgid ""
 "If you specify this flag, then this initial copy is not done.  You may need "
 "to reinstall the boot loader in this case."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:457
+#: ../resize/virt-resize.pod:463
 msgid "B<--no-extra-partition>"
 msgstr "B<--no-extra-partition>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:459
+#: ../resize/virt-resize.pod:465
 msgid ""
 "By default, virt-resize creates an extra partition if there is any extra, "
 "unused space after all resizing has happened.  Use this option to prevent "
@@ -44902,26 +44909,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:465
+#: ../resize/virt-resize.pod:471
 msgid ""
 "Note that if the surplus space is smaller than 10 MB, no extra partition "
 "will be created."
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:468
+#: ../resize/virt-resize.pod:474
 msgid "B<--no-expand-content>"
 msgstr "B<--no-expand-content>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:470
+#: ../resize/virt-resize.pod:476
 msgid ""
 "By default, virt-resize will try to expand the direct contents of "
 "partitions, if it knows how (see I<--expand> option above)."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:473
+#: ../resize/virt-resize.pod:479
 msgid ""
 "If you give the I<--no-expand-content> option then virt-resize will not "
 "attempt this."
@@ -44930,12 +44937,12 @@ msgstr ""
 "ん。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:476
+#: ../resize/virt-resize.pod:482
 msgid "B<--ntfsresize-force>"
 msgstr "B<--ntfsresize-force>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:478
+#: ../resize/virt-resize.pod:484
 msgid ""
 "Pass the I<--force> option to L<ntfsresize(8)>, allowing resizing even if "
 "the NTFS disk is marked as needing a consistency check.  You have to use "
@@ -44948,19 +44955,19 @@ msgstr ""
 "ならば、このオプションを使用する必要があります。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:484
+#: ../resize/virt-resize.pod:490
 msgid "B<--output-format> raw"
 msgstr "B<--output-format> raw"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:486
+#: ../resize/virt-resize.pod:492
 msgid ""
 "Specify the format of the output disk image.  If this flag is not given then "
 "it is auto-detected from the image itself."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:492
+#: ../resize/virt-resize.pod:498
 msgid ""
 "Note that this option I<does not create> the output format.  This option "
 "just tells libguestfs what it is so it doesn't try to guess it.  You still "
@@ -44969,17 +44976,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:501
+#: ../resize/virt-resize.pod:507
 msgid "Don't print the summary."
 msgstr "概要を表示しません。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:503
+#: ../resize/virt-resize.pod:509
 msgid "B<--resize part=size>"
 msgstr "B<--resize part=size>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:505
+#: ../resize/virt-resize.pod:511
 msgid ""
 "Resize the named partition (expanding or shrinking it) so that it has the "
 "given size."
@@ -44988,7 +44995,7 @@ msgstr ""
 "given size."
 
 #. type: textblock
-#: ../resize/virt-resize.pod:508
+#: ../resize/virt-resize.pod:514
 msgid ""
 "C<size> can be expressed as an absolute number followed by b/K/M/G to mean "
 "bytes, Kilobytes, Megabytes, or Gigabytes; or as a percentage of the current "
@@ -44999,49 +45006,49 @@ msgstr ""
 "相対的な数値、パーセントとして表現されます。たとえば:"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:514
-#, no-wrap
-msgid ""
-" --resize /dev/sda2=10G\n"
-"\n"
-msgstr ""
-" --resize /dev/sda2=10G\n"
-"\n"
-
-#. type: verbatim
-#: ../resize/virt-resize.pod:516
-#, no-wrap
-msgid ""
-" --resize /dev/sda4=90%\n"
-"\n"
-msgstr ""
-" --resize /dev/sda4=90%\n"
-"\n"
-
-#. type: verbatim
-#: ../resize/virt-resize.pod:518
-#, no-wrap
-msgid ""
-" --resize /dev/sda2=+1G\n"
-"\n"
-msgstr ""
-" --resize /dev/sda2=+1G\n"
-"\n"
-
-#. type: verbatim
 #: ../resize/virt-resize.pod:520
 #, no-wrap
 msgid ""
-" --resize /dev/sda2=-200M\n"
+" --resize /dev/sda2=10G\n"
 "\n"
 msgstr ""
-" --resize /dev/sda2=-200M\n"
+" --resize /dev/sda2=10G\n"
 "\n"
 
 #. type: verbatim
 #: ../resize/virt-resize.pod:522
 #, no-wrap
 msgid ""
+" --resize /dev/sda4=90%\n"
+"\n"
+msgstr ""
+" --resize /dev/sda4=90%\n"
+"\n"
+
+#. type: verbatim
+#: ../resize/virt-resize.pod:524
+#, no-wrap
+msgid ""
+" --resize /dev/sda2=+1G\n"
+"\n"
+msgstr ""
+" --resize /dev/sda2=+1G\n"
+"\n"
+
+#. type: verbatim
+#: ../resize/virt-resize.pod:526
+#, no-wrap
+msgid ""
+" --resize /dev/sda2=-200M\n"
+"\n"
+msgstr ""
+" --resize /dev/sda2=-200M\n"
+"\n"
+
+#. type: verbatim
+#: ../resize/virt-resize.pod:528
+#, no-wrap
+msgid ""
 " --resize /dev/sda1=+128K\n"
 "\n"
 msgstr ""
@@ -45049,7 +45056,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:524
+#: ../resize/virt-resize.pod:530
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=+10%\n"
@@ -45059,7 +45066,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:526
+#: ../resize/virt-resize.pod:532
 #, no-wrap
 msgid ""
 " --resize /dev/sda1=-10%\n"
@@ -45069,7 +45076,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:528
+#: ../resize/virt-resize.pod:534
 msgid ""
 "You can increase the size of any partition.  Virt-resize will expand the "
 "direct content of the partition if it knows how (see I<--expand> below)."
@@ -45079,7 +45086,7 @@ msgstr ""
 "す。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:532
+#: ../resize/virt-resize.pod:538
 msgid ""
 "You can only I<decrease> the size of partitions that contain filesystems or "
 "PVs which have already been shrunk.  Virt-resize will check this has been "
@@ -45088,12 +45095,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../resize/virt-resize.pod:539
+#: ../resize/virt-resize.pod:545
 msgid "B<--resize-force part=size>"
 msgstr "B<--resize-force part=size>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:541
+#: ../resize/virt-resize.pod:547
 msgid ""
 "This is the same as I<--resize> except that it will let you decrease the "
 "size of any partition.  Generally this means you will lose any data which "
@@ -45103,17 +45110,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:547
+#: ../resize/virt-resize.pod:553
 msgid "See also the I<--ignore> option."
 msgstr "I<--ignore> オプション参照。"
 
 #. type: =item
-#: ../resize/virt-resize.pod:549
+#: ../resize/virt-resize.pod:555
 msgid "B<--shrink part>"
 msgstr "B<--shrink part>"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:551
+#: ../resize/virt-resize.pod:557
 msgid ""
 "Shrink the named partition until the overall disk image fits in the "
 "destination.  The named partition B<must> contain a filesystem or PV which "
@@ -45123,7 +45130,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:557
+#: ../resize/virt-resize.pod:563
 msgid ""
 "The amount by which the overall disk must be shrunk (after carrying out all "
 "other operations requested by the user) is called the \"deficit\".  For "
@@ -45134,12 +45141,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../resize/virt-resize.pod:575 ../sparsify/virt-sparsify.pod:252
+#: ../resize/virt-resize.pod:581 ../sparsify/virt-sparsify.pod:252
 msgid "MACHINE READABLE OUTPUT"
 msgstr "マシン可読な出力"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:577
+#: ../resize/virt-resize.pod:583
 msgid ""
 "The I<--machine-readable> option can be used to make the output more machine "
 "friendly, which is useful when calling virt-resize from other programs, GUIs "
@@ -45150,19 +45157,19 @@ msgstr ""
 "用です。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:581 ../sparsify/virt-sparsify.pod:258
+#: ../resize/virt-resize.pod:587 ../sparsify/virt-sparsify.pod:258
 msgid "There are two ways to use this option."
 msgstr "このオプションを使用するには 2 通りの方法があります。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:583
+#: ../resize/virt-resize.pod:589
 msgid ""
 "Firstly use the option on its own to query the capabilities of the virt-"
 "resize binary.  Typical output looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:586
+#: ../resize/virt-resize.pod:592
 #, no-wrap
 msgid ""
 " $ virt-resize --machine-readable\n"
@@ -45182,33 +45189,33 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:593 ../sparsify/virt-sparsify.pod:268
+#: ../resize/virt-resize.pod:599 ../sparsify/virt-sparsify.pod:268
 msgid ""
 "A list of features is printed, one per line, and the program exits with "
 "status 0."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:596 ../sparsify/virt-sparsify.pod:271
+#: ../resize/virt-resize.pod:602 ../sparsify/virt-sparsify.pod:271
 msgid ""
 "Secondly use the option in conjunction with other options to make the "
 "regular program output more machine friendly."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:599 ../sparsify/virt-sparsify.pod:274
+#: ../resize/virt-resize.pod:605 ../sparsify/virt-sparsify.pod:274
 msgid "At the moment this means:"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:605 ../sparsify/virt-sparsify.pod:280
+#: ../resize/virt-resize.pod:611 ../sparsify/virt-sparsify.pod:280
 msgid ""
 "Progress bar messages can be parsed from stdout by looking for this regular "
 "expression:"
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:608 ../sparsify/virt-sparsify.pod:283
+#: ../resize/virt-resize.pod:614 ../sparsify/virt-sparsify.pod:283
 #, no-wrap
 msgid ""
 " ^[0-9]+/[0-9]+$\n"
@@ -45218,7 +45225,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:612 ../sparsify/virt-sparsify.pod:287
+#: ../resize/virt-resize.pod:618 ../sparsify/virt-sparsify.pod:287
 msgid ""
 "The calling program should treat messages sent to stdout (except for "
 "progress bar messages) as status messages.  They can be logged and/or "
@@ -45226,7 +45233,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:618
+#: ../resize/virt-resize.pod:624
 msgid ""
 "The calling program should treat messages sent to stderr as error messages.  "
 "In addition, virt-resize exits with a non-zero status code if there was a "
@@ -45234,19 +45241,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:624
+#: ../resize/virt-resize.pod:630
 msgid ""
 "Versions of the program prior to 1.13.9 did not support the I<--machine-"
 "readable> option and will return an error."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:629
+#: ../resize/virt-resize.pod:635
 msgid "\"Partition 1 does not end on cylinder boundary.\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:631
+#: ../resize/virt-resize.pod:637
 msgid ""
 "Virt-resize aligns partitions to multiples of 128 sectors (see the I<--"
 "alignment> parameter).  Usually this means the partitions will not be "
@@ -45257,19 +45264,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:638
+#: ../resize/virt-resize.pod:644
 msgid "GUEST BOOT STUCK AT \"GRUB\""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:640
+#: ../resize/virt-resize.pod:646
 msgid ""
 "If a Linux guest does not boot after resizing, and the boot is stuck after "
 "printing C<GRUB> on the console, try reinstalling grub."
 msgstr ""
 
 #. type: verbatim
-#: ../resize/virt-resize.pod:643
+#: ../resize/virt-resize.pod:649
 #, no-wrap
 msgid ""
 " guestfish -i -a newdisk\n"
@@ -45289,19 +45296,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:650
+#: ../resize/virt-resize.pod:656
 msgid ""
 "For more flexible guest reconfiguration, including if you need to specify "
 "other parameters to grub-install, use L<virt-rescue(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:653
+#: ../resize/virt-resize.pod:659
 msgid "RESIZING WINDOWS BOOT PARTITIONS"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:655
+#: ../resize/virt-resize.pod:661
 msgid ""
 "In Windows Vista and later versions, Microsoft switched to using a separate "
 "boot partition.  In these VMs, typically C</dev/sda1> is the boot partition "
@@ -45311,12 +45318,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:662
+#: ../resize/virt-resize.pod:668
 msgid "WINDOWS CHKDSK"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:664
+#: ../resize/virt-resize.pod:670
 msgid ""
 "Windows disks which use NTFS must be consistent before virt-resize can be "
 "used.  If the ntfsresize operation fails, try booting the original VM and "
@@ -45326,7 +45333,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:670
+#: ../resize/virt-resize.pod:676
 msgid ""
 "I<After resize> Windows may initiate a lengthy \"chkdsk\" on first boot if "
 "NTFS partitions have been expanded.  This is just a safety check and (unless "
@@ -45334,12 +45341,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:674
+#: ../resize/virt-resize.pod:680
 msgid "WINDOWS UNMOUNTABLE_BOOT_VOLUME BSOD"
 msgstr "Windows UNMOUNTABLE_BOOT_VOLUME BSOD"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:676
+#: ../resize/virt-resize.pod:682
 msgid ""
 "After sysprepping a Windows guest and then resizing it with virt-resize, you "
 "may see the guest fail to boot with an C<UNMOUNTABLE_BOOT_VOLUME> BSOD.  "
@@ -45353,7 +45360,7 @@ msgstr ""
 "ます。"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:684
+#: ../resize/virt-resize.pod:690
 msgid ""
 "Windows 8 \"fast startup\" can prevent virt-resize from resizing NTFS "
 "partitions.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
@@ -45361,19 +45368,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../resize/virt-resize.pod:688
+#: ../resize/virt-resize.pod:694
 msgid "SPARSE COPYING"
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:690
+#: ../resize/virt-resize.pod:696
 msgid ""
 "You must create a fresh, zeroed target disk image for virt-resize to use.  "
 "Do not reuse a target, especially one which contains data already."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:694
+#: ../resize/virt-resize.pod:700
 msgid ""
 "Virt-resize performs sparse copying.  This means that it does not copy "
 "blocks from the source disk which are all zeroes.  This improves speed and "
@@ -45382,7 +45389,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:699
+#: ../resize/virt-resize.pod:705
 msgid ""
 "The main time this can be a problem is if the target is a host partition "
 "(eg. S<C<virt-resize source.img /dev/sda4>>) because the usual partitioning "
@@ -45392,19 +45399,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../resize/virt-resize.pod:706
+#: ../resize/virt-resize.pod:712
 msgid "ALTERNATIVE TOOLS"
 msgstr "代替ツール"
 
 #. type: textblock
-#: ../resize/virt-resize.pod:708
+#: ../resize/virt-resize.pod:714
 msgid ""
 "There are several proprietary tools for resizing partitions.  We won't "
 "mention any here."
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:711
+#: ../resize/virt-resize.pod:717
 msgid ""
 "L<parted(8)> and its graphical shell gparted can do some types of resizing "
 "operations on disk images.  They can resize and move partitions, but I don't "
@@ -45413,7 +45420,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:716
+#: ../resize/virt-resize.pod:722
 msgid ""
 "L<guestfish(1)> can do everything that virt-resize can do and a lot more, "
 "but at a much lower level.  You will probably end up hand-calculating sector "
@@ -45423,7 +45430,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:722
+#: ../resize/virt-resize.pod:728
 msgid ""
 "L<dracut(8)> includes a module called C<dracut-modules-growroot> which can "
 "be used to grow the root partition when the guest first boots up.  There is "
@@ -45431,7 +45438,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../resize/virt-resize.pod:740
+#: ../resize/virt-resize.pod:746
 msgid ""
 "L<virt-filesystems(1)>, L<virt-df(1)>, L<guestfs(3)>, L<guestfish(1)>, "
 "L<lvm(8)>, L<pvresize(8)>, L<lvresize(8)>, L<resize2fs(8)>, "
@@ -73740,21 +73747,35 @@ msgstr "autoconf により使用される M4 マクロ。"
 
 #. type: =item
 #: ../src/guestfs.pod:4279
+#, fuzzy
+#| msgid "C<gnulib>"
+msgid "C<mllib>"
+msgstr "C<gnulib>"
+
+#. type: textblock
+#: ../src/guestfs.pod:4281
+msgid ""
+"Various libraries and common code used by L<virt-resize(1)> and the other "
+"tools which are written in OCaml."
+msgstr ""
+
+#. type: =item
+#: ../src/guestfs.pod:4284
 msgid "C<po>"
 msgstr "C<po>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4281
+#: ../src/guestfs.pod:4286
 msgid "Translations of simple gettext strings."
 msgstr "シンプルな gettext 文字列の翻訳。"
 
 #. type: =item
-#: ../src/guestfs.pod:4283
+#: ../src/guestfs.pod:4288
 msgid "C<po-docs>"
 msgstr "C<po-docs>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4285
+#: ../src/guestfs.pod:4290
 msgid ""
 "The build infrastructure and PO files for translations of manpages and POD "
 "files.  Eventually this will be combined with the C<po> directory, but that "
@@ -73762,72 +73783,72 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:4289
+#: ../src/guestfs.pod:4294
 msgid "C<rescue>"
 msgstr "C<rescue>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4291
+#: ../src/guestfs.pod:4296
 msgid "L<virt-rescue(1)> command and documentation."
 msgstr "L<virt-rescue(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:4293
+#: ../src/guestfs.pod:4298
 msgid "C<resize>"
 msgstr "C<resize>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4295
+#: ../src/guestfs.pod:4300
 msgid "L<virt-resize(1)> command and documentation."
 msgstr "L<virt-resize(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:4297
+#: ../src/guestfs.pod:4302
 msgid "C<sparsify>"
 msgstr "C<sparsify>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4299
+#: ../src/guestfs.pod:4304
 msgid "L<virt-sparsify(1)> command and documentation."
 msgstr "L<virt-sparsify(1)> のコマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:4301
+#: ../src/guestfs.pod:4306
 msgid "C<src>"
 msgstr "C<src>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4303
+#: ../src/guestfs.pod:4308
 msgid "Source code to the C library."
 msgstr "C ライブラリーのソースコード。"
 
 #. type: =item
-#: ../src/guestfs.pod:4305
+#: ../src/guestfs.pod:4310
 msgid "C<sysprep>"
 msgstr "C<sysprep>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4307
+#: ../src/guestfs.pod:4312
 msgid "L<virt-sysprep(1)> command and documentation."
 msgstr "L<virt-sysprep(1)> コマンドおよびドキュメント。"
 
 #. type: =item
-#: ../src/guestfs.pod:4309
+#: ../src/guestfs.pod:4314
 msgid "C<tests>"
 msgstr "C<tests>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4311
+#: ../src/guestfs.pod:4316
 msgid "Tests."
 msgstr "テストします。"
 
 #. type: =item
-#: ../src/guestfs.pod:4313
+#: ../src/guestfs.pod:4318
 msgid "C<test-tool>"
 msgstr "C<test-tool>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4315
+#: ../src/guestfs.pod:4320
 msgid ""
 "Test tool for end users to test if their qemu/kernel combination will work "
 "with libguestfs."
@@ -73836,12 +73857,12 @@ msgstr ""
 "確認するためのテストツールです。"
 
 #. type: =item
-#: ../src/guestfs.pod:4318
+#: ../src/guestfs.pod:4323
 msgid "C<tmp>"
 msgstr "C<tmp>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4320
+#: ../src/guestfs.pod:4325
 msgid ""
 "Used for temporary files when running the tests (instead of C</tmp> etc).  "
 "The reason is so that you can run multiple parallel tests of libguestfs "
@@ -73852,12 +73873,12 @@ msgstr ""
 "ことなく、複数の libguestfs 並行テストを実行できるようにするためです。"
 
 #. type: =item
-#: ../src/guestfs.pod:4325
+#: ../src/guestfs.pod:4330
 msgid "C<tools>"
 msgstr "C<tools>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4327
+#: ../src/guestfs.pod:4332
 msgid ""
 "Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
 msgstr ""
@@ -73865,77 +73886,77 @@ msgstr ""
 "の)。"
 
 #. type: =item
-#: ../src/guestfs.pod:4329
+#: ../src/guestfs.pod:4334
 msgid "C<csharp>"
 msgstr "C<csharp>"
 
 #. type: =item
-#: ../src/guestfs.pod:4331
+#: ../src/guestfs.pod:4336
 msgid "C<erlang>"
 msgstr "C<erlang>"
 
 #. type: =item
-#: ../src/guestfs.pod:4333
+#: ../src/guestfs.pod:4338
 msgid "C<gobject>"
 msgstr "C<gobject>"
 
 #. type: =item
-#: ../src/guestfs.pod:4335
+#: ../src/guestfs.pod:4340
 msgid "C<golang>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs.pod:4337
+#: ../src/guestfs.pod:4342
 msgid "C<haskell>"
 msgstr "C<haskell>"
 
 #. type: =item
-#: ../src/guestfs.pod:4339
+#: ../src/guestfs.pod:4344
 msgid "C<java>"
 msgstr "C<java>"
 
 #. type: =item
-#: ../src/guestfs.pod:4341
+#: ../src/guestfs.pod:4346
 msgid "C<lua>"
 msgstr "C<lua>"
 
 #. type: =item
-#: ../src/guestfs.pod:4343
+#: ../src/guestfs.pod:4348
 msgid "C<ocaml>"
 msgstr "C<ocaml>"
 
 #. type: =item
-#: ../src/guestfs.pod:4345
+#: ../src/guestfs.pod:4350
 msgid "C<php>"
 msgstr "C<php>"
 
 #. type: =item
-#: ../src/guestfs.pod:4347
+#: ../src/guestfs.pod:4352
 msgid "C<perl>"
 msgstr "C<perl>"
 
 #. type: =item
-#: ../src/guestfs.pod:4349
+#: ../src/guestfs.pod:4354
 msgid "C<python>"
 msgstr "C<python>"
 
 #. type: =item
-#: ../src/guestfs.pod:4351
+#: ../src/guestfs.pod:4356
 msgid "C<ruby>"
 msgstr "C<ruby>"
 
 #. type: textblock
-#: ../src/guestfs.pod:4353
+#: ../src/guestfs.pod:4358
 msgid "Language bindings."
 msgstr "言語バインディング。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4357
+#: ../src/guestfs.pod:4362
 msgid "MAKING A STABLE RELEASE"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4359
+#: ../src/guestfs.pod:4364
 msgid ""
 "When we make a stable release, there are several steps documented here.  See "
 "L</LIBGUESTFS VERSION NUMBERS> for general information about the stable "
@@ -73943,33 +73964,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4367
+#: ../src/guestfs.pod:4372
 msgid ""
 "Check C<make && make check> works on at least Fedora, Debian and Ubuntu."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4372
+#: ../src/guestfs.pod:4377
 msgid "Finalize C<guestfs-release-notes.pod>"
 msgstr "C<guestfs-release-notes.pod> をファイナライズします。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4376
+#: ../src/guestfs.pod:4381
 msgid "Update ROADMAP."
 msgstr "ロードマップを更新します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4380
+#: ../src/guestfs.pod:4385
 msgid "Run C<src/api-support/update-from-tarballs.sh>."
 msgstr "C<src/api-support/update-from-tarballs.sh> を実行します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4384
+#: ../src/guestfs.pod:4389
 msgid "Push and pull from Transifex."
 msgstr "Transifex からのプッシュおよびプル。"
 
 #. type: verbatim
-#: ../src/guestfs.pod:4388
+#: ../src/guestfs.pod:4393
 #, no-wrap
 msgid ""
 " tx push -s\n"
@@ -73979,13 +74000,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs.pod:4390
+#: ../src/guestfs.pod:4395
 msgid "to push the latest POT files to Transifex.  Then run:"
 msgstr ""
 "最新の POT ファイルを Transifex にプッシュします。そして、次を実行します:"
 
 #. type: verbatim
-#: ../src/guestfs.pod:4392
+#: ../src/guestfs.pod:4397
 #, no-wrap
 msgid ""
 " ./tx-pull.sh\n"
@@ -73995,17 +74016,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../src/guestfs.pod:4394
+#: ../src/guestfs.pod:4399
 msgid "which is a wrapper to pull the latest translated C<*.po> files."
 msgstr "これは最新の翻訳された C<*.po> ファイルを取り出すためのラッパーです。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4398
+#: ../src/guestfs.pod:4403
 msgid "Consider updating gnulib to latest upstream version."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4402
+#: ../src/guestfs.pod:4407
 msgid ""
 "Create new stable and development directories under L<http://libguestfs.org/"
 "download>."
@@ -74014,17 +74035,17 @@ msgstr ""
 "リーを作成します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4407
+#: ../src/guestfs.pod:4412
 msgid "Edit C<index.html.in> on website."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4411
+#: ../src/guestfs.pod:4416
 msgid "Create the branch in git:"
 msgstr "git に分岐を作成します:"
 
 #. type: verbatim
-#: ../src/guestfs.pod:4413
+#: ../src/guestfs.pod:4418
 #, no-wrap
 msgid ""
 " git tag -a 1.XX.0 -m \"Version 1.XX.0 (stable)\"\n"
@@ -74040,17 +74061,17 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../src/guestfs.pod:4420
+#: ../src/guestfs.pod:4425
 msgid "LIMITS"
 msgstr "制限"
 
 #. type: =head2
-#: ../src/guestfs.pod:4422
+#: ../src/guestfs.pod:4427
 msgid "PROTOCOL LIMITS"
 msgstr "プロトコル制限"
 
 #. type: textblock
-#: ../src/guestfs.pod:4424
+#: ../src/guestfs.pod:4429
 msgid ""
 "Internally libguestfs uses a message-based protocol to pass API calls and "
 "their responses to and from a small \"appliance\" (see L</INTERNALS> for "
@@ -74061,7 +74082,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4432
+#: ../src/guestfs.pod:4437
 msgid ""
 "In libguestfs E<lt> 1.19.32, several calls had to encode either their entire "
 "argument list or their entire return value (or sometimes both)  in a single "
@@ -74077,7 +74098,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4445
+#: ../src/guestfs.pod:4450
 msgid ""
 "L</guestfs_cat>, L</guestfs_find>, L</guestfs_read_file>, L</"
 "guestfs_read_lines>, L</guestfs_write>, L</guestfs_write_append>, L</"
@@ -74090,19 +74111,19 @@ msgstr ""
 "guestfs_ls>."
 
 #. type: textblock
-#: ../src/guestfs.pod:4450
+#: ../src/guestfs.pod:4455
 msgid ""
 "See also L</UPLOADING> and L</DOWNLOADING> for further information about "
 "copying large amounts of data into or out of a filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4453
+#: ../src/guestfs.pod:4458
 msgid "MAXIMUM NUMBER OF DISKS"
 msgstr "ディスクの最大数"
 
 #. type: textblock
-#: ../src/guestfs.pod:4455
+#: ../src/guestfs.pod:4460
 msgid ""
 "In libguestfs E<ge> 1.19.7, you can query the maximum number of disks that "
 "may be added by calling L</guestfs_max_disks>.  In earlier versions of "
@@ -74111,14 +74132,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4460
+#: ../src/guestfs.pod:4465
 msgid ""
 "The rest of this section covers implementation details, which could change "
 "in future."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4463
+#: ../src/guestfs.pod:4468
 msgid ""
 "When using virtio-scsi disks (the default if available in qemu) the current "
 "limit is B<255> disks.  When using virtio-blk (the old default) the limit is "
@@ -74131,7 +74152,7 @@ msgstr ""
 "ているかどうかにより、変化する可能性があります。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4468
+#: ../src/guestfs.pod:4473
 msgid ""
 "Virtio-scsi as used by libguestfs is configured to use one target per disk, "
 "and 256 targets are available."
@@ -74140,7 +74161,7 @@ msgstr ""
 "用するよう設定されます。256 個のターゲットが利用可能です。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4471
+#: ../src/guestfs.pod:4476
 msgid ""
 "Virtio-blk consumes 1 virtual PCI slot per disk, and PCI is limited to 31 "
 "slots, but some of these are used for other purposes."
@@ -74149,12 +74170,12 @@ msgstr ""
 "されます。これらのいくつかは他の目的のために使用されます。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4474
+#: ../src/guestfs.pod:4479
 msgid "One virtual disk is used by libguestfs internally."
 msgstr "一つの仮想ディスクが libguestfs により内部的に使用されます。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4476
+#: ../src/guestfs.pod:4481
 msgid ""
 "Before libguestfs 1.19.7, disk names had to be a single character (eg. C</"
 "dev/sda> through C</dev/sdz>), and since one disk is reserved, that meant "
@@ -74165,7 +74186,7 @@ msgstr ""
 "は 25 でした。これはそれ以降のバージョンにおいて修正されました。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4481
+#: ../src/guestfs.pod:4486
 msgid ""
 "In libguestfs E<ge> 1.20 it is possible to hot plug disks.  See L</"
 "HOTPLUGGING>."
@@ -74173,17 +74194,17 @@ msgstr ""
 "libguestfs E<ge> 1.20 はディスクの活性挿入をできます。 L</HOTPLUGGING> 参照。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4484
+#: ../src/guestfs.pod:4489
 msgid "MAXIMUM NUMBER OF PARTITIONS PER DISK"
 msgstr "ディスクあたりの最大パーティション数"
 
 #. type: textblock
-#: ../src/guestfs.pod:4486
+#: ../src/guestfs.pod:4491
 msgid "Virtio limits the maximum number of partitions per disk to B<15>."
 msgstr "virtio はディスクあたりの最大パーティション数を B<15> に制限します。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4488
+#: ../src/guestfs.pod:4493
 msgid ""
 "This is because it reserves 4 bits for the minor device number (thus C</dev/"
 "vda>, and C</dev/vda1> through C</dev/vda15>)."
@@ -74192,7 +74213,7 @@ msgstr ""
 "dev/vda>、および C</dev/vda1> から C</dev/vda15> まで）。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4491
+#: ../src/guestfs.pod:4496
 msgid ""
 "If you attach a disk with more than 15 partitions, the extra partitions are "
 "ignored by libguestfs."
@@ -74201,17 +74222,17 @@ msgstr ""
 "は libguestfs により無視されます。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4494
+#: ../src/guestfs.pod:4499
 msgid "MAXIMUM SIZE OF A DISK"
 msgstr "ディスクの最大容量"
 
 #. type: textblock
-#: ../src/guestfs.pod:4496
+#: ../src/guestfs.pod:4501
 msgid "Probably the limit is between 2**63-1 and 2**64-1 bytes."
 msgstr "制限はおそらく 2**63-1 から 2**64-1 バイトの間です。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4498
+#: ../src/guestfs.pod:4503
 msgid ""
 "We have tested block devices up to 1 exabyte (2**60 or "
 "1,152,921,504,606,846,976 bytes) using sparse files backed by an XFS host "
@@ -74219,7 +74240,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4502
+#: ../src/guestfs.pod:4507
 msgid ""
 "Although libguestfs probably does not impose any limit, the underlying host "
 "storage will.  If you store disk images on a host ext4 filesystem, then the "
@@ -74229,19 +74250,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4508
+#: ../src/guestfs.pod:4513
 msgid ""
 "For the hugest disk image files, we recommend using XFS on the host for "
 "storage."
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4511
+#: ../src/guestfs.pod:4516
 msgid "MAXIMUM SIZE OF A PARTITION"
 msgstr "パーティションの最大容量"
 
 #. type: textblock
-#: ../src/guestfs.pod:4513
+#: ../src/guestfs.pod:4518
 msgid ""
 "The MBR (ie. classic MS-DOS) partitioning scheme uses 32 bit sector "
 "numbers.  Assuming a 512 byte sector size, this means that MBR cannot "
@@ -74249,7 +74270,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4517
+#: ../src/guestfs.pod:4522
 msgid ""
 "It is recommended that you use GPT partitions on disks which are larger than "
 "this size.  GPT uses 64 bit sector numbers and so can address partitions "
@@ -74257,12 +74278,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4522
+#: ../src/guestfs.pod:4527
 msgid "MAXIMUM SIZE OF A FILESYSTEM, FILES, DIRECTORIES"
 msgstr "ファイルシステム、ファイル、ディレクトリーの最大容量"
 
 #. type: textblock
-#: ../src/guestfs.pod:4524
+#: ../src/guestfs.pod:4529
 msgid ""
 "This depends on the filesystem type.  libguestfs itself does not impose any "
 "known limit.  Consult Wikipedia or the filesystem documentation to find out "
@@ -74270,12 +74291,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../src/guestfs.pod:4528
+#: ../src/guestfs.pod:4533
 msgid "MAXIMUM UPLOAD AND DOWNLOAD"
 msgstr "最大アップロード数およびダウンロード数"
 
 #. type: textblock
-#: ../src/guestfs.pod:4530
+#: ../src/guestfs.pod:4535
 msgid ""
 "The API functions L</guestfs_upload>, L</guestfs_download>, L</"
 "guestfs_tar_in>, L</guestfs_tar_out> and the like allow unlimited sized "
@@ -74286,12 +74307,12 @@ msgstr ""
 "ありません。"
 
 #. type: =head2
-#: ../src/guestfs.pod:4534
+#: ../src/guestfs.pod:4539
 msgid "INSPECTION LIMITS"
 msgstr "検査の制限"
 
 #. type: textblock
-#: ../src/guestfs.pod:4536
+#: ../src/guestfs.pod:4541
 msgid ""
 "The inspection code has several arbitrary limits on things like the size of "
 "Windows Registry hive it will read, and the length of product name.  These "
@@ -74301,43 +74322,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4563
+#: ../src/guestfs.pod:4568
 msgid ""
 "Choose the default way to create the appliance.  See L</guestfs_set_backend> "
 "and L</BACKEND>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4575
+#: ../src/guestfs.pod:4580
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</guestfs_set_cachedir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4579
+#: ../src/guestfs.pod:4584
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as calling C<guestfs_set_verbose (g, 1)>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4588
+#: ../src/guestfs.pod:4593
 msgid "See also L</QEMU WRAPPERS> above."
 msgstr "上の L</QEMU WRAPPERS> 参照。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4599
+#: ../src/guestfs.pod:4604
 msgid ""
 "Set the path that libguestfs uses to search for a supermin appliance.  See "
 "the discussion of paths in section L</PATH> above."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4614
+#: ../src/guestfs.pod:4619
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>."
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4618
+#: ../src/guestfs.pod:4623
 msgid ""
 "Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This has the same "
 "effect as calling C<guestfs_set_trace (g, 1)>."
@@ -74346,7 +74367,7 @@ msgstr ""
 "C<guestfs_set_trace (g, 1)> の呼び出しと同じ効果があります。"
 
 #. type: textblock
-#: ../src/guestfs.pod:4623
+#: ../src/guestfs.pod:4628
 msgid ""
 "Libguestfs may run some external programs, and relies on C<$PATH> being set "
 "to a reasonable value.  If using the libvirt backend, libvirt will not work "
@@ -74356,7 +74377,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4647
+#: ../src/guestfs.pod:4652
 msgid ""
 "L<guestfs-examples(3)>, L<guestfs-erlang(3)>, L<guestfs-golang(3)>, "
 "L<guestfs-java(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, L<guestfs-"
@@ -74374,7 +74395,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs.pod:4693
+#: ../src/guestfs.pod:4698
 msgid ""
 "Tools with a similar purpose: L<fdisk(8)>, L<parted(8)>, L<kpartx(8)>, "
 "L<lvm(8)>, L<disktype(1)>."
@@ -75599,6 +75620,20 @@ msgstr ""
 "ディスクイメージの形式は自動的に検出されます。強制的に特定の形式を使用するに"
 "は I<--format> オプションを使用します。"
 
+#. type: =item
+#: ../sysprep/virt-sysprep.pod:57
+#, fuzzy
+#| msgid "B<-c> URI"
+msgid "B<-a> URI"
+msgstr "B<-c> URI"
+
+#. type: =item
+#: ../sysprep/virt-sysprep.pod:59
+#, fuzzy
+#| msgid "B<-c> URI"
+msgid "B<--add> URI"
+msgstr "B<-c> URI"
+
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:61
 msgid ""
@@ -76776,7 +76811,7 @@ msgid "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 msgstr "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:31
+#: ../tools/virt-list-filesystems:31
 msgid ""
 "virt-list-filesystems - List filesystems in a virtual machine or disk image"
 msgstr ""
@@ -76784,7 +76819,7 @@ msgstr ""
 "一覧表示"
 
 #. type: verbatim
-#: ../tools/virt-list-filesystems.pl:35
+#: ../tools/virt-list-filesystems:35
 #, no-wrap
 msgid ""
 " virt-list-filesystems [--options] domname\n"
@@ -76794,7 +76829,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-list-filesystems.pl:37
+#: ../tools/virt-list-filesystems:37
 #, no-wrap
 msgid ""
 " virt-list-filesystems [--options] disk.img [disk.img ...]\n"
@@ -76804,67 +76839,94 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../tools/virt-list-filesystems.pl:39 ../tools/virt-list-partitions.pl:39
-#: ../tools/virt-tar.pl:44
+#: ../tools/virt-list-filesystems:39 ../tools/virt-list-partitions:39
+#: ../tools/virt-tar:44
 msgid "OBSOLETE"
 msgstr "非推奨"
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:41 ../tools/virt-list-partitions.pl:41
+#: ../tools/virt-list-filesystems:41 ../tools/virt-list-partitions:41
 msgid ""
 "This tool is obsolete.  Use L<virt-filesystems(1)> as a more flexible "
 "replacement."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:46
+#: ../tools/virt-list-filesystems:46
+#, fuzzy
+#| msgid ""
+#| "virt-list-filesystems - List filesystems in a virtual machine or disk "
+#| "image"
 msgid ""
 "C<virt-list-filesystems> is a command line tool to list the filesystems that "
 "are contained in a virtual machine or disk image."
 msgstr ""
+"virt-list-filesystems - 仮想マシンまたはディスクイメージのファイルシステムの"
+"一覧表示"
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:50
+#: ../tools/virt-list-filesystems:50
+#, fuzzy
+#| msgid ""
+#| "C<virt-list-partitions> is just a simple wrapper around L<libguestfs(3)> "
+#| "functionality.  For more complex cases you should look at the "
+#| "L<guestfish(1)> tool."
 msgid ""
 "C<virt-list-filesystems> is just a simple wrapper around L<libguestfs(3)> "
 "functionality.  For more complex cases you should look at the "
 "L<guestfish(1)> tool."
 msgstr ""
+"C<virt-list-partitions> は L<libguestfs(3)> の機能の簡単なラッパーです。より"
+"複雑な場合に対しては L<guestfish(1)> ツールを参照してください。"
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:113
+#: ../tools/virt-list-filesystems:113
+#, fuzzy
+#| msgid ""
+#| "With this option, C<virt-list-partitions> displays the type and size of "
+#| "each partition too (where \"type\" means C<ext3>, C<pv> etc.)"
 msgid ""
 "With this option, C<virt-list-filesystems> displays the type of each "
 "filesystem too (where \"type\" means C<ext3>, C<xfs> etc.)"
 msgstr ""
+"このオプションを用いると、 C<virt-list-partitions> は各パーティションの形式と"
+"容量も表示します（ここで \"形式\" は C<ext3>, C<pv> などを意味します）。"
 
 #. type: =item
-#: ../tools/virt-list-filesystems.pl:120
+#: ../tools/virt-list-filesystems:120
 msgid "B<-a>"
 msgstr "B<-a>"
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:124
+#: ../tools/virt-list-filesystems:124
 msgid ""
 "Normally we only show mountable filesystems.  If this option is given then "
 "swap devices are shown too."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:192
+#: ../tools/virt-list-filesystems:192
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-df(1)>, L<virt-"
+#| "list-filesystems(1)>, L<virt-list-partitions(1)>, L<csvtool(1)>, L<http://"
+#| "libguestfs.org/>."
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-tar(1)>, L<virt-"
 "filesystems(1)>, L<virt-list-partitions(1)>, L<Sys::Guestfs(3)>, L<Sys::"
 "Virt(3)>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-df(1)>, L<virt-list-"
+"filesystems(1)>, L<virt-list-partitions(1)>, L<csvtool(1)>, L<http://"
+"libguestfs.org/>."
 
 #. type: textblock
-#: ../tools/virt-list-filesystems.pl:208 ../tools/virt-tar.pl:321
+#: ../tools/virt-list-filesystems:208 ../tools/virt-tar:321
 msgid "Copyright (C) 2009 Red Hat Inc."
 msgstr "Copyright (C) 2009 Red Hat Inc."
 
 #. type: textblock
-#: ../tools/virt-list-partitions.pl:31
+#: ../tools/virt-list-partitions:31
 msgid ""
 "virt-list-partitions - List partitions in a virtual machine or disk image"
 msgstr ""
@@ -76872,7 +76934,7 @@ msgstr ""
 "表示"
 
 #. type: verbatim
-#: ../tools/virt-list-partitions.pl:35
+#: ../tools/virt-list-partitions:35
 #, no-wrap
 msgid ""
 " virt-list-partitions [--options] domname\n"
@@ -76882,7 +76944,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-list-partitions.pl:37
+#: ../tools/virt-list-partitions:37
 #, no-wrap
 msgid ""
 " virt-list-partitions [--options] disk.img [disk.img ...]\n"
@@ -76892,7 +76954,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-list-partitions.pl:46
+#: ../tools/virt-list-partitions:46
 msgid ""
 "C<virt-list-partitions> is a command line tool to list the partitions that "
 "are contained in a virtual machine or disk image.  It is mainly useful as a "
@@ -76903,7 +76965,7 @@ msgstr ""
 "resize(1)> を使用するための最初の手順として有用です。"
 
 #. type: textblock
-#: ../tools/virt-list-partitions.pl:51
+#: ../tools/virt-list-partitions:51
 msgid ""
 "C<virt-list-partitions> is just a simple wrapper around L<libguestfs(3)> "
 "functionality.  For more complex cases you should look at the "
@@ -76913,12 +76975,12 @@ msgstr ""
 "複雑な場合に対しては L<guestfish(1)> ツールを参照してください。"
 
 #. type: textblock
-#: ../tools/virt-list-partitions.pl:114
+#: ../tools/virt-list-partitions:114
 msgid "Show sizes in human-readable form (eg. \"1G\")."
 msgstr "容量を読みやすい形式で表示します（例: \"1G\"）。"
 
 #. type: textblock
-#: ../tools/virt-list-partitions.pl:124
+#: ../tools/virt-list-partitions:124
 msgid ""
 "With this option, C<virt-list-partitions> displays the type and size of each "
 "partition too (where \"type\" means C<ext3>, C<pv> etc.)"
@@ -76927,36 +76989,42 @@ msgstr ""
 "容量も表示します（ここで \"形式\" は C<ext3>, C<pv> などを意味します）。"
 
 #. type: =item
-#: ../tools/virt-list-partitions.pl:131
+#: ../tools/virt-list-partitions:131
 msgid "B<-t>"
 msgstr "B<-t>"
 
 #. type: =item
-#: ../tools/virt-list-partitions.pl:133
+#: ../tools/virt-list-partitions:133
 msgid "B<--total>"
 msgstr "B<--total>"
 
 #. type: textblock
-#: ../tools/virt-list-partitions.pl:135
+#: ../tools/virt-list-partitions:135
 msgid ""
 "Display the total size of each block device (as a separate row or rows)."
 msgstr "各ブロックデバイスの合計容量を（別の列として）表示します。"
 
 #. type: textblock
-#: ../tools/virt-list-partitions.pl:274
+#: ../tools/virt-list-partitions:274
+#, fuzzy
+#| msgid ""
+#| "L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<virt-"
+#| "rescue(1)>, L<virt-resize(1)>, L<http://libguestfs.org/>."
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<virt-list-"
 "filesystems(1)>, L<virt-resize(1)>, L<Sys::Guestfs(3)>, L<Sys::Virt(3)>, "
 "L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<virt-rescue(1)>, "
+"L<virt-resize(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:37
+#: ../tools/virt-make-fs:37
 msgid "virt-make-fs - Make a filesystem from a tar archive or files"
 msgstr "virt-make-fs - tar アーカイブまたはファイルからファイルシステムの作成"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:41
+#: ../tools/virt-make-fs:41
 #, no-wrap
 msgid ""
 " virt-make-fs [--options] input.tar output.img\n"
@@ -76966,7 +77034,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:43
+#: ../tools/virt-make-fs:43
 #, no-wrap
 msgid ""
 " virt-make-fs [--options] input.tar.gz output.img\n"
@@ -76976,7 +77044,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:45
+#: ../tools/virt-make-fs:45
 #, no-wrap
 msgid ""
 " virt-make-fs [--options] directory output.img\n"
@@ -76986,7 +77054,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:49
+#: ../tools/virt-make-fs:49
 msgid ""
 "Virt-make-fs is a command line tool for creating a filesystem from a tar "
 "archive or some files in a directory.  It is similar to tools like "
@@ -76997,19 +77065,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:57
+#: ../tools/virt-make-fs:57
 msgid ""
 "To create blank disks, use L<virt-format(1)>.  To create complex layouts, "
 "use L<guestfish(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:60
+#: ../tools/virt-make-fs:60
 msgid "Basic usage is:"
 msgstr "基本的な使用法は次のとおりです:"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:62
+#: ../tools/virt-make-fs:62
 #, no-wrap
 msgid ""
 " virt-make-fs input output.img\n"
@@ -77019,7 +77087,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:64
+#: ../tools/virt-make-fs:64
 msgid ""
 "where C<input> is either a directory containing files that you want to add, "
 "or a tar archive (either uncompressed tar or gzip-compressed tar); and "
@@ -77029,12 +77097,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../tools/virt-make-fs.pl:70
+#: ../tools/virt-make-fs:70
 msgid "FILESYSTEM TYPE"
 msgstr "ファイルシステム形式"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:72
+#: ../tools/virt-make-fs:72
 msgid ""
 "The default filesystem type is C<ext2>.  Just about any filesystem type that "
 "libguestfs supports can be used (but I<not> read-only formats like "
@@ -77042,12 +77110,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:78
+#: ../tools/virt-make-fs:78
 msgid "I<ext3>"
 msgstr "I<ext3>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:80
+#: ../tools/virt-make-fs:80
 msgid ""
 "Note that ext3 filesystems contain a journal, typically 1-32 MB in size.  If "
 "you are not going to use the filesystem in a way that requires the journal, "
@@ -77055,35 +77123,35 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:84
+#: ../tools/virt-make-fs:84
 msgid "I<ntfs> or I<vfat>"
 msgstr "I<ntfs> または I<vfat>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:86
+#: ../tools/virt-make-fs:86
 msgid "Useful if exporting data to a Windows guest."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:88
+#: ../tools/virt-make-fs:88
 msgid "I<minix>"
 msgstr "I<minix>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:90
+#: ../tools/virt-make-fs:90
 msgid ""
 "Lower overhead than C<ext2>, but certain limitations on filename length and "
 "total filesystem size."
 msgstr ""
 
 #. type: =head3
-#: ../tools/virt-make-fs.pl:95 ../tools/virt-make-fs.pl:114
-#: ../tools/virt-make-fs.pl:147
+#: ../tools/virt-make-fs:95 ../tools/virt-make-fs:114
+#: ../tools/virt-make-fs:147
 msgid "EXAMPLE"
 msgstr "例"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:97
+#: ../tools/virt-make-fs:97
 #, no-wrap
 msgid ""
 " virt-make-fs --type=minix input minixfs.img\n"
@@ -77093,17 +77161,23 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../tools/virt-make-fs.pl:99
+#: ../tools/virt-make-fs:99
 msgid "TO PARTITION OR NOT TO PARTITION"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:101
+#: ../tools/virt-make-fs:101
+#, fuzzy
+#| msgid ""
+#| "If specified, this flag adds an MBR partition table to the output disk "
+#| "image."
 msgid "Optionally virt-make-fs can add a partition table to the output disk."
 msgstr ""
+"このフラグが指定されていると、出力ディスクイメージに MBR パーティションテーブ"
+"ルを追加します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:103
+#: ../tools/virt-make-fs:103
 msgid ""
 "Adding a partition can make the disk image more compatible with certain "
 "virtualized operating systems which don't expect to see a filesystem "
@@ -77112,7 +77186,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:108
+#: ../tools/virt-make-fs:108
 msgid ""
 "On the other hand, if you have a partition table then the output image is no "
 "longer a straight filesystem.  For example you cannot run L<fsck(8)> "
@@ -77121,12 +77195,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:116
+#: ../tools/virt-make-fs:116
 msgid "Add an MBR partition:"
 msgstr "MBR パーティションを追加します:"
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:118
+#: ../tools/virt-make-fs:118
 #, no-wrap
 msgid ""
 " virt-make-fs --partition -- input disk.img\n"
@@ -77136,14 +77210,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:120
+#: ../tools/virt-make-fs:120
 msgid ""
 "If the output disk image could be terabyte-sized or larger, it's better to "
 "use an EFI/GPT-compatible partition table:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:123
+#: ../tools/virt-make-fs:123
 #, no-wrap
 msgid ""
 " virt-make-fs --partition=gpt --size=+4T --format=qcow2 input disk.img\n"
@@ -77153,12 +77227,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../tools/virt-make-fs.pl:125
+#: ../tools/virt-make-fs:125
 msgid "EXTRA SPACE"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:127
+#: ../tools/virt-make-fs:127
 msgid ""
 "Unlike formats such as tar and squashfs, a filesystem does not \"just fit\" "
 "the files that it contains, but might have extra space.  Depending on how "
@@ -77170,7 +77244,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:135
+#: ../tools/virt-make-fs:135
 msgid ""
 "An alternative way to leave extra space but not make the output image any "
 "bigger is to use an alternative disk image format (instead of the default "
@@ -77181,7 +77255,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:143
+#: ../tools/virt-make-fs:143
 msgid ""
 "Don't forget that you can also use local commands including L<resize2fs(8)> "
 "and L<virt-resize(1)> to resize existing filesystems, or rerun virt-make-fs "
@@ -77189,7 +77263,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:149
+#: ../tools/virt-make-fs:149
 #, no-wrap
 msgid ""
 " virt-make-fs --format=qcow2 --size=+200M input output.img\n"
@@ -77199,22 +77273,22 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:177
+#: ../tools/virt-make-fs:177
 msgid "Enable debugging information."
 msgstr "デバッグ情報を有効にします。"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:181
+#: ../tools/virt-make-fs:181
 msgid "B<--floppy>"
 msgstr "B<--floppy>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:183
+#: ../tools/virt-make-fs:183
 msgid "Create a virtual floppy disk."
 msgstr "仮想フロッピーディスクを作成します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:185
+#: ../tools/virt-make-fs:185
 msgid ""
 "Currently this preselects the size (1440K), partition type (MBR) and "
 "filesystem type (VFAT).  In future it may also choose the geometry."
@@ -77224,40 +77298,40 @@ msgstr ""
 "なる可能性があります。"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:192
+#: ../tools/virt-make-fs:192
 msgid "B<--size=E<lt>NE<gt>>"
 msgstr "B<--size=E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:194
+#: ../tools/virt-make-fs:194
 msgid "B<--size=+E<lt>NE<gt>>"
 msgstr "B<--size=+E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:196
+#: ../tools/virt-make-fs:196
 msgid "B<-s E<lt>NE<gt>>"
 msgstr "B<-s E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:198
+#: ../tools/virt-make-fs:198
 msgid "B<-s +E<lt>NE<gt>>"
 msgstr "B<-s +E<lt>NE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:200
+#: ../tools/virt-make-fs:200
 msgid ""
 "Use the I<--size> (or I<-s>) option to choose the size of the output image."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:203
+#: ../tools/virt-make-fs:203
 msgid ""
 "If this option is I<not> given, then the output image will be just large "
 "enough to contain all the files, with not much wasted space."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:206
+#: ../tools/virt-make-fs:206
 msgid ""
 "To choose a fixed size output disk, specify an absolute number followed by b/"
 "K/M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, "
@@ -77266,7 +77340,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:211
+#: ../tools/virt-make-fs:211
 msgid ""
 "To leave extra space, specify C<+> (plus sign) and a number followed by b/K/"
 "M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, "
@@ -77275,7 +77349,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:217
+#: ../tools/virt-make-fs:217
 msgid ""
 "Note that virt-make-fs estimates free space, and therefore will not produce "
 "filesystems containing precisely the free space requested.  (It is much more "
@@ -77284,72 +77358,72 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:226
+#: ../tools/virt-make-fs:226
 msgid "B<--format=E<lt>fmtE<gt>>"
 msgstr "B<--format=E<lt>fmtE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:228
+#: ../tools/virt-make-fs:228
 msgid "B<-F E<lt>fmtE<gt>>"
 msgstr "B<-F E<lt>fmtE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:230
+#: ../tools/virt-make-fs:230
 msgid "Choose the output disk image format."
 msgstr "出力するディスクイメージ形式を選択します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:232
+#: ../tools/virt-make-fs:232
 msgid "The default is C<raw> (raw sparse disk image)."
 msgstr "デフォルトは C<raw> です (スパースな raw 形式のディスクイメージ)。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:234
+#: ../tools/virt-make-fs:234
 msgid ""
 "For other choices, see the L<qemu-img(1)> manpage.  The only other choice "
 "that would really make sense here is C<qcow2>."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:241
+#: ../tools/virt-make-fs:241
 msgid "B<--type=E<lt>fsE<gt>>"
 msgstr "B<--type=E<lt>fsE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:243
+#: ../tools/virt-make-fs:243
 msgid "B<-t E<lt>fsE<gt>>"
 msgstr "B<-t E<lt>fsE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:245
+#: ../tools/virt-make-fs:245
 msgid "Choose the output filesystem type."
 msgstr "出力ファイルシステム形式を選択します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:247
+#: ../tools/virt-make-fs:247
 msgid "The default is C<ext2>."
 msgstr "デフォルトは C<ext2> です。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:249
+#: ../tools/virt-make-fs:249
 msgid ""
 "Any filesystem which is supported read-write by libguestfs can be used here."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:256
+#: ../tools/virt-make-fs:256
 #, fuzzy
 #| msgid "B<--size=E<lt>NE<gt>>"
 msgid "B<--label=E<lt>LABELE<gt>>"
 msgstr "B<--size=E<lt>NE<gt>>"
 
 #. type: =item
-#: ../tools/virt-make-fs.pl:266
+#: ../tools/virt-make-fs:266
 msgid "B<--partition=E<lt>parttypeE<gt>>"
 msgstr "B<--partition=E<lt>parttypeE<gt>>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:268
+#: ../tools/virt-make-fs:268
 msgid ""
 "If specified, this flag adds an MBR partition table to the output disk image."
 msgstr ""
@@ -77357,21 +77431,23 @@ msgstr ""
 "ルを追加します。"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:271
+#: ../tools/virt-make-fs:271
+#, fuzzy
+#| msgid "Try other partitioning schemes, eg. I<--partition=gpt>."
 msgid ""
 "You can change the partition table type, eg. I<--partition=gpt> for large "
 "disks."
-msgstr ""
+msgstr "他のパーティションスキーマを試してください。例: I<--partition=gpt>"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:274
+#: ../tools/virt-make-fs:274
 msgid ""
 "Note that if you just use a lonesome I<--partition>, the Perl option parser "
 "might consider the next parameter to be the partition type.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:278
+#: ../tools/virt-make-fs:278
 #, no-wrap
 msgid ""
 " virt-make-fs --partition input.tar output.img\n"
@@ -77381,7 +77457,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:280
+#: ../tools/virt-make-fs:280
 msgid ""
 "would cause virt-make-fs to think you wanted to use a partition type of "
 "C<input.tar> which is completely wrong.  To avoid this, use I<--> (a double "
@@ -77389,7 +77465,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-make-fs.pl:284
+#: ../tools/virt-make-fs:284
 #, no-wrap
 msgid ""
 " virt-make-fs --partition -- input.tar output.img\n"
@@ -77399,12 +77475,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:286
+#: ../tools/virt-make-fs:286
 msgid "For MBR, virt-make-fs sets the partition type byte automatically."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-make-fs.pl:642
+#: ../tools/virt-make-fs:642
 msgid ""
 "L<guestfish(1)>, L<virt-format(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, "
 "L<mkisofs(1)>, L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, "
@@ -77417,12 +77493,12 @@ msgstr ""
 ">."
 
 #. type: textblock
-#: ../tools/virt-tar.pl:32
+#: ../tools/virt-tar:32
 msgid "virt-tar - Extract or upload files to a virtual machine"
 msgstr "virt-tar - 仮想マシンへのファイルの展開またはアップロード"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:36
+#: ../tools/virt-tar:36
 #, no-wrap
 msgid ""
 " virt-tar [--options] -x domname directory tarball\n"
@@ -77432,7 +77508,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:38
+#: ../tools/virt-tar:38
 #, no-wrap
 msgid ""
 " virt-tar [--options] -u domname tarball directory\n"
@@ -77442,7 +77518,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:40
+#: ../tools/virt-tar:40
 #, no-wrap
 msgid ""
 " virt-tar [--options] disk.img [disk.img ...] -x directory tarball\n"
@@ -77452,7 +77528,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:42
+#: ../tools/virt-tar:42
 #, no-wrap
 msgid ""
 " virt-tar [--options] disk.img [disk.img ...] -u tarball directory\n"
@@ -77462,7 +77538,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:46
+#: ../tools/virt-tar:46
 msgid ""
 "This tool is obsolete.  Use L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-"
 "tar-in(1)>, L<virt-tar-out(1)> as replacements."
@@ -77471,12 +77547,12 @@ msgstr ""
 "out(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)> を使用してください。"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:51
+#: ../tools/virt-tar:51
 msgid "Download C</home> from the VM into a local tarball:"
 msgstr "仮想マシンから C</home> をローカルの tar ファイルにダウンロードします:"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:53
+#: ../tools/virt-tar:53
 #, no-wrap
 msgid ""
 " virt-tar -x domname /home home.tar\n"
@@ -77486,7 +77562,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:55
+#: ../tools/virt-tar:55
 #, no-wrap
 msgid ""
 " virt-tar -zx domname /home home.tar.gz\n"
@@ -77496,13 +77572,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:57
+#: ../tools/virt-tar:57
 msgid "Upload a local tarball and unpack it inside C</tmp> in the VM:"
 msgstr ""
 "ローカルの tar ファイルをアップロードして、仮想マシンの C</tmp> に展開します:"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:59
+#: ../tools/virt-tar:59
 #, no-wrap
 msgid ""
 " virt-tar -u domname uploadstuff.tar /tmp\n"
@@ -77512,7 +77588,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-tar.pl:61
+#: ../tools/virt-tar:61
 #, no-wrap
 msgid ""
 " virt-tar -zu domname uploadstuff.tar.gz /tmp\n"
@@ -77522,15 +77598,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:65
+#: ../tools/virt-tar:65
+#, fuzzy
+#| msgid ""
+#| "You must I<not> use C<virt-edit> on live virtual machines.  If you do "
+#| "this, you risk disk corruption in the VM.  C<virt-edit> tries to stop you "
+#| "from doing this, but doesn't catch all cases."
 msgid ""
 "You must I<not> use C<virt-tar> with the I<-u> option (upload) on live "
 "virtual machines.  If you do this, you risk disk corruption in the VM.  "
 "C<virt-tar> tries to stop you from doing this, but doesn't catch all cases."
 msgstr ""
+"動作中の仮想マシンにおいて  C<virt-edit> を使用 I<しない> でください。これを"
+"すると、仮想マシンにおいてディスク破損を引き起こすリスクがあります。 C<virt-"
+"edit> はこれを止めようとしますが、すべての場合を止められるわけではありませ"
+"ん。"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:70
+#: ../tools/virt-tar:70
 msgid ""
 "You can use I<-x> (extract) on live virtual machines, but you might get "
 "inconsistent results or errors if there is filesystem activity inside the "
@@ -77540,7 +77625,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-tar.pl:78
+#: ../tools/virt-tar:78
 msgid ""
 "C<virt-tar> is a general purpose archive tool for downloading and uploading "
 "parts of a guest filesystem.  There are many possibilities: making backups, "
@@ -77549,15 +77634,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-tar.pl:83
+#: ../tools/virt-tar:83
+#, fuzzy
+#| msgid ""
+#| "C<virt-list-partitions> is just a simple wrapper around L<libguestfs(3)> "
+#| "functionality.  For more complex cases you should look at the "
+#| "L<guestfish(1)> tool."
 msgid ""
 "If you want to just view a single file, use L<virt-cat(1)>.  If you just "
 "want to edit a single file, use L<virt-edit(1)>.  For more complex cases you "
 "should look at the L<guestfish(1)> tool."
 msgstr ""
+"C<virt-list-partitions> は L<libguestfs(3)> の機能の簡単なラッパーです。より"
+"複雑な場合に対しては L<guestfish(1)> ツールを参照してください。"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:87
+#: ../tools/virt-tar:87
 msgid ""
 "There are two modes of operation: I<-x> (eXtract) downloads a directory and "
 "its contents (recursively) from the virtual machine into a local tarball.  "
@@ -77566,7 +77658,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-tar.pl:93
+#: ../tools/virt-tar:93
 msgid ""
 "In addition, you may need to use the I<-z> (gZip) option to enable "
 "compression.  When uploading, you have to specify I<-z> if the upload file "
@@ -77574,7 +77666,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-tar.pl:97
+#: ../tools/virt-tar:97
 msgid ""
 "C<virt-tar> can only handle tar (optionally gzipped) format tarballs.  For "
 "example it cannot do PKZip files or bzip2 compression.  If you want that "
@@ -77583,27 +77675,27 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-tar.pl:159
+#: ../tools/virt-tar:159
 msgid "B<--extract>"
 msgstr "B<--extract>"
 
 #. type: =item
-#: ../tools/virt-tar.pl:161
+#: ../tools/virt-tar:161
 msgid "B<--download>"
 msgstr "B<--download>"
 
 #. type: =item
-#: ../tools/virt-tar.pl:163
+#: ../tools/virt-tar:163
 msgid "B<-u>"
 msgstr "B<-u>"
 
 #. type: =item
-#: ../tools/virt-tar.pl:165
+#: ../tools/virt-tar:165
 msgid "B<--upload>"
 msgstr "B<--upload>"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:167
+#: ../tools/virt-tar:167
 msgid ""
 "Use I<-x> to extract (download) a directory from a virtual machine to a "
 "local tarball."
@@ -77612,7 +77704,7 @@ msgstr ""
 "は I<-x> を使用します。"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:170
+#: ../tools/virt-tar:170
 msgid ""
 "Use I<-u> to upload and unpack from a local tarball into a virtual machine.  "
 "Please read the L</WARNING> section above before using this option."
@@ -77622,35 +77714,41 @@ msgstr ""
 "ださい。"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:174
+#: ../tools/virt-tar:174
 msgid "You must specify exactly one of these options."
 msgstr "これらのオプションのいずれかを正確に指定する必要があります。"
 
 #. type: =item
-#: ../tools/virt-tar.pl:180
+#: ../tools/virt-tar:180
 msgid "B<-z>"
 msgstr "B<-z>"
 
 #. type: =item
-#: ../tools/virt-tar.pl:182
+#: ../tools/virt-tar:182
 msgid "B<--gzip>"
 msgstr "B<--gzip>"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:184
+#: ../tools/virt-tar:184
 msgid "Specify that the input or output tarball is gzip-compressed."
 msgstr "入力または出力 tar ファイルを gzip 圧縮するよう指定します。"
 
 #. type: textblock
-#: ../tools/virt-tar.pl:303
+#: ../tools/virt-tar:303
+#, fuzzy
+#| msgid ""
+#| "L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-edit(1)>, "
+#| "L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<http://libguestfs.org/>."
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-edit(1)>, L<virt-copy-"
 "in(1)>, L<virt-copy-out(1)>, L<virt-tar-in(1)>, L<virt-tar-out(1)>, L<Sys::"
 "Guestfs(3)>, L<Sys::Virt(3)>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-edit(1)>, L<virt-"
+"tar-in(1)>, L<virt-tar-out(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:36
+#: ../tools/virt-win-reg:36
 msgid ""
 "virt-win-reg - Export and merge Windows Registry entries from a Windows guest"
 msgstr ""
@@ -77658,7 +77756,7 @@ msgstr ""
 "ポートおよびマージ"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:40
+#: ../tools/virt-win-reg:40
 #, no-wrap
 msgid ""
 " virt-win-reg domname 'HKLM\\Path\\To\\Subkey'\n"
@@ -77668,7 +77766,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:42
+#: ../tools/virt-win-reg:42
 #, no-wrap
 msgid ""
 " virt-win-reg domname 'HKLM\\Path\\To\\Subkey' name\n"
@@ -77678,7 +77776,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:44
+#: ../tools/virt-win-reg:44
 #, no-wrap
 msgid ""
 " virt-win-reg domname 'HKLM\\Path\\To\\Subkey' @\n"
@@ -77688,7 +77786,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:46
+#: ../tools/virt-win-reg:46
 #, no-wrap
 msgid ""
 " virt-win-reg --merge domname [input.reg ...]\n"
@@ -77698,7 +77796,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:48
+#: ../tools/virt-win-reg:48
 #, no-wrap
 msgid ""
 " virt-win-reg [--options] disk.img ... # instead of domname\n"
@@ -77708,16 +77806,25 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:52
+#: ../tools/virt-win-reg:52
+#, fuzzy
+#| msgid ""
+#| "You must I<not> use C<virt-edit> on live virtual machines.  If you do "
+#| "this, you risk disk corruption in the VM.  C<virt-edit> tries to stop you "
+#| "from doing this, but doesn't catch all cases."
 msgid ""
 "You must I<not> use C<virt-win-reg> with the I<--merge> option on live "
 "virtual machines.  If you do this, you I<will> get irreversible disk "
 "corruption in the VM.  C<virt-win-reg> tries to stop you from doing this, "
 "but doesn't catch all cases."
 msgstr ""
+"動作中の仮想マシンにおいて  C<virt-edit> を使用 I<しない> でください。これを"
+"すると、仮想マシンにおいてディスク破損を引き起こすリスクがあります。 C<virt-"
+"edit> はこれを止めようとしますが、すべての場合を止められるわけではありませ"
+"ん。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:57
+#: ../tools/virt-win-reg:57
 msgid ""
 "Modifying the Windows Registry is an inherently risky operation.  The format "
 "is deliberately obscure and undocumented, and Registry changes can leave the "
@@ -77726,7 +77833,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:64
+#: ../tools/virt-win-reg:64
 msgid ""
 "This program can export and merge Windows Registry entries from a Windows "
 "guest."
@@ -77735,7 +77842,7 @@ msgstr ""
 "スポートおよびマージできます。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:67
+#: ../tools/virt-win-reg:67
 msgid ""
 "The first parameter is the libvirt guest name or the raw disk image of a "
 "Windows guest."
@@ -77744,14 +77851,14 @@ msgstr ""
 "クイメージです。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:70
+#: ../tools/virt-win-reg:70
 msgid ""
 "If I<--merge> is I<not> specified, then the chosen registry key is displayed/"
 "exported (recursively).  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:73
+#: ../tools/virt-win-reg:73
 #, no-wrap
 msgid ""
 " $ virt-win-reg Windows7 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft'\n"
@@ -77761,13 +77868,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:75
+#: ../tools/virt-win-reg:75
 msgid ""
 "You can also display single values from within registry keys, for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:78
+#: ../tools/virt-win-reg:78
 #, no-wrap
 msgid ""
 " $ cvkey='HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion'\n"
@@ -77781,7 +77888,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:82
+#: ../tools/virt-win-reg:82
 msgid ""
 "With I<--merge>, you can merge a textual regedit file into the Windows "
 "Registry:"
@@ -77790,7 +77897,7 @@ msgstr ""
 "に結合できます:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:85
+#: ../tools/virt-win-reg:85
 #, no-wrap
 msgid ""
 " $ virt-win-reg --merge Windows7 changes.reg\n"
@@ -77800,12 +77907,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../tools/virt-win-reg.pl:87
+#: ../tools/virt-win-reg:87
 msgid "NOTE"
 msgstr "注記"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:89
+#: ../tools/virt-win-reg:89
 msgid ""
 "This program is only meant for simple access to the registry.  If you want "
 "to do complicated things with the registry, we suggest you download the "
@@ -77815,12 +77922,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:158
+#: ../tools/virt-win-reg:158
 msgid "B<--merge>"
 msgstr "B<--merge>"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:160
+#: ../tools/virt-win-reg:160
 msgid ""
 "In merge mode, this merges a textual regedit file into the Windows Registry "
 "of the virtual machine.  If this flag is I<not> given then virt-win-reg "
@@ -77828,7 +77935,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:164
+#: ../tools/virt-win-reg:164
 msgid ""
 "Note that I<--merge> is I<unsafe> to use on live virtual machines, and will "
 "result in disk corruption.  However exporting (without this flag)  is always "
@@ -77836,12 +77943,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:172
+#: ../tools/virt-win-reg:172
 msgid "B<--encoding> UTF-16LE|ASCII"
 msgstr "B<--encoding> UTF-16LE|ASCII"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:174
+#: ../tools/virt-win-reg:174
 msgid ""
 "When merging (only), you may need to specify the encoding for strings to be "
 "used in the hive file.  This is explained in detail in L<Win::Hivex::"
@@ -77849,19 +77956,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:178
+#: ../tools/virt-win-reg:178
 msgid ""
 "The default is to use UTF-16LE, which should work with recent versions of "
 "Windows."
 msgstr ""
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:185
+#: ../tools/virt-win-reg:185
 msgid "B<--unsafe-printable-strings>"
 msgstr "B<--unsafe-printable-strings>"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:187
+#: ../tools/virt-win-reg:187
 msgid ""
 "When exporting (only), assume strings are UTF-16LE and print them as strings "
 "instead of hex sequences.  Remove the final zero codepoint from strings if "
@@ -77869,21 +77976,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:191
+#: ../tools/virt-win-reg:191
 msgid ""
 "This is unsafe and does not preserve the fidelity of strings in the original "
 "Registry for various reasons:"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:198
+#: ../tools/virt-win-reg:198
 msgid ""
 "Assumes the original encoding is UTF-16LE.  ASCII strings and strings in "
 "other encodings will be corrupted by this transformation."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:203
+#: ../tools/virt-win-reg:203
 msgid ""
 "Assumes that everything which has type 1 or 2 is really a string and that "
 "everything else is not a string, but the type field in real Registries is "
@@ -77891,21 +77998,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:209
+#: ../tools/virt-win-reg:209
 msgid ""
 "Loses information about whether a zero codepoint followed the string in the "
 "Registry or not."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:214
+#: ../tools/virt-win-reg:214
 msgid ""
 "This all happens because the Registry itself contains no information about "
 "how strings are encoded (see L<Win::Hivex::Regedit(3)/ENCODING STRINGS>)."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:218
+#: ../tools/virt-win-reg:218
 msgid ""
 "You should only use this option for quick hacking and debugging of the "
 "Registry contents, and I<never> use it if the output is going to be passed "
@@ -77913,85 +78020,85 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:554
+#: ../tools/virt-win-reg:554
 msgid "SUPPORTED SYSTEMS"
 msgstr "サポートされるシステム"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:556
+#: ../tools/virt-win-reg:556
 msgid ""
 "The program currently supports Windows NT-derived guests starting with "
 "Windows XP through to at least Windows 8."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:559
+#: ../tools/virt-win-reg:559
 msgid "The following Registry keys are supported:"
 msgstr "以下のレジストリキーがサポートされます:"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:563
+#: ../tools/virt-win-reg:563
 msgid "C<HKEY_LOCAL_MACHINE\\SAM>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SAM>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:565
+#: ../tools/virt-win-reg:565
 msgid "C<HKEY_LOCAL_MACHINE\\SECURITY>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SECURITY>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:567
+#: ../tools/virt-win-reg:567
 msgid "C<HKEY_LOCAL_MACHINE\\SOFTWARE>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SOFTWARE>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:569
+#: ../tools/virt-win-reg:569
 msgid "C<HKEY_LOCAL_MACHINE\\SYSTEM>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SYSTEM>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:571
+#: ../tools/virt-win-reg:571
 msgid "C<HKEY_USERS\\.DEFAULT>"
 msgstr "C<HKEY_USERS\\.DEFAULT>"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:573
+#: ../tools/virt-win-reg:573
 msgid "C<HKEY_USERS\\I<SID>>"
 msgstr "C<HKEY_USERS\\I<SID>>"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:575
+#: ../tools/virt-win-reg:575
 msgid "where I<SID> is a Windows User SID (eg. C<S-1-5-18>)."
 msgstr "ここで I<SID> は Windows User SID です (例: C<S-1-5-18>)。"
 
 #. type: =item
-#: ../tools/virt-win-reg.pl:577
+#: ../tools/virt-win-reg:577
 msgid "C<HKEY_USERS\\I<username>>"
 msgstr "C<HKEY_USERS\\I<username>>"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:579
+#: ../tools/virt-win-reg:579
 msgid ""
 "where I<username> is a local user name (this is a libguestfs extension)."
 msgstr ""
 "ここで I<username> はローカルユーザー名です (これは libguestfs の拡張です)。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:583
+#: ../tools/virt-win-reg:583
 msgid ""
 "You can use C<HKLM> as a shorthand for C<HKEY_LOCAL_MACHINE>, and C<HKU> for "
 "C<HKEY_USERS>."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:586
+#: ../tools/virt-win-reg:586
 msgid ""
 "The literal keys C<HKEY_USERS\\$SID> and C<HKEY_CURRENT_USER> are not "
 "supported (there is no \"current user\")."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:591
+#: ../tools/virt-win-reg:591
 msgid ""
 "Windows 8 \"fast startup\" can prevent virt-win-reg from being able to edit "
 "the Registry.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
@@ -77999,12 +78106,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:595
+#: ../tools/virt-win-reg:595
 msgid "ENCODING"
 msgstr "エンコーディング"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:597
+#: ../tools/virt-win-reg:597
 msgid ""
 "C<virt-win-reg> expects that regedit files have already been reencoded in "
 "the local encoding.  Usually on Linux hosts, this means UTF-8 with Unix-"
@@ -78014,14 +78121,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:603
+#: ../tools/virt-win-reg:603
 msgid ""
 "To reencode a file from Windows format to Linux (before processing it with "
 "the I<--merge> option), you would do something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:606
+#: ../tools/virt-win-reg:606
 #, no-wrap
 msgid ""
 " iconv -f utf-16le -t utf-8 < win.reg | dos2unix > linux.reg\n"
@@ -78031,14 +78138,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:608
+#: ../tools/virt-win-reg:608
 msgid ""
 "To go in the opposite direction, after exporting and before sending the file "
 "to a Windows user, do something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:611
+#: ../tools/virt-win-reg:611
 #, no-wrap
 msgid ""
 " unix2dos linux.reg | iconv -f utf-8 -t utf-16le > win.reg\n"
@@ -78048,13 +78155,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:613
+#: ../tools/virt-win-reg:613
 msgid "For more information about encoding, see L<Win::Hivex::Regedit(3)>."
 msgstr ""
 "エンコーディングの詳細は L<Win::Hivex::Regedit(3)> を参照してください。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:615
+#: ../tools/virt-win-reg:615
 msgid ""
 "If you are unsure about the current encoding, use the L<file(1)> command.  "
 "Recent versions of Windows regedit.exe produce a UTF-16LE file with Windows-"
@@ -78062,7 +78169,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:619
+#: ../tools/virt-win-reg:619
 #, no-wrap
 msgid ""
 " $ file software.reg\n"
@@ -78076,17 +78183,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:623
+#: ../tools/virt-win-reg:623
 msgid "This file would need conversion before you could I<--merge> it."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:625
+#: ../tools/virt-win-reg:625
 msgid "CurrentControlSet etc."
 msgstr "CurrentControlSet など。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:627
+#: ../tools/virt-win-reg:627
 msgid ""
 "Registry keys like C<CurrentControlSet> don't really exist in the Windows "
 "Registry at the level of the hive file, and therefore you cannot modify "
@@ -78094,7 +78201,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:631
+#: ../tools/virt-win-reg:631
 msgid ""
 "C<CurrentControlSet> is usually an alias for C<ControlSet001>.  In some "
 "circumstances it might refer to another control set.  The way to find out is "
@@ -78102,7 +78209,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:635
+#: ../tools/virt-win-reg:635
 #, no-wrap
 msgid ""
 " # virt-win-reg WindowsGuest 'HKLM\\SYSTEM\\Select'\n"
@@ -78122,28 +78229,28 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:642
+#: ../tools/virt-win-reg:642
 msgid "\"Current\" is the one which Windows will choose when it boots."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:644
+#: ../tools/virt-win-reg:644
 msgid ""
 "Similarly, other C<Current...> keys in the path may need to be replaced."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:647
+#: ../tools/virt-win-reg:647
 msgid "DELETING REGISTRY KEYS AND VALUES"
 msgstr "レジストリーキーおよび値の削除方法"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:649
+#: ../tools/virt-win-reg:649
 msgid "To delete a whole registry key, use the syntax:"
 msgstr "レジストリキー全体を削除するには、この構文を使用します:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:651
+#: ../tools/virt-win-reg:651
 #, no-wrap
 msgid ""
 " [-HKEY_LOCAL_MACHINE\\Foo]\n"
@@ -78153,12 +78260,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:653
+#: ../tools/virt-win-reg:653
 msgid "To delete a single value within a key, use the syntax:"
 msgstr "キーにある単一の値を削除するには、この構文を使用します:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:655
+#: ../tools/virt-win-reg:655
 #, no-wrap
 msgid ""
 " [HKEY_LOCAL_MACHINE\\Foo]\n"
@@ -78170,24 +78277,24 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../tools/virt-win-reg.pl:658
+#: ../tools/virt-win-reg:658
 msgid "WINDOWS TIPS"
 msgstr "Windows のヒント"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:660
+#: ../tools/virt-win-reg:660
 msgid ""
 "Note that some of these tips modify the guest disk image.  The guest I<must> "
 "be shut off, else you will get disk corruption."
 msgstr ""
 
 #. type: =head2
-#: ../tools/virt-win-reg.pl:663
+#: ../tools/virt-win-reg:663
 msgid "RUNNING A BATCH SCRIPT WHEN A USER LOGS IN"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:665
+#: ../tools/virt-win-reg:665
 msgid ""
 "Prepare a DOS batch script, VBScript or executable.  Upload this using "
 "L<guestfish(1)>.  For this example the script is called C<test.bat> and it "
@@ -78195,7 +78302,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:669
+#: ../tools/virt-win-reg:669
 #, no-wrap
 msgid ""
 " guestfish -i -d WindowsGuest upload test.bat /test.bat\n"
@@ -78205,12 +78312,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:671
+#: ../tools/virt-win-reg:671
 msgid "Prepare a regedit file containing the registry change:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:673
+#: ../tools/virt-win-reg:673
 #, no-wrap
 msgid ""
 " cat > test.reg <<'EOF'\n"
@@ -78226,7 +78333,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:678
+#: ../tools/virt-win-reg:678
 msgid ""
 "In this example we use the key C<RunOnce> which means that the script will "
 "run precisely once when the first user logs in.  If you want it to run every "
@@ -78234,12 +78341,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:682
+#: ../tools/virt-win-reg:682
+#, fuzzy
+#| msgid "Update the registry:"
 msgid "Now update the registry:"
-msgstr ""
+msgstr "レジストリを更新します:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:684
+#: ../tools/virt-win-reg:684
 #, no-wrap
 msgid ""
 " virt-win-reg --merge WindowsGuest test.reg\n"
@@ -78249,12 +78358,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../tools/virt-win-reg.pl:686
+#: ../tools/virt-win-reg:686
 msgid "INSTALLING A SERVICE"
 msgstr "サービスのインストール方法"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:688
+#: ../tools/virt-win-reg:688
 msgid ""
 "This section assumes you are familiar with Windows services, and you either "
 "have a program which handles the Windows Service Control Protocol directly "
@@ -78263,14 +78372,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:693
+#: ../tools/virt-win-reg:693
 msgid ""
 "First upload the program and optionally the service wrapper.  In this case "
 "the test program is called C<test.exe> and we are using the RHSrvAny wrapper:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:697
+#: ../tools/virt-win-reg:697
 #, no-wrap
 msgid ""
 " guestfish -i -d WindowsGuest <<EOF\n"
@@ -78286,7 +78395,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:702
+#: ../tools/virt-win-reg:702
 msgid ""
 "Prepare a regedit file containing the registry changes.  In this example, "
 "the first registry change is needed for the service itself or the service "
@@ -78295,7 +78404,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:707
+#: ../tools/virt-win-reg:707
 #, no-wrap
 msgid ""
 " cat > service.reg <<'EOF'\n"
@@ -78319,7 +78428,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:716
+#: ../tools/virt-win-reg:716
 #, no-wrap
 msgid ""
 " [HKLM\\SYSTEM\\ControlSet001\\services\\RHSrvAny\\Parameters]\n"
@@ -78335,7 +78444,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:727
+#: ../tools/virt-win-reg:727
 msgid ""
 "For use of C<ControlSet001> see the section above in this manual page.  You "
 "may need to adjust this according to the control set that is in use by the "
@@ -78343,7 +78452,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:733
+#: ../tools/virt-win-reg:733
 msgid ""
 "C<\"ObjectName\"> controls the privileges that the service will have.  An "
 "alternative is C<\"ObjectName\"=\"LocalSystem\"> which would be the most "
@@ -78351,7 +78460,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:739
+#: ../tools/virt-win-reg:739
 msgid ""
 "For the meaning of the magic numbers, see this Microsoft KB article: "
 "L<http://support.microsoft.com/kb/103000>."
@@ -78360,12 +78469,12 @@ msgstr ""
 "support.microsoft.com/kb/103000>."
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:744
+#: ../tools/virt-win-reg:744
 msgid "Update the registry:"
 msgstr "レジストリを更新します:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg.pl:746
+#: ../tools/virt-win-reg:746
 #, no-wrap
 msgid ""
 " virt-win-reg --merge WindowsGuest service.reg\n"
@@ -78375,7 +78484,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:750
+#: ../tools/virt-win-reg:750
 msgid ""
 "Be careful when passing parameters containing C<\\> (backslash) in the "
 "shell.  Usually you will have to use 'single quotes' or double backslashes "
@@ -78386,20 +78495,30 @@ msgstr ""
 "スラッシュ (しかし、両方ではない) を使用する必要があります。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:754
+#: ../tools/virt-win-reg:754
 msgid "Paths and value names are case-insensitive."
 msgstr "パスおよび値の名前は大文字小文字を区別します。"
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:763
+#: ../tools/virt-win-reg:763
+#, fuzzy
+#| msgid ""
+#| "L<guestfish(1)>, L<virt-format(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, "
+#| "L<mkisofs(1)>, L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, "
+#| "L<resize2fs(8)>, L<guestfs(3)>, L<Sys::Guestfs(3)>, L<http://libguestfs."
+#| "org/>."
 msgid ""
 "L<hivex(3)>, L<hivexsh(1)>, L<hivexregedit(1)>, L<guestfs(3)>, "
 "L<guestfish(1)>, L<virt-cat(1)>, L<Sys::Guestfs(3)>, L<Win::Hivex(3)>, "
 "L<Win::Hivex::Regedit(3)>, L<Sys::Virt(3)>, L<http://libguestfs.org/>."
 msgstr ""
+"L<guestfish(1)>, L<virt-format(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, "
+"L<mkisofs(1)>, L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, "
+"L<resize2fs(8)>, L<guestfs(3)>, L<Sys::Guestfs(3)>, L<http://libguestfs.org/"
+">."
 
 #. type: textblock
-#: ../tools/virt-win-reg.pl:781
+#: ../tools/virt-win-reg:781
 msgid "Copyright (C) 2010 Red Hat Inc."
 msgstr "Copyright (C) 2010 Red Hat Inc."
 

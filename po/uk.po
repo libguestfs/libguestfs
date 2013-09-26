@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-09-11 02:08+0100\n"
+"POT-Creation-Date: 2013-09-26 21:32+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4136,7 +4136,7 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
 
-#: src/appliance.c:247
+#: src/appliance.c:242
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -4146,17 +4146,17 @@ msgstr ""
 "або розгортання у застарілому стилі за адресою LIBGUESTFS_PATH (каталог "
 "пошуку: %s)"
 
-#: src/appliance.c:359
+#: src/appliance.c:354
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "безпека: кешований пристрій %s не належить UID %d"
 
-#: src/appliance.c:364
+#: src/appliance.c:359
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "безпека: кешований пристрій %s не є каталогом (режим %o)"
 
-#: src/appliance.c:369
+#: src/appliance.c:364
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -4698,7 +4698,7 @@ msgstr "не вдалося обробити рядок у лапках побл
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:713 src/launch-libvirt.c:462
+#: src/launch-direct.c:700 src/launch-libvirt.c:462
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -4776,11 +4776,11 @@ msgstr ""
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "помилка під час спроби побудувати XML для libvirt у «%s»"
 
-#: src/launch-libvirt.c:1103
+#: src/launch-libvirt.c:1099
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1214
+#: src/launch-libvirt.c:1210
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -4788,7 +4788,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1252
+#: src/launch-libvirt.c:1248
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4800,7 +4800,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1263
+#: src/launch-libvirt.c:1259
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -4813,25 +4813,25 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1637
+#: src/launch-libvirt.c:1614
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1717
+#: src/launch-libvirt.c:1694
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1754
+#: src/launch-libvirt.c:1731
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1816
+#: src/launch-libvirt.c:1793
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1847
+#: src/launch-libvirt.c:1824
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -5285,76 +5285,75 @@ msgstr "Виконуваного файла «%s» не існує або вка
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
 
-#: tools/virt-list-filesystems.pl:149
+#: tools/virt-list-filesystems:149
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-list-partitions.pl:161
+#: tools/virt-list-partitions:161
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-make-fs.pl:314
+#: tools/virt-make-fs:314
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs вхідні_дані вихідні_дані\n"
 
-#: tools/virt-make-fs.pl:344
+#: tools/virt-make-fs:344
 msgid "unexpected output from 'du' command"
 msgstr "несподівані вихідні дані від команди «du»"
 
-#: tools/virt-make-fs.pl:356 tools/virt-make-fs.pl:370
-#: tools/virt-make-fs.pl:560
+#: tools/virt-make-fs:356 tools/virt-make-fs:370 tools/virt-make-fs:560
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: невідомий формат вхідних даних: {fmt}\n"
 
-#: tools/virt-make-fs.pl:421
+#: tools/virt-make-fs:421
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: не вдалося обробити параметр розміру: {sz}\n"
 
-#: tools/virt-make-fs.pl:442
+#: tools/virt-make-fs:442
 msgid "cannot dup STDOUT"
 msgstr "не вдалося здублювати STDOUT"
 
-#: tools/virt-make-fs.pl:443
+#: tools/virt-make-fs:443
 msgid "cannot dup STDERR"
 msgstr "не вдалося здублювати STDERR"
 
-#: tools/virt-make-fs.pl:446
+#: tools/virt-make-fs:446
 msgid "cannot redirect STDOUT"
 msgstr "не вдалося переспрямувати STDOUT"
 
-#: tools/virt-make-fs.pl:447
+#: tools/virt-make-fs:447
 msgid "cannot redirect STDERR"
 msgstr "не вдалося переспрямувати STDERR"
 
-#: tools/virt-make-fs.pl:449
+#: tools/virt-make-fs:449
 msgid "cannot restore STDOUT"
 msgstr "не вдалося відновити STDOUT"
 
-#: tools/virt-make-fs.pl:450
+#: tools/virt-make-fs:450
 msgid "cannot restore STDERR"
 msgstr "не вдалося відновити STDERR"
 
-#: tools/virt-make-fs.pl:453
+#: tools/virt-make-fs:453
 msgid "qemu-img create: failed to create disk image:\n"
 msgstr "qemu-img create: не вдалося створити образ диска:\n"
 
-#: tools/virt-make-fs.pl:469
+#: tools/virt-make-fs:469
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: підтримку NTFS було вимкнено під час збирання libguestfs\n"
 
-#: tools/virt-make-fs.pl:544
+#: tools/virt-make-fs:544
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: помилка, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:566
+#: tools/virt-make-fs:566
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
 "помилка команди розпакування, ознайомтеся з попередніми повідомленнями\n"
 
-#: tools/virt-make-fs.pl:600
+#: tools/virt-make-fs:600
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -5366,32 +5365,32 @@ msgstr ""
 "розмір файлової системи. Будь ласка, ознайомтеся з розділом BUGS сторінки "
 "man.\n"
 
-#: tools/virt-tar.pl:192 tools/virt-tar.pl:199
+#: tools/virt-tar:192 tools/virt-tar:199
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 "virt-tar: у командному рядку двічі вказано режим видобування або "
 "вивантаження\n"
 
-#: tools/virt-tar.pl:221
+#: tools/virt-tar:221
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 "virt-tar: не вказано образу, назв віртуальних машин, каталогу або назви файла"
 
-#: tools/virt-tar.pl:224
+#: tools/virt-tar:224
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: у командному рядку має бути вказано -x або -u\n"
 
-#: tools/virt-tar.pl:235
+#: tools/virt-tar:235
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: файла не знайдено\n"
 
-#: tools/virt-tar.pl:238
+#: tools/virt-tar:238
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: запис каталогу має починатися з символу «/»\n"
 
-#: tools/virt-tar.pl:260 tools/virt-win-reg.pl:269
+#: tools/virt-tar:260 tools/virt-win-reg:269
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -5413,18 +5412,18 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: tools/virt-tar.pl:264 tools/virt-win-reg.pl:273
+#: tools/virt-tar:264 tools/virt-win-reg:273
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 "{prog}: підтримки операційних систем з варіантами завантаження не "
 "передбачено.\n"
 
-#: tools/virt-win-reg.pl:244
+#: tools/virt-win-reg:244
 msgid "no libvirt domain name or disk image given\n"
 msgstr "не вказано назви домену або образу диска libvirt\n"
 
-#: tools/virt-win-reg.pl:295
+#: tools/virt-win-reg:295
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -5432,22 +5431,22 @@ msgstr ""
 "мало бути вказано 1 або 2 додаткових параметри, шлях до підключа і "
 "необов’язкове значення для експортування\n"
 
-#: tools/virt-win-reg.pl:454
+#: tools/virt-win-reg:454
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr "virt-win-reg: {p}: не вдалося знайти каталог користувача\n"
 
-#: tools/virt-win-reg.pl:459
+#: tools/virt-win-reg:459
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: непідтримуваний запис шляху у регістрі Windows\n"
 
-#: tools/virt-win-reg.pl:532
+#: tools/virt-win-reg:532
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося отримати файл регістра: {err}\n"
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg:549
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
@@ -5464,20 +5463,20 @@ msgid ""
 "then not as much free space would be required.\n"
 "\n"
 "You can ignore this warning or change it to a hard failure using the\n"
-"--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sysprep(1).\n"
+"--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sparsify(1).\n"
 "\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:818
+#: ../resize/resize.ml:828
 msgid "  An extra partition will be created for the surplus."
 msgstr "  На решті простору сховища буде створено додатковий розділ."
 
-#: ../resize/resize.ml:803 ../resize/resize.ml:784
+#: ../resize/resize.ml:813 ../resize/resize.ml:794
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "   %s на %s буде розширено за допомогою методу «%s»."
 
-#: ../resize/resize.ml:820
+#: ../resize/resize.ml:830
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -5485,7 +5484,7 @@ msgstr ""
 "  Залишок місця недостатньо великий для створення нового розділу, отже його "
 "буде просто проігноровано."
 
-#: ../resize/resize.ml:822
+#: ../resize/resize.ml:832
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -5509,7 +5508,7 @@ msgstr "%s: параметр --enable можна вказувати лише о�
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
-#: ../resize/resize.ml:609
+#: ../resize/resize.ml:619
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -5524,11 +5523,11 @@ msgstr ""
 "(Це повідомлення про помилку є наслідком використання параметра «%s» у рядку "
 "команди.)"
 
-#: ../resize/resize.ml:800
+#: ../resize/resize.ml:810
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: цей логічний том буде розширено до максимального розміру."
 
-#: ../resize/resize.ml:605
+#: ../resize/resize.ml:615
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -5537,7 +5536,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:601
+#: ../resize/resize.ml:611
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -5546,7 +5545,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:598
+#: ../resize/resize.ml:608
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -5559,7 +5558,7 @@ msgstr ""
 "бути знищення всіх даних на розділі. (Це повідомлення про помилку є "
 "наслідком використання параметра «%s» у рядку команди.)"
 
-#: ../resize/resize.ml:777
+#: ../resize/resize.ml:787
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -5567,15 +5566,15 @@ msgstr ""
 "%s: цей розділ буде створено, але дані буде проігноровано (тобто дані не "
 "буде скопійовано на отриманий у результаті розділ)."
 
-#: ../resize/resize.ml:779
+#: ../resize/resize.ml:789
 msgid "%s: This partition will be deleted."
 msgstr "%s: цей розділ буде вилучено."
 
-#: ../resize/resize.ml:775
+#: ../resize/resize.ml:785
 msgid "%s: This partition will be left alone."
 msgstr "%s: цей розділ не буде змінено."
 
-#: ../resize/resize.ml:781
+#: ../resize/resize.ml:791
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: розмір цього розділу буде змінено з %s на %s."
 
@@ -5583,11 +5582,11 @@ msgstr "%s: розмір цього розділу буде змінено з %s
 msgid "%s: empty --expand option"
 msgstr "%s: порожній аргумент параметра --expand"
 
-#: ../resize/resize.ml:273 ../resize/resize.ml:270
+#: ../resize/resize.ml:283 ../resize/resize.ml:280
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
 
-#: ../resize/resize.ml:757
+#: ../resize/resize.ml:767
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -5598,11 +5597,11 @@ msgstr ""
 "Спробуйте віддати таку команду: virt-filesystems --logical-volumes --long -a "
 "%s"
 
-#: ../resize/resize.ml:627
+#: ../resize/resize.ml:637
 msgid "%s: missing size field in '%s' option"
 msgstr "%s: не вказано аргумент розміру у параметрі «%s»"
 
-#: ../resize/resize.ml:636
+#: ../resize/resize.ml:646
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
@@ -5610,19 +5609,19 @@ msgstr "%s: розмір нового розділу є нульовим або 
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
 
-#: ../resize/resize.ml:547
+#: ../resize/resize.ml:557
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ вже вилучено, ви не можете використовувати його у аргументах "
 "параметра «%s»"
 
-#: ../resize/resize.ml:543
+#: ../resize/resize.ml:553
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ вже пропущено, ви не можете використовувати його у аргументах "
 "параметра «%s»"
 
-#: ../resize/resize.ml:539
+#: ../resize/resize.ml:549
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
@@ -5632,15 +5631,15 @@ msgstr ""
 "повідомлення є використання параметра «%s» у командному рядку). Спробуйте "
 "віддати таку команду: virt-filesystems --partitions --long -a %s"
 
-#: ../resize/resize.ml:426
+#: ../resize/resize.ml:436
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr "%s: розмір розділу, %Ld < розміру файлової системи, %Ld"
 
-#: ../resize/resize.ml:421
+#: ../resize/resize.ml:431
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr "%s: розмір розділу, %Ld < розмір фізичного тому, %Ld"
 
-#: ../resize/resize.ml:351
+#: ../resize/resize.ml:361
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: фізичний тому не повернуто pvs_full"
 
@@ -5693,19 +5692,19 @@ msgstr ""
 "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
 "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize()\n"
 
-#: ../resize/resize.ml:583
+#: ../resize/resize.ml:593
 msgid "%s: this partition has already been ignored or deleted"
 msgstr "%s: цей розділ вже проігноровано або вилучено"
 
-#: ../resize/resize.ml:579
+#: ../resize/resize.ml:589
 msgid "%s: this partition has already been marked for resizing"
 msgstr "%s: цей розділ вже було позначено для зміни розміру"
 
-#: ../resize/resize.ml:436
+#: ../resize/resize.ml:446
 msgid "%s: this partition overlaps the previous one"
 msgstr "%s: цей розділ перекривається з попереднім"
 
-#: ../resize/resize.ml:287
+#: ../resize/resize.ml:297
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -5817,7 +5816,7 @@ msgstr ""
 "Скопіювати призначення і виконати розрідження…\n"
 "%!"
 
-#: ../resize/resize.ml:1067
+#: ../resize/resize.ml:1077
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -5938,7 +5937,7 @@ msgstr ""
 "Вивчення початкового диска…\n"
 "%!"
 
-#: ../resize/resize.ml:232
+#: ../resize/resize.ml:242
 msgid ""
 "Examining %s ...\n"
 "%!"
@@ -5962,7 +5961,7 @@ msgstr "Розширити логічний том"
 msgid "Expand partition"
 msgstr "Розширити розділ"
 
-#: ../resize/resize.ml:1214
+#: ../resize/resize.ml:1224
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
@@ -5970,7 +5969,7 @@ msgstr ""
 "Розширення %s за допомогою методу «%s»…\n"
 "%!"
 
-#: ../resize/resize.ml:1197
+#: ../resize/resize.ml:1207
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -5978,7 +5977,7 @@ msgstr ""
 "Розширення %s%s за допомогою методу «%s»…\n"
 "%!"
 
-#: ../resize/resize.ml:877
+#: ../resize/resize.ml:887
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -6007,7 +6006,7 @@ msgstr ""
 "Заповнити вільне місце у групі томів %s нулями…\n"
 "%!"
 
-#: ../resize/resize.ml:1123
+#: ../resize/resize.ml:1133
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -6058,7 +6057,7 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr "Створити породжувач випадкових чисел для гостьової системи"
 
-#: ../resize/common_utils.ml:155
+#: ../mllib/common_utils.ml:155
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
@@ -6347,7 +6346,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Вилучити завдання at та cron користувачів"
 
-#: ../resize/resize.ml:1234
+#: ../resize/resize.ml:1244
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -6502,7 +6501,7 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../resize/resize.ml:856
+#: ../resize/resize.ml:866
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -6663,7 +6662,7 @@ msgstr ""
 "Дані обліку процесів системи будуть зберігатися у файлах журналу\n"
 "pacct, якщо увімкнено облік процесів."
 
-#: ../resize/resize.ml:741
+#: ../resize/resize.ml:751
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -6671,7 +6670,7 @@ msgstr ""
 "Не вистачає %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
 "принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
 
-#: ../resize/resize.ml:815
+#: ../resize/resize.ml:825
 msgid "There is a surplus of %s."
 msgstr "Маємо надлишок у %s."
 
@@ -6726,7 +6725,7 @@ msgstr ""
 "\n"
 "Див. L</RANDOM SEED> нижче."
 
-#: ../resize/resize.ml:712
+#: ../resize/resize.ml:722
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -6734,7 +6733,7 @@ msgstr ""
 "Не можна використовувати --expand, якщо немає залишку місця для розширення. "
 "Вам слід зробити диск призначення більшим, принаймні на %s."
 
-#: ../resize/resize.ml:724
+#: ../resize/resize.ml:734
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -6766,7 +6765,7 @@ msgstr ""
 msgid "alignment cannot be < 1"
 msgstr "значенням вирівнювання не може бути число < 1"
 
-#: ../resize/resize.ml:492
+#: ../resize/resize.ml:502
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
@@ -6788,15 +6787,19 @@ msgstr "домен"
 msgid "empty --shrink option"
 msgstr "порожній параметр --shrink"
 
-#: ../resize/common_utils.ml:279
+#: ../resize/resize.ml:205
+msgid "error parsing URI '%s'. Look for error messages printed above."
+msgstr ""
+
+#: ../mllib/common_utils.ml:279
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../resize/common_utils.ml:281
+#: ../mllib/common_utils.ml:281
 msgid "external command '%s' killed by signal %d"
 msgstr "роботу зовнішньої програми «%s» перервано з сигналом %d"
 
-#: ../resize/common_utils.ml:283
+#: ../mllib/common_utils.ml:283
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
@@ -6852,7 +6855,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../resize/resize.ml:491
+#: ../resize/resize.ml:501
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
@@ -6885,11 +6888,11 @@ msgstr "частина"
 msgid "part=size"
 msgstr "частина=розмір"
 
-#: ../resize/resize.ml:914 ../resize/resize.ml:890
+#: ../resize/resize.ml:924 ../resize/resize.ml:900
 msgid "pread-device: short read"
 msgstr "pread-device: коротке читання"
 
-#: ../resize/resize.ml:489
+#: ../resize/resize.ml:499
 msgid "pvresize"
 msgstr "pvresize"
 
@@ -6899,7 +6902,7 @@ msgstr ""
 "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
 "(свопінгу)"
 
-#: ../resize/resize.ml:490
+#: ../resize/resize.ml:500
 msgid "resize2fs"
 msgstr "resize2fs"
 
@@ -6962,7 +6965,7 @@ msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: некоректний аргумент: %s\n"
 
-#: ../resize/resize.ml:376
+#: ../resize/resize.ml:386
 msgid "the source disk has no partitions"
 msgstr "на початковому диску немає розділів"
 
@@ -6974,7 +6977,7 @@ msgstr "невідомий параметр --align-first: слід вказат
 msgid "uri"
 msgstr "адреса"
 
-#: ../resize/resize.ml:192
+#: ../resize/resize.ml:193
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr "спосіб використання: %s [--параметри] початковий_диск диск_результату"
 
@@ -6982,7 +6985,7 @@ msgstr "спосіб використання: %s [--параметри] поч�
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr "virt-resize %Ld.%Ld.%Ld%s\n"
 
-#: ../resize/common_utils.ml:151
+#: ../mllib/common_utils.ml:151
 msgid "virt-resize: error: "
 msgstr "virt-resize: помилка: "
 
@@ -7080,7 +7083,7 @@ msgstr "virt-sysprep: скрипт: перервано сигналом (%d)\n"
 msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:1120
+#: ../resize/resize.ml:1130
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
@@ -7090,11 +7093,11 @@ msgstr ""
 "завантажувача NTFS\n"
 "%!"
 
-#: ../resize/resize.ml:700
+#: ../resize/resize.ml:710
 msgid "you cannot use options --expand and --shrink together"
 msgstr "не можна одночасно використовувати параметри --expand і --shrink"
 
-#: ../sparsify/sparsify.ml:150 ../resize/resize.ml:198
+#: ../sparsify/sparsify.ml:150 ../resize/resize.ml:199
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "

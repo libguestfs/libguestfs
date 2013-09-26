@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-09-11 02:08+0100\n"
+"POT-Creation-Date: 2013-09-26 21:32+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -3921,7 +3921,7 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr "# %s heeft type '%s'\n"
 
-#: src/appliance.c:247
+#: src/appliance.c:242
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -3930,17 +3930,17 @@ msgstr ""
 "kan geen geschikte libguestfs supermin vinden, fixed of oude-stijl "
 "toepassing op LIBGUESTFS_PATH (zoek pad: %s)"
 
-#: src/appliance.c:359
+#: src/appliance.c:354
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "beveiliging: UID %2$d is geen eigenaar van toepassing %1$s in cache"
 
-#: src/appliance.c:364
+#: src/appliance.c:359
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "beveiliging: toepassing %s in cache is geen map (mode %o)"
 
-#: src/appliance.c:369
+#: src/appliance.c:364
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -4435,7 +4435,7 @@ msgstr "kan string in aanhalingstekens in de buurt van: %s niet ontleden"
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-direct.c:713 src/launch-libvirt.c:462
+#: src/launch-direct.c:700 src/launch-libvirt.c:462
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
@@ -4496,49 +4496,49 @@ msgstr ""
 msgid "error constructing libvirt XML at \"%s\""
 msgstr "fout bij het construeren van libvirt XML op \"%s\""
 
-#: src/launch-libvirt.c:1103
+#: src/launch-libvirt.c:1099
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1214
+#: src/launch-libvirt.c:1210
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1252
+#: src/launch-libvirt.c:1248
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1263
+#: src/launch-libvirt.c:1259
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1637
+#: src/launch-libvirt.c:1614
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: kon '%s' niet converteren naar een absoluut pad"
 
-#: src/launch-libvirt.c:1717
+#: src/launch-libvirt.c:1694
 msgid "could not destroy libvirt domain"
 msgstr "kon libvirt domein niet vernietigen"
 
-#: src/launch-libvirt.c:1754
+#: src/launch-libvirt.c:1731
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: interne fout bij formuleren van foutboodschap"
 
-#: src/launch-libvirt.c:1816
+#: src/launch-libvirt.c:1793
 msgid "could not attach disk to libvirt domain"
 msgstr "kon schijf niet koppelen aan libvirt domein"
 
-#: src/launch-libvirt.c:1847
+#: src/launch-libvirt.c:1824
 msgid "could not detach disk from libvirt domain"
 msgstr "kon schijf niet loskoppelen van libvirt domein"
 
@@ -4968,76 +4968,75 @@ msgstr "Binair programma '%s' bestaat niet of is niet uitvoerbaar\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ziet er niet uit als een qemu bron map\n"
 
-#: tools/virt-list-filesystems.pl:149
+#: tools/virt-list-filesystems:149
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
 
-#: tools/virt-list-partitions.pl:161
+#: tools/virt-list-partitions:161
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: geen image of VM naam opgegeven"
 
-#: tools/virt-make-fs.pl:314
+#: tools/virt-make-fs:314
 msgid "virt-make-fs input output\n"
 msgstr "virt-make-fs input output\n"
 
-#: tools/virt-make-fs.pl:344
+#: tools/virt-make-fs:344
 msgid "unexpected output from 'du' command"
 msgstr "onverwachte output  van 'du' commando"
 
-#: tools/virt-make-fs.pl:356 tools/virt-make-fs.pl:370
-#: tools/virt-make-fs.pl:560
+#: tools/virt-make-fs:356 tools/virt-make-fs:370 tools/virt-make-fs:560
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
 msgstr "{f}: onbekend invoer formaat: {fmt}\n"
 
-#: tools/virt-make-fs.pl:421
+#: tools/virt-make-fs:421
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
 msgstr "virt-make-fs: kan size parameter niet ontleden: {sz}\n"
 
-#: tools/virt-make-fs.pl:442
+#: tools/virt-make-fs:442
 msgid "cannot dup STDOUT"
 msgstr "kan STDOUT niet dupliceren"
 
-#: tools/virt-make-fs.pl:443
+#: tools/virt-make-fs:443
 msgid "cannot dup STDERR"
 msgstr "kan STDERR niet dupliceren"
 
-#: tools/virt-make-fs.pl:446
+#: tools/virt-make-fs:446
 msgid "cannot redirect STDOUT"
 msgstr "kan STDOUT niet omleiden"
 
-#: tools/virt-make-fs.pl:447
+#: tools/virt-make-fs:447
 msgid "cannot redirect STDERR"
 msgstr "kan STDERR niet omleiden"
 
-#: tools/virt-make-fs.pl:449
+#: tools/virt-make-fs:449
 msgid "cannot restore STDOUT"
 msgstr "kan STDOUT niet herstellen"
 
-#: tools/virt-make-fs.pl:450
+#: tools/virt-make-fs:450
 msgid "cannot restore STDERR"
 msgstr "kan STDERR niet herstellen"
 
-#: tools/virt-make-fs.pl:453
+#: tools/virt-make-fs:453
 msgid "qemu-img create: failed to create disk image:\n"
 msgstr "qemu-img create: schijfimage aanmaken mislukte:\n"
 
-#: tools/virt-make-fs.pl:469
+#: tools/virt-make-fs:469
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 "virt-make-fs: NTFS ondersteuning was uitgezet toen libguestfs gecompileerd "
 "werd\n"
 
-#: tools/virt-make-fs.pl:544
+#: tools/virt-make-fs:544
 msgid "tar: failed, see earlier messages\n"
 msgstr "tar: misluket, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:566
+#: tools/virt-make-fs:566
 msgid "uncompress command failed, see earlier messages\n"
 msgstr "decomprimeer commando mislukte, zie eerdere boodschappen\n"
 
-#: tools/virt-make-fs.pl:600
+#: tools/virt-make-fs:600
 msgid ""
 "virt-make-fs: error copying contents into filesystem\n"
 "An error here usually means that the program did not estimate the\n"
@@ -5048,31 +5047,31 @@ msgstr ""
 "bestandssysteem niet correct bepaald heeft. Lees de BUGS sectie van de man "
 "pagina.\n"
 
-#: tools/virt-tar.pl:192 tools/virt-tar.pl:199
+#: tools/virt-tar:192 tools/virt-tar:199
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 "virt-tar: extraheer/upload mode twee keer gespecificeerd op de commando-"
 "regel\n"
 
-#: tools/virt-tar.pl:221
+#: tools/virt-tar:221
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr "virt-tar: geen image, VM namen, map of bestandsnaam opgegeven"
 
-#: tools/virt-tar.pl:224
+#: tools/virt-tar:224
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: -x of -u  moet opgegeven worden op de commando-regel\n"
 
-#: tools/virt-tar.pl:235
+#: tools/virt-tar:235
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: bestand niet gevonden\n"
 
-#: tools/virt-tar.pl:238
+#: tools/virt-tar:238
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: map naam moet beginnen met het '/' karakter\n"
 
-#: tools/virt-tar.pl:260 tools/virt-win-reg.pl:269
+#: tools/virt-tar:260 tools/virt-win-reg:269
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -5094,16 +5093,16 @@ msgstr ""
 "Als je vindt dat dit een fout is, dien dan een bug rapport in met zoveel "
 "mogelijk informatie over de schijf image.\n"
 
-#: tools/virt-tar.pl:264 tools/virt-win-reg.pl:273
+#: tools/virt-tar:264 tools/virt-win-reg:273
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr "{prog}: multi-boot besturingssystemen worden niet ondersteund.\n"
 
-#: tools/virt-win-reg.pl:244
+#: tools/virt-win-reg:244
 msgid "no libvirt domain name or disk image given\n"
 msgstr "geen libvirt domein naam of schijf image gegeven\n"
 
-#: tools/virt-win-reg.pl:295
+#: tools/virt-win-reg:295
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -5111,22 +5110,22 @@ msgstr ""
 "verwacht 1 of 2 extra parameters, subkey pad en optioneel de waarde om te "
 "exporteren\n"
 
-#: tools/virt-win-reg.pl:454
+#: tools/virt-win-reg:454
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr "virt-win-reg: {p}: kan gebruikers map niet vinden\n"
 
-#: tools/virt-win-reg.pl:459
+#: tools/virt-win-reg:459
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: geen ondersteund Windows Registry pad\n"
 
-#: tools/virt-win-reg.pl:532
+#: tools/virt-win-reg:532
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 
-#: tools/virt-win-reg.pl:549
+#: tools/virt-win-reg:549
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
@@ -5143,20 +5142,20 @@ msgid ""
 "then not as much free space would be required.\n"
 "\n"
 "You can ignore this warning or change it to a hard failure using the\n"
-"--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sysprep(1).\n"
+"--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sparsify(1).\n"
 "\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:818
+#: ../resize/resize.ml:828
 msgid "  An extra partition will be created for the surplus."
 msgstr "  Voor de surplus zal een extra partitie aangemaakt worden."
 
-#: ../resize/resize.ml:803 ../resize/resize.ml:784
+#: ../resize/resize.ml:813 ../resize/resize.ml:794
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "  De %s op %s zal geëxpandeerd worden met de '%s' methode."
 
-#: ../resize/resize.ml:820
+#: ../resize/resize.ml:830
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -5164,7 +5163,7 @@ msgstr ""
 "De surplus ruimte is niet groot genoeg om een extra partitie aan te maken en "
 "wordt daarom genegeerd."
 
-#: ../resize/resize.ml:822
+#: ../resize/resize.ml:832
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -5188,7 +5187,7 @@ msgstr "%s: --enable optie kan slechts een keer opgegeven worden\n"
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: '%s' is geen bekende bewerking\n"
 
-#: ../resize/resize.ml:609
+#: ../resize/resize.ml:619
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -5202,11 +5201,11 @@ msgstr ""
 "deze partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
 "commandoregel.)"
 
-#: ../resize/resize.ml:800
+#: ../resize/resize.ml:810
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: Dit logische volume zal vergroot worden tot de maximale grootte."
 
-#: ../resize/resize.ml:605
+#: ../resize/resize.ml:615
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -5215,7 +5214,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:601
+#: ../resize/resize.ml:611
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -5224,7 +5223,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:598
+#: ../resize/resize.ml:608
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -5236,7 +5235,7 @@ msgstr ""
 "resize-force' optie gebruiken, maar deze kan data op deze partitie "
 "vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
-#: ../resize/resize.ml:777
+#: ../resize/resize.ml:787
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -5244,15 +5243,15 @@ msgstr ""
 "%s: Deze partitie zal aangemaakt worden, maar de inhoud zal genegeerd worden "
 "(bijv. niet gekopieerd naar het doel)."
 
-#: ../resize/resize.ml:779
+#: ../resize/resize.ml:789
 msgid "%s: This partition will be deleted."
 msgstr "%s: Deze partitie zal verwijderd worden."
 
-#: ../resize/resize.ml:775
+#: ../resize/resize.ml:785
 msgid "%s: This partition will be left alone."
 msgstr "%s: Deze partitie wordt met rust gelaten."
 
-#: ../resize/resize.ml:781
+#: ../resize/resize.ml:791
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: De grootte van deze partitie wordt veranderd van %s naar %s."
 
@@ -5260,11 +5259,11 @@ msgstr "%s: De grootte van deze partitie wordt veranderd van %s naar %s."
 msgid "%s: empty --expand option"
 msgstr "%s: lege --expand optie"
 
-#: ../resize/resize.ml:273 ../resize/resize.ml:270
+#: ../resize/resize.ml:283 ../resize/resize.ml:280
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: bestand is te klein om een schijf image te zijn (%Ld bytes)"
 
-#: ../resize/resize.ml:757
+#: ../resize/resize.ml:767
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -5274,11 +5273,11 @@ msgstr ""
 "kwam van de '--lv-expand' optie op de commandoregel).  Probeer dit commando "
 "uit te voeren: virt-filesystems --logical-volumes --long -a %s"
 
-#: ../resize/resize.ml:627
+#: ../resize/resize.ml:637
 msgid "%s: missing size field in '%s' option"
 msgstr "%s: ontbrekend grootte veld in '%s' optie"
 
-#: ../resize/resize.ml:636
+#: ../resize/resize.ml:646
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: nieuwe partitie grootte is nul of negatief"
 
@@ -5286,17 +5285,17 @@ msgstr "%s: nieuwe partitie grootte is nul of negatief"
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: In de gast image werden geen besturingssystemen gevonden\n"
 
-#: ../resize/resize.ml:547
+#: ../resize/resize.ml:557
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 "%s: partitie is al verwijderd, je kunt het niet in de '%s' optie gebruiken"
 
-#: ../resize/resize.ml:543
+#: ../resize/resize.ml:553
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 "%s: partitie wordt al genegeerd, je kunt het niet in de '%s' optie gebruiken"
 
-#: ../resize/resize.ml:539
+#: ../resize/resize.ml:549
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
@@ -5306,15 +5305,15 @@ msgstr ""
 "de '%s' optie op de commandoregel).  Probeer dit commando uit te voeren: "
 "virt-filesystems --partitions --long -a %s"
 
-#: ../resize/resize.ml:426
+#: ../resize/resize.ml:436
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr "%s: partitie grootte %Ld < bestandssysteem grootte %Ld"
 
-#: ../resize/resize.ml:421
+#: ../resize/resize.ml:431
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr "%s: partitie grootte %Ld < fysieke volume grootte %Ld"
 
-#: ../resize/resize.ml:351
+#: ../resize/resize.ml:361
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: fysieke volume niet teruggeven door pvs_full"
 
@@ -5370,19 +5369,19 @@ msgstr ""
 "gedetailleerde hulp\n"
 "lees je de man pagina virt-sparsify(1).\n"
 
-#: ../resize/resize.ml:583
+#: ../resize/resize.ml:593
 msgid "%s: this partition has already been ignored or deleted"
 msgstr "%s: deze partitie wordt al genegeerd of is al verwijderd"
 
-#: ../resize/resize.ml:579
+#: ../resize/resize.ml:589
 msgid "%s: this partition has already been marked for resizing"
 msgstr "%s: deze partitie is als gemarkeerd om in grootte veranderd te worden"
 
-#: ../resize/resize.ml:436
+#: ../resize/resize.ml:446
 msgid "%s: this partition overlaps the previous one"
 msgstr "%s: deze partitie overlapt de vorige"
 
-#: ../resize/resize.ml:287
+#: ../resize/resize.ml:297
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -5493,7 +5492,7 @@ msgstr ""
 "Kopieer naar doel en maakt het sparse ...\n"
 "%!"
 
-#: ../resize/resize.ml:1067
+#: ../resize/resize.ml:1077
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -5614,7 +5613,7 @@ msgstr ""
 "Onderzoek bron schijf ...\n"
 "%!"
 
-#: ../resize/resize.ml:232
+#: ../resize/resize.ml:242
 msgid ""
 "Examining %s ...\n"
 "%!"
@@ -5638,7 +5637,7 @@ msgstr "Expandeer logische volume"
 msgid "Expand partition"
 msgstr "Expandeer partitie"
 
-#: ../resize/resize.ml:1214
+#: ../resize/resize.ml:1224
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
@@ -5646,7 +5645,7 @@ msgstr ""
 "%s wordt geëxpandeerd met de '%s' methode ...\n"
 "%!"
 
-#: ../resize/resize.ml:1197
+#: ../resize/resize.ml:1207
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -5654,7 +5653,7 @@ msgstr ""
 "%s%s wordt geëxpandeerd met de '%s' methode ...\n"
 "%!"
 
-#: ../resize/resize.ml:877
+#: ../resize/resize.ml:887
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -5683,7 +5682,7 @@ msgstr ""
 "Vul vrije ruimte in volgroep %s met nul in ...\n"
 "%!"
 
-#: ../resize/resize.ml:1123
+#: ../resize/resize.ml:1133
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -5732,7 +5731,7 @@ msgstr "Formaat van output schijf (standaard: hetzelfde als input)"
 msgid "Generate random seed for guest"
 msgstr "Genereer random seed voor gast"
 
-#: ../resize/common_utils.ml:155
+#: ../mllib/common_utils.ml:155
 msgid ""
 "If reporting bugs, run virt-resize with the '-d' option and include the "
 "complete output."
@@ -6021,7 +6020,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Verwijder at-jobs en cron-jobs van gebruiker"
 
-#: ../resize/resize.ml:1234
+#: ../resize/resize.ml:1244
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -6176,7 +6175,7 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../resize/resize.ml:856
+#: ../resize/resize.ml:866
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -6339,7 +6338,7 @@ msgstr ""
 "De systeembrede procesaccounting zal opgeslagen worden in de pacct\n"
 "logbestandenfiles als procesaccounting aangezet is."
 
-#: ../resize/resize.ml:741
+#: ../resize/resize.ml:751
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -6348,7 +6347,7 @@ msgstr ""
 "die hoeveelheid groter maken of je verzoek om de grootte te veranderen "
 "aanpassen."
 
-#: ../resize/resize.ml:815
+#: ../resize/resize.ml:825
 msgid "There is a surplus of %s."
 msgstr "Er is een overschot van %s."
 
@@ -6405,7 +6404,7 @@ msgstr ""
 "\n"
 "Zie L</RANDOM SEED> hieronder."
 
-#: ../resize/resize.ml:712
+#: ../resize/resize.ml:722
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -6413,7 +6412,7 @@ msgstr ""
 "Je kunt --expand niet gebruiken als er geen surplus ruimte voor expansie "
 "is.  Je moet de doel schijf tenminste %s groter maken."
 
-#: ../resize/resize.ml:724
+#: ../resize/resize.ml:734
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -6446,7 +6445,7 @@ msgstr ""
 msgid "alignment cannot be < 1"
 msgstr "uitlijning kan niet < 1 zijn"
 
-#: ../resize/resize.ml:492
+#: ../resize/resize.ml:502
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
@@ -6466,15 +6465,19 @@ msgstr "domain"
 msgid "empty --shrink option"
 msgstr "empty --shrink optie"
 
-#: ../resize/common_utils.ml:279
+#: ../resize/resize.ml:205
+msgid "error parsing URI '%s'. Look for error messages printed above."
+msgstr ""
+
+#: ../mllib/common_utils.ml:279
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../resize/common_utils.ml:281
+#: ../mllib/common_utils.ml:281
 msgid "external command '%s' killed by signal %d"
 msgstr "extern commando '%s' werd afgeschoten door signaal %d"
 
-#: ../resize/common_utils.ml:283
+#: ../mllib/common_utils.ml:283
 msgid "external command '%s' stopped by signal %d"
 msgstr "extern commando '%s' werd gestopt door signaal %d"
 
@@ -6530,7 +6533,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr "nooit|altijd|auto"
 
-#: ../resize/resize.ml:491
+#: ../resize/resize.ml:501
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
@@ -6563,11 +6566,11 @@ msgstr "part"
 msgid "part=size"
 msgstr "part=grootte"
 
-#: ../resize/resize.ml:914 ../resize/resize.ml:890
+#: ../resize/resize.ml:924 ../resize/resize.ml:900
 msgid "pread-device: short read"
 msgstr "pread-device: kort lezen"
 
-#: ../resize/resize.ml:489
+#: ../resize/resize.ml:499
 msgid "pvresize"
 msgstr "pvresize"
 
@@ -6575,7 +6578,7 @@ msgstr "pvresize"
 msgid "pwrite: short write restoring swap partition header"
 msgstr "pwrite: kort schrijven herstellen van swap partitie koptekst"
 
-#: ../resize/resize.ml:490
+#: ../resize/resize.ml:500
 msgid "resize2fs"
 msgstr "resize2fs"
 
@@ -6634,7 +6637,7 @@ msgstr ""
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr "sysprep bewerking faalde: interne fout: ongeldig argument: %s\n"
 
-#: ../resize/resize.ml:376
+#: ../resize/resize.ml:386
 msgid "the source disk has no partitions"
 msgstr "de bron schijf heeft geen partities"
 
@@ -6646,7 +6649,7 @@ msgstr "onbekende --align-first optie: gebruik nooit|altijd|auto"
 msgid "uri"
 msgstr "uri"
 
-#: ../resize/resize.ml:192
+#: ../resize/resize.ml:193
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr "gebruik is: %s [--opties] indisk outdisk"
 
@@ -6654,7 +6657,7 @@ msgstr "gebruik is: %s [--opties] indisk outdisk"
 msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 msgstr "virt-resize %Ld.%Ld.%Ld%s\n"
 
-#: ../resize/common_utils.ml:151
+#: ../mllib/common_utils.ml:151
 msgid "virt-resize: error: "
 msgstr "virt-resize: fout: "
 
@@ -6751,7 +6754,7 @@ msgstr "virt-sysprep: script: afgeschoten door signaal (%d)\n"
 msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:1120
+#: ../resize/resize.ml:1130
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
@@ -6761,11 +6764,11 @@ msgstr ""
 "magic\n"
 "%!"
 
-#: ../resize/resize.ml:700
+#: ../resize/resize.ml:710
 msgid "you cannot use options --expand and --shrink together"
 msgstr "je kunt de opties --expand en --shrink niet tezamen gebruiken"
 
-#: ../sparsify/sparsify.ml:150 ../resize/resize.ml:198
+#: ../sparsify/sparsify.ml:150 ../resize/resize.ml:199
 msgid "you cannot use the same disk image for input and output"
 msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
 
