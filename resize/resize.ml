@@ -644,7 +644,7 @@ let () =
 
     (* Parse the size field. *)
     let oldsize = p.p_part.G.part_size in
-    let newsize = parse_size ~prog oldsize sizefield in
+    let newsize = parse_resize ~prog oldsize sizefield in
 
     if newsize <= 0L then
       error (f_"%s: new partition size is zero or negative") dev;

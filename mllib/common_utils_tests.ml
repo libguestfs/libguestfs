@@ -20,6 +20,8 @@
 
 open Common_utils
 
+let prog = "common_utils_tests"
+
 (* Test Common_utils.int_of_le32 and Common_utils.le32_of_int. *)
 let () =
   assert (int_of_le32 "\x80\x60\x40\x20" = 0x20406080L);
@@ -28,41 +30,41 @@ let () =
 (* Test Common_utils.parse_size. *)
 let () =
   (* For absolute sizes, oldsize is ignored. *)
-  assert (parse_size 100_L "100b" = 100_L);
-  assert (parse_size 1000_L "100b" = 100_L);
-  assert (parse_size 10000_L "100b" = 100_L);
-  assert (parse_size 100_L "100K" = 102400_L);
+  assert (parse_resize ~prog 100_L "100b" = 100_L);
+  assert (parse_resize ~prog 1000_L "100b" = 100_L);
+  assert (parse_resize ~prog 10000_L "100b" = 100_L);
+  assert (parse_resize ~prog 100_L "100K" = 102400_L);
   (* Fractions are always rounded down. *)
-  assert (parse_size 100_L "1.1K" = 1126_L);
-  assert (parse_size 100_L "100.1M" = 104962457_L);
-  assert (parse_size 100_L "123.4G" = 132499741081_L);
+  assert (parse_resize ~prog 100_L "1.1K" = 1126_L);
+  assert (parse_resize ~prog 100_L "100.1M" = 104962457_L);
+  assert (parse_resize ~prog 100_L "123.4G" = 132499741081_L);
 
   (* oldsize +/- a constant. *)
-  assert (parse_size 100_L "+1b" = 101_L);
-  assert (parse_size 100_L "-2b" = 98_L);
-  assert (parse_size 100_L "+1K" = 1124_L);
-  assert (parse_size 1024_L "-1K" = 0_L);
-  assert (parse_size 1126_L "-1.1K" = 0_L);
-  assert (parse_size 1024_L "+1.1M" = 1154457_L);
-  assert (parse_size 132499741081_L "-123.3G" = 107374182_L);
+  assert (parse_resize ~prog 100_L "+1b" = 101_L);
+  assert (parse_resize ~prog 100_L "-2b" = 98_L);
+  assert (parse_resize ~prog 100_L "+1K" = 1124_L);
+  assert (parse_resize ~prog 1024_L "-1K" = 0_L);
+  assert (parse_resize ~prog 1126_L "-1.1K" = 0_L);
+  assert (parse_resize ~prog 1024_L "+1.1M" = 1154457_L);
+  assert (parse_resize ~prog 132499741081_L "-123.3G" = 107374182_L);
 
   (* oldsize +/- a percentage. *)
-  assert (parse_size 100_L "+1%" = 101_L);
-  assert (parse_size 100_L "-1%" = 99_L);
-  assert (parse_size 100000_L "+1%" = 101000_L);
-  assert (parse_size 100000_L "-1%" = 99000_L);
-  assert (parse_size 100000_L "+50%" = 150000_L);
-  assert (parse_size 100000_L "-50%" = 50000_L);
-  assert (parse_size 100000_L "+100%" = 200000_L);
-  assert (parse_size 100000_L "-100%" = 0_L);
-  assert (parse_size 100000_L "+200%" = 300000_L);
-  assert (parse_size 100000_L "+300%" = 400000_L);
+  assert (parse_resize ~prog 100_L "+1%" = 101_L);
+  assert (parse_resize ~prog 100_L "-1%" = 99_L);
+  assert (parse_resize ~prog 100000_L "+1%" = 101000_L);
+  assert (parse_resize ~prog 100000_L "-1%" = 99000_L);
+  assert (parse_resize ~prog 100000_L "+50%" = 150000_L);
+  assert (parse_resize ~prog 100000_L "-50%" = 50000_L);
+  assert (parse_resize ~prog 100000_L "+100%" = 200000_L);
+  assert (parse_resize ~prog 100000_L "-100%" = 0_L);
+  assert (parse_resize ~prog 100000_L "+200%" = 300000_L);
+  assert (parse_resize ~prog 100000_L "+300%" = 400000_L);
 
   (* Implementation rounds numbers so that only a single digit after
    * the decimal point is significant.
    *)
-  assert (parse_size 100000_L "+1.1%" = 101100_L);
-  assert (parse_size 100000_L "+1.12%" = 101100_L)
+  assert (parse_resize ~prog 100000_L "+1.1%" = 101100_L);
+  assert (parse_resize ~prog 100000_L "+1.12%" = 101100_L)
 
 (* Test Common_utils.human_size. *)
 let () =

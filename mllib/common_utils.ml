@@ -175,8 +175,10 @@ let read_whole_file path =
   close_in chan;
   Buffer.contents buf
 
-(* Parse the size field from --resize and --resize-force options. *)
-let parse_size =
+(* Parse a size field, eg. "10G", "+20%" etc.  Used particularly by
+ * virt-resize --resize and --resize-force options.
+ *)
+let parse_resize =
   let const_re = Str.regexp "^\\([.0-9]+\\)\\([bKMG]\\)$"
   and plus_const_re = Str.regexp "^\\+\\([.0-9]+\\)\\([bKMG]\\)$"
   and minus_const_re = Str.regexp "^-\\([.0-9]+\\)\\([bKMG]\\)$"
@@ -219,7 +221,7 @@ let parse_size =
       oldsize -^ oldsize *^ percent /^ 1000L
     )
     else
-      error ~prog "%s: cannot parse size field" field
+      error ~prog "%s: cannot parse resize field" field
 
 let human_size i =
   let sign, i = if i < 0L then "-", Int64.neg i else "", i in
