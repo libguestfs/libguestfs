@@ -26,18 +26,7 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize
 
 # Alphabetical order.
 SOURCES = \
-	$(top_builddir)/mllib/common_gettext.ml \
-	$(top_builddir)/mllib/common_utils.ml \
-	$(top_builddir)/mllib/progress-c.c \
-	$(top_builddir)/mllib/progress.mli \
-	$(top_builddir)/mllib/progress.ml \
-	resize.ml \
-	$(top_builddir)/mllib/tty-c.c \
-	$(top_builddir)/mllib/tTY.mli \
-	$(top_builddir)/mllib/tTY.ml \
-	$(top_builddir)/mllib/uri-c.c \
-	$(top_builddir)/mllib/uRI.mli \
-	$(top_builddir)/mllib/uRI.ml
+	resize.ml
 
 if HAVE_OCAML
 
