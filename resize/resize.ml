@@ -29,6 +29,7 @@ let min_extra_partition = 10L *^ 1024L *^ 1024L
 
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
+let error fs = error ~prog fs
 
 type align_first_t = [ `Never | `Always | `Auto ]
 
@@ -108,6 +109,8 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     "--resize",  Arg.String (add resizes),  s_"part=size" ^ " " ^ s_"Resize partition";
     "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
     "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
+    "-v",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
+    "--verbose", Arg.Set debug,             ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  ditto;
   ] in
@@ -641,7 +644,7 @@ let () =
 
     (* Parse the size field. *)
     let oldsize = p.p_part.G.part_size in
-    let newsize = parse_size oldsize sizefield in
+    let newsize = parse_size ~prog oldsize sizefield in
 
     if newsize <= 0L then
       error (f_"%s: new partition size is zero or negative") dev;

@@ -146,13 +146,14 @@ let string_random8 =
       ) [1;2;3;4;5;6;7;8]
     )
 
-let error fs =
+let error ~prog fs =
   let display str =
-    wrap ~chan:stderr (s_"virt-resize: error: " ^ str);
+    wrap ~chan:stderr (sprintf (f_"%s: error: %s") prog str);
     prerr_newline ();
     prerr_newline ();
     wrap ~chan:stderr
-      (s_"If reporting bugs, run virt-resize with the '-d' option and include the complete output.");
+      (sprintf (f_"%s: If reporting bugs, run %s with debugging enabled (-v) and include the complete output.")
+         prog prog);
     prerr_newline ();
     exit 1
   in
@@ -183,7 +184,7 @@ let parse_size =
   and plus_percent_re = Str.regexp "^\\+\\([.0-9]+\\)%$"
   and minus_percent_re = Str.regexp "^-\\([.0-9]+\\)%$"
   in
-  fun oldsize field ->
+  fun ~prog oldsize field ->
     let matches rex = Str.string_match rex field 0 in
     let sub i = Str.matched_group i field in
     let size_scaled f = function
@@ -218,7 +219,7 @@ let parse_size =
       oldsize -^ oldsize *^ percent /^ 1000L
     )
     else
-      error "virt-resize: %s: cannot parse size field" field
+      error ~prog "%s: cannot parse size field" field
 
 let human_size i =
   let sign, i = if i < 0L then "-", Int64.neg i else "", i in
@@ -268,7 +269,7 @@ let display_long_options () =
   ) !long_options;
   exit 0
 
-let uuidgen () =
+let uuidgen ~prog () =
   let cmd = "uuidgen -r" in
   let chan = Unix.open_process_in cmd in
   let uuid = input_line chan in
@@ -276,11 +277,11 @@ let uuidgen () =
   (match stat with
   | Unix.WEXITED 0 -> ()
   | Unix.WEXITED i ->
-    error (f_"external command '%s' exited with error %d") cmd i
+    error ~prog (f_"external command '%s' exited with error %d") cmd i
   | Unix.WSIGNALED i ->
-    error (f_"external command '%s' killed by signal %d") cmd i
+    error ~prog (f_"external command '%s' killed by signal %d") cmd i
   | Unix.WSTOPPED i ->
-    error (f_"external command '%s' stopped by signal %d") cmd i
+    error ~prog (f_"external command '%s' stopped by signal %d") cmd i
   );
   let len = String.length uuid in
   let uuid, len =

@@ -18,6 +18,8 @@
 
 (** Structure used to describe sysprep operations. *)
 
+val prog : string
+
 type flag = [ `Created_files ]
 
 type callback = Guestfs.guestfs -> string -> flag list

@@ -33,6 +33,7 @@ let () = Random.self_init ()
 
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
+let error fs = error ~prog fs
 
 let indisk, outdisk, check_tmpdir, compress, convert, debug_gc,
   format, ignores, machine_readable,

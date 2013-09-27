@@ -30,7 +30,7 @@ let rec fs_uuids_perform g root =
   | _, "swap" ->
     (* XXX Not implemented *) ()
   | dev, typ ->
-    let new_uuid = Common_utils.uuidgen () in
+    let new_uuid = Common_utils.uuidgen ~prog () in
     try
       g#set_uuid dev new_uuid
     with

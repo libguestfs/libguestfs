@@ -22,6 +22,8 @@ open Printf
 
 open Common_gettext.Gettext
 
+let prog = "virt-sysprep"
+
 type flag = [ `Created_files ]
 
 type callback = Guestfs.guestfs -> string -> flag list
