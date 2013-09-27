@@ -20,35 +20,9 @@ open Printf
 
 open Sysprep_operation
 open Common_gettext.Gettext
+open Password
 
 module G = Guestfs
-
-(* glibc 2.7 was released in Oct 2007.  Approximately, all guests that
- * precede this date only support md5, whereas all guests after this
- * date can support sha512.
- *)
-let default_crypto g root =
-  let distro = g#inspect_get_distro root in
-  let major = g#inspect_get_major_version root in
-  match distro, major with
-  | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), v when v >= 6 ->
-    `SHA512
-  | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
-    `MD5 (* RHEL 5 does not appear to support SHA512, according to crypt(3) *)
-
-  | "fedora", v when v >= 9 -> `SHA512
-  | "fedora", _ -> `MD5
-
-  | "debian", v when v >= 5 -> `SHA512
-  | "debian", _ -> `MD5
-
-  | _, _ ->
-    eprintf (f_"\
-virt-sysprep: password: warning: using insecure md5 password encryption for
-guest of type %s version %d.
-If this is incorrect, use --password-crypto option and file a bug.\n")
-      distro major;
-    `MD5
 
 let passwords = Hashtbl.create 13
 
@@ -65,114 +39,33 @@ and set_user_password arg =
   set_password (String.sub arg 0 i) (String.sub arg (i+1) (len-(i+1)))
 
 and set_password user arg =
-  let i =
-    try String.index arg ':'
-    with Not_found ->
-      eprintf (f_"virt-sysprep: password: invalid --root-password/--password format; see the man page.\n");
-      exit 1 in
-  let key, value =
-    let len = String.length arg in
-    String.sub arg 0 i, String.sub arg (i+1) (len-(i+1)) in
-
-  let password =
-    match key with
-    | "file" -> read_password_from_file value
-    | "password" -> value
-    | _ ->
-      eprintf (f_"virt-sysprep: password: invalid --root-password/--password format, \"%s:...\" is not recognized; see the man page.\n") key;
-      exit 1 in
+  let pw = get_password ~prog arg in
 
   if Hashtbl.mem passwords user then (
     eprintf (f_"virt-sysprep: password: multiple --root-password/--password options set the password for user '%s' twice.\n") user;
     exit 1
   );
 
-  Hashtbl.replace passwords user password
+  Hashtbl.replace passwords user pw
 
-and read_password_from_file filename =
-  let chan = open_in filename in
-  let password = input_line chan in
-  close_in chan;
-  password
+let password_crypto : password_crypto option ref = ref None
 
-let password_crypto : [`MD5 | `SHA256 | `SHA512 ] option ref = ref None
+let set_password_crypto arg =
+  password_crypto := Some (password_crypto_of_string ~prog arg)
 
-let set_password_crypto = function
-  | "md5" -> password_crypto := Some `MD5
-  | "sha256" -> password_crypto := Some `SHA256
-  | "sha512" -> password_crypto := Some `SHA512
-  | arg ->
-    eprintf (f_"virt-sysprep: password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\".\n") arg;
-    exit 1
-
-(* Permissible characters in a salt. *)
-let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./"
-let nr_chars = String.length chars
-
-let rec password_perform g root =
+let password_perform g root =
   if Hashtbl.length passwords > 0 then (
     let typ = g#inspect_get_type root in
     match typ with
     | "linux" ->
-      set_linux_passwords g root;
+      let password_crypto = !password_crypto in
+      set_linux_passwords ~prog ?password_crypto g root passwords;
       [ `Created_files ]
     | _ ->
       eprintf (f_"virt-sysprep: cannot set passwords for %s guests.\n") typ;
       exit 1
   )
   else []
-
-and set_linux_passwords g root =
-  let crypto =
-    match !password_crypto with
-    | None -> default_crypto g root
-    | Some c -> c in
-
-  (* XXX Would like to use Augeas here, but Augeas doesn't support
-   * /etc/shadow (as of 1.1.0).
-   *)
-
-  let shadow = Array.to_list (g#read_lines "/etc/shadow") in
-  let shadow =
-    List.map (
-      fun line ->
-        try
-          (* Each line is: "user:password:..."
-           * 'i' points to the first colon, 'j' to the second colon.
-           *)
-          let i = String.index line ':' in
-          let user = String.sub line 0 i in
-          let password = Hashtbl.find passwords user in
-          let j = String.index_from line (i+1) ':' in
-          let rest = String.sub line j (String.length line - j) in
-          user ^ ":" ^ encrypt password crypto ^ rest
-        with Not_found -> line
-    ) shadow in
-
-  g#write "/etc/shadow" (String.concat "\n" shadow ^ "\n");
-  g#chmod 0 "/etc/shadow" (* ... and /.autorelabel will label it correctly. *)
-
-(* Encrypt each password.  Use glibc (on the host).  See:
- * https://rwmj.wordpress.com/2013/07/09/setting-the-root-or-other-passwords-in-a-linux-guest/
- *)
-and encrypt password crypto =
-  (* Get random characters from the set [A-Za-z0-9./] *)
-  let salt =
-    let chan = open_in "/dev/urandom" in
-    let buf = String.create 16 in
-    for i = 0 to 15 do
-      buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
-    done;
-    close_in chan;
-    buf in
-  let salt =
-    (match crypto with
-    | `MD5 -> "$1$"
-    | `SHA256 -> "$5$"
-    | `SHA512 -> "$6$") ^ salt ^ "$" in
-  let r = Crypt.crypt password salt in
-  (*printf "password: encrypt %s with salt %s -> %s\n" password salt r;*)
-  r
 
 let op = {
   defaults with

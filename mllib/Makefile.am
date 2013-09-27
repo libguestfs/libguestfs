@@ -27,6 +27,11 @@ SOURCES = \
 	common_gettext.ml \
 	common_utils.ml \
 	common_utils_tests.ml \
+	crypt-c.c \
+	crypt.ml \
+	crypt.mli \
+	password.mli \
+	password.ml \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
@@ -49,11 +54,14 @@ OBJECTS = \
 	tty-c.o \
 	progress-c.o \
 	uri-c.o \
+	crypt-c.o \
 	common_gettext.cmx \
 	common_utils.cmx \
 	tTY.cmx \
 	progress.cmx \
-	uRI.cmx
+	uRI.cmx \
+	crypt.cmx \
+	password.cmx
 
 noinst_SCRIPTS = dummy
 
@@ -69,7 +77,7 @@ OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 OCAMLCLIBS  = \
-	$(LIBXML2_LIBS) -lncurses \
+	$(LIBXML2_LIBS) -lncurses -lcrypt \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu
 

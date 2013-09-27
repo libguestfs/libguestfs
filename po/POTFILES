@@ -225,6 +225,7 @@ gobject/src/tristate.c
 inspector/inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 lua/lua-guestfs.c
+mllib/crypt-c.c
 mllib/progress-c.c
 mllib/tty-c.c
 mllib/uri-c.c
@@ -294,5 +295,4 @@ src/proto.c
 src/stringsbuf.c
 src/tmpdirs.c
 src/utils.c
-sysprep/crypt-c.c
 test-tool/test-tool.c
