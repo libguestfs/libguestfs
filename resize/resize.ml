@@ -78,12 +78,13 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     else shrink := s
   in
 
+  let ditto = " -\"-" in
   let argspec = Arg.align [
     "--align-first", Arg.Set_string align_first, s_"never|always|auto" ^ " " ^ s_"Align first partition (default: auto)";
     "--alignment", Arg.Set_int alignment,   s_"sectors" ^ " " ^ s_"Set partition alignment (default: 128 sectors)";
     "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " " ^ s_"Don't copy boot loader";
     "-d",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
-    "--debug",   Arg.Set debug,             " -\"-";
+    "--debug",   Arg.Set debug,             ditto;
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
     "--delete",  Arg.String (add deletes),  s_"part" ^ " " ^ s_"Delete partition";
     "--expand",  Arg.String set_expand,     s_"part" ^ " " ^ s_"Expand partition";
@@ -93,22 +94,22 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     "--ignore",  Arg.String (add ignores),  s_"part" ^ " " ^ s_"Ignore partition";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--lv-expand", Arg.String (add lv_expands), s_"lv" ^ " " ^ s_"Expand logical volume";
-    "--LV-expand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
-    "--lvexpand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
-    "--LVexpand", Arg.String (add lv_expands), s_"lv" ^ " -\"-";
+    "--LV-expand", Arg.String (add lv_expands), s_"lv" ^ ditto;
+    "--lvexpand", Arg.String (add lv_expands), s_"lv" ^ ditto;
+    "--LVexpand", Arg.String (add lv_expands), s_"lv" ^ ditto;
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-n",        Arg.Set dryrun,            " " ^ s_"Don't perform changes";
-    "--dryrun",  Arg.Set dryrun,            " -\"-";
-    "--dry-run", Arg.Set dryrun,            " -\"-";
+    "--dryrun",  Arg.Set dryrun,            ditto;
+    "--dry-run", Arg.Set dryrun,            ditto;
     "--ntfsresize-force", Arg.Set ntfsresize_force, " " ^ s_"Force ntfsresize";
     "--output-format", Arg.Set_string output_format, s_"format" ^ " " ^ s_"Format of output disk";
     "-q",        Arg.Set quiet,             " " ^ s_"Don't print the summary";
-    "--quiet",   Arg.Set quiet,             " -\"-";
+    "--quiet",   Arg.Set quiet,             ditto;
     "--resize",  Arg.String (add resizes),  s_"part=size" ^ " " ^ s_"Resize partition";
     "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
     "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
-    "--version", Arg.Unit display_version,  " -\"-";
+    "--version", Arg.Unit display_version,  ditto;
   ] in
   long_options := argspec;
   let disks = ref [] in

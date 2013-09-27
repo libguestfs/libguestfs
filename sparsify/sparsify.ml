@@ -70,6 +70,7 @@ let indisk, outdisk, check_tmpdir, compress, convert, debug_gc,
   let trace = ref false in
   let zeroes = ref [] in
 
+  let ditto = " -\"-" in
   let argspec = Arg.align [
     "--check-tmpdir", Arg.String set_check_tmpdir,  "ignore|..." ^ " " ^ s_"Check there is enough space in $TMPDIR";
     "--compress", Arg.Set compress,         " " ^ s_"Compressed output format";
@@ -81,11 +82,11 @@ let indisk, outdisk, check_tmpdir, compress, convert, debug_gc,
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
-    "--quiet",   Arg.Set quiet,             " -\"-";
+    "--quiet",   Arg.Set quiet,             ditto;
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Set verbose,           " -\"-";
+    "--verbose", Arg.Set verbose,           ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
-    "--version", Arg.Unit display_version,  " -\"-";
+    "--version", Arg.Unit display_version,  ditto;
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
     "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
   ] in
