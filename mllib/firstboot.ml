@@ -19,7 +19,6 @@
 open Printf
 
 open Common_utils
-open Sysprep_operation
 open Common_gettext.Gettext
 
 (* For Linux guests. *)

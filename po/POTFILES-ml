@@ -2,13 +2,13 @@ mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
 mllib/crypt.ml
+mllib/firstboot.ml
 mllib/password.ml
 mllib/progress.ml
 mllib/tTY.ml
 mllib/uRI.ml
 resize/resize.ml
 sparsify/sparsify.ml
-sysprep/firstboot.ml
 sysprep/main.ml
 sysprep/sysprep_operation.ml
 sysprep/sysprep_operation_abrt_data.ml

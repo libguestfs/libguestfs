@@ -30,6 +30,8 @@ SOURCES = \
 	crypt-c.c \
 	crypt.ml \
 	crypt.mli \
+	firstboot.mli \
+	firstboot.ml \
 	password.mli \
 	password.ml \
 	progress-c.c \
@@ -57,6 +59,7 @@ OBJECTS = \
 	crypt-c.o \
 	common_gettext.cmx \
 	common_utils.cmx \
+	firstboot.cmx \
 	tTY.cmx \
 	progress.cmx \
 	uRI.cmx \
