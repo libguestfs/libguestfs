@@ -67,7 +67,7 @@ Before=prefdm.service
 
 [Service]
 Type=oneshot
-ExecStart=%s/firstboot.sh
+ExecStart=%s/firstboot.sh start
 RemainAfterExit=yes
 
 [Install]
