@@ -89,6 +89,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/crypt-c.o \
 	$(top_builddir)/mllib/crypt.cmx \
 	$(top_builddir)/mllib/password.cmx \
+	$(top_builddir)/mllib/random_seed.cmx \
 	$(top_builddir)/mllib/firstboot.cmx \
 	sysprep_operation.cmx \
 	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \

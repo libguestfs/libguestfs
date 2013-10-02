@@ -5,6 +5,7 @@ mllib/crypt.ml
 mllib/firstboot.ml
 mllib/password.ml
 mllib/progress.ml
+mllib/random_seed.ml
 mllib/tTY.ml
 mllib/uRI.ml
 resize/resize.ml

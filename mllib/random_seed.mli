@@ -1,5 +1,5 @@
 (* virt-sysprep
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2012-2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,27 +16,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Sysprep_operation
-open Common_gettext.Gettext
-
-open Random_seed
-
-module G = Guestfs
-
-let random_seed_perform (g : Guestfs.guestfs) root =
-  if set_random_seed g root then [ `Created_files ] else []
-
-let op = {
-  defaults with
-    name = "random-seed";
-    enabled_by_default = true;
-    heading = s_"Generate random seed for guest";
-    pod_description = Some (s_"\
-Write some random bytes from the host into the random seed file of the
-guest.
-
-See L</RANDOM SEED> below.");
-    perform_on_filesystems = Some random_seed_perform;
-}
-
-let () = register_operation op
+val set_random_seed : Guestfs.guestfs -> string -> bool
+(** Set the random seed in the guest.  Returns true if it was able to
+    do set it, false if not. *)

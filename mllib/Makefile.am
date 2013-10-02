@@ -37,6 +37,8 @@ SOURCES = \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
+	random_seed.mli \
+	random_seed.ml \
 	tty-c.c \
 	tTY.mli \
 	tTY.ml \
@@ -59,6 +61,7 @@ OBJECTS = \
 	crypt-c.o \
 	common_gettext.cmx \
 	common_utils.cmx \
+	random_seed.cmx \
 	firstboot.cmx \
 	tTY.cmx \
 	progress.cmx \
