@@ -160,6 +160,16 @@ main (int argc, char *argv[])
 #endif
 #endif
 
+  /* XXX The appliance /init script sets LD_PRELOAD=../libSegFault.so.
+   * However if we CHROOT_IN to the sysroot that file might not exist,
+   * resulting in all commands failing.  What we'd really like to do
+   * is to have LD_PRELOAD only set while outside the chroot.  I
+   * suspect the proper way to solve this is to remove the
+   * CHROOT_IN/_OUT hack and replace it properly (fork), but that is
+   * for another day.
+   */
+  unsetenv ("LD_PRELOAD");
+
   struct stat statbuf;
   if (stat ("/", &statbuf) == 0)
     root_device = statbuf.st_dev;
