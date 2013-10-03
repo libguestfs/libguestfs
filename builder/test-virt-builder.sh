@@ -18,3 +18,31 @@
 
 export LANG=C
 set -e
+
+abs_srcdir=$(cd $srcdir && pwd)
+
+export VIRT_BUILDER_SOURCE=file://$abs_srcdir/test-index
+
+if [ ! -f fedora.xz ]; then
+    echo "$0: test skipped because there is no fedora.xz in the build directory"
+    exit 77
+fi
+
+rm -f phony-fedora.qcow2
+
+# Test as many options as we can!
+#
+# Note we cannot test --install, --run since the phony Fedora doesn't
+# have a real OS inside just some configuration files.  Just about
+# every other option is fair game.
+./virt-builder phony-fedora \
+    --no-cache --no-check-signature \
+    --size 2G --format qcow2 \
+    --root-password password:123456 \
+    --upload Makefile:/Makefile \
+    --firstboot Makefile --firstboot-command 'echo "hello"' \
+    --firstboot-install "minicom,inkscape"
+
+# XXX Test that the modifications were made.
+
+rm phony-fedora.qcow2

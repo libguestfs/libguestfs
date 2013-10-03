@@ -59,8 +59,10 @@ Makefile.in
 /build-aux
 /builder/.depend
 /builder/stamp-virt-builder.pod
+/builder/test-index
 /builder/virt-builder
 /builder/virt-builder.1
+/builder/*.xz
 /cat/stamp-virt-*.pod
 /cat/virt-cat
 /cat/virt-cat.1

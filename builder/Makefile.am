@@ -21,6 +21,7 @@ EXTRA_DIST = \
 	$(SOURCES) \
 	virt-builder.pod \
 	test-virt-builder.sh \
+	test-virt-builder-list.sh \
 	website/.gitignore \
 	website/README \
 	website/index \
@@ -133,8 +134,17 @@ CLEANFILES += stamp-virt-builder.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+disk_images := $(shell for f in debian.xz fedora.xz ubuntu.xz windows.xz; do b=`basename $$f .xz`; if [ -f "../tests/guests/$$b.img" ]; then echo $$f; fi; done)
+
+check_DATA = $(disk_images)
+
+%.xz: ../tests/guests/%.img
+	xz --best --block-size=16777216 -c $< > $@
+
+TESTS = test-virt-builder-list.sh
+
 if ENABLE_APPLIANCE
-TESTS = test-virt-builder.sh
+TESTS += test-virt-builder.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:

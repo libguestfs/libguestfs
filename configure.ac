@@ -1640,6 +1640,7 @@ AC_CONFIG_FILES([Makefile
                  appliance/Makefile
                  bash/Makefile
                  builder/Makefile
+                 builder/test-index
                  cat/Makefile
                  csharp/Makefile
                  daemon/Makefile
