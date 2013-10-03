@@ -32,6 +32,8 @@ SOURCES = \
 	crypt.mli \
 	firstboot.mli \
 	firstboot.ml \
+	hostname.mli \
+	hostname.ml \
 	password.mli \
 	password.ml \
 	progress-c.c \
@@ -63,6 +65,7 @@ OBJECTS = \
 	common_gettext.cmx \
 	common_utils.cmx \
 	random_seed.cmx \
+	hostname.cmx \
 	firstboot.cmx \
 	tTY.cmx \
 	progress.cmx \
