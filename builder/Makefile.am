@@ -26,6 +26,9 @@ EXTRA_DIST = \
 	website/README \
 	website/index \
 	website/index.asc \
+	website/debian-7.preseed \
+	website/debian-7.sh \
+	website/debian-7.xz.sig \
 	website/fedora-18.ks \
 	website/fedora-18.sh \
 	website/fedora-18.xz.sig \
