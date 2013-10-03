@@ -236,7 +236,7 @@ WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 
 # For reasons not fully understood, we need to rebuild all the
 # man pages and HTMLFILES from scratch here.
-website: $(HTMLFILES) $(TEXTFILES)
+website: $(HTMLFILES) $(HTMLSUPPORTFILES) $(TEXTFILES)
 	find -name 'stamp-*.pod' -delete
 	$(MAKE)
 	cp $(HTMLFILES) $(HTMLSUPPORTFILES) $(WEBSITEDIR)
