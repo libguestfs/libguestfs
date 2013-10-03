@@ -28,6 +28,8 @@
 #include "actions.h"
 #include "optgroups.h"
 
+#include "c-ctype.h"
+
 #define MAX_ARGS 64
 
 GUESTFSD_EXT_CMD(str_mkfs_xfs, mkfs.xfs);
@@ -42,7 +44,7 @@ optgroup_xfs_available (void)
   return prog_exists (str_mkfs_xfs);
 }
 
-/* Return everything up to the first comma or space in the input
+/* Return everything up to the first comma, equals or space in the input
  * string, strdup'ing the return value.
  */
 static char *
@@ -51,7 +53,7 @@ split_strdup (char *string)
   size_t len;
   char *ret;
 
-  len = strcspn (string, " ,");
+  len = strcspn (string, " ,=");
   ret = strndup (string, len);
   if (!ret) {
     reply_with_perror ("malloc");
@@ -92,12 +94,15 @@ parse_uint64 (uint64_t *ret, const char *str)
  *
  * meta-data=/dev/sda1              isize=256    agcount=4, agsize=6392 blks
  *          =                       sectsz=512   attr=2
+ *[         =                       crc=0                                    ]
  * data     =                       bsize=4096   blocks=25568, imaxpct=25
  *          =                       sunit=0      swidth=0 blks
  * naming   =version 2              bsize=4096   ascii-ci=0
  * log      =internal               bsize=4096   blocks=1200, version=2
  *          =                       sectsz=512   sunit=0 blks, lazy-count=1
  * realtime =none                   extsz=4096   blocks=0, rtextents=0
+ *
+ * [...] line only appears in Fedora >= 21
  *
  * We may need to revisit this parsing code if the output changes
  * in future.
@@ -106,6 +111,7 @@ static guestfs_int_xfsinfo *
 parse_xfs_info (char **lines)
 {
   guestfs_int_xfsinfo *ret;
+  CLEANUP_FREE char *section = NULL; /* first column, eg "meta-data", "data" */
   char *p;
   size_t i;
 
@@ -145,6 +151,18 @@ parse_xfs_info (char **lines)
   ret->xfs_rtextents = -1;
 
   for (i = 0; lines[i] != NULL; ++i) {
+    if (verbose)
+      fprintf (stderr, "xfs_info: lines[%zu] = \'%s\'\n", i, lines[i]);
+
+    if (c_isalpha (lines[i][0])) {
+      free (section);
+      section = split_strdup (lines[i]);
+      if (!section) goto error;
+
+      if (verbose)
+	fprintf (stderr, "xfs_info: new section %s\n", section);
+    }
+
     if ((p = strstr (lines[i], "meta-data="))) {
       ret->xfs_mntpoint = split_strdup (p + 10);
       if (ret->xfs_mntpoint == NULL) goto error;
@@ -168,15 +186,17 @@ parse_xfs_info (char **lines)
         goto error;
     }
     if ((p = strstr (lines[i], "sectsz="))) {
-      CLEANUP_FREE char *buf = split_strdup (p + 7);
-      if (buf == NULL) goto error;
-      if (i == 1) {
-        if (parse_uint32 (&ret->xfs_sectsize, buf) == -1)
-          goto error;
-      } else if (i == 6) {
-        if (parse_uint32 (&ret->xfs_logsectsize, buf) == -1)
-          goto error;
-      } else goto error;
+      if (section) {
+	CLEANUP_FREE char *buf = split_strdup (p + 7);
+	if (buf == NULL) goto error;
+	if (STREQ (section, "meta-data")) {
+	  if (parse_uint32 (&ret->xfs_sectsize, buf) == -1)
+	    goto error;
+	} else if (STREQ (section, "log")) {
+	  if (parse_uint32 (&ret->xfs_logsectsize, buf) == -1)
+	    goto error;
+	}
+      }
     }
     if ((p = strstr (lines[i], "attr="))) {
       CLEANUP_FREE char *buf = split_strdup (p + 5);
@@ -185,32 +205,36 @@ parse_xfs_info (char **lines)
         goto error;
     }
     if ((p = strstr (lines[i], "bsize="))) {
-      CLEANUP_FREE char *buf = split_strdup (p + 6);
-      if (buf == NULL) goto error;
-      if (i == 2) {
-        if (parse_uint32 (&ret->xfs_blocksize, buf) == -1)
-          goto error;
-      } else if (i == 4) {
-        if (parse_uint32 (&ret->xfs_dirblocksize, buf) == -1)
-          goto error;
-      } else if (i == 5) {
-        if (parse_uint32 (&ret->xfs_logblocksize, buf) == -1)
-          goto error;
-      } else goto error;
+      if (section) {
+	CLEANUP_FREE char *buf = split_strdup (p + 6);
+	if (buf == NULL) goto error;
+	if (STREQ (section, "data")) {
+	  if (parse_uint32 (&ret->xfs_blocksize, buf) == -1)
+	    goto error;
+	} else if (STREQ (section, "naming")) {
+	  if (parse_uint32 (&ret->xfs_dirblocksize, buf) == -1)
+	    goto error;
+	} else if (STREQ (section, "log")) {
+	  if (parse_uint32 (&ret->xfs_logblocksize, buf) == -1)
+	    goto error;
+	}
+      }
     }
     if ((p = strstr (lines[i], "blocks="))) {
-      CLEANUP_FREE char *buf = split_strdup (p + 7);
-      if (buf == NULL) goto error;
-      if (i == 2) {
-        if (parse_uint64 (&ret->xfs_datablocks, buf) == -1)
-          goto error;
-      } else if (i == 5) {
-        if (parse_uint32 (&ret->xfs_logblocks, buf) == -1)
-          goto error;
-      } else if (i == 7) {
-        if (parse_uint64 (&ret->xfs_rtblocks, buf) == -1)
-          goto error;
-      } else goto error;
+      if (section) {
+	CLEANUP_FREE char *buf = split_strdup (p + 7);
+	if (buf == NULL) goto error;
+	if (STREQ (section, "data")) {
+	  if (parse_uint64 (&ret->xfs_datablocks, buf) == -1)
+	    goto error;
+	} else if (STREQ (section, "log")) {
+	  if (parse_uint32 (&ret->xfs_logblocks, buf) == -1)
+	    goto error;
+	} else if (STREQ (section, "realtime")) {
+	  if (parse_uint64 (&ret->xfs_rtblocks, buf) == -1)
+	    goto error;
+	}
+      }
     }
     if ((p = strstr (lines[i], "imaxpct="))) {
       CLEANUP_FREE char *buf = split_strdup (p + 8);
@@ -219,15 +243,17 @@ parse_xfs_info (char **lines)
         goto error;
     }
     if ((p = strstr (lines[i], "sunit="))) {
-      CLEANUP_FREE char *buf = split_strdup (p + 6);
-      if (buf == NULL) goto error;
-      if (i == 3) {
-        if (parse_uint32 (&ret->xfs_sunit, buf) == -1)
-          goto error;
-      } else if (i == 6) {
-        if (parse_uint32 (&ret->xfs_logsunit, buf) == -1)
-          goto error;
-      } else goto error;
+      if (section) {
+	CLEANUP_FREE char *buf = split_strdup (p + 6);
+	if (buf == NULL) goto error;
+	if (STREQ (section, "data")) {
+	  if (parse_uint32 (&ret->xfs_sunit, buf) == -1)
+	    goto error;
+	} else if (STREQ (section, "log")) {
+	  if (parse_uint32 (&ret->xfs_logsunit, buf) == -1)
+	    goto error;
+	}
+      }
     }
     if ((p = strstr (lines[i], "swidth="))) {
       CLEANUP_FREE char *buf = split_strdup (p + 7);
