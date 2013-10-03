@@ -41,7 +41,7 @@ let cachedir =
 let mode, arg,
   attach, cache, check_signature, curl, debug, fingerprint,
   firstboot, run,
-  format, gpg, install, list_long, network, output,
+  format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
   size, source, upload =
   let display_version () =
@@ -95,6 +95,9 @@ let mode, arg,
 
   let format = ref "" in
   let gpg = ref "gpg" in
+
+  let hostname = ref None in
+  let set_hostname s = hostname := Some s in
 
   let install = ref [] in
   let add_install pkgs =
@@ -180,6 +183,7 @@ let mode, arg,
     "--get-kernel", Arg.Unit get_kernel_mode,
                                             "image" ^ " " ^ s_"Get kernel from image";
     "--gpg",    Arg.Set_string gpg,         "gpg" ^ " " ^ s_"Set GPG binary/command";
+    "--hostname", Arg.String set_hostname,  "hostname" ^ " " ^ s_"Set the hostname";
     "--install", Arg.String add_install,    "pkg,pkg" ^ " " ^ s_"Add package(s) to install";
     "-l",        Arg.Unit list_mode,        " " ^ s_"List available templates";
     "--list",    Arg.Unit list_mode,        ditto;
@@ -231,6 +235,7 @@ read the man page virt-builder(1).
   let run = List.rev !run in
   let format = match !format with "" -> None | s -> Some s in
   let gpg = !gpg in
+  let hostname = !hostname in
   let install = !install in
   let list_long = !list_long in
   let network = !network in
@@ -283,7 +288,7 @@ read the man page virt-builder(1).
   mode, arg,
   attach, cache, check_signature, curl, debug, fingerprint,
   firstboot, run,
-  format, gpg, install, list_long, network, output,
+  format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
   size, source, upload
 
@@ -571,6 +576,48 @@ let root =
 (* Set the random seed. *)
 let () = ignore (Random_seed.set_random_seed g root)
 
+(* Set the hostname. *)
+let () =
+  match hostname with
+  | None -> ()
+  | Some hostname ->
+    ignore (Hostname.set_hostname g root hostname)
+
+(* Root password.
+ * Note 'None' means that we randomize the root password.
+ *)
+let () =
+  let make_random_password () =
+    (* Get random characters from the set [A-Za-z0-9] *)
+    let chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" in
+    let nr_chars = String.length chars in
+
+    let chan = open_in "/dev/urandom" in
+    let buf = String.create 16 in
+    for i = 0 to 15 do
+      buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
+    done;
+    close_in chan;
+
+    msg "Random root password: %s [did you mean to use --root-password?]" buf;
+
+    buf
+  in
+
+  let root_password =
+    match root_password with
+    | Some pw -> pw
+    | None -> make_random_password () in
+
+  match g#inspect_get_type root with
+  | "linux" ->
+    let h = Hashtbl.create 1 in
+    Hashtbl.replace h "root" root_password;
+    set_linux_passwords ~prog ?password_crypto g root h
+  | _ ->
+    ()
+
 (* Useful wrapper for scripts. *)
 let do_run cmd =
   (* Add a prologue to the scripts:
@@ -627,41 +674,6 @@ let () =
     let cmd = guest_install_command install in
     do_run cmd;
   )
-
-(* Root password.
- * Note 'None' means that we randomize the root password.
- *)
-let () =
-  let make_random_password () =
-    (* Get random characters from the set [A-Za-z0-9] *)
-    let chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" in
-    let nr_chars = String.length chars in
-
-    let chan = open_in "/dev/urandom" in
-    let buf = String.create 16 in
-    for i = 0 to 15 do
-      buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
-    done;
-    close_in chan;
-
-    msg "Random root password: %s [did you mean to use --root-password?]" buf;
-
-    buf
-  in
-
-  let root_password =
-    match root_password with
-    | Some pw -> pw
-    | None -> make_random_password () in
-
-  match g#inspect_get_type root with
-  | "linux" ->
-    let h = Hashtbl.create 1 in
-    Hashtbl.replace h "root" root_password;
-    set_linux_passwords ~prog ?password_crypto g root h
-  | _ ->
-    ()
 
 (* Upload files. *)
 let () =

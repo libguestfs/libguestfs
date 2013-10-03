@@ -38,6 +38,7 @@ rm -f phony-fedora.qcow2
 ./virt-builder phony-fedora \
     --no-cache --no-check-signature \
     --size 2G --format qcow2 \
+    --hostname test.example.com \
     --root-password password:123456 \
     --upload Makefile:/Makefile \
     --firstboot Makefile --firstboot-command 'echo "hello"' \

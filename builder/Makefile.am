@@ -57,6 +57,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/random_seed.cmx \
+	$(top_builddir)/mllib/hostname.cmx \
 	$(top_builddir)/mllib/firstboot.cmx \
 	$(top_builddir)/mllib/crypt-c.o \
 	$(top_builddir)/mllib/crypt.cmx \

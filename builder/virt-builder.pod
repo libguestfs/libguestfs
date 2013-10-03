@@ -8,8 +8,9 @@ virt-builder - Build virtual machine images quickly
 
  virt-builder [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]
     [--attach ISOFILE]
-    [--install PKG,[PKG...]]
     [--root-password ...]
+    [--hostname HOSTNAME]
+    [--install PKG,[PKG...]]
     [--upload FILE:DEST]
     [--run SCRIPT] [--run-command 'CMD ARGS ...']
     [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
@@ -93,6 +94,12 @@ Note if you I<don't> set I<--root-password> then the guest is given
 a I<random> root password.
 
 You can also create user accounts.  See L</USERS AND PASSWORDS> below.
+
+=head2 Set the hostname
+
+ virt-builder fedora-20 --hostname virt.example.com
+
+Set the hostname to C<virt.example.com>.
 
 =head2 Installing software
 
@@ -275,6 +282,11 @@ also use this to add gpg parameters, for example to specify an
 alternate home directory:
 
  virt-builder --gpg "gpg --homedir /tmp" [...]
+
+=item B<--hostname> HOSTNAME
+
+Set the hostname of the guest to C<HOSTNAME>.  You can use a
+dotted hostname.domainname (FQDN) if you want.
 
 =item B<--install> PKG[,PKG,...]
 
@@ -595,11 +607,15 @@ A new random seed is generated for the guest.
 
 =item *
 
-Packages are installed (I<--install>).
+The hostname is set (I<--hostname>).
 
 =item *
 
 The root password is changed (I<--root-password>).
+
+=item *
+
+Packages are installed (I<--install>).
 
 =item *
 
