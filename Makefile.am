@@ -232,15 +232,27 @@ HTMLSUPPORTFILES = html/draft.png html/pod.css
 
 TEXTFILES = BUGS README ROADMAP TODO
 
+BUILDERFILES = \
+	builder/website/README \
+	builder/website/index \
+	builder/website/index.asc \
+	builder/website/debian-7.xz \
+	builder/website/debian-7.xz.sig \
+	builder/website/fedora-18.xz \
+	builder/website/fedora-18.xz.sig \
+	builder/website/fedora-19.xz \
+	builder/website/fedora-19.xz.sig
+
 WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 
 # For reasons not fully understood, we need to rebuild all the
 # man pages and HTMLFILES from scratch here.
-website: $(HTMLFILES) $(HTMLSUPPORTFILES) $(TEXTFILES)
+website: $(HTMLFILES) $(HTMLSUPPORTFILES) $(TEXTFILES) $(BUILDERFILES)
 	find -name 'stamp-*.pod' -delete
 	$(MAKE)
 	cp $(HTMLFILES) $(HTMLSUPPORTFILES) $(WEBSITEDIR)
 	for f in $(TEXTFILES); do cp $$f $(WEBSITEDIR)/$$f.txt; done
+	cp $(BUILDERFILES) $(WEBSITEDIR)/download/builder/
 	cd $(WEBSITEDIR) && \
 	date=`date +%F`; \
 	sed -e "s/SUBST_VERSION/$(VERSION)/" \
