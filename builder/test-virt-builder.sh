@@ -28,7 +28,21 @@ if [ ! -f fedora.xz ]; then
     exit 77
 fi
 
-rm -f phony-fedora.qcow2
+output=phony-fedora.img
+
+format=qcow2
+if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+    format=raw
+
+    # XXX We specifically want virt-builder to work with the UML
+    # backend.  However currently it fails with:
+    #   error: uml backend does not support networking
+    # We should be able to make uml have a network backend, but in
+    # the meantime add this:
+    no_network=--no-network
+fi
+
+rm -f $output
 
 # Test as many options as we can!
 #
@@ -36,8 +50,8 @@ rm -f phony-fedora.qcow2
 # have a real OS inside just some configuration files.  Just about
 # every other option is fair game.
 ./virt-builder phony-fedora \
-    -v --no-cache --no-check-signature \
-    --size 2G --format qcow2 \
+    -v --no-cache --no-check-signature $no_network \
+    -o $output --size 2G --format $format \
     --hostname test.example.com \
     --root-password password:123456 \
     --upload Makefile:/Makefile \
@@ -46,4 +60,4 @@ rm -f phony-fedora.qcow2
 
 # XXX Test that the modifications were made.
 
-rm phony-fedora.qcow2
+rm $output
