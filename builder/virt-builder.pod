@@ -344,7 +344,8 @@ don't need the network.
 
 You don't want untrusted guest code trying to access your host network
 when running virt-builder.  This is particularly an issue when you
-don't trust the source of the operating system templates.
+don't trust the source of the operating system templates.  (See
+L</SECURITY> below).
 
 =item 4.
 
@@ -935,6 +936,60 @@ command line.  This prevents an attacker from replacing the signed
 index file with an unsigned index file and having virt-builder
 silently work without checking the signature.  In any case it is
 highly recommended that you always create signed index and templates.
+
+=head2 ARCHITECTURE
+
+Virt-builder can, in theory, build a guest for any architecture no
+matter what the host architecture is.  For example a ppc64 guest on an
+x86-64 host.
+
+However certain options may not work correctly, specifically options
+that require running commands in the guest during the build process:
+I<--install>, I<--run>, I<--run-command>.  You may need to replace
+these with the firstboot-equivalents.
+
+X86-64 host building 32 bit x86 guests will usually work without any
+special modification.
+
+=head2 SECURITY
+
+Virt-builder does not need to run as root (in fact, should not be run
+as root), and doesn't use setuid, C<sudo> or any similar mechanism.
+
+I<--install>, I<--run> and I<--run-command> are implemented using an
+appliance (a small virtual machine) so these commands do not run on
+the host.  If you are using the libguestfs libvirt backend and have
+SELinux enabled then the virtual machine is additionally encapsulated
+in an SELinux container (sVirt).
+
+However these options will have access to the host's network and since
+the template may contain untrusted code, the code might try to access
+host network resources which it should not.  You can use
+I<--no-network> to prevent this.
+
+Firstboot commands run in the context of the guest when it is booted,
+and so the security of your hypervisor / cloud should be considered.
+
+Virt-builder injects a random seed into every guest which it builds.
+This helps to ensure that TCP sequence numbers, UUIDs, ssh host keys
+etc are truly random when the guest boots.
+
+You should check digital signatures and not ignore any signing errors.
+
+=head2 USER MODE LINUX
+
+You can use virt-builder with the User-Mode Linux (UML) backend.  This
+may be faster when running virt-builder inside a virtual machine
+(eg. in the cloud).
+
+To enable the UML backend, read the instructions in
+L<guestfs(3)/USER-MODE LINUX BACKEND>.
+
+Currently you have to use the I<--no-network> option.  This should be
+fixed in a future version.
+
+The qcow2 output format is not supported by UML.  You can only create
+raw-format guests.
 
 =head1 ENVIRONMENT VARIABLES
 
