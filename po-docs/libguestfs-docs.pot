@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.23.24\n"
+"Project-Id-Version: libguestfs 1.23.25\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-10-03 21:57+0200\n"
+"POT-Creation-Date: 2013-10-04 11:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -426,7 +426,7 @@ msgid "B<-q>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:181 ../builder/virt-builder.pod:381 ../fuse/guestunmount.pod:87 ../resize/virt-resize.pod:507 ../sparsify/virt-sparsify.pod:222 ../sysprep/virt-sysprep.pod:174
+#: ../align/virt-alignment-scan.pod:181 ../builder/virt-builder.pod:382 ../fuse/guestunmount.pod:87 ../resize/virt-resize.pod:507 ../sparsify/virt-sparsify.pod:222 ../sysprep/virt-sysprep.pod:174
 msgid "B<--quiet>"
 msgstr ""
 
@@ -458,12 +458,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:195 ../builder/virt-builder.pod:448 ../cat/virt-cat.pod:140 ../cat/virt-filesystems.pod:267 ../cat/virt-ls.pod:431 ../daemon/guestfsd.pod:62 ../df/virt-df.pod:185 ../edit/virt-edit.pod:167 ../fish/guestfish.pod:423 ../format/virt-format.pod:155 ../fuse/guestmount.pod:354 ../inspector/virt-inspector.pod:118 ../rescue/virt-rescue.pod:240 ../resize/virt-resize.pod:575 ../sparsify/virt-sparsify.pod:226 ../sysprep/virt-sysprep.pod:190
+#: ../align/virt-alignment-scan.pod:195 ../builder/virt-builder.pod:449 ../cat/virt-cat.pod:140 ../cat/virt-filesystems.pod:267 ../cat/virt-ls.pod:431 ../daemon/guestfsd.pod:62 ../df/virt-df.pod:185 ../edit/virt-edit.pod:167 ../fish/guestfish.pod:423 ../format/virt-format.pod:155 ../fuse/guestmount.pod:354 ../inspector/virt-inspector.pod:118 ../rescue/virt-rescue.pod:240 ../resize/virt-resize.pod:575 ../sparsify/virt-sparsify.pod:226 ../sysprep/virt-sysprep.pod:190
 msgid "B<-v>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:197 ../builder/virt-builder.pod:450 ../cat/virt-cat.pod:142 ../cat/virt-filesystems.pod:269 ../cat/virt-ls.pod:433 ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../edit/virt-edit.pod:169 ../fish/guestfish.pod:425 ../format/virt-format.pod:157 ../fuse/guestmount.pod:356 ../inspector/virt-inspector.pod:120 ../rescue/virt-rescue.pod:242 ../resize/virt-resize.pod:577 ../sparsify/virt-sparsify.pod:228 ../sysprep/virt-sysprep.pod:192
+#: ../align/virt-alignment-scan.pod:197 ../builder/virt-builder.pod:451 ../cat/virt-cat.pod:142 ../cat/virt-filesystems.pod:269 ../cat/virt-ls.pod:433 ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../edit/virt-edit.pod:169 ../fish/guestfish.pod:425 ../format/virt-format.pod:157 ../fuse/guestmount.pod:356 ../inspector/virt-inspector.pod:120 ../rescue/virt-rescue.pod:242 ../resize/virt-resize.pod:577 ../sparsify/virt-sparsify.pod:228 ../sysprep/virt-sysprep.pod:192
 msgid "B<--verbose>"
 msgstr ""
 
@@ -473,17 +473,17 @@ msgid "Enable verbose messages for debugging."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:201 ../appliance/libguestfs-make-fixed-appliance.pod:107 ../builder/virt-builder.pod:457 ../cat/virt-cat.pod:146 ../cat/virt-filesystems.pod:273 ../cat/virt-ls.pod:437 ../df/virt-df.pod:191 ../edit/virt-edit.pod:173 ../fish/guestfish.pod:430 ../format/virt-format.pod:161 ../fuse/guestmount.pod:360 ../fuse/guestunmount.pod:107 ../inspector/virt-inspector.pod:124 ../rescue/virt-rescue.pod:246 ../resize/virt-resize.pod:581 ../sparsify/virt-sparsify.pod:232 ../sysprep/virt-sysprep.pod:196 ../test-tool/libguestfs-test-tool.pod:61
+#: ../align/virt-alignment-scan.pod:201 ../appliance/libguestfs-make-fixed-appliance.pod:107 ../builder/virt-builder.pod:458 ../cat/virt-cat.pod:146 ../cat/virt-filesystems.pod:273 ../cat/virt-ls.pod:437 ../df/virt-df.pod:191 ../edit/virt-edit.pod:173 ../fish/guestfish.pod:430 ../format/virt-format.pod:161 ../fuse/guestmount.pod:360 ../fuse/guestunmount.pod:107 ../inspector/virt-inspector.pod:124 ../rescue/virt-rescue.pod:246 ../resize/virt-resize.pod:581 ../sparsify/virt-sparsify.pod:232 ../sysprep/virt-sysprep.pod:196 ../test-tool/libguestfs-test-tool.pod:61
 msgid "B<-V>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:203 ../appliance/libguestfs-make-fixed-appliance.pod:109 ../builder/virt-builder.pod:459 ../cat/virt-cat.pod:148 ../cat/virt-filesystems.pod:275 ../cat/virt-ls.pod:439 ../df/virt-df.pod:193 ../edit/virt-edit.pod:175 ../fish/guestfish.pod:432 ../format/virt-format.pod:163 ../fuse/guestmount.pod:362 ../fuse/guestunmount.pod:109 ../inspector/virt-inspector.pod:126 ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:583 ../sparsify/virt-sparsify.pod:234 ../sysprep/virt-sysprep.pod:198 ../test-tool/libguestfs-test-tool.pod:63 ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71 ../tools/virt-make-fs:167 ../tools/virt-tar:118 ../tools/virt-win-reg:111
+#: ../align/virt-alignment-scan.pod:203 ../appliance/libguestfs-make-fixed-appliance.pod:109 ../builder/virt-builder.pod:460 ../cat/virt-cat.pod:148 ../cat/virt-filesystems.pod:275 ../cat/virt-ls.pod:439 ../df/virt-df.pod:193 ../edit/virt-edit.pod:175 ../fish/guestfish.pod:432 ../format/virt-format.pod:163 ../fuse/guestmount.pod:362 ../fuse/guestunmount.pod:109 ../inspector/virt-inspector.pod:126 ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:583 ../sparsify/virt-sparsify.pod:234 ../sysprep/virt-sysprep.pod:198 ../test-tool/libguestfs-test-tool.pod:63 ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71 ../tools/virt-make-fs:167 ../tools/virt-tar:118 ../tools/virt-win-reg:111
 msgid "B<--version>"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:205 ../builder/virt-builder.pod:461 ../cat/virt-cat.pod:150 ../cat/virt-filesystems.pod:277 ../cat/virt-ls.pod:441 ../df/virt-df.pod:195 ../edit/virt-edit.pod:177 ../format/virt-format.pod:165 ../inspector/virt-inspector.pod:128 ../rescue/virt-rescue.pod:250 ../resize/virt-resize.pod:585 ../sparsify/virt-sparsify.pod:236 ../sysprep/virt-sysprep.pod:200 ../tools/virt-list-filesystems:72 ../tools/virt-list-partitions:73 ../tools/virt-make-fs:169 ../tools/virt-tar:120 ../tools/virt-win-reg:113
+#: ../align/virt-alignment-scan.pod:205 ../builder/virt-builder.pod:462 ../cat/virt-cat.pod:150 ../cat/virt-filesystems.pod:277 ../cat/virt-ls.pod:441 ../df/virt-df.pod:195 ../edit/virt-edit.pod:177 ../format/virt-format.pod:165 ../inspector/virt-inspector.pod:128 ../rescue/virt-rescue.pod:250 ../resize/virt-resize.pod:585 ../sparsify/virt-sparsify.pod:236 ../sysprep/virt-sysprep.pod:200 ../tools/virt-list-filesystems:72 ../tools/virt-list-partitions:73 ../tools/virt-make-fs:169 ../tools/virt-tar:120 ../tools/virt-win-reg:113
 msgid "Display version number and exit."
 msgstr ""
 
@@ -778,7 +778,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:359 ../appliance/libguestfs-make-fixed-appliance.pod:156 ../builder/virt-builder.pod:975 ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:496 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260 ../edit/virt-edit.pod:355 ../fish/guestfish.pod:1355 ../format/virt-format.pod:183 ../fuse/guestmount.pod:401 ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:747 ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:504 ../test-tool/libguestfs-test-tool.pod:173
+#: ../align/virt-alignment-scan.pod:359 ../appliance/libguestfs-make-fixed-appliance.pod:156 ../builder/virt-builder.pod:1030 ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:496 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260 ../edit/virt-edit.pod:355 ../fish/guestfish.pod:1355 ../format/virt-format.pod:183 ../fuse/guestmount.pod:401 ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:747 ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:504 ../test-tool/libguestfs-test-tool.pod:173
 msgid "EXIT STATUS"
 msgstr ""
 
@@ -788,7 +788,7 @@ msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:365 ../align/virt-alignment-scan.pod:371 ../align/virt-alignment-scan.pod:377 ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:24 ../appliance/libguestfs-make-fixed-appliance.pod:30 ../appliance/libguestfs-make-fixed-appliance.pod:36 ../appliance/libguestfs-make-fixed-appliance.pod:54 ../appliance/libguestfs-make-fixed-appliance.pod:75 ../builder/virt-builder.pod:577 ../builder/virt-builder.pod:584 ../builder/virt-builder.pod:588 ../builder/virt-builder.pod:595 ../builder/virt-builder.pod:600 ../builder/virt-builder.pod:604 ../builder/virt-builder.pod:608 ../builder/virt-builder.pod:612 ../builder/virt-builder.pod:616 ../builder/virt-builder.pod:620 ../builder/virt-builder.pod:624 ../builder/virt-builder.pod:633 ../builder/virt-builder.pod:867 ../builder/virt-builder.pod:871 ../cat/virt-cat.pod:183 ../cat/virt-cat.pod:188 ../cat/virt-cat.pod:193 ../cat/virt-cat.pod:204 ../cat/virt-cat.pod:208 ../edit/virt-edit.pod:272 ../edit/virt-edit.pod:277 ../edit/virt-edit.pod:282 ../edit/virt-edit.pod:293 ../edit/virt-edit.pod:297 ../examples/guestfs-faq.pod:172 ../examples/guestfs-faq.pod:178 ../examples/guestfs-faq.pod:217 ../examples/guestfs-faq.pod:223 ../examples/guestfs-faq.pod:765 ../examples/guestfs-faq.pod:769 ../examples/guestfs-faq.pod:773 ../examples/guestfs-faq.pod:777 ../examples/guestfs-faq.pod:785 ../examples/guestfs-faq.pod:790 ../examples/guestfs-performance.pod:107 ../examples/guestfs-performance.pod:113 ../examples/guestfs-performance.pod:118 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:258 ../examples/guestfs-performance.pod:263 ../examples/guestfs-performance.pod:382 ../examples/guestfs-performance.pod:386 ../examples/guestfs-performance.pod:392 ../examples/guestfs-performance.pod:398 ../examples/guestfs-recipes.pod:186 ../examples/guestfs-recipes.pod:190 ../examples/guestfs-recipes.pod:194 ../examples/guestfs-recipes.pod:220 ../examples/guestfs-recipes.pod:225 ../examples/guestfs-recipes.pod:315 ../examples/guestfs-recipes.pod:319 ../examples/guestfs-recipes.pod:323 ../examples/guestfs-recipes.pod:327 ../examples/guestfs-recipes.pod:331 ../examples/guestfs-testing.pod:69 ../examples/guestfs-testing.pod:76 ../examples/guestfs-testing.pod:87 ../examples/guestfs-testing.pod:96 ../examples/guestfs-testing.pod:205 ../examples/guestfs-testing.pod:209 ../examples/guestfs-testing.pod:213 ../fish/guestfish-actions.pod:684 ../fish/guestfish-actions.pod:690 ../fish/guestfish-actions.pod:698 ../fish/guestfish-actions.pod:705 ../fish/guestfish-actions.pod:712 ../fish/guestfish-actions.pod:1823 ../fish/guestfish-actions.pod:1827 ../fish/guestfish-actions.pod:1831 ../fish/guestfish-actions.pod:1835 ../fish/guestfish-actions.pod:1843 ../fish/guestfish-actions.pod:1847 ../fish/guestfish-actions.pod:1851 ../fish/guestfish-actions.pod:1861 ../fish/guestfish-actions.pod:1865 ../fish/guestfish-actions.pod:1869 ../fish/guestfish-actions.pod:1983 ../fish/guestfish-actions.pod:1987 ../fish/guestfish-actions.pod:1992 ../fish/guestfish-actions.pod:2034 ../fish/guestfish-actions.pod:2038 ../fish/guestfish-actions.pod:2043 ../fish/guestfish-actions.pod:2576 ../fish/guestfish-actions.pod:2583 ../fish/guestfish-actions.pod:2590 ../fish/guestfish-actions.pod:3172 ../fish/guestfish-actions.pod:3178 ../fish/guestfish-actions.pod:3186 ../fish/guestfish-actions.pod:3193 ../fish/guestfish-actions.pod:3200 ../fish/guestfish.pod:478 ../fish/guestfish.pod:482 ../fish/guestfish.pod:486 ../fish/guestfish.pod:490 ../golang/examples/guestfs-golang.pod:60 ../golang/examples/guestfs-golang.pod:64 ../guestfs-release-notes.pod:37 ../guestfs-release-notes.pod:41 ../guestfs-release-notes.pod:45 ../guestfs-release-notes.pod:49 ../guestfs-release-notes.pod:53 ../guestfs-release-notes.pod:57 ../guestfs-release-notes.pod:61 ../guestfs-release-notes.pod:66 ../guestfs-release-notes.pod:70 ../guestfs-release-notes.pod:395 ../guestfs-release-notes.pod:399 ../guestfs-release-notes.pod:403 ../guestfs-release-notes.pod:465 ../guestfs-release-notes.pod:469 ../guestfs-release-notes.pod:473 ../guestfs-release-notes.pod:477 ../guestfs-release-notes.pod:481 ../guestfs-release-notes.pod:485 ../guestfs-release-notes.pod:490 ../guestfs-release-notes.pod:494 ../guestfs-release-notes.pod:498 ../guestfs-release-notes.pod:502 ../guestfs-release-notes.pod:698 ../guestfs-release-notes.pod:703 ../guestfs-release-notes.pod:708 ../inspector/virt-inspector.pod:514 ../inspector/virt-inspector.pod:518 ../resize/virt-resize.pod:373 ../resize/virt-resize.pod:377 ../resize/virt-resize.pod:386 ../resize/virt-resize.pod:392 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:53 ../sparsify/virt-sparsify.pod:57 ../sparsify/virt-sparsify.pod:63 ../sparsify/virt-sparsify.pod:68 ../sparsify/virt-sparsify.pod:73 ../sparsify/virt-sparsify.pod:131 ../sparsify/virt-sparsify.pod:135 ../sparsify/virt-sparsify.pod:139 ../sparsify/virt-sparsify.pod:144 ../src/guestfs-actions.pod:959 ../src/guestfs-actions.pod:965 ../src/guestfs-actions.pod:973 ../src/guestfs-actions.pod:980 ../src/guestfs-actions.pod:987 ../src/guestfs-actions.pod:2931 ../src/guestfs-actions.pod:2935 ../src/guestfs-actions.pod:2939 ../src/guestfs-actions.pod:2943 ../src/guestfs-actions.pod:2951 ../src/guestfs-actions.pod:2955 ../src/guestfs-actions.pod:2959 ../src/guestfs-actions.pod:2969 ../src/guestfs-actions.pod:2973 ../src/guestfs-actions.pod:2977 ../src/guestfs-actions.pod:3152 ../src/guestfs-actions.pod:3156 ../src/guestfs-actions.pod:3161 ../src/guestfs-actions.pod:3222 ../src/guestfs-actions.pod:3226 ../src/guestfs-actions.pod:3231 ../src/guestfs-actions.pod:4082 ../src/guestfs-actions.pod:4089 ../src/guestfs-actions.pod:4096 ../src/guestfs-actions.pod:4967 ../src/guestfs-actions.pod:4973 ../src/guestfs-actions.pod:4981 ../src/guestfs-actions.pod:4988 ../src/guestfs-actions.pod:4995 ../src/guestfs.pod:398 ../src/guestfs.pod:403 ../src/guestfs.pod:408 ../src/guestfs.pod:412 ../src/guestfs.pod:417 ../src/guestfs.pod:421 ../src/guestfs.pod:426 ../src/guestfs.pod:431 ../src/guestfs.pod:782 ../src/guestfs.pod:789 ../src/guestfs.pod:795 ../src/guestfs.pod:801 ../src/guestfs.pod:807 ../src/guestfs.pod:812 ../src/guestfs.pod:818 ../src/guestfs.pod:1046 ../src/guestfs.pod:1050 ../src/guestfs.pod:1056 ../src/guestfs.pod:1139 ../src/guestfs.pod:1144 ../src/guestfs.pod:1148 ../src/guestfs.pod:1154 ../src/guestfs.pod:1158 ../src/guestfs.pod:1162 ../src/guestfs.pod:1167 ../src/guestfs.pod:1688 ../src/guestfs.pod:1692 ../src/guestfs.pod:1696 ../src/guestfs.pod:1701 ../src/guestfs.pod:1709 ../src/guestfs.pod:1728 ../src/guestfs.pod:1736 ../src/guestfs.pod:1753 ../src/guestfs.pod:1758 ../src/guestfs.pod:1762 ../src/guestfs.pod:1951 ../src/guestfs.pod:1955 ../src/guestfs.pod:1959 ../src/guestfs.pod:1963 ../src/guestfs.pod:1967 ../src/guestfs.pod:1971 ../src/guestfs.pod:2610 ../src/guestfs.pod:2615 ../src/guestfs.pod:2619 ../src/guestfs.pod:2723 ../src/guestfs.pod:2728 ../src/guestfs.pod:2732 ../src/guestfs.pod:2742 ../src/guestfs.pod:3163 ../src/guestfs.pod:3168 ../src/guestfs.pod:3174 ../src/guestfs.pod:3182 ../src/guestfs.pod:3699 ../src/guestfs.pod:3705 ../src/guestfs.pod:3710 ../src/guestfs.pod:3716 ../src/guestfs.pod:4111 ../src/guestfs.pod:4115 ../src/guestfs.pod:4119 ../src/guestfs.pod:4123 ../src/guestfs.pod:4127 ../src/guestfs.pod:4131 ../src/guestfs.pod:4135 ../src/guestfs.pod:4374 ../src/guestfs.pod:4379 ../src/guestfs.pod:4383 ../src/guestfs.pod:4387 ../src/guestfs.pod:4391 ../src/guestfs.pod:4405 ../src/guestfs.pod:4409 ../src/guestfs.pod:4414 ../src/guestfs.pod:4418 ../sysprep/virt-sysprep.pod:254 ../sysprep/virt-sysprep.pod:258 ../sysprep/virt-sysprep.pod:262 ../sysprep/virt-sysprep.pod:266 ../sysprep/virt-sysprep.pod:281 ../sysprep/virt-sysprep.pod:285 ../sysprep/virt-sysprep.pod:289 ../sysprep/virt-sysprep.pod:293 ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:350 ../sysprep/virt-sysprep.pod:362 ../sysprep/virt-sysprep.pod:366 ../sysprep/virt-sysprep.pod:374 ../sysprep/virt-sysprep.pod:380 ../tools/virt-win-reg:196 ../tools/virt-win-reg:201 ../tools/virt-win-reg:207 ../tools/virt-win-reg:725 ../tools/virt-win-reg:731 ../tools/virt-win-reg:737
+#: ../align/virt-alignment-scan.pod:365 ../align/virt-alignment-scan.pod:371 ../align/virt-alignment-scan.pod:377 ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:24 ../appliance/libguestfs-make-fixed-appliance.pod:30 ../appliance/libguestfs-make-fixed-appliance.pod:36 ../appliance/libguestfs-make-fixed-appliance.pod:54 ../appliance/libguestfs-make-fixed-appliance.pod:75 ../builder/virt-builder.pod:578 ../builder/virt-builder.pod:585 ../builder/virt-builder.pod:589 ../builder/virt-builder.pod:596 ../builder/virt-builder.pod:601 ../builder/virt-builder.pod:605 ../builder/virt-builder.pod:609 ../builder/virt-builder.pod:613 ../builder/virt-builder.pod:617 ../builder/virt-builder.pod:621 ../builder/virt-builder.pod:625 ../builder/virt-builder.pod:634 ../builder/virt-builder.pod:868 ../builder/virt-builder.pod:872 ../cat/virt-cat.pod:183 ../cat/virt-cat.pod:188 ../cat/virt-cat.pod:193 ../cat/virt-cat.pod:204 ../cat/virt-cat.pod:208 ../edit/virt-edit.pod:272 ../edit/virt-edit.pod:277 ../edit/virt-edit.pod:282 ../edit/virt-edit.pod:293 ../edit/virt-edit.pod:297 ../examples/guestfs-faq.pod:172 ../examples/guestfs-faq.pod:178 ../examples/guestfs-faq.pod:217 ../examples/guestfs-faq.pod:223 ../examples/guestfs-faq.pod:765 ../examples/guestfs-faq.pod:769 ../examples/guestfs-faq.pod:773 ../examples/guestfs-faq.pod:777 ../examples/guestfs-faq.pod:785 ../examples/guestfs-faq.pod:790 ../examples/guestfs-performance.pod:107 ../examples/guestfs-performance.pod:113 ../examples/guestfs-performance.pod:118 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:258 ../examples/guestfs-performance.pod:263 ../examples/guestfs-performance.pod:382 ../examples/guestfs-performance.pod:386 ../examples/guestfs-performance.pod:392 ../examples/guestfs-performance.pod:398 ../examples/guestfs-recipes.pod:186 ../examples/guestfs-recipes.pod:190 ../examples/guestfs-recipes.pod:194 ../examples/guestfs-recipes.pod:220 ../examples/guestfs-recipes.pod:225 ../examples/guestfs-recipes.pod:315 ../examples/guestfs-recipes.pod:319 ../examples/guestfs-recipes.pod:323 ../examples/guestfs-recipes.pod:327 ../examples/guestfs-recipes.pod:331 ../examples/guestfs-testing.pod:69 ../examples/guestfs-testing.pod:76 ../examples/guestfs-testing.pod:87 ../examples/guestfs-testing.pod:96 ../examples/guestfs-testing.pod:205 ../examples/guestfs-testing.pod:209 ../examples/guestfs-testing.pod:213 ../fish/guestfish-actions.pod:684 ../fish/guestfish-actions.pod:690 ../fish/guestfish-actions.pod:698 ../fish/guestfish-actions.pod:705 ../fish/guestfish-actions.pod:712 ../fish/guestfish-actions.pod:1823 ../fish/guestfish-actions.pod:1827 ../fish/guestfish-actions.pod:1831 ../fish/guestfish-actions.pod:1835 ../fish/guestfish-actions.pod:1843 ../fish/guestfish-actions.pod:1847 ../fish/guestfish-actions.pod:1851 ../fish/guestfish-actions.pod:1861 ../fish/guestfish-actions.pod:1865 ../fish/guestfish-actions.pod:1869 ../fish/guestfish-actions.pod:1983 ../fish/guestfish-actions.pod:1987 ../fish/guestfish-actions.pod:1992 ../fish/guestfish-actions.pod:2034 ../fish/guestfish-actions.pod:2038 ../fish/guestfish-actions.pod:2043 ../fish/guestfish-actions.pod:2576 ../fish/guestfish-actions.pod:2583 ../fish/guestfish-actions.pod:2590 ../fish/guestfish-actions.pod:3172 ../fish/guestfish-actions.pod:3178 ../fish/guestfish-actions.pod:3186 ../fish/guestfish-actions.pod:3193 ../fish/guestfish-actions.pod:3200 ../fish/guestfish.pod:478 ../fish/guestfish.pod:482 ../fish/guestfish.pod:486 ../fish/guestfish.pod:490 ../golang/examples/guestfs-golang.pod:60 ../golang/examples/guestfs-golang.pod:64 ../guestfs-release-notes.pod:37 ../guestfs-release-notes.pod:41 ../guestfs-release-notes.pod:45 ../guestfs-release-notes.pod:49 ../guestfs-release-notes.pod:53 ../guestfs-release-notes.pod:57 ../guestfs-release-notes.pod:61 ../guestfs-release-notes.pod:66 ../guestfs-release-notes.pod:70 ../guestfs-release-notes.pod:395 ../guestfs-release-notes.pod:399 ../guestfs-release-notes.pod:403 ../guestfs-release-notes.pod:465 ../guestfs-release-notes.pod:469 ../guestfs-release-notes.pod:473 ../guestfs-release-notes.pod:477 ../guestfs-release-notes.pod:481 ../guestfs-release-notes.pod:485 ../guestfs-release-notes.pod:490 ../guestfs-release-notes.pod:494 ../guestfs-release-notes.pod:498 ../guestfs-release-notes.pod:502 ../guestfs-release-notes.pod:698 ../guestfs-release-notes.pod:703 ../guestfs-release-notes.pod:708 ../inspector/virt-inspector.pod:514 ../inspector/virt-inspector.pod:518 ../resize/virt-resize.pod:373 ../resize/virt-resize.pod:377 ../resize/virt-resize.pod:386 ../resize/virt-resize.pod:392 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:53 ../sparsify/virt-sparsify.pod:57 ../sparsify/virt-sparsify.pod:63 ../sparsify/virt-sparsify.pod:68 ../sparsify/virt-sparsify.pod:73 ../sparsify/virt-sparsify.pod:131 ../sparsify/virt-sparsify.pod:135 ../sparsify/virt-sparsify.pod:139 ../sparsify/virt-sparsify.pod:144 ../src/guestfs-actions.pod:959 ../src/guestfs-actions.pod:965 ../src/guestfs-actions.pod:973 ../src/guestfs-actions.pod:980 ../src/guestfs-actions.pod:987 ../src/guestfs-actions.pod:2931 ../src/guestfs-actions.pod:2935 ../src/guestfs-actions.pod:2939 ../src/guestfs-actions.pod:2943 ../src/guestfs-actions.pod:2951 ../src/guestfs-actions.pod:2955 ../src/guestfs-actions.pod:2959 ../src/guestfs-actions.pod:2969 ../src/guestfs-actions.pod:2973 ../src/guestfs-actions.pod:2977 ../src/guestfs-actions.pod:3152 ../src/guestfs-actions.pod:3156 ../src/guestfs-actions.pod:3161 ../src/guestfs-actions.pod:3222 ../src/guestfs-actions.pod:3226 ../src/guestfs-actions.pod:3231 ../src/guestfs-actions.pod:4082 ../src/guestfs-actions.pod:4089 ../src/guestfs-actions.pod:4096 ../src/guestfs-actions.pod:4967 ../src/guestfs-actions.pod:4973 ../src/guestfs-actions.pod:4981 ../src/guestfs-actions.pod:4988 ../src/guestfs-actions.pod:4995 ../src/guestfs.pod:398 ../src/guestfs.pod:403 ../src/guestfs.pod:408 ../src/guestfs.pod:412 ../src/guestfs.pod:417 ../src/guestfs.pod:421 ../src/guestfs.pod:426 ../src/guestfs.pod:431 ../src/guestfs.pod:782 ../src/guestfs.pod:789 ../src/guestfs.pod:795 ../src/guestfs.pod:801 ../src/guestfs.pod:807 ../src/guestfs.pod:812 ../src/guestfs.pod:818 ../src/guestfs.pod:1046 ../src/guestfs.pod:1050 ../src/guestfs.pod:1056 ../src/guestfs.pod:1139 ../src/guestfs.pod:1144 ../src/guestfs.pod:1148 ../src/guestfs.pod:1154 ../src/guestfs.pod:1158 ../src/guestfs.pod:1162 ../src/guestfs.pod:1167 ../src/guestfs.pod:1688 ../src/guestfs.pod:1692 ../src/guestfs.pod:1696 ../src/guestfs.pod:1701 ../src/guestfs.pod:1709 ../src/guestfs.pod:1728 ../src/guestfs.pod:1736 ../src/guestfs.pod:1753 ../src/guestfs.pod:1758 ../src/guestfs.pod:1762 ../src/guestfs.pod:1951 ../src/guestfs.pod:1955 ../src/guestfs.pod:1959 ../src/guestfs.pod:1963 ../src/guestfs.pod:1967 ../src/guestfs.pod:1971 ../src/guestfs.pod:2610 ../src/guestfs.pod:2615 ../src/guestfs.pod:2619 ../src/guestfs.pod:2723 ../src/guestfs.pod:2728 ../src/guestfs.pod:2732 ../src/guestfs.pod:2742 ../src/guestfs.pod:3163 ../src/guestfs.pod:3168 ../src/guestfs.pod:3174 ../src/guestfs.pod:3182 ../src/guestfs.pod:3699 ../src/guestfs.pod:3705 ../src/guestfs.pod:3710 ../src/guestfs.pod:3716 ../src/guestfs.pod:4111 ../src/guestfs.pod:4115 ../src/guestfs.pod:4119 ../src/guestfs.pod:4123 ../src/guestfs.pod:4127 ../src/guestfs.pod:4131 ../src/guestfs.pod:4135 ../src/guestfs.pod:4374 ../src/guestfs.pod:4379 ../src/guestfs.pod:4383 ../src/guestfs.pod:4387 ../src/guestfs.pod:4391 ../src/guestfs.pod:4405 ../src/guestfs.pod:4409 ../src/guestfs.pod:4414 ../src/guestfs.pod:4418 ../sysprep/virt-sysprep.pod:254 ../sysprep/virt-sysprep.pod:258 ../sysprep/virt-sysprep.pod:262 ../sysprep/virt-sysprep.pod:266 ../sysprep/virt-sysprep.pod:281 ../sysprep/virt-sysprep.pod:285 ../sysprep/virt-sysprep.pod:289 ../sysprep/virt-sysprep.pod:293 ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:350 ../sysprep/virt-sysprep.pod:362 ../sysprep/virt-sysprep.pod:366 ../sysprep/virt-sysprep.pod:374 ../sysprep/virt-sysprep.pod:380 ../tools/virt-win-reg:196 ../tools/virt-win-reg:201 ../tools/virt-win-reg:207 ../tools/virt-win-reg:725 ../tools/virt-win-reg:731 ../tools/virt-win-reg:737
 msgid "*"
 msgstr ""
 
@@ -837,7 +837,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:393 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../builder/virt-builder.pod:980 ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:501 ../daemon/guestfsd.pod:112 ../df/virt-df.pod:265 ../edit/virt-edit.pod:360 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1137 ../examples/guestfs-performance.pod:567 ../examples/guestfs-recipes.pod:544 ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1555 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:187 ../fuse/guestmount.pod:406 ../fuse/guestunmount.pod:149 ../golang/examples/guestfs-golang.pod:78 ../guestfs-release-notes.pod:2329 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:417 ../resize/virt-resize.pod:752 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4654 ../sysprep/virt-sysprep.pod:508 ../test-tool/libguestfs-test-tool.pod:183 ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272 ../tools/virt-make-fs:640 ../tools/virt-tar:301 ../tools/virt-win-reg:761
+#: ../align/virt-alignment-scan.pod:393 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../builder/virt-builder.pod:1035 ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:501 ../daemon/guestfsd.pod:112 ../df/virt-df.pod:265 ../edit/virt-edit.pod:360 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1137 ../examples/guestfs-performance.pod:567 ../examples/guestfs-recipes.pod:544 ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1555 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:187 ../fuse/guestmount.pod:406 ../fuse/guestunmount.pod:149 ../golang/examples/guestfs-golang.pod:78 ../guestfs-release-notes.pod:2329 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:417 ../resize/virt-resize.pod:752 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4654 ../sysprep/virt-sysprep.pod:508 ../test-tool/libguestfs-test-tool.pod:183 ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272 ../tools/virt-make-fs:640 ../tools/virt-tar:301 ../tools/virt-win-reg:761
 msgid "SEE ALSO"
 msgstr ""
 
@@ -849,17 +849,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:996 ../cat/virt-cat.pod:258 ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:510 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:273 ../edit/virt-edit.pod:371 ../format/virt-format.pod:197 ../guestfs-release-notes.pod:2340 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:775 ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems:202 ../tools/virt-list-partitions:283 ../tools/virt-make-fs:655 ../tools/virt-tar:315 ../tools/virt-win-reg:775
+#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1051 ../cat/virt-cat.pod:258 ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:510 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:273 ../edit/virt-edit.pod:371 ../format/virt-format.pod:197 ../guestfs-release-notes.pod:2340 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:775 ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems:202 ../tools/virt-list-partitions:283 ../tools/virt-make-fs:655 ../tools/virt-tar:315 ../tools/virt-win-reg:775
 msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:998 ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:512 ../daemon/guestfsd.pod:119 ../df/virt-df.pod:275 ../edit/virt-edit.pod:373 ../format/virt-format.pod:199 ../inspector/virt-inspector.pod:516 ../rescue/virt-rescue.pod:428 ../resize/virt-resize.pod:777 ../sparsify/virt-sparsify.pod:354 ../sysprep/virt-sysprep.pod:525 ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285 ../tools/virt-make-fs:657 ../tools/virt-tar:317 ../tools/virt-win-reg:777
+#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1053 ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:512 ../daemon/guestfsd.pod:119 ../df/virt-df.pod:275 ../edit/virt-edit.pod:373 ../format/virt-format.pod:199 ../inspector/virt-inspector.pod:516 ../rescue/virt-rescue.pod:428 ../resize/virt-resize.pod:777 ../sparsify/virt-sparsify.pod:354 ../sysprep/virt-sysprep.pod:525 ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285 ../tools/virt-make-fs:657 ../tools/virt-tar:317 ../tools/virt-win-reg:777
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:406 ../appliance/libguestfs-make-fixed-appliance.pod:179 ../builder/virt-builder.pod:1000 ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:514 ../daemon/guestfsd.pod:121 ../df/virt-df.pod:277 ../edit/virt-edit.pod:375 ../erlang/examples/guestfs-erlang.pod:116 ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1147 ../examples/guestfs-performance.pod:584 ../examples/guestfs-recipes.pod:563 ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1588 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:201 ../fuse/guestmount.pod:423 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97 ../guestfs-release-notes.pod:2344 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:100 ../lua/examples/guestfs-lua.pod:157 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59 ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:430 ../resize/virt-resize.pod:779 ../ruby/examples/guestfs-ruby.pod:54 ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4714 ../sysprep/virt-sysprep.pod:529 ../test-tool/libguestfs-test-tool.pod:193 ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287 ../tools/virt-make-fs:659 ../tools/virt-tar:319 ../tools/virt-win-reg:779
+#: ../align/virt-alignment-scan.pod:406 ../appliance/libguestfs-make-fixed-appliance.pod:179 ../builder/virt-builder.pod:1055 ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:514 ../daemon/guestfsd.pod:121 ../df/virt-df.pod:277 ../edit/virt-edit.pod:375 ../erlang/examples/guestfs-erlang.pod:116 ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1147 ../examples/guestfs-performance.pod:584 ../examples/guestfs-recipes.pod:563 ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1588 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:201 ../fuse/guestmount.pod:423 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97 ../guestfs-release-notes.pod:2344 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:100 ../lua/examples/guestfs-lua.pod:157 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59 ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:430 ../resize/virt-resize.pod:779 ../ruby/examples/guestfs-ruby.pod:54 ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4714 ../sysprep/virt-sysprep.pod:529 ../test-tool/libguestfs-test-tool.pod:193 ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287 ../tools/virt-make-fs:659 ../tools/virt-tar:319 ../tools/virt-win-reg:779
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1143,7 +1143,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:161 ../builder/virt-builder.pod:939 ../edit/virt-edit.pod:335 ../fish/guestfish.pod:1360 ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312 ../src/guestfs.pod:4551 ../test-tool/libguestfs-test-tool.pod:178
+#: ../appliance/libguestfs-make-fixed-appliance.pod:161 ../builder/virt-builder.pod:994 ../edit/virt-edit.pod:335 ../fish/guestfish.pod:1360 ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312 ../src/guestfs.pod:4551 ../test-tool/libguestfs-test-tool.pod:178
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
@@ -1207,7 +1207,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:22 ../builder/virt-builder.pod:902
+#: ../builder/virt-builder.pod:22 ../builder/virt-builder.pod:903
 #, no-wrap
 msgid ""
 " virt-builder --delete-cache\n"
@@ -1380,7 +1380,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:93 ../builder/virt-builder.pod:392
+#: ../builder/virt-builder.pod:93 ../builder/virt-builder.pod:393
 msgid ""
 "Note if you I<don't> set I<--root-password> then the guest is given a "
 "I<random> root password."
@@ -1954,31 +1954,31 @@ msgstr ""
 msgid ""
 "You don't want untrusted guest code trying to access your host network when "
 "running virt-builder.  This is particularly an issue when you don't trust "
-"the source of the operating system templates."
+"the source of the operating system templates.  (See L</SECURITY> below)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:349 ../examples/guestfs-faq.pod:485 ../rescue/virt-rescue.pod:354 ../resize/virt-resize.pod:61
+#: ../builder/virt-builder.pod:350 ../examples/guestfs-faq.pod:485 ../rescue/virt-rescue.pod:354 ../resize/virt-resize.pod:61
 msgid "4."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:351
+#: ../builder/virt-builder.pod:352
 msgid "You don't have a host network (eg. in secure/restricted environments)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:355
+#: ../builder/virt-builder.pod:356
 msgid "B<-o> filename"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:357
+#: ../builder/virt-builder.pod:358
 msgid "B<--output> filename"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:359
+#: ../builder/virt-builder.pod:360
 msgid ""
 "Write the output to C<filename>.  If you don't specify this option, then the "
 "output filename is generated by taking the C<os-version> or basename of the "
@@ -1987,38 +1987,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:364
+#: ../builder/virt-builder.pod:365
 msgid ""
 "Note that the output filename could be a device, partition or logical "
 "volume."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:367
+#: ../builder/virt-builder.pod:368
 msgid "B<--password-crypto> password-crypto"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:369 ../sysprep/sysprep-extra-options.pod:42
+#: ../builder/virt-builder.pod:370 ../sysprep/sysprep-extra-options.pod:42
 msgid "Set the password encryption to C<md5>, C<sha256> or C<sha512>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:371
+#: ../builder/virt-builder.pod:372
 msgid ""
 "C<sha256> and C<sha512> require glibc E<ge> 2.7 (check crypt(3) inside the "
 "guest)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:374 ../sysprep/sysprep-extra-options.pod:47
+#: ../builder/virt-builder.pod:375 ../sysprep/sysprep-extra-options.pod:47
 msgid ""
 "C<md5> will work with relatively old Linux guests (eg. RHEL 3), but is not "
 "secure against modern attacks."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:377 ../sysprep/sysprep-extra-options.pod:50
+#: ../builder/virt-builder.pod:378 ../sysprep/sysprep-extra-options.pod:50
 msgid ""
 "The default is C<sha512> unless libguestfs detects an old guest that didn't "
 "have support for SHA-512, in which case it will use C<md5>.  You can "
@@ -2026,39 +2026,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:383
+#: ../builder/virt-builder.pod:384
 msgid "Don't print ordinary progress messages."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:385
+#: ../builder/virt-builder.pod:386
 msgid "B<--root-password> PASSWORD"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:387
+#: ../builder/virt-builder.pod:388
 msgid "Set the root password."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:389
+#: ../builder/virt-builder.pod:390
 msgid ""
 "See L</USERS AND PASSWORDS> below for the format of the C<PASSWORD> field, "
 "and also how to set up user accounts."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:395
+#: ../builder/virt-builder.pod:396
 msgid "B<--run> SCRIPT"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:397
+#: ../builder/virt-builder.pod:398
 msgid "B<--run-command> 'CMD ARGS ...'"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:399
+#: ../builder/virt-builder.pod:400
 msgid ""
 "Run the shell script (or any program) called C<SCRIPT> on the disk image.  "
 "The script runs virtualized inside a small appliance, chrooted into the "
@@ -2066,12 +2066,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:403
+#: ../builder/virt-builder.pod:404
 msgid "The script is automatically chmod +x."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:405
+#: ../builder/virt-builder.pod:406
 msgid ""
 "If libguestfs supports it then a limited network connection is available but "
 "it only allows outgoing network connections.  You can also attach data disks "
@@ -2080,38 +2080,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:411
+#: ../builder/virt-builder.pod:412
 msgid ""
 "The alternative version I<--run-command> is the same, but it conveniently "
 "wraps the command up in a single line script for you."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:414
+#: ../builder/virt-builder.pod:415
 msgid ""
 "You can have multiple I<--run> and I<--run-command> options.  They run in "
 "the same order that they appear on the command line."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:417
+#: ../builder/virt-builder.pod:418
 msgid "See also I<--firstboot>, I<--attach>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:419
+#: ../builder/virt-builder.pod:420
 msgid "B<--size> SIZE"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:421
+#: ../builder/virt-builder.pod:422
 msgid ""
 "Select the size, where the size can be specified using common names such as "
 "C<32G> (32 gigabytes) etc."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:424
+#: ../builder/virt-builder.pod:425
 msgid ""
 "If the size is not specified, then one of two things happens.  If the output "
 "is a file, then the size is the same as the template (this is most likely "
@@ -2120,29 +2120,29 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:429
+#: ../builder/virt-builder.pod:430
 msgid "B<--source> URL"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:431
+#: ../builder/virt-builder.pod:432
 msgid ""
 "Set the source URL to look for templates.  If not specified it defaults to "
 "L<http://libguestfs.org/download/builder/index.asc>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:434
+#: ../builder/virt-builder.pod:435
 msgid "See also L</CREATING YOUR OWN TEMPLATES> below."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:436
+#: ../builder/virt-builder.pod:437
 msgid "You can also set the C<VIRT_BUILDER_SOURCE> environment variable."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:438
+#: ../builder/virt-builder.pod:439
 msgid ""
 "Note that you should not point I<--source> to sources that you don't trust "
 "(unless the source is signed by someone you do trust).  See also the "
@@ -2150,12 +2150,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:442
+#: ../builder/virt-builder.pod:443
 msgid "B<--upload> FILE:DEST"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:444
+#: ../builder/virt-builder.pod:445
 msgid ""
 "Upload local file C<FILE> to destination C<DEST> in the disk image.  File "
 "owner and permissions from the original are preserved, so you should set "
@@ -2163,41 +2163,41 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:452
+#: ../builder/virt-builder.pod:453
 msgid "Enable debug messages and/or produce verbose output."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:454
+#: ../builder/virt-builder.pod:455
 msgid ""
 "When reporting bugs, use this option and attach the complete output to your "
 "bug report."
 msgstr ""
 
 #. type: =head1
-#: ../builder/virt-builder.pod:465
+#: ../builder/virt-builder.pod:466
 msgid "REFERENCE"
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:467
+#: ../builder/virt-builder.pod:468
 msgid "INSTALLING PACKAGES"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:469
+#: ../builder/virt-builder.pod:470
 msgid ""
 "There are several approaches to installing packages or applications in the "
 "guest which have different trade-offs."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:472
+#: ../builder/virt-builder.pod:473
 msgid "Installing packages at build time"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:474
+#: ../builder/virt-builder.pod:475
 msgid ""
 "If the guest OS you are installing is similar to the host OS (eg.  both are "
 "Linux), and if libguestfs supports network connections, then you can use "
@@ -2205,7 +2205,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:478
+#: ../builder/virt-builder.pod:479
 #, no-wrap
 msgid ""
 " virt-builder fedora-20 --install inkscape\n"
@@ -2213,22 +2213,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:480
+#: ../builder/virt-builder.pod:481
 msgid "This uses the guest's package manager but the host's network connection."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:483
+#: ../builder/virt-builder.pod:484
 msgid "Installing packages at first boot"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:485
+#: ../builder/virt-builder.pod:486
 msgid "Another option is to install the packages when the guest first boots:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:487
+#: ../builder/virt-builder.pod:488
 #, no-wrap
 msgid ""
 " virt-builder fedora-20 --firstboot-install inkscape\n"
@@ -2236,12 +2236,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:489
+#: ../builder/virt-builder.pod:490
 msgid "This uses the guest's package manager and the guest's network connection."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:492
+#: ../builder/virt-builder.pod:493
 msgid ""
 "The downsides are that it will take the guest a lot longer to boot first "
 "time, and there's nothing much you can do if package installation fails "
@@ -2250,12 +2250,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:497
+#: ../builder/virt-builder.pod:498
 msgid "Installing packages at build time from a side repository"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:499
+#: ../builder/virt-builder.pod:500
 msgid ""
 "If the software you want to install is not available in the main package "
 "repository of the guest, then you can add a side repository.  Usually this "
@@ -2263,14 +2263,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:504
+#: ../builder/virt-builder.pod:505
 msgid ""
 "Create a script that mounts the ISO and sets up the repository.  For yum, "
 "create /tmp/install.sh containing:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:507 ../builder/virt-builder.pod:523
+#: ../builder/virt-builder.pod:508 ../builder/virt-builder.pod:524
 #, no-wrap
 msgid ""
 " mkdir /tmp/mount\n"
@@ -2278,7 +2278,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:509 ../builder/virt-builder.pod:525
+#: ../builder/virt-builder.pod:510 ../builder/virt-builder.pod:526
 #, no-wrap
 msgid ""
 " # Assume the volume label of the CD is 'EXTRA':\n"
@@ -2287,7 +2287,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:512
+#: ../builder/virt-builder.pod:513
 #, no-wrap
 msgid ""
 " cat <<'EOF' > /etc/yum.repos.d/extra.repo\n"
@@ -2300,7 +2300,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:519
+#: ../builder/virt-builder.pod:520
 #, no-wrap
 msgid ""
 " yum -y install famousdatabase\n"
@@ -2308,12 +2308,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:521
+#: ../builder/virt-builder.pod:522
 msgid "For apt, create /tmp/install.sh containing:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:528
+#: ../builder/virt-builder.pod:529
 #, no-wrap
 msgid ""
 " apt-cdrom -d=/tmp/mount add\n"
@@ -2322,12 +2322,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:531
+#: ../builder/virt-builder.pod:532
 msgid "Use the I<--attach> option to attach the CD:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:533
+#: ../builder/virt-builder.pod:534
 #, no-wrap
 msgid ""
 " virt-builder fedora 20 --attach extra.iso --run /tmp/install.sh\n"
@@ -2335,24 +2335,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:535
+#: ../builder/virt-builder.pod:536
 msgid "USERS AND PASSWORDS"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:537
+#: ../builder/virt-builder.pod:538
 msgid ""
 "The I<--root-password> option is used to change the root password (otherwise "
 "a random password is used).  This option has the following formats:"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:543
+#: ../builder/virt-builder.pod:544
 msgid "B<--root-password> file:FILENAME"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:545 ../sysprep/sysprep-extra-options.pod:64
+#: ../builder/virt-builder.pod:546 ../sysprep/sysprep-extra-options.pod:64
 msgid ""
 "Read the root password from C<FILENAME>.  The whole first line of this file "
 "is the replacement password.  Any other lines are ignored.  You should "
@@ -2360,36 +2360,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:550
+#: ../builder/virt-builder.pod:551
 msgid "B<--root-password> password:PASSWORD"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:552 ../sysprep/sysprep-extra-options.pod:71
+#: ../builder/virt-builder.pod:553 ../sysprep/sysprep-extra-options.pod:71
 msgid "Set the root password to the literal string C<PASSWORD>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:554 ../sysprep/sysprep-extra-options.pod:34 ../sysprep/sysprep-extra-options.pod:73
+#: ../builder/virt-builder.pod:555 ../sysprep/sysprep-extra-options.pod:34 ../sysprep/sysprep-extra-options.pod:73
 msgid ""
 "B<Note: this is not secure> since any user on the same machine can see the "
 "cleartext password using L<ps(1)>."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:559
+#: ../builder/virt-builder.pod:560
 msgid "Creating user accounts"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:561
+#: ../builder/virt-builder.pod:562
 msgid ""
 "To create user accounts, use the L<useradd(8)> command with "
 "L<--firstboot-command> like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:564
+#: ../builder/virt-builder.pod:565
 #, no-wrap
 msgid ""
 " virt-sysprep --firstboot-command \\\n"
@@ -2398,7 +2398,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:567
+#: ../builder/virt-builder.pod:568
 msgid ""
 "The above command will create an C<rjones> account with no password, and "
 "force the user to set a password when they first log in.  There are other "
@@ -2406,34 +2406,34 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:571
+#: ../builder/virt-builder.pod:572
 msgid "INSTALLATION PROCESS"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:573
+#: ../builder/virt-builder.pod:574
 msgid "When you invoke virt-builder, installation proceeds as follows:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:579
+#: ../builder/virt-builder.pod:580
 msgid "The template image is downloaded."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:581
+#: ../builder/virt-builder.pod:582
 msgid ""
 "If the template image is present in the cache, the cached version is used "
 "instead.  (See L</CACHING>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:586
+#: ../builder/virt-builder.pod:587
 msgid "The template signature is checked."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:590
+#: ../builder/virt-builder.pod:591
 msgid ""
 "If the template image is xz-compressed: If L<nbdkit(1)> and "
 "L<nbdkit-xz-plugin(1)> are both installed, nbdkit is used to transparently "
@@ -2442,49 +2442,49 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:597
+#: ../builder/virt-builder.pod:598
 msgid "The template image is resized into the destination, using L<virt-resize(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:602
+#: ../builder/virt-builder.pod:603
 msgid "Extra disks are attached (I<--attach>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:606
+#: ../builder/virt-builder.pod:607
 msgid "A new random seed is generated for the guest."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:610
+#: ../builder/virt-builder.pod:611
 msgid "The hostname is set (I<--hostname>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:614
+#: ../builder/virt-builder.pod:615
 msgid "The root password is changed (I<--root-password>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:618
+#: ../builder/virt-builder.pod:619
 msgid "Packages are installed (I<--install>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:622
+#: ../builder/virt-builder.pod:623
 msgid "Files are uploaded (I<--upload>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:626
+#: ../builder/virt-builder.pod:627
 msgid ""
 "Firstboot scripts are installed (I<--firstboot>, I<--firstboot-command>, "
 "I<--firstboot-install>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:629
+#: ../builder/virt-builder.pod:630
 msgid ""
 "Note that although firstboot scripts are installed at this step, they do not "
 "run until the guest is booted first time.  Firstboot scripts will run in the "
@@ -2492,29 +2492,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:635
+#: ../builder/virt-builder.pod:636
 msgid "Scripts are run (I<--run>, I<--run-command>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:637
+#: ../builder/virt-builder.pod:638
 msgid "Scripts run in the order they appear on the command line."
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:641
+#: ../builder/virt-builder.pod:642
 msgid "CREATING YOUR OWN TEMPLATES"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:643
+#: ../builder/virt-builder.pod:644
 msgid ""
 "For serious virt-builder use, you may want to create your own repository of "
 "templates."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:646
+#: ../builder/virt-builder.pod:647
 msgid ""
 "Out of the box, virt-builder downloads the file "
 "L<http://libguestfs.org/download/builder/index.asc> which is an index of "
@@ -2524,14 +2524,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:652
+#: ../builder/virt-builder.pod:653
 msgid ""
 "You can set up your own site containing an index file and some templates, "
 "and then point virt-builder at the site by using the I<--source> option:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:656
+#: ../builder/virt-builder.pod:657
 #, no-wrap
 msgid ""
 " virt-builder --source https://example.com/builder/index.asc \\\n"
@@ -2541,19 +2541,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:660
+#: ../builder/virt-builder.pod:661
 msgid ""
 "(Note setting the environment variables C<VIRT_BUILDER_SOURCE> and "
 "C<VIRT_BUILDER_FINGERPRINT> may be easier to type!)"
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:663
+#: ../builder/virt-builder.pod:664
 msgid "Setting up a GPG key"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:665
+#: ../builder/virt-builder.pod:666
 msgid ""
 "If you don't have a GnuPG key, you will need to set one up.  (Strictly "
 "speaking this is optional, but if your index and template files are not "
@@ -2562,21 +2562,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:670
+#: ../builder/virt-builder.pod:671
 msgid ""
 "To create a key, see the GPG manual "
 "L<http://www.gnupg.org/gph/en/manual.html>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:673
+#: ../builder/virt-builder.pod:674
 msgid ""
 "Export your GPG public key and add it to the keyring of all virt-builder "
 "users:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:676
+#: ../builder/virt-builder.pod:677
 #, no-wrap
 msgid ""
 " gpg --export -a \"you@example.com\" > pubkey\n"
@@ -2584,7 +2584,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:678
+#: ../builder/virt-builder.pod:679
 #, no-wrap
 msgid ""
 " # For each virt-builder user:\n"
@@ -2593,12 +2593,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:681
+#: ../builder/virt-builder.pod:682
 msgid "Also find the fingerprint of your key:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:683
+#: ../builder/virt-builder.pod:684
 #, no-wrap
 msgid ""
 " gpg --list-keys --fingerprint\n"
@@ -2606,12 +2606,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:685
+#: ../builder/virt-builder.pod:686
 msgid "Create the templates"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:687
+#: ../builder/virt-builder.pod:688
 msgid ""
 "There are many ways to create the templates.  For example you could clone "
 "existing guests (see L<virt-sysprep(1)>), or you could install a guest by "
@@ -2620,14 +2620,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:693
+#: ../builder/virt-builder.pod:694
 msgid ""
 "For best results when compressing the templates, use the following xz "
 "options (see L<nbdkit-xz-plugin(1)> for further explanation):"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:696
+#: ../builder/virt-builder.pod:697
 #, no-wrap
 msgid ""
 " xz --best --block-size=16777216 disk\n"
@@ -2635,19 +2635,19 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:698
+#: ../builder/virt-builder.pod:699
 msgid "Creating and signing the index file"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:700
+#: ../builder/virt-builder.pod:701
 msgid ""
 "The index file has a simple text format (shown here without the digital "
 "signature):"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:703
+#: ../builder/virt-builder.pod:704
 #, no-wrap
 msgid ""
 " [fedora-18]\n"
@@ -2663,7 +2663,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:713
+#: ../builder/virt-builder.pod:714
 #, no-wrap
 msgid ""
 " [fedora-19]\n"
@@ -2680,21 +2680,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:724
+#: ../builder/virt-builder.pod:725
 msgid ""
 "The part in square brackets is the C<os-version>, which is the same string "
 "that is used on the virt-builder command line to build that OS."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:727
+#: ../builder/virt-builder.pod:728
 msgid ""
 "After preparing the C<index> file in the correct format, clearsign it using "
 "the following command:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:730
+#: ../builder/virt-builder.pod:731
 #, no-wrap
 msgid ""
 " gpg --clearsign --armor index\n"
@@ -2702,7 +2702,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:732
+#: ../builder/virt-builder.pod:733
 msgid ""
 "This will create the final file called C<index.asc> which can be uploaded to "
 "the server (and is the I<--source> URL).  As noted above, signing the index "
@@ -2710,46 +2710,46 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:736
+#: ../builder/virt-builder.pod:737
 msgid "The following fields can appear:"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:740
+#: ../builder/virt-builder.pod:741
 msgid "C<name=NAME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:742
+#: ../builder/virt-builder.pod:743
 msgid ""
 "The user-friendly name of this template.  This is displayed in the I<--list> "
 "output but is otherwise not significant."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:745
+#: ../builder/virt-builder.pod:746
 msgid "C<osinfo=ID>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:747
+#: ../builder/virt-builder.pod:748
 msgid ""
 "This optional field maps the operating system to the associated libosinfo "
 "ID.  Virt-builder does not use it (yet)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:750
+#: ../builder/virt-builder.pod:751
 msgid "C<file=PATH>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:752
+#: ../builder/virt-builder.pod:753
 msgid "The path (relative to the index) of the xz-compressed template."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:754 ../builder/virt-builder.pod:763
+#: ../builder/virt-builder.pod:755 ../builder/virt-builder.pod:764
 msgid ""
 "Note that absolute paths or URIs are B<not> permitted here.  This is because "
 "virt-builder has a \"same origin\" policy for templates so they cannot come "
@@ -2757,24 +2757,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:758
+#: ../builder/virt-builder.pod:759
 msgid "C<sig=PATH>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:760
+#: ../builder/virt-builder.pod:761
 msgid ""
 "The path (relative to the index) of the GPG detached signature of the xz "
 "file."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:767
+#: ../builder/virt-builder.pod:768
 msgid "The file can be created as follows:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:769
+#: ../builder/virt-builder.pod:770
 #, no-wrap
 msgid ""
 " gpg --detach-sign --armor -o disk.xz.sig disk.xz\n"
@@ -2782,7 +2782,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:771
+#: ../builder/virt-builder.pod:772
 msgid ""
 "The signature is optional, but if you don't have it then virt-builder users "
 "will need to use the I<--no-check-signature> option in order to install from "
@@ -2790,12 +2790,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:775
+#: ../builder/virt-builder.pod:776
 msgid "C<revision=N>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:777
+#: ../builder/virt-builder.pod:778
 msgid ""
 "The revision is an integer which is used to control the template cache.  "
 "Increasing the revision number causes clients to download the template again "
@@ -2803,22 +2803,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:781
+#: ../builder/virt-builder.pod:782
 msgid "The revision number is optional.  If omitted it defaults to C<1>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:783
+#: ../builder/virt-builder.pod:784
 msgid "C<format=raw>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:785
+#: ../builder/virt-builder.pod:786
 msgid "C<format=qcow2>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:787
+#: ../builder/virt-builder.pod:788
 msgid ""
 "Specify the format of the disk image (before it was compressed).  If not "
 "given, the format is autodetected, but generally it is better to be explicit "
@@ -2826,7 +2826,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:791
+#: ../builder/virt-builder.pod:792
 msgid ""
 "Note this is the source format, which is different from the I<--format> "
 "option (requested output format).  Virt-builder does on-the-fly conversion "
@@ -2834,12 +2834,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:796
+#: ../builder/virt-builder.pod:797
 msgid "C<size=NNN>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:798
+#: ../builder/virt-builder.pod:799
 msgid ""
 "The virtual size of the image in bytes.  This is the size of the image when "
 "uncompressed.  If using a non-raw format such as qcow2 then it means the "
@@ -2847,12 +2847,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:802
+#: ../builder/virt-builder.pod:803
 msgid "This field is required."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:804
+#: ../builder/virt-builder.pod:805
 msgid ""
 "Virt-builder also uses this as the minimum size that users can request via "
 "the I<--size> option, or as the default size if there is no I<--size> "
@@ -2860,24 +2860,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:808
+#: ../builder/virt-builder.pod:809
 msgid "C<compressed_size=NNN>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:810
+#: ../builder/virt-builder.pod:811
 msgid ""
 "The compressed size of the disk image in bytes.  This is just used for "
 "information (when using I<--list --long>)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:813
+#: ../builder/virt-builder.pod:814
 msgid "C<expand=/dev/sdaX>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:815
+#: ../builder/virt-builder.pod:816
 msgid ""
 "When expanding the image to its final size, instruct L<virt-resize(1)> to "
 "expand the named partition in the guest image to fill up all available "
@@ -2885,12 +2885,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:819
+#: ../builder/virt-builder.pod:820
 msgid "You should usually put the device name of the guest's root filesystem here."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:821
+#: ../builder/virt-builder.pod:822
 msgid ""
 "It's a good idea to use this, but not required.  If the field is omitted "
 "then virt-resize will create an extra partition at the end of the disk to "
@@ -2898,12 +2898,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:825
+#: ../builder/virt-builder.pod:826
 msgid "C<lvexpand=/dev/VolGroup/LogVol>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:827
+#: ../builder/virt-builder.pod:828
 msgid ""
 "When expanding the image to its final size, instruct L<virt-resize(1)> to "
 "expand the named logical volume in the guest image to fill up all available "
@@ -2911,7 +2911,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:831
+#: ../builder/virt-builder.pod:832
 msgid ""
 "If the guest uses LVM2 you should usually put the LV of the guest's root "
 "filesystem here.  If the guest does not use LVM2 or its root filesystem is "
@@ -2919,26 +2919,26 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:835
+#: ../builder/virt-builder.pod:836
 msgid "C<notes=NOTES>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:837
+#: ../builder/virt-builder.pod:838
 msgid ""
 "Any notes that go with this image, especially notes describing what packages "
 "are in the image, how the image was prepared, and licensing information."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:841
+#: ../builder/virt-builder.pod:842
 msgid ""
 "You can use multi-line notes here by indenting each new line with at least "
 "one character of whitespace (even on blank lines):"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:844
+#: ../builder/virt-builder.pod:845
 #, no-wrap
 msgid ""
 " notes=This image was prepared using\n"
@@ -2950,12 +2950,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:850
+#: ../builder/virt-builder.pod:851
 msgid "C<hidden=true>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:852
+#: ../builder/virt-builder.pod:853
 msgid ""
 "Using the hidden flag prevents the template from being listed by the "
 "I<--list> option (but it is still installable).  This is used for test "
@@ -2963,41 +2963,41 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:858
+#: ../builder/virt-builder.pod:859
 msgid "Running virt-builder against the alternate repository"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:860
+#: ../builder/virt-builder.pod:861
 msgid ""
 "Ensure each virt-builder user has imported your public key into their gpg "
 "keyring (see above)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:863
+#: ../builder/virt-builder.pod:864
 msgid "Each virt-builder user should export these environment variables:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:869
+#: ../builder/virt-builder.pod:870
 msgid "C<VIRT_BUILDER_SOURCE> to point to the URL of the C<index.asc> file."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:873
+#: ../builder/virt-builder.pod:874
 msgid ""
 "C<VIRT_BUILDER_FINGERPRINT> to contain the fingerprint (long hex string) of "
 "the user who signed the index file and the templates."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:878
+#: ../builder/virt-builder.pod:879
 msgid "Now run virt-builder commands as normal, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:880
+#: ../builder/virt-builder.pod:881
 #, no-wrap
 msgid ""
 " virt-builder --list --long\n"
@@ -3005,7 +3005,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:882
+#: ../builder/virt-builder.pod:883
 #, no-wrap
 msgid ""
 " virt-builder os-version\n"
@@ -3013,17 +3013,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:884
+#: ../builder/virt-builder.pod:885
 msgid "To debug problems, add the C<-v> option to these commands."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:886
+#: ../builder/virt-builder.pod:887
 msgid "Licensing of templates"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:888
+#: ../builder/virt-builder.pod:889
 msgid ""
 "You should be aware of the licensing of images that you distribute.  For "
 "open source guests, provide a link to the source code in the C<notes> field "
@@ -3031,19 +3031,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:893
+#: ../builder/virt-builder.pod:894
 msgid "CACHING"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:895
+#: ../builder/virt-builder.pod:896
 msgid ""
 "Since the templates are usually very large, downloaded templates are cached "
 "in the user's home directory."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:898
+#: ../builder/virt-builder.pod:899
 msgid ""
 "The location of the cache is C<$XDG_CACHE_HOME/virt-builder/> or "
 "C<$HOME/.cache/virt-builder>.  This directory can be deleted after use if "
@@ -3051,19 +3051,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:904
+#: ../builder/virt-builder.pod:905
 msgid "To disable the template cache, use I<--no-cache>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:906
+#: ../builder/virt-builder.pod:907
 msgid ""
 "Only templates are cached.  The index and detached digital signatures are "
 "not cached."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:909
+#: ../builder/virt-builder.pod:910
 msgid ""
 "Virt-builder uses L<curl(1)> to download files.  Since curl obeys "
 "C<http_proxy> (etc) environment variables, files might also be cached by "
@@ -3071,24 +3071,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:913
+#: ../builder/virt-builder.pod:914
 msgid "DIGITAL SIGNATURES"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:915
+#: ../builder/virt-builder.pod:916
 msgid ""
 "Virt-builder uses GNU Privacy Guard (GnuPG or gpg) to verify that the index "
 "and templates have not been tampered with."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:918
+#: ../builder/virt-builder.pod:919
 msgid "The source points to an index file, which is optionally signed."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:920
+#: ../builder/virt-builder.pod:921
 msgid ""
 "Virt-builder downloads the index and checks that the signature is valid and "
 "the signer's fingerprint matches the specified fingerprint "
@@ -3097,7 +3097,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:925
+#: ../builder/virt-builder.pod:926
 msgid ""
 "For checking against the built-in public key/fingerprint, this requires "
 "importing the public key into the user's local gpg keyring (that's just the "
@@ -3105,12 +3105,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:929
+#: ../builder/virt-builder.pod:930
 msgid "When a template is downloaded, its signature is checked in the same way."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:932
+#: ../builder/virt-builder.pod:933
 msgid ""
 "Although the signatures are optional, if you don't have them then "
 "virt-builder users will have to use I<--no-check-signature> on the command "
@@ -3120,81 +3120,194 @@ msgid ""
 "always create signed index and templates."
 msgstr ""
 
+#. type: =head1
+#: ../builder/virt-builder.pod:940 ../src/guestfs.pod:3316
+msgid "ARCHITECTURE"
+msgstr ""
+
 #. type: textblock
-#: ../builder/virt-builder.pod:941
+#: ../builder/virt-builder.pod:942
+msgid ""
+"Virt-builder can, in theory, build a guest for any architecture no matter "
+"what the host architecture is.  For example a ppc64 guest on an x86-64 host."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:946
+msgid ""
+"However certain options may not work correctly, specifically options that "
+"require running commands in the guest during the build process: "
+"I<--install>, I<--run>, I<--run-command>.  You may need to replace these "
+"with the firstboot-equivalents."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:951
+msgid ""
+"X86-64 host building 32 bit x86 guests will usually work without any special "
+"modification."
+msgstr ""
+
+#. type: =head1
+#: ../builder/virt-builder.pod:954 ../src/guestfs.pod:1889 ../sysprep/virt-sysprep.pod:447
+msgid "SECURITY"
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:956
+msgid ""
+"Virt-builder does not need to run as root (in fact, should not be run as "
+"root), and doesn't use setuid, C<sudo> or any similar mechanism."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:959
+msgid ""
+"I<--install>, I<--run> and I<--run-command> are implemented using an "
+"appliance (a small virtual machine) so these commands do not run on the "
+"host.  If you are using the libguestfs libvirt backend and have SELinux "
+"enabled then the virtual machine is additionally encapsulated in an SELinux "
+"container (sVirt)."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:965
+msgid ""
+"However these options will have access to the host's network and since the "
+"template may contain untrusted code, the code might try to access host "
+"network resources which it should not.  You can use I<--no-network> to "
+"prevent this."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:970
+msgid ""
+"Firstboot commands run in the context of the guest when it is booted, and so "
+"the security of your hypervisor / cloud should be considered."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:973
+msgid ""
+"Virt-builder injects a random seed into every guest which it builds.  This "
+"helps to ensure that TCP sequence numbers, UUIDs, ssh host keys etc are "
+"truly random when the guest boots."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:977
+msgid "You should check digital signatures and not ignore any signing errors."
+msgstr ""
+
+#. type: =head2
+#: ../builder/virt-builder.pod:979
+msgid "USER MODE LINUX"
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:981
+msgid ""
+"You can use virt-builder with the User-Mode Linux (UML) backend.  This may "
+"be faster when running virt-builder inside a virtual machine (eg. in the "
+"cloud)."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:985
+msgid ""
+"To enable the UML backend, read the instructions in L<guestfs(3)/USER-MODE "
+"LINUX BACKEND>."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:988
+msgid ""
+"Currently you have to use the I<--no-network> option.  This should be fixed "
+"in a future version."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:991
+msgid ""
+"The qcow2 output format is not supported by UML.  You can only create "
+"raw-format guests."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:996
 msgid ""
 "For other environment variables which affect all libguestfs programs, see "
 "L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:946
+#: ../builder/virt-builder.pod:1001
 msgid "C<http_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:948
+#: ../builder/virt-builder.pod:1003
 msgid "C<https_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:950
+#: ../builder/virt-builder.pod:1005
 msgid "C<no_proxy>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:952
+#: ../builder/virt-builder.pod:1007
 msgid ""
 "Set the proxy for downloads.  These environment variables (and more)  are "
 "actually interpreted by L<curl(1)>, not virt-builder."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:955
+#: ../builder/virt-builder.pod:1010
 msgid "C<HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:957 ../builder/virt-builder.pod:971
+#: ../builder/virt-builder.pod:1012 ../builder/virt-builder.pod:1026
 msgid "Used to determine the location of the template cache.  See L</CACHING>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:959
+#: ../builder/virt-builder.pod:1014
 msgid "C<VIRT_BUILDER_FINGERPRINT>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:961
+#: ../builder/virt-builder.pod:1016
 msgid ""
 "Set the default value for the GPG signature fingerprint (see "
 "I<--fingerprint> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:964
+#: ../builder/virt-builder.pod:1019
 msgid "C<VIRT_BUILDER_SOURCE>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:966
+#: ../builder/virt-builder.pod:1021
 msgid ""
 "Set the default value for the source URL for the template repository (see "
 "I<--source> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:969
+#: ../builder/virt-builder.pod:1024
 msgid "C<XDG_CACHE_HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:977 ../cat/virt-cat.pod:246 ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:498 ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262 ../edit/virt-edit.pod:357 ../fuse/guestmount.pod:403 ../inspector/virt-inspector.pod:498 ../resize/virt-resize.pod:749 ../sparsify/virt-sparsify.pod:309
+#: ../builder/virt-builder.pod:1032 ../cat/virt-cat.pod:246 ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:498 ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262 ../edit/virt-edit.pod:357 ../fuse/guestmount.pod:403 ../inspector/virt-inspector.pod:498 ../resize/virt-resize.pod:749 ../sparsify/virt-sparsify.pod:309
 msgid "This program returns 0 if successful, or non-zero if there was an error."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:982
+#: ../builder/virt-builder.pod:1037
 msgid ""
 "L<virt-resize(1)>, L<virt-install(1)>, L<virt-sysprep(1)>, L<oz-install(1)>, "
 "L<guestmount(1)>, L<nbdkit(1)>, L<nbdkit-xz-plugin(1)>, L<gpg(1)>, "
@@ -3203,7 +3316,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1002 ../fuse/guestunmount.pod:164 ../golang/examples/guestfs-golang.pod:99
+#: ../builder/virt-builder.pod:1057 ../fuse/guestunmount.pod:164 ../golang/examples/guestfs-golang.pod:99
 msgid "Copyright (C) 2013 Red Hat Inc."
 msgstr ""
 
@@ -62332,11 +62445,6 @@ msgid ""
 "use the C<file> command since the output of that changes over time."
 msgstr ""
 
-#. type: =head1
-#: ../src/guestfs.pod:1889 ../sysprep/virt-sysprep.pod:447
-msgid "SECURITY"
-msgstr ""
-
 #. type: textblock
 #: ../src/guestfs.pod:1891
 msgid ""
@@ -64974,11 +65082,6 @@ msgstr ""
 msgid ""
 "<!-- old anchor for the next section --> <a "
 "name=\"state_machine_and_low_level_event_api\"/>"
-msgstr ""
-
-#. type: =head1
-#: ../src/guestfs.pod:3316
-msgid "ARCHITECTURE"
 msgstr ""
 
 #. type: textblock

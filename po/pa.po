@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-10-03 21:57+0100\n"
+"POT-Creation-Date: 2013-10-04 11:53+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -4996,7 +4996,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../builder/builder.ml:569
+#: ../builder/builder.ml:571
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -5016,7 +5016,7 @@ msgstr ""
 msgid "%s: --firstboot: %s: file not found.\n"
 msgstr ""
 
-#: ../builder/builder.ml:661
+#: ../builder/builder.ml:663
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -5135,7 +5135,7 @@ msgstr ""
 msgid "%s: error: failed to uncompress template\n"
 msgstr ""
 
-#: ../builder/builder.ml:533
+#: ../builder/builder.ml:535
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
@@ -5172,7 +5172,7 @@ msgstr ""
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: ../builder/builder.ml:573
+#: ../builder/builder.ml:575
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -5239,7 +5239,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:665
+#: ../builder/builder.ml:667
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -5694,19 +5694,19 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:699
+#: ../builder/builder.ml:701
 msgid "Installing firstboot command: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:702
+#: ../builder/builder.ml:704
 msgid "Installing firstboot packages: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:697
 msgid "Installing firstboot script: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:672
+#: ../builder/builder.ml:674
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -5777,7 +5777,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:539
+#: ../builder/builder.ml:541
 msgid "Opening the new disk"
 msgstr ""
 
@@ -6020,7 +6020,7 @@ msgstr ""
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:717 ../builder/builder.ml:713
+#: ../builder/builder.ml:719 ../builder/builder.ml:715
 msgid "Running: %s"
 msgstr ""
 
@@ -6334,7 +6334,7 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:682
+#: ../builder/builder.ml:684
 msgid "Uploading: %s"
 msgstr ""
 
