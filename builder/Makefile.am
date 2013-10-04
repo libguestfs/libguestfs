@@ -138,7 +138,10 @@ CLEANFILES += stamp-virt-builder.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-disk_images := $(shell for f in debian.xz fedora.xz ubuntu.xz windows.xz; do b=`basename $$f .xz`; if [ -f "../tests/guests/$$b.img" ]; then echo $$f; fi; done)
+all_disk_images := debian.xz fedora.xz ubuntu.xz windows.xz
+disk_images := $(shell for f in $(all_disk_images); do b=`basename $$f .xz`; if [ -f "../tests/guests/$$b.img" ]; then echo $$f; fi; done)
+
+CLEANFILES += $(all_disk_images)
 
 check_DATA = $(disk_images)
 
