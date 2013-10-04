@@ -24,6 +24,9 @@ use Sys::Guestfs;
 
 my $disk = "../guests/fedora.img";
 
+my $pid = 0;
+END { kill 15, $pid if $pid > 0 };
+
 exit 77 if $ENV{SKIP_TEST_NBD_PL};
 
 # Check we have qemu-nbd.
@@ -36,9 +39,6 @@ if (! -r $disk || -z $disk) {
     print "$0: test skipped because $disk is not found\n";
     exit 77
 }
-
-my $pid = 0;
-END { kill 15, $pid if $pid > 0 };
 
 sub run_test {
     my $readonly = shift;
