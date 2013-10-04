@@ -512,14 +512,16 @@ let source =
 let () =
   msg (f_"Running virt-resize to expand the disk to %s") (human_size size);
 
-  let { Index_parser.expand = expand; lvexpand = lvexpand; format = format } =
+  let { Index_parser.expand = expand; lvexpand = lvexpand;
+        format = input_format } =
     entry in
   let cmd =
-    sprintf "virt-resize%s%s%s%s %s %s"
+    sprintf "virt-resize%s%s --output-format %s%s%s %s %s"
       (if debug then " --verbose" else " --quiet")
-      (match format with
+      (match input_format with
       | None -> ""
-      | Some format -> sprintf " --format %s" (quote format))
+      | Some input_format -> sprintf " --format %s" (quote input_format))
+      (quote format)
       (match expand with
       | None -> ""
       | Some expand -> sprintf " --expand %s" (quote expand))
