@@ -2,6 +2,247 @@ NAME
 
     guestfs-release-notes - libguestfs Release Notes
 
+RELEASE NOTES FOR LIBGUESTFS 1.24
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.22.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+    User-Mode Linux (UML) can be used as an alternative backend (ie.
+    instead of KVM). This improves performance especially when using
+    libguestfs inside a VM (eg. in the cloud). UML is supported as a
+    first-class backend. See "USER-MODE LINUX BACKEND" in guestfs(3) for
+    how to use this.
+
+    ARM (32 bit) and PPC64 are now fully supported.
+
+  Tools
+
+    virt-builder(1) is a new tool for rapidly building virtual machine
+    images. It is far more secure than other approaches, and allows
+    flexible configuration of the images.
+
+    New virt-sysprep(1) operations: Remove files in /tmp and /var/tmp.
+    Remove RPM database files. Change root and user passwords. More log
+    files are removed. New operations which are not enabled by default:
+    Create random UUIDs for filesystems. Reset firewall rules. (Wanlong
+    Gao)
+
+    virt-resize(1) and virt-sysprep can now use URIs to specify a remote
+    disk.
+
+    Use guestfish -N filename=type to create a named disk image (instead of
+    the default test1.img etc).
+
+    virt-sparsify(1) now tests if there is enough disk space to complete
+    the operation, instead of possibly running out of space half way
+    through.
+
+    virt-format(1) and virt-make-fs(1): new --label option for setting
+    filesystem label.
+
+  Language bindings
+
+    New bindings for the Go programming language.
+
+  API
+
+    Support for the systemd journal.
+
+    guestfs_add_drive_opts can now control the qemu caching mode through a
+    new cachemode parameter. You can select improved performance for
+    temporary drives, or safety.
+
+    guestfs_set_label now works for XFS and btrfs.
+
+  Inspection
+
+    Better inspection of SUSE guests (Olaf Hering).
+
+    Better support for non-standard Windows %systemroot% (Matthew Booth).
+
+    Enhanced error reporting for Augeas errors.
+
+  Other
+
+ Security
+
+    CVE-2013-2124
+
+      https://bugzilla.redhat.com/show_bug.cgi?id=968306
+
+      A denial of service was possible when inspecting certain guests. The
+      fix has been backported to 1.20 and 1.22 branches.
+
+ New APIs
+
+     add-drive-scratch: Add a temporary scratch drive
+     aug-label
+     aug-setm
+     journal-open: Systemd journal support
+     journal-close
+     journal-next
+     journal-skip
+     journal-get
+     journal-get-data-threshold
+     journal-set-data-threshold
+     remount: Allow rw flag to be adjusted on mounted filesystems
+     set-uuid: Set UUID of filesystem
+
+    is-file, is-dir, is-blockdev, is-chardev, is-fifo, is-socket APIs now
+    have an extra followsymlinks flag.
+
+    add-drive has a new cachemode parameter.
+
+ Internals
+
+    Additional build requirements: Augeas ≥ 1.0.0
+
+    New make check-* rules replace make extra-tests. See make help and
+    guestfs(3) for details.
+
+    Perl code can now be valgrinded.
+
+    Inspection code is now fuzz-tested.
+
+    make no longer recurses into the generator directory in every other
+    directory. This reduces the overhead of builds considerably.
+
+    Additional tests for Augeas, hivex.
+
+    Add a timeout (4 hours) to all tests so we can catch the case where
+    qemu or other components hang.
+
+    Use kvmclock and -cpu host. This improves clock stability and overall
+    performance.
+
+    ./configure --enable-packet-dump mode is fixed.
+
+    ./configure --enable-valgrind-daemon mode has been rewritten. It is now
+    feasible for developers to keep this flag enabled at all times.
+
+    Backends have been refactored to be modular (although they are not
+    actually loadable modules).
+
+ Bugs fixed
+
+    https://bugzilla.redhat.com/1002032
+
+      mke2fs can't return the correct filesystem type when blockscount is
+      less than 2048 for ext3
+
+    https://bugzilla.redhat.com/1001876
+
+      Update "rsync-out" helpout for using wildcard
+
+    https://bugzilla.redhat.com/1001875
+
+      Argument 'excludes' of tar-out does not work
+
+    https://bugzilla.redhat.com/1000428
+
+      virt-format uses wrong partition type for vfat filesystems
+
+    https://bugzilla.redhat.com/1000121
+
+      'sh' command before mount causes daemon to segfault
+
+    https://bugzilla.redhat.com/998513
+
+      guestfish does not work when you mix --remote and --add options
+
+    https://bugzilla.redhat.com/998482
+
+      guestfish remote prints "libguestfs: error: waitpid (qemu): No child
+      processes"
+
+    https://bugzilla.redhat.com/995711
+
+      list-filesystems command fails if there are no block devices
+
+    https://bugzilla.redhat.com/994517
+
+      cache=none/O_DIRECT workaround doesn't work for images with backing
+      files
+
+    https://bugzilla.redhat.com/989356
+
+      cap-get-file will return error if the file has not be set
+      capabilities
+
+    https://bugzilla.redhat.com/986877
+
+      RFE: Implement set-uuid command
+
+    https://bugzilla.redhat.com/986875
+
+      RFE: Implement set-label for xfs
+
+    https://bugzilla.redhat.com/985269
+
+      Can't set acl value for a specified user with 'acl-set-file'
+
+    https://bugzilla.redhat.com/983218
+
+      libguestfs double free when kernel link fails during launch
+
+    https://bugzilla.redhat.com/981715
+
+      Make xfs filesystem failed with specified blocksize, gives "unknown
+      option -b" error
+
+    https://bugzilla.redhat.com/981683
+
+      "hivex-commit" should fail with a relative path
+
+    https://bugzilla.redhat.com/981663
+
+      disk-format "qemu-img info: JSON parse error" when target file does
+      not exist
+
+    https://bugzilla.redhat.com/978302
+
+      mke2fs-J should give a meaningful error when specified type is
+      anything except 'ext{2,3,4}'
+
+    https://bugzilla.redhat.com/975797
+
+      Specifying virtio interface ('iface' parameter) breaks the direct
+      backend - libguestfs hangs
+
+    https://bugzilla.redhat.com/975753
+
+      "virt-resize --expand" and "virt-resize --resize" outputs error
+      message for Win2008 32bit OS
+
+    https://bugzilla.redhat.com/975412
+
+      inspection: Augeas expressions are broken with augeas >= 0.10
+
+    https://bugzilla.redhat.com/974904
+
+      virt-resize --expand fails on Ubuntu Cloud Image
+
+    https://bugzilla.redhat.com/974489
+
+      Regression: Fedora inspection broken by change from guestfs_exists to
+      guestfs_is_file
+
+    https://bugzilla.redhat.com/972775
+
+      txz-out command produces a bzip2-compressed file (should be
+      xz-compressed)
+
+    https://bugzilla.redhat.com/969845
+
+      upload to a directory occasionally hangs instead of failing
+
+    https://bugzilla.redhat.com/968875
+
+      virt-sysprep should support URL-type arguments
+
 RELEASE NOTES FOR LIBGUESTFS 1.22
 
     These release notes only cover the differences from the previous
