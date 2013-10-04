@@ -36,7 +36,7 @@ rm -f phony-fedora.qcow2
 # have a real OS inside just some configuration files.  Just about
 # every other option is fair game.
 ./virt-builder phony-fedora \
-    --no-cache --no-check-signature \
+    -v --no-cache --no-check-signature \
     --size 2G --format qcow2 \
     --hostname test.example.com \
     --root-password password:123456 \
