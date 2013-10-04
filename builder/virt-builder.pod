@@ -593,6 +593,10 @@ L<nbdkit-xz-plugin(1)> are both installed, nbdkit is used to
 transparently uncompress the image on the fly.  Else it is
 uncompressed to a temporary disk which takes more disk space.
 
+[B<Note:> Use of nbdkit is disabled because of a libvirt bug:
+L<https://bugzilla.redhat.com/show_bug.cgi?id=1011063>  It will
+be enabled in a future release.]
+
 =item *
 
 The template image is resized into the destination, using
@@ -946,10 +950,10 @@ x86-64 host.
 However certain options may not work correctly, specifically options
 that require running commands in the guest during the build process:
 I<--install>, I<--run>, I<--run-command>.  You may need to replace
-these with the firstboot-equivalents.
+these with their firstboot-equivalents.
 
-X86-64 host building 32 bit x86 guests will usually work without any
-special modification.
+An x86-64 host building 32 bit x86 guests should work without any
+special steps.
 
 =head2 SECURITY
 
