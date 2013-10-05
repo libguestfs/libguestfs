@@ -576,14 +576,19 @@ let root =
     exit 1
 
 (* Set the random seed. *)
-let () = ignore (Random_seed.set_random_seed g root)
+let () =
+  msg (f_"Setting a random seed");
+  if not (Random_seed.set_random_seed g root) then
+    eprintf (f_"%s: warning: random seed could not be set for this type of guest\n%!") prog
 
 (* Set the hostname. *)
 let () =
   match hostname with
   | None -> ()
   | Some hostname ->
-    ignore (Hostname.set_hostname g root hostname)
+    msg (f_"Setting the hostname: %s") hostname;
+    if not (Hostname.set_hostname g root hostname) then
+      eprintf (f_"%s: warning: hostname could not be set for this type of guest\n%!") prog
 
 (* Root password.
  * Note 'None' means that we randomize the root password.
@@ -602,15 +607,19 @@ let () =
     done;
     close_in chan;
 
-    msg "Random root password: %s [did you mean to use --root-password?]" buf;
-
     buf
   in
 
   let root_password =
     match root_password with
-    | Some pw -> pw
-    | None -> make_random_password () in
+    | Some pw ->
+      msg (f_"Setting root password");
+      pw
+    | None ->
+      let pw = make_random_password () in
+      msg (f_"Random root password: %s [did you mean to use --root-password?]")
+        pw;
+      pw in
 
   match g#inspect_get_type root with
   | "linux" ->
@@ -618,7 +627,7 @@ let () =
     Hashtbl.replace h "root" root_password;
     set_linux_passwords ~prog ?password_crypto g root h
   | _ ->
-    ()
+    eprintf (f_"%s: warning: root password could not be set for this type of guest\n%!") prog
 
 (* Useful wrapper for scripts. *)
 let do_run cmd =
@@ -722,7 +731,7 @@ let () =
 
 (* Unmount everything and we're done! *)
 let () =
-  msg "Finishing off";
+  msg (f_"Finishing off");
 
   g#umount_all ();
   g#shutdown ();

@@ -172,7 +172,7 @@ let make_message_function ~quiet fs =
   let p str =
     if not quiet then (
       let t = sprintf "%.1f" (Unix.time () -. start_t) in
-      printf "[%8s] %s\n%!" t str
+      printf "[%6s] %s\n%!" t str
     )
   in
   ksprintf p fs
