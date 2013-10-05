@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-10-04 11:53+0100\n"
+"POT-Creation-Date: 2013-10-05 17:45+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -5504,8 +5504,20 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
-#: ../builder/builder.ml:571
+#: ../builder/builder.ml:582
 msgid "%s: %s (ignored)\n"
+msgstr ""
+
+#: ../builder/builder.ml:132 ../builder/builder.ml:86
+msgid "%s: %s: %s: file not found\n"
+msgstr ""
+
+#: ../builder/builder.ml:134 ../builder/builder.ml:88
+msgid "%s: %s: %s: file not found [did you mean %s?]\n"
+msgstr ""
+
+#: ../builder/builder.ml:682
+msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
 #: ../sysprep/main.ml:64
@@ -5520,24 +5532,16 @@ msgstr "%s: параметр --enable можна вказувати лише о�
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
-#: ../builder/builder.ml:85
-msgid "%s: --firstboot: %s: file not found.\n"
-msgstr ""
-
-#: ../builder/builder.ml:663
+#: ../builder/builder.ml:702
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
-#: ../builder/builder.ml:128
-msgid "%s: --run: %s: file not found.\n"
-msgstr ""
-
-#: ../builder/builder.ml:433
+#: ../builder/builder.ml:444
 msgid "%s: --size is too small for this disk image, minimum size is %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:153
-msgid "%s: --upload: %s: file not found.\n"
+#: ../builder/builder.ml:159
+msgid "%s: --upload: %s: file not found\n"
 msgstr ""
 
 #: ../mllib/common_utils.ml:186
@@ -5616,7 +5620,7 @@ msgstr "%s: цей розділ не буде змінено."
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: розмір цього розділу буде змінено з %s на %s."
 
-#: ../builder/builder.ml:216
+#: ../builder/builder.ml:225
 msgid ""
 "%s: build virtual machine images quickly\n"
 "\n"
@@ -5624,13 +5628,13 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:398
+#: ../builder/builder.ml:408
 msgid ""
 "%s: cannot find os-version '%s'.\n"
 "Use --list to list available guest types.\n"
 msgstr ""
 
-#: ../builder/builder.ml:345
+#: ../builder/builder.ml:355
 msgid "%s: curl is not installed (or does not work)\n"
 msgstr ""
 
@@ -5642,21 +5646,21 @@ msgstr "%s: порожній аргумент параметра --expand"
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:455
+#: ../builder/builder.ml:466
 msgid "%s: error: could not create output file '%s'\n"
 msgstr ""
 
-#: ../builder/builder.ml:322
+#: ../builder/builder.ml:332
 msgid ""
 "%s: error: could not find cache directory\n"
 "Is $HOME set?\n"
 msgstr ""
 
-#: ../builder/builder.ml:504
+#: ../builder/builder.ml:515
 msgid "%s: error: failed to uncompress template\n"
 msgstr ""
 
-#: ../builder/builder.ml:535
+#: ../builder/builder.ml:546
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
@@ -5664,13 +5668,17 @@ msgstr ""
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
 
-#: ../builder/builder.ml:335
+#: ../builder/builder.ml:345
 msgid ""
 "%s: gpg is not installed (or does not work)\n"
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:148
+#: ../builder/builder.ml:679
+msgid "%s: internal error: could not display the log file: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:154
 msgid "%s: invalid --upload format, see the man page.\n"
 msgstr ""
 
@@ -5697,7 +5705,7 @@ msgstr "%s: не вказано аргумент розміру у параме�
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
-#: ../builder/builder.ml:575
+#: ../builder/builder.ml:586
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -5784,7 +5792,7 @@ msgstr ""
 "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
 "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize(1)\n"
 
-#: ../builder/builder.ml:667
+#: ../builder/builder.ml:706
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -5825,44 +5833,62 @@ msgstr ""
 "%s: невідомий тип таблиці розділів\n"
 "У virt-resize передбачено підтримку лише таблиць MBR (DOS) та GPT."
 
-#: ../builder/builder.ml:274
+#: ../builder/builder.ml:284
 msgid "%s: virt-builder --delete-cache does not need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/builder.ml:281
+#: ../builder/builder.ml:291
 msgid ""
 "%s: virt-builder --get-kernel image\n"
 "Missing 'image' (disk image file) argument.\n"
 msgstr ""
 
-#: ../builder/builder.ml:284
+#: ../builder/builder.ml:294
 msgid "%s: virt-builder --get-kernel: too many parameters\n"
 msgstr ""
 
-#: ../builder/builder.ml:267
+#: ../builder/builder.ml:277
 msgid "%s: virt-builder --list does not need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/builder.ml:257
+#: ../builder/builder.ml:267
 msgid ""
 "%s: virt-builder os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/builder.ml:260
+#: ../builder/builder.ml:270
 msgid "%s: virt-builder: too many parameters, expecting 'os-version'\n"
 msgstr ""
 
-#: ../builder/builder.ml:352
+#: ../builder/builder.ml:362
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr ""
 
-#: ../builder/builder.ml:339
+#: ../builder/builder.ml:349
 msgid "%s: warning: gpg program is not available\n"
 msgstr ""
 
-#: ../builder/builder.ml:362
+#: ../builder/builder.ml:602
+msgid ""
+"%s: warning: hostname could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:372
 msgid "%s: warning: nbdkit or nbdkit-xz-plugin is not available\n"
+msgstr ""
+
+#: ../builder/builder.ml:593
+msgid ""
+"%s: warning: random seed could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:641
+msgid ""
+"%s: warning: root password could not be set for this type of guest\n"
+"%!"
 msgstr ""
 
 #: ../sysprep/main.ml:166
@@ -5913,11 +5939,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr "Додати файл образу диска"
 
-#: ../builder/builder.ml:187
+#: ../builder/builder.ml:195
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../builder/builder.ml:181
+#: ../builder/builder.ml:189
 msgid "Add package(s) to install at firstboot"
 msgstr ""
 
@@ -5934,7 +5960,7 @@ msgstr ""
 msgid "Align first partition (default: auto)"
 msgstr "Вирівняти перший розділ (типове значення: auto)"
 
-#: ../builder/builder.ml:162
+#: ../builder/builder.ml:170
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
@@ -5957,7 +5983,7 @@ msgstr ""
 "Зміни назву вузла. Якщо не вказано, використовувати типове C<localhost."
 "localdomain>."
 
-#: ../builder/builder.ml:168
+#: ../builder/builder.ml:176
 msgid "Check digital signatures"
 msgstr ""
 
@@ -6048,24 +6074,24 @@ msgstr "Діагностика GC та розподілу пам’яті (вн�
 msgid "Delete partition"
 msgstr "Вилучити розділ"
 
-#: ../builder/builder.ml:175
+#: ../builder/builder.ml:183
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:193
+#: ../builder/builder.ml:202
 msgid "Disable appliance network"
 msgstr ""
 
-#: ../builder/builder.ml:171
+#: ../builder/builder.ml:179
 msgid "Disable digital signatures"
 msgstr ""
 
-#: ../builder/builder.ml:166
+#: ../builder/builder.ml:174
 msgid "Disable template cache"
 msgstr ""
 
 #. ../resize/resize.ml:114
-#. ../builder/builder.ml:208
+#. ../builder/builder.ml:217
 #: ../sysprep/main.ml:127 ../sysprep/main.ml:126 ../sparsify/sparsify.ml:89
 msgid "Display version and exit"
 msgstr "Показати номер версії і вийти"
@@ -6098,7 +6124,7 @@ msgstr "Не виводити даних резюме"
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:407
+#: ../builder/builder.ml:417
 msgid "Downloading: %s"
 msgstr ""
 
@@ -6110,13 +6136,13 @@ msgstr "Створити дамп POD (вбудоване)"
 msgid "Dump POD for options (internal)"
 msgstr "Створити дамп POD для параметрів (вбудоване)"
 
-#: ../builder/builder.ml:192
+#: ../builder/builder.ml:201
 msgid "Enable appliance network (default)"
 msgstr ""
 
 #. ../resize/resize.ml:112
 #. ../resize/resize.ml:87
-#. ../builder/builder.ml:206
+#. ../builder/builder.ml:215
 #: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:87
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
@@ -6206,8 +6232,12 @@ msgstr ""
 "Заповнити вільне місце у групі томів %s нулями…\n"
 "%!"
 
-#: ../builder/builder.ml:177
+#: ../builder/builder.ml:185
 msgid "Fingerprint of valid signing key"
+msgstr ""
+
+#: ../builder/builder.ml:774
+msgid "Finishing off"
 msgstr ""
 
 #: ../resize/resize.ml:1137
@@ -6265,7 +6295,7 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr "Створити породжувач випадкових чисел для гостьової системи"
 
-#: ../builder/builder.ml:184
+#: ../builder/builder.ml:192
 msgid "Get kernel from image"
 msgstr ""
 
@@ -6283,27 +6313,27 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:740
 msgid "Installing firstboot command: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:704
+#: ../builder/builder.ml:743
 msgid "Installing firstboot packages: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:697
+#: ../builder/builder.ml:736
 msgid "Installing firstboot script: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:674
+#: ../builder/builder.ml:713
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../builder/builder.ml:188
+#: ../builder/builder.ml:196
 msgid "List available templates"
 msgstr ""
 
-#. ../builder/builder.ml:191
+#. ../builder/builder.ml:200
 #: ../sysprep/main.ml:118 ../sparsify/sparsify.ml:82 ../resize/resize.ml:96
 msgid "List long options"
 msgstr "Показати список повних версій параметрів"
@@ -6332,7 +6362,7 @@ msgstr "Ніколи не виконувати зміни міток SELinux"
 msgid "New hostname"
 msgstr "Нова назва вузла"
 
-#: ../builder/builder.ml:198
+#: ../builder/builder.ml:207
 msgid "No progress messages"
 msgstr ""
 
@@ -6374,11 +6404,11 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:541
+#: ../builder/builder.ml:552
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../builder/builder.ml:182
+#: ../builder/builder.ml:190
 msgid "Output format (default: raw)"
 msgstr ""
 
@@ -6389,6 +6419,10 @@ msgstr "Виконати тестовий запуск"
 #: ../sparsify/sparsify.ml:85
 msgid "Quiet output"
 msgstr "Режим з мінімальним виведенням даних"
+
+#: ../builder/builder.ml:631
+msgid "Random root password: %s [did you mean to use --root-password?]"
+msgstr ""
 
 #: ../sysprep/main.ml:167 ../sysprep/main.ml:158
 msgid "Read virt-sysprep(1) man page for further information.\n"
@@ -6604,19 +6638,19 @@ msgstr "Змінити розміри розділу"
 msgid "Run arbitrary scripts against the guest"
 msgstr "Запустити довільні скрипти дій над гостьовою системою"
 
-#: ../builder/builder.ml:179
+#: ../builder/builder.ml:187
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../builder/builder.ml:202
+#: ../builder/builder.ml:211
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../builder/builder.ml:178
+#: ../builder/builder.ml:186
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../builder/builder.ml:201
+#: ../builder/builder.ml:210
 msgid "Run script in disk image"
 msgstr ""
 
@@ -6645,11 +6679,11 @@ msgstr ""
 "B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
 "слід вказати шлях до скрипту повністю."
 
-#: ../builder/builder.ml:513
+#: ../builder/builder.ml:524
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:719 ../builder/builder.ml:715
+#: ../builder/builder.ml:758 ../builder/builder.ml:754
 msgid "Running: %s"
 msgstr ""
 
@@ -6657,7 +6691,7 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
 
-#: ../builder/builder.ml:185
+#: ../builder/builder.ml:193
 msgid "Set GPG binary/command"
 msgstr ""
 
@@ -6688,11 +6722,11 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../builder/builder.ml:164
+#: ../builder/builder.ml:172
 msgid "Set attach disk format"
 msgstr ""
 
-#: ../builder/builder.ml:173
+#: ../builder/builder.ml:181
 msgid "Set curl binary/command"
 msgstr ""
 
@@ -6712,11 +6746,11 @@ msgstr "Встановити назву гостьової системи libvir
 msgid "Set mount options (/:noatime;/var:rw,noatime)"
 msgstr ""
 
-#: ../builder/builder.ml:203
+#: ../builder/builder.ml:212
 msgid "Set output disk size"
 msgstr ""
 
-#: ../builder/builder.ml:194
+#: ../builder/builder.ml:203
 msgid "Set output filename"
 msgstr ""
 
@@ -6724,7 +6758,7 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Встановити вирівнювання розділів (типове значення: 128 секторів)"
 
-#: ../builder/builder.ml:197
+#: ../builder/builder.ml:206
 msgid "Set password crypto"
 msgstr ""
 
@@ -6751,19 +6785,19 @@ msgstr ""
 msgid "Set root or user password"
 msgstr ""
 
-#: ../builder/builder.ml:200
+#: ../builder/builder.ml:209
 msgid "Set root password"
 msgstr ""
 
-#: ../builder/builder.ml:204
+#: ../builder/builder.ml:213
 msgid "Set source URL"
 msgstr ""
 
-#: ../builder/builder.ml:165
+#: ../builder/builder.ml:173
 msgid "Set template cache dir"
 msgstr ""
 
-#: ../builder/builder.ml:186
+#: ../builder/builder.ml:194
 msgid "Set the hostname"
 msgstr ""
 
@@ -6804,6 +6838,18 @@ msgid ""
 "can see the cleartext password using L<ps(1)>.\n"
 "\n"
 "=back"
+msgstr ""
+
+#: ../builder/builder.ml:591
+msgid "Setting a random seed"
+msgstr ""
+
+#: ../builder/builder.ml:627
+msgid "Setting root password"
+msgstr ""
+
+#: ../builder/builder.ml:600
+msgid "Setting the hostname: %s"
 msgstr ""
 
 #: ../resize/resize.ml:870
@@ -7021,16 +7067,24 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:501
+#: ../builder/builder.ml:512
 msgid "Uncompressing: %s"
 msgstr ""
 
-#: ../builder/builder.ml:205
+#: ../builder/builder.ml:214
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:684
+#: ../builder/builder.ml:723
 msgid "Uploading: %s"
+msgstr ""
+
+#: ../builder/builder.ml:199
+msgid "Wipe build log file"
+msgstr ""
+
+#: ../builder/builder.ml:765
+msgid "Wiping the log file"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_random_seed.ml:34
@@ -7326,7 +7380,7 @@ msgstr ""
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
-#: ../builder/downloader.ml:108 ../builder/downloader.ml:77
+#: ../builder/downloader.ml:111 ../builder/downloader.ml:79
 msgid "virt-builder: curl (download) command failed downloading '%s'\n"
 msgstr ""
 
@@ -7369,15 +7423,15 @@ msgid ""
 "you are susceptible to man-in-the-middle attacks.\n"
 msgstr ""
 
-#: ../builder/downloader.ml:80
+#: ../builder/downloader.ml:82
 msgid "virt-builder: external command '%s' killed by signal %d\n"
 msgstr ""
 
-#: ../builder/downloader.ml:84
+#: ../builder/downloader.ml:86
 msgid "virt-builder: external command '%s' stopped by signal %d\n"
 msgstr ""
 
-#: ../builder/downloader.ml:95
+#: ../builder/downloader.ml:97
 msgid "virt-builder: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
