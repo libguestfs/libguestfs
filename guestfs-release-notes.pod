@@ -122,9 +122,46 @@ C<is-socket> APIs now have an extra C<followsymlinks> flag.
 
 C<add-drive> has a new C<cachemode> parameter.
 
-=head2 Internals
+=head2 Build changes
 
-Additional build requirements: Augeas E<ge> 1.0.0
+The following packages are required to build libguestfs 1.24:
+
+=over 4
+
+=item Augeas E<ge> 1.0.0
+
+=back
+
+The following optional packages may be added to enhance functionality
+but are not required:
+
+=over 4
+
+=item sd-journal
+
+To read journal files from guests which use that.
+
+=item url_mkcow
+
+For UML backend.
+
+=item curl
+
+=item gpg
+
+=item xz
+
+=item nbdkit
+
+For virt-builder.
+
+=item golang E<ge> 1.1.1
+
+For Go language bindings.
+
+=back
+
+=head2 Internals
 
 New C<make check-*> rules replace C<make extra-tests>.  See C<make
 help> and L<guestfs(3)> for details.

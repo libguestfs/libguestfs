@@ -96,9 +96,38 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
 
     add-drive has a new cachemode parameter.
 
- Internals
+ Build changes
 
-    Additional build requirements: Augeas ≥ 1.0.0
+    The following packages are required to build libguestfs 1.24:
+
+    Augeas ≥ 1.0.0
+
+    The following optional packages may be added to enhance functionality
+    but are not required:
+
+    sd-journal
+
+      To read journal files from guests which use that.
+
+    url_mkcow
+
+      For UML backend.
+
+    curl
+
+    gpg
+
+    xz
+
+    nbdkit
+
+      For virt-builder.
+
+    golang ≥ 1.1.1
+
+      For Go language bindings.
+
+ Internals
 
     New make check-* rules replace make extra-tests. See make help and
     guestfs(3) for details.
