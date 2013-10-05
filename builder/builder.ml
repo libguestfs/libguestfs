@@ -457,6 +457,7 @@ let output, format =
   | Some output, Some format -> output, format
 
 let delete_output_file =
+  msg (f_"Creating disk image: %s") output;
   let cmd =
     sprintf "qemu-img create -f %s %s %Ld%s"
       (quote format) (quote output) size
