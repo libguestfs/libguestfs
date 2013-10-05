@@ -22,17 +22,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="116.82506"
-     inkscape:cy="96.215615"
+     inkscape:zoom="1"
+     inkscape:cx="94.76256"
+     inkscape:cy="100.50571"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1416"
-     inkscape:window-height="737"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
      inkscape:window-x="0"
      inkscape:window-y="31"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      fit-margin-top="20"
      fit-margin-left="20"
      fit-margin-right="20"
@@ -130,7 +130,7 @@
     <rect
        ry="19"
        y="52.311161"
-       x="100.0051"
+       x="102.0051"
        height="162.12949"
        width="167.18025"
        id="rect2985"
@@ -199,14 +199,14 @@
        ry="1.3948706" />
     <text
        xml:space="preserve"
-       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="118.18784"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="185.32748"
        y="206.8645"
        id="text4108"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4110"
-         x="118.18784"
+         x="185.32748"
          y="206.8645">virt-builder</tspan></text>
     <path
        sodipodi:type="arc"
@@ -216,10 +216,10 @@
        sodipodi:cy="122.36218"
        sodipodi:rx="68.571426"
        sodipodi:ry="67.14286"
-       d="m 548.18715,99.887148 c 6.13444,16.909312 5.101,35.519432 -2.86973,51.677762"
+       d="m 548.18715,99.887148 a 68.571426,67.14286 0 0 1 -2.86973,51.677762"
        sodipodi:start="5.9418618"
        sodipodi:end="6.7331505"
        sodipodi:open="true"
-       transform="matrix(0.4872564,0.21645805,-0.23239873,0.2901972,-57.963606,-32.334249)" />
+       transform="matrix(0.43267838,0.31154824,-0.28684402,0.23652503,-28.481648,-73.683536)" />
   </g>
 </svg>
