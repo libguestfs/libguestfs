@@ -415,7 +415,8 @@ let template =
     let { Index_parser.revision = revision; file_uri = file_uri } = entry in
     let template = arg, revision in
     msg (f_"Downloading: %s") file_uri;
-    Downloader.download downloader ~template file_uri in
+    let progress_bar = not quiet in
+    Downloader.download downloader ~template ~progress_bar file_uri in
   if delete_on_exit then unlink_on_exit template;
   template
 

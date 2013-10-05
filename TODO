@@ -554,14 +554,9 @@ virt-builder
 
  - set default timezone and language
 
- - the initial download of the template can take quite a long time
-   and needs a progress bar
-
  - how can we debug it?  at least document how to call virt-rescue
    guestfish etc to look at files
 
  - how can we give users a shell?
-
- - use a single log file and dump it out on command failure
 
  - Ubuntu templates

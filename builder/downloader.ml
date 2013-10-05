@@ -39,19 +39,19 @@ let create ~debug ~curl ~cache = {
   cache = cache;
 }
 
-let rec download t ?template uri =
+let rec download t ?template ?progress_bar uri =
   match template with
   | None ->                       (* no cache, simple download *)
     (* Create a temporary name. *)
     let tmpfile = Filename.temp_file "vbcache" ".txt" in
-    download_to t uri tmpfile;
+    download_to t ?progress_bar uri tmpfile;
     (tmpfile, true)
 
   | Some (name, revision) ->
     match t.cache with
     | None ->
       (* Not using the cache at all? *)
-      download t uri
+      download t ?progress_bar uri
 
     | Some cachedir ->
       let filename = cachedir // sprintf "%s.%d" name revision in
@@ -60,14 +60,16 @@ let rec download t ?template uri =
        * If not, download it.
        *)
       if not (Sys.file_exists filename) then
-        download_to t uri filename;
+        download_to t ?progress_bar uri filename;
 
       (filename, false)
 
-and download_to t uri filename =
+and download_to t ?(progress_bar = false) uri filename =
   (* Get the status code first to ensure the file exists. *)
   let cmd = sprintf "%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
-    t.curl (if t.debug then "" else " -s -S") (quote uri) in
+    t.curl
+    (if t.debug then "" else " -s -S")
+    (quote uri) in
   let chan = open_process_in cmd in
   let status_code = input_line chan in
   let stat = close_process_in chan in
@@ -100,7 +102,8 @@ and download_to t uri filename =
   (* Now download the file. *)
   let filename_new = filename ^ ".new" in
   let cmd = sprintf "%s%s -g -o %s %s"
-    t.curl (if t.debug then "" else " -s -S")
+    t.curl
+    (if t.debug then "" else if progress_bar then " -#" else " -s -S")
     (quote filename_new) (quote uri) in
   if t.debug then eprintf "%s\n%!" cmd;
   let r = Sys.command cmd in

@@ -27,7 +27,7 @@ type t
 val create : debug:bool -> curl:string -> cache:string option -> t
 (** Create the abstract type. *)
 
-val download : t -> ?template:(string*int) -> uri -> (filename * bool)
+val download : t -> ?template:(string*int) -> ?progress_bar:bool -> uri -> (filename * bool)
 (** Download the URI, returning the downloaded filename and a
     temporary file flag.  The temporary file flag is [true] iff
     the downloaded file is temporary and should be deleted by the
@@ -35,4 +35,8 @@ val download : t -> ?template:(string*int) -> uri -> (filename * bool)
 
     For templates, you must supply [~template:(name, revision)].  This
     causes the cache to be used (if possible).  Name and revision are
-    used for cache control (see the man page for details). *)
+    used for cache control (see the man page for details).
+
+    If [~progress_bar:true] then display a progress bar if the file
+    doesn't come from the cache.  In debug mode, progress messages
+    are always displayed. *)
