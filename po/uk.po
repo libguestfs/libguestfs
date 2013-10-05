@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-10-05 17:45+0100\n"
+"POT-Creation-Date: 2013-10-05 22:33+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -5504,7 +5504,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
-#: ../builder/builder.ml:582
+#: ../builder/builder.ml:583
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -5516,7 +5516,7 @@ msgstr ""
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:682
+#: ../builder/builder.ml:683
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -5532,7 +5532,7 @@ msgstr "%s: параметр --enable можна вказувати лише о�
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
-#: ../builder/builder.ml:702
+#: ../builder/builder.ml:703
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -5646,7 +5646,7 @@ msgstr "%s: порожній аргумент параметра --expand"
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:466
+#: ../builder/builder.ml:467
 msgid "%s: error: could not create output file '%s'\n"
 msgstr ""
 
@@ -5656,11 +5656,11 @@ msgid ""
 "Is $HOME set?\n"
 msgstr ""
 
-#: ../builder/builder.ml:515
+#: ../builder/builder.ml:516
 msgid "%s: error: failed to uncompress template\n"
 msgstr ""
 
-#: ../builder/builder.ml:546
+#: ../builder/builder.ml:547
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
@@ -5674,7 +5674,7 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:679
+#: ../builder/builder.ml:680
 msgid "%s: internal error: could not display the log file: %s\n"
 msgstr ""
 
@@ -5705,7 +5705,7 @@ msgstr "%s: не вказано аргумент розміру у параме�
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
-#: ../builder/builder.ml:586
+#: ../builder/builder.ml:587
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -5792,7 +5792,7 @@ msgstr ""
 "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
 "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize(1)\n"
 
-#: ../builder/builder.ml:706
+#: ../builder/builder.ml:707
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -5869,7 +5869,7 @@ msgstr ""
 msgid "%s: warning: gpg program is not available\n"
 msgstr ""
 
-#: ../builder/builder.ml:602
+#: ../builder/builder.ml:603
 msgid ""
 "%s: warning: hostname could not be set for this type of guest\n"
 "%!"
@@ -5879,13 +5879,13 @@ msgstr ""
 msgid "%s: warning: nbdkit or nbdkit-xz-plugin is not available\n"
 msgstr ""
 
-#: ../builder/builder.ml:593
+#: ../builder/builder.ml:594
 msgid ""
 "%s: warning: random seed could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:641
+#: ../builder/builder.ml:642
 msgid ""
 "%s: warning: root password could not be set for this type of guest\n"
 "%!"
@@ -6023,6 +6023,10 @@ msgstr ""
 msgid ""
 "Create overlay file in %s to protect source disk ...\n"
 "%!"
+msgstr ""
+
+#: ../builder/builder.ml:460
+msgid "Creating disk image: %s"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_hostname.ml:45
@@ -6236,7 +6240,7 @@ msgstr ""
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
-#: ../builder/builder.ml:774
+#: ../builder/builder.ml:775
 msgid "Finishing off"
 msgstr ""
 
@@ -6313,19 +6317,19 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:740
+#: ../builder/builder.ml:741
 msgid "Installing firstboot command: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:743
+#: ../builder/builder.ml:744
 msgid "Installing firstboot packages: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:736
+#: ../builder/builder.ml:737
 msgid "Installing firstboot script: [%s] %s"
 msgstr ""
 
-#: ../builder/builder.ml:713
+#: ../builder/builder.ml:714
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -6404,7 +6408,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:552
+#: ../builder/builder.ml:553
 msgid "Opening the new disk"
 msgstr ""
 
@@ -6420,7 +6424,7 @@ msgstr "Виконати тестовий запуск"
 msgid "Quiet output"
 msgstr "Режим з мінімальним виведенням даних"
 
-#: ../builder/builder.ml:631
+#: ../builder/builder.ml:632
 msgid "Random root password: %s [did you mean to use --root-password?]"
 msgstr ""
 
@@ -6679,11 +6683,11 @@ msgstr ""
 "B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
 "слід вказати шлях до скрипту повністю."
 
-#: ../builder/builder.ml:524
+#: ../builder/builder.ml:525
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:758 ../builder/builder.ml:754
+#: ../builder/builder.ml:759 ../builder/builder.ml:755
 msgid "Running: %s"
 msgstr ""
 
@@ -6840,15 +6844,15 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../builder/builder.ml:591
+#: ../builder/builder.ml:592
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../builder/builder.ml:627
+#: ../builder/builder.ml:628
 msgid "Setting root password"
 msgstr ""
 
-#: ../builder/builder.ml:600
+#: ../builder/builder.ml:601
 msgid "Setting the hostname: %s"
 msgstr ""
 
@@ -7067,7 +7071,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:512
+#: ../builder/builder.ml:513
 msgid "Uncompressing: %s"
 msgstr ""
 
@@ -7075,7 +7079,7 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:723
+#: ../builder/builder.ml:724
 msgid "Uploading: %s"
 msgstr ""
 
@@ -7083,7 +7087,7 @@ msgstr ""
 msgid "Wipe build log file"
 msgstr ""
 
-#: ../builder/builder.ml:765
+#: ../builder/builder.ml:766
 msgid "Wiping the log file"
 msgstr ""
 
