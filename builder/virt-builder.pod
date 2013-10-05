@@ -676,6 +676,43 @@ Scripts run in the order they appear on the command line.
 
 =back
 
+=head2 IMPORTING THE DISK IMAGE
+
+=head3 Importing into libvirt
+
+Import the disk image into libvirt using L<virt-install(1)>
+I<--import> option.
+
+ virt-install --import \
+   --name guest --ram 2048 --disk path=disk.img,format=raw
+
+Notes:
+
+=over 4
+
+=item 1.
+
+You I<must> specify the correct format.  The format is C<raw> unless
+you used virt-builder's I<--format> option.
+
+=item 2.
+
+You can run virt-install as root or non-root.  Each works slightly
+differently because libvirt manages a different set of virtual
+machines for each user.  In particular virt-manager normally shows the
+root-owned VMs, whereas Boxes shows the user-owned VMs, and other
+tools probably work differently as well.
+
+=back
+
+=begin comment
+
+=head3 Importing into OpenStack
+
+XXX
+
+=end comment
+
 =head2 CREATING YOUR OWN TEMPLATES
 
 For serious virt-builder use, you may want to create your own
