@@ -82,7 +82,10 @@ let mode, arg,
   let firstboot = ref [] in
   let add_firstboot s =
     if not (Sys.file_exists s) then (
-      eprintf (f_"%s: --firstboot: %s: file not found.\n") prog s;
+      if not (String.contains s ' ') then
+        eprintf (f_"%s: %s: %s: file not found\n") prog "--firstboot" s
+      else
+        eprintf (f_"%s: %s: %s: file not found [did you mean %s?]\n") prog "--firstboot" s "--firstboot-command";
       exit 1
     );
     firstboot := `Script s :: !firstboot
@@ -125,7 +128,10 @@ let mode, arg,
   let run = ref [] in
   let add_run s =
     if not (Sys.file_exists s) then (
-      eprintf (f_"%s: --run: %s: file not found.\n") prog s;
+      if not (String.contains s ' ') then
+        eprintf (f_"%s: %s: %s: file not found\n") prog "--run" s
+      else
+        eprintf (f_"%s: %s: %s: file not found [did you mean %s?]\n") prog "--run" s "--run-command";
       exit 1
     );
     run := `Script s :: !run
@@ -150,7 +156,7 @@ let mode, arg,
     let len = String.length arg in
     let file = String.sub arg 0 i in
     if not (Sys.file_exists file) then (
-      eprintf (f_"%s: --upload: %s: file not found.\n") prog file;
+      eprintf (f_"%s: --upload: %s: file not found\n") prog file;
       exit 1
     );
     let dest = String.sub arg (i+1) (len-(i+1)) in
