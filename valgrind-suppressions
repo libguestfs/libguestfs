@@ -321,3 +321,10 @@
    fun:malloc
    fun:Perl_refcounted_he_new_pvn
 }
+
+{
+   perl_leak_7
+   Memcheck:Leak
+   ...
+   fun:Perl_re_op_compile
+}
