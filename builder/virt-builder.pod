@@ -310,6 +310,14 @@ each operating system option.
 
 See also: I<--source>, L</CREATING YOUR OWN TEMPLATES>.
 
+=item B<--no-logfile>
+
+Wipe C<builder.log> (log file from build commands) from the image
+after building is complete.  If you don't want to reveal precisely how
+the image was built, use this option.
+
+See also: L</LOG FILE>.
+
 =item B<--network>
 
 =item B<--no-network>
@@ -568,6 +576,31 @@ L<--firstboot-command> like this:
 The above command will create an C<rjones> account with no password,
 and force the user to set a password when they first log in.  There
 are other ways to manage passwords, see L<useradd(8)> for details.
+
+=head2 LOG FILE
+
+Scripts and package installation that runs at build time (I<--run>,
+I<--run-command>, I<--install>, but I<not> firstboot) is logged in one
+of the following locations:
+
+=over 4
+
+=item C</tmp/builder.log>
+
+On Linux, BSD and other guests.
+
+=item C<C:\Temp\builder.log>
+
+On Windows, DOS guests.
+
+=item C</builder.log>
+
+If C</tmp> or C<C:\Temp> is missing.
+
+=back
+
+If you don't want the log file to appear in the final image, then
+use the I<--no-logfile> command line option.
 
 =head2 INSTALLATION PROCESS
 
