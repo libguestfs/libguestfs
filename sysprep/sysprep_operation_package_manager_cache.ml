@@ -18,6 +18,7 @@
 
 open Sysprep_operation
 open Common_gettext.Gettext
+open Common_utils
 
 module G = Guestfs
 
@@ -26,14 +27,14 @@ let package_manager_cache_perform g root =
   let cache_dirs =
     match packager with
     | "zypper" ->
-      Some (g#glob_expand "/var/cache/zypp*/*")
+      Some (Array.to_list (g#glob_expand "/var/cache/zypp*"))
     | "yum" ->
-      Some (g#glob_expand "/var/cache/yum/*")
+      Some [ "/var/cache/yum/" ]
     | "apt" ->
-      Some (g#glob_expand "/var/cache/apt/archives/*")
+      Some [ "/var/cache/apt/archives/" ]
     | _ -> None in
   match cache_dirs with
-  | Some dirs -> Array.iter g#rm_rf dirs; []
+  | Some dirs -> List.iter (rm_rf_only_files g) dirs; []
   | _ -> []
 
 let op = {
