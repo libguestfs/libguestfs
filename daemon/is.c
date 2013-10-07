@@ -29,19 +29,13 @@
 #include "daemon.h"
 #include "actions.h"
 
+static int get_mode (const char *path, mode_t *mode, int followsymlinks);
+
 int
 do_exists (const char *path)
 {
-  int r;
-
-  CHROOT_IN;
-  r = access (path, F_OK);
-  CHROOT_OUT;
-
-  return r == 0;
+  return get_mode (path, NULL, 0);
 }
-
-static int get_mode (const char *path, mode_t *mode, int followsymlinks);
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
@@ -163,6 +157,7 @@ get_mode (const char *path, mode_t *mode, int followsymlinks)
       return 0;			/* Doesn't exist, means return false. */
   }
 
-  *mode = buf.st_mode;
+  if (mode)
+    *mode = buf.st_mode;
   return 1;
 }
