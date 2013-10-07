@@ -326,6 +326,9 @@ Enable or disable network access from the guest during the installation.
 
 Enabled is the default.  Use I<--no-network> to disable access.
 
+The network only allows outgoing connections and has other minor
+limitations.  See L<virt-rescue(1)/NETWORK>.
+
 If you use I<--no-network> then certain other options such as
 I<--install> will not work.
 
