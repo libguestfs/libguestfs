@@ -43,6 +43,8 @@ typedef struct {
 /*-- in guestfsd.c --*/
 extern int verbose;
 
+extern int enable_network;
+
 extern int autosync_umount;
 
 extern const char *sysroot;

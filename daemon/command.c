@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
@@ -34,8 +35,10 @@ GUESTFSD_EXT_CMD(str_umount, umount);
 
 #ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_BIND_STATE __attribute__((cleanup(free_bind_state)))
+#define CLEANUP_RESOLVER_STATE __attribute__((cleanup(free_resolver_state)))
 #else
 #define CLEANUP_BIND_STATE
+#define CLEANUP_RESOLVER_STATE
 #endif
 
 struct bind_state {
@@ -45,6 +48,12 @@ struct bind_state {
   char *sysroot_proc;
   char *sysroot_sys;
   bool dev_ok, dev_pts_ok, proc_ok, sys_ok;
+};
+
+struct resolver_state {
+  bool mounted;
+  char *sysroot_etc_resolv_conf;
+  char *sysroot_etc_resolv_conf_old;
 };
 
 /* While running the command, bind-mount /dev, /proc, /sys
@@ -113,6 +122,98 @@ free_bind_state (struct bind_state *bs)
   }
 }
 
+/* If the network is enabled, we want <sysroot>/etc/resolv.conf to
+ * reflect the contents of /etc/resolv.conf so that name resolution
+ * works.  It would be nice to bind-mount the file (single file bind
+ * mounts are possible).  However annoyingly that doesn't work for
+ * Ubuntu guests where the guest resolv.conf is a dangling symlink,
+ * and for reasons unknown mount tries to follow the symlink and
+ * fails (likely a bug).  So this is a hack.  Note we only invoke
+ * this if the network is enabled.
+ */
+static int
+set_up_etc_resolv_conf (struct resolver_state *rs)
+{
+  struct stat statbuf;
+
+  rs->sysroot_etc_resolv_conf_old = NULL;
+
+  rs->sysroot_etc_resolv_conf = sysroot_path ("/etc/resolv.conf");
+
+  if (!rs->sysroot_etc_resolv_conf) {
+    reply_with_perror ("malloc");
+    goto error;
+  }
+
+  /* If /etc/resolv.conf exists, rename it to the backup file.  Note
+   * that on Ubuntu it's a dangling symlink.
+   */
+  if (lstat (rs->sysroot_etc_resolv_conf, &statbuf) == 0) {
+    size_t len = sysroot_len + 32;
+    char buf[len];
+
+    /* Make a random name for the backup file. */
+    snprintf (buf, len, "%s/etc/XXXXXXXX", sysroot);
+    if (random_name (buf) == -1) {
+      reply_with_perror ("random_name");
+      goto error;
+    }
+    rs->sysroot_etc_resolv_conf_old = strdup (buf);
+    if (!rs->sysroot_etc_resolv_conf_old) {
+      reply_with_perror ("strdup");
+      goto error;
+    }
+
+    if (verbose)
+      fprintf (stderr, "renaming %s to %s\n", rs->sysroot_etc_resolv_conf,
+               rs->sysroot_etc_resolv_conf_old);
+
+    if (rename (rs->sysroot_etc_resolv_conf,
+                rs->sysroot_etc_resolv_conf_old) == -1) {
+      reply_with_perror ("rename: %s to %s", rs->sysroot_etc_resolv_conf,
+                         rs->sysroot_etc_resolv_conf_old);
+      goto error;
+    }
+  }
+
+  /* Now that the guest's <sysroot>/etc/resolv.conf is out the way, we
+   * can create our own copy of the appliance /etc/resolv.conf.
+   */
+  ignore_value (command (NULL, NULL, "cp", "/etc/resolv.conf",
+                         rs->sysroot_etc_resolv_conf, NULL));
+
+  rs->mounted = true;
+  return 0;
+
+ error:
+  free (rs->sysroot_etc_resolv_conf);
+  free (rs->sysroot_etc_resolv_conf_old);
+  return -1;
+}
+
+static void
+free_resolver_state (struct resolver_state *rs)
+{
+  if (rs->mounted) {
+    unlink (rs->sysroot_etc_resolv_conf);
+
+    if (rs->sysroot_etc_resolv_conf_old) {
+      if (verbose)
+        fprintf (stderr, "renaming %s to %s\n", rs->sysroot_etc_resolv_conf_old,
+                 rs->sysroot_etc_resolv_conf);
+
+      if (rename (rs->sysroot_etc_resolv_conf_old,
+                  rs->sysroot_etc_resolv_conf) == -1)
+        perror ("error: could not restore /etc/resolv.conf");
+
+      free (rs->sysroot_etc_resolv_conf_old);
+    }
+
+    free (rs->sysroot_etc_resolv_conf);
+    rs->mounted = false;
+  }
+}
+
 char *
 do_command (char *const *argv)
 {
@@ -120,6 +221,8 @@ do_command (char *const *argv)
   CLEANUP_FREE char *err = NULL;
   int r;
   CLEANUP_BIND_STATE struct bind_state bind_state = { .mounted = false };
+  CLEANUP_RESOLVER_STATE struct resolver_state resolver_state =
+    { .mounted = false };
 
   /* We need a root filesystem mounted to do this. */
   NEED_ROOT (, return NULL);
@@ -135,12 +238,17 @@ do_command (char *const *argv)
 
   if (bind_mount (&bind_state) == -1)
     return NULL;
+  if (enable_network) {
+    if (set_up_etc_resolv_conf (&resolver_state) == -1)
+      return NULL;
+  }
 
   CHROOT_IN;
   r = commandv (&out, &err, (const char * const *) argv);
   CHROOT_OUT;
 
   free_bind_state (&bind_state);
+  free_resolver_state (&resolver_state);
 
   if (r == -1) {
     reply_with_error ("%s", err);

@@ -78,6 +78,7 @@ static char *read_cmdline (void);
 static dev_t root_device = 0;
 
 int verbose = 0;
+int enable_network = 0;
 
 static void makeraw (const char *channel, int fd);
 static int print_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
@@ -221,6 +222,8 @@ main (int argc, char *argv[])
     else
       printf ("could not read linux command line\n");
   }
+
+  enable_network = cmdline && strstr (cmdline, "guestfs_network=1") != NULL;
 
 #ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */

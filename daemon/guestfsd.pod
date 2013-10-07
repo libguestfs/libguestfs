@@ -105,6 +105,11 @@ default (which is C</dev/virtio-ports/org.libguestfs.channel.0>).
 This is used by the User-Mode Linux backend to use a regular emulated
 serial port instead of virtio-serial.
 
+=item B<guestfs_network=1>
+
+This is set if the appliance network is enabled (see
+C<guestfs_set_network>).
+
 =back
 
 =back
