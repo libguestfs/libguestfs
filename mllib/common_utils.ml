@@ -365,3 +365,18 @@ let unlink_on_exit =
       register_handlers ();
       registered_handlers := true
     )
+
+(* Using the libguestfs API, recursively remove only files from the
+ * given directory.  Useful for cleaning /var/cache etc in sysprep
+ * without removing the actual directory structure.  Also if 'dir' is
+ * not a directory or doesn't exist, ignore it.
+ *
+ * XXX Could be faster with a specific API for doing this.
+ *)
+let rm_rf_only_files (g : Guestfs.guestfs) dir =
+  if g#is_dir dir then (
+    let files = Array.map (Filename.concat dir) (g#find dir) in
+    let files = Array.to_list files in
+    let files = List.filter g#is_file files in
+    List.iter g#rm files
+  )
