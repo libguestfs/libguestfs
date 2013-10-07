@@ -116,7 +116,7 @@ let debug_gc, operations, g, selinux_relabel, quiet, mount_opts =
     "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
     "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
-    "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (/:noatime;/var:rw,noatime)";
+    "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (eg /:noatime;/var:rw,noatime)";
     "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--selinux-relabel", Arg.Unit force_selinux_relabel, " " ^ s_"Force SELinux relabel";
