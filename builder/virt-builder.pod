@@ -713,6 +713,61 @@ XXX
 
 =end comment
 
+=head2 DEBUGGING BUILDS
+
+If virt-builder fails with an error, then enable debugging (I<-v>) and
+report a bug (see L</BUGS> below).
+
+If virt-builder is successful but the image doesn't work, here are
+some things to try:
+
+=over 4
+
+=item Use virt-rescue
+
+Run L<virt-rescue(1)> on the disk image:
+
+ virt-rescue -a disk.img
+
+This gives you a rescue shell.  You can mount the filesystems from the
+disk image on C</sysroot> and examine them using ordinary Linux
+commands.  You can also chroot into the guest to reinstall the
+bootloader.  The virt-rescue man page has a lot more information and
+examples.
+
+=item Use guestfish
+
+Run L<guestfish(1)> on the disk image:
+
+ guestfish -a disk.img -i
+
+Use guestfish commands like C<ll /directory> and C<cat /file> to
+examine directories and files.
+
+=item Use guestmount
+
+Mount the disk image safely on the host using FUSE and L<guestmount(1)>:
+
+ mkdir /tmp/mp
+ guestmount -a disk.img -i /tmp/mp
+ cd /tmp/mp
+
+To unmount the disk image do:
+
+ fusermount -u /tmp/mp
+
+=item Add a serial console
+
+If the guest hangs during boot, it can be helpful to add a serial
+console to the guest, and direct kernel messages to the serial
+console.  Adding the serial console will involve looking at the
+documentation for your hypervisor.  To direct kernel messages to the
+serial console, add the following on the kernel command line:
+
+ console=tty0 console=ttyS0,115200
+
+=back
+
 =head2 CREATING YOUR OWN TEMPLATES
 
 For serious virt-builder use, you may want to create your own
@@ -1108,17 +1163,18 @@ error.
 
 =head1 SEE ALSO
 
-L<virt-resize(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<guestmount(1)>,
+L<virt-copy-out(1)>,
 L<virt-install(1)>,
+L<virt-rescue(1)>,
+L<virt-resize(1)>,
 L<virt-sysprep(1)>,
 L<oz-install(1)>,
-L<guestmount(1)>,
 L<nbdkit(1)>,
 L<nbdkit-xz-plugin(1)>,
 L<gpg(1)>,
-L<guestfs(3)>,
-L<guestfish(1)>,
-L<virt-copy-out(1)>,
 L<curl(1)>,
 L<http://libguestfs.org/>.
 

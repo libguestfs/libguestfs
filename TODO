@@ -554,9 +554,16 @@ virt-builder
 
  - set default timezone and language
 
- - how can we debug it?  at least document how to call virt-rescue
-   guestfish etc to look at files
-
  - how can we give users a shell?
 
  - Ubuntu templates
+
+ - more common code between virt-sysprep & virt-builder:
+
+   * virt-sysprep should have --run, --run-command,
+     --firstboot-command options with common code from virt-builder
+
+ - document:
+
+   * how to upload to glance
+   * how to integrate with ansible, puppet, chef
