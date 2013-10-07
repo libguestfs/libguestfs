@@ -131,10 +131,16 @@ and default_crypto g root =
   | "debian", v when v >= 5 -> `SHA512
   | "debian", _ -> `MD5
 
+  (* Very likely earlier versions of Ubuntu than 10.04 had new crypt,
+   * but Ubuntu 10.04 is the earliest version I have checked.
+   *)
+  | "ubuntu", v when v >= 10 -> `SHA512
+  | "ubuntu", _ -> `MD5
+
   | _, _ ->
     eprintf (f_"\
 virt-sysprep: password: warning: using insecure md5 password encryption for
 guest of type %s version %d.
-If this is incorrect, use --password-crypto option and file a bug.\n")
+If this is incorrect, use --password-crypto option and file a bug.\n%!")
       distro major;
     `MD5
