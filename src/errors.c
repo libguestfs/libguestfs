@@ -305,6 +305,20 @@ guestfs___unexpected_close_error (guestfs_h *g)
 "for information about how to debug libguestfs and report bugs."));
 }
 
+/* As above, but for appliance kernel hanging. */
+void
+guestfs___launch_timeout (guestfs_h *g)
+{
+  if (g->verbose)
+    error (g, _("appliance launch timed out, see earlier error messages"));
+  else
+    error (g, _(
+"appliance launch timed out.\n"
+"This usually means the kernel or appliance hung during launch.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"for information about how to debug libguestfs and report bugs."));
+}
+
 /* External command failed. */
 void
 guestfs___external_command_failed (guestfs_h *g, int status,

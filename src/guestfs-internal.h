@@ -88,6 +88,14 @@
 #  define MIN_MEMSIZE 128
 #endif
 
+/* Timeout waiting for appliance to come up (seconds).
+ *
+ * XXX This is just a large timeout for now.  Should make this
+ * configurable.  Also it interacts with libguestfs-test-tool -t
+ * option.
+ */
+#define APPLIANCE_TIMEOUT (20*60) /* 20 mins */
+
 /* Some limits on what the inspection code will read, for safety. */
 
 /* Small text configuration files.
@@ -292,6 +300,7 @@ struct connection_ops {
   void (*free_connection) (guestfs_h *g, struct connection *);
 
   /* Accept the connection (back to us) from the daemon.
+   * There is an implicit timeout (APPLIANCE_TIMEOUT defined above).
    *
    * Returns: 1 = accepted, 0 = appliance closed connection, -1 = error
    */
@@ -600,6 +609,7 @@ extern void guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_si
 
 extern void guestfs___launch_failed_error (guestfs_h *g);
 extern void guestfs___unexpected_close_error (guestfs_h *g);
+extern void guestfs___launch_timeout (guestfs_h *g);
 extern void guestfs___external_command_failed (guestfs_h *g, int status, const char *cmd_name, const char *extra);
 
 /* actions-support.c */

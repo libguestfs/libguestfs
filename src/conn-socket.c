@@ -54,6 +54,10 @@ accept_connection (guestfs_h *g, struct connection *connv)
 {
   struct connection_socket *conn = (struct connection_socket *) connv;
   int sock = -1;
+  time_t start_t, now_t;
+  int timeout_ms;
+
+  time (&start_t);
 
   if (conn->daemon_accept_sock == -1) {
     error (g, _("accept_connection called twice"));
@@ -76,11 +80,19 @@ accept_connection (guestfs_h *g, struct connection *connv)
       nfds++;
     }
 
-    r = poll (fds, nfds, -1);
+    time (&now_t);
+    timeout_ms = 1000 * (APPLIANCE_TIMEOUT - (now_t - start_t));
+
+    r = poll (fds, nfds, timeout_ms);
     if (r == -1) {
       if (errno == EINTR || errno == EAGAIN)
         continue;
       perrorf (g, "accept_connection: poll");
+      return -1;
+    }
+
+    if (r == 0) {               /* timeout reached */
+      guestfs___launch_timeout (g);
       return -1;
     }
 
