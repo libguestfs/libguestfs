@@ -751,6 +751,14 @@ do_debug_upload (const char *filename, int mode)
   return 0;
 }
 
+/* This function is identical to debug_upload. */
+/* Has one FileIn parameter. */
+int
+do_internal_upload (const char *filename, int mode)
+{
+  return do_debug_upload (filename, mode);
+}
+
 /* Internal function used only when testing
  * https://bugzilla.redhat.com/show_bug.cgi?id=914931
  */

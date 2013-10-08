@@ -11607,6 +11607,16 @@ The label (name of the last element) of the Augeas path expression
 C<augpath> is returned.  C<augpath> must match exactly one node, else
 this function returns an error." };
 
+  { defaults with
+    name = "internal_upload";
+    style = RErr, [FileIn "filename"; String "tmpname"; Int "mode"], [];
+    proc_nr = Some 413;
+    visibility = VInternal;
+    cancellable = true;
+    shortdesc = "upload a file to the appliance (internal use only)";
+    longdesc = "\
+This function is used internally when setting up the appliance." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
