@@ -384,7 +384,7 @@ launch_libvirt (guestfs_h *g, const char *libvirt_uri)
 
   g->state = LAUNCHING;
 
-  /* Wait for console socket to open. */
+  /* Wait for console socket to be opened (by qemu). */
   r = accept4 (console_sock, NULL, NULL, SOCK_NONBLOCK|SOCK_CLOEXEC);
   if (r == -1) {
     perrorf (g, "accept");
