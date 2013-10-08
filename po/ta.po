@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-10-05 22:33+0100\n"
+"POT-Creation-Date: 2013-10-08 00:52+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -5791,7 +5791,7 @@ msgstr ""
 msgid "Remove many log files from the guest"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_package_manager_cache.ml:43
+#: ../sysprep/sysprep_operation_package_manager_cache.ml:44
 msgid "Remove package manager cache"
 msgstr ""
 
@@ -6014,7 +6014,7 @@ msgid "Set libvirt guest name"
 msgstr ""
 
 #: ../sysprep/main.ml:119
-msgid "Set mount options (/:noatime;/var:rw,noatime)"
+msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
 #: ../builder/builder.ml:212
@@ -6719,11 +6719,12 @@ msgid ""
 "password for user '%s' twice.\n"
 msgstr ""
 
-#: ../mllib/password.ml:135
+#: ../mllib/password.ml:141
 msgid ""
 "virt-sysprep: password: warning: using insecure md5 password encryption for\n"
 "guest of type %s version %d.\n"
 "If this is incorrect, use --password-crypto option and file a bug.\n"
+"%!"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:65
