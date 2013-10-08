@@ -121,11 +121,8 @@ do_blockdev_getbsz (const char *device)
 int
 do_blockdev_setbsz (const char *device, int blocksize)
 {
-  if (blocksize <= 0 /* || blocksize >= what? */) {
-    reply_with_error ("blocksize must be > 0");
-    return -1;
-  }
-  return (int) call_blockdev (device, "--setbsz", blocksize, 0);
+  /* Do nothing.  See https://bugzilla.redhat.com/show_bug.cgi?id=1002825 */
+  return 0;
 }
 
 int64_t
