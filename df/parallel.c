@@ -194,8 +194,14 @@ worker_thread (void *thread_data_vp)
     guestfs_set_verbose (g, thread_data->verbose);
 
     /* Do work. */
-    if (thread_data->work (g, i, fp) == -1)
+    if (thread_data->work (g, i, fp) == -1) {
       thread_data->r = -1;
+
+      if (thread_data->verbose)
+        fprintf (stderr,
+                 "parallel: thread %zu work function returned an error\n",
+                 thread_data->thread_num);
+    }
 
     fclose (fp);
     guestfs_close (g);
