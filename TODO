@@ -400,6 +400,10 @@ virt-sysprep ideas
  - secure erase of inodes etc using scrub (Steve Grubb)
  - fix the virt-sysprep fs-uuids plugin
 
+ - virt-sysprep should be able to zero-free space on the disks (a bit
+   like virt-sparsify).  This is a security measure to stop people
+   trying to read the deleted files.
+
 Kazuo Moriwaka adds:
 
  - swap devices (both of block device and file) should be wiped. This may
@@ -567,3 +571,14 @@ virt-builder
 
    * how to upload to glance
    * how to integrate with ansible, puppet, chef
+
+ - /etc/resolv.conf handling works but is best described as a hack:
+   https://github.com/libguestfs/libguestfs/commit/9521422ce60578f7196cc8b7977d998159238c19
+
+
+Midnight Commander (mc) extension
+---------------------------------
+
+Write an extension for mc that would let people browse into
+filesystems.  See
+http://repo.or.cz/w/midnight-commander.git/tree/HEAD:/misc/ext.d
