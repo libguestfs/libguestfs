@@ -243,7 +243,7 @@ BUILDERFILES = \
 	builder/website/fedora-19.xz \
 	builder/website/fedora-19.xz.sig
 
-WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
+WEBSITEDIR = $(HOME)/d/websites/libguestfs
 
 # For reasons not fully understood, we need to rebuild all the
 # man pages and HTMLFILES from scratch here.
