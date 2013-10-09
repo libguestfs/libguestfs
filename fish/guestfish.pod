@@ -994,6 +994,9 @@ user ID of the process, and C<$PID> is the process ID of the server.
 
 Guestfish client and server versions must match exactly.
 
+Older versions of guestfish were vulnerable to CVE-2013-4419 (see
+L<guestfs(3)/CVE-2013-4419>).  This is fixed in the current version.
+
 =head2 USING REMOTE CONTROL ROBUSTLY FROM SHELL SCRIPTS
 
 From Bash, you can use the following code which creates a guestfish
