@@ -2099,6 +2099,23 @@ double-free in the C library (denial of service).
 It is sufficient to update libguestfs to a version that is not
 vulnerable: libguestfs E<ge> 1.20.8, E<ge> 1.22.2 or E<ge> 1.23.2.
 
+=head2 CVE-2013-4419
+
+L<https://bugzilla.redhat.com/1016960>
+
+When using the L<guestfish(1)> I<--remote> or guestfish I<--listen>
+options, guestfish would create a socket in a known location
+(C</tmp/.guestfish-$UID/socket-$PID>).
+
+The location has to be a known one in order for both ends to
+communicate.  However no checking was done that the containing
+directory (C</tmp/.guestfish-$UID>) is owned by the user.  Thus
+another user could create this directory and potentially hijack
+sockets owned by another user's guestfish client or server.
+
+It is sufficient to update libguestfs to a version that is not
+vulnerable: libguestfs E<ge> 1.20.12, E<ge> 1.22.7 or E<ge> 1.24.
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
