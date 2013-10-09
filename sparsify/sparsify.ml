@@ -241,7 +241,7 @@ let () =
       virtual_size (human_size virtual_size)
 
 (* Check there is enough space in $TMPDIR. *)
-let tmpdir = Filename.get_temp_dir_name ()
+let tmpdir = Filename.temp_dir_name
 
 let () =
   let print_warning () =
