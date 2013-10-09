@@ -99,67 +99,68 @@ let rec generate_prototype ?(extern = true) ?(static = false)
   if not single_line then pr "\n%s" indent;
   let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
   pr "%s%s%s (" prefix name suffix;
-  if handle = None && args = [] && optargs = [] && not is_RBufferOut then
-      pr "void"
-  else (
-    let comma = ref false in
-    (match handle with
-     | None -> ()
-     | Some handle -> pr "guestfs_h *%s" handle; comma := true
-    );
-    let next () =
-      if !comma then (
-        if single_line then pr ", "
-        else (
-          let namelen = String.length prefix + String.length name +
-                        String.length suffix + 2 in
-          pr ",\n%s%s" indent (spaces namelen)
-        )
-      );
-      comma := true
-    in
-    List.iter (
-      function
-      | Pathname n
-      | Device n | Dev_or_Path n
-      | String n
-      | OptString n
-      | Key n ->
-          next ();
-          pr "const char *%s" n
-      | Mountable n | Mountable_or_Path n ->
-          next();
-          if in_daemon then
-            pr "const mountable_t *%s" n
-          else
-            pr "const char *%s" n
-      | StringList n | DeviceList n ->
-          next ();
-          pr "char *const *%s" n
-      | Bool n -> next (); pr "int %s" n
-      | Int n -> next (); pr "int %s" n
-      | Int64 n -> next (); pr "int64_t %s" n
-      | FileIn n
-      | FileOut n ->
-          if not in_daemon then (next (); pr "const char *%s" n)
-      | BufferIn n ->
-          next ();
-          pr "const char *%s" n;
-          next ();
-          pr "size_t %s_size" n
-      | Pointer (t, n) ->
-          next ();
-          pr "%s %s" t n
-    ) args;
-    if is_RBufferOut then (next (); pr "size_t *size_r");
-    if optargs <> [] then (
-      next ();
-      match optarg_proto with
-      | Dots -> pr "..."
-      | VA -> pr "va_list args"
-      | Argv -> pr "const struct guestfs_%s_argv *optargs" name
-    );
+
+  let comma = ref false in
+  (match handle with
+   | None -> ()
+   | Some handle -> pr "guestfs_h *%s" handle; comma := true
   );
+  let next () =
+    if !comma then (
+      if single_line then pr ", "
+      else (
+        let namelen = String.length prefix + String.length name +
+                      String.length suffix + 2 in
+        pr ",\n%s%s" indent (spaces namelen)
+      )
+    );
+    comma := true
+  in
+  List.iter (
+    function
+    | Pathname n
+    | Device n | Dev_or_Path n
+    | String n
+    | OptString n
+    | Key n ->
+        next ();
+        pr "const char *%s" n
+    | Mountable n | Mountable_or_Path n ->
+        next();
+        if in_daemon then
+          pr "const mountable_t *%s" n
+        else
+          pr "const char *%s" n
+    | StringList n | DeviceList n ->
+        next ();
+        pr "char *const *%s" n
+    | Bool n -> next (); pr "int %s" n
+    | Int n -> next (); pr "int %s" n
+    | Int64 n -> next (); pr "int64_t %s" n
+    | FileIn n
+    | FileOut n ->
+        if not in_daemon then (next (); pr "const char *%s" n)
+    | BufferIn n ->
+        next ();
+        pr "const char *%s" n;
+        next ();
+        pr "size_t %s_size" n
+    | Pointer (t, n) ->
+        next ();
+        pr "%s %s" t n
+  ) args;
+  if is_RBufferOut then (next (); pr "size_t *size_r");
+  if optargs <> [] then (
+    next ();
+    match optarg_proto with
+    | Dots -> pr "..."
+    | VA -> pr "va_list args"
+    | Argv -> pr "const struct guestfs_%s_argv *optargs" name
+  );
+
+  (* Was anything output between ()?  If not, it's a 'function(void)'. *)
+  if !comma = false then pr "void";
+
   pr ")";
   if semicolon then pr ";";
   if newline then pr "\n"
