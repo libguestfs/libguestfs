@@ -180,7 +180,7 @@ close_stdout (void)
 void
 rc_listen (void)
 {
-  char sockpath[128];
+  char sockpath[UNIX_PATH_MAX];
   pid_t pid;
   struct sockaddr_un addr;
   int sock, s;
@@ -336,7 +336,7 @@ rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
   guestfish_hello hello;
   guestfish_call call;
   guestfish_reply reply;
-  char sockpath[128];
+  char sockpath[UNIX_PATH_MAX];
   struct sockaddr_un addr;
   int sock;
   FILE *fp;
