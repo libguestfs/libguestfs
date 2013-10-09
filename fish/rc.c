@@ -29,6 +29,7 @@
 #include <sys/un.h>
 #include <signal.h>
 #include <sys/socket.h>
+#include <errno.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -38,17 +39,49 @@
 #include "fish.h"
 #include "rc_protocol.h"
 
+/* Because this is a Unix domain socket, the total path length must be
+ * under 108 bytes.
+ */
+#define SOCKET_DIR "/tmp/.guestfish-%d" /* euid */
+#define SOCKET_PATH "/tmp/.guestfish-%d/socket-%d" /* euid, pid */
+
+static void
+create_sockdir (void)
+{
+  uid_t euid = geteuid ();
+  char dir[128];
+  int r;
+  struct stat statbuf;
+
+  /* Create the directory, and ensure it is owned by the user. */
+  snprintf (dir, sizeof dir, SOCKET_DIR, euid);
+  r = mkdir (dir, 0700);
+  if (r == -1 && errno != EEXIST) {
+  error:
+    perror (dir);
+    exit (EXIT_FAILURE);
+  }
+  if (lstat (dir, &statbuf) == -1)
+    goto error;
+  if (!S_ISDIR (statbuf.st_mode) ||
+      (statbuf.st_mode & 0777) != 0700 ||
+      statbuf.st_uid != euid) {
+    fprintf (stderr,
+             _("guestfish: '%s' is not a directory or has insecure owner or permissions\n"),
+             dir);
+    exit (EXIT_FAILURE);
+  }
+}
+
 static void
 create_sockpath (pid_t pid, char *sockpath, size_t len,
                  struct sockaddr_un *addr)
 {
-  char dir[128];
   uid_t euid = geteuid ();
 
-  snprintf (dir, sizeof dir, "/tmp/.guestfish-%d", euid);
-  ignore_value (mkdir (dir, 0700));
+  create_sockdir ();
 
-  snprintf (sockpath, len, "/tmp/.guestfish-%d/socket-%d", euid, pid);
+  snprintf (sockpath, len, SOCKET_PATH, euid, pid);
 
   addr->sun_family = AF_UNIX;
   strcpy (addr->sun_path, sockpath);
@@ -195,6 +228,8 @@ rc_listen (void)
 
   memset (&hello, 0, sizeof hello);
   memset (&call, 0, sizeof call);
+
+  create_sockdir ();
 
   pid = fork ();
   if (pid == -1) {
