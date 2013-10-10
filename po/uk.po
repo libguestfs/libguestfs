@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-10-08 00:52+0100\n"
+"POT-Creation-Date: 2013-10-10 13:44+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4163,23 +4163,23 @@ msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/conn-socket.c:59
+#: src/conn-socket.c:63
 msgid "accept_connection called twice"
 msgstr "accept_connection викликано двічі"
 
-#: src/conn-socket.c:130
+#: src/conn-socket.c:142
 msgid "read_data: socket not connected"
 msgstr "read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:205
+#: src/conn-socket.c:217
 msgid "can_read_data: socket not connected"
 msgstr "can_read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:234
+#: src/conn-socket.c:246
 msgid "write_data: socket not connected"
 msgstr "write_data: сокет не з’єднано"
 
-#: src/conn-socket.c:327
+#: src/conn-socket.c:339
 msgid "error reading console messages from the appliance"
 msgstr "помилка під час читання повідомлень консолі з базової системи"
 
@@ -4484,17 +4484,29 @@ msgstr ""
 "щоб дізнатися більше про діагностування помилок у libguestfs та звітування\n"
 "про вади."
 
-#: src/errors.c:320
+#: src/errors.c:313
+msgid "appliance launch timed out, see earlier error messages"
+msgstr ""
+
+#: src/errors.c:316
+msgid ""
+"appliance launch timed out.\n"
+"This usually means the kernel or appliance hung during launch.\n"
+"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
+"for information about how to debug libguestfs and report bugs."
+msgstr ""
+
+#: src/errors.c:334
 #, c-format
 msgid "%s, see debug messages above"
 msgstr "%s, див. діагностичні повідомлення вище"
 
-#: src/errors.c:322
+#: src/errors.c:336
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr "%s: %s: %s, див. діагностичні повідомлення вище"
 
-#: src/errors.c:328
+#: src/errors.c:342
 #, c-format
 msgid ""
 "%s.\n"
@@ -4506,7 +4518,7 @@ msgstr ""
 "діагностику.\n"
 "Див. http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
 
-#: src/errors.c:334
+#: src/errors.c:348
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
@@ -4879,25 +4891,25 @@ msgstr "встановлено зв’язок з guestfs, але стан пр�
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:162
+#: src/launch.c:172
 msgid "get-pid can only be called after launch"
 msgstr "get-pid можна викликати лише після launch"
 
-#: src/launch.c:168
+#: src/launch.c:178
 msgid "the current backend does not support 'get-pid'"
 msgstr "у поточному модулі не передбачено підтримки «get-pid»"
 
-#: src/launch.c:179
+#: src/launch.c:189
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 "у поточному модулі не передбачено опитування щодо максимальної кількості "
 "дисків"
 
-#: src/launch.c:215
+#: src/launch.c:225
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:285
+#: src/launch.c:295
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
