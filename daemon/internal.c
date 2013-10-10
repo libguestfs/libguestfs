@@ -44,3 +44,18 @@ do_internal_autosync (void)
 
   return r;
 }
+
+/* NB: Only called when valgrinding the daemon. */
+int
+do_internal_exit (void)
+{
+  if (!autosync_umount) {
+    reply_with_error ("guestfsd -r flag used, ignoring");
+    return -1;
+  }
+
+  /* Send a reply before exiting so the protocol doesn't get confused. */
+  reply (NULL, NULL);
+
+  exit (EXIT_SUCCESS);
+}

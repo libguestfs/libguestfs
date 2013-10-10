@@ -11617,6 +11617,17 @@ this function returns an error." };
     longdesc = "\
 This function is used internally when setting up the appliance." };
 
+  { defaults with
+    name = "internal_exit";
+    style = RErr, [], [];
+    proc_nr = Some 414;
+    visibility = VInternal;
+    cancellable = true;
+    shortdesc = "cause the daemon to exit (internal use only)";
+    longdesc = "\
+This function is used internally when closing the appliance.  Note
+it's only called when ./configure --enable-valgrind-daemon is used." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
