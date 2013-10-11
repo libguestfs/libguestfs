@@ -1280,7 +1280,9 @@ parse_btrfsvol (const char *desc_orig, mountable_t *mountable)
 {
   size_t len = strlen (desc_orig);
   char desc[len+1];
-  char *device = NULL, *volume = NULL, *slash;
+  CLEANUP_FREE char *device = NULL;
+  const char *volume = NULL;
+  char *slash;
   struct stat statbuf;
 
   mountable->type = MOUNTABLE_BTRFSVOL;
@@ -1294,6 +1296,7 @@ parse_btrfsvol (const char *desc_orig, mountable_t *mountable)
   while ((slash = strchr (slash + 1, '/'))) {
     *slash = '\0';
 
+    free (device);
     device = device_name_translation (desc);
     if (!device) {
       perror (desc);
@@ -1317,14 +1320,15 @@ parse_btrfsvol (const char *desc_orig, mountable_t *mountable)
   if (!device) return -1;
 
   if (!volume) return -1;
-  volume = strdup (volume);
-  if (!volume) {
+
+  mountable->volume = strdup (volume);
+  if (!mountable->volume) {
     perror ("strdup");
     return -1;
   }
 
   mountable->device = device;
-  mountable->volume = volume;
+  device = NULL; /* to stop CLEANUP_FREE from freeing it */
 
   return 0;
 }
