@@ -28,9 +28,11 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <signal.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <grp.h>
 
 #include <pcre.h>
 
@@ -155,6 +157,66 @@ add_cmdline_shell_unquoted (guestfs_h *g, struct stringsbuf *sb,
   }
 }
 
+/* On Debian, /dev/kvm is mode 0660 and group kvm, so users need to
+ * add themselves to the kvm group otherwise things are going to be
+ * very slow (this is Debian bug 640328).  Warn about this.
+ */
+static void
+debian_kvm_warning (guestfs_h *g)
+{
+#ifdef __linux__
+  uid_t euid = geteuid ();
+  gid_t egid = getegid ();
+  struct stat statbuf;
+  gid_t kvm_group;
+  CLEANUP_FREE gid_t *groups = NULL;
+  int ngroups;
+  size_t i;
+
+  /* Doesn't apply if running as root. */
+  if (euid == 0)
+    return;
+
+  if (stat ("/dev/kvm", &statbuf) == -1)
+    return;
+  if ((statbuf.st_mode & 0777) != 0660)
+    return;
+
+  /* They might be running libguestfs as root or have chowned /dev/kvm, so: */
+  if (geteuid () == statbuf.st_uid)
+    return;
+
+  kvm_group = statbuf.st_gid;
+
+  /* Is the current process a member of the KVM group? */
+  if (egid == kvm_group)
+    return;
+
+  ngroups = getgroups (0, NULL);
+  if (ngroups > 0) {
+    groups = safe_malloc (g, ngroups * sizeof (gid_t));
+    if (getgroups (ngroups, groups) == -1) {
+      warning (g, "getgroups: %m (ignored)");
+      return;
+    }
+    for (i = 0; i < (size_t) ngroups; ++i) {
+      if (groups[i] == kvm_group)
+        return;
+    }
+  }
+
+  /* No, so emit the warning.  Note that \n characters cannot appear
+   * in warnings.
+   */
+  warning (g,
+  _("current user is not a member of the KVM group (group ID %d). "
+    "This user cannot access /dev/kvm, so libguestfs may run very slowly. "
+    "It is recommended that you 'chmod 0666 /dev/kvm' or add the current user "
+    "to the KVM group (you might need to log out and log in again)."),
+           (int) kvm_group);
+#endif /* __linux__ */
+}
+
 static int
 launch_direct (guestfs_h *g, void *datav, const char *arg)
 {
@@ -184,6 +246,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     error (g, _("you must call guestfs_add_drive before guestfs_launch"));
     return -1;
   }
+
+  debian_kvm_warning (g);
 
   guestfs___launch_send_progress (g, 0);
 
