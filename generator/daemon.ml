@@ -205,7 +205,7 @@ and generate_daemon_actions () =
 #ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_FREE_MOUNTABLE __attribute__((cleanup(cleanup_free_mountable)))
 #else
-#define CLEANUP_FREE_MOUNTABLE_DEVICE
+#define CLEANUP_FREE_MOUNTABLE
 #endif
 
 static void
