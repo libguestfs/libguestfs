@@ -67,7 +67,8 @@ main (int argc, char *argv[])
 
   if (guestfs_set_event_callback
       (g, debug_to_file,
-       GUESTFS_EVENT_LIBRARY|GUESTFS_EVENT_APPLIANCE|GUESTFS_EVENT_TRACE,
+       GUESTFS_EVENT_LIBRARY | GUESTFS_EVENT_APPLIANCE |
+       GUESTFS_EVENT_WARNING | GUESTFS_EVENT_TRACE,
        0, debugfp) == -1)
     exit (EXIT_FAILURE);
 

@@ -130,18 +130,25 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
 
   if ((event == GUESTFS_EVENT_APPLIANCE ||
        event == GUESTFS_EVENT_LIBRARY ||
+       event == GUESTFS_EVENT_WARNING ||
        event == GUESTFS_EVENT_TRACE) &&
-      (g->verbose || event == GUESTFS_EVENT_TRACE)) {
+      (g->verbose ||
+       event == GUESTFS_EVENT_WARNING ||
+       event == GUESTFS_EVENT_TRACE)) {
     bool from_appliance = event == GUESTFS_EVENT_APPLIANCE;
     size_t i, i0;
 
     /* APPLIANCE =>  <buf>
      * LIBRARY =>    libguestfs: <buf>\n
+     * WARNING =>    libguestfs: warning: <buf>\n
      * TRACE =>      libguestfs: trace: <buf>\n  (RHBZ#673479)
      */
 
     if (event != GUESTFS_EVENT_APPLIANCE)
       fputs ("libguestfs: ", stderr);
+
+    if (event == GUESTFS_EVENT_WARNING)
+      fputs ("warning: ", stderr);
 
     if (event == GUESTFS_EVENT_TRACE)
       fputs ("trace: ", stderr);

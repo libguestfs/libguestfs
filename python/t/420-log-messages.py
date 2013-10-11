@@ -34,7 +34,8 @@ def log_callback (ev,eh,buf,array):
            (guestfs.event_to_string (ev), eh, buf, array))
 
 # Register an event callback for all log messages.
-events = guestfs.EVENT_APPLIANCE | guestfs.EVENT_LIBRARY | guestfs.EVENT_TRACE
+events = guestfs.EVENT_APPLIANCE | guestfs.EVENT_LIBRARY \
+         | guestfs.EVENT_WARNING | guestfs.EVENT_TRACE
 g.set_event_callback (log_callback, events)
 
 # Now make sure we see some messages.

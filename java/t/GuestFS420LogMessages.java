@@ -62,7 +62,7 @@ public class GuestFS420LogMessages
             LogEvent le = new LogEvent ();
             g.set_event_callback (le,
                                   GuestFS.EVENT_APPLIANCE|GuestFS.EVENT_LIBRARY|
-                                  GuestFS.EVENT_TRACE);
+                                  GuestFS.EVENT_WARNING|GuestFS.EVENT_TRACE);
 
             // Now make sure we see some messages.
             g.set_trace (true);

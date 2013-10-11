@@ -36,7 +36,7 @@ class TestLoad < Test::Unit::TestCase
 
     # Grab log, trace and daemon messages into our custom callback.
     event_bitmask = Guestfs::EVENT_APPLIANCE | Guestfs::EVENT_LIBRARY |
-      Guestfs::EVENT_TRACE
+      Guestfs::EVENT_WARNING | Guestfs::EVENT_TRACE
     g.set_event_callback(log, event_bitmask)
 
     # Make sure we see some messages.

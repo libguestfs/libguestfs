@@ -57,7 +57,7 @@ void
 guestfs___warning (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
-  CLEANUP_FREE char *msg = NULL, *msg2 = NULL;
+  CLEANUP_FREE char *msg = NULL;
   int len;
 
   va_start (args, fs);
@@ -66,11 +66,7 @@ guestfs___warning (guestfs_h *g, const char *fs, ...)
 
   if (len < 0) return;
 
-  len = asprintf (&msg2, _("warning: %s"), msg);
-
-  if (len < 0) return;
-
-  guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg2, len);
+  guestfs___call_callbacks_message (g, GUESTFS_EVENT_WARNING, msg, len);
 }
 
 /* Debug messages. */

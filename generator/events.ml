@@ -39,6 +39,8 @@ let events = [
   "enter";                              (* enter a function *)
 
   "libvirt_auth";                       (* libvirt authentication request *)
+
+  "warning";                            (* warnings from the library *)
 ]
 
 let events = mapi (fun i name -> name, 1 lsl i) events

@@ -32,7 +32,7 @@ let log g ev eh buf array =
 let () =
   let g = new Guestfs.guestfs () in
   let events = [ Guestfs.EVENT_APPLIANCE; Guestfs.EVENT_LIBRARY;
-                 Guestfs.EVENT_TRACE ] in
+                 Guestfs.EVENT_WARNING; Guestfs.EVENT_TRACE ] in
   ignore (g#set_event_callback log events);
 
   g#set_trace true;

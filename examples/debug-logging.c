@@ -17,7 +17,10 @@ static void message_callback (guestfs_h *g, void *opaque, uint64_t event, int ev
  * debug messages.
  */
 static const uint64_t event_bitmask =
-  GUESTFS_EVENT_LIBRARY | GUESTFS_EVENT_APPLIANCE | GUESTFS_EVENT_TRACE;
+  GUESTFS_EVENT_LIBRARY |
+  GUESTFS_EVENT_WARNING |
+  GUESTFS_EVENT_APPLIANCE |
+  GUESTFS_EVENT_TRACE;
 
 int
 main (int argc, char *argv[])

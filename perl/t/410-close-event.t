@@ -48,7 +48,7 @@ sub close_callback {
 
 # Register an event callback for all log messages.
 my $events = $Sys::Guestfs::EVENT_APPLIANCE | $Sys::Guestfs::EVENT_LIBRARY |
-    $Sys::Guestfs::EVENT_TRACE;
+    $Sys::Guestfs::EVENT_WARNING | $Sys::Guestfs::EVENT_TRACE;
 my $eh;
 $eh = $g->set_event_callback (\&log_callback, $events);
 ok ($eh >= 0);
