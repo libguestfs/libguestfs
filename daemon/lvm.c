@@ -345,12 +345,13 @@ do_lvm_remove_all (void)
 
   {
     /* Remove LVs. */
-    CLEANUP_FREE char *err = NULL;
     CLEANUP_FREE_STRING_LIST char **xs = do_lvs ();
     if (xs == NULL)
       return -1;
 
     for (i = 0; xs[i] != NULL; ++i) {
+      CLEANUP_FREE char *err = NULL;
+
       /* Deactivate the LV first.  On Ubuntu, lvremove '-f' option
        * does not remove active LVs reliably.
        */
@@ -367,12 +368,13 @@ do_lvm_remove_all (void)
 
   {
     /* Remove VGs. */
-    CLEANUP_FREE char *err = NULL;
     CLEANUP_FREE_STRING_LIST char **xs = do_vgs ();
     if (xs == NULL)
       return -1;
 
     for (i = 0; xs[i] != NULL; ++i) {
+      CLEANUP_FREE char *err = NULL;
+
       /* Deactivate the VG first, see note above. */
       (void) command (NULL, NULL, str_lvm, "vgchange", "-an", xs[i], NULL);
       udev_settle ();
@@ -387,12 +389,13 @@ do_lvm_remove_all (void)
 
   {
   /* Remove PVs. */
-    CLEANUP_FREE char *err = NULL;
     CLEANUP_FREE_STRING_LIST char **xs = do_pvs ();
     if (xs == NULL)
       return -1;
 
     for (i = 0; xs[i] != NULL; ++i) {
+      CLEANUP_FREE char *err = NULL;
+
       r = command (NULL, &err, str_lvm, "pvremove", "-f", xs[i], NULL);
       if (r == -1) {
         reply_with_error ("pvremove: %s: %s", xs[i], err);
