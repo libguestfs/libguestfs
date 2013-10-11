@@ -17,6 +17,7 @@
  *)
 
 open Common_gettext.Gettext
+open Common_utils
 
 open Unix
 open Printf
@@ -99,8 +100,15 @@ and download_to t ?(progress_bar = false) uri filename =
     exit 1
   );
 
-  (* Now download the file. *)
-  let filename_new = filename ^ ".new" in
+  (* Now download the file.
+   * 
+   * Note because there may be parallel virt-builder instances running
+   * and also to avoid partial downloads in the cachedir if the network
+   * fails, we download to a random name in the cache and then
+   * atomically rename it to the final filename.
+   *)
+  let filename_new = filename ^ "." ^ string_random8 () in
+  unlink_on_exit filename_new;
   let cmd = sprintf "%s%s -g -o %s %s"
     t.curl
     (if t.debug then "" else if progress_bar then " -#" else " -s -S")
@@ -109,7 +117,6 @@ and download_to t ?(progress_bar = false) uri filename =
   let r = Sys.command cmd in
   if r <> 0 then (
     eprintf (f_"virt-builder: curl (download) command failed downloading '%s'\n") uri;
-    (try unlink filename_new with _ -> ());
     exit 1
   );
 
