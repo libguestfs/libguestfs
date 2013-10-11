@@ -17,3 +17,11 @@
   fun:expand_dynamic_string_token
   fun:_dl_map_object
 }
+
+# aug_setm memory leak
+{
+  aug_setm_leak
+  Memcheck:Leak
+  ...
+  fun:aug_setm
+}
