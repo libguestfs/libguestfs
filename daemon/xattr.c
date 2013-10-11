@@ -267,7 +267,6 @@ do_internal_lxattrlist (const char *path, char *const *names)
   size_t i, j;
   size_t k, m, nr_attrs;
   ssize_t len, vlen;
-  CLEANUP_FREE char *buf = NULL;
 
   ret = malloc (sizeof (*ret));
   if (ret == NULL) {
@@ -281,6 +280,7 @@ do_internal_lxattrlist (const char *path, char *const *names)
   for (k = 0; names[k] != NULL; ++k) {
     void *newptr;
     CLEANUP_FREE char *pathname = NULL;
+    CLEANUP_FREE char *buf = NULL;
 
     /* Be careful in this loop about which errors cause the whole call
      * to abort, and which errors allow us to continue processing
