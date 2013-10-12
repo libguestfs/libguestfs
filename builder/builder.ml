@@ -55,6 +55,7 @@ let mode, arg,
   let mode = ref `Install in
   let list_mode () = mode := `List in
   let get_kernel_mode () = mode := `Get_kernel in
+  let print_cache_mode () = mode := `Print_cache in
   let delete_cache_mode () = mode := `Delete_cache in
 
   let attach = ref [] in
@@ -204,6 +205,8 @@ let mode, arg,
     "--output",  Arg.Set_string output,     "file" ^ ditto;
     "--password-crypto", Arg.String set_password_crypto,
                                             "md5|sha256|sha512" ^ " " ^ s_"Set password crypto";
+    "--print-cache", Arg.Unit print_cache_mode,
+                                            " " ^ s_"Print info about template cache";
     "--quiet",   Arg.Set quiet,             " " ^ s_"No progress messages";
     "--root-password", Arg.String set_root_password,
                                             "..." ^ " " ^ s_"Set root password";
@@ -277,11 +280,12 @@ read the man page virt-builder(1).
         eprintf (f_"%s: virt-builder --list does not need any extra arguments.\n") prog;
         exit 1
       )
+    | `Print_cache
     | `Delete_cache ->
       (match args with
       | [] -> ""
       | _ ->
-        eprintf (f_"%s: virt-builder --delete-cache does not need any extra arguments.\n") prog;
+        eprintf (f_"%s: virt-builder --delete-cache/--print-cache does not need any extra arguments.\n") prog;
         exit 1
       )
     | `Get_kernel ->
@@ -313,16 +317,15 @@ let () =
     prerr_newline ()
   )
 
-(* --get-kernel is really a different program ... *)
-let () =
-  if mode = `Get_kernel then (
+(* Handle some modes here, some later on. *)
+let mode =
+  match mode with
+  | `Get_kernel -> (* --get-kernel is really a different program ... *)
     Get_kernel.get_kernel ~debug ?format ?output arg;
     exit 0
-  )
 
-let () =
-  if mode = `Delete_cache then (
-    match cachedir with
+  | `Delete_cache ->                    (* --delete-cache *)
+    (match cachedir with
     | Some cachedir ->
       msg "Deleting: %s" cachedir;
       let cmd = sprintf "rm -rf %s" (quote cachedir) in
@@ -332,7 +335,9 @@ let () =
       eprintf (f_"%s: error: could not find cache directory\nIs $HOME set?\n")
         prog;
       exit 1
-  )
+    )
+
+  | (`Install|`List|`Print_cache) as mode -> mode
 
 (* Check various programs/dependencies are installed. *)
 let have_nbdkit =
@@ -392,17 +397,34 @@ let sigchecker =
 let index =
   Index_parser.get_index ~debug ~downloader ~sigchecker source
 
-(* Now we can do the --list option. *)
+(* Now handle the remaining modes. *)
 let () =
-  if mode = `List then (
+  match mode with
+  | `List ->                            (* --list *)
     List_entries.list_entries ~list_long ~source index;
     exit 0
-  )
+
+  | `Print_cache ->                     (* --print-cache *)
+    (match cache with
+    | Some cachedir ->
+      printf (f_"cache directory: %s\n") cachedir;
+      List.iter (
+        fun (name, { Index_parser.revision = revision; hidden = hidden }) ->
+          if not hidden then (
+            let filename = Downloader.cache_of_name cachedir name revision in
+            let cached = Sys.file_exists filename in
+            printf "%-24s %s\n" name (if cached then s_"cached" else s_"no")
+          )
+      ) index
+    | None -> printf (f_"no cache directory\n")
+    );
+    exit 0
+
+  | `Install ->                         (* (no mode: install a guest) *)
+    ()
 
 (* If we get here, we want to create a guest (but which one?) *)
 let entry =
-  assert (mode = `Install);
-
   try List.assoc arg index
   with Not_found ->
     eprintf (f_"%s: cannot find os-version '%s'.\nUse --list to list available guest types.\n")

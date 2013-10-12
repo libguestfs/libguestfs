@@ -19,6 +19,8 @@ virt-builder - Build virtual machine images quickly
 
  virt-builder -l|--list [--long]
 
+ virt-builder --print-cache
+
  virt-builder --delete-cache
 
  virt-builder --get-kernel DISKIMAGE
@@ -389,6 +391,10 @@ is not secure against modern attacks.
 The default is C<sha512> unless libguestfs detects an old guest that
 didn't have support for SHA-512, in which case it will use C<md5>.
 You can override libguestfs by specifying this option.
+
+=item B<--print-cache>
+
+Print information about the template cache.  See L</CACHING>.
 
 =item B<--quiet>
 
@@ -1029,8 +1035,14 @@ Since the templates are usually very large, downloaded templates are
 cached in the user's home directory.
 
 The location of the cache is C<$XDG_CACHE_HOME/virt-builder/> or
-C<$HOME/.cache/virt-builder>.  This directory can be deleted after use
-if you want to save space by doing:
+C<$HOME/.cache/virt-builder>.
+
+You can print out information about the cache directory, including
+which guests are currently cached, by doing:
+
+ virt-builder --print-cache
+
+The cache can be deleted after use if you want to save space by doing:
 
  virt-builder --delete-cache
 

@@ -18,6 +18,11 @@
 
 (** This module is a wrapper around curl, plus local caching. *)
 
+val cache_of_name : string -> string -> int -> string
+(** [cache_of_name cachedir name revision] returns the filename
+    of the cached file.  (Note: It doesn't check if the filename
+    exists, this is just a simple string transformation). *)
+
 type uri = string
 type filename = string
 
