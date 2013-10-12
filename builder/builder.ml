@@ -43,7 +43,7 @@ let mode, arg,
   firstboot, run,
   format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
-  size, source, upload, wipe_logfile =
+  scrub_logfile, size, source, upload =
   let display_version () =
     let g = new G.guestfs () in
     let version = g#version () in
@@ -140,6 +140,8 @@ let mode, arg,
   in
   let add_run_cmd s = run := `Command s :: !run in
 
+  let scrub_logfile = ref false in
+
   let size = ref None in
   let set_size arg = size := Some (parse_size ~prog arg) in
 
@@ -164,8 +166,6 @@ let mode, arg,
     let dest = String.sub arg (i+1) (len-(i+1)) in
     upload := (file, dest) :: !upload
   in
-
-  let wipe_logfile = ref false in
 
   let ditto = " -\"-" in
   let argspec = Arg.align [
@@ -200,7 +200,7 @@ let mode, arg,
     "-l",        Arg.Unit list_mode,        " " ^ s_"List available templates";
     "--list",    Arg.Unit list_mode,        ditto;
     "--long",    Arg.Set list_long,         ditto;
-    "--no-logfile", Arg.Set wipe_logfile,   " " ^ s_"Wipe build log file";
+    "--no-logfile", Arg.Set scrub_logfile,  " " ^ s_"Scrub build log file";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
     "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
@@ -258,10 +258,10 @@ read the man page virt-builder(1).
   let password_crypto = !password_crypto in
   let quiet = !quiet in
   let root_password = !root_password in
+  let scrub_logfile = !scrub_logfile in
   let size = !size in
   let source = !source in
   let upload = List.rev !upload in
-  let wipe_logfile = !wipe_logfile in
 
   (* Check options. *)
   let arg =
@@ -308,7 +308,7 @@ read the man page virt-builder(1).
   firstboot, run,
   format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
-  size, source, upload, wipe_logfile
+  scrub_logfile, size, source, upload
 
 (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
 let msg fs = make_message_function ~quiet fs
@@ -803,10 +803,10 @@ let () =
       do_run ~display:cmd cmd
   ) run
 
-(* Wipe the log file. *)
+(* Scrub the log file. *)
 let () =
-  if wipe_logfile && g#exists logfile then (
-    msg (f_"Wiping the log file");
+  if scrub_logfile && g#exists logfile then (
+    msg (f_"Scrubbing the log file");
 
     (* Try various methods with decreasing complexity. *)
     try g#scrub_file logfile

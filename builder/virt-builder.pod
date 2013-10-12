@@ -323,7 +323,7 @@ See also: I<--source>, L</CREATING YOUR OWN TEMPLATES>.
 
 =item B<--no-logfile>
 
-Wipe C<builder.log> (log file from build commands) from the image
+Scrub C<builder.log> (log file from build commands) from the image
 after building is complete.  If you don't want to reveal precisely how
 the image was built, use this option.
 
