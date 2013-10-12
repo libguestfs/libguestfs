@@ -11,7 +11,9 @@ virt-builder - Build virtual machine images quickly
     [--root-password ...]
     [--hostname HOSTNAME]
     [--install PKG,[PKG...]]
-    [--upload FILE:DEST] [--delete FILE] [--scrub FILE]
+    [--upload FILE:DEST]
+    [--edit FILE:EXPR]
+    [--delete FILE] [--scrub FILE]
     [--run SCRIPT] [--run-command 'CMD ARGS ...']
     [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
     [--firstboot-install PKG,[PKG...]]
@@ -117,12 +119,13 @@ you would install a meta-package instead.)
 
 =head2 Customizing the installation
 
-There are four options that let you run shell scripts to customize the
-installation.  They are: I<--run>/I<--run-command>, which run a shell
-script or command while the disk image is being generated and lets you
-add or edit files that go into the disk image.  And
+There are many options that let you customize the installation.  These
+include: I<--run>/I<--run-command>, which run a shell script or
+command while the disk image is being generated and lets you add or
+edit files that go into the disk image.
 I<--firstboot>/I<--firstboot-command>, which let you add
 scripts/commands that are run the first time the guest boots.
+I<--edit> to edit files.  I<--upload> to upload files.
 
 For example:
 
@@ -141,17 +144,12 @@ the guest boots.
 
 Or:
 
- cat <<'EOF' > /tmp/no-gpg-sigs.sh
- sed -i 's/gpgcheck=1/gpgcheck=0/' /etc/yum.conf
- EOF
- 
- virt-builder fedora-20 --run /tmp/no-gpg-sigs.sh
+ virt-builder fedora-20 --edit '/etc/yum.conf: s/gpgcheck=1/gpgcheck=0/'
 
 which edits C</etc/yum.conf> inside the disk image (during disk image
 creation, long before boot).
 
-You can combine these options, and have multiple of either or both
-sets of scripts.
+You can combine these options, and have multiple options of all types.
 
 =head1 OPTIONS
 
@@ -232,6 +230,17 @@ See also: I<--upload>, I<--scrub>.
 =item B<--delete-cache>
 
 Delete the template cache.  See L</CACHING>.
+
+=item B<--edit> FILE:EXPR
+
+Edit C<FILE> using the Perl expression C<EXPR>.
+
+Be careful to properly quote the expression to prevent it from
+being altered by the shell.
+
+Note that this option is only available when Perl 5 is installed.
+
+See L<virt-edit(1)/NON-INTERACTIVE EDITING>.
 
 =item B<--fingerprint> 'AAAA BBBB ...'
 
@@ -704,6 +713,10 @@ Packages are installed (I<--install>).
 =item *
 
 Files are uploaded (I<--upload>).
+
+=item *
+
+Files are edited (I<--edit>).
 
 =item *
 

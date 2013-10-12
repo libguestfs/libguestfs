@@ -39,7 +39,7 @@ let default_cachedir =
       None (* no cache directory *)
 
 let mode, arg,
-  attach, cache, check_signature, curl, debug, delete, fingerprint,
+  attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
   firstboot, run,
   format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
@@ -77,6 +77,19 @@ let mode, arg,
 
   let delete = ref [] in
   let add_delete s = delete := s :: !delete in
+
+  let edit = ref [] in
+  let add_edit arg =
+    let i =
+      try String.index arg ':'
+      with Not_found ->
+        eprintf (f_"%s: invalid --edit format, see the man page.\n") prog;
+        exit 1 in
+    let len = String.length arg in
+    let file = String.sub arg 0 i in
+    let expr = String.sub arg (i+1) (len-(i+1)) in
+    edit := (file, expr) :: !edit
+  in
 
   let fingerprint =
     try Some (Sys.getenv "VIRT_BUILDER_FINGERPRINT")
@@ -192,6 +205,7 @@ let mode, arg,
     "--delete",  Arg.String add_delete,     "name" ^ s_"Delete a file or dir";
     "--delete-cache", Arg.Unit delete_cache_mode,
                                             " " ^ s_"Delete the template cache";
+    "--edit",    Arg.String add_edit,       "file:expr" ^ " " ^ s_"Edit file with Perl expr";
     "--fingerprint", Arg.String set_fingerprint,
                                             "AAAA.." ^ " " ^ s_"Fingerprint of valid signing key";
     "--firstboot", Arg.String add_firstboot, "script" ^ " " ^ s_"Run script at first guest boot";
@@ -254,6 +268,7 @@ read the man page virt-builder(1).
   let curl = !curl in
   let debug = !debug in
   let delete = List.rev !delete in
+  let edit = List.rev !edit in
   let fingerprint = !fingerprint in
   let firstboot = List.rev !firstboot in
   let run = List.rev !run in
@@ -314,7 +329,7 @@ read the man page virt-builder(1).
       ) in
 
   mode, arg,
-  attach, cache, check_signature, curl, debug, delete, fingerprint,
+  attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
   firstboot, run,
   format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
@@ -785,6 +800,21 @@ let () =
       msg (f_"Uploading: %s") dest;
       g#upload file dest
   ) upload
+
+(* Edit files. *)
+let () =
+  List.iter (
+    fun (file, expr) ->
+      msg (f_"Editing: %s") file;
+
+      if not (g#is_file file) then (
+        eprintf (f_"%s: error: %s is not a regular file in the guest\n")
+          prog file;
+        exit 1
+      );
+
+      Perl_edit.edit_file ~debug g file expr
+  ) edit
 
 (* Delete files. *)
 let () =

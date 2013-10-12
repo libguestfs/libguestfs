@@ -450,6 +450,7 @@ edit_interactively (const char *tmpfile)
   return ret;
 }
 
+/* Note that virt-builder uses exactly the same code .. in OCaml. */
 static char *
 edit_non_interactively (const char *tmpfile)
 {

@@ -49,6 +49,8 @@ SOURCES = \
 	index_parser.ml \
 	list_entries.mli \
 	list_entries.ml \
+	perl_edit.ml \
+	perl_edit.mli \
 	sigchecker.mli \
 	sigchecker.ml
 
@@ -70,6 +72,7 @@ OBJECTS = \
 	sigchecker.cmx \
 	index_parser.cmx \
 	list_entries.cmx \
+	perl_edit.cmx \
 	builder.cmx
 
 bin_SCRIPTS = virt-builder
