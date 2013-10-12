@@ -154,6 +154,8 @@ if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
   $vg guestfsd
   if [ $? -eq 119 ]; then echo "DAEMON VALGRIND FAILED"; fi
 else
+  # Remove LD_PRELOAD=libSegFault set above.
+  unset LD_PRELOAD
   # Use appliance in rescue mode, also used by the virt-rescue command.
   eval $(grep -Eo 'TERM=[^[:space:]]+' /proc/cmdline)
   PS1='><rescue> '
