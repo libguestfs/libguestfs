@@ -839,6 +839,38 @@ let () =
     with _ -> g#rm_f logfile
   )
 
+(* Collect some stats about the final output file.
+ * Notes:
+ * - These are virtual disk stats.
+ * - Never fail here.
+ *)
+let stats =
+  if not quiet then (
+    try
+      (* Calculate the free space (in bytes) across all mounted
+       * filesystems in the guest.
+       *)
+      let free_bytes =
+        let filesystems = List.map snd (g#mountpoints ()) in
+        let stats = List.map g#statvfs filesystems in
+        let free = List.map (
+          fun { G.bfree = bfree; bsize = bsize } -> bfree *^ bsize
+        ) stats in
+        List.fold_left (+^) 0L free in
+      let free_percent = 100L *^ free_bytes /^ size in
+
+      Some (
+        String.concat "\n" [
+          sprintf (f_"Output: %s (%s)") output (human_size size);
+          sprintf (f_"Free space: %s (%Ld%%)")
+            (human_size free_bytes) free_percent;
+        ] ^ "\n"
+      )
+    with
+      _ -> None
+  )
+  else None
+
 (* Unmount everything and we're done! *)
 let () =
   msg (f_"Finishing off");
@@ -852,3 +884,12 @@ let () =
  *)
 let () =
   delete_output_file := false
+
+(* Print the stats calculated above. *)
+let () =
+  Pervasives.flush Pervasives.stdout;
+  Pervasives.flush Pervasives.stderr;
+
+  match stats with
+  | None -> ()
+  | Some stats -> print_string stats
