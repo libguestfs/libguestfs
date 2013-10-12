@@ -473,7 +473,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
 
     #undef XSTRTOU64
 
-    memmove (line, line + ovector[6], ovector[7] + 1);
+    memmove (line, line + ovector[6], ovector[7] - ovector[6] + 1);
     this->btrfssubvolume_path = line;
   }
 
