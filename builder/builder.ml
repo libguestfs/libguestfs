@@ -31,7 +31,7 @@ let quote = Filename.quote
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
-let cachedir =
+let default_cachedir =
   try Some (Sys.getenv "XDG_CACHE_HOME" // "virt-builder")
   with Not_found ->
     try Some (Sys.getenv "HOME" // ".cache" // "virt-builder")
@@ -66,7 +66,7 @@ let mode, arg,
   in
   let attach_disk s = attach := (!attach_format, s) :: !attach in
 
-  let cache = ref cachedir in
+  let cache = ref default_cachedir in
   let set_cache arg = cache := Some arg in
   let no_cache () = cache := None in
 
@@ -325,14 +325,14 @@ let mode =
     exit 0
 
   | `Delete_cache ->                    (* --delete-cache *)
-    (match cachedir with
+    (match cache with
     | Some cachedir ->
       msg "Deleting: %s" cachedir;
       let cmd = sprintf "rm -rf %s" (quote cachedir) in
       ignore (Sys.command cmd);
       exit 0
     | None ->
-      eprintf (f_"%s: error: could not find cache directory\nIs $HOME set?\n")
+      eprintf (f_"%s: error: could not find cache directory. Is $HOME set?\n")
         prog;
       exit 1
     )
