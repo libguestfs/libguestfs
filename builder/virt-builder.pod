@@ -1064,9 +1064,11 @@ To disable the template cache, use I<--no-cache>.
 Only templates are cached.  The index and detached digital signatures
 are not cached.
 
-Virt-builder uses L<curl(1)> to download files.  Since curl obeys
-C<http_proxy> (etc) environment variables, files might also be cached
-by your proxy if you have one.
+Virt-builder uses L<curl(1)> to download files and it also uses the
+current C<http_proxy> (etc) settings when installing packages
+(I<--install>).  You may therefore want to set those environment
+variables in order to maximize the amount of local caching that
+happens.  See L</ENVIRONMENT VARIABLES> and L<curl(1)>.
 
 =head2 DIGITAL SIGNATURES
 
