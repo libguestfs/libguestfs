@@ -442,7 +442,7 @@ let () =
           if not hidden then (
             let filename = Downloader.cache_of_name cachedir name revision in
             let cached = Sys.file_exists filename in
-            printf "%-24s %s\n" name (if cached then s_"cached" else s_"no")
+            printf "%-24s %s\n" name (if cached then s_"cached" else (*s_*)"no")
           )
       ) index
     | None -> printf (f_"no cache directory\n")
