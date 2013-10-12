@@ -118,6 +118,33 @@ machine disks because it doesn't copy over the boot loader.
 
 L<http://rwmj.wordpress.com/2013/05/09/tip-convert-a-windows-dvd-iso-to-a-bootable-usb-key-using-guestfish/#content>
 
+=head1 Convert Xen-style partitionless image to partitioned disk image
+
+Xen disk images are often partitionless, meaning that the filesystem
+starts directly at the beginning of the disk with no partition table.
+You can in fact use these directly in KVM (provided the guest isn't
+Windows), but some people like to convert them to regular partitioned
+disk images, and this is required for Windows guests.  Here is how to
+use guestfish to do this:
+
+ guestfish
+ ><fs> add-ro input.img
+ ><fs> sparse output.img 10G     # adjust the output size
+ ><fs> run
+ # Create a partition table on the output disk:
+ ><fs> part-init /dev/sdb mbr
+ ><fs> part-add /dev/sdb p 2048 -2048
+ # Copy the data to the target partition:
+ ><fs> copy-device-to-device /dev/sda /dev/sdb1 sparse:true
+ # Optionally resize the target filesystem.  Use ntfsresize
+ # for Windows guests:
+ ><fs> resize2fs /dev/sdb1
+
+Such a disk image won't be directly bootable.  You may need to boot it
+with an external kernel and initramfs (see below).  Or you can use the
+guestfish commands C<syslinux> or C<extlinux> to install a SYSLINUX
+bootloader.
+
 =head1 Create empty disk images
 
 The L<virt-format(1)> tool can do this directly.
@@ -130,6 +157,8 @@ You can also use the L<guestfish(1)> I<-N> option to create empty disk
 images.  The useful guide below explains the options available.
 
 L<https://rwmj.wordpress.com/2010/09/08/new-guestfish-n-options-in-1-5-9/#content>
+
+L<virt-builder(1)> can create "empty" guests.
 
 =head1 Delete a file (or other simple file operations)
 
@@ -264,6 +293,23 @@ using the most space in their home directory:
  
  guestfish --remote exit
 
+=head1 Export external kernel and initramfs (initrd)
+
+If a Linux guest doesn't have a boot loader or it is broken, then you
+can usually boot it using an external kernel and initramfs.  In this
+configuration, the hypervisor acts like a bootloader, loading the
+kernel from the host disk into guest memory and jumping straight into
+the kernel.
+
+However you may wonder how to get the right kernel corresponding to
+the disk image you have.  Since libguestfs E<ge> 1.24
+L<virt-builder(1)> can get the latest kernel and corresponding
+initramfs for you:
+
+ mkdir outputdir
+ virt-builder --get-kernel disk.img -o outputdir
+ ls -lh outputdir
+
 =head1 Get DHCP address from a VM
 
 The link below explains the many different possible techniques for
@@ -389,7 +435,50 @@ guest.
 L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content>
 
 Since libguestfs 1.20, L<virt-sysprep(1)> has an option for installing
-firstboot scripts in Linux guests.
+firstboot scripts in Linux guests.  Since libguestfs 1.24,
+L<virt-builder(1)> can be used to build guests, installing packages
+along the way.
+
+=head1 Install SYSLINUX bootloader in a guest
+
+SYSLINUX is a small, easy to configure bootloader for Linux and
+Windows guests.  If your guest is not bootable, you can install the
+SYSLINUX bootloader using either the guestfish commands C<syslinux>
+(for FAT-based guests) or C<extlinux> (for ext2/3/4 and btrfs-based
+guests).
+
+This guide assumes a Linux guest where C</dev/sda1> is C</boot>,
+C</boot/vmlinuz> is the guest kernel, and C</dev/sda3> is the root
+partition.  For a Windows guest you would need a FAT-formatted boot
+partition and you would need to use the C<syslinux> command instead.
+
+Create a C<syslinux.cfg> configuration file.  You should check the
+SYSLINUX documentation at L<http://www.syslinux.org> but it may look
+something like this:
+
+ DEFAULT linux
+ LABEL linux
+   SAY Booting the kernel
+   KERNEL vmlinuz
+   INITRD initrd
+   APPEND ro root=/dev/sda3
+
+Locate the syslinux master boot record (a file called something like
+C</usr/share/syslinux/mbr.bin>).
+
+ guestfish -a disk.img -i
+ # Upload the master boot record and configuration file:
+ ><fs> upload ..../mbr.bin /boot/mbr.bin
+ ><fs> upload ..../syslinux.cfg /boot/syslinux.cfg
+ # Put the MBR into the boot sector:
+ ><fs> copy-file-to-device /boot/mbr.bin /dev/sda size:440
+ # Install syslinux on the first partition:
+ ><fs> extlinux /boot
+ # Set the first partition as bootable:
+ ><fs> part-set-bootable /dev/sda 1 true
+
+See also:
+L<http://rwmj.wordpress.com/2013/04/04/new-in-libguestfs-use-syslinux-or-extlinux-to-make-bootable-guests/#content>
 
 =head1 List applications installed in a VM
 
