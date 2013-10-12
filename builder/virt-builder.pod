@@ -21,6 +21,8 @@ virt-builder - Build virtual machine images quickly
 
  virt-builder --print-cache
 
+ virt-builder --cache-all-templates
+
  virt-builder --delete-cache
 
  virt-builder --get-kernel DISKIMAGE
@@ -192,6 +194,13 @@ files.  If not set, defaults to either
 C<$XDG_CACHE_HOME/virt-builder/> or C<$HOME/.cache/virt-builder/>.
 
 I<--no-cache> disables template caching.
+
+=item B<--cache-all-templates>
+
+Download all templates to the cache and then exit.  See L</CACHING>.
+
+Note this doesn't cache everything.  More templates might be uploaded.
+Also this doesn't cache packages (the I<--install> option).
 
 =item B<--check-signature>
 
@@ -1045,6 +1054,10 @@ which guests are currently cached, by doing:
 The cache can be deleted after use if you want to save space by doing:
 
  virt-builder --delete-cache
+
+You can download all (current) templates to the local cache by doing:
+
+ virt-builder --cache-all-templates
 
 To disable the template cache, use I<--no-cache>.
 

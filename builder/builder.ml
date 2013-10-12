@@ -55,6 +55,7 @@ let mode, arg,
   let mode = ref `Install in
   let list_mode () = mode := `List in
   let get_kernel_mode () = mode := `Get_kernel in
+  let cache_all_mode () = mode := `Cache_all in
   let print_cache_mode () = mode := `Print_cache in
   let delete_cache_mode () = mode := `Delete_cache in
 
@@ -173,6 +174,8 @@ let mode, arg,
                                             "format" ^ " " ^ s_"Set attach disk format";
     "--cache",   Arg.String set_cache,      "dir" ^ " " ^ s_"Set template cache dir";
     "--no-cache", Arg.Unit no_cache,        " " ^ s_"Disable template cache";
+    "--cache-all-templates", Arg.Unit cache_all_mode,
+                                            " " ^ s_"Download all templates to the cache";
     "--check-signature", Arg.Set check_signature,
                                             " " ^ s_"Check digital signatures";
     "--check-signatures", Arg.Set check_signature, ditto;
@@ -280,12 +283,13 @@ read the man page virt-builder(1).
         eprintf (f_"%s: virt-builder --list does not need any extra arguments.\n") prog;
         exit 1
       )
+    | `Cache_all
     | `Print_cache
     | `Delete_cache ->
       (match args with
       | [] -> ""
       | _ ->
-        eprintf (f_"%s: virt-builder --delete-cache/--print-cache does not need any extra arguments.\n") prog;
+        eprintf (f_"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not need any extra arguments.\n") prog;
         exit 1
       )
     | `Get_kernel ->
@@ -337,7 +341,7 @@ let mode =
       exit 1
     )
 
-  | (`Install|`List|`Print_cache) as mode -> mode
+  | (`Install|`List|`Print_cache|`Cache_all) as mode -> mode
 
 (* Check various programs/dependencies are installed. *)
 let have_nbdkit =
@@ -419,6 +423,23 @@ let () =
     | None -> printf (f_"no cache directory\n")
     );
     exit 0
+
+  | `Cache_all ->                       (* --cache-all-templates *)
+    (match cache with
+    | None ->
+      eprintf (f_"%s: error: no cache directory\n") prog;
+      exit 1
+    | Some _ ->
+      List.iter (
+        fun (name, { Index_parser.revision = revision; file_uri = file_uri }) ->
+          let template = name, revision in
+          msg (f_"Downloading: %s") file_uri;
+          let progress_bar = not quiet in
+          ignore (Downloader.download downloader ~template ~progress_bar
+                    file_uri)
+      ) index;
+      exit 0
+    );
 
   | `Install ->                         (* (no mode: install a guest) *)
     ()
