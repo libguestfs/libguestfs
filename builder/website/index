@@ -1,3 +1,18 @@
+[debian-6]
+name=Debian 6 (Squeeze)
+osinfo=debian6
+file=debian-6.xz
+sig=debian-6.xz.sig
+format=raw
+size=4294967296
+compressed_size=141531780
+expand=/dev/sda1
+notes=This is a default Debian 6 (Squeeze) install.
+ The preseed and virt-install scripts that produced this image
+ can be found in the libguestfs git tree:
+ libguestfs.git/builder/website/debian-6.preseed
+ libguestfs.git/builder/website/debian-6.sh
+
 [debian-7]
 name=Debian 7 (Wheezy)
 osinfo=debian7
