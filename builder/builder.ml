@@ -728,7 +728,12 @@ exec >>%s 2>&1
   try ignore (g#sh cmd)
   with Guestfs.Error msg ->
     (* Cat the log file. *)
-    (try g#download logfile "/dev/stderr"
+    (try
+       (* XXX If stderr is redirected this actually truncates the
+        * redirection file, which is pretty annoying to say the
+        * least.
+        *)
+       g#download logfile "/dev/stderr"
      with exn ->
        eprintf (f_"%s: internal error: could not display the log file: %s\n")
          prog (Printexc.to_string exn)
