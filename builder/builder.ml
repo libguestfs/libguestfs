@@ -39,11 +39,11 @@ let default_cachedir =
       None (* no cache directory *)
 
 let mode, arg,
-  attach, cache, check_signature, curl, debug, fingerprint,
+  attach, cache, check_signature, curl, debug, delete, fingerprint,
   firstboot, run,
   format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
-  scrub_logfile, size, source, upload =
+  scrub, scrub_logfile, size, source, upload =
   let display_version () =
     let g = new G.guestfs () in
     let version = g#version () in
@@ -74,6 +74,9 @@ let mode, arg,
   let check_signature = ref true in
   let curl = ref "curl" in
   let debug = ref false in
+
+  let delete = ref [] in
+  let add_delete s = delete := s :: !delete in
 
   let fingerprint =
     try Some (Sys.getenv "VIRT_BUILDER_FINGERPRINT")
@@ -140,6 +143,9 @@ let mode, arg,
   in
   let add_run_cmd s = run := `Command s :: !run in
 
+  let scrub = ref [] in
+  let add_scrub s = scrub := s :: !scrub in
+
   let scrub_logfile = ref false in
 
   let size = ref None in
@@ -183,6 +189,7 @@ let mode, arg,
                                             " " ^ s_"Disable digital signatures";
     "--no-check-signatures", Arg.Clear check_signature, ditto;
     "--curl",    Arg.Set_string curl,       "curl" ^ " " ^ s_"Set curl binary/command";
+    "--delete",  Arg.String add_delete,     "name" ^ s_"Delete a file or dir";
     "--delete-cache", Arg.Unit delete_cache_mode,
                                             " " ^ s_"Delete the template cache";
     "--fingerprint", Arg.String set_fingerprint,
@@ -215,6 +222,7 @@ let mode, arg,
                                             "..." ^ " " ^ s_"Set root password";
     "--run",     Arg.String add_run,        "script" ^ " " ^ s_"Run script in disk image";
     "--run-command", Arg.String add_run_cmd, "cmd+args" ^ " " ^ s_"Run command in disk image";
+    "--scrub",   Arg.String add_scrub,      "name" ^ s_"Scrub a file";
     "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
     "--source",  Arg.Set_string source,     "URL" ^ " " ^ s_"Set source URL";
     "--upload",  Arg.String add_upload,     "file:dest" ^ " " ^ s_"Upload file to dest";
@@ -245,6 +253,7 @@ read the man page virt-builder(1).
   let check_signature = !check_signature in
   let curl = !curl in
   let debug = !debug in
+  let delete = List.rev !delete in
   let fingerprint = !fingerprint in
   let firstboot = List.rev !firstboot in
   let run = List.rev !run in
@@ -258,6 +267,7 @@ read the man page virt-builder(1).
   let password_crypto = !password_crypto in
   let quiet = !quiet in
   let root_password = !root_password in
+  let scrub = List.rev !scrub in
   let scrub_logfile = !scrub_logfile in
   let size = !size in
   let source = !source in
@@ -304,11 +314,11 @@ read the man page virt-builder(1).
       ) in
 
   mode, arg,
-  attach, cache, check_signature, curl, debug, fingerprint,
+  attach, cache, check_signature, curl, debug, delete, fingerprint,
   firstboot, run,
   format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password,
-  scrub_logfile, size, source, upload
+  scrub, scrub_logfile, size, source, upload
 
 (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
 let msg fs = make_message_function ~quiet fs
@@ -767,6 +777,22 @@ let () =
       msg (f_"Uploading: %s") dest;
       g#upload file dest
   ) upload
+
+(* Delete files. *)
+let () =
+  List.iter (
+    fun file ->
+      msg (f_"Deleting: %s") file;
+      g#rm_rf file
+  ) delete
+
+(* Scrub files. *)
+let () =
+  List.iter (
+    fun file ->
+      msg (f_"Scrubbing: %s") file;
+      g#scrub_file file
+  ) scrub
 
 (* Firstboot scripts/commands/install. *)
 let () =

@@ -11,7 +11,7 @@ virt-builder - Build virtual machine images quickly
     [--root-password ...]
     [--hostname HOSTNAME]
     [--install PKG,[PKG...]]
-    [--upload FILE:DEST]
+    [--upload FILE:DEST] [--delete FILE] [--scrub FILE]
     [--run SCRIPT] [--run-command 'CMD ARGS ...']
     [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
     [--firstboot-install PKG,[PKG...]]
@@ -218,6 +218,15 @@ Specify an alternate L<curl(1)> binary.  You can also use this to add
 curl parameters, for example to disable https certificate checks:
 
  virt-builder --curl "curl --insecure" [...]
+
+=item B<--delete> file
+
+=item B<--delete> dir
+
+Delete a file from the guest.  Or delete a directory (and all its
+contents, recursively).
+
+See also: I<--upload>, I<--scrub>.
 
 =item B<--delete-cache>
 
@@ -443,6 +452,22 @@ in the same order that they appear on the command line.
 
 See also I<--firstboot>, I<--attach>.
 
+=item B<--scrub> file
+
+Scrub a file from the guest.  This is like I<--delete> except that:
+
+=over 4
+
+=item *
+
+It scrubs the data so a guest could not recover it.
+
+=item *
+
+It cannot delete directories, only regular files.
+
+=back
+
 =item B<--size> SIZE
 
 Select the size, where the size can be specified using common names
@@ -471,6 +496,8 @@ the I<--no-network> option.
 Upload local file C<FILE> to destination C<DEST> in the disk image.
 File owner and permissions from the original are preserved, so you
 should set them to what you want them to be in the disk image.
+
+See also: I<--delete>, I<--scrub>.
 
 =item B<-v>
 
@@ -676,6 +703,10 @@ Packages are installed (I<--install>).
 =item *
 
 Files are uploaded (I<--upload>).
+
+=item *
+
+Files are deleted (I<--delete>, I<--scrub>).
 
 =item *
 
