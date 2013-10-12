@@ -136,8 +136,8 @@ or simply:
 
  virt-builder fedora-20 --firstboot-command 'yum -y update'
 
-which makes the C<yum update> command run once the first time the
-guest boots.
+which makes the L<yum(8)> C<update> command run once the first time
+the guest boots.
 
 Or:
 
