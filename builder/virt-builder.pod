@@ -110,9 +110,10 @@ Set the hostname to C<virt.example.com>.
 To install packages from the ordinary (guest) software repository
 (eg. yum or apt):
 
- virt-builder fedora-20 --install "inkscape,+Xfce Desktop"
+ virt-builder fedora-20 --install "inkscape,@Xfce Desktop"
 
-C<+> is used to install groups of packages (see L<yum(8)>).
+(In Fedora, C<@> is used to install groups of packages.  On Debian
+you would install a meta-package instead.)
 
 =head2 Customizing the installation
 
