@@ -702,6 +702,18 @@ let logfile =
   | _ ->
     if g#is_dir "/tmp" then "/tmp/builder.log" else "/builder.log"
 
+(* Function to cat the log file, for debugging and error messages. *)
+let debug_logfile () =
+  try
+    (* XXX If stderr is redirected this actually truncates the
+     * redirection file, which is pretty annoying to say the
+     * least.
+     *)
+    g#download logfile "/dev/stderr"
+  with exn ->
+    eprintf (f_"%s: log file %s: %s (ignored)\n")
+      prog logfile (Printexc.to_string exn)
+
 (* Useful wrapper for scripts. *)
 let do_run ~display cmd =
   (* Add a prologue to the scripts:
@@ -726,20 +738,11 @@ exec >>%s 2>&1
 
   if debug then eprintf "running command:\n%s\n%!" cmd;
   try ignore (g#sh cmd)
-  with Guestfs.Error msg ->
-    (* Cat the log file. *)
-    (try
-       (* XXX If stderr is redirected this actually truncates the
-        * redirection file, which is pretty annoying to say the
-        * least.
-        *)
-       g#download logfile "/dev/stderr"
-     with exn ->
-       eprintf (f_"%s: internal error: could not display the log file: %s\n")
-         prog (Printexc.to_string exn)
-    );
-    eprintf (f_"%s: %s: command exited with an error\n") prog display;
-    exit 1
+  with
+    Guestfs.Error msg ->
+      debug_logfile ();
+      eprintf (f_"%s: %s: command exited with an error\n") prog display;
+      exit 1
 
 let guest_install_command packages =
   let quoted_args = String.concat " " (List.map quote packages) in
@@ -834,8 +837,13 @@ let () =
       do_run ~display:cmd cmd
   ) run
 
-(* Scrub the log file. *)
+(* Clean up the log file:
+ *
+ * If debugging, dump out the log file.
+ * Then if asked, scrub the log file.
+ *)
 let () =
+  if debug then debug_logfile ();
   if scrub_logfile && g#exists logfile then (
     msg (f_"Scrubbing the log file");
 
