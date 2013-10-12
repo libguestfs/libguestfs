@@ -220,9 +220,9 @@ curl parameters, for example to disable https certificate checks:
 
  virt-builder --curl "curl --insecure" [...]
 
-=item B<--delete> file
+=item B<--delete> FILE
 
-=item B<--delete> dir
+=item B<--delete> DIR
 
 Delete a file from the guest.  Or delete a directory (and all its
 contents, recursively).
@@ -453,7 +453,7 @@ in the same order that they appear on the command line.
 
 See also I<--firstboot>, I<--attach>.
 
-=item B<--scrub> file
+=item B<--scrub> FILE
 
 Scrub a file from the guest.  This is like I<--delete> except that:
 
