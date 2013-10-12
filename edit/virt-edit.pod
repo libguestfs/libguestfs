@@ -124,6 +124,8 @@ can specify this flag to see what you are typing.
 
 =item B<-e> EXPR
 
+=item B<--edit> EXPR
+
 =item B<--expr> EXPR
 
 Instead of launching the external editor, non-interactively
