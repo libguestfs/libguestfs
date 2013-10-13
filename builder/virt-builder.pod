@@ -1,5 +1,12 @@
 =encoding utf8
 
+=begin html
+
+<img src="virt-builder.svg" width="250"
+  style="float: right; clear: right;" />
+
+=end html
+
 =head1 NAME
 
 virt-builder - Build virtual machine images quickly

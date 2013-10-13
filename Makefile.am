@@ -174,8 +174,10 @@ EXTRA_DIST = \
 	html/draft.png \
 	html/draft.svg \
 	html/pod.css \
+	html/virt-builder.svg \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
+	logo/virt-builder.svg \
 	m4/.gitignore \
 	tmp/.gitignore \
 	tx-pull.sh \
@@ -228,7 +230,10 @@ HTMLFILES = \
 	html/virt-tar-out.1.html \
 	html/virt-win-reg.1.html
 
-HTMLSUPPORTFILES = html/draft.png html/pod.css
+HTMLSUPPORTFILES = \
+	html/draft.png \
+	html/pod.css \
+	html/virt-builder.svg
 
 TEXTFILES = BUGS README ROADMAP TODO
 
