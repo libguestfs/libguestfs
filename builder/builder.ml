@@ -918,6 +918,19 @@ let stats =
 let () =
   msg (f_"Finishing off");
 
+  (* Kill any daemons (eg. started by newly installed packages) using
+   * the sysroot.
+   * XXX How to make this nicer?
+   * XXX fuser returns an error if it doesn't kill any processes, which
+   * is not very useful.
+   *)
+  (try ignore (g#debug "sh" [| "fuser"; "-k"; "/sysroot" |])
+   with exn ->
+     if debug then
+       eprintf (f_"%s: %s (ignored)\n") prog (Printexc.to_string exn)
+  );
+  g#ping_daemon (); (* tiny delay after kill *)
+
   g#umount_all ();
   g#shutdown ();
   g#close ()
