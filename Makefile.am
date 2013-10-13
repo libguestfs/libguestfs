@@ -241,12 +241,20 @@ BUILDERFILES = \
 	builder/website/README \
 	builder/website/index \
 	builder/website/index.asc \
+	builder/website/debian-6.xz \
+	builder/website/debian-6.xz.sig \
 	builder/website/debian-7.xz \
 	builder/website/debian-7.xz.sig \
 	builder/website/fedora-18.xz \
 	builder/website/fedora-18.xz.sig \
 	builder/website/fedora-19.xz \
-	builder/website/fedora-19.xz.sig
+	builder/website/fedora-19.xz.sig \
+	builder/website/ubuntu-10.04.xz \
+	builder/website/ubuntu-10.04.xz.sig \
+	builder/website/ubuntu-12.04.xz \
+	builder/website/ubuntu-12.04.xz.sig \
+	builder/website/ubuntu-13.10.xz \
+	builder/website/ubuntu-13.10.xz.sig
 
 WEBSITEDIR = $(HOME)/d/websites/libguestfs
 
