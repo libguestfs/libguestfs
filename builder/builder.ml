@@ -834,7 +834,13 @@ let guest_install_command packages =
   let quoted_args = String.concat " " (List.map quote packages) in
   match g#inspect_get_package_management root with
   | "apt" ->
-    sprintf "apt-get update; apt-get -y install %s" quoted_args
+    (* http://unix.stackexchange.com/questions/22820 *)
+    sprintf "
+      export DEBIAN_FRONTEND=noninteractive
+      apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
+      apt-get -q -y update
+      apt-get -q -y install %s
+    " quoted_args
   | "pisi" ->
     sprintf "pisi it %s" quoted_args
   | "pacman" ->
