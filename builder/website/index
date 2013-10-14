@@ -7,7 +7,10 @@ format=raw
 size=4294967296
 compressed_size=141531780
 expand=/dev/sda1
-notes=This is a default Debian 6 (Squeeze) install.
+notes=Debian 6 (Squeeze).
+ 
+ This is a default Debian install.
+ 
  The preseed and virt-install scripts that produced this image
  can be found in the libguestfs git tree:
  libguestfs.git/builder/website/debian-6.preseed
@@ -33,7 +36,10 @@ format=raw
 size=4294967296
 compressed_size=149230076
 expand=/dev/sda1
-notes=This is a default Debian 7 (Wheezy) install.
+notes=Debian 7 (Wheezy).
+ 
+ This is a default Debian install.
+ 
  The preseed and virt-install scripts that produced this image
  can be found in the libguestfs git tree:
  libguestfs.git/builder/website/debian-7.preseed
@@ -59,7 +65,10 @@ format=raw
 size=6442450944
 compressed_size=148947524
 expand=/dev/sda3
-notes=This Fedora image contains only unmodified @Core group packages.
+notes=Fedora 18.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
  It is thus very minimal.  The kickstart and install script can be
  found in the libguestfs git tree:
  libguestfs.git/builder/website/fedora-18.ks
@@ -77,7 +86,10 @@ format=raw
 size=4294967296
 compressed_size=172190964
 expand=/dev/sda3
-notes=This Fedora image contains only unmodified @Core group packages.
+notes=Fedora 19.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
  It is thus very minimal.  The kickstart and install script can be
  found in the libguestfs git tree:
  libguestfs.git/builder/website/fedora-19.ks
@@ -95,7 +107,10 @@ format=raw
 size=4294967296
 compressed_size=149728112
 expand=/dev/sda1
-notes=This is a minimal Ubuntu 10.04 (Lucid) install.
+notes=Ubuntu 10.04 (Lucid).
+ 
+ This is a minimal Ubuntu 10.04 (Lucid) install.
+ 
  Only the openssh-server package is selected in tasksel.
  The preseed and virt-install scripts that produced this image
  can be found in the libguestfs git tree:
@@ -115,7 +130,10 @@ format=raw
 size=4294967296
 compressed_size=168593316
 expand=/dev/sda1
-notes=This is a minimal Ubuntu 12.04 (Precise) install.
+notes=Ubuntu 12.04 (Precise).
+ 
+ This is a minimal Ubuntu 12.04 (Precise) install.
+ 
  Only the openssh-server package is selected in tasksel.
  The preseed and virt-install scripts that produced this image
  can be found in the libguestfs git tree:
@@ -135,7 +153,10 @@ format=raw
 size=4294967296
 compressed_size=196481392
 expand=/dev/sda1
-notes=This is a minimal Ubuntu 13.10 (Saucy) install.
+notes=Ubuntu 13.10 (Saucy).
+ 
+ This is a minimal Ubuntu 13.10 (Saucy) install.
+ 
  Only the openssh-server package is selected in tasksel.
  The preseed and virt-install scripts that produced this image
  can be found in the libguestfs git tree:
