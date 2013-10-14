@@ -763,7 +763,7 @@ let guest_install_command packages =
   let quoted_args = String.concat " " (List.map quote packages) in
   match g#inspect_get_package_management root with
   | "apt" ->
-    sprintf "apt-get -y install %s" quoted_args
+    sprintf "apt-get update; apt-get -y install %s" quoted_args
   | "pisi" ->
     sprintf "pisi it %s" quoted_args
   | "pacman" ->
