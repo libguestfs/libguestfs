@@ -62,7 +62,7 @@ fi
 let firstboot_service = sprintf "\
 [Unit]
 Description=virt-sysprep firstboot service
-After=syslog.target network.target
+After=network.target
 Before=prefdm.service
 
 [Service]
