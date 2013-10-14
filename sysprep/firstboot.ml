@@ -84,7 +84,11 @@ let rec install_service (g : Guestfs.guestfs) distro =
   g#chmod 0o755 (sprintf "%s/firstboot.sh" firstboot_dir);
 
   (* systemd, else assume sysvinit *)
-  if g#is_dir "/etc/systemd" then
+  (* XXX It turns out that just detecting /etc/systemd is not a good
+   * way to answer the "Is it systemd?" question.  Ubuntu 13.10 has
+   * /etc/systemd but uses upstart.
+   *)
+  if g#is_dir "/etc/systemd" && distro <> "ubuntu" then
     install_systemd_service g
   else
     install_sysvinit_service g distro
@@ -101,7 +105,7 @@ and install_sysvinit_service g = function
     install_sysvinit_redhat g
   | "opensuse"|"sles"|"suse-based" ->
     install_sysvinit_suse g
-  | "debian" ->
+  | "debian" | "ubuntu" ->
     install_sysvinit_debian g
   | distro ->
     failed "guest type %s is not supported" distro
