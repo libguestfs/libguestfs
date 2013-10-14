@@ -632,7 +632,7 @@ see the cleartext password using L<ps(1)>.
 To create user accounts, use the L<useradd(8)> command with
 L<--firstboot-command> like this:
 
- virt-sysprep --firstboot-command \
+ virt-builder --firstboot-command \
     'useradd -m -p "" rjones ; chage -d 0 rjones'
 
 The above command will create an C<rjones> account with no password,
