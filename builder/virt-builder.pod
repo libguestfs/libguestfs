@@ -28,6 +28,8 @@ virt-builder - Build virtual machine images quickly
 
  virt-builder -l|--list [--long]
 
+ virt-builder --notes os-version
+
  virt-builder --print-cache
 
  virt-builder --cache-all-templates
@@ -63,6 +65,11 @@ next section.
 will list out the operating systems available to install.  A selection
 of freely redistributable OSes is available as standard.  You can add
 your own too (see below).
+
+After choosing a guest from the list, you may want to see if there
+are any installation notes:
+
+ virt-builder --notes fedora-20
 
 =head2 Build a virtual machine
 
@@ -400,6 +407,11 @@ L</SECURITY> below).
 You don't have a host network (eg. in secure/restricted environments).
 
 =back
+
+=item B<--notes> os-version
+
+List any notes associated with this guest, then exit (this does not do
+the install).
 
 =item B<-o> filename
 
@@ -1037,6 +1049,8 @@ filesystem is not on an LV, don't use this option.
 Any notes that go with this image, especially notes describing what
 packages are in the image, how the image was prepared, and licensing
 information.
+
+This information is shown in the I<--notes> and I<--list> I<--long> modes.
 
 You can use multi-line notes here by indenting each new line with at
 least one character of whitespace (even on blank lines):

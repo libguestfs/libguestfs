@@ -54,6 +54,7 @@ let mode, arg,
 
   let mode = ref `Install in
   let list_mode () = mode := `List in
+  let notes_mode () = mode := `Notes in
   let get_kernel_mode () = mode := `Get_kernel in
   let cache_all_mode () = mode := `Cache_all in
   let print_cache_mode () = mode := `Print_cache in
@@ -225,6 +226,7 @@ let mode, arg,
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
     "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
+    "--notes",   Arg.Unit notes_mode,       " " ^ s_"Display installation notes";
     "-o",        Arg.Set_string output,     "file" ^ " " ^ s_"Set output filename";
     "--output",  Arg.Set_string output,     "file" ^ ditto;
     "--password-crypto", Arg.String set_password_crypto,
@@ -255,6 +257,7 @@ let mode, arg,
 
  virt-builder OS-VERSION
  virt-builder -l
+ virt-builder --notes OS-VERSION
  virt-builder --print-cache
  virt-builder --cache-all-templates
  virt-builder --delete-cache
@@ -315,6 +318,16 @@ read the man page virt-builder(1).
         eprintf (f_"%s: virt-builder --list does not need any extra arguments.\n") prog;
         exit 1
       )
+    | `Notes ->
+      (match args with
+      | [arg] -> arg
+      | [] ->
+        eprintf (f_"%s: virt-builder --notes os-version\nMissing 'os-version'. Use '--list' to list available template names.\n") prog;
+        exit 1
+      | _ ->
+        eprintf (f_"%s: virt-builder: too many parameters, expecting 'os-version'\n") prog;
+        exit 1
+      )
     | `Cache_all
     | `Print_cache
     | `Delete_cache ->
@@ -373,7 +386,7 @@ let mode =
       exit 1
     )
 
-  | (`Install|`List|`Print_cache|`Cache_all) as mode -> mode
+  | (`Install|`List|`Notes|`Print_cache|`Cache_all) as mode -> mode
 
 (* Check various programs/dependencies are installed. *)
 let have_nbdkit =
@@ -434,7 +447,7 @@ let index =
   Index_parser.get_index ~debug ~downloader ~sigchecker source
 
 (* Now handle the remaining modes. *)
-let () =
+let mode =
   match mode with
   | `List ->                            (* --list *)
     List_entries.list_entries ~list_long ~source index;
@@ -473,16 +486,31 @@ let () =
       exit 0
     );
 
-  | `Install ->                         (* (no mode: install a guest) *)
-    ()
+  | (`Install|`Notes) as mode -> mode
 
-(* If we get here, we want to create a guest (but which one?) *)
+(* Which os-version (ie. index entry)? *)
 let entry =
   try List.assoc arg index
   with Not_found ->
     eprintf (f_"%s: cannot find os-version '%s'.\nUse --list to list available guest types.\n")
       prog arg;
     exit 1
+
+let () =
+  match mode with
+  | `Notes ->                           (* --notes *)
+    (match entry with
+    | { Index_parser.notes = Some notes } ->
+      print_endline notes;
+    | { Index_parser.notes = None } ->
+      printf (f_"There are no notes for %s\n") arg
+    );
+    exit 0
+
+  | `Install ->
+    () (* fall through to create the guest *)
+
+(* If we get here, we want to create a guest. *)
 
 (* Download the template, or it may be in the cache. *)
 let template =
