@@ -19,6 +19,10 @@ notes=This is a default Debian 6 (Squeeze) install.
  
  virt-builder debian-6 \
      --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
 
 [debian-7]
 name=Debian 7 (Wheezy)
@@ -41,6 +45,10 @@ notes=This is a default Debian 7 (Wheezy) install.
  
  virt-builder debian-7 \
      --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
 
 [fedora-18]
 name=Fedora® 18
@@ -93,6 +101,10 @@ notes=This is a minimal Ubuntu 10.04 (Lucid) install.
  can be found in the libguestfs git tree:
  libguestfs.git/builder/website/ubuntu-10.04.preseed
  libguestfs.git/builder/website/ubuntu-10.04.sh
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
 
 [ubuntu-12.04]
 name=Ubuntu 12.04 (Precise)
@@ -109,6 +121,10 @@ notes=This is a minimal Ubuntu 12.04 (Precise) install.
  can be found in the libguestfs git tree:
  libguestfs.git/builder/website/ubuntu-12.04.preseed
  libguestfs.git/builder/website/ubuntu-12.04.sh
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
 
 [ubuntu-13.10]
 name=Ubuntu 13.10 (Saucy)
@@ -125,3 +141,7 @@ notes=This is a minimal Ubuntu 13.10 (Saucy) install.
  can be found in the libguestfs git tree:
  libguestfs.git/builder/website/ubuntu-13.10.preseed
  libguestfs.git/builder/website/ubuntu-13.10.sh
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
