@@ -83,14 +83,16 @@ let rec install_service (g : Guestfs.guestfs) distro =
   g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
   g#chmod 0o755 (sprintf "%s/firstboot.sh" firstboot_dir);
 
-  (* systemd, else assume sysvinit *)
-  (* XXX It turns out that just detecting /etc/systemd is not a good
-   * way to answer the "Is it systemd?" question.  Ubuntu 13.10 has
-   * /etc/systemd but uses upstart.
+  (* Note we install both systemd and sysvinit services.  This is
+   * because init systems can be switched at runtime, and it's easy to
+   * tell if systemd is installed (eg. Ubuntu uses upstart but installs
+   * systemd configuration directories).  There is no danger of a
+   * firstboot script running twice because they disable themselves
+   * after running.
    *)
-  if g#is_dir "/etc/systemd" && distro <> "ubuntu" then
-    install_systemd_service g
-  else
+  if g#is_dir "/etc/systemd/system" then
+    install_systemd_service g;
+  if g#is_dir "/etc/rc.d" && g#is_dir "/etc/init.d" then
     install_sysvinit_service g distro
 
 (* Install the systemd firstboot service, if not installed already. *)
@@ -105,7 +107,7 @@ and install_sysvinit_service g = function
     install_sysvinit_redhat g
   | "opensuse"|"sles"|"suse-based" ->
     install_sysvinit_suse g
-  | "debian" | "ubuntu" ->
+  | "debian"|"ubuntu" ->
     install_sysvinit_debian g
   | distro ->
     failed "guest type %s is not supported" distro
