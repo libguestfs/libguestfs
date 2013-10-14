@@ -294,6 +294,18 @@ Windows guest support.
 
 =item Debian and Ubuntu
 
+After installing libguestfs you need to do:
+
+ sudo update-guestfs-appliance
+
+On Ubuntu only:
+
+ sudo chmod 0644 /boot/vmlinuz*
+
+You may need to add yourself to the C<kvm> group:
+
+ sudo useradd -a -G kvm yourlogin
+
 =over 4
 
 =item Debian Squeeze (6)
