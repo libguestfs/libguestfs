@@ -41,7 +41,6 @@
   kernel
   libcap
   libldm /* only Fedora has this for now, but we should add it to others later*/
-  MAKEDEV
   nilfs-utils
   ntfsprogs
   ntfs-3g
