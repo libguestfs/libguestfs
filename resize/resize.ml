@@ -37,7 +37,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
   debug, debug_gc, deletes,
   dryrun, expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
-  quiet, resizes, resizes_force, shrink =
+  quiet, resizes, resizes_force, shrink, sparse =
   let display_version () =
     let g = new G.guestfs () in
     let version = g#version () in
@@ -78,6 +78,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     else if !shrink <> "" then error (f_"--shrink option given twice")
     else shrink := s
   in
+  let sparse = ref true in
 
   let ditto = " -\"-" in
   let argspec = Arg.align [
@@ -109,6 +110,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
     "--resize",  Arg.String (add resizes),  s_"part=size" ^ " " ^ s_"Resize partition";
     "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
     "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
+    "--no-sparse", Arg.Clear sparse,        " " ^ s_"Turn off sparse copying";
     "-v",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set debug,             ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
@@ -153,6 +155,7 @@ read the man page virt-resize(1).
   let resizes = List.rev !resizes in
   let resizes_force = List.rev !resizes_force in
   let shrink = match !shrink with "" -> None | str -> Some str in
+  let sparse = !sparse in
 
   if alignment < 1 then
     error (f_"alignment cannot be < 1");
@@ -213,7 +216,7 @@ read the man page virt-resize(1).
   debug, debug_gc, deletes,
   dryrun, expand, expand_content, extra_partition, format, ignores,
   lv_expands, machine_readable, ntfsresize_force, output_format,
-  quiet, resizes, resizes_force, shrink
+  quiet, resizes, resizes_force, shrink, sparse
 
 (* Default to true, since NTFS and btrfs support are usually available. *)
 let ntfs_available = ref true
@@ -1082,7 +1085,7 @@ let () =
 
         (match p.p_type with
          | ContentUnknown | ContentPV _ | ContentFS _ ->
-           g#copy_device_to_device ~size:copysize ~sparse:true source target
+           g#copy_device_to_device ~size:copysize ~sparse source target
 
          | ContentExtendedPartition ->
            (* You can't just copy an extended partition by name, eg.

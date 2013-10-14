@@ -481,6 +481,10 @@ of partitions, if it knows how (see I<--expand> option above).
 If you give the I<--no-expand-content> option then virt-resize
 will not attempt this.
 
+=item B<--no-sparse>
+
+Turn off sparse copying.  See L</SPARSE COPYING> below.
+
 =item B<--ntfsresize-force>
 
 Pass the I<--force> option to L<ntfsresize(8)>, allowing resizing
@@ -701,21 +705,21 @@ L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>.
 
 =head2 SPARSE COPYING
 
-You must create a fresh, zeroed target disk image for virt-resize to
-use.  Do not reuse a target, especially one which contains data
-already.
+You should create a fresh, zeroed target disk image for virt-resize to
+use.
 
-Virt-resize performs sparse copying.  This means that it does not copy
-blocks from the source disk which are all zeroes.  This improves speed
-and efficiency, but will produce incorrect results if the target disk
-image contains unzeroed data.
+Virt-resize by default performs sparse copying.  This means that it
+does not copy blocks from the source disk which are all zeroes.  This
+improves speed and efficiency, but will produce incorrect results if
+the target disk image contains unzeroed data.
 
 The main time this can be a problem is if the target is a host
 partition (eg. S<C<virt-resize source.img /dev/sda4>>) because the
 usual partitioning tools tend to leave whatever data happened to be on
-the disk when making partitions.  In rare cases you may need to
-S<C<dd if=/dev/zero of=/dev/sdXN>> first to ensure the target
-partition is zeroed.
+the disk before.
+
+If you have to reuse a target which contains data already, you should
+use the I<--no-sparse> option.  Note this can be much slower.
 
 =head1 ALTERNATIVE TOOLS
 
