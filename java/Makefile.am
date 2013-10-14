@@ -42,6 +42,7 @@ java_tests = \
 	t/GuestFS420LogMessages.java
 
 EXTRA_DIST = \
+	com/redhat/et/libguestfs/.gitignore \
 	$(java_sources) \
 	$(java_tests) \
 	run-bindtests \

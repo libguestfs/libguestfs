@@ -142,9 +142,11 @@ EXTRA_DIST = \
 	.lvimrc \
 	.mailmap \
 	.tx/config \
+	bootstrap \
 	bugs-in-changelog.sh \
 	autogen.sh \
 	bindtests \
+	cfg.mk \
 	contrib/autobuild/autobuild.sh \
 	contrib/intro/libguestfs-intro.html \
 	contrib/intro/overview.png \
@@ -169,6 +171,7 @@ EXTRA_DIST = \
 	contrib/visualize-alignment/qemu-0.13-trace-block-device-access.patch \
 	contrib/visualize-alignment/README \
 	contrib/visualize-alignment/tracetops.ml \
+	contrib/windows-icons.pl \
 	guestfs-release-notes.pod \
 	guestfs-release-notes.txt \
 	html/draft.png \
@@ -182,7 +185,14 @@ EXTRA_DIST = \
 	tmp/.gitignore \
 	tx-pull.sh \
 	update-bugs.sh \
-	valgrind-suppressions
+	valgrind-suppressions \
+	.x-sc_avoid_ctype_macros \
+	.x-sc_prohibit_have_config_h \
+	.x-sc_prohibit_magic_number_exit \
+	.x-sc_prohibit_strcmp \
+	.x-sc_prohibit_strcmp_and_strncmp \
+	.x-sc_TAB_in_indentation \
+	.x-sc_trailing_blank
 
 # The website.
 HTMLFILES = \

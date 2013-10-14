@@ -29,6 +29,7 @@ generator_built = \
 	bindtests.go
 
 EXTRA_DIST = \
+	src/libguestfs.org/guestfs/.gitignore \
 	$(generator_built) \
 	config-test.go \
 	run-bindtests \
