@@ -253,6 +253,13 @@ let mode, arg,
     sprintf (f_"\
 %s: build virtual machine images quickly
 
+ virt-builder OS-VERSION
+ virt-builder -l
+ virt-builder --print-cache
+ virt-builder --cache-all-templates
+ virt-builder --delete-cache
+ virt-builder --get-kernel IMAGE
+
 A short summary of the options is given below.  For detailed help please
 read the man page virt-builder(1).
 ")
