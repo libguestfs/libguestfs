@@ -46,7 +46,7 @@ let firstboot_perform g root =
       let id = make_id_from_filename basename in
       Firstboot.add_firstboot_script g root id content
   ) !files;
-  [ `Created_files ]
+  if !files <> [] then [ `Created_files ] else []
 
 let op = {
   defaults with
