@@ -487,8 +487,8 @@ exec >>%s 2>&1
       sprintf "
         export DEBIAN_FRONTEND=noninteractive
         apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
-        apt-get -q -y update
-        apt-get -q -y install %s
+        apt-get $apt_opts update
+        apt-get $apt_opts install %s
       " quoted_args
     | "pisi" ->
       sprintf "pisi it %s" quoted_args
