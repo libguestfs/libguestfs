@@ -46,6 +46,9 @@ let firstboot_sh = sprintf "\
 d=%s/scripts
 logfile=~root/virt-sysprep-firstboot.log
 
+echo \"$0\" \"$@\" >>$logfile
+echo \"Scripts dir: $d\" >>$logfile
+
 if test \"$1\" = \"start\"
 then
   for f in $d/* ; do
