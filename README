@@ -169,9 +169,6 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | xz           |             | O | Used by virt-builder for compression    |
 +--------------+-------------+---+-----------------------------------------+
-| nbdkit       |             | O | Used by virt-builder to speed up        |
-|              |             |   | template xz-decompression               |
-+--------------+-------------+---+-----------------------------------------+
 | findlib      |             | O | For the OCaml bindings.                 |
 +--------------+-------------+---+-----------------------------------------+
 | ocaml-gettext|             | O | For localizing OCaml virt-* tools.      |

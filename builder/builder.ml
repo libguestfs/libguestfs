@@ -74,7 +74,7 @@ let mode =
   | (`Install|`List|`Notes|`Print_cache|`Cache_all) as mode -> mode
 
 (* Check various programs/dependencies are installed. *)
-let have_nbdkit =
+let () =
   (* Check that gpg is installed.  Optional as long as the user
    * disables all signature checks.
    *)
@@ -100,18 +100,7 @@ let have_nbdkit =
   if Sys.command cmd <> 0 then (
     eprintf (f_"%s: virt-resize is not installed (or does not work)\n") prog;
     exit 1
-  );
-
-  (* Find out if nbdkit + nbdkit-xz-plugin is installed (optional). *)
-  let cmd =
-    sprintf "nbdkit %s/nbdkit/plugins/nbdkit-xz-plugin.so --help >/dev/null 2>&1"
-      Libdir.libdir in
-  let have_nbdkit = Sys.command cmd = 0 in
-  if not have_nbdkit && debug then
-    eprintf (f_"%s: warning: nbdkit or nbdkit-xz-plugin is not available\n")
-      prog;
-
-  have_nbdkit
+  )
 
 (* Create the cache directory. *)
 let cache =
@@ -296,46 +285,19 @@ let output, size, format, delete_output_file, resize_sparse =
     output, Some size, format, delete_output_file, true
 
 let source =
-  (* XXX Disable this for now because libvirt is broken:
-   * https://bugzilla.redhat.com/show_bug.cgi?id=1011063
-   *)
-  if have_nbdkit && false then (
-    (* If we have nbdkit, then we can use NBD to uncompress the xz
-     * file on the fly.
-     *)
-    let socket = Filename.temp_file "vbnbd" ".sock" in
-    let source = sprintf "nbd://?socket=%s" socket in
-    let argv = [| "nbdkit"; "-r"; "-f"; "-U"; socket;
-                  Libdir.libdir // "nbdkit/plugins/nbdkit-xz-plugin.so";
-                  "file=" ^ template |] in
-    let pid =
-      match fork () with
-      | 0 ->                            (* child *)
-        execvp "nbdkit" argv
-      | pid -> pid in
-    (* Clean up when the program exits. *)
-    let clean_up () =
-      (try kill pid Sys.sigterm with _ -> ());
-      (try unlink socket with _ -> ())
-    in
-    at_exit clean_up;
-    source
-  )
-  else (
-    (* Otherwise we have to uncompress it to a temporary file. *)
-    let { Index_parser.file_uri = file_uri } = entry in
-    let tmpfile = Filename.temp_file "vbsrc" ".img" in
-    let cmd = sprintf "xzcat %s > %s" (quote template) (quote tmpfile) in
-    if debug then eprintf "%s\n%!" cmd;
-    msg (f_"Uncompressing: %s") file_uri;
-    let r = Sys.command cmd in
-    if r <> 0 then (
-      eprintf (f_"%s: error: failed to uncompress template\n") prog;
-      exit 1
-    );
-    unlink_on_exit tmpfile;
-    tmpfile
-  )
+  (* Uncompress it to a temporary file. *)
+  let { Index_parser.file_uri = file_uri } = entry in
+  let tmpfile = Filename.temp_file "vbsrc" ".img" in
+  let cmd = sprintf "xzcat %s > %s" (quote template) (quote tmpfile) in
+  if debug then eprintf "%s\n%!" cmd;
+  msg (f_"Uncompressing: %s") file_uri;
+  let r = Sys.command cmd in
+  if r <> 0 then (
+    eprintf (f_"%s: error: failed to uncompress template\n") prog;
+    exit 1
+  );
+  unlink_on_exit tmpfile;
+  tmpfile
 
 (* Resize the source to the output file. *)
 let () =

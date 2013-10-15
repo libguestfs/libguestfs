@@ -151,8 +151,6 @@ For UML backend.
 
 =item xz
 
-=item nbdkit
-
 For virt-builder.
 
 =item golang E<ge> 1.1.1

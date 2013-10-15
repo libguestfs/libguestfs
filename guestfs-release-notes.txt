@@ -119,8 +119,6 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
 
     xz
 
-    nbdkit
-
       For virt-builder.
 
     golang ≥ 1.1.1

@@ -695,14 +695,7 @@ The template signature is checked.
 
 =item *
 
-If the template image is xz-compressed: If L<nbdkit(1)> and
-L<nbdkit-xz-plugin(1)> are both installed, nbdkit is used to
-transparently uncompress the image on the fly.  Else it is
-uncompressed to a temporary disk which takes more disk space.
-
-[B<Note:> Use of nbdkit is disabled because of a libvirt bug:
-L<https://bugzilla.redhat.com/show_bug.cgi?id=1011063>  It will
-be enabled in a future release.]
+The template is uncompressed to a tmp file.
 
 =item *
 
@@ -1268,8 +1261,6 @@ L<virt-rescue(1)>,
 L<virt-resize(1)>,
 L<virt-sysprep(1)>,
 L<oz-install(1)>,
-L<nbdkit(1)>,
-L<nbdkit-xz-plugin(1)>,
 L<gpg(1)>,
 L<curl(1)>,
 L<http://libguestfs.org/>.
