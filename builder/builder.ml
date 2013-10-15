@@ -392,9 +392,11 @@ let main () =
    *)
   let () =
     let make_random_password () =
-      (* Get random characters from the set [A-Za-z0-9] *)
+      (* Get random characters from the set [A-Za-z0-9] with some
+       * homoglyphs removed.
+       *)
       let chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" in
+        "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789" in
       let nr_chars = String.length chars in
 
       let chan = open_in "/dev/urandom" in
