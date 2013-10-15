@@ -26,27 +26,18 @@ module G = Guestfs
 
 let files = ref []
 
-let make_id_from_filename filename =
-  let ret = String.copy filename in
-  for i = 0 to String.length ret - 1 do
-    let c = String.unsafe_get ret i in
-    if not ((c >= 'a' && c <= 'z') ||
-               (c >= 'A' && c <= 'Z') ||
-               (c >= '0' && c <= '9')) then
-      String.unsafe_set ret i '-'
-  done;
-  ret
-
 let firstboot_perform g root =
   (* Read the files and add them using the {!Firstboot} module. *)
+  let files = List.rev !files in
+  let i = ref 0 in
   List.iter (
     fun filename ->
+      incr i;
+      let i = !i in
       let content = read_whole_file filename in
-      let basename = Filename.basename filename in
-      let id = make_id_from_filename basename in
-      Firstboot.add_firstboot_script g root id content
-  ) !files;
-  if !files <> [] then [ `Created_files ] else []
+      Firstboot.add_firstboot_script g root i content
+  ) files;
+  if files <> [] then [ `Created_files ] else []
 
 let op = {
   defaults with

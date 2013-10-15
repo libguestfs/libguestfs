@@ -153,7 +153,7 @@ and install_sysvinit_debian g =
   g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
     "/etc/rc5.d/S99virt-sysprep-firstboot"
 
-let add_firstboot_script (g : Guestfs.guestfs) root id content =
+let add_firstboot_script (g : Guestfs.guestfs) root i content =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
@@ -161,7 +161,7 @@ let add_firstboot_script (g : Guestfs.guestfs) root id content =
     install_service g distro;
     let t = Int64.of_float (Unix.time ()) in
     let r = string_random8 () in
-    let filename = sprintf "%s/scripts/%Ld-%s-%s" firstboot_dir t r id in
+    let filename = sprintf "%s/scripts/%04d-%Ld-%s" firstboot_dir i t r in
     g#write filename content;
     g#chmod 0o755 filename
 

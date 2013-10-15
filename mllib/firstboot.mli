@@ -16,12 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val add_firstboot_script : Guestfs.guestfs -> string -> string -> string -> unit
-  (** [add_firstboot_script g root id content] adds a firstboot
+val add_firstboot_script : Guestfs.guestfs -> string -> int -> string -> unit
+  (** [add_firstboot_script g root idx content] adds a firstboot
       script called [shortname] containing [content].
 
       NB. [content] is the contents of the script, {b not} a filename.
 
-      [id] should be a short name containing only 7 bit ASCII [-a-z0-9].
+      The scripts run in index ([idx]) order.
 
       You should make sure the filesystem is relabelled after calling this. *)

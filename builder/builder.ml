@@ -556,24 +556,23 @@ exec >>%s 2>&1
 
   (* Firstboot scripts/commands/install. *)
   let () =
-    let id = ref 0 in
+    let i = ref 0 in
     List.iter (
       fun op ->
-        incr id;
-        let id = sprintf "%03d" !id in
+        incr i;
         match op with
         | `Script script ->
-          msg (f_"Installing firstboot script: [%s] %s") id script;
+          msg (f_"Installing firstboot script: [%d] %s") !i script;
           let cmd = read_whole_file script in
-          Firstboot.add_firstboot_script g root id cmd
+          Firstboot.add_firstboot_script g root !i cmd
         | `Command cmd ->
-          msg (f_"Installing firstboot command: [%s] %s") id cmd;
-          Firstboot.add_firstboot_script g root id cmd
+          msg (f_"Installing firstboot command: [%d] %s") !i cmd;
+          Firstboot.add_firstboot_script g root !i cmd
         | `Packages pkgs ->
-          msg (f_"Installing firstboot packages: [%s] %s") id
+          msg (f_"Installing firstboot packages: [%d] %s") !i
             (String.concat " " pkgs);
           let cmd = guest_install_command pkgs in
-          Firstboot.add_firstboot_script g root id cmd
+          Firstboot.add_firstboot_script g root !i cmd
     ) firstboot in
 
   (* Run scripts. *)
