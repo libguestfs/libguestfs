@@ -32,49 +32,49 @@ let quote = Filename.quote
 
 let prog = Filename.basename Sys.executable_name
 
-(* Command line argument parsing - see cmdline.ml. *)
-let mode, arg,
-  attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
-  firstboot, run, format, gpg, hostname, install, list_long, network, output,
-  password_crypto, quiet, root_password, scrub, scrub_logfile, size, source,
-  upload =
-  parse_cmdline ()
+let main () =
+  (* Command line argument parsing - see cmdline.ml. *)
+  let mode, arg,
+    attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
+    firstboot, run, format, gpg, hostname, install, list_long, network, output,
+    password_crypto, quiet, root_password, scrub, scrub_logfile, size, source,
+    upload =
+    parse_cmdline () in
 
-(* Timestamped messages in ordinary, non-debug non-quiet mode. *)
-let msg fs = make_message_function ~quiet fs
+  (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
+  let msg fs = make_message_function ~quiet fs in
 
-(* If debugging, echo the command line arguments. *)
-let () =
+  (* If debugging, echo the command line arguments. *)
   if debug then (
     eprintf "command line:";
     List.iter (eprintf " %s") (Array.to_list Sys.argv);
     prerr_newline ()
-  )
+  );
 
-(* Handle some modes here, some later on. *)
-let mode =
-  match mode with
-  | `Get_kernel -> (* --get-kernel is really a different program ... *)
-    Get_kernel.get_kernel ~debug ?format ?output arg;
-    exit 0
-
-  | `Delete_cache ->                    (* --delete-cache *)
-    (match cache with
-    | Some cachedir ->
-      msg "Deleting: %s" cachedir;
-      let cmd = sprintf "rm -rf %s" (quote cachedir) in
-      ignore (Sys.command cmd);
+  (* Handle some modes here, some later on. *)
+  let mode =
+    match mode with
+    | `Get_kernel -> (* --get-kernel is really a different program ... *)
+      Get_kernel.get_kernel ~debug ?format ?output arg;
       exit 0
-    | None ->
-      eprintf (f_"%s: error: could not find cache directory. Is $HOME set?\n")
-        prog;
-      exit 1
-    )
 
-  | (`Install|`List|`Notes|`Print_cache|`Cache_all) as mode -> mode
+    | `Delete_cache ->                  (* --delete-cache *)
+      (match cache with
+      | Some cachedir ->
+        msg "Deleting: %s" cachedir;
+        let cmd = sprintf "rm -rf %s" (quote cachedir) in
+        ignore (Sys.command cmd);
+        exit 0
+      | None ->
+        eprintf (f_"%s: error: could not find cache directory. Is $HOME set?\n")
+          prog;
+        exit 1
+      )
 
-(* Check various programs/dependencies are installed. *)
-let () =
+    | (`Install|`List|`Notes|`Print_cache|`Cache_all) as mode -> mode in
+
+  (* Check various programs/dependencies are installed. *)
+
   (* Check that gpg is installed.  Optional as long as the user
    * disables all signature checks.
    *)
@@ -100,78 +100,77 @@ let () =
   if Sys.command cmd <> 0 then (
     eprintf (f_"%s: virt-resize is not installed (or does not work)\n") prog;
     exit 1
-  )
+  );
 
-(* Create the cache directory. *)
-let cache =
-  match cache with
-  | None -> None
-  | (Some dir) as cache ->
-    (try mkdir dir 0o755 with _ -> ());
-    if Sys.is_directory dir then cache else None
+  (* Create the cache directory. *)
+  let cache =
+    match cache with
+    | None -> None
+    | (Some dir) as cache ->
+      (try mkdir dir 0o755 with _ -> ());
+      if Sys.is_directory dir then cache else None in
 
-(* Make the downloader and signature checker abstract data types. *)
-let downloader =
-  Downloader.create ~debug ~curl ~cache
-let sigchecker =
-  Sigchecker.create ~debug ~gpg ?fingerprint ~check_signature
+  (* Make the downloader and signature checker abstract data types. *)
+  let downloader = Downloader.create ~debug ~curl ~cache in
+  let sigchecker =
+    Sigchecker.create ~debug ~gpg ?fingerprint ~check_signature in
 
-(* Download the source (index) file. *)
-let index =
-  Index_parser.get_index ~debug ~downloader ~sigchecker source
+  (* Download the source (index) file. *)
+  let index = Index_parser.get_index ~debug ~downloader ~sigchecker source in
 
-(* Now handle the remaining modes. *)
-let mode =
-  match mode with
-  | `List ->                            (* --list *)
-    List_entries.list_entries ~list_long ~source index;
-    exit 0
-
-  | `Print_cache ->                     (* --print-cache *)
-    (match cache with
-    | Some cachedir ->
-      printf (f_"cache directory: %s\n") cachedir;
-      List.iter (
-        fun (name, { Index_parser.revision = revision; hidden = hidden }) ->
-          if not hidden then (
-            let filename = Downloader.cache_of_name cachedir name revision in
-            let cached = Sys.file_exists filename in
-            printf "%-24s %s\n" name (if cached then s_"cached" else (*s_*)"no")
-          )
-      ) index
-    | None -> printf (f_"no cache directory\n")
-    );
-    exit 0
-
-  | `Cache_all ->                       (* --cache-all-templates *)
-    (match cache with
-    | None ->
-      eprintf (f_"%s: error: no cache directory\n") prog;
-      exit 1
-    | Some _ ->
-      List.iter (
-        fun (name, { Index_parser.revision = revision; file_uri = file_uri }) ->
-          let template = name, revision in
-          msg (f_"Downloading: %s") file_uri;
-          let progress_bar = not quiet in
-          ignore (Downloader.download downloader ~template ~progress_bar
-                    file_uri)
-      ) index;
+  (* Now handle the remaining modes. *)
+  let mode =
+    match mode with
+    | `List ->                          (* --list *)
+      List_entries.list_entries ~list_long ~source index;
       exit 0
-    );
 
-  | (`Install|`Notes) as mode -> mode
+    | `Print_cache ->                   (* --print-cache *)
+      (match cache with
+      | Some cachedir ->
+        printf (f_"cache directory: %s\n") cachedir;
+        List.iter (
+          fun (name, { Index_parser.revision = revision; hidden = hidden }) ->
+            if not hidden then (
+              let filename = Downloader.cache_of_name cachedir name revision in
+              let cached = Sys.file_exists filename in
+              printf "%-24s %s\n" name
+                (if cached then s_"cached" else (*s_*)"no")
+            )
+        ) index
+      | None -> printf (f_"no cache directory\n")
+      );
+      exit 0
 
-(* Which os-version (ie. index entry)? *)
-let entry =
-  try List.assoc arg index
-  with Not_found ->
-    eprintf (f_"%s: cannot find os-version '%s'.\nUse --list to list available guest types.\n")
-      prog arg;
-    exit 1
+    | `Cache_all ->                     (* --cache-all-templates *)
+      (match cache with
+      | None ->
+        eprintf (f_"%s: error: no cache directory\n") prog;
+        exit 1
+      | Some _ ->
+        List.iter (
+          fun (name,
+               { Index_parser.revision = revision; file_uri = file_uri }) ->
+            let template = name, revision in
+            msg (f_"Downloading: %s") file_uri;
+            let progress_bar = not quiet in
+            ignore (Downloader.download downloader ~template ~progress_bar
+                      file_uri)
+        ) index;
+        exit 0
+      );
 
-let () =
-  match mode with
+    | (`Install|`Notes) as mode -> mode in
+
+  (* Which os-version (ie. index entry)? *)
+  let entry =
+    try List.assoc arg index
+    with Not_found ->
+      eprintf (f_"%s: cannot find os-version '%s'.\nUse --list to list available guest types.\n")
+        prog arg;
+      exit 1 in
+
+  (match mode with
   | `Notes ->                           (* --notes *)
     (match entry with
     | { Index_parser.notes = Some notes } ->
@@ -183,350 +182,349 @@ let () =
 
   | `Install ->
     () (* fall through to create the guest *)
+  );
 
-(* If we get here, we want to create a guest. *)
+  (* --- If we get here, we want to create a guest. --- *)
 
-(* Download the template, or it may be in the cache. *)
-let template =
-  let template, delete_on_exit =
-    let { Index_parser.revision = revision; file_uri = file_uri } = entry in
-    let template = arg, revision in
-    msg (f_"Downloading: %s") file_uri;
-    let progress_bar = not quiet in
-    Downloader.download downloader ~template ~progress_bar file_uri in
-  if delete_on_exit then unlink_on_exit template;
-  template
+  (* Download the template, or it may be in the cache. *)
+  let template =
+    let template, delete_on_exit =
+      let { Index_parser.revision = revision; file_uri = file_uri } = entry in
+      let template = arg, revision in
+      msg (f_"Downloading: %s") file_uri;
+      let progress_bar = not quiet in
+      Downloader.download downloader ~template ~progress_bar file_uri in
+    if delete_on_exit then unlink_on_exit template;
+    template in
 
-(* Check the signature of the file. *)
-let () =
-  let sigfile =
-    match entry with
-    | { Index_parser.signature_uri = None } -> None
-    | { Index_parser.signature_uri = Some signature_uri } ->
-      let sigfile, delete_on_exit =
-        Downloader.download downloader signature_uri in
-      if delete_on_exit then unlink_on_exit sigfile;
-      Some sigfile in
+  (* Check the signature of the file. *)
+  let () =
+    let sigfile =
+      match entry with
+      | { Index_parser.signature_uri = None } -> None
+      | { Index_parser.signature_uri = Some signature_uri } ->
+        let sigfile, delete_on_exit =
+          Downloader.download downloader signature_uri in
+        if delete_on_exit then unlink_on_exit sigfile;
+        Some sigfile in
 
-  Sigchecker.verify_detached sigchecker template sigfile
+    Sigchecker.verify_detached sigchecker template sigfile in
 
-let output, size, format, delete_output_file, resize_sparse =
-  let is_block_device file =
-    try (stat file).st_kind = S_BLK
-    with Unix_error _ -> false
-  in
+  let output, size, format, delete_output_file, resize_sparse =
+    let is_block_device file =
+      try (stat file).st_kind = S_BLK
+      with Unix_error _ -> false
+    in
 
-  let headroom = 256L *^ 1024L *^ 1024L in
+    let headroom = 256L *^ 1024L *^ 1024L in
 
-  match output with
-  (* If the output file was specified and it exists and it's a block
-   * device, then we should skip the creation step.
-   *)
-  | Some output when is_block_device output ->
-    if size <> None then (
-      eprintf (f_"%s: you cannot use --size option with block devices\n") prog;
-      exit 1
-    );
-    (* XXX Should check the output size is big enough.  However this
-     * requires running 'blockdev --getsize64 <output>'.
+    match output with
+    (* If the output file was specified and it exists and it's a block
+     * device, then we should skip the creation step.
      *)
+    | Some output when is_block_device output ->
+      if size <> None then (
+        eprintf (f_"%s: you cannot use --size option with block devices\n")
+          prog;
+        exit 1
+      );
+      (* XXX Should check the output size is big enough.  However this
+       * requires running 'blockdev --getsize64 <output>'.
+       *)
 
-    let format = match format with None -> "raw" | Some f -> f in
+      let format = match format with None -> "raw" | Some f -> f in
 
-    (* Dummy: The output file is never deleted in this case. *)
-    let delete_output_file = ref false in
+      (* Dummy: The output file is never deleted in this case. *)
+      let delete_output_file = ref false in
 
-    output, None, format, delete_output_file, false
+      output, None, format, delete_output_file, false
 
-  (* Regular file output.  Note the file gets deleted. *)
-  | _ ->
-    (* Check the --size option. *)
-    let size =
-      let { Index_parser.size = default_size } = entry in
-      match size with
-      | None -> default_size +^ headroom
-      | Some size ->
-        if size < default_size +^ headroom then (
-          eprintf (f_"%s: --size is too small for this disk image, minimum size is %s\n")
-            prog (human_size default_size);
-          exit 1
-        );
-        size in
+    (* Regular file output.  Note the file gets deleted. *)
+    | _ ->
+      (* Check the --size option. *)
+      let size =
+        let { Index_parser.size = default_size } = entry in
+        match size with
+        | None -> default_size +^ headroom
+        | Some size ->
+          if size < default_size +^ headroom then (
+            eprintf (f_"%s: --size is too small for this disk image, minimum size is %s\n")
+              prog (human_size default_size);
+            exit 1
+          );
+          size in
 
-    (* Create the output file. *)
-    let output, format =
-      match output, format with
-      | None, None -> sprintf "%s.img" arg, "raw"
-      | None, Some "raw" -> sprintf "%s.img" arg, "raw"
-      | None, Some format -> sprintf "%s.%s" arg format, format
-      | Some output, None -> output, "raw"
-      | Some output, Some format -> output, format in
+      (* Create the output file. *)
+      let output, format =
+        match output, format with
+        | None, None -> sprintf "%s.img" arg, "raw"
+        | None, Some "raw" -> sprintf "%s.img" arg, "raw"
+        | None, Some format -> sprintf "%s.%s" arg format, format
+        | Some output, None -> output, "raw"
+        | Some output, Some format -> output, format in
 
-    msg (f_"Creating disk image: %s") output;
-    let cmd =
-      sprintf "qemu-img create -f %s %s %Ld%s"
-        (quote format) (quote output) size
-        (if debug then "" else " >/dev/null 2>&1") in
+      msg (f_"Creating disk image: %s") output;
+      let cmd =
+        sprintf "qemu-img create -f %s %s %Ld%s"
+          (quote format) (quote output) size
+          (if debug then "" else " >/dev/null 2>&1") in
+      let r = Sys.command cmd in
+      if r <> 0 then (
+        eprintf (f_"%s: error: could not create output file '%s'\n")
+          prog output;
+        exit 1
+      );
+      (* This ensures the output file will be deleted on failure,
+       * until we set !delete_output_file = false at the end of the build.
+       *)
+      let delete_output_file = ref true in
+      let delete_file () =
+        if !delete_output_file then
+          try unlink output with _ -> ()
+      in
+      at_exit delete_file;
+
+      output, Some size, format, delete_output_file, true in
+
+  let source =
+    (* Uncompress it to a temporary file. *)
+    let { Index_parser.file_uri = file_uri } = entry in
+    let tmpfile = Filename.temp_file "vbsrc" ".img" in
+    let cmd = sprintf "xzcat %s > %s" (quote template) (quote tmpfile) in
+    if debug then eprintf "%s\n%!" cmd;
+    msg (f_"Uncompressing: %s") file_uri;
     let r = Sys.command cmd in
     if r <> 0 then (
-      eprintf (f_"%s: error: could not create output file '%s'\n") prog output;
+      eprintf (f_"%s: error: failed to uncompress template\n") prog;
       exit 1
     );
-    (* This ensures the output file will be deleted on failure,
-     * until we set !delete_output_file = false at the end of the build.
-     *)
-    let delete_output_file = ref true in
-    let delete_file () =
-      if !delete_output_file then
-        try unlink output with _ -> ()
-    in
-    at_exit delete_file;
+    unlink_on_exit tmpfile;
+    tmpfile in
 
-    output, Some size, format, delete_output_file, true
+  (* Resize the source to the output file. *)
+  let () =
+    (match size with
+    | None ->
+      msg (f_"Running virt-resize to expand the disk")
+    | Some size ->
+      msg (f_"Running virt-resize to expand the disk to %s") (human_size size)
+    );
 
-let source =
-  (* Uncompress it to a temporary file. *)
-  let { Index_parser.file_uri = file_uri } = entry in
-  let tmpfile = Filename.temp_file "vbsrc" ".img" in
-  let cmd = sprintf "xzcat %s > %s" (quote template) (quote tmpfile) in
-  if debug then eprintf "%s\n%!" cmd;
-  msg (f_"Uncompressing: %s") file_uri;
-  let r = Sys.command cmd in
-  if r <> 0 then (
-    eprintf (f_"%s: error: failed to uncompress template\n") prog;
-    exit 1
-  );
-  unlink_on_exit tmpfile;
-  tmpfile
+    let { Index_parser.expand = expand; lvexpand = lvexpand;
+          format = input_format } =
+      entry in
+    let cmd =
+      sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
+        (if debug then " --verbose" else " --quiet")
+        (if not resize_sparse then " --no-sparse" else "")
+        (match input_format with
+        | None -> ""
+        | Some input_format -> sprintf " --format %s" (quote input_format))
+        (quote format)
+        (match expand with
+        | None -> ""
+        | Some expand -> sprintf " --expand %s" (quote expand))
+        (match lvexpand with
+        | None -> ""
+        | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
+        (quote source) (quote output) in
+    if debug then eprintf "%s\n%!" cmd;
+    let r = Sys.command cmd in
+    if r <> 0 then (
+      eprintf (f_"%s: error: virt-resize failed\n") prog;
+      exit 1
+    ) in
 
-(* Resize the source to the output file. *)
-let () =
-  (match size with
-  | None ->
-    msg (f_"Running virt-resize to expand the disk")
-  | Some size ->
-    msg (f_"Running virt-resize to expand the disk to %s")
-      (human_size size)
-  );
-
-  let { Index_parser.expand = expand; lvexpand = lvexpand;
-        format = input_format } =
-    entry in
-  let cmd =
-    sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
-      (if debug then " --verbose" else " --quiet")
-      (if not resize_sparse then " --no-sparse" else "")
-      (match input_format with
-      | None -> ""
-      | Some input_format -> sprintf " --format %s" (quote input_format))
-      (quote format)
-      (match expand with
-      | None -> ""
-      | Some expand -> sprintf " --expand %s" (quote expand))
-      (match lvexpand with
-      | None -> ""
-      | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
-      (quote source) (quote output) in
-  if debug then eprintf "%s\n%!" cmd;
-  let r = Sys.command cmd in
-  if r <> 0 then (
-    eprintf (f_"%s: error: virt-resize failed\n") prog;
-    exit 1
-  )
-
-(* Now mount the output disk so we can make changes. *)
-let g =
+  (* Now mount the output disk so we can make changes. *)
   msg (f_"Opening the new disk");
+  let g =
+    let g = new G.guestfs () in
+    if debug then g#set_trace true;
 
-  let g = new G.guestfs () in
-  if debug then g#set_trace true;
+    g#set_network network;
 
-  g#set_network network;
+    g#add_drive_opts ~format output;
 
-  g#add_drive_opts ~format output;
-
-  (* Attach ISOs, if we have any. *)
-  List.iter (
-    fun (format, file) ->
-      g#add_drive_opts ?format ~readonly:true file;
-  ) attach;
-
-  g#launch ();
-
-  g
-
-(* Inspect the disk and mount it up. *)
-let root =
-  match Array.to_list (g#inspect_os ()) with
-  | [root] ->
-    let mps = g#inspect_get_mountpoints root in
-    let cmp (a,_) (b,_) =
-      compare (String.length a) (String.length b) in
-    let mps = List.sort cmp mps in
+    (* Attach ISOs, if we have any. *)
     List.iter (
-      fun (mp, dev) ->
-        try g#mount dev mp
-        with Guestfs.Error msg -> eprintf (f_"%s: %s (ignored)\n") prog msg
-    ) mps;
-    root
-  | _ ->
-    eprintf (f_"%s: no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.\n") prog;
-    exit 1
+      fun (format, file) ->
+        g#add_drive_opts ?format ~readonly:true file;
+    ) attach;
 
-(* Set the random seed. *)
-let () =
+    g#launch ();
+
+    g in
+
+  (* Inspect the disk and mount it up. *)
+  let root =
+    match Array.to_list (g#inspect_os ()) with
+    | [root] ->
+      let mps = g#inspect_get_mountpoints root in
+      let cmp (a,_) (b,_) =
+        compare (String.length a) (String.length b) in
+      let mps = List.sort cmp mps in
+      List.iter (
+        fun (mp, dev) ->
+          try g#mount dev mp
+          with G.Error msg -> eprintf (f_"%s: %s (ignored)\n") prog msg
+      ) mps;
+      root
+    | _ ->
+      eprintf (f_"%s: no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.\n") prog;
+      exit 1 in
+
+  (* Set the random seed. *)
   msg (f_"Setting a random seed");
   if not (Random_seed.set_random_seed g root) then
-    eprintf (f_"%s: warning: random seed could not be set for this type of guest\n%!") prog
+    eprintf (f_"%s: warning: random seed could not be set for this type of guest\n%!") prog;
 
-(* Set the hostname. *)
-let () =
-  match hostname with
+  (* Set the hostname. *)
+  (match hostname with
   | None -> ()
   | Some hostname ->
     msg (f_"Setting the hostname: %s") hostname;
     if not (Hostname.set_hostname g root hostname) then
       eprintf (f_"%s: warning: hostname could not be set for this type of guest\n%!") prog
+  );
 
-(* Root password.
- * Note 'None' means that we randomize the root password.
- *)
-let () =
-  let make_random_password () =
-    (* Get random characters from the set [A-Za-z0-9] *)
-    let chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" in
-    let nr_chars = String.length chars in
-
-    let chan = open_in "/dev/urandom" in
-    let buf = String.create 16 in
-    for i = 0 to 15 do
-      buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
-    done;
-    close_in chan;
-
-    buf
-  in
-
-  let root_password =
-    match root_password with
-    | Some pw ->
-      msg (f_"Setting root password");
-      pw
-    | None ->
-      let pw = make_random_password () in
-      msg (f_"Random root password: %s [did you mean to use --root-password?]")
-        pw;
-      pw in
-
-  match g#inspect_get_type root with
-  | "linux" ->
-    let h = Hashtbl.create 1 in
-    Hashtbl.replace h "root" root_password;
-    set_linux_passwords ~prog ?password_crypto g root h
-  | _ ->
-    eprintf (f_"%s: warning: root password could not be set for this type of guest\n%!") prog
-
-(* Based on the guest type, choose a log file location. *)
-let logfile =
-  match g#inspect_get_type root with
-  | "windows" | "dos" ->
-    if g#is_dir "/Temp" then "/Temp/builder.log" else "/builder.log"
-  | _ ->
-    if g#is_dir "/tmp" then "/tmp/builder.log" else "/builder.log"
-
-(* Function to cat the log file, for debugging and error messages. *)
-let debug_logfile () =
-  try
-    (* XXX If stderr is redirected this actually truncates the
-     * redirection file, which is pretty annoying to say the
-     * least.
-     *)
-    g#download logfile "/dev/stderr"
-  with exn ->
-    eprintf (f_"%s: log file %s: %s (ignored)\n")
-      prog logfile (Printexc.to_string exn)
-
-(* Useful wrapper for scripts. *)
-let do_run ~display cmd =
-  (* Add a prologue to the scripts:
-   * - Pass environment variables through from the host.
-   * - Send stdout and stderr to a log file so we capture all output
-   *   in error messages.
-   * Also catch errors and dump the log file completely on error.
+  (* Root password.
+   * Note 'None' means that we randomize the root password.
    *)
-  let env_vars =
-    filter_map (
-      fun name ->
-        try Some (sprintf "export %s=%s" name (quote (Sys.getenv name)))
-        with Not_found -> None
-    ) [ "http_proxy"; "https_proxy"; "ftp_proxy" ] in
-  let env_vars = String.concat "\n" env_vars ^ "\n" in
+  let () =
+    let make_random_password () =
+      (* Get random characters from the set [A-Za-z0-9] *)
+      let chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" in
+      let nr_chars = String.length chars in
 
-  let cmd = sprintf "\
+      let chan = open_in "/dev/urandom" in
+      let buf = String.create 16 in
+      for i = 0 to 15 do
+        buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
+      done;
+      close_in chan;
+
+      buf
+    in
+
+    let root_password =
+      match root_password with
+      | Some pw ->
+        msg (f_"Setting root password");
+        pw
+      | None ->
+        let pw = make_random_password () in
+        msg (f_"Random root password: %s [did you mean to use --root-password?]")
+          pw;
+        pw in
+
+    match g#inspect_get_type root with
+    | "linux" ->
+      let h = Hashtbl.create 1 in
+      Hashtbl.replace h "root" root_password;
+      set_linux_passwords ~prog ?password_crypto g root h
+    | _ ->
+      eprintf (f_"%s: warning: root password could not be set for this type of guest\n%!") prog in
+
+  (* Based on the guest type, choose a log file location. *)
+  let logfile =
+    match g#inspect_get_type root with
+    | "windows" | "dos" ->
+      if g#is_dir "/Temp" then "/Temp/builder.log" else "/builder.log"
+    | _ ->
+      if g#is_dir "/tmp" then "/tmp/builder.log" else "/builder.log" in
+
+  (* Function to cat the log file, for debugging and error messages. *)
+  let debug_logfile () =
+    try
+      (* XXX If stderr is redirected this actually truncates the
+       * redirection file, which is pretty annoying to say the
+       * least.
+       *)
+      g#download logfile "/dev/stderr"
+    with exn ->
+      eprintf (f_"%s: log file %s: %s (ignored)\n")
+        prog logfile (Printexc.to_string exn) in
+
+  (* Useful wrapper for scripts. *)
+  let do_run ~display cmd =
+    (* Add a prologue to the scripts:
+     * - Pass environment variables through from the host.
+     * - Send stdout and stderr to a log file so we capture all output
+     *   in error messages.
+     * Also catch errors and dump the log file completely on error.
+     *)
+    let env_vars =
+      filter_map (
+        fun name ->
+          try Some (sprintf "export %s=%s" name (quote (Sys.getenv name)))
+          with Not_found -> None
+      ) [ "http_proxy"; "https_proxy"; "ftp_proxy" ] in
+    let env_vars = String.concat "\n" env_vars ^ "\n" in
+
+    let cmd = sprintf "\
 exec >>%s 2>&1
 %s
 %s
 " (quote logfile) env_vars cmd in
 
-  if debug then eprintf "running command:\n%s\n%!" cmd;
-  try ignore (g#sh cmd)
-  with
-    Guestfs.Error msg ->
-      debug_logfile ();
-      eprintf (f_"%s: %s: command exited with an error\n") prog display;
+    if debug then eprintf "running command:\n%s\n%!" cmd;
+    try ignore (g#sh cmd)
+    with
+      Guestfs.Error msg ->
+        debug_logfile ();
+        eprintf (f_"%s: %s: command exited with an error\n") prog display;
+        exit 1
+  in
+
+  let guest_install_command packages =
+    let quoted_args = String.concat " " (List.map quote packages) in
+    match g#inspect_get_package_management root with
+    | "apt" ->
+      (* http://unix.stackexchange.com/questions/22820 *)
+      sprintf "
+        export DEBIAN_FRONTEND=noninteractive
+        apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
+        apt-get -q -y update
+        apt-get -q -y install %s
+      " quoted_args
+    | "pisi" ->
+      sprintf "pisi it %s" quoted_args
+    | "pacman" ->
+      sprintf "pacman -S %s" quoted_args
+    | "urpmi" ->
+      sprintf "urpmi %s" quoted_args
+    | "yum" ->
+      sprintf "yum -y install %s" quoted_args
+    | "zypper" ->
+      (* XXX Should we use -n option? *)
+      sprintf "zypper in %s" quoted_args
+    | "unknown" ->
+      eprintf (f_"%s: --install is not supported for this guest operating system\n")
+        prog;
       exit 1
+    | pm ->
+      eprintf (f_"%s: sorry, don't know how to use --install with the '%s' package manager\n")
+        prog pm;
+      exit 1
+  in
 
-let guest_install_command packages =
-  let quoted_args = String.concat " " (List.map quote packages) in
-  match g#inspect_get_package_management root with
-  | "apt" ->
-    (* http://unix.stackexchange.com/questions/22820 *)
-    sprintf "
-      export DEBIAN_FRONTEND=noninteractive
-      apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
-      apt-get -q -y update
-      apt-get -q -y install %s
-    " quoted_args
-  | "pisi" ->
-    sprintf "pisi it %s" quoted_args
-  | "pacman" ->
-    sprintf "pacman -S %s" quoted_args
-  | "urpmi" ->
-    sprintf "urpmi %s" quoted_args
-  | "yum" ->
-    sprintf "yum -y install %s" quoted_args
-  | "zypper" ->
-    (* XXX Should we use -n option? *)
-    sprintf "zypper in %s" quoted_args
-  | "unknown" ->
-    eprintf (f_"%s: --install is not supported for this guest operating system\n")
-      prog;
-    exit 1
-  | pm ->
-    eprintf (f_"%s: sorry, don't know how to use --install with the '%s' package manager\n")
-      prog pm;
-    exit 1
-
-(* Install packages. *)
-let () =
+  (* Install packages. *)
   if install <> [] then (
     msg (f_"Installing packages: %s") (String.concat " " install);
 
     let cmd = guest_install_command install in
     do_run ~display:cmd cmd
-  )
+  );
 
-(* Upload files. *)
-let () =
+  (* Upload files. *)
   List.iter (
     fun (file, dest) ->
       msg (f_"Uploading: %s") dest;
       g#upload file dest
-  ) upload
+  ) upload;
 
-(* Edit files. *)
-let () =
+  (* Edit files. *)
   List.iter (
     fun (file, expr) ->
       msg (f_"Editing: %s") file;
@@ -538,48 +536,45 @@ let () =
       );
 
       Perl_edit.edit_file ~debug g file expr
-  ) edit
+  ) edit;
 
-(* Delete files. *)
-let () =
+  (* Delete files. *)
   List.iter (
     fun file ->
       msg (f_"Deleting: %s") file;
       g#rm_rf file
-  ) delete
+  ) delete;
 
-(* Scrub files. *)
-let () =
+  (* Scrub files. *)
   List.iter (
     fun file ->
       msg (f_"Scrubbing: %s") file;
       g#scrub_file file
-  ) scrub
+  ) scrub;
 
-(* Firstboot scripts/commands/install. *)
-let () =
-  let id = ref 0 in
-  List.iter (
-    fun op ->
-      incr id;
-      let id = sprintf "%03d" !id in
-      match op with
-      | `Script script ->
-        msg (f_"Installing firstboot script: [%s] %s") id script;
-        let cmd = read_whole_file script in
-        Firstboot.add_firstboot_script g root id cmd
-      | `Command cmd ->
-        msg (f_"Installing firstboot command: [%s] %s") id cmd;
-        Firstboot.add_firstboot_script g root id cmd
-      | `Packages pkgs ->
-        msg (f_"Installing firstboot packages: [%s] %s") id
-          (String.concat " " pkgs);
-        let cmd = guest_install_command pkgs in
-        Firstboot.add_firstboot_script g root id cmd
-  ) firstboot
+  (* Firstboot scripts/commands/install. *)
+  let () =
+    let id = ref 0 in
+    List.iter (
+      fun op ->
+        incr id;
+        let id = sprintf "%03d" !id in
+        match op with
+        | `Script script ->
+          msg (f_"Installing firstboot script: [%s] %s") id script;
+          let cmd = read_whole_file script in
+          Firstboot.add_firstboot_script g root id cmd
+        | `Command cmd ->
+          msg (f_"Installing firstboot command: [%s] %s") id cmd;
+          Firstboot.add_firstboot_script g root id cmd
+        | `Packages pkgs ->
+          msg (f_"Installing firstboot packages: [%s] %s") id
+            (String.concat " " pkgs);
+          let cmd = guest_install_command pkgs in
+          Firstboot.add_firstboot_script g root id cmd
+    ) firstboot in
 
-(* Run scripts. *)
-let () =
+  (* Run scripts. *)
   List.iter (
     function
     | `Script script ->
@@ -589,14 +584,13 @@ let () =
     | `Command cmd ->
       msg (f_"Running: %s") cmd;
       do_run ~display:cmd cmd
-  ) run
+  ) run;
 
-(* Clean up the log file:
- *
- * If debugging, dump out the log file.
- * Then if asked, scrub the log file.
- *)
-let () =
+  (* Clean up the log file:
+   *
+   * If debugging, dump out the log file.
+   * Then if asked, scrub the log file.
+   *)
   if debug then debug_logfile ();
   if scrub_logfile && g#exists logfile then (
     msg (f_"Scrubbing the log file");
@@ -604,16 +598,16 @@ let () =
     (* Try various methods with decreasing complexity. *)
     try g#scrub_file logfile
     with _ -> g#rm_f logfile
-  )
+  );
 
-(* Collect some stats about the final output file.
- * Notes:
- * - These are virtual disk stats.
- * - Never fail here.
- *)
-let stats =
-  if not quiet then (
-    try
+  (* Collect some stats about the final output file.
+   * Notes:
+   * - These are virtual disk stats.
+   * - Never fail here.
+   *)
+  let stats =
+    if not quiet then (
+      try
       (* Calculate the free space (in bytes) across all mounted
        * filesystems in the guest.
        *)
@@ -640,11 +634,10 @@ let stats =
       )
     with
       _ -> None
-  )
-  else None
+    )
+    else None in
 
-(* Unmount everything and we're done! *)
-let () =
+  (* Unmount everything and we're done! *)
   msg (f_"Finishing off");
 
   (* Kill any daemons (eg. started by newly installed packages) using
@@ -662,19 +655,45 @@ let () =
 
   g#umount_all ();
   g#shutdown ();
-  g#close ()
+  g#close ();
 
-(* Now that we've finished the build, don't delete the output file on
- * exit.
- *)
-let () =
-  delete_output_file := false
+  (* Now that we've finished the build, don't delete the output file on
+   * exit.
+   *)
+  delete_output_file := false;
 
-(* Print the stats calculated above. *)
-let () =
+  (* Print the stats calculated above. *)
   Pervasives.flush Pervasives.stdout;
   Pervasives.flush Pervasives.stderr;
 
   match stats with
   | None -> ()
   | Some stats -> print_string stats
+
+let () =
+  try main ()
+  with
+  | Unix_error (code, fname, "") ->     (* from a syscall *)
+    eprintf (f_"%s: error: %s: %s\n") prog fname (error_message code);
+    exit 1
+  | Unix_error (code, fname, param) ->  (* from a syscall *)
+    eprintf (f_"%s: error: %s: %s: %s\n") prog fname (error_message code) param;
+    exit 1
+  | G.Error msg ->                      (* from libguestfs *)
+    eprintf (f_"%s: libguestfs error: %s\n") prog msg;
+    exit 1
+  | Failure msg ->                      (* from failwith/failwithf *)
+    eprintf (f_"%s: failure: %s\n") prog msg;
+    exit 1
+  | Invalid_argument msg ->             (* probably should never happen *)
+    eprintf (f_"%s: internal error: invalid argument: %s\n") prog msg;
+    exit 1
+  | Assert_failure (file, line, char) -> (* should never happen *)
+    eprintf (f_"%s: internal error: assertion failed at %s, line %d, char %d\n") prog file line char;
+    exit 1
+  | Not_found ->                        (* should never happen *)
+    eprintf (f_"%s: internal error: Not_found exception was thrown\n") prog;
+    exit 1
+  | exn ->                              (* something not matched above *)
+    eprintf (f_"%s: exception: %s\n") prog (Printexc.to_string exn);
+    exit 1
