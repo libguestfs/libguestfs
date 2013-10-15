@@ -92,7 +92,7 @@ let rec install_service (g : Guestfs.guestfs) distro =
    *)
   if g#is_dir "/etc/systemd/system" then
     install_systemd_service g;
-  if g#is_dir "/etc/rc.d" && g#is_dir "/etc/init.d" then
+  if g#is_dir "/etc/rc.d" || g#is_dir "/etc/init.d" then
     install_sysvinit_service g distro
 
 (* Install the systemd firstboot service, if not installed already. *)
