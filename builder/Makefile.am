@@ -23,6 +23,7 @@ EXTRA_DIST = \
 	test-virt-builder.sh \
 	test-virt-builder-list.sh \
 	website/.gitignore \
+	website/test-guest.sh \
 	website/README \
 	website/index \
 	website/index.asc \
