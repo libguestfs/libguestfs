@@ -53,6 +53,7 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 # Alphabetical order.
 SOURCES = \
 	builder.ml \
+	cmdline.ml \
 	downloader.mli \
 	downloader.ml \
 	get_kernel.mli \
@@ -85,6 +86,7 @@ OBJECTS = \
 	index_parser.cmx \
 	list_entries.cmx \
 	perl_edit.cmx \
+	cmdline.cmx \
 	builder.cmx
 
 bin_SCRIPTS = virt-builder
