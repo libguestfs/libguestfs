@@ -53,6 +53,7 @@ builder/virt-builder "$osversion" \
     --run-command 'echo RUN COMMAND 1 >> /run-command.log' \
     --run-command 'echo RUN COMMAND 2 >> /run-command.log' \
     --run-command 'echo RUN COMMAND 3 >> /run-command.log' \
+    --firstboot-command 'useradd -m -p "" rjones ; chage -d 0 rjones' \
     --firstboot-command 'echo FIRSTBOOT COMMAND 1' \
     --firstboot-command 'echo FIRSTBOOT COMMAND 2' \
     --firstboot-command 'echo FIRSTBOOT COMMAND 3' \
@@ -71,14 +72,17 @@ The trace file is here: "$osversion.log"
 
 Checklist:
 
-1: Root password is 123456
-2: Hostname is test.example.com
-3: scrub package is installed
-4: /etc/issue has line numbers
-5: /virt-builder.pod exists and looks reasonable
-6: /run-command.log exists and has 3 lines in correct order
-7: /root/virt-sysprep-firstboot.log exists and has 3 entries in correct order
-8: random-seed file was created or modified
+ 1: Root password is 123456
+ 2: Hostname is test.example.com
+ 3: scrub package is installed
+ 4: /etc/issue has line numbers
+ 5: /virt-builder.pod exists and looks reasonable
+ 6: /run-command.log exists and has 3 lines in correct order
+ 7: /root/virt-sysprep-firstboot.log exists and has 3 entries in correct order
+ 8: rjones account exists, with no password
+ 9: rjones password must be changed at first login
+10: /home/rjones exists and is populated
+11: random-seed file was created or modified
           ========================================
 
 EOF
