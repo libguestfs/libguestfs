@@ -265,6 +265,7 @@ guestfs_inspect_list_applications 1.7.8
 guestfs_inspect_list_applications2 1.19.56
 guestfs_inspect_os 1.5.3
 guestfs_internal_autosync 1.9.7
+guestfs_internal_exit 1.23.30
 guestfs_internal_hot_add_drive 1.19.49
 guestfs_internal_hot_remove_drive 1.19.49
 guestfs_internal_hot_remove_drive_precheck 1.19.49
@@ -278,6 +279,7 @@ guestfs_internal_readlinklist 1.19.32
 guestfs_internal_rhbz914931 1.21.14
 guestfs_internal_set_libvirt_selinux_label 1.21.16
 guestfs_internal_set_libvirt_selinux_norelabel_disks 1.21.16
+guestfs_internal_upload 1.23.30
 guestfs_internal_write 1.19.32
 guestfs_internal_write_append 1.19.32
 guestfs_is_blockdev 1.5.10
@@ -450,6 +452,7 @@ guestfs_mount_ro 1.0.10
 guestfs_mounts 0.8
 guestfs_mount_vfs 1.0.10
 guestfs_mv 1.0.18
+guestfs_network 1.23.28
 guestfs_next_private 1.9.11
 guestfs_noreboot 1.23.15
 guestfs_nr_devices 1.19.15
