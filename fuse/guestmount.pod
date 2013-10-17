@@ -394,7 +394,7 @@ This also stops the daemon from forking into the background
 This configuration file controls the default read-only or read-write
 mode (I<--ro> or I<--rw>).
 
-See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
+See L<libguestfs-tools.conf(5)>.
 
 =back
 
@@ -412,6 +412,7 @@ L<virt-inspector(1)>,
 L<virt-cat(1)>,
 L<virt-edit(1)>,
 L<virt-tar(1)>,
+L<libguestfs-tools.conf(5)>,
 L<guestfs(3)/MOUNT LOCAL>,
 L<http://libguestfs.org/>,
 L<http://fuse.sf.net/>.
