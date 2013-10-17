@@ -17,6 +17,7 @@
 ../fish/guestfish-commands.pod
 ../fish/guestfish-prepopts.pod
 ../fish/guestfish.pod
+../fish/libguestfs-tools.conf.pod
 ../fish/virt-copy-in.pod
 ../fish/virt-copy-out.pod
 ../fish/virt-tar-in.pod

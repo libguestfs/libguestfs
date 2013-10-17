@@ -142,11 +142,13 @@ Makefile.in
 /fish/guestfish-actions.pod
 /fish/guestfish-commands.pod
 /fish/guestfish-prepopts.pod
+/fish/libguestfs-tools.conf.5
 /fish/prepopts.c
 /fish/prepopts.h
 /fish/rc_protocol.c
 /fish/rc_protocol.h
 /fish/stamp-guestfish.pod
+/fish/stamp-libguestfs-tools.conf.pod
 /fish/stamp-virt-copy-in.pod
 /fish/stamp-virt-copy-out.pod
 /fish/stamp-virt-tar-in.pod
@@ -212,6 +214,7 @@ Makefile.in
 /html/guestunmount.1.html
 /html/libguestfs-make-fixed-appliance.1.html
 /html/libguestfs-test-tool.1.html
+/html/libguestfs-tools.conf.5.html
 /html/virt-alignment-scan.1.html
 /html/virt-builder.1.html
 /html/virt-cat.1.html
@@ -340,6 +343,7 @@ Makefile.in
 /pick-guests.pl
 /po-docs/*/*.1
 /po-docs/*/*.3
+/po-docs/*/*.5
 /po-docs/*/*.8
 /po-docs/po4a.conf
 /po-docs/*/*.pod

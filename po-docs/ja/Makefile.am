@@ -23,7 +23,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 LINGUA = $(shell basename -- `pwd`)
 
-CLEANFILES = *.1 *.3 stamp-update-po
+CLEANFILES = *.1 *.3 *.5 stamp-update-po
 
 # Before 1.23.23, the old Perl tools were called *.pl.
 CLEANFILES += *.pl
@@ -50,6 +50,7 @@ MANPAGES = \
 	guestunmount.1 \
 	libguestfs-make-fixed-appliance.1 \
 	libguestfs-test-tool.1 \
+	libguestfs-tools.conf.5 \
 	virt-alignment-scan.1 \
 	virt-builder.1 \
 	virt-cat.1 \
@@ -127,6 +128,13 @@ virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.po
 	  --section 3 \
 	  $<
 
+%.5: %.pod
+	$(PODWRAPPER) \
+	  --no-strict-checks \
+	  --man $@ \
+	  --section 5 \
+	  $<
+
 %.8: %.pod
 	$(PODWRAPPER) \
 	  --no-strict-checks \
@@ -148,3 +156,5 @@ install-data-hook:
 	$(INSTALL) -m 0644 *.1 $(DESTDIR)$(mandir)/$(LINGUA)/man1
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man3
 	$(INSTALL) -m 0644 *.3 $(DESTDIR)$(mandir)/$(LINGUA)/man3
+	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man5
+	$(INSTALL) -m 0644 *.5 $(DESTDIR)$(mandir)/$(LINGUA)/man5

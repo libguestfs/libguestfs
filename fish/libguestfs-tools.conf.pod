@@ -1,0 +1,70 @@
+=encoding utf8
+
+=head1 NAME
+
+/etc/libguestfs-tools.conf - configuration file for guestfish, guestmount, virt-rescue
+
+=head1 SYNOPSIS
+
+ /etc/libguestfs-tools.conf
+
+ $HOME/.libguestfs-tools.rc
+
+=head1 DESCRIPTION
+
+C</etc/libguestfs-tools.conf> or C<$HOME/.libguestfs-tools.rc> changes
+the defaults for the following programs only:
+
+=over 4
+
+=item *
+
+L<guestfish(1)>
+
+=item *
+
+L<guestmount(1)>
+
+=item *
+
+L<virt-rescue(1)>
+
+=back
+
+There is currently only one setting which is controlled by this
+file.  Adding (or uncommenting):
+
+ read_only = true;
+
+changes these programs so they act as if the I<--ro> flag was given on
+the command line.  You can use this to make the programs safe against
+accidental modification of a live guest (users would have to
+explicitly add the I<--rw> flag to modify guests).  This is not the
+default because it is not backwards compatible.
+See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
+
+Note that B<the semicolon is required>.
+
+C</etc/libguestfs-tools.conf> is the global configuration file for all
+of the above programs.  Local users can override the global
+configuration by copying this file into C<.libguestfs-tools.rc> in
+their home directory and modifying it accordingly.
+
+This file is parsed by the libconfig library.  For more information
+about the format, see:
+L<http://www.hyperrealm.com/libconfig/libconfig_manual.html>
+
+=head1 SEE ALSO
+
+L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>,
+L<guestmount(1)>,
+L<virt-rescue(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011-2013 Red Hat Inc.

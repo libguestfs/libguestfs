@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 CLEANFILES = \
 	stamp-guestfish.pod \
+	stamp-libguestfs-tools.conf.pod \
 	stamp-virt-copy-in.pod \
 	stamp-virt-copy-out.pod \
 	stamp-virt-tar-in.pod \
@@ -49,6 +50,7 @@ EXTRA_DIST = \
 	rc_protocol.x \
 	guestfish.pod \
 	libguestfs-tools.conf \
+	libguestfs-tools.conf.pod \
 	virt-copy-in \
 	virt-copy-out \
 	virt-tar-in \
@@ -178,12 +180,14 @@ bin_SCRIPTS = virt-copy-in virt-copy-out virt-tar-in virt-tar-out
 
 man_MANS = \
 	guestfish.1 \
+	libguestfs-tools.conf.5 \
 	virt-copy-in.1 \
 	virt-copy-out.1 \
 	virt-tar-in.1 \
 	virt-tar-out.1
 noinst_DATA = \
 	$(top_builddir)/html/guestfish.1.html \
+	$(top_builddir)/html/libguestfs-tools.conf.5.html \
 	$(top_builddir)/html/virt-copy-in.1.html \
 	$(top_builddir)/html/virt-copy-out.1.html \
 	$(top_builddir)/html/virt-tar-in.1.html \
@@ -198,6 +202,17 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod 
 	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
 	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
 	  --insert $(srcdir)/guestfish-prepopts.pod:__PREPOPTS__ \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+libguestfs-tools.conf.5 $(top_builddir)/html/libguestfs-tools.conf.5.html: stamp-libguestfs-tools.conf.pod
+
+stamp-libguestfs-tools.conf.pod: libguestfs-tools.conf.pod
+	$(PODWRAPPER) \
+	  --section 5 \
+	  --man libguestfs-tools.conf.5 \
+	  --html $(top_builddir)/html/libguestfs-tools.conf.5.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

@@ -1506,7 +1506,7 @@ See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 This configuration file controls the default read-only or read-write
 mode (I<--ro> or I<--rw>).
 
-See L</OPENING DISKS FOR READ AND WRITE>.
+See L<libguestfs-tools.conf(5)>.
 
 =item $HOME/.guestfish
 
@@ -1580,6 +1580,7 @@ L<virt-tar(1)>,
 L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
+L<libguestfs-tools.conf(5)>,
 L<display(1)>,
 L<hexedit(1)>,
 L<supermin-helper(8)>.
