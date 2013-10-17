@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-27 12:02+0100\n"
+"POT-Creation-Date: 2013-10-17 15:18+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -3126,12 +3126,18 @@ msgstr ""
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 
-#: fish/rc.c:262
+#: fish/rc.c:70
+#, c-format
+msgid ""
+"guestfish: '%s' is not a directory or has insecure owner or permissions\n"
+msgstr ""
+
+#: fish/rc.c:297
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: protocol error: 'hello' செய்தியை வாசிக்க முடியவில்லை\n"
 
-#: fish/rc.c:267
+#: fish/rc.c:302
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -3140,18 +3146,18 @@ msgstr ""
 "guestfish: protocol error: பதிப்பு பொருந்தவில்லை, சேவையக பதிப்பு '%s' க்ளையன்ட் "
 "பதிப்பு '%s'உடன் பொருந்தவில்லை.  இந்த இரண்டு பதிப்புகளும் சரியாக பொருந்த வேண்டும்.\n"
 
-#: fish/rc.c:352 fish/rc.c:366
+#: fish/rc.c:387 fish/rc.c:401
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: சேவையகம் இயங்காதது போல் உள்ளது\n"
 
-#: fish/rc.c:378 fish/rc.c:392
+#: fish/rc.c:413 fish/rc.c:427
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol error: துவக்க அழைப்பை சேவையகத்திற்கு அனுப்ப முடியவில்லை\n"
 
-#: fish/rc.c:403
+#: fish/rc.c:438
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: protocol error: சேவையகத்திலிருந்து குறிநீக்க பதில் இல்லை\n"

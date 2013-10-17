@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-27 12:02+0100\n"
+"POT-Creation-Date: 2013-10-17 15:18+0100\n"
 "PO-Revision-Date: 2012-12-11 17:09+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -3128,12 +3128,18 @@ msgstr ""
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 
-#: fish/rc.c:262
+#: fish/rc.c:70
+#, c-format
+msgid ""
+"guestfish: '%s' is not a directory or has insecure owner or permissions\n"
+msgstr ""
+
+#: fish/rc.c:297
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: પ્રોટોકોલ ભૂલ: 'hello' સંદેશને વાંચી શક્યા નહિં\n"
 
-#: fish/rc.c:267
+#: fish/rc.c:302
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -3142,17 +3148,17 @@ msgstr ""
 "guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ ક્લાઇન્ટ આવૃત્તિ "
 "'%s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે બંધબેસતી હોવી જ જોઇએ.\n"
 
-#: fish/rc.c:352 fish/rc.c:366
+#: fish/rc.c:387 fish/rc.c:401
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: દૂરસ્થ: એવુ લાગે છે કે સર્વર ચાલી રહ્યુ નથી\n"
 
-#: fish/rc.c:378 fish/rc.c:392
+#: fish/rc.c:413 fish/rc.c:427
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr "guestfish: પ્રોટોકોલ ભૂલ: સર્વરમાં પ્રારંભિત ગ્રીટિંગ મોકલી શક્યા નથી\n"
 
-#: fish/rc.c:403
+#: fish/rc.c:438
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: પ્રોટોકોલ ભૂલ: સર્વર માંથી જવાબને ડિકોડ કરી શક્યા નહિં\n"
