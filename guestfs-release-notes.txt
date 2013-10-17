@@ -20,9 +20,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
 
   Tools
 
-    virt-builder(1) is a new tool for rapidly building virtual machine
-    images. It is far more secure than other approaches, and allows
-    flexible configuration of the images.
+    virt-builder(1) is a new tool for building virtual machine images. It
+    lets you rapidly and securely create guests and customize them.
 
     New virt-sysprep(1) operations: Remove files in /tmp and /var/tmp.
     Remove RPM database files. Change root and user passwords. More log
@@ -43,6 +42,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
     virt-format(1) and virt-make-fs(1): new --label option for setting
     filesystem label.
 
+    virt-resize --no-sparse flag can be used to resize on to partitions and
+    other targets that are not zeroed.
+
   Language bindings
 
     New bindings for the Go programming language.
@@ -57,6 +59,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
 
     guestfs_set_label now works for XFS and btrfs.
 
+    New GUESTFS_EVENT_WARNING event for warning messages.
+
   Inspection
 
     Better inspection of SUSE guests (Olaf Hering).
@@ -65,8 +69,6 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
 
     Enhanced error reporting for Augeas errors.
 
-  Other
-
  Security
 
     CVE-2013-2124
@@ -74,6 +76,13 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
       https://bugzilla.redhat.com/show_bug.cgi?id=968306
 
       A denial of service was possible when inspecting certain guests. The
+      fix has been backported to 1.20 and 1.22 branches.
+
+    CVE-2013-4419
+
+      https://www.redhat.com/archives/libguestfs/2013-October/msg00031.html
+
+      Fix insecure temporary directory handling for remote guestfish. The
       fix has been backported to 1.20 and 1.22 branches.
 
  New APIs
@@ -139,6 +148,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
 
     Additional tests for Augeas, hivex.
 
+    Add a launch timeout of 20 minutes waiting for the appliance to start
+    up.
+
     Add a timeout (4 hours) to all tests so we can catch the case where
     qemu or other components hang.
 
@@ -153,7 +165,18 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
     Backends have been refactored to be modular (although they are not
     actually loadable modules).
 
+    When enabled, the network now uses resolver configuration (ie.
+    /etc/resolv.conf) from the host.
+
  Bugs fixed
+
+    https://bugzilla.redhat.com/1019889
+
+      libguestfs-tools.conf should have a man page
+
+    https://bugzilla.redhat.com/1018149
+
+      valgrind errors in btrfs_subvolume_list
 
     https://bugzilla.redhat.com/1002032
 
@@ -269,6 +292,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.24
     https://bugzilla.redhat.com/968875
 
       virt-sysprep should support URL-type arguments
+
+    https://bugzilla.redhat.com/624334
+
+      blockdev-setbsz succeeds, but does not affect blockdev-getbsz
 
 RELEASE NOTES FOR LIBGUESTFS 1.22
 

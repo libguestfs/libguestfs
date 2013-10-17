@@ -6,19 +6,12 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
-NOTE!  Pre-release notes for the next stable version of libguestfs.
-Updated to commit d6f87fe6be5e09c0c462f92455171581a7120000
-
-=end comment
-
-=begin html
-
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
 </script>
 
-=end html
+=end comment
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.24
 
@@ -38,9 +31,8 @@ ARM (32 bit) and PPC64 are now fully supported.
 
 =head3 Tools
 
-L<virt-builder(1)> is a new tool for rapidly building virtual machine
-images.  It is far more secure than other approaches, and allows
-flexible configuration of the images.
+L<virt-builder(1)> is a new tool for building virtual machine images.
+It lets you rapidly and securely create guests and customize them.
 
 New L<virt-sysprep(1)> operations:
 Remove files in C</tmp> and C</var/tmp>.
@@ -65,6 +57,9 @@ way through.
 L<virt-format(1)> and L<virt-make-fs(1)>: new I<--label> option for
 setting filesystem label.
 
+virt-resize I<--no-sparse> flag can be used to resize on to partitions
+and other targets that are not zeroed.
+
 =head3 Language bindings
 
 New bindings for the Go programming language.
@@ -79,6 +74,8 @@ performance for temporary drives, or safety.
 
 C<guestfs_set_label> now works for XFS and btrfs.
 
+New GUESTFS_EVENT_WARNING event for warning messages.
+
 =head3 Inspection
 
 Better inspection of SUSE guests (Olaf Hering).
@@ -86,8 +83,6 @@ Better inspection of SUSE guests (Olaf Hering).
 Better support for non-standard Windows %systemroot% (Matthew Booth).
 
 Enhanced error reporting for Augeas errors.
-
-=head3 Other
 
 =head2 Security
 
@@ -98,6 +93,13 @@ Enhanced error reporting for Augeas errors.
 L<https://bugzilla.redhat.com/show_bug.cgi?id=968306>
 
 A denial of service was possible when inspecting certain guests.  The
+fix has been backported to 1.20 and 1.22 branches.
+
+=item CVE-2013-4419
+
+L<https://www.redhat.com/archives/libguestfs/2013-October/msg00031.html>
+
+Fix insecure temporary directory handling for remote guestfish.  The
 fix has been backported to 1.20 and 1.22 branches.
 
 =back
@@ -173,6 +175,9 @@ directory.  This reduces the overhead of builds considerably.
 
 Additional tests for Augeas, hivex.
 
+Add a launch timeout of 20 minutes waiting for the appliance to start
+up.
+
 Add a timeout (4 hours) to all tests so we can catch the case where
 qemu or other components hang.
 
@@ -187,6 +192,9 @@ is now feasible for developers to keep this flag enabled at all times.
 Backends have been refactored to be modular (although they are not
 actually loadable modules).
 
+When enabled, the network now uses resolver configuration
+(ie. /etc/resolv.conf) from the host.
+
 =head2 Bugs fixed
 
 =begin comment
@@ -196,6 +204,14 @@ actually loadable modules).
 =end comment
 
 =over 4
+
+=item L<https://bugzilla.redhat.com/1019889>
+
+libguestfs-tools.conf should have a man page
+
+=item L<https://bugzilla.redhat.com/1018149>
+
+valgrind errors in btrfs_subvolume_list
 
 =item L<https://bugzilla.redhat.com/1002032>
 
@@ -300,6 +316,10 @@ upload to a directory occasionally hangs instead of failing
 =item L<https://bugzilla.redhat.com/968875>
 
 virt-sysprep should support URL-type arguments
+
+=item L<https://bugzilla.redhat.com/624334>
+
+blockdev-setbsz succeeds, but does not affect blockdev-getbsz
 
 =back
 
