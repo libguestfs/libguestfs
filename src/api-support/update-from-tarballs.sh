@@ -27,7 +27,7 @@ cd src/api-support
 
 tmpdir=$(mktemp -d)
 
-website=$HOME/d/redhat/websites/libguestfs
+website=$HOME/d/websites/libguestfs
 tarballs="$website/download/1.*-*/libguestfs-*.tar.gz"
 
 for t in $tarballs; do
