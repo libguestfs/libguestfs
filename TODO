@@ -560,7 +560,10 @@ virt-builder
 
  - how can we give users a shell?
 
- - Ubuntu templates
+ - parallel xzcat would make it much faster
+
+ - should be able to specify multiple sources, and that would let
+   distros create their own virt-builder sources
 
  - more common code between virt-sysprep & virt-builder:
 
