@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-08-27 11:52+0100\n"
+"POT-Creation-Date: 2013-10-17 13:27+0100\n"
 "PO-Revision-Date: 2013-05-21 13:13+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -20,10 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: align/scan.c:73 cat/virt-cat.c:56 cat/virt-filesystems.c:87
-#: cat/virt-ls.c:89 df/main.c:66 edit/virt-edit.c:69 fish/fish.c:104
-#: fuse/guestmount.c:99 fuse/guestunmount.c:52 inspector/virt-inspector.c:67
-#: rescue/virt-rescue.c:56
+#: align/scan.c:73 cat/cat.c:56 cat/filesystems.c:87 cat/ls.c:89 df/main.c:66
+#: edit/edit.c:69 fish/fish.c:104 fuse/guestmount.c:99 fuse/guestunmount.c:52
+#: inspector/inspector.c:67 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Try `%s --help' for more information.\n"
@@ -50,18 +49,17 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:134 cat/virt-cat.c:115 cat/virt-filesystems.c:188
-#: cat/virt-ls.c:180 df/main.c:133 edit/virt-edit.c:134 fish/fish.c:233
-#: format/format.c:126 fuse/guestmount.c:207 inspector/virt-inspector.c:127
-#: rescue/virt-rescue.c:135
+#: align/scan.c:134 cat/cat.c:115 cat/filesystems.c:188 cat/ls.c:180
+#: df/main.c:133 edit/edit.c:135 fish/fish.c:233 format/format.c:126
+#: fuse/guestmount.c:207 inspector/inspector.c:127 rescue/rescue.c:135
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: failed to create handle\n"
 
-#: align/scan.c:154 cat/virt-cat.c:137 cat/virt-filesystems.c:242
-#: cat/virt-ls.c:230 df/main.c:157 edit/virt-edit.c:156 fish/fish.c:289
-#: format/format.c:178 fuse/guestmount.c:242 fuse/guestunmount.c:124
-#: inspector/virt-inspector.c:151 rescue/virt-rescue.c:192
+#: align/scan.c:154 cat/cat.c:137 cat/filesystems.c:242 cat/ls.c:230
+#: df/main.c:157 edit/edit.c:157 fish/fish.c:289 format/format.c:178
+#: fuse/guestmount.c:242 fuse/guestunmount.c:124 inspector/inspector.c:151
+#: rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
@@ -89,7 +87,7 @@ msgstr ""
 msgid "alignment < 64K"
 msgstr ""
 
-#: cat/virt-cat.c:60
+#: cat/cat.c:60
 #, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -128,17 +126,17 @@ msgstr ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 
-#: cat/virt-cat.c:357 edit/virt-edit.c:625 fish/fish.c:1703
+#: cat/cat.c:357 edit/edit.c:626 fish/fish.c:1703
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: cat/virt-cat.c:371 edit/virt-edit.c:639
+#: cat/cat.c:371 edit/edit.c:640
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr ""
 
-#: cat/virt-filesystems.c:91
+#: cat/filesystems.c:91
 #, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -211,12 +209,12 @@ msgstr ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 
-#: cat/virt-filesystems.c:304 cat/virt-ls.c:338 df/main.c:262
+#: cat/filesystems.c:304 cat/ls.c:338 df/main.c:262
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: you cannot use -h and --csv options together.\n"
 
-#: cat/virt-ls.c:93
+#: cat/ls.c:93
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -249,19 +247,19 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/virt-ls.c:329
+#: cat/ls.c:329
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
 "For more information, read the virt-ls(1) man page.\n"
 msgstr ""
 
-#: cat/virt-ls.c:509
+#: cat/ls.c:509
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr ""
 
-#: cat/virt-ls.c:519
+#: cat/ls.c:519
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
@@ -361,7 +359,7 @@ msgstr "IFree"
 msgid "IUse%"
 msgstr "IUse%"
 
-#: edit/virt-edit.c:73
+#: edit/edit.c:73
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
@@ -385,12 +383,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/virt-edit.c:168
+#: edit/edit.c:169
 #, c-format
 msgid "%s: -b option given multiple times\n"
 msgstr ""
 
-#: edit/virt-edit.c:185
+#: edit/edit.c:186
 #, c-format
 msgid "%s: -e option given multiple times\n"
 msgstr ""
@@ -3215,29 +3213,35 @@ msgstr ""
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 
-#: fish/rc.c:262
+#: fish/rc.c:70
+#, c-format
+msgid ""
+"guestfish: '%s' is not a directory or has insecure owner or permissions\n"
+msgstr ""
+
+#: fish/rc.c:297
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 
-#: fish/rc.c:267
+#: fish/rc.c:302
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
 
-#: fish/rc.c:352 fish/rc.c:366
+#: fish/rc.c:387 fish/rc.c:401
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr ""
 
-#: fish/rc.c:378 fish/rc.c:392
+#: fish/rc.c:413 fish/rc.c:427
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 
-#: fish/rc.c:403
+#: fish/rc.c:438
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -3452,7 +3456,7 @@ msgstr ""
 msgid "%s: %s is not mounted: %s\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:71
+#: inspector/inspector.c:71
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -3475,12 +3479,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:242
+#: inspector/inspector.c:242
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:276
+#: inspector/inspector.c:276
 #, c-format
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
@@ -3497,57 +3501,57 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:291
+#: inspector/inspector.c:291
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:303
+#: inspector/inspector.c:303
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:312
+#: inspector/inspector.c:312
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:769
+#: inspector/inspector.c:769
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:775
+#: inspector/inspector.c:775
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:782
+#: inspector/inspector.c:782
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:795
+#: inspector/inspector.c:795
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:802
+#: inspector/inspector.c:802
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:807
+#: inspector/inspector.c:807
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/virt-inspector.c:814
+#: inspector/inspector.c:814
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:60
+#: rescue/rescue.c:60
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -3576,46 +3580,46 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:161
+#: rescue/rescue.c:161
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:166
+#: rescue/rescue.c:166
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:179
+#: rescue/rescue.c:179
 #, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:185
+#: rescue/rescue.c:185
 #, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:212
+#: rescue/rescue.c:212
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:317
+#: rescue/rescue.c:317
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
 "at the moment.  As a workaround, forcing backend = 'direct'.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:401
+#: rescue/rescue.c:401
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:420
+#: rescue/rescue.c:420
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -3623,7 +3627,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:430
+#: rescue/rescue.c:430
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -3632,7 +3636,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:487
+#: rescue/rescue.c:487
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -3642,7 +3646,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:494
+#: rescue/rescue.c:494
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -3651,7 +3655,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/virt-rescue.c:499
+#: rescue/rescue.c:499
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
@@ -3895,29 +3899,29 @@ msgstr ""
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:886
+#: src/drives.c:885
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:986
+#: src/drives.c:984
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:1004 src/drives.c:1123
+#: src/drives.c:1002 src/drives.c:1121
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1010
+#: src/drives.c:1008
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1078
+#: src/drives.c:1076
 msgid ""
 "filename cannot contain ':' (colon) character. This is a limitation of qemu."
 msgstr ""
 
-#: src/drives.c:1108
+#: src/drives.c:1106
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -4113,7 +4117,7 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect-icon.c:606
+#: src/inspect-icon.c:631
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
@@ -4151,7 +4155,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-direct.c:651 src/launch-libvirt.c:448
+#: src/launch-direct.c:652 src/launch-libvirt.c:448
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -4793,21 +4797,21 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 
-#: ../resize/resize.ml:818
+#: ../resize/resize.ml:819
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:803 ../resize/resize.ml:784
+#: ../resize/resize.ml:804 ../resize/resize.ml:785
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:820
+#: ../resize/resize.ml:821
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:822
+#: ../resize/resize.ml:823
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -4829,7 +4833,7 @@ msgstr ""
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
-#: ../resize/resize.ml:609
+#: ../resize/resize.ml:610
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -4838,11 +4842,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:800
+#: ../resize/resize.ml:801
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: ../resize/resize.ml:605
+#: ../resize/resize.ml:606
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -4851,7 +4855,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:601
+#: ../resize/resize.ml:602
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -4860,7 +4864,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:598
+#: ../resize/resize.ml:599
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -4868,21 +4872,21 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:777
+#: ../resize/resize.ml:778
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:779
+#: ../resize/resize.ml:780
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:775
+#: ../resize/resize.ml:776
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:781
+#: ../resize/resize.ml:782
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
@@ -4890,22 +4894,22 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../resize/resize.ml:273 ../resize/resize.ml:270
+#: ../resize/resize.ml:274 ../resize/resize.ml:271
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: ../resize/resize.ml:757
+#: ../resize/resize.ml:758
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:627
+#: ../resize/resize.ml:628
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:636
+#: ../resize/resize.ml:637
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
@@ -4913,30 +4917,30 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
-#: ../resize/resize.ml:547
+#: ../resize/resize.ml:548
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:543
+#: ../resize/resize.ml:544
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:539
+#: ../resize/resize.ml:540
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:426
+#: ../resize/resize.ml:427
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:421
+#: ../resize/resize.ml:422
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:351
+#: ../resize/resize.ml:352
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
@@ -4952,7 +4956,7 @@ msgid ""
 "read the man page virt-sysprep(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:117
+#: ../resize/resize.ml:118
 msgid ""
 "%s: resize a virtual machine disk\n"
 "\n"
@@ -4960,7 +4964,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:81
+#: ../sparsify/sparsify.ml:82
 msgid ""
 "%s: sparsify a virtual machine disk\n"
 "\n"
@@ -4970,19 +4974,19 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:583
+#: ../resize/resize.ml:584
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:579
+#: ../resize/resize.ml:580
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:436
+#: ../resize/resize.ml:437
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: ../resize/resize.ml:287
+#: ../resize/resize.ml:288
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -5000,7 +5004,7 @@ msgstr ""
 msgid "%s: you must give either -a or -d options\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:214
+#: ../sparsify/sparsify.ml:225
 msgid ""
 "--compress cannot be used for raw output.  Remove this option or use --"
 "convert qcow2."
@@ -5018,7 +5022,7 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:67
+#: ../sparsify/sparsify.ml:68
 msgid "Add qemu-img options"
 msgstr ""
 
@@ -5026,7 +5030,7 @@ msgstr ""
 msgid "Add scripts to run once at next boot"
 msgstr ""
 
-#: ../resize/resize.ml:82
+#: ../resize/resize.ml:83
 msgid "Align first partition (default: auto)"
 msgstr ""
 
@@ -5043,29 +5047,29 @@ msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:317
+#: ../sparsify/sparsify.ml:330
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:60
+#: ../sparsify/sparsify.ml:61
 msgid "Compressed output format"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:371
+#: ../sparsify/sparsify.ml:389
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1067
+#: ../resize/resize.ml:1068
 msgid ""
 "Copying %s ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:218
+#: ../sparsify/sparsify.ml:229
 msgid ""
 "Create overlay file to protect source disk ...\n"
 "%!"
@@ -5102,7 +5106,7 @@ msgid ""
 "locations won't have the ssh files removed."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:62 ../resize/resize.ml:87
+#: ../sparsify/sparsify.ml:63 ../resize/resize.ml:88
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -5110,28 +5114,28 @@ msgstr ""
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: ../resize/resize.ml:88
+#: ../resize/resize.ml:89
 msgid "Delete partition"
 msgstr ""
 
-#. ../resize/resize.ml:110
-#: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:72
+#. ../resize/resize.ml:111
+#: ../sysprep/main.ml:125 ../sysprep/main.ml:124 ../sparsify/sparsify.ml:73
 msgid "Display version and exit"
 msgstr ""
 
-#: ../resize/resize.ml:84
+#: ../resize/resize.ml:85
 msgid "Don't copy boot loader"
 msgstr ""
 
-#: ../resize/resize.ml:91
+#: ../resize/resize.ml:92
 msgid "Don't create extra partition"
 msgstr ""
 
-#: ../resize/resize.ml:90
+#: ../resize/resize.ml:91
 msgid "Don't expand content"
 msgstr ""
 
-#: ../resize/resize.ml:100
+#: ../resize/resize.ml:101
 msgid "Don't perform changes"
 msgstr ""
 
@@ -5139,7 +5143,7 @@ msgstr ""
 msgid "Don't print log messages"
 msgstr ""
 
-#: ../resize/resize.ml:105
+#: ../resize/resize.ml:106
 msgid "Don't print the summary"
 msgstr ""
 
@@ -5151,8 +5155,8 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#. ../resize/resize.ml:85
-#: ../sysprep/main.ml:123 ../sysprep/main.ml:122 ../sparsify/sparsify.ml:70
+#. ../resize/resize.ml:86
+#: ../sysprep/main.ml:123 ../sysprep/main.ml:122 ../sparsify/sparsify.ml:71
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -5160,17 +5164,17 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../sysprep/main.ml:126 ../sparsify/sparsify.ml:74
+#: ../sysprep/main.ml:126 ../sparsify/sparsify.ml:75
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:254
+#: ../sparsify/sparsify.ml:259
 msgid ""
 "Examine source disk ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:232
+#: ../resize/resize.ml:233
 msgid ""
 "Examining %s ...\n"
 "%!"
@@ -5182,27 +5186,27 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:95
+#: ../resize/resize.ml:96
 msgid "Expand logical volume"
 msgstr ""
 
-#: ../resize/resize.ml:89
+#: ../resize/resize.ml:90
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1214
+#: ../resize/resize.ml:1215
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1197
+#: ../resize/resize.ml:1198
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:877
+#: ../resize/resize.ml:878
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -5210,19 +5214,19 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:301
+#: ../sparsify/sparsify.ml:314
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:352
+#: ../sparsify/sparsify.ml:365
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1123
+#: ../resize/resize.ml:1124
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -5243,23 +5247,23 @@ msgstr ""
 msgid "Force SELinux relabel"
 msgstr ""
 
-#: ../resize/resize.ml:103
+#: ../resize/resize.ml:104
 msgid "Force ntfsresize"
 msgstr ""
 
-#: ../resize/resize.ml:108
+#: ../resize/resize.ml:109
 msgid "Forcefully resize partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:63 ../resize/resize.ml:92
+#: ../sparsify/sparsify.ml:64 ../resize/resize.ml:93
 msgid "Format of input disk"
 msgstr ""
 
-#: ../resize/resize.ml:104
+#: ../resize/resize.ml:105
 msgid "Format of output disk"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:61
+#: ../sparsify/sparsify.ml:62
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
@@ -5273,15 +5277,15 @@ msgid ""
 "complete output."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:64
+#: ../sparsify/sparsify.ml:65
 msgid "Ignore filesystem"
 msgstr ""
 
-#: ../resize/resize.ml:93
+#: ../resize/resize.ml:94
 msgid "Ignore partition"
 msgstr ""
 
-#: ../sysprep/main.ml:117 ../sparsify/sparsify.ml:65 ../resize/resize.ml:94
+#: ../sysprep/main.ml:117 ../sparsify/sparsify.ml:66 ../resize/resize.ml:95
 msgid "List long options"
 msgstr ""
 
@@ -5289,7 +5293,7 @@ msgstr ""
 msgid "List supported operations"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:66 ../resize/resize.ml:99
+#: ../sparsify/sparsify.ml:67 ../resize/resize.ml:100
 msgid "Make output machine readable"
 msgstr ""
 
@@ -5333,7 +5337,7 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:68
+#: ../sparsify/sparsify.ml:69
 msgid "Quiet output"
 msgstr ""
 
@@ -5391,7 +5395,7 @@ msgstr ""
 msgid "Remove many log files from the guest"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_package_manager_cache.ml:43
+#: ../sysprep/sysprep_operation_package_manager_cache.ml:44
 msgid "Remove package manager cache"
 msgstr ""
 
@@ -5496,13 +5500,13 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../resize/resize.ml:1234
+#: ../resize/resize.ml:1235
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
 msgstr ""
 
-#: ../resize/resize.ml:107
+#: ../resize/resize.ml:108
 msgid "Resize partition"
 msgstr ""
 
@@ -5542,21 +5546,21 @@ msgstr ""
 msgid "Set libvirt guest name"
 msgstr ""
 
-#: ../resize/resize.ml:83
+#: ../resize/resize.ml:84
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../resize/resize.ml:856
+#: ../resize/resize.ml:857
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:109
+#: ../resize/resize.ml:110
 msgid "Shrink partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:390
+#: ../sparsify/sparsify.ml:408
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -5641,13 +5645,13 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../resize/resize.ml:741
+#: ../resize/resize.ml:742
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../resize/resize.ml:815
+#: ../resize/resize.ml:816
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -5675,13 +5679,13 @@ msgid ""
 "See L</RANDOM SEED> below."
 msgstr ""
 
-#: ../resize/resize.ml:712
+#: ../resize/resize.ml:713
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:724
+#: ../resize/resize.ml:725
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -5693,25 +5697,25 @@ msgid ""
 "original UUID has been erased."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:75
+#: ../sparsify/sparsify.ml:76
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:291
+#: ../sparsify/sparsify.ml:304
 msgid ""
 "Zeroing %s ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:154
+#: ../resize/resize.ml:155
 msgid "alignment cannot be < 1"
 msgstr ""
 
-#: ../resize/resize.ml:492
+#: ../resize/resize.ml:493
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:208
+#: ../sparsify/sparsify.ml:219
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
@@ -5727,15 +5731,15 @@ msgstr ""
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:174
+#: ../sparsify/sparsify.ml:185
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:176
+#: ../sparsify/sparsify.ml:187
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:384 ../sparsify/sparsify.ml:248
+#: ../sparsify/sparsify.ml:402 ../sparsify/sparsify.ml:253
 msgid "external command failed: %s"
 msgstr ""
 
@@ -5747,18 +5751,18 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../sysprep/firstboot.ml:78
+#: ../sysprep/firstboot.ml:81
 msgid "firstboot: failed: "
 msgstr ""
 
-#. ../resize/resize.ml:104
-#. ../resize/resize.ml:92
-#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:63
-#: ../sparsify/sparsify.ml:61
+#. ../resize/resize.ml:105
+#. ../resize/resize.ml:93
+#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:64
+#: ../sparsify/sparsify.ml:62
 msgid "format"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:75 ../sparsify/sparsify.ml:64
+#: ../sparsify/sparsify.ml:76 ../sparsify/sparsify.ml:65
 msgid "fs"
 msgstr ""
 
@@ -5766,22 +5770,22 @@ msgstr ""
 msgid "hostname"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:149
+#: ../sparsify/sparsify.ml:150
 msgid ""
 "input filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
 msgstr ""
 
-#. ../resize/resize.ml:95
-#: ../resize/resize.ml:98 ../resize/resize.ml:97 ../resize/resize.ml:96
+#. ../resize/resize.ml:96
+#: ../resize/resize.ml:99 ../resize/resize.ml:98 ../resize/resize.ml:97
 msgid "lv"
 msgstr ""
 
-#: ../resize/resize.ml:82
+#: ../resize/resize.ml:83
 msgid "never|always|auto"
 msgstr ""
 
-#: ../resize/resize.ml:491
+#: ../resize/resize.ml:492
 msgid "ntfsresize"
 msgstr ""
 
@@ -5789,44 +5793,44 @@ msgstr ""
 msgid "operations"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:67
+#: ../sparsify/sparsify.ml:68
 msgid "option"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:152
+#: ../sparsify/sparsify.ml:153
 msgid ""
 "output filename '%s' contains a colon (':'); qemu-img command line syntax "
 "prevents us from using such an image"
 msgstr ""
 
-#. ../resize/resize.ml:88
-#: ../resize/resize.ml:109 ../resize/resize.ml:93 ../resize/resize.ml:89
+#. ../resize/resize.ml:89
+#: ../resize/resize.ml:110 ../resize/resize.ml:94 ../resize/resize.ml:90
 msgid "part"
 msgstr ""
 
-#: ../resize/resize.ml:108 ../resize/resize.ml:107
+#: ../resize/resize.ml:109 ../resize/resize.ml:108
 msgid "part=size"
 msgstr ""
 
-#: ../resize/resize.ml:914 ../resize/resize.ml:890
+#: ../resize/resize.ml:915 ../resize/resize.ml:891
 msgid "pread-device: short read"
 msgstr ""
 
-#: ../resize/resize.ml:489
+#: ../resize/resize.ml:490
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:326
+#: ../sparsify/sparsify.ml:339
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:193
+#: ../sparsify/sparsify.ml:204
 msgid ""
 "qemu-img version %g\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:490
+#: ../resize/resize.ml:491
 msgid "resize2fs"
 msgstr ""
 
@@ -5843,7 +5847,7 @@ msgstr ""
 msgid "script failed"
 msgstr ""
 
-#: ../resize/resize.ml:83
+#: ../resize/resize.ml:84
 msgid "sectors"
 msgstr ""
 
@@ -5870,11 +5874,11 @@ msgstr ""
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:376
+#: ../resize/resize.ml:377
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../resize/resize.ml:163
+#: ../resize/resize.ml:164
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
@@ -5882,7 +5886,7 @@ msgstr ""
 msgid "uri"
 msgstr ""
 
-#: ../resize/resize.ml:192
+#: ../resize/resize.ml:193
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
@@ -5942,7 +5946,7 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:187
+#: ../sparsify/sparsify.ml:198
 msgid ""
 "warning: failed to read qemu-img version\n"
 "  line: %S\n"
@@ -5950,17 +5954,17 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1120
+#: ../resize/resize.ml:1121
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:700
+#: ../resize/resize.ml:701
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:133 ../resize/resize.ml:198
+#: ../sparsify/sparsify.ml:134 ../resize/resize.ml:199
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
