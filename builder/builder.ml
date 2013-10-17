@@ -265,8 +265,10 @@ let main () =
 
       msg (f_"Creating disk image: %s") output;
       let cmd =
-        sprintf "qemu-img create -f %s %s %Ld%s"
-          (quote format) (quote output) size
+        sprintf "qemu-img create -f %s%s %s %Ld%s"
+          (quote format)
+          (if format = "qcow2" then " -o preallocation=metadata" else "")
+          (quote output) size
           (if debug then "" else " >/dev/null 2>&1") in
       let r = Sys.command cmd in
       if r <> 0 then (

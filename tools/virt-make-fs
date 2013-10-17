@@ -430,7 +430,10 @@ $size = int ($size);
 # Use qemu-img so we can control the output format, but capture any
 # output temporarily and only display it if the command fails.
 
-my @cmd = ("qemu-img", "create", "-f", $format, $output, $size);
+my @options = ();
+@options = ("-o", "preallocation=metadata") if $format eq "qcow2";
+
+my @cmd = ("qemu-img", "create", "-f", $format, @options, $output, $size);
 if ($debug) {
     print STDERR ("running: ", join (" ", @cmd), "\n");
 }

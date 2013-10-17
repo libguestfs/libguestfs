@@ -44,7 +44,7 @@ open FILE, ">test-hot-add-2.img" or die "test-hot-add-2.img: $!";
 truncate FILE, 512 * 1024 * 1024 or die "test-hot-add-2.img: truncate: $!";
 close FILE;
 
-die unless system ("qemu-img create -f qcow2 test-hot-add-3.img 1G") == 0;
+die unless system ("qemu-img create -f qcow2 -o preallocation=metadata test-hot-add-3.img 1G") == 0;
 
 # Hot-add them.  Labels are required.
 $g->add_drive ("test-hot-add-1.img", label => "a"); # autodetect format
