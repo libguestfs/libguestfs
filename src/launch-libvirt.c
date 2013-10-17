@@ -96,13 +96,16 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
+#define DOMAIN_NAME_LEN (8+16+1) /* "guestfs-" + random + \0 */
+
 /* Per-handle data. */
 struct backend_libvirt_data {
-  virConnectPtr conn;         /* libvirt connection */
-  virDomainPtr dom;           /* libvirt domain */
+  virConnectPtr conn;           /* libvirt connection */
+  virDomainPtr dom;             /* libvirt domain */
   char *selinux_label;
   char *selinux_imagelabel;
   bool selinux_norelabel_disks;
+  char name[DOMAIN_NAME_LEN];   /* random name */
 };
 
 /* Pointed to by 'struct drive *' -> priv field. */
@@ -199,6 +202,16 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   guestfs___launch_send_progress (g, 0);
   TRACE0 (launch_libvirt_start);
+
+  /* Create a random name for the guest. */
+  memcpy (data->name, "guestfs-", 8);
+  const size_t random_name_len =
+    DOMAIN_NAME_LEN - 8 /* "guestfs-" */ - 1 /* \0 */;
+  if (guestfs___random_string (&data->name[8], random_name_len) == -1) {
+    perrorf (g, "guestfs___random_string");
+    return -1;
+  }
+  debug (g, "guest random name = %s", data->name);
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "connect to libvirt");
@@ -797,25 +810,13 @@ construct_libvirt_xml_domain (guestfs_h *g,
   return 0;
 }
 
-/* Construct a securely random name.  We don't need to save the name
- * because if we ever needed it, it's available from libvirt.
- */
-#define DOMAIN_NAME_LEN 16
-
 static int
 construct_libvirt_xml_name (guestfs_h *g,
                             const struct libvirt_xml_params *params,
                             xmlTextWriterPtr xo)
 {
-  char name[DOMAIN_NAME_LEN+1];
-
-  if (guestfs___random_string (name, DOMAIN_NAME_LEN) == -1) {
-    perrorf (g, "guestfs___random_string");
-    return -1;
-  }
-
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "name"));
-  XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "guestfs-%s", name));
+  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST params->data->name));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   return 0;
@@ -1696,6 +1697,8 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
 
   if (dom != NULL) {
     flags = check_for_errors ? VIR_DOMAIN_DESTROY_GRACEFUL : 0;
+    debug (g, "calling virDomainDestroy \"%s\" flags=%s",
+           data->name, check_for_errors ? "VIR_DOMAIN_DESTROY_GRACEFUL" : "0");
     if (virDomainDestroyFlags (dom, flags) == -1) {
       libvirt_error (g, _("could not destroy libvirt domain"));
       ret = -1;
