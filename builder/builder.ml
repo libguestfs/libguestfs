@@ -345,7 +345,8 @@ let main () =
 
     g#set_network network;
 
-    g#add_drive_opts ~format output;
+    (* The output disk is being created, so use cache=unsafe here. *)
+    g#add_drive_opts ~format ~cachemode:"unsafe" output;
 
     (* Attach ISOs, if we have any. *)
     List.iter (
@@ -659,6 +660,14 @@ exec >>%s 2>&1
   g#umount_all ();
   g#shutdown ();
   g#close ();
+
+  (* Because we used cache=unsafe when writing the output file, the
+   * file might not be committed to disk.  This is a problem if qemu is
+   * immediately used afterwards with cache=none (which uses O_DIRECT
+   * and therefore bypasses the host cache).  In general you should not
+   * use cache=none.
+   *)
+  Fsync.file output;
 
   (* Now that we've finished the build, don't delete the output file on
    * exit.

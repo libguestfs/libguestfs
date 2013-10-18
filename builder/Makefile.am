@@ -80,6 +80,8 @@ OBJECTS = \
 	$(top_builddir)/mllib/firstboot.cmx \
 	$(top_builddir)/mllib/crypt-c.o \
 	$(top_builddir)/mllib/crypt.cmx \
+	$(top_builddir)/mllib/fsync-c.o \
+	$(top_builddir)/mllib/fsync.cmx \
 	$(top_builddir)/mllib/password.cmx \
 	get_kernel.cmx \
 	downloader.cmx \

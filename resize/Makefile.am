@@ -34,6 +34,8 @@ if HAVE_OCAML
 OBJECTS = \
 	$(top_builddir)/mllib/tty-c.o \
 	$(top_builddir)/mllib/tTY.cmx \
+	$(top_builddir)/mllib/fsync-c.o \
+	$(top_builddir)/mllib/fsync.cmx \
 	$(top_builddir)/fish/guestfish-progress.o \
 	$(top_builddir)/mllib/progress-c.o \
 	$(top_builddir)/mllib/progress.cmx \

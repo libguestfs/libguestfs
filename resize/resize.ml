@@ -229,7 +229,8 @@ let connect_both_disks () =
   let _, { URI.path = path; protocol = protocol;
            server = server; username = username } = infile in
   g#add_drive ?format ~readonly:true ~protocol ?server ?username path;
-  g#add_drive ?format:output_format ~readonly:false outfile;
+  (* The output disk is being created, so use cache=unsafe here. *)
+  g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe" outfile;
   if not quiet then Progress.set_up_progress_bar ~machine_readable g;
   g#launch ();
 
@@ -1177,7 +1178,9 @@ let g =
 
     let g = new G.guestfs () in
     if debug then g#set_trace true;
-    g#add_drive ?format:output_format ~readonly:false outfile;
+    (* The output disk is being created, so use cache=unsafe here. *)
+    g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe"
+      outfile;
     if not quiet then Progress.set_up_progress_bar ~machine_readable g;
     g#launch ();
 
@@ -1245,6 +1248,14 @@ let () =
 let () =
   g#shutdown ();
   g#close ();
+
+  (* Because we used cache=unsafe when writing the output file, the
+   * file might not be committed to disk.  This is a problem if qemu is
+   * immediately used afterwards with cache=none (which uses O_DIRECT
+   * and therefore bypasses the host cache).  In general you should not
+   * use cache=none.
+   *)
+  Fsync.file outfile;
 
   if not quiet then (
     print_newline ();

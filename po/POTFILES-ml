@@ -11,6 +11,7 @@ mllib/common_utils.ml
 mllib/common_utils_tests.ml
 mllib/crypt.ml
 mllib/firstboot.ml
+mllib/fsync.ml
 mllib/hostname.ml
 mllib/libdir.ml
 mllib/password.ml

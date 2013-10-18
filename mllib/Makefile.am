@@ -32,6 +32,9 @@ SOURCES = \
 	crypt.mli \
 	firstboot.mli \
 	firstboot.ml \
+	fsync-c.c \
+	fsync.mli \
+	fsync.ml \
 	hostname.mli \
 	hostname.ml \
 	password.mli \
@@ -58,6 +61,7 @@ OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	$(top_builddir)/fish/guestfish-uri.o \
 	tty-c.o \
+	fsync-c.o \
 	progress-c.o \
 	uri-c.o \
 	crypt-c.o \
@@ -68,6 +72,7 @@ OBJECTS = \
 	hostname.cmx \
 	firstboot.cmx \
 	tTY.cmx \
+	fsync.cmx \
 	progress.cmx \
 	uRI.cmx \
 	crypt.cmx \

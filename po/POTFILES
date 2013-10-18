@@ -226,6 +226,7 @@ inspector/inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 lua/lua-guestfs.c
 mllib/crypt-c.c
+mllib/fsync-c.c
 mllib/progress-c.c
 mllib/tty-c.c
 mllib/uri-c.c
