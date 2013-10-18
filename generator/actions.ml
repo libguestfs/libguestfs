@@ -2428,8 +2428,6 @@ data." };
       InitEmpty, Always, TestOutput (
         [["disk_format"; "../data/blank-disk-1s.raw"]], "raw");
       InitEmpty, Always, TestOutput (
-        [["disk_format"; "../data/blank-disk-1s.qcow2"]], "qcow2");
-      InitEmpty, Always, TestOutput (
         [["disk_format"; "../data/blank-disk-1K.raw"]], "raw");
       InitEmpty, Always, TestOutput (
         [["disk_format"; "../data/blank-disk-1K.qcow2"]], "qcow2");
@@ -2458,8 +2456,6 @@ See also: L<guestfs(3)/DISK IMAGE FORMATS>" };
       InitEmpty, Always, TestOutputInt (
         [["disk_virtual_size"; "../data/blank-disk-1s.raw"]], 512);
       InitEmpty, Always, TestOutputInt (
-        [["disk_virtual_size"; "../data/blank-disk-1s.qcow2"]], 512);
-      InitEmpty, Always, TestOutputInt (
         [["disk_virtual_size"; "../data/blank-disk-1K.raw"]], 1024);
       InitEmpty, Always, TestOutputInt (
         [["disk_virtual_size"; "../data/blank-disk-1K.qcow2"]], 1024);
@@ -2484,8 +2480,6 @@ circumstances.  See L<guestfs(3)/CVE-2010-3851>." };
     tests = [
       InitEmpty, Always, TestOutputFalse (
         [["disk_has_backing_file"; "../data/blank-disk-1s.raw"]]);
-      InitEmpty, Always, TestOutputFalse (
-        [["disk_has_backing_file"; "../data/blank-disk-1s.qcow2"]]);
       InitEmpty, Always, TestOutputFalse (
         [["disk_has_backing_file"; "../data/blank-disk-1K.raw"]]);
       InitEmpty, Always, TestOutputFalse (

@@ -75,7 +75,6 @@ images_files_build = \
 	$(builddir)/10klines \
 	$(builddir)/abssymlink \
 	$(builddir)/blank-disk-1s.raw \
-	$(builddir)/blank-disk-1s.qcow2 \
 	$(builddir)/blank-disk-1K.raw \
 	$(builddir)/blank-disk-1K.qcow2 \
 	$(builddir)/blank-disk-1M.raw \
@@ -136,9 +135,6 @@ $(builddir)/abssymlink:
 $(builddir)/blank-disk-1s.raw:
 	rm -f $@
 	../../fish/guestfish sparse $@ 512
-
-$(builddir)/blank-disk-1s.qcow2:
-	qemu-img create -f qcow2 $@ 512
 
 $(builddir)/blank-disk-1K.raw:
 	rm -f $@
