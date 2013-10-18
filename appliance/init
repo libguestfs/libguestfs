@@ -126,7 +126,13 @@ if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
 
   # Run guestfsd, under valgrind if asked.
   $vg guestfsd
-  if [ $? -eq 119 ]; then echo "DAEMON VALGRIND FAILED"; fi
+  if [ $? -eq 119 ]; then
+      echo "DAEMON VALGRIND FAILED"
+      # Sleep so valgrind messages are seen by the host.  Note this
+      # only happens in non-production builds
+      # (--enable-valgrind-daemon) + on an error path.
+      sleep 10
+  fi
 else
   # Run virt-rescue shell.
 
