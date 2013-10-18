@@ -113,6 +113,8 @@ if grep -sq guestfs_verbose=1 /proc/cmdline; then
 fi
 
 if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
+  # Run the daemon.
+
   # Run the daemon under valgrind if ./configure --enable-valgrind-daemon
   if grep -sq guestfs_valgrind_daemon=1 /proc/cmdline; then
     if [ -r /etc/guestfsd.suppressions ]; then
@@ -126,6 +128,8 @@ if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
   $vg guestfsd
   if [ $? -eq 119 ]; then echo "DAEMON VALGRIND FAILED"; fi
 else
+  # Run virt-rescue shell.
+
   # Remove LD_PRELOAD=libSegFault set above.
   unset LD_PRELOAD
   # Use appliance in rescue mode, also used by the virt-rescue command.
