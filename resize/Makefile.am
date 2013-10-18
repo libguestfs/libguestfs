@@ -32,16 +32,16 @@ if HAVE_OCAML
 
 # Note this list must be in dependency order.
 OBJECTS = \
-	$(top_builddir)/fish/guestfish-progress.o \
-	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/mllib/tty-c.o \
+	$(top_builddir)/mllib/tTY.cmx \
+	$(top_builddir)/fish/guestfish-progress.o \
 	$(top_builddir)/mllib/progress-c.o \
+	$(top_builddir)/mllib/progress.cmx \
+	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/mllib/uri-c.o \
+	$(top_builddir)/mllib/uRI.cmx \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/tTY.cmx \
-	$(top_builddir)/mllib/progress.cmx \
-	$(top_builddir)/mllib/uRI.cmx \
 	resize.cmx
 
 bin_SCRIPTS = virt-resize
