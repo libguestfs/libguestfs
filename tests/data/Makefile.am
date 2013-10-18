@@ -134,21 +134,21 @@ abssymlink:
 # Blank disk images in various sizes and formats.
 blank-disk-1s.raw:
 	rm -f $@
-	truncate -s 512 $@
+	../../fish/guestfish sparse $@ 512
 
 blank-disk-1s.qcow2:
 	qemu-img create -f qcow2 -o preallocation=metadata $@ 512
 
 blank-disk-1K.raw:
 	rm -f $@
-	truncate -s 1K $@
+	../../fish/guestfish sparse $@ 1K
 
 blank-disk-1K.qcow2:
 	qemu-img create -f qcow2 -o preallocation=metadata $@ 1K
 
 blank-disk-1M.raw:
 	rm -f $@
-	truncate -s 1M $@
+	../../fish/guestfish sparse $@ 1M
 
 blank-disk-1M.qcow2:
 	qemu-img create -f qcow2 -o preallocation=metadata $@ 1M

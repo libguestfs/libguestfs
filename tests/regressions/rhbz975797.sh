@@ -58,9 +58,9 @@ fi
 
 # Use real disk images here since the code for adding /dev/null may
 # take shortcuts.
-truncate -s 1G rhbz975797-1.img
-truncate -s 1G rhbz975797-2.img
-truncate -s 1G rhbz975797-3.img
+../../fish/guestfish sparse rhbz975797-1.img 1G
+../../fish/guestfish sparse rhbz975797-2.img 1G
+../../fish/guestfish sparse rhbz975797-3.img 1G
 
 $timeout ../../fish/guestfish <<EOF
 add-drive rhbz975797-1.img iface:virtio
