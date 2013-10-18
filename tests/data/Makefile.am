@@ -135,21 +135,21 @@ $(builddir)/abssymlink:
 # Blank disk images in various sizes and formats.
 $(builddir)/blank-disk-1s.raw:
 	rm -f $@
-	truncate -s 512 $@
+	../../fish/guestfish sparse $@ 512
 
 $(builddir)/blank-disk-1s.qcow2:
 	qemu-img create -f qcow2 $@ 512
 
 $(builddir)/blank-disk-1K.raw:
 	rm -f $@
-	truncate -s 1K $@
+	../../fish/guestfish sparse $@ 1K
 
 $(builddir)/blank-disk-1K.qcow2:
 	qemu-img create -f qcow2 $@ 1K
 
 $(builddir)/blank-disk-1M.raw:
 	rm -f $@
-	truncate -s 1M $@
+	../../fish/guestfish sparse $@ 1M
 
 $(builddir)/blank-disk-1M.qcow2:
 	qemu-img create -f qcow2 $@ 1M
