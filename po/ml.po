@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-10-17 15:44+0100\n"
+"POT-Creation-Date: 2013-10-18 17:30+0100\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -4894,21 +4894,21 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:835
+#: ../resize/resize.ml:836
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:820 ../resize/resize.ml:801
+#: ../resize/resize.ml:821 ../resize/resize.ml:802
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:837
+#: ../resize/resize.ml:838
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:839
+#: ../resize/resize.ml:840
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -4918,7 +4918,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../builder/builder.ml:655 ../builder/builder.ml:371
+#: ../builder/builder.ml:656 ../builder/builder.ml:372
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -4930,7 +4930,7 @@ msgstr ""
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:480
+#: ../builder/builder.ml:481
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -4946,7 +4946,7 @@ msgstr ""
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
-#: ../builder/builder.ml:507
+#: ../builder/builder.ml:508
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -4964,7 +4964,7 @@ msgid ""
 "complete output."
 msgstr ""
 
-#: ../resize/resize.ml:626
+#: ../resize/resize.ml:627
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -4973,11 +4973,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:817
+#: ../resize/resize.ml:818
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: ../resize/resize.ml:622
+#: ../resize/resize.ml:623
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -4986,7 +4986,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:618
+#: ../resize/resize.ml:619
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -4995,7 +4995,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:615
+#: ../resize/resize.ml:616
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -5003,21 +5003,21 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:794
+#: ../resize/resize.ml:795
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:796
+#: ../resize/resize.ml:797
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:792
+#: ../resize/resize.ml:793
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:798
+#: ../resize/resize.ml:799
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
@@ -5055,15 +5055,15 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:537
+#: ../builder/builder.ml:538
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../builder/builder.ml:680
+#: ../builder/builder.ml:689
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:683
+#: ../builder/builder.ml:692
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -5087,15 +5087,15 @@ msgstr ""
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:710
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:689
+#: ../builder/builder.ml:698
 msgid "%s: failure: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:290 ../resize/resize.ml:287
+#: ../resize/resize.ml:291 ../resize/resize.ml:288
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
@@ -5105,15 +5105,15 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:698
+#: ../builder/builder.ml:707
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:704
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#: ../builder/builder.ml:692
+#: ../builder/builder.ml:701
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -5129,30 +5129,30 @@ msgstr ""
 msgid "%s: invalid password format; see the man page.\n"
 msgstr ""
 
-#: ../builder/builder.ml:686
+#: ../builder/builder.ml:695
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:450
+#: ../builder/builder.ml:451
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
-#: ../resize/resize.ml:774
+#: ../resize/resize.ml:775
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:644
+#: ../resize/resize.ml:645
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:653
+#: ../resize/resize.ml:654
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: ../builder/builder.ml:375
+#: ../builder/builder.ml:376
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -5162,26 +5162,26 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
-#: ../resize/resize.ml:564
+#: ../resize/resize.ml:565
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:560
+#: ../resize/resize.ml:561
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:556
+#: ../resize/resize.ml:557
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:443
+#: ../resize/resize.ml:444
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:438
+#: ../resize/resize.ml:439
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
@@ -5195,7 +5195,7 @@ msgid ""
 "\"sha512\".\n"
 msgstr ""
 
-#: ../resize/resize.ml:368
+#: ../resize/resize.ml:369
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
@@ -5219,7 +5219,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:511
+#: ../builder/builder.ml:512
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -5234,19 +5234,19 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:600
+#: ../resize/resize.ml:601
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:596
+#: ../resize/resize.ml:597
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:453
+#: ../resize/resize.ml:454
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: ../resize/resize.ml:304
+#: ../resize/resize.ml:305
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -5296,19 +5296,19 @@ msgstr ""
 msgid "%s: warning: gpg program is not available\n"
 msgstr ""
 
-#: ../builder/builder.ml:389
+#: ../builder/builder.ml:390
 msgid ""
 "%s: warning: hostname could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:381
+#: ../builder/builder.ml:382
 msgid ""
 "%s: warning: random seed could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:431
+#: ../builder/builder.ml:432
 msgid ""
 "%s: warning: root password could not be set for this type of guest\n"
 "%!"
@@ -5429,7 +5429,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1084
+#: ../resize/resize.ml:1085
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -5502,7 +5502,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:548
+#: ../builder/builder.ml:549
 msgid "Deleting: %s"
 msgstr ""
 
@@ -5576,7 +5576,7 @@ msgstr ""
 msgid "Edit file with Perl expr"
 msgstr ""
 
-#: ../builder/builder.ml:534
+#: ../builder/builder.ml:535
 msgid "Editing: %s"
 msgstr ""
 
@@ -5605,7 +5605,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:249
+#: ../resize/resize.ml:250
 msgid ""
 "Examining %s ...\n"
 "%!"
@@ -5625,19 +5625,19 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1231
+#: ../resize/resize.ml:1234
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1214
+#: ../resize/resize.ml:1217
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:894
+#: ../resize/resize.ml:895
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -5661,11 +5661,11 @@ msgstr ""
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
-#: ../builder/builder.ml:644
+#: ../builder/builder.ml:645
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1140
+#: ../resize/resize.ml:1141
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -5706,7 +5706,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:634
+#: ../builder/builder.ml:635
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -5736,19 +5736,19 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:571
+#: ../builder/builder.ml:572
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:574
+#: ../builder/builder.ml:575
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:567
+#: ../builder/builder.ml:568
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:518
+#: ../builder/builder.ml:519
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -5827,7 +5827,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:631
+#: ../builder/builder.ml:632
 msgid "Output: %s"
 msgstr ""
 
@@ -5843,7 +5843,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../builder/builder.ml:421
+#: ../builder/builder.ml:422
 msgid "Random root password: %s [did you mean to use --root-password?]"
 msgstr ""
 
@@ -6024,7 +6024,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../resize/resize.ml:1251
+#: ../resize/resize.ml:1262
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -6078,7 +6078,7 @@ msgstr ""
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:588 ../builder/builder.ml:584
+#: ../builder/builder.ml:589 ../builder/builder.ml:585
 msgid "Running: %s"
 msgstr ""
 
@@ -6094,11 +6094,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../builder/builder.ml:599
+#: ../builder/builder.ml:600
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../builder/builder.ml:555
+#: ../builder/builder.ml:556
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -6251,19 +6251,19 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../builder/builder.ml:379
+#: ../builder/builder.ml:380
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../builder/builder.ml:417
+#: ../builder/builder.ml:418
 msgid "Setting root password"
 msgstr ""
 
-#: ../builder/builder.ml:387
+#: ../builder/builder.ml:388
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../resize/resize.ml:873
+#: ../resize/resize.ml:874
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -6377,13 +6377,13 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:758
+#: ../resize/resize.ml:759
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../resize/resize.ml:832
+#: ../resize/resize.ml:833
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -6416,7 +6416,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:632
+#: ../builder/builder.ml:633
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -6432,7 +6432,7 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:527
+#: ../builder/builder.ml:528
 msgid "Uploading: %s"
 msgstr ""
 
@@ -6444,13 +6444,13 @@ msgid ""
 "See L</RANDOM SEED> below."
 msgstr ""
 
-#: ../resize/resize.ml:729
+#: ../resize/resize.ml:730
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:741
+#: ../resize/resize.ml:742
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -6476,7 +6476,7 @@ msgstr ""
 msgid "alignment cannot be < 1"
 msgstr ""
 
-#: ../resize/resize.ml:509
+#: ../resize/resize.ml:510
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
@@ -6574,7 +6574,7 @@ msgstr ""
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../resize/resize.ml:508
+#: ../resize/resize.ml:509
 msgid "ntfsresize"
 msgstr ""
 
@@ -6605,11 +6605,11 @@ msgstr ""
 msgid "part=size"
 msgstr ""
 
-#: ../resize/resize.ml:931 ../resize/resize.ml:907
+#: ../resize/resize.ml:932 ../resize/resize.ml:908
 msgid "pread-device: short read"
 msgstr ""
 
-#: ../resize/resize.ml:506
+#: ../resize/resize.ml:507
 msgid "pvresize"
 msgstr ""
 
@@ -6617,7 +6617,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../resize/resize.ml:507
+#: ../resize/resize.ml:508
 msgid "resize2fs"
 msgstr ""
 
@@ -6673,7 +6673,7 @@ msgstr ""
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:393
+#: ../resize/resize.ml:394
 msgid "the source disk has no partitions"
 msgstr ""
 
@@ -6899,14 +6899,14 @@ msgstr ""
 msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:1137
+#: ../resize/resize.ml:1138
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:717
+#: ../resize/resize.ml:718
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
