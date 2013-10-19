@@ -15,6 +15,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# NB: AC_CHECK_PROG(S) or AC_PATH_PROG(S)?
+# Use AC_CHECK_PROG(S) for programs which are only used during build.
+# Use AC_PATH_PROG(S) for program names which are compiled into the
+# binary and used at run time.  The reason is so that we know which
+# programs the binary actually uses.
+
 # The major, minor, and release fields MUST be numbers.  Packagers can
 # add extra information using --with-extra="..." which may be any
 # freeform string.
@@ -444,8 +450,8 @@ AC_SUBST([ENABLE_APPLIANCE])
 dnl Check for supermin >= 4.1.0 or febootstrap >= 3.20.
 AC_CHECK_PROGS([SUPERMIN],
                [supermin febootstrap],[no])
-AC_CHECK_PROGS([SUPERMIN_HELPER],
-               [supermin-helper febootstrap-supermin-helper],[no])
+AC_PATH_PROGS([SUPERMIN_HELPER],
+              [supermin-helper febootstrap-supermin-helper],[no])
 
 dnl supermin >= 4.1.4 supports compressed cpio images.
 AC_MSG_CHECKING([for supermin-helper version])
@@ -657,10 +663,10 @@ AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
 AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
 
 dnl Check for db_dump, db_load (optional).
-AC_CHECK_PROGS([DB_DUMP],
-               [db_dump db5.1_dump db4_dump db4.8_dump db4.7_dump db4.6_dump],[no])
-AC_CHECK_PROGS([DB_LOAD],
-               [db_load db5.1_load db4_load db4.8_load db4.7_load db4.6_load],[no])
+AC_PATH_PROGS([DB_DUMP],
+              [db_dump db5.1_dump db4_dump db4.8_dump db4.7_dump db4.6_dump],[no])
+AC_PATH_PROGS([DB_LOAD],
+              [db_load db5.1_load db4_load db4.8_load db4.7_load db4.6_load],[no])
 if test "x$DB_DUMP" != "xno"; then
     AC_DEFINE_UNQUOTED([DB_DUMP],["$DB_DUMP"],[Name of db_dump program.])
 fi
@@ -669,10 +675,10 @@ if test "x$DB_LOAD" != "xno"; then
 fi
 
 dnl Check for netpbm programs (optional).
-AC_CHECK_PROGS([PBMTEXT],[pbmtext],[no])
-AC_CHECK_PROGS([PNMTOPNG],[pnmtopng],[no])
-AC_CHECK_PROGS([BMPTOPNM],[bmptopnm],[no])
-AC_CHECK_PROGS([PAMCUT],[pamcut],[no])
+AC_PATH_PROGS([PBMTEXT],[pbmtext],[no])
+AC_PATH_PROGS([PNMTOPNG],[pnmtopng],[no])
+AC_PATH_PROGS([BMPTOPNM],[bmptopnm],[no])
+AC_PATH_PROGS([PAMCUT],[pamcut],[no])
 if test "x$PBMTEXT" != "xno"; then
     AC_DEFINE_UNQUOTED([PBMTEXT],["$PBMTEXT"],[Name of pbmtext program.])
 fi
@@ -687,7 +693,7 @@ if test "x$PAMCUT" != "xno"; then
 fi
 
 dnl Check for icoutils (optional).
-AC_CHECK_PROGS([WRESTOOL],[wrestool],[no])
+AC_PATH_PROGS([WRESTOOL],[wrestool],[no])
 if test "x$WRESTOOL" != "xno"; then
     AC_DEFINE_UNQUOTED([WRESTOOL],["$WRESTOOL"],[Name of wrestool program.])
 fi
