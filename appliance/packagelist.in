@@ -113,6 +113,7 @@
   zfs-fuse
 #endif /* ARCHLINUX */
 
+#ifndef FRUGALWARE
 acl
 attr
 bash
@@ -167,6 +168,65 @@ zerofree
 #ifdef VALGRIND_DAEMON
 valgrind
 #endif
+#endif /* FRUGALWARE */
 
 /* Define this by doing: ./configure --with-extra-packages="..." */
 EXTRA_PACKAGES
+
+#ifdef FRUGALWARE
+augeas
+btrfs-progs
+cryptsetup-luks
+e2fsprogs
+cdrkit
+grub2
+hfsplus
+iproute2
+iputils
+kernel
+libcap
+ntfsprogs
+ntfs-3g
+openssh
+pcre
+reiserfsprogs
+syslinux
+systemd
+vim
+xz
+yajl
+xfsprogs-acl
+xfsprogs-attr
+bash
+binutils
+bzip2
+coreutils
+cpio
+diffutils
+dosfstools
+file
+findutils
+gawk
+gptfdisk
+grep
+gzip
+jfsutils
+kmod
+less
+libxml2
+lsof
+lsscsi
+lvm2
+mdadm
+module-init-tools
+parted
+procps
+psmisc
+rsync
+sed
+strace
+syslinux
+tar
+util-linux
+xfsprogs
+#endif /* FRUGALWARE */
