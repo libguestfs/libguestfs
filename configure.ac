@@ -698,6 +698,10 @@ if test "x$WRESTOOL" != "xno"; then
     AC_DEFINE_UNQUOTED([WRESTOOL],["$WRESTOOL"],[Name of wrestool program.])
 fi
 
+dnl Check for xzcat (required).
+AC_PATH_PROGS([XZCAT],[xzcat],[no])
+test "x$XZCAT" = "xno" && AC_MSG_ERROR([xzcat must be installed])
+
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 qemu_system="$(

@@ -301,13 +301,18 @@ let main () =
 
       output, Some size, format, delete_output_file, do_resize, true in
 
+  (* Create xzcat command to uncompress from input to output. *)
+  let xzcat_command input output =
+    sprintf "%s %s > %s" Config.xzcat input output
+  in
+
   if not do_resize then (
     (* If the user did not specify --size and the output is a regular
      * file and the format is raw, then we just uncompress the template
      * directly to the output file.  This is fast but less flexible.
      *)
     let { Index_parser.file_uri = file_uri } = entry in
-    let cmd = sprintf "xzcat %s > %s" (quote template) (quote output) in
+    let cmd = xzcat_command template output in
     if debug then eprintf "%s\n%!" cmd;
     msg (f_"Uncompressing: %s") file_uri;
     let r = Sys.command cmd in
@@ -323,7 +328,7 @@ let main () =
       (* Uncompress it to a temporary file. *)
       let { Index_parser.file_uri = file_uri } = entry in
       let tmpfile = Filename.temp_file "vbsrc" ".img" in
-      let cmd = sprintf "xzcat %s > %s" (quote template) (quote tmpfile) in
+      let cmd = xzcat_command template tmpfile in
       if debug then eprintf "%s\n%!" cmd;
       msg (f_"Uncompressing: %s") file_uri;
       let r = Sys.command cmd in
