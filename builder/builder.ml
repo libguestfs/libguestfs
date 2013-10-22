@@ -38,7 +38,7 @@ let main () =
     attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
     firstboot, run, format, gpg, hostname, install, list_long, network, output,
     password_crypto, quiet, root_password, scrub, scrub_logfile, size, source,
-    upload =
+    sync, upload =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -705,7 +705,8 @@ exec >>%s 2>&1
    * and therefore bypasses the host cache).  In general you should not
    * use cache=none.
    *)
-  Fsync.file output;
+  if sync then
+    Fsync.file output;
 
   (* Now that we've finished the build, don't delete the output file on
    * exit.
