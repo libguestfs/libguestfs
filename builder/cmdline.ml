@@ -161,6 +161,8 @@ let parse_cmdline () =
     with Not_found -> "http://libguestfs.org/download/builder/index.asc" in
   let source = ref source in
 
+  let sync = ref true in
+
   let upload = ref [] in
   let add_upload arg =
     let i =
@@ -232,6 +234,7 @@ let parse_cmdline () =
     "--scrub",   Arg.String add_scrub,      "name" ^ " " ^ s_"Scrub a file";
     "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
     "--source",  Arg.Set_string source,     "URL" ^ " " ^ s_"Set source URL";
+    "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
     "--upload",  Arg.String add_upload,     "file:dest" ^ " " ^ s_"Upload file to dest";
     "-v",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set debug,             ditto;
@@ -287,6 +290,7 @@ read the man page virt-builder(1).
   let scrub_logfile = !scrub_logfile in
   let size = !size in
   let source = !source in
+  let sync = !sync in
   let upload = List.rev !upload in
 
   (* Check options. *)
@@ -343,4 +347,4 @@ read the man page virt-builder(1).
   attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
   firstboot, run, format, gpg, hostname, install, list_long, network, output,
   password_crypto, quiet, root_password, scrub, scrub_logfile, size, source,
-  upload
+  sync, upload

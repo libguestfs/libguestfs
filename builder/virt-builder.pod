@@ -410,6 +410,23 @@ You don't have a host network (eg. in secure/restricted environments).
 
 =back
 
+=item B<--no-sync>
+
+Do not sync the output file on exit.
+
+Virt-builder fsync's the output file or disk image when it exits.
+
+The reason is that qemu/KVM's default caching mode is C<none> or
+C<directsync>, both of which bypass the host page cache.  Therefore
+these would not work correctly if you immediately started the guest
+after running virt-builder - they would not see the complete output
+file.  (Note that you should not use these caching modes - they are
+fundamentally broken for this and other reasons.)
+
+If you are not using these broken caching modes, you can use
+I<--no-sync> to avoid this unnecessary sync and gain considerable
+extra performance.
+
 =item B<--notes> os-version
 
 List any notes associated with this guest, then exit (this does not do
