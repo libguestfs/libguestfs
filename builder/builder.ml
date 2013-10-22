@@ -301,9 +301,11 @@ let main () =
 
       output, Some size, format, delete_output_file, do_resize, true in
 
-  (* Create xzcat command to uncompress from input to output. *)
+  (* Create xzcat/pxzcat command to uncompress from input to output. *)
   let xzcat_command input output =
-    sprintf "%s %s > %s" Config.xzcat input output
+    match Config.pxzcat with
+    | None -> sprintf "%s %s > %s" Config.xzcat input output
+    | Some pxzcat -> sprintf "%s %s -o %s" pxzcat input output
   in
 
   if not do_resize then (

@@ -702,6 +702,9 @@ dnl Check for xzcat (required).
 AC_PATH_PROGS([XZCAT],[xzcat],[no])
 test "x$XZCAT" = "xno" && AC_MSG_ERROR([xzcat must be installed])
 
+dnl Check for pxzcat (optional).
+AC_PATH_PROGS([PXZCAT],[pxzcat],[no])
+
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 qemu_system="$(
