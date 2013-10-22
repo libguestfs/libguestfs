@@ -557,6 +557,9 @@ fi
 if test -f /etc/SuSE-release; then
     DISTRO=SUSE
 fi
+if test -f /etc/frugalware-release; then
+    DISTRO=FRUGALWARE
+fi
 AC_MSG_RESULT([$DISTRO])
 AC_SUBST([DISTRO])
 
