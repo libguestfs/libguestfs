@@ -210,7 +210,12 @@ let main () =
 
     Sigchecker.verify_detached sigchecker template sigfile in
 
-  let output, size, format, delete_output_file, resize_sparse =
+  (* Plan how to create the output.  This depends on:
+   * - did the user specify --output?
+   * - is the output a block device?
+   * - did the user specify --size?
+   *)
+  let output, size, format, delete_output_file, do_resize, resize_sparse =
     let is_block_device file =
       try (stat file).st_kind = S_BLK
       with Unix_error _ -> false
@@ -237,22 +242,22 @@ let main () =
       (* Dummy: The output file is never deleted in this case. *)
       let delete_output_file = ref false in
 
-      output, None, format, delete_output_file, false
+      output, None, format, delete_output_file, true, false
 
     (* Regular file output.  Note the file gets deleted. *)
     | _ ->
       (* Check the --size option. *)
-      let size =
+      let size, do_resize =
         let { Index_parser.size = default_size } = entry in
         match size with
-        | None -> default_size +^ headroom
+        | None -> default_size, false
         | Some size ->
           if size < default_size +^ headroom then (
             eprintf (f_"%s: --size is too small for this disk image, minimum size is %s\n")
               prog (human_size default_size);
             exit 1
           );
-          size in
+          size, true in
 
       (* Create the output file. *)
       let output, format =
@@ -262,6 +267,14 @@ let main () =
         | None, Some format -> sprintf "%s.%s" arg format, format
         | Some output, None -> output, "raw"
         | Some output, Some format -> output, format in
+
+      (* If the input format != output format then we must run virt-resize. *)
+      let do_resize =
+        let input_format =
+          match entry with
+          | { Index_parser.format = Some format } -> format
+          | { Index_parser.format = None } -> "raw" in
+        if input_format <> format then true else do_resize in
 
       msg (f_"Creating disk image: %s") output;
       let cmd =
@@ -286,25 +299,42 @@ let main () =
       in
       at_exit delete_file;
 
-      output, Some size, format, delete_output_file, true in
+      output, Some size, format, delete_output_file, do_resize, true in
 
-  let source =
-    (* Uncompress it to a temporary file. *)
+  if not do_resize then (
+    (* If the user did not specify --size and the output is a regular
+     * file and the format is raw, then we just uncompress the template
+     * directly to the output file.  This is fast but less flexible.
+     *)
     let { Index_parser.file_uri = file_uri } = entry in
-    let tmpfile = Filename.temp_file "vbsrc" ".img" in
-    let cmd = sprintf "xzcat %s > %s" (quote template) (quote tmpfile) in
+    let cmd = sprintf "xzcat %s > %s" (quote template) (quote output) in
     if debug then eprintf "%s\n%!" cmd;
     msg (f_"Uncompressing: %s") file_uri;
     let r = Sys.command cmd in
     if r <> 0 then (
       eprintf (f_"%s: error: failed to uncompress template\n") prog;
       exit 1
-    );
-    unlink_on_exit tmpfile;
-    tmpfile in
+    )
+  ) else (
+    (* If none of the above apply, uncompress to a temporary file and
+     * run virt-resize on the result.
+     *)
+    let tmpfile =
+      (* Uncompress it to a temporary file. *)
+      let { Index_parser.file_uri = file_uri } = entry in
+      let tmpfile = Filename.temp_file "vbsrc" ".img" in
+      let cmd = sprintf "xzcat %s > %s" (quote template) (quote tmpfile) in
+      if debug then eprintf "%s\n%!" cmd;
+      msg (f_"Uncompressing: %s") file_uri;
+      let r = Sys.command cmd in
+      if r <> 0 then (
+        eprintf (f_"%s: error: failed to uncompress template\n") prog;
+        exit 1
+      );
+      unlink_on_exit tmpfile;
+      tmpfile in
 
-  (* Resize the source to the output file. *)
-  let () =
+    (* Resize the source to the output file. *)
     (match size with
     | None ->
       msg (f_"Running virt-resize to expand the disk")
@@ -329,13 +359,14 @@ let main () =
         (match lvexpand with
         | None -> ""
         | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
-        (quote source) (quote output) in
+        (quote tmpfile) (quote output) in
     if debug then eprintf "%s\n%!" cmd;
     let r = Sys.command cmd in
     if r <> 0 then (
       eprintf (f_"%s: error: virt-resize failed\n") prog;
       exit 1
-    ) in
+    )
+  );
 
   (* Now mount the output disk so we can make changes. *)
   msg (f_"Opening the new disk");
