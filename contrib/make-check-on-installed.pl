@@ -97,7 +97,7 @@ my %mapping = (
 
     '/guestfs/supermin.d/.*' => "appliance/supermin.d",
 
-    '/java/libguestfs-.*\.jar$' => "java",
+    '/java/libguestfs\.jar$' => "java",
 
     '/libguestfs\.so.*' => "src/.libs",
     '/libguestfs_jni\.so.*' => "java/.libs",

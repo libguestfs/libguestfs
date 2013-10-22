@@ -50,6 +50,6 @@ noinst_SCRIPTS = CreateDisk.class InspectVM.class
 JAVAC_FLAGS = $(EXTRA_JAVAC_FLAGS) -encoding utf-8
 
 %.class: %.java
-	$(JAVAC) $(JAVAC_FLAGS) -classpath ../libguestfs-$(VERSION).jar $<
+	$(JAVAC) $(JAVAC_FLAGS) -classpath ../libguestfs.jar $<
 
 endif

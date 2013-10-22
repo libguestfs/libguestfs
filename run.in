@@ -142,9 +142,9 @@ export CAML_LD_LIBRARY_PATH
 # For Java.
 export JAVA_EXE=@JAVA_EXE@
 if [ -z "$CLASSPATH" ]; then
-    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
+    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs.jar"
 else
-    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar:$CLASSPATH"
+    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs.jar:$CLASSPATH"
 fi
 export CLASSPATH
 

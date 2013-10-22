@@ -67,12 +67,12 @@ JAVADOC_FLAGS = -encoding utf-8
 # Java source.
 
 libguestfs_jardir = $(JAR_INSTALL_DIR)
-libguestfs_jar_DATA = libguestfs-${VERSION}.jar
+libguestfs_jar_DATA = libguestfs.jar
 libguestfs_jar_class_files = $(java_sources:.java=.class)
 $(libguestfs_jar_class_files): %.class: %.java
 	$(JAVAC) $(JAVAC_FLAGS) -d . -classpath $(srcdir):. $<
 
-libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
+libguestfs.jar: $(libguestfs_jar_class_files)
 	$(JAR) cf $@ $^
 
 # JNI source.
@@ -130,10 +130,10 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 noinst_DATA = Bindtests.class $(java_tests:.java=.class)
 
-t/%.class: t/%.java libguestfs-$(VERSION).jar
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d t $<
+t/%.class: t/%.java libguestfs.jar
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs.jar -d t $<
 
-Bindtests.class: Bindtests.java libguestfs-$(VERSION).jar
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d . $<
+Bindtests.class: Bindtests.java libguestfs.jar
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs.jar -d . $<
 
 endif
