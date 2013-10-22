@@ -30,6 +30,7 @@ sysprep/sysprep_operation_blkid_tab.ml
 sysprep/sysprep_operation_ca_certificates.ml
 sysprep/sysprep_operation_crash_data.ml
 sysprep/sysprep_operation_cron_spool.ml
+sysprep/sysprep_operation_delete.ml
 sysprep/sysprep_operation_dhcp_client_state.ml
 sysprep/sysprep_operation_dhcp_server_state.ml
 sysprep/sysprep_operation_dovecot_data.ml

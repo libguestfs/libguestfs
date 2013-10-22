@@ -36,6 +36,7 @@ operations = \
 	ca_certificates \
 	crash_data \
 	cron_spool \
+	delete \
 	dhcp_client_state \
 	dhcp_server_state \
 	dovecot_data \
