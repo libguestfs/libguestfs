@@ -92,6 +92,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/random_seed.cmx \
 	$(top_builddir)/mllib/hostname.cmx \
 	$(top_builddir)/mllib/firstboot.cmx \
+	$(top_builddir)/mllib/config.cmx \
 	sysprep_operation.cmx \
 	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \
 	main.cmx

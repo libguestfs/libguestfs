@@ -39,10 +39,7 @@ let indisk, outdisk, check_tmpdir, compress, convert, debug_gc,
   format, ignores, machine_readable,
   option, quiet, verbose, trace, zeroes =
   let display_version () =
-    let g = new G.guestfs () in
-    let version = g#version () in
-    printf "virt-sparsify %Ld.%Ld.%Ld%s\n"
-      version.G.major version.G.minor version.G.release version.G.extra;
+    printf "virt-sparsify %s\n" Config.package_version;
     exit 0
   in
 

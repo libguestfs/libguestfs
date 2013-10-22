@@ -39,10 +39,7 @@ let default_cachedir =
 
 let parse_cmdline () =
   let display_version () =
-    let g = new G.guestfs () in
-    let version = g#version () in
-    printf (f_"virt-builder %Ld.%Ld.%Ld%s\n")
-      version.G.major version.G.minor version.G.release version.G.extra;
+    printf "virt-builder %s\n" Config.package_version;
     exit 0
   in
 

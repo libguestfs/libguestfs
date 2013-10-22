@@ -27,6 +27,7 @@ SOURCES = \
 	common_gettext.ml \
 	common_utils.ml \
 	common_utils_tests.ml \
+	config.ml \
 	crypt-c.c \
 	crypt.ml \
 	crypt.mli \
@@ -65,6 +66,7 @@ OBJECTS = \
 	progress-c.o \
 	uri-c.o \
 	crypt-c.o \
+	config.cmx \
 	libdir.cmx \
 	common_gettext.cmx \
 	common_utils.cmx \
