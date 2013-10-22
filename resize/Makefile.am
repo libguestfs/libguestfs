@@ -44,6 +44,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/uRI.cmx \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
+	$(top_builddir)/mllib/config.cmx \
 	resize.cmx
 
 bin_SCRIPTS = virt-resize

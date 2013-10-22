@@ -1674,6 +1674,7 @@ AC_CONFIG_FILES([Makefile
                  lua/Makefile
                  lua/examples/Makefile
                  mllib/Makefile
+                 mllib/config.ml
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile

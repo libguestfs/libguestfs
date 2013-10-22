@@ -39,10 +39,7 @@ let infile, outfile, align_first, alignment, copy_boot_loader,
   lv_expands, machine_readable, ntfsresize_force, output_format,
   quiet, resizes, resizes_force, shrink, sparse =
   let display_version () =
-    let g = new G.guestfs () in
-    let version = g#version () in
-    printf (f_"virt-resize %Ld.%Ld.%Ld%s\n")
-      version.G.major version.G.minor version.G.release version.G.extra;
+    printf "virt-resize %s\n" Config.package_version;
     exit 0
   in
 

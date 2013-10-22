@@ -83,6 +83,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/fsync-c.o \
 	$(top_builddir)/mllib/fsync.cmx \
 	$(top_builddir)/mllib/password.cmx \
+	$(top_builddir)/mllib/config.cmx \
 	get_kernel.cmx \
 	downloader.cmx \
 	sigchecker.cmx \

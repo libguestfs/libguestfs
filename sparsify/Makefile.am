@@ -40,6 +40,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/tTY.cmx \
 	$(top_builddir)/mllib/progress.cmx \
+	$(top_builddir)/mllib/config.cmx \
 	statvfs-c.o \
 	sparsify.cmx
 

@@ -46,10 +46,7 @@ let debug_gc, operations, g, selinux_relabel, quiet, mount_opts =
   let mount_opts = ref "" in
 
   let display_version () =
-    let g = new G.guestfs () in
-    let version = g#version () in
-    printf "virt-sysprep %Ld.%Ld.%Ld%s\n"
-      version.G.major version.G.minor version.G.release version.G.extra;
+    printf "virt-sysprep %s\n" Config.package_version;
     exit 0
   and add_file arg =
     let uri =
