@@ -194,7 +194,7 @@ let parse_cmdline () =
                                             " " ^ s_"Disable digital signatures";
     "--no-check-signatures", Arg.Clear check_signature, ditto;
     "--curl",    Arg.Set_string curl,       "curl" ^ " " ^ s_"Set curl binary/command";
-    "--delete",  Arg.String add_delete,     "name" ^ s_"Delete a file or dir";
+    "--delete",  Arg.String add_delete,     "name" ^ " " ^ s_"Delete a file or dir";
     "--delete-cache", Arg.Unit delete_cache_mode,
                                             " " ^ s_"Delete the template cache";
     "--edit",    Arg.String add_edit,       "file:expr" ^ " " ^ s_"Edit file with Perl expr";
@@ -229,7 +229,7 @@ let parse_cmdline () =
                                             "..." ^ " " ^ s_"Set root password";
     "--run",     Arg.String add_run,        "script" ^ " " ^ s_"Run script in disk image";
     "--run-command", Arg.String add_run_cmd, "cmd+args" ^ " " ^ s_"Run command in disk image";
-    "--scrub",   Arg.String add_scrub,      "name" ^ s_"Scrub a file";
+    "--scrub",   Arg.String add_scrub,      "name" ^ " " ^ s_"Scrub a file";
     "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
     "--source",  Arg.Set_string source,     "URL" ^ " " ^ s_"Set source URL";
     "--upload",  Arg.String add_upload,     "file:dest" ^ " " ^ s_"Upload file to dest";
