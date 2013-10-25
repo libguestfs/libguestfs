@@ -54,6 +54,7 @@ $VG ./virt-builder phony-fedora \
     -o $output --size 2G --format $format \
     --hostname test.example.com \
     --root-password password:123456 \
+    --mkdir /etc/foo/bar/baz \
     --upload Makefile:/Makefile \
     --upload Makefile:/etc \
     --delete /Makefile \
