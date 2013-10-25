@@ -119,6 +119,10 @@ let parse_cmdline () =
   in
 
   let list_long = ref false in
+
+  let mkdirs = ref [] in
+  let add_mkdir arg = mkdirs := arg :: !mkdirs in
+
   let network = ref true in
   let output = ref "" in
 
@@ -217,6 +221,7 @@ let parse_cmdline () =
     "--long",    Arg.Set list_long,         ditto;
     "--no-logfile", Arg.Set scrub_logfile,  " " ^ s_"Scrub build log file";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "--mkdir",   Arg.String add_mkdir,      "dir" ^ " " ^ s_"Create directory";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
     "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
     "--notes",   Arg.Unit notes_mode,       " " ^ s_"Display installation notes";
@@ -281,6 +286,7 @@ read the man page virt-builder(1).
   let hostname = !hostname in
   let install = !install in
   let list_long = !list_long in
+  let mkdirs = List.rev !mkdirs in
   let network = !network in
   let output = match !output with "" -> None | s -> Some s in
   let password_crypto = !password_crypto in
@@ -345,6 +351,6 @@ read the man page virt-builder(1).
 
   mode, arg,
   attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
-  firstboot, run, format, gpg, hostname, install, list_long, network, output,
-  password_crypto, quiet, root_password, scrub, scrub_logfile, size, source,
-  sync, upload
+  firstboot, run, format, gpg, hostname, install, list_long, mkdirs,
+  network, output, password_crypto, quiet, root_password, scrub,
+  scrub_logfile, size, source, sync, upload

@@ -36,9 +36,9 @@ let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
     attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
-    firstboot, run, format, gpg, hostname, install, list_long, network, output,
-    password_crypto, quiet, root_password, scrub, scrub_logfile, size, source,
-    sync, upload =
+    firstboot, run, format, gpg, hostname, install, list_long, mkdirs,
+    network, output, password_crypto, quiet, root_password, scrub,
+    scrub_logfile, size, source, sync, upload =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -559,6 +559,13 @@ exec >>%s 2>&1
     let cmd = guest_install_command install in
     do_run ~display:cmd cmd
   );
+
+  (* Make directories. *)
+  List.iter (
+    fun dir ->
+      msg (f_"Making directory: %s") dir;
+      g#mkdir_p dir
+  ) mkdirs;
 
   (* Upload files. *)
   List.iter (

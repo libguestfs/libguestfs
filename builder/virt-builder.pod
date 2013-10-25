@@ -18,6 +18,7 @@ virt-builder - Build virtual machine images quickly
     [--root-password ...]
     [--hostname HOSTNAME]
     [--install PKG,[PKG...]]
+    [--mkdir DIR]
     [--upload FILE:DEST]
     [--edit FILE:EXPR]
     [--delete FILE] [--scrub FILE]
@@ -361,6 +362,13 @@ after building is complete.  If you don't want to reveal precisely how
 the image was built, use this option.
 
 See also: L</LOG FILE>.
+
+=item B<--mkdir> DIR
+
+Create a directory in the guest.
+
+This uses S<C<mkdir -p>> so any intermediate directories are created,
+and it also works if the directory already exists.
 
 =item B<--network>
 
@@ -738,6 +746,10 @@ The root password is changed (I<--root-password>).
 =item *
 
 Packages are installed (I<--install>).
+
+=item *
+
+Directories are created (I<--mkdir>).
 
 =item *
 

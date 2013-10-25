@@ -54,6 +54,7 @@ rm -f $output
     -o $output --size 2G --format $format \
     --hostname test.example.com \
     --root-password password:123456 \
+    --mkdir /etc/foo/bar/baz \
     --upload Makefile:/Makefile \
     --delete /Makefile \
     --firstboot Makefile --firstboot-command 'echo "hello"' \
