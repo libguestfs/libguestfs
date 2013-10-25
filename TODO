@@ -558,6 +558,8 @@ virt-builder
 
  - set default timezone and language
 
+ - set permissions on uploaded files & created directories
+
  - how can we give users a shell?
 
  - parallel xzcat would make it much faster
@@ -572,8 +574,9 @@ virt-builder
 
  - document:
 
-   * how to upload to glance
    * how to integrate with ansible, puppet, chef
+   * how to import to OpenStack / Glance
+   * how to import to EC2
 
  - /etc/resolv.conf handling works but is best described as a hack:
    https://github.com/libguestfs/libguestfs/commit/9521422ce60578f7196cc8b7977d998159238c19
