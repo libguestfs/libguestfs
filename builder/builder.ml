@@ -106,9 +106,24 @@ let main () =
   let cache =
     match cache with
     | None -> None
-    | (Some dir) as cache ->
-      (try mkdir dir 0o755 with _ -> ());
-      if Sys.is_directory dir then cache else None in
+    | Some dir ->
+      (* Annoyingly Sys.is_directory throws an exception on failure
+       * (RHBZ#1022431).
+       *)
+      if (try Sys.is_directory dir with Sys_error _ -> false) then
+        Some dir
+      else (
+        (* Try to make the directory.  If that fails, warn and continue
+         * without any cache.
+         *)
+        try mkdir dir 0o755; Some dir
+        with exn ->
+          eprintf (f_"%s: warning: cache %s: %s\n") prog dir
+            (Printexc.to_string exn);
+          eprintf (f_"%s: disabling the cache\n%!") prog;
+          None
+      )
+  in
 
   (* Make the downloader and signature checker abstract data types. *)
   let downloader = Downloader.create ~debug ~curl ~cache in
