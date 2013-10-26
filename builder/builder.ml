@@ -547,8 +547,23 @@ exec >>%s 2>&1
   (* Upload files. *)
   List.iter (
     fun (file, dest) ->
-      msg (f_"Uploading: %s") dest;
-      g#upload file dest
+      msg (f_"Uploading: %s to %s") file dest;
+      let dest =
+        if g#is_dir dest then
+          dest ^ "/" ^ Filename.basename file
+        else
+          dest in
+      (* Do the file upload. *)
+      g#upload file dest;
+
+      (* Copy (some of) the permissions from the local file to the
+       * uploaded file.
+       *)
+      let statbuf = stat file in
+      let perms = statbuf.st_perm land 0o7777 (* sticky & set*id *) in
+      g#chmod perms dest;
+      let uid, gid = statbuf.st_uid, statbuf.st_gid in
+      g#chown uid gid dest
   ) upload;
 
   (* Edit files. *)

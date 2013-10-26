@@ -55,6 +55,7 @@ $VG ./virt-builder phony-fedora \
     --hostname test.example.com \
     --root-password password:123456 \
     --upload Makefile:/Makefile \
+    --upload Makefile:/etc \
     --delete /Makefile \
     --firstboot Makefile --firstboot-command 'echo "hello"' \
     --firstboot-install "minicom,inkscape"
