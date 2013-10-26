@@ -45,16 +45,16 @@ let firstboot_sh = sprintf "\
 d=%s/scripts
 logfile=~root/virt-sysprep-firstboot.log
 
-echo \"$0\" \"$@\" >>$logfile
-echo \"Scripts dir: $d\" >>$logfile
+echo \"$0\" \"$@\" 2>&1 | tee $logfile
+echo \"Scripts dir: $d\" 2>&1 | tee $logfile
 
 if test \"$1\" = \"start\"
 then
   for f in $d/* ; do
     if test -x \"$f\"
     then
-      echo '=== Running' $f '===' >>$logfile
-      $f >>$logfile 2>&1
+      echo '=== Running' $f '===' 2>&1 | tee $logfile
+      $f 2>&1 | tee $logfile
       rm -f $f
     fi
   done
@@ -71,6 +71,8 @@ Before=prefdm.service
 Type=oneshot
 ExecStart=%s/firstboot.sh start
 RemainAfterExit=yes
+StandardOutput=journal+console
+StandardError=inherit
 
 [Install]
 WantedBy=default.target
