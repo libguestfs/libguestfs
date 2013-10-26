@@ -559,7 +559,14 @@ Upload local file C<FILE> to destination C<DEST> in the disk image.
 File owner and permissions from the original are preserved, so you
 should set them to what you want them to be in the disk image.
 
-See also: I<--delete>, I<--scrub>.
+C<DEST> could be the final filename.  This can be used to rename
+the file on upload.
+
+If C<DEST> is a directory name (which must already exist in the guest)
+then the file is uploaded into that directory, and it keeps the same
+name as on the local filesystem.
+
+See also: I<--mkdir>, I<--delete>, I<--scrub>.
 
 =item B<-v>
 

@@ -56,6 +56,7 @@ rm -f $output
     --root-password password:123456 \
     --mkdir /etc/foo/bar/baz \
     --upload Makefile:/Makefile \
+    --upload Makefile:/etc/foo/bar/baz \
     --delete /Makefile \
     --firstboot Makefile --firstboot-command 'echo "hello"' \
     --firstboot-install "minicom,inkscape"
