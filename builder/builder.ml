@@ -38,7 +38,7 @@ let main () =
     attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
     firstboot, run, format, gpg, hostname, install, list_long, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
-    scrub_logfile, size, source, sync, upload =
+    scrub_logfile, size, source, sync, upload, writes =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -581,6 +581,13 @@ exec >>%s 2>&1
       msg (f_"Making directory: %s") dir;
       g#mkdir_p dir
   ) mkdirs;
+
+  (* Write files. *)
+  List.iter (
+    fun (file, content) ->
+      msg (f_"Writing: %s") file;
+      g#write file content
+  ) writes;
 
   (* Upload files. *)
   List.iter (

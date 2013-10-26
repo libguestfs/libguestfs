@@ -19,6 +19,7 @@ virt-builder - Build virtual machine images quickly
     [--hostname HOSTNAME]
     [--install PKG,[PKG...]]
     [--mkdir DIR]
+    [--write FILE:CONTENT]
     [--upload FILE:DEST]
     [--edit FILE:EXPR]
     [--delete FILE] [--scrub FILE]
@@ -583,6 +584,10 @@ your bug report.
 
 Display version number and exit.
 
+=item B<--write> FILE:CONTENT
+
+Write C<CONTENT> to C<FILE>.
+
 =back
 
 =head1 REFERENCE
@@ -765,6 +770,10 @@ Packages are installed (I<--install>).
 =item *
 
 Directories are created (I<--mkdir>).
+
+=item *
+
+Files are written (I<--write>).
 
 =item *
 
