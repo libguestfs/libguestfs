@@ -184,6 +184,19 @@ let parse_cmdline () =
     upload := (file, dest) :: !upload
   in
 
+  let writes = ref [] in
+  let add_write arg =
+    let i =
+      try String.index arg ':'
+      with Not_found ->
+        eprintf (f_"%s: invalid --write format, see the man page.\n") prog;
+        exit 1 in
+    let len = String.length arg in
+    let file = String.sub arg 0 i in
+    let content = String.sub arg (i+1) (len-(i+1)) in
+    writes := (file, content) :: !writes
+  in
+
   let ditto = " -\"-" in
   let argspec = Arg.align [
     "--attach",  Arg.String attach_disk,    "iso" ^ " " ^ s_"Attach data disk/ISO during install";
@@ -245,6 +258,7 @@ let parse_cmdline () =
     "--verbose", Arg.Set debug,             ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  ditto;
+    "--write",   Arg.String add_write,      "file:content" ^ " " ^ s_"Write file";
   ] in
   long_options := argspec;
 
@@ -298,6 +312,7 @@ read the man page virt-builder(1).
   let source = !source in
   let sync = !sync in
   let upload = List.rev !upload in
+  let writes = List.rev !writes in
 
   (* Check options. *)
   let arg =
@@ -353,4 +368,4 @@ read the man page virt-builder(1).
   attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
   firstboot, run, format, gpg, hostname, install, list_long, mkdirs,
   network, output, password_crypto, quiet, root_password, scrub,
-  scrub_logfile, size, source, sync, upload
+  scrub_logfile, size, source, sync, upload, writes
