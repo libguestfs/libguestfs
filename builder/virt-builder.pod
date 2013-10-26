@@ -841,6 +841,21 @@ XXX
 
 =end comment
 
+=head3 Booting directly using qemu or KVM
+
+The qemu command line is not very stable or easy to use, hence libvirt
+should be used if possible.  However a command line similar to the
+following could be used to boot the virtual machine:
+
+ qemu-system-x86_64 \
+   -machine accel=kvm:tcg \
+   -cpu host \
+   -m 2048 \
+   -drive file=disk.img,format=raw,if=virtio
+
+As with libvirt, it is very important that the correct format is
+chosen.  It will be C<raw> unless the I<--format> option was used.
+
 =head2 DEBUGGING BUILDS
 
 If virt-builder fails with an error, then enable debugging (I<-v>) and
