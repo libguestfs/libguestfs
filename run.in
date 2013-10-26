@@ -23,7 +23,7 @@
 # With this script you can run all the virt tools without needing to
 # install them first.  You just have to do for example:
 #
-#   ./run ./inspector/virt-inspector [args ...]
+#   ./run virt-inspector [args ...]
 #
 # This works for any C program, virt tools, and most non-C bindings
 # and programs in the libguestfs distribution.
@@ -72,13 +72,9 @@ run: warning: has not been set automatically.
 EOF
 fi
 
-# Set the PATH to contain guestunmount (called by umount-local API)
-# and virt-resize (called by virt-builder).
-if [ -z "$PATH" ]; then
-    PATH="$b/fuse:$b/resize"
-else
-    PATH="$b/fuse:$b/resize:$PATH"
-fi
+# Set the PATH to contain all the libguestfs binaries.  There are a
+# lot of binaries, so a lot of path entries.
+PATH="$d/align:$d/builder:$d/cat:$d/df:$d/edit:$d/erlang:$d/fish:$d/format:$d/fuse:$d/rescue:$d/resize:$d/sparsify:$d/sysprep:$d/test-tool:$d/tools:$PATH"
 export PATH
 
 # Set LD_LIBRARY_PATH to contain library.
@@ -148,19 +144,13 @@ else
 fi
 export CLASSPATH
 
-# For Erlang.
+# For Erlang (note $PATH is adjusted above to include erl-guestfs).
 if [ -z "$ERL_LIBS" ]; then
     ERL_LIBS="$b/erlang"
 else
     ERL_LIBS="$b/erlang:$ERL_LIBS"
 fi
 export ERL_LIBS
-if [ -z "$PATH" ]; then
-    PATH="$b/erlang"
-else
-    PATH="$b/erlang:$PATH"
-fi
-export PATH
 
 # For Lua.
 export LUA=@LUA@

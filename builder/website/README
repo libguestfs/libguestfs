@@ -25,7 +25,7 @@ directory.
 
 ie:
 
-  ./run ./builder/virt-builder fedora-20
+  ./run virt-builder fedora-20
 
 will fail unless you have downloaded fedora-20.xz here.
 
