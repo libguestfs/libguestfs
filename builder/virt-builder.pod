@@ -1273,7 +1273,50 @@ etc are truly random when the guest boots.
 
 You should check digital signatures and not ignore any signing errors.
 
-=head2 USER MODE LINUX
+=head2 PERFORMANCE
+
+The most important aspect of getting good performance is caching.
+Templates gets downloaded into the cache the first time they are used,
+or if you use the I<--cache-all-templates> option.  See L</CACHING>
+above for further information.
+
+Packages required for the I<--install> option are downloaded using the
+host network connection.  Setting the C<http_proxy>, C<https_proxy>
+and C<ftp_proxy> environment variables to point to a local web cache
+may ensure they only need to be downloaded once.  You can also try
+using a local package repository, although this can be complex to set
+up and varies according to which Linux distro you are trying to
+install.
+
+=head3 Skipping virt-resize
+
+Virt-builder can skip the virt-resize step under certain conditions.
+This makes virt-builder much faster.  The conditions are:
+
+=over 4
+
+=item *
+
+the output must be a regular file (not a block device), B<and>
+
+=item *
+
+the user did B<not> use the I<--size> option, B<and>
+
+=item *
+
+the output format is the same as the template format (usually raw).
+
+=back
+
+=head3 pxzcat
+
+Virt-builder can use C<pxzcat> (parallel xzcat) if available to
+uncompress the templates.  The default is to use regular C<xzcat>
+which is single-threaded.  Currently this has to be compiled in,
+ie. virt-builder will probably need to be recompiled to use pxzcat.
+
+=head3 User-Mode Linux
 
 You can use virt-builder with the User-Mode Linux (UML) backend.  This
 may be faster when running virt-builder inside a virtual machine
