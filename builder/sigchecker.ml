@@ -183,7 +183,7 @@ and do_verify t args =
   ) status;
 
   if not (equal_fingerprints !fingerprint t.fingerprint) then (
-    eprintf (f_"virt-builder: error: fingerprint of signature does not match the expected fingerprint!\n     found fingerprint: %s\n  expected fingerprint: %s\n")
+    eprintf (f_"virt-builder: error: fingerprint of signature does not match the expected fingerprint!\n  found fingerprint: %s\n  expected fingerprint: %s\n")
       !fingerprint t.fingerprint;
     exit 1
   )
