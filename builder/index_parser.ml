@@ -187,7 +187,7 @@ let get_index ~debug ~downloader ~sigchecker source =
 
     (* Now we've parsed the file into the correct sections, we
      * interpret the meaning of the fields.
-   *)
+     *)
     let sections = List.map (
       fun (n, fields) ->
         let len = String.length n in
