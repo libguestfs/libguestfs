@@ -27,7 +27,8 @@ and entry = {
   printable_name : string option;       (* the name= field *)
   osinfo : string option;
   file_uri : string;
-  signature_uri : string option;
+  signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
+  checksum_sha512 : string option;
   revision : int;
   format : string option;
   size : int64;
@@ -42,6 +43,7 @@ let print_entry chan (name, { printable_name = printable_name;
                               file_uri = file_uri;
                               osinfo = osinfo;
                               signature_uri = signature_uri;
+                              checksum_sha512 = checksum_sha512;
                               revision = revision;
                               format = format;
                               size = size;
@@ -64,6 +66,10 @@ let print_entry chan (name, { printable_name = printable_name;
   (match signature_uri with
   | None -> ()
   | Some uri -> fp "sig=%s\n" uri
+  );
+  (match checksum_sha512 with
+  | None -> ()
+  | Some uri -> fp "checksum[sha512]=%s\n" uri
   );
   fp "revision=%d\n" revision;
   (match format with
@@ -89,7 +95,7 @@ let print_entry chan (name, { printable_name = printable_name;
   );
   if hidden then fp "hidden=true\n"
 
-let fieldname_rex = Str.regexp "^\\([a-z_]+\\)=\\(.*\\)$"
+let fieldname_rex = Str.regexp "^\\([][a-z0-9_]+\\)=\\(.*\\)$"
 
 let get_index ~debug ~downloader ~sigchecker source =
   let rec corrupt_line line =
@@ -207,6 +213,7 @@ let get_index ~debug ~downloader ~sigchecker source =
               | "osinfo" -> false
               | "file" -> false
               | "sig" -> false
+              | "checksum[sha512]" -> false
               | "revision" -> false
               | "format" -> false
               | "size" -> false
@@ -279,6 +286,9 @@ let get_index ~debug ~downloader ~sigchecker source =
           let signature_uri =
             try Some (make_absolute_uri (List.assoc "sig" fields))
             with Not_found -> None in
+          let checksum_sha512 =
+            try Some (List.assoc "checksum[sha512]" fields)
+            with Not_found -> None in
           let revision =
             try int_of_string (List.assoc "revision" fields)
             with
@@ -327,6 +337,7 @@ let get_index ~debug ~downloader ~sigchecker source =
                         osinfo = osinfo;
                         file_uri = file_uri;
                         signature_uri = signature_uri;
+                        checksum_sha512 = checksum_sha512;
                         revision = revision;
                         format = format;
                         size = size;

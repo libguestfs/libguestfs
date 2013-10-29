@@ -207,3 +207,32 @@ and import_key t =
     );
     key_imported := true
   )
+
+type csum_t = SHA512 of string
+
+let verify_checksum t (SHA512 csum) filename =
+  let csum_file = Filename.temp_file "vbcsum" ".txt" in
+  unlink_on_exit csum_file;
+  let cmd = sprintf "sha512sum %s | awk '{print $1}' > %s"
+    (quote filename) (quote csum_file) in
+  if t.debug then eprintf "%s\n%!" cmd;
+  let r = Sys.command cmd in
+  if r <> 0 then (
+    eprintf (f_"virt-builder: error: could not run sha512sum command to verify checksum\n");
+    exit 1
+  );
+
+  let csum_actual = read_whole_file csum_file in
+
+  let csum_actual =
+    let len = String.length csum_actual in
+    if len > 0 && csum_actual.[len-1] = '\n' then
+      String.sub csum_actual 0 (len-1)
+    else
+      csum_actual in
+
+  if csum <> csum_actual then (
+    eprintf (f_"virt-builder: error: checksum of template did not match the expected checksum!\n  found checksum: %s\n  expected checksum: %s\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!\n")
+      csum_actual csum;
+    exit 1
+  )

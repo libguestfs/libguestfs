@@ -928,7 +928,7 @@ digital signature):
  name=Fedora® 18
  osinfo=fedora18
  file=fedora-18.xz
- sig=fedora-18.xz.sig
+ checksum[sha512]=...
  format=raw
  size=6442450944
  compressed_size=148947524
@@ -938,7 +938,7 @@ digital signature):
  name=Fedora® 19
  osinfo=fedora19
  file=fedora-19.xz
- sig=fedora-19.xz.sig
+ checksum[sha512]=...
  revision=3
  format=raw
  size=4294967296
@@ -981,6 +981,8 @@ cannot come from other servers.
 
 =item C<sig=PATH>
 
+B<This option is deprecated>.  Use the checksum field instead.
+
 The path (relative to the index) of the GPG detached signature of the
 xz file.
 
@@ -992,9 +994,15 @@ The file can be created as follows:
 
  gpg --detach-sign --armor -o disk.xz.sig disk.xz
 
-The signature is optional, but if you don't have it then virt-builder
-users will need to use the I<--no-check-signature> option in order
-to install from this template.
+=item C<checksum[sha512]=7b882fe9b82eb0fef...>
+
+The SHA-512 checksum of the B<compressed> file is checked after it is
+downloaded.  To work out the signature, do:
+
+ sha512sum disk.xz
+
+Note if you use this, you don't need to sign the file, ie. don't use
+C<sig>.  This option overrides C<sig>.
 
 =item C<revision=N>
 
