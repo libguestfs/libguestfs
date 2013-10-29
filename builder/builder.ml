@@ -214,16 +214,23 @@ let main () =
 
   (* Check the signature of the file. *)
   let () =
-    let sigfile =
-      match entry with
-      | { Index_parser.signature_uri = None } -> None
-      | { Index_parser.signature_uri = Some signature_uri } ->
-        let sigfile, delete_on_exit =
-          Downloader.download downloader signature_uri in
-        if delete_on_exit then unlink_on_exit sigfile;
-        Some sigfile in
+    match entry with
+    (* New-style: Using a checksum. *)
+    | { Index_parser.checksum_sha512 = Some csum } ->
+      Sigchecker.verify_checksum sigchecker (Sigchecker.SHA512 csum) template
 
-    Sigchecker.verify_detached sigchecker template sigfile in
+    | { Index_parser.checksum_sha512 = None } ->
+      (* Old-style: detached signature. *)
+      let sigfile =
+        match entry with
+        | { Index_parser.signature_uri = None } -> None
+        | { Index_parser.signature_uri = Some signature_uri } ->
+          let sigfile, delete_on_exit =
+            Downloader.download downloader signature_uri in
+          if delete_on_exit then unlink_on_exit sigfile;
+          Some sigfile in
+
+      Sigchecker.verify_detached sigchecker template sigfile in
 
   (* Plan how to create the output.  This depends on:
    * - did the user specify --output?
