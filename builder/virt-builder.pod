@@ -366,6 +366,18 @@ the image was built, use this option.
 
 See also: L</LOG FILE>.
 
+=item B<-m> MB
+
+=item B<--memsize> MB
+
+Change the amount of memory allocated to I<--run> scripts.  Increase
+this if you find that I<--run> scripts or the I<--install> option are
+running out of memory.
+
+The default can be found with this command:
+
+ guestfish get-memsize
+
 =item B<--mkdir> DIR
 
 Create a directory in the guest.
@@ -540,6 +552,10 @@ If the size is not specified, then one of two things happens.  If the
 output is a file, then the size is the same as the template.  If the
 output is a device, partition, etc then the size of that device is
 used.
+
+=item B<--smp> N
+
+Enable N E<ge> 2 virtual CPUs for I<--run> scripts to use.
 
 =item B<--source> URL
 
@@ -1350,12 +1366,6 @@ are actually interpreted by L<curl(1)>, not virt-builder.
 =item C<HOME>
 
 Used to determine the location of the template cache.  See L</CACHING>.
-
-=item C<LIBGUESTFS_MEMSIZE>
-
-The size (in megabytes) of the appliance.  The default can be found
-using the command S<C<guestfish get-memsize>>.  Increase this if you
-find that I<--run> scripts are running out of memory.
 
 =item C<VIRT_BUILDER_FINGERPRINT>
 

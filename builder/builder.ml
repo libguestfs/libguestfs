@@ -36,9 +36,9 @@ let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
     attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
-    firstboot, run, format, gpg, hostname, install, list_long, mkdirs,
+    firstboot, run, format, gpg, hostname, install, list_long, memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
-    scrub_logfile, size, source, sync, upload, writes =
+    scrub_logfile, size, smp, source, sync, upload, writes =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -396,6 +396,8 @@ let main () =
     let g = new G.guestfs () in
     if debug then g#set_trace true;
 
+    (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
+    (match smp with None -> () | Some smp -> g#set_smp smp);
     g#set_network network;
 
     (* The output disk is being created, so use cache=unsafe here. *)
