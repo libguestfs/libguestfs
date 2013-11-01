@@ -74,7 +74,7 @@ fi
 
 # Set the PATH to contain all the libguestfs binaries.  There are a
 # lot of binaries, so a lot of path entries.
-PATH="$d/align:$d/builder:$d/cat:$d/df:$d/edit:$d/erlang:$d/fish:$d/format:$d/fuse:$d/rescue:$d/resize:$d/sparsify:$d/sysprep:$d/test-tool:$d/tools:$PATH"
+PATH="$b/align:$b/builder:$b/cat:$b/df:$b/edit:$b/erlang:$b/fish:$b/format:$b/fuse:$b/rescue:$b/resize:$b/sparsify:$b/sysprep:$b/test-tool:$b/tools:$PATH"
 export PATH
 
 # Set LD_LIBRARY_PATH to contain library.
