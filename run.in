@@ -219,6 +219,7 @@ fi
 #    test fails
 #  - print how long it takes to run the test
 #  - timeout if the test takes too long to run
+#  - don't use timeout on RHEL 6 because it's broken (RHBZ#1025269)
 
 # Originally 1h, but that is not long enough to run the C API
 # tests on Koji.
@@ -229,11 +230,8 @@ timeout_kill=30s
 if timeout --help >/dev/null 2>&1; then
     # Does this version of timeout have the -k option?  (Not on RHEL 6)
     if timeout -k 10s 10s true >/dev/null 2>&1; then
-        timeout_k_opt="-k $timeout_kill"
+        timeout="timeout -k $timeout_kill $timeout_period"
     fi
-    # Timeout (SIGTERM) after $timeout_period.
-    # Then send a second SIGKILL $timeout_kill seconds later.
-    timeout="timeout $timeout_k_opt $timeout_period"
 fi
 
 pid=$$
