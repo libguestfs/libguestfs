@@ -16,9 +16,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+val default_fingerprint : string
+
 type t
 
-val create : debug:bool -> gpg:string -> ?fingerprint:string -> check_signature:bool -> t
+val create : debug:bool -> gpg:string -> fingerprint:string -> check_signature:bool -> t
 
 val verify : t -> string -> unit
 (** Verify the file is signed (if check_signature is true). *)
