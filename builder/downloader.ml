@@ -74,6 +74,7 @@ and download_to t ?(progress_bar = false) uri filename =
     t.curl
     (if t.debug then "" else " -s -S")
     (quote uri) in
+  if t.debug then eprintf "%s\n%!" cmd;
   let chan = open_process_in cmd in
   let status_code = input_line chan in
   let stat = close_process_in chan in
