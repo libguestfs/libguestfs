@@ -104,7 +104,7 @@ type t = {
   check_signature : bool;
 }
 
-let create ~debug ~gpg ?(fingerprint = default_fingerprint) ~check_signature =
+let create ~debug ~gpg ~fingerprint ~check_signature =
   {
     debug = debug;
     gpg = gpg;
@@ -188,10 +188,9 @@ and do_verify t args =
     exit 1
   )
 
-(* Import the default public key, if it's the default fingerprint. *)
+(* Import the default public key. *)
 and import_key t =
-  if not !key_imported && equal_fingerprints t.fingerprint default_fingerprint
-  then (
+  if not !key_imported then (
     let filename, chan = Filename.open_temp_file "vbpubkey" ".asc" in
     unlink_on_exit filename;
     output_string chan default_pubkey;

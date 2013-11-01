@@ -35,21 +35,26 @@ let prog = Filename.basename Sys.executable_name
 let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
-    attach, cache, check_signature, curl, debug, delete, edit, fingerprint,
+    attach, cache, check_signature, curl, debug, delete, edit,
     firstboot, run, format, gpg, hostname, install, list_long, memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
-    scrub_logfile, size, smp, source, sync, upload, writes =
+    scrub_logfile, size, smp, sources, sync, upload, writes =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
   let msg fs = make_message_function ~quiet fs in
 
-  (* If debugging, echo the command line arguments. *)
+  (* If debugging, echo the command line arguments and the sources. *)
   if debug then (
     eprintf "command line:";
     List.iter (eprintf " %s") (Array.to_list Sys.argv);
-    prerr_newline ()
+    prerr_newline ();
+    List.iteri (
+      fun i (source, fingerprint) ->
+        eprintf "source[%d] = (%S, %S)\n" i source fingerprint
+    ) sources
   );
+
 
   (* Handle some modes here, some later on. *)
   let mode =
@@ -125,19 +130,23 @@ let main () =
       )
   in
 
-  (* Make the downloader and signature checker abstract data types. *)
+  (* Download the sources. *)
   let downloader = Downloader.create ~debug ~curl ~cache in
-  let sigchecker =
-    Sigchecker.create ~debug ~gpg ?fingerprint ~check_signature in
-
-  (* Download the source (index) file. *)
-  let index = Index_parser.get_index ~debug ~downloader ~sigchecker source in
+  let index : Index_parser.index =
+    List.concat (
+      List.map (
+        fun (source, fingerprint) ->
+          let sigchecker =
+            Sigchecker.create ~debug ~gpg ~fingerprint ~check_signature in
+          Index_parser.get_index ~debug ~downloader ~sigchecker source
+      ) sources
+    ) in
 
   (* Now handle the remaining modes. *)
   let mode =
     match mode with
     | `List ->                          (* --list *)
-      List_entries.list_entries ~list_long ~source index;
+      List_entries.list_entries ~list_long ~sources index;
       exit 0
 
     | `Print_cache ->                   (* --print-cache *)
@@ -184,6 +193,7 @@ let main () =
       eprintf (f_"%s: cannot find os-version '%s'.\nUse --list to list available guest types.\n")
         prog arg;
       exit 1 in
+  let sigchecker = entry.Index_parser.sigchecker in
 
   (match mode with
   | `Notes ->                           (* --notes *)

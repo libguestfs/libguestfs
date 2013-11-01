@@ -264,10 +264,14 @@ Check that the index and templates are signed by the key with the
 given fingerprint.  (The fingerprint is a long string, usually written
 as 10 groups of 4 hexadecimal digits).
 
-If signature checking is enabled and the I<--fingerprint> option is
-not given, then this checks the download was signed by
-S<F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0> (which is
-S<Richard W.M. Jones's> key).
+You can give this option multiple times.  If you have multiple source
+URLs, then you can have either no fingerprint, one fingerprint or
+multiple fingerprints.  If you have multiple, then each must
+correspond 1-1 with a source URL.
+
+The default fingerprint (if none are supplied) is
+S<F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>
+(which is S<Richard W.M. Jones's> key).
 
 You can also set the C<VIRT_BUILDER_FINGERPRINT> environment variable.
 
@@ -559,8 +563,11 @@ Enable N E<ge> 2 virtual CPUs for I<--run> scripts to use.
 
 =item B<--source> URL
 
-Set the source URL to look for templates.  If not specified it
-defaults to L<http://libguestfs.org/download/builder/index.asc>
+Set the source URL to look for indexes.
+
+You can give this option multiple times to specify multiple sources.
+If not specified it defaults to
+L<http://libguestfs.org/download/builder/index.asc>
 
 See also L</CREATING YOUR OWN TEMPLATES> below.
 
@@ -1193,6 +1200,36 @@ Now run virt-builder commands as normal, eg:
 
 To debug problems, add the C<-v> option to these commands.
 
+=head3 Running virt-builder against multiple sources
+
+It is possible to use multiple sources with virt-builder.  Use either
+multiple I<--source> and/or I<--fingerprint> options, or a
+comma-separated list in the C<VIRT_BUILDER_SOURCE> /
+C<VIRT_BUILDER_FINGERPRINT> environment variables:
+
+ virt-builder \
+   --source http://example.com/s1/index.asc \
+   --source http://example.com/s2/index.asc
+
+or equivalently:
+
+ export VIRT_BUILDER_SOURCE=http://example.com/s1/index.asc,http://example.com/s2/index.asc
+ virt-builder [...]
+
+You can provide N, 1 or 0 fingerprints.  In the case where you
+provide N fingerprints, N = number of sources and there is a 1-1
+correspondence between each source and each fingerprint:
+
+ virt-builder \
+   --source http://example.com/s1/index.asc --fingerprint '0123 ...' \
+   --source http://example.com/s2/index.asc --fingerprint '9876 ...'
+
+In the case where you provide 1 fingerprint, the same fingerprint
+is used for all sources.
+
+In the case where you provide no fingerprints, the default fingerprint
+built into virt-builder is used for all sources.
+
 =head3 Licensing of templates
 
 You should be aware of the licensing of images that you distribute.
@@ -1377,13 +1414,13 @@ Used to determine the location of the template cache.  See L</CACHING>.
 
 =item C<VIRT_BUILDER_FINGERPRINT>
 
-Set the default value for the GPG signature fingerprint (see
-I<--fingerprint> option).
+Set the default value for the GPG signature fingerprint or
+comma-separated list of fingerprints (see I<--fingerprint> option).
 
 =item C<VIRT_BUILDER_SOURCE>
 
-Set the default value for the source URL for the template repository
-(see I<--source> option).
+Set the default value for the source URL (or comma-separated list of
+URLs) for the template repository (see I<--source> option).
 
 =item C<XDG_CACHE_HOME>
 

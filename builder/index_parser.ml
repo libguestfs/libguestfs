@@ -37,6 +37,8 @@ and entry = {
   lvexpand : string option;
   notes : string option;
   hidden : bool;
+
+  sigchecker : Sigchecker.t;
 }
 
 let print_entry chan (name, { printable_name = printable_name;
@@ -345,7 +347,8 @@ let get_index ~debug ~downloader ~sigchecker source =
                         expand = expand;
                         lvexpand = lvexpand;
                         notes = notes;
-                        hidden = hidden } in
+                        hidden = hidden;
+                        sigchecker = sigchecker } in
           n, entry
       ) sections in
 

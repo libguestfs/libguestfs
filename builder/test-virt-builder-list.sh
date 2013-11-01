@@ -39,6 +39,7 @@ fi
 long_list=$(./virt-builder --no-check-signature --no-cache --list --long)
 
 if [ "$long_list" != "Source URI: $VIRT_BUILDER_SOURCE
+Fingerprint: F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0
 
 os-version:              phony-debian
 Full name:               Phony Debian

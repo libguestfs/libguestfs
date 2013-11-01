@@ -31,6 +31,8 @@ and entry = {
   lvexpand : string option;
   notes : string option;
   hidden : bool;
+
+  sigchecker : Sigchecker.t;
 }
 
 val get_index : debug:bool -> downloader:Downloader.t -> sigchecker:Sigchecker.t -> string -> index
