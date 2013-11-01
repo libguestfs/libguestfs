@@ -27,6 +27,9 @@ EXTRA_DIST = \
 	website/README \
 	website/index \
 	website/index.asc \
+	website/centos-6.ks \
+	website/centos-6.sh \
+	website/centos-6.xz.sig \
 	website/debian-6.preseed \
 	website/debian-6.sh \
 	website/debian-6.xz.sig \
