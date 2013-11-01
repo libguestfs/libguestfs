@@ -225,8 +225,9 @@ let get_index ~debug ~downloader ~sigchecker source =
               | "notes" -> true
               | "hidden" -> false
               | _ ->
-                eprintf "warning: unknown field '%s' in index (ignored)\n%!"
-                  field;
+                if debug then
+                  eprintf "warning: unknown field '%s' in index (ignored)\n%!"
+                    field;
                 true in
             let value =
               if not allow_multiline then (
