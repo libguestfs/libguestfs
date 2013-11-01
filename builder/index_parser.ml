@@ -213,7 +213,7 @@ let get_index ~debug ~downloader ~sigchecker source =
               | "osinfo" -> false
               | "file" -> false
               | "sig" -> false
-              | "checksum[sha512]" -> false
+              | "checksum" | "checksum[sha512]" -> false
               | "revision" -> false
               | "format" -> false
               | "size" -> false
@@ -288,7 +288,9 @@ let get_index ~debug ~downloader ~sigchecker source =
             with Not_found -> None in
           let checksum_sha512 =
             try Some (List.assoc "checksum[sha512]" fields)
-            with Not_found -> None in
+            with Not_found ->
+              try Some (List.assoc "checksum" fields)
+              with Not_found -> None in
           let revision =
             try int_of_string (List.assoc "revision" fields)
             with

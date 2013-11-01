@@ -1004,6 +1004,15 @@ downloaded.  To work out the signature, do:
 Note if you use this, you don't need to sign the file, ie. don't use
 C<sig>.  This option overrides C<sig>.
 
+=item C<checksum=7b882fe9b82eb0fef...>
+
+C<checksum> is an alias for C<checksum[sha512]>.
+
+If you need to interoperate with virt-builder = 1.24.0 then you have
+to use C<checksum> because that version would give a parse error with
+square brackets and numbers in the key of a field.  This is fixed in
+virt-builder E<ge> 1.24.1.
+
 =item C<revision=N>
 
 The revision is an integer which is used to control the template
