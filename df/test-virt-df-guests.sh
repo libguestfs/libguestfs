@@ -21,6 +21,11 @@
 export LANG=C
 set -e
 
+if [ -n "$SKIP_TEST_VIRT_DF_GUESTS_SH" ]; then
+    echo "$0: skipping test because SKIP_TEST_DF_GUESTS_SH is set."
+    exit 77
+fi
+
 guestsdir="$(cd ../tests/guests && pwd)"
 libvirt_uri="test://$guestsdir/guests.xml"
 
