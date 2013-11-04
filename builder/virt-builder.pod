@@ -949,7 +949,7 @@ out the information in this index file.
 
 The templates hosted on libguestfs.org were created using shell
 scripts, kickstart files and preseed files which can be found in the
-libguestfs source tree, in C<libguestfs.git/builder/website>.
+libguestfs source tree, in C<builder/website>.
 
 =head3 Setting up the repository
 
@@ -994,8 +994,7 @@ Also find the fingerprint of your key:
 There are many ways to create the templates.  For example you could
 clone existing guests (see L<virt-sysprep(1)>), or you could install a
 guest by hand (L<virt-install(1)>).  To see how the templates were
-created for virt-builder, look at the scripts in
-C<libguestfs.git/builder/website>
+created for virt-builder, look at the scripts in C<builder/website>
 
 For best results when compressing the templates, use the following xz
 options (see L<nbdkit-xz-plugin(1)> for further explanation):
