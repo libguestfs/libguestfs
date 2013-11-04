@@ -711,6 +711,10 @@ test "x$XZCAT" = "xno" && AC_MSG_ERROR([xzcat must be installed])
 dnl Check for pxzcat (optional).
 AC_PATH_PROGS([PXZCAT],[pxzcat],[no])
 
+dnl (f)lex and bison are required for virt-builder.
+AC_PROG_LEX
+AC_PROG_YACC
+
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 qemu_system="$(

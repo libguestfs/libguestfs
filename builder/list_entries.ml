@@ -62,7 +62,7 @@ let list_entries ?(list_long = false) ~sources index =
           | None -> ()
           | Some notes ->
             printf "\n";
-            printf (f_"Notes:\n %s\n") notes
+            printf (f_"Notes:\n\n%s\n") notes
           );
           printf "\n"
         )

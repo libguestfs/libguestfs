@@ -58,10 +58,16 @@ Makefile.in
 /bash/virt-sparsify
 /build-aux
 /builder/.depend
+/builder/index-parse.c
+/builder/index-parse.h
+/builder/index-scan.c
 /builder/stamp-virt-builder.pod
+/builder/stamp-virt-index-validate.pod
 /builder/test-index
 /builder/virt-builder
 /builder/virt-builder.1
+/builder/virt-index-validate
+/builder/virt-index-validate.1
 /builder/*.xz
 /cat/stamp-virt-*.pod
 /cat/virt-cat
@@ -224,6 +230,7 @@ Makefile.in
 /html/virt-edit.1.html
 /html/virt-filesystems.1.html
 /html/virt-format.1.html
+/html/virt-index-validate.1.html
 /html/virt-inspector.1.html
 /html/virt-list-filesystems.1.html
 /html/virt-list-partitions.1.html

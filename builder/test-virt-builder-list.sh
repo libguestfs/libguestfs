@@ -46,28 +46,32 @@ Full name:               Phony Debian
 Minimum/default size:    512.0M
 
 Notes:
- Phony Debian look-alike used for testing.
+
+Phony Debian look-alike used for testing.
 
 os-version:              phony-fedora
 Full name:               Phony Fedora
 Minimum/default size:    1.0G
 
 Notes:
- Phony Fedora look-alike used for testing.
+
+Phony Fedora look-alike used for testing.
 
 os-version:              phony-ubuntu
 Full name:               Phony Ubuntu
 Minimum/default size:    512.0M
 
 Notes:
- Phony Ubuntu look-alike used for testing.
+
+Phony Ubuntu look-alike used for testing.
 
 os-version:              phony-windows
 Full name:               Phony Windows
 Minimum/default size:    512.0M
 
 Notes:
- Phony Windows look-alike used for testing." ]; then
+
+Phony Windows look-alike used for testing." ]; then
     echo "$0: unexpected --list --long output:"
     echo "$long_list"
     exit 1
