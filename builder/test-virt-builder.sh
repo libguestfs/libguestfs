@@ -49,7 +49,7 @@ rm -f $output
 # Note we cannot test --install, --run since the phony Fedora doesn't
 # have a real OS inside just some configuration files.  Just about
 # every other option is fair game.
-./virt-builder phony-fedora \
+$VG ./virt-builder phony-fedora \
     -v --no-cache --no-check-signature $no_network \
     -o $output --size 2G --format $format \
     --hostname test.example.com \

@@ -25,7 +25,7 @@ abs_srcdir=$(cd $srcdir && pwd)
 
 export VIRT_BUILDER_SOURCE=file://$abs_srcdir/test-index
 
-short_list=$(./virt-builder --no-check-signature --no-cache --list)
+short_list=$($VG ./virt-builder --no-check-signature --no-cache --list)
 
 if [ "$short_list" != "phony-debian             Phony Debian
 phony-fedora             Phony Fedora
