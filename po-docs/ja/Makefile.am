@@ -60,6 +60,7 @@ MANPAGES = \
 	virt-edit.1 \
 	virt-filesystems.1 \
 	virt-format.1 \
+	virt-index-validate.1 \
 	virt-inspector.1 \
 	virt-list-filesystems.1 \
 	virt-list-partitions.1 \

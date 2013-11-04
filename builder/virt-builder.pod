@@ -1245,6 +1245,23 @@ For open source guests, provide a link to the source code in the
 C<notes> field and comply with other requirements (eg. around
 trademarks).
 
+=head3 Formal specification of the index file
+
+The index file format has a formal specification defined by the flex
+scanner and bison parser used to parse the file.  This can be found in
+the following files in the libguestfs source tree:
+
+ builder/index-scan.l
+ builder/index-parse.y
+
+A tool called L<virt-index-validate(1)> is available to validate the
+index file to ensure it is correct.
+
+Note that the parser and tool can work on either the signed or
+unsigned index file (ie. C<index> or C<index.asc>).
+
+The index is always encoded in UTF-8.
+
 =head2 CACHING
 
 Since the templates are usually very large, downloaded templates are

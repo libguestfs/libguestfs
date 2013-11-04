@@ -97,14 +97,17 @@ let print_entry chan (name, { printable_name = printable_name;
   );
   if hidden then fp "hidden=true\n"
 
-let fieldname_rex = Str.regexp "^\\([][a-z0-9_]+\\)=\\(.*\\)$"
+(* Types returned by the C index parser. *)
+type sections = section array
+and section = string * fields           (* [name] + fields *)
+and fields = field array
+and field = string * string             (* key + value *)
+
+(* Calls yyparse in the C code. *)
+external parse_index : string -> sections = "virt_builder_parse_index"
 
 let get_index ~debug ~downloader ~sigchecker source =
-  let rec corrupt_line line =
-    eprintf (f_"virt-builder: error parsing index near this line:\n\n%s\n")
-      line;
-    corrupt_file ()
-  and corrupt_file () =
+  let corrupt_file () =
     eprintf (f_"\nThe index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.\n")
       source;
     exit 1
@@ -119,133 +122,15 @@ let get_index ~debug ~downloader ~sigchecker source =
      *)
     Sigchecker.verify sigchecker tmpfile;
 
-    (* Check the index page is not too huge. *)
-    let st = stat tmpfile in
-    if st.st_size > 1_000_000 then (
-      eprintf (f_"virt-builder: index page '%s' is too large (size %d bytes)\n")
-        source st.st_size;
-      exit 1
-    );
-
-    (* Load the file into memory. *)
-    let index = read_whole_file tmpfile in
+    (* Try parsing the file. *)
+    let sections = parse_index tmpfile in
     if delete_tmpfile then
       (try Unix.unlink tmpfile with _ -> ());
 
-    (* Split file into lines. *)
-    let index = string_nsplit "\n" index in
-
-    (* If there is a signature (checked above) then remove it. *)
-    let index =
-      match index with
-      | "-----BEGIN PGP SIGNED MESSAGE-----" :: lines ->
-        (* Ignore all lines until we get to first blank. *)
-        let lines = dropwhile ((<>) "") lines in
-        (* Ignore the blank line too. *)
-        let lines = List.tl lines in
-        (* Take lines until we get to the end signature. *)
-        let lines = takewhile ((<>) "-----BEGIN PGP SIGNATURE-----") lines in
-        lines
-      | _ -> index in
-
-    (* Split into sections around each /^[/ *)
-    let rec loop = function
-      | [] -> []
-      | x :: xs when String.length x >= 1 && x.[0] = '[' ->
-        let lines = takewhile ((<>) "") xs in
-        let rest = dropwhile ((<>) "") xs in
-        if rest = [] then
-          [x, lines]
-        else (
-          let rest = List.tl rest in
-          let rest = loop rest in
-          (x, lines) :: rest
-        )
-      | x :: _ -> corrupt_line x
-    in
-    let sections = loop index in
-
-    (* Parse the fields in each section. *)
-    let isspace = function ' ' | '\t' -> true | _ -> false in
-    let starts_space str = String.length str >= 1 && isspace str.[0] in
-    let rec loop = function
-      | [] -> []
-      | x :: xs when not (starts_space x) && String.contains x '=' ->
-        let xs' = takewhile starts_space xs in
-        let ys = dropwhile starts_space xs in
-        (x :: xs') :: loop ys
-      | x :: _ -> corrupt_line x
-    in
-    let sections = List.map (fun (n, lines) -> n, loop lines) sections in
-
-    if debug then (
-      eprintf "index file (%s) after splitting:\n" source;
-      List.iter (
-        fun (n, fields) ->
-          eprintf "  os-version: %s\n" n;
-          let i = ref 0 in
-          List.iter (
-            fun field ->
-              eprintf "    %d: " !i;
-              List.iter prerr_endline field;
-              incr i
-          ) fields
-      ) sections
-    );
-
-    (* Now we've parsed the file into the correct sections, we
-     * interpret the meaning of the fields.
-     *)
+    let sections = Array.to_list sections in
     let sections = List.map (
       fun (n, fields) ->
-        let len = String.length n in
-        if len < 3 || n.[0] <> '[' || n.[len-1] <> ']' then
-          corrupt_line n;
-        let n = String.sub n 1 (len-2) in
-
-        let fields = List.map (
-          function
-          | [] -> assert false (* can never happen, I think? *)
-          | x :: xs when Str.string_match fieldname_rex x 0 ->
-            let field = Str.matched_group 1 x in
-            let rest_of_line = Str.matched_group 2 x in
-            let allow_multiline =
-              match field with
-              | "name" -> false
-              | "osinfo" -> false
-              | "file" -> false
-              | "sig" -> false
-              | "checksum" | "checksum[sha512]" -> false
-              | "revision" -> false
-              | "format" -> false
-              | "size" -> false
-              | "compressed_size" -> false
-              | "expand" -> false
-              | "lvexpand" -> false
-              | "notes" -> true
-              | "hidden" -> false
-              | _ ->
-                if debug then
-                  eprintf "warning: unknown field '%s' in index (ignored)\n%!"
-                    field;
-                true in
-            let value =
-              if not allow_multiline then (
-                if xs <> [] then (
-                  eprintf (f_"virt-builder: field '%s' cannot span multiple lines\n")
-                    field;
-                  corrupt_line (List.hd xs)
-                );
-                rest_of_line
-              ) else (
-                String.concat "\n" (rest_of_line :: xs)
-              ) in
-            field, value
-          | x :: _ ->
-            corrupt_line x
-        ) fields in
-
-        (n, fields)
+        n, Array.to_list fields
     ) sections in
 
     (* Check for repeated os-version names. *)
@@ -356,7 +241,7 @@ let get_index ~debug ~downloader ~sigchecker source =
       ) sections in
 
     if debug then (
-      eprintf "index file (%s) after parsing:\n" source;
+      eprintf "index file (%s) after parsing (C parser):\n" source;
       List.iter (print_entry Pervasives.stderr) entries
     );
 

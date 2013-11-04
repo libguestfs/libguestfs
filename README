@@ -94,6 +94,10 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | gperf        |             | R |                                         |
 +--------------+-------------+---+-----------------------------------------+
+| flex         |             | R | flex & bison are required for virt-     |
++--------------+-------------+---| builder.  We could make these           |
+| bison        |             | R | optional but automakes makes it hard.   |
++--------------+-------------+---+-----------------------------------------+
 | PCRE         |             | R | Perl-compatible Regular Expression lib. |
 +--------------+-------------+---+-----------------------------------------+
 | genisoimage  |             | R | mkisofs may work.                       |
