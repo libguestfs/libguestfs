@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-11-01 14:43+0000\n"
+"POT-Creation-Date: 2013-11-04 22:22+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -56,10 +56,10 @@ msgstr ""
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: હેન્ડલ ને બનાવવાનું નિષ્ફળ\n"
 
-#: align/scan.c:154 cat/cat.c:137 cat/filesystems.c:242 cat/ls.c:230
-#: df/main.c:157 edit/edit.c:157 fish/fish.c:290 format/format.c:183
-#: fuse/guestmount.c:242 fuse/guestunmount.c:124 inspector/inspector.c:151
-#: rescue/rescue.c:192
+#: align/scan.c:154 builder/index-validate.c:75 cat/cat.c:137
+#: cat/filesystems.c:242 cat/ls.c:230 df/main.c:157 edit/edit.c:157
+#: fish/fish.c:290 format/format.c:183 fuse/guestmount.c:242
+#: fuse/guestunmount.c:124 inspector/inspector.c:151 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: અજ્ઞાત લાંબો વિકલ્પ: %s (%d)\n"
@@ -85,6 +85,42 @@ msgstr ""
 
 #: align/scan.c:334
 msgid "alignment < 64K"
+msgstr ""
+
+#: builder/index-validate.c:105
+#, c-format
+msgid "%s: '%s' could not be validated, see errors above\n"
+msgstr ""
+
+#: builder/index-validate.c:111
+#, c-format
+msgid "%s: %s: error reading input file: %m\n"
+msgstr ""
+
+#: builder/index-validate.c:117
+#, c-format
+msgid "%s: %s contains comments which will not work with virt-builder 1.24.1\n"
+msgstr ""
+
+#: builder/index-validate.c:131
+#, c-format
+msgid ""
+"%s: %s: section [%s], field '%s' has invalid characters which will not work "
+"with virt-builder 1.24.0\n"
+msgstr ""
+
+#: builder/index-validate.c:139
+#, c-format
+msgid ""
+"%s: %s: section [%s], field '%s' has invalid characters which will not work "
+"with virt-builder 1.24.1\n"
+msgstr ""
+
+#: builder/index-validate.c:149
+#, c-format
+msgid ""
+"%s: %s: section [%s] is missing a 'sig' field which will not work with virt-"
+"builder 1.24.0\n"
 msgstr ""
 
 #: cat/cat.c:60
@@ -4869,7 +4905,7 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:108
+#: ../builder/index_parser.ml:111
 msgid ""
 "\n"
 "The index file downloaded from '%s' is corrupt.\n"
@@ -6762,35 +6798,28 @@ msgstr ""
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../builder/index_parser.ml:320
+#: ../builder/index_parser.ml:208
 msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:334
+#: ../builder/index_parser.ml:222
 msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:299
+#: ../builder/index_parser.ml:187
 msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:311
+#: ../builder/index_parser.ml:199
 msgid "virt-builder: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:369
+#: ../builder/index_parser.ml:257
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
 #: ../builder/downloader.ml:123 ../builder/downloader.ml:84
 msgid "virt-builder: curl (download) command failed downloading '%s'\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:104
-msgid ""
-"virt-builder: error parsing index near this line:\n"
-"\n"
-"%s\n"
 msgstr ""
 
 #: ../builder/sigchecker.ml:168
@@ -6858,10 +6887,6 @@ msgstr ""
 msgid "virt-builder: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:234
-msgid "virt-builder: field '%s' cannot span multiple lines\n"
-msgstr ""
-
 #: ../builder/get_kernel.ml:44
 msgid ""
 "virt-builder: get-kernel: daual/mult-boot images are not supported by this "
@@ -6872,25 +6897,21 @@ msgstr ""
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:268
+#: ../builder/index_parser.ml:154
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:255
+#: ../builder/index_parser.ml:141
 msgid ""
 "virt-builder: index is corrupt: os-version '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:125
-msgid "virt-builder: index page '%s' is too large (size %d bytes)\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:286
+#: ../builder/index_parser.ml:172
 msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:308
+#: ../builder/index_parser.ml:196
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr ""
 
@@ -6898,12 +6919,12 @@ msgstr ""
 msgid "virt-builder: no kernel found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:374
+#: ../builder/index_parser.ml:262
 msgid ""
 "virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:365
+#: ../builder/index_parser.ml:253
 msgid "virt-builder: zero length path in the index file\n"
 msgstr ""
 
