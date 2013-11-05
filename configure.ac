@@ -714,9 +714,14 @@ PKG_CHECK_MODULES([LIBLZMA], [liblzma],[
 ],
 [AC_MSG_WARN([liblzma not found, virt-builder will be slower])])
 
-dnl (f)lex and bison are required for virt-builder.
+dnl (f)lex and bison for virt-builder (required).
+dnl XXX Could be optional with some work.
 AC_PROG_LEX
 AC_PROG_YACC
+dnl These macros don't fail, instead they set some useless defaults.
+if test "x$YACC" = "xyacc"; then
+    AC_MSG_FAILURE([GNU 'bison' is required (yacc won't work).])
+fi
 
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
