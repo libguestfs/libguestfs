@@ -28,36 +28,7 @@ EXTRA_DIST = \
 	virt-builder.pod \
 	virt-index-validate.pod \
 	test-virt-builder.sh \
-	test-virt-builder-list.sh \
-	website/.gitignore \
-	website/test-guest.sh \
-	website/README \
-	website/index \
-	website/index.asc \
-	website/centos-6.ks \
-	website/centos-6.sh \
-	website/centos-6.xz.sig \
-	website/debian-6.preseed \
-	website/debian-6.sh \
-	website/debian-6.xz.sig \
-	website/debian-7.preseed \
-	website/debian-7.sh \
-	website/debian-7.xz.sig \
-	website/fedora-18.ks \
-	website/fedora-18.sh \
-	website/fedora-18.xz.sig \
-	website/fedora-19.ks \
-	website/fedora-19.sh \
-	website/fedora-19.xz.sig \
-	website/ubuntu-10.04.preseed \
-	website/ubuntu-10.04.sh \
-	website/ubuntu-10.04.xz.sig \
-	website/ubuntu-12.04.preseed \
-	website/ubuntu-12.04.sh \
-	website/ubuntu-12.04.xz.sig \
-	website/ubuntu-13.10.preseed \
-	website/ubuntu-13.10.sh \
-	website/ubuntu-13.10.xz.sig
+	test-virt-builder-list.sh
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 
