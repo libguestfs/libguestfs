@@ -21,7 +21,9 @@ AM_YFLAGS = -d
 AM_CFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish
+	-I$(top_srcdir)/fish \
+	-pthread \
+	$(LIBLZMA_CFLAGS)
 
 EXTRA_DIST = \
 	$(SOURCES) \
@@ -45,6 +47,9 @@ SOURCES = \
 	index-parser-c.c \
 	list_entries.mli \
 	list_entries.ml \
+	pxzcat.ml \
+	pxzcat.mli \
+	pxzcat-c.c \
 	sigchecker.mli \
 	sigchecker.ml
 
@@ -73,6 +78,8 @@ OBJECTS = \
 	index-struct.o \
 	index-parse.o \
 	index-parser-c.o \
+	pxzcat-c.o \
+	pxzcat.cmx \
 	get_kernel.cmx \
 	downloader.cmx \
 	sigchecker.cmx \
@@ -101,7 +108,7 @@ OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 virt-builder: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib '-lncurses -lcrypt' \
+	  -cclib '-pthread $(LIBLZMA_LIBS) -lncurses -lcrypt -lpthread' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 
