@@ -21,6 +21,7 @@ EXTRA_DIST = \
 	.gitignore \
 	compress.sh \
 	test-guest.sh \
+	validate.sh \
 	README \
 	index \
 	index.asc \
