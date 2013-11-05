@@ -64,7 +64,8 @@ static pcre *re_major_minor;
 static pcre *re_xdev;
 static pcre *re_cciss;
 static pcre *re_mdN;
-static pcre *re_freebsd;
+static pcre *re_freebsd_mbr;
+static pcre *re_freebsd_gpt;
 static pcre *re_diskbyid;
 static pcre *re_netbsd;
 static pcre *re_opensuse;
@@ -115,7 +116,8 @@ compile_regexps (void)
   COMPILE (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0);
   COMPILE (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0);
   COMPILE (re_mdN, "^(/dev/md\\d+)$", 0);
-  COMPILE (re_freebsd, "^/dev/ad(\\d+)s(\\d+)([a-z])$", 0);
+  COMPILE (re_freebsd_mbr, "^/dev/(ada{0,1}|vtbd)(\\d+)s(\\d+)([a-z])$", 0);
+  COMPILE (re_freebsd_gpt, "^/dev/(ada{0,1}|vtbd)(\\d+)p(\\d+)$", 0);
   COMPILE (re_diskbyid, "^/dev/disk/by-id/.*-part(\\d+)$", 0);
   COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
   COMPILE (re_opensuse, "^(openSUSE|SuSE Linux|SUSE LINUX) ", 0);
@@ -143,7 +145,8 @@ free_regexps (void)
   pcre_free (re_xdev);
   pcre_free (re_cciss);
   pcre_free (re_mdN);
-  pcre_free (re_freebsd);
+  pcre_free (re_freebsd_mbr);
+  pcre_free (re_freebsd_gpt);
   pcre_free (re_diskbyid);
   pcre_free (re_netbsd);
   pcre_free (re_opensuse);
@@ -1464,7 +1467,22 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
 
     free (disk);
   }
-  else if (match3 (g, spec, re_freebsd, &disk, &slice, &part)) {
+  else if (match3 (g, spec, re_freebsd_gpt, &type, &disk, &part)) {
+    /* If the FreeBSD disk contains GPT partitions, the translation to Linux
+     * device names is straight forward. Partitions on a virtio disk are
+     * prefixed with vtbd. IDE hard drives used to be prefixed with ad and now
+     * are with ada.
+     */
+    int disk_i = guestfs___parse_unsigned_int (g, disk);
+    int part_i = guestfs___parse_unsigned_int (g, part);
+    free (type);
+    free (disk);
+    free (part);
+
+    if (disk_i != -1 && disk_i <= 26 && part_i > 0 && part_i <= 128)
+      device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i);
+  }
+  else if (match4 (g, spec, re_freebsd_mbr, &type, &disk, &slice, &part)) {
     /* FreeBSD disks are organized quite differently.  See:
      * http://www.freebsd.org/doc/handbook/disk-organization.html
      * FreeBSD "partitions" are exposed as quasi-extended partitions
@@ -1474,6 +1492,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
     int disk_i = guestfs___parse_unsigned_int (g, disk);
     int slice_i = guestfs___parse_unsigned_int (g, slice);
     int part_i = part[0] - 'a' /* counting from 0 */;
+    free (type);
     free (disk);
     free (slice);
     free (part);
