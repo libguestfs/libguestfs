@@ -23,8 +23,7 @@ EXTRA_DIST = \
 	README \
 	index \
 	index.asc \
-	centos-6.ks \
-	centos-6.sh \
+	centos.sh \
 	centos-6.xz.sig \
 	debian.preseed \
 	debian.sh \
