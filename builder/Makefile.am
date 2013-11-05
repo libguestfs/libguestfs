@@ -26,6 +26,7 @@ AM_CFLAGS = \
 EXTRA_DIST = \
 	$(SOURCES) \
 	virt-builder.pod \
+	virt-index-validate.pod \
 	test-virt-builder.sh \
 	test-virt-builder-list.sh \
 	website/.gitignore \
@@ -70,6 +71,7 @@ SOURCES = \
 	get_kernel.ml \
 	index_parser.mli \
 	index_parser.ml \
+	index-parser-c.c \
 	list_entries.mli \
 	list_entries.ml \
 	perl_edit.ml \
