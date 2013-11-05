@@ -26,11 +26,9 @@ EXTRA_DIST = \
 	centos-6.ks \
 	centos-6.sh \
 	centos-6.xz.sig \
-	debian-6.preseed \
-	debian-6.sh \
+	debian.preseed \
+	debian.sh \
 	debian-6.xz.sig \
-	debian-7.preseed \
-	debian-7.sh \
 	debian-7.xz.sig \
 	fedora.sh \
 	fedora-18.xz.sig \

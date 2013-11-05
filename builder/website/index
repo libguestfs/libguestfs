@@ -36,9 +36,10 @@ notes=Debian 6 (Squeeze).
  This is a default Debian install.
  
  The preseed and virt-install scripts that produced this image
- can be found in the libguestfs git tree:
- libguestfs.git/builder/website/debian-6.preseed
- libguestfs.git/builder/website/debian-6.sh
+ can be found in the libguestfs source tree:
+ 
+ builder/website/debian.preseed
+ builder/website/debian.sh
  
  This image is so very minimal that it only includes an ssh
  server and no virtual consoles.  To enable virtual consoles
@@ -66,9 +67,10 @@ notes=Debian 7 (Wheezy).
  This is a default Debian install.
  
  The preseed and virt-install scripts that produced this image
- can be found in the libguestfs git tree:
- libguestfs.git/builder/website/debian-7.preseed
- libguestfs.git/builder/website/debian-7.sh
+ can be found in the libguestfs source tree:
+ 
+ builder/website/debian.preseed
+ builder/website/debian.sh
  
  This image is so very minimal that it only includes an ssh
  server and no virtual consoles.  To enable virtual consoles
