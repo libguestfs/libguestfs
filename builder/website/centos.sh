@@ -27,7 +27,7 @@ if [ $# -ne 1 ]; then
 fi
 
 version=$1
-output=fedora-$version
+output=centos-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
 # We rebuild this every time there is a new 6.x release, and bump
