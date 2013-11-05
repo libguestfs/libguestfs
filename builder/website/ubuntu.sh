@@ -21,65 +21,64 @@
 # https://wiki.debian.org/DebianInstaller/Preseed
 # https://help.ubuntu.com/10.04/installation-guide/i386/preseed-using.html
 
+unset CDPATH
+export LANG=C
 set -e
 set -x
 
-# Some configuration.
-#export http_proxy=http://squid.corp.redhat.com:3128
-#export https_proxy=$http_proxy
-#export ftp_proxy=$http_proxy
-location=http://archive.ubuntu.net/ubuntu/dists/precise/main/installer-amd64
-
-# Currently you have to run this script as root.
-if [ `id -u` -ne 0 ]; then
-    echo "You have to run this script as root."
+if [ $# -ne 2 ]; then
+    echo "$0 VERSION DIST"
     exit 1
 fi
 
+# Some configuration.
+version=$1
+dist=$2
+location=http://archive.ubuntu.net/ubuntu/dists/$dist/main/installer-amd64
+output=ubuntu-$version
+tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
+
+rm -f $output $output.old $output.xz
+
 # Make sure it's being run from the correct directory.
-if [ ! -f ubuntu-12.04.preseed ]; then
+if [ ! -f ubuntu.preseed ]; then
     echo "You are running this script from the wrong directory."
     exit 1
 fi
 
-pwd=`pwd`
-
 # Note that the injected file must be called "/preseed.cfg" in order
 # for d-i to pick it up.
-sed -e "s,@CACHE@,$http_proxy,g" < ubuntu-12.04.preseed > preseed.cfg
+sed -e "s,@CACHE@,$http_proxy,g" < ubuntu.preseed > preseed.cfg
 
-name=tmpprecise
-
-virsh undefine $name ||:
-rm -f ubuntu-12.04 ubuntu-12.04.old
+# Clean up function.
+cleanup ()
+{
+    rm -f preseed.cfg
+    virsh undefine $tmpname ||:
+}
+trap cleanup INT QUIT TERM EXIT ERR
 
 virt-install \
-    --name $name \
+    --name=$tmpname \
     --ram=1024 \
-    --os-type=linux --os-variant=ubuntuprecise \
-    --initrd-inject=$pwd/preseed.cfg \
+    --os-type=linux --os-variant=ubuntu$dist \
+    --initrd-inject=$(pwd)/preseed.cfg \
     --extra-args="auto console=tty0 console=ttyS0,115200" \
-    --disk=$pwd/ubuntu-12.04,size=4 \
+    --disk=$(pwd)/$output,size=4 \
     --location=$location \
     --nographics \
     --noreboot
-# The virt-install command should exit after complete installation.
-# Remove the guest, we don't want it to be defined in libvirt.
-virsh undefine $name
-
-rm preseed.cfg
 
 # Sysprep (removes logfiles and so on).
-virt-sysprep -a ubuntu-12.04
+virt-sysprep -a $output
 
 # Sparsify.
-mv ubuntu-12.04 ubuntu-12.04.old
-virt-sparsify ubuntu-12.04.old ubuntu-12.04
-rm ubuntu-12.04.old
+mv $output $output.old
+virt-sparsify $output.old $output
+rm $output.old
 
 # Compress.
-rm -f ubuntu-12.04.xz
-xz --best --block-size=16777216 ubuntu-12.04
+xz --best --block-size=16777216 $output
 
 # Result:
-ls -lh ubuntu-12.04.xz
+ls -lh $output.xz
