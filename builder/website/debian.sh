@@ -20,57 +20,64 @@
 # http://honk.sigxcpu.org/con/Preseeding_Debian_virtual_machines_with_virt_install.html
 # https://wiki.debian.org/DebianInstaller/Preseed
 
+unset CDPATH
+export LANG=C
 set -e
 set -x
 
+if [ $# -ne 2 ]; then
+    echo "$0 VERSION DIST"
+    exit 1
+fi
+
 # Some configuration.
-export http_proxy=http://cache.home.annexia.org:3128
-export https_proxy=$http_proxy
-export ftp_proxy=$http_proxy
-location=http://ftp.uk.debian.org/debian/dists/squeeze/main/installer-amd64
+version=$1
+dist=$2
+location=http://ftp.uk.debian.org/debian/dists/$dist/main/installer-amd64
+output=debian-$version
+tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
+
+rm -f $output $output.old $output.xz
 
 # Make sure it's being run from the correct directory.
-if [ ! -f debian-6.preseed ]; then
+if [ ! -f debian.preseed ]; then
     echo "You are running this script from the wrong directory."
     exit 1
 fi
 
-pwd=`pwd`
-
 # Note that the injected file must be called "/preseed.cfg" in order
 # for d-i to pick it up.
-sed -e "s,@CACHE@,$http_proxy,g" < debian-6.preseed > preseed.cfg
+sed -e "s,@CACHE@,$http_proxy,g" < debian.preseed > preseed.cfg
 
-virsh undefine tmpd6 ||:
-rm -f debian-6 debian-6.old
+# Clean up function.
+cleanup ()
+{
+    rm -f preseed.cfg
+    virsh undefine $tmpname ||:
+}
+trap cleanup INT QUIT TERM EXIT ERR
 
 virt-install \
-    --name tmpd6 \
+    --name=$tmpname \
     --ram=1024 \
-    --os-type=linux --os-variant=debiansqueeze \
-    --initrd-inject=$pwd/preseed.cfg \
+    --os-type=linux --os-variant=debian$dist \
+    --initrd-inject=$(pwd)/preseed.cfg \
     --extra-args="auto console=tty0 console=ttyS0,115200" \
-    --disk=$pwd/debian-6,size=4 \
+    --disk=$(pwd)/$output,size=4 \
     --location=$location \
     --nographics \
     --noreboot
-# The virt-install command should exit after complete installation.
-# Remove the guest, we don't want it to be defined in libvirt.
-virsh undefine tmpd6
-
-rm preseed.cfg
 
 # Sysprep (removes logfiles and so on).
-virt-sysprep -a debian-6
+virt-sysprep -a $output
 
 # Sparsify.
-mv debian-6 debian-6.old
-virt-sparsify debian-6.old debian-6
-rm debian-6.old
+mv $output $output.old
+virt-sparsify $output.old $output
+rm $output.old
 
 # Compress.
-rm -f debian-6.xz
-xz --best --block-size=$((16*1024*1024)) debian-6
+xz --best --block-size=16777216 $output
 
 # Result:
-ls -lh debian-6.xz
+ls -lh $output.xz
