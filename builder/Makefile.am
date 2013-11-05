@@ -120,8 +120,6 @@ virt-builder: $(OBJECTS)
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
 
-index-parser-c.o: index-parse.h
-
 # Manual pages and HTML files for the website.
 
 man_MANS += virt-builder.1
@@ -192,8 +190,6 @@ virt_index_validate_SOURCES = \
 	index-struct.c \
 	index-validate.c
 
-index-validate.o: index-parse.h
-
 man_MANS += virt-index-validate.1
 noinst_DATA += $(top_builddir)/html/virt-index-validate.1.html
 
@@ -212,3 +208,10 @@ CLEANFILES += \
 	index-parse.h \
 	index-scan.c \
 	stamp-virt-index-validate.pod
+
+# Fix dependencies which automake doesn't generate correctly.
+if HAVE_OCAML
+index-parser-c.o: index-parse.h
+index-scan.o: index-parse.h
+endif
+index-validate.o: index-parse.h
