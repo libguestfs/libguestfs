@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-11-04 22:22+0000\n"
+"POT-Creation-Date: 2013-11-05 15:11+0000\n"
 "PO-Revision-Date: 2013-10-17 14:46+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/fedora/language/"
@@ -1204,7 +1204,7 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:359
 #: ../appliance/libguestfs-make-fixed-appliance.pod:156
-#: ../builder/virt-builder.pod:1456 ../builder/virt-index-validate.pod:76
+#: ../builder/virt-builder.pod:1455 ../builder/virt-index-validate.pod:76
 #: ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:390
 #: ../cat/virt-ls.pod:496 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260
 #: ../edit/virt-edit.pod:357 ../fish/guestfish.pod:1358
@@ -1414,7 +1414,7 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:393
 #: ../appliance/libguestfs-make-fixed-appliance.pod:166
-#: ../builder/virt-builder.pod:1461 ../builder/virt-index-validate.pod:81
+#: ../builder/virt-builder.pod:1460 ../builder/virt-index-validate.pod:81
 #: ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395
 #: ../cat/virt-ls.pod:501 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:265
 #: ../edit/virt-edit.pod:362 ../erlang/examples/guestfs-erlang.pod:97
@@ -1448,7 +1448,7 @@ msgstr ""
 "L<virt-resize(1)>, L<http://libguestfs.org/>."
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1476
+#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1475
 #: ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:258
 #: ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:510
 #: ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273 ../edit/virt-edit.pod:373
@@ -1461,7 +1461,7 @@ msgid "AUTHOR"
 msgstr "著者"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1478
+#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1477
 #: ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:260
 #: ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:512
 #: ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275 ../edit/virt-edit.pod:375
@@ -1476,7 +1476,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:406
 #: ../appliance/libguestfs-make-fixed-appliance.pod:179
-#: ../builder/virt-builder.pod:1480 ../builder/virt-index-validate.pod:90
+#: ../builder/virt-builder.pod:1479 ../builder/virt-index-validate.pod:90
 #: ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410
 #: ../cat/virt-ls.pod:514 ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277
 #: ../edit/virt-edit.pod:377 ../erlang/examples/guestfs-erlang.pod:116
@@ -1820,7 +1820,7 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:161
-#: ../builder/virt-builder.pod:1420 ../edit/virt-edit.pod:337
+#: ../builder/virt-builder.pod:1419 ../edit/virt-edit.pod:337
 #: ../fish/guestfish.pod:1363 ../fuse/guestunmount.pod:115
 #: ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312
 #: ../src/guestfs.pod:4578 ../test-tool/libguestfs-test-tool.pod:178
@@ -4872,21 +4872,20 @@ msgstr ""
 #. type: textblock
 #: ../builder/virt-builder.pod:1400
 msgid ""
-"Virt-builder can use C<pxzcat> (parallel xzcat) if available to uncompress "
-"the templates.  The default is to use regular C<xzcat> which is single-"
-"threaded.  Currently this has to be compiled in, ie. virt-builder will "
-"probably need to be recompiled to use pxzcat."
+"Virt-builder uses an internal implementation of pxzcat (parallel xzcat) if "
+"liblzma was found at build time.  If liblzma was not found at build time, "
+"regular C<xzcat> is used which is single-threaded."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:1405
+#: ../builder/virt-builder.pod:1404
 #, fuzzy
 #| msgid "set-selinux"
 msgid "User-Mode Linux"
 msgstr "set-selinux"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1407
+#: ../builder/virt-builder.pod:1406
 msgid ""
 "You can use virt-builder with the User-Mode Linux (UML) backend.  This may "
 "be faster when running virt-builder inside a virtual machine (eg. in the "
@@ -4894,96 +4893,96 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1411
+#: ../builder/virt-builder.pod:1410
 msgid ""
 "To enable the UML backend, read the instructions in L<guestfs(3)/USER-MODE "
 "LINUX BACKEND>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1414
+#: ../builder/virt-builder.pod:1413
 msgid ""
 "Currently you have to use the I<--no-network> option.  This should be fixed "
 "in a future version."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1417
+#: ../builder/virt-builder.pod:1416
 msgid ""
 "The qcow2 output format is not supported by UML.  You can only create raw-"
 "format guests."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1422
+#: ../builder/virt-builder.pod:1421
 msgid ""
 "For other environment variables which affect all libguestfs programs, see "
 "L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1427
+#: ../builder/virt-builder.pod:1426
 msgid "C<http_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1429
+#: ../builder/virt-builder.pod:1428
 msgid "C<https_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1431
+#: ../builder/virt-builder.pod:1430
 msgid "C<no_proxy>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1433
+#: ../builder/virt-builder.pod:1432
 msgid ""
 "Set the proxy for downloads.  These environment variables (and more)  are "
 "actually interpreted by L<curl(1)>, not virt-builder."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1436
+#: ../builder/virt-builder.pod:1435
 msgid "C<HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1438 ../builder/virt-builder.pod:1452
+#: ../builder/virt-builder.pod:1437 ../builder/virt-builder.pod:1451
 msgid "Used to determine the location of the template cache.  See L</CACHING>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1440
+#: ../builder/virt-builder.pod:1439
 msgid "C<VIRT_BUILDER_FINGERPRINT>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1442
+#: ../builder/virt-builder.pod:1441
 msgid ""
 "Set the default value for the GPG signature fingerprint or comma-separated "
 "list of fingerprints (see I<--fingerprint> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1445
+#: ../builder/virt-builder.pod:1444
 msgid "C<VIRT_BUILDER_SOURCE>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1447
+#: ../builder/virt-builder.pod:1446
 msgid ""
 "Set the default value for the source URL (or comma-separated list of URLs) "
 "for the template repository (see I<--source> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1450
+#: ../builder/virt-builder.pod:1449
 msgid "C<XDG_CACHE_HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1458 ../cat/virt-cat.pod:246
+#: ../builder/virt-builder.pod:1457 ../cat/virt-cat.pod:246
 #: ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:498
 #: ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262 ../edit/virt-edit.pod:359
 #: ../fuse/guestmount.pod:403 ../inspector/virt-inspector.pod:498
@@ -4993,7 +4992,7 @@ msgid ""
 msgstr "このプログラムは、成功すると 0 を、エラーがあると 0 以外を返します。"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1463
+#: ../builder/virt-builder.pod:1462
 #, fuzzy
 #| msgid ""
 #| "L<guestfs(3)>, L<guestfish(1)>, L<virt-clone(1)>, L<virt-rescue(1)>, "
@@ -5011,7 +5010,7 @@ msgstr ""
 "img(1)>, L<scrub(1)>, L<http://libguestfs.org/>, L<http://libvirt.org/>."
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1482 ../builder/virt-index-validate.pod:92
+#: ../builder/virt-builder.pod:1481 ../builder/virt-index-validate.pod:92
 #: ../fuse/guestunmount.pod:164 ../golang/examples/guestfs-golang.pod:99
 msgid "Copyright (C) 2013 Red Hat Inc."
 msgstr "Copyright (C) 2013 Red Hat Inc."
