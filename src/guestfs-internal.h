@@ -630,12 +630,14 @@ extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);
 extern char *guestfs___match1 (guestfs_h *g, const char *str, const pcre *re);
 extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2);
 extern int guestfs___match3 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3);
+extern int guestfs___match4 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3, char **ret4);
 extern int guestfs___match6 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2, char **ret3, char **ret4, char **ret5, char **ret6);
 
 #define match guestfs___match
 #define match1 guestfs___match1
 #define match2 guestfs___match2
 #define match3 guestfs___match3
+#define match4 guestfs___match4
 #define match6 guestfs___match6
 
 /* stringsbuf.c */

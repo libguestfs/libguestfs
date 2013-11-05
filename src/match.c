@@ -104,6 +104,31 @@ guestfs___match3 (guestfs_h *g, const char *str, const pcre *re,
   return 1;
 }
 
+/* Match a regular expression which contains exactly four captures. */
+int
+guestfs___match4 (guestfs_h *g, const char *str, const pcre *re,
+                  char **ret1, char **ret2, char **ret3, char **ret4)
+{
+  size_t len = strlen (str);
+  int vec[30], r;
+
+  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
+  if (r == PCRE_ERROR_NOMATCH)
+    return 0;
+
+  *ret1 = NULL;
+  *ret2 = NULL;
+  *ret3 = NULL;
+  *ret4 = NULL;
+
+  if (r > 1) *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+  if (r > 2) *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
+  if (r > 3) *ret3 = safe_strndup (g, &str[vec[6]], vec[7]-vec[6]);
+  if (r > 4) *ret4 = safe_strndup (g, &str[vec[8]], vec[9]-vec[8]);
+
+  return 1;
+}
+
 /* Match a regular expression which contains exactly six captures. */
 int
 guestfs___match6 (guestfs_h *g, const char *str, const pcre *re,
