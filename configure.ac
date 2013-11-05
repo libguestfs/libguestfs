@@ -1647,6 +1647,7 @@ AC_CONFIG_FILES([Makefile
                  bash/Makefile
                  builder/Makefile
                  builder/test-index
+                 builder/website/Makefile
                  cat/Makefile
                  csharp/Makefile
                  daemon/Makefile
