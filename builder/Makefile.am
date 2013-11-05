@@ -119,6 +119,8 @@ virt-builder: $(OBJECTS)
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
 
+index-parser-c.o: index-parse.h
+
 # Manual pages and HTML files for the website.
 
 man_MANS += virt-builder.1
