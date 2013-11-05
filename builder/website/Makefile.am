@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	.gitignore \
 	test-guest.sh \
+	validate.sh \
 	README \
 	index \
 	index.asc \
