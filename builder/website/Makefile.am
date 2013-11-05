@@ -32,11 +32,8 @@ EXTRA_DIST = \
 	debian-7.preseed \
 	debian-7.sh \
 	debian-7.xz.sig \
-	fedora-18.ks \
-	fedora-18.sh \
+	fedora.sh \
 	fedora-18.xz.sig \
-	fedora-19.ks \
-	fedora-19.sh \
 	fedora-19.xz.sig \
 	ubuntu-10.04.preseed \
 	ubuntu-10.04.sh \
