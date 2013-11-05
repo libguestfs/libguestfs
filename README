@@ -174,7 +174,7 @@ The full requirements are described below.
 | gpg          |             | O | Used by virt-builder for digital        |
 |              |             |   | signatures                              |
 +--------------+-------------+---+-----------------------------------------+
-| pxzcat       |             | O | Can be used by virt-builder for fast    |
+| liblzma      |             | O | Can be used by virt-builder for fast    |
 |              |             |   | uncompression of templates.             |
 +--------------+-------------+---+-----------------------------------------+
 | findlib      |             | O | For the OCaml bindings.                 |

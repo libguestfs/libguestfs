@@ -1,4 +1,4 @@
-(* configuration for mllib.
+(* virt-builder
  * Copyright (C) 2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,5 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-let package_name = "@PACKAGE_NAME@"
-let package_version = "@PACKAGE_VERSION@"
+external pxzcat : string -> string -> unit = "virt_builder_pxzcat"

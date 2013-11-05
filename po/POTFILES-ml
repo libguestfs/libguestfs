@@ -5,6 +5,7 @@ builder/get_kernel.ml
 builder/index_parser.ml
 builder/list_entries.ml
 builder/perl_edit.ml
+builder/pxzcat.ml
 builder/sigchecker.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml

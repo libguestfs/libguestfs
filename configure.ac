@@ -704,9 +704,15 @@ fi
 dnl Check for xzcat (required).
 AC_PATH_PROGS([XZCAT],[xzcat],[no])
 test "x$XZCAT" = "xno" && AC_MSG_ERROR([xzcat must be installed])
+AC_DEFINE_UNQUOTED([XZCAT],["$XZCAT"],[Name of xzcat program.])
 
-dnl Check for pxzcat (optional).
-AC_PATH_PROGS([PXZCAT],[pxzcat],[no])
+dnl liblzma can be used by virt-builder (optional).
+PKG_CHECK_MODULES([LIBLZMA], [liblzma],[
+    AC_SUBST([LIBLZMA_CFLAGS])
+    AC_SUBST([LIBLZMA_LIBS])
+    AC_DEFINE([HAVE_LIBLZMA],[1],[liblzma found at compile time.])
+],
+[AC_MSG_WARN([liblzma not found, virt-builder will be slower])])
 
 dnl (f)lex and bison are required for virt-builder.
 AC_PROG_LEX

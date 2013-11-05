@@ -24,6 +24,7 @@ open Common_utils
 open Password
 
 open Cmdline
+open Pxzcat
 
 open Unix
 open Printf
@@ -333,27 +334,14 @@ let main () =
 
       output, Some size, format, delete_output_file, do_resize, true in
 
-  (* Create xzcat/pxzcat command to uncompress from input to output. *)
-  let xzcat_command input output =
-    match Config.pxzcat with
-    | None -> sprintf "%s %s > %s" Config.xzcat input output
-    | Some pxzcat -> sprintf "%s %s -o %s" pxzcat input output
-  in
-
   if not do_resize then (
     (* If the user did not specify --size and the output is a regular
      * file and the format is raw, then we just uncompress the template
      * directly to the output file.  This is fast but less flexible.
      *)
     let { Index_parser.file_uri = file_uri } = entry in
-    let cmd = xzcat_command template output in
-    if debug then eprintf "%s\n%!" cmd;
     msg (f_"Uncompressing: %s") file_uri;
-    let r = Sys.command cmd in
-    if r <> 0 then (
-      eprintf (f_"%s: error: failed to uncompress template\n") prog;
-      exit 1
-    )
+    pxzcat template output
   ) else (
     (* If none of the above apply, uncompress to a temporary file and
      * run virt-resize on the result.
@@ -362,14 +350,8 @@ let main () =
       (* Uncompress it to a temporary file. *)
       let { Index_parser.file_uri = file_uri } = entry in
       let tmpfile = Filename.temp_file "vbsrc" ".img" in
-      let cmd = xzcat_command template tmpfile in
-      if debug then eprintf "%s\n%!" cmd;
       msg (f_"Uncompressing: %s") file_uri;
-      let r = Sys.command cmd in
-      if r <> 0 then (
-        eprintf (f_"%s: error: failed to uncompress template\n") prog;
-        exit 1
-      );
+      pxzcat template tmpfile;
       unlink_on_exit tmpfile;
       tmpfile in
 

@@ -1397,10 +1397,9 @@ the output format is the same as the template format (usually raw).
 
 =head3 pxzcat
 
-Virt-builder can use C<pxzcat> (parallel xzcat) if available to
-uncompress the templates.  The default is to use regular C<xzcat>
-which is single-threaded.  Currently this has to be compiled in,
-ie. virt-builder will probably need to be recompiled to use pxzcat.
+Virt-builder uses an internal implementation of pxzcat (parallel
+xzcat) if liblzma was found at build time.  If liblzma was not found
+at build time, regular C<xzcat> is used which is single-threaded.
 
 =head3 User-Mode Linux
 

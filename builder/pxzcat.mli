@@ -1,4 +1,4 @@
-(* configuration for mllib.
+(* virt-builder
  * Copyright (C) 2013 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,5 +16,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-let package_name = "@PACKAGE_NAME@"
-let package_version = "@PACKAGE_VERSION@"
+(** {1 Parallel xzcat (or fall back to regular xzcat).}
+
+    Eventually regular xzcat will be able to work in parallel and this
+    code can go away.
+*)
+
+val pxzcat : string -> string -> unit
+    (** [pxzcat input output] uncompresses the file [input] to the file
+        [output].  The input and output must both be seekable.
+
+        If liblzma was found at compile time, this uses an internal
+        implementation of parallel xzcat.  Otherwise regular xzcat is
+        used. *)
