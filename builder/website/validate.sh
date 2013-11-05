@@ -1,4 +1,5 @@
-# libguestfs virt-builder tool
+#!/bin/bash -
+# libguestfs virt-builder validate index
 # Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,32 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-include $(top_srcdir)/subdir-rules.mk
+export LANG=C
+set -e
 
-EXTRA_DIST = \
-	.gitignore \
-	compress.sh \
-	test-guest.sh \
-	README \
-	index \
-	index.asc \
-	centos.sh \
-	centos-*.xz.sig \
-	cirros-*.xz.sig \
-	debian.preseed \
-	debian.sh \
-	debian-*.xz.sig \
-	fedora.sh \
-	fedora-*.xz.sig \
-	rhel.sh \
-	scientificlinux.sh \
-	scientificlinux-*.xz.sig \
-	ubuntu.preseed \
-	ubuntu.sh \
-	ubuntu-*.*.xz.sig
+../virt-index-validate index
+../virt-index-validate index.asc
 
-CLEANFILES = *~
-
-# Validates the index file.
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
-TESTS = validate.sh
