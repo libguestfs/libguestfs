@@ -35,14 +35,10 @@ EXTRA_DIST = \
 	fedora.sh \
 	fedora-18.xz.sig \
 	fedora-19.xz.sig \
-	ubuntu-10.04.preseed \
-	ubuntu-10.04.sh \
+	ubuntu.preseed \
+	ubuntu.sh \
 	ubuntu-10.04.xz.sig \
-	ubuntu-12.04.preseed \
-	ubuntu-12.04.sh \
 	ubuntu-12.04.xz.sig \
-	ubuntu-13.10.preseed \
-	ubuntu-13.10.sh \
 	ubuntu-13.10.xz.sig
 
 CLEANFILES = *~

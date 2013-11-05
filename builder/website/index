@@ -141,9 +141,10 @@ notes=Ubuntu 10.04 (Lucid).
  
  Only the openssh-server package is selected in tasksel.
  The preseed and virt-install scripts that produced this image
- can be found in the libguestfs git tree:
- libguestfs.git/builder/website/ubuntu-10.04.preseed
- libguestfs.git/builder/website/ubuntu-10.04.sh
+ can be found in the libguestfs source tree:
+ 
+ builder/website/ubuntu.preseed
+ builder/website/ubuntu.sh
  
  This image does not contain SSH host keys.  To regenerate them use:
  
@@ -165,9 +166,10 @@ notes=Ubuntu 12.04 (Precise).
  
  Only the openssh-server package is selected in tasksel.
  The preseed and virt-install scripts that produced this image
- can be found in the libguestfs git tree:
- libguestfs.git/builder/website/ubuntu-12.04.preseed
- libguestfs.git/builder/website/ubuntu-12.04.sh
+ can be found in the libguestfs source tree:
+ 
+ builder/website/ubuntu.preseed
+ builder/website/ubuntu.sh
  
  This image does not contain SSH host keys.  To regenerate them use:
  
@@ -189,9 +191,10 @@ notes=Ubuntu 13.10 (Saucy).
  
  Only the openssh-server package is selected in tasksel.
  The preseed and virt-install scripts that produced this image
- can be found in the libguestfs git tree:
- libguestfs.git/builder/website/ubuntu-13.10.preseed
- libguestfs.git/builder/website/ubuntu-13.10.sh
+ can be found in the libguestfs source tree:
+ 
+ builder/website/ubuntu.preseed
+ builder/website/ubuntu.sh
  
  This image does not contain SSH host keys.  To regenerate them use:
  
