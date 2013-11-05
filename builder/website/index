@@ -96,9 +96,9 @@ notes=Fedora 18.
  This Fedora image contains only unmodified @Core group packages.
  
  It is thus very minimal.  The kickstart and install script can be
- found in the libguestfs git tree:
- libguestfs.git/builder/website/fedora-18.ks
- libguestfs.git/builder/website/fedora-18.sh
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
  
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
@@ -118,9 +118,9 @@ notes=Fedora 19.
  This Fedora image contains only unmodified @Core group packages.
  
  It is thus very minimal.  The kickstart and install script can be
- found in the libguestfs git tree:
- libguestfs.git/builder/website/fedora-19.ks
- libguestfs.git/builder/website/fedora-19.sh
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
  
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
