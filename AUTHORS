@@ -1,45 +1,44 @@
-Angus Salkeld <asalkeld@redhat.com>
-Ani Peter <apeter@redhat.com>
-Charles Duffy <cduffy@messageone.com>
-Cole Robinson <crobinso@redhat.com>
-Daniel Berrange <berrange@redhat.com>
-Daniel Cabrera <logan@fedoraproject.org>
-Daniel Exner <dex@dragonslave.de>
-Dave Vasilevsky <dave@vasilevsky.ca>
-Douglas Schilling Landgraf <dougsland@redhat.com>
-Eric Blake <eblake@redhat.com>
-Erik Nolte <erik_nolte@acm.org>
-Evaggelos Balaskas <ebalaskas@ebalaskas.gr>
-Geert Warrink <geert.warrink@onsnet.nu>
-Guido Günther <agx@sigxcpu.org>
-Hilko Bengen <bengen@debian.org>
-Hilko Bengen <bengen@hilluzination.de>
-infernix <infernix@infernix.net>
-Jaswinder Singh <jsingh@redhat.com>
-Jim Meyering <meyering@redhat.com>
-Jiri Popelka <jpopelka@redhat.com>
-John Eckersberg <jeckersb@redhat.com>
-Karel Klíč <kklic@redhat.com>
-Marcin Gibula <m.gibula@e24cloud.com>
-Martin Kletzander <mkletzan@redhat.com>
-Masami HIRATA <msmhrt@gmail.com>
-Matthew Booth <mbooth@redhat.com>
-Maxim Koltsov <kolmax94@gmail.com>
-Michael Scherer <misc@zarb.org>
-Mike Kelly <pioto@pioto.org>
-Nicholas Strugnell <nstrug@redhat.com>
-Nikita A Menkovich <menkovich@gmail.com>
-Nikita Menkovich <n.menkovich@sprinthost.ru>
-Nikos Skalkotos <skalkoto@gmail.com>
-Olaf Hering <olaf@aepfle.de>
-Or Goshen <oberonc@gmail.com>
-Paul Mackerras <paulus@samba.org>
-Piotr Drąg <piotrdrag@gmail.com>
-Qin Guan <qguan@redhat.com>
-Rajesh Ranjan <rranjan@redhat.com>
-Richard W.M. Jones <rjones@redhat.com>
-Sandeep Shedmake <sshedmak@redhat.com>
-Shankar Prasad <svenkate@redhat.com>
-Thomas S Hatch <thatch45@gmail.com>
-Wanlong Gao <gaowanlong@cn.fujitsu.com>
-Wulf C. Krueger <philantrop@exherbo.org>
+Angus Salkeld
+Ani Peter
+Charles Duffy
+Cole Robinson
+Daniel Berrange
+Daniel Cabrera
+Daniel Exner
+Dave Vasilevsky
+Douglas Schilling Landgraf
+Eric Blake
+Erik Nolte
+Evaggelos Balaskas
+Geert Warrink
+Guido Günther
+Hilko Bengen
+infernix
+Jaswinder Singh
+Jim Meyering
+Jiri Popelka
+John Eckersberg
+Karel Klíč
+Marcin Gibula
+Martin Kletzander
+Masami HIRATA
+Matthew Booth
+Maxim Koltsov
+Michael Scherer
+Mike Kelly
+Nicholas Strugnell
+Nikita A Menkovich
+Nikita Menkovich
+Nikos Skalkotos
+Olaf Hering
+Or Goshen
+Paul Mackerras
+Piotr Drąg
+Qin Guan
+Rajesh Ranjan
+Richard W.M. Jones
+Sandeep Shedmake
+Shankar Prasad
+Thomas S Hatch
+Wanlong Gao
+Wulf C. Krueger
