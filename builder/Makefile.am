@@ -205,4 +205,8 @@ stamp-virt-index-validate.pod: virt-index-validate.pod
 	  $<
 	touch $@
 
-CLEANFILES += stamp-virt-index-validate.pod
+CLEANFILES += \
+	index-parse.c \
+	index-parse.h \
+	index-scan.c \
+	stamp-virt-index-validate.pod
