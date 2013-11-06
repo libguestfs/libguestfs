@@ -35,3 +35,5 @@ xz --best --block-size=16777216 $output
 
 # Result:
 ls -lh $output.xz
+
+sha512sum $output.xz
