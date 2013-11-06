@@ -34,10 +34,22 @@ output=rhel-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
 case $version in
+    5.*)
+        major=5
+        minor=`echo $version | awk -F. '{print $2}'`
+        topurl=http://download.devel.redhat.com/released/RHEL-$major-Server/U$minor
+        tree=$topurl/x86_64/os
+        srpms=$topurl/source/SRPMS
+        bootfs=ext2
+        ;;
     6.*)
         major=6
-        baseurl=http://download.devel.redhat.com/released/RHEL-$major/$version
-        tree=$baseurl/Server/x86_64/os
+        topurl=http://download.devel.redhat.com/released/RHEL-$major/$version
+        tree=$topurl/Server/x86_64/os
+        srpms=$topurl/source/SRPMS
+        optional=$topurl/Server/optional/x86_64/os
+        optionalsrpms=$topurl/Server/optional/source/SRPMS
+        bootfs=ext4
         ;;
     *)
         echo "$0: version $version not supported by this script yet"
@@ -51,7 +63,6 @@ ks=$(mktemp)
 cat > $ks <<'EOF'
 install
 text
-reboot
 lang en_US.UTF-8
 keyboard us
 network --bootproto dhcp
@@ -59,52 +70,72 @@ rootpw builder
 firewall --enabled --ssh
 selinux --enforcing
 timezone --utc America/New_York
+EOF
+
+if [ $major -eq 5 ]; then
+cat >> $ks <<EOF
+key --skip
+EOF
+fi
+
+cat >> $ks <<EOF
 bootloader --location=mbr --append="console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH"
 zerombr
 clearpart --all --initlabel
-part /boot --fstype=ext4 --size=512         --asprimary
-part swap                --size=1024        --asprimary
-part /     --fstype=ext4 --size=1024 --grow --asprimary
+part /boot --fstype=$bootfs --size=512         --asprimary
+part swap                   --size=1024        --asprimary
+part /     --fstype=ext4    --size=1024 --grow --asprimary
 
 # Halt the system once configuration has finished.
 poweroff
 
 %packages
 @core
+EOF
+
+# RHEL 5 didn't understand the %end directive, but RHEL >= 6
+# requires it.
+if [ $major -ge 6 ]; then
+cat >> $ks <<EOF
 %end
 EOF
+fi
 
 # Yum configuration.
 yum=$(mktemp)
 cat > $yum <<EOF
 [rhel$major]
 name=RHEL $major Server
-baseurl=$baseurl/Server/x86_64/os/
+baseurl=$tree
 enabled=1
 gpgcheck=0
 keepcache=0
 
 [rhel$major-source]
 name=RHEL $major Server Source
-baseurl=$baseurl/source/SRPMS/
+baseurl=$srpms
 enabled=0
 gpgcheck=0
 keepcache=0
+EOF
 
+if [ -n "$optional" ]; then
+cat >> $yum <<EOF
 [rhel$major-optional]
 name=RHEL $major Server Optional
-baseurl=$baseurl/Server/optional/x86_64/os/
+baseurl=$optional
 enabled=1
 gpgcheck=0
 keepcache=0
 
 [rhel$major-optional-source]
 name=RHEL $major Server Optional
-baseurl=$baseurl/Server/optional/source/SRPMS/
+baseurl=$optionalsrpms
 enabled=0
 gpgcheck=0
 keepcache=0
 EOF
+fi
 
 # Clean up function.
 cleanup ()
