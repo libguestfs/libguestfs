@@ -719,6 +719,9 @@ dnl XXX Could be optional with some work.
 AC_PROG_LEX
 AC_PROG_YACC
 dnl These macros don't fail, instead they set some useless defaults.
+if test "x$LEX" = "x:"; then
+    AC_MSG_FAILURE([GNU 'flex' is required.])
+fi
 if test "x$YACC" = "xyacc"; then
     AC_MSG_FAILURE([GNU 'bison' is required (yacc won't work).])
 fi
