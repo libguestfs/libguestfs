@@ -21,6 +21,9 @@ export LANG=C
 set -e
 set -x
 
+# Hack for RWMJ
+unset http_proxy
+
 if [ $# -ne 1 ]; then
     echo "$0 VERSION"
     exit 1
