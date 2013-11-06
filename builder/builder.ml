@@ -50,7 +50,7 @@ let main () =
     eprintf "command line:";
     List.iter (eprintf " %s") (Array.to_list Sys.argv);
     prerr_newline ();
-    List.iteri (
+    iteri (
       fun i (source, fingerprint) ->
         eprintf "source[%d] = (%S, %S)\n" i source fingerprint
     ) sources

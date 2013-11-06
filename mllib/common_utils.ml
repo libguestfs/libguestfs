@@ -164,6 +164,13 @@ let rec filter_map f = function
       | Some y -> y :: filter_map f xs
       | None -> filter_map f xs
 
+let iteri f xs =
+  let rec loop i = function
+    | [] -> ()
+    | x :: xs -> f i x; loop (i+1) xs
+  in
+  loop 0 xs
+
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
  *)
