@@ -127,6 +127,29 @@ notes=Fedora 19.
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
 
+[scientificlinux-6]
+name=Scientific Linux 6.4
+revision=4
+osinfo=centos6.4
+file=scientificlinux-6.xz
+sig=scientificlinux-6.xz.sig
+checksum=806dd95dd73820b6183c183a9040c547f44b7e9fc109a8ce3cedf7646a9e02d3b65e9dd31f99b656e76c5842b0471f35fa93c4b4d49bf372c842617987b6bd7b
+format=raw
+size=6442450944
+compressed_size=183917692
+expand=/dev/sda3
+notes=Scientific Linux 6.4
+ 
+ This Scientific Linux image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/scientificlinux.sh
+ 
+ Note that `virt-builder scientificlinux-6' will always install the
+ latest 6.x release.
+
 [ubuntu-10.04]
 name=Ubuntu 10.04 (Lucid)
 osinfo=ubuntulucid
