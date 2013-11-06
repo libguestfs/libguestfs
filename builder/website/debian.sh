@@ -68,16 +68,4 @@ virt-install \
     --nographics \
     --noreboot
 
-# Sysprep (removes logfiles and so on).
-virt-sysprep -a $output
-
-# Sparsify.
-mv $output $output.old
-virt-sparsify $output.old $output
-rm $output.old
-
-# Compress.
-xz --best --block-size=16777216 $output
-
-# Result:
-ls -lh $output.xz
+source $(dirname "$0")/compress.sh $output
