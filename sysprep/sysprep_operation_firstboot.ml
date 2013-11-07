@@ -24,20 +24,23 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let files = ref []
+let params = ref []
 
 let firstboot_perform g root =
-  (* Read the files and add them using the {!Firstboot} module. *)
-  let files = List.rev !files in
+  (* Read command or files and add them using the {!Firstboot} module. *)
+  let params = List.rev !params in
   let i = ref 0 in
   List.iter (
-    fun filename ->
+    fun param->
       incr i;
       let i = !i in
-      let content = read_whole_file filename in
-      Firstboot.add_firstboot_script g root i content
-  ) files;
-  if files <> [] then [ `Created_files ] else []
+      if Sys.file_exists param then
+        let content = read_whole_file param in
+        Firstboot.add_firstboot_script g root i content
+      else
+        Firstboot.add_firstboot_script g root i param
+  ) params;
+  if params <> [] then [ `Created_files ] else []
 
 let op = {
   defaults with
@@ -65,7 +68,7 @@ Currently this is only implemented for Linux guests using
 either SysVinit-style scripts, Upstart or systemd.");
 
     extra_args = [
-      ("--firstboot", Arg.String (fun s -> files := s :: !files),
+      ("--firstboot", Arg.String (fun s -> params := s :: !params),
        s_"script" ^ " " ^ s_"run script once next time guest boots"),
       s_"\
 Run script(s) once next time the guest boots.  You can supply
