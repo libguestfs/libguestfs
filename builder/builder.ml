@@ -489,9 +489,11 @@ let main () =
   let logfile =
     match g#inspect_get_type root with
     | "windows" | "dos" ->
-      if g#is_dir "/Temp" then "/Temp/builder.log" else "/builder.log"
+      if g#is_dir ~followsymlinks:true "/Temp" then "/Temp/builder.log"
+      else "/builder.log"
     | _ ->
-      if g#is_dir "/tmp" then "/tmp/builder.log" else "/builder.log" in
+      if g#is_dir ~followsymlinks:true "/tmp" then "/tmp/builder.log"
+      else "/builder.log" in
 
   (* Function to cat the log file, for debugging and error messages. *)
   let debug_logfile () =
