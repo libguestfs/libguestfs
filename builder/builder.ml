@@ -595,7 +595,7 @@ exec >>%s 2>&1
     fun (file, dest) ->
       msg (f_"Uploading: %s to %s") file dest;
       let dest =
-        if g#is_dir dest then
+        if g#is_dir ~followsymlinks:true dest then
           dest ^ "/" ^ Filename.basename file
         else
           dest in
