@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-11-05 15:11+0000\n"
+"POT-Creation-Date: 2013-11-08 15:43+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -5565,7 +5565,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
-#: ../builder/builder.ml:739 ../builder/builder.ml:426
+#: ../builder/builder.ml:741 ../builder/builder.ml:426
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -5577,7 +5577,7 @@ msgstr ""
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:535
+#: ../builder/builder.ml:537
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -5593,7 +5593,7 @@ msgstr "%s: параметр --enable можна вказувати лише о�
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
-#: ../builder/builder.ml:562
+#: ../builder/builder.ml:564
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -5605,7 +5605,7 @@ msgstr ""
 msgid "%s: --upload: %s: file not found\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:186
+#: ../mllib/common_utils.ml:193
 msgid ""
 "%s: If reporting bugs, run %s with debugging enabled (-v) and include the "
 "complete output."
@@ -5717,19 +5717,19 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr "%s: порожній аргумент параметра --expand"
 
-#: ../mllib/common_utils.ml:182
+#: ../mllib/common_utils.ml:189
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:621
+#: ../builder/builder.ml:623
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../builder/builder.ml:773
+#: ../builder/builder.ml:775
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:776
+#: ../builder/builder.ml:778
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -5749,11 +5749,11 @@ msgstr ""
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
-#: ../builder/builder.ml:794
+#: ../builder/builder.ml:796
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:782
+#: ../builder/builder.ml:784
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -5767,15 +5767,15 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:791
+#: ../builder/builder.ml:793
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../builder/builder.ml:788
+#: ../builder/builder.ml:790
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#: ../builder/builder.ml:785
+#: ../builder/builder.ml:787
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -5795,11 +5795,11 @@ msgstr ""
 msgid "%s: invalid password format; see the man page.\n"
 msgstr ""
 
-#: ../builder/builder.ml:779
+#: ../builder/builder.ml:781
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:505
+#: ../builder/builder.ml:507
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
@@ -5909,7 +5909,7 @@ msgstr ""
 "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
 "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize(1)\n"
 
-#: ../builder/builder.ml:566
+#: ../builder/builder.ml:568
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -6238,7 +6238,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:632
+#: ../builder/builder.ml:634
 msgid "Deleting: %s"
 msgstr ""
 
@@ -6316,7 +6316,7 @@ msgstr "Створити дамп POD для параметрів (вбудов�
 msgid "Edit file with Perl expr"
 msgstr ""
 
-#: ../builder/builder.ml:618
+#: ../builder/builder.ml:620
 msgid "Editing: %s"
 msgstr ""
 
@@ -6428,7 +6428,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:728
+#: ../builder/builder.ml:730
 msgid "Finishing off"
 msgstr ""
 
@@ -6479,7 +6479,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../builder/builder.ml:718
+#: ../builder/builder.ml:720
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -6509,19 +6509,19 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:655
+#: ../builder/builder.ml:657
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:658
+#: ../builder/builder.ml:660
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:651
+#: ../builder/builder.ml:653
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:573
+#: ../builder/builder.ml:575
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -6542,7 +6542,7 @@ msgstr "Показати список підтримуваних команд"
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення даних придатною для читання даних"
 
-#: ../builder/builder.ml:582
+#: ../builder/builder.ml:584
 msgid "Making directory: %s"
 msgstr ""
 
@@ -6612,7 +6612,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:715
+#: ../builder/builder.ml:717
 msgid "Output: %s"
 msgstr ""
 
@@ -6895,7 +6895,7 @@ msgstr ""
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:672 ../builder/builder.ml:668
+#: ../builder/builder.ml:674 ../builder/builder.ml:670
 msgid "Running: %s"
 msgstr ""
 
@@ -6911,11 +6911,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../builder/builder.ml:683
+#: ../builder/builder.ml:685
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../builder/builder.ml:639
+#: ../builder/builder.ml:641
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -7307,7 +7307,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:716
+#: ../builder/builder.ml:718
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -7323,7 +7323,7 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:596
+#: ../builder/builder.ml:598
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -7344,7 +7344,7 @@ msgstr ""
 "\n"
 "Див. L</RANDOM SEED> нижче."
 
-#: ../builder/builder.ml:589
+#: ../builder/builder.ml:591
 msgid "Writing: %s"
 msgstr ""
 
@@ -7422,15 +7422,15 @@ msgstr "порожній параметр --shrink"
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../mllib/common_utils.ml:333
+#: ../mllib/common_utils.ml:340
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:335
+#: ../mllib/common_utils.ml:342
 msgid "external command '%s' killed by signal %d"
 msgstr "роботу зовнішньої програми «%s» перервано з сигналом %d"
 
-#: ../mllib/common_utils.ml:337
+#: ../mllib/common_utils.ml:344
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
