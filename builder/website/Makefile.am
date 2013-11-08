@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	.gitignore \
+	compress.sh \
 	test-guest.sh \
 	validate.sh \
 	README \
@@ -33,6 +34,9 @@ EXTRA_DIST = \
 	fedora.sh \
 	fedora-18.xz.sig \
 	fedora-19.xz.sig \
+	rhel.sh \
+	scientificlinux.sh \
+	scientificlinux-6.xz.sig \
 	ubuntu.preseed \
 	ubuntu.sh \
 	ubuntu-10.04.xz.sig \
