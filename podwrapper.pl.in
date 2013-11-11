@@ -443,6 +443,7 @@ SUBHTML: {
         local $_ = shift;
 
         return 1 if /^Sys::Guestfs/;
+        return 0 if /^virt-install/;
         return 1 if /^virt-/;
         return 1 if /^libguestf/;
         return 1 if /^guestf/;
