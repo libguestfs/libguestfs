@@ -68,4 +68,10 @@ virt-install \
     --nographics \
     --noreboot
 
+# Remove apt proxy configuration (thanks: Daniel Miranda).
+guestfish -a $output -i <<EOF
+  rm /etc/apt/apt.conf
+  touch /etc/apt/apt.conf
+EOF
+
 source $(dirname "$0")/compress.sh $output
