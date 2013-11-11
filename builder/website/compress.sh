@@ -33,7 +33,6 @@ rm $output.old
 # Compress.
 xz --best --block-size=16777216 $output
 
-# Result:
-ls -lh $output.xz
-
-sha512sum $output.xz
+# Result.  These can be copied into the index file directly.
+echo -n compressed_size= ; stat -c %s $output.xz
+echo -n checksum= ; sha512sum $output.xz | awk '{print $1}'
