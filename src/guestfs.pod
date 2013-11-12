@@ -3460,7 +3460,7 @@ The appliance is cached in C</var/tmp/.guestfs-E<lt>UIDE<gt>> (or in
 another directory if C<LIBGUESTFS_CACHEDIR> or C<TMPDIR> are set).
 
 For a complete description of how the appliance is created and cached,
-read the L<supermin(8)> and L<supermin-helper(8)> man
+read the L<supermin(1)> and L<supermin-helper(1)> man
 pages.
 
 =item Start qemu and boot the kernel
@@ -4669,7 +4669,7 @@ environment which tends to break everything.
 These two environment variables allow the kernel that libguestfs uses
 in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not
 set, then the most recent host kernel is chosen.  For more information
-about kernel selection, see L<supermin-helper(8)>.  This
+about kernel selection, see L<supermin-helper(1)>.  This
 feature is only available in supermin / febootstrap E<ge> 3.8.
 
 =item TMPDIR
@@ -4719,8 +4719,8 @@ L<guestfs-release-notes(1)>,
 L<guestfs-testing(1)>,
 L<libguestfs-test-tool(1)>,
 L<libguestfs-make-fixed-appliance(1)>,
-L<supermin(8)>,
-L<supermin-helper(8)>,
+L<supermin(1)>,
+L<supermin-helper(1)>,
 L<qemu(1)>,
 L<hivex(3)>,
 L<stap(1)>,

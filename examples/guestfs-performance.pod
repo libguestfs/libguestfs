@@ -90,7 +90,7 @@ set C<$TMPDIR> or C<$LIBGUESTFS_CACHEDIR> in which case it will be
 under that temporary directory.
 
 For more information about how the appliance is constructed, see
-L<supermin(8)/SUPERMIN APPLIANCES>.
+L<supermin(1)/SUPERMIN APPLIANCES>.
 
 Every time libguestfs runs it will check that no host files used by
 the appliance have changed.  If any have, then the appliance is
@@ -166,7 +166,7 @@ times.
 
 =item 2.
 
-By default libguestfs (or rather, L<supermin-helper(8)>)
+By default libguestfs (or rather, L<supermin-helper(1)>)
 searches over the root filesystem to find out if any host files have
 changed and if it needs to rebuild the appliance.  If these files are
 not cached and the root filesystem is on an HDD, then this generates
@@ -566,8 +566,8 @@ bit.
 
 =head1 SEE ALSO
 
-L<supermin(8)>,
-L<supermin-helper(8)>,
+L<supermin(1)>,
+L<supermin-helper(1)>,
 L<guestfish(1)>,
 L<guestfs(3)>,
 L<guestfs-examples(3)>,

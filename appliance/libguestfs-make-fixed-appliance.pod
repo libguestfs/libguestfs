@@ -25,7 +25,7 @@ Some reasons why you I<might> want to use this include:
 
 You want to make a self-contained libguestfs appliance that can be
 copied to another machine or platform that doesn't support
-L<supermin(8)>.
+L<supermin(1)>.
 
 =item *
 
@@ -129,8 +129,8 @@ looking for an appliance.  The path is built into libguestfs, or can
 be set using the C<LIBGUESTFS_PATH> environment variable.
 
 Normally a supermin appliance is located on this path (see
-L<supermin(8)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
-into a full appliance by running L<supermin-helper(8)>.
+L<supermin(1)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
+into a full appliance by running L<supermin-helper(1)>.
 
 However, a simpler "fixed appliance" can also be used.  libguestfs
 detects this by looking for a directory on the path containing four
@@ -166,8 +166,8 @@ libguestfs, please see the L<guestfs(3)> manual page.
 =head1 SEE ALSO
 
 L<guestfs(3)>,
-L<supermin(8)>,
-L<supermin-helper(8)>,
+L<supermin(1)>,
+L<supermin-helper(1)>,
 L<xz(1)>,
 L<http://libguestfs.org/>,
 L<http://qemu.org/>.

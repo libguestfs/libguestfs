@@ -95,7 +95,7 @@ this information.
 
 =item *
 
-Which kernel is being used?  L<supermin(8)> will try to pick the
+Which kernel is being used?  L<supermin(1)> will try to pick the
 latest kernel installed on your machine.  You can see the version in
 the appliance output, eg:
 
