@@ -1199,16 +1199,15 @@ highly recommended that you always create signed index and templates.
 
 =head2 ARCHITECTURE
 
-Virt-builder can, in theory, build a guest for any architecture no
-matter what the host architecture is.  For example a ppc64 guest on an
-x86-64 host.
+Virt-builder can build a guest for any architecture no matter what the
+host architecture is.  For example an x86-64 guest on an ARM host.
 
 However certain options may not work correctly, specifically options
 that require running commands in the guest during the build process:
 I<--install>, I<--run>, I<--run-command>.  You may need to replace
 these with their firstboot-equivalents.
 
-An x86-64 host building 32 bit x86 guests should work without any
+An x86-64 host building 32 bit i686 guests should work without any
 special steps.
 
 =head2 SECURITY
