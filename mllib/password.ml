@@ -57,7 +57,6 @@ and read_password_from_file filename =
 
 (* Permissible characters in a salt. *)
 let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./"
-let nr_chars = String.length chars
 
 let rec set_linux_passwords ~prog ?password_crypto g root passwords =
   let crypto =
@@ -95,14 +94,7 @@ let rec set_linux_passwords ~prog ?password_crypto g root passwords =
  *)
 and encrypt password crypto =
   (* Get random characters from the set [A-Za-z0-9./] *)
-  let salt =
-    let chan = open_in "/dev/urandom" in
-    let buf = String.create 16 in
-    for i = 0 to 15 do
-      buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
-    done;
-    close_in chan;
-    buf in
+  let salt = Urandom.urandom_uniform 16 chars in
   let salt =
     (match crypto with
     | `MD5 -> "$1$"

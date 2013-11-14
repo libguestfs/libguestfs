@@ -454,16 +454,7 @@ let main () =
        *)
       let chars =
         "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789" in
-      let nr_chars = String.length chars in
-
-      let chan = open_in "/dev/urandom" in
-      let buf = String.create 16 in
-      for i = 0 to 15 do
-        buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
-      done;
-      close_in chan;
-
-      buf
+      Urandom.urandom_uniform 16 chars
     in
 
     let root_password =

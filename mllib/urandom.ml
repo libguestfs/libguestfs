@@ -46,3 +46,24 @@ let urandom_bytes n =
   done;
   close fd;
   ret
+
+(* Return a random number uniformly distributed in [0, upper_bound)
+ * avoiding modulo bias.
+ *)
+let rec uniform_random read upper_bound =
+  let c = read () in
+  if c >= 256 mod upper_bound then c mod upper_bound
+  else uniform_random read upper_bound
+
+let urandom_uniform n chars =
+  assert (n > 0);
+  let nr_chars = String.length chars in
+  assert (nr_chars > 0);
+
+  let ret = String.make n ' ' in
+  let fd = open_urandom_fd () in
+  for i = 0 to n-1 do
+    ret.[i] <- chars.[uniform_random (read_byte fd) nr_chars]
+  done;
+  close fd;
+  ret

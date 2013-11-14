@@ -20,3 +20,7 @@
 
 val urandom_bytes : int -> string
 (** Read N bytes from /dev/urandom and return it as a binary string. *)
+
+val urandom_uniform : int -> string -> string
+(** [urandom_uniform n chars] returns [n] bytes, uniformly
+    distributed from the sets of characters [chars]. *)
