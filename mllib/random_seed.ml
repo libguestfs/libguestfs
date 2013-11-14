@@ -78,13 +78,8 @@ and make_random_seed_file g file =
       (* Default to 512 bytes of randomness. *)
       512 in
 
-  let entropy =
-    (* Get n bytes of randomness from the host. *)
-    let chan = open_in "/dev/urandom" in
-    let buf = String.create n in
-    really_input chan buf 0 n;
-    close_in chan;
-    buf in
+  (* Get n bytes of randomness from the host. *)
+  let entropy = Urandom.urandom_bytes n in
 
   if file_exists then (
     (* Truncate the original file and append, in order to

@@ -48,6 +48,8 @@ SOURCES = \
 	tty-c.c \
 	tTY.mli \
 	tTY.ml \
+	urandom.mli \
+	urandom.ml \
 	uri-c.c \
 	uRI.mli \
 	uRI.ml
@@ -70,6 +72,7 @@ OBJECTS = \
 	libdir.cmx \
 	common_gettext.cmx \
 	common_utils.cmx \
+	urandom.cmx \
 	random_seed.cmx \
 	hostname.cmx \
 	firstboot.cmx \

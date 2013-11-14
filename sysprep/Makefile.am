@@ -88,6 +88,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/uRI.cmx \
 	$(top_builddir)/mllib/crypt-c.o \
 	$(top_builddir)/mllib/crypt.cmx \
+	$(top_builddir)/mllib/urandom.cmx \
 	$(top_builddir)/mllib/password.cmx \
 	$(top_builddir)/mllib/random_seed.cmx \
 	$(top_builddir)/mllib/hostname.cmx \
