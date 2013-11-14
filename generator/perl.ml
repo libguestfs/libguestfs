@@ -464,10 +464,13 @@ PREINIT:
              | OStringList _ ->
                pr "          size_t i, len;\n";
                pr "          char **r;\n";
+               pr "          SV *arg;\n";
                pr "          AV *av;\n";
                pr "          SV **svp;\n";
                pr "\n";
-               pr "          /* XXX More checking required here. */\n";
+               pr "          arg = ST (items_i+1);\n";
+               pr "          if (!SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV)\n";
+               pr "            croak (\"array reference expected for '%%s' argument\", \"%s\");\n" n;
                pr "          av = (AV *) SvRV (ST (items_i+1));\n";
                pr "\n";
                pr "          /* Note av_len returns index of final element. */\n";
