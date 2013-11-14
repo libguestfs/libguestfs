@@ -21,6 +21,7 @@ mllib/progress.ml
 mllib/random_seed.ml
 mllib/tTY.ml
 mllib/uRI.ml
+mllib/urandom.ml
 resize/resize.ml
 sparsify/sparsify.ml
 sysprep/main.ml
