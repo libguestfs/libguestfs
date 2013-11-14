@@ -252,9 +252,40 @@ push @lib_args, format => $format if defined $format;
 
 my $g = Sys::Guestfs->new ();
 
-if (-e $domname_or_image) {
+# If the parameter looks like a URI, try parsing it using guestfish.
+# This is a massive hack, but we'll fix it when virt-win-reg gets
+# rewritten in C ...
+if ($domname_or_image =~ m|://|) {
+    # Whitelist the characters permitted in the URI.
+    die "$0: $domname_or_image: URI parameter contains invalid characters"
+        unless $domname_or_image =~ m|^[A-Za-z0-9/:#%&*+,-.=?@_~]+$|;
+
+    my $cmd = "LANG=C guestfish -a '$domname_or_image' -x exit 2>&1 | grep 'trace: add_drive [^=]'";
+    open CMD, "$cmd|" or die "open: $cmd: $!";
+    $_ = <CMD>;
+    close CMD or die "close: $cmd: $!";
+    chomp;
+    die "$0: could not parse '$_'"
+        unless m/^libguestfs: trace: add_drive "(.*?)"(.*)/;
+    my @args = ($1, @lib_args);
+    $_ = $2;
+    while (/\S/) {
+        die "$0: cound not parse remainder from '$_'"
+            unless $_ =~ /^\s*"([a-z]+):(.*?)"(.*)/;
+        if ($1 ne "server") {
+            push @args, $1, $2;
+        } else {
+            push @args, $1, [$2];
+        }
+        $_ = $3;
+    }
+    $g->add_drive (@args);
+}
+# If the parameter looks like a local file:
+elsif (-e $domname_or_image) {
     $g->add_drive ($domname_or_image, @lib_args);
 }
+# Try a libvirt domain name:
 else {
     push @lib_args, libvirturi => $uri if defined $uri;
     $g->add_domain ($domname_or_image, @lib_args);
