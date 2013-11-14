@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-11-05 15:11+0000\n"
+"POT-Creation-Date: 2013-11-14 16:59+0000\n"
 "PO-Revision-Date: 2013-10-17 14:46+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/fedora/language/"
@@ -1182,7 +1182,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:395
 #: ../resize/virt-resize.pod:744 ../sysprep/virt-sysprep.pod:497
 #: ../tools/virt-list-filesystems:183 ../tools/virt-list-partitions:265
-#: ../tools/virt-make-fs:636 ../tools/virt-tar:294 ../tools/virt-win-reg:748
+#: ../tools/virt-make-fs:636 ../tools/virt-tar:294 ../tools/virt-win-reg:779
 msgid "SHELL QUOTING"
 msgstr ""
 
@@ -1193,7 +1193,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:397
 #: ../resize/virt-resize.pod:746 ../sysprep/virt-sysprep.pod:499
 #: ../tools/virt-list-filesystems:185 ../tools/virt-list-partitions:267
-#: ../tools/virt-make-fs:638 ../tools/virt-tar:296 ../tools/virt-win-reg:756
+#: ../tools/virt-make-fs:638 ../tools/virt-tar:296 ../tools/virt-win-reg:787
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -1204,7 +1204,7 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:359
 #: ../appliance/libguestfs-make-fixed-appliance.pod:156
-#: ../builder/virt-builder.pod:1455 ../builder/virt-index-validate.pod:76
+#: ../builder/virt-builder.pod:1454 ../builder/virt-index-validate.pod:76
 #: ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:390
 #: ../cat/virt-ls.pod:496 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260
 #: ../edit/virt-edit.pod:357 ../fish/guestfish.pod:1358
@@ -1238,8 +1238,8 @@ msgstr "このプログラムは以下を返します:"
 #: ../builder/virt-builder.pod:805 ../builder/virt-builder.pod:809
 #: ../builder/virt-builder.pod:813 ../builder/virt-builder.pod:822
 #: ../builder/virt-builder.pod:1192 ../builder/virt-builder.pod:1196
-#: ../builder/virt-builder.pod:1384 ../builder/virt-builder.pod:1388
-#: ../builder/virt-builder.pod:1392 ../builder/virt-index-validate.pod:34
+#: ../builder/virt-builder.pod:1383 ../builder/virt-builder.pod:1387
+#: ../builder/virt-builder.pod:1391 ../builder/virt-index-validate.pod:34
 #: ../builder/virt-index-validate.pod:39 ../builder/virt-index-validate.pod:53
 #: ../builder/virt-index-validate.pod:58 ../cat/virt-cat.pod:183
 #: ../cat/virt-cat.pod:188 ../cat/virt-cat.pod:193 ../cat/virt-cat.pod:204
@@ -1355,8 +1355,8 @@ msgstr "このプログラムは以下を返します:"
 #: ../sysprep/virt-sysprep.pod:362 ../sysprep/virt-sysprep.pod:366
 #: ../sysprep/virt-sysprep.pod:374 ../sysprep/virt-sysprep.pod:380
 #: ../tools/virt-win-reg:196 ../tools/virt-win-reg:201
-#: ../tools/virt-win-reg:207 ../tools/virt-win-reg:725
-#: ../tools/virt-win-reg:731 ../tools/virt-win-reg:737
+#: ../tools/virt-win-reg:207 ../tools/virt-win-reg:756
+#: ../tools/virt-win-reg:762 ../tools/virt-win-reg:768
 msgid "*"
 msgstr "*"
 
@@ -1414,7 +1414,7 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:393
 #: ../appliance/libguestfs-make-fixed-appliance.pod:166
-#: ../builder/virt-builder.pod:1460 ../builder/virt-index-validate.pod:81
+#: ../builder/virt-builder.pod:1459 ../builder/virt-index-validate.pod:81
 #: ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395
 #: ../cat/virt-ls.pod:501 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:265
 #: ../edit/virt-edit.pod:362 ../erlang/examples/guestfs-erlang.pod:97
@@ -1434,7 +1434,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4681
 #: ../sysprep/virt-sysprep.pod:508 ../test-tool/libguestfs-test-tool.pod:183
 #: ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272
-#: ../tools/virt-make-fs:643 ../tools/virt-tar:301 ../tools/virt-win-reg:761
+#: ../tools/virt-make-fs:643 ../tools/virt-tar:301 ../tools/virt-win-reg:792
 msgid "SEE ALSO"
 msgstr "関連項目"
 
@@ -1448,7 +1448,7 @@ msgstr ""
 "L<virt-resize(1)>, L<http://libguestfs.org/>."
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1475
+#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1474
 #: ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:258
 #: ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:510
 #: ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273 ../edit/virt-edit.pod:373
@@ -1456,12 +1456,12 @@ msgstr ""
 #: ../rescue/virt-rescue.pod:427 ../resize/virt-resize.pod:779
 #: ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems:202
 #: ../tools/virt-list-partitions:283 ../tools/virt-make-fs:658
-#: ../tools/virt-tar:315 ../tools/virt-win-reg:775
+#: ../tools/virt-tar:315 ../tools/virt-win-reg:806
 msgid "AUTHOR"
 msgstr "著者"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1477
+#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1476
 #: ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:260
 #: ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:512
 #: ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275 ../edit/virt-edit.pod:375
@@ -1469,14 +1469,14 @@ msgstr "著者"
 #: ../rescue/virt-rescue.pod:429 ../resize/virt-resize.pod:781
 #: ../sparsify/virt-sparsify.pod:354 ../sysprep/virt-sysprep.pod:525
 #: ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285
-#: ../tools/virt-make-fs:660 ../tools/virt-tar:317 ../tools/virt-win-reg:777
+#: ../tools/virt-make-fs:660 ../tools/virt-tar:317 ../tools/virt-win-reg:808
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:406
 #: ../appliance/libguestfs-make-fixed-appliance.pod:179
-#: ../builder/virt-builder.pod:1479 ../builder/virt-index-validate.pod:90
+#: ../builder/virt-builder.pod:1478 ../builder/virt-index-validate.pod:90
 #: ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410
 #: ../cat/virt-ls.pod:514 ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277
 #: ../edit/virt-edit.pod:377 ../erlang/examples/guestfs-erlang.pod:116
@@ -1496,7 +1496,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4741
 #: ../sysprep/virt-sysprep.pod:529 ../test-tool/libguestfs-test-tool.pod:193
 #: ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287
-#: ../tools/virt-make-fs:662 ../tools/virt-tar:319 ../tools/virt-win-reg:779
+#: ../tools/virt-make-fs:662 ../tools/virt-tar:319 ../tools/virt-win-reg:810
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
 
@@ -1556,7 +1556,7 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:26
 msgid ""
 "You want to make a self-contained libguestfs appliance that can be copied to "
-"another machine or platform that doesn't support L<supermin(8)>."
+"another machine or platform that doesn't support L<supermin(1)>."
 msgstr ""
 
 #. type: textblock
@@ -1766,9 +1766,9 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:131
 msgid ""
-"Normally a supermin appliance is located on this path (see L<supermin(8)/"
+"Normally a supermin appliance is located on this path (see L<supermin(1)/"
 "SUPERMIN APPLIANCE>).  libguestfs reconstructs this into a full appliance by "
-"running L<supermin-helper(8)>."
+"running L<supermin-helper(1)>."
 msgstr ""
 
 #. type: textblock
@@ -1820,7 +1820,7 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:161
-#: ../builder/virt-builder.pod:1419 ../edit/virt-edit.pod:337
+#: ../builder/virt-builder.pod:1418 ../edit/virt-edit.pod:337
 #: ../fish/guestfish.pod:1363 ../fuse/guestunmount.pod:115
 #: ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312
 #: ../src/guestfs.pod:4578 ../test-tool/libguestfs-test-tool.pod:178
@@ -1839,10 +1839,12 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:168
+#, fuzzy
+#| msgid "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 msgid ""
-"L<guestfs(3)>, L<supermin(8)>, L<supermin-helper(8)>, L<xz(1)>, L<http://"
+"L<guestfs(3)>, L<supermin(1)>, L<supermin-helper(1)>, L<xz(1)>, L<http://"
 "libguestfs.org/>, L<http://qemu.org/>."
-msgstr ""
+msgstr "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:175
@@ -3701,7 +3703,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2058 ../fish/guestfish-actions.pod:2600
 #: ../fish/guestfish-actions.pod:3196 ../src/guestfs-actions.pod:3252
 #: ../src/guestfs-actions.pod:4114 ../src/guestfs-actions.pod:4999
-#: ../src/guestfs.pod:778 ../src/guestfs.pod:2623 ../tools/virt-win-reg:721
+#: ../src/guestfs.pod:778 ../src/guestfs.pod:2623 ../tools/virt-win-reg:752
 msgid "Notes:"
 msgstr "注:"
 
@@ -4740,12 +4742,12 @@ msgstr "アーキテクチャー"
 #. type: textblock
 #: ../builder/virt-builder.pod:1325
 msgid ""
-"Virt-builder can, in theory, build a guest for any architecture no matter "
-"what the host architecture is.  For example a ppc64 guest on an x86-64 host."
+"Virt-builder can build a guest for any architecture no matter what the host "
+"architecture is.  For example an x86-64 guest on an ARM host."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1329
+#: ../builder/virt-builder.pod:1328
 msgid ""
 "However certain options may not work correctly, specifically options that "
 "require running commands in the guest during the build process: I<--"
@@ -4754,27 +4756,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1334
+#: ../builder/virt-builder.pod:1333
 msgid ""
-"An x86-64 host building 32 bit x86 guests should work without any special "
+"An x86-64 host building 32 bit i686 guests should work without any special "
 "steps."
 msgstr ""
 
 #. type: =head1
-#: ../builder/virt-builder.pod:1337 ../src/guestfs.pod:1889
+#: ../builder/virt-builder.pod:1336 ../src/guestfs.pod:1889
 #: ../sysprep/virt-sysprep.pod:447
 msgid "SECURITY"
 msgstr "セキュリティ"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1339
+#: ../builder/virt-builder.pod:1338
 msgid ""
 "Virt-builder does not need to run as root (in fact, should not be run as "
 "root), and doesn't use setuid, C<sudo> or any similar mechanism."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1342
+#: ../builder/virt-builder.pod:1341
 msgid ""
 "I<--install>, I<--run> and I<--run-command> are implemented using an "
 "appliance (a small virtual machine) so these commands do not run on the "
@@ -4784,7 +4786,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1348
+#: ../builder/virt-builder.pod:1347
 msgid ""
 "However these options will have access to the host's network and since the "
 "template may contain untrusted code, the code might try to access host "
@@ -4793,14 +4795,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1353
+#: ../builder/virt-builder.pod:1352
 msgid ""
 "Firstboot commands run in the context of the guest when it is booted, and so "
 "the security of your hypervisor / cloud should be considered."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1356
+#: ../builder/virt-builder.pod:1355
 msgid ""
 "Virt-builder injects a random seed into every guest which it builds.  This "
 "helps to ensure that TCP sequence numbers, UUIDs, ssh host keys etc are "
@@ -4808,17 +4810,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1360
+#: ../builder/virt-builder.pod:1359
 msgid "You should check digital signatures and not ignore any signing errors."
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:1362
+#: ../builder/virt-builder.pod:1361
 msgid "PERFORMANCE"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1364
+#: ../builder/virt-builder.pod:1363
 msgid ""
 "The most important aspect of getting good performance is caching.  Templates "
 "gets downloaded into the cache the first time they are used, or if you use "
@@ -4827,7 +4829,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1369
+#: ../builder/virt-builder.pod:1368
 msgid ""
 "Packages required for the I<--install> option are downloaded using the host "
 "network connection.  Setting the C<http_proxy>, C<https_proxy> and "
@@ -4838,39 +4840,39 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:1377
+#: ../builder/virt-builder.pod:1376
 msgid "Skipping virt-resize"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1379
+#: ../builder/virt-builder.pod:1378
 msgid ""
 "Virt-builder can skip the virt-resize step under certain conditions.  This "
 "makes virt-builder much faster.  The conditions are:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1386
+#: ../builder/virt-builder.pod:1385
 msgid "the output must be a regular file (not a block device), B<and>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1390
+#: ../builder/virt-builder.pod:1389
 msgid "the user did B<not> use the I<--size> option, B<and>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1394
+#: ../builder/virt-builder.pod:1393
 msgid "the output format is the same as the template format (usually raw)."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:1398
+#: ../builder/virt-builder.pod:1397
 msgid "pxzcat"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1400
+#: ../builder/virt-builder.pod:1399
 msgid ""
 "Virt-builder uses an internal implementation of pxzcat (parallel xzcat) if "
 "liblzma was found at build time.  If liblzma was not found at build time, "
@@ -4878,14 +4880,14 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:1404
+#: ../builder/virt-builder.pod:1403
 #, fuzzy
 #| msgid "set-selinux"
 msgid "User-Mode Linux"
 msgstr "set-selinux"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1406
+#: ../builder/virt-builder.pod:1405
 msgid ""
 "You can use virt-builder with the User-Mode Linux (UML) backend.  This may "
 "be faster when running virt-builder inside a virtual machine (eg. in the "
@@ -4893,96 +4895,96 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1410
+#: ../builder/virt-builder.pod:1409
 msgid ""
 "To enable the UML backend, read the instructions in L<guestfs(3)/USER-MODE "
 "LINUX BACKEND>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1413
+#: ../builder/virt-builder.pod:1412
 msgid ""
 "Currently you have to use the I<--no-network> option.  This should be fixed "
 "in a future version."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1416
+#: ../builder/virt-builder.pod:1415
 msgid ""
 "The qcow2 output format is not supported by UML.  You can only create raw-"
 "format guests."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1421
+#: ../builder/virt-builder.pod:1420
 msgid ""
 "For other environment variables which affect all libguestfs programs, see "
 "L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1426
+#: ../builder/virt-builder.pod:1425
 msgid "C<http_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1428
+#: ../builder/virt-builder.pod:1427
 msgid "C<https_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1430
+#: ../builder/virt-builder.pod:1429
 msgid "C<no_proxy>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1432
+#: ../builder/virt-builder.pod:1431
 msgid ""
 "Set the proxy for downloads.  These environment variables (and more)  are "
 "actually interpreted by L<curl(1)>, not virt-builder."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1435
+#: ../builder/virt-builder.pod:1434
 msgid "C<HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1437 ../builder/virt-builder.pod:1451
+#: ../builder/virt-builder.pod:1436 ../builder/virt-builder.pod:1450
 msgid "Used to determine the location of the template cache.  See L</CACHING>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1439
+#: ../builder/virt-builder.pod:1438
 msgid "C<VIRT_BUILDER_FINGERPRINT>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1441
+#: ../builder/virt-builder.pod:1440
 msgid ""
 "Set the default value for the GPG signature fingerprint or comma-separated "
 "list of fingerprints (see I<--fingerprint> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1444
+#: ../builder/virt-builder.pod:1443
 msgid "C<VIRT_BUILDER_SOURCE>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1446
+#: ../builder/virt-builder.pod:1445
 msgid ""
 "Set the default value for the source URL (or comma-separated list of URLs) "
 "for the template repository (see I<--source> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1449
+#: ../builder/virt-builder.pod:1448
 msgid "C<XDG_CACHE_HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1457 ../cat/virt-cat.pod:246
+#: ../builder/virt-builder.pod:1456 ../cat/virt-cat.pod:246
 #: ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:498
 #: ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262 ../edit/virt-edit.pod:359
 #: ../fuse/guestmount.pod:403 ../inspector/virt-inspector.pod:498
@@ -4992,7 +4994,7 @@ msgid ""
 msgstr "このプログラムは、成功すると 0 を、エラーがあると 0 以外を返します。"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1462
+#: ../builder/virt-builder.pod:1461
 #, fuzzy
 #| msgid ""
 #| "L<guestfs(3)>, L<guestfish(1)>, L<virt-clone(1)>, L<virt-rescue(1)>, "
@@ -5010,7 +5012,7 @@ msgstr ""
 "img(1)>, L<scrub(1)>, L<http://libguestfs.org/>, L<http://libvirt.org/>."
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1481 ../builder/virt-index-validate.pod:92
+#: ../builder/virt-builder.pod:1480 ../builder/virt-index-validate.pod:92
 #: ../fuse/guestunmount.pod:164 ../golang/examples/guestfs-golang.pod:99
 msgid "Copyright (C) 2013 Red Hat Inc."
 msgstr "Copyright (C) 2013 Red Hat Inc."
@@ -11238,7 +11240,7 @@ msgstr ""
 #: ../examples/guestfs-performance.pod:92
 msgid ""
 "For more information about how the appliance is constructed, see "
-"L<supermin(8)/SUPERMIN APPLIANCES>."
+"L<supermin(1)/SUPERMIN APPLIANCES>."
 msgstr ""
 
 #. type: textblock
@@ -11361,7 +11363,7 @@ msgstr ""
 #. type: textblock
 #: ../examples/guestfs-performance.pod:169
 msgid ""
-"By default libguestfs (or rather, L<supermin-helper(8)>)  searches over the "
+"By default libguestfs (or rather, L<supermin-helper(1)>)  searches over the "
 "root filesystem to find out if any host files have changed and if it needs "
 "to rebuild the appliance.  If these files are not cached and the root "
 "filesystem is on an HDD, then this generates lots of seeks.  Using a fixed "
@@ -12143,8 +12145,13 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-performance.pod:569
+#, fuzzy
+#| msgid ""
+#| "L<supermin(8)>, L<supermin-helper(8)>, L<guestfish(1)>, L<guestfs(3)>, "
+#| "L<guestfs-examples(3)>, L<libguestfs-make-fixed-appliance(1)>, "
+#| "L<stap(1)>, L<qemu(1)>, L<gdb(1)>, L<http://libguestfs.org/>."
 msgid ""
-"L<supermin(8)>, L<supermin-helper(8)>, L<guestfish(1)>, L<guestfs(3)>, "
+"L<supermin(1)>, L<supermin-helper(1)>, L<guestfish(1)>, L<guestfs(3)>, "
 "L<guestfs-examples(3)>, L<libguestfs-make-fixed-appliance(1)>, L<stap(1)>, "
 "L<qemu(1)>, L<gdb(1)>, L<http://libguestfs.org/>."
 msgstr ""
@@ -13932,7 +13939,7 @@ msgstr ""
 #. type: textblock
 #: ../examples/guestfs-testing.pod:98
 msgid ""
-"Which kernel is being used? L<supermin(8)> will try to pick the latest "
+"Which kernel is being used? L<supermin(1)> will try to pick the latest "
 "kernel installed on your machine.  You can see the version in the appliance "
 "output, eg:"
 msgstr ""
@@ -37310,7 +37317,7 @@ msgstr ""
 #. type: =head2
 #: ../fish/guestfish.pod:1326 ../resize/virt-resize.pod:700
 #: ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:492
-#: ../tools/virt-win-reg:589
+#: ../tools/virt-win-reg:620
 msgid "WINDOWS 8"
 msgstr ""
 
@@ -37691,7 +37698,7 @@ msgid ""
 "These two environment variables allow the kernel that libguestfs uses in the "
 "appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the most "
 "recent host kernel is chosen.  For more information about kernel selection, "
-"see L<supermin-helper(8)>.  This feature is only available in supermin / "
+"see L<supermin-helper(1)>.  This feature is only available in supermin / "
 "febootstrap E<ge> 3.8."
 msgstr ""
 
@@ -37852,7 +37859,7 @@ msgid ""
 "L<virt-make-fs(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-"
 "sparsify(1)>, L<virt-sysprep(1)>, L<virt-tar(1)>, L<virt-tar-in(1)>, L<virt-"
 "tar-out(1)>, L<virt-win-reg(1)>, L<libguestfs-tools.conf(5)>, L<display(1)>, "
-"L<hexedit(1)>, L<supermin-helper(8)>."
+"L<hexedit(1)>, L<supermin-helper(1)>."
 msgstr ""
 
 #. type: textblock
@@ -76135,7 +76142,7 @@ msgstr ""
 #: ../src/guestfs.pod:3462
 msgid ""
 "For a complete description of how the appliance is created and cached, read "
-"the L<supermin(8)> and L<supermin-helper(8)> man pages."
+"the L<supermin(1)> and L<supermin-helper(1)> man pages."
 msgstr ""
 
 #. type: =item
@@ -78592,7 +78599,7 @@ msgid ""
 "tar-out(1)>, L<virt-win-reg(1)>, L<guestfs-faq(1)>, L<guestfs-"
 "performance(1)>, L<guestfs-release-notes(1)>, L<guestfs-testing(1)>, "
 "L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-appliance(1)>, "
-"L<supermin(8)>, L<supermin-helper(8)>, L<qemu(1)>, L<hivex(3)>, L<stap(1)>, "
+"L<supermin(1)>, L<supermin-helper(1)>, L<qemu(1)>, L<hivex(3)>, L<stap(1)>, "
 "L<sd-journal(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
@@ -80722,7 +80729,7 @@ msgstr ""
 #. type: textblock
 #: ../test-tool/libguestfs-test-tool.pod:90
 msgid ""
-"Refer to L<supermin-helper(8)/ENVIRONMENT VARIABLES> for further information."
+"Refer to L<supermin-helper(1)/ENVIRONMENT VARIABLES> for further information."
 msgstr ""
 
 #. type: =head1
@@ -82035,85 +82042,85 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg:554
+#: ../tools/virt-win-reg:585
 msgid "SUPPORTED SYSTEMS"
 msgstr "サポートされるシステム"
 
 #. type: textblock
-#: ../tools/virt-win-reg:556
+#: ../tools/virt-win-reg:587
 msgid ""
 "The program currently supports Windows NT-derived guests starting with "
 "Windows XP through to at least Windows 8."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:559
+#: ../tools/virt-win-reg:590
 msgid "The following Registry keys are supported:"
 msgstr "以下のレジストリキーがサポートされます:"
 
 #. type: =item
-#: ../tools/virt-win-reg:563
+#: ../tools/virt-win-reg:594
 msgid "C<HKEY_LOCAL_MACHINE\\SAM>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SAM>"
 
 #. type: =item
-#: ../tools/virt-win-reg:565
+#: ../tools/virt-win-reg:596
 msgid "C<HKEY_LOCAL_MACHINE\\SECURITY>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SECURITY>"
 
 #. type: =item
-#: ../tools/virt-win-reg:567
+#: ../tools/virt-win-reg:598
 msgid "C<HKEY_LOCAL_MACHINE\\SOFTWARE>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SOFTWARE>"
 
 #. type: =item
-#: ../tools/virt-win-reg:569
+#: ../tools/virt-win-reg:600
 msgid "C<HKEY_LOCAL_MACHINE\\SYSTEM>"
 msgstr "C<HKEY_LOCAL_MACHINE\\SYSTEM>"
 
 #. type: =item
-#: ../tools/virt-win-reg:571
+#: ../tools/virt-win-reg:602
 msgid "C<HKEY_USERS\\.DEFAULT>"
 msgstr "C<HKEY_USERS\\.DEFAULT>"
 
 #. type: =item
-#: ../tools/virt-win-reg:573
+#: ../tools/virt-win-reg:604
 msgid "C<HKEY_USERS\\I<SID>>"
 msgstr "C<HKEY_USERS\\I<SID>>"
 
 #. type: textblock
-#: ../tools/virt-win-reg:575
+#: ../tools/virt-win-reg:606
 msgid "where I<SID> is a Windows User SID (eg. C<S-1-5-18>)."
 msgstr "ここで I<SID> は Windows User SID です (例: C<S-1-5-18>)。"
 
 #. type: =item
-#: ../tools/virt-win-reg:577
+#: ../tools/virt-win-reg:608
 msgid "C<HKEY_USERS\\I<username>>"
 msgstr "C<HKEY_USERS\\I<username>>"
 
 #. type: textblock
-#: ../tools/virt-win-reg:579
+#: ../tools/virt-win-reg:610
 msgid ""
 "where I<username> is a local user name (this is a libguestfs extension)."
 msgstr ""
 "ここで I<username> はローカルユーザー名です (これは libguestfs の拡張です)。"
 
 #. type: textblock
-#: ../tools/virt-win-reg:583
+#: ../tools/virt-win-reg:614
 msgid ""
 "You can use C<HKLM> as a shorthand for C<HKEY_LOCAL_MACHINE>, and C<HKU> for "
 "C<HKEY_USERS>."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:586
+#: ../tools/virt-win-reg:617
 msgid ""
 "The literal keys C<HKEY_USERS\\$SID> and C<HKEY_CURRENT_USER> are not "
 "supported (there is no \"current user\")."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:591
+#: ../tools/virt-win-reg:622
 msgid ""
 "Windows 8 \"fast startup\" can prevent virt-win-reg from being able to edit "
 "the Registry.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
@@ -82121,12 +82128,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg:595
+#: ../tools/virt-win-reg:626
 msgid "ENCODING"
 msgstr "エンコーディング"
 
 #. type: textblock
-#: ../tools/virt-win-reg:597
+#: ../tools/virt-win-reg:628
 msgid ""
 "C<virt-win-reg> expects that regedit files have already been reencoded in "
 "the local encoding.  Usually on Linux hosts, this means UTF-8 with Unix-"
@@ -82136,14 +82143,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:603
+#: ../tools/virt-win-reg:634
 msgid ""
 "To reencode a file from Windows format to Linux (before processing it with "
 "the I<--merge> option), you would do something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:606
+#: ../tools/virt-win-reg:637
 #, no-wrap
 msgid ""
 " iconv -f utf-16le -t utf-8 < win.reg | dos2unix > linux.reg\n"
@@ -82153,14 +82160,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:608
+#: ../tools/virt-win-reg:639
 msgid ""
 "To go in the opposite direction, after exporting and before sending the file "
 "to a Windows user, do something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:611
+#: ../tools/virt-win-reg:642
 #, no-wrap
 msgid ""
 " unix2dos linux.reg | iconv -f utf-8 -t utf-16le > win.reg\n"
@@ -82170,13 +82177,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:613
+#: ../tools/virt-win-reg:644
 msgid "For more information about encoding, see L<Win::Hivex::Regedit(3)>."
 msgstr ""
 "エンコーディングの詳細は L<Win::Hivex::Regedit(3)> を参照してください。"
 
 #. type: textblock
-#: ../tools/virt-win-reg:615
+#: ../tools/virt-win-reg:646
 msgid ""
 "If you are unsure about the current encoding, use the L<file(1)> command.  "
 "Recent versions of Windows regedit.exe produce a UTF-16LE file with Windows-"
@@ -82184,7 +82191,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:619
+#: ../tools/virt-win-reg:650
 #, no-wrap
 msgid ""
 " $ file software.reg\n"
@@ -82198,17 +82205,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:623
+#: ../tools/virt-win-reg:654
 msgid "This file would need conversion before you could I<--merge> it."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg:625
+#: ../tools/virt-win-reg:656
 msgid "CurrentControlSet etc."
 msgstr "CurrentControlSet など。"
 
 #. type: textblock
-#: ../tools/virt-win-reg:627
+#: ../tools/virt-win-reg:658
 msgid ""
 "Registry keys like C<CurrentControlSet> don't really exist in the Windows "
 "Registry at the level of the hive file, and therefore you cannot modify "
@@ -82216,7 +82223,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:631
+#: ../tools/virt-win-reg:662
 msgid ""
 "C<CurrentControlSet> is usually an alias for C<ControlSet001>.  In some "
 "circumstances it might refer to another control set.  The way to find out is "
@@ -82224,7 +82231,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:635
+#: ../tools/virt-win-reg:666
 #, no-wrap
 msgid ""
 " # virt-win-reg WindowsGuest 'HKLM\\SYSTEM\\Select'\n"
@@ -82244,28 +82251,28 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:642
+#: ../tools/virt-win-reg:673
 msgid "\"Current\" is the one which Windows will choose when it boots."
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:644
+#: ../tools/virt-win-reg:675
 msgid ""
 "Similarly, other C<Current...> keys in the path may need to be replaced."
 msgstr ""
 
 #. type: =head1
-#: ../tools/virt-win-reg:647
+#: ../tools/virt-win-reg:678
 msgid "DELETING REGISTRY KEYS AND VALUES"
 msgstr "レジストリーキーおよび値の削除方法"
 
 #. type: textblock
-#: ../tools/virt-win-reg:649
+#: ../tools/virt-win-reg:680
 msgid "To delete a whole registry key, use the syntax:"
 msgstr "レジストリキー全体を削除するには、この構文を使用します:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg:651
+#: ../tools/virt-win-reg:682
 #, no-wrap
 msgid ""
 " [-HKEY_LOCAL_MACHINE\\Foo]\n"
@@ -82275,12 +82282,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:653
+#: ../tools/virt-win-reg:684
 msgid "To delete a single value within a key, use the syntax:"
 msgstr "キーにある単一の値を削除するには、この構文を使用します:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg:655
+#: ../tools/virt-win-reg:686
 #, no-wrap
 msgid ""
 " [HKEY_LOCAL_MACHINE\\Foo]\n"
@@ -82292,24 +82299,24 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../tools/virt-win-reg:658
+#: ../tools/virt-win-reg:689
 msgid "WINDOWS TIPS"
 msgstr "Windows のヒント"
 
 #. type: textblock
-#: ../tools/virt-win-reg:660
+#: ../tools/virt-win-reg:691
 msgid ""
 "Note that some of these tips modify the guest disk image.  The guest I<must> "
 "be shut off, else you will get disk corruption."
 msgstr ""
 
 #. type: =head2
-#: ../tools/virt-win-reg:663
+#: ../tools/virt-win-reg:694
 msgid "RUNNING A BATCH SCRIPT WHEN A USER LOGS IN"
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:665
+#: ../tools/virt-win-reg:696
 msgid ""
 "Prepare a DOS batch script, VBScript or executable.  Upload this using "
 "L<guestfish(1)>.  For this example the script is called C<test.bat> and it "
@@ -82317,7 +82324,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:669
+#: ../tools/virt-win-reg:700
 #, no-wrap
 msgid ""
 " guestfish -i -d WindowsGuest upload test.bat /test.bat\n"
@@ -82327,12 +82334,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:671
+#: ../tools/virt-win-reg:702
 msgid "Prepare a regedit file containing the registry change:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:673
+#: ../tools/virt-win-reg:704
 #, no-wrap
 msgid ""
 " cat > test.reg <<'EOF'\n"
@@ -82348,7 +82355,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:678
+#: ../tools/virt-win-reg:709
 msgid ""
 "In this example we use the key C<RunOnce> which means that the script will "
 "run precisely once when the first user logs in.  If you want it to run every "
@@ -82356,12 +82363,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:682
+#: ../tools/virt-win-reg:713
 msgid "Now update the registry:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:684
+#: ../tools/virt-win-reg:715
 #, no-wrap
 msgid ""
 " virt-win-reg --merge WindowsGuest test.reg\n"
@@ -82371,12 +82378,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../tools/virt-win-reg:686
+#: ../tools/virt-win-reg:717
 msgid "INSTALLING A SERVICE"
 msgstr "サービスのインストール方法"
 
 #. type: textblock
-#: ../tools/virt-win-reg:688
+#: ../tools/virt-win-reg:719
 msgid ""
 "This section assumes you are familiar with Windows services, and you either "
 "have a program which handles the Windows Service Control Protocol directly "
@@ -82385,14 +82392,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:693
+#: ../tools/virt-win-reg:724
 msgid ""
 "First upload the program and optionally the service wrapper.  In this case "
 "the test program is called C<test.exe> and we are using the RHSrvAny wrapper:"
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:697
+#: ../tools/virt-win-reg:728
 #, no-wrap
 msgid ""
 " guestfish -i -d WindowsGuest <<EOF\n"
@@ -82408,7 +82415,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:702
+#: ../tools/virt-win-reg:733
 msgid ""
 "Prepare a regedit file containing the registry changes.  In this example, "
 "the first registry change is needed for the service itself or the service "
@@ -82417,7 +82424,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../tools/virt-win-reg:707
+#: ../tools/virt-win-reg:738
 #, no-wrap
 msgid ""
 " cat > service.reg <<'EOF'\n"
@@ -82441,7 +82448,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../tools/virt-win-reg:716
+#: ../tools/virt-win-reg:747
 #, no-wrap
 msgid ""
 " [HKLM\\SYSTEM\\ControlSet001\\services\\RHSrvAny\\Parameters]\n"
@@ -82457,7 +82464,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:727
+#: ../tools/virt-win-reg:758
 msgid ""
 "For use of C<ControlSet001> see the section above in this manual page.  You "
 "may need to adjust this according to the control set that is in use by the "
@@ -82465,7 +82472,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:733
+#: ../tools/virt-win-reg:764
 msgid ""
 "C<\"ObjectName\"> controls the privileges that the service will have.  An "
 "alternative is C<\"ObjectName\"=\"LocalSystem\"> which would be the most "
@@ -82473,7 +82480,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:739
+#: ../tools/virt-win-reg:770
 msgid ""
 "For the meaning of the magic numbers, see this Microsoft KB article: "
 "L<http://support.microsoft.com/kb/103000>."
@@ -82482,12 +82489,12 @@ msgstr ""
 "support.microsoft.com/kb/103000>."
 
 #. type: textblock
-#: ../tools/virt-win-reg:744
+#: ../tools/virt-win-reg:775
 msgid "Update the registry:"
 msgstr "レジストリを更新します:"
 
 #. type: verbatim
-#: ../tools/virt-win-reg:746
+#: ../tools/virt-win-reg:777
 #, no-wrap
 msgid ""
 " virt-win-reg --merge WindowsGuest service.reg\n"
@@ -82497,7 +82504,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../tools/virt-win-reg:750
+#: ../tools/virt-win-reg:781
 msgid ""
 "Be careful when passing parameters containing C<\\> (backslash) in the "
 "shell.  Usually you will have to use 'single quotes' or double backslashes "
@@ -82508,12 +82515,12 @@ msgstr ""
 "スラッシュ (しかし、両方ではない) を使用する必要があります。"
 
 #. type: textblock
-#: ../tools/virt-win-reg:754
+#: ../tools/virt-win-reg:785
 msgid "Paths and value names are case-insensitive."
 msgstr "パスおよび値の名前は大文字小文字を区別します。"
 
 #. type: textblock
-#: ../tools/virt-win-reg:763
+#: ../tools/virt-win-reg:794
 msgid ""
 "L<hivex(3)>, L<hivexsh(1)>, L<hivexregedit(1)>, L<guestfs(3)>, "
 "L<guestfish(1)>, L<virt-cat(1)>, L<Sys::Guestfs(3)>, L<Win::Hivex(3)>, "
@@ -82521,7 +82528,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../tools/virt-win-reg:781
+#: ../tools/virt-win-reg:812
 msgid "Copyright (C) 2010 Red Hat Inc."
 msgstr "Copyright (C) 2010 Red Hat Inc."
 

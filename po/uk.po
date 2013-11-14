@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-11-08 15:43+0000\n"
+"POT-Creation-Date: 2013-11-14 16:59+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -5451,7 +5451,7 @@ msgstr "virt-tar: {tarball}: файла не знайдено\n"
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: запис каталогу має починатися з символу «/»\n"
 
-#: tools/virt-tar:260 tools/virt-win-reg:269
+#: tools/virt-tar:260 tools/virt-win-reg:300
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -5473,7 +5473,7 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: tools/virt-tar:264 tools/virt-win-reg:273
+#: tools/virt-tar:264 tools/virt-win-reg:304
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
@@ -5484,7 +5484,7 @@ msgstr ""
 msgid "no libvirt domain name or disk image given\n"
 msgstr "не вказано назви домену або образу диска libvirt\n"
 
-#: tools/virt-win-reg:295
+#: tools/virt-win-reg:326
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -5492,22 +5492,22 @@ msgstr ""
 "мало бути вказано 1 або 2 додаткових параметри, шлях до підключа і "
 "необов’язкове значення для експортування\n"
 
-#: tools/virt-win-reg:454
+#: tools/virt-win-reg:485
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr "virt-win-reg: {p}: не вдалося знайти каталог користувача\n"
 
-#: tools/virt-win-reg:459
+#: tools/virt-win-reg:490
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: непідтримуваний запис шляху у регістрі Windows\n"
 
-#: tools/virt-win-reg:532
+#: tools/virt-win-reg:563
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося отримати файл регістра: {err}\n"
 
-#: tools/virt-win-reg:549
+#: tools/virt-win-reg:580
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
@@ -5565,7 +5565,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
-#: ../builder/builder.ml:741 ../builder/builder.ml:426
+#: ../builder/builder.ml:732 ../builder/builder.ml:426
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -5577,7 +5577,7 @@ msgstr ""
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:537
+#: ../builder/builder.ml:528
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -5593,7 +5593,7 @@ msgstr "%s: параметр --enable можна вказувати лише о�
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
-#: ../builder/builder.ml:564
+#: ../builder/builder.ml:555
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -5721,15 +5721,15 @@ msgstr "%s: порожній аргумент параметра --expand"
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:623
+#: ../builder/builder.ml:614
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../builder/builder.ml:775
+#: ../builder/builder.ml:766
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:778
+#: ../builder/builder.ml:769
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -5749,11 +5749,11 @@ msgstr ""
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
-#: ../builder/builder.ml:796
+#: ../builder/builder.ml:787
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:784
+#: ../builder/builder.ml:775
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -5767,15 +5767,15 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:793
+#: ../builder/builder.ml:784
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../builder/builder.ml:790
+#: ../builder/builder.ml:781
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#: ../builder/builder.ml:787
+#: ../builder/builder.ml:778
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -5795,11 +5795,11 @@ msgstr ""
 msgid "%s: invalid password format; see the man page.\n"
 msgstr ""
 
-#: ../builder/builder.ml:781
+#: ../builder/builder.ml:772
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:507
+#: ../builder/builder.ml:498
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
@@ -5909,7 +5909,7 @@ msgstr ""
 "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
 "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize(1)\n"
 
-#: ../builder/builder.ml:568
+#: ../builder/builder.ml:559
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -6014,7 +6014,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:486
+#: ../builder/builder.ml:477
 msgid ""
 "%s: warning: root password could not be set for this type of guest\n"
 "%!"
@@ -6238,7 +6238,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:634
+#: ../builder/builder.ml:625
 msgid "Deleting: %s"
 msgstr ""
 
@@ -6316,7 +6316,7 @@ msgstr "Створити дамп POD для параметрів (вбудов�
 msgid "Edit file with Perl expr"
 msgstr ""
 
-#: ../builder/builder.ml:620
+#: ../builder/builder.ml:611
 msgid "Editing: %s"
 msgstr ""
 
@@ -6428,7 +6428,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:730
+#: ../builder/builder.ml:721
 msgid "Finishing off"
 msgstr ""
 
@@ -6479,7 +6479,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../builder/builder.ml:720
+#: ../builder/builder.ml:711
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -6509,19 +6509,19 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:657
+#: ../builder/builder.ml:648
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:660
+#: ../builder/builder.ml:651
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:653
+#: ../builder/builder.ml:644
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:575
+#: ../builder/builder.ml:566
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -6542,7 +6542,7 @@ msgstr "Показати список підтримуваних команд"
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення даних придатною для читання даних"
 
-#: ../builder/builder.ml:584
+#: ../builder/builder.ml:575
 msgid "Making directory: %s"
 msgstr ""
 
@@ -6612,7 +6612,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:717
+#: ../builder/builder.ml:708
 msgid "Output: %s"
 msgstr ""
 
@@ -6628,7 +6628,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr "Режим з мінімальним виведенням даних"
 
-#: ../builder/builder.ml:476
+#: ../builder/builder.ml:467
 msgid "Random root password: %s [did you mean to use --root-password?]"
 msgstr ""
 
@@ -6895,7 +6895,7 @@ msgstr ""
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:674 ../builder/builder.ml:670
+#: ../builder/builder.ml:665 ../builder/builder.ml:661
 msgid "Running: %s"
 msgstr ""
 
@@ -6911,11 +6911,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../builder/builder.ml:685
+#: ../builder/builder.ml:676
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../builder/builder.ml:641
+#: ../builder/builder.ml:632
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -7080,7 +7080,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../builder/builder.ml:472
+#: ../builder/builder.ml:463
 msgid "Setting root password"
 msgstr ""
 
@@ -7307,7 +7307,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:718
+#: ../builder/builder.ml:709
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -7323,7 +7323,7 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:598
+#: ../builder/builder.ml:589
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -7344,7 +7344,7 @@ msgstr ""
 "\n"
 "Див. L</RANDOM SEED> нижче."
 
-#: ../builder/builder.ml:591
+#: ../builder/builder.ml:582
 msgid "Writing: %s"
 msgstr ""
 
@@ -7807,7 +7807,7 @@ msgid ""
 "password for user '%s' twice.\n"
 msgstr ""
 
-#: ../mllib/password.ml:141
+#: ../mllib/password.ml:133
 msgid ""
 "virt-sysprep: password: warning: using insecure md5 password encryption for\n"
 "guest of type %s version %d.\n"
