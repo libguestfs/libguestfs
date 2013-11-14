@@ -448,6 +448,22 @@ let main () =
    * Note 'None' means that we randomize the root password.
    *)
   let () =
+    let read_byte fd =
+      let s = String.make 1 ' ' in
+      fun () ->
+        if read fd s 0 1 = 0 then
+          raise End_of_file;
+        Char.code s.[0]
+    in
+
+    (* return a random number uniformly distributed in [0, upper_bound)
+     * avoiding modulo bias *)
+    let rec uniform_random read upper_bound =
+      let c = read () in
+      if c >= 256 mod upper_bound then c mod upper_bound
+      else uniform_random read upper_bound
+    in
+
     let make_random_password () =
       (* Get random characters from the set [A-Za-z0-9] with some
        * homoglyphs removed.
@@ -456,12 +472,12 @@ let main () =
         "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789" in
       let nr_chars = String.length chars in
 
-      let chan = open_in "/dev/urandom" in
+      let fd = openfile "/dev/urandom" [O_RDONLY] 0 in
       let buf = String.create 16 in
       for i = 0 to 15 do
-        buf.[i] <- chars.[Char.code (input_char chan) mod nr_chars]
+        buf.[i] <- chars.[uniform_random (read_byte fd) nr_chars]
       done;
-      close_in chan;
+      close fd;
 
       buf
     in
