@@ -588,20 +588,44 @@ do_btrfs_filesystem_balance (const char *fs)
   return 0;
 }
 
+/* Test if 'btrfs device add' needs the --force option (added
+ * c.2013-09) in order to work.
+ */
+static int
+test_btrfs_device_add_needs_force (void)
+{
+  int r;
+  CLEANUP_FREE char *out = NULL, *err = NULL;
+
+  r = command (&out, &err, "btrfs", "device", "add", "--help", NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", "btrfs device add --help", err);
+    return -1;
+  }
+
+  return strstr (out, "--force") != NULL;
+}
+
 int
 do_btrfs_device_add (char *const *devices, const char *fs)
 {
+  static int btrfs_device_add_needs_force = -1;
   size_t nr_devices = count_strings (devices);
-
-  if (nr_devices == 0)
-    return 0;
-
   size_t MAX_ARGS = nr_devices + 8;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
   CLEANUP_FREE char *fs_buf = NULL;
   CLEANUP_FREE char *err = NULL;
   int r;
+
+  if (nr_devices == 0)
+    return 0;
+
+  if (btrfs_device_add_needs_force == -1) {
+    btrfs_device_add_needs_force = test_btrfs_device_add_needs_force ();
+    if (btrfs_device_add_needs_force == -1)
+      return -1;
+  }
 
   fs_buf = sysroot_path (fs);
   if (fs_buf == NULL) {
@@ -612,6 +636,9 @@ do_btrfs_device_add (char *const *devices, const char *fs)
   ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "device");
   ADD_ARG (argv, i, "add");
+
+  if (btrfs_device_add_needs_force)
+    ADD_ARG (argv, i, "--force");
 
   for (j = 0; j < nr_devices; ++j)
     ADD_ARG (argv, i, devices[j]);
