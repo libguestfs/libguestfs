@@ -144,6 +144,7 @@ libguestfs_la_LIBADD = \
 	libutils.la \
 	$(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
+	$(SELINUX_LIBS) \
 	$(YAJL_LIBS) \
 	../gnulib/lib/libgnu.la \
 	$(GETADDRINFO_LIB) \
