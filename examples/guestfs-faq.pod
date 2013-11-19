@@ -197,6 +197,9 @@ the host filesystem, and with the debug output printed in the error
 message.  Once you've worked out which file is missing, install that
 file using your package manager and try again.
 
+You should also check that files like C</init> and C</bin/bash> (in
+the appliance) are executable.  The debug output shows file modes.
+
 =head2 Non-ASCII characters don't appear on VFAT filesystems.
 
 Typical symptoms of this problem:
