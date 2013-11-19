@@ -592,17 +592,17 @@ dnl Check for libselinux (optional).
 AC_CHECK_HEADERS([selinux/selinux.h])
 AC_CHECK_LIB([selinux],[setexeccon],[
     have_libselinux="$ac_cv_header_selinux_selinux_h"
-    SELINUX_LIB="-lselinux"
+    SELINUX_LIBS="-lselinux"
 
     old_LIBS="$LIBS"
-    LIBS="$LIBS $SELINUX_LIB"
+    LIBS="$LIBS $SELINUX_LIBS"
     AC_CHECK_FUNCS([setcon getcon])
     LIBS="$old_LIBS"
 ],[have_libselinux=no])
 if test "x$have_libselinux" = "xyes"; then
     AC_DEFINE([HAVE_LIBSELINUX],[1],[Define to 1 if you have libselinux.])
 fi
-AC_SUBST([SELINUX_LIB])
+AC_SUBST([SELINUX_LIBS])
 
 dnl Check for systemtap/DTrace userspace probes (optional).
 dnl Since the probe points break under clang, allow this to be disabled.

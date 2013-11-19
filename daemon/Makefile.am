@@ -182,7 +182,7 @@ guestfsd_LDADD = \
 	$(ACL_LIBS) \
 	$(CAP_LIBS) \
 	$(YAJL_LIBS) \
-	$(SELINUX_LIB) \
+	$(SELINUX_LIBS) \
 	$(AUGEAS_LIBS) \
 	$(HIVEX_LIBS) \
 	$(SD_JOURNAL_LIBS) \
