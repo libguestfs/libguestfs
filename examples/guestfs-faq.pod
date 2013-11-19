@@ -163,6 +163,40 @@ command as root:
 
  update-guestfs-appliance
 
+=head2 execl: /init: Permission denied
+
+B<Note:> If this error happens when you are using a distro package of
+libguestfs (eg. from Fedora, Debian, etc) then file a bug against the
+distro.  This is not an error which normal users should ever see if
+the distro package has been prepared correctly.
+
+This error happens during the supermin boot phase of starting the
+appliance:
+
+ supermin: mounting new root on /root
+ supermin: chroot
+ execl: /init: Permission denied
+ supermin: debug: listing directory /
+ [...followed by a lot of debug output...]
+
+This is a complicated bug related to L<supermin(1)> appliances.  The
+appliance is constructed by copying files like C</bin/bash> and many
+libraries from the host.  The file C<hostfiles> lists the files that
+should be copied from the host into the appliance.  If some files
+don't exist on the host then they are missed out, but if these files
+are needed in order to (eg) run C</bin/bash> then you'll see the above
+error.
+
+Diagnosing the problem involves studying the libraries needed by
+C</bin/bash>, ie:
+
+ ldd /bin/bash
+
+comparing that with C<hostfiles>, with the files actually available in
+the host filesystem, and with the debug output printed in the error
+message.  Once you've worked out which file is missing, install that
+file using your package manager and try again.
+
 =head2 Non-ASCII characters don't appear on VFAT filesystems.
 
 Typical symptoms of this problem:
