@@ -40,9 +40,11 @@ Delete specified files or directories.
 
 Use the I<--delete> option to specify a path to remove.");
     extra_args = [
-      ("--delete", Arg.String add_paths, s_"path" ^ " " ^ s_"File or directory to be removed on guest"),
-      s_"\
-Delete (recursively) the specified C<path> on guest.";
+      { extra_argspec = ("--delete", Arg.String add_paths, s_"path" ^ " " ^ s_"File or directory to be removed on guest");
+        extra_pod_argval = Some "PATHNAME";
+        extra_pod_description = s_"\
+Delete (recursively) the specified C<PATHNAME> in the guest.";
+      }
     ];
 
     perform_on_filesystems = Some path_perform;
