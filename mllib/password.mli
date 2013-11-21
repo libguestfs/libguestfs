@@ -21,9 +21,14 @@ type password_crypto = [ `MD5 | `SHA256 | `SHA512 ]
 val password_crypto_of_string : prog:string -> string -> password_crypto
 (** Parse --password-crypto parameter on command line. *)
 
-type password_selector =
-| Set_password of string
-| Set_random_password
+type password_selector = {
+  pw_password : password;      (** The password. *)
+  pw_locked : bool;            (** If the account should be locked. *)
+}
+and password =
+| Password of string                 (** Password (literal string). *)
+| Random_password                    (** Choose a random password. *)
+| Disabled_password                  (** [*] in the password field. *)
 
 val parse_selector : prog:string -> string -> password_selector
 (** Parse the selector field in --password/--root-password.  Note this
