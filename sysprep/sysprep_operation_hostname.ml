@@ -46,9 +46,11 @@ to C<localhost.localdomain>.");
 Currently this can only set the hostname on Linux guests.");
 
     extra_args = [
-      ("--hostname", Arg.Set_string hostname, s_"hostname" ^ " " ^ s_"New hostname"),
-      s_"\
+      { extra_argspec = "--hostname", Arg.Set_string hostname, s_"hostname" ^ " " ^ s_"New hostname";
+        extra_pod_argval = Some "HOSTNAME";
+        extra_pod_description = s_"\
 Change the hostname.  If not given, defaults to C<localhost.localdomain>."
+      }
     ];
 
     perform_on_filesystems = Some hostname_perform;

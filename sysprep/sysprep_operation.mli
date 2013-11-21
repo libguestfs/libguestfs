@@ -44,12 +44,11 @@ type operation = {
   (** POD-format notes, used for the man page to describe any
       problems, shortcomings or bugs with this operation. *)
 
-  extra_args : ((Arg.key * Arg.spec * Arg.doc) * string) list;
+  extra_args : extra_arg list;
   (** Extra command-line arguments, if any.  eg. The [hostname]
       operation has an extra [--hostname] parameter.
 
-      Each element of the list is the argspec (see {!Arg.spec} etc.)
-      and the corresponding full POD documentation.
+      For a description of each list element, see {!extra_arg} below.
 
       You can decide the types of the arguments, whether they are
       mandatory etc. *)
@@ -79,6 +78,17 @@ type operation = {
   (** This is the same as {!perform_on_filesystems} except that
       the guest filesystem(s) are {i not} mounted.  This allows the
       operation to work directly on block devices, LVs etc. *)
+}
+
+and extra_arg = {
+  extra_argspec : Arg.key * Arg.spec * Arg.doc;
+  (** The argspec.  See OCaml [Arg] module. *)
+
+  extra_pod_argval : string option;
+  (** The argument value, used only in the virt-sysprep man page. *)
+
+  extra_pod_description : string;
+  (** The long description, used only in the virt-sysprep man page. *)
 }
 
 val defaults : operation

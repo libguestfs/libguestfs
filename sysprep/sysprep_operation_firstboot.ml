@@ -65,11 +65,12 @@ Currently this is only implemented for Linux guests using
 either SysVinit-style scripts, Upstart or systemd.");
 
     extra_args = [
-      ("--firstboot", Arg.String (fun s -> files := s :: !files),
-       s_"script" ^ " " ^ s_"run script once next time guest boots"),
-      s_"\
+      { extra_argspec = "--firstboot", Arg.String (fun s -> files := s :: !files), s_"script" ^ " " ^ s_"run script once next time guest boots";
+        extra_pod_argval = Some "SCRIPT";
+        extra_pod_description = s_"\
 Run script(s) once next time the guest boots.  You can supply
 the I<--firstboot> option as many times as needed."
+      }
     ];
 
     perform_on_filesystems = Some firstboot_perform;

@@ -15,7 +15,7 @@ virt-builder - Build virtual machine images quickly
 
  virt-builder [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]
     [--attach ISOFILE]
-    [--root-password ...]
+    [--root-password SELECTOR]
     [--hostname HOSTNAME]
     [--install PKG,[PKG...]]
     [--upload FILE:DEST]
@@ -452,11 +452,11 @@ Print information about the template cache.  See L</CACHING>.
 
 Don't print ordinary progress messages.
 
-=item B<--root-password> PASSWORD
+=item B<--root-password> SELECTOR
 
 Set the root password.
 
-See L</USERS AND PASSWORDS> below for the format of the C<PASSWORD>
+See L</USERS AND PASSWORDS> below for the format of the C<SELECTOR>
 field, and also how to set up user accounts.
 
 Note if you I<don't> set I<--root-password> then the guest is given
@@ -633,8 +633,8 @@ Use the I<--attach> option to attach the CD:
 =head2 USERS AND PASSWORDS
 
 The I<--root-password> option is used to change the root password
-(otherwise a random password is used).  This option has the following
-formats:
+(otherwise a random password is used).  This option takes a password
+C<SELECTOR> in one of the following formats:
 
 =over 4
 

@@ -133,24 +133,29 @@ B<Note:> This is different from I<--firstboot> scripts (which run
 in the context of the guest when it is booting first time).
 I<--script> scripts run on the host, not in the guest.");
     extra_args = [
-      ("--scriptdir", Arg.String set_scriptdir, s_"dir" ^ " " ^ s_"Mount point on host"),
-      s_"\
+      { extra_argspec = "--scriptdir", Arg.String set_scriptdir, s_"dir" ^ " " ^ s_"Mount point on host";
+        extra_pod_argval = Some "SCRIPTDIR";
+        extra_pod_description = s_"\
 The mount point (an empty directory on the host) used when
 the C<script> operation is enabled and one or more scripts
 are specified using I<--script> parameter(s).
 
-B<Note:> C<scriptdir> B<must> be an absolute path.
+B<Note:> C<SCRIPTDIR> B<must> be an absolute path.
 
 If I<--scriptdir> is not specified then a temporary mountpoint
-will be created.";
-      ("--script", Arg.String add_script, s_"script" ^ " " ^ s_"Script or program to run on guest"),
-      s_"\
-Run the named C<script> (a shell script or program) against the
+will be created."
+      };
+
+      { extra_argspec = "--script", Arg.String add_script, s_"script" ^ " " ^ s_"Script or program to run on guest";
+        extra_pod_argval = Some "SCRIPT";
+        extra_pod_description = s_"\
+Run the named C<SCRIPT> (a shell script or program) against the
 guest.  The script can be any program on the host.  The script's
 current directory will be the guest's root directory.
 
 B<Note:> If the script is not on the $PATH, then you must give
 the full absolute path to the script.";
+      }
     ];
     perform_on_filesystems = Some script_perform;
 }
