@@ -22,9 +22,14 @@ open Printf
 
 type password_crypto = [`MD5 | `SHA256 | `SHA512 ]
 
-type password_selector =
-| Set_password of string
-| Set_random_password
+type password_selector = {
+  pw_password : password;
+  pw_locked : bool;
+}
+and password =
+| Password of string
+| Random_password
+| Disabled_password
 
 type password_map = (string, password_selector) Hashtbl.t
 
@@ -45,12 +50,26 @@ let password_crypto_of_string ~prog = function
     exit 1
 
 let rec parse_selector ~prog arg =
-  match string_nsplit ":" arg with
-  | [ "file"; filename ] -> Set_password (read_password_from_file filename)
-  | "password" :: password -> Set_password (String.concat ":" password)
-  | [ "random" ] -> Set_random_password
+  parse_selector_list ~prog arg (string_nsplit ":" arg)
+
+and parse_selector_list ~prog orig_arg = function
+  | [ "lock"|"locked" ] ->
+    { pw_locked = true; pw_password = Disabled_password }
+  | ("lock"|"locked") :: rest ->
+    let pw = parse_selector_list ~prog orig_arg rest in
+    { pw with pw_locked = true }
+  | [ "file"; filename ] ->
+    { pw_password = Password (read_password_from_file filename);
+      pw_locked = false }
+  | "password" :: password ->
+    { pw_password = Password (String.concat ":" password); pw_locked = false }
+  | [ "random" ] ->
+    { pw_password = Random_password; pw_locked = false }
+  | [ "disable"|"disabled" ] ->
+    { pw_password = Disabled_password; pw_locked = false }
   | _ ->
-    eprintf (f_"%s: invalid password selector '%s'; see the man page.\n") prog arg;
+    eprintf (f_"%s: invalid password selector '%s'; see the man page.\n")
+      prog orig_arg;
     exit 1
 
 and read_password_from_file filename =
@@ -77,7 +96,8 @@ let rec set_linux_passwords ~prog ?password_crypto g root passwords =
     List.map (
       fun line ->
         try
-          (* Each line is: "user:password:..."
+          (* Each line is: "user:[!!]password:..."
+           * !! at the front of the password field means the account is locked.
            * 'i' points to the first colon, 'j' to the second colon.
            *)
           let i = String.index line ':' in
@@ -87,12 +107,17 @@ let rec set_linux_passwords ~prog ?password_crypto g root passwords =
           let rest = String.sub line j (String.length line - j) in
           let pwfield =
             match selector with
-            | Set_password password -> encrypt password crypto
-            | Set_random_password ->
+            | { pw_locked = locked;
+                pw_password = Password password } ->
+              if locked then "!!" else "" ^ encrypt password crypto
+            | { pw_locked = locked;
+                pw_password = Random_password } ->
               let password = make_random_password () in
               printf (f_"Setting random password of %s to %s\n%!")
                 user password;
-              encrypt password crypto in
+              if locked then "!!" else "" ^ encrypt password crypto
+            | { pw_locked = true; pw_password = Disabled_password } -> "!!*"
+            | { pw_locked = false; pw_password = Disabled_password } -> "*" in
           user ^ ":" ^ pwfield ^ rest
         with Not_found -> line
     ) shadow in
