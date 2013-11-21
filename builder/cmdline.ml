@@ -131,7 +131,7 @@ let parse_cmdline () =
 
   let root_password = ref None in
   let set_root_password arg =
-    let pw = get_password ~prog arg in
+    let pw = parse_selector ~prog arg in
     root_password := Some pw
   in
 

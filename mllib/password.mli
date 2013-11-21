@@ -21,11 +21,15 @@ type password_crypto = [ `MD5 | `SHA256 | `SHA512 ]
 val password_crypto_of_string : prog:string -> string -> password_crypto
 (** Parse --password-crypto parameter on command line. *)
 
-val get_password : prog:string -> string -> string
-(** Parse various --password/--root-password/--user passwords on command line.*)
+type password_selector = Set_password of string
 
-type password_map = (string, string) Hashtbl.t
+val parse_selector : prog:string -> string -> password_selector
+(** Parse the selector field in --password/--root-password.  Note this
+    doesn't parse the username part.  Exits if the format is not valid. *)
+
+type password_map = (string, password_selector) Hashtbl.t
+(** A map of username -> selector. *)
 
 val set_linux_passwords : prog:string -> ?password_crypto:password_crypto -> Guestfs.guestfs -> string -> password_map -> unit
-(** Adjust the passwords of a Linux guest according to the (username,
-    password) map. *)
+(** Adjust the passwords of a Linux guest according to the
+    password map. *)
