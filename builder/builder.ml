@@ -458,7 +458,7 @@ let main () =
           pw
         | None ->
           msg (f_"Setting random root password [did you mean to use --root-password?]");
-          Password.Set_random_password in
+          parse_selector ~prog "random" in
       Hashtbl.replace password_map "root" pw;
       set_linux_passwords ~prog ?password_crypto g root password_map
     | _ ->

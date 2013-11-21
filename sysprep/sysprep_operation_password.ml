@@ -143,6 +143,39 @@ can see the cleartext password using L<ps(1)>.
 Choose a random password, which is printed on stdout.  The password
 has approximately 120 bits of randomness.
 
+=item B<--password> USERNAME:disabled
+
+=item B<--root-password> disabled
+
+The account password is disabled.  This is like putting C<*>
+in the password field.
+
+=item B<--password> USERNAME:locked:file:FILENAME
+
+=item B<--password> USERNAME:locked:password:PASSWORD
+
+=item B<--password> USERNAME:locked:random
+
+=item B<--root-password> locked:file:FILENAME
+
+=item B<--root-password> locked:password:PASSWORD
+
+=item B<--root-password> locked:random
+
+The account is locked, but a password is placed on the
+account.  If first unlocked (using C<passwd -u>) then logins will
+use the given password.
+
+=item B<--password> USERNAME:locked
+
+=item B<--password> USERNAME:locked:disabled
+
+=item B<--root-password> locked
+
+=item B<--root-password> locked:disabled
+
+The account is locked I<and> password is disabled.
+
 =back"
       };
 
