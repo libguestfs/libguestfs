@@ -85,6 +85,8 @@ The commands above won't show changes in file times.  Add I<--time-t>
 to both C<virt-ls> commands if you want to show all time changes (that
 includes file access times).
 
+To diff the content of files, use L<virt-cat(1)> or L<guestfish(1)>.
+
 =head1 OUTPUT MODES
 
 C<virt-ls> has four output modes, controlled by different
