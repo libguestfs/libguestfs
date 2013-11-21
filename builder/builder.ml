@@ -466,7 +466,7 @@ let main () =
         let pw = make_random_password () in
         msg (f_"Random root password: %s [did you mean to use --root-password?]")
           pw;
-        pw in
+        Password.Set_password pw in
 
     match g#inspect_get_type root with
     | "linux" ->

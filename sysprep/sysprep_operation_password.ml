@@ -39,7 +39,7 @@ and set_user_password arg =
   set_password (String.sub arg 0 i) (String.sub arg (i+1) (len-(i+1)))
 
 and set_password user arg =
-  let pw = get_password ~prog arg in
+  let pw = parse_selector ~prog arg in
 
   if Hashtbl.mem passwords user then (
     eprintf (f_"virt-sysprep: password: multiple --root-password/--password options set the password for user '%s' twice.\n") user;
