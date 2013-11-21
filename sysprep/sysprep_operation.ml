@@ -34,10 +34,16 @@ type operation = {
   heading : string;
   pod_description : string option;
   pod_notes : string option;
-  extra_args : ((Arg.key * Arg.spec * Arg.doc) * string) list;
+  extra_args : extra_arg list;
   perform_on_filesystems : callback option;
   perform_on_devices : callback option;
 }
+and extra_arg = {
+  extra_argspec : Arg.key * Arg.spec * Arg.doc;
+  extra_pod_argval : string option;
+  extra_pod_description : string;
+}
+
 let defaults = {
   name = "";
   enabled_by_default = false;
@@ -148,7 +154,7 @@ let extra_args () =
 
   List.flatten (
     List.map (fun { extra_args = extra_args } ->
-      List.map fst extra_args
+      List.map (fun { extra_argspec = argspec } -> argspec) extra_args
     ) !all_operations
   )
 
@@ -185,25 +191,28 @@ let dump_pod_options () =
   ) !all_operations in
   let args = List.flatten args in
   let args = List.map (
-    fun (op_name, ((arg_name, spec, _), pod)) ->
-      match spec with
-      | Arg.Unit _
-      | Arg.Bool _
-      | Arg.Set _
-      | Arg.Clear _ ->
-        let heading = sprintf "B<%s>" arg_name in
-        arg_name, (op_name, heading, pod)
-      | Arg.String _
-      | Arg.Set_string _
-      | Arg.Int _
-      | Arg.Set_int _
-      | Arg.Float _
-      | Arg.Set_float _ ->
-        let heading = sprintf "B<%s> %s" arg_name (skip_dashes arg_name) in
-        arg_name, (op_name, heading, pod)
-      | Arg.Tuple _
-      | Arg.Symbol _
-      | Arg.Rest _ -> assert false (* XXX not implemented *)
+    function
+    | (op_name,
+       { extra_argspec = (arg_name,
+                          (Arg.Unit _ | Arg.Bool _ | Arg.Set _ | Arg.Clear _),
+                          _);
+         extra_pod_argval = None;
+         extra_pod_description = pod }) ->
+      let heading = sprintf "B<%s>" arg_name in
+      arg_name, (op_name, heading, pod)
+
+    | (op_name,
+       { extra_argspec = (arg_name,
+                          (Arg.String _ | Arg.Set_string _ | Arg.Int _ |
+                           Arg.Set_int _ | Arg.Float _ | Arg.Set_float _),
+                          _);
+         extra_pod_argval = Some arg_val;
+         extra_pod_description = pod }) ->
+      let heading = sprintf "B<%s> %s" arg_name arg_val in
+      arg_name, (op_name, heading, pod)
+
+    | _ ->
+      failwith "sysprep_operation.ml: argument type not implemented"
   ) args in
 
   let args =

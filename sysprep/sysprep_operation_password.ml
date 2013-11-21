@@ -99,42 +99,29 @@ Currently this only works for glibc-based Linux guests that
 use shadow passwords.");
 
     extra_args = [
-      ("--root-password", Arg.String set_root_password,
-       s_"..." ^ " " ^ s_"set root password (see man page)"),
-      s_"\
-Set the root password.  The following formats may be used
-for this option:
+      { extra_argspec = "--root-password", Arg.String set_root_password, s_"..." ^ " " ^ s_"set root password (see man page)";
+        extra_pod_argval = Some "SELECTOR";
+        extra_pod_description = s_"\
+Set the root password.  See I<--password> above for the format
+of C<SELECTOR>."
+      };
 
-=over 4
-
-=item B<--root-password file:FILENAME>
-
-Read the root password from C<FILENAME>.  The whole
-first line of this file is the replacement password.
-Any other lines are ignored.  You should create the file
-with mode 0600 to ensure no one else can read it.
-
-=item B<--root-password password:PASSWORD>
-
-Set the root password to the literal string C<PASSWORD>.
-
-B<Note: this is not secure> since any user on the same machine
-can see the cleartext password using L<ps(1)>.
-
-=back";
-
-      ("--password", Arg.String set_user_password,
-       s_"..." ^ " " ^ s_"set user password (see man page)"),
-      s_"\
+      { extra_argspec = "--password", Arg.String set_user_password, s_"..." ^ " " ^ s_"set user password (see man page)";
+        extra_pod_argval = Some "USERNAME:SELECTOR";
+        extra_pod_description = s_"\
 Set a user password.  The user must exist already (this option
-does I<not> create users).  The following formats may be used
-for this option:
+does I<not> create users).
+
+The I<--password> option takes C<USERNAME:SELECTOR>.  The
+I<--root-password> option takes just the C<SELECTOR>.  The
+format of the C<SELECTOR> is described below:
 
 =over 4
 
 =item B<--password USERNAME:file:FILENAME>
 
-Change the password for C<USERNAME>.
+=item B<--root-password file:FILENAME>
+
 Read the password from C<FILENAME>.  The whole
 first line of this file is the replacement password.
 Any other lines are ignored.  You should create the file
@@ -142,17 +129,19 @@ with mode 0600 to ensure no one else can read it.
 
 =item B<--password USERNAME:password:PASSWORD>
 
-Change the password for C<USERNAME>.
+=item B<--root-password password:PASSWORD>
+
 Set the password to the literal string C<PASSWORD>.
 
 B<Note: this is not secure> since any user on the same machine
 can see the cleartext password using L<ps(1)>.
 
-=back";
+=back"
+      };
 
-      ("--password-crypto", Arg.String set_password_crypto,
-       s_"md5|sha256|sha512" ^ " " ^ s_"set password crypto"),
-      s_"\
+      { extra_argspec = "--password-crypto", Arg.String set_password_crypto, s_"md5|sha256|sha512" ^ " " ^ s_"set password crypto";
+        extra_pod_argval = Some "md5|sha256|sha512";
+        extra_pod_description = s_"\
 Set the password encryption to C<md5>, C<sha256> or C<sha512>.
 
 C<sha256> and C<sha512> require glibc E<ge> 2.7
@@ -163,8 +152,8 @@ is not secure against modern attacks.
 
 The default is C<sha512> unless libguestfs detects an old guest
 that didn't have support for SHA-512, in which case it will use C<md5>.
-You can override libguestfs by specifying this option.";
-
+You can override libguestfs by specifying this option."
+      }
     ];
 
     perform_on_filesystems = Some password_perform;
