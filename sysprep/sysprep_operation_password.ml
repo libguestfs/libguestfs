@@ -136,6 +136,13 @@ Set the password to the literal string C<PASSWORD>.
 B<Note: this is not secure> since any user on the same machine
 can see the cleartext password using L<ps(1)>.
 
+=item B<--password USERNAME:random>
+
+=item B<--root-password random>
+
+Choose a random password, which is printed on stdout.  The password
+has approximately 120 bits of randomness.
+
 =back"
       };
 
