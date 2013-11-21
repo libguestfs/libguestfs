@@ -448,31 +448,19 @@ let main () =
    * Note 'None' means that we randomize the root password.
    *)
   let () =
-    let make_random_password () =
-      (* Get random characters from the set [A-Za-z0-9] with some
-       * homoglyphs removed.
-       *)
-      let chars =
-        "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789" in
-      Urandom.urandom_uniform 16 chars
-    in
-
-    let root_password =
-      match root_password with
-      | Some pw ->
-        msg (f_"Setting root password");
-        pw
-      | None ->
-        let pw = make_random_password () in
-        msg (f_"Random root password: %s [did you mean to use --root-password?]")
-          pw;
-        Password.Set_password pw in
-
     match g#inspect_get_type root with
     | "linux" ->
-      let h = Hashtbl.create 1 in
-      Hashtbl.replace h "root" root_password;
-      set_linux_passwords ~prog ?password_crypto g root h
+      let password_map = Hashtbl.create 1 in
+      let pw =
+        match root_password with
+        | Some pw ->
+          msg (f_"Setting root password");
+          pw
+        | None ->
+          msg (f_"Setting random root password [did you mean to use --root-password?]");
+          Password.Set_random_password in
+      Hashtbl.replace password_map "root" pw;
+      set_linux_passwords ~prog ?password_crypto g root password_map
     | _ ->
       eprintf (f_"%s: warning: root password could not be set for this type of guest\n%!") prog in
 
