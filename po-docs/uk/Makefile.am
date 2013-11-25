@@ -23,7 +23,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 LINGUA = $(shell basename -- `pwd`)
 
-CLEANFILES = *.1 *.3 *.5 stamp-update-po
+CLEANFILES = *.1 *.3 *.5
 
 # Before 1.23.23, the old Perl tools were called *.pl.
 CLEANFILES += *.pl
@@ -143,13 +143,19 @@ virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.po
 	  --section 8 \
 	  $<
 
-# Ensure that the first time we build from git, since guestfs.pod
-# hasn't been built yet, build it.
-$(podfiles): stamp-update-po
-
-stamp-update-po:
-	if [ ! -f guestfs.pod ]; then make -C .. update-po; fi
-	touch $@
+# If a POD file is missing, the user needs to run make update-po.
+# This cannot be done automatically by make because it would be unsafe
+# to run po4a or update podfiles potentially in parallel.  Therefore
+# tell the user what to do and stop.
+$(podfiles):
+	@if ! test -f $@; then \
+	  echo "***"; \
+	  echo "*** You need to run the following commands:"; \
+	  echo "***     rm po-docs/podfiles; make -C po-docs update-po"; \
+	  echo "*** After that, rerun make."; \
+	  echo "***"; \
+	  exit 1; \
+	fi
 
 # XXX Can automake do this properly?
 install-data-hook:
