@@ -1,5 +1,5 @@
-# libguestfs
-# Copyright (C) 2012 Red Hat Inc.
+#!/bin/bash
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,14 +15,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-include $(top_srcdir)/subdir-rules.mk
+# A fake debugging qemu which just dumps out the parameters to a known
+# file.
 
-TESTS = \
-	test-max-disks.pl \
-	test-qemu-drive.sh
+if [ -z "$DEBUG_QEMU_FILE" ]; then
+    echo "$0: \$DEBUG_QEMU_FILE environment variable must be set."
+    exit 1
+fi
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
+echo "$@" > "$DEBUG_QEMU_FILE"
 
-EXTRA_DIST = \
-	debug-qemu.sh \
-	$(TESTS)
+# Real qemu would connect back to the daemon socket with a working
+# daemon.  We don't do that, so the libguestfs parent process will
+# always get an error.
+exit 0
