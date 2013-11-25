@@ -226,16 +226,6 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  /* Print any version info etc. */
-  vers = guestfs_version (g);
-  if (vers == NULL) {
-    fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
-    exit (EXIT_FAILURE);
-  }
-  printf ("library version: %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
-          vers->major, vers->minor, vers->release, vers->extra);
-  guestfs_free_version (vers);
-
   printf ("guestfs_get_append: %s\n", guestfs_get_append (g) ? : "(null)");
   p = guestfs_get_backend (g);
   printf ("guestfs_get_backend: %s\n", p ? : "(null)");

@@ -71,12 +71,19 @@ guestfs__launch (guestfs_h *g)
 
   /* Some common debugging information. */
   if (g->verbose) {
+    CLEANUP_FREE_VERSION struct guestfs_version *v =
+      guestfs_version (g);
     struct backend *b;
     CLEANUP_FREE char *backend = guestfs_get_backend (g);
+
+    debug (g, "launch: program=%s", g->program);
+    debug (g, "launch: version=%"PRIi64".%"PRIi64".%"PRIi64"%s",
+           v->major, v->minor, v->release, v->extra);
 
     for (b = backends; b != NULL; b = b->next)
       debug (g, "launch: backend registered: %s", b->name);
     debug (g, "launch: backend=%s", backend);
+
     debug (g, "launch: tmpdir=%s", g->tmpdir);
     debug (g, "launch: umask=0%03o", get_umask (g));
     debug (g, "launch: euid=%d", geteuid ());
