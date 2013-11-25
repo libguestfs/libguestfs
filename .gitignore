@@ -348,7 +348,6 @@ Makefile.in
 /po-docs/*/*.8
 /po-docs/po4a.conf
 /po-docs/*/*.pod
-/po-docs/*/stamp-update-po
 /podwrapper.1
 /podwrapper.pl
 /po/*.gmo
