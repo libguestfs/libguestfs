@@ -27,6 +27,5 @@ extern void ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
 extern void ocaml_guestfs_raise_closed (const char *func)
   Noreturn;
 extern char **ocaml_guestfs_strings_val (guestfs_h *g, value sv);
-extern void ocaml_guestfs_free_strings (char **r);
 
 #endif /* GUESTFS_OCAML_C_H */
