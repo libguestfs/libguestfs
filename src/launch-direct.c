@@ -544,7 +544,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     ADD_CMDLINE ("user,id=usernet,net=169.254.0.0/16");
     ADD_CMDLINE ("-device");
     ADD_CMDLINE (VIRTIO_NET ",netdev=usernet");
-    }
+  }
 
   ADD_CMDLINE ("-append");
   ADD_CMDLINE_STRING_NODUP (guestfs___appliance_command_line (g, appliance_dev, 0));
