@@ -320,7 +320,8 @@ check_filesystem (guestfs_h *g, const char *mountable,
             guestfs_is_file (g, "/.discinfo") > 0 ||
             guestfs_is_file (g, "/i386/txtsetup.sif") > 0 ||
             guestfs_is_file (g, "/amd64/txtsetup.sif") > 0 ||
-            guestfs_is_file (g, "/freedos/freedos.ico") > 0)) {
+            guestfs_is_file (g, "/freedos/freedos.ico") > 0 ||
+            guestfs_is_file (g, "/boot/loader.rc") > 0)) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLER;
     if (guestfs___check_installer_root (g, fs) == -1)

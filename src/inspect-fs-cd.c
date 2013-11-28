@@ -430,7 +430,8 @@ guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
    * need to unpack this and look inside to tell the difference.
    */
   if (guestfs_is_file (g, "/casper/filesystem.squashfs") > 0 ||
-      guestfs_is_file (g, "/live/filesystem.squashfs") > 0)
+      guestfs_is_file (g, "/live/filesystem.squashfs") > 0 ||
+      guestfs_is_file (g, "/mfsroot.gz") > 0)
     fs->is_live_disk = 1;
 
   /* Debian/Ubuntu. */
@@ -459,6 +460,11 @@ guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
   else if (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0) {
     if (check_isolinux_installer_root (g, fs) == -1)
       return -1;
+  }
+
+  /* FreeBSD with /boot/loader.rc. */
+  else if (guestfs_is_file (g, "/boot/loader.rc") > 0) {
+    fs->type = OS_TYPE_FREEBSD;
   }
 
   /* Windows 2003 64 bit */
