@@ -429,7 +429,8 @@ guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
    * Fedora live CDs which contain the same, but larger file).  We
    * need to unpack this and look inside to tell the difference.
    */
-  if (guestfs_is_file (g, "/casper/filesystem.squashfs") > 0)
+  if (guestfs_is_file (g, "/casper/filesystem.squashfs") > 0 ||
+      guestfs_is_file (g, "/live/filesystem.squashfs") > 0)
     fs->is_live_disk = 1;
 
   /* Debian/Ubuntu. */
