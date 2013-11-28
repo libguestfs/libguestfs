@@ -916,10 +916,15 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
     if (spec == NULL)
       return -1;
 
-    /* Ignore /dev/fd (floppy disks) (RHBZ#642929) and CD-ROM drives. */
+    /* Ignore /dev/fd (floppy disks) (RHBZ#642929) and CD-ROM drives.
+     *
+     * /dev/iso9660/FREEBSD_INSTALL can be found in FreeBSDs installation
+     * discs.
+     */
     if ((STRPREFIX (spec, "/dev/fd") && c_isdigit (spec[7])) ||
         STREQ (spec, "/dev/floppy") ||
-        STREQ (spec, "/dev/cdrom"))
+        STREQ (spec, "/dev/cdrom") ||
+        STRPREFIX (spec, "/dev/iso9660/"))
       continue;
 
     snprintf (augpath, sizeof augpath, "%s/file", *entry);
