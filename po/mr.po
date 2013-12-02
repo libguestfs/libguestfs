@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-11-22 16:37+0000\n"
+"POT-Creation-Date: 2013-12-02 13:38+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -4267,8 +4267,8 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:253 src/inspect-fs-unix.c:335
-#: src/inspect-fs-unix.c:867 src/inspect-fs-unix.c:1548 src/inspect-fs.c:563
-#: src/inspect-fs.c:609 src/inspect.c:530
+#: src/inspect-fs-unix.c:867 src/inspect-fs-unix.c:1553 src/inspect-fs.c:564
+#: src/inspect-fs.c:610 src/inspect.c:530
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
@@ -4277,7 +4277,7 @@ msgstr "%s चे आकार असमंजसपणे मोठे आह�
 msgid "could not parse /etc/fstab or empty file"
 msgstr "/etc/fstab किंवा रिकामी फाइल वाचणे अशक्य"
 
-#: src/inspect-fs.c:392 src/inspect-fs.c:405
+#: src/inspect-fs.c:393 src/inspect-fs.c:406
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "आवृत्ती क्रमांत इंटिजर वाचणे अशक्य: %s"
@@ -4484,23 +4484,23 @@ msgstr "guestfsd सह संपर्क केले, परंतु state !
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs हँडल आधिपासूनच सुरू आहे"
 
-#: src/launch.c:172
+#: src/launch.c:179
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:178
+#: src/launch.c:185
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:189
+#: src/launch.c:196
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:225
+#: src/launch.c:232
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:295
+#: src/launch.c:302
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
@@ -4782,7 +4782,7 @@ msgstr "libguestfs-test-tool: अवैध वेळसमाप्ती: %s\n"
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs हँडल निर्माण करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:137 test-tool/test-tool.c:232
+#: test-tool/test-tool.c:137
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version अपयशी\n"
@@ -4809,49 +4809,49 @@ msgstr ""
 msgid "libguestfs-test-tool: failed to add scratch drive\n"
 msgstr ""
 
-#: test-tool/test-tool.c:275
+#: test-tool/test-tool.c:265
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: अप्लायंस सुरू करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:287
+#: test-tool/test-tool.c:277
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:293
+#: test-tool/test-tool.c:283
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 अपयशी\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:289
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 यांस / वर माऊंट करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:306
+#: test-tool/test-tool.c:296
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:312
+#: test-tool/test-tool.c:302
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:346
+#: test-tool/test-tool.c:336
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:354
+#: test-tool/test-tool.c:344
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "बाइनरी '%s' अस्तित्वात नाही किंवा एक्जीक्यूटेबल नाही\n"
 
-#: test-tool/test-tool.c:371
+#: test-tool/test-tool.c:361
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत डिरेक्ट्री प्रमाणे आढळले नाही\n"
