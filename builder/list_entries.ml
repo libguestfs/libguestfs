@@ -47,7 +47,7 @@ let list_entries ?(list_long = false) ~sources index =
           printf "\n"
         )
         else (                          (* Long *)
-          printf "%-24s %s\n" "os-version:" name;
+          printf "%-24s %s\n" (s_"OS version:") name;
           (match printable_name with
           | None -> ()
           | Some name -> printf "%-24s %s\n" (s_"Full name:") name;
@@ -62,7 +62,7 @@ let list_entries ?(list_long = false) ~sources index =
           | None -> ()
           | Some notes ->
             printf "\n";
-            printf "Notes:\n\n%s\n" notes
+            printf (f_"Notes:\n\n%s\n") notes
           );
           printf "\n"
         )
