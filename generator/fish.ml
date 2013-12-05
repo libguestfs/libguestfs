@@ -362,12 +362,24 @@ Guestfish will prompt for these separately."
 
       if argc_minimum = argc_maximum then (
         pr "  if (argc != %d) {\n" argc_minimum;
-        pr "    fprintf (stderr, _(\"%%s should have %%d parameter(s)\\n\"), cmd, %d);\n"
-          argc_minimum;
+        if argc_minimum = 0 then (
+          pr "    fprintf (stderr, _(\"%%s should have no parameters\\n\"), cmd);\n";
+        ) else (
+          pr "    fprintf (stderr, ngettext(\"%%s should have %%d parameter\\n\",\n";
+          pr "                              \"%%s should have %%d parameters\\n\",\n";
+          pr "                              %d),\n"
+            argc_minimum;
+          pr "                     cmd, %d);\n"
+            argc_minimum;
+        )
       ) else if argc_minimum = 0 then (
         pr "  if (argc > %d) {\n" argc_maximum;
-        pr "    fprintf (stderr, _(\"%%s should have %%d-%%d parameter(s)\\n\"), cmd, %d, %d);\n"
-          argc_minimum argc_maximum;
+        pr "    fprintf (stderr, ngettext(\"%%s should have at most %%d parameter\\n\",\n";
+        pr "                              \"%%s should have at most %%d parameters\\n\",\n";
+        pr "                              %d),\n"
+          argc_maximum;
+        pr "                     cmd, %d);\n"
+          argc_maximum;
       ) else (
         pr "  if (argc < %d || argc > %d) {\n" argc_minimum argc_maximum;
         pr "    fprintf (stderr, _(\"%%s should have %%d-%%d parameter(s)\\n\"), cmd, %d, %d);\n"
