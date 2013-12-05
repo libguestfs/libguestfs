@@ -66,24 +66,14 @@ XGETTEXT_ARGS = \
 	--directory=$(top_srcdir)
 
 $(DOMAIN).pot: Makefile $(POTFILES) $(POTFILES-pl) $(POTFILES-ml)
-	rm -f $@-t $@-pl $@-ml
-	$(XGETTEXT) -o $@-t $(XGETTEXT_ARGS) \
-	  --files-from=$(abs_srcdir)/POTFILES
-	$(XGETTEXT) -o $@-pl $(XGETTEXT_ARGS) --language=Perl \
-	  --files-from=$(abs_srcdir)/POTFILES-pl
-# Don't trust msgcat since it will definitely screw up.  Instead, chop
-# the head from the second file and append it to the first.
-	echo >> $@-t
-	awk '/^#:/{i++}i{print}' < $@-pl >> $@-t
-	rm $@-pl
+	rm -f $@-t
 if HAVE_OCAML_GETTEXT
-	$(OCAML_GETTEXT) --action extract --extract-pot $@-ml $(POTFILES_ML)
-# Don't trust msgcat since it will definitely screw up.  Instead, chop
-# the head from the second file and append it to the first.
-	echo >> $@-t
-	awk '/^#:/{i++}i{print}' < $@-ml >> $@-t
-	rm $@-ml
+	$(OCAML_GETTEXT) --action extract --extract-pot $@-t $(POTFILES_ML)
 endif
+	$(XGETTEXT) -j -o $@-t $(XGETTEXT_ARGS) \
+	  --files-from=$(abs_srcdir)/POTFILES
+	$(XGETTEXT) -j -o $@-t $(XGETTEXT_ARGS) --language=Perl \
+	  --files-from=$(abs_srcdir)/POTFILES-pl
 	mv $@-t $@
 
 %.po: $(DOMAIN).pot
