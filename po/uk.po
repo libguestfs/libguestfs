@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-11-01 18:56+0000\n"
+"POT-Creation-Date: 2013-12-06 11:15+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -4648,19 +4648,19 @@ msgstr "Інформація від qemu-img: невідома помилка п
 msgid "%s: cannot detect virtual size of disk image"
 msgstr "%s: не вдалося визначити віртуальний розмір образу диска"
 
-#: src/inspect-fs-unix.c:205
+#: src/inspect-fs-unix.c:208
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr "файл випуску %s є порожнім або форматованим з помилками"
 
-#: src/inspect-fs-unix.c:250 src/inspect-fs-unix.c:332
-#: src/inspect-fs-unix.c:864 src/inspect-fs-unix.c:1529 src/inspect-fs.c:563
+#: src/inspect-fs-unix.c:253 src/inspect-fs-unix.c:335
+#: src/inspect-fs-unix.c:867 src/inspect-fs-unix.c:1548 src/inspect-fs.c:563
 #: src/inspect-fs.c:609 src/inspect.c:530
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect-fs-unix.c:906
+#: src/inspect-fs-unix.c:909
 msgid "could not parse /etc/fstab or empty file"
 msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
@@ -4904,25 +4904,25 @@ msgstr "встановлено зв’язок з guestfs, але стан пр�
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:172
+#: src/launch.c:179
 msgid "get-pid can only be called after launch"
 msgstr "get-pid можна викликати лише після launch"
 
-#: src/launch.c:178
+#: src/launch.c:185
 msgid "the current backend does not support 'get-pid'"
 msgstr "у поточному модулі не передбачено підтримки «get-pid»"
 
-#: src/launch.c:189
+#: src/launch.c:196
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 "у поточному модулі не передбачено опитування щодо максимальної кількості "
 "дисків"
 
-#: src/launch.c:225
+#: src/launch.c:232
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:295
+#: src/launch.c:302
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
@@ -5233,7 +5233,7 @@ msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 "libguestfs-test-tool: не вдалося створити елемент керування libguestfs\n"
 
-#: test-tool/test-tool.c:137 test-tool/test-tool.c:232
+#: test-tool/test-tool.c:137
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: помилка guestfs_version\n"
@@ -5263,49 +5263,49 @@ msgstr ""
 msgid "libguestfs-test-tool: failed to add scratch drive\n"
 msgstr ""
 
-#: test-tool/test-tool.c:275
+#: test-tool/test-tool.c:265
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:287
+#: test-tool/test-tool.c:277
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: не вдалося запустити part-disk\n"
 
-#: test-tool/test-tool.c:293
+#: test-tool/test-tool.c:283
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:289
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:306
+#: test-tool/test-tool.c:296
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: не вдалося виконати touch для файла\n"
 
-#: test-tool/test-tool.c:312
+#: test-tool/test-tool.c:302
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: спроба завершення роботи зазнала невдачі\n"
 
-#: test-tool/test-tool.c:346
+#: test-tool/test-tool.c:336
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:354
+#: test-tool/test-tool.c:344
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:371
+#: test-tool/test-tool.c:361
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
@@ -5529,7 +5529,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
-#: ../builder/builder.ml:678 ../builder/builder.ml:394
+#: ../builder/builder.ml:686 ../builder/builder.ml:394
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -5541,7 +5541,7 @@ msgstr ""
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:503
+#: ../builder/builder.ml:496
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -5557,7 +5557,7 @@ msgstr "%s: параметр --enable можна вказувати лише о�
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr "%s: --enable: «%s» не є відомою програмі дією\n"
 
-#: ../builder/builder.ml:530
+#: ../builder/builder.ml:523
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -5569,7 +5569,7 @@ msgstr ""
 msgid "%s: --upload: %s: file not found\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:186
+#: ../mllib/common_utils.ml:193
 msgid ""
 "%s: If reporting bugs, run %s with debugging enabled (-v) and include the "
 "complete output."
@@ -5681,19 +5681,19 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr "%s: порожній аргумент параметра --expand"
 
-#: ../mllib/common_utils.ml:182
+#: ../mllib/common_utils.ml:189
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:560
+#: ../builder/builder.ml:568
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../builder/builder.ml:711
+#: ../builder/builder.ml:719
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:714
+#: ../builder/builder.ml:722
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -5717,11 +5717,11 @@ msgstr ""
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
-#: ../builder/builder.ml:732
+#: ../builder/builder.ml:740
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:720
+#: ../builder/builder.ml:728
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -5735,15 +5735,15 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:729
+#: ../builder/builder.ml:737
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../builder/builder.ml:726
+#: ../builder/builder.ml:734
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#: ../builder/builder.ml:723
+#: ../builder/builder.ml:731
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -5755,15 +5755,15 @@ msgstr ""
 msgid "%s: invalid --upload format, see the man page.\n"
 msgstr ""
 
-#: ../mllib/password.ml:39
+#: ../mllib/password.ml:41
 msgid "%s: invalid password format; see the man page.\n"
 msgstr ""
 
-#: ../builder/builder.ml:717
+#: ../builder/builder.ml:725
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:473
+#: ../builder/builder.ml:466
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
@@ -5826,11 +5826,11 @@ msgstr "%s: розмір розділу, %Ld < розміру файлової �
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr "%s: розмір розділу, %Ld < розмір фізичного тому, %Ld"
 
-#: ../mllib/password.ml:49
+#: ../mllib/password.ml:51
 msgid "%s: password format, \"%s:...\" is not recognized; see the man page.\n"
 msgstr ""
 
-#: ../mllib/password.ml:31
+#: ../mllib/password.ml:33
 msgid ""
 "%s: password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or "
 "\"sha512\".\n"
@@ -5873,7 +5873,7 @@ msgstr ""
 "Коротке резюме параметрів наведено нижче. Щоб отримати докладну довідку,\n"
 "будь ласка, ознайомтеся зі сторінкою підручника (man) virt-resize(1)\n"
 
-#: ../builder/builder.ml:534
+#: ../builder/builder.ml:527
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -5974,7 +5974,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:454
+#: ../builder/builder.ml:445
 msgid ""
 "%s: warning: root password could not be set for this type of guest\n"
 "%!"
@@ -6023,8 +6023,8 @@ msgstr "параметр --expand вказано двічі"
 msgid "--shrink option given twice"
 msgstr "параметр --shrink вказано двічі"
 
-#. ../sysprep/sysprep_operation_password.ml:103
-#: ../sysprep/sysprep_operation_password.ml:127
+#. ../sysprep/sysprep_operation_password.ml:102
+#: ../sysprep/sysprep_operation_password.ml:109
 msgid "..."
 msgstr ""
 
@@ -6069,7 +6069,7 @@ msgstr ""
 msgid "Change the hostname of the guest"
 msgstr "Змінити назву вузла гостьової системи"
 
-#: ../sysprep/sysprep_operation_hostname.ml:50
+#: ../sysprep/sysprep_operation_hostname.ml:51
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -6179,7 +6179,7 @@ msgstr "Вилучити розділ"
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:571
+#: ../builder/builder.ml:579
 msgid "Deleting: %s"
 msgstr ""
 
@@ -6253,7 +6253,7 @@ msgstr "Створити дамп POD для параметрів (вбудов�
 msgid "Edit file with Perl expr"
 msgstr ""
 
-#: ../builder/builder.ml:557
+#: ../builder/builder.ml:565
 msgid "Editing: %s"
 msgstr ""
 
@@ -6357,7 +6357,7 @@ msgstr ""
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
-#: ../builder/builder.ml:667
+#: ../builder/builder.ml:675
 msgid "Finishing off"
 msgstr ""
 
@@ -6408,7 +6408,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../builder/builder.ml:657
+#: ../builder/builder.ml:665
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -6438,19 +6438,19 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:594
+#: ../builder/builder.ml:602
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:597
+#: ../builder/builder.ml:605
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:590
+#: ../builder/builder.ml:598
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:541
+#: ../builder/builder.ml:534
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -6499,7 +6499,7 @@ msgstr ""
 "Зауважте, що це може потребувати втручання користувача під\n"
 "час завантаження гостьової системи."
 
-#: ../sysprep/sysprep_operation.ml:173
+#: ../sysprep/sysprep_operation.ml:179
 msgid "Notes on %s"
 msgstr ""
 
@@ -6537,7 +6537,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:654
+#: ../builder/builder.ml:662
 msgid "Output: %s"
 msgstr ""
 
@@ -6553,7 +6553,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr "Режим з мінімальним виведенням даних"
 
-#: ../builder/builder.ml:444
+#: ../builder/builder.ml:435
 msgid "Random root password: %s [did you mean to use --root-password?]"
 msgstr ""
 
@@ -6795,22 +6795,15 @@ msgstr ""
 "Запустити скрипти одноразово під час наступного завантаження гостьової\n"
 "системи. Кількість параметрів I<--firstboot> у рядку команди не обмежено."
 
-#: ../sysprep/sysprep_operation_script.ml:147
+#: ../sysprep/sysprep_operation_script.ml:151
 msgid ""
-"Run the named C<script> (a shell script or program) against the\n"
+"Run the named C<SCRIPT> (a shell script or program) against the\n"
 "guest.  The script can be any program on the host.  The script's\n"
 "current directory will be the guest's root directory.\n"
 "\n"
 "B<Note:> If the script is not on the $PATH, then you must give\n"
 "the full absolute path to the script."
 msgstr ""
-"Виконати названий C<скрипт> (скрипт оболонки або програму) над\n"
-"гостьовою системою. Скрипт може бути будь-якою програмою у основній\n"
-"системі. Поточним каталогом скрипту буде кореневий каталог гостьової\n"
-"системи.\n"
-"\n"
-"B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
-"слід вказати шлях до скрипту повністю."
 
 #: ../builder/builder.ml:332
 msgid "Running virt-resize to expand the disk"
@@ -6820,11 +6813,11 @@ msgstr ""
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:611 ../builder/builder.ml:607
+#: ../builder/builder.ml:619 ../builder/builder.ml:615
 msgid "Running: %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:146
+#: ../sysprep/sysprep_operation_script.ml:149
 msgid "Script or program to run on guest"
 msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
 
@@ -6836,11 +6829,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../builder/builder.ml:622
+#: ../builder/builder.ml:630
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../builder/builder.ml:578
+#: ../builder/builder.ml:586
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -6848,17 +6841,21 @@ msgstr ""
 msgid "Set GPG binary/command"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:128
+#: ../sysprep/sysprep_operation_password.ml:111
 msgid ""
 "Set a user password.  The user must exist already (this option\n"
-"does I<not> create users).  The following formats may be used\n"
-"for this option:\n"
+"does I<not> create users).\n"
+"\n"
+"The I<--password> option takes C<USERNAME:SELECTOR>.  The\n"
+"I<--root-password> option takes just the C<SELECTOR>.  The\n"
+"format of the C<SELECTOR> is described below:\n"
 "\n"
 "=over 4\n"
 "\n"
 "=item B<--password USERNAME:file:FILENAME>\n"
 "\n"
-"Change the password for C<USERNAME>.\n"
+"=item B<--root-password file:FILENAME>\n"
+"\n"
 "Read the password from C<FILENAME>.  The whole\n"
 "first line of this file is the replacement password.\n"
 "Any other lines are ignored.  You should create the file\n"
@@ -6866,7 +6863,8 @@ msgid ""
 "\n"
 "=item B<--password USERNAME:password:PASSWORD>\n"
 "\n"
-"Change the password for C<USERNAME>.\n"
+"=item B<--root-password password:PASSWORD>\n"
+"\n"
 "Set the password to the literal string C<PASSWORD>.\n"
 "\n"
 "B<Note: this is not secure> since any user on the same machine\n"
@@ -6954,7 +6952,7 @@ msgstr ""
 msgid "Set the hostname"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:155
+#: ../sysprep/sysprep_operation_password.ml:144
 msgid ""
 "Set the password encryption to C<md5>, C<sha256> or C<sha512>.\n"
 "\n"
@@ -6971,33 +6969,15 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_password.ml:104
 msgid ""
-"Set the root password.  The following formats may be used\n"
-"for this option:\n"
-"\n"
-"=over 4\n"
-"\n"
-"=item B<--root-password file:FILENAME>\n"
-"\n"
-"Read the root password from C<FILENAME>.  The whole\n"
-"first line of this file is the replacement password.\n"
-"Any other lines are ignored.  You should create the file\n"
-"with mode 0600 to ensure no one else can read it.\n"
-"\n"
-"=item B<--root-password password:PASSWORD>\n"
-"\n"
-"Set the root password to the literal string C<PASSWORD>.\n"
-"\n"
-"B<Note: this is not secure> since any user on the same machine\n"
-"can see the cleartext password using L<ps(1)>.\n"
-"\n"
-"=back"
+"Set the root password.  See I<--password> above for the format\n"
+"of C<SELECTOR>."
 msgstr ""
 
 #: ../builder/builder.ml:402
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../builder/builder.ml:440
+#: ../builder/builder.ml:431
 msgid "Setting root password"
 msgstr ""
 
@@ -7142,25 +7122,17 @@ msgstr ""
 "стану цей ідентифікатор створюється під час роботи завантажувача,\n"
 "якщо буде виявлено порожнє значення."
 
-#: ../sysprep/sysprep_operation_script.ml:137
+#: ../sysprep/sysprep_operation_script.ml:138
 msgid ""
 "The mount point (an empty directory on the host) used when\n"
 "the C<script> operation is enabled and one or more scripts\n"
 "are specified using I<--script> parameter(s).\n"
 "\n"
-"B<Note:> C<scriptdir> B<must> be an absolute path.\n"
+"B<Note:> C<SCRIPTDIR> B<must> be an absolute path.\n"
 "\n"
 "If I<--scriptdir> is not specified then a temporary mountpoint\n"
 "will be created."
 msgstr ""
-"Точку монтування (порожній каталог на вузлі), використану\n"
-"при виконанні дії C<script>, увімкнено і вказано використання\n"
-"одного або декількох скриптів за допомогою I<--script>.\n"
-"\n"
-"B<Зауваження:> C<scriptdir> B<має> бути вказано повністю.\n"
-"\n"
-"Якщо I<--scriptdir> не вказано, буде створено тимчасову\n"
-"точку монтування."
 
 #: ../sysprep/sysprep_operation_pacct_log.ml:53
 msgid ""
@@ -7224,7 +7196,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:655
+#: ../builder/builder.ml:663
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -7240,8 +7212,8 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:550
-msgid "Uploading: %s"
+#: ../builder/builder.ml:543
+msgid "Uploading: %s to %s"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_random_seed.ml:34
@@ -7331,15 +7303,15 @@ msgstr "порожній параметр --shrink"
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../mllib/common_utils.ml:333
+#: ../mllib/common_utils.ml:340
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:335
+#: ../mllib/common_utils.ml:342
 msgid "external command '%s' killed by signal %d"
 msgstr "роботу зовнішньої програми «%s» перервано з сигналом %d"
 
-#: ../mllib/common_utils.ml:337
+#: ../mllib/common_utils.ml:344
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
@@ -7387,7 +7359,7 @@ msgstr ""
 msgid "lv"
 msgstr "логічний том"
 
-#: ../sysprep/sysprep_operation_password.ml:154
+#: ../sysprep/sysprep_operation_password.ml:142
 msgid "md5|sha256|sha512"
 msgstr ""
 
@@ -7450,14 +7422,14 @@ msgstr ""
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../sysprep/sysprep_operation_firstboot.ml:69
+#: ../sysprep/sysprep_operation_firstboot.ml:68
 msgid "run script once next time guest boots"
 msgstr ""
 "запустити скрипт одного разу під час наступного завантаження гостьової "
 "системи"
 
-#. ../sysprep/sysprep_operation_firstboot.ml:69
-#: ../sysprep/sysprep_operation_script.ml:146
+#. ../sysprep/sysprep_operation_firstboot.ml:68
+#: ../sysprep/sysprep_operation_script.ml:149
 msgid "script"
 msgstr "скрипт"
 
@@ -7469,15 +7441,15 @@ msgstr "помилка скрипту"
 msgid "sectors"
 msgstr "сектори"
 
-#: ../sysprep/sysprep_operation_password.ml:154
+#: ../sysprep/sysprep_operation_password.ml:142
 msgid "set password crypto"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:103
+#: ../sysprep/sysprep_operation_password.ml:102
 msgid "set root password (see man page)"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:127
+#: ../sysprep/sysprep_operation_password.ml:109
 msgid "set user password (see man page)"
 msgstr ""
 
@@ -7674,12 +7646,12 @@ msgstr ""
 msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
 msgstr "virt-sysprep: --scriptdir не можна використовувати декілька разів\n"
 
-#: ../sysprep/sysprep_operation.ml:126
+#: ../sysprep/sysprep_operation.ml:132
 msgid "virt-sysprep: POD for %s must not end with newline\n"
 msgstr ""
 "virt-sysprep: POD для %s не повинен завершуватися символом нового рядка\n"
 
-#: ../sysprep/sysprep_operation.ml:140
+#: ../sysprep/sysprep_operation.ml:146
 msgid "virt-sysprep: POD notes for %s must not end with newline\n"
 msgstr ""
 
@@ -7687,33 +7659,33 @@ msgstr ""
 msgid "virt-sysprep: cannot set passwords for %s guests.\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:103
+#: ../sysprep/sysprep_operation.ml:109
 msgid "virt-sysprep: disallowed character (%c) in operation name\n"
 msgstr "virt-sysprep: заборонений символ (%c) у назві дії\n"
 
-#: ../sysprep/sysprep_operation.ml:87
+#: ../sysprep/sysprep_operation.ml:93
 msgid "virt-sysprep: duplicate operation name (%s)\n"
 msgstr "virt-sysprep: дубльована назва дії (%s)\n"
 
-#: ../sysprep/sysprep_operation.ml:113
+#: ../sysprep/sysprep_operation.ml:119
 msgid "virt-sysprep: heading for %s must not end with newline or period\n"
 msgstr ""
 "virt-sysprep: заголовок %s не повинен завершуватися символом нового рядка "
 "або крапкою\n"
 
-#: ../sysprep/sysprep_operation.ml:122
+#: ../sysprep/sysprep_operation.ml:128
 msgid "virt-sysprep: operation %s has no POD\n"
 msgstr "virt-sysprep: для дії %s немає POD\n"
 
-#: ../sysprep/sysprep_operation.ml:136
+#: ../sysprep/sysprep_operation.ml:142
 msgid "virt-sysprep: operation %s has no POD notes\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:109
+#: ../sysprep/sysprep_operation.ml:115
 msgid "virt-sysprep: operation %s has no heading\n"
 msgstr "virt-sysprep: для дії %s немає заголовка\n"
 
-#: ../sysprep/sysprep_operation.ml:96
+#: ../sysprep/sysprep_operation.ml:102
 msgid "virt-sysprep: operation name is an empty string\n"
 msgstr "virt-sysprep: назвою дії є порожній рядок\n"
 
@@ -7727,7 +7699,7 @@ msgid ""
 "password for user '%s' twice.\n"
 msgstr ""
 
-#: ../mllib/password.ml:141
+#: ../mllib/password.ml:137
 msgid ""
 "virt-sysprep: password: warning: using insecure md5 password encryption for\n"
 "guest of type %s version %d.\n"
@@ -7766,6 +7738,41 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "не можна використовувати один образ диска для початкових даних і даних "
 "результату"
+
+#~ msgid ""
+#~ "Run the named C<script> (a shell script or program) against the\n"
+#~ "guest.  The script can be any program on the host.  The script's\n"
+#~ "current directory will be the guest's root directory.\n"
+#~ "\n"
+#~ "B<Note:> If the script is not on the $PATH, then you must give\n"
+#~ "the full absolute path to the script."
+#~ msgstr ""
+#~ "Виконати названий C<скрипт> (скрипт оболонки або програму) над\n"
+#~ "гостьовою системою. Скрипт може бути будь-якою програмою у основній\n"
+#~ "системі. Поточним каталогом скрипту буде кореневий каталог гостьової\n"
+#~ "системи.\n"
+#~ "\n"
+#~ "B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
+#~ "слід вказати шлях до скрипту повністю."
+
+#~ msgid ""
+#~ "The mount point (an empty directory on the host) used when\n"
+#~ "the C<script> operation is enabled and one or more scripts\n"
+#~ "are specified using I<--script> parameter(s).\n"
+#~ "\n"
+#~ "B<Note:> C<scriptdir> B<must> be an absolute path.\n"
+#~ "\n"
+#~ "If I<--scriptdir> is not specified then a temporary mountpoint\n"
+#~ "will be created."
+#~ msgstr ""
+#~ "Точку монтування (порожній каталог на вузлі), використану\n"
+#~ "при виконанні дії C<script>, увімкнено і вказано використання\n"
+#~ "одного або декількох скриптів за допомогою I<--script>.\n"
+#~ "\n"
+#~ "B<Зауваження:> C<scriptdir> B<має> бути вказано повністю.\n"
+#~ "\n"
+#~ "Якщо I<--scriptdir> не вказано, буде створено тимчасову\n"
+#~ "точку монтування."
 
 #~ msgid "virt-resize %Ld.%Ld.%Ld%s\n"
 #~ msgstr "virt-resize %Ld.%Ld.%Ld%s\n"

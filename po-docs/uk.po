@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-11-01 18:56+0000\n"
+"POT-Creation-Date: 2013-12-06 11:15+0000\n"
 "PO-Revision-Date: 2013-10-17 14:46+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -376,7 +376,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:103
 #: ../appliance/libguestfs-make-fixed-appliance.pod:99
 #: ../builder/virt-builder.pod:168 ../cat/virt-cat.pod:62
-#: ../cat/virt-filesystems.pod:91 ../cat/virt-ls.pod:261
+#: ../cat/virt-filesystems.pod:91 ../cat/virt-ls.pod:267
 #: ../daemon/guestfsd.pod:45 ../df/virt-df.pod:73 ../edit/virt-edit.pod:62
 #: ../fish/guestfish.pod:154 ../fish/virt-copy-in.pod:45
 #: ../fish/virt-copy-out.pod:34 ../fish/virt-tar-in.pod:42
@@ -394,7 +394,7 @@ msgstr "ПАРАМЕТРИ"
 #: ../align/virt-alignment-scan.pod:107
 #: ../appliance/libguestfs-make-fixed-appliance.pod:103
 #: ../builder/virt-builder.pod:172 ../cat/virt-cat.pod:66
-#: ../cat/virt-filesystems.pod:95 ../cat/virt-ls.pod:265
+#: ../cat/virt-filesystems.pod:95 ../cat/virt-ls.pod:271
 #: ../daemon/guestfsd.pod:51 ../df/virt-df.pod:77 ../edit/virt-edit.pod:66
 #: ../fish/guestfish.pod:158 ../format/virt-format.pod:63
 #: ../fuse/guestmount.pod:235 ../fuse/guestunmount.pod:81
@@ -408,7 +408,7 @@ msgstr "B<--help>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:109 ../cat/virt-cat.pod:68
-#: ../cat/virt-filesystems.pod:97 ../cat/virt-ls.pod:267
+#: ../cat/virt-filesystems.pod:97 ../cat/virt-ls.pod:273
 #: ../daemon/guestfsd.pod:53 ../df/virt-df.pod:79 ../edit/virt-edit.pod:68
 #: ../format/virt-format.pod:65 ../inspector/virt-inspector.pod:60
 #: ../rescue/virt-rescue.pod:121 ../sysprep/virt-sysprep.pod:46
@@ -419,7 +419,7 @@ msgstr "Показати коротку довідку."
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:111 ../cat/virt-cat.pod:70
-#: ../cat/virt-filesystems.pod:99 ../cat/virt-ls.pod:269 ../df/virt-df.pod:81
+#: ../cat/virt-filesystems.pod:99 ../cat/virt-ls.pod:275 ../df/virt-df.pod:81
 #: ../edit/virt-edit.pod:70 ../format/virt-format.pod:67
 #: ../inspector/virt-inspector.pod:62 ../rescue/virt-rescue.pod:123
 #: ../sysprep/virt-sysprep.pod:48
@@ -428,7 +428,7 @@ msgstr "B<-a> файл"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:113 ../cat/virt-cat.pod:72
-#: ../cat/virt-filesystems.pod:101 ../cat/virt-ls.pod:271 ../df/virt-df.pod:83
+#: ../cat/virt-filesystems.pod:101 ../cat/virt-ls.pod:277 ../df/virt-df.pod:83
 #: ../edit/virt-edit.pod:72 ../format/virt-format.pod:69
 #: ../inspector/virt-inspector.pod:64 ../rescue/virt-rescue.pod:125
 #: ../sysprep/virt-sysprep.pod:50
@@ -442,7 +442,7 @@ msgstr "Додати I<файл>, який має бути образом дис
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:117 ../cat/virt-cat.pod:78
-#: ../cat/virt-filesystems.pod:107 ../cat/virt-ls.pod:277 ../df/virt-df.pod:89
+#: ../cat/virt-filesystems.pod:107 ../cat/virt-ls.pod:283 ../df/virt-df.pod:89
 #: ../edit/virt-edit.pod:78 ../fish/guestfish.pod:180
 #: ../format/virt-format.pod:73 ../fuse/guestmount.pod:171
 #: ../inspector/virt-inspector.pod:70 ../rescue/virt-rescue.pod:131
@@ -455,7 +455,7 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:120 ../cat/virt-cat.pod:81
-#: ../cat/virt-filesystems.pod:110 ../cat/virt-ls.pod:280 ../df/virt-df.pod:92
+#: ../cat/virt-filesystems.pod:110 ../cat/virt-ls.pod:286 ../df/virt-df.pod:92
 #: ../edit/virt-edit.pod:81 ../fish/guestfish.pod:187
 #: ../format/virt-format.pod:78 ../fuse/guestmount.pod:174
 #: ../rescue/virt-rescue.pod:134
@@ -464,7 +464,7 @@ msgstr "B<-a адреса>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:122 ../cat/virt-cat.pod:83
-#: ../cat/virt-filesystems.pod:112 ../cat/virt-ls.pod:282 ../df/virt-df.pod:94
+#: ../cat/virt-filesystems.pod:112 ../cat/virt-ls.pod:288 ../df/virt-df.pod:94
 #: ../edit/virt-edit.pod:83 ../fish/guestfish.pod:189
 #: ../format/virt-format.pod:80 ../fuse/guestmount.pod:176
 #: ../rescue/virt-rescue.pod:136
@@ -473,7 +473,7 @@ msgstr "B<--add адреса>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:124 ../cat/virt-cat.pod:85
-#: ../cat/virt-filesystems.pod:114 ../cat/virt-ls.pod:284 ../df/virt-df.pod:96
+#: ../cat/virt-filesystems.pod:114 ../cat/virt-ls.pod:290 ../df/virt-df.pod:96
 #: ../edit/virt-edit.pod:85 ../format/virt-format.pod:82
 #: ../fuse/guestmount.pod:178 ../rescue/virt-rescue.pod:138
 msgid "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
@@ -482,14 +482,14 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:126 ../cat/virt-cat.pod:87
-#: ../cat/virt-filesystems.pod:131 ../cat/virt-ls.pod:297 ../df/virt-df.pod:98
+#: ../cat/virt-filesystems.pod:131 ../cat/virt-ls.pod:303 ../df/virt-df.pod:98
 #: ../rescue/virt-rescue.pod:144 ../sysprep/virt-sysprep.pod:64
 msgid "B<-c> URI"
 msgstr "B<-c> адреса"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:128 ../cat/virt-cat.pod:89
-#: ../cat/virt-filesystems.pod:133 ../cat/virt-ls.pod:299
+#: ../cat/virt-filesystems.pod:133 ../cat/virt-ls.pod:305
 #: ../df/virt-df.pod:100 ../rescue/virt-rescue.pod:146
 #: ../sysprep/virt-sysprep.pod:66
 msgid "B<--connect> URI"
@@ -497,7 +497,7 @@ msgstr "B<--connect> адреса"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:130 ../cat/virt-cat.pod:91
-#: ../cat/virt-filesystems.pod:135 ../cat/virt-ls.pod:301
+#: ../cat/virt-filesystems.pod:135 ../cat/virt-ls.pod:307
 #: ../df/virt-df.pod:102 ../edit/virt-edit.pod:105
 #: ../inspector/virt-inspector.pod:77 ../rescue/virt-rescue.pod:148
 #: ../sysprep/virt-sysprep.pod:68 ../tools/virt-list-filesystems:82
@@ -512,7 +512,7 @@ msgstr ""
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:133 ../cat/virt-cat.pod:94
-#: ../cat/virt-filesystems.pod:138 ../cat/virt-ls.pod:304
+#: ../cat/virt-filesystems.pod:138 ../cat/virt-ls.pod:310
 #: ../df/virt-df.pod:105 ../rescue/virt-rescue.pod:151
 #: ../sysprep/virt-sysprep.pod:71
 msgid ""
@@ -524,7 +524,7 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:136 ../cat/virt-cat.pod:97
-#: ../cat/virt-filesystems.pod:147 ../cat/virt-ls.pod:313
+#: ../cat/virt-filesystems.pod:147 ../cat/virt-ls.pod:319
 #: ../df/virt-df.pod:114 ../edit/virt-edit.pod:111
 #: ../inspector/virt-inspector.pod:84 ../rescue/virt-rescue.pod:154
 #: ../sysprep/virt-sysprep.pod:74
@@ -533,7 +533,7 @@ msgstr "B<-d> гість"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:138 ../cat/virt-cat.pod:99
-#: ../cat/virt-filesystems.pod:149 ../cat/virt-ls.pod:315
+#: ../cat/virt-filesystems.pod:149 ../cat/virt-ls.pod:321
 #: ../df/virt-df.pod:116 ../edit/virt-edit.pod:113
 #: ../inspector/virt-inspector.pod:86 ../rescue/virt-rescue.pod:156
 #: ../sysprep/virt-sysprep.pod:76
@@ -542,7 +542,7 @@ msgstr "B<--domain> гість"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:140 ../cat/virt-cat.pod:101
-#: ../cat/virt-filesystems.pod:151 ../cat/virt-ls.pod:317
+#: ../cat/virt-filesystems.pod:151 ../cat/virt-ls.pod:323
 #: ../df/virt-df.pod:118 ../edit/virt-edit.pod:115
 #: ../inspector/virt-inspector.pod:88 ../rescue/virt-rescue.pod:158
 #: ../sysprep/virt-sysprep.pod:78
@@ -555,7 +555,7 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:143 ../cat/virt-cat.pod:111
-#: ../cat/virt-filesystems.pod:176 ../cat/virt-ls.pod:334
+#: ../cat/virt-filesystems.pod:176 ../cat/virt-ls.pod:340
 #: ../df/virt-df.pod:121 ../fish/guestfish.pod:245
 #: ../format/virt-format.pod:93 ../fuse/guestmount.pod:217
 #: ../inspector/virt-inspector.pod:98 ../rescue/virt-rescue.pod:161
@@ -564,7 +564,7 @@ msgstr "B<--format=raw|qcow2|..>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:145 ../cat/virt-cat.pod:113
-#: ../cat/virt-filesystems.pod:178 ../cat/virt-ls.pod:336
+#: ../cat/virt-filesystems.pod:178 ../cat/virt-ls.pod:342
 #: ../df/virt-df.pod:123 ../edit/virt-edit.pod:142 ../fish/guestfish.pod:247
 #: ../format/virt-format.pod:95 ../fuse/guestmount.pod:219
 #: ../inspector/virt-inspector.pod:100 ../rescue/virt-rescue.pod:163
@@ -573,7 +573,7 @@ msgstr "B<--format>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:147 ../cat/virt-cat.pod:115
-#: ../cat/virt-filesystems.pod:180 ../cat/virt-ls.pod:338
+#: ../cat/virt-filesystems.pod:180 ../cat/virt-ls.pod:344
 #: ../df/virt-df.pod:125 ../edit/virt-edit.pod:144 ../fish/guestfish.pod:249
 #: ../format/virt-format.pod:97 ../fuse/guestmount.pod:221
 #: ../rescue/virt-rescue.pod:165
@@ -592,7 +592,7 @@ msgstr ""
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:152 ../builder/virt-builder.pod:144
 #: ../cat/virt-cat.pod:120 ../cat/virt-filesystems.pod:185
-#: ../cat/virt-ls.pod:343 ../df/virt-df.pod:130 ../edit/virt-edit.pod:149
+#: ../cat/virt-ls.pod:349 ../df/virt-df.pod:130 ../edit/virt-edit.pod:149
 #: ../fish/guestfish.pod:254 ../fish/guestfish.pod:706
 #: ../format/virt-format.pod:102 ../inspector/virt-inspector.pod:350
 #: ../rescue/virt-rescue.pod:170 ../src/guestfs.pod:4189
@@ -612,7 +612,7 @@ msgstr ""
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:156 ../cat/virt-cat.pod:124
-#: ../cat/virt-filesystems.pod:189 ../cat/virt-ls.pod:347
+#: ../cat/virt-filesystems.pod:189 ../cat/virt-ls.pod:353
 #: ../df/virt-df.pod:134 ../edit/virt-edit.pod:153 ../fish/guestfish.pod:258
 #: ../format/virt-format.pod:106 ../rescue/virt-rescue.pod:174
 #: ../sysprep/virt-sysprep.pod:123
@@ -633,7 +633,7 @@ msgstr ""
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:160 ../cat/virt-cat.pod:128
-#: ../cat/virt-filesystems.pod:193 ../cat/virt-ls.pod:351
+#: ../cat/virt-filesystems.pod:193 ../cat/virt-ls.pod:357
 #: ../df/virt-df.pod:138 ../edit/virt-edit.pod:157 ../fish/guestfish.pod:262
 #: ../format/virt-format.pod:110 ../rescue/virt-rescue.pod:178
 #: ../sysprep/virt-sysprep.pod:127
@@ -646,7 +646,7 @@ msgstr ""
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:163 ../cat/virt-cat.pod:131
-#: ../cat/virt-filesystems.pod:196 ../cat/virt-ls.pod:354
+#: ../cat/virt-filesystems.pod:196 ../cat/virt-ls.pod:360
 #: ../df/virt-df.pod:141 ../edit/virt-edit.pod:160
 #: ../format/virt-format.pod:113 ../rescue/virt-rescue.pod:181
 #: ../sysprep/virt-sysprep.pod:130
@@ -740,9 +740,9 @@ msgstr ""
 "(якщо не вказано параметрів I<-a> і I<-d>)."
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:195 ../builder/virt-builder.pod:539
+#: ../align/virt-alignment-scan.pod:195 ../builder/virt-builder.pod:546
 #: ../cat/virt-cat.pod:140 ../cat/virt-filesystems.pod:267
-#: ../cat/virt-ls.pod:431 ../daemon/guestfsd.pod:62 ../df/virt-df.pod:185
+#: ../cat/virt-ls.pod:437 ../daemon/guestfsd.pod:62 ../df/virt-df.pod:185
 #: ../edit/virt-edit.pod:169 ../fish/guestfish.pod:423
 #: ../format/virt-format.pod:155 ../fuse/guestmount.pod:354
 #: ../inspector/virt-inspector.pod:118 ../rescue/virt-rescue.pod:240
@@ -752,9 +752,9 @@ msgid "B<-v>"
 msgstr "B<-v>"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:197 ../builder/virt-builder.pod:541
+#: ../align/virt-alignment-scan.pod:197 ../builder/virt-builder.pod:548
 #: ../cat/virt-cat.pod:142 ../cat/virt-filesystems.pod:269
-#: ../cat/virt-ls.pod:433 ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187
+#: ../cat/virt-ls.pod:439 ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187
 #: ../edit/virt-edit.pod:171 ../fish/guestfish.pod:425
 #: ../format/virt-format.pod:157 ../fuse/guestmount.pod:356
 #: ../inspector/virt-inspector.pod:120 ../rescue/virt-rescue.pod:242
@@ -765,7 +765,7 @@ msgstr "B<--verbose>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:199 ../cat/virt-cat.pod:144
-#: ../cat/virt-filesystems.pod:271 ../cat/virt-ls.pod:435
+#: ../cat/virt-filesystems.pod:271 ../cat/virt-ls.pod:441
 #: ../daemon/guestfsd.pod:66 ../df/virt-df.pod:189 ../edit/virt-edit.pod:173
 #: ../format/virt-format.pod:159 ../inspector/virt-inspector.pod:122
 #: ../rescue/virt-rescue.pod:244 ../sparsify/virt-sparsify.pod:230
@@ -776,8 +776,8 @@ msgstr "Увімкнути докладний показ повідомлень 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:201
 #: ../appliance/libguestfs-make-fixed-appliance.pod:107
-#: ../builder/virt-builder.pod:548 ../cat/virt-cat.pod:146
-#: ../cat/virt-filesystems.pod:273 ../cat/virt-ls.pod:437
+#: ../builder/virt-builder.pod:555 ../cat/virt-cat.pod:146
+#: ../cat/virt-filesystems.pod:273 ../cat/virt-ls.pod:443
 #: ../df/virt-df.pod:191 ../edit/virt-edit.pod:175 ../fish/guestfish.pod:430
 #: ../format/virt-format.pod:161 ../fuse/guestmount.pod:360
 #: ../fuse/guestunmount.pod:107 ../inspector/virt-inspector.pod:124
@@ -790,8 +790,8 @@ msgstr "B<-V>"
 #. type: =item
 #: ../align/virt-alignment-scan.pod:203
 #: ../appliance/libguestfs-make-fixed-appliance.pod:109
-#: ../builder/virt-builder.pod:550 ../cat/virt-cat.pod:148
-#: ../cat/virt-filesystems.pod:275 ../cat/virt-ls.pod:439
+#: ../builder/virt-builder.pod:557 ../cat/virt-cat.pod:148
+#: ../cat/virt-filesystems.pod:275 ../cat/virt-ls.pod:445
 #: ../df/virt-df.pod:193 ../edit/virt-edit.pod:177 ../fish/guestfish.pod:432
 #: ../format/virt-format.pod:163 ../fuse/guestmount.pod:362
 #: ../fuse/guestunmount.pod:109 ../inspector/virt-inspector.pod:126
@@ -804,9 +804,9 @@ msgid "B<--version>"
 msgstr "B<--version>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:205 ../builder/virt-builder.pod:552
+#: ../align/virt-alignment-scan.pod:205 ../builder/virt-builder.pod:559
 #: ../cat/virt-cat.pod:150 ../cat/virt-filesystems.pod:277
-#: ../cat/virt-ls.pod:441 ../df/virt-df.pod:195 ../edit/virt-edit.pod:179
+#: ../cat/virt-ls.pod:447 ../df/virt-df.pod:195 ../edit/virt-edit.pod:179
 #: ../format/virt-format.pod:165 ../inspector/virt-inspector.pod:128
 #: ../rescue/virt-rescue.pod:250 ../resize/virt-resize.pod:589
 #: ../sparsify/virt-sparsify.pod:236 ../sysprep/virt-sysprep.pod:200
@@ -817,7 +817,7 @@ msgstr "Показати дані щодо версії і завершити р
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:207 ../cat/virt-cat.pod:152
-#: ../cat/virt-filesystems.pod:287 ../cat/virt-ls.pod:443
+#: ../cat/virt-filesystems.pod:287 ../cat/virt-ls.pod:449
 #: ../df/virt-df.pod:197 ../edit/virt-edit.pod:181 ../fish/guestfish.pod:445
 #: ../format/virt-format.pod:177 ../fuse/guestmount.pod:375
 #: ../inspector/virt-inspector.pod:130 ../rescue/virt-rescue.pod:261
@@ -828,7 +828,7 @@ msgstr "B<-x>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:209 ../cat/virt-cat.pod:154
-#: ../cat/virt-filesystems.pod:289 ../cat/virt-ls.pod:445
+#: ../cat/virt-filesystems.pod:289 ../cat/virt-ls.pod:451
 #: ../df/virt-df.pod:199 ../edit/virt-edit.pod:183
 #: ../format/virt-format.pod:179 ../inspector/virt-inspector.pod:132
 #: ../rescue/virt-rescue.pod:263 ../sparsify/virt-sparsify.pod:240
@@ -1148,7 +1148,7 @@ msgstr ""
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:352 ../cat/virt-cat.pod:237
-#: ../cat/virt-filesystems.pod:383 ../cat/virt-ls.pod:489
+#: ../cat/virt-filesystems.pod:383 ../cat/virt-ls.pod:495
 #: ../df/virt-df.pod:253 ../edit/virt-edit.pod:350
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:395
 #: ../resize/virt-resize.pod:744 ../sysprep/virt-sysprep.pod:497
@@ -1159,7 +1159,7 @@ msgstr "ЕКРАНУВАННЯ СИМВОЛІВ У ОБОЛОНЦІ"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:354 ../cat/virt-cat.pod:239
-#: ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:491
+#: ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:497
 #: ../df/virt-df.pod:255 ../edit/virt-edit.pod:352
 #: ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:397
 #: ../resize/virt-resize.pod:746 ../sysprep/virt-sysprep.pod:499
@@ -1175,8 +1175,8 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:359
 #: ../appliance/libguestfs-make-fixed-appliance.pod:156
-#: ../builder/virt-builder.pod:1290 ../cat/virt-cat.pod:244
-#: ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:496
+#: ../builder/virt-builder.pod:1295 ../cat/virt-cat.pod:244
+#: ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:502
 #: ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260 ../edit/virt-edit.pod:357
 #: ../fish/guestfish.pod:1358 ../format/virt-format.pod:183
 #: ../fuse/guestmount.pod:401 ../fuse/guestunmount.pod:126
@@ -1200,23 +1200,23 @@ msgstr "Ця програма повертає:"
 #: ../appliance/libguestfs-make-fixed-appliance.pod:54
 #: ../appliance/libguestfs-make-fixed-appliance.pod:75
 #: ../builder/virt-builder.pod:495 ../builder/virt-builder.pod:499
-#: ../builder/virt-builder.pod:693 ../builder/virt-builder.pod:700
-#: ../builder/virt-builder.pod:704 ../builder/virt-builder.pod:708
-#: ../builder/virt-builder.pod:713 ../builder/virt-builder.pod:717
-#: ../builder/virt-builder.pod:721 ../builder/virt-builder.pod:725
-#: ../builder/virt-builder.pod:729 ../builder/virt-builder.pod:733
-#: ../builder/virt-builder.pod:737 ../builder/virt-builder.pod:741
-#: ../builder/virt-builder.pod:745 ../builder/virt-builder.pod:754
-#: ../builder/virt-builder.pod:1110 ../builder/virt-builder.pod:1114
+#: ../builder/virt-builder.pod:700 ../builder/virt-builder.pod:707
+#: ../builder/virt-builder.pod:711 ../builder/virt-builder.pod:715
+#: ../builder/virt-builder.pod:720 ../builder/virt-builder.pod:724
+#: ../builder/virt-builder.pod:728 ../builder/virt-builder.pod:732
+#: ../builder/virt-builder.pod:736 ../builder/virt-builder.pod:740
+#: ../builder/virt-builder.pod:744 ../builder/virt-builder.pod:748
+#: ../builder/virt-builder.pod:752 ../builder/virt-builder.pod:761
+#: ../builder/virt-builder.pod:1116 ../builder/virt-builder.pod:1120
 #: ../cat/virt-cat.pod:183 ../cat/virt-cat.pod:188 ../cat/virt-cat.pod:193
 #: ../cat/virt-cat.pod:204 ../cat/virt-cat.pod:208 ../edit/virt-edit.pod:274
 #: ../edit/virt-edit.pod:279 ../edit/virt-edit.pod:284
 #: ../edit/virt-edit.pod:295 ../edit/virt-edit.pod:299
-#: ../examples/guestfs-faq.pod:172 ../examples/guestfs-faq.pod:178
-#: ../examples/guestfs-faq.pod:217 ../examples/guestfs-faq.pod:223
-#: ../examples/guestfs-faq.pod:777 ../examples/guestfs-faq.pod:781
-#: ../examples/guestfs-faq.pod:785 ../examples/guestfs-faq.pod:789
-#: ../examples/guestfs-faq.pod:797 ../examples/guestfs-faq.pod:802
+#: ../examples/guestfs-faq.pod:209 ../examples/guestfs-faq.pod:215
+#: ../examples/guestfs-faq.pod:254 ../examples/guestfs-faq.pod:260
+#: ../examples/guestfs-faq.pod:814 ../examples/guestfs-faq.pod:818
+#: ../examples/guestfs-faq.pod:822 ../examples/guestfs-faq.pod:826
+#: ../examples/guestfs-faq.pod:834 ../examples/guestfs-faq.pod:839
 #: ../examples/guestfs-performance.pod:107
 #: ../examples/guestfs-performance.pod:113
 #: ../examples/guestfs-performance.pod:118
@@ -1377,11 +1377,11 @@ msgstr ""
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:393
 #: ../appliance/libguestfs-make-fixed-appliance.pod:166
-#: ../builder/virt-builder.pod:1295 ../cat/virt-cat.pod:249
-#: ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:501
+#: ../builder/virt-builder.pod:1300 ../cat/virt-cat.pod:249
+#: ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:507
 #: ../daemon/guestfsd.pod:117 ../df/virt-df.pod:265 ../edit/virt-edit.pod:362
 #: ../erlang/examples/guestfs-erlang.pod:97
-#: ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1149
+#: ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1186
 #: ../examples/guestfs-performance.pod:567 ../examples/guestfs-recipes.pod:633
 #: ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1558
 #: ../fish/libguestfs-tools.conf.pod:57 ../fish/virt-copy-in.pod:50
@@ -1411,9 +1411,9 @@ msgstr ""
 "L<virt-resize(1)>, L<http://libguestfs.org/>."
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1310
+#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1315
 #: ../cat/virt-cat.pod:258 ../cat/virt-filesystems.pod:406
-#: ../cat/virt-ls.pod:510 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273
+#: ../cat/virt-ls.pod:516 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273
 #: ../edit/virt-edit.pod:373 ../format/virt-format.pod:197
 #: ../guestfs-release-notes.pod:2645 ../rescue/virt-rescue.pod:427
 #: ../resize/virt-resize.pod:779 ../sparsify/virt-sparsify.pod:352
@@ -1423,9 +1423,9 @@ msgid "AUTHOR"
 msgstr "АВТОР"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1312
+#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1317
 #: ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:408
-#: ../cat/virt-ls.pod:512 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275
+#: ../cat/virt-ls.pod:518 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275
 #: ../edit/virt-edit.pod:375 ../format/virt-format.pod:199
 #: ../inspector/virt-inspector.pod:516 ../rescue/virt-rescue.pod:429
 #: ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:354
@@ -1438,11 +1438,11 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:406
 #: ../appliance/libguestfs-make-fixed-appliance.pod:179
-#: ../builder/virt-builder.pod:1314 ../cat/virt-cat.pod:262
-#: ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:514
+#: ../builder/virt-builder.pod:1319 ../cat/virt-cat.pod:262
+#: ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:520
 #: ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../edit/virt-edit.pod:377
 #: ../erlang/examples/guestfs-erlang.pod:116
-#: ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1159
+#: ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1196
 #: ../examples/guestfs-performance.pod:584 ../examples/guestfs-recipes.pod:652
 #: ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1592
 #: ../fish/libguestfs-tools.conf.pod:68 ../fish/virt-copy-in.pod:64
@@ -1769,7 +1769,7 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:161
-#: ../builder/virt-builder.pod:1248 ../edit/virt-edit.pod:337
+#: ../builder/virt-builder.pod:1253 ../edit/virt-edit.pod:337
 #: ../fish/guestfish.pod:1363 ../fuse/guestunmount.pod:115
 #: ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312
 #: ../src/guestfs.pod:4578 ../test-tool/libguestfs-test-tool.pod:178
@@ -1796,7 +1796,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:175
 #: ../erlang/examples/guestfs-erlang.pod:112
-#: ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1155
+#: ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1192
 #: ../examples/guestfs-performance.pod:580 ../examples/guestfs-recipes.pod:648
 #: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1588
 #: ../fish/libguestfs-tools.conf.pod:64 ../fish/virt-copy-in.pod:60
@@ -1815,7 +1815,7 @@ msgstr "АВТОРИ"
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:177
 #: ../erlang/examples/guestfs-erlang.pod:114
-#: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1157
+#: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1194
 #: ../examples/guestfs-performance.pod:582 ../examples/guestfs-recipes.pod:650
 #: ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1590
 #: ../fish/libguestfs-tools.conf.pod:66 ../fish/virt-copy-in.pod:62
@@ -1831,7 +1831,7 @@ msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:516
+#: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:522
 #: ../daemon/guestfsd.pod:128 ../df/virt-df.pod:279 ../edit/virt-edit.pod:379
 #: ../examples/guestfs-recipes.pod:654 ../fish/guestfish.pod:1594
 #: ../fuse/guestmount.pod:426 ../guestfs-release-notes.pod:2651
@@ -1842,9 +1842,9 @@ msgstr "© Red Hat Inc., 2009–2013"
 
 #. type: =end
 #: ../builder/virt-builder.pod:3 ../builder/virt-builder.pod:8
-#: ../examples/guestfs-faq.pod:240 ../examples/guestfs-faq.pod:245
-#: ../examples/guestfs-faq.pod:761 ../examples/guestfs-faq.pod:766
-#: ../examples/guestfs-faq.pod:918 ../examples/guestfs-faq.pod:923
+#: ../examples/guestfs-faq.pod:277 ../examples/guestfs-faq.pod:282
+#: ../examples/guestfs-faq.pod:798 ../examples/guestfs-faq.pod:803
+#: ../examples/guestfs-faq.pod:955 ../examples/guestfs-faq.pod:960
 #: ../src/guestfs.pod:1398 ../src/guestfs.pod:1403 ../src/guestfs.pod:3336
 #: ../src/guestfs.pod:3341
 msgid "html"
@@ -1870,7 +1870,7 @@ msgstr ""
 msgid ""
 " virt-builder [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]\n"
 "    [--attach ISOFILE]\n"
-"    [--root-password ...]\n"
+"    [--root-password SELECTOR]\n"
 "    [--hostname HOSTNAME]\n"
 "    [--install PKG,[PKG...]]\n"
 "    [--upload FILE:DEST]\n"
@@ -1900,7 +1900,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:33 ../builder/virt-builder.pod:1147
+#: ../builder/virt-builder.pod:33 ../builder/virt-builder.pod:1153
 #, no-wrap
 msgid ""
 " virt-builder --print-cache\n"
@@ -1908,7 +1908,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:35 ../builder/virt-builder.pod:1155
+#: ../builder/virt-builder.pod:35 ../builder/virt-builder.pod:1161
 #, no-wrap
 msgid ""
 " virt-builder --cache-all-templates\n"
@@ -1916,7 +1916,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:37 ../builder/virt-builder.pod:1151
+#: ../builder/virt-builder.pod:37 ../builder/virt-builder.pod:1157
 #, no-wrap
 msgid ""
 " virt-builder --delete-cache\n"
@@ -2644,7 +2644,7 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:346 ../cat/virt-filesystems.pod:211
-#: ../cat/virt-ls.pod:372 ../tools/virt-list-filesystems:109
+#: ../cat/virt-ls.pod:378 ../tools/virt-list-filesystems:109
 #: ../tools/virt-list-partitions:120
 msgid "B<-l>"
 msgstr "B<-l>"
@@ -2746,8 +2746,8 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:390 ../builder/virt-builder.pod:776
-#: ../examples/guestfs-faq.pod:475 ../examples/guestfs-performance.pod:161
+#: ../builder/virt-builder.pod:390 ../builder/virt-builder.pod:783
+#: ../examples/guestfs-faq.pod:512 ../examples/guestfs-performance.pod:161
 #: ../examples/guestfs-performance.pod:211 ../examples/guestfs-recipes.pod:392
 #: ../rescue/virt-rescue.pod:328 ../resize/virt-resize.pod:31
 #: ../resize/virt-resize.pod:621 ../sparsify/virt-sparsify.pod:278
@@ -2764,8 +2764,8 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:395 ../builder/virt-builder.pod:781
-#: ../examples/guestfs-faq.pod:485 ../examples/guestfs-performance.pod:167
+#: ../builder/virt-builder.pod:395 ../builder/virt-builder.pod:788
+#: ../examples/guestfs-faq.pod:522 ../examples/guestfs-performance.pod:167
 #: ../examples/guestfs-performance.pod:218 ../examples/guestfs-recipes.pod:398
 #: ../rescue/virt-rescue.pod:336 ../resize/virt-resize.pod:44
 #: ../resize/virt-resize.pod:628 ../sparsify/virt-sparsify.pod:285
@@ -2782,7 +2782,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:400 ../examples/guestfs-faq.pod:491
+#: ../builder/virt-builder.pod:400 ../examples/guestfs-faq.pod:528
 #: ../examples/guestfs-performance.pod:175
 #: ../examples/guestfs-performance.pod:224 ../examples/guestfs-recipes.pod:404
 #: ../rescue/virt-rescue.pod:345 ../resize/virt-resize.pod:52
@@ -2800,7 +2800,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:407 ../examples/guestfs-faq.pod:497
+#: ../builder/virt-builder.pod:407 ../examples/guestfs-faq.pod:534
 #: ../rescue/virt-rescue.pod:354 ../resize/virt-resize.pod:61
 msgid "4."
 msgstr "4."
@@ -2858,7 +2858,7 @@ msgid "B<--password-crypto> password-crypto"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:435 ../sysprep/sysprep-extra-options.pod:42
+#: ../builder/virt-builder.pod:435 ../sysprep/sysprep-extra-options.pod:47
 msgid "Set the password encryption to C<md5>, C<sha256> or C<sha512>."
 msgstr "Встановити спосіб шифрування паролів: C<md5>, C<sha256> або C<sha512>."
 
@@ -2870,7 +2870,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:440 ../sysprep/sysprep-extra-options.pod:47
+#: ../builder/virt-builder.pod:440 ../sysprep/sysprep-extra-options.pod:52
 msgid ""
 "C<md5> will work with relatively old Linux guests (eg. RHEL 3), but is not "
 "secure against modern attacks."
@@ -2879,7 +2879,7 @@ msgstr ""
 "(наприкладRHEL 3), але є незахищеним щодо новітніх способів атак."
 
 #. type: textblock
-#: ../builder/virt-builder.pod:443 ../sysprep/sysprep-extra-options.pod:50
+#: ../builder/virt-builder.pod:443 ../sysprep/sysprep-extra-options.pod:55
 msgid ""
 "The default is C<sha512> unless libguestfs detects an old guest that didn't "
 "have support for SHA-512, in which case it will use C<md5>.  You can "
@@ -2908,8 +2908,10 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:455
-msgid "B<--root-password> PASSWORD"
-msgstr ""
+#, fuzzy
+#| msgid "B<--root-password file:FILENAME>"
+msgid "B<--root-password> SELECTOR"
+msgstr "B<--root-password file:НАЗВА_ФАЙЛА>"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:457
@@ -2919,7 +2921,7 @@ msgstr ""
 #. type: textblock
 #: ../builder/virt-builder.pod:459
 msgid ""
-"See L</USERS AND PASSWORDS> below for the format of the C<PASSWORD> field, "
+"See L</USERS AND PASSWORDS> below for the format of the C<SELECTOR> field, "
 "and also how to set up user accounts."
 msgstr ""
 
@@ -3066,45 +3068,60 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:537
-msgid "See also: I<--delete>, I<--scrub>."
+msgid ""
+"C<DEST> could be the final filename.  This can be used to rename the file on "
+"upload."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:543
+#: ../builder/virt-builder.pod:540
+msgid ""
+"If C<DEST> is a directory name (which must already exist in the guest)  then "
+"the file is uploaded into that directory, and it keeps the same name as on "
+"the local filesystem."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:544
+msgid "See also: I<--mkdir>, I<--delete>, I<--scrub>."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:550
 msgid "Enable debug messages and/or produce verbose output."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:545
+#: ../builder/virt-builder.pod:552
 msgid ""
 "When reporting bugs, use this option and attach the complete output to your "
 "bug report."
 msgstr ""
 
 #. type: =head1
-#: ../builder/virt-builder.pod:556
+#: ../builder/virt-builder.pod:563
 msgid "REFERENCE"
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:558
+#: ../builder/virt-builder.pod:565
 msgid "INSTALLING PACKAGES"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:560
+#: ../builder/virt-builder.pod:567
 msgid ""
 "There are several approaches to installing packages or applications in the "
 "guest which have different trade-offs."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:563
+#: ../builder/virt-builder.pod:570
 msgid "Installing packages at build time"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:565
+#: ../builder/virt-builder.pod:572
 msgid ""
 "If the guest OS you are installing is similar to the host OS (eg.  both are "
 "Linux), and if libguestfs supports network connections, then you can use I<--"
@@ -3112,7 +3129,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:569
+#: ../builder/virt-builder.pod:576
 #, no-wrap
 msgid ""
 " virt-builder fedora-20 --install inkscape\n"
@@ -3120,23 +3137,23 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:571
+#: ../builder/virt-builder.pod:578
 msgid ""
 "This uses the guest's package manager and the host's network connection."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:574
+#: ../builder/virt-builder.pod:581
 msgid "Installing packages at first boot"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:576
+#: ../builder/virt-builder.pod:583
 msgid "Another option is to install the packages when the guest first boots:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:578
+#: ../builder/virt-builder.pod:585
 #, no-wrap
 msgid ""
 " virt-builder fedora-20 --firstboot-install inkscape\n"
@@ -3144,13 +3161,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:580
+#: ../builder/virt-builder.pod:587
 msgid ""
 "This uses the guest's package manager and the guest's network connection."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:583
+#: ../builder/virt-builder.pod:590
 msgid ""
 "The downsides are that it will take the guest a lot longer to boot first "
 "time, and there's nothing much you can do if package installation fails (eg. "
@@ -3158,12 +3175,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:588
+#: ../builder/virt-builder.pod:595
 msgid "Installing packages at build time from a side repository"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:590
+#: ../builder/virt-builder.pod:597
 msgid ""
 "If the software you want to install is not available in the main package "
 "repository of the guest, then you can add a side repository.  Usually this "
@@ -3171,14 +3188,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:595
+#: ../builder/virt-builder.pod:602
 msgid ""
 "Create a script that mounts the ISO and sets up the repository.  For yum, "
 "create /tmp/install.sh containing:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:598 ../builder/virt-builder.pod:614
+#: ../builder/virt-builder.pod:605 ../builder/virt-builder.pod:621
 #, no-wrap
 msgid ""
 " mkdir /tmp/mount\n"
@@ -3186,7 +3203,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:600 ../builder/virt-builder.pod:616
+#: ../builder/virt-builder.pod:607 ../builder/virt-builder.pod:623
 #, no-wrap
 msgid ""
 " # Assume the volume label of the CD is 'EXTRA':\n"
@@ -3195,7 +3212,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:603
+#: ../builder/virt-builder.pod:610
 #, no-wrap
 msgid ""
 " cat <<'EOF' > /etc/yum.repos.d/extra.repo\n"
@@ -3208,7 +3225,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:610
+#: ../builder/virt-builder.pod:617
 #, no-wrap
 msgid ""
 " yum -y install famousdatabase\n"
@@ -3216,12 +3233,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:612
+#: ../builder/virt-builder.pod:619
 msgid "For apt, create /tmp/install.sh containing:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:619
+#: ../builder/virt-builder.pod:626
 #, no-wrap
 msgid ""
 " apt-cdrom -d=/tmp/mount add\n"
@@ -3230,12 +3247,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:622
+#: ../builder/virt-builder.pod:629
 msgid "Use the I<--attach> option to attach the CD:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:624
+#: ../builder/virt-builder.pod:631
 #, no-wrap
 msgid ""
 " virt-builder fedora 20 --attach extra.iso --run /tmp/install.sh\n"
@@ -3243,24 +3260,25 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:626
+#: ../builder/virt-builder.pod:633
 msgid "USERS AND PASSWORDS"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:628
+#: ../builder/virt-builder.pod:635
 msgid ""
 "The I<--root-password> option is used to change the root password (otherwise "
-"a random password is used).  This option has the following formats:"
+"a random password is used).  This option takes a password C<SELECTOR> in one "
+"of the following formats:"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:634
+#: ../builder/virt-builder.pod:641
 msgid "B<--root-password> file:FILENAME"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:636 ../sysprep/sysprep-extra-options.pod:64
+#: ../builder/virt-builder.pod:643
 msgid ""
 "Read the root password from C<FILENAME>.  The whole first line of this file "
 "is the replacement password.  Any other lines are ignored.  You should "
@@ -3268,37 +3286,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:641
+#: ../builder/virt-builder.pod:648
 msgid "B<--root-password> password:PASSWORD"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:643 ../sysprep/sysprep-extra-options.pod:71
+#: ../builder/virt-builder.pod:650
 msgid "Set the root password to the literal string C<PASSWORD>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:645 ../sysprep/sysprep-extra-options.pod:34
-#: ../sysprep/sysprep-extra-options.pod:73
+#: ../builder/virt-builder.pod:652 ../sysprep/sysprep-extra-options.pod:39
 msgid ""
 "B<Note: this is not secure> since any user on the same machine can see the "
 "cleartext password using L<ps(1)>."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:650
+#: ../builder/virt-builder.pod:657
 msgid "Creating user accounts"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:652
+#: ../builder/virt-builder.pod:659
 msgid ""
 "To create user accounts, use the L<useradd(8)> command with L<--firstboot-"
 "command> like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:655
+#: ../builder/virt-builder.pod:662
 #, no-wrap
 msgid ""
 " virt-builder --firstboot-command \\\n"
@@ -3307,7 +3324,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:658
+#: ../builder/virt-builder.pod:665
 msgid ""
 "The above command will create an C<rjones> account with no password, and "
 "force the user to set a password when they first log in.  There are other "
@@ -3315,12 +3332,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:662
+#: ../builder/virt-builder.pod:669
 msgid "LOG FILE"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:664
+#: ../builder/virt-builder.pod:671
 msgid ""
 "Scripts and package installation that runs at build time (I<--run>, I<--run-"
 "command>, I<--install>, but I<not> firstboot) is logged in one of the "
@@ -3328,131 +3345,131 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:670
+#: ../builder/virt-builder.pod:677
 msgid "C</tmp/builder.log>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:672
+#: ../builder/virt-builder.pod:679
 msgid "On Linux, BSD and other guests."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:674
+#: ../builder/virt-builder.pod:681
 msgid "C<C:\\Temp\\builder.log>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:676
+#: ../builder/virt-builder.pod:683
 msgid "On Windows, DOS guests."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:678
+#: ../builder/virt-builder.pod:685
 msgid "C</builder.log>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:680
+#: ../builder/virt-builder.pod:687
 msgid "If C</tmp> or C<C:\\Temp> is missing."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:684
+#: ../builder/virt-builder.pod:691
 msgid ""
 "If you don't want the log file to appear in the final image, then use the "
 "I<--no-logfile> command line option."
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:687
+#: ../builder/virt-builder.pod:694
 msgid "INSTALLATION PROCESS"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:689
+#: ../builder/virt-builder.pod:696
 msgid "When you invoke virt-builder, installation proceeds as follows:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:695
+#: ../builder/virt-builder.pod:702
 msgid "The template image is downloaded."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:697
+#: ../builder/virt-builder.pod:704
 msgid ""
 "If the template image is present in the cache, the cached version is used "
 "instead.  (See L</CACHING>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:702
+#: ../builder/virt-builder.pod:709
 msgid "The template signature is checked."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:706
+#: ../builder/virt-builder.pod:713
 #, fuzzy
 #| msgid "The file is compressed on-disk."
 msgid "The template is uncompressed to a tmp file."
 msgstr "Файл стиснено на диску."
 
 #. type: textblock
-#: ../builder/virt-builder.pod:710
+#: ../builder/virt-builder.pod:717
 msgid ""
 "The template image is resized into the destination, using L<virt-resize(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:715
+#: ../builder/virt-builder.pod:722
 msgid "Extra disks are attached (I<--attach>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:719
+#: ../builder/virt-builder.pod:726
 msgid "A new random seed is generated for the guest."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:723
+#: ../builder/virt-builder.pod:730
 msgid "The hostname is set (I<--hostname>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:727
+#: ../builder/virt-builder.pod:734
 msgid "The root password is changed (I<--root-password>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:731
+#: ../builder/virt-builder.pod:738
 msgid "Packages are installed (I<--install>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:735
+#: ../builder/virt-builder.pod:742
 msgid "Files are uploaded (I<--upload>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:739
+#: ../builder/virt-builder.pod:746
 msgid "Files are edited (I<--edit>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:743
+#: ../builder/virt-builder.pod:750
 msgid "Files are deleted (I<--delete>, I<--scrub>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:747
+#: ../builder/virt-builder.pod:754
 msgid ""
 "Firstboot scripts are installed (I<--firstboot>, I<--firstboot-command>, I<--"
 "firstboot-install>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:750
+#: ../builder/virt-builder.pod:757
 msgid ""
 "Note that although firstboot scripts are installed at this step, they do not "
 "run until the guest is booted first time.  Firstboot scripts will run in the "
@@ -3460,34 +3477,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:756
+#: ../builder/virt-builder.pod:763
 msgid "Scripts are run (I<--run>, I<--run-command>)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:758
+#: ../builder/virt-builder.pod:765
 msgid "Scripts run in the order they appear on the command line."
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:762
+#: ../builder/virt-builder.pod:769
 msgid "IMPORTING THE DISK IMAGE"
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:764
+#: ../builder/virt-builder.pod:771
 msgid "Importing into libvirt"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:766
+#: ../builder/virt-builder.pod:773
 msgid ""
 "Import the disk image into libvirt using L<virt-install(1)> I<--import> "
 "option."
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:769
+#: ../builder/virt-builder.pod:776
 #, no-wrap
 msgid ""
 " virt-install --import \\\n"
@@ -3496,7 +3513,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:772 ../examples/guestfs-recipes.pod:245
+#: ../builder/virt-builder.pod:779 ../examples/guestfs-recipes.pod:245
 #: ../fish/guestfish-actions.pod:2058 ../fish/guestfish-actions.pod:2600
 #: ../fish/guestfish-actions.pod:3196 ../src/guestfs-actions.pod:3252
 #: ../src/guestfs-actions.pod:4114 ../src/guestfs-actions.pod:4999
@@ -3505,14 +3522,14 @@ msgid "Notes:"
 msgstr "Нотатки:"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:778
+#: ../builder/virt-builder.pod:785
 msgid ""
 "You I<must> specify the correct format.  The format is C<raw> unless you "
 "used virt-builder's I<--format> option."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:783
+#: ../builder/virt-builder.pod:790
 msgid ""
 "You can run virt-install as root or non-root.  Each works slightly "
 "differently because libvirt manages a different set of virtual machines for "
@@ -3522,7 +3539,7 @@ msgid ""
 msgstr ""
 
 #. type: =end
-#: ../builder/virt-builder.pod:791 ../builder/virt-builder.pod:797
+#: ../builder/virt-builder.pod:798 ../builder/virt-builder.pod:804
 #: ../examples/guestfs-recipes.pod:3 ../examples/guestfs-recipes.pod:8
 #: ../guestfs-release-notes.pod:7 ../guestfs-release-notes.pod:14
 #: ../guestfs-release-notes.pod:200 ../guestfs-release-notes.pod:204
@@ -3532,46 +3549,46 @@ msgid "comment"
 msgstr "коментар"
 
 #. type: =head3
-#: ../builder/virt-builder.pod:793
+#: ../builder/virt-builder.pod:800
 msgid "Importing into OpenStack"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:795
+#: ../builder/virt-builder.pod:802
 msgid "XXX"
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:799
+#: ../builder/virt-builder.pod:806
 msgid "DEBUGGING BUILDS"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:801
+#: ../builder/virt-builder.pod:808
 msgid ""
 "If virt-builder fails with an error, then enable debugging (I<-v>) and "
 "report a bug (see L</BUGS> below)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:804
+#: ../builder/virt-builder.pod:811
 msgid ""
 "If virt-builder is successful but the image doesn't work, here are some "
 "things to try:"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:809
+#: ../builder/virt-builder.pod:816
 msgid "Use virt-rescue"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:811
+#: ../builder/virt-builder.pod:818
 msgid "Run L<virt-rescue(1)> on the disk image:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:813
+#: ../builder/virt-builder.pod:820
 #, no-wrap
 msgid ""
 " virt-rescue -a disk.img\n"
@@ -3579,7 +3596,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:815
+#: ../builder/virt-builder.pod:822
 msgid ""
 "This gives you a rescue shell.  You can mount the filesystems from the disk "
 "image on C</sysroot> and examine them using ordinary Linux commands.  You "
@@ -3588,17 +3605,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:821
+#: ../builder/virt-builder.pod:828
 msgid "Use guestfish"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:823
+#: ../builder/virt-builder.pod:830
 msgid "Run L<guestfish(1)> on the disk image:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:825
+#: ../builder/virt-builder.pod:832
 #, no-wrap
 msgid ""
 " guestfish -a disk.img -i\n"
@@ -3606,25 +3623,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:827
+#: ../builder/virt-builder.pod:834
 msgid ""
 "Use guestfish commands like C<ll /directory> and C<cat /file> to examine "
 "directories and files."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:830
+#: ../builder/virt-builder.pod:837
 msgid "Use guestmount"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:832
+#: ../builder/virt-builder.pod:839
 msgid ""
 "Mount the disk image safely on the host using FUSE and L<guestmount(1)>:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:834
+#: ../builder/virt-builder.pod:841
 #, no-wrap
 msgid ""
 " mkdir /tmp/mp\n"
@@ -3634,12 +3651,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:838
+#: ../builder/virt-builder.pod:845
 msgid "To unmount the disk image do:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:840
+#: ../builder/virt-builder.pod:847
 #, no-wrap
 msgid ""
 " fusermount -u /tmp/mp\n"
@@ -3647,12 +3664,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:842
+#: ../builder/virt-builder.pod:849
 msgid "Add a serial console"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:844
+#: ../builder/virt-builder.pod:851
 msgid ""
 "If the guest hangs during boot, it can be helpful to add a serial console to "
 "the guest, and direct kernel messages to the serial console.  Adding the "
@@ -3662,7 +3679,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:850
+#: ../builder/virt-builder.pod:857
 #, no-wrap
 msgid ""
 " console=tty0 console=ttyS0,115200\n"
@@ -3670,26 +3687,26 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:854
+#: ../builder/virt-builder.pod:861
 msgid "CREATING YOUR OWN TEMPLATES"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:856
+#: ../builder/virt-builder.pod:863
 msgid ""
 "For serious virt-builder use, you may want to create your own repository of "
 "templates."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:859
+#: ../builder/virt-builder.pod:866
 #, fuzzy
 #| msgid "guestfs_grepi"
 msgid "Libguestfs.org repository"
 msgstr "guestfs_grepi"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:861
+#: ../builder/virt-builder.pod:868
 msgid ""
 "Out of the box, virt-builder downloads the file L<http://libguestfs.org/"
 "download/builder/index.asc> which is an index of available templates plus "
@@ -3698,27 +3715,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:867
+#: ../builder/virt-builder.pod:874
 msgid ""
 "The templates hosted on libguestfs.org were created using shell scripts, "
 "kickstart files and preseed files which can be found in the libguestfs "
-"source tree, in C<libguestfs.git/builder/website>."
+"source tree, in C<builder/website>."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:871
+#: ../builder/virt-builder.pod:878
 msgid "Setting up the repository"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:873
+#: ../builder/virt-builder.pod:880
 msgid ""
 "You can set up your own site containing an index file and some templates, "
 "and then point virt-builder at the site by using the I<--source> option:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:877
+#: ../builder/virt-builder.pod:884
 #, no-wrap
 msgid ""
 " virt-builder --source https://example.com/builder/index.asc \\\n"
@@ -3728,25 +3745,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:881
+#: ../builder/virt-builder.pod:888
 msgid ""
 "(Note setting the environment variables C<VIRT_BUILDER_SOURCE> and "
 "C<VIRT_BUILDER_FINGERPRINT> may be easier to type!)"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:884
+#: ../builder/virt-builder.pod:891
 msgid ""
 "You can host this on any web or FTP server, or a local or network filesystem."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:887
+#: ../builder/virt-builder.pod:894
 msgid "Setting up a GPG key"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:889
+#: ../builder/virt-builder.pod:896
 msgid ""
 "If you don't have a GnuPG key, you will need to set one up.  (Strictly "
 "speaking this is optional, but if your index and template files are not "
@@ -3755,21 +3772,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:894
+#: ../builder/virt-builder.pod:901
 msgid ""
 "To create a key, see the GPG manual L<http://www.gnupg.org/gph/en/manual."
 "html>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:897
+#: ../builder/virt-builder.pod:904
 msgid ""
 "Export your GPG public key and add it to the keyring of all virt-builder "
 "users:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:900
+#: ../builder/virt-builder.pod:907
 #, no-wrap
 msgid ""
 " gpg --export -a \"you@example.com\" > pubkey\n"
@@ -3777,7 +3794,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:902
+#: ../builder/virt-builder.pod:909
 #, no-wrap
 msgid ""
 " # For each virt-builder user:\n"
@@ -3786,12 +3803,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:905
+#: ../builder/virt-builder.pod:912
 msgid "Also find the fingerprint of your key:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:907
+#: ../builder/virt-builder.pod:914
 #, no-wrap
 msgid ""
 " gpg --list-keys --fingerprint\n"
@@ -3799,28 +3816,28 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:909
+#: ../builder/virt-builder.pod:916
 msgid "Create the templates"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:911
+#: ../builder/virt-builder.pod:918
 msgid ""
 "There are many ways to create the templates.  For example you could clone "
 "existing guests (see L<virt-sysprep(1)>), or you could install a guest by "
 "hand (L<virt-install(1)>).  To see how the templates were created for virt-"
-"builder, look at the scripts in C<libguestfs.git/builder/website>"
+"builder, look at the scripts in C<builder/website>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:917
+#: ../builder/virt-builder.pod:923
 msgid ""
 "For best results when compressing the templates, use the following xz "
 "options (see L<nbdkit-xz-plugin(1)> for further explanation):"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:920
+#: ../builder/virt-builder.pod:926
 #, no-wrap
 msgid ""
 " xz --best --block-size=16777216 disk\n"
@@ -3828,19 +3845,19 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:922
+#: ../builder/virt-builder.pod:928
 msgid "Creating and signing the index file"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:924
+#: ../builder/virt-builder.pod:930
 msgid ""
 "The index file has a simple text format (shown here without the digital "
 "signature):"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:927
+#: ../builder/virt-builder.pod:933
 #, no-wrap
 msgid ""
 " [fedora-18]\n"
@@ -3856,7 +3873,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:937
+#: ../builder/virt-builder.pod:943
 #, no-wrap
 msgid ""
 " [fedora-19]\n"
@@ -3873,21 +3890,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:948
+#: ../builder/virt-builder.pod:954
 msgid ""
 "The part in square brackets is the C<os-version>, which is the same string "
 "that is used on the virt-builder command line to build that OS."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:951
+#: ../builder/virt-builder.pod:957
 msgid ""
 "After preparing the C<index> file in the correct format, clearsign it using "
 "the following command:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:954
+#: ../builder/virt-builder.pod:960
 #, no-wrap
 msgid ""
 " gpg --clearsign --armor index\n"
@@ -3895,7 +3912,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:956
+#: ../builder/virt-builder.pod:962
 msgid ""
 "This will create the final file called C<index.asc> which can be uploaded to "
 "the server (and is the I<--source> URL).  As noted above, signing the index "
@@ -3903,46 +3920,46 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:960
+#: ../builder/virt-builder.pod:966
 msgid "The following fields can appear:"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:964
+#: ../builder/virt-builder.pod:970
 msgid "C<name=NAME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:966
+#: ../builder/virt-builder.pod:972
 msgid ""
 "The user-friendly name of this template.  This is displayed in the I<--list> "
 "output but is otherwise not significant."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:969
+#: ../builder/virt-builder.pod:975
 msgid "C<osinfo=ID>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:971
+#: ../builder/virt-builder.pod:977
 msgid ""
 "This optional field maps the operating system to the associated libosinfo "
 "ID.  Virt-builder does not use it (yet)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:974
+#: ../builder/virt-builder.pod:980
 msgid "C<file=PATH>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:976
+#: ../builder/virt-builder.pod:982
 msgid "The path (relative to the index) of the xz-compressed template."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:978 ../builder/virt-builder.pod:989
+#: ../builder/virt-builder.pod:984 ../builder/virt-builder.pod:995
 msgid ""
 "Note that absolute paths or URIs are B<not> permitted here.  This is because "
 "virt-builder has a \"same origin\" policy for templates so they cannot come "
@@ -3950,29 +3967,29 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:982
+#: ../builder/virt-builder.pod:988
 msgid "C<sig=PATH>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:984
+#: ../builder/virt-builder.pod:990
 msgid "B<This option is deprecated>.  Use the checksum field instead."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:986
+#: ../builder/virt-builder.pod:992
 msgid ""
 "The path (relative to the index) of the GPG detached signature of the xz "
 "file."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:993
+#: ../builder/virt-builder.pod:999
 msgid "The file can be created as follows:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:995
+#: ../builder/virt-builder.pod:1001
 #, no-wrap
 msgid ""
 " gpg --detach-sign --armor -o disk.xz.sig disk.xz\n"
@@ -3980,19 +3997,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:997
+#: ../builder/virt-builder.pod:1003
 msgid "C<checksum[sha512]=7b882fe9b82eb0fef...>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:999
+#: ../builder/virt-builder.pod:1005
 msgid ""
 "The SHA-512 checksum of the B<compressed> file is checked after it is "
 "downloaded.  To work out the signature, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:1002
+#: ../builder/virt-builder.pod:1008
 #, no-wrap
 msgid ""
 " sha512sum disk.xz\n"
@@ -4000,24 +4017,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1004
+#: ../builder/virt-builder.pod:1010
 msgid ""
 "Note if you use this, you don't need to sign the file, ie. don't use "
 "C<sig>.  This option overrides C<sig>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1007
+#: ../builder/virt-builder.pod:1013
 msgid "C<checksum=7b882fe9b82eb0fef...>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1009
+#: ../builder/virt-builder.pod:1015
 msgid "C<checksum> is an alias for C<checksum[sha512]>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1011
+#: ../builder/virt-builder.pod:1017
 msgid ""
 "If you need to interoperate with virt-builder = 1.24.0 then you have to use "
 "C<checksum> because that version would give a parse error with square "
@@ -4026,12 +4043,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1016
+#: ../builder/virt-builder.pod:1022
 msgid "C<revision=N>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1018
+#: ../builder/virt-builder.pod:1024
 msgid ""
 "The revision is an integer which is used to control the template cache.  "
 "Increasing the revision number causes clients to download the template again "
@@ -4039,22 +4056,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1022
+#: ../builder/virt-builder.pod:1028
 msgid "The revision number is optional.  If omitted it defaults to C<1>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1024
+#: ../builder/virt-builder.pod:1030
 msgid "C<format=raw>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1026
+#: ../builder/virt-builder.pod:1032
 msgid "C<format=qcow2>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1028
+#: ../builder/virt-builder.pod:1034
 msgid ""
 "Specify the format of the disk image (before it was compressed).  If not "
 "given, the format is autodetected, but generally it is better to be explicit "
@@ -4062,7 +4079,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1032
+#: ../builder/virt-builder.pod:1038
 msgid ""
 "Note this is the source format, which is different from the I<--format> "
 "option (requested output format).  Virt-builder does on-the-fly conversion "
@@ -4070,12 +4087,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1037
+#: ../builder/virt-builder.pod:1043
 msgid "C<size=NNN>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1039
+#: ../builder/virt-builder.pod:1045
 msgid ""
 "The virtual size of the image in bytes.  This is the size of the image when "
 "uncompressed.  If using a non-raw format such as qcow2 then it means the "
@@ -4083,36 +4100,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1043
+#: ../builder/virt-builder.pod:1049
 msgid "This field is required."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1045
+#: ../builder/virt-builder.pod:1051
 msgid ""
 "Virt-builder also uses this as the minimum size that users can request via "
 "the I<--size> option, or as the default size if there is no I<--size> option."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1049
+#: ../builder/virt-builder.pod:1055
 msgid "C<compressed_size=NNN>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1051
+#: ../builder/virt-builder.pod:1057
 msgid ""
 "The compressed size of the disk image in bytes.  This is just used for "
 "information (when using I<--list --long>)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1054
+#: ../builder/virt-builder.pod:1060
 msgid "C<expand=/dev/sdaX>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1056
+#: ../builder/virt-builder.pod:1062
 msgid ""
 "When expanding the image to its final size, instruct L<virt-resize(1)> to "
 "expand the named partition in the guest image to fill up all available "
@@ -4120,13 +4137,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1060
+#: ../builder/virt-builder.pod:1066
 msgid ""
 "You should usually put the device name of the guest's root filesystem here."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1062
+#: ../builder/virt-builder.pod:1068
 msgid ""
 "It's a good idea to use this, but not required.  If the field is omitted "
 "then virt-resize will create an extra partition at the end of the disk to "
@@ -4134,12 +4151,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1066
+#: ../builder/virt-builder.pod:1072
 msgid "C<lvexpand=/dev/VolGroup/LogVol>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1068
+#: ../builder/virt-builder.pod:1074
 msgid ""
 "When expanding the image to its final size, instruct L<virt-resize(1)> to "
 "expand the named logical volume in the guest image to fill up all available "
@@ -4147,7 +4164,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1072
+#: ../builder/virt-builder.pod:1078
 msgid ""
 "If the guest uses LVM2 you should usually put the LV of the guest's root "
 "filesystem here.  If the guest does not use LVM2 or its root filesystem is "
@@ -4155,32 +4172,32 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1076
+#: ../builder/virt-builder.pod:1082
 msgid "C<notes=NOTES>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1078
+#: ../builder/virt-builder.pod:1084
 msgid ""
 "Any notes that go with this image, especially notes describing what packages "
 "are in the image, how the image was prepared, and licensing information."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1082
+#: ../builder/virt-builder.pod:1088
 msgid ""
 "This information is shown in the I<--notes> and I<--list> I<--long> modes."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1084
+#: ../builder/virt-builder.pod:1090
 msgid ""
 "You can use multi-line notes here by indenting each new line with at least "
 "one character of whitespace (even on blank lines):"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:1087
+#: ../builder/virt-builder.pod:1093
 #, no-wrap
 msgid ""
 " notes=This image was prepared using\n"
@@ -4192,53 +4209,53 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1093
+#: ../builder/virt-builder.pod:1099
 msgid "C<hidden=true>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1095
+#: ../builder/virt-builder.pod:1101
 msgid ""
 "Using the hidden flag prevents the template from being listed by the I<--"
 "list> option (but it is still installable).  This is used for test images."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:1101
+#: ../builder/virt-builder.pod:1107
 msgid "Running virt-builder against the alternate repository"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1103
+#: ../builder/virt-builder.pod:1109
 msgid ""
 "Ensure each virt-builder user has imported your public key into their gpg "
 "keyring (see above)."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1106
+#: ../builder/virt-builder.pod:1112
 msgid "Each virt-builder user should export these environment variables:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1112
+#: ../builder/virt-builder.pod:1118
 msgid "C<VIRT_BUILDER_SOURCE> to point to the URL of the C<index.asc> file."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1116
+#: ../builder/virt-builder.pod:1122
 msgid ""
 "C<VIRT_BUILDER_FINGERPRINT> to contain the fingerprint (long hex string) of "
 "the user who signed the index file and the templates."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1121
+#: ../builder/virt-builder.pod:1127
 msgid "Now run virt-builder commands as normal, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:1123
+#: ../builder/virt-builder.pod:1129
 #, no-wrap
 msgid ""
 " virt-builder --list --long\n"
@@ -4246,7 +4263,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../builder/virt-builder.pod:1125
+#: ../builder/virt-builder.pod:1131
 #, no-wrap
 msgid ""
 " virt-builder os-version\n"
@@ -4254,17 +4271,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1127
+#: ../builder/virt-builder.pod:1133
 msgid "To debug problems, add the C<-v> option to these commands."
 msgstr ""
 
 #. type: =head3
-#: ../builder/virt-builder.pod:1129
+#: ../builder/virt-builder.pod:1135
 msgid "Licensing of templates"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1131
+#: ../builder/virt-builder.pod:1137
 msgid ""
 "You should be aware of the licensing of images that you distribute.  For "
 "open source guests, provide a link to the source code in the C<notes> field "
@@ -4272,55 +4289,55 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:1136
+#: ../builder/virt-builder.pod:1142
 msgid "CACHING"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1138
+#: ../builder/virt-builder.pod:1144
 msgid ""
 "Since the templates are usually very large, downloaded templates are cached "
 "in the user's home directory."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1141
+#: ../builder/virt-builder.pod:1147
 msgid ""
 "The location of the cache is C<$XDG_CACHE_HOME/virt-builder/> or C<$HOME/."
 "cache/virt-builder>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1144
+#: ../builder/virt-builder.pod:1150
 msgid ""
 "You can print out information about the cache directory, including which "
 "guests are currently cached, by doing:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1149
+#: ../builder/virt-builder.pod:1155
 msgid "The cache can be deleted if you want to save space by doing:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1153
+#: ../builder/virt-builder.pod:1159
 msgid "You can download all (current) templates to the local cache by doing:"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1157
+#: ../builder/virt-builder.pod:1163
 msgid "To disable the template cache, use I<--no-cache>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1159
+#: ../builder/virt-builder.pod:1165
 msgid ""
 "Only templates are cached.  The index and detached digital signatures are "
 "not cached."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1162
+#: ../builder/virt-builder.pod:1168
 msgid ""
 "Virt-builder uses L<curl(1)> to download files and it also uses the current "
 "C<http_proxy> (etc) settings when installing packages (I<--install>).  You "
@@ -4330,24 +4347,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:1168
+#: ../builder/virt-builder.pod:1174
 msgid "DIGITAL SIGNATURES"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1170
+#: ../builder/virt-builder.pod:1176
 msgid ""
 "Virt-builder uses GNU Privacy Guard (GnuPG or gpg) to verify that the index "
 "and templates have not been tampered with."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1173
+#: ../builder/virt-builder.pod:1179
 msgid "The source points to an index file, which is optionally signed."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1175
+#: ../builder/virt-builder.pod:1181
 msgid ""
 "Virt-builder downloads the index and checks that the signature is valid and "
 "the signer's fingerprint matches the specified fingerprint (ie. I<--"
@@ -4356,7 +4373,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1180
+#: ../builder/virt-builder.pod:1186
 msgid ""
 "For checking against the built-in public key/fingerprint, this requires "
 "importing the public key into the user's local gpg keyring (that's just the "
@@ -4364,13 +4381,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1184
+#: ../builder/virt-builder.pod:1190
 msgid ""
 "When a template is downloaded, its signature is checked in the same way."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1187
+#: ../builder/virt-builder.pod:1193
 msgid ""
 "Although the signatures are optional, if you don't have them then virt-"
 "builder users will have to use I<--no-check-signature> on the command line.  "
@@ -4381,19 +4398,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../builder/virt-builder.pod:1194 ../src/guestfs.pod:3343
+#: ../builder/virt-builder.pod:1200 ../src/guestfs.pod:3343
 msgid "ARCHITECTURE"
 msgstr "АРХІТЕКТУРА"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1196
+#: ../builder/virt-builder.pod:1202
 msgid ""
-"Virt-builder can, in theory, build a guest for any architecture no matter "
-"what the host architecture is.  For example a ppc64 guest on an x86-64 host."
+"Virt-builder can build a guest for any architecture no matter what the host "
+"architecture is.  For example an x86-64 guest on an ARM host."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1200
+#: ../builder/virt-builder.pod:1205
 msgid ""
 "However certain options may not work correctly, specifically options that "
 "require running commands in the guest during the build process: I<--"
@@ -4402,27 +4419,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1205
+#: ../builder/virt-builder.pod:1210
 msgid ""
-"An x86-64 host building 32 bit x86 guests should work without any special "
+"An x86-64 host building 32 bit i686 guests should work without any special "
 "steps."
 msgstr ""
 
 #. type: =head1
-#: ../builder/virt-builder.pod:1208 ../src/guestfs.pod:1889
+#: ../builder/virt-builder.pod:1213 ../src/guestfs.pod:1889
 #: ../sysprep/virt-sysprep.pod:447
 msgid "SECURITY"
 msgstr "БЕЗПЕКА"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1210
+#: ../builder/virt-builder.pod:1215
 msgid ""
 "Virt-builder does not need to run as root (in fact, should not be run as "
 "root), and doesn't use setuid, C<sudo> or any similar mechanism."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1213
+#: ../builder/virt-builder.pod:1218
 msgid ""
 "I<--install>, I<--run> and I<--run-command> are implemented using an "
 "appliance (a small virtual machine) so these commands do not run on the "
@@ -4432,7 +4449,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1219
+#: ../builder/virt-builder.pod:1224
 msgid ""
 "However these options will have access to the host's network and since the "
 "template may contain untrusted code, the code might try to access host "
@@ -4441,14 +4458,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1224
+#: ../builder/virt-builder.pod:1229
 msgid ""
 "Firstboot commands run in the context of the guest when it is booted, and so "
 "the security of your hypervisor / cloud should be considered."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1227
+#: ../builder/virt-builder.pod:1232
 msgid ""
 "Virt-builder injects a random seed into every guest which it builds.  This "
 "helps to ensure that TCP sequence numbers, UUIDs, ssh host keys etc are "
@@ -4456,17 +4473,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1231
+#: ../builder/virt-builder.pod:1236
 msgid "You should check digital signatures and not ignore any signing errors."
 msgstr ""
 
 #. type: =head2
-#: ../builder/virt-builder.pod:1233
+#: ../builder/virt-builder.pod:1238
 msgid "USER MODE LINUX"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1235
+#: ../builder/virt-builder.pod:1240
 msgid ""
 "You can use virt-builder with the User-Mode Linux (UML) backend.  This may "
 "be faster when running virt-builder inside a virtual machine (eg. in the "
@@ -4474,74 +4491,74 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1239
+#: ../builder/virt-builder.pod:1244
 msgid ""
 "To enable the UML backend, read the instructions in L<guestfs(3)/USER-MODE "
 "LINUX BACKEND>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1242
+#: ../builder/virt-builder.pod:1247
 msgid ""
 "Currently you have to use the I<--no-network> option.  This should be fixed "
 "in a future version."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1245
+#: ../builder/virt-builder.pod:1250
 msgid ""
 "The qcow2 output format is not supported by UML.  You can only create raw-"
 "format guests."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1250
+#: ../builder/virt-builder.pod:1255
 msgid ""
 "For other environment variables which affect all libguestfs programs, see "
 "L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1255
+#: ../builder/virt-builder.pod:1260
 msgid "C<http_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1257
+#: ../builder/virt-builder.pod:1262
 msgid "C<https_proxy>"
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1259
+#: ../builder/virt-builder.pod:1264
 msgid "C<no_proxy>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1261
+#: ../builder/virt-builder.pod:1266
 msgid ""
 "Set the proxy for downloads.  These environment variables (and more)  are "
 "actually interpreted by L<curl(1)>, not virt-builder."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1264
+#: ../builder/virt-builder.pod:1269
 msgid "C<HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1266 ../builder/virt-builder.pod:1286
+#: ../builder/virt-builder.pod:1271 ../builder/virt-builder.pod:1291
 msgid "Used to determine the location of the template cache.  See L</CACHING>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1268
+#: ../builder/virt-builder.pod:1273
 #, fuzzy
 #| msgid "LIBGUESTFS_MEMSIZE"
 msgid "C<LIBGUESTFS_MEMSIZE>"
 msgstr "LIBGUESTFS_MEMSIZE"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1270
+#: ../builder/virt-builder.pod:1275
 msgid ""
 "The size (in megabytes) of the appliance.  The default can be found using "
 "the command S<C<guestfish get-memsize>>.  Increase this if you find that I<--"
@@ -4549,37 +4566,37 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1274
+#: ../builder/virt-builder.pod:1279
 msgid "C<VIRT_BUILDER_FINGERPRINT>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1276
+#: ../builder/virt-builder.pod:1281
 msgid ""
 "Set the default value for the GPG signature fingerprint (see I<--"
 "fingerprint> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1279
+#: ../builder/virt-builder.pod:1284
 msgid "C<VIRT_BUILDER_SOURCE>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1281
+#: ../builder/virt-builder.pod:1286
 msgid ""
 "Set the default value for the source URL for the template repository (see "
 "I<--source> option)."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1284
+#: ../builder/virt-builder.pod:1289
 msgid "C<XDG_CACHE_HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1292 ../cat/virt-cat.pod:246
-#: ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:498
+#: ../builder/virt-builder.pod:1297 ../cat/virt-cat.pod:246
+#: ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:504
 #: ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262 ../edit/virt-edit.pod:359
 #: ../fuse/guestmount.pod:403 ../inspector/virt-inspector.pod:498
 #: ../resize/virt-resize.pod:753 ../sparsify/virt-sparsify.pod:309
@@ -4590,7 +4607,7 @@ msgstr ""
 "значення, якщо сталася помилка."
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1297
+#: ../builder/virt-builder.pod:1302
 #, fuzzy
 #| msgid ""
 #| "L<guestfs(3)>, L<guestfish(1)>, L<virt-clone(1)>, L<virt-rescue(1)>, "
@@ -4608,7 +4625,7 @@ msgstr ""
 "img(1)>, L<scrub(1)>, L<http://libguestfs.org/>, L<http://libvirt.org/>."
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1316 ../fuse/guestunmount.pod:164
+#: ../builder/virt-builder.pod:1321 ../fuse/guestunmount.pod:164
 #: ../golang/examples/guestfs-golang.pod:99
 msgid "Copyright (C) 2013 Red Hat Inc."
 msgstr "© Red Hat Inc., 2013"
@@ -4797,7 +4814,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-cat.pod:74 ../cat/virt-filesystems.pod:103
-#: ../cat/virt-ls.pod:273 ../df/virt-df.pod:85 ../edit/virt-edit.pod:74
+#: ../cat/virt-ls.pod:279 ../df/virt-df.pod:85 ../edit/virt-edit.pod:74
 #: ../inspector/virt-inspector.pod:66 ../rescue/virt-rescue.pod:127
 msgid ""
 "Add I<file> which should be a disk image from a virtual machine.  If the "
@@ -4807,7 +4824,7 @@ msgstr ""
 
 #. type: =item
 #: ../cat/virt-cat.pod:104 ../cat/virt-filesystems.pod:154
-#: ../cat/virt-ls.pod:320 ../edit/virt-edit.pod:118 ../fish/guestfish.pod:229
+#: ../cat/virt-ls.pod:326 ../edit/virt-edit.pod:118 ../fish/guestfish.pod:229
 #: ../fuse/guestmount.pod:210 ../inspector/virt-inspector.pod:91
 msgid "B<--echo-keys>"
 msgstr "B<--echo-keys>"
@@ -4843,14 +4860,14 @@ msgstr ""
 
 #. type: =item
 #: ../cat/virt-cat.pod:135 ../cat/virt-filesystems.pod:206
-#: ../cat/virt-ls.pod:367 ../edit/virt-edit.pod:164 ../fish/guestfish.pod:301
+#: ../cat/virt-ls.pod:373 ../edit/virt-edit.pod:164 ../fish/guestfish.pod:301
 #: ../fuse/guestmount.pod:247 ../inspector/virt-inspector.pod:113
 msgid "B<--keys-from-stdin>"
 msgstr "B<--keys-from-stdin>"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:137 ../cat/virt-filesystems.pod:208
-#: ../cat/virt-ls.pod:369 ../edit/virt-edit.pod:166 ../fish/guestfish.pod:303
+#: ../cat/virt-ls.pod:375 ../edit/virt-edit.pod:166 ../fish/guestfish.pod:303
 #: ../fuse/guestmount.pod:249 ../inspector/virt-inspector.pod:115
 msgid ""
 "Read key or passphrase parameters from stdin.  The default is to try to read "
@@ -4858,7 +4875,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../cat/virt-cat.pod:158 ../cat/virt-ls.pod:449 ../edit/virt-edit.pod:187
+#: ../cat/virt-cat.pod:158 ../cat/virt-ls.pod:455 ../edit/virt-edit.pod:187
 #: ../inspector/virt-inspector.pod:143 ../rescue/virt-rescue.pod:267
 msgid "OLD-STYLE COMMAND LINE ARGUMENTS"
 msgstr "ПАРАМЕТРИ КОМАНДНОГО РЯДКА У ФОРМАТІ ПОПЕРЕДНІХ ВЕРСІЙ"
@@ -4879,7 +4896,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:164 ../cat/virt-ls.pod:455 ../edit/virt-edit.pod:193
+#: ../cat/virt-cat.pod:164 ../cat/virt-ls.pod:461 ../edit/virt-edit.pod:193
 #: ../inspector/virt-inspector.pod:149 ../rescue/virt-rescue.pod:273
 msgid "or"
 msgstr "або"
@@ -4895,7 +4912,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:168 ../cat/virt-ls.pod:459 ../edit/virt-edit.pod:197
+#: ../cat/virt-cat.pod:168 ../cat/virt-ls.pod:465 ../edit/virt-edit.pod:197
 #: ../inspector/virt-inspector.pod:153 ../rescue/virt-rescue.pod:277
 msgid ""
 "whereas in this version you should use I<-a> or I<-d> respectively to avoid "
@@ -4903,7 +4920,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:172 ../cat/virt-ls.pod:463 ../edit/virt-edit.pod:201
+#: ../cat/virt-cat.pod:172 ../cat/virt-ls.pod:469 ../edit/virt-edit.pod:201
 #: ../inspector/virt-inspector.pod:157 ../rescue/virt-rescue.pod:281
 msgid "For compatibility the old style is still supported."
 msgstr ""
@@ -5287,13 +5304,13 @@ msgid "Display block devices."
 msgstr "Показати список блокових пристроїв."
 
 #. type: =item
-#: ../cat/virt-filesystems.pod:141 ../cat/virt-ls.pod:307
+#: ../cat/virt-filesystems.pod:141 ../cat/virt-ls.pod:313
 #: ../df/virt-df.pod:108
 msgid "B<--csv>"
 msgstr "B<--csv>"
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:143 ../cat/virt-ls.pod:309
+#: ../cat/virt-filesystems.pod:143 ../cat/virt-ls.pod:315
 #: ../df/virt-df.pod:110
 msgid ""
 "Write out the results in CSV format (comma-separated values).  This format "
@@ -5370,14 +5387,14 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../cat/virt-filesystems.pod:200 ../cat/virt-ls.pod:358
+#: ../cat/virt-filesystems.pod:200 ../cat/virt-ls.pod:364
 #: ../df/virt-df.pod:145 ../fish/guestfish.pod:162
 #: ../tools/virt-list-partitions:110
 msgid "B<-h>"
 msgstr "B<-h>"
 
 #. type: =item
-#: ../cat/virt-filesystems.pod:202 ../cat/virt-ls.pod:360
+#: ../cat/virt-filesystems.pod:202 ../cat/virt-ls.pod:366
 #: ../df/virt-df.pod:147 ../tools/virt-list-partitions:112
 msgid "B<--human-readable>"
 msgstr "B<--human-readable>"
@@ -5388,7 +5405,7 @@ msgid "In I<--long> mode, display sizes in human-readable format."
 msgstr "У режимі I<--long> показувати розміри у зручному для читання форматі."
 
 #. type: =item
-#: ../cat/virt-filesystems.pod:213 ../cat/virt-ls.pod:374
+#: ../cat/virt-filesystems.pod:213 ../cat/virt-ls.pod:380
 #: ../tools/virt-list-filesystems:111 ../tools/virt-list-partitions:122
 msgid "B<--long>"
 msgstr "B<--long>"
@@ -5675,13 +5692,13 @@ msgid "The UUID is only displayed if the I<--uuid> option is given."
 msgstr "UUID буде показано, лише якщо вказано параметр I<--uuid>."
 
 #. type: =head1
-#: ../cat/virt-filesystems.pod:359 ../cat/virt-ls.pod:465
+#: ../cat/virt-filesystems.pod:359 ../cat/virt-ls.pod:471
 #: ../df/virt-df.pod:229
 msgid "NOTE ABOUT CSV FORMAT"
 msgstr "ЗАУВАЖЕННЯ ЩОДО ФОРМАТУ CSV"
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:361 ../cat/virt-ls.pod:467
+#: ../cat/virt-filesystems.pod:361 ../cat/virt-ls.pod:473
 #: ../df/virt-df.pod:231
 msgid ""
 "Comma-separated values (CSV) is a deceptive format.  It I<seems> like it "
@@ -5689,7 +5706,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:364 ../cat/virt-ls.pod:470
+#: ../cat/virt-filesystems.pod:364 ../cat/virt-ls.pod:476
 #: ../df/virt-df.pod:234
 msgid ""
 "Myth: Just split fields at commas.  Reality: This does I<not> work "
@@ -5697,7 +5714,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../cat/virt-filesystems.pod:367 ../cat/virt-ls.pod:473
+#: ../cat/virt-filesystems.pod:367 ../cat/virt-ls.pod:479
 #: ../df/virt-df.pod:237
 #, no-wrap
 msgid ""
@@ -5708,7 +5725,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:369 ../cat/virt-ls.pod:475
+#: ../cat/virt-filesystems.pod:369 ../cat/virt-ls.pod:481
 #: ../df/virt-df.pod:239
 msgid ""
 "Myth: Read the file one line at a time.  Reality: This does I<not> work "
@@ -5716,7 +5733,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../cat/virt-filesystems.pod:372 ../cat/virt-ls.pod:478
+#: ../cat/virt-filesystems.pod:372 ../cat/virt-ls.pod:484
 #: ../df/virt-df.pod:242
 #, no-wrap
 msgid ""
@@ -5729,7 +5746,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:375 ../cat/virt-ls.pod:481
+#: ../cat/virt-filesystems.pod:375 ../cat/virt-ls.pod:487
 #: ../df/virt-df.pod:245
 msgid ""
 "For shell scripts, use C<csvtool> (L<http://merjis.com/developers/csv> also "
@@ -5737,7 +5754,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:378 ../cat/virt-ls.pod:484
+#: ../cat/virt-filesystems.pod:378 ../cat/virt-ls.pod:490
 #: ../df/virt-df.pod:248
 msgid ""
 "For other languages, use a CSV processing library (eg. C<Text::CSV> for Perl "
@@ -5745,7 +5762,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:381 ../cat/virt-ls.pod:487
+#: ../cat/virt-filesystems.pod:381 ../cat/virt-ls.pod:493
 #: ../df/virt-df.pod:251
 msgid "Most spreadsheets and databases can import CSV directly."
 msgstr ""
@@ -5982,10 +5999,15 @@ msgstr ""
 
 #. type: verbatim
 #: ../cat/virt-ls.pod:74
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " virt-ls -lR -a snapshot.img / --uids --time-t > old\n"
+#| " virt-ls -lR -a current.img / --uids --time-t > new\n"
+#| " diff -u old new | less\n"
+#| "\n"
 msgid ""
-" virt-ls -lR -a snapshot.img / --uids --time-t > old\n"
-" virt-ls -lR -a current.img / --uids --time-t > new\n"
+" virt-ls -lR -a snapshot.img / --uids > old\n"
+" virt-ls -lR -a current.img / --uids > new\n"
 " diff -u old new | less\n"
 "\n"
 msgstr ""
@@ -6004,30 +6026,43 @@ msgid ""
 "every regular file in the virtual machine."
 msgstr ""
 
-#. type: =head1
+#. type: textblock
 #: ../cat/virt-ls.pod:84
+msgid ""
+"The commands above won't show changes in file times.  Add I<--time-t> to "
+"both C<virt-ls> commands if you want to show all time changes (that includes "
+"file access times)."
+msgstr ""
+
+#. type: textblock
+#: ../cat/virt-ls.pod:88
+msgid "To diff the content of files, use L<virt-cat(1)> or L<guestfish(1)>."
+msgstr ""
+
+#. type: =head1
+#: ../cat/virt-ls.pod:90
 msgid "OUTPUT MODES"
 msgstr "РЕЖИМИ ВИВЕДЕННЯ ДАНИХ"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:86
+#: ../cat/virt-ls.pod:92
 msgid ""
 "C<virt-ls> has four output modes, controlled by different combinations of "
 "the I<-l> and I<-R> options."
 msgstr ""
 
 #. type: =head2
-#: ../cat/virt-ls.pod:89
+#: ../cat/virt-ls.pod:95
 msgid "SIMPLE LISTING"
 msgstr "ПРОСТИЙ СПИСОК"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:91
+#: ../cat/virt-ls.pod:97
 msgid "A simple listing is like the ordinary L<ls(1)> command:"
 msgstr "Простий список, подібний до списку звичайної команди L<ls(1)>:"
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:93
+#: ../cat/virt-ls.pod:99
 #, no-wrap
 msgid ""
 " $ virt-ls -d guest /\n"
@@ -6043,19 +6078,19 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../cat/virt-ls.pod:98
+#: ../cat/virt-ls.pod:104
 msgid "LONG LISTING"
 msgstr "ДОВГИЙ СПИСОК"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:100
+#: ../cat/virt-ls.pod:106
 msgid ""
 "With the I<-l> (I<--long>) option, the output is like the C<ls -l> command "
 "(more specifically, like the C<guestfs_ll> function)."
 msgstr ""
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:103
+#: ../cat/virt-ls.pod:109
 #, no-wrap
 msgid ""
 " $ virt-ls -l -d guest /\n"
@@ -6073,7 +6108,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:109
+#: ../cat/virt-ls.pod:115
 msgid ""
 "Note that while this is useful for displaying a directory, do not try "
 "parsing this output in another program.  Use L</RECURSIVE LONG LISTING> "
@@ -6081,19 +6116,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../cat/virt-ls.pod:113
+#: ../cat/virt-ls.pod:119
 msgid "RECURSIVE LISTING"
 msgstr "РЕКУРСИВНИЙ СПИСОК"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:115
+#: ../cat/virt-ls.pod:121
 msgid ""
 "With the I<-R> (I<--recursive>) option, C<virt-ls> lists the names of files "
 "and directories recursively:"
 msgstr ""
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:118
+#: ../cat/virt-ls.pod:124
 #, no-wrap
 msgid ""
 " $ virt-ls -R -d guest /tmp\n"
@@ -6109,19 +6144,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:123
+#: ../cat/virt-ls.pod:129
 msgid ""
 "To generate this output, C<virt-ls> runs the C<guestfs_find0> function and "
 "converts C<\\0> characters to C<\\n>."
 msgstr ""
 
 #. type: =head2
-#: ../cat/virt-ls.pod:126
+#: ../cat/virt-ls.pod:132
 msgid "RECURSIVE LONG LISTING"
 msgstr "РЕКУРСИВНИЙ ДОВГИЙ СПИСОК"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:128
+#: ../cat/virt-ls.pod:134
 msgid ""
 "Using I<-lR> options together changes the output to display directories "
 "recursively, with file stats, and optionally other features such as "
@@ -6129,14 +6164,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:132
+#: ../cat/virt-ls.pod:138
 msgid ""
 "Most of the interesting features of C<virt-ls> are only available when using "
 "I<-lR> mode."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:135
+#: ../cat/virt-ls.pod:141
 msgid ""
 "The fields are normally space-separated.  Filenames are B<not> quoted, so "
 "you cannot use the output in another program (because filenames can contain "
@@ -6148,14 +6183,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:143
+#: ../cat/virt-ls.pod:149
 msgid ""
 "Note that this output format is completely unrelated to the C<ls -lR> "
 "command."
 msgstr ""
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:146
+#: ../cat/virt-ls.pod:152
 #, no-wrap
 msgid ""
 " $ virt-ls -lR -d guest /bin\n"
@@ -6179,17 +6214,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:155
+#: ../cat/virt-ls.pod:161
 msgid "These basic fields are always shown:"
 msgstr "Ці основні поля буде показано завжди:"
 
 #. type: =item
-#: ../cat/virt-ls.pod:159
+#: ../cat/virt-ls.pod:165
 msgid "type"
 msgstr "тип"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:161
+#: ../cat/virt-ls.pod:167
 msgid ""
 "The file type, one of: C<-> (regular file), C<d> (directory), C<c> "
 "(character device), C<b> (block device), C<p> (named pipe), C<l> (symbolic "
@@ -6197,22 +6232,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:171
+#: ../cat/virt-ls.pod:177
 msgid "permissions"
 msgstr "права доступу"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:173
+#: ../cat/virt-ls.pod:179
 msgid "The Unix permissions, displayed as a 4 digit octal number."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:175
+#: ../cat/virt-ls.pod:181
 msgid "size"
 msgstr "розмір"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:177
+#: ../cat/virt-ls.pod:183
 msgid ""
 "The size of the file.  This is shown in bytes unless I<-h> or I<--human-"
 "readable> option is given, in which case this is shown as a human-readable "
@@ -6220,158 +6255,158 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../cat/virt-ls.pod:181 ../fish/guestfish-actions.pod:6612
+#: ../cat/virt-ls.pod:187 ../fish/guestfish-actions.pod:6612
 msgid "path"
 msgstr "шлях"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:183
+#: ../cat/virt-ls.pod:189
 msgid "The full path of the file or directory."
 msgstr "Шлях до файла або каталогу повністю."
 
 #. type: =item
-#: ../cat/virt-ls.pod:185
+#: ../cat/virt-ls.pod:191
 msgid "link"
 msgstr "посилання"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:187
+#: ../cat/virt-ls.pod:193
 msgid "For symbolic links only, the link target."
 msgstr "Лише для символічних посилань, призначення посилання."
 
 #. type: textblock
-#: ../cat/virt-ls.pod:191
+#: ../cat/virt-ls.pod:197
 msgid ""
 "In I<-lR> mode, additional command line options enable the display of more "
 "fields."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:194
+#: ../cat/virt-ls.pod:200
 msgid ""
 "With the I<--uids> flag, these additional fields are displayed before the "
 "path:"
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:199
+#: ../cat/virt-ls.pod:205
 msgid "uid"
 msgstr "uid"
 
 #. type: =item
-#: ../cat/virt-ls.pod:201
+#: ../cat/virt-ls.pod:207
 msgid "gid"
 msgstr "gid"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:203
+#: ../cat/virt-ls.pod:209
 msgid ""
 "The UID and GID of the owner of the file (displayed numerically).  Note "
 "these only make sense in the context of a Unix-like guest."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:208
+#: ../cat/virt-ls.pod:214
 msgid "With the I<--times> flag, these additional fields are displayed:"
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:212
+#: ../cat/virt-ls.pod:218
 msgid "atime"
 msgstr "atime"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:214
+#: ../cat/virt-ls.pod:220
 msgid "The time of last access."
 msgstr "Час останнього доступу."
 
 #. type: =item
-#: ../cat/virt-ls.pod:216
+#: ../cat/virt-ls.pod:222
 msgid "mtime"
 msgstr "mtime"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:218
+#: ../cat/virt-ls.pod:224
 msgid "The time of last modification."
 msgstr "Час останнього внесення змін."
 
 #. type: =item
-#: ../cat/virt-ls.pod:220
+#: ../cat/virt-ls.pod:226
 msgid "ctime"
 msgstr "ctime"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:222
+#: ../cat/virt-ls.pod:228
 msgid "The time of last status change."
 msgstr "Час останньої зміни стану."
 
 #. type: textblock
-#: ../cat/virt-ls.pod:226
+#: ../cat/virt-ls.pod:232
 msgid ""
 "The time fields are displayed as string dates and times, unless one of the "
 "I<--time-t>, I<--time-relative> or I<--time-days> flags is given."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:229
+#: ../cat/virt-ls.pod:235
 msgid "With the I<--extra-stats> flag, these additional fields are displayed:"
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:233
+#: ../cat/virt-ls.pod:239
 msgid "device"
 msgstr "пристрій"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:235
+#: ../cat/virt-ls.pod:241
 msgid ""
 "The device containing the file (displayed as major:minor).  This may not "
 "match devices as known to the guest."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:238
+#: ../cat/virt-ls.pod:244
 msgid "inode"
 msgstr "inode"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:240
+#: ../cat/virt-ls.pod:246
 msgid "The inode number."
 msgstr "Номер inode."
 
 #. type: =item
-#: ../cat/virt-ls.pod:242
+#: ../cat/virt-ls.pod:248
 msgid "nlink"
 msgstr "nlink"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:244
+#: ../cat/virt-ls.pod:250
 msgid "The number of hard links."
 msgstr "Кількість жорстких посилань."
 
 #. type: =item
-#: ../cat/virt-ls.pod:246
+#: ../cat/virt-ls.pod:252
 msgid "rdev"
 msgstr "rdev"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:248
+#: ../cat/virt-ls.pod:254
 msgid ""
 "For block and char special files, the device (displayed as major:minor)."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:251
+#: ../cat/virt-ls.pod:257
 msgid "blocks"
 msgstr "блоки"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:253
+#: ../cat/virt-ls.pod:259
 msgid "The number of 512 byte blocks allocated to the file."
 msgstr "Кількість 512-байтових блоків, виділених під файл."
 
 #. type: textblock
-#: ../cat/virt-ls.pod:257
+#: ../cat/virt-ls.pod:263
 msgid ""
 "With the I<--checksum> flag, the checksum of the file contents is shown "
 "(only for regular files).  Computing file checksums can take a considerable "
@@ -6379,17 +6414,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:286
+#: ../cat/virt-ls.pod:292
 msgid "B<--checksum>"
 msgstr "B<--checksum>"
 
 #. type: =item
-#: ../cat/virt-ls.pod:288
+#: ../cat/virt-ls.pod:294
 msgid "B<--checksum=crc|md5|sha1|sha224|sha256|sha384|sha512>"
 msgstr "B<--checksum=crc|md5|sha1|sha224|sha256|sha384|sha512>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:290
+#: ../cat/virt-ls.pod:296
 msgid ""
 "Display checksum over file contents for regular files.  With no argument, "
 "this defaults to using I<md5>.  Using an argument, you can select the "
@@ -6397,16 +6432,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:294 ../cat/virt-ls.pod:331 ../cat/virt-ls.pod:364
-#: ../cat/virt-ls.pod:397 ../cat/virt-ls.pod:407 ../cat/virt-ls.pod:414
-#: ../cat/virt-ls.pod:421 ../cat/virt-ls.pod:428
+#: ../cat/virt-ls.pod:300 ../cat/virt-ls.pod:337 ../cat/virt-ls.pod:370
+#: ../cat/virt-ls.pod:403 ../cat/virt-ls.pod:413 ../cat/virt-ls.pod:420
+#: ../cat/virt-ls.pod:427 ../cat/virt-ls.pod:434
 msgid ""
 "This option only has effect in I<-lR> output mode.  See L</RECURSIVE LONG "
 "LISTING> above."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:322
+#: ../cat/virt-ls.pod:328
 msgid ""
 "When prompting for keys and passphrases, virt-ls normally turns echoing off "
 "so you cannot see what you are typing.  If you are not worried about Tempest "
@@ -6415,17 +6450,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:327
+#: ../cat/virt-ls.pod:333
 msgid "B<--extra-stats>"
 msgstr "B<--extra-stats>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:329
+#: ../cat/virt-ls.pod:335
 msgid "Display extra stats."
 msgstr "Показати додаткові дані."
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:345
+#: ../cat/virt-ls.pod:351
 #, no-wrap
 msgid ""
 " virt-ls --format=raw -a disk.img /dir\n"
@@ -6435,7 +6470,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:349
+#: ../cat/virt-ls.pod:355
 #, no-wrap
 msgid ""
 " virt-ls --format=raw -a disk.img --format -a another.img /dir\n"
@@ -6445,22 +6480,22 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:362
+#: ../cat/virt-ls.pod:368
 msgid "Display file sizes in human-readable format."
 msgstr "Показати розміри файлів у зручному для читання форматі."
 
 #. type: =item
-#: ../cat/virt-ls.pod:376
+#: ../cat/virt-ls.pod:382
 msgid "B<-R>"
 msgstr "B<-R>"
 
 #. type: =item
-#: ../cat/virt-ls.pod:378
+#: ../cat/virt-ls.pod:384
 msgid "B<--recursive>"
 msgstr "B<--recursive>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:380
+#: ../cat/virt-ls.pod:386
 msgid ""
 "Select the mode.  With neither of these options, C<virt-ls> produces a "
 "simple, flat list of the files in the named directory.  See L</SIMPLE "
@@ -6468,90 +6503,90 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:384
+#: ../cat/virt-ls.pod:390
 msgid ""
 "C<virt-ls -l> produces a \"long listing\", which shows more detail.  See L</"
 "LONG LISTING>."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:387
+#: ../cat/virt-ls.pod:393
 msgid ""
 "C<virt-ls -R> produces a recursive list of files starting at the named "
 "directory.  See L</RECURSIVE LISTING>."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:390
+#: ../cat/virt-ls.pod:396
 msgid ""
 "C<virt-ls -lR> produces a recursive long listing which can be more easily "
 "parsed.  See L</RECURSIVE LONG LISTING>."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:393
+#: ../cat/virt-ls.pod:399
 msgid "B<--times>"
 msgstr "B<--times>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:395
+#: ../cat/virt-ls.pod:401
 msgid "Display time fields."
 msgstr "Показати поля часу."
 
 #. type: =item
-#: ../cat/virt-ls.pod:400
+#: ../cat/virt-ls.pod:406
 msgid "B<--time-days>"
 msgstr "B<--time-days>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:402
+#: ../cat/virt-ls.pod:408
 msgid "Display time fields as days before now (negative if in the future)."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:404
+#: ../cat/virt-ls.pod:410
 msgid ""
 "Note that C<0> in output means \"up to 1 day before now\", or that the age "
 "of the file is between 0 and 86399 seconds."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:410
+#: ../cat/virt-ls.pod:416
 msgid "B<--time-relative>"
 msgstr "B<--time-relative>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:412
+#: ../cat/virt-ls.pod:418
 msgid "Display time fields as seconds before now (negative if in the future)."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:417
+#: ../cat/virt-ls.pod:423
 msgid "B<--time-t>"
 msgstr "B<--time-t>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:419
+#: ../cat/virt-ls.pod:425
 msgid "Display time fields as seconds since the Unix epoch."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:424
+#: ../cat/virt-ls.pod:430
 msgid "B<--uids>"
 msgstr "B<--uids>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:426
+#: ../cat/virt-ls.pod:432
 msgid "Display UID and GID fields."
 msgstr "Показати поля UID і GID."
 
 #. type: textblock
-#: ../cat/virt-ls.pod:451
+#: ../cat/virt-ls.pod:457
 msgid "Previous versions of virt-ls allowed you to write either:"
 msgstr ""
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:453
+#: ../cat/virt-ls.pod:459
 #, no-wrap
 msgid ""
 " virt-ls disk.img [disk.img ...] /dir\n"
@@ -6561,7 +6596,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:457
+#: ../cat/virt-ls.pod:463
 #, no-wrap
 msgid ""
 " virt-ls guestname /dir\n"
@@ -6571,7 +6606,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:503
+#: ../cat/virt-ls.pod:509
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-out(1)>, L<virt-"
 "tar-out(1)>, L<http://libguestfs.org/>."
@@ -8374,7 +8409,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:154 ../examples/guestfs-faq.pod:807
+#: ../examples/guestfs-faq.pod:154 ../examples/guestfs-faq.pod:844
 #: ../examples/guestfs-testing.pod:35 ../test-tool/libguestfs-test-tool.pod:21
 #, no-wrap
 msgid ""
@@ -8415,16 +8450,95 @@ msgstr ""
 
 #. type: =head2
 #: ../examples/guestfs-faq.pod:166
-msgid "Non-ASCII characters don't appear on VFAT filesystems."
+msgid "execl: /init: Permission denied"
 msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:168
+msgid ""
+"B<Note:> If this error happens when you are using a distro package of "
+"libguestfs (eg. from Fedora, Debian, etc) then file a bug against the "
+"distro.  This is not an error which normal users should ever see if the "
+"distro package has been prepared correctly."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:173
+msgid ""
+"This error happens during the supermin boot phase of starting the appliance:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-faq.pod:176
+#, no-wrap
+msgid ""
+" supermin: mounting new root on /root\n"
+" supermin: chroot\n"
+" execl: /init: Permission denied\n"
+" supermin: debug: listing directory /\n"
+" [...followed by a lot of debug output...]\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:182
+msgid ""
+"This is a complicated bug related to L<supermin(1)> appliances.  The "
+"appliance is constructed by copying files like C</bin/bash> and many "
+"libraries from the host.  The file C<hostfiles> lists the files that should "
+"be copied from the host into the appliance.  If some files don't exist on "
+"the host then they are missed out, but if these files are needed in order to "
+"(eg) run C</bin/bash> then you'll see the above error."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:190
+msgid ""
+"Diagnosing the problem involves studying the libraries needed by C</bin/"
+"bash>, ie:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-faq.pod:193
+#, fuzzy, no-wrap
+#| msgid ""
+#| " #!/bin/bash -\n"
+#| " \n"
+msgid ""
+" ldd /bin/bash\n"
+"\n"
+msgstr ""
+" #!/bin/bash -\n"
+" \n"
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:195
+msgid ""
+"comparing that with C<hostfiles>, with the files actually available in the "
+"host filesystem, and with the debug output printed in the error message.  "
+"Once you've worked out which file is missing, install that file using your "
+"package manager and try again."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:200
+msgid ""
+"You should also check that files like C</init> and C</bin/bash> (in the "
+"appliance) are executable.  The debug output shows file modes."
+msgstr ""
+
+#. type: =head2
+#: ../examples/guestfs-faq.pod:203
+msgid "Non-ASCII characters don't appear on VFAT filesystems."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:205
 msgid "Typical symptoms of this problem:"
 msgstr "Типові симптоми проблеми:"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:174
+#: ../examples/guestfs-faq.pod:211
 msgid ""
 "You get an error when you create a file where the filename contains non-"
 "ASCII characters, particularly non 8-bit characters from Asian languages "
@@ -8432,19 +8546,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:180
+#: ../examples/guestfs-faq.pod:217
 msgid ""
 "When you list a directory from a VFAT filesystem, filenames appear as "
 "question marks."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:185
+#: ../examples/guestfs-faq.pod:222
 msgid "This is a design flaw of the GNU/Linux system."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:187
+#: ../examples/guestfs-faq.pod:224
 msgid ""
 "VFAT stores long filenames as UTF-16 characters.  When opening or returning "
 "filenames, the Linux kernel has to translate these to some form of 8 bit "
@@ -8454,7 +8568,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:193
+#: ../examples/guestfs-faq.pod:230
 msgid ""
 "Therefore you have to tell the kernel what translation you want done when "
 "you mount the filesystem.  The two methods are the C<iocharset> parameter "
@@ -8462,14 +8576,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:197
+#: ../examples/guestfs-faq.pod:234
 msgid ""
 "So to use a VFAT filesystem you must add the C<utf8> flag when mounting.  "
 "From guestfish, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:200
+#: ../examples/guestfs-faq.pod:237
 #, no-wrap
 msgid ""
 " ><fs> mount-options utf8 /dev/sda1 /\n"
@@ -8479,12 +8593,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:202
+#: ../examples/guestfs-faq.pod:239
 msgid "or on the guestfish command line:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:204
+#: ../examples/guestfs-faq.pod:241
 #, no-wrap
 msgid ""
 " guestfish [...] -m /dev/sda1:/:utf8\n"
@@ -8494,12 +8608,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:206
+#: ../examples/guestfs-faq.pod:243
 msgid "or from the API:"
 msgstr "або з програмного інтерфейсу:"
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:208
+#: ../examples/guestfs-faq.pod:245
 #, no-wrap
 msgid ""
 " guestfs_mount_options (g, \"utf8\", \"/dev/sda1\", \"/\");\n"
@@ -8509,19 +8623,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:210
+#: ../examples/guestfs-faq.pod:247
 msgid "The kernel will then translate filenames to and from UTF-8 strings."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:212
+#: ../examples/guestfs-faq.pod:249
 msgid ""
 "We considered adding this mount option transparently, but unfortunately "
 "there are several problems with doing that:"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:219
+#: ../examples/guestfs-faq.pod:256
 msgid ""
 "On some Linux systems, the C<utf8> mount option doesn't work.  We don't "
 "precisely understand what systems or why, but this was reliably reported by "
@@ -8529,7 +8643,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:225
+#: ../examples/guestfs-faq.pod:262
 msgid ""
 "It would prevent you from using the C<iocharset> parameter because it is "
 "incompatible with C<utf8>.  It is probably not a good idea to use this "
@@ -8537,12 +8651,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:231
+#: ../examples/guestfs-faq.pod:268
 msgid "Non-ASCII characters appear as underscore (_) on ISO9660 filesystems."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:233
+#: ../examples/guestfs-faq.pod:270
 msgid ""
 "The filesystem was not prepared correctly with mkisofs or genisoimage.  Make "
 "sure the filesystem was created using Joliet and/or Rock Ridge extensions.  "
@@ -8551,32 +8665,32 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:238
+#: ../examples/guestfs-faq.pod:275
 msgid "DOWNLOADING, INSTALLING, COMPILING LIBGUESTFS"
 msgstr "ОТРИМАННЯ, ВСТАНОВЛЕННЯ, ЗБИРАННЯ LIBGUESTFS"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:242
+#: ../examples/guestfs-faq.pod:279
 msgid "<!-- old anchor for the next section --> <a name=\"binaries\"/>"
 msgstr "<!-- old anchor for the next section --> <a name=\"binaries\"/>"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:247
+#: ../examples/guestfs-faq.pod:284
 msgid "Where can I get the latest binaries for ...?"
 msgstr "Де взяти найсвіжіші збірки для... ?"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:251
+#: ../examples/guestfs-faq.pod:288
 msgid "Fedora E<ge> 11"
 msgstr "Fedora E<ge> 11"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:253
+#: ../examples/guestfs-faq.pod:290
 msgid "Use:"
 msgstr "Скористайтеся командою:"
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:255
+#: ../examples/guestfs-faq.pod:292
 #, no-wrap
 msgid ""
 " yum install '*guestf*'\n"
@@ -8586,7 +8700,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:257
+#: ../examples/guestfs-faq.pod:294
 msgid ""
 "For the latest builds, see: L<http://koji.fedoraproject.org/koji/packageinfo?"
 "packageID=8391>"
@@ -8595,17 +8709,17 @@ msgstr ""
 "packageinfo?packageID=8391>"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:260
+#: ../examples/guestfs-faq.pod:297
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:264
+#: ../examples/guestfs-faq.pod:301
 msgid "RHEL 5"
 msgstr "RHEL 5"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:266
+#: ../examples/guestfs-faq.pod:303
 msgid ""
 "The version shipped in official RHEL 5 is very old and should not be used "
 "except in conjunction with virt-v2v.  Use the up-to-date libguestfs 1.20 "
@@ -8616,12 +8730,12 @@ msgstr ""
 "libguestfs 1.20 з EPEL 5: L<https://fedoraproject.org/wiki/EPEL>"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:271
+#: ../examples/guestfs-faq.pod:308
 msgid "RHEL 6"
 msgstr "RHEL 6"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:273
+#: ../examples/guestfs-faq.pod:310
 msgid ""
 "It is part of the default install.  On RHEL 6 and 7 (only) you have to "
 "install C<libguestfs-winsupport> to get Windows guest support."
@@ -8631,29 +8745,29 @@ msgstr ""
 "гостьовими системами Windows."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:278
+#: ../examples/guestfs-faq.pod:315
 msgid "RHEL 6.5"
 msgstr "RHEL 6.5"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:280
+#: ../examples/guestfs-faq.pod:317
 msgid ""
 "There is a preview repository available for people who want to see what "
 "packages will be in RHEL 6.5.  Follow the instructions here:"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:283
+#: ../examples/guestfs-faq.pod:320
 msgid "L<https://www.redhat.com/archives/libguestfs/2013-May/msg00100.html>"
 msgstr "L<https://www.redhat.com/archives/libguestfs/2013-May/msg00100.html>"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:287
+#: ../examples/guestfs-faq.pod:324
 msgid "RHEL 7"
 msgstr "RHEL 7"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:289
+#: ../examples/guestfs-faq.pod:326
 msgid ""
 "It will be part of the default install, and based on S<libguestfs 1.22>.  "
 "You will need to install C<libguestfs-winsupport> separately to get Windows "
@@ -8661,17 +8775,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:295
+#: ../examples/guestfs-faq.pod:332
 msgid "Debian and Ubuntu"
 msgstr "Debian і Ubuntu"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:297
+#: ../examples/guestfs-faq.pod:334
 msgid "After installing libguestfs you need to do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:299 ../examples/guestfs-faq.pod:347
+#: ../examples/guestfs-faq.pod:336 ../examples/guestfs-faq.pod:384
 #, no-wrap
 msgid ""
 " sudo update-guestfs-appliance\n"
@@ -8681,13 +8795,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:301
+#: ../examples/guestfs-faq.pod:338
 msgid "On Ubuntu only:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:303 ../examples/guestfs-faq.pod:333
-#: ../examples/guestfs-faq.pod:356
+#: ../examples/guestfs-faq.pod:340 ../examples/guestfs-faq.pod:370
+#: ../examples/guestfs-faq.pod:393
 #, no-wrap
 msgid ""
 " sudo chmod 0644 /boot/vmlinuz*\n"
@@ -8697,12 +8811,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:305
+#: ../examples/guestfs-faq.pod:342
 msgid "You may need to add yourself to the C<kvm> group:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:307
+#: ../examples/guestfs-faq.pod:344
 #, no-wrap
 msgid ""
 " sudo usermod -a -G kvm yourlogin\n"
@@ -8710,12 +8824,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:311
+#: ../examples/guestfs-faq.pod:348
 msgid "Debian Squeeze (6)"
 msgstr "Debian Squeeze (6)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:313
+#: ../examples/guestfs-faq.pod:350
 msgid ""
 "Hilko Bengen has built libguestfs in squeeze backports: L<http://packages."
 "debian.org/search?keywords=guestfs&searchon=names&section=all&suite=squeeze-"
@@ -8723,12 +8837,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:316
+#: ../examples/guestfs-faq.pod:353
 msgid "Debian Wheezy and later (7+)"
 msgstr "Debian Wheezy та пізніші версії (7+)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:318
+#: ../examples/guestfs-faq.pod:355
 msgid ""
 "Hilko Bengen supports libguestfs on Debian.  Official Debian packages are "
 "available: L<http://packages.debian.org/search?keywords=libguestfs>"
@@ -8738,12 +8852,12 @@ msgstr ""
 "keywords=libguestfs>"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:322
+#: ../examples/guestfs-faq.pod:359
 msgid "Ubuntu"
 msgstr "Ubuntu"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:324
+#: ../examples/guestfs-faq.pod:361
 msgid ""
 "We don't have a full time Ubuntu maintainer, and the packages supplied by "
 "Canonical (which are outside our control) are sometimes broken."
@@ -8752,7 +8866,7 @@ msgstr ""
 "Canonical (і не контролюються нами) іноді виявляються непрацездатними."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:327
+#: ../examples/guestfs-faq.pod:364
 msgid ""
 "Canonical decided to change the permissions on the kernel so that it's not "
 "readable except by root.  This is completely stupid, but they won't change "
@@ -8766,12 +8880,12 @@ msgstr ""
 "+bug/759725>). Тому користувачам слід віддати таку команду:"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:337
+#: ../examples/guestfs-faq.pod:374
 msgid "Ubuntu 12.04"
 msgstr "Ubuntu 12.04"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:339
+#: ../examples/guestfs-faq.pod:376
 msgid ""
 "libguestfs in this version of Ubuntu works, but you need to update "
 "febootstrap and seabios to the latest versions."
@@ -8780,7 +8894,7 @@ msgstr ""
 "febootstrap та seabios до найсвіжіших версій."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:342
+#: ../examples/guestfs-faq.pod:379
 msgid ""
 "You need febootstrap E<ge> 3.14-2 from: L<http://packages.ubuntu.com/precise/"
 "febootstrap>"
@@ -8789,14 +8903,14 @@ msgstr ""
 "com/precise/febootstrap>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:345
+#: ../examples/guestfs-faq.pod:382
 msgid "After installing or updating febootstrap, rebuild the appliance:"
 msgstr ""
 "Після встановлення або оновлення febootstrap виконайте повторне збирання "
 "базової системи:"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:349
+#: ../examples/guestfs-faq.pod:386
 msgid ""
 "You need seabios E<ge> 0.6.2-0ubuntu2.1 or E<ge> 0.6.2-0ubuntu3 from: "
 "L<http://packages.ubuntu.com/precise-updates/seabios> or L<http://packages."
@@ -8807,17 +8921,17 @@ msgstr ""
 "L<http://packages.ubuntu.com/quantal/seabios>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:354
+#: ../examples/guestfs-faq.pod:391
 msgid "Also you need to do (see above):"
 msgstr "Крім того, вам слід виконати такі дії (див. вище):"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:362
+#: ../examples/guestfs-faq.pod:399
 msgid "Gentoo"
 msgstr "Gentoo"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:364
+#: ../examples/guestfs-faq.pod:401
 msgid ""
 "Libguestfs was added to Gentoo in 2012-07 by Andreis Vinogradovs "
 "(libguestfs) and Maxim Koltsov (mainly hivex).  Do:"
@@ -8826,7 +8940,7 @@ msgstr ""
 "(libguestfs) та Maxim Koltsov (в основному hivex). Віддайте команду:"
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:367
+#: ../examples/guestfs-faq.pod:404
 #, no-wrap
 msgid ""
 " emerge libguestfs\n"
@@ -8836,54 +8950,54 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:369
+#: ../examples/guestfs-faq.pod:406
 msgid "SuSE"
 msgstr "SuSE"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:371
+#: ../examples/guestfs-faq.pod:408
 msgid "Libguestfs was added to SuSE in 2012 by Olaf Hering."
 msgstr ""
 "Libguestfs було додано до сховищ пакунків SuSE у 2012 році, супровідник — "
 "Olaf Hering."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:373
+#: ../examples/guestfs-faq.pod:410
 msgid "ArchLinux"
 msgstr "ArchLinux"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:375
+#: ../examples/guestfs-faq.pod:412
 msgid "Libguestfs was added to the AUR in 2010."
 msgstr "Libguestfs було додано до AUR у 2010 році."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:377
+#: ../examples/guestfs-faq.pod:414
 msgid "Other Linux distro"
 msgstr "Інші дистрибутиви Linux"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:379
+#: ../examples/guestfs-faq.pod:416
 msgid "Compile from source (next section)."
 msgstr "Можна зібрати з початкових кодів (наступний розділ)."
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:381
+#: ../examples/guestfs-faq.pod:418
 msgid "Other non-Linux distro"
 msgstr "Інші дистрибутиви не-Linux"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:383
+#: ../examples/guestfs-faq.pod:420
 msgid "You'll have to compile from source, and port it."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:387
+#: ../examples/guestfs-faq.pod:424
 msgid "How can I compile and install libguestfs from source?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:389
+#: ../examples/guestfs-faq.pod:426
 msgid ""
 "If your Linux distro has a working port of supermin (that is, Fedora, S<Red "
 "Hat Enterprise Linux E<ge> 6.3>, Debian, Ubuntu and ArchLinux)  then you "
@@ -8893,39 +9007,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:395
+#: ../examples/guestfs-faq.pod:432
 msgid ""
 "If you I<don't> have supermin, you will need to use the \"fixed appliance "
 "method\".  See: L<http://libguestfs.org/download/binaries/appliance/>"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:399
+#: ../examples/guestfs-faq.pod:436
 msgid "Patches to port supermin to more Linux distros are welcome."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:401
+#: ../examples/guestfs-faq.pod:438
 msgid ""
 "Why do I get an error when I try to rebuild from the source RPMs supplied by "
 "Red Hat / Fedora?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:404
+#: ../examples/guestfs-faq.pod:441
 msgid ""
 "B<Note:> This issue is fixed in S<Fedora E<ge> 19> and S<RHEL E<ge> 6.5>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:406
+#: ../examples/guestfs-faq.pod:443
 msgid ""
 "Because of the complexity of building the libguestfs appliance, the source "
 "RPMs provided cannot be rebuilt directly using C<rpmbuild> or C<mock>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:410
+#: ../examples/guestfs-faq.pod:447
 msgid ""
 "If you use Koji (which is open source software and may be installed "
 "locally), then the SRPMs can be rebuilt in Koji.  L<https://fedoraproject."
@@ -8933,7 +9047,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:414
+#: ../examples/guestfs-faq.pod:451
 msgid ""
 "If you don't have or want to use Koji, then you have to give libguestfs "
 "access to the network so it can download the RPMs for building the "
@@ -8942,7 +9056,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:420
+#: ../examples/guestfs-faq.pod:457
 #, no-wrap
 msgid ""
 " %libguestfs_buildnet   1\n"
@@ -8952,12 +9066,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:422
+#: ../examples/guestfs-faq.pod:459
 msgid "If you are using mock, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:424
+#: ../examples/guestfs-faq.pod:461
 #, no-wrap
 msgid ""
 " mock -D '%libguestfs_buildnet 1' [etc]\n"
@@ -8967,12 +9081,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:426
+#: ../examples/guestfs-faq.pod:463
 msgid "How can I add support for sVirt?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:428
+#: ../examples/guestfs-faq.pod:465
 msgid ""
 "B<Note for Fedora/RHEL users:> This configuration is the default starting "
 "with S<Fedora 18> and S<RHEL 7>.  If you find any problems, please let us "
@@ -8980,7 +9094,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:432
+#: ../examples/guestfs-faq.pod:469
 msgid ""
 "L<SVirt|http://selinuxproject.org/page/SVirt> provides a hardened appliance "
 "using SELinux, making it very hard for a rogue disk image to \"escape\" from "
@@ -8991,7 +9105,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:440
+#: ../examples/guestfs-faq.pod:477
 msgid ""
 "Currently to enable sVirt you will need libvirt E<ge> 0.10.2 (1.0 or later "
 "preferred), libguestfs E<ge> 1.20, and the SELinux policies from recent "
@@ -9000,12 +9114,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:445
+#: ../examples/guestfs-faq.pod:482
 msgid "Once you have the requirements, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:447
+#: ../examples/guestfs-faq.pod:484
 #, no-wrap
 msgid ""
 " ./configure --with-default-backend=libvirt       # libguestfs >= 1.22\n"
@@ -9019,12 +9133,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:451
+#: ../examples/guestfs-faq.pod:488
 msgid "Set SELinux to Enforcing mode, and sVirt should be used automatically."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:453
+#: ../examples/guestfs-faq.pod:490
 msgid ""
 "All, or almost all, features of libguestfs should work under sVirt.  There "
 "is one known shortcoming: L<virt-rescue(1)> will not use libvirt (hence "
@@ -9033,7 +9147,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:458
+#: ../examples/guestfs-faq.pod:495
 msgid ""
 "You can check if sVirt is being used by enabling libvirtd logging (see C</"
 "etc/libvirt/libvirtd.log>), killing and restarting libvirtd, and checking "
@@ -9041,38 +9155,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:462
+#: ../examples/guestfs-faq.pod:499
 msgid ""
 "In theory sVirt should support AppArmor, but we have not tried it.  It will "
 "almost certainly require patching libvirt and writing an AppArmor policy."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:466
+#: ../examples/guestfs-faq.pod:503
 msgid "Libguestfs has a really long list of dependencies!"
 msgstr "Чому у Libguestfs такий великий список залежностей?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:468
+#: ../examples/guestfs-faq.pod:505
 msgid "That's because it does a lot of things."
 msgstr "Тому що вона може робити дуже багато речей."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:470
+#: ../examples/guestfs-faq.pod:507
 msgid ""
 "Libguestfs -- I<as it is packaged for Fedora> -- satisfies the following "
 "conditions:"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:477
+#: ../examples/guestfs-faq.pod:514
 msgid ""
 "The Fedora package is full featured, that is, it supports every possible "
 "feature of libguestfs (every filesystem, every filesystem tool, etc.)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:481
+#: ../examples/guestfs-faq.pod:518
 msgid ""
 "A common request is to split up libguestfs into separate feature areas so "
 "you could, say, install XFS support and NTFS support separately.  This is "
@@ -9080,7 +9194,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:487
+#: ../examples/guestfs-faq.pod:524
 msgid ""
 "The download size of the libguestfs package is relatively small (ie. not "
 "ten's of megabytes as it would be if it included a complete, \"statically "
@@ -9088,7 +9202,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:493
+#: ../examples/guestfs-faq.pod:530
 msgid ""
 "The Fedora package automatically updates itself if there is a security "
 "update.  It doesn't include a huge static blob that has to be rebuilt and "
@@ -9096,7 +9210,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:499
+#: ../examples/guestfs-faq.pod:536
 msgid ""
 "Able to be installed without needing direct network access.  This is "
 "important when using closed networks, privately mirrored repositories or RHN "
@@ -9104,17 +9218,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:503 ../rescue/virt-rescue.pod:362
+#: ../examples/guestfs-faq.pod:540 ../rescue/virt-rescue.pod:362
 msgid "5."
 msgstr "5."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:505
+#: ../examples/guestfs-faq.pod:542
 msgid "The Fedora package can be tested during the build."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:509
+#: ../examples/guestfs-faq.pod:546
 msgid ""
 "If you want to drop any one of those conditions, then you can package "
 "libguestfs differently and make it have fewer dependencies, fewer features "
@@ -9122,12 +9236,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:515
+#: ../examples/guestfs-faq.pod:552
 msgid "1. (full featured)"
 msgstr "1. (повний набір можливостей)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:517
+#: ../examples/guestfs-faq.pod:554
 msgid ""
 "Take C<appliance/packagelist.in> in the source, and comment out any features "
 "you don't actually care about.  For example if you never anticipate editing "
@@ -9136,12 +9250,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:522
+#: ../examples/guestfs-faq.pod:559
 msgid "2. (download size) / 3. (updates)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:524
+#: ../examples/guestfs-faq.pod:561
 msgid ""
 "Use L<libguestfs-make-fixed-appliance(1)> to build a compressed appliance.  "
 "Bundle this with your package and set C<$LIBGUESTFS_PATH> to point to it.  "
@@ -9150,12 +9264,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:529
+#: ../examples/guestfs-faq.pod:566
 msgid "4. (network access)"
 msgstr "4. (доступ до мережі)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:531
+#: ../examples/guestfs-faq.pod:568
 msgid ""
 "Reconstruct and cache the appliance once during package install.  The Debian "
 "packaging currently works like this, but requires network access during "
@@ -9163,19 +9277,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:535
+#: ../examples/guestfs-faq.pod:572
 msgid "5. (tests)"
 msgstr "5. (тести)"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:537
+#: ../examples/guestfs-faq.pod:574
 msgid ""
 "Don't run any tests during the build.  The build will be much faster, but "
 "also less likely to work correctly."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:540
+#: ../examples/guestfs-faq.pod:577
 msgid ""
 "Note that running the tests in C<tests/qemu> is probably a good idea, since "
 "those are sanity tests.  Also you should do S<C<make quickcheck>> to ensure "
@@ -9183,19 +9297,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:546
+#: ../examples/guestfs-faq.pod:583
 msgid "Errors during launch on Fedora E<ge> 18, RHEL E<ge> 7"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:548
+#: ../examples/guestfs-faq.pod:585
 msgid ""
 "In Fedora E<ge> 18 and RHEL E<ge> 7, libguestfs uses libvirt to manage the "
 "appliance.  Previously (and upstream) libguestfs runs qemu directly:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:552
+#: ../examples/guestfs-faq.pod:589
 #, no-wrap
 msgid ""
 " +----------------------------------+\n"
@@ -9217,7 +9331,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:568
+#: ../examples/guestfs-faq.pod:605
 #, no-wrap
 msgid ""
 "    upstream          Fedora 18+\n"
@@ -9227,7 +9341,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:572
+#: ../examples/guestfs-faq.pod:609
 msgid ""
 "The libvirt backend is more sophisticated, supporting SELinux/sVirt (see "
 "above), hotplugging and more.  It is, however, more complex and so less "
@@ -9235,14 +9349,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:576
+#: ../examples/guestfs-faq.pod:613
 msgid ""
 "If you have permissions problems using the libvirt backend, you can switch "
 "to the direct backend by setting this environment variable:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:579 ../examples/guestfs-testing.pod:127
+#: ../examples/guestfs-faq.pod:616 ../examples/guestfs-testing.pod:127
 #: ../test-tool/libguestfs-test-tool.pod:125
 #, no-wrap
 msgid ""
@@ -9251,30 +9365,30 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:581
+#: ../examples/guestfs-faq.pod:618
 msgid "before running any libguestfs program or virt tool."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:583
+#: ../examples/guestfs-faq.pod:620
 msgid "How can I switch to a fixed / prebuilt appliance?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:585
+#: ../examples/guestfs-faq.pod:622
 msgid ""
 "This may improve the stability and performance of libguestfs on Fedora and "
 "RHEL."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:588
+#: ../examples/guestfs-faq.pod:625
 msgid ""
 "Any time after installing libguestfs, run the following commands as root:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:591
+#: ../examples/guestfs-faq.pod:628
 #, no-wrap
 msgid ""
 " mkdir -p /usr/local/lib/guestfs/appliance\n"
@@ -9284,14 +9398,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:595
+#: ../examples/guestfs-faq.pod:632
 msgid ""
 "Now set the following environment variable before using libguestfs or any "
 "virt tool:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:598 ../examples/guestfs-performance.pod:143
+#: ../examples/guestfs-faq.pod:635 ../examples/guestfs-performance.pod:143
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance\n"
@@ -9299,7 +9413,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:600
+#: ../examples/guestfs-faq.pod:637
 msgid ""
 "Of course you can change the path to any directory you want.  You can share "
 "the appliance across machines that have the same architecture (eg. all "
@@ -9309,12 +9423,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:606
+#: ../examples/guestfs-faq.pod:643
 msgid "How can I speed up libguestfs builds?"
 msgstr "Як пришвидшити збирання libguestfs?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:608
+#: ../examples/guestfs-faq.pod:645
 msgid ""
 "By far the most important thing you can do is to install and properly "
 "configure Squid.  Note that the default configuration that ships with Squid "
@@ -9322,7 +9436,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:612
+#: ../examples/guestfs-faq.pod:649
 msgid ""
 "A very good place to start with Squid configuration is here: L<https://"
 "fedoraproject.org/wiki/Extras/"
@@ -9330,26 +9444,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:615
+#: ../examples/guestfs-faq.pod:652
 msgid ""
 "Make sure Squid is running, and that the environment variables C<"
 "$http_proxy> and C<$ftp_proxy> are pointing to it."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:618
+#: ../examples/guestfs-faq.pod:655
 msgid ""
 "With Squid running and correctly configured, appliance builds should be "
 "reduced to a few minutes."
 msgstr ""
 
 #. type: =head3
-#: ../examples/guestfs-faq.pod:621
+#: ../examples/guestfs-faq.pod:658
 msgid "How can I speed up libguestfs builds (Debian)?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:623
+#: ../examples/guestfs-faq.pod:660
 msgid ""
 "Hilko Bengen suggests using \"approx\" which is a Debian archive proxy "
 "(L<http://packages.debian.org/approx>).  This tool is documented on Debian "
@@ -9357,24 +9471,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:627
+#: ../examples/guestfs-faq.pod:664
 msgid "SPEED, DISK SPACE USED BY LIBGUESTFS"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:629
+#: ../examples/guestfs-faq.pod:666
 msgid ""
 "B<Note:> Most of the information in this section has moved: L<guestfs-"
 "performance(1)>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:632
+#: ../examples/guestfs-faq.pod:669
 msgid "Upload or write seem very slow."
 msgstr "Вивантаження або запис дуже повільні."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:634
+#: ../examples/guestfs-faq.pod:671
 msgid ""
 "In libguestfs E<lt> 1.13.16, the mount command (L<guestfs(3)/guestfs_mount>) "
 "enabled option C<-o sync> implicitly.  This causes very poor write "
@@ -9382,14 +9496,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:639
+#: ../examples/guestfs-faq.pod:676
 msgid ""
 "For libguestfs E<lt> 1.13.16, replace mount with C<mount-options>, leaving "
 "the first parameter as an empty string."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:642
+#: ../examples/guestfs-faq.pod:679
 msgid ""
 "You can also do this with more recent versions of libguestfs, but if you "
 "know that you are using libguestfs ≥ 1.13.16 then it's safe to use plain "
@@ -9397,7 +9511,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:646
+#: ../examples/guestfs-faq.pod:683
 msgid ""
 "If the underlying disk is not fully allocated (eg. sparse raw or qcow2) then "
 "writes can be slow because the host operating system has to do costly disk "
@@ -9407,17 +9521,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:652
+#: ../examples/guestfs-faq.pod:689
 msgid "Libguestfs uses too much disk space!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:654
+#: ../examples/guestfs-faq.pod:691
 msgid "libguestfs caches a large-ish appliance in:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:656
+#: ../examples/guestfs-faq.pod:693
 #, no-wrap
 msgid ""
 " /var/tmp/.guestfs-<UID>\n"
@@ -9427,26 +9541,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:658
+#: ../examples/guestfs-faq.pod:695
 msgid ""
 "If the environment variable C<TMPDIR> is defined, then C<$TMPDIR/.guestfs-"
 "E<lt>UIDE<gt>> is used instead."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:661
+#: ../examples/guestfs-faq.pod:698
 msgid "It is safe to delete this directory when you are not using libguestfs."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:663
+#: ../examples/guestfs-faq.pod:700
 msgid ""
 "virt-sparsify seems to make the image grow to the full size of the virtual "
 "disk"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:666
+#: ../examples/guestfs-faq.pod:703
 msgid ""
 "If the input to L<virt-sparsify(1)> is raw, then the output will be raw "
 "sparse.  Make sure you are measuring the output with a tool which "
@@ -9454,7 +9568,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:670 ../sparsify/virt-sparsify.pod:35
+#: ../examples/guestfs-faq.pod:707 ../sparsify/virt-sparsify.pod:35
 #, no-wrap
 msgid ""
 " $ ls -lh test1.img\n"
@@ -9470,19 +9584,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:675 ../sparsify/virt-sparsify.pod:40
+#: ../examples/guestfs-faq.pod:712 ../sparsify/virt-sparsify.pod:40
 msgid "(Compare the apparent size B<100M> vs the actual size B<3.6M>)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:677
+#: ../examples/guestfs-faq.pod:714
 msgid ""
 "If all this confuses you, use a non-sparse output format by specifying the "
 "I<--convert> option, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:680
+#: ../examples/guestfs-faq.pod:717
 #, no-wrap
 msgid ""
 " virt-sparsify --convert qcow2 disk.raw disk.qcow2\n"
@@ -9492,12 +9606,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:682
+#: ../examples/guestfs-faq.pod:719
 msgid "Why doesn't virt-resize work on the disk image in-place?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:684
+#: ../examples/guestfs-faq.pod:721
 msgid ""
 "Resizing a disk image is very tricky -- especially making sure that you "
 "don't lose data or break the bootloader.  The current method effectively "
@@ -9506,7 +9620,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:690
+#: ../examples/guestfs-faq.pod:727
 msgid ""
 "If we were to make virt-resize work in-place then there would have to be "
 "limitations: for example, you wouldn't be allowed to move existing "
@@ -9517,7 +9631,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:697
+#: ../examples/guestfs-faq.pod:734
 msgid ""
 "Another method we have considered is to place a snapshot over the original "
 "disk image, so that the original data is untouched and only differences are "
@@ -9528,19 +9642,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:705
+#: ../examples/guestfs-faq.pod:742
 msgid ""
 "In summary, this is a hard problem, and what we have now mostly works so we "
 "are reluctant to change it."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:708
+#: ../examples/guestfs-faq.pod:745
 msgid "Why doesn't virt-sparsify work on the disk image in-place?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:710
+#: ../examples/guestfs-faq.pod:747
 msgid ""
 "Eventually we plan to make virt-sparsify work on disk images in-place, "
 "instead of copying the disk image.  However it requires several changes to "
@@ -9551,7 +9665,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:718
+#: ../examples/guestfs-faq.pod:755
 msgid ""
 "Even with this implemented there may be some limitations: For example, it "
 "requires completely different steps (and is probably harder) to sparsify a "
@@ -9563,24 +9677,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:727
+#: ../examples/guestfs-faq.pod:764
 msgid "USING LIBGUESTFS IN YOUR OWN PROGRAMS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:729
+#: ../examples/guestfs-faq.pod:766
 msgid "The API has hundreds of methods, where do I start?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:731
+#: ../examples/guestfs-faq.pod:768
 msgid ""
 "We recommend you start by reading the API overview: L<guestfs(3)/API "
 "OVERVIEW>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:734
+#: ../examples/guestfs-faq.pod:771
 msgid ""
 "Although the API overview covers the C API, it is still worth reading even "
 "if you are going to use another programming language, because the API is the "
@@ -9588,7 +9702,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:739
+#: ../examples/guestfs-faq.pod:776
 #, no-wrap
 msgid ""
 "                  C  guestfs_ln_sf (g, target, linkname);\n"
@@ -9608,7 +9722,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:746
+#: ../examples/guestfs-faq.pod:783
 msgid ""
 "Once you're familiar with the API overview, you should look at this list of "
 "starting points for other language bindings: L<guestfs(3)/USING LIBGUESTFS "
@@ -9616,20 +9730,20 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:750
+#: ../examples/guestfs-faq.pod:787
 msgid ""
 "Can I use libguestfs in my proprietary / closed source / commercial program?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:753
+#: ../examples/guestfs-faq.pod:790
 msgid ""
 "In general, yes.  However this is not legal advice - read the license that "
 "comes with libguestfs, and if you have specific questions contact a lawyer."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:757
+#: ../examples/guestfs-faq.pod:794
 msgid ""
 "In the source tree the license is in the file C<COPYING.LIB> (LGPLv2+ for "
 "the library and bindings) and C<COPYING> (GPLv2+ for the standalone "
@@ -9637,51 +9751,51 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:763
+#: ../examples/guestfs-faq.pod:800
 msgid "<!-- old anchor for the next section --> <a name=\"debug\"/>"
 msgstr "<!-- old anchor for the next section --> <a name=\"debug\"/>"
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:768
+#: ../examples/guestfs-faq.pod:805
 msgid "DEBUGGING LIBGUESTFS"
 msgstr "ДІАГНОСТИКА LIBGUESTFS"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:770
+#: ../examples/guestfs-faq.pod:807
 msgid "Help, it's not working!"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:772
+#: ../examples/guestfs-faq.pod:809
 msgid ""
 "Please supply all the information in this checklist, in an email sent to "
 "C<libguestfs> @ C<redhat.com>:"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:779
+#: ../examples/guestfs-faq.pod:816
 msgid "What are you trying to achieve?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:783
+#: ../examples/guestfs-faq.pod:820
 msgid "What exact commands did you run?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:787
+#: ../examples/guestfs-faq.pod:824
 msgid "What was the precise error / output of these commands?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:791
+#: ../examples/guestfs-faq.pod:828
 msgid ""
 "Enable debugging, run the commands again, and capture the B<complete> "
 "output.  B<Do not edit the output.>"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:794
+#: ../examples/guestfs-faq.pod:831
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_DEBUG=1\n"
@@ -9693,52 +9807,52 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:799
+#: ../examples/guestfs-faq.pod:836
 msgid ""
 "Include the version of libguestfs, the operating system version, and how you "
 "installed libguestfs (eg. from source, C<yum install>, etc.)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:804
+#: ../examples/guestfs-faq.pod:841
 msgid ""
 "If no libguestfs program seems to work at all, run the program below and "
 "paste the B<complete, unedited> output into the email:"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:811
+#: ../examples/guestfs-faq.pod:848
 msgid ""
 "How do I debug when using any libguestfs program or tool (eg. virt-v2v or "
 "virt-df)?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:814
+#: ../examples/guestfs-faq.pod:851
 msgid ""
 "There are two C<LIBGUESTFS_*> environment variables you can set in order to "
 "get more information from libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:819
+#: ../examples/guestfs-faq.pod:856
 msgid "C<LIBGUESTFS_TRACE>"
 msgstr "C<LIBGUESTFS_TRACE>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:821
+#: ../examples/guestfs-faq.pod:858
 msgid ""
 "Set this to 1 and libguestfs will print out each command / API call in a "
 "format which is similar to guestfish commands."
 msgstr ""
 
 #. type: =item
-#: ../examples/guestfs-faq.pod:824
+#: ../examples/guestfs-faq.pod:861
 msgid "C<LIBGUESTFS_DEBUG>"
 msgstr "C<LIBGUESTFS_DEBUG>"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:826
+#: ../examples/guestfs-faq.pod:863
 msgid ""
 "Set this to 1 in order to enable massive amounts of debug messages.  If you "
 "think there is some problem inside the libguestfs appliance, then you should "
@@ -9746,12 +9860,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:832
+#: ../examples/guestfs-faq.pod:869
 msgid "To set these from the shell, do this before running the program:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:834
+#: ../examples/guestfs-faq.pod:871
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_TRACE=1\n"
@@ -9763,12 +9877,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:837
+#: ../examples/guestfs-faq.pod:874
 msgid "For csh/tcsh the equivalent commands would be:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:839
+#: ../examples/guestfs-faq.pod:876
 #, no-wrap
 msgid ""
 " setenv LIBGUESTFS_TRACE 1\n"
@@ -9780,18 +9894,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:842
+#: ../examples/guestfs-faq.pod:879
 msgid "For further information, see: L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 "Докладніші дані можна знайти на сторінці L<guestfs(3)/ЗМІННІ СЕРЕДОВИЩА>"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:844
+#: ../examples/guestfs-faq.pod:881
 msgid "How do I debug when using guestfish?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:846
+#: ../examples/guestfs-faq.pod:883
 msgid ""
 "You can use the same environment variables above.  Alternatively use the "
 "guestfish options -x (to trace commands) or -v (to get the full debug "
@@ -9799,36 +9913,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:850
+#: ../examples/guestfs-faq.pod:887
 msgid "For further information, see: L<guestfish(1)>."
 msgstr "Докладніші дані можна знайти на сторінці L<guestfish(1)>."
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:852
+#: ../examples/guestfs-faq.pod:889
 msgid "How do I debug when using the API?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:854
+#: ../examples/guestfs-faq.pod:891
 msgid ""
 "Call L<guestfs(3)/guestfs_set_trace> to enable command traces, and/or "
 "L<guestfs(3)/guestfs_set_verbose> to enable debug messages."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:857
+#: ../examples/guestfs-faq.pod:894
 msgid ""
 "For best results, call these functions as early as possible, just after "
 "creating the guestfs handle if you can, and definitely before calling launch."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:861
+#: ../examples/guestfs-faq.pod:898
 msgid "How do I capture debug output and put it into my logging system?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:863
+#: ../examples/guestfs-faq.pod:900
 msgid ""
 "Use the event API.  For examples, see: L<guestfs(3)/SETTING CALLBACKS TO "
 "HANDLE EVENTS> and the C<examples/debug-logging.c> program in the libguestfs "
@@ -9836,24 +9950,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:867
+#: ../examples/guestfs-faq.pod:904
 msgid "Digging deeper into the appliance boot process."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:869
+#: ../examples/guestfs-faq.pod:906
 msgid ""
 "Enable debugging and then read this documentation on the appliance boot "
 "process: L<guestfs(3)/INTERNALS>."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:872
+#: ../examples/guestfs-faq.pod:909
 msgid "libguestfs hangs or fails during run/launch."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:874
+#: ../examples/guestfs-faq.pod:911
 msgid ""
 "Enable debugging and look at the full output.  If you cannot work out what "
 "is going on, file a bug report, including the I<complete> output of "
@@ -9861,17 +9975,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:878
+#: ../examples/guestfs-faq.pod:915
 msgid "DESIGN/INTERNALS OF LIBGUESTFS"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:880
+#: ../examples/guestfs-faq.pod:917
 msgid "Why don't you do everything through the FUSE / filesystem interface?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:883
+#: ../examples/guestfs-faq.pod:920
 msgid ""
 "We offer a command called L<guestmount(1)> which lets you mount guest "
 "filesystems on the host.  This is implemented as a FUSE module.  Why don't "
@@ -9880,7 +9994,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:888
+#: ../examples/guestfs-faq.pod:925
 msgid ""
 "The reasons are twofold.  Firstly, libguestfs offers API calls for doing "
 "things like creating and deleting partitions and logical volumes, which "
@@ -9894,7 +10008,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:898
+#: ../examples/guestfs-faq.pod:935
 msgid ""
 "The second reason is for efficiency.  FUSE itself is reasonably efficient, "
 "but it does make lots of small, independent calls into the FUSE module.  In "
@@ -9907,17 +10021,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:908
+#: ../examples/guestfs-faq.pod:945
 msgid "Why don't you do everything through GVFS?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:910
+#: ../examples/guestfs-faq.pod:947
 msgid "The problems are similar to the problems with FUSE."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:912
+#: ../examples/guestfs-faq.pod:949
 msgid ""
 "GVFS is a better abstraction than POSIX/FUSE.  There is an FTP backend for "
 "GVFS, which is encouraging because FTP is conceptually similar to the "
@@ -9927,22 +10041,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:920
+#: ../examples/guestfs-faq.pod:957
 msgid "<!-- old anchor for the next section --> <a name=\"backup\"/>"
 msgstr "<!-- old anchor for the next section --> <a name=\"backup\"/>"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:925
+#: ../examples/guestfs-faq.pod:962
 msgid "Why can I write to the disk, even though I added it read-only?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:927
+#: ../examples/guestfs-faq.pod:964
 msgid "Why does C<--ro> appear to have no effect?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:929
+#: ../examples/guestfs-faq.pod:966
 msgid ""
 "When you add a disk read-only, libguestfs places a writable overlay on top "
 "of the underlying disk.  Writes go into this overlay, and are discarded when "
@@ -9950,7 +10064,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:933
+#: ../examples/guestfs-faq.pod:970
 msgid ""
 "There are two reasons for doing it this way: Firstly read-only disks aren't "
 "possible in many cases (eg. IDE simply doesn't support them, so you couldn't "
@@ -9959,7 +10073,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:938
+#: ../examples/guestfs-faq.pod:975
 msgid ""
 "Secondly and more importantly, even if read-only disks were possible, you "
 "wouldn't want them.  Mounting any filesystem that has a journal, even "
@@ -9969,7 +10083,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:944
+#: ../examples/guestfs-faq.pod:981
 msgid ""
 "To make it usable, we create the overlay as a place to temporarily store "
 "these writes, and then we discard it afterwards.  This ensures that the "
@@ -9977,7 +10091,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:948
+#: ../examples/guestfs-faq.pod:985
 msgid ""
 "Note also that there is a regression test for this when building libguestfs "
 "(in C<tests/qemu>).  This is one reason why it's important for packagers to "
@@ -9985,31 +10099,31 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:952
+#: ../examples/guestfs-faq.pod:989
 msgid "Does C<--ro> make all disks read-only?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:954
+#: ../examples/guestfs-faq.pod:991
 msgid ""
 "I<No!> The C<--ro> option only affects disks added on the command line, ie. "
 "using C<-a> and C<-d> options."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:957
+#: ../examples/guestfs-faq.pod:994
 msgid ""
 "In guestfish, if you use the C<add> command, then disk is added read-write "
 "(unless you specify the C<readonly:true> flag explicitly with the command)."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:961
+#: ../examples/guestfs-faq.pod:998
 msgid "Can I use C<guestfish --ro> as a way to backup my virtual machines?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:963
+#: ../examples/guestfs-faq.pod:1000
 msgid ""
 "Usually this is I<not> a good idea.  The question is answered in more detail "
 "in this mailing list posting: L<https://www.redhat.com/archives/"
@@ -10017,22 +10131,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:967
+#: ../examples/guestfs-faq.pod:1004
 msgid "See also the next question."
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:969
+#: ../examples/guestfs-faq.pod:1006
 msgid "Why can't I run fsck on a live filesystem using C<guestfish --ro>?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:971
+#: ../examples/guestfs-faq.pod:1008
 msgid "This command will usually I<not> work:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:973
+#: ../examples/guestfs-faq.pod:1010
 #, no-wrap
 msgid ""
 " guestfish --ro -a /dev/vg/my_root_fs run : fsck /dev/sda\n"
@@ -10040,7 +10154,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:975
+#: ../examples/guestfs-faq.pod:1012
 msgid ""
 "The reason for this is that qemu creates a snapshot over the original "
 "filesystem, but it doesn't create a strict point-in-time snapshot.  Blocks "
@@ -10050,7 +10164,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:982
+#: ../examples/guestfs-faq.pod:1019
 msgid ""
 "What you have to do is to create a point-in-time snapshot.  If it's a "
 "logical volume, use an LVM2 snapshot.  If the filesystem is located inside "
@@ -10060,7 +10174,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:988
+#: ../examples/guestfs-faq.pod:1025
 msgid ""
 "Creating point-in-time snapshots of host devices and files is outside the "
 "scope of libguestfs, although libguestfs can operate on them once they are "
@@ -10068,19 +10182,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:992
+#: ../examples/guestfs-faq.pod:1029
 msgid "What's the difference between guestfish and virt-rescue?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:994
+#: ../examples/guestfs-faq.pod:1031
 msgid ""
 "A lot of people are confused by the two superficially similar tools we "
 "provide:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:997
+#: ../examples/guestfs-faq.pod:1034
 #, no-wrap
 msgid ""
 " $ guestfish --ro -a guest.img\n"
@@ -10094,7 +10208,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:1001
+#: ../examples/guestfs-faq.pod:1038
 #, no-wrap
 msgid ""
 " $ virt-rescue --ro guest.img\n"
@@ -10106,7 +10220,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1004
+#: ../examples/guestfs-faq.pod:1041
 msgid ""
 "And the related question which then arises is why you can't type in full "
 "shell commands with all the --options in guestfish (but you can in L<virt-"
@@ -10114,7 +10228,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1008
+#: ../examples/guestfs-faq.pod:1045
 msgid ""
 "L<guestfish(1)> is a program providing structured access to the "
 "L<guestfs(3)> API.  It happens to be a nice interactive shell too, but its "
@@ -10125,7 +10239,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1015
+#: ../examples/guestfs-faq.pod:1052
 msgid ""
 "L<virt-rescue(1)> is a free-for-all freeform way to boot the libguestfs "
 "appliance and make arbitrary changes to your VM. It's not structured, you "
@@ -10134,7 +10248,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1020
+#: ../examples/guestfs-faq.pod:1057
 msgid ""
 "But, libguestfs also has a \"backdoor\" into the appliance allowing you to "
 "send arbitrary shell commands.  It's not as flexible as virt-rescue, because "
@@ -10142,7 +10256,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:1025
+#: ../examples/guestfs-faq.pod:1062
 #, no-wrap
 msgid ""
 " ><fs> debug sh \"cmd arg1 arg2 ...\"\n"
@@ -10150,7 +10264,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1027
+#: ../examples/guestfs-faq.pod:1064
 msgid ""
 "Note that you should B<not> rely on this.  It could be removed or changed in "
 "future. If your program needs some operation, please add it to the "
@@ -10158,45 +10272,45 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1031
+#: ../examples/guestfs-faq.pod:1068
 msgid "What's the deal with C<guestfish -i>?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1033
+#: ../examples/guestfs-faq.pod:1070
 msgid ""
 "Why does virt-cat only work on a real VM image, but virt-df works on any "
 "disk image?"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1036
+#: ../examples/guestfs-faq.pod:1073
 msgid "What does \"no root device found in this operating system image\" mean?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1039
+#: ../examples/guestfs-faq.pod:1076
 msgid ""
 "These questions are all related at a fundamental level which may not be "
 "immediately obvious."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1042
+#: ../examples/guestfs-faq.pod:1079
 msgid ""
 "At the L<guestfs(3)> API level, a \"disk image\" is just a pile of "
 "partitions and filesystems."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1045
+#: ../examples/guestfs-faq.pod:1082
 msgid ""
 "In contrast, when the virtual machine boots, it mounts those filesystems "
 "into a consistent hierarchy such as:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:1048
+#: ../examples/guestfs-faq.pod:1085
 #, no-wrap
 msgid ""
 " /          (/dev/sda2)\n"
@@ -10222,12 +10336,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1058
+#: ../examples/guestfs-faq.pod:1095
 msgid "(or drive letters on Windows)."
 msgstr "(або літери дисків у Windows)."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1060
+#: ../examples/guestfs-faq.pod:1097
 msgid ""
 "The API first of all sees the disk image at the \"pile of filesystems\" "
 "level.  But it also has a way to inspect the disk image to see if it "
@@ -10236,12 +10350,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1065
+#: ../examples/guestfs-faq.pod:1102
 msgid "Users expect some tools (like L<virt-cat(1)>) to work with VM paths:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-faq.pod:1067
+#: ../examples/guestfs-faq.pod:1104
 #, no-wrap
 msgid ""
 " virt-cat fedora.img /var/log/messages\n"
@@ -10251,7 +10365,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1069
+#: ../examples/guestfs-faq.pod:1106
 msgid ""
 "How does virt-cat know that C</var> is a separate partition? The trick is "
 "that virt-cat performs inspection on the disk image, and uses that to "
@@ -10259,7 +10373,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1073
+#: ../examples/guestfs-faq.pod:1110
 msgid ""
 "Some tools (including L<virt-cat(1)>, L<virt-edit(1)>, L<virt-ls(1)>)  use "
 "inspection to map VM paths.  Other tools, such as L<virt-df(1)> and L<virt-"
@@ -10268,7 +10382,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1078
+#: ../examples/guestfs-faq.pod:1115
 msgid ""
 "L<guestfish(1)> is in an interesting middle ground.  If you use the I<-a> "
 "and I<-m> command line options, then you have to tell guestfish exactly how "
@@ -10276,14 +10390,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1083
+#: ../examples/guestfs-faq.pod:1120
 msgid ""
 "If you use the I<-i> option, libguestfs performs inspection and mounts the "
 "filesystems for you."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1086
+#: ../examples/guestfs-faq.pod:1123
 msgid ""
 "The error C<no root device found in this operating system image> is related "
 "to this.  It means inspection was unable to locate an operating system "
@@ -10293,19 +10407,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1092
+#: ../examples/guestfs-faq.pod:1129
 msgid "What do these C<debug*> and C<internal-*> functions do?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1094
+#: ../examples/guestfs-faq.pod:1131
 msgid ""
 "There are some functions which are used for debugging and internal purposes "
 "which are I<not> part of the stable API."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1097
+#: ../examples/guestfs-faq.pod:1134
 msgid ""
 "The C<debug*> (or C<guestfs_debug*>) functions, primarily L<guestfs(3)/"
 "guestfs_debug> and a handful of others, are used for debugging libguestfs.  "
@@ -10315,7 +10429,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1103
+#: ../examples/guestfs-faq.pod:1140
 msgid ""
 "The C<internal-*> (or C<guestfs_internal_*>) functions are purely to be used "
 "by libguestfs itself.  There is no reason for programs to call them, and "
@@ -10324,17 +10438,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-faq.pod:1109
+#: ../examples/guestfs-faq.pod:1146
 msgid "DEVELOPERS"
 msgstr "РОЗРОБНИКАМ"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1111
+#: ../examples/guestfs-faq.pod:1148
 msgid "Where do I send patches?"
 msgstr "Куди слід надсилати латки?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1113
+#: ../examples/guestfs-faq.pod:1150
 msgid ""
 "Please send patches to the libguestfs mailing list L<https://www.redhat.com/"
 "mailman/listinfo/libguestfs>.  You don't have to be subscribed, but there "
@@ -10342,7 +10456,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1118
+#: ../examples/guestfs-faq.pod:1155
 msgid ""
 "B<Please don't use github pull requests - they will be ignored>.  The "
 "reasons are (a) we want to discuss and dissect patches on the mailing list, "
@@ -10351,12 +10465,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1123
+#: ../examples/guestfs-faq.pod:1160
 msgid "How do I propose a feature?"
 msgstr "Як запропонувати нову можливість?"
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1125
+#: ../examples/guestfs-faq.pod:1162
 msgid ""
 "Large new features that you intend to contribute should be discussed on the "
 "mailing list first (L<https://www.redhat.com/mailman/listinfo/libguestfs>).  "
@@ -10365,7 +10479,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1131
+#: ../examples/guestfs-faq.pod:1168
 msgid ""
 "If you want to suggest a useful feature but don't want to write the code, "
 "you can file a bug (see L</GETTING HELP AND REPORTING BUGS>)  with C<\"RFE: "
@@ -10373,12 +10487,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1135
+#: ../examples/guestfs-faq.pod:1172
 msgid "Who can commit to libguestfs git?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1137
+#: ../examples/guestfs-faq.pod:1174
 msgid ""
 "About 5 people have commit access to github.  Patches should be posted on "
 "the list first and ACKed.  The policy for ACKing and pushing patches is "
@@ -10386,19 +10500,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1141
+#: ../examples/guestfs-faq.pod:1178
 msgid ""
 "L<https://www.redhat.com/archives/libguestfs/2012-January/msg00023.html>"
 msgstr ""
 "L<https://www.redhat.com/archives/libguestfs/2012-January/msg00023.html>"
 
 #. type: =head2
-#: ../examples/guestfs-faq.pod:1143
+#: ../examples/guestfs-faq.pod:1180
 msgid "Can I fork libguestfs?"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1145
+#: ../examples/guestfs-faq.pod:1182
 msgid ""
 "Of course you can.  Git makes it easy to fork libguestfs.  Github makes it "
 "even easier.  It's nice if you tell us on the mailing list about forks and "
@@ -10406,12 +10520,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1151
+#: ../examples/guestfs-faq.pod:1188
 msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1161
+#: ../examples/guestfs-faq.pod:1198
 msgid "Copyright (C) 2012-2013 Red Hat Inc."
 msgstr "© Red Hat Inc., 2012–2013"
 
@@ -76248,7 +76362,7 @@ msgstr ""
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:1
-msgid "B<--firstboot> firstboot (see C<firstboot> below)"
+msgid "B<--firstboot> SCRIPT (see C<firstboot> below)"
 msgstr ""
 
 #. type: textblock
@@ -76260,7 +76374,7 @@ msgstr ""
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:7
-msgid "B<--hostname> hostname (see C<hostname> below)"
+msgid "B<--hostname> HOSTNAME (see C<hostname> below)"
 msgstr ""
 
 #. type: textblock
@@ -76273,50 +76387,70 @@ msgstr ""
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:12
-msgid "B<--password> password (see C<password> below)"
+#, fuzzy
+#| msgid "B<--password-crypto> password-crypto (see C<password> below)"
+msgid "B<--password> USERNAME:SELECTOR (see C<password> below)"
 msgstr ""
+"B<--password-crypto> спосіб_шифрування_паролів (див. C<password> нижче)"
 
 #. type: textblock
 #: ../sysprep/sysprep-extra-options.pod:15
 msgid ""
 "Set a user password.  The user must exist already (this option does I<not> "
-"create users).  The following formats may be used for this option:"
+"create users)."
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-extra-options.pod:18
+msgid ""
+"The I<--password> option takes C<USERNAME:SELECTOR>.  The I<--root-password> "
+"option takes just the C<SELECTOR>.  The format of the C<SELECTOR> is "
+"described below:"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:21
+#: ../sysprep/sysprep-extra-options.pod:24
 msgid "B<--password USERNAME:file:FILENAME>"
 msgstr "B<--password КОРИСТУВАЧ:file:НАЗВА_ФАЙЛА>"
 
+#. type: =item
+#: ../sysprep/sysprep-extra-options.pod:26
+msgid "B<--root-password file:FILENAME>"
+msgstr "B<--root-password file:НАЗВА_ФАЙЛА>"
+
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:23
+#: ../sysprep/sysprep-extra-options.pod:28
 msgid ""
-"Change the password for C<USERNAME>.  Read the password from C<FILENAME>.  "
-"The whole first line of this file is the replacement password.  Any other "
-"lines are ignored.  You should create the file with mode 0600 to ensure no "
-"one else can read it."
+"Read the password from C<FILENAME>.  The whole first line of this file is "
+"the replacement password.  Any other lines are ignored.  You should create "
+"the file with mode 0600 to ensure no one else can read it."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:29
+#: ../sysprep/sysprep-extra-options.pod:33
 msgid "B<--password USERNAME:password:PASSWORD>"
 msgstr "B<--password КОРИСТУВАЧ:password:ПАРОЛЬ>"
 
+#. type: =item
+#: ../sysprep/sysprep-extra-options.pod:35
+msgid "B<--root-password password:PASSWORD>"
+msgstr "B<--root-password password:ПАРОЛЬ>"
+
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:31
-msgid ""
-"Change the password for C<USERNAME>.  Set the password to the literal string "
-"C<PASSWORD>."
+#: ../sysprep/sysprep-extra-options.pod:37
+msgid "Set the password to the literal string C<PASSWORD>."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:39
-msgid "B<--password-crypto> password-crypto (see C<password> below)"
+#: ../sysprep/sysprep-extra-options.pod:44
+#, fuzzy
+#| msgid "B<--password-crypto> password-crypto (see C<password> below)"
+msgid "B<--password-crypto> md5|sha256|sha512 (see C<password> below)"
 msgstr ""
 "B<--password-crypto> спосіб_шифрування_паролів (див. C<password> нижче)"
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:44
+#: ../sysprep/sysprep-extra-options.pod:49
 msgid ""
 "C<sha256> and C<sha512> require glibc E<ge> 2.7 (check L<crypt(3)> inside "
 "the guest)."
@@ -76325,53 +76459,47 @@ msgstr ""
 "(див. L<crypt(3)> у гостьовій системі)."
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:54
-msgid "B<--root-password> root-password (see C<password> below)"
+#: ../sysprep/sysprep-extra-options.pod:59
+#, fuzzy
+#| msgid "B<--password-crypto> password-crypto (see C<password> below)"
+msgid "B<--root-password> SELECTOR (see C<password> below)"
 msgstr ""
+"B<--password-crypto> спосіб_шифрування_паролів (див. C<password> нижче)"
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:57
-msgid ""
-"Set the root password.  The following formats may be used for this option:"
-msgstr ""
-
-#. type: =item
 #: ../sysprep/sysprep-extra-options.pod:62
-msgid "B<--root-password file:FILENAME>"
-msgstr "B<--root-password file:НАЗВА_ФАЙЛА>"
+msgid ""
+"Set the root password.  See I<--password> above for the format of "
+"C<SELECTOR>."
+msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:69
-msgid "B<--root-password password:PASSWORD>"
-msgstr "B<--root-password password:ПАРОЛЬ>"
-
-#. type: =item
-#: ../sysprep/sysprep-extra-options.pod:78
-msgid "B<--script> script (see C<script> below)"
+#: ../sysprep/sysprep-extra-options.pod:65
+msgid "B<--script> SCRIPT (see C<script> below)"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:81
+#: ../sysprep/sysprep-extra-options.pod:68
 msgid ""
-"Run the named C<script> (a shell script or program) against the guest.  The "
+"Run the named C<SCRIPT> (a shell script or program) against the guest.  The "
 "script can be any program on the host.  The script's current directory will "
 "be the guest's root directory."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:85
+#: ../sysprep/sysprep-extra-options.pod:72
 msgid ""
 "B<Note:> If the script is not on the $PATH, then you must give the full "
 "absolute path to the script."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:88
-msgid "B<--scriptdir> scriptdir (see C<script> below)"
+#: ../sysprep/sysprep-extra-options.pod:75
+msgid "B<--scriptdir> SCRIPTDIR (see C<script> below)"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:91
+#: ../sysprep/sysprep-extra-options.pod:78
 msgid ""
 "The mount point (an empty directory on the host) used when the C<script> "
 "operation is enabled and one or more scripts are specified using I<--script> "
@@ -76382,12 +76510,14 @@ msgstr ""
 "допомогою I<--script>."
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:95
-msgid "B<Note:> C<scriptdir> B<must> be an absolute path."
+#: ../sysprep/sysprep-extra-options.pod:82
+#, fuzzy
+#| msgid "B<Note:> C<scriptdir> B<must> be an absolute path."
+msgid "B<Note:> C<SCRIPTDIR> B<must> be an absolute path."
 msgstr "B<Зауваження:> C<scriptdir> B<має> бути вказано повністю."
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:97
+#: ../sysprep/sysprep-extra-options.pod:84
 msgid ""
 "If I<--scriptdir> is not specified then a temporary mountpoint will be "
 "created."

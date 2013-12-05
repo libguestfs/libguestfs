@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-11-01 18:56+0000\n"
+"POT-Creation-Date: 2013-12-06 11:15+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -4138,19 +4138,19 @@ msgstr ""
 msgid "%s: cannot detect virtual size of disk image"
 msgstr ""
 
-#: src/inspect-fs-unix.c:205
+#: src/inspect-fs-unix.c:208
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:250 src/inspect-fs-unix.c:332
-#: src/inspect-fs-unix.c:864 src/inspect-fs-unix.c:1529 src/inspect-fs.c:563
+#: src/inspect-fs-unix.c:253 src/inspect-fs-unix.c:335
+#: src/inspect-fs-unix.c:867 src/inspect-fs-unix.c:1548 src/inspect-fs.c:563
 #: src/inspect-fs.c:609 src/inspect.c:530
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs-unix.c:906
+#: src/inspect-fs-unix.c:909
 msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
@@ -4359,23 +4359,23 @@ msgstr ""
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:172
+#: src/launch.c:179
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:178
+#: src/launch.c:185
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:189
+#: src/launch.c:196
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:225
+#: src/launch.c:232
 msgid "qemu has not been launched yet"
 msgstr "qemu को अबतक लॉन्च नहीं किया गया है"
 
-#: src/launch.c:295
+#: src/launch.c:302
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
@@ -4650,7 +4650,7 @@ msgstr "libguestfs-test-tool: invalid timeout: %s\n"
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: failed to create libguestfs handle\n"
 
-#: test-tool/test-tool.c:137 test-tool/test-tool.c:232
+#: test-tool/test-tool.c:137
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version failed\n"
@@ -4677,49 +4677,49 @@ msgstr ""
 msgid "libguestfs-test-tool: failed to add scratch drive\n"
 msgstr ""
 
-#: test-tool/test-tool.c:275
+#: test-tool/test-tool.c:265
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: failed to launch appliance\n"
 
-#: test-tool/test-tool.c:287
+#: test-tool/test-tool.c:277
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:293
+#: test-tool/test-tool.c:283
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: failed to mkfs.ext2\n"
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:289
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 
-#: test-tool/test-tool.c:306
+#: test-tool/test-tool.c:296
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:312
+#: test-tool/test-tool.c:302
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:346
+#: test-tool/test-tool.c:336
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:354
+#: test-tool/test-tool.c:344
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "द्विपदीय '%s' मौजूद नहीं है या निष्पादनीय नहीं है\n"
 
-#: test-tool/test-tool.c:371
+#: test-tool/test-tool.c:361
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत निर्देशिका की तरह नहीं दिखता है\n"
@@ -4916,7 +4916,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../builder/builder.ml:678 ../builder/builder.ml:394
+#: ../builder/builder.ml:686 ../builder/builder.ml:394
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -4928,7 +4928,7 @@ msgstr ""
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:503
+#: ../builder/builder.ml:496
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -4944,7 +4944,7 @@ msgstr ""
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
-#: ../builder/builder.ml:530
+#: ../builder/builder.ml:523
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -4956,7 +4956,7 @@ msgstr ""
 msgid "%s: --upload: %s: file not found\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:186
+#: ../mllib/common_utils.ml:193
 msgid ""
 "%s: If reporting bugs, run %s with debugging enabled (-v) and include the "
 "complete output."
@@ -5055,19 +5055,19 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../mllib/common_utils.ml:182
+#: ../mllib/common_utils.ml:189
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:560
+#: ../builder/builder.ml:568
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../builder/builder.ml:711
+#: ../builder/builder.ml:719
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:714
+#: ../builder/builder.ml:722
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -5091,11 +5091,11 @@ msgstr ""
 msgid "%s: error: virt-resize failed\n"
 msgstr ""
 
-#: ../builder/builder.ml:732
+#: ../builder/builder.ml:740
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:720
+#: ../builder/builder.ml:728
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -5109,15 +5109,15 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:729
+#: ../builder/builder.ml:737
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../builder/builder.ml:726
+#: ../builder/builder.ml:734
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#: ../builder/builder.ml:723
+#: ../builder/builder.ml:731
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -5129,15 +5129,15 @@ msgstr ""
 msgid "%s: invalid --upload format, see the man page.\n"
 msgstr ""
 
-#: ../mllib/password.ml:39
+#: ../mllib/password.ml:41
 msgid "%s: invalid password format; see the man page.\n"
 msgstr ""
 
-#: ../builder/builder.ml:717
+#: ../builder/builder.ml:725
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:473
+#: ../builder/builder.ml:466
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
@@ -5189,11 +5189,11 @@ msgstr ""
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
-#: ../mllib/password.ml:49
+#: ../mllib/password.ml:51
 msgid "%s: password format, \"%s:...\" is not recognized; see the man page.\n"
 msgstr ""
 
-#: ../mllib/password.ml:31
+#: ../mllib/password.ml:33
 msgid ""
 "%s: password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or "
 "\"sha512\".\n"
@@ -5223,7 +5223,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:534
+#: ../builder/builder.ml:527
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
@@ -5316,7 +5316,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:454
+#: ../builder/builder.ml:445
 msgid ""
 "%s: warning: root password could not be set for this type of guest\n"
 "%!"
@@ -5363,8 +5363,8 @@ msgstr ""
 msgid "--shrink option given twice"
 msgstr ""
 
-#. ../sysprep/sysprep_operation_password.ml:103
-#: ../sysprep/sysprep_operation_password.ml:127
+#. ../sysprep/sysprep_operation_password.ml:102
+#: ../sysprep/sysprep_operation_password.ml:109
 msgid "..."
 msgstr ""
 
@@ -5408,7 +5408,7 @@ msgstr ""
 msgid "Change the hostname of the guest"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_hostname.ml:50
+#: ../sysprep/sysprep_operation_hostname.ml:51
 msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
@@ -5510,7 +5510,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:571
+#: ../builder/builder.ml:579
 msgid "Deleting: %s"
 msgstr ""
 
@@ -5584,7 +5584,7 @@ msgstr ""
 msgid "Edit file with Perl expr"
 msgstr ""
 
-#: ../builder/builder.ml:557
+#: ../builder/builder.ml:565
 msgid "Editing: %s"
 msgstr ""
 
@@ -5669,7 +5669,7 @@ msgstr ""
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
-#: ../builder/builder.ml:667
+#: ../builder/builder.ml:675
 msgid "Finishing off"
 msgstr ""
 
@@ -5714,7 +5714,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:657
+#: ../builder/builder.ml:665
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -5744,19 +5744,19 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:594
+#: ../builder/builder.ml:602
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:597
+#: ../builder/builder.ml:605
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:590
+#: ../builder/builder.ml:598
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:541
+#: ../builder/builder.ml:534
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -5803,7 +5803,7 @@ msgid ""
 "guest is booted."
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:173
+#: ../sysprep/sysprep_operation.ml:179
 msgid "Notes on %s"
 msgstr ""
 
@@ -5835,7 +5835,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:654
+#: ../builder/builder.ml:662
 msgid "Output: %s"
 msgstr ""
 
@@ -5851,7 +5851,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../builder/builder.ml:444
+#: ../builder/builder.ml:435
 msgid "Random root password: %s [did you mean to use --root-password?]"
 msgstr ""
 
@@ -6068,9 +6068,9 @@ msgid ""
 "the I<--firstboot> option as many times as needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:147
+#: ../sysprep/sysprep_operation_script.ml:151
 msgid ""
-"Run the named C<script> (a shell script or program) against the\n"
+"Run the named C<SCRIPT> (a shell script or program) against the\n"
 "guest.  The script can be any program on the host.  The script's\n"
 "current directory will be the guest's root directory.\n"
 "\n"
@@ -6086,11 +6086,11 @@ msgstr ""
 msgid "Running virt-resize to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:611 ../builder/builder.ml:607
+#: ../builder/builder.ml:619 ../builder/builder.ml:615
 msgid "Running: %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:146
+#: ../sysprep/sysprep_operation_script.ml:149
 msgid "Script or program to run on guest"
 msgstr ""
 
@@ -6102,11 +6102,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../builder/builder.ml:622
+#: ../builder/builder.ml:630
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../builder/builder.ml:578
+#: ../builder/builder.ml:586
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -6114,17 +6114,21 @@ msgstr ""
 msgid "Set GPG binary/command"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:128
+#: ../sysprep/sysprep_operation_password.ml:111
 msgid ""
 "Set a user password.  The user must exist already (this option\n"
-"does I<not> create users).  The following formats may be used\n"
-"for this option:\n"
+"does I<not> create users).\n"
+"\n"
+"The I<--password> option takes C<USERNAME:SELECTOR>.  The\n"
+"I<--root-password> option takes just the C<SELECTOR>.  The\n"
+"format of the C<SELECTOR> is described below:\n"
 "\n"
 "=over 4\n"
 "\n"
 "=item B<--password USERNAME:file:FILENAME>\n"
 "\n"
-"Change the password for C<USERNAME>.\n"
+"=item B<--root-password file:FILENAME>\n"
+"\n"
 "Read the password from C<FILENAME>.  The whole\n"
 "first line of this file is the replacement password.\n"
 "Any other lines are ignored.  You should create the file\n"
@@ -6132,7 +6136,8 @@ msgid ""
 "\n"
 "=item B<--password USERNAME:password:PASSWORD>\n"
 "\n"
-"Change the password for C<USERNAME>.\n"
+"=item B<--root-password password:PASSWORD>\n"
+"\n"
 "Set the password to the literal string C<PASSWORD>.\n"
 "\n"
 "B<Note: this is not secure> since any user on the same machine\n"
@@ -6220,7 +6225,7 @@ msgstr ""
 msgid "Set the hostname"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:155
+#: ../sysprep/sysprep_operation_password.ml:144
 msgid ""
 "Set the password encryption to C<md5>, C<sha256> or C<sha512>.\n"
 "\n"
@@ -6237,33 +6242,15 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_password.ml:104
 msgid ""
-"Set the root password.  The following formats may be used\n"
-"for this option:\n"
-"\n"
-"=over 4\n"
-"\n"
-"=item B<--root-password file:FILENAME>\n"
-"\n"
-"Read the root password from C<FILENAME>.  The whole\n"
-"first line of this file is the replacement password.\n"
-"Any other lines are ignored.  You should create the file\n"
-"with mode 0600 to ensure no one else can read it.\n"
-"\n"
-"=item B<--root-password password:PASSWORD>\n"
-"\n"
-"Set the root password to the literal string C<PASSWORD>.\n"
-"\n"
-"B<Note: this is not secure> since any user on the same machine\n"
-"can see the cleartext password using L<ps(1)>.\n"
-"\n"
-"=back"
+"Set the root password.  See I<--password> above for the format\n"
+"of C<SELECTOR>."
 msgstr ""
 
 #: ../builder/builder.ml:402
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../builder/builder.ml:440
+#: ../builder/builder.ml:431
 msgid "Setting root password"
 msgstr ""
 
@@ -6363,13 +6350,13 @@ msgid ""
 "found to be empty."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:137
+#: ../sysprep/sysprep_operation_script.ml:138
 msgid ""
 "The mount point (an empty directory on the host) used when\n"
 "the C<script> operation is enabled and one or more scripts\n"
 "are specified using I<--script> parameter(s).\n"
 "\n"
-"B<Note:> C<scriptdir> B<must> be an absolute path.\n"
+"B<Note:> C<SCRIPTDIR> B<must> be an absolute path.\n"
 "\n"
 "If I<--scriptdir> is not specified then a temporary mountpoint\n"
 "will be created."
@@ -6424,7 +6411,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:655
+#: ../builder/builder.ml:663
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -6440,8 +6427,8 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:550
-msgid "Uploading: %s"
+#: ../builder/builder.ml:543
+msgid "Uploading: %s to %s"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_random_seed.ml:34
@@ -6516,15 +6503,15 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../mllib/common_utils.ml:333
+#: ../mllib/common_utils.ml:340
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:335
+#: ../mllib/common_utils.ml:342
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:337
+#: ../mllib/common_utils.ml:344
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -6570,7 +6557,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:154
+#: ../sysprep/sysprep_operation_password.ml:142
 msgid "md5|sha256|sha512"
 msgstr ""
 
@@ -6629,12 +6616,12 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_firstboot.ml:69
+#: ../sysprep/sysprep_operation_firstboot.ml:68
 msgid "run script once next time guest boots"
 msgstr ""
 
-#. ../sysprep/sysprep_operation_firstboot.ml:69
-#: ../sysprep/sysprep_operation_script.ml:146
+#. ../sysprep/sysprep_operation_firstboot.ml:68
+#: ../sysprep/sysprep_operation_script.ml:149
 msgid "script"
 msgstr ""
 
@@ -6646,15 +6633,15 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:154
+#: ../sysprep/sysprep_operation_password.ml:142
 msgid "set password crypto"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:103
+#: ../sysprep/sysprep_operation_password.ml:102
 msgid "set root password (see man page)"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_password.ml:127
+#: ../sysprep/sysprep_operation_password.ml:109
 msgid "set user password (see man page)"
 msgstr ""
 
@@ -6846,11 +6833,11 @@ msgstr ""
 msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:126
+#: ../sysprep/sysprep_operation.ml:132
 msgid "virt-sysprep: POD for %s must not end with newline\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:140
+#: ../sysprep/sysprep_operation.ml:146
 msgid "virt-sysprep: POD notes for %s must not end with newline\n"
 msgstr ""
 
@@ -6858,31 +6845,31 @@ msgstr ""
 msgid "virt-sysprep: cannot set passwords for %s guests.\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:103
+#: ../sysprep/sysprep_operation.ml:109
 msgid "virt-sysprep: disallowed character (%c) in operation name\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:87
+#: ../sysprep/sysprep_operation.ml:93
 msgid "virt-sysprep: duplicate operation name (%s)\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:113
+#: ../sysprep/sysprep_operation.ml:119
 msgid "virt-sysprep: heading for %s must not end with newline or period\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:122
+#: ../sysprep/sysprep_operation.ml:128
 msgid "virt-sysprep: operation %s has no POD\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:136
+#: ../sysprep/sysprep_operation.ml:142
 msgid "virt-sysprep: operation %s has no POD notes\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:109
+#: ../sysprep/sysprep_operation.ml:115
 msgid "virt-sysprep: operation %s has no heading\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:96
+#: ../sysprep/sysprep_operation.ml:102
 msgid "virt-sysprep: operation name is an empty string\n"
 msgstr ""
 
@@ -6896,7 +6883,7 @@ msgid ""
 "password for user '%s' twice.\n"
 msgstr ""
 
-#: ../mllib/password.ml:141
+#: ../mllib/password.ml:137
 msgid ""
 "virt-sysprep: password: warning: using insecure md5 password encryption for\n"
 "guest of type %s version %d.\n"
