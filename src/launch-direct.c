@@ -331,6 +331,13 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (qemu_supports (g, data, "-nodefconfig"))
     ADD_CMDLINE ("-nodefconfig");
 
+  /* This oddly named option doesn't actually enable FIPS.  It just
+   * causes qemu to do the right thing if FIPS is enabled in the
+   * kernel.  So like libvirt, we pass it unconditionally.
+   */
+  if (qemu_supports (g, data, "-enable-fips"))
+    ADD_CMDLINE ("-enable-fips");
+
   /* Newer versions of qemu (from around 2009/12) changed the
    * behaviour of monitors so that an implicit '-monitor stdio' is
    * assumed if we are in -nographic mode and there is no other
