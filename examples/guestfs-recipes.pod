@@ -188,6 +188,25 @@ L<virt-ls(1)/DIFFERENCES IN SNAPSHOTS AND BACKING FILES>.
 There are also experimental patches on the mailing list for a
 "virt-diff" tool.
 
+=head1 Disable a systemd service
+
+The following is the equivalent of C<systemctl mask ...>. To disable
+the C<cloud-init> service so it doesn't start at next boot:
+
+ guestfish -a disk.img -i \
+     ln-sf /dev/null /etc/systemd/system/cloud-init.service
+
+To disable tmp-on-tmpfs:
+
+ guestfish -a disk.img -i \
+     ln-sf /dev/null /etc/systemd/system/tmp.mount
+
+One problem with the commands above is there is no feedback if you get
+the name of the service you are trying to mask wrong.  But you can use
+L<virt-ls(1)> to list the available systemd services like this:
+
+ virt-ls -a /tmp/fedora-19.img -R /lib/systemd/system
+
 =head1 Dump raw filesystem content from inside a disk image or VM
 
 You can use the L<guestfish(1)> C<download> command to extract the raw
