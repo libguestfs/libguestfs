@@ -47,7 +47,7 @@ let list_entries ?(list_long = false) ~sources index =
           printf "\n"
         )
         else (                          (* Long *)
-          printf "%-24s %s\n" (s_"OS version:") name;
+          printf "%-24s %s\n" "os-version:" name;
           (match printable_name with
           | None -> ()
           | Some name -> printf "%-24s %s\n" (s_"Full name:") name;
