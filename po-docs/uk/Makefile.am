@@ -160,8 +160,8 @@ $(podfiles):
 # XXX Can automake do this properly?
 install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man1
-	$(INSTALL) -m 0644 *.1 $(DESTDIR)$(mandir)/$(LINGUA)/man1
+	$(INSTALL) -m 0644 $(srcdir)/*.1 $(DESTDIR)$(mandir)/$(LINGUA)/man1
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man3
-	$(INSTALL) -m 0644 *.3 $(DESTDIR)$(mandir)/$(LINGUA)/man3
+	$(INSTALL) -m 0644 $(srcdir)/*.3 $(DESTDIR)$(mandir)/$(LINGUA)/man3
 	$(MKDIR_P) $(DESTDIR)$(mandir)/$(LINGUA)/man5
-	$(INSTALL) -m 0644 *.5 $(DESTDIR)$(mandir)/$(LINGUA)/man5
+	$(INSTALL) -m 0644 $(srcdir)/*.5 $(DESTDIR)$(mandir)/$(LINGUA)/man5
