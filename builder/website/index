@@ -1,15 +1,15 @@
 [centos-6]
-name=CentOS 6.4
-revision=4
-osinfo=centos6.4
+name=CentOS 6.5
+revision=5
+osinfo=centos6.5
 file=centos-6.xz
 sig=centos-6.xz.sig
-checksum=cc961bee19e0ed9573f2fa1bb26923bc77b882fe9b82eb0fefdf969237b586ebb6b4a02818321ace6cc3604d8f0f60e76f22039bf301093fa944c27399f70904
+checksum=8f08505ec708b04a25bbd21816cdda8a5eff8bbf85fec3caff6d7a9a7bfba07dafa707e60772f5676c437a6d3381cd26b4e48bc82a232bc940ca9dcddcff7a85
 format=raw
 size=6442450944
-compressed_size=191253016
+compressed_size=197139324
 expand=/dev/sda3
-notes=CentOS 6.4
+notes=CentOS 6.5
  
  This CentOS image contains only unmodified @Core group packages.
  
