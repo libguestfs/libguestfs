@@ -21,9 +21,9 @@
 export LANG=C
 set -e
 
-abs_srcdir=$(cd $srcdir && pwd)
+abs_builddir=$(pwd)
 
-export VIRT_BUILDER_SOURCE=file://$abs_srcdir/test-index
+export VIRT_BUILDER_SOURCE=file://$abs_builddir/test-index
 
 short_list=$($VG ./virt-builder --no-check-signature --no-cache --list)
 

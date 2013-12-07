@@ -19,9 +19,9 @@
 export LANG=C
 set -e
 
-abs_srcdir=$(cd $srcdir && pwd)
+abs_builddir=$(pwd)
 
-export VIRT_BUILDER_SOURCE=file://$abs_srcdir/test-index
+export VIRT_BUILDER_SOURCE=file://$abs_builddir/test-index
 
 if [ ! -f fedora.xz ]; then
     echo "$0: test skipped because there is no fedora.xz in the build directory"
