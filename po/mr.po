@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-12-02 13:38+0000\n"
+"POT-Creation-Date: 2013-12-08 12:39+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
@@ -20,6 +20,2150 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../builder/index_parser.ml:111
+msgid ""
+"\n"
+"The index file downloaded from '%s' is corrupt.\n"
+"You need to ask the supplier of this file to fix it and upload a fixed "
+"version.\n"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:248
+msgid ""
+"\n"
+"WARNING: There may not be enough free space on %s.\n"
+"You may need to set TMPDIR to point to a directory with more free space.\n"
+"\n"
+"Max needed: %s.  Free: %s.  May need another %s.\n"
+"\n"
+"Note this is an overestimate.  If the guest disk is full of data\n"
+"then not as much free space would be required.\n"
+"\n"
+"You can ignore this warning or change it to a hard failure using the\n"
+"--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sparsify(1).\n"
+"\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:833
+msgid "  An extra partition will be created for the surplus."
+msgstr ""
+
+#: ../resize/resize.ml:818 ../resize/resize.ml:799
+msgid "  The %s on %s will be expanded using the '%s' method."
+msgstr ""
+
+#: ../resize/resize.ml:835
+msgid ""
+"  The surplus space is not large enough for an extra partition to be created "
+"and so it will just be ignored."
+msgstr ""
+
+#: ../resize/resize.ml:837
+msgid ""
+"  The surplus space will be ignored.  Run a partitioning program in the "
+"guest to partition this extra space if you want."
+msgstr ""
+
+#: ../sysprep/main.ml:227
+msgid "%s (ignored)\n"
+msgstr ""
+
+#: ../builder/builder.ml:720 ../builder/builder.ml:426
+msgid "%s: %s (ignored)\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:148 ../builder/cmdline.ml:95
+msgid "%s: %s: %s: file not found\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:150 ../builder/cmdline.ml:97
+msgid "%s: %s: %s: file not found [did you mean %s?]\n"
+msgstr ""
+
+#: ../builder/builder.ml:516
+msgid "%s: %s: command exited with an error\n"
+msgstr ""
+
+#: ../sysprep/main.ml:61
+msgid "%s: --domain option can only be given once\n"
+msgstr ""
+
+#: ../sysprep/main.ml:73
+msgid "%s: --enable option can only be given once\n"
+msgstr ""
+
+#: ../sysprep/main.ml:85
+msgid "%s: --enable: '%s' is not a known operation\n"
+msgstr ""
+
+#: ../builder/builder.ml:543
+msgid "%s: --install is not supported for this guest operating system\n"
+msgstr ""
+
+#: ../builder/builder.ml:289
+msgid "%s: --size is too small for this disk image, minimum size is %s\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:183
+msgid "%s: --upload: %s: file not found\n"
+msgstr ""
+
+#: ../mllib/common_utils.ml:193
+msgid ""
+"%s: If reporting bugs, run %s with debugging enabled (-v) and include the "
+"complete output."
+msgstr ""
+
+#: ../resize/resize.ml:624
+msgid ""
+"%s: This extended partition contains logical partitions which might be "
+"damaged by shrinking it.  If you want to shrink this partition, you need to "
+"use the '--resize-force' option, but that could destroy logical partitions "
+"within this partition.  (This error came from '%s' option on the command "
+"line.)"
+msgstr ""
+
+#: ../resize/resize.ml:815
+msgid "%s: This logical volume will be expanded to maximum size."
+msgstr ""
+
+#: ../resize/resize.ml:620
+msgid ""
+"%s: This partition contains a %s filesystem which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
+msgstr ""
+
+#: ../resize/resize.ml:616
+msgid ""
+"%s: This partition contains an LVM physical volume which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
+msgstr ""
+
+#: ../resize/resize.ml:613
+msgid ""
+"%s: This partition has unknown content which might be damaged by shrinking "
+"it.  If you want to shrink this partition, you need to use the '--resize-"
+"force' option, but that could destroy any data on this partition.  (This "
+"error came from '%s' option on the command line.)"
+msgstr ""
+
+#: ../resize/resize.ml:792
+msgid ""
+"%s: This partition will be created, but the contents will be ignored (ie. "
+"not copied to the target)."
+msgstr ""
+
+#: ../resize/resize.ml:794
+msgid "%s: This partition will be deleted."
+msgstr ""
+
+#: ../resize/resize.ml:790
+msgid "%s: This partition will be left alone."
+msgstr ""
+
+#: ../resize/resize.ml:796
+msgid "%s: This partition will be resized from %s to %s."
+msgstr ""
+
+#: ../builder/cmdline.ml:274
+msgid ""
+"%s: build virtual machine images quickly\n"
+"\n"
+" virt-builder OS-VERSION\n"
+" virt-builder -l\n"
+" virt-builder --notes OS-VERSION\n"
+" virt-builder --print-cache\n"
+" virt-builder --cache-all-templates\n"
+" virt-builder --delete-cache\n"
+" virt-builder --get-kernel IMAGE\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-builder(1).\n"
+msgstr ""
+
+#: ../builder/builder.ml:194
+msgid ""
+"%s: cannot find os-version '%s'.\n"
+"Use --list to list available guest types.\n"
+msgstr ""
+
+#: ../builder/builder.ml:100
+msgid "%s: curl is not installed (or does not work)\n"
+msgstr ""
+
+#: ../builder/builder.ml:129
+msgid ""
+"%s: disabling the cache\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:57
+msgid "%s: empty --expand option"
+msgstr ""
+
+#: ../mllib/common_utils.ml:189
+msgid "%s: error: %s"
+msgstr ""
+
+#: ../builder/builder.ml:602
+msgid "%s: error: %s is not a regular file in the guest\n"
+msgstr ""
+
+#: ../builder/builder.ml:754
+msgid "%s: error: %s: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:757
+msgid "%s: error: %s: %s: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:321
+msgid "%s: error: could not create output file '%s'\n"
+msgstr ""
+
+#: ../builder/builder.ml:75
+msgid "%s: error: could not find cache directory. Is $HOME set?\n"
+msgstr ""
+
+#: ../builder/builder.ml:173
+msgid "%s: error: no cache directory\n"
+msgstr ""
+
+#: ../builder/builder.ml:387
+msgid "%s: error: virt-resize failed\n"
+msgstr ""
+
+#: ../builder/builder.ml:775
+msgid "%s: exception: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:763
+msgid "%s: failure: %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:288 ../resize/resize.ml:285
+msgid "%s: file is too small to be a disk image (%Ld bytes)"
+msgstr ""
+
+#: ../builder/builder.ml:90
+msgid ""
+"%s: gpg is not installed (or does not work)\n"
+"You should install gpg, or use --gpg option, or use --no-check-signature.\n"
+msgstr ""
+
+#: ../builder/builder.ml:772
+msgid "%s: internal error: Not_found exception was thrown\n"
+msgstr ""
+
+#: ../builder/builder.ml:769
+msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
+msgstr ""
+
+#: ../builder/builder.ml:766
+msgid "%s: internal error: invalid argument: %s\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:80
+msgid "%s: invalid --edit format, see the man page.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:178
+msgid "%s: invalid --upload format, see the man page.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:195
+msgid "%s: invalid --write format, see the man page.\n"
+msgstr ""
+
+#: ../mllib/password.ml:71
+msgid "%s: invalid password selector '%s'; see the man page.\n"
+msgstr ""
+
+#: ../builder/builder.ml:760
+msgid "%s: libguestfs error: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:486
+msgid "%s: log file %s: %s (ignored)\n"
+msgstr ""
+
+#: ../resize/resize.ml:772
+msgid ""
+"%s: logical volume not found in the source disk image (this error came from "
+"'--lv-expand' option on the command line).  Try running this command: virt-"
+"filesystems --logical-volumes --long -a %s"
+msgstr ""
+
+#: ../resize/resize.ml:642
+msgid "%s: missing size field in '%s' option"
+msgstr ""
+
+#: ../resize/resize.ml:651
+msgid "%s: new partition size is zero or negative"
+msgstr ""
+
+#: ../builder/builder.ml:430
+msgid ""
+"%s: no guest operating systems or multiboot OS found in this disk image\n"
+"This is a failure of the source repository.  Use -v for more information.\n"
+msgstr ""
+
+#: ../sysprep/main.ml:210
+msgid "%s: no operating systems were found in the guest image\n"
+msgstr ""
+
+#: ../resize/resize.ml:562
+msgid "%s: partition already deleted, you cannot use it in '%s' option"
+msgstr ""
+
+#: ../resize/resize.ml:558
+msgid "%s: partition already ignored, you cannot use it in '%s' option"
+msgstr ""
+
+#: ../resize/resize.ml:554
+msgid ""
+"%s: partition not found in the source disk image (this error came from '%s' "
+"option on the command line).  Try running this command: virt-filesystems --"
+"partitions --long -a %s"
+msgstr ""
+
+#: ../resize/resize.ml:441
+msgid "%s: partition size %Ld < filesystem size %Ld"
+msgstr ""
+
+#: ../resize/resize.ml:436
+msgid "%s: partition size %Ld < physical volume size %Ld"
+msgstr ""
+
+#: ../mllib/password.ml:48
+msgid ""
+"%s: password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or "
+"\"sha512\".\n"
+msgstr ""
+
+#: ../resize/resize.ml:366
+msgid "%s: physical volume not returned by pvs_full"
+msgstr ""
+
+#: ../sysprep/main.ml:134
+msgid ""
+"%s: reset or unconfigure a virtual machine so clones can be made\n"
+"\n"
+" virt-sysprep [--options] -d domname\n"
+"\n"
+" virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-sysprep(1).\n"
+msgstr ""
+
+#: ../resize/resize.ml:120
+msgid ""
+"%s: resize a virtual machine disk\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-resize(1).\n"
+msgstr ""
+
+#: ../builder/builder.ml:547
+msgid ""
+"%s: sorry, don't know how to use --install with the '%s' package manager\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:407
+msgid "%s: source and fingerprint lists are not the same length\n"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:95
+msgid ""
+"%s: sparsify a virtual machine disk\n"
+"\n"
+" virt-sparsify [--options] indisk outdisk\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-sparsify(1).\n"
+msgstr ""
+
+#: ../resize/resize.ml:598
+msgid "%s: this partition has already been ignored or deleted"
+msgstr ""
+
+#: ../resize/resize.ml:594
+msgid "%s: this partition has already been marked for resizing"
+msgstr ""
+
+#: ../resize/resize.ml:451
+msgid "%s: this partition overlaps the previous one"
+msgstr ""
+
+#: ../resize/resize.ml:302
+msgid ""
+"%s: unknown partition table type\n"
+"virt-resize only supports MBR (DOS) and GPT partition tables."
+msgstr ""
+
+#: ../builder/cmdline.ml:361
+msgid ""
+"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
+"need any extra arguments.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:368
+msgid ""
+"%s: virt-builder --get-kernel image\n"
+"Missing 'image' (disk image file) argument.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:371
+msgid "%s: virt-builder --get-kernel: too many parameters\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:342
+msgid "%s: virt-builder --list does not need any extra arguments.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:349
+msgid ""
+"%s: virt-builder --notes os-version\n"
+"Missing 'os-version'. Use '--list' to list available template names.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:332
+msgid ""
+"%s: virt-builder os-version\n"
+"Missing 'os-version'. Use '--list' to list available template names.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:352 ../builder/cmdline.ml:335
+msgid "%s: virt-builder: too many parameters, expecting 'os-version'\n"
+msgstr ""
+
+#: ../builder/builder.ml:107
+msgid "%s: virt-resize is not installed (or does not work)\n"
+msgstr ""
+
+#: ../builder/builder.ml:127
+msgid "%s: warning: cache %s: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:94
+msgid "%s: warning: gpg program is not available\n"
+msgstr ""
+
+#: ../builder/builder.ml:444
+msgid ""
+"%s: warning: hostname could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:436
+msgid ""
+"%s: warning: random seed could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:465
+msgid ""
+"%s: warning: root password could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../sysprep/main.ml:163
+msgid "%s: you cannot give -a and -d options together\n"
+msgstr ""
+
+#: ../sysprep/main.ml:77
+msgid "%s: you cannot pass an empty argument to --enable\n"
+msgstr ""
+
+#: ../builder/builder.ml:265
+msgid "%s: you cannot use --size option with block devices\n"
+msgstr ""
+
+#: ../sysprep/main.ml:154
+msgid "%s: you must give either -a or -d options\n"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:201
+msgid ""
+"'qemu-img create' cannot create qcow2 files.  Check the 'qemu-img'\n"
+"program is installed and working, and that it matches the versionof qemu "
+"installed.\n"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:55
+msgid "--check-tmpdir: unknown argument `%s'\n"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:231
+msgid ""
+"--compress cannot be used for raw output.  Remove this option or use --"
+"convert qcow2."
+msgstr ""
+
+#: ../resize/resize.ml:58
+msgid "--expand option given twice"
+msgstr ""
+
+#: ../resize/resize.ml:75
+msgid "--shrink option given twice"
+msgstr ""
+
+#. ../sysprep/sysprep_operation_password.ml:102
+#: ../sysprep/sysprep_operation_password.ml:109
+msgid "..."
+msgstr ""
+
+#: ../sysprep/main.ml:101 ../sysprep/main.ml:100
+msgid "Add disk image file"
+msgstr ""
+
+#: ../builder/cmdline.ml:234
+msgid "Add package(s) to install"
+msgstr ""
+
+#: ../builder/cmdline.ml:228
+msgid "Add package(s) to install at firstboot"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:81
+msgid "Add qemu-img options"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firstboot.ml:51
+msgid "Add scripts to run once at next boot"
+msgstr ""
+
+#: ../resize/resize.ml:82
+msgid "Align first partition (default: auto)"
+msgstr ""
+
+#: ../builder/cmdline.ml:205
+msgid "Attach data disk/ISO during install"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_lvm_uuids.ml:45
+msgid "Change LVM2 PV and VG UUIDs"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:47
+msgid "Change filesystem UUIDs"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_hostname.ml:36
+msgid "Change the hostname of the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_hostname.ml:51
+msgid ""
+"Change the hostname.  If not given, defaults to C<localhost.localdomain>."
+msgstr ""
+
+#: ../builder/cmdline.ml:213
+msgid "Check digital signatures"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:73
+msgid "Check there is enough space in $TMPDIR"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:394
+msgid ""
+"Clearing Linux swap on %s ...\n"
+"%!"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:74
+msgid "Compressed output format"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:453
+msgid ""
+"Copy to destination and make sparse ...\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:1082
+msgid ""
+"Copying %s ...\n"
+"%!"
+msgstr ""
+
+#: ../builder/cmdline.ml:242
+msgid "Create directory"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:284
+msgid ""
+"Create overlay file in %s to protect source disk ...\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:312
+msgid "Creating disk image: %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_hostname.ml:45
+msgid "Currently this can only set the hostname on Linux guests."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:69
+msgid ""
+"Currently this does not remove the user accounts from\n"
+"C</etc/shadow>.  This is because there is no lens for\n"
+"the shadow password file in Augeas."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firstboot.ml:63
+msgid ""
+"Currently this is only implemented for Linux guests using\n"
+"either SysVinit-style scripts, Upstart or systemd."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_bash_history.ml:44
+msgid ""
+"Currently this only looks in C</root> and C</home/*> for\n"
+"home directories, so users with home directories in other\n"
+"locations won't have the bash history removed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:44
+msgid ""
+"Currently this only looks in C</root> and C</home/*> for\n"
+"home directories, so users with home directories in other\n"
+"locations won't have the ssh files removed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:97
+msgid ""
+"Currently this only works for glibc-based Linux guests that\n"
+"use shadow passwords."
+msgstr ""
+
+#: ../sparsify/sparsify.ml:76 ../resize/resize.ml:87
+msgid "Debug GC and memory allocations"
+msgstr ""
+
+#: ../sysprep/main.ml:104
+msgid "Debug GC and memory allocations (internal)"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_delete.ml:45
+msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
+msgstr ""
+
+#: ../builder/cmdline.ml:219
+msgid "Delete a file or dir"
+msgstr ""
+
+#: ../resize/resize.ml:88
+msgid "Delete partition"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_delete.ml:37
+msgid "Delete specified files or directories"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_delete.ml:38
+msgid ""
+"Delete specified files or directories.\n"
+"\n"
+"Use the I<--delete> option to specify a path to remove."
+msgstr ""
+
+#: ../builder/cmdline.ml:221
+msgid "Delete the template cache"
+msgstr ""
+
+#: ../builder/builder.ml:613
+msgid "Deleting: %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:244
+msgid "Disable appliance network"
+msgstr ""
+
+#: ../builder/cmdline.ml:216
+msgid "Disable digital signatures"
+msgstr ""
+
+#: ../builder/cmdline.ml:209
+msgid "Disable template cache"
+msgstr ""
+
+#: ../builder/cmdline.ml:245
+msgid "Display installation notes"
+msgstr ""
+
+#. ../resize/resize.ml:113
+#. ../builder/cmdline.ml:265
+#: ../sysprep/main.ml:124 ../sysprep/main.ml:123 ../sparsify/sparsify.ml:86
+msgid "Display version and exit"
+msgstr ""
+
+#: ../builder/cmdline.ml:261
+msgid "Do not fsync output file on exit"
+msgstr ""
+
+#: ../resize/resize.ml:84
+msgid "Don't copy boot loader"
+msgstr ""
+
+#: ../resize/resize.ml:91
+msgid "Don't create extra partition"
+msgstr ""
+
+#: ../resize/resize.ml:90
+msgid "Don't expand content"
+msgstr ""
+
+#: ../resize/resize.ml:100
+msgid "Don't perform changes"
+msgstr ""
+
+#: ../sysprep/main.ml:118 ../sysprep/main.ml:117
+msgid "Don't print log messages"
+msgstr ""
+
+#: ../resize/resize.ml:105
+msgid "Don't print the summary"
+msgstr ""
+
+#: ../builder/cmdline.ml:211
+msgid "Download all templates to the cache"
+msgstr ""
+
+#: ../builder/list_entries.ml:59
+msgid "Download size:"
+msgstr ""
+
+#: ../builder/builder.ml:220 ../builder/builder.ml:180
+msgid "Downloading: %s"
+msgstr ""
+
+#: ../sysprep/main.ml:110
+msgid "Dump POD (internal)"
+msgstr ""
+
+#: ../sysprep/main.ml:111
+msgid "Dump POD for options (internal)"
+msgstr ""
+
+#: ../builder/cmdline.ml:222
+msgid "Edit file with Perl expr"
+msgstr ""
+
+#: ../builder/builder.ml:599
+msgid "Editing: %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:243
+msgid "Enable appliance network (default)"
+msgstr ""
+
+#. ../resize/resize.ml:111
+#. ../resize/resize.ml:85
+#. ../builder/cmdline.ml:263
+#: ../sysprep/main.ml:122 ../sysprep/main.ml:121 ../sparsify/sparsify.ml:84
+msgid "Enable debugging messages"
+msgstr ""
+
+#: ../sysprep/main.ml:112
+msgid "Enable specific operations"
+msgstr ""
+
+#: ../sysprep/main.ml:125 ../sparsify/sparsify.ml:88
+msgid "Enable tracing of libguestfs calls"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:323
+msgid ""
+"Examine source disk ...\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:247
+msgid ""
+"Examining %s ...\n"
+"%!"
+msgstr ""
+
+#: ../sysprep/main.ml:195
+msgid ""
+"Examining the guest ...\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:95
+msgid "Expand logical volume"
+msgstr ""
+
+#: ../resize/resize.ml:89
+msgid "Expand partition"
+msgstr ""
+
+#: ../resize/resize.ml:1231
+msgid ""
+"Expanding %s using the '%s' method ...\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:1214
+msgid ""
+"Expanding %s%s using the '%s' method ...\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:892
+msgid ""
+"Failed to initialize the partition table on the target disk.  You need to "
+"wipe or recreate the target disk and then run virt-resize again.\n"
+"\n"
+"The underlying error was: %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_delete.ml:43
+msgid "File or directory to be removed on guest"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:378
+msgid ""
+"Fill free space in %s with zero ...\n"
+"%!"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:429
+msgid ""
+"Fill free space in volgroup %s with zero ...\n"
+"%!"
+msgstr ""
+
+#: ../builder/cmdline.ml:224
+msgid "Fingerprint of valid signing key"
+msgstr ""
+
+#: ../builder/list_entries.ml:29
+msgid "Fingerprint: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:709
+msgid "Finishing off"
+msgstr ""
+
+#: ../resize/resize.ml:1138
+msgid ""
+"Fixing first NTFS partition boot record ...\n"
+"%!"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
+msgid "Flag the system for reconfiguration"
+msgstr ""
+
+#. ../sysprep/sysprep_operation_net_hostname.ml:51
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:51
+msgid ""
+"For Fedora and Red Hat Enterprise Linux,\n"
+"this is removed from C<ifcfg-*> files."
+msgstr ""
+
+#: ../sysprep/main.ml:119
+msgid "Force SELinux relabel"
+msgstr ""
+
+#: ../resize/resize.ml:103
+msgid "Force ntfsresize"
+msgstr ""
+
+#: ../resize/resize.ml:108
+msgid "Forcefully resize partition"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:77 ../resize/resize.ml:92
+msgid "Format of input disk"
+msgstr ""
+
+#: ../resize/resize.ml:104
+msgid "Format of output disk"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:75
+msgid "Format of output disk (default: same as input)"
+msgstr ""
+
+#: ../builder/builder.ml:699
+msgid "Free space: %s (%Ld%%)"
+msgstr ""
+
+#: ../builder/list_entries.ml:53
+msgid "Full name:"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_random_seed.ml:33
+msgid "Generate random seed for guest"
+msgstr ""
+
+#: ../builder/cmdline.ml:231
+msgid "Get kernel from image"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:78
+msgid "Ignore filesystem"
+msgstr ""
+
+#: ../resize/resize.ml:93
+msgid "Ignore partition"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:237
+msgid ""
+"Input disk virtual size = %Ld bytes (%s)\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:636
+msgid "Installing firstboot command: [%d] %s"
+msgstr ""
+
+#: ../builder/builder.ml:639
+msgid "Installing firstboot packages: [%d] %s"
+msgstr ""
+
+#: ../builder/builder.ml:632
+msgid "Installing firstboot script: [%d] %s"
+msgstr ""
+
+#: ../builder/builder.ml:554
+msgid "Installing packages: %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:235
+msgid "List available templates"
+msgstr ""
+
+#. ../builder/cmdline.ml:239
+#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:79 ../resize/resize.ml:94
+msgid "List long options"
+msgstr ""
+
+#: ../sysprep/main.ml:114
+msgid "List supported operations"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:80 ../resize/resize.ml:99
+msgid "Make output machine readable"
+msgstr ""
+
+#: ../builder/builder.ml:563
+msgid "Making directory: %s"
+msgstr ""
+
+#: ../builder/list_entries.ml:55
+msgid "Minimum/default size:"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:136
+msgid "Mount point on host"
+msgstr ""
+
+#: ../sysprep/main.ml:120
+msgid "Never do SELinux relabel"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_hostname.ml:49
+msgid "New hostname"
+msgstr ""
+
+#: ../builder/cmdline.ml:252
+msgid "No progress messages"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:37
+msgid ""
+"Note that this may require user intervention when the\n"
+"guest is booted."
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:179
+msgid "Notes on %s"
+msgstr ""
+
+#: ../builder/list_entries.ml:65
+msgid ""
+"Notes:\n"
+"\n"
+"%s\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_lvm_uuids.ml:46
+msgid ""
+"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
+"(VGs),\n"
+"new random UUIDs are generated and assigned to those PVs and VGs."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_logfiles.ml:107
+msgid ""
+"On Linux the following files are removed:\n"
+"\n"
+"%s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:48
+msgid ""
+"On guests and filesystem types where this is supported,\n"
+"new random UUIDs are generated and assigned to filesystems."
+msgstr ""
+
+#: ../builder/builder.ml:393
+msgid "Opening the new disk"
+msgstr ""
+
+#: ../builder/cmdline.ml:229
+msgid "Output format (default: raw)"
+msgstr ""
+
+#: ../builder/builder.ml:696
+msgid "Output: %s"
+msgstr ""
+
+#: ../sysprep/main.ml:109 ../sysprep/main.ml:108 ../sysprep/main.ml:107
+msgid "Perform a dry run"
+msgstr ""
+
+#: ../builder/cmdline.ml:251
+msgid "Print info about template cache"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:82
+msgid "Quiet output"
+msgstr ""
+
+#: ../sysprep/main.ml:164 ../sysprep/main.ml:155
+msgid "Read virt-sysprep(1) man page for further information.\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:40
+msgid "Remove \".ssh\" directories in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ca_certificates.ml:54
+msgid "Remove CA certificates in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_dhcp_client_state.ml:37
+msgid "Remove DHCP client leases"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_dhcp_server_state.ml:32
+msgid "Remove DHCP server leases"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_dovecot_data.ml:39
+msgid "Remove Dovecot (mail server) data"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_net_hostname.ml:50
+msgid "Remove HOSTNAME in network interface configuration"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:50
+msgid "Remove HWADDR (hard-coded MAC address) configuration"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_kerberos_data.ml:47
+msgid "Remove Kerberos data in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:66
+msgid ""
+"Remove all the user accounts and their home directories.\n"
+"The \"root\" account is not removed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_blkid_tab.ml:50
+msgid "Remove blkid tab in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_mail_spool.ml:37
+msgid "Remove email from the local mail spool directory"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rpm_db.ml:41
+msgid "Remove host-specific RPM database files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rpm_db.ml:42
+msgid ""
+"Remove host-specific RPM database files and locks.  RPM will\n"
+"recreate these files automatically if needed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_logfiles.ml:105
+msgid "Remove many log files from the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_package_manager_cache.ml:44
+msgid "Remove package manager cache"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_tmp_files.ml:46
+msgid "Remove temporary files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:41
+msgid ""
+"Remove the C<.ssh> directory of user \"root\" and any other\n"
+"users who have a C<.ssh> directory in their home directory."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_pam_data.ml:47
+msgid "Remove the PAM data in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rhn_systemid.ml:39
+msgid "Remove the RHN system ID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:37
+msgid "Remove the SSH host keys in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_smolt_uuid.ml:42
+msgid "Remove the Smolt hardware UUID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_abrt_data.ml:40
+msgid ""
+"Remove the automatically generated ABRT crash data in\n"
+"C</var/spool/abrt/>."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_crash_data.ml:41
+msgid "Remove the automatically generated kdump kernel crash data."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_bash_history.ml:40
+msgid "Remove the bash history in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_bash_history.ml:41
+msgid ""
+"Remove the bash history of user \"root\" and any other users\n"
+"who have a C<.bash_history> file in their home directory."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_abrt_data.ml:39
+msgid "Remove the crash data generated by ABRT"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_crash_data.ml:40
+msgid "Remove the crash data generated by kexec-tools"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_puppet_data_log.ml:47
+msgid "Remove the data and log files of puppet"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_samba_db_log.ml:48
+msgid "Remove the database and log files of Samba"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_sssd_db_log.ml:46
+msgid "Remove the database and log files of sssd"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firewall_rules.ml:47
+msgid "Remove the firewall rules"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_machine_id.ml:38
+msgid "Remove the local machine ID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_pacct_log.ml:52
+msgid "Remove the process accounting log files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:65
+msgid "Remove the user accounts in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_utmp.ml:36
+msgid "Remove the utmp file"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_yum_uuid.ml:36
+msgid "Remove the yum UUID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:37
+msgid "Remove udev persistent net rules"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:38
+msgid ""
+"Remove udev persistent net rules which map the guest's existing MAC\n"
+"address to a fixed ethernet device (eg. eth0).\n"
+"\n"
+"After a guest is cloned, the MAC address usually changes.  Since the\n"
+"old MAC address occupies the old name (eg. eth0), this means the fresh\n"
+"MAC address is assigned to a new name (eg. eth1) and this is usually\n"
+"undesirable.  Erasing the udev persistent net rules avoids this."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_cron_spool.ml:40
+msgid "Remove user at-jobs and cron-jobs"
+msgstr ""
+
+#: ../resize/resize.ml:1259
+msgid ""
+"Resize operation completed with no errors.  Before deleting the old disk, "
+"carefully check that the resized disk boots and works correctly.\n"
+msgstr ""
+
+#: ../resize/resize.ml:107
+msgid "Resize partition"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:111
+msgid "Run arbitrary scripts against the guest"
+msgstr ""
+
+#: ../builder/cmdline.ml:226
+msgid "Run command at first guest boot"
+msgstr ""
+
+#: ../builder/cmdline.ml:256
+msgid "Run command in disk image"
+msgstr ""
+
+#: ../builder/cmdline.ml:225
+msgid "Run script at first guest boot"
+msgstr ""
+
+#: ../builder/cmdline.ml:255
+msgid "Run script in disk image"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firstboot.ml:70
+msgid ""
+"Run script(s) once next time the guest boots.  You can supply\n"
+"the I<--firstboot> option as many times as needed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:151
+msgid ""
+"Run the named C<SCRIPT> (a shell script or program) against the\n"
+"guest.  The script can be any program on the host.  The script's\n"
+"current directory will be the guest's root directory.\n"
+"\n"
+"B<Note:> If the script is not on the $PATH, then you must give\n"
+"the full absolute path to the script."
+msgstr ""
+
+#: ../builder/builder.ml:361
+msgid "Running virt-resize to expand the disk"
+msgstr ""
+
+#: ../builder/builder.ml:363
+msgid "Running virt-resize to expand the disk to %s"
+msgstr ""
+
+#: ../builder/builder.ml:653 ../builder/builder.ml:649
+msgid "Running: %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:149
+msgid "Script or program to run on guest"
+msgstr ""
+
+#: ../builder/cmdline.ml:257
+msgid "Scrub a file"
+msgstr ""
+
+#: ../builder/cmdline.ml:238
+msgid "Scrub build log file"
+msgstr ""
+
+#: ../builder/builder.ml:664
+msgid "Scrubbing the log file"
+msgstr ""
+
+#: ../builder/builder.ml:620
+msgid "Scrubbing: %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:232
+msgid "Set GPG binary/command"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:111
+msgid ""
+"Set a user password.  The user must exist already (this option\n"
+"does I<not> create users).\n"
+"\n"
+"The I<--password> option takes C<USERNAME:SELECTOR>.  The\n"
+"I<--root-password> option takes just the C<SELECTOR>.  The\n"
+"format of the C<SELECTOR> is described below:\n"
+"\n"
+"=over 4\n"
+"\n"
+"=item B<--password USERNAME:file:FILENAME>\n"
+"\n"
+"=item B<--root-password file:FILENAME>\n"
+"\n"
+"Read the password from C<FILENAME>.  The whole\n"
+"first line of this file is the replacement password.\n"
+"Any other lines are ignored.  You should create the file\n"
+"with mode 0600 to ensure no one else can read it.\n"
+"\n"
+"=item B<--password USERNAME:password:PASSWORD>\n"
+"\n"
+"=item B<--root-password password:PASSWORD>\n"
+"\n"
+"Set the password to the literal string C<PASSWORD>.\n"
+"\n"
+"B<Note: this is not secure> since any user on the same machine\n"
+"can see the cleartext password using L<ps(1)>.\n"
+"\n"
+"=item B<--password USERNAME:random>\n"
+"\n"
+"=item B<--root-password random>\n"
+"\n"
+"Choose a random password, which is printed on stdout.  The password\n"
+"has approximately 120 bits of randomness.\n"
+"\n"
+"=item B<--password> USERNAME:disabled\n"
+"\n"
+"=item B<--root-password> disabled\n"
+"\n"
+"The account password is disabled.  This is like putting C<*>\n"
+"in the password field.\n"
+"\n"
+"=item B<--password> USERNAME:locked:file:FILENAME\n"
+"\n"
+"=item B<--password> USERNAME:locked:password:PASSWORD\n"
+"\n"
+"=item B<--password> USERNAME:locked:random\n"
+"\n"
+"=item B<--root-password> locked:file:FILENAME\n"
+"\n"
+"=item B<--root-password> locked:password:PASSWORD\n"
+"\n"
+"=item B<--root-password> locked:random\n"
+"\n"
+"The account is locked, but a password is placed on the\n"
+"account.  If first unlocked (using C<passwd -u>) then logins will\n"
+"use the given password.\n"
+"\n"
+"=item B<--password> USERNAME:locked\n"
+"\n"
+"=item B<--password> USERNAME:locked:disabled\n"
+"\n"
+"=item B<--root-password> locked\n"
+"\n"
+"=item B<--root-password> locked:disabled\n"
+"\n"
+"The account is locked I<and> password is disabled.\n"
+"\n"
+"=back"
+msgstr ""
+
+#: ../builder/cmdline.ml:207
+msgid "Set attach disk format"
+msgstr ""
+
+#: ../builder/cmdline.ml:218
+msgid "Set curl binary/command"
+msgstr ""
+
+#: ../sysprep/main.ml:113
+msgid "Set format (default: auto)"
+msgstr ""
+
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+msgid "Set libvirt URI"
+msgstr ""
+
+#: ../sysprep/main.ml:106 ../sysprep/main.ml:105
+msgid "Set libvirt guest name"
+msgstr ""
+
+#: ../builder/cmdline.ml:240
+msgid "Set memory size"
+msgstr ""
+
+#: ../sysprep/main.ml:116
+msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
+msgstr ""
+
+#: ../builder/cmdline.ml:259
+msgid "Set number of vCPUs"
+msgstr ""
+
+#: ../builder/cmdline.ml:258
+msgid "Set output disk size"
+msgstr ""
+
+#: ../builder/cmdline.ml:246
+msgid "Set output filename"
+msgstr ""
+
+#: ../resize/resize.ml:83
+msgid "Set partition alignment (default: 128 sectors)"
+msgstr ""
+
+#: ../builder/cmdline.ml:249
+msgid "Set password crypto"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:80
+msgid ""
+"Set root or another user's password.\n"
+"\n"
+"Use the I<--root-password> option to specify a replacement root\n"
+"password for the guest.  You can only use this option once.\n"
+"\n"
+"Use the I<--password> option to specify replacement user password(s).\n"
+"You can use this option as many times as you want.\n"
+"\n"
+"Use I<--password-crypto> to change the password encryption used.\n"
+"\n"
+"See L</OPTIONS> above for details of these options.\n"
+"\n"
+"This operation is enabled by default, but it only does something\n"
+"if there is at least one I<--root-password> or I<--password>\n"
+"argument given."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:79
+msgid "Set root or user password"
+msgstr ""
+
+#: ../builder/cmdline.ml:254
+msgid "Set root password"
+msgstr ""
+
+#: ../builder/cmdline.ml:260
+msgid "Set source URL"
+msgstr ""
+
+#: ../builder/cmdline.ml:208
+msgid "Set template cache dir"
+msgstr ""
+
+#: ../builder/cmdline.ml:233
+msgid "Set the hostname"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:184
+msgid ""
+"Set the password encryption to C<md5>, C<sha256> or C<sha512>.\n"
+"\n"
+"C<sha256> and C<sha512> require glibc E<ge> 2.7\n"
+"(check L<crypt(3)> inside the guest).\n"
+"\n"
+"C<md5> will work with relatively old Linux guests (eg. RHEL 3), but\n"
+"is not secure against modern attacks.\n"
+"\n"
+"The default is C<sha512> unless libguestfs detects an old guest\n"
+"that didn't have support for SHA-512, in which case it will use C<md5>.\n"
+"You can override libguestfs by specifying this option."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:104
+msgid ""
+"Set the root password.  See I<--password> above for the format\n"
+"of C<SELECTOR>."
+msgstr ""
+
+#: ../builder/builder.ml:434
+msgid "Setting a random seed"
+msgstr ""
+
+#: ../mllib/password.ml:116
+msgid ""
+"Setting random password of %s to %s\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:460
+msgid "Setting random root password [did you mean to use --root-password?]"
+msgstr ""
+
+#: ../builder/builder.ml:457
+msgid "Setting root password"
+msgstr ""
+
+#: ../builder/builder.ml:442
+msgid "Setting the hostname: %s"
+msgstr ""
+
+#: ../resize/resize.ml:871
+msgid ""
+"Setting up initial partition table on %s ...\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:109
+msgid "Shrink partition"
+msgstr ""
+
+#: ../builder/list_entries.ml:28
+msgid "Source URI: %s\n"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:472
+msgid ""
+"Sparsify operation completed with no errors.  Before deleting the old disk, "
+"carefully check that the target disk boots and works correctly.\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firstboot.ml:52
+msgid ""
+"Supply one of more shell scripts (using the I<--firstboot> option).\n"
+"\n"
+"These are run the first time the guest boots, and then are\n"
+"deleted.  So these are useful for performing last minute\n"
+"configuration that must run in the context of the guest\n"
+"operating system, for example C<yum update>.\n"
+"\n"
+"Output or errors from the scripts are written to\n"
+"C<~root/virt-sysprep-firstboot.log> (in the guest)."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:112
+msgid ""
+"The C<script> module lets you run arbitrary shell scripts or programs\n"
+"against the guest.\n"
+"\n"
+"Note this feature requires FUSE support.  You may have to enable\n"
+"this in your host, for example by adding the current user to the\n"
+"C<fuse> group, or by loading a kernel module.\n"
+"\n"
+"Use one or more I<--script> parameters to specify scripts or programs\n"
+"that will be run against the guest.\n"
+"\n"
+"The script or program is run with its current directory being the\n"
+"guest's root directory, so relative paths should be used.  For\n"
+"example: C<rm etc/resolv.conf> in the script would remove a Linux\n"
+"guest's DNS configuration file, but C<rm /etc/resolv.conf> would\n"
+"(try to) remove the host's file.\n"
+"\n"
+"Normally a temporary mount point for the guest is used, but you\n"
+"can choose a specific one by using the I<--scriptdir> parameter.\n"
+"\n"
+"B<Note:> This is different from I<--firstboot> scripts (which run\n"
+"in the context of the guest when it is booting first time).\n"
+"I<--script> scripts run on the host, not in the guest."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:38
+msgid ""
+"The SSH host keys are regenerated (differently) next time the guest is\n"
+"booted.\n"
+"\n"
+"If, after cloning, the guest gets the same IP address, ssh will give\n"
+"you a stark warning about the host key changing:\n"
+"\n"
+" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
+" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:51
+msgid ""
+"The fs-uuids operation is disabled by default because it does\n"
+"not yet find and update all the places in the guest that use\n"
+"the UUIDs.  For example C</etc/fstab> or the bootloader.\n"
+"Enabling this operation is more likely than not to make your\n"
+"guest unbootable.\n"
+"\n"
+"See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_machine_id.ml:39
+msgid ""
+"The machine ID is usually generated from a random source during system\n"
+"installation and stays constant for all subsequent boots.  Optionally,\n"
+"for stateless systems it is generated during runtime at boot if it is\n"
+"found to be empty."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:138
+msgid ""
+"The mount point (an empty directory on the host) used when\n"
+"the C<script> operation is enabled and one or more scripts\n"
+"are specified using I<--script> parameter(s).\n"
+"\n"
+"B<Note:> C<SCRIPTDIR> B<must> be an absolute path.\n"
+"\n"
+"If I<--scriptdir> is not specified then a temporary mountpoint\n"
+"will be created."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_pacct_log.ml:53
+msgid ""
+"The system wide process accounting will store to the pacct\n"
+"log files if the process accounting is on."
+msgstr ""
+
+#: ../builder/builder.ml:205
+msgid "There are no notes for %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:756
+msgid ""
+"There is a deficit of %Ld bytes (%s).  You need to make the target disk "
+"larger by at least this amount or adjust your resizing requests."
+msgstr ""
+
+#: ../resize/resize.ml:830
+msgid "There is a surplus of %s."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_utmp.ml:37
+msgid ""
+"This file records who is currently logged in on a machine.  In modern\n"
+"Linux distros it is stored in a ramdisk and hence not part of the\n"
+"virtual machine's disk, but it was stored on disk in older distros."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_hostname.ml:38
+msgid ""
+"This operation changes the hostname of the guest to the value\n"
+"given in the I<--hostname> parameter.\n"
+"\n"
+"If the I<--hostname> parameter is not given, then the hostname is changed\n"
+"to C<localhost.localdomain>."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firewall_rules.ml:48
+msgid ""
+"This removes custom firewall rules by removing C</etc/sysconfig/iptables>\n"
+"or custom firewalld configuration in C</etc/firewalld/*/*>.\n"
+"\n"
+"Note this is I<not> enabled by default since it may expose guests to\n"
+"exploits.  Use with care."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_tmp_files.ml:47
+msgid "This removes temporary files under C</tmp> and C</var/tmp>."
+msgstr ""
+
+#: ../builder/builder.ml:697
+msgid "Total usable space: %s"
+msgstr ""
+
+#: ../resize/resize.ml:110
+msgid "Turn off sparse copying"
+msgstr ""
+
+#: ../builder/builder.ml:353 ../builder/builder.ml:343
+msgid "Uncompressing: %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:262
+msgid "Upload file to dest"
+msgstr ""
+
+#: ../builder/builder.ml:577
+msgid "Uploading: %s to %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:267
+msgid "Write file"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_random_seed.ml:34
+msgid ""
+"Write some random bytes from the host into the random seed file of the\n"
+"guest.\n"
+"\n"
+"See L</RANDOM SEED> below."
+msgstr ""
+
+#: ../builder/builder.ml:570
+msgid "Writing: %s"
+msgstr ""
+
+#: ../resize/resize.ml:727
+msgid ""
+"You cannot use --expand when there is no surplus space to expand into.  You "
+"need to make the target disk larger by at least %s."
+msgstr ""
+
+#: ../resize/resize.ml:739
+msgid ""
+"You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
+"resize(1) man page)."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_yum_uuid.ml:37
+msgid ""
+"Yum creates a fresh UUID the next time it runs when it notices that the\n"
+"original UUID has been erased."
+msgstr ""
+
+#: ../sparsify/sparsify.ml:89
+msgid "Zero filesystem"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:368
+msgid ""
+"Zeroing %s ...\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:158
+msgid "alignment cannot be < 1"
+msgstr ""
+
+#: ../resize/resize.ml:507
+msgid "btrfs-filesystem-resize"
+msgstr ""
+
+#: ../builder/builder.ml:156
+msgid "cache directory: %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:163
+msgid "cached"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:225
+msgid "cannot detect input disk format; use the --format parameter"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:136
+msgid "dir"
+msgstr ""
+
+#: ../sysprep/main.ml:106 ../sysprep/main.ml:105
+msgid "domain"
+msgstr ""
+
+#: ../resize/resize.ml:74
+msgid "empty --shrink option"
+msgstr ""
+
+#: ../resize/resize.ml:209
+msgid "error parsing URI '%s'. Look for error messages printed above."
+msgstr ""
+
+#: ../mllib/common_utils.ml:340
+msgid "external command '%s' exited with error %d"
+msgstr ""
+
+#: ../mllib/common_utils.ml:342
+msgid "external command '%s' killed by signal %d"
+msgstr ""
+
+#: ../mllib/common_utils.ml:344
+msgid "external command '%s' stopped by signal %d"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:466 ../sparsify/sparsify.ml:317
+msgid "external command failed: %s"
+msgstr ""
+
+#: ../sysprep/main.ml:132
+msgid "extra parameter on the command line"
+msgstr ""
+
+#: ../sysprep/main.ml:101 ../sysprep/main.ml:100
+msgid "file"
+msgstr ""
+
+#: ../mllib/firstboot.ml:82
+msgid "firstboot: failed: "
+msgstr ""
+
+#. ../resize/resize.ml:104
+#. ../resize/resize.ml:92
+#: ../sysprep/main.ml:113 ../sparsify/sparsify.ml:77
+#: ../sparsify/sparsify.ml:75
+msgid "format"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:89 ../sparsify/sparsify.ml:78
+msgid "fs"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_hostname.ml:49
+msgid "hostname"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:165
+msgid ""
+"input filename '%s' contains a colon (':'); qemu-img command line syntax "
+"prevents us from using such an image"
+msgstr ""
+
+#. ../resize/resize.ml:95
+#: ../resize/resize.ml:98 ../resize/resize.ml:97 ../resize/resize.ml:96
+msgid "lv"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:182
+msgid "md5|sha256|sha512"
+msgstr ""
+
+#: ../resize/resize.ml:82
+msgid "never|always|auto"
+msgstr ""
+
+#: ../builder/builder.ml:166
+msgid "no cache directory\n"
+msgstr ""
+
+#: ../resize/resize.ml:506
+msgid "ntfsresize"
+msgstr ""
+
+#: ../sysprep/main.ml:112
+msgid "operations"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:81
+msgid "option"
+msgstr ""
+
+#: ../sysprep/main.ml:116
+msgid "opts"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:168
+msgid ""
+"output filename '%s' contains a colon (':'); qemu-img command line syntax "
+"prevents us from using such an image"
+msgstr ""
+
+#. ../resize/resize.ml:88
+#: ../resize/resize.ml:109 ../resize/resize.ml:93 ../resize/resize.ml:89
+msgid "part"
+msgstr ""
+
+#: ../resize/resize.ml:108 ../resize/resize.ml:107
+msgid "part=size"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_delete.ml:43
+msgid "path"
+msgstr ""
+
+#: ../resize/resize.ml:929 ../resize/resize.ml:905
+msgid "pread-device: short read"
+msgstr ""
+
+#: ../resize/resize.ml:504
+msgid "pvresize"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:403
+msgid "pwrite: short write restoring swap partition header"
+msgstr ""
+
+#: ../resize/resize.ml:505
+msgid "resize2fs"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firstboot.ml:68
+msgid "run script once next time guest boots"
+msgstr ""
+
+#. ../sysprep/sysprep_operation_firstboot.ml:68
+#: ../sysprep/sysprep_operation_script.ml:149
+msgid "script"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:75
+msgid "script failed"
+msgstr ""
+
+#: ../resize/resize.ml:83
+msgid "sectors"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:182
+msgid "set password crypto"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:102
+msgid "set root password (see man page)"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:109
+msgid "set user password (see man page)"
+msgstr ""
+
+#: ../sysprep/main.ml:274
+msgid "sysprep operation failed: %s\n"
+msgstr ""
+
+#: ../sysprep/main.ml:286
+msgid "sysprep operation failed: exception: %s\n"
+msgstr ""
+
+#: ../sysprep/main.ml:283
+msgid ""
+"sysprep operation failed: internal error: Not_found exception was thrown\n"
+msgstr ""
+
+#: ../sysprep/main.ml:280
+msgid ""
+"sysprep operation failed: internal error: assertion failed at %s, line %d, "
+"char %d\n"
+msgstr ""
+
+#: ../sysprep/main.ml:277
+msgid "sysprep operation failed: internal error: invalid argument: %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:391
+msgid "the source disk has no partitions"
+msgstr ""
+
+#: ../resize/resize.ml:167
+msgid "unknown --align-first option: use never|always|auto"
+msgstr ""
+
+#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
+msgid "uri"
+msgstr ""
+
+#: ../resize/resize.ml:197
+msgid "usage is: %s [--options] indisk outdisk"
+msgstr ""
+
+#: ../builder/index_parser.ml:208
+msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:222
+msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:187
+msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:199
+msgid "virt-builder: cannot parse 'size' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:257
+msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
+msgstr ""
+
+#: ../builder/downloader.ml:123 ../builder/downloader.ml:84
+msgid "virt-builder: curl (download) command failed downloading '%s'\n"
+msgstr ""
+
+#: ../builder/sigchecker.ml:168
+msgid ""
+"virt-builder: error: GPG failure: could not verify digital signature of "
+"file\n"
+"Try:\n"
+" - Use the '-v' option and look for earlier error messages.\n"
+" - Delete the cache: virt-builder --delete-cache\n"
+" - Check no one has tampered with the website or your network!\n"
+msgstr ""
+
+#: ../builder/sigchecker.ml:234
+msgid ""
+"virt-builder: error: checksum of template did not match the expected "
+"checksum!\n"
+"  found checksum: %s\n"
+"  expected checksum: %s\n"
+"Try:\n"
+" - Use the '-v' option and look for earlier error messages.\n"
+" - Delete the cache: virt-builder --delete-cache\n"
+" - Check no one has tampered with the website or your network!\n"
+msgstr ""
+
+#: ../builder/perl_edit.ml:73
+msgid "virt-builder: error: could not evaluate Perl expression '%s'\n"
+msgstr ""
+
+#: ../builder/sigchecker.ml:204
+msgid ""
+"virt-builder: error: could not import public key\n"
+"Use the '-v' option and look for earlier error messages.\n"
+msgstr ""
+
+#: ../builder/sigchecker.ml:220
+msgid ""
+"virt-builder: error: could not run sha512sum command to verify checksum\n"
+msgstr ""
+
+#: ../builder/sigchecker.ml:186
+msgid ""
+"virt-builder: error: fingerprint of signature does not match the expected "
+"fingerprint!\n"
+"  found fingerprint: %s\n"
+"  expected fingerprint: %s\n"
+msgstr ""
+
+#: ../builder/sigchecker.ml:149
+msgid ""
+"virt-builder: error: there is no detached signature file\n"
+"This probably means the index file is missing a sig=... line.\n"
+"You can use --no-check-signature to ignore this error, but that means\n"
+"you are susceptible to man-in-the-middle attacks.\n"
+msgstr ""
+
+#: ../builder/downloader.ml:87
+msgid "virt-builder: external command '%s' killed by signal %d\n"
+msgstr ""
+
+#: ../builder/downloader.ml:91
+msgid "virt-builder: external command '%s' stopped by signal %d\n"
+msgstr ""
+
+#: ../builder/downloader.ml:102
+msgid "virt-builder: failed to download %s: HTTP status code %s\n"
+msgstr ""
+
+#: ../builder/get_kernel.ml:44
+msgid ""
+"virt-builder: get-kernel: daual/mult-boot images are not supported by this "
+"tool\n"
+msgstr ""
+
+#: ../builder/get_kernel.ml:40
+msgid "virt-builder: get-kernel: no operating system found\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:154
+msgid ""
+"virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:141
+msgid ""
+"virt-builder: index is corrupt: os-version '%s' appears two or more times\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:172
+msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:196
+msgid "virt-builder: no 'size' field for '%s'\n"
+msgstr ""
+
+#: ../builder/get_kernel.ml:75
+msgid "virt-builder: no kernel found\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:262
+msgid ""
+"virt-builder: you must use relative paths (not '%s') in the index file\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:253
+msgid "virt-builder: zero length path in the index file\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:31
+msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:132
+msgid "virt-sysprep: POD for %s must not end with newline\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:146
+msgid "virt-sysprep: POD notes for %s must not end with newline\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:65
+msgid "virt-sysprep: cannot set passwords for %s guests.\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:109
+msgid "virt-sysprep: disallowed character (%c) in operation name\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:93
+msgid "virt-sysprep: duplicate operation name (%s)\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:119
+msgid "virt-sysprep: heading for %s must not end with newline or period\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:128
+msgid "virt-sysprep: operation %s has no POD\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:142
+msgid "virt-sysprep: operation %s has no POD notes\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:115
+msgid "virt-sysprep: operation %s has no heading\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:102
+msgid "virt-sysprep: operation name is an empty string\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:36
+msgid "virt-sysprep: password: invalid --password format; see the man page.\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_password.ml:45
+msgid ""
+"virt-sysprep: password: multiple --root-password/--password options set the "
+"password for user '%s' twice.\n"
+msgstr ""
+
+#: ../mllib/password.ml:170
+msgid ""
+"virt-sysprep: password: warning: using insecure md5 password encryption for\n"
+"guest of type %s version %d.\n"
+"If this is incorrect, use --password-crypto option and file a bug.\n"
+"%!"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:65
+msgid "virt-sysprep: script: failed (code %d)\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:69
+msgid "virt-sysprep: script: killed by signal (%d)\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:38
+msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:1135
+msgid ""
+"warning: first partition is NTFS but does not contain NTFS boot loader "
+"magic\n"
+"%!"
+msgstr ""
+
+#: ../resize/resize.ml:715
+msgid "you cannot use options --expand and --shrink together"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:149 ../resize/resize.ml:203
+msgid "you cannot use the same disk image for input and output"
+msgstr ""
 
 #: align/scan.c:73 cat/cat.c:56 cat/filesystems.c:87 cat/ls.c:89 df/main.c:66
 #: edit/edit.c:69 fish/fish.c:104 fuse/guestmount.c:99 fuse/guestunmount.c:52
@@ -2396,378 +4540,392 @@ msgstr "आंकुचीत फाइल अंतर्गत फाइल �
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr "आदेशकरीता तपशील माहिती दाखवण्यासाठी -h <cmd> / help <cmd> याचा वापर करा."
 
-#: fish/cmds.c:4747 fish/cmds.c:4766 fish/cmds.c:4787 fish/cmds.c:4809
-#: fish/cmds.c:4832 fish/cmds.c:4856 fish/cmds.c:4877 fish/cmds.c:4899
-#: fish/cmds.c:4919 fish/cmds.c:4942 fish/cmds.c:4963 fish/cmds.c:4985
-#: fish/cmds.c:5006 fish/cmds.c:5026 fish/cmds.c:5051 fish/cmds.c:5073
-#: fish/cmds.c:5098 fish/cmds.c:5118 fish/cmds.c:5140 fish/cmds.c:5179
-#: fish/cmds.c:5199 fish/cmds.c:5219 fish/cmds.c:5242 fish/cmds.c:5267
-#: fish/cmds.c:5289 fish/cmds.c:5314 fish/cmds.c:5336 fish/cmds.c:5361
-#: fish/cmds.c:5383 fish/cmds.c:5408 fish/cmds.c:5431 fish/cmds.c:5455
-#: fish/cmds.c:5478 fish/cmds.c:5503 fish/cmds.c:5526 fish/cmds.c:5550
-#: fish/cmds.c:5574 fish/cmds.c:5598 fish/cmds.c:5621 fish/cmds.c:5644
-#: fish/cmds.c:5668 fish/cmds.c:5692 fish/cmds.c:5716 fish/cmds.c:5741
-#: fish/cmds.c:5761 fish/cmds.c:5885 fish/cmds.c:5907 fish/cmds.c:5928
-#: fish/cmds.c:6037 fish/cmds.c:6061 fish/cmds.c:6085 fish/cmds.c:6109
-#: fish/cmds.c:6133 fish/cmds.c:6157 fish/cmds.c:6181 fish/cmds.c:6204
-#: fish/cmds.c:6227 fish/cmds.c:6250 fish/cmds.c:6270 fish/cmds.c:6293
-#: fish/cmds.c:6313 fish/cmds.c:6336 fish/cmds.c:6360 fish/cmds.c:6384
-#: fish/cmds.c:6476 fish/cmds.c:6501 fish/cmds.c:6523 fish/cmds.c:6562
-#: fish/cmds.c:6671 fish/cmds.c:6740 fish/cmds.c:6762 fish/cmds.c:6784
-#: fish/cmds.c:6805 fish/cmds.c:6832 fish/cmds.c:6860 fish/cmds.c:6891
-#: fish/cmds.c:6920 fish/cmds.c:6950 fish/cmds.c:6979 fish/cmds.c:7011
-#: fish/cmds.c:7043 fish/cmds.c:7074 fish/cmds.c:7101 fish/cmds.c:7138
-#: fish/cmds.c:7162 fish/cmds.c:7185 fish/cmds.c:7208 fish/cmds.c:7230
-#: fish/cmds.c:7253 fish/cmds.c:7276 fish/cmds.c:7319 fish/cmds.c:7362
-#: fish/cmds.c:7407 fish/cmds.c:7449 fish/cmds.c:7470 fish/cmds.c:7495
-#: fish/cmds.c:7516 fish/cmds.c:7539 fish/cmds.c:7560 fish/cmds.c:7581
-#: fish/cmds.c:7602 fish/cmds.c:7622 fish/cmds.c:7708 fish/cmds.c:7732
-#: fish/cmds.c:7753 fish/cmds.c:7774 fish/cmds.c:7799 fish/cmds.c:7824
-#: fish/cmds.c:7845 fish/cmds.c:7866 fish/cmds.c:7887 fish/cmds.c:7908
-#: fish/cmds.c:7929 fish/cmds.c:7950 fish/cmds.c:7971 fish/cmds.c:7995
-#: fish/cmds.c:8038 fish/cmds.c:8060 fish/cmds.c:8087 fish/cmds.c:8113
-#: fish/cmds.c:8138 fish/cmds.c:8163 fish/cmds.c:8192 fish/cmds.c:8216
-#: fish/cmds.c:8239 fish/cmds.c:8261 fish/cmds.c:8280 fish/cmds.c:8301
-#: fish/cmds.c:8325 fish/cmds.c:8350 fish/cmds.c:8375 fish/cmds.c:8400
-#: fish/cmds.c:8425 fish/cmds.c:8451 fish/cmds.c:8498 fish/cmds.c:8563
-#: fish/cmds.c:8701 fish/cmds.c:8724 fish/cmds.c:8752 fish/cmds.c:8799
-#: fish/cmds.c:8887 fish/cmds.c:8995 fish/cmds.c:9016 fish/cmds.c:9035
-#: fish/cmds.c:9056 fish/cmds.c:9083 fish/cmds.c:9110 fish/cmds.c:9137
-#: fish/cmds.c:9164 fish/cmds.c:9191 fish/cmds.c:9218 fish/cmds.c:9242
-#: fish/cmds.c:9264 fish/cmds.c:9286 fish/cmds.c:9309 fish/cmds.c:9332
-#: fish/cmds.c:9356 fish/cmds.c:9398 fish/cmds.c:9421 fish/cmds.c:9444
-#: fish/cmds.c:9466 fish/cmds.c:9489 fish/cmds.c:9519 fish/cmds.c:9549
-#: fish/cmds.c:9705 fish/cmds.c:9735 fish/cmds.c:9765 fish/cmds.c:9790
-#: fish/cmds.c:9817 fish/cmds.c:9843 fish/cmds.c:9871 fish/cmds.c:9893
-#: fish/cmds.c:9915 fish/cmds.c:9938 fish/cmds.c:9961 fish/cmds.c:9986
-#: fish/cmds.c:10009 fish/cmds.c:10034 fish/cmds.c:10058 fish/cmds.c:10081
-#: fish/cmds.c:10108 fish/cmds.c:10138 fish/cmds.c:10168 fish/cmds.c:10197
-#: fish/cmds.c:10236 fish/cmds.c:10257 fish/cmds.c:10279 fish/cmds.c:10309
-#: fish/cmds.c:10337 fish/cmds.c:10365 fish/cmds.c:10392 fish/cmds.c:10414
-#: fish/cmds.c:10441 fish/cmds.c:10544 fish/cmds.c:10568 fish/cmds.c:10592
-#: fish/cmds.c:10616 fish/cmds.c:10644 fish/cmds.c:10676 fish/cmds.c:10718
-#: fish/cmds.c:10740 fish/cmds.c:10762 fish/cmds.c:10804 fish/cmds.c:10833
-#: fish/cmds.c:10857 fish/cmds.c:10881 fish/cmds.c:10908 fish/cmds.c:10930
-#: fish/cmds.c:10955 fish/cmds.c:10980 fish/cmds.c:11007 fish/cmds.c:11033
-#: fish/cmds.c:11059 fish/cmds.c:11085 fish/cmds.c:11113 fish/cmds.c:11160
-#: fish/cmds.c:11188 fish/cmds.c:11233 fish/cmds.c:11254 fish/cmds.c:11277
-#: fish/cmds.c:11303 fish/cmds.c:11331 fish/cmds.c:11414 fish/cmds.c:11438
-#: fish/cmds.c:11464 fish/cmds.c:11550 fish/cmds.c:11598 fish/cmds.c:11686
-#: fish/cmds.c:11771 fish/cmds.c:11813 fish/cmds.c:11841 fish/cmds.c:11868
-#: fish/cmds.c:11896 fish/cmds.c:11923 fish/cmds.c:11953 fish/cmds.c:12003
-#: fish/cmds.c:12051 fish/cmds.c:12078 fish/cmds.c:12102 fish/cmds.c:12125
-#: fish/cmds.c:12147 fish/cmds.c:12256 fish/cmds.c:12285 fish/cmds.c:12314
-#: fish/cmds.c:12343 fish/cmds.c:12372 fish/cmds.c:12401 fish/cmds.c:12430
-#: fish/cmds.c:12459 fish/cmds.c:12488 fish/cmds.c:12517 fish/cmds.c:12546
-#: fish/cmds.c:12574 fish/cmds.c:12602 fish/cmds.c:12629 fish/cmds.c:12656
-#: fish/cmds.c:12683 fish/cmds.c:12709 fish/cmds.c:12737 fish/cmds.c:12782
-#: fish/cmds.c:12804 fish/cmds.c:12826 fish/cmds.c:12851 fish/cmds.c:12876
-#: fish/cmds.c:12898 fish/cmds.c:12920 fish/cmds.c:12942 fish/cmds.c:12964
-#: fish/cmds.c:12989 fish/cmds.c:13031 fish/cmds.c:13077 fish/cmds.c:13116
-#: fish/cmds.c:13137 fish/cmds.c:13158 fish/cmds.c:13179 fish/cmds.c:13199
-#: fish/cmds.c:13224 fish/cmds.c:13268 fish/cmds.c:13312 fish/cmds.c:13357
-#: fish/cmds.c:13403 fish/cmds.c:13450 fish/cmds.c:13497 fish/cmds.c:13541
-#: fish/cmds.c:13563 fish/cmds.c:13591 fish/cmds.c:13620 fish/cmds.c:13647
-#: fish/cmds.c:13671 fish/cmds.c:13697 fish/cmds.c:13740 fish/cmds.c:13822
-#: fish/cmds.c:13869 fish/cmds.c:13937 fish/cmds.c:14003 fish/cmds.c:14029
-#: fish/cmds.c:14081 fish/cmds.c:14106 fish/cmds.c:14156 fish/cmds.c:14199
-#: fish/cmds.c:14223 fish/cmds.c:14249 fish/cmds.c:14314 fish/cmds.c:14340
-#: fish/cmds.c:14369 fish/cmds.c:14396 fish/cmds.c:14420 fish/cmds.c:14445
-#: fish/cmds.c:14477 fish/cmds.c:14501 fish/cmds.c:14525 fish/cmds.c:14549
-#: fish/cmds.c:14573 fish/cmds.c:14599 fish/cmds.c:14642 fish/cmds.c:14665
-#: fish/cmds.c:14695 fish/cmds.c:14722 fish/cmds.c:14744 fish/cmds.c:14787
-#: fish/cmds.c:14831 fish/cmds.c:14876 fish/cmds.c:14939 fish/cmds.c:14965
-#: fish/cmds.c:15007 fish/cmds.c:15027 fish/cmds.c:15051 fish/cmds.c:15098
-#: fish/cmds.c:15128 fish/cmds.c:15159 fish/cmds.c:15191 fish/cmds.c:15240
-#: fish/cmds.c:15284 fish/cmds.c:15321 fish/cmds.c:15358 fish/cmds.c:15392
-#: fish/cmds.c:15416 fish/cmds.c:15455 fish/cmds.c:15479 fish/cmds.c:15503
-#: fish/cmds.c:15526 fish/cmds.c:15549 fish/cmds.c:15580 fish/cmds.c:15609
-#: fish/cmds.c:15633 fish/cmds.c:15684 fish/cmds.c:15736 fish/cmds.c:15792
-#: fish/cmds.c:15840 fish/cmds.c:15863 fish/cmds.c:15887 fish/cmds.c:16079
-#: fish/cmds.c:16161 fish/cmds.c:16187 fish/cmds.c:16233 fish/cmds.c:16293
-#: fish/cmds.c:16336 fish/cmds.c:16398 fish/cmds.c:16543 fish/cmds.c:16577
-#: fish/cmds.c:16609 fish/cmds.c:16631 fish/cmds.c:16657 fish/cmds.c:16678
-#: fish/cmds.c:16749 fish/cmds.c:17053 fish/cmds.c:17844 fish/cmds.c:17867
-#: fish/cmds.c:17891 fish/cmds.c:17913 fish/cmds.c:17998 fish/cmds.c:18025
-#: fish/cmds.c:18193 fish/cmds.c:18220 fish/cmds.c:18243 fish/cmds.c:18270
-#: fish/cmds.c:18313 fish/cmds.c:18337 fish/cmds.c:18365 fish/cmds.c:18393
-#: fish/cmds.c:18581 fish/cmds.c:18665 fish/cmds.c:18692 fish/cmds.c:18732
-#: fish/cmds.c:18761 fish/cmds.c:18786 fish/cmds.c:18811 fish/cmds.c:18839
-#: fish/cmds.c:18878 fish/cmds.c:18903 fish/cmds.c:18929 fish/cmds.c:18959
-#: fish/cmds.c:18989 fish/cmds.c:19086 fish/cmds.c:19206 fish/cmds.c:19227
-#: fish/cmds.c:19249 fish/cmds.c:19276 fish/cmds.c:19296 fish/cmds.c:19317
-#: fish/cmds.c:19337 fish/cmds.c:19356 fish/cmds.c:19745 fish/cmds.c:19775
-#: fish/cmds.c:19989 fish/cmds.c:20008 fish/cmds.c:20030 fish/cmds.c:20067
-#: fish/cmds.c:20105 fish/cmds.c:20142 fish/cmds.c:20178 fish/cmds.c:20216
-#: fish/cmds.c:20253 fish/cmds.c:20290 fish/cmds.c:20327 fish/cmds.c:20368
-#: fish/cmds.c:20392 fish/cmds.c:20429 fish/cmds.c:20468 fish/cmds.c:20682
-#: fish/cmds.c:21186 fish/cmds.c:21262 fish/cmds.c:21288 fish/cmds.c:21318
-#: fish/cmds.c:21345 fish/cmds.c:21370 fish/cmds.c:21398 fish/cmds.c:21422
-#: fish/cmds.c:21443 fish/cmds.c:21464 fish/cmds.c:21483 fish/cmds.c:21502
-#: fish/cmds.c:21525 fish/cmds.c:21552 fish/cmds.c:21576 fish/cmds.c:21600
-#: fish/cmds.c:21625 fish/cmds.c:21651 fish/cmds.c:21677 fish/cmds.c:21704
-#: fish/cmds.c:21748 fish/cmds.c:21793 fish/cmds.c:21822 fish/cmds.c:21845
-#: fish/cmds.c:21919 fish/cmds.c:21945 fish/cmds.c:22030 fish/cmds.c:22053
-#: fish/cmds.c:22076 fish/cmds.c:22095 fish/cmds.c:22117 fish/cmds.c:22151
-#: fish/cmds.c:22173 fish/cmds.c:22210 fish/cmds.c:22236
+#: fish/cmds.c:4747 fish/cmds.c:4766 fish/cmds.c:4889 fish/cmds.c:4934
+#: fish/cmds.c:4981 fish/cmds.c:5027 fish/cmds.c:5075 fish/cmds.c:5125
+#: fish/cmds.c:5145 fish/cmds.c:5209 fish/cmds.c:5229 fish/cmds.c:5249
+#: fish/cmds.c:5300 fish/cmds.c:5350 fish/cmds.c:5400 fish/cmds.c:5450
+#: fish/cmds.c:5554 fish/cmds.c:5819 fish/cmds.c:5839 fish/cmds.c:5988
+#: fish/cmds.c:6009 fish/cmds.c:6381 fish/cmds.c:6427 fish/cmds.c:6627
+#: fish/cmds.c:6691 fish/cmds.c:6800 fish/cmds.c:6872 fish/cmds.c:6919
+#: fish/cmds.c:7436 fish/cmds.c:7644 fish/cmds.c:7717 fish/cmds.c:7764
+#: fish/cmds.c:7785 fish/cmds.c:7829 fish/cmds.c:7915 fish/cmds.c:7963
+#: fish/cmds.c:8040 fish/cmds.c:8061 fish/cmds.c:8082 fish/cmds.c:8103
+#: fish/cmds.c:8124 fish/cmds.c:8145 fish/cmds.c:8166 fish/cmds.c:8187
+#: fish/cmds.c:8257 fish/cmds.c:8504 fish/cmds.c:8523 fish/cmds.c:9280
+#: fish/cmds.c:9301 fish/cmds.c:9320 fish/cmds.c:10641 fish/cmds.c:10662
+#: fish/cmds.c:11731 fish/cmds.c:11752 fish/cmds.c:12657 fish/cmds.c:13767
+#: fish/cmds.c:13788 fish/cmds.c:13809 fish/cmds.c:13853 fish/cmds.c:15499
+#: fish/cmds.c:15825 fish/cmds.c:16217 fish/cmds.c:16363 fish/cmds.c:17581
+#: fish/cmds.c:17652 fish/cmds.c:18750 fish/cmds.c:20217 fish/cmds.c:20292
+#: fish/cmds.c:20336 fish/cmds.c:20355 fish/cmds.c:20994 fish/cmds.c:21013
+#: fish/cmds.c:22233 fish/cmds.c:22487 fish/cmds.c:22508 fish/cmds.c:22529
+#: fish/cmds.c:22548 fish/cmds.c:22567 fish/cmds.c:23189 fish/cmds.c:23208
+#: fish/cmds.c:23267
 #, c-format
-msgid "%s should have %d parameter(s)\n"
-msgstr "%s कडे %d घटके असायला हवे\n"
+msgid "%s should have no parameters\n"
+msgstr ""
 
-#: fish/cmds.c:4748 fish/cmds.c:4767 fish/cmds.c:4788 fish/cmds.c:4810
-#: fish/cmds.c:4833 fish/cmds.c:4857 fish/cmds.c:4878 fish/cmds.c:4900
-#: fish/cmds.c:4920 fish/cmds.c:4943 fish/cmds.c:4964 fish/cmds.c:4986
-#: fish/cmds.c:5007 fish/cmds.c:5027 fish/cmds.c:5052 fish/cmds.c:5074
-#: fish/cmds.c:5099 fish/cmds.c:5119 fish/cmds.c:5141 fish/cmds.c:5180
-#: fish/cmds.c:5200 fish/cmds.c:5220 fish/cmds.c:5243 fish/cmds.c:5268
-#: fish/cmds.c:5290 fish/cmds.c:5315 fish/cmds.c:5337 fish/cmds.c:5362
-#: fish/cmds.c:5384 fish/cmds.c:5409 fish/cmds.c:5432 fish/cmds.c:5456
-#: fish/cmds.c:5479 fish/cmds.c:5504 fish/cmds.c:5527 fish/cmds.c:5551
-#: fish/cmds.c:5575 fish/cmds.c:5599 fish/cmds.c:5622 fish/cmds.c:5645
-#: fish/cmds.c:5669 fish/cmds.c:5693 fish/cmds.c:5717 fish/cmds.c:5742
-#: fish/cmds.c:5762 fish/cmds.c:5787 fish/cmds.c:5886 fish/cmds.c:5908
-#: fish/cmds.c:5929 fish/cmds.c:5954 fish/cmds.c:6038 fish/cmds.c:6062
-#: fish/cmds.c:6086 fish/cmds.c:6110 fish/cmds.c:6134 fish/cmds.c:6158
-#: fish/cmds.c:6182 fish/cmds.c:6205 fish/cmds.c:6228 fish/cmds.c:6251
-#: fish/cmds.c:6271 fish/cmds.c:6294 fish/cmds.c:6314 fish/cmds.c:6337
-#: fish/cmds.c:6361 fish/cmds.c:6385 fish/cmds.c:6412 fish/cmds.c:6477
-#: fish/cmds.c:6502 fish/cmds.c:6524 fish/cmds.c:6563 fish/cmds.c:6587
-#: fish/cmds.c:6672 fish/cmds.c:6694 fish/cmds.c:6741 fish/cmds.c:6763
-#: fish/cmds.c:6785 fish/cmds.c:6806 fish/cmds.c:6833 fish/cmds.c:6861
-#: fish/cmds.c:6892 fish/cmds.c:6921 fish/cmds.c:6951 fish/cmds.c:6980
-#: fish/cmds.c:7012 fish/cmds.c:7044 fish/cmds.c:7075 fish/cmds.c:7102
-#: fish/cmds.c:7139 fish/cmds.c:7163 fish/cmds.c:7186 fish/cmds.c:7209
-#: fish/cmds.c:7231 fish/cmds.c:7254 fish/cmds.c:7277 fish/cmds.c:7320
-#: fish/cmds.c:7363 fish/cmds.c:7408 fish/cmds.c:7450 fish/cmds.c:7471
-#: fish/cmds.c:7496 fish/cmds.c:7517 fish/cmds.c:7540 fish/cmds.c:7561
-#: fish/cmds.c:7582 fish/cmds.c:7603 fish/cmds.c:7623 fish/cmds.c:7647
-#: fish/cmds.c:7709 fish/cmds.c:7733 fish/cmds.c:7754 fish/cmds.c:7775
-#: fish/cmds.c:7800 fish/cmds.c:7825 fish/cmds.c:7846 fish/cmds.c:7867
-#: fish/cmds.c:7888 fish/cmds.c:7909 fish/cmds.c:7930 fish/cmds.c:7951
-#: fish/cmds.c:7972 fish/cmds.c:7996 fish/cmds.c:8039 fish/cmds.c:8061
-#: fish/cmds.c:8088 fish/cmds.c:8114 fish/cmds.c:8139 fish/cmds.c:8164
-#: fish/cmds.c:8193 fish/cmds.c:8217 fish/cmds.c:8240 fish/cmds.c:8262
-#: fish/cmds.c:8281 fish/cmds.c:8302 fish/cmds.c:8326 fish/cmds.c:8351
-#: fish/cmds.c:8376 fish/cmds.c:8401 fish/cmds.c:8426 fish/cmds.c:8452
-#: fish/cmds.c:8499 fish/cmds.c:8564 fish/cmds.c:8592 fish/cmds.c:8648
-#: fish/cmds.c:8702 fish/cmds.c:8725 fish/cmds.c:8753 fish/cmds.c:8800
-#: fish/cmds.c:8888 fish/cmds.c:8936 fish/cmds.c:8996 fish/cmds.c:9017
-#: fish/cmds.c:9036 fish/cmds.c:9057 fish/cmds.c:9084 fish/cmds.c:9111
-#: fish/cmds.c:9138 fish/cmds.c:9165 fish/cmds.c:9192 fish/cmds.c:9219
-#: fish/cmds.c:9243 fish/cmds.c:9265 fish/cmds.c:9287 fish/cmds.c:9310
-#: fish/cmds.c:9333 fish/cmds.c:9357 fish/cmds.c:9399 fish/cmds.c:9422
-#: fish/cmds.c:9445 fish/cmds.c:9467 fish/cmds.c:9490 fish/cmds.c:9520
-#: fish/cmds.c:9550 fish/cmds.c:9581 fish/cmds.c:9637 fish/cmds.c:9706
-#: fish/cmds.c:9736 fish/cmds.c:9766 fish/cmds.c:9791 fish/cmds.c:9818
-#: fish/cmds.c:9844 fish/cmds.c:9872 fish/cmds.c:9894 fish/cmds.c:9916
-#: fish/cmds.c:9939 fish/cmds.c:9962 fish/cmds.c:9987 fish/cmds.c:10010
-#: fish/cmds.c:10035 fish/cmds.c:10059 fish/cmds.c:10082 fish/cmds.c:10109
-#: fish/cmds.c:10139 fish/cmds.c:10169 fish/cmds.c:10198 fish/cmds.c:10237
-#: fish/cmds.c:10258 fish/cmds.c:10280 fish/cmds.c:10310 fish/cmds.c:10338
-#: fish/cmds.c:10366 fish/cmds.c:10393 fish/cmds.c:10415 fish/cmds.c:10442
-#: fish/cmds.c:10545 fish/cmds.c:10569 fish/cmds.c:10593 fish/cmds.c:10617
-#: fish/cmds.c:10645 fish/cmds.c:10677 fish/cmds.c:10719 fish/cmds.c:10741
-#: fish/cmds.c:10763 fish/cmds.c:10805 fish/cmds.c:10834 fish/cmds.c:10858
-#: fish/cmds.c:10882 fish/cmds.c:10909 fish/cmds.c:10931 fish/cmds.c:10956
-#: fish/cmds.c:10981 fish/cmds.c:11008 fish/cmds.c:11034 fish/cmds.c:11060
-#: fish/cmds.c:11086 fish/cmds.c:11114 fish/cmds.c:11161 fish/cmds.c:11189
-#: fish/cmds.c:11234 fish/cmds.c:11255 fish/cmds.c:11278 fish/cmds.c:11304
-#: fish/cmds.c:11332 fish/cmds.c:11363 fish/cmds.c:11415 fish/cmds.c:11439
-#: fish/cmds.c:11465 fish/cmds.c:11551 fish/cmds.c:11599 fish/cmds.c:11687
-#: fish/cmds.c:11772 fish/cmds.c:11814 fish/cmds.c:11842 fish/cmds.c:11869
-#: fish/cmds.c:11897 fish/cmds.c:11924 fish/cmds.c:11954 fish/cmds.c:12004
-#: fish/cmds.c:12052 fish/cmds.c:12079 fish/cmds.c:12103 fish/cmds.c:12126
-#: fish/cmds.c:12148 fish/cmds.c:12173 fish/cmds.c:12257 fish/cmds.c:12286
-#: fish/cmds.c:12315 fish/cmds.c:12344 fish/cmds.c:12373 fish/cmds.c:12402
-#: fish/cmds.c:12431 fish/cmds.c:12460 fish/cmds.c:12489 fish/cmds.c:12518
-#: fish/cmds.c:12547 fish/cmds.c:12575 fish/cmds.c:12603 fish/cmds.c:12630
-#: fish/cmds.c:12657 fish/cmds.c:12684 fish/cmds.c:12710 fish/cmds.c:12738
-#: fish/cmds.c:12783 fish/cmds.c:12805 fish/cmds.c:12827 fish/cmds.c:12852
-#: fish/cmds.c:12877 fish/cmds.c:12899 fish/cmds.c:12921 fish/cmds.c:12943
-#: fish/cmds.c:12965 fish/cmds.c:12990 fish/cmds.c:13032 fish/cmds.c:13078
-#: fish/cmds.c:13117 fish/cmds.c:13138 fish/cmds.c:13159 fish/cmds.c:13180
-#: fish/cmds.c:13200 fish/cmds.c:13225 fish/cmds.c:13269 fish/cmds.c:13313
-#: fish/cmds.c:13358 fish/cmds.c:13404 fish/cmds.c:13451 fish/cmds.c:13498
-#: fish/cmds.c:13542 fish/cmds.c:13564 fish/cmds.c:13592 fish/cmds.c:13621
-#: fish/cmds.c:13648 fish/cmds.c:13672 fish/cmds.c:13698 fish/cmds.c:13741
-#: fish/cmds.c:13823 fish/cmds.c:13870 fish/cmds.c:13938 fish/cmds.c:14004
-#: fish/cmds.c:14030 fish/cmds.c:14082 fish/cmds.c:14107 fish/cmds.c:14157
-#: fish/cmds.c:14200 fish/cmds.c:14224 fish/cmds.c:14250 fish/cmds.c:14315
-#: fish/cmds.c:14341 fish/cmds.c:14370 fish/cmds.c:14397 fish/cmds.c:14421
-#: fish/cmds.c:14446 fish/cmds.c:14478 fish/cmds.c:14502 fish/cmds.c:14526
-#: fish/cmds.c:14550 fish/cmds.c:14574 fish/cmds.c:14600 fish/cmds.c:14643
-#: fish/cmds.c:14666 fish/cmds.c:14696 fish/cmds.c:14723 fish/cmds.c:14745
-#: fish/cmds.c:14788 fish/cmds.c:14832 fish/cmds.c:14877 fish/cmds.c:14940
-#: fish/cmds.c:14966 fish/cmds.c:15008 fish/cmds.c:15028 fish/cmds.c:15052
-#: fish/cmds.c:15099 fish/cmds.c:15129 fish/cmds.c:15160 fish/cmds.c:15192
-#: fish/cmds.c:15241 fish/cmds.c:15285 fish/cmds.c:15322 fish/cmds.c:15359
-#: fish/cmds.c:15393 fish/cmds.c:15417 fish/cmds.c:15456 fish/cmds.c:15480
-#: fish/cmds.c:15504 fish/cmds.c:15527 fish/cmds.c:15550 fish/cmds.c:15581
-#: fish/cmds.c:15610 fish/cmds.c:15634 fish/cmds.c:15685 fish/cmds.c:15737
-#: fish/cmds.c:15793 fish/cmds.c:15841 fish/cmds.c:15864 fish/cmds.c:15888
-#: fish/cmds.c:15914 fish/cmds.c:15970 fish/cmds.c:16026 fish/cmds.c:16080
-#: fish/cmds.c:16108 fish/cmds.c:16162 fish/cmds.c:16188 fish/cmds.c:16234
-#: fish/cmds.c:16294 fish/cmds.c:16337 fish/cmds.c:16399 fish/cmds.c:16426
-#: fish/cmds.c:16544 fish/cmds.c:16578 fish/cmds.c:16610 fish/cmds.c:16632
-#: fish/cmds.c:16658 fish/cmds.c:16679 fish/cmds.c:16705 fish/cmds.c:16750
-#: fish/cmds.c:16775 fish/cmds.c:16844 fish/cmds.c:16909 fish/cmds.c:16985
-#: fish/cmds.c:17054 fish/cmds.c:17080 fish/cmds.c:17185 fish/cmds.c:17293
-#: fish/cmds.c:17401 fish/cmds.c:17511 fish/cmds.c:17717 fish/cmds.c:17845
-#: fish/cmds.c:17868 fish/cmds.c:17892 fish/cmds.c:17914 fish/cmds.c:17940
-#: fish/cmds.c:17999 fish/cmds.c:18026 fish/cmds.c:18050 fish/cmds.c:18103
-#: fish/cmds.c:18194 fish/cmds.c:18221 fish/cmds.c:18244 fish/cmds.c:18271
-#: fish/cmds.c:18314 fish/cmds.c:18338 fish/cmds.c:18366 fish/cmds.c:18394
-#: fish/cmds.c:18420 fish/cmds.c:18582 fish/cmds.c:18612 fish/cmds.c:18666
-#: fish/cmds.c:18693 fish/cmds.c:18733 fish/cmds.c:18762 fish/cmds.c:18787
-#: fish/cmds.c:18812 fish/cmds.c:18840 fish/cmds.c:18879 fish/cmds.c:18904
-#: fish/cmds.c:18930 fish/cmds.c:18960 fish/cmds.c:18990 fish/cmds.c:19020
-#: fish/cmds.c:19087 fish/cmds.c:19112 fish/cmds.c:19207 fish/cmds.c:19228
-#: fish/cmds.c:19250 fish/cmds.c:19277 fish/cmds.c:19297 fish/cmds.c:19318
-#: fish/cmds.c:19338 fish/cmds.c:19357 fish/cmds.c:19382 fish/cmds.c:19547
-#: fish/cmds.c:19616 fish/cmds.c:19682 fish/cmds.c:19746 fish/cmds.c:19776
-#: fish/cmds.c:19823 fish/cmds.c:19921 fish/cmds.c:19990 fish/cmds.c:20009
-#: fish/cmds.c:20031 fish/cmds.c:20068 fish/cmds.c:20106 fish/cmds.c:20143
-#: fish/cmds.c:20179 fish/cmds.c:20217 fish/cmds.c:20254 fish/cmds.c:20291
-#: fish/cmds.c:20328 fish/cmds.c:20369 fish/cmds.c:20393 fish/cmds.c:20430
-#: fish/cmds.c:20469 fish/cmds.c:20524 fish/cmds.c:20683 fish/cmds.c:20710
-#: fish/cmds.c:21187 fish/cmds.c:21212 fish/cmds.c:21263 fish/cmds.c:21289
-#: fish/cmds.c:21319 fish/cmds.c:21346 fish/cmds.c:21371 fish/cmds.c:21399
-#: fish/cmds.c:21423 fish/cmds.c:21444 fish/cmds.c:21465 fish/cmds.c:21484
-#: fish/cmds.c:21503 fish/cmds.c:21526 fish/cmds.c:21553 fish/cmds.c:21577
-#: fish/cmds.c:21601 fish/cmds.c:21626 fish/cmds.c:21652 fish/cmds.c:21678
-#: fish/cmds.c:21705 fish/cmds.c:21749 fish/cmds.c:21794 fish/cmds.c:21823
-#: fish/cmds.c:21846 fish/cmds.c:21874 fish/cmds.c:21920 fish/cmds.c:21946
-#: fish/cmds.c:21977 fish/cmds.c:22031 fish/cmds.c:22054 fish/cmds.c:22077
-#: fish/cmds.c:22096 fish/cmds.c:22118 fish/cmds.c:22152 fish/cmds.c:22174
-#: fish/cmds.c:22211 fish/cmds.c:22237
+#: fish/cmds.c:4748 fish/cmds.c:4767 fish/cmds.c:4791 fish/cmds.c:4816
+#: fish/cmds.c:4842 fish/cmds.c:4869 fish/cmds.c:4890 fish/cmds.c:4915
+#: fish/cmds.c:4935 fish/cmds.c:4961 fish/cmds.c:4982 fish/cmds.c:5007
+#: fish/cmds.c:5028 fish/cmds.c:5051 fish/cmds.c:5076 fish/cmds.c:5101
+#: fish/cmds.c:5126 fish/cmds.c:5146 fish/cmds.c:5171 fish/cmds.c:5210
+#: fish/cmds.c:5230 fish/cmds.c:5250 fish/cmds.c:5276 fish/cmds.c:5301
+#: fish/cmds.c:5326 fish/cmds.c:5351 fish/cmds.c:5376 fish/cmds.c:5401
+#: fish/cmds.c:5426 fish/cmds.c:5451 fish/cmds.c:5477 fish/cmds.c:5504
+#: fish/cmds.c:5530 fish/cmds.c:5555 fish/cmds.c:5581 fish/cmds.c:5608
+#: fish/cmds.c:5635 fish/cmds.c:5662 fish/cmds.c:5688 fish/cmds.c:5714
+#: fish/cmds.c:5741 fish/cmds.c:5768 fish/cmds.c:5795 fish/cmds.c:5820
+#: fish/cmds.c:5840 fish/cmds.c:5865 fish/cmds.c:5967 fish/cmds.c:5989
+#: fish/cmds.c:6010 fish/cmds.c:6035 fish/cmds.c:6122 fish/cmds.c:6149
+#: fish/cmds.c:6176 fish/cmds.c:6203 fish/cmds.c:6230 fish/cmds.c:6257
+#: fish/cmds.c:6284 fish/cmds.c:6310 fish/cmds.c:6336 fish/cmds.c:6362
+#: fish/cmds.c:6382 fish/cmds.c:6408 fish/cmds.c:6428 fish/cmds.c:6454
+#: fish/cmds.c:6481 fish/cmds.c:6508 fish/cmds.c:6535 fish/cmds.c:6603
+#: fish/cmds.c:6628 fish/cmds.c:6653 fish/cmds.c:6692 fish/cmds.c:6716
+#: fish/cmds.c:6801 fish/cmds.c:6826 fish/cmds.c:6873 fish/cmds.c:6898
+#: fish/cmds.c:6920 fish/cmds.c:6944 fish/cmds.c:6974 fish/cmds.c:7005
+#: fish/cmds.c:7039 fish/cmds.c:7071 fish/cmds.c:7104 fish/cmds.c:7136
+#: fish/cmds.c:7171 fish/cmds.c:7206 fish/cmds.c:7240 fish/cmds.c:7270
+#: fish/cmds.c:7310 fish/cmds.c:7337 fish/cmds.c:7363 fish/cmds.c:7389
+#: fish/cmds.c:7414 fish/cmds.c:7437 fish/cmds.c:7463 fish/cmds.c:7509
+#: fish/cmds.c:7555 fish/cmds.c:7603 fish/cmds.c:7645 fish/cmds.c:7669
+#: fish/cmds.c:7697 fish/cmds.c:7718 fish/cmds.c:7744 fish/cmds.c:7765
+#: fish/cmds.c:7786 fish/cmds.c:7810 fish/cmds.c:7830 fish/cmds.c:7854
+#: fish/cmds.c:7916 fish/cmds.c:7943 fish/cmds.c:7964 fish/cmds.c:7988
+#: fish/cmds.c:8016 fish/cmds.c:8041 fish/cmds.c:8062 fish/cmds.c:8083
+#: fish/cmds.c:8104 fish/cmds.c:8125 fish/cmds.c:8146 fish/cmds.c:8167
+#: fish/cmds.c:8188 fish/cmds.c:8215 fish/cmds.c:8258 fish/cmds.c:8283
+#: fish/cmds.c:8313 fish/cmds.c:8342 fish/cmds.c:8370 fish/cmds.c:8398
+#: fish/cmds.c:8430 fish/cmds.c:8457 fish/cmds.c:8483 fish/cmds.c:8505
+#: fish/cmds.c:8524 fish/cmds.c:8548 fish/cmds.c:8575 fish/cmds.c:8603
+#: fish/cmds.c:8631 fish/cmds.c:8659 fish/cmds.c:8687 fish/cmds.c:8716
+#: fish/cmds.c:8766 fish/cmds.c:8834 fish/cmds.c:8862 fish/cmds.c:8918
+#: fish/cmds.c:8975 fish/cmds.c:9001 fish/cmds.c:9032 fish/cmds.c:9082
+#: fish/cmds.c:9173 fish/cmds.c:9221 fish/cmds.c:9281 fish/cmds.c:9302
+#: fish/cmds.c:9321 fish/cmds.c:9345 fish/cmds.c:9375 fish/cmds.c:9405
+#: fish/cmds.c:9435 fish/cmds.c:9465 fish/cmds.c:9495 fish/cmds.c:9525
+#: fish/cmds.c:9552 fish/cmds.c:9577 fish/cmds.c:9602 fish/cmds.c:9628
+#: fish/cmds.c:9654 fish/cmds.c:9681 fish/cmds.c:9726 fish/cmds.c:9752
+#: fish/cmds.c:9778 fish/cmds.c:9803 fish/cmds.c:9829 fish/cmds.c:9862
+#: fish/cmds.c:9895 fish/cmds.c:9926 fish/cmds.c:9982 fish/cmds.c:10054
+#: fish/cmds.c:10087 fish/cmds.c:10120 fish/cmds.c:10148 fish/cmds.c:10178
+#: fish/cmds.c:10207 fish/cmds.c:10238 fish/cmds.c:10263 fish/cmds.c:10288
+#: fish/cmds.c:10314 fish/cmds.c:10340 fish/cmds.c:10368 fish/cmds.c:10394
+#: fish/cmds.c:10422 fish/cmds.c:10449 fish/cmds.c:10475 fish/cmds.c:10505
+#: fish/cmds.c:10538 fish/cmds.c:10571 fish/cmds.c:10603 fish/cmds.c:10642
+#: fish/cmds.c:10663 fish/cmds.c:10688 fish/cmds.c:10721 fish/cmds.c:10752
+#: fish/cmds.c:10783 fish/cmds.c:10813 fish/cmds.c:10838 fish/cmds.c:10868
+#: fish/cmds.c:10974 fish/cmds.c:11001 fish/cmds.c:11028 fish/cmds.c:11055
+#: fish/cmds.c:11086 fish/cmds.c:11121 fish/cmds.c:11166 fish/cmds.c:11191
+#: fish/cmds.c:11216 fish/cmds.c:11261 fish/cmds.c:11293 fish/cmds.c:11320
+#: fish/cmds.c:11347 fish/cmds.c:11377 fish/cmds.c:11402 fish/cmds.c:11430
+#: fish/cmds.c:11458 fish/cmds.c:11488 fish/cmds.c:11517 fish/cmds.c:11546
+#: fish/cmds.c:11575 fish/cmds.c:11606 fish/cmds.c:11656 fish/cmds.c:11687
+#: fish/cmds.c:11732 fish/cmds.c:11753 fish/cmds.c:11779 fish/cmds.c:11808
+#: fish/cmds.c:11839 fish/cmds.c:11870 fish/cmds.c:11925 fish/cmds.c:11952
+#: fish/cmds.c:11981 fish/cmds.c:12070 fish/cmds.c:12121 fish/cmds.c:12212
+#: fish/cmds.c:12300 fish/cmds.c:12345 fish/cmds.c:12376 fish/cmds.c:12406
+#: fish/cmds.c:12437 fish/cmds.c:12467 fish/cmds.c:12500 fish/cmds.c:12553
+#: fish/cmds.c:12604 fish/cmds.c:12634 fish/cmds.c:12658 fish/cmds.c:12684
+#: fish/cmds.c:12709 fish/cmds.c:12734 fish/cmds.c:12821 fish/cmds.c:12853
+#: fish/cmds.c:12885 fish/cmds.c:12917 fish/cmds.c:12949 fish/cmds.c:12981
+#: fish/cmds.c:13013 fish/cmds.c:13045 fish/cmds.c:13077 fish/cmds.c:13109
+#: fish/cmds.c:13141 fish/cmds.c:13172 fish/cmds.c:13203 fish/cmds.c:13233
+#: fish/cmds.c:13263 fish/cmds.c:13293 fish/cmds.c:13322 fish/cmds.c:13353
+#: fish/cmds.c:13401 fish/cmds.c:13426 fish/cmds.c:13451 fish/cmds.c:13479
+#: fish/cmds.c:13507 fish/cmds.c:13532 fish/cmds.c:13557 fish/cmds.c:13582
+#: fish/cmds.c:13607 fish/cmds.c:13635 fish/cmds.c:13680 fish/cmds.c:13729
+#: fish/cmds.c:13768 fish/cmds.c:13789 fish/cmds.c:13810 fish/cmds.c:13834
+#: fish/cmds.c:13854 fish/cmds.c:13882 fish/cmds.c:13929 fish/cmds.c:13976
+#: fish/cmds.c:14024 fish/cmds.c:14073 fish/cmds.c:14123 fish/cmds.c:14173
+#: fish/cmds.c:14220 fish/cmds.c:14245 fish/cmds.c:14276 fish/cmds.c:14308
+#: fish/cmds.c:14338 fish/cmds.c:14365 fish/cmds.c:14394 fish/cmds.c:14440
+#: fish/cmds.c:14525 fish/cmds.c:14575 fish/cmds.c:14646 fish/cmds.c:14715
+#: fish/cmds.c:14744 fish/cmds.c:14799 fish/cmds.c:14827 fish/cmds.c:14880
+#: fish/cmds.c:14926 fish/cmds.c:14953 fish/cmds.c:14982 fish/cmds.c:15050
+#: fish/cmds.c:15079 fish/cmds.c:15111 fish/cmds.c:15141 fish/cmds.c:15168
+#: fish/cmds.c:15196 fish/cmds.c:15231 fish/cmds.c:15258 fish/cmds.c:15285
+#: fish/cmds.c:15312 fish/cmds.c:15339 fish/cmds.c:15368 fish/cmds.c:15414
+#: fish/cmds.c:15440 fish/cmds.c:15473 fish/cmds.c:15500 fish/cmds.c:15525
+#: fish/cmds.c:15571 fish/cmds.c:15618 fish/cmds.c:15666 fish/cmds.c:15732
+#: fish/cmds.c:15761 fish/cmds.c:15806 fish/cmds.c:15826 fish/cmds.c:15853
+#: fish/cmds.c:15903 fish/cmds.c:15936 fish/cmds.c:15970 fish/cmds.c:16005
+#: fish/cmds.c:16057 fish/cmds.c:16104 fish/cmds.c:16144 fish/cmds.c:16184
+#: fish/cmds.c:16218 fish/cmds.c:16245 fish/cmds.c:16287 fish/cmds.c:16314
+#: fish/cmds.c:16341 fish/cmds.c:16364 fish/cmds.c:16390 fish/cmds.c:16424
+#: fish/cmds.c:16456 fish/cmds.c:16483 fish/cmds.c:16537 fish/cmds.c:16592
+#: fish/cmds.c:16651 fish/cmds.c:16702 fish/cmds.c:16728 fish/cmds.c:16755
+#: fish/cmds.c:16781 fish/cmds.c:16837 fish/cmds.c:16893 fish/cmds.c:16950
+#: fish/cmds.c:16978 fish/cmds.c:17035 fish/cmds.c:17064 fish/cmds.c:17113
+#: fish/cmds.c:17176 fish/cmds.c:17222 fish/cmds.c:17287 fish/cmds.c:17314
+#: fish/cmds.c:17435 fish/cmds.c:17472 fish/cmds.c:17507 fish/cmds.c:17532
+#: fish/cmds.c:17561 fish/cmds.c:17582 fish/cmds.c:17608 fish/cmds.c:17653
+#: fish/cmds.c:17678 fish/cmds.c:17747 fish/cmds.c:17812 fish/cmds.c:17888
+#: fish/cmds.c:17960 fish/cmds.c:17986 fish/cmds.c:18091 fish/cmds.c:18199
+#: fish/cmds.c:18307 fish/cmds.c:18417 fish/cmds.c:18623 fish/cmds.c:18751
+#: fish/cmds.c:18777 fish/cmds.c:18804 fish/cmds.c:18829 fish/cmds.c:18855
+#: fish/cmds.c:18917 fish/cmds.c:18947 fish/cmds.c:18971 fish/cmds.c:19024
+#: fish/cmds.c:19118 fish/cmds.c:19148 fish/cmds.c:19174 fish/cmds.c:19204
+#: fish/cmds.c:19250 fish/cmds.c:19277 fish/cmds.c:19308 fish/cmds.c:19339
+#: fish/cmds.c:19365 fish/cmds.c:19530 fish/cmds.c:19560 fish/cmds.c:19617
+#: fish/cmds.c:19647 fish/cmds.c:19690 fish/cmds.c:19722 fish/cmds.c:19750
+#: fish/cmds.c:19778 fish/cmds.c:19809 fish/cmds.c:19851 fish/cmds.c:19879
+#: fish/cmds.c:19908 fish/cmds.c:19941 fish/cmds.c:19974 fish/cmds.c:20004
+#: fish/cmds.c:20074 fish/cmds.c:20099 fish/cmds.c:20197 fish/cmds.c:20218
+#: fish/cmds.c:20243 fish/cmds.c:20273 fish/cmds.c:20293 fish/cmds.c:20317
+#: fish/cmds.c:20337 fish/cmds.c:20356 fish/cmds.c:20381 fish/cmds.c:20546
+#: fish/cmds.c:20615 fish/cmds.c:20681 fish/cmds.c:20748 fish/cmds.c:20781
+#: fish/cmds.c:20828 fish/cmds.c:20926 fish/cmds.c:20995 fish/cmds.c:21014
+#: fish/cmds.c:21039 fish/cmds.c:21079 fish/cmds.c:21120 fish/cmds.c:21160
+#: fish/cmds.c:21199 fish/cmds.c:21240 fish/cmds.c:21280 fish/cmds.c:21320
+#: fish/cmds.c:21360 fish/cmds.c:21404 fish/cmds.c:21431 fish/cmds.c:21471
+#: fish/cmds.c:21513 fish/cmds.c:21568 fish/cmds.c:21730 fish/cmds.c:21757
+#: fish/cmds.c:22234 fish/cmds.c:22259 fish/cmds.c:22313 fish/cmds.c:22342
+#: fish/cmds.c:22375 fish/cmds.c:22405 fish/cmds.c:22433 fish/cmds.c:22464
+#: fish/cmds.c:22488 fish/cmds.c:22509 fish/cmds.c:22530 fish/cmds.c:22549
+#: fish/cmds.c:22568 fish/cmds.c:22594 fish/cmds.c:22624 fish/cmds.c:22651
+#: fish/cmds.c:22678 fish/cmds.c:22706 fish/cmds.c:22735 fish/cmds.c:22764
+#: fish/cmds.c:22794 fish/cmds.c:22841 fish/cmds.c:22889 fish/cmds.c:22921
+#: fish/cmds.c:22947 fish/cmds.c:22975 fish/cmds.c:23024 fish/cmds.c:23053
+#: fish/cmds.c:23084 fish/cmds.c:23141 fish/cmds.c:23167 fish/cmds.c:23190
+#: fish/cmds.c:23209 fish/cmds.c:23234 fish/cmds.c:23268 fish/cmds.c:23293
+#: fish/cmds.c:23333 fish/cmds.c:23362
 #, c-format
 msgid "type 'help %s' for help on %s\n"
 msgstr "'help %s' टाइप करा व %s बाबत मदत पहा\n"
 
-#: fish/cmds.c:5151 fish/cmds.c:6534 fish/cmds.c:6618 fish/cmds.c:7112
-#: fish/cmds.c:7287 fish/cmds.c:7330 fish/cmds.c:7373 fish/cmds.c:7418
-#: fish/cmds.c:7657 fish/cmds.c:8008 fish/cmds.c:8462 fish/cmds.c:8509
-#: fish/cmds.c:8528 fish/cmds.c:8765 fish/cmds.c:8811 fish/cmds.c:8830
-#: fish/cmds.c:8849 fish/cmds.c:8901 fish/cmds.c:9368 fish/cmds.c:10208
-#: fish/cmds.c:10453 fish/cmds.c:10472 fish/cmds.c:10491 fish/cmds.c:10510
-#: fish/cmds.c:10688 fish/cmds.c:10773 fish/cmds.c:11124 fish/cmds.c:11199
-#: fish/cmds.c:11475 fish/cmds.c:11494 fish/cmds.c:11513 fish/cmds.c:11561
-#: fish/cmds.c:11609 fish/cmds.c:11628 fish/cmds.c:11647 fish/cmds.c:11697
-#: fish/cmds.c:11716 fish/cmds.c:11735 fish/cmds.c:11782 fish/cmds.c:11966
-#: fish/cmds.c:12016 fish/cmds.c:12750 fish/cmds.c:13000 fish/cmds.c:13044
-#: fish/cmds.c:13088 fish/cmds.c:13236 fish/cmds.c:13279 fish/cmds.c:13323
-#: fish/cmds.c:13368 fish/cmds.c:13415 fish/cmds.c:13462 fish/cmds.c:13509
-#: fish/cmds.c:13710 fish/cmds.c:13753 fish/cmds.c:13766 fish/cmds.c:13779
-#: fish/cmds.c:13792 fish/cmds.c:13835 fish/cmds.c:13880 fish/cmds.c:13899
-#: fish/cmds.c:13950 fish/cmds.c:13969 fish/cmds.c:14042 fish/cmds.c:14055
-#: fish/cmds.c:14118 fish/cmds.c:14168 fish/cmds.c:14260 fish/cmds.c:14279
-#: fish/cmds.c:14614 fish/cmds.c:14756 fish/cmds.c:14799 fish/cmds.c:14843
-#: fish/cmds.c:14888 fish/cmds.c:14907 fish/cmds.c:14977 fish/cmds.c:15065
-#: fish/cmds.c:15203 fish/cmds.c:15256 fish/cmds.c:15296 fish/cmds.c:15333
-#: fish/cmds.c:15370 fish/cmds.c:15429 fish/cmds.c:15649 fish/cmds.c:15700
-#: fish/cmds.c:15756 fish/cmds.c:15808 fish/cmds.c:16202 fish/cmds.c:16248
-#: fish/cmds.c:16261 fish/cmds.c:16308 fish/cmds.c:16348 fish/cmds.c:16367
-#: fish/cmds.c:16444 fish/cmds.c:16472 fish/cmds.c:16495 fish/cmds.c:16792
-#: fish/cmds.c:16862 fish/cmds.c:16930 fish/cmds.c:17005 fish/cmds.c:17098
-#: fish/cmds.c:17115 fish/cmds.c:17132 fish/cmds.c:17204 fish/cmds.c:17221
-#: fish/cmds.c:17238 fish/cmds.c:17312 fish/cmds.c:17329 fish/cmds.c:17346
-#: fish/cmds.c:17421 fish/cmds.c:17438 fish/cmds.c:17455 fish/cmds.c:17537
-#: fish/cmds.c:17560 fish/cmds.c:17588 fish/cmds.c:17605 fish/cmds.c:17628
-#: fish/cmds.c:17656 fish/cmds.c:17673 fish/cmds.c:17736 fish/cmds.c:17753
-#: fish/cmds.c:17776 fish/cmds.c:17799 fish/cmds.c:18283 fish/cmds.c:18438
-#: fish/cmds.c:18455 fish/cmds.c:18477 fish/cmds.c:18510 fish/cmds.c:18533
-#: fish/cmds.c:18705 fish/cmds.c:18850 fish/cmds.c:19037 fish/cmds.c:19130
-#: fish/cmds.c:19147 fish/cmds.c:19164 fish/cmds.c:19427 fish/cmds.c:19444
-#: fish/cmds.c:19461 fish/cmds.c:19478 fish/cmds.c:19495 fish/cmds.c:19788
-#: fish/cmds.c:20041 fish/cmds.c:20078 fish/cmds.c:20116 fish/cmds.c:20153
-#: fish/cmds.c:20189 fish/cmds.c:20227 fish/cmds.c:20264 fish/cmds.c:20301
-#: fish/cmds.c:20338 fish/cmds.c:20403 fish/cmds.c:20440 fish/cmds.c:20479
-#: fish/cmds.c:20493 fish/cmds.c:20578 fish/cmds.c:20595 fish/cmds.c:20612
-#: fish/cmds.c:20629 fish/cmds.c:20727 fish/cmds.c:20744 fish/cmds.c:20761
-#: fish/cmds.c:20778 fish/cmds.c:20795 fish/cmds.c:20812 fish/cmds.c:20829
-#: fish/cmds.c:20846 fish/cmds.c:20863 fish/cmds.c:20880 fish/cmds.c:20897
-#: fish/cmds.c:20914 fish/cmds.c:20931 fish/cmds.c:20954 fish/cmds.c:21716
-#: fish/cmds.c:21760 fish/cmds.c:22128 fish/cmds.c:22184
+#: fish/cmds.c:4787 fish/cmds.c:4812 fish/cmds.c:4838 fish/cmds.c:4865
+#: fish/cmds.c:4911 fish/cmds.c:4957 fish/cmds.c:5003 fish/cmds.c:5047
+#: fish/cmds.c:5097 fish/cmds.c:5167 fish/cmds.c:5272 fish/cmds.c:5322
+#: fish/cmds.c:5372 fish/cmds.c:5422 fish/cmds.c:5473 fish/cmds.c:5500
+#: fish/cmds.c:5526 fish/cmds.c:5577 fish/cmds.c:5604 fish/cmds.c:5631
+#: fish/cmds.c:5658 fish/cmds.c:5684 fish/cmds.c:5710 fish/cmds.c:5737
+#: fish/cmds.c:5764 fish/cmds.c:5791 fish/cmds.c:5963 fish/cmds.c:6118
+#: fish/cmds.c:6145 fish/cmds.c:6172 fish/cmds.c:6199 fish/cmds.c:6226
+#: fish/cmds.c:6253 fish/cmds.c:6280 fish/cmds.c:6306 fish/cmds.c:6332
+#: fish/cmds.c:6358 fish/cmds.c:6404 fish/cmds.c:6450 fish/cmds.c:6477
+#: fish/cmds.c:6504 fish/cmds.c:6599 fish/cmds.c:6649 fish/cmds.c:6894
+#: fish/cmds.c:6940 fish/cmds.c:6970 fish/cmds.c:7001 fish/cmds.c:7035
+#: fish/cmds.c:7067 fish/cmds.c:7100 fish/cmds.c:7132 fish/cmds.c:7167
+#: fish/cmds.c:7202 fish/cmds.c:7236 fish/cmds.c:7266 fish/cmds.c:7306
+#: fish/cmds.c:7333 fish/cmds.c:7359 fish/cmds.c:7385 fish/cmds.c:7410
+#: fish/cmds.c:7459 fish/cmds.c:7505 fish/cmds.c:7551 fish/cmds.c:7599
+#: fish/cmds.c:7665 fish/cmds.c:7693 fish/cmds.c:7740 fish/cmds.c:7806
+#: fish/cmds.c:7939 fish/cmds.c:7984 fish/cmds.c:8012 fish/cmds.c:8211
+#: fish/cmds.c:8279 fish/cmds.c:8309 fish/cmds.c:8338 fish/cmds.c:8366
+#: fish/cmds.c:8394 fish/cmds.c:8426 fish/cmds.c:8453 fish/cmds.c:8479
+#: fish/cmds.c:8544 fish/cmds.c:8571 fish/cmds.c:8599 fish/cmds.c:8627
+#: fish/cmds.c:8655 fish/cmds.c:8683 fish/cmds.c:8712 fish/cmds.c:8762
+#: fish/cmds.c:8830 fish/cmds.c:8971 fish/cmds.c:8997 fish/cmds.c:9028
+#: fish/cmds.c:9078 fish/cmds.c:9169 fish/cmds.c:9341 fish/cmds.c:9371
+#: fish/cmds.c:9401 fish/cmds.c:9431 fish/cmds.c:9461 fish/cmds.c:9491
+#: fish/cmds.c:9521 fish/cmds.c:9548 fish/cmds.c:9573 fish/cmds.c:9598
+#: fish/cmds.c:9624 fish/cmds.c:9650 fish/cmds.c:9677 fish/cmds.c:9722
+#: fish/cmds.c:9748 fish/cmds.c:9774 fish/cmds.c:9799 fish/cmds.c:9825
+#: fish/cmds.c:9858 fish/cmds.c:9891 fish/cmds.c:10050 fish/cmds.c:10083
+#: fish/cmds.c:10116 fish/cmds.c:10144 fish/cmds.c:10174 fish/cmds.c:10203
+#: fish/cmds.c:10234 fish/cmds.c:10259 fish/cmds.c:10284 fish/cmds.c:10310
+#: fish/cmds.c:10336 fish/cmds.c:10364 fish/cmds.c:10390 fish/cmds.c:10418
+#: fish/cmds.c:10445 fish/cmds.c:10471 fish/cmds.c:10501 fish/cmds.c:10534
+#: fish/cmds.c:10567 fish/cmds.c:10599 fish/cmds.c:10684 fish/cmds.c:10717
+#: fish/cmds.c:10748 fish/cmds.c:10779 fish/cmds.c:10809 fish/cmds.c:10834
+#: fish/cmds.c:10864 fish/cmds.c:10970 fish/cmds.c:10997 fish/cmds.c:11024
+#: fish/cmds.c:11051 fish/cmds.c:11082 fish/cmds.c:11117 fish/cmds.c:11162
+#: fish/cmds.c:11187 fish/cmds.c:11212 fish/cmds.c:11257 fish/cmds.c:11289
+#: fish/cmds.c:11316 fish/cmds.c:11343 fish/cmds.c:11373 fish/cmds.c:11398
+#: fish/cmds.c:11426 fish/cmds.c:11454 fish/cmds.c:11484 fish/cmds.c:11513
+#: fish/cmds.c:11542 fish/cmds.c:11571 fish/cmds.c:11602 fish/cmds.c:11652
+#: fish/cmds.c:11683 fish/cmds.c:11775 fish/cmds.c:11804 fish/cmds.c:11835
+#: fish/cmds.c:11921 fish/cmds.c:11948 fish/cmds.c:11977 fish/cmds.c:12066
+#: fish/cmds.c:12117 fish/cmds.c:12208 fish/cmds.c:12296 fish/cmds.c:12341
+#: fish/cmds.c:12372 fish/cmds.c:12402 fish/cmds.c:12433 fish/cmds.c:12463
+#: fish/cmds.c:12496 fish/cmds.c:12549 fish/cmds.c:12600 fish/cmds.c:12630
+#: fish/cmds.c:12680 fish/cmds.c:12705 fish/cmds.c:12817 fish/cmds.c:12849
+#: fish/cmds.c:12881 fish/cmds.c:12913 fish/cmds.c:12945 fish/cmds.c:12977
+#: fish/cmds.c:13009 fish/cmds.c:13041 fish/cmds.c:13073 fish/cmds.c:13105
+#: fish/cmds.c:13137 fish/cmds.c:13168 fish/cmds.c:13199 fish/cmds.c:13229
+#: fish/cmds.c:13259 fish/cmds.c:13289 fish/cmds.c:13318 fish/cmds.c:13349
+#: fish/cmds.c:13397 fish/cmds.c:13422 fish/cmds.c:13447 fish/cmds.c:13475
+#: fish/cmds.c:13503 fish/cmds.c:13528 fish/cmds.c:13553 fish/cmds.c:13578
+#: fish/cmds.c:13603 fish/cmds.c:13631 fish/cmds.c:13676 fish/cmds.c:13725
+#: fish/cmds.c:13830 fish/cmds.c:13878 fish/cmds.c:13925 fish/cmds.c:13972
+#: fish/cmds.c:14020 fish/cmds.c:14069 fish/cmds.c:14119 fish/cmds.c:14169
+#: fish/cmds.c:14216 fish/cmds.c:14241 fish/cmds.c:14272 fish/cmds.c:14304
+#: fish/cmds.c:14334 fish/cmds.c:14361 fish/cmds.c:14390 fish/cmds.c:14436
+#: fish/cmds.c:14521 fish/cmds.c:14571 fish/cmds.c:14642 fish/cmds.c:14711
+#: fish/cmds.c:14740 fish/cmds.c:14795 fish/cmds.c:14823 fish/cmds.c:14876
+#: fish/cmds.c:14922 fish/cmds.c:14949 fish/cmds.c:14978 fish/cmds.c:15046
+#: fish/cmds.c:15075 fish/cmds.c:15107 fish/cmds.c:15137 fish/cmds.c:15164
+#: fish/cmds.c:15192 fish/cmds.c:15227 fish/cmds.c:15254 fish/cmds.c:15281
+#: fish/cmds.c:15308 fish/cmds.c:15335 fish/cmds.c:15364 fish/cmds.c:15410
+#: fish/cmds.c:15436 fish/cmds.c:15469 fish/cmds.c:15521 fish/cmds.c:15567
+#: fish/cmds.c:15614 fish/cmds.c:15662 fish/cmds.c:15728 fish/cmds.c:15757
+#: fish/cmds.c:15802 fish/cmds.c:15849 fish/cmds.c:15899 fish/cmds.c:15932
+#: fish/cmds.c:15966 fish/cmds.c:16001 fish/cmds.c:16053 fish/cmds.c:16100
+#: fish/cmds.c:16140 fish/cmds.c:16180 fish/cmds.c:16241 fish/cmds.c:16283
+#: fish/cmds.c:16310 fish/cmds.c:16337 fish/cmds.c:16386 fish/cmds.c:16420
+#: fish/cmds.c:16452 fish/cmds.c:16479 fish/cmds.c:16533 fish/cmds.c:16588
+#: fish/cmds.c:16647 fish/cmds.c:16698 fish/cmds.c:16724 fish/cmds.c:16751
+#: fish/cmds.c:16946 fish/cmds.c:17031 fish/cmds.c:17060 fish/cmds.c:17109
+#: fish/cmds.c:17172 fish/cmds.c:17218 fish/cmds.c:17283 fish/cmds.c:17431
+#: fish/cmds.c:17468 fish/cmds.c:17503 fish/cmds.c:17528 fish/cmds.c:17557
+#: fish/cmds.c:17956 fish/cmds.c:18773 fish/cmds.c:18800 fish/cmds.c:18825
+#: fish/cmds.c:18913 fish/cmds.c:18943 fish/cmds.c:19114 fish/cmds.c:19144
+#: fish/cmds.c:19170 fish/cmds.c:19200 fish/cmds.c:19246 fish/cmds.c:19273
+#: fish/cmds.c:19304 fish/cmds.c:19335 fish/cmds.c:19526 fish/cmds.c:19613
+#: fish/cmds.c:19643 fish/cmds.c:19686 fish/cmds.c:19718 fish/cmds.c:19746
+#: fish/cmds.c:19774 fish/cmds.c:19805 fish/cmds.c:19847 fish/cmds.c:19875
+#: fish/cmds.c:19904 fish/cmds.c:19937 fish/cmds.c:19970 fish/cmds.c:20070
+#: fish/cmds.c:20193 fish/cmds.c:20239 fish/cmds.c:20269 fish/cmds.c:20313
+#: fish/cmds.c:20744 fish/cmds.c:20777 fish/cmds.c:21035 fish/cmds.c:21075
+#: fish/cmds.c:21116 fish/cmds.c:21156 fish/cmds.c:21195 fish/cmds.c:21236
+#: fish/cmds.c:21276 fish/cmds.c:21316 fish/cmds.c:21356 fish/cmds.c:21400
+#: fish/cmds.c:21427 fish/cmds.c:21467 fish/cmds.c:21509 fish/cmds.c:21726
+#: fish/cmds.c:22309 fish/cmds.c:22338 fish/cmds.c:22371 fish/cmds.c:22401
+#: fish/cmds.c:22429 fish/cmds.c:22460 fish/cmds.c:22590 fish/cmds.c:22620
+#: fish/cmds.c:22647 fish/cmds.c:22674 fish/cmds.c:22702 fish/cmds.c:22731
+#: fish/cmds.c:22760 fish/cmds.c:22790 fish/cmds.c:22837 fish/cmds.c:22885
+#: fish/cmds.c:22917 fish/cmds.c:22943 fish/cmds.c:23020 fish/cmds.c:23049
+#: fish/cmds.c:23137 fish/cmds.c:23163 fish/cmds.c:23230 fish/cmds.c:23289
+#: fish/cmds.c:23329 fish/cmds.c:23358
+#, c-format
+msgid "%s should have %d parameter\n"
+msgid_plural "%s should have %d parameters\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: fish/cmds.c:5181 fish/cmds.c:6663 fish/cmds.c:6747 fish/cmds.c:7280
+#: fish/cmds.c:7473 fish/cmds.c:7519 fish/cmds.c:7565 fish/cmds.c:7613
+#: fish/cmds.c:7864 fish/cmds.c:8227 fish/cmds.c:8726 fish/cmds.c:8776
+#: fish/cmds.c:8795 fish/cmds.c:9044 fish/cmds.c:9093 fish/cmds.c:9112
+#: fish/cmds.c:9131 fish/cmds.c:9186 fish/cmds.c:9692 fish/cmds.c:10613
+#: fish/cmds.c:10879 fish/cmds.c:10898 fish/cmds.c:10917 fish/cmds.c:10936
+#: fish/cmds.c:11132 fish/cmds.c:11226 fish/cmds.c:11616 fish/cmds.c:11697
+#: fish/cmds.c:11991 fish/cmds.c:12010 fish/cmds.c:12029 fish/cmds.c:12080
+#: fish/cmds.c:12131 fish/cmds.c:12150 fish/cmds.c:12169 fish/cmds.c:12222
+#: fish/cmds.c:12241 fish/cmds.c:12260 fish/cmds.c:12310 fish/cmds.c:12512
+#: fish/cmds.c:12565 fish/cmds.c:13365 fish/cmds.c:13645 fish/cmds.c:13692
+#: fish/cmds.c:13739 fish/cmds.c:13893 fish/cmds.c:13939 fish/cmds.c:13986
+#: fish/cmds.c:14034 fish/cmds.c:14084 fish/cmds.c:14134 fish/cmds.c:14184
+#: fish/cmds.c:14406 fish/cmds.c:14452 fish/cmds.c:14465 fish/cmds.c:14478
+#: fish/cmds.c:14491 fish/cmds.c:14537 fish/cmds.c:14585 fish/cmds.c:14604
+#: fish/cmds.c:14658 fish/cmds.c:14677 fish/cmds.c:14756 fish/cmds.c:14769
+#: fish/cmds.c:14838 fish/cmds.c:14891 fish/cmds.c:14992 fish/cmds.c:15011
+#: fish/cmds.c:15382 fish/cmds.c:15536 fish/cmds.c:15582 fish/cmds.c:15629
+#: fish/cmds.c:15677 fish/cmds.c:15696 fish/cmds.c:15772 fish/cmds.c:15866
+#: fish/cmds.c:16016 fish/cmds.c:16072 fish/cmds.c:16115 fish/cmds.c:16155
+#: fish/cmds.c:16195 fish/cmds.c:16257 fish/cmds.c:16498 fish/cmds.c:16552
+#: fish/cmds.c:16611 fish/cmds.c:16666 fish/cmds.c:17078 fish/cmds.c:17127
+#: fish/cmds.c:17140 fish/cmds.c:17190 fish/cmds.c:17233 fish/cmds.c:17252
+#: fish/cmds.c:17332 fish/cmds.c:17360 fish/cmds.c:17383 fish/cmds.c:17695
+#: fish/cmds.c:17765 fish/cmds.c:17833 fish/cmds.c:17908 fish/cmds.c:18004
+#: fish/cmds.c:18021 fish/cmds.c:18038 fish/cmds.c:18110 fish/cmds.c:18127
+#: fish/cmds.c:18144 fish/cmds.c:18218 fish/cmds.c:18235 fish/cmds.c:18252
+#: fish/cmds.c:18327 fish/cmds.c:18344 fish/cmds.c:18361 fish/cmds.c:18443
+#: fish/cmds.c:18466 fish/cmds.c:18494 fish/cmds.c:18511 fish/cmds.c:18534
+#: fish/cmds.c:18562 fish/cmds.c:18579 fish/cmds.c:18642 fish/cmds.c:18659
+#: fish/cmds.c:18682 fish/cmds.c:18705 fish/cmds.c:19216 fish/cmds.c:19383
+#: fish/cmds.c:19400 fish/cmds.c:19422 fish/cmds.c:19455 fish/cmds.c:19478
+#: fish/cmds.c:19659 fish/cmds.c:19819 fish/cmds.c:20021 fish/cmds.c:20117
+#: fish/cmds.c:20134 fish/cmds.c:20151 fish/cmds.c:20426 fish/cmds.c:20443
+#: fish/cmds.c:20460 fish/cmds.c:20477 fish/cmds.c:20494 fish/cmds.c:20793
+#: fish/cmds.c:21049 fish/cmds.c:21089 fish/cmds.c:21130 fish/cmds.c:21170
+#: fish/cmds.c:21209 fish/cmds.c:21250 fish/cmds.c:21290 fish/cmds.c:21330
+#: fish/cmds.c:21370 fish/cmds.c:21441 fish/cmds.c:21481 fish/cmds.c:21523
+#: fish/cmds.c:21537 fish/cmds.c:21622 fish/cmds.c:21639 fish/cmds.c:21656
+#: fish/cmds.c:21673 fish/cmds.c:21774 fish/cmds.c:21791 fish/cmds.c:21808
+#: fish/cmds.c:21825 fish/cmds.c:21842 fish/cmds.c:21859 fish/cmds.c:21876
+#: fish/cmds.c:21893 fish/cmds.c:21910 fish/cmds.c:21927 fish/cmds.c:21944
+#: fish/cmds.c:21961 fish/cmds.c:21978 fish/cmds.c:22001 fish/cmds.c:22805
+#: fish/cmds.c:22852 fish/cmds.c:23244 fish/cmds.c:23303
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: अवैध इंटीजर घटक (%s ने %d पाठवले)\n"
 
-#: fish/cmds.c:5157 fish/cmds.c:6540 fish/cmds.c:6624 fish/cmds.c:7293
-#: fish/cmds.c:7336 fish/cmds.c:7379 fish/cmds.c:7424 fish/cmds.c:8014
-#: fish/cmds.c:8468 fish/cmds.c:8515 fish/cmds.c:8534 fish/cmds.c:8771
-#: fish/cmds.c:8817 fish/cmds.c:8836 fish/cmds.c:8855 fish/cmds.c:8907
-#: fish/cmds.c:9374 fish/cmds.c:10214 fish/cmds.c:10459 fish/cmds.c:10478
-#: fish/cmds.c:10497 fish/cmds.c:10516 fish/cmds.c:10694 fish/cmds.c:10779
-#: fish/cmds.c:11130 fish/cmds.c:11205 fish/cmds.c:11481 fish/cmds.c:11500
-#: fish/cmds.c:11519 fish/cmds.c:11567 fish/cmds.c:11615 fish/cmds.c:11634
-#: fish/cmds.c:11653 fish/cmds.c:11703 fish/cmds.c:11722 fish/cmds.c:11741
-#: fish/cmds.c:11788 fish/cmds.c:11972 fish/cmds.c:12022 fish/cmds.c:12756
-#: fish/cmds.c:13006 fish/cmds.c:13050 fish/cmds.c:13094 fish/cmds.c:13242
-#: fish/cmds.c:13285 fish/cmds.c:13329 fish/cmds.c:13374 fish/cmds.c:13421
-#: fish/cmds.c:13468 fish/cmds.c:13515 fish/cmds.c:13841 fish/cmds.c:13886
-#: fish/cmds.c:13905 fish/cmds.c:13956 fish/cmds.c:14124 fish/cmds.c:14174
-#: fish/cmds.c:14266 fish/cmds.c:14285 fish/cmds.c:14762 fish/cmds.c:14805
-#: fish/cmds.c:14849 fish/cmds.c:14894 fish/cmds.c:14913 fish/cmds.c:14983
-#: fish/cmds.c:15071 fish/cmds.c:15209 fish/cmds.c:15655 fish/cmds.c:15706
-#: fish/cmds.c:15762 fish/cmds.c:15814 fish/cmds.c:16354 fish/cmds.c:16450
-#: fish/cmds.c:16478 fish/cmds.c:16501 fish/cmds.c:16936 fish/cmds.c:17011
-#: fish/cmds.c:17543 fish/cmds.c:17566 fish/cmds.c:17611 fish/cmds.c:17634
-#: fish/cmds.c:17759 fish/cmds.c:17782 fish/cmds.c:18289 fish/cmds.c:18483
-#: fish/cmds.c:18516 fish/cmds.c:18539 fish/cmds.c:19501 fish/cmds.c:19794
-#: fish/cmds.c:20937 fish/cmds.c:20960 fish/cmds.c:21722 fish/cmds.c:21766
+#: fish/cmds.c:5187 fish/cmds.c:6669 fish/cmds.c:6753 fish/cmds.c:7479
+#: fish/cmds.c:7525 fish/cmds.c:7571 fish/cmds.c:7619 fish/cmds.c:8233
+#: fish/cmds.c:8732 fish/cmds.c:8782 fish/cmds.c:8801 fish/cmds.c:9050
+#: fish/cmds.c:9099 fish/cmds.c:9118 fish/cmds.c:9137 fish/cmds.c:9192
+#: fish/cmds.c:9698 fish/cmds.c:10619 fish/cmds.c:10885 fish/cmds.c:10904
+#: fish/cmds.c:10923 fish/cmds.c:10942 fish/cmds.c:11138 fish/cmds.c:11232
+#: fish/cmds.c:11622 fish/cmds.c:11703 fish/cmds.c:11997 fish/cmds.c:12016
+#: fish/cmds.c:12035 fish/cmds.c:12086 fish/cmds.c:12137 fish/cmds.c:12156
+#: fish/cmds.c:12175 fish/cmds.c:12228 fish/cmds.c:12247 fish/cmds.c:12266
+#: fish/cmds.c:12316 fish/cmds.c:12518 fish/cmds.c:12571 fish/cmds.c:13371
+#: fish/cmds.c:13651 fish/cmds.c:13698 fish/cmds.c:13745 fish/cmds.c:13899
+#: fish/cmds.c:13945 fish/cmds.c:13992 fish/cmds.c:14040 fish/cmds.c:14090
+#: fish/cmds.c:14140 fish/cmds.c:14190 fish/cmds.c:14543 fish/cmds.c:14591
+#: fish/cmds.c:14610 fish/cmds.c:14664 fish/cmds.c:14844 fish/cmds.c:14897
+#: fish/cmds.c:14998 fish/cmds.c:15017 fish/cmds.c:15542 fish/cmds.c:15588
+#: fish/cmds.c:15635 fish/cmds.c:15683 fish/cmds.c:15702 fish/cmds.c:15778
+#: fish/cmds.c:15872 fish/cmds.c:16022 fish/cmds.c:16504 fish/cmds.c:16558
+#: fish/cmds.c:16617 fish/cmds.c:16672 fish/cmds.c:17239 fish/cmds.c:17338
+#: fish/cmds.c:17366 fish/cmds.c:17389 fish/cmds.c:17839 fish/cmds.c:17914
+#: fish/cmds.c:18449 fish/cmds.c:18472 fish/cmds.c:18517 fish/cmds.c:18540
+#: fish/cmds.c:18665 fish/cmds.c:18688 fish/cmds.c:19222 fish/cmds.c:19428
+#: fish/cmds.c:19461 fish/cmds.c:19484 fish/cmds.c:20500 fish/cmds.c:20799
+#: fish/cmds.c:21984 fish/cmds.c:22007 fish/cmds.c:22811 fish/cmds.c:22858
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: इंटीजर व्याप्तीच्या बाहेर आहे\n"
 
-#: fish/cmds.c:5786 fish/cmds.c:5953 fish/cmds.c:6411 fish/cmds.c:6586
-#: fish/cmds.c:6693 fish/cmds.c:7646 fish/cmds.c:8591 fish/cmds.c:8647
-#: fish/cmds.c:8935 fish/cmds.c:9580 fish/cmds.c:9636 fish/cmds.c:11362
-#: fish/cmds.c:12172 fish/cmds.c:15913 fish/cmds.c:15969 fish/cmds.c:16025
-#: fish/cmds.c:16107 fish/cmds.c:16425 fish/cmds.c:16704 fish/cmds.c:16774
-#: fish/cmds.c:16843 fish/cmds.c:16908 fish/cmds.c:16984 fish/cmds.c:17079
-#: fish/cmds.c:17184 fish/cmds.c:17292 fish/cmds.c:17400 fish/cmds.c:17510
-#: fish/cmds.c:17716 fish/cmds.c:17939 fish/cmds.c:18049 fish/cmds.c:18102
-#: fish/cmds.c:18419 fish/cmds.c:18611 fish/cmds.c:19019 fish/cmds.c:19111
-#: fish/cmds.c:19381 fish/cmds.c:19546 fish/cmds.c:19615 fish/cmds.c:19681
-#: fish/cmds.c:19822 fish/cmds.c:19920 fish/cmds.c:20523 fish/cmds.c:20709
-#: fish/cmds.c:21211 fish/cmds.c:21873 fish/cmds.c:21976
+#: fish/cmds.c:5864 fish/cmds.c:6034 fish/cmds.c:6534 fish/cmds.c:6715
+#: fish/cmds.c:7853 fish/cmds.c:8861 fish/cmds.c:8917 fish/cmds.c:9220
+#: fish/cmds.c:9925 fish/cmds.c:9981 fish/cmds.c:11869 fish/cmds.c:12733
+#: fish/cmds.c:16780 fish/cmds.c:16836 fish/cmds.c:16892 fish/cmds.c:16977
+#: fish/cmds.c:17313 fish/cmds.c:17607 fish/cmds.c:17677 fish/cmds.c:17746
+#: fish/cmds.c:17811 fish/cmds.c:17887 fish/cmds.c:17985 fish/cmds.c:18090
+#: fish/cmds.c:18198 fish/cmds.c:18306 fish/cmds.c:18416 fish/cmds.c:18622
+#: fish/cmds.c:18854 fish/cmds.c:18970 fish/cmds.c:19023 fish/cmds.c:19364
+#: fish/cmds.c:19559 fish/cmds.c:20003 fish/cmds.c:20098 fish/cmds.c:20380
+#: fish/cmds.c:20545 fish/cmds.c:20614 fish/cmds.c:20680 fish/cmds.c:20827
+#: fish/cmds.c:20925 fish/cmds.c:21567 fish/cmds.c:21756 fish/cmds.c:22258
+#: fish/cmds.c:22974 fish/cmds.c:23083
 #, c-format
 msgid "%s should have %d-%d parameter(s)\n"
 msgstr "%s कडे %d-%d घटके असायला हवे\n"
 
-#: fish/cmds.c:5852 fish/cmds.c:6006 fish/cmds.c:6440 fish/cmds.c:6643
-#: fish/cmds.c:6712 fish/cmds.c:7679 fish/cmds.c:8612 fish/cmds.c:8668
-#: fish/cmds.c:8965 fish/cmds.c:9599 fish/cmds.c:9669 fish/cmds.c:11383
-#: fish/cmds.c:12221 fish/cmds.c:15934 fish/cmds.c:15990 fish/cmds.c:16046
-#: fish/cmds.c:16128 fish/cmds.c:16511 fish/cmds.c:16721 fish/cmds.c:16811
-#: fish/cmds.c:16872 fish/cmds.c:16946 fish/cmds.c:17021 fish/cmds.c:17151
-#: fish/cmds.c:17257 fish/cmds.c:17365 fish/cmds.c:17474 fish/cmds.c:17683
-#: fish/cmds.c:17814 fish/cmds.c:17968 fish/cmds.c:18069 fish/cmds.c:18160
-#: fish/cmds.c:18549 fish/cmds.c:18633 fish/cmds.c:19056 fish/cmds.c:19174
-#: fish/cmds.c:19511 fish/cmds.c:19578 fish/cmds.c:19646 fish/cmds.c:19712
-#: fish/cmds.c:19888 fish/cmds.c:19959 fish/cmds.c:20649 fish/cmds.c:21158
-#: fish/cmds.c:21228 fish/cmds.c:21889 fish/cmds.c:21997
+#: fish/cmds.c:5930 fish/cmds.c:6087 fish/cmds.c:6563 fish/cmds.c:6772
+#: fish/cmds.c:6844 fish/cmds.c:7886 fish/cmds.c:8882 fish/cmds.c:8938
+#: fish/cmds.c:9250 fish/cmds.c:9944 fish/cmds.c:10014 fish/cmds.c:11890
+#: fish/cmds.c:12782 fish/cmds.c:16801 fish/cmds.c:16857 fish/cmds.c:16913
+#: fish/cmds.c:16998 fish/cmds.c:17399 fish/cmds.c:17624 fish/cmds.c:17714
+#: fish/cmds.c:17775 fish/cmds.c:17849 fish/cmds.c:17924 fish/cmds.c:18057
+#: fish/cmds.c:18163 fish/cmds.c:18271 fish/cmds.c:18380 fish/cmds.c:18589
+#: fish/cmds.c:18720 fish/cmds.c:18883 fish/cmds.c:18990 fish/cmds.c:19081
+#: fish/cmds.c:19494 fish/cmds.c:19581 fish/cmds.c:20040 fish/cmds.c:20161
+#: fish/cmds.c:20510 fish/cmds.c:20577 fish/cmds.c:20645 fish/cmds.c:20711
+#: fish/cmds.c:20893 fish/cmds.c:20964 fish/cmds.c:21693 fish/cmds.c:22205
+#: fish/cmds.c:22275 fish/cmds.c:22990 fish/cmds.c:23104
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: अपरिचीत वैकल्पिक घटक \"%s\"\n"
 
-#: fish/cmds.c:5858 fish/cmds.c:6012 fish/cmds.c:6446 fish/cmds.c:6649
-#: fish/cmds.c:6718 fish/cmds.c:7685 fish/cmds.c:8618 fish/cmds.c:8674
-#: fish/cmds.c:8971 fish/cmds.c:9605 fish/cmds.c:9675 fish/cmds.c:11389
-#: fish/cmds.c:12227 fish/cmds.c:15940 fish/cmds.c:15996 fish/cmds.c:16052
-#: fish/cmds.c:16134 fish/cmds.c:16517 fish/cmds.c:16727 fish/cmds.c:16817
-#: fish/cmds.c:16878 fish/cmds.c:16952 fish/cmds.c:17027 fish/cmds.c:17157
-#: fish/cmds.c:17263 fish/cmds.c:17371 fish/cmds.c:17480 fish/cmds.c:17689
-#: fish/cmds.c:17820 fish/cmds.c:17974 fish/cmds.c:18075 fish/cmds.c:18166
-#: fish/cmds.c:18555 fish/cmds.c:18639 fish/cmds.c:19062 fish/cmds.c:19180
-#: fish/cmds.c:19517 fish/cmds.c:19584 fish/cmds.c:19652 fish/cmds.c:19718
-#: fish/cmds.c:19894 fish/cmds.c:19965 fish/cmds.c:20655 fish/cmds.c:21164
-#: fish/cmds.c:21234 fish/cmds.c:21895 fish/cmds.c:22003
+#: fish/cmds.c:5936 fish/cmds.c:6093 fish/cmds.c:6569 fish/cmds.c:6778
+#: fish/cmds.c:6850 fish/cmds.c:7892 fish/cmds.c:8888 fish/cmds.c:8944
+#: fish/cmds.c:9256 fish/cmds.c:9950 fish/cmds.c:10020 fish/cmds.c:11896
+#: fish/cmds.c:12788 fish/cmds.c:16807 fish/cmds.c:16863 fish/cmds.c:16919
+#: fish/cmds.c:17004 fish/cmds.c:17405 fish/cmds.c:17630 fish/cmds.c:17720
+#: fish/cmds.c:17781 fish/cmds.c:17855 fish/cmds.c:17930 fish/cmds.c:18063
+#: fish/cmds.c:18169 fish/cmds.c:18277 fish/cmds.c:18386 fish/cmds.c:18595
+#: fish/cmds.c:18726 fish/cmds.c:18889 fish/cmds.c:18996 fish/cmds.c:19087
+#: fish/cmds.c:19500 fish/cmds.c:19587 fish/cmds.c:20046 fish/cmds.c:20167
+#: fish/cmds.c:20516 fish/cmds.c:20583 fish/cmds.c:20651 fish/cmds.c:20717
+#: fish/cmds.c:20899 fish/cmds.c:20970 fish/cmds.c:21699 fish/cmds.c:22211
+#: fish/cmds.c:22281 fish/cmds.c:22996 fish/cmds.c:23110
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: वैकल्पिक घटक \"%s\" दोनवेळा दिले\n"
 
-#: fish/cmds.c:22260
+#: fish/cmds.c:6822
+#, c-format
+msgid "%s should have at most %d parameter\n"
+msgid_plural "%s should have at most %d parameters\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: fish/cmds.c:23385
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: अपरिचीत आदेश\n"
@@ -4331,7 +6489,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch-direct.c:787 src/launch-libvirt.c:478
+#: src/launch-direct.c:794 src/launch-libvirt.c:478
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
@@ -5011,2142 +7169,8 @@ msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल डाउ
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: रेजिस्ट्री फाइल अपलोड करणे शक्य नाही: {err}\n"
 
-#: ../builder/index_parser.ml:111
-msgid ""
-"\n"
-"The index file downloaded from '%s' is corrupt.\n"
-"You need to ask the supplier of this file to fix it and upload a fixed "
-"version.\n"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:248
-msgid ""
-"\n"
-"WARNING: There may not be enough free space on %s.\n"
-"You may need to set TMPDIR to point to a directory with more free space.\n"
-"\n"
-"Max needed: %s.  Free: %s.  May need another %s.\n"
-"\n"
-"Note this is an overestimate.  If the guest disk is full of data\n"
-"then not as much free space would be required.\n"
-"\n"
-"You can ignore this warning or change it to a hard failure using the\n"
-"--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sparsify(1).\n"
-"\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:833
-msgid "  An extra partition will be created for the surplus."
-msgstr ""
-
-#: ../resize/resize.ml:818 ../resize/resize.ml:799
-msgid "  The %s on %s will be expanded using the '%s' method."
-msgstr ""
-
-#: ../resize/resize.ml:835
-msgid ""
-"  The surplus space is not large enough for an extra partition to be created "
-"and so it will just be ignored."
-msgstr ""
-
-#: ../resize/resize.ml:837
-msgid ""
-"  The surplus space will be ignored.  Run a partitioning program in the "
-"guest to partition this extra space if you want."
-msgstr ""
-
-#: ../sysprep/main.ml:227
-msgid "%s (ignored)\n"
-msgstr ""
-
-#: ../builder/builder.ml:720 ../builder/builder.ml:426
-msgid "%s: %s (ignored)\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:148 ../builder/cmdline.ml:95
-msgid "%s: %s: %s: file not found\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:150 ../builder/cmdline.ml:97
-msgid "%s: %s: %s: file not found [did you mean %s?]\n"
-msgstr ""
-
-#: ../builder/builder.ml:516
-msgid "%s: %s: command exited with an error\n"
-msgstr ""
-
-#: ../sysprep/main.ml:61
-msgid "%s: --domain option can only be given once\n"
-msgstr ""
-
-#: ../sysprep/main.ml:73
-msgid "%s: --enable option can only be given once\n"
-msgstr ""
-
-#: ../sysprep/main.ml:85
-msgid "%s: --enable: '%s' is not a known operation\n"
-msgstr ""
-
-#: ../builder/builder.ml:543
-msgid "%s: --install is not supported for this guest operating system\n"
-msgstr ""
-
-#: ../builder/builder.ml:289
-msgid "%s: --size is too small for this disk image, minimum size is %s\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:183
-msgid "%s: --upload: %s: file not found\n"
-msgstr ""
-
-#: ../mllib/common_utils.ml:193
-msgid ""
-"%s: If reporting bugs, run %s with debugging enabled (-v) and include the "
-"complete output."
-msgstr ""
-
-#: ../resize/resize.ml:624
-msgid ""
-"%s: This extended partition contains logical partitions which might be "
-"damaged by shrinking it.  If you want to shrink this partition, you need to "
-"use the '--resize-force' option, but that could destroy logical partitions "
-"within this partition.  (This error came from '%s' option on the command "
-"line.)"
-msgstr ""
-
-#: ../resize/resize.ml:815
-msgid "%s: This logical volume will be expanded to maximum size."
-msgstr ""
-
-#: ../resize/resize.ml:620
-msgid ""
-"%s: This partition contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
-"'%s' option on the command line.)"
-msgstr ""
-
-#: ../resize/resize.ml:616
-msgid ""
-"%s: This partition contains an LVM physical volume which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
-"'%s' option on the command line.)"
-msgstr ""
-
-#: ../resize/resize.ml:613
-msgid ""
-"%s: This partition has unknown content which might be damaged by shrinking "
-"it.  If you want to shrink this partition, you need to use the '--resize-"
-"force' option, but that could destroy any data on this partition.  (This "
-"error came from '%s' option on the command line.)"
-msgstr ""
-
-#: ../resize/resize.ml:792
-msgid ""
-"%s: This partition will be created, but the contents will be ignored (ie. "
-"not copied to the target)."
-msgstr ""
-
-#: ../resize/resize.ml:794
-msgid "%s: This partition will be deleted."
-msgstr ""
-
-#: ../resize/resize.ml:790
-msgid "%s: This partition will be left alone."
-msgstr ""
-
-#: ../resize/resize.ml:796
-msgid "%s: This partition will be resized from %s to %s."
-msgstr ""
-
-#: ../builder/cmdline.ml:274
-msgid ""
-"%s: build virtual machine images quickly\n"
-"\n"
-" virt-builder OS-VERSION\n"
-" virt-builder -l\n"
-" virt-builder --notes OS-VERSION\n"
-" virt-builder --print-cache\n"
-" virt-builder --cache-all-templates\n"
-" virt-builder --delete-cache\n"
-" virt-builder --get-kernel IMAGE\n"
-"\n"
-"A short summary of the options is given below.  For detailed help please\n"
-"read the man page virt-builder(1).\n"
-msgstr ""
-
-#: ../builder/builder.ml:194
-msgid ""
-"%s: cannot find os-version '%s'.\n"
-"Use --list to list available guest types.\n"
-msgstr ""
-
-#: ../builder/builder.ml:100
-msgid "%s: curl is not installed (or does not work)\n"
-msgstr ""
-
-#: ../builder/builder.ml:129
-msgid ""
-"%s: disabling the cache\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:57
-msgid "%s: empty --expand option"
-msgstr ""
-
-#: ../mllib/common_utils.ml:189
-msgid "%s: error: %s"
-msgstr ""
-
-#: ../builder/builder.ml:602
-msgid "%s: error: %s is not a regular file in the guest\n"
-msgstr ""
-
-#: ../builder/builder.ml:754
-msgid "%s: error: %s: %s\n"
-msgstr ""
-
-#: ../builder/builder.ml:757
-msgid "%s: error: %s: %s: %s\n"
-msgstr ""
-
-#: ../builder/builder.ml:321
-msgid "%s: error: could not create output file '%s'\n"
-msgstr ""
-
-#: ../builder/builder.ml:75
-msgid "%s: error: could not find cache directory. Is $HOME set?\n"
-msgstr ""
-
-#: ../builder/builder.ml:173
-msgid "%s: error: no cache directory\n"
-msgstr ""
-
-#: ../builder/builder.ml:387
-msgid "%s: error: virt-resize failed\n"
-msgstr ""
-
-#: ../builder/builder.ml:775
-msgid "%s: exception: %s\n"
-msgstr ""
-
-#: ../builder/builder.ml:763
-msgid "%s: failure: %s\n"
-msgstr ""
-
-#: ../resize/resize.ml:288 ../resize/resize.ml:285
-msgid "%s: file is too small to be a disk image (%Ld bytes)"
-msgstr ""
-
-#: ../builder/builder.ml:90
-msgid ""
-"%s: gpg is not installed (or does not work)\n"
-"You should install gpg, or use --gpg option, or use --no-check-signature.\n"
-msgstr ""
-
-#: ../builder/builder.ml:772
-msgid "%s: internal error: Not_found exception was thrown\n"
-msgstr ""
-
-#: ../builder/builder.ml:769
-msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
-msgstr ""
-
-#: ../builder/builder.ml:766
-msgid "%s: internal error: invalid argument: %s\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:80
-msgid "%s: invalid --edit format, see the man page.\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:178
-msgid "%s: invalid --upload format, see the man page.\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:195
-msgid "%s: invalid --write format, see the man page.\n"
-msgstr ""
-
-#: ../mllib/password.ml:71
-msgid "%s: invalid password selector '%s'; see the man page.\n"
-msgstr ""
-
-#: ../builder/builder.ml:760
-msgid "%s: libguestfs error: %s\n"
-msgstr ""
-
-#: ../builder/builder.ml:486
-msgid "%s: log file %s: %s (ignored)\n"
-msgstr ""
-
-#: ../resize/resize.ml:772
-msgid ""
-"%s: logical volume not found in the source disk image (this error came from "
-"'--lv-expand' option on the command line).  Try running this command: virt-"
-"filesystems --logical-volumes --long -a %s"
-msgstr ""
-
-#: ../resize/resize.ml:642
-msgid "%s: missing size field in '%s' option"
-msgstr ""
-
-#: ../resize/resize.ml:651
-msgid "%s: new partition size is zero or negative"
-msgstr ""
-
-#: ../builder/builder.ml:430
-msgid ""
-"%s: no guest operating systems or multiboot OS found in this disk image\n"
-"This is a failure of the source repository.  Use -v for more information.\n"
-msgstr ""
-
-#: ../sysprep/main.ml:210
-msgid "%s: no operating systems were found in the guest image\n"
-msgstr ""
-
-#: ../resize/resize.ml:562
-msgid "%s: partition already deleted, you cannot use it in '%s' option"
-msgstr ""
-
-#: ../resize/resize.ml:558
-msgid "%s: partition already ignored, you cannot use it in '%s' option"
-msgstr ""
-
-#: ../resize/resize.ml:554
-msgid ""
-"%s: partition not found in the source disk image (this error came from '%s' "
-"option on the command line).  Try running this command: virt-filesystems --"
-"partitions --long -a %s"
-msgstr ""
-
-#: ../resize/resize.ml:441
-msgid "%s: partition size %Ld < filesystem size %Ld"
-msgstr ""
-
-#: ../resize/resize.ml:436
-msgid "%s: partition size %Ld < physical volume size %Ld"
-msgstr ""
-
-#: ../mllib/password.ml:48
-msgid ""
-"%s: password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or "
-"\"sha512\".\n"
-msgstr ""
-
-#: ../resize/resize.ml:366
-msgid "%s: physical volume not returned by pvs_full"
-msgstr ""
-
-#: ../sysprep/main.ml:134
-msgid ""
-"%s: reset or unconfigure a virtual machine so clones can be made\n"
-"\n"
-" virt-sysprep [--options] -d domname\n"
-"\n"
-" virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
-"\n"
-"A short summary of the options is given below.  For detailed help please\n"
-"read the man page virt-sysprep(1).\n"
-msgstr ""
-
-#: ../resize/resize.ml:120
-msgid ""
-"%s: resize a virtual machine disk\n"
-"\n"
-"A short summary of the options is given below.  For detailed help please\n"
-"read the man page virt-resize(1).\n"
-msgstr ""
-
-#: ../builder/builder.ml:547
-msgid ""
-"%s: sorry, don't know how to use --install with the '%s' package manager\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:407
-msgid "%s: source and fingerprint lists are not the same length\n"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:95
-msgid ""
-"%s: sparsify a virtual machine disk\n"
-"\n"
-" virt-sparsify [--options] indisk outdisk\n"
-"\n"
-"A short summary of the options is given below.  For detailed help please\n"
-"read the man page virt-sparsify(1).\n"
-msgstr ""
-
-#: ../resize/resize.ml:598
-msgid "%s: this partition has already been ignored or deleted"
-msgstr ""
-
-#: ../resize/resize.ml:594
-msgid "%s: this partition has already been marked for resizing"
-msgstr ""
-
-#: ../resize/resize.ml:451
-msgid "%s: this partition overlaps the previous one"
-msgstr ""
-
-#: ../resize/resize.ml:302
-msgid ""
-"%s: unknown partition table type\n"
-"virt-resize only supports MBR (DOS) and GPT partition tables."
-msgstr ""
-
-#: ../builder/cmdline.ml:361
-msgid ""
-"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
-"need any extra arguments.\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:368
-msgid ""
-"%s: virt-builder --get-kernel image\n"
-"Missing 'image' (disk image file) argument.\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:371
-msgid "%s: virt-builder --get-kernel: too many parameters\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:342
-msgid "%s: virt-builder --list does not need any extra arguments.\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:349
-msgid ""
-"%s: virt-builder --notes os-version\n"
-"Missing 'os-version'. Use '--list' to list available template names.\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:332
-msgid ""
-"%s: virt-builder os-version\n"
-"Missing 'os-version'. Use '--list' to list available template names.\n"
-msgstr ""
-
-#: ../builder/cmdline.ml:352 ../builder/cmdline.ml:335
-msgid "%s: virt-builder: too many parameters, expecting 'os-version'\n"
-msgstr ""
-
-#: ../builder/builder.ml:107
-msgid "%s: virt-resize is not installed (or does not work)\n"
-msgstr ""
-
-#: ../builder/builder.ml:127
-msgid "%s: warning: cache %s: %s\n"
-msgstr ""
-
-#: ../builder/builder.ml:94
-msgid "%s: warning: gpg program is not available\n"
-msgstr ""
-
-#: ../builder/builder.ml:444
-msgid ""
-"%s: warning: hostname could not be set for this type of guest\n"
-"%!"
-msgstr ""
-
-#: ../builder/builder.ml:436
-msgid ""
-"%s: warning: random seed could not be set for this type of guest\n"
-"%!"
-msgstr ""
-
-#: ../builder/builder.ml:465
-msgid ""
-"%s: warning: root password could not be set for this type of guest\n"
-"%!"
-msgstr ""
-
-#: ../sysprep/main.ml:163
-msgid "%s: you cannot give -a and -d options together\n"
-msgstr ""
-
-#: ../sysprep/main.ml:77
-msgid "%s: you cannot pass an empty argument to --enable\n"
-msgstr ""
-
-#: ../builder/builder.ml:265
-msgid "%s: you cannot use --size option with block devices\n"
-msgstr ""
-
-#: ../sysprep/main.ml:154
-msgid "%s: you must give either -a or -d options\n"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:201
-msgid ""
-"'qemu-img create' cannot create qcow2 files.  Check the 'qemu-img'\n"
-"program is installed and working, and that it matches the versionof qemu "
-"installed.\n"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:55
-msgid "--check-tmpdir: unknown argument `%s'\n"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:231
-msgid ""
-"--compress cannot be used for raw output.  Remove this option or use --"
-"convert qcow2."
-msgstr ""
-
-#: ../resize/resize.ml:58
-msgid "--expand option given twice"
-msgstr ""
-
-#: ../resize/resize.ml:75
-msgid "--shrink option given twice"
-msgstr ""
-
-#. ../sysprep/sysprep_operation_password.ml:102
-#: ../sysprep/sysprep_operation_password.ml:109
-msgid "..."
-msgstr ""
-
-#: ../sysprep/main.ml:101 ../sysprep/main.ml:100
-msgid "Add disk image file"
-msgstr ""
-
-#: ../builder/cmdline.ml:234
-msgid "Add package(s) to install"
-msgstr ""
-
-#: ../builder/cmdline.ml:228
-msgid "Add package(s) to install at firstboot"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:81
-msgid "Add qemu-img options"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_firstboot.ml:51
-msgid "Add scripts to run once at next boot"
-msgstr ""
-
-#: ../resize/resize.ml:82
-msgid "Align first partition (default: auto)"
-msgstr ""
-
-#: ../builder/cmdline.ml:205
-msgid "Attach data disk/ISO during install"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_lvm_uuids.ml:45
-msgid "Change LVM2 PV and VG UUIDs"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_fs_uuids.ml:47
-msgid "Change filesystem UUIDs"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_hostname.ml:36
-msgid "Change the hostname of the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_hostname.ml:51
-msgid ""
-"Change the hostname.  If not given, defaults to C<localhost.localdomain>."
-msgstr ""
-
-#: ../builder/cmdline.ml:213
-msgid "Check digital signatures"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:73
-msgid "Check there is enough space in $TMPDIR"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:394
-msgid ""
-"Clearing Linux swap on %s ...\n"
-"%!"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:74
-msgid "Compressed output format"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:453
-msgid ""
-"Copy to destination and make sparse ...\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:1082
-msgid ""
-"Copying %s ...\n"
-"%!"
-msgstr ""
-
-#: ../builder/cmdline.ml:242
-msgid "Create directory"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:284
-msgid ""
-"Create overlay file in %s to protect source disk ...\n"
-"%!"
-msgstr ""
-
-#: ../builder/builder.ml:312
-msgid "Creating disk image: %s"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_hostname.ml:45
-msgid "Currently this can only set the hostname on Linux guests."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_user_account.ml:69
-msgid ""
-"Currently this does not remove the user accounts from\n"
-"C</etc/shadow>.  This is because there is no lens for\n"
-"the shadow password file in Augeas."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_firstboot.ml:63
-msgid ""
-"Currently this is only implemented for Linux guests using\n"
-"either SysVinit-style scripts, Upstart or systemd."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_bash_history.ml:44
-msgid ""
-"Currently this only looks in C</root> and C</home/*> for\n"
-"home directories, so users with home directories in other\n"
-"locations won't have the bash history removed."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_ssh_userdir.ml:44
-msgid ""
-"Currently this only looks in C</root> and C</home/*> for\n"
-"home directories, so users with home directories in other\n"
-"locations won't have the ssh files removed."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:97
-msgid ""
-"Currently this only works for glibc-based Linux guests that\n"
-"use shadow passwords."
-msgstr ""
-
-#: ../sparsify/sparsify.ml:76 ../resize/resize.ml:87
-msgid "Debug GC and memory allocations"
-msgstr ""
-
-#: ../sysprep/main.ml:104
-msgid "Debug GC and memory allocations (internal)"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_delete.ml:45
-msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
-msgstr ""
-
-#: ../builder/cmdline.ml:219
-msgid "Delete a file or dir"
-msgstr ""
-
-#: ../resize/resize.ml:88
-msgid "Delete partition"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_delete.ml:37
-msgid "Delete specified files or directories"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_delete.ml:38
-msgid ""
-"Delete specified files or directories.\n"
-"\n"
-"Use the I<--delete> option to specify a path to remove."
-msgstr ""
-
-#: ../builder/cmdline.ml:221
-msgid "Delete the template cache"
-msgstr ""
-
-#: ../builder/builder.ml:613
-msgid "Deleting: %s"
-msgstr ""
-
-#: ../builder/cmdline.ml:244
-msgid "Disable appliance network"
-msgstr ""
-
-#: ../builder/cmdline.ml:216
-msgid "Disable digital signatures"
-msgstr ""
-
-#: ../builder/cmdline.ml:209
-msgid "Disable template cache"
-msgstr ""
-
-#: ../builder/cmdline.ml:245
-msgid "Display installation notes"
-msgstr ""
-
-#. ../resize/resize.ml:113
-#. ../builder/cmdline.ml:265
-#: ../sysprep/main.ml:124 ../sysprep/main.ml:123 ../sparsify/sparsify.ml:86
-msgid "Display version and exit"
-msgstr ""
-
-#: ../builder/cmdline.ml:261
-msgid "Do not fsync output file on exit"
-msgstr ""
-
-#: ../resize/resize.ml:84
-msgid "Don't copy boot loader"
-msgstr ""
-
-#: ../resize/resize.ml:91
-msgid "Don't create extra partition"
-msgstr ""
-
-#: ../resize/resize.ml:90
-msgid "Don't expand content"
-msgstr ""
-
-#: ../resize/resize.ml:100
-msgid "Don't perform changes"
-msgstr ""
-
-#: ../sysprep/main.ml:118 ../sysprep/main.ml:117
-msgid "Don't print log messages"
-msgstr ""
-
-#: ../resize/resize.ml:105
-msgid "Don't print the summary"
-msgstr ""
-
-#: ../builder/cmdline.ml:211
-msgid "Download all templates to the cache"
-msgstr ""
-
-#: ../builder/list_entries.ml:59
-msgid "Download size:"
-msgstr ""
-
-#: ../builder/builder.ml:220 ../builder/builder.ml:180
-msgid "Downloading: %s"
-msgstr ""
-
-#: ../sysprep/main.ml:110
-msgid "Dump POD (internal)"
-msgstr ""
-
-#: ../sysprep/main.ml:111
-msgid "Dump POD for options (internal)"
-msgstr ""
-
-#: ../builder/cmdline.ml:222
-msgid "Edit file with Perl expr"
-msgstr ""
-
-#: ../builder/builder.ml:599
-msgid "Editing: %s"
-msgstr ""
-
-#: ../builder/cmdline.ml:243
-msgid "Enable appliance network (default)"
-msgstr ""
-
-#. ../resize/resize.ml:111
-#. ../resize/resize.ml:85
-#. ../builder/cmdline.ml:263
-#: ../sysprep/main.ml:122 ../sysprep/main.ml:121 ../sparsify/sparsify.ml:84
-msgid "Enable debugging messages"
-msgstr ""
-
-#: ../sysprep/main.ml:112
-msgid "Enable specific operations"
-msgstr ""
-
-#: ../sysprep/main.ml:125 ../sparsify/sparsify.ml:88
-msgid "Enable tracing of libguestfs calls"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:323
-msgid ""
-"Examine source disk ...\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:247
-msgid ""
-"Examining %s ...\n"
-"%!"
-msgstr ""
-
-#: ../sysprep/main.ml:195
-msgid ""
-"Examining the guest ...\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:95
-msgid "Expand logical volume"
-msgstr ""
-
-#: ../resize/resize.ml:89
-msgid "Expand partition"
-msgstr ""
-
-#: ../resize/resize.ml:1231
-msgid ""
-"Expanding %s using the '%s' method ...\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:1214
-msgid ""
-"Expanding %s%s using the '%s' method ...\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:892
-msgid ""
-"Failed to initialize the partition table on the target disk.  You need to "
-"wipe or recreate the target disk and then run virt-resize again.\n"
-"\n"
-"The underlying error was: %s"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_delete.ml:43
-msgid "File or directory to be removed on guest"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:378
-msgid ""
-"Fill free space in %s with zero ...\n"
-"%!"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:429
-msgid ""
-"Fill free space in volgroup %s with zero ...\n"
-"%!"
-msgstr ""
-
-#: ../builder/cmdline.ml:224
-msgid "Fingerprint of valid signing key"
-msgstr ""
-
-#: ../builder/list_entries.ml:29
-msgid "Fingerprint: %s\n"
-msgstr ""
-
-#: ../builder/builder.ml:709
-msgid "Finishing off"
-msgstr ""
-
-#: ../resize/resize.ml:1138
-msgid ""
-"Fixing first NTFS partition boot record ...\n"
-"%!"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
-msgid "Flag the system for reconfiguration"
-msgstr ""
-
-#. ../sysprep/sysprep_operation_net_hostname.ml:51
-#: ../sysprep/sysprep_operation_net_hwaddr.ml:51
-msgid ""
-"For Fedora and Red Hat Enterprise Linux,\n"
-"this is removed from C<ifcfg-*> files."
-msgstr ""
-
-#: ../sysprep/main.ml:119
-msgid "Force SELinux relabel"
-msgstr ""
-
-#: ../resize/resize.ml:103
-msgid "Force ntfsresize"
-msgstr ""
-
-#: ../resize/resize.ml:108
-msgid "Forcefully resize partition"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:77 ../resize/resize.ml:92
-msgid "Format of input disk"
-msgstr ""
-
-#: ../resize/resize.ml:104
-msgid "Format of output disk"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:75
-msgid "Format of output disk (default: same as input)"
-msgstr ""
-
-#: ../builder/builder.ml:699
-msgid "Free space: %s (%Ld%%)"
-msgstr ""
-
-#: ../builder/list_entries.ml:53
-msgid "Full name:"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_random_seed.ml:33
-msgid "Generate random seed for guest"
-msgstr ""
-
-#: ../builder/cmdline.ml:231
-msgid "Get kernel from image"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:78
-msgid "Ignore filesystem"
-msgstr ""
-
-#: ../resize/resize.ml:93
-msgid "Ignore partition"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:237
-msgid ""
-"Input disk virtual size = %Ld bytes (%s)\n"
-"%!"
-msgstr ""
-
-#: ../builder/builder.ml:636
-msgid "Installing firstboot command: [%d] %s"
-msgstr ""
-
-#: ../builder/builder.ml:639
-msgid "Installing firstboot packages: [%d] %s"
-msgstr ""
-
-#: ../builder/builder.ml:632
-msgid "Installing firstboot script: [%d] %s"
-msgstr ""
-
-#: ../builder/builder.ml:554
-msgid "Installing packages: %s"
-msgstr ""
-
-#: ../builder/cmdline.ml:235
-msgid "List available templates"
-msgstr ""
-
-#. ../builder/cmdline.ml:239
-#: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:79 ../resize/resize.ml:94
-msgid "List long options"
-msgstr ""
-
-#: ../sysprep/main.ml:114
-msgid "List supported operations"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:80 ../resize/resize.ml:99
-msgid "Make output machine readable"
-msgstr ""
-
-#: ../builder/builder.ml:563
-msgid "Making directory: %s"
-msgstr ""
-
-#: ../builder/list_entries.ml:55
-msgid "Minimum/default size:"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:136
-msgid "Mount point on host"
-msgstr ""
-
-#: ../sysprep/main.ml:120
-msgid "Never do SELinux relabel"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_hostname.ml:49
-msgid "New hostname"
-msgstr ""
-
-#: ../builder/cmdline.ml:252
-msgid "No progress messages"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:37
-msgid ""
-"Note that this may require user intervention when the\n"
-"guest is booted."
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:179
-msgid "Notes on %s"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_lvm_uuids.ml:46
-msgid ""
-"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
-"(VGs),\n"
-"new random UUIDs are generated and assigned to those PVs and VGs."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_logfiles.ml:107
-msgid ""
-"On Linux the following files are removed:\n"
-"\n"
-"%s"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_fs_uuids.ml:48
-msgid ""
-"On guests and filesystem types where this is supported,\n"
-"new random UUIDs are generated and assigned to filesystems."
-msgstr ""
-
-#: ../builder/builder.ml:393
-msgid "Opening the new disk"
-msgstr ""
-
-#: ../builder/cmdline.ml:229
-msgid "Output format (default: raw)"
-msgstr ""
-
-#: ../builder/builder.ml:696
-msgid "Output: %s"
-msgstr ""
-
-#: ../sysprep/main.ml:109 ../sysprep/main.ml:108 ../sysprep/main.ml:107
-msgid "Perform a dry run"
-msgstr ""
-
-#: ../builder/cmdline.ml:251
-msgid "Print info about template cache"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:82
-msgid "Quiet output"
-msgstr ""
-
-#: ../sysprep/main.ml:164 ../sysprep/main.ml:155
-msgid "Read virt-sysprep(1) man page for further information.\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_ssh_userdir.ml:40
-msgid "Remove \".ssh\" directories in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_ca_certificates.ml:54
-msgid "Remove CA certificates in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_dhcp_client_state.ml:37
-msgid "Remove DHCP client leases"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_dhcp_server_state.ml:32
-msgid "Remove DHCP server leases"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_dovecot_data.ml:39
-msgid "Remove Dovecot (mail server) data"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_net_hostname.ml:50
-msgid "Remove HOSTNAME in network interface configuration"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_net_hwaddr.ml:50
-msgid "Remove HWADDR (hard-coded MAC address) configuration"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_kerberos_data.ml:47
-msgid "Remove Kerberos data in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_user_account.ml:66
-msgid ""
-"Remove all the user accounts and their home directories.\n"
-"The \"root\" account is not removed."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_blkid_tab.ml:50
-msgid "Remove blkid tab in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_mail_spool.ml:37
-msgid "Remove email from the local mail spool directory"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_rpm_db.ml:41
-msgid "Remove host-specific RPM database files"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_rpm_db.ml:42
-msgid ""
-"Remove host-specific RPM database files and locks.  RPM will\n"
-"recreate these files automatically if needed."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_logfiles.ml:105
-msgid "Remove many log files from the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_package_manager_cache.ml:44
-msgid "Remove package manager cache"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_tmp_files.ml:46
-msgid "Remove temporary files"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_ssh_userdir.ml:41
-msgid ""
-"Remove the C<.ssh> directory of user \"root\" and any other\n"
-"users who have a C<.ssh> directory in their home directory."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_pam_data.ml:47
-msgid "Remove the PAM data in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_rhn_systemid.ml:39
-msgid "Remove the RHN system ID"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:37
-msgid "Remove the SSH host keys in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_smolt_uuid.ml:42
-msgid "Remove the Smolt hardware UUID"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_abrt_data.ml:40
-msgid ""
-"Remove the automatically generated ABRT crash data in\n"
-"C</var/spool/abrt/>."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_crash_data.ml:41
-msgid "Remove the automatically generated kdump kernel crash data."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_bash_history.ml:40
-msgid "Remove the bash history in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_bash_history.ml:41
-msgid ""
-"Remove the bash history of user \"root\" and any other users\n"
-"who have a C<.bash_history> file in their home directory."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_abrt_data.ml:39
-msgid "Remove the crash data generated by ABRT"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_crash_data.ml:40
-msgid "Remove the crash data generated by kexec-tools"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_puppet_data_log.ml:47
-msgid "Remove the data and log files of puppet"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_samba_db_log.ml:48
-msgid "Remove the database and log files of Samba"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_sssd_db_log.ml:46
-msgid "Remove the database and log files of sssd"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_firewall_rules.ml:47
-msgid "Remove the firewall rules"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_machine_id.ml:38
-msgid "Remove the local machine ID"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_pacct_log.ml:52
-msgid "Remove the process accounting log files"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_user_account.ml:65
-msgid "Remove the user accounts in the guest"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_utmp.ml:36
-msgid "Remove the utmp file"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_yum_uuid.ml:36
-msgid "Remove the yum UUID"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_udev_persistent_net.ml:37
-msgid "Remove udev persistent net rules"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_udev_persistent_net.ml:38
-msgid ""
-"Remove udev persistent net rules which map the guest's existing MAC\n"
-"address to a fixed ethernet device (eg. eth0).\n"
-"\n"
-"After a guest is cloned, the MAC address usually changes.  Since the\n"
-"old MAC address occupies the old name (eg. eth0), this means the fresh\n"
-"MAC address is assigned to a new name (eg. eth1) and this is usually\n"
-"undesirable.  Erasing the udev persistent net rules avoids this."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_cron_spool.ml:40
-msgid "Remove user at-jobs and cron-jobs"
-msgstr ""
-
-#: ../resize/resize.ml:1259
-msgid ""
-"Resize operation completed with no errors.  Before deleting the old disk, "
-"carefully check that the resized disk boots and works correctly.\n"
-msgstr ""
-
-#: ../resize/resize.ml:107
-msgid "Resize partition"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:111
-msgid "Run arbitrary scripts against the guest"
-msgstr ""
-
-#: ../builder/cmdline.ml:226
-msgid "Run command at first guest boot"
-msgstr ""
-
-#: ../builder/cmdline.ml:256
-msgid "Run command in disk image"
-msgstr ""
-
-#: ../builder/cmdline.ml:225
-msgid "Run script at first guest boot"
-msgstr ""
-
-#: ../builder/cmdline.ml:255
-msgid "Run script in disk image"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_firstboot.ml:70
-msgid ""
-"Run script(s) once next time the guest boots.  You can supply\n"
-"the I<--firstboot> option as many times as needed."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:151
-msgid ""
-"Run the named C<SCRIPT> (a shell script or program) against the\n"
-"guest.  The script can be any program on the host.  The script's\n"
-"current directory will be the guest's root directory.\n"
-"\n"
-"B<Note:> If the script is not on the $PATH, then you must give\n"
-"the full absolute path to the script."
-msgstr ""
-
-#: ../builder/builder.ml:361
-msgid "Running virt-resize to expand the disk"
-msgstr ""
-
-#: ../builder/builder.ml:363
-msgid "Running virt-resize to expand the disk to %s"
-msgstr ""
-
-#: ../builder/builder.ml:653 ../builder/builder.ml:649
-msgid "Running: %s"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:149
-msgid "Script or program to run on guest"
-msgstr ""
-
-#: ../builder/cmdline.ml:257
-msgid "Scrub a file"
-msgstr ""
-
-#: ../builder/cmdline.ml:238
-msgid "Scrub build log file"
-msgstr ""
-
-#: ../builder/builder.ml:664
-msgid "Scrubbing the log file"
-msgstr ""
-
-#: ../builder/builder.ml:620
-msgid "Scrubbing: %s"
-msgstr ""
-
-#: ../builder/cmdline.ml:232
-msgid "Set GPG binary/command"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:111
-msgid ""
-"Set a user password.  The user must exist already (this option\n"
-"does I<not> create users).\n"
-"\n"
-"The I<--password> option takes C<USERNAME:SELECTOR>.  The\n"
-"I<--root-password> option takes just the C<SELECTOR>.  The\n"
-"format of the C<SELECTOR> is described below:\n"
-"\n"
-"=over 4\n"
-"\n"
-"=item B<--password USERNAME:file:FILENAME>\n"
-"\n"
-"=item B<--root-password file:FILENAME>\n"
-"\n"
-"Read the password from C<FILENAME>.  The whole\n"
-"first line of this file is the replacement password.\n"
-"Any other lines are ignored.  You should create the file\n"
-"with mode 0600 to ensure no one else can read it.\n"
-"\n"
-"=item B<--password USERNAME:password:PASSWORD>\n"
-"\n"
-"=item B<--root-password password:PASSWORD>\n"
-"\n"
-"Set the password to the literal string C<PASSWORD>.\n"
-"\n"
-"B<Note: this is not secure> since any user on the same machine\n"
-"can see the cleartext password using L<ps(1)>.\n"
-"\n"
-"=item B<--password USERNAME:random>\n"
-"\n"
-"=item B<--root-password random>\n"
-"\n"
-"Choose a random password, which is printed on stdout.  The password\n"
-"has approximately 120 bits of randomness.\n"
-"\n"
-"=item B<--password> USERNAME:disabled\n"
-"\n"
-"=item B<--root-password> disabled\n"
-"\n"
-"The account password is disabled.  This is like putting C<*>\n"
-"in the password field.\n"
-"\n"
-"=item B<--password> USERNAME:locked:file:FILENAME\n"
-"\n"
-"=item B<--password> USERNAME:locked:password:PASSWORD\n"
-"\n"
-"=item B<--password> USERNAME:locked:random\n"
-"\n"
-"=item B<--root-password> locked:file:FILENAME\n"
-"\n"
-"=item B<--root-password> locked:password:PASSWORD\n"
-"\n"
-"=item B<--root-password> locked:random\n"
-"\n"
-"The account is locked, but a password is placed on the\n"
-"account.  If first unlocked (using C<passwd -u>) then logins will\n"
-"use the given password.\n"
-"\n"
-"=item B<--password> USERNAME:locked\n"
-"\n"
-"=item B<--password> USERNAME:locked:disabled\n"
-"\n"
-"=item B<--root-password> locked\n"
-"\n"
-"=item B<--root-password> locked:disabled\n"
-"\n"
-"The account is locked I<and> password is disabled.\n"
-"\n"
-"=back"
-msgstr ""
-
-#: ../builder/cmdline.ml:207
-msgid "Set attach disk format"
-msgstr ""
-
-#: ../builder/cmdline.ml:218
-msgid "Set curl binary/command"
-msgstr ""
-
-#: ../sysprep/main.ml:113
-msgid "Set format (default: auto)"
-msgstr ""
-
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
-msgid "Set libvirt URI"
-msgstr ""
-
-#: ../sysprep/main.ml:106 ../sysprep/main.ml:105
-msgid "Set libvirt guest name"
-msgstr ""
-
-#: ../builder/cmdline.ml:240
-msgid "Set memory size"
-msgstr ""
-
-#: ../sysprep/main.ml:116
-msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
-msgstr ""
-
-#: ../builder/cmdline.ml:259
-msgid "Set number of vCPUs"
-msgstr ""
-
-#: ../builder/cmdline.ml:258
-msgid "Set output disk size"
-msgstr ""
-
-#: ../builder/cmdline.ml:246
-msgid "Set output filename"
-msgstr ""
-
-#: ../resize/resize.ml:83
-msgid "Set partition alignment (default: 128 sectors)"
-msgstr ""
-
-#: ../builder/cmdline.ml:249
-msgid "Set password crypto"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:80
-msgid ""
-"Set root or another user's password.\n"
-"\n"
-"Use the I<--root-password> option to specify a replacement root\n"
-"password for the guest.  You can only use this option once.\n"
-"\n"
-"Use the I<--password> option to specify replacement user password(s).\n"
-"You can use this option as many times as you want.\n"
-"\n"
-"Use I<--password-crypto> to change the password encryption used.\n"
-"\n"
-"See L</OPTIONS> above for details of these options.\n"
-"\n"
-"This operation is enabled by default, but it only does something\n"
-"if there is at least one I<--root-password> or I<--password>\n"
-"argument given."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:79
-msgid "Set root or user password"
-msgstr ""
-
-#: ../builder/cmdline.ml:254
-msgid "Set root password"
-msgstr ""
-
-#: ../builder/cmdline.ml:260
-msgid "Set source URL"
-msgstr ""
-
-#: ../builder/cmdline.ml:208
-msgid "Set template cache dir"
-msgstr ""
-
-#: ../builder/cmdline.ml:233
-msgid "Set the hostname"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:184
-msgid ""
-"Set the password encryption to C<md5>, C<sha256> or C<sha512>.\n"
-"\n"
-"C<sha256> and C<sha512> require glibc E<ge> 2.7\n"
-"(check L<crypt(3)> inside the guest).\n"
-"\n"
-"C<md5> will work with relatively old Linux guests (eg. RHEL 3), but\n"
-"is not secure against modern attacks.\n"
-"\n"
-"The default is C<sha512> unless libguestfs detects an old guest\n"
-"that didn't have support for SHA-512, in which case it will use C<md5>.\n"
-"You can override libguestfs by specifying this option."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:104
-msgid ""
-"Set the root password.  See I<--password> above for the format\n"
-"of C<SELECTOR>."
-msgstr ""
-
-#: ../builder/builder.ml:434
-msgid "Setting a random seed"
-msgstr ""
-
-#: ../mllib/password.ml:116
-msgid ""
-"Setting random password of %s to %s\n"
-"%!"
-msgstr ""
-
-#: ../builder/builder.ml:460
-msgid "Setting random root password [did you mean to use --root-password?]"
-msgstr ""
-
-#: ../builder/builder.ml:457
-msgid "Setting root password"
-msgstr ""
-
-#: ../builder/builder.ml:442
-msgid "Setting the hostname: %s"
-msgstr ""
-
-#: ../resize/resize.ml:871
-msgid ""
-"Setting up initial partition table on %s ...\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:109
-msgid "Shrink partition"
-msgstr ""
-
-#: ../builder/list_entries.ml:28
-msgid "Source URI: %s\n"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:472
-msgid ""
-"Sparsify operation completed with no errors.  Before deleting the old disk, "
-"carefully check that the target disk boots and works correctly.\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_firstboot.ml:52
-msgid ""
-"Supply one of more shell scripts (using the I<--firstboot> option).\n"
-"\n"
-"These are run the first time the guest boots, and then are\n"
-"deleted.  So these are useful for performing last minute\n"
-"configuration that must run in the context of the guest\n"
-"operating system, for example C<yum update>.\n"
-"\n"
-"Output or errors from the scripts are written to\n"
-"C<~root/virt-sysprep-firstboot.log> (in the guest)."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:112
-msgid ""
-"The C<script> module lets you run arbitrary shell scripts or programs\n"
-"against the guest.\n"
-"\n"
-"Note this feature requires FUSE support.  You may have to enable\n"
-"this in your host, for example by adding the current user to the\n"
-"C<fuse> group, or by loading a kernel module.\n"
-"\n"
-"Use one or more I<--script> parameters to specify scripts or programs\n"
-"that will be run against the guest.\n"
-"\n"
-"The script or program is run with its current directory being the\n"
-"guest's root directory, so relative paths should be used.  For\n"
-"example: C<rm etc/resolv.conf> in the script would remove a Linux\n"
-"guest's DNS configuration file, but C<rm /etc/resolv.conf> would\n"
-"(try to) remove the host's file.\n"
-"\n"
-"Normally a temporary mount point for the guest is used, but you\n"
-"can choose a specific one by using the I<--scriptdir> parameter.\n"
-"\n"
-"B<Note:> This is different from I<--firstboot> scripts (which run\n"
-"in the context of the guest when it is booting first time).\n"
-"I<--script> scripts run on the host, not in the guest."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:38
-msgid ""
-"The SSH host keys are regenerated (differently) next time the guest is\n"
-"booted.\n"
-"\n"
-"If, after cloning, the guest gets the same IP address, ssh will give\n"
-"you a stark warning about the host key changing:\n"
-"\n"
-" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
-" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_fs_uuids.ml:51
-msgid ""
-"The fs-uuids operation is disabled by default because it does\n"
-"not yet find and update all the places in the guest that use\n"
-"the UUIDs.  For example C</etc/fstab> or the bootloader.\n"
-"Enabling this operation is more likely than not to make your\n"
-"guest unbootable.\n"
-"\n"
-"See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_machine_id.ml:39
-msgid ""
-"The machine ID is usually generated from a random source during system\n"
-"installation and stays constant for all subsequent boots.  Optionally,\n"
-"for stateless systems it is generated during runtime at boot if it is\n"
-"found to be empty."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:138
-msgid ""
-"The mount point (an empty directory on the host) used when\n"
-"the C<script> operation is enabled and one or more scripts\n"
-"are specified using I<--script> parameter(s).\n"
-"\n"
-"B<Note:> C<SCRIPTDIR> B<must> be an absolute path.\n"
-"\n"
-"If I<--scriptdir> is not specified then a temporary mountpoint\n"
-"will be created."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_pacct_log.ml:53
-msgid ""
-"The system wide process accounting will store to the pacct\n"
-"log files if the process accounting is on."
-msgstr ""
-
-#: ../builder/builder.ml:205
-msgid "There are no notes for %s\n"
-msgstr ""
-
-#: ../resize/resize.ml:756
-msgid ""
-"There is a deficit of %Ld bytes (%s).  You need to make the target disk "
-"larger by at least this amount or adjust your resizing requests."
-msgstr ""
-
-#: ../resize/resize.ml:830
-msgid "There is a surplus of %s."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_utmp.ml:37
-msgid ""
-"This file records who is currently logged in on a machine.  In modern\n"
-"Linux distros it is stored in a ramdisk and hence not part of the\n"
-"virtual machine's disk, but it was stored on disk in older distros."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_hostname.ml:38
-msgid ""
-"This operation changes the hostname of the guest to the value\n"
-"given in the I<--hostname> parameter.\n"
-"\n"
-"If the I<--hostname> parameter is not given, then the hostname is changed\n"
-"to C<localhost.localdomain>."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_firewall_rules.ml:48
-msgid ""
-"This removes custom firewall rules by removing C</etc/sysconfig/iptables>\n"
-"or custom firewalld configuration in C</etc/firewalld/*/*>.\n"
-"\n"
-"Note this is I<not> enabled by default since it may expose guests to\n"
-"exploits.  Use with care."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_tmp_files.ml:47
-msgid "This removes temporary files under C</tmp> and C</var/tmp>."
-msgstr ""
-
-#: ../builder/builder.ml:697
-msgid "Total usable space: %s"
-msgstr ""
-
-#: ../resize/resize.ml:110
-msgid "Turn off sparse copying"
-msgstr ""
-
-#: ../builder/builder.ml:353 ../builder/builder.ml:343
-msgid "Uncompressing: %s"
-msgstr ""
-
-#: ../builder/cmdline.ml:262
-msgid "Upload file to dest"
-msgstr ""
-
-#: ../builder/builder.ml:577
-msgid "Uploading: %s to %s"
-msgstr ""
-
-#: ../builder/cmdline.ml:267
-msgid "Write file"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_random_seed.ml:34
-msgid ""
-"Write some random bytes from the host into the random seed file of the\n"
-"guest.\n"
-"\n"
-"See L</RANDOM SEED> below."
-msgstr ""
-
-#: ../builder/builder.ml:570
-msgid "Writing: %s"
-msgstr ""
-
-#: ../resize/resize.ml:727
-msgid ""
-"You cannot use --expand when there is no surplus space to expand into.  You "
-"need to make the target disk larger by at least %s."
-msgstr ""
-
-#: ../resize/resize.ml:739
-msgid ""
-"You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
-"resize(1) man page)."
-msgstr ""
-
-#: ../sysprep/sysprep_operation_yum_uuid.ml:37
-msgid ""
-"Yum creates a fresh UUID the next time it runs when it notices that the\n"
-"original UUID has been erased."
-msgstr ""
-
-#: ../sparsify/sparsify.ml:89
-msgid "Zero filesystem"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:368
-msgid ""
-"Zeroing %s ...\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:158
-msgid "alignment cannot be < 1"
-msgstr ""
-
-#: ../resize/resize.ml:507
-msgid "btrfs-filesystem-resize"
-msgstr ""
-
-#: ../builder/builder.ml:156
-msgid "cache directory: %s\n"
-msgstr ""
-
-#: ../builder/builder.ml:163
-msgid "cached"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:225
-msgid "cannot detect input disk format; use the --format parameter"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:136
-msgid "dir"
-msgstr ""
-
-#: ../sysprep/main.ml:106 ../sysprep/main.ml:105
-msgid "domain"
-msgstr ""
-
-#: ../resize/resize.ml:74
-msgid "empty --shrink option"
-msgstr ""
-
-#: ../resize/resize.ml:209
-msgid "error parsing URI '%s'. Look for error messages printed above."
-msgstr ""
-
-#: ../mllib/common_utils.ml:340
-msgid "external command '%s' exited with error %d"
-msgstr ""
-
-#: ../mllib/common_utils.ml:342
-msgid "external command '%s' killed by signal %d"
-msgstr ""
-
-#: ../mllib/common_utils.ml:344
-msgid "external command '%s' stopped by signal %d"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:466 ../sparsify/sparsify.ml:317
-msgid "external command failed: %s"
-msgstr ""
-
-#: ../sysprep/main.ml:132
-msgid "extra parameter on the command line"
-msgstr ""
-
-#: ../sysprep/main.ml:101 ../sysprep/main.ml:100
-msgid "file"
-msgstr ""
-
-#: ../mllib/firstboot.ml:82
-msgid "firstboot: failed: "
-msgstr ""
-
-#. ../resize/resize.ml:104
-#. ../resize/resize.ml:92
-#: ../sysprep/main.ml:113 ../sparsify/sparsify.ml:77
-#: ../sparsify/sparsify.ml:75
-msgid "format"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:89 ../sparsify/sparsify.ml:78
-msgid "fs"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_hostname.ml:49
-msgid "hostname"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:165
-msgid ""
-"input filename '%s' contains a colon (':'); qemu-img command line syntax "
-"prevents us from using such an image"
-msgstr ""
-
-#. ../resize/resize.ml:95
-#: ../resize/resize.ml:98 ../resize/resize.ml:97 ../resize/resize.ml:96
-msgid "lv"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:182
-msgid "md5|sha256|sha512"
-msgstr ""
-
-#: ../resize/resize.ml:82
-msgid "never|always|auto"
-msgstr ""
-
-#: ../builder/builder.ml:166
-msgid "no cache directory\n"
-msgstr ""
-
-#: ../resize/resize.ml:506
-msgid "ntfsresize"
-msgstr ""
-
-#: ../sysprep/main.ml:112
-msgid "operations"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:81
-msgid "option"
-msgstr ""
-
-#: ../sysprep/main.ml:116
-msgid "opts"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:168
-msgid ""
-"output filename '%s' contains a colon (':'); qemu-img command line syntax "
-"prevents us from using such an image"
-msgstr ""
-
-#. ../resize/resize.ml:88
-#: ../resize/resize.ml:109 ../resize/resize.ml:93 ../resize/resize.ml:89
-msgid "part"
-msgstr ""
-
-#: ../resize/resize.ml:108 ../resize/resize.ml:107
-msgid "part=size"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_delete.ml:43
-msgid "path"
-msgstr ""
-
-#: ../resize/resize.ml:929 ../resize/resize.ml:905
-msgid "pread-device: short read"
-msgstr ""
-
-#: ../resize/resize.ml:504
-msgid "pvresize"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:403
-msgid "pwrite: short write restoring swap partition header"
-msgstr ""
-
-#: ../resize/resize.ml:505
-msgid "resize2fs"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_firstboot.ml:68
-msgid "run script once next time guest boots"
-msgstr ""
-
-#. ../sysprep/sysprep_operation_firstboot.ml:68
-#: ../sysprep/sysprep_operation_script.ml:149
-msgid "script"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:75
-msgid "script failed"
-msgstr ""
-
-#: ../resize/resize.ml:83
-msgid "sectors"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:182
-msgid "set password crypto"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:102
-msgid "set root password (see man page)"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:109
-msgid "set user password (see man page)"
-msgstr ""
-
-#: ../sysprep/main.ml:274
-msgid "sysprep operation failed: %s\n"
-msgstr ""
-
-#: ../sysprep/main.ml:286
-msgid "sysprep operation failed: exception: %s\n"
-msgstr ""
-
-#: ../sysprep/main.ml:283
-msgid ""
-"sysprep operation failed: internal error: Not_found exception was thrown\n"
-msgstr ""
-
-#: ../sysprep/main.ml:280
-msgid ""
-"sysprep operation failed: internal error: assertion failed at %s, line %d, "
-"char %d\n"
-msgstr ""
-
-#: ../sysprep/main.ml:277
-msgid "sysprep operation failed: internal error: invalid argument: %s\n"
-msgstr ""
-
-#: ../resize/resize.ml:391
-msgid "the source disk has no partitions"
-msgstr ""
-
-#: ../resize/resize.ml:167
-msgid "unknown --align-first option: use never|always|auto"
-msgstr ""
-
-#: ../sysprep/main.ml:103 ../sysprep/main.ml:102
-msgid "uri"
-msgstr ""
-
-#: ../resize/resize.ml:197
-msgid "usage is: %s [--options] indisk outdisk"
-msgstr ""
-
-#: ../builder/index_parser.ml:208
-msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:222
-msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:187
-msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:199
-msgid "virt-builder: cannot parse 'size' field for '%s'\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:257
-msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
-msgstr ""
-
-#: ../builder/downloader.ml:123 ../builder/downloader.ml:84
-msgid "virt-builder: curl (download) command failed downloading '%s'\n"
-msgstr ""
-
-#: ../builder/sigchecker.ml:168
-msgid ""
-"virt-builder: error: GPG failure: could not verify digital signature of "
-"file\n"
-"Try:\n"
-" - Use the '-v' option and look for earlier error messages.\n"
-" - Delete the cache: virt-builder --delete-cache\n"
-" - Check no one has tampered with the website or your network!\n"
-msgstr ""
-
-#: ../builder/sigchecker.ml:234
-msgid ""
-"virt-builder: error: checksum of template did not match the expected "
-"checksum!\n"
-"  found checksum: %s\n"
-"  expected checksum: %s\n"
-"Try:\n"
-" - Use the '-v' option and look for earlier error messages.\n"
-" - Delete the cache: virt-builder --delete-cache\n"
-" - Check no one has tampered with the website or your network!\n"
-msgstr ""
-
-#: ../builder/perl_edit.ml:73
-msgid "virt-builder: error: could not evaluate Perl expression '%s'\n"
-msgstr ""
-
-#: ../builder/sigchecker.ml:204
-msgid ""
-"virt-builder: error: could not import public key\n"
-"Use the '-v' option and look for earlier error messages.\n"
-msgstr ""
-
-#: ../builder/sigchecker.ml:220
-msgid ""
-"virt-builder: error: could not run sha512sum command to verify checksum\n"
-msgstr ""
-
-#: ../builder/sigchecker.ml:186
-msgid ""
-"virt-builder: error: fingerprint of signature does not match the expected "
-"fingerprint!\n"
-"  found fingerprint: %s\n"
-"  expected fingerprint: %s\n"
-msgstr ""
-
-#: ../builder/sigchecker.ml:149
-msgid ""
-"virt-builder: error: there is no detached signature file\n"
-"This probably means the index file is missing a sig=... line.\n"
-"You can use --no-check-signature to ignore this error, but that means\n"
-"you are susceptible to man-in-the-middle attacks.\n"
-msgstr ""
-
-#: ../builder/downloader.ml:87
-msgid "virt-builder: external command '%s' killed by signal %d\n"
-msgstr ""
-
-#: ../builder/downloader.ml:91
-msgid "virt-builder: external command '%s' stopped by signal %d\n"
-msgstr ""
-
-#: ../builder/downloader.ml:102
-msgid "virt-builder: failed to download %s: HTTP status code %s\n"
-msgstr ""
-
-#: ../builder/get_kernel.ml:44
-msgid ""
-"virt-builder: get-kernel: daual/mult-boot images are not supported by this "
-"tool\n"
-msgstr ""
-
-#: ../builder/get_kernel.ml:40
-msgid "virt-builder: get-kernel: no operating system found\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:154
-msgid ""
-"virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:141
-msgid ""
-"virt-builder: index is corrupt: os-version '%s' appears two or more times\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:172
-msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:196
-msgid "virt-builder: no 'size' field for '%s'\n"
-msgstr ""
-
-#: ../builder/get_kernel.ml:75
-msgid "virt-builder: no kernel found\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:262
-msgid ""
-"virt-builder: you must use relative paths (not '%s') in the index file\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:253
-msgid "virt-builder: zero length path in the index file\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:31
-msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:132
-msgid "virt-sysprep: POD for %s must not end with newline\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:146
-msgid "virt-sysprep: POD notes for %s must not end with newline\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:65
-msgid "virt-sysprep: cannot set passwords for %s guests.\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:109
-msgid "virt-sysprep: disallowed character (%c) in operation name\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:93
-msgid "virt-sysprep: duplicate operation name (%s)\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:119
-msgid "virt-sysprep: heading for %s must not end with newline or period\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:128
-msgid "virt-sysprep: operation %s has no POD\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:142
-msgid "virt-sysprep: operation %s has no POD notes\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:115
-msgid "virt-sysprep: operation %s has no heading\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:102
-msgid "virt-sysprep: operation name is an empty string\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:36
-msgid "virt-sysprep: password: invalid --password format; see the man page.\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_password.ml:45
-msgid ""
-"virt-sysprep: password: multiple --root-password/--password options set the "
-"password for user '%s' twice.\n"
-msgstr ""
-
-#: ../mllib/password.ml:170
-msgid ""
-"virt-sysprep: password: warning: using insecure md5 password encryption for\n"
-"guest of type %s version %d.\n"
-"If this is incorrect, use --password-crypto option and file a bug.\n"
-"%!"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:65
-msgid "virt-sysprep: script: failed (code %d)\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:69
-msgid "virt-sysprep: script: killed by signal (%d)\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_fs_uuids.ml:38
-msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
-msgstr ""
-
-#: ../resize/resize.ml:1135
-msgid ""
-"warning: first partition is NTFS but does not contain NTFS boot loader "
-"magic\n"
-"%!"
-msgstr ""
-
-#: ../resize/resize.ml:715
-msgid "you cannot use options --expand and --shrink together"
-msgstr ""
-
-#: ../sparsify/sparsify.ml:149 ../resize/resize.ml:203
-msgid "you cannot use the same disk image for input and output"
-msgstr ""
+#~ msgid "%s should have %d parameter(s)\n"
+#~ msgstr "%s कडे %d घटके असायला हवे\n"
 
 #~ msgid "add qemu parameters"
 #~ msgstr "qemu घटके समावेश करा"
