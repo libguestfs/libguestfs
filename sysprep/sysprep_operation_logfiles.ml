@@ -41,6 +41,7 @@ let globs = List.sort compare [
   "/var/log/apache2/*_log";
   "/var/log/apache2/*_log-*";
   "/var/log/ntp";
+  "/var/log/tuned/tuned.log";
 
   (* logfiles configured by /etc/logrotate.d/* *)
   "/var/log/BackupPC/LOG";
@@ -66,6 +67,8 @@ let globs = List.sort compare [
   "/root/install.log";
   "/root/install.log.syslog";
   "/root/anaconda-ks.cfg";
+  "/root/anaconda-post.log";
+  "/var/log/anaconda.syslog";
 
   (* GDM and session preferences. *)
   "/var/cache/gdm/*";
