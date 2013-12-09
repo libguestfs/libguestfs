@@ -27,7 +27,9 @@ let add_paths path = paths := path :: !paths
 
 let path_perform g root =
   let paths = List.rev !paths in
-  List.iter g#rm_rf paths;
+  if paths <> [] then (
+    List.iter (fun glob -> Array.iter g#rm_rf (g#glob_expand glob)) paths
+  );
   []
 
 let op = {
