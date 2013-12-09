@@ -67,6 +67,7 @@ XGETTEXT_ARGS = \
 
 $(DOMAIN).pot: Makefile POTFILES $(POTFILES) POTFILES-pl $(POTFILES_PL) POTFILES-ml $(POTFILES_ML)
 	rm -f $@-t
+	touch $@-t
 if HAVE_OCAML_GETTEXT
 	$(OCAML_GETTEXT) --action extract --extract-pot $@-t $(POTFILES_ML)
 endif
