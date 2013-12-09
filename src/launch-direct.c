@@ -349,7 +349,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (qemu_supports (g, data, "-nodefaults"))
     ADD_CMDLINE ("-nodefaults");
 
-  ADD_CMDLINE ("-nographic");
+  ADD_CMDLINE ("-display");
+  ADD_CMDLINE ("none");
 
 #ifdef MACHINE_TYPE
   ADD_CMDLINE ("-M");
@@ -918,7 +919,8 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   data->qemu_devices = NULL;
 
   guestfs___cmd_add_arg (cmd1, g->hv);
-  guestfs___cmd_add_arg (cmd1, "-nographic");
+  guestfs___cmd_add_arg (cmd1, "-display");
+  guestfs___cmd_add_arg (cmd1, "none");
   guestfs___cmd_add_arg (cmd1, "-help");
   guestfs___cmd_set_stdout_callback (cmd1, read_all, &data->qemu_help,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
@@ -927,7 +929,8 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
     goto error;
 
   guestfs___cmd_add_arg (cmd2, g->hv);
-  guestfs___cmd_add_arg (cmd2, "-nographic");
+  guestfs___cmd_add_arg (cmd2, "-display");
+  guestfs___cmd_add_arg (cmd2, "none");
   guestfs___cmd_add_arg (cmd2, "-version");
   guestfs___cmd_set_stdout_callback (cmd2, read_all, &data->qemu_version,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
@@ -938,7 +941,8 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   parse_qemu_version (g, data);
 
   guestfs___cmd_add_arg (cmd3, g->hv);
-  guestfs___cmd_add_arg (cmd3, "-nographic");
+  guestfs___cmd_add_arg (cmd3, "-display");
+  guestfs___cmd_add_arg (cmd3, "none");
   guestfs___cmd_add_arg (cmd3, "-machine");
   guestfs___cmd_add_arg (cmd3, "accel=kvm:tcg");
   guestfs___cmd_add_arg (cmd3, "-device");

@@ -295,6 +295,7 @@ guestfs__config (guestfs_h *g,
   if (STREQ (hv_param, "-kernel") ||
       STREQ (hv_param, "-initrd") ||
       STREQ (hv_param, "-nographic") ||
+      STREQ (hv_param, "-display") ||
       STREQ (hv_param, "-serial") ||
       STREQ (hv_param, "-full-screen") ||
       STREQ (hv_param, "-std-vga") ||
