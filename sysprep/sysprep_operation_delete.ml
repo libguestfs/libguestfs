@@ -40,7 +40,12 @@ let op = {
     pod_description = Some (s_"\
 Delete specified files or directories.
 
-Use the I<--delete> option to specify a path to remove.");
+Use the I<--delete> option to specify a path to remove.
+
+You can use shell glob characters in the specified path; note that such
+metacharacters might require proper escape.  For example:
+
+ virt-sysprep --delete '/var/log/*.log'.");
     extra_args = [
       { extra_argspec = ("--delete", Arg.String add_paths, s_"path" ^ " " ^ s_"File or directory to be removed on guest");
         extra_pod_argval = Some "PATHNAME";
