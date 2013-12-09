@@ -92,9 +92,9 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 	  --man $@ \
 	  --section 3 \
 	  --license LGPLv2+ \
-	  --insert guestfs-actions.pod:__ACTIONS__ \
-	  --insert guestfs-availability.pod:__AVAILABILITY__ \
-	  --insert guestfs-structs.pod:__STRUCTS__ \
+	  --insert $(srcdir)/guestfs-actions.pod:__ACTIONS__ \
+	  --insert $(srcdir)/guestfs-availability.pod:__AVAILABILITY__ \
+	  --insert $(srcdir)/guestfs-structs.pod:__STRUCTS__ \
 	  $<
 
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfish-prepopts.pod
@@ -102,9 +102,9 @@ guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfis
 	  --no-strict-checks \
 	  --man $@ \
 	  --license GPLv2+ \
-	  --insert guestfish-actions.pod:__ACTIONS__ \
-	  --insert guestfish-commands.pod:__FISH_COMMANDS__ \
-	  --insert guestfish-prepopts.pod:__PREPOPTS__ \
+	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
+	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
+	  --insert $(srcdir)/guestfish-prepopts.pod:__PREPOPTS__ \
 	  $<
 
 virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod
@@ -112,8 +112,8 @@ virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.po
 	  --no-strict-checks \
 	  --man $@ \
 	  --license GPLv2+ \
-          --insert sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
-          --insert sysprep-operations.pod:__OPERATIONS__ \
+          --insert $(srcdir)/sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
+          --insert $(srcdir)/sysprep-operations.pod:__OPERATIONS__ \
 	  $<
 
 %.1: %.pod
