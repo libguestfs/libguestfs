@@ -19,6 +19,6 @@
 export LANG=C
 set -e
 
-../virt-index-validate index
-../virt-index-validate index.asc
+../virt-index-validate $srcdir/index
+../virt-index-validate $srcdir/index.asc
 
