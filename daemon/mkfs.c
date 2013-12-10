@@ -96,6 +96,11 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
     ADD_ARG (argv, i, "-O");
   }
 
+  /* Force mkfs.fat to create a whole disk filesystem (RHBZ#1039995). */
+  if (STREQ (fstype, "fat") || STREQ (fstype, "vfat") ||
+      STREQ (fstype, "msdos"))
+    ADD_ARG (argv, i, "-I");
+
   /* Process blocksize parameter if set. */
   if (optargs_bitmask & GUESTFS_MKFS_BLOCKSIZE_BITMASK) {
     if (blocksize <= 0 || !is_power_of_2 (blocksize)) {
