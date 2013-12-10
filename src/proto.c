@@ -781,7 +781,6 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
   }
 
   if (r == -1) {
-    error (g, _("%s: error in chunked encoding"), filename);
     close (fd);
     return -1;
   }
