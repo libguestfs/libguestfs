@@ -830,10 +830,8 @@ receive_file_data (guestfs_h *g, void **buf_r)
   guestfs_chunk chunk;
 
   r = guestfs___recv_from_daemon (g, &len, &buf);
-  if (r == -1) {
-    error (g, _("receive_file_data: parse error in reply callback"));
+  if (r == -1)
     return -1;
-  }
 
   if (len == GUESTFS_LAUNCH_FLAG || len == GUESTFS_CANCEL_FLAG) {
     error (g, _("receive_file_data: unexpected flag received when reading file chunks"));
