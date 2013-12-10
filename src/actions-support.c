@@ -68,7 +68,7 @@ int
 guestfs___check_appliance_up (guestfs_h *g, const char *caller)
 {
   if (g->state == CONFIG || g->state == LAUNCHING) {
-    error (g, "%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)",
+    error (g, "%s: call launch before using this function\n(in guestfish, don't forget to use the 'run' command)",
            caller);
     return -1;
   }
