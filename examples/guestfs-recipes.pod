@@ -583,7 +583,9 @@ L<https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-gue
 Using the L<virt-edit(1)> I<-e> option you can do simple replacements
 on files.  One use is to remove the root password from a Linux guest:
 
- virt-edit domname /etc/passwd -e 's/^root:.*?:/root::/'
+ virt-edit -d domname /etc/passwd -e 's/^root:.*?:/root::/'
+
+ virt-edit -a disk.img /etc/passwd -e 's/^root:.*?:/root::/'
 
 =head1 Remove Administrator password (Windows)
 
