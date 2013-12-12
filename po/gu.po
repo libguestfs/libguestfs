@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-12-08 12:39+0000\n"
+"POT-Creation-Date: 2013-12-12 16:17+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati <trans-gu@lists.fedoraproject.org>\n"
@@ -655,7 +655,7 @@ msgstr ""
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_delete.ml:45
+#: ../sysprep/sysprep_operation_delete.ml:52
 msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
 msgstr ""
 
@@ -667,15 +667,20 @@ msgstr ""
 msgid "Delete partition"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_delete.ml:37
+#: ../sysprep/sysprep_operation_delete.ml:39
 msgid "Delete specified files or directories"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_delete.ml:38
+#: ../sysprep/sysprep_operation_delete.ml:40
 msgid ""
 "Delete specified files or directories.\n"
 "\n"
-"Use the I<--delete> option to specify a path to remove."
+"Use the I<--delete> option to specify a path to remove.\n"
+"\n"
+"You can use shell glob characters in the specified path; note that such\n"
+"metacharacters might require proper escape.  For example:\n"
+"\n"
+" virt-sysprep --delete '/var/log/*.log'."
 msgstr ""
 
 #: ../builder/cmdline.ml:221
@@ -829,7 +834,7 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_delete.ml:43
+#: ../sysprep/sysprep_operation_delete.ml:50
 msgid "File or directory to be removed on guest"
 msgstr ""
 
@@ -1009,7 +1014,7 @@ msgid ""
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:107
+#: ../sysprep/sysprep_operation_logfiles.ml:110
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -1106,7 +1111,7 @@ msgid ""
 "recreate these files automatically if needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:105
+#: ../sysprep/sysprep_operation_logfiles.ml:108
 msgid "Remove many log files from the guest"
 msgstr ""
 
@@ -1857,7 +1862,7 @@ msgstr ""
 msgid "part=size"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_delete.ml:43
+#: ../sysprep/sysprep_operation_delete.ml:50
 msgid "path"
 msgstr ""
 
@@ -6238,43 +6243,43 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/fuse.c:921
+#: src/fuse.c:936
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: src/fuse.c:946
+#: src/fuse.c:961
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: src/fuse.c:963
+#: src/fuse.c:978
 #, c-format
 msgid "fuse_mount: %s"
 msgstr ""
 
-#: src/fuse.c:981
+#: src/fuse.c:996
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: src/fuse.c:1010
+#: src/fuse.c:1025
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: src/fuse.c:1019
+#: src/fuse.c:1034
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: src/fuse.c:1069
+#: src/fuse.c:1084
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: src/fuse.c:1187
+#: src/fuse.c:1202
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: src/fuse.c:1439
+#: src/fuse.c:1454
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -6402,7 +6407,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ને કોલ કરવુ જ જોઇએ"
 
-#: src/launch-direct.c:794 src/launch-libvirt.c:478
+#: src/launch-direct.c:795 src/launch-libvirt.c:478
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
@@ -6571,7 +6576,7 @@ msgstr ""
 msgid "qemu has not been launched yet"
 msgstr "qemu એ હજુ શરૂ કરવામાં આવ્યુ નથી"
 
-#: src/launch.c:302
+#: src/launch.c:303
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
@@ -6730,7 +6735,7 @@ msgstr "xdr_guestfs_message_header નિષ્ફળ"
 msgid "dispatch failed to marshal args"
 msgstr "માર્શલ દલીલોને મોકલવાનું નિષ્ફળ"
 
-#: src/proto.c:363 src/proto.c:855
+#: src/proto.c:363 src/proto.c:852
 msgid "operation cancelled by user"
 msgstr ""
 
@@ -6749,28 +6754,19 @@ msgstr "guestfsd માંથી મળેલ જાદુઇ હસ્તાક
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "સંદેશ લંબાઇ (%u) > મહત્તમ શક્ય માપ (%d)"
 
-#: src/proto.c:784
-#, c-format
-msgid "%s: error in chunked encoding"
-msgstr "%s: ટૂકડા થયેલ એનકોડીંગમાં ભૂલ"
-
-#: src/proto.c:812
+#: src/proto.c:811
 msgid "write to daemon socket"
 msgstr "ડિમન સોકેટમાં લખો"
 
-#: src/proto.c:835
-msgid "receive_file_data: parse error in reply callback"
-msgstr "receive_file_data: કોલબેક જવાબમાં પદચ્છેદન ભૂલ"
-
-#: src/proto.c:840
+#: src/proto.c:837
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: મળેલ અનિચ્છનીય ફ્લેગ જ્યારે ફાઇલ ટૂકડાઓને વાંચી રહ્યા હોય"
 
-#: src/proto.c:848
+#: src/proto.c:845
 msgid "failed to parse file chunk"
 msgstr "ફાઇલનાં ટૂકડાને પદચ્છેદન કરવાનું નિષ્ફળ"
 
-#: src/proto.c:859
+#: src/proto.c:856
 msgid "file receive cancelled by daemon"
 msgstr "ડિમન દ્દારા રદ થયેલ ફાઇલ મેળવી"
 
@@ -7062,6 +7058,12 @@ msgstr ""
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
+
+#~ msgid "%s: error in chunked encoding"
+#~ msgstr "%s: ટૂકડા થયેલ એનકોડીંગમાં ભૂલ"
+
+#~ msgid "receive_file_data: parse error in reply callback"
+#~ msgstr "receive_file_data: કોલબેક જવાબમાં પદચ્છેદન ભૂલ"
 
 #~ msgid "%s should have %d parameter(s)\n"
 #~ msgstr "%s પાસે %d પરિમાણો હોવા જોઇએ\n"

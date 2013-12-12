@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-12-08 12:39+0000\n"
+"POT-Creation-Date: 2013-12-12 16:17+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -716,7 +716,7 @@ msgstr "Діагностика GC та розподілу пам’яті"
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностика GC та розподілу пам’яті (внутрішня)"
 
-#: ../sysprep/sysprep_operation_delete.ml:45
+#: ../sysprep/sysprep_operation_delete.ml:52
 msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
 msgstr ""
 
@@ -728,15 +728,20 @@ msgstr ""
 msgid "Delete partition"
 msgstr "Вилучити розділ"
 
-#: ../sysprep/sysprep_operation_delete.ml:37
+#: ../sysprep/sysprep_operation_delete.ml:39
 msgid "Delete specified files or directories"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_delete.ml:38
+#: ../sysprep/sysprep_operation_delete.ml:40
 msgid ""
 "Delete specified files or directories.\n"
 "\n"
-"Use the I<--delete> option to specify a path to remove."
+"Use the I<--delete> option to specify a path to remove.\n"
+"\n"
+"You can use shell glob characters in the specified path; note that such\n"
+"metacharacters might require proper escape.  For example:\n"
+"\n"
+" virt-sysprep --delete '/var/log/*.log'."
 msgstr ""
 
 #: ../builder/cmdline.ml:221
@@ -905,7 +910,7 @@ msgstr ""
 "\n"
 "Повідомлення про помилку: %s"
 
-#: ../sysprep/sysprep_operation_delete.ml:43
+#: ../sysprep/sysprep_operation_delete.ml:50
 msgid "File or directory to be removed on guest"
 msgstr ""
 
@@ -1100,7 +1105,7 @@ msgstr ""
 "(ГТ) LVM2\n"
 "для ФТ і ГТ буде створено і призначено випадкові UUID."
 
-#: ../sysprep/sysprep_operation_logfiles.ml:107
+#: ../sysprep/sysprep_operation_logfiles.ml:110
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -1204,7 +1209,7 @@ msgid ""
 "recreate these files automatically if needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:105
+#: ../sysprep/sysprep_operation_logfiles.ml:108
 msgid "Remove many log files from the guest"
 msgstr "Вилучити з гостьової системи багато файлів журналів"
 
@@ -2053,7 +2058,7 @@ msgstr "частина"
 msgid "part=size"
 msgstr "частина=розмір"
 
-#: ../sysprep/sysprep_operation_delete.ml:43
+#: ../sysprep/sysprep_operation_delete.ml:50
 msgid "path"
 msgstr ""
 
@@ -6952,43 +6957,43 @@ msgstr ""
 "файлово-архітектурний програмний інтерфейс недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки libmagic"
 
-#: src/fuse.c:921
+#: src/fuse.c:936
 msgid "filesystem is already mounted in another thread"
 msgstr "файлову систему вже змонтовано у іншому потоці виконання команд"
 
-#: src/fuse.c:946
+#: src/fuse.c:961
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr "fuse_opt_add_arg: %s"
 
-#: src/fuse.c:963
+#: src/fuse.c:978
 #, c-format
 msgid "fuse_mount: %s"
 msgstr "fuse_mount: %s"
 
-#: src/fuse.c:981
+#: src/fuse.c:996
 #, c-format
 msgid "fuse_new: %s"
 msgstr "fuse_new: %s"
 
-#: src/fuse.c:1010
+#: src/fuse.c:1025
 msgid "you must call guestfs_mount_local first"
 msgstr "вам слід спочатку викликати guestfs_mount_local"
 
-#: src/fuse.c:1019
+#: src/fuse.c:1034
 #, c-format
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: src/fuse.c:1069
+#: src/fuse.c:1084
 msgid "no filesystem is mounted"
 msgstr "не змонтовано жодної файлової системи"
 
-#: src/fuse.c:1187
+#: src/fuse.c:1202
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: src/fuse.c:1439
+#: src/fuse.c:1454
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -7128,7 +7133,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:794 src/launch-libvirt.c:478
+#: src/launch-direct.c:795 src/launch-libvirt.c:478
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -7330,7 +7335,7 @@ msgstr ""
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:302
+#: src/launch.c:303
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
@@ -7510,7 +7515,7 @@ msgstr "помилка xdr_guestfs_message_header"
 msgid "dispatch failed to marshal args"
 msgstr "помилка розподілу на основні аргументи"
 
-#: src/proto.c:363 src/proto.c:855
+#: src/proto.c:363 src/proto.c:852
 msgid "operation cancelled by user"
 msgstr "дію скасовано користувачем"
 
@@ -7529,30 +7534,21 @@ msgstr "отримано керівну послідовність байтів 
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "довжина повідомлення (%u) перевищує максимальний можливий розмір (%d)"
 
-#: src/proto.c:784
-#, c-format
-msgid "%s: error in chunked encoding"
-msgstr "%s: помилка у кодуванні фрагмента"
-
-#: src/proto.c:812
+#: src/proto.c:811
 msgid "write to daemon socket"
 msgstr "записати до сокета фонової служби"
 
-#: src/proto.c:835
-msgid "receive_file_data: parse error in reply callback"
-msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
-
-#: src/proto.c:840
+#: src/proto.c:837
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: під час читання фрагментів файла отримано неочікуване "
 "значення прапорця"
 
-#: src/proto.c:848
+#: src/proto.c:845
 msgid "failed to parse file chunk"
 msgstr "не вдалося обробити фрагмент файла"
 
-#: src/proto.c:859
+#: src/proto.c:856
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 
@@ -7883,6 +7879,12 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "%s: error in chunked encoding"
+#~ msgstr "%s: помилка у кодуванні фрагмента"
+
+#~ msgid "receive_file_data: parse error in reply callback"
+#~ msgstr "receive_file_data: помилка обробки у зворотному виклику відповіді"
 
 #~ msgid "%s should have %d parameter(s)\n"
 #~ msgstr "%s повинен мати %d параметрів\n"

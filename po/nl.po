@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2013-12-08 12:39+0000\n"
+"POT-Creation-Date: 2013-12-12 16:17+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -714,7 +714,7 @@ msgstr "Debug GC en geheugen toewijzingen"
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Debug GC en geheugen toewijzingen (intern)"
 
-#: ../sysprep/sysprep_operation_delete.ml:45
+#: ../sysprep/sysprep_operation_delete.ml:52
 msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
 msgstr ""
 
@@ -726,15 +726,20 @@ msgstr ""
 msgid "Delete partition"
 msgstr "Verwijder partitie"
 
-#: ../sysprep/sysprep_operation_delete.ml:37
+#: ../sysprep/sysprep_operation_delete.ml:39
 msgid "Delete specified files or directories"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_delete.ml:38
+#: ../sysprep/sysprep_operation_delete.ml:40
 msgid ""
 "Delete specified files or directories.\n"
 "\n"
-"Use the I<--delete> option to specify a path to remove."
+"Use the I<--delete> option to specify a path to remove.\n"
+"\n"
+"You can use shell glob characters in the specified path; note that such\n"
+"metacharacters might require proper escape.  For example:\n"
+"\n"
+" virt-sysprep --delete '/var/log/*.log'."
 msgstr ""
 
 #: ../builder/cmdline.ml:221
@@ -903,7 +908,7 @@ msgstr ""
 "\n"
 "De onderliggende fout was: %s"
 
-#: ../sysprep/sysprep_operation_delete.ml:43
+#: ../sysprep/sysprep_operation_delete.ml:50
 msgid "File or directory to be removed on guest"
 msgstr ""
 
@@ -1097,7 +1102,7 @@ msgstr ""
 "worden nieuwe willekeurige UUID's aangemaakt en toegekend aan die PV's en "
 "VG's."
 
-#: ../sysprep/sysprep_operation_logfiles.ml:107
+#: ../sysprep/sysprep_operation_logfiles.ml:110
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -1199,7 +1204,7 @@ msgid ""
 "recreate these files automatically if needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:105
+#: ../sysprep/sysprep_operation_logfiles.ml:108
 msgid "Remove many log files from the guest"
 msgstr "Verwijder veel log bestanden van de gast"
 
@@ -2052,7 +2057,7 @@ msgstr "part"
 msgid "part=size"
 msgstr "part=grootte"
 
-#: ../sysprep/sysprep_operation_delete.ml:43
+#: ../sysprep/sysprep_operation_delete.ml:50
 msgid "path"
 msgstr ""
 
@@ -6685,43 +6690,43 @@ msgstr ""
 "bestand-architectuur API is niet beschikbaar omdat deze versie van "
 "libguestfs gecompileerd werd zonder de libmagic bibliotheek"
 
-#: src/fuse.c:921
+#: src/fuse.c:936
 msgid "filesystem is already mounted in another thread"
 msgstr "bestandssysteem is al aangekoppeld in een andere thread"
 
-#: src/fuse.c:946
+#: src/fuse.c:961
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr "fuse_opt_add_arg: %s"
 
-#: src/fuse.c:963
+#: src/fuse.c:978
 #, c-format
 msgid "fuse_mount: %s"
 msgstr "fuse_mount: %s"
 
-#: src/fuse.c:981
+#: src/fuse.c:996
 #, c-format
 msgid "fuse_new: %s"
 msgstr "fuse_new: %s"
 
-#: src/fuse.c:1010
+#: src/fuse.c:1025
 msgid "you must call guestfs_mount_local first"
 msgstr "je moet guestfs_mount_local eerst aanroepen"
 
-#: src/fuse.c:1019
+#: src/fuse.c:1034
 #, c-format
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: src/fuse.c:1069
+#: src/fuse.c:1084
 msgid "no filesystem is mounted"
 msgstr "er is geen bestandssysteem aangekoppeld"
 
-#: src/fuse.c:1187
+#: src/fuse.c:1202
 msgid "could not initialize dir cache hashtables"
 msgstr "kon map cache hashtabellen niet initialiseren"
 
-#: src/fuse.c:1439
+#: src/fuse.c:1454
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -6852,7 +6857,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-direct.c:794 src/launch-libvirt.c:478
+#: src/launch-direct.c:795 src/launch-libvirt.c:478
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
@@ -7022,7 +7027,7 @@ msgstr ""
 msgid "qemu has not been launched yet"
 msgstr "qemu is nog niet gelanceerd"
 
-#: src/launch.c:302
+#: src/launch.c:303
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "parameter '%s' is niet toegestaan"
@@ -7194,7 +7199,7 @@ msgstr "xdr_guestfs_message_header mislukte"
 msgid "dispatch failed to marshal args"
 msgstr "verzending faalde om argumenten te rangschikken"
 
-#: src/proto.c:363 src/proto.c:855
+#: src/proto.c:363 src/proto.c:852
 msgid "operation cancelled by user"
 msgstr "bewerking afgebroken door gebruiker"
 
@@ -7213,30 +7218,21 @@ msgstr "magie ondertekening ontvangen van guestfsd, maar de toestand is %d"
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "boodschap lengte (%u) > maximaal mogelijke grootte (%d)"
 
-#: src/proto.c:784
-#, c-format
-msgid "%s: error in chunked encoding"
-msgstr "%s: fout in chunk codering"
-
-#: src/proto.c:812
+#: src/proto.c:811
 msgid "write to daemon socket"
 msgstr "schrijven naar daemon socket"
 
-#: src/proto.c:835
-msgid "receive_file_data: parse error in reply callback"
-msgstr "receive_file_data: ontleed fout in antwoord callback"
-
-#: src/proto.c:840
+#: src/proto.c:837
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: onverwachte vlag ontvangen bij het lezen van bestand "
 "chunks"
 
-#: src/proto.c:848
+#: src/proto.c:845
 msgid "failed to parse file chunk"
 msgstr "bestand chunk ontleden mislukte"
 
-#: src/proto.c:859
+#: src/proto.c:856
 msgid "file receive cancelled by daemon"
 msgstr "bestand ontvangen geannuleerd door daemon"
 
@@ -7549,6 +7545,12 @@ msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
+
+#~ msgid "%s: error in chunked encoding"
+#~ msgstr "%s: fout in chunk codering"
+
+#~ msgid "receive_file_data: parse error in reply callback"
+#~ msgstr "receive_file_data: ontleed fout in antwoord callback"
 
 #~ msgid "%s should have %d parameter(s)\n"
 #~ msgstr "%s moet %d parameter(s) hebben\n"
