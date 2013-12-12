@@ -876,6 +876,20 @@ mount_local_removexattr(const char *path, const char *name)
   return 0;
 }
 
+static int
+mount_local_flush(const char *path, struct fuse_file_info *fi)
+{
+  DECL_G ();
+  DEBUG_CALL ("%s", path);
+
+  /* Just a stub. This method is called whenever FUSE wants to flush the
+   * pending changes (f.ex. to attributes) to a file.  Since we don't have
+   * anything to do and don't want FUSE to think something went badly,
+   * just return 0.
+   */
+  return 0;
+}
+
 static struct fuse_operations mount_local_operations = {
   .getattr	= mount_local_getattr,
   .access	= mount_local_access,
@@ -902,6 +916,7 @@ static struct fuse_operations mount_local_operations = {
   .getxattr	= mount_local_getxattr,
   .listxattr	= mount_local_listxattr,
   .removexattr	= mount_local_removexattr,
+  .flush        = mount_local_flush,
 };
 
 int
