@@ -17,6 +17,7 @@ mllib/fsync.ml
 mllib/hostname.ml
 mllib/libdir.ml
 mllib/password.ml
+mllib/planner.ml
 mllib/progress.ml
 mllib/random_seed.ml
 mllib/tTY.ml

@@ -74,6 +74,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/fsync-c.o \
 	$(top_builddir)/mllib/fsync.cmx \
 	$(top_builddir)/mllib/password.cmx \
+	$(top_builddir)/mllib/planner.cmx \
 	$(top_builddir)/mllib/config.cmx \
 	index-scan.o \
 	index-struct.o \

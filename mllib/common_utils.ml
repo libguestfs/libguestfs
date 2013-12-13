@@ -391,6 +391,18 @@ let rm_rf_only_files (g : Guestfs.guestfs) dir =
     List.iter g#rm files
   )
 
+(* Detect compression of a file.
+ *
+ * Only detects the formats we need in virt-builder so far.
+ *)
+let detect_compression filename =
+  let chan = open_in filename in
+  let buf = String.create 6 in
+  really_input chan buf 0 6;
+  close_in chan;
+  if buf = "\2537zXZ\000" then `XZ
+  else `Unknown
+
 let is_block_device file =
   try (Unix.stat file).Unix.st_kind = Unix.S_BLK
   with Unix.Unix_error _ -> false

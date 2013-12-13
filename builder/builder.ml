@@ -22,9 +22,9 @@ module G = Guestfs
 
 open Common_utils
 open Password
+open Planner
 
 open Cmdline
-open Pxzcat
 
 open Unix
 open Printf
@@ -243,148 +243,281 @@ let main () =
 
       Sigchecker.verify_detached sigchecker template sigfile in
 
-  (* Plan how to create the output.  This depends on:
-   * - did the user specify --output?
-   * - is the output a block device?
-   * - did the user specify --size?
-   *)
-  let output, size, format, delete_output_file, do_resize, resize_sparse =
+  (* Planner: Input tags. *)
+  let itags =
+    let { Index_parser.size = size; format = format } = entry in
+    let format = match format with None -> "auto" | Some format -> format in
+    let compression_tags =
+      match detect_compression template with
+      | `XZ -> [ `XZ, "" ]
+      | `Unknown -> []
     in
+    [ `Template, ""; `Filename, template; `Size, Int64.to_string size;
+      `Format, format ] @ compression_tags in
 
-    let headroom = 256L *^ 1024L *^ 1024L in
+  (* Planner: Goal. *)
+  let output_size =
+    let { Index_parser.size = default_size } = entry in
+    match size with None -> default_size | Some size -> size in
+  let output_filename, output_format =
+    match output, format with
+    | None, None -> sprintf "%s.img" arg, "raw"
+    | None, Some "raw" -> sprintf "%s.img" arg, "raw"
+    | None, Some format -> sprintf "%s.%s" arg format, format
+    | Some output, None -> output, "raw"
+    | Some output, Some format -> output, format in
+  let output_is_block_dev = is_block_device output_filename in
 
-    match output with
-    (* If the output file was specified and it exists and it's a block
-     * device, then we should skip the creation step.
+  if output_is_block_dev && size <> None then (
+    eprintf (f_"%s: you cannot use --size option with block devices\n") prog;
+    exit 1
+  );
+
+  let goal =
+    (* MUST *)
+    let goal_must = [
+      `Filename, output_filename;
+      `Size, Int64.to_string output_size;
+      `Format, output_format
+    ] in
+
+    (* MUST NOT *)
+    let goal_must_not = [ `Template, ""; `XZ, ""; `Format, "auto" ] in
+
+    goal_must, goal_must_not in
+
+  (* Planner: Transitions. *)
+  let transitions itags =
+    let is t = List.mem_assoc t itags in
+    let is_not t = not (is t) in
+    let remove = List.remove_assoc in
+    let ret = ref [] in
+    let tr task weight otags = ret := (task, weight, otags) :: !ret in
+
+    (* XXX Weights are not very smartly chosen.  At the moment I'm
+     * using a range [0..100] where 0 = free and 100 = expensive.  We
+     * could estimate weights better by looking at file sizes.
      *)
-    | Some output when is_block_device output ->
-      if size <> None then (
-        eprintf (f_"%s: you cannot use --size option with block devices\n")
-          prog;
-        exit 1
-      );
-      (* XXX Should check the output size is big enough.  However this
-       * requires running 'blockdev --getsize64 <output>'.
-       *)
 
-      let format = match format with None -> "raw" | Some f -> f in
-
-      (* Dummy: The output file is never deleted in this case. *)
-      let delete_output_file = ref false in
-
-      output, None, format, delete_output_file, true, false
-
-    (* Regular file output.  Note the file gets deleted. *)
-    | _ ->
-      (* Check the --size option. *)
-      let size, do_resize =
-        let { Index_parser.size = default_size } = entry in
-        match size with
-        | None -> default_size, false
-        | Some size ->
-          if size < default_size +^ headroom then (
-            eprintf (f_"%s: --size is too small for this disk image, minimum size is %s\n")
-              prog (human_size default_size);
-            exit 1
-          );
-          size, true in
-
-      (* Create the output file. *)
-      let output, format =
-        match output, format with
-        | None, None -> sprintf "%s.img" arg, "raw"
-        | None, Some "raw" -> sprintf "%s.img" arg, "raw"
-        | None, Some format -> sprintf "%s.%s" arg format, format
-        | Some output, None -> output, "raw"
-        | Some output, Some format -> output, format in
-
-      (* If the input format != output format then we must run virt-resize. *)
-      let do_resize =
-        let input_format =
-          match entry with
-          | { Index_parser.format = Some format } -> format
-          | { Index_parser.format = None } -> "raw" in
-        if input_format <> format then true else do_resize in
-
-      msg (f_"Creating disk image: %s") output;
-      let cmd =
-        sprintf "qemu-img create -f %s%s %s %Ld%s"
-          (quote format)
-          (if format = "qcow2" then " -o preallocation=metadata" else "")
-          (quote output) size
-          (if debug then "" else " >/dev/null 2>&1") in
-      let r = Sys.command cmd in
-      if r <> 0 then (
-        eprintf (f_"%s: error: could not create output file '%s'\n")
-          prog output;
-        exit 1
-      );
-      (* This ensures the output file will be deleted on failure,
-       * until we set !delete_output_file = false at the end of the build.
-       *)
-      let delete_output_file = ref true in
-      let delete_file () =
-        if !delete_output_file then
-          try unlink output with _ -> ()
-      in
-      at_exit delete_file;
-
-      output, Some size, format, delete_output_file, do_resize, true in
-
-  if not do_resize then (
-    (* If the user did not specify --size and the output is a regular
-     * file and the format is raw, then we just uncompress the template
-     * directly to the output file.  This is fast but less flexible.
+    (* Since the final plan won't run in parallel, we don't only need
+     * to choose unique tempfiles per transition, so this is OK:
      *)
-    let { Index_parser.file_uri = file_uri } = entry in
-    msg (f_"Uncompressing: %s") file_uri;
-    pxzcat template output
-  ) else (
-    (* If none of the above apply, uncompress to a temporary file and
-     * run virt-resize on the result.
-     *)
-    let tmpfile =
-      (* Uncompress it to a temporary file. *)
-      let { Index_parser.file_uri = file_uri } = entry in
-      let tmpfile = Filename.temp_file "vbsrc" ".img" in
-      msg (f_"Uncompressing: %s") file_uri;
-      pxzcat template tmpfile;
-      unlink_on_exit tmpfile;
-      tmpfile in
+    let tempfile = Filename.temp_file "vb" ".img" in
+    unlink_on_exit tempfile;
 
-    (* Resize the source to the output file. *)
-    (match size with
-    | None ->
-      msg (f_"Running virt-resize to expand the disk")
-    | Some size ->
-      msg (f_"Running virt-resize to expand the disk to %s") (human_size size)
+    (* Always possible to copy from one place to another.  The only
+     * thing a copy does is to remove the template tag (since it's always
+     * copied out of the cache directory).
+     *)
+    tr `Copy 50 ((`Filename, output_filename) :: remove `Template itags);
+    tr `Copy 50 ((`Filename, tempfile) :: remove `Template itags);
+
+    (* We can rename a file instead of copying, but don't rename the
+     * cache copy!  (XXX Also this is not free if copying across
+     * filesystems)
+     *)
+    if is_not `Template then (
+      if not output_is_block_dev then
+        tr `Rename 0 ((`Filename, output_filename) :: itags);
+      tr `Rename 0 ((`Filename, tempfile) :: itags);
     );
 
-    let { Index_parser.expand = expand; lvexpand = lvexpand;
-          format = input_format } =
-      entry in
-    let cmd =
-      sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
-        (if debug then " --verbose" else " --quiet")
-        (if not resize_sparse then " --no-sparse" else "")
-        (match input_format with
-        | None -> ""
-        | Some input_format -> sprintf " --format %s" (quote input_format))
-        (quote format)
-        (match expand with
-        | None -> ""
-        | Some expand -> sprintf " --expand %s" (quote expand))
-        (match lvexpand with
-        | None -> ""
-        | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
-        (quote tmpfile) (quote output) in
-    if debug then eprintf "%s\n%!" cmd;
-    let r = Sys.command cmd in
-    if r <> 0 then (
-      eprintf (f_"%s: error: virt-resize failed\n") prog;
-      exit 1
+    if is `XZ then (
+      (* If the input is XZ-compressed, then we can run xzcat, either
+       * to the output file or to a temp file.
+       *)
+      if not output_is_block_dev then
+        tr `Pxzcat 80
+          ((`Filename, output_filename) :: remove `XZ (remove `Template itags));
+      tr `Pxzcat 80
+        ((`Filename, tempfile) :: remove `XZ (remove `Template itags));
     )
+    else (
+      (* If the input is NOT compressed then we could run virt-resize
+       * if it makes sense to resize the image.  Note that virt-resize
+       * can do both size and format conversions.
+       *)
+      let old_size = Int64.of_string (List.assoc `Size itags) in
+      let headroom = 256L *^ 1024L *^ 1024L in
+      if output_size >= old_size +^ headroom then (
+        tr `Virt_resize 100
+          ((`Size, Int64.to_string output_size) ::
+              (`Filename, output_filename) ::
+              (`Format, output_format) :: (remove `Template itags));
+        tr `Virt_resize 100
+          ((`Size, Int64.to_string output_size) ::
+              (`Filename, tempfile) ::
+              (`Format, output_format) :: (remove `Template itags))
+      )
+
+      (* If the size increase is smaller than the amount of headroom
+       * inside the disk image, then virt-resize won't work.  However
+       * we can do a disk resize (using 'qemu-img resize') instead,
+       * although it won't resize the filesystems for the user.
+       *
+       * 'qemu-img resize' works on the file in-place and won't change
+       * the format.  It must not be run on a template directly.
+       *)
+      else if output_size > old_size && is_not `Template then (
+        tr `Disk_resize 60 ((`Size, Int64.to_string output_size) :: itags);
+        tr `Disk_resize 60 ((`Size, Int64.to_string output_size) :: itags);
+      );
+
+      (* qemu-img convert is always possible, and quicker.  It doesn't
+       * resize, but it does change the format.
+       *)
+      tr `Convert 60
+        ((`Filename, output_filename) :: (`Format, output_format) ::
+            (remove `Template itags));
+      tr `Convert 60
+        ((`Filename, tempfile) :: (`Format, output_format) ::
+            (remove `Template itags));
+    );
+
+    (* Return the list of possible transitions. *)
+    !ret
+  in
+
+  (* Plan how to create the disk image. *)
+  msg (f_"Planning how to build this image");
+  let plan =
+    try plan ~max_depth:5 transitions itags goal
+    with
+      Failure "plan" ->
+        eprintf (f_"%s: no plan could be found for making a disk image with\nthe required size, format etc. This is a bug in libguestfs!\nPlease file a bug, giving the command line arguments you used.\n") prog;
+        exit 1
+  in
+
+  (* Print out the plan. *)
+  if debug then (
+    let print_tags tags =
+      (try
+         let v = List.assoc `Filename tags in eprintf " +filename=%s" v
+       with Not_found -> ());
+      (try
+         let v = List.assoc `Size tags in eprintf " +size=%s" v
+       with Not_found -> ());
+      (try
+         let v = List.assoc `Format tags in eprintf " +format=%s" v
+       with Not_found -> ());
+      if List.mem_assoc `Template tags then eprintf " +template";
+      if List.mem_assoc `XZ tags then eprintf " +xz"
+    in
+    let print_task = function
+      | `Copy -> eprintf "cp"
+      | `Rename -> eprintf "mv"
+      | `Pxzcat -> eprintf "pxzcat"
+      | `Virt_resize -> eprintf "virt-resize"
+      | `Disk_resize -> eprintf "qemu-img resize"
+      | `Convert -> eprintf "qemu-img convert"
+    in
+
+    List.iteri (
+      fun i (itags, task, otags) ->
+        eprintf "%d: itags:" i;
+        print_tags itags;
+        eprintf "\n";
+        eprintf "%d: task : " i;
+        print_task task;
+        eprintf "\n";
+        eprintf "%d: otags:" i;
+        print_tags otags;
+        eprintf "\n\n"
+    ) plan
   );
+
+  (* Delete the output file before we finish.  However don't delete it
+   * if it's block device.
+   *)
+  let delete_output_file = ref (not output_is_block_dev) in
+  let delete_file () =
+    if !delete_output_file then
+      try unlink output_filename with _ -> ()
+  in
+  at_exit delete_file;
+
+  (* Carry out the plan. *)
+  List.iter (
+    function
+    | itags, `Copy, otags ->
+      let ifile = List.assoc `Filename itags in
+      let ofile = List.assoc `Filename otags in
+      msg (f_"Copying");
+      let cmd = sprintf "cp %s %s" (quote ifile) (quote ofile) in
+      if debug then eprintf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then exit 1
+
+    | itags, `Rename, otags ->
+      let ifile = List.assoc `Filename itags in
+      let ofile = List.assoc `Filename otags in
+      let cmd = sprintf "mv %s %s" (quote ifile) (quote ofile) in
+      if debug then eprintf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then exit 1
+
+    | itags, `Pxzcat, otags ->
+      let ifile = List.assoc `Filename itags in
+      let ofile = List.assoc `Filename otags in
+      msg (f_"Uncompressing");
+      Pxzcat.pxzcat ifile ofile
+
+    | itags, `Virt_resize, otags ->
+      let ifile = List.assoc `Filename itags in
+      let iformat = List.assoc `Format itags in
+      let ofile = List.assoc `Filename otags in
+      let osize = Int64.of_string (List.assoc `Size otags) in
+      let osize = roundup64 osize 512L in
+      let oformat = List.assoc `Format otags in
+      let { Index_parser.expand = expand; lvexpand = lvexpand } = entry in
+      msg (f_"Resizing (using virt-resize) to expand the disk to %s")
+        (human_size osize);
+      let cmd =
+        sprintf "qemu-img create -f %s%s %s %Ld%s"
+          (quote oformat)
+          (if oformat = "qcow2" then " -o preallocation=metadata" else "")
+          (quote ofile) osize
+          (if debug then "" else " >/dev/null 2>&1") in
+      if debug then eprintf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then exit 1;
+      let cmd =
+        sprintf "virt-resize%s%s --format %s --output-format %s%s%s %s %s"
+          (if debug then " --verbose" else " --quiet")
+          (if output_is_block_dev then " --no-sparse" else "")
+          (quote iformat)
+          (quote oformat)
+          (match expand with
+          | None -> ""
+          | Some expand -> sprintf " --expand %s" (quote expand))
+          (match lvexpand with
+          | None -> ""
+          | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
+          (quote ifile) (quote ofile) in
+      if debug then eprintf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then exit 1
+
+    | itags, `Disk_resize, otags ->
+      let ofile = List.assoc `Filename otags in
+      let osize = Int64.of_string (List.assoc `Size otags) in
+      let osize = roundup64 osize 512L in
+      msg (f_"Resizing container (but not filesystems) to expand the disk to %s")
+        (human_size osize);
+      let cmd = sprintf "qemu-img resize %s %Ld%s"
+        (quote ofile) osize (if debug then "" else " >/dev/null") in
+      if debug then eprintf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then exit 1
+
+    | itags, `Convert, otags ->
+      let ifile = List.assoc `Filename itags in
+      let iformat = List.assoc `Format itags in
+      let ofile = List.assoc `Filename otags in
+      let oformat = List.assoc `Format otags in
+      msg (f_"Converting %s to %s") iformat oformat;
+      let cmd = sprintf "qemu-img convert -f %s %s -O %s %s%s"
+        (quote iformat) (quote ifile)
+        (quote oformat) (quote ofile)
+        (if debug then "" else " >/dev/null 2>&1") in
+      if debug then eprintf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then exit 1
+  ) plan;
 
   (* Now mount the output disk so we can make changes. *)
   msg (f_"Opening the new disk");
@@ -397,7 +530,7 @@ let main () =
     g#set_network network;
 
     (* The output disk is being created, so use cache=unsafe here. *)
-    g#add_drive_opts ~format ~cachemode:"unsafe" output;
+    g#add_drive_opts ~format:output_format ~cachemode:"unsafe" output_filename;
 
     (* Attach ISOs, if we have any. *)
     List.iter (
@@ -690,7 +823,9 @@ exec >>%s 2>&1
 
       Some (
         String.concat "\n" [
-          sprintf (f_"Output: %s") output;
+          sprintf (f_"Output: %s") output_filename;
+          sprintf (f_"Output size: %s") (human_size output_size);
+          sprintf (f_"Output format: %s") output_format;
           sprintf (f_"Total usable space: %s")
             (human_size total_bytes);
           sprintf (f_"Free space: %s (%Ld%%)")
@@ -729,7 +864,7 @@ exec >>%s 2>&1
    * use cache=none.
    *)
   if sync then
-    Fsync.file output;
+    Fsync.file output_filename;
 
   (* Now that we've finished the build, don't delete the output file on
    * exit.

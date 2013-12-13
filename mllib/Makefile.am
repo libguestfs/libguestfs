@@ -40,6 +40,8 @@ SOURCES = \
 	hostname.ml \
 	password.mli \
 	password.ml \
+	planner.mli \
+	planner.ml \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
@@ -81,7 +83,8 @@ OBJECTS = \
 	progress.cmx \
 	uRI.cmx \
 	crypt.cmx \
-	password.cmx
+	password.cmx \
+	planner.cmx
 
 noinst_SCRIPTS = dummy
 
