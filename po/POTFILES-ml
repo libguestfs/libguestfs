@@ -18,6 +18,7 @@ mllib/libdir.ml
 mllib/mkdtemp.ml
 mllib/password.ml
 mllib/perl_edit.ml
+mllib/planner.ml
 mllib/progress.ml
 mllib/random_seed.ml
 mllib/tTY.ml

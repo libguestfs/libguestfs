@@ -45,6 +45,8 @@ SOURCES = \
 	password.ml \
 	perl_edit.mli \
 	perl_edit.ml \
+	planner.mli \
+	planner.ml \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
@@ -89,7 +91,9 @@ OBJECTS = \
 	uRI.cmx \
 	crypt.cmx \
 	password.cmx \
-	mkdtemp.cmx
+	password.cmx \
+	mkdtemp.cmx \
+	planner.cmx
 
 noinst_SCRIPTS = dummy
 
