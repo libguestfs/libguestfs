@@ -91,6 +91,13 @@ let globs = List.sort compare [
 
   (* log file of ntp *)
   "/var/log/ntpstats/*";
+
+  (* Pegasus certificates and other files *)
+  "/etc/Pegasus/*.cnf";
+  "/etc/Pegasus/*.crt";
+  "/etc/Pegasus/*.csr";
+  "/etc/Pegasus/*.pem";
+  "/etc/Pegasus/*.srl";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
