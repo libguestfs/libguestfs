@@ -22,21 +22,8 @@
     multi-step plan (list of transitions) from the input state to the
     output state.
 
-    For example:
-
-    Input tags: xz cached size=4G format=raw
-
-    Output tags: -xz -cached +size=8G +format=raw
-
-    (In this case the "-" before an output tag means the tag MUST NOT
-    appear, and the "+" before an output tag means the tag MUST
-    appear).
-
-    The plan produced might be:
-
-    (1) Run xzcat (removes xz and cached tags).
-
-    (2) Run virt-resize (changes size=4G to size=8G)
+    For an explanation of the Planner, see:
+    http://rwmj.wordpress.com/2013/12/14/writing-a-planner-to-solve-a-tricky-programming-optimization-problem/
 
     Tags are described as OCaml association lists.  See the OCaml
     {!List} module.
