@@ -310,6 +310,11 @@ let main () =
 
       output, Some size, format, delete_output_file, true in
 
+  if is_char_device output then (
+    eprintf (f_"%s: cannot output to a character device or /dev/null\n") prog;
+    exit 1
+  );
+
   let source =
     (* Uncompress it to a temporary file. *)
     let { Index_parser.file_uri = file_uri } = entry in
