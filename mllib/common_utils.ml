@@ -31,6 +31,9 @@ let ( /^ ) = Int64.div
 let ( &^ ) = Int64.logand
 let ( ~^ ) = Int64.lognot
 
+(* Return 'i' rounded up to the next multiple of 'a'. *)
+let roundup64 i a = let a = a -^ 1L in (i +^ a) &^ (~^ a)
+
 let int_of_le32 str =
   assert (String.length str = 4);
   let c0 = Char.code (String.unsafe_get str 0) in
