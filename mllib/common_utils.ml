@@ -406,3 +406,7 @@ let detect_compression filename =
 let is_block_device file =
   try (Unix.stat file).Unix.st_kind = Unix.S_BLK
   with Unix.Unix_error _ -> false
+
+let is_char_device file =
+  try (Unix.stat file).Unix.st_kind = Unix.S_CHR
+  with Unix.Unix_error _ -> false

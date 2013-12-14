@@ -279,6 +279,11 @@ let main () =
     exit 1
   );
 
+  if is_char_device output_filename then (
+    eprintf (f_"%s: cannot output to a character device or /dev/null\n") prog;
+    exit 1
+  );
+
   let goal =
     (* MUST *)
     let goal_must = [
