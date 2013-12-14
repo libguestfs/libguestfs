@@ -243,6 +243,10 @@ let main () =
 
       Sigchecker.verify_detached sigchecker template sigfile in
 
+  (* For an explanation of the Planner, see:
+   * http://rwmj.wordpress.com/2013/12/14/writing-a-planner-to-solve-a-tricky-programming-optimization-problem/
+   *)
+
   (* Planner: Input tags. *)
   let itags =
     let { Index_parser.size = size; format = format } = entry in
