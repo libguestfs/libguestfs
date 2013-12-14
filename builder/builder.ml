@@ -429,7 +429,7 @@ let main () =
         eprintf "\n";
         eprintf "%d: otags:" i;
         print_tags otags;
-        eprintf "\n\n"
+        eprintf "\n\n%!"
     ) plan
   );
 
