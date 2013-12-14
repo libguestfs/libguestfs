@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-12-12 16:17+0000\n"
+"POT-Creation-Date: 2013-12-14 16:44+0000\n"
 "PO-Revision-Date: 2013-10-17 14:46+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -77546,6 +77546,11 @@ msgstr "У Linux вилучено такі файли:"
 #: ../sysprep/sysprep-operations.pod:153
 #, no-wrap
 msgid ""
+" /etc/Pegasus/*.cnf\n"
+" /etc/Pegasus/*.crt\n"
+" /etc/Pegasus/*.csr\n"
+" /etc/Pegasus/*.pem\n"
+" /etc/Pegasus/*.srl\n"
 " /root/anaconda-ks.cfg\n"
 " /root/anaconda-post.log\n"
 " /root/install.log\n"
@@ -77597,17 +77602,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:201
+#: ../sysprep/sysprep-operations.pod:206
 msgid "B<lvm-uuids> *"
 msgstr "B<lvm-uuids> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:204
+#: ../sysprep/sysprep-operations.pod:209
 msgid "Change LVM2 PV and VG UUIDs."
 msgstr "Змінити UUID ФТ і ГТ LVM2."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:206
+#: ../sysprep/sysprep-operations.pod:211
 msgid ""
 "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
 "(VGs), new random UUIDs are generated and assigned to those PVs and VGs."
@@ -77616,17 +77621,17 @@ msgstr ""
 "(ГТ) LVM2 для ФТ і ГТ буде створено і призначено випадкові UUID."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:209
+#: ../sysprep/sysprep-operations.pod:214
 msgid "B<machine-id> *"
 msgstr "B<ід-комп’ютера> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:212
+#: ../sysprep/sysprep-operations.pod:217
 msgid "Remove the local machine ID."
 msgstr "Вилучити ідентифікатор локального комп’ютера."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:214
+#: ../sysprep/sysprep-operations.pod:219
 msgid ""
 "The machine ID is usually generated from a random source during system "
 "installation and stays constant for all subsequent boots.  Optionally, for "
@@ -77640,27 +77645,27 @@ msgstr ""
 "якщо буде виявлено порожнє значення."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:219
+#: ../sysprep/sysprep-operations.pod:224
 msgid "B<mail-spool> *"
 msgstr "B<mail-spool> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:222
+#: ../sysprep/sysprep-operations.pod:227
 msgid "Remove email from the local mail spool directory."
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:224
+#: ../sysprep/sysprep-operations.pod:229
 msgid "B<net-hostname> *"
 msgstr "B<net-hostname> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:227
+#: ../sysprep/sysprep-operations.pod:232
 msgid "Remove HOSTNAME in network interface configuration."
 msgstr "Вилучити HOSTNAME у налаштуваннях інтерфейсу мережі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:229 ../sysprep/sysprep-operations.pod:237
+#: ../sysprep/sysprep-operations.pod:234 ../sysprep/sysprep-operations.pod:242
 msgid ""
 "For Fedora and Red Hat Enterprise Linux, this is removed from C<ifcfg-*> "
 "files."
@@ -77668,27 +77673,27 @@ msgstr ""
 "Для Fedora і Red Hat Enterprise Linux це вилучається з файлів C<ifcfg-*>."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:232
+#: ../sysprep/sysprep-operations.pod:237
 msgid "B<net-hwaddr> *"
 msgstr "B<net-hwaddr> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:235
+#: ../sysprep/sysprep-operations.pod:240
 msgid "Remove HWADDR (hard-coded MAC address) configuration."
 msgstr "Вилучити налаштування HWADDR (апаратної адреси MAC)."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:240
+#: ../sysprep/sysprep-operations.pod:245
 msgid "B<pacct-log> *"
 msgstr "B<pacct-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:243
+#: ../sysprep/sysprep-operations.pod:248
 msgid "Remove the process accounting log files."
 msgstr "Вилучити файли журналу обліку процесів."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:245
+#: ../sysprep/sysprep-operations.pod:250
 msgid ""
 "The system wide process accounting will store to the pacct log files if the "
 "process accounting is on."
@@ -77697,78 +77702,78 @@ msgstr ""
 "увімкнено облік процесів."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:248
+#: ../sysprep/sysprep-operations.pod:253
 msgid "B<package-manager-cache> *"
 msgstr "B<package-manager-cache> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:251
+#: ../sysprep/sysprep-operations.pod:256
 msgid "Remove package manager cache."
 msgstr "Вилучити кеш керування пакунками."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:253
+#: ../sysprep/sysprep-operations.pod:258
 msgid "B<pam-data> *"
 msgstr "B<pam-data> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:256
+#: ../sysprep/sysprep-operations.pod:261
 msgid "Remove the PAM data in the guest."
 msgstr "Вилучити дані PAM у гостьовій системі."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:258
+#: ../sysprep/sysprep-operations.pod:263
 msgid "B<password> *"
 msgstr "B<password> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:261
+#: ../sysprep/sysprep-operations.pod:266
 msgid "Set root or user password."
 msgstr "Встановити пароль root або користувача."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:263
+#: ../sysprep/sysprep-operations.pod:268
 msgid "Set root or another user's password."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:265
+#: ../sysprep/sysprep-operations.pod:270
 msgid ""
 "Use the I<--root-password> option to specify a replacement root password for "
 "the guest.  You can only use this option once."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:268
+#: ../sysprep/sysprep-operations.pod:273
 msgid ""
 "Use the I<--password> option to specify replacement user password(s).  You "
 "can use this option as many times as you want."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:271
+#: ../sysprep/sysprep-operations.pod:276
 msgid "Use I<--password-crypto> to change the password encryption used."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:273
+#: ../sysprep/sysprep-operations.pod:278
 msgid "See L</OPTIONS> above for details of these options."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:275
+#: ../sysprep/sysprep-operations.pod:280
 msgid ""
 "This operation is enabled by default, but it only does something if there is "
 "at least one I<--root-password> or I<--password> argument given."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:279
+#: ../sysprep/sysprep-operations.pod:284
 msgid "Notes on password"
 msgstr "Зауваження щодо password"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:281
+#: ../sysprep/sysprep-operations.pod:286
 msgid ""
 "Currently this only works for glibc-based Linux guests that use shadow "
 "passwords."
@@ -77777,27 +77782,27 @@ msgstr ""
 "заснованих на glibc, у яких використовуються паролі shadow."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:284
+#: ../sysprep/sysprep-operations.pod:289
 msgid "B<puppet-data-log> *"
 msgstr "B<puppet-data-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:287
+#: ../sysprep/sysprep-operations.pod:292
 msgid "Remove the data and log files of puppet."
 msgstr "Вилучити дані та файли журналів puppet."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:289
+#: ../sysprep/sysprep-operations.pod:294
 msgid "B<random-seed> *"
 msgstr "B<random-seed> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:292
+#: ../sysprep/sysprep-operations.pod:297
 msgid "Generate random seed for guest."
 msgstr "Створити породжувач випадкових чисел для гостьової системи."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:294
+#: ../sysprep/sysprep-operations.pod:299
 msgid ""
 "Write some random bytes from the host into the random seed file of the guest."
 msgstr ""
@@ -77805,32 +77810,32 @@ msgstr ""
 "псевдовипадкових чисел у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:297
+#: ../sysprep/sysprep-operations.pod:302
 msgid "See L</RANDOM SEED> below."
 msgstr "Див. L</RANDOM SEED> нижче."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:299
+#: ../sysprep/sysprep-operations.pod:304
 msgid "B<rhn-systemid> *"
 msgstr "B<rhn-systemid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:302
+#: ../sysprep/sysprep-operations.pod:307
 msgid "Remove the RHN system ID."
 msgstr "Вилучити ідентифікатор системи у RHN."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:304
+#: ../sysprep/sysprep-operations.pod:309
 msgid "B<rpm-db> *"
 msgstr "B<rpm-db> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:307
+#: ../sysprep/sysprep-operations.pod:312
 msgid "Remove host-specific RPM database files."
 msgstr "Вилучити специфічні для системи файли баз даних RPM."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:309
+#: ../sysprep/sysprep-operations.pod:314
 msgid ""
 "Remove host-specific RPM database files and locks.  RPM will recreate these "
 "files automatically if needed."
@@ -77839,34 +77844,34 @@ msgstr ""
 "створено ці файли, якщо це потрібно."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:312
+#: ../sysprep/sysprep-operations.pod:317
 msgid "B<samba-db-log> *"
 msgstr "B<samba-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:315
+#: ../sysprep/sysprep-operations.pod:320
 msgid "Remove the database and log files of Samba."
 msgstr "Вилучити бази даних та файли журналів Samba."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:317
+#: ../sysprep/sysprep-operations.pod:322
 msgid "B<script> *"
 msgstr "B<script> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:320
+#: ../sysprep/sysprep-operations.pod:325
 msgid "Run arbitrary scripts against the guest."
 msgstr "Запустити довільні скрипти дій над гостьовою системою."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:322
+#: ../sysprep/sysprep-operations.pod:327
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:325
+#: ../sysprep/sysprep-operations.pod:330
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -77874,14 +77879,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:329
+#: ../sysprep/sysprep-operations.pod:334
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:332
+#: ../sysprep/sysprep-operations.pod:337
 msgid ""
 "The script or program is run with its current directory being the guest's "
 "root directory, so relative paths should be used.  For example: C<rm etc/"
@@ -77890,14 +77895,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:338
+#: ../sysprep/sysprep-operations.pod:343
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:341
+#: ../sysprep/sysprep-operations.pod:346
 msgid ""
 "B<Note:> This is different from I<--firstboot> scripts (which run in the "
 "context of the guest when it is booting first time).  I<--script> scripts "
@@ -77905,27 +77910,27 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:345
+#: ../sysprep/sysprep-operations.pod:350
 msgid "B<smolt-uuid> *"
 msgstr "B<smolt-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:348
+#: ../sysprep/sysprep-operations.pod:353
 msgid "Remove the Smolt hardware UUID."
 msgstr "Вилучити UUID обладнання Smolt."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:350
+#: ../sysprep/sysprep-operations.pod:355
 msgid "B<ssh-hostkeys> *"
 msgstr "B<ssh-hostkeys> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:353
+#: ../sysprep/sysprep-operations.pod:358
 msgid "Remove the SSH host keys in the guest."
 msgstr "Вилучити ключі вузла SSH у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:355
+#: ../sysprep/sysprep-operations.pod:360
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
@@ -77934,7 +77939,7 @@ msgstr ""
 "завантаження гостьової системи."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:358
+#: ../sysprep/sysprep-operations.pod:363
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
@@ -77943,7 +77948,7 @@ msgstr ""
 "надасть вам додаткове попередження щодо зміни ключа вузла:"
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:361
+#: ../sysprep/sysprep-operations.pod:366
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -77959,17 +77964,17 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:366
+#: ../sysprep/sysprep-operations.pod:371
 msgid "B<ssh-userdir> *"
 msgstr "B<ssh-userdir> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:369
+#: ../sysprep/sysprep-operations.pod:374
 msgid "Remove \".ssh\" directories in the guest."
 msgstr "Вилучити каталоги «.ssh» у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:371
+#: ../sysprep/sysprep-operations.pod:376
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other users who have a "
 "C<.ssh> directory in their home directory."
@@ -77978,12 +77983,12 @@ msgstr ""
 "домашні каталоги яких містять каталог C<.ssh>."
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:374
+#: ../sysprep/sysprep-operations.pod:379
 msgid "Notes on ssh-userdir"
 msgstr "Зауваження щодо ssh-userdir"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:376
+#: ../sysprep/sysprep-operations.pod:381
 msgid ""
 "Currently this only looks in C</root> and C</home/*> for home directories, "
 "so users with home directories in other locations won't have the ssh files "
@@ -77994,42 +77999,42 @@ msgstr ""
 "у інших каталогах, не буде вилучено."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:380
+#: ../sysprep/sysprep-operations.pod:385
 msgid "B<sssd-db-log> *"
 msgstr "B<sssd-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:383
+#: ../sysprep/sysprep-operations.pod:388
 msgid "Remove the database and log files of sssd."
 msgstr "Вилучити бази даних і файли журналів sssd."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:385
+#: ../sysprep/sysprep-operations.pod:390
 msgid "B<tmp-files> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:388
+#: ../sysprep/sysprep-operations.pod:393
 msgid "Remove temporary files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:390
+#: ../sysprep/sysprep-operations.pod:395
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:392
+#: ../sysprep/sysprep-operations.pod:397
 msgid "B<udev-persistent-net> *"
 msgstr "B<udev-persistent-net> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:395
+#: ../sysprep/sysprep-operations.pod:400
 msgid "Remove udev persistent net rules."
 msgstr "Вилучити постійні правила мережі udev."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:397
+#: ../sysprep/sysprep-operations.pod:402
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
@@ -78038,7 +78043,7 @@ msgstr ""
 "адресу гостьової системи на фіксований пристрій ethernet (наприклад eth0)."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:400
+#: ../sysprep/sysprep-operations.pod:405
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -78052,17 +78057,17 @@ msgstr ""
 "udev цьому можна запобігти."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:405
+#: ../sysprep/sysprep-operations.pod:410
 msgid "B<user-account>"
 msgstr "B<user-account>"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:407
+#: ../sysprep/sysprep-operations.pod:412
 msgid "Remove the user accounts in the guest."
 msgstr "Вилучити облікові записи користувачів у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:409
+#: ../sysprep/sysprep-operations.pod:414
 msgid ""
 "Remove all the user accounts and their home directories.  The \"root\" "
 "account is not removed."
@@ -78071,12 +78076,12 @@ msgstr ""
 "Обліковий запис «root» вилучено не буде."
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:412
+#: ../sysprep/sysprep-operations.pod:417
 msgid "Notes on user-account"
 msgstr "Зауваження щодо user-account"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:414
+#: ../sysprep/sysprep-operations.pod:419
 msgid ""
 "Currently this does not remove the user accounts from C</etc/shadow>.  This "
 "is because there is no lens for the shadow password file in Augeas."
@@ -78085,17 +78090,17 @@ msgstr ""
 "Причиною є те, що у Augeas ще немає модуля для файлів паролів shadow."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:418
+#: ../sysprep/sysprep-operations.pod:423
 msgid "B<utmp> *"
 msgstr "B<utmp> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:421
+#: ../sysprep/sysprep-operations.pod:426
 msgid "Remove the utmp file."
 msgstr "Вилучити файл utmp."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:423
+#: ../sysprep/sysprep-operations.pod:428
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -78107,17 +78112,17 @@ msgstr ""
 "у старіших версіях дистрибутивів."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:427
+#: ../sysprep/sysprep-operations.pod:432
 msgid "B<yum-uuid> *"
 msgstr "B<yum-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:430
+#: ../sysprep/sysprep-operations.pod:435
 msgid "Remove the yum UUID."
 msgstr "Вилучити UUID yum."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:432
+#: ../sysprep/sysprep-operations.pod:437
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."
