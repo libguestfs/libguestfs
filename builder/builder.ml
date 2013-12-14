@@ -246,14 +246,16 @@ let main () =
   (* Planner: Input tags. *)
   let itags =
     let { Index_parser.size = size; format = format } = entry in
-    let format = match format with None -> "auto" | Some format -> format in
-    let compression_tags =
+    let format_tag =
+      match format with
+      | None -> []
+      | Some format -> [`Format, format] in
+    let compression_tag =
       match detect_compression template with
       | `XZ -> [ `XZ, "" ]
-      | `Unknown -> []
-    in
-    [ `Template, ""; `Filename, template; `Size, Int64.to_string size;
-      `Format, format ] @ compression_tags in
+      | `Unknown -> [] in
+    [ `Template, ""; `Filename, template; `Size, Int64.to_string size ] @
+      format_tag @ compression_tag in
 
   (* Planner: Goal. *)
   let output_size =
@@ -282,7 +284,7 @@ let main () =
     ] in
 
     (* MUST NOT *)
-    let goal_must_not = [ `Template, ""; `XZ, ""; `Format, "auto" ] in
+    let goal_must_not = [ `Template, ""; `XZ, "" ] in
 
     goal_must, goal_must_not in
 
@@ -357,8 +359,11 @@ let main () =
        *
        * 'qemu-img resize' works on the file in-place and won't change
        * the format.  It must not be run on a template directly.
+       *
+       * Don't run 'qemu-img resize' on an auto format.  This is to
+       * force an explicit conversion step to a real format.
        *)
-      else if output_size > old_size && is_not `Template then (
+      else if output_size > old_size && is_not `Template && List.mem_assoc `Format itags then (
         tr `Disk_resize 60 ((`Size, Int64.to_string output_size) :: itags);
         tr `Disk_resize 60 ((`Size, Int64.to_string output_size) :: itags);
       );
@@ -462,7 +467,8 @@ let main () =
 
     | itags, `Virt_resize, otags ->
       let ifile = List.assoc `Filename itags in
-      let iformat = List.assoc `Format itags in
+      let iformat =
+        try Some (List.assoc `Format itags) with Not_found -> None in
       let ofile = List.assoc `Filename otags in
       let osize = Int64.of_string (List.assoc `Size otags) in
       let osize = roundup64 osize 512L in
@@ -479,10 +485,12 @@ let main () =
       if debug then eprintf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1;
       let cmd =
-        sprintf "virt-resize%s%s --format %s --output-format %s%s%s %s %s"
+        sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
           (if debug then " --verbose" else " --quiet")
           (if output_is_block_dev then " --no-sparse" else "")
-          (quote iformat)
+          (match iformat with
+          | None -> ""
+          | Some iformat -> sprintf " --format %s" (quote iformat))
           (quote oformat)
           (match expand with
           | None -> ""
@@ -507,13 +515,17 @@ let main () =
 
     | itags, `Convert, otags ->
       let ifile = List.assoc `Filename itags in
-      let iformat = List.assoc `Format itags in
+      let iformat =
+        try Some (List.assoc `Format itags) with Not_found -> None in
       let ofile = List.assoc `Filename otags in
       let oformat = List.assoc `Format otags in
-      msg (f_"Converting %s to %s") iformat oformat;
-      let cmd = sprintf "qemu-img convert -f %s %s -O %s %s%s"
-        (quote iformat) (quote ifile)
-        (quote oformat) (quote ofile)
+      msg (f_"Converting %s to %s")
+        (match iformat with None -> "auto" | Some f -> f) oformat;
+      let cmd = sprintf "qemu-img convert%s %s -O %s %s%s"
+        (match iformat with
+        | None -> ""
+        | Some iformat -> sprintf " -f %s" (quote iformat))
+        (quote ifile) (quote oformat) (quote ofile)
         (if debug then "" else " >/dev/null 2>&1") in
       if debug then eprintf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
