@@ -16,6 +16,32 @@ expand=/dev/sda2
 lvexpand=/dev/VG/Root
 notes=Phony Fedora look-alike used for testing.
 
+[phony-fedora-qcow2]
+name=Phony Fedora qcow2
+file=fedora.qcow2.xz
+format=qcow2
+size=1073741824
+expand=/dev/sda2
+lvexpand=/dev/VG/Root
+notes=Phony Fedora look-alike used for testing.
+
+[phony-fedora-qcow2-uncompressed]
+name=Phony Fedora qcow2 uncompressed
+file=fedora.qcow2
+format=qcow2
+size=1073741824
+expand=/dev/sda2
+lvexpand=/dev/VG/Root
+notes=Phony Fedora look-alike used for testing.
+
+[phony-fedora-no-format]
+name=Phony Fedora
+file=fedora.qcow2.xz
+size=1073741824
+expand=/dev/sda2
+lvexpand=/dev/VG/Root
+notes=Phony Fedora look-alike used for testing.
+
 [phony-ubuntu]
 name=Phony Ubuntu
 file=ubuntu.xz
