@@ -977,9 +977,6 @@ let () =
 let partitions =
   let sectsize = Int64.of_int sectsize in
 
-  (* Return 'i' rounded up to the next multiple of 'a'. *)
-  let roundup64 i a = let a = a -^ 1L in (i +^ a) &^ (~^ a) in
-
   let rec loop partnum start = function
     | p :: ps ->
       (match p.p_operation with
