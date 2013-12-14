@@ -233,11 +233,6 @@ let main () =
       Sigchecker.verify_detached sigchecker template sigfile in
 
   let output, size, format, delete_output_file, resize_sparse =
-    let is_block_device file =
-      try (stat file).st_kind = S_BLK
-      with Unix_error _ -> false
-    in
-
     let headroom = 256L *^ 1024L *^ 1024L in
 
     match output with
