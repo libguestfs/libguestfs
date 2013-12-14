@@ -249,9 +249,6 @@ let main () =
    * - did the user specify --size?
    *)
   let output, size, format, delete_output_file, do_resize, resize_sparse =
-    let is_block_device file =
-      try (stat file).st_kind = S_BLK
-      with Unix_error _ -> false
     in
 
     let headroom = 256L *^ 1024L *^ 1024L in
