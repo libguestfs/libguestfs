@@ -30,7 +30,8 @@ EXTRA_DIST = \
 	virt-builder.pod \
 	virt-index-validate.pod \
 	test-virt-builder.sh \
-	test-virt-builder-list.sh
+	test-virt-builder-list.sh \
+	test-virt-builder-planner.sh
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 
