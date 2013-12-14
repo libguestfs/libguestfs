@@ -491,7 +491,7 @@ let main () =
       let cmd =
         sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
           (if debug then " --verbose" else " --quiet")
-          (if output_is_block_dev then " --no-sparse" else "")
+          (if is_block_device ofile then " --no-sparse" else "")
           (match iformat with
           | None -> ""
           | Some iformat -> sprintf " --format %s" (quote iformat))
