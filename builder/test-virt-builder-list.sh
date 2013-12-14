@@ -29,6 +29,9 @@ short_list=$($VG ./virt-builder --no-check-signature --no-cache --list)
 
 if [ "$short_list" != "phony-debian             Phony Debian
 phony-fedora             Phony Fedora
+phony-fedora-qcow2       Phony Fedora qcow2
+phony-fedora-qcow2-uncompressed Phony Fedora qcow2 uncompressed
+phony-fedora-no-format   Phony Fedora
 phony-ubuntu             Phony Ubuntu
 phony-windows            Phony Windows" ]; then
     echo "$0: unexpected --list output:"
@@ -50,6 +53,30 @@ Notes:
 Phony Debian look-alike used for testing.
 
 os-version:              phony-fedora
+Full name:               Phony Fedora
+Minimum/default size:    1.0G
+
+Notes:
+
+Phony Fedora look-alike used for testing.
+
+os-version:              phony-fedora-qcow2
+Full name:               Phony Fedora qcow2
+Minimum/default size:    1.0G
+
+Notes:
+
+Phony Fedora look-alike used for testing.
+
+os-version:              phony-fedora-qcow2-uncompressed
+Full name:               Phony Fedora qcow2 uncompressed
+Minimum/default size:    1.0G
+
+Notes:
+
+Phony Fedora look-alike used for testing.
+
+os-version:              phony-fedora-no-format
 Full name:               Phony Fedora
 Minimum/default size:    1.0G
 
