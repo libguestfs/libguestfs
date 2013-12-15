@@ -51,6 +51,15 @@ case $version in
         optionalsrpms=$topurl/Server/optional/source/SRPMS
         bootfs=ext4
         ;;
+    7beta1)
+        major=7
+        topurl=http://download.devel.redhat.com/released/RHEL-7/7.0-Beta-1
+        tree=$topurl/Server/x86_64/os
+        srpms=$topurl/source/SRPMS
+        optional=$topurl/Server/optional/x86_64/os
+        optionalsrpms=$topurl/Server/optional/source/SRPMS
+        bootfs=ext4
+        ;;
     *)
         echo "$0: version $version not supported by this script yet"
         exit 1
