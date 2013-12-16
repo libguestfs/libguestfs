@@ -58,7 +58,6 @@ let main () =
     ) sources
   );
 
-
   (* Handle some modes here, some later on. *)
   let mode =
     match mode with
