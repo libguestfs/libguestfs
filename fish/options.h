@@ -118,6 +118,7 @@ extern char *read_key (const char *param);
 
 /* in options.c */
 extern void option_a (const char *arg, const char *format, struct drv **drvsp);
+extern void option_d (const char *arg, struct drv **drvsp);
 extern char add_drives (struct drv *drv, char next_drive);
 extern void mount_mps (struct mp *mp);
 extern void free_drives (struct drv *drv);
@@ -131,16 +132,7 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
   libvirt_uri = optarg
 
 #define OPTION_d                                \
-  drv = calloc (1, sizeof (struct drv));        \
-  if (!drv) {                                   \
-    perror ("malloc");                          \
-    exit (EXIT_FAILURE);                        \
-  }                                             \
-  drv->type = drv_d;                            \
-  drv->nr_drives = -1;                          \
-  drv->d.guest = optarg;                        \
-  drv->next = drvs;                             \
-  drvs = drv
+  option_d (optarg, &drvs)
 
 #define OPTION_i                                \
   inspector = 1

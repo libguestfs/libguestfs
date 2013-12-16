@@ -75,6 +75,26 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
   *drvsp = drv;
 }
 
+/* Handle the '-d' option when passed on the command line. */
+void
+option_d (const char *arg, struct drv **drvsp)
+{
+  struct drv *drv;
+
+  drv = calloc (1, sizeof (struct drv));
+  if (!drv) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  drv->type = drv_d;
+  drv->nr_drives = -1;
+  drv->d.guest = optarg;
+
+  drv->next = *drvsp;
+  *drvsp = drv;
+}
+
 char
 add_drives (struct drv *drv, char next_drive)
 {

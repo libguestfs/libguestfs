@@ -217,13 +217,6 @@ Using this flag is mostly equivalent to using the C<add-domain> command,
 with C<readonly:true> if the I<--ro> flag was given, and
 with C<format:...> if the I<--format=...> flag was given.
 
-=item B<--no-dest-paths>
-
-Don't tab-complete paths on the guest filesystem.  It is useful to be
-able to hit the tab key to complete paths on the guest filesystem, but
-this causes extra "hidden" guestfs calls to be made, so this option is
-here to allow this feature to be disabled.
-
 =item B<--echo-keys>
 
 When prompting for keys and passphrases, guestfish normally turns
@@ -368,6 +361,13 @@ See L</PREPARED DISK IMAGES> below.
 
 Disable autosync.  This is enabled by default.  See the discussion
 of autosync in the L<guestfs(3)> manpage.
+
+=item B<--no-dest-paths>
+
+Don't tab-complete paths on the guest filesystem.  It is useful to be
+able to hit the tab key to complete paths on the guest filesystem, but
+this causes extra "hidden" guestfs calls to be made, so this option is
+here to allow this feature to be disabled.
 
 =item B<--pipe-error>
 

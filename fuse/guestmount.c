@@ -177,7 +177,6 @@ main (int argc, char *argv[])
   };
 
   struct drv *drvs = NULL;
-  struct drv *drv;
   struct mp *mps = NULL;
   struct mp *mp;
   char *p;
