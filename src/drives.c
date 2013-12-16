@@ -1081,18 +1081,7 @@ guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
 int
 guestfs__add_cdrom (guestfs_h *g, const char *filename)
 {
-  if (strchr (filename, ':') != NULL) {
-    error (g, _("filename cannot contain ':' (colon) character. "
-                "This is a limitation of qemu."));
-    return -1;
-  }
-
-  if (access (filename, F_OK) == -1) {
-    perrorf (g, "%s", filename);
-    return -1;
-  }
-
-  return guestfs_config (g, "-cdrom", filename);
+  return guestfs__add_drive_ro (g, filename);
 }
 
 /* Depending on whether we are hotplugging or not, this function

@@ -241,14 +241,14 @@ Do not call this.  See: C<guestfs_shutdown> instead." };
   { defaults with
     name = "add_cdrom";
     style = RErr, [String "filename"], [];
-    deprecated_by = Some "add_drive"; config_only = true;
+    deprecated_by = Some "add_drive_ro"; config_only = true;
     blocking = false;
     shortdesc = "add a CD-ROM disk image to examine";
     longdesc = "\
 This function adds a virtual CD-ROM disk image to the guest.
 
-B<Do not use this function!>  ISO files are just ordinary
-read-only disk images.  Use C<guestfs_add_drive_ro> instead." };
+The image is added as read-only drive, so this function is equivalent
+of C<guestfs_add_drive_ro>." };
 
   { defaults with
     name = "add_drive_ro";
