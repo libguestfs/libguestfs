@@ -30,7 +30,6 @@ CLEANFILES = stamp-virt-cat.pod stamp-virt-ls.pod stamp-virt-filesystems.pod
 bin_PROGRAMS = virt-cat virt-filesystems virt-ls
 
 SHARED_SOURCE_FILES = \
-	../fish/config.c \
 	../fish/domain.c \
 	../fish/inspect.c \
 	../fish/keys.c \
@@ -53,11 +52,9 @@ virt_cat_CPPFLAGS = \
 virt_cat_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
 virt_cat_LDADD = \
-	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
@@ -78,11 +75,9 @@ virt_filesystems_CPPFLAGS = \
 virt_filesystems_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
 virt_filesystems_LDADD = \
-	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
@@ -103,11 +98,9 @@ virt_ls_CPPFLAGS = \
 virt_ls_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
 virt_ls_LDADD = \
-	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
