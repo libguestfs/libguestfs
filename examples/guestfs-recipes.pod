@@ -180,13 +180,10 @@ of C<guestfish -h>
 
 =head1 Diff two guests; compare a snapshot to the current version
 
-L<virt-ls(1)> provides a simple way to find the differences between
-two guests (for example if they were originally cloned from the same
-source), or between two snapshots from the same guest.  See
-L<virt-ls(1)/DIFFERENCES IN SNAPSHOTS AND BACKING FILES>.
-
-There are also experimental patches on the mailing list for a
-"virt-diff" tool.
+Since libguestfs E<ge> 1.26, use L<virt-diff(1)> to look for
+differences between two guests (for example if they were originally
+cloned from the same source), or between two snapshots from the same
+guest.  In earlier versions of libguestfs, use L<virt-ls(1)>.
 
 =head1 Disable a systemd service
 

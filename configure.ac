@@ -1680,6 +1680,7 @@ AC_CONFIG_FILES([Makefile
                  csharp/Makefile
                  daemon/Makefile
                  df/Makefile
+                 diff/Makefile
                  edit/Makefile
                  erlang/Makefile
                  erlang/examples/Makefile

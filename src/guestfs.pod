@@ -4259,6 +4259,10 @@ actions.
 
 L<virt-df(1)> command and documentation.
 
+=item C<diff>
+
+L<virt-diff(1)> command and documentation.
+
 =item C<edit>
 
 L<virt-edit(1)> command and documentation.
@@ -4697,6 +4701,7 @@ L<virt-cat(1)>,
 L<virt-copy-in(1)>,
 L<virt-copy-out(1)>,
 L<virt-df(1)>,
+L<virt-diff(1)>,
 L<virt-edit(1)>,
 L<virt-filesystems(1)>,
 L<virt-format(1)>,

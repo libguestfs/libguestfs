@@ -70,6 +70,7 @@ my %mapping = (
     '/bin/virt-copy-in$' => "fish",
     '/bin/virt-copy-out$' => "fish",
     '/bin/virt-df$' => "df",
+    '/bin/virt-diff$' => "diff",
     '/bin/virt-edit$' => "edit",
     '/bin/virt-filesystems$' => "cat",
     '/bin/virt-format$' => "format",

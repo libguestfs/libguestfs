@@ -72,7 +72,7 @@ SUBDIRS += test-tool
 SUBDIRS += fish
 
 # virt-tools in C.
-SUBDIRS += align cat df edit format inspector rescue
+SUBDIRS += align cat diff df edit format inspector rescue
 
 # bash-completion
 SUBDIRS += bash
@@ -223,6 +223,7 @@ HTMLFILES = \
 	html/virt-copy-in.1.html \
 	html/virt-copy-out.1.html \
 	html/virt-df.1.html \
+	html/virt-diff.1.html \
 	html/virt-edit.1.html \
 	html/virt-filesystems.1.html \
 	html/virt-format.1.html \
