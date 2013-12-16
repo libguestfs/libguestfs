@@ -174,7 +174,6 @@ main (int argc, char *argv[])
     { 0, 0, 0, 0 }
   };
   struct drv *drvs = NULL;
-  struct drv *drv;
   const char *format = NULL;
   int c;
   int option_index;
