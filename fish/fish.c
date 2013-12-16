@@ -194,7 +194,7 @@ main (int argc, char *argv[])
     { "mount", 1, 0, 'm' },
     { "network", 0, 0, 0 },
     { "new", 1, 0, 'N' },
-    { "no-dest-paths", 0, 0, 'D' },
+    { "no-dest-paths", 0, 0, 0 },
     { "no-sync", 0, 0, 'n' },
     { "pipe-error", 0, 0, 0 },
     { "progress-bars", 0, 0, 0 },
@@ -286,6 +286,8 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "network")) {
         if (guestfs_set_network (g, 1) == -1)
           exit (EXIT_FAILURE);
+      } else if (STREQ (long_options[option_index].name, "no-dest-paths")) {
+        complete_dest_paths = 0;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -306,6 +308,8 @@ main (int argc, char *argv[])
       break;
 
     case 'D':
+      fprintf (stderr, _("%s: warning: -D option is deprecated, use --no-dest-paths instead\n"),
+               program_name);
       complete_dest_paths = 0;
       break;
 
