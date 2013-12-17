@@ -66,6 +66,7 @@ virt_inspector_SOURCES = \
 	inspector.c
 
 virt_inspector_CPPFLAGS = \
+	-DCOMPILING_VIRT_INSPECTOR=1 \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
