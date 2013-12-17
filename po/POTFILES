@@ -8,6 +8,7 @@ builder/pxzcat-c.c
 cat/cat.c
 cat/filesystems.c
 cat/ls.c
+cat/visit.c
 daemon/9p.c
 daemon/acl.c
 daemon/augeas.c

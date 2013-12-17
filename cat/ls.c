@@ -34,7 +34,9 @@
 #include "human.h"
 
 #include "guestfs.h"
+
 #include "options.h"
+#include "visit.h"
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -73,14 +75,6 @@ static void output_int64_time (int64_t);
 static void output_int64_uid (int64_t);
 static void output_string (const char *);
 static void output_string_link (const char *);
-
-static int is_reg (int64_t mode);
-static int is_dir (int64_t mode);
-static int is_chr (int64_t mode);
-static int is_blk (int64_t mode);
-static int is_fifo (int64_t mode);
-static int is_lnk (int64_t mode);
-static int is_sock (int64_t mode);
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -442,129 +436,12 @@ do_ls_R (const char *dir)
   return 0;
 }
 
-/* Adapted from
-https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files/
-*/
-static char *full_path (const char *dir, const char *name);
 static int show_file (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs);
-
-typedef int (*visitor_function) (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs);
-
-static int
-visit (int depth, const char *dir, visitor_function f)
-{
-  /* Call 'f' with the top directory.  Note that ordinary recursive
-   * visits will not otherwise do this, so we have to have a special
-   * case.
-   */
-  if (depth == 0) {
-    CLEANUP_FREE_STAT struct guestfs_stat *stat = NULL;
-    CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
-    int r;
-
-    stat = guestfs_lstat (g, dir);
-    if (stat == NULL)
-      return -1;
-
-    xattrs = guestfs_lgetxattrs (g, dir);
-    if (xattrs == NULL)
-      return -1;
-
-    r = f (dir, NULL, stat, xattrs);
-
-    if (r == -1)
-      return -1;
-  }
-
-  size_t i, xattrp;
-  CLEANUP_FREE_STRING_LIST char **names = NULL;
-  CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *stats = NULL;
-  CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
-
-  names = guestfs_ls (g, dir);
-  if (names == NULL)
-    return -1;
-
-  stats = guestfs_lstatlist (g, dir, names);
-  if (stats == NULL)
-    return -1;
-
-  xattrs = guestfs_lxattrlist (g, dir, names);
-  if (xattrs == NULL)
-    return -1;
-
-  /* Call function on everything in this directory. */
-  for (i = 0, xattrp = 0; names[i] != NULL; ++i, ++xattrp) {
-    CLEANUP_FREE char *path = NULL;
-    struct guestfs_xattr_list file_xattrs;
-    size_t nr_xattrs;
-
-    assert (stats->len >= i);
-    assert (xattrs->len >= xattrp);
-
-    /* Find the list of extended attributes for this file. */
-    assert (strlen (xattrs->val[xattrp].attrname) == 0);
-
-    if (xattrs->val[xattrp].attrval_len == 0) {
-      fprintf (stderr, _("%s: error getting extended attrs for %s %s\n"),
-               program_name, dir, names[i]);
-      return -1;
-    }
-    /* attrval is not \0-terminated. */
-    char attrval[xattrs->val[xattrp].attrval_len+1];
-    memcpy (attrval, xattrs->val[xattrp].attrval,
-            xattrs->val[xattrp].attrval_len);
-    attrval[xattrs->val[xattrp].attrval_len] = '\0';
-    if (sscanf (attrval, "%zu", &nr_xattrs) != 1) {
-      fprintf (stderr, _("%s: error: cannot parse xattr count for %s %s\n"),
-               program_name, dir, names[i]);
-      return -1;
-    }
-
-    file_xattrs.len = nr_xattrs;
-    file_xattrs.val = &xattrs->val[xattrp];
-    xattrp += nr_xattrs;
-
-    /* Call the function. */
-    if (f (dir, names[i], &stats->val[i], &file_xattrs) == -1)
-      return -1;
-
-    /* Recursively call visit, but only on directories. */
-    if (is_dir (stats->val[i].mode)) {
-      path = full_path (dir, names[i]);
-      if (visit (depth + 1, path, f) == -1)
-        return -1;
-    }
-  }
-
-  return 0;
-}
-
-static char *
-full_path (const char *dir, const char *name)
-{
-  int r;
-  char *path;
-
-  if (STREQ (dir, "/"))
-    r = asprintf (&path, "/%s", name ? name : "");
-  else if (name)
-    r = asprintf (&path, "%s/%s", dir, name);
-  else
-    r = asprintf (&path, "%s", dir);
-
-  if (r == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-
-  return path;
-}
 
 static int
 do_ls_lR (const char *dir)
 {
-  return visit (0, dir, show_file);
+  return visit (g, dir, show_file);
 }
 
 /* This is the function which is called to display all files and
@@ -881,52 +758,4 @@ output_int64_dev (int64_t i)
     perror ("printf");
     exit (EXIT_FAILURE);
   }
-}
-
-/* In the libguestfs API, modes returned by lstat and friends are
- * defined to contain Linux ABI values.  However since the "current
- * operating system" might not be Linux, we have to hard-code those
- * numbers here.
- */
-static int
-is_reg (int64_t mode)
-{
-  return (mode & 0170000) == 0100000;
-}
-
-static int
-is_dir (int64_t mode)
-{
-  return (mode & 0170000) == 0040000;
-}
-
-static int
-is_chr (int64_t mode)
-{
-  return (mode & 0170000) == 0020000;
-}
-
-static int
-is_blk (int64_t mode)
-{
-  return (mode & 0170000) == 0060000;
-}
-
-static int
-is_fifo (int64_t mode)
-{
-  return (mode & 0170000) == 0010000;
-}
-
-/* symbolic link */
-static int
-is_lnk (int64_t mode)
-{
-  return (mode & 0170000) == 0120000;
-}
-
-static int
-is_sock (int64_t mode)
-{
-  return (mode & 0170000) == 0140000;
 }

@@ -86,7 +86,9 @@ virt_filesystems_LDADD = \
 
 virt_ls_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
-	ls.c
+	ls.c \
+	visit.c \
+	visit.h
 
 virt_ls_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
