@@ -128,11 +128,17 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
 #define OPTION_a                                \
   option_a (optarg, format, &drvs)
 
+#define OPTION_A                                \
+  option_a (optarg, format, &drvs2)
+
 #define OPTION_c                                \
   libvirt_uri = optarg
 
 #define OPTION_d                                \
   option_d (optarg, &drvs)
+
+#define OPTION_D                                \
+  option_d (optarg, &drvs2)
 
 #define OPTION_i                                \
   inspector = 1
