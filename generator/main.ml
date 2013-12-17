@@ -98,6 +98,7 @@ Run it from the top source directory using the command
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
   output_to "src/libguestfs.syms" generate_linker_script;
 
+  output_to "src/structs-compare.c" generate_client_structs_compare;
   output_to "src/structs-copy.c" generate_client_structs_copy;
   output_to "src/structs-free.c" generate_client_structs_free;
   output_to "src/structs-cleanup.c" generate_client_structs_cleanup;

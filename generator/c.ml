@@ -372,6 +372,11 @@ and generate_structs_pod () =
       pr "   uint32_t len; /* Number of elements in list. */\n";
       pr "   struct guestfs_%s *val; /* Elements. */\n" typ;
       pr " };\n";
+      pr "\n";
+      pr " int guestfs_compare_%s (const struct guestfs_%s *, const struct guestfs_%s *);\n"
+        typ typ typ;
+      pr " int guestfs_compare_%s_list (const struct guestfs_%s_list *, const struct guestfs_%s_list *);\n"
+        typ typ typ;
       pr " \n";
       pr " struct guestfs_%s *guestfs_copy_%s (const struct guestfs_%s *);\n"
         typ typ typ;
@@ -614,6 +619,9 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
       pr "  uint32_t len;\n";
       pr "  struct guestfs_%s *val;\n" typ;
       pr "};\n";
+      pr "\n";
+      pr "extern GUESTFS_DLL_PUBLIC int guestfs_compare_%s (const struct guestfs_%s *, const struct guestfs_%s *);\n" typ typ typ;
+      pr "extern GUESTFS_DLL_PUBLIC int guestfs_compare_%s_list (const struct guestfs_%s_list *, const struct guestfs_%s_list *);\n" typ typ typ;
       pr "\n";
       pr "extern GUESTFS_DLL_PUBLIC struct guestfs_%s *guestfs_copy_%s (const struct guestfs_%s *);\n" typ typ typ;
       pr "extern GUESTFS_DLL_PUBLIC struct guestfs_%s_list *guestfs_copy_%s_list (const struct guestfs_%s_list *);\n" typ typ typ;
@@ -882,6 +890,91 @@ and generate_client_structs_free () =
       pr "}\n";
       pr "\n";
 
+  ) structs
+
+(* Functions to compare structures. *)
+and generate_client_structs_compare () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
+#include \"guestfs.h\"
+#include \"guestfs-internal.h\"
+
+";
+
+  pr "/* Structure-comparison functions. */\n";
+
+  List.iter (
+    fun { s_name = typ; s_cols = cols } ->
+      let has_nonnumeric_cols =
+        let nonnumeric = function
+          | _,(FString|FUUID|FBuffer) -> true
+          | _,(FChar|FUInt32|FInt32|FUInt64|FBytes|FInt64|FOptPercent) -> false
+        in
+        List.exists nonnumeric cols in
+
+      pr "\n";
+      pr "GUESTFS_DLL_PUBLIC int\n";
+      pr "guestfs_compare_%s (const struct guestfs_%s *s1, const struct guestfs_%s *s2)\n"
+        typ typ typ;
+      pr "{\n";
+      if has_nonnumeric_cols then (
+        pr "  int r;\n";
+        pr "\n";
+      );
+      List.iter (
+        function
+        | name, FString ->
+          pr "  r = strcmp (s1->%s, s2->%s);\n" name name;
+          pr "  if (r != 0) return r;\n"
+        | name, FBuffer ->
+          pr "  if (s1->%s_len < s2->%s_len) return -1;\n" name name;
+          pr "  else if (s1->%s_len > s2->%s_len) return 1;\n" name name;
+          pr "  else {\n";
+          pr "    r = memcmp (s1->%s, s2->%s, s1->%s_len);\n" name name name;
+          pr "    if (r != 0) return r;\n";
+          pr "  }\n"
+        | name, FUUID ->
+          pr "  r = memcmp (s1->%s, s2->%s, 32 * sizeof (char));\n" name name;
+          pr "  if (r != 0) return r;\n"
+        | name, FChar
+        | name, FUInt32
+        | name, FInt32
+        | name, FUInt64
+        | name, FBytes
+        | name, FInt64
+        | name, FOptPercent ->
+          pr "  if (s1->%s < s2->%s) return -1;\n" name name;
+          pr "  else if (s1->%s > s2->%s) return 1;\n" name name
+      ) cols;
+      pr "  return 0;\n";
+      pr "}\n";
+
+      pr "\n";
+      pr "GUESTFS_DLL_PUBLIC int\n";
+      pr "guestfs_compare_%s_list (const struct guestfs_%s_list *s1, const struct guestfs_%s_list *s2)\n"
+        typ typ typ;
+      pr "{\n";
+      pr "  if (s1->len < s2->len) return -1;\n";
+      pr "  else if (s1->len > s2->len) return 1;\n";
+      pr "  else {\n";
+      pr "    size_t i;\n";
+      pr "    int r;\n";
+      pr "\n";
+      pr "    for (i = 0; i < s1->len; ++i) {\n";
+      pr "      r = guestfs_compare_%s (&s1->val[i], &s2->val[i]);\n" typ;
+      pr "      if (r != 0) return r;\n";
+      pr "    }\n";
+      pr "    return 0;\n";
+      pr "  }\n";
+      pr "}\n"
   ) structs
 
 (* Functions to copy structures. *)
@@ -2051,7 +2144,9 @@ and generate_linker_script () =
   let struct_frees =
     List.concat (
       List.map (fun { s_name = typ } ->
-        ["guestfs_copy_" ^ typ;
+        ["guestfs_compare_" ^ typ;
+         "guestfs_compare_" ^ typ ^ "_list";
+         "guestfs_copy_" ^ typ;
          "guestfs_copy_" ^ typ ^ "_list";
          "guestfs_free_" ^ typ;
          "guestfs_free_" ^ typ ^ "_list"]
