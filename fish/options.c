@@ -96,7 +96,7 @@ option_d (const char *arg, struct drv **drvsp)
 }
 
 char
-add_drives (struct drv *drv, char next_drive)
+add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
 {
   int r;
   struct guestfs_add_drive_opts_argv ad_optargs;
@@ -173,7 +173,7 @@ add_drives (struct drv *drv, char next_drive)
       break;
 
     case drv_d:
-      r = add_libvirt_drives (drv->d.guest);
+      r = add_libvirt_drives (g, drv->d.guest);
       if (r == -1)
         exit (EXIT_FAILURE);
 

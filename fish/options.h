@@ -98,10 +98,11 @@ struct mp {
 extern void parse_config (void);
 
 /* in domain.c */
-extern int add_libvirt_drives (const char *guest);
+extern int add_libvirt_drives (guestfs_h *g, const char *guest);
 
 /* in inspect.c */
-extern void inspect_mount (void);
+extern void inspect_mount_handle (guestfs_h *g);
+#define inspect_mount() inspect_mount_handle (g)
 
 #if COMPILING_GUESTFISH
 extern void print_inspect_prompt (void);
@@ -109,8 +110,8 @@ extern void print_inspect_prompt (void);
 
 #if COMPILING_VIRT_INSPECTOR
 /* (low-level inspection functions, used by virt-inspector only) */
-extern void inspect_do_decrypt (void);
-extern void inspect_mount_root (const char *root);
+extern void inspect_do_decrypt (guestfs_h *g);
+extern void inspect_mount_root (guestfs_h *g, const char *root);
 #endif
 
 /* in key.c */
@@ -119,7 +120,8 @@ extern char *read_key (const char *param);
 /* in options.c */
 extern void option_a (const char *arg, const char *format, struct drv **drvsp);
 extern void option_d (const char *arg, struct drv **drvsp);
-extern char add_drives (struct drv *drv, char next_drive);
+extern char add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive);
+#define add_drives(drv, next_drive) add_drives_handle (g, drv, next_drive)
 extern void mount_mps (struct mp *mp);
 extern void free_drives (struct drv *drv);
 extern void free_mps (struct mp *mp);

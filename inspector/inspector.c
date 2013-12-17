@@ -268,7 +268,7 @@ main (int argc, char *argv[])
    * the -i option) because it can only handle a single root.  So we
    * use low-level APIs.
    */
-  inspect_do_decrypt ();
+  inspect_do_decrypt (g);
 
   {
     CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_os (g);
@@ -476,7 +476,7 @@ output_root (xmlTextWriterPtr xo, char *root)
   /* We need to mount everything up in order to read out the list of
    * applications and the icon, ie. everything below this point.
    */
-  inspect_mount_root (root);
+  inspect_mount_root (g, root);
 
   output_applications (xo, root);
 

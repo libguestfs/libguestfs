@@ -30,7 +30,7 @@
  * Returns the number of drives added (> 0), or -1 for failure.
  */
 int
-add_libvirt_drives (const char *guest)
+add_libvirt_drives (guestfs_h *g, const char *guest)
 {
   struct guestfs_add_domain_argv optargs = { .bitmask = 0 };
 

@@ -56,7 +56,7 @@ compare_keys (const void *p1, const void *p2)
 
 /* This function implements the -i option. */
 void
-inspect_mount (void)
+inspect_mount_handle (guestfs_h *g)
 {
   if (live) {
     fprintf (stderr, _("%s: don't use --live and -i options together\n"),
@@ -64,7 +64,7 @@ inspect_mount (void)
     exit (EXIT_FAILURE);
   }
 
-  inspect_do_decrypt ();
+  inspect_do_decrypt (g);
 
   char **roots = guestfs_inspect_os (g);
   if (roots == NULL)
@@ -115,11 +115,11 @@ inspect_mount (void)
   root = roots[0];
   free (roots);
 
-  inspect_mount_root (root);
+  inspect_mount_root (g, root);
 }
 
 void
-inspect_mount_root (const char *root)
+inspect_mount_root (guestfs_h *g, const char *root)
 {
   CLEANUP_FREE_STRING_LIST char **mountpoints =
     guestfs_inspect_get_mountpoints (g, root);
@@ -224,7 +224,7 @@ make_mapname (const char *device, char *mapname, size_t len)
  * encryption schemes.
  */
 void
-inspect_do_decrypt (void)
+inspect_do_decrypt (guestfs_h *g)
 {
   CLEANUP_FREE_STRING_LIST char **partitions = guestfs_list_partitions (g);
   if (partitions == NULL)
