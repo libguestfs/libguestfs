@@ -97,6 +97,9 @@ struct mp {
 /* in config.c */
 extern void parse_config (void);
 
+/* in domain.c */
+extern int add_libvirt_drives (const char *guest);
+
 /* in inspect.c */
 extern void inspect_mount (void);
 extern void print_inspect_prompt (void);
@@ -114,9 +117,6 @@ extern void mount_mps (struct mp *mp);
 extern void free_drives (struct drv *drv);
 extern void free_mps (struct mp *mp);
 extern void display_long_options (const struct option *) __attribute__((noreturn));
-
-/* in virt.c */
-extern int add_libvirt_drives (const char *guest);
 
 #define OPTION_a                                \
   option_a (optarg, format, &drvs)
