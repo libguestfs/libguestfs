@@ -414,6 +414,7 @@ Makefile.in
 /src/.libs/libguestfs.so
 /src/stamp-guestfs.pod
 /src/structs-cleanup.c
+/src/structs-copy.c
 /src/structs-free.c
 /stamp-guestfs-release-notes.pod
 /stamp-h1

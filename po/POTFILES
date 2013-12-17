@@ -299,6 +299,7 @@ src/private-data.c
 src/proto.c
 src/stringsbuf.c
 src/structs-cleanup.c
+src/structs-copy.c
 src/structs-free.c
 src/tmpdirs.c
 src/utils.c

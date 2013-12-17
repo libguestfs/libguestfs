@@ -42,6 +42,7 @@ generator_built = \
 	guestfs-structs.pod \
 	libguestfs.syms \
 	structs-cleanup.c \
+	structs-copy.c \
 	structs-free.c
 
 BUILT_SOURCES = \
@@ -118,6 +119,7 @@ libguestfs_la_SOURCES = \
 	private-data.c \
 	proto.c \
 	stringsbuf.c \
+	structs-copy.c \
 	structs-free.c \
 	tmpdirs.c \
 	libguestfs.syms

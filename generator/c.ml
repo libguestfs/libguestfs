@@ -373,6 +373,11 @@ and generate_structs_pod () =
       pr "   struct guestfs_%s *val; /* Elements. */\n" typ;
       pr " };\n";
       pr " \n";
+      pr " struct guestfs_%s *guestfs_copy_%s (const struct guestfs_%s *);\n"
+        typ typ typ;
+      pr " struct guestfs_%s_list *guestfs_copy_%s_list (const struct guestfs_%s_list *);\n"
+        typ typ typ;
+      pr " \n";
       pr " void guestfs_free_%s (struct guestfs_%s *);\n" typ typ;
       pr " void guestfs_free_%s_list (struct guestfs_%s_list *);\n"
         typ typ;
@@ -609,6 +614,9 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
       pr "  uint32_t len;\n";
       pr "  struct guestfs_%s *val;\n" typ;
       pr "};\n";
+      pr "\n";
+      pr "extern GUESTFS_DLL_PUBLIC struct guestfs_%s *guestfs_copy_%s (const struct guestfs_%s *);\n" typ typ typ;
+      pr "extern GUESTFS_DLL_PUBLIC struct guestfs_%s_list *guestfs_copy_%s_list (const struct guestfs_%s_list *);\n" typ typ typ;
       pr "\n";
       pr "extern GUESTFS_DLL_PUBLIC void guestfs_free_%s (struct guestfs_%s *);\n" typ typ;
       pr "extern GUESTFS_DLL_PUBLIC void guestfs_free_%s_list (struct guestfs_%s_list *);\n" typ typ;
@@ -874,6 +882,185 @@ and generate_client_structs_free () =
       pr "}\n";
       pr "\n";
 
+  ) structs
+
+(* Functions to copy structures. *)
+and generate_client_structs_copy () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
+#include \"guestfs.h\"
+#include \"guestfs-internal.h\"
+
+";
+
+  pr "/* Structure-copying functions. */\n";
+
+  List.iter (
+    fun { s_name = typ; s_cols = cols } ->
+      let has_boxed_cols =
+        let boxed = function
+          | _,(FString|FBuffer) -> true
+          | _,(FChar|FUUID|FUInt32|FInt32|FUInt64|FBytes|FInt64|FOptPercent) ->
+            false
+        in
+        List.exists boxed cols in
+
+      if has_boxed_cols then (
+        pr "\n";
+        pr "static void\n";
+        pr "free_%s (struct guestfs_%s *s)\n" typ typ;
+        pr "{\n";
+        List.iter (
+          function
+          | name, FString
+          | name, FBuffer -> pr "  free (s->%s);\n" name
+          | _, FChar
+          | _, FUUID
+          | _, FUInt32
+          | _, FInt32
+          | _, FUInt64
+          | _, FBytes
+          | _, FInt64
+          | _, FOptPercent -> ()
+        ) cols;
+        pr "}\n"
+      );
+
+      pr "\n";
+      if has_boxed_cols then (
+        pr "static int\n";
+        pr "copy_%s (const struct guestfs_%s *inp, struct guestfs_%s *out)\n"
+          typ typ typ;
+        pr "{\n";
+        List.iter (
+          function
+          | name, FString
+          | name, FBuffer -> pr "  out->%s = NULL;\n" name
+          | _, FChar
+          | _, FUUID
+          | _, FUInt32
+          | _, FInt32
+          | _, FUInt64
+          | _, FBytes
+          | _, FInt64
+          | _, FOptPercent -> ()
+        ) cols;
+        List.iter (
+          function
+          | name, FString ->
+            pr "  out->%s = strdup (inp->%s);\n" name name;
+            pr "  if (out->%s == NULL) goto error;\n" name
+          | name, FBuffer ->
+            pr "  /* This adds NUL-termination, which is not strictly required\n";
+            pr "   * but avoids a common bug in calling code.  Note that callers\n";
+            pr "   * should NOT depend on this behaviour intentionally.\n";
+            pr "   */\n";
+            pr "  out->%s_len = inp->%s_len;\n" name name;
+            pr "  out->%s = malloc (out->%s_len + 1);\n" name name;
+            pr "  if (out->%s == NULL) goto error;\n" name;
+            pr "  memcpy (out->%s, inp->%s, out->%s_len);\n" name name name;
+            pr "  out->%s[out->%s_len] = '\\0';\n" name name
+          | name, FUUID ->
+            pr "  memcpy (out->%s, inp->%s, 32 * sizeof (char));\n" name name;
+          | name, FChar
+          | name, FUInt32
+          | name, FInt32
+          | name, FUInt64
+          | name, FBytes
+          | name, FInt64
+          | name, FOptPercent ->
+            pr "  out->%s = inp->%s;\n" name name;
+        ) cols;
+        pr "  return 0;\n";
+        pr "\n";
+        pr "error: ;\n";
+        pr "  int err = errno;\n";
+        pr "  free_%s (out);\n" typ;
+        pr "  errno = err;\n";
+        pr "  return -1;\n";
+        pr "}\n";
+      )
+      else (
+        (* If a struct has no boxed columns, then we can just do a memcpy. *)
+        pr "static void\n";
+        pr "copy_%s (const struct guestfs_%s *inp, struct guestfs_%s *out)\n"
+          typ typ typ;
+        pr "{\n";
+        pr "  memcpy (out, inp, sizeof *out);\n";
+        pr "}\n";
+      );
+
+      pr "\n";
+      pr "GUESTFS_DLL_PUBLIC struct guestfs_%s *\n" typ;
+      pr "guestfs_copy_%s (const struct guestfs_%s *inp)\n" typ typ;
+      pr "{\n";
+      pr "  struct guestfs_%s *ret;\n" typ;
+      pr "\n";
+      pr "  ret = malloc (sizeof *ret);\n";
+      pr "  if (ret == NULL)\n";
+      pr "    return NULL;\n";
+      pr "\n";
+      if has_boxed_cols then (
+        pr "  if (copy_%s (inp, ret) == -1) {\n" typ;
+        pr "    int err = errno;\n";
+        pr "    free (ret);\n";
+        pr "    errno = err;\n";
+        pr "    return NULL;\n";
+        pr "  }\n"
+      ) else (
+        pr "  copy_%s (inp, ret);\n" typ
+      );
+      pr "\n";
+      pr "  return ret;\n";
+      pr "}\n";
+
+      pr "\n";
+      pr "GUESTFS_DLL_PUBLIC struct guestfs_%s_list *\n" typ;
+      pr "guestfs_copy_%s_list (const struct guestfs_%s_list *inp)\n" typ typ;
+      pr "{\n";
+      pr "  struct guestfs_%s_list *ret;\n" typ;
+      pr "  size_t i = 0;\n";
+      pr "\n";
+      pr "  ret = malloc (sizeof *ret);\n";
+      pr "  if (ret == NULL)\n";
+      pr "    return NULL;\n";
+      pr "\n";
+      pr "  ret->len = inp->len;\n";
+      pr "  ret->val = malloc (sizeof (struct guestfs_%s) * ret->len);\n" typ;
+      pr "  if (ret->val == NULL)\n";
+      pr "    goto error;\n";
+      pr "\n";
+      pr "  for (i = 0; i < ret->len; ++i) {\n";
+      if has_boxed_cols then (
+        pr "    if (copy_%s (&inp->val[i], &ret->val[i]) == -1)\n" typ;
+        pr "      goto error;\n"
+      ) else (
+        pr "    copy_%s (&inp->val[i], &ret->val[i]);\n" typ
+      );
+      pr "  }\n";
+      pr "\n";
+      pr "  return ret;\n";
+      pr "\n";
+      pr "error: ;\n";
+      pr "  int err = errno;\n";
+      if has_boxed_cols then (
+        pr "  size_t j;\n";
+        pr "  for (j = 0; j < i; ++j)\n";
+        pr "    free_%s (&ret->val[j]);\n" typ
+      );
+      pr "  free (ret->val);\n";
+      pr "  free (ret);\n";
+      pr "  errno = err;\n";
+      pr "  return NULL;\n";
+      pr "}\n";
   ) structs
 
 (* Functions to free structures used by the CLEANUP_* macros. *)
@@ -1864,9 +2051,11 @@ and generate_linker_script () =
   let struct_frees =
     List.concat (
       List.map (fun { s_name = typ } ->
-                  ["guestfs_free_" ^ typ;
-                   "guestfs_free_" ^ typ ^ "_list"])
-        structs
+        ["guestfs_copy_" ^ typ;
+         "guestfs_copy_" ^ typ ^ "_list";
+         "guestfs_free_" ^ typ;
+         "guestfs_free_" ^ typ ^ "_list"]
+      ) structs
     ) in
   let globals = List.sort compare (globals @
                                      functions @
