@@ -113,6 +113,15 @@ do_lremovexattr (const char *xattr, const char *path)
 #endif
 }
 
+static int
+compare_xattrs (const void *vxa1, const void *vxa2)
+{
+  const guestfs_int_xattr *xa1 = vxa1;
+  const guestfs_int_xattr *xa2 = vxa2;
+
+  return strcmp (xa1->attrname, xa2->attrname);
+}
+
 static guestfs_int_xattr_list *
 getxattrs (const char *path,
            ssize_t (*listxattr) (const char *path, char *list, size_t size),
@@ -201,6 +210,12 @@ getxattrs (const char *path,
       goto error;
     }
   }
+
+  /* Sort the entries by attrname. */
+  qsort (&r->guestfs_int_xattr_list_val[0],
+         (size_t) r->guestfs_int_xattr_list_len,
+         sizeof (guestfs_int_xattr),
+         compare_xattrs);
 
   return r;
 
@@ -409,6 +424,9 @@ do_internal_lxattrlist (const char *path, char *const *names)
       reply_with_perror ("strdup");
       goto error;
     }
+
+    /* Sort the entries by attrname (only for this single file). */
+    qsort (&entry[1], nr_attrs, sizeof (guestfs_int_xattr), compare_xattrs);
   }
 
   return ret;
