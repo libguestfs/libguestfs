@@ -115,7 +115,7 @@ _visit (guestfs_h *g, int depth, const char *dir,
     }
 
     file_xattrs.len = nr_xattrs;
-    file_xattrs.val = &xattrs->val[xattrp];
+    file_xattrs.val = &xattrs->val[xattrp+1];
     xattrp += nr_xattrs;
 
     /* Call the function. */
