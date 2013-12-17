@@ -373,8 +373,8 @@ and generate_structs_pod () =
       pr "   struct guestfs_%s *val; /* Elements. */\n" typ;
       pr " };\n";
       pr " \n";
-      pr " void guestfs_free_%s (struct guestfs_free_%s *);\n" typ typ;
-      pr " void guestfs_free_%s_list (struct guestfs_free_%s_list *);\n"
+      pr " void guestfs_free_%s (struct guestfs_%s *);\n" typ typ;
+      pr " void guestfs_free_%s_list (struct guestfs_%s_list *);\n"
         typ typ;
       pr "\n"
   ) structs
