@@ -34,16 +34,17 @@ https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-machine-for-setuid-files
 
 #include "visit.h"
 
-static int _visit (guestfs_h *g, int depth, const char *dir, visitor_function f);
+static int _visit (guestfs_h *g, int depth, const char *dir, visitor_function f, void *opaque);
 
 int
-visit (guestfs_h *g, const char *dir, visitor_function f)
+visit (guestfs_h *g, const char *dir, visitor_function f, void *opaque)
 {
-  return _visit (g, 0, dir, f);
+  return _visit (g, 0, dir, f, opaque);
 }
 
 static int
-_visit (guestfs_h *g, int depth, const char *dir, visitor_function f)
+_visit (guestfs_h *g, int depth, const char *dir,
+        visitor_function f, void *opaque)
 {
   /* Call 'f' with the top directory.  Note that ordinary recursive
    * visits will not otherwise do this, so we have to have a special
@@ -62,7 +63,7 @@ _visit (guestfs_h *g, int depth, const char *dir, visitor_function f)
     if (xattrs == NULL)
       return -1;
 
-    r = f (dir, NULL, stat, xattrs);
+    r = f (dir, NULL, stat, xattrs, opaque);
 
     if (r == -1)
       return -1;
@@ -118,13 +119,13 @@ _visit (guestfs_h *g, int depth, const char *dir, visitor_function f)
     xattrp += nr_xattrs;
 
     /* Call the function. */
-    if (f (dir, names[i], &stats->val[i], &file_xattrs) == -1)
+    if (f (dir, names[i], &stats->val[i], &file_xattrs, opaque) == -1)
       return -1;
 
     /* Recursively call visit, but only on directories. */
     if (is_dir (stats->val[i].mode)) {
       path = full_path (dir, names[i]);
-      if (_visit (g, depth + 1, path, f) == -1)
+      if (_visit (g, depth + 1, path, f, opaque) == -1)
         return -1;
     }
   }

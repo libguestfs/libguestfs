@@ -19,9 +19,9 @@
 #ifndef VISIT_H
 #define VISIT_H
 
-typedef int (*visitor_function) (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs);
+typedef int (*visitor_function) (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs, void *opaque);
 
-extern int visit (guestfs_h *g, const char *dir, visitor_function f);
+extern int visit (guestfs_h *g, const char *dir, visitor_function f, void *opaque);
 
 extern char *full_path (const char *dir, const char *name);
 

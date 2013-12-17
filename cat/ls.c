@@ -436,12 +436,12 @@ do_ls_R (const char *dir)
   return 0;
 }
 
-static int show_file (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs);
+static int show_file (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs, void *unused);
 
 static int
 do_ls_lR (const char *dir)
 {
-  return visit (g, dir, show_file);
+  return visit (g, dir, show_file, NULL);
 }
 
 /* This is the function which is called to display all files and
@@ -454,7 +454,8 @@ do_ls_lR (const char *dir)
 static int
 show_file (const char *dir, const char *name,
            const struct guestfs_stat *stat,
-           const struct guestfs_xattr_list *xattrs)
+           const struct guestfs_xattr_list *xattrs,
+           void *unused)
 {
   const char *filetype;
   CLEANUP_FREE char *path = NULL, *csum = NULL, *link = NULL;
