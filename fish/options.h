@@ -103,9 +103,11 @@ extern int add_libvirt_drives (const char *guest);
 /* in inspect.c */
 extern void inspect_mount (void);
 extern void print_inspect_prompt (void);
+#if COMPILING_VIRT_INSPECTOR
 /* (low-level inspection functions, used by virt-inspector only) */
 extern void inspect_do_decrypt (void);
 extern void inspect_mount_root (const char *root);
+#endif
 
 /* in key.c */
 extern char *read_key (const char *param);

@@ -28,6 +28,7 @@
 
 #include "guestfs.h"
 
+#define COMPILING_VIRT_INSPECTOR 1
 #include "options.h"
 
 /* Global that saves the root device between inspect_mount and
