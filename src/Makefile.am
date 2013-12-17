@@ -33,16 +33,16 @@ generator_built = \
 	actions-6.c \
 	actions-variants.c \
 	bindtests.c \
-	cleanup-structs.c \
 	errnostring-gperf.gperf \
 	errnostring.c \
 	errnostring.h \
 	event-string.c \
-	free-structs.c \
 	guestfs-actions.pod \
 	guestfs-availability.pod \
 	guestfs-structs.pod \
-	libguestfs.syms
+	libguestfs.syms \
+	structs-cleanup.c \
+	structs-free.c
 
 BUILT_SOURCES = \
 	$(generator_built) \
@@ -93,7 +93,6 @@ libguestfs_la_SOURCES = \
 	events.c \
 	file.c \
 	filearch.c \
-	free-structs.c \
 	fuse.c \
 	handle.c \
 	info.c \
@@ -119,6 +118,7 @@ libguestfs_la_SOURCES = \
 	private-data.c \
 	proto.c \
 	stringsbuf.c \
+	structs-free.c \
 	tmpdirs.c \
 	libguestfs.syms
 
@@ -217,7 +217,7 @@ endif
 # included in tools and bindings.
 libutils_la_SOURCES = \
 	cleanup.c \
-	cleanup-structs.c \
+	structs-cleanup.c \
 	utils.c
 libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
 libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)

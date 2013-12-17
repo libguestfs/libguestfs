@@ -394,13 +394,11 @@ Makefile.in
 /src/actions-?.c
 /src/actions-variants.c
 /src/bindtests.c
-/src/cleanup-structs.c
 /src/errnostring.c
 /src/errnostring-gperf.c
 /src/errnostring-gperf.gperf
 /src/errnostring.h
 /src/event-string.c
-/src/free-structs.c
 /src/guestfs.3
 /src/guestfs-actions.pod
 /src/guestfs-availability.pod
@@ -415,6 +413,8 @@ Makefile.in
 /src/libguestfs.syms
 /src/.libs/libguestfs.so
 /src/stamp-guestfs.pod
+/src/structs-cleanup.c
+/src/structs-free.c
 /stamp-guestfs-release-notes.pod
 /stamp-h1
 /sysprep/.depend

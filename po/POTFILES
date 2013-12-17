@@ -261,7 +261,6 @@ src/alloc.c
 src/appliance.c
 src/bindtests.c
 src/canonical-name.c
-src/cleanup-structs.c
 src/cleanup.c
 src/command.c
 src/conn-socket.c
@@ -274,7 +273,6 @@ src/event-string.c
 src/events.c
 src/file.c
 src/filearch.c
-src/free-structs.c
 src/fuse.c
 src/handle.c
 src/info.c
@@ -300,6 +298,8 @@ src/osinfo.c
 src/private-data.c
 src/proto.c
 src/stringsbuf.c
+src/structs-cleanup.c
+src/structs-free.c
 src/tmpdirs.c
 src/utils.c
 test-tool/test-tool.c

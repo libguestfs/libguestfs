@@ -830,7 +830,7 @@ and generate_internal_frontend_cleanups_h () =
   pr "#endif /* GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_ */\n"
 
 (* Functions to free structures. *)
-and generate_client_free_structs () =
+and generate_client_structs_free () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
@@ -877,7 +877,7 @@ and generate_client_free_structs () =
   ) structs
 
 (* Functions to free structures used by the CLEANUP_* macros. *)
-and generate_client_cleanup_structs () =
+and generate_client_structs_cleanup () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
