@@ -41,7 +41,7 @@ do_readlink (const char *path)
   link = areadlink (path);
   CHROOT_OUT;
   if (link == NULL) {
-    reply_with_perror ("readlink");
+    reply_with_perror ("%s", path);
     return NULL;
   }
 
