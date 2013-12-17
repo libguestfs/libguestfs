@@ -129,6 +129,28 @@ notes=Fedora 19.
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
 
+[fedora-20]
+name=Fedora® 20
+osinfo=fedora20
+file=fedora-20.xz
+sig=fedora-20.xz.sig
+checksum=fadde95d55323d1d24ad8a968ac0b5b1f94148e8caa8c96e596b3c71a57569f7b6e18767dbe9b32822bf6caecde6e45f89277f85970569079b1f65ceaf6ed7ba
+format=raw
+size=4294967296
+compressed_size=182477140
+expand=/dev/sda3
+notes=Fedora 20.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
 [scientificlinux-6]
 name=Scientific Linux 6.4
 revision=4
