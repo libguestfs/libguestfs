@@ -112,6 +112,9 @@ inspect_mount (void)
     exit (EXIT_FAILURE);
   }
 
+  /* Free old global if there is one. */
+  free (root);
+
   root = roots[0];
   free (roots);
 
