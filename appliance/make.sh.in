@@ -53,12 +53,6 @@ grep -v '^/usr/share/gnome/help/' |
 grep -v '^/usr/share/cracklib/' |
 grep -v '^/usr/share/i18n/' > supermin.d/hostfiles-t
 
-# XXX resolv.conf?  The old script had:
-# echo nameserver 169.254.2.3 > resolv.conf
-if ! grep -q /etc/resolv.conf supermin.d/hostfiles-t; then
-    echo /etc/resolv.conf >> supermin.d/hostfiles-t
-fi
-
 # Include any Augeas lenses from the host.
 if grep -q /usr/share/augeas/lenses supermin.d/hostfiles-t; then
     echo "/usr/share/augeas/lenses/*.aug" >> supermin.d/hostfiles-t
