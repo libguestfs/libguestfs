@@ -80,6 +80,8 @@ ip link set dev eth0 up
 
 ip route add default via 169.254.2.2
 
+echo nameserver 169.254.2.3 > /etc/resolv.conf
+
 # Scan for MDs.
 mdadm -As --auto=yes --run
 

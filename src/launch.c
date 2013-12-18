@@ -93,13 +93,6 @@ guestfs__launch (guestfs_h *g)
   if (g->backend_ops->launch (g, g->backend_data, g->backend_arg) == -1)
     return -1;
 
-  /* If network is enabled, upload /etc/resolv.conf from the host so
-   * the guest will know how to reach the nameservers.
-   */
-  if (g->enable_network && access ("/etc/resolv.conf", F_OK) == 0) {
-    guestfs_internal_upload (g, "/etc/resolv.conf", "/etc/resolv.conf", 0644);
-  }
-
   return 0;
 }
 
