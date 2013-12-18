@@ -484,7 +484,7 @@ let main () =
         fun name ->
           try Some (sprintf "export %s=%s" name (quote (Sys.getenv name)))
           with Not_found -> None
-      ) [ "http_proxy"; "https_proxy"; "ftp_proxy" ] in
+      ) [ "http_proxy"; "https_proxy"; "ftp_proxy"; "no_proxy" ] in
     let env_vars = String.concat "\n" env_vars ^ "\n" in
 
     let cmd = sprintf "\
