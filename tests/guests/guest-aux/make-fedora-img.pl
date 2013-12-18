@@ -210,6 +210,7 @@ $g->lsetxattr ('security.selinux', "system_u:object_r:shadow_t:s0\0", 30,
                '/etc/shadow');
 
 $g->upload ("fstab.tmp.$$", '/etc/fstab');
+$g->write ('/etc/motd', "Welcome to Fedora release 14 (Phony)\n");
 $g->write ('/etc/redhat-release', 'Fedora release 14 (Phony)');
 $g->write ('/etc/fedora-release', 'Fedora release 14 (Phony)');
 $g->write ('/etc/sysconfig/network', 'HOSTNAME=fedora.invalid');
