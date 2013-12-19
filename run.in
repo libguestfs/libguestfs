@@ -208,13 +208,13 @@ timeout_kill=30s
 
 # Do we have Padraig's timeout utility (from coreutils)?
 if timeout --help >/dev/null 2>&1; then
-    # Does this version of timeout have the -k option?  (Not on RHEL 6)
-    if timeout -k 10s 10s true >/dev/null 2>&1; then
-        timeout_k_opt="-k $timeout_kill"
+    # Must use the --foreground option (RHBZ#1025269).
+    if timeout --foreground 2 sleep 0 >/dev/null 2>&1; then
+        # Does this version of timeout have the -k option?  (Not on RHEL 6)
+        if timeout -k 10s 10s true >/dev/null 2>&1; then
+            timeout="timeout -k $timeout_kill $timeout_period"
+        fi
     fi
-    # Timeout (SIGTERM) after $timeout_period.
-    # Then send a second SIGKILL $timeout_kill seconds later.
-    timeout="timeout $timeout_k_opt $timeout_period"
 fi
 
 pid=$$
