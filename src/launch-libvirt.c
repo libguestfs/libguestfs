@@ -216,6 +216,16 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   if (g->verbose)
     guestfs___print_timestamped_message (g, "connect to libvirt");
 
+  /* Decode the URI string. */
+  if (!libvirt_uri) {           /* "libvirt" */
+    if (!params.current_proc_is_root)
+      libvirt_uri = "qemu:///session";
+    else
+      libvirt_uri = "qemu:///system";
+  } else if (STREQ (libvirt_uri, "null")) { /* libvirt:null */
+    libvirt_uri = NULL;
+  } /* else nothing */
+
   /* Connect to libvirt, get capabilities. */
   conn = guestfs___open_libvirt_connection (g, libvirt_uri, 0);
   if (!conn) {
