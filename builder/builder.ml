@@ -39,7 +39,7 @@ let main () =
     attach, cache, check_signature, curl, debug, delete, edit,
     firstboot, run, format, gpg, hostname, install, list_long, memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
-    scrub_logfile, size, smp, sources, sync, upload, writes =
+    scrub_logfile, size, smp, sources, sync, update, upload, writes =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -667,6 +667,7 @@ exec >>%s 2>&1
         exit 1
   in
 
+  (* http://distrowatch.com/dwres.php?resource=package-management *)
   let guest_install_command packages =
     let quoted_args = String.concat " " (List.map quote packages) in
     match g#inspect_get_package_management root with
@@ -697,7 +698,44 @@ exec >>%s 2>&1
       eprintf (f_"%s: sorry, don't know how to use --install with the '%s' package manager\n")
         prog pm;
       exit 1
+
+  and guest_update_command () =
+    match g#inspect_get_package_management root with
+    | "apt" ->
+      (* http://unix.stackexchange.com/questions/22820 *)
+      sprintf "
+        export DEBIAN_FRONTEND=noninteractive
+        apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
+        apt-get $apt_opts update
+        apt-get $apt_opts upgrade
+      "
+    | "pisi" ->
+      sprintf "pisi upgrade"
+    | "pacman" ->
+      sprintf "pacman -Su"
+    | "urpmi" ->
+      sprintf "urpmi --auto-select"
+    | "yum" ->
+      sprintf "yum -y update"
+    | "zypper" ->
+      sprintf "zypper update"
+    | "unknown" ->
+      eprintf (f_"%s: --update is not supported for this guest operating system\n")
+        prog;
+      exit 1
+    | pm ->
+      eprintf (f_"%s: sorry, don't know how to use --update with the '%s' package manager\n")
+        prog pm;
+      exit 1
   in
+
+  (* Update core/template packages. *)
+  if update then (
+    msg (f_"Updating core packages");
+
+    let cmd = guest_update_command () in
+    do_run ~display:cmd cmd
+  );
 
   (* Install packages. *)
   if install <> [] then (

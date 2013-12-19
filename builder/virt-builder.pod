@@ -17,6 +17,7 @@ virt-builder - Build virtual machine images quickly
     [--attach ISOFILE]
     [--root-password SELECTOR]
     [--hostname HOSTNAME]
+    [--update]
     [--install PKG,[PKG...]]
     [--mkdir DIR]
     [--write FILE:CONTENT]
@@ -215,7 +216,7 @@ I<--no-cache> disables template caching.
 Download all templates to the cache and then exit.  See L</CACHING>.
 
 Note this doesn't cache everything.  More templates might be uploaded.
-Also this doesn't cache packages (the I<--install> option).
+Also this doesn't cache packages (the I<--install>, I<--update> options).
 
 =item B<--check-signature>
 
@@ -348,6 +349,8 @@ installed during the image build using the guest's package manager
 
 For an overview on the different ways to install packages, see
 L</INSTALLING PACKAGES>.
+
+See also I<--update>.
 
 =item B<-l>
 
@@ -577,6 +580,14 @@ Note that you should not point I<--source> to sources that you don't
 trust (unless the source is signed by someone you do trust).  See also
 the I<--no-network> option.
 
+=item B<--update>
+
+Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever
+command is required to update the packages already installed in the
+template to their latest versions.
+
+See also I<--install>.
+
 =item B<--upload> FILE:DEST
 
 Upload local file C<FILE> to destination C<DEST> in the disk image.
@@ -630,6 +641,18 @@ you can use I<--install> to install packages like this:
 
 This uses the guest's package manager and the host's network
 connection.
+
+=head3 Updating packages at build time
+
+To update the core set of packages in the template at build time:
+
+ virt-builder fedora-20 --update
+
+Most of the templates that ship with virt-builder come with a very
+minimal selection of packages (known as a "JEOS" or "Just Enough
+Operating System"), which are up to date at the time the template is
+created, but could be out of date by the time you come to install an
+OS from the template.  This option updates those template packages.
 
 =head3 Installing packages at first boot
 
@@ -750,8 +773,8 @@ are other ways to manage passwords, see L<useradd(8)> for details.
 =head2 LOG FILE
 
 Scripts and package installation that runs at build time (I<--run>,
-I<--run-command>, I<--install>, but I<not> firstboot) is logged in one
-of the following locations:
+I<--run-command>, I<--install>, I<--update>, but I<not> firstboot) is
+logged in one of the following locations:
 
 =over 4
 
@@ -813,6 +836,10 @@ The hostname is set (I<--hostname>).
 =item *
 
 The root password is changed (I<--root-password>).
+
+=item *
+
+Core packages are updated (I<--update>).
 
 =item *
 
@@ -1318,9 +1345,9 @@ are not cached.
 
 Virt-builder uses L<curl(1)> to download files and it also uses the
 current C<http_proxy> (etc) settings when installing packages
-(I<--install>).  You may therefore want to set those environment
-variables in order to maximize the amount of local caching that
-happens.  See L</ENVIRONMENT VARIABLES> and L<curl(1)>.
+(I<--install>, I<--update>).  You may therefore want to set those
+environment variables in order to maximize the amount of local caching
+that happens.  See L</ENVIRONMENT VARIABLES> and L<curl(1)>.
 
 =head2 DIGITAL SIGNATURES
 
@@ -1355,8 +1382,8 @@ host architecture is.  For example an x86-64 guest on an ARM host.
 
 However certain options may not work correctly, specifically options
 that require running commands in the guest during the build process:
-I<--install>, I<--run>, I<--run-command>.  You may need to replace
-these with their firstboot-equivalents.
+I<--install>, I<--update>, I<--run>, I<--run-command>.  You may need
+to replace these with their firstboot-equivalents.
 
 An x86-64 host building 32 bit i686 guests should work without any
 special steps.
@@ -1366,11 +1393,11 @@ special steps.
 Virt-builder does not need to run as root (in fact, should not be run
 as root), and doesn't use setuid, C<sudo> or any similar mechanism.
 
-I<--install>, I<--run> and I<--run-command> are implemented using an
-appliance (a small virtual machine) so these commands do not run on
-the host.  If you are using the libguestfs libvirt backend and have
-SELinux enabled then the virtual machine is additionally encapsulated
-in an SELinux container (sVirt).
+I<--install>, I<--update>, I<--run> and I<--run-command> are
+implemented using an appliance (a small virtual machine) so these
+commands do not run on the host.  If you are using the libguestfs
+libvirt backend and have SELinux enabled then the virtual machine is
+additionally encapsulated in an SELinux container (sVirt).
 
 However these options will have access to the host's network and since
 the template may contain untrusted code, the code might try to access
@@ -1393,13 +1420,13 @@ Templates gets downloaded into the cache the first time they are used,
 or if you use the I<--cache-all-templates> option.  See L</CACHING>
 above for further information.
 
-Packages required for the I<--install> option are downloaded using the
-host network connection.  Setting the C<http_proxy>, C<https_proxy>
-and C<ftp_proxy> environment variables to point to a local web cache
-may ensure they only need to be downloaded once.  You can also try
-using a local package repository, although this can be complex to set
-up and varies according to which Linux distro you are trying to
-install.
+Packages required for the I<--install> and I<--update> options are
+downloaded using the host network connection.  Setting the
+C<http_proxy>, C<https_proxy> and C<ftp_proxy> environment variables
+to point to a local web cache may ensure they only need to be
+downloaded once.  You can also try using a local package repository,
+although this can be complex to set up and varies according to which
+Linux distro you are trying to install.
 
 =head3 Skipping virt-resize
 

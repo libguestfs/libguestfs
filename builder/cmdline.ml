@@ -169,6 +169,7 @@ let parse_cmdline () =
   let add_source arg = sources := arg :: !sources in
 
   let sync = ref true in
+  let update = ref false in
 
   let upload = ref [] in
   let add_upload arg =
@@ -259,6 +260,7 @@ let parse_cmdline () =
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
+    "--update",  Arg.Set update,            " " ^ s_"Update core packages";
     "--upload",  Arg.String add_upload,     "file:dest" ^ " " ^ s_"Upload file to dest";
     "-v",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set debug,             ditto;
@@ -319,6 +321,7 @@ read the man page virt-builder(1).
   let smp = !smp in
   let sources = List.rev !sources in
   let sync = !sync in
+  let update = !update in
   let upload = List.rev !upload in
   let writes = List.rev !writes in
 
@@ -418,4 +421,4 @@ read the man page virt-builder(1).
   attach, cache, check_signature, curl, debug, delete, edit,
   firstboot, run, format, gpg, hostname, install, list_long, memsize, mkdirs,
   network, output, password_crypto, quiet, root_password, scrub,
-  scrub_logfile, size, smp, sources, sync, upload, writes
+  scrub_logfile, size, smp, sources, sync, update, upload, writes
