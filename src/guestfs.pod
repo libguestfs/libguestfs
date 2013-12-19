@@ -1429,13 +1429,23 @@ note below.
 
 =item C<libvirt>
 
+=item C<libvirt:null>
+
 =item C<libvirt:I<URI>>
 
 Use libvirt to launch and manage the appliance.
 
-The optional I<URI> is the libvirt connection URI to use (see
-L<http://libvirt.org/uri.html>).  The typical libvirt backend
-with a URI would be C<libvirt:qemu:///session>
+C<libvirt> causes libguestfs to choose a suitable URI for creating
+session guests.  If using the libvirt backend, you almost always
+should use this.
+
+C<libvirt:null> causes libguestfs to use the C<NULL> connection URI,
+which causes libvirt to try to guess what the user meant.  You
+probably don't want to use this.
+
+C<libvirt:I<URI>> uses I<URI> as the libvirt connection URI (see
+L<http://libvirt.org/uri.html>).  The typical libvirt backend with a
+URI would be C<libvirt:qemu:///session>
 
 The libvirt backend supports more features, including
 hotplugging (see L</HOTPLUGGING>) and sVirt.
