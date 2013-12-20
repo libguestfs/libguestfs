@@ -21,6 +21,8 @@ TESTS = \
 	rhbz501893 \
 	rhbz503169c13.sh \
 	rhbz557655.sh \
+	rhbz563450.sh \
+	rhbz563450b.sh \
 	rhbz576879.sh \
 	rhbz578407.sh \
 	rhbz580246.sh \
