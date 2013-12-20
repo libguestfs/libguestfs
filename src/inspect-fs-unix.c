@@ -574,6 +574,18 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
 
   }
+  /* CirrOS versions providing a own version file.
+   */
+  else if (guestfs_is_file_opts (g, "/etc/cirros/version",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    fs->distro = OS_DISTRO_CIRROS;
+
+    if (parse_release_file (g, fs, "/etc/cirros/version") == -1)
+      return -1;
+
+    if (guestfs___parse_major_minor (g, fs) == -1)
+      return -1;
+  }
   /* Buildroot (http://buildroot.net) is an embedded Linux distro
    * toolkit.  It is used by specific distros such as Cirros.
    */
