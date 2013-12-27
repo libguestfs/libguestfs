@@ -22,7 +22,7 @@ require 'guestfs'
 
 class TestLoad < Test::Unit::TestCase
   def test_create
-    g = Guestfs::create()
+    g = Guestfs::Guestfs.new()
     assert_not_nil (g)
   end
 end

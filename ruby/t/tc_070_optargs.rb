@@ -22,7 +22,7 @@ require 'guestfs'
 
 class TestLoad < Test::Unit::TestCase
   def test_optargs
-    g = Guestfs::create()
+    g = Guestfs::Guestfs.new()
 
     g.add_drive("/dev/null", {})
     g.add_drive("/dev/null", :readonly => 1)

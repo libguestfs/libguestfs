@@ -22,7 +22,7 @@ require 'guestfs'
 
 class TestLoad < Test::Unit::TestCase
   def test_rhbz507346
-    g = Guestfs::create()
+    g = Guestfs::Guestfs.new()
     g.add_drive_scratch(10*1024*1024)
     g.launch()
 
