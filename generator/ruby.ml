@@ -42,6 +42,7 @@ let rec generate_ruby_c () =
 #include <stdint.h>
 #include <string.h>
 #include <errno.h>
+#include <assert.h>
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored \"-Wstrict-prototypes\"
@@ -135,34 +136,89 @@ ruby_guestfs_free (void *gvp)
   }
 }
 
-/*
- * call-seq:
- *   Guestfs::Guestfs.new([{:environment => false, :close_on_exit => false}]) -> Guestfs::Guestfs
- *
- * Call
- * +guestfs_create+[http://libguestfs.org/guestfs.3.html#guestfs_create]
- * to create a new libguestfs handle.  The handle is represented in
- * Ruby as an instance of the Guestfs::Guestfs class.
+/* This is the ruby internal alloc function for the class.  We do nothing
+ * here except allocate an object containing a NULL guestfs handle.
+ * Note we cannot call guestfs_create here because we need the extra
+ * parameters, which ruby passes via the initialize method (see next
+ * function).
  */
 static VALUE
-ruby_guestfs_create (int argc, VALUE *argv, VALUE m)
+ruby_guestfs_alloc (VALUE klass)
 {
-  guestfs_h *g;
+  guestfs_h *g = NULL;
 
-  if (argc > 1)
-    rb_raise (rb_eArgError, \"expecting 0 or 1 arguments\");
+  /* Wrap it, and make sure the close function is called when the
+   * handle goes away.
+   */
+  return Data_Wrap_Struct (c_guestfs, NULL, ruby_guestfs_free, g);
+}
 
-  volatile VALUE optargsv = argc == 1 ? argv[0] : rb_hash_new ();
-  Check_Type (optargsv, T_HASH);
-
+static unsigned
+parse_flags (int argc, VALUE *argv)
+{
+  volatile VALUE optargsv;
   unsigned flags = 0;
   volatile VALUE v;
+
+  optargsv = argc == 1 ? argv[0] : rb_hash_new ();
+  Check_Type (optargsv, T_HASH);
+
   v = rb_hash_lookup (optargsv, ID2SYM (rb_intern (\"environment\")));
   if (v != Qnil && !RTEST (v))
     flags |= GUESTFS_CREATE_NO_ENVIRONMENT;
   v = rb_hash_lookup (optargsv, ID2SYM (rb_intern (\"close_on_exit\")));
   if (v != Qnil && !RTEST (v))
     flags |= GUESTFS_CREATE_NO_CLOSE_ON_EXIT;
+
+  return flags;
+}
+
+/*
+ * call-seq:
+ *   Guestfs::Guestfs.new([{:environment => false, :close_on_exit => false}]) -> Guestfs::Guestfs
+ *
+ * Call
+ * +guestfs_create_flags+[http://libguestfs.org/guestfs.3.html#guestfs_create_flags]
+ * to create a new libguestfs handle.  The handle is represented in
+ * Ruby as an instance of the Guestfs::Guestfs class.
+ */
+static VALUE
+ruby_guestfs_initialize (int argc, VALUE *argv, VALUE m)
+{
+  guestfs_h *g;
+  unsigned flags;
+
+  if (argc > 1)
+    rb_raise (rb_eArgError, \"expecting 0 or 1 arguments\");
+
+  /* Should have been set to NULL by prior call to alloc function. */
+  assert (DATA_PTR (m) == NULL);
+
+  flags = parse_flags (argc, argv);
+
+  g = guestfs_create_flags (flags);
+  if (!g)
+    rb_raise (e_Error, \"failed to create guestfs handle\");
+
+  DATA_PTR (m) = g;
+
+  /* Don't print error messages to stderr by default. */
+  guestfs_set_error_handler (g, NULL, NULL);
+
+  return m;
+}
+
+/* For backwards compatibility. */
+static VALUE
+ruby_guestfs_create (int argc, VALUE *argv, VALUE module)
+{
+  guestfs_h *g;
+  unsigned flags;
+
+  if (argc > 1)
+    rb_raise (rb_eArgError, \"expecting 0 or 1 arguments\");
+
+  flags = parse_flags (argc, argv);
 
   g = guestfs_create_flags (flags);
   if (!g)
@@ -171,9 +227,6 @@ ruby_guestfs_create (int argc, VALUE *argv, VALUE m)
   /* Don't print error messages to stderr by default. */
   guestfs_set_error_handler (g, NULL, NULL);
 
-  /* Wrap it, and make sure the close function is called when the
-   * handle goes away.
-   */
   return Data_Wrap_Struct (c_guestfs, NULL, ruby_guestfs_free, g);
 }
 
@@ -707,10 +760,10 @@ Init__guestfs (void)
 #ifndef HAVE_TYPE_RB_ALLOC_FUNC_T
 #define rb_alloc_func_t void*
 #endif
-  rb_define_alloc_func (c_guestfs, (rb_alloc_func_t) ruby_guestfs_create);
+  rb_define_alloc_func (c_guestfs, (rb_alloc_func_t) ruby_guestfs_alloc);
 #endif
 
-  rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, -1);
+  rb_define_method (c_guestfs, \"initialize\", ruby_guestfs_initialize, -1);
   rb_define_method (c_guestfs, \"close\", ruby_guestfs_close, 0);
   rb_define_method (c_guestfs, \"set_event_callback\",
                     ruby_set_event_callback, 2);
@@ -718,6 +771,11 @@ Init__guestfs (void)
                     ruby_delete_event_callback, 1);
   rb_define_module_function (m_guestfs, \"event_to_string\",
                     ruby_event_to_string, 1);
+
+  /* For backwards compatibility with older code, define a ::create
+   * module function.
+   */
+  rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, -1);
 
 ";
 

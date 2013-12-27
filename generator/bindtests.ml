@@ -452,7 +452,7 @@ and generate_ruby_bindtests () =
   pr "\
 require 'guestfs'
 
-g = Guestfs::create()
+g = Guestfs::Guestfs.new()
 ";
 
   let mkargs args optargs =
