@@ -1,5 +1,5 @@
 # libguestfs Ruby bindings -*- ruby -*-
-# Copyright (C) 2009-2013 Red Hat Inc.
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,28 +15,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# Test that we don't break the old ::create module function while
+# fixing https://bugzilla.redhat.com/show_bug.cgi?id=1046509
+
 require 'test/unit'
 $:.unshift(File::join(File::dirname(__FILE__), "..", "lib"))
 $:.unshift(File::join(File::dirname(__FILE__), "..", "ext", "guestfs"))
 require 'guestfs'
 
 class TestLoad < Test::Unit::TestCase
-  def test_launch
-    g = Guestfs::Guestfs.new()
+  def _handleok(g)
+    g.add_drive("/dev/null")
+    g.close()
+  end
 
-    g.add_drive_scratch(500*1024*1024)
-    g.launch()
+  def test_rhbz1046509
+    g = Guestfs::create()
+    _handleok(g)
 
-    g.pvcreate("/dev/sda")
-    g.vgcreate("VG", ["/dev/sda"]);
-    g.lvcreate("LV1", "VG", 200);
-    g.lvcreate("LV2", "VG", 200);
+    g = Guestfs::create(:close_on_exit => true)
+    _handleok(g)
 
-    lvs = g.lvs()
-    if lvs != ["/dev/VG/LV1", "/dev/VG/LV2"]
-      raise "incorrect lvs returned"
-    end
-
-    g.sync()
+    g = Guestfs::create(:close_on_exit => true, :environment => true)
+    _handleok(g)
   end
 end

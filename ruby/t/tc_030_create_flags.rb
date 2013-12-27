@@ -1,5 +1,5 @@
 # libguestfs Ruby bindings -*- ruby -*-
-# Copyright (C) 2009-2013 Red Hat Inc.
+# Copyright (C) 2013 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,22 +21,9 @@ $:.unshift(File::join(File::dirname(__FILE__), "..", "ext", "guestfs"))
 require 'guestfs'
 
 class TestLoad < Test::Unit::TestCase
-  def test_launch
-    g = Guestfs::Guestfs.new()
-
-    g.add_drive_scratch(500*1024*1024)
-    g.launch()
-
-    g.pvcreate("/dev/sda")
-    g.vgcreate("VG", ["/dev/sda"]);
-    g.lvcreate("LV1", "VG", 200);
-    g.lvcreate("LV2", "VG", 200);
-
-    lvs = g.lvs()
-    if lvs != ["/dev/VG/LV1", "/dev/VG/LV2"]
-      raise "incorrect lvs returned"
-    end
-
-    g.sync()
+  def test_create_flags
+    g = Guestfs::Guestfs.new(:environment => false, :close_on_exit => true)
+    assert_not_nil (g)
+    g.parse_environment()
   end
 end
