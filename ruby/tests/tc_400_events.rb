@@ -22,7 +22,7 @@ require 'guestfs'
 
 class TestLoad < Test::Unit::TestCase
   def test_events
-    g = Guestfs::create()
+    g = Guestfs::Guestfs.new()
 
     log = Proc.new {| event, event_handle, buf, array |
       if event == Guestfs::EVENT_APPLIANCE

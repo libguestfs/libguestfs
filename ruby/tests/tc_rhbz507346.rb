@@ -22,7 +22,7 @@ require 'guestfs'
 
 class TestLoad < Test::Unit::TestCase
   def test_rhbz507346
-    g = Guestfs::create()
+    g = Guestfs::Guestfs.new()
 
     File.open("test.img", "w") {
       |f| f.seek(10*1024*1024); f.write("\0")
