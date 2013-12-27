@@ -425,7 +425,7 @@ let main () =
       | `Convert -> eprintf "qemu-img convert"
     in
 
-    List.iteri (
+    iteri (
       fun i (itags, task, otags) ->
         eprintf "%d: itags:" i;
         print_tags itags;
