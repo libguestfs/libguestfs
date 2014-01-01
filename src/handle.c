@@ -107,7 +107,15 @@ guestfs_create_flags (unsigned flags, ...)
   g->path = strdup (GUESTFS_DEFAULT_PATH);
   if (!g->path) goto error;
 
+#ifdef QEMU
   g->hv = strdup (QEMU);
+#else
+  /* configure --without-qemu, so set QEMU to something which will
+   * definitely fail.  The user is expected to override the hypervisor
+   * by setting an environment variable or calling set_hv.
+   */
+  g->hv = strdup ("false");
+#endif
   if (!g->hv) goto error;
 
   /* Get program name. */
@@ -467,8 +475,26 @@ guestfs__get_path (guestfs_h *g)
 int
 guestfs__set_qemu (guestfs_h *g, const char *qemu)
 {
+  char *new_hv;
+
+  /* Only this deprecated set_qemu API supports using NULL as a
+   * parameter, to mean set it back to the default QEMU.  The new
+   * set_hv API does not allow callers to do this.
+   */
+  if (qemu == NULL) {
+#ifdef QEMU
+    new_hv = safe_strdup (g, QEMU);
+#else
+    error (g, _("configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is an error"));
+    return -1;
+#endif
+  }
+  else
+    new_hv = safe_strdup (g, qemu);
+
   free (g->hv);
-  g->hv = qemu == NULL ? safe_strdup (g, QEMU) : safe_strdup (g, qemu);
+  g->hv = new_hv;
+
   return 0;
 }
 

@@ -50,7 +50,9 @@ main (int argc, char *argv[])
 
   assert (guestfs_set_path (g, NULL) == 0);
   assert (guestfs_set_append (g, NULL) == 0);
+#ifdef QEMU
   assert (guestfs_set_qemu (g, NULL) == 0);
+#endif
 
   guestfs_close (g);
   exit (EXIT_SUCCESS);

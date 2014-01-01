@@ -737,80 +737,90 @@ default_qemu="qemu-kvm kvm $qemu_system qemu"
 AC_ARG_WITH([qemu],
     [AS_HELP_STRING([--with-qemu="bin1 bin2 ..."],
         [set default QEMU binary @<:@default="[qemu-kvm] qemu-system-<host> qemu"@:>@])],
-        [],
-        [with_qemu="$default_qemu"])
-AC_PATH_PROGS([QEMU],[$with_qemu],[no],
-    [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/libexec])
-test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
-AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
+    dnl --with-qemu or --without-qemu:
+    [],
+    dnl neither option was given:
+    [with_qemu="$default_qemu"]
+)
 
-dnl Does the user wish to specify -M, -cpu or other qemu options?
-AC_MSG_CHECKING([if the user specified extra options for qemu command line])
-AC_ARG_WITH([qemu-options],
-    [AS_HELP_STRING([--with-qemu-options="-M ... -cpu ... etc"],
-        [pass extra options for qemu command line @<:@default=no@:>@])],
-    [QEMU_OPTIONS="$withval"],
-    [QEMU_OPTIONS=no])
-AS_IF([test "x$QEMU_OPTIONS" = "xno"],[
-    AC_MSG_RESULT([no])
-    QEMU_OPTIONS=
+AS_IF([test "x$with_qemu" = "xno"],[
+    AC_MSG_WARN([qemu was disabled, libguestfs may not work at all])
+    QEMU=no
 ],[
-    AC_MSG_RESULT([$QEMU_OPTIONS])
-])
-AC_DEFINE_UNQUOTED([QEMU_OPTIONS],["$QEMU_OPTIONS"],
-                   [Extra options for qemu command line.])
+    AC_PATH_PROGS([QEMU],[$with_qemu],[no],
+        [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/libexec])
+    test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 
-dnl Check that the chosen qemu has virtio-serial support.
-dnl For historical reasons this can be disabled by setting vmchannel_test=no.
-if test "x$vmchannel_test" != "xno"; then
-    AC_MSG_CHECKING([that $QEMU -help works])
-    if $QEMU -help >&AS_MESSAGE_LOG_FD 2>&1; then
-        AC_MSG_RESULT([yes])
-    else
+    AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
+
+    dnl Does the user wish to specify -M, -cpu or other qemu options?
+    AC_MSG_CHECKING([if the user specified extra options for qemu command line])
+    AC_ARG_WITH([qemu-options],
+        [AS_HELP_STRING([--with-qemu-options="-M ... -cpu ... etc"],
+            [pass extra options for qemu command line @<:@default=no@:>@])],
+        [QEMU_OPTIONS="$withval"],
+        [QEMU_OPTIONS=no])
+    AS_IF([test "x$QEMU_OPTIONS" = "xno"],[
         AC_MSG_RESULT([no])
-        AC_MSG_FAILURE(
+        QEMU_OPTIONS=
+    ],[
+        AC_MSG_RESULT([$QEMU_OPTIONS])
+    ])
+    AC_DEFINE_UNQUOTED([QEMU_OPTIONS],["$QEMU_OPTIONS"],
+                       [Extra options for qemu command line.])
+
+    dnl Check that the chosen qemu has virtio-serial support.
+    dnl For historical reasons this can be disabled by setting
+    dnl vmchannel_test=no.
+    if test "x$vmchannel_test" != "xno"; then
+        AC_MSG_CHECKING([that $QEMU -help works])
+        if $QEMU -help >&AS_MESSAGE_LOG_FD 2>&1; then
+            AC_MSG_RESULT([yes])
+        else
+            AC_MSG_RESULT([no])
+            AC_MSG_FAILURE(
 [$QEMU -help: command failed.
 
 This could be a very old version of qemu, or qemu might not be
 working.
 ])
-    fi
+        fi
 
-    AC_MSG_CHECKING([that $QEMU -version works])
-    if $QEMU -version >&AS_MESSAGE_LOG_FD 2>&1; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE(
+        AC_MSG_CHECKING([that $QEMU -version works])
+        if $QEMU -version >&AS_MESSAGE_LOG_FD 2>&1; then
+            AC_MSG_RESULT([yes])
+        else
+            AC_MSG_RESULT([no])
+            AC_MSG_FAILURE(
 [$QEMU -version: command failed.
 
 This could be a very old version of qemu, or qemu might not be
 working.
 ])
-    fi
+        fi
 
-    AC_MSG_CHECKING([for $QEMU version >= 1])
-    if $QEMU -version | grep -sq 'version @<:@1-@:>@'; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([$QEMU version must be >= 1.0.])
-    fi
+        AC_MSG_CHECKING([for $QEMU version >= 1])
+        if $QEMU -version | grep -sq 'version @<:@1-@:>@'; then
+            AC_MSG_RESULT([yes])
+        else
+            AC_MSG_RESULT([no])
+            AC_MSG_FAILURE([$QEMU version must be >= 1.0.])
+        fi
 
-    AC_MSG_CHECKING([that $QEMU -display none -machine accel=kvm:tcg -device ? works])
-    if $QEMU -display none -machine accel=kvm:tcg -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([$QEMU -display none -machine accel=kvm:tcg -device ? doesn't work.])
-    fi
+        AC_MSG_CHECKING([that $QEMU -display none -machine accel=kvm:tcg -device ? works])
+        if $QEMU -display none -machine accel=kvm:tcg -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
+            AC_MSG_RESULT([yes])
+        else
+            AC_MSG_RESULT([no])
+            AC_MSG_FAILURE([$QEMU -display none -machine accel=kvm:tcg -device ? doesn't work.])
+        fi
 
-    AC_MSG_CHECKING([for virtio-serial support in $QEMU])
-    if $QEMU $QEMU_OPTIONS -display none -machine accel=kvm:tcg -device \? 2>&1 | grep -sq virtio-serial; then
-        AC_MSG_RESULT([yes])
-    else
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE(
+        AC_MSG_CHECKING([for virtio-serial support in $QEMU])
+        if $QEMU $QEMU_OPTIONS -display none -machine accel=kvm:tcg -device \? 2>&1 | grep -sq virtio-serial; then
+            AC_MSG_RESULT([yes])
+        else
+            AC_MSG_RESULT([no])
+            AC_MSG_FAILURE(
 [I did not find virtio-serial support in
 $QEMU.
 
@@ -831,8 +841,9 @@ If I am using the wrong qemu or you want to compile qemu from source
 and install it in another location, then you should configure with
 the --with-qemu option.
 ])
+        fi
     fi
-fi
+])
 
 dnl Enable packet dumps when in verbose mode.  This generates lots
 dnl of debug info, only useful for people debugging the RPC mechanism.

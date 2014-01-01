@@ -101,6 +101,7 @@ static int qemu_supports_device (guestfs_h *g, struct backend_direct_data *, con
 static int qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *);
 static char *qemu_escape_param (guestfs_h *g, const char *param);
 
+#ifdef QEMU_OPTIONS
 /* Like 'add_cmdline' but allowing a shell-quoted string of zero or
  * more options.  XXX The unquoting is not very clever.
  */
@@ -156,6 +157,7 @@ add_cmdline_shell_unquoted (guestfs_h *g, struct stringsbuf *sb,
     options = nextp;
   }
 }
+#endif /* defined QEMU_OPTIONS */
 
 /* On Debian, /dev/kvm is mode 0660 and group kvm, so users need to
  * add themselves to the kvm group otherwise things are going to be
@@ -587,8 +589,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Add the extra options for the qemu command line specified
    * at configure time.
    */
+#ifdef QEMU_OPTIONS
   if (STRNEQ (QEMU_OPTIONS, ""))
     add_cmdline_shell_unquoted (g, &cmdline, QEMU_OPTIONS);
+#endif
 
   /* Add any qemu parameters. */
   for (hp = g->hv_params; hp; hp = hp->next) {

@@ -622,7 +622,11 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
 static int
 is_custom_hv (guestfs_h *g)
 {
+#ifdef QEMU
   return g->hv && STRNEQ (g->hv, QEMU);
+#else
+  return 1;
+#endif
 }
 
 #if HAVE_LIBSELINUX
