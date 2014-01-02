@@ -469,6 +469,7 @@ struct guestfs_h
   unsigned int nr_supported_credentials;
   int supported_credentials[NR_CREDENTIAL_TYPES];
   const char *saved_libvirt_uri; /* Doesn't need to be freed. */
+  bool wrapper_warning_done;
   unsigned int nr_requested_credentials;
   virConnectCredentialPtr requested_credentials;
 #endif
