@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
@@ -147,6 +148,34 @@ libvirt_auth_callback (virConnectCredentialPtr cred,
   return 0;
 }
 
+/* Libvirt provides a default authentication handler.  However it is
+ * confusing to end-users
+ * (https://bugzilla.redhat.com/show_bug.cgi?id=1044014#c0).
+ *
+ * Unfortunately #1 the libvirt handler cannot easily be modified to
+ * make it non-confusing, but unfortunately #2 we have to actually
+ * call it because it handles all the policykit crap.
+ *
+ * Therefore we add a wrapper around it here.
+ */
+static int
+libvirt_auth_default_wrapper (virConnectCredentialPtr cred,
+                              unsigned int ncred,
+                              void *gv)
+{
+  guestfs_h *g = gv;
+
+  if (!g->wrapper_warning_done) {
+    printf (_("libvirt needs authentication to connect to libvirt URI %s\n"
+              "(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"),
+            g->saved_libvirt_uri ? g->saved_libvirt_uri : "NULL");
+    g->wrapper_warning_done = true;
+  }
+
+  return virConnectAuthPtrDefault->cb (cred, ncred,
+                                       virConnectAuthPtrDefault->cbdata);
+}
+
 static int
 exists_libvirt_auth_event (guestfs_h *g)
 {
@@ -165,31 +194,37 @@ guestfs___open_libvirt_connection (guestfs_h *g, const char *uri,
                                    unsigned int flags)
 {
   virConnectAuth authdata;
-  virConnectAuthPtr authdataptr;
   virConnectPtr conn;
+  const char *authtype;
+
+  g->saved_libvirt_uri = uri;
+  g->wrapper_warning_done = false;
 
   /* Did the caller register a GUESTFS_EVENT_LIBVIRT_AUTH event and
    * call guestfs_set_libvirt_supported_credentials?
    */
   if (g->nr_supported_credentials > 0 && exists_libvirt_auth_event (g)) {
+    authtype = "custom";
     memset (&authdata, 0, sizeof authdata);
     authdata.credtype = g->supported_credentials;
     authdata.ncredtype = g->nr_supported_credentials;
     authdata.cb = libvirt_auth_callback;
     authdata.cbdata = g;
-    authdataptr = &authdata;
-    g->saved_libvirt_uri = uri;
   }
-  else
-    authdataptr = virConnectAuthPtrDefault;
+  else {
+    /* Wrapper around libvirt's virConnectAuthPtrDefault, see comment
+     * above.
+     */
+    authtype = "default+wrapper";
+    authdata = *virConnectAuthPtrDefault;
+    authdata.cb = libvirt_auth_default_wrapper;
+    authdata.cbdata = g;
+  }
 
   debug (g, "opening libvirt handle: URI = %s, auth = %s, flags = %u",
-         uri ? uri : "NULL",
-         authdataptr == virConnectAuthPtrDefault
-         ? "virConnectAuthPtrDefault" : "<virConnectAuth *>",
-         flags);
+         uri ? uri : "NULL", authtype, flags);
 
-  conn = virConnectOpenAuth (uri, authdataptr, flags);
+  conn = virConnectOpenAuth (uri, &authdata, flags);
 
   if (conn)
     debug (g, "successfully opened libvirt handle: conn = %p", conn);
