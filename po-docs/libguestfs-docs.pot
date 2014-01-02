@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.24.3\n"
+"Project-Id-Version: libguestfs 1.24.4\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-12-18 19:51+0000\n"
+"POT-Creation-Date: 2014-01-02 20:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1173,7 +1173,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:522 ../daemon/guestfsd.pod:128 ../df/virt-df.pod:279 ../edit/virt-edit.pod:379 ../examples/guestfs-recipes.pod:675 ../fish/guestfish.pod:1592 ../fuse/guestmount.pod:426 ../guestfs-release-notes.pod:2651 ../rescue/virt-rescue.pod:433 ../src/guestfs.pod:4743 ../test-tool/libguestfs-test-tool.pod:195 ../tools/virt-list-partitions:289
-msgid "Copyright (C) 2009-2013 Red Hat Inc."
+msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -6974,7 +6974,7 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-examples.pod:77
-msgid "Copyright (C) 2010-2013 Red Hat Inc."
+msgid "Copyright (C) 2010-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -9299,7 +9299,7 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:1198
-msgid "Copyright (C) 2012-2013 Red Hat Inc."
+msgid "Copyright (C) 2012-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -33856,7 +33856,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/libguestfs-tools.conf.pod:70 ../sysprep/virt-sysprep.pod:531
-msgid "Copyright (C) 2011-2013 Red Hat Inc."
+msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock

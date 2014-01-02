@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2013-12-18 19:51+0000\n"
+"POT-Creation-Date: 2014-01-02 20:24+0000\n"
 "PO-Revision-Date: 2013-10-17 14:46+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -1837,7 +1837,9 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../fuse/guestmount.pod:426 ../guestfs-release-notes.pod:2651
 #: ../rescue/virt-rescue.pod:433 ../src/guestfs.pod:4743
 #: ../test-tool/libguestfs-test-tool.pod:195 ../tools/virt-list-partitions:289
-msgid "Copyright (C) 2009-2013 Red Hat Inc."
+#, fuzzy
+#| msgid "Copyright (C) 2009-2013 Red Hat Inc."
+msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr "© Red Hat Inc., 2009–2013"
 
 #. type: =end
@@ -8074,8 +8076,10 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-examples.pod:77
-msgid "Copyright (C) 2010-2013 Red Hat Inc."
-msgstr ""
+#, fuzzy
+#| msgid "Copyright (C) 2010-2012 Red Hat Inc."
+msgid "Copyright (C) 2010-2014 Red Hat Inc."
+msgstr "© Red Hat Inc., 2010–2012"
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:5
@@ -10526,7 +10530,9 @@ msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:1198
-msgid "Copyright (C) 2012-2013 Red Hat Inc."
+#, fuzzy
+#| msgid "Copyright (C) 2012-2013 Red Hat Inc."
+msgid "Copyright (C) 2012-2014 Red Hat Inc."
 msgstr "© Red Hat Inc., 2012–2013"
 
 #. type: textblock
@@ -36403,8 +36409,10 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/libguestfs-tools.conf.pod:70 ../sysprep/virt-sysprep.pod:531
-msgid "Copyright (C) 2011-2013 Red Hat Inc."
-msgstr ""
+#, fuzzy
+#| msgid "Copyright (C) 2011-2012 Red Hat Inc."
+msgid "Copyright (C) 2011-2014 Red Hat Inc."
+msgstr "© Red Hat Inc., 2011–2012"
 
 #. type: textblock
 #: ../fish/virt-copy-in.pod:5
