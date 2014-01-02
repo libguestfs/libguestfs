@@ -5,7 +5,7 @@
 # Translators:
 # Hajime Taira <htaira@redhat.com>, 2012
 # rjones <rjones@redhat.com>, 2011
-# Tomoyuki KATO <tomo@dream.daynight.jp>, 2012-2013
+# Tomoyuki KATO <tomo@dream.daynight.jp>, 2012-2014
 # 高一人参 @欠陥遺伝子 <www.carrotsoft@gmail.com>, 2011
 # 高一人参 @欠陥遺伝子 <www.carrotsoft@gmail.com>, 2011
 msgid ""
@@ -1903,7 +1903,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../guestfs-release-notes.pod:2651 ../rescue/virt-rescue.pod:433
 #: ../src/guestfs.pod:4748 ../test-tool/libguestfs-test-tool.pod:195
 #: ../tools/virt-list-partitions:289
-msgid "Copyright (C) 2009-2013 Red Hat Inc."
+msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -9076,8 +9076,8 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-examples.pod:77
-msgid "Copyright (C) 2010-2013 Red Hat Inc."
-msgstr "Copyright (C) 2010-2013 Red Hat Inc."
+msgid "Copyright (C) 2010-2014 Red Hat Inc."
+msgstr "Copyright (C) 2010-2014 Red Hat Inc."
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:5
@@ -11515,7 +11515,7 @@ msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:1198
-msgid "Copyright (C) 2012-2013 Red Hat Inc."
+msgid "Copyright (C) 2012-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -38486,7 +38486,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/libguestfs-tools.conf.pod:70 ../sysprep/virt-sysprep.pod:531
-msgid "Copyright (C) 2011-2013 Red Hat Inc."
+msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock

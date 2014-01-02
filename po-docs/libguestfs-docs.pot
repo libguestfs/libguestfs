@@ -1173,7 +1173,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:507 ../daemon/guestfsd.pod:128 ../df/virt-df.pod:279 ../diff/virt-diff.pod:269 ../edit/virt-edit.pod:379 ../examples/guestfs-recipes.pod:672 ../fish/guestfish.pod:1593 ../fuse/guestmount.pod:426 ../guestfs-release-notes.pod:2651 ../rescue/virt-rescue.pod:433 ../src/guestfs.pod:4748 ../test-tool/libguestfs-test-tool.pod:195 ../tools/virt-list-partitions:289
-msgid "Copyright (C) 2009-2013 Red Hat Inc."
+msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -7653,7 +7653,7 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-examples.pod:77
-msgid "Copyright (C) 2010-2013 Red Hat Inc."
+msgid "Copyright (C) 2010-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -9978,7 +9978,7 @@ msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-faq.pod:1198
-msgid "Copyright (C) 2012-2013 Red Hat Inc."
+msgid "Copyright (C) 2012-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -34525,7 +34525,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/libguestfs-tools.conf.pod:70 ../sysprep/virt-sysprep.pod:531
-msgid "Copyright (C) 2011-2013 Red Hat Inc."
+msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
