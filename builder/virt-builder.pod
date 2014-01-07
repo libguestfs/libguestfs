@@ -560,6 +560,9 @@ output is a file, then the size is the same as the template.  If the
 output is a device, partition, etc then the size of that device is
 used.
 
+To specify size in bytes, the number must be followed by the lowercase
+letter I<b>, eg: S<C<--size 10737418240b>>.
+
 =item B<--smp> N
 
 Enable N E<ge> 2 virtual CPUs for I<--run> scripts to use.
