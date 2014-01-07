@@ -261,9 +261,6 @@ let main () =
       format_tag @ compression_tag in
 
   (* Planner: Goal. *)
-  let output_size =
-    let { Index_parser.size = default_size } = entry in
-    match size with None -> default_size | Some size -> size in
   let output_filename, output_format =
     match output, format with
     | None, None -> sprintf "%s.img" arg, "raw"
@@ -271,17 +268,45 @@ let main () =
     | None, Some format -> sprintf "%s.%s" arg format, format
     | Some output, None -> output, "raw"
     | Some output, Some format -> output, format in
-  let output_is_block_dev = is_block_device output_filename in
-
-  if output_is_block_dev && size <> None then (
-    eprintf (f_"%s: you cannot use --size option with block devices\n") prog;
-    exit 1
-  );
 
   if is_char_device output_filename then (
     eprintf (f_"%s: cannot output to a character device or /dev/null\n") prog;
     exit 1
   );
+
+  let blockdev_getsize64 dev =
+    let cmd = sprintf "blockdev --getsize64 %s" (quote dev) in
+    let lines = external_command ~prog cmd in
+    assert (List.length lines >= 1);
+    Int64.of_string (List.hd lines)
+  in
+  let output_is_block_dev, blockdev_size =
+    let b = is_block_device output_filename in
+    let sz = if b then blockdev_getsize64 output_filename else 0L in
+    b, sz in
+
+  let output_size =
+    let { Index_parser.size = original_image_size } = entry in
+
+    let size =
+      match size with
+      | Some size -> size
+      (* --size parameter missing, output to file: use original image size *)
+      | None when not output_is_block_dev -> original_image_size
+      (* --size parameter missing, block device: use block device size *)
+      | None -> blockdev_size in
+
+    if size < original_image_size then (
+      eprintf (f_"%s: images cannot be shrunk, the output size is too small for this image.  Requested size = %s, minimum size = %s\n")
+        prog (human_size size) (human_size original_image_size);
+      exit 1
+    )
+    else if output_is_block_dev && output_format = "raw" && size > blockdev_size then (
+      eprintf (f_"%s: output size is too large for this block device.  Requested size = %s, output block device = %s, output block device size = %s\n")
+        prog (human_size size) output_filename (human_size blockdev_size);
+      exit 1
+    );
+    size in
 
   let goal =
     (* MUST *)
