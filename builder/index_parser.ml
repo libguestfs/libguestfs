@@ -97,10 +97,10 @@ let print_entry chan (name, { printable_name = printable_name;
 
 let fieldname_rex = Str.regexp "^\\([][a-z0-9_]+\\)=\\(.*\\)$"
 
-let get_index ~debug ~downloader ~sigchecker source =
+let get_index ~prog ~debug ~downloader ~sigchecker source =
   let rec corrupt_line line =
-    eprintf (f_"virt-builder: error parsing index near this line:\n\n%s\n")
-      line;
+    eprintf (f_"%s: error parsing index near this line:\n\n%s\n")
+      prog line;
     corrupt_file ()
   and corrupt_file () =
     eprintf (f_"\nThe index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.\n")
@@ -110,7 +110,7 @@ let get_index ~debug ~downloader ~sigchecker source =
 
   let rec get_index () =
     (* Get the index page. *)
-    let tmpfile, delete_tmpfile = Downloader.download downloader source in
+    let tmpfile, delete_tmpfile = Downloader.download ~prog downloader source in
 
     (* Check index file signature (also verifies it was fully
      * downloaded and not corrupted in transit).

@@ -43,19 +43,19 @@ let create ~debug ~curl ~cache = {
   cache = cache;
 }
 
-let rec download t ?template ?progress_bar uri =
+let rec download ~prog t ?template ?progress_bar uri =
   match template with
   | None ->                       (* no cache, simple download *)
     (* Create a temporary name. *)
     let tmpfile = Filename.temp_file "vbcache" ".txt" in
-    download_to t ?progress_bar uri tmpfile;
+    download_to ~prog t ?progress_bar uri tmpfile;
     (tmpfile, true)
 
   | Some (name, revision) ->
     match t.cache with
     | None ->
       (* Not using the cache at all? *)
-      download t ?progress_bar uri
+      download t ~prog ?progress_bar uri
 
     | Some cachedir ->
       let filename = cache_of_name cachedir name revision in
@@ -64,11 +64,11 @@ let rec download t ?template ?progress_bar uri =
        * If not, download it.
        *)
       if not (Sys.file_exists filename) then
-        download_to t ?progress_bar uri filename;
+        download_to ~prog t ?progress_bar uri filename;
 
       (filename, false)
 
-and download_to t ?(progress_bar = false) uri filename =
+and download_to ~prog t ?(progress_bar = false) uri filename =
   (* Get the status code first to ensure the file exists. *)
   let cmd = sprintf "%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
     t.curl
@@ -99,8 +99,8 @@ and download_to t ?(progress_bar = false) uri filename =
     | _ -> false
   in
   if bad_status_code status_code then (
-    eprintf (f_"virt-builder: failed to download %s: HTTP status code %s\n")
-      uri status_code;
+    eprintf (f_"%s: failed to download %s: HTTP status code %s\n")
+      prog uri status_code;
     exit 1
   );
 
@@ -120,7 +120,8 @@ and download_to t ?(progress_bar = false) uri filename =
   if t.debug then eprintf "%s\n%!" cmd;
   let r = Sys.command cmd in
   if r <> 0 then (
-    eprintf (f_"virt-builder: curl (download) command failed downloading '%s'\n") uri;
+    eprintf (f_"%s: curl (download) command failed downloading '%s'\n")
+      prog uri;
     exit 1
   );
 

@@ -33,4 +33,4 @@ and entry = {
   hidden : bool;
 }
 
-val get_index : debug:bool -> downloader:Downloader.t -> sigchecker:Sigchecker.t -> string -> index
+val get_index : prog:string -> debug:bool -> downloader:Downloader.t -> sigchecker:Sigchecker.t -> string -> index
