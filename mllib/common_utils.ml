@@ -332,10 +332,13 @@ let display_long_options () =
   ) !long_options;
   exit 0
 
-let uuidgen ~prog () =
-  let cmd = "uuidgen -r" in
+(* Run an external command, slurp up the output as a list of lines. *)
+let external_command ~prog cmd =
   let chan = Unix.open_process_in cmd in
-  let uuid = input_line chan in
+  let lines = ref [] in
+  (try while true do lines := input_line chan :: !lines done
+   with End_of_file -> ());
+  let lines = List.rev !lines in
   let stat = Unix.close_process_in chan in
   (match stat with
   | Unix.WEXITED 0 -> ()
@@ -346,6 +349,13 @@ let uuidgen ~prog () =
   | Unix.WSTOPPED i ->
     error ~prog (f_"external command '%s' stopped by signal %d") cmd i
   );
+  lines
+
+(* Run uuidgen to return a random UUID. *)
+let uuidgen ~prog () =
+  let lines = external_command ~prog "uuidgen -r" in
+  assert (List.length lines >= 1);
+  let uuid = List.hd lines in
   let len = String.length uuid in
   let uuid, len =
     if len > 0 && uuid.[len-1] = '\n' then
