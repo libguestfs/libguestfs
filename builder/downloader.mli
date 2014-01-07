@@ -32,7 +32,7 @@ type t
 val create : debug:bool -> curl:string -> cache:string option -> t
 (** Create the abstract type. *)
 
-val download : t -> ?template:(string*int) -> ?progress_bar:bool -> uri -> (filename * bool)
+val download : prog:string -> t -> ?template:(string*int) -> ?progress_bar:bool -> uri -> (filename * bool)
 (** Download the URI, returning the downloaded filename and a
     temporary file flag.  The temporary file flag is [true] iff
     the downloaded file is temporary and should be deleted by the

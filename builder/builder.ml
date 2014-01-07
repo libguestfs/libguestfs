@@ -138,7 +138,7 @@ let main () =
         fun (source, fingerprint) ->
           let sigchecker =
             Sigchecker.create ~debug ~gpg ~fingerprint ~check_signature in
-          Index_parser.get_index ~debug ~downloader ~sigchecker source
+          Index_parser.get_index ~prog ~debug ~downloader ~sigchecker source
       ) sources
     ) in
 
@@ -178,7 +178,7 @@ let main () =
             let template = name, revision in
             msg (f_"Downloading: %s") file_uri;
             let progress_bar = not quiet in
-            ignore (Downloader.download downloader ~template ~progress_bar
+            ignore (Downloader.download ~prog downloader ~template ~progress_bar
                       file_uri)
         ) index;
         exit 0
@@ -218,7 +218,7 @@ let main () =
       let template = arg, revision in
       msg (f_"Downloading: %s") file_uri;
       let progress_bar = not quiet in
-      Downloader.download downloader ~template ~progress_bar file_uri in
+      Downloader.download ~prog downloader ~template ~progress_bar file_uri in
     if delete_on_exit then unlink_on_exit template;
     template in
 
@@ -236,7 +236,7 @@ let main () =
         | { Index_parser.signature_uri = None } -> None
         | { Index_parser.signature_uri = Some signature_uri } ->
           let sigfile, delete_on_exit =
-            Downloader.download downloader signature_uri in
+            Downloader.download ~prog downloader signature_uri in
           if delete_on_exit then unlink_on_exit sigfile;
           Some sigfile in
 

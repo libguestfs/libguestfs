@@ -106,7 +106,7 @@ and field = string * string             (* key + value *)
 (* Calls yyparse in the C code. *)
 external parse_index : string -> sections = "virt_builder_parse_index"
 
-let get_index ~debug ~downloader ~sigchecker source =
+let get_index ~prog ~debug ~downloader ~sigchecker source =
   let corrupt_file () =
     eprintf (f_"\nThe index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.\n")
       source;
@@ -115,7 +115,7 @@ let get_index ~debug ~downloader ~sigchecker source =
 
   let rec get_index () =
     (* Get the index page. *)
-    let tmpfile, delete_tmpfile = Downloader.download downloader source in
+    let tmpfile, delete_tmpfile = Downloader.download ~prog downloader source in
 
     (* Check index file signature (also verifies it was fully
      * downloaded and not corrupted in transit).
