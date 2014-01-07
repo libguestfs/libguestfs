@@ -75,23 +75,12 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
     (if t.debug then "" else " -s -S")
     (quote uri) in
   if t.debug then eprintf "%s\n%!" cmd;
-  let chan = open_process_in cmd in
-  let status_code = input_line chan in
-  let stat = close_process_in chan in
-  (match stat with
-  | WEXITED 0 -> ()
-  | WEXITED i ->
-    eprintf (f_"virt-builder: curl (download) command failed downloading '%s'\n") uri;
-    exit 1
-  | WSIGNALED i ->
-    eprintf (f_"virt-builder: external command '%s' killed by signal %d\n")
-      cmd i;
-    exit 1
-  | WSTOPPED i ->
-    eprintf (f_"virt-builder: external command '%s' stopped by signal %d\n")
-      cmd i;
+  let lines = external_command ~prog cmd in
+  if List.length lines < 1 then (
+    eprintf (f_"%s: unexpected output from curl command, enable debug and look at previous messages\n") prog;
     exit 1
   );
+  let status_code = List.hd lines in
   let bad_status_code = function
     | "" -> true
     | s when s.[0] = '4' -> true (* 4xx *)
