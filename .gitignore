@@ -489,6 +489,8 @@ Makefile.in
 /tests/regressions/rhbz501893
 /tests/regressions/rhbz790721
 /tests/regressions/rhbz914931
+/tests/regressions/rhbz1044014
+/tests/regressions/rhbz1044014.out
 /tests/rsync/rsyncd.pid
 /tests/syslinux/extlinux-guest.img
 /tests/syslinux/syslinux-guest.img
