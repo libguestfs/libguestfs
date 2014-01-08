@@ -467,6 +467,7 @@ Makefile.in
 /tests/data/initrd-x86_64.img.gz
 /tests/data/test-grep.txt.gz
 /tests/data/test.iso
+/tests/events/test-libvirt-auth-callbacks
 /tests/guests/blank-*.img
 /tests/guests/debian.img
 /tests/guests/fedora.img
