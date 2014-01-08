@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2013 Red Hat Inc.
+# Copyright (C) 2013-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,10 +17,32 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-TESTS = \
-	test-console-debug.pl
+EXTRA_DIST = \
+	test-console-debug.pl \
+	libvirt-auth.xml
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-EXTRA_DIST = \
-	$(TESTS)
+check_PROGRAMS =
+
+TESTS = test-console-debug.pl
+
+if HAVE_LIBVIRT
+TESTS += test-libvirt-auth-callbacks
+check_PROGRAMS += test-libvirt-auth-callbacks
+
+test_libvirt_auth_callbacks_SOURCES = test-libvirt-auth-callbacks.c
+test_libvirt_auth_callbacks_CPPFLAGS = \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+test_libvirt_auth_callbacks_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
+	$(LIBVIRT_CFLAGS)
+test_libvirt_auth_callbacks_LDADD = \
+        $(top_builddir)/src/libutils.la \
+        $(top_builddir)/src/libguestfs.la \
+        $(LIBVIRT_LIBS) \
+        $(LIBXML2_LIBS) \
+        $(top_builddir)/gnulib/lib/libgnu.la
+endif
