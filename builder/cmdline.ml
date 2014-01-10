@@ -311,7 +311,7 @@ read the man page virt-builder(1).
   let format = match !format with "" -> None | s -> Some s in
   let gpg = !gpg in
   let hostname = !hostname in
-  let install = !install in
+  let install = List.rev !install in
   let list_long = !list_long in
   let memsize = !memsize in
   let mkdirs = List.rev !mkdirs in
