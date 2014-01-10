@@ -241,7 +241,6 @@ _listxattrs (const char *path,
              ssize_t (*listxattr) (const char *path, char *list, size_t size),
              ssize_t *size)
 {
-  int r;
   char *buf = NULL;
   ssize_t len;
 
