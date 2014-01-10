@@ -47,6 +47,8 @@ SOURCES = \
 	progress.ml \
 	random_seed.mli \
 	random_seed.ml \
+	timezone.mli \
+	timezone.ml \
 	tty-c.c \
 	tTY.mli \
 	tTY.ml \
@@ -77,6 +79,7 @@ OBJECTS = \
 	urandom.cmx \
 	random_seed.cmx \
 	hostname.cmx \
+	timezone.cmx \
 	firstboot.cmx \
 	tTY.cmx \
 	fsync.cmx \

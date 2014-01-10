@@ -17,6 +17,7 @@ virt-builder - Build virtual machine images quickly
     [--attach ISOFILE]
     [--root-password SELECTOR]
     [--hostname HOSTNAME]
+    [--timezone TIMEZONE]
     [--update]
     [--install PKG,[PKG...]]
     [--mkdir DIR]
@@ -583,6 +584,11 @@ Note that you should not point I<--source> to sources that you don't
 trust (unless the source is signed by someone you do trust).  See also
 the I<--no-network> option.
 
+=item B<--timezone> TIMEZONE
+
+Set the default timezone of the guest to C<TIMEZONE>.  Use a location
+string like C<Europe/London>
+
 =item B<--update>
 
 Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever
@@ -834,7 +840,7 @@ A new random seed is generated for the guest.
 
 =item *
 
-The hostname is set (I<--hostname>).
+The hostname and timezone are set (I<--hostname>, I<--timezone>).
 
 =item *
 

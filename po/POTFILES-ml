@@ -21,6 +21,7 @@ mllib/planner.ml
 mllib/progress.ml
 mllib/random_seed.ml
 mllib/tTY.ml
+mllib/timezone.ml
 mllib/uRI.ml
 mllib/urandom.ml
 resize/resize.ml
@@ -63,6 +64,7 @@ sysprep/sysprep_operation_smolt_uuid.ml
 sysprep/sysprep_operation_ssh_hostkeys.ml
 sysprep/sysprep_operation_ssh_userdir.ml
 sysprep/sysprep_operation_sssd_db_log.ml
+sysprep/sysprep_operation_timezone.ml
 sysprep/sysprep_operation_tmp_files.ml
 sysprep/sysprep_operation_udev_persistent_net.ml
 sysprep/sysprep_operation_user_account.ml

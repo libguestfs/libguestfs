@@ -67,6 +67,7 @@ operations = \
 	ssh_hostkeys \
 	ssh_userdir \
 	sssd_db_log \
+	timezone \
 	tmp_files \
 	udev_persistent_net \
 	user_account \
@@ -94,6 +95,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/password.cmx \
 	$(top_builddir)/mllib/random_seed.cmx \
 	$(top_builddir)/mllib/hostname.cmx \
+	$(top_builddir)/mllib/timezone.cmx \
 	$(top_builddir)/mllib/firstboot.cmx \
 	$(top_builddir)/mllib/config.cmx \
 	sysprep_operation.cmx \

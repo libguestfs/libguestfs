@@ -39,7 +39,8 @@ let main () =
     attach, cache, check_signature, curl, debug, delete, edit,
     firstboot, run, format, gpg, hostname, install, list_long, memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
-    scrub_logfile, size, smp, sources, sync, update, upload, writes =
+    scrub_logfile, size, smp, sources, sync, timezone, update, upload,
+    writes =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -617,6 +618,15 @@ let main () =
     msg (f_"Setting the hostname: %s") hostname;
     if not (Hostname.set_hostname g root hostname) then
       eprintf (f_"%s: warning: hostname could not be set for this type of guest\n%!") prog
+  );
+
+  (* Set the timezone. *)
+  (match timezone with
+  | None -> ()
+  | Some timezone ->
+    msg (f_"Setting the timezone: %s") timezone;
+    if not (Timezone.set_timezone ~prog g root timezone) then
+      eprintf (f_"%s: warning: timezone could not be set for this type of guest\n%!") prog
   );
 
   (* Root password.
