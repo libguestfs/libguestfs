@@ -37,7 +37,8 @@ let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
     attach, cache, check_signature, curl, debug, delete, edit,
-    firstboot, run, format, gpg, hostname, install, list_long, memsize, mkdirs,
+    firstboot, run, format, gpg, hostname, install, list_long, links,
+    memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
     scrub_logfile, size, smp, sources, sync, timezone, update, upload,
     writes =
@@ -836,6 +837,16 @@ exec >>%s 2>&1
       msg (f_"Deleting: %s") file;
       g#rm_rf file
   ) delete;
+
+  (* Symbolic links. *)
+  List.iter (
+    fun (target, links) ->
+      List.iter (
+        fun link ->
+          msg (f_"Linking: %s -> %s") link target;
+          g#ln_sf target link
+      ) links
+  ) links;
 
   (* Scrub files. *)
   List.iter (

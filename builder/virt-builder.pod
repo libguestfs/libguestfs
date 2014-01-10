@@ -23,6 +23,7 @@ virt-builder - Build virtual machine images quickly
     [--mkdir DIR]
     [--write FILE:CONTENT]
     [--upload FILE:DEST]
+    [--link TARGET:LINK[:LINK]]
     [--edit FILE:EXPR]
     [--delete FILE] [--scrub FILE]
     [--run SCRIPT] [--run-command 'CMD ARGS ...']
@@ -352,6 +353,13 @@ For an overview on the different ways to install packages, see
 L</INSTALLING PACKAGES>.
 
 See also I<--update>.
+
+=item B<--link TARGET:LINK>
+
+=item B<--link TARGET:LINK[:LINK...]>
+
+Create symbolic link(s) in the guest, starting at C<LINK> and
+pointing at C<TARGET>.
 
 =item B<-l>
 
@@ -913,6 +921,10 @@ Files are edited (I<--edit>).
 =item *
 
 Files are deleted (I<--delete>, I<--scrub>).
+
+=item *
+
+Symbolic links are created (I<--link).
 
 =item *
 

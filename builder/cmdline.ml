@@ -117,6 +117,17 @@ let parse_cmdline () =
     install := pkgs @ !install
   in
 
+  let links = ref [] in
+  let add_link arg =
+    let target, lns =
+      match string_nsplit ":" arg with
+      | [] | [_] ->
+        eprintf (f_"%s: invalid --link format, see the man page.\n") prog;
+        exit 1
+      | target :: lns -> target, lns in
+    links := (target, lns) :: !links
+  in
+
   let list_long = ref false in
 
   let memsize = ref None in
@@ -237,6 +248,7 @@ let parse_cmdline () =
     "--gpg",    Arg.Set_string gpg,         "gpg" ^ " " ^ s_"Set GPG binary/command";
     "--hostname", Arg.String set_hostname,  "hostname" ^ " " ^ s_"Set the hostname";
     "--install", Arg.String add_install,    "pkg,pkg" ^ " " ^ s_"Add package(s) to install";
+    "--link",    Arg.String add_link,       "target:link.." ^ " " ^ s_"Create symbolic links";
     "-l",        Arg.Unit list_mode,        " " ^ s_"List available templates";
     "--list",    Arg.Unit list_mode,        ditto;
     "--long",    Arg.Set list_long,         ditto;
@@ -313,6 +325,7 @@ read the man page virt-builder(1).
   let hostname = !hostname in
   let install = List.rev !install in
   let list_long = !list_long in
+  let links = List.rev !links in
   let memsize = !memsize in
   let mkdirs = List.rev !mkdirs in
   let network = !network in
@@ -425,7 +438,8 @@ read the man page virt-builder(1).
 
   mode, arg,
   attach, cache, check_signature, curl, debug, delete, edit,
-  firstboot, run, format, gpg, hostname, install, list_long, memsize, mkdirs,
+  firstboot, run, format, gpg, hostname, install, list_long, links,
+  memsize, mkdirs,
   network, output, password_crypto, quiet, root_password, scrub,
   scrub_logfile, size, smp, sources, sync, timezone, update, upload,
   writes
