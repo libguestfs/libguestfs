@@ -1253,6 +1253,18 @@ fixed in a future version.
 The qcow2 output format is not supported by UML.  You can only create
 raw-format guests.
 
+=head2 SELINUX
+
+Guests which use SELinux (such as Fedora and Red Hat Enterprise Linux)
+require that each file has a correct SELinux label.
+
+Since virt-builder does not know how to give new files a correct
+label, it touches C</.autorelabel> in the guest and relies on the
+guest to relabel itself at first boot.
+
+This usually means that these guests will reboot themselves once the
+first time you use them.  This is normal, and harmless.
+
 =head1 ENVIRONMENT VARIABLES
 
 For other environment variables which affect all libguestfs programs,
