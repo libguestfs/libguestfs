@@ -67,6 +67,7 @@ OBJECTS = \
 	$(top_builddir)/mllib/urandom.cmx \
 	$(top_builddir)/mllib/random_seed.cmx \
 	$(top_builddir)/mllib/hostname.cmx \
+	$(top_builddir)/mllib/timezone.cmx \
 	$(top_builddir)/mllib/firstboot.cmx \
 	$(top_builddir)/mllib/perl_edit.cmx \
 	$(top_builddir)/mllib/crypt-c.o \
