@@ -1233,8 +1233,8 @@ least one character of whitespace (even on blank lines):
  notes=This image was prepared using
   the following kickstart script:
                                 <-- one space at beginning of line
-  timezone Europe/London
   part /boot --fstype ext3
+  ...
 
 =item C<hidden=true>
 
