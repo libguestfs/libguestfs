@@ -54,6 +54,7 @@ optgroup_linuxxattrs_available (void)
 static guestfs_int_xattr_list *getxattrs (const char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t (*getxattr) (const char *path, const char *name, void *value, size_t size));
 static int _setxattr (const char *xattr, const char *val, int vallen, const char *path, int (*setxattr) (const char *path, const char *name, const void *value, size_t size, int flags));
 static int _removexattr (const char *xattr, const char *path, int (*removexattr) (const char *path, const char *name));
+static char *_listxattrs (const char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t *size);
 
 guestfs_int_xattr_list *
 do_getxattrs (const char *path)
@@ -111,27 +112,10 @@ getxattrs (const char *path,
   size_t i, j;
   guestfs_int_xattr_list *r = NULL;
 
-  CHROOT_IN;
-  len = listxattr (path, NULL, 0);
-  CHROOT_OUT;
-  if (len == -1) {
-    reply_with_perror ("listxattr: %s", path);
+  buf = _listxattrs (path, listxattr, &len);
+  if (buf == NULL)
+    /* _listxattrs issues reply_with_perror already. */
     goto error;
-  }
-
-  buf = malloc (len);
-  if (buf == NULL) {
-    reply_with_perror ("malloc");
-    goto error;
-  }
-
-  CHROOT_IN;
-  len = listxattr (path, buf, len);
-  CHROOT_OUT;
-  if (len == -1) {
-    reply_with_perror ("listxattr: %s", path);
-    goto error;
-  }
 
   r = calloc (1, sizeof (*r));
   if (r == NULL) {
@@ -250,6 +234,46 @@ _removexattr (const char *xattr, const char *path,
   }
 
   return 0;
+}
+
+static char *
+_listxattrs (const char *path,
+             ssize_t (*listxattr) (const char *path, char *list, size_t size),
+             ssize_t *size)
+{
+  int r;
+  char *buf = NULL;
+  ssize_t len;
+
+  CHROOT_IN;
+  len = listxattr (path, NULL, 0);
+  CHROOT_OUT;
+  if (len == -1) {
+    reply_with_perror ("listxattr: %s", path);
+    goto error;
+  }
+
+  buf = malloc (len);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    goto error;
+  }
+
+  CHROOT_IN;
+  len = listxattr (path, buf, len);
+  CHROOT_OUT;
+  if (len == -1) {
+    reply_with_perror ("listxattr: %s", path);
+    goto error;
+  }
+
+  if (size)
+    *size = len;
+  return buf;
+
+ error:
+  free (buf);
+  return NULL;
 }
 
 guestfs_int_xattr_list *
