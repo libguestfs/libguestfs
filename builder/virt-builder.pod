@@ -779,6 +779,46 @@ The above command will create an C<rjones> account with no password,
 and force the user to set a password when they first log in.  There
 are other ways to manage passwords, see L<useradd(8)> for details.
 
+=head2 KEYBOARD LAYOUT
+
+Because there are so many different ways to set the keyboard layout in
+Linux distributions, virt-builder does not yet attempt to have a
+simple command line option.  This section describes how to set the
+keyboard for some common Linux distributions.
+
+=head3 Keyboard layout with systemd
+
+For distros that use systemd C<localectl>, use a command like this:
+
+ virt-builder fedora-20 \
+   --firstboot-command 'localectl set-keymap uk'
+
+See L<localectl(1)> and
+L<https://www.happyassassin.net/2013/11/23/keyboard-layouts-in-fedora-20-and-previously/>
+for more details.
+
+=head3 Keyboard layout using C</etc/sysconfig/keyboard>
+
+For RHEL E<le> 6, Fedora E<le> 18 and similar, upload or modify the
+keyboard configuration file using the I<--upload>, I<--write> or
+I<--edit> options.  For example:
+
+ virt-builder centos-6 \
+   --edit '/etc/sysconfig/keyboard: s/^KEYTABLE=.*/KEYTABLE="uk"/'
+
+The format of this file can be found documented in many places online.
+
+=head3 Keyboard layout with Debian-derived distros
+
+For Debian-derived distros using C</etc/default/keyboard>, upload or
+modify the keyboard file using the I<--upload>, I<--write> or
+I<--edit> options.  For example:
+
+ virt-builder debian-7 \
+   --edit '/etc/default/keyboard: s/^XKBLAYOUT=.*/XKBLAYOUT="gb"/'
+
+See L<https://wiki.debian.org/Keyboard>.
+
 =head2 LOG FILE
 
 Scripts and package installation that runs at build time (I<--run>,
