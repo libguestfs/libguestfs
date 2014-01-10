@@ -1410,6 +1410,8 @@ The index is always encoded in UTF-8.
 
 =head2 CACHING
 
+=head3 Caching templates
+
 Since the templates are usually very large, downloaded templates are
 cached in the user's home directory.
 
@@ -1434,11 +1436,55 @@ To disable the template cache, use I<--no-cache>.
 Only templates are cached.  The index and detached digital signatures
 are not cached.
 
+=head3 Caching packages
+
 Virt-builder uses L<curl(1)> to download files and it also uses the
 current C<http_proxy> (etc) settings when installing packages
-(I<--install>, I<--update>).  You may therefore want to set those
-environment variables in order to maximize the amount of local caching
-that happens.  See L</ENVIRONMENT VARIABLES> and L<curl(1)>.
+(I<--install>, I<--update>).
+
+You may therefore want to set those environment variables in order to
+maximize the amount of local caching that happens.  See
+L</ENVIRONMENT VARIABLES> and L<curl(1)>.
+
+=head3 Local mirrors
+
+To increase both speed and reliability of installing packages, you can
+set up a local mirror of the target distribution, and point the guest
+package manager at that.
+
+Because of the order in which each phase of installation happens, you
+cannot use I<--write> (to point the package manager at a repo)
+followed by I<--install> (to install from that repo).  The I<--write>
+and I<--install> steps run in the opposite order, regardless of their
+order on the command line.  You have to do this using I<--run-command>
+instead of I<--install>.
+
+=head4 Using a local mirror with Fedora
+
+To install a Fedora guest using a local mirror:
+
+ virt-builder fedora 20 \
+   --edit '/etc/yum.repos.d/fedora.repo:
+       s{.*baseurl=.*}{baseurl=http://example.com/mirror/};
+       s{.*metalink=.*}{};
+   ' \
+   --edit '/etc/yum.repos.d/fedora-updates.repo:
+       s{.*baseurl=.*}{baseurl=http://example.com/mirror-updates/};
+       s{.*metalink=.*}{};
+   ' \
+   --run-command 'yum -y update' \
+   --run-command 'yum -y install pkg1 pkg2 ...'
+
+=head4 Using a local mirror with Debian
+
+Assuming that you are using C<apt-proxy> to mirror the repository, you
+should create a new C<sources.list> file to point to your proxy (see
+L<https://help.ubuntu.com/community/AptProxy>) and then do:
+
+ virt-builder fedora 20 \
+   --upload sources.list:/etc/apt/sources.list \
+   --run-command 'apt-get -y update' \
+   --run-command 'apt-get -y install pkg1 pkg2 ...'
 
 =head2 DIGITAL SIGNATURES
 
