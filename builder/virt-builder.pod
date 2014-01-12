@@ -831,31 +831,27 @@ See L<https://wiki.debian.org/Keyboard>.
 
 Most Linux distributions support multiple locale settings so that you
 can have guest messages printed in another language such as Russian.
+
 However there is no single setting which controls this, since extra
-packages may need to be installed to support console and X fonts and
+packages may need to be installed to support console and X fonts, and
 keyboard input methods.  The packages required, and their
 configuration is highly distro-specific, and it is outside the scope
 of virt-builder to do this.
-
-=begin comment
 
 This section contains examples for some common Linux distributions.
 
 =head3 Setting Japanese in Fedora 20
 
-XXX This does not work.
-
  virt-builder fedora-20 \
    --size 20G \
    --update \
-   --install @gnome-desktop --install @japanese-support \
+   --install @japanese-support \
+   --install @xfce \
+   --install xorg-x11-server-Xorg,xorg-x11-drivers,rsyslog \
+   --link /usr/lib/systemd/system/graphical.target:/etc/systemd/system/default.target \
    --firstboot-command 'localectl set-locale LANG=ja_JP.utf8' \
    --firstboot-command 'localectl set-keymap jp' \
-   --firstboot-command 'systemctl enable gdm.service' \
-   --firstboot-command 'systemctl start gdm.service' \
-   --link /usr/lib/systemd/system/graphical.target:/etc/systemd/system/default.target
-
-=end comment
+   --firstboot-command 'systemctl isolate graphical.target'
 
 =head2 LOG FILE
 
