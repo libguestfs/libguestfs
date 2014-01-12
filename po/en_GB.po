@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-01-02 16:55+0000\n"
+"POT-Creation-Date: 2014-01-12 18:04+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -69,19 +69,19 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../builder/builder.ml:910 ../builder/builder.ml:576
+#: ../builder/builder.ml:956 ../builder/builder.ml:603
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:148 ../builder/cmdline.ml:95
+#: ../builder/cmdline.ml:159 ../builder/cmdline.ml:95
 msgid "%s: %s: %s: file not found\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:150 ../builder/cmdline.ml:97
+#: ../builder/cmdline.ml:161 ../builder/cmdline.ml:97
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:666
+#: ../builder/builder.ml:702
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -97,15 +97,15 @@ msgstr ""
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
-#: ../builder/builder.ml:694
+#: ../builder/builder.ml:730
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
-#: ../builder/builder.ml:723
+#: ../builder/builder.ml:759
 msgid "%s: --update is not supported for this guest operating system\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:184
+#: ../builder/cmdline.ml:199
 msgid "%s: --upload: %s: file not found\n"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
-#: ../builder/cmdline.ml:276
+#: ../builder/cmdline.ml:293
 msgid ""
 "%s: build virtual machine images quickly\n"
 "\n"
@@ -188,21 +188,25 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:193
+#: ../builder/builder.ml:195
 msgid ""
 "%s: cannot find os-version '%s'.\n"
 "Use --list to list available guest types.\n"
 msgstr ""
 
-#: ../builder/builder.ml:282
+#: ../builder/builder.ml:275
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
-#: ../builder/builder.ml:99
+#: ../builder/downloader.ml:112
+msgid "%s: curl (download) command failed downloading '%s'\n"
+msgstr ""
+
+#: ../builder/builder.ml:101
 msgid "%s: curl is not installed (or does not work)\n"
 msgstr ""
 
-#: ../builder/builder.ml:128
+#: ../builder/builder.ml:130
 msgid ""
 "%s: disabling the cache\n"
 "%!"
@@ -216,31 +220,35 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:790
+#: ../builder/builder.ml:826
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../builder/builder.ml:944
+#: ../builder/builder.ml:990
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:947
+#: ../builder/builder.ml:993
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:74
+#: ../builder/builder.ml:76
 msgid "%s: error: could not find cache directory. Is $HOME set?\n"
 msgstr ""
 
-#: ../builder/builder.ml:172
+#: ../builder/builder.ml:174
 msgid "%s: error: no cache directory\n"
 msgstr ""
 
-#: ../builder/builder.ml:965
+#: ../builder/builder.ml:1011
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:953
+#: ../builder/downloader.ml:91
+msgid "%s: failed to download %s: HTTP status code %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:999
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -248,21 +256,27 @@ msgstr ""
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: ../builder/builder.ml:89
+#: ../builder/builder.ml:91
 msgid ""
 "%s: gpg is not installed (or does not work)\n"
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:962
+#: ../builder/builder.ml:302
+msgid ""
+"%s: images cannot be shrunk, the output size is too small for this image.  "
+"Requested size = %s, minimum size = %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:1008
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../builder/builder.ml:959
+#: ../builder/builder.ml:1005
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#: ../builder/builder.ml:956
+#: ../builder/builder.ml:1002
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -270,11 +284,15 @@ msgstr ""
 msgid "%s: invalid --edit format, see the man page.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:179
+#: ../builder/cmdline.ml:125
+msgid "%s: invalid --link format, see the man page.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:194
 msgid "%s: invalid --upload format, see the man page.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:196
+#: ../builder/cmdline.ml:211
 msgid "%s: invalid --write format, see the man page.\n"
 msgstr ""
 
@@ -282,11 +300,11 @@ msgstr ""
 msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
-#: ../builder/builder.ml:950
+#: ../builder/builder.ml:996
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:636
+#: ../builder/builder.ml:672
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
@@ -305,7 +323,7 @@ msgstr ""
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: ../builder/builder.ml:580
+#: ../builder/builder.ml:607
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -315,11 +333,17 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
-#: ../builder/builder.ml:400
+#: ../builder/builder.ml:427
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
 "Please file a bug, giving the command line arguments you used.\n"
+msgstr ""
+
+#: ../builder/builder.ml:307
+msgid ""
+"%s: output size is too large for this block device.  Requested size = %s, "
+"output block device = %s, output block device size = %s\n"
 msgstr ""
 
 #: ../resize/resize.ml:562
@@ -375,17 +399,17 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:698
+#: ../builder/builder.ml:734
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
 
-#: ../builder/builder.ml:727
+#: ../builder/builder.ml:763
 msgid ""
 "%s: sorry, don't know how to use --update with the '%s' package manager\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:410
+#: ../builder/cmdline.ml:429
 msgid "%s: source and fingerprint lists are not the same length\n"
 msgstr ""
 
@@ -411,75 +435,87 @@ msgstr ""
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
+#: ../builder/downloader.ml:80
+msgid ""
+"%s: unexpected output from curl command, enable debug and look at previous "
+"messages\n"
+msgstr ""
+
 #: ../resize/resize.ml:302
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../builder/cmdline.ml:364
+#: ../builder/cmdline.ml:383
 msgid ""
 "%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
 "need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:371
+#: ../builder/cmdline.ml:390
 msgid ""
 "%s: virt-builder --get-kernel image\n"
 "Missing 'image' (disk image file) argument.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:374
+#: ../builder/cmdline.ml:393
 msgid "%s: virt-builder --get-kernel: too many parameters\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:345
+#: ../builder/cmdline.ml:364
 msgid "%s: virt-builder --list does not need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:352
+#: ../builder/cmdline.ml:371
 msgid ""
 "%s: virt-builder --notes os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:335
+#: ../builder/cmdline.ml:354
 msgid ""
 "%s: virt-builder os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:355 ../builder/cmdline.ml:338
+#: ../builder/cmdline.ml:374 ../builder/cmdline.ml:357
 msgid "%s: virt-builder: too many parameters, expecting 'os-version'\n"
 msgstr ""
 
-#: ../builder/builder.ml:106
+#: ../builder/builder.ml:108
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr ""
 
-#: ../builder/builder.ml:126
+#: ../builder/builder.ml:128
 msgid "%s: warning: cache %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:93
+#: ../builder/builder.ml:95
 msgid "%s: warning: gpg program is not available\n"
 msgstr ""
 
-#: ../builder/builder.ml:594
+#: ../builder/builder.ml:621
 msgid ""
 "%s: warning: hostname could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:586
+#: ../builder/builder.ml:613
 msgid ""
 "%s: warning: random seed could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:615
+#: ../builder/builder.ml:651
 msgid ""
 "%s: warning: root password could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../builder/builder.ml:630
+msgid ""
+"%s: warning: timezone could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
@@ -489,10 +525,6 @@ msgstr ""
 
 #: ../sysprep/main.ml:77
 msgid "%s: you cannot pass an empty argument to --enable\n"
-msgstr ""
-
-#: ../builder/builder.ml:277
-msgid "%s: you cannot use --size option with block devices\n"
 msgstr ""
 
 #: ../sysprep/main.ml:154
@@ -533,11 +565,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../builder/cmdline.ml:235
+#: ../builder/cmdline.ml:250
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../builder/cmdline.ml:229
+#: ../builder/cmdline.ml:244
 msgid "Add package(s) to install at firstboot"
 msgstr ""
 
@@ -553,7 +585,7 @@ msgstr ""
 msgid "Align first partition (default: auto)"
 msgstr ""
 
-#: ../builder/cmdline.ml:206
+#: ../builder/cmdline.ml:221
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
@@ -565,6 +597,10 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
+#: ../sysprep/sysprep_operation_timezone.ml:39
+msgid "Change the default timezone of the guest"
+msgstr ""
+
 #: ../sysprep/sysprep_operation_hostname.ml:36
 msgid "Change the hostname of the guest"
 msgstr ""
@@ -574,7 +610,11 @@ msgid ""
 "Change the hostname.  If not given, defaults to C<localhost.localdomain>."
 msgstr ""
 
-#: ../builder/cmdline.ml:214
+#: ../sysprep/sysprep_operation_timezone.ml:58
+msgid "Change the timezone.  Use a location string such as C<Europe/London>"
+msgstr ""
+
+#: ../builder/cmdline.ml:229
 msgid "Check digital signatures"
 msgstr ""
 
@@ -592,7 +632,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../builder/builder.ml:530
+#: ../builder/builder.ml:557
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -602,7 +642,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:458
+#: ../builder/builder.ml:485
 msgid "Copying"
 msgstr ""
 
@@ -612,7 +652,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:243
+#: ../builder/cmdline.ml:259
 msgid "Create directory"
 msgstr ""
 
@@ -622,8 +662,16 @@ msgid ""
 "%!"
 msgstr ""
 
+#: ../builder/cmdline.ml:251
+msgid "Create symbolic links"
+msgstr ""
+
 #: ../sysprep/sysprep_operation_hostname.ml:45
 msgid "Currently this can only set the hostname on Linux guests."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_timezone.ml:51
+msgid "Currently this can only set the timezone on Linux guests."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_user_account.ml:69
@@ -671,7 +719,7 @@ msgstr ""
 msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
 msgstr ""
 
-#: ../builder/cmdline.ml:220
+#: ../builder/cmdline.ml:235
 msgid "Delete a file or dir"
 msgstr ""
 
@@ -695,37 +743,37 @@ msgid ""
 " virt-sysprep --delete '/var/log/*.log'."
 msgstr ""
 
-#: ../builder/cmdline.ml:222
+#: ../builder/cmdline.ml:237
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:801
+#: ../builder/builder.ml:837
 msgid "Deleting: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:245
+#: ../builder/cmdline.ml:261
 msgid "Disable appliance network"
 msgstr ""
 
-#: ../builder/cmdline.ml:217
+#: ../builder/cmdline.ml:232
 msgid "Disable digital signatures"
 msgstr ""
 
-#: ../builder/cmdline.ml:210
+#: ../builder/cmdline.ml:225
 msgid "Disable template cache"
 msgstr ""
 
-#: ../builder/cmdline.ml:246
+#: ../builder/cmdline.ml:262
 msgid "Display installation notes"
 msgstr ""
 
 #. ../resize/resize.ml:113
-#. ../builder/cmdline.ml:267
+#. ../builder/cmdline.ml:284
 #: ../sysprep/main.ml:124 ../sysprep/main.ml:123 ../sparsify/sparsify.ml:86
 msgid "Display version and exit"
 msgstr ""
 
-#: ../builder/cmdline.ml:262
+#: ../builder/cmdline.ml:278
 msgid "Do not fsync output file on exit"
 msgstr ""
 
@@ -753,7 +801,7 @@ msgstr ""
 msgid "Don't print the summary"
 msgstr ""
 
-#: ../builder/cmdline.ml:212
+#: ../builder/cmdline.ml:227
 msgid "Download all templates to the cache"
 msgstr ""
 
@@ -761,7 +809,7 @@ msgstr ""
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:219 ../builder/builder.ml:179
+#: ../builder/builder.ml:221 ../builder/builder.ml:181
 msgid "Downloading: %s"
 msgstr ""
 
@@ -773,21 +821,21 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../builder/cmdline.ml:223
+#: ../builder/cmdline.ml:238
 msgid "Edit file with Perl expr"
 msgstr ""
 
-#: ../builder/builder.ml:787
+#: ../builder/builder.ml:823
 msgid "Editing: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:244
+#: ../builder/cmdline.ml:260
 msgid "Enable appliance network (default)"
 msgstr ""
 
 #. ../resize/resize.ml:111
 #. ../resize/resize.ml:85
-#. ../builder/cmdline.ml:265
+#. ../builder/cmdline.ml:282
 #: ../sysprep/main.ml:122 ../sysprep/main.ml:121 ../sparsify/sparsify.ml:84
 msgid "Enable debugging messages"
 msgstr ""
@@ -862,7 +910,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:225
+#: ../builder/cmdline.ml:240
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
@@ -870,7 +918,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:899
+#: ../builder/builder.ml:945
 msgid "Finishing off"
 msgstr ""
 
@@ -915,7 +963,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:889
+#: ../builder/builder.ml:935
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -927,7 +975,7 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr ""
 
-#: ../builder/cmdline.ml:232
+#: ../builder/cmdline.ml:247
 msgid "Get kernel from image"
 msgstr ""
 
@@ -945,27 +993,31 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:824
+#: ../builder/builder.ml:870
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:827
+#: ../builder/builder.ml:873
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:820
+#: ../builder/builder.ml:866
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:742
+#: ../builder/builder.ml:778
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:236
+#: ../builder/builder.ml:846
+msgid "Linking: %s -> %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:252
 msgid "List available templates"
 msgstr ""
 
-#. ../builder/cmdline.ml:240
+#. ../builder/cmdline.ml:256
 #: ../sysprep/main.ml:115 ../sparsify/sparsify.ml:79 ../resize/resize.ml:94
 msgid "List long options"
 msgstr ""
@@ -978,7 +1030,7 @@ msgstr ""
 msgid "Make output machine readable"
 msgstr ""
 
-#: ../builder/builder.ml:751
+#: ../builder/builder.ml:787
 msgid "Making directory: %s"
 msgstr ""
 
@@ -998,7 +1050,11 @@ msgstr ""
 msgid "New hostname"
 msgstr ""
 
-#: ../builder/cmdline.ml:253
+#: ../sysprep/sysprep_operation_timezone.ml:56
+msgid "New timezone"
+msgstr ""
+
+#: ../builder/cmdline.ml:269
 msgid "No progress messages"
 msgstr ""
 
@@ -1039,23 +1095,23 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:543
+#: ../builder/builder.ml:570
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../builder/cmdline.ml:230
+#: ../builder/cmdline.ml:245
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:886
+#: ../builder/builder.ml:932
 msgid "Output format: %s"
 msgstr ""
 
-#: ../builder/builder.ml:885
+#: ../builder/builder.ml:931
 msgid "Output size: %s"
 msgstr ""
 
-#: ../builder/builder.ml:884
+#: ../builder/builder.ml:930
 msgid "Output: %s"
 msgstr ""
 
@@ -1063,11 +1119,11 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr ""
 
-#: ../builder/builder.ml:395
+#: ../builder/builder.ml:422
 msgid "Planning how to build this image"
 msgstr ""
 
-#: ../builder/cmdline.ml:252
+#: ../builder/cmdline.ml:268
 msgid "Print info about template cache"
 msgstr ""
 
@@ -1262,11 +1318,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:485
+#: ../builder/builder.ml:512
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:517
+#: ../builder/builder.ml:544
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -1274,19 +1330,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../builder/cmdline.ml:227
+#: ../builder/cmdline.ml:242
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../builder/cmdline.ml:257
+#: ../builder/cmdline.ml:273
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../builder/cmdline.ml:226
+#: ../builder/cmdline.ml:241
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../builder/cmdline.ml:256
+#: ../builder/cmdline.ml:272
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1306,7 +1362,7 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
-#: ../builder/builder.ml:841 ../builder/builder.ml:837
+#: ../builder/builder.ml:887 ../builder/builder.ml:883
 msgid "Running: %s"
 msgstr ""
 
@@ -1314,23 +1370,23 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../builder/cmdline.ml:258
+#: ../builder/cmdline.ml:274
 msgid "Scrub a file"
 msgstr ""
 
-#: ../builder/cmdline.ml:239
+#: ../builder/cmdline.ml:255
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../builder/builder.ml:852
+#: ../builder/builder.ml:898
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../builder/builder.ml:808
+#: ../builder/builder.ml:854
 msgid "Scrubbing: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:233
+#: ../builder/cmdline.ml:248
 msgid "Set GPG binary/command"
 msgstr ""
 
@@ -1406,11 +1462,11 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../builder/cmdline.ml:208
+#: ../builder/cmdline.ml:223
 msgid "Set attach disk format"
 msgstr ""
 
-#: ../builder/cmdline.ml:219
+#: ../builder/cmdline.ml:234
 msgid "Set curl binary/command"
 msgstr ""
 
@@ -1426,7 +1482,7 @@ msgstr ""
 msgid "Set libvirt guest name"
 msgstr ""
 
-#: ../builder/cmdline.ml:241
+#: ../builder/cmdline.ml:257
 msgid "Set memory size"
 msgstr ""
 
@@ -1434,15 +1490,15 @@ msgstr ""
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
-#: ../builder/cmdline.ml:260
+#: ../builder/cmdline.ml:276
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../builder/cmdline.ml:259
+#: ../builder/cmdline.ml:275
 msgid "Set output disk size"
 msgstr ""
 
-#: ../builder/cmdline.ml:247
+#: ../builder/cmdline.ml:263
 msgid "Set output filename"
 msgstr ""
 
@@ -1450,7 +1506,7 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../builder/cmdline.ml:250
+#: ../builder/cmdline.ml:266
 msgid "Set password crypto"
 msgstr ""
 
@@ -1477,19 +1533,23 @@ msgstr ""
 msgid "Set root or user password"
 msgstr ""
 
-#: ../builder/cmdline.ml:255
+#: ../builder/cmdline.ml:271
 msgid "Set root password"
 msgstr ""
 
-#: ../builder/cmdline.ml:261
+#: ../builder/cmdline.ml:277
 msgid "Set source URL"
 msgstr ""
 
-#: ../builder/cmdline.ml:209
+#: ../builder/cmdline.ml:224
 msgid "Set template cache dir"
 msgstr ""
 
-#: ../builder/cmdline.ml:234
+#: ../builder/cmdline.ml:279
+msgid "Set the default timezone"
+msgstr ""
+
+#: ../builder/cmdline.ml:249
 msgid "Set the hostname"
 msgstr ""
 
@@ -1514,7 +1574,7 @@ msgid ""
 "of C<SELECTOR>."
 msgstr ""
 
-#: ../builder/builder.ml:584
+#: ../builder/builder.ml:611
 msgid "Setting a random seed"
 msgstr ""
 
@@ -1524,16 +1584,20 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:610
+#: ../builder/builder.ml:646
 msgid "Setting random root password [did you mean to use --root-password?]"
 msgstr ""
 
-#: ../builder/builder.ml:607
+#: ../builder/builder.ml:643
 msgid "Setting root password"
 msgstr ""
 
-#: ../builder/builder.ml:592
+#: ../builder/builder.ml:619
 msgid "Setting the hostname: %s"
+msgstr ""
+
+#: ../builder/builder.ml:628
+msgid "Setting the timezone: %s"
 msgstr ""
 
 #: ../resize/resize.ml:871
@@ -1646,7 +1710,7 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../builder/builder.ml:204
+#: ../builder/builder.ml:206
 msgid "There are no notes for %s\n"
 msgstr ""
 
@@ -1665,6 +1729,18 @@ msgid ""
 "This file records who is currently logged in on a machine.  In modern\n"
 "Linux distros it is stored in a ramdisk and hence not part of the\n"
 "virtual machine's disk, but it was stored on disk in older distros."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_timezone.ml:41
+msgid ""
+"This operation changes the default timezone of the guest to the value\n"
+"given in the I<--timezone> parameter.\n"
+"\n"
+"If the I<--timezone> parameter is not given, then the timezone is not\n"
+"changed.\n"
+"\n"
+"This parameter affects the default timezone that users see when they log\n"
+"in, but they can still change their timezone per-user account."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_hostname.ml:38
@@ -1689,7 +1765,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:887
+#: ../builder/builder.ml:933
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -1697,27 +1773,27 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../builder/builder.ml:473
+#: ../builder/builder.ml:500
 msgid "Uncompressing"
 msgstr ""
 
-#: ../builder/cmdline.ml:263
+#: ../builder/cmdline.ml:280
 msgid "Update core packages"
 msgstr ""
 
-#: ../builder/builder.ml:734
+#: ../builder/builder.ml:770
 msgid "Updating core packages"
 msgstr ""
 
-#: ../builder/cmdline.ml:264
+#: ../builder/cmdline.ml:281
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:765
+#: ../builder/builder.ml:801
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:269
+#: ../builder/cmdline.ml:286
 msgid "Write file"
 msgstr ""
 
@@ -1729,7 +1805,7 @@ msgid ""
 "See L</RANDOM SEED> below."
 msgstr ""
 
-#: ../builder/builder.ml:758
+#: ../builder/builder.ml:794
 msgid "Writing: %s"
 msgstr ""
 
@@ -1769,11 +1845,11 @@ msgstr ""
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
-#: ../builder/builder.ml:155
+#: ../builder/builder.ml:157
 msgid "cache directory: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:162
+#: ../builder/builder.ml:164
 msgid "cached"
 msgstr ""
 
@@ -1797,15 +1873,15 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../mllib/common_utils.ml:343
+#: ../mllib/common_utils.ml:346
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:345
+#: ../mllib/common_utils.ml:348
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:347
+#: ../mllib/common_utils.ml:350
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -1859,7 +1935,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../builder/builder.ml:165
+#: ../builder/builder.ml:167
 msgid "no cache directory\n"
 msgstr ""
 
@@ -1970,6 +2046,10 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
+#: ../sysprep/sysprep_operation_timezone.ml:56
+msgid "timezone"
+msgstr ""
+
 #: ../resize/resize.ml:167
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
@@ -2000,10 +2080,6 @@ msgstr ""
 
 #: ../builder/index_parser.ml:257
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
-msgstr ""
-
-#: ../builder/downloader.ml:123 ../builder/downloader.ml:84
-msgid "virt-builder: curl (download) command failed downloading '%s'\n"
 msgstr ""
 
 #: ../builder/sigchecker.ml:168
@@ -2057,18 +2133,6 @@ msgid ""
 "This probably means the index file is missing a sig=... line.\n"
 "You can use --no-check-signature to ignore this error, but that means\n"
 "you are susceptible to man-in-the-middle attacks.\n"
-msgstr ""
-
-#: ../builder/downloader.ml:87
-msgid "virt-builder: external command '%s' killed by signal %d\n"
-msgstr ""
-
-#: ../builder/downloader.ml:91
-msgid "virt-builder: external command '%s' stopped by signal %d\n"
-msgstr ""
-
-#: ../builder/downloader.ml:102
-msgid "virt-builder: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
 #: ../builder/get_kernel.ml:44
@@ -6721,28 +6785,35 @@ msgstr ""
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/libvirt-auth.c:98
+#: src/libvirt-auth.c:99
 #, c-format
 msgid "unknown credential type '%s'"
 msgstr ""
 
-#: src/libvirt-auth.c:103
+#: src/libvirt-auth.c:104
 msgid "list of supported credentials is too long"
 msgstr ""
 
-#: src/libvirt-auth.c:210
+#: src/libvirt-auth.c:169
+#, c-format
+msgid ""
+"libvirt needs authentication to connect to libvirt URI %s\n"
+"(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
+msgstr ""
+
+#: src/libvirt-auth.c:245
 #, c-format
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
 msgstr ""
 
-#: src/libvirt-auth.c:242 src/libvirt-auth.c:262 src/libvirt-auth.c:282
-#: src/libvirt-auth.c:303
+#: src/libvirt-auth.c:277 src/libvirt-auth.c:297 src/libvirt-auth.c:317
+#: src/libvirt-auth.c:338
 msgid "credential index out of range"
 msgstr ""
 
-#: src/libvirt-auth.c:323
+#: src/libvirt-auth.c:358
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
