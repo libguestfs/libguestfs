@@ -27,6 +27,7 @@ EXTRA_DIST = \
 	index.asc \
 	centos.sh \
 	centos-*.xz.sig \
+	cirros-*.xz.sig \
 	debian.preseed \
 	debian.sh \
 	debian-*.xz.sig \
