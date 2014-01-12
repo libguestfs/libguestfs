@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # libguestfs
-# Copyright (C) 2010-2012 Red Hat Inc.
+# Copyright (C) 2010-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -201,6 +201,10 @@ $g->mkdir ('/bin');
 $g->mkdir ('/etc');
 $g->mkdir ('/etc/sysconfig');
 $g->mkdir ('/usr');
+$g->mkdir ('/usr/share');
+$g->mkdir ('/usr/share/zoneinfo');
+$g->mkdir ('/usr/share/zoneinfo/Europe');
+$g->touch ('/usr/share/zoneinfo/Europe/London');
 $g->mkdir_p ('/var/lib/rpm');
 $g->mkdir_p ('/var/log/journal');
 
