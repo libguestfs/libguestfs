@@ -250,6 +250,15 @@ See also: I<--upload>, I<--scrub>.
 
 Delete the template cache.  See L</CACHING>.
 
+=item B<--no-delete-on-failure>
+
+Don't delete the output file on failure to build.  You can use this to
+debug failures to run scripts.  See L</DEBUGGING BUILDS> for ways to
+debug images.
+
+The default is to delete the output file if virt-builder fails (or,
+for example, some script that it runs fails).
+
 =item B<--edit> FILE:EXPR
 
 Edit C<FILE> using the Perl expression C<EXPR>.
@@ -1048,8 +1057,12 @@ chosen.  It will be C<raw> unless the I<--format> option was used.
 
 =head2 DEBUGGING BUILDS
 
-If virt-builder fails with an error, then enable debugging (I<-v>) and
-report a bug (see L</BUGS> below).
+If virt-builder itself fails, then enable debugging (I<-v>) and report
+a bug (see L</BUGS> below).
+
+If virt-builder fails because some script or package it is installing
+fails, try using I<--no-delete-on-failure> to preserve the output
+file, and continue reading this section.
 
 If virt-builder is successful but the image doesn't work, here are
 some things to try:

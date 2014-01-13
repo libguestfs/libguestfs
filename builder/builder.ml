@@ -36,8 +36,8 @@ let prog = Filename.basename Sys.executable_name
 let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
-    attach, cache, check_signature, curl, debug, delete, edit,
-    firstboot, run, format, gpg, hostname, install, list_long, links,
+    attach, cache, check_signature, curl, debug, delete, delete_on_failure,
+    edit, firstboot, run, format, gpg, hostname, install, list_long, links,
     memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
     scrub_logfile, size, smp, sources, sync, timezone, update, upload,
@@ -467,9 +467,10 @@ let main () =
   );
 
   (* Delete the output file before we finish.  However don't delete it
-   * if it's block device.
+   * if it's block device, or if --no-delete-on-failure is set.
    *)
-  let delete_output_file = ref (not output_is_block_dev) in
+  let delete_output_file =
+    ref (delete_on_failure && not output_is_block_dev) in
   let delete_file () =
     if !delete_output_file then
       try unlink output_filename with _ -> ()
