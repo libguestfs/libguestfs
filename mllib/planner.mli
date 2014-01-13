@@ -48,7 +48,8 @@ type ('name, 'value) tags = ('name, 'value) tag list
 type ('name, 'value, 'task) plan =
   (('name, 'value) tags * 'task * ('name, 'value) tags) list
 
-type ('name, 'value, 'task) transitions_function = ('name, 'value) tags -> ('task * int * ('name, 'value) tags) list
+type ('name, 'value, 'task) transitions_function =
+  ('name, 'value) tags -> ('task * int * ('name, 'value) tags) list
 
 val plan : ?max_depth:int -> ('name, 'value, 'task) transitions_function -> ('name, 'value) tags -> ('name, 'value) tags * ('name, 'value) tags -> ('name, 'value, 'task) plan
 (** Make a plan.
