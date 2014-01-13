@@ -128,6 +128,27 @@ val add_to_set : string -> set -> set
     Note that this will raise [Not_found] if [name] is not
     a valid operation name. *)
 
+val add_defaults_to_set : set -> set
+(** [add_defaults_to_set set] adds to [set] all the operations enabled
+    by default. *)
+
+val add_all_to_set : set -> set
+(** [add_all_to_set set] adds to [set] all the available operations. *)
+
+val remove_from_set : string -> set -> set
+(** [remove_from_set name set] remove the operation named [name] from [set].
+
+    Note that this will raise [Not_found] if [name] is not
+    a valid operation name. *)
+
+val remove_defaults_from_set : set -> set
+(** [remove_defaults_from_set set] removes from [set] all the operations
+    enabled by default. *)
+
+val remove_all_from_set : set -> set
+(** [remove_all_from_set set] removes from [set] all the available
+    operations. *)
+
 val perform_operations_on_filesystems : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> flag list
 (** Perform all operations, or the subset listed in the [operations] set. *)
 

@@ -68,9 +68,33 @@ type set = OperationSet.t
 
 let empty_set = OperationSet.empty
 
+let opset_of_oplist li =
+  List.fold_left (
+    fun acc elem ->
+      OperationSet.add elem acc
+  ) empty_set li
+
 let add_to_set name set =
   let op = List.find (fun { name = n } -> name = n) !all_operations in
   OperationSet.add op set
+
+let add_defaults_to_set set =
+  OperationSet.union set (opset_of_oplist !enabled_by_default_operations)
+
+let add_all_to_set set =
+  opset_of_oplist !all_operations
+
+let remove_from_set name set =
+  let name_filter = fun { name = n } -> name = n in
+  if List.exists name_filter !all_operations <> true then
+    raise Not_found;
+  OperationSet.diff set (OperationSet.filter name_filter set)
+
+let remove_defaults_from_set set =
+  OperationSet.diff set (opset_of_oplist !enabled_by_default_operations)
+
+let remove_all_from_set set =
+  empty_set
 
 let register_operation op =
   all_operations := op :: !all_operations;
