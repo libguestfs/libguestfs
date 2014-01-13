@@ -13,7 +13,8 @@ virt-builder - Build virtual machine images quickly
 
 =head1 SYNOPSIS
 
- virt-builder [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]
+ virt-builder os-version
+    [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]
     [--attach ISOFILE]
     [--root-password SELECTOR]
     [--hostname HOSTNAME]
@@ -24,7 +25,6 @@ virt-builder - Build virtual machine images quickly
     [--run SCRIPT] [--run-command 'CMD ARGS ...']
     [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
     [--firstboot-install PKG,[PKG...]]
-    os-version
 
  virt-builder -l|--list [--long]
 
