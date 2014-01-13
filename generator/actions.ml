@@ -11647,6 +11647,44 @@ This function is used internally when setting up the appliance." };
 This function is used internally when closing the appliance.  Note
 it's only called when ./configure --enable-valgrind-daemon is used." };
 
+  { defaults with
+    name = "copy_attributes";
+    style = RErr, [Pathname "src"; Pathname "dest"], [OBool "all"; OBool "mode"; OBool "xattributes"; OBool "ownership"];
+    proc_nr = Some 415;
+    shortdesc = "copy the attributes of a path (file/directory) to another";
+    longdesc = "\
+Copy the attributes of a path (which can be a file or a directory)
+to another path.
+
+By default C<no> attribute is copied, so make sure to specify any
+(or C<all> to copy everything).
+
+The optional arguments specify which attributes can be copied:
+
+=over 4
+
+=item C<mode>
+
+Copy part of the file mode from C<source> to C<destination>. Only the
+UNIX permissions and the sticky/setuid/setgid bits can be copied.
+
+=item C<xattributes>
+
+Copy the Linux extended attributes (xattrs) from C<source> to C<destination>.
+This flag does nothing if the I<linuxxattrs> feature is not available
+(see C<guestfs_feature_available>).
+
+=item C<ownership>
+
+Copy the owner uid and the group gid of C<source> to C<destination>.
+
+=item C<all>
+
+Copy B<all> the attributes from C<source> to C<destination>. Enabling it
+enables all the other flags, if they are not specified already.
+
+=back" };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

@@ -541,8 +541,77 @@ do_lgetxattr (const char *path, const char *name, size_t *size_r)
   return buf; /* caller frees */
 }
 
+int
+copy_xattrs (const char *src, const char *dest)
+{
+  ssize_t len, vlen, ret, attrval_len = 0;
+  CLEANUP_FREE char *buf = NULL, *attrval = NULL;
+  size_t i;
+
+  buf = _listxattrs (src, listxattr, &len);
+  if (buf == NULL)
+    /* _listxattrs issues reply_with_perror already. */
+    goto error;
+
+  /* What we get from the kernel is a string "foo\0bar\0baz" of length
+   * len.
+   */
+  for (i = 0; i < (size_t) len; i += strlen (&buf[i]) + 1) {
+    CHROOT_IN;
+    vlen = getxattr (src, &buf[i], NULL, 0);
+    CHROOT_OUT;
+    if (vlen == -1) {
+      reply_with_perror ("getxattr: %s, %s", src, &buf[i]);
+      goto error;
+    }
+
+    if (vlen > XATTR_SIZE_MAX) {
+      /* The next call to getxattr will fail anyway, so ... */
+      reply_with_error ("extended attribute is too large");
+      goto error;
+    }
+
+    if (vlen > attrval_len) {
+      char *new = realloc (attrval, vlen);
+      if (new == NULL) {
+        reply_with_perror ("realloc");
+        goto error;
+      }
+      attrval = new;
+      attrval_len = vlen;
+    }
+
+    CHROOT_IN;
+    vlen = getxattr (src, &buf[i], attrval, vlen);
+    CHROOT_OUT;
+    if (vlen == -1) {
+      reply_with_perror ("getxattr: %s, %s", src, &buf[i]);
+      goto error;
+    }
+
+    CHROOT_IN;
+    ret = setxattr (dest, &buf[i], attrval, vlen, 0);
+    CHROOT_OUT;
+    if (ret == -1) {
+      reply_with_perror ("setxattr: %s, %s", dest, &buf[i]);
+      goto error;
+    }
+  }
+
+  return 1;
+
+ error:
+  return 0;
+}
+
 #else /* no HAVE_LINUX_XATTRS */
 
 OPTGROUP_LINUXXATTRS_NOT_AVAILABLE
+
+int
+copy_xattrs (const char *src, const char *dest)
+{
+  abort ();
+}
 
 #endif /* no HAVE_LINUX_XATTRS */

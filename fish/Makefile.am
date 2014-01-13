@@ -279,6 +279,7 @@ if ENABLE_APPLIANCE
 TESTS += \
 	test-copy.sh \
 	test-edit.sh \
+	test-file-attrs.sh \
 	test-find0.sh \
 	test-inspect.sh \
 	test-glob.sh \
