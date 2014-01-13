@@ -196,7 +196,7 @@ disk format (not just an ISO).
 
 See also: I<--run>,
 L</Installing packages at build time from a side repository>,
-L<virt-make-fs(1)>.
+L<genisoimage(1)>, L<virt-make-fs(1)>.
 
 =item B<--attach-format> FORMAT
 
@@ -692,12 +692,15 @@ package repository of the guest, then you can add a side repository.
 Usually this is presented as an ISO (CD disk image) file containing
 extra packages.
 
+You can create the disk image using either L<genisoimage(1)> or
+L<virt-make-fs(1)>.  For genisoimage, use a command like this:
+
+ genisoimage -o extra-packages.iso -R -J -V EXTRA cdcontents/
+
 Create a script that mounts the ISO and sets up the repository.  For
 yum, create /tmp/install.sh containing:
 
  mkdir /tmp/mount
- 
- # Assume the volume label of the CD is 'EXTRA':
  mount LABEL=EXTRA /tmp/mount
  
  cat <<'EOF' > /etc/yum.repos.d/extra.repo
@@ -712,16 +715,17 @@ yum, create /tmp/install.sh containing:
 For apt, create /tmp/install.sh containing:
 
  mkdir /tmp/mount
- 
- # Assume the volume label of the CD is 'EXTRA':
  mount LABEL=EXTRA /tmp/mount
  
  apt-cdrom -d=/tmp/mount add
  apt-get -y install famousdatabase
 
-Use the I<--attach> option to attach the CD:
+Use the I<--attach> option to attach the CD / disk image and the
+I<--run> option to run the script:
 
- virt-builder fedora 20 --attach extra.iso --run /tmp/install.sh
+ virt-builder fedora-20 \
+   --attach extra-packages.iso \
+   --run /tmp/install.sh
 
 =head2 USERS AND PASSWORDS
 
@@ -1690,6 +1694,8 @@ L<virt-sysprep(1)>,
 L<oz-install(1)>,
 L<gpg(1)>,
 L<curl(1)>,
+L<virt-make-fs(1)>,
+L<genisoimage(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR
