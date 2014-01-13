@@ -853,6 +853,27 @@ This section contains examples for some common Linux distributions.
    --firstboot-command 'localectl set-keymap jp' \
    --firstboot-command 'systemctl isolate graphical.target'
 
+=head3 Setting Japanese in Debian 7 (Wheezy)
+
+Note that although this enables Japanese in the text console too, it
+is unlikely that you will see properly rendered Japanese there.
+However Japanese is properly rendered in X applications and terminals.
+
+ pkgs=locales,xfce4,\
+ ibus,ibus-anthy,\
+ ttf-sazanami-gothic,ttf-sazanami-mincho,\
+ fonts-takao-mincho,\
+ xfonts-intl-japanese,xfonts-intl-japanese-big,\
+ iceweasel-l10n-ja,manpages-ja
+ 
+ virt-builder debian-7 \
+   --size 20G \
+   --install $pkgs \
+   --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,' \
+   --edit '/etc/locale.gen: s,^#\s*ja,ja,' \
+   --write '/etc/default/locale:LANG="ja_JP.UTF-8"' \
+   --run-command "locale-gen"
+
 =head2 LOG FILE
 
 Scripts and package installation that runs at build time (I<--run>,
