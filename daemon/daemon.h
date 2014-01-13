@@ -231,6 +231,9 @@ extern void journal_finalize (void);
 /*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 
+/*-- in xattr.c --*/
+extern int copy_xattrs (const char *src, const char *dest);
+
 /* ordinary daemon functions use these to indicate errors
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.

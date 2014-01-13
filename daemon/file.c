@@ -28,6 +28,7 @@
 #include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
 
 GUESTFSD_EXT_CMD(str_file, file);
 GUESTFSD_EXT_CMD(str_zcat, zcat);
@@ -583,4 +584,75 @@ do_filesize (const char *path)
   }
 
   return buf.st_size;
+}
+
+int
+do_copy_attributes (const char *src, const char *dest, int all, int mode, int xattributes, int ownership)
+{
+  int r;
+  struct stat srcstat, deststat;
+
+  static const unsigned int file_mask = 07777;
+
+  /* If it was specified to copy everything, manually enable all the flags
+   * not manually specified to avoid checking for flag || all everytime.
+   */
+  if (all) {
+    if (!(optargs_bitmask & GUESTFS_COPY_ATTRIBUTES_MODE_BITMASK))
+      mode = 1;
+    if (!(optargs_bitmask & GUESTFS_COPY_ATTRIBUTES_XATTRIBUTES_BITMASK))
+      xattributes = 1;
+    if (!(optargs_bitmask & GUESTFS_COPY_ATTRIBUTES_OWNERSHIP_BITMASK))
+      ownership = 1;
+  }
+
+  CHROOT_IN;
+  r = stat (src, &srcstat);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("stat: %s", src);
+    return -1;
+  }
+
+  CHROOT_IN;
+  r = stat (dest, &deststat);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("stat: %s", dest);
+    return -1;
+  }
+
+  if (mode &&
+      ((srcstat.st_mode & file_mask) != (deststat.st_mode & file_mask))) {
+    CHROOT_IN;
+    r = chmod (dest, (srcstat.st_mode & file_mask));
+    CHROOT_OUT;
+
+    if (r == -1) {
+      reply_with_perror ("chmod: %s", dest);
+      return -1;
+    }
+  }
+
+  if (ownership &&
+      (srcstat.st_uid != deststat.st_uid || srcstat.st_gid != deststat.st_gid)) {
+    CHROOT_IN;
+    r = chown (dest, srcstat.st_uid, srcstat.st_gid);
+    CHROOT_OUT;
+
+    if (r == -1) {
+      reply_with_perror ("chown: %s", dest);
+      return -1;
+    }
+  }
+
+  if (xattributes && optgroup_linuxxattrs_available ()) {
+    if (!copy_xattrs (src, dest))
+      /* copy_xattrs replies with an error already. */
+      return -1;
+  }
+
+  return 0;
 }
