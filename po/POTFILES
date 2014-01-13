@@ -165,6 +165,7 @@ gobject/src/optargs-btrfs_filesystem_resize.c
 gobject/src/optargs-btrfs_fsck.c
 gobject/src/optargs-compress_device_out.c
 gobject/src/optargs-compress_out.c
+gobject/src/optargs-copy_attributes.c
 gobject/src/optargs-copy_device_to_device.c
 gobject/src/optargs-copy_device_to_file.c
 gobject/src/optargs-copy_file_to_device.c

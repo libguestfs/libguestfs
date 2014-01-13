@@ -92,7 +92,8 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-mke2fs.h \
   include/guestfs-gobject/optargs-mktemp.h \
   include/guestfs-gobject/optargs-syslinux.h \
-  include/guestfs-gobject/optargs-remount.h
+  include/guestfs-gobject/optargs-remount.h \
+  include/guestfs-gobject/optargs-copy_attributes.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -166,4 +167,5 @@ guestfs_gobject_sources= \
   src/optargs-mke2fs.c \
   src/optargs-mktemp.c \
   src/optargs-syslinux.c \
-  src/optargs-remount.c
+  src/optargs-remount.c \
+  src/optargs-copy_attributes.c
