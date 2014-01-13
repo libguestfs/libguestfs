@@ -23,7 +23,8 @@ type ('name, 'value) tags = ('name, 'value) tag list
 type ('name, 'value, 'task) plan =
   (('name, 'value) tags * 'task * ('name, 'value) tags) list
 
-type ('name, 'value, 'task) transitions_function = ('name, 'value) tags -> ('task * int * ('name, 'value) tags) list
+type ('name, 'value, 'task) transitions_function =
+  ('name, 'value) tags -> ('task * int * ('name, 'value) tags) list
 
 let plan ?(max_depth = 10) transitions itags (goal_must, goal_must_not) =
   (* Do the given output tags match the finish condition? *)
