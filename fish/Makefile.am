@@ -306,6 +306,7 @@ EXTRA_DIST += \
 	test-edit.sh \
 	test-escapes.sh \
 	test-events.sh \
+	test-file-attrs.sh \
 	test-find0.sh \
 	test-glob.sh \
 	test-inspect.sh \
