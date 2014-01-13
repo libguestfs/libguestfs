@@ -1599,6 +1599,11 @@ downloaded once.  You can also try using a local package repository,
 although this can be complex to set up and varies according to which
 Linux distro you are trying to install.
 
+=head3 Using I<--no-sync>
+
+Use I<--no-sync>.  However read the caveats in the L</OPTIONS> section
+above, since this can cause disk corruption if not used correctly.
+
 =head3 Skipping virt-resize
 
 Virt-builder can skip the virt-resize step under certain conditions.
