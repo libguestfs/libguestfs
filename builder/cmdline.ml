@@ -72,6 +72,8 @@ let parse_cmdline () =
   let delete = ref [] in
   let add_delete s = delete := s :: !delete in
 
+  let delete_on_failure = ref true in
+
   let edit = ref [] in
   let add_edit arg =
     let i =
@@ -235,6 +237,8 @@ let parse_cmdline () =
     "--delete",  Arg.String add_delete,     "name" ^ " " ^ s_"Delete a file or dir";
     "--delete-cache", Arg.Unit delete_cache_mode,
                                             " " ^ s_"Delete the template cache";
+    "--no-delete-on-failure", Arg.Clear delete_on_failure,
+                                            " " ^ s_"Don't delete output file on failure";
     "--edit",    Arg.String add_edit,       "file:expr" ^ " " ^ s_"Edit file with Perl expr";
     "--fingerprint", Arg.String add_fingerprint,
                                             "AAAA.." ^ " " ^ s_"Fingerprint of valid signing key";
@@ -316,6 +320,7 @@ read the man page virt-builder(1).
   let curl = !curl in
   let debug = !debug in
   let delete = List.rev !delete in
+  let delete_on_failure = !delete_on_failure in
   let edit = List.rev !edit in
   let fingerprints = List.rev !fingerprints in
   let firstboot = List.rev !firstboot in
@@ -437,8 +442,8 @@ read the man page virt-builder(1).
     List.combine sources fingerprints in
 
   mode, arg,
-  attach, cache, check_signature, curl, debug, delete, edit,
-  firstboot, run, format, gpg, hostname, install, list_long, links,
+  attach, cache, check_signature, curl, debug, delete, delete_on_failure,
+  edit, firstboot, run, format, gpg, hostname, install, list_long, links,
   memsize, mkdirs,
   network, output, password_crypto, quiet, root_password, scrub,
   scrub_logfile, size, smp, sources, sync, timezone, update, upload,
