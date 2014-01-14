@@ -1032,13 +1032,30 @@ tools probably work differently as well.
 
 =back
 
-=begin comment
-
 =head3 Importing into OpenStack
 
-XXX
+Import the image into Glance (the OpenStack image store) by doing:
 
-=end comment
+ glance image-create --name fedora-20-image --file fedora-20.img \
+   --disk-format raw --container-format bare \
+   --is-public True
+
+The I<--file> parameter is the virt-builder-generated disk image.  It
+should match virt-builder's I<--output> option.  The I<--disk-format>
+parameter should match virt-builder's I<--format> option (or C<raw> if
+you didn't use that option).  The I<--container-format> should always
+be C<bare> since virt-builder doesn't put images into containers.
+
+You can use the S<C<glance image-show I<fedora-20-image>>> command to
+display the properties of the image.
+
+To boot up an instance of your image on a Nova compute node, do:
+
+ nova boot fedora-20-server --image fedora-20-image \
+   --flavor m1.medium
+
+Use S<C<nova flavor-list>> to list possible machine flavors.  Use
+S<C<nova list>> to list running instances.
 
 =head3 Booting directly using qemu or KVM
 
