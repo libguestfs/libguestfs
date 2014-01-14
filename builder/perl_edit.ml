@@ -42,7 +42,7 @@ let rec edit_file ~debug (g : Guestfs.guestfs) file expr =
   g#upload tmpfile file;
 
   (* However like virt-edit we do need to copy attributes. *)
-  copy_attributes g file_old file;
+  g#copy_attributes ~all:true file_old file;
   g#rm file_old
 
 and do_perl_edit ~debug g file expr =
@@ -76,30 +76,3 @@ and do_perl_edit ~debug g file expr =
   );
 
   Unix.rename (file ^ ".out") file
-
-and copy_attributes g src dest =
-  let has_linuxxattrs = g#feature_available [|"linuxxattrs"|] in
-
-  (* Get the mode. *)
-  let stat = g#stat src in
-
-  (* Get the SELinux context.  XXX Should we copy over other extended
-   * attributes too?
-   *)
-  let selinux_context =
-    if has_linuxxattrs then (
-      try Some (g#getxattr src "security.selinux") with _ -> None
-    ) else None in
-
-  (* Set the permissions (inc. sticky and set*id bits), UID, GID. *)
-  let mode = Int64.to_int stat.G.mode
-  and uid = Int64.to_int stat.G.uid and gid = Int64.to_int stat.G.gid in
-  g#chmod (mode land 0o7777) dest;
-  g#chown uid gid dest;
-
-  (* Set the SELinux context. *)
-  match selinux_context with
-  | None -> ()
-  | Some selinux_context ->
-    g#setxattr "security.selinux"
-      selinux_context (String.length selinux_context) dest

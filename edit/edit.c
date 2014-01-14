@@ -56,7 +56,6 @@ static void edit_files (int argc, char *argv[]);
 static void edit (const char *filename, const char *root);
 static char *edit_interactively (const char *tmpfile);
 static char *edit_non_interactively (const char *tmpfile);
-static int copy_attributes (const char *src, const char *dest);
 static int is_windows (guestfs_h *g, const char *root);
 static char *windows_path (guestfs_h *g, const char *root, const char *filename);
 static char *generate_random_name (const char *filename);
@@ -361,7 +360,8 @@ edit (const char *filename, const char *root)
     /* Set the permissions, UID, GID and SELinux context of the new
      * file to match the old file (RHBZ#788641).
      */
-    if (copy_attributes (filename, newname) == -1)
+    if (guestfs_copy_attributes (g, filename, newname,
+        GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
       goto error;
 
     /* Backup or overwrite the file. */
@@ -507,51 +507,6 @@ edit_non_interactively (const char *tmpfile)
   }
 
   return ret; /* caller will free */
-}
-
-static int
-copy_attributes (const char *src, const char *dest)
-{
-  CLEANUP_FREE_STAT struct guestfs_stat *stat = NULL;
-  const char *linuxxattrs[] = { "linuxxattrs", NULL };
-  int has_linuxxattrs;
-  CLEANUP_FREE char *selinux_context = NULL;
-  size_t selinux_context_size;
-
-  has_linuxxattrs = guestfs_feature_available (g, (char **) linuxxattrs);
-
-  /* Get the mode. */
-  stat = guestfs_stat (g, src);
-  if (stat == NULL)
-    return -1;
-
-  /* Get the SELinux context.  XXX Should we copy over other extended
-   * attributes too?
-   */
-  if (has_linuxxattrs) {
-    guestfs_push_error_handler (g, NULL, NULL);
-
-    selinux_context = guestfs_getxattr (g, src, "security.selinux",
-                                        &selinux_context_size);
-    /* selinux_context could be NULL.  This isn't an error. */
-
-    guestfs_pop_error_handler (g);
-  }
-
-  /* Set the permissions (inc. sticky and set*id bits), UID, GID. */
-  if (guestfs_chmod (g, stat->mode & 07777, dest) == -1)
-    return -1;
-  if (guestfs_chown (g, stat->uid, stat->gid, dest) == -1)
-    return -1;
-
-  /* Set the SELinux context. */
-  if (has_linuxxattrs && selinux_context) {
-    if (guestfs_setxattr (g, "security.selinux", selinux_context,
-                          (int) selinux_context_size, dest) == -1)
-      return -1;
-  }
-
-  return 0;
 }
 
 static int
