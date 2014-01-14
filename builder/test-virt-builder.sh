@@ -65,6 +65,51 @@ $VG ./virt-builder phony-fedora \
     --firstboot Makefile --firstboot-command 'echo "hello"' \
     --firstboot-install "minicom,inkscape"
 
-# XXX Test that the modifications were made.
+# Check that some modifications were made.
+$VG ../fish/guestfish --ro -i -a $output > test.out <<EOF
+# Uploaded files
+is-file /etc/foo/bar/baz/Makefile
+cat /etc/foo/bar/baz/foo
+is-symlink /foo
+is-symlink /foo1
+is-symlink /foo2
+is-symlink /foo3
+
+echo -----
+# Hostname
+cat /etc/sysconfig/network | grep HOSTNAME=
+
+echo -----
+# Timezone
+is-file /usr/share/zoneinfo/Europe/London
+is-symlink /etc/localtime
+readlink /etc/localtime
+
+echo -----
+# Password
+is-file /etc/shadow
+cat /etc/shadow | sed -r '/^root:/!d;s,^(root:\\\$6\\\$).*,\\1,g'
+EOF
+
+if [ "$(cat test.out)" != "true
+Hello World
+true
+true
+true
+true
+-----
+HOSTNAME=test.example.com
+-----
+true
+true
+/usr/share/zoneinfo/Europe/London
+-----
+true
+root:\$6\$" ]; then
+    echo "$0: unexpected output:"
+    cat test.out
+    exit 1
+fi
 
 rm $output
+rm test.out
