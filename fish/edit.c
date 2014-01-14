@@ -32,7 +32,6 @@
 #include "fish.h"
 
 static char *generate_random_name (const char *filename);
-static int copy_attributes (const char *src, const char *dest);
 
 /* guestfish edit command, suggested by Ján Ondrej, implemented by RWMJ */
 
@@ -135,7 +134,8 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   /* Set the permissions, UID, GID and SELinux context of the new
    * file to match the old file (RHBZ#788641).
    */
-  if (copy_attributes (remotefilename, newname) == -1)
+  if (guestfs_copy_attributes (g, remotefilename, newname,
+      GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
     return -1;
 
   if (guestfs_mv (g, newname, remotefilename) == -1)
@@ -176,54 +176,4 @@ generate_random_name (const char *filename)
   *p++ = '\0';
 
   return ret; /* caller will free */
-}
-
-static int
-copy_attributes (const char *src, const char *dest)
-{
-  struct guestfs_stat *stat;
-  const char *linuxxattrs[] = { "linuxxattrs", NULL };
-  int has_linuxxattrs;
-  CLEANUP_FREE char *selinux_context = NULL;
-  size_t selinux_context_size;
-
-  has_linuxxattrs = guestfs_feature_available (g, (char **) linuxxattrs);
-
-  /* Get the mode. */
-  stat = guestfs_stat (g, src);
-  if (stat == NULL)
-    return -1;
-
-  /* Get the SELinux context.  XXX Should we copy over other extended
-   * attributes too?
-   */
-  if (has_linuxxattrs) {
-    guestfs_push_error_handler (g, NULL, NULL);
-
-    selinux_context = guestfs_getxattr (g, src, "security.selinux",
-                                        &selinux_context_size);
-    /* selinux_context could be NULL.  This isn't an error. */
-
-    guestfs_pop_error_handler (g);
-  }
-
-  /* Set the permissions (inc. sticky and set*id bits), UID, GID. */
-  if (guestfs_chmod (g, stat->mode & 07777, dest) == -1) {
-    guestfs_free_stat (stat);
-    return -1;
-  }
-  if (guestfs_chown (g, stat->uid, stat->gid, dest) == -1) {
-    guestfs_free_stat (stat);
-    return -1;
-  }
-  guestfs_free_stat (stat);
-
-  /* Set the SELinux context. */
-  if (has_linuxxattrs && selinux_context) {
-    if (guestfs_setxattr (g, "security.selinux", selinux_context,
-                          (int) selinux_context_size, dest) == -1)
-      return -1;
-  }
-
-  return 0;
 }
