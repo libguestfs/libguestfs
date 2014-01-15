@@ -175,6 +175,7 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
         if (ss->val[i].ino >= 0) {
           struct stat statbuf;
 
+          memset (&statbuf, 0, sizeof statbuf);
           statbuf.st_dev = ss->val[i].dev;
           statbuf.st_ino = ss->val[i].ino;
           statbuf.st_mode = ss->val[i].mode;
@@ -255,6 +256,7 @@ mount_local_getattr (const char *path, struct stat *statbuf)
   if (r == NULL)
     RETURN_ERRNO;
 
+  memset (statbuf, 0, sizeof *statbuf);
   statbuf->st_dev = r->dev;
   statbuf->st_ino = r->ino;
   statbuf->st_mode = r->mode;
