@@ -68,7 +68,7 @@ gl_lock_define_initialized (static, mount_local_lock);
 #define DEBUG_CALL(fs,...)                                              \
   if (g->ml_debug_calls) {                                              \
     debug (g,                                                           \
-           "%s: %s (" fs ")\n",                                         \
+           "%s: %s (" fs ")",                                           \
            g->localmountpoint, __func__, ## __VA_ARGS__);               \
   }
 
