@@ -27,7 +27,7 @@ cwd="$(pwd)"
 
 $VG ./guestfish sparse test-add-domain-1.img 1M
 $VG ./guestfish sparse test-add-domain-2.img 1M
-$VG ./guestfish sparse test-add-domain-3.img 1M
+qemu-img create -f qcow2 test-add-domain-3.img 1M
 $VG ./guestfish sparse test-add-domain-4.img 1M
 
 # Libvirt test XML, see libvirt.git/examples/xml/test/testnode.xml
