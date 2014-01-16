@@ -37,7 +37,7 @@ let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
     attach, cache, check_signature, curl, debug, delete, delete_on_failure,
-    edit, firstboot, run, format, gpg, hostname, install, list_long, links,
+    edit, firstboot, run, format, gpg, hostname, install, list_format, links,
     memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
     scrub_logfile, size, smp, sources, sync, timezone, update, upload,
@@ -148,7 +148,7 @@ let main () =
   let mode =
     match mode with
     | `List ->                          (* --list *)
-      List_entries.list_entries ~list_long ~sources index;
+      List_entries.list_entries ~list_format ~sources index;
       exit 0
 
     | `Print_cache ->                   (* --print-cache *)
