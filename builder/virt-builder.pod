@@ -1012,7 +1012,7 @@ Files are deleted (I<--delete>, I<--scrub>).
 
 =item *
 
-Symbolic links are created (I<--link).
+Symbolic links are created (I<--link>).
 
 =item *
 
