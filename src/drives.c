@@ -37,8 +37,6 @@
 
 #include <pcre.h>
 
-#include <libxml/uri.h>
-
 #include "c-ctype.h"
 #include "ignore-value.h"
 
@@ -81,6 +79,38 @@ free_regexps (void)
   pcre_free (re_hostname_port);
 }
 
+static void free_drive_struct (struct drive *drv);
+static void free_drive_source (struct drive_source *src);
+
+/* For readonly drives, create an overlay to protect the original
+ * drive content.  Note we never need to clean up these overlays since
+ * they are created in the temporary directory and deleted when the
+ * handle is closed.
+ */
+static int
+create_overlay (guestfs_h *g, struct drive *drv)
+{
+  char *overlay;
+
+  assert (g->backend_ops != NULL);
+
+  if (g->backend_ops->create_cow_overlay == NULL) {
+    error (g, _("this backend does not support adding read-only drives"));
+    return -1;
+  }
+
+  debug (g, "creating COW overlay to protect original drive content");
+  overlay = g->backend_ops->create_cow_overlay (g, g->backend_data, drv);
+  if (overlay == NULL)
+    return -1;
+
+  if (drv->overlay)
+    free (drv->overlay);
+  drv->overlay = overlay;
+
+  return 0;
+}
+
 /* Create and free the 'drive' struct. */
 static struct drive *
 create_drive_file (guestfs_h *g, const char *path,
@@ -92,15 +122,20 @@ create_drive_file (guestfs_h *g, const char *path,
 
   drv->src.protocol = drive_protocol_file;
   drv->src.u.path = safe_strdup (g, path);
+  drv->src.format = format ? safe_strdup (g, format) : NULL;
 
   drv->readonly = readonly;
-  drv->format = format ? safe_strdup (g, format) : NULL;
   drv->iface = iface ? safe_strdup (g, iface) : NULL;
   drv->name = name ? safe_strdup (g, name) : NULL;
   drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
   drv->cachemode = cachemode ? safe_strdup (g, cachemode) : NULL;
 
-  drv->priv = drv->free_priv = NULL;
+  if (readonly) {
+    if (create_overlay (g, drv) == -1) {
+      free_drive_struct (drv);
+      return NULL;
+    }
+  }
 
   return drv;
 }
@@ -123,15 +158,20 @@ create_drive_non_file (guestfs_h *g,
   drv->src.u.exportname = safe_strdup (g, exportname);
   drv->src.username = username ? safe_strdup (g, username) : NULL;
   drv->src.secret = secret ? safe_strdup (g, secret) : NULL;
+  drv->src.format = format ? safe_strdup (g, format) : NULL;
 
   drv->readonly = readonly;
-  drv->format = format ? safe_strdup (g, format) : NULL;
   drv->iface = iface ? safe_strdup (g, iface) : NULL;
   drv->name = name ? safe_strdup (g, name) : NULL;
   drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
   drv->cachemode = cachemode ? safe_strdup (g, cachemode) : NULL;
 
-  drv->priv = drv->free_priv = NULL;
+  if (readonly) {
+    if (create_overlay (g, drv) == -1) {
+      free_drive_struct (drv);
+      return NULL;
+    }
+  }
 
   return drv;
 }
@@ -523,17 +563,34 @@ free_drive_servers (struct drive_server *servers, size_t nr_servers)
 static void
 free_drive_struct (struct drive *drv)
 {
-  guestfs___free_drive_source (&drv->src);
-  free (drv->format);
+  free_drive_source (&drv->src);
+  free (drv->overlay);
   free (drv->iface);
   free (drv->name);
   free (drv->disk_label);
   free (drv->cachemode);
 
-  if (drv->priv && drv->free_priv)
-    drv->free_priv (drv->priv);
-
   free (drv);
+}
+
+static const char *
+protocol_to_string (enum drive_protocol protocol)
+{
+  switch (protocol) {
+  case drive_protocol_file: return "file";
+  case drive_protocol_ftp: return "ftp";
+  case drive_protocol_ftps: return "ftps";
+  case drive_protocol_gluster: return "gluster";
+  case drive_protocol_http: return "http";
+  case drive_protocol_https: return "https";
+  case drive_protocol_iscsi: return "iscsi";
+  case drive_protocol_nbd: return "nbd";
+  case drive_protocol_rbd: return "rbd";
+  case drive_protocol_sheepdog: return "sheepdog";
+  case drive_protocol_ssh: return "ssh";
+  case drive_protocol_tftp: return "tftp";
+  }
+  abort ();
 }
 
 /* Convert a struct drive to a string for debugging.  The caller
@@ -542,16 +599,13 @@ free_drive_struct (struct drive *drv)
 static char *
 drive_to_string (guestfs_h *g, const struct drive *drv)
 {
-  CLEANUP_FREE char *p = NULL;
-
-  p = guestfs___drive_source_qemu_param (g, &drv->src);
-
   return safe_asprintf
-    (g, "%s%s%s%s%s%s%s%s%s%s%s%s",
-     p,
+    (g, "%s%s%s%s protocol=%s%s%s%s%s%s%s%s%s",
+     drv->src.u.path,
      drv->readonly ? " readonly" : "",
-     drv->format ? " format=" : "",
-     drv->format ? : "",
+     drv->src.format ? " format=" : "",
+     drv->src.format ? : "",
+     protocol_to_string (drv->src.protocol),
      drv->iface ? " iface=" : "",
      drv->iface ? : "",
      drv->name ? " name=" : "",
@@ -1176,199 +1230,11 @@ guestfs__debug_drives (guestfs_h *g)
   return ret.argv;              /* caller frees */
 }
 
-/* The drive_source struct is also used in the backends, so we
- * also have these utility functions.
- */
-void
-guestfs___copy_drive_source (guestfs_h *g,
-                             const struct drive_source *src,
-                             struct drive_source *dest)
-{
-  size_t i;
-
-  dest->protocol = src->protocol;
-  dest->u.path = safe_strdup (g, src->u.path);
-  dest->nr_servers = src->nr_servers;
-  dest->servers = safe_calloc (g, src->nr_servers,
-                               sizeof (struct drive_server));
-  for (i = 0; i < src->nr_servers; ++i) {
-    dest->servers[i].transport = src->servers[i].transport;
-    if (src->servers[i].u.hostname)
-      dest->servers[i].u.hostname = safe_strdup (g, src->servers[i].u.hostname);
-    dest->servers[i].port = src->servers[i].port;
-  }
-}
-
-static char *
-make_uri (guestfs_h *g, const char *scheme, const char *user,
-          struct drive_server *server, const char *path)
-{
-  xmlURI uri = { .scheme = (char *) scheme,
-                 .path = (char *) path,
-                 .user = (char *) user };
-  CLEANUP_FREE char *query = NULL;
-
-  switch (server->transport) {
-  case drive_transport_none:
-  case drive_transport_tcp:
-    uri.server = server->u.hostname;
-    uri.port = server->port;
-    break;
-  case drive_transport_unix:
-    query = safe_asprintf (g, "socket=%s", server->u.socket);
-    uri.query_raw = query;
-    break;
-  }
-
-  return (char *) xmlSaveUri (&uri);
-}
-
-char *
-guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
-{
-  /* Note that the qemu parameter is the bit after "file=".  It is not
-   * escaped here, but would usually be escaped if passed to qemu as
-   * part of a full -drive parameter (but not for qemu-img).
-   */
-  switch (src->protocol) {
-  case drive_protocol_file:
-    /* We might need to rewrite the path if it contains a ':' character. */
-    if (src->u.path[0] == '/' || strchr (src->u.path, ':') == NULL)
-      return safe_strdup (g, src->u.path);
-    else
-      return safe_asprintf (g, "./%s", src->u.path);
-
-  case drive_protocol_ftp:
-    return make_uri (g, "ftp", src->username,
-                     &src->servers[0], src->u.exportname);
-
-  case drive_protocol_ftps:
-    return make_uri (g, "ftps", src->username,
-                     &src->servers[0], src->u.exportname);
-
-  case drive_protocol_gluster:
-    switch (src->servers[0].transport) {
-    case drive_transport_none:
-      return make_uri (g, "gluster", NULL, &src->servers[0], src->u.exportname);
-    case drive_transport_tcp:
-      return make_uri (g, "gluster+tcp",
-                       NULL, &src->servers[0], src->u.exportname);
-    case drive_transport_unix:
-      return make_uri (g, "gluster+unix", NULL, &src->servers[0], NULL);
-    }
-
-  case drive_protocol_http:
-    return make_uri (g, "http", src->username,
-                     &src->servers[0], src->u.exportname);
-
-  case drive_protocol_https:
-    return make_uri (g, "https", src->username,
-                     &src->servers[0], src->u.exportname);
-
-  case drive_protocol_iscsi:
-    return make_uri (g, "iscsi", NULL, &src->servers[0], src->u.exportname);
-
-  case drive_protocol_nbd: {
-    CLEANUP_FREE char *p = NULL;
-    char *ret;
-
-    switch (src->servers[0].transport) {
-    case drive_transport_none:
-    case drive_transport_tcp:
-      p = safe_asprintf (g, "nbd:%s:%d",
-                         src->servers[0].u.hostname, src->servers[0].port);
-      break;
-    case drive_transport_unix:
-      p = safe_asprintf (g, "nbd:unix:%s", src->servers[0].u.socket);
-      break;
-    }
-    assert (p);
-
-    if (STREQ (src->u.exportname, ""))
-      ret = safe_strdup (g, p);
-    else
-      /* Skip the mandatory leading '/' character. */
-      ret = safe_asprintf (g, "%s:exportname=%s", p, &src->u.exportname[1]);
-
-    return ret;
-  }
-
-  case drive_protocol_rbd: {
-    /* build the list of all the mon hosts */
-    CLEANUP_FREE char *mon_host = NULL, *username = NULL, *secret = NULL;
-    const char *auth;
-    size_t n = 0;
-    size_t i, j;
-
-    for (i = 0; i < src->nr_servers; i++) {
-      n += strlen (src->servers[i].u.hostname);
-      n += 8; /* for slashes, colons, & port numbers */
-    }
-    n++; /* for \0 */
-    mon_host = safe_malloc (g, n);
-    n = 0;
-    for (i = 0; i < src->nr_servers; i++) {
-      CLEANUP_FREE char *port = NULL;
-
-      for (j = 0; j < strlen (src->servers[i].u.hostname); j++)
-        mon_host[n++] = src->servers[i].u.hostname[j];
-      mon_host[n++] = '\\';
-      mon_host[n++] = ':';
-      port = safe_asprintf (g, "%d", src->servers[i].port);
-      for (j = 0; j < strlen (port); j++)
-        mon_host[n++] = port[j];
-
-      /* join each host with \; */
-      if (i != src->nr_servers - 1) {
-        mon_host[n++] = '\\';
-        mon_host[n++] = ';';
-      }
-    }
-    mon_host[n] = '\0';
-
-    if (src->username)
-        username = safe_asprintf (g, ":id=%s", src->username);
-    if (src->secret)
-        secret = safe_asprintf (g, ":key=%s", src->secret);
-    if (username || secret)
-        auth = ":auth_supported=cephx\\;none";
-    else
-        auth = ":auth_supported=none";
-
-    /* Skip the mandatory leading '/' character on exportname. */
-    return safe_asprintf (g, "rbd:%s:mon_host=%s%s%s%s",
-                          &src->u.exportname[1],
-                          mon_host,
-                          username ? username : "",
-                          auth,
-                          secret ? secret : "");
-  }
-
-  case drive_protocol_sheepdog:
-    /* Skip the mandatory leading '/' character on exportname. */
-    if (src->nr_servers == 0)
-      return safe_asprintf (g, "sheepdog:%s", &src->u.exportname[1]);
-    else                        /* XXX How to pass multiple hosts? */
-      return safe_asprintf (g, "sheepdog:%s:%d:%s",
-                            src->servers[0].u.hostname, src->servers[0].port,
-                            &src->u.exportname[1]);
-
-  case drive_protocol_ssh:
-    return make_uri (g, "ssh", src->username,
-                     &src->servers[0], src->u.exportname);
-
-  case drive_protocol_tftp:
-    return make_uri (g, "tftp", src->username,
-                     &src->servers[0], src->u.exportname);
-  }
-
-  abort ();
-}
-
-void
-guestfs___free_drive_source (struct drive_source *src)
+static void
+free_drive_source (struct drive_source *src)
 {
   if (src) {
+    free (src->format);
     free (src->u.path);
     free (src->username);
     free (src->secret);

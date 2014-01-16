@@ -235,7 +235,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   if ((doc = get_domain_xml (g, dom)) == NULL)
     return -1;
 
-  /* Find and pass the SELinux security label to the libvirt back end. */
+  /* Find and pass the SELinux security label to the libvirt back end.
+   * Note this has to happen before adding the disks, since those may
+   * use the label.
+   */
   if (libvirt_selinux_label (g, doc, &label, &imagelabel) == -1)
     return -1;
   if (label && imagelabel) {

@@ -108,18 +108,6 @@ struct backend_libvirt_data {
   char name[DOMAIN_NAME_LEN];   /* random name */
 };
 
-/* Pointed to by 'struct drive *' -> priv field. */
-struct drive_libvirt {
-  /* The drive that we actually add.  If using an overlay, then this
-   * might be different from drive->src.  Call it 'real_src' so we
-   * don't confuse accesses to this with accesses to 'drive->src'.
-   */
-  struct drive_source real_src;
-
-  /* The format of the drive we add. */
-  char *format;
-};
-
 /* Parameters passed to construct_libvirt_xml and subfunctions.  We
  * keep them all in a structure for convenience!
  */
@@ -146,15 +134,86 @@ static void libvirt_error (guestfs_h *g, const char *fs, ...) __attribute__((for
 static int is_custom_hv (guestfs_h *g);
 static int is_blk (const char *path);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
-static char *make_qcow2_overlay (guestfs_h *g, const char *backing_device, const char *format, const char *selinux_imagelabel);
-static int make_drive_priv (guestfs_h *g, struct drive *drv, const char *selinux_imagelabel);
-static void drive_free_priv (void *);
 static void set_socket_create_context (guestfs_h *g);
 static void clear_socket_create_context (guestfs_h *g);
 
 #if HAVE_LIBSELINUX
 static void selinux_warning (guestfs_h *g, const char *func, const char *selinux_op, const char *data);
 #endif
+
+static char *
+make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
+                    const char *format)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  char *overlay = NULL;
+  int r;
+
+  if (guestfs___lazy_make_tmpdir (g) == -1)
+    return NULL;
+
+  overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
+
+  guestfs___cmd_add_arg (cmd, "qemu-img");
+  guestfs___cmd_add_arg (cmd, "create");
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "qcow2");
+  guestfs___cmd_add_arg (cmd, "-b");
+  guestfs___cmd_add_arg (cmd, backing_drive);
+  if (format) {
+    guestfs___cmd_add_arg (cmd, "-o");
+    guestfs___cmd_add_arg_format (cmd, "backing_fmt=%s", format);
+  }
+  guestfs___cmd_add_arg (cmd, overlay);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1) {
+    free (overlay);
+    return NULL;
+  }
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs___external_command_failed (g, r, "qemu-img create", backing_drive);
+    free (overlay);
+    return NULL;
+  }
+
+  return overlay;
+}
+
+static char *
+create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
+{
+  struct backend_libvirt_data *data = datav;
+  CLEANUP_FREE char *backing_drive = NULL;
+  char *overlay = NULL;
+
+  backing_drive = guestfs___drive_source_qemu_param (g, &drv->src);
+  if (!backing_drive)
+    goto error;
+
+  overlay = make_qcow2_overlay (g, backing_drive, drv->src.format);
+  if (!overlay)
+    goto error;
+
+#if HAVE_LIBSELINUX
+  if (data->selinux_imagelabel) {
+    debug (g, "setting SELinux label on %s to %s",
+           overlay, data->selinux_imagelabel);
+    if (setfilecon (overlay,
+                    (security_context_t) data->selinux_imagelabel) == -1)
+      selinux_warning (g, __func__, "setfilecon", overlay);
+  }
+#endif
+
+  /* Caller sets g->overlay in the handle to this, and then manages
+   * the memory.
+   */
+  return overlay;
+
+ error:
+  free (overlay);
+
+  return NULL;
+}
 
 static int
 launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
@@ -178,8 +237,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   int r;
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
-  struct drive *drv;
-  size_t i;
 
   params.current_proc_is_root = geteuid () == 0;
 
@@ -274,16 +331,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   /* Note that appliance can be NULL if using the old-style appliance. */
   if (appliance) {
-    params.appliance_overlay = make_qcow2_overlay (g, appliance, "raw", NULL);
+    params.appliance_overlay = make_qcow2_overlay (g, appliance, "raw");
     if (!params.appliance_overlay)
-      goto cleanup;
-  }
-
-  /* Set up the drv->priv part of the struct.  A side-effect of this
-   * may be that we create qcow2 overlays for drives.
-   */
-  ITER_DRIVES (g, i, drv) {
-    if (make_drive_priv (g, drv, data->selinux_imagelabel) == -1)
       goto cleanup;
   }
 
@@ -746,6 +795,9 @@ static int construct_libvirt_xml_lifecycle (guestfs_h *g, const struct libvirt_x
 static int construct_libvirt_xml_devices (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_qemu_cmdline (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_disk (guestfs_h *g, const struct backend_libvirt_data *data, xmlTextWriterPtr xo, struct drive *drv, size_t drv_index);
+static int construct_libvirt_xml_disk_target (guestfs_h *g, xmlTextWriterPtr xo, size_t drv_index);
+static int construct_libvirt_xml_disk_driver_qemu (guestfs_h *g, xmlTextWriterPtr xo, const char *format, const char *cachemode);
+static int construct_libvirt_xml_disk_address (guestfs_h *g, xmlTextWriterPtr xo, size_t drv_index);
 static int construct_libvirt_xml_disk_source_hosts (guestfs_h *g, xmlTextWriterPtr xo, const struct drive_source *src);
 static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, const struct backend_libvirt_data *data, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
@@ -756,7 +808,8 @@ static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_x
  */
 #define XMLERROR_RET(code,e,ret) do {                                   \
     if ((e) == (code)) {                                                \
-      perrorf (g, _("error constructing libvirt XML at \"%s\""),        \
+      perrorf (g, _("%s:%d: error constructing libvirt XML at \"%s\""), \
+               __FILE__, __LINE__,                                      \
                #e);                                                     \
       return (ret);                                                     \
     }                                                                   \
@@ -1111,12 +1164,10 @@ construct_libvirt_xml_disk (guestfs_h *g,
                             xmlTextWriterPtr xo,
                             struct drive *drv, size_t drv_index)
 {
-  char drive_name[64] = "sd";
   const char *protocol_str;
-  char scsi_target[64];
-  struct drive_libvirt *drv_priv = (struct drive_libvirt *) drv->priv;
-  CLEANUP_FREE char *format = NULL;
+  CLEANUP_FREE char *path = NULL;
   int is_host_device;
+  CLEANUP_FREE char *format = NULL;
 
   /* XXX We probably could support this if we thought about it some more. */
   if (drv->iface) {
@@ -1124,116 +1175,207 @@ construct_libvirt_xml_disk (guestfs_h *g,
     return -1;
   }
 
-  guestfs___drive_name (drv_index, &drive_name[2]);
-  snprintf (scsi_target, sizeof scsi_target, "%zu", drv_index);
-
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "disk"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "device",
                                          BAD_CAST "disk"));
 
-  switch (drv_priv->real_src.protocol) {
-  case drive_protocol_file:
-    /* Change the libvirt XML according to whether the host path is
-     * a device or a file.  For devices, use:
-     *   <disk type=block device=disk>
-     *     <source dev=[path]>
-     * For files, use:
-     *   <disk type=file device=disk>
-     *     <source file=[path]>
+  if (drv->overlay) {
+    /* Overlay to protect read-only backing disk.  The format of the
+     * overlay is always qcow2.
      */
-    is_host_device = is_blk (drv_priv->real_src.u.path);
-
-    if (!is_host_device) {
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                             BAD_CAST "file"));
-
-      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
-                                             BAD_CAST drv_priv->real_src.u.path));
-      if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
-        return -1;
-      XMLERROR (-1, xmlTextWriterEndElement (xo));
-    }
-    else {
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                             BAD_CAST "block"));
-
-      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
-                                             BAD_CAST drv_priv->real_src.u.path));
-      if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
-        return -1;
-      XMLERROR (-1, xmlTextWriterEndElement (xo));
-    }
-    break;
-
-    /* For network protocols:
-     *   <disk type=network device=disk>
-     *     <source protocol=[protocol] [name=exportname]>
-     * and then zero or more of:
-     *       <host name='example.com' port='10809'/>
-     * or:
-     *       <host transport='unix' socket='/path/to/socket'/>
-     */
-  case drive_protocol_gluster:
-    protocol_str = "gluster"; goto network_protocols;
-  case drive_protocol_iscsi:
-    protocol_str = "iscsi"; goto network_protocols;
-  case drive_protocol_nbd:
-    protocol_str = "nbd"; goto network_protocols;
-  case drive_protocol_rbd:
-    protocol_str = "rbd"; goto network_protocols;
-  case drive_protocol_sheepdog:
-    protocol_str = "sheepdog"; goto network_protocols;
-  case drive_protocol_ssh:
-    protocol_str = "ssh";
-    /*FALLTHROUGH*/
-  network_protocols:
     XMLERROR (-1,
               xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                           BAD_CAST "network"));
+                                           BAD_CAST "file"));
+
     XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
     XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "protocol",
-                                           BAD_CAST protocol_str));
-    if (STRNEQ (drv_priv->real_src.u.exportname, ""))
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                             BAD_CAST drv_priv->real_src.u.exportname));
-    if (construct_libvirt_xml_disk_source_hosts (g, xo,
-                                                 &drv_priv->real_src) == -1)
-      return -1;
+              xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
+                                           BAD_CAST drv->overlay));
     if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
       return -1;
     XMLERROR (-1, xmlTextWriterEndElement (xo));
-    if (drv_priv->real_src.username != NULL) {
-      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "auth"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "username",
-                                             BAD_CAST drv_priv->real_src.username));
-      /* TODO: write the drive secret, after first storing it separately
-       * in libvirt
-       */
-      XMLERROR (-1, xmlTextWriterEndElement (xo));
-    }
-    break;
 
-    /* libvirt doesn't support the qemu curl driver yet.  Give a
-     * reasonable error message instead of trying and failing.
-     */
-  case drive_protocol_ftp:
-  case drive_protocol_ftps:
-  case drive_protocol_http:
-  case drive_protocol_https:
-  case drive_protocol_tftp:
-    error (g, _("libvirt does not support the qemu curl driver protocols (ftp, http, etc.); try setting LIBGUESTFS_BACKEND=direct"));
-    return -1;
+    if (construct_libvirt_xml_disk_target (g, xo, drv_index) == -1)
+      return -1;
+
+    if (construct_libvirt_xml_disk_driver_qemu (g, xo, "qcow2", "unsafe") == -1)
+      return -1;
   }
+  else {
+    /* Not an overlay, a writable disk. */
+
+    switch (drv->src.protocol) {
+    case drive_protocol_file:
+      /* Change the libvirt XML according to whether the host path is
+       * a device or a file.  For devices, use:
+       *   <disk type=block device=disk>
+       *     <source dev=[path]>
+       * For files, use:
+       *   <disk type=file device=disk>
+       *     <source file=[path]>
+       */
+      is_host_device = is_blk (drv->src.u.path);
+
+      if (!is_host_device) {
+        path = realpath (drv->src.u.path, NULL);
+        if (path == NULL) {
+          perrorf (g, _("realpath: could not convert '%s' to absolute path"),
+                   drv->src.u.path);
+          return -1;
+        }
+
+        XMLERROR (-1,
+                  xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                               BAD_CAST "file"));
+
+        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
+        XMLERROR (-1,
+                  xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
+                                               BAD_CAST path));
+        if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
+          return -1;
+        XMLERROR (-1, xmlTextWriterEndElement (xo));
+      }
+      else {
+        XMLERROR (-1,
+                  xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                               BAD_CAST "block"));
+
+        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
+        XMLERROR (-1,
+                  xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
+                                               BAD_CAST drv->src.u.path));
+        if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
+          return -1;
+        XMLERROR (-1, xmlTextWriterEndElement (xo));
+      }
+      break;
+
+      /* For network protocols:
+       *   <disk type=network device=disk>
+       *     <source protocol=[protocol] [name=exportname]>
+       * and then zero or more of:
+       *       <host name='example.com' port='10809'/>
+       * or:
+       *       <host transport='unix' socket='/path/to/socket'/>
+       */
+    case drive_protocol_gluster:
+      protocol_str = "gluster"; goto network_protocols;
+    case drive_protocol_iscsi:
+      protocol_str = "iscsi"; goto network_protocols;
+    case drive_protocol_nbd:
+      protocol_str = "nbd"; goto network_protocols;
+    case drive_protocol_rbd:
+      protocol_str = "rbd"; goto network_protocols;
+    case drive_protocol_sheepdog:
+      protocol_str = "sheepdog"; goto network_protocols;
+    case drive_protocol_ssh:
+      protocol_str = "ssh";
+      /*FALLTHROUGH*/
+    network_protocols:
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                             BAD_CAST "network"));
+      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
+      XMLERROR (-1,
+                xmlTextWriterWriteAttribute (xo, BAD_CAST "protocol",
+                                             BAD_CAST protocol_str));
+      if (STRNEQ (drv->src.u.exportname, ""))
+        XMLERROR (-1,
+                  xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
+                                               BAD_CAST drv->src.u.exportname));
+      if (construct_libvirt_xml_disk_source_hosts (g, xo,
+                                                   &drv->src) == -1)
+        return -1;
+      if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
+        return -1;
+      XMLERROR (-1, xmlTextWriterEndElement (xo));
+      if (drv->src.username != NULL) {
+        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "auth"));
+        XMLERROR (-1,
+                  xmlTextWriterWriteAttribute (xo, BAD_CAST "username",
+                                               BAD_CAST drv->src.username));
+        /* TODO: write the drive secret, after first storing it separately
+         * in libvirt
+         */
+        XMLERROR (-1, xmlTextWriterEndElement (xo));
+      }
+      break;
+
+      /* libvirt doesn't support the qemu curl driver yet.  Give a
+       * reasonable error message instead of trying and failing.
+       */
+    case drive_protocol_ftp:
+    case drive_protocol_ftps:
+    case drive_protocol_http:
+    case drive_protocol_https:
+    case drive_protocol_tftp:
+      error (g, _("libvirt does not support the qemu curl driver protocols (ftp, http, etc.); try setting LIBGUESTFS_BACKEND=direct"));
+      return -1;
+    }
+
+    if (construct_libvirt_xml_disk_target (g, xo, drv_index) == -1)
+      return -1;
+
+    if (drv->src.format)
+      format = safe_strdup (g, drv->src.format);
+    else if (drv->src.protocol == drive_protocol_file) {
+      /* libvirt has disabled the feature of detecting the disk format,
+       * unless the administrator sets allow_disk_format_probing=1 in
+       * qemu.conf.  There is no way to detect if this option is set, so we
+       * have to do format detection here using qemu-img and pass that to
+       * libvirt.
+       *
+       * This is still a security issue, so in most cases it is recommended
+       * the users pass the format to libguestfs which will faithfully pass
+       * that to libvirt and this function won't be used.
+       */
+      format = guestfs_disk_format (g, drv->src.u.path);
+      if (!format)
+        return -1;
+
+      if (STREQ (format, "unknown")) {
+        error (g, _("could not auto-detect the format.\n"
+                    "If the format is known, pass the format to libguestfs, eg. using the\n"
+                    "'--format' option, or via the optional 'format' argument to 'add-drive'."));
+        return -1;
+      }
+    }
+    else {
+      error (g, _("could not auto-detect the format when using a non-file protocol.\n"
+                  "If the format is known, pass the format to libguestfs, eg. using the\n"
+                  "'--format' option, or via the optional 'format' argument to 'add-drive'."));
+      return -1;
+    }
+
+    if (construct_libvirt_xml_disk_driver_qemu (g, xo, format,
+                                                drv->cachemode ? : "writeback")
+        == -1)
+      return -1;
+  }
+
+  if (drv->disk_label) {
+    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "serial"));
+    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST drv->disk_label));
+    XMLERROR (-1, xmlTextWriterEndElement (xo));
+  }
+
+  if (construct_libvirt_xml_disk_address (g, xo, drv_index) == -1)
+    return -1;
+
+  XMLERROR (-1, xmlTextWriterEndElement (xo)); /* </disk> */
+
+  return 0;
+}
+
+static int
+construct_libvirt_xml_disk_target (guestfs_h *g, xmlTextWriterPtr xo,
+                                   size_t drv_index)
+{
+  char drive_name[64] = "sd";
+
+  guestfs___drive_name (drv_index, &drive_name[2]);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
   XMLERROR (-1,
@@ -1244,61 +1386,36 @@ construct_libvirt_xml_disk (guestfs_h *g,
                                          BAD_CAST "scsi"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
+  return 0;
+}
+
+static int
+construct_libvirt_xml_disk_driver_qemu (guestfs_h *g, xmlTextWriterPtr xo,
+                                        const char *format,
+                                        const char *cachemode)
+{
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "driver"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
                                          BAD_CAST "qemu"));
-  if (drv_priv->format) {
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                           BAD_CAST drv_priv->format));
-  }
-  else if (drv_priv->real_src.protocol == drive_protocol_file) {
-    /* libvirt has disabled the feature of detecting the disk format,
-     * unless the administrator sets allow_disk_format_probing=1 in
-     * qemu.conf.  There is no way to detect if this option is set, so we
-     * have to do format detection here using qemu-img and pass that to
-     * libvirt.
-     *
-     * This is still a security issue, so in most cases it is recommended
-     * the users pass the format to libguestfs which will faithfully pass
-     * that to libvirt and this function won't be used.
-     */
-    format = guestfs_disk_format (g, drv_priv->real_src.u.path);
-    if (!format)
-      return -1;
-
-    if (STREQ (format, "unknown")) {
-      error (g, _("could not auto-detect the format.\n"
-                  "If the format is known, pass the format to libguestfs, eg. using the\n"
-                  "'--format' option, or via the optional 'format' argument to 'add-drive'."));
-      return -1;
-    }
-
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                           BAD_CAST format));
-  }
-  else {
-    error (g, _("could not auto-detect the format when using a non-file protocol.\n"
-                "If the format is known, pass the format to libguestfs, eg. using the\n"
-                "'--format' option, or via the optional 'format' argument to 'add-drive'."));
-    return -1;
-  }
-
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
+                                         BAD_CAST format));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "cache",
-                                         BAD_CAST (drv->cachemode ?
-                                                   drv->cachemode :
-                                                   "writeback")));
-
+                                         BAD_CAST cachemode));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-  if (drv->disk_label) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "serial"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST drv->disk_label));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
+  return 0;
+}
+
+static int
+construct_libvirt_xml_disk_address (guestfs_h *g, xmlTextWriterPtr xo,
+                                    size_t drv_index)
+{
+  char scsi_target[64];
+
+  snprintf (scsi_target, sizeof scsi_target, "%zu", drv_index);
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "address"));
   XMLERROR (-1,
@@ -1316,8 +1433,6 @@ construct_libvirt_xml_disk (guestfs_h *g,
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "unit",
                                          BAD_CAST "0"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
   return 0;
@@ -1398,10 +1513,6 @@ construct_libvirt_xml_appliance (guestfs_h *g,
                                  const struct libvirt_xml_params *params,
                                  xmlTextWriterPtr xo)
 {
-  char scsi_target[64];
-
-  snprintf (scsi_target, sizeof scsi_target, "%zu", params->appliance_index);
-
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "disk"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
@@ -1425,45 +1536,14 @@ construct_libvirt_xml_appliance (guestfs_h *g,
                                          BAD_CAST "scsi"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "driver"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                         BAD_CAST "qemu"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "qcow2"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "cache",
-                                         BAD_CAST "unsafe"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  if (construct_libvirt_xml_disk_driver_qemu (g, xo, "qcow2", "unsafe") == -1)
+    return -1;
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "address"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "drive"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "controller",
-                                         BAD_CAST "0"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "bus",
-                                         BAD_CAST "0"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "target",
-                                         BAD_CAST scsi_target));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "unit",
-                                         BAD_CAST "0"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  if (construct_libvirt_xml_disk_address (g, xo, params->appliance_index) == -1)
+    return -1;
 
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "shareable"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-  /* We'd like to do this, but it's not supported by libvirt.
-   * See make_drive_priv for the workaround.
-   *
-   * XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "transient"));
-   * XMLERROR (-1, xmlTextWriterEndElement (xo));
-   */
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
@@ -1560,143 +1640,6 @@ static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
 {
   /* empty */
-}
-
-/* Create a temporary qcow2 overlay on top of 'backing_device', which is
- * either an absolute path or a qemu device name.
- */
-static char *
-make_qcow2_overlay (guestfs_h *g, const char *backing_device,
-                    const char *format, const char *selinux_imagelabel)
-{
-  char *tmpfile = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
-  int r;
-
-  tmpfile = safe_asprintf (g, "%s/snapshot%d", g->tmpdir, ++g->unique);
-
-  guestfs___cmd_add_arg (cmd, "qemu-img");
-  guestfs___cmd_add_arg (cmd, "create");
-  guestfs___cmd_add_arg (cmd, "-f");
-  guestfs___cmd_add_arg (cmd, "qcow2");
-  guestfs___cmd_add_arg (cmd, "-b");
-  guestfs___cmd_add_arg (cmd, backing_device);
-  if (format) {
-    guestfs___cmd_add_arg (cmd, "-o");
-    guestfs___cmd_add_arg_format (cmd, "backing_fmt=%s", format);
-  }
-  guestfs___cmd_add_arg (cmd, tmpfile);
-  r = guestfs___cmd_run (cmd);
-  if (r == -1)
-    goto error;
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "qemu-img create", backing_device);
-    goto error;
-  }
-
-#if HAVE_LIBSELINUX
-  if (selinux_imagelabel) {
-    debug (g, "setting SELinux label on %s to %s",
-           tmpfile, selinux_imagelabel);
-    if (setfilecon (tmpfile, (security_context_t) selinux_imagelabel) == -1)
-      selinux_warning (g, __func__, "setfilecon", tmpfile);
-  }
-#endif
-
-  return tmpfile;               /* caller frees */
-
- error:
-  free (tmpfile);
-
-  return NULL;
-}
-
-/* This sets up the drv->priv structure, which contains the drive
- * that we're actually going to add.  If asked to make a drive readonly
- * then because libvirt doesn't support <transient/> we have to add
- * a qcow2 overlay here.
- */
-static int
-make_drive_priv (guestfs_h *g, struct drive *drv,
-                 const char *selinux_imagelabel)
-{
-  char *path;
-  struct drive_libvirt *drv_priv;
-
-  if (drv->priv && drv->free_priv)
-    drv->free_priv (drv->priv);
-
-  drv->priv = drv_priv = safe_calloc (g, 1, sizeof (struct drive_libvirt));
-  drv->free_priv = drive_free_priv;
-
-  switch (drv->src.protocol) {
-  case drive_protocol_file:
-
-    /* Even for non-readonly paths, we need to make the paths absolute here. */
-    path = realpath (drv->src.u.path, NULL);
-    if (path == NULL) {
-      perrorf (g, _("realpath: could not convert '%s' to absolute path"),
-               drv->src.u.path);
-      return -1;
-    }
-
-    drv_priv->real_src.protocol = drive_protocol_file;
-
-    if (!drv->readonly) {
-      drv_priv->real_src.u.path = path;
-      drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
-    }
-    else {
-      drv_priv->real_src.u.path = make_qcow2_overlay (g, path, drv->format,
-                                                      selinux_imagelabel);
-      free (path);
-      if (!drv_priv->real_src.u.path)
-        return -1;
-      drv_priv->format = safe_strdup (g, "qcow2");
-    }
-    break;
-
-  case drive_protocol_ftp:
-  case drive_protocol_ftps:
-  case drive_protocol_gluster:
-  case drive_protocol_http:
-  case drive_protocol_https:
-  case drive_protocol_iscsi:
-  case drive_protocol_nbd:
-  case drive_protocol_rbd:
-  case drive_protocol_sheepdog:
-  case drive_protocol_ssh:
-  case drive_protocol_tftp:
-    if (!drv->readonly) {
-      guestfs___copy_drive_source (g, &drv->src, &drv_priv->real_src);
-      drv_priv->format = drv->format ? safe_strdup (g, drv->format) : NULL;
-    }
-    else {
-      CLEANUP_FREE char *qemu_device = NULL;
-
-      drv_priv->real_src.protocol = drive_protocol_file;
-      qemu_device = guestfs___drive_source_qemu_param (g, &drv->src);
-      drv_priv->real_src.u.path = make_qcow2_overlay (g, qemu_device,
-                                                      drv->format,
-                                                      selinux_imagelabel);
-      if (!drv_priv->real_src.u.path)
-        return -1;
-      drv_priv->format = safe_strdup (g, "qcow2");
-    }
-    break;
-  }
-
-  return 0;
-}
-
-static void
-drive_free_priv (void *priv)
-{
-  struct drive_libvirt *drv_priv = priv;
-
-  guestfs___free_drive_source (&drv_priv->real_src);
-  free (drv_priv->format);
-  free (drv_priv);
 }
 
 static int
@@ -1805,9 +1748,6 @@ hot_add_drive_libvirt (guestfs_h *g, void *datav,
     return -1;
   }
 
-  if (make_drive_priv (g, drv, data->selinux_imagelabel) == -1)
-    return -1;
-
   /* Create the XML for the new disk. */
   xml = construct_libvirt_xml_hot_add_disk (g, data, drv, drv_index);
   if (xml == NULL)
@@ -1908,6 +1848,7 @@ set_libvirt_selinux_norelabel_disks (guestfs_h *g, void *datav, int flag)
 
 static struct backend_ops backend_libvirt_ops = {
   .data_size = sizeof (struct backend_libvirt_data),
+  .create_cow_overlay = create_cow_overlay_libvirt,
   .launch = launch_libvirt,
   .shutdown = shutdown_libvirt,
   .max_disks = max_disks_libvirt,

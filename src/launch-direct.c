@@ -33,8 +33,11 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <grp.h>
+#include <assert.h>
 
 #include <pcre.h>
+
+#include <libxml/uri.h>
 
 #include "cloexec.h"
 #include "ignore-value.h"
@@ -100,6 +103,53 @@ static int qemu_supports (guestfs_h *g, struct backend_direct_data *, const char
 static int qemu_supports_device (guestfs_h *g, struct backend_direct_data *, const char *device_name);
 static int qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *);
 static char *qemu_escape_param (guestfs_h *g, const char *param);
+
+static char *
+create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
+{
+  char *overlay = NULL;
+  CLEANUP_FREE char *backing_drive = NULL;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  int r;
+
+  backing_drive = guestfs___drive_source_qemu_param (g, &drv->src);
+  if (!backing_drive)
+    goto error;
+
+  if (guestfs___lazy_make_tmpdir (g) == -1)
+    goto error;
+
+  overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
+
+  guestfs___cmd_add_arg (cmd, "qemu-img");
+  guestfs___cmd_add_arg (cmd, "create");
+  guestfs___cmd_add_arg (cmd, "-f");
+  guestfs___cmd_add_arg (cmd, "qcow2");
+  guestfs___cmd_add_arg (cmd, "-b");
+  guestfs___cmd_add_arg (cmd, backing_drive);
+  if (drv->src.format) {
+    guestfs___cmd_add_arg (cmd, "-o");
+    guestfs___cmd_add_arg_format (cmd, "backing_fmt=%s", drv->src.format);
+  }
+  guestfs___cmd_add_arg (cmd, overlay);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1)
+    goto error;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs___external_command_failed (g, r, "qemu-img create", backing_drive);
+    goto error;
+  }
+
+  /* Caller sets g->overlay in the handle to this, and then manages
+   * the memory.
+   */
+  return overlay;
+
+ error:
+  free (overlay);
+
+  return NULL;
+}
 
 #ifdef QEMU_OPTIONS
 /* Like 'add_cmdline' but allowing a shell-quoted string of zero or
@@ -470,23 +520,35 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   ITER_DRIVES (g, i, drv) {
     CLEANUP_FREE char *file = NULL, *escaped_file = NULL, *param = NULL;
 
-    /* Make the file= parameter. */
-    file = guestfs___drive_source_qemu_param (g, &drv->src);
-    escaped_file = qemu_escape_param (g, file);
+    if (!drv->overlay) {
+      /* Make the file= parameter. */
+      file = guestfs___drive_source_qemu_param (g, &drv->src);
+      escaped_file = qemu_escape_param (g, file);
 
-    /* Make the first part of the -drive parameter, everything up to
-     * the if=... at the end.
-     */
-    param = safe_asprintf
-      (g, "file=%s%s,cache=%s%s%s%s%s,id=hd%zu",
-       escaped_file,
-       drv->readonly ? ",snapshot=on" : "",
-       drv->cachemode ? drv->cachemode : "writeback",
-       drv->format ? ",format=" : "",
-       drv->format ? drv->format : "",
-       drv->disk_label ? ",serial=" : "",
-       drv->disk_label ? drv->disk_label : "",
-       i);
+      /* Make the first part of the -drive parameter, everything up to
+       * the if=... at the end.
+       */
+      param = safe_asprintf
+        (g, "file=%s%s,cache=%s%s%s%s%s,id=hd%zu",
+         escaped_file,
+         drv->readonly ? ",snapshot=on" : "",
+         drv->cachemode ? drv->cachemode : "writeback",
+         drv->src.format ? ",format=" : "",
+         drv->src.format ? drv->src.format : "",
+         drv->disk_label ? ",serial=" : "",
+         drv->disk_label ? drv->disk_label : "",
+         i);
+    }
+    else {
+      /* Writable qcow2 overlay on top of read-only drive. */
+      escaped_file = qemu_escape_param (g, drv->overlay);
+      param = safe_asprintf
+        (g, "file=%s,cache=unsafe,format=qcow2%s%s,id=hd%zu",
+         escaped_file,
+         drv->disk_label ? ",serial=" : "",
+         drv->disk_label ? drv->disk_label : "",
+         i);
+    }
 
     /* If there's an explicit 'iface', use it.  Otherwise default to
      * virtio-scsi if available.  Otherwise default to virtio-blk.
@@ -1130,6 +1192,186 @@ qemu_escape_param (guestfs_h *g, const char *param)
   return ret;
 }
 
+static char *
+make_uri (guestfs_h *g, const char *scheme, const char *user,
+          struct drive_server *server, const char *path)
+{
+  xmlURI uri = { .scheme = (char *) scheme,
+                 .path = (char *) path,
+                 .user = (char *) user };
+  CLEANUP_FREE char *query = NULL;
+
+  switch (server->transport) {
+  case drive_transport_none:
+  case drive_transport_tcp:
+    uri.server = server->u.hostname;
+    uri.port = server->port;
+    break;
+  case drive_transport_unix:
+    query = safe_asprintf (g, "socket=%s", server->u.socket);
+    uri.query_raw = query;
+    break;
+  }
+
+  return (char *) xmlSaveUri (&uri);
+}
+
+/* Useful function to format a drive + protocol for qemu.  Also shared
+ * with launch-libvirt.c.
+ *
+ * Note that the qemu parameter is the bit after "file=".  It is not
+ * escaped here, but would usually be escaped if passed to qemu as
+ * part of a full -drive parameter (but not for qemu-img).
+ */
+char *
+guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
+{
+  char *path;
+
+  switch (src->protocol) {
+  case drive_protocol_file:
+    /* We have to convert the path to an absolute path, since
+     * otherwise qemu will look for the backing file relative to the
+     * overlay (which is located in g->tmpdir).
+     *
+     * As a side-effect this deals with paths that contain ':' since
+     * qemu will not process the ':' if the path begins with '/'.
+     */
+    path = realpath (src->u.path, NULL);
+    if (path == NULL) {
+      perrorf (g, _("realpath: could not convert '%s' to absolute path"),
+               src->u.path);
+      return NULL;
+    }
+    return path;
+
+  case drive_protocol_ftp:
+    return make_uri (g, "ftp", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_ftps:
+    return make_uri (g, "ftps", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_gluster:
+    switch (src->servers[0].transport) {
+    case drive_transport_none:
+      return make_uri (g, "gluster", NULL, &src->servers[0], src->u.exportname);
+    case drive_transport_tcp:
+      return make_uri (g, "gluster+tcp",
+                       NULL, &src->servers[0], src->u.exportname);
+    case drive_transport_unix:
+      return make_uri (g, "gluster+unix", NULL, &src->servers[0], NULL);
+    }
+
+  case drive_protocol_http:
+    return make_uri (g, "http", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_https:
+    return make_uri (g, "https", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_iscsi:
+    return make_uri (g, "iscsi", NULL, &src->servers[0], src->u.exportname);
+
+  case drive_protocol_nbd: {
+    CLEANUP_FREE char *p = NULL;
+    char *ret;
+
+    switch (src->servers[0].transport) {
+    case drive_transport_none:
+    case drive_transport_tcp:
+      p = safe_asprintf (g, "nbd:%s:%d",
+                         src->servers[0].u.hostname, src->servers[0].port);
+      break;
+    case drive_transport_unix:
+      p = safe_asprintf (g, "nbd:unix:%s", src->servers[0].u.socket);
+      break;
+    }
+    assert (p);
+
+    if (STREQ (src->u.exportname, ""))
+      ret = safe_strdup (g, p);
+    else
+      /* Skip the mandatory leading '/' character. */
+      ret = safe_asprintf (g, "%s:exportname=%s", p, &src->u.exportname[1]);
+
+    return ret;
+  }
+
+  case drive_protocol_rbd: {
+    /* build the list of all the mon hosts */
+    CLEANUP_FREE char *mon_host = NULL, *username = NULL, *secret = NULL;
+    const char *auth;
+    size_t n = 0;
+    size_t i, j;
+
+    for (i = 0; i < src->nr_servers; i++) {
+      n += strlen (src->servers[i].u.hostname);
+      n += 8; /* for slashes, colons, & port numbers */
+    }
+    n++; /* for \0 */
+    mon_host = safe_malloc (g, n);
+    n = 0;
+    for (i = 0; i < src->nr_servers; i++) {
+      CLEANUP_FREE char *port = NULL;
+
+      for (j = 0; j < strlen (src->servers[i].u.hostname); j++)
+        mon_host[n++] = src->servers[i].u.hostname[j];
+      mon_host[n++] = '\\';
+      mon_host[n++] = ':';
+      port = safe_asprintf (g, "%d", src->servers[i].port);
+      for (j = 0; j < strlen (port); j++)
+        mon_host[n++] = port[j];
+
+      /* join each host with \; */
+      if (i != src->nr_servers - 1) {
+        mon_host[n++] = '\\';
+        mon_host[n++] = ';';
+      }
+    }
+    mon_host[n] = '\0';
+
+    if (src->username)
+        username = safe_asprintf (g, ":id=%s", src->username);
+    if (src->secret)
+        secret = safe_asprintf (g, ":key=%s", src->secret);
+    if (username || secret)
+        auth = ":auth_supported=cephx\\;none";
+    else
+        auth = ":auth_supported=none";
+
+    /* Skip the mandatory leading '/' character on exportname. */
+    return safe_asprintf (g, "rbd:%s:mon_host=%s%s%s%s",
+                          &src->u.exportname[1],
+                          mon_host,
+                          username ? username : "",
+                          auth,
+                          secret ? secret : "");
+  }
+
+  case drive_protocol_sheepdog:
+    /* Skip the mandatory leading '/' character on exportname. */
+    if (src->nr_servers == 0)
+      return safe_asprintf (g, "sheepdog:%s", &src->u.exportname[1]);
+    else                        /* XXX How to pass multiple hosts? */
+      return safe_asprintf (g, "sheepdog:%s:%d:%s",
+                            src->servers[0].u.hostname, src->servers[0].port,
+                            &src->u.exportname[1]);
+
+  case drive_protocol_ssh:
+    return make_uri (g, "ssh", src->username,
+                     &src->servers[0], src->u.exportname);
+
+  case drive_protocol_tftp:
+    return make_uri (g, "tftp", src->username,
+                     &src->servers[0], src->u.exportname);
+  }
+
+  abort ();
+}
+
 static int
 shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
 {
@@ -1196,6 +1438,7 @@ max_disks_direct (guestfs_h *g, void *datav)
 
 static struct backend_ops backend_direct_ops = {
   .data_size = sizeof (struct backend_direct_data),
+  .create_cow_overlay = create_cow_overlay_direct,
   .launch = launch_direct,
   .shutdown = shutdown_direct,
   .get_pid = get_pid_direct,

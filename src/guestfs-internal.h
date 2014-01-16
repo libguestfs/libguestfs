@@ -209,6 +209,9 @@ struct drive_server {
 struct drive_source {
   enum drive_protocol protocol;
 
+  /* Format (eg. raw, qcow2).  NULL = autodetect. */
+  char *format;
+
   /* This field is always non-NULL.  It may be an empty string. */
   union {
     char *path;                 /* path to file (file) */
@@ -228,19 +231,27 @@ struct drive_source {
   char *secret;
 };
 
+/* There is one 'struct drive' per drive, including hot-plugged drives. */
 struct drive {
+  /* Original source of the drive, eg. file:..., http:... */
   struct drive_source src;
 
+  /* If the drive is readonly, then an overlay [a local file] is
+   * created before launch to protect the original drive content, and
+   * the filename is stored here.  Backends should open this file if
+   * it is non-NULL, else consult the original source above.
+   *
+   * Note that the overlay is in a backend-specific format, probably
+   * different from the source format.  eg. qcow2, UML COW.
+   */
+  char *overlay;
+
+  /* Various per-drive flags. */
   bool readonly;
-  char *format;
   char *iface;
   char *name;
   char *disk_label;
   char *cachemode;
-
-  /* Data used by the backend. */
-  void *priv;
-  void (*free_priv) (void *);
 };
 
 /* Extra hv parameters (from guestfs_config). */
@@ -261,6 +272,12 @@ struct backend_ops {
    * shutdown.
    */
   size_t data_size;
+
+  /* Create a COW overlay on top of a drive.  This must be a local
+   * file, created in the temporary directory.  This is called when
+   * the drive is added to the handle.
+   */
+  char *(*create_cow_overlay) (guestfs_h *g, void *data, struct drive *drv);
 
   /* Launch and shut down. */
   int (*launch) (guestfs_h *g, void *data, const char *arg);
@@ -695,9 +712,6 @@ extern size_t guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
-extern void guestfs___copy_drive_source (guestfs_h *g, const struct drive_source *src, struct drive_source *dest);
-extern char *guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
-extern void guestfs___free_drive_source (struct drive_source *src);
 
 /* appliance.c */
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **dtb, char **initrd, char **appliance);
@@ -812,5 +826,8 @@ extern void guestfs___cmd_close (struct command *);
 #define CLEANUP_CMD_CLOSE
 #endif
 extern void guestfs___cleanup_cmd_close (struct command **);
+
+/* launch-direct.c */
+extern char *guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 
 #endif /* GUESTFS_INTERNAL_H_ */

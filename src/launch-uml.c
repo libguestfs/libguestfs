@@ -50,7 +50,42 @@ struct backend_uml_data {
 };
 
 static void print_vmlinux_command_line (guestfs_h *g, char **argv);
-static char *make_cow_overlay (guestfs_h *g, const char *original);
+
+/* Run uml_mkcow to create a COW overlay. */
+static char *
+make_cow_overlay (guestfs_h *g, const char *original)
+{
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  char *overlay;
+  int r;
+
+  if (guestfs___lazy_make_tmpdir (g) == -1)
+    return NULL;
+
+  overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, g->unique++);
+
+  guestfs___cmd_add_arg (cmd, "uml_mkcow");
+  guestfs___cmd_add_arg (cmd, overlay);
+  guestfs___cmd_add_arg (cmd, original);
+  r = guestfs___cmd_run (cmd);
+  if (r == -1) {
+    free (overlay);
+    return NULL;
+  }
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs___external_command_failed (g, r, "uml_mkcow", original);
+    free (overlay);
+    return NULL;
+  }
+
+  return overlay;
+}
+
+static char *
+create_cow_overlay_uml (guestfs_h *g, void *datav, struct drive *drv)
+{
+  return make_cow_overlay (g, drv->src.u.path);
+}
 
 /* Test for features which are not supported by the UML backend.
  * Possibly some of these should just be warnings, not errors.
@@ -75,7 +110,7 @@ uml_supported (guestfs_h *g)
       error (g, _("uml backend does not support remote drives"));
       return false;
     }
-    if (drv->format && STRNEQ (drv->format, "raw")) {
+    if (drv->src.format && STRNEQ (drv->src.format, "raw")) {
       error (g, _("uml backend does not support non-raw-format drives"));
       return false;
     }
@@ -132,20 +167,10 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
     return -1;
   has_appliance_drive = appliance != NULL;
 
-  /* Create COW overlays for any readonly drives, and for the root.
-   * Note that the documented syntax ubd0=cow,orig does not work since
-   * kernel 3.3.  See:
+  /* Create COW overlays for the appliance.  Note that the documented
+   * syntax ubd0=cow,orig does not work since kernel 3.3.  See:
    * http://thread.gmane.org/gmane.linux.uml.devel/13556
    */
-  ITER_DRIVES (g, i, drv) {
-    if (drv->readonly) {
-      drv->priv = make_cow_overlay (g, drv->src.u.path);
-      if (!drv->priv)
-        goto cleanup0;
-      drv->free_priv = free;
-    }
-  }
-
   if (has_appliance_drive) {
     appliance_cow = make_cow_overlay (g, appliance);
     if (!appliance_cow)
@@ -219,10 +244,10 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
 
   /* Add the drives. */
   ITER_DRIVES (g, i, drv) {
-    if (!drv->readonly)
+    if (!drv->overlay)
       ADD_CMDLINE_PRINTF ("ubd%zu=%s", i, drv->src.u.path);
     else
-      ADD_CMDLINE_PRINTF ("ubd%zu=%s", i, (char *) drv->priv);
+      ADD_CMDLINE_PRINTF ("ubd%zu=%s", i, drv->overlay);
   }
 
   /* Add the ext2 appliance drive (after all the drives). */
@@ -479,35 +504,6 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   return -1;
 }
 
-/* Run uml_mkcow to create a COW overlay.  This works around a kernel
- * bug in UML option parsing.
- */
-static char *
-make_cow_overlay (guestfs_h *g, const char *original)
-{
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
-  char *cow;
-  int r;
-
-  cow = safe_asprintf (g, "%s/cow%d", g->tmpdir, g->unique++);
-
-  guestfs___cmd_add_arg (cmd, "uml_mkcow");
-  guestfs___cmd_add_arg (cmd, cow);
-  guestfs___cmd_add_arg (cmd, original);
-  r = guestfs___cmd_run (cmd);
-  if (r == -1) {
-    free (cow);
-    return NULL;
-  }
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "uml_mkcow", original);
-    free (cow);
-    return NULL;
-  }
-
-  return cow;                   /* caller must free */
-}
-
 /* This is called from the forked subprocess just before vmlinux runs,
  * so it can just print the message straight to stderr, where it will
  * be picked up and funnelled through the usual appliance event API.
@@ -605,6 +601,7 @@ max_disks_uml (guestfs_h *g, void *datav)
 
 static struct backend_ops backend_uml_ops = {
   .data_size = sizeof (struct backend_uml_data),
+  .create_cow_overlay = create_cow_overlay_uml,
   .launch = launch_uml,
   .shutdown = shutdown_uml,
   .get_pid = get_pid_uml,
