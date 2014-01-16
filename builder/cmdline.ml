@@ -130,7 +130,8 @@ let parse_cmdline () =
     links := (target, lns) :: !links
   in
 
-  let list_long = ref false in
+  let list_format = ref `Short in
+  let list_set_long () = list_format := `Long in
 
   let memsize = ref None in
   let set_memsize arg = memsize := Some arg in
@@ -255,7 +256,7 @@ let parse_cmdline () =
     "--link",    Arg.String add_link,       "target:link.." ^ " " ^ s_"Create symbolic links";
     "-l",        Arg.Unit list_mode,        " " ^ s_"List available templates";
     "--list",    Arg.Unit list_mode,        ditto;
-    "--long",    Arg.Set list_long,         ditto;
+    "--long",    Arg.Unit list_set_long,    " " ^ s_"List available templates, in long textual form";
     "--no-logfile", Arg.Set scrub_logfile,  " " ^ s_"Scrub build log file";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
@@ -329,7 +330,7 @@ read the man page virt-builder(1).
   let gpg = !gpg in
   let hostname = !hostname in
   let install = List.rev !install in
-  let list_long = !list_long in
+  let list_format = !list_format in
   let links = List.rev !links in
   let memsize = !memsize in
   let mkdirs = List.rev !mkdirs in
@@ -443,7 +444,7 @@ read the man page virt-builder(1).
 
   mode, arg,
   attach, cache, check_signature, curl, debug, delete, delete_on_failure,
-  edit, firstboot, run, format, gpg, hostname, install, list_long, links,
+  edit, firstboot, run, format, gpg, hostname, install, list_format, links,
   memsize, mkdirs,
   network, output, password_crypto, quiet, root_password, scrub,
   scrub_logfile, size, smp, sources, sync, timezone, update, upload,
