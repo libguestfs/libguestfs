@@ -31,7 +31,7 @@ virt-builder - Build virtual machine images quickly
     [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
     [--firstboot-install PKG,[PKG...]]
 
- virt-builder -l|--list [--long]
+ virt-builder -l|--list [--long] [--list-format short|long]
 
  virt-builder --notes os-version
 
@@ -374,12 +374,30 @@ pointing at C<TARGET>.
 
 =item B<--list>
 
+=item B<--list --format> format
+
 =item B<--list --long>
 
 List available templates.
 
-The alternative I<--list --long> form shows lots more details about
-each operating system option.
+It is possible to choose with I<--format> the output format for the list
+templates:
+
+=over 4
+
+=item B<short>
+
+The default format, prints only the template identifier and, next to it,
+its short description.
+
+=item B<long>
+
+Prints a textual list with the details of the available sources, followed
+by the details of the available templates.
+
+=back
+
+I<--long> is a shorthand for the C<long> format.
 
 See also: I<--source>, I<--notes>, L</CREATING YOUR OWN TEMPLATES>.
 
