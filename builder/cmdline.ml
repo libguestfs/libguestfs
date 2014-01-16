@@ -132,6 +132,13 @@ let parse_cmdline () =
 
   let list_format = ref `Short in
   let list_set_long () = list_format := `Long in
+  let list_set_format arg =
+    list_format := match arg with
+    | "short" -> `Short
+    | "long" -> `Long
+    | fmt ->
+      eprintf (f_"%s: invalid --list-format type '%s', see the man page.\n") prog fmt;
+      exit 1 in
 
   let memsize = ref None in
   let set_memsize arg = memsize := Some arg in
@@ -256,7 +263,9 @@ let parse_cmdline () =
     "--link",    Arg.String add_link,       "target:link.." ^ " " ^ s_"Create symbolic links";
     "-l",        Arg.Unit list_mode,        " " ^ s_"List available templates";
     "--list",    Arg.Unit list_mode,        ditto;
-    "--long",    Arg.Unit list_set_long,    " " ^ s_"List available templates, in long textual form";
+    "--long",    Arg.Unit list_set_long,    " " ^ s_"Shortcut for --list-format short";
+    "--list-format", Arg.String list_set_format,
+                                            "short|long" ^ " " ^ s_"Set the format for --list (default: short)";
     "--no-logfile", Arg.Set scrub_logfile,  " " ^ s_"Scrub build log file";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
