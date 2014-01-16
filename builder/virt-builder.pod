@@ -31,7 +31,7 @@ virt-builder - Build virtual machine images quickly
     [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
     [--firstboot-install PKG,[PKG...]]
 
- virt-builder -l|--list [--long] [--list-format short|long]
+ virt-builder -l|--list [--long] [--list-format short|long|json]
 
  virt-builder --notes os-version
 
@@ -394,6 +394,16 @@ its short description.
 
 Prints a textual list with the details of the available sources, followed
 by the details of the available templates.
+
+=item B<json>
+
+Prints a JSON object with the details of the available sources and
+the details of the available templates.
+
+The C<version> key in the main object represents the "compatibility version",
+and it is bumped every time the resulting JSON output is incompatible with
+the previous versions (for example the structure has changed, or non-optional
+keys are no more present).
 
 =back
 

@@ -136,6 +136,7 @@ let parse_cmdline () =
     list_format := match arg with
     | "short" -> `Short
     | "long" -> `Long
+    | "json" -> `Json
     | fmt ->
       eprintf (f_"%s: invalid --list-format type '%s', see the man page.\n") prog fmt;
       exit 1 in
@@ -265,7 +266,7 @@ let parse_cmdline () =
     "--list",    Arg.Unit list_mode,        ditto;
     "--long",    Arg.Unit list_set_long,    " " ^ s_"Shortcut for --list-format short";
     "--list-format", Arg.String list_set_format,
-                                            "short|long" ^ " " ^ s_"Set the format for --list (default: short)";
+                                            "short|long|json" ^ " " ^ s_"Set the format for --list (default: short)";
     "--no-logfile", Arg.Set scrub_logfile,  " " ^ s_"Scrub build log file";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
