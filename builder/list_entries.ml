@@ -25,6 +25,7 @@ let rec list_entries ~list_format ~sources index =
   match list_format with
   | `Short -> list_entries_short index
   | `Long -> list_entries_long ~sources index
+  | `Json -> list_entries_json ~sources index
 
 and list_entries_short index =
   List.iter (
@@ -78,3 +79,62 @@ and list_entries_long ~sources index =
         printf "\n"
       )
   ) index
+
+and list_entries_json ~sources index =
+  let trailing_comma index size =
+    if index = size - 1 then "" else "," in
+  let json_string_of_bool b =
+    if b then "true" else "false" in
+  let json_string_escape str =
+    let res = ref "" in
+    for i = 0 to String.length str - 1 do
+      res := !res ^ (match str.[i] with
+        | '"' -> "\\\""
+        | '\\' -> "\\\\"
+        | '\b' -> "\\b"
+        | '\n' -> "\\n"
+        | '\r' -> "\\r"
+        | '\t' -> "\\t"
+        | c -> String.make 1 c)
+    done;
+    !res in
+  let json_optional_printf_string key value =
+    match value with
+    | None -> ()
+    | Some str ->
+      printf "    \"%s\": \"%s\",\n" key (json_string_escape str) in
+  let json_optional_printf_int64 key value =
+    match value with
+    | None -> ()
+    | Some n ->
+      printf "    \"%s\": \"%Ld\",\n" key n in
+
+  printf "{\n";
+  printf "  \"version\": %d,\n" 1;
+  printf "  \"sources\": [\n";
+  iteri (
+    fun i (source, fingerprint) ->
+      printf "  {\n";
+      printf "    \"uri\": \"%s\",\n" source;
+      printf "    \"fingerprint\": \"%s\"\n" fingerprint;
+      printf "  }%s\n" (trailing_comma i (List.length sources))
+  ) sources;
+  printf "  ],\n";
+  printf "  \"templates\": [\n";
+  iteri (
+    fun i (name, { Index_parser.printable_name = printable_name;
+                   size = size;
+                   compressed_size = compressed_size;
+                   notes = notes;
+                   hidden = hidden }) ->
+      printf "  {\n";
+      printf "    \"os-version\": \"%s\",\n" name;
+      json_optional_printf_string "full-name" printable_name;
+      printf "    \"size\": %Ld,\n" size;
+      json_optional_printf_int64 "compressed-size" compressed_size;
+      json_optional_printf_string "notes" notes;
+      printf "    \"hidden\": %s\n" (json_string_of_bool hidden);
+      printf "  }%s\n" (trailing_comma i (List.length index))
+  ) index;
+  printf "  ]\n";
+ printf "}\n"

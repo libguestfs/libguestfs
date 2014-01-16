@@ -103,3 +103,70 @@ Phony Windows look-alike used for testing." ]; then
     echo "$long_list"
     exit 1
 fi
+
+json_list=$(./virt-builder --no-check-signature --no-cache --list --list-format json)
+
+if [ "$json_list" != "{
+  \"version\": 1,
+  \"sources\": [
+  {
+    \"uri\": \"$VIRT_BUILDER_SOURCE\",
+    \"fingerprint\": \"F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0\"
+  }
+  ],
+  \"templates\": [
+  {
+    \"os-version\": \"phony-debian\",
+    \"full-name\": \"Phony Debian\",
+    \"size\": 536870912,
+    \"notes\": \"Phony Debian look-alike used for testing.\",
+    \"hidden\": false
+  },
+  {
+    \"os-version\": \"phony-fedora\",
+    \"full-name\": \"Phony Fedora\",
+    \"size\": 1073741824,
+    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"hidden\": false
+  },
+  {
+    \"os-version\": \"phony-fedora-qcow2\",
+    \"full-name\": \"Phony Fedora qcow2\",
+    \"size\": 1073741824,
+    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"hidden\": false
+  },
+  {
+    \"os-version\": \"phony-fedora-qcow2-uncompressed\",
+    \"full-name\": \"Phony Fedora qcow2 uncompressed\",
+    \"size\": 1073741824,
+    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"hidden\": false
+  },
+  {
+    \"os-version\": \"phony-fedora-no-format\",
+    \"full-name\": \"Phony Fedora\",
+    \"size\": 1073741824,
+    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"hidden\": false
+  },
+  {
+    \"os-version\": \"phony-ubuntu\",
+    \"full-name\": \"Phony Ubuntu\",
+    \"size\": 536870912,
+    \"notes\": \"Phony Ubuntu look-alike used for testing.\",
+    \"hidden\": false
+  },
+  {
+    \"os-version\": \"phony-windows\",
+    \"full-name\": \"Phony Windows\",
+    \"size\": 536870912,
+    \"notes\": \"Phony Windows look-alike used for testing.\",
+    \"hidden\": false
+  }
+  ]
+}" ]; then
+    echo "$0: unexpected --list --format json output:"
+    echo "$json_list"
+    exit 1
+fi
