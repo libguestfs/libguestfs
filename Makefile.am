@@ -62,6 +62,7 @@ SUBDIRS += tests/http
 SUBDIRS += tests/syslinux
 SUBDIRS += tests/journal
 SUBDIRS += tests/fuzz
+SUBDIRS += tests/relative-paths
 SUBDIRS += tests/regressions
 endif
 

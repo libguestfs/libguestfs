@@ -1767,6 +1767,7 @@ AC_CONFIG_FILES([Makefile
                  tests/protocol/Makefile
                  tests/qemu/Makefile
                  tests/regressions/Makefile
+                 tests/relative-paths/Makefile
                  tests/rsync/Makefile
                  tests/selinux/Makefile
                  tests/syslinux/Makefile
