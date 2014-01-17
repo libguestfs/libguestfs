@@ -132,6 +132,10 @@ create_drive_file (guestfs_h *g, const char *path,
 
   if (readonly) {
     if (create_overlay (g, drv) == -1) {
+      /* Don't double-free the servers in free_drive_struct, since
+       * they are owned by the caller along this error path.
+       */
+      drv->src.servers = NULL; drv->src.nr_servers = 0;
       free_drive_struct (drv);
       return NULL;
     }
@@ -168,6 +172,10 @@ create_drive_non_file (guestfs_h *g,
 
   if (readonly) {
     if (create_overlay (g, drv) == -1) {
+      /* Don't double-free the servers in free_drive_struct, since
+       * they are owned by the caller along this error path.
+       */
+      drv->src.servers = NULL; drv->src.nr_servers = 0;
       free_drive_struct (drv);
       return NULL;
     }
