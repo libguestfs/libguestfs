@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-01-13 21:53+0000\n"
+"POT-Creation-Date: 2014-01-17 15:45+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -73,11 +73,11 @@ msgstr ""
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:161 ../builder/cmdline.ml:97
+#: ../builder/cmdline.ml:170 ../builder/cmdline.ml:97
 msgid "%s: %s: %s: file not found\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:163 ../builder/cmdline.ml:99
+#: ../builder/cmdline.ml:172 ../builder/cmdline.ml:99
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "%s: --update is not supported for this guest operating system\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:201
+#: ../builder/cmdline.ml:210
 msgid "%s: --upload: %s: file not found\n"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
-#: ../builder/cmdline.ml:297
+#: ../builder/cmdline.ml:308
 msgid ""
 "%s: build virtual machine images quickly\n"
 "\n"
@@ -296,11 +296,15 @@ msgstr ""
 msgid "%s: invalid --link format, see the man page.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:196
+#: ../builder/cmdline.ml:141
+msgid "%s: invalid --list-format type '%s', see the man page.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:205
 msgid "%s: invalid --upload format, see the man page.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:213
+#: ../builder/cmdline.ml:222
 msgid "%s: invalid --write format, see the man page.\n"
 msgstr ""
 
@@ -417,7 +421,7 @@ msgid ""
 "%s: sorry, don't know how to use --update with the '%s' package manager\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:434
+#: ../builder/cmdline.ml:445
 msgid "%s: source and fingerprint lists are not the same length\n"
 msgstr ""
 
@@ -455,39 +459,39 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../builder/cmdline.ml:388
+#: ../builder/cmdline.ml:399
 msgid ""
 "%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
 "need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:395
+#: ../builder/cmdline.ml:406
 msgid ""
 "%s: virt-builder --get-kernel image\n"
 "Missing 'image' (disk image file) argument.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:398
+#: ../builder/cmdline.ml:409
 msgid "%s: virt-builder --get-kernel: too many parameters\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:369
+#: ../builder/cmdline.ml:380
 msgid "%s: virt-builder --list does not need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:376
+#: ../builder/cmdline.ml:387
 msgid ""
 "%s: virt-builder --notes os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:359
+#: ../builder/cmdline.ml:370
 msgid ""
 "%s: virt-builder os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:379 ../builder/cmdline.ml:362
+#: ../builder/cmdline.ml:390 ../builder/cmdline.ml:373
 msgid "%s: virt-builder: too many parameters, expecting 'os-version'\n"
 msgstr ""
 
@@ -573,11 +577,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../builder/cmdline.ml:254
+#: ../builder/cmdline.ml:263
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../builder/cmdline.ml:248
+#: ../builder/cmdline.ml:257
 msgid "Add package(s) to install at firstboot"
 msgstr ""
 
@@ -593,7 +597,7 @@ msgstr ""
 msgid "Align first partition (default: auto)"
 msgstr ""
 
-#: ../builder/cmdline.ml:223
+#: ../builder/cmdline.ml:232
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
@@ -622,7 +626,7 @@ msgstr ""
 msgid "Change the timezone.  Use a location string such as C<Europe/London>"
 msgstr ""
 
-#: ../builder/cmdline.ml:231
+#: ../builder/cmdline.ml:240
 msgid "Check digital signatures"
 msgstr ""
 
@@ -660,7 +664,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:263
+#: ../builder/cmdline.ml:274
 msgid "Create directory"
 msgstr ""
 
@@ -670,7 +674,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:255
+#: ../builder/cmdline.ml:264
 msgid "Create symbolic links"
 msgstr ""
 
@@ -727,7 +731,7 @@ msgstr ""
 msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
 msgstr ""
 
-#: ../builder/cmdline.ml:237
+#: ../builder/cmdline.ml:246
 msgid "Delete a file or dir"
 msgstr ""
 
@@ -751,7 +755,7 @@ msgid ""
 " virt-sysprep --delete '/var/log/*.log'."
 msgstr ""
 
-#: ../builder/cmdline.ml:239
+#: ../builder/cmdline.ml:248
 msgid "Delete the template cache"
 msgstr ""
 
@@ -759,29 +763,29 @@ msgstr ""
 msgid "Deleting: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:265
+#: ../builder/cmdline.ml:276
 msgid "Disable appliance network"
 msgstr ""
 
-#: ../builder/cmdline.ml:234
+#: ../builder/cmdline.ml:243
 msgid "Disable digital signatures"
 msgstr ""
 
-#: ../builder/cmdline.ml:227
+#: ../builder/cmdline.ml:236
 msgid "Disable template cache"
 msgstr ""
 
-#: ../builder/cmdline.ml:266
+#: ../builder/cmdline.ml:277
 msgid "Display installation notes"
 msgstr ""
 
 #. ../resize/resize.ml:113
-#. ../builder/cmdline.ml:288
+#. ../builder/cmdline.ml:299
 #: ../sysprep/main.ml:160 ../sysprep/main.ml:159 ../sparsify/sparsify.ml:86
 msgid "Display version and exit"
 msgstr ""
 
-#: ../builder/cmdline.ml:282
+#: ../builder/cmdline.ml:293
 msgid "Do not fsync output file on exit"
 msgstr ""
 
@@ -793,7 +797,7 @@ msgstr ""
 msgid "Don't create extra partition"
 msgstr ""
 
-#: ../builder/cmdline.ml:241
+#: ../builder/cmdline.ml:250
 msgid "Don't delete output file on failure"
 msgstr ""
 
@@ -813,11 +817,11 @@ msgstr ""
 msgid "Don't print the summary"
 msgstr ""
 
-#: ../builder/cmdline.ml:229
+#: ../builder/cmdline.ml:238
 msgid "Download all templates to the cache"
 msgstr ""
 
-#: ../builder/list_entries.ml:59
+#: ../builder/list_entries.ml:71
 msgid "Download size:"
 msgstr ""
 
@@ -833,7 +837,7 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../builder/cmdline.ml:242
+#: ../builder/cmdline.ml:251
 msgid "Edit file with Perl expr"
 msgstr ""
 
@@ -841,13 +845,13 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:264
+#: ../builder/cmdline.ml:275
 msgid "Enable appliance network (default)"
 msgstr ""
 
 #. ../resize/resize.ml:111
 #. ../resize/resize.ml:85
-#. ../builder/cmdline.ml:286
+#. ../builder/cmdline.ml:297
 #: ../sysprep/main.ml:158 ../sysprep/main.ml:157 ../sparsify/sparsify.ml:84
 msgid "Enable debugging messages"
 msgstr ""
@@ -926,11 +930,11 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:244
+#: ../builder/cmdline.ml:253
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
-#: ../builder/list_entries.ml:29
+#: ../builder/list_entries.ml:51
 msgid "Fingerprint: %s\n"
 msgstr ""
 
@@ -983,7 +987,7 @@ msgstr ""
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
-#: ../builder/list_entries.ml:53
+#: ../builder/list_entries.ml:65
 msgid "Full name:"
 msgstr ""
 
@@ -991,7 +995,7 @@ msgstr ""
 msgid "Generate random seed for guest"
 msgstr ""
 
-#: ../builder/cmdline.ml:251
+#: ../builder/cmdline.ml:260
 msgid "Get kernel from image"
 msgstr ""
 
@@ -1029,11 +1033,11 @@ msgstr ""
 msgid "Linking: %s -> %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:256
+#: ../builder/cmdline.ml:265
 msgid "List available templates"
 msgstr ""
 
-#. ../builder/cmdline.ml:260
+#. ../builder/cmdline.ml:271
 #: ../sysprep/main.ml:149 ../sparsify/sparsify.ml:79 ../resize/resize.ml:94
 msgid "List long options"
 msgstr ""
@@ -1050,7 +1054,7 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:55
+#: ../builder/list_entries.ml:67
 msgid "Minimum/default size:"
 msgstr ""
 
@@ -1070,7 +1074,7 @@ msgstr ""
 msgid "New timezone"
 msgstr ""
 
-#: ../builder/cmdline.ml:273
+#: ../builder/cmdline.ml:284
 msgid "No progress messages"
 msgstr ""
 
@@ -1084,7 +1088,7 @@ msgstr ""
 msgid "Notes on %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:65
+#: ../builder/list_entries.ml:77
 msgid ""
 "Notes:\n"
 "\n"
@@ -1115,7 +1119,7 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../builder/cmdline.ml:249
+#: ../builder/cmdline.ml:258
 msgid "Output format (default: raw)"
 msgstr ""
 
@@ -1139,7 +1143,7 @@ msgstr ""
 msgid "Planning how to build this image"
 msgstr ""
 
-#: ../builder/cmdline.ml:272
+#: ../builder/cmdline.ml:283
 msgid "Print info about template cache"
 msgstr ""
 
@@ -1346,19 +1350,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../builder/cmdline.ml:246
+#: ../builder/cmdline.ml:255
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../builder/cmdline.ml:277
+#: ../builder/cmdline.ml:288
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../builder/cmdline.ml:245
+#: ../builder/cmdline.ml:254
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../builder/cmdline.ml:276
+#: ../builder/cmdline.ml:287
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1386,11 +1390,11 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../builder/cmdline.ml:278
+#: ../builder/cmdline.ml:289
 msgid "Scrub a file"
 msgstr ""
 
-#: ../builder/cmdline.ml:259
+#: ../builder/cmdline.ml:270
 msgid "Scrub build log file"
 msgstr ""
 
@@ -1402,7 +1406,7 @@ msgstr ""
 msgid "Scrubbing: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:252
+#: ../builder/cmdline.ml:261
 msgid "Set GPG binary/command"
 msgstr ""
 
@@ -1478,11 +1482,11 @@ msgid ""
 "=back"
 msgstr ""
 
-#: ../builder/cmdline.ml:225
+#: ../builder/cmdline.ml:234
 msgid "Set attach disk format"
 msgstr ""
 
-#: ../builder/cmdline.ml:236
+#: ../builder/cmdline.ml:245
 msgid "Set curl binary/command"
 msgstr ""
 
@@ -1498,7 +1502,7 @@ msgstr ""
 msgid "Set libvirt guest name"
 msgstr ""
 
-#: ../builder/cmdline.ml:261
+#: ../builder/cmdline.ml:272
 msgid "Set memory size"
 msgstr ""
 
@@ -1506,15 +1510,15 @@ msgstr ""
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
-#: ../builder/cmdline.ml:280
+#: ../builder/cmdline.ml:291
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../builder/cmdline.ml:279
+#: ../builder/cmdline.ml:290
 msgid "Set output disk size"
 msgstr ""
 
-#: ../builder/cmdline.ml:267
+#: ../builder/cmdline.ml:278
 msgid "Set output filename"
 msgstr ""
 
@@ -1522,7 +1526,7 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../builder/cmdline.ml:270
+#: ../builder/cmdline.ml:281
 msgid "Set password crypto"
 msgstr ""
 
@@ -1549,23 +1553,27 @@ msgstr ""
 msgid "Set root or user password"
 msgstr ""
 
-#: ../builder/cmdline.ml:275
+#: ../builder/cmdline.ml:286
 msgid "Set root password"
 msgstr ""
 
-#: ../builder/cmdline.ml:281
+#: ../builder/cmdline.ml:292
 msgid "Set source URL"
 msgstr ""
 
-#: ../builder/cmdline.ml:226
+#: ../builder/cmdline.ml:235
 msgid "Set template cache dir"
 msgstr ""
 
-#: ../builder/cmdline.ml:283
+#: ../builder/cmdline.ml:294
 msgid "Set the default timezone"
 msgstr ""
 
-#: ../builder/cmdline.ml:253
+#: ../builder/cmdline.ml:269
+msgid "Set the format for --list (default: short)"
+msgstr ""
+
+#: ../builder/cmdline.ml:262
 msgid "Set the hostname"
 msgstr ""
 
@@ -1622,11 +1630,15 @@ msgid ""
 "%!"
 msgstr ""
 
+#: ../builder/cmdline.ml:267
+msgid "Shortcut for --list-format short"
+msgstr ""
+
 #: ../resize/resize.ml:109
 msgid "Shrink partition"
 msgstr ""
 
-#: ../builder/list_entries.ml:28
+#: ../builder/list_entries.ml:50
 msgid "Source URI: %s\n"
 msgstr ""
 
@@ -1793,7 +1805,7 @@ msgstr ""
 msgid "Uncompressing"
 msgstr ""
 
-#: ../builder/cmdline.ml:284
+#: ../builder/cmdline.ml:295
 msgid "Update core packages"
 msgstr ""
 
@@ -1801,7 +1813,7 @@ msgstr ""
 msgid "Updating core packages"
 msgstr ""
 
-#: ../builder/cmdline.ml:285
+#: ../builder/cmdline.ml:296
 msgid "Upload file to dest"
 msgstr ""
 
@@ -1809,7 +1821,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:290
+#: ../builder/cmdline.ml:301
 msgid "Write file"
 msgstr ""
 
@@ -2282,7 +2294,7 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
 #: align/scan.c:73 cat/cat.c:56 cat/filesystems.c:87 cat/ls.c:83 df/main.c:66
-#: diff/diff.c:91 edit/edit.c:69 fish/fish.c:104 fuse/guestmount.c:99
+#: diff/diff.c:91 edit/edit.c:68 fish/fish.c:104 fuse/guestmount.c:99
 #: fuse/guestunmount.c:52 inspector/inspector.c:67 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -2311,7 +2323,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:133 cat/cat.c:115 cat/filesystems.c:187 cat/ls.c:174
-#: df/main.c:133 diff/diff.c:191 diff/diff.c:197 edit/edit.c:135
+#: df/main.c:133 diff/diff.c:191 diff/diff.c:197 edit/edit.c:134
 #: fish/fish.c:234 format/format.c:129 fuse/guestmount.c:206
 #: inspector/inspector.c:127 rescue/rescue.c:135
 #, c-format
@@ -2320,7 +2332,7 @@ msgstr "guestfs_create: సంభాలికను సృష్టించు�
 
 #: align/scan.c:153 builder/index-validate.c:75 cat/cat.c:137
 #: cat/filesystems.c:241 cat/ls.c:224 df/main.c:157 diff/diff.c:262
-#: edit/edit.c:157 fish/fish.c:292 format/format.c:183 fuse/guestmount.c:241
+#: edit/edit.c:156 fish/fish.c:292 format/format.c:183 fuse/guestmount.c:241
 #: fuse/guestunmount.c:124 inspector/inspector.c:151 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2407,12 +2419,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/cat.c:357 edit/edit.c:627 fish/fish.c:1724
+#: cat/cat.c:357 edit/edit.c:582 fish/fish.c:1724
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: cat/cat.c:371 edit/edit.c:641
+#: cat/cat.c:371 edit/edit.c:596
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr ""
@@ -2663,7 +2675,7 @@ msgstr ""
 msgid "End of diff"
 msgstr ""
 
-#: edit/edit.c:73
+#: edit/edit.c:72
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
@@ -2687,12 +2699,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/edit.c:169
+#: edit/edit.c:168
 #, c-format
 msgid "%s: -b option given multiple times\n"
 msgstr ""
 
-#: edit/edit.c:186
+#: edit/edit.c:185
 #, c-format
 msgid "%s: -e option given multiple times\n"
 msgstr ""
@@ -5099,7 +5111,7 @@ msgstr ""
 msgid "display filename\n"
 msgstr ""
 
-#: fish/edit.c:51
+#: fish/edit.c:50
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "ఫైలును సరికూర్చుటకు '%s filename' వుపయోగించుము\n"
@@ -6119,212 +6131,216 @@ msgstr ""
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
-#: src/drives.c:150
+#: src/drives.c:98
+msgid "this backend does not support adding read-only drives"
+msgstr ""
+
+#: src/drives.c:198
 msgid "curl: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:155
+#: src/drives.c:203
 msgid "curl: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:161
+#: src/drives.c:209
 msgid "curl: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:166
+#: src/drives.c:214
 msgid "curl: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:171
+#: src/drives.c:219
 msgid "curl: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:192
+#: src/drives.c:240
 msgid "gluster: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:196
+#: src/drives.c:244
 msgid "gluster: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:201
+#: src/drives.c:249
 msgid "gluster: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:206
+#: src/drives.c:254
 msgid "gluster: volume name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:211
+#: src/drives.c:259
 msgid "gluster: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:244
+#: src/drives.c:292
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:248
+#: src/drives.c:296
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:253
+#: src/drives.c:301
 msgid "nbd: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:279
+#: src/drives.c:327
 msgid "rbd: you must specify one or more servers"
 msgstr ""
 
-#: src/drives.c:286
+#: src/drives.c:334
 msgid "rbd: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:290
+#: src/drives.c:338
 msgid "rbd: port number must be specified"
 msgstr ""
 
-#: src/drives.c:296
+#: src/drives.c:344
 msgid "rbd: image name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:301
+#: src/drives.c:349
 msgid "rbd: image name must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:324
+#: src/drives.c:372
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:328
+#: src/drives.c:376
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:335
+#: src/drives.c:383
 msgid "sheepdog: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:339
+#: src/drives.c:387
 msgid "sheepdog: port number must be specified"
 msgstr ""
 
-#: src/drives.c:345
+#: src/drives.c:393
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:350
+#: src/drives.c:398
 msgid "sheepdog: volume parameter must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:371
+#: src/drives.c:419
 msgid "ssh: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:376
+#: src/drives.c:424
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:382
+#: src/drives.c:430
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:387
+#: src/drives.c:435
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:392
+#: src/drives.c:440
 msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:397
+#: src/drives.c:445
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: src/drives.c:418
+#: src/drives.c:466
 msgid "iscsi: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:423
+#: src/drives.c:471
 msgid "iscsi: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:428
+#: src/drives.c:476
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:434
+#: src/drives.c:482
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:439
+#: src/drives.c:487
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: src/drives.c:444
+#: src/drives.c:492
 msgid "iscsi: target string must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:472
+#: src/drives.c:520
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:702
+#: src/drives.c:764
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:714
+#: src/drives.c:776
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:721
+#: src/drives.c:783
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:732
+#: src/drives.c:794
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:812 src/drives.c:818
+#: src/drives.c:874 src/drives.c:880
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:824
+#: src/drives.c:886
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:830
+#: src/drives.c:892
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:837
+#: src/drives.c:899
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:842
+#: src/drives.c:904
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:846
+#: src/drives.c:908
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:938
+#: src/drives.c:1000
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:956 src/drives.c:1119
+#: src/drives.c:1018 src/drives.c:1181
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:962
+#: src/drives.c:1024
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1104
+#: src/drives.c:1166
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -6414,43 +6430,43 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/fuse.c:936
+#: src/fuse.c:938
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: src/fuse.c:961
+#: src/fuse.c:963
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: src/fuse.c:978
+#: src/fuse.c:980
 #, c-format
 msgid "fuse_mount: %s"
 msgstr ""
 
-#: src/fuse.c:996
+#: src/fuse.c:998
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: src/fuse.c:1025
+#: src/fuse.c:1027
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: src/fuse.c:1034
+#: src/fuse.c:1036
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: src/fuse.c:1084
+#: src/fuse.c:1086
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: src/fuse.c:1202
+#: src/fuse.c:1204
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: src/fuse.c:1454
+#: src/fuse.c:1456
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -6561,17 +6577,17 @@ msgid ""
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch-direct.c:128
+#: src/launch-direct.c:178
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:147
+#: src/launch-direct.c:197
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:214
+#: src/launch-direct.c:264
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -6580,33 +6596,38 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:248 src/launch-uml.c:120
+#: src/launch-direct.c:298 src/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launchకు ముందుగా మీరు guestfs_add_driveను పిలువవలెను"
 
-#: src/launch-direct.c:799 src/launch-libvirt.c:491
+#: src/launch-direct.c:861 src/launch-libvirt.c:539
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
-#: src/launch-libvirt.c:188
+#: src/launch-direct.c:1242 src/launch-libvirt.c:1238
+#, c-format
+msgid "realpath: could not convert '%s' to absolute path"
+msgstr ""
+
+#: src/launch-libvirt.c:244
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:197
+#: src/launch-libvirt.c:253
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:232
+#: src/launch-libvirt.c:288
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:248
+#: src/launch-libvirt.c:304
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:419
+#: src/launch-libvirt.c:467
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -6616,21 +6637,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:555
+#: src/launch-libvirt.c:603
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:561 src/libvirt-domain.c:352 src/libvirt-domain.c:435
-#: src/libvirt-domain.c:642
+#: src/launch-libvirt.c:609 src/libvirt-domain.c:355 src/libvirt-domain.c:438
+#: src/libvirt-domain.c:645
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:571
+#: src/launch-libvirt.c:619
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:604
+#: src/launch-libvirt.c:652
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -6645,82 +6666,77 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:759
+#: src/launch-libvirt.c:867
 #, c-format
-msgid "error constructing libvirt XML at \"%s\""
+msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1123
+#: src/launch-libvirt.c:1194
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1234
+#: src/launch-libvirt.c:1315
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1272
+#: src/launch-libvirt.c:1340
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1283
+#: src/launch-libvirt.c:1347
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1638
-#, c-format
-msgid "realpath: could not convert '%s' to absolute path"
-msgstr ""
-
-#: src/launch-libvirt.c:1720
+#: src/launch-libvirt.c:1604
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1757
+#: src/launch-libvirt.c:1641
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1819
+#: src/launch-libvirt.c:1700
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1850
+#: src/launch-libvirt.c:1731
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-uml.c:65
+#: src/launch-uml.c:100
 msgid "uml backend does not support networking"
 msgstr ""
 
-#: src/launch-uml.c:69
+#: src/launch-uml.c:104
 msgid "uml backend does not support SMP"
 msgstr ""
 
-#: src/launch-uml.c:75
+#: src/launch-uml.c:110
 msgid "uml backend does not support remote drives"
 msgstr ""
 
-#: src/launch-uml.c:79
+#: src/launch-uml.c:114
 msgid "uml backend does not support non-raw-format drives"
 msgstr ""
 
-#: src/launch-uml.c:84
+#: src/launch-uml.c:119
 msgid "uml backend does not support drives with 'iface' parameter"
 msgstr ""
 
-#: src/launch-uml.c:89
+#: src/launch-uml.c:124
 msgid "uml backend does not support drives with 'label' parameter"
 msgstr ""
 
-#: src/launch-uml.c:447
+#: src/launch-uml.c:472
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -6828,71 +6844,71 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:302
+#: src/libvirt-domain.c:305
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/libvirt-domain.c:370 src/libvirt-domain.c:442 src/libvirt-domain.c:657
+#: src/libvirt-domain.c:373 src/libvirt-domain.c:445 src/libvirt-domain.c:660
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
-#: src/libvirt-domain.c:383
+#: src/libvirt-domain.c:386
 #, c-format
 msgid "ignoring %zu nodes matching '%s'"
 msgstr ""
 
-#: src/libvirt-domain.c:389
+#: src/libvirt-domain.c:392
 msgid "expected <seclabel/> to be an XML element"
 msgstr ""
 
-#: src/libvirt-domain.c:504
+#: src/libvirt-domain.c:507
 #, c-format
 msgid "disk[%zu]: network device"
 msgstr ""
 
-#: src/libvirt-domain.c:524
+#: src/libvirt-domain.c:527
 #, c-format
 msgid "disk[%zu]: protocol: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:535
+#: src/libvirt-domain.c:538
 #, c-format
 msgid "disk[%zu]: username: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:561
+#: src/libvirt-domain.c:564
 #, c-format
 msgid "disk[%zu]: host: %s:%s"
 msgstr ""
 
-#: src/libvirt-domain.c:582
+#: src/libvirt-domain.c:585
 #, c-format
 msgid "disk[%zu]: filename: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:618
+#: src/libvirt-domain.c:621
 msgid "libvirt domain has no disks"
 msgstr ""
 
-#: src/libvirt-domain.c:687
+#: src/libvirt-domain.c:690
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:706
+#: src/libvirt-domain.c:709
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:713
+#: src/libvirt-domain.c:716
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/libvirt-domain.c:723
+#: src/libvirt-domain.c:726
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
