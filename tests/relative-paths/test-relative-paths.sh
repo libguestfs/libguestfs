@@ -25,7 +25,7 @@ fi
 
 # UML doesn't support qcow2.  Conceivably there might be a similar
 # problem with UML COW images which would require a separate test.
-if [ "$($guestfish get-backend)" = "uml" ]; then
+if [ "$(../../fish/guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
