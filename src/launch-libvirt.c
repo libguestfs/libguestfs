@@ -801,20 +801,71 @@ static int construct_libvirt_xml_disk_source_hosts (guestfs_h *g, xmlTextWriterP
 static int construct_libvirt_xml_disk_source_seclabel (guestfs_h *g, const struct backend_libvirt_data *data, xmlTextWriterPtr xo);
 static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_xml_params *params, xmlTextWriterPtr xo);
 
-/* Note this macro is rather specialized: It assumes that any local
- * variables are protected by CLEANUP_* macros, so that simply
- * returning will not cause any memory leaks.
+/* These macros make it easier to write XML, but they also make a lot
+ * of assumptions:
+ *
+ * - The xmlTextWriterPtr is called 'xo'.  It is used implicitly.
+ *
+ * - The guestfs handle is called 'g'.  It is used implicitly for errors.
+ *
+ * - It is safe to 'return -1' on failure.  This is OK provided you
+ *   always use CLEANUP_* macros.
+ *
+ * - All the "bad" casting is hidden inside the macros.
  */
-#define XMLERROR_RET(code,e,ret) do {                                   \
-    if ((e) == (code)) {                                                \
-      perrorf (g, _("%s:%d: error constructing libvirt XML at \"%s\""), \
-               __FILE__, __LINE__,                                      \
-               #e);                                                     \
-      return (ret);                                                     \
+
+/* <element */
+#define start_element(element)                                        \
+  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1) {     \
+    xml_error ("xmlTextWriterStartElement");                          \
+    return -1;                                                        \
+  }                                                                   \
+  do
+
+/* finish current </element> */
+#define end_element()                                                   \
+  while (0);                                                            \
+  do {                                                                  \
+    if (xmlTextWriterEndElement (xo) == -1) {                           \
+      xml_error ("xmlTextWriterEndElement");                            \
+      return -1;                                                        \
     }                                                                   \
   } while (0)
 
-#define XMLERROR(code,e) XMLERROR_RET((code),(e),-1)
+/* <element/> */
+#define empty_element(element) start_element(element) {} end_element ()
+
+/* key=value attribute of the current element. */
+#define attribute(key,value)                                            \
+  if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1) { \
+    xml_error ("xmlTextWriterWriteAttribute"); \
+    return -1;                                 \
+  }
+
+/* attribute with namespace. */
+#define attribute_ns(prefix,key,namespace_uri,value)                    \
+  if (xmlTextWriterWriteAttributeNS (xo, BAD_CAST (prefix),             \
+                                     BAD_CAST (key), BAD_CAST (namespace_uri), \
+                                     BAD_CAST (value)) == -1) {         \
+    xml_error ("xmlTextWriterWriteAttribute");                          \
+    return -1;                                                          \
+  }
+
+#define write_string(str)                                               \
+  if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1) {            \
+    xml_error ("xmlTextWriterWriteString");                             \
+    return -1;                                                          \
+  }
+
+#define write_format_string(fs,...)                                     \
+  if (xmlTextWriterWriteFormatString (xo, fs, ##__VA_ARGS__) == -1) {   \
+    xml_error ("xmlTextWriterWriteFormatString");                       \
+    return -1;                                                          \
+  }
+
+#define xml_error(fn)                                                   \
+    perrorf (g, _("%s:%d: error constructing libvirt XML near call to \"%s\""), \
+             __FILE__, __LINE__, (fn));
 
 static xmlChar *
 construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params)
@@ -824,15 +875,44 @@ construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params)
   xmlOutputBufferPtr ob;
   CLEANUP_XMLFREETEXTWRITER xmlTextWriterPtr xo = NULL;
 
-  XMLERROR_RET (NULL, xb = xmlBufferCreate (), NULL);
-  XMLERROR_RET (NULL, ob = xmlOutputBufferCreateBuffer (xb, NULL), NULL);
-  XMLERROR_RET (NULL, xo = xmlNewTextWriter (ob), NULL);
+  xb = xmlBufferCreate ();
+  if (xb == NULL) {
+    perrorf (g, "xmlBufferCreate");
+    return NULL;
+  }
+  ob = xmlOutputBufferCreateBuffer (xb, NULL);
+  if (ob == NULL) {
+    perrorf (g, "xmlOutputBufferCreateBuffer");
+    return NULL;
+  }
+  xo = xmlNewTextWriter (ob);
+  if (xo == NULL) {
+    perrorf (g, "xmlNewTextWriter");
+    return NULL;
+  }
+
+  if (xmlTextWriterSetIndent (xo, 1) == -1 ||
+      xmlTextWriterSetIndentString (xo, BAD_CAST "  ") == -1) {
+    perrorf (g, "could not set XML indent");
+    return NULL;
+  }
+  if (xmlTextWriterStartDocument (xo, NULL, NULL, NULL) == -1) {
+    perrorf (g, "xmlTextWriterStartDocument");
+    return NULL;
+  }
 
   if (construct_libvirt_xml_domain (g, params, xo) == -1)
     return NULL;
 
-  XMLERROR_RET (-1, xmlTextWriterEndDocument (xo), NULL);
-  XMLERROR_RET (NULL, ret = xmlBufferDetach (xb), NULL); /* caller frees ret */
+  if (xmlTextWriterEndDocument (xo) == -1) {
+    perrorf (g, "xmlTextWriterEndDocument");
+    return NULL;
+  }
+  ret = xmlBufferDetach (xb); /* caller frees ret */
+  if (ret == NULL) {
+    perrorf (g, "xmlBufferDetach");
+    return NULL;
+  }
 
   debug (g, "libvirt XML:\n%s", ret);
 
@@ -844,37 +924,27 @@ construct_libvirt_xml_domain (guestfs_h *g,
                               const struct libvirt_xml_params *params,
                               xmlTextWriterPtr xo)
 {
-  XMLERROR (-1, xmlTextWriterSetIndent (xo, 1));
-  XMLERROR (-1, xmlTextWriterSetIndentString (xo, BAD_CAST "  "));
-  XMLERROR (-1, xmlTextWriterStartDocument (xo, NULL, NULL, NULL));
+  start_element ("domain") {
+    attribute ("type", params->is_kvm ? "kvm" : "qemu");
+    attribute_ns ("xmlns", "qemu", NULL,
+                  "http://libvirt.org/schemas/domain/qemu/1.0");
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "domain"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                         params->is_kvm ? BAD_CAST "kvm" : BAD_CAST "qemu"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttributeNS (xo,
-                                           BAD_CAST "xmlns",
-                                           BAD_CAST "qemu",
-                                           NULL,
-                                           BAD_CAST "http://libvirt.org/schemas/domain/qemu/1.0"));
+    if (construct_libvirt_xml_name (g, params, xo) == -1)
+      return -1;
+    if (construct_libvirt_xml_cpu (g, params, xo) == -1)
+      return -1;
+    if (construct_libvirt_xml_boot (g, params, xo) == -1)
+      return -1;
+    if (construct_libvirt_xml_seclabel (g, params, xo) == -1)
+      return -1;
+    if (construct_libvirt_xml_lifecycle (g, params, xo) == -1)
+      return -1;
+    if (construct_libvirt_xml_devices (g, params, xo) == -1)
+      return -1;
+    if (construct_libvirt_xml_qemu_cmdline (g, params, xo) == -1)
+      return -1;
 
-  if (construct_libvirt_xml_name (g, params, xo) == -1)
-    return -1;
-  if (construct_libvirt_xml_cpu (g, params, xo) == -1)
-    return -1;
-  if (construct_libvirt_xml_boot (g, params, xo) == -1)
-    return -1;
-  if (construct_libvirt_xml_seclabel (g, params, xo) == -1)
-    return -1;
-  if (construct_libvirt_xml_lifecycle (g, params, xo) == -1)
-    return -1;
-  if (construct_libvirt_xml_devices (g, params, xo) == -1)
-    return -1;
-  if (construct_libvirt_xml_qemu_cmdline (g, params, xo) == -1)
-    return -1;
-
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  } end_element ();
 
   return 0;
 }
@@ -884,9 +954,9 @@ construct_libvirt_xml_name (guestfs_h *g,
                             const struct libvirt_xml_params *params,
                             xmlTextWriterPtr xo)
 {
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "name"));
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST params->data->name));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("name") {
+    write_string (params->data->name);
+  } end_element ();
 
   return 0;
 }
@@ -897,17 +967,15 @@ construct_libvirt_xml_cpu (guestfs_h *g,
                            const struct libvirt_xml_params *params,
                            xmlTextWriterPtr xo)
 {
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "memory"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "unit", BAD_CAST "MiB"));
-  XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->memsize));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("memory") {
+    attribute ("unit", "MiB");
+    write_format_string ("%d", g->memsize);
+  } end_element ();
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "currentMemory"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "unit", BAD_CAST "MiB"));
-  XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->memsize));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("currentMemory") {
+    attribute ("unit", "MiB");
+    write_format_string ("%d", g->memsize);
+  } end_element ();
 
 #ifndef __arm__
   /* It is faster to pass the CPU host model to the appliance,
@@ -916,36 +984,26 @@ construct_libvirt_xml_cpu (guestfs_h *g,
    * fairly pointless anyway.
    */
   if (params->is_kvm) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cpu"));
-    XMLERROR (-1,
-	      xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
-					   BAD_CAST "host-passthrough"));
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "model"));
-    XMLERROR (-1,
-	      xmlTextWriterWriteAttribute (xo, BAD_CAST "fallback",
-					   BAD_CAST "allow"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("cpu") {
+      attribute ("mode", "host-passthrough");
+      start_element ("model") {
+        attribute ("fallback", "allow");
+      } end_element ();
+    } end_element ();
   }
 #endif
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "vcpu"));
-  XMLERROR (-1, xmlTextWriterWriteFormatString (xo, "%d", g->smp));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("vcpu") {
+    write_format_string ("%d", g->smp);
+  } end_element ();
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "clock"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "offset",
-                                         BAD_CAST "utc"));
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "timer"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                         BAD_CAST "kvmclock"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "present",
-                                         BAD_CAST "yes"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("clock") {
+    attribute ("offset", "utc");
+    start_element ("timer") {
+      attribute ("name", "kvmclock");
+      attribute ("present", "yes");
+    } end_element ();
+  } end_element ();
 
   return 0;
 }
@@ -965,36 +1023,33 @@ construct_libvirt_xml_boot (guestfs_h *g,
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
   cmdline = guestfs___appliance_command_line (g, params->appliance_dev, flags);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "os"));
-
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "type"));
+  start_element ("os") {
+    start_element ("type") {
 #ifdef MACHINE_TYPE
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "machine",
-                                         BAD_CAST MACHINE_TYPE));
+      attribute ("machine", MACHINE_TYPE);
 #endif
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST "hvm"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+      write_string ("hvm");
+    } end_element ();
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "kernel"));
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST params->kernel));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("kernel") {
+      write_string (params->kernel);
+    } end_element ();
 
-  if (params->dtb) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "dtb"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST params->dtb));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
+    if (params->dtb) {
+      start_element ("dtb") {
+        write_string (params->dtb);
+      } end_element ();
+    }
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "initrd"));
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST params->initrd));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("initrd") {
+      write_string (params->initrd);
+    } end_element ();
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "cmdline"));
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST cmdline));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("cmdline") {
+      write_string (cmdline);
+    } end_element ();
 
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  } end_element ();
 
   return 0;
 }
@@ -1006,36 +1061,26 @@ construct_libvirt_xml_seclabel (guestfs_h *g,
 {
   if (!params->enable_svirt) {
     /* This disables SELinux/sVirt confinement. */
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                           BAD_CAST "none"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("seclabel") {
+      attribute ("type", "none");
+    } end_element ();
   }
   else if (params->data->selinux_label && params->data->selinux_imagelabel) {
     /* Enable sVirt and pass a custom <seclabel/> inherited from the
      * original libvirt domain (when guestfs_add_domain was called).
      * https://bugzilla.redhat.com/show_bug.cgi?id=912499#c7
      */
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                           BAD_CAST "static"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
-                                           BAD_CAST "selinux"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "relabel",
-                                           BAD_CAST "yes"));
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "label"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo,
-                                            BAD_CAST params->data->selinux_label));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "imagelabel"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo,
-                                            BAD_CAST params->data->selinux_imagelabel));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("seclabel") {
+      attribute ("type", "static");
+      attribute ("model", "selinux");
+      attribute ("relabel", "yes");
+      start_element ("label") {
+        write_string (params->data->selinux_label);
+      } end_element ();
+      start_element ("imagelabel") {
+        write_string (params->data->selinux_imagelabel);
+      } end_element ();
+    } end_element ();
   }
 
   return 0;
@@ -1047,9 +1092,9 @@ construct_libvirt_xml_lifecycle (guestfs_h *g,
                                  const struct libvirt_xml_params *params,
                                  xmlTextWriterPtr xo)
 {
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "on_reboot"));
-  XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST "destroy"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("on_reboot") {
+    write_string ("destroy");
+  } end_element ();
 
   return 0;
 }
@@ -1063,96 +1108,72 @@ construct_libvirt_xml_devices (guestfs_h *g,
   struct drive *drv;
   size_t i;
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "devices"));
+  start_element ("devices") {
 
-  /* Path to hypervisor.  Only write this if the user has changed the
-   * default, otherwise allow libvirt to choose the best one.
-   */
-  if (is_custom_hv (g)) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "emulator"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST g->hv));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
+    /* Path to hypervisor.  Only write this if the user has changed the
+     * default, otherwise allow libvirt to choose the best one.
+     */
+    if (is_custom_hv (g)) {
+      start_element ("emulator") {
+        write_string (g->hv);
+      } end_element ();
+    }
 #ifdef __arm__
-  /* Hopefully temporary hack to make ARM work (otherwise libvirt
-   * chooses to run /usr/bin/qemu-kvm).
-   */
-  else {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "emulator"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST QEMU));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
+    /* Hopefully temporary hack to make ARM work (otherwise libvirt
+     * chooses to run /usr/bin/qemu-kvm).
+     */
+    else {
+      start_element ("emulator") {
+        write_string (QEMU);
+      } end_element ();
+    }
 #endif
 
-  /* virtio-scsi controller. */
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "controller"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "scsi"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "index",
-                                         BAD_CAST "0"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
-                                         BAD_CAST "virtio-scsi"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    /* virtio-scsi controller. */
+    start_element ("controller") {
+      attribute ("type", "scsi");
+      attribute ("index", "0");
+      attribute ("model", "virtio-scsi");
+    } end_element ();
 
-  /* Disks. */
-  ITER_DRIVES (g, i, drv) {
-    if (construct_libvirt_xml_disk (g, params->data, xo, drv, i) == -1)
-      return -1;
-  }
+    /* Disks. */
+    ITER_DRIVES (g, i, drv) {
+      if (construct_libvirt_xml_disk (g, params->data, xo, drv, i) == -1)
+        return -1;
+    }
 
-  if (params->appliance_overlay) {
-    /* Appliance disk. */
-    if (construct_libvirt_xml_appliance (g, params, xo) == -1)
-      return -1;
-  }
+    if (params->appliance_overlay) {
+      /* Appliance disk. */
+      if (construct_libvirt_xml_appliance (g, params, xo) == -1)
+        return -1;
+    }
 
-  /* Console. */
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "serial"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "unix"));
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
-                                         BAD_CAST "connect"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "path",
-                                         BAD_CAST params->console_path));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "port",
-                                         BAD_CAST "0"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    /* Console. */
+    start_element ("serial") {
+      attribute ("type", "unix");
+      start_element ("source") {
+        attribute ("mode", "connect");
+        attribute ("path", params->console_path);
+      } end_element ();
+      start_element ("target") {
+        attribute ("port", "0");
+      } end_element ();
+    } end_element ();
 
-  /* Virtio-serial for guestfsd communication. */
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "channel"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "unix"));
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "mode",
-                                         BAD_CAST "connect"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "path",
-                                         BAD_CAST params->guestfsd_path));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "virtio"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                         BAD_CAST "org.libguestfs.channel.0"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    /* Virtio-serial for guestfsd communication. */
+    start_element ("channel") {
+      attribute ("type", "unix");
+      start_element ("source") {
+        attribute ("mode", "connect");
+        attribute ("path", params->guestfsd_path);
+      } end_element ();
+      start_element ("target") {
+        attribute ("type", "virtio");
+        attribute ("name", "org.libguestfs.channel.0");
+      } end_element ();
+    } end_element ();
 
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  } end_element (); /* </devices> */
 
   return 0;
 }
@@ -1174,196 +1195,177 @@ construct_libvirt_xml_disk (guestfs_h *g,
     return -1;
   }
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "disk"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "device",
-                                         BAD_CAST "disk"));
+  start_element ("disk") {
+    attribute ("device", "disk");
 
-  if (drv->overlay) {
-    /* Overlay to protect read-only backing disk.  The format of the
-     * overlay is always qcow2.
-     */
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                           BAD_CAST "file"));
-
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
-                                           BAD_CAST drv->overlay));
-    if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
-      return -1;
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-    if (construct_libvirt_xml_disk_target (g, xo, drv_index) == -1)
-      return -1;
-
-    if (construct_libvirt_xml_disk_driver_qemu (g, xo, "qcow2", "unsafe") == -1)
-      return -1;
-  }
-  else {
-    /* Not an overlay, a writable disk. */
-
-    switch (drv->src.protocol) {
-    case drive_protocol_file:
-      /* Change the libvirt XML according to whether the host path is
-       * a device or a file.  For devices, use:
-       *   <disk type=block device=disk>
-       *     <source dev=[path]>
-       * For files, use:
-       *   <disk type=file device=disk>
-       *     <source file=[path]>
+    if (drv->overlay) {
+      /* Overlay to protect read-only backing disk.  The format of the
+       * overlay is always qcow2.
        */
-      is_host_device = is_blk (drv->src.u.path);
+      attribute ("type", "file");
 
-      if (!is_host_device) {
-        path = realpath (drv->src.u.path, NULL);
-        if (path == NULL) {
-          perrorf (g, _("realpath: could not convert '%s' to absolute path"),
-                   drv->src.u.path);
+      start_element ("source") {
+        attribute ("file", drv->overlay);
+        if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
+          return -1;
+      } end_element ();
+
+      if (construct_libvirt_xml_disk_target (g, xo, drv_index) == -1)
+        return -1;
+
+      if (construct_libvirt_xml_disk_driver_qemu (g, xo, "qcow2", "unsafe")
+          == -1)
+        return -1;
+    }
+    else {
+      /* Not an overlay, a writable disk. */
+
+      switch (drv->src.protocol) {
+      case drive_protocol_file:
+        /* Change the libvirt XML according to whether the host path is
+         * a device or a file.  For devices, use:
+         *   <disk type=block device=disk>
+         *     <source dev=[path]>
+         * For files, use:
+         *   <disk type=file device=disk>
+         *     <source file=[path]>
+         */
+        is_host_device = is_blk (drv->src.u.path);
+
+        if (!is_host_device) {
+          path = realpath (drv->src.u.path, NULL);
+          if (path == NULL) {
+            perrorf (g, _("realpath: could not convert '%s' to absolute path"),
+                     drv->src.u.path);
+            return -1;
+          }
+
+          attribute ("type", "file");
+
+          start_element ("source") {
+            attribute ("file", path);
+            if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
+              return -1;
+          } end_element ();
+        }
+        else {
+          attribute ("type", "block");
+
+          start_element ("source") {
+            attribute ("dev", drv->src.u.path);
+            if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
+              return -1;
+          } end_element ();
+        }
+        break;
+
+        /* For network protocols:
+         *   <disk type=network device=disk>
+         *     <source protocol=[protocol] [name=exportname]>
+         * and then zero or more of:
+         *       <host name='example.com' port='10809'/>
+         * or:
+         *       <host transport='unix' socket='/path/to/socket'/>
+         */
+      case drive_protocol_gluster:
+        protocol_str = "gluster"; goto network_protocols;
+      case drive_protocol_iscsi:
+        protocol_str = "iscsi"; goto network_protocols;
+      case drive_protocol_nbd:
+        protocol_str = "nbd"; goto network_protocols;
+      case drive_protocol_rbd:
+        protocol_str = "rbd"; goto network_protocols;
+      case drive_protocol_sheepdog:
+        protocol_str = "sheepdog"; goto network_protocols;
+      case drive_protocol_ssh:
+        protocol_str = "ssh";
+        /*FALLTHROUGH*/
+      network_protocols:
+        attribute ("type", "network");
+
+        start_element ("source") {
+          attribute ("protocol", protocol_str);
+          if (STRNEQ (drv->src.u.exportname, ""))
+            attribute ("name", drv->src.u.exportname);
+          if (construct_libvirt_xml_disk_source_hosts (g, xo,
+                                                       &drv->src) == -1)
+            return -1;
+          if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
+            return -1;
+        } end_element ();
+
+        if (drv->src.username != NULL) {
+          start_element ("auth") {
+            attribute ("username", drv->src.username);
+            /* TODO: write the drive secret, after first storing it separately
+             * in libvirt
+             */
+          } end_element ();
+        }
+        break;
+
+        /* libvirt doesn't support the qemu curl driver yet.  Give a
+         * reasonable error message instead of trying and failing.
+         */
+      case drive_protocol_ftp:
+      case drive_protocol_ftps:
+      case drive_protocol_http:
+      case drive_protocol_https:
+      case drive_protocol_tftp:
+        error (g, _("libvirt does not support the qemu curl driver protocols (ftp, http, etc.); try setting LIBGUESTFS_BACKEND=direct"));
+        return -1;
+      }
+
+      if (construct_libvirt_xml_disk_target (g, xo, drv_index) == -1)
+        return -1;
+
+      if (drv->src.format)
+        format = safe_strdup (g, drv->src.format);
+      else if (drv->src.protocol == drive_protocol_file) {
+        /* libvirt has disabled the feature of detecting the disk format,
+         * unless the administrator sets allow_disk_format_probing=1 in
+         * qemu.conf.  There is no way to detect if this option is set, so we
+         * have to do format detection here using qemu-img and pass that to
+         * libvirt.
+         *
+         * This is still a security issue, so in most cases it is recommended
+         * the users pass the format to libguestfs which will faithfully pass
+         * that to libvirt and this function won't be used.
+         */
+        format = guestfs_disk_format (g, drv->src.u.path);
+        if (!format)
+          return -1;
+
+        if (STREQ (format, "unknown")) {
+          error (g, _("could not auto-detect the format.\n"
+                      "If the format is known, pass the format to libguestfs, eg. using the\n"
+                      "'--format' option, or via the optional 'format' argument to 'add-drive'."));
           return -1;
         }
-
-        XMLERROR (-1,
-                  xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                               BAD_CAST "file"));
-
-        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-        XMLERROR (-1,
-                  xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
-                                               BAD_CAST path));
-        if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
-          return -1;
-        XMLERROR (-1, xmlTextWriterEndElement (xo));
       }
       else {
-        XMLERROR (-1,
-                  xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                               BAD_CAST "block"));
-
-        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-        XMLERROR (-1,
-                  xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
-                                               BAD_CAST drv->src.u.path));
-        if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
-          return -1;
-        XMLERROR (-1, xmlTextWriterEndElement (xo));
-      }
-      break;
-
-      /* For network protocols:
-       *   <disk type=network device=disk>
-       *     <source protocol=[protocol] [name=exportname]>
-       * and then zero or more of:
-       *       <host name='example.com' port='10809'/>
-       * or:
-       *       <host transport='unix' socket='/path/to/socket'/>
-       */
-    case drive_protocol_gluster:
-      protocol_str = "gluster"; goto network_protocols;
-    case drive_protocol_iscsi:
-      protocol_str = "iscsi"; goto network_protocols;
-    case drive_protocol_nbd:
-      protocol_str = "nbd"; goto network_protocols;
-    case drive_protocol_rbd:
-      protocol_str = "rbd"; goto network_protocols;
-    case drive_protocol_sheepdog:
-      protocol_str = "sheepdog"; goto network_protocols;
-    case drive_protocol_ssh:
-      protocol_str = "ssh";
-      /*FALLTHROUGH*/
-    network_protocols:
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                             BAD_CAST "network"));
-      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "protocol",
-                                             BAD_CAST protocol_str));
-      if (STRNEQ (drv->src.u.exportname, ""))
-        XMLERROR (-1,
-                  xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                               BAD_CAST drv->src.u.exportname));
-      if (construct_libvirt_xml_disk_source_hosts (g, xo,
-                                                   &drv->src) == -1)
-        return -1;
-      if (construct_libvirt_xml_disk_source_seclabel (g, data, xo) == -1)
-        return -1;
-      XMLERROR (-1, xmlTextWriterEndElement (xo));
-      if (drv->src.username != NULL) {
-        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "auth"));
-        XMLERROR (-1,
-                  xmlTextWriterWriteAttribute (xo, BAD_CAST "username",
-                                               BAD_CAST drv->src.username));
-        /* TODO: write the drive secret, after first storing it separately
-         * in libvirt
-         */
-        XMLERROR (-1, xmlTextWriterEndElement (xo));
-      }
-      break;
-
-      /* libvirt doesn't support the qemu curl driver yet.  Give a
-       * reasonable error message instead of trying and failing.
-       */
-    case drive_protocol_ftp:
-    case drive_protocol_ftps:
-    case drive_protocol_http:
-    case drive_protocol_https:
-    case drive_protocol_tftp:
-      error (g, _("libvirt does not support the qemu curl driver protocols (ftp, http, etc.); try setting LIBGUESTFS_BACKEND=direct"));
-      return -1;
-    }
-
-    if (construct_libvirt_xml_disk_target (g, xo, drv_index) == -1)
-      return -1;
-
-    if (drv->src.format)
-      format = safe_strdup (g, drv->src.format);
-    else if (drv->src.protocol == drive_protocol_file) {
-      /* libvirt has disabled the feature of detecting the disk format,
-       * unless the administrator sets allow_disk_format_probing=1 in
-       * qemu.conf.  There is no way to detect if this option is set, so we
-       * have to do format detection here using qemu-img and pass that to
-       * libvirt.
-       *
-       * This is still a security issue, so in most cases it is recommended
-       * the users pass the format to libguestfs which will faithfully pass
-       * that to libvirt and this function won't be used.
-       */
-      format = guestfs_disk_format (g, drv->src.u.path);
-      if (!format)
-        return -1;
-
-      if (STREQ (format, "unknown")) {
-        error (g, _("could not auto-detect the format.\n"
+        error (g, _("could not auto-detect the format when using a non-file protocol.\n"
                     "If the format is known, pass the format to libguestfs, eg. using the\n"
                     "'--format' option, or via the optional 'format' argument to 'add-drive'."));
         return -1;
       }
+
+      if (construct_libvirt_xml_disk_driver_qemu (g, xo, format,
+                                                  drv->cachemode ? : "writeback")
+          == -1)
+        return -1;
     }
-    else {
-      error (g, _("could not auto-detect the format when using a non-file protocol.\n"
-                  "If the format is known, pass the format to libguestfs, eg. using the\n"
-                  "'--format' option, or via the optional 'format' argument to 'add-drive'."));
-      return -1;
+
+    if (drv->disk_label) {
+      start_element ("serial") {
+        write_string (drv->disk_label);
+      } end_element ();
     }
 
-    if (construct_libvirt_xml_disk_driver_qemu (g, xo, format,
-                                                drv->cachemode ? : "writeback")
-        == -1)
+    if (construct_libvirt_xml_disk_address (g, xo, drv_index) == -1)
       return -1;
-  }
 
-  if (drv->disk_label) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "serial"));
-    XMLERROR (-1, xmlTextWriterWriteString (xo, BAD_CAST drv->disk_label));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-
-  if (construct_libvirt_xml_disk_address (g, xo, drv_index) == -1)
-    return -1;
-
-  XMLERROR (-1, xmlTextWriterEndElement (xo)); /* </disk> */
+  } end_element (); /* </disk> */
 
   return 0;
 }
@@ -1376,14 +1378,10 @@ construct_libvirt_xml_disk_target (guestfs_h *g, xmlTextWriterPtr xo,
 
   guestfs___drive_name (drv_index, &drive_name[2]);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
-                                         BAD_CAST drive_name));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "bus",
-                                         BAD_CAST "scsi"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("target") {
+    attribute ("dev", drive_name);
+    attribute ("bus", "scsi");
+  } end_element ();
 
   return 0;
 }
@@ -1393,17 +1391,11 @@ construct_libvirt_xml_disk_driver_qemu (guestfs_h *g, xmlTextWriterPtr xo,
                                         const char *format,
                                         const char *cachemode)
 {
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "driver"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                         BAD_CAST "qemu"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST format));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "cache",
-                                         BAD_CAST cachemode));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("driver") {
+    attribute ("name", "qemu");
+    attribute ("type", format);
+    attribute ("cache", cachemode);
+  } end_element ();
 
   return 0;
 }
@@ -1416,23 +1408,13 @@ construct_libvirt_xml_disk_address (guestfs_h *g, xmlTextWriterPtr xo,
 
   snprintf (scsi_target, sizeof scsi_target, "%zu", drv_index);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "address"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "drive"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "controller",
-                                         BAD_CAST "0"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "bus",
-                                         BAD_CAST "0"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "target",
-                                         BAD_CAST scsi_target));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "unit",
-                                         BAD_CAST "0"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  start_element ("address") {
+    attribute ("type", "drive");
+    attribute ("controller", "0");
+    attribute ("bus", "0");
+    attribute ("target", scsi_target);
+    attribute ("unit", "0");
+  } end_element ();
 
   return 0;
 }
@@ -1445,44 +1427,34 @@ construct_libvirt_xml_disk_source_hosts (guestfs_h *g,
   size_t i;
 
   for (i = 0; i < src->nr_servers; ++i) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "host"));
+    start_element ("host") {
+      switch (src->servers[i].transport) {
+      case drive_transport_none:
+      case drive_transport_tcp: {
+        const char *hostname = src->servers[i].u.hostname;
+        int port = src->servers[i].port;
 
-    switch (src->servers[i].transport) {
-    case drive_transport_none:
-    case drive_transport_tcp: {
-      const char *hostname = src->servers[i].u.hostname;
-      int port = src->servers[i].port;
+        attribute ("name", hostname);
 
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                             BAD_CAST hostname));
+        if (port > 0) {
+          char port_str[64];
 
-      if (port > 0) {
-        char port_str[64];
-
-        snprintf (port_str, sizeof port_str, "%d", port);
-
-        XMLERROR (-1,
-                  xmlTextWriterWriteAttribute (xo, BAD_CAST "port",
-                                               BAD_CAST port_str));
+          snprintf (port_str, sizeof port_str, "%d", port);
+          attribute ("port", port_str);
+        }
+        break;
       }
-      break;
-    }
 
-    case drive_transport_unix: {
-      const char *socket = src->servers[i].u.socket;
+      case drive_transport_unix: {
+        const char *socket = src->servers[i].u.socket;
 
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "transport",
-                                             BAD_CAST "unix"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "socket",
-                                             BAD_CAST socket));
-      break;
-    }
-    }
+        attribute ("transport", "unix");
+        attribute ("socket", socket);
+        break;
+      }
+      }
 
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    } end_element ();
   }
 
   return 0;
@@ -1494,14 +1466,10 @@ construct_libvirt_xml_disk_source_seclabel (guestfs_h *g,
                                             xmlTextWriterPtr xo)
 {
   if (data->selinux_norelabel_disks) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "seclabel"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "model",
-                                           BAD_CAST "selinux"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "relabel",
-                                           BAD_CAST "no"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("seclabel") {
+      attribute ("model", "selinux");
+      attribute ("relabel", "no");
+    } end_element ();
   }
 
   return 0;
@@ -1512,39 +1480,29 @@ construct_libvirt_xml_appliance (guestfs_h *g,
                                  const struct libvirt_xml_params *params,
                                  xmlTextWriterPtr xo)
 {
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "disk"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "type",
-                                         BAD_CAST "file"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "device",
-                                         BAD_CAST "disk"));
+  start_element ("disk") {
+    attribute ("type", "file");
+    attribute ("device", "disk");
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "source"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "file",
-                                         BAD_CAST params->appliance_overlay));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("source") {
+      attribute ("file", params->appliance_overlay);
+    } end_element ();
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "target"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "dev",
-                                         BAD_CAST &params->appliance_dev[5]));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "bus",
-                                         BAD_CAST "scsi"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("target") {
+      attribute ("dev", &params->appliance_dev[5]);
+      attribute ("bus", "scsi");
+    } end_element ();
 
-  if (construct_libvirt_xml_disk_driver_qemu (g, xo, "qcow2", "unsafe") == -1)
-    return -1;
+    if (construct_libvirt_xml_disk_driver_qemu (g, xo, "qcow2", "unsafe") == -1)
+      return -1;
 
-  if (construct_libvirt_xml_disk_address (g, xo, params->appliance_index) == -1)
-    return -1;
+    if (construct_libvirt_xml_disk_address (g, xo, params->appliance_index)
+        == -1)
+      return -1;
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "shareable"));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    empty_element ("shareable");
 
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  } end_element ();
 
   return 0;
 }
@@ -1557,70 +1515,54 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
   struct hv_param *hp;
   CLEANUP_FREE char *tmpdir = NULL;
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:commandline"));
+  start_element ("qemu:commandline") {
 
-  /* We need to ensure the snapshots are created in the persistent
-   * temporary directory (RHBZ#856619).  We must set one, because
-   * otherwise libvirt will use a random TMPDIR (RHBZ#865464).
-   */
-  tmpdir = guestfs_get_cachedir (g);
+    /* We need to ensure the snapshots are created in the persistent
+     * temporary directory (RHBZ#856619).  We must set one, because
+     * otherwise libvirt will use a random TMPDIR (RHBZ#865464).
+     */
+    tmpdir = guestfs_get_cachedir (g);
 
-  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:env"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                         BAD_CAST "TMPDIR"));
-  XMLERROR (-1,
-            xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                         BAD_CAST tmpdir));
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    start_element ("qemu:env") {
+      attribute ("name", "TMPDIR");
+      attribute ("value", tmpdir);
+    } end_element ();
 
-  /* Workaround because libvirt user networking cannot specify "net="
-   * parameter.
-   */
-  if (g->enable_network) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST "-netdev"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    /* Workaround because libvirt user networking cannot specify "net="
+     * parameter.
+     */
+    if (g->enable_network) {
+      start_element ("qemu:arg") {
+        attribute ("value", "-netdev");
+      } end_element ();
 
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST "user,id=usernet,net=169.254.0.0/16"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+      start_element ("qemu:arg") {
+        attribute ("value", "user,id=usernet,net=169.254.0.0/16");
+      } end_element ();
 
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST "-device"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+      start_element ("qemu:arg") {
+        attribute ("value", "-device");
+      } end_element ();
 
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST VIRTIO_NET ",netdev=usernet"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-
-  /* The qemu command line arguments requested by the caller. */
-  for (hp = g->hv_params; hp; hp = hp->next) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-    XMLERROR (-1,
-              xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                           BAD_CAST hp->hv_param));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-
-    if (hp->hv_value) {
-      XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "qemu:arg"));
-      XMLERROR (-1,
-                xmlTextWriterWriteAttribute (xo, BAD_CAST "value",
-                                             BAD_CAST hp->hv_value));
-      XMLERROR (-1, xmlTextWriterEndElement (xo));
+      start_element ("qemu:arg") {
+        attribute ("value", VIRTIO_NET ",netdev=usernet");
+      } end_element ();
     }
-  }
 
-  XMLERROR (-1, xmlTextWriterEndElement (xo));
+    /* The qemu command line arguments requested by the caller. */
+    for (hp = g->hv_params; hp; hp = hp->next) {
+      start_element ("qemu:arg") {
+        attribute ("value", hp->hv_param);
+      } end_element ();
+
+      if (hp->hv_value) {
+        start_element ("qemu:arg") {
+          attribute ("value", hp->hv_value);
+        } end_element ();
+      }
+    }
+
+  } end_element (); /* </qemu:commandline> */
 
   return 0;
 }
@@ -1804,19 +1746,44 @@ construct_libvirt_xml_hot_add_disk (guestfs_h *g,
   xmlOutputBufferPtr ob;
   CLEANUP_XMLFREETEXTWRITER xmlTextWriterPtr xo = NULL;
 
-  XMLERROR_RET (NULL, xb = xmlBufferCreate (), NULL);
-  XMLERROR_RET (NULL, ob = xmlOutputBufferCreateBuffer (xb, NULL), NULL);
-  XMLERROR_RET (NULL, xo = xmlNewTextWriter (ob), NULL);
+  xb = xmlBufferCreate ();
+  if (xb == NULL) {
+    perrorf (g, "xmlBufferCreate");
+    return NULL;
+  }
+  ob = xmlOutputBufferCreateBuffer (xb, NULL);
+  if (ob == NULL) {
+    perrorf (g, "xmlOutputBufferCreateBuffer");
+    return NULL;
+  }
+  xo = xmlNewTextWriter (ob);
+  if (xo == NULL) {
+    perrorf (g, "xmlNewTextWriter");
+    return NULL;
+  }
 
-  XMLERROR_RET (-1, xmlTextWriterSetIndent (xo, 1), NULL);
-  XMLERROR_RET (-1, xmlTextWriterSetIndentString (xo, BAD_CAST "  "), NULL);
-  XMLERROR_RET (-1, xmlTextWriterStartDocument (xo, NULL, NULL, NULL), NULL);
+  if (xmlTextWriterSetIndent (xo, 1) == -1 ||
+      xmlTextWriterSetIndentString (xo, BAD_CAST "  ") == -1) {
+    perrorf (g, "could not set XML indent");
+    return NULL;
+  }
+  if (xmlTextWriterStartDocument (xo, NULL, NULL, NULL) == -1) {
+    perrorf (g, "xmlTextWriterStartDocument");
+    return NULL;
+  }
 
   if (construct_libvirt_xml_disk (g, data, xo, drv, drv_index) == -1)
     return NULL;
 
-  XMLERROR_RET (-1, xmlTextWriterEndDocument (xo), NULL);
-  XMLERROR_RET (NULL, ret = xmlBufferDetach (xb), NULL); /* caller frees ret */
+  if (xmlTextWriterEndDocument (xo) == -1) {
+    perrorf (g, "xmlTextWriterEndDocument");
+    return NULL;
+  }
+  ret = xmlBufferDetach (xb); /* caller frees ret */
+  if (ret == NULL) {
+    perrorf (g, "xmlBufferDetach");
+    return NULL;
+  }
 
   debug (g, "hot-add disk XML:\n%s", ret);
 
