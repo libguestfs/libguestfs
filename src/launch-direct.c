@@ -460,19 +460,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       ADD_CMDLINE ("-enable-kvm");
   }
 
-#if defined(__i386__) || defined (__x86_64__)
-  /* -cpu host only works if KVM is available. */
-  if (has_kvm) {
-    /* Specify the host CPU for speed, and kvmclock for stability. */
-    ADD_CMDLINE ("-cpu");
-    ADD_CMDLINE ("host,+kvmclock");
-  } else {
-    /* Specify default CPU for speed, and kvmclock for stability. */
-    ADD_CMDLINE ("-cpu");
-    ADD_CMDLINE_PRINTF ("qemu%d,+kvmclock", SIZEOF_LONG*8);
-  }
-#endif
-
   if (g->smp > 1) {
     ADD_CMDLINE ("-smp");
     ADD_CMDLINE_PRINTF ("%d", g->smp);
@@ -484,7 +471,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Force exit instead of reboot on panic */
   ADD_CMDLINE ("-no-reboot");
 
-  /* These options recommended by KVM developers to improve reliability. */
+  /* These are recommended settings, see RHBZ#1053847. */
+  ADD_CMDLINE ("-rtc");
+  ADD_CMDLINE ("driftfix=slew");
 #ifndef __arm__
   /* qemu-system-arm advertises the -no-hpet option but if you try
    * to use it, it usefully says:
@@ -492,12 +481,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * Cheers qemu developers.  How many years have we been asking for
    * capabilities?  Could be 3 or 4 years, I forget.
    */
-  if (qemu_supports (g, data, "-no-hpet"))
-    ADD_CMDLINE ("-no-hpet");
+  ADD_CMDLINE ("-no-hpet");
 #endif
-
-  if (qemu_supports (g, data, "-rtc-td-hack"))
-    ADD_CMDLINE ("-rtc-td-hack");
+  ADD_CMDLINE ("-no-kvm-pit-reinjection");
 
   ADD_CMDLINE ("-kernel");
   ADD_CMDLINE (kernel);

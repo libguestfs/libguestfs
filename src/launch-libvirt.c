@@ -1009,9 +1009,18 @@ construct_libvirt_xml_cpu (guestfs_h *g,
 
   start_element ("clock") {
     attribute ("offset", "utc");
+    /* These are recommended settings, see RHBZ#1053847. */
     start_element ("timer") {
-      attribute ("name", "kvmclock");
-      attribute ("present", "yes");
+      attribute ("name", "rtc");
+      attribute ("tickpolicy", "catchup");
+    } end_element ();
+    start_element ("timer") {
+      attribute ("name", "pit");
+      attribute ("tickpolicy", "delay");
+    } end_element ();
+    start_element ("timer") {
+      attribute ("name", "hpet");
+      attribute ("present", "no");
     } end_element ();
   } end_element ();
 
