@@ -421,6 +421,7 @@ Makefile.in
 /src/structs-compare.c
 /src/structs-copy.c
 /src/structs-free.c
+/src/test-utils
 /stamp-guestfs-release-notes.pod
 /stamp-h1
 /sysprep/.depend

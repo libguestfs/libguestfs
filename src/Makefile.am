@@ -226,6 +226,28 @@ libutils_la_SOURCES = \
 libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
 libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)
 
+# Tests: main tests are in tests/c-api.  Here we just have some
+# internal tests of utility functions.
+
+TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
+
+TESTS = test-utils
+check_PROGRAMS = test-utils
+
+test_utils_SOURCES = test-utils.c
+test_utils_CPPFLAGS = \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src -I.
+test_utils_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+test_utils_LDADD = \
+	libutils.la \
+	$(top_builddir)/gnulib/lib/libgnu.la
+
+check-valgrind:
+	$(MAKE) VG="@VG@" check
+
 # Pkgconfig.
 
 pkgconfigdir = $(libdir)/pkgconfig
