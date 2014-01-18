@@ -481,3 +481,51 @@ guestfs___set_backend (guestfs_h *g, const char *method)
 
   return 0;
 }
+
+/* Convenience functions for backends to read settings. */
+
+/* Return the string value of a setting, or NULL if not set. */
+const char *
+guestfs___get_backend_setting (guestfs_h *g, const char *name)
+{
+  char **settings = g->backend_settings;
+  size_t namelen = strlen (name);
+  size_t i;
+
+  if (settings == NULL)
+    return NULL;
+
+  for (i = 0; settings[i] != NULL; ++i) {
+    if (STRCASEEQ (settings[i], name))
+      return ""; /* setting exists, no value */
+    if (STRCASEPREFIX (settings[i], name) && settings[i][namelen] == '=')
+      return &settings[i][namelen+1]; /* "name=...", return value */
+  }
+
+  return NULL;
+}
+
+/* If there a setting "name", "name=1", etc?  This is similar to
+ * fish/fish.c:is_true.
+ */
+int
+guestfs___get_backend_setting_bool (guestfs_h *g, const char *name)
+{
+  const char *value = guestfs___get_backend_setting (g, name);
+
+  if (value == NULL)
+    return 0;
+
+  if (STREQ (value, ""))
+    return 1;
+
+  if (STREQ (value, "1") ||
+      STRCASEEQ (value, "true") ||
+      STRCASEEQ (value, "t") ||
+      STRCASEEQ (value, "yes") ||
+      STRCASEEQ (value, "y") ||
+      STRCASEEQ (value, "on"))
+    return 1;
+
+  return 0;
+}

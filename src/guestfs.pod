@@ -1483,6 +1483,13 @@ backend, do:
  unset LIBGUESTFS_BACKEND
  guestfish get-backend
 
+=head2 BACKEND SETTINGS
+
+Each backend can be configured by passing a list of strings.  You can
+either call L</guestfs_set_backend_settings> with a list of strings,
+or set the C<LIBGUESTFS_BACKEND_SETTINGS> environment variable to a
+colon-separated list of strings (before creating the handle).
+
 =head2 ATTACHING TO RUNNING DAEMONS
 
 I<Note (1):> This is B<highly experimental> and has a tendency to eat
@@ -4612,6 +4619,11 @@ This is the old way to set C<LIBGUESTFS_BACKEND>.
 
 Choose the default way to create the appliance.  See
 L</guestfs_set_backend> and L</BACKEND>.
+
+=item LIBGUESTFS_BACKEND_SETTINGS
+
+A colon-separated list of backend-specific settings.
+See L</BACKEND>, L</BACKEND SETTINGS>.
 
 =item LIBGUESTFS_CACHEDIR
 

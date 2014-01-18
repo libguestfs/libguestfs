@@ -245,6 +245,19 @@ parse_environment (guestfs_h *g,
     }
   }
 
+  str = do_getenv (data, "LIBGUESTFS_BACKEND_SETTINGS");
+  if (str && STRNEQ (str, "")) {
+    CLEANUP_FREE_STRING_LIST char **settings = guestfs___split_string (':', str);
+
+    if (settings == NULL) {
+      perrorf (g, "split_string: malloc");
+      return -1;
+    }
+
+    if (guestfs_set_backend_settings (g, settings) == -1)
+      return -1;
+  }
+
   return 0;
 }
 
@@ -671,6 +684,42 @@ guestfs__get_attach_method (guestfs_h *g)
     return safe_strdup (g, "appliance");
 
   return guestfs_get_backend (g);
+}
+
+int
+guestfs__set_backend_settings (guestfs_h *g, char *const *settings)
+{
+  char **copy;
+
+  copy = guestfs___copy_string_list (settings);
+  if (copy == NULL) {
+    perrorf (g, "copy: malloc");
+    return -1;
+  }
+
+  guestfs___free_string_list (g->backend_settings);
+  g->backend_settings = copy;
+
+  return 0;
+}
+
+char **
+guestfs__get_backend_settings (guestfs_h *g)
+{
+  char *empty_list[1] = { NULL };
+  char **ret;
+
+  if (g->backend_settings == NULL)
+    ret = guestfs___copy_string_list (empty_list);
+  else
+    ret = guestfs___copy_string_list (g->backend_settings);
+
+  if (ret == NULL) {
+    perrorf (g, "copy: malloc");
+    return NULL;
+  }
+
+  return ret;                   /* caller frees */
 }
 
 int

@@ -46,6 +46,7 @@
 #define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
 #define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+#define STRCASEPREFIX(a,b) (strncasecmp((a),(b),strlen((b))) == 0)
 #define STRSUFFIX(a,b) (strlen((a)) >= strlen((b)) && STREQ((a)+strlen((a))-strlen((b)),(b)))
 
 #ifndef SOCK_CLOEXEC

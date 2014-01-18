@@ -3060,6 +3060,39 @@ If you set the data threshold to unlimited (C<0>) then this call
 can read a journal entry of any size, ie. it is not limited by
 the libguestfs protocol." };
 
+  { defaults with
+    name = "set_backend_settings";
+    style = RErr, [StringList "settings"], [];
+    config_only = true;
+    blocking = false;
+    shortdesc = "set per-backend settings";
+    longdesc = "\
+Set a list of zero or more settings which are passed through to
+the current backend.  Each setting is a string which is interpreted
+in a backend-specific way, or ignored if not understood by the
+backend.
+
+The default value is an empty list, unless the environment
+variable C<LIBGUESTFS_BACKEND_SETTINGS> was set when the handle
+was created.  This environment variable contains a colon-separated
+list of settings.
+
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+
+  { defaults with
+    name = "get_backend_settings";
+    style = RStringList "settings", [], [];
+    blocking = false;
+    tests = [
+      InitNone, Always, TestRun (
+        [["get_backend_settings"]]), []
+    ];
+    shortdesc = "get per-backend settings";
+    longdesc = "\
+Return the current backend settings.
+
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
