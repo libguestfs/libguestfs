@@ -871,13 +871,30 @@ construct_libvirt_xml_cpu (guestfs_h *g,
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "offset",
                                          BAD_CAST "utc"));
+  /* These are recommended settings, see RHBZ#1053847. */
   XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "timer"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
-                                         BAD_CAST "kvmclock"));
+                                         BAD_CAST "rtc"));
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "tickpolicy",
+                                         BAD_CAST "catchup"));
+  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "timer"));
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
+                                         BAD_CAST "pit"));
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "tickpolicy",
+                                         BAD_CAST "delay"));
+  XMLERROR (-1, xmlTextWriterEndElement (xo));
+  XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "timer"));
+  XMLERROR (-1,
+            xmlTextWriterWriteAttribute (xo, BAD_CAST "name",
+                                         BAD_CAST "hpet"));
   XMLERROR (-1,
             xmlTextWriterWriteAttribute (xo, BAD_CAST "present",
-                                         BAD_CAST "yes"));
+                                         BAD_CAST "no"));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 
