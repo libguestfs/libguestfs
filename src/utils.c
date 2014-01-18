@@ -127,6 +127,62 @@ guestfs___join_strings (const char *sep, char *const *argv)
   return r;
 }
 
+/* Split string at separator character 'sep', returning the list of
+ * strings.  Returns NULL on memory allocation failure.
+ *
+ * Note (assuming sep is ':'):
+ * str == NULL  => aborts
+ * str == ""    => returns []
+ * str == "abc" => returns ["abc"]
+ * str == ":"   => returns ["", ""]
+ */
+char **
+guestfs___split_string (char sep, const char *str)
+{
+  size_t i, n, c, len = strlen (str);
+  char reject[2] = { sep, '\0' };
+  char **ret;
+
+  /* We have to handle the empty string case differently else the code
+   * below will return [""].
+   */
+  if (str[0] == '\0') {
+    ret = malloc (1 * sizeof (char *));
+    if (!ret)
+      return NULL;
+    ret[0] = NULL;
+    return ret;
+  }
+
+  for (n = i = 0; i < len; ++i)
+    if (str[i] == sep)
+      n++;
+
+  /* We always return a list of length 1 + (# separator characters).
+   * We also have to add a trailing NULL.
+   */
+  ret = malloc ((n+2) * sizeof (char *));
+  if (!ret)
+    return NULL;
+  ret[n+1] = NULL;
+
+  for (n = i = 0; i <= len; ++i, ++n) {
+    c = strcspn (&str[i], reject);
+    ret[n] = strndup (&str[i], c);
+    if (ret[n] == NULL) {
+      for (i = 0; i < n; ++i)
+        free (ret[i]);
+      free (ret);
+      return NULL;
+    }
+    i += c;
+    if (str[i] == '\0') /* end of string? */
+      break;
+  }
+
+  return ret;
+}
+
 /* Translate a wait/system exit status into a printable string.  The
  * string must be freed by the caller.
  */
