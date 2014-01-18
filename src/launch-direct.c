@@ -224,6 +224,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (cmdline);
   int daemon_accept_sock = -1, console_sock = -1;
   int r;
+  int flags;
   int sv[2];
   char guestfsd_sock[256];
   struct sockaddr_un addr;
@@ -540,7 +541,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   ADD_CMDLINE ("-append");
-  ADD_CMDLINE_STRING_NODUP (guestfs___appliance_command_line (g, appliance_dev, 0));
+  flags = 0;
+  if (!has_kvm)
+    flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
+  ADD_CMDLINE_STRING_NODUP (guestfs___appliance_command_line (g, appliance_dev,
+                                                              flags));
 
   /* Note: custom command line parameters must come last so that
    * qemu -set parameters can modify previously added options.
