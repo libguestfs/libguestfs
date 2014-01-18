@@ -40,9 +40,14 @@
  * posted a patch asking for this to be added to /proc/cpuinfo too.
  *
  * Notes:
+ *
  * - We only try to calculate lpj once.
+ *
  * - Trying to calculate lpj must not fail.  If the return value is
  *   <= 0, it is ignored by the caller.
+ *
+ * - KVM uses kvm-clock, but TCG uses some sort of jiffies source,
+ *   which is why this is needed only for TCG appliances.
  *
  * (Suggested by Marcelo Tosatti)
  */
