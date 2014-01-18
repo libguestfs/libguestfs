@@ -87,7 +87,7 @@ main (int argc, char *argv[])
   };
   int c;
   int option_index;
-  int i;
+  size_t i;
   struct guestfs_version *vers;
   char *p;
   guestfs_h *g;
