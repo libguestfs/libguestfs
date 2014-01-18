@@ -60,6 +60,31 @@ guestfs___count_strings (char *const *argv)
   return r;
 }
 
+char **
+guestfs___copy_string_list (char *const *argv)
+{
+  size_t n = guestfs___count_strings (argv);
+  size_t i;
+  char **ret;
+
+  ret = malloc ((n+1) * sizeof (char *));
+  if (ret == NULL)
+    return NULL;
+  ret[n] = NULL;
+
+  for (i = 0; i < n; ++i) {
+    ret[i] = strdup (argv[i]);
+    if (ret[i] == NULL) {
+      for (size_t j = 0; j < i; ++j)
+        free (ret[j]);
+      free (ret);
+      return NULL;
+    }
+  }
+
+  return ret;
+}
+
 /* Note that near-identical functions exist in the daemon. */
 char *
 guestfs___concat_strings (char *const *argv)
