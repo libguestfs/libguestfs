@@ -407,6 +407,7 @@ Makefile.in
 /src/libguestfs.syms
 /src/.libs/libguestfs.so
 /src/stamp-guestfs.pod
+/src/test-utils
 /stamp-guestfs-release-notes.pod
 /stamp-h1
 /sysprep/.depend

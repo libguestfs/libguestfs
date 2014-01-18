@@ -294,6 +294,7 @@ src/osinfo.c
 src/private-data.c
 src/proto.c
 src/stringsbuf.c
+src/test-utils.c
 src/tmpdirs.c
 src/utils.c
 test-tool/test-tool.c
