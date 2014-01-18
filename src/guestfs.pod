@@ -1490,6 +1490,13 @@ either call L</guestfs_set_backend_settings> with a list of strings,
 or set the C<LIBGUESTFS_BACKEND_SETTINGS> environment variable to a
 colon-separated list of strings (before creating the handle).
 
+Currently the only backend setting is:
+
+ export LIBGUESTFS_BACKEND_SETTINGS=force_tcg
+
+which will force the direct backend to use TCG (software emulation)
+instead of KVM (hardware accelerated virtualization).
+
 =head2 ATTACHING TO RUNNING DAEMONS
 
 I<Note (1):> This is B<highly experimental> and has a tendency to eat

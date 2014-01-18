@@ -290,6 +290,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   int virtio_scsi;
   struct hv_param *hp;
   bool has_kvm;
+  bool force_tcg;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -299,7 +300,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     return -1;
   }
 
-  debian_kvm_warning (g);
+  force_tcg = guestfs___get_backend_setting_bool (g, "force_tcg");
+
+  if (!force_tcg)
+    debian_kvm_warning (g);
 
   guestfs___launch_send_progress (g, 0);
 
@@ -446,7 +450,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   if (qemu_supports (g, data, "-machine")) {
     ADD_CMDLINE ("-machine");
-    ADD_CMDLINE ("accel=kvm:tcg");
+    if (!force_tcg)
+      ADD_CMDLINE ("accel=kvm:tcg");
+    else
+      ADD_CMDLINE ("accel=tcg");
   } else {
     /* qemu sometimes needs this option to enable hardware
      * virtualization, but some versions of 'qemu-kvm' will use KVM
@@ -456,7 +463,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
      * available will cause qemu to fail.  A giant clusterfuck with
      * the qemu command line, again.
      */
-    if (qemu_supports (g, data, "-enable-kvm") && has_kvm)
+    if (has_kvm && !force_tcg && qemu_supports (g, data, "-enable-kvm"))
       ADD_CMDLINE ("-enable-kvm");
   }
 
