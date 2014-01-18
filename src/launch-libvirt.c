@@ -597,6 +597,7 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
   xmlNodeSetPtr nodes;
   xmlAttrPtr attr;
   size_t seen_qemu, seen_kvm;
+  bool force_tcg;
 
   doc = xmlParseMemory (capabilities_xml, strlen (capabilities_xml));
   if (doc == NULL) {
@@ -663,7 +664,13 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
     return -1;
   }
 
-  params->is_kvm = seen_kvm;
+  force_tcg = guestfs___get_backend_setting_bool (g, "force_tcg");
+
+  if (!force_tcg)
+    params->is_kvm = seen_kvm;
+  else
+    params->is_kvm = 0;
+
   return 0;
 }
 
