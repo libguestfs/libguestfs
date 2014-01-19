@@ -41,6 +41,7 @@ GUESTFSD_EXT_CMD(str_xargs, xargs);
 GUESTFSD_EXT_CMD(str_file, file);
 GUESTFSD_EXT_CMD(str_grep, grep);
 GUESTFSD_EXT_CMD(str_gawk, gawk);
+GUESTFSD_EXT_CMD(str_sh, sh);
 
 /* This command exposes debugging information, internals and
  * status.  There is no comprehensive documentation for this
@@ -335,7 +336,7 @@ debug_binaries (const char *subcmd, size_t argc, char *const *const argv)
             "| %s -F: '{print $1}'",
             str_find, str_xargs, str_file, str_grep, str_gawk);
 
-  r = command (&out, &err, "sh", "-c", cmd, NULL);
+  r = command (&out, &err, str_sh, "-c", cmd, NULL);
   if (r == -1) {
     reply_with_error ("find: %s", err);
     free (out);
