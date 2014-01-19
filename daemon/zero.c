@@ -26,6 +26,8 @@
 #include <unistd.h>
 #include <sys/statvfs.h>
 
+#include "ignore-value.h"
+
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"
@@ -91,7 +93,7 @@ wipefs_has_force_option (void)
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
   if (flag == -1) {
-    r = command (&out, &err, "wipefs", "--help", NULL);
+    r = command (&out, &err, str_wipefs, "--help", NULL);
     if (r == -1) {
       reply_with_error ("%s", err);
       return -1;
@@ -354,15 +356,23 @@ do_zero_free_space (const char *dir)
 void
 wipe_device_before_mkfs (const char *device)
 {
-  int r;
+  int force;
+  const size_t MAX_ARGS = 16;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
 
-  r = command (NULL, NULL, "wipefs", "-a", "--force", device, NULL);
-  if (r == 0)
+  force = wipefs_has_force_option ();
+  if (force == -1)
     return;
 
-  r = command (NULL, NULL, "wipefs", "-a", device, NULL);
-  if (r == 0)
-    return;
+  ADD_ARG (argv, i, str_wipefs);
+  ADD_ARG (argv, i, "-a");
+  if (force)
+    ADD_ARG (argv, i, "--force");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  ignore_value (commandv (NULL, NULL, argv));
 
   /* XXX We could fall back to overwriting bits of disk here, but if
    * they don't have working wipefs, it seems unlikely they are using
