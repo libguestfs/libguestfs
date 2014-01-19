@@ -130,7 +130,7 @@ do_ldmtool_create_all (void)
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (NULL, &err, "ldmtool", "create", "all", NULL);
+  r = command (NULL, &err, str_ldmtool, "create", "all", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -144,7 +144,7 @@ do_ldmtool_remove_all (void)
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (NULL, &err, "ldmtool", "remove", "all", NULL);
+  r = command (NULL, &err, str_ldmtool, "remove", "all", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;

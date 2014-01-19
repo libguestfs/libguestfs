@@ -30,6 +30,7 @@
 
 #include "ignore-value.h"
 
+GUESTFSD_EXT_CMD(str_cp, cp);
 GUESTFSD_EXT_CMD(str_mount, mount);
 GUESTFSD_EXT_CMD(str_umount, umount);
 
@@ -179,7 +180,7 @@ set_up_etc_resolv_conf (struct resolver_state *rs)
   /* Now that the guest's <sysroot>/etc/resolv.conf is out the way, we
    * can create our own copy of the appliance /etc/resolv.conf.
    */
-  ignore_value (command (NULL, NULL, "cp", "/etc/resolv.conf",
+  ignore_value (command (NULL, NULL, str_cp, "/etc/resolv.conf",
                          rs->sysroot_etc_resolv_conf, NULL));
 
   rs->mounted = true;

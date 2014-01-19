@@ -597,7 +597,7 @@ test_btrfs_device_add_needs_force (void)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
-  r = command (&out, &err, "btrfs", "device", "add", "--help", NULL);
+  r = command (&out, &err, str_btrfs, "device", "add", "--help", NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", "btrfs device add --help", err);
     return -1;
