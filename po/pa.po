@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-01-02 20:24+0000\n"
+"POT-Creation-Date: 2014-01-20 12:50+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
@@ -4144,43 +4144,43 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/fuse.c:936
+#: src/fuse.c:938
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: src/fuse.c:961
+#: src/fuse.c:963
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: src/fuse.c:978
+#: src/fuse.c:980
 #, c-format
 msgid "fuse_mount: %s"
 msgstr ""
 
-#: src/fuse.c:996
+#: src/fuse.c:998
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: src/fuse.c:1025
+#: src/fuse.c:1027
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: src/fuse.c:1034
+#: src/fuse.c:1036
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: src/fuse.c:1084
+#: src/fuse.c:1086
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: src/fuse.c:1202
+#: src/fuse.c:1204
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: src/fuse.c:1454
+#: src/fuse.c:1456
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -4306,11 +4306,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:246 src/launch-uml.c:120
+#: src/launch-direct.c:247 src/launch-uml.c:120
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch-direct.c:771 src/launch-libvirt.c:481
+#: src/launch-direct.c:762 src/launch-libvirt.c:481
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
@@ -4376,49 +4376,49 @@ msgstr ""
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1109
+#: src/launch-libvirt.c:1126
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1220
+#: src/launch-libvirt.c:1237
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1258
+#: src/launch-libvirt.c:1275
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1269
+#: src/launch-libvirt.c:1286
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1624
+#: src/launch-libvirt.c:1641
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1706
+#: src/launch-libvirt.c:1723
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1743
+#: src/launch-libvirt.c:1760
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1805
+#: src/launch-libvirt.c:1822
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1836
+#: src/launch-libvirt.c:1853
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -4699,27 +4699,27 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
 
-#: src/utils.c:114
+#: src/utils.c:195
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:117
+#: src/utils.c:198
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:121
+#: src/utils.c:202
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:125
+#: src/utils.c:206
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:129
+#: src/utils.c:210
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
@@ -5163,6 +5163,10 @@ msgstr ""
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
+#: ../builder/downloader.ml:112
+msgid "%s: curl (download) command failed downloading '%s'\n"
+msgstr ""
+
 #: ../builder/builder.ml:94
 msgid "%s: curl is not installed (or does not work)\n"
 msgstr ""
@@ -5175,6 +5179,13 @@ msgstr ""
 
 #: ../resize/resize.ml:57
 msgid "%s: empty --expand option"
+msgstr ""
+
+#: ../builder/index_parser.ml:102
+msgid ""
+"%s: error parsing index near this line:\n"
+"\n"
+"%s\n"
 msgstr ""
 
 #: ../mllib/common_utils.ml:192
@@ -5215,6 +5226,10 @@ msgstr ""
 
 #: ../builder/builder.ml:745
 msgid "%s: exception: %s\n"
+msgstr ""
+
+#: ../builder/downloader.ml:91
+msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
 #: ../builder/builder.ml:733
@@ -5370,6 +5385,12 @@ msgstr ""
 
 #: ../resize/resize.ml:451
 msgid "%s: this partition overlaps the previous one"
+msgstr ""
+
+#: ../builder/downloader.ml:80
+msgid ""
+"%s: unexpected output from curl command, enable debug and look at previous "
+"messages\n"
 msgstr ""
 
 #: ../resize/resize.ml:302
@@ -6631,15 +6652,15 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../mllib/common_utils.ml:343
+#: ../mllib/common_utils.ml:346
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:345
+#: ../mllib/common_utils.ml:348
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:347
+#: ../mllib/common_utils.ml:350
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -6832,17 +6853,6 @@ msgstr ""
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
-#: ../builder/downloader.ml:123 ../builder/downloader.ml:84
-msgid "virt-builder: curl (download) command failed downloading '%s'\n"
-msgstr ""
-
-#: ../builder/index_parser.ml:102
-msgid ""
-"virt-builder: error parsing index near this line:\n"
-"\n"
-"%s\n"
-msgstr ""
-
 #: ../builder/sigchecker.ml:168
 msgid ""
 "virt-builder: error: GPG failure: could not verify digital signature of "
@@ -6894,18 +6904,6 @@ msgid ""
 "This probably means the index file is missing a sig=... line.\n"
 "You can use --no-check-signature to ignore this error, but that means\n"
 "you are susceptible to man-in-the-middle attacks.\n"
-msgstr ""
-
-#: ../builder/downloader.ml:87
-msgid "virt-builder: external command '%s' killed by signal %d\n"
-msgstr ""
-
-#: ../builder/downloader.ml:91
-msgid "virt-builder: external command '%s' stopped by signal %d\n"
-msgstr ""
-
-#: ../builder/downloader.ml:102
-msgid "virt-builder: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
 #: ../builder/index_parser.ml:233
