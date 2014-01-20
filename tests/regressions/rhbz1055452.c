@@ -31,6 +31,7 @@
 #include <unistd.h>
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 int
 main (int argc, char *argv[])
@@ -39,6 +40,9 @@ main (int argc, char *argv[])
   const char *var[] = { "LIBGUESTFS_BACKEND", "LIBGUESTFS_ATTACH_METHOD", NULL };
   const char *value[] = { "appliance", "direct", NULL };
   size_t i, j;
+  char *r;
+
+  /* Check that backend can be set to "appliance" or "direct". */
 
   for (i = 0; var[i] != NULL; ++i) {
     for (j = 0; value[j] != NULL; ++j) {
@@ -58,6 +62,40 @@ main (int argc, char *argv[])
       unsetenv (var[i]);
     }
   }
+
+  /* Check that guestfs_get_attach_method returns "appliance" ... */
+
+  g = guestfs_create ();
+  if (!g) {
+    perror ("guestfs_create");
+    exit (EXIT_FAILURE);
+  }
+  if (guestfs_set_backend (g, "direct") == -1)
+    exit (EXIT_FAILURE);
+
+  r = guestfs_get_attach_method (g);
+  if (!r)
+    exit (EXIT_FAILURE);
+  if (STRNEQ (r, "appliance")) {
+    fprintf (stderr, "%s: expecting guestfs_get_attach_method to return 'appliance', but it returned '%s'.\n",
+             argv[0], r);
+    exit (EXIT_FAILURE);
+  }
+  free (r);
+
+  /* ... but that guestfs_get_backend returns "direct". */
+
+  r = guestfs_get_backend (g);
+  if (!r)
+    exit (EXIT_FAILURE);
+  if (STRNEQ (r, "direct")) {
+    fprintf (stderr, "%s: expecting guestfs_get_backend to return 'direct', but it returned '%s'.\n",
+             argv[0], r);
+    exit (EXIT_FAILURE);
+  }
+  free (r);
+
+  guestfs_close (g);
 
   exit (EXIT_SUCCESS);
 }
