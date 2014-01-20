@@ -34,6 +34,7 @@ TESTS = \
 	rhbz957772.sh \
 	rhbz975797.sh \
 	rhbz1001875.sh \
+	rhbz1055452 \
 	test-noexec-stack.pl
 
 tests_not_run = \
@@ -47,7 +48,8 @@ TESTS_ENVIRONMENT = \
 check_PROGRAMS = \
 	rhbz501893 \
 	rhbz790721 \
-	rhbz914931
+	rhbz914931 \
+	rhbz1055452
 
 rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CPPFLAGS = \
@@ -77,6 +79,17 @@ rhbz914931_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 rhbz914931_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+rhbz1055452_SOURCES = rhbz1055452.c
+rhbz1055452_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-DGUESTFS_PRIVATE=1
+rhbz1055452_CFLAGS = \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+rhbz1055452_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 EXTRA_DIST = \
