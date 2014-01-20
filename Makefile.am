@@ -274,7 +274,7 @@ website: $(HTMLFILES) $(HTMLSUPPORTFILES) $(TEXTFILES) $(BUILDERFILES)
 
 # When doing 'make dist' update a few files automatically.
 dist-hook:
-	$(top_srcdir)/build-aux/gitlog-to-changelog > ChangeLog
+	git log --decorate=false > ChangeLog
 	cp ChangeLog $(distdir)/ChangeLog
 	$(top_srcdir)/update-bugs.sh > BUGS-t
 	mv BUGS-t BUGS
