@@ -36,6 +36,7 @@ TESTS = \
 	rhbz957772.sh \
 	rhbz975797.sh \
 	rhbz1001875.sh \
+	rhbz1055452 \
 	test-noexec-stack.pl
 
 if HAVE_LIBVIRT
@@ -53,7 +54,8 @@ TESTS_ENVIRONMENT = \
 check_PROGRAMS = \
 	rhbz501893 \
 	rhbz790721 \
-	rhbz914931
+	rhbz914931 \
+	rhbz1055452
 
 if HAVE_LIBVIRT
 check_PROGRAMS += rhbz1044014
@@ -105,6 +107,17 @@ rhbz1044014_LDADD = \
         $(LIBXML2_LIBS) \
         $(top_builddir)/gnulib/lib/libgnu.la
 endif
+
+rhbz1055452_SOURCES = rhbz1055452.c
+rhbz1055452_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-DGUESTFS_PRIVATE=1
+rhbz1055452_CFLAGS = \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+rhbz1055452_LDADD = \
+	$(top_builddir)/src/libguestfs.la
 
 EXTRA_DIST = \
 	$(TESTS) \

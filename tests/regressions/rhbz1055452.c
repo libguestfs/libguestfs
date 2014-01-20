@@ -1,0 +1,63 @@
+/* libguestfs
+ * Copyright (C) 2014 Red Hat Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+/* Regression test for RHBZ#1055452.  Check parsing of
+ * LIBGUESTFS_BACKEND/LIBGUESTFS_ATTACH_METHOD environment variables.
+ *
+ * We have to write this in C so that we can call
+ * guestfs_parse_environment.
+ */
+
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#include "guestfs.h"
+
+int
+main (int argc, char *argv[])
+{
+  guestfs_h *g;
+  const char *var[] = { "LIBGUESTFS_BACKEND", "LIBGUESTFS_ATTACH_METHOD", NULL };
+  const char *value[] = { "appliance", "direct", NULL };
+  size_t i, j;
+
+  for (i = 0; var[i] != NULL; ++i) {
+    for (j = 0; value[j] != NULL; ++j) {
+      setenv (var[i], value[j], 1);
+
+      g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT);
+      if (!g) {
+        perror ("guestfs_create_flags");
+        exit (EXIT_FAILURE);
+      }
+
+      if (guestfs_parse_environment (g) == -1)
+        exit (EXIT_FAILURE);
+
+      guestfs_close (g);
+
+      unsetenv (var[i]);
+    }
+  }
+
+  exit (EXIT_SUCCESS);
+}
