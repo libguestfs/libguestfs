@@ -63,14 +63,15 @@
  * This is also checked at runtime because you can dynamically link
  * with a different version from what you were compiled with.
  */
-#define MIN_LIBVIRT_MAJOR 1
-#define MIN_LIBVIRT_MINOR 1
-#define MIN_LIBVIRT_MICRO 1
+#define MIN_LIBVIRT_MAJOR 0
+#define MIN_LIBVIRT_MINOR 10
+#define MIN_LIBVIRT_MICRO 2 /* XXX patches in > 2 already */
 #define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 + \
                              MIN_LIBVIRT_MINOR * 1000 + \
                              MIN_LIBVIRT_MICRO)
 
-#if defined(HAVE_LIBVIRT) && LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
+#if defined(HAVE_LIBVIRT) && \
+  LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
 
 #ifndef HAVE_XMLBUFFERDETACH
 /* Added in libxml2 2.8.0.  This is mostly a copy of the function from
@@ -1843,4 +1844,4 @@ init_backend (void)
   guestfs___register_backend ("libvirt", &backend_libvirt_ops);
 }
 
-#endif /* libvirt is new enough */
+#endif

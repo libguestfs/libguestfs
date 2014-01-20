@@ -118,7 +118,7 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | libmagic     |             | O | The library used by the 'file' command. |
 +--------------+-------------+---+-----------------------------------------+
-| libvirt      |             | O | >= 1.1.1 is needed if you want to use   |
+| libvirt      |             | O | >= 0.10.2 is needed if you want to use  |
 |              |             |   | libvirt to manage transient VMs.        |
 +--------------+-------------+---+-----------------------------------------+
 | xmllint      |             | O | Part of libxml2.  Used for tests only.  |
