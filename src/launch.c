@@ -450,6 +450,10 @@ guestfs___set_backend (guestfs_h *g, const char *method)
 
   assert (g->state == CONFIG);
 
+  /* For backwards compatibility with old code (RHBZ#1055452). */
+  if (STREQ (method, "appliance"))
+    method = "direct";
+
   for (b = backends; b != NULL; b = b->next) {
     if (STREQ (method, b->name))
       break;
