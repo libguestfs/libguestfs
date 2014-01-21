@@ -1259,6 +1259,24 @@ etc are truly random when the guest boots.
 
 You should check digital signatures and not ignore any signing errors.
 
+=head2 CLONES
+
+If you wish to create many new guests of the same type, it is tempting
+to run virt-builder once and then copy the output file.  You should
+B<not> do this.  You should run virt-builder once for each new guest
+you need.
+
+The reason is that each clone needs to have (at least) a separate
+random seed, and possibly other unique features (such as filesystem
+UUIDs) in future versions of virt-builder.
+
+Another thing you should I<not> do is to boot the guest, then clone
+the booted disk image.  The reason is that some guests create unique
+machine IDs, SSH host keys and so on at first boot, and you would not
+want clones to have duplicate identities.
+
+See also: L<virt-sysprep(1)>.
+
 =head2 USER MODE LINUX
 
 You can use virt-builder with the User-Mode Linux (UML) backend.  This
