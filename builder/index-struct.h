@@ -32,6 +32,7 @@ struct section {
 struct field {
   struct field *next;
   char *key;
+  char *subkey;
   char *value;
 };
 

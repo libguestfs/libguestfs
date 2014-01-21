@@ -101,7 +101,7 @@ let print_entry chan (name, { printable_name = printable_name;
 type sections = section array
 and section = string * fields           (* [name] + fields *)
 and fields = field array
-and field = string * string             (* key + value *)
+and field = string * string option * string    (* key + subkey + value *)
 
 (* Calls yyparse in the C code. *)
 external parse_index : string -> sections = "virt_builder_parse_index"
@@ -149,12 +149,17 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
       fun (n, fields) ->
         let fseen = Hashtbl.create 13 in
         List.iter (
-          fun (field, _) ->
-            if Hashtbl.mem fseen field then (
-              eprintf (f_"virt-builder: index is corrupt: %s: field '%s' appears two or more times\n") n field;
+          fun (field, subkey, _) ->
+            let hashkey = (field, subkey) in
+            if Hashtbl.mem fseen hashkey then (
+              (match subkey with
+              | Some value ->
+                eprintf (f_"virt-builder: index is corrupt: %s: field '%s[%s]' appears two or more times\n") n field value
+              | None ->
+                eprintf (f_"virt-builder: index is corrupt: %s: field '%s' appears two or more times\n") n field);
               corrupt_file ()
             );
-            Hashtbl.add fseen field true
+            Hashtbl.add fseen hashkey true
         ) fields
     ) sections;
 
@@ -162,25 +167,26 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
     let entries =
       List.map (
         fun (n, fields) ->
+          let fields = List.map (fun (k, sk, v) -> (k, sk), v) fields in
           let printable_name =
-            try Some (List.assoc "name" fields) with Not_found -> None in
+            try Some (List.assoc ("name", None) fields) with Not_found -> None in
           let osinfo =
-            try Some (List.assoc "osinfo" fields) with Not_found -> None in
+            try Some (List.assoc ("osinfo", None) fields) with Not_found -> None in
           let file_uri =
-            try make_absolute_uri (List.assoc "file" fields)
+            try make_absolute_uri (List.assoc ("file", None) fields)
             with Not_found ->
               eprintf (f_"virt-builder: no 'file' (URI) entry for '%s'\n") n;
             corrupt_file () in
           let signature_uri =
-            try Some (make_absolute_uri (List.assoc "sig" fields))
+            try Some (make_absolute_uri (List.assoc ("sig", None) fields))
             with Not_found -> None in
           let checksum_sha512 =
-            try Some (List.assoc "checksum[sha512]" fields)
+            try Some (List.assoc ("checksum", Some "sha512") fields)
             with Not_found ->
-              try Some (List.assoc "checksum" fields)
+              try Some (List.assoc ("checksum", None) fields)
               with Not_found -> None in
           let revision =
-            try int_of_string (List.assoc "revision" fields)
+            try int_of_string (List.assoc ("revision", None) fields)
             with
             | Not_found -> 1
             | Failure "int_of_string" ->
@@ -188,9 +194,9 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
                 n;
               corrupt_file () in
           let format =
-            try Some (List.assoc "format" fields) with Not_found -> None in
+            try Some (List.assoc ("format", None) fields) with Not_found -> None in
           let size =
-            try Int64.of_string (List.assoc "size" fields)
+            try Int64.of_string (List.assoc ("size", None) fields)
             with
             | Not_found ->
               eprintf (f_"virt-builder: no 'size' field for '%s'\n") n;
@@ -200,7 +206,7 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
                 n;
               corrupt_file () in
           let compressed_size =
-            try Some (Int64.of_string (List.assoc "compressed_size" fields))
+            try Some (Int64.of_string (List.assoc ("compressed_size", None) fields))
             with
             | Not_found ->
               None
@@ -209,13 +215,13 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
                 n;
               corrupt_file () in
           let expand =
-            try Some (List.assoc "expand" fields) with Not_found -> None in
+            try Some (List.assoc ("expand", None) fields) with Not_found -> None in
           let lvexpand =
-            try Some (List.assoc "lvexpand" fields) with Not_found -> None in
+            try Some (List.assoc ("lvexpand", None) fields) with Not_found -> None in
           let notes =
-            try Some (List.assoc "notes" fields) with Not_found -> None in
+            try Some (List.assoc ("notes", None) fields) with Not_found -> None in
           let hidden =
-            try bool_of_string (List.assoc "hidden" fields)
+            try bool_of_string (List.assoc ("hidden", None) fields)
             with
             | Not_found -> false
             | Failure "bool_of_string" ->

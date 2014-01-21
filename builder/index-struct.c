@@ -52,6 +52,7 @@ free_field (struct field *field)
   if (field) {
     free_field (field->next);
     free (field->key);
+    free (field->subkey);
     free (field->value);
     free (field);
   }
