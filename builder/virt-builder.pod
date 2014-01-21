@@ -1715,11 +1715,14 @@ Guests which use SELinux (such as Fedora and Red Hat Enterprise Linux)
 require that each file has a correct SELinux label.
 
 Since virt-builder does not know how to give new files a correct
-label, it touches C</.autorelabel> in the guest and relies on the
-guest to relabel itself at first boot.
+label, the guest templates have an empty file C</.autorelabel> and
+this causes the guest to relabel itself at first boot.
 
 This usually means that these guests will reboot themselves once the
 first time you use them.  This is normal, and harmless.
+
+(For further information on the topic of SELinux labelling, see:
+L<https://www.redhat.com/archives/libguestfs/2014-January/msg00183.html>)
 
 =head1 ENVIRONMENT VARIABLES
 
