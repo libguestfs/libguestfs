@@ -1719,7 +1719,21 @@ label, the guest templates have an empty file C</.autorelabel> and
 this causes the guest to relabel itself at first boot.
 
 This usually means that these guests will reboot themselves once the
-first time you use them.  This is normal, and harmless.
+first time you use them.  B<This is normal, and harmless.>  However if
+you want to perform the relabelling at build time instead of delaying
+it to the first boot, you can boot the guest with the qemu
+I<-no-reboot> option (which means it will shut down after the relabel
+is complete without booting "for real").  Only do this if you are sure
+it is an SELinux guest:
+
+ qemu-system-x86_64 \
+   -no-reboot \
+   -nographic \
+   -machine accel=kvm:tcg \
+   -cpu host \
+   -m 2048 \
+   -drive file=disk.img,format=raw,if=virtio \
+   -serial stdio
 
 (For further information on the topic of SELinux labelling, see:
 L<https://www.redhat.com/archives/libguestfs/2014-January/msg00183.html>)
