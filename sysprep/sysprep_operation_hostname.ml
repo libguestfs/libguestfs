@@ -26,8 +26,9 @@ module G = Guestfs
 
 let hostname = ref "localhost.localdomain"
 
-let hostname_perform (g : Guestfs.guestfs) root =
-  if Hostname.set_hostname g root !hostname then [ `Created_files ] else []
+let hostname_perform (g : Guestfs.guestfs) root side_effects =
+  if Hostname.set_hostname g root !hostname then
+    side_effects#created_file ()
 
 let op = {
   defaults with

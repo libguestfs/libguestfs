@@ -21,17 +21,15 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let ssh_userdir_perform g root =
+let ssh_userdir_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let dirs = g#glob_expand "/home/*/.ssh" in
     Array.iter (
       fun dir -> g#rm_rf dir;
     ) dirs;
-    g#rm_rf "/root/.ssh";
-    []
+    g#rm_rf "/root/.ssh"
   )
-  else []
 
 let op = {
   defaults with

@@ -26,7 +26,7 @@ module G = Guestfs
 
 let files = ref []
 
-let firstboot_perform g root =
+let firstboot_perform g root side_effects =
   (* Read the files and add them using the {!Firstboot} module. *)
   let files = List.rev !files in
   let i = ref 0 in
@@ -35,9 +35,9 @@ let firstboot_perform g root =
       incr i;
       let i = !i in
       let content = read_whole_file filename in
-      Firstboot.add_firstboot_script g root i content
-  ) files;
-  if files <> [] then [ `Created_files ] else []
+      Firstboot.add_firstboot_script g root i content;
+      side_effects#created_file ()
+  ) files
 
 let op = {
   defaults with

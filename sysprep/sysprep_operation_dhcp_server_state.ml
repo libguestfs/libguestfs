@@ -21,9 +21,8 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let dhcp_server_state_perform g root =
-  Array.iter g#rm_rf (g#glob_expand "/var/lib/dhcpd/*");
-  []
+let dhcp_server_state_perform g root side_effects =
+  Array.iter g#rm_rf (g#glob_expand "/var/lib/dhcpd/*")
 
 let op = {
   defaults with

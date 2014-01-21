@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let tmp_files_perform g root =
+let tmp_files_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let paths = [ "/tmp/*";
@@ -33,11 +33,8 @@ let tmp_files_perform g root =
           fun file ->
             g#rm_rf file;
         ) files;
-    ) paths;
-
-    []
+    ) paths
   )
-  else []
 
 let op = {
   defaults with

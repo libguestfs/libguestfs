@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let bash_history_perform g root =
+let bash_history_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let files = g#glob_expand "/home/*/.bash_history" in
@@ -29,9 +29,7 @@ let bash_history_perform g root =
       fun file -> try g#rm file with G.Error _ -> ();
     ) files;
     (try g#rm "/root/.bash_history" with G.Error _ -> ());
-    []
   )
-  else []
 
 let op = {
   defaults with

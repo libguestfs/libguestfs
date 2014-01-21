@@ -21,16 +21,15 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let rhn_systemid_perform g root =
+let rhn_systemid_perform g root side_effects =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
 
   match typ, distro with
   | "linux", "rhel" ->
     (try g#rm "/etc/sysconfig/rhn/systemid" with G.Error _ -> ());
-    (try g#rm "/etc/sysconfig/rhn/osad-auth.conf" with G.Error _ -> ());
-    []
-  | _ -> []
+    (try g#rm "/etc/sysconfig/rhn/osad-auth.conf" with G.Error _ -> ())
+  | _ -> ()
 
 let op = {
   defaults with

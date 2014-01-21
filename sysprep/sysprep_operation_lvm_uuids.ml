@@ -23,7 +23,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let rec lvm_uuids_perform g root =
+let rec lvm_uuids_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     let has_lvm2_feature =
@@ -35,8 +35,7 @@ let rec lvm_uuids_perform g root =
       if has_vgs then g#vgchange_uuid_all ();
       if has_pvs || has_vgs then g#vg_activate_all true
     )
-  );
-  []
+  )
 
 let op = {
   defaults with

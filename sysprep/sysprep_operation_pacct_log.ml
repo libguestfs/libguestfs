@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let pacct_log_perform g root =
+let pacct_log_perform g root side_effects =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
@@ -31,8 +31,10 @@ let pacct_log_perform g root =
       fun file ->
         try g#rm file with G.Error _ -> ()
       ) files;
-    (try g#touch "/var/account/pacct" with G.Error _ -> ());
-    [ `Created_files ]
+    (try
+       g#touch "/var/account/pacct";
+       side_effects#created_file ()
+     with G.Error _ -> ())
 
   | "linux", ("debian"|"ubuntu") ->
     let files = g#glob_expand "/var/log/account/pacct*" in
@@ -40,10 +42,12 @@ let pacct_log_perform g root =
       fun file ->
         try g#rm file with G.Error _ -> ()
       ) files;
-    (try g#touch "/var/log/account/pacct" with G.Error _ -> ());
-    [ `Created_files ]
+    (try
+       g#touch "/var/log/account/pacct";
+       side_effects#created_file ()
+     with G.Error _ -> ())
 
-  | _ -> []
+  | _ -> ()
 
 let op = {
   defaults with

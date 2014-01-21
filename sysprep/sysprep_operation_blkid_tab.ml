@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let blkid_tab_perform g root =
+let blkid_tab_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let files = [ "/var/run/blkid.tab";
@@ -37,11 +37,8 @@ let blkid_tab_perform g root =
         if not (g#is_symlink file) then (
           try g#rm file with G.Error _ -> ()
         )
-    ) files;
-
-    []
+    ) files
   )
-  else []
 
 let op = {
   defaults with

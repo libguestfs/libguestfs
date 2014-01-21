@@ -23,8 +23,9 @@ open Random_seed
 
 module G = Guestfs
 
-let random_seed_perform (g : Guestfs.guestfs) root =
-  if set_random_seed g root then [ `Created_files ] else []
+let random_seed_perform (g : Guestfs.guestfs) root side_effects =
+  if set_random_seed g root then
+    side_effects#created_file ()
 
 let op = {
   defaults with

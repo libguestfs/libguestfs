@@ -25,12 +25,11 @@ module G = Guestfs
 let paths = ref []
 let add_paths path = paths := path :: !paths
 
-let path_perform g root =
+let path_perform g root side_effects =
   let paths = List.rev !paths in
   if paths <> [] then (
     List.iter (fun glob -> Array.iter g#rm_rf (g#glob_expand glob)) paths
-  );
-  []
+  )
 
 let op = {
   defaults with

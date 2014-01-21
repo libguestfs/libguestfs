@@ -21,14 +21,12 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let udev_persistent_net_perform g root =
+let udev_persistent_net_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
-    (try g#rm "/etc/udev/rules.d/70-persistent-net.rules"
-     with G.Error _ -> ());
-    []
+    try g#rm "/etc/udev/rules.d/70-persistent-net.rules"
+    with G.Error _ -> ()
   )
-  else []
 
 let op = {
   defaults with

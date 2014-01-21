@@ -21,13 +21,11 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let yum_uuid_perform g root =
+let yum_uuid_perform g root side_effects =
   let packager = g#inspect_get_package_management root in
   if packager = "yum" then (
-    (try g#rm "/var/lib/yum/uuid" with G.Error _ -> ());
-    []
+    try g#rm "/var/lib/yum/uuid" with G.Error _ -> ()
   )
-  else []
 
 let op = {
   defaults with

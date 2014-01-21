@@ -53,19 +53,18 @@ let password_crypto : password_crypto option ref = ref None
 let set_password_crypto arg =
   password_crypto := Some (password_crypto_of_string ~prog arg)
 
-let password_perform g root =
+let password_perform g root side_effects =
   if Hashtbl.length passwords > 0 then (
     let typ = g#inspect_get_type root in
     match typ with
     | "linux" ->
       let password_crypto = !password_crypto in
       set_linux_passwords ~prog ?password_crypto g root passwords;
-      [ `Created_files ]
+      side_effects#created_file ()
     | _ ->
       eprintf (f_"virt-sysprep: cannot set passwords for %s guests.\n") typ;
       exit 1
   )
-  else []
 
 let op = {
   defaults with

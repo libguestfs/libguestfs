@@ -36,7 +36,7 @@ let set_scriptdir dir =
 let scripts = ref []
 let add_script script = scripts := script :: !scripts
 
-let rec script_perform (g : Guestfs.guestfs) root =
+let rec script_perform (g : Guestfs.guestfs) root side_effects =
   let scripts = List.rev !scripts in
   if scripts <> [] then (
     (* Create a temporary directory? *)
@@ -73,8 +73,7 @@ let rec script_perform (g : Guestfs.guestfs) root =
     if cleanup then rmdir scriptdir;
 
     if not ok then failwith (s_"script failed")
-  );
-  []
+  )
 
 (* Run the scripts in the background and make sure they call
  * guestunmount afterwards.

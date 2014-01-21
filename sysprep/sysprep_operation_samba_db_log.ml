@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let samba_db_log_perform g root =
+let samba_db_log_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let paths = [ "/var/log/samba/old/*";
@@ -35,11 +35,8 @@ let samba_db_log_perform g root =
           fun file ->
             try g#rm file with G.Error _ -> ()
         ) files;
-    ) paths;
-
-    []
+    ) paths
   )
-  else []
 
 let op = {
   defaults with

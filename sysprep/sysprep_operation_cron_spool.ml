@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let cron_spool_perform (g : Guestfs.guestfs) root =
+let cron_spool_perform (g : Guestfs.guestfs) root side_effects =
   Array.iter g#rm_rf (g#glob_expand "/var/spool/cron/*");
   Array.iter g#rm (g#glob_expand "/var/spool/atjobs/*");
   Array.iter g#rm (g#glob_expand "/var/spool/atjobs/.SEQ");
@@ -30,8 +30,7 @@ let cron_spool_perform (g : Guestfs.guestfs) root =
     (fun path -> if not (g#is_dir path) then g#rm path)
     (g#glob_expand "/var/spool/at/*");
   Array.iter g#rm (g#glob_expand "/var/spool/at/.SEQ");
-  Array.iter g#rm (g#glob_expand "/var/spool/at/spool/*");
-  []
+  Array.iter g#rm (g#glob_expand "/var/spool/at/spool/*")
 
 let op = {
   defaults with

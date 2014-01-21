@@ -26,11 +26,12 @@ module G = Guestfs
 
 let timezone = ref None
 
-let timezone_perform (g : Guestfs.guestfs) root =
+let timezone_perform (g : Guestfs.guestfs) root side_effects =
   match !timezone with
-  | None -> []
+  | None -> ()
   | Some tz ->
-    if Timezone.set_timezone ~prog g root tz then [ `Created_files ] else []
+    if Timezone.set_timezone ~prog g root tz then
+      side_effects#created_file ()
 
 let op = {
   defaults with

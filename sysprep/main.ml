@@ -263,23 +263,21 @@ let do_sysprep () =
             with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
         ) mps;
 
-        (* Perform the filesystem operations. *)
-        let flags =
-          Sysprep_operation.perform_operations_on_filesystems
-            ?operations ~quiet g root in
+        let side_effects = new Sysprep_operation.filesystem_side_effects in
 
-        (* Parse flags. *)
-        let relabel = ref false in
-        List.iter (function
-        | `Created_files -> relabel := true
-        ) flags;
+        (* Perform the filesystem operations. *)
+        Sysprep_operation.perform_operations_on_filesystems
+          ?operations ~quiet g root side_effects;
+
+        (* Check side-effects. *)
+        let created_files = side_effects#get_created_file in
 
         (* SELinux relabel? *)
         let relabel =
-          match selinux_relabel, !relabel with
+          match selinux_relabel, created_files with
           | `Force, _ -> true
           | `Never, _ -> false
-          | `Auto, relabel -> relabel in
+          | `Auto, created_files -> created_files in
         if relabel then (
           let typ = g#inspect_get_type root in
           let distro = g#inspect_get_distro root in
@@ -293,13 +291,11 @@ let do_sysprep () =
         (* Unmount everything in this guest. *)
         g#umount_all ();
 
-        (* Perform the block device operations. *)
-        let flags =
-          Sysprep_operation.perform_operations_on_devices
-            ?operations ~quiet g root in
+        let side_effects = new Sysprep_operation.device_side_effects in
 
-        (* At present we don't support any flags from perform_on_devices. *)
-        assert (flags = [])
+        (* Perform the block device operations. *)
+        Sysprep_operation.perform_operations_on_devices
+          ?operations ~quiet g root side_effects;
     ) roots
 
 (* Finished. *)

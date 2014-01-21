@@ -21,13 +21,12 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let flag_reconfiguration g root =
+let flag_reconfiguration g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     g#touch "/.unconfigured";
-    [ `Created_files ]
+    side_effects#created_file ()
   )
-  else []
 
 let op = {
   defaults with

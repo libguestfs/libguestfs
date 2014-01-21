@@ -22,7 +22,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let net_hostname_perform g root =
+let net_hostname_perform g root side_effects =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
@@ -36,12 +36,11 @@ let net_hostname_perform g root =
           fun line -> not (string_prefix line "HOSTNAME=")
         ) lines in
         let file = String.concat "\n" lines ^ "\n" in
-        g#write filename file
+        g#write filename file;
+        side_effects#created_file ()
     ) filenames;
 
-    if filenames <> [||] then [ `Created_files ] else []
-
-  | _ -> []
+  | _ -> ()
 
 let op = {
   defaults with

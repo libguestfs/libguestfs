@@ -21,13 +21,12 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let utmp_perform g root =
+let utmp_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     try g#rm "/var/run/utmp"
     with G.Error _ -> ()
-  );
-  []
+  )
 
 let op = {
   defaults with

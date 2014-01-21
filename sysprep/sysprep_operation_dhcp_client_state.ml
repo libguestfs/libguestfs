@@ -21,14 +21,13 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let dhcp_client_state_perform g root =
+let dhcp_client_state_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     List.iter (
       fun glob -> Array.iter g#rm_rf (g#glob_expand glob)
     ) [ "/var/lib/dhclient/*"; "/var/lib/dhcp/*" (* RHEL 3 *) ]
-  );
-  []
+  )
 
 let op = {
   defaults with

@@ -22,7 +22,7 @@ open Common_gettext.Gettext
 module StringSet = Set.Make (String)
 module G = Guestfs
 
-let kerberos_data_perform g root =
+let kerberos_data_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let excepts = [ "/var/kerberos/krb5kdc/kadm5.acl";
@@ -34,11 +34,8 @@ let kerberos_data_perform g root =
     StringSet.iter (
       fun filename ->
         try g#rm filename with G.Error _ -> ()
-    ) set;
-
-    []
+    ) set
   )
-  else []
 
 let op = {
   defaults with

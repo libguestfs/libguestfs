@@ -21,14 +21,13 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let mail_spool_perform g root =
+let mail_spool_perform g root side_effects =
   List.iter (
     fun glob -> Array.iter g#rm_rf (g#glob_expand glob)
   ) [
     "/var/spool/mail/*";
     "/var/mail/*";
-  ];
-  []
+  ]
 
 let op = {
   defaults with

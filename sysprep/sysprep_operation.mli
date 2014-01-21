@@ -20,10 +20,21 @@
 
 val prog : string
 
-type flag = [ `Created_files ]
+class filesystem_side_effects : object
+  method created_file : unit -> unit
+  method get_created_file : bool
+end
+(** The callback should indicate if it has side effects by calling
+    methods in this class. *)
 
-type callback = Guestfs.guestfs -> string -> flag list
-(** [callback g root] is called to do work. *)
+class device_side_effects : object end
+(** There are currently no device side-effects.  For future use. *)
+
+type 'side_effects callback = Guestfs.guestfs -> string -> 'side_effects -> unit
+(** [callback g root side_effects] is called to do work.
+
+    If the operation has side effects such as creating files, it
+    should indicate that by calling the [side_effects] object. *)
 
 (** Structure used to describe sysprep operations. *)
 type operation = {
@@ -55,7 +66,7 @@ type operation = {
       You can decide the types of the arguments, whether they are
       mandatory etc. *)
 
-  perform_on_filesystems : callback option;
+  perform_on_filesystems : filesystem_side_effects callback option;
   (** The function which is called to perform this operation, when
       enabled.
 
@@ -69,14 +80,14 @@ type operation = {
       In the rare case of a multiboot operating system, it is possible
       for this function to be called multiple times.
 
-      On success, the function can return a list of flags (or an
-      empty list).  See {!flag}.
+      If the callback has side effects such as create files, it should
+      call the appropriate method in {!filesystem_side_effects}.
 
       On error the function should raise an exception.  The function
       also needs to be careful to {i suppress} exceptions for things
       which are not errors, eg. deleting non-existent files. *)
 
-  perform_on_devices : callback option;
+  perform_on_devices : device_side_effects callback option;
   (** This is the same as {!perform_on_filesystems} except that
       the guest filesystem(s) are {i not} mounted.  This allows the
       operation to work directly on block devices, LVs etc. *)
@@ -151,8 +162,8 @@ val remove_all_from_set : set -> set
 (** [remove_all_from_set set] removes from [set] all the available
     operations. *)
 
-val perform_operations_on_filesystems : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> flag list
+val perform_operations_on_filesystems : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> filesystem_side_effects -> unit
 (** Perform all operations, or the subset listed in the [operations] set. *)
 
-val perform_operations_on_devices : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> flag list
+val perform_operations_on_devices : ?operations:set -> ?quiet:bool -> Guestfs.guestfs -> string -> device_side_effects -> unit
 (** Perform all operations, or the subset listed in the [operations] set. *)

@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let smolt_uuid_perform g root =
+let smolt_uuid_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     let files = [ "/etc/sysconfig/hw-uuid";
@@ -29,11 +29,8 @@ let smolt_uuid_perform g root =
                   "/etc/smolt/hw-uuid" ] in
     List.iter (
       fun file -> try g#rm file with G.Error _ -> ()
-    ) files;
-
-    []
+    ) files
   )
-  else []
 
 let op = {
   defaults with

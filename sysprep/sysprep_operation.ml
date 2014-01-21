@@ -24,9 +24,16 @@ open Common_gettext.Gettext
 
 let prog = "virt-sysprep"
 
-type flag = [ `Created_files ]
+class filesystem_side_effects =
+object
+  val mutable m_created_file = false
+  method created_file () = m_created_file <- true
+  method get_created_file = m_created_file
+end
 
-type callback = Guestfs.guestfs -> string -> flag list
+class device_side_effects = object end
+
+type 'a callback = Guestfs.guestfs -> string -> 'a -> unit
 
 type operation = {
   name : string;
@@ -35,8 +42,8 @@ type operation = {
   pod_description : string option;
   pod_notes : string option;
   extra_args : extra_arg list;
-  perform_on_filesystems : callback option;
-  perform_on_devices : callback option;
+  perform_on_filesystems : filesystem_side_effects callback option;
+  perform_on_devices : device_side_effects callback option;
 }
 and extra_arg = {
   extra_argspec : Arg.key * Arg.spec * Arg.doc;
@@ -260,7 +267,8 @@ let list_operations () =
         op.heading
   ) !all_operations
 
-let perform_operations_on_filesystems ?operations ?(quiet = false) g root =
+let perform_operations_on_filesystems ?operations ?(quiet = false) g root
+    side_effects =
   assert !baked;
 
   let ops =
@@ -269,19 +277,17 @@ let perform_operations_on_filesystems ?operations ?(quiet = false) g root =
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
 
-  let flags =
-    List.map (
-      function
-      | { name = name; perform_on_filesystems = Some fn } ->
-        if not quiet then
-          printf "Performing %S ...\n%!" name;
-        fn g root
-      | { perform_on_filesystems = None } -> []
-    ) ops in
+  List.iter (
+    function
+    | { name = name; perform_on_filesystems = Some fn } ->
+      if not quiet then
+        printf "Performing %S ...\n%!" name;
+      fn g root side_effects
+    | { perform_on_filesystems = None } -> ()
+  ) ops
 
-  List.flatten flags
-
-let perform_operations_on_devices ?operations ?(quiet = false) g root =
+let perform_operations_on_devices ?operations ?(quiet = false) g root
+    side_effects =
   assert !baked;
 
   let ops =
@@ -290,14 +296,11 @@ let perform_operations_on_devices ?operations ?(quiet = false) g root =
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
 
-  let flags =
-    List.map (
-      function
-      | { name = name; perform_on_devices = Some fn } ->
-        if not quiet then
-          printf "Performing %S ...\n%!" name;
-        fn g root
-      | { perform_on_devices = None } -> []
-    ) ops in
-
-  List.flatten flags
+  List.iter (
+    function
+    | { name = name; perform_on_devices = Some fn } ->
+      if not quiet then
+        printf "Performing %S ...\n%!" name;
+      fn g root side_effects
+    | { perform_on_devices = None } -> ()
+  ) ops
