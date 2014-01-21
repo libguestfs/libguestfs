@@ -58,10 +58,17 @@ extern void yyerror (const char *);
 
   /* field=value or field[subfield]=value */
 ^[A-Za-z0-9_.]+("["[A-Za-z0-9_,.]+"]")?"=".*\n {
-                      size_t i = strcspn (yytext, "=");
+                      size_t i = strcspn (yytext, "=[");
                       yylval.field = malloc (sizeof (struct field));
                       yylval.field->next = NULL;
                       yylval.field->key = strndup (yytext, i);
+                      if (yytext[i] == '[') {
+                        size_t j = strcspn (yytext+i+1, "]");
+                        yylval.field->subkey = strndup (yytext+i+1, j);
+                        i += 1+j+2;
+                      } else {
+                        yylval.field->subkey = NULL;
+                      }
                       /* Note we chop the final \n off here. */
                       yylval.field->value = strndup (yytext+i+1, yyleng-(i+2));
                       return FIELD;

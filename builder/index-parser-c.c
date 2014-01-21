@@ -49,7 +49,7 @@ value
 virt_builder_parse_index (value filenamev)
 {
   CAMLparam1 (filenamev);
-  CAMLlocal4 (rv, v, sv, fv);
+  CAMLlocal5 (rv, v, sv, sv2, fv);
   struct section *sections;
   size_t i, nr_sections;
 
@@ -83,11 +83,18 @@ virt_builder_parse_index (value filenamev)
 
     for (j = 0, fields = sections->fields; fields != NULL;
          j++, fields = fields->next) {
-      v = caml_alloc_tuple (2);
+      v = caml_alloc_tuple (3);
       sv = caml_copy_string (fields->key);
-      Store_field (v, 0, sv);   /* (key, value) */
-      sv = caml_copy_string (fields->value);
+      Store_field (v, 0, sv);   /* (key, Some subkey, value) */
+      if (fields->subkey) {
+        sv2 = caml_copy_string (fields->subkey);
+        sv = caml_alloc (1, 0);
+        Store_field (sv, 0, sv2);
+      } else
+        sv = Val_int (0);
       Store_field (v, 1, sv);
+      sv = caml_copy_string (fields->value);
+      Store_field (v, 2, sv);
       Store_field (fv, j, v);   /* assign to return array of fields */
     }
 
