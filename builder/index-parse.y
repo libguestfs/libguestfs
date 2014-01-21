@@ -80,10 +80,10 @@ index:
         { parsed_index = $2; }
 
 sections:
-      section
+      section emptylines
         { $$ = $1; }
-    | section EMPTY_LINE sections
-        { $$ = $1; $$->next = $3; }
+    | section EMPTY_LINE emptylines sections
+        { $$ = $1; $$->next = $4; }
 
 section:
       SECTION_HEADER fields
@@ -112,6 +112,12 @@ continuations:
         { $$ = concat_newline ($1, $2);
           free ($1);
           free ($2); }
+
+emptylines:
+      /* empty */
+        {}
+    | EMPTY_LINE emptylines
+        {}
 
 %%
 
