@@ -231,7 +231,7 @@ CLEANFILES += \
 
 # Fix dependencies which automake doesn't generate correctly.
 if HAVE_OCAML
-index-parser-c.o: index-parse.h
+index-parser-c.o: index-parse.h index-struct.h
 index-scan.o: index-parse.h
 endif
 index-validate.o: index-parse.h
