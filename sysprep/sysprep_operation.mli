@@ -16,14 +16,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Structure used to describe sysprep operations. *)
+(** Defines the interface between the main program and sysprep operations. *)
 
 val prog : string
 
 type flag = [ `Created_files ]
 
 type callback = Guestfs.guestfs -> string -> flag list
+(** [callback g root] is called to do work. *)
 
+(** Structure used to describe sysprep operations. *)
 type operation = {
   name : string;
   (** Operation name, also used to enable the operation on the command
