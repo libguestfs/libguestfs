@@ -17,6 +17,26 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+EXTRA_DIST = \
+	rhbz503169c13.sh \
+	rhbz557655.sh \
+	rhbz557655-expected.stdout \
+	rhbz557655-expected.stderr \
+	rhbz576879.sh \
+	rhbz578407.sh \
+	rhbz580246.sh \
+	rhbz602997.sh \
+	rhbz690819.sh \
+	rhbz727178.sh \
+	rhbz789960.sh \
+	rhbz811649.sh \
+	rhbz895904.sh \
+	rhbz909624.sh \
+	rhbz957772.sh \
+	rhbz975797.sh \
+	rhbz1001875.sh \
+	test-noexec-stack.pl
+
 TESTS = \
 	rhbz501893 \
 	rhbz503169c13.sh \
@@ -91,12 +111,6 @@ rhbz1055452_CFLAGS = \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 rhbz1055452_LDADD = \
 	$(top_builddir)/src/libguestfs.la
-
-EXTRA_DIST = \
-	$(TESTS) \
-	$(tests_not_run) \
-	rhbz557655-expected.stdout \
-	rhbz557655-expected.stderr
 
 check-slow:
 	$(MAKE) TESTS="rhbz909624.sh" check
