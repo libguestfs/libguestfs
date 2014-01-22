@@ -36,6 +36,7 @@ TESTS = \
 	rhbz957772.sh \
 	rhbz975797.sh \
 	rhbz1001875.sh \
+	rhbz1054761.sh \
 	rhbz1055452 \
 	test-noexec-stack.pl
 
