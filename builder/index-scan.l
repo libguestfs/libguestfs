@@ -65,7 +65,7 @@ extern void yyerror (const char *);
                       if (yytext[i] == '[') {
                         size_t j = strcspn (yytext+i+1, "]");
                         yylval.field->subkey = strndup (yytext+i+1, j);
-                        i += 1+j+2;
+                        i += 1+j+1;
                       } else {
                         yylval.field->subkey = NULL;
                       }
