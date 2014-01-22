@@ -1733,7 +1733,8 @@ it is an SELinux guest:
    -cpu host \
    -m 2048 \
    -drive file=disk.img,format=raw,if=virtio \
-   -serial stdio
+   -serial stdio \
+   -monitor none
 
 (For further information on the topic of SELinux labelling, see:
 L<https://www.redhat.com/archives/libguestfs/2014-January/msg00183.html>)
