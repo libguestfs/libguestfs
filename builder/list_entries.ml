@@ -98,13 +98,11 @@ and list_entries_json ~sources index =
         | c -> String.make 1 c)
     done;
     !res in
-  let json_optional_printf_string key value =
-    match value with
+  let json_optional_printf_string key = function
     | None -> ()
     | Some str ->
       printf "    \"%s\": \"%s\",\n" key (json_string_escape str) in
-  let json_optional_printf_int64 key value =
-    match value with
+  let json_optional_printf_int64 key = function
     | None -> ()
     | Some n ->
       printf "    \"%s\": \"%Ld\",\n" key n in
