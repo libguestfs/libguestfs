@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-01-21 18:36+0000\n"
+"POT-Creation-Date: 2014-01-22 17:30+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -30,7 +30,7 @@ msgid ""
 "version.\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:248
+#: ../sparsify/sparsify.ml:257
 msgid ""
 "\n"
 "WARNING: There may not be enough free space on %s.\n"
@@ -592,7 +592,7 @@ msgstr "%s: je kunt geen leeg argument doorgeven met --enable\n"
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: je moet de -a of de -d optie opgeven\n"
 
-#: ../sparsify/sparsify.ml:201
+#: ../sparsify/sparsify.ml:210
 msgid ""
 "'qemu-img create' cannot create qcow2 files.  Check the 'qemu-img'\n"
 "program is installed and working, and that it matches the versionof qemu "
@@ -603,7 +603,7 @@ msgstr ""
 msgid "--check-tmpdir: unknown argument `%s'\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:231
+#: ../sparsify/sparsify.ml:240
 msgid ""
 "--compress cannot be used for raw output.  Remove this option or use --"
 "convert qcow2."
@@ -687,7 +687,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:394
+#: ../sparsify/sparsify.ml:403
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -703,7 +703,7 @@ msgstr "Gecomprimeerde output formaat"
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:453
+#: ../sparsify/sparsify.ml:462
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -727,7 +727,7 @@ msgstr ""
 msgid "Create directory"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:284
+#: ../sparsify/sparsify.ml:293
 msgid ""
 "Create overlay file in %s to protect source disk ...\n"
 "%!"
@@ -927,7 +927,7 @@ msgstr "Zet traceren van libguestfs aanroepen aan"
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:323
+#: ../sparsify/sparsify.ml:332
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -992,7 +992,7 @@ msgstr ""
 msgid "File or directory to be removed on guest"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:378
+#: ../sparsify/sparsify.ml:387
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
@@ -1000,7 +1000,7 @@ msgstr ""
 "Vul vrije ruime in %s met nul in ...\n"
 "%!"
 
-#: ../sparsify/sparsify.ml:429
+#: ../sparsify/sparsify.ml:438
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -1089,7 +1089,7 @@ msgstr "Negeer bestandssysteem"
 msgid "Ignore partition"
 msgstr "Negeer partitie"
 
-#: ../sparsify/sparsify.ml:237
+#: ../sparsify/sparsify.ml:246
 msgid ""
 "Input disk virtual size = %Ld bytes (%s)\n"
 "%!"
@@ -1759,7 +1759,7 @@ msgstr "Verklein partitie"
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:472
+#: ../sparsify/sparsify.ml:481
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -2048,7 +2048,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Nul bestandssysteem"
 
-#: ../sparsify/sparsify.ml:368
+#: ../sparsify/sparsify.ml:377
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -2072,7 +2072,7 @@ msgstr ""
 msgid "cached"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:225
+#: ../sparsify/sparsify.ml:234
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr "kan input schijfformaat niet detecteren; gebruik de --format parameter"
 
@@ -2104,7 +2104,7 @@ msgstr "extern commando '%s' werd afgeschoten door signaal %d"
 msgid "external command '%s' stopped by signal %d"
 msgstr "extern commando '%s' werd gestopt door signaal %d"
 
-#: ../sparsify/sparsify.ml:466 ../sparsify/sparsify.ml:317
+#: ../sparsify/sparsify.ml:475 ../sparsify/sparsify.ml:326
 msgid "external command failed: %s"
 msgstr "extern commando mislukte: %s"
 
@@ -2176,6 +2176,14 @@ msgstr "optie"
 msgid "opts"
 msgstr ""
 
+#: ../sparsify/sparsify.ml:172
+msgid "output '%s' cannot be a block device, it must be a regular file"
+msgstr ""
+
+#: ../sparsify/sparsify.ml:176
+msgid "output '%s' cannot be a character device, it must be a regular file"
+msgstr ""
+
 #: ../sparsify/sparsify.ml:168
 msgid ""
 "output filename '%s' contains a colon (':'); qemu-img command line syntax "
@@ -2205,7 +2213,7 @@ msgstr "pread-device: kort lezen"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/sparsify.ml:403
+#: ../sparsify/sparsify.ml:412
 msgid "pwrite: short write restoring swap partition header"
 msgstr "pwrite: kort schrijven herstellen van swap partitie koptekst"
 
