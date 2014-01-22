@@ -11477,7 +11477,7 @@ parameter.  In future we may allow other flags to be adjusted." };
       ]);
     shortdesc = "set the filesystem UUID";
     longdesc = "\
-Set the filesystem UIUD on C<device> to C<label>.
+Set the filesystem UUID on C<device> to C<uuid>.
 
 Only some filesystem types support setting UUIDs.
 
