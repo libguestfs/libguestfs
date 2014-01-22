@@ -81,9 +81,12 @@ convert_lvm_output (char *out, const char *prefix)
     } else
       str = p;
 
-    if (add_string (&ret, str) == -1) {
-      free (out);
-      return NULL;
+    /* Ignore "unknown device" message (RHBZ#1054761). */
+    if (STRNEQ (str, "unknown device")) {
+      if (add_string (&ret, str) == -1) {
+        free (out);
+        return NULL;
+      }
     }
 
     p = pend;
