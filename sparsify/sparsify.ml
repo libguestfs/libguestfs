@@ -167,6 +167,15 @@ read the man page virt-sparsify(1).
   if contains_colon outdisk then
     error (f_"output filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") outdisk;
 
+  (* Check the output is not a block or char special (RHBZ#1056290). *)
+  if is_block_device outdisk then
+    error (f_"output '%s' cannot be a block device, it must be a regular file")
+      outdisk;
+
+  if is_char_device outdisk then
+    error (f_"output '%s' cannot be a character device, it must be a regular file")
+      outdisk;
+
   indisk, outdisk, check_tmpdir, compress, convert,
     debug_gc, format, ignores, machine_readable,
     option, quiet, verbose, trace, zeroes
