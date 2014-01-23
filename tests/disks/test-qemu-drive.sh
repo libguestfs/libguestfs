@@ -76,7 +76,7 @@ rm "$DEBUG_QEMU_FILE"
 # Gluster.
 
 $guestfish <<EOF ||:
-  add "/volname/image" "format:raw" "protocol:gluster" "server:www.example.com:24007"
+  add "volname/image" "format:raw" "protocol:gluster" "server:www.example.com:24007"
   run
 EOF
 check_output
@@ -86,7 +86,7 @@ rm "$DEBUG_QEMU_FILE"
 # iSCSI.
 
 $guestfish <<EOF ||:
-  add "/target-iqn-name/lun" "format:raw" "protocol:iscsi" "server:www.example.com:3000"
+  add "target-iqn-name/lun" "format:raw" "protocol:iscsi" "server:www.example.com:3000"
   run
 EOF
 check_output
@@ -114,7 +114,7 @@ rm "$DEBUG_QEMU_FILE"
 # Sheepdog.
 
 $guestfish <<EOF ||:
-  add "/volume" "format:raw" "protocol:sheepdog"
+  add "volume" "format:raw" "protocol:sheepdog"
   run
 EOF
 check_output

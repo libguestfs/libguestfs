@@ -1202,9 +1202,17 @@ make_uri (guestfs_h *g, const char *scheme, const char *user,
           struct drive_server *server, const char *path)
 {
   xmlURI uri = { .scheme = (char *) scheme,
-                 .path = (char *) path,
                  .user = (char *) user };
   CLEANUP_FREE char *query = NULL;
+  CLEANUP_FREE char *pathslash = NULL;
+
+  /* Need to add a leading '/' to URI paths since xmlSaveUri doesn't. */
+  if (path[0] != '/') {
+    pathslash = safe_asprintf (g, "/%s", path);
+    uri.path = pathslash;
+  }
+  else
+    uri.path = (char *) path;
 
   switch (server->transport) {
   case drive_transport_none:
@@ -1299,8 +1307,7 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     if (STREQ (src->u.exportname, ""))
       ret = safe_strdup (g, p);
     else
-      /* Skip the mandatory leading '/' character. */
-      ret = safe_asprintf (g, "%s:exportname=%s", p, &src->u.exportname[1]);
+      ret = safe_asprintf (g, "%s:exportname=%s", p, src->u.exportname);
 
     return ret;
   }
@@ -1357,13 +1364,12 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   }
 
   case drive_protocol_sheepdog:
-    /* Skip the mandatory leading '/' character on exportname. */
     if (src->nr_servers == 0)
-      return safe_asprintf (g, "sheepdog:%s", &src->u.exportname[1]);
+      return safe_asprintf (g, "sheepdog:%s", src->u.exportname);
     else                        /* XXX How to pass multiple hosts? */
       return safe_asprintf (g, "sheepdog:%s:%d:%s",
                             src->servers[0].u.hostname, src->servers[0].port,
-                            &src->u.exportname[1]);
+                            src->u.exportname);
 
   case drive_protocol_ssh:
     return make_uri (g, "ssh", src->username,

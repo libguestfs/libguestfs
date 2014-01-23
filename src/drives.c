@@ -255,8 +255,8 @@ create_drive_gluster (guestfs_h *g,
     return NULL;
   }
 
-  if (exportname[0] != '/') {
-    error (g, _("gluster: pathname must begin with a '/'"));
+  if (exportname[0] == '/') {
+    error (g, _("gluster: volume/image must not begin with a '/'"));
     return NULL;
   }
 
@@ -389,8 +389,8 @@ create_drive_sheepdog (guestfs_h *g,
     return NULL;
   }
 
-  if (exportname[0] != '/') {
-    error (g, _("sheepdog: volume parameter must begin with a '/'"));
+  if (exportname[0] == '/') {
+    error (g, _("sheepdog: volume parameter must not begin with a '/'"));
     return NULL;
   }
 
@@ -483,8 +483,8 @@ create_drive_iscsi (guestfs_h *g,
     return NULL;
   }
 
-  if (exportname[0] != '/') {
-    error (g, _("iscsi: target string must begin with a '/'"));
+  if (exportname[0] == '/') {
+    error (g, _("iscsi: target string must not begin with a '/'"));
     return NULL;
   }
 

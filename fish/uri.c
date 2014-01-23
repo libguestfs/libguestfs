@@ -169,7 +169,11 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
    * "/pool/disk" so we have to knock off the leading '/' character.
    */
   path = uri->path;
-  if (STREQ (uri->scheme, "rbd") && path[0] == '/')
+  if (path && path[0] == '/' &&
+      (STREQ (uri->scheme, "gluster") ||
+       STREQ (uri->scheme, "iscsi") ||
+       STREQ (uri->scheme, "rbd") ||
+       STREQ (uri->scheme, "sheepdog")))
     path++;
 
   *path_ret = strdup (path ? path : "");

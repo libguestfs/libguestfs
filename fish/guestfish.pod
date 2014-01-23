@@ -1159,7 +1159,7 @@ The equivalent API command would be:
 
  ><fs> add /disk.img protocol:(ftp|...) server:tcp:example.com
 
-=head2 B<-a gluster://example.com[:port]/disk>
+=head2 B<-a gluster://example.com[:port]/volname/image>
 
 Add a disk image located on GlusterFS storage.
 
@@ -1167,7 +1167,7 @@ The server is the one running C<glusterd>, and may be C<localhost>.
 
 The equivalent API command would be:
 
- ><fs> add /disk protocol:gluster server:tcp:example.com
+ ><fs> add volname/image protocol:gluster server:tcp:example.com
 
 =head2 B<-a iscsi://example.com[:port]/target-iqn-name[/lun]>
 
@@ -1175,7 +1175,7 @@ Add a disk located on an iSCSI server.
 
 The equivalent API command would be:
 
- ><fs> add /target-iqn-name/lun protocol:iscsi server:tcp:example.com
+ ><fs> add target-iqn-name/lun protocol:iscsi server:tcp:example.com
 
 =head2 B<-a nbd://example.com[:port]>
 
@@ -1221,7 +1221,7 @@ when using this URI syntax.
 
 The equivalent API command would be:
 
- ><fs> add /disk protocol:sheepdog [server:tcp:example.com]
+ ><fs> add volume protocol:sheepdog [server:tcp:example.com]
 
 =head2 B<-a ssh://[user@]example.com[:port]/disk.img>
 

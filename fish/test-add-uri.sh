@@ -43,7 +43,7 @@ grep -sq 'add_drive "/disk.img" "protocol:ftp" "server:tcp:example.com" "usernam
 
 # gluster
 $VG ./guestfish -x -a gluster://example.com/disk </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/disk" "protocol:gluster" "server:tcp:example.com"' test-add-uri.out || fail
+grep -sq 'add_drive "disk" "protocol:gluster" "server:tcp:example.com"' test-add-uri.out || fail
 
 # NBD
 $VG ./guestfish -x -a nbd://example.com </dev/null >test-add-uri.out 2>&1
@@ -66,10 +66,10 @@ grep -sq 'add_drive "pool/disk" "protocol:rbd"' test-add-uri.out || fail
 
 # sheepdog
 $VG ./guestfish -x -a sheepdog:///volume/image </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/volume/image" "protocol:sheepdog"' test-add-uri.out || fail
+grep -sq 'add_drive "volume/image" "protocol:sheepdog"' test-add-uri.out || fail
 
 $VG ./guestfish -x -a sheepdog://example.com:3000/volume/image </dev/null >test-add-uri.out 2>&1
-grep -sq 'add_drive "/volume/image" "protocol:sheepdog" "server:tcp:example.com:3000"' test-add-uri.out || fail
+grep -sq 'add_drive "volume/image" "protocol:sheepdog" "server:tcp:example.com:3000"' test-add-uri.out || fail
 
 # ssh
 $VG ./guestfish -x -a ssh://example.com/disk.img </dev/null >test-add-uri.out 2>&1

@@ -728,7 +728,7 @@ To do this, set the optional C<protocol> and C<server> parameters of
 L</guestfs_add_drive_opts> like this:
 
  char **servers = { "gluster.example.org:24007", NULL };
- guestfs_add_drive_opts (g, "/volname/image",
+ guestfs_add_drive_opts (g, "volname/image",
                          GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                          GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "gluster",
                          GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
@@ -751,7 +751,7 @@ To do this, set the optional C<protocol> and C<server> parameters like
 this:
 
  char **server = { "iscsi.example.org:3000", NULL };
- guestfs_add_drive_opts (g, "/target-iqn-name/lun",
+ guestfs_add_drive_opts (g, "target-iqn-name/lun",
                          GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                          GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "iscsi",
                          GUESTFS_ADD_DRIVE_OPTS_SERVER, server,
@@ -831,7 +831,7 @@ To do this, set the optional C<protocol> and C<server> parameters of
 L</guestfs_add_drive_opts> like this:
 
  char **servers = { /* optional servers ... */ NULL };
- guestfs_add_drive_opts (g, "/volume",
+ guestfs_add_drive_opts (g, "volume",
                          GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                          GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "sheepdog",
                          GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
