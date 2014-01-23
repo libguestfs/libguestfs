@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-01-22 17:30+0000\n"
+"POT-Creation-Date: 2014-01-23 19:33+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: ../builder/index_parser.ml:111
+#: ../builder/index_parser.ml:112
 msgid ""
 "\n"
 "The index file downloaded from '%s' is corrupt.\n"
@@ -48,21 +48,21 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:833
+#: ../resize/resize.ml:838
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:818 ../resize/resize.ml:799
+#: ../resize/resize.ml:823 ../resize/resize.ml:804
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:835
+#: ../resize/resize.ml:840
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:837
+#: ../resize/resize.ml:842
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -72,7 +72,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../builder/builder.ml:957 ../builder/builder.ml:604
+#: ../builder/builder.ml:958 ../builder/builder.ml:605
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr ""
 msgid "%s: %s: %s: file not found [did you mean %s?]\n"
 msgstr ""
 
-#: ../builder/builder.ml:703
+#: ../builder/builder.ml:704
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr "%s: opcja --enable może zostać podana tylko raz\n"
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
-#: ../builder/builder.ml:731
+#: ../builder/builder.ml:732
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "%s: --operations: empty operation name\n"
 msgstr ""
 
-#: ../builder/builder.ml:760
+#: ../builder/builder.ml:761
 msgid "%s: --update is not supported for this guest operating system\n"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgid ""
 "complete output."
 msgstr ""
 
-#: ../resize/resize.ml:624
+#: ../resize/resize.ml:631
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -135,12 +135,12 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:815
+#: ../resize/resize.ml:820
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 "%s: ten wolumin logiczny zostanie rozszerzony do maksymalnego rozmiaru."
 
-#: ../resize/resize.ml:620
+#: ../resize/resize.ml:627
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -149,7 +149,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:616
+#: ../resize/resize.ml:623
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -158,7 +158,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:613
+#: ../resize/resize.ml:620
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -166,21 +166,21 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:792
+#: ../resize/resize.ml:797
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:794
+#: ../resize/resize.ml:799
 msgid "%s: This partition will be deleted."
 msgstr "%s: partycja zostanie usunięta"
 
-#: ../resize/resize.ml:790
+#: ../resize/resize.ml:795
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:796
+#: ../resize/resize.ml:801
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: Rrozmiar partycji zostanie zmieniony z %s na %s."
 
@@ -206,7 +206,7 @@ msgid ""
 "Use --list to list available guest types.\n"
 msgstr ""
 
-#: ../builder/builder.ml:275
+#: ../builder/builder.ml:276
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
@@ -224,7 +224,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:57
+#: ../resize/resize.ml:141
 msgid "%s: empty --expand option"
 msgstr ""
 
@@ -232,15 +232,15 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../builder/builder.ml:827
+#: ../builder/builder.ml:828
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../builder/builder.ml:991
+#: ../resize/resize.ml:1266 ../builder/builder.ml:992
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:994
+#: ../resize/resize.ml:1269 ../builder/builder.ml:995
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -252,7 +252,7 @@ msgstr ""
 msgid "%s: error: no cache directory\n"
 msgstr ""
 
-#: ../builder/builder.ml:1012
+#: ../resize/resize.ml:1288 ../builder/builder.ml:1013
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -260,11 +260,11 @@ msgstr ""
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:1000
+#: ../resize/resize.ml:1276 ../builder/builder.ml:1001
 msgid "%s: failure: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:288 ../resize/resize.ml:285
+#: ../resize/resize.ml:373 ../resize/resize.ml:370
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
@@ -274,21 +274,21 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:302
+#: ../builder/builder.ml:303
 msgid ""
 "%s: images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:1009
+#: ../resize/resize.ml:1285 ../builder/builder.ml:1010
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../builder/builder.ml:1006
+#: ../resize/resize.ml:1282 ../builder/builder.ml:1007
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#: ../builder/builder.ml:1003
+#: ../resize/resize.ml:1279 ../builder/builder.ml:1004
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -316,30 +316,30 @@ msgstr ""
 msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
-#: ../builder/builder.ml:997
+#: ../resize/resize.ml:1273 ../builder/builder.ml:998
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:673
+#: ../builder/builder.ml:674
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
-#: ../resize/resize.ml:772
+#: ../resize/resize.ml:778
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:642
+#: ../resize/resize.ml:649
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:651
+#: ../resize/resize.ml:658
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: nowy rozmiar partycji wynosi zero lub jest ujemny"
 
-#: ../builder/builder.ml:608
+#: ../builder/builder.ml:609
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -349,39 +349,39 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
-#: ../builder/builder.ml:427
+#: ../builder/builder.ml:428
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
 "Please file a bug, giving the command line arguments you used.\n"
 msgstr ""
 
-#: ../builder/builder.ml:307
+#: ../builder/builder.ml:308
 msgid ""
 "%s: output size is too large for this block device.  Requested size = %s, "
 "output block device = %s, output block device size = %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:562
+#: ../resize/resize.ml:571
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:558
+#: ../resize/resize.ml:567
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:554
+#: ../resize/resize.ml:563
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:441
+#: ../resize/resize.ml:475
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr "%s: rozmiar partycji %Ld < rozmiar systemu plików %Ld"
 
-#: ../resize/resize.ml:436
+#: ../resize/resize.ml:470
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
@@ -391,7 +391,7 @@ msgid ""
 "\"sha512\".\n"
 msgstr ""
 
-#: ../resize/resize.ml:366
+#: ../resize/resize.ml:399
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
@@ -407,7 +407,7 @@ msgid ""
 "read the man page virt-sysprep(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:120
+#: ../resize/resize.ml:204
 msgid ""
 "%s: resize a virtual machine disk\n"
 "\n"
@@ -415,12 +415,12 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:735
+#: ../builder/builder.ml:736
 msgid ""
 "%s: sorry, don't know how to use --install with the '%s' package manager\n"
 msgstr ""
 
-#: ../builder/builder.ml:764
+#: ../builder/builder.ml:765
 msgid ""
 "%s: sorry, don't know how to use --update with the '%s' package manager\n"
 msgstr ""
@@ -439,15 +439,15 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:598
+#: ../resize/resize.ml:605
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:594
+#: ../resize/resize.ml:601
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:451
+#: ../resize/resize.ml:485
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgid ""
 "messages\n"
 msgstr ""
 
-#: ../resize/resize.ml:302
+#: ../resize/resize.ml:385
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -511,25 +511,25 @@ msgstr ""
 msgid "%s: warning: gpg program is not available\n"
 msgstr ""
 
-#: ../builder/builder.ml:622
+#: ../builder/builder.ml:623
 msgid ""
 "%s: warning: hostname could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:615
 msgid ""
 "%s: warning: random seed could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:652
+#: ../builder/builder.ml:653
 msgid ""
 "%s: warning: root password could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:631
+#: ../builder/builder.ml:632
 msgid ""
 "%s: warning: timezone could not be set for this type of guest\n"
 "%!"
@@ -564,11 +564,11 @@ msgid ""
 "convert qcow2."
 msgstr ""
 
-#: ../resize/resize.ml:58
+#: ../resize/resize.ml:142
 msgid "--expand option given twice"
 msgstr ""
 
-#: ../resize/resize.ml:75
+#: ../resize/resize.ml:159
 msgid "--shrink option given twice"
 msgstr ""
 
@@ -597,7 +597,7 @@ msgstr "Dodaje opcje qemu-img"
 msgid "Add scripts to run once at next boot"
 msgstr ""
 
-#: ../resize/resize.ml:82
+#: ../resize/resize.ml:166
 msgid "Align first partition (default: auto)"
 msgstr "Wyrównaj pierwszą partycję (domyślnie: automatycznie)"
 
@@ -648,7 +648,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../builder/builder.ml:558
+#: ../builder/builder.ml:559
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -658,7 +658,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:486
+#: ../builder/builder.ml:487
 msgid "Copying"
 msgstr ""
 
@@ -725,7 +725,7 @@ msgid ""
 "use shadow passwords."
 msgstr ""
 
-#: ../sparsify/sparsify.ml:76 ../resize/resize.ml:87
+#: ../sparsify/sparsify.ml:76 ../resize/resize.ml:171
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Delete a file or dir"
 msgstr ""
 
-#: ../resize/resize.ml:88
+#: ../resize/resize.ml:172
 msgid "Delete partition"
 msgstr "Usuwa partycję"
 
@@ -765,7 +765,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/builder.ml:838
+#: ../builder/builder.ml:839
 msgid "Deleting: %s"
 msgstr ""
 
@@ -785,7 +785,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#. ../resize/resize.ml:113
+#. ../resize/resize.ml:197
 #. ../builder/cmdline.ml:299
 #: ../sysprep/main.ml:160 ../sysprep/main.ml:159 ../sparsify/sparsify.ml:86
 msgid "Display version and exit"
@@ -795,11 +795,11 @@ msgstr ""
 msgid "Do not fsync output file on exit"
 msgstr ""
 
-#: ../resize/resize.ml:84
+#: ../resize/resize.ml:168
 msgid "Don't copy boot loader"
 msgstr "Bez kopiowania programu startowego"
 
-#: ../resize/resize.ml:91
+#: ../resize/resize.ml:175
 msgid "Don't create extra partition"
 msgstr "Bez tworzenia dodatkowej partycji"
 
@@ -807,11 +807,11 @@ msgstr "Bez tworzenia dodatkowej partycji"
 msgid "Don't delete output file on failure"
 msgstr ""
 
-#: ../resize/resize.ml:90
+#: ../resize/resize.ml:174
 msgid "Don't expand content"
 msgstr ""
 
-#: ../resize/resize.ml:100
+#: ../resize/resize.ml:184
 msgid "Don't perform changes"
 msgstr ""
 
@@ -819,7 +819,7 @@ msgstr ""
 msgid "Don't print log messages"
 msgstr ""
 
-#: ../resize/resize.ml:105
+#: ../resize/resize.ml:189
 msgid "Don't print the summary"
 msgstr "Bez wyświetlania podsumowania"
 
@@ -831,7 +831,7 @@ msgstr ""
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:221 ../builder/builder.ml:181
+#: ../builder/builder.ml:222 ../builder/builder.ml:181
 msgid "Downloading: %s"
 msgstr ""
 
@@ -847,7 +847,7 @@ msgstr ""
 msgid "Edit file with Perl expr"
 msgstr ""
 
-#: ../builder/builder.ml:824
+#: ../builder/builder.ml:825
 msgid "Editing: %s"
 msgstr ""
 
@@ -855,8 +855,8 @@ msgstr ""
 msgid "Enable appliance network (default)"
 msgstr ""
 
-#. ../resize/resize.ml:111
-#. ../resize/resize.ml:85
+#. ../resize/resize.ml:195
+#. ../resize/resize.ml:169
 #. ../builder/cmdline.ml:297
 #: ../sysprep/main.ml:158 ../sysprep/main.ml:157 ../sparsify/sparsify.ml:84
 msgid "Enable debugging messages"
@@ -880,7 +880,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:247
+#: ../resize/resize.ml:333
 msgid ""
 "Examining %s ...\n"
 "%!"
@@ -896,15 +896,15 @@ msgstr ""
 "Sprawdzanie gościa...\n"
 "%!"
 
-#: ../resize/resize.ml:95
+#: ../resize/resize.ml:179
 msgid "Expand logical volume"
 msgstr "Rozszerza wolumin logiczny"
 
-#: ../resize/resize.ml:89
+#: ../resize/resize.ml:173
 msgid "Expand partition"
 msgstr "Rozszerza partycję"
 
-#: ../resize/resize.ml:1228
+#: ../resize/resize.ml:1229
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
@@ -916,7 +916,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:892
+#: ../resize/resize.ml:897
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -950,11 +950,11 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:946
+#: ../builder/builder.ml:947
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1135
+#: ../resize/resize.ml:1133
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -975,19 +975,19 @@ msgstr ""
 msgid "Force SELinux relabel"
 msgstr ""
 
-#: ../resize/resize.ml:103
+#: ../resize/resize.ml:187
 msgid "Force ntfsresize"
 msgstr "Wymusza ntfsresize"
 
-#: ../resize/resize.ml:108
+#: ../resize/resize.ml:192
 msgid "Forcefully resize partition"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:77 ../resize/resize.ml:92
+#: ../sparsify/sparsify.ml:77 ../resize/resize.ml:176
 msgid "Format of input disk"
 msgstr ""
 
-#: ../resize/resize.ml:104
+#: ../resize/resize.ml:188
 msgid "Format of output disk"
 msgstr ""
 
@@ -995,7 +995,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:936
+#: ../builder/builder.ml:937
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -1015,7 +1015,7 @@ msgstr ""
 msgid "Ignore filesystem"
 msgstr "Ignoruje system plików"
 
-#: ../resize/resize.ml:93
+#: ../resize/resize.ml:177
 msgid "Ignore partition"
 msgstr "Ignoruje partycję"
 
@@ -1025,23 +1025,23 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:871
+#: ../builder/builder.ml:872
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:874
+#: ../builder/builder.ml:875
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:867
+#: ../builder/builder.ml:868
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../builder/builder.ml:779
+#: ../builder/builder.ml:780
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../builder/builder.ml:847
+#: ../builder/builder.ml:848
 msgid "Linking: %s -> %s"
 msgstr ""
 
@@ -1050,7 +1050,7 @@ msgid "List available templates"
 msgstr ""
 
 #. ../builder/cmdline.ml:271
-#: ../sysprep/main.ml:149 ../sparsify/sparsify.ml:79 ../resize/resize.ml:94
+#: ../sysprep/main.ml:149 ../sparsify/sparsify.ml:79 ../resize/resize.ml:178
 msgid "List long options"
 msgstr ""
 
@@ -1058,11 +1058,11 @@ msgstr ""
 msgid "List supported operations"
 msgstr "Wyświetla listę obsługiwanych działań"
 
-#: ../sparsify/sparsify.ml:80 ../resize/resize.ml:99
+#: ../sparsify/sparsify.ml:80 ../resize/resize.ml:183
 msgid "Make output machine readable"
 msgstr ""
 
-#: ../builder/builder.ml:788
+#: ../builder/builder.ml:789
 msgid "Making directory: %s"
 msgstr ""
 
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid "Notes on %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:77
+#: ../builder/list_entries.ml:76
 msgid ""
 "Notes:\n"
 "\n"
@@ -1127,7 +1127,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:571
+#: ../builder/builder.ml:572
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1135,15 +1135,15 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:933
+#: ../builder/builder.ml:934
 msgid "Output format: %s"
 msgstr ""
 
-#: ../builder/builder.ml:932
+#: ../builder/builder.ml:933
 msgid "Output size: %s"
 msgstr ""
 
-#: ../builder/builder.ml:931
+#: ../builder/builder.ml:932
 msgid "Output: %s"
 msgstr ""
 
@@ -1151,7 +1151,7 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr ""
 
-#: ../builder/builder.ml:422
+#: ../builder/builder.ml:423
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1348,15 +1348,15 @@ msgid ""
 "carefully check that the resized disk boots and works correctly.\n"
 msgstr ""
 
-#: ../resize/resize.ml:107
+#: ../resize/resize.ml:191
 msgid "Resize partition"
 msgstr "Zmienia rozmiar partycji"
 
-#: ../builder/builder.ml:513
+#: ../builder/builder.ml:514
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:545
+#: ../builder/builder.ml:546
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -1396,7 +1396,7 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
-#: ../builder/builder.ml:888 ../builder/builder.ml:884
+#: ../builder/builder.ml:889 ../builder/builder.ml:885
 msgid "Running: %s"
 msgstr ""
 
@@ -1412,11 +1412,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../builder/builder.ml:899
+#: ../builder/builder.ml:900
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../builder/builder.ml:855
+#: ../builder/builder.ml:856
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -1536,7 +1536,7 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../resize/resize.ml:83
+#: ../resize/resize.ml:167
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
@@ -1612,7 +1612,7 @@ msgid ""
 "of C<SELECTOR>."
 msgstr ""
 
-#: ../builder/builder.ml:612
+#: ../builder/builder.ml:613
 msgid "Setting a random seed"
 msgstr ""
 
@@ -1622,23 +1622,23 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:647
+#: ../builder/builder.ml:648
 msgid "Setting random root password [did you mean to use --root-password?]"
 msgstr ""
 
-#: ../builder/builder.ml:644
+#: ../builder/builder.ml:645
 msgid "Setting root password"
 msgstr ""
 
-#: ../builder/builder.ml:620
+#: ../builder/builder.ml:621
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../builder/builder.ml:629
+#: ../builder/builder.ml:630
 msgid "Setting the timezone: %s"
 msgstr ""
 
-#: ../resize/resize.ml:871
+#: ../resize/resize.ml:876
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -1648,7 +1648,7 @@ msgstr ""
 msgid "Shortcut for --list-format short"
 msgstr ""
 
-#: ../resize/resize.ml:109
+#: ../resize/resize.ml:193
 msgid "Shrink partition"
 msgstr "Zmniejsza partycję"
 
@@ -1752,17 +1752,17 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../builder/builder.ml:206
+#: ../builder/builder.ml:207
 msgid "There are no notes for %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:756
+#: ../resize/resize.ml:763
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../resize/resize.ml:830
+#: ../resize/resize.ml:835
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -1807,15 +1807,15 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:934
+#: ../builder/builder.ml:935
 msgid "Total usable space: %s"
 msgstr ""
 
-#: ../resize/resize.ml:110
+#: ../resize/resize.ml:194
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../builder/builder.ml:501
+#: ../builder/builder.ml:502
 msgid "Uncompressing"
 msgstr ""
 
@@ -1823,7 +1823,7 @@ msgstr ""
 msgid "Update core packages"
 msgstr ""
 
-#: ../builder/builder.ml:771
+#: ../builder/builder.ml:772
 msgid "Updating core packages"
 msgstr ""
 
@@ -1831,7 +1831,7 @@ msgstr ""
 msgid "Upload file to dest"
 msgstr ""
 
-#: ../builder/builder.ml:802
+#: ../builder/builder.ml:803
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -1847,17 +1847,17 @@ msgid ""
 "See L</RANDOM SEED> below."
 msgstr ""
 
-#: ../builder/builder.ml:795
+#: ../builder/builder.ml:796
 msgid "Writing: %s"
 msgstr ""
 
-#: ../resize/resize.ml:727
+#: ../resize/resize.ml:734
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:739
+#: ../resize/resize.ml:746
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -1881,11 +1881,11 @@ msgstr ""
 "Zerowanie %s...\n"
 "%!"
 
-#: ../resize/resize.ml:158
+#: ../resize/resize.ml:242
 msgid "alignment cannot be < 1"
 msgstr ""
 
-#: ../resize/resize.ml:507
+#: ../resize/resize.ml:116
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
@@ -1909,11 +1909,11 @@ msgstr ""
 msgid "domain"
 msgstr "domena"
 
-#: ../resize/resize.ml:74
+#: ../resize/resize.ml:158
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../resize/resize.ml:209
+#: ../resize/resize.ml:293
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
@@ -1945,8 +1945,8 @@ msgstr "plik"
 msgid "firstboot: failed: "
 msgstr ""
 
-#. ../resize/resize.ml:104
-#. ../resize/resize.ml:92
+#. ../resize/resize.ml:188
+#. ../resize/resize.ml:176
 #: ../sysprep/main.ml:147 ../sparsify/sparsify.ml:77
 #: ../sparsify/sparsify.ml:75
 msgid "format"
@@ -1966,8 +1966,8 @@ msgid ""
 "prevents us from using such an image"
 msgstr ""
 
-#. ../resize/resize.ml:95
-#: ../resize/resize.ml:98 ../resize/resize.ml:97 ../resize/resize.ml:96
+#. ../resize/resize.ml:179
+#: ../resize/resize.ml:182 ../resize/resize.ml:181 ../resize/resize.ml:180
 msgid "lv"
 msgstr ""
 
@@ -1975,7 +1975,7 @@ msgstr ""
 msgid "md5|sha256|sha512"
 msgstr ""
 
-#: ../resize/resize.ml:82
+#: ../resize/resize.ml:166
 msgid "never|always|auto"
 msgstr "nigdy|zawsze|automatycznie"
 
@@ -1983,7 +1983,7 @@ msgstr "nigdy|zawsze|automatycznie"
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../resize/resize.ml:506
+#: ../resize/resize.ml:115
 msgid "ntfsresize"
 msgstr ""
 
@@ -2013,12 +2013,12 @@ msgid ""
 "prevents us from using such an image"
 msgstr ""
 
-#. ../resize/resize.ml:88
-#: ../resize/resize.ml:109 ../resize/resize.ml:93 ../resize/resize.ml:89
+#. ../resize/resize.ml:172
+#: ../resize/resize.ml:193 ../resize/resize.ml:177 ../resize/resize.ml:173
 msgid "part"
 msgstr ""
 
-#: ../resize/resize.ml:108 ../resize/resize.ml:107
+#: ../resize/resize.ml:192 ../resize/resize.ml:191
 msgid "part=size"
 msgstr ""
 
@@ -2026,11 +2026,11 @@ msgstr ""
 msgid "path"
 msgstr ""
 
-#: ../resize/resize.ml:929 ../resize/resize.ml:905
+#: ../resize/resize.ml:933 ../resize/resize.ml:909
 msgid "pread-device: short read"
 msgstr ""
 
-#: ../resize/resize.ml:504
+#: ../resize/resize.ml:113
 msgid "pvresize"
 msgstr ""
 
@@ -2038,7 +2038,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../resize/resize.ml:505
+#: ../resize/resize.ml:114
 msgid "resize2fs"
 msgstr "resize2fs"
 
@@ -2055,7 +2055,7 @@ msgstr "skrypt"
 msgid "script failed"
 msgstr ""
 
-#: ../resize/resize.ml:83
+#: ../resize/resize.ml:167
 msgid "sectors"
 msgstr "sektory"
 
@@ -2094,7 +2094,7 @@ msgstr ""
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:391
+#: ../resize/resize.ml:425
 msgid "the source disk has no partitions"
 msgstr ""
 
@@ -2102,7 +2102,7 @@ msgstr ""
 msgid "timezone"
 msgstr ""
 
-#: ../resize/resize.ml:167
+#: ../resize/resize.ml:251
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
@@ -2110,27 +2110,27 @@ msgstr ""
 msgid "uri"
 msgstr "uri"
 
-#: ../resize/resize.ml:197
+#: ../resize/resize.ml:281
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../builder/index_parser.ml:214
+#: ../builder/index_parser.ml:215
 msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:228
+#: ../builder/index_parser.ml:240
 msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:193
+#: ../builder/index_parser.ml:194
 msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:205
+#: ../builder/index_parser.ml:206
 msgid "virt-builder: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:263
+#: ../builder/index_parser.ml:275
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
@@ -2197,27 +2197,27 @@ msgstr ""
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:159
+#: ../builder/index_parser.ml:160
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:157
+#: ../builder/index_parser.ml:158
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s[%s]' appears two or more "
 "times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:141
+#: ../builder/index_parser.ml:142
 msgid ""
 "virt-builder: index is corrupt: os-version '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:178
+#: ../builder/index_parser.ml:179
 msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:202
+#: ../builder/index_parser.ml:203
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr ""
 
@@ -2225,12 +2225,12 @@ msgstr ""
 msgid "virt-builder: no kernel found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:268
+#: ../builder/index_parser.ml:280
 msgid ""
 "virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:259
+#: ../builder/index_parser.ml:271
 msgid "virt-builder: zero length path in the index file\n"
 msgstr ""
 
@@ -2308,18 +2308,18 @@ msgstr ""
 msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:1132
+#: ../resize/resize.ml:1130
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:715
+#: ../resize/resize.ml:722
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:149 ../resize/resize.ml:203
+#: ../sparsify/sparsify.ml:149 ../resize/resize.ml:287
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
@@ -5932,17 +5932,17 @@ msgstr "nie"
 msgid "use 'time command [args...]'\n"
 msgstr "należy użyć \"time polecenie [parametry...]\"\n"
 
-#: fish/uri.c:111
+#: fish/uri.c:112
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
 msgstr ""
 
-#: fish/uri.c:122
+#: fish/uri.c:123
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
 msgstr ""
 
-#: fish/uri.c:130
+#: fish/uri.c:131
 #, c-format
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
@@ -6489,160 +6489,156 @@ msgstr ""
 msgid "nbd: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:327
-msgid "rbd: you must specify one or more servers"
-msgstr ""
-
-#: src/drives.c:334
+#: src/drives.c:329
 msgid "rbd: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:338
+#: src/drives.c:333
 msgid "rbd: port number must be specified"
 msgstr ""
 
-#: src/drives.c:344
+#: src/drives.c:339
 msgid "rbd: image name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:349
-msgid "rbd: image name must begin with a '/'"
+#: src/drives.c:344
+msgid "rbd: image name must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:372
+#: src/drives.c:367
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:376
+#: src/drives.c:371
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:383
+#: src/drives.c:378
 msgid "sheepdog: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:387
+#: src/drives.c:382
 msgid "sheepdog: port number must be specified"
 msgstr ""
 
-#: src/drives.c:393
+#: src/drives.c:388
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:398
+#: src/drives.c:393
 msgid "sheepdog: volume parameter must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:419
+#: src/drives.c:414
 msgid "ssh: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:424
+#: src/drives.c:419
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:430
+#: src/drives.c:425
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:435
+#: src/drives.c:430
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:440
+#: src/drives.c:435
 msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:445
+#: src/drives.c:440
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: src/drives.c:466
+#: src/drives.c:461
 msgid "iscsi: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:471
+#: src/drives.c:466
 msgid "iscsi: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:476
+#: src/drives.c:471
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:482
+#: src/drives.c:477
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:487
+#: src/drives.c:482
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: src/drives.c:492
+#: src/drives.c:487
 msgid "iscsi: target string must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:520
+#: src/drives.c:515
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:764
+#: src/drives.c:759
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:776
+#: src/drives.c:771
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:783
+#: src/drives.c:778
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:794
+#: src/drives.c:789
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:874 src/drives.c:880
+#: src/drives.c:869 src/drives.c:875
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "parametr %s jest pusty lub zawiera niedozwolone znaki"
 
-#: src/drives.c:886
+#: src/drives.c:881
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:892
+#: src/drives.c:887
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:899
+#: src/drives.c:894
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:904
+#: src/drives.c:899
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:908
+#: src/drives.c:903
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:1000
+#: src/drives.c:995
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:1018 src/drives.c:1181
+#: src/drives.c:1013 src/drives.c:1176
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1024
+#: src/drives.c:1019
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1166
+#: src/drives.c:1161
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -6910,12 +6906,12 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: src/launch-direct.c:859 src/launch-libvirt.c:540
+#: src/launch-direct.c:866 src/launch-libvirt.c:540
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch-direct.c:1240 src/launch-libvirt.c:1265
+#: src/launch-direct.c:1247 src/launch-libvirt.c:1265
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -6953,7 +6949,7 @@ msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
 #: src/launch-libvirt.c:611 src/libvirt-domain.c:355 src/libvirt-domain.c:438
-#: src/libvirt-domain.c:645
+#: src/libvirt-domain.c:651
 msgid "unable to create new XPath context"
 msgstr "nie można utworzyć nowego kontekstu XPath"
 
@@ -7172,7 +7168,7 @@ msgstr ""
 "%s: dysk jest oznaczony jako <readonly/> w pliku XML biblioteki libvirt, a "
 "parametr readonlydisk został ustawiony na \"error\""
 
-#: src/libvirt-domain.c:373 src/libvirt-domain.c:445 src/libvirt-domain.c:660
+#: src/libvirt-domain.c:373 src/libvirt-domain.c:445 src/libvirt-domain.c:666
 msgid "unable to evaluate XPath expression"
 msgstr "nie można sprawdzić wyrażenia XPath"
 
@@ -7185,17 +7181,17 @@ msgstr ""
 msgid "expected <seclabel/> to be an XML element"
 msgstr ""
 
-#: src/libvirt-domain.c:507
+#: src/libvirt-domain.c:505
 #, c-format
 msgid "disk[%zu]: network device"
 msgstr ""
 
-#: src/libvirt-domain.c:527
+#: src/libvirt-domain.c:520
 #, c-format
 msgid "disk[%zu]: protocol: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:538
+#: src/libvirt-domain.c:539
 #, c-format
 msgid "disk[%zu]: username: %s"
 msgstr ""
@@ -7205,16 +7201,16 @@ msgstr ""
 msgid "disk[%zu]: host: %s:%s"
 msgstr ""
 
-#: src/libvirt-domain.c:585
+#: src/libvirt-domain.c:587
 #, c-format
 msgid "disk[%zu]: filename: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:621
+#: src/libvirt-domain.c:627
 msgid "libvirt domain has no disks"
 msgstr "domena biblioteki libvirt nie posiada dysków"
 
-#: src/libvirt-domain.c:690
+#: src/libvirt-domain.c:696
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -7224,17 +7220,17 @@ msgstr ""
 "Proszę zobaczyć \"ATTACHING TO RUNNING DAEMONS\" w guestfs(3), aby "
 "dowiedzieć się więcej."
 
-#: src/libvirt-domain.c:709
+#: src/libvirt-domain.c:715
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
 
-#: src/libvirt-domain.c:716
+#: src/libvirt-domain.c:722
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 "nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
 
-#: src/libvirt-domain.c:726
+#: src/libvirt-domain.c:732
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
