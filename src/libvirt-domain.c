@@ -541,8 +541,7 @@ for_each_disk (guestfs_h *g,
         xphost = xmlXPathEvalExpression (BAD_CAST "./source/host",
                                              xpathCtx);
         if (xphost == NULL ||
-            xphost->nodesetval == NULL ||
-            xphost->nodesetval->nodeNr == 0)
+            xphost->nodesetval == NULL)
           continue;
 
         /* This gives us a list of <host> elements, which each have a
