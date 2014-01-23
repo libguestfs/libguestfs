@@ -105,6 +105,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
 {
   CLEANUP_XMLFREEURI xmlURIPtr uri = NULL;
   CLEANUP_FREE char *socket = NULL;
+  char *path;
 
   uri = xmlParseURI (arg);
   if (!uri) {
@@ -162,9 +163,18 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
   }
   else *username_ret = NULL;
 
-  *path_ret = strdup (uri->path ? uri->path : "");
-  if (!*path_ret) {
-    perror ("path");
+  /* We may have to adjust the path depending on the protocol.  For
+   * example ceph/rbd URIs look like rbd:///pool/disk, but the
+   * exportname expected will be "pool/disk".  Here, uri->path will be
+   * "/pool/disk" so we have to knock off the leading '/' character.
+   */
+  path = uri->path;
+  if (STREQ (uri->scheme, "rbd") && path[0] == '/')
+    path++;
+
+  *path_ret = strdup (path ? path : "");
+  if (*path_ret == NULL) {
+    perror ("strdup: path");
     free (*protocol_ret);
     guestfs___free_string_list (*server_ret);
     free (*username_ret);

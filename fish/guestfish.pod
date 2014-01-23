@@ -1198,7 +1198,9 @@ The equivalent API command would be (no export name):
 
  ><fs> add "" protocol:nbd server:[tcp:example.com|unix:/socket]
 
-=head2 B<-a rbd://example.com[:port]/disk>
+=head2 B<-a rbd:///pool/disk>
+
+=head2 B<-a rbd://example.com[:port]/pool/disk>
 
 Add a disk image located on a Ceph (RBD/librbd) storage volume.
 
@@ -1207,7 +1209,7 @@ server can be specified when using this URI syntax.
 
 The equivalent API command would be:
 
- ><fs> add /disk protocol:rbd server:tcp:example.com
+ ><fs> add pool/disk protocol:rbd server:tcp:example.com:port
 
 =head2 B<-a sheepdog://[example.com[:port]]/volume/image>
 
