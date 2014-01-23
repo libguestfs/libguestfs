@@ -142,7 +142,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
 
   *protocol_ret = strdup (uri->scheme);
   if (*protocol_ret == NULL) {
-    perror ("strdup");
+    perror ("strdup: protocol");
     return -1;
   }
 
@@ -154,7 +154,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
   if (uri->user && STRNEQ (uri->user, "")) {
     *username_ret = strdup (uri->user);
     if (*username_ret == NULL) {
-      perror ("username");
+      perror ("strdup: username");
       free (*protocol_ret);
       guestfs___free_string_list (*server_ret);
       return -1;
