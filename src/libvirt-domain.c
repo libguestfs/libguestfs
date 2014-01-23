@@ -486,18 +486,16 @@ for_each_disk (guestfs_h *g,
                                              xpathCtx);
         if (xpfilename == NULL ||
             xpfilename->nodesetval == NULL ||
-            xpfilename->nodesetval->nodeNr == 0) {
+            xpfilename->nodesetval->nodeNr == 0)
           continue;           /* disk filename not found, skip this */
-      }
       } else if (STREQ (type, "block")) { /* type = "block", use source/@dev */
         xpathCtx->node = nodes->nodeTab[i];
         xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@dev",
                                              xpathCtx);
         if (xpfilename == NULL ||
             xpfilename->nodesetval == NULL ||
-            xpfilename->nodesetval->nodeNr == 0) {
+            xpfilename->nodesetval->nodeNr == 0)
           continue;           /* disk filename not found, skip this */
-        }
       } else if (STREQ (type, "network")) { /* type = "network", use source/@name */
         int hi;
 
