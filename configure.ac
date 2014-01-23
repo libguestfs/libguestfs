@@ -1747,6 +1747,7 @@ AC_CONFIG_FILES([Makefile
                  tests/charsets/Makefile
                  tests/data/Makefile
                  tests/disks/Makefile
+                 tests/disks/test-qemu-drive-libvirt.xml
                  tests/disk-labels/Makefile
                  tests/events/Makefile
                  tests/fuzz/Makefile

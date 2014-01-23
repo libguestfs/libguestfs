@@ -468,6 +468,7 @@ Makefile.in
 /tests/data/initrd-x86_64.img.gz
 /tests/data/test-grep.txt.gz
 /tests/data/test.iso
+/tests/disks/test-qemu-drive-libvirt.xml
 /tests/events/test-libvirt-auth-callbacks
 /tests/guests/blank-*.img
 /tests/guests/debian.img

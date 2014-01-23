@@ -1,0 +1,80 @@
+<!--
+    @configure_input@
+    Copyright (C) 2013-2014 Red Hat Inc.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+    Test XML for test-qemu-drive-libvirt.sh
+-->
+<node>
+
+  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
+    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
+    <name>ceph1</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='network' device='disk'>
+        <driver name='qemu'/>
+        <source protocol='rbd' name='abc-def/ghi-jkl'>
+          <host name='1.2.3.4' port='1234'/>
+          <host name='1.2.3.5' port='1235'/>
+          <host name='1.2.3.6' port='1236'/>
+        </source>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
+    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
+    <name>ceph2</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='network' device='disk'>
+        <driver name='qemu'/>
+        <source protocol='rbd' name='abc-def/ghi-jkl'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
+    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
+    <name>nbd</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='network' device='disk'>
+        <driver name='qemu'/>
+        <source protocol='nbd'>
+          <host name='1.2.3.4' port='1234'/>
+        </source>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+</node>
