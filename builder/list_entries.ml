@@ -71,10 +71,11 @@ and list_entries_long ~sources index =
           printf "%-24s %s\n" (s_"Download size:") (human_size size);
         );
         (match notes with
-        | None -> ()
-        | Some notes ->
+        | ("", notes) :: _ ->
           printf "\n";
           printf (f_"Notes:\n\n%s\n") notes
+        | _ :: _
+        | [] -> ()
         );
         printf "\n"
       )
@@ -106,6 +107,11 @@ and list_entries_json ~sources index =
     | None -> ()
     | Some n ->
       printf "    \"%s\": \"%Ld\",\n" key n in
+  let print_notes = function
+    | ("", notes) :: _ ->
+      printf "    \"notes\": \"%s\",\n" (json_string_escape notes)
+    | _ :: _
+    | _ -> () in
 
   printf "{\n";
   printf "  \"version\": %d,\n" 1;
@@ -130,7 +136,7 @@ and list_entries_json ~sources index =
       json_optional_printf_string "full-name" printable_name;
       printf "    \"size\": %Ld,\n" size;
       json_optional_printf_int64 "compressed-size" compressed_size;
-      json_optional_printf_string "notes" notes;
+      print_notes notes;
       printf "    \"hidden\": %s\n" (json_string_of_bool hidden);
       printf "  }%s\n" (trailing_comma i (List.length index))
   ) index;

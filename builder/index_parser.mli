@@ -29,7 +29,7 @@ and entry = {
   compressed_size : int64 option;
   expand : string option;
   lvexpand : string option;
-  notes : string option;
+  notes : (string * string) list;
   hidden : bool;
 
   sigchecker : Sigchecker.t;

@@ -200,9 +200,10 @@ let main () =
   (match mode with
   | `Notes ->                           (* --notes *)
     (match entry with
-    | { Index_parser.notes = Some notes } ->
+    | { Index_parser.notes = ("", notes) :: _ } ->
       print_endline notes;
-    | { Index_parser.notes = None } ->
+    | { Index_parser.notes = _ :: _ }
+    | { Index_parser.notes = [] } ->
       printf (f_"There are no notes for %s\n") arg
     );
     exit 0

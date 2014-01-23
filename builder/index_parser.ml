@@ -35,7 +35,7 @@ and entry = {
   compressed_size : int64 option;
   expand : string option;
   lvexpand : string option;
-  notes : string option;
+  notes : (string * string) list;
   hidden : bool;
 
   sigchecker : Sigchecker.t;
@@ -92,8 +92,9 @@ let print_entry chan (name, { printable_name = printable_name;
   | Some lvexpand -> fp "lvexpand=%s\n" lvexpand
   );
   (match notes with
-  | None -> ()
-  | Some notes -> fp "notes=%s\n" notes
+  | ("", notes) :: _ -> fp "notes=%s\n" notes
+  | _ :: _
+  | [] -> ()
   );
   if hidden then fp "hidden=true\n"
 
@@ -219,7 +220,18 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
           let lvexpand =
             try Some (List.assoc ("lvexpand", None) fields) with Not_found -> None in
           let notes =
-            try Some (List.assoc ("notes", None) fields) with Not_found -> None in
+            let rec loop = function
+              | [] -> []
+              | (("notes", subkey), value) :: xs ->
+                let subkey = match subkey with
+                | None -> ""
+                | Some v -> v in
+                (subkey, value) :: loop xs
+              | _ :: xs -> loop xs in
+            List.sort (
+              fun (k1, _) (k2, _) ->
+                String.compare k1 k2
+            ) (loop fields) in
           let hidden =
             try bool_of_string (List.assoc ("hidden", None) fields)
             with
