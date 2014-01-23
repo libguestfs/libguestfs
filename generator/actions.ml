@@ -1440,7 +1440,7 @@ is a list of server(s).
  gluster        Exactly one
  iscsi          Exactly one
  nbd            Exactly one
- rbd            One or more
+ rbd            Zero or more
  sheepdog       Zero or more
  ssh            Exactly one
 

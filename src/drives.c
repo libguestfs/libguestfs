@@ -323,11 +323,6 @@ create_drive_rbd (guestfs_h *g,
 {
   size_t i;
 
-  if (nr_servers == 0) {
-    error (g, _("rbd: you must specify one or more servers"));
-    return NULL;
-  }
-
   for (i = 0; i < nr_servers; ++i) {
     if (servers[i].transport != drive_transport_none &&
         servers[i].transport != drive_transport_tcp) {
@@ -345,8 +340,8 @@ create_drive_rbd (guestfs_h *g,
     return NULL;
   }
 
-  if (exportname[0] != '/') {
-    error (g, _("rbd: image name must begin with a '/'"));
+  if (exportname[0] == '/') {
+    error (g, _("rbd: image name must not begin with a '/'"));
     return NULL;
   }
 

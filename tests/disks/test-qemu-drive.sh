@@ -47,12 +47,20 @@ rm -f "$DEBUG_QEMU_FILE"
 # Ceph (RBD).
 
 $guestfish <<EOF ||:
-  add "/abc-def/ghi-jkl" "format:raw" "protocol:rbd" \
+  add "abc-def/ghi-jkl" "format:raw" "protocol:rbd" \
     "server:1.2.3.4:1234 1.2.3.5:1235 1.2.3.6:1236"
   run
 EOF
 check_output
 grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:mon_host=1.2.3.4\\:1234\\;1.2.3.5\\:1235\\;1.2.3.6\\:1236:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail
+rm "$DEBUG_QEMU_FILE"
+
+$guestfish <<EOF ||:
+  add "abc-def/ghi-jkl" "format:raw" "protocol:rbd"
+  run
+EOF
+check_output
+grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
 # HTTP.

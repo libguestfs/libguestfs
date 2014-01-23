@@ -684,7 +684,7 @@ To do this, set the optional C<protocol> and C<server> parameters of
 L</guestfs_add_drive_opts> like this:
 
  char **servers = { "ceph1.example.org:3000", /* ... */, NULL };
- guestfs_add_drive_opts (g, "/pool/image",
+ guestfs_add_drive_opts (g, "pool/image",
                          GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
                          GUESTFS_ADD_DRIVE_OPTS_PROTOCOL, "rbd",
                          GUESTFS_ADD_DRIVE_OPTS_SERVER, servers,
