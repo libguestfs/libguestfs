@@ -40,8 +40,8 @@ let main () =
     edit, firstboot, run, format, gpg, hostname, install, list_format, links,
     memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
-    scrub_logfile, size, smp, sources, sync, timezone, update, upload,
-    writes =
+    scrub_logfile, selinux_relabel, size, smp, sources, sync, timezone,
+    update, upload, writes =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -578,6 +578,8 @@ let main () =
     (match smp with None -> () | Some smp -> g#set_smp smp);
     g#set_network network;
 
+    g#set_selinux selinux_relabel;
+
     (* The output disk is being created, so use cache=unsafe here. *)
     g#add_drive_opts ~format:output_format ~cachemode:"unsafe" output_filename;
 
@@ -889,6 +891,19 @@ exec >>%s 2>&1
       msg (f_"Running: %s") cmd;
       do_run ~display:cmd cmd
   ) run;
+
+  if selinux_relabel then (
+    msg (f_"SELinux relabelling");
+    let cmd = sprintf "
+      if load_policy && fixfiles restore; then
+        rm -f /.autorelabel
+      else
+        touch /.autorelabel
+        echo '%s: SELinux relabelling failed, will relabel at boot instead.'
+      fi
+    " prog in
+    do_run ~display:"load_policy && fixfiles restore" cmd
+  );
 
   (* Clean up the log file:
    *

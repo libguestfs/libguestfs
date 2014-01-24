@@ -180,6 +180,7 @@ let parse_cmdline () =
   let add_scrub s = scrub := s :: !scrub in
 
   let scrub_logfile = ref false in
+  let selinux_relabel = ref false in
 
   let size = ref None in
   let set_size arg = size := Some (parse_size ~prog arg) in
@@ -287,6 +288,8 @@ let parse_cmdline () =
     "--run",     Arg.String add_run,        "script" ^ " " ^ s_"Run script in disk image";
     "--run-command", Arg.String add_run_cmd, "cmd+args" ^ " " ^ s_"Run command in disk image";
     "--scrub",   Arg.String add_scrub,      "name" ^ " " ^ s_"Scrub a file";
+    "--selinux-relabel", Arg.Set selinux_relabel,
+                                            " " ^ s_"Relabel files with correct SELinux labels";
     "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
@@ -351,6 +354,7 @@ read the man page virt-builder(1).
   let root_password = !root_password in
   let scrub = List.rev !scrub in
   let scrub_logfile = !scrub_logfile in
+  let selinux_relabel = !selinux_relabel in
   let size = !size in
   let smp = !smp in
   let sources = List.rev !sources in
@@ -457,5 +461,5 @@ read the man page virt-builder(1).
   edit, firstboot, run, format, gpg, hostname, install, list_format, links,
   memsize, mkdirs,
   network, output, password_crypto, quiet, root_password, scrub,
-  scrub_logfile, size, smp, sources, sync, timezone, update, upload,
-  writes
+  scrub_logfile, selinux_relabel, size, smp, sources, sync, timezone,
+  update, upload, writes
