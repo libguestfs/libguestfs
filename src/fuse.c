@@ -1028,6 +1028,18 @@ guestfs__mount_local_run (guestfs_h *g)
     return -1;
   }
 
+  /* Test if root is mounted.  We do this by using a side-effect of
+   * guestfs_exists (which is that it calls NEED_ROOT).
+   */
+  guestfs_push_error_handler (g, NULL, NULL);
+  r = guestfs_exists (g, "/");
+  guestfs_pop_error_handler (g);
+  if (r == -1) {
+    error (g, _("you must call 'guestfs_mount' first to mount a filesystem on '/'.\nNote: '%s' is still mounted.  Use 'guestunmount %s' to clean up."),
+           g->localmountpoint, g->localmountpoint);
+    return -1;
+  }
+
   debug (g, "%s: entering fuse_loop", __func__);
 
   /* Enter the main loop. */
