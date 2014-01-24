@@ -1121,6 +1121,29 @@ following could be used to boot the virtual machine:
 As with libvirt, it is very important that the correct format is
 chosen.  It will be C<raw> unless the I<--format> option was used.
 
+=head2 CONFIGURATION MANAGEMENT
+
+=head3 Puppet
+
+To enable the Puppet agent in a guest, install the package, point
+the configuration at your Puppetmaster, and ensure the agent runs
+at boot.
+
+A typical virt-builder command would be:
+
+ virt-builder fedora-20 \
+   --hostname client.example.com \
+   --update \
+   --install puppet \
+   --edit '/etc/puppet/puppet.conf:
+       s/^\[agent\]/[agent]\n  server = puppetmaster.example.com/' \
+   --run-command 'systemctl enable puppet' \
+   --selinux-relabel
+
+The precise instructions vary according to the Linux distro.  For
+further information see:
+L<http://docs.puppetlabs.com/guides/installation.htm>
+
 =head2 DEBUGGING BUILDS
 
 If virt-builder itself fails, then enable debugging (I<-v>) and report
