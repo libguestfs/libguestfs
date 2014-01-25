@@ -60,6 +60,44 @@
 
   <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
     <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
+    <name>gluster</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='network' device='disk'>
+        <driver name='qemu'/>
+        <source protocol='gluster' name='volname/image'>
+          <host name='1.2.3.4' port='1234'/>
+        </source>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
+    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
+    <name>iscsi</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='network' device='disk'>
+        <driver name='qemu'/>
+        <source protocol='iscsi' name='iqn.2003-01.org.linux-iscsi.fedora'>
+          <host name='1.2.3.4' port='1234'/>
+        </source>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
+    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
     <name>nbd</name>
     <memory>1048576</memory>
     <os>
@@ -72,6 +110,23 @@
         <source protocol='nbd'>
           <host name='1.2.3.4' port='1234'/>
         </source>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
+    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
+    <name>sheepdog</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='network' device='disk'>
+        <driver name='qemu'/>
+        <source protocol='sheepdog' name='volume'/>
         <target dev='vda' bus='virtio'/>
       </disk>
     </devices>
