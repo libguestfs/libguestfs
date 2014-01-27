@@ -47,9 +47,10 @@ struct bind_state {
   char *sysroot_dev;
   char *sysroot_dev_pts;
   char *sysroot_proc;
+  char *sysroot_selinux;
   char *sysroot_sys;
   char *sysroot_sys_fs_selinux;
-  bool dev_ok, dev_pts_ok, proc_ok, sys_ok, sys_fs_selinux_ok;
+  bool dev_ok, dev_pts_ok, proc_ok, selinux_ok, sys_ok, sys_fs_selinux_ok;
 };
 
 struct resolver_state {
@@ -76,16 +77,18 @@ bind_mount (struct bind_state *bs)
   bs->sysroot_dev = sysroot_path ("/dev");
   bs->sysroot_dev_pts = sysroot_path ("/dev/pts");
   bs->sysroot_proc = sysroot_path ("/proc");
+  bs->sysroot_selinux = sysroot_path ("/selinux");
   bs->sysroot_sys = sysroot_path ("/sys");
   bs->sysroot_sys_fs_selinux = sysroot_path ("/sys/fs/selinux");
 
   if (bs->sysroot_dev == NULL || bs->sysroot_dev_pts == NULL ||
-      bs->sysroot_proc == NULL || bs->sysroot_sys == NULL ||
-      bs->sysroot_sys_fs_selinux == NULL) {
+      bs->sysroot_proc == NULL || bs->sysroot_selinux == NULL ||
+      bs->sysroot_sys == NULL || bs->sysroot_sys_fs_selinux == NULL) {
     reply_with_perror ("malloc");
     free (bs->sysroot_dev);
     free (bs->sysroot_dev_pts);
     free (bs->sysroot_proc);
+    free (bs->sysroot_selinux);
     free (bs->sysroot_sys);
     free (bs->sysroot_sys_fs_selinux);
     return -1;
@@ -97,6 +100,11 @@ bind_mount (struct bind_state *bs)
   bs->dev_pts_ok = r != -1;
   r = command (NULL, NULL, str_mount, "--bind", "/proc", bs->sysroot_proc, NULL);
   bs->proc_ok = r != -1;
+  /* Note on the next line we have to bind-mount /sys/fs/selinux (appliance
+   * kernel) on top of /selinux (where guest is expecting selinux).
+   */
+  r = command (NULL, NULL, str_mount, "--bind", "/sys/fs/selinux", bs->sysroot_selinux, NULL);
+  bs->selinux_ok = r != -1;
   r = command (NULL, NULL, str_mount, "--bind", "/sys", bs->sysroot_sys, NULL);
   bs->sys_ok = r != -1;
   r = command (NULL, NULL, str_mount, "--bind", "/sys/fs/selinux", bs->sysroot_sys_fs_selinux, NULL);
@@ -121,6 +129,8 @@ free_bind_state (struct bind_state *bs)
     free (bs->sysroot_sys_fs_selinux);
     if (bs->sys_ok) umount_ignore_fail (bs->sysroot_sys);
     free (bs->sysroot_sys);
+    if (bs->selinux_ok) umount_ignore_fail (bs->sysroot_selinux);
+    free (bs->sysroot_selinux);
     if (bs->proc_ok) umount_ignore_fail (bs->sysroot_proc);
     free (bs->sysroot_proc);
     if (bs->dev_pts_ok) umount_ignore_fail (bs->sysroot_dev_pts);
