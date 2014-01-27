@@ -17,6 +17,8 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+noinst_PROGRAMS =
+
 CLEANFILES = stamp-guestfs.pod
 
 generator_built = \
@@ -225,6 +227,21 @@ libutils_la_SOURCES = \
 	utils.c
 libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
 libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)
+
+if HAVE_LIBVIRT
+# Small utility to check for a needed libvirt version;
+# to be used in shell/script-based tests.
+noinst_PROGRAMS += libvirt-is-version
+
+libvirt_is_version_SOURCES = libvirt-is-version.c
+
+libvirt_is_version_LDADD = \
+	$(LIBVIRT_LIBS)
+
+libvirt_is_version_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBVIRT_CFLAGS)
+endif
 
 # Tests: main tests are in tests/c-api.  Here we just have some
 # internal tests of utility functions.

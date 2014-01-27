@@ -294,6 +294,7 @@ src/launch-unix.c
 src/launch.c
 src/libvirt-auth.c
 src/libvirt-domain.c
+src/libvirt-is-version.c
 src/listfs.c
 src/lpj.c
 src/match.c

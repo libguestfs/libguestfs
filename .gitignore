@@ -416,6 +416,7 @@ Makefile.in
 /src/libguestfs.pc
 /src/libguestfs.syms
 /src/.libs/libguestfs.so
+/src/libvirt-is-version
 /src/stamp-guestfs.pod
 /src/structs-cleanup.c
 /src/structs-compare.c
