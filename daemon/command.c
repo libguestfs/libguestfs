@@ -94,6 +94,10 @@ bind_mount (struct bind_state *bs)
     return -1;
   }
 
+  /* Note it is tempting to use --rbind here (to bind submounts).
+   * However I have not found a reliable way to unmount the same set
+   * of directories (umount -R does NOT work).
+   */
   r = command (NULL, NULL, str_mount, "--bind", "/dev", bs->sysroot_dev, NULL);
   bs->dev_ok = r != -1;
   r = command (NULL, NULL, str_mount, "--bind", "/dev/pts", bs->sysroot_dev_pts, NULL);
