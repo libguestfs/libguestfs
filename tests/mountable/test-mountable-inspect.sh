@@ -66,7 +66,7 @@ $guestfish -a test.qcow2 -i <<'EOF' > test.output
   <! echo inspect-get-product-name "`cat root.tmp`"
 EOF
 
-if [ "$(cat test.output)" != "Fedora release 14 (Phony)"]; then
+if [ "$(cat test.output)" != "Fedora release 14 (Phony)" ]; then
     echo "$0: error #2: unexpected output from inspect-get-product-name"
     cat test.output
     exit 1
