@@ -74,7 +74,7 @@ SUBDIRS += test-tool
 SUBDIRS += fish
 
 # virt-tools in C.
-SUBDIRS += align cat diff df edit format inspector rescue
+SUBDIRS += align cat diff df edit format inspector make-fs rescue
 
 # bash-completion
 SUBDIRS += bash

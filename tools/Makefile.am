@@ -20,7 +20,6 @@ include $(top_srcdir)/subdir-rules.mk
 tools = \
 	list-filesystems \
 	list-partitions \
-	make-fs \
 	tar \
 	win-reg
 
@@ -62,7 +61,6 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
 TESTS = test-virt-list-filesystems.sh \
-	test-virt-make-fs.sh \
 	test-virt-tar.sh
 endif ENABLE_APPLIANCE
 

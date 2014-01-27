@@ -1714,6 +1714,7 @@ AC_CONFIG_FILES([Makefile
                  java/examples/Makefile
                  lua/Makefile
                  lua/examples/Makefile
+                 make-fs/Makefile
                  mllib/Makefile
                  mllib/config.ml
                  ocaml/META

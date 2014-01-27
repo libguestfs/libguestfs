@@ -4335,6 +4335,10 @@ Logo used on the website.  The fish is called Arthur by the way.
 
 M4 macros used by autoconf.
 
+=item C<make-fs>
+
+L<virt-make-fs(1)> command and documentation.
+
 =item C<mllib>
 
 Various libraries and common code used by L<virt-resize(1)> and

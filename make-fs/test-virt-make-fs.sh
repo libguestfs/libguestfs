@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2010-2012 Red Hat Inc.
+# Copyright (C) 2010-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Engage in some montecarlo testing of virt-make-fs.
+# Engage in some montecarlo testing of virt-make-fs.  This test is
+# copied from the original Perl tool virt-make-fs, on the basis that
+# the new C tool should be able to pass the same tests.
 
 export LANG=C
 set -e
