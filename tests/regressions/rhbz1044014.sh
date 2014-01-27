@@ -34,12 +34,22 @@ if [[ ! ( "$backend" =~ ^libvirt ) ]]; then
     exit 77
 fi
 
+if [ ! -x ../../src/libvirt-is-version ]; then
+    echo "$0: test skipped because libvirt-is-version is not built yet"
+    exit 77
+fi
+
+if ! ../../src/libvirt-is-version 1 2 1; then
+    echo "$0: test skipped because libvirt is too old (< 1.2.1)"
+    exit 77
+fi
+
 # Set the backend to the test driver.
 export LIBGUESTFS_BACKEND="libvirt:test://$(pwd)/$srcdir/rhbz1044014.xml"
 
 rm -f rhbz1044014.out
 
-./rhbz1044014 < $srcdir/rhbz1044014.in > rhbz1044014.out 2>&1 || {
+../../fish/guestfish -- -run < $srcdir/rhbz1044014.in > rhbz1044014.out 2>&1 || {
     r=$?
     if [ $r -ne 0 ]; then
         cat rhbz1044014.out

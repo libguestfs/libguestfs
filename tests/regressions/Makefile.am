@@ -84,10 +84,6 @@ check_PROGRAMS = \
 	rhbz914931 \
 	rhbz1055452
 
-if HAVE_LIBVIRT
-check_PROGRAMS += rhbz1044014
-endif
-
 rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
@@ -117,23 +113,6 @@ rhbz914931_CFLAGS = \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 rhbz914931_LDADD = \
 	$(top_builddir)/src/libguestfs.la
-
-if HAVE_LIBVIRT
-rhbz1044014_SOURCES = rhbz1044014.c
-rhbz1044014_CPPFLAGS = \
-	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
-rhbz1044014_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
-	$(LIBVIRT_CFLAGS)
-rhbz1044014_LDADD = \
-        $(top_builddir)/src/libutils.la \
-        $(top_builddir)/src/libguestfs.la \
-        $(LIBVIRT_LIBS) \
-        $(LIBXML2_LIBS) \
-        $(top_builddir)/gnulib/lib/libgnu.la
-endif
 
 rhbz1055452_SOURCES = rhbz1055452.c
 rhbz1055452_CPPFLAGS = \
