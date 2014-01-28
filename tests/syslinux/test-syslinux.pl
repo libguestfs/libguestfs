@@ -55,13 +55,11 @@ unless ($kernel) {
 }
 print "kernel: $kernel\n";
 
-# Create the disk.
-unlink "$disk";
-open DISK, ">$disk" or die "$disk: $!";
-truncate DISK, 100*1024*1024;
-close DISK;
-
 my $g = Sys::Guestfs->new ();
+
+# Create the disk.
+$g->disk_create ($disk, "raw", 100*1024*1024);
+
 $g->add_drive ($disk, format => "raw");
 $g->launch ();
 

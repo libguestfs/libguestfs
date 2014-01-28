@@ -32,7 +32,9 @@ fi
 rm -f fedora.qcow2
 
 # Modify a copy of the image.
-qemu-img create -f qcow2 -b ../tests/guests/fedora.img fedora.qcow2
+../fish/guestfish -- \
+  disk-create fedora.qcow2 qcow2 -1 \
+    backingfile:../tests/guests/fedora.img backingformat:raw
 
 ../fish/guestfish -a fedora.qcow2 -i <<EOF
 touch /diff

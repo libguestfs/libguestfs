@@ -32,7 +32,9 @@ fi
 $VG ../fish/guestfish \
     -N test-virt-resize-1.img=bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt </dev/null
 
-qemu-img create -f qcow2 -o preallocation=metadata test-virt-resize-2.img 500M
+$VG ../fish/guestfish \
+    disk-create test-virt-resize-2.img qcow2 500M preallocation:metadata
+
 $VG ./virt-resize -d --debug-gc \
     --expand /dev/sda2 \
     --lv-expand /dev/VG/LV \

@@ -18,11 +18,9 @@
 import os
 import guestfs
 
-f = open ("rhbz811650.img", "w")
-f.truncate (500 * 1024 * 1024)
-f.close ()
-
 g = guestfs.GuestFS (python_return_dict=True)
+
+g.disk_create ("rhbz811650.img", "raw", 500 * 1024 * 1024)
 
 # Deliberate error: the disk format is supposed to be raw.
 g.add_drive ("rhbz811650.img", format="qcow2");

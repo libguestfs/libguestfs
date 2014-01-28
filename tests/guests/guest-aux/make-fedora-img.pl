@@ -60,9 +60,7 @@ EOF
 
   $bootdev = '/dev/sda1';
 
-  open (my $img, '>', "fedora.img.tmp.$$") or die;
-  truncate ($img, $IMAGE_SIZE) or die;
-  close ($img) or die;
+  $g->disk_create ("fedora.img.tmp.$$", "raw", $IMAGE_SIZE);
 
   $g->add_drive ("fedora.img.tmp.$$");
   $g->launch ();
@@ -88,11 +86,8 @@ EOF
   $bootdev = '/dev/md/boot';
 
   foreach my $img (@images) {
-    open (my $fh, '>', $img) or die;
-    truncate ($fh, $IMAGE_SIZE) or die;
-    close ($fh) or die;
-
-    $g->add_drive ($img);
+      $g->disk_create ($img, "raw", $IMAGE_SIZE);
+      $g->add_drive ($img);
   }
 
   $g->launch ();
@@ -140,9 +135,7 @@ EOF
 
   $bootdev = '/dev/sda1';
 
-  open (my $img, '>', "fedora-btrfs.img.tmp.$$") or die;
-  truncate ($img, $IMAGE_SIZE) or die;
-  close ($img) or die;
+  $g->disk_create ("fedora-btrfs.img.tmp.$$", "raw", $IMAGE_SIZE);
 
   $g->add_drive ("fedora-btrfs.img.tmp.$$");
   $g->launch ();

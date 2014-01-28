@@ -38,7 +38,8 @@ isolation1_md5sum="$(md5sum isolation1.img | awk '{print $1}')"
 isolation2_md5sum="$(md5sum isolation2.img | awk '{print $1}')"
 
 if [ "$supports_qcow2" = "yes" ]; then
-    qemu-img create -f qcow2 -o preallocation=metadata isolation3.img 100M
+    ../../fish/guestfish \
+        disk-create isolation3.img qcow2 100M preallocation:metadata
     isolation3_md5sum="$(md5sum isolation3.img | awk '{print $1}')"
     add3="add-drive-opts isolation3.img format:qcow2 readonly:true"
     cmds3="

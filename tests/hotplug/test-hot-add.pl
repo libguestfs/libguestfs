@@ -36,15 +36,10 @@ unless ($backend eq "libvirt" || $backend =~ /^libvirt:/) {
 $g->launch ();
 
 # Create some temporary disks.
-open FILE, ">test-hot-add-1.img" or die "test-hot-add-1.img: $!";
-truncate FILE, 512 * 1024 * 1024 or die "test-hot-add-1.img: truncate: $!";
-close FILE;
-
-open FILE, ">test-hot-add-2.img" or die "test-hot-add-2.img: $!";
-truncate FILE, 512 * 1024 * 1024 or die "test-hot-add-2.img: truncate: $!";
-close FILE;
-
-die unless system ("qemu-img create -f qcow2 -o preallocation=metadata test-hot-add-3.img 1G") == 0;
+$g->disk_create ("test-hot-add-1.img", "raw", 512 * 1024 * 1024);
+$g->disk_create ("test-hot-add-2.img", "raw", 512 * 1024 * 1024);
+$g->disk_create ("test-hot-add-3.img", "qcow2", 1024 * 1024 * 1024,
+                 preallocation => "metadata");
 
 # Hot-add them.  Labels are required.
 $g->add_drive ("test-hot-add-1.img", label => "a"); # autodetect format

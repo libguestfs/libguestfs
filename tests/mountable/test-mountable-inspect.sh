@@ -43,7 +43,9 @@ rm -f root.tmp test.qcow2 test.output
 
 # Start with the regular (good) fedora image, modify /etc/fstab
 # and then inspect it.
-qemu-img create -F raw -b ../guests/fedora-btrfs.img -f qcow2 test.qcow2
+$guestfish -- \
+  disk-create test.qcow2 qcow2 -1 \
+    backingfile:../guests/fedora-btrfs.img backingformat:raw
 
 # Test that basic inspection works and the expected filesystems are
 # found

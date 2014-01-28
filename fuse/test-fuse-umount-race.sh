@@ -42,7 +42,9 @@ rm -f test.qcow2 test-copy.qcow2 test.pid
 rm -rf mp
 
 # Make a copy of the Fedora image so we can write to it then discard it.
-qemu-img create -F raw -b ../tests/guests/fedora.img -f qcow2 test.qcow2
+../fish/guestfish -- \
+    disk-create test.qcow2 qcow2 -1 \
+      backingfile:../tests/guests/fedora.img backingformat:raw
 
 mkdir mp
 ./guestmount -a test.qcow2 -m /dev/VG/Root --pid-file test.pid mp

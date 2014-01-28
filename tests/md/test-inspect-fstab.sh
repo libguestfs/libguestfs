@@ -34,7 +34,9 @@ rm -f inspect-fstab-1.qcow2 inspect-fstab.fstab inspect-fstab.output
 
 # Start with the regular (good) fedora image, modify /etc/fstab
 # and then inspect it.
-qemu-img create -F raw -b ../guests/fedora.img -f qcow2 inspect-fstab-1.qcow2
+$guestfish -- \
+  disk-create inspect-fstab-1.qcow2 qcow2 -1 \
+    backingfile:../guests/fedora.img backingformat:raw
 
 cat <<'EOF' > inspect-fstab.fstab
 /dev/VG/Root / ext2 default 0 0

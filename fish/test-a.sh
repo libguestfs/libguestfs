@@ -30,7 +30,7 @@ $VG ./guestfish -x -a test-a.img </dev/null >test-a.out 2>&1
 ! grep -sq 'add_drive.*format' test-a.out
 
 rm test-a.img
-qemu-img create -f qcow2 test-a.img 100M
+$VG ./guestfish disk-create test-a.img qcow2 100M
 
 $VG ./guestfish -x --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
 

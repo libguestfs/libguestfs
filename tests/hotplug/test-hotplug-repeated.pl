@@ -35,12 +35,7 @@ unless ($backend eq "libvirt" || $backend =~ /^libvirt:/) {
 $g->launch ();
 
 # Create a temporary disk.
-open FILE, ">test-hotplug-repeated.img" or
-    die "test-hotplug-repeated.img: $!";
-truncate FILE, 512 * 1024 * 1024 or
-    die "test-hotplug-repeated.img: truncate: $!";
-close FILE or
-    die "test-hotplug-repeated.img: close: $!";
+$g->disk_create ("test-hotplug-repeated.img", "raw", 512 * 1024 * 1024);
 
 my $start_t = time ();
 while (time () - $start_t <= 60) {
