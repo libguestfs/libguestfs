@@ -68,12 +68,15 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
   if (extfs)
     ADD_ARG (argv, i, "-F");
 
-  /* mkfs.ntfs requires the -Q argument otherwise it writes zeroes
-   * to every block and does bad block detection, neither of which
-   * are useful behaviour for virtual devices.
+  /* mkfs.ntfs requires the -Q argument otherwise it writes zeroes to
+   * every block and does bad block detection, neither of which are
+   * useful behaviour for virtual devices.  Also recent versions need
+   * to be forced to create filesystems on non-partitions.
    */
-  if (STREQ (fstype, "ntfs"))
+  if (STREQ (fstype, "ntfs")) {
     ADD_ARG (argv, i, "-Q");
+    ADD_ARG (argv, i, "-F");
+  }
 
   /* mkfs.reiserfs produces annoying interactive prompts unless you
    * tell it to be quiet.
