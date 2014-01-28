@@ -157,16 +157,6 @@ read the man page virt-sparsify(1).
     else
       Sys.getcwd () // indisk in
 
-  let contains_colon filename =
-    try ignore (String.index filename ':'); true with Not_found -> false in
-
-  (* Check filenames don't contain a colon (limitation of qemu-img). *)
-  if contains_colon indisk then
-    error (f_"input filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") indisk;
-
-  if contains_colon outdisk then
-    error (f_"output filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") outdisk;
-
   (* Check the output is not a block or char special (RHBZ#1056290). *)
   if is_block_device outdisk then
     error (f_"output '%s' cannot be a block device, it must be a regular file")
@@ -189,34 +179,6 @@ read the man page virt-sparsify(1).
 let () =
   let do_sigint _ = exit 1 in
   Sys.set_signal Sys.sigint (Sys.Signal_handle do_sigint)
-
-(* Try to determine which flag options qemu-img supports for qcow2.
- * We do this by creating and disposing of a few test images.  This
- * also detects if qemu-img is completely broken.
- *)
-let qemu_img_supports_compat11, qemu_img_supports_lazy_refcounts =
-  let test options =
-    let tmp = Filename.temp_file "test" ".qcow2" in
-    unlink_on_exit tmp;
-    let cmd = "qemu-img create -f qcow2" ^
-      (match options with None -> "" | Some opts -> " -o " ^ opts) ^
-      " " ^ tmp ^ " 128K > /dev/null" in
-    if verbose then printf "testing if '%s' works ... %!" cmd;
-    let r = Sys.command cmd = 0 in
-    if verbose then printf "%b\n" r;
-    r
-  in
-  if not (test None) then (
-    eprintf (f_"\
-'qemu-img create' cannot create qcow2 files.  Check the 'qemu-img'
-program is installed and working, and that it matches the version\
-of qemu installed.\n");
-    exit 1
-  );
-  let supports_compat11 = test (Some "compat=1.1") in
-  let supports_lazy_refcounts =
-    test (Some "compat=1.1,lazy_refcounts") in
-  supports_compat11, supports_lazy_refcounts
 
 (* What should the output format be?  If the user specified an
  * input format, use that, else detect it from the source image.
@@ -298,32 +260,13 @@ let overlaydisk =
   unlink_on_exit tmp;
 
   (* Create it with the indisk as the backing file. *)
-  let cmd =
-    let options =
-      let backing_file_option =
-        [sprintf "backing_file=%s" (replace_str indisk "," ",,")] in
-      let backing_fmt_option =
-        match format with
-        | None -> []
-        | Some fmt -> [sprintf "backing_fmt=%s" fmt] in
-      let compat11 =
-        if qemu_img_supports_compat11 then ["compat=1.1"] else [] in
-      let lazy_refcounts =
-        if qemu_img_supports_lazy_refcounts then
-          ["lazy_refcounts"]
-        else [] in
-      String.concat "," (
-        backing_file_option @
-        backing_fmt_option @
-        compat11 @
-        lazy_refcounts
-      ) in
-    sprintf "qemu-img create -f qcow2 -o %s %s > /dev/null"
-      (Filename.quote options) (Filename.quote tmp) in
-  if verbose then
-    printf "%s\n%!" cmd;
-  if Sys.command cmd <> 0 then
-    error (f_"external command failed: %s") cmd;
+  (* XXX Old code used to:
+   * - detect if compat=1.1 was supported
+   * - add lazy_refcounts option
+   *)
+  (new G.guestfs ())#disk_create
+    ~backingfile:indisk ?backingformat:format ~compat:"1.1"
+    tmp "qcow2" Int64.minus_one;
 
   tmp
 
