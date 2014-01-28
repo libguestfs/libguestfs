@@ -83,8 +83,8 @@ libguestfs_la_SOURCES = \
 	alloc.c \
 	appliance.c \
 	bindtests.c \
-	command.c \
 	canonical-name.c \
+	command.c \
 	conn-socket.c \
 	dbdump.c \
 	drives.c \
