@@ -66,21 +66,24 @@ fi
 type=`random_choice`
 
 if [ "$qcow2_supported" = "yes" ]; then
-    choices=(--format=raw --format=qcow2)
+    choices=("" --format=raw --format=qcow2)
     format=`random_choice`
 else
     format="--format=raw"
 fi
 
-choices=(--partition --partition=gpt)
+choices=(--partition --partition=gpt --partition=mbr)
 partition=`random_choice`
 
 choices=("" --size=+1M)
 size=`random_choice`
 
+choices=("" --label=FOO)
+label=`random_choice`
+
 if [ -n "$LIBGUESTFS_DEBUG" ]; then debug=--debug; fi
 
-params="$type $format $partition $size $debug"
+params="$type $format $partition $size $label $debug"
 echo "test-virt-make-fs: parameters: $params"
 
 rm -f test.file test.tar output.img
