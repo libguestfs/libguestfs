@@ -515,14 +515,8 @@ let main () =
       let { Index_parser.expand = expand; lvexpand = lvexpand } = entry in
       msg (f_"Resizing (using virt-resize) to expand the disk to %s")
         (human_size osize);
-      let cmd =
-        sprintf "qemu-img create -f %s%s %s %Ld%s"
-          (quote oformat)
-          (if oformat = "qcow2" then " -o preallocation=metadata" else "")
-          (quote ofile) osize
-          (if debug then "" else " >/dev/null 2>&1") in
-      if debug then eprintf "%s\n%!" cmd;
-      if Sys.command cmd <> 0 then exit 1;
+      let preallocation = if oformat = "qcow2" then Some "metadata" else None in
+      (new G.guestfs ())#disk_create ?preallocation ofile oformat osize;
       let cmd =
         sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
           (if debug then " --verbose" else " --quiet")
