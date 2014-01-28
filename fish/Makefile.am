@@ -301,6 +301,7 @@ EXTRA_DIST += \
 	test-a.sh \
 	test-add-domain.sh \
 	test-add-uri.sh \
+	test-alloc.sh \
 	test-copy.sh \
 	test-d.sh \
 	test-edit.sh \

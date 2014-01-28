@@ -66,67 +66,15 @@ int
 alloc_disk (const char *filename, const char *size_str, int add, int sparse)
 {
   off_t size;
-  int fd;
-  char c = 0;
+  const char *prealloc = sparse ? "sparse" : "full";
 
   if (parse_size (size_str, &size) == -1)
     return -1;
 
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);
-  if (fd == -1) {
-    perror (filename);
+  if (guestfs_disk_create (g, filename, "raw", (int64_t) size,
+                           GUESTFS_DISK_CREATE_PREALLOCATION, prealloc,
+                           -1) == -1)
     return -1;
-  }
-
-  if (!sparse) {                /* Not sparse */
-#ifdef HAVE_POSIX_FALLOCATE
-    int err = posix_fallocate (fd, 0, size);
-    if (err != 0) {
-      errno = err;
-      perror ("fallocate");
-      close (fd);
-      unlink (filename);
-      return -1;
-    }
-#else
-    /* Slow emulation of posix_fallocate on platforms which don't have it. */
-    char buffer[BUFSIZ];
-    memset (buffer, 0, sizeof buffer);
-
-    size_t remaining = size;
-    while (remaining > 0) {
-      size_t n = remaining > sizeof buffer ? sizeof buffer : remaining;
-      ssize_t r = write (fd, buffer, n);
-      if (r == -1) {
-        perror ("write");
-        close (fd);
-        unlink (filename);
-        return -1;
-      }
-      remaining -= r;
-    }
-#endif
-  } else {                      /* Sparse */
-    if (lseek (fd, size-1, SEEK_SET) == (off_t) -1) {
-      perror ("lseek");
-      close (fd);
-      unlink (filename);
-      return -1;
-    }
-
-    if (write (fd, &c, 1) != 1) {
-      perror ("write");
-      close (fd);
-      unlink (filename);
-      return -1;
-    }
-  }
-
-  if (close (fd) == -1) {
-    perror (filename);
-    unlink (filename);
-    return -1;
-  }
 
   if (add) {
     if (guestfs_add_drive_opts (g, filename,
