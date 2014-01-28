@@ -4,7 +4,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"libguestfs.org/guestfs"
 )
 
@@ -18,15 +17,8 @@ func main() {
 	defer g.Close ()
 
 	/* Create a raw-format sparse disk image, 512 MB in size. */
-	f, ferr := os.Create (output)
-	if ferr != nil {
-		panic (fmt.Sprintf ("could not create file: %s: %s",
-			output, ferr))
-	}
-	defer f.Close ()
-
-	if ferr := f.Truncate (512 * 1024 * 1024); ferr != nil {
-		panic (fmt.Sprintf ("could not truncate file: %s", ferr))
+	if err := g.Disk_create (output, "raw", 512 * 1024 * 1024); err != nil {
+		panic (err)
 	}
 
 	/* Set the trace flag so that we can see each libguestfs call. */

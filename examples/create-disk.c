@@ -17,25 +17,15 @@ main (int argc, char *argv[])
   if (g == NULL) {
     perror ("failed to create libguestfs handle");
     exit (EXIT_FAILURE);
- }
-
-  /* Create a raw-format sparse disk image, 512 MB in size. */
-  int fd = open ("disk.img", O_CREAT|O_WRONLY|O_TRUNC|O_NOCTTY, 0666);
-  if (fd == -1) {
-    perror ("disk.img");
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, 512 * 1024 * 1024) == -1) {
-    perror ("disk.img: truncate");
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror ("disk.img: close");
-    exit (EXIT_FAILURE);
   }
 
   /* Set the trace flag so that we can see each libguestfs call. */
   guestfs_set_trace (g, 1);
+
+  /* Create a raw-format sparse disk image, 512 MB in size. */
+  if (guestfs_disk_create (g, "disk.img", "raw", UINT64_C(512)*1024*1024,
+                           -1) == -1)
+    exit (EXIT_FAILURE);
 
   /* Add the disk image to libguestfs. */
   if (guestfs_add_drive_opts (g, "disk.img",

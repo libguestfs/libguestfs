@@ -43,7 +43,7 @@ int
 main (int argc, char *argv[])
 {
   guestfs_h *g;
-  int fd, r;
+  int r;
   char tempdir[] = "/tmp/mlXXXXXX";
   pid_t pid;
   char *shell, *p;
@@ -65,28 +65,16 @@ main (int argc, char *argv[])
           "Creating and formatting the disk image, please wait a moment ...\n");
   fflush (stdout);
 
-  /* Create the output disk image: raw sparse. */
-  fd = open (argv[1], O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0644);
-  if (fd == -1) {
-    perror (argv[1]);
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, SIZE_MB * 1024 * 1024) == -1) {
-    perror ("truncate");
-    close (fd);
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror ("close");
-    exit (EXIT_FAILURE);
-  }
-
   /* Guestfs handle. */
   g = guestfs_create ();
   if (g == NULL) {
     perror ("could not create libguestfs handle");
     exit (EXIT_FAILURE);
   }
+
+  /* Create the output disk image: raw sparse. */
+  if (guestfs_disk_create (g, argv[1], "raw", SIZE_MB * 1024 * 1024, -1) == -1)
+    exit (EXIT_FAILURE);
 
   /* Create the disk image and format it with a partition and a filesystem. */
   if (guestfs_add_drive_opts (g, argv[1],

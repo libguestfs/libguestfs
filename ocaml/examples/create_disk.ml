@@ -9,9 +9,7 @@ let () =
   let g = new Guestfs.guestfs () in
 
   (* Create a raw-format sparse disk image, 512 MB in size. *)
-  let fd = openfile output [O_WRONLY;O_CREAT;O_TRUNC;O_NOCTTY] 0o666 in
-  ftruncate fd (512 * 1024 * 1024);
-  close fd;
+  g#disk_create output "raw" (Int64.of_int (512 * 1024 * 1024));
 
   (* Set the trace flag so that we can see each libguestfs call. *)
   g#set_trace true;

@@ -10,9 +10,7 @@ my $output = "disk.img";
 my $g = new Sys::Guestfs ();
 
 # Create a raw-format sparse disk image, 512 MB in size.
-open FILE, ">$output" or die "$output: $!";
-truncate FILE, 512 * 1024 * 1024 or die "$output: truncate: $!";
-close FILE or die "$output: $!";
+$g->disk_create ($output, "raw", 512 * 1024 * 1024);
 
 # Set the trace flag so that we can see each libguestfs call.
 $g->set_trace (1);

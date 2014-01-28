@@ -7,9 +7,7 @@ output = "disk.img"
 g = Guestfs::Guestfs.new()
 
 # Create a raw-format sparse disk image, 512 MB in size.
-File.open(output, "w") {
-  |f| f.truncate(512 * 1024 * 1024)
-}
+g.disk_create (output, "raw", 512 * 1024 * 1024)
 
 # Set the trace flag so that we can see each libguestfs call.
 g.set_trace(1)

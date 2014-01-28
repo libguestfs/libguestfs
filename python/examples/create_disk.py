@@ -1,6 +1,5 @@
 # Example showing how to create a disk image.
 
-import os
 import guestfs
 
 output = "disk.img"
@@ -12,9 +11,7 @@ output = "disk.img"
 g = guestfs.GuestFS (python_return_dict=True)
 
 # Create a raw-format sparse disk image, 512 MB in size.
-f = open (output, "w")
-f.truncate (512 * 1024 * 1024)
-f.close ()
+g.disk_create (output, "raw", 512 * 1024 * 1024);
 
 # Set the trace flag so that we can see each libguestfs call.
 g.set_trace (1)
