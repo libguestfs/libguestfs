@@ -39,6 +39,7 @@ SUBDIRS += tests/tmpdirs
 SUBDIRS += tests/protocol
 SUBDIRS += tests/events
 SUBDIRS += tests/parallel
+SUBDIRS += tests/create
 SUBDIRS += tests/disks
 SUBDIRS += tests/mountable
 SUBDIRS += tests/network

@@ -52,6 +52,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-mount_local.h \
   include/guestfs-gobject/optargs-umount_local.h \
   include/guestfs-gobject/optargs-add_drive_scratch.h \
+  include/guestfs-gobject/optargs-disk_create.h \
   include/guestfs-gobject/optargs-is_file.h \
   include/guestfs-gobject/optargs-is_dir.h \
   include/guestfs-gobject/optargs-umount.h \
@@ -127,6 +128,7 @@ guestfs_gobject_sources= \
   src/optargs-mount_local.c \
   src/optargs-umount_local.c \
   src/optargs-add_drive_scratch.c \
+  src/optargs-disk_create.c \
   src/optargs-is_file.c \
   src/optargs-is_dir.c \
   src/optargs-umount.c \

@@ -1745,6 +1745,7 @@ AC_CONFIG_FILES([Makefile
                  tests/btrfs/Makefile
                  tests/c-api/Makefile
                  tests/charsets/Makefile
+                 tests/create/Makefile
                  tests/data/Makefile
                  tests/disks/Makefile
                  tests/disks/test-qemu-drive-libvirt.xml

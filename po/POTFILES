@@ -170,6 +170,7 @@ gobject/src/optargs-copy_device_to_device.c
 gobject/src/optargs-copy_device_to_file.c
 gobject/src/optargs-copy_file_to_device.c
 gobject/src/optargs-copy_file_to_file.c
+gobject/src/optargs-disk_create.c
 gobject/src/optargs-e2fsck.c
 gobject/src/optargs-fstrim.c
 gobject/src/optargs-grep.c
@@ -267,6 +268,7 @@ src/canonical-name.c
 src/cleanup.c
 src/command.c
 src/conn-socket.c
+src/create.c
 src/dbdump.c
 src/drives.c
 src/errnostring-gperf.c
