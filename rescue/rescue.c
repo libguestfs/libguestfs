@@ -533,6 +533,8 @@ add_scratch_disk (struct drv **drvs)
   struct scratch_disk *sd;
   struct drv *drv;
 
+  /* XXX Is there a reason we're not using guestfs_add_drive_scratch here? */
+
   /* Create a temporary file, raw sparse format. */
   fd = mkstemp (filename_s);
   if (fd == -1) {
