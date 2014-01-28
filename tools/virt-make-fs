@@ -231,9 +231,6 @@ Choose the output disk image format.
 
 The default is C<raw> (raw sparse disk image).
 
-For other choices, see the L<qemu-img(1)> manpage.  The only other
-choice that would really make sense here is C<qcow2>.
-
 =cut
 
 my $type = "ext2";
@@ -425,46 +422,17 @@ if (!defined $size) {
 
 $size = int ($size);
 
-# Create the output disk.
-#
-# Use qemu-img so we can control the output format, but capture any
-# output temporarily and only display it if the command fails.
-
-my @options = ();
-@options = ("-o", "preallocation=metadata") if $format eq "qcow2";
-
-my @cmd = ("qemu-img", "create", "-f", $format, @options, $output, $size);
-if ($debug) {
-    print STDERR ("running: ", join (" ", @cmd), "\n");
-}
-
-{
-    my $tmpfh = tempfile ();
-    my ($r, $oldout, $olderr);
-
-    open $oldout, ">&STDOUT" or die __"cannot dup STDOUT";
-    open $olderr, ">&STDERR" or die __"cannot dup STDERR";
-    close STDOUT;
-    close STDERR;
-    open STDOUT, ">&", \$tmpfh or die __"cannot redirect STDOUT";
-    open STDERR, ">&", \$tmpfh or die __"cannot redirect STDERR";
-    $r = system (@cmd);
-    open STDOUT, ">&", $oldout or die __"cannot restore STDOUT";
-    open STDERR, ">&", $olderr or die __"cannot restore STDERR";
-
-    unless ($r == 0) {
-        print STDERR __"qemu-img create: failed to create disk image:\n";
-        seek $tmpfh, 0, SEEK_SET;
-        print STDERR $_ while <$tmpfh>;
-        die "\n";
-    }
-}
-
 eval {
     print STDERR "starting libguestfs ...\n" if $debug;
 
     # Run libguestfs.
     my $g = Sys::Guestfs->new ();
+
+    # Create the output disk.
+    my %options = ();
+    $options{preallocation} = "metadata" if $format eq "qcow2";
+    $g->disk_create ($output, $format, $size, %options);
+
     $g->add_drive ($output, format => $format);
     $g->launch ();
 
