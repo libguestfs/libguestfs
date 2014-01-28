@@ -19,9 +19,10 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	$(SOURCES) \
+	script1.sh script2.sh script3.sh script4.sh \
 	test-virt-sysprep.sh \
 	test-virt-sysprep-passwords.sh \
-	test-virt-sysprep-script.sh script1.sh script2.sh script3.sh \
+	test-virt-sysprep-script.sh \
 	virt-sysprep.pod
 
 CLEANFILES = \
