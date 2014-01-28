@@ -145,33 +145,22 @@ static char *
 make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
                     const char *format)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
-  char *overlay = NULL;
-  int r;
+  char *overlay;
+  struct guestfs_disk_create_argv optargs;
 
   if (guestfs___lazy_make_tmpdir (g) == -1)
     return NULL;
 
   overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
 
-  guestfs___cmd_add_arg (cmd, "qemu-img");
-  guestfs___cmd_add_arg (cmd, "create");
-  guestfs___cmd_add_arg (cmd, "-f");
-  guestfs___cmd_add_arg (cmd, "qcow2");
-  guestfs___cmd_add_arg (cmd, "-b");
-  guestfs___cmd_add_arg (cmd, backing_drive);
+  optargs.bitmask = GUESTFS_DISK_CREATE_BACKINGFILE_BITMASK;
+  optargs.backingfile = backing_drive;
   if (format) {
-    guestfs___cmd_add_arg (cmd, "-o");
-    guestfs___cmd_add_arg_format (cmd, "backing_fmt=%s", format);
+    optargs.bitmask |= GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK;
+    optargs.backingformat = format;
   }
-  guestfs___cmd_add_arg (cmd, overlay);
-  r = guestfs___cmd_run (cmd);
-  if (r == -1) {
-    free (overlay);
-    return NULL;
-  }
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "qemu-img create", backing_drive);
+
+  if (guestfs_disk_create_argv (g, overlay, "qcow2", -1, &optargs) == -1) {
     free (overlay);
     return NULL;
   }
@@ -184,15 +173,15 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
 {
   struct backend_libvirt_data *data = datav;
   CLEANUP_FREE char *backing_drive = NULL;
-  char *overlay = NULL;
+  char *overlay;
 
   backing_drive = guestfs___drive_source_qemu_param (g, &drv->src);
   if (!backing_drive)
-    goto error;
+    return NULL;
 
   overlay = make_qcow2_overlay (g, backing_drive, drv->src.format);
   if (!overlay)
-    goto error;
+    return NULL;
 
 #if HAVE_LIBSELINUX
   if (data->selinux_imagelabel) {
@@ -208,11 +197,6 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
    * the memory.
    */
   return overlay;
-
- error:
-  free (overlay);
-
-  return NULL;
 }
 
 static int

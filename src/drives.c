@@ -509,7 +509,6 @@ create_drive_dev_null (guestfs_h *g, bool readonly, const char *format,
                        const char *disk_label)
 {
   CLEANUP_FREE char *tmpfile = NULL;
-  int fd = -1;
 
   if (format && STRNEQ (format, "raw")) {
     error (g, _("for device '/dev/null', format must be 'raw'"));
@@ -525,20 +524,9 @@ create_drive_dev_null (guestfs_h *g, bool readonly, const char *format,
   readonly = false;
 
   tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
-  fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
-  if (fd == -1) {
-    perrorf (g, "open: %s", tmpfile);
+
+  if (guestfs_disk_create (g, tmpfile, "raw", 4096, -1) == -1)
     return NULL;
-  }
-  if (ftruncate (fd, 4096) == -1) {
-    perrorf (g, "truncate: %s", tmpfile);
-    close (fd);
-    return NULL;
-  }
-  if (close (fd) == -1) {
-    perrorf (g, "close: %s", tmpfile);
-    return NULL;
-  }
 
   return create_drive_file (g, tmpfile, readonly, format, iface, name,
                             disk_label, 0);
@@ -1083,11 +1071,10 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
 
 int
 guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
-                                 const struct guestfs_add_drive_scratch_argv *optargs)
+                            const struct guestfs_add_drive_scratch_argv *optargs)
 {
   struct guestfs_add_drive_opts_argv add_drive_optargs = { .bitmask = 0 };
   CLEANUP_FREE char *filename = NULL;
-  int fd;
 
   /* Some parameters we always set. */
   add_drive_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
@@ -1114,22 +1101,8 @@ guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
   filename = safe_asprintf (g, "%s/scratch.%d", g->tmpdir, ++g->unique);
 
   /* Create a raw format temporary disk. */
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0600);
-  if (fd == -1) {
-    perrorf (g, "open: %s", filename);
+  if (guestfs_disk_create (g, filename, "raw", size, -1) == -1)
     return -1;
-  }
-
-  if (ftruncate (fd, size) == -1) {
-    perrorf (g, "ftruncate: %s", filename);
-    close (fd);
-    return -1;
-  }
-
-  if (close (fd) == -1) {
-    perrorf (g, "close: %s", filename);
-    return -1;
-  }
 
   /* Call guestfs_add_drive_opts to add the drive. */
   return guestfs_add_drive_opts_argv (g, filename, &add_drive_optargs);

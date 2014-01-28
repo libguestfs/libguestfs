@@ -107,48 +107,35 @@ static char *qemu_escape_param (guestfs_h *g, const char *param);
 static char *
 create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
 {
-  char *overlay = NULL;
+  char *overlay;
   CLEANUP_FREE char *backing_drive = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
-  int r;
+  struct guestfs_disk_create_argv optargs;
 
   backing_drive = guestfs___drive_source_qemu_param (g, &drv->src);
   if (!backing_drive)
-    goto error;
+    return NULL;
 
   if (guestfs___lazy_make_tmpdir (g) == -1)
-    goto error;
+    return NULL;
 
   overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
 
-  guestfs___cmd_add_arg (cmd, "qemu-img");
-  guestfs___cmd_add_arg (cmd, "create");
-  guestfs___cmd_add_arg (cmd, "-f");
-  guestfs___cmd_add_arg (cmd, "qcow2");
-  guestfs___cmd_add_arg (cmd, "-b");
-  guestfs___cmd_add_arg (cmd, backing_drive);
+  optargs.bitmask = GUESTFS_DISK_CREATE_BACKINGFILE_BITMASK;
+  optargs.backingfile = backing_drive;
   if (drv->src.format) {
-    guestfs___cmd_add_arg (cmd, "-o");
-    guestfs___cmd_add_arg_format (cmd, "backing_fmt=%s", drv->src.format);
+    optargs.bitmask |= GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK;
+    optargs.backingformat = drv->src.format;
   }
-  guestfs___cmd_add_arg (cmd, overlay);
-  r = guestfs___cmd_run (cmd);
-  if (r == -1)
-    goto error;
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "qemu-img create", backing_drive);
-    goto error;
+
+  if (guestfs_disk_create_argv (g, overlay, "qcow2", -1, &optargs) == -1) {
+    free (overlay);
+    return NULL;
   }
 
   /* Caller sets g->overlay in the handle to this, and then manages
    * the memory.
    */
   return overlay;
-
- error:
-  free (overlay);
-
-  return NULL;
 }
 
 #ifdef QEMU_OPTIONS
