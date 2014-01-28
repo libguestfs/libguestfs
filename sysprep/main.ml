@@ -31,6 +31,8 @@ let () = Sysprep_operation.bake ()
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
 
+let () = Random.self_init ()
+
 let debug_gc, operations, g, selinux_relabel, quiet, mount_opts =
   let debug_gc = ref false in
   let domain = ref None in

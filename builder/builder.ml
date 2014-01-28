@@ -33,6 +33,8 @@ let quote = Filename.quote
 
 let prog = Filename.basename Sys.executable_name
 
+let () = Random.self_init ()
+
 let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,

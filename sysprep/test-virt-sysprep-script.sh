@@ -31,7 +31,7 @@ if [ ! -w /dev/fuse ]; then
 fi
 
 # Check that multiple scripts can run.
-rm -f stamp-script1.sh stamp-script2.sh
+rm -f stamp-script1.sh stamp-script2.sh stamp-script4.sh
 if ! ./virt-sysprep -q -n -a ../tests/guests/fedora.img --enable script \
         --script $abs_srcdir/script1.sh --script $abs_srcdir/script2.sh; then
     echo "$0: virt-sysprep wasn't expected to exit with error."
@@ -46,5 +46,25 @@ fi
 if ./virt-sysprep -q -n -a ../tests/guests/fedora.img --enable script \
         --script $abs_srcdir/script3.sh; then
     echo "$0: virt-sysprep didn't exit with an error."
+    exit 1
+fi
+
+# Check that virt-sysprep uses a new temporary directory every time.
+if ! ./virt-sysprep -q -n -a ../tests/guests/fedora.img --enable script \
+        --script $abs_srcdir/script4.sh; then
+    echo "$0: virt-sysprep (script4.sh, try #1) wasn't expected to exit with error."
+    exit 1
+fi
+if ! ./virt-sysprep -q -n -a ../tests/guests/fedora.img --enable script \
+        --script $abs_srcdir/script4.sh; then
+    echo "$0: virt-sysprep (script4.sh, try #2) wasn't expected to exit with error."
+    exit 1
+fi
+if [ x"`wc -l stamp-script4.sh | awk '{print $1}'`" != x2 ]; then
+    echo "$0: stamp-script4.sh does not contain two lines."
+    exit 1
+fi
+if [ x"`head -n1 stamp-script4.sh`" == x"`tail -n1 stamp-script4.sh`" ]; then
+    echo "$0: stamp-script4.sh does not contain different paths."
     exit 1
 fi
