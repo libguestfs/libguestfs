@@ -32,6 +32,7 @@
 ../inspector/virt-inspector.pod
 ../java/examples/guestfs-java.pod
 ../lua/examples/guestfs-lua.pod
+../make-fs/virt-make-fs.pod
 ../ocaml/examples/guestfs-ocaml.pod
 ../perl/examples/guestfs-perl.pod
 ../python/examples/guestfs-python.pod
@@ -49,6 +50,5 @@
 ../test-tool/libguestfs-test-tool.pod
 ../tools/virt-list-filesystems
 ../tools/virt-list-partitions
-../tools/virt-make-fs
 ../tools/virt-tar
 ../tools/virt-win-reg
