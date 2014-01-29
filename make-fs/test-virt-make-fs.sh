@@ -94,6 +94,6 @@ dd if=/dev/zero of=test.file bs=1024 count=$tarsize
 tar -c -f test.tar test.file
 rm test.file
 
-./virt-make-fs $params -- test.tar output.img
+$VG ./virt-make-fs $params -- test.tar output.img
 
 rm test.tar output.img
