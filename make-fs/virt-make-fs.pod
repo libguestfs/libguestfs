@@ -194,18 +194,6 @@ image.
 You can change the partition table type, eg. I<--partition=gpt> for
 large disks.
 
-Note that if you just use a lonesome I<--partition>, the option parser
-might consider the next parameter to be the partition type.  For
-example:
-
- virt-make-fs --partition input.tar output.img
-
-would cause virt-make-fs to think you wanted to use a partition type
-of C<input.tar> which is completely wrong.  To avoid this, use I<-->
-(a double dash) between options and the input and output arguments:
-
- virt-make-fs --partition -- input.tar output.img
-
 For MBR, virt-make-fs sets the partition type byte automatically.
 
 =item B<-v>
