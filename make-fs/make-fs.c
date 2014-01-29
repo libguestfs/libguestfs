@@ -201,6 +201,29 @@ check_ntfs_available (void)
   return 0;
 }
 
+/* For debugging, print statvfs before and after doing the tar-in. */
+static void
+print_stats (guestfs_h *g, const char *before_or_after)
+{
+  if (!verbose)
+    return;
+
+  CLEANUP_FREE_STATVFS struct guestfs_statvfs *stats = guestfs_statvfs (g, "/");
+
+  fprintf (stderr, "%s uploading:\n", before_or_after);
+  fprintf (stderr, "  bsize = %" PRIi64 "\n", stats->bsize);
+  fprintf (stderr, "  frsize = %" PRIi64 "\n", stats->frsize);
+  fprintf (stderr, "  blocks = %" PRIi64 "\n", stats->blocks);
+  fprintf (stderr, "  bfree = %" PRIi64 "\n", stats->bfree);
+  fprintf (stderr, "  bavail = %" PRIi64 "\n", stats->bavail);
+  fprintf (stderr, "  files = %" PRIi64 "\n", stats->files);
+  fprintf (stderr, "  ffree = %" PRIi64 "\n", stats->ffree);
+  fprintf (stderr, "  favail = %" PRIi64 "\n", stats->favail);
+  fprintf (stderr, "  fsid = %" PRIi64 "\n", stats->fsid);
+  fprintf (stderr, "  flag = %" PRIi64 "\n", stats->flag);
+  fprintf (stderr, "  namemax = %" PRIi64 "\n", stats->namemax);
+}
+
 /* Execute a command, sending output to a file. */
 static int
 exec_command (char **argv, const char *file)
@@ -769,23 +792,7 @@ do_make_fs (const char *input, const char *output_str)
   if (guestfs_mount_options (g, options, dev, "/") == -1)
     return -1;
 
-  /* For debugging, print statvfs before and after doing the tar-in. */
-  if (verbose) {
-    CLEANUP_FREE_STATVFS struct guestfs_statvfs *stats =
-      guestfs_statvfs (g, "/");
-    fprintf (stderr, "before uploading:\n");
-    fprintf (stderr, "  bsize = %" PRIi64 "\n", stats->bsize);
-    fprintf (stderr, "  frsize = %" PRIi64 "\n", stats->frsize);
-    fprintf (stderr, "  blocks = %" PRIi64 "\n", stats->blocks);
-    fprintf (stderr, "  bfree = %" PRIi64 "\n", stats->bfree);
-    fprintf (stderr, "  bavail = %" PRIi64 "\n", stats->bavail);
-    fprintf (stderr, "  files = %" PRIi64 "\n", stats->files);
-    fprintf (stderr, "  ffree = %" PRIi64 "\n", stats->ffree);
-    fprintf (stderr, "  favail = %" PRIi64 "\n", stats->favail);
-    fprintf (stderr, "  fsid = %" PRIi64 "\n", stats->fsid);
-    fprintf (stderr, "  flag = %" PRIi64 "\n", stats->flag);
-    fprintf (stderr, "  namemax = %" PRIi64 "\n", stats->namemax);
-  }
+  print_stats (g, "before");
 
   /* Prepare the input to be copied in. */
   if (prepare_input (input, ifmt, &ifile, &fd, &pid) == -1)
@@ -810,22 +817,7 @@ do_make_fs (const char *input, const char *output_str)
   if (fd >= 0)
     close (fd);
 
-  if (verbose) {
-    CLEANUP_FREE_STATVFS struct guestfs_statvfs *stats =
-      guestfs_statvfs (g, "/");
-    fprintf (stderr, "after uploading:\n");
-    fprintf (stderr, "  bsize = %" PRIi64 "\n", stats->bsize);
-    fprintf (stderr, "  frsize = %" PRIi64 "\n", stats->frsize);
-    fprintf (stderr, "  blocks = %" PRIi64 "\n", stats->blocks);
-    fprintf (stderr, "  bfree = %" PRIi64 "\n", stats->bfree);
-    fprintf (stderr, "  bavail = %" PRIi64 "\n", stats->bavail);
-    fprintf (stderr, "  files = %" PRIi64 "\n", stats->files);
-    fprintf (stderr, "  ffree = %" PRIi64 "\n", stats->ffree);
-    fprintf (stderr, "  favail = %" PRIi64 "\n", stats->favail);
-    fprintf (stderr, "  fsid = %" PRIi64 "\n", stats->fsid);
-    fprintf (stderr, "  flag = %" PRIi64 "\n", stats->flag);
-    fprintf (stderr, "  namemax = %" PRIi64 "\n", stats->namemax);
-  }
+  print_stats (g, "after");
 
   if (verbose)
     fprintf (stderr, "finishing off\n");
