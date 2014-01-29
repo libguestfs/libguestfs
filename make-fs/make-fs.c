@@ -134,7 +134,10 @@ main (int argc, char *argv[])
         label = optarg;
       }
       else if (STREQ (long_options[option_index].name, "partition")) {
-        partition = optarg;
+        if (optarg == NULL)
+          partition = "mbr";
+        else
+          partition = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
