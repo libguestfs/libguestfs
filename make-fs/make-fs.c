@@ -292,59 +292,42 @@ exec_command_count_output (char **argv, uint64_t *bytes_rtn)
   _exit (EXIT_FAILURE);
 }
 
-/* Execute a command in the background (don't wait) and send the output
- * to a file.
+/* Execute a command in the background (don't wait) and send the
+ * output to a pipe.  It returns the PID of the subprocess and the
+ * file descriptor of the pipe.
  */
 static int
-bg_command (char **argv, const char *file)
+bg_command (char **argv, int *fd_rtn, pid_t *pid_rtn)
 {
-  pid_t pid;
-  int fd;
+  int fd[2];
 
-  pid = fork ();
-  if (pid == -1) {
+  if (pipe (fd) == -1) {
+    perror ("pipe");
+    return -1;
+  }
+  *pid_rtn = fork ();
+  if (*pid_rtn == -1) {
     perror ("fork");
     return -1;
   }
-  if (pid > 0)
+  if (*pid_rtn > 0) {
+    close (fd[1]);
+
+    /* Return read-side of the pipe. */
+    *fd_rtn = fd[0];
+
     /* Return immediately in the parent without waiting. */
     return 0;
+  }
 
   /* Child process. */
-  fd = open (file, O_WRONLY|O_NOCTTY);
-  if (fd == -1) {
-    perror (file);
-    _exit (EXIT_FAILURE);
-  }
-  dup2 (fd, 1);
-  close (fd);
+  close (fd[0]);
+  dup2 (fd[1], 1);
+  close (fd[1]);
 
   execvp (argv[0], argv);
   perror ("execvp");
   _exit (EXIT_FAILURE);
-}
-
-static char *
-create_pipe (void)
-{
-  char *tmppipe;
-
-  if (asprintf (&tmppipe, "/tmp/makefsXXXXXX") == -1) {
-    perror ("asprintf");
-    return NULL;
-  }
-  if (mkstemp (tmppipe) == -1) {
-    perror (tmppipe);
-    return NULL;
-  }
-
-  /* Convert the temporary file into a pipe. */
-  unlink (tmppipe);
-  if (mkfifo (tmppipe, 0600) == -1) {
-    perror ("mkfifo");
-    return NULL;
-  }
-  return tmppipe;
 }
 
 /* Estimate the size of the input.  This returns the estimated size
@@ -506,19 +489,19 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
  * just sets ifile = input.  However normally the input will be either
  * a directory or a compressed tarball.  In that case we set up an
  * external command to do the tar/uncompression to a temporary pipe,
- * and set ifile to the name of the pipe.
+ * and set ifile to the name of the pipe.  If there is a subprocess,
+ * the PID is returned so that callers can wait on it.
  */
 static int
 prepare_input (const char *input, const char *ifmt,
-               char **ifile_rtn, int *ifile_delete_on_exit)
+               char **ifile_rtn, int *fd_rtn, pid_t *pid_rtn)
 {
-  char *tmppipe;
   const char *argv[7];
 
+  *pid_rtn = 0;
+  *fd_rtn = -1;
+
   if (STREQ (ifmt, "directory")) {
-    tmppipe = create_pipe ();
-    if (tmppipe == NULL)
-      return -1;
     argv[0] = "tar";
     argv[1] = "-C";
     argv[2] = input;
@@ -527,20 +510,16 @@ prepare_input (const char *input, const char *ifmt,
     argv[5] = ".";
     argv[6] = NULL;
 
-    if (bg_command ((char **) argv, tmppipe) == -1) {
-      unlink (tmppipe);
-      free (tmppipe);
+    if (bg_command ((char **) argv, fd_rtn, pid_rtn) == -1)
+      return -1;
+
+    if (asprintf (ifile_rtn, "/dev/fd/%d", *fd_rtn) == -1) {
+      perror ("asprintf");
       return -1;
     }
-
-    *ifile_rtn = tmppipe;
-    *ifile_delete_on_exit = 1;
   }
   else {
     if (strstr (ifmt, "compress")) {
-      tmppipe = create_pipe ();
-      if (tmppipe == NULL)
-        return -1;
       if (strstr (ifmt, "compress'd")) {
         argv[0] = "uncompress";
         argv[1] = "-c";
@@ -569,14 +548,13 @@ prepare_input (const char *input, const char *ifmt,
         /* Shouldn't happen - see estimate_input above. */
         abort ();
 
-      if (bg_command ((char **) argv, tmppipe) == -1) {
-        unlink (tmppipe);
-        free (tmppipe);
+      if (bg_command ((char **) argv, fd_rtn, pid_rtn) == -1)
+        return -1;
+
+      if (asprintf (ifile_rtn, "/dev/fd/%d", *fd_rtn) == -1) {
+        perror ("asprintf");
         return -1;
       }
-
-      *ifile_rtn = tmppipe;
-      *ifile_delete_on_exit = 1;
     }
     else {
       /* Plain tar file, read directly from the file. */
@@ -585,7 +563,6 @@ prepare_input (const char *input, const char *ifmt,
         perror ("strdup");
         return -1;
       }
-      *ifile_delete_on_exit = 0;
     }
   }
 
@@ -632,7 +609,8 @@ do_make_fs (const char *input, const char *output_str)
   struct guestfs_disk_create_argv optargs;
   CLEANUP_FREE char *ifmt = NULL;
   CLEANUP_FREE char *ifile = NULL;
-  int ifile_delete_on_exit, r;
+  pid_t pid;
+  int status, fd;
 
   /* Use of CLEANUP_UNLINK_FREE *output ensures the output file is
    * deleted unless we successfully reach the end of this function.
@@ -810,16 +788,27 @@ do_make_fs (const char *input, const char *output_str)
   }
 
   /* Prepare the input to be copied in. */
-  if (prepare_input (input, ifmt, &ifile, &ifile_delete_on_exit) == -1)
+  if (prepare_input (input, ifmt, &ifile, &fd, &pid) == -1)
     return -1;
 
   if (verbose)
     fprintf (stderr, "uploading from %s to / ...\n", ifile);
-  r = guestfs_tar_in (g, ifile, "/");
-  if (ifile_delete_on_exit)
-    unlink (ifile);
-  if (r == -1)
+  if (guestfs_tar_in (g, ifile, "/") == -1)
     return -1;
+
+  /* Clean up subprocess. */
+  if (pid > 0) {
+    if (waitpid (pid, &status, 0) == -1) {
+      perror ("waitpid");
+      return -1;
+    }
+    if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
+      fprintf (stderr, _("%s: subprocess failed\n"), program_name);
+      return -1;
+    }
+  }
+  if (fd >= 0)
+    close (fd);
 
   if (verbose) {
     CLEANUP_FREE_STATVFS struct guestfs_statvfs *stats =
