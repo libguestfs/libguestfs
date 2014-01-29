@@ -61,6 +61,16 @@ force a particular format use the I<--format> option.
 Add a remote disk.  The URI format is compatible with guestfish.
 See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
+=item B<--autorelabel>
+
+=item B<--no-autorelabel>
+
+I<--autorelabel> forces SELinux relabelling next time the guest
+boots.  I<--no-autorelabel> disables relabelling.
+
+The default is to try to detect if SELinux relabelling is required.
+See L</SELINUX RELABELLING> below for more details.
+
 =item B<-c> URI
 
 =item B<--connect> URI
@@ -217,16 +227,6 @@ will do the same, plus mount C</var> with C<rw,nodiratime>.
 Don't print log messages.
 
 To enable detailed logging of individual file operations, use I<-x>.
-
-=item B<--selinux-relabel>
-
-=item B<--no-selinux-relabel>
-
-I<--selinux-relabel> forces SELinux relabelling next time the guest
-boots.  I<--no-selinux-relabel> disables relabelling.
-
-The default is to try to detect if SELinux relabelling is required.
-See L</SELINUX RELABELLING> below for more details.
 
 =item B<-v>
 
@@ -528,10 +528,10 @@ SELinux the next time the guest is booted.  This process interrupts
 boot and can take some time.
 
 You can force relabelling for all guests by supplying the
-I<--selinux-relabel> option.
+I<--autorelabel> option.
 
 You can disable relabelling entirely by supplying the
-I<--no-selinux-relabel> option.
+I<--no-autorelabel> option.
 
 =head1 WINDOWS 8
 
