@@ -492,7 +492,7 @@ build_supermin_appliance (guestfs_h *g,
   /* Open and acquire write lock on checksum file.  The file might
    * not exist, in which case we want to create it.
    */
-  int fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0755);
+  int fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0644);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
     guestfs___recursive_remove_dir (g, tmpcd);
