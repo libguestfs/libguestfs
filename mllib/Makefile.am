@@ -40,6 +40,8 @@ SOURCES = \
 	hostname.ml \
 	password.mli \
 	password.ml \
+	perl_edit.mli \
+	perl_edit.ml \
 	planner.mli \
 	planner.ml \
 	progress-c.c \
@@ -81,6 +83,7 @@ OBJECTS = \
 	hostname.cmx \
 	timezone.cmx \
 	firstboot.cmx \
+	perl_edit.cmx \
 	tTY.cmx \
 	fsync.cmx \
 	progress.cmx \
