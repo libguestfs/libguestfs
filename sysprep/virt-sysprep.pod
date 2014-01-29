@@ -509,6 +509,7 @@ This program returns 0 on success, or 1 if there was an error.
 
 L<guestfs(3)>,
 L<guestfish(1)>,
+L<virt-builder(1)>,
 L<virt-clone(1)>,
 L<virt-rescue(1)>,
 L<virt-resize(1)>,
