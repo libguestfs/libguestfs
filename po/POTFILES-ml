@@ -4,7 +4,6 @@ builder/downloader.ml
 builder/get_kernel.ml
 builder/index_parser.ml
 builder/list_entries.ml
-builder/perl_edit.ml
 builder/sigchecker.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
@@ -16,6 +15,7 @@ mllib/fsync.ml
 mllib/hostname.ml
 mllib/libdir.ml
 mllib/password.ml
+mllib/perl_edit.ml
 mllib/progress.ml
 mllib/random_seed.ml
 mllib/tTY.ml

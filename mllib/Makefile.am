@@ -40,6 +40,8 @@ SOURCES = \
 	hostname.ml \
 	password.mli \
 	password.ml \
+	perl_edit.mli \
+	perl_edit.ml \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
@@ -76,6 +78,7 @@ OBJECTS = \
 	random_seed.cmx \
 	hostname.cmx \
 	firstboot.cmx \
+	perl_edit.cmx \
 	tTY.cmx \
 	fsync.cmx \
 	progress.cmx \
