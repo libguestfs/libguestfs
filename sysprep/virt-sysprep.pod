@@ -495,9 +495,10 @@ the L</OPERATIONS> above and the guest afterwards.
 
 Sensitive files are simply removed.  The data they contained may still
 exist on the disk, easily recovered with a hex editor or undelete
-tool.  Use L<virt-sparsify(1)> as one way to remove this content.  See
-also the L<scrub(1)> command to get rid of deleted content in
-directory entries and inodes.
+tool.  The I<--scrub> option can be used to scrub files instead of
+just deleting them.  L<virt-sparsify(1)> is another way to remove this
+content.  See also the L<scrub(1)> command to get rid of deleted
+content in directory entries and inodes.
 
 =head2 RANDOM SEED
 
