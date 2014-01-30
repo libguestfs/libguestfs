@@ -51,6 +51,9 @@ SOURCES = \
 	pxzcat.ml \
 	pxzcat.mli \
 	pxzcat-c.c \
+	setlocale.ml \
+	setlocale.mli \
+	setlocale-c.c \
 	sigchecker.mli \
 	sigchecker.ml
 
@@ -83,6 +86,8 @@ OBJECTS = \
 	index-parser-c.o \
 	pxzcat-c.o \
 	pxzcat.cmx \
+	setlocale-c.o \
+	setlocale.cmx \
 	get_kernel.cmx \
 	downloader.cmx \
 	sigchecker.cmx \

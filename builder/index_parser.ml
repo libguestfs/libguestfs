@@ -91,11 +91,12 @@ let print_entry chan (name, { printable_name = printable_name;
   | None -> ()
   | Some lvexpand -> fp "lvexpand=%s\n" lvexpand
   );
-  (match notes with
-  | ("", notes) :: _ -> fp "notes=%s\n" notes
-  | _ :: _
-  | [] -> ()
-  );
+  List.iter (
+    fun (lang, notes) ->
+      match lang with
+      | "" -> fp "notes=%s\n" notes
+      | lang -> fp "notes[%s]=%s\n" lang notes
+  ) notes;
   if hidden then fp "hidden=true\n"
 
 (* Types returned by the C index parser. *)
