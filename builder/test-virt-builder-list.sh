@@ -119,49 +119,63 @@ if [ "$json_list" != "{
     \"os-version\": \"phony-debian\",
     \"full-name\": \"Phony Debian\",
     \"size\": 536870912,
-    \"notes\": \"Phony Debian look-alike used for testing.\",
+    \"notes\": {
+      \"C\": \"Phony Debian look-alike used for testing.\"
+    },
     \"hidden\": false
   },
   {
     \"os-version\": \"phony-fedora\",
     \"full-name\": \"Phony Fedora\",
     \"size\": 1073741824,
-    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"notes\": {
+      \"C\": \"Phony Fedora look-alike used for testing.\"
+    },
     \"hidden\": false
   },
   {
     \"os-version\": \"phony-fedora-qcow2\",
     \"full-name\": \"Phony Fedora qcow2\",
     \"size\": 1073741824,
-    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"notes\": {
+      \"C\": \"Phony Fedora look-alike used for testing.\"
+    },
     \"hidden\": false
   },
   {
     \"os-version\": \"phony-fedora-qcow2-uncompressed\",
     \"full-name\": \"Phony Fedora qcow2 uncompressed\",
     \"size\": 1073741824,
-    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"notes\": {
+      \"C\": \"Phony Fedora look-alike used for testing.\"
+    },
     \"hidden\": false
   },
   {
     \"os-version\": \"phony-fedora-no-format\",
     \"full-name\": \"Phony Fedora\",
     \"size\": 1073741824,
-    \"notes\": \"Phony Fedora look-alike used for testing.\",
+    \"notes\": {
+      \"C\": \"Phony Fedora look-alike used for testing.\"
+    },
     \"hidden\": false
   },
   {
     \"os-version\": \"phony-ubuntu\",
     \"full-name\": \"Phony Ubuntu\",
     \"size\": 536870912,
-    \"notes\": \"Phony Ubuntu look-alike used for testing.\",
+    \"notes\": {
+      \"C\": \"Phony Ubuntu look-alike used for testing.\"
+    },
     \"hidden\": false
   },
   {
     \"os-version\": \"phony-windows\",
     \"full-name\": \"Phony Windows\",
     \"size\": 536870912,
-    \"notes\": \"Phony Windows look-alike used for testing.\",
+    \"notes\": {
+      \"C\": \"Phony Windows look-alike used for testing.\"
+    },
     \"hidden\": false
   }
   ]

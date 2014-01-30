@@ -5,6 +5,7 @@ builder/index-scan.c
 builder/index-struct.c
 builder/index-validate.c
 builder/pxzcat-c.c
+builder/setlocale-c.c
 cat/cat.c
 cat/filesystems.c
 cat/ls.c

@@ -21,6 +21,24 @@ open Common_utils
 
 open Printf
 
+let split_locale loc =
+  let regex = Str.regexp "^\\([A-Za-z]+\\)\\(_\\([A-Za-z]+\\)\\)?\\(\\.\\([A-Za-z0-9-]+\\)\\)?\\(@\\([A-Za-z]+\\)\\)?$" in
+  let l = ref [] in
+  if Str.string_match regex loc 0 then (
+    let match_or_empty n =
+      try Str.matched_group n loc with
+      | Not_found -> ""
+    in
+    let lang = Str.matched_group 1 loc in
+    let territory = match_or_empty 3 in
+    (match territory with
+    | "" -> ()
+    | territory -> l := (lang ^ "_" ^ territory) :: !l);
+    l := lang :: !l;
+  );
+  l := "" :: !l;
+  List.rev !l
+
 let rec list_entries ~list_format ~sources index =
   match list_format with
   | `Short -> list_entries_short index
@@ -45,6 +63,10 @@ and list_entries_short index =
   ) index
 
 and list_entries_long ~sources index =
+  let langs = match Setlocale.setlocale Setlocale.LC_MESSAGES None with
+  | None -> [""]
+  | Some locale -> split_locale locale in
+
   List.iter (
     fun (source, fingerprint) ->
       printf (f_"Source URI: %s\n") source;
@@ -70,11 +92,23 @@ and list_entries_long ~sources index =
         | Some size ->
           printf "%-24s %s\n" (s_"Download size:") (human_size size);
         );
+        let notes = List.fold_left (
+          fun acc lang ->
+            let res = List.filter (
+              fun (langkey, _) ->
+                match langkey with
+                | "C" -> lang = ""
+                | langkey -> langkey = lang
+            ) notes in
+            match res with
+            | (_, noteskey) :: _ -> noteskey :: acc
+            | [] -> acc
+        ) [] langs in
+        let notes = List.rev notes in
         (match notes with
-        | ("", notes) :: _ ->
+        | notes :: _ ->
           printf "\n";
           printf (f_"Notes:\n\n%s\n") notes
-        | _ :: _
         | [] -> ()
         );
         printf "\n"
@@ -108,10 +142,20 @@ and list_entries_json ~sources index =
     | Some n ->
       printf "    \"%s\": \"%Ld\",\n" key n in
   let print_notes = function
-    | ("", notes) :: _ ->
-      printf "    \"notes\": \"%s\",\n" (json_string_escape notes)
-    | _ :: _
-    | _ -> () in
+    | [] -> ()
+    | notes ->
+      printf "    \"notes\": {\n";
+      iteri (
+        fun i (lang, langnotes) ->
+          let lang =
+            match lang with
+            | "" -> "C"
+            | x -> x in
+          printf "      \"%s\": \"%s\"%s\n"
+            (json_string_escape lang) (json_string_escape langnotes)
+            (trailing_comma i (List.length notes))
+      ) notes;
+      printf "    },\n" in
 
   printf "{\n";
   printf "  \"version\": %d,\n" 1;
