@@ -48,9 +48,6 @@ let rec list_entries ~list_format ~sources index =
 and list_entries_short index =
   List.iter (
     fun (name, { Index_parser.printable_name = printable_name;
-                 size = size;
-                 compressed_size = compressed_size;
-                 notes = notes;
                  hidden = hidden }) ->
       if not hidden then (
         printf "%-24s" name;
