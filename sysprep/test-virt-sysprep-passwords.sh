@@ -21,7 +21,7 @@ set -e
 
 # Test all the combinations of password options.
 
-if [ "$($guestfish get-backend)" = "uml" ]; then
+if [ "$(../fish/guestfish get-attach-method)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
