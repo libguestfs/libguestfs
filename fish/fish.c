@@ -634,7 +634,10 @@ shell_script (void)
 
 #define FISH "><fs> "
 
-static char *ps1 = NULL;
+static char *ps1 = NULL;        /* GUESTFISH_PS1 */
+static char *ps_output = NULL;  /* GUESTFISH_OUTPUT */
+static char *ps_restore = NULL; /* GUESTFISH_RESTORE */
+static char *ps_init = NULL;    /* GUESTFISH_INIT */
 static char *line_read = NULL;
 
 static char *
@@ -651,6 +654,11 @@ rl_gets (int prompt)
 
     p = prompt && ps1 ? decode_ps1 (ps1) : NULL;
     line_read = readline (prompt ? (ps1 ? p : FISH) : "");
+
+    if (ps_output) {            /* GUESTFISH_OUTPUT */
+      CLEANUP_FREE char *po = decode_ps1 (ps_output);
+      printf ("%s", po);
+    }
 
     if (line_read && *line_read)
       add_history_line (line_read);
@@ -683,6 +691,11 @@ script (int prompt)
   struct parsed_command pcmd;
 
   if (prompt) {
+    if (ps_init) {              /* GUESTFISH_INIT */
+      CLEANUP_FREE char *pi = decode_ps1 (ps_init);
+      printf ("%s", pi);
+    }
+
     printf (_("\n"
               "Welcome to guestfish, the guest filesystem shell for\n"
               "editing virtual machine filesystems and disk images.\n"
@@ -718,7 +731,14 @@ script (int prompt)
       }
     }
   }
-  if (prompt) printf ("\n");
+
+  if (prompt) {
+    printf ("\n");
+    if (ps_restore) {           /* GUESTFISH_RESTORE */
+      CLEANUP_FREE char *pr = decode_ps1 (ps_restore);
+      printf ("%s", pr);
+    }
+  }
 }
 
 /* Parse a command string, splitting at whitespace, handling '!', '#' etc.
@@ -1475,6 +1495,26 @@ initialize_readline (void)
     free (ps1);
     ps1 = strdup (str);
     if (!ps1) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+
+  str = getenv ("GUESTFISH_OUTPUT");
+  if (str) {
+    free (ps_output);
+    ps_output = strdup (str);
+    if (!ps_output) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+  }
+
+  str = getenv ("GUESTFISH_INIT");
+  if (str) {
+    free (ps_init);
+    ps_init = strdup (str);
+    if (!ps_init) {
       perror ("strdup");
       exit (EXIT_FAILURE);
     }
