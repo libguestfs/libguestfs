@@ -423,7 +423,7 @@ read the man page virt-resize(1).
 
   let is_extended_partition = function
     | MBR_ID (0x05|0x0f) -> true
-    | _ -> false
+    | MBR_ID _ | GPT_Type _ | No_ID -> false
   in
 
   let partitions : partition list =
@@ -510,8 +510,9 @@ read the man page virt-resize(1).
       fun name ->
         let typ = get_partition_content name in
         assert (
-          match typ with ContentPV _ | ContentExtendedPartition -> false
-          | _ -> true
+          match typ with
+          | ContentPV _ | ContentExtendedPartition -> false
+          | ContentUnknown | ContentFS _ -> true
         );
 
         { lv_name = name; lv_type = typ; lv_operation = LVOpNone }
@@ -1104,7 +1105,7 @@ read the man page virt-resize(1).
            let srcoffset = p.p_part.G.part_start in
            g#copy_device_to_device ~srcoffset ~size:copysize "/dev/sda" target
         )
-      | _ -> ()
+      | OpIgnore | OpDelete -> ()
   ) partitions;
 
   (* Set bootable and MBR IDs.  Do this *after* copying over the data,
@@ -1121,7 +1122,7 @@ read the man page virt-resize(1).
         g#part_set_gpt_type "/dev/sdb" p.p_target_partnum gpt_type
       | MBR, MBR_ID mbr_id ->
         g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
-      | _, _ -> ()
+      | GPT, (No_ID|MBR_ID _) | MBR, (No_ID|GPT_Type _) -> ()
   ) partitions;
 
   (* Fix the bootloader if we aligned the first partition. *)
@@ -1155,7 +1156,10 @@ read the man page virt-resize(1).
         ignore (g#pwrite_device target new_hidden 0x1c_L)
       )
 
-    | _ -> ()
+    | { p_type =
+        (ContentFS _|ContentUnknown|ContentPV _
+            |ContentExtendedPartition) } :: _
+    | [] -> ()
   );
 
   (* After copying the data over we must shut down and restart the
@@ -1170,13 +1174,13 @@ read the man page virt-resize(1).
       function
       | ({ p_operation = OpResize _ } as p) ->
         can_expand_content p.p_type
-      | _ -> false
+      | { p_operation = (OpCopy | OpIgnore | OpDelete) } -> false
     ) partitions
     || List.exists (
       function
       | ({ lv_operation = LVOpExpand } as lv) ->
         can_expand_content lv.lv_type
-      | _ -> false
+      | { lv_operation = LVOpNone } -> false
     ) lvs in
 
   let g =
@@ -1228,7 +1232,8 @@ read the man page virt-resize(1).
               (string_of_expand_content_method meth);
 
           do_expand_content target meth
-      | _ -> ()
+      | { p_operation = (OpCopy | OpIgnore | OpDelete | OpResize _) }
+        -> ()
     ) partitions;
 
     (* Expand logical volume content as required. *)
@@ -1249,7 +1254,7 @@ read the man page virt-resize(1).
 
           (* Then expand the content in the LV. *)
           do_expand_content name meth
-      | _ -> ()
+      | { lv_operation = (LVOpExpand | LVOpNone) } -> ()
     ) lvs
   );
 
