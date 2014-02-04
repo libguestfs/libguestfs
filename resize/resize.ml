@@ -49,6 +49,7 @@ type partition = {
   p_bootable : bool;             (* Is it bootable? *)
   p_id : partition_id;           (* Partition (MBR/GPT) ID. *)
   p_type : partition_content;    (* Content type and content size. *)
+  p_label : string option;       (* Label/name. *)
 
   (* What we're going to do: *)
   mutable p_operation : partition_operation;
@@ -84,7 +85,12 @@ let rec debug_partition p =
     | MBR_ID i -> sprintf "0x%x" i
     | GPT_Type i -> i
     );
-  eprintf "\tcontent: %s\n" (string_of_partition_content p.p_type)
+  eprintf "\tcontent: %s\n" (string_of_partition_content p.p_type);
+  eprintf "\tlabel: %s\n"
+    (match p.p_label with
+    | Some label -> label
+    | None -> "(none)"
+    )
 and string_of_partition_content = function
   | ContentUnknown -> "unknown data"
   | ContentPV sz -> sprintf "LVM PV (%Ld bytes)" sz
@@ -459,9 +465,13 @@ read the man page virt-resize(1).
           let typ =
             if is_extended_partition id then ContentExtendedPartition
             else get_partition_content name in
+          let label =
+            try Some (g#part_get_name "/dev/sda" part_num)
+            with G.Error _ -> None in
 
           { p_name = name; p_part = part;
             p_bootable = bootable; p_id = id; p_type = typ;
+            p_label = label;
             p_operation = OpCopy; p_target_partnum = 0;
             p_target_start = 0L; p_target_end = 0L }
       ) parts in
@@ -1040,6 +1050,7 @@ read the man page virt-resize(1).
             p_part = { G.part_num = 0l; part_start = 0L; part_end = 0L;
                        part_size = 0L };
             p_bootable = false; p_id = No_ID; p_type = ContentUnknown;
+            p_label = None;
 
             (* Target information is meaningful. *)
             p_operation = OpIgnore;
@@ -1116,6 +1127,12 @@ read the man page virt-resize(1).
     fun p ->
       if p.p_bootable then
         g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
+
+      (match p.p_label with
+      | Some label ->
+        g#part_set_name "/dev/sdb" p.p_target_partnum label;
+      | None -> ()
+      );
 
       match parttype, p.p_id with
       | GPT, GPT_Type gpt_type ->
