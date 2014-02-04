@@ -784,8 +784,9 @@ do_part_set_gpt_type(const char *device, int partnum, const char *guid)
   return 0;
 }
 
-char *
-do_part_get_gpt_type(const char *device, int partnum)
+static char *
+sgdisk_info_extract_field (const char *device, int partnum, const char *field,
+                           char *(*extract) (const char *path))
 {
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
@@ -814,6 +815,8 @@ do_part_get_gpt_type(const char *device, int partnum)
     return NULL;
   }
 
+  int fieldlen = strlen (field);
+
   /* Parse the output of sgdisk -i:
    * Partition GUID code: 21686148-6449-6E6F-744E-656564454649 (BIOS boot partition)
    * Partition unique GUID: 19AEC5FE-D63A-4A15-9D37-6FCBFB873DC0
@@ -832,28 +835,22 @@ do_part_get_gpt_type(const char *device, int partnum)
     /* Split the line in 2 at the colon */
     char *colon = strchr (line, ':');
     if (colon) {
-#define SEARCH "Partition GUID code"
-      if (colon - line == strlen(SEARCH) &&
-          memcmp (line, SEARCH, strlen(SEARCH)) == 0)
+      if (colon - line == fieldlen &&
+          memcmp (line, field, fieldlen) == 0)
       {
-#undef SEARCH
         /* The value starts after the colon */
         char *value = colon + 1;
 
         /* Skip any leading whitespace */
         value += strspn (value, " \t");
 
-        /* The value contains only valid GUID characters */
-        size_t value_len = strspn (value, "-0123456789ABCDEF");
-
-        char *ret = malloc (value_len + 1);
+        /* Extract the actual information from the field. */
+        char *ret = extract (value);
         if (ret == NULL) {
-          reply_with_perror ("malloc");
+          /* The extraction function already sends the error. */
           return NULL;
         }
 
-        memcpy (ret, value, value_len);
-        ret[value_len] = '\0';
         return ret;
       }
     } else {
@@ -866,8 +863,32 @@ do_part_get_gpt_type(const char *device, int partnum)
     }
   }
 
-  /* If we got here it means we didn't find the Partition GUID code */
-  reply_with_error ("sgdisk output did not contain Partition GUID code. "
-                    "See LIBGUESTFS_DEBUG output for more details");
+  /* If we got here it means we didn't find the field */
+  reply_with_error ("sgdisk output did not contain '%s'. "
+                    "See LIBGUESTFS_DEBUG output for more details", field);
   return NULL;
+}
+
+static char *
+extract_uuid (const char *value)
+{
+  /* The value contains only valid GUID characters */
+  size_t value_len = strspn (value, "-0123456789ABCDEF");
+
+  char *ret = malloc (value_len + 1);
+  if (ret == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  memcpy (ret, value, value_len);
+  ret[value_len] = '\0';
+  return ret;
+}
+
+char *
+do_part_get_gpt_type (const char *device, int partnum)
+{
+  return sgdisk_info_extract_field (device, partnum,
+                                    "Partition GUID code", extract_uuid);
 }
