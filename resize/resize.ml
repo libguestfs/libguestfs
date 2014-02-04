@@ -47,7 +47,7 @@ type partition = {
   p_name : string;               (* Device name, like /dev/sda1. *)
   p_part : G.partition;          (* SOURCE partition data from libguestfs. *)
   p_bootable : bool;             (* Is it bootable? *)
-  p_mbr_id : int option;         (* MBR ID, if it has one. *)
+  p_id : partition_id;           (* Partition (MBR/GPT) ID. *)
   p_type : partition_content;    (* Content type and content size. *)
 
   (* What we're going to do: *)
@@ -67,6 +67,10 @@ and partition_operation =
                                     copy any content) *)
   | OpDelete                     (* delete it *)
   | OpResize of int64            (* resize it to the new size *)
+and partition_id =
+  | No_ID                        (* No identifier. *)
+  | MBR_ID of int                (* MBR ID. *)
+  | GPT_Type of string           (* GPT UUID. *)
 
 let rec debug_partition p =
   eprintf "%s:\n" p.p_name;
@@ -75,7 +79,11 @@ let rec debug_partition p =
     p.p_part.G.part_size;
   eprintf "\tbootable: %b\n" p.p_bootable;
   eprintf "\tpartition ID: %s\n"
-    (match p.p_mbr_id with None -> "(none)" | Some i -> sprintf "0x%x" i);
+    (match p.p_id with
+    | No_ID -> "(none)"
+    | MBR_ID i -> sprintf "0x%x" i
+    | GPT_Type i -> i
+    );
   eprintf "\tcontent: %s\n" (string_of_partition_content p.p_type)
 and string_of_partition_content = function
   | ContentUnknown -> "unknown data"
@@ -414,7 +422,7 @@ read the man page virt-resize(1).
   in
 
   let is_extended_partition = function
-    | Some (0x05|0x0f) -> true
+    | MBR_ID (0x05|0x0f) -> true
     | _ -> false
   in
 
@@ -440,15 +448,20 @@ read the man page virt-resize(1).
           let part_num = Int32.to_int part_num in
           let name = sprintf "/dev/sda%d" part_num in
           let bootable = g#part_get_bootable "/dev/sda" part_num in
-          let mbr_id =
-            try Some (g#part_get_mbr_id "/dev/sda" part_num)
-            with G.Error _ -> None in
+          let id =
+            match parttype with
+            | GPT ->
+              (try GPT_Type (g#part_get_gpt_type "/dev/sda" part_num)
+              with G.Error _ -> No_ID)
+            | MBR ->
+              (try MBR_ID (g#part_get_mbr_id "/dev/sda" part_num)
+              with G.Error _ -> No_ID) in
           let typ =
-            if is_extended_partition mbr_id then ContentExtendedPartition
+            if is_extended_partition id then ContentExtendedPartition
             else get_partition_content name in
 
           { p_name = name; p_part = part;
-            p_bootable = bootable; p_mbr_id = mbr_id; p_type = typ;
+            p_bootable = bootable; p_id = id; p_type = typ;
             p_operation = OpCopy; p_target_partnum = 0;
             p_target_start = 0L; p_target_end = 0L }
       ) parts in
@@ -1025,7 +1038,7 @@ read the man page virt-resize(1).
             p_name = "";
             p_part = { G.part_num = 0l; part_start = 0L; part_end = 0L;
                        part_size = 0L };
-            p_bootable = false; p_mbr_id = None; p_type = ContentUnknown;
+            p_bootable = false; p_id = No_ID; p_type = ContentUnknown;
 
             (* Target information is meaningful. *)
             p_operation = OpIgnore;
@@ -1103,11 +1116,12 @@ read the man page virt-resize(1).
       if p.p_bootable then
         g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
 
-      (match p.p_mbr_id with
-      | None -> ()
-      | Some mbr_id ->
+      match parttype, p.p_id with
+      | GPT, GPT_Type gpt_type ->
+        g#part_set_gpt_type "/dev/sdb" p.p_target_partnum gpt_type
+      | MBR, MBR_ID mbr_id ->
         g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
-      );
+      | _, _ -> ()
   ) partitions;
 
   (* Fix the bootloader if we aligned the first partition. *)
