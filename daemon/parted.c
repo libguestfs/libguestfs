@@ -886,9 +886,42 @@ extract_uuid (const char *value)
   return ret;
 }
 
+static char *
+extract_optionally_quoted (const char *value)
+{
+  size_t value_len = strlen (value);
+
+  if (value_len >= 2 &&
+      ((value[0] == '\'' && value[value_len - 1] == '\'') ||
+       (value[0] == '"' && value[value_len - 1] == '"'))) {
+    value_len -= 2;
+    ++value;
+  }
+
+  char *ret = strndup (value, value_len);
+  if (ret == NULL) {
+    reply_with_perror ("strndup");
+    return NULL;
+  }
+
+  return ret;
+}
+
 char *
 do_part_get_gpt_type (const char *device, int partnum)
 {
   return sgdisk_info_extract_field (device, partnum,
                                     "Partition GUID code", extract_uuid);
+}
+
+char *
+do_part_get_name (const char *device, int partnum)
+{
+  char *parttype = do_part_get_parttype (device);
+  if (STREQ (parttype, "gpt"))
+    return sgdisk_info_extract_field (device, partnum,
+                                      "Partition name", extract_optionally_quoted);
+
+  reply_with_error ("cannot get the partition name from '%s' layouts", parttype);
+  return NULL;
 }

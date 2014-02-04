@@ -11766,6 +11766,19 @@ enables all the other flags, if they are not specified already.
 
 =back" };
 
+  { defaults with
+    name = "part_get_name";
+    style = RString "name", [Device "device"; Int "partnum"], [];
+    proc_nr = Some 416;
+    optional = Some "gdisk";
+    shortdesc = "get partition name";
+    longdesc = "\
+This gets the partition name on partition numbered C<partnum> on
+device C<device>.  Note that partitions are numbered from 1.
+
+The partition name can only be read on certain types of partition
+table.  This works on C<gpt> but not on C<mbr> partitions." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
