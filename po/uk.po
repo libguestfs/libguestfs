@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-01-28 22:02+0000\n"
+"POT-Creation-Date: 2014-02-04 08:48+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../builder/index_parser.ml:112
+#: ../builder/index_parser.ml:113
 msgid ""
 "\n"
 "The index file downloaded from '%s' is corrupt.\n"
@@ -70,7 +70,7 @@ msgstr ""
 "  Залишок місця буде проігноровано. Запустіть програму керування розділами "
 "гостьової системи, якщо бажаєте розподілити це залишок місця."
 
-#: ../sysprep/main.ml:265
+#: ../sysprep/main.ml:267
 msgid "%s (ignored)\n"
 msgstr "%s (проігноровано)\n"
 
@@ -363,7 +363,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information.\n"
 msgstr ""
 
-#: ../sysprep/main.ml:248
+#: ../sysprep/main.ml:250
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
 
@@ -420,7 +420,7 @@ msgstr ""
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: фізичний тому не повернуто pvs_full"
 
-#: ../sysprep/main.ml:172
+#: ../sysprep/main.ml:174
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -581,7 +581,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:201
+#: ../sysprep/main.ml:203
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr "%s: не можна передавати одночасно параметри -a і -d\n"
 
@@ -589,7 +589,7 @@ msgstr "%s: не можна передавати одночасно параме
 msgid "%s: you cannot pass an empty argument to --enable\n"
 msgstr "%s: параметру --enable не можна передавати порожніх аргументів\n"
 
-#: ../sysprep/main.ml:192
+#: ../sysprep/main.ml:194
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: вам слід передати параметр -a або -d\n"
 
@@ -777,11 +777,11 @@ msgstr ""
 msgid "Debug GC and memory allocations"
 msgstr "Діагностика GC та розподілу пам’яті"
 
-#: ../sysprep/main.ml:140
+#: ../sysprep/main.ml:142
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностика GC та розподілу пам’яті (внутрішня)"
 
-#: ../sysprep/sysprep_operation_delete.ml:51
+#: ../sysprep/sysprep_operation_delete.ml:58
 msgid "Delete (recursively) the specified C<PATHNAME> in the guest."
 msgstr ""
 
@@ -789,25 +789,13 @@ msgstr ""
 msgid "Delete a file or dir"
 msgstr ""
 
+#: ../sysprep/sysprep_operation_delete.ml:42
+msgid "Delete or scrub specified files or directories"
+msgstr ""
+
 #: ../resize/resize.ml:172
 msgid "Delete partition"
 msgstr "Вилучити розділ"
-
-#: ../sysprep/sysprep_operation_delete.ml:38
-msgid "Delete specified files or directories"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_delete.ml:39
-msgid ""
-"Delete specified files or directories.\n"
-"\n"
-"Use the I<--delete> option to specify a path to remove.\n"
-"\n"
-"You can use shell glob characters in the specified path; note that such\n"
-"metacharacters might require proper escape.  For example:\n"
-"\n"
-" virt-sysprep --delete '/var/log/*.log'."
-msgstr ""
 
 #: ../builder/cmdline.ml:249
 msgid "Delete the template cache"
@@ -835,7 +823,7 @@ msgstr ""
 
 #. ../resize/resize.ml:197
 #. ../builder/cmdline.ml:302
-#: ../sysprep/main.ml:162 ../sysprep/main.ml:161 ../sparsify/sparsify.ml:86
+#: ../sysprep/main.ml:164 ../sysprep/main.ml:163 ../sparsify/sparsify.ml:86
 msgid "Display version and exit"
 msgstr "Показати номер версії і вийти"
 
@@ -863,7 +851,7 @@ msgstr "Не розширювати область даних"
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
-#: ../sysprep/main.ml:156 ../sysprep/main.ml:155
+#: ../sysprep/main.ml:158 ../sysprep/main.ml:157
 msgid "Don't print log messages"
 msgstr "Не виводити повідомлень до журналу"
 
@@ -875,7 +863,7 @@ msgstr "Не виводити даних резюме"
 msgid "Download all templates to the cache"
 msgstr ""
 
-#: ../builder/list_entries.ml:71
+#: ../builder/list_entries.ml:90
 msgid "Download size:"
 msgstr ""
 
@@ -883,11 +871,11 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:146
+#: ../sysprep/main.ml:148
 msgid "Dump POD (internal)"
 msgstr "Створити дамп POD (вбудоване)"
 
-#: ../sysprep/main.ml:147
+#: ../sysprep/main.ml:149
 msgid "Dump POD for options (internal)"
 msgstr "Створити дамп POD для параметрів (вбудоване)"
 
@@ -906,19 +894,19 @@ msgstr ""
 #. ../resize/resize.ml:195
 #. ../resize/resize.ml:169
 #. ../builder/cmdline.ml:300
-#: ../sysprep/main.ml:160 ../sysprep/main.ml:159 ../sparsify/sparsify.ml:84
+#: ../sysprep/main.ml:162 ../sysprep/main.ml:161 ../sparsify/sparsify.ml:84
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../sysprep/main.ml:148
+#: ../sysprep/main.ml:150
 msgid "Enable specific operations"
 msgstr "Увімкнути виконання специфічних дій"
 
-#: ../sysprep/main.ml:163 ../sparsify/sparsify.ml:88
+#: ../sysprep/main.ml:165 ../sparsify/sparsify.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
-#: ../sysprep/main.ml:154 ../sysprep/main.ml:153
+#: ../sysprep/main.ml:156 ../sysprep/main.ml:155
 msgid "Enable/disable specific operations"
 msgstr ""
 
@@ -938,7 +926,7 @@ msgstr ""
 "Вивчення %s…\n"
 "%!"
 
-#: ../sysprep/main.ml:233
+#: ../sysprep/main.ml:235
 msgid ""
 "Examining the guest ...\n"
 "%!"
@@ -983,8 +971,12 @@ msgstr ""
 "\n"
 "Повідомлення про помилку: %s"
 
-#: ../sysprep/sysprep_operation_delete.ml:49
+#: ../sysprep/sysprep_operation_delete.ml:56
 msgid "File or directory to be removed on guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_delete.ml:62
+msgid "File to be scrubbed"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:330
@@ -1007,7 +999,7 @@ msgstr ""
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
-#: ../builder/list_entries.ml:51
+#: ../builder/list_entries.ml:70
 msgid "Fingerprint: %s\n"
 msgstr ""
 
@@ -1036,7 +1028,7 @@ msgstr ""
 "Для Fedora і Red Hat Enterprise Linux\n"
 "це вилучається з файлів C<ifcfg-*>."
 
-#: ../sysprep/main.ml:157
+#: ../sysprep/main.ml:138
 msgid "Force SELinux relabel"
 msgstr "Примусова зміна міток SELinux"
 
@@ -1066,7 +1058,7 @@ msgstr ""
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
-#: ../builder/list_entries.ml:65
+#: ../builder/list_entries.ml:84
 msgid "Full name:"
 msgstr ""
 
@@ -1117,11 +1109,11 @@ msgid "List available templates"
 msgstr ""
 
 #. ../builder/cmdline.ml:272
-#: ../sysprep/main.ml:151 ../sparsify/sparsify.ml:79 ../resize/resize.ml:178
+#: ../sysprep/main.ml:153 ../sparsify/sparsify.ml:79 ../resize/resize.ml:178
 msgid "List long options"
 msgstr "Показати список повних версій параметрів"
 
-#: ../sysprep/main.ml:150
+#: ../sysprep/main.ml:152
 msgid "List supported operations"
 msgstr "Показати список підтримуваних команд"
 
@@ -1133,7 +1125,7 @@ msgstr "Зробити машину виведення даних придатн
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:67
+#: ../builder/list_entries.ml:86
 msgid "Minimum/default size:"
 msgstr ""
 
@@ -1141,7 +1133,7 @@ msgstr ""
 msgid "Mount point on host"
 msgstr "Точка монтування у основній системі"
 
-#: ../sysprep/main.ml:158
+#: ../sysprep/main.ml:139
 msgid "Never do SELinux relabel"
 msgstr "Ніколи не виконувати зміни міток SELinux"
 
@@ -1169,7 +1161,7 @@ msgstr ""
 msgid "Notes on %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:76
+#: ../builder/list_entries.ml:108
 msgid ""
 "Notes:\n"
 "\n"
@@ -1222,7 +1214,7 @@ msgstr ""
 msgid "Output: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:145 ../sysprep/main.ml:144 ../sysprep/main.ml:143
+#: ../sysprep/main.ml:147 ../sysprep/main.ml:146 ../sysprep/main.ml:145
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
@@ -1238,7 +1230,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr "Режим з мінімальним виведенням даних"
 
-#: ../sysprep/main.ml:202 ../sysprep/main.ml:193
+#: ../sysprep/main.ml:204 ../sysprep/main.ml:195
 msgid "Read virt-sysprep(1) man page for further information.\n"
 msgstr ""
 "Ознайомтеся зі сторінкою підручника (man) virt-sysprep(1), щоб дізнатися "
@@ -1510,6 +1502,13 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
 
+#: ../sysprep/sysprep_operation_delete.ml:64
+msgid ""
+"Scrub (aggressively overwrite then remove) the specified\n"
+"file called C<PATHNAME> in the guest.  Only single files can\n"
+"be specified using this argument."
+msgstr ""
+
 #: ../builder/cmdline.ml:290
 msgid "Scrub a file"
 msgstr ""
@@ -1610,15 +1609,15 @@ msgstr ""
 msgid "Set curl binary/command"
 msgstr ""
 
-#: ../sysprep/main.ml:149
+#: ../sysprep/main.ml:151
 msgid "Set format (default: auto)"
 msgstr "Встановити формат (типовий формат: auto)"
 
-#: ../sysprep/main.ml:139 ../sysprep/main.ml:138
+#: ../sysprep/main.ml:141 ../sysprep/main.ml:140
 msgid "Set libvirt URI"
 msgstr "Встановити адресу libvirt"
 
-#: ../sysprep/main.ml:142 ../sysprep/main.ml:141
+#: ../sysprep/main.ml:144 ../sysprep/main.ml:143
 msgid "Set libvirt guest name"
 msgstr "Встановити назву гостьової системи libvirt"
 
@@ -1626,7 +1625,7 @@ msgstr "Встановити назву гостьової системи libvir
 msgid "Set memory size"
 msgstr ""
 
-#: ../sysprep/main.ml:152
+#: ../sysprep/main.ml:154
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
@@ -1760,7 +1759,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr "Зменшити розмір розділу"
 
-#: ../builder/list_entries.ml:50
+#: ../builder/list_entries.ml:69
 msgid "Source URI: %s\n"
 msgstr ""
 
@@ -1999,6 +1998,29 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
+#: ../sysprep/main.ml:159
+msgid "Use --autorelabel"
+msgstr ""
+
+#: ../sysprep/main.ml:160
+msgid "Use --no-autorelabel"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_delete.ml:43
+msgid ""
+"Use the I<--delete> option to specify a path to remove.\n"
+"\n"
+"You can use shell glob characters in the specified path; note that such\n"
+"metacharacters might require proper escape.  For example:\n"
+"\n"
+" virt-sysprep --delete '/var/log/*.log'\n"
+"\n"
+"An alternative option, I<--scrub>, can be used to scrub files.  This\n"
+"only works for files (not directories) and cannot use globs.\n"
+"\n"
+"You can use both options as many times as you want."
+msgstr ""
+
 #: ../builder/cmdline.ml:304
 msgid "Write file"
 msgstr ""
@@ -2082,7 +2104,7 @@ msgstr ""
 msgid "dir"
 msgstr "каталог"
 
-#: ../sysprep/main.ml:142 ../sysprep/main.ml:141
+#: ../sysprep/main.ml:144 ../sysprep/main.ml:143
 msgid "domain"
 msgstr "домен"
 
@@ -2110,7 +2132,7 @@ msgstr "роботу зовнішньої програми «%s» зупинен
 msgid "external command failed: %s"
 msgstr "помилка зовнішньої програми: %s"
 
-#: ../sysprep/main.ml:170
+#: ../sysprep/main.ml:172
 msgid "extra parameter on the command line"
 msgstr "зайвий параметр у командному рядку"
 
@@ -2124,7 +2146,7 @@ msgstr "firstboot: помилка: "
 
 #. ../resize/resize.ml:188
 #. ../resize/resize.ml:176
-#: ../sysprep/main.ml:149 ../sparsify/sparsify.ml:77
+#: ../sysprep/main.ml:151 ../sparsify/sparsify.ml:77
 #: ../sparsify/sparsify.ml:75
 msgid "format"
 msgstr "формат"
@@ -2158,7 +2180,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../sysprep/main.ml:148
+#: ../sysprep/main.ml:150
 msgid "operations"
 msgstr "дії"
 
@@ -2166,7 +2188,7 @@ msgstr "дії"
 msgid "option"
 msgstr "параметр"
 
-#: ../sysprep/main.ml:152
+#: ../sysprep/main.ml:154
 msgid "opts"
 msgstr ""
 
@@ -2187,7 +2209,8 @@ msgstr "частина"
 msgid "part=size"
 msgstr "частина=розмір"
 
-#: ../sysprep/sysprep_operation_delete.ml:49
+#. ../sysprep/sysprep_operation_delete.ml:56
+#: ../sysprep/sysprep_operation_delete.ml:62
 msgid "path"
 msgstr ""
 
@@ -2240,22 +2263,22 @@ msgstr ""
 msgid "set user password (see man page)"
 msgstr ""
 
-#: ../sysprep/main.ml:308
+#: ../sysprep/main.ml:310
 msgid "sysprep operation failed: %s\n"
 msgstr "помилка під час дії sysprep: %s\n"
 
-#: ../sysprep/main.ml:320
+#: ../sysprep/main.ml:322
 msgid "sysprep operation failed: exception: %s\n"
 msgstr "помилка під час дії sysprep: виключення: %s\n"
 
-#: ../sysprep/main.ml:317
+#: ../sysprep/main.ml:319
 msgid ""
 "sysprep operation failed: internal error: Not_found exception was thrown\n"
 msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: сталося виключення "
 "Not_found\n"
 
-#: ../sysprep/main.ml:314
+#: ../sysprep/main.ml:316
 msgid ""
 "sysprep operation failed: internal error: assertion failed at %s, line %d, "
 "char %d\n"
@@ -2263,7 +2286,7 @@ msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: помилка твердження у %s, "
 "рядок %d, символ %d\n"
 
-#: ../sysprep/main.ml:311
+#: ../sysprep/main.ml:313
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 "помилка під час дії sysprep: внутрішня помилка: некоректний аргумент: %s\n"
@@ -2280,7 +2303,7 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: слід вказати never|always|auto"
 
-#: ../sysprep/main.ml:139 ../sysprep/main.ml:138
+#: ../sysprep/main.ml:141 ../sysprep/main.ml:140
 msgid "uri"
 msgstr "адреса"
 
@@ -2288,23 +2311,23 @@ msgstr "адреса"
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr "спосіб використання: %s [--параметри] початковий_диск диск_результату"
 
-#: ../builder/index_parser.ml:215
+#: ../builder/index_parser.ml:216
 msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:240
+#: ../builder/index_parser.ml:241
 msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:194
+#: ../builder/index_parser.ml:195
 msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:206
+#: ../builder/index_parser.ml:207
 msgid "virt-builder: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:275
+#: ../builder/index_parser.ml:276
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
@@ -2330,7 +2353,7 @@ msgid ""
 " - Check no one has tampered with the website or your network!\n"
 msgstr ""
 
-#: ../builder/perl_edit.ml:73
+#: ../mllib/perl_edit.ml:73
 msgid "virt-builder: error: could not evaluate Perl expression '%s'\n"
 msgstr ""
 
@@ -2371,27 +2394,27 @@ msgstr ""
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:160
+#: ../builder/index_parser.ml:161
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:158
+#: ../builder/index_parser.ml:159
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s[%s]' appears two or more "
 "times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:142
+#: ../builder/index_parser.ml:143
 msgid ""
 "virt-builder: index is corrupt: os-version '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:179
+#: ../builder/index_parser.ml:180
 msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:203
+#: ../builder/index_parser.ml:204
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr ""
 
@@ -2399,12 +2422,12 @@ msgstr ""
 msgid "virt-builder: no kernel found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:280
+#: ../builder/index_parser.ml:281
 msgid ""
 "virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:271
+#: ../builder/index_parser.ml:272
 msgid "virt-builder: zero length path in the index file\n"
 msgstr ""
 
@@ -2564,7 +2587,7 @@ msgstr "guestfs_create: не вдалося створити елемент ке
 #: align/scan.c:153 builder/index-validate.c:75 cat/cat.c:137
 #: cat/filesystems.c:241 cat/ls.c:224 df/main.c:157 diff/diff.c:262
 #: edit/edit.c:156 fish/fish.c:292 format/format.c:183 fuse/guestmount.c:241
-#: fuse/guestunmount.c:124 inspector/inspector.c:151 make-fs/make-fs.c:139
+#: fuse/guestunmount.c:124 inspector/inspector.c:151 make-fs/make-fs.c:142
 #: rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
@@ -2668,7 +2691,7 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/cat.c:357 edit/edit.c:582 fish/fish.c:1724
+#: cat/cat.c:357 edit/edit.c:582 fish/fish.c:1764
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
@@ -5679,7 +5702,7 @@ msgstr "%s: зайві параметри у командному рядку з 
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --file\n"
 
-#: fish/fish.c:686
+#: fish/fish.c:699
 #, c-format
 msgid ""
 "\n"
@@ -5700,51 +5723,51 @@ msgstr ""
 "      «quit», щоб вийти з оболонки\n"
 "\n"
 
-#: fish/fish.c:837 fish/fish.c:853
+#: fish/fish.c:857 fish/fish.c:873
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:847
+#: fish/fish.c:867
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:877
+#: fish/fish.c:897
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:894
+#: fish/fish.c:914
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:969
+#: fish/fish.c:989
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:978
+#: fish/fish.c:998
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:1041
+#: fish/fish.c:1061
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: порожня команда або командний рядок\n"
 
-#: fish/fish.c:1199
+#: fish/fish.c:1219
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1201
+#: fish/fish.c:1221
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1212
+#: fish/fish.c:1232
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -5755,7 +5778,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1220
+#: fish/fish.c:1240
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -5764,13 +5787,13 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1225
+#: fish/fish.c:1245
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
 
-#: fish/fish.c:1241
+#: fish/fish.c:1261
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -5781,22 +5804,22 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1250
+#: fish/fish.c:1270
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1293
+#: fish/fish.c:1313
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr "%s: «%s»: некоректне булеве значення, має бути 'true' або 'false'\n"
 
-#: fish/fish.c:1401
+#: fish/fish.c:1421
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1718
+#: fish/fish.c:1758
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -5806,7 +5829,7 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1738
+#: fish/fish.c:1778
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -5816,7 +5839,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1757
+#: fish/fish.c:1797
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -6629,40 +6652,45 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: make-fs/make-fs.c:178
+#: make-fs/make-fs.c:181
 #, c-format
 msgid "%s: missing input and output arguments on the command line\n"
 msgstr ""
 
-#: make-fs/make-fs.c:196
+#: make-fs/make-fs.c:199
 #, c-format
 msgid "%s: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: make-fs/make-fs.c:222 make-fs/make-fs.c:279
+#: make-fs/make-fs.c:248 make-fs/make-fs.c:305
 #, c-format
 msgid "%s: %s command failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:417
+#: make-fs/make-fs.c:426
 #, c-format
 msgid "%s: cannot parse the output of 'du' command: %s\n"
 msgstr ""
 
-#: make-fs/make-fs.c:453
+#: make-fs/make-fs.c:462
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar achive\n"
 msgstr ""
 
-#: make-fs/make-fs.c:484
+#: make-fs/make-fs.c:493
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:613
+#: make-fs/make-fs.c:616
 #, c-format
 msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
+msgstr ""
+
+#: make-fs/make-fs.c:816
+#, c-format
+msgid "%s: subprocess failed\n"
 msgstr ""
 
 #: rescue/rescue.c:60

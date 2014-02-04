@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.25.31\n"
+"Project-Id-Version: libguestfs 1.25.32\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-01-28 22:09+0000\n"
+"POT-Creation-Date: 2014-02-04 08:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -298,41 +298,41 @@ msgid "Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:126 ../cat/virt-cat.pod:87 ../cat/virt-filesystems.pod:131 ../cat/virt-ls.pod:287 ../df/virt-df.pod:98 ../diff/virt-diff.pod:89 ../rescue/virt-rescue.pod:144 ../sysprep/virt-sysprep.pod:64
+#: ../align/virt-alignment-scan.pod:126 ../cat/virt-cat.pod:87 ../cat/virt-filesystems.pod:131 ../cat/virt-ls.pod:287 ../df/virt-df.pod:98 ../diff/virt-diff.pod:89 ../rescue/virt-rescue.pod:144 ../sysprep/virt-sysprep.pod:74
 msgid "B<-c> URI"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:128 ../cat/virt-cat.pod:89 ../cat/virt-filesystems.pod:133 ../cat/virt-ls.pod:289 ../df/virt-df.pod:100 ../diff/virt-diff.pod:91 ../rescue/virt-rescue.pod:146 ../sysprep/virt-sysprep.pod:66
+#: ../align/virt-alignment-scan.pod:128 ../cat/virt-cat.pod:89 ../cat/virt-filesystems.pod:133 ../cat/virt-ls.pod:289 ../df/virt-df.pod:100 ../diff/virt-diff.pod:91 ../rescue/virt-rescue.pod:146 ../sysprep/virt-sysprep.pod:76
 msgid "B<--connect> URI"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:130 ../cat/virt-cat.pod:91 ../cat/virt-filesystems.pod:135 ../cat/virt-ls.pod:291 ../df/virt-df.pod:102 ../diff/virt-diff.pod:93 ../edit/virt-edit.pod:105 ../inspector/virt-inspector.pod:77 ../rescue/virt-rescue.pod:148 ../sysprep/virt-sysprep.pod:68 ../tools/virt-list-filesystems:82 ../tools/virt-list-partitions:83 ../tools/virt-tar:130 ../tools/virt-win-reg:131
+#: ../align/virt-alignment-scan.pod:130 ../cat/virt-cat.pod:91 ../cat/virt-filesystems.pod:135 ../cat/virt-ls.pod:291 ../df/virt-df.pod:102 ../diff/virt-diff.pod:93 ../edit/virt-edit.pod:105 ../inspector/virt-inspector.pod:77 ../rescue/virt-rescue.pod:148 ../sysprep/virt-sysprep.pod:78 ../tools/virt-list-filesystems:82 ../tools/virt-list-partitions:83 ../tools/virt-tar:130 ../tools/virt-win-reg:131
 msgid ""
 "If using libvirt, connect to the given I<URI>.  If omitted, then we connect "
 "to the default libvirt hypervisor."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:133 ../cat/virt-cat.pod:94 ../cat/virt-filesystems.pod:138 ../cat/virt-ls.pod:294 ../df/virt-df.pod:105 ../diff/virt-diff.pod:96 ../rescue/virt-rescue.pod:151 ../sysprep/virt-sysprep.pod:71
+#: ../align/virt-alignment-scan.pod:133 ../cat/virt-cat.pod:94 ../cat/virt-filesystems.pod:138 ../cat/virt-ls.pod:294 ../df/virt-df.pod:105 ../diff/virt-diff.pod:96 ../rescue/virt-rescue.pod:151 ../sysprep/virt-sysprep.pod:81
 msgid ""
 "If you specify guest block devices directly (I<-a>), then libvirt is not "
 "used at all."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:136 ../cat/virt-cat.pod:97 ../cat/virt-filesystems.pod:147 ../cat/virt-ls.pod:303 ../df/virt-df.pod:114 ../diff/virt-diff.pod:117 ../edit/virt-edit.pod:111 ../inspector/virt-inspector.pod:84 ../rescue/virt-rescue.pod:154 ../sysprep/virt-sysprep.pod:74
+#: ../align/virt-alignment-scan.pod:136 ../cat/virt-cat.pod:97 ../cat/virt-filesystems.pod:147 ../cat/virt-ls.pod:303 ../df/virt-df.pod:114 ../diff/virt-diff.pod:117 ../edit/virt-edit.pod:111 ../inspector/virt-inspector.pod:84 ../rescue/virt-rescue.pod:154 ../sysprep/virt-sysprep.pod:84
 msgid "B<-d> guest"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:138 ../cat/virt-cat.pod:99 ../cat/virt-filesystems.pod:149 ../cat/virt-ls.pod:305 ../df/virt-df.pod:116 ../diff/virt-diff.pod:119 ../edit/virt-edit.pod:113 ../inspector/virt-inspector.pod:86 ../rescue/virt-rescue.pod:156 ../sysprep/virt-sysprep.pod:76
+#: ../align/virt-alignment-scan.pod:138 ../cat/virt-cat.pod:99 ../cat/virt-filesystems.pod:149 ../cat/virt-ls.pod:305 ../df/virt-df.pod:116 ../diff/virt-diff.pod:119 ../edit/virt-edit.pod:113 ../inspector/virt-inspector.pod:86 ../rescue/virt-rescue.pod:156 ../sysprep/virt-sysprep.pod:86
 msgid "B<--domain> guest"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:140 ../cat/virt-cat.pod:101 ../cat/virt-filesystems.pod:151 ../cat/virt-ls.pod:307 ../df/virt-df.pod:118 ../edit/virt-edit.pod:115 ../inspector/virt-inspector.pod:88 ../rescue/virt-rescue.pod:158 ../sysprep/virt-sysprep.pod:78
+#: ../align/virt-alignment-scan.pod:140 ../cat/virt-cat.pod:101 ../cat/virt-filesystems.pod:151 ../cat/virt-ls.pod:307 ../df/virt-df.pod:118 ../edit/virt-edit.pod:115 ../inspector/virt-inspector.pod:88 ../rescue/virt-rescue.pod:158 ../sysprep/virt-sysprep.pod:88
 msgid ""
 "Add all the disks from the named libvirt guest.  Domain UUIDs can be used "
 "instead of names."
@@ -358,7 +358,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:152 ../builder/virt-builder.pod:160 ../cat/virt-cat.pod:120 ../cat/virt-filesystems.pod:185 ../cat/virt-ls.pod:333 ../df/virt-df.pod:130 ../diff/virt-diff.pod:150 ../edit/virt-edit.pod:149 ../fish/guestfish.pod:245 ../fish/guestfish.pod:704 ../format/virt-format.pod:102 ../inspector/virt-inspector.pod:350 ../rescue/virt-rescue.pod:170 ../src/guestfs.pod:4213 ../sysprep/virt-sysprep.pod:160 ../sysprep/virt-sysprep.pod:203
+#: ../align/virt-alignment-scan.pod:152 ../builder/virt-builder.pod:160 ../cat/virt-cat.pod:120 ../cat/virt-filesystems.pod:185 ../cat/virt-ls.pod:333 ../df/virt-df.pod:130 ../diff/virt-diff.pod:150 ../edit/virt-edit.pod:149 ../fish/guestfish.pod:245 ../fish/guestfish.pod:704 ../format/virt-format.pod:102 ../inspector/virt-inspector.pod:350 ../rescue/virt-rescue.pod:170 ../src/guestfs.pod:4213 ../sysprep/virt-sysprep.pod:170 ../sysprep/virt-sysprep.pod:213
 msgid "For example:"
 msgstr ""
 
@@ -371,7 +371,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:156 ../cat/virt-cat.pod:124 ../cat/virt-filesystems.pod:189 ../cat/virt-ls.pod:337 ../df/virt-df.pod:134 ../diff/virt-diff.pod:154 ../edit/virt-edit.pod:153 ../fish/guestfish.pod:249 ../format/virt-format.pod:106 ../rescue/virt-rescue.pod:174 ../sysprep/virt-sysprep.pod:164
+#: ../align/virt-alignment-scan.pod:156 ../cat/virt-cat.pod:124 ../cat/virt-filesystems.pod:189 ../cat/virt-ls.pod:337 ../df/virt-df.pod:134 ../diff/virt-diff.pod:154 ../edit/virt-edit.pod:153 ../fish/guestfish.pod:249 ../format/virt-format.pod:106 ../rescue/virt-rescue.pod:174 ../sysprep/virt-sysprep.pod:174
 msgid "forces raw format (no auto-detection) for C<disk.img>."
 msgstr ""
 
@@ -384,14 +384,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:160 ../cat/virt-cat.pod:128 ../cat/virt-filesystems.pod:193 ../cat/virt-ls.pod:341 ../df/virt-df.pod:138 ../diff/virt-diff.pod:158 ../edit/virt-edit.pod:157 ../fish/guestfish.pod:253 ../format/virt-format.pod:110 ../rescue/virt-rescue.pod:178 ../sysprep/virt-sysprep.pod:168
+#: ../align/virt-alignment-scan.pod:160 ../cat/virt-cat.pod:128 ../cat/virt-filesystems.pod:193 ../cat/virt-ls.pod:341 ../df/virt-df.pod:138 ../diff/virt-diff.pod:158 ../edit/virt-edit.pod:157 ../fish/guestfish.pod:253 ../format/virt-format.pod:110 ../rescue/virt-rescue.pod:178 ../sysprep/virt-sysprep.pod:178
 msgid ""
 "forces raw format (no auto-detection) for C<disk.img> and reverts to "
 "auto-detection for C<another.img>."
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:163 ../cat/virt-cat.pod:131 ../cat/virt-filesystems.pod:196 ../cat/virt-ls.pod:344 ../df/virt-df.pod:141 ../diff/virt-diff.pod:161 ../edit/virt-edit.pod:160 ../format/virt-format.pod:113 ../rescue/virt-rescue.pod:181 ../sysprep/virt-sysprep.pod:171
+#: ../align/virt-alignment-scan.pod:163 ../cat/virt-cat.pod:131 ../cat/virt-filesystems.pod:196 ../cat/virt-ls.pod:344 ../df/virt-df.pod:141 ../diff/virt-diff.pod:161 ../edit/virt-edit.pod:160 ../format/virt-format.pod:113 ../rescue/virt-rescue.pod:181 ../sysprep/virt-sysprep.pod:181
 msgid ""
 "If you have untrusted raw-format guest disk images, you should use this "
 "option to specify the disk format.  This avoids a possible security problem "
@@ -421,12 +421,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:179 ../fuse/guestunmount.pod:85 ../resize/virt-resize.pod:509 ../sparsify/virt-sparsify.pod:220 ../sysprep/virt-sysprep.pod:213
+#: ../align/virt-alignment-scan.pod:179 ../fuse/guestunmount.pod:85 ../resize/virt-resize.pod:509 ../sparsify/virt-sparsify.pod:220 ../sysprep/virt-sysprep.pod:223
 msgid "B<-q>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:181 ../builder/virt-builder.pod:553 ../fuse/guestunmount.pod:87 ../resize/virt-resize.pod:511 ../sparsify/virt-sparsify.pod:222 ../sysprep/virt-sysprep.pod:215
+#: ../align/virt-alignment-scan.pod:181 ../builder/virt-builder.pod:553 ../fuse/guestunmount.pod:87 ../resize/virt-resize.pod:511 ../sparsify/virt-sparsify.pod:222 ../sysprep/virt-sysprep.pod:225
 msgid "B<--quiet>"
 msgstr ""
 
@@ -458,12 +458,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:195 ../builder/virt-builder.pod:677 ../cat/virt-cat.pod:140 ../cat/virt-filesystems.pod:267 ../cat/virt-ls.pod:421 ../daemon/guestfsd.pod:62 ../df/virt-df.pod:185 ../diff/virt-diff.pod:202 ../edit/virt-edit.pod:169 ../fish/guestfish.pod:421 ../format/virt-format.pod:155 ../fuse/guestmount.pod:354 ../inspector/virt-inspector.pod:118 ../make-fs/virt-make-fs.pod:211 ../rescue/virt-rescue.pod:240 ../resize/virt-resize.pod:579 ../sparsify/virt-sparsify.pod:226 ../sysprep/virt-sysprep.pod:231
+#: ../align/virt-alignment-scan.pod:195 ../builder/virt-builder.pod:677 ../cat/virt-cat.pod:140 ../cat/virt-filesystems.pod:267 ../cat/virt-ls.pod:421 ../daemon/guestfsd.pod:62 ../df/virt-df.pod:185 ../diff/virt-diff.pod:202 ../edit/virt-edit.pod:169 ../fish/guestfish.pod:421 ../format/virt-format.pod:155 ../fuse/guestmount.pod:354 ../inspector/virt-inspector.pod:118 ../make-fs/virt-make-fs.pod:199 ../rescue/virt-rescue.pod:240 ../resize/virt-resize.pod:579 ../sparsify/virt-sparsify.pod:226 ../sysprep/virt-sysprep.pod:231
 msgid "B<-v>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:197 ../builder/virt-builder.pod:679 ../cat/virt-cat.pod:142 ../cat/virt-filesystems.pod:269 ../cat/virt-ls.pod:423 ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../diff/virt-diff.pod:204 ../edit/virt-edit.pod:171 ../fish/guestfish.pod:423 ../format/virt-format.pod:157 ../fuse/guestmount.pod:356 ../inspector/virt-inspector.pod:120 ../make-fs/virt-make-fs.pod:213 ../rescue/virt-rescue.pod:242 ../resize/virt-resize.pod:581 ../sparsify/virt-sparsify.pod:228 ../sysprep/virt-sysprep.pod:233
+#: ../align/virt-alignment-scan.pod:197 ../builder/virt-builder.pod:679 ../cat/virt-cat.pod:142 ../cat/virt-filesystems.pod:269 ../cat/virt-ls.pod:423 ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../diff/virt-diff.pod:204 ../edit/virt-edit.pod:171 ../fish/guestfish.pod:423 ../format/virt-format.pod:157 ../fuse/guestmount.pod:356 ../inspector/virt-inspector.pod:120 ../make-fs/virt-make-fs.pod:201 ../rescue/virt-rescue.pod:242 ../resize/virt-resize.pod:581 ../sparsify/virt-sparsify.pod:228 ../sysprep/virt-sysprep.pod:233
 msgid "B<--verbose>"
 msgstr ""
 
@@ -473,22 +473,22 @@ msgid "Enable verbose messages for debugging."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:201 ../appliance/libguestfs-make-fixed-appliance.pod:107 ../builder/virt-builder.pod:686 ../builder/virt-index-validate.pod:68 ../cat/virt-cat.pod:146 ../cat/virt-filesystems.pod:273 ../cat/virt-ls.pod:427 ../df/virt-df.pod:191 ../diff/virt-diff.pod:208 ../edit/virt-edit.pod:175 ../fish/guestfish.pod:428 ../format/virt-format.pod:161 ../fuse/guestmount.pod:360 ../fuse/guestunmount.pod:107 ../inspector/virt-inspector.pod:124 ../make-fs/virt-make-fs.pod:217 ../rescue/virt-rescue.pod:246 ../resize/virt-resize.pod:585 ../sparsify/virt-sparsify.pod:232 ../sysprep/virt-sysprep.pod:237 ../test-tool/libguestfs-test-tool.pod:61
+#: ../align/virt-alignment-scan.pod:201 ../appliance/libguestfs-make-fixed-appliance.pod:107 ../builder/virt-builder.pod:686 ../builder/virt-index-validate.pod:68 ../cat/virt-cat.pod:146 ../cat/virt-filesystems.pod:273 ../cat/virt-ls.pod:427 ../df/virt-df.pod:191 ../diff/virt-diff.pod:208 ../edit/virt-edit.pod:175 ../fish/guestfish.pod:428 ../format/virt-format.pod:161 ../fuse/guestmount.pod:360 ../fuse/guestunmount.pod:107 ../inspector/virt-inspector.pod:124 ../make-fs/virt-make-fs.pod:205 ../rescue/virt-rescue.pod:246 ../resize/virt-resize.pod:585 ../sparsify/virt-sparsify.pod:232 ../sysprep/virt-sysprep.pod:237 ../test-tool/libguestfs-test-tool.pod:61
 msgid "B<-V>"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:203 ../appliance/libguestfs-make-fixed-appliance.pod:109 ../builder/virt-builder.pod:688 ../builder/virt-index-validate.pod:70 ../cat/virt-cat.pod:148 ../cat/virt-filesystems.pod:275 ../cat/virt-ls.pod:429 ../df/virt-df.pod:193 ../diff/virt-diff.pod:210 ../edit/virt-edit.pod:177 ../fish/guestfish.pod:430 ../format/virt-format.pod:163 ../fuse/guestmount.pod:362 ../fuse/guestunmount.pod:109 ../inspector/virt-inspector.pod:126 ../make-fs/virt-make-fs.pod:219 ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:587 ../sparsify/virt-sparsify.pod:234 ../sysprep/virt-sysprep.pod:239 ../test-tool/libguestfs-test-tool.pod:63 ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71 ../tools/virt-tar:118 ../tools/virt-win-reg:111
+#: ../align/virt-alignment-scan.pod:203 ../appliance/libguestfs-make-fixed-appliance.pod:109 ../builder/virt-builder.pod:688 ../builder/virt-index-validate.pod:70 ../cat/virt-cat.pod:148 ../cat/virt-filesystems.pod:275 ../cat/virt-ls.pod:429 ../df/virt-df.pod:193 ../diff/virt-diff.pod:210 ../edit/virt-edit.pod:177 ../fish/guestfish.pod:430 ../format/virt-format.pod:163 ../fuse/guestmount.pod:362 ../fuse/guestunmount.pod:109 ../inspector/virt-inspector.pod:126 ../make-fs/virt-make-fs.pod:207 ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:587 ../sparsify/virt-sparsify.pod:234 ../sysprep/virt-sysprep.pod:239 ../test-tool/libguestfs-test-tool.pod:63 ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71 ../tools/virt-tar:118 ../tools/virt-win-reg:111
 msgid "B<--version>"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:205 ../builder/virt-builder.pod:690 ../builder/virt-index-validate.pod:72 ../cat/virt-cat.pod:150 ../cat/virt-filesystems.pod:277 ../cat/virt-ls.pod:431 ../df/virt-df.pod:195 ../diff/virt-diff.pod:212 ../edit/virt-edit.pod:179 ../format/virt-format.pod:165 ../inspector/virt-inspector.pod:128 ../make-fs/virt-make-fs.pod:221 ../rescue/virt-rescue.pod:250 ../resize/virt-resize.pod:589 ../sparsify/virt-sparsify.pod:236 ../sysprep/virt-sysprep.pod:241 ../tools/virt-list-filesystems:72 ../tools/virt-list-partitions:73 ../tools/virt-tar:120 ../tools/virt-win-reg:113
+#: ../align/virt-alignment-scan.pod:205 ../builder/virt-builder.pod:690 ../builder/virt-index-validate.pod:72 ../cat/virt-cat.pod:150 ../cat/virt-filesystems.pod:277 ../cat/virt-ls.pod:431 ../df/virt-df.pod:195 ../diff/virt-diff.pod:212 ../edit/virt-edit.pod:179 ../format/virt-format.pod:165 ../inspector/virt-inspector.pod:128 ../make-fs/virt-make-fs.pod:209 ../rescue/virt-rescue.pod:250 ../resize/virt-resize.pod:589 ../sparsify/virt-sparsify.pod:236 ../sysprep/virt-sysprep.pod:241 ../tools/virt-list-filesystems:72 ../tools/virt-list-partitions:73 ../tools/virt-tar:120 ../tools/virt-win-reg:113
 msgid "Display version number and exit."
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:207 ../cat/virt-cat.pod:152 ../cat/virt-filesystems.pod:287 ../cat/virt-ls.pod:433 ../df/virt-df.pod:197 ../diff/virt-diff.pod:214 ../edit/virt-edit.pod:181 ../fish/guestfish.pod:443 ../format/virt-format.pod:177 ../fuse/guestmount.pod:375 ../inspector/virt-inspector.pod:130 ../make-fs/virt-make-fs.pod:223 ../rescue/virt-rescue.pod:261 ../sparsify/virt-sparsify.pod:238 ../sysprep/virt-sysprep.pod:243 ../tools/virt-tar:157
+#: ../align/virt-alignment-scan.pod:207 ../cat/virt-cat.pod:152 ../cat/virt-filesystems.pod:287 ../cat/virt-ls.pod:433 ../df/virt-df.pod:197 ../diff/virt-diff.pod:214 ../edit/virt-edit.pod:181 ../fish/guestfish.pod:443 ../format/virt-format.pod:177 ../fuse/guestmount.pod:375 ../inspector/virt-inspector.pod:130 ../make-fs/virt-make-fs.pod:211 ../rescue/virt-rescue.pod:261 ../sparsify/virt-sparsify.pod:238 ../sysprep/virt-sysprep.pod:243 ../tools/virt-tar:157
 msgid "B<-x>"
 msgstr ""
 
@@ -764,12 +764,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:352 ../cat/virt-cat.pod:237 ../cat/virt-filesystems.pod:383 ../cat/virt-ls.pod:479 ../df/virt-df.pod:253 ../edit/virt-edit.pod:350 ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:395 ../resize/virt-resize.pod:744 ../sysprep/virt-sysprep.pod:540 ../tools/virt-list-filesystems:183 ../tools/virt-list-partitions:265 ../tools/virt-tar:294 ../tools/virt-win-reg:779
+#: ../align/virt-alignment-scan.pod:352 ../cat/virt-cat.pod:237 ../cat/virt-filesystems.pod:383 ../cat/virt-ls.pod:479 ../df/virt-df.pod:253 ../edit/virt-edit.pod:350 ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:395 ../resize/virt-resize.pod:744 ../sysprep/virt-sysprep.pod:541 ../tools/virt-list-filesystems:183 ../tools/virt-list-partitions:265 ../tools/virt-tar:294 ../tools/virt-win-reg:779
 msgid "SHELL QUOTING"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:354 ../cat/virt-cat.pod:239 ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:481 ../df/virt-df.pod:255 ../edit/virt-edit.pod:352 ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:397 ../resize/virt-resize.pod:746 ../sysprep/virt-sysprep.pod:542 ../tools/virt-list-filesystems:185 ../tools/virt-list-partitions:267 ../tools/virt-tar:296 ../tools/virt-win-reg:787
+#: ../align/virt-alignment-scan.pod:354 ../cat/virt-cat.pod:239 ../cat/virt-filesystems.pod:385 ../cat/virt-ls.pod:481 ../df/virt-df.pod:255 ../edit/virt-edit.pod:352 ../inspector/virt-inspector.pod:368 ../rescue/virt-rescue.pod:397 ../resize/virt-resize.pod:746 ../sysprep/virt-sysprep.pod:543 ../tools/virt-list-filesystems:185 ../tools/virt-list-partitions:267 ../tools/virt-tar:296 ../tools/virt-win-reg:787
 msgid ""
 "Libvirt guest names can contain arbitrary characters, some of which have "
 "meaning to the shell such as C<#> and space.  You may need to quote or "
@@ -778,7 +778,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:359 ../appliance/libguestfs-make-fixed-appliance.pod:156 ../builder/virt-builder.pod:1821 ../builder/virt-index-validate.pod:76 ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:486 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:357 ../fish/guestfish.pod:1358 ../format/virt-format.pod:183 ../fuse/guestmount.pod:401 ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:751 ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:547 ../test-tool/libguestfs-test-tool.pod:173
+#: ../align/virt-alignment-scan.pod:359 ../appliance/libguestfs-make-fixed-appliance.pod:156 ../builder/virt-builder.pod:1821 ../builder/virt-index-validate.pod:76 ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:486 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:357 ../fish/guestfish.pod:1383 ../format/virt-format.pod:183 ../fuse/guestmount.pod:401 ../fuse/guestunmount.pod:126 ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:751 ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:548 ../test-tool/libguestfs-test-tool.pod:173
 msgid "EXIT STATUS"
 msgstr ""
 
@@ -788,7 +788,7 @@ msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:365 ../align/virt-alignment-scan.pod:371 ../align/virt-alignment-scan.pod:377 ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:24 ../appliance/libguestfs-make-fixed-appliance.pod:30 ../appliance/libguestfs-make-fixed-appliance.pod:36 ../appliance/libguestfs-make-fixed-appliance.pod:54 ../appliance/libguestfs-make-fixed-appliance.pod:75 ../builder/virt-builder.pod:597 ../builder/virt-builder.pod:601 ../builder/virt-builder.pod:966 ../builder/virt-builder.pod:973 ../builder/virt-builder.pod:977 ../builder/virt-builder.pod:981 ../builder/virt-builder.pod:986 ../builder/virt-builder.pod:990 ../builder/virt-builder.pod:994 ../builder/virt-builder.pod:998 ../builder/virt-builder.pod:1002 ../builder/virt-builder.pod:1006 ../builder/virt-builder.pod:1010 ../builder/virt-builder.pod:1014 ../builder/virt-builder.pod:1018 ../builder/virt-builder.pod:1022 ../builder/virt-builder.pod:1026 ../builder/virt-builder.pod:1030 ../builder/virt-builder.pod:1034 ../builder/virt-builder.pod:1043 ../builder/virt-builder.pod:1049 ../builder/virt-builder.pod:1461 ../builder/virt-builder.pod:1465 ../builder/virt-builder.pod:1721 ../builder/virt-builder.pod:1725 ../builder/virt-builder.pod:1729 ../builder/virt-index-validate.pod:34 ../builder/virt-index-validate.pod:39 ../builder/virt-index-validate.pod:53 ../builder/virt-index-validate.pod:58 ../cat/virt-cat.pod:183 ../cat/virt-cat.pod:188 ../cat/virt-cat.pod:193 ../cat/virt-cat.pod:204 ../cat/virt-cat.pod:208 ../edit/virt-edit.pod:274 ../edit/virt-edit.pod:279 ../edit/virt-edit.pod:284 ../edit/virt-edit.pod:295 ../edit/virt-edit.pod:299 ../examples/guestfs-faq.pod:209 ../examples/guestfs-faq.pod:215 ../examples/guestfs-faq.pod:254 ../examples/guestfs-faq.pod:260 ../examples/guestfs-faq.pod:814 ../examples/guestfs-faq.pod:818 ../examples/guestfs-faq.pod:822 ../examples/guestfs-faq.pod:826 ../examples/guestfs-faq.pod:834 ../examples/guestfs-faq.pod:839 ../examples/guestfs-performance.pod:107 ../examples/guestfs-performance.pod:113 ../examples/guestfs-performance.pod:118 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:258 ../examples/guestfs-performance.pod:263 ../examples/guestfs-performance.pod:382 ../examples/guestfs-performance.pod:386 ../examples/guestfs-performance.pod:392 ../examples/guestfs-performance.pod:398 ../examples/guestfs-recipes.pod:231 ../examples/guestfs-recipes.pod:235 ../examples/guestfs-recipes.pod:239 ../examples/guestfs-recipes.pod:265 ../examples/guestfs-recipes.pod:270 ../examples/guestfs-recipes.pod:377 ../examples/guestfs-recipes.pod:381 ../examples/guestfs-recipes.pod:385 ../examples/guestfs-recipes.pod:389 ../examples/guestfs-recipes.pod:393 ../examples/guestfs-testing.pod:69 ../examples/guestfs-testing.pod:76 ../examples/guestfs-testing.pod:87 ../examples/guestfs-testing.pod:96 ../examples/guestfs-testing.pod:205 ../examples/guestfs-testing.pod:209 ../examples/guestfs-testing.pod:213 ../fish/guestfish-actions.pod:684 ../fish/guestfish-actions.pod:690 ../fish/guestfish-actions.pod:698 ../fish/guestfish-actions.pod:705 ../fish/guestfish-actions.pod:712 ../fish/guestfish-actions.pod:1937 ../fish/guestfish-actions.pod:1941 ../fish/guestfish-actions.pod:1945 ../fish/guestfish-actions.pod:1949 ../fish/guestfish-actions.pod:1957 ../fish/guestfish-actions.pod:1961 ../fish/guestfish-actions.pod:1965 ../fish/guestfish-actions.pod:1975 ../fish/guestfish-actions.pod:1979 ../fish/guestfish-actions.pod:1983 ../fish/guestfish-actions.pod:2097 ../fish/guestfish-actions.pod:2101 ../fish/guestfish-actions.pod:2106 ../fish/guestfish-actions.pod:2148 ../fish/guestfish-actions.pod:2152 ../fish/guestfish-actions.pod:2157 ../fish/guestfish-actions.pod:2698 ../fish/guestfish-actions.pod:2705 ../fish/guestfish-actions.pod:2712 ../fish/guestfish-actions.pod:3294 ../fish/guestfish-actions.pod:3300 ../fish/guestfish-actions.pod:3308 ../fish/guestfish-actions.pod:3315 ../fish/guestfish-actions.pod:3322 ../fish/guestfish.pod:476 ../fish/guestfish.pod:480 ../fish/guestfish.pod:484 ../fish/guestfish.pod:488 ../fish/libguestfs-tools.conf.pod:20 ../fish/libguestfs-tools.conf.pod:24 ../fish/libguestfs-tools.conf.pod:28 ../golang/examples/guestfs-golang.pod:60 ../golang/examples/guestfs-golang.pod:64 ../guestfs-release-notes.pod:342 ../guestfs-release-notes.pod:346 ../guestfs-release-notes.pod:350 ../guestfs-release-notes.pod:354 ../guestfs-release-notes.pod:358 ../guestfs-release-notes.pod:362 ../guestfs-release-notes.pod:366 ../guestfs-release-notes.pod:371 ../guestfs-release-notes.pod:375 ../guestfs-release-notes.pod:700 ../guestfs-release-notes.pod:704 ../guestfs-release-notes.pod:708 ../guestfs-release-notes.pod:770 ../guestfs-release-notes.pod:774 ../guestfs-release-notes.pod:778 ../guestfs-release-notes.pod:782 ../guestfs-release-notes.pod:786 ../guestfs-release-notes.pod:790 ../guestfs-release-notes.pod:795 ../guestfs-release-notes.pod:799 ../guestfs-release-notes.pod:803 ../guestfs-release-notes.pod:807 ../guestfs-release-notes.pod:1003 ../guestfs-release-notes.pod:1008 ../guestfs-release-notes.pod:1013 ../inspector/virt-inspector.pod:514 ../inspector/virt-inspector.pod:518 ../resize/virt-resize.pod:373 ../resize/virt-resize.pod:377 ../resize/virt-resize.pod:386 ../resize/virt-resize.pod:392 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:53 ../sparsify/virt-sparsify.pod:57 ../sparsify/virt-sparsify.pod:63 ../sparsify/virt-sparsify.pod:68 ../sparsify/virt-sparsify.pod:73 ../sparsify/virt-sparsify.pod:131 ../sparsify/virt-sparsify.pod:135 ../sparsify/virt-sparsify.pod:139 ../sparsify/virt-sparsify.pod:144 ../src/guestfs-actions.pod:965 ../src/guestfs-actions.pod:971 ../src/guestfs-actions.pod:979 ../src/guestfs-actions.pod:986 ../src/guestfs-actions.pod:993 ../src/guestfs-actions.pod:3131 ../src/guestfs-actions.pod:3135 ../src/guestfs-actions.pod:3139 ../src/guestfs-actions.pod:3143 ../src/guestfs-actions.pod:3151 ../src/guestfs-actions.pod:3155 ../src/guestfs-actions.pod:3159 ../src/guestfs-actions.pod:3169 ../src/guestfs-actions.pod:3173 ../src/guestfs-actions.pod:3177 ../src/guestfs-actions.pod:3352 ../src/guestfs-actions.pod:3356 ../src/guestfs-actions.pod:3361 ../src/guestfs-actions.pod:3422 ../src/guestfs-actions.pod:3426 ../src/guestfs-actions.pod:3431 ../src/guestfs-actions.pod:4297 ../src/guestfs-actions.pod:4304 ../src/guestfs-actions.pod:4311 ../src/guestfs-actions.pod:5182 ../src/guestfs-actions.pod:5188 ../src/guestfs-actions.pod:5196 ../src/guestfs-actions.pod:5203 ../src/guestfs-actions.pod:5210 ../src/guestfs.pod:398 ../src/guestfs.pod:403 ../src/guestfs.pod:408 ../src/guestfs.pod:412 ../src/guestfs.pod:417 ../src/guestfs.pod:421 ../src/guestfs.pod:426 ../src/guestfs.pod:431 ../src/guestfs.pod:782 ../src/guestfs.pod:789 ../src/guestfs.pod:795 ../src/guestfs.pod:801 ../src/guestfs.pod:807 ../src/guestfs.pod:812 ../src/guestfs.pod:818 ../src/guestfs.pod:1046 ../src/guestfs.pod:1050 ../src/guestfs.pod:1056 ../src/guestfs.pod:1139 ../src/guestfs.pod:1144 ../src/guestfs.pod:1148 ../src/guestfs.pod:1154 ../src/guestfs.pod:1158 ../src/guestfs.pod:1162 ../src/guestfs.pod:1167 ../src/guestfs.pod:1712 ../src/guestfs.pod:1716 ../src/guestfs.pod:1720 ../src/guestfs.pod:1725 ../src/guestfs.pod:1733 ../src/guestfs.pod:1752 ../src/guestfs.pod:1760 ../src/guestfs.pod:1777 ../src/guestfs.pod:1782 ../src/guestfs.pod:1786 ../src/guestfs.pod:1975 ../src/guestfs.pod:1979 ../src/guestfs.pod:1983 ../src/guestfs.pod:1987 ../src/guestfs.pod:1991 ../src/guestfs.pod:1995 ../src/guestfs.pod:2651 ../src/guestfs.pod:2656 ../src/guestfs.pod:2660 ../src/guestfs.pod:2764 ../src/guestfs.pod:2769 ../src/guestfs.pod:2773 ../src/guestfs.pod:2783 ../src/guestfs.pod:3214 ../src/guestfs.pod:3219 ../src/guestfs.pod:3225 ../src/guestfs.pod:3233 ../src/guestfs.pod:3750 ../src/guestfs.pod:3756 ../src/guestfs.pod:3761 ../src/guestfs.pod:3767 ../src/guestfs.pod:4162 ../src/guestfs.pod:4166 ../src/guestfs.pod:4170 ../src/guestfs.pod:4174 ../src/guestfs.pod:4178 ../src/guestfs.pod:4182 ../src/guestfs.pod:4186 ../src/guestfs.pod:4433 ../src/guestfs.pod:4438 ../src/guestfs.pod:4442 ../src/guestfs.pod:4446 ../src/guestfs.pod:4450 ../src/guestfs.pod:4464 ../src/guestfs.pod:4468 ../src/guestfs.pod:4473 ../src/guestfs.pod:4477 ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:301 ../sysprep/virt-sysprep.pod:305 ../sysprep/virt-sysprep.pod:309 ../sysprep/virt-sysprep.pod:324 ../sysprep/virt-sysprep.pod:328 ../sysprep/virt-sysprep.pod:332 ../sysprep/virt-sysprep.pod:336 ../sysprep/virt-sysprep.pod:340 ../sysprep/virt-sysprep.pod:393 ../sysprep/virt-sysprep.pod:405 ../sysprep/virt-sysprep.pod:409 ../sysprep/virt-sysprep.pod:417 ../sysprep/virt-sysprep.pod:423 ../tools/virt-win-reg:196 ../tools/virt-win-reg:201 ../tools/virt-win-reg:207 ../tools/virt-win-reg:756 ../tools/virt-win-reg:762 ../tools/virt-win-reg:768
+#: ../align/virt-alignment-scan.pod:365 ../align/virt-alignment-scan.pod:371 ../align/virt-alignment-scan.pod:377 ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:24 ../appliance/libguestfs-make-fixed-appliance.pod:30 ../appliance/libguestfs-make-fixed-appliance.pod:36 ../appliance/libguestfs-make-fixed-appliance.pod:54 ../appliance/libguestfs-make-fixed-appliance.pod:75 ../builder/virt-builder.pod:597 ../builder/virt-builder.pod:601 ../builder/virt-builder.pod:966 ../builder/virt-builder.pod:973 ../builder/virt-builder.pod:977 ../builder/virt-builder.pod:981 ../builder/virt-builder.pod:986 ../builder/virt-builder.pod:990 ../builder/virt-builder.pod:994 ../builder/virt-builder.pod:998 ../builder/virt-builder.pod:1002 ../builder/virt-builder.pod:1006 ../builder/virt-builder.pod:1010 ../builder/virt-builder.pod:1014 ../builder/virt-builder.pod:1018 ../builder/virt-builder.pod:1022 ../builder/virt-builder.pod:1026 ../builder/virt-builder.pod:1030 ../builder/virt-builder.pod:1034 ../builder/virt-builder.pod:1043 ../builder/virt-builder.pod:1049 ../builder/virt-builder.pod:1461 ../builder/virt-builder.pod:1465 ../builder/virt-builder.pod:1721 ../builder/virt-builder.pod:1725 ../builder/virt-builder.pod:1729 ../builder/virt-index-validate.pod:34 ../builder/virt-index-validate.pod:39 ../builder/virt-index-validate.pod:53 ../builder/virt-index-validate.pod:58 ../cat/virt-cat.pod:183 ../cat/virt-cat.pod:188 ../cat/virt-cat.pod:193 ../cat/virt-cat.pod:204 ../cat/virt-cat.pod:208 ../edit/virt-edit.pod:274 ../edit/virt-edit.pod:279 ../edit/virt-edit.pod:284 ../edit/virt-edit.pod:295 ../edit/virt-edit.pod:299 ../examples/guestfs-faq.pod:209 ../examples/guestfs-faq.pod:215 ../examples/guestfs-faq.pod:254 ../examples/guestfs-faq.pod:260 ../examples/guestfs-faq.pod:814 ../examples/guestfs-faq.pod:818 ../examples/guestfs-faq.pod:822 ../examples/guestfs-faq.pod:826 ../examples/guestfs-faq.pod:834 ../examples/guestfs-faq.pod:839 ../examples/guestfs-performance.pod:107 ../examples/guestfs-performance.pod:113 ../examples/guestfs-performance.pod:118 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:258 ../examples/guestfs-performance.pod:263 ../examples/guestfs-performance.pod:382 ../examples/guestfs-performance.pod:386 ../examples/guestfs-performance.pod:392 ../examples/guestfs-performance.pod:398 ../examples/guestfs-recipes.pod:231 ../examples/guestfs-recipes.pod:235 ../examples/guestfs-recipes.pod:239 ../examples/guestfs-recipes.pod:265 ../examples/guestfs-recipes.pod:270 ../examples/guestfs-recipes.pod:377 ../examples/guestfs-recipes.pod:381 ../examples/guestfs-recipes.pod:385 ../examples/guestfs-recipes.pod:389 ../examples/guestfs-recipes.pod:393 ../examples/guestfs-testing.pod:69 ../examples/guestfs-testing.pod:76 ../examples/guestfs-testing.pod:87 ../examples/guestfs-testing.pod:96 ../examples/guestfs-testing.pod:205 ../examples/guestfs-testing.pod:209 ../examples/guestfs-testing.pod:213 ../fish/guestfish-actions.pod:684 ../fish/guestfish-actions.pod:690 ../fish/guestfish-actions.pod:698 ../fish/guestfish-actions.pod:705 ../fish/guestfish-actions.pod:712 ../fish/guestfish-actions.pod:1937 ../fish/guestfish-actions.pod:1941 ../fish/guestfish-actions.pod:1945 ../fish/guestfish-actions.pod:1949 ../fish/guestfish-actions.pod:1957 ../fish/guestfish-actions.pod:1961 ../fish/guestfish-actions.pod:1965 ../fish/guestfish-actions.pod:1975 ../fish/guestfish-actions.pod:1979 ../fish/guestfish-actions.pod:1983 ../fish/guestfish-actions.pod:2097 ../fish/guestfish-actions.pod:2101 ../fish/guestfish-actions.pod:2106 ../fish/guestfish-actions.pod:2148 ../fish/guestfish-actions.pod:2152 ../fish/guestfish-actions.pod:2157 ../fish/guestfish-actions.pod:2698 ../fish/guestfish-actions.pod:2705 ../fish/guestfish-actions.pod:2712 ../fish/guestfish-actions.pod:3294 ../fish/guestfish-actions.pod:3300 ../fish/guestfish-actions.pod:3308 ../fish/guestfish-actions.pod:3315 ../fish/guestfish-actions.pod:3322 ../fish/guestfish.pod:476 ../fish/guestfish.pod:480 ../fish/guestfish.pod:484 ../fish/guestfish.pod:488 ../fish/guestfish.pod:1333 ../fish/guestfish.pod:1339 ../fish/libguestfs-tools.conf.pod:20 ../fish/libguestfs-tools.conf.pod:24 ../fish/libguestfs-tools.conf.pod:28 ../golang/examples/guestfs-golang.pod:60 ../golang/examples/guestfs-golang.pod:64 ../guestfs-release-notes.pod:342 ../guestfs-release-notes.pod:346 ../guestfs-release-notes.pod:350 ../guestfs-release-notes.pod:354 ../guestfs-release-notes.pod:358 ../guestfs-release-notes.pod:362 ../guestfs-release-notes.pod:366 ../guestfs-release-notes.pod:371 ../guestfs-release-notes.pod:375 ../guestfs-release-notes.pod:700 ../guestfs-release-notes.pod:704 ../guestfs-release-notes.pod:708 ../guestfs-release-notes.pod:770 ../guestfs-release-notes.pod:774 ../guestfs-release-notes.pod:778 ../guestfs-release-notes.pod:782 ../guestfs-release-notes.pod:786 ../guestfs-release-notes.pod:790 ../guestfs-release-notes.pod:795 ../guestfs-release-notes.pod:799 ../guestfs-release-notes.pod:803 ../guestfs-release-notes.pod:807 ../guestfs-release-notes.pod:1003 ../guestfs-release-notes.pod:1008 ../guestfs-release-notes.pod:1013 ../inspector/virt-inspector.pod:514 ../inspector/virt-inspector.pod:518 ../resize/virt-resize.pod:373 ../resize/virt-resize.pod:377 ../resize/virt-resize.pod:386 ../resize/virt-resize.pod:392 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:53 ../sparsify/virt-sparsify.pod:57 ../sparsify/virt-sparsify.pod:63 ../sparsify/virt-sparsify.pod:68 ../sparsify/virt-sparsify.pod:73 ../sparsify/virt-sparsify.pod:131 ../sparsify/virt-sparsify.pod:135 ../sparsify/virt-sparsify.pod:139 ../sparsify/virt-sparsify.pod:144 ../src/guestfs-actions.pod:965 ../src/guestfs-actions.pod:971 ../src/guestfs-actions.pod:979 ../src/guestfs-actions.pod:986 ../src/guestfs-actions.pod:993 ../src/guestfs-actions.pod:3131 ../src/guestfs-actions.pod:3135 ../src/guestfs-actions.pod:3139 ../src/guestfs-actions.pod:3143 ../src/guestfs-actions.pod:3151 ../src/guestfs-actions.pod:3155 ../src/guestfs-actions.pod:3159 ../src/guestfs-actions.pod:3169 ../src/guestfs-actions.pod:3173 ../src/guestfs-actions.pod:3177 ../src/guestfs-actions.pod:3352 ../src/guestfs-actions.pod:3356 ../src/guestfs-actions.pod:3361 ../src/guestfs-actions.pod:3422 ../src/guestfs-actions.pod:3426 ../src/guestfs-actions.pod:3431 ../src/guestfs-actions.pod:4297 ../src/guestfs-actions.pod:4304 ../src/guestfs-actions.pod:4311 ../src/guestfs-actions.pod:5182 ../src/guestfs-actions.pod:5188 ../src/guestfs-actions.pod:5196 ../src/guestfs-actions.pod:5203 ../src/guestfs-actions.pod:5210 ../src/guestfs.pod:398 ../src/guestfs.pod:403 ../src/guestfs.pod:408 ../src/guestfs.pod:412 ../src/guestfs.pod:417 ../src/guestfs.pod:421 ../src/guestfs.pod:426 ../src/guestfs.pod:431 ../src/guestfs.pod:782 ../src/guestfs.pod:789 ../src/guestfs.pod:795 ../src/guestfs.pod:801 ../src/guestfs.pod:807 ../src/guestfs.pod:812 ../src/guestfs.pod:818 ../src/guestfs.pod:1046 ../src/guestfs.pod:1050 ../src/guestfs.pod:1056 ../src/guestfs.pod:1139 ../src/guestfs.pod:1144 ../src/guestfs.pod:1148 ../src/guestfs.pod:1154 ../src/guestfs.pod:1158 ../src/guestfs.pod:1162 ../src/guestfs.pod:1167 ../src/guestfs.pod:1712 ../src/guestfs.pod:1716 ../src/guestfs.pod:1720 ../src/guestfs.pod:1725 ../src/guestfs.pod:1733 ../src/guestfs.pod:1752 ../src/guestfs.pod:1760 ../src/guestfs.pod:1777 ../src/guestfs.pod:1782 ../src/guestfs.pod:1786 ../src/guestfs.pod:1975 ../src/guestfs.pod:1979 ../src/guestfs.pod:1983 ../src/guestfs.pod:1987 ../src/guestfs.pod:1991 ../src/guestfs.pod:1995 ../src/guestfs.pod:2651 ../src/guestfs.pod:2656 ../src/guestfs.pod:2660 ../src/guestfs.pod:2764 ../src/guestfs.pod:2769 ../src/guestfs.pod:2773 ../src/guestfs.pod:2783 ../src/guestfs.pod:3214 ../src/guestfs.pod:3219 ../src/guestfs.pod:3225 ../src/guestfs.pod:3233 ../src/guestfs.pod:3750 ../src/guestfs.pod:3756 ../src/guestfs.pod:3761 ../src/guestfs.pod:3767 ../src/guestfs.pod:4162 ../src/guestfs.pod:4166 ../src/guestfs.pod:4170 ../src/guestfs.pod:4174 ../src/guestfs.pod:4178 ../src/guestfs.pod:4182 ../src/guestfs.pod:4186 ../src/guestfs.pod:4433 ../src/guestfs.pod:4438 ../src/guestfs.pod:4442 ../src/guestfs.pod:4446 ../src/guestfs.pod:4450 ../src/guestfs.pod:4464 ../src/guestfs.pod:4468 ../src/guestfs.pod:4473 ../src/guestfs.pod:4477 ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:301 ../sysprep/virt-sysprep.pod:305 ../sysprep/virt-sysprep.pod:309 ../sysprep/virt-sysprep.pod:324 ../sysprep/virt-sysprep.pod:328 ../sysprep/virt-sysprep.pod:332 ../sysprep/virt-sysprep.pod:336 ../sysprep/virt-sysprep.pod:340 ../sysprep/virt-sysprep.pod:393 ../sysprep/virt-sysprep.pod:405 ../sysprep/virt-sysprep.pod:409 ../sysprep/virt-sysprep.pod:417 ../sysprep/virt-sysprep.pod:423 ../tools/virt-win-reg:196 ../tools/virt-win-reg:201 ../tools/virt-win-reg:207 ../tools/virt-win-reg:756 ../tools/virt-win-reg:762 ../tools/virt-win-reg:768
 msgid "*"
 msgstr ""
 
@@ -837,7 +837,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:393 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../builder/virt-builder.pod:1826 ../builder/virt-index-validate.pod:81 ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:491 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:265 ../diff/virt-diff.pod:253 ../edit/virt-edit.pod:362 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1186 ../examples/guestfs-performance.pod:567 ../examples/guestfs-recipes.pod:651 ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1563 ../fish/libguestfs-tools.conf.pod:57 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:187 ../fuse/guestmount.pod:406 ../fuse/guestunmount.pod:149 ../golang/examples/guestfs-golang.pod:78 ../guestfs-release-notes.pod:2634 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138 ../make-fs/virt-make-fs.pod:229 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:417 ../resize/virt-resize.pod:756 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4718 ../sysprep/virt-sysprep.pod:551 ../test-tool/libguestfs-test-tool.pod:183 ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272 ../tools/virt-tar:301 ../tools/virt-win-reg:792
+#: ../align/virt-alignment-scan.pod:393 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../builder/virt-builder.pod:1826 ../builder/virt-index-validate.pod:81 ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:491 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:265 ../diff/virt-diff.pod:253 ../edit/virt-edit.pod:362 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1186 ../examples/guestfs-performance.pod:567 ../examples/guestfs-recipes.pod:651 ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1600 ../fish/libguestfs-tools.conf.pod:57 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:187 ../fuse/guestmount.pod:406 ../fuse/guestunmount.pod:149 ../golang/examples/guestfs-golang.pod:78 ../guestfs-release-notes.pod:2634 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138 ../make-fs/virt-make-fs.pod:217 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:417 ../resize/virt-resize.pod:756 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4718 ../sysprep/virt-sysprep.pod:552 ../test-tool/libguestfs-test-tool.pod:183 ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272 ../tools/virt-tar:301 ../tools/virt-win-reg:792
 msgid "SEE ALSO"
 msgstr ""
 
@@ -849,17 +849,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1844 ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:258 ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:501 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273 ../diff/virt-diff.pod:263 ../edit/virt-edit.pod:373 ../format/virt-format.pod:197 ../guestfs-release-notes.pod:2645 ../make-fs/virt-make-fs.pod:243 ../rescue/virt-rescue.pod:427 ../resize/virt-resize.pod:779 ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems:202 ../tools/virt-list-partitions:283 ../tools/virt-tar:315 ../tools/virt-win-reg:806
+#: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1844 ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:258 ../cat/virt-filesystems.pod:406 ../cat/virt-ls.pod:501 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273 ../diff/virt-diff.pod:263 ../edit/virt-edit.pod:373 ../format/virt-format.pod:197 ../guestfs-release-notes.pod:2645 ../make-fs/virt-make-fs.pod:231 ../rescue/virt-rescue.pod:427 ../resize/virt-resize.pod:779 ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems:202 ../tools/virt-list-partitions:283 ../tools/virt-tar:315 ../tools/virt-win-reg:806
 msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1846 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:503 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275 ../diff/virt-diff.pod:265 ../edit/virt-edit.pod:375 ../format/virt-format.pod:199 ../inspector/virt-inspector.pod:516 ../make-fs/virt-make-fs.pod:245 ../rescue/virt-rescue.pod:429 ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:354 ../sysprep/virt-sysprep.pod:568 ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285 ../tools/virt-tar:317 ../tools/virt-win-reg:808
+#: ../align/virt-alignment-scan.pod:404 ../builder/virt-builder.pod:1846 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:408 ../cat/virt-ls.pod:503 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275 ../diff/virt-diff.pod:265 ../edit/virt-edit.pod:375 ../format/virt-format.pod:199 ../inspector/virt-inspector.pod:516 ../make-fs/virt-make-fs.pod:233 ../rescue/virt-rescue.pod:429 ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:354 ../sysprep/virt-sysprep.pod:570 ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285 ../tools/virt-tar:317 ../tools/virt-win-reg:808
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:406 ../appliance/libguestfs-make-fixed-appliance.pod:179 ../builder/virt-builder.pod:1848 ../builder/virt-index-validate.pod:90 ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:505 ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267 ../edit/virt-edit.pod:377 ../erlang/examples/guestfs-erlang.pod:116 ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1196 ../examples/guestfs-performance.pod:584 ../examples/guestfs-recipes.pod:670 ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1598 ../fish/libguestfs-tools.conf.pod:68 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:201 ../fuse/guestmount.pod:424 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97 ../guestfs-release-notes.pod:2649 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:100 ../lua/examples/guestfs-lua.pod:157 ../make-fs/virt-make-fs.pod:247 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59 ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:431 ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:54 ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4779 ../sysprep/virt-sysprep.pod:572 ../test-tool/libguestfs-test-tool.pod:193 ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287 ../tools/virt-tar:319 ../tools/virt-win-reg:810
+#: ../align/virt-alignment-scan.pod:406 ../appliance/libguestfs-make-fixed-appliance.pod:179 ../builder/virt-builder.pod:1848 ../builder/virt-index-validate.pod:90 ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:505 ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267 ../edit/virt-edit.pod:377 ../erlang/examples/guestfs-erlang.pod:116 ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1196 ../examples/guestfs-performance.pod:584 ../examples/guestfs-recipes.pod:670 ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1635 ../fish/libguestfs-tools.conf.pod:68 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:201 ../fuse/guestmount.pod:424 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97 ../guestfs-release-notes.pod:2649 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:100 ../lua/examples/guestfs-lua.pod:157 ../make-fs/virt-make-fs.pod:235 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59 ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:431 ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:54 ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4779 ../sysprep/virt-sysprep.pod:574 ../test-tool/libguestfs-test-tool.pod:193 ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287 ../tools/virt-tar:319 ../tools/virt-win-reg:810
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1143,7 +1143,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:161 ../builder/virt-builder.pod:1785 ../edit/virt-edit.pod:337 ../fish/guestfish.pod:1363 ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312 ../src/guestfs.pod:4610 ../test-tool/libguestfs-test-tool.pod:178
+#: ../appliance/libguestfs-make-fixed-appliance.pod:161 ../builder/virt-builder.pod:1785 ../edit/virt-edit.pod:337 ../fish/guestfish.pod:1388 ../fuse/guestunmount.pod:115 ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312 ../src/guestfs.pod:4610 ../test-tool/libguestfs-test-tool.pod:178
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
@@ -1162,17 +1162,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:175 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1192 ../examples/guestfs-performance.pod:580 ../examples/guestfs-recipes.pod:666 ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1594 ../fish/libguestfs-tools.conf.pod:64 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:420 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:96 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:67 ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4775 ../sysprep/virt-sysprep.pod:566 ../test-tool/libguestfs-test-tool.pod:189
+#: ../appliance/libguestfs-make-fixed-appliance.pod:175 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1192 ../examples/guestfs-performance.pod:580 ../examples/guestfs-recipes.pod:666 ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1631 ../fish/libguestfs-tools.conf.pod:64 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:420 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:96 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:67 ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4775 ../sysprep/virt-sysprep.pod:568 ../test-tool/libguestfs-test-tool.pod:189
 msgid "AUTHORS"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:177 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1194 ../examples/guestfs-performance.pod:582 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1596 ../fish/libguestfs-tools.conf.pod:66 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:422 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../java/examples/guestfs-java.pod:98 ../lua/examples/guestfs-lua.pod:155 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../ruby/examples/guestfs-ruby.pod:52 ../src/guestfs.pod:4777 ../test-tool/libguestfs-test-tool.pod:191
+#: ../appliance/libguestfs-make-fixed-appliance.pod:177 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1194 ../examples/guestfs-performance.pod:582 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1633 ../fish/libguestfs-tools.conf.pod:66 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:422 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../java/examples/guestfs-java.pod:98 ../lua/examples/guestfs-lua.pod:155 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../ruby/examples/guestfs-ruby.pod:52 ../src/guestfs.pod:4777 ../test-tool/libguestfs-test-tool.pod:191
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:507 ../daemon/guestfsd.pod:128 ../df/virt-df.pod:279 ../diff/virt-diff.pod:269 ../edit/virt-edit.pod:379 ../examples/guestfs-recipes.pod:672 ../fish/guestfish.pod:1600 ../fuse/guestmount.pod:426 ../guestfs-release-notes.pod:2651 ../rescue/virt-rescue.pod:433 ../src/guestfs.pod:4781 ../test-tool/libguestfs-test-tool.pod:195 ../tools/virt-list-partitions:289
+#: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:507 ../daemon/guestfsd.pod:128 ../df/virt-df.pod:279 ../diff/virt-diff.pod:269 ../edit/virt-edit.pod:379 ../examples/guestfs-recipes.pod:672 ../fish/guestfish.pod:1637 ../fuse/guestmount.pod:426 ../guestfs-release-notes.pod:2651 ../rescue/virt-rescue.pod:433 ../src/guestfs.pod:4781 ../test-tool/libguestfs-test-tool.pod:195 ../tools/virt-list-partitions:289
 msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr ""
 
@@ -2507,7 +2507,7 @@ msgid "It cannot delete directories, only regular files."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:607 ../sysprep/virt-sysprep.pod:221
+#: ../builder/virt-builder.pod:607
 msgid "B<--selinux-relabel>"
 msgstr ""
 
@@ -6922,7 +6922,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../daemon/guestfsd.pod:78 ../fish/guestfish.pod:1503 ../fuse/guestmount.pod:386 ../rescue/virt-rescue.pod:402
+#: ../daemon/guestfsd.pod:78 ../fish/guestfish.pod:1540 ../fuse/guestmount.pod:386 ../rescue/virt-rescue.pod:402
 msgid "FILES"
 msgstr ""
 
@@ -8364,7 +8364,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-examples.pod:77 ../make-fs/virt-make-fs.pod:249
+#: ../examples/guestfs-examples.pod:77 ../make-fs/virt-make-fs.pod:237
 msgid "Copyright (C) 2010-2014 Red Hat Inc."
 msgstr ""
 
@@ -32693,7 +32693,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:358 ../fuse/guestmount.pod:286 ../resize/virt-resize.pod:449 ../sysprep/virt-sysprep.pod:81
+#: ../fish/guestfish.pod:358 ../fuse/guestmount.pod:286 ../resize/virt-resize.pod:449 ../sysprep/virt-sysprep.pod:91
 msgid "B<-n>"
 msgstr ""
 
@@ -33195,7 +33195,7 @@ msgid "C<\\\\>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:606 ../fish/guestfish.pod:1281
+#: ../fish/guestfish.pod:606 ../fish/guestfish.pod:1288
 msgid "A literal backslash character."
 msgstr ""
 
@@ -34720,12 +34720,23 @@ msgstr ""
 #: ../fish/guestfish.pod:1263
 msgid ""
 "You can change or add colours to the default prompt (C<E<gt>E<lt>fsE<gt>>) "
-"by setting the C<GUESTFISH_PS1> environment variable.  A simple prompt can "
-"be set by setting this to an alternate string:"
+"by setting the C<GUESTFISH_PS1> environment variable.  A second string "
+"(C<GUESTFISH_OUTPUT>) is printed after the command has been entered and "
+"before the output, allowing you to control the colour of the output.  A "
+"third string (C<GUESTFISH_INIT>)  is printed before the welcome message, "
+"allowing you to control the colour of that message.  A fourth string "
+"(C<GUESTFISH_RESTORE>) is printed before guestfish exits."
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish.pod:1272
+msgid ""
+"A simple prompt can be set by setting C<GUESTFISH_PS1> to an alternate "
+"string:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1268
+#: ../fish/guestfish.pod:1275
 #, no-wrap
 msgid ""
 " $ GUESTFISH_PS1='(type a command) '\n"
@@ -34737,27 +34748,32 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1274
+#: ../fish/guestfish.pod:1281
 msgid "You can also use special escape sequences, as described in the table below:"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1279
+#: ../fish/guestfish.pod:1286
 msgid "\\\\"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1283
+#: ../fish/guestfish.pod:1290
 msgid "\\["
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1285
+#: ../fish/guestfish.pod:1292
 msgid "\\]"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1287
+#: ../fish/guestfish.pod:1294
+msgid "(These should only be used in C<GUESTFISH_PS1>.)"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish.pod:1296
 msgid ""
 "Place non-printing characters (eg. terminal control codes for colours)  "
 "between C<\\[...\\]>.  What this does it to tell the L<readline(3)> library "
@@ -34766,77 +34782,77 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1292
+#: ../fish/guestfish.pod:1301
 msgid "\\a"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1294
+#: ../fish/guestfish.pod:1303
 msgid "A bell character."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1296
+#: ../fish/guestfish.pod:1305
 msgid "\\e"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1298
+#: ../fish/guestfish.pod:1307
 msgid "An ASCII ESC (escape) character."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1300
+#: ../fish/guestfish.pod:1309
 msgid "\\n"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1302
+#: ../fish/guestfish.pod:1311
 msgid "A newline."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1304
+#: ../fish/guestfish.pod:1313
 msgid "\\r"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1306
+#: ../fish/guestfish.pod:1315
 msgid "A carriage return."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1308
+#: ../fish/guestfish.pod:1317
 msgid "\\NNN"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1310
+#: ../fish/guestfish.pod:1319
 msgid "The ASCII character whose code is the octal value NNN."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1312
+#: ../fish/guestfish.pod:1321
 msgid "\\xNN"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1314
+#: ../fish/guestfish.pod:1323
 msgid "The ASCII character whose code is the hex value NN."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1318
+#: ../fish/guestfish.pod:1327
 msgid "EXAMPLES OF PROMPTS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1320
+#: ../fish/guestfish.pod:1329
 msgid "Note these these require a terminal that supports ANSI escape codes."
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1322
+#: ../fish/guestfish.pod:1335
 #, no-wrap
 msgid ""
 " GUESTFISH_PS1='\\[\\e[1;30m\\]><fs>\\[\\e[0;30m\\] '\n"
@@ -34844,17 +34860,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1324
+#: ../fish/guestfish.pod:1337
 msgid "A bold black version of the ordinary prompt."
 msgstr ""
 
+#. type: verbatim
+#: ../fish/guestfish.pod:1341
+#, no-wrap
+msgid ""
+" GUESTFISH_PS1='\\[\\e[1;32m\\]><fs>\\[\\e[0;31m\\] '\n"
+" GUESTFISH_OUTPUT='\\e[0;30m'\n"
+" GUESTFISH_RESTORE=\"$GUESTFISH_OUTPUT\"\n"
+" GUESTFISH_INIT='\\e[1;34m'\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish.pod:1346
+msgid "Blue welcome text, green prompt, red commands, black command output."
+msgstr ""
+
 #. type: =head2
-#: ../fish/guestfish.pod:1326 ../resize/virt-resize.pod:700 ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:535 ../tools/virt-win-reg:620
+#: ../fish/guestfish.pod:1351 ../resize/virt-resize.pod:700 ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:536 ../tools/virt-win-reg:620
 msgid "WINDOWS 8"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1328
+#: ../fish/guestfish.pod:1353
 msgid ""
 "Windows 8 \"fast startup\" can prevent guestfish from mounting NTFS "
 "partitions.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
@@ -34862,24 +34894,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1332
+#: ../fish/guestfish.pod:1357
 msgid "GUESTFISH COMMANDS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1334
+#: ../fish/guestfish.pod:1359
 msgid ""
 "The commands in this section are guestfish convenience commands, in other "
 "words, they are not part of the L<guestfs(3)> API."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1337
+#: ../fish/guestfish.pod:1362
 msgid "help"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1339
+#: ../fish/guestfish.pod:1364
 #, no-wrap
 msgid ""
 " help\n"
@@ -34888,190 +34920,220 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1342
+#: ../fish/guestfish.pod:1367
 msgid "Without any parameter, this provides general help."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1344
+#: ../fish/guestfish.pod:1369
 msgid "With a C<cmd> parameter, this displays detailed help for that command."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1346
+#: ../fish/guestfish.pod:1371
 msgid "exit"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1348
+#: ../fish/guestfish.pod:1373
 msgid "quit"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1350
+#: ../fish/guestfish.pod:1375
 msgid "This exits guestfish.  You can also use C<^D> key."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1352
+#: ../fish/guestfish.pod:1377
 msgid "__FISH_COMMANDS__"
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1354
+#: ../fish/guestfish.pod:1379
 msgid "COMMANDS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1356 ../src/guestfs.pod:2472
+#: ../fish/guestfish.pod:1381 ../src/guestfs.pod:2472
 msgid "__ACTIONS__"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1360
+#: ../fish/guestfish.pod:1385
 msgid ""
 "guestfish returns 0 if the commands completed without error, or 1 if there "
 "was an error."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1367
+#: ../fish/guestfish.pod:1392
 msgid "EDITOR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1369
+#: ../fish/guestfish.pod:1394
 msgid ""
 "The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses "
 "C<vi>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1372 ../src/guestfs.pod:4614
+#: ../fish/guestfish.pod:1397 ../src/guestfs.pod:4614
 msgid "FEBOOTSTRAP_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1374 ../src/guestfs.pod:4616
+#: ../fish/guestfish.pod:1399 ../src/guestfs.pod:4616
 msgid "FEBOOTSTRAP_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1376 ../src/guestfs.pod:4618
+#: ../fish/guestfish.pod:1401 ../src/guestfs.pod:4618
 msgid ""
 "When using supermin E<ge> 4.1.0, these have been renamed L</SUPERMIN_KERNEL> "
 "and L</SUPERMIN_MODULES>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1379
+#: ../fish/guestfish.pod:1404
 msgid "GUESTFISH_DISPLAY_IMAGE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1381
+#: ../fish/guestfish.pod:1406
 msgid ""
 "The C<display> command uses C<$GUESTFISH_DISPLAY_IMAGE> to display images.  "
 "If not set, it uses L<display(1)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1384
+#: ../fish/guestfish.pod:1409
+msgid "GUESTFISH_INIT"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish.pod:1411
+msgid "Printed when guestfish starts.  See L</PROMPT>."
+msgstr ""
+
+#. type: =item
+#: ../fish/guestfish.pod:1413
+msgid "GUESTFISH_OUTPUT"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish.pod:1415
+msgid "Printed before guestfish output.  See L</PROMPT>."
+msgstr ""
+
+#. type: =item
+#: ../fish/guestfish.pod:1417
 msgid "GUESTFISH_PID"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1386
+#: ../fish/guestfish.pod:1419
 msgid ""
 "Used with the I<--remote> option to specify the remote guestfish process to "
 "control.  See section L</REMOTE CONTROL GUESTFISH OVER A SOCKET>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1390
+#: ../fish/guestfish.pod:1423
 msgid "GUESTFISH_PS1"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1392
+#: ../fish/guestfish.pod:1425
 msgid "Set the command prompt.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1394
+#: ../fish/guestfish.pod:1427
+msgid "GUESTFISH_RESTORE"
+msgstr ""
+
+#. type: textblock
+#: ../fish/guestfish.pod:1429
+msgid "Printed before guestfish exits.  See L</PROMPT>."
+msgstr ""
+
+#. type: =item
+#: ../fish/guestfish.pod:1431
 msgid "HEXEDITOR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1396
+#: ../fish/guestfish.pod:1433
 msgid ""
 "The L</hexedit> command uses C<$HEXEDITOR> as the external hex editor.  If "
 "not specified, the external L<hexedit(1)> program is used."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1400
+#: ../fish/guestfish.pod:1437
 msgid "HOME"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1402
+#: ../fish/guestfish.pod:1439
 msgid ""
 "If compiled with GNU readline support, various files in the home directory "
 "can be used.  See L</FILES>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1405 ../src/guestfs.pod:4621
+#: ../fish/guestfish.pod:1442 ../src/guestfs.pod:4621
 msgid "LIBGUESTFS_APPEND"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1407 ../src/guestfs.pod:4623
+#: ../fish/guestfish.pod:1444 ../src/guestfs.pod:4623
 msgid "Pass additional options to the guest kernel."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1409 ../src/guestfs.pod:4625
+#: ../fish/guestfish.pod:1446 ../src/guestfs.pod:4625
 msgid "LIBGUESTFS_ATTACH_METHOD"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1411 ../src/guestfs.pod:4627
+#: ../fish/guestfish.pod:1448 ../src/guestfs.pod:4627
 msgid "This is the old way to set C<LIBGUESTFS_BACKEND>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1413 ../src/guestfs.pod:4629
+#: ../fish/guestfish.pod:1450 ../src/guestfs.pod:4629
 msgid "LIBGUESTFS_BACKEND"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1415
+#: ../fish/guestfish.pod:1452
 msgid ""
 "Choose the default way to create the appliance.  See "
 "L<guestfs(3)/guestfs_set_backend>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1418 ../src/guestfs.pod:4634
+#: ../fish/guestfish.pod:1455 ../src/guestfs.pod:4634
 msgid "LIBGUESTFS_BACKEND_SETTINGS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1420
+#: ../fish/guestfish.pod:1457
 msgid ""
 "A colon-separated list of backend-specific settings.  See "
 "L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1423 ../src/guestfs.pod:4639
+#: ../fish/guestfish.pod:1460 ../src/guestfs.pod:4639
 msgid "LIBGUESTFS_CACHEDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1425 ../src/guestfs.pod:4641
+#: ../fish/guestfish.pod:1462 ../src/guestfs.pod:4641
 msgid ""
 "The location where libguestfs will cache its appliance, when using a "
 "supermin appliance.  The appliance is cached and shared between all handles "
@@ -35079,36 +35141,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1429 ../src/guestfs.pod:4645
+#: ../fish/guestfish.pod:1466 ../src/guestfs.pod:4645
 msgid ""
 "If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> "
 "is not set, then C</var/tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1432
+#: ../fish/guestfish.pod:1469
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1434 ../src/guestfs.pod:4650
+#: ../fish/guestfish.pod:1471 ../src/guestfs.pod:4650
 msgid "LIBGUESTFS_DEBUG"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1436
+#: ../fish/guestfish.pod:1473
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as using the B<-v> option."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1439 ../src/guestfs.pod:4655
+#: ../fish/guestfish.pod:1476 ../src/guestfs.pod:4655
 msgid "LIBGUESTFS_HV"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1441 ../src/guestfs.pod:4657
+#: ../fish/guestfish.pod:1478 ../src/guestfs.pod:4657
 msgid ""
 "Set the default hypervisor (usually qemu) binary that libguestfs uses.  If "
 "not set, then the qemu which was found at compile time by the configure "
@@ -35116,17 +35178,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1445 ../src/guestfs.pod:4663
+#: ../fish/guestfish.pod:1482 ../src/guestfs.pod:4663
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1447 ../src/guestfs.pod:4665
+#: ../fish/guestfish.pod:1484 ../src/guestfs.pod:4665
 msgid "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1450 ../src/guestfs.pod:4668
+#: ../fish/guestfish.pod:1487 ../src/guestfs.pod:4668
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -35134,80 +35196,80 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1452 ../src/guestfs.pod:4670
+#: ../fish/guestfish.pod:1489 ../src/guestfs.pod:4670
 msgid "LIBGUESTFS_PATH"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1454
+#: ../fish/guestfish.pod:1491
 msgid ""
 "Set the path that guestfish uses to search for kernel and initrd.img.  See "
 "the discussion of paths in L<guestfs(3)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1457 ../src/guestfs.pod:4675
+#: ../fish/guestfish.pod:1494 ../src/guestfs.pod:4675
 msgid "LIBGUESTFS_QEMU"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1459 ../src/guestfs.pod:4677
+#: ../fish/guestfish.pod:1496 ../src/guestfs.pod:4677
 msgid "This is the old way to set C<LIBGUESTFS_HV>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1461 ../src/guestfs.pod:4679
+#: ../fish/guestfish.pod:1498 ../src/guestfs.pod:4679
 msgid "LIBGUESTFS_TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1463 ../src/guestfs.pod:4681
+#: ../fish/guestfish.pod:1500 ../src/guestfs.pod:4681
 msgid ""
 "The location where libguestfs will store temporary files used by each "
 "handle."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1466 ../src/guestfs.pod:4684
+#: ../fish/guestfish.pod:1503 ../src/guestfs.pod:4684
 msgid ""
 "If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> is "
 "not set, then C</tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1469
+#: ../fish/guestfish.pod:1506
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1471 ../src/guestfs.pod:4689
+#: ../fish/guestfish.pod:1508 ../src/guestfs.pod:4689
 msgid "LIBGUESTFS_TRACE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1473
+#: ../fish/guestfish.pod:1510
 msgid "Set C<LIBGUESTFS_TRACE=1> to enable command traces."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1475
+#: ../fish/guestfish.pod:1512
 msgid "PAGER"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1477
+#: ../fish/guestfish.pod:1514
 msgid ""
 "The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
 "C<more>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1480 ../src/guestfs.pod:1333 ../src/guestfs.pod:4694
+#: ../fish/guestfish.pod:1517 ../src/guestfs.pod:1333 ../src/guestfs.pod:4694
 msgid "PATH"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1482
+#: ../fish/guestfish.pod:1519
 msgid ""
 "Libguestfs and guestfish may run some external programs, and rely on "
 "C<$PATH> being set to a reasonable value.  If using the libvirt backend, "
@@ -35215,17 +35277,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1487 ../src/guestfs.pod:4702
+#: ../fish/guestfish.pod:1524 ../src/guestfs.pod:4702
 msgid "SUPERMIN_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1489 ../src/guestfs.pod:4704
+#: ../fish/guestfish.pod:1526 ../src/guestfs.pod:4704
 msgid "SUPERMIN_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1491 ../src/guestfs.pod:4706
+#: ../fish/guestfish.pod:1528 ../src/guestfs.pod:4706
 msgid ""
 "These two environment variables allow the kernel that libguestfs uses in the "
 "appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the most "
@@ -35235,61 +35297,61 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1497 ../sparsify/virt-sparsify.pod:316 ../src/guestfs.pod:4712
+#: ../fish/guestfish.pod:1534 ../sparsify/virt-sparsify.pod:316 ../src/guestfs.pod:4712
 msgid "TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1499 ../src/guestfs.pod:4714
+#: ../fish/guestfish.pod:1536 ../src/guestfs.pod:4714
 msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1507 ../fuse/guestmount.pod:390 ../rescue/virt-rescue.pod:406
+#: ../fish/guestfish.pod:1544 ../fuse/guestmount.pod:390 ../rescue/virt-rescue.pod:406
 msgid "$HOME/.libguestfs-tools.rc"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1509 ../fuse/guestmount.pod:392 ../rescue/virt-rescue.pod:408
+#: ../fish/guestfish.pod:1546 ../fuse/guestmount.pod:392 ../rescue/virt-rescue.pod:408
 msgid "/etc/libguestfs-tools.conf"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1511 ../fuse/guestmount.pod:394 ../rescue/virt-rescue.pod:410
+#: ../fish/guestfish.pod:1548 ../fuse/guestmount.pod:394 ../rescue/virt-rescue.pod:410
 msgid ""
 "This configuration file controls the default read-only or read-write mode "
 "(I<--ro> or I<--rw>)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1514 ../fuse/guestmount.pod:397 ../rescue/virt-rescue.pod:413
+#: ../fish/guestfish.pod:1551 ../fuse/guestmount.pod:397 ../rescue/virt-rescue.pod:413
 msgid "See L<libguestfs-tools.conf(5)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1516
+#: ../fish/guestfish.pod:1553
 msgid "$HOME/.guestfish"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1518
+#: ../fish/guestfish.pod:1555
 msgid ""
 "If compiled with GNU readline support, then the command history is saved in "
 "this file."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1521
+#: ../fish/guestfish.pod:1558
 msgid "$HOME/.inputrc"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1523
+#: ../fish/guestfish.pod:1560
 msgid "/etc/inputrc"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1525
+#: ../fish/guestfish.pod:1562
 msgid ""
 "If compiled with GNU readline support, then these files can be used to "
 "configure readline.  For further information, please see "
@@ -35297,12 +35359,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1529
+#: ../fish/guestfish.pod:1566
 msgid "To write rules which only apply to guestfish, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1531
+#: ../fish/guestfish.pod:1568
 #, no-wrap
 msgid ""
 " $if guestfish\n"
@@ -35312,26 +35374,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1535
+#: ../fish/guestfish.pod:1572
 msgid ""
 "Variables that you can set in inputrc that change the behaviour of guestfish "
 "in useful ways include:"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1540
+#: ../fish/guestfish.pod:1577
 msgid "completion-ignore-case (default: on)"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1542
+#: ../fish/guestfish.pod:1579
 msgid ""
 "By default, guestfish will ignore case when tab-completing paths on the "
 "disk.  Use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1545
+#: ../fish/guestfish.pod:1582
 #, no-wrap
 msgid ""
 " set completion-ignore-case off\n"
@@ -35339,22 +35401,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1547
+#: ../fish/guestfish.pod:1584
 msgid "to make guestfish case sensitive."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1551
+#: ../fish/guestfish.pod:1588
 msgid "test1.img"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1553
+#: ../fish/guestfish.pod:1590
 msgid "test2.img (etc)"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1555
+#: ../fish/guestfish.pod:1592
 msgid ""
 "When using the I<-N> or I<--new> option, the prepared disk or filesystem "
 "will be created in the file C<test1.img> in the current directory.  The "
@@ -35364,7 +35426,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1565
+#: ../fish/guestfish.pod:1602
 msgid ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, "
 "L<virt-builder(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, "
@@ -35477,7 +35539,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:70 ../sysprep/virt-sysprep.pod:574
+#: ../fish/libguestfs-tools.conf.pod:70 ../sysprep/virt-sysprep.pod:576
 msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
@@ -44641,52 +44703,21 @@ msgstr ""
 
 #. type: textblock
 #: ../make-fs/virt-make-fs.pod:197
-msgid ""
-"Note that if you just use a lonesome I<--partition>, the option parser might "
-"consider the next parameter to be the partition type.  For example:"
-msgstr ""
-
-#. type: verbatim
-#: ../make-fs/virt-make-fs.pod:201
-#, no-wrap
-msgid ""
-" virt-make-fs --partition input.tar output.img\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../make-fs/virt-make-fs.pod:203
-msgid ""
-"would cause virt-make-fs to think you wanted to use a partition type of "
-"C<input.tar> which is completely wrong.  To avoid this, use I<--> (a double "
-"dash) between options and the input and output arguments:"
-msgstr ""
-
-#. type: verbatim
-#: ../make-fs/virt-make-fs.pod:207
-#, no-wrap
-msgid ""
-" virt-make-fs --partition -- input.tar output.img\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../make-fs/virt-make-fs.pod:209
 msgid "For MBR, virt-make-fs sets the partition type byte automatically."
 msgstr ""
 
 #. type: textblock
-#: ../make-fs/virt-make-fs.pod:215
+#: ../make-fs/virt-make-fs.pod:203
 msgid "Enable debugging information."
 msgstr ""
 
 #. type: textblock
-#: ../make-fs/virt-make-fs.pod:225
+#: ../make-fs/virt-make-fs.pod:213
 msgid "Enable libguestfs trace."
 msgstr ""
 
 #. type: textblock
-#: ../make-fs/virt-make-fs.pod:231
+#: ../make-fs/virt-make-fs.pod:219
 msgid ""
 "L<guestfish(1)>, L<virt-format(1)>, L<virt-resize(1)>, L<virt-tar-in(1)>, "
 "L<mkisofs(1)>, L<genisoimage(1)>, L<mksquashfs(1)>, L<mke2fs(8)>, "
@@ -72366,11 +72397,24 @@ msgstr ""
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:132
-msgid "B<--timezone> TIMEZONE (see C<timezone> below)"
+msgid "B<--scrub> PATHNAME (see C<delete> below)"
 msgstr ""
 
 #. type: textblock
 #: ../sysprep/sysprep-extra-options.pod:135
+msgid ""
+"Scrub (aggressively overwrite then remove) the specified file called "
+"C<PATHNAME> in the guest.  Only single files can be specified using this "
+"argument."
+msgstr ""
+
+#. type: =item
+#: ../sysprep/sysprep-extra-options.pod:139
+msgid "B<--timezone> TIMEZONE (see C<timezone> below)"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-extra-options.pod:142
 msgid "Change the timezone.  Use a location string such as C<Europe/London>"
 msgstr ""
 
@@ -72470,101 +72514,113 @@ msgid "B<delete> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:47 ../sysprep/sysprep-operations.pod:49
-msgid "Delete specified files or directories."
+#: ../sysprep/sysprep-operations.pod:47
+msgid "Delete or scrub specified files or directories."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:51
+#: ../sysprep/sysprep-operations.pod:49
 msgid "Use the I<--delete> option to specify a path to remove."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:53
+#: ../sysprep/sysprep-operations.pod:51
 msgid ""
 "You can use shell glob characters in the specified path; note that such "
 "metacharacters might require proper escape.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:56
+#: ../sysprep/sysprep-operations.pod:54
 #, no-wrap
 msgid ""
-" virt-sysprep --delete '/var/log/*.log'.\n"
+" virt-sysprep --delete '/var/log/*.log'\n"
 "\n"
 msgstr ""
 
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:56
+msgid ""
+"An alternative option, I<--scrub>, can be used to scrub files.  This only "
+"works for files (not directories) and cannot use globs."
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/sysprep-operations.pod:59
+msgid "You can use both options as many times as you want."
+msgstr ""
+
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:58
+#: ../sysprep/sysprep-operations.pod:61
 msgid "B<dhcp-client-state> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:61
+#: ../sysprep/sysprep-operations.pod:64
 msgid "Remove DHCP client leases."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:63
+#: ../sysprep/sysprep-operations.pod:66
 msgid "B<dhcp-server-state> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:66
+#: ../sysprep/sysprep-operations.pod:69
 msgid "Remove DHCP server leases."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:68
+#: ../sysprep/sysprep-operations.pod:71
 msgid "B<dovecot-data> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:71
+#: ../sysprep/sysprep-operations.pod:74
 msgid "Remove Dovecot (mail server) data."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:73
+#: ../sysprep/sysprep-operations.pod:76
 msgid "B<firewall-rules>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:75
+#: ../sysprep/sysprep-operations.pod:78
 msgid "Remove the firewall rules."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:77
+#: ../sysprep/sysprep-operations.pod:80
 msgid ""
 "This removes custom firewall rules by removing C</etc/sysconfig/iptables> or "
 "custom firewalld configuration in C</etc/firewalld/*/*>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:80
+#: ../sysprep/sysprep-operations.pod:83
 msgid ""
 "Note this is I<not> enabled by default since it may expose guests to "
 "exploits.  Use with care."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:83
+#: ../sysprep/sysprep-operations.pod:86
 msgid "B<firstboot> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:86
+#: ../sysprep/sysprep-operations.pod:89
 msgid "Add scripts to run once at next boot."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:88
+#: ../sysprep/sysprep-operations.pod:91
 msgid "Supply one of more shell scripts (using the I<--firstboot> option)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:90
+#: ../sysprep/sysprep-operations.pod:93
 msgid ""
 "These are run the first time the guest boots, and then are deleted.  So "
 "these are useful for performing last minute configuration that must run in "
@@ -72572,63 +72628,63 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:95
+#: ../sysprep/sysprep-operations.pod:98
 msgid ""
 "Output or errors from the scripts are written to "
 "C<~root/virt-sysprep-firstboot.log> (in the guest)."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:98
+#: ../sysprep/sysprep-operations.pod:101
 msgid "Notes on firstboot"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:100
+#: ../sysprep/sysprep-operations.pod:103
 msgid ""
 "Currently this is only implemented for Linux guests using either "
 "SysVinit-style scripts, Upstart or systemd."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:103
+#: ../sysprep/sysprep-operations.pod:106
 msgid "B<flag-reconfiguration>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:105
+#: ../sysprep/sysprep-operations.pod:108
 msgid "Flag the system for reconfiguration."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:107
+#: ../sysprep/sysprep-operations.pod:110
 msgid "Note that this may require user intervention when the guest is booted."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:110
+#: ../sysprep/sysprep-operations.pod:113
 msgid "B<fs-uuids>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:112
+#: ../sysprep/sysprep-operations.pod:115
 msgid "Change filesystem UUIDs."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:114
+#: ../sysprep/sysprep-operations.pod:117
 msgid ""
 "On guests and filesystem types where this is supported, new random UUIDs are "
 "generated and assigned to filesystems."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:117
+#: ../sysprep/sysprep-operations.pod:120
 msgid "Notes on fs-uuids"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:119
+#: ../sysprep/sysprep-operations.pod:122
 msgid ""
 "The fs-uuids operation is disabled by default because it does not yet find "
 "and update all the places in the guest that use the UUIDs.  For example "
@@ -72637,71 +72693,71 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:125
+#: ../sysprep/sysprep-operations.pod:128
 msgid "See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:127
+#: ../sysprep/sysprep-operations.pod:130
 msgid "B<hostname> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:130
+#: ../sysprep/sysprep-operations.pod:133
 msgid "Change the hostname of the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:132
+#: ../sysprep/sysprep-operations.pod:135
 msgid ""
 "This operation changes the hostname of the guest to the value given in the "
 "I<--hostname> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:135
+#: ../sysprep/sysprep-operations.pod:138
 msgid ""
 "If the I<--hostname> parameter is not given, then the hostname is changed to "
 "C<localhost.localdomain>."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:138
+#: ../sysprep/sysprep-operations.pod:141
 msgid "Notes on hostname"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:140
+#: ../sysprep/sysprep-operations.pod:143
 msgid "Currently this can only set the hostname on Linux guests."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:142
+#: ../sysprep/sysprep-operations.pod:145
 msgid "B<kerberos-data>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:144
+#: ../sysprep/sysprep-operations.pod:147
 msgid "Remove Kerberos data in the guest."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:146
+#: ../sysprep/sysprep-operations.pod:149
 msgid "B<logfiles> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:149
+#: ../sysprep/sysprep-operations.pod:152
 msgid "Remove many log files from the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:151
+#: ../sysprep/sysprep-operations.pod:154
 msgid "On Linux the following files are removed:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:153
+#: ../sysprep/sysprep-operations.pod:156
 #, no-wrap
 msgid ""
 " /etc/Pegasus/*.cnf\n"
@@ -72760,34 +72816,34 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:206
+#: ../sysprep/sysprep-operations.pod:209
 msgid "B<lvm-uuids> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:209
+#: ../sysprep/sysprep-operations.pod:212
 msgid "Change LVM2 PV and VG UUIDs."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:211
+#: ../sysprep/sysprep-operations.pod:214
 msgid ""
 "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
 "(VGs), new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:214
+#: ../sysprep/sysprep-operations.pod:217
 msgid "B<machine-id> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:217
+#: ../sysprep/sysprep-operations.pod:220
 msgid "Remove the local machine ID."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:219
+#: ../sysprep/sysprep-operations.pod:222
 msgid ""
 "The machine ID is usually generated from a random source during system "
 "installation and stays constant for all subsequent boots.  Optionally, for "
@@ -72796,225 +72852,225 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:224
+#: ../sysprep/sysprep-operations.pod:227
 msgid "B<mail-spool> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:227
+#: ../sysprep/sysprep-operations.pod:230
 msgid "Remove email from the local mail spool directory."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:229
+#: ../sysprep/sysprep-operations.pod:232
 msgid "B<net-hostname> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:232
+#: ../sysprep/sysprep-operations.pod:235
 msgid "Remove HOSTNAME in network interface configuration."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:234 ../sysprep/sysprep-operations.pod:242
+#: ../sysprep/sysprep-operations.pod:237 ../sysprep/sysprep-operations.pod:245
 msgid ""
 "For Fedora and Red Hat Enterprise Linux, this is removed from C<ifcfg-*> "
 "files."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:237
+#: ../sysprep/sysprep-operations.pod:240
 msgid "B<net-hwaddr> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:240
+#: ../sysprep/sysprep-operations.pod:243
 msgid "Remove HWADDR (hard-coded MAC address) configuration."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:245
+#: ../sysprep/sysprep-operations.pod:248
 msgid "B<pacct-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:248
+#: ../sysprep/sysprep-operations.pod:251
 msgid "Remove the process accounting log files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:250
+#: ../sysprep/sysprep-operations.pod:253
 msgid ""
 "The system wide process accounting will store to the pacct log files if the "
 "process accounting is on."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:253
+#: ../sysprep/sysprep-operations.pod:256
 msgid "B<package-manager-cache> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:256
+#: ../sysprep/sysprep-operations.pod:259
 msgid "Remove package manager cache."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:258
+#: ../sysprep/sysprep-operations.pod:261
 msgid "B<pam-data> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:261
+#: ../sysprep/sysprep-operations.pod:264
 msgid "Remove the PAM data in the guest."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:263
+#: ../sysprep/sysprep-operations.pod:266
 msgid "B<password> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:266
+#: ../sysprep/sysprep-operations.pod:269
 msgid "Set root or user password."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:268
+#: ../sysprep/sysprep-operations.pod:271
 msgid "Set root or another user's password."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:270
+#: ../sysprep/sysprep-operations.pod:273
 msgid ""
 "Use the I<--root-password> option to specify a replacement root password for "
 "the guest.  You can only use this option once."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:273
+#: ../sysprep/sysprep-operations.pod:276
 msgid ""
 "Use the I<--password> option to specify replacement user password(s).  You "
 "can use this option as many times as you want."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:276
+#: ../sysprep/sysprep-operations.pod:279
 msgid "Use I<--password-crypto> to change the password encryption used."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:278
+#: ../sysprep/sysprep-operations.pod:281
 msgid "See L</OPTIONS> above for details of these options."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:280
+#: ../sysprep/sysprep-operations.pod:283
 msgid ""
 "This operation is enabled by default, but it only does something if there is "
 "at least one I<--root-password> or I<--password> argument given."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:284
+#: ../sysprep/sysprep-operations.pod:287
 msgid "Notes on password"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:286
+#: ../sysprep/sysprep-operations.pod:289
 msgid ""
 "Currently this only works for glibc-based Linux guests that use shadow "
 "passwords."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:289
+#: ../sysprep/sysprep-operations.pod:292
 msgid "B<puppet-data-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:292
+#: ../sysprep/sysprep-operations.pod:295
 msgid "Remove the data and log files of puppet."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:294
+#: ../sysprep/sysprep-operations.pod:297
 msgid "B<random-seed> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:297
+#: ../sysprep/sysprep-operations.pod:300
 msgid "Generate random seed for guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:299
+#: ../sysprep/sysprep-operations.pod:302
 msgid ""
 "Write some random bytes from the host into the random seed file of the "
 "guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:302
+#: ../sysprep/sysprep-operations.pod:305
 msgid "See L</RANDOM SEED> below."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:304
+#: ../sysprep/sysprep-operations.pod:307
 msgid "B<rhn-systemid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:307
+#: ../sysprep/sysprep-operations.pod:310
 msgid "Remove the RHN system ID."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:309
+#: ../sysprep/sysprep-operations.pod:312
 msgid "B<rpm-db> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:312
+#: ../sysprep/sysprep-operations.pod:315
 msgid "Remove host-specific RPM database files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:314
+#: ../sysprep/sysprep-operations.pod:317
 msgid ""
 "Remove host-specific RPM database files and locks.  RPM will recreate these "
 "files automatically if needed."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:317
+#: ../sysprep/sysprep-operations.pod:320
 msgid "B<samba-db-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:320
+#: ../sysprep/sysprep-operations.pod:323
 msgid "Remove the database and log files of Samba."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:322
+#: ../sysprep/sysprep-operations.pod:325
 msgid "B<script> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:325
+#: ../sysprep/sysprep-operations.pod:328
 msgid "Run arbitrary scripts against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:327
+#: ../sysprep/sysprep-operations.pod:330
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:330
+#: ../sysprep/sysprep-operations.pod:333
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -73022,14 +73078,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:334
+#: ../sysprep/sysprep-operations.pod:337
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:337
+#: ../sysprep/sysprep-operations.pod:340
 msgid ""
 "The script or program is run with its current directory being the guest's "
 "root directory, so relative paths should be used.  For example: C<rm "
@@ -73039,14 +73095,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:343
+#: ../sysprep/sysprep-operations.pod:346
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:346
+#: ../sysprep/sysprep-operations.pod:349
 msgid ""
 "B<Note:> This is different from I<--firstboot> scripts (which run in the "
 "context of the guest when it is booting first time).  I<--script> scripts "
@@ -73054,41 +73110,41 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:350
+#: ../sysprep/sysprep-operations.pod:353
 msgid "B<smolt-uuid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:353
+#: ../sysprep/sysprep-operations.pod:356
 msgid "Remove the Smolt hardware UUID."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:355
+#: ../sysprep/sysprep-operations.pod:358
 msgid "B<ssh-hostkeys> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:358
+#: ../sysprep/sysprep-operations.pod:361
 msgid "Remove the SSH host keys in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:360
+#: ../sysprep/sysprep-operations.pod:363
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:363
+#: ../sysprep/sysprep-operations.pod:366
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:366
+#: ../sysprep/sysprep-operations.pod:369
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -73099,29 +73155,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:371
+#: ../sysprep/sysprep-operations.pod:374
 msgid "B<ssh-userdir> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:374
+#: ../sysprep/sysprep-operations.pod:377
 msgid "Remove \".ssh\" directories in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:376
+#: ../sysprep/sysprep-operations.pod:379
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other users who have a "
 "C<.ssh> directory in their home directory."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:379
+#: ../sysprep/sysprep-operations.pod:382
 msgid "Notes on ssh-userdir"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:381
+#: ../sysprep/sysprep-operations.pod:384
 msgid ""
 "Currently this only looks in C</root> and C</home/*> for home directories, "
 "so users with home directories in other locations won't have the ssh files "
@@ -73129,90 +73185,90 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:385
+#: ../sysprep/sysprep-operations.pod:388
 msgid "B<sssd-db-log> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:388
+#: ../sysprep/sysprep-operations.pod:391
 msgid "Remove the database and log files of sssd."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:390
+#: ../sysprep/sysprep-operations.pod:393
 msgid "B<timezone> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:393
+#: ../sysprep/sysprep-operations.pod:396
 msgid "Change the default timezone of the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:395
+#: ../sysprep/sysprep-operations.pod:398
 msgid ""
 "This operation changes the default timezone of the guest to the value given "
 "in the I<--timezone> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:398
+#: ../sysprep/sysprep-operations.pod:401
 msgid ""
 "If the I<--timezone> parameter is not given, then the timezone is not "
 "changed."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:401
+#: ../sysprep/sysprep-operations.pod:404
 msgid ""
 "This parameter affects the default timezone that users see when they log in, "
 "but they can still change their timezone per-user account."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:404
+#: ../sysprep/sysprep-operations.pod:407
 msgid "Notes on timezone"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:406
+#: ../sysprep/sysprep-operations.pod:409
 msgid "Currently this can only set the timezone on Linux guests."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:408
+#: ../sysprep/sysprep-operations.pod:411
 msgid "B<tmp-files> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:411
+#: ../sysprep/sysprep-operations.pod:414
 msgid "Remove temporary files."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:413
+#: ../sysprep/sysprep-operations.pod:416
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:415
+#: ../sysprep/sysprep-operations.pod:418
 msgid "B<udev-persistent-net> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:418
+#: ../sysprep/sysprep-operations.pod:421
 msgid "Remove udev persistent net rules."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:420
+#: ../sysprep/sysprep-operations.pod:423
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:423
+#: ../sysprep/sysprep-operations.pod:426
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -73221,46 +73277,46 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:428
+#: ../sysprep/sysprep-operations.pod:431
 msgid "B<user-account>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:430
+#: ../sysprep/sysprep-operations.pod:433
 msgid "Remove the user accounts in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:432
+#: ../sysprep/sysprep-operations.pod:435
 msgid ""
 "Remove all the user accounts and their home directories.  The \"root\" "
 "account is not removed."
 msgstr ""
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:435
+#: ../sysprep/sysprep-operations.pod:438
 msgid "Notes on user-account"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:437
+#: ../sysprep/sysprep-operations.pod:440
 msgid ""
 "Currently this does not remove the user accounts from C</etc/shadow>.  This "
 "is because there is no lens for the shadow password file in Augeas."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:441
+#: ../sysprep/sysprep-operations.pod:444
 msgid "B<utmp> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:444
+#: ../sysprep/sysprep-operations.pod:447
 msgid "Remove the utmp file."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:446
+#: ../sysprep/sysprep-operations.pod:449
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -73268,17 +73324,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:450
+#: ../sysprep/sysprep-operations.pod:453
 msgid "B<yum-uuid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:453
+#: ../sysprep/sysprep-operations.pod:456
 msgid "Remove the yum UUID."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:455
+#: ../sysprep/sysprep-operations.pod:458
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."
@@ -73361,31 +73417,55 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:83
+#: ../sysprep/virt-sysprep.pod:64
+msgid "B<--autorelabel>"
+msgstr ""
+
+#. type: =item
+#: ../sysprep/virt-sysprep.pod:66
+msgid "B<--no-autorelabel>"
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/virt-sysprep.pod:68
+msgid ""
+"I<--autorelabel> forces SELinux relabelling next time the guest boots.  "
+"I<--no-autorelabel> disables relabelling."
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/virt-sysprep.pod:71
+msgid ""
+"The default is to try to detect if SELinux relabelling is required.  See "
+"L</SELINUX RELABELLING> below for more details."
+msgstr ""
+
+#. type: =item
+#: ../sysprep/virt-sysprep.pod:93
 msgid "B<--dry-run>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:85
+#: ../sysprep/virt-sysprep.pod:95
 msgid ""
 "Perform a read-only \"dry run\" on the guest.  This runs the sysprep "
 "operation, but throws away any changes to the disk at the end."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:88
+#: ../sysprep/virt-sysprep.pod:98
 msgid "B<--enable> operations"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:90 ../sysprep/virt-sysprep.pod:114
+#: ../sysprep/virt-sysprep.pod:100 ../sysprep/virt-sysprep.pod:124
 msgid ""
 "Choose which sysprep operations to perform.  Give a comma-separated list of "
 "operations, for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:93
+#: ../sysprep/virt-sysprep.pod:103
 #, no-wrap
 msgid ""
 " --enable ssh-hostkeys,udev-persistent-net\n"
@@ -73393,48 +73473,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:95 ../sysprep/virt-sysprep.pod:119
+#: ../sysprep/virt-sysprep.pod:105 ../sysprep/virt-sysprep.pod:129
 msgid "would enable ONLY C<ssh-hostkeys> and C<udev-persistent-net> operations."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:97
+#: ../sysprep/virt-sysprep.pod:107
 msgid ""
 "If the I<--enable> option is not given, then we default to trying most "
 "sysprep operations (see I<--list-operations> to show which are enabled)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:101
+#: ../sysprep/virt-sysprep.pod:111
 msgid ""
 "Regardless of the I<--enable> option, sysprep operations are skipped for "
 "some guest types."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:104 ../sysprep/virt-sysprep.pod:145
+#: ../sysprep/virt-sysprep.pod:114 ../sysprep/virt-sysprep.pod:155
 msgid ""
 "Use I<--list-operations> to list operations supported by a particular "
 "version of virt-sysprep."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:107 ../sysprep/virt-sysprep.pod:148
+#: ../sysprep/virt-sysprep.pod:117 ../sysprep/virt-sysprep.pod:158
 msgid "See L</OPERATIONS> below for a list and an explanation of each operation."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:110
+#: ../sysprep/virt-sysprep.pod:120
 msgid "B<--operation> operations"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:112
+#: ../sysprep/virt-sysprep.pod:122
 msgid "B<--operations> operations"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:117
+#: ../sysprep/virt-sysprep.pod:127
 #, no-wrap
 msgid ""
 " --operations ssh-hostkeys,udev-persistent-net\n"
@@ -73442,7 +73522,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:121
+#: ../sysprep/virt-sysprep.pod:131
 msgid ""
 "I<--operations> allows you to enable and disable any operation, including "
 "the default ones (which would be tried when specifying neither "
@@ -73454,7 +73534,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:129
+#: ../sysprep/virt-sysprep.pod:139
 #, no-wrap
 msgid ""
 " --operations delete,defaults,-hostname\n"
@@ -73462,14 +73542,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:131
+#: ../sysprep/virt-sysprep.pod:141
 msgid ""
 "would enable the C<delete> operation (regardless whether it is enabled by "
 "default), all the default ones, and disable the C<hostname> operation."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:134
+#: ../sysprep/virt-sysprep.pod:144
 msgid ""
 "I<--operations> can be specified multiple times; the first time the set of "
 "enabled operations is empty, while any further I<--operations> affects the "
@@ -73477,31 +73557,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:138
+#: ../sysprep/virt-sysprep.pod:148
 msgid ""
 "If the I<--operations> option is not given, then we default to trying most "
 "sysprep operations (see I<--list-operations> to show which are enabled)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:142
+#: ../sysprep/virt-sysprep.pod:152
 msgid ""
 "Regardless of the I<--operations> option, sysprep operations are skipped for "
 "some guest types."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:151
+#: ../sysprep/virt-sysprep.pod:161
 msgid "B<--format> raw|qcow2|.."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:153
+#: ../sysprep/virt-sysprep.pod:163
 msgid "B<--format> auto"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:155
+#: ../sysprep/virt-sysprep.pod:165
 msgid ""
 "The default for the I<-a> option is to auto-detect the format of the disk "
 "image.  Using this forces the disk format for I<-a> options which follow on "
@@ -73510,7 +73590,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:162
+#: ../sysprep/virt-sysprep.pod:172
 #, no-wrap
 msgid ""
 " virt-sysprep --format raw -a disk.img\n"
@@ -73518,7 +73598,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:166
+#: ../sysprep/virt-sysprep.pod:176
 #, no-wrap
 msgid ""
 " virt-sysprep --format raw -a disk.img --format auto -a another.img\n"
@@ -73526,24 +73606,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:175
+#: ../sysprep/virt-sysprep.pod:185
 msgid "B<--list-operations>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:177
+#: ../sysprep/virt-sysprep.pod:187
 msgid "List the operations supported by the virt-sysprep program."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:179
+#: ../sysprep/virt-sysprep.pod:189
 msgid ""
 "These are listed one per line, with one or more single-space-separated "
 "fields, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:182
+#: ../sysprep/virt-sysprep.pod:192
 #, no-wrap
 msgid ""
 " $ virt-sysprep --list-operations\n"
@@ -73556,7 +73636,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:189
+#: ../sysprep/virt-sysprep.pod:199
 msgid ""
 "The first field is the operation name, which can be supplied to "
 "I<--enable>.  The second field is a C<*> character if the operation is "
@@ -73565,19 +73645,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:194
+#: ../sysprep/virt-sysprep.pod:204
 msgid ""
 "Before libguestfs 1.17.33 only the first (operation name) field was shown "
 "and all operations were enabled by default."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:197
+#: ../sysprep/virt-sysprep.pod:207
 msgid "B<--mount-options> mp:opts[;mp:opts;...]"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:199
+#: ../sysprep/virt-sysprep.pod:209
 msgid ""
 "Set the mount options for each mountpoint in the guest.  Use a "
 "semicolon-separated list of C<mountpoint:options> pairs.  You may need to "
@@ -73585,7 +73665,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:205
+#: ../sysprep/virt-sysprep.pod:215
 #, no-wrap
 msgid ""
 " --mount-options \"/:noatime\"\n"
@@ -73593,12 +73673,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:207
+#: ../sysprep/virt-sysprep.pod:217
 msgid "will mount the root directory with C<notime>.  This example:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:209
+#: ../sysprep/virt-sysprep.pod:219
 #, no-wrap
 msgid ""
 " --mount-options \"/:noatime;/var:rw,nodiratime\"\n"
@@ -73606,37 +73686,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:211
+#: ../sysprep/virt-sysprep.pod:221
 msgid "will do the same, plus mount C</var> with C<rw,nodiratime>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:217
+#: ../sysprep/virt-sysprep.pod:227
 msgid "Don't print log messages."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:219
+#: ../sysprep/virt-sysprep.pod:229
 msgid "To enable detailed logging of individual file operations, use I<-x>."
-msgstr ""
-
-#. type: =item
-#: ../sysprep/virt-sysprep.pod:223
-msgid "B<--no-selinux-relabel>"
-msgstr ""
-
-#. type: textblock
-#: ../sysprep/virt-sysprep.pod:225
-msgid ""
-"I<--selinux-relabel> forces SELinux relabelling next time the guest boots.  "
-"I<--no-selinux-relabel> disables relabelling."
-msgstr ""
-
-#. type: textblock
-#: ../sysprep/virt-sysprep.pod:228
-msgid ""
-"The default is to try to detect if SELinux relabelling is required.  See "
-"L</SELINUX RELABELLING> below for more details."
 msgstr ""
 
 #. type: textblock
@@ -74073,31 +74134,32 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:496
 msgid ""
 "Sensitive files are simply removed.  The data they contained may still exist "
-"on the disk, easily recovered with a hex editor or undelete tool.  Use "
-"L<virt-sparsify(1)> as one way to remove this content.  See also the "
+"on the disk, easily recovered with a hex editor or undelete tool.  The "
+"I<--scrub> option can be used to scrub files instead of just deleting them.  "
+"L<virt-sparsify(1)> is another way to remove this content.  See also the "
 "L<scrub(1)> command to get rid of deleted content in directory entries and "
 "inodes."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/virt-sysprep.pod:502
+#: ../sysprep/virt-sysprep.pod:503
 msgid "RANDOM SEED"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:504
+#: ../sysprep/virt-sysprep.pod:505
 msgid "I<(This section applies to Linux guests only)>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:506
+#: ../sysprep/virt-sysprep.pod:507
 msgid ""
 "The virt-sysprep C<random-seed> operation writes a few bytes of randomness "
 "from the host into the guest's random seed file."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:509
+#: ../sysprep/virt-sysprep.pod:510
 msgid ""
 "If this is just done once and the guest is cloned from the same template, "
 "then each guest will start with the same entropy, and things like SSH host "
@@ -74105,7 +74167,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:513
+#: ../sysprep/virt-sysprep.pod:514
 msgid ""
 "Therefore you should arrange to add more randomness I<after> cloning from a "
 "template too, which can be done by just enabling the C<random-seed> "
@@ -74113,7 +74175,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:517
+#: ../sysprep/virt-sysprep.pod:518
 #, no-wrap
 msgid ""
 " cp template.img newguest.img\n"
@@ -74122,17 +74184,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/virt-sysprep.pod:520
+#: ../sysprep/virt-sysprep.pod:521
 msgid "SELINUX RELABELLING"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:522
+#: ../sysprep/virt-sysprep.pod:523
 msgid "I<(This section applies to Linux guests using SELinux only)>"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:524
+#: ../sysprep/virt-sysprep.pod:525
 msgid ""
 "If any new files are created by virt-sysprep, then virt-sysprep touches "
 "C</.autorelabel> so that these will be correctly labelled by SELinux the "
@@ -74141,47 +74203,47 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:529
+#: ../sysprep/virt-sysprep.pod:530
 msgid ""
-"You can force relabelling for all guests by supplying the "
-"I<--selinux-relabel> option."
+"You can force relabelling for all guests by supplying the I<--autorelabel> "
+"option."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:532
+#: ../sysprep/virt-sysprep.pod:533
 msgid ""
-"You can disable relabelling entirely by supplying the "
-"I<--no-selinux-relabel> option."
+"You can disable relabelling entirely by supplying the I<--no-autorelabel> "
+"option."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:537
+#: ../sysprep/virt-sysprep.pod:538
 msgid ""
 "Windows 8 \"fast startup\" can prevent virt-sysprep from working.  See "
 "L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:549
+#: ../sysprep/virt-sysprep.pod:550
 msgid "This program returns 0 on success, or 1 if there was an error."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:553
+#: ../sysprep/virt-sysprep.pod:554
 msgid ""
-"L<guestfs(3)>, L<guestfish(1)>, L<virt-clone(1)>, L<virt-rescue(1)>, "
-"L<virt-resize(1)>, L<virt-sparsify(1)>, L<virsh(1)>, L<lvcreate(8)>, "
-"L<qemu-img(1)>, L<scrub(1)>, L<http://libguestfs.org/>, "
+"L<guestfs(3)>, L<guestfish(1)>, L<virt-builder(1)>, L<virt-clone(1)>, "
+"L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, L<virsh(1)>, "
+"L<lvcreate(8)>, L<qemu-img(1)>, L<scrub(1)>, L<http://libguestfs.org/>, "
 "L<http://libvirt.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:570
+#: ../sysprep/virt-sysprep.pod:572
 msgid "Wanlong Gao, Fujitsu Ltd."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:576
+#: ../sysprep/virt-sysprep.pod:578
 msgid "Copyright (C) 2012 Fujitsu Ltd."
 msgstr ""
 
