@@ -812,4 +812,7 @@ extern void guestfs___cmd_close (struct command *);
 #endif
 extern void guestfs___cleanup_cmd_close (struct command **);
 
+/* utils.c */
+extern int guestfs___validate_guid (const char *);
+
 #endif /* GUESTFS_INTERNAL_H_ */

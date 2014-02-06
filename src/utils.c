@@ -28,7 +28,10 @@
 #include <sys/wait.h>
 #include <libintl.h>
 
+#include "c-ctype.h"
+
 #include "guestfs.h"
+#include "guestfs-internal.h"
 #include "guestfs-internal-frontend.h"
 
 /* Note that functions in libutils are used by the tools and language
@@ -267,4 +270,45 @@ guestfs___drive_name (size_t index, char *ret)
   *ret++ = 'a' + index;
   *ret = '\0';
   return ret;
+}
+
+/* Check whether a string supposed to contain a GUID actually contains it.
+ * It can recognize strings either as '{21EC2020-3AEA-1069-A2DD-08002B30309D}'
+ * or '21EC2020-3AEA-1069-A2DD-08002B30309D'.
+ */
+int
+guestfs___validate_guid (const char *str)
+{
+  int len = strlen (str);
+  switch (len) {
+  case 36:
+    break;
+  case 38:
+    if (str[0] == '{' && str[len -1] == '}') {
+      ++str;
+      len -= 2;
+      break;
+    }
+    return 0;
+  default:
+    return 0;
+  }
+
+  for (int i = 0; i < len; ++i) {
+    switch (i) {
+    case 8:
+    case 13:
+    case 18:
+    case 23:
+      if (str[i] != '-')
+        return 0;
+      break;
+    default:
+      if (!c_isalnum (str[i]))
+        return 0;
+      break;
+    }
+  }
+
+  return 1;
 }
