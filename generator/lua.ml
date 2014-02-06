@@ -461,7 +461,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
         function
         | Pathname n | Device n | Mountable n
         | Dev_or_Path n | Mountable_or_Path n | String n
-        | FileIn n | FileOut n | Key n ->
+        | FileIn n | FileOut n | Key n | GUID n ->
           pr "  const char *%s;\n" n
         | BufferIn n ->
           pr "  const char *%s;\n" n;
@@ -492,7 +492,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
           function
           | Pathname n | Device n | Mountable n
           | Dev_or_Path n | Mountable_or_Path n | String n
-          | FileIn n | FileOut n | Key n ->
+          | FileIn n | FileOut n | Key n | GUID n ->
             pr "  %s = luaL_checkstring (L, %d);\n" n i
           | BufferIn n ->
             pr "  %s = luaL_checklstring (L, %d, &%s_size);\n" n i n
@@ -556,7 +556,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
         | FileIn _ | FileOut _ | Key _
         | BufferIn _ | OptString _
         | Bool _ | Int _ | Int64 _
-        | Pointer _ -> ()
+        | Pointer _ | GUID _ -> ()
         | StringList n | DeviceList n ->
           pr "  free (%s);\n" n
       ) args;

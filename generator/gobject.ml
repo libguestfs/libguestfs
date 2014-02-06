@@ -81,7 +81,8 @@ let generate_gobject_proto name ?(single_line = true)
       | OptString n
       | Key n
       | FileIn n
-      | FileOut n ->
+      | FileOut n
+      | GUID n ->
         pr "const gchar *%s" n
       | StringList n
       | DeviceList n ->
@@ -1031,7 +1032,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
             pr " (type gint32):"
           | Int64 _ ->
             pr " (type gint64):"
-          | String _ | Key _ ->
+          | String _ | Key _ | GUID _ ->
             pr " (transfer none) (type utf8):"
           | OptString _ ->
             pr " (transfer none) (type utf8) (allow-none):"
@@ -1190,7 +1191,8 @@ guestfs_session_close(GuestfsSession *session, GError **err)
           | Bool n | Int n | Int64 n | String n | Device n | Mountable n
           | Pathname n | Dev_or_Path n | Mountable_or_Path n
           | OptString n | StringList n
-          | DeviceList n | Key n | FileIn n | FileOut n ->
+          | DeviceList n | Key n | FileIn n | FileOut n
+          | GUID n ->
             pr "%s" n
           | Pointer _ ->
             failwith "gobject bindings do not support Pointer arguments"

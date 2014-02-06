@@ -384,7 +384,8 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
     | Mountable_or_Path _, arg, sym
     | String _, arg, sym
     | OptString _, arg, sym
-    | Key _, arg, sym ->
+    | Key _, arg, sym
+    | GUID _, arg, sym ->
       pr "  const char *%s = \"%s\";\n" sym (c_quote arg);
     | BufferIn _, arg, sym ->
       pr "  const char *%s = \"%s\";\n" sym (c_quote arg);
@@ -504,7 +505,8 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
     | String _, _, sym
     | OptString _, _, sym
     | Key _, _, sym
-    | FileIn _, _, sym -> pr ", %s" sym
+    | FileIn _, _, sym
+    | GUID _, _, sym -> pr ", %s" sym
     | BufferIn _, _, sym -> pr ", %s, %s_size" sym sym
     | FileOut _, arg, _ -> pr ", \"%s\"" (c_quote arg)
     | StringList _, _, sym | DeviceList _, _, sym -> pr ", (char **) %s" sym

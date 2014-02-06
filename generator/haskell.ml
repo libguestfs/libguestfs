@@ -142,7 +142,7 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
           | FileOut n
           | Pathname n | Device n | Mountable n
           | Dev_or_Path n | Mountable_or_Path n | String n
-          | Key n ->
+          | Key n | GUID n ->
               pr "withCString %s $ \\%s -> " n n
           | BufferIn n ->
               pr "withCStringLen %s $ \\(%s, %s_size) -> " n n n
@@ -162,7 +162,7 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
             | Dev_or_Path n | Mountable_or_Path n
             | String n | OptString n
             | StringList n | DeviceList n
-            | Key n -> n
+            | Key n | GUID n -> n
             | BufferIn n -> sprintf "%s (fromIntegral %s_size)" n n
           ) args in
         pr "withForeignPtr h (\\p -> c_%s %s)\n" name
@@ -218,7 +218,7 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
         (match arg with
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _
-        | Key _ ->
+        | Key _ | GUID _ ->
           pr "CString"
         | BufferIn _ ->
           pr "CString -> CInt"
@@ -261,7 +261,7 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
         (match arg with
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _
-        | Key _ ->
+        | Key _ | GUID _ ->
           pr "String"
         | BufferIn _ ->
           pr "String"

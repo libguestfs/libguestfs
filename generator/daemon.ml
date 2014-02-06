@@ -250,7 +250,7 @@ cleanup_free_mountable (mountable_t *mountable)
           function
           | Device n | Dev_or_Path n ->
             pr "  CLEANUP_FREE char *%s = NULL;\n" n
-          | Pathname n | String n | Key n | OptString n ->
+          | Pathname n | String n | Key n | OptString n | GUID n ->
             pr "  const char *%s;\n" n
           | Mountable n | Mountable_or_Path n ->
             pr "  CLEANUP_FREE_MOUNTABLE mountable_t %s\n" n;
@@ -346,7 +346,7 @@ cleanup_free_mountable (mountable_t *mountable)
           | Mountable_or_Path n ->
               pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE (args.%s, %s, %s, goto done);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
-          | String n | Key n -> pr_args n
+          | String n | Key n | GUID n -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
           | StringList n ->
             pr "  /* Ugly, but safe and avoids copying the strings. */\n";

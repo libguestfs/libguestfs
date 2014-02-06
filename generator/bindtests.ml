@@ -131,7 +131,8 @@ print_strings (guestfs_h *g, char *const *argv)
         | String n
         | FileIn n
         | FileOut n
-        | Key n -> pr "  fprintf (fp, \"%%s\\n\", %s);\n" n
+        | Key n
+        | GUID n -> pr "  fprintf (fp, \"%%s\\n\", %s);\n" n
         | BufferIn n ->
           pr "  {\n";
           pr "    size_t i;\n";

@@ -112,7 +112,7 @@ let generate_xdr () =
           function
           | Pathname n | Device n | Mountable n | Dev_or_Path n
           | Mountable_or_Path n | String n
-          | Key n ->
+          | Key n | GUID n ->
             pr "  string %s<>;\n" n
           | OptString n -> pr "  guestfs_str *%s;\n" n
           | StringList n | DeviceList n -> pr "  guestfs_str %s<>;\n" n

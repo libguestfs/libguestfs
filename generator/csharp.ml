@@ -192,7 +192,8 @@ namespace Guestfs
           | OptString n
           | FileIn n | FileOut n
           | Key n
-          | BufferIn n ->
+          | BufferIn n
+          | GUID n ->
               pr ", [In] string %s" n
           | StringList n | DeviceList n ->
               pr ", [In] string[] %s" n
@@ -220,7 +221,8 @@ namespace Guestfs
           | OptString n
           | FileIn n | FileOut n
           | Key n
-          | BufferIn n ->
+          | BufferIn n
+          | GUID n ->
               next (); pr "string %s" n
           | StringList n | DeviceList n ->
               next (); pr "string[] %s" n

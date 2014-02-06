@@ -571,7 +571,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         function
         | Pathname n | Device n | Mountable n
         | Dev_or_Path n | Mountable_or_Path n | String n | Key n
-        | FileIn n | FileOut n ->
+        | FileIn n | FileOut n | GUID n ->
           pr "  const char *%s = StringValueCStr (%sv);\n" n n;
         | BufferIn n ->
           pr "  Check_Type (%sv, T_STRING);\n" n;
@@ -675,7 +675,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | Pointer _ -> ()
+        | BufferIn _ | Pointer _ | GUID _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) args;
