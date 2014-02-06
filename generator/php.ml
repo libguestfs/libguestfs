@@ -192,7 +192,8 @@ PHP_FUNCTION (guestfs_last_error)
         | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
         | OptString n
-        | BufferIn n ->
+        | BufferIn n
+        | GUID n ->
             pr "  char *%s;\n" n;
             pr "  int %s_size;\n" n
         | StringList n
@@ -235,7 +236,8 @@ PHP_FUNCTION (guestfs_last_error)
           function
           | String n | Device n | Mountable n | Pathname n
           | Dev_or_Path n | Mountable_or_Path n
-          | FileIn n | FileOut n | BufferIn n | Key n -> "s"
+          | FileIn n | FileOut n | BufferIn n | Key n
+          | GUID n -> "s"
           | OptString n -> "s!"
           | StringList n | DeviceList n -> "a"
           | Bool n -> "b"
@@ -269,7 +271,7 @@ PHP_FUNCTION (guestfs_last_error)
         | String n | Device n | Mountable n | Pathname n
         | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | BufferIn n | Key n
-        | OptString n ->
+        | OptString n | GUID n ->
             pr ", &%s, &%s_size" n n
         | StringList n | DeviceList n ->
             pr ", &z_%s" n
@@ -303,7 +305,7 @@ PHP_FUNCTION (guestfs_last_error)
         | String n | Device n | Mountable n | Pathname n
         | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
-        | OptString n ->
+        | OptString n | GUID n ->
             (* Just need to check the string doesn't contain any ASCII
              * NUL characters, which won't be supported by the C API.
              *)
@@ -434,7 +436,7 @@ PHP_FUNCTION (guestfs_last_error)
         | String n | Device n | Mountable n | Pathname n
         | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
-        | OptString n -> ()
+        | OptString n | GUID n -> ()
         | BufferIn n -> ()
         | StringList n
         | DeviceList n ->

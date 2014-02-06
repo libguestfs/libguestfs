@@ -501,7 +501,8 @@ copy_table (char * const * argv)
         | String n
         | FileIn n
         | FileOut n
-        | Key n ->
+        | Key n
+        | GUID n ->
             (* Copy strings in case the GC moves them: RHBZ#604691 *)
             pr "  char *%s = guestfs___safe_strdup (g, String_val (%sv));\n" n n
         | OptString n ->
@@ -585,7 +586,8 @@ copy_table (char * const * argv)
         function
         | Pathname n | Device n | Mountable n
         | Dev_or_Path n | Mountable_or_Path n | String n
-        | OptString n | FileIn n | FileOut n | BufferIn n | Key n ->
+        | OptString n | FileIn n | FileOut n | BufferIn n
+        | Key n | GUID n ->
             pr "  free (%s);\n" n
         | StringList n | DeviceList n ->
             pr "  guestfs___free_string_list (%s);\n" n;
@@ -715,7 +717,8 @@ and generate_ocaml_function_type ?(extra_unit = false) (ret, args, optargs) =
     function
     | Pathname _ | Device _ | Mountable _
     | Dev_or_Path _ | Mountable_or_Path _ | String _
-    | FileIn _ | FileOut _ | BufferIn _ | Key _ -> pr "string -> "
+    | FileIn _ | FileOut _ | BufferIn _ | Key _
+    | GUID _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
     | StringList _ | DeviceList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "

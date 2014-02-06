@@ -124,7 +124,8 @@ let rec generate_prototype ?(extern = true) ?(static = false)
       | Device n | Dev_or_Path n
       | String n
       | OptString n
-      | Key n ->
+      | Key n
+      | GUID n ->
           next ();
           pr "const char *%s" n
       | Mountable n | Mountable_or_Path n ->
@@ -962,7 +963,8 @@ and generate_client_actions hash () =
       | StringList n
       | DeviceList n
       | Key n
-      | Pointer (_, n) ->
+      | Pointer (_, n)
+      | GUID n ->
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" c_name n;
@@ -1075,7 +1077,8 @@ and generate_client_actions hash () =
       | Pathname n
       | Dev_or_Path n | Mountable_or_Path n
       | FileIn n
-      | FileOut n ->
+      | FileOut n
+      | GUID n ->
           (* guestfish doesn't support string escaping, so neither do we *)
           pr "    fprintf (trace_buffer.fp, \" \\\"%%s\\\"\", %s);\n" n
       | Key n ->
@@ -1397,7 +1400,7 @@ and generate_client_actions hash () =
         function
         | Pathname n | Device n | Mountable n | Dev_or_Path n 
         | Mountable_or_Path n | String n
-        | Key n ->
+        | Key n | GUID n ->
           pr "  args.%s = (char *) %s;\n" n n
         | OptString n ->
           pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
