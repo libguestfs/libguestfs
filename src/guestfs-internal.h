@@ -833,4 +833,7 @@ extern void guestfs___cleanup_cmd_close (struct command **);
 /* launch-direct.c */
 extern char *guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 
+/* utils.c */
+extern int guestfs___validate_guid (const char *);
+
 #endif /* GUESTFS_INTERNAL_H_ */

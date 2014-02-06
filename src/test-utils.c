@@ -24,6 +24,7 @@
 #include <assert.h>
 
 #include "guestfs.h"
+#include "guestfs-internal.h"
 #include "guestfs-internal-frontend.h"
 
 /* Test guestfs___split_string. */
@@ -145,12 +146,25 @@ test_join (void)
   free (ret);
 }
 
+/* Test guestfs___validate_guid. */
+static void
+test_validate_guid (void)
+{
+  assert (guestfs___validate_guid ("") == 0);
+  assert (guestfs___validate_guid ("1") == 0);
+  assert (guestfs___validate_guid ("21EC20203AEA1069A2DD08002B30309D") == 0);
+
+  assert (guestfs___validate_guid ("{21EC2020-3AEA-1069-A2DD-08002B30309D}") == 1);
+  assert (guestfs___validate_guid ("21EC2020-3AEA-1069-A2DD-08002B30309D") == 1);
+}
+
 int
 main (int argc, char *argv[])
 {
   test_split ();
   test_concat ();
   test_join ();
+  test_validate_guid ();
 
   exit (EXIT_SUCCESS);
 }
