@@ -1049,6 +1049,47 @@ and generate_client_actions hash () =
         pr "\n";
   in
 
+  (* Generate code to check for parameter validation (where supported
+   * for the type).
+   *)
+  let check_args_validity c_name (ret, args, optargs) =
+    let pr_newline = ref false in
+    List.iter (
+      function
+      | GUID n ->
+          pr "  if (!guestfs___validate_guid (%s)) {\n" n;
+          pr "    error (g, \"%%s: %%s: parameter is not a valid GUID\",\n";
+          pr "           \"%s\", \"%s\");\n" c_name n;
+          let errcode =
+            match errcode_of_ret ret with
+            | `CannotReturnError -> assert false
+            | (`ErrorIsMinusOne |`ErrorIsNULL) as e -> e in
+          pr "    return %s;\n" (string_of_errcode errcode);
+          pr "  }\n";
+          pr_newline := true
+
+      (* not applicable *)
+      | String _
+      | Device _
+      | Mountable _
+      | Pathname _
+      | Dev_or_Path _ | Mountable_or_Path _
+      | FileIn _
+      | FileOut _
+      | BufferIn _
+      | StringList _
+      | DeviceList _
+      | Key _
+      | Pointer (_, _)
+      | OptString _
+      | Bool _
+      | Int _
+      | Int64 _ -> ()
+    ) args;
+
+    if !pr_newline then pr "\n";
+  in
+
   (* Generate code to generate guestfish call traces. *)
   let trace_call name c_name (ret, args, optargs) =
     pr "  if (trace_flag) {\n";
@@ -1267,6 +1308,7 @@ and generate_client_actions hash () =
     enter_event name;
     check_null_strings c_name style;
     reject_unknown_optargs c_name style;
+    check_args_validity c_name style;
     trace_call name c_name style;
     pr "  r = guestfs__%s " c_name;
     generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
@@ -1369,6 +1411,7 @@ and generate_client_actions hash () =
     enter_event name;
     check_null_strings c_name style;
     reject_unknown_optargs c_name style;
+    check_args_validity c_name style;
     trace_call name c_name style;
 
     (* Calculate the total size of all FileIn arguments to pass
