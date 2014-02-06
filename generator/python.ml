@@ -281,7 +281,7 @@ put_table (char * const * const argv)
         function
         | Pathname n | Device n | Mountable n
         | Dev_or_Path n | Mountable_or_Path n | String n | Key n
-        | FileIn n | FileOut n ->
+        | FileIn n | FileOut n | GUID n ->
             pr "  const char *%s;\n" n
         | OptString n -> pr "  const char *%s;\n" n
         | BufferIn n ->
@@ -319,7 +319,7 @@ put_table (char * const * const argv)
         function
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
-        | FileIn _ | FileOut _ -> pr "s"
+        | FileIn _ | FileOut _ | GUID _ -> pr "s"
         | OptString _ -> pr "z"
         | StringList _ | DeviceList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
@@ -341,7 +341,7 @@ put_table (char * const * const argv)
         function
         | Pathname n | Device n | Mountable n
         | Dev_or_Path n | Mountable_or_Path n | String n | Key n
-        | FileIn n | FileOut n -> pr ", &%s" n
+        | FileIn n | FileOut n | GUID n -> pr ", &%s" n
         | OptString n -> pr ", &%s" n
         | StringList n | DeviceList n -> pr ", &py_%s" n
         | Bool n -> pr ", &%s" n
@@ -365,7 +365,7 @@ put_table (char * const * const argv)
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ -> ()
+        | BufferIn _ | GUID _ -> ()
         | StringList n | DeviceList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) goto out;\n" n
@@ -502,7 +502,7 @@ put_table (char * const * const argv)
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | Pointer _ -> ()
+        | BufferIn _ | Pointer _ | GUID _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) args;
@@ -796,7 +796,7 @@ class GuestFS(object):
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | Pointer _ -> ()
+        | BufferIn _ | Pointer _ | GUID _ -> ()
         | StringList n | DeviceList n ->
             pr "        %s = list (%s)\n" n n
       ) args;

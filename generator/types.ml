@@ -184,6 +184,12 @@ and argt =
      * tests, although we should fix this in future.
      *)
   | Pointer of (string * string)
+    (* const char * which represents a GUID string.
+     *
+     * It cannot be NULL, and it will be validated using
+     * guestfs___validate_guid.
+     *)
+  | GUID of string
 
 and optargs = optargt list
 

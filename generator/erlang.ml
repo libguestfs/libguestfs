@@ -297,7 +297,8 @@ extern int64_t get_int64 (ETERM *term);
           | String n
           | FileIn n
           | FileOut n
-          | Key n ->
+          | Key n
+          | GUID n ->
             pr "  CLEANUP_FREE char *%s = erl_iolist_to_string (ARG (%d));\n" n i
           | OptString n ->
             pr "  CLEANUP_FREE char *%s;\n" n;

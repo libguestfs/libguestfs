@@ -354,7 +354,7 @@ PREINIT:
           function
           | Pathname n | Device n | Mountable n
           | Dev_or_Path n | Mountable_or_Path n | String n
-          | FileIn n | FileOut n | Key n ->
+          | FileIn n | FileOut n | Key n | GUID n ->
               pr "      char *%s;\n" n
           | BufferIn n ->
               pr "      char *%s;\n" n;
@@ -509,7 +509,7 @@ PREINIT:
         | Dev_or_Path _ | Mountable_or_Path _ | String _
         | OptString _ | Bool _ | Int _ | Int64 _
         | FileIn _ | FileOut _
-        | BufferIn _ | Key _ | Pointer _ -> ()
+        | BufferIn _ | Key _ | Pointer _ | GUID _ -> ()
         | StringList n | DeviceList n -> pr "      free (%s);\n" n
       ) args;
 
@@ -937,7 +937,7 @@ errnos:
         | Dev_or_Path n -> pr "[ '%s', 'string(dev_or_path)', %d ]" n i
         | Mountable_or_Path n ->
           pr "[ '%s', 'string(mountable_or_path)', %d ]" n i
-        | String n -> pr "[ '%s', 'string', %d ]" n i
+        | String n | GUID n -> pr "[ '%s', 'string', %d ]" n i
         | FileIn n -> pr "[ '%s', 'string(filename)', %d ]" n i
         | FileOut n -> pr "[ '%s', 'string(filename)', %d ]" n i
         | Key n -> pr "[ '%s', 'string(key)', %d ]" n i
@@ -1105,7 +1105,7 @@ and generate_perl_prototype name (ret, args, optargs) =
       | Pathname n | Device n | Mountable n
       | Dev_or_Path n | Mountable_or_Path n | String n
       | OptString n | Bool n | Int n | Int64 n | FileIn n | FileOut n
-      | BufferIn n | Key n | Pointer (_, n) ->
+      | BufferIn n | Key n | Pointer (_, n) | GUID n ->
           pr "$%s" n
       | StringList n | DeviceList n ->
           pr "\\@%s" n
