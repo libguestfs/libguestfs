@@ -113,10 +113,15 @@ endif
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
+OCAMLCLIBS  = \
+	$(LIBLZMA_LIBS) \
+	-pthread -lpthread \
+	-lncurses -lcrypt
+
 virt-builder: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib '-pthread $(LIBLZMA_LIBS) -lncurses -lcrypt -lpthread' \
+	  -cclib '$(OCAMLCLIBS)' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 
