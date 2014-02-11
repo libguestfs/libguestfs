@@ -84,6 +84,17 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
   unlink_on_exit filename_new;
 
   (match parseduri.URI.protocol with
+  | "file" ->
+    let path = parseduri.URI.path in
+    let cmd = sprintf "cp%s %s %s"
+      (if t.debug then " -v" else "")
+      (quote path) (quote filename_new) in
+    let r = Sys.command cmd in
+    if r <> 0 then (
+      eprintf (f_"%s: cp (download) command failed copying '%s'\n")
+        prog path;
+      exit 1
+    )
   | _ -> (* Any other protocol. *)
     (* Get the status code first to ensure the file exists. *)
     let cmd = sprintf "%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
