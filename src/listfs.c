@@ -39,7 +39,7 @@
  */
 
 static void remove_from_list (char **list, const char *item);
-static void check_with_vfs_type (guestfs_h *g, const char *dev, struct stringsbuf *sb);
+static int check_with_vfs_type (guestfs_h *g, const char *dev, struct stringsbuf *sb);
 static int is_mbr_partition_type_42 (guestfs_h *g, const char *partition);
 
 char **
@@ -78,17 +78,21 @@ guestfs__list_filesystems (guestfs_h *g)
 
   /* Use vfs-type to check for filesystems on devices. */
   for (i = 0; devices[i] != NULL; ++i)
-    check_with_vfs_type (g, devices[i], &ret);
+    if (check_with_vfs_type (g, devices[i], &ret) == -1)
+      goto error;
 
   /* Use vfs-type to check for filesystems on partitions. */
   for (i = 0; partitions[i] != NULL; ++i) {
-    if (! is_mbr_partition_type_42 (g, partitions[i]))
-      check_with_vfs_type (g, partitions[i], &ret);
+    if (! is_mbr_partition_type_42 (g, partitions[i])) {
+      if (check_with_vfs_type (g, partitions[i], &ret) == -1)
+        goto error;
+    }
   }
 
   /* Use vfs-type to check for filesystems on md devices. */
   for (i = 0; mds[i] != NULL; ++i)
-    check_with_vfs_type (g, mds[i], &ret);
+    if (check_with_vfs_type (g, mds[i], &ret) == -1)
+      goto error;
 
   if (guestfs_feature_available (g, (char **) lvm2)) {
     /* Use vfs-type to check for filesystems on LVs. */
@@ -96,7 +100,8 @@ guestfs__list_filesystems (guestfs_h *g)
     if (lvs == NULL) goto error;
 
     for (i = 0; lvs[i] != NULL; ++i)
-      check_with_vfs_type (g, lvs[i], &ret);
+      if (check_with_vfs_type (g, lvs[i], &ret) == -1)
+        goto error;
   }
 
   if (guestfs_feature_available (g, (char **) ldm)) {
@@ -105,13 +110,15 @@ guestfs__list_filesystems (guestfs_h *g)
     if (ldmvols == NULL) goto error;
 
     for (i = 0; ldmvols[i] != NULL; ++i)
-      check_with_vfs_type (g, ldmvols[i], &ret);
+      if (check_with_vfs_type (g, ldmvols[i], &ret) == -1)
+        goto error;
 
     ldmparts = guestfs_list_ldm_partitions (g);
     if (ldmparts == NULL) goto error;
 
     for (i = 0; ldmparts[i] != NULL; ++i)
-      check_with_vfs_type (g, ldmparts[i], &ret);
+      if (check_with_vfs_type (g, ldmparts[i], &ret) == -1)
+        goto error;
   }
 
   /* Finish off the list and return it. */
@@ -143,7 +150,7 @@ remove_from_list (char **list, const char *item)
  * Apart from some types which we ignore, add the result to the
  * 'ret' string list.
  */
-static void
+static int
 check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
 {
   const char *v;
@@ -160,6 +167,9 @@ check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
   else if (STREQ (vfs_type, "btrfs")) {
     CLEANUP_FREE_BTRFSSUBVOLUME_LIST struct guestfs_btrfssubvolume_list *vols =
       guestfs_btrfs_subvolume_list (g, device);
+
+    if (vols == NULL)
+      return -1;
 
     for (size_t i = 0; i < vols->len; i++) {
       struct guestfs_btrfssubvolume *this = &vols->val[i];
@@ -178,17 +188,19 @@ check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
      */
     size_t n = strlen (vfs_type);
     if (n >= 7 && STREQ (&vfs_type[n-7], "_member"))
-      return;
+      return 0;
 
     /* Ignore LUKS-encrypted partitions.  These are also containers. */
     if (STREQ (vfs_type, "crypto_LUKS"))
-      return;
+      return 0;
 
     v = vfs_type;
   }
 
   guestfs___add_string (g, sb, device);
   guestfs___add_string (g, sb, v);
+
+  return 0;
 }
 
 /* We should ignore partitions that have MBR type byte 0x42, because
