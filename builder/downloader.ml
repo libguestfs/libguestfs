@@ -69,50 +69,60 @@ let rec download ~prog t ?template ?progress_bar uri =
       (filename, false)
 
 and download_to ~prog t ?(progress_bar = false) uri filename =
-  (* Get the status code first to ensure the file exists. *)
-  let cmd = sprintf "%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
-    t.curl
-    (if t.debug then "" else " -s -S")
-    (quote uri) in
-  if t.debug then eprintf "%s\n%!" cmd;
-  let lines = external_command ~prog cmd in
-  if List.length lines < 1 then (
-    eprintf (f_"%s: unexpected output from curl command, enable debug and look at previous messages\n") prog;
-    exit 1
-  );
-  let status_code = List.hd lines in
-  let bad_status_code = function
-    | "" -> true
-    | s when s.[0] = '4' -> true (* 4xx *)
-    | s when s.[0] = '5' -> true (* 5xx *)
-    | _ -> false
-  in
-  if bad_status_code status_code then (
-    eprintf (f_"%s: failed to download %s: HTTP status code %s\n")
-      prog uri status_code;
-    exit 1
-  );
+  let parseduri =
+    try URI.parse_uri uri
+    with Invalid_argument "URI.parse_uri" ->
+      eprintf (f_"Error parsing URI '%s'. Look for error messages printed above.\n") uri;
+      exit 1 in
 
-  (* Now download the file.
-   * 
-   * Note because there may be parallel virt-builder instances running
+  (* Note because there may be parallel virt-builder instances running
    * and also to avoid partial downloads in the cachedir if the network
    * fails, we download to a random name in the cache and then
    * atomically rename it to the final filename.
    *)
   let filename_new = filename ^ "." ^ string_random8 () in
   unlink_on_exit filename_new;
-  let cmd = sprintf "%s%s -g -o %s %s"
-    t.curl
-    (if t.debug then "" else if progress_bar then " -#" else " -s -S")
-    (quote filename_new) (quote uri) in
-  if t.debug then eprintf "%s\n%!" cmd;
-  let r = Sys.command cmd in
-  if r <> 0 then (
-    eprintf (f_"%s: curl (download) command failed downloading '%s'\n")
-      prog uri;
-    exit 1
+
+  (match parseduri.URI.protocol with
+  | _ -> (* Any other protocol. *)
+    (* Get the status code first to ensure the file exists. *)
+    let cmd = sprintf "%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
+      t.curl
+      (if t.debug then "" else " -s -S")
+      (quote uri) in
+    if t.debug then eprintf "%s\n%!" cmd;
+    let lines = external_command ~prog cmd in
+    if List.length lines < 1 then (
+      eprintf (f_"%s: unexpected output from curl command, enable debug and look at previous messages\n")
+        prog;
+      exit 1
+    );
+    let status_code = List.hd lines in
+    let bad_status_code = function
+      | "" -> true
+      | s when s.[0] = '4' -> true (* 4xx *)
+      | s when s.[0] = '5' -> true (* 5xx *)
+      | _ -> false
+    in
+    if bad_status_code status_code then (
+      eprintf (f_"%s: failed to download %s: HTTP status code %s\n")
+        prog uri status_code;
+      exit 1
+    );
+
+    (* Now download the file. *)
+    let cmd = sprintf "%s%s -g -o %s %s"
+      t.curl
+      (if t.debug then "" else if progress_bar then " -#" else " -s -S")
+      (quote filename_new) (quote uri) in
+    if t.debug then eprintf "%s\n%!" cmd;
+    let r = Sys.command cmd in
+    if r <> 0 then (
+      eprintf (f_"%s: curl (download) command failed downloading '%s'\n")
+        prog uri;
+      exit 1
+    )
   );
 
-  (* Rename the file if curl was successful. *)
+  (* Rename the file if the download was successful. *)
   rename filename_new filename
