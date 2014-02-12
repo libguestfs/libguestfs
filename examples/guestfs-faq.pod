@@ -167,6 +167,45 @@ following command:
 
  sudo update-guestfs-appliance
 
+=head2 "Permission denied" when running libguestfs as root
+
+You get a permission denied error when opening a disk image, even
+though you are running libguestfs as root.
+
+This is caused by libvirt, and so only happens when using the libvirt
+backend.  When run as root, libvirt decides to run the qemu appliance
+as user C<qemu.qemu>.  Unfortunately this usually means that qemu
+cannot open disk images, especially if those disk images are owned by
+root, or are present in directories which require root access.
+
+There is a bug open against libvirt to fix this:
+L<https://bugzilla.redhat.com/show_bug.cgi?id=1045069>
+
+You can work around this by one of the following methods:
+
+=over 4
+
+=item *
+
+Switch to the direct backend:
+
+ export LIBGUESTFS_BACKEND=direct
+
+=item *
+
+Don't run libguestfs as root.
+
+=item *
+
+Chmod the disk image and any parent directories so that the qemu user
+can access them.
+
+=item *
+
+(Nasty) Edit C</etc/libvirt/qemu.conf> and change the C<user> setting.
+
+=back
+
 =head2 execl: /init: Permission denied
 
 B<Note:> If this error happens when you are using a distro package of
