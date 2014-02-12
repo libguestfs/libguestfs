@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-02-05 15:17+0000\n"
+"POT-Creation-Date: 2014-02-12 22:51+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -224,7 +224,11 @@ msgstr ""
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
-#: ../builder/downloader.ml:112
+#: ../builder/downloader.ml:94
+msgid "%s: cp (download) command failed copying '%s'\n"
+msgstr ""
+
+#: ../builder/downloader.ml:132
 msgid "%s: curl (download) command failed downloading '%s'\n"
 msgstr ""
 
@@ -270,7 +274,7 @@ msgstr ""
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/downloader.ml:91
+#: ../builder/downloader.ml:119
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
@@ -495,7 +499,7 @@ msgstr "%s: цей розділ вже було позначено для змі
 msgid "%s: this partition overlaps the previous one"
 msgstr "%s: цей розділ перекривається з попереднім"
 
-#: ../builder/downloader.ml:80
+#: ../builder/downloader.ml:107
 msgid ""
 "%s: unexpected output from curl command, enable debug and look at previous "
 "messages\n"
@@ -908,6 +912,10 @@ msgstr "Увімкнути трасування викликів libguestfs"
 
 #: ../sysprep/main.ml:156 ../sysprep/main.ml:155
 msgid "Enable/disable specific operations"
+msgstr ""
+
+#: ../builder/downloader.ml:75
+msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:275
@@ -7968,27 +7976,27 @@ msgstr "тимчасовий каталог «%s» не є каталогом"
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"
 
-#: src/utils.c:195
+#: src/utils.c:198
 #, c-format
 msgid "%s exited successfully"
 msgstr "Успішно завершено роботу %s"
 
-#: src/utils.c:198
+#: src/utils.c:201
 #, c-format
 msgid "%s exited with error status %d"
 msgstr "Роботу %s завершено зі станом виходу %d"
 
-#: src/utils.c:202
+#: src/utils.c:205
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr "Роботу %s припинено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:206
+#: src/utils.c:209
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr "Роботу %s завершено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:210
+#: src/utils.c:213
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "Роботу %s завершено з невідомої причини (стан %d)"
