@@ -158,10 +158,14 @@ us (see previous section).
 
 =head2 libguestfs: error: cannot find any suitable libguestfs supermin, fixed or old-style appliance on LIBGUESTFS_PATH
 
-If you see this error on Debian/Ubuntu, you need to run the following
-command as root:
+=head2 febootstrap-supermin-helper: ext2: parent directory not found
 
- update-guestfs-appliance
+=head2 supermin-helper: ext2: parent directory not found
+
+If you see any of these errors on Debian/Ubuntu, you need to run the
+following command:
+
+ sudo update-guestfs-appliance
 
 =head2 execl: /init: Permission denied
 
