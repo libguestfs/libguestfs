@@ -74,7 +74,7 @@ and replace_line_in_file g filename key value =
   g#write filename content
 
 and update_etc_hostname g hostname =
-  g#write "/etc/hostname" hostname
+  g#write "/etc/hostname" (hostname ^ "\n")
 
 and update_etc_machine_info g hostname =
   replace_line_in_file g "/etc/machine-info" "PRETTY_HOSTNAME" hostname
