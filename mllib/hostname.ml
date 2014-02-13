@@ -42,7 +42,12 @@ let rec set_hostname (g : Guestfs.guestfs) root hostname =
     true
 
   | "linux", ("debian"|"ubuntu"), _ ->
+    let old_hostname = read_etc_hostname g in
     update_etc_hostname g hostname;
+    (match old_hostname with
+    | Some old_hostname -> replace_host_in_etc_hosts g old_hostname hostname
+    | None -> ()
+    );
     true
 
   | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
@@ -78,3 +83,28 @@ and update_etc_hostname g hostname =
 
 and update_etc_machine_info g hostname =
   replace_line_in_file g "/etc/machine-info" "PRETTY_HOSTNAME" hostname
+
+and read_etc_hostname g =
+  let filename = "/etc/hostname" in
+  if g#is_file filename then (
+    let lines = Array.to_list (g#read_lines filename) in
+    match lines with
+    | hd :: _ -> Some hd
+    | [] -> None
+  ) else
+    None
+
+and replace_host_in_etc_hosts g oldhost newhost =
+  if g#is_file "/etc/hosts" then (
+    let expr = "/files/etc/hosts/*[label() != '#comment']/*[label() != 'ipaddr']" in
+    g#aug_init "/" 0;
+    let matches = Array.to_list (g#aug_match expr) in
+    List.iter (
+      fun m ->
+        let value = g#aug_get m in
+        if value = oldhost then (
+          g#aug_set m newhost
+        )
+    ) matches;
+    g#aug_save ()
+  )
