@@ -239,6 +239,9 @@ libvirt_is_version_SOURCES = libvirt-is-version.c
 libvirt_is_version_LDADD = \
 	$(LIBVIRT_LIBS)
 
+libvirt_is_version_CPPFLAGS = \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
+
 libvirt_is_version_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS)

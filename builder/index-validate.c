@@ -61,6 +61,10 @@ main (int argc, char *argv[])
   const char *input;
   struct section *sections;
 
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEBASEDIR);
+  textdomain (PACKAGE);
+
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
     if (c == -1) break;

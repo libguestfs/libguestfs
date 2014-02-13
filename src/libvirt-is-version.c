@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <libintl.h>
 
 #include <libvirt/libvirt.h>
 
@@ -33,6 +34,10 @@ main (int argc, char *argv[])
 {
   unsigned long ver;
   unsigned int major = 0, minor = 0, release = 0;
+
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEBASEDIR);
+  textdomain (PACKAGE);
 
   switch (argc) {
   case 4:
