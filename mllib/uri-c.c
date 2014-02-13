@@ -41,7 +41,6 @@ virt_resize_parse_uri (value argv /* arg value, not an array! */)
   CAMLlocal4 (rv, sv, ssv, ov);
   struct uri uri;
   int r;
-  size_t len;
 
   r = parse_uri (String_val (argv), &uri);
   if (r == -1)
