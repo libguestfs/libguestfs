@@ -41,10 +41,10 @@ static int make_server (xmlURIPtr uri, const char *socket, char ***ret);
 int
 parse_uri (const char *arg, struct uri *uri_ret)
 {
-  char *path;
-  char *protocol;
-  char **server;
-  char *username;
+  char *path = NULL;
+  char *protocol = NULL;
+  char **server = NULL;
+  char *username = NULL;
 
   /* Does it look like a URI? */
   if (is_uri (arg)) {
@@ -64,8 +64,6 @@ parse_uri (const char *arg, struct uri *uri_ret)
       free (path);
       return -1;
     }
-    server = NULL;
-    username = NULL;
   }
 
   uri_ret->path = path;
