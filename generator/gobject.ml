@@ -798,7 +798,7 @@ event_callback (guestfs_h *g, void *opaque,
   params->flags = flags;
 
   params->buf = g_byte_array_sized_new (buf_len);
-  g_byte_array_append (params->buf, buf, buf_len);
+  g_byte_array_append (params->buf, (const guint8 *) buf, buf_len);
 
   for (size_t i = 0; i < array_len && i < 4; i++) {
     if (array_len > 4) {
@@ -1195,7 +1195,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
           pr ", ";
           match argt with
           | BufferIn n ->
-            pr "%s, %s_size" n n
+            pr "(const char *) %s, %s_size" n n
           | Bool n | Int n | Int64 n | String n | Device n | Mountable n
           | Pathname n | Dev_or_Path n | Mountable_or_Path n
           | OptString n | StringList n
@@ -1243,7 +1243,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
             pr "%sif (%s%s) {\n" indent src n;
             pr "%s  %s%s = g_byte_array_sized_new (%s%s_len);\n"
               indent dst n src n;
-            pr "%s  g_byte_array_append (%s%s, %s%s, %s%s_len);\n"
+            pr "%s  g_byte_array_append (%s%s, (const guint8 *) %s%s, %s%s_len);\n"
               indent dst n src n src n;
             pr "%s}\n" indent
         ) (cols_of_struct typ)
@@ -1254,9 +1254,11 @@ guestfs_session_close (GuestfsSession *session, GError **err)
 
       | RInt _ | RInt64 _ | RBool _
       | RConstString _ | RConstOptString _
-      | RString _ | RStringList _
-      | RBufferOut _ ->
+      | RString _ | RStringList _ ->
         pr "  return ret;\n"
+
+      | RBufferOut _ ->
+        pr "  return (guint8 *) ret;\n"
 
       | RHashtable _ ->
         pr "  GHashTable *h = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);\n";
