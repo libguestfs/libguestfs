@@ -28,7 +28,8 @@ public class InspectVM
             GuestFS g = new GuestFS ();
 
             // Attach the disk image read-only to libguestfs.
-            Map<String, Object> optargs = new HashMap<String, Object>() {
+            @SuppressWarnings("serial") Map<String, Object> optargs =
+                new HashMap<String, Object>() {
                 {
                     //put ("format", "raw");
                     put ("readonly", Boolean.TRUE);
@@ -65,7 +66,7 @@ public class InspectVM
                 // Sort keys by length, shortest first, so that we end up
                 // mounting the filesystems in the correct order.
                 Map<String,String> mps = g.inspect_get_mountpoints (root);
-                List<String> mps_keys = new ArrayList (mps.keySet ());
+                List<String> mps_keys = new ArrayList<String> (mps.keySet ());
                 Collections.sort (mps_keys, COMPARE_KEYS_LEN);
 
                 for (String mp : mps_keys) {

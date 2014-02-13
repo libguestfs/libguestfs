@@ -23,7 +23,8 @@ public class CreateDisk
             g.set_trace (true);
 
             // Attach the disk image to libguestfs.
-            Map<String, Object> optargs = new HashMap<String, Object>() {
+            @SuppressWarnings("serial") Map<String, Object> optargs =
+                new HashMap<String, Object>() {
                 {
                     put ("format", "raw");
                     put ("readonly", Boolean.FALSE);

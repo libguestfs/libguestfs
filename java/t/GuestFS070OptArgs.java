@@ -29,31 +29,35 @@ public class GuestFS070OptArgs
 
             g.add_drive ("/dev/null");
 
-            HashMap<String,Object> optargs;
-
-            optargs = new HashMap<String,Object>() {
+            @SuppressWarnings("serial")
+            HashMap<String,Object> optargs =
+                new HashMap<String,Object>() {
                 {
                     put ("readonly", Boolean.TRUE);
                 }
             };
             g.add_drive ("/dev/null", optargs);
 
-            optargs = new HashMap<String,Object>() {
+            @SuppressWarnings("serial")
+            HashMap<String,Object> optargs2 =
+                new HashMap<String,Object>() {
                 {
                     put ("readonly", Boolean.TRUE);
                     put ("format", "raw");
                 }
             };
-            g.add_drive ("/dev/null", optargs);
+            g.add_drive ("/dev/null", optargs2);
 
-            optargs = new HashMap<String,Object>() {
+            @SuppressWarnings("serial")
+            HashMap<String,Object> optargs3 =
+                new HashMap<String,Object>() {
                 {
                     put ("readonly", Boolean.TRUE);
                     put ("format", "raw");
                     put ("iface", "virtio");
                 }
             };
-            g.add_drive ("/dev/null", optargs);
+            g.add_drive ("/dev/null", optargs3);
         }
         catch (Exception exn) {
             System.err.println (exn);
