@@ -224,6 +224,9 @@ virt_index_validate_SOURCES = \
 	index-struct.c \
 	index-validate.c
 
+virt_index_validate_CPPFLAGS = \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
+
 man_MANS += virt-index-validate.1
 noinst_DATA += $(top_builddir)/html/virt-index-validate.1.html
 
