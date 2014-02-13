@@ -1,5 +1,5 @@
 (* libguestfs
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2012-2014 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ let generate_gobject_proto name ?(single_line = true)
    | RBufferOut _ ->
       pr "guint8 *%s" ptr_spacer
   );
-  pr "guestfs_session_%s(GuestfsSession *session" name;
+  pr "guestfs_session_%s (GuestfsSession *session" name;
   List.iter (
     fun arg ->
       pr ", ";
@@ -266,7 +266,7 @@ let generate_gobject_struct_header filename typ cols () =
       pr "  gfloat %s;\n" n
   ) cols;
   pr "};\n";
-  pr "GType guestfs_%s_get_type(void);\n" typ;
+  pr "GType guestfs_%s_get_type (void);\n" typ;
 
   header_end filename
 
@@ -280,18 +280,18 @@ let generate_gobject_struct_source filename typ cols () =
   pr "\n";
 
   pr "static %s *\n" camel_name;
-  pr "%s_copy(%s *src)\n" name camel_name;
+  pr "%s_copy (%s *src)\n" name camel_name;
   pr "{\n";
-  pr "  return g_slice_dup(%s, src);\n" camel_name;
+  pr "  return g_slice_dup (%s, src);\n" camel_name;
   pr "}\n\n";
 
   pr "static void\n";
-  pr "%s_free(%s *src)\n" name camel_name;
+  pr "%s_free (%s *src)\n" name camel_name;
   pr "{\n";
-  pr "  g_slice_free(%s, src);\n" camel_name;
+  pr "  g_slice_free (%s, src);\n" camel_name;
   pr "}\n\n";
 
-  pr "G_DEFINE_BOXED_TYPE(%s, %s, %s_copy, %s_free)\n"
+  pr "G_DEFINE_BOXED_TYPE (%s, %s, %s_copy, %s_free)\n"
      camel_name name name name
 
 let generate_gobject_optargs_header filename name optargs f () =
@@ -303,22 +303,22 @@ let generate_gobject_optargs_header filename name optargs f () =
   pr "\n";
 
   pr "#define %s " type_define;
-  pr "(guestfs_%s_get_type())\n" name;
+  pr "(guestfs_%s_get_type ())\n" name;
 
   pr "#define GUESTFS_%s(obj) " uc_name;
-  pr "(G_TYPE_CHECK_INSTANCE_CAST((obj), %s, %s))\n" type_define camel_name;
+  pr "(G_TYPE_CHECK_INSTANCE_CAST ((obj), %s, %s))\n" type_define camel_name;
 
   pr "#define GUESTFS_%s_CLASS(klass) " uc_name;
-  pr "(G_TYPE_CHECK_CLASS_CAST((klass), %s, %sClass))\n" type_define camel_name;
+  pr "(G_TYPE_CHECK_CLASS_CAST ((klass), %s, %sClass))\n" type_define camel_name;
 
   pr "#define GUESTFS_IS_%s(obj) " uc_name;
-  pr "(G_TYPE_CHECK_INSTANCE_TYPE((klass), %s))\n" type_define;
+  pr "(G_TYPE_CHECK_INSTANCE_TYPE ((klass), %s))\n" type_define;
 
   pr "#define GUESTFS_IS_%s_CLASS(klass) " uc_name;
-  pr "(G_TYPE_CHECK_CLASS_TYPE((klass), %s))\n" type_define;
+  pr "(G_TYPE_CHECK_CLASS_TYPE ((klass), %s))\n" type_define;
 
   pr "#define GUESTFS_%s_GET_CLASS(obj) " uc_name;
-  pr "(G_TYPE_INSTANCE_GET_CLASS((obj), %s, %sClass))\n" type_define camel_name;
+  pr "(G_TYPE_INSTANCE_GET_CLASS ((obj), %s, %sClass))\n" type_define camel_name;
 
   pr "\n";
   pr "typedef struct _%sPrivate %sPrivate;\n" camel_name camel_name;
@@ -346,8 +346,8 @@ let generate_gobject_optargs_header filename name optargs f () =
   pr "  GObjectClass parent_class;\n";
   pr "};\n\n";
 
-  pr "GType guestfs_%s_get_type(void);\n" name;
-  pr "%s *guestfs_%s_new(void);\n" camel_name name;
+  pr "GType guestfs_%s_get_type (void);\n" name;
+  pr "%s *guestfs_%s_new (void);\n" camel_name name;
   header_end filename
 
 let generate_gobject_optargs_source filename name optargs f () =
@@ -363,7 +363,7 @@ let generate_gobject_optargs_source filename name optargs f () =
   pr "#include <string.h>\n\n";
 
   pr "#define GUESTFS_%s_GET_PRIVATE(obj) " uc_name;
-  pr "(G_TYPE_INSTANCE_GET_PRIVATE((obj), %s, %sPrivate))\n\n"
+  pr "(G_TYPE_INSTANCE_GET_PRIVATE ((obj), %s, %sPrivate))\n\n"
     type_define camel_name;
 
   pr "struct _%sPrivate {\n" camel_name;
@@ -377,7 +377,7 @@ let generate_gobject_optargs_source filename name optargs f () =
   ) optargs;
   pr "};\n\n";
 
-  pr "G_DEFINE_TYPE(%s, guestfs_%s, G_TYPE_OBJECT);\n\n" camel_name name;
+  pr "G_DEFINE_TYPE (%s, guestfs_%s, G_TYPE_OBJECT);\n\n" camel_name name;
 
   pr "enum {\n";
   pr "  PROP_GUESTFS_%s_PROP0" uc_name;
@@ -391,7 +391,7 @@ let generate_gobject_optargs_source filename name optargs f () =
   pr "static void\nguestfs_%s_set_property" name;
   pr "(GObject *object, guint property_id, const GValue *value, GParamSpec *pspec)\n";
   pr "{\n";
-  pr "  %s *self = GUESTFS_%s(object);\n" camel_name uc_name;
+  pr "  %s *self = GUESTFS_%s (object);\n" camel_name uc_name;
   pr "  %sPrivate *priv = self->priv;\n\n" camel_name;
 
   pr "  switch (property_id) {\n";
@@ -403,7 +403,7 @@ let generate_gobject_optargs_source filename name optargs f () =
       pr "    case PROP_GUESTFS_%s_%s:\n" uc_name uc_optname;
       (match optargt with
       | OString n ->
-        pr "      g_free(priv->%s);\n" n;
+        pr "      g_free (priv->%s);\n" n;
       | OBool _ | OInt _ | OInt64 _ -> ()
       | OStringList _ -> () (* XXX *));
       (match optargt with
@@ -417,14 +417,14 @@ let generate_gobject_optargs_source filename name optargs f () =
   ) optargs;
   pr "    default:\n";
   pr "      /* Invalid property */\n";
-  pr "      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);\n";
+  pr "      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);\n";
   pr "  }\n";
   pr "}\n\n";
 
   pr "static void\nguestfs_%s_get_property" name;
   pr "(GObject *object, guint property_id, GValue *value, GParamSpec *pspec)\n";
   pr "{\n";
-  pr "  %s *self = GUESTFS_%s(object);\n" camel_name uc_name;
+  pr "  %s *self = GUESTFS_%s (object);\n" camel_name uc_name;
   pr "  %sPrivate *priv = self->priv;\n\n" camel_name;
 
   pr "  switch (property_id) {\n";
@@ -441,35 +441,35 @@ let generate_gobject_optargs_source filename name optargs f () =
       | OString _ -> "string"
       | OStringList _ -> "" (* XXX *)
       in
-      pr "      g_value_set_%s(value, priv->%s);\n" set_value_func optname;
+      pr "      g_value_set_%s (value, priv->%s);\n" set_value_func optname;
       pr "      break;\n\n";
   ) optargs;
   pr "    default:\n";
   pr "      /* Invalid property */\n";
-  pr "      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);\n";
+  pr "      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);\n";
   pr "  }\n";
   pr "}\n\n";
 
-  pr "static void\nguestfs_%s_finalize(GObject *object)\n" name;
+  pr "static void\nguestfs_%s_finalize (GObject *object)\n" name;
   pr "{\n";
-  pr "  %s *self = GUESTFS_%s(object);\n" camel_name uc_name;
+  pr "  %s *self = GUESTFS_%s (object);\n" camel_name uc_name;
   pr "  %sPrivate *priv = self->priv;\n\n" camel_name;
 
   List.iter (
     function
     | OString n ->
-      pr "  g_free(priv->%s);\n" n
+      pr "  g_free (priv->%s);\n" n
     | OStringList n -> () (* XXX *)
     | OBool _ | OInt _ | OInt64 _ -> ()
   ) optargs;
   pr "\n";
 
-  pr "  G_OBJECT_CLASS(guestfs_%s_parent_class)->finalize(object);\n" name;
+  pr "  G_OBJECT_CLASS (guestfs_%s_parent_class)->finalize (object);\n" name;
   pr "}\n\n";
 
-  pr "static void\nguestfs_%s_class_init(%sClass *klass)\n" name camel_name;
+  pr "static void\nguestfs_%s_class_init (%sClass *klass)\n" name camel_name;
   pr "{\n";
-  pr "  GObjectClass *object_class = G_OBJECT_CLASS(klass);\n";
+  pr "  GObjectClass *object_class = G_OBJECT_CLASS (klass);\n";
 
   pr "  object_class->set_property = guestfs_%s_set_property;\n" name;
   pr "  object_class->get_property = guestfs_%s_get_property;\n\n" name;
@@ -495,10 +495,10 @@ let generate_gobject_optargs_source filename name optargs f () =
       pr "   *\n";
       pr "   * %s\n" type_desc;
       pr "   */\n";
-      pr "  g_object_class_install_property(\n";
+      pr "  g_object_class_install_property (\n";
       pr "    object_class,\n";
       pr "    PROP_GUESTFS_%s_%s,\n" uc_name (String.uppercase optname);
-      pr "    g_param_spec_%s(\n" type_spec;
+      pr "    g_param_spec_%s (\n" type_spec;
       pr "      \"%s\",\n" optname;
       pr "      \"%s\",\n" optname;
       pr "      \"%s\",\n" type_desc;
@@ -510,14 +510,14 @@ let generate_gobject_optargs_source filename name optargs f () =
   ) optargs;
 
   pr "  object_class->finalize = guestfs_%s_finalize;\n" name;
-  pr "  g_type_class_add_private(klass, sizeof(%sPrivate));\n" camel_name;
+  pr "  g_type_class_add_private (klass, sizeof (%sPrivate));\n" camel_name;
   pr "}\n\n";
 
-  pr "static void\nguestfs_%s_init(%s *o)\n" name camel_name;
+  pr "static void\nguestfs_%s_init (%s *o)\n" name camel_name;
   pr "{\n";
-  pr "  o->priv = GUESTFS_%s_GET_PRIVATE(o);\n" uc_name;
+  pr "  o->priv = GUESTFS_%s_GET_PRIVATE (o);\n" uc_name;
   pr "  /* XXX: Find out if gobject already zeroes private structs */\n";
-  pr "  memset(o->priv, 0, sizeof(%sPrivate));\n" camel_name;
+  pr "  memset (o->priv, 0, sizeof (%sPrivate));\n" camel_name;
   pr "}\n\n";
 
   pr "/**\n";
@@ -528,9 +528,9 @@ let generate_gobject_optargs_source filename name optargs f () =
   pr " * Returns: (transfer full): a new %s object\n" camel_name;
   pr " */\n";
   pr "%s *\n" camel_name;
-  pr "guestfs_%s_new(void)\n" name;
+  pr "guestfs_%s_new (void)\n" name;
   pr "{\n";
-  pr "  return GUESTFS_%s(g_object_new(%s, NULL));\n" uc_name type_define;
+  pr "  return GUESTFS_%s (g_object_new (%s, NULL));\n" uc_name type_define;
   pr "}\n"
 
 let generate_gobject_tristate_header () =
@@ -555,8 +555,8 @@ typedef enum
   GUESTFS_TRISTATE_NONE
 } GuestfsTristate;
 
-GType guestfs_tristate_get_type(void);
-#define GUESTFS_TYPE_TRISTATE (guestfs_tristate_get_type())
+GType guestfs_tristate_get_type (void);
+#define GUESTFS_TYPE_TRISTATE (guestfs_tristate_get_type ())
 ";
   header_end filename
 
@@ -567,7 +567,7 @@ let generate_gobject_tristate_source () =
   source_start ~title ~shortdesc filename;
   pr "
 GType
-guestfs_tristate_get_type(void)
+guestfs_tristate_get_type (void)
 {
   static GType etype = 0;
   if (etype == 0) {
@@ -577,7 +577,7 @@ guestfs_tristate_get_type(void)
       { GUESTFS_TRISTATE_NONE,  \"GUESTFS_TRISTATE_NONE\",  \"none\" },
       { 0, NULL, NULL }
     };
-    etype = g_enum_register_static(\"GuestfsTristate\", values);
+    etype = g_enum_register_static (\"GuestfsTristate\", values);
   }
   return etype;
 }
@@ -612,8 +612,8 @@ typedef enum {";
 
   pr "
 } GuestfsSessionEvent;
-GType guestfs_session_event_get_type(void);
-#define GUESTFS_TYPE_SESSION_EVENT (guestfs_session_event_get_type())
+GType guestfs_session_event_get_type (void);
+#define GUESTFS_TYPE_SESSION_EVENT (guestfs_session_event_get_type ())
 
 /* GuestfsSessionEventParams */
 
@@ -639,10 +639,10 @@ struct _GuestfsSessionEventParams {
   guint64 array[16];
   size_t array_len;
 };
-GType guestfs_session_event_params_get_type(void);
+GType guestfs_session_event_params_get_type (void);
 
 /* GuestfsSession object definition */
-#define GUESTFS_TYPE_SESSION             (guestfs_session_get_type())
+#define GUESTFS_TYPE_SESSION             (guestfs_session_get_type ())
 #define GUESTFS_SESSION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ( \
                                           (obj), \
                                           GUESTFS_TYPE_SESSION, \
@@ -688,9 +688,9 @@ struct _GuestfsSessionClass
   GObjectClass parent_class;
 };
 
-GType guestfs_session_get_type(void);
-GuestfsSession *guestfs_session_new(void);
-gboolean guestfs_session_close(GuestfsSession *session, GError **err);
+GType guestfs_session_get_type (void);
+GuestfsSession *guestfs_session_new (void);
+gboolean guestfs_session_close (GuestfsSession *session, GError **err);
 
 ";
 
@@ -717,36 +717,36 @@ let generate_gobject_session_source () =
 
 /* Error quark */
 
-#define GUESTFS_ERROR guestfs_error_quark()
+#define GUESTFS_ERROR guestfs_error_quark ()
 
 static GQuark
-guestfs_error_quark(void)
+guestfs_error_quark (void)
 {
-  return g_quark_from_static_string(\"guestfs\");
+  return g_quark_from_static_string (\"guestfs\");
 }
 
 /* Cancellation handler */
 static void
-cancelled_handler(gpointer data)
+cancelled_handler (gpointer data)
 {
   guestfs_h *g = (guestfs_h *)data;
-  guestfs_user_cancel(g);
+  guestfs_user_cancel (g);
 }
 
 /* GuestfsSessionEventParams */
 static GuestfsSessionEventParams *
-guestfs_session_event_params_copy(GuestfsSessionEventParams *src)
+guestfs_session_event_params_copy (GuestfsSessionEventParams *src)
 {
-  return g_slice_dup(GuestfsSessionEventParams, src);
+  return g_slice_dup (GuestfsSessionEventParams, src);
 }
 
 static void
-guestfs_session_event_params_free(GuestfsSessionEventParams *src)
+guestfs_session_event_params_free (GuestfsSessionEventParams *src)
 {
-  g_slice_free(GuestfsSessionEventParams, src);
+  g_slice_free (GuestfsSessionEventParams, src);
 }
 
-G_DEFINE_BOXED_TYPE(GuestfsSessionEventParams,
+G_DEFINE_BOXED_TYPE (GuestfsSessionEventParams,
                     guestfs_session_event_params,
                     guestfs_session_event_params_copy,
                     guestfs_session_event_params_free)
@@ -758,9 +758,9 @@ G_DEFINE_BOXED_TYPE(GuestfsSessionEventParams,
 
 pr "
 static GuestfsSessionEvent
-guestfs_session_event_from_guestfs_event(uint64_t event)
+guestfs_session_event_from_guestfs_event (uint64_t event)
 {
-  switch(event) {";
+  switch (event) {";
 
   List.iter (
     fun (name, _) ->
@@ -772,45 +772,45 @@ guestfs_session_event_from_guestfs_event(uint64_t event)
 pr "
   }
 
-  g_warning(\"guestfs_session_event_from_guestfs_event: invalid event %%lu\",
+  g_warning (\"guestfs_session_event_from_guestfs_event: invalid event %%lu\",
             event);
   return UINT32_MAX;
 }
 
 static void
-event_callback(guestfs_h *g, void *opaque,
+event_callback (guestfs_h *g, void *opaque,
                uint64_t event, int event_handle,
                int flags,
                const char *buf, size_t buf_len,
                const uint64_t *array, size_t array_len)
 {
-  GuestfsSessionEventParams *params = g_slice_new0(GuestfsSessionEventParams);
+  GuestfsSessionEventParams *params = g_slice_new0 (GuestfsSessionEventParams);
 
-  params->event = guestfs_session_event_from_guestfs_event(event);
+  params->event = guestfs_session_event_from_guestfs_event (event);
   params->flags = flags;
 
-  params->buf = g_byte_array_sized_new(buf_len);
-  g_byte_array_append(params->buf, buf, buf_len);
+  params->buf = g_byte_array_sized_new (buf_len);
+  g_byte_array_append (params->buf, buf, buf_len);
 
-  for(size_t i = 0; i < array_len && i < 4; i++) {
-    if(array_len > 4) {
+  for (size_t i = 0; i < array_len && i < 4; i++) {
+    if (array_len > 4) {
       array_len = 4;
     }
-    memcpy(params->array, array, sizeof(array[0]) * array_len);
+    memcpy (params->array, array, sizeof (array[0]) * array_len);
   }
   params->array_len = array_len;
 
   GuestfsSession *session = (GuestfsSession *) opaque;
 
-  g_signal_emit(session, signals[params->event], 0, params);
+  g_signal_emit (session, signals[params->event], 0, params);
 
-  guestfs_session_event_params_free(params);
+  guestfs_session_event_params_free (params);
 }
 
 /* GuestfsSessionEvent */
 
 GType
-guestfs_session_event_get_type(void)
+guestfs_session_event_get_type (void)
 {
   static GType etype = 0;
   if (etype == 0) {
@@ -824,7 +824,7 @@ guestfs_session_event_get_type(void)
 
   pr "
     };
-    etype = g_enum_register_static(\"GuestfsSessionEvent\", values);
+    etype = g_enum_register_static (\"GuestfsSessionEvent\", values);
   }
   return etype;
 }
@@ -842,27 +842,27 @@ struct _GuestfsSessionPrivate
   int event_handle;
 };
 
-G_DEFINE_TYPE(GuestfsSession, guestfs_session, G_TYPE_OBJECT);
+G_DEFINE_TYPE (GuestfsSession, guestfs_session, G_TYPE_OBJECT);
 
 static void
-guestfs_session_finalize(GObject *object)
+guestfs_session_finalize (GObject *object)
 {
-  GuestfsSession *session = GUESTFS_SESSION(object);
+  GuestfsSession *session = GUESTFS_SESSION (object);
   GuestfsSessionPrivate *priv = session->priv;
 
-  if (priv->g) guestfs_close(priv->g);
+  if (priv->g) guestfs_close (priv->g);
 
-  G_OBJECT_CLASS(guestfs_session_parent_class)->finalize(object);
+  G_OBJECT_CLASS (guestfs_session_parent_class)->finalize (object);
 }
 
 static void
-guestfs_session_class_init(GuestfsSessionClass *klass)
+guestfs_session_class_init (GuestfsSessionClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS(klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->finalize = guestfs_session_finalize;
 
-  g_type_class_add_private(klass, sizeof(GuestfsSessionPrivate));";
+  g_type_class_add_private (klass, sizeof (GuestfsSessionPrivate));";
 
   List.iter (
     fun (name, _) ->
@@ -876,29 +876,29 @@ guestfs_session_class_init(GuestfsSessionClass *klass)
       pr "   * more details about this event.\n";
       pr "   */\n";
       pr "  signals[GUESTFS_SESSION_EVENT_%s] =\n" (String.uppercase name);
-      pr "    g_signal_new(g_intern_static_string(\"%s\"),\n" name;
-      pr "                 G_OBJECT_CLASS_TYPE(object_class),\n";
+      pr "    g_signal_new (g_intern_static_string (\"%s\"),\n" name;
+      pr "                 G_OBJECT_CLASS_TYPE (object_class),\n";
       pr "                 G_SIGNAL_RUN_LAST,\n";
       pr "                 0,\n";
       pr "                 NULL, NULL,\n";
       pr "                 NULL,\n";
       pr "                 G_TYPE_NONE,\n";
-      pr "                 1, guestfs_session_event_params_get_type());";
+      pr "                 1, guestfs_session_event_params_get_type ());";
   ) events;
 
   pr "
 }
 
 static void
-guestfs_session_init(GuestfsSession *session)
+guestfs_session_init (GuestfsSession *session)
 {
-  session->priv = GUESTFS_SESSION_GET_PRIVATE(session);
-  session->priv->g = guestfs_create();
+  session->priv = GUESTFS_SESSION_GET_PRIVATE (session);
+  session->priv->g = guestfs_create ();
 
   guestfs_h *g = session->priv->g;
 
   session->priv->event_handle =
-    guestfs_set_event_callback(g, event_callback, GUESTFS_EVENT_ALL,
+    guestfs_set_event_callback (g, event_callback, GUESTFS_EVENT_ALL,
                                0, session);
 }
 
@@ -910,9 +910,9 @@ guestfs_session_init(GuestfsSession *session)
  * Returns: (transfer full): a new guestfs session object
  */
 GuestfsSession *
-guestfs_session_new(void)
+guestfs_session_new (void)
 {
-  return GUESTFS_SESSION(g_object_new(GUESTFS_TYPE_SESSION, NULL));
+  return GUESTFS_SESSION (g_object_new (GUESTFS_TYPE_SESSION, NULL));
 }
 
 /**
@@ -925,16 +925,16 @@ guestfs_session_new(void)
  * Returns: true on success, false on error
  */
 gboolean
-guestfs_session_close(GuestfsSession *session, GError **err)
+guestfs_session_close (GuestfsSession *session, GError **err)
 {
   guestfs_h *g = session->priv->g;
 
   if (g == NULL) {
-    g_set_error_literal(err, GUESTFS_ERROR, 0, \"session is already closed\");
+    g_set_error_literal (err, GUESTFS_ERROR, 0, \"session is already closed\");
     return FALSE;
   }
 
-  guestfs_close(g);
+  guestfs_close (g);
   session->priv->g = NULL;
 
   return TRUE;
@@ -1111,7 +1111,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
 
       pr "  guestfs_h *g = session->priv->g;\n";
       pr "  if (g == NULL) {\n";
-      pr "    g_set_error(err, GUESTFS_ERROR, 0,\n";
+      pr "    g_set_error (err, GUESTFS_ERROR, 0,\n";
       pr "                \"attempt to call %%s after the session has been closed\",\n";
       pr "                \"%s\");\n" name;
       pr "    return %s;\n" gobject_error_return;
@@ -1128,9 +1128,9 @@ guestfs_session_close(GuestfsSession *session, GError **err)
         let set_property name typ v_typ get_typ unset =
           let uc_name = String.uppercase name in
           pr "    GValue %s_v = {0, };\n" name;
-          pr "    g_value_init(&%s_v, %s);\n" name v_typ;
-          pr "    g_object_get_property(G_OBJECT(optargs), \"%s\", &%s_v);\n" name name;
-          pr "    %s%s = g_value_get_%s(&%s_v);\n" typ name get_typ name;
+          pr "    g_value_init (&%s_v, %s);\n" name v_typ;
+          pr "    g_object_get_property (G_OBJECT (optargs), \"%s\", &%s_v);\n" name name;
+          pr "    %s%s = g_value_get_%s (&%s_v);\n" typ name get_typ name;
           pr "    if (%s != %s) {\n" name unset;
           pr "      argv.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_name;
           pr "      argv.%s = %s;\n" name name;
@@ -1158,8 +1158,8 @@ guestfs_session_close(GuestfsSession *session, GError **err)
       if cancellable then (
         pr "  gulong id = 0;\n";
         pr "  if (cancellable) {\n";
-        pr "    id = g_cancellable_connect(cancellable,\n";
-        pr "                               G_CALLBACK(cancelled_handler),\n";
+        pr "    id = g_cancellable_connect (cancellable,\n";
+        pr "                               G_CALLBACK (cancelled_handler),\n";
         pr "                               g, NULL);\n";
         pr "  }\n\n";
       );
@@ -1202,7 +1202,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
       pr ");\n";
 
       if cancellable then
-        pr "  g_cancellable_disconnect(cancellable, id);\n";
+        pr "  g_cancellable_disconnect (cancellable, id);\n";
 
       (* Check return, throw error if necessary, marshall return value *)
 
@@ -1214,7 +1214,7 @@ guestfs_session_close(GuestfsSession *session, GError **err)
           | `CannotReturnError -> assert false
           | `ErrorIsMinusOne -> "-1"
           | `ErrorIsNULL -> "NULL");
-        pr "    g_set_error_literal(err, GUESTFS_ERROR, 0, guestfs_last_error(g));\n";
+        pr "    g_set_error_literal (err, GUESTFS_ERROR, 0, guestfs_last_error (g));\n";
         pr "    return %s;\n" gobject_error_return;
         pr "  }\n";
       );
@@ -1226,16 +1226,16 @@ guestfs_session_close(GuestfsSession *session, GError **err)
           | n, (FChar|FUInt32|FInt32|FUInt64|FBytes|FInt64|FOptPercent) ->
             pr "%s%s%s = %s%s;\n" indent dst n src n
           | n, FUUID ->
-            pr "%sif (%s%s) memcpy(%s%s, %s%s, sizeof(%s%s));\n"
+            pr "%sif (%s%s) memcpy (%s%s, %s%s, sizeof (%s%s));\n"
               indent src n dst n src n dst n
           | n, FString ->
-            pr "%sif (%s%s) %s%s = g_strdup(%s%s);\n"
+            pr "%sif (%s%s) %s%s = g_strdup (%s%s);\n"
               indent src n dst n src n
           | n, FBuffer ->
             pr "%sif (%s%s) {\n" indent src n;
-            pr "%s  %s%s = g_byte_array_sized_new(%s%s_len);\n"
+            pr "%s  %s%s = g_byte_array_sized_new (%s%s_len);\n"
               indent dst n src n;
-            pr "%s  g_byte_array_append(%s%s, %s%s, %s%s_len);\n"
+            pr "%s  g_byte_array_append (%s%s, %s%s, %s%s_len);\n"
               indent dst n src n src n;
             pr "%s}\n" indent
         ) (cols_of_struct typ)
@@ -1251,33 +1251,33 @@ guestfs_session_close(GuestfsSession *session, GError **err)
         pr "  return ret;\n"
 
       | RHashtable _ ->
-        pr "  GHashTable *h = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);\n";
+        pr "  GHashTable *h = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);\n";
         pr "  char **i = ret;\n";
         pr "  while (*i) {\n";
         pr "    char *key = *i; i++;\n";
         pr "    char *value = *i; i++;\n";
-        pr "    g_hash_table_insert(h, key, value);\n";
+        pr "    g_hash_table_insert (h, key, value);\n";
         pr "  };\n";
-        pr "  g_free(ret);\n";
+        pr "  g_free (ret);\n";
         pr "  return h;\n"
 
       | RStruct (_, typ) ->
         let struct_name = "Guestfs" ^ camel_name_of_struct typ in
-        pr "  %s *s = g_slice_new0(%s);\n" struct_name struct_name;
+        pr "  %s *s = g_slice_new0 (%s);\n" struct_name struct_name;
         gen_copy_struct "  " "ret->" "s->" typ;
-        pr "  guestfs_free_%s(ret);\n" typ;
+        pr "  guestfs_free_%s (ret);\n" typ;
         pr "  return s;\n";
 
       | RStructList (_, typ) ->
         let struct_name = "Guestfs" ^ camel_name_of_struct typ in
-        pr "  %s **l = g_malloc(sizeof(%s*) * (ret->len + 1));\n"
+        pr "  %s **l = g_malloc (sizeof (%s*) * (ret->len + 1));\n"
           struct_name struct_name;
         pr "  gsize i;\n";
         pr "  for (i = 0; i < ret->len; i++) {\n";
-        pr "    l[i] = g_slice_new0(%s);\n" struct_name;
+        pr "    l[i] = g_slice_new0 (%s);\n" struct_name;
         gen_copy_struct "    " "ret->val[i]." "l[i]->" typ;
         pr "  }\n";
-        pr "  guestfs_free_%s_list(ret);\n" typ;
+        pr "  guestfs_free_%s_list (ret);\n" typ;
         pr "  l[i] = NULL;\n";
         pr "  return l;\n";
       );
