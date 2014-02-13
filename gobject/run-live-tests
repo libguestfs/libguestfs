@@ -23,4 +23,4 @@ if [ -z "$GJS" ]; then
   exit 77
 fi
 
-$GJS $srcdir/tests-misc.js 2>/dev/null
+$GJS $srcdir/tests-misc.js
