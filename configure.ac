@@ -1076,84 +1076,13 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 
 OCAML_PKG_gettext=no
 AS_IF([test "x$OCAMLC" != "xno"],[
-    dnl Check for ocaml-gettext package to translate OCaml tools.
-    AC_CHECK_OCAML_PKG(gettext)
+    # Create mllib/common_gettext.ml, gettext functions or stubs.
 
-    dnl Write a common gettext module used by each OCaml tool.
-    dnl If OCaml gettext is not available then we write dummy functions.
-    AC_MSG_NOTICE([creating mllib/common_gettext.ml])
-    rm -f mllib/common_gettext.ml
-    # If we're building in a different directory, then 'mllib/' might
+    # If we're building in a different directory, then mllib/ might
     # not exist yet, so create it:
     mkdir -p mllib
 
-    cat <<EOF > mllib/common_gettext.ml
-(* This file is generated automatically by ./configure. *)
-
-(** Gettext functions for OCaml virt tools.
-
-    The Common_gettext module provides gettext functions, or dummy
-    functions if ocaml-gettext was not available at configure time.
-
-    {b Note}: Don't translate debug strings, or strings which are
-    meant to be read/written only by machine.
-
-    There are two ways to translate constant strings in OCaml programs.
-
-    For ordinary strings, replace [["string"]] with [[s_"string"]].  Since
-    this is a function call to a function called [[s_]], you may have
-    to put parentheses around the expression.
-
-    For format strings, use:
-
-{v
-  printf (f_"zeroing filesystem %s") filename;
-v}
-
-    Note for format strings, the parentheses are almost always required,
-    and they just go around the [[(f_"string")]], {i not} around the other
-    arguments of the printf function.
-
-    At build time, a program parses the OCaml code into an abstract
-    syntax tree and statically determines all calls to the special
-    [[s_]] and [[f_]] functions, which means: (a) You can be very loose
-    with syntax, unlike ordinary xgettext, but (b) you cannot rename
-    these functions.
-*)
-
-EOF
-
-    if test "x$OCAML_PKG_gettext" != "xno"; then
-        # ocaml-gettext available: real module.
-        cat <<EOF >>mllib/common_gettext.ml
-module Gettext = Gettext.Program (
-  struct
-    let textdomain = "$PACKAGE_NAME"
-    let codeset = None
-    let dir = None
-    let dependencies = [[]]
-  end
-) (GettextStub.Native)
-EOF
-    else
-        # No gettext: module containing dummy gettext functions.
-        cat <<EOF >>mllib/common_gettext.ml
-module Gettext = struct
-  external s_ : string -> string = "%identity"
-  external f_ : ('a, 'b, 'c, 'd, 'e, 'f) format6
-    -> ('a, 'b, 'c, 'd, 'e, 'f) format6
-    = "%identity"
-  let sn_ : string -> string -> int -> string
-    = fun s p n -> if n = 1 then s else p
-  let fn_ : ('a, 'b, 'c, 'd, 'e, 'f) format6
-    -> ('a, 'b, 'c, 'd, 'e, 'f) format6
-    -> int -> ('a, 'b, 'c, 'd, 'e, 'f) format6
-    = fun s p n -> if n = 1 then s else p
-end
-EOF
-    fi
-
-    chmod -w mllib/common_gettext.ml
+    GUESTFS_CREATE_COMMON_GETTEXT_ML([mllib/common_gettext.ml])
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
