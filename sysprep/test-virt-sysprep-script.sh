@@ -64,7 +64,7 @@ if [ x"`wc -l stamp-script4.sh | awk '{print $1}'`" != x2 ]; then
     echo "$0: stamp-script4.sh does not contain two lines."
     exit 1
 fi
-if [ x"`head -n1 stamp-script4.sh`" == x"`tail -n1 stamp-script4.sh`" ]; then
+if [ x"`head -n1 stamp-script4.sh`" = x"`tail -n1 stamp-script4.sh`" ]; then
     echo "$0: stamp-script4.sh does not contain different paths."
     exit 1
 fi
