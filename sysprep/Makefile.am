@@ -60,6 +60,7 @@ operations = \
 	password \
 	puppet_data_log \
 	random_seed \
+	rh_subscription_manager \
 	rhn_systemid \
 	rpm_db \
 	samba_db_log \
