@@ -98,6 +98,9 @@ let globs = List.sort compare [
   "/etc/Pegasus/*.csr";
   "/etc/Pegasus/*.pem";
   "/etc/Pegasus/*.srl";
+
+  (* Red Hat subscription manager log files *)
+  "/var/log/rhsm/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
