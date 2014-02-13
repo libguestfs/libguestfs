@@ -34,8 +34,6 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
-#include "ignore-value.h"
-
 #include "fish.h"
 #include "rc_protocol.h"
 

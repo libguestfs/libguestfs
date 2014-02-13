@@ -26,14 +26,12 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
-#include <dirent.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/wait.h>
 #include <sys/signal.h>
 
 #include "cloexec.h"
-#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
