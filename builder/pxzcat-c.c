@@ -381,7 +381,7 @@ parse_indexes (value filenamev, int fd)
  * http://stackoverflow.com/questions/1493936/faster-means-of-checking-for-an-empty-buffer-in-c/1493989#1493989
  */
 static inline int
-is_zero (const char *buffer, size_t size)
+is_zero (const unsigned char *buffer, size_t size)
 {
   size_t i;
 
@@ -489,7 +489,7 @@ worker_thread (void *vp)
   lzma_ret r;
   lzma_stream strm = LZMA_STREAM_INIT;
   uint8_t buf[BUFFER_SIZE];
-  char outbuf[BUFFER_SIZE];
+  unsigned char outbuf[BUFFER_SIZE];
   size_t i;
   lzma_bool iter_finished;
 
