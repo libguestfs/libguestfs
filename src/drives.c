@@ -104,8 +104,7 @@ create_overlay (guestfs_h *g, struct drive *drv)
   if (overlay == NULL)
     return -1;
 
-  if (drv->overlay)
-    free (drv->overlay);
+  free (drv->overlay);
   drv->overlay = overlay;
 
   return 0;
