@@ -452,8 +452,17 @@ let generate_gobject_optargs_source filename name optargs f () =
 
   pr "static void\nguestfs_%s_finalize (GObject *object)\n" name;
   pr "{\n";
-  pr "  %s *self = GUESTFS_%s (object);\n" camel_name uc_name;
-  pr "  %sPrivate *priv = self->priv;\n\n" camel_name;
+
+  let needs_priv = List.exists (function
+    | OString _ -> true
+    | OStringList _ | OBool _ | OInt _ | OInt64 _ -> false
+  ) optargs in
+
+  if needs_priv then (
+    pr "  %s *self = GUESTFS_%s (object);\n" camel_name uc_name;
+    pr "  %sPrivate *priv = self->priv;\n" camel_name;
+    pr "\n";
+  );
 
   List.iter (
     function
@@ -462,7 +471,6 @@ let generate_gobject_optargs_source filename name optargs f () =
     | OStringList n -> () (* XXX *)
     | OBool _ | OInt _ | OInt64 _ -> ()
   ) optargs;
-  pr "\n";
 
   pr "  G_OBJECT_CLASS (guestfs_%s_parent_class)->finalize (object);\n" name;
   pr "}\n\n";
