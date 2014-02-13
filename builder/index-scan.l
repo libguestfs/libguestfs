@@ -32,6 +32,7 @@ extern void yyerror (const char *);
 
 %}
 
+%option nounput
 %option noyywrap
 %option yylineno
 
