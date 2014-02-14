@@ -235,9 +235,17 @@ my $date;
 my $filename = "$abs_top_srcdir/ChangeLog";
 if (-r $filename) {
     open FILE, $filename or die "$progname: $filename: $!";
-    $_ = <FILE>;
+    while (<FILE>) {
+        if (/^Date:\s+...\s+(...)\s+(\d+)\s+..:..:..\s+(\d{4})\s+.*$/) {
+            my $i = 0;
+            my %month =
+              map { $_ => ++$i }
+                (qw< Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec >);
+            $date = sprintf '%04d-%02d-%02d', $3, $month{$1}, $2;
+            last;
+        }
+    }
     close FILE;
-    $date = $1 if /^(\d+-\d+-\d+)\s/;
 }
 $filename = "$abs_top_srcdir/.git";
 if (!$date && -d $filename) {
