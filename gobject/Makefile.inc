@@ -43,58 +43,58 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/struct-utsname.h \
   include/guestfs-gobject/struct-hivex_node.h \
   include/guestfs-gobject/struct-hivex_value.h \
-  include/guestfs-gobject/optargs-internal_test.h \
-  include/guestfs-gobject/optargs-internal_test_only_optargs.h \
-  include/guestfs-gobject/optargs-internal_test_63_optargs.h \
-  include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_domain.h \
-  include/guestfs-gobject/optargs-inspect_get_icon.h \
-  include/guestfs-gobject/optargs-mount_local.h \
-  include/guestfs-gobject/optargs-umount_local.h \
+  include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_drive_scratch.h \
-  include/guestfs-gobject/optargs-disk_create.h \
-  include/guestfs-gobject/optargs-is_file.h \
-  include/guestfs-gobject/optargs-is_dir.h \
-  include/guestfs-gobject/optargs-umount.h \
-  include/guestfs-gobject/optargs-tar_in.h \
-  include/guestfs-gobject/optargs-tar_out.h \
-  include/guestfs-gobject/optargs-mkswap.h \
-  include/guestfs-gobject/optargs-grep.h \
-  include/guestfs-gobject/optargs-is_chardev.h \
-  include/guestfs-gobject/optargs-is_blockdev.h \
-  include/guestfs-gobject/optargs-is_fifo.h \
-  include/guestfs-gobject/optargs-is_socket.h \
-  include/guestfs-gobject/optargs-mkfs.h \
-  include/guestfs-gobject/optargs-mount_9p.h \
-  include/guestfs-gobject/optargs-ntfsresize.h \
   include/guestfs-gobject/optargs-btrfs_filesystem_resize.h \
-  include/guestfs-gobject/optargs-compress_out.h \
+  include/guestfs-gobject/optargs-btrfs_fsck.h \
   include/guestfs-gobject/optargs-compress_device_out.h \
+  include/guestfs-gobject/optargs-compress_out.h \
+  include/guestfs-gobject/optargs-copy_attributes.h \
   include/guestfs-gobject/optargs-copy_device_to_device.h \
   include/guestfs-gobject/optargs-copy_device_to_file.h \
   include/guestfs-gobject/optargs-copy_file_to_device.h \
   include/guestfs-gobject/optargs-copy_file_to_file.h \
-  include/guestfs-gobject/optargs-tune2fs.h \
-  include/guestfs-gobject/optargs-md_create.h \
+  include/guestfs-gobject/optargs-disk_create.h \
   include/guestfs-gobject/optargs-e2fsck.h \
-  include/guestfs-gobject/optargs-ntfsfix.h \
-  include/guestfs-gobject/optargs-ntfsclone_out.h \
-  include/guestfs-gobject/optargs-mkfs_btrfs.h \
-  include/guestfs-gobject/optargs-set_e2attrs.h \
-  include/guestfs-gobject/optargs-btrfs_fsck.h \
   include/guestfs-gobject/optargs-fstrim.h \
-  include/guestfs-gobject/optargs-xfs_growfs.h \
+  include/guestfs-gobject/optargs-grep.h \
+  include/guestfs-gobject/optargs-hivex_open.h \
+  include/guestfs-gobject/optargs-inspect_get_icon.h \
+  include/guestfs-gobject/optargs-internal_test.h \
+  include/guestfs-gobject/optargs-internal_test_63_optargs.h \
+  include/guestfs-gobject/optargs-internal_test_only_optargs.h \
+  include/guestfs-gobject/optargs-is_blockdev.h \
+  include/guestfs-gobject/optargs-is_chardev.h \
+  include/guestfs-gobject/optargs-is_dir.h \
+  include/guestfs-gobject/optargs-is_fifo.h \
+  include/guestfs-gobject/optargs-is_file.h \
+  include/guestfs-gobject/optargs-is_socket.h \
+  include/guestfs-gobject/optargs-md_create.h \
+  include/guestfs-gobject/optargs-mke2fs.h \
+  include/guestfs-gobject/optargs-mkfs.h \
+  include/guestfs-gobject/optargs-mkfs_btrfs.h \
+  include/guestfs-gobject/optargs-mkswap.h \
+  include/guestfs-gobject/optargs-mktemp.h \
+  include/guestfs-gobject/optargs-mount_9p.h \
+  include/guestfs-gobject/optargs-mount_local.h \
+  include/guestfs-gobject/optargs-ntfsclone_out.h \
+  include/guestfs-gobject/optargs-ntfsfix.h \
+  include/guestfs-gobject/optargs-ntfsresize.h \
+  include/guestfs-gobject/optargs-remount.h \
   include/guestfs-gobject/optargs-rsync.h \
   include/guestfs-gobject/optargs-rsync_in.h \
   include/guestfs-gobject/optargs-rsync_out.h \
-  include/guestfs-gobject/optargs-xfs_admin.h \
-  include/guestfs-gobject/optargs-hivex_open.h \
-  include/guestfs-gobject/optargs-xfs_repair.h \
-  include/guestfs-gobject/optargs-mke2fs.h \
-  include/guestfs-gobject/optargs-mktemp.h \
+  include/guestfs-gobject/optargs-set_e2attrs.h \
   include/guestfs-gobject/optargs-syslinux.h \
-  include/guestfs-gobject/optargs-remount.h \
-  include/guestfs-gobject/optargs-copy_attributes.h
+  include/guestfs-gobject/optargs-tar_in.h \
+  include/guestfs-gobject/optargs-tar_out.h \
+  include/guestfs-gobject/optargs-tune2fs.h \
+  include/guestfs-gobject/optargs-umount.h \
+  include/guestfs-gobject/optargs-umount_local.h \
+  include/guestfs-gobject/optargs-xfs_admin.h \
+  include/guestfs-gobject/optargs-xfs_growfs.h \
+  include/guestfs-gobject/optargs-xfs_repair.h
 
 guestfs_gobject_sources= \
   src/session.c \
@@ -119,55 +119,55 @@ guestfs_gobject_sources= \
   src/struct-utsname.c \
   src/struct-hivex_node.c \
   src/struct-hivex_value.c \
-  src/optargs-internal_test.c \
-  src/optargs-internal_test_only_optargs.c \
-  src/optargs-internal_test_63_optargs.c \
-  src/optargs-add_drive.c \
   src/optargs-add_domain.c \
-  src/optargs-inspect_get_icon.c \
-  src/optargs-mount_local.c \
-  src/optargs-umount_local.c \
+  src/optargs-add_drive.c \
   src/optargs-add_drive_scratch.c \
-  src/optargs-disk_create.c \
-  src/optargs-is_file.c \
-  src/optargs-is_dir.c \
-  src/optargs-umount.c \
-  src/optargs-tar_in.c \
-  src/optargs-tar_out.c \
-  src/optargs-mkswap.c \
-  src/optargs-grep.c \
-  src/optargs-is_chardev.c \
-  src/optargs-is_blockdev.c \
-  src/optargs-is_fifo.c \
-  src/optargs-is_socket.c \
-  src/optargs-mkfs.c \
-  src/optargs-mount_9p.c \
-  src/optargs-ntfsresize.c \
   src/optargs-btrfs_filesystem_resize.c \
-  src/optargs-compress_out.c \
+  src/optargs-btrfs_fsck.c \
   src/optargs-compress_device_out.c \
+  src/optargs-compress_out.c \
+  src/optargs-copy_attributes.c \
   src/optargs-copy_device_to_device.c \
   src/optargs-copy_device_to_file.c \
   src/optargs-copy_file_to_device.c \
   src/optargs-copy_file_to_file.c \
-  src/optargs-tune2fs.c \
-  src/optargs-md_create.c \
+  src/optargs-disk_create.c \
   src/optargs-e2fsck.c \
-  src/optargs-ntfsfix.c \
-  src/optargs-ntfsclone_out.c \
-  src/optargs-mkfs_btrfs.c \
-  src/optargs-set_e2attrs.c \
-  src/optargs-btrfs_fsck.c \
   src/optargs-fstrim.c \
-  src/optargs-xfs_growfs.c \
+  src/optargs-grep.c \
+  src/optargs-hivex_open.c \
+  src/optargs-inspect_get_icon.c \
+  src/optargs-internal_test.c \
+  src/optargs-internal_test_63_optargs.c \
+  src/optargs-internal_test_only_optargs.c \
+  src/optargs-is_blockdev.c \
+  src/optargs-is_chardev.c \
+  src/optargs-is_dir.c \
+  src/optargs-is_fifo.c \
+  src/optargs-is_file.c \
+  src/optargs-is_socket.c \
+  src/optargs-md_create.c \
+  src/optargs-mke2fs.c \
+  src/optargs-mkfs.c \
+  src/optargs-mkfs_btrfs.c \
+  src/optargs-mkswap.c \
+  src/optargs-mktemp.c \
+  src/optargs-mount_9p.c \
+  src/optargs-mount_local.c \
+  src/optargs-ntfsclone_out.c \
+  src/optargs-ntfsfix.c \
+  src/optargs-ntfsresize.c \
+  src/optargs-remount.c \
   src/optargs-rsync.c \
   src/optargs-rsync_in.c \
   src/optargs-rsync_out.c \
-  src/optargs-xfs_admin.c \
-  src/optargs-hivex_open.c \
-  src/optargs-xfs_repair.c \
-  src/optargs-mke2fs.c \
-  src/optargs-mktemp.c \
+  src/optargs-set_e2attrs.c \
   src/optargs-syslinux.c \
-  src/optargs-remount.c \
-  src/optargs-copy_attributes.c
+  src/optargs-tar_in.c \
+  src/optargs-tar_out.c \
+  src/optargs-tune2fs.c \
+  src/optargs-umount.c \
+  src/optargs-umount_local.c \
+  src/optargs-xfs_admin.c \
+  src/optargs-xfs_growfs.c \
+  src/optargs-xfs_repair.c

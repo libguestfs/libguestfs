@@ -518,7 +518,7 @@ put_table (char * const * const argv)
       pr "  return py_r;\n";
       pr "}\n";
       pr "\n"
-  ) external_functions;
+  ) external_functions_sorted;
 
   (* Table of functions. *)
   pr "static PyMethodDef methods[] = {\n";
@@ -534,7 +534,7 @@ put_table (char * const * const argv)
     fun { name = name } ->
       pr "  { (char *) \"%s\", py_guestfs_%s, METH_VARARGS, NULL },\n"
         name name
-  ) external_functions;
+  ) external_functions_sorted;
   pr "  { NULL, NULL, 0, NULL }\n";
   pr "};\n";
   pr "\n";
@@ -823,4 +823,4 @@ class GuestFS(object):
         fun alias ->
           pr "    %s = %s\n\n" alias f.name
       ) f.non_c_aliases
-  ) external_functions
+  ) external_functions_sorted

@@ -577,7 +577,7 @@ PREINIT:
       );
 
       pr "\n"
-  ) external_functions
+  ) external_functions_sorted
 
 and generate_perl_struct_list_code typ cols name style n =
   pr "      if (r == NULL)\n";
