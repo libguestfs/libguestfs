@@ -116,7 +116,7 @@ let filenames =
       function
       | { style = _, _, (_::_) } -> true
       | { style = _, _, [] } -> false
-    ) external_functions
+    ) external_functions_sorted
   )
 
 let header_start filename =
@@ -706,7 +706,7 @@ gboolean guestfs_session_close (GuestfsSession *session, GError **err);
     fun ({ name = name; style = style } as f) ->
       generate_gobject_proto name style f;
       pr ";\n";
-  ) external_functions;
+  ) external_functions_sorted;
 
   header_end filename
 
@@ -1293,4 +1293,4 @@ guestfs_session_close (GuestfsSession *session, GError **err)
       );
 
       pr "}\n";
-  ) external_functions
+  ) external_functions_sorted

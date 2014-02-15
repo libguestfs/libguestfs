@@ -80,7 +80,7 @@ let generate_fish_cmds () =
     fun { name = name } ->
       pr "static int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
         name
-  ) fish_functions;
+  ) fish_functions_sorted;
 
   pr "\n";
 
@@ -170,7 +170,7 @@ Guestfish will prompt for these separately."
       pr "  .run = run_%s\n" name;
       pr "};\n";
       pr "\n";
-  ) fish_functions;
+  ) fish_functions_sorted;
 
   (* list_commands function, which implements guestfish -h *)
   pr "void\n";
@@ -657,7 +657,7 @@ Guestfish will prompt for these separately."
       pr "  return ret;\n";
       pr "}\n";
       pr "\n"
-  ) fish_functions;
+  ) fish_functions_sorted;
 
   (* run_action function *)
   pr "int\n";

@@ -743,7 +743,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
 
       pr "}\n";
       pr "\n"
-  ) external_functions;
+  ) external_functions_sorted;
 
   pr "\
 extern void Init__guestfs (void); /* keep GCC warnings happy */
@@ -804,7 +804,7 @@ Init__guestfs (void)
           pr "  rb_define_method (c_guestfs, \"%s\",\n" alias;
           pr "        ruby_guestfs_%s, %d);\n" name nr_args
       ) non_c_aliases
-  ) external_functions;
+  ) external_functions_sorted;
 
   pr "}\n"
 
