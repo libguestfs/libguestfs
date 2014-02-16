@@ -628,18 +628,6 @@ L<guestfs-performance(1)>.
 
 =head2 Upload or write seem very slow.
 
-In libguestfs E<lt> 1.13.16, the mount command
-(L<guestfs(3)/guestfs_mount>) enabled option C<-o sync> implicitly.
-This causes very poor write performance, and was one of the main
-gotchas for new libguestfs users.
-
-For libguestfs E<lt> 1.13.16, replace mount with C<mount-options>,
-leaving the first parameter as an empty string.
-
-You can also do this with more recent versions of libguestfs, but if
-you know that you are using libguestfs ≥ 1.13.16 then it's safe to use
-plain mount.
-
 If the underlying disk is not fully allocated (eg. sparse raw or
 qcow2) then writes can be slow because the host operating system has
 to do costly disk allocations while you are writing. The solution is
