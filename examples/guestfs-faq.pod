@@ -70,8 +70,8 @@ access VirtualBox images directly.
 NBD (Network Block Device) is a protocol for exporting block devices
 over the network.  qemu-nbd is an NBD server which can handle any disk
 format supported by qemu (eg. raw, qcow2).  You can use libguestfs and
-qemu-nbd together to access block devices over the network, for
-example: C<guestfish -a nbd://remote>
+qemu-nbd or nbdkit together to access block devices over the network,
+for example: C<guestfish -a nbd://remote>
 
 =item I<vs. mounting filesystems in the host>
 
@@ -722,6 +722,92 @@ sparsification (eg. disk images stored on VFAT, old-style non-thin
 LVs).
 
 =head1 PROBLEMS OPENING DISK IMAGES
+
+=head2 Remote libvirt guests cannot be opened.
+
+Opening remote libvirt guests is not supported at this time.  For
+example this won't work:
+
+ guestfish -c qemu://remote/system -d Guest
+
+To open remote disks you have to export them somehow, then connect to
+the export.  For example if you decided to use NBD:
+
+ remote$ qemu-nbd -t -p 10809 guest.img
+  local$ guestfish -a nbd://remote:10809 -i
+
+Other possibilities include ssh (if qemu is recent enough), NFS or
+iSCSI.  See L<guestfs(3)/REMOTE STORAGE>.
+
+=head2 How can I open this strange disk source?
+
+You have a disk image located inside another system that requires
+access via a library / HTTP / REST / proprietary API, or is compressed
+or archived in some way.  (One example would be remote access to
+OpenStack glance images without actually downloading them.)
+
+We have a sister project called nbdkit
+(L<https://github.com/libguestfs/nbdkit>).  This project lets you turn
+any disk source into an NBD server.  Libguestfs can access NBD servers
+directly, eg:
+
+ guestfish -a nbd://remote
+
+nbdkit is liberally licensed, so you can link it to or include it in
+proprietary libraries and code.  It also has a simple, stable plugin
+API so you can easily write plugins against the API which will
+continue to work in future.
+
+=head2 Error opening VMDK disks: "uses a vmdk feature which is not supported by this qemu version: VMDK version 3"
+
+Qemu (and hence libguestfs) only supports certain VMDK disk images.
+Others won't work, giving this or similar errors.
+
+Ideally someone would fix qemu to support the latest VMDK features,
+but in the meantime you have three options:
+
+=over 4
+
+=item 1.
+
+If the guest is hosted on a live, reachable ESX server, then locate
+and download the disk image called I<somename>C<-flat.vmdk>.  Despite
+the name, this is a raw disk image, and can be opened by anything.
+
+If you have a recent enough version of qemu and libguestfs, then you
+may be able to access this disk image remotely using either HTTPS or
+ssh.  See L<guestfs(3)/REMOTE STORAGE>.
+
+=item 2.
+
+Use VMware's proprietary vdiskmanager tool to convert the image to raw
+format.
+
+=item 3.
+
+Use nbdkit with the proprietary VDDK plugin to live export the disk
+image as an NBD source.  This should allow you to read and write the
+VMDK file.
+
+=back
+
+=head2 UFS disks (as used by BSD) cannot be opened.
+
+The UFS filesystem format has many variants, and these are not
+self-identifying.  The Linux kernel has to be told which variant of
+UFS it has to use, which libguestfs cannot know.
+
+You have to pass the right C<ufstype> mount option when mounting these
+filesystems.
+
+See L<https://www.kernel.org/doc/Documentation/filesystems/ufs.txt>
+
+=head2 Windows ReFS
+
+Windows ReFS is Microsoft's ZFS/Btrfs copy.  This filesystem has not
+yet been reverse engineered and implemented in the Linux kernel, and
+therefore libguestfs doesn't support it.  At the moment it seems to be
+very rare "in the wild".
 
 =head2 Non-ASCII characters don't appear on VFAT filesystems.
 
