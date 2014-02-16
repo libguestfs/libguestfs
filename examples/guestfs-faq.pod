@@ -243,78 +243,6 @@ file using your package manager and try again.
 You should also check that files like C</init> and C</bin/bash> (in
 the appliance) are executable.  The debug output shows file modes.
 
-=head2 Non-ASCII characters don't appear on VFAT filesystems.
-
-Typical symptoms of this problem:
-
-=over 4
-
-=item *
-
-You get an error when you create a file where the filename contains
-non-ASCII characters, particularly non 8-bit characters from Asian
-languages (Chinese, Japanese, etc).  The filesystem is VFAT.
-
-=item *
-
-When you list a directory from a VFAT filesystem, filenames appear as
-question marks.
-
-=back
-
-This is a design flaw of the GNU/Linux system.
-
-VFAT stores long filenames as UTF-16 characters.  When opening or
-returning filenames, the Linux kernel has to translate these to some
-form of 8 bit string.  UTF-8 would be the obvious choice, except for
-Linux users who persist in using non-UTF-8 locales (the user's locale
-is not known to the kernel because it's a function of libc).
-
-Therefore you have to tell the kernel what translation you want done
-when you mount the filesystem.  The two methods are the C<iocharset>
-parameter (which is not relevant to libguestfs) and the C<utf8> flag.
-
-So to use a VFAT filesystem you must add the C<utf8> flag when
-mounting.  From guestfish, use:
-
- ><fs> mount-options utf8 /dev/sda1 /
-
-or on the guestfish command line:
-
- guestfish [...] -m /dev/sda1:/:utf8
-
-or from the API:
-
- guestfs_mount_options (g, "utf8", "/dev/sda1", "/");
-
-The kernel will then translate filenames to and from UTF-8 strings.
-
-We considered adding this mount option transparently, but
-unfortunately there are several problems with doing that:
-
-=over 4
-
-=item *
-
-On some Linux systems, the C<utf8> mount option doesn't work.  We
-don't precisely understand what systems or why, but this was reliably
-reported by one user.
-
-=item *
-
-It would prevent you from using the C<iocharset> parameter because it
-is incompatible with C<utf8>.  It is probably not a good idea to use
-this parameter, but we don't want to prevent it.
-
-=back
-
-=head2 Non-ASCII characters appear as underscore (_) on ISO9660 filesystems.
-
-The filesystem was not prepared correctly with mkisofs or genisoimage.
-Make sure the filesystem was created using Joliet and/or Rock Ridge
-extensions.  libguestfs does not require any special mount options to
-handle the filesystem.
-
 =head1 DOWNLOADING, INSTALLING, COMPILING LIBGUESTFS
 
 =begin html
@@ -792,6 +720,80 @@ different storage and backing formats will become supported at
 different times.  Some backing filesystems / formats may never support
 sparsification (eg. disk images stored on VFAT, old-style non-thin
 LVs).
+
+=head1 PROBLEMS OPENING DISK IMAGES
+
+=head2 Non-ASCII characters don't appear on VFAT filesystems.
+
+Typical symptoms of this problem:
+
+=over 4
+
+=item *
+
+You get an error when you create a file where the filename contains
+non-ASCII characters, particularly non 8-bit characters from Asian
+languages (Chinese, Japanese, etc).  The filesystem is VFAT.
+
+=item *
+
+When you list a directory from a VFAT filesystem, filenames appear as
+question marks.
+
+=back
+
+This is a design flaw of the GNU/Linux system.
+
+VFAT stores long filenames as UTF-16 characters.  When opening or
+returning filenames, the Linux kernel has to translate these to some
+form of 8 bit string.  UTF-8 would be the obvious choice, except for
+Linux users who persist in using non-UTF-8 locales (the user's locale
+is not known to the kernel because it's a function of libc).
+
+Therefore you have to tell the kernel what translation you want done
+when you mount the filesystem.  The two methods are the C<iocharset>
+parameter (which is not relevant to libguestfs) and the C<utf8> flag.
+
+So to use a VFAT filesystem you must add the C<utf8> flag when
+mounting.  From guestfish, use:
+
+ ><fs> mount-options utf8 /dev/sda1 /
+
+or on the guestfish command line:
+
+ guestfish [...] -m /dev/sda1:/:utf8
+
+or from the API:
+
+ guestfs_mount_options (g, "utf8", "/dev/sda1", "/");
+
+The kernel will then translate filenames to and from UTF-8 strings.
+
+We considered adding this mount option transparently, but
+unfortunately there are several problems with doing that:
+
+=over 4
+
+=item *
+
+On some Linux systems, the C<utf8> mount option doesn't work.  We
+don't precisely understand what systems or why, but this was reliably
+reported by one user.
+
+=item *
+
+It would prevent you from using the C<iocharset> parameter because it
+is incompatible with C<utf8>.  It is probably not a good idea to use
+this parameter, but we don't want to prevent it.
+
+=back
+
+=head2 Non-ASCII characters appear as underscore (_) on ISO9660 filesystems.
+
+The filesystem was not prepared correctly with mkisofs or genisoimage.
+Make sure the filesystem was created using Joliet and/or Rock Ridge
+extensions.  libguestfs does not require any special mount options to
+handle the filesystem.
 
 =head1 USING LIBGUESTFS IN YOUR OWN PROGRAMS
 
