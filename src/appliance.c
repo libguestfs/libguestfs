@@ -907,7 +907,7 @@ find_path (guestfs_h *g,
    * libguestfs < 1.5.4).
    */
   do {
-    len = strcspn (pelem, ":");
+    len = strcspn (pelem, PATH_SEPARATOR);
 
     /* Empty element or "." means current directory. */
     if (len == 0)
@@ -926,7 +926,7 @@ find_path (guestfs_h *g,
 
     free (*pelem_ret);
 
-    if (pelem[len] == ':')
+    if (pelem[len] == PATH_SEPARATOR[0])
       pelem += len + 1;
     else
       pelem += len;

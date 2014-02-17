@@ -1574,6 +1574,10 @@ PKG_CHECK_MODULES([BASH_COMPLETION], [bash-completion >= 2.0], [
 ])
 AM_CONDITIONAL([HAVE_BASH_COMPLETION],[test "x$bash_completion" = "xyes"])
 
+dnl For search paths.
+AC_DEFINE_UNQUOTED([PATH_SEPARATOR],["$PATH_SEPARATOR"],
+                   [Character that separates path elements in search paths])
+
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)
