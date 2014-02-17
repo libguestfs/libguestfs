@@ -42,14 +42,46 @@ static const char *etc_filename = "/etc/libguestfs-tools.conf";
  * global handle 'g' is opened.
  */
 
+static void
+read_config_from_file (const char *filename)
+{
+  FILE *fp;
+
+  fp = fopen (filename, "r");
+  if (fp != NULL) {
+    config_t conf;
+
+    config_init (&conf);
+
+    /*
+    if (verbose)
+      fprintf (stderr, "%s: reading configuration from %s\n",
+               program_name, filename);
+    */
+
+    if (config_read (&conf, fp) == CONFIG_FALSE) {
+      fprintf (stderr,
+               _("%s: %s: line %d: error parsing configuration file: %s\n"),
+               program_name, filename, config_error_line (&conf),
+               config_error_text (&conf));
+      exit (EXIT_FAILURE);
+    }
+
+    if (fclose (fp) == -1) {
+      perror (filename);
+      exit (EXIT_FAILURE);
+    }
+
+    config_lookup_bool (&conf, "read_only", &read_only);
+
+    config_destroy (&conf);
+  }
+}
+
 void
 parse_config (void)
 {
   const char *home;
-  FILE *fp;
-  config_t conf;
-
-  config_init (&conf);
 
   /* Try $HOME first. */
   home = getenv ("HOME");
@@ -61,68 +93,10 @@ parse_config (void)
       exit (EXIT_FAILURE);
     }
 
-    fp = fopen (path, "r");
-    if (fp != NULL) {
-      /*
-      if (verbose)
-        fprintf (stderr, "%s: reading configuration from %s\n",
-                 program_name, path);
-      */
-
-      if (config_read (&conf, fp) == CONFIG_FALSE) {
-        fprintf (stderr,
-                 _("%s: %s: line %d: error parsing configuration file: %s\n"),
-                 program_name, path, config_error_line (&conf),
-                 config_error_text (&conf));
-        exit (EXIT_FAILURE);
-      }
-
-      if (fclose (fp) == -1) {
-        perror (path);
-        exit (EXIT_FAILURE);
-      }
-
-      /* Notes:
-       *
-       * (1) It's not obvious from the documentation, that config_read
-       * completely resets the 'conf' structure.  This means we cannot
-       * call config_read twice on the two possible configuration
-       * files, but instead have to copy out settings into our
-       * variables between calls.
-       *
-       * (2) If the next call fails then 'read_only' variable is not
-       * updated.  Failure could happen just because the setting is
-       * missing from the configuration file, so we ignore it here.
-       */
-      config_lookup_bool (&conf, "read_only", &read_only);
-    }
+    read_config_from_file (path);
   }
 
-  fp = fopen (etc_filename, "r");
-  if (fp != NULL) {
-    /*
-    if (verbose)
-      fprintf (stderr, "%s: reading configuration from %s\n",
-               program_name, etc_filename);
-    */
-
-    if (config_read (&conf, fp) == CONFIG_FALSE) {
-      fprintf (stderr,
-               _("%s: %s: line %d: error parsing configuration file: %s\n"),
-               program_name, etc_filename, config_error_line (&conf),
-               config_error_text (&conf));
-      exit (EXIT_FAILURE);
-    }
-
-    if (fclose (fp) == -1) {
-      perror (etc_filename);
-      exit (EXIT_FAILURE);
-    }
-
-    config_lookup_bool (&conf, "read_only", &read_only);
-  }
-
-  config_destroy (&conf);
+  read_config_from_file (etc_filename);
 }
 
 #else /* !HAVE_LIBCONFIG */
