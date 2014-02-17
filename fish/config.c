@@ -83,7 +83,10 @@ parse_config (void)
 {
   const char *home;
 
-  /* Try $HOME first. */
+  /* Try the global configuration first. */
+  read_config_from_file (etc_filename);
+
+  /* Read the configuration from $HOME, to override system settings. */
   home = getenv ("HOME");
   if (home != NULL) {
     CLEANUP_FREE char *path = NULL;
@@ -95,8 +98,6 @@ parse_config (void)
 
     read_config_from_file (path);
   }
-
-  read_config_from_file (etc_filename);
 }
 
 #else /* !HAVE_LIBCONFIG */
