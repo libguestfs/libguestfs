@@ -48,6 +48,7 @@ SOURCES = \
 	index-parser-c.c \
 	list_entries.mli \
 	list_entries.ml \
+	paths.ml \
 	pxzcat.ml \
 	pxzcat.mli \
 	pxzcat-c.c \
@@ -91,6 +92,7 @@ OBJECTS = \
 	pxzcat.cmx \
 	setlocale-c.o \
 	setlocale.cmx \
+	paths.cmx \
 	get_kernel.cmx \
 	downloader.cmx \
 	sigchecker.cmx \
