@@ -30,13 +30,6 @@ open Printf
 
 let prog = Filename.basename Sys.executable_name
 
-let default_cachedir =
-  try Some (Sys.getenv "XDG_CACHE_HOME" // "virt-builder")
-  with Not_found ->
-    try Some (Sys.getenv "HOME" // ".cache" // "virt-builder")
-    with Not_found ->
-      None (* no cache directory *)
-
 let default_source = "http://libguestfs.org/download/builder/index.asc"
 
 let parse_cmdline () =
@@ -61,7 +54,7 @@ let parse_cmdline () =
   in
   let attach_disk s = attach := (!attach_format, s) :: !attach in
 
-  let cache = ref default_cachedir in
+  let cache = ref Paths.xdg_cache_home in
   let set_cache arg = cache := Some arg in
   let no_cache () = cache := None in
 
