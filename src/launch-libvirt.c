@@ -1013,12 +1013,9 @@ construct_libvirt_xml_cpu (guestfs_h *g,
     } end_element ();
 
     /* libvirt has a bug (RHBZ#1066145) where it adds the -no-hpet
-     * flag on ARM even though this causes qemu-system-arm to break
-     * and ARM has never had a High Precision Timer anyway.  It's not
-     * worth arguing about who is right or wrong here, just disable
-     * this XML fragment on ARM.
+     * flag on ARM & ppc64.
      */
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__powerpc__)
     start_element ("timer") {
       attribute ("name", "hpet");
       attribute ("present", "no");
