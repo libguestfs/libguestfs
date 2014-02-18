@@ -34,8 +34,9 @@
 
 #ifdef HAVE_LIBCONFIG
 
+#define GLOBAL_CONFIG_FILENAME "libguestfs-tools.conf"
 static const char *home_filename = /* $HOME/ */ ".libguestfs-tools.rc";
-static const char *etc_filename = "/etc/libguestfs-tools.conf";
+static const char *etc_filename = "/etc/" GLOBAL_CONFIG_FILENAME;
 
 /* Note that parse_config is called very early, before command line
  * parsing, before the verbose flag has been set, even before the
@@ -86,17 +87,72 @@ parse_config (void)
   /* Try the global configuration first. */
   read_config_from_file (etc_filename);
 
+  {
+    /* Then read the configuration from XDG system paths. */
+    const char *xdg_env, *var;
+    CLEANUP_FREE_STRING_LIST char **xdg_config_dirs = NULL;
+    size_t xdg_config_dirs_count;
+
+    xdg_env = getenv ("XDG_CONFIG_DIRS");
+    var = xdg_env != NULL && xdg_env[0] != 0 ? xdg_env : "/etc/xdg";
+    xdg_config_dirs = guestfs___split_string (':', var);
+    xdg_config_dirs_count = guestfs___count_strings (xdg_config_dirs);
+    for (size_t i = xdg_config_dirs_count; i > 0; --i) {
+      CLEANUP_FREE char *path = NULL;
+      const char *dir = xdg_config_dirs[i - 1];
+
+      if (asprintf (&path, "%s/libguestfs/" GLOBAL_CONFIG_FILENAME, dir) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+
+      read_config_from_file (path);
+    }
+  }
+
   /* Read the configuration from $HOME, to override system settings. */
   home = getenv ("HOME");
   if (home != NULL) {
-    CLEANUP_FREE char *path = NULL;
+    {
+      /* Old-style configuration file first. */
+      CLEANUP_FREE char *path = NULL;
 
-    if (asprintf (&path, "%s/%s", home, home_filename) == -1) {
-      perror ("asprintf");
-      exit (EXIT_FAILURE);
+      if (asprintf (&path, "%s/%s", home, home_filename) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+
+      read_config_from_file (path);
     }
 
-    read_config_from_file (path);
+    {
+      /* Then, XDG_CONFIG_HOME path. */
+      CLEANUP_FREE char *path = NULL;
+      CLEANUP_FREE char *home_copy = strdup (home);
+      const char *xdg_env;
+
+      if (home_copy == NULL) {
+        perror ("strdup");
+        exit (EXIT_FAILURE);
+      }
+
+      xdg_env = getenv ("XDG_CONFIG_HOME");
+      if (xdg_env == NULL) {
+        if (asprintf (&path, "%s/.config/libguestfs/" GLOBAL_CONFIG_FILENAME,
+                      home_copy) == -1) {
+          perror ("asprintf");
+          exit (EXIT_FAILURE);
+        }
+      } else {
+        if (asprintf (&path, "%s/libguestfs/" GLOBAL_CONFIG_FILENAME,
+                      xdg_env) == -1) {
+          perror ("asprintf");
+          exit (EXIT_FAILURE);
+        }
+      }
+
+      read_config_from_file (path);
+    }
   }
 }
 

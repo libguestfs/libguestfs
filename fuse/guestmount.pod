@@ -387,7 +387,11 @@ This also stops the daemon from forking into the background
 
 =over 4
 
+=item $XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf
+
 =item $HOME/.libguestfs-tools.rc
+
+=item $XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf
 
 =item /etc/libguestfs-tools.conf
 
