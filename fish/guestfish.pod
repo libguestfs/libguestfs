@@ -516,9 +516,8 @@ then you will cause irreversible disk corruption.
 In a future libguestfs we intend to change the default the other way.
 Disk images will be opened read-only.  You will have to either specify
 I<guestfish --rw>, I<guestmount --rw>, I<virt-rescue --rw>, or change
-the configuration file C</etc/libguestfs-tools.conf> in order to get
-write access for disk images specified by those other command line
-options.
+the configuration file in order to get write access for disk images
+specified by those other command line options.
 
 This version of guestfish, guestmount and virt-rescue has a I<--rw>
 option which does nothing (it is already the default).  However it is
@@ -1541,7 +1540,11 @@ See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 
 =over 4
 
+=item $XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf
+
 =item $HOME/.libguestfs-tools.rc
+
+=item $XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf
 
 =item /etc/libguestfs-tools.conf
 
