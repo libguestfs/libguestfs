@@ -128,6 +128,14 @@ main (int argc, char *argv[])
     int seen_sig = 0;
     struct field *fields;
 
+    if (compat_1_24_0) {
+      if (strchr (sections->name, '_')) {
+        fprintf (stderr, _("%s: %s: section [%s] has invalid characters which will not work with virt-builder 1.24.0\n"),
+                 program_name, input, sections->name);
+        exit (EXIT_FAILURE);
+      }
+    }
+
     for (fields = sections->fields; fields != NULL; fields = fields->next) {
       if (compat_1_24_0) {
         if (strchr (fields->key, '[') ||

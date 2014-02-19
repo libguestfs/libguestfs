@@ -52,7 +52,7 @@ extern void yyerror (const char *);
 ^\n                                     { return EMPTY_LINE; }
 
   /* [...] marks beginning of a section. */
-^"["[-A-Za-z0-9.]+"]"\n {
+^"["[-A-Za-z0-9._]+"]"\n {
                       yylval.str = strndup (yytext+1, yyleng-3);
                       return SECTION_HEADER;
                     }
