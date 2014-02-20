@@ -386,6 +386,29 @@ let unlink_on_exit =
       registered_handlers := true
     )
 
+(* Remove a temporary directory on exit. *)
+let rmdir_on_exit =
+  let dirs = ref [] in
+  let registered_handlers = ref false in
+
+  let rec rmdirs () =
+    List.iter (
+      fun dir ->
+        let cmd = sprintf "rm -rf %s" (Filename.quote dir) in
+        ignore (Sys.command cmd)
+    ) !dirs
+  and register_handlers () =
+    (* Remove on exit. *)
+    at_exit rmdirs
+  in
+
+  fun dir ->
+    dirs := dir :: !dirs;
+    if not !registered_handlers then (
+      register_handlers ();
+      registered_handlers := true
+    )
+
 (* Using the libguestfs API, recursively remove only files from the
  * given directory.  Useful for cleaning /var/cache etc in sysprep
  * without removing the actual directory structure.  Also if 'dir' is
