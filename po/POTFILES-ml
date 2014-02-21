@@ -14,6 +14,7 @@ mllib/firstboot.ml
 mllib/fsync.ml
 mllib/hostname.ml
 mllib/libdir.ml
+mllib/mkdtemp.ml
 mllib/password.ml
 mllib/perl_edit.ml
 mllib/progress.ml
