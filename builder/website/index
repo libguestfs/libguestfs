@@ -171,17 +171,17 @@ notes=Fedora 20.
  Source and further information is available from http://fedoraproject.org/
 
 [scientificlinux-6]
-name=Scientific Linux 6.4
-revision=4
-osinfo=centos6.4
+name=Scientific Linux 6.5
+revision=5
+osinfo=centos6.5
 file=scientificlinux-6.xz
 sig=scientificlinux-6.xz.sig
-checksum=806dd95dd73820b6183c183a9040c547f44b7e9fc109a8ce3cedf7646a9e02d3b65e9dd31f99b656e76c5842b0471f35fa93c4b4d49bf372c842617987b6bd7b
+checksum=be42b0e97d256ab5476079fe71411bebf59abe9c6ff4a7d27330aa5383fac9507472c06d11ef061d3c0e6695bec5ac9cfb7fbfd86fdbb5649e5cb535e2ac5b88
 format=raw
 size=6442450944
-compressed_size=183917692
+compressed_size=191667880
 expand=/dev/sda3
-notes=Scientific Linux 6.4
+notes=Scientific Linux 6.5
  
  This Scientific Linux image contains only unmodified @Core group packages.
  
