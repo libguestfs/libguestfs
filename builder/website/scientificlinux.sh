@@ -29,6 +29,7 @@ fi
 version=$1
 output=scientificlinux-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
+major=$(echo $version | awk -F. '{print $1}')
 
 # We rebuild this every time there is a new 6.x release, and bump
 # the revision in the index.
@@ -76,7 +77,7 @@ virt-install \
     --name=$tmpname \
     --ram=2048 \
     --cpu=host --vcpus=2 \
-    --os-type=linux --os-variant=rhel$version \
+    --os-type=linux --os-variant=rhel$major \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=ttyS0,115200 proxy=$http_proxy" \
     --disk $(pwd)/$output,size=6 \
