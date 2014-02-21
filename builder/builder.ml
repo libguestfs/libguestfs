@@ -141,7 +141,8 @@ let main () =
       List.map (
         fun (source, fingerprint) ->
           let sigchecker =
-            Sigchecker.create ~debug ~gpg ~fingerprint ~check_signature in
+            Sigchecker.create ~debug ~gpg ~check_signature
+              ~gpgkey:(Sigchecker.Fingerprint fingerprint) in
           Index_parser.get_index ~prog ~debug ~downloader ~sigchecker source
       ) sources
     ) in
