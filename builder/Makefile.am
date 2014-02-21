@@ -84,6 +84,8 @@ OBJECTS = \
 	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/mllib/uri-c.o \
 	$(top_builddir)/mllib/uRI.cmx \
+	$(top_builddir)/mllib/mkdtemp-c.o \
+	$(top_builddir)/mllib/mkdtemp.cmx \
 	index-scan.o \
 	index-struct.o \
 	index-parse.o \
