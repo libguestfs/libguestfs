@@ -36,6 +36,9 @@ SOURCES = \
 	fsync-c.c \
 	fsync.mli \
 	fsync.ml \
+	mkdtemp.mli \
+	mkdtemp.ml \
+	mkdtemp-c.c \
 	hostname.mli \
 	hostname.ml \
 	password.mli \
@@ -74,6 +77,7 @@ OBJECTS = \
 	progress-c.o \
 	uri-c.o \
 	crypt-c.o \
+	mkdtemp-c.o \
 	config.cmx \
 	libdir.cmx \
 	common_gettext.cmx \
@@ -90,6 +94,7 @@ OBJECTS = \
 	uRI.cmx \
 	crypt.cmx \
 	password.cmx \
+	mkdtemp.cmx \
 	planner.cmx
 
 noinst_SCRIPTS = dummy
