@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-02-16 22:33+0000\n"
+"POT-Creation-Date: 2014-02-21 16:45+0000\n"
 "PO-Revision-Date: 2013-10-17 14:46+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/fedora/language/"
@@ -120,7 +120,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:27 ../erlang/examples/guestfs-erlang.pod:16
 #: ../examples/guestfs-examples.pod:19 ../examples/guestfs-performance.pod:7
 #: ../examples/guestfs-recipes.pod:14 ../examples/guestfs-testing.pod:7
-#: ../fish/guestfish.pod:30 ../fish/libguestfs-tools.conf.pod:13
+#: ../fish/guestfish.pod:30 ../fish/libguestfs-tools.conf.pod:17
 #: ../fish/virt-copy-in.pod:19 ../fish/virt-copy-out.pod:13
 #: ../fish/virt-tar-in.pod:21 ../fish/virt-tar-out.pod:15
 #: ../format/virt-format.pod:11 ../fuse/guestmount.pod:20
@@ -600,7 +600,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:120 ../cat/virt-filesystems.pod:185
 #: ../cat/virt-ls.pod:333 ../df/virt-df.pod:130 ../diff/virt-diff.pod:150
 #: ../edit/virt-edit.pod:149 ../fish/guestfish.pod:245
-#: ../fish/guestfish.pod:704 ../format/virt-format.pod:102
+#: ../fish/guestfish.pod:703 ../format/virt-format.pod:102
 #: ../inspector/virt-inspector.pod:350 ../rescue/virt-rescue.pod:170
 #: ../src/guestfs.pod:4213 ../sysprep/virt-sysprep.pod:170
 #: ../sysprep/virt-sysprep.pod:213
@@ -1221,8 +1221,8 @@ msgstr ""
 #: ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:390
 #: ../cat/virt-ls.pod:486 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260
 #: ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:357
-#: ../fish/guestfish.pod:1383 ../format/virt-format.pod:183
-#: ../fuse/guestmount.pod:401 ../fuse/guestunmount.pod:126
+#: ../fish/guestfish.pod:1382 ../format/virt-format.pod:183
+#: ../fuse/guestmount.pod:405 ../fuse/guestunmount.pod:126
 #: ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:751
 #: ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:548
 #: ../test-tool/libguestfs-test-tool.pod:173
@@ -1302,9 +1302,11 @@ msgstr "このプログラムは以下を返します:"
 #: ../fish/guestfish-actions.pod:3308 ../fish/guestfish-actions.pod:3315
 #: ../fish/guestfish-actions.pod:3322 ../fish/guestfish.pod:476
 #: ../fish/guestfish.pod:480 ../fish/guestfish.pod:484
-#: ../fish/guestfish.pod:488 ../fish/guestfish.pod:1333
-#: ../fish/guestfish.pod:1339 ../fish/libguestfs-tools.conf.pod:20
-#: ../fish/libguestfs-tools.conf.pod:24 ../fish/libguestfs-tools.conf.pod:28
+#: ../fish/guestfish.pod:488 ../fish/guestfish.pod:1332
+#: ../fish/guestfish.pod:1338 ../fish/libguestfs-tools.conf.pod:24
+#: ../fish/libguestfs-tools.conf.pod:28 ../fish/libguestfs-tools.conf.pod:32
+#: ../fish/libguestfs-tools.conf.pod:62 ../fish/libguestfs-tools.conf.pod:67
+#: ../fish/libguestfs-tools.conf.pod:71 ../fish/libguestfs-tools.conf.pod:77
 #: ../golang/examples/guestfs-golang.pod:60
 #: ../golang/examples/guestfs-golang.pod:64 ../guestfs-release-notes.pod:342
 #: ../guestfs-release-notes.pod:346 ../guestfs-release-notes.pod:350
@@ -1440,16 +1442,16 @@ msgstr ""
 #: ../erlang/examples/guestfs-erlang.pod:97
 #: ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1294
 #: ../examples/guestfs-performance.pod:567 ../examples/guestfs-recipes.pod:651
-#: ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1600
-#: ../fish/libguestfs-tools.conf.pod:57 ../fish/virt-copy-in.pod:50
+#: ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1603
+#: ../fish/libguestfs-tools.conf.pod:90 ../fish/virt-copy-in.pod:50
 #: ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47
 #: ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:187
-#: ../fuse/guestmount.pod:406 ../fuse/guestunmount.pod:149
+#: ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:149
 #: ../golang/examples/guestfs-golang.pod:78 ../guestfs-release-notes.pod:2634
 #: ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81
 #: ../lua/examples/guestfs-lua.pod:138 ../make-fs/virt-make-fs.pod:217
 #: ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40
-#: ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:417
+#: ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:421
 #: ../resize/virt-resize.pod:756 ../ruby/examples/guestfs-ruby.pod:36
 #: ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4718
 #: ../sysprep/virt-sysprep.pod:552 ../test-tool/libguestfs-test-tool.pod:183
@@ -1474,7 +1476,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273 ../diff/virt-diff.pod:263
 #: ../edit/virt-edit.pod:373 ../format/virt-format.pod:197
 #: ../guestfs-release-notes.pod:2645 ../make-fs/virt-make-fs.pod:231
-#: ../rescue/virt-rescue.pod:427 ../resize/virt-resize.pod:779
+#: ../rescue/virt-rescue.pod:431 ../resize/virt-resize.pod:779
 #: ../sparsify/virt-sparsify.pod:352 ../tools/virt-list-filesystems:202
 #: ../tools/virt-list-partitions:283 ../tools/virt-tar:315
 #: ../tools/virt-win-reg:806
@@ -1488,7 +1490,7 @@ msgstr "著者"
 #: ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275 ../diff/virt-diff.pod:265
 #: ../edit/virt-edit.pod:375 ../format/virt-format.pod:199
 #: ../inspector/virt-inspector.pod:516 ../make-fs/virt-make-fs.pod:233
-#: ../rescue/virt-rescue.pod:429 ../resize/virt-resize.pod:781
+#: ../rescue/virt-rescue.pod:433 ../resize/virt-resize.pod:781
 #: ../sparsify/virt-sparsify.pod:354 ../sysprep/virt-sysprep.pod:570
 #: ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285
 #: ../tools/virt-tar:317 ../tools/virt-win-reg:808
@@ -1505,16 +1507,16 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../erlang/examples/guestfs-erlang.pod:116
 #: ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1304
 #: ../examples/guestfs-performance.pod:584 ../examples/guestfs-recipes.pod:670
-#: ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1635
-#: ../fish/libguestfs-tools.conf.pod:68 ../fish/virt-copy-in.pod:64
+#: ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1638
+#: ../fish/libguestfs-tools.conf.pod:102 ../fish/virt-copy-in.pod:64
 #: ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62
 #: ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:201
-#: ../fuse/guestmount.pod:424 ../fuse/guestunmount.pod:162
+#: ../fuse/guestmount.pod:428 ../fuse/guestunmount.pod:162
 #: ../golang/examples/guestfs-golang.pod:97 ../guestfs-release-notes.pod:2649
 #: ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:100
 #: ../lua/examples/guestfs-lua.pod:157 ../make-fs/virt-make-fs.pod:235
 #: ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59
-#: ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:431
+#: ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:435
 #: ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:54
 #: ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4779
 #: ../sysprep/virt-sysprep.pod:574 ../test-tool/libguestfs-test-tool.pod:193
@@ -1844,7 +1846,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:161
 #: ../builder/virt-builder.pod:1785 ../edit/virt-edit.pod:337
-#: ../fish/guestfish.pod:1388 ../fuse/guestunmount.pod:115
+#: ../fish/guestfish.pod:1387 ../fuse/guestunmount.pod:115
 #: ../rescue/virt-rescue.pod:390 ../sparsify/virt-sparsify.pod:312
 #: ../src/guestfs.pod:4610 ../test-tool/libguestfs-test-tool.pod:178
 msgid "ENVIRONMENT VARIABLES"
@@ -1874,10 +1876,10 @@ msgstr "L<guestfs(3)>, L<http://libguestfs.org/>, L<http://qemu.org/>."
 #: ../erlang/examples/guestfs-erlang.pod:112
 #: ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1300
 #: ../examples/guestfs-performance.pod:580 ../examples/guestfs-recipes.pod:666
-#: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1631
-#: ../fish/libguestfs-tools.conf.pod:64 ../fish/virt-copy-in.pod:60
+#: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1634
+#: ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60
 #: ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58
-#: ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:420
+#: ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:424
 #: ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93
 #: ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:96
 #: ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:93
@@ -1893,10 +1895,10 @@ msgstr "著者"
 #: ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1302
 #: ../examples/guestfs-performance.pod:582 ../examples/guestfs-recipes.pod:668
-#: ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1633
-#: ../fish/libguestfs-tools.conf.pod:66 ../fish/virt-copy-in.pod:62
+#: ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1636
+#: ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62
 #: ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60
-#: ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:422
+#: ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:426
 #: ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95
 #: ../java/examples/guestfs-java.pod:98 ../lua/examples/guestfs-lua.pod:155
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57
@@ -1910,8 +1912,8 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../appliance/libguestfs-make-fixed-appliance.pod:181 ../cat/virt-ls.pod:507
 #: ../daemon/guestfsd.pod:128 ../df/virt-df.pod:279 ../diff/virt-diff.pod:269
 #: ../edit/virt-edit.pod:379 ../examples/guestfs-recipes.pod:672
-#: ../fish/guestfish.pod:1637 ../fuse/guestmount.pod:426
-#: ../guestfs-release-notes.pod:2651 ../rescue/virt-rescue.pod:433
+#: ../fish/guestfish.pod:1640 ../fuse/guestmount.pod:430
+#: ../guestfs-release-notes.pod:2651 ../rescue/virt-rescue.pod:437
 #: ../src/guestfs.pod:4781 ../test-tool/libguestfs-test-tool.pod:195
 #: ../tools/virt-list-partitions:289
 msgid "Copyright (C) 2009-2014 Red Hat Inc."
@@ -2044,7 +2046,7 @@ msgstr ""
 #. type: =head1
 #: ../builder/virt-builder.pod:65 ../cat/virt-cat.pod:32 ../cat/virt-ls.pod:35
 #: ../df/virt-df.pod:47 ../edit/virt-edit.pod:44 ../fish/guestfish.pod:41
-#: ../fish/guestfish.pod:1100 ../fish/virt-copy-in.pod:29
+#: ../fish/guestfish.pod:1099 ../fish/virt-copy-in.pod:29
 #: ../fish/virt-copy-out.pod:21 ../fish/virt-tar-in.pod:30
 #: ../fish/virt-tar-out.pod:24 ../fuse/guestmount.pod:39
 #: ../resize/virt-resize.pod:27 ../sparsify/virt-sparsify.pod:84
@@ -5807,7 +5809,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1823 ../cat/virt-cat.pod:246
 #: ../cat/virt-filesystems.pod:392 ../cat/virt-ls.pod:488
 #: ../daemon/guestfsd.pod:75 ../df/virt-df.pod:262 ../diff/virt-diff.pod:250
-#: ../edit/virt-edit.pod:359 ../fuse/guestmount.pod:403
+#: ../edit/virt-edit.pod:359 ../fuse/guestmount.pod:407
 #: ../inspector/virt-inspector.pod:498 ../resize/virt-resize.pod:753
 #: ../sparsify/virt-sparsify.pod:309
 msgid ""
@@ -6242,7 +6244,7 @@ msgid "For compatibility the old style is still supported."
 msgstr "互換性のため古い形式がまだサポートされています。"
 
 #. type: =head1
-#: ../cat/virt-cat.pod:174 ../edit/virt-edit.pod:265 ../fish/guestfish.pod:889
+#: ../cat/virt-cat.pod:174 ../edit/virt-edit.pod:265 ../fish/guestfish.pod:888
 msgid "WINDOWS PATHS"
 msgstr "Windows のパス"
 
@@ -8101,7 +8103,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../daemon/guestfsd.pod:78 ../fish/guestfish.pod:1540
+#: ../daemon/guestfsd.pod:78 ../fish/guestfish.pod:1539
 #: ../fuse/guestmount.pod:386 ../rescue/virt-rescue.pod:402
 msgid "FILES"
 msgstr "ファイル"
@@ -13463,7 +13465,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:532 ../fish/guestfish.pod:1016
+#: ../examples/guestfs-performance.pod:532 ../fish/guestfish.pod:1015
 #: ../src/guestfs.pod:1382
 #, no-wrap
 msgid ""
@@ -14334,7 +14336,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:297 ../fish/guestfish.pod:1018
+#: ../examples/guestfs-recipes.pod:297 ../fish/guestfish.pod:1017
 #, no-wrap
 msgid ""
 " set -e\n"
@@ -14384,7 +14386,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:310 ../fish/guestfish.pod:972
+#: ../examples/guestfs-recipes.pod:310 ../fish/guestfish.pod:971
 #, no-wrap
 msgid ""
 " guestfish --remote exit\n"
@@ -15378,7 +15380,7 @@ msgstr ""
 #. type: textblock
 #: ../examples/guestfs-testing.pod:83 ../examples/guestfs-testing.pod:149
 #: ../examples/guestfs-testing.pod:256 ../examples/guestfs-testing.pod:269
-#: ../examples/guestfs-testing.pod:329 ../fish/guestfish.pod:1056
+#: ../examples/guestfs-testing.pod:329 ../fish/guestfish.pod:1055
 #: ../lua/examples/guestfs-lua.pod:66 ../src/guestfs.pod:3963
 msgid "or:"
 msgstr "または:"
@@ -37083,12 +37085,12 @@ msgid ""
 "In a future libguestfs we intend to change the default the other way.  Disk "
 "images will be opened read-only.  You will have to either specify "
 "I<guestfish --rw>, I<guestmount --rw>, I<virt-rescue --rw>, or change the "
-"configuration file C</etc/libguestfs-tools.conf> in order to get write "
-"access for disk images specified by those other command line options."
+"configuration file in order to get write access for disk images specified by "
+"those other command line options."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:523
+#: ../fish/guestfish.pod:522
 msgid ""
 "This version of guestfish, guestmount and virt-rescue has a I<--rw> option "
 "which does nothing (it is already the default).  However it is highly "
@@ -37098,26 +37100,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:529
+#: ../fish/guestfish.pod:528
 msgid ""
 "B<Note:> This does I<not> affect commands like L</add> and L</mount>, or any "
 "other libguestfs program apart from guestfish and guestmount."
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:532
+#: ../fish/guestfish.pod:531
 msgid "QUOTING"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:534
+#: ../fish/guestfish.pod:533
 msgid ""
 "You can quote ordinary parameters using either single or double quotes.  For "
 "example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:537
+#: ../fish/guestfish.pod:536
 #, no-wrap
 msgid ""
 " add \"file with a space.img\"\n"
@@ -37127,7 +37129,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:539
+#: ../fish/guestfish.pod:538
 #, no-wrap
 msgid ""
 " rm '/file name'\n"
@@ -37137,7 +37139,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:541
+#: ../fish/guestfish.pod:540
 #, no-wrap
 msgid ""
 " rm '/\"'\n"
@@ -37147,7 +37149,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:543
+#: ../fish/guestfish.pod:542
 msgid ""
 "A few commands require a list of strings to be passed.  For these, use a "
 "whitespace-separated list, enclosed in quotes.  Strings containing "
@@ -37156,7 +37158,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:548
+#: ../fish/guestfish.pod:547
 #, no-wrap
 msgid ""
 " vgcreate VG \"/dev/sda1 /dev/sdb1\"\n"
@@ -37170,103 +37172,103 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../fish/guestfish.pod:552
+#: ../fish/guestfish.pod:551
 msgid "ESCAPE SEQUENCES IN DOUBLE QUOTED ARGUMENTS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:554
+#: ../fish/guestfish.pod:553
 msgid ""
 "In double-quoted arguments (only) use backslash to insert special characters:"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:559
+#: ../fish/guestfish.pod:558
 msgid "C<\\a>"
 msgstr "C<\\a>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:561
+#: ../fish/guestfish.pod:560
 msgid "Alert (bell) character."
 msgstr "アラート（ベル）文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:563
+#: ../fish/guestfish.pod:562
 msgid "C<\\b>"
 msgstr "C<\\b>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:565
+#: ../fish/guestfish.pod:564
 msgid "Backspace character."
 msgstr "バックスペース文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:567
+#: ../fish/guestfish.pod:566
 msgid "C<\\f>"
 msgstr "C<\\f>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:569
+#: ../fish/guestfish.pod:568
 msgid "Form feed character."
 msgstr "フォームフィード文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:571
+#: ../fish/guestfish.pod:570
 msgid "C<\\n>"
 msgstr "C<\\n>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:573
+#: ../fish/guestfish.pod:572
 msgid "Newline character."
 msgstr "改行文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:575
+#: ../fish/guestfish.pod:574
 msgid "C<\\r>"
 msgstr "C<\\r>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:577
+#: ../fish/guestfish.pod:576
 msgid "Carriage return character."
 msgstr "復帰文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:579
+#: ../fish/guestfish.pod:578
 msgid "C<\\t>"
 msgstr "C<\\t>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:581
+#: ../fish/guestfish.pod:580
 msgid "Horizontal tab character."
 msgstr "水平タブ文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:583
+#: ../fish/guestfish.pod:582
 msgid "C<\\v>"
 msgstr "C<\\v>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:585
+#: ../fish/guestfish.pod:584
 msgid "Vertical tab character."
 msgstr "垂直タブ文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:587
+#: ../fish/guestfish.pod:586
 msgid "C<\\\">"
 msgstr "C<\\\">"
 
 #. type: textblock
-#: ../fish/guestfish.pod:589
+#: ../fish/guestfish.pod:588
 msgid "A literal double quote character."
 msgstr "二重引用符文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:591
+#: ../fish/guestfish.pod:590
 msgid "C<\\ooo>"
 msgstr "C<\\ooo>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:593
+#: ../fish/guestfish.pod:592
 msgid ""
 "A character with octal value I<ooo>.  There must be precisely 3 octal digits "
 "(unlike C)."
@@ -37274,47 +37276,47 @@ msgstr ""
 "8 進値 I<ooo> を持つ文字。（C とは異なり）ちょうど 3 桁である必要があります。"
 
 #. type: =item
-#: ../fish/guestfish.pod:596
+#: ../fish/guestfish.pod:595
 msgid "C<\\xhh>"
 msgstr "C<\\xhh>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:598
+#: ../fish/guestfish.pod:597
 msgid ""
 "A character with hex value I<hh>.  There must be precisely 2 hex digits."
 msgstr "16 進数値 I<hh> を持つ文字。ちょうど 2 桁である必要があります。"
 
 #. type: textblock
-#: ../fish/guestfish.pod:601
+#: ../fish/guestfish.pod:600
 msgid ""
 "In the current implementation C<\\000> and C<\\x00> cannot be used in "
 "strings."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:604
+#: ../fish/guestfish.pod:603
 msgid "C<\\\\>"
 msgstr "C<\\\\>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:606 ../fish/guestfish.pod:1288
+#: ../fish/guestfish.pod:605 ../fish/guestfish.pod:1287
 msgid "A literal backslash character."
 msgstr "文字としてのバックスラッシュ文字。"
 
 #. type: =head1
-#: ../fish/guestfish.pod:610
+#: ../fish/guestfish.pod:609
 msgid "OPTIONAL ARGUMENTS"
 msgstr "オプション引数"
 
 #. type: textblock
-#: ../fish/guestfish.pod:612
+#: ../fish/guestfish.pod:611
 msgid ""
 "Some commands take optional arguments.  These arguments appear in this "
 "documentation as C<[argname:..]>.  You can use them as in these examples:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:616
+#: ../fish/guestfish.pod:615
 #, no-wrap
 msgid ""
 " add filename\n"
@@ -37322,7 +37324,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:618
+#: ../fish/guestfish.pod:617
 #, no-wrap
 msgid ""
 " add filename readonly:true\n"
@@ -37330,7 +37332,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:620
+#: ../fish/guestfish.pod:619
 #, no-wrap
 msgid ""
 " add filename format:qcow2 readonly:false\n"
@@ -37338,19 +37340,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:622
+#: ../fish/guestfish.pod:621
 msgid ""
 "Each optional argument can appear at most once.  All optional arguments must "
 "appear after the required ones."
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:625
+#: ../fish/guestfish.pod:624
 msgid "NUMBERS"
 msgstr "数値"
 
 #. type: textblock
-#: ../fish/guestfish.pod:627
+#: ../fish/guestfish.pod:626
 msgid ""
 "This section applies to all commands which can take integers as parameters."
 msgstr ""
@@ -37358,12 +37360,12 @@ msgstr ""
 "す。"
 
 #. type: =head2
-#: ../fish/guestfish.pod:630
+#: ../fish/guestfish.pod:629
 msgid "SIZE SUFFIX"
 msgstr "容量の接尾辞"
 
 #. type: textblock
-#: ../fish/guestfish.pod:632
+#: ../fish/guestfish.pod:631
 msgid ""
 "When the command takes a parameter measured in bytes, you can use one of the "
 "following suffixes to specify kilobytes, megabytes and larger sizes:"
@@ -37373,167 +37375,167 @@ msgstr ""
 "ます:"
 
 #. type: =item
-#: ../fish/guestfish.pod:638
+#: ../fish/guestfish.pod:637
 msgid "B<k> or B<K> or B<KiB>"
 msgstr "B<k> または B<K> または B<KiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:640
+#: ../fish/guestfish.pod:639
 msgid "The size in kilobytes (multiplied by 1024)."
 msgstr "キロ（1024 の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:642
+#: ../fish/guestfish.pod:641
 msgid "B<KB>"
 msgstr "B<KB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:644
+#: ../fish/guestfish.pod:643
 msgid "The size in SI 1000 byte units."
 msgstr "国際単位系（SI）の 1000 バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:646
+#: ../fish/guestfish.pod:645
 msgid "B<M> or B<MiB>"
 msgstr "B<M> または B<MiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:648
+#: ../fish/guestfish.pod:647
 msgid "The size in megabytes (multiplied by 1048576)."
 msgstr "メガ（1048576 の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:650
+#: ../fish/guestfish.pod:649
 msgid "B<MB>"
 msgstr "B<MB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:652
+#: ../fish/guestfish.pod:651
 msgid "The size in SI 1000000 byte units."
 msgstr "国際単位系（SI）の 1000000 バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:654
+#: ../fish/guestfish.pod:653
 msgid "B<G> or B<GiB>"
 msgstr "B<G> または B<GiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:656
+#: ../fish/guestfish.pod:655
 msgid "The size in gigabytes (multiplied by 2**30)."
 msgstr "ギガ（2 の 30 乗の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:658
+#: ../fish/guestfish.pod:657
 msgid "B<GB>"
 msgstr "B<GB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:660
+#: ../fish/guestfish.pod:659
 msgid "The size in SI 10**9 byte units."
 msgstr "国際単位系（SI）の 10 の 9 乗バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:662
+#: ../fish/guestfish.pod:661
 msgid "B<T> or B<TiB>"
 msgstr "B<T> または B<TiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:664
+#: ../fish/guestfish.pod:663
 msgid "The size in terabytes (multiplied by 2**40)."
 msgstr "テラ（2 の 40 乗の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:666
+#: ../fish/guestfish.pod:665
 msgid "B<TB>"
 msgstr "B<TB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:668
+#: ../fish/guestfish.pod:667
 msgid "The size in SI 10**12 byte units."
 msgstr "国際単位系（SI）の 10 の 12 乗バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:670
+#: ../fish/guestfish.pod:669
 msgid "B<P> or B<PiB>"
 msgstr "B<P> または B<PiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:672
+#: ../fish/guestfish.pod:671
 msgid "The size in petabytes (multiplied by 2**50)."
 msgstr "ペタ（2 の 50 乗の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:674
+#: ../fish/guestfish.pod:673
 msgid "B<PB>"
 msgstr "B<PB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:676
+#: ../fish/guestfish.pod:675
 msgid "The size in SI 10**15 byte units."
 msgstr "国際単位系（SI）の 10 の 15 乗バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:678
+#: ../fish/guestfish.pod:677
 msgid "B<E> or B<EiB>"
 msgstr "B<E> または B<EiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:680
+#: ../fish/guestfish.pod:679
 msgid "The size in exabytes (multiplied by 2**60)."
 msgstr "エクサ（2 の 60 乗の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:682
+#: ../fish/guestfish.pod:681
 msgid "B<EB>"
 msgstr "B<EB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:684
+#: ../fish/guestfish.pod:683
 msgid "The size in SI 10**18 byte units."
 msgstr "国際単位系（SI）の 10 の 18 乗バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:686
+#: ../fish/guestfish.pod:685
 msgid "B<Z> or B<ZiB>"
 msgstr "B<Z> または B<ZiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:688
+#: ../fish/guestfish.pod:687
 msgid "The size in zettabytes (multiplied by 2**70)."
 msgstr "ゼタ（2 の 70 乗の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:690
+#: ../fish/guestfish.pod:689
 msgid "B<ZB>"
 msgstr "B<ZB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:692
+#: ../fish/guestfish.pod:691
 msgid "The size in SI 10**21 byte units."
 msgstr "国際単位系（SI）の 10 の 21 乗バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:694
+#: ../fish/guestfish.pod:693
 msgid "B<Y> or B<YiB>"
 msgstr "B<Y> または B<YiB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:696
+#: ../fish/guestfish.pod:695
 msgid "The size in yottabytes (multiplied by 2**80)."
 msgstr "ヨタ（2 の 80 乗の掛け算）バイト単位の容量です。"
 
 #. type: =item
-#: ../fish/guestfish.pod:698
+#: ../fish/guestfish.pod:697
 msgid "B<YB>"
 msgstr "B<YB>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:700
+#: ../fish/guestfish.pod:699
 msgid "The size in SI 10**24 byte units."
 msgstr "国際単位系（SI）の 10 の 24 乗バイト単位の容量です。"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:706
+#: ../fish/guestfish.pod:705
 #, no-wrap
 msgid ""
 " truncate-size /file 1G\n"
@@ -37543,12 +37545,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:708
+#: ../fish/guestfish.pod:707
 msgid "would truncate the file to 1 gigabyte."
 msgstr "ファイルを 1 ギガバイトに切り詰めます。"
 
 #. type: textblock
-#: ../fish/guestfish.pod:710
+#: ../fish/guestfish.pod:709
 msgid ""
 "Be careful because a few commands take sizes in kilobytes or megabytes (eg. "
 "the parameter to L</memsize> is specified in megabytes already).  Adding a "
@@ -37559,19 +37561,19 @@ msgstr ""
 "ています)。接尾辞をつけることにより、期待しない結果になることがあります。"
 
 #. type: =head2
-#: ../fish/guestfish.pod:714
+#: ../fish/guestfish.pod:713
 msgid "OCTAL AND HEXADECIMAL NUMBERS"
 msgstr "10 進数値および 16 進数値"
 
 #. type: textblock
-#: ../fish/guestfish.pod:716
+#: ../fish/guestfish.pod:715
 msgid ""
 "For specifying the radix (base) use the C convention: C<0> to prefix an "
 "octal number or C<0x> to prefix a hexadecimal number.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:719
+#: ../fish/guestfish.pod:718
 #, no-wrap
 msgid ""
 " 1234      decimal number 1234\n"
@@ -37585,7 +37587,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:723
+#: ../fish/guestfish.pod:722
 msgid ""
 "When using the C<chmod> command, you almost always want to specify an octal "
 "number for the mode, and you must prefix it with C<0> (unlike the Unix "
@@ -37593,7 +37595,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:727
+#: ../fish/guestfish.pod:726
 #, no-wrap
 msgid ""
 " chmod 0777 /public  # OK\n"
@@ -37605,7 +37607,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:730
+#: ../fish/guestfish.pod:729
 msgid ""
 "Commands that return numbers usually print them in decimal, but some "
 "commands print numbers in other radices (eg. C<umask> prints the mode in "
@@ -37613,12 +37615,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:734
+#: ../fish/guestfish.pod:733
 msgid "WILDCARDS AND GLOBBING"
 msgstr "ワイルドカードおよびグロブ"
 
 #. type: textblock
-#: ../fish/guestfish.pod:736
+#: ../fish/guestfish.pod:735
 msgid ""
 "Neither guestfish nor the underlying guestfs API performs wildcard expansion "
 "(globbing) by default.  So for example the following will not do what you "
@@ -37626,7 +37628,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:740
+#: ../fish/guestfish.pod:739
 #, no-wrap
 msgid ""
 " rm-rf /home/*\n"
@@ -37636,19 +37638,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:742
+#: ../fish/guestfish.pod:741
 msgid ""
 "Assuming you don't have a directory called literally C</home/*> then the "
 "above command will return an error."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:745
+#: ../fish/guestfish.pod:744
 msgid "To perform wildcard expansion, use the C<glob> command."
 msgstr "ワイルドカードの展開を実行するには C<glob> コマンドを使用します。"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:747
+#: ../fish/guestfish.pod:746
 #, no-wrap
 msgid ""
 " glob rm-rf /home/*\n"
@@ -37658,14 +37660,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:749
+#: ../fish/guestfish.pod:748
 msgid ""
 "runs C<rm-rf> on each path that matches (ie. potentially running the command "
 "many times), equivalent to:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:752
+#: ../fish/guestfish.pod:751
 #, no-wrap
 msgid ""
 " rm-rf /home/jim\n"
@@ -37679,24 +37681,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:756
+#: ../fish/guestfish.pod:755
 msgid "C<glob> only works on simple guest paths and not on device names."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:758
+#: ../fish/guestfish.pod:757
 msgid ""
 "If you have several parameters, each containing a wildcard, then glob will "
 "perform a Cartesian product."
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:761
+#: ../fish/guestfish.pod:760
 msgid "COMMENTS"
 msgstr "コメント"
 
 #. type: textblock
-#: ../fish/guestfish.pod:763
+#: ../fish/guestfish.pod:762
 msgid ""
 "Any line which starts with a I<#> character is treated as a comment and "
 "ignored.  The I<#> can optionally be preceded by whitespace, but B<not> by a "
@@ -37704,7 +37706,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:767
+#: ../fish/guestfish.pod:766
 #, no-wrap
 msgid ""
 " # this is a comment\n"
@@ -37718,24 +37720,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:771
+#: ../fish/guestfish.pod:770
 msgid "Blank lines are also ignored."
 msgstr "空行も無視されます。"
 
 #. type: =head1
-#: ../fish/guestfish.pod:773
+#: ../fish/guestfish.pod:772
 msgid "RUNNING COMMANDS LOCALLY"
 msgstr "ローカルのコマンドの実行法"
 
 #. type: textblock
-#: ../fish/guestfish.pod:775
+#: ../fish/guestfish.pod:774
 msgid ""
 "Any line which starts with a I<!> character is treated as a command sent to "
 "the local shell (C</bin/sh> or whatever L<system(3)> uses).  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:779
+#: ../fish/guestfish.pod:778
 #, no-wrap
 msgid ""
 " !mkdir local\n"
@@ -37747,7 +37749,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:782
+#: ../fish/guestfish.pod:781
 msgid ""
 "will create a directory C<local> on the host, and then export the contents "
 "of C</remote> on the mounted filesystem to C<local/remote-data.tar.gz>.  "
@@ -37755,19 +37757,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:786
+#: ../fish/guestfish.pod:785
 msgid ""
 "To change the local directory, use the C<lcd> command.  C<!cd> will have no "
 "effect, due to the way that subprocesses work in Unix."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:789
+#: ../fish/guestfish.pod:788
 msgid "LOCAL COMMANDS WITH INLINE EXECUTION"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:791
+#: ../fish/guestfish.pod:790
 msgid ""
 "If a line starts with I<E<lt>!> then the shell command is executed (as for "
 "I<!>), but subsequently any output (stdout) of the shell command is parsed "
@@ -37775,14 +37777,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:795
+#: ../fish/guestfish.pod:794
 msgid ""
 "Thus you can use shell script to construct arbitrary guestfish commands "
 "which are then parsed by guestfish."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:798
+#: ../fish/guestfish.pod:797
 msgid ""
 "For example it is tedious to create a sequence of files (eg. C</foo.1> "
 "through C</foo.100>) using guestfish commands alone.  However this is simple "
@@ -37790,7 +37792,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:803
+#: ../fish/guestfish.pod:802
 #, no-wrap
 msgid ""
 " <! for n in `seq 1 100`; do echo write /foo.$n $n; done\n"
@@ -37800,12 +37802,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:805
+#: ../fish/guestfish.pod:804
 msgid "or with names like C</foo.001>:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:807
+#: ../fish/guestfish.pod:806
 #, no-wrap
 msgid ""
 " <! for n in `seq 1 100`; do printf \"write /foo.%03d %d\\n\" $n $n; done\n"
@@ -37815,7 +37817,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:809
+#: ../fish/guestfish.pod:808
 msgid ""
 "When using guestfish interactively it can be helpful to just run the shell "
 "script first (ie. remove the initial C<E<lt>> character so it is just an "
@@ -37825,12 +37827,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:815
+#: ../fish/guestfish.pod:814
 msgid "PIPES"
 msgstr "パイプ"
 
 #. type: textblock
-#: ../fish/guestfish.pod:817
+#: ../fish/guestfish.pod:816
 msgid ""
 "Use C<command E<lt>spaceE<gt> | command> to pipe the output of the first "
 "command (a guestfish command) to the second command (any host command).  For "
@@ -37838,7 +37840,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:821
+#: ../fish/guestfish.pod:820
 #, no-wrap
 msgid ""
 " cat /etc/passwd | awk -F: '$3 == 0 { print }'\n"
@@ -37848,7 +37850,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:823
+#: ../fish/guestfish.pod:822
 msgid ""
 "(where C<cat> is the guestfish cat command, but C<awk> is the host awk "
 "program).  The above command would list all accounts in the guest filesystem "
@@ -37856,7 +37858,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:828
+#: ../fish/guestfish.pod:827
 #, no-wrap
 msgid ""
 " hexdump /bin/ls | head\n"
@@ -37870,7 +37872,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:832
+#: ../fish/guestfish.pod:831
 msgid ""
 "The space before the pipe symbol is required, any space after the pipe "
 "symbol is optional.  Everything after the pipe symbol is just passed "
@@ -37879,14 +37881,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:837
+#: ../fish/guestfish.pod:836
 msgid ""
 "To use a literal argument which begins with a pipe symbol, you have to quote "
 "it, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:840
+#: ../fish/guestfish.pod:839
 #, no-wrap
 msgid ""
 " echo \"|\"\n"
@@ -37896,12 +37898,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../fish/guestfish.pod:842
+#: ../fish/guestfish.pod:841
 msgid "HOME DIRECTORIES"
 msgstr "ホームディレクトリ"
 
 #. type: textblock
-#: ../fish/guestfish.pod:844
+#: ../fish/guestfish.pod:843
 msgid ""
 "If a parameter starts with the character C<~> then the tilde may be expanded "
 "as a home directory path (either C<~> for the current user's home directory, "
@@ -37909,21 +37911,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:848
+#: ../fish/guestfish.pod:847
 msgid ""
 "Note that home directory expansion happens for users known I<on the host>, "
 "not in the guest filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:851
+#: ../fish/guestfish.pod:850
 msgid ""
 "To use a literal argument which begins with a tilde, you have to quote it, "
 "eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:854
+#: ../fish/guestfish.pod:853
 #, no-wrap
 msgid ""
 " echo \"~\"\n"
@@ -37933,12 +37935,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../fish/guestfish.pod:856 ../src/guestfs.pod:565
+#: ../fish/guestfish.pod:855 ../src/guestfs.pod:565
 msgid "ENCRYPTED DISKS"
 msgstr "暗号化ディスク"
 
 #. type: textblock
-#: ../fish/guestfish.pod:858
+#: ../fish/guestfish.pod:857
 msgid ""
 "Libguestfs has some support for Linux guests encrypted according to the "
 "Linux Unified Key Setup (LUKS) standard, which includes nearly all whole "
@@ -37947,12 +37949,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:863
+#: ../fish/guestfish.pod:862
 msgid "Identify encrypted block devices and partitions using L</vfs-type>:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:865
+#: ../fish/guestfish.pod:864
 #, no-wrap
 msgid ""
 " ><fs> vfs-type /dev/sda2\n"
@@ -37964,14 +37966,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:868
+#: ../fish/guestfish.pod:867
 msgid ""
 "Then open those devices using L</luks-open>.  This creates a device-mapper "
 "device called C</dev/mapper/luksdev>."
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:871
+#: ../fish/guestfish.pod:870
 #, no-wrap
 msgid ""
 " ><fs> luks-open /dev/sda2 luksdev\n"
@@ -37983,14 +37985,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:874
+#: ../fish/guestfish.pod:873
 msgid ""
 "Finally you have to tell LVM to scan for volume groups on the newly created "
 "mapper device:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:877
+#: ../fish/guestfish.pod:876
 #, no-wrap
 msgid ""
 " vgscan\n"
@@ -38002,12 +38004,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:880
+#: ../fish/guestfish.pod:879
 msgid "The logical volume(s) can now be mounted in the usual way."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:882
+#: ../fish/guestfish.pod:881
 msgid ""
 "Before closing a LUKS device you must unmount any logical volumes on it and "
 "deactivate the volume groups by calling C<vg-activate false VG> on each "
@@ -38015,7 +38017,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:886
+#: ../fish/guestfish.pod:885
 #, no-wrap
 msgid ""
 " vg-activate false /dev/VG\n"
@@ -38027,7 +38029,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:891
+#: ../fish/guestfish.pod:890
 msgid ""
 "If a path is prefixed with C<win:> then you can use Windows-style drive "
 "letters and paths (with some limitations).  The following commands are "
@@ -38035,7 +38037,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:895
+#: ../fish/guestfish.pod:894
 #, no-wrap
 msgid ""
 " file /WINDOWS/system32/config/system.LOG\n"
@@ -38045,7 +38047,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:897
+#: ../fish/guestfish.pod:896
 #, no-wrap
 msgid ""
 " file win:\\windows\\system32\\config\\system.log\n"
@@ -38055,7 +38057,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:899
+#: ../fish/guestfish.pod:898
 #, no-wrap
 msgid ""
 " file WIN:C:\\Windows\\SYSTEM32\\CONFIG\\SYSTEM.LOG\n"
@@ -38065,7 +38067,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:901
+#: ../fish/guestfish.pod:900
 msgid ""
 "The parameter is rewritten \"behind the scenes\" by looking up the position "
 "where the drive is mounted, prepending that to the path, changing all "
@@ -38075,7 +38077,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:907
+#: ../fish/guestfish.pod:906
 #, no-wrap
 msgid ""
 " win:e:\\foo\\bar => /e/FOO/bar\n"
@@ -38085,17 +38087,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:909
+#: ../fish/guestfish.pod:908
 msgid "This only works in argument positions that expect a path."
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:911
+#: ../fish/guestfish.pod:910
 msgid "UPLOADING AND DOWNLOADING FILES"
 msgstr "ファイルのアップロード方法およびダウンロード方法"
 
 #. type: textblock
-#: ../fish/guestfish.pod:913
+#: ../fish/guestfish.pod:912
 msgid ""
 "For commands such as C<upload>, C<download>, C<tar-in>, C<tar-out> and "
 "others which upload from or download to a local file, you can use the "
@@ -38103,7 +38105,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:917
+#: ../fish/guestfish.pod:916
 #, no-wrap
 msgid ""
 " upload - /foo\n"
@@ -38113,13 +38115,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:919
+#: ../fish/guestfish.pod:918
 msgid ""
 "reads stdin and creates from that a file C</foo> in the disk image, and:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:922
+#: ../fish/guestfish.pod:921
 #, no-wrap
 msgid ""
 " tar-out /etc - | tar tf -\n"
@@ -38129,14 +38131,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:924
+#: ../fish/guestfish.pod:923
 msgid ""
 "writes the tarball to stdout and then pipes that into the external \"tar\" "
 "command (see L</PIPES>)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:927
+#: ../fish/guestfish.pod:926
 msgid ""
 "When using C<-> to read from stdin, the input is read up to the end of "
 "stdin.  You can also use a special \"heredoc\"-like syntax to read up to "
@@ -38144,7 +38146,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:931
+#: ../fish/guestfish.pod:930
 #, no-wrap
 msgid ""
 " upload -<<END /foo\n"
@@ -38162,7 +38164,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:937
+#: ../fish/guestfish.pod:936
 msgid ""
 "Any string of characters can be used instead of C<END>.  The end marker must "
 "appear on a line of its own, without any preceding or following characters "
@@ -38170,19 +38172,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:941
+#: ../fish/guestfish.pod:940
 msgid ""
 "Note that the C<-E<lt>E<lt>> syntax only applies to parameters used to "
 "upload local files (so-called \"FileIn\" parameters in the generator)."
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:944
+#: ../fish/guestfish.pod:943
 msgid "EXIT ON ERROR BEHAVIOUR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:946
+#: ../fish/guestfish.pod:945
 msgid ""
 "By default, guestfish will ignore any errors when in interactive mode (ie. "
 "taking commands from a human over a tty), and will exit on the first error "
@@ -38190,19 +38192,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:951
+#: ../fish/guestfish.pod:950
 msgid ""
 "If you prefix a command with a I<-> character, then that command will not "
 "cause guestfish to exit, even if that (one) command returns an error."
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:955
+#: ../fish/guestfish.pod:954
 msgid "REMOTE CONTROL GUESTFISH OVER A SOCKET"
 msgstr "guestfish のソケット経由のリモート制御"
 
 #. type: textblock
-#: ../fish/guestfish.pod:957
+#: ../fish/guestfish.pod:956
 msgid ""
 "Guestfish can be remote-controlled over a socket.  This is useful "
 "particularly in shell scripts where you want to make several different "
@@ -38211,12 +38213,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:962
+#: ../fish/guestfish.pod:961
 msgid "Start a guestfish server process using:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:964
+#: ../fish/guestfish.pod:963
 #, no-wrap
 msgid ""
 " eval \"`guestfish --listen`\"\n"
@@ -38226,12 +38228,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:966
+#: ../fish/guestfish.pod:965
 msgid "and then send it commands by doing:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:968
+#: ../fish/guestfish.pod:967
 #, no-wrap
 msgid ""
 " guestfish --remote cmd [...]\n"
@@ -38241,12 +38243,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:970
+#: ../fish/guestfish.pod:969
 msgid "To cause the server to exit, send it the exit command:"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:974
+#: ../fish/guestfish.pod:973
 msgid ""
 "Note that the server will normally exit if there is an error in a command.  "
 "You can change this in the usual way.  See section L</EXIT ON ERROR "
@@ -38254,12 +38256,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:978
+#: ../fish/guestfish.pod:977
 msgid "CONTROLLING MULTIPLE GUESTFISH PROCESSES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:980
+#: ../fish/guestfish.pod:979
 msgid ""
 "The C<eval> statement sets the environment variable C<$GUESTFISH_PID>, which "
 "is how the I<--remote> option knows where to send the commands.  You can "
@@ -38267,7 +38269,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:984
+#: ../fish/guestfish.pod:983
 #, no-wrap
 msgid ""
 " eval \"`guestfish --listen`\"\n"
@@ -38289,12 +38291,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../fish/guestfish.pod:992
+#: ../fish/guestfish.pod:991
 msgid "REMOTE CONTROL AND CSH"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:994
+#: ../fish/guestfish.pod:993
 msgid ""
 "When using csh-like shells (csh, tcsh etc) you have to add the I<--csh> "
 "option:"
@@ -38303,7 +38305,7 @@ msgstr ""
 "必要があります:"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:997
+#: ../fish/guestfish.pod:996
 #, no-wrap
 msgid ""
 " eval \"`guestfish --listen --csh`\"\n"
@@ -38313,12 +38315,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../fish/guestfish.pod:999
+#: ../fish/guestfish.pod:998
 msgid "REMOTE CONTROL DETAILS"
 msgstr "リモート制御の詳細"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1001
+#: ../fish/guestfish.pod:1000
 msgid ""
 "Remote control happens over a Unix domain socket called C</tmp/.guestfish-"
 "$UID/socket-$PID>, where C<$UID> is the effective user ID of the process, "
@@ -38326,24 +38328,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1005
+#: ../fish/guestfish.pod:1004
 msgid "Guestfish client and server versions must match exactly."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1007
+#: ../fish/guestfish.pod:1006
 msgid ""
 "Older versions of guestfish were vulnerable to CVE-2013-4419 (see "
 "L<guestfs(3)/CVE-2013-4419>).  This is fixed in the current version."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1010
+#: ../fish/guestfish.pod:1009
 msgid "USING REMOTE CONTROL ROBUSTLY FROM SHELL SCRIPTS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1012
+#: ../fish/guestfish.pod:1011
 msgid ""
 "From Bash, you can use the following code which creates a guestfish "
 "instance, correctly quotes the command line, handles failure to start, and "
@@ -38351,7 +38353,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1020
+#: ../fish/guestfish.pod:1019
 #, no-wrap
 msgid ""
 " guestfish[0]=\"guestfish\"\n"
@@ -38369,7 +38371,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1026
+#: ../fish/guestfish.pod:1025
 #, no-wrap
 msgid ""
 " GUESTFISH_PID=\n"
@@ -38389,7 +38391,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1033
+#: ../fish/guestfish.pod:1032
 #, no-wrap
 msgid ""
 " cleanup_guestfish ()\n"
@@ -38407,7 +38409,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1039
+#: ../fish/guestfish.pod:1038
 #, no-wrap
 msgid ""
 " guestfish --remote -- run\n"
@@ -38417,7 +38419,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1041
+#: ../fish/guestfish.pod:1040
 #, no-wrap
 msgid ""
 " # ...\n"
@@ -38427,12 +38429,12 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../fish/guestfish.pod:1043
+#: ../fish/guestfish.pod:1042
 msgid "REMOTE CONTROL DOES NOT WORK WITH I<-a> ETC. OPTIONS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1045
+#: ../fish/guestfish.pod:1044
 msgid ""
 "Options such as I<-a>, I<--add>, I<-N>, I<--new> etc don't interact properly "
 "with remote support.  They are processed locally, and not sent through to "
@@ -38440,7 +38442,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1050
+#: ../fish/guestfish.pod:1049
 #, no-wrap
 msgid ""
 " guestfish --remote --add disk.img\n"
@@ -38448,12 +38450,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1052
+#: ../fish/guestfish.pod:1051
 msgid "Don't use these options.  Use the equivalent commands instead, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1054
+#: ../fish/guestfish.pod:1053
 #, no-wrap
 msgid ""
 " guestfish --remote add-drive disk.img\n"
@@ -38461,7 +38463,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1058
+#: ../fish/guestfish.pod:1057
 #, no-wrap
 msgid ""
 " guestfish --remote\n"
@@ -38470,19 +38472,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1061
+#: ../fish/guestfish.pod:1060
 msgid "REMOTE CONTROL RUN COMMAND HANGING"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1063
+#: ../fish/guestfish.pod:1062
 msgid ""
 "Using the C<run> (or C<launch>) command remotely in a command substitution "
 "context hangs, ie. don't do (note the backquotes):"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1066
+#: ../fish/guestfish.pod:1065
 #, no-wrap
 msgid ""
 " a=`guestfish --remote run`\n"
@@ -38492,7 +38494,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1068
+#: ../fish/guestfish.pod:1067
 msgid ""
 "Since the C<run> command produces no output on stdout, this is not useful "
 "anyway.  For further information see L<https://bugzilla.redhat.com/show_bug."
@@ -38500,12 +38502,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1072
+#: ../fish/guestfish.pod:1071
 msgid "PREPARED DISK IMAGES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1074
+#: ../fish/guestfish.pod:1073
 msgid ""
 "Use the I<-N [filename=]type> or I<--new [filename=]type> parameter to "
 "select one of a set of preformatted disk images that guestfish can make for "
@@ -38515,7 +38517,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1080
+#: ../fish/guestfish.pod:1079
 msgid ""
 "The new disk is called C<test1.img> for the first I<-N>, C<test2.img> for "
 "the second and so on.  Existing files in the current directory are "
@@ -38524,7 +38526,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1085
+#: ../fish/guestfish.pod:1084
 msgid ""
 "The type briefly describes how the disk should be sized, partitioned, how "
 "filesystem(s) should be created, and how content should be added.  "
@@ -38536,28 +38538,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1093
+#: ../fish/guestfish.pod:1092
 msgid ""
 "Note that the prepared filesystem is not mounted.  You would usually have to "
 "use the C<mount /dev/sda1 /> command or add the I<-m /dev/sda1> option."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1097
+#: ../fish/guestfish.pod:1096
 msgid ""
 "If any I<-N> or I<--new> options are given, the libguestfs appliance is "
 "automatically launched."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1102
+#: ../fish/guestfish.pod:1101
 msgid ""
 "Create a 100MB disk with an ext4-formatted partition, called C<test1.img> in "
 "the current directory:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1105
+#: ../fish/guestfish.pod:1104
 #, no-wrap
 msgid ""
 " guestfish -N fs:ext4\n"
@@ -38567,14 +38569,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1107
+#: ../fish/guestfish.pod:1106
 msgid "Create a 32MB disk with a VFAT-formatted partition, and mount it:"
 msgstr ""
 "VFAT フォーマットのパーティションを持つ 32MB ディスクを作成して、マウントしま"
 "す:"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1109
+#: ../fish/guestfish.pod:1108
 #, no-wrap
 msgid ""
 " guestfish -N fs:vfat:32M -m /dev/sda1\n"
@@ -38584,12 +38586,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1111
+#: ../fish/guestfish.pod:1110
 msgid "Create a blank 200MB disk:"
 msgstr "200MB の空ディスクを作成します:"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1113
+#: ../fish/guestfish.pod:1112
 #, no-wrap
 msgid ""
 " guestfish -N disk:200M\n"
@@ -38599,13 +38601,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1115
+#: ../fish/guestfish.pod:1114
 msgid ""
 "Create a blank 200MB disk called C<blankdisk.img> (instead of C<test1.img>):"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1118
+#: ../fish/guestfish.pod:1117
 #, no-wrap
 msgid ""
 " guestfish -N blankdisk.img=disk:200M\n"
@@ -38613,31 +38615,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1120
+#: ../fish/guestfish.pod:1119
 msgid "__PREPOPTS__"
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1122
+#: ../fish/guestfish.pod:1121
 msgid "ADDING REMOTE STORAGE"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1124
+#: ../fish/guestfish.pod:1123
 msgid ""
 "I<For API-level documentation on this topic, see L<guestfs(3)/"
 "guestfs_add_drive_opts> and L<guestfs(3)/REMOTE STORAGE>>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1128
+#: ../fish/guestfish.pod:1127
 msgid ""
 "On the command line, you can use the I<-a> option to add network block "
 "devices using a URI-style format, for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1131
+#: ../fish/guestfish.pod:1130
 #, no-wrap
 msgid ""
 " guestfish -a ssh://root@example.com/disk.img\n"
@@ -38645,14 +38647,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1133
+#: ../fish/guestfish.pod:1132
 msgid ""
 "URIs I<cannot> be used with the L</add> command.  The equivalent command "
 "using the API directly is:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1136
+#: ../fish/guestfish.pod:1135
 #, no-wrap
 msgid ""
 " ><fs> add /disk.img protocol:ssh server:tcp:example.com username:root\n"
@@ -38660,64 +38662,64 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1138
+#: ../fish/guestfish.pod:1137
 msgid "The possible I<-a URI> formats are described below."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1140
+#: ../fish/guestfish.pod:1139
 msgid "B<-a disk.img>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1142
+#: ../fish/guestfish.pod:1141
 msgid "B<-a file:///path/to/disk.img>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1144
+#: ../fish/guestfish.pod:1143
 msgid "Add the local disk image (or device) called C<disk.img>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1146
+#: ../fish/guestfish.pod:1145
 msgid "B<-a ftp://[user@]example.com[:port]/disk.img>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1148
+#: ../fish/guestfish.pod:1147
 msgid "B<-a ftps://[user@]example.com[:port]/disk.img>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1150
+#: ../fish/guestfish.pod:1149
 msgid "B<-a http://[user@]example.com[:port]/disk.img>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1152
+#: ../fish/guestfish.pod:1151
 msgid "B<-a https://[user@]example.com[:port]/disk.img>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1154
+#: ../fish/guestfish.pod:1153
 msgid "B<-a tftp://[user@]example.com[:port]/disk.img>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1156
+#: ../fish/guestfish.pod:1155
 msgid "Add a disk located on a remote FTP, HTTP or TFTP server."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1158 ../fish/guestfish.pod:1168
-#: ../fish/guestfish.pod:1176 ../fish/guestfish.pod:1210
-#: ../fish/guestfish.pod:1222 ../fish/guestfish.pod:1232
+#: ../fish/guestfish.pod:1157 ../fish/guestfish.pod:1167
+#: ../fish/guestfish.pod:1175 ../fish/guestfish.pod:1209
+#: ../fish/guestfish.pod:1221 ../fish/guestfish.pod:1231
 msgid "The equivalent API command would be:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1160
+#: ../fish/guestfish.pod:1159
 #, no-wrap
 msgid ""
 " ><fs> add /disk.img protocol:(ftp|...) server:tcp:example.com\n"
@@ -38725,22 +38727,22 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1162
+#: ../fish/guestfish.pod:1161
 msgid "B<-a gluster://example.com[:port]/volname/image>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1164
+#: ../fish/guestfish.pod:1163
 msgid "Add a disk image located on GlusterFS storage."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1166
+#: ../fish/guestfish.pod:1165
 msgid "The server is the one running C<glusterd>, and may be C<localhost>."
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1170
+#: ../fish/guestfish.pod:1169
 #, no-wrap
 msgid ""
 " ><fs> add volname/image protocol:gluster server:tcp:example.com\n"
@@ -38748,17 +38750,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1172
+#: ../fish/guestfish.pod:1171
 msgid "B<-a iscsi://example.com[:port]/target-iqn-name[/lun]>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1174
+#: ../fish/guestfish.pod:1173
 msgid "Add a disk located on an iSCSI server."
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1178
+#: ../fish/guestfish.pod:1177
 #, no-wrap
 msgid ""
 " ><fs> add target-iqn-name/lun protocol:iscsi server:tcp:example.com\n"
@@ -38766,39 +38768,39 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1180
+#: ../fish/guestfish.pod:1179
 msgid "B<-a nbd://example.com[:port]>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1182
+#: ../fish/guestfish.pod:1181
 msgid "B<-a nbd://example.com[:port]/exportname>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1184
+#: ../fish/guestfish.pod:1183
 msgid "B<-a nbd://?socket=/socket>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1186
+#: ../fish/guestfish.pod:1185
 msgid "B<-a nbd:///exportname?socket=/socket>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1188
+#: ../fish/guestfish.pod:1187
 msgid "Add a disk located on Network Block Device (nbd) storage."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1190
+#: ../fish/guestfish.pod:1189
 msgid ""
 "The I</exportname> part of the URI specifies an NBD export name, but is "
 "usually left empty."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1193
+#: ../fish/guestfish.pod:1192
 msgid ""
 "The optional I<?socket> parameter can be used to specify a Unix domain "
 "socket that we talk to the NBD server over.  Note that you cannot mix server "
@@ -38806,12 +38808,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1197
+#: ../fish/guestfish.pod:1196
 msgid "The equivalent API command would be (no export name):"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1199
+#: ../fish/guestfish.pod:1198
 #, no-wrap
 msgid ""
 " ><fs> add \"\" protocol:nbd server:[tcp:example.com|unix:/socket]\n"
@@ -38819,29 +38821,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1201
+#: ../fish/guestfish.pod:1200
 msgid "B<-a rbd:///pool/disk>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1203
+#: ../fish/guestfish.pod:1202
 msgid "B<-a rbd://example.com[:port]/pool/disk>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1205
+#: ../fish/guestfish.pod:1204
 msgid "Add a disk image located on a Ceph (RBD/librbd) storage volume."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1207
+#: ../fish/guestfish.pod:1206
 msgid ""
 "Although libguestfs and Ceph supports multiple servers, only a single server "
 "can be specified when using this URI syntax."
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1212
+#: ../fish/guestfish.pod:1211
 #, no-wrap
 msgid ""
 " ><fs> add pool/disk protocol:rbd server:tcp:example.com:port\n"
@@ -38849,17 +38851,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1214
+#: ../fish/guestfish.pod:1213
 msgid "B<-a sheepdog://[example.com[:port]]/volume/image>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1216
+#: ../fish/guestfish.pod:1215
 msgid "Add a disk image located on a Sheepdog volume."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1218
+#: ../fish/guestfish.pod:1217
 msgid ""
 "The server name is optional.  Although libguestfs and Sheepdog supports "
 "multiple servers, only at most one server can be specified when using this "
@@ -38867,7 +38869,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1224
+#: ../fish/guestfish.pod:1223
 #, no-wrap
 msgid ""
 " ><fs> add volume protocol:sheepdog [server:tcp:example.com]\n"
@@ -38875,12 +38877,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1226
+#: ../fish/guestfish.pod:1225
 msgid "B<-a ssh://[user@]example.com[:port]/disk.img>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1228
+#: ../fish/guestfish.pod:1227
 msgid ""
 "Add a disk image located on a remote server, accessed using the Secure Shell "
 "(ssh) SFTP protocol.  SFTP is supported out of the box by all major SSH "
@@ -38888,7 +38890,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1234
+#: ../fish/guestfish.pod:1233
 #, no-wrap
 msgid ""
 " ><fs> add /disk protocol:ssh server:tcp:example.com [username:user]\n"
@@ -38896,19 +38898,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1236
+#: ../fish/guestfish.pod:1235
 msgid "PROGRESS BARS"
 msgstr "進行状況バー"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1238
+#: ../fish/guestfish.pod:1237
 msgid ""
 "Some (not all) long-running commands send progress notification messages as "
 "they are running.  Guestfish turns these messages into progress bars."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1242
+#: ../fish/guestfish.pod:1241
 msgid ""
 "When a command that supports progress bars takes longer than two seconds to "
 "run, and if progress bars are enabled, then you will see one appearing below "
@@ -38916,7 +38918,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1246
+#: ../fish/guestfish.pod:1245
 #, no-wrap
 msgid ""
 " ><fs> copy-size /large-file /another-file 2048M\n"
@@ -38928,7 +38930,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1249
+#: ../fish/guestfish.pod:1248
 msgid ""
 "The spinner on the left hand side moves round once for every progress "
 "notification received from the backend.  This is a (reasonably) golden "
@@ -38939,7 +38941,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1256
+#: ../fish/guestfish.pod:1255
 msgid ""
 "Progress bars are enabled by default when guestfish is used interactively.  "
 "You can enable them even for non-interactive modes using I<--progress-bars>, "
@@ -38947,12 +38949,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1261
+#: ../fish/guestfish.pod:1260
 msgid "PROMPT"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1263
+#: ../fish/guestfish.pod:1262
 msgid ""
 "You can change or add colours to the default prompt (C<E<gt>E<lt>fsE<gt>>) "
 "by setting the C<GUESTFISH_PS1> environment variable.  A second string "
@@ -38964,14 +38966,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1272
+#: ../fish/guestfish.pod:1271
 msgid ""
 "A simple prompt can be set by setting C<GUESTFISH_PS1> to an alternate "
 "string:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1275
+#: ../fish/guestfish.pod:1274
 #, no-wrap
 msgid ""
 " $ GUESTFISH_PS1='(type a command) '\n"
@@ -38983,33 +38985,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1281
+#: ../fish/guestfish.pod:1280
 msgid ""
 "You can also use special escape sequences, as described in the table below:"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1286
+#: ../fish/guestfish.pod:1285
 msgid "\\\\"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1290
+#: ../fish/guestfish.pod:1289
 msgid "\\["
 msgstr "\\["
 
 #. type: =item
-#: ../fish/guestfish.pod:1292
+#: ../fish/guestfish.pod:1291
 msgid "\\]"
 msgstr "\\]"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1294
+#: ../fish/guestfish.pod:1293
 msgid "(These should only be used in C<GUESTFISH_PS1>.)"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1296
+#: ../fish/guestfish.pod:1295
 msgid ""
 "Place non-printing characters (eg. terminal control codes for colours)  "
 "between C<\\[...\\]>.  What this does it to tell the L<readline(3)> library "
@@ -39018,77 +39020,77 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1301
+#: ../fish/guestfish.pod:1300
 msgid "\\a"
 msgstr "\\a"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1303
+#: ../fish/guestfish.pod:1302
 msgid "A bell character."
 msgstr "ベル文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1305
+#: ../fish/guestfish.pod:1304
 msgid "\\e"
 msgstr "\\e"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1307
+#: ../fish/guestfish.pod:1306
 msgid "An ASCII ESC (escape) character."
 msgstr "ASCII ESC (エスケープ) 文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1309
+#: ../fish/guestfish.pod:1308
 msgid "\\n"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1311
+#: ../fish/guestfish.pod:1310
 msgid "A newline."
 msgstr "改行。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1313
+#: ../fish/guestfish.pod:1312
 msgid "\\r"
 msgstr "\\r"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1315
+#: ../fish/guestfish.pod:1314
 msgid "A carriage return."
 msgstr "復帰。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1317
+#: ../fish/guestfish.pod:1316
 msgid "\\NNN"
 msgstr "\\NNN"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1319
+#: ../fish/guestfish.pod:1318
 msgid "The ASCII character whose code is the octal value NNN."
 msgstr "コードの8 進値が NNN の ASCII 文字。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1321
+#: ../fish/guestfish.pod:1320
 msgid "\\xNN"
 msgstr "\\xNN"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1323
+#: ../fish/guestfish.pod:1322
 msgid "The ASCII character whose code is the hex value NN."
 msgstr "コードの 16 進値が NN の ASCII 文字。"
 
 #. type: =head2
-#: ../fish/guestfish.pod:1327
+#: ../fish/guestfish.pod:1326
 msgid "EXAMPLES OF PROMPTS"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1329
+#: ../fish/guestfish.pod:1328
 msgid "Note these these require a terminal that supports ANSI escape codes."
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1335
+#: ../fish/guestfish.pod:1334
 #, no-wrap
 msgid ""
 " GUESTFISH_PS1='\\[\\e[1;30m\\]><fs>\\[\\e[0;30m\\] '\n"
@@ -39096,12 +39098,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1337
+#: ../fish/guestfish.pod:1336
 msgid "A bold black version of the ordinary prompt."
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1341
+#: ../fish/guestfish.pod:1340
 #, no-wrap
 msgid ""
 " GUESTFISH_PS1='\\[\\e[1;32m\\]><fs>\\[\\e[0;31m\\] '\n"
@@ -39112,19 +39114,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1346
+#: ../fish/guestfish.pod:1345
 msgid "Blue welcome text, green prompt, red commands, black command output."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1351 ../resize/virt-resize.pod:700
+#: ../fish/guestfish.pod:1350 ../resize/virt-resize.pod:700
 #: ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:536
 #: ../tools/virt-win-reg:620
 msgid "WINDOWS 8"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1353
+#: ../fish/guestfish.pod:1352
 msgid ""
 "Windows 8 \"fast startup\" can prevent guestfish from mounting NTFS "
 "partitions.  See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST "
@@ -39132,24 +39134,24 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1357
+#: ../fish/guestfish.pod:1356
 msgid "GUESTFISH COMMANDS"
 msgstr "guestfish コマンド"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1359
+#: ../fish/guestfish.pod:1358
 msgid ""
 "The commands in this section are guestfish convenience commands, in other "
 "words, they are not part of the L<guestfs(3)> API."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1362
+#: ../fish/guestfish.pod:1361
 msgid "help"
 msgstr "help"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1364
+#: ../fish/guestfish.pod:1363
 #, no-wrap
 msgid ""
 " help\n"
@@ -39161,47 +39163,47 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1367
+#: ../fish/guestfish.pod:1366
 msgid "Without any parameter, this provides general help."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1369
+#: ../fish/guestfish.pod:1368
 msgid "With a C<cmd> parameter, this displays detailed help for that command."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish.pod:1371
+#: ../fish/guestfish.pod:1370
 msgid "exit"
 msgstr "exit"
 
 #. type: =head2
-#: ../fish/guestfish.pod:1373
+#: ../fish/guestfish.pod:1372
 msgid "quit"
 msgstr "quit"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1375
+#: ../fish/guestfish.pod:1374
 msgid "This exits guestfish.  You can also use C<^D> key."
 msgstr "これは guestfish を終了します。C<^D> キーを使用することもできます。"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1377
+#: ../fish/guestfish.pod:1376
 msgid "__FISH_COMMANDS__"
 msgstr ""
 
 #. type: =head1
-#: ../fish/guestfish.pod:1379
+#: ../fish/guestfish.pod:1378
 msgid "COMMANDS"
 msgstr "コマンド"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1381 ../src/guestfs.pod:2472
+#: ../fish/guestfish.pod:1380 ../src/guestfs.pod:2472
 msgid "__ACTIONS__"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1385
+#: ../fish/guestfish.pod:1384
 msgid ""
 "guestfish returns 0 if the commands completed without error, or 1 if there "
 "was an error."
@@ -39210,12 +39212,12 @@ msgstr ""
 "を返します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1392
+#: ../fish/guestfish.pod:1391
 msgid "EDITOR"
 msgstr "EDITOR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1394
+#: ../fish/guestfish.pod:1393
 msgid ""
 "The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses "
 "C<vi>."
@@ -39224,111 +39226,111 @@ msgstr ""
 "と、C<vi> を使用します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1397 ../src/guestfs.pod:4614
+#: ../fish/guestfish.pod:1396 ../src/guestfs.pod:4614
 msgid "FEBOOTSTRAP_KERNEL"
 msgstr "FEBOOTSTRAP_KERNEL"
 
 #. type: =item
-#: ../fish/guestfish.pod:1399 ../src/guestfs.pod:4616
+#: ../fish/guestfish.pod:1398 ../src/guestfs.pod:4616
 msgid "FEBOOTSTRAP_MODULES"
 msgstr "FEBOOTSTRAP_MODULES"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1401 ../src/guestfs.pod:4618
+#: ../fish/guestfish.pod:1400 ../src/guestfs.pod:4618
 msgid ""
 "When using supermin E<ge> 4.1.0, these have been renamed L</SUPERMIN_KERNEL> "
 "and L</SUPERMIN_MODULES>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1404
+#: ../fish/guestfish.pod:1403
 msgid "GUESTFISH_DISPLAY_IMAGE"
 msgstr "GUESTFISH_DISPLAY_IMAGE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1406
+#: ../fish/guestfish.pod:1405
 msgid ""
 "The C<display> command uses C<$GUESTFISH_DISPLAY_IMAGE> to display images.  "
 "If not set, it uses L<display(1)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1409
+#: ../fish/guestfish.pod:1408
 #, fuzzy
 #| msgid "GUESTFISH_PID"
 msgid "GUESTFISH_INIT"
 msgstr "GUESTFISH_PID"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1411
+#: ../fish/guestfish.pod:1410
 msgid "Printed when guestfish starts.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1413
+#: ../fish/guestfish.pod:1412
 #, fuzzy
 #| msgid "GUESTFISH_PID"
 msgid "GUESTFISH_OUTPUT"
 msgstr "GUESTFISH_PID"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1415
+#: ../fish/guestfish.pod:1414
 msgid "Printed before guestfish output.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1417
+#: ../fish/guestfish.pod:1416
 msgid "GUESTFISH_PID"
 msgstr "GUESTFISH_PID"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1419
+#: ../fish/guestfish.pod:1418
 msgid ""
 "Used with the I<--remote> option to specify the remote guestfish process to "
 "control.  See section L</REMOTE CONTROL GUESTFISH OVER A SOCKET>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1423
+#: ../fish/guestfish.pod:1422
 msgid "GUESTFISH_PS1"
 msgstr "GUESTFISH_PS1"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1425
+#: ../fish/guestfish.pod:1424
 msgid "Set the command prompt.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1427
+#: ../fish/guestfish.pod:1426
 #, fuzzy
 #| msgid "GUESTFISH_PS1"
 msgid "GUESTFISH_RESTORE"
 msgstr "GUESTFISH_PS1"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1429
+#: ../fish/guestfish.pod:1428
 msgid "Printed before guestfish exits.  See L</PROMPT>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1431
+#: ../fish/guestfish.pod:1430
 msgid "HEXEDITOR"
 msgstr "HEXEDITOR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1433
+#: ../fish/guestfish.pod:1432
 msgid ""
 "The L</hexedit> command uses C<$HEXEDITOR> as the external hex editor.  If "
 "not specified, the external L<hexedit(1)> program is used."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1437
+#: ../fish/guestfish.pod:1436
 msgid "HOME"
 msgstr "HOME"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1439
+#: ../fish/guestfish.pod:1438
 msgid ""
 "If compiled with GNU readline support, various files in the home directory "
 "can be used.  See L</FILES>."
@@ -39337,58 +39339,58 @@ msgstr ""
 "さまざまなファイルを使用できます。 L</ファイル> 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1442 ../src/guestfs.pod:4621
+#: ../fish/guestfish.pod:1441 ../src/guestfs.pod:4621
 msgid "LIBGUESTFS_APPEND"
 msgstr "LIBGUESTFS_APPEND"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1444 ../src/guestfs.pod:4623
+#: ../fish/guestfish.pod:1443 ../src/guestfs.pod:4623
 msgid "Pass additional options to the guest kernel."
 msgstr "仮想マシンのカーネルに追加のオプションを渡します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1446 ../src/guestfs.pod:4625
+#: ../fish/guestfish.pod:1445 ../src/guestfs.pod:4625
 msgid "LIBGUESTFS_ATTACH_METHOD"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1448 ../src/guestfs.pod:4627
+#: ../fish/guestfish.pod:1447 ../src/guestfs.pod:4627
 msgid "This is the old way to set C<LIBGUESTFS_BACKEND>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1450 ../src/guestfs.pod:4629
+#: ../fish/guestfish.pod:1449 ../src/guestfs.pod:4629
 msgid "LIBGUESTFS_BACKEND"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1452
+#: ../fish/guestfish.pod:1451
 msgid ""
 "Choose the default way to create the appliance.  See L<guestfs(3)/"
 "guestfs_set_backend>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1455 ../src/guestfs.pod:4634
+#: ../fish/guestfish.pod:1454 ../src/guestfs.pod:4634
 #, fuzzy
 #| msgid "LIBGUESTFS_CACHEDIR"
 msgid "LIBGUESTFS_BACKEND_SETTINGS"
 msgstr "LIBGUESTFS_CACHEDIR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1457
+#: ../fish/guestfish.pod:1456
 msgid ""
 "A colon-separated list of backend-specific settings.  See L<guestfs(3)/"
 "BACKEND>, L<guestfs(3)/BACKEND SETTINGS>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1460 ../src/guestfs.pod:4639
+#: ../fish/guestfish.pod:1459 ../src/guestfs.pod:4639
 msgid "LIBGUESTFS_CACHEDIR"
 msgstr "LIBGUESTFS_CACHEDIR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1462 ../src/guestfs.pod:4641
+#: ../fish/guestfish.pod:1461 ../src/guestfs.pod:4641
 msgid ""
 "The location where libguestfs will cache its appliance, when using a "
 "supermin appliance.  The appliance is cached and shared between all handles "
@@ -39396,36 +39398,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1466 ../src/guestfs.pod:4645
+#: ../fish/guestfish.pod:1465 ../src/guestfs.pod:4645
 msgid ""
 "If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> "
 "is not set, then C</var/tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1469
+#: ../fish/guestfish.pod:1468
 msgid "See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1471 ../src/guestfs.pod:4650
+#: ../fish/guestfish.pod:1470 ../src/guestfs.pod:4650
 msgid "LIBGUESTFS_DEBUG"
 msgstr "LIBGUESTFS_DEBUG"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1473
+#: ../fish/guestfish.pod:1472
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as using the B<-v> option."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1476 ../src/guestfs.pod:4655
+#: ../fish/guestfish.pod:1475 ../src/guestfs.pod:4655
 msgid "LIBGUESTFS_HV"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1478 ../src/guestfs.pod:4657
+#: ../fish/guestfish.pod:1477 ../src/guestfs.pod:4657
 msgid ""
 "Set the default hypervisor (usually qemu) binary that libguestfs uses.  If "
 "not set, then the qemu which was found at compile time by the configure "
@@ -39433,18 +39435,18 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1482 ../src/guestfs.pod:4663
+#: ../fish/guestfish.pod:1481 ../src/guestfs.pod:4663
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr "LIBGUESTFS_MEMSIZE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1484 ../src/guestfs.pod:4665
+#: ../fish/guestfish.pod:1483 ../src/guestfs.pod:4665
 msgid ""
 "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1487 ../src/guestfs.pod:4668
+#: ../fish/guestfish.pod:1486 ../src/guestfs.pod:4668
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -39454,80 +39456,80 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../fish/guestfish.pod:1489 ../src/guestfs.pod:4670
+#: ../fish/guestfish.pod:1488 ../src/guestfs.pod:4670
 msgid "LIBGUESTFS_PATH"
 msgstr "LIBGUESTFS_PATH"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1491
+#: ../fish/guestfish.pod:1490
 msgid ""
 "Set the path that guestfish uses to search for kernel and initrd.img.  See "
 "the discussion of paths in L<guestfs(3)>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1494 ../src/guestfs.pod:4675
+#: ../fish/guestfish.pod:1493 ../src/guestfs.pod:4675
 msgid "LIBGUESTFS_QEMU"
 msgstr "LIBGUESTFS_QEMU"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1496 ../src/guestfs.pod:4677
+#: ../fish/guestfish.pod:1495 ../src/guestfs.pod:4677
 msgid "This is the old way to set C<LIBGUESTFS_HV>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1498 ../src/guestfs.pod:4679
+#: ../fish/guestfish.pod:1497 ../src/guestfs.pod:4679
 msgid "LIBGUESTFS_TMPDIR"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1500 ../src/guestfs.pod:4681
+#: ../fish/guestfish.pod:1499 ../src/guestfs.pod:4681
 msgid ""
 "The location where libguestfs will store temporary files used by each handle."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1503 ../src/guestfs.pod:4684
+#: ../fish/guestfish.pod:1502 ../src/guestfs.pod:4684
 msgid ""
 "If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If C<TMPDIR> is "
 "not set, then C</tmp> is used."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1506
+#: ../fish/guestfish.pod:1505
 msgid "See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1508 ../src/guestfs.pod:4689
+#: ../fish/guestfish.pod:1507 ../src/guestfs.pod:4689
 msgid "LIBGUESTFS_TRACE"
 msgstr "LIBGUESTFS_TRACE"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1510
+#: ../fish/guestfish.pod:1509
 msgid "Set C<LIBGUESTFS_TRACE=1> to enable command traces."
 msgstr ""
 "コマンドトレースを有効にするには C<LIBGUESTFS_TRACE=1> を設定してください。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1512
+#: ../fish/guestfish.pod:1511
 msgid "PAGER"
 msgstr "PAGER"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1514
+#: ../fish/guestfish.pod:1513
 msgid ""
 "The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
 "C<more>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1517 ../src/guestfs.pod:1333 ../src/guestfs.pod:4694
+#: ../fish/guestfish.pod:1516 ../src/guestfs.pod:1333 ../src/guestfs.pod:4694
 msgid "PATH"
 msgstr "パス"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1519
+#: ../fish/guestfish.pod:1518
 msgid ""
 "Libguestfs and guestfish may run some external programs, and rely on C<"
 "$PATH> being set to a reasonable value.  If using the libvirt backend, "
@@ -39535,17 +39537,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1524 ../src/guestfs.pod:4702
+#: ../fish/guestfish.pod:1523 ../src/guestfs.pod:4702
 msgid "SUPERMIN_KERNEL"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1526 ../src/guestfs.pod:4704
+#: ../fish/guestfish.pod:1525 ../src/guestfs.pod:4704
 msgid "SUPERMIN_MODULES"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1528 ../src/guestfs.pod:4706
+#: ../fish/guestfish.pod:1527 ../src/guestfs.pod:4706
 msgid ""
 "These two environment variables allow the kernel that libguestfs uses in the "
 "appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set, then the most "
@@ -39555,51 +39557,67 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1534 ../sparsify/virt-sparsify.pod:316
+#: ../fish/guestfish.pod:1533 ../sparsify/virt-sparsify.pod:316
 #: ../src/guestfs.pod:4712
 msgid "TMPDIR"
 msgstr "TMPDIR"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1536 ../src/guestfs.pod:4714
+#: ../fish/guestfish.pod:1535 ../src/guestfs.pod:4714
 msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1544 ../fuse/guestmount.pod:390
+#: ../fish/guestfish.pod:1543 ../fuse/guestmount.pod:390
 #: ../rescue/virt-rescue.pod:406
+#, fuzzy
+#| msgid "/etc/libguestfs-tools.conf"
+msgid "$XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf"
+msgstr "/etc/libguestfs-tools.conf"
+
+#. type: =item
+#: ../fish/guestfish.pod:1545 ../fish/libguestfs-tools.conf.pod:69
+#: ../fuse/guestmount.pod:392 ../rescue/virt-rescue.pod:408
 msgid "$HOME/.libguestfs-tools.rc"
 msgstr "$HOME/.libguestfs-tools.rc"
 
 #. type: =item
-#: ../fish/guestfish.pod:1546 ../fuse/guestmount.pod:392
-#: ../rescue/virt-rescue.pod:408
+#: ../fish/guestfish.pod:1547 ../fuse/guestmount.pod:394
+#: ../rescue/virt-rescue.pod:410
+#, fuzzy
+#| msgid "/etc/libguestfs-tools.conf"
+msgid "$XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf"
+msgstr "/etc/libguestfs-tools.conf"
+
+#. type: =item
+#: ../fish/guestfish.pod:1549 ../fish/libguestfs-tools.conf.pod:79
+#: ../fuse/guestmount.pod:396 ../rescue/virt-rescue.pod:412
 msgid "/etc/libguestfs-tools.conf"
 msgstr "/etc/libguestfs-tools.conf"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1548 ../fuse/guestmount.pod:394
-#: ../rescue/virt-rescue.pod:410
+#: ../fish/guestfish.pod:1551 ../fuse/guestmount.pod:398
+#: ../rescue/virt-rescue.pod:414
 msgid ""
 "This configuration file controls the default read-only or read-write mode "
 "(I<--ro> or I<--rw>)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1551 ../fuse/guestmount.pod:397
-#: ../rescue/virt-rescue.pod:413
+#: ../fish/guestfish.pod:1554 ../fuse/guestmount.pod:401
+#: ../rescue/virt-rescue.pod:417
 #, fuzzy
 #| msgid "/etc/libguestfs-tools.conf"
 msgid "See L<libguestfs-tools.conf(5)>."
 msgstr "/etc/libguestfs-tools.conf"
 
 #. type: =item
-#: ../fish/guestfish.pod:1553
+#: ../fish/guestfish.pod:1556
 msgid "$HOME/.guestfish"
 msgstr "$HOME/.guestfish"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1555
+#: ../fish/guestfish.pod:1558
 msgid ""
 "If compiled with GNU readline support, then the command history is saved in "
 "this file."
@@ -39608,17 +39626,17 @@ msgstr ""
 "イルに保存されます。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1558
+#: ../fish/guestfish.pod:1561
 msgid "$HOME/.inputrc"
 msgstr "$HOME/.inputrc"
 
 #. type: =item
-#: ../fish/guestfish.pod:1560
+#: ../fish/guestfish.pod:1563
 msgid "/etc/inputrc"
 msgstr "/etc/inputrc"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1562
+#: ../fish/guestfish.pod:1565
 msgid ""
 "If compiled with GNU readline support, then these files can be used to "
 "configure readline.  For further information, please see L<readline(3)/"
@@ -39629,12 +39647,12 @@ msgstr ""
 "FILE> を参照してください。"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1566
+#: ../fish/guestfish.pod:1569
 msgid "To write rules which only apply to guestfish, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1568
+#: ../fish/guestfish.pod:1571
 #, no-wrap
 msgid ""
 " $if guestfish\n"
@@ -39648,26 +39666,26 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1572
+#: ../fish/guestfish.pod:1575
 msgid ""
 "Variables that you can set in inputrc that change the behaviour of guestfish "
 "in useful ways include:"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1577
+#: ../fish/guestfish.pod:1580
 msgid "completion-ignore-case (default: on)"
 msgstr "completion-ignore-case (初期値: on)"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1579
+#: ../fish/guestfish.pod:1582
 msgid ""
 "By default, guestfish will ignore case when tab-completing paths on the "
 "disk.  Use:"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish.pod:1582
+#: ../fish/guestfish.pod:1585
 #, no-wrap
 msgid ""
 " set completion-ignore-case off\n"
@@ -39677,22 +39695,22 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1584
+#: ../fish/guestfish.pod:1587
 msgid "to make guestfish case sensitive."
 msgstr "guestfish が大文字小文字を区別するようになります。"
 
 #. type: =item
-#: ../fish/guestfish.pod:1588
+#: ../fish/guestfish.pod:1591
 msgid "test1.img"
 msgstr "test1.img"
 
 #. type: =item
-#: ../fish/guestfish.pod:1590
+#: ../fish/guestfish.pod:1593
 msgid "test2.img (etc)"
 msgstr "test2.img (etc)"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1592
+#: ../fish/guestfish.pod:1595
 msgid ""
 "When using the I<-N> or I<--new> option, the prepared disk or filesystem "
 "will be created in the file C<test1.img> in the current directory.  The "
@@ -39702,7 +39720,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1602
+#: ../fish/guestfish.pod:1605
 msgid ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-alignment-scan(1)>, L<virt-"
 "builder(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-"
@@ -39717,8 +39735,8 @@ msgstr ""
 #. type: textblock
 #: ../fish/libguestfs-tools.conf.pod:5
 msgid ""
-"/etc/libguestfs-tools.conf - configuration file for guestfish, guestmount, "
-"virt-rescue"
+"libguestfs-tools.conf - configuration file for guestfish, guestmount, virt-"
+"rescue"
 msgstr ""
 
 #. type: verbatim
@@ -39733,49 +39751,67 @@ msgstr "/etc/libguestfs-tools.conf"
 #. type: verbatim
 #: ../fish/libguestfs-tools.conf.pod:11
 #, fuzzy, no-wrap
+#| msgid "/etc/libguestfs-tools.conf"
+msgid ""
+" $XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf\n"
+"\n"
+msgstr "/etc/libguestfs-tools.conf"
+
+#. type: verbatim
+#: ../fish/libguestfs-tools.conf.pod:13
+#, fuzzy, no-wrap
 #| msgid "$HOME/.libguestfs-tools.rc"
 msgid ""
 " $HOME/.libguestfs-tools.rc\n"
 "\n"
 msgstr "$HOME/.libguestfs-tools.rc"
 
-#. type: textblock
+#. type: verbatim
 #: ../fish/libguestfs-tools.conf.pod:15
+#, fuzzy, no-wrap
+#| msgid "/etc/libguestfs-tools.conf"
 msgid ""
-"C</etc/libguestfs-tools.conf> or C<$HOME/.libguestfs-tools.rc> changes the "
+" $XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf\n"
+"\n"
+msgstr "/etc/libguestfs-tools.conf"
+
+#. type: textblock
+#: ../fish/libguestfs-tools.conf.pod:19
+msgid ""
+"C<libguestfs-tools.conf> (or C<$HOME/.libguestfs-tools.rc>) changes the "
 "defaults for the following programs only:"
 msgstr ""
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:22
+#: ../fish/libguestfs-tools.conf.pod:26
 #, fuzzy
 #| msgid "See L<guestfish(1)>."
 msgid "L<guestfish(1)>"
 msgstr "L<guestfish(1)> 参照。"
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:26
+#: ../fish/libguestfs-tools.conf.pod:30
 #, fuzzy
 #| msgid "guestfs_mount"
 msgid "L<guestmount(1)>"
 msgstr "guestfs_mount"
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:30
+#: ../fish/libguestfs-tools.conf.pod:34
 #, fuzzy
 #| msgid "Use L<virt-ls(1)>."
 msgid "L<virt-rescue(1)>"
 msgstr "L<virt-ls(1)> を使用します。"
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:34
+#: ../fish/libguestfs-tools.conf.pod:38
 msgid ""
 "There is currently only one setting which is controlled by this file.  "
 "Adding (or uncommenting):"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/libguestfs-tools.conf.pod:37
+#: ../fish/libguestfs-tools.conf.pod:41
 #, fuzzy, no-wrap
 #| msgid "If C<readonly> is true:"
 msgid ""
@@ -39784,7 +39820,7 @@ msgid ""
 msgstr "C<readonly> が真ならば:"
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:39
+#: ../fish/libguestfs-tools.conf.pod:43
 msgid ""
 "changes these programs so they act as if the I<--ro> flag was given on the "
 "command line.  You can use this to make the programs safe against accidental "
@@ -39794,41 +39830,73 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:46
+#: ../fish/libguestfs-tools.conf.pod:50
 msgid "Note that B<the semicolon is required>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:48
-msgid ""
-"C</etc/libguestfs-tools.conf> is the global configuration file for all of "
-"the above programs.  Local users can override the global configuration by "
-"copying this file into C<.libguestfs-tools.rc> in their home directory and "
-"modifying it accordingly."
-msgstr ""
-
-#. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:53
+#: ../fish/libguestfs-tools.conf.pod:52
 msgid ""
 "This file is parsed by the libconfig library.  For more information about "
 "the format, see: L<http://www.hyperrealm.com/libconfig/libconfig_manual.html>"
 msgstr ""
 
+#. type: =head1
+#: ../fish/libguestfs-tools.conf.pod:56
+msgid "FILE LOCATION"
+msgstr ""
+
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:59
+#: ../fish/libguestfs-tools.conf.pod:58
+msgid "The order of the configuration files being read is, by importance:"
+msgstr ""
+
+#. type: textblock
+#: ../fish/libguestfs-tools.conf.pod:64
+msgid ""
+"$XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf (C<$XDG_CONFIG_HOME> is C<"
+"$HOME/.config> if not set)."
+msgstr ""
+
+#. type: textblock
+#: ../fish/libguestfs-tools.conf.pod:73
+msgid ""
+"$XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf (where C<$XDG_CONFIG_DIRS> "
+"means any of the directories in that environment variable, or just C</etc/"
+"xdg> if not set)"
+msgstr ""
+
+#. type: textblock
+#: ../fish/libguestfs-tools.conf.pod:83
+msgid ""
+"This means local users can override the system configuration by copying the "
+"configuration file (or creating it anew) into C<$XDG_CONFIG_HOME/libguestfs/"
+"libguestfs-tools.conf>."
+msgstr ""
+
+#. type: textblock
+#: ../fish/libguestfs-tools.conf.pod:87
+msgid ""
+"C</etc/libguestfs-tools.conf> and C<$HOME/.libguestfs-tools.rc> are the old "
+"non-XDG paths which are read for compatibility."
+msgstr ""
+
+#. type: textblock
+#: ../fish/libguestfs-tools.conf.pod:92
 #, fuzzy
 #| msgid ""
 #| "L<df(1)>, L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, "
 #| "L<http://libguestfs.org/>."
 msgid ""
 "L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>, L<guestmount(1)>, L<virt-"
-"rescue(1)>, L<http://libguestfs.org/>."
+"rescue(1)>, L<http://libguestfs.org/>, L<http://standards.freedesktop.org/"
+"basedir-spec/latest/>."
 msgstr ""
 "L<df(1)>, L<guestfs(3)>, L<guestfish(1)>, L<virt-filesystems(1)>, L<http://"
 "libguestfs.org/>."
 
 #. type: textblock
-#: ../fish/libguestfs-tools.conf.pod:70 ../sysprep/virt-sysprep.pod:576
+#: ../fish/libguestfs-tools.conf.pod:104 ../sysprep/virt-sysprep.pod:576
 msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
@@ -41122,7 +41190,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:408
+#: ../fuse/guestmount.pod:412
 #, fuzzy
 #| msgid ""
 #| "L<guestfs(3)>, L<guestfish(1)>, L<virt-clone(1)>, L<virt-rescue(1)>, "
@@ -50330,7 +50398,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../rescue/virt-rescue.pod:419
+#: ../rescue/virt-rescue.pod:423
 #, fuzzy
 #| msgid ""
 #| "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-edit(1)>, L<virt-"
