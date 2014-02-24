@@ -100,6 +100,8 @@ OBJECTS = \
 	$(top_builddir)/mllib/timezone.cmx \
 	$(top_builddir)/mllib/firstboot.cmx \
 	$(top_builddir)/mllib/config.cmx \
+	$(top_builddir)/mllib/mkdtemp-c.o \
+	$(top_builddir)/mllib/mkdtemp.cmx \
 	sysprep_operation.cmx \
 	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \
 	main.cmx
