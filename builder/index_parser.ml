@@ -27,6 +27,7 @@ and entry = {
   printable_name : string option;       (* the name= field *)
   osinfo : string option;
   file_uri : string;
+  arch : string;
   signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
   checksum_sha512 : string option;
   revision : int;
@@ -43,6 +44,7 @@ and entry = {
 
 let print_entry chan (name, { printable_name = printable_name;
                               file_uri = file_uri;
+                              arch = arch;
                               osinfo = osinfo;
                               signature_uri = signature_uri;
                               checksum_sha512 = checksum_sha512;
@@ -65,6 +67,7 @@ let print_entry chan (name, { printable_name = printable_name;
   | Some id -> fp "osinfo=%s\n" id
   );
   fp "file=%s\n" file_uri;
+  fp "arch=%s\n" arch;
   (match signature_uri with
   | None -> ()
   | Some uri -> fp "sig=%s\n" uri
@@ -179,6 +182,11 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
             with Not_found ->
               eprintf (f_"virt-builder: no 'file' (URI) entry for '%s'\n") n;
             corrupt_file () in
+          let arch =
+            try List.assoc ("arch", None) fields
+            with Not_found ->
+              eprintf (f_"virt-builder: no 'arch' entry for '%s'\n") n;
+            corrupt_file () in
           let signature_uri =
             try Some (make_absolute_uri (List.assoc ("sig", None) fields))
             with Not_found -> None in
@@ -245,6 +253,7 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
           let entry = { printable_name = printable_name;
                         osinfo = osinfo;
                         file_uri = file_uri;
+                        arch = arch;
                         signature_uri = signature_uri;
                         checksum_sha512 = checksum_sha512;
                         revision = revision;

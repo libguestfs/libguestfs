@@ -1,5 +1,6 @@
 [phony-debian]
 name=Phony Debian
+arch=x86_64
 file=debian.xz
 format=raw
 size=536870912
@@ -9,6 +10,7 @@ notes=Phony Debian look-alike used for testing.
 
 [phony-fedora]
 name=Phony Fedora
+arch=x86_64
 file=fedora.xz
 format=raw
 size=1073741824
@@ -18,6 +20,7 @@ notes=Phony Fedora look-alike used for testing.
 
 [phony-fedora-qcow2]
 name=Phony Fedora qcow2
+arch=x86_64
 file=fedora.qcow2.xz
 format=qcow2
 size=1073741824
@@ -27,6 +30,7 @@ notes=Phony Fedora look-alike used for testing.
 
 [phony-fedora-qcow2-uncompressed]
 name=Phony Fedora qcow2 uncompressed
+arch=x86_64
 file=fedora.qcow2
 format=qcow2
 size=1073741824
@@ -36,6 +40,7 @@ notes=Phony Fedora look-alike used for testing.
 
 [phony-fedora-no-format]
 name=Phony Fedora
+arch=x86_64
 file=fedora.qcow2.xz
 size=1073741824
 expand=/dev/sda2
@@ -44,6 +49,7 @@ notes=Phony Fedora look-alike used for testing.
 
 [phony-ubuntu]
 name=Phony Ubuntu
+arch=x86_64
 file=ubuntu.xz
 format=raw
 size=536870912
@@ -52,6 +58,7 @@ notes=Phony Ubuntu look-alike used for testing.
 
 [phony-windows]
 name=Phony Windows
+arch=x86_64
 file=windows.xz
 format=raw
 size=536870912
