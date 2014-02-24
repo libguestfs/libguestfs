@@ -46,6 +46,8 @@ SOURCES = \
 	index_parser.mli \
 	index_parser.ml \
 	index-parser-c.c \
+	ini_reader.mli \
+	ini_reader.ml \
 	list_entries.mli \
 	list_entries.ml \
 	paths.ml \
@@ -94,6 +96,7 @@ OBJECTS = \
 	pxzcat.cmx \
 	setlocale-c.o \
 	setlocale.cmx \
+	ini_reader.cmx \
 	paths.cmx \
 	get_kernel.cmx \
 	downloader.cmx \

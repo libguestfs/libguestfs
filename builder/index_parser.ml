@@ -102,15 +102,6 @@ let print_entry chan (name, { printable_name = printable_name;
   ) notes;
   if hidden then fp "hidden=true\n"
 
-(* Types returned by the C index parser. *)
-type sections = section array
-and section = string * fields           (* [name] + fields *)
-and fields = field array
-and field = string * string option * string    (* key + subkey + value *)
-
-(* Calls yyparse in the C code. *)
-external parse_index : string -> sections = "virt_builder_parse_index"
-
 let get_index ~prog ~debug ~downloader ~sigchecker source =
   let corrupt_file () =
     eprintf (f_"\nThe index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.\n")
@@ -128,15 +119,9 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
     Sigchecker.verify sigchecker tmpfile;
 
     (* Try parsing the file. *)
-    let sections = parse_index tmpfile in
+    let sections = Ini_reader.read_ini tmpfile in
     if delete_tmpfile then
       (try Unix.unlink tmpfile with _ -> ());
-
-    let sections = Array.to_list sections in
-    let sections = List.map (
-      fun (n, fields) ->
-        n, Array.to_list fields
-    ) sections in
 
     (* Check for repeated os-version names. *)
     let nseen = Hashtbl.create 13 in
