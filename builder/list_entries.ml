@@ -73,6 +73,7 @@ and list_entries_long ~sources index =
 
   List.iter (
     fun (name, { Index_parser.printable_name = printable_name;
+                 arch = arch;
                  size = size;
                  compressed_size = compressed_size;
                  notes = notes;
@@ -83,6 +84,7 @@ and list_entries_long ~sources index =
         | None -> ()
         | Some name -> printf "%-24s %s\n" (s_"Full name:") name;
         );
+        printf "%-24s %s\n" (s_"Architecture:") arch;
         printf "%-24s %s\n" (s_"Minimum/default size:") (human_size size);
         (match compressed_size with
         | None -> ()
@@ -168,6 +170,7 @@ and list_entries_json ~sources index =
   printf "  \"templates\": [\n";
   iteri (
     fun i (name, { Index_parser.printable_name = printable_name;
+                   arch = arch;
                    size = size;
                    compressed_size = compressed_size;
                    notes = notes;
@@ -175,6 +178,7 @@ and list_entries_json ~sources index =
       printf "  {\n";
       printf "    \"os-version\": \"%s\",\n" name;
       json_optional_printf_string "full-name" printable_name;
+      printf "    \"arch\": \"%s\",\n" arch;
       printf "    \"size\": %Ld,\n" size;
       json_optional_printf_int64 "compressed-size" compressed_size;
       print_notes notes;

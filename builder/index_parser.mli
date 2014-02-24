@@ -21,6 +21,7 @@ and entry = {
   printable_name : string option;       (* the name= field *)
   osinfo : string option;
   file_uri : string;
+  arch : string;
   signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
   checksum_sha512 : string option;
   revision : int;
