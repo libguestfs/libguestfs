@@ -23,7 +23,7 @@ set -e
 
 abs_builddir=$(pwd)
 
-export VIRT_BUILDER_SOURCE=file://$abs_builddir/test-index
+export XDG_CONFIG_DIRS="$abs_builddir/test-config"
 
 short_list=$($VG ./virt-builder --no-check-signature --no-cache --list)
 
@@ -41,8 +41,7 @@ fi
 
 long_list=$(./virt-builder --no-check-signature --no-cache --list --long)
 
-if [ "$long_list" != "Source URI: $VIRT_BUILDER_SOURCE
-Fingerprint: F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0
+if [ "$long_list" != "Source URI: file://$abs_builddir/test-index
 
 os-version:              phony-debian
 Full name:               Phony Debian
@@ -117,8 +116,7 @@ if [ "$json_list" != "{
   \"version\": 1,
   \"sources\": [
   {
-    \"fingerprint\": \"F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0\",
-    \"uri\": \"$VIRT_BUILDER_SOURCE\"
+    \"uri\": \"file://$abs_builddir/test-index\"
   }
   ],
   \"templates\": [

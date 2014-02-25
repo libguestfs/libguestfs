@@ -1550,6 +1550,12 @@ dnl http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
 LIBTOOL='bash $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
 AC_SUBST([LIBTOOL])
 
+dnl Work around autoconf's lack of expanded variables.
+eval my_sysconfdir="\"[$]sysconfdir\""
+eval my_sysconfdir="\"$my_sysconfdir\""
+SYSCONFDIR="${my_sysconfdir}"
+AC_SUBST(SYSCONFDIR)
+
 dnl Produce output files.
 
 AC_CONFIG_HEADERS([config.h])
@@ -1581,7 +1587,10 @@ AC_CONFIG_FILES([Makefile
                  appliance/Makefile
                  bash/Makefile
                  builder/Makefile
+                 builder/libguestfs.conf
+                 builder/test-config/virt-builder/repos.d/test-index.conf
                  builder/test-index
+                 builder/test-website/virt-builder/repos.d/libguestfs.conf
                  builder/website/Makefile
                  cat/Makefile
                  csharp/Makefile

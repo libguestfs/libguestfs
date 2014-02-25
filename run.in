@@ -87,9 +87,9 @@ export LD_LIBRARY_PATH
 
 # Make virt-builder use the local website copy to avoid hitting
 # the network all the time.
-if [ -z "$VIRT_BUILDER_SOURCE" ]; then
-    VIRT_BUILDER_SOURCE="file://$s/builder/website/index.asc"
-    export VIRT_BUILDER_SOURCE
+if [ -z "$XDG_CONFIG_DIRS" ]; then
+    XDG_CONFIG_DIRS="$b/builder/test-website"
+    export XDG_CONFIG_DIRS
 fi
 
 # For Perl.

@@ -58,7 +58,9 @@ SOURCES = \
 	setlocale.mli \
 	setlocale-c.c \
 	sigchecker.mli \
-	sigchecker.ml
+	sigchecker.ml \
+	sources.mli \
+	sources.ml
 
 man_MANS =
 noinst_DATA =
@@ -103,6 +105,7 @@ OBJECTS = \
 	sigchecker.cmx \
 	index_parser.cmx \
 	list_entries.cmx \
+	sources.cmx \
 	cmdline.cmx \
 	builder.cmx
 
@@ -220,6 +223,11 @@ endif
 DISTCLEANFILES = .depend
 
 .PHONY: depend docs
+
+# virt-builder's default repository
+
+repoconfdir = $(sysconfdir)/xdg/virt-builder/repos.d
+repoconf_DATA = libguestfs.conf libguestfs.gpg
 
 # Build a small C index validator program.
 bin_PROGRAMS = virt-index-validate
