@@ -1,0 +1,2 @@
+[test-index]
+uri=file://@abs_top_srcdir@/builder/test-index

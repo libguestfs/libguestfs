@@ -21,7 +21,7 @@ set -e
 
 abs_builddir=$(pwd)
 
-export VIRT_BUILDER_SOURCE=file://$abs_builddir/test-index
+export XDG_CONFIG_DIRS="$abs_builddir/test-config"
 
 if [ ! -f fedora.xz -o ! -f fedora.qcow2 -o ! -f fedora.qcow2.xz ]; then
     echo "$0: test skipped because there is no fedora.xz, fedora.qcow2 or fedora.qcow2.xz in the build directory"

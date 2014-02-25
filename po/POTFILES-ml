@@ -9,6 +9,7 @@ builder/paths.ml
 builder/pxzcat.ml
 builder/setlocale.ml
 builder/sigchecker.ml
+builder/sources.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml

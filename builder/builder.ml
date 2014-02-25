@@ -136,10 +136,20 @@ let main () =
 
   (* Download the sources. *)
   let downloader = Downloader.create ~debug ~curl ~cache in
+  let repos = Sources.read_sources ~prog ~debug in
+  let repos = List.map (
+    fun { Sources.uri = uri; Sources.gpgkey = gpgkey } ->
+      let gpgkey =
+        match gpgkey with
+        | None -> Sigchecker.No_Key
+        | Some key -> Sigchecker.KeyFile key in
+      uri, gpgkey
+  ) repos in
   let sources = List.map (
     fun (source, fingerprint) ->
       source, Sigchecker.Fingerprint fingerprint
   ) sources in
+  let sources = List.append repos sources in
   let index : Index_parser.index =
     List.concat (
       List.map (
