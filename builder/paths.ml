@@ -24,3 +24,18 @@ let xdg_cache_home =
     try Some (Sys.getenv "HOME" // ".cache" // "virt-builder")
     with Not_found ->
       None (* no cache directory *)
+
+let xdg_config_home ~prog =
+  try Some (Sys.getenv "XDG_CONFIG_HOME" // prog)
+  with Not_found ->
+    try Some (Sys.getenv "HOME" // ".config" // prog)
+    with Not_found ->
+      None (* no config directory *)
+
+let xdg_config_dirs ~prog =
+  let dirs =
+    try Sys.getenv "XDG_CONFIG_DIRS"
+    with Not_found -> "/etc/xdg" in
+  let dirs = string_nsplit ":" dirs in
+  let dirs = List.filter (fun x -> x <> "") dirs in
+  List.map (fun x -> x // prog) dirs
