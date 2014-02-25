@@ -65,9 +65,15 @@ and list_entries_long ~sources index =
   | Some locale -> split_locale locale in
 
   List.iter (
-    fun (source, fingerprint) ->
+    fun (source, key) ->
       printf (f_"Source URI: %s\n") source;
-      printf (f_"Fingerprint: %s\n") fingerprint;
+      (match key with
+      | Sigchecker.No_Key -> ()
+      | Sigchecker.Fingerprint fp ->
+        printf (f_"Fingerprint: %s\n") fp;
+      | Sigchecker.KeyFile kf ->
+        printf (f_"Key: %s\n") kf;
+      );
       printf "\n"
   ) sources;
 
@@ -160,10 +166,16 @@ and list_entries_json ~sources index =
   printf "  \"version\": %d,\n" 1;
   printf "  \"sources\": [\n";
   iteri (
-    fun i (source, fingerprint) ->
+    fun i (source, key) ->
       printf "  {\n";
-      printf "    \"uri\": \"%s\",\n" source;
-      printf "    \"fingerprint\": \"%s\"\n" fingerprint;
+      (match key with
+      | Sigchecker.No_Key -> ()
+      | Sigchecker.Fingerprint fp ->
+        printf "    \"fingerprint\": \"%s\",\n" fp;
+      | Sigchecker.KeyFile kf ->
+        printf "    \"key\": \"%s\",\n" kf;
+      );
+      printf "    \"uri\": \"%s\"\n" source;
       printf "  }%s\n" (trailing_comma i (List.length sources))
   ) sources;
   printf "  ],\n";
