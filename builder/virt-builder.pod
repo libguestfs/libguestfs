@@ -292,12 +292,6 @@ URLs, then you can have either no fingerprint, one fingerprint or
 multiple fingerprints.  If you have multiple, then each must
 correspond 1-1 with a source URL.
 
-The default fingerprint (if none are supplied) is
-S<F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>
-(which is S<Richard W.M. Jones's> key).
-
-You can also set the C<VIRT_BUILDER_FINGERPRINT> environment variable.
-
 =item B<--firstboot> SCRIPT
 
 =item B<--firstboot-command> 'CMD ARGS ...'
@@ -420,7 +414,7 @@ keys are no more present).
 
 I<--long> is a shorthand for the C<long> format.
 
-See also: I<--source>, I<--notes>, L</CREATING YOUR OWN TEMPLATES>.
+See also: I<--source>, I<--notes>, L</SOURCES OF TEMPLATES>.
 
 =item B<--no-logfile>
 
@@ -635,12 +629,8 @@ Enable N E<ge> 2 virtual CPUs for I<--run> scripts to use.
 Set the source URL to look for indexes.
 
 You can give this option multiple times to specify multiple sources.
-If not specified it defaults to
-L<http://libguestfs.org/download/builder/index.asc>
 
-See also L</CREATING YOUR OWN TEMPLATES> below.
-
-You can also set the C<VIRT_BUILDER_SOURCE> environment variable.
+See also L</SOURCES OF TEMPLATES> below.
 
 Note that you should not point I<--source> to sources that you don't
 trust (unless the source is signed by someone you do trust).  See also
@@ -1203,7 +1193,53 @@ serial console, add the following on the kernel command line:
 
 =back
 
-=head2 CREATING YOUR OWN TEMPLATES
+=head2 SOURCES OF TEMPLATES
+
+virt-builder reads the available sources from configuration files,
+with the I<.conf> extension and located in the following paths:
+
+=over 4
+
+=item *
+
+$XDG_CONFIG_HOME/virt-builder/repos.d/ (C<$XDG_CONFIG_HOME> is
+C<$HOME/.config> if not set).
+
+=item *
+
+$XDG_CONFIG_DIRS/virt-builder/repos.d/ (where C<$XDG_CONFIG_DIRS>
+means any of the directories in that environment variable, or just C</etc/xdg>
+if not set)
+
+=back
+
+Each I<.conf> file in those paths has a simple text format like the
+following:
+
+ [libguestfs.org]
+ uri=http://libguestfs.org/download/builder/index.asc
+ gpgkey=file:///etc/xdg/virt-builder/repos.d/libguestfs.gpg
+
+The part in square brackets is the repository identifier, which is
+used as unique identifier.
+
+The following fields can appear:
+
+=over 4
+
+=item C<uri=URI>
+
+The URI of the index file which this repository refers to.
+
+This field is required.
+
+=item C<gpgkey=URI>
+
+This optional field represents the URI (although only I<file://> URIs
+are accepted) of the key used to sign the index file.
+If not present, the index file referred by I<uri=..> is not signed.
+
+=back
 
 For serious virt-builder use, you may want to create your own
 repository of templates.
@@ -1223,15 +1259,16 @@ libguestfs source tree, in C<builder/website>.
 =head3 Setting up the repository
 
 You can set up your own site containing an index file and some
-templates, and then point virt-builder at the site by using the
-I<--source> option:
+templates, and then point virt-builder at the site by creating a
+I<.conf> file pointing to it.
+
+Note that if your index is signed, you will need to properly fill
+I<gpgkey=..> in your I<.conf> file, making sure to deploy also the
+GPG key file.
 
  virt-builder --source https://example.com/builder/index.asc \
     --fingerprint 'AAAA BBBB ...' \
     --list
-
-(Note setting the environment variables C<VIRT_BUILDER_SOURCE> and
-C<VIRT_BUILDER_FINGERPRINT> may be easier to type!)
 
 You can host this on any web or FTP server, or a local or network
 filesystem.
@@ -1246,18 +1283,10 @@ I<--no-check-signature> flag every time they use virt-builder.)
 To create a key, see the GPG manual
 L<http://www.gnupg.org/gph/en/manual.html>.
 
-Export your GPG public key and add it to the keyring of all
-virt-builder users:
+Export your GPG public key:
 
  gpg --export -a "you@example.com" > pubkey
  
- # For each virt-builder user:
- gpg --import pubkey
-
-Also find the fingerprint of your key:
-
- gpg --list-keys --fingerprint
-
 =head3 Create the templates
 
 There are many ways to create the templates.  For example you could
@@ -1305,7 +1334,7 @@ using the following command:
  gpg --clearsign --armor index
 
 This will create the final file called C<index.asc> which can be
-uploaded to the server (and is the I<--source> URL).  As noted above,
+uploaded to the server (and is the I<uri=..> URL).  As noted above,
 signing the index file is optional, but recommended.
 
 The following fields can appear:
@@ -1449,51 +1478,18 @@ images.
 
 =back
 
-=head3 Running virt-builder against the alternate repository
-
-Ensure each virt-builder user has imported your public key into
-their gpg keyring (see above).
-
-Each virt-builder user should export these environment variables:
-
-=over 4
-
-=item *
-
-C<VIRT_BUILDER_SOURCE> to point to the URL of the C<index.asc> file.
-
-=item *
-
-C<VIRT_BUILDER_FINGERPRINT> to contain the fingerprint (long hex
-string) of the user who signed the index file and the templates.
-
-=back
-
-Now run virt-builder commands as normal, eg:
-
- virt-builder --list --long
-
- virt-builder os-version
-
-To debug problems, add the C<-v> option to these commands.
-
 =head3 Running virt-builder against multiple sources
 
-It is possible to use multiple sources with virt-builder.  Use either
-multiple I<--source> and/or I<--fingerprint> options, or a
-comma-separated list in the C<VIRT_BUILDER_SOURCE> /
-C<VIRT_BUILDER_FINGERPRINT> environment variables:
+It is possible to use multiple sources with virt-builder.
+The recommended way is to deploy I<.conf> files pointing to the
+index files. Another way is to specify the sources using
+multiple I<--source> and/or I<--fingerprint> options:
 
  virt-builder \
    --source http://example.com/s1/index.asc \
    --source http://example.com/s2/index.asc
 
-or equivalently:
-
- export VIRT_BUILDER_SOURCE=http://example.com/s1/index.asc,http://example.com/s2/index.asc
- virt-builder [...]
-
-You can provide N, 1 or 0 fingerprints.  In the case where you
+You can provide N or 1 fingerprints.  In the case where you
 provide N fingerprints, N = number of sources and there is a 1-1
 correspondence between each source and each fingerprint:
 
@@ -1504,8 +1500,7 @@ correspondence between each source and each fingerprint:
 In the case where you provide 1 fingerprint, the same fingerprint
 is used for all sources.
 
-In the case where you provide no fingerprints, the default fingerprint
-built into virt-builder is used for all sources.
+You C<must> provide at least 1 fingerprint.
 
 =head3 Licensing of templates
 
@@ -1618,8 +1613,8 @@ The source points to an index file, which is optionally signed.
 
 Virt-builder downloads the index and checks that the signature is
 valid and the signer's fingerprint matches the specified fingerprint
-(ie. I<--fingerprint>, C<VIRT_BUILDER_FINGERPRINT>, or a built-in
-fingerprint, in that order).
+(ie. the one specified in I<gpgkey=..> in the I<.conf>, or with
+I<--fingerprint>, in that order).
 
 For checking against the built-in public key/fingerprint, this
 requires importing the public key into the user's local gpg keyring
@@ -1800,21 +1795,22 @@ are actually interpreted by L<curl(1)>, not virt-builder.
 
 =item C<HOME>
 
-Used to determine the location of the template cache.  See L</CACHING>.
-
-=item C<VIRT_BUILDER_FINGERPRINT>
-
-Set the default value for the GPG signature fingerprint or
-comma-separated list of fingerprints (see I<--fingerprint> option).
-
-=item C<VIRT_BUILDER_SOURCE>
-
-Set the default value for the source URL (or comma-separated list of
-URLs) for the template repository (see I<--source> option).
+Used to determine the location of the template cache, and the location
+of the user' sources.  See L</CACHING> and L</SOURCES OF TEMPLATES>.
 
 =item C<XDG_CACHE_HOME>
 
 Used to determine the location of the template cache.  See L</CACHING>.
+
+=item C<XDG_CONFIG_HOME>
+
+Used to determine the location of the user' sources.  See
+L</SOURCES OF TEMPLATES>.
+
+=item C<XDG_CONFIG_DIRS>
+
+Used to determine the location of the system sources.  See
+L</SOURCES OF TEMPLATES>.
 
 =back
 
