@@ -117,8 +117,8 @@ if [ "$json_list" != "{
   \"version\": 1,
   \"sources\": [
   {
-    \"uri\": \"$VIRT_BUILDER_SOURCE\",
-    \"fingerprint\": \"F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0\"
+    \"fingerprint\": \"F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0\",
+    \"uri\": \"$VIRT_BUILDER_SOURCE\"
   }
   ],
   \"templates\": [

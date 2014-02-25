@@ -136,13 +136,16 @@ let main () =
 
   (* Download the sources. *)
   let downloader = Downloader.create ~debug ~curl ~cache in
+  let sources = List.map (
+    fun (source, fingerprint) ->
+      source, Sigchecker.Fingerprint fingerprint
+  ) sources in
   let index : Index_parser.index =
     List.concat (
       List.map (
-        fun (source, fingerprint) ->
+        fun (source, key) ->
           let sigchecker =
-            Sigchecker.create ~debug ~gpg ~check_signature
-              ~gpgkey:(Sigchecker.Fingerprint fingerprint) in
+            Sigchecker.create ~debug ~gpg ~check_signature ~gpgkey:key in
           Index_parser.get_index ~prog ~debug ~downloader ~sigchecker source
       ) sources
     ) in
