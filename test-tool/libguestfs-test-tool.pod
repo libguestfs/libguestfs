@@ -87,8 +87,7 @@ variables C<SUPERMIN_KERNEL> and/or C<SUPERMIN_MODULES>
 (C<FEBOOTSTRAP_KERNEL> and C<FEBOOTSTRAP_MODULES> if still using the
 old febootstrap 3.21 program).
 
-Refer to L<supermin-helper(1)/ENVIRONMENT VARIABLES>
-for further information.
+Refer to L<supermin(1)/ENVIRONMENT VARIABLES> for further information.
 
 =head1 TRYING OUT A DIFFERENT VERSION OF LIBVIRT
 

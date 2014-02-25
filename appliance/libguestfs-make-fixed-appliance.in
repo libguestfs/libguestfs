@@ -105,7 +105,7 @@ guestfish -a /dev/null run
 # Find the location of the appliance.
 cachedir="$(guestfish get-cachedir)"
 euid="$(id -u)"
-appliancedir="$cachedir/.guestfs-$euid"
+appliancedir="$cachedir/.guestfs-$euid/appliance.d"
 
 cp "$appliancedir/kernel" "$outputdir/kernel"
 cp "$appliancedir/initrd" "$outputdir/initrd"

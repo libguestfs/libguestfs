@@ -153,7 +153,7 @@ L<libguestfs-make-fixed-appliance(1)>).
 
 In our testing we did not find that using a fixed appliance gave any
 measurable performance benefit, even when the appliance was located in
-memory (ie. on C</dev/shm>).  However there are three points to
+memory (ie. on C</dev/shm>).  However there are two points to
 consider:
 
 =over 4
@@ -165,14 +165,6 @@ appliance, meaning that libguestfs will have more predictable start-up
 times.
 
 =item 2.
-
-By default libguestfs (or rather, L<supermin-helper(1)>)
-searches over the root filesystem to find out if any host files have
-changed and if it needs to rebuild the appliance.  If these files are
-not cached and the root filesystem is on an HDD, then this generates
-lots of seeks.  Using a fixed appliance avoids this.
-
-=item 3.
 
 The appliance is loaded on demand.  A simple test such as:
 
@@ -567,7 +559,6 @@ bit.
 =head1 SEE ALSO
 
 L<supermin(1)>,
-L<supermin-helper(1)>,
 L<guestfish(1)>,
 L<guestfs(3)>,
 L<guestfs-examples(3)>,

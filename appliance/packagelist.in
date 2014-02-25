@@ -1,34 +1,31 @@
-/* This is the list of distro packages which are
- * installed on the appliance.
- *
- * This file is processed by cpp with one of the
- * following symbols defined (depending on the distro):
- *
- *   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
- *   DEBIAN=1     For Debian.
- *   UBUNTU=1     For Ubuntu.
- *   ARCHLINUX=1  For Archlinux.
- *
- * There is also a list of packages which are excluded if they appear
- * as dependencies of the packages below.  See: excludelist.in
- *
- * To add arbitrary extra packages, use:
- *
- *   ./configure --with-extra-packages="gdb valgrind [etc]"
- */
+dnl This is the list of distro packages which are
+dnl installed on the appliance.
+dnl
+dnl This file is processed by m4 with one of the
+dnl following symbols defined (depending on the distro):
+dnl
+dnl   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
+dnl   DEBIAN=1     For Debian.
+dnl   UBUNTU=1     For Ubuntu.
+dnl   ARCHLINUX=1  For Archlinux.
+dnl
+dnl There is also a list of packages which are excluded if they appear
+dnl as dependencies of the packages below.  See: excludelist.in
+dnl
+dnl To add arbitrary extra packages, use:
+dnl
+dnl   ./configure --with-extra-packages="gdb valgrind [etc]"
 
-/* Basically the same with a few minor tweaks. */
-#ifdef UBUNTU
-#define DEBIAN 1
-#endif
+dnl Basically the same with a few minor tweaks.
+ifelse(UBUNTU,1,define(DEBIAN,1))
 
-#ifdef REDHAT
+ifelse(REDHAT,1,
   augeas-libs
   btrfs-progs
   cryptsetup
-  cryptsetup-luks /* old name used before Fedora 17 */
+  cryptsetup-luks      dnl old name used before Fedora 17
   e2fsprogs
-  /* e4fsprogs only exists on RHEL 5, will be ignored everywhere else. */
+  dnl e4fsprogs only exists on RHEL 5, will be ignored everywhere else.
   e4fsprogs
   genisoimage
   gfs-utils
@@ -40,7 +37,7 @@
   iputils
   kernel
   libcap
-  libldm /* only Fedora has this for now, but we should add it to others later*/
+  libldm               dnl only Fedora for now, others later
   nilfs-utils
   ntfsprogs
   ntfs-3g
@@ -49,14 +46,14 @@
   reiserfs-utils
   libselinux
   syslinux-extlinux
-  systemd /* for /sbin/reboot and udevd */
+  systemd              dnl for /sbin/reboot and udevd
   vim-minimal
   xz
   yajl
   zfs-fuse
-#endif /* REDHAT */
+)
 
-#ifdef DEBIAN
+ifelse(DEBIAN,1,
   bsdmainutils
   btrfs-tools
   cryptsetup
@@ -74,21 +71,21 @@
   libpcre3
   libyajl2
   linux-image
-  /* syslinux 'suggests' mtools, but in reality it's a hard dependency: */
+  dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
   mtools
   nilfs-tools
   ntfs-3g
   ntfsprogs
   openssh-client
   reiserfsprogs
-  sysvinit /* for /sbin/reboot */
+  sysvinit                  dnl for /sbin/reboot
   ufsutils
   vim-tiny
   xz-utils
   zfs-fuse
-#endif /* DEBIAN */
+)
 
-#ifdef ARCHLINUX
+ifelse(ARCHLINUX,1,
   augeas
   btrfs-progs
   cdrkit
@@ -111,9 +108,9 @@
   xz
   yajl
   zfs-fuse
-#endif /* ARCHLINUX */
+)
 
-#ifdef FRUGALWARE
+ifelse(FRUGALWARE,1,
   augeas
   btrfs-progs
   cryptsetup-luks
@@ -169,7 +166,7 @@
   tar
   util-linux
   xfsprogs
-#endif /* FRUGALWARE */
+)
 
 acl
 attr
@@ -196,11 +193,9 @@ lvm2
 lzop
 mdadm
 module-init-tools
-/*
-Enabling this pulls out 140 extra packages
-into the appliance:
-ocfs2-tools
-*/
+dnl Enabling this pulls out 140 extra packages
+dnl into the appliance:
+dnl ocfs2-tools
 parted
 procps
 procps-ng
@@ -214,17 +209,10 @@ tar
 udev
 util-linux
 util-linux-ng
-#ifndef UBUNTU
-/* on Ubuntu contains a file in /lib64 which conflicts with libc6 that has
- * /lib64 as a symbolic link
- */
 xfsprogs
-#endif
 zerofree
 
-#ifdef VALGRIND_DAEMON
-valgrind
-#endif
+ifelse(VALGRIND_DAEMON,1,valgrind)
 
-/* Define this by doing: ./configure --with-extra-packages="..." */
+dnl Define this by doing: ./configure --with-extra-packages="..."
 EXTRA_PACKAGES

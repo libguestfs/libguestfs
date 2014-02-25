@@ -20,42 +20,14 @@ unset CDPATH
 
 set -e
 
-# Turn excludelist file into command line arguments.
-exec 5<excludelist
-while read regexp <&5; do
-    excludes="$excludes --exclude $regexp"
-done
-exec 5<&-
+# Run supermin.
 
-# Run supermin on the package list.
-# NB: Keep using --yum-config (deprecated alias) here since both old
-# and new supermin still support it.
 if [ "x@SUPERMIN_PACKAGER_CONFIG@" != "xno" ]; then
-    extra="--yum-config @SUPERMIN_PACKAGER_CONFIG@"
+    extra="--packager-config @SUPERMIN_PACKAGER_CONFIG@"
 fi
 if [ "x@SUPERMIN_EXTRA_OPTIONS@" != "xno" ]; then
     extra="$extra @SUPERMIN_EXTRA_OPTIONS@"
 fi
 
-echo @SUPERMIN@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
-@SUPERMIN@ -v -o supermin.d --names $(< packagelist ) $excludes $extra
-
-# Remove some things that we don't want in the appliance.  This is
-# copied from the old febootstrap-minimize.  However minimization is
-# not so important now that we are caching the appliance.
-< supermin.d/hostfiles \
-grep -v '^/usr/lib/locale' |
-grep -v '^/usr/share/locale' |
-grep -v '^/usr/share/man/' |
-grep -v '^/usr/share/doc/' |
-grep -v '^/usr/share/info/' |
-grep -v '^/usr/share/gnome/help/' |
-grep -v '^/usr/share/cracklib/' |
-grep -v '^/usr/share/i18n/' > supermin.d/hostfiles-t
-
-# Include any Augeas lenses from the host.
-if grep -q /usr/share/augeas/lenses supermin.d/hostfiles-t; then
-    echo "/usr/share/augeas/lenses/*.aug" >> supermin.d/hostfiles-t
-fi
-
-mv supermin.d/hostfiles-t supermin.d/hostfiles
+echo @SUPERMIN@ --prepare -v -o supermin.d $(< packagelist ) $extra
+@SUPERMIN@ --prepare -v -o supermin.d $(< packagelist ) $extra

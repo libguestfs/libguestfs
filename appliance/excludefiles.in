@@ -1,0 +1,29 @@
+dnl This is the list of files excluded from the appliance, even if
+dnl they appear in packagelist.in (or more likely, as dependencies of
+dnl packages in packagelist.in).
+dnl
+dnl List is a list of wildcards, one per line, prefixed by a '-' character.
+dnl
+dnl This file is processed by m4 with one of the
+dnl following symbols defined (depending on the distro):
+dnl
+dnl   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
+dnl   DEBIAN=1     For Debian.
+dnl   UBUNTU=1     For Ubuntu.
+dnl   ARCHLINUX=1  For Archlinux.
+dnl
+dnl Note that any matching file will be dropped from the appliance.
+dnl Of course, this may break the appliance, so be careful.
+
+dnl The right kernel modules are added back by supermin.
+-/boot/*
+-/lib/modules/*
+
+-/usr/lib/locale/*
+-/usr/share/locale/*
+-/usr/share/man/*
+-/usr/share/doc/*
+-/usr/share/info/*
+-/usr/share/gnome/help/*
+-/usr/share/cracklib/*
+-/usr/share/i18n/*

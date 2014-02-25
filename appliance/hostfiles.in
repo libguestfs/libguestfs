@@ -1,0 +1,13 @@
+dnl This is the list of extra files added to appliance.
+dnl
+dnl List is a list of wildcards, one per line.
+dnl
+dnl This file is processed by m4 with one of the
+dnl following symbols defined (depending on the distro):
+dnl
+dnl   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
+dnl   DEBIAN=1     For Debian.
+dnl   UBUNTU=1     For Ubuntu.
+dnl   ARCHLINUX=1  For Archlinux.
+
+/usr/share/augeas/lenses/*.aug

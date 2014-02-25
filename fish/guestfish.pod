@@ -1525,10 +1525,10 @@ the path of qemu/KVM.
 =item SUPERMIN_MODULES
 
 These two environment variables allow the kernel that libguestfs uses
-in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not
-set, then the most recent host kernel is chosen.  For more information
-about kernel selection, see L<supermin-helper(1)>.  This
-feature is only available in supermin / febootstrap E<ge> 3.8.
+in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set,
+then the most recent host kernel is chosen.  For more information
+about kernel selection, see L<supermin(1)>.  This feature is only
+available in supermin / febootstrap E<ge> 3.8.
 
 =item TMPDIR
 
@@ -1629,7 +1629,7 @@ L<virt-win-reg(1)>,
 L<libguestfs-tools.conf(5)>,
 L<display(1)>,
 L<hexedit(1)>,
-L<supermin-helper(1)>.
+L<supermin(1)>.
 
 =head1 AUTHORS
 

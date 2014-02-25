@@ -447,66 +447,15 @@ AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$ENABLE_APPLIANCE" = "xyes"])
 AC_MSG_RESULT([$ENABLE_APPLIANCE])
 AC_SUBST([ENABLE_APPLIANCE])
 
-dnl Check for supermin >= 4.1.0 or febootstrap >= 3.20.
-AC_CHECK_PROGS([SUPERMIN],
-               [supermin febootstrap],[no])
-AC_PATH_PROGS([SUPERMIN_HELPER],
-              [supermin-helper febootstrap-supermin-helper],[no])
-
-dnl supermin >= 4.1.4 supports compressed cpio images.
-AC_MSG_CHECKING([for supermin-helper version])
-supermin_helper_version=`$SUPERMIN_HELPER --version | awk '{print $2}'`
-AC_MSG_RESULT([$supermin_helper_version])
-AC_MSG_CHECKING([if supermin-helper supports compressed cpio images])
-supermin_helper_version_int=`echo "$supermin_helper_version" | awk -F. '{print $1 * 1000000 + $2 * 1000 + $3}'`
-echo supermin_helper_version_int=$supermin_helper_version_int >&AS_MESSAGE_LOG_FD
-if test $supermin_helper_version_int -ge 4001004; then
-    supermin_helper_compressed_cpio=yes
-else
-    supermin_helper_compressed_cpio=no
-fi
-AC_MSG_RESULT([$supermin_helper_compressed_cpio])
-AM_CONDITIONAL([SUPERMIN_HELPER_COMPRESSED_CPIO],
-               [test "x$supermin_helper_compressed_cpio" = "xyes"])
-
-dnl supermin >= 4.1.5 supports device trees and uses a new style command
-dnl syntax.
-AC_MSG_CHECKING([if supermin-helper supports device trees and new style command syntax])
-if test $supermin_helper_version_int -ge 4001005; then
-    supermin_helper_new_style_syntax=yes
-    AC_DEFINE([SUPERMIN_HELPER_NEW_STYLE_SYNTAX],[1],
-              [Define to 1 if you have supermin-helper >= 4.1.5.])
-else
-    supermin_helper_new_style_syntax=no
-fi
-AC_MSG_RESULT([$supermin_helper_new_style_syntax])
+dnl Check for supermin >= 5.1.0.
+AC_CHECK_PROGS([SUPERMIN],[supermin],[no])
 
 dnl Pass supermin --packager-config option.
-dnl
-dnl Note that in febootstrap >= 3.21 / supermin >= 4.1.0, this option
-dnl is now called --packager-config, although --yum-config can still
-dnl be used as a deprecated alias.
 SUPERMIN_PACKAGER_CONFIG=no
 
 AC_MSG_CHECKING([for --with-supermin-packager-config option])
 AC_ARG_WITH([supermin-packager-config],
     [AS_HELP_STRING([--with-supermin-packager-config=FILE],
-        [pass supermin --packager-config option @<:@default=no@:>@])],
-    [SUPERMIN_PACKAGER_CONFIG="$withval"
-     AC_MSG_RESULT([$SUPERMIN_PACKAGER_CONFIG"])],
-    [AC_MSG_RESULT([not set])])
-
-AC_MSG_CHECKING([for --with-febootstrap-yum-config option (deprecated)])
-AC_ARG_WITH([febootstrap-yum-config],
-    [AS_HELP_STRING([--with-febootstrap-yum-config=FILE],
-        [pass supermin --packager-config option @<:@default=no@:>@])],
-    [SUPERMIN_PACKAGER_CONFIG="$withval"
-     AC_MSG_RESULT([$SUPERMIN_PACKAGER_CONFIG"])],
-    [AC_MSG_RESULT([not set])])
-
-AC_MSG_CHECKING([for --with-febootstrap-packager-config option (deprecated)])
-AC_ARG_WITH([febootstrap-packager-config],
-    [AS_HELP_STRING([--with-febootstrap-packager-config=FILE],
         [pass supermin --packager-config option @<:@default=no@:>@])],
     [SUPERMIN_PACKAGER_CONFIG="$withval"
      AC_MSG_RESULT([$SUPERMIN_PACKAGER_CONFIG"])],
@@ -528,21 +477,35 @@ AC_ARG_WITH([supermin-extra-options],
 AC_SUBST([SUPERMIN_EXTRA_OPTIONS])
 
 if test "x$ENABLE_APPLIANCE" = "xyes"; then
+    supermin_major_min=5
+    supermin_minor_min=1
+    supermin_min=$supermin_major_min.$supermin_minor_min
+
     test "x$SUPERMIN" = "xno" &&
-        AC_MSG_ERROR([supermin (formerly called febootstrap) must be installed])
-    dnl febootstrap 2.x did not support the --version parameter
+        AC_MSG_ERROR([supermin >= $supermin_min must be installed])
+
+    AC_MSG_CHECKING([supermin is new enough])
     $SUPERMIN --version >&AS_MESSAGE_LOG_FD 2>&1 ||
-        AC_MSG_ERROR([supermin (formerly called febootstrap) >= 3.20 must be installed, your version is too old])
+        AC_MSG_ERROR([supermin >= $supermin_min must be installed, your version is too old])
+    supermin_major="`$SUPERMIN --version | awk '{print $2}' | awk -F. '{print $1}'`"
+    supermin_minor="`$SUPERMIN --version | awk '{print $2}' | awk -F. '{print $2}'`"
+    AC_MSG_RESULT([$supermin_major.$supermin_minor])
+
+    if test "$supermin_major" -lt "$supermin_major_min" || \
+       ( test "$supermin_major" -eq "$supermin_major_min" && test "$supermin_minor" -lt "$supermin_minor_min" ); then
+        AC_MSG_ERROR([supermin >= $supermin_min must be installed, your version is too old])
+    fi
 fi
 
-AC_DEFINE_UNQUOTED([SUPERMIN_HELPER],["$SUPERMIN_HELPER"],[Name of supermin-helper program.])
+AC_DEFINE_UNQUOTED([SUPERMIN],["$SUPERMIN"],[Name of supermin program])
 
 dnl Which distro?
 dnl
 dnl This used to be Very Important but is now just used to select
 dnl which packages to install in the appliance, since the package
 dnl names vary slightly across distros.  (See
-dnl appliance/packagelist.in and appliance/excludelist.in)
+dnl appliance/packagelist.in, appliance/excludefiles.in,
+dnl appliance/hostfiles.in)
 AC_MSG_CHECKING([which Linux distro for package names])
 DISTRO=REDHAT
 if test -f /etc/debian_version; then

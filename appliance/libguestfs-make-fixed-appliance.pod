@@ -130,7 +130,7 @@ be set using the C<LIBGUESTFS_PATH> environment variable.
 
 Normally a supermin appliance is located on this path (see
 L<supermin(1)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
-into a full appliance by running L<supermin-helper(1)>.
+into a full appliance by running C<supermin --build>.
 
 However, a simpler "fixed appliance" can also be used.  libguestfs
 detects this by looking for a directory on the path containing four
@@ -167,7 +167,6 @@ libguestfs, please see the L<guestfs(3)> manual page.
 
 L<guestfs(3)>,
 L<supermin(1)>,
-L<supermin-helper(1)>,
 L<xz(1)>,
 L<http://libguestfs.org/>,
 L<http://qemu.org/>.
