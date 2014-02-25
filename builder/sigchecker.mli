@@ -21,6 +21,7 @@ val default_fingerprint : string
 type t
 
 type gpgkey_type =
+  | No_Key
   | Fingerprint of string
   | KeyFile of string
 
