@@ -97,6 +97,7 @@ ZvXkQ3FVJwZoLmHw47vvlVpLD/4gi1SuHWieRvZ+UdDq00E348pm
 "
 
 type gpgkey_type =
+  | No_Key
   | Fingerprint of string
   | KeyFile of string
 
@@ -127,6 +128,11 @@ let rec create ~debug ~gpg ~gpgkey ~check_signature =
   (* Create a temporary directory for gnupg. *)
   let tmpdir = Mkdtemp.mkdtemp (Filename.temp_dir_name // "vb.gpghome.XXXXXX") in
   rmdir_on_exit tmpdir;
+  (* Make sure we have no check_signature=true with no actual key. *)
+  let check_signature, gpgkey =
+    match check_signature, gpgkey with
+    | true, No_Key -> false, No_Key
+    | x, y -> x, y in
   let fingerprint =
     if check_signature then (
       (* Run gpg so it can setup its own home directory, failing if it
@@ -141,6 +147,8 @@ let rec create ~debug ~gpg ~gpgkey ~check_signature =
         exit 1
       );
       match gpgkey with
+      | No_Key ->
+        assert false
       | KeyFile kf ->
         let status_file = import_keyfile gpg tmpdir debug kf in
         let status = read_whole_file status_file in
