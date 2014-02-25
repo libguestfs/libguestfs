@@ -30,8 +30,6 @@ open Printf
 
 let prog = Filename.basename Sys.executable_name
 
-let default_source = "http://libguestfs.org/download/builder/index.asc"
-
 let parse_cmdline () =
   let display_version () =
     printf "virt-builder %s\n" Config.package_version;
@@ -407,26 +405,12 @@ read the man page virt-builder(1).
         exit 1
       ) in
 
-  (* Check source(s) and fingerprint(s), or use environment or default. *)
+  (* Check source(s) and fingerprint(s). *)
   let sources =
-    let list_split = function "" -> [] | str -> string_nsplit "," str in
     let rec repeat x = function
       | 0 -> [] | 1 -> [x]
       | n -> x :: repeat x (n-1)
     in
-
-    let sources =
-      if sources <> [] then sources
-      else (
-        try list_split (Sys.getenv "VIRT_BUILDER_SOURCE")
-        with Not_found -> [ default_source ]
-      ) in
-    let fingerprints =
-      if fingerprints <> [] then fingerprints
-      else (
-        try list_split (Sys.getenv "VIRT_BUILDER_FINGERPRINT")
-        with Not_found -> [ Sigchecker.default_fingerprint ]
-      ) in
 
     let nr_sources = List.length sources in
     let fingerprints =
@@ -443,8 +427,6 @@ read the man page virt-builder(1).
         prog;
       exit 1
     );
-
-    assert (nr_sources > 0);
 
     (* Combine the sources and fingerprints into a single list of pairs. *)
     List.combine sources fingerprints in
