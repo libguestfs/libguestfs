@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-02-21 16:45+0000\n"
+"POT-Creation-Date: 2014-02-26 19:40+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../builder/index_parser.ml:113
+#: ../builder/index_parser.ml:107
 msgid ""
 "\n"
 "The index file downloaded from '%s' is corrupt.\n"
@@ -595,6 +595,10 @@ msgstr ""
 msgid "Align first partition (default: auto)"
 msgstr ""
 
+#: ../builder/list_entries.ml:87
+msgid "Architecture:"
+msgstr ""
+
 #: ../builder/cmdline.ml:226
 msgid "Attach data disk/ISO during install"
 msgstr ""
@@ -807,7 +811,7 @@ msgstr ""
 msgid "Download all templates to the cache"
 msgstr ""
 
-#: ../builder/list_entries.ml:90
+#: ../builder/list_entries.ml:92
 msgid "Download size:"
 msgstr ""
 
@@ -981,7 +985,7 @@ msgstr ""
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
-#: ../builder/list_entries.ml:84
+#: ../builder/list_entries.ml:85
 msgid "Full name:"
 msgstr ""
 
@@ -1048,11 +1052,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:86
+#: ../builder/list_entries.ml:88
 msgid "Minimum/default size:"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:135
+#: ../sysprep/sysprep_operation_script.ml:133
 msgid "Mount point on host"
 msgstr ""
 
@@ -1082,7 +1086,7 @@ msgstr ""
 msgid "Notes on %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:108
+#: ../builder/list_entries.ml:110
 msgid ""
 "Notes:\n"
 "\n"
@@ -1348,7 +1352,7 @@ msgstr ""
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:110
+#: ../sysprep/sysprep_operation_script.ml:108
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
@@ -1374,7 +1378,7 @@ msgid ""
 "the I<--firstboot> option as many times as needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:150
+#: ../sysprep/sysprep_operation_script.ml:148
 msgid ""
 "Run the named C<SCRIPT> (a shell script or program) against the\n"
 "guest.  The script can be any program on the host.  The script's\n"
@@ -1392,7 +1396,7 @@ msgstr ""
 msgid "SELinux relabelling"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:148
+#: ../sysprep/sysprep_operation_script.ml:146
 msgid "Script or program to run on guest"
 msgstr ""
 
@@ -1674,7 +1678,7 @@ msgid ""
 "C<~root/virt-sysprep-firstboot.log> (in the guest)."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:111
+#: ../sysprep/sysprep_operation_script.ml:109
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs\n"
 "against the guest.\n"
@@ -1733,7 +1737,7 @@ msgid ""
 "found to be empty."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:137
+#: ../sysprep/sysprep_operation_script.ml:135
 msgid ""
 "The mount point (an empty directory on the host) used when\n"
 "the C<script> operation is enabled and one or more scripts\n"
@@ -1921,7 +1925,7 @@ msgstr ""
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:135
+#: ../sysprep/sysprep_operation_script.ml:133
 msgid "dir"
 msgstr ""
 
@@ -2056,11 +2060,11 @@ msgid "run script once next time guest boots"
 msgstr ""
 
 #. ../sysprep/sysprep_operation_firstboot.ml:68
-#: ../sysprep/sysprep_operation_script.ml:148
+#: ../sysprep/sysprep_operation_script.ml:146
 msgid "script"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:75
+#: ../sysprep/sysprep_operation_script.ml:73
 msgid "script failed"
 msgstr ""
 
@@ -2123,23 +2127,23 @@ msgstr ""
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../builder/index_parser.ml:216
+#: ../builder/index_parser.ml:209
 msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:241
+#: ../builder/index_parser.ml:234
 msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:195
+#: ../builder/index_parser.ml:188
 msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:207
+#: ../builder/index_parser.ml:200
 msgid "virt-builder: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:276
+#: ../builder/index_parser.ml:270
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
@@ -2218,27 +2222,31 @@ msgstr ""
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:161
+#: ../builder/index_parser.ml:149
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:159
+#: ../builder/index_parser.ml:147
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s[%s]' appears two or more "
 "times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:143
+#: ../builder/index_parser.ml:131
 msgid ""
 "virt-builder: index is corrupt: os-version '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:180
+#: ../builder/index_parser.ml:173
+msgid "virt-builder: no 'arch' entry for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:168
 msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:204
+#: ../builder/index_parser.ml:197
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr ""
 
@@ -2246,12 +2254,12 @@ msgstr ""
 msgid "virt-builder: no kernel found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:281
+#: ../builder/index_parser.ml:275
 msgid ""
 "virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:272
+#: ../builder/index_parser.ml:266
 msgid "virt-builder: zero length path in the index file\n"
 msgstr ""
 
@@ -2317,11 +2325,11 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:65
+#: ../sysprep/sysprep_operation_script.ml:63
 msgid "virt-sysprep: script: failed (code %d)\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:69
+#: ../sysprep/sysprep_operation_script.ml:67
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
@@ -6384,24 +6392,24 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: src/appliance.c:242
+#: src/appliance.c:186
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:354
+#: src/appliance.c:248
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "seguridad: el dispositivo cacheado %s no es propiedad del UID %d"
 
-#: src/appliance.c:359
+#: src/appliance.c:253
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "seguridad: el dispositivo cacheado %s no es un directorio (modo %o) "
 
-#: src/appliance.c:364
+#: src/appliance.c:258
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
