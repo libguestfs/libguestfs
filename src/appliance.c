@@ -106,7 +106,7 @@ guestfs___build_appliance (guestfs_h *g,
                            char **initrd_rtn,
                            char **appliance_rtn)
 {
-  char *kernel, *dtb, *initrd, *appliance;
+  char *kernel = NULL, *dtb = NULL, *initrd = NULL, *appliance = NULL;
 
   if (build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
     return -1;
