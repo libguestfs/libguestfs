@@ -146,7 +146,7 @@ guestfs___build_appliance (guestfs_h *g,
                            char **appliance_rtn)
 {
   int r;
-  char *kernel, *dtb, *initrd, *appliance;
+  char *kernel = NULL, *dtb = NULL, *initrd = NULL, *appliance = NULL;
 
   gl_lock_lock (building_lock);
   r = build_appliance (g, &kernel, &dtb, &initrd, &appliance);
