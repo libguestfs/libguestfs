@@ -90,8 +90,7 @@ mdadm -As --auto=yes --run
 modprobe dm_mod ||:
 lvmetad ||:
 
-lvm vgscan --ignorelockingfailure
-lvm vgchange -ay --ignorelockingfailure
+lvm vgchange -aay --sysinit
 
 # Scan for Windows dynamic disks.
 ldmtool create all
