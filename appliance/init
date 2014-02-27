@@ -47,7 +47,6 @@ if [ -z "$UDEVD" ]; then
   echo "udev not found!  Things will probably not work ..."
 fi
 
-echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
 $UDEVD --daemon
 udevadm trigger
 udevadm settle --timeout=600
