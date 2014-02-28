@@ -27,6 +27,7 @@ AM_CFLAGS = \
 
 EXTRA_DIST = \
 	$(SOURCES) \
+	libguestfs.gpg \
 	virt-builder.pod \
 	virt-index-validate.pod \
 	test-virt-builder.sh \
