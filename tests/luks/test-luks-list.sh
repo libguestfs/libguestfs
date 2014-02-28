@@ -25,6 +25,12 @@ set -e
     exit 77
 }
 
+# If luks is not available, bail.
+if ! ../../fish/guestfish -a /dev/null run : available luks; then
+    echo "$0: skipping test because luks is not available"
+    exit 77
+fi
+
 rm -f test-luks-list.img test-luks-list.out
 
 ../../fish/guestfish --keys-from-stdin > test-luks-list.out <<'EOF'
