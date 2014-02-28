@@ -171,13 +171,18 @@ depend: .depend
 SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly
 
 # Do the installation by hand, because we want to run ocamlfind.
+data_hook_files = META *.so *.a *.cma *.cmi $(srcdir)/*.mli
+if HAVE_OCAMLOPT
+data_hook_files += *.cmx *.cmxa
+endif
+
 install-data-hook:
 	mkdir -p $(DESTDIR)$(OCAMLLIB)
 	mkdir -p $(DESTDIR)$(OCAMLLIB)/stublibs
 	$(OCAMLFIND) install \
 	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
 	  guestfs \
-	  META *.so *.a *.cma *.cmx *.cmxa *.cmi $(srcdir)/*.mli
+	  $(data_hook_files)
 	rm $(DESTDIR)$(OCAMLLIB)/guestfs/bindtests.*
 	rm $(DESTDIR)$(OCAMLLIB)/guestfs/libguestfsocaml.a
 

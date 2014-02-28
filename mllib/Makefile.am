@@ -176,7 +176,7 @@ common_utils_tests: common_gettext.cmx common_utils.cmx common_utils_tests.cmx
 else
 common_utils_tests: common_gettext.cmo common_utils.cmo common_utils_tests.cmo
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
-	  mlguestfs.cma -linkpkg $^ -cclib -lncurses -o $@
+	  mlguestfs.cma -linkpkg $^ -cclib -lncurses -custom -o $@
 endif
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test

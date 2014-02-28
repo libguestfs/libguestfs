@@ -58,16 +58,13 @@ inspect_vm: inspect_vm.ml
 	$(OCAMLFIND) ocamlopt $(OCAMLFINDFLAGS) -package unix -linkpkg \
           -warn-error A -I .. mlguestfs.cmxa $< -o $@
 else
-
-# This avoids:
-#   Error: Error on dynamically loaded library: ../dllmlguestfs.so: libguestfs.so.0: cannot open shared object file: No such file or directory
 create_disk: create_disk.ml
-	$(top_builddir)/run $(OCAMLFIND) ocamlc $(OCAMLFINDFLAGS) -package unix -linkpkg \
-          -warn-error A -I .. mlguestfs.cma $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFINDFLAGS) -package unix -linkpkg \
+          -warn-error A -I .. mlguestfs.cma -custom $< -o $@
 
 inspect_vm: inspect_vm.ml
-	$(top_builddir)/run $(OCAMLFIND) ocamlc $(OCAMLFINDFLAGS) -package unix -linkpkg \
-          -warn-error A -I .. mlguestfs.cma $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFINDFLAGS) -package unix -linkpkg \
+          -warn-error A -I .. mlguestfs.cma -custom $< -o $@
 endif
 
 endif

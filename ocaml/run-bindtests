@@ -21,5 +21,7 @@ set -e
 ./bindtests.bc > bindtests.tmp
 diff -u $srcdir/../bindtests bindtests.tmp
 
+test -x ./bindtests.opt || exit 0
+
 ./bindtests.opt > bindtests.tmp
 diff -u $srcdir/../bindtests bindtests.tmp
