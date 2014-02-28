@@ -168,6 +168,18 @@ ifelse(FRUGALWARE,1,
   xfsprogs
 )
 
+ifelse(MAGEIA,1,
+  hivex
+  libaugeas0
+  lib64augeas0
+  libcryptsetup4
+  lib64cryptsetup4
+  libpcre1
+  lib64pcre1
+  libselinux1
+  lib64selinux1
+)
+
 acl
 attr
 bash

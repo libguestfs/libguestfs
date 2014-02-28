@@ -523,6 +523,9 @@ fi
 if test -f /etc/frugalware-release; then
     DISTRO=FRUGALWARE
 fi
+if test -f /etc/mageia-release; then
+    DISTRO=MAGEIA
+fi
 AC_MSG_RESULT([$DISTRO])
 AC_SUBST([DISTRO])
 
