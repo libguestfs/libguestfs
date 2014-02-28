@@ -68,7 +68,7 @@ noinst_DATA =
 if HAVE_OCAML
 
 # Note this list must be in dependency order.
-OBJECTS = \
+deps = \
 	$(top_builddir)/mllib/libdir.cmx \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
@@ -109,6 +109,12 @@ OBJECTS = \
 	cmdline.cmx \
 	builder.cmx
 
+if HAVE_OCAMLOPT
+OBJECTS = $(deps)
+else
+OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
+endif
+
 bin_SCRIPTS = virt-builder
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
@@ -134,12 +140,22 @@ OCAMLCLIBS  = \
 	-pthread -lpthread \
 	-lncurses -lcrypt
 
+if HAVE_OCAMLOPT
 virt-builder: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
 	  -cclib '$(OCAMLCLIBS)' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
+else
+virt-builder: $(OBJECTS)
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
+	  mlguestfs.cma -linkpkg $^ \
+	  -cclib '$(OCAMLCLIBS)' \
+	  -custom \
+	  $(OCAML_GCOV_LDFLAGS) \
+	  -o $@
+endif
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@

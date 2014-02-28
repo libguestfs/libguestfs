@@ -32,7 +32,7 @@ SOURCES = \
 if HAVE_OCAML
 
 # Note this list must be in dependency order.
-OBJECTS = \
+deps = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	$(top_builddir)/mllib/tty-c.o \
 	$(top_builddir)/mllib/progress-c.o \
@@ -43,6 +43,12 @@ OBJECTS = \
 	$(top_builddir)/mllib/config.cmx \
 	statvfs-c.o \
 	sparsify.cmx
+
+if HAVE_OCAMLOPT
+OBJECTS = $(deps)
+else
+OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
+endif
 
 bin_SCRIPTS = virt-sparsify
 
@@ -61,12 +67,22 @@ endif
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
+if HAVE_OCAMLOPT
 virt-sparsify: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
 	  -cclib -lncurses \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
+else
+virt-sparsify: $(OBJECTS)
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
+	  mlguestfs.cma -linkpkg $^ \
+	  -cclib -lncurses \
+	  -custom \
+	  $(OCAML_GCOV_LDFLAGS) \
+	  -o $@
+endif
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@

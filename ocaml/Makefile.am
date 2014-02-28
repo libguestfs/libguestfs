@@ -40,7 +40,10 @@ if HAVE_OCAML
 OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
-noinst_DATA = mlguestfs.cma mlguestfs.cmxa META
+noinst_DATA = mlguestfs.cma META
+if HAVE_OCAMLOPT
+noinst_DATA +=  mlguestfs.cmxa
+endif
 
 # Build the C part into a library, so that automake handles the C
 # compilation step for us.  Note that we don't directly use this
@@ -51,18 +54,15 @@ noinst_LIBRARIES = libguestfsocaml.a
 # 'libmlguestfs.a' and if run at the same time, they will stomp on or
 # corrupt each others copy.  Hence we have to serialize the calls.
 
-CLEANFILES += stamp-mlguestfs
-
-mlguestfs.cma mlguestfs.cmxa: stamp-mlguestfs
-
-stamp-mlguestfs: libguestfsocaml.a guestfs.cmo guestfs.cmx
+mlguestfs.cma: libguestfsocaml.a guestfs.cmo
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
 	  -L$(top_builddir)/src/.libs -lguestfs
+
+mlguestfs.cmxa: libguestfsocaml.a guestfs.cmx
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
 	  -L$(top_builddir)/src/.libs -lguestfs
-	touch $@
 
 libguestfsocaml_a_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
@@ -121,11 +121,17 @@ test_progs_opt += \
 	t/guestfs_430_progress_messages.opt
 endif
 
-test_progs_all = $(test_progs_bc) $(test_progs_opt)
+test_progs_all = $(test_progs_bc)
+if HAVE_OCAMLOPT
+test_progs_all += $(test_progs_opt)
+endif
 
 TESTS = run-bindtests $(test_progs_all)
 
-noinst_DATA += bindtests.bc bindtests.opt $(test_progs_all)
+noinst_DATA += bindtests.bc $(test_progs_all)
+if HAVE_OCAMLOPT
+noinst_DATA += bindtests.opt
+endif
 
 %.bc: %.cmo mlguestfs.cma
 	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
@@ -178,3 +184,7 @@ install-data-hook:
 CLEANFILES += $(noinst_DATA)
 
 endif
+
+# Tell version 3.79 and up of GNU make to not build goals in this
+# directory in parallel.
+.NOTPARALLEL:

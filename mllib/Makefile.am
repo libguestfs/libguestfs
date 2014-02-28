@@ -69,6 +69,25 @@ if HAVE_OCAML
 # - We're not actually building a functioning program here, we're just
 #   linking everything together to check all the modules build OK.
 # - This list must be in dependency order.
+ocaml_modules = config \
+	libdir \
+	common_gettext \
+	common_utils \
+	urandom \
+	random_seed \
+	hostname \
+	timezone \
+	firstboot \
+	perl_edit \
+	tTY \
+	fsync \
+	progress \
+	uRI \
+	crypt \
+	password \
+	mkdtemp \
+	planner
+
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	$(top_builddir)/fish/guestfish-uri.o \
@@ -77,25 +96,13 @@ OBJECTS = \
 	progress-c.o \
 	uri-c.o \
 	crypt-c.o \
-	mkdtemp-c.o \
-	config.cmx \
-	libdir.cmx \
-	common_gettext.cmx \
-	common_utils.cmx \
-	urandom.cmx \
-	random_seed.cmx \
-	hostname.cmx \
-	timezone.cmx \
-	firstboot.cmx \
-	perl_edit.cmx \
-	tTY.cmx \
-	fsync.cmx \
-	progress.cmx \
-	uRI.cmx \
-	crypt.cmx \
-	password.cmx \
-	mkdtemp.cmx \
-	planner.cmx
+	mkdtemp-c.o
+
+if HAVE_OCAMLOPT
+OBJECTS += $(patsubst %,%.cmx,$(ocaml_modules))
+else
+OBJECTS += $(patsubst %,%.cmo,$(ocaml_modules))
+endif
 
 noinst_SCRIPTS = dummy
 
@@ -116,11 +123,20 @@ OCAMLCLIBS  = \
 	-L../gnulib/lib/.libs -lgnu
 
 dummy: $(OBJECTS)
+if HAVE_OCAMLOPT
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
 	  -cclib '$(OCAMLCLIBS)' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
+else
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
+	  mlguestfs.cma -linkpkg $^ \
+	  -cclib '$(OCAMLCLIBS)' \
+	  -custom \
+	  $(OCAML_GCOV_LDFLAGS) \
+	  -o $@
+endif
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
@@ -153,9 +169,15 @@ DEFAULT_INCLUDES = \
 
 check_SCRIPTS = common_utils_tests
 
+if HAVE_OCAMLOPT
 common_utils_tests: common_gettext.cmx common_utils.cmx common_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
+else
+common_utils_tests: common_gettext.cmo common_utils.cmo common_utils_tests.cmo
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
+	  mlguestfs.cma -linkpkg $^ -cclib -lncurses -o $@
+endif
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 

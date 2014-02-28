@@ -1026,6 +1026,8 @@ AS_IF([test "x$enable_ocaml" != "xno"],[
 ])
 AM_CONDITIONAL([HAVE_OCAML],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
+AM_CONDITIONAL([HAVE_OCAMLOPT],
+               [test "x$OCAMLOPT" != "xno" && test "x$OCAMLFIND" != "xno"])
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 

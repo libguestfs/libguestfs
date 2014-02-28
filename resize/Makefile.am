@@ -31,7 +31,7 @@ SOURCES = \
 if HAVE_OCAML
 
 # Note this list must be in dependency order.
-OBJECTS = \
+deps = \
 	$(top_builddir)/mllib/tty-c.o \
 	$(top_builddir)/mllib/tTY.cmx \
 	$(top_builddir)/mllib/fsync-c.o \
@@ -46,6 +46,12 @@ OBJECTS = \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/config.cmx \
 	resize.cmx
+
+if HAVE_OCAMLOPT
+OBJECTS = $(deps)
+else
+OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
+endif
 
 bin_SCRIPTS = virt-resize
 
@@ -69,12 +75,22 @@ OCAMLCLIBS  = \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu
 
+if HAVE_OCAMLOPT
 virt-resize: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
 	  -cclib '$(OCAMLCLIBS)' \
 	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
+else
+virt-resize: $(OBJECTS)
+	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
+	  mlguestfs.cma -linkpkg $^ \
+	  -cclib '$(OCAMLCLIBS)' \
+	  -custom \
+	  $(OCAML_GCOV_LDFLAGS) \
+	  -o $@
+endif
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
