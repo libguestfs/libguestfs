@@ -171,7 +171,9 @@ make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
 static char *
 create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
 {
+#if HAVE_LIBSELINUX
   struct backend_libvirt_data *data = datav;
+#endif
   CLEANUP_FREE char *backing_drive = NULL;
   char *overlay;
 
