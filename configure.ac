@@ -448,7 +448,7 @@ AC_MSG_RESULT([$ENABLE_APPLIANCE])
 AC_SUBST([ENABLE_APPLIANCE])
 
 dnl Check for supermin >= 5.1.0.
-AC_CHECK_PROGS([SUPERMIN],[supermin],[no])
+AC_PATH_PROG([SUPERMIN],[supermin],[no])
 
 dnl Pass supermin --packager-config option.
 SUPERMIN_PACKAGER_CONFIG=no
