@@ -338,6 +338,9 @@ run_supermin_build (guestfs_h *g,
   guestfs___cmd_add_arg (cmd, "--build");
   if (g->verbose)
     guestfs___cmd_add_arg (cmd, "--verbose");
+  guestfs___cmd_add_arg (cmd, "--if-newer");
+  guestfs___cmd_add_arg (cmd, "--lock");
+  guestfs___cmd_add_arg (cmd, lockfile);
 #if 0
   if (pass_u_g_args) {
     guestfs___cmd_add_arg (cmd, "-u");
@@ -351,9 +354,6 @@ run_supermin_build (guestfs_h *g,
   guestfs___cmd_add_arg (cmd, "ext2");
   guestfs___cmd_add_arg (cmd, "--host-cpu");
   guestfs___cmd_add_arg (cmd, host_cpu);
-  guestfs___cmd_add_arg (cmd, "--if-newer");
-  guestfs___cmd_add_arg (cmd, "--lock");
-  guestfs___cmd_add_arg (cmd, lockfile);
 #ifdef DTB_WILDCARD
   guestfs___cmd_add_arg (cmd, "--dtb");
   guestfs___cmd_add_arg (cmd, DTB_WILDCARD);
