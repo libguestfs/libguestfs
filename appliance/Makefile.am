@@ -106,7 +106,7 @@ daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions
 
 init.tar.gz: init
 	rm -f $@ $@-t
-	tar zcf $@-t init
+	( cd $(srcdir) && tar zcf - init ) > $@-t
 	mv $@-t $@
 
 # We should put this file in /lib/udev/rules.d, but put it in /etc so
