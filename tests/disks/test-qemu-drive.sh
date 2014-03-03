@@ -24,8 +24,8 @@ set -e
 guestfish=../../fish/guestfish
 
 export LIBGUESTFS_BACKEND=direct
-export LIBGUESTFS_HV="$(pwd)/debug-qemu.sh"
-export DEBUG_QEMU_FILE="$(pwd)/test-qemu-drive.out"
+export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"
+export DEBUG_QEMU_FILE="${abs_builddir}/test-qemu-drive.out"
 
 function check_output ()
 {

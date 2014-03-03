@@ -26,6 +26,11 @@ if [ -z "$abs_srcdir" ]; then
     exit 1
 fi
 
+if [ -z "$abs_builddir" ]; then
+    echo "$0: abs_builddir environment variable must be set"
+    exit 1
+fi
+
 if [ ! -x ../../src/libvirt-is-version ]; then
     echo "$0: test skipped because libvirt-is-version is not built yet"
     exit 77
@@ -37,11 +42,11 @@ if ! ../../src/libvirt-is-version 1 1 3; then
 fi
 
 guestfish="\
-  ../../fish/guestfish -c test://$abs_srcdir/test-qemu-drive-libvirt.xml"
+  ../../fish/guestfish -c test://$abs_builddir/test-qemu-drive-libvirt.xml"
 
 export LIBGUESTFS_BACKEND=direct
-export LIBGUESTFS_HV="$(pwd)/debug-qemu.sh"
-export DEBUG_QEMU_FILE="$(pwd)/test-qemu-drive-libvirt.out"
+export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"
+export DEBUG_QEMU_FILE="${abs_builddir}/test-qemu-drive-libvirt.out"
 
 function check_output ()
 {

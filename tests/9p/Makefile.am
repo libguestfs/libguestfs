@@ -21,4 +21,5 @@ EXTRA_DIST = $(TESTS)
 
 TESTS = test-9p.sh
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
+TESTS_ENVIRONMENT = abs_srcdir=$(abs_srcdir) \
+	$(top_builddir)/run --test

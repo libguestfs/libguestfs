@@ -24,6 +24,7 @@ TESTS = \
 
 TESTS_ENVIRONMENT = \
 	abs_srcdir=$(abs_srcdir) \
+	abs_builddir=$(abs_builddir) \
 	$(top_builddir)/run --test
 
 EXTRA_DIST = \
