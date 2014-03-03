@@ -35,19 +35,11 @@ fs_DATA =
 superminfs_DATA = \
 	supermin.d/init.tar.gz \
 	supermin.d/udev-rules.tar.gz
-
-if ENABLE_DAEMON
-superminfs_DATA += \
-	supermin.d/daemon.tar.gz
-endif
-
-if ENABLE_APPLIANCE
-superminfs_DATA += \
+	supermin.d/daemon.tar.gz \
 	supermin.d/base.tar.gz \
 	supermin.d/packages \
 	supermin.d/excludefiles \
 	supermin.d/hostfiles
-endif
 
 supermin.d/base.tar.gz \
 supermin.d/daemon.tar.gz \
