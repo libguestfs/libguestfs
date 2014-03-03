@@ -116,6 +116,7 @@ gl_EARLY
 gl_INIT
 
 AC_PROG_LIBTOOL
+AC_PROG_LN_S
 
 # Define $(SED).
 m4_ifdef([AC_PROG_SED],[
