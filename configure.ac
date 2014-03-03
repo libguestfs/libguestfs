@@ -448,6 +448,12 @@ AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$ENABLE_APPLIANCE" = "xyes"])
 AC_MSG_RESULT([$ENABLE_APPLIANCE])
 AC_SUBST([ENABLE_APPLIANCE])
 
+if test "x$enable_daemon" != "xyes" && test "x$ENABLE_APPLIANCE" = "xyes" ; then
+    AC_MSG_FAILURE([conflicting ./configure arguments: if you --disable-daemon
+then you have to --disable-appliance as well, since the appliance contains
+the daemon inside it.])
+fi
+
 dnl Check for supermin >= 5.1.0.
 AC_PATH_PROG([SUPERMIN],[supermin],[no])
 
