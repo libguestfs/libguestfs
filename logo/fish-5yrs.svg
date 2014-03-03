@@ -12,7 +12,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="392.4054"
-   height="402.23663"
+   height="431.07819"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -132,16 +132,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="285.59107"
+     inkscape:zoom="1"
+     inkscape:cx="200.34107"
      inkscape:cy="287.2356"
      inkscape:document-units="px"
      inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:window-width="1308"
      inkscape:window-height="847"
-     inkscape:window-x="1887"
-     inkscape:window-y="81"
+     inkscape:window-x="1925"
+     inkscape:window-y="45"
      inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -167,30 +167,30 @@
      id="layer4"
      inkscape:label="Sea"
      style="display:inline"
-     transform="translate(-527.74867,-474.93041)" />
+     transform="translate(-527.74867,-446.08885)" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Behind body"
      style="display:inline"
-     transform="translate(-527.74867,-474.93041)" />
+     transform="translate(-527.74867,-446.08885)" />
   <g
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="Reflection"
-     transform="translate(-527.74867,-474.93041)" />
+     transform="translate(-527.74867,-446.08885)" />
   <g
      inkscape:label="Body"
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline"
-     transform="translate(-527.74867,-474.93041)" />
+     transform="translate(-527.74867,-446.08885)" />
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Eye front"
      style="display:inline"
-     transform="translate(-527.74867,-474.93041)">
+     transform="translate(-527.74867,-446.08885)">
     <g
        id="g5558"
        transform="matrix(0.58765056,0,0,0.58765056,480.5769,388.27746)">
@@ -362,14 +362,13 @@
      id="layer5"
      inkscape:label="5 years"
      style="display:inline"
-     transform="translate(-527.74867,-474.93041)">
+     transform="translate(-527.74867,-446.08885)">
     <g
-       id="g3863"
-       transform="translate(-18,60)">
+       id="g3817">
       <path
-         inkscape:transform-center-y="0.28411444"
-         inkscape:transform-center-x="-10.043052"
-         transform="translate(0,308.2677)"
+         inkscape:transform-center-y="0.36332673"
+         inkscape:transform-center-x="-12.843483"
+         transform="matrix(1.2788461,0,0,1.2788461,-236.7548,306.8952)"
          d="m 817,323.09449 -45.87331,-63.00297 -74.54246,22.74105 45.74374,-63.09709 -44.66291,-63.86673 74.1445,24.00681 46.93927,-62.21285 0.0801,77.93412 73.67298,25.41707 -74.09501,24.15912 z"
          inkscape:randomized="0"
          inkscape:rounded="0"
@@ -388,17 +387,19 @@
          transform="matrix(0.96490927,0.26258353,-0.26258353,0.96490927,0,0)"
          sodipodi:linespacing="125%"
          id="text3857"
-         y="291.72559"
-         x="898.71906"
-         style="font-size:16px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+         y="359.25662"
+         x="894.29639"
+         style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:#ae4a00;stroke-width:1;stroke-opacity:1;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
          xml:space="preserve"><tspan
-           y="291.72559"
-           x="898.71906"
+           style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;stroke-width:1;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
+           y="359.25662"
+           x="894.29639"
            id="tspan3859"
            sodipodi:role="line">5 years</tspan><tspan
+           style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;stroke-width:1;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
            id="tspan3861"
-           y="311.72559"
-           x="898.71906"
+           y="419.25662"
+           x="894.29639"
            sodipodi:role="line">2009-2014</tspan></text>
     </g>
   </g>
