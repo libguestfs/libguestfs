@@ -33,13 +33,13 @@ superminfsdir = $(libdir)/guestfs/supermin.d
 
 fs_DATA =
 superminfs_DATA = \
-	supermin.d/init.tar.gz \
-	supermin.d/udev-rules.tar.gz
-	supermin.d/daemon.tar.gz \
 	supermin.d/base.tar.gz \
-	supermin.d/packages \
+	supermin.d/daemon.tar.gz \
 	supermin.d/excludefiles \
-	supermin.d/hostfiles
+	supermin.d/hostfiles \
+	supermin.d/init.tar.gz \
+	supermin.d/packages \
+	supermin.d/udev-rules.tar.gz
 
 supermin.d/base.tar.gz \
 supermin.d/daemon.tar.gz \
