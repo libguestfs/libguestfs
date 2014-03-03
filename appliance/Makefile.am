@@ -37,7 +37,7 @@ endif
 fs_DATA =
 superminfs_DATA = \
 	supermin.d/init.img \
-	supermin.d/udev-rules.img
+	supermin.d/udev-rules.img \
 	supermin.d/daemon.img$(GZ) \
 	supermin.d/base.img$(GZ) \
 	supermin.d/hostfiles
