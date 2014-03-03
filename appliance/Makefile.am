@@ -30,25 +30,17 @@ EXTRA_DIST = \
 fsdir = $(libdir)/guestfs
 superminfsdir = $(libdir)/guestfs/supermin.d
 
-fs_DATA =
-superminfs_DATA = \
-	supermin.d/init.img \
-	supermin.d/udev-rules.img
-
 if SUPERMIN_HELPER_COMPRESSED_CPIO
 GZ = .gz
 endif
 
-if ENABLE_DAEMON
-superminfs_DATA += \
-	supermin.d/daemon.img$(GZ)
-endif
-
-if ENABLE_APPLIANCE
-superminfs_DATA += \
+fs_DATA =
+superminfs_DATA = \
+	supermin.d/init.img \
+	supermin.d/udev-rules.img
+	supermin.d/daemon.img$(GZ) \
 	supermin.d/base.img$(GZ) \
 	supermin.d/hostfiles
-endif
 
 # This used to be a configure-generated file.  However config.status
 # always touches the destination file, which means the appliance got

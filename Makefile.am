@@ -28,7 +28,9 @@ SUBDIRS += tests/data generator src examples po
 if ENABLE_DAEMON
 SUBDIRS += daemon
 endif
+if ENABLE_APPLIANCE
 SUBDIRS += appliance
+endif
 
 # Tests - order is important.
 if ENABLE_APPLIANCE
