@@ -29,5 +29,4 @@ TESTS_ENVIRONMENT = \
 
 EXTRA_DIST = \
 	debug-qemu.sh \
-	test-qemu-drive-libvirt.xml \
 	$(TESTS)
