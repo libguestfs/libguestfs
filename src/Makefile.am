@@ -58,7 +58,7 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
 	libguestfs.3 \
-	libguestfs.pc libguestfs.pc.in \
+	libguestfs.pc.in \
 	guestfs.pod \
 	api-support/added \
 	api-support/README \
