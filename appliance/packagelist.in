@@ -69,6 +69,8 @@ ifelse(DEBIAN,1,
   libcap2
   libhivex0
   libpcre3
+  libsystemd-id128-0
+  libsystemd-journal0
   libyajl2
   linux-image
   dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
