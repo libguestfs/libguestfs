@@ -26,15 +26,6 @@ if [ -n "$SKIP_TEST_INSPECT_FSTAB_MD_SH" ]; then
     exit 77
 fi
 
-# The first test requires a new Augeas lens for parsing mdadm.conf.
-# If this is not present in the appliance or on the host, skip the
-# test.
-f=$(grep mdadm_conf.aug ../../appliance/supermin.d/hostfiles | head -1)
-if [ -z "$f" -o ! -f "$f" ]; then
-    echo "$0: test skipped because Augeas mdadm.conf lens is not available."
-    exit 77
-fi
-
 guestfish=../../fish/guestfish
 
 rm -f inspect-fstab-md-{1,2}.img inspect-fstab-md.fstab inspect-fstab-md.output
