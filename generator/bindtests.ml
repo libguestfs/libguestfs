@@ -104,6 +104,28 @@ print_strings (guestfs_h *g, char *const *argv)
   fprintf (fp, \"]\\n\");
 }
 
+/* Fill an lvm_pv struct with known data.  Used by
+ * guestfs_internal_test_rstruct & guestfs_internal_test_rstructlist.
+ */
+static void
+fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
+{
+  pv->pv_name = safe_asprintf (g, \"pv%%zu\", i);
+  memcpy (pv->pv_uuid, \"12345678901234567890123456789012\", 32);
+  pv->pv_fmt = safe_strdup (g, \"unknown\");
+  pv->pv_size = i;
+  pv->dev_size = i;
+  pv->pv_free = i;
+  pv->pv_used = i;
+  pv->pv_attr = safe_asprintf (g, \"attr%%zu\", i);
+  pv->pv_pe_count = i;
+  pv->pv_pe_alloc_count = i;
+  pv->pv_tags = safe_asprintf (g, \"tag%%zu\", i);
+  pv->pe_start = i;
+  pv->pv_mda_count = i;
+  pv->pv_mda_free = i;
+}
+
 ";
 
   let ptests, rtests =
@@ -238,7 +260,8 @@ print_strings (guestfs_h *g, char *const *argv)
              pr "  return strs;\n"
          | RStruct (_, typ) ->
              pr "  struct guestfs_%s *r;\n" typ;
-             pr "  r = safe_calloc (g, sizeof *r, 1);\n";
+             pr "  r = safe_malloc (g, sizeof *r);\n";
+             pr "  fill_lvm_pv (g, r, 0);\n";
              pr "  return r;\n"
          | RStructList (_, typ) ->
              pr "  struct guestfs_%s_list *r;\n" typ;
@@ -247,12 +270,11 @@ print_strings (guestfs_h *g, char *const *argv)
              pr "    error (g, \"%%s: expecting uint32 argument\", \"%s\");\n" name;
              pr "    return NULL;\n";
              pr "  }\n";
-             pr "  r = safe_calloc (g, sizeof *r, 1);\n";
+             pr "  r = safe_malloc (g, sizeof *r);\n";
              pr "  r->len = len;\n";
-             pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
-             pr "  for (size_t i = 0; i < r->len; i++) {\n";
-             pr "    r->val[i].pv_size = i;\n";
-             pr "  }\n";
+             pr "  r->val = safe_malloc (g, r->len * sizeof (*r->val));\n";
+             pr "  for (size_t i = 0; i < r->len; i++)\n";
+             pr "    fill_lvm_pv (g, &r->val[i], i);\n";
              pr "  return r;\n"
          | RHashtable _ ->
              pr "  char **strs;\n";
