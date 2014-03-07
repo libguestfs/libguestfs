@@ -18,5 +18,5 @@
 
 set -e
 
-$JAVA_EXE -Djava.library.path=.libs Bindtests > bindtests.tmp
+$JAVA_EXE Bindtests > bindtests.tmp
 diff -u $srcdir/../bindtests bindtests.tmp
