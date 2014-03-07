@@ -79,9 +79,9 @@ export PATH
 
 # Set LD_LIBRARY_PATH to contain library.
 if [ -z "$LD_LIBRARY_PATH" ]; then
-    LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs"
+    LD_LIBRARY_PATH="$b/src/.libs:$b/java/.libs:$b/gobject/.libs"
 else
-    LD_LIBRARY_PATH="$b/src/.libs:$b/gobject/.libs:$LD_LIBRARY_PATH"
+    LD_LIBRARY_PATH="$b/src/.libs:$b/java/.libs:$b/gobject/.libs:$LD_LIBRARY_PATH"
 fi
 export LD_LIBRARY_PATH
 
