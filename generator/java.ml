@@ -1137,13 +1137,13 @@ and generate_java_struct_return typ jtyp cols =
         pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
     | name, (FUInt32|FInt32) ->
         pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"I\");\n" name;
-        pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+        pr "  (*env)->SetIntField (env, jr, fl, r->%s);\n" name;
     | name, FOptPercent ->
         pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
         pr "  (*env)->SetFloatField (env, jr, fl, r->%s);\n" name;
     | name, FChar ->
         pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
-        pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+        pr "  (*env)->SetCharField (env, jr, fl, r->%s);\n" name;
   ) cols;
   pr "  free (r);\n";
   pr "  return jr;\n"
@@ -1192,11 +1192,11 @@ and generate_java_struct_list_return typ jtyp cols =
       | FBytes|FUInt64|FInt64 ->
         pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
       | FUInt32|FInt32 ->
-        pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+        pr "    (*env)->SetIntField (env, jfl, fl, r->val[i].%s);\n" name;
       | FOptPercent ->
         pr "    (*env)->SetFloatField (env, jfl, fl, r->val[i].%s);\n" name;
       | FChar ->
-        pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+        pr "    (*env)->SetCharField (env, jfl, fl, r->val[i].%s);\n" name;
   ) cols;
   pr "\n";
   pr "    (*env)->SetObjectArrayElement (env, jr, i, jfl);\n";
