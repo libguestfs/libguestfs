@@ -1188,7 +1188,7 @@ and generate_java_struct_list_return typ jtyp cols =
         pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
         pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
   ) cols;
-  pr "    (*env)->SetObjectArrayElement (env, jfl, i, jfl);\n";
+  pr "    (*env)->SetObjectArrayElement (env, jr, i, jfl);\n";
   pr "  }\n";
   pr "  guestfs_free_%s_list (r);\n" typ;
   pr "  return jr;\n"
