@@ -1151,20 +1151,24 @@ and generate_java_struct_return typ jtyp cols =
 and generate_java_struct_list_return typ jtyp cols =
   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
   pr "  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);\n";
+  pr "\n";
   pr "  for (i = 0; i < r->len; ++i) {\n";
   pr "    jfl = (*env)->AllocObject (env, cl);\n";
+  pr "\n";
   List.iter (
     function
     | name, FString ->
         pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-        pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
+        pr "    (*env)->SetObjectField (env, jfl, fl,\n";
+        pr "                            (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
     | name, FUUID ->
         pr "    {\n";
         pr "      char s[33];\n";
         pr "      memcpy (s, r->val[i].%s, 32);\n" name;
         pr "      s[32] = 0;\n";
         pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-        pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
+        pr "      (*env)->SetObjectField (env, jfl, fl,\n";
+        pr "                              (*env)->NewStringUTF (env, s));\n";
         pr "    }\n";
     | name, FBuffer ->
         pr "    {\n";
@@ -1173,7 +1177,8 @@ and generate_java_struct_list_return typ jtyp cols =
         pr "      memcpy (s, r->val[i].%s, len);\n" name;
         pr "      s[len] = 0;\n";
         pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-        pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
+        pr "      (*env)->SetObjectField (env, jfl, fl,\n";
+        pr "                              (*env)->NewStringUTF (env, s));\n";
         pr "    }\n";
     | name, (FBytes|FUInt64|FInt64) ->
         pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
@@ -1188,8 +1193,10 @@ and generate_java_struct_list_return typ jtyp cols =
         pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
         pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
   ) cols;
+  pr "\n";
   pr "    (*env)->SetObjectArrayElement (env, jr, i, jfl);\n";
   pr "  }\n";
+  pr "\n";
   pr "  guestfs_free_%s_list (r);\n" typ;
   pr "  return jr;\n"
 
