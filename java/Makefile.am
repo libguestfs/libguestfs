@@ -38,7 +38,8 @@ java_tests = \
 	t/GuestFS005Load.java \
 	t/GuestFS010Basic.java \
 	t/GuestFS080OptArgs.java \
-	t/GuestFS400Events.java
+	t/GuestFS400Events.java \
+	t/GuestFS800RHBZ1073906.java
 
 EXTRA_DIST = \
 	$(java_sources) \
