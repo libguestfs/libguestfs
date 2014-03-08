@@ -88,7 +88,7 @@ OBJECTS = \
 	progress.cmx \
 	uRI.cmx \
 	crypt.cmx \
-	password.cmx
+	password.cmx \
 	mkdtemp.cmx
 
 noinst_SCRIPTS = dummy
