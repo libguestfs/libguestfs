@@ -50,6 +50,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-btrfs_fsck.h \
   include/guestfs-gobject/optargs-compress_device_out.h \
   include/guestfs-gobject/optargs-compress_out.h \
+  include/guestfs-gobject/optargs-copy_attributes.h \
   include/guestfs-gobject/optargs-copy_device_to_device.h \
   include/guestfs-gobject/optargs-copy_device_to_file.h \
   include/guestfs-gobject/optargs-copy_file_to_device.h \
@@ -124,6 +125,7 @@ guestfs_gobject_sources= \
   src/optargs-btrfs_fsck.c \
   src/optargs-compress_device_out.c \
   src/optargs-compress_out.c \
+  src/optargs-copy_attributes.c \
   src/optargs-copy_device_to_device.c \
   src/optargs-copy_device_to_file.c \
   src/optargs-copy_file_to_device.c \
