@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.25.42\n"
+"Project-Id-Version: libguestfs 1.25.43\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-03-06 15:58+0000\n"
+"POT-Creation-Date: 2014-03-08 12:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -837,7 +837,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:393 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../builder/virt-builder.pod:1822 ../builder/virt-index-validate.pod:81 ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:491 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:265 ../diff/virt-diff.pod:253 ../edit/virt-edit.pod:362 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1294 ../examples/guestfs-performance.pod:559 ../examples/guestfs-recipes.pod:651 ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1603 ../fish/libguestfs-tools.conf.pod:90 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:187 ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:149 ../golang/examples/guestfs-golang.pod:78 ../guestfs-release-notes.pod:2634 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:81 ../lua/examples/guestfs-lua.pod:138 ../make-fs/virt-make-fs.pod:217 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:421 ../resize/virt-resize.pod:756 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4718 ../sysprep/virt-sysprep.pod:552 ../test-tool/libguestfs-test-tool.pod:182 ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272 ../tools/virt-tar:301 ../tools/virt-win-reg:792
+#: ../align/virt-alignment-scan.pod:393 ../appliance/libguestfs-make-fixed-appliance.pod:166 ../builder/virt-builder.pod:1822 ../builder/virt-index-validate.pod:81 ../cat/virt-cat.pod:249 ../cat/virt-filesystems.pod:395 ../cat/virt-ls.pod:491 ../daemon/guestfsd.pod:117 ../df/virt-df.pod:265 ../diff/virt-diff.pod:253 ../edit/virt-edit.pod:362 ../erlang/examples/guestfs-erlang.pod:97 ../examples/guestfs-examples.pod:57 ../examples/guestfs-faq.pod:1294 ../examples/guestfs-performance.pod:559 ../examples/guestfs-recipes.pod:651 ../examples/guestfs-testing.pod:386 ../fish/guestfish.pod:1603 ../fish/libguestfs-tools.conf.pod:90 ../fish/virt-copy-in.pod:50 ../fish/virt-copy-out.pod:39 ../fish/virt-tar-in.pod:47 ../fish/virt-tar-out.pod:41 ../format/virt-format.pod:187 ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:149 ../golang/examples/guestfs-golang.pod:78 ../guestfs-release-notes.pod:2634 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:158 ../lua/examples/guestfs-lua.pod:138 ../make-fs/virt-make-fs.pod:217 ../ocaml/examples/guestfs-ocaml.pod:78 ../perl/examples/guestfs-perl.pod:40 ../python/examples/guestfs-python.pod:53 ../rescue/virt-rescue.pod:421 ../resize/virt-resize.pod:756 ../ruby/examples/guestfs-ruby.pod:36 ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:4718 ../sysprep/virt-sysprep.pod:552 ../test-tool/libguestfs-test-tool.pod:182 ../tools/virt-list-filesystems:190 ../tools/virt-list-partitions:272 ../tools/virt-tar:301 ../tools/virt-win-reg:792
 msgid "SEE ALSO"
 msgstr ""
 
@@ -859,7 +859,7 @@ msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:406 ../appliance/libguestfs-make-fixed-appliance.pod:178 ../builder/virt-builder.pod:1844 ../builder/virt-index-validate.pod:90 ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:505 ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267 ../edit/virt-edit.pod:377 ../erlang/examples/guestfs-erlang.pod:116 ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1304 ../examples/guestfs-performance.pod:575 ../examples/guestfs-recipes.pod:670 ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1638 ../fish/libguestfs-tools.conf.pod:102 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:201 ../fuse/guestmount.pod:428 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97 ../guestfs-release-notes.pod:2649 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:100 ../lua/examples/guestfs-lua.pod:157 ../make-fs/virt-make-fs.pod:235 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59 ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:435 ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:54 ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4778 ../sysprep/virt-sysprep.pod:574 ../test-tool/libguestfs-test-tool.pod:192 ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287 ../tools/virt-tar:319 ../tools/virt-win-reg:810
+#: ../align/virt-alignment-scan.pod:406 ../appliance/libguestfs-make-fixed-appliance.pod:178 ../builder/virt-builder.pod:1844 ../builder/virt-index-validate.pod:90 ../cat/virt-cat.pod:262 ../cat/virt-filesystems.pod:410 ../cat/virt-ls.pod:505 ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267 ../edit/virt-edit.pod:377 ../erlang/examples/guestfs-erlang.pod:116 ../examples/guestfs-examples.pod:75 ../examples/guestfs-faq.pod:1304 ../examples/guestfs-performance.pod:575 ../examples/guestfs-recipes.pod:670 ../examples/guestfs-testing.pod:397 ../fish/guestfish.pod:1638 ../fish/libguestfs-tools.conf.pod:102 ../fish/virt-copy-in.pod:64 ../fish/virt-copy-out.pod:53 ../fish/virt-tar-in.pod:62 ../fish/virt-tar-out.pod:55 ../format/virt-format.pod:201 ../fuse/guestmount.pod:428 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97 ../guestfs-release-notes.pod:2649 ../inspector/virt-inspector.pod:524 ../java/examples/guestfs-java.pod:177 ../lua/examples/guestfs-lua.pod:157 ../make-fs/virt-make-fs.pod:235 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:59 ../python/examples/guestfs-python.pod:71 ../rescue/virt-rescue.pod:435 ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:54 ../sparsify/virt-sparsify.pod:356 ../src/guestfs.pod:4778 ../sysprep/virt-sysprep.pod:574 ../test-tool/libguestfs-test-tool.pod:192 ../tools/virt-list-filesystems:206 ../tools/virt-list-partitions:287 ../tools/virt-tar:319 ../tools/virt-win-reg:810
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1162,12 +1162,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:174 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1300 ../examples/guestfs-performance.pod:571 ../examples/guestfs-recipes.pod:666 ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1634 ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:424 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:96 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:67 ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4774 ../sysprep/virt-sysprep.pod:568 ../test-tool/libguestfs-test-tool.pod:188
+#: ../appliance/libguestfs-make-fixed-appliance.pod:174 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1300 ../examples/guestfs-performance.pod:571 ../examples/guestfs-recipes.pod:666 ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1634 ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:424 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../inspector/virt-inspector.pod:510 ../java/examples/guestfs-java.pod:173 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:67 ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4774 ../sysprep/virt-sysprep.pod:568 ../test-tool/libguestfs-test-tool.pod:188
 msgid "AUTHORS"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:176 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1302 ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1636 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:426 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../java/examples/guestfs-java.pod:98 ../lua/examples/guestfs-lua.pod:155 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../ruby/examples/guestfs-ruby.pod:52 ../src/guestfs.pod:4776 ../test-tool/libguestfs-test-tool.pod:190
+#: ../appliance/libguestfs-make-fixed-appliance.pod:176 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1302 ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1636 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../fuse/guestmount.pod:426 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155 ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../ruby/examples/guestfs-ruby.pod:52 ../src/guestfs.pod:4776 ../test-tool/libguestfs-test-tool.pod:190
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
@@ -8163,22 +8163,22 @@ msgid "C<Arg> is the name of the unknown argument."
 msgstr ""
 
 #. type: =head1
-#: ../erlang/examples/guestfs-erlang.pod:89 ../golang/examples/guestfs-golang.pod:70 ../java/examples/guestfs-java.pod:73 ../lua/examples/guestfs-lua.pod:130 ../ocaml/examples/guestfs-ocaml.pod:70 ../perl/examples/guestfs-perl.pod:32 ../python/examples/guestfs-python.pod:45 ../ruby/examples/guestfs-ruby.pod:28
+#: ../erlang/examples/guestfs-erlang.pod:89 ../golang/examples/guestfs-golang.pod:70 ../java/examples/guestfs-java.pod:150 ../lua/examples/guestfs-lua.pod:130 ../ocaml/examples/guestfs-ocaml.pod:70 ../perl/examples/guestfs-perl.pod:32 ../python/examples/guestfs-python.pod:45 ../ruby/examples/guestfs-ruby.pod:28
 msgid "EXAMPLE 1: CREATE A DISK IMAGE"
 msgstr ""
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:91 ../golang/examples/guestfs-golang.pod:72 ../java/examples/guestfs-java.pod:75 ../lua/examples/guestfs-lua.pod:132 ../ocaml/examples/guestfs-ocaml.pod:72 ../perl/examples/guestfs-perl.pod:34 ../python/examples/guestfs-python.pod:47 ../ruby/examples/guestfs-ruby.pod:30
+#: ../erlang/examples/guestfs-erlang.pod:91 ../golang/examples/guestfs-golang.pod:72 ../java/examples/guestfs-java.pod:152 ../lua/examples/guestfs-lua.pod:132 ../ocaml/examples/guestfs-ocaml.pod:72 ../perl/examples/guestfs-perl.pod:34 ../python/examples/guestfs-python.pod:47 ../ruby/examples/guestfs-ruby.pod:30
 msgid "@EXAMPLE1@"
 msgstr ""
 
 #. type: =head1
-#: ../erlang/examples/guestfs-erlang.pod:93 ../golang/examples/guestfs-golang.pod:74 ../java/examples/guestfs-java.pod:77 ../lua/examples/guestfs-lua.pod:134 ../ocaml/examples/guestfs-ocaml.pod:74 ../perl/examples/guestfs-perl.pod:36 ../python/examples/guestfs-python.pod:49 ../ruby/examples/guestfs-ruby.pod:32
+#: ../erlang/examples/guestfs-erlang.pod:93 ../golang/examples/guestfs-golang.pod:74 ../java/examples/guestfs-java.pod:154 ../lua/examples/guestfs-lua.pod:134 ../ocaml/examples/guestfs-ocaml.pod:74 ../perl/examples/guestfs-perl.pod:36 ../python/examples/guestfs-python.pod:49 ../ruby/examples/guestfs-ruby.pod:32
 msgid "EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE"
 msgstr ""
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:95 ../golang/examples/guestfs-golang.pod:76 ../java/examples/guestfs-java.pod:79 ../lua/examples/guestfs-lua.pod:136 ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../ruby/examples/guestfs-ruby.pod:34
+#: ../erlang/examples/guestfs-erlang.pod:95 ../golang/examples/guestfs-golang.pod:76 ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136 ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../ruby/examples/guestfs-ruby.pod:34
 msgid "@EXAMPLE2@"
 msgstr ""
 
@@ -8192,7 +8192,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../erlang/examples/guestfs-erlang.pod:118 ../examples/guestfs-testing.pod:399 ../fish/virt-copy-in.pod:66 ../fish/virt-copy-out.pod:55 ../fish/virt-tar-in.pod:64 ../fish/virt-tar-out.pod:57 ../java/examples/guestfs-java.pod:102 ../perl/examples/guestfs-perl.pod:61 ../sparsify/virt-sparsify.pod:358
+#: ../erlang/examples/guestfs-erlang.pod:118 ../examples/guestfs-testing.pod:399 ../fish/virt-copy-in.pod:66 ../fish/virt-copy-out.pod:55 ../fish/virt-tar-in.pod:64 ../fish/virt-tar-out.pod:57 ../java/examples/guestfs-java.pod:179 ../perl/examples/guestfs-perl.pod:61 ../sparsify/virt-sparsify.pod:358
 msgid "Copyright (C) 2011-2012 Red Hat Inc."
 msgstr ""
 
@@ -33375,8 +33375,8 @@ msgstr ""
 msgid "A literal backslash character."
 msgstr ""
 
-#. type: =head1
-#: ../fish/guestfish.pod:609
+#. type: =head2
+#: ../fish/guestfish.pod:609 ../java/examples/guestfs-java.pod:73
 msgid "OPTIONAL ARGUMENTS"
 msgstr ""
 
@@ -44271,7 +44271,165 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../java/examples/guestfs-java.pod:83
+#: ../java/examples/guestfs-java.pod:75
+msgid ""
+"Some methods take an optional map of optional parameters.  An example of "
+"this is C<g.add_drive> which can be called in one of two ways:"
+msgstr ""
+
+#. type: verbatim
+#: ../java/examples/guestfs-java.pod:78
+#, no-wrap
+msgid ""
+" g.add_drive (\"disk.img\");\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:80
+msgid "or with optional arguments:"
+msgstr ""
+
+#. type: verbatim
+#: ../java/examples/guestfs-java.pod:82
+#, no-wrap
+msgid ""
+" Map<String, Object> optargs =\n"
+"   new HashMap<String, Object>() {\n"
+"   {\n"
+"     put (\"readonly\", Boolean.TRUE);\n"
+"     put (\"format\", \"raw\");\n"
+"   }\n"
+" };\n"
+" g.add_drive (\"disk.img\", optargs);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:91
+msgid ""
+"For more information on this topic, see L<guestfs(3)/CALLS WITH OPTIONAL "
+"ARGUMENTS>."
+msgstr ""
+
+#. type: =head3
+#: ../java/examples/guestfs-java.pod:94
+msgid "Optional handle parameters"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:96
+msgid "When creating the handle you can also pass a map of optional parameters:"
+msgstr ""
+
+#. type: verbatim
+#: ../java/examples/guestfs-java.pod:99
+#, no-wrap
+msgid ""
+" Map<String, Object> optargs =\n"
+"   new HashMap<String, Object>() {\n"
+"   {\n"
+"     put (\"close_on_exit\", Boolean.FALSE);\n"
+"     put (\"environment\", Boolean.TRUE);\n"
+"   }\n"
+" };\n"
+" GuestFS g = new GuestFS (optargs);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:108
+msgid "For more information, see L<guestfs(3)/guestfs_create_flags>."
+msgstr ""
+
+#. type: =head1
+#: ../java/examples/guestfs-java.pod:110
+msgid "COMPILING AND RUNNING"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:112
+msgid ""
+"Libguestfs for Java is a Java Native Interface (JNI) extension, supplied in "
+"three parts:"
+msgstr ""
+
+#. type: =item
+#: ../java/examples/guestfs-java.pod:117
+msgid "C<libguestfs.jar>"
+msgstr ""
+
+#. type: =item
+#: ../java/examples/guestfs-java.pod:119
+msgid "C<libguestfs-I<VERSION>.jar>"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:121
+msgid ""
+"The pure Java JAR file which contains several classes, the primary one being "
+"C<com.redhat.et.libguestfs.GuestFS>.  Upstream, the JAR file contains a "
+"version number in the filename, but some Linux distros may rename it without "
+"the version number."
+msgstr ""
+
+#. type: =item
+#: ../java/examples/guestfs-java.pod:126
+msgid "C<libguestfs_jni.so>"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:128
+msgid ""
+"The JNI code (written in C).  This contains private native functions that "
+"interface between Java code and the regular libguestfs C library.  You "
+"should B<not> call these directly."
+msgstr ""
+
+#. type: =item
+#: ../java/examples/guestfs-java.pod:132
+msgid "C<libguestfs.so>"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:134
+msgid "The regular libguestfs C library."
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:138
+msgid ""
+"To compile your Java program, you need to locate the JAR file and add it to "
+"the class path.  For example:"
+msgstr ""
+
+#. type: verbatim
+#: ../java/examples/guestfs-java.pod:141
+#, no-wrap
+msgid ""
+" export CLASSPATH=/usr/share/java/libguestfs.jar\n"
+" javac MyProgram.java\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:144
+msgid ""
+"To run your Java program, you also need to ensure that the JAR file is on "
+"the class path, as well as the path of your program.  For example:"
+msgstr ""
+
+#. type: verbatim
+#: ../java/examples/guestfs-java.pod:147
+#, no-wrap
+msgid ""
+" export CLASSPATH=.:/usr/share/java/libguestfs.jar\n"
+" java MyProgram\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../java/examples/guestfs-java.pod:160
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-erlang(3)>, "
 "L<guestfs-golang(3)>, L<guestfs-lua(3)>, L<guestfs-ocaml(3)>, "
