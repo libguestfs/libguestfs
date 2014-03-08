@@ -35,11 +35,16 @@ java_sources = \
 
 java_tests = \
 	Bindtests.java \
+	t/GuestFS010Load.java \
 	t/GuestFS020Create.java \
+	t/GuestFS030CreateFlags.java \
+	t/GuestFS040CreateMultiple.java \
+	t/GuestFS050HandleProperties.java \
 	t/GuestFS070OptArgs.java \
 	t/GuestFS100Launch.java \
 	t/GuestFS410CloseEvent.java \
 	t/GuestFS420LogMessages.java \
+	t/GuestFS430ProgressMessages.java \
 	t/GuestFS800RHBZ1073906.java
 
 EXTRA_DIST = \
