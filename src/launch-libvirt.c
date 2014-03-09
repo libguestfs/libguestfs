@@ -106,6 +106,7 @@ struct backend_libvirt_data {
   char *selinux_imagelabel;
   bool selinux_norelabel_disks;
   char name[DOMAIN_NAME_LEN];   /* random name */
+  bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
 };
 
 /* Parameters passed to construct_libvirt_xml and subfunctions.  We
@@ -122,11 +123,10 @@ struct libvirt_xml_params {
   char guestfsd_path[UNIX_PATH_MAX]; /* paths to sockets */
   char console_path[UNIX_PATH_MAX];
   bool enable_svirt;            /* false if we decided to disable sVirt */
-  bool is_kvm;                  /* false = qemu, true = kvm */
   bool current_proc_is_root;    /* true = euid is root */
 };
 
-static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct libvirt_xml_params *params);
+static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct backend_libvirt_data *data);
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params);
 static void debug_appliance_permissions (guestfs_h *g);
 static void debug_socket_permissions (guestfs_h *g);
@@ -299,7 +299,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   if (g->verbose)
     guestfs___print_timestamped_message (g, "parsing capabilities XML");
 
-  if (parse_capabilities (g, capabilities_xml, &params) == -1)
+  if (parse_capabilities (g, capabilities_xml, data) == -1)
     goto cleanup;
 
   /* Locate and/or build the appliance. */
@@ -575,7 +575,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
 static int
 parse_capabilities (guestfs_h *g, const char *capabilities_xml,
-                    struct libvirt_xml_params *params)
+                    struct backend_libvirt_data *data)
 {
   CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
   CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
@@ -654,9 +654,9 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
   force_tcg = guestfs___get_backend_setting_bool (g, "force_tcg");
 
   if (!force_tcg)
-    params->is_kvm = seen_kvm;
+    data->is_kvm = seen_kvm;
   else
-    params->is_kvm = 0;
+    data->is_kvm = 0;
 
   return 0;
 }
@@ -929,7 +929,7 @@ construct_libvirt_xml_domain (guestfs_h *g,
                               xmlTextWriterPtr xo)
 {
   start_element ("domain") {
-    attribute ("type", params->is_kvm ? "kvm" : "qemu");
+    attribute ("type", params->data->is_kvm ? "kvm" : "qemu");
     attribute_ns ("xmlns", "qemu", NULL,
                   "http://libvirt.org/schemas/domain/qemu/1.0");
 
@@ -987,7 +987,7 @@ construct_libvirt_xml_cpu (guestfs_h *g,
    * Only do this with KVM.  It is broken in subtle ways on TCG, and
    * fairly pointless anyway.
    */
-  if (params->is_kvm) {
+  if (params->data->is_kvm) {
     start_element ("cpu") {
       attribute ("mode", "host-passthrough");
       start_element ("model") {
@@ -1039,7 +1039,7 @@ construct_libvirt_xml_boot (guestfs_h *g,
 
   /* Linux kernel command line. */
   flags = 0;
-  if (!params->is_kvm)
+  if (!params->data->is_kvm)
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
   cmdline = guestfs___appliance_command_line (g, params->appliance_dev, flags);
 
