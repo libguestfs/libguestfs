@@ -122,6 +122,12 @@ uml_supported (guestfs_h *g)
              _("uml backend does not support drives with 'label' parameter"));
       return false;
     }
+    /* Note that discard == "besteffort" is fine. */
+    if (drv->discard == discard_enable) {
+      error (g,
+             _("uml backend does not support drives with 'discard' parameter set to 'enable'"));
+      return false;
+    }
   }
 
   return true;

@@ -61,6 +61,7 @@ struct drive_create_data {
   const char *name;
   const char *disk_label;
   const char *cachemode;
+  enum discard discard;
 };
 
 /* Compile all the regular expressions once when the shared library is
@@ -144,6 +145,7 @@ create_drive_file (guestfs_h *g,
   drv->name = data->name ? safe_strdup (g, data->name) : NULL;
   drv->disk_label = data->disk_label ? safe_strdup (g, data->disk_label) : NULL;
   drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
+  drv->discard = data->discard;
 
   if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
@@ -178,6 +180,7 @@ create_drive_non_file (guestfs_h *g,
   drv->name = data->name ? safe_strdup (g, data->name) : NULL;
   drv->disk_label = data->disk_label ? safe_strdup (g, data->disk_label) : NULL;
   drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
+  drv->discard = data->discard;
 
   if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
@@ -473,6 +476,7 @@ create_drive_dev_null (guestfs_h *g,
     return NULL;
 
   data->exportname = tmpfile;
+  data->discard = discard_disable;
 
   return create_drive_file (g, data);
 }
@@ -511,8 +515,8 @@ free_drive_struct (struct drive *drv)
   free (drv);
 }
 
-static const char *
-protocol_to_string (enum drive_protocol protocol)
+const char *
+guestfs___drive_protocol_to_string (enum drive_protocol protocol)
 {
   switch (protocol) {
   case drive_protocol_file: return "file";
@@ -538,12 +542,12 @@ static char *
 drive_to_string (guestfs_h *g, const struct drive *drv)
 {
   return safe_asprintf
-    (g, "%s%s%s%s protocol=%s%s%s%s%s%s%s%s%s",
+    (g, "%s%s%s%s protocol=%s%s%s%s%s%s%s%s%s%s",
      drv->src.u.path,
      drv->readonly ? " readonly" : "",
      drv->src.format ? " format=" : "",
      drv->src.format ? : "",
-     protocol_to_string (drv->src.protocol),
+     guestfs___drive_protocol_to_string (drv->src.protocol),
      drv->iface ? " iface=" : "",
      drv->iface ? : "",
      drv->name ? " name=" : "",
@@ -551,7 +555,9 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
      drv->disk_label ? " label=" : "",
      drv->disk_label ? : "",
      drv->cachemode ? " cache=" : "",
-     drv->cachemode ? : "");
+     drv->cachemode ? : "",
+     drv->discard == discard_disable ? "" :
+     drv->discard == discard_enable ? " discard=enable" : " discard=besteffort");
 }
 
 /* Add struct drive to the g->drives vector at the given index. */
@@ -794,6 +800,28 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
     ? optargs->secret : NULL;
   data.cachemode = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK
     ? optargs->cachemode : NULL;
+
+  if (optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_DISCARD_BITMASK) {
+    if (STREQ (optargs->discard, "disable"))
+      data.discard = discard_disable;
+    else if (STREQ (optargs->discard, "enable"))
+      data.discard = discard_enable;
+    else if (STREQ (optargs->discard, "besteffort"))
+      data.discard = discard_besteffort;
+    else {
+      error (g, _("discard parameter must be 'disable', 'enable' or 'besteffort'"));
+      free_drive_servers (data.servers, data.nr_servers);
+      return -1;
+    }
+  }
+  else
+    data.discard = discard_disable;
+
+  if (data.readonly && data.discard == discard_enable) {
+    error (g, _("discard support cannot be enabled on read-only drives"));
+    free_drive_servers (data.servers, data.nr_servers);
+    return -1;
+  }
 
   if (data.format && !valid_format_iface (data.format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),

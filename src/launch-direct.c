@@ -509,6 +509,30 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     CLEANUP_FREE char *file = NULL, *escaped_file = NULL, *param = NULL;
 
     if (!drv->overlay) {
+      const char *discard_mode = "";
+      int major = data->qemu_version_major, minor = data->qemu_version_minor;
+      unsigned long qemu_version = major * 1000000 + minor * 1000;
+
+      switch (drv->discard) {
+      case discard_disable:
+        /* Since the default is always discard=ignore, don't specify it
+         * on the command line.  This also avoids unnecessary breakage
+         * with qemu < 1.5 which didn't have the option at all.
+         */
+        break;
+      case discard_enable:
+        if (!guestfs___discard_possible (g, drv, qemu_version))
+          goto cleanup0;
+        /*FALLTHROUGH*/
+      case discard_besteffort:
+        /* I believe from reading the code that this is always safe as
+         * long as qemu >= 1.5.
+         */
+        if (major > 1 || (major == 1 && minor >= 5))
+          discard_mode = ",discard=unmap";
+        break;
+      }
+
       /* Make the file= parameter. */
       file = guestfs___drive_source_qemu_param (g, &drv->src);
       escaped_file = qemu_escape_param (g, file);
@@ -517,10 +541,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
        * the if=... at the end.
        */
       param = safe_asprintf
-        (g, "file=%s%s,cache=%s%s%s%s%s,id=hd%zu",
+        (g, "file=%s%s,cache=%s%s%s%s%s%s,id=hd%zu",
          escaped_file,
          drv->readonly ? ",snapshot=on" : "",
          drv->cachemode ? drv->cachemode : "writeback",
+         discard_mode,
          drv->src.format ? ",format=" : "",
          drv->src.format ? drv->src.format : "",
          drv->disk_label ? ",serial=" : "",
@@ -1368,6 +1393,96 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
   }
 
   abort ();
+}
+
+/* Test if discard is both supported by qemu AND possible with the
+ * underlying file or device.  This returns 1 if discard is possible.
+ * It returns 0 if not possible and sets the error to the reason why.
+ *
+ * This function is called when the user set discard == "enable".
+ *
+ * qemu_version is the version of qemu in the form returned by libvirt:
+ * major * 1,000,000 + minor * 1,000 + release
+ */
+bool
+guestfs___discard_possible (guestfs_h *g, struct drive *drv,
+                            unsigned long qemu_version)
+{
+  /* qemu >= 1.5.  This was the first version that supported the
+   * discard option on -drive at all.
+   */
+  bool qemu15 = qemu_version >= 1005000;
+  /* qemu >= 1.6.  This was the first version that supported unmap on
+   * qcow2 backing files.
+   */
+  bool qemu16 = qemu_version >= 1006000;
+
+  if (!qemu15) {
+    error (g, _("discard cannot be enabled on this drive: "
+                "qemu < 1.5"));
+    return false;
+  }
+
+  /* If it's an overlay, discard is not possible (on the underlying
+   * file).  This has probably been caught earlier since we already
+   * checked that the drive is !readonly.  Nevertheless ...
+   */
+  if (drv->overlay) {
+    error (g, _("discard cannot be enabled on this drive: "
+                "the drive has a read-only overlay"));
+    return false;
+  }
+
+  /* Look at the source format. */
+  if (drv->src.format == NULL) {
+    /* We could autodetect the format, but we don't ... yet. XXX */
+    error (g, _("discard cannot be enabled on this drive: "
+                "you have to specify the format of the file"));
+    return false;
+  }
+  else if (STREQ (drv->src.format, "raw"))
+    /* OK */ ;
+  else if (STREQ (drv->src.format, "qcow2")) {
+    if (!qemu16) {
+      error (g, _("discard cannot be enabled on this drive: "
+                  "qemu < 1.6 cannot do discard on qcow2 files"));
+    return false;
+    }
+  }
+  else {
+    /* It's possible in future other formats will support discard, but
+     * currently (qemu 1.7) none of them do.
+     */
+    error (g, _("discard cannot be enabled on this drive: "
+                "qemu does not support discard for '%s' format files"),
+           drv->src.format);
+    return false;
+  }
+
+  switch (drv->src.protocol) {
+    /* Protocols which support discard. */
+  case drive_protocol_file:
+  case drive_protocol_gluster:
+  case drive_protocol_iscsi:
+  case drive_protocol_nbd:
+  case drive_protocol_rbd:
+  case drive_protocol_sheepdog: /* XXX depends on server version */
+    break;
+
+    /* Protocols which don't support discard. */
+  case drive_protocol_ftp:
+  case drive_protocol_ftps:
+  case drive_protocol_http:
+  case drive_protocol_https:
+  case drive_protocol_ssh:
+  case drive_protocol_tftp:
+    error (g, _("discard cannot be enabled on this drive: "
+                "protocol '%s' does not support discard"),
+           guestfs___drive_protocol_to_string (drv->src.protocol));
+    return false;
+  }
+
+  return true;
 }
 
 static int

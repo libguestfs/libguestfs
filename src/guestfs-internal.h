@@ -231,6 +231,12 @@ struct drive_source {
   char *secret;
 };
 
+enum discard {
+  discard_disable = 0,
+  discard_enable,
+  discard_besteffort,
+};
+
 /* There is one 'struct drive' per drive, including hot-plugged drives. */
 struct drive {
   /* Original source of the drive, eg. file:..., http:... */
@@ -252,6 +258,7 @@ struct drive {
   char *name;
   char *disk_label;
   char *cachemode;
+  enum discard discard;
 };
 
 /* Extra hv parameters (from guestfs_config). */
@@ -713,6 +720,7 @@ extern size_t guestfs___checkpoint_drives (guestfs_h *g);
 extern void guestfs___rollback_drives (guestfs_h *g, size_t);
 extern void guestfs___add_dummy_appliance_drive (guestfs_h *g);
 extern void guestfs___free_drives (guestfs_h *g);
+extern const char *guestfs___drive_protocol_to_string (enum drive_protocol protocol);
 
 /* appliance.c */
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **dtb, char **initrd, char **appliance);
@@ -832,6 +840,7 @@ extern void guestfs___cleanup_cmd_close (struct command **);
 
 /* launch-direct.c */
 extern char *guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
+extern bool guestfs___discard_possible (guestfs_h *g, struct drive *drv, unsigned long qemu_version);
 
 /* utils.c */
 extern int guestfs___validate_guid (const char *);

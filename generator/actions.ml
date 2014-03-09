@@ -1286,7 +1286,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -1501,6 +1501,36 @@ committed to disk.
 In this mode, there are no guarantees.  Libguestfs may cache
 anything and ignore sync requests.  This is suitable only
 for scratch or temporary disks.
+
+=back
+
+=item C<discard>
+
+Enable or disable discard (a.k.a. trim or unmap) support on this
+drive.  If enabled, operations such as C<guestfs_fstrim> will be able
+to discard / make thin / punch holes in the underlying host file
+or device.
+
+Possible discard settings are:
+
+=over 4
+
+=item C<discard = \"disable\">
+
+Disable discard support.  This is the default.
+
+=item C<discard = \"enable\">
+
+Enable discard support.  Fail if discard is not possible.
+
+=item C<discard = \"besteffort\">
+
+Enable discard support if possible, but don't fail if it is not
+supported.
+
+Since not all backends and not all underlying systems support
+discard, this is a good choice if you want to use discard if
+possible, but don't mind if it doesn't work.
 
 =back
 
