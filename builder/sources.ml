@@ -87,10 +87,7 @@ let merge_sources current_sources new_sources =
   ) new_sources current_sources
 
 let filter_filenames filename =
-  let suffix = ".conf" in
-  let n = String.length filename in
-  let ns = String.length suffix in
-  n >= ns && String.sub filename (n - ns) ns = suffix
+  Filename.check_suffix filename ".conf"
 
 let read_sources ~prog ~debug =
   let dirs = Paths.xdg_config_dirs ~prog in
