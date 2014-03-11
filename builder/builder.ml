@@ -215,11 +215,12 @@ let main () =
 
   (match mode with
   | `Notes ->                           (* --notes *)
-    (match entry with
-    | { Index_parser.notes = ("", notes) :: _ } ->
-      print_endline notes;
-    | { Index_parser.notes = _ :: _ }
-    | { Index_parser.notes = [] } ->
+    let notes =
+      Languages.find_notes (Languages.languages ()) entry.Index_parser.notes in
+    (match notes with
+    | notes :: _ ->
+      print_endline notes
+    | [] ->
       printf (f_"There are no notes for %s\n") arg
     );
     exit 0
