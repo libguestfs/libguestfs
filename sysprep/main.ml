@@ -198,7 +198,11 @@ read the man page virt-sysprep(1).
       fun (g : Guestfs.guestfs) readonly ->
         let allowuuid = true in
         let readonlydisk = "ignore" (* ignore CDs, data drives *) in
-        ignore (g#add_domain ~readonly ?libvirturi ~allowuuid ~readonlydisk dom)
+        let discard = if readonly then None else Some "besteffort" in
+        ignore (g#add_domain
+                  ~readonly ?discard
+                  ?libvirturi ~allowuuid ~readonlydisk
+                  dom)
     | _, Some _ ->
       eprintf (f_"%s: you cannot give -a and -d options together\n") prog;
       eprintf (f_"Read virt-sysprep(1) man page for further information.\n");
@@ -209,7 +213,11 @@ read the man page virt-sysprep(1).
           fun (uri, format) ->
             let { URI.path = path; protocol = protocol;
                   server = server; username = username } = uri in
-            g#add_drive ~readonly ?format ~protocol ?server ?username path
+            let discard = if readonly then None else Some "besteffort" in
+            g#add_drive
+              ~readonly ?discard
+              ?format ~protocol ?server ?username
+              path
         ) files
   in
 
