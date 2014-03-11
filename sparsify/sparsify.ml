@@ -31,11 +31,22 @@ external statvfs_free_space : string -> int64 =
 
 let () = Random.self_init ()
 
-let main () =
-  let indisk, outdisk, check_tmpdir, compress, convert, debug_gc,
-    format, ignores, machine_readable,
-    option, quiet, verbose, trace, zeroes =
+let rec main () =
+  let indisk, debug_gc, format, ignores, machine_readable,
+    quiet, verbose, trace, zeroes, mode =
     parse_cmdline () in
+
+  (match mode with
+  | Mode_copying (outdisk, check_tmpdir, compress, convert, option) ->
+    copying indisk outdisk check_tmpdir compress convert
+      format ignores machine_readable option quiet verbose trace zeroes
+  );
+
+  if debug_gc then
+    Gc.compact ()
+
+and copying indisk outdisk check_tmpdir compress convert
+    format ignores machine_readable option quiet verbose trace zeroes =
 
   (* Once we have got past argument parsing and start to create
    * temporary files (including the potentially massive overlay file), we
@@ -274,10 +285,7 @@ You can ignore this warning or change it to a hard failure using the
   if not quiet then (
     print_newline ();
     wrap (s_"Sparsify operation completed with no errors.  Before deleting the old disk, carefully check that the target disk boots and works correctly.\n");
-  );
-
-  if debug_gc then
-    Gc.compact ()
+  )
 
 let () =
   try main ()

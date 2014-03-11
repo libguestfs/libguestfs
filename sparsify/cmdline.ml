@@ -26,6 +26,10 @@ open Common_utils
 let prog = Filename.basename Sys.executable_name
 let error fs = error ~prog fs
 
+type mode_t =
+  Mode_copying of string * check_t * bool * string option * string option
+and check_t = [`Ignore|`Continue|`Warn|`Fail]
+
 let parse_cmdline () =
   let display_version () =
     printf "virt-sparsify %s\n" Config.package_version;
@@ -155,6 +159,6 @@ read the man page virt-sparsify(1).
     error (f_"output '%s' cannot be a character device, it must be a regular file")
       outdisk;
 
-  indisk, outdisk, check_tmpdir, compress, convert,
-    debug_gc, format, ignores, machine_readable,
-    option, quiet, verbose, trace, zeroes
+  indisk, debug_gc, format, ignores, machine_readable,
+    quiet, verbose, trace, zeroes,
+    Mode_copying (outdisk, check_tmpdir, compress, convert, option)
