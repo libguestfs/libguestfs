@@ -20,7 +20,8 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES) \
 	virt-sparsify.pod \
-	test-virt-sparsify.sh
+	test-virt-sparsify.sh \
+	test-virt-sparsify-in-place.sh
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 
@@ -133,7 +134,9 @@ CLEANFILES += stamp-virt-sparsify.pod
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
-TESTS = test-virt-sparsify.sh
+TESTS = \
+	test-virt-sparsify.sh \
+	test-virt-sparsify-in-place.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
