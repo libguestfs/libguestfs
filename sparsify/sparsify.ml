@@ -17,7 +17,6 @@
  *)
 
 open Unix
-open Scanf
 open Printf
 
 open Common_gettext.Gettext
