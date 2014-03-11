@@ -63,6 +63,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   int allowuuid;
   const char *readonlydisk;
   const char *iface;
+  const char *cachemode;
   struct guestfs___add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
 
   libvirturi = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIBVIRTURI_BITMASK
@@ -77,6 +78,8 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
             ? optargs->allowuuid : 0;
   readonlydisk = optargs->bitmask & GUESTFS_ADD_DOMAIN_READONLYDISK_BITMASK
                ? optargs->readonlydisk : NULL;
+  cachemode = optargs->bitmask & GUESTFS_ADD_DOMAIN_CACHEMODE_BITMASK
+            ? optargs->cachemode : NULL;
 
   if (live && readonly) {
     error (g, _("you cannot set both live and readonly flags"));
@@ -129,6 +132,10 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
     optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
     optargs2.readonlydisk = readonlydisk;
   }
+  if (cachemode) {
+    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_CACHEMODE_BITMASK;
+    optargs2.cachemode = cachemode;
+  }
 
   r = guestfs___add_libvirt_dom (g, dom, &optargs2);
 
@@ -163,6 +170,7 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   ssize_t r;
   int readonly;
   const char *iface;
+  const char *cachemode;
   int live;
   /* Default for back-compat reasons: */
   enum readonlydisk readonlydisk = readonlydisk_write;
@@ -195,6 +203,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
       return -1;
     }
   }
+
+  cachemode =
+    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_CACHEMODE_BITMASK
+    ? optargs->cachemode : NULL;
 
   if (live && readonly) {
     error (g, _("you cannot set both live and readonly flags"));
@@ -255,6 +267,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   if (iface) {
     data.optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK;
     data.optargs.iface = iface;
+  }
+  if (cachemode) {
+    data.optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK;
+    data.optargs.cachemode = cachemode;
   }
 
   /* Checkpoint the command line around the operation so that either

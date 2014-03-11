@@ -142,6 +142,8 @@ struct guestfs___add_libvirt_dom_argv {
   int live;
 #define GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK (UINT64_C(1)<<3)
   const char *readonlydisk;
+#define GUESTFS___ADD_LIBVIRT_DOM_CACHEMODE_BITMASK (UINT64_C(1)<<4)
+  const char *cachemode;
 };
 
 extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);
