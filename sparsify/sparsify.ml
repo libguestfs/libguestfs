@@ -296,9 +296,6 @@ let () =
   in
   Sys.set_signal Sys.sigint (Sys.Signal_handle do_sigint)
 
-(* Get the size in bytes of the input disk. *)
-let insize = g#blockdev_getsize64 "/dev/sda"
-
 (* Write zeroes for non-ignored filesystems that we are able to mount,
  * and selected swap partitions.
  *)
