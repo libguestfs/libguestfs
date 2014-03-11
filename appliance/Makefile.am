@@ -68,18 +68,6 @@ if VALGRIND_DAEMON
 PACKAGELIST_CPP_FLAGS += -DVALGRIND_DAEMON=1
 endif
 
-supermin.d/excludefiles: excludefiles.in Makefile
-	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
-	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
-	cmp -s $@ $@-t || mv $@-t $@
-	rm -f $@-t
-
-supermin.d/hostfiles: hostfiles.in Makefile
-	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
-	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
-	cmp -s $@ $@-t || mv $@-t $@
-	rm -f $@-t
-
 packagelist: packagelist.in Makefile
 	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
@@ -95,6 +83,18 @@ supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions
 	( cd tmp-d && tar zcf - * ) > $@-t
 	rm -r tmp-d
 	mv $@-t $@
+
+supermin.d/excludefiles: excludefiles.in Makefile
+	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
+	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
+	cmp -s $@ $@-t || mv $@-t $@
+	rm -f $@-t
+
+supermin.d/hostfiles: hostfiles.in Makefile
+	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
+	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
+	cmp -s $@ $@-t || mv $@-t $@
+	rm -f $@-t
 
 supermin.d/init.tar.gz: init
 	rm -f $@ $@-t
