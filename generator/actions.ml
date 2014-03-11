@@ -1576,7 +1576,7 @@ not part of the formal API and can be removed or changed at any time." };
 
   { defaults with
     name = "add_domain";
-    style = RInt "nrdisks", [String "dom"], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"; OString "cachemode"];
+    style = RInt "nrdisks", [String "dom"], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"; OString "cachemode"; OString "discard"];
     fish_alias = ["domain"]; config_only = true;
     shortdesc = "add the disk(s) from a named libvirt domain";
     longdesc = "\
@@ -1668,7 +1668,7 @@ C<guestfs_add_drive_opts>." };
 This interface is not quite baked yet. -- RWMJ 2010-11-11
   { defaults with
     name = "add_libvirt_dom";
-    style = RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"; String "readonlydisk"; OString "cachemode"];
+    style = RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"; String "readonlydisk"; OString "cachemode"; OString "discard"];
     in_fish = false;
     shortdesc = "add the disk(s) from a libvirt domain";
     longdesc = "\
