@@ -27,6 +27,7 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 # Alphabetical order.
 SOURCES = \
 	cmdline.ml \
+	copying.ml \
 	sparsify.ml \
 	statvfs-c.c
 
@@ -44,6 +45,7 @@ deps = \
 	$(top_builddir)/mllib/config.cmx \
 	statvfs-c.o \
 	cmdline.cmx \
+	copying.cmx \
 	sparsify.cmx
 
 if HAVE_OCAMLOPT
