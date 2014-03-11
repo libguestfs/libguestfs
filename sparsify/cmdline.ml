@@ -1,0 +1,160 @@
+(* virt-sparsify
+ * Copyright (C) 2011-2014 Red Hat Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *)
+
+(* Command line argument parsing. *)
+
+open Printf
+
+open Common_gettext.Gettext
+open Common_utils
+
+let prog = Filename.basename Sys.executable_name
+let error fs = error ~prog fs
+
+let parse_cmdline () =
+  let display_version () =
+    printf "virt-sparsify %s\n" Config.package_version;
+    exit 0
+  in
+
+  let add xs s = xs := s :: !xs in
+
+  let check_tmpdir = ref `Warn in
+  let set_check_tmpdir = function
+    | "ignore" | "i" -> check_tmpdir := `Ignore
+    | "continue" | "cont" | "c" -> check_tmpdir := `Continue
+    | "warn" | "warning" | "w" -> check_tmpdir := `Warn
+    | "fail" | "f" | "error" -> check_tmpdir := `Fail
+    | str ->
+      eprintf (f_"--check-tmpdir: unknown argument `%s'\n") str;
+      exit 1
+  in
+
+  let compress = ref false in
+  let convert = ref "" in
+  let debug_gc = ref false in
+  let format = ref "" in
+  let ignores = ref [] in
+  let machine_readable = ref false in
+  let option = ref "" in
+  let quiet = ref false in
+  let verbose = ref false in
+  let trace = ref false in
+  let zeroes = ref [] in
+
+  let ditto = " -\"-" in
+  let argspec = Arg.align [
+    "--check-tmpdir", Arg.String set_check_tmpdir,  "ignore|..." ^ " " ^ s_"Check there is enough space in $TMPDIR";
+    "--compress", Arg.Set compress,         " " ^ s_"Compressed output format";
+    "--convert", Arg.Set_string convert,    s_"format" ^ " " ^ s_"Format of output disk (default: same as input)";
+    "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations";
+    "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
+    "--ignore",  Arg.String (add ignores),  s_"fs" ^ " " ^ s_"Ignore filesystem";
+    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
+    "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
+    "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
+    "--quiet",   Arg.Set quiet,             ditto;
+    "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
+    "--verbose", Arg.Set verbose,           ditto;
+    "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
+    "--version", Arg.Unit display_version,  ditto;
+    "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
+    "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
+  ] in
+  long_options := argspec;
+  let disks = ref [] in
+  let anon_fun s = disks := s :: !disks in
+  let usage_msg =
+    sprintf (f_"\
+%s: sparsify a virtual machine disk
+
+ virt-sparsify [--options] indisk outdisk
+
+A short summary of the options is given below.  For detailed help please
+read the man page virt-sparsify(1).
+")
+      prog in
+  Arg.parse argspec anon_fun usage_msg;
+
+  (* Dereference the rest of the args. *)
+  let check_tmpdir = !check_tmpdir in
+  let compress = !compress in
+  let convert = match !convert with "" -> None | str -> Some str in
+  let debug_gc = !debug_gc in
+  let format = match !format with "" -> None | str -> Some str in
+  let ignores = List.rev !ignores in
+  let machine_readable = !machine_readable in
+  let option = match !option with "" -> None | str -> Some str in
+  let quiet = !quiet in
+  let verbose = !verbose in
+  let trace = !trace in
+  let zeroes = List.rev !zeroes in
+
+  (* No arguments and machine-readable mode?  Print out some facts
+   * about what this binary supports.
+   *)
+  if !disks = [] && machine_readable then (
+    printf "virt-sparsify\n";
+    printf "linux-swap\n";
+    printf "zero\n";
+    printf "check-tmpdir\n";
+    let g = new G.guestfs () in
+    g#add_drive "/dev/null";
+    g#launch ();
+    if g#feature_available [| "ntfsprogs"; "ntfs3g" |] then
+      printf "ntfs\n";
+    if g#feature_available [| "btrfs" |] then
+      printf "btrfs\n";
+    exit 0
+  );
+
+  (* Verify we got exactly 2 disks. *)
+  let indisk, outdisk =
+    match List.rev !disks with
+    | [indisk; outdisk] -> indisk, outdisk
+    | _ ->
+      error "usage is: %s [--options] indisk outdisk" prog in
+
+  (* Simple-minded check that the user isn't trying to use the
+   * same disk for input and output.
+   *)
+  if indisk = outdisk then
+    error (f_"you cannot use the same disk image for input and output");
+
+  (* The input disk must be an absolute path, so we can store the name
+   * in the overlay disk.
+   *)
+  let indisk =
+    if not (Filename.is_relative indisk) then
+      indisk
+    else
+      Sys.getcwd () // indisk in
+
+  (* Check the output is not a block or char special (RHBZ#1056290). *)
+  if is_block_device outdisk then
+    error (f_"output '%s' cannot be a block device, it must be a regular file")
+      outdisk;
+
+  if is_char_device outdisk then
+    error (f_"output '%s' cannot be a character device, it must be a regular file")
+      outdisk;
+
+  indisk, outdisk, check_tmpdir, compress, convert,
+    debug_gc, format, ignores, machine_readable,
+    option, quiet, verbose, trace, zeroes

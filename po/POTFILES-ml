@@ -33,6 +33,7 @@ mllib/timezone.ml
 mllib/uRI.ml
 mllib/urandom.ml
 resize/resize.ml
+sparsify/cmdline.ml
 sparsify/sparsify.ml
 sysprep/main.ml
 sysprep/sysprep_operation.ml
