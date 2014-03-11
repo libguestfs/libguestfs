@@ -41,24 +41,16 @@ superminfs_DATA = \
 	supermin.d/packages \
 	supermin.d/udev-rules.tar.gz
 
-supermin.d/base.tar.gz \
-supermin.d/daemon.tar.gz \
-supermin.d/excludefiles \
-supermin.d/hostfiles \
-supermin.d/init.tar.gz \
-supermin.d/packages \
-supermin.d/udev-rules.tar.gz: stamp-supermin
-stamp-supermin: make.sh \
-	  packagelist \
-	  hostfiles \
-	  excludefiles \
-	  daemon.tar.gz \
-	  init.tar.gz \
-	  udev-rules.tar.gz
+supermin.d/base.tar.gz supermin.d/packages: stamp-supermin
+stamp-supermin: make.sh packagelist
 	rm -f $@ supermin.d/base.tar.gz supermin.d/packages
 	./make.sh
-	cp -t supermin.d \
-	    daemon.tar.gz excludefiles hostfiles init.tar.gz udev-rules.tar.gz
+	$(MAKE) \
+	  supermin.d/daemon.tar.gz \
+	  supermin.d/excludefiles \
+	  supermin.d/hostfiles \
+	  supermin.d/init.tar.gz \
+	  supermin.d/udev-rules.tar.gz
 	touch $@
 
 # This used to be a configure-generated file.  However config.status
@@ -76,13 +68,13 @@ if VALGRIND_DAEMON
 PACKAGELIST_CPP_FLAGS += -DVALGRIND_DAEMON=1
 endif
 
-excludefiles: excludefiles.in Makefile
+supermin.d/excludefiles: excludefiles.in Makefile
 	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	cmp -s $@ $@-t || mv $@-t $@
 	rm -f $@-t
 
-hostfiles: hostfiles.in Makefile
+supermin.d/hostfiles: hostfiles.in Makefile
 	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@-t
 	cmp -s $@ $@-t || mv $@-t $@
@@ -94,7 +86,7 @@ packagelist: packagelist.in Makefile
 	cmp -s $@ $@-t || mv $@-t $@
 	rm -f $@-t
 
-daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions
+supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions
 	rm -f $@ $@-t
 	rm -rf tmp-d
 	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc
@@ -104,14 +96,14 @@ daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions
 	rm -r tmp-d
 	mv $@-t $@
 
-init.tar.gz: init
+supermin.d/init.tar.gz: init
 	rm -f $@ $@-t
 	( cd $(srcdir) && tar zcf - init ) > $@-t
 	mv $@-t $@
 
 # We should put this file in /lib/udev/rules.d, but put it in /etc so
 # we don't have to deal with all the UsrMove crap in Fedora.
-udev-rules.tar.gz: 99-guestfs-serial.rules
+supermin.d/udev-rules.tar.gz: 99-guestfs-serial.rules
 	rm -f $@ $@-t
 	rm -rf tmp-u
 	mkdir -p tmp-u/etc/udev/rules.d
@@ -147,12 +139,6 @@ stamp-libguestfs-make-fixed-appliance.pod: libguestfs-make-fixed-appliance.pod
 
 CLEANFILES = \
 	*~ \
-	daemon.tar.gz \
-	excludefiles \
-	hostfiles \
-	init.tar.gz \
 	libguestfs-make-fixed-appliance.1 \
-	packagelist \
 	stamp-libguestfs-make-fixed-appliance.pod \
-	supermin.d/* \
-	udev-rules.tar.gz
+	supermin.d/*
