@@ -61,6 +61,7 @@ struct drv {
       char *filename;       /* disk filename */
       const char *format;   /* format (NULL == autodetect) */
       const char *cachemode;/* cachemode (NULL == default) */
+      const char *discard;  /* discard (NULL == disable) */
     } a;
     struct {
       char *path;           /* disk path */

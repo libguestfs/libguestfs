@@ -188,6 +188,11 @@ main (int argc, char *argv[])
 
     case 'a':
       OPTION_a;
+
+      /* Enable discard on all drives added on the command line. */
+      assert (drvs != NULL);
+      assert (drvs->type == drv_a);
+      drvs->a.discard = "besteffort";
       break;
 
     case 'v':
@@ -341,6 +346,14 @@ do_format (void)
         exit (EXIT_FAILURE);
     }
   }
+
+  /* Send TRIM/UNMAP to all block devices, to give back the space to
+   * the host.  However don't fail if this doesn't work.
+   */
+  guestfs_push_error_handler (g, NULL, NULL);
+  for (i = 0; devices[i] != NULL; ++i)
+    guestfs_blkdiscard (g, devices[i]);
+  guestfs_pop_error_handler (g);
 
   if (do_rescan (devices))
     return 1; /* which means, reopen the handle and retry */
