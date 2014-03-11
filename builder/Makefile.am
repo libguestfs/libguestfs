@@ -49,6 +49,8 @@ SOURCES = \
 	index-parser-c.c \
 	ini_reader.mli \
 	ini_reader.ml \
+	languages.mli \
+	languages.ml \
 	list_entries.mli \
 	list_entries.ml \
 	paths.ml \
@@ -101,6 +103,7 @@ deps = \
 	setlocale.cmx \
 	ini_reader.cmx \
 	paths.cmx \
+	languages.cmx \
 	get_kernel.cmx \
 	downloader.cmx \
 	sigchecker.cmx \
