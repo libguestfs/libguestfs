@@ -88,3 +88,38 @@ do_blkdiscard (const char *device)
 #else /* !BLKDISCARD */
 OPTGROUP_BLKDISCARD_NOT_AVAILABLE
 #endif
+
+#ifdef BLKDISCARDZEROES
+
+int
+optgroup_blkdiscardzeroes_available (void)
+{
+  return 1;
+}
+
+int
+do_blkdiscardzeroes (const char *device)
+{
+  int fd;
+  unsigned int arg;
+
+  fd = open (device, O_RDONLY|O_CLOEXEC);
+  if (fd == -1) {
+    reply_with_perror ("open: %s", device);
+    return -1;
+  }
+
+  if (ioctl (fd, BLKDISCARDZEROES, &arg) == -1) {
+    reply_with_perror ("ioctl: %s: BLKDISCARDZEROES", device);
+    close (fd);
+    return -1;
+  }
+
+  close (fd);
+
+  return arg != 0;
+}
+
+#else /* !BLKDISCARDZEROES */
+OPTGROUP_BLKDISCARDZEROES_NOT_AVAILABLE
+#endif

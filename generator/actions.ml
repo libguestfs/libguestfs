@@ -11834,6 +11834,20 @@ an error or even appear to run but do nothing.  You must also
 set the C<discard> attribute on the underlying drive (see
 C<guestfs_add_drive_opts>)." };
 
+  { defaults with
+    name = "blkdiscardzeroes";
+    style = RBool "zeroes", [Device "device"], [];
+    proc_nr = Some 418;
+    optional = Some "blkdiscardzeroes";
+    shortdesc = "return true if discarded blocks are read as zeroes";
+    longdesc = "\
+This call returns true if blocks on C<device> that have been
+discarded by a call to C<guestfs_blkdiscard> are returned as
+blocks of zero bytes when read the next time.
+
+If it returns false, then it may be that discarded blocks are
+read as stale or random data." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
