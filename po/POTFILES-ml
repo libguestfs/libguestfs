@@ -4,6 +4,7 @@ builder/downloader.ml
 builder/get_kernel.ml
 builder/index_parser.ml
 builder/ini_reader.ml
+builder/languages.ml
 builder/list_entries.ml
 builder/paths.ml
 builder/pxzcat.ml
