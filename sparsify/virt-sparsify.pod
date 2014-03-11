@@ -8,6 +8,8 @@ virt-sparsify - Make a virtual machine disk sparse
 
  virt-sparsify [--options] indisk outdisk
 
+ virt-sparsify [--options] --in-place disk
+
 =head1 DESCRIPTION
 
 Virt-sparsify is a tool which can make a virtual machine disk (or any
@@ -45,13 +47,6 @@ such as C<du -sh>.  It can make a huge difference:
 
 =item *
 
-Virt-sparsify does not do in-place modifications.  It copies from a
-source image to a destination image, leaving the source unchanged.
-I<Check that the sparsification was successful before deleting the
-source image>.
-
-=item *
-
 The virtual machine I<must be shut down> before using this tool.
 
 =item *
@@ -59,6 +54,9 @@ The virtual machine I<must be shut down> before using this tool.
 Virt-sparsify may require up to 2x the virtual size of the source disk
 image (1 temporary copy + 1 destination image).  This is in the worst
 case and usually much less space is required.
+
+If you are using the I<--in-place> option, then large amounts of
+temporary space are B<not> required.
 
 =item *
 
@@ -105,6 +103,11 @@ to ignore (don't zero free space on) certain filesystems by doing:
 See L<virt-filesystems(1)> to get a list of filesystems within a disk
 image.
 
+Since virt-sparsify E<ge> 1.26, you can now sparsify a disk image
+in place by doing:
+
+ virt-sparsify --in-place disk.img
+
 =head1 OPTIONS
 
 =over 4
@@ -147,10 +150,14 @@ B<fail> and exit.
 
 =back
 
+You cannot use this option and I<--in-place> together.
+
 =item B<--compress>
 
 Compress the output file.  This I<only> works if the output format is
 C<qcow2>.
+
+You cannot use this option and I<--in-place> together.
 
 =item B<--convert> raw
 
@@ -170,6 +177,8 @@ Specifying the I<--convert> option is usually a good idea, because
 then virt-sparsify doesn't need to try to guess the input format.
 
 For fine-tuning the output format, see: I<--compress>, I<-o>.
+
+You cannot use this option and I<--in-place> together.
 
 =item B<--debug-gc>
 
@@ -191,13 +200,22 @@ ensure the format is always specified.
 
 =item B<--ignore> volgroup
 
-Ignore the named filesystem.  Free space on the filesystem will not be
+Ignore the named filesystem.
+
+When not using I<--in-place>: Free space on the filesystem will not be
 zeroed, but existing blocks of zeroes will still be sparsified.
+
+When using I<--in-place>, the filesystem is ignored completely.
 
 In the second form, this ignores the named volume group.  Use the
 volume group name without the C</dev/> prefix, eg. I<--ignore vg_foo>
 
 You can give this option multiple times.
+
+=item B<--in-place>
+
+Do in-place sparsification instead of copying sparsification.
+See L</IN-PLACE SPARSIFICATION> below.
 
 =item B<--machine-readable>
 
@@ -216,6 +234,8 @@ them with commas, eg:
 
  virt-sparsify --convert qcow2 \
    -o cluster_size=512,preallocation=metadata ...
+
+You cannot use this option and I<--in-place> together.
 
 =item B<-q>
 
@@ -248,6 +268,28 @@ guest.  All data on the device is lost, but sparsification is
 excellent!  You can give this option multiple times.
 
 =back
+
+=head1 IN-PLACE SPARSIFICATION
+
+Since virt-sparsify E<ge> 1.26, the tool is able to do in-place
+sparsification (instead of copying from an input disk to an output
+disk).  This is more efficient.  However it requires special support
+in libguestfs, the kernel and qemu, and it is not able to recover
+quite as much space as copying sparsification.  So in-place
+sparsification is considered to be experimental at this time.
+
+To use this mode, specify a disk image which will be modified in
+place:
+
+ virt-sparsify --in-place disk.img
+
+Some options are not compatible with this mode: I<--convert>,
+I<--compress> and I<-o> because they require wholesale disk format
+changes; I<--check-tmpdir> because large amounts of temporary space
+are not required.
+
+In-place sparsification works using discard (a.k.a trim or unmap)
+support.
 
 =head1 MACHINE READABLE OUTPUT
 
@@ -332,6 +374,9 @@ size of the tmpfs mountpoint, eg:
 
  mount -o remount,size=10G /tmp
 
+If you are using the I<--in-place> option, then large amounts of
+temporary space are B<not> required.
+
 =back
 
 For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
@@ -355,4 +400,4 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011-2012 Red Hat Inc.
+Copyright (C) 2011-2014 Red Hat Inc.

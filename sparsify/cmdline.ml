@@ -27,7 +27,8 @@ let prog = Filename.basename Sys.executable_name
 let error fs = error ~prog fs
 
 type mode_t =
-  Mode_copying of string * check_t * bool * string option * string option
+| Mode_copying of string * check_t * bool * string option * string option
+| Mode_in_place
 and check_t = [`Ignore|`Continue|`Warn|`Fail]
 
 let parse_cmdline () =
@@ -54,6 +55,7 @@ let parse_cmdline () =
   let debug_gc = ref false in
   let format = ref "" in
   let ignores = ref [] in
+  let in_place = ref false in
   let machine_readable = ref false in
   let option = ref "" in
   let quiet = ref false in
@@ -69,6 +71,8 @@ let parse_cmdline () =
     "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations";
     "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
     "--ignore",  Arg.String (add ignores),  s_"fs" ^ " " ^ s_"Ignore filesystem";
+    "--in-place", Arg.Set in_place,         " " ^ s_"Modify the disk image in-place";
+    "--inplace", Arg.Set in_place,          ditto;
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
@@ -90,6 +94,8 @@ let parse_cmdline () =
 
  virt-sparsify [--options] indisk outdisk
 
+ virt-sparsify [--options] --in-place disk
+
 A short summary of the options is given below.  For detailed help please
 read the man page virt-sparsify(1).
 ")
@@ -103,6 +109,7 @@ read the man page virt-sparsify(1).
   let debug_gc = !debug_gc in
   let format = match !format with "" -> None | str -> Some str in
   let ignores = List.rev !ignores in
+  let in_place = !in_place in
   let machine_readable = !machine_readable in
   let option = match !option with "" -> None | str -> Some str in
   let quiet = !quiet in
@@ -118,6 +125,7 @@ read the man page virt-sparsify(1).
     printf "linux-swap\n";
     printf "zero\n";
     printf "check-tmpdir\n";
+    printf "in-place\n";
     let g = new G.guestfs () in
     g#add_drive "/dev/null";
     g#launch ();
@@ -128,12 +136,14 @@ read the man page virt-sparsify(1).
     exit 0
   );
 
-  (* Verify we got exactly 2 disks. *)
+  (* Verify we got exactly 1 or 2 disks, depending on the mode. *)
   let indisk, outdisk =
-    match List.rev !disks with
-    | [indisk; outdisk] -> indisk, outdisk
+    match in_place, List.rev !disks with
+    | false, [indisk; outdisk] -> indisk, outdisk
+    | true, [disk] -> disk, ""
     | _ ->
-      error "usage is: %s [--options] indisk outdisk" prog in
+      error "usage is: %s [--options] indisk outdisk OR %s --in-place disk"
+        prog prog in
 
   (* Simple-minded check that the user isn't trying to use the
    * same disk for input and output.
@@ -141,24 +151,49 @@ read the man page virt-sparsify(1).
   if indisk = outdisk then
     error (f_"you cannot use the same disk image for input and output");
 
-  (* The input disk must be an absolute path, so we can store the name
-   * in the overlay disk.
-   *)
   let indisk =
-    if not (Filename.is_relative indisk) then
+    if not in_place then (
+      (* The input disk must be an absolute path, so we can store the name
+       * in the overlay disk.
+       *)
+      let indisk =
+        if not (Filename.is_relative indisk) then
+          indisk
+        else
+          Sys.getcwd () // indisk in
+
+      (* Check the output is not a block or char special (RHBZ#1056290). *)
+      if is_block_device outdisk then
+        error (f_"output '%s' cannot be a block device, it must be a regular file")
+          outdisk;
+
+      if is_char_device outdisk then
+        error (f_"output '%s' cannot be a character device, it must be a regular file")
+          outdisk;
+
       indisk
+    )
+    else (                              (* --in-place checks *)
+      if check_tmpdir <> `Warn then
+        error (f_"you cannot use --in-place and --check-tmpdir options together");
+
+      if compress then
+        error (f_"you cannot use --in-place and --compress options together");
+
+      if convert <> None then
+        error (f_"you cannot use --in-place and --convert options together");
+
+      if option <> None then
+        error (f_"you cannot use --in-place and -o options together");
+
+      indisk
+    ) in
+
+  let mode =
+    if not in_place then
+      Mode_copying (outdisk, check_tmpdir, compress, convert, option)
     else
-      Sys.getcwd () // indisk in
-
-  (* Check the output is not a block or char special (RHBZ#1056290). *)
-  if is_block_device outdisk then
-    error (f_"output '%s' cannot be a block device, it must be a regular file")
-      outdisk;
-
-  if is_char_device outdisk then
-    error (f_"output '%s' cannot be a character device, it must be a regular file")
-      outdisk;
+      Mode_in_place in
 
   indisk, debug_gc, format, ignores, machine_readable,
-    quiet, verbose, trace, zeroes,
-    Mode_copying (outdisk, check_tmpdir, compress, convert, option)
+    quiet, verbose, trace, zeroes, mode

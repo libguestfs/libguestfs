@@ -35,6 +35,7 @@ mllib/urandom.ml
 resize/resize.ml
 sparsify/cmdline.ml
 sparsify/copying.ml
+sparsify/in_place.ml
 sparsify/sparsify.ml
 sysprep/main.ml
 sysprep/sysprep_operation.ml
