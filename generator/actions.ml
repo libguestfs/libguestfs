@@ -11818,6 +11818,22 @@ device C<device>.  Note that partitions are numbered from 1.
 The partition name can only be read on certain types of partition
 table.  This works on C<gpt> but not on C<mbr> partitions." };
 
+  { defaults with
+    name = "blkdiscard";
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 417;
+    optional = Some "blkdiscard";
+    shortdesc = "discard all blocks on a device";
+    longdesc = "\
+This discards all blocks on the block device C<device>, giving
+the free space back to the host.
+
+This operation requires support in libguestfs, the host filesystem,
+qemu and the host kernel.  If this support isn't present it may give
+an error or even appear to run but do nothing.  You must also
+set the C<discard> attribute on the underlying drive (see
+C<guestfs_add_drive_opts>)." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

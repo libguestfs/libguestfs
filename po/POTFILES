@@ -16,6 +16,7 @@ daemon/acl.c
 daemon/augeas.c
 daemon/available.c
 daemon/base64.c
+daemon/blkdiscard.c
 daemon/blkid.c
 daemon/blockdev.c
 daemon/btrfs.c

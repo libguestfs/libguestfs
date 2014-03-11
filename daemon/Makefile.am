@@ -83,6 +83,7 @@ guestfsd_SOURCES = \
 	available.c \
 	augeas.c \
 	base64.c \
+	blkdiscard.c \
 	blkid.c \
 	blockdev.c \
 	btrfs.c \
