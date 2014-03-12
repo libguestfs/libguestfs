@@ -395,31 +395,6 @@ L<http://libguestfs.org/download/binaries/appliance/>
 
 Patches to port supermin to more Linux distros are welcome.
 
-=head2 Why do I get an error when I try to rebuild from the source
-RPMs supplied by Red Hat / Fedora?
-
-B<Note:> This issue is fixed in S<Fedora E<ge> 19> and S<RHEL E<ge> 6.5>.
-
-Because of the complexity of building the libguestfs appliance, the
-source RPMs provided cannot be rebuilt directly using C<rpmbuild> or
-C<mock>.
-
-If you use Koji (which is open source software and may be installed
-locally), then the SRPMs can be rebuilt in Koji.
-L<https://fedoraproject.org/wiki/Koji>
-
-If you don't have or want to use Koji, then you have to give
-libguestfs access to the network so it can download the RPMs for
-building the appliance.  You also need to set an RPM macro to tell
-libguestfs to use the network.  Put the following line into a file
-called C<$HOME/.rpmmacros>:
-
- %libguestfs_buildnet   1
-
-If you are using mock, do:
-
- mock -D '%libguestfs_buildnet 1' [etc]
-
 =head2 How can I add support for sVirt?
 
 B<Note for Fedora/RHEL users:> This configuration is the default
