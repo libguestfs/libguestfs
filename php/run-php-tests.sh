@@ -45,4 +45,4 @@ TESTS=$(echo guestfs_php_*.phpt)
 echo TESTS: $TESTS
 
 # PHP ignores the result of the tests!
-make test TESTS="$TESTS"
+make test TESTS="$TESTS" PHP_EXECUTABLE="$PWD/php-for-tests.sh"

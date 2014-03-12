@@ -360,6 +360,7 @@ Makefile.in
 /php/extension/mkinstalldirs
 /php/extension/missing
 /php/extension/modules/
+/php/extension/php-for-tests.sh
 /php/extension/php_guestfs_php.h
 /php/extension/run-tests.php
 /php/extension/tmp-php.ini
