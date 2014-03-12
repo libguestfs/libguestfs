@@ -30,9 +30,11 @@ let rec list_entries ~list_format ~sources index =
 and list_entries_short index =
   List.iter (
     fun (name, { Index_parser.printable_name = printable_name;
+                 arch = arch;
                  hidden = hidden }) ->
       if not hidden then (
         printf "%-24s" name;
+        printf " %-10s" arch;
         (match printable_name with
         | None -> ()
         | Some s -> printf " %s" s

@@ -27,13 +27,13 @@ export XDG_CONFIG_DIRS="$abs_builddir/test-config"
 
 short_list=$($VG ./virt-builder --no-check-signature --no-cache --list)
 
-if [ "$short_list" != "phony-debian             Phony Debian
-phony-fedora             Phony Fedora
-phony-fedora-qcow2       Phony Fedora qcow2
-phony-fedora-qcow2-uncompressed Phony Fedora qcow2 uncompressed
-phony-fedora-no-format   Phony Fedora
-phony-ubuntu             Phony Ubuntu
-phony-windows            Phony Windows" ]; then
+if [ "$short_list" != "phony-debian             x86_64     Phony Debian
+phony-fedora             x86_64     Phony Fedora
+phony-fedora-qcow2       x86_64     Phony Fedora qcow2
+phony-fedora-qcow2-uncompressed x86_64     Phony Fedora qcow2 uncompressed
+phony-fedora-no-format   x86_64     Phony Fedora
+phony-ubuntu             x86_64     Phony Ubuntu
+phony-windows            x86_64     Phony Windows" ]; then
     echo "$0: unexpected --list output:"
     echo "$short_list"
     exit 1
