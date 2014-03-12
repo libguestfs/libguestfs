@@ -46,6 +46,7 @@ do_fstrim (const char *path,
   const char *argv[MAX_ARGS];
   size_t i = 0;
   char offset_s[64], length_s[64], mfe_s[64];
+  CLEANUP_FREE char *buf = NULL;
   CLEANUP_FREE char *out = NULL, *err = NULL;
   int r;
 
@@ -88,7 +89,13 @@ do_fstrim (const char *path,
   if (verbose)
     ADD_ARG (argv, i, "-v");
 
-  ADD_ARG (argv, i, path);
+  buf = sysroot_path (path);
+  if (!buf) {
+    reply_with_error ("malloc");
+    return -1;
+  }
+
+  ADD_ARG (argv, i, buf);
   ADD_ARG (argv, i, NULL);
 
   r = commandv (&out, &err, argv);
