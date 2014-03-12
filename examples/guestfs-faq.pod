@@ -692,22 +692,12 @@ so we are reluctant to change it.
 
 =head2 Why doesn't virt-sparsify work on the disk image in-place?
 
-Eventually we plan to make virt-sparsify work on disk images in-place,
-instead of copying the disk image.  However it requires several
-changes to both the Linux kernel and qemu which are slowly making
-their way upstream (thanks to the tireless efforts of Paolo Bonzini).
-Then we will have to modify virt-sparsify to support this.  Finally
-there will be some integration work required to make sure all the
-pieces work together.
+In libguestfs E<ge> 1.26, virt-sparsify can now work on disk images in
+place.  Use:
 
-Even with this implemented there may be some limitations: For example,
-it requires completely different steps (and is probably harder) to
-sparsify a disk image that is stored on a SAN LUN, compared to one
-which is stored in a local raw image file, so you can expect that
-different storage and backing formats will become supported at
-different times.  Some backing filesystems / formats may never support
-sparsification (eg. disk images stored on VFAT, old-style non-thin
-LVs).
+ virt-sparsify --in-place disk.img
+
+But first you should read L<virt-sparsify(1)/IN-PLACE SPARSIFICATION>.
 
 =head1 PROBLEMS OPENING DISK IMAGES
 
