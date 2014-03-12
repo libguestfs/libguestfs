@@ -45,6 +45,24 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+/* Helper struct to hold all the data needed when creating a new
+ * drive.
+ */
+struct drive_create_data {
+  enum drive_protocol protocol;
+  struct drive_server *servers;
+  size_t nr_servers;
+  const char *exportname;           /* File name or path to the resource. */
+  const char *username;
+  const char *secret;
+  bool readonly;
+  const char *format;
+  const char *iface;
+  const char *name;
+  const char *disk_label;
+  const char *cachemode;
+};
+
 /* Compile all the regular expressions once when the shared library is
  * loaded.  PCRE is thread safe so we're supposedly OK here if
  * multiple threads call into the libguestfs API functions below
@@ -112,24 +130,22 @@ create_overlay (guestfs_h *g, struct drive *drv)
 
 /* Create and free the 'drive' struct. */
 static struct drive *
-create_drive_file (guestfs_h *g, const char *path,
-                   bool readonly, const char *format,
-                   const char *iface, const char *name,
-                   const char *disk_label, const char *cachemode)
+create_drive_file (guestfs_h *g,
+                   const struct drive_create_data *data)
 {
   struct drive *drv = safe_calloc (g, 1, sizeof *drv);
 
   drv->src.protocol = drive_protocol_file;
-  drv->src.u.path = safe_strdup (g, path);
-  drv->src.format = format ? safe_strdup (g, format) : NULL;
+  drv->src.u.path = safe_strdup (g, data->exportname);
+  drv->src.format = data->format ? safe_strdup (g, data->format) : NULL;
 
-  drv->readonly = readonly;
-  drv->iface = iface ? safe_strdup (g, iface) : NULL;
-  drv->name = name ? safe_strdup (g, name) : NULL;
-  drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
-  drv->cachemode = cachemode ? safe_strdup (g, cachemode) : NULL;
+  drv->readonly = data->readonly;
+  drv->iface = data->iface ? safe_strdup (g, data->iface) : NULL;
+  drv->name = data->name ? safe_strdup (g, data->name) : NULL;
+  drv->disk_label = data->disk_label ? safe_strdup (g, data->disk_label) : NULL;
+  drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
 
-  if (readonly) {
+  if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
       /* Don't double-free the servers in free_drive_struct, since
        * they are owned by the caller along this error path.
@@ -145,31 +161,25 @@ create_drive_file (guestfs_h *g, const char *path,
 
 static struct drive *
 create_drive_non_file (guestfs_h *g,
-                       enum drive_protocol protocol,
-                       struct drive_server *servers, size_t nr_servers,
-                       const char *exportname,
-                       const char *username, const char *secret,
-                       bool readonly, const char *format,
-                       const char *iface, const char *name,
-                       const char *disk_label, const char *cachemode)
+                       const struct drive_create_data *data)
 {
   struct drive *drv = safe_calloc (g, 1, sizeof *drv);
 
-  drv->src.protocol = protocol;
-  drv->src.servers = servers;
-  drv->src.nr_servers = nr_servers;
-  drv->src.u.exportname = safe_strdup (g, exportname);
-  drv->src.username = username ? safe_strdup (g, username) : NULL;
-  drv->src.secret = secret ? safe_strdup (g, secret) : NULL;
-  drv->src.format = format ? safe_strdup (g, format) : NULL;
+  drv->src.protocol = data->protocol;
+  drv->src.servers = data->servers;
+  drv->src.nr_servers = data->nr_servers;
+  drv->src.u.exportname = safe_strdup (g, data->exportname);
+  drv->src.username = data->username ? safe_strdup (g, data->username) : NULL;
+  drv->src.secret = data->secret ? safe_strdup (g, data->secret) : NULL;
+  drv->src.format = data->format ? safe_strdup (g, data->format) : NULL;
 
-  drv->readonly = readonly;
-  drv->iface = iface ? safe_strdup (g, iface) : NULL;
-  drv->name = name ? safe_strdup (g, name) : NULL;
-  drv->disk_label = disk_label ? safe_strdup (g, disk_label) : NULL;
-  drv->cachemode = cachemode ? safe_strdup (g, cachemode) : NULL;
+  drv->readonly = data->readonly;
+  drv->iface = data->iface ? safe_strdup (g, data->iface) : NULL;
+  drv->name = data->name ? safe_strdup (g, data->name) : NULL;
+  drv->disk_label = data->disk_label ? safe_strdup (g, data->disk_label) : NULL;
+  drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
 
-  if (readonly) {
+  if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
       /* Don't double-free the servers in free_drive_struct, since
        * they are owned by the caller along this error path.
@@ -185,85 +195,66 @@ create_drive_non_file (guestfs_h *g,
 
 static struct drive *
 create_drive_curl (guestfs_h *g,
-                   enum drive_protocol protocol,
-                   struct drive_server *servers, size_t nr_servers,
-                   const char *exportname,
-                   const char *username, const char *secret,
-                   bool readonly, const char *format,
-                   const char *iface, const char *name,
-                   const char *disk_label, const char *cachemode)
+                   const struct drive_create_data *data)
 {
-  if (secret != NULL) {
+  if (data->secret != NULL) {
     error (g, _("curl: you cannot specify a secret with this protocol"));
     return NULL;
   }
 
-  if (nr_servers != 1) {
+  if (data->nr_servers != 1) {
     error (g, _("curl: you must specify exactly one server"));
     return NULL;
   }
 
-  if (servers[0].transport != drive_transport_none &&
-      servers[0].transport != drive_transport_tcp) {
+  if (data->servers[0].transport != drive_transport_none &&
+      data->servers[0].transport != drive_transport_tcp) {
     error (g, _("curl: only tcp transport is supported"));
     return NULL;
   }
 
-  if (STREQ (exportname, "")) {
+  if (STREQ (data->exportname, "")) {
     error (g, _("curl: pathname should not be an empty string"));
     return NULL;
   }
 
-  if (exportname[0] != '/') {
+  if (data->exportname[0] != '/') {
     error (g, _("curl: pathname must begin with a '/'"));
     return NULL;
   }
 
-  return create_drive_non_file (g, protocol,
-                                servers, nr_servers, exportname,
-                                username, secret,
-                                readonly, format, iface, name, disk_label,
-                                cachemode);
+  return create_drive_non_file (g, data);
 }
 
 static struct drive *
 create_drive_gluster (guestfs_h *g,
-                      struct drive_server *servers, size_t nr_servers,
-                      const char *exportname,
-                      const char *username, const char *secret,
-                      bool readonly, const char *format,
-                      const char *iface, const char *name,
-                      const char *disk_label, const char *cachemode)
+                      const struct drive_create_data *data)
 {
-  if (username != NULL) {
+  if (data->username != NULL) {
     error (g, _("gluster: you cannot specify a username with this protocol"));
     return NULL;
   }
-  if (secret != NULL) {
+  if (data->secret != NULL) {
     error (g, _("gluster: you cannot specify a secret with this protocol"));
     return NULL;
   }
 
-  if (nr_servers != 1) {
+  if (data->nr_servers != 1) {
     error (g, _("gluster: you must specify exactly one server"));
     return NULL;
   }
 
-  if (STREQ (exportname, "")) {
+  if (STREQ (data->exportname, "")) {
     error (g, _("gluster: volume name parameter should not be an empty string"));
     return NULL;
   }
 
-  if (exportname[0] == '/') {
+  if (data->exportname[0] == '/') {
     error (g, _("gluster: volume/image must not begin with a '/'"));
     return NULL;
   }
 
-  return create_drive_non_file (g, drive_protocol_gluster,
-                                servers, nr_servers, exportname,
-                                username, secret,
-                                readonly, format, iface, name, disk_label,
-                                cachemode);
+  return create_drive_non_file (g, data);
 }
 
 static int
@@ -280,218 +271,173 @@ nbd_port (void)
 
 static struct drive *
 create_drive_nbd (guestfs_h *g,
-                  struct drive_server *servers, size_t nr_servers,
-                  const char *exportname,
-                  const char *username, const char *secret,
-                  bool readonly, const char *format,
-                  const char *iface, const char *name,
-                  const char *disk_label, const char *cachemode)
+                  const struct drive_create_data *data)
 {
-  if (username != NULL) {
+  if (data->username != NULL) {
     error (g, _("nbd: you cannot specify a username with this protocol"));
     return NULL;
   }
-  if (secret != NULL) {
+  if (data->secret != NULL) {
     error (g, _("nbd: you cannot specify a secret with this protocol"));
     return NULL;
   }
 
-  if (nr_servers != 1) {
+  if (data->nr_servers != 1) {
     error (g, _("nbd: you must specify exactly one server"));
     return NULL;
   }
 
-  if (servers[0].port == 0)
-    servers[0].port = nbd_port ();
+  if (data->servers[0].port == 0)
+    data->servers[0].port = nbd_port ();
 
-  return create_drive_non_file (g, drive_protocol_nbd,
-                                servers, nr_servers, exportname,
-                                username, secret,
-                                readonly, format, iface, name, disk_label,
-                                cachemode);
+  return create_drive_non_file (g, data);
 }
 
 static struct drive *
 create_drive_rbd (guestfs_h *g,
-                  struct drive_server *servers, size_t nr_servers,
-                  const char *exportname,
-                  const char *username, const char *secret,
-                  bool readonly, const char *format,
-                  const char *iface, const char *name,
-                  const char *disk_label, const char *cachemode)
+                  const struct drive_create_data *data)
 {
   size_t i;
 
-  for (i = 0; i < nr_servers; ++i) {
-    if (servers[i].transport != drive_transport_none &&
-        servers[i].transport != drive_transport_tcp) {
+  for (i = 0; i < data->nr_servers; ++i) {
+    if (data->servers[i].transport != drive_transport_none &&
+        data->servers[i].transport != drive_transport_tcp) {
       error (g, _("rbd: only tcp transport is supported"));
       return NULL;
     }
-    if (servers[i].port == 0) {
+    if (data->servers[i].port == 0) {
       error (g, _("rbd: port number must be specified"));
       return NULL;
     }
   }
 
-  if (STREQ (exportname, "")) {
+  if (STREQ (data->exportname, "")) {
     error (g, _("rbd: image name parameter should not be an empty string"));
     return NULL;
   }
 
-  if (exportname[0] == '/') {
+  if (data->exportname[0] == '/') {
     error (g, _("rbd: image name must not begin with a '/'"));
     return NULL;
   }
 
-  return create_drive_non_file (g, drive_protocol_rbd,
-                                servers, nr_servers, exportname,
-                                username, secret,
-                                readonly, format, iface, name, disk_label,
-                                cachemode);
+  return create_drive_non_file (g, data);
 }
 
 static struct drive *
 create_drive_sheepdog (guestfs_h *g,
-                       struct drive_server *servers, size_t nr_servers,
-                       const char *exportname,
-                       const char *username, const char *secret,
-                       bool readonly, const char *format,
-                       const char *iface, const char *name,
-                       const char *disk_label, const char *cachemode)
+                       const struct drive_create_data *data)
 {
   size_t i;
 
-  if (username != NULL) {
+  if (data->username != NULL) {
     error (g, _("sheepdog: you cannot specify a username with this protocol"));
     return NULL;
   }
-  if (secret != NULL) {
+  if (data->secret != NULL) {
     error (g, _("sheepdog: you cannot specify a secret with this protocol"));
     return NULL;
   }
 
-  for (i = 0; i < nr_servers; ++i) {
-    if (servers[i].transport != drive_transport_none &&
-        servers[i].transport != drive_transport_tcp) {
+  for (i = 0; i < data->nr_servers; ++i) {
+    if (data->servers[i].transport != drive_transport_none &&
+        data->servers[i].transport != drive_transport_tcp) {
       error (g, _("sheepdog: only tcp transport is supported"));
       return NULL;
     }
-    if (servers[i].port == 0) {
+    if (data->servers[i].port == 0) {
       error (g, _("sheepdog: port number must be specified"));
       return NULL;
     }
   }
 
-  if (STREQ (exportname, "")) {
+  if (STREQ (data->exportname, "")) {
     error (g, _("sheepdog: volume parameter should not be an empty string"));
     return NULL;
   }
 
-  if (exportname[0] == '/') {
+  if (data->exportname[0] == '/') {
     error (g, _("sheepdog: volume parameter must not begin with a '/'"));
     return NULL;
   }
 
-  return create_drive_non_file (g, drive_protocol_sheepdog,
-                                servers, nr_servers, exportname,
-                                username, secret,
-                                readonly, format, iface, name, disk_label,
-                                cachemode);
+  return create_drive_non_file (g, data);
 }
 
 static struct drive *
 create_drive_ssh (guestfs_h *g,
-                  struct drive_server *servers, size_t nr_servers,
-                  const char *exportname,
-                  const char *username, const char *secret,
-                  bool readonly, const char *format,
-                  const char *iface, const char *name,
-                  const char *disk_label, const char *cachemode)
+                  const struct drive_create_data *data)
 {
-  if (secret != NULL) {
+  if (data->secret != NULL) {
     error (g, _("ssh: you cannot specify a secret with this protocol"));
     return NULL;
   }
 
-  if (nr_servers != 1) {
+  if (data->nr_servers != 1) {
     error (g, _("ssh: you must specify exactly one server"));
     return NULL;
   }
 
-  if (servers[0].transport != drive_transport_none &&
-      servers[0].transport != drive_transport_tcp) {
+  if (data->servers[0].transport != drive_transport_none &&
+      data->servers[0].transport != drive_transport_tcp) {
     error (g, _("ssh: only tcp transport is supported"));
     return NULL;
   }
 
-  if (STREQ (exportname, "")) {
+  if (STREQ (data->exportname, "")) {
     error (g, _("ssh: pathname should not be an empty string"));
     return NULL;
   }
 
-  if (exportname[0] != '/') {
+  if (data->exportname[0] != '/') {
     error (g, _("ssh: pathname must begin with a '/'"));
     return NULL;
   }
 
-  if (username && STREQ (username, "")) {
+  if (data->username && STREQ (data->username, "")) {
     error (g, _("ssh: username should not be an empty string"));
     return NULL;
   }
 
-  return create_drive_non_file (g, drive_protocol_ssh,
-                                servers, nr_servers, exportname,
-                                username, secret,
-                                readonly, format, iface, name, disk_label,
-                                cachemode);
+  return create_drive_non_file (g, data);
 }
 
 static struct drive *
 create_drive_iscsi (guestfs_h *g,
-                    struct drive_server *servers, size_t nr_servers,
-                    const char *exportname,
-                    const char *username, const char *secret,
-                    bool readonly, const char *format,
-                    const char *iface, const char *name,
-                    const char *disk_label, const char *cachemode)
+                    const struct drive_create_data *data)
 {
-  if (username != NULL) {
+  if (data->username != NULL) {
     error (g, _("iscsi: you cannot specify a username with this protocol"));
     return NULL;
   }
 
-  if (secret != NULL) {
+  if (data->secret != NULL) {
     error (g, _("iscsi: you cannot specify a secret with this protocol"));
     return NULL;
   }
 
-  if (nr_servers != 1) {
+  if (data->nr_servers != 1) {
     error (g, _("iscsi: you must specify exactly one server"));
     return NULL;
   }
 
-  if (servers[0].transport != drive_transport_none &&
-      servers[0].transport != drive_transport_tcp) {
+  if (data->servers[0].transport != drive_transport_none &&
+      data->servers[0].transport != drive_transport_tcp) {
     error (g, _("iscsi: only tcp transport is supported"));
     return NULL;
   }
 
-  if (STREQ (exportname, "")) {
+  if (STREQ (data->exportname, "")) {
     error (g, _("iscsi: target name should not be an empty string"));
     return NULL;
   }
 
-  if (exportname[0] == '/') {
+  if (data->exportname[0] == '/') {
     error (g, _("iscsi: target string must not begin with a '/'"));
     return NULL;
   }
 
-  return create_drive_non_file (g, drive_protocol_iscsi,
-                                servers, nr_servers, exportname,
-                                username, secret,
-                                readonly, format, iface, name, disk_label,
-                                cachemode);
+  return create_drive_non_file (g, data);
 }
 
 /* Traditionally you have been able to use /dev/null as a filename, as
@@ -503,13 +449,12 @@ create_drive_iscsi (guestfs_h *g,
  * a null drive.
  */
 static struct drive *
-create_drive_dev_null (guestfs_h *g, bool readonly, const char *format,
-                       const char *iface, const char *name,
-                       const char *disk_label)
+create_drive_dev_null (guestfs_h *g,
+                       struct drive_create_data *data)
 {
   CLEANUP_FREE char *tmpfile = NULL;
 
-  if (format && STRNEQ (format, "raw")) {
+  if (data->format && STRNEQ (data->format, "raw")) {
     error (g, _("for device '/dev/null', format must be 'raw'"));
     return NULL;
   }
@@ -520,22 +465,25 @@ create_drive_dev_null (guestfs_h *g, bool readonly, const char *format,
   /* Because we create a special file, there is no point forcing qemu
    * to create an overlay as well.  Save time by setting readonly = false.
    */
-  readonly = false;
+  data->readonly = false;
 
   tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
 
   if (guestfs_disk_create (g, tmpfile, "raw", 4096, -1) == -1)
     return NULL;
 
-  return create_drive_file (g, tmpfile, readonly, format, iface, name,
-                            disk_label, 0);
+  data->exportname = tmpfile;
+
+  return create_drive_file (g, data);
 }
 
 static struct drive *
 create_drive_dummy (guestfs_h *g)
 {
   /* A special drive struct that is used as a dummy slot for the appliance. */
-  return create_drive_file (g, "", 0, NULL, NULL, NULL, NULL, 0);
+  struct drive_create_data data = { 0, };
+  data.exportname = "";
+  return create_drive_file (g, &data);
 }
 
 static void
@@ -813,87 +761,81 @@ int
 guestfs__add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
 {
-  bool readonly;
-  const char *format;
-  const char *iface;
-  const char *name;
-  const char *disk_label;
+  struct drive_create_data data;
   const char *protocol;
-  size_t nr_servers = 0;
-  struct drive_server *servers = NULL;
-  const char *username;
-  const char *secret;
-  const char *cachemode;
   struct drive *drv;
   size_t i, drv_index;
 
-  readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
+  data.nr_servers = 0;
+  data.servers = NULL;
+  data.exportname = filename;
+
+  data.readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
     ? optargs->readonly : false;
-  format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
+  data.format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
     ? optargs->format : NULL;
-  iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
+  data.iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
     ? optargs->iface : NULL;
-  name = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_NAME_BITMASK
+  data.name = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_NAME_BITMASK
     ? optargs->name : NULL;
-  disk_label = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_LABEL_BITMASK
+  data.disk_label = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_LABEL_BITMASK
     ? optargs->label : NULL;
   protocol = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_PROTOCOL_BITMASK
     ? optargs->protocol : "file";
   if (optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_SERVER_BITMASK) {
-    ssize_t r = parse_servers (g, optargs->server, &servers);
+    ssize_t r = parse_servers (g, optargs->server, &data.servers);
     if (r == -1)
       return -1;
-    nr_servers = r;
+    data.nr_servers = r;
   }
-  username = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK
+  data.username = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK
     ? optargs->username : NULL;
-  secret = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_SECRET_BITMASK
+  data.secret = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_SECRET_BITMASK
     ? optargs->secret : NULL;
-  cachemode = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK
+  data.cachemode = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_CACHEMODE_BITMASK
     ? optargs->cachemode : NULL;
 
-  if (format && !valid_format_iface (format)) {
+  if (data.format && !valid_format_iface (data.format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "format");
-    free_drive_servers (servers, nr_servers);
+    free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
-  if (iface && !valid_format_iface (iface)) {
+  if (data.iface && !valid_format_iface (data.iface)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "iface");
-    free_drive_servers (servers, nr_servers);
+    free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
-  if (disk_label && !valid_disk_label (disk_label)) {
+  if (data.disk_label && !valid_disk_label (data.disk_label)) {
     error (g, _("label parameter is empty, too long, or contains disallowed characters"));
-    free_drive_servers (servers, nr_servers);
+    free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
-  if (cachemode &&
-      !(STREQ (cachemode, "writeback") || STREQ (cachemode, "unsafe"))) {
+  if (data.cachemode &&
+      !(STREQ (data.cachemode, "writeback") || STREQ (data.cachemode, "unsafe"))) {
     error (g, _("cachemode parameter must be 'writeback' (default) or 'unsafe'"));
-    free_drive_servers (servers, nr_servers);
+    free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
 
   if (STREQ (protocol, "file")) {
-    if (servers != NULL) {
+    if (data.servers != NULL) {
       error (g, _("you cannot specify a server with file-backed disks"));
-      free_drive_servers (servers, nr_servers);
+      free_drive_servers (data.servers, data.nr_servers);
       return -1;
     }
-    if (username != NULL) {
+    if (data.username != NULL) {
       error (g, _("you cannot specify a username with file-backed disks"));
       return -1;
     }
-    if (secret != NULL) {
+    if (data.secret != NULL) {
       error (g, _("you cannot specify a secret with file-backed disks"));
       return -1;
     }
 
     if (STREQ (filename, "/dev/null"))
-      drv = create_drive_dev_null (g, readonly, format, iface, name,
-                                   disk_label);
+      drv = create_drive_dev_null (g, &data);
     else {
       /* We have to check for the existence of the file since that's
        * required by the API.
@@ -903,80 +845,52 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
         return -1;
       }
 
-      drv = create_drive_file (g, filename, readonly, format, iface, name,
-                               disk_label, cachemode);
+      drv = create_drive_file (g, &data);
     }
   }
   else if (STREQ (protocol, "ftp")) {
-    drv = create_drive_curl (g, drive_protocol_ftp,
-                             servers, nr_servers, filename,
-                             username, secret,
-                             readonly, format, iface, name,
-                             disk_label, cachemode);
+    data.protocol = drive_protocol_ftp;
+    drv = create_drive_curl (g, &data);
   }
   else if (STREQ (protocol, "ftps")) {
-    drv = create_drive_curl (g, drive_protocol_ftps,
-                             servers, nr_servers, filename,
-                             username, secret,
-                             readonly, format, iface, name,
-                             disk_label, cachemode);
+    data.protocol = drive_protocol_ftps;
+    drv = create_drive_curl (g, &data);
   }
   else if (STREQ (protocol, "gluster")) {
-    drv = create_drive_gluster (g, servers, nr_servers, filename,
-                                username, secret,
-                                readonly, format, iface, name,
-                                disk_label, cachemode);
+    data.protocol = drive_protocol_gluster;
+    drv = create_drive_gluster (g, &data);
   }
   else if (STREQ (protocol, "http")) {
-    drv = create_drive_curl (g, drive_protocol_http,
-                             servers, nr_servers, filename,
-                             username, secret,
-                             readonly, format, iface, name,
-                             disk_label, cachemode);
+    data.protocol = drive_protocol_http;
+    drv = create_drive_curl (g, &data);
   }
   else if (STREQ (protocol, "https")) {
-    drv = create_drive_curl (g, drive_protocol_https,
-                             servers, nr_servers, filename,
-                             username, secret,
-                             readonly, format, iface, name,
-                             disk_label, cachemode);
+    data.protocol = drive_protocol_https;
+    drv = create_drive_curl (g, &data);
   }
   else if (STREQ (protocol, "iscsi")) {
-    drv = create_drive_iscsi (g, servers, nr_servers, filename,
-                              username, secret,
-                              readonly, format, iface, name,
-                              disk_label, cachemode);
+    data.protocol = drive_protocol_iscsi;
+    drv = create_drive_iscsi (g, &data);
   }
   else if (STREQ (protocol, "nbd")) {
-    drv = create_drive_nbd (g, servers, nr_servers, filename,
-                            username, secret,
-                            readonly, format, iface, name,
-                            disk_label, cachemode);
+    data.protocol = drive_protocol_nbd;
+    drv = create_drive_nbd (g, &data);
   }
   else if (STREQ (protocol, "rbd")) {
-    drv = create_drive_rbd (g, servers, nr_servers, filename,
-                            username, secret,
-                            readonly, format, iface, name,
-                            disk_label, cachemode);
+    data.protocol = drive_protocol_rbd;
+    drv = create_drive_rbd (g, &data);
   }
   else if (STREQ (protocol, "sheepdog")) {
-    drv = create_drive_sheepdog (g, servers, nr_servers, filename,
-                                 username, secret,
-                                 readonly, format, iface, name,
-                                 disk_label, cachemode);
+    data.protocol = drive_protocol_sheepdog;
+    drv = create_drive_sheepdog (g, &data);
   }
   else if (STREQ (protocol, "ssh")) {
-    drv = create_drive_ssh (g, servers, nr_servers, filename,
-                            username, secret,
-                            readonly, format, iface, name,
-                            disk_label, cachemode);
+    data.protocol = drive_protocol_ssh;
+    drv = create_drive_ssh (g, &data);
   }
   else if (STREQ (protocol, "tftp")) {
-    drv = create_drive_curl (g, drive_protocol_tftp,
-                             servers, nr_servers, filename,
-                             username, secret,
-                             readonly, format, iface, name,
-                             disk_label, cachemode);
+    data.protocol = drive_protocol_tftp;
+    drv = create_drive_curl (g, &data);
   }
   else {
     error (g, _("unknown protocol '%s'"), protocol);
@@ -984,7 +898,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   }
 
   if (drv == NULL) {
-    free_drive_servers (servers, nr_servers);
+    free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
 
