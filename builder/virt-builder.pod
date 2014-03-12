@@ -15,6 +15,7 @@ virt-builder - Build virtual machine images quickly
 
  virt-builder os-version
     [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]
+    [--arch ARCHITECTURE]
     [--attach ISOFILE]
     [--root-password SELECTOR]
     [--hostname HOSTNAME]
@@ -81,7 +82,9 @@ are any installation notes:
 
  virt-builder fedora-20
 
-will build a Fedora 20 image.  This will have all default
+will build a Fedora 20 image for the same architecture as virt-builder
+(so running it from an i386 installation will try to build an i386
+image, if available).  This will have all default
 configuration (minimal size, no user accounts, random root password,
 only the bare minimum installed software, etc.).
 
@@ -108,6 +111,10 @@ As above, but write the output in qcow2 format to C<fedora-20.qcow2>.
 As above, but the output size will be 20 GB.  The guest OS is resized
 as it is copied to the output (automatically, using
 L<virt-resize(1)>).
+
+ virt-builder fedora-20 --arch i386
+
+As above, but using an i386 template, if available.
 
 =head2 Setting the root password
 
@@ -188,6 +195,14 @@ You can combine these options, and have multiple options of all types.
 =item B<--help>
 
 Display help.
+
+=item B<--arch> ARCHITECTURE
+
+Use the specified architecture for the output image.  This means
+there must be sources providing the requested template for the
+requested architecture.
+
+See also L</ARCHITECTURE>.
 
 =item B<--attach> ISOFILE
 
@@ -1635,7 +1650,7 @@ highly recommended that you always create signed index and templates.
 Virt-builder can build a guest for any architecture no matter what the
 host architecture is.  For example an x86-64 guest on an ARM host.
 
-However certain options may not work correctly, specifically options
+However certain options may not work, specifically options
 that require running commands in the guest during the build process:
 I<--install>, I<--update>, I<--run>, I<--run-command>.  You may need
 to replace these with their firstboot-equivalents.

@@ -38,9 +38,9 @@ let () = Random.self_init ()
 let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
-    attach, cache, check_signature, curl, debug, delete, delete_on_failure,
-    edit, firstboot, run, format, gpg, hostname, install, list_format, links,
-    memsize, mkdirs,
+    arch, attach, cache, check_signature, curl, debug, delete,
+    delete_on_failure, edit, firstboot, run, format, gpg, hostname, install,
+    list_format, links, memsize, mkdirs,
     network, output, password_crypto, quiet, root_password, scrub,
     scrub_logfile, selinux_relabel, size, smp, sources, sync, timezone,
     update, upload, writes =
@@ -172,11 +172,11 @@ let main () =
       | Some cachedir ->
         printf (f_"cache directory: %s\n") cachedir;
         List.iter (
-          fun (name, { Index_parser.revision = revision; hidden = hidden }) ->
+          fun (name, { Index_parser.revision = revision; arch = arch; hidden = hidden }) ->
             if not hidden then (
-              let filename = Downloader.cache_of_name cachedir name revision in
+              let filename = Downloader.cache_of_name cachedir name arch revision in
               let cached = Sys.file_exists filename in
-              printf "%-24s %s\n" name
+              printf "%-24s %-10s %s\n" name arch
                 (if cached then s_"cached" else (*s_*)"no")
             )
         ) index
@@ -193,7 +193,7 @@ let main () =
         List.iter (
           fun (name,
                { Index_parser.revision = revision; file_uri = file_uri }) ->
-            let template = name, revision in
+            let template = name, arch, revision in
             msg (f_"Downloading: %s") file_uri;
             let progress_bar = not quiet in
             ignore (Downloader.download ~prog downloader ~template ~progress_bar
@@ -205,12 +205,16 @@ let main () =
     | (`Install|`Notes) as mode -> mode in
 
   (* Which os-version (ie. index entry)? *)
-  let entry =
-    try List.assoc arg index
+  let item =
+    try List.find (
+      fun (name, { Index_parser.arch = a }) ->
+        name = arg && arch = Architecture.filter_arch a
+    ) index
     with Not_found ->
-      eprintf (f_"%s: cannot find os-version '%s'.\nUse --list to list available guest types.\n")
-        prog arg;
+      eprintf (f_"%s: cannot find os-version '%s' with architecture '%s'.\nUse --list to list available guest types.\n")
+        prog arg arch;
       exit 1 in
+  let entry = snd item in
   let sigchecker = entry.Index_parser.sigchecker in
 
   (match mode with
@@ -235,7 +239,7 @@ let main () =
   let template =
     let template, delete_on_exit =
       let { Index_parser.revision = revision; file_uri = file_uri } = entry in
-      let template = arg, revision in
+      let template = arg, arch, revision in
       msg (f_"Downloading: %s") file_uri;
       let progress_bar = not quiet in
       Downloader.download ~prog downloader ~template ~progress_bar file_uri in

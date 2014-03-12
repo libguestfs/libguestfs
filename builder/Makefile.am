@@ -38,6 +38,7 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 
 # Alphabetical order.
 SOURCES = \
+	architecture.ml \
 	builder.ml \
 	cmdline.ml \
 	downloader.mli \
@@ -63,7 +64,10 @@ SOURCES = \
 	sigchecker.mli \
 	sigchecker.ml \
 	sources.mli \
-	sources.ml
+	sources.ml \
+	uname.ml \
+	uname.mli \
+	uname-c.c
 
 man_MANS =
 noinst_DATA =
@@ -101,6 +105,9 @@ deps = \
 	pxzcat.cmx \
 	setlocale-c.o \
 	setlocale.cmx \
+	uname-c.o \
+	uname.cmx \
+	architecture.cmx \
 	ini_reader.cmx \
 	paths.cmx \
 	languages.cmx \

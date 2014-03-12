@@ -44,6 +44,8 @@ let parse_cmdline () =
   let print_cache_mode () = mode := `Print_cache in
   let delete_cache_mode () = mode := `Delete_cache in
 
+  let arch = ref "" in
+
   let attach = ref [] in
   let attach_format = ref None in
   let set_attach_format = function
@@ -221,6 +223,7 @@ let parse_cmdline () =
 
   let ditto = " -\"-" in
   let argspec = Arg.align [
+    "--arch",    Arg.Set_string arch,       "arch" ^ " " ^ s_"Set the output architecture";
     "--attach",  Arg.String attach_disk,    "iso" ^ " " ^ s_"Attach data disk/ISO during install";
     "--attach-format",  Arg.String set_attach_format,
                                             "format" ^ " " ^ s_"Set attach disk format";
@@ -319,6 +322,7 @@ read the man page virt-builder(1).
   (* Dereference options. *)
   let args = List.rev !args in
   let mode = !mode in
+  let arch = !arch in
   let attach = List.rev !attach in
   let cache = !cache in
   let check_signature = !check_signature in
@@ -431,10 +435,25 @@ read the man page virt-builder(1).
     (* Combine the sources and fingerprints into a single list of pairs. *)
     List.combine sources fingerprints in
 
+  (* Check the architecture. *)
+  let arch =
+    match arch with
+    | "" -> Architecture.current_arch
+    | arch ->
+      let target_arch = Architecture.filter_arch arch in
+      if Architecture.arch_is_compatible Architecture.current_arch target_arch <> true then (
+        if install <> [] || run <> [] || update then (
+          eprintf (f_"%s: sorry, cannot run commands on a guest with a different architecture\n")
+            prog;
+          exit 1
+        );
+      );
+      target_arch in
+
   mode, arg,
-  attach, cache, check_signature, curl, debug, delete, delete_on_failure,
-  edit, firstboot, run, format, gpg, hostname, install, list_format, links,
-  memsize, mkdirs,
+  arch, attach, cache, check_signature, curl, debug, delete,
+  delete_on_failure, edit, firstboot, run, format, gpg, hostname, install,
+  list_format, links, memsize, mkdirs,
   network, output, password_crypto, quiet, root_password, scrub,
   scrub_logfile, selinux_relabel, size, smp, sources, sync, timezone,
   update, upload, writes

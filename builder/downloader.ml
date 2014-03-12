@@ -25,8 +25,8 @@ open Printf
 let quote = Filename.quote
 let (//) = Filename.concat
 
-let cache_of_name cachedir name revision =
-  cachedir // sprintf "%s.%d" name revision
+let cache_of_name cachedir name arch revision =
+  cachedir // sprintf "%s.%s.%d" name arch revision
 
 type uri = string
 type filename = string
@@ -51,14 +51,14 @@ let rec download ~prog t ?template ?progress_bar uri =
     download_to ~prog t ?progress_bar uri tmpfile;
     (tmpfile, true)
 
-  | Some (name, revision) ->
+  | Some (name, arch, revision) ->
     match t.cache with
     | None ->
       (* Not using the cache at all? *)
       download t ~prog ?progress_bar uri
 
     | Some cachedir ->
-      let filename = cache_of_name cachedir name revision in
+      let filename = cache_of_name cachedir name arch revision in
 
       (* Is the requested template name + revision in the cache already?
        * If not, download it.

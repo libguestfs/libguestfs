@@ -18,7 +18,7 @@
 
 (** This module is a wrapper around curl, plus local caching. *)
 
-val cache_of_name : string -> string -> int -> string
+val cache_of_name : string -> string -> string -> int -> string
 (** [cache_of_name cachedir name revision] returns the filename
     of the cached file.  (Note: It doesn't check if the filename
     exists, this is just a simple string transformation). *)
@@ -32,15 +32,15 @@ type t
 val create : debug:bool -> curl:string -> cache:string option -> t
 (** Create the abstract type. *)
 
-val download : prog:string -> t -> ?template:(string*int) -> ?progress_bar:bool -> uri -> (filename * bool)
+val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_bar:bool -> uri -> (filename * bool)
 (** Download the URI, returning the downloaded filename and a
     temporary file flag.  The temporary file flag is [true] iff
     the downloaded file is temporary and should be deleted by the
     caller (otherwise it's in the cache and you shouldn't delete it).
 
-    For templates, you must supply [~template:(name, revision)].  This
-    causes the cache to be used (if possible).  Name and revision are
-    used for cache control (see the man page for details).
+    For templates, you must supply [~template:(name, arch, revision)].
+    This causes the cache to be used (if possible).  Name, arch(itecture)
+    and revision are used for cache control (see the man page for details).
 
     If [~progress_bar:true] then display a progress bar if the file
     doesn't come from the cache.  In debug mode, progress messages

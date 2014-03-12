@@ -52,6 +52,7 @@ rm -f $output
 $VG ./virt-builder phony-fedora \
     -v --no-cache --no-check-signature $no_network \
     -o $output --size 2G --format $format \
+    --arch x86_64 \
     --hostname test.example.com \
     --timezone Europe/London \
     --root-password password:123456 \

@@ -123,16 +123,26 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
     if delete_tmpfile then
       (try Unix.unlink tmpfile with _ -> ());
 
-    (* Check for repeated os-version names. *)
+    (* Check for repeated os-version+arch combination. *)
+    let name_arch_map = List.map (
+      fun (n, fields) ->
+        let rec find_arch = function
+          | ("arch", None, value) :: y -> value
+          | _ :: y -> find_arch y
+          | [] -> ""
+        in
+        n, (find_arch fields)
+    ) sections in
     let nseen = Hashtbl.create 13 in
     List.iter (
-      fun (n, _) ->
-        if Hashtbl.mem nseen n then (
-          eprintf (f_"virt-builder: index is corrupt: os-version '%s' appears two or more times\n") n;
+      fun (n, arch) ->
+        let id = n, arch in
+        if Hashtbl.mem nseen id then (
+          eprintf (f_"virt-builder: index is corrupt: os-version '%s' with architecture '%s' appears two or more times\n") n arch;
           corrupt_file ()
         );
-        Hashtbl.add nseen n true
-    ) sections;
+        Hashtbl.add nseen id true
+    ) name_arch_map;
 
     (* Check for repeated fields. *)
     List.iter (
