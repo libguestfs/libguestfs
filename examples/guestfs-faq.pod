@@ -162,6 +162,8 @@ us (see previous section).
 
 =head2 supermin-helper: ext2: parent directory not found
 
+[This issue is fixed permanently in libguestfs E<ge> 1.26.]
+
 If you see any of these errors on Debian/Ubuntu, you need to run the
 following command:
 
@@ -437,83 +439,33 @@ policy.
 
 =head2 Libguestfs has a really long list of dependencies!
 
-That's because it does a lot of things.
-
-Libguestfs -- I<as it is packaged for Fedora> -- satisfies the
-following conditions:
+The base library doesn't depend on very much, but there are three
+causes of the long list of other dependencies:
 
 =over 4
 
 =item 1.
 
-The Fedora package is full featured, that is, it supports every
-possible feature of libguestfs (every filesystem, every filesystem
-tool, etc.)
-
-A common request is to split up libguestfs into separate feature areas
-so you could, say, install XFS support and NTFS support separately.
-This is not possible right now.
+Libguestfs has to be able to read and edit many different disk
+formats.  For example, XFS support requires XFS tools.
 
 =item 2.
 
-The download size of the libguestfs package is relatively small
-(ie. not ten's of megabytes as it would be if it included a complete,
-"statically linked" appliance).
+There are language bindings for many different languages, all
+requiring their own development tools.  All language bindings (except
+C) are optional.
 
 =item 3.
 
-The Fedora package automatically updates itself if there is a security
-update.  It doesn't include a huge static blob that has to be rebuilt
-and users have to re-download if there is an update.
-
-=item 4.
-
-Able to be installed without needing direct network access.  This is
-important when using closed networks, privately mirrored repositories
-or RHN Satellite.
-
-=item 5.
-
-The Fedora package can be tested during the build.
+There are some optional library features which can be disabled.
 
 =back
 
-If you want to drop any one of those conditions, then you can package
-libguestfs differently and make it have fewer dependencies, fewer
-features or a faster start up time:
-
-=over 4
-
-=item 1. (full featured)
-
-Take C<appliance/packagelist.in> in the source, and comment out any
-features you don't actually care about.  For example if you never
-anticipate editing a Windows guest, remove all the ntfs-related
-packages.  You can get away with fewer dependencies.
-
-=item 2. (download size) / 3. (updates)
-
-Use L<libguestfs-make-fixed-appliance(1)> to build a compressed
-appliance.  Bundle this with your package and set C<$LIBGUESTFS_PATH>
-to point to it.  Users will have to download this large appliance, but
-no dependencies are needed, and L<supermin-helper(1)> is not used.
-
-=item 4. (network access)
-
-Reconstruct and cache the appliance once during package install.  The
-Debian packaging currently works like this, but requires network
-access during package install.
-
-=item 5. (tests)
-
-Don't run any tests during the build.  The build will be much
-faster, but also less likely to work correctly.
-
-Note that running the tests in C<tests/qemu> is probably a good idea,
-since those are sanity tests.  Also you should do S<C<make quickcheck>>
-to ensure libguestfs is basically working.
-
-=back
+Since libguestfs E<ge> 1.26 it is possible to split up the appliance
+dependencies (item 1 in the list above) and thus have (eg)
+C<libguestfs-xfs> as a separate subpackage for processing XFS disk
+images.  We encourage downstream packagers to start splitting the base
+libguestfs package into smaller subpackages.
 
 =head2 Errors during launch on Fedora E<ge> 18, RHEL E<ge> 7
 
