@@ -140,5 +140,8 @@ stamp-libguestfs-make-fixed-appliance.pod: libguestfs-make-fixed-appliance.pod
 CLEANFILES = \
 	*~ \
 	libguestfs-make-fixed-appliance.1 \
-	stamp-libguestfs-make-fixed-appliance.pod \
+	stamp-libguestfs-make-fixed-appliance.pod
+
+DISTCLEANFILES = \
+	stamp-supermin \
 	supermin.d/*
