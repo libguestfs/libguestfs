@@ -224,7 +224,7 @@ PHP_FUNCTION (guestfs_last_error)
               pr "  char *optargs_t_%s = NULL;\n" n;
               pr "  int optargs_t_%s_size = -1;\n" n
           | OStringList n ->
-              pr "  zval *optargs_t_%s;\n" n
+              pr "  zval *optargs_t_%s = NULL;\n" n
         ) optargs
       );
 
