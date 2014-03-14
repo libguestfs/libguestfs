@@ -114,4 +114,4 @@ print "trimmed size:\t$trimmed_size (blocks)\n";
 #system "du -sh $disk";
 
 die "$0: looks like the -o discard mount option did not work\n"
-    if $trimmed_size >= $full_size;
+    if $full_size - $trimmed_size < 1000;
