@@ -106,7 +106,7 @@ die "$0: surprising result: full size <= original size\n"
 # Remove the file and check the filesystem is trimmed automatically.
 
 $g->rm ("/data");
-$g->sync ();
+$g->shutdown ();
 $g->close ();
 
 my $trimmed_size = (stat ($disk))[12];

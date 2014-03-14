@@ -114,7 +114,7 @@ die "$0: surprising result: full size <= original size\n"
 
 $g->rm ("/data");
 $g->fstrim ("/");
-$g->sync ();
+$g->shutdown ();
 $g->close ();
 
 my $trimmed_size = (stat ($disk))[12];
