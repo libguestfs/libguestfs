@@ -50,6 +50,11 @@ do_fstrim (const char *path,
   CLEANUP_FREE char *out = NULL, *err = NULL;
   int r;
 
+  /* Suggested by Paolo Bonzini to fix fstrim problem.
+   * https://lists.gnu.org/archive/html/qemu-devel/2014-03/msg02978.html
+   */
+  sync_disks ();
+
   ADD_ARG (argv, i, str_fstrim);
 
   if ((optargs_bitmask & GUESTFS_FSTRIM_OFFSET_BITMASK)) {
