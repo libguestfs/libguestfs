@@ -260,5 +260,13 @@ else
     cat $tmpout
     echo "$b/run: command failed with exit code $fail"
 fi
+if [ -n "$RUN_OUTPUT_FILE" ]; then
+    testname=`echo "$1" | sed -e 's,^./,,g'`
+    echo "<test rescode=\"$fail\" name=\"$testname\" time=\"$(($end_t - $start_t))\">" >> $RUN_OUTPUT_FILE
+    echo "<![CDATA[" >> $RUN_OUTPUT_FILE
+    cat $tmpout >> $RUN_OUTPUT_FILE
+    echo "]]>" >> $RUN_OUTPUT_FILE
+    echo "</test>" >> $RUN_OUTPUT_FILE
+fi
 rm -f $tmpout
 exit $fail
