@@ -113,8 +113,6 @@ die "$0: surprising result: full size <= original size\n"
 # Remove the file and then try to trim the filesystem.
 
 $g->rm ("/data");
-$g->umount ("/");
-$g->mount_options ("nodiscard", "/dev/sda", "/");
 $g->fstrim ("/");
 $g->sync ();
 $g->close ();
