@@ -23,22 +23,21 @@
 set -e
 export LANG=C
 
-output=$(
-../../fish/guestfish -N rhbz895904.img=fs \
-    -m /dev/sda1 <<EOF | sort -k 3
+rm -f rhbz895904.img rhbz895904.out
+
+../../fish/guestfish -N rhbz895904.img=fs -m /dev/sda1 <<EOF | sort -k 3 > rhbz895904.out
 mkdir /test
 touch /test/file1
 mkdir /test/subdir
 write /test/subdir/file2 abc
 checksums-out crc /test -
 EOF
-)
 
-if [ "$output" != "4294967295 0 ./file1
+if [ "$(cat rhbz895904.out)" != "4294967295 0 ./file1
 1219131554 3 ./subdir/file2" ]; then
     echo "$0: unexpected output from checksums-out command:"
-    echo "$output"
+    cat rhbz895904.out
     exit 1
 fi
 
-rm rhbz895904.img
+rm rhbz895904.img rhbz895904.out
