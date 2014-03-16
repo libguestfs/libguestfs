@@ -191,6 +191,8 @@ EXTRA_DIST = \
 	logo/fish-5yrs.svg logo/fish-5yrs.png \
 	logo/virt-builder.svg \
 	m4/.gitignore \
+	tests/run-xml-to-junit.sh \
+	tests/run-xml-to-junit.xsl \
 	tmp/.gitignore \
 	tx-pull.sh \
 	update-bugs.sh \
