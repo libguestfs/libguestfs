@@ -1613,6 +1613,7 @@ AC_CONFIG_FILES([Makefile
                  builder/website/Makefile
                  cat/Makefile
                  csharp/Makefile
+                 customize/Makefile
                  daemon/Makefile
                  df/Makefile
                  diff/Makefile

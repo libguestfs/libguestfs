@@ -77,26 +77,28 @@ if HAVE_OCAML
 # Note this list must be in dependency order.
 deps = \
 	$(top_builddir)/mllib/libdir.cmx \
+	$(top_builddir)/mllib/config.cmx \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/urandom.cmx \
-	$(top_builddir)/mllib/random_seed.cmx \
-	$(top_builddir)/mllib/hostname.cmx \
-	$(top_builddir)/mllib/timezone.cmx \
-	$(top_builddir)/mllib/firstboot.cmx \
-	$(top_builddir)/mllib/perl_edit.cmx \
-	$(top_builddir)/mllib/crypt-c.o \
-	$(top_builddir)/mllib/crypt.cmx \
 	$(top_builddir)/mllib/fsync-c.o \
 	$(top_builddir)/mllib/fsync.cmx \
-	$(top_builddir)/mllib/password.cmx \
 	$(top_builddir)/mllib/planner.cmx \
-	$(top_builddir)/mllib/config.cmx \
-	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/mllib/uri-c.o \
 	$(top_builddir)/mllib/uRI.cmx \
 	$(top_builddir)/mllib/mkdtemp-c.o \
 	$(top_builddir)/mllib/mkdtemp.cmx \
+	$(top_builddir)/customize/urandom.cmx \
+	$(top_builddir)/customize/random_seed.cmx \
+	$(top_builddir)/customize/hostname.cmx \
+	$(top_builddir)/customize/timezone.cmx \
+	$(top_builddir)/customize/firstboot.cmx \
+	$(top_builddir)/customize/perl_edit.cmx \
+	$(top_builddir)/customize/crypt-c.o \
+	$(top_builddir)/customize/crypt.cmx \
+	$(top_builddir)/customize/password.cmx \
+	$(top_builddir)/customize/customize_cmdline.cmx \
+	$(top_builddir)/customize/customize_run.cmx \
+	$(top_builddir)/fish/guestfish-uri.o \
 	index-scan.o \
 	index-struct.o \
 	index-parse.o \
@@ -135,7 +137,8 @@ OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/src/.libs \
 	-I $(top_builddir)/ocaml \
-	-I $(top_builddir)/mllib
+	-I $(top_builddir)/mllib \
+	-I $(top_builddir)/customize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
@@ -182,10 +185,12 @@ noinst_DATA += $(top_builddir)/html/virt-builder.1.html
 
 virt-builder.1 $(top_builddir)/html/virt-builder.1.html: stamp-virt-builder.pod
 
-stamp-virt-builder.pod: virt-builder.pod
+stamp-virt-builder.pod: virt-builder.pod $(top_srcdir)/customize/customize-synopsis.pod $(top_srcdir)/customize/customize-options.pod
 	$(PODWRAPPER) \
 	  --man virt-builder.1 \
 	  --html $(top_builddir)/html/virt-builder.1.html \
+	  --insert $(top_srcdir)/customize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
+	  --insert $(top_srcdir)/customize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
 	  --license GPLv2+ \
 	  $<
 	touch $@
@@ -236,7 +241,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mllib $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

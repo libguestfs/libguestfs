@@ -13,23 +13,8 @@ virt-builder - Build virtual machine images quickly
 
  virt-builder os-version
     [-o|--output DISKIMAGE] [--size SIZE] [--format raw|qcow2]
-    [--arch ARCHITECTURE]
-    [--attach ISOFILE]
-    [--root-password SELECTOR]
-    [--hostname HOSTNAME]
-    [--timezone TIMEZONE]
-    [--update]
-    [--install PKG,[PKG...]]
-    [--mkdir DIR]
-    [--write FILE:CONTENT]
-    [--upload FILE:DEST]
-    [--link TARGET:LINK[:LINK]]
-    [--edit FILE:EXPR]
-    [--delete FILE] [--scrub FILE]
-    [--selinux-relabel]
-    [--run SCRIPT] [--run-command 'CMD ARGS ...']
-    [--firstboot SCRIPT] [--firstboot-command 'CMD ARGS ...']
-    [--firstboot-install PKG,[PKG...]]
+    [--arch ARCHITECTURE] [--attach ISOFILE]
+__CUSTOMIZE_SYNOPSIS__
 
  virt-builder -l|--list [--long] [--list-format short|long|json]
 
@@ -261,15 +246,6 @@ curl parameters, for example to disable https certificate checks:
 
  virt-builder --curl "curl --insecure" [...]
 
-=item B<--delete> FILE
-
-=item B<--delete> DIR
-
-Delete a file from the guest.  Or delete a directory (and all its
-contents, recursively).
-
-See also: I<--upload>, I<--scrub>.
-
 =item B<--delete-cache>
 
 Delete the template cache.  See L</CACHING>.
@@ -283,17 +259,6 @@ debug images.
 The default is to delete the output file if virt-builder fails (or,
 for example, some script that it runs fails).
 
-=item B<--edit> FILE:EXPR
-
-Edit C<FILE> using the Perl expression C<EXPR>.
-
-Be careful to properly quote the expression to prevent it from
-being altered by the shell.
-
-Note that this option is only available when Perl 5 is installed.
-
-See L<virt-edit(1)/NON-INTERACTIVE EDITING>.
-
 =item B<--fingerprint> 'AAAA BBBB ...'
 
 Check that the index and templates are signed by the key with the
@@ -304,33 +269,6 @@ You can give this option multiple times.  If you have multiple source
 URLs, then you can have either no fingerprint, one fingerprint or
 multiple fingerprints.  If you have multiple, then each must
 correspond 1-1 with a source URL.
-
-=item B<--firstboot> SCRIPT
-
-=item B<--firstboot-command> 'CMD ARGS ...'
-
-Install C<SCRIPT> inside the guest, so that when the guest first boots
-up, the script runs (as root, late in the boot process).
-
-The script is automatically chmod +x after installation in the guest.
-
-The alternative version I<--firstboot-command> is the same, but it
-conveniently wraps the command up in a single line script for you.
-
-You can have multiple I<--firstboot> and I<--firstboot-command>
-options.  They run in the same order that they appear on the command
-line.
-
-See also I<--run>.
-
-=item B<--firstboot-install> PKG[,PKG,...]
-
-Install the named packages (a comma-separated list).  These are
-installed when the guest first boots using the guest's package manager
-(eg. apt, yum, etc.) and the guest's network connection.
-
-For an overview on the different ways to install packages, see
-L</INSTALLING PACKAGES>.
 
 =item B<--format> qcow2
 
@@ -364,29 +302,6 @@ also use this to add gpg parameters, for example to specify an
 alternate home directory:
 
  virt-builder --gpg "gpg --homedir /tmp" [...]
-
-=item B<--hostname> HOSTNAME
-
-Set the hostname of the guest to C<HOSTNAME>.  You can use a
-dotted hostname.domainname (FQDN) if you want.
-
-=item B<--install> PKG[,PKG,...]
-
-Install the named packages (a comma-separated list).  These are
-installed during the image build using the guest's package manager
-(eg. apt, yum, etc.) and the host's network connection.
-
-For an overview on the different ways to install packages, see
-L</INSTALLING PACKAGES>.
-
-See also I<--update>.
-
-=item B<--link TARGET:LINK>
-
-=item B<--link TARGET:LINK[:LINK...]>
-
-Create symbolic link(s) in the guest, starting at C<LINK> and
-pointing at C<TARGET>.
 
 =item B<-l>
 
@@ -429,14 +344,6 @@ I<--long> is a shorthand for the C<long> format.
 
 See also: I<--source>, I<--notes>, L</SOURCES OF TEMPLATES>.
 
-=item B<--no-logfile>
-
-Scrub C<builder.log> (log file from build commands) from the image
-after building is complete.  If you don't want to reveal precisely how
-the image was built, use this option.
-
-See also: L</LOG FILE>.
-
 =item B<-m> MB
 
 =item B<--memsize> MB
@@ -448,13 +355,6 @@ running out of memory.
 The default can be found with this command:
 
  guestfish get-memsize
-
-=item B<--mkdir> DIR
-
-Create a directory in the guest.
-
-This uses S<C<mkdir -p>> so any intermediate directories are created,
-and it also works if the directory already exists.
 
 =item B<--network>
 
@@ -539,20 +439,6 @@ volume.
 When used with I<--get-kernel>, this option specifies the output
 directory.
 
-=item B<--password-crypto> password-crypto
-
-Set the password encryption to C<md5>, C<sha256> or C<sha512>.
-
-C<sha256> and C<sha512> require glibc E<ge> 2.7 (check crypt(3) inside
-the guest).
-
-C<md5> will work with relatively old Linux guests (eg. RHEL 3), but
-is not secure against modern attacks.
-
-The default is C<sha512> unless libguestfs detects an old guest that
-didn't have support for SHA-512, in which case it will use C<md5>.
-You can override libguestfs by specifying this option.
-
 =item B<--print-cache>
 
 Print information about the template cache.  See L</CACHING>.
@@ -560,62 +446,6 @@ Print information about the template cache.  See L</CACHING>.
 =item B<--quiet>
 
 Don't print ordinary progress messages.
-
-=item B<--root-password> SELECTOR
-
-Set the root password.
-
-See L</USERS AND PASSWORDS> below for the format of the C<SELECTOR>
-field, and also how to set up user accounts.
-
-Note if you I<don't> set I<--root-password> then the guest is given
-a I<random> root password.
-
-=item B<--run> SCRIPT
-
-=item B<--run-command> 'CMD ARGS ...'
-
-Run the shell script (or any program) called C<SCRIPT> on the disk
-image.  The script runs virtualized inside a small appliance, chrooted
-into the guest filesystem.
-
-The script is automatically chmod +x.
-
-If libguestfs supports it then a limited network connection is
-available but it only allows outgoing network connections.  You can
-also attach data disks (eg. ISO files) as another way to provide data
-(eg. software packages) to the script without needing a network
-connection (I<--attach>).  You can also upload data files (I<--upload>).
-
-The alternative version I<--run-command> is the same, but it
-conveniently wraps the command up in a single line script for you.
-
-You can have multiple I<--run> and I<--run-command> options.  They run
-in the same order that they appear on the command line.
-
-See also: I<--firstboot>, I<--attach>, I<--upload>.
-
-=item B<--scrub> FILE
-
-Scrub a file from the guest.  This is like I<--delete> except that:
-
-=over 4
-
-=item *
-
-It scrubs the data so a guest could not recover it.
-
-=item *
-
-It cannot delete directories, only regular files.
-
-=back
-
-=item B<--selinux-relabel>
-
-Relabel files in the guest so that they have the correct SELinux label.
-
-You should only use this option for guests which support SELinux.
 
 =item B<--size> SIZE
 
@@ -649,34 +479,6 @@ Note that you should not point I<--source> to sources that you don't
 trust (unless the source is signed by someone you do trust).  See also
 the I<--no-network> option.
 
-=item B<--timezone> TIMEZONE
-
-Set the default timezone of the guest to C<TIMEZONE>.  Use a location
-string like C<Europe/London>
-
-=item B<--update>
-
-Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever
-command is required to update the packages already installed in the
-template to their latest versions.
-
-See also I<--install>.
-
-=item B<--upload> FILE:DEST
-
-Upload local file C<FILE> to destination C<DEST> in the disk image.
-File owner and permissions from the original are preserved, so you
-should set them to what you want them to be in the disk image.
-
-C<DEST> could be the final filename.  This can be used to rename
-the file on upload.
-
-If C<DEST> is a directory name (which must already exist in the guest)
-then the file is uploaded into that directory, and it keeps the same
-name as on the local filesystem.
-
-See also: I<--mkdir>, I<--delete>, I<--scrub>.
-
 =item B<-v>
 
 =item B<--verbose>
@@ -692,11 +494,11 @@ your bug report.
 
 Display version number and exit.
 
-=item B<--write> FILE:CONTENT
-
-Write C<CONTENT> to C<FILE>.
-
 =back
+
+=head2 Customization options
+
+__CUSTOMIZE_OPTIONS__
 
 =head1 REFERENCE
 
@@ -996,58 +798,8 @@ A new random seed is generated for the guest.
 
 =item *
 
-The hostname and timezone are set (I<--hostname>, I<--timezone>).
-
-=item *
-
-The root password is changed (I<--root-password>).
-
-=item *
-
-Core packages are updated (I<--update>).
-
-=item *
-
-Packages are installed (I<--install>).
-
-=item *
-
-Directories are created (I<--mkdir>).
-
-=item *
-
-Files are written (I<--write>).
-
-=item *
-
-Files are uploaded (I<--upload>).
-
-=item *
-
-Files are edited (I<--edit>).
-
-=item *
-
-Files are deleted (I<--delete>, I<--scrub>).
-
-=item *
-
-Symbolic links are created (I<--link>).
-
-=item *
-
-Firstboot scripts are installed (I<--firstboot>,
-I<--firstboot-command>, I<--firstboot-install>).
-
-Note that although firstboot scripts are installed at this step, they
-do not run until the guest is booted first time.  Firstboot scripts
-will run in the order they appear on the command line.
-
-=item *
-
-Scripts are run (I<--run>, I<--run-command>).
-
-Scripts run in the order they appear on the command line.
+Guest customization is performed, in the order specified on the
+command line.
 
 =item *
 

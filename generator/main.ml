@@ -46,6 +46,7 @@ open Gobject
 open Golang
 open Bindtests
 open Errnostring
+open Customize
 
 let perror msg = function
   | Unix_error (err, _, _) ->
@@ -207,6 +208,11 @@ Run it from the top source directory using the command
   output_to "gobject/include/guestfs-gobject/session.h"
     generate_gobject_session_header;
   output_to "gobject/src/session.c" generate_gobject_session_source;
+
+  output_to "customize/customize_cmdline.mli" generate_customize_cmdline_mli;
+  output_to "customize/customize_cmdline.ml" generate_customize_cmdline_ml;
+  output_to "customize/customize-synopsis.pod" generate_customize_synopsis_pod;
+  output_to "customize/customize-options.pod" generate_customize_options_pod;
 
   (* Generate the list of files generated -- last. *)
   printf "generated %d lines of code\n" (get_lines_generated ());

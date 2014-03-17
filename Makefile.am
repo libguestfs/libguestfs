@@ -123,10 +123,16 @@ endif
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
 
-# OCaml tools.  Note 'mllib' contains random shared code used by
-# all of the OCaml tools.
+# OCaml tools.  Note 'mllib' and 'customize' contain shared code used
+# by other OCaml tools, so these must come first.
 if HAVE_OCAML
-SUBDIRS += mllib builder builder/website resize sparsify sysprep
+SUBDIRS += \
+	mllib \
+	customize \
+	builder builder/website \
+	resize \
+	sparsify \
+	sysprep
 endif
 
 # Perl tools.

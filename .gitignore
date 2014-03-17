@@ -90,6 +90,12 @@ Makefile.in
 /config.sub
 /configure
 /csharp/Libguestfs.cs
+/customize/.depend
+/customize/customize_cmdline.ml
+/customize/customize_cmdline.mli
+/customize/customize-options.pod
+/customize/customize-synopsis.pod
+/customize/virt-customize
 /daemon/actions.h
 /daemon/errnostring.c
 /daemon/errnostring-gperf.c

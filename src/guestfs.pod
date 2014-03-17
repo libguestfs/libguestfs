@@ -4272,6 +4272,10 @@ and documentation.
 
 Outside contributions, experimental parts.
 
+=item C<customize>
+
+virt-customize mini-library.
+
 =item C<daemon>
 
 The daemon that runs inside the libguestfs appliance and carries out

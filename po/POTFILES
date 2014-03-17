@@ -11,6 +11,7 @@ cat/cat.c
 cat/filesystems.c
 cat/ls.c
 cat/visit.c
+customize/crypt-c.c
 daemon/9p.c
 daemon/acl.c
 daemon/augeas.c
@@ -239,7 +240,6 @@ inspector/inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
-mllib/crypt-c.c
 mllib/fsync-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c

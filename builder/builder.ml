@@ -25,6 +25,7 @@ open Password
 open Planner
 
 open Cmdline
+open Customize_cmdline
 
 open Unix
 open Printf
@@ -38,12 +39,9 @@ let () = Random.self_init ()
 let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
-    arch, attach, cache, check_signature, curl, debug, delete,
-    delete_on_failure, edit, firstboot, run, format, gpg, hostname, install,
-    list_format, links, memsize, mkdirs,
-    network, output, password_crypto, quiet, root_password, scrub,
-    scrub_logfile, selinux_relabel, size, smp, sources, sync, timezone,
-    update, upload, writes =
+    arch, attach, cache, check_signature, curl, debug,
+    delete_on_failure, format, gpg, list_format, memsize,
+    network, ops, output, quiet, size, smp, sources, sync =
     parse_cmdline () in
 
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
@@ -593,7 +591,7 @@ let main () =
     (match smp with None -> () | Some smp -> g#set_smp smp);
     g#set_network network;
 
-    g#set_selinux selinux_relabel;
+    g#set_selinux ops.flags.selinux_relabel;
 
     (* The output disk is being created, so use cache=unsafe here. *)
     g#add_drive_opts ~format:output_format ~cachemode:"unsafe" output_filename;
@@ -626,313 +624,7 @@ let main () =
       eprintf (f_"%s: no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.\n") prog;
       exit 1 in
 
-  (* Set the random seed. *)
-  msg (f_"Setting a random seed");
-  if not (Random_seed.set_random_seed g root) then
-    eprintf (f_"%s: warning: random seed could not be set for this type of guest\n%!") prog;
-
-  (* Set the hostname. *)
-  (match hostname with
-  | None -> ()
-  | Some hostname ->
-    msg (f_"Setting the hostname: %s") hostname;
-    if not (Hostname.set_hostname g root hostname) then
-      eprintf (f_"%s: warning: hostname could not be set for this type of guest\n%!") prog
-  );
-
-  (* Set the timezone. *)
-  (match timezone with
-  | None -> ()
-  | Some timezone ->
-    msg (f_"Setting the timezone: %s") timezone;
-    if not (Timezone.set_timezone ~prog g root timezone) then
-      eprintf (f_"%s: warning: timezone could not be set for this type of guest\n%!") prog
-  );
-
-  (* Root password.
-   * Note 'None' means that we randomize the root password.
-   *)
-  let () =
-    match g#inspect_get_type root with
-    | "linux" ->
-      let password_map = Hashtbl.create 1 in
-      let pw =
-        match root_password with
-        | Some pw ->
-          msg (f_"Setting root password");
-          pw
-        | None ->
-          msg (f_"Setting random root password [did you mean to use --root-password?]");
-          parse_selector ~prog "random" in
-      Hashtbl.replace password_map "root" pw;
-      set_linux_passwords ~prog ?password_crypto g root password_map
-    | _ ->
-      eprintf (f_"%s: warning: root password could not be set for this type of guest\n%!") prog in
-
-  (* Based on the guest type, choose a log file location. *)
-  let logfile =
-    match g#inspect_get_type root with
-    | "windows" | "dos" ->
-      if g#is_dir ~followsymlinks:true "/Temp" then "/Temp/builder.log"
-      else "/builder.log"
-    | _ ->
-      if g#is_dir ~followsymlinks:true "/tmp" then "/tmp/builder.log"
-      else "/builder.log" in
-
-  (* Function to cat the log file, for debugging and error messages. *)
-  let debug_logfile () =
-    try
-      (* XXX If stderr is redirected this actually truncates the
-       * redirection file, which is pretty annoying to say the
-       * least.
-       *)
-      g#download logfile "/dev/stderr"
-    with exn ->
-      eprintf (f_"%s: log file %s: %s (ignored)\n")
-        prog logfile (Printexc.to_string exn) in
-
-  (* Useful wrapper for scripts. *)
-  let do_run ~display cmd =
-    (* Add a prologue to the scripts:
-     * - Pass environment variables through from the host.
-     * - Send stdout and stderr to a log file so we capture all output
-     *   in error messages.
-     * Also catch errors and dump the log file completely on error.
-     *)
-    let env_vars =
-      filter_map (
-        fun name ->
-          try Some (sprintf "export %s=%s" name (quote (Sys.getenv name)))
-          with Not_found -> None
-      ) [ "http_proxy"; "https_proxy"; "ftp_proxy"; "no_proxy" ] in
-    let env_vars = String.concat "\n" env_vars ^ "\n" in
-
-    let cmd = sprintf "\
-exec >>%s 2>&1
-%s
-%s
-" (quote logfile) env_vars cmd in
-
-    if debug then eprintf "running command:\n%s\n%!" cmd;
-    try ignore (g#sh cmd)
-    with
-      Guestfs.Error msg ->
-        debug_logfile ();
-        eprintf (f_"%s: %s: command exited with an error\n") prog display;
-        exit 1
-  in
-
-  (* http://distrowatch.com/dwres.php?resource=package-management *)
-  let guest_install_command packages =
-    let quoted_args = String.concat " " (List.map quote packages) in
-    match g#inspect_get_package_management root with
-    | "apt" ->
-      (* http://unix.stackexchange.com/questions/22820 *)
-      sprintf "
-        export DEBIAN_FRONTEND=noninteractive
-        apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
-        apt-get $apt_opts update
-        apt-get $apt_opts install %s
-      " quoted_args
-    | "pisi" ->
-      sprintf "pisi it %s" quoted_args
-    | "pacman" ->
-      sprintf "pacman -S %s" quoted_args
-    | "urpmi" ->
-      sprintf "urpmi %s" quoted_args
-    | "yum" ->
-      sprintf "yum -y install %s" quoted_args
-    | "zypper" ->
-      (* XXX Should we use -n option? *)
-      sprintf "zypper in %s" quoted_args
-    | "unknown" ->
-      eprintf (f_"%s: --install is not supported for this guest operating system\n")
-        prog;
-      exit 1
-    | pm ->
-      eprintf (f_"%s: sorry, don't know how to use --install with the '%s' package manager\n")
-        prog pm;
-      exit 1
-
-  and guest_update_command () =
-    match g#inspect_get_package_management root with
-    | "apt" ->
-      (* http://unix.stackexchange.com/questions/22820 *)
-      sprintf "
-        export DEBIAN_FRONTEND=noninteractive
-        apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
-        apt-get $apt_opts update
-        apt-get $apt_opts upgrade
-      "
-    | "pisi" ->
-      sprintf "pisi upgrade"
-    | "pacman" ->
-      sprintf "pacman -Su"
-    | "urpmi" ->
-      sprintf "urpmi --auto-select"
-    | "yum" ->
-      sprintf "yum -y update"
-    | "zypper" ->
-      sprintf "zypper update"
-    | "unknown" ->
-      eprintf (f_"%s: --update is not supported for this guest operating system\n")
-        prog;
-      exit 1
-    | pm ->
-      eprintf (f_"%s: sorry, don't know how to use --update with the '%s' package manager\n")
-        prog pm;
-      exit 1
-  in
-
-  (* Update core/template packages. *)
-  if update then (
-    msg (f_"Updating core packages");
-
-    let cmd = guest_update_command () in
-    do_run ~display:cmd cmd
-  );
-
-  (* Install packages. *)
-  if install <> [] then (
-    msg (f_"Installing packages: %s") (String.concat " " install);
-
-    let cmd = guest_install_command install in
-    do_run ~display:cmd cmd
-  );
-
-  (* Make directories. *)
-  List.iter (
-    fun dir ->
-      msg (f_"Making directory: %s") dir;
-      g#mkdir_p dir
-  ) mkdirs;
-
-  (* Write files. *)
-  List.iter (
-    fun (file, content) ->
-      msg (f_"Writing: %s") file;
-      g#write file content
-  ) writes;
-
-  (* Upload files. *)
-  List.iter (
-    fun (file, dest) ->
-      msg (f_"Uploading: %s to %s") file dest;
-      let dest =
-        if g#is_dir ~followsymlinks:true dest then
-          dest ^ "/" ^ Filename.basename file
-        else
-          dest in
-      (* Do the file upload. *)
-      g#upload file dest;
-
-      (* Copy (some of) the permissions from the local file to the
-       * uploaded file.
-       *)
-      let statbuf = stat file in
-      let perms = statbuf.st_perm land 0o7777 (* sticky & set*id *) in
-      g#chmod perms dest;
-      let uid, gid = statbuf.st_uid, statbuf.st_gid in
-      g#chown uid gid dest
-  ) upload;
-
-  (* Edit files. *)
-  List.iter (
-    fun (file, expr) ->
-      msg (f_"Editing: %s") file;
-
-      if not (g#is_file file) then (
-        eprintf (f_"%s: error: %s is not a regular file in the guest\n")
-          prog file;
-        exit 1
-      );
-
-      Perl_edit.edit_file ~debug g file expr
-  ) edit;
-
-  (* Delete files. *)
-  List.iter (
-    fun file ->
-      msg (f_"Deleting: %s") file;
-      g#rm_rf file
-  ) delete;
-
-  (* Symbolic links. *)
-  List.iter (
-    fun (target, links) ->
-      List.iter (
-        fun link ->
-          msg (f_"Linking: %s -> %s") link target;
-          g#ln_sf target link
-      ) links
-  ) links;
-
-  (* Scrub files. *)
-  List.iter (
-    fun file ->
-      msg (f_"Scrubbing: %s") file;
-      g#scrub_file file
-  ) scrub;
-
-  (* Firstboot scripts/commands/install. *)
-  let () =
-    let i = ref 0 in
-    List.iter (
-      fun op ->
-        incr i;
-        match op with
-        | `Script script ->
-          msg (f_"Installing firstboot script: [%d] %s") !i script;
-          let cmd = read_whole_file script in
-          Firstboot.add_firstboot_script g root !i cmd
-        | `Command cmd ->
-          msg (f_"Installing firstboot command: [%d] %s") !i cmd;
-          Firstboot.add_firstboot_script g root !i cmd
-        | `Packages pkgs ->
-          msg (f_"Installing firstboot packages: [%d] %s") !i
-            (String.concat " " pkgs);
-          let cmd = guest_install_command pkgs in
-          Firstboot.add_firstboot_script g root !i cmd
-    ) firstboot in
-
-  (* Run scripts. *)
-  List.iter (
-    function
-    | `Script script ->
-      msg (f_"Running: %s") script;
-      let cmd = read_whole_file script in
-      do_run ~display:script cmd
-    | `Command cmd ->
-      msg (f_"Running: %s") cmd;
-      do_run ~display:cmd cmd
-  ) run;
-
-  if selinux_relabel then (
-    msg (f_"SELinux relabelling");
-    let cmd = sprintf "
-      if load_policy && fixfiles restore; then
-        rm -f /.autorelabel
-      else
-        touch /.autorelabel
-        echo '%s: SELinux relabelling failed, will relabel at boot instead.'
-      fi
-    " prog in
-    do_run ~display:"load_policy && fixfiles restore" cmd
-  );
-
-  (* Clean up the log file:
-   *
-   * If debugging, dump out the log file.
-   * Then if asked, scrub the log file.
-   *)
-  if debug then debug_logfile ();
-  if scrub_logfile && g#exists logfile then (
-    msg (f_"Scrubbing the log file");
-
-    (* Try various methods with decreasing complexity. *)
-    try g#scrub_file logfile
-    with _ -> g#rm_f logfile
-  );
+  Customize_run.run ~prog ~debug ~quiet g root ops;
 
   (* Collect some stats about the final output file.
    * Notes:
@@ -975,19 +667,6 @@ exec >>%s 2>&1
 
   (* Unmount everything and we're done! *)
   msg (f_"Finishing off");
-
-  (* Kill any daemons (eg. started by newly installed packages) using
-   * the sysroot.
-   * XXX How to make this nicer?
-   * XXX fuser returns an error if it doesn't kill any processes, which
-   * is not very useful.
-   *)
-  (try ignore (g#debug "sh" [| "fuser"; "-k"; "/sysroot" |])
-   with exn ->
-     if debug then
-       eprintf (f_"%s: %s (ignored)\n") prog (Printexc.to_string exn)
-  );
-  g#ping_daemon (); (* tiny delay after kill *)
 
   g#umount_all ();
   g#shutdown ();

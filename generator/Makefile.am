@@ -27,6 +27,7 @@ sources = \
 	c.ml \
 	checks.ml \
 	csharp.ml \
+	customize.ml \
 	daemon.ml \
 	docstrings.ml \
 	erlang.ml \
@@ -89,6 +90,7 @@ objects = \
 	golang.cmo \
 	bindtests.cmo \
 	errnostring.cmo \
+	customize.cmo \
 	main.cmo
 
 EXTRA_DIST = $(sources) files-generated.txt

@@ -21,9 +21,9 @@
 open Common_gettext.Gettext
 open Common_utils
 
-module G = Guestfs
+open Customize_cmdline
 
-open Password
+module G = Guestfs
 
 open Unix
 open Printf
@@ -62,66 +62,13 @@ let parse_cmdline () =
   let curl = ref "curl" in
   let debug = ref false in
 
-  let delete = ref [] in
-  let add_delete s = delete := s :: !delete in
-
   let delete_on_failure = ref true in
-
-  let edit = ref [] in
-  let add_edit arg =
-    let i =
-      try String.index arg ':'
-      with Not_found ->
-        eprintf (f_"%s: invalid --edit format, see the man page.\n") prog;
-        exit 1 in
-    let len = String.length arg in
-    let file = String.sub arg 0 i in
-    let expr = String.sub arg (i+1) (len-(i+1)) in
-    edit := (file, expr) :: !edit
-  in
 
   let fingerprints = ref [] in
   let add_fingerprint arg = fingerprints := arg :: !fingerprints in
 
-  let firstboot = ref [] in
-  let add_firstboot s =
-    if not (Sys.file_exists s) then (
-      if not (String.contains s ' ') then
-        eprintf (f_"%s: %s: %s: file not found\n") prog "--firstboot" s
-      else
-        eprintf (f_"%s: %s: %s: file not found [did you mean %s?]\n") prog "--firstboot" s "--firstboot-command";
-      exit 1
-    );
-    firstboot := `Script s :: !firstboot
-  in
-  let add_firstboot_cmd s = firstboot := `Command s :: !firstboot in
-  let add_firstboot_install pkgs =
-    let pkgs = string_nsplit "," pkgs in
-    firstboot := `Packages pkgs :: !firstboot
-  in
-
   let format = ref "" in
   let gpg = ref "gpg" in
-
-  let hostname = ref None in
-  let set_hostname s = hostname := Some s in
-
-  let install = ref [] in
-  let add_install pkgs =
-    let pkgs = string_nsplit "," pkgs in
-    install := pkgs @ !install
-  in
-
-  let links = ref [] in
-  let add_link arg =
-    let target, lns =
-      match string_nsplit ":" arg with
-      | [] | [_] ->
-        eprintf (f_"%s: invalid --link format, see the man page.\n") prog;
-        exit 1
-      | target :: lns -> target, lns in
-    links := (target, lns) :: !links
-  in
 
   let list_format = ref `Short in
   let list_set_long () = list_format := `Long in
@@ -137,43 +84,10 @@ let parse_cmdline () =
   let memsize = ref None in
   let set_memsize arg = memsize := Some arg in
 
-  let mkdirs = ref [] in
-  let add_mkdir arg = mkdirs := arg :: !mkdirs in
-
   let network = ref true in
   let output = ref "" in
 
-  let password_crypto : password_crypto option ref = ref None in
-  let set_password_crypto arg =
-    password_crypto := Some (password_crypto_of_string ~prog arg)
-  in
-
   let quiet = ref false in
-
-  let root_password = ref None in
-  let set_root_password arg =
-    let pw = parse_selector ~prog arg in
-    root_password := Some pw
-  in
-
-  let run = ref [] in
-  let add_run s =
-    if not (Sys.file_exists s) then (
-      if not (String.contains s ' ') then
-        eprintf (f_"%s: %s: %s: file not found\n") prog "--run" s
-      else
-        eprintf (f_"%s: %s: %s: file not found [did you mean %s?]\n") prog "--run" s "--run-command";
-      exit 1
-    );
-    run := `Script s :: !run
-  in
-  let add_run_cmd s = run := `Command s :: !run in
-
-  let scrub = ref [] in
-  let add_scrub s = scrub := s :: !scrub in
-
-  let scrub_logfile = ref false in
-  let selinux_relabel = ref false in
 
   let size = ref None in
   let set_size arg = size := Some (parse_size ~prog arg) in
@@ -186,43 +100,7 @@ let parse_cmdline () =
 
   let sync = ref true in
 
-  let timezone = ref None in
-  let set_timezone s = timezone := Some s in
-
-  let update = ref false in
-
-  let upload = ref [] in
-  let add_upload arg =
-    let i =
-      try String.index arg ':'
-      with Not_found ->
-        eprintf (f_"%s: invalid --upload format, see the man page.\n") prog;
-        exit 1 in
-    let len = String.length arg in
-    let file = String.sub arg 0 i in
-    if not (Sys.file_exists file) then (
-      eprintf (f_"%s: --upload: %s: file not found\n") prog file;
-      exit 1
-    );
-    let dest = String.sub arg (i+1) (len-(i+1)) in
-    upload := (file, dest) :: !upload
-  in
-
-  let writes = ref [] in
-  let add_write arg =
-    let i =
-      try String.index arg ':'
-      with Not_found ->
-        eprintf (f_"%s: invalid --write format, see the man page.\n") prog;
-        exit 1 in
-    let len = String.length arg in
-    let file = String.sub arg 0 i in
-    let content = String.sub arg (i+1) (len-(i+1)) in
-    writes := (file, content) :: !writes
-  in
-
-  let ditto = " -\"-" in
-  let argspec = Arg.align [
+  let argspec = [
     "--arch",    Arg.Set_string arch,       "arch" ^ " " ^ s_"Set the output architecture";
     "--attach",  Arg.String attach_disk,    "iso" ^ " " ^ s_"Attach data disk/ISO during install";
     "--attach-format",  Arg.String set_attach_format,
@@ -233,70 +111,60 @@ let parse_cmdline () =
                                             " " ^ s_"Download all templates to the cache";
     "--check-signature", Arg.Set check_signature,
                                             " " ^ s_"Check digital signatures";
-    "--check-signatures", Arg.Set check_signature, ditto;
+    "--check-signatures", Arg.Set check_signature,
+                                            " " ^ s_"Check digital signatures";
     "--no-check-signature", Arg.Clear check_signature,
                                             " " ^ s_"Disable digital signatures";
-    "--no-check-signatures", Arg.Clear check_signature, ditto;
+    "--no-check-signatures", Arg.Clear check_signature,
+                                            " " ^ s_"Disable digital signatures";
     "--curl",    Arg.Set_string curl,       "curl" ^ " " ^ s_"Set curl binary/command";
-    "--delete",  Arg.String add_delete,     "name" ^ " " ^ s_"Delete a file or dir";
     "--delete-cache", Arg.Unit delete_cache_mode,
                                             " " ^ s_"Delete the template cache";
     "--no-delete-on-failure", Arg.Clear delete_on_failure,
                                             " " ^ s_"Don't delete output file on failure";
-    "--edit",    Arg.String add_edit,       "file:expr" ^ " " ^ s_"Edit file with Perl expr";
     "--fingerprint", Arg.String add_fingerprint,
                                             "AAAA.." ^ " " ^ s_"Fingerprint of valid signing key";
-    "--firstboot", Arg.String add_firstboot, "script" ^ " " ^ s_"Run script at first guest boot";
-    "--firstboot-command", Arg.String add_firstboot_cmd, "cmd+args" ^ " " ^ s_"Run command at first guest boot";
-    "--firstboot-install", Arg.String add_firstboot_install,
-                                            "pkg,pkg" ^ " " ^ s_"Add package(s) to install at firstboot";
     "--format",  Arg.Set_string format,     "raw|qcow2" ^ " " ^ s_"Output format (default: raw)";
     "--get-kernel", Arg.Unit get_kernel_mode,
                                             "image" ^ " " ^ s_"Get kernel from image";
     "--gpg",    Arg.Set_string gpg,         "gpg" ^ " " ^ s_"Set GPG binary/command";
-    "--hostname", Arg.String set_hostname,  "hostname" ^ " " ^ s_"Set the hostname";
-    "--install", Arg.String add_install,    "pkg,pkg" ^ " " ^ s_"Add package(s) to install";
-    "--link",    Arg.String add_link,       "target:link.." ^ " " ^ s_"Create symbolic links";
     "-l",        Arg.Unit list_mode,        " " ^ s_"List available templates";
-    "--list",    Arg.Unit list_mode,        ditto;
+    "--list",    Arg.Unit list_mode,        " " ^ s_"List available templates";
     "--long",    Arg.Unit list_set_long,    " " ^ s_"Shortcut for --list-format short";
     "--list-format", Arg.String list_set_format,
                                             "short|long|json" ^ " " ^ s_"Set the format for --list (default: short)";
-    "--no-logfile", Arg.Set scrub_logfile,  " " ^ s_"Scrub build log file";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
-    "--memsize", Arg.Int set_memsize,       "mb" ^ ditto;
-    "--mkdir",   Arg.String add_mkdir,      "dir" ^ " " ^ s_"Create directory";
+    "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
     "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
     "--notes",   Arg.Unit notes_mode,       " " ^ s_"Display installation notes";
     "-o",        Arg.Set_string output,     "file" ^ " " ^ s_"Set output filename";
-    "--output",  Arg.Set_string output,     "file" ^ ditto;
-    "--password-crypto", Arg.String set_password_crypto,
-                                            "md5|sha256|sha512" ^ " " ^ s_"Set password crypto";
+    "--output",  Arg.Set_string output,     "file" ^ " " ^ s_"Set output filename";
     "--print-cache", Arg.Unit print_cache_mode,
                                             " " ^ s_"Print info about template cache";
     "--quiet",   Arg.Set quiet,             " " ^ s_"No progress messages";
-    "--root-password", Arg.String set_root_password,
-                                            "..." ^ " " ^ s_"Set root password";
-    "--run",     Arg.String add_run,        "script" ^ " " ^ s_"Run script in disk image";
-    "--run-command", Arg.String add_run_cmd, "cmd+args" ^ " " ^ s_"Run command in disk image";
-    "--scrub",   Arg.String add_scrub,      "name" ^ " " ^ s_"Scrub a file";
-    "--selinux-relabel", Arg.Set selinux_relabel,
-                                            " " ^ s_"Relabel files with correct SELinux labels";
     "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
-    "--timezone",Arg.String set_timezone,   "timezone" ^ " " ^ s_"Set the default timezone";
-    "--update",  Arg.Set update,            " " ^ s_"Update core packages";
-    "--upload",  Arg.String add_upload,     "file:dest" ^ " " ^ s_"Upload file to dest";
     "-v",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Set debug,             ditto;
+    "--verbose", Arg.Set debug,             " " ^ s_"Enable debugging messages";
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
-    "--version", Arg.Unit display_version,  ditto;
-    "--write",   Arg.String add_write,      "file:content" ^ " " ^ s_"Write file";
+    "--version", Arg.Unit display_version,  " " ^ s_"Display version and exit";
   ] in
+  let customize_argspec, get_customize_ops =
+    Customize_cmdline.argspec ~prog () in
+  let customize_argspec =
+    List.map (fun (spec, _, _) -> spec) customize_argspec in
+  let argspec = argspec @ customize_argspec in
+  let argspec =
+    let cmp (arg1, _, _) (arg2, _, _) =
+      let arg1 = skip_dashes arg1 and arg2 = skip_dashes arg2 in
+      compare (String.lowercase arg1) (String.lowercase arg2)
+    in
+    List.sort cmp argspec in
+  let argspec = Arg.align argspec in
   long_options := argspec;
 
   let args = ref [] in
@@ -328,36 +196,20 @@ read the man page virt-builder(1).
   let check_signature = !check_signature in
   let curl = !curl in
   let debug = !debug in
-  let delete = List.rev !delete in
   let delete_on_failure = !delete_on_failure in
-  let edit = List.rev !edit in
   let fingerprints = List.rev !fingerprints in
-  let firstboot = List.rev !firstboot in
-  let run = List.rev !run in
   let format = match !format with "" -> None | s -> Some s in
   let gpg = !gpg in
-  let hostname = !hostname in
-  let install = List.rev !install in
   let list_format = !list_format in
-  let links = List.rev !links in
   let memsize = !memsize in
-  let mkdirs = List.rev !mkdirs in
   let network = !network in
+  let ops = get_customize_ops () in
   let output = match !output with "" -> None | s -> Some s in
-  let password_crypto = !password_crypto in
   let quiet = !quiet in
-  let root_password = !root_password in
-  let scrub = List.rev !scrub in
-  let scrub_logfile = !scrub_logfile in
-  let selinux_relabel = !selinux_relabel in
   let size = !size in
   let smp = !smp in
   let sources = List.rev !sources in
   let sync = !sync in
-  let timezone = !timezone in
-  let update = !update in
-  let upload = List.rev !upload in
-  let writes = List.rev !writes in
 
   (* Check options. *)
   let arg =
@@ -442,7 +294,15 @@ read the man page virt-builder(1).
     | arch ->
       let target_arch = Architecture.filter_arch arch in
       if Architecture.arch_is_compatible Architecture.current_arch target_arch <> true then (
-        if install <> [] || run <> [] || update then (
+        let requires_execute_on_guest = List.exists (
+          function
+          | `Command _ | `InstallPackages _ | `Script _ | `Update -> true
+          | `Delete _ | `Edit _ | `FirstbootCommand _ | `FirstbootPackages _
+          | `FirstbootScript _ | `Hostname _ | `Link _ | `Mkdir _
+          | `RootPassword _ | `Scrub _ | `Timezone _ | `Upload _
+          | `Write _ -> false
+        ) ops.ops in
+        if requires_execute_on_guest then (
           eprintf (f_"%s: sorry, cannot run commands on a guest with a different architecture\n")
             prog;
           exit 1
@@ -450,10 +310,20 @@ read the man page virt-builder(1).
       );
       target_arch in
 
+  (* If user didn't elect any root password, that means we set a random
+   * root password.
+   *)
+  let ops =
+    let has_set_root_password = List.exists (
+      function `RootPassword _ -> true | _ -> false
+    ) ops.ops in
+    if has_set_root_password then ops
+    else (
+      let pw = Password.parse_selector ~prog "random" in
+      { ops with ops = ops.ops @ [ `RootPassword pw ] }
+    ) in
+
   mode, arg,
-  arch, attach, cache, check_signature, curl, debug, delete,
-  delete_on_failure, edit, firstboot, run, format, gpg, hostname, install,
-  list_format, links, memsize, mkdirs,
-  network, output, password_crypto, quiet, root_password, scrub,
-  scrub_logfile, selinux_relabel, size, smp, sources, sync, timezone,
-  update, upload, writes
+  arch, attach, cache, check_signature, curl, debug,
+  delete_on_failure, format, gpg, list_format, memsize,
+  network, ops, output, quiet, size, smp, sources, sync
