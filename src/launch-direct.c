@@ -1417,46 +1417,43 @@ guestfs___discard_possible (guestfs_h *g, struct drive *drv,
    */
   bool qemu16 = qemu_version >= 1006000;
 
-  if (!qemu15) {
-    error (g, _("discard cannot be enabled on this drive: "
-                "qemu < 1.5"));
-    return false;
-  }
+  if (!qemu15)
+    NOT_SUPPORTED (g, false,
+                   _("discard cannot be enabled on this drive: "
+                     "qemu < 1.5"));
 
   /* If it's an overlay, discard is not possible (on the underlying
    * file).  This has probably been caught earlier since we already
    * checked that the drive is !readonly.  Nevertheless ...
    */
-  if (drv->overlay) {
-    error (g, _("discard cannot be enabled on this drive: "
-                "the drive has a read-only overlay"));
-    return false;
-  }
+  if (drv->overlay)
+    NOT_SUPPORTED (g, false,
+                   _("discard cannot be enabled on this drive: "
+                     "the drive has a read-only overlay"));
 
   /* Look at the source format. */
   if (drv->src.format == NULL) {
     /* We could autodetect the format, but we don't ... yet. XXX */
-    error (g, _("discard cannot be enabled on this drive: "
-                "you have to specify the format of the file"));
-    return false;
+    NOT_SUPPORTED (g, false,
+                   _("discard cannot be enabled on this drive: "
+                     "you have to specify the format of the file"));
   }
   else if (STREQ (drv->src.format, "raw"))
     /* OK */ ;
   else if (STREQ (drv->src.format, "qcow2")) {
-    if (!qemu16) {
-      error (g, _("discard cannot be enabled on this drive: "
-                  "qemu < 1.6 cannot do discard on qcow2 files"));
-    return false;
-    }
+    if (!qemu16)
+      NOT_SUPPORTED (g, false,
+                     _("discard cannot be enabled on this drive: "
+                       "qemu < 1.6 cannot do discard on qcow2 files"));
   }
   else {
     /* It's possible in future other formats will support discard, but
      * currently (qemu 1.7) none of them do.
      */
-    error (g, _("discard cannot be enabled on this drive: "
-                "qemu does not support discard for '%s' format files"),
-           drv->src.format);
-    return false;
+    NOT_SUPPORTED (g, false,
+                   _("discard cannot be enabled on this drive: "
+                     "qemu does not support discard for '%s' format files"),
+                   drv->src.format);
   }
 
   switch (drv->src.protocol) {
@@ -1476,10 +1473,10 @@ guestfs___discard_possible (guestfs_h *g, struct drive *drv,
   case drive_protocol_https:
   case drive_protocol_ssh:
   case drive_protocol_tftp:
-    error (g, _("discard cannot be enabled on this drive: "
-                "protocol '%s' does not support discard"),
-           guestfs___drive_protocol_to_string (drv->src.protocol));
-    return false;
+    NOT_SUPPORTED (g, -1,
+                   _("discard cannot be enabled on this drive: "
+                     "protocol '%s' does not support discard"),
+                   guestfs___drive_protocol_to_string (drv->src.protocol));
   }
 
   return true;
