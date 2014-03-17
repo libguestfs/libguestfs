@@ -381,6 +381,17 @@ temporary space are B<not> required.
 
 For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
 
+=head1 EXIT STATUS
+
+This program returns 0 if the operation completed without errors.
+(This doesn't necessarily mean that space could be freed up.)
+
+A non-zero exit code indicates an error.
+
+If the exit code is C<3> and the I<--in-place> option was used, that
+indicates that discard support is not available in libguestfs, so
+copying mode must be used instead.
+
 =head1 SEE ALSO
 
 L<virt-filesystems(1)>,

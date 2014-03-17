@@ -24,7 +24,7 @@ open Common_gettext.Gettext
 open Common_utils
 
 let prog = Filename.basename Sys.executable_name
-let error fs = error ~prog fs
+let error ?exit_code fs = error ~prog ?exit_code fs
 
 type mode_t =
 | Mode_copying of string * check_t * bool * string option * string option

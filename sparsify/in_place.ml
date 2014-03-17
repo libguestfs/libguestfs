@@ -28,12 +28,23 @@ module G = Guestfs
 open Common_utils
 open Cmdline
 
-let run disk format ignores machine_readable quiet verbose trace zeroes =
+let rec run disk format ignores machine_readable quiet verbose trace zeroes =
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
   if trace then g#set_trace true;
   if verbose then g#set_verbose true;
 
+  try
+    perform g disk format ignores machine_readable quiet zeroes
+  with
+    G.Error msg as exn ->
+      if g#last_errno () = G.Errno.errno_ENOTSUP then (
+        (* for exit code 3, see man page *)
+        error ~exit_code:3 (f_"discard/trim is not supported: %s") msg;
+      )
+      else raise exn
+
+and perform g disk format ignores machine_readable quiet zeroes =
   (* XXX Current limitation of the API.  Can remove this hunk in future. *)
   let format =
     match format with
