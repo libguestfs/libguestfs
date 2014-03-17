@@ -404,6 +404,7 @@ int
 guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 {
   int r;
+  char *major, *minor;
 
   fs->type = OS_TYPE_LINUX;
 
@@ -423,7 +424,6 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/redhat-release") == -1)
       return -1;
 
-    char *major, *minor;
     if ((major = match1 (g, fs->product_name, re_fedora)) != NULL) {
       fs->distro = OS_DISTRO_FEDORA;
       fs->major_version = guestfs___parse_unsigned_int (g, major);
@@ -923,8 +923,13 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
   }
 
   for (entry = entries; *entry != NULL; entry++) {
+    CLEANUP_FREE char *spec = NULL;
+    CLEANUP_FREE char *mp = NULL;
+    CLEANUP_FREE char *mountable = NULL;
+    CLEANUP_FREE char *vfstype = NULL;
+
     snprintf (augpath, sizeof augpath, "%s/spec", *entry);
-    CLEANUP_FREE char *spec = guestfs_aug_get (g, augpath);
+    spec = guestfs_aug_get (g, augpath);
     if (spec == NULL)
       return -1;
 
@@ -940,7 +945,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       continue;
 
     snprintf (augpath, sizeof augpath, "%s/file", *entry);
-    CLEANUP_FREE char *mp = guestfs_aug_get (g, augpath);
+    mp = guestfs_aug_get (g, augpath);
     if (mp == NULL)
       return -1;
 
@@ -957,7 +962,6 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       continue;
 
     /* Resolve UUID= and LABEL= to the actual device. */
-    CLEANUP_FREE char *mountable = NULL;
     if (STRPREFIX (spec, "UUID="))
       mountable = guestfs_findfs_uuid (g, &spec[5]);
     else if (STRPREFIX (spec, "LABEL="))
@@ -977,24 +981,29 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       continue;
 
     snprintf (augpath, sizeof augpath, "%s/vfstype", *entry);
-    CLEANUP_FREE char *vfstype = guestfs_aug_get (g, augpath);
+    vfstype = guestfs_aug_get (g, augpath);
     if (vfstype == NULL) return -1;
 
     if (STREQ (vfstype, "btrfs")) {
+      char **opt;
+
       snprintf (augpath, sizeof augpath, "%s/opt", *entry);
       CLEANUP_FREE_STRING_LIST char **opts = guestfs_aug_match (g, augpath);
       if (opts == NULL) return -1;
 
-      for (char **opt = opts; *opt; opt++) {
+      for (opt = opts; *opt; opt++) {
         CLEANUP_FREE char *optname = guestfs_aug_get (g, augpath);
         if (optname == NULL) return -1;
 
         if (STREQ (optname, "subvol")) {
+          CLEANUP_FREE char *subvol = NULL;
+          char *new;
+
           snprintf (augpath, sizeof augpath, "%s/value", *opt);
-          CLEANUP_FREE char *subvol = guestfs_aug_get (g, augpath);
+          subvol = guestfs_aug_get (g, augpath);
           if (subvol == NULL) return -1;
 
-          char *new = safe_asprintf (g, "btrfsvol:%s/%s", mountable, subvol);
+          new = safe_asprintf (g, "btrfsvol:%s/%s", mountable, subvol);
           free (mountable);
           mountable = new;
         }
@@ -1049,9 +1058,10 @@ static size_t
 uuid_hash(const void *x, size_t table_size)
 {
   const md_uuid *a = x;
+  size_t h, i;
 
-  size_t h = a->uuid[0];
-  for (size_t i = 1; i < 4; i++) {
+  h = a->uuid[0];
+  for (i = 1; i < 4; i++) {
     h ^= a->uuid[i];
   }
 
@@ -1063,8 +1073,9 @@ uuid_cmp(const void *x, const void *y)
 {
   const md_uuid *a = x;
   const md_uuid *b = y;
+  size_t i;
 
-  for (size_t i = 0; i < 1; i++) {
+  for (i = 0; i < 1; i++) {
     if (a->uuid[i] != b->uuid[i]) return 0;
   }
 
@@ -1120,6 +1131,7 @@ map_app_md_devices (guestfs_h *g, Hash_table **map)
 {
   CLEANUP_FREE_STRING_LIST char **mds = NULL;
   size_t n = 0;
+  char **md;
 
   /* A hash mapping uuids to md device names */
   *map = hash_initialize(16, NULL, uuid_hash, uuid_cmp, md_uuid_free);
@@ -1128,22 +1140,24 @@ map_app_md_devices (guestfs_h *g, Hash_table **map)
   mds = guestfs_list_md_devices(g);
   if (mds == NULL) goto error;
 
-  for (char **md = mds; *md != NULL; md++) {
+  for (md = mds; *md != NULL; md++) {
+    char **i;
     CLEANUP_FREE_STRING_LIST char **detail = guestfs_md_detail (g, *md);
     if (detail == NULL) goto error;
 
     /* Iterate over keys until we find uuid */
-    char **i;
     for (i = detail; *i != NULL; i += 2) {
       if (STREQ(*i, "uuid")) break;
     }
 
     /* We found it */
     if (*i) {
+      md_uuid *entry;
+
       /* Next item is the uuid value */
       i++;
 
-      md_uuid *entry = safe_malloc(g, sizeof(md_uuid));
+      entry = safe_malloc(g, sizeof(md_uuid));
       entry->path = safe_strdup(g, *md);
 
       if (parse_uuid(*i, entry->uuid) == -1) {

@@ -81,6 +81,7 @@ static char *
 canonical_elf_arch (guestfs_h *g, const char *elf_arch)
 {
   const char *r;
+  char *ret;
 
   if (strstr (elf_arch, "Intel 80386"))
     r = "i386";
@@ -103,7 +104,7 @@ canonical_elf_arch (guestfs_h *g, const char *elf_arch)
   else
     r = elf_arch;
 
-  char *ret = safe_strdup (g, r);
+  ret = safe_strdup (g, r);
   return ret;
 }
 
@@ -193,10 +194,15 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
       safe_asprintf (g, "%s/%s", dir, initrd_binaries[i]);
 
     if (is_regular_file (bin)) {
-      int flags = g->verbose ? MAGIC_DEBUG : 0;
+      int flags;
+      magic_t m;
+      const char *line;
+      CLEANUP_FREE char *elf_arch = NULL;
+
+      flags = g->verbose ? MAGIC_DEBUG : 0;
       flags |= MAGIC_ERROR | MAGIC_RAW;
 
-      magic_t m = magic_open (flags);
+      m = magic_open (flags);
       if (m == NULL) {
         perrorf (g, "magic_open");
         goto out;
@@ -208,14 +214,14 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
         goto out;
       }
 
-      const char *line = magic_file (m, bin);
+      line = magic_file (m, bin);
       if (line == NULL) {
         perrorf (g, "magic_file: %s", bin);
         magic_close (m);
         goto out;
       }
 
-      CLEANUP_FREE char *elf_arch = match1 (g, line, re_file_elf);
+      elf_arch = match1 (g, line, re_file_elf);
       if (elf_arch != NULL) {
         ret = canonical_elf_arch (g, elf_arch);
         magic_close (m);

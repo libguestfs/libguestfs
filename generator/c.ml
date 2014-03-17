@@ -1034,6 +1034,8 @@ and generate_client_structs_copy () =
         pr "copy_%s (const struct guestfs_%s *inp, struct guestfs_%s *out)\n"
           typ typ typ;
         pr "{\n";
+        pr "  int err;\n";
+        pr "\n";
         List.iter (
           function
           | name, FString
@@ -1076,7 +1078,7 @@ and generate_client_structs_copy () =
         pr "  return 0;\n";
         pr "\n";
         pr "error: ;\n";
-        pr "  int err = errno;\n";
+        pr "  err = errno;\n";
         pr "  free_%s (out);\n" typ;
         pr "  errno = err;\n";
         pr "  return -1;\n";
@@ -1104,7 +1106,9 @@ and generate_client_structs_copy () =
       pr "\n";
       if has_boxed_cols then (
         pr "  if (copy_%s (inp, ret) == -1) {\n" typ;
-        pr "    int err = errno;\n";
+        pr "    int err;\n";
+        pr "\n";
+        pr "    err = errno;\n";
         pr "    free (ret);\n";
         pr "    errno = err;\n";
         pr "    return NULL;\n";
@@ -1120,8 +1124,11 @@ and generate_client_structs_copy () =
       pr "GUESTFS_DLL_PUBLIC struct guestfs_%s_list *\n" typ;
       pr "guestfs_copy_%s_list (const struct guestfs_%s_list *inp)\n" typ typ;
       pr "{\n";
+      pr "  int err;\n";
       pr "  struct guestfs_%s_list *ret;\n" typ;
       pr "  size_t i = 0;\n";
+      if has_boxed_cols then
+        pr "  size_t j;\n";
       pr "\n";
       pr "  ret = malloc (sizeof *ret);\n";
       pr "  if (ret == NULL)\n";
@@ -1144,9 +1151,8 @@ and generate_client_structs_copy () =
       pr "  return ret;\n";
       pr "\n";
       pr "error: ;\n";
-      pr "  int err = errno;\n";
+      pr "  err = errno;\n";
       if has_boxed_cols then (
-        pr "  size_t j;\n";
         pr "  for (j = 0; j < i; ++j)\n";
         pr "    free_%s (&ret->val[j]);\n" typ
       );
@@ -1837,8 +1843,9 @@ and generate_client_actions hash () =
     pr "\n";
 
     pr "  if (hdr.status == GUESTFS_STATUS_ERROR) {\n";
-    trace_return_error ~indent:4 name style errcode;
     pr "    int errnum = 0;\n";
+    pr "\n";
+    trace_return_error ~indent:4 name style errcode;
     pr "    if (err.errno_string[0] != '\\0')\n";
     pr "      errnum = guestfs___string_to_errno (err.errno_string);\n";
     pr "    if (errnum <= 0)\n";
@@ -1971,8 +1978,10 @@ and generate_client_actions_variants () =
     pr "{\n";
     pr "  va_list optargs;\n";
     pr "\n";
+    pr "  %sr;\n" rtype;
+    pr "\n";
     pr "  va_start (optargs, %s);\n" last_arg;
-    pr "  %sr = guestfs_%s_va " rtype c_name;
+    pr "  r = guestfs_%s_va " c_name;
     generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
     pr ";\n";
     pr "  va_end (optargs);\n";
@@ -1987,6 +1996,7 @@ and generate_client_actions_variants () =
     pr "  struct guestfs_%s_argv optargs_s;\n" c_name;
     pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" c_name;
     pr "  int i;\n";
+    pr "  uint64_t i_mask;\n";
     pr "\n";
     pr "  optargs_s.bitmask = 0;\n";
     pr "\n";
@@ -2020,7 +2030,7 @@ and generate_client_actions_variants () =
     pr "      return %s;\n" (string_of_errcode errcode);
     pr "    }\n";
     pr "\n";
-    pr "    uint64_t i_mask = UINT64_C(1) << i;\n";
+    pr "    i_mask = UINT64_C(1) << i;\n";
     pr "    if (optargs_s.bitmask & i_mask) {\n";
     pr "      error (g, \"%%s: same optional argument specified more than once\",\n";
     pr "             \"%s\");\n" name;

@@ -66,20 +66,22 @@ freer (void *x)
 void
 guestfs_set_private (guestfs_h *g, const char *key, void *data)
 {
+  struct pda_entry *new_entry, *old_entry, *entry;
+
   if (g->pda == NULL) {
     g->pda = hash_initialize (16, NULL, hasher, comparator, freer);
     if (g->pda == NULL)
       g->abort_cb ();
   }
 
-  struct pda_entry *new_entry = safe_malloc (g, sizeof *new_entry);
+  new_entry = safe_malloc (g, sizeof *new_entry);
   new_entry->key = safe_strdup (g, key);
   new_entry->data = data;
 
-  struct pda_entry *old_entry = hash_delete (g->pda, new_entry);
+  old_entry = hash_delete (g->pda, new_entry);
   freer (old_entry);
 
-  struct pda_entry *entry = hash_insert (g->pda, new_entry);
+  entry = hash_insert (g->pda, new_entry);
   if (entry == NULL)
     g->abort_cb ();
   assert (entry == new_entry);

@@ -96,12 +96,6 @@ do_mkfs_btrfs (char *const *devices,
                int nodesize, int sectorsize)
 {
   size_t nr_devices = count_strings (devices);
-
-  if (nr_devices == 0) {
-    reply_with_error ("list of devices must be non-empty");
-    return -1;
-  }
-
   size_t MAX_ARGS = nr_devices + 64;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
@@ -112,6 +106,11 @@ do_mkfs_btrfs (char *const *devices,
   char leafsize_s[64];
   char nodesize_s[64];
   char sectorsize_s[64];
+
+  if (nr_devices == 0) {
+    reply_with_error ("list of devices must be non-empty");
+    return -1;
+  }
 
   ADD_ARG (argv, i, str_mkfs_btrfs);
 
@@ -311,6 +310,9 @@ guestfs_int_btrfssubvolume_list *
 do_btrfs_subvolume_list (const mountable_t *fs)
 {
   char **lines;
+  size_t i = 0;
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
 
   /* Execute 'btrfs subvolume list <fs>', and split the output into lines */
   {
@@ -351,9 +353,6 @@ do_btrfs_subvolume_list (const mountable_t *fs)
       }
     }
 
-    size_t i = 0;
-    const size_t MAX_ARGS = 64;
-    const char *argv[MAX_ARGS];
     ADD_ARG (argv, i, str_btrfs);
     ADD_ARG (argv, i, "subvolume");
     ADD_ARG (argv, i, "list");

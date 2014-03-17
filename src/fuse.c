@@ -89,6 +89,7 @@ static struct guestfs_xattr_list *
 copy_xattr_list (guestfs_h *g, const struct guestfs_xattr *first, size_t num)
 {
   struct guestfs_xattr_list *xattrs;
+  size_t i;
 
   xattrs = malloc (sizeof *xattrs);
   if (xattrs == NULL) {
@@ -104,7 +105,6 @@ copy_xattr_list (guestfs_h *g, const struct guestfs_xattr *first, size_t num)
     return NULL;
   }
 
-  size_t i;
   for (i = 0; i < num; ++i) {
     xattrs->val[i].attrname = strdup (first[i].attrname);
     xattrs->val[i].attrval_len = first[i].attrval_len;
@@ -119,20 +119,21 @@ static int
 mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
                      off_t offset, struct fuse_file_info *fi)
 {
+  time_t now;
+  size_t i;
+  char **names;
+  CLEANUP_FREE_DIRENT_LIST struct guestfs_dirent_list *ents = NULL;
   DECL_G ();
   DEBUG_CALL ("%s, %p, %ld", path, buf, (long) offset);
 
-  time_t now;
   time (&now);
 
   dir_cache_remove_all_expired (g, now);
 
-  CLEANUP_FREE_DIRENT_LIST struct guestfs_dirent_list *ents =
-    guestfs_readdir (g, path);
+  ents = guestfs_readdir (g, path);
   if (ents == NULL)
     RETURN_ERRNO;
 
-  size_t i;
   for (i = 0; i < ents->len; ++i) {
     struct stat stat;
     memset (&stat, 0, sizeof stat);
@@ -162,14 +163,17 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
   /* Now prepopulate the directory caches.  This step is just an
    * optimization, don't worry if it fails.
    */
-  char **names = malloc ((ents->len + 1) * sizeof (char *));
+  names = malloc ((ents->len + 1) * sizeof (char *));
   if (names) {
+    CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *ss = NULL;
+    CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
+    char **links;
+
     for (i = 0; i < ents->len; ++i)
       names[i] = ents->val[i].name;
     names[i] = NULL;
 
-    CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *ss =
-      guestfs_lstatlist (g, path, names);
+    ss = guestfs_lstatlist (g, path, names);
     if (ss) {
       for (i = 0; i < ss->len; ++i) {
         if (ss->val[i].ino >= 0) {
@@ -195,12 +199,12 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
       }
     }
 
-    CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs =
-      guestfs_lxattrlist (g, path, names);
+    xattrs = guestfs_lxattrlist (g, path, names);
     if (xattrs) {
       size_t ni, num;
       struct guestfs_xattr *first;
       struct guestfs_xattr_list *copy;
+
       for (i = 0, ni = 0; i < xattrs->len; ++i, ++ni) {
         /* assert (strlen (xattrs->val[i].attrname) == 0); */
         if (xattrs->val[i].attrval_len > 0) {
@@ -219,7 +223,7 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
       }
     }
 
-    char **links = guestfs_readlinklist (g, path, names);
+    links = guestfs_readlinklist (g, path, names);
     if (links) {
       for (i = 0; names[i] != NULL; ++i) {
         if (links[i][0])
@@ -241,10 +245,10 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
 static int
 mount_local_getattr (const char *path, struct stat *statbuf)
 {
+  const struct stat *buf;
+  CLEANUP_FREE_STAT struct guestfs_stat *r = NULL;
   DECL_G ();
   DEBUG_CALL ("%s, %p", path, statbuf);
-
-  const struct stat *buf;
 
   buf = lsc_lookup (g, path);
   if (buf) {
@@ -252,7 +256,7 @@ mount_local_getattr (const char *path, struct stat *statbuf)
     return 0;
   }
 
-  CLEANUP_FREE_STAT struct guestfs_stat *r = guestfs_lstat (g, path);
+  r = guestfs_lstat (g, path);
   if (r == NULL)
     RETURN_ERRNO;
 
@@ -281,11 +285,12 @@ mount_local_getattr (const char *path, struct stat *statbuf)
 static int
 mount_local_access (const char *path, int mask)
 {
-  DECL_G ();
-  DEBUG_CALL ("%s, %d", path, mask);
-
   struct stat statbuf;
   int r;
+  struct fuse_context *fuse;
+  int ok = 1;
+  DECL_G ();
+  DEBUG_CALL ("%s, %d", path, mask);
 
   if (g->ml_read_only && (mask & W_OK))
     return -EROFS;
@@ -294,8 +299,7 @@ mount_local_access (const char *path, int mask)
   if (r < 0 || mask == F_OK)
     return r;
 
-  struct fuse_context *fuse = fuse_get_context ();
-  int ok = 1;
+  fuse = fuse_get_context ();
 
   if (mask & R_OK)
     ok = ok &&
@@ -319,11 +323,11 @@ mount_local_access (const char *path, int mask)
 static int
 mount_local_readlink (const char *path, char *buf, size_t size)
 {
-  DECL_G ();
-  DEBUG_CALL ("%s, %p, %zu", path, buf, size);
-
   const char *r;
   int free_it = 0;
+  size_t len;
+  DECL_G ();
+  DEBUG_CALL ("%s, %p, %zu", path, buf, size);
 
   r = rlc_lookup (g, path);
   if (!r) {
@@ -336,7 +340,7 @@ mount_local_readlink (const char *path, char *buf, size_t size)
   /* Note this is different from the real readlink(2) syscall.  FUSE wants
    * the string to be always nul-terminated, even if truncated.
    */
-  size_t len = strlen (r);
+  len = strlen (r);
   if (len > size - 1)
     len = size - 1;
 
@@ -354,10 +358,9 @@ mount_local_readlink (const char *path, char *buf, size_t size)
 static int
 mount_local_mknod (const char *path, mode_t mode, dev_t rdev)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, 0%o, 0x%lx", path, mode, (long) rdev);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -373,10 +376,9 @@ mount_local_mknod (const char *path, mode_t mode, dev_t rdev)
 static int
 mount_local_mkdir (const char *path, mode_t mode)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, 0%o", path, mode);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -392,10 +394,9 @@ mount_local_mkdir (const char *path, mode_t mode)
 static int
 mount_local_unlink (const char *path)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s", path);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -411,10 +412,9 @@ mount_local_unlink (const char *path)
 static int
 mount_local_rmdir (const char *path)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s", path);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -430,10 +430,9 @@ mount_local_rmdir (const char *path)
 static int
 mount_local_symlink (const char *from, const char *to)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %s", from, to);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -449,10 +448,9 @@ mount_local_symlink (const char *from, const char *to)
 static int
 mount_local_rename (const char *from, const char *to)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %s", from, to);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -469,10 +467,9 @@ mount_local_rename (const char *from, const char *to)
 static int
 mount_local_link (const char *from, const char *to)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %s", from, to);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -489,10 +486,9 @@ mount_local_link (const char *from, const char *to)
 static int
 mount_local_chmod (const char *path, mode_t mode)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, 0%o", path, mode);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -508,10 +504,9 @@ mount_local_chmod (const char *path, mode_t mode)
 static int
 mount_local_chown (const char *path, uid_t uid, gid_t gid)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %ld, %ld", path, (long) uid, (long) gid);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -527,10 +522,9 @@ mount_local_chown (const char *path, uid_t uid, gid_t gid)
 static int
 mount_local_truncate (const char *path, off_t size)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %ld", path, (long) size);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -546,20 +540,21 @@ mount_local_truncate (const char *path, off_t size)
 static int
 mount_local_utimens (const char *path, const struct timespec ts[2])
 {
+  int r;
+  time_t atsecs, mtsecs;
+  long atnsecs, mtnsecs;
   DECL_G ();
   DEBUG_CALL ("%s, [{ %ld, %ld }, { %ld, %ld }]",
               path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
   dir_cache_invalidate (g, path);
 
-  time_t atsecs = ts[0].tv_sec;
-  long atnsecs = ts[0].tv_nsec;
-  time_t mtsecs = ts[1].tv_sec;
-  long mtnsecs = ts[1].tv_nsec;
+  atsecs = ts[0].tv_sec;
+  atnsecs = ts[0].tv_nsec;
+  mtsecs = ts[1].tv_sec;
+  mtnsecs = ts[1].tv_nsec;
 
 #ifdef UTIME_NOW
   if (atnsecs == UTIME_NOW)
@@ -591,10 +586,9 @@ mount_local_utimens (const char *path, const struct timespec ts[2])
 static int
 mount_local_open (const char *path, struct fuse_file_info *fi)
 {
+  int flags = fi->flags & O_ACCMODE;
   DECL_G ();
   DEBUG_CALL ("%s, 0%o", path, fi->flags);
-
-  int flags = fi->flags & O_ACCMODE;
 
   if (g->ml_read_only && flags != O_RDONLY)
     return -EROFS;
@@ -606,17 +600,16 @@ static int
 mount_local_read (const char *path, char *buf, size_t size, off_t offset,
                   struct fuse_file_info *fi)
 {
-  DECL_G ();
-  DEBUG_CALL ("%s, %p, %zu, %ld", path, buf, size, (long) offset);
-
   char *r;
   size_t rsize;
+  const size_t limit = 2 * 1024 * 1024;
+  DECL_G ();
+  DEBUG_CALL ("%s, %p, %zu, %ld", path, buf, size, (long) offset);
 
   /* The guestfs protocol limits size to somewhere over 2MB.  We just
    * reduce the requested size here accordingly and push the problem
    * up to every user.  http://www.jwz.org/doc/worse-is-better.html
    */
-  const size_t limit = 2 * 1024 * 1024;
   if (size > limit)
     size = limit;
 
@@ -640,6 +633,8 @@ static int
 mount_local_write (const char *path, const char *buf, size_t size,
                    off_t offset, struct fuse_file_info *fi)
 {
+  const size_t limit = 2 * 1024 * 1024;
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %p, %zu, %ld", path, buf, size, (long) offset);
 
@@ -648,11 +643,9 @@ mount_local_write (const char *path, const char *buf, size_t size,
   dir_cache_invalidate (g, path);
 
   /* See mount_local_read. */
-  const size_t limit = 2 * 1024 * 1024;
   if (size > limit)
     size = limit;
 
-  int r;
   r = guestfs_pwrite (g, path, buf, size, offset);
   if (r == -1)
     RETURN_ERRNO;
@@ -663,10 +656,11 @@ mount_local_write (const char *path, const char *buf, size_t size,
 static int
 mount_local_statfs (const char *path, struct statvfs *stbuf)
 {
+  CLEANUP_FREE_STATVFS struct guestfs_statvfs *r;
   DECL_G ();
   DEBUG_CALL ("%s, %p", path, stbuf);
 
-  CLEANUP_FREE_STATVFS struct guestfs_statvfs *r = guestfs_statvfs (g, path);
+  r = guestfs_statvfs (g, path);
   if (r == NULL)
     RETURN_ERRNO;
 
@@ -702,10 +696,9 @@ static int
 mount_local_fsync (const char *path, int isdatasync,
                    struct fuse_file_info *fi)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %d", path, isdatasync);
-
-  int r;
 
   r = guestfs_sync (g);
   if (r == -1)
@@ -718,10 +711,9 @@ static int
 mount_local_setxattr (const char *path, const char *name, const char *value,
              size_t size, int flags)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %s, %p, %zu", path, name, value, size);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -743,13 +735,12 @@ static int
 mount_local_getxattr (const char *path, const char *name, char *value,
                       size_t size)
 {
-  DECL_G ();
-  DEBUG_CALL ("%s, %s, %p, %zu", path, name, value, size);
-
   const struct guestfs_xattr_list *xattrs;
   int free_attrs = 0;
   ssize_t r;
   size_t i, sz;
+  DECL_G ();
+  DEBUG_CALL ("%s, %s, %p, %zu", path, name, value, size);
 
   xattrs = xac_lookup (g, path);
   if (xattrs == NULL) {
@@ -802,11 +793,14 @@ out:
 static int
 mount_local_listxattr (const char *path, char *list, size_t size)
 {
-  DECL_G ();
-  DEBUG_CALL ("%s, %p, %zu", path, list, size);
-
   const struct guestfs_xattr_list *xattrs;
   int free_attrs = 0;
+  size_t space = 0;
+  size_t len;
+  size_t i;
+  ssize_t r;
+  DECL_G ();
+  DEBUG_CALL ("%s, %p, %zu", path, list, size);
 
   xattrs = xac_lookup (g, path);
   if (xattrs == NULL) {
@@ -817,9 +811,6 @@ mount_local_listxattr (const char *path, char *list, size_t size)
   }
 
   /* Calculate how much space is required to hold the result. */
-  size_t space = 0;
-  size_t len;
-  size_t i;
   for (i = 0; i < xattrs->len; ++i) {
     len = strlen (xattrs->val[i].attrname) + 1;
     space += len;
@@ -832,7 +823,6 @@ mount_local_listxattr (const char *path, char *list, size_t size)
    * copy as much as possible and return -ERANGE if there's not enough
    * space in the buffer.
    */
-  ssize_t r;
   if (list == NULL) {
     r = space;
     goto out;
@@ -862,10 +852,9 @@ mount_local_listxattr (const char *path, char *list, size_t size)
 static int
 mount_local_removexattr(const char *path, const char *name)
 {
+  int r;
   DECL_G ();
   DEBUG_CALL ("%s, %s", path, name);
-
-  int r;
 
   if (g->ml_read_only) return -EROFS;
 
@@ -1305,6 +1294,7 @@ lsc_insert (guestfs_h *g,
             struct stat const *statbuf)
 {
   struct lsc_entry *entry;
+  size_t len;
 
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
@@ -1312,7 +1302,7 @@ lsc_insert (guestfs_h *g,
     return -1;
   }
 
-  size_t len = strlen (path) + strlen (name) + 2;
+  len = strlen (path) + strlen (name) + 2;
   entry->c.pathname = malloc (len);
   if (entry->c.pathname == NULL) {
     perrorf (g, "malloc");
@@ -1337,6 +1327,7 @@ xac_insert (guestfs_h *g,
             struct guestfs_xattr_list *xattrs)
 {
   struct xac_entry *entry;
+  size_t len;
 
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
@@ -1344,7 +1335,7 @@ xac_insert (guestfs_h *g,
     return -1;
   }
 
-  size_t len = strlen (path) + strlen (name) + 2;
+  len = strlen (path) + strlen (name) + 2;
   entry->c.pathname = malloc (len);
   if (entry->c.pathname == NULL) {
     perrorf (g, "malloc");
@@ -1369,6 +1360,7 @@ rlc_insert (guestfs_h *g,
             char *link)
 {
   struct rlc_entry *entry;
+  size_t len;
 
   entry = malloc (sizeof *entry);
   if (entry == NULL) {
@@ -1376,7 +1368,7 @@ rlc_insert (guestfs_h *g,
     return -1;
   }
 
-  size_t len = strlen (path) + strlen (name) + 2;
+  len = strlen (path) + strlen (name) + 2;
   entry->c.pathname = malloc (len);
   if (entry->c.pathname == NULL) {
     perrorf (g, "malloc");

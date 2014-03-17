@@ -116,9 +116,10 @@ guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   char *msg;
+  int err;
 
   va_start (args, fs);
-  int err = vasprintf (&msg, fs, args);
+  err = vasprintf (&msg, fs, args);
   va_end (args);
 
   if (err == -1)

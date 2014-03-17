@@ -114,11 +114,10 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
 struct guestfs_application2_list *
 guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
 {
+  struct guestfs_application2_list *ret = NULL;
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
   if (!fs)
     return NULL;
-
-  struct guestfs_application2_list *ret = NULL;
 
   /* Presently we can only list applications for installed disks.  It
    * is possible in future to get lists of packages from installers.
@@ -400,17 +399,17 @@ static struct guestfs_application2_list *
 list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 {
   CLEANUP_FREE char *status = NULL;
-  status = guestfs___download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
-                                      MAX_PKG_DB_SIZE);
-  if (status == NULL)
-    return NULL;
-
   struct guestfs_application2_list *apps = NULL, *ret = NULL;
   FILE *fp;
   char line[1024];
   size_t len;
   CLEANUP_FREE char *name = NULL, *version = NULL, *release = NULL, *arch = NULL;
   int installed_flag = 0;
+
+  status = guestfs___download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
+                                      MAX_PKG_DB_SIZE);
+  if (status == NULL)
+    return NULL;
 
   fp = fopen (status, "r");
   if (fp == NULL) {
@@ -498,18 +497,15 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
   size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
+  CLEANUP_FREE char *software_path;
+  struct guestfs_application2_list *ret = NULL;
+
   snprintf (software, len, "%s/system32/config/software",
             fs->windows_systemroot);
 
-  CLEANUP_FREE char *software_path = guestfs_case_sensitive_path (g, software);
+  software_path = guestfs_case_sensitive_path (g, software);
   if (!software_path)
     return NULL;
-
-  struct guestfs_application2_list *ret = NULL;
-  const char *hivepath[] =
-    { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
-  const char *hivepath2[] =
-    { "WOW6432node", "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
 
   if (guestfs_hivex_open (g, software_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
@@ -521,12 +517,16 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
   ret->val = NULL;
 
   /* Ordinary native applications. */
+  const char *hivepath[] =
+    { "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
   list_applications_windows_from_path (g, ret, hivepath,
                                        sizeof hivepath / sizeof hivepath[0]);
 
   /* 32-bit emulated Windows apps running on the WOW64 emulator.
    * http://support.microsoft.com/kb/896459 (RHBZ#692545).
    */
+  const char *hivepath2[] =
+    { "WOW6432node", "Microsoft", "Windows", "CurrentVersion", "Uninstall" };
   list_applications_windows_from_path (g, ret, hivepath2,
                                        sizeof hivepath2 / sizeof hivepath2[0]);
 

@@ -179,9 +179,10 @@ guestfs___cmd_add_arg_format (struct command *cmd, const char *fs, ...)
 {
   va_list args;
   char *arg;
+  int err;
 
   va_start (args, fs);
-  int err = vasprintf (&arg, fs, args);
+  err = vasprintf (&arg, fs, args);
   va_end (args);
 
   if (err < 0)

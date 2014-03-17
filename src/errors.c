@@ -118,9 +118,10 @@ guestfs___error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
+  int err;
 
   va_start (args, fs);
-  int err = vasprintf (&msg, fs, args);
+  err = vasprintf (&msg, fs, args);
   va_end (args);
 
   if (err < 0) return;
@@ -138,14 +139,15 @@ guestfs___perrorf (guestfs_h *g, const char *fs, ...)
   va_list args;
   CLEANUP_FREE char *msg = NULL;
   int errnum = errno;
+  int err;
+  char buf[256];
 
   va_start (args, fs);
-  int err = vasprintf (&msg, fs, args);
+  err = vasprintf (&msg, fs, args);
   va_end (args);
 
   if (err < 0) return;
 
-  char buf[256];
   strerror_r (errnum, buf, sizeof buf);
 
   msg = safe_realloc (g, msg, strlen (msg) + 2 + strlen (buf) + 1);

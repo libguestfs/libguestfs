@@ -41,6 +41,9 @@
 char **
 guestfs__inspect_os (guestfs_h *g)
 {
+  CLEANUP_FREE_STRING_LIST char **fses = NULL;
+  char **fs, **ret;
+
   /* Remove any information previously stored in the handle. */
   guestfs___free_inspect_info (g);
 
@@ -51,10 +54,10 @@ guestfs__inspect_os (guestfs_h *g)
    * and add that information to the handle.
    */
 
-  CLEANUP_FREE_STRING_LIST char **fses = guestfs_list_filesystems (g);
+  fses = guestfs_list_filesystems (g);
   if (fses == NULL) return NULL;
 
-  for (char **fs = fses; *fs; fs += 2) {
+  for (fs = fses; *fs; fs += 2) {
     if (guestfs___check_for_filesystem_on (g, *fs)) {
       guestfs___free_inspect_info (g);
       return NULL;
@@ -66,7 +69,7 @@ guestfs__inspect_os (guestfs_h *g)
    * filesystems which are root devices and return that to the user.
    * Fall through to guestfs_inspect_get_roots to do that.
    */
-  char **ret = guestfs_inspect_get_roots (g);
+  ret = guestfs_inspect_get_roots (g);
   if (ret == NULL)
     guestfs___free_inspect_info (g);
   return ret;
@@ -105,10 +108,11 @@ char *
 guestfs__inspect_get_type (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
+  char *ret = NULL;
+
   if (!fs)
     return NULL;
 
-  char *ret = NULL;
   switch (fs->type) {
   case OS_TYPE_DOS: ret = safe_strdup (g, "dos"); break;
   case OS_TYPE_FREEBSD: ret = safe_strdup (g, "freebsd"); break;
@@ -140,10 +144,11 @@ char *
 guestfs__inspect_get_distro (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
+  char *ret = NULL;
+
   if (!fs)
     return NULL;
 
-  char *ret = NULL;
   switch (fs->distro) {
   case OS_DISTRO_ARCHLINUX: ret = safe_strdup (g, "archlinux"); break;
   case OS_DISTRO_BUILDROOT: ret = safe_strdup (g, "buildroot"); break;
@@ -252,11 +257,11 @@ guestfs__inspect_get_windows_current_control_set (guestfs_h *g,
 char *
 guestfs__inspect_get_format (guestfs_h *g, const char *root)
 {
+  char *ret = NULL;
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
   if (!fs)
     return NULL;
 
-  char *ret = NULL;
   switch (fs->format) {
   case OS_FORMAT_INSTALLED: ret = safe_strdup (g, "installed"); break;
   case OS_FORMAT_INSTALLER: ret = safe_strdup (g, "installer"); break;
@@ -302,14 +307,17 @@ guestfs__inspect_is_multipart (guestfs_h *g, const char *root)
 char **
 guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
 {
-  struct inspect_fs *fs = guestfs___search_for_root (g, root);
+  char **ret;
+  size_t i, count, nr;
+  struct inspect_fs *fs;
+
+  fs = guestfs___search_for_root (g, root);
   if (!fs)
     return NULL;
 
 #define CRITERION(fs, i) fs->fstab[i].mountpoint[0] == '/'
 
-  char **ret;
-  size_t i, count, nr = fs->nr_fstab;
+  nr = fs->nr_fstab;
 
   if (nr == 0)
     count = 1;
@@ -350,13 +358,14 @@ guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
 char **
 guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
 {
+  char **ret;
+  size_t i, nr;
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
+
   if (!fs)
     return NULL;
 
-  char **ret;
-  size_t i, nr = fs->nr_fstab;
-
+  nr = fs->nr_fstab;
   ret = calloc (nr == 0 ? 2 : nr+1, sizeof (char *));
   if (ret == NULL) {
     perrorf (g, "calloc");
@@ -399,11 +408,11 @@ guestfs__inspect_get_drive_mappings (guestfs_h *g, const char *root)
 char *
 guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
 {
+  char *ret = NULL;
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
   if (!fs)
     return NULL;
 
-  char *ret = NULL;
   switch (fs->package_format) {
   case OS_PACKAGE_FORMAT_RPM: ret = safe_strdup (g, "rpm"); break;
   case OS_PACKAGE_FORMAT_DEB: ret = safe_strdup (g, "deb"); break;
@@ -425,11 +434,11 @@ guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
 char *
 guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
 {
+  char *ret = NULL;
   struct inspect_fs *fs = guestfs___search_for_root (g, root);
   if (!fs)
     return NULL;
 
-  char *ret = NULL;
   switch (fs->package_management) {
   case OS_PACKAGE_MANAGEMENT_YUM: ret = safe_strdup (g, "yum"); break;
   case OS_PACKAGE_MANAGEMENT_UP2DATE: ret = safe_strdup (g, "up2date"); break;
@@ -463,7 +472,8 @@ guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
 void
 guestfs___free_inspect_info (guestfs_h *g)
 {
-  size_t i;
+  size_t i, j;
+
   for (i = 0; i < g->nr_fses; ++i) {
     free (g->fses[i].mountable);
     free (g->fses[i].product_name);
@@ -472,7 +482,6 @@ guestfs___free_inspect_info (guestfs_h *g)
     free (g->fses[i].hostname);
     free (g->fses[i].windows_systemroot);
     free (g->fses[i].windows_current_control_set);
-    size_t j;
     for (j = 0; j < g->fses[i].nr_fstab; ++j) {
       free (g->fses[i].fstab[j].mountable);
       free (g->fses[i].fstab[j].mountpoint);
@@ -562,15 +571,15 @@ guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
 struct inspect_fs *
 guestfs___search_for_root (guestfs_h *g, const char *root)
 {
+  size_t i;
+
   if (g->nr_fses == 0) {
     error (g, _("no inspection data: call guestfs_inspect_os first"));
     return NULL;
   }
 
-  size_t i;
-  struct inspect_fs *fs;
   for (i = 0; i < g->nr_fses; ++i) {
-    fs = &g->fses[i];
+    struct inspect_fs *fs = &g->fses[i];
     if (fs->is_root && STREQ (root, fs->mountable))
       return fs;
   }

@@ -46,6 +46,7 @@ do_base64_in (const char *file)
   int err, r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
+  int fd;
 
   if (asprintf_nowarn (&cmd, "%s -d -i > %R", str_base64, file) == -1) {
     err = errno;
@@ -70,7 +71,7 @@ do_base64_in (const char *file)
   /* The semantics of fwrite are too undefined, so write to the
    * file descriptor directly instead.
    */
-  int fd = fileno (fp);
+  fd = fileno (fp);
 
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */

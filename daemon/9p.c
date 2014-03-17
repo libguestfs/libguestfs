@@ -64,8 +64,10 @@ do_list_9p (void)
   }
 
   while (1) {
+    struct dirent *d;
+
     errno = 0;
-    struct dirent *d = readdir (dir);
+    d = readdir (dir);
     if (d == NULL) break;
 
     if (STRPREFIX (d->d_name, "virtio")) {

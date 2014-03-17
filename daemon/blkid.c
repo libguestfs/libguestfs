@@ -35,6 +35,7 @@ get_blkid_tag (const char *device, const char *tag)
   char *out;
   CLEANUP_FREE char *err = NULL;
   int r;
+  size_t len;
 
   r = commandr (&out, &err,
                 str_blkid,
@@ -59,7 +60,7 @@ get_blkid_tag (const char *device, const char *tag)
   }
 
   /* Trim trailing \n if present. */
-  size_t len = strlen (out);
+  len = strlen (out);
   if (len > 0 && out[len-1] == '\n')
     out[len-1] = '\0';
 
@@ -157,13 +158,14 @@ blkid_with_p_i_opt (const char *device)
    * PART_ENTRY_DISK=8:0
    */
   for (i = 0; lines[i] != NULL; ++i) {
+    char *eq;
     char *line = lines[i];
 
     /* Skip blank lines (shouldn't happen) */
     if (line[0] == '\0') continue;
 
     /* Split the line in 2 at the equals sign */
-    char *eq = strchr (line, '=');
+    eq = strchr (line, '=');
     if (eq) {
       *eq = '\0'; eq++;
 
