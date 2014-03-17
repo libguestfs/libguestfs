@@ -158,8 +158,6 @@ if test "$gl_gcc_warnings" = yes; then
     nw="$nw -Wsign-conversion"       # Not an error
     nw="$nw -Wtraditional-conversion" # Don't care about pre-ANSI compilers
     nw="$nw -Wpadded"                # Our structs are not padded
-    nw="$nw -Wredundant-decls"       # openat.h declares e.g., mkdirat
-    nw="$nw -Wlogical-op"            # any use of fwrite provokes this
     nw="$nw -Wvla"                   # two warnings in mount.c
     # things I might fix soon:
     nw="$nw -Wmissing-format-attribute" # daemon.h's asprintf_nowarn
