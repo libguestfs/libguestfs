@@ -187,7 +187,7 @@ let make_message_function ~quiet fs =
   in
   ksprintf p fs
 
-let error ~prog fs =
+let error ~prog ?(exit_code = 1) fs =
   let display str =
     wrap ~chan:stderr (sprintf (f_"%s: error: %s") prog str);
     prerr_newline ();
@@ -196,7 +196,7 @@ let error ~prog fs =
       (sprintf (f_"%s: If reporting bugs, run %s with debugging enabled (-v) and include the complete output.")
          prog prog);
     prerr_newline ();
-    exit 1
+    exit exit_code
   in
   ksprintf display fs
 
