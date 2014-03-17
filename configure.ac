@@ -146,9 +146,8 @@ if test "$gl_gcc_warnings" = yes; then
     gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
     AC_SUBST([WERROR_CFLAGS])
 
-    nw=
     # This, $nw, is the list of warnings we disable.
-    nw="$nw -Wdeclaration-after-statement" # too useful to forbid
+    nw=
     nw="$nw -Waggregate-return"      # anachronistic
     nw="$nw -Wc++-compat"            # We don't care about C++ compilers
     nw="$nw -Wundef"                 # Warns on '#if GNULIB_FOO' etc in gnulib
