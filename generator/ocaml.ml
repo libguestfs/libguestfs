@@ -121,9 +121,19 @@ val last_errno : t -> int
     (or [0] if there was no errno).  Note that the returned integer is the
     raw errno number, and it is {i not} related to the {!Unix.error} type.
 
+    Some raw errno numbers are exposed by the {!Guestfs.Errno} submodule,
+    and we can add more as required.
+
     [last_errno] can be overwritten by subsequent operations on a handle,
     so if you want to capture the errno correctly, you must call this
     in the {!Error} exception handler, before any other operation on [g]. *)
+
+(** The [Guestfs.Errno] submodule exposes some raw errno numbers,
+    which you can use to test the return value of {!Guestfs.last_errno}. *)
+
+module Errno : sig
+  val errno_ENOTSUP : int
+end
 
 ";
   generate_ocaml_structure_decls ();
@@ -252,6 +262,11 @@ external event_to_string : event list -> string
   = \"ocaml_guestfs_event_to_string\"
 
 external last_errno : t -> int = \"ocaml_guestfs_last_errno\"
+
+module Errno = struct
+  external enotsup : unit -> int = \"ocaml_guestfs_get_ENOTSUP\" \"noalloc\"
+  let errno_ENOTSUP = enotsup ()
+end
 
 (* Give the exceptions names, so they can be raised from the C code. *)
 let () =

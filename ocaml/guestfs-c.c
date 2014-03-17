@@ -63,6 +63,7 @@ value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
 value ocaml_guestfs_delete_event_callback (value gv, value eh);
 value ocaml_guestfs_event_to_string (value events);
 value ocaml_guestfs_last_errno (value gv);
+value ocaml_guestfs_get_ENOTSUP (value unitv);
 
 /* Allocate handles and deal with finalization. */
 static void
@@ -437,4 +438,11 @@ ocaml_guestfs_last_errno (value gv)
 
   rv = Val_int (r);
   CAMLreturn (rv);
+}
+
+/* NB: "noalloc" function. */
+value
+ocaml_guestfs_get_ENOTSUP (value unitv)
+{
+  return Val_int (ENOTSUP);
 }
