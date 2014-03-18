@@ -838,6 +838,8 @@ do_completion (const char *text, int start, int end)
 
 (* Generate the POD documentation for guestfish. *)
 and generate_fish_actions_pod () =
+  generate_header PODStyle GPLv2plus;
+
   let fishdoc_functions_sorted =
     List.filter is_documented fish_functions_sorted
   in
@@ -908,6 +910,8 @@ Guestfish will prompt for these separately.\n\n";
 
 (* Generate documentation for guestfish-only commands. *)
 and generate_fish_commands_pod () =
+  generate_header PODStyle GPLv2plus;
+
   List.iter (
     fun ({ name = name; longdesc = longdesc } as f) ->
       let aliases = get_aliases f in
@@ -1018,6 +1022,8 @@ and generate_fish_prep_options_c () =
   pr "};\n"
 
 and generate_fish_prep_options_pod () =
+  generate_header PODStyle GPLv2plus;
+
   List.iter (
     fun (name, shortdesc, args, longdesc) ->
       pr "=head2 B<-N %s> - %s\n" name shortdesc;

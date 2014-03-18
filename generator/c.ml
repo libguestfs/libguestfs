@@ -208,6 +208,8 @@ and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
 
 (* Generate the pod documentation for the C API. *)
 and generate_actions_pod () =
+  generate_header PODStyle GPLv2plus;
+
   List.iter (
     function
     | ({ once_had_no_optargs = false } as f) ->
@@ -342,6 +344,8 @@ and generate_actions_pod_back_compat_entry { name = name;
   pr "\n"
 
 and generate_structs_pod () =
+  generate_header PODStyle GPLv2plus;
+
   (* Structs documentation. *)
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
@@ -391,6 +395,8 @@ and generate_structs_pod () =
   ) structs
 
 and generate_availability_pod () =
+  generate_header PODStyle GPLv2plus;
+
   (* Availability documentation. *)
   pr "=over 4\n";
   pr "\n";
