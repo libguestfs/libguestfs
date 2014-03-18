@@ -274,7 +274,10 @@ foreach (@inserts) {
     my @a = split /:/, $_, 2;
     die "$progname: $input: no colon in parameter of --insert\n" unless @a >= 2;
     my $replacement = read_whole_file ($a[0]);
+    my $oldcontent = $content;
     $content =~ s/$a[1]/$replacement/ge;
+    die "$progname: $input: could not find pattern '$a[1]' in input file\n"
+        if $content eq $oldcontent;
 }
 
 # Perform @verbatims.
@@ -282,7 +285,10 @@ foreach (@verbatims) {
     my @a = split /:/, $_, 2;
     die "$progname: $input: no colon in parameter of --verbatim\n" unless @a >= 2;
     my $replacement = read_verbatim_file ($a[0]);
+    my $oldcontent = $content;
     $content =~ s/$a[1]/$replacement/ge;
+    die "$progname: $input: could not find pattern '$a[1]' in input file\n"
+        if $content eq $oldcontent;
 }
 
 if ($strict_checks) {
