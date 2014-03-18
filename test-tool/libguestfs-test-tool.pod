@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 libguestfs-test-tool - Diagnostics for libguestfs

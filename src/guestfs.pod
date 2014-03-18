@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestfs - Library for accessing and modifying virtual machine images

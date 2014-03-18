@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestfish - the guest filesystem shell

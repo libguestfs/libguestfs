@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-make-fs - Make a filesystem from a tar archive or files

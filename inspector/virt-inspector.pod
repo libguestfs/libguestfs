@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-inspector - Display operating system version and other information about a virtual machine

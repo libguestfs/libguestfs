@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-rescue - Run a rescue shell on a virtual machine

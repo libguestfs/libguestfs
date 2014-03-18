@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 libguestfs-tools.conf - configuration file for guestfish, guestmount, virt-rescue

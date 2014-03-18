@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-ls - List files in a virtual machine

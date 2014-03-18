@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestfs-testing - manual testing of libguestfs, you can help!

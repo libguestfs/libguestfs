@@ -1,5 +1,3 @@
-=encoding utf8
-
 =begin comment
 
 We break with tradition here and don't use ALL CAPS for the section

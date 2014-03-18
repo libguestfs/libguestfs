@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-index-validate - Validate virt-builder index file

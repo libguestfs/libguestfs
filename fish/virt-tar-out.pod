@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-tar-out - Pack a virtual machine disk image directory into a tarball.

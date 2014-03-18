@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-diff - Differences between files in two virtual machines

@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestfs-examples - Examples of using libguestfs from C

@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-filesystems - List filesystems, partitions, block devices, LVM in a virtual machine or disk image

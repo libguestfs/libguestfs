@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestfs-performance - engineering libguestfs for greatest performance

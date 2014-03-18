@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-copy-out - Copy files and directories out of a virtual machine disk image.

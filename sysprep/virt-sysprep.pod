@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-sysprep - Reset, unconfigure or customize a virtual machine so clones can be made

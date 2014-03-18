@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-copy-in - Copy files and directories into a virtual machine disk image.

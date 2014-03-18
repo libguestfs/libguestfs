@@ -29,8 +29,6 @@ use File::Temp qw/tempdir/;
 use File::Basename;
 use Locale::TextDomain 'libguestfs';
 
-=encoding utf8
-
 =head1 NAME
 
 virt-win-reg - Export and merge Windows Registry entries from a Windows guest

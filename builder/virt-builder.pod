@@ -1,5 +1,3 @@
-=encoding utf8
-
 =begin html
 
 <img src="virt-builder.svg" width="250"

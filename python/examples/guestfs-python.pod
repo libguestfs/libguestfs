@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestfs-python - How to use libguestfs from Python

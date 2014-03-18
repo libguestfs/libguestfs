@@ -24,8 +24,6 @@ use Pod::Usage;
 use Getopt::Long;
 use Locale::TextDomain 'libguestfs';
 
-=encoding utf8
-
 =head1 NAME
 
 virt-list-partitions - List partitions in a virtual machine or disk image

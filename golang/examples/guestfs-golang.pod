@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestfs-golang - How to use libguestfs from Go

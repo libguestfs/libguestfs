@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-df - Display free space on virtual filesystems

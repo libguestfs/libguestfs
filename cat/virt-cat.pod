@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-cat - Display files in a virtual machine

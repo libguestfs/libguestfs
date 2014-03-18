@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-alignment-scan - Check alignment of virtual machine partitions

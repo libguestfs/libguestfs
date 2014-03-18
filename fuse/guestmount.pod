@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 guestmount - Mount a guest filesystem on the host using FUSE and libguestfs

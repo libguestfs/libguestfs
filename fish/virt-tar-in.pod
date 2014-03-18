@@ -1,5 +1,3 @@
-=encoding utf8
-
 =head1 NAME
 
 virt-tar-in - Unpack a tarball into a virtual machine disk image.

@@ -31,8 +31,6 @@ use File::Basename;
 # https://www.redhat.com/archives/libguestfs/2013-May/thread.html#00088
 eval { $Text::Wrap::huge = "overflow" };
 
-=encoding utf8
-
 =head1 NAME
 
 podwrapper.pl - Generate libguestfs documentation from POD input files
@@ -290,6 +288,12 @@ foreach (@verbatims) {
     die "$progname: $input: could not find pattern '$a[1]' in input file\n"
         if $content eq $oldcontent;
 }
+
+# There should be no =encoding line present in the content (we will add one).
+die "$progname: $input: =encoding must not be present in input\n"
+    if $content =~ /^=encoding/m;
+
+$content = "=encoding utf8\n\n$content";
 
 if ($strict_checks) {
     # Verify sections present / not present.
