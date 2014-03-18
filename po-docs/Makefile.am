@@ -53,7 +53,7 @@ libguestfs-docs.pot: po4a.conf
 	  --msgid-bugs-address libguestfs@redhat.com \
 	  --copyright-holder "Red Hat Inc." \
 	  po4a.conf
-	for f in `cd $(srcdir); find $(linguas) -name '*.pod' -o -name '*.pl'`; do \
+	for f in `cd $(srcdir); find $(linguas) -name '*.pod'`; do \
 	  echo '=encoding utf8' > $$f.new; \
 	  awk 'FNR >= 14 { print }' < $(srcdir)/$$f >> $$f.new; \
 	  mv $$f.new $$f; \
