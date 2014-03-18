@@ -40,9 +40,12 @@ SUBDIRS = $(linguas)
 
 update-po: libguestfs-docs.pot
 
-# Note: po4a leaves empty '=encoding' lines in POD files.  Also it
-# includes a large warning message which ends up in the output.  We
-# post-process the output to remove both.
+# Note: po4a puts the following junk at the top of every POD file it
+# generates:
+#  - a warning
+#  - a probably bogus =encoding line
+# Remove both.
+# XXX Fix po4a so it doesn't do this.
 libguestfs-docs.pot: po4a.conf
 	$(PO4A) \
 	  -M utf-8 -L utf-8 -A utf-8 \
@@ -54,8 +57,7 @@ libguestfs-docs.pot: po4a.conf
 	  --copyright-holder "Red Hat Inc." \
 	  po4a.conf
 	for f in `cd $(srcdir); find $(linguas) -name '*.pod'`; do \
-	  echo '=encoding utf8' > $$f.new; \
-	  awk 'FNR >= 14 { print }' < $(srcdir)/$$f >> $$f.new; \
+	  sed '0,/^=encoding/d' < $$f > $$f.new; \
 	  mv $$f.new $$f; \
 	done
 
