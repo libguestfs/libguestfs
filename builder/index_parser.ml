@@ -119,7 +119,7 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
     Sigchecker.verify sigchecker tmpfile;
 
     (* Try parsing the file. *)
-    let sections = Ini_reader.read_ini tmpfile in
+    let sections = Ini_reader.read_ini ~prog tmpfile in
     if delete_tmpfile then
       (try Unix.unlink tmpfile with _ -> ());
 

@@ -46,9 +46,9 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 extern int do_parse (struct parse_context *context, FILE *in);
 
 value
-virt_builder_parse_index (value filenamev)
+virt_builder_parse_index (value progv, value filenamev)
 {
-  CAMLparam1 (filenamev);
+  CAMLparam2 (progv, filenamev);
   CAMLlocal5 (rv, v, sv, sv2, fv);
   struct section *sections;
   size_t i, nr_sections;
@@ -56,6 +56,7 @@ virt_builder_parse_index (value filenamev)
   FILE *in;
 
   parse_context_init (&context);
+  context.program_name = String_val (progv);
   context.input_file = String_val (filenamev);
 
   in = fopen (String_val (filenamev), "r");

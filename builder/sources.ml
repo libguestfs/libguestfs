@@ -32,7 +32,7 @@ let parse_conf ~prog ~debug file =
   if debug then (
     eprintf (f_"%s: trying to read %s\n") prog file;
   );
-  let sections = Ini_reader.read_ini file in
+  let sections = Ini_reader.read_ini ~prog file in
 
   let sources = List.fold_right (
     fun (n, fields) acc ->

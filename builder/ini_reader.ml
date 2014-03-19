@@ -27,10 +27,10 @@ and c_section = string * c_fields             (* [name] + fields *)
 and c_fields = field array
 
 (* Calls yyparse in the C code. *)
-external parse_index : string -> c_sections = "virt_builder_parse_index"
+external parse_index : prog:string -> string -> c_sections = "virt_builder_parse_index"
 
-let read_ini file =
-  let sections = parse_index file in
+let read_ini ~prog file =
+  let sections = parse_index ~prog file in
   let sections = Array.to_list sections in
   List.map (
     fun (n, fields) ->
