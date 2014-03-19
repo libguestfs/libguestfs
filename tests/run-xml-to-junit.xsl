@@ -15,8 +15,9 @@
       <xsl:variable name="TestcaseName"><xsl:value-of select="@name"/></xsl:variable>
       <xsl:variable name="TestcaseTime"><xsl:value-of select="@time"/></xsl:variable>
       <xsl:variable name="TestcaseRescode"><xsl:value-of select="@rescode"/></xsl:variable>
+      <xsl:variable name="TestcaseClassname"><xsl:choose><xsl:when test="@classname"><xsl:value-of select="@classname"/></xsl:when><xsl:otherwise>TestSuite</xsl:otherwise></xsl:choose></xsl:variable>
       <xsl:variable name="TestcaseOutput"><xsl:value-of select="."/></xsl:variable>
-    <testcase name="{$TestcaseName}" classname="TestSuite" time="{$TestcaseTime}">
+    <testcase name="{$TestcaseName}" classname="{$TestcaseClassname}" time="{$TestcaseTime}">
       <xsl:choose>
         <xsl:when test="$TestcaseRescode = 0">
       <system-out><xsl:value-of select="$TestcaseOutput"/></system-out>
