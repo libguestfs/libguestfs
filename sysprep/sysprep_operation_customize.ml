@@ -1,5 +1,5 @@
 (* virt-sysprep
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2014 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,25 +19,33 @@
 open Sysprep_operation
 open Common_gettext.Gettext
 
-open Random_seed
-
 module G = Guestfs
 
-let random_seed_perform (g : Guestfs.guestfs) root side_effects =
-  if set_random_seed g root then
-    side_effects#created_file ()
+let customize_args, get_ops =
+  let args, get_ops = Customize_cmdline.argspec ~prog () in
+  let args = List.map (
+    fun (spec, v, longdesc) ->
+      { extra_argspec = spec;
+        extra_pod_argval = v; extra_pod_description = longdesc }
+  ) args in
+  args, get_ops
+
+let customize_perform ~debug ~quiet g root side_effects =
+  let ops = get_ops () in
+  Customize_run.run ~prog ~debug ~quiet g root ops;
+  side_effects#created_file () (* XXX Did we? *)
 
 let op = {
   defaults with
-    name = "random-seed";
+    order = 99;                         (* Run it after everything. *)
+    name = "customize";
     enabled_by_default = true;
-    heading = s_"Generate random seed for guest";
+    heading = s_"Customize the guest";
     pod_description = Some (s_"\
-Write some random bytes from the host into the random seed file of the
-guest.
-
-See L</RANDOM SEED> below.");
-    perform_on_filesystems = Some random_seed_perform;
+Customize the guest by providing L<virt-customize(1)> options
+for installing packages, editing files and so on.");
+    extra_args = customize_args;
+    perform_on_filesystems = Some customize_perform;
 }
 
 let () = register_operation op

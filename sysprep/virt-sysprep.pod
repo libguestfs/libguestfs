@@ -134,10 +134,10 @@ operations, while the meta-names C<defaults> and C<all> represent
 respectively the operations enabled by default and all the available ones.
 For example:
 
- --operations delete,defaults,-hostname
+ --operations firewall-rules,defaults,-tmp-files
 
-would enable the C<delete> operation (regardless whether it is enabled by
-default), all the default ones, and disable the C<hostname> operation.
+would enable the C<firewall-rules> operation (regardless whether it is enabled by
+default), all the default ones, and disable the C<tmp-files> operation.
 
 I<--operations> can be specified multiple times; the first time the set
 of enabled operations is empty, while any further I<--operations> affects
@@ -502,19 +502,19 @@ content in directory entries and inodes.
 
 I<(This section applies to Linux guests only)>
 
-The virt-sysprep C<random-seed> operation writes a few bytes of
-randomness from the host into the guest's random seed file.
+For supported guests, virt-sysprep writes a few bytes of randomness
+from the host into the guest's random seed file.
 
 If this is just done once and the guest is cloned from the same
 template, then each guest will start with the same entropy, and things
 like SSH host keys and TCP sequence numbers may be predictable.
 
 Therefore you should arrange to add more randomness I<after> cloning
-from a template too, which can be done by just enabling the
-C<random-seed> operation:
+from a template too, which can be done by enabling just the customize
+module:
 
  cp template.img newguest.img
- virt-sysprep --enable random-seed -a newguest.img
+ virt-sysprep --enable customize -a newguest.img
 
 =head2 SELINUX RELABELLING
 

@@ -59,7 +59,7 @@ echo 123456 > password
 
 ./virt-sysprep \
     -a passwords.qcow2 \
-    --enable password \
+    --enable customize \
     --password test01:password:123456 \
     --password test02:password:123456:7890 \
     --password test03:file:./password \

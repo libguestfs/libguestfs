@@ -37,15 +37,13 @@ sysprep/sysprep_operation_blkid_tab.ml
 sysprep/sysprep_operation_ca_certificates.ml
 sysprep/sysprep_operation_crash_data.ml
 sysprep/sysprep_operation_cron_spool.ml
-sysprep/sysprep_operation_delete.ml
+sysprep/sysprep_operation_customize.ml
 sysprep/sysprep_operation_dhcp_client_state.ml
 sysprep/sysprep_operation_dhcp_server_state.ml
 sysprep/sysprep_operation_dovecot_data.ml
 sysprep/sysprep_operation_firewall_rules.ml
-sysprep/sysprep_operation_firstboot.ml
 sysprep/sysprep_operation_flag_reconfiguration.ml
 sysprep/sysprep_operation_fs_uuids.ml
-sysprep/sysprep_operation_hostname.ml
 sysprep/sysprep_operation_kerberos_data.ml
 sysprep/sysprep_operation_logfiles.ml
 sysprep/sysprep_operation_lvm_uuids.ml
@@ -56,9 +54,7 @@ sysprep/sysprep_operation_net_hwaddr.ml
 sysprep/sysprep_operation_pacct_log.ml
 sysprep/sysprep_operation_package_manager_cache.ml
 sysprep/sysprep_operation_pam_data.ml
-sysprep/sysprep_operation_password.ml
 sysprep/sysprep_operation_puppet_data_log.ml
-sysprep/sysprep_operation_random_seed.ml
 sysprep/sysprep_operation_rh_subscription_manager.ml
 sysprep/sysprep_operation_rhn_systemid.ml
 sysprep/sysprep_operation_rpm_db.ml
@@ -68,7 +64,6 @@ sysprep/sysprep_operation_smolt_uuid.ml
 sysprep/sysprep_operation_ssh_hostkeys.ml
 sysprep/sysprep_operation_ssh_userdir.ml
 sysprep/sysprep_operation_sssd_db_log.ml
-sysprep/sysprep_operation_timezone.ml
 sysprep/sysprep_operation_tmp_files.ml
 sysprep/sysprep_operation_udev_persistent_net.ml
 sysprep/sysprep_operation_user_account.ml
