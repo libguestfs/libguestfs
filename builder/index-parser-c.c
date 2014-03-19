@@ -56,6 +56,7 @@ virt_builder_parse_index (value filenamev)
   FILE *in;
 
   parse_context_init (&context);
+  context.input_file = String_val (filenamev);
 
   in = fopen (String_val (filenamev), "r");
   if (in == NULL)

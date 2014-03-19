@@ -43,6 +43,7 @@ struct parse_context {
    * compatibility with virt-builder 1.24.
    */
   int seen_comments;
+  const char *input_file;
 };
 
 /* Initialize the content of a parse_context. */

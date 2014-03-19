@@ -143,7 +143,9 @@ emptylines:
 void
 yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg)
 {
-  fprintf (stderr, "syntax error at line %d: %s\n",
+  fprintf (stderr, "%s%ssyntax error at line %d: %s\n",
+           context->input_file ? context->input_file : "",
+           context->input_file ? ": " : "",
            yylloc->first_line, msg);
 }
 
