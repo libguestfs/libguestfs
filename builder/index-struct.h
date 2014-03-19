@@ -36,14 +36,19 @@ struct field {
   char *value;
 };
 
-/* The parser (yyparse) stores the result here. */
-extern struct section *parsed_index;
+/* A struct holding the data needed during the parsing. */
+struct parse_context {
+  struct section *parsed_index;        /* The result of the parsing. */
+  /* yyparse sets this if any comments were seen.  Required for checking
+   * compatibility with virt-builder 1.24.
+   */
+  int seen_comments;
+};
 
-/* yyparse sets this if any comments were seen.  Required for checking
- * compatibility with virt-builder 1.24.
- */
-extern int seen_comments;
+/* Initialize the content of a parse_context. */
+extern void parse_context_init (struct parse_context *state);
 
-extern void free_index (void);
+/* Free the content of a parse_context.  The actual pointer is not freed. */
+extern void parse_context_free (struct parse_context *state);
 
 #endif /* INDEX_STRUCT_H */

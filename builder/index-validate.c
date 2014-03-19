@@ -33,7 +33,7 @@
 #include "index-struct.h"
 #include "index-parse.h"
 
-extern FILE *yyin;
+extern int do_parse (struct parse_context *context, FILE *in);
 
 static void
 usage (int exit_status)
@@ -60,10 +60,14 @@ main (int argc, char *argv[])
   int compat_1_24_1 = 0;
   const char *input;
   struct section *sections;
+  struct parse_context context;
+  FILE *in;
 
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
+
+  parse_context_init (&context);
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -99,32 +103,32 @@ main (int argc, char *argv[])
 
   input = argv[optind++];
 
-  yyin = fopen (input, "r");
-  if (yyin == NULL) {
+  in = fopen (input, "r");
+  if (in == NULL) {
     perror (input);
     exit (EXIT_FAILURE);
   }
 
-  if (yyparse () != 0) {
+  if (do_parse (&context, in) != 0) {
     fprintf (stderr, _("%s: '%s' could not be validated, see errors above\n"),
              program_name, input);
     exit (EXIT_FAILURE);
   }
 
-  if (fclose (yyin) == EOF) {
+  if (fclose (in) == EOF) {
     fprintf (stderr, _("%s: %s: error reading input file: %m\n"),
              program_name, input);
     exit (EXIT_FAILURE);
   }
 
-  if (compat_1_24_1 && seen_comments) {
+  if (compat_1_24_1 && context.seen_comments) {
     fprintf (stderr, _("%s: %s contains comments which will not work with virt-builder 1.24.1\n"),
              program_name, input);
     exit (EXIT_FAILURE);
   }
 
   /* Iterate over the parsed sections, semantically validating it. */
-  for (sections = parsed_index; sections != NULL; sections = sections->next) {
+  for (sections = context.parsed_index; sections != NULL; sections = sections->next) {
     int seen_sig = 0;
     struct field *fields;
 
@@ -165,7 +169,7 @@ main (int argc, char *argv[])
   }
 
   /* Free the parsed data. */
-  free_index ();
+  parse_context_free (&context);
 
   printf ("%s validated OK\n", input);
 

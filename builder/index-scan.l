@@ -23,18 +23,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "index-parse.h"
 #include "index-struct.h"
+#include "index-parse.h"
 
-#define YY_USER_ACTION yylloc.first_line = yylloc.last_line = yylineno;
+#define YY_EXTRA_TYPE struct parse_context *
+#define YY_USER_ACTION yylloc->first_line = yylloc->last_line = yylineno;
 
-extern void yyerror (const char *);
+extern void yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg);
 
 %}
 
 %option nounput
 %option noyywrap
 %option yylineno
+%option reentrant
+%option bison-bridge
+%option bison-locations
 
 %%
 
@@ -46,38 +50,38 @@ extern void yyerror (const char *);
   */
 
   /* Ignore comments - '#' MUST appear at the start of a line. */
-^"#".*\n                { seen_comments++; }
+^"#".*\n                { yyextra->seen_comments++; }
 
   /* An empty line is significant. */
 ^\n                                     { return EMPTY_LINE; }
 
   /* [...] marks beginning of a section. */
 ^"["[-A-Za-z0-9._]+"]"\n {
-                      yylval.str = strndup (yytext+1, yyleng-3);
+                      yylval->str = strndup (yytext+1, yyleng-3);
                       return SECTION_HEADER;
                     }
 
   /* field=value or field[subfield]=value */
 ^[A-Za-z0-9_.]+("["[A-Za-z0-9_,.]+"]")?"=".*\n {
                       size_t i = strcspn (yytext, "=[");
-                      yylval.field = malloc (sizeof (struct field));
-                      yylval.field->next = NULL;
-                      yylval.field->key = strndup (yytext, i);
+                      yylval->field = malloc (sizeof (struct field));
+                      yylval->field->next = NULL;
+                      yylval->field->key = strndup (yytext, i);
                       if (yytext[i] == '[') {
                         size_t j = strcspn (yytext+i+1, "]");
-                        yylval.field->subkey = strndup (yytext+i+1, j);
+                        yylval->field->subkey = strndup (yytext+i+1, j);
                         i += 1+j+1;
                       } else {
-                        yylval.field->subkey = NULL;
+                        yylval->field->subkey = NULL;
                       }
                       /* Note we chop the final \n off here. */
-                      yylval.field->value = strndup (yytext+i+1, yyleng-(i+2));
+                      yylval->field->value = strndup (yytext+i+1, yyleng-(i+2));
                       return FIELD;
                     }
 
   /* Continuation line for multi-line values. */
 ^[[:blank:]].*\n        {
-                      yylval.str = strndup (yytext+1, yyleng-2);
+                      yylval->str = strndup (yytext+1, yyleng-2);
                       return VALUE_CONT;
                     }
 
@@ -86,7 +90,7 @@ extern void yyerror (const char *);
   int c, prevnl = 0;
 
   /* Eat everything to the first blank line. */
-  while ((c = input ()) != EOF) {
+  while ((c = input (yyscanner)) != EOF) {
     if (c == '\n' && prevnl)
       break;
     prevnl = c == '\n';
@@ -98,7 +102,7 @@ extern void yyerror (const char *);
  /* Hack to eat the PGP epilogue. */
 ^"-----BEGIN PGP SIGNATURE-----\n"  {
   /* Eat everything to the end of the file. */
-  while (input () != EOF)
+  while (input (yyscanner) != EOF)
     ;
 
   return PGP_EPILOGUE;
@@ -106,6 +110,22 @@ extern void yyerror (const char *);
 
  /* anything else is an error */
 . {
-  yyerror ("unexpected character in input");
+  yyerror (yylloc, yyscanner, yyextra, "unexpected character in input");
   exit (EXIT_FAILURE);
+}
+
+%%
+
+void
+scanner_init (yyscan_t *scanner, struct parse_context *context, FILE *in)
+{
+  yylex_init (scanner);
+  yyset_extra (context, *scanner);
+  yyset_in (in, *scanner);
+}
+
+void
+scanner_destroy (yyscan_t scanner)
+{
+  yylex_destroy (scanner);
 }

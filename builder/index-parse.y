@@ -24,9 +24,14 @@
 #include <string.h>
 
 #include "index-struct.h"
+#include "index-parse.h"
 
-extern void yyerror (const char *);
-extern int yylex (void);
+#define YY_EXTRA_TYPE struct parse_context *
+
+extern void yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg);
+extern int yylex (YYSTYPE * yylval, YYLTYPE * yylloc, yyscan_t scanner);
+extern void scanner_init (yyscan_t *scanner, struct parse_context *context, FILE *in);
+extern void scanner_destroy (yyscan_t scanner);
 
 /* Join two strings with \n */
 static char *
@@ -52,6 +57,14 @@ concat_newline (const char *str1, const char *str2)
 
 %}
 
+%code requires {
+#include "index-parse.h"
+#ifndef YY_TYPEDEF_YY_SCANNER_T
+#define YY_TYPEDEF_YY_SCANNER_T
+typedef void *yyscan_t;
+#endif
+}
+
 %locations
 
 %union {
@@ -71,13 +84,19 @@ concat_newline (const char *str1, const char *str2)
 %type <field>   fields field
 %type <str>     continuations
 
+%pure-parser
+
+%lex-param   { yyscan_t scanner }
+%parse-param { yyscan_t scanner }
+%parse-param { struct parse_context *context }
+
 %%
 
 index:
       sections
-        { parsed_index = $1; }
+        { context->parsed_index = $1; }
     | PGP_PROLOGUE sections PGP_EPILOGUE
-        { parsed_index = $2; }
+        { context->parsed_index = $2; }
 
 sections:
       section emptylines
@@ -122,8 +141,21 @@ emptylines:
 %%
 
 void
-yyerror (const char *msg)
+yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg)
 {
   fprintf (stderr, "syntax error at line %d: %s\n",
-           yylloc.first_line, msg);
+           yylloc->first_line, msg);
+}
+
+int
+do_parse (struct parse_context *context, FILE *in)
+{
+  yyscan_t scanner;
+  int res;
+
+  scanner_init (&scanner, context, in);
+  res = yyparse (scanner, context);
+  scanner_destroy (scanner);
+
+  return res;
 }

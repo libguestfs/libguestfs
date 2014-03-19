@@ -43,7 +43,7 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #include "index-struct.h"
 #include "index-parse.h"
 
-extern FILE *yyin;
+extern int do_parse (struct parse_context *context, FILE *in);
 
 value
 virt_builder_parse_index (value filenamev)
@@ -52,26 +52,30 @@ virt_builder_parse_index (value filenamev)
   CAMLlocal5 (rv, v, sv, sv2, fv);
   struct section *sections;
   size_t i, nr_sections;
+  struct parse_context context;
+  FILE *in;
 
-  yyin = fopen (String_val (filenamev), "r");
-  if (yyin == NULL)
+  parse_context_init (&context);
+
+  in = fopen (String_val (filenamev), "r");
+  if (in == NULL)
     unix_error (errno, (char *) "fopen", filenamev);
 
-  if (yyparse () != 0) {
-    fclose (yyin);
+  if (do_parse (&context, in) != 0) {
+    fclose (in);
     caml_invalid_argument ("parse error");
   }
 
-  if (fclose (yyin) == EOF)
+  if (fclose (in) == EOF)
     unix_error (errno, (char *) "fclose", filenamev);
 
   /* Convert the parsed data to OCaml structures. */
   nr_sections = 0;
-  for (sections = parsed_index; sections != NULL; sections = sections->next)
+  for (sections = context.parsed_index; sections != NULL; sections = sections->next)
     nr_sections++;
   rv = caml_alloc (nr_sections, 0);
 
-  for (i = 0, sections = parsed_index; sections != NULL;
+  for (i = 0, sections = context.parsed_index; sections != NULL;
        i++, sections = sections->next) {
     struct field *fields;
     size_t j, nr_fields;
@@ -105,8 +109,8 @@ virt_builder_parse_index (value filenamev)
     Store_field (rv, i, v);     /* assign to return array of sections */
   }
 
-  /* Free parsed global data. */
-  free_index ();
+  /* Free parsed data. */
+  parse_context_free (&context);
 
   CAMLreturn (rv);
 }
