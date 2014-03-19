@@ -41,6 +41,7 @@ and op_type =
 | StringList of string                  (* string,string,... *)
 | TargetLinks of string                 (* target:link[:link...] *)
 | PasswordSelector of string            (* password selector *)
+| UserPasswordSelector of string        (* user:selector *)
 
 let ops = [
   { op_name = "delete";
@@ -149,6 +150,17 @@ Create a directory in the guest.
 
 This uses S<C<mkdir -p>> so any intermediate directories are created,
 and it also works if the directory already exists.";
+  };
+  { op_name = "password";
+    op_type = UserPasswordSelector "USER:SELECTOR";
+    op_discrim = "`Password";
+    op_shortdesc = "Set user password";
+    op_pod_longdesc = "\
+Set the password for C<USER>.  (Note this option does I<not>
+create the user account).
+
+See L<virt-builder(1)/USERS AND PASSWORDS> for the format of
+the C<SELECTOR> field, and also how to set up user accounts.";
   };
   { op_name = "root-password";
     op_type = PasswordSelector "SELECTOR";
@@ -476,6 +488,19 @@ let rec argspec ~prog () =
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
+    | { op_type = UserPasswordSelector v; op_name = name; op_discrim = discrim;
+        op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
+      pr "    (\n";
+      pr "      \"--%s\",\n" name;
+      pr "      Arg.String (\n";
+      pr "        fun s ->\n";
+      pr "          let user, sel = split_string_pair \"%s\" s in\n" name;
+      pr "          let sel = Password.parse_selector ~prog sel in\n";
+      pr "          ops := %s (user, sel) :: !ops\n" discrim;
+      pr "      ),\n";
+      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "    ),\n";
+      pr "    Some %S, %S;\n" v longdesc
   ) ops;
 
   List.iter (
@@ -539,6 +564,10 @@ type ops = {
         op_name = name } ->
       pr "  | %s of Password.password_selector\n      (* --%s %s *)\n"
         discrim name v
+    | { op_type = UserPasswordSelector v; op_discrim = discrim;
+        op_name = name } ->
+      pr "  | %s of string * Password.password_selector\n      (* --%s %s *)\n"
+        discrim name v
   ) ops;
   pr "]\n";
 
@@ -564,7 +593,7 @@ let generate_customize_synopsis_pod () =
       | { op_type = Unit; op_name = n } ->
         n, sprintf "[--%s]" n
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v;
+            | PasswordSelector v | UserPasswordSelector v;
           op_name = n } ->
         n, sprintf "[--%s %s]" n v
     ) ops @
@@ -604,7 +633,7 @@ let generate_customize_options_pod () =
       | { op_type = Unit; op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s>" n, ld
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v;
+            | PasswordSelector v | UserPasswordSelector v;
           op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s> %s" n v, ld
     ) ops @

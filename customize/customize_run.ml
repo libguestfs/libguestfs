@@ -227,6 +227,9 @@ exec >>%s 2>&1
       msg (f_"Making directory: %s") dir;
       g#mkdir_p dir
 
+    | `Password (user, pw) ->
+      set_password user pw
+
     | `RootPassword pw ->
       set_password "root" pw
 
