@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-03-13 10:55+0000\n"
+"POT-Creation-Date: 2014-03-20 15:22+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -724,7 +724,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/in_place.ml:93 ../sparsify/copying.ml:202
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:202
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -859,7 +859,7 @@ msgstr ""
 msgid "Disable template cache"
 msgstr ""
 
-#: ../sparsify/in_place.ml:127
+#: ../sparsify/in_place.ml:138
 msgid ""
 "Discard space in volgroup %s ...\n"
 "%!"
@@ -1831,7 +1831,7 @@ msgstr "Зменшити розмір розділу"
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../sparsify/in_place.ml:142
+#: ../sparsify/in_place.ml:153
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr ""
 
@@ -2046,7 +2046,7 @@ msgstr ""
 msgid "Total usable space: %s"
 msgstr ""
 
-#: ../sparsify/in_place.ml:77
+#: ../sparsify/in_place.ml:88
 msgid ""
 "Trimming %s ...\n"
 "%!"
@@ -2148,7 +2148,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Занулити файлову систему"
 
-#: ../sparsify/in_place.ml:65 ../sparsify/copying.ml:176
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:176
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -2181,6 +2181,10 @@ msgstr ""
 #: ../sysprep/sysprep_operation_script.ml:133
 msgid "dir"
 msgstr "каталог"
+
+#: ../sparsify/in_place.ml:43
+msgid "discard/trim is not supported: %s"
+msgstr ""
 
 #: ../sysprep/main.ml:144 ../sysprep/main.ml:143
 msgid "domain"
@@ -2299,7 +2303,7 @@ msgstr "pread-device: коротке читання"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/in_place.ml:102 ../sparsify/copying.ml:211
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:211
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
@@ -2694,7 +2698,7 @@ msgstr ""
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
-#: align/scan.c:153 builder/index-validate.c:79 cat/cat.c:137
+#: align/scan.c:153 builder/index-validate.c:84 cat/cat.c:137
 #: cat/filesystems.c:241 cat/ls.c:224 df/main.c:157 diff/diff.c:262
 #: edit/edit.c:156 fish/fish.c:292 format/format.c:183 fuse/guestmount.c:241
 #: fuse/guestunmount.c:124 inspector/inspector.c:151 make-fs/make-fs.c:142
@@ -2726,43 +2730,43 @@ msgstr "вирівнювання < 4кБ"
 msgid "alignment < 64K"
 msgstr "вирівнювання < 64кБ"
 
-#: builder/index-validate.c:109
+#: builder/index-validate.c:116
+#, c-format
+msgid "%s: %s: error closing input file: %m (ignored)\n"
+msgstr ""
+
+#: builder/index-validate.c:122
 #, c-format
 msgid "%s: '%s' could not be validated, see errors above\n"
 msgstr ""
 
-#: builder/index-validate.c:115
-#, c-format
-msgid "%s: %s: error reading input file: %m\n"
-msgstr ""
-
-#: builder/index-validate.c:121
+#: builder/index-validate.c:129
 #, c-format
 msgid "%s: %s contains comments which will not work with virt-builder 1.24.1\n"
 msgstr ""
 
-#: builder/index-validate.c:133
+#: builder/index-validate.c:142
 #, c-format
 msgid ""
 "%s: %s: section [%s] has invalid characters which will not work with virt-"
 "builder 1.24.0\n"
 msgstr ""
 
-#: builder/index-validate.c:143
+#: builder/index-validate.c:153
 #, c-format
 msgid ""
 "%s: %s: section [%s], field '%s' has invalid characters which will not work "
 "with virt-builder 1.24.0\n"
 msgstr ""
 
-#: builder/index-validate.c:151
+#: builder/index-validate.c:162
 #, c-format
 msgid ""
 "%s: %s: section [%s], field '%s' has invalid characters which will not work "
 "with virt-builder 1.24.1\n"
 msgstr ""
 
-#: builder/index-validate.c:161
+#: builder/index-validate.c:173
 #, c-format
 msgid ""
 "%s: %s: section [%s] is missing a 'sig' field which will not work with virt-"
@@ -7359,23 +7363,23 @@ msgstr "для інтерактивного з’єднання дисків с�
 msgid "disk with label '%s' not found"
 msgstr "диска з міткою «%s» не знайдено"
 
-#: src/errors.c:232
+#: src/errors.c:234
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: помилка: %s\n"
 
-#: src/errors.c:260
+#: src/errors.c:262
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<скорочено, початковий розмір — %zu байтів>"
 
-#: src/errors.c:280
+#: src/errors.c:282
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "спроба виклику guestfs_launch була невдалою, ознайомтеся з попередніми "
 "повідомленнями"
 
-#: src/errors.c:283
+#: src/errors.c:285
 msgid ""
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
@@ -7391,14 +7395,14 @@ msgstr ""
 "звіту\n"
 "щодо вади *повністю* чи надішліть їх до списку листування libguestfs."
 
-#: src/errors.c:295
+#: src/errors.c:297
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
 "базова система несподівано розірвала з’єднання, див. попередні повідомлення "
 "про помилки"
 
-#: src/errors.c:298
+#: src/errors.c:300
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
@@ -7411,11 +7415,11 @@ msgstr ""
 "щоб дізнатися більше про діагностування помилок у libguestfs та звітування\n"
 "про вади."
 
-#: src/errors.c:309
+#: src/errors.c:311
 msgid "appliance launch timed out, see earlier error messages"
 msgstr ""
 
-#: src/errors.c:312
+#: src/errors.c:314
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
@@ -7423,17 +7427,17 @@ msgid ""
 "for information about how to debug libguestfs and report bugs."
 msgstr ""
 
-#: src/errors.c:330
+#: src/errors.c:332
 #, c-format
 msgid "%s, see debug messages above"
 msgstr "%s, див. діагностичні повідомлення вище"
 
-#: src/errors.c:332
+#: src/errors.c:334
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr "%s: %s: %s, див. діагностичні повідомлення вище"
 
-#: src/errors.c:338
+#: src/errors.c:340
 #, c-format
 msgid ""
 "%s.\n"
@@ -7445,7 +7449,7 @@ msgstr ""
 "діагностику.\n"
 "Див. http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
 
-#: src/errors.c:344
+#: src/errors.c:346
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
@@ -7457,12 +7461,12 @@ msgstr ""
 "діагностику.\n"
 "Див. http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
 
-#: src/filearch.c:158
+#: src/filearch.c:159
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
-#: src/filearch.c:268
+#: src/filearch.c:274
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -7470,50 +7474,50 @@ msgstr ""
 "файлово-архітектурний програмний інтерфейс недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки libmagic"
 
-#: src/fuse.c:938
+#: src/fuse.c:927
 msgid "filesystem is already mounted in another thread"
 msgstr "файлову систему вже змонтовано у іншому потоці виконання команд"
 
-#: src/fuse.c:963
+#: src/fuse.c:952
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr "fuse_opt_add_arg: %s"
 
-#: src/fuse.c:980
+#: src/fuse.c:969
 #, c-format
 msgid "fuse_mount: %s"
 msgstr "fuse_mount: %s"
 
-#: src/fuse.c:998
+#: src/fuse.c:987
 #, c-format
 msgid "fuse_new: %s"
 msgstr "fuse_new: %s"
 
-#: src/fuse.c:1027
+#: src/fuse.c:1016
 msgid "you must call guestfs_mount_local first"
 msgstr "вам слід спочатку викликати guestfs_mount_local"
 
-#: src/fuse.c:1038
+#: src/fuse.c:1027
 #, c-format
 msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
 "Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
 msgstr ""
 
-#: src/fuse.c:1048
+#: src/fuse.c:1037
 #, c-format
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: src/fuse.c:1098
+#: src/fuse.c:1087
 msgid "no filesystem is mounted"
 msgstr "не змонтовано жодної файлової системи"
 
-#: src/fuse.c:1216
+#: src/fuse.c:1205
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: src/fuse.c:1468
+#: src/fuse.c:1460
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -7593,8 +7597,8 @@ msgid "release file %s is empty or malformed"
 msgstr "файл випуску %s є порожнім або форматованим з помилками"
 
 #: src/inspect-fs-unix.c:253 src/inspect-fs-unix.c:335
-#: src/inspect-fs-unix.c:879 src/inspect-fs-unix.c:1565 src/inspect-fs.c:564
-#: src/inspect-fs.c:610 src/inspect.c:530
+#: src/inspect-fs-unix.c:879 src/inspect-fs-unix.c:1579 src/inspect-fs.c:564
+#: src/inspect-fs.c:610 src/inspect.c:539
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
@@ -7613,20 +7617,20 @@ msgstr "не вдалося обробити ціле число у номері
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
 
-#: src/inspect.c:229
+#: src/inspect.c:234
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
 
-#: src/inspect.c:245
+#: src/inspect.c:250
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 "не є гостьовою системою Windows або не вдалося визначити CurrentControlSet"
 
-#: src/inspect.c:566
+#: src/inspect.c:577
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
-#: src/inspect.c:578
+#: src/inspect.c:587
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -7670,7 +7674,7 @@ msgstr ""
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-direct.c:1421
+#: src/launch-direct.c:1422
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
@@ -7679,26 +7683,26 @@ msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1439
+#: src/launch-direct.c:1438
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1447
+#: src/launch-direct.c:1446
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1456
+#: src/launch-direct.c:1454
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1479
+#: src/launch-direct.c:1477
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -8290,40 +8294,40 @@ msgstr "Виконуваного файла «%s» не існує або вка
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
 
-#: tools/virt-list-filesystems:149
+#: tools/virt-list-filesystems:147
 msgid "virt-list-filesystems: no image or VM name given"
 msgstr "virt-list-filesystems: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-list-partitions:161
+#: tools/virt-list-partitions:159
 msgid "virt-list-partitions: no image or VM name given"
 msgstr "virt-list-partitions: не вказано образу або назви віртуальної машини"
 
-#: tools/virt-tar:192 tools/virt-tar:199
+#: tools/virt-tar:190 tools/virt-tar:197
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 "virt-tar: у командному рядку двічі вказано режим видобування або "
 "вивантаження\n"
 
-#: tools/virt-tar:221
+#: tools/virt-tar:219
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 "virt-tar: не вказано образу, назв віртуальних машин, каталогу або назви файла"
 
-#: tools/virt-tar:224
+#: tools/virt-tar:222
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: у командному рядку має бути вказано -x або -u\n"
 
-#: tools/virt-tar:235
+#: tools/virt-tar:233
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: файла не знайдено\n"
 
-#: tools/virt-tar:238
+#: tools/virt-tar:236
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: запис каталогу має починатися з символу «/»\n"
 
-#: tools/virt-tar:260 tools/virt-win-reg:300
+#: tools/virt-tar:258 tools/virt-win-reg:298
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -8345,18 +8349,18 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: tools/virt-tar:264 tools/virt-win-reg:304
+#: tools/virt-tar:262 tools/virt-win-reg:302
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 "{prog}: підтримки операційних систем з варіантами завантаження не "
 "передбачено.\n"
 
-#: tools/virt-win-reg:244
+#: tools/virt-win-reg:242
 msgid "no libvirt domain name or disk image given\n"
 msgstr "не вказано назви домену або образу диска libvirt\n"
 
-#: tools/virt-win-reg:326
+#: tools/virt-win-reg:324
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -8364,22 +8368,22 @@ msgstr ""
 "мало бути вказано 1 або 2 додаткових параметри, шлях до підключа і "
 "необов’язкове значення для експортування\n"
 
-#: tools/virt-win-reg:485
+#: tools/virt-win-reg:483
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr "virt-win-reg: {p}: не вдалося знайти каталог користувача\n"
 
-#: tools/virt-win-reg:490
+#: tools/virt-win-reg:488
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: непідтримуваний запис шляху у регістрі Windows\n"
 
-#: tools/virt-win-reg:563
+#: tools/virt-win-reg:561
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося отримати файл регістра: {err}\n"
 
-#: tools/virt-win-reg:580
+#: tools/virt-win-reg:578
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
