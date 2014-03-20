@@ -28,6 +28,8 @@ type source = {
   gpgkey : string option;
 }
 
+module StringSet = Set.Make (String)
+
 let parse_conf ~prog ~debug file =
   if debug then (
     eprintf (f_"%s: trying to read %s\n") prog file;
@@ -96,15 +98,23 @@ let read_sources ~prog ~debug =
     | None -> dirs
     | Some dir -> dir :: dirs in
   let dirs = List.map (fun x -> x // "repos.d") dirs in
-  List.fold_right (
-    fun dir acc ->
+  let fnseen = ref StringSet.empty in
+  List.fold_left (
+    fun acc dir ->
       let files =
         try List.filter filter_filenames (Array.to_list (Sys.readdir dir))
         with Sys_error _ -> [] in
-      let files = List.map (fun x -> dir // x) files in
+      let files = List.filter (fun x -> StringSet.mem x !fnseen <> true) files in
       List.fold_left (
         fun acc file ->
-          try merge_sources acc (parse_conf ~prog ~debug file) with
+          try (
+            let s = merge_sources acc (parse_conf ~prog ~debug (dir // file)) in
+            (* Add the current file name to the set only if its parsing
+             * was successful.
+             *)
+            fnseen := StringSet.add file !fnseen;
+            s
+          ) with
           | Unix_error (code, fname, _) ->
             if debug then (
               eprintf (f_"%s: file error: %s: %s\n") prog fname (error_message code)
@@ -116,4 +126,4 @@ let read_sources ~prog ~debug =
             );
             acc
       ) acc files
-  ) dirs []
+  ) [] dirs
