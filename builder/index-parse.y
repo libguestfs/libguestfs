@@ -108,6 +108,8 @@ sections:
         { $$ = $1; }
     | section EMPTY_LINE emptylines sections
         { $$ = $1; $$->next = $4; }
+    | emptylines
+        { $$ = NULL; }
 
 section:
       SECTION_HEADER fields
