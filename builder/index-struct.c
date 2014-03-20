@@ -24,9 +24,6 @@
 
 #include "index-struct.h"
 
-static void free_section (struct section *section);
-static void free_field (struct field *field);
-
 void
 parse_context_init (struct parse_context *context)
 {
@@ -36,25 +33,25 @@ parse_context_init (struct parse_context *context)
 void
 parse_context_free (struct parse_context *context)
 {
-  free_section (context->parsed_index);
+  section_free (context->parsed_index);
 }
 
-static void
-free_section (struct section *section)
+void
+section_free (struct section *section)
 {
   if (section) {
-    free_section (section->next);
+    section_free (section->next);
     free (section->name);
-    free_field (section->fields);
+    field_free (section->fields);
     free (section);
   }
 }
 
-static void
-free_field (struct field *field)
+void
+field_free (struct field *field)
 {
   if (field) {
-    free_field (field->next);
+    field_free (field->next);
     free (field->key);
     free (field->subkey);
     free (field->value);

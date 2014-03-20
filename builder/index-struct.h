@@ -53,4 +53,14 @@ extern void parse_context_init (struct parse_context *state);
 /* Free the content of a parse_context.  The actual pointer is not freed. */
 extern void parse_context_free (struct parse_context *state);
 
+/* Free the content of a section, recursively freeing also its fields.
+ * The actual pointer is not freed.
+ */
+extern void section_free (struct section *section);
+
+/* Free the content of a field, recursively freeing also its next field.
+ * The actual pointer is not freed.
+ */
+extern void field_free (struct field *field);
+
 #endif /* INDEX_STRUCT_H */
