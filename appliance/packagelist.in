@@ -27,7 +27,6 @@ ifelse(REDHAT,1,
   e2fsprogs
   dnl e4fsprogs only exists on RHEL 5, will be ignored everywhere else.
   e4fsprogs
-  genisoimage
   gfs-utils
   gfs2-utils
   grub
@@ -59,7 +58,6 @@ ifelse(DEBIAN,1,
   cryptsetup
   e2fsprogs
   extlinux
-  genisoimage
   gfs-tools
   gfs2-tools
   grub-pc
