@@ -36,6 +36,7 @@ class device_side_effects = object end
 type 'a callback = Guestfs.guestfs -> string -> 'a -> unit
 
 type operation = {
+  order : int;
   name : string;
   enabled_by_default : bool;
   heading : string;
@@ -51,9 +52,8 @@ and extra_arg = {
   extra_pod_description : string;
 }
 
-let compare_operations { name = n1 } { name = n2 } = compare n1 n2
-
 let defaults = {
+  order = 0;
   name = "";
   enabled_by_default = false;
   heading = "";
@@ -112,6 +112,9 @@ let register_operation op =
 
 let baked = ref false
 let rec bake () =
+  (* Note we actually want all_operations to be sorted by name,
+   * ignoring the order field.
+   *)
   let ops =
     List.sort (fun { name = a } { name = b } -> compare a b) !all_operations in
   check_no_dupes ops;
@@ -268,6 +271,10 @@ let list_operations () =
         (if op.enabled_by_default then "*" else " ")
         op.heading
   ) !all_operations
+
+let compare_operations { order = o1; name = n1 } { order = o2; name = n2 } =
+  let i = compare o1 o2 in
+  if i <> 0 then i else compare n1 n2
 
 let perform_operations_on_filesystems ?operations ?(quiet = false) g root
     side_effects =

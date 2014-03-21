@@ -38,6 +38,13 @@ type 'side_effects callback = Guestfs.guestfs -> string -> 'side_effects -> unit
 
 (** Structure used to describe sysprep operations. *)
 type operation = {
+  order : int;
+  (** This is used to control the order in which operations run.  The
+      default is [0], so most operations run in alphabetical order at
+      the same level.  You can make an operation run after others by
+      giving it a [>0] order.  You can make an operation run before
+      others by giving it a [<0] order. *)
+
   name : string;
   (** Operation name, also used to enable the operation on the command
       line.  Must contain only alphanumeric and '-' (dash)
