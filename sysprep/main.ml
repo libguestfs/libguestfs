@@ -33,7 +33,7 @@ let prog = Filename.basename Sys.executable_name
 
 let () = Random.self_init ()
 
-let debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose =
+let debug_gc, operations, g, quiet, mount_opts, verbose =
   let debug_gc = ref false in
   let domain = ref None in
   let dryrun = ref false in
@@ -42,7 +42,6 @@ let debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose =
   let quiet = ref false in
   let libvirturi = ref "" in
   let operations = ref None in
-  let autorelabel = ref `Auto in
   let trace = ref false in
   let verbose = ref false in
   let mount_opts = ref "" in
@@ -123,10 +122,6 @@ let debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose =
             exit 1
     ) currentopset ops in
     operations := Some opset
-  and force_autorelabel () =
-    autorelabel := `Force
-  and no_force_autorelabel () =
-    autorelabel := `Never
   and list_operations () =
     Sysprep_operation.list_operations ();
     exit 0
@@ -135,8 +130,6 @@ let debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose =
   let basic_args = [
     "-a",        Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
     "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
-    "--autorelabel", Arg.Unit force_autorelabel, " " ^ s_"Force SELinux relabel";
-    "--no-autorelabel", Arg.Unit no_force_autorelabel, " " ^ s_"Never do SELinux relabel";
     "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
     "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
     "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations (internal)";
@@ -156,8 +149,6 @@ let debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose =
     "--operations", Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
     "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
-    "--selinux-relabel", Arg.Unit force_autorelabel, " " ^ s_"Use --autorelabel";
-    "--no-selinux-relabel", Arg.Unit no_force_autorelabel, " " ^ s_"Use --no-autorelabel";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
@@ -226,7 +217,6 @@ read the man page virt-sysprep(1).
   let dryrun = !dryrun in
   let operations = !operations in
   let quiet = !quiet in
-  let autorelabel = !autorelabel in
   let trace = !trace in
   let verbose = !verbose in
 
@@ -249,7 +239,7 @@ read the man page virt-sysprep(1).
   add g dryrun;
   g#launch ();
 
-  debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose
+  debug_gc, operations, g, quiet, mount_opts, verbose
 
 let do_sysprep () =
   (* Inspection. *)
@@ -280,25 +270,6 @@ let do_sysprep () =
         (* Perform the filesystem operations. *)
         Sysprep_operation.perform_operations_on_filesystems
           ?operations ~debug:verbose ~quiet g root side_effects;
-
-        (* Check side-effects. *)
-        let created_files = side_effects#get_created_file in
-
-        (* SELinux relabel? *)
-        let relabel =
-          match autorelabel, created_files with
-          | `Force, _ -> true
-          | `Never, _ -> false
-          | `Auto, created_files -> created_files in
-        if relabel then (
-          let typ = g#inspect_get_type root in
-          let distro = g#inspect_get_distro root in
-          match typ, distro with
-          | "linux", ("fedora"|"rhel"|"redhat-based"
-                         |"centos"|"scientificlinux") ->
-            g#touch "/.autorelabel"
-          | _ -> ()
-        );
 
         (* Unmount everything in this guest. *)
         g#umount_all ();

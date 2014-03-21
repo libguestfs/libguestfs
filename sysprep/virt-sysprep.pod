@@ -59,16 +59,6 @@ force a particular format use the I<--format> option.
 Add a remote disk.  The URI format is compatible with guestfish.
 See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
-=item B<--autorelabel>
-
-=item B<--no-autorelabel>
-
-I<--autorelabel> forces SELinux relabelling next time the guest
-boots.  I<--no-autorelabel> disables relabelling.
-
-The default is to try to detect if SELinux relabelling is required.
-See L</SELINUX RELABELLING> below for more details.
-
 =item B<-c> URI
 
 =item B<--connect> URI
@@ -515,21 +505,6 @@ module:
 
  cp template.img newguest.img
  virt-sysprep --enable customize -a newguest.img
-
-=head2 SELINUX RELABELLING
-
-I<(This section applies to Linux guests using SELinux only)>
-
-If any new files are created by virt-sysprep, then virt-sysprep
-touches C</.autorelabel> so that these will be correctly labelled by
-SELinux the next time the guest is booted.  This process interrupts
-boot and can take some time.
-
-You can force relabelling for all guests by supplying the
-I<--autorelabel> option.
-
-You can disable relabelling entirely by supplying the
-I<--no-autorelabel> option.
 
 =head1 WINDOWS 8
 
