@@ -47,8 +47,11 @@ guestfs__list_filesystems (guestfs_h *g)
 {
   size_t i;
   DECLARE_STRINGSBUF (ret);
+
   const char *lvm2[] = { "lvm2", NULL };
+  int has_lvm2 = guestfs_feature_available (g, (char **) lvm2);
   const char *ldm[] = { "ldm", NULL };
+  int has_ldm = guestfs_feature_available (g, (char **) ldm);
 
   CLEANUP_FREE_STRING_LIST char **devices = NULL;
   CLEANUP_FREE_STRING_LIST char **partitions = NULL;
@@ -83,7 +86,7 @@ guestfs__list_filesystems (guestfs_h *g)
 
   /* Use vfs-type to check for filesystems on partitions. */
   for (i = 0; partitions[i] != NULL; ++i) {
-    if (! is_mbr_partition_type_42 (g, partitions[i])) {
+    if (has_ldm == 0 || ! is_mbr_partition_type_42 (g, partitions[i])) {
       if (check_with_vfs_type (g, partitions[i], &ret) == -1)
         goto error;
     }
@@ -94,7 +97,7 @@ guestfs__list_filesystems (guestfs_h *g)
     if (check_with_vfs_type (g, mds[i], &ret) == -1)
       goto error;
 
-  if (guestfs_feature_available (g, (char **) lvm2)) {
+  if (has_lvm2 > 0) {
     /* Use vfs-type to check for filesystems on LVs. */
     lvs = guestfs_lvs (g);
     if (lvs == NULL) goto error;
@@ -104,7 +107,7 @@ guestfs__list_filesystems (guestfs_h *g)
         goto error;
   }
 
-  if (guestfs_feature_available (g, (char **) ldm)) {
+  if (has_ldm > 0) {
     /* Use vfs-type to check for filesystems on Windows dynamic disks. */
     ldmvols = guestfs_list_ldm_volumes (g);
     if (ldmvols == NULL) goto error;
