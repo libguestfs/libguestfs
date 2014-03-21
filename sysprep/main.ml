@@ -33,7 +33,7 @@ let prog = Filename.basename Sys.executable_name
 
 let () = Random.self_init ()
 
-let debug_gc, operations, g, autorelabel, quiet, mount_opts =
+let debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose =
   let debug_gc = ref false in
   let domain = ref None in
   let dryrun = ref false in
@@ -239,8 +239,8 @@ read the man page virt-sysprep(1).
   let mount_opts mp =
     try List.assoc mp mount_opts with Not_found -> "" in
 
-  if not quiet then
-    printf (f_"Examining the guest ...\n%!");
+  let msg fs = make_message_function ~quiet fs in
+  msg (f_"Examining the guest ...");
 
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
@@ -249,7 +249,7 @@ read the man page virt-sysprep(1).
   add g dryrun;
   g#launch ();
 
-  debug_gc, operations, g, autorelabel, quiet, mount_opts
+  debug_gc, operations, g, autorelabel, quiet, mount_opts, verbose
 
 let do_sysprep () =
   (* Inspection. *)
@@ -279,7 +279,7 @@ let do_sysprep () =
 
         (* Perform the filesystem operations. *)
         Sysprep_operation.perform_operations_on_filesystems
-          ?operations ~quiet g root side_effects;
+          ?operations ~debug:verbose ~quiet g root side_effects;
 
         (* Check side-effects. *)
         let created_files = side_effects#get_created_file in
@@ -307,7 +307,7 @@ let do_sysprep () =
 
         (* Perform the block device operations. *)
         Sysprep_operation.perform_operations_on_devices
-          ?operations ~quiet g root side_effects;
+          ?operations ~debug:verbose ~quiet g root side_effects;
     ) roots
 
 (* Finished. *)

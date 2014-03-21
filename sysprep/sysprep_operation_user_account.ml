@@ -25,7 +25,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let user_account_perform g root side_effects =
+let user_account_perform ~debug ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     g#aug_init "/" 0;

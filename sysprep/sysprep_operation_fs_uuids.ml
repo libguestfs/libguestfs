@@ -23,7 +23,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let rec fs_uuids_perform g root side_effects =
+let rec fs_uuids_perform ~debug ~quiet g root side_effects =
   let fses = g#list_filesystems () in
   List.iter (function
   | _, "unknown" -> ()
