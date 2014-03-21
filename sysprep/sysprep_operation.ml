@@ -51,6 +51,8 @@ and extra_arg = {
   extra_pod_description : string;
 }
 
+let compare_operations { name = n1 } { name = n2 } = compare n1 n2
+
 let defaults = {
   name = "";
   enabled_by_default = false;
@@ -277,6 +279,9 @@ let perform_operations_on_filesystems ?operations ?(quiet = false) g root
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
 
+  (* Perform the operations in alphabetical, rathern than random order. *)
+  let ops = List.sort compare_operations ops in
+
   List.iter (
     function
     | { name = name; perform_on_filesystems = Some fn } ->
@@ -295,6 +300,9 @@ let perform_operations_on_devices ?operations ?(quiet = false) g root
     | None -> !enabled_by_default_operations
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
+
+  (* Perform the operations in alphabetical, rathern than random order. *)
+  let ops = List.sort compare_operations ops in
 
   List.iter (
     function
