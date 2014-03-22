@@ -41,7 +41,7 @@ let rec get_kernel ~debug ?format ?output disk =
     exit 1
   );
   if Array.length roots > 1 then (
-    eprintf (f_"virt-builder: get-kernel: daual/mult-boot images are not supported by this tool\n");
+    eprintf (f_"virt-builder: get-kernel: dual/multi-boot images are not supported by this tool\n");
     exit 1
   );
   let root = roots.(0) in
