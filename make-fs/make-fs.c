@@ -459,7 +459,7 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
     }
 
     if (strstr (line, "tar archive") == NULL) {
-      fprintf (stderr, _("%s: %s: input is not a directory, tar archive or compressed tar achive\n"),
+      fprintf (stderr, _("%s: %s: input is not a directory, tar archive or compressed tar archive\n"),
                program_name, input);
       return -1;
     }
