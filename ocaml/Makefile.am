@@ -54,15 +54,25 @@ noinst_LIBRARIES = libguestfsocaml.a
 # 'libmlguestfs.a' and if run at the same time, they will stomp on or
 # corrupt each others copy.  Hence we have to serialize the calls.
 
-mlguestfs.cma: libguestfsocaml.a guestfs.cmo
+CLEANFILES += stamp-mlguestfs
+
+mlguestfs.cma mlguestfs.cmxa: stamp-mlguestfs
+
+guestfs_cmm = guestfs.cmo
+if HAVE_OCAMLOPT
+guestfs_cmm += guestfs.cmx
+endif
+
+stamp-mlguestfs: libguestfsocaml.a $(guestfs_cmm)
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
 	  -L$(top_builddir)/src/.libs -lguestfs
-
-mlguestfs.cmxa: libguestfsocaml.a guestfs.cmx
+if HAVE_OCAMLOPT
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
 	  -L$(top_builddir)/src/.libs -lguestfs
+endif
+	touch $@
 
 libguestfsocaml_a_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
@@ -189,7 +199,3 @@ install-data-hook:
 CLEANFILES += $(noinst_DATA)
 
 endif
-
-# Tell version 3.79 and up of GNU make to not build goals in this
-# directory in parallel.
-.NOTPARALLEL:
