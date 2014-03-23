@@ -17,7 +17,7 @@ dnl
 dnl   ./configure --with-extra-packages="gdb valgrind [etc]"
 
 dnl Basically the same with a few minor tweaks.
-ifelse(UBUNTU,1,define(DEBIAN,1))
+ifelse(UBUNTU,1,`define(`DEBIAN',1)')
 
 ifelse(REDHAT,1,
   augeas-libs
