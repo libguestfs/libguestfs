@@ -568,7 +568,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
      */
     if (drv->iface && STREQ (drv->iface, "virtio")) /* virtio-blk */
       goto virtio_blk;
-#if defined(__arm__) || defined(__powerpc__)
+#if defined(__arm__) || defined(__aarch64__) || defined(__powerpc__)
     else if (drv->iface && STREQ (drv->iface, "ide")) {
       error (g, "'ide' interface does not work on ARM or PowerPC");
       goto cleanup0;
