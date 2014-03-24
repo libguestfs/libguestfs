@@ -996,7 +996,7 @@ construct_libvirt_xml_cpu (guestfs_h *g,
     string_format ("%d", g->memsize);
   } end_element ();
 
-#ifndef __arm__
+#if !defined(__arm__)
   /* It is faster to pass the CPU host model to the appliance,
    * allowing maximum speed for things like checksums, encryption.
    * Only do this with KVM.  It is broken in subtle ways on TCG, and
@@ -1153,7 +1153,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
         string (g->hv);
       } end_element ();
     }
-#ifdef __arm__
+#if defined(__arm__)
     /* Hopefully temporary hack to make ARM work (otherwise libvirt
      * chooses to run /usr/bin/qemu-kvm).
      */
