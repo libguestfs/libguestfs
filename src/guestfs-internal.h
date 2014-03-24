@@ -126,17 +126,17 @@
 /* Differences in device names on ARM (virtio-mmio) vs normal
  * hardware with PCI.
  */
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
 #define VIRTIO_BLK "virtio-blk-pci"
 #define VIRTIO_SCSI "virtio-scsi-pci"
 #define VIRTIO_SERIAL "virtio-serial-pci"
 #define VIRTIO_NET "virtio-net-pci"
-#else /* __arm__ */
+#else /* ARM */
 #define VIRTIO_BLK "virtio-blk-device"
 #define VIRTIO_SCSI "virtio-scsi-device"
 #define VIRTIO_SERIAL "virtio-serial-device"
 #define VIRTIO_NET "virtio-net-device"
-#endif /* __arm__ */
+#endif /* ARM */
 
 /* Machine types.  XXX Make these configurable. */
 #ifdef __arm__
