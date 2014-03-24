@@ -1032,7 +1032,7 @@ construct_libvirt_xml_cpu (guestfs_h *g,
     /* libvirt has a bug (RHBZ#1066145) where it adds the -no-hpet
      * flag on ARM & ppc64.
      */
-#if !defined(__arm__) && !defined(__powerpc__)
+#if !defined(__arm__) && !defined(__aarch64__) && !defined(__powerpc__)
     start_element ("timer") {
       attribute ("name", "hpet");
       attribute ("present", "no");
