@@ -70153,7 +70153,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs.pod:2485
 msgid "__AVAILABILITY__"
-msgstr "__ДОСТУПНІСТЬ__"
+msgstr "__AVAILABILITY__"
 
 #. type: =head2
 #: ../src/guestfs.pod:2487
