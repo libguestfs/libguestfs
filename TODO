@@ -584,3 +584,9 @@ Midnight Commander (mc) extension
 Write an extension for mc that would let people browse into
 filesystems.  See
 http://repo.or.cz/w/midnight-commander.git/tree/HEAD:/misc/ext.d
+
+Python
+------
+
+It seems as if we should call PyErr_Clear() somewhere in every
+Python binding.
