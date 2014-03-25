@@ -239,6 +239,7 @@ HTMLFILES = \
 	html/virt-cat.1.html \
 	html/virt-copy-in.1.html \
 	html/virt-copy-out.1.html \
+	html/virt-customize.1.html \
 	html/virt-df.1.html \
 	html/virt-diff.1.html \
 	html/virt-edit.1.html \

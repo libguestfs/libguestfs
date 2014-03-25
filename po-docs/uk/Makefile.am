@@ -116,6 +116,15 @@ virt-builder.1: virt-builder.pod customize-synopsis.pod customize-options.pod
 	  --insert $(srcdir)/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
 	  $<
 
+virt-customize.1: virt-customize.pod customize-synopsis.pod customize-options.pod
+	$(PODWRAPPER) \
+	  --no-strict-checks \
+	  --man $@ \
+	  --license GPLv2+ \
+	  --insert $(srcdir)/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
+	  --insert $(srcdir)/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
+	  $<
+
 virt-sysprep.1: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod
 	$(PODWRAPPER) \
 	  --no-strict-checks \

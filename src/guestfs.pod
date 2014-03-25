@@ -4274,7 +4274,7 @@ Outside contributions, experimental parts.
 
 =item C<customize>
 
-virt-customize mini-library.
+L<virt-customize(1)> command and documentation.
 
 =item C<daemon>
 
@@ -4735,6 +4735,7 @@ L<virt-builder(1)>,
 L<virt-cat(1)>,
 L<virt-copy-in(1)>,
 L<virt-copy-out(1)>,
+L<virt-customize(1)>,
 L<virt-df(1)>,
 L<virt-diff(1)>,
 L<virt-edit(1)>,

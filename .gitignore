@@ -95,7 +95,9 @@ Makefile.in
 /customize/customize_cmdline.mli
 /customize/customize-options.pod
 /customize/customize-synopsis.pod
+/customize/stamp-virt-customize.pod
 /customize/virt-customize
+/customize/virt-customize.1
 /daemon/actions.h
 /daemon/errnostring.c
 /daemon/errnostring-gperf.c
@@ -236,6 +238,7 @@ Makefile.in
 /html/virt-cat.1.html
 /html/virt-copy-in.1.html
 /html/virt-copy-out.1.html
+/html/virt-customize.1.html
 /html/virt-df.1.html
 /html/virt-diff.1.html
 /html/virt-edit.1.html

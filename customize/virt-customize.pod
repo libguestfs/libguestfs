@@ -1,0 +1,156 @@
+=head1 NAME
+
+virt-customize - Customize a virtual machine
+
+=head1 SYNOPSIS
+
+ virt-customize [--options] -d domname
+__CUSTOMIZE_SYNOPSIS__
+
+ virt-customize [--options] -a disk.img [-a disk.img ...]
+__CUSTOMIZE_SYNOPSIS__
+
+=head1 DESCRIPTION
+
+Virt-customize can customize a virtual machine (disk image) by
+installing packages, editing configuration files, and so on.
+
+Virt-customize modifies the guest or disk image I<in place>.  The
+guest must be shut down.  If you want to preserve the existing
+contents of the guest, I<you must snapshot, copy or clone the disk first>.
+
+You do I<not> need to run virt-customize as root.  In fact we'd
+generally recommend that you don't.
+
+Related tools include: L<virt-sysprep(1)> and L<virt-builder(1)>.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file> which should be a disk image from a virtual machine.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format> option.
+
+=item B<-a> URI
+
+=item B<--add> URI
+
+Add a remote disk.  The URI format is compatible with guestfish.
+See L<guestfish(1)/ADDING REMOTE STORAGE>.
+
+=item B<-c> URI
+
+=item B<--connect> URI
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
+
+=item B<-d> guest
+
+=item B<--domain> guest
+
+Add all the disks from the named libvirt guest.  Domain UUIDs can be
+used instead of names.
+
+=item B<-n>
+
+=item B<--dry-run>
+
+Perform a read-only "dry run" on the guest.  This runs the sysprep
+operation, but throws away any changes to the disk at the end.
+
+=item B<--format> raw|qcow2|..
+
+=item B<--format> auto
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format auto> switches back to
+auto-detection for subsequent I<-a> options.
+
+For example:
+
+ virt-customize --format raw -a disk.img
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ virt-customize --format raw -a disk.img --format auto -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).
+
+=item B<-q>
+
+=item B<--quiet>
+
+Don't print log messages.
+
+To enable detailed logging of individual file operations, use I<-x>.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head2 Customization options
+
+__CUSTOMIZE_OPTIONS__
+
+=head1 EXIT STATUS
+
+This program returns 0 on success, or 1 if there was an error.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-builder(1)>,
+L<virt-clone(1)>,
+L<virt-rescue(1)>,
+L<virt-resize(1)>,
+L<virt-sparsify(1)>,
+L<virt-sysprep(1)>,
+L<virsh(1)>,
+L<lvcreate(8)>,
+L<qemu-img(1)>,
+L<scrub(1)>,
+L<http://libguestfs.org/>,
+L<http://libvirt.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011-2014 Red Hat Inc.

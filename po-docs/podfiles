@@ -5,6 +5,9 @@
 ../cat/virt-cat.pod
 ../cat/virt-filesystems.pod
 ../cat/virt-ls.pod
+../customize/customize-options.pod
+../customize/customize-synopsis.pod
+../customize/virt-customize.pod
 ../daemon/guestfsd.pod
 ../df/virt-df.pod
 ../diff/virt-diff.pod

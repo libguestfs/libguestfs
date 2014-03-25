@@ -18,9 +18,14 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES)
+	$(SOURCES) \
+	test-virt-customize.sh \
+	virt-customize.pod
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o
+CLEANFILES = \
+	*~ *.cmi *.cmo *.cmx *.cmxa *.o \
+	stamp-virt-customize.pod \
+	virt-customize virt-customize.1
 
 generator_built = \
 	customize_cmdline.mli \
@@ -41,6 +46,7 @@ SOURCES = \
 	firstboot.mli \
 	hostname.ml \
 	hostname.mli \
+	main.ml \
 	password.ml \
 	password.mli \
 	perl_edit.ml \
@@ -55,8 +61,12 @@ SOURCES = \
 if HAVE_OCAML
 
 deps = \
+	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
+	$(top_builddir)/mllib/config.cmx \
+	$(top_builddir)/mllib/uri-c.o \
+	$(top_builddir)/mllib/uRI.cmx \
 	crypt-c.o
 
 if HAVE_OCAMLOPT
@@ -76,7 +86,8 @@ ocaml_modules = \
 	random_seed \
 	timezone \
 	customize_cmdline \
-	customize_run
+	customize_run \
+	main
 
 if HAVE_OCAMLOPT
 OBJECTS += $(patsubst %,%.cmx,$(ocaml_modules))
@@ -84,9 +95,7 @@ else
 OBJECTS += $(patsubst %,%.cmo,$(ocaml_modules))
 endif
 
-# XXX virt-customize isn't a complete tool yet, so currently this is
-# just a dummy target binary.
-noinst_SCRIPTS = virt-customize
+bin_SCRIPTS = virt-customize
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
@@ -144,11 +153,29 @@ DEFAULT_INCLUDES = \
 .c.o:
 	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
 
+# Manual pages and HTML files for the website.
+man_MANS = virt-customize.1
+noinst_DATA = $(top_builddir)/html/virt-customize.1.html
+
+virt-customize.1 $(top_builddir)/html/virt-customize.1.html: stamp-virt-customize.pod
+
+stamp-virt-customize.pod: virt-customize.pod $(top_srcdir)/customize/customize-synopsis.pod $(top_srcdir)/customize/customize-options.pod
+	$(PODWRAPPER) \
+	  --man virt-customize.1 \
+	  --html $(top_builddir)/html/virt-customize.1.html \
+	  --insert $(top_srcdir)/customize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
+	  --insert $(top_srcdir)/customize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
 # Tests.
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-TESTS =
+if ENABLE_APPLIANCE
+TESTS = test-virt-customize.sh
+endif
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
