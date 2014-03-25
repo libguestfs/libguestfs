@@ -11,6 +11,54 @@ document.body.style.backgroundRepeat = "no-repeat";
 
 =end comment
 
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.26
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.24.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+=head3 Tools
+
+=head3 Language bindings
+
+=head3 API
+
+=head3 Inspection
+
+=head2 Security
+
+=over 4
+
+=back
+
+=head2 New APIs
+
+=head2 Build changes
+
+The following packages are required to build libguestfs 1.26:
+
+=over 4
+
+=back
+
+=head2 Internals
+
+=head2 Bugs fixed
+
+=begin comment
+
+./bugs-in-changelog.sh 1.22.0..
+
+=end comment
+
+=over 4
+
+=back
+
+=for comment ################################################################
+
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.24
 
 These release notes only cover the differences from the previous
