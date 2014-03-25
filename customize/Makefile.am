@@ -46,7 +46,7 @@ SOURCES = \
 	firstboot.mli \
 	hostname.ml \
 	hostname.mli \
-	main.ml \
+	customize_main.ml \
 	password.ml \
 	password.mli \
 	perl_edit.ml \
@@ -87,7 +87,7 @@ ocaml_modules = \
 	timezone \
 	customize_cmdline \
 	customize_run \
-	main
+	customize_main
 
 if HAVE_OCAMLOPT
 OBJECTS += $(patsubst %,%.cmx,$(ocaml_modules))
