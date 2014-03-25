@@ -147,6 +147,9 @@
 #define MACHINE_TYPE "vexpress-a15"
 #define DTB_WILDCARD "vexpress*a15-tc1.dtb"
 #endif
+#ifdef __aarch64__
+#define MACHINE_TYPE "virt"
+#endif
 #ifdef __powerpc__
 #define MACHINE_TYPE "pseries"
 #endif
