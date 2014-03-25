@@ -19,6 +19,8 @@
 open Common_gettext.Gettext
 open Common_utils
 
+open Customize_cmdline
+
 open Printf
 
 module G = Guestfs
@@ -28,13 +30,25 @@ let () = Random.self_init ()
 let prog = Filename.basename Sys.executable_name
 
 let main () =
+  let attach = ref [] in
+  let attach_format = ref None in
+  let set_attach_format = function
+    | "auto" -> attach_format := None
+    | s -> attach_format := Some s
+  in
+  let attach_disk s = attach := (!attach_format, s) :: !attach in
   let debug_gc = ref false in
   let domain = ref None in
   let dryrun = ref false in
   let files = ref [] in
   let format = ref "auto" in
-  let quiet = ref false in
   let libvirturi = ref "" in
+  let memsize = ref None in
+  let set_memsize arg = memsize := Some arg in
+  let network = ref true in
+  let quiet = ref false in
+  let smp = ref None in
+  let set_smp arg = smp := Some arg in
   let trace = ref false in
   let verbose = ref false in
 
@@ -60,6 +74,9 @@ let main () =
   let argspec = [
     "-a",        Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
     "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
+    "--attach",  Arg.String attach_disk,    "iso" ^ " " ^ s_"Attach data disk/ISO during install";
+    "--attach-format",  Arg.String set_attach_format,
+                                            "format" ^ " " ^ s_"Set attach disk format";
     "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
     "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
     "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations (internal)";
@@ -70,8 +87,13 @@ let main () =
     "--dry-run", Arg.Set dryrun,            " " ^ s_"Perform a dry run";
     "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
+    "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
+    "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
+    "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
     "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
+    "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
@@ -145,9 +167,13 @@ read the man page virt-customize(1).
   in
 
   (* Dereference the rest of the args. *)
+  let attach = List.rev !attach in
   let debug_gc = !debug_gc in
   let dryrun = !dryrun in
+  let memsize = !memsize in
+  let network = !network in
   let quiet = !quiet in
+  let smp = !smp in
   let trace = !trace in
   let verbose = !verbose in
 
@@ -158,11 +184,27 @@ read the man page virt-customize(1).
   msg (f_"Examining the guest ...");
 
   (* Connect to libguestfs. *)
-  let g = new G.guestfs () in
-  if trace then g#set_trace true;
-  if verbose then g#set_verbose true;
-  add g dryrun;
-  g#launch ();
+  let g =
+    let g = new G.guestfs () in
+    if trace then g#set_trace true;
+    if verbose then g#set_verbose true;
+
+    (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
+    (match smp with None -> () | Some smp -> g#set_smp smp);
+    g#set_network network;
+    g#set_selinux ops.flags.selinux_relabel;
+
+    (* Add disks. *)
+    add g dryrun;
+
+    (* Attach ISOs, if we have any. *)
+    List.iter (
+      fun (format, file) ->
+        g#add_drive_opts ?format ~readonly:true file;
+    ) attach;
+
+    g#launch ();
+    g in
 
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with

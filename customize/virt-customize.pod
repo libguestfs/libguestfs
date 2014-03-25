@@ -48,6 +48,27 @@ force a particular format use the I<--format> option.
 Add a remote disk.  The URI format is compatible with guestfish.
 See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
+=item B<--attach> ISOFILE
+
+The given disk is attached to the libguestfs appliance.  This is used
+to provide extra software repositories or other data for
+customization.
+
+You probably want to ensure the volume(s) or filesystems in the
+attached disks are labelled (or use an ISO volume name) so that you
+can mount them by label in your run-scripts:
+
+ mkdir /tmp/mount
+ mount LABEL=EXTRA /tmp/mount
+
+You can have multiple I<--attach> options, and the format can be any
+disk format (not just an ISO).
+
+=item B<--attach-format> FORMAT
+
+Specify the disk format for the next I<--attach> option.  The
+C<FORMAT> is usually C<raw> or C<qcow2>.  Use C<raw> for ISOs.
+
 =item B<-c> URI
 
 =item B<--connect> URI
@@ -96,6 +117,64 @@ If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
 
+=item B<-m> MB
+
+=item B<--memsize> MB
+
+Change the amount of memory allocated to I<--run> scripts.  Increase
+this if you find that I<--run> scripts or the I<--install> option are
+running out of memory.
+
+The default can be found with this command:
+
+ guestfish get-memsize
+
+=item B<--network>
+
+=item B<--no-network>
+
+Enable or disable network access from the guest during the installation.
+
+Enabled is the default.  Use I<--no-network> to disable access.
+
+The network only allows outgoing connections and has other minor
+limitations.  See L<virt-rescue(1)/NETWORK>.
+
+If you use I<--no-network> then certain other options such as
+I<--install> will not work.
+
+This does not affect whether the guest can access the network once it
+has been booted, because that is controlled by your hypervisor or
+cloud environment and has nothing to do with virt-customize.
+
+Generally speaking you should I<not> use I<--no-network>.  But here
+are some reasons why you might want to:
+
+=over 4
+
+=item 1.
+
+Because the libguestfs backend that you are using doesn't support the
+network.  (See: L<guestfs(3)/BACKEND>).
+
+=item 2.
+
+Any software you need to install comes from an attached ISO, so you
+don't need the network.
+
+=item 3.
+
+You don't want untrusted guest code trying to access your host network
+when running virt-customize.  This is particularly an issue when you
+don't trust the source of the operating system templates.  (See
+L</SECURITY> below).
+
+=item 4.
+
+You don't have a host network (eg. in secure/restricted environments).
+
+=back
+
 =item B<-q>
 
 =item B<--quiet>
@@ -103,6 +182,10 @@ security problem with malicious guests (CVE-2010-3851).
 Don't print log messages.
 
 To enable detailed logging of individual file operations, use I<-x>.
+
+=item B<--smp> N
+
+Enable N E<ge> 2 virtual CPUs for I<--run> scripts to use.
 
 =item B<-v>
 
