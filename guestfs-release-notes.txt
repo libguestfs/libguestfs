@@ -70,8 +70,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.26
 
     ARMv7 (32 bit) now supports KVM acceleration.
 
-    Aarch64 (ARM 64 bit) is supported, but the appliance part does not yet
-    work.
+    Aarch64 (ARM 64 bit) is supported, but the appliance part does not work
+    yet.
 
     PPC64 support has been fixed and enhanced.
 
@@ -80,8 +80,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.26
     Denial of service when inspecting disk images with corrupt btrfs
     volumes
 
-      It was possible to crash libguestfs, and programs that use libguestfs
-      as a library, by presenting a disk image containing a corrupt btrfs
+      It was possible to crash libguestfs (and programs that use libguestfs
+      as a library) by presenting a disk image containing a corrupt btrfs
       volume.
 
       This was caused by a NULL pointer dereference causing a denial of
@@ -89,7 +89,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.26
 
       See commit d70ceb4cbea165c960710576efac5a5716055486 for the fix. This
       fix is included in libguestfs stable branches ≥ 1.26.0, ≥ 1.24.6 and
-      ≥ 1.22.8. Earlier versions of libguestfs are not vulnerable.
+      ≥ 1.22.8, and also in RHEL ≥ 7.0. Earlier versions of libguestfs are
+      not vulnerable.
 
     Better generation of random root passwords and random seeds
 
@@ -187,8 +188,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.26
     ./configure --without-qemu can be used if you don't want to specify a
     default hypervisor.
 
-    Overlays (for readonly drives) are now created through an internal
-    backend API.
+    Copy-on-write [COW] overlays, used for example for read-only drives,
+    are now created through an internal backend API (.create_cow_overlay).
 
     Libvirt backend uses some funky C macros to generate XML. These are
     simpler and safer.
