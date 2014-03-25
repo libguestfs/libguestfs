@@ -4,6 +4,8 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
+UPDATED TO d16db5a6180305543658f3a50657c70bbdf81b40
+
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
@@ -19,13 +21,34 @@ the git repository, or the ChangeLog file distributed in the tarball.
 
 =head2 New features
 
+L<virt-diff(1)> is a new tool for showing the differences between the
+filesystems of two virtual machines.  It is mainly useful when showing
+what files have been changed between snapshots.
+
 =head3 Tools
+
+L<virt-builder(1)> has been greatly enhanced.  There are many more
+ways to customize the virtual machine.  It can pull templates from
+multiple repositories.  Includes an parallelized internal xzcat
+implementation to speed up template uncompression.  It uses an
+optimizing planner to choose the fastest way to build the VM.
+(Thanks: Pino Toscano)
+
+L<virt-sysprep(1)> can delete and scrub files under user control.  You
+can lock user accounts or set random passwords on accounts.  Can remove
+more log files.
+(Thanks: Wanlong Gao, Pino Toscano)
+
+L<virt-win-reg(1)> now allows you to use URIs to specify remote disk
+images.
 
 =head3 Language bindings
 
 =head3 API
 
 =head3 Inspection
+
+Inspection can recognize Debian live images.
 
 =head2 Security
 
@@ -35,25 +58,158 @@ the git repository, or the ChangeLog file distributed in the tarball.
 
 =head2 New APIs
 
+For each struct, C<guestfs_copy_*> and C<guestfs_compare_*> functions
+are generated to allow you to copy and compare structs.
+
 =head2 Build changes
 
-The following packages are required to build libguestfs 1.26:
+The following extra packages are required to build libguestfs 1.26:
 
 =over 4
+
+=item supermin E<ge> 5
+
+Supermin version 5 is required to build this version of libguestfs.
+
+=item flex, bison
+
+Virt-builder now uses a real parser to parse its metadata file, so
+these tools are required.
+
+=item xz
+
+This is now a required build dependency, where previously it was
+(in theory) optional.
 
 =back
 
 =head2 Internals
 
+Fixed oversized reads of C</dev/urandom> and avoid modulo bias.
+(Thanks: Edwin Török)
+
+PO message extraction rewritten to be more robust.
+(Thanks: Pino Toscano)
+
+Use qemu I<-enable-fips> option to enable FIPS, where qemu supports it.
+
 =head2 Bugs fixed
 
 =begin comment
 
-./bugs-in-changelog.sh 1.22.0..
+./bugs-in-changelog.sh 1.24.0..
 
 =end comment
 
 =over 4
+
+=item L<https://bugzilla.redhat.com/1073906>
+
+java bindings inspect_list_applications2 throws java.lang.ArrayIndexOutOfBoundsException:
+
+=item L<https://bugzilla.redhat.com/1063374>
+
+[RFE] enable subscription manager clean or unregister operation to sysprep
+
+=item L<https://bugzilla.redhat.com/1060404>
+
+virt-resize does not preserve GPT partition names
+
+=item L<https://bugzilla.redhat.com/1057504>
+
+mount-local should give a clearer error if root is not mounted
+
+=item L<https://bugzilla.redhat.com/1056290>
+
+virt-sparsify overwrites block devices if used as output files
+
+=item L<https://bugzilla.redhat.com/1055452>
+
+libguestfs: error: invalid backend: appliance
+
+=item L<https://bugzilla.redhat.com/1054761>
+
+guestfs_pvs prints "unknown device" if a physical volume is missing
+
+=item L<https://bugzilla.redhat.com/1053847>
+
+Recommended default clock/timer settings
+
+=item L<https://bugzilla.redhat.com/1046509>
+
+ruby-libguestfs throws "expecting 0 or 1 arguments" on Guestfs::Guestfs.new
+
+=item L<https://bugzilla.redhat.com/1045450>
+
+Cannot inspect cirros 0.3.1 disk image fully
+
+=item L<https://bugzilla.redhat.com/1045033>
+
+LIBVIRT_DEFAULT_URI=qemu:///system breaks libguestfs
+
+=item L<https://bugzilla.redhat.com/1044585>
+
+virt-builder network (eg. --install) doesn't work if resolv.conf sets nameserver 127.0.0.1
+
+=item L<https://bugzilla.redhat.com/1044014>
+
+When SSSD is installed, libvirt configuration requires authentication, but not clear to user
+
+=item L<https://bugzilla.redhat.com/1039995>
+
+virt-make-fs fails making fat/vfat whole disk: Device partition expected, not making filesystem on entire device '/dev/sda' (use -I to override)
+
+=item L<https://bugzilla.redhat.com/1039540>
+
+virt-sysprep to delete more logfiles
+
+=item L<https://bugzilla.redhat.com/1033207>
+
+RFE: libguestfs inspection does not recognize Free4NAS live CD
+
+=item L<https://bugzilla.redhat.com/1028660>
+
+RFE: virt-sysprep/virt-builder should have an option to lock a user account
+
+=item L<https://bugzilla.redhat.com/1026688>
+
+libguestfs fails examining libvirt guest with ceph drives: rbd: image name must begin with a '/'
+
+=item L<https://bugzilla.redhat.com/1022431>
+
+virt-builder fails if $HOME/.cache doesn't exist
+
+=item L<https://bugzilla.redhat.com/1022184>
+
+libguestfs: do not use versioned jar file
+
+=item L<https://bugzilla.redhat.com/1020806>
+
+All libguestfs LVM operations fail on Debian/Ubuntu
+
+=item L<https://bugzilla.redhat.com/1008417>
+
+Need update helpout of part-set-gpt-type
+
+=item L<https://bugzilla.redhat.com/953907>
+
+virt-sysprep does not correctly set the hostname on Debian/Ubuntu
+
+=item L<https://bugzilla.redhat.com/923355>
+
+guestfish prints literal "\n" in error messages
+
+=item L<https://bugzilla.redhat.com/660687>
+
+guestmount: "touch" command fails: touch: setting times of `timestamp': Invalid argument
+
+=item L<https://bugzilla.redhat.com/593511>
+
+[RFE] function to get partition name
+
+=item L<https://bugzilla.redhat.com/563450>
+
+list-devices returns devices of different types out of order
 
 =back
 
