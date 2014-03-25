@@ -4,7 +4,7 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
-UPDATED TO d16db5a6180305543658f3a50657c70bbdf81b40
+UPDATED TO cec31436f8b87d84887a50fd6eeba853ccef1581
 
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
@@ -21,45 +21,167 @@ the git repository, or the ChangeLog file distributed in the tarball.
 
 =head2 New features
 
+=head3 Tools
+
+L<virt-customize(1)> is a new tool for customizing virtual machine
+disk images.  It lets you install packages, edit configuration files,
+run scripts, set passwords and so on.  L<virt-builder(1)> and
+L<virt-sysprep(1)> use virt-customize, and command line options across
+all these tools are now identical.
+
 L<virt-diff(1)> is a new tool for showing the differences between the
 filesystems of two virtual machines.  It is mainly useful when showing
 what files have been changed between snapshots.
 
-=head3 Tools
-
 L<virt-builder(1)> has been greatly enhanced.  There are many more
 ways to customize the virtual machine.  It can pull templates from
-multiple repositories.  Includes an parallelized internal xzcat
-implementation to speed up template uncompression.  It uses an
-optimizing planner to choose the fastest way to build the VM.
-(Thanks: Pino Toscano)
+multiple repositories.  A parallelized internal xzcat implementation
+speeds up template decompression.  Virt-builder uses an optimizing
+planner to choose the fastest way to build the VM.  It is now easier
+to use virt-builder from other programs.  Internationalization support
+has been added to metadata.  More efficient SELinux relabelling of
+files.  Can build guests for multiple architectures.  Error messages
+have been improved.
+(Pino Toscano)
+
+L<virt-sparsify(1)> has a new I<--in-place> option.  This sparsifies
+an image in place (without copying it) and is also much faster.
+(Lots of help provided by Paolo Bonzini)
 
 L<virt-sysprep(1)> can delete and scrub files under user control.  You
-can lock user accounts or set random passwords on accounts.  Can remove
-more log files.
-(Thanks: Wanlong Gao, Pino Toscano)
+can lock user accounts or set random passwords on accounts.  Can
+remove more log files.  Can unsubscribe a guest from Red Hat
+Subscription Manager.  New flexible way to enable and disable
+operations.
+(Wanlong Gao, Pino Toscano)
 
-L<virt-win-reg(1)> now allows you to use URIs to specify remote disk
+L<virt-win-reg(1)> allows you to use URIs to specify remote disk
 images.
+
+L<virt-format(1)> can now pass the extra space that it recovers back
+to the host.
+
+L<guestfish(1)> has additional environment variables to give fine
+control over the C<E<gt>E<lt>fsE<gt>> prompt.  Guestfish reads its
+(rarely used) configuration file in a different order now so that
+local settings override global settings.
+(Pino Toscano)
+
+L<virt-make-fs(1)> was rewritten in C, but is unchanged in terms of
+functionality and command line usage.
 
 =head3 Language bindings
 
-=head3 API
+The OCaml bindings have a new C<Guestfs.Errno> module, used to check
+the error number returned by C<Guestfs.last_errno>.
+
+PHP tests now work.
+(Pino Toscano)
 
 =head3 Inspection
 
 Inspection can recognize Debian live images.
 
+=head3 Architectures
+
+ARMv7 (32 bit) now supports KVM acceleration.
+
+Aarch64 (ARM 64 bit) is supported, but the appliance part does not yet
+work.
+
+PPC64 support has been fixed and enhanced.
+
 =head2 Security
 
 =over 4
 
+=item Denial of service when inspecting disk images with corrupt btrfs volumes
+
+It was possible to crash libguestfs, and programs that use libguestfs
+as a library, by presenting a disk image containing a corrupt btrfs
+volume.
+
+This was caused by a NULL pointer dereference causing a denial of
+service, and is not thought to be exploitable any further.
+
+See commit d70ceb4cbea165c960710576efac5a5716055486 for the fix.
+This fix is included in libguestfs stable branches S<E<ge> 1.26.0>,
+S<E<ge> 1.24.6> and S<E<ge> 1.22.8>.  Earlier versions of libguestfs
+are not vulnerable.
+
+=item Better generation of random root passwords and random seeds
+
+When generating random root passwords and random seeds, two bugs were
+fixed which are possibly security related.  Firstly we no longer read
+excessive bytes from C</dev/urandom> (most of which were just thrown
+away).  Secondly we changed the code to avoid modulo bias.  These
+issues were not thought to be exploitable.
+(Both changes suggested by Edwin Török)
+
 =back
 
-=head2 New APIs
+=head2 API
 
-For each struct, C<guestfs_copy_*> and C<guestfs_compare_*> functions
-are generated to allow you to copy and compare structs.
+For each struct returned through the API, libguestfs now generates
+C<guestfs_copy_*> and C<guestfs_compare_*> functions to allow you to
+copy and compare structs.
+
+GUID parameters are now validated when they are passed to API calls,
+whereas previously you could have passed any string.
+(Pino Toscano)
+
+=head3 New APIs
+
+=over 4
+
+=item C<guestfs_add_drive_opts>: new C<discard> parameter
+
+The new C<discard> parameter allows fine-grained control over
+discard/trim support for a particular disk.  This allows the host file
+to become more sparse (or thin-provisioned) when you delete files or
+issue the C<guestfs_fstrim> API call.
+
+=item C<guestfs_add_domain>: new parameters: C<cachemode>, C<discard>
+
+These parameters are passed through when adding the domain's disks.
+
+=item C<guestfs_blkdiscard>
+
+Discard all blocks on a guestfs device.  Combined with the C<discard>
+parameter above, this makes the host file sparse.
+
+=item C<guestfs_blkdiscardzeroes>
+
+Test if discarded blocks read back as zeroes.
+
+=item C<guestfs_copy_attributes>
+
+Copy attributes (like permissions, xattrs, ownership) from one
+file to another.
+(Pino Toscano)
+
+=item C<guestfs_disk_create>
+
+A flexible API for creating empty disk images from scratch.  This
+avoids you needing to call out to external programs like
+L<qemu-img(1)>.
+
+=item C<guestfs_get_backend_settings>
+
+=item C<guestfs_set_backend_settings>
+
+Per-backend settings (can also be set via the environment variable
+C<LIBGUESTFS_BACKEND_SETTINGS>).  The main use for this is forcing TCG
+mode in the qemu-based backends, for example:
+
+ export LIBGUESTFS_BACKEND=direct
+ export LIBGUESTFS_BACKEND_SETTINGS=force_tcg
+
+=item C<guestfs_part_get_name>
+
+Get the label or name of a partition (for GPT disk images).
+
+=back
 
 =head2 Build changes
 
@@ -85,13 +207,58 @@ This is now a required build dependency, where previously it was
 
 =head2 Internals
 
-Fixed oversized reads of C</dev/urandom> and avoid modulo bias.
-(Thanks: Edwin Török)
-
 PO message extraction rewritten to be more robust.
-(Thanks: Pino Toscano)
+(Pino Toscano)
 
-Use qemu I<-enable-fips> option to enable FIPS, where qemu supports it.
+C<podwrapper> gives an error if the I<--insert> or I<--verbatim>
+argument pattern is not found.
+
+Libguestfs now passes the qemu I<-enable-fips> option to enable FIPS,
+if qemu supports it.
+
+C<./configure --without-qemu> can be used if you don't want to specify
+a default hypervisor.
+
+Overlays (for readonly drives) are now created through an internal
+backend API.
+
+Libvirt backend uses some funky C macros to generate XML.  These are
+simpler and safer.
+
+The ChangeLog file format has changed.  It is now just the same as
+C<git log>, instead of using a custom format.
+
+Appliance start-up has changed:
+
+=over 4
+
+=item *
+
+The libguestfs appliance now initializes LVM the same way as it is
+done on physical machines.
+
+=item *
+
+The libguestfs appliance does not write an empty string to
+C</proc/sys/kernel/hotplug> when starting up.
+
+Note that you B<must> configure your kernel to have
+C<CONFIG_UEVENT_HELPER_PATH=""> otherwise you will get strange LVM
+errors (this applies as much to any Linux machine, not just
+libguestfs).
+(Peter Rajnoha)
+
+=back
+
+Libguestfs can now be built on arches that have L<ocamlc(1)> but not
+L<ocamlopt(1)>.
+(Hilko Bengen, Olaf Hering)
+
+You cannot use C<./configure --disable-daemon --enable-appliance>.  It
+made no sense anyway.  Now it is expressly forbidden by the configure
+script.
+
+The packagelist file uses C<m4> for macro expansion instead of C<cpp>.
 
 =head2 Bugs fixed
 
