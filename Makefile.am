@@ -151,7 +151,7 @@ SUBDIRS += po-docs
 endif
 
 EXTRA_DIST = \
-	BUGS HACKING ROADMAP TODO \
+	BUGS HACKING TODO \
 	.gitignore \
 	.lvimrc \
 	.mailmap \
@@ -264,7 +264,7 @@ HTMLSUPPORTFILES = \
 	html/pod.css \
 	html/virt-builder.svg
 
-TEXTFILES = BUGS README ROADMAP TODO
+TEXTFILES = BUGS README TODO
 
 BUILDERFILES = \
 	builder/website/README \
