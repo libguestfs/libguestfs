@@ -103,10 +103,6 @@ RELEASE NOTES FOR LIBGUESTFS 1.26
 
  API
 
-    For each struct returned through the API, libguestfs now generates
-    guestfs_copy_* and guestfs_compare_* functions to allow you to copy and
-    compare structs.
-
     GUID parameters are now validated when they are passed to API calls,
     whereas previously you could have passed any string. (Pino Toscano)
 
@@ -132,6 +128,14 @@ RELEASE NOTES FOR LIBGUESTFS 1.26
 
       Test if discarded blocks read back as zeroes.
 
+    guestfs_compare_*
+
+    guestfs_copy_*
+
+      For each struct returned through the API, libguestfs now generates
+      guestfs_compare_* and guestfs_copy_* functions to allow you to
+      compare and copy structs.
+
     guestfs_copy_attributes
 
       Copy attributes (like permissions, xattrs, ownership) from one file
@@ -140,7 +144,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.26
     guestfs_disk_create
 
       A flexible API for creating empty disk images from scratch. This
-      avoids you needing to call out to external programs like qemu-img(1).
+      avoids the need to call out to external programs like qemu-img(1).
 
     guestfs_get_backend_settings
 

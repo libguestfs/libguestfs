@@ -122,10 +122,6 @@ issues were not thought to be exploitable.
 
 =head2 API
 
-For each struct returned through the API, libguestfs now generates
-C<guestfs_copy_*> and C<guestfs_compare_*> functions to allow you to
-copy and compare structs.
-
 GUID parameters are now validated when they are passed to API calls,
 whereas previously you could have passed any string.
 (Pino Toscano)
@@ -154,6 +150,14 @@ parameter above, this makes the host file sparse.
 
 Test if discarded blocks read back as zeroes.
 
+=item C<guestfs_compare_*>
+
+=item C<guestfs_copy_*>
+
+For each struct returned through the API, libguestfs now generates
+C<guestfs_compare_*> and C<guestfs_copy_*> functions to allow you to
+compare and copy structs.
+
 =item C<guestfs_copy_attributes>
 
 Copy attributes (like permissions, xattrs, ownership) from one
@@ -163,8 +167,7 @@ file to another.
 =item C<guestfs_disk_create>
 
 A flexible API for creating empty disk images from scratch.  This
-avoids you needing to call out to external programs like
-L<qemu-img(1)>.
+avoids the need to call out to external programs like L<qemu-img(1)>.
 
 =item C<guestfs_get_backend_settings>
 
