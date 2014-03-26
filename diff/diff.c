@@ -459,9 +459,9 @@ visit_entry (const char *dir, const char *name,
              void *vt)
 {
   struct tree *t = vt;
-  char *path, *csum = NULL;
-  struct guestfs_stat *stat;
-  struct guestfs_xattr_list *xattrs;
+  char *path = NULL, *csum = NULL;
+  struct guestfs_stat *stat = NULL;
+  struct guestfs_xattr_list *xattrs = NULL;
   size_t i;
 
   path = full_path (dir, name);
@@ -472,18 +472,18 @@ visit_entry (const char *dir, const char *name,
   stat = guestfs_copy_stat (stat_orig);
   if (stat == NULL) {
     perror ("guestfs_copy_stat");
-    return -1;
+    goto error;
   }
   xattrs = guestfs_copy_xattr_list (xattrs_orig);
   if (xattrs == NULL) {
     perror ("guestfs_copy_xattr_list");
-    return -1;
+    goto error;
   }
 
   if (checksum && is_reg (stat->mode)) {
     csum = guestfs_checksum (t->g, checksum, path);
     if (!csum)
-      return -1;
+      goto error;
   }
 
   /* If --atime option was NOT passed, flatten the atime field. */
@@ -521,7 +521,7 @@ visit_entry (const char *dir, const char *name,
       perror ("realloc");
       t->files = old_files;
       t->allocated = old_allocated;
-      return -1;
+      goto error;
     }
   }
 
@@ -531,6 +531,13 @@ visit_entry (const char *dir, const char *name,
   t->files[i].csum = csum;
 
   return 0;
+
+ error:
+  free (path);
+  free (csum);
+  guestfs_free_stat (stat);
+  guestfs_free_xattr_list (xattrs);
+  return -1;
 }
 
 static void deleted (guestfs_h *, struct file *);
