@@ -82,6 +82,8 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   filesystems = guestfs_list_filesystems (g);
+  if (filesystems == NULL)
+    exit (EXIT_FAILURE);
 
   for (i = 0; filesystems[i] != NULL; i += 2) {
     printf ("%s:%s is a %s filesystem\n",
