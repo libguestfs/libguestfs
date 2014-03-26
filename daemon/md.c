@@ -214,7 +214,7 @@ do_list_md_devices (void)
   DECLARE_STRINGSBUF (ret);
   glob_t mds;
 
-  memset(&mds, 0, sizeof(mds));
+  memset (&mds, 0, sizeof mds);
 
 #define PREFIX "/sys/block/md"
 #define SUFFIX "/md"
