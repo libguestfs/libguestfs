@@ -341,10 +341,7 @@ You can help by testing the fixes.
 1020950 ON_QA https://bugzilla.redhat.com/show_bug.cgi?id=1020950
   CVE-2013-4419 libguestfs: insecure temporary directory handling for guestfish's network socket [epel-5]
 
-1072079 ON_QA https://bugzilla.redhat.com/show_bug.cgi?id=1072079
-  Ruby bindings for libguestfs throws an error periodically
-
-(6 bugs)
+(5 bugs)
 
 --------------------------------------------------
 These bugs are in the VERIFIED state.
@@ -496,6 +493,9 @@ These bugs are in the VERIFIED state.
 1061160 VERIFIED https://bugzilla.redhat.com/show_bug.cgi?id=1061160
   libguestfs source has bogus COPYING file
 
-(49 bugs)
+1072079 VERIFIED https://bugzilla.redhat.com/show_bug.cgi?id=1072079
+  Ruby bindings for libguestfs throws an error periodically
+
+(50 bugs)
 
 End of BUGS file.
