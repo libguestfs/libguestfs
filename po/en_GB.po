@@ -1,31 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # seanf <sflaniga@redhat.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-03-25 12:50+0000\n"
-"PO-Revision-Date: 2013-08-06 13:32+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2014-03-26 10:27+0000\n"
+"PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
-"fedora/language/en_GB/)\n"
-"Language: en_GB\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/fedora/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../builder/index_parser.ml:107
 msgid ""
 "\n"
 "The index file downloaded from '%s' is corrupt.\n"
-"You need to ask the supplier of this file to fix it and upload a fixed "
-"version.\n"
+"You need to ask the supplier of this file to fix it and upload a fixed version.\n"
 msgstr ""
 
 #: ../sparsify/copying.ml:81
@@ -55,8 +52,8 @@ msgstr ""
 
 #: ../resize/resize.ml:864
 msgid ""
-"  The surplus space is not large enough for an extra partition to be created "
-"and so it will just be ignored."
+"  The surplus space is not large enough for an extra partition to be created"
+" and so it will just be ignored."
 msgstr ""
 
 #: ../resize/resize.ml:866
@@ -127,18 +124,18 @@ msgstr ""
 #: ../resize/resize.ml:651
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the '--resize-force' option,"
+" but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 
 #: ../resize/resize.ml:647
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the '--resize-force' option,"
+" but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 
@@ -350,8 +347,8 @@ msgstr ""
 #: ../resize/resize.ml:587
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
-"option on the command line).  Try running this command: virt-filesystems --"
-"partitions --long -a %s"
+"option on the command line).  Try running this command: virt-filesystems "
+"--partitions --long -a %s"
 msgstr ""
 
 #: ../resize/resize.ml:498
@@ -437,8 +434,8 @@ msgstr ""
 
 #: ../builder/cmdline.ml:250
 msgid ""
-"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
-"need any extra arguments.\n"
+"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not"
+" need any extra arguments.\n"
 msgstr ""
 
 #: ../builder/cmdline.ml:257
@@ -501,8 +498,8 @@ msgstr ""
 
 #: ../sparsify/copying.ml:66
 msgid ""
-"--compress cannot be used for raw output.  Remove this option or use --"
-"convert qcow2."
+"--compress cannot be used for raw output.  Remove this option or use "
+"--convert qcow2."
 msgstr ""
 
 #: ../resize/resize.ml:156
@@ -779,8 +776,7 @@ msgstr ""
 
 #: ../resize/resize.ml:921
 msgid ""
-"Failed to initialize the partition table on the target disk.  You need to "
-"wipe or recreate the target disk and then run virt-resize again.\n"
+"Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n"
 "\n"
 "The underlying error was: %s"
 msgstr ""
@@ -928,8 +924,7 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid ""
-"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
-"(VGs),\n"
+"On Linux guests that have LVM2 physical volumes (PVs) or volume groups (VGs),\n"
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
@@ -1663,8 +1658,7 @@ msgstr ""
 
 #: ../builder/sigchecker.ml:169
 msgid ""
-"virt-builder: error: GPG failure: could not verify digital signature of "
-"file\n"
+"virt-builder: error: GPG failure: could not verify digital signature of file\n"
 "Try:\n"
 " - Use the '-v' option and look for earlier error messages.\n"
 " - Delete the cache: virt-builder --delete-cache\n"
@@ -1673,8 +1667,7 @@ msgstr ""
 
 #: ../builder/sigchecker.ml:216
 msgid ""
-"virt-builder: error: checksum of template did not match the expected "
-"checksum!\n"
+"virt-builder: error: checksum of template did not match the expected checksum!\n"
 "  found checksum: %s\n"
 "  expected checksum: %s\n"
 "Try:\n"
@@ -1702,8 +1695,7 @@ msgstr ""
 
 #: ../builder/sigchecker.ml:187
 msgid ""
-"virt-builder: error: fingerprint of signature does not match the expected "
-"fingerprint!\n"
+"virt-builder: error: fingerprint of signature does not match the expected fingerprint!\n"
 "  found fingerprint: %s\n"
 "  expected fingerprint: %s\n"
 msgstr ""
@@ -1760,8 +1752,7 @@ msgid "virt-builder: no kernel found\n"
 msgstr ""
 
 #: ../builder/index_parser.ml:285
-msgid ""
-"virt-builder: you must use relative paths (not '%s') in the index file\n"
+msgid "virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
 #: ../builder/index_parser.ml:276
@@ -1822,8 +1813,7 @@ msgstr ""
 
 #: ../resize/resize.ml:1162
 msgid ""
-"warning: first partition is NTFS but does not contain NTFS boot loader "
-"magic\n"
+"warning: first partition is NTFS but does not contain NTFS boot loader magic\n"
 "%!"
 msgstr ""
 
@@ -1984,24 +1974,7 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr ""
-"%s: display files in a virtual machine\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] -d domname file [file ...]\n"
-"  %s [--options] -a disc.img [-a disc.img ...] file [file ...]\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  -d|--domain guest    Add disks from libvirt guest\n"
-"  --echo-keys          Don't turn off echo for passphrases\n"
-"  --format[=raw|..]    Force disc format for -a option\n"
-"  --help               Display brief help\n"
-"  --keys-from-stdin    Read passphrases from stdin\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  -x                   Trace libguestfs API calls\n"
-"For more information, see the manpage %s(1).\n"
+msgstr "%s: display files in a virtual machine\nCopyright (C) 2010 Red Hat Inc.\nUsage:\n  %s [--options] -d domname file [file ...]\n  %s [--options] -a disc.img [-a disc.img ...] file [file ...]\nOptions:\n  -a|--add image       Add image\n  -c|--connect uri     Specify libvirt URI for -d option\n  -d|--domain guest    Add disks from libvirt guest\n  --echo-keys          Don't turn off echo for passphrases\n  --format[=raw|..]    Force disc format for -a option\n  --help               Display brief help\n  --keys-from-stdin    Read passphrases from stdin\n  -v|--verbose         Verbose messages\n  -V|--version         Display version and exit\n  -x                   Trace libguestfs API calls\nFor more information, see the manpage %s(1).\n"
 
 #: cat/cat.c:357 edit/edit.c:582 fish/fish.c:1764
 #, c-format
@@ -2050,41 +2023,7 @@ msgid ""
 "                       Display LVM volume groups\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr ""
-"%s: list filesystems, partitions, block devices, LVM in a VM\n"
-"Copyright (C) 2010 Red Hat Inc.\n"
-"Usage:\n"
-"  %s [--options] -d domname\n"
-"  %s [--options] -a disc.img [-a disc.img ...]\n"
-"Options:\n"
-"  -a|--add image       Add image\n"
-"  --all                Display everything\n"
-"  --blkdevs|--block-devices\n"
-"                       Display block devices\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  --csv                Output as Comma-Separated Values\n"
-"  -d|--domain guest    Add discs from libvirt guest\n"
-"  --echo-keys          Don't turn off echo for passphrases\n"
-"  --extra              Display swap and data filesystems\n"
-"  --filesystems        Display mountable filesystems\n"
-"  --format[=raw|..]    Force disc format for -a option\n"
-"  -h|--human-readable  Human-readable sizes in --long output\n"
-"  --help               Display brief help\n"
-"  --keys-from-stdin    Read passphrases from stdin\n"
-"  -l|--long            Long output\n"
-"  --lvs|--logvols|--logical-volumes\n"
-"                       Display LVM logical volumes\n"
-"  --no-title           No title in --long output\n"
-"  --parts|--partitions Display partitions\n"
-"  --pvs|--physvols|--physical-volumes\n"
-"                       Display LVM physical volumes\n"
-"  --uuid|--uuids       Add UUIDs to --long output\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  --vgs|--volgroups|--volume-groups\n"
-"                       Display LVM volume groups\n"
-"  -x                   Trace libguestfs API calls\n"
-"For more information, see the manpage %s(1).\n"
+msgstr "%s: list filesystems, partitions, block devices, LVM in a VM\nCopyright (C) 2010 Red Hat Inc.\nUsage:\n  %s [--options] -d domname\n  %s [--options] -a disc.img [-a disc.img ...]\nOptions:\n  -a|--add image       Add image\n  --all                Display everything\n  --blkdevs|--block-devices\n                       Display block devices\n  -c|--connect uri     Specify libvirt URI for -d option\n  --csv                Output as Comma-Separated Values\n  -d|--domain guest    Add discs from libvirt guest\n  --echo-keys          Don't turn off echo for passphrases\n  --extra              Display swap and data filesystems\n  --filesystems        Display mountable filesystems\n  --format[=raw|..]    Force disc format for -a option\n  -h|--human-readable  Human-readable sizes in --long output\n  --help               Display brief help\n  --keys-from-stdin    Read passphrases from stdin\n  -l|--long            Long output\n  --lvs|--logvols|--logical-volumes\n                       Display LVM logical volumes\n  --no-title           No title in --long output\n  --parts|--partitions Display partitions\n  --pvs|--physvols|--physical-volumes\n                       Display LVM physical volumes\n  --uuid|--uuids       Add UUIDs to --long output\n  -v|--verbose         Verbose messages\n  -V|--version         Display version and exit\n  --vgs|--volgroups|--volume-groups\n                       Display LVM volume groups\n  -x                   Trace libguestfs API calls\nFor more information, see the manpage %s(1).\n"
 
 #: cat/filesystems.c:303 cat/ls.c:332 df/main.c:262 diff/diff.c:328
 #, c-format
@@ -4725,7 +4664,8 @@ msgstr ""
 #: fish/copy.c:51
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:69
@@ -5011,8 +4951,7 @@ msgstr ""
 #: fish/help.c:39
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -5547,12 +5486,10 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -6393,9 +6330,9 @@ msgstr ""
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: src/launch-direct.c:287 src/launch-uml.c:159
@@ -6679,8 +6616,7 @@ msgstr ""
 #: src/libvirt-domain.c:249
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -6996,8 +6932,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
