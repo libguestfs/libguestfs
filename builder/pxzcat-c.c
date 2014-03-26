@@ -34,6 +34,8 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
+#include "ignore-value.h"
+
 #ifdef HAVE_CAML_UNIXSUPPORT_H
 #include <caml/unixsupport.h>
 #else
@@ -191,7 +193,7 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
   }
 
   /* Tell the kernel we won't read the output file. */
-  posix_fadvise (fd, 0, 0, POSIX_FADV_RANDOM|POSIX_FADV_DONTNEED);
+  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_RANDOM|POSIX_FADV_DONTNEED));
 
   /* Iterate over blocks. */
   iter_blocks (idx, nr_threads, filenamev, fd, outputfilev, ofd);

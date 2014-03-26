@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 AM_YFLAGS = -d
 AM_CFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_srcdir)/src \
 	-I$(top_srcdir)/fish \
 	-pthread \
