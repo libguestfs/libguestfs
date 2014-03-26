@@ -58,6 +58,8 @@ get_devices (const char *pattern)
   int err;
   size_t i;
 
+  memset (&devs, 0, sizeof devs);
+
   err = glob (pattern, GLOB_ERR, glob_errfunc, &devs);
   if (err == GLOB_NOSPACE) {
     reply_with_error ("glob: returned GLOB_NOSPACE: "
