@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Geert Warrink <geert.warrink@onsnet.nu>, 2011-2012
 # Richard E. van der Luit <nippur@fedoraproject.org>, 2011, 2012
@@ -9,22 +9,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-03-26 10:27+0000\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2014-03-27 12:03+0000\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../builder/index_parser.ml:107
 msgid ""
 "\n"
 "The index file downloaded from '%s' is corrupt.\n"
-"You need to ask the supplier of this file to fix it and upload a fixed version.\n"
+"You need to ask the supplier of this file to fix it and upload a fixed "
+"version.\n"
 msgstr ""
 
 #: ../sparsify/copying.ml:81
@@ -54,15 +57,19 @@ msgstr "  De %s op %s zal geëxpandeerd worden met de '%s' methode."
 
 #: ../resize/resize.ml:864
 msgid ""
-"  The surplus space is not large enough for an extra partition to be created"
-" and so it will just be ignored."
-msgstr "De surplus ruimte is niet groot genoeg om een extra partitie aan te maken en wordt daarom genegeerd."
+"  The surplus space is not large enough for an extra partition to be created "
+"and so it will just be ignored."
+msgstr ""
+"De surplus ruimte is niet groot genoeg om een extra partitie aan te maken en "
+"wordt daarom genegeerd."
 
 #: ../resize/resize.ml:866
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
-msgstr "De surplus ruimte wordt genegeerd.  Indien gewenst voer je in de gast een partitioneringsprogramma uit om deze extra ruimte te partitioneren."
+msgstr ""
+"De surplus ruimte wordt genegeerd.  Indien gewenst voer je in de gast een "
+"partitioneringsprogramma uit om deze extra ruimte te partitioneren."
 
 #: ../sysprep/main.ml:265
 msgid "%s (ignored)\n"
@@ -117,7 +124,12 @@ msgid ""
 "use the '--resize-force' option, but that could destroy logical partitions "
 "within this partition.  (This error came from '%s' option on the command "
 "line.)"
-msgstr "%s: Deze extended partitie bevat logische partities die beschadigd kunnen raken als je ze verkleint.  Als je deze partitie wilt verkleinen dan moet je de '--resize-force' optie gebruiken, maar deze kan logische partities binnen deze partitie vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
+msgstr ""
+"%s: Deze extended partitie bevat logische partities die beschadigd kunnen "
+"raken als je ze verkleint.  Als je deze partitie wilt verkleinen dan moet je "
+"de '--resize-force' optie gebruiken, maar deze kan logische partities binnen "
+"deze partitie vernietigen.  (Deze fout kwam van de '%s' optie op de "
+"commandoregel.)"
 
 #: ../resize/resize.ml:844
 msgid "%s: This logical volume will be expanded to maximum size."
@@ -126,18 +138,18 @@ msgstr "%s: Dit logische volume zal vergroot worden tot de maximale grootte."
 #: ../resize/resize.ml:651
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
-" want to shrink this partition, you need to use the '--resize-force' option,"
-" but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 
 #: ../resize/resize.ml:647
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
-" want to shrink this partition, you need to use the '--resize-force' option,"
-" but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 
@@ -147,13 +159,19 @@ msgid ""
 "it.  If you want to shrink this partition, you need to use the '--resize-"
 "force' option, but that could destroy any data on this partition.  (This "
 "error came from '%s' option on the command line.)"
-msgstr "%s: Deze partitie heeft onbekende inhoud welke beschadigd kan raken door het te verkleinen.  Als je deze partitie wilt verkleinen dan moet je de '--resize-force' optie gebruiken, maar deze kan data op deze partitie vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
+msgstr ""
+"%s: Deze partitie heeft onbekende inhoud welke beschadigd kan raken door het "
+"te verkleinen.  Als je deze partitie wilt verkleinen dan moet je de '--"
+"resize-force' optie gebruiken, maar deze kan data op deze partitie "
+"vernietigen.  (Deze fout kwam van de '%s' optie op de commandoregel.)"
 
 #: ../resize/resize.ml:821
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
-msgstr "%s: Deze partitie zal aangemaakt worden, maar de inhoud zal genegeerd worden (bijv. niet gekopieerd naar het doel)."
+msgstr ""
+"%s: Deze partitie zal aangemaakt worden, maar de inhoud zal genegeerd worden "
+"(bijv. niet gekopieerd naar het doel)."
 
 #: ../resize/resize.ml:823
 msgid "%s: This partition will be deleted."
@@ -301,7 +319,10 @@ msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
-msgstr "%s: logische volume werd niet gevonden in de bron schijf image (deze fout kwam van de '--lv-expand' optie op de commandoregel).  Probeer dit commando uit te voeren: virt-filesystems --logical-volumes --long -a %s"
+msgstr ""
+"%s: logische volume werd niet gevonden in de bron schijf image (deze fout "
+"kwam van de '--lv-expand' optie op de commandoregel).  Probeer dit commando "
+"uit te voeren: virt-filesystems --logical-volumes --long -a %s"
 
 #: ../resize/resize.ml:673
 msgid "%s: missing size field in '%s' option"
@@ -340,18 +361,23 @@ msgstr ""
 
 #: ../resize/resize.ml:595
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
-msgstr "%s: partitie is al verwijderd, je kunt het niet in de '%s' optie gebruiken"
+msgstr ""
+"%s: partitie is al verwijderd, je kunt het niet in de '%s' optie gebruiken"
 
 #: ../resize/resize.ml:591
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
-msgstr "%s: partitie wordt al genegeerd, je kunt het niet in de '%s' optie gebruiken"
+msgstr ""
+"%s: partitie wordt al genegeerd, je kunt het niet in de '%s' optie gebruiken"
 
 #: ../resize/resize.ml:587
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
-"option on the command line).  Try running this command: virt-filesystems "
-"--partitions --long -a %s"
-msgstr "%s: partitie werd niet gevonden in de bron schijf image (deze fout kwam van de '%s' optie op de commandoregel).  Probeer dit commando uit te voeren: virt-filesystems --partitions --long -a %s"
+"option on the command line).  Try running this command: virt-filesystems --"
+"partitions --long -a %s"
+msgstr ""
+"%s: partitie werd niet gevonden in de bron schijf image (deze fout kwam van "
+"de '%s' optie op de commandoregel).  Probeer dit commando uit te voeren: "
+"virt-filesystems --partitions --long -a %s"
 
 #: ../resize/resize.ml:498
 msgid "%s: partition size %Ld < filesystem size %Ld"
@@ -375,7 +401,17 @@ msgid ""
 "\n"
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-sysprep(1).\n"
-msgstr "%s: reset of verwijder configuratie van een virtuele machine zodat klonen gemaakt kunnen worden\n\n virt-sysprep [--opties] -d domnaam\n\n virt-sysprep [--opties] -a disk.img [-a disk.img ...]\n\nEen korte samenvatting van de opties wordt hieronder gegeven.  Voor gedetailleerde hulp\nlees je de man pagina virt-sysprep(1).\n"
+msgstr ""
+"%s: reset of verwijder configuratie van een virtuele machine zodat klonen "
+"gemaakt kunnen worden\n"
+"\n"
+" virt-sysprep [--opties] -d domnaam\n"
+"\n"
+" virt-sysprep [--opties] -a disk.img [-a disk.img ...]\n"
+"\n"
+"Een korte samenvatting van de opties wordt hieronder gegeven.  Voor "
+"gedetailleerde hulp\n"
+"lees je de man pagina virt-sysprep(1).\n"
 
 #: ../resize/resize.ml:218
 msgid ""
@@ -383,7 +419,12 @@ msgid ""
 "\n"
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-resize(1).\n"
-msgstr "%s: verander de grootte van een virtuele machine schijf\n\nEen korte samenvatting van de opties wordt hieronder gegeven.  Voor gedetailleerde hulp\nlees je de man pagina virt-resize(1).\n"
+msgstr ""
+"%s: verander de grootte van een virtuele machine schijf\n"
+"\n"
+"Een korte samenvatting van de opties wordt hieronder gegeven.  Voor "
+"gedetailleerde hulp\n"
+"lees je de man pagina virt-resize(1).\n"
 
 #: ../builder/cmdline.ml:306
 msgid ""
@@ -432,12 +473,14 @@ msgstr ""
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
-msgstr "%s: onbekend partitie tabel type\nvirt-resize ondersteunt alleen MBR (DOS) en GPT partitie tabellen."
+msgstr ""
+"%s: onbekend partitie tabel type\n"
+"virt-resize ondersteunt alleen MBR (DOS) en GPT partitie tabellen."
 
 #: ../builder/cmdline.ml:250
 msgid ""
-"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not"
-" need any extra arguments.\n"
+"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
+"need any extra arguments.\n"
 msgstr ""
 
 #: ../builder/cmdline.ml:257
@@ -500,9 +543,11 @@ msgstr ""
 
 #: ../sparsify/copying.ml:66
 msgid ""
-"--compress cannot be used for raw output.  Remove this option or use "
-"--convert qcow2."
-msgstr "--compress kan niet gebruikt worden voor raw output.  Verwijder deze optie of gebruik --convert qcow2."
+"--compress cannot be used for raw output.  Remove this option or use --"
+"convert qcow2."
+msgstr ""
+"--compress kan niet gebruikt worden voor raw output.  Verwijder deze optie "
+"of gebruik --convert qcow2."
 
 #: ../resize/resize.ml:156
 msgid "--expand option given twice"
@@ -552,7 +597,9 @@ msgstr ""
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
-msgstr "Opschonen van Linux swap op %s ...\n%!"
+msgstr ""
+"Opschonen van Linux swap op %s ...\n"
+"%!"
 
 #: ../sparsify/cmdline.ml:69
 msgid "Compressed output format"
@@ -566,7 +613,9 @@ msgstr ""
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
-msgstr "Kopieer naar doel en maakt het sparse ...\n%!"
+msgstr ""
+"Kopieer naar doel en maakt het sparse ...\n"
+"%!"
 
 #: ../builder/builder.ml:506
 msgid "Copying"
@@ -576,7 +625,9 @@ msgstr ""
 msgid ""
 "Copying %s ...\n"
 "%!"
-msgstr "Bezig met kopiëren %s ...\n%!"
+msgstr ""
+"Bezig met kopiëren %s ...\n"
+"%!"
 
 #: ../sparsify/copying.ml:117
 msgid ""
@@ -744,13 +795,17 @@ msgstr ""
 msgid ""
 "Examine source disk ...\n"
 "%!"
-msgstr "Onderzoek bron schijf ...\n%!"
+msgstr ""
+"Onderzoek bron schijf ...\n"
+"%!"
 
 #: ../resize/resize.ml:347
 msgid ""
 "Examining %s ...\n"
 "%!"
-msgstr "%s wordt onderzocht ...\n%!"
+msgstr ""
+"%s wordt onderzocht ...\n"
+"%!"
 
 #: ../sysprep/main.ml:233
 msgid "Examining the guest ..."
@@ -768,32 +823,46 @@ msgstr "Expandeer partitie"
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
-msgstr "%s wordt geëxpandeerd met de '%s' methode ...\n%!"
+msgstr ""
+"%s wordt geëxpandeerd met de '%s' methode ...\n"
+"%!"
 
 #: ../resize/resize.ml:1246
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
-msgstr "%s%s wordt geëxpandeerd met de '%s' methode ...\n%!"
+msgstr ""
+"%s%s wordt geëxpandeerd met de '%s' methode ...\n"
+"%!"
 
 #: ../resize/resize.ml:921
 msgid ""
-"Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n"
+"Failed to initialize the partition table on the target disk.  You need to "
+"wipe or recreate the target disk and then run virt-resize again.\n"
 "\n"
 "The underlying error was: %s"
-msgstr "Het initialiseren van de partitie tabrl op de doel schijf is mislukt.  Je moet de doel schijf schoonvegen of opnieuw aanmaken en dan virt-resize opnieuw uitvoeren.\n\nDe onderliggende fout was: %s"
+msgstr ""
+"Het initialiseren van de partitie tabrl op de doel schijf is mislukt.  Je "
+"moet de doel schijf schoonvegen of opnieuw aanmaken en dan virt-resize "
+"opnieuw uitvoeren.\n"
+"\n"
+"De onderliggende fout was: %s"
 
 #: ../sparsify/copying.ml:186
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
-msgstr "Vul vrije ruime in %s met nul in ...\n%!"
+msgstr ""
+"Vul vrije ruime in %s met nul in ...\n"
+"%!"
 
 #: ../sparsify/copying.ml:236
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
-msgstr "Vul vrije ruimte in volgroep %s met nul in ...\n%!"
+msgstr ""
+"Vul vrije ruimte in volgroep %s met nul in ...\n"
+"%!"
 
 #: ../builder/cmdline.ml:126
 msgid "Fingerprint of valid signing key"
@@ -811,7 +880,9 @@ msgstr ""
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
-msgstr "Eerste NTFS partitie boot record wordt gerepareerd...\n%!"
+msgstr ""
+"Eerste NTFS partitie boot record wordt gerepareerd...\n"
+"%!"
 
 #: ../sysprep/sysprep_operation_flag_reconfiguration.ml:35
 msgid "Flag the system for reconfiguration"
@@ -822,7 +893,9 @@ msgstr "Markeer het systeem voor opnieuw configureren"
 msgid ""
 "For Fedora and Red Hat Enterprise Linux,\n"
 "this is removed from C<ifcfg-*> files."
-msgstr "Voor Fedora en Red Hat Enterprise Linux,\nis dit verwijderd uit C<ifcfg-*> bestanden."
+msgstr ""
+"Voor Fedora en Red Hat Enterprise Linux,\n"
+"is dit verwijderd uit C<ifcfg-*> bestanden."
 
 #: ../resize/resize.ml:201
 msgid "Force ntfsresize"
@@ -911,7 +984,9 @@ msgstr ""
 msgid ""
 "Note that this may require user intervention when the\n"
 "guest is booted."
-msgstr "Merk op dat dit gebruikersinterventie kan vereisen als de\ngast opgestart is."
+msgstr ""
+"Merk op dat dit gebruikersinterventie kan vereisen als de\n"
+"gast opgestart is."
 
 #: ../sysprep/sysprep_operation.ml:215
 msgid "Notes on %s"
@@ -926,16 +1001,24 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid ""
-"On Linux guests that have LVM2 physical volumes (PVs) or volume groups (VGs),\n"
+"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
+"(VGs),\n"
 "new random UUIDs are generated and assigned to those PVs and VGs."
-msgstr "Op Linux gasten die LVM2 fysieke volumes (PV's) of volumegroepen (VG's) hebben,\nworden nieuwe willekeurige UUID's aangemaakt en toegekend aan die PV's en VG's."
+msgstr ""
+"Op Linux gasten die LVM2 fysieke volumes (PV's) of volumegroepen (VG's) "
+"hebben,\n"
+"worden nieuwe willekeurige UUID's aangemaakt en toegekend aan die PV's en "
+"VG's."
 
 #: ../sysprep/sysprep_operation_logfiles.ml:119
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
 "%s"
-msgstr "Onder Linux worden de volgende bestanden verwijderd:\n\n%s"
+msgstr ""
+"Onder Linux worden de volgende bestanden verwijderd:\n"
+"\n"
+"%s"
 
 #: ../sysprep/sysprep_operation_fs_uuids.ml:47
 msgid ""
@@ -1019,7 +1102,9 @@ msgstr "Verwijder Kerberos data in de gast"
 msgid ""
 "Remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed."
-msgstr "Verwijder alle gebruikersaccounts en hun persoonlijke mappen.\nHet \"root\" account wordt niet verwijderd."
+msgstr ""
+"Verwijder alle gebruikersaccounts en hun persoonlijke mappen.\n"
+"Het \"root\" account wordt niet verwijderd."
 
 #: ../sysprep/sysprep_operation_blkid_tab.ml:47
 msgid "Remove blkid tab in the guest"
@@ -1055,7 +1140,9 @@ msgstr ""
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other\n"
 "users who have a C<.ssh> directory in their home directory."
-msgstr "Verwijder de C<.ssh> map van gebruiker \"root\" en alle andere\ngebruikers die een C<.ssh> map in hun persoonlijke map hebben."
+msgstr ""
+"Verwijder de C<.ssh> map van gebruiker \"root\" en alle andere\n"
+"gebruikers die een C<.ssh> map in hun persoonlijke map hebben."
 
 #: ../sysprep/sysprep_operation_pam_data.ml:44
 msgid "Remove the PAM data in the guest"
@@ -1081,7 +1168,9 @@ msgstr "Verwijder de Smolt hardware UUID"
 msgid ""
 "Remove the automatically generated ABRT crash data in\n"
 "C</var/spool/abrt/>."
-msgstr "Verwijder de automatisch gegenereerde ABRT crash data in\nC</var/spool/abrt/>."
+msgstr ""
+"Verwijder de automatisch gegenereerde ABRT crash data in\n"
+"C</var/spool/abrt/>."
 
 #: ../sysprep/sysprep_operation_crash_data.ml:40
 msgid "Remove the automatically generated kdump kernel crash data."
@@ -1095,7 +1184,10 @@ msgstr "Verwijder de bash geschiedenis op de gast"
 msgid ""
 "Remove the bash history of user \"root\" and any other users\n"
 "who have a C<.bash_history> file in their home directory."
-msgstr "Verwijder de bash geschiedenis van gebruiker \"root\" en alle andere gebruikers\ndie een C<.bash_history> bestand in hun persoonlijke map hebben."
+msgstr ""
+"Verwijder de bash geschiedenis van gebruiker \"root\" en alle andere "
+"gebruikers\n"
+"die een C<.bash_history> bestand in hun persoonlijke map hebben."
 
 #: ../sysprep/sysprep_operation_abrt_data.ml:37
 msgid "Remove the crash data generated by ABRT"
@@ -1154,7 +1246,17 @@ msgid ""
 "old MAC address occupies the old name (eg. eth0), this means the fresh\n"
 "MAC address is assigned to a new name (eg. eth1) and this is usually\n"
 "undesirable.  Erasing the udev persistent net rules avoids this."
-msgstr "Verwijder udev persistente net regels welke de bestaande MAC adres van de gast\nafbeelden op een vast ethernet apparaat (bijv. eth0).\n\nNadat een gast gekloond is, verandert het MAC adres gewoonlijk.  omdat het\noude MAC adres de oude naam gebruikt (bijv. eth0), betekent dit dat het nieuwe\nMAC adres toegekend wordt aan een nieuwe naam (bijv. eth1) en dit is meestal\nongewenst.  Het verwijderen van de udev persistente net regels voorkomt dit."
+msgstr ""
+"Verwijder udev persistente net regels welke de bestaande MAC adres van de "
+"gast\n"
+"afbeelden op een vast ethernet apparaat (bijv. eth0).\n"
+"\n"
+"Nadat een gast gekloond is, verandert het MAC adres gewoonlijk.  omdat het\n"
+"oude MAC adres de oude naam gebruikt (bijv. eth0), betekent dit dat het "
+"nieuwe\n"
+"MAC adres toegekend wordt aan een nieuwe naam (bijv. eth1) en dit is "
+"meestal\n"
+"ongewenst.  Het verwijderen van de udev persistente net regels voorkomt dit."
 
 #: ../sysprep/sysprep_operation_cron_spool.ml:39
 msgid "Remove user at-jobs and cron-jobs"
@@ -1164,7 +1266,10 @@ msgstr "Verwijder at-jobs en cron-jobs van gebruiker"
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
-msgstr "De bewerking om de grootte te veranderen is zonder fouten afgerond.  Voor het verwijderen van de oude schijf moet je zorgvuldig controleren dat de in grootte veranderde schijf opstart en correct werkt.\n"
+msgstr ""
+"De bewerking om de grootte te veranderen is zonder fouten afgerond.  Voor "
+"het verwijderen van de oude schijf moet je zorgvuldig controleren dat de in "
+"grootte veranderde schijf opstart en correct werkt.\n"
 
 #: ../resize/resize.ml:205
 msgid "Resize partition"
@@ -1264,7 +1369,9 @@ msgstr ""
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
-msgstr "Bezig met instellen van initiële partitie tabel op %s ...\n%!"
+msgstr ""
+"Bezig met instellen van initiële partitie tabel op %s ...\n"
+"%!"
 
 #: ../builder/cmdline.ml:133
 msgid "Shortcut for --list-format short"
@@ -1286,7 +1393,10 @@ msgstr ""
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
-msgstr "Sparse maken bewerking is zonder fouten beëindigd.  voor het verwijderen van de oude schijf moet je zorgvuldig controleren dat de doel schijf opstart en correct werkt.\n"
+msgstr ""
+"Sparse maken bewerking is zonder fouten beëindigd.  voor het verwijderen van "
+"de oude schijf moet je zorgvuldig controleren dat de doel schijf opstart en "
+"correct werkt.\n"
 
 #: ../sysprep/sysprep_operation_script.ml:109
 msgid ""
@@ -1312,7 +1422,32 @@ msgid ""
 "B<Note:> This is different from I<--firstboot> scripts (which run\n"
 "in the context of the guest when it is booting first time).\n"
 "I<--script> scripts run on the host, not in the guest."
-msgstr "De C<script> module laat je willekeurige shell scripts of programma's\ndraaien voor de gast.\n\nMerk op dat deze eigenschap FUSE ondersteuning vereist. Je moet dit misschien\nop je host aanzetten, bijvoorbeeld door het toevoegen van de huidige gebruiker aan\nde C<fuse> groep of door het laden van een kernel module.\n\nGebruik een of meer I<--script> parameters om scripts of programma's\nte specificeren die op de gast zullen draaien.\n\nHet script of programma wordt gedraaid met als huidige map de root\nmap van de gast, dus er moeten relatieve paden gebruikt worden.\nBijvoorbeeld: C<rm etc/resolv.conf> in het script zal het DNS configuratiebestand van een Linux gast verwijderen, maar\nC<rm /etc/resolv.conf> zal (proberen) het bestand van de host te verwijderen.\n\nGewoonlijk wordt een tijdelijk koppelpunt voor de gast gebruikt, maar je\nkunt een specifieke kiezen met de I<--scriptdir> parameter.\n\nB<Opmerking:> Dit verschilt met I<--firstboot> scripts (die in de context\nvan de gast draaien als het voor de eerste keer opstart).\nI<--script> scripts draaien op de host, niet op dee gast."
+msgstr ""
+"De C<script> module laat je willekeurige shell scripts of programma's\n"
+"draaien voor de gast.\n"
+"\n"
+"Merk op dat deze eigenschap FUSE ondersteuning vereist. Je moet dit "
+"misschien\n"
+"op je host aanzetten, bijvoorbeeld door het toevoegen van de huidige "
+"gebruiker aan\n"
+"de C<fuse> groep of door het laden van een kernel module.\n"
+"\n"
+"Gebruik een of meer I<--script> parameters om scripts of programma's\n"
+"te specificeren die op de gast zullen draaien.\n"
+"\n"
+"Het script of programma wordt gedraaid met als huidige map de root\n"
+"map van de gast, dus er moeten relatieve paden gebruikt worden.\n"
+"Bijvoorbeeld: C<rm etc/resolv.conf> in het script zal het DNS "
+"configuratiebestand van een Linux gast verwijderen, maar\n"
+"C<rm /etc/resolv.conf> zal (proberen) het bestand van de host te "
+"verwijderen.\n"
+"\n"
+"Gewoonlijk wordt een tijdelijk koppelpunt voor de gast gebruikt, maar je\n"
+"kunt een specifieke kiezen met de I<--scriptdir> parameter.\n"
+"\n"
+"B<Opmerking:> Dit verschilt met I<--firstboot> scripts (die in de context\n"
+"van de gast draaien als het voor de eerste keer opstart).\n"
+"I<--script> scripts draaien op de host, niet op dee gast."
 
 #: ../sysprep/sysprep_operation_ssh_hostkeys.ml:36
 msgid ""
@@ -1326,7 +1461,17 @@ msgid ""
 " @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
-msgstr "De SSH host sleutels worden opnieuw (anders) aangemaakt zodra de gast\nop wordt gestart.\n\nAls na het klonen de gast hetzelfde IP adres krijgt, zal ssh je een\nduidelijke waarschuwing geven over de verandering van de host sleutel:\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
+msgstr ""
+"De SSH host sleutels worden opnieuw (anders) aangemaakt zodra de gast\n"
+"op wordt gestart.\n"
+"\n"
+"Als na het klonen de gast hetzelfde IP adres krijgt, zal ssh je een\n"
+"duidelijke waarschuwing geven over de verandering van de host sleutel:\n"
+"\n"
+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
+" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
 #: ../sysprep/sysprep_operation_fs_uuids.ml:50
 msgid ""
@@ -1345,7 +1490,13 @@ msgid ""
 "installation and stays constant for all subsequent boots.  Optionally,\n"
 "for stateless systems it is generated during runtime at boot if it is\n"
 "found to be empty."
-msgstr "De machine ID wordt gewoonlijk aangemaakt uit een willekeurige bron tijdens de systeem\ninstallatie en blijft gelijk voor alle volgende keren opstarten.  Voor systemen\nzonder toestand wordt het optioneel gegenereerd bij het opstarten als deze\nniet aanwezig is."
+msgstr ""
+"De machine ID wordt gewoonlijk aangemaakt uit een willekeurige bron tijdens "
+"de systeem\n"
+"installatie en blijft gelijk voor alle volgende keren opstarten.  Voor "
+"systemen\n"
+"zonder toestand wordt het optioneel gegenereerd bij het opstarten als deze\n"
+"niet aanwezig is."
 
 #: ../sysprep/sysprep_operation_script.ml:135
 msgid ""
@@ -1363,7 +1514,9 @@ msgstr ""
 msgid ""
 "The system wide process accounting will store to the pacct\n"
 "log files if the process accounting is on."
-msgstr "De systeembrede procesaccounting zal opgeslagen worden in de pacct\nlogbestandenfiles als procesaccounting aangezet is."
+msgstr ""
+"De systeembrede procesaccounting zal opgeslagen worden in de pacct\n"
+"logbestandenfiles als procesaccounting aangezet is."
 
 #: ../builder/builder.ml:226
 msgid "There are no notes for %s\n"
@@ -1373,7 +1526,10 @@ msgstr ""
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
-msgstr "Er is een tekort van %Ld bytes (%s).  Je moet de doelschijf met tenminste die hoeveelheid groter maken of je verzoek om de grootte te veranderen aanpassen."
+msgstr ""
+"Er is een tekort van %Ld bytes (%s).  Je moet de doelschijf met tenminste "
+"die hoeveelheid groter maken of je verzoek om de grootte te veranderen "
+"aanpassen."
 
 #: ../resize/resize.ml:859
 msgid "There is a surplus of %s."
@@ -1384,7 +1540,13 @@ msgid ""
 "This file records who is currently logged in on a machine.  In modern\n"
 "Linux distros it is stored in a ramdisk and hence not part of the\n"
 "virtual machine's disk, but it was stored on disk in older distros."
-msgstr "Dit bestand houdt bij wie op dit moment ingelogd zijn op de machine.  In moderne\nLinux distributies wordt dit opgeslagen op een ramdisk en is daarom geen onderdeel\nvan de schijf van de virtuele machine, maar in oudere distributies werd het opgeslagen op de schijf."
+msgstr ""
+"Dit bestand houdt bij wie op dit moment ingelogd zijn op de machine.  In "
+"moderne\n"
+"Linux distributies wordt dit opgeslagen op een ramdisk en is daarom geen "
+"onderdeel\n"
+"van de schijf van de virtuele machine, maar in oudere distributies werd het "
+"opgeslagen op de schijf."
 
 #: ../sysprep/sysprep_operation_firewall_rules.ml:45
 msgid ""
@@ -1421,19 +1583,26 @@ msgstr ""
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
-msgstr "Je kunt --expand niet gebruiken als er geen surplus ruimte voor expansie is.  Je moet de doel schijf tenminste %s groter maken."
+msgstr ""
+"Je kunt --expand niet gebruiken als er geen surplus ruimte voor expansie "
+"is.  Je moet de doel schijf tenminste %s groter maken."
 
 #: ../resize/resize.ml:770
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
-msgstr "Je kunt --shrink niet gebruiken als er geen tekort is (zie 'deficit' in de virt-resize(1) man pagina)."
+msgstr ""
+"Je kunt --shrink niet gebruiken als er geen tekort is (zie 'deficit' in de "
+"virt-resize(1) man pagina)."
 
 #: ../sysprep/sysprep_operation_yum_uuid.ml:35
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the\n"
 "original UUID has been erased."
-msgstr "Yum maakt een nieuwe UUID aan als het de volgende draait en ontdekt dat de originele\nUUID verwijderd is."
+msgstr ""
+"Yum maakt een nieuwe UUID aan als het de volgende draait en ontdekt dat de "
+"originele\n"
+"UUID verwijderd is."
 
 #: ../sparsify/cmdline.ml:86
 msgid "Zero filesystem"
@@ -1443,7 +1612,9 @@ msgstr "Nul bestandssysteem"
 msgid ""
 "Zeroing %s ...\n"
 "%!"
-msgstr "Met nullen vullen %s ...\n%!"
+msgstr ""
+"Met nullen vullen %s ...\n"
+"%!"
 
 #: ../resize/resize.ml:256
 msgid "alignment cannot be < 1"
@@ -1604,13 +1775,16 @@ msgstr "sysprep bewerking faalde: uitzondering: %s\n"
 #: ../sysprep/main.ml:298
 msgid ""
 "sysprep operation failed: internal error: Not_found exception was thrown\n"
-msgstr "sysprep bewerking faalde: interne fout: Not_found uitzondering trad op\n"
+msgstr ""
+"sysprep bewerking faalde: interne fout: Not_found uitzondering trad op\n"
 
 #: ../sysprep/main.ml:295
 msgid ""
 "sysprep operation failed: internal error: assertion failed at %s, line %d, "
 "char %d\n"
-msgstr "sysprep bewerking faalde: interne fout: stelling faalde op %s, regel %d, karakter %d\n"
+msgstr ""
+"sysprep bewerking faalde: interne fout: stelling faalde op %s, regel %d, "
+"karakter %d\n"
 
 #: ../sysprep/main.ml:292
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
@@ -1660,7 +1834,8 @@ msgstr ""
 
 #: ../builder/sigchecker.ml:169
 msgid ""
-"virt-builder: error: GPG failure: could not verify digital signature of file\n"
+"virt-builder: error: GPG failure: could not verify digital signature of "
+"file\n"
 "Try:\n"
 " - Use the '-v' option and look for earlier error messages.\n"
 " - Delete the cache: virt-builder --delete-cache\n"
@@ -1669,7 +1844,8 @@ msgstr ""
 
 #: ../builder/sigchecker.ml:216
 msgid ""
-"virt-builder: error: checksum of template did not match the expected checksum!\n"
+"virt-builder: error: checksum of template did not match the expected "
+"checksum!\n"
 "  found checksum: %s\n"
 "  expected checksum: %s\n"
 "Try:\n"
@@ -1697,7 +1873,8 @@ msgstr ""
 
 #: ../builder/sigchecker.ml:187
 msgid ""
-"virt-builder: error: fingerprint of signature does not match the expected fingerprint!\n"
+"virt-builder: error: fingerprint of signature does not match the expected "
+"fingerprint!\n"
 "  found fingerprint: %s\n"
 "  expected fingerprint: %s\n"
 msgstr ""
@@ -1754,7 +1931,8 @@ msgid "virt-builder: no kernel found\n"
 msgstr ""
 
 #: ../builder/index_parser.ml:285
-msgid "virt-builder: you must use relative paths (not '%s') in the index file\n"
+msgid ""
+"virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
 #: ../builder/index_parser.ml:276
@@ -1783,7 +1961,9 @@ msgstr "virt-sysprep: bewerkingsnaam (%s) dubbel gebruikt\n"
 
 #: ../sysprep/sysprep_operation.ml:155
 msgid "virt-sysprep: heading for %s must not end with newline or period\n"
-msgstr "virt-sysprep: koptekst voor %s mag niet eindigen op een nieuwe regel of punt\n"
+msgstr ""
+"virt-sysprep: koptekst voor %s mag niet eindigen op een nieuwe regel of "
+"punt\n"
 
 #: ../sysprep/sysprep_operation.ml:164
 msgid "virt-sysprep: operation %s has no POD\n"
@@ -1815,9 +1995,13 @@ msgstr ""
 
 #: ../resize/resize.ml:1162
 msgid ""
-"warning: first partition is NTFS but does not contain NTFS boot loader magic\n"
+"warning: first partition is NTFS but does not contain NTFS boot loader "
+"magic\n"
 "%!"
-msgstr "waarschuwing: eerste partitie is NTFS maar bevat geen NTFS boot loader magic\n%!"
+msgstr ""
+"waarschuwing: eerste partitie is NTFS maar bevat geen NTFS boot loader "
+"magic\n"
+"%!"
 
 #: ../sparsify/cmdline.ml:178
 msgid "you cannot use --in-place and --check-tmpdir options together"
@@ -1844,7 +2028,7 @@ msgid "you cannot use the same disk image for input and output"
 msgstr "je kunt dezelfde schijf image niet voor input en output gebruiken"
 
 #: align/scan.c:73 cat/cat.c:56 cat/filesystems.c:87 cat/ls.c:83 df/main.c:66
-#: diff/diff.c:91 edit/edit.c:68 fish/fish.c:104 fuse/guestmount.c:99
+#: diff/diff.c:91 edit/edit.c:68 fish/fish.c:105 fuse/guestmount.c:99
 #: fuse/guestunmount.c:52 inspector/inspector.c:67 make-fs/make-fs.c:73
 #: rescue/rescue.c:56
 #, c-format
@@ -1875,7 +2059,7 @@ msgstr ""
 
 #: align/scan.c:133 cat/cat.c:115 cat/filesystems.c:187 cat/ls.c:174
 #: df/main.c:133 diff/diff.c:191 diff/diff.c:197 edit/edit.c:134
-#: fish/fish.c:234 format/format.c:129 fuse/guestmount.c:206
+#: fish/fish.c:235 format/format.c:129 fuse/guestmount.c:206
 #: inspector/inspector.c:127 make-fs/make-fs.c:115 rescue/rescue.c:135
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -1883,7 +2067,7 @@ msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
 #: align/scan.c:153 builder/index-validate.c:84 cat/cat.c:137
 #: cat/filesystems.c:241 cat/ls.c:224 df/main.c:157 diff/diff.c:262
-#: edit/edit.c:156 fish/fish.c:292 format/format.c:183 fuse/guestmount.c:241
+#: edit/edit.c:156 fish/fish.c:293 format/format.c:183 fuse/guestmount.c:241
 #: fuse/guestunmount.c:124 inspector/inspector.c:151 make-fs/make-fs.c:142
 #: rescue/rescue.c:192
 #, c-format
@@ -1976,12 +2160,30 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: toont bestanden in een virtuele machine\nCopyright (C) 2010 Red Hat Inc.\nGebruik:\n  %s [--options] -d domname file [file ...]\n  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\nOpties:\n  -a|--add image       Voeg image toe\n  -c|--connect uri     Specifeer libvirt URI voor -d optie\n  -d|--domain guest    Disks toevoegen van libvirt guest\n  --echo-keys          Echo voor wachtzinnen niet uitzetten\n  --format[=raw|..]    Force disk format for -a option\n  --help               Toon korte help\n  --keys-from-stdin    Lees wachtzinnen van stdin\n  -v|--verbose         Laat berichten zien\n  -V|--version         Laat versie zien en sluit\n  -x                   Trace libguestfs API calls\nVoor meer informatie, zie de manpagina %s(1).\n"
+msgstr ""
+"%s: toont bestanden in een virtuele machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  -c|--connect uri     Specifeer libvirt URI voor -d optie\n"
+"  -d|--domain guest    Disks toevoegen van libvirt guest\n"
+"  --echo-keys          Echo voor wachtzinnen niet uitzetten\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Toon korte help\n"
+"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
+"  -v|--verbose         Laat berichten zien\n"
+"  -V|--version         Laat versie zien en sluit\n"
+"  -x                   Trace libguestfs API calls\n"
+"Voor meer informatie, zie de manpagina %s(1).\n"
 
-#: cat/cat.c:357 edit/edit.c:582 fish/fish.c:1764
+#: cat/cat.c:357 edit/edit.c:582 fish/fish.c:1768
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
-msgstr "%s: om Windows schijf letters te gebruiken, moet dit een Windows gast zijn\n"
+msgstr ""
+"%s: om Windows schijf letters te gebruiken, moet dit een Windows gast zijn\n"
 
 #: cat/cat.c:371 edit/edit.c:596
 #, c-format
@@ -2025,7 +2227,41 @@ msgid ""
 "                       Display LVM volume groups\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: toon bestandssystemen, partities, blokapparaten, LVM in een VM\nCopyright (C) 2010 Red Hat Inc.\nGebruik:\n  %s [--opties] -d domname\n  %s [--opties] -a disk.img [-a disk.img ...]\nOpties:\n  -a|--add image       Voeg image toe\n  --all                Toon alles\n  --blkdevs|--block-devices\n                       Toon blokapparaten\n  -c|--connect uri     Specificeer libvirt URI voor -d optie\n  --csv                Toon als door komma's gescheiden waardes\n  -d|--domain guest    Voeg schijf toe van libvirt gast\n  --echo-keys          Zet echo voor wachtzinnen niet uit\n  --extra              Toon swap en data bestandssystemen\n  --filesystems        Toon aankoppelbare bestandssystemen\n  --format[=raw|..]    Forceer schijf formaat voor -a optie\n  -h|--human-readable  Leesbare groottes in --long output\n  --help               Toon korte hulp\n  --keys-from-stdin    Leen wachtzinnen in van stdin\n  -l|--long            Lange output\n  --lvs|--logvols|--logical-volumes\n                       Toon LVM logische volumes\n  --no-title           Geen titel in --long output\n  --parts|--partitions Toon partities\n  --pvs|--physvols|--physical-volumes\n                       Toon LVM fysieke volumes\n  --uuid|--uuids       Voeg UUID's toe aan --long output\n  -v|--verbose         Breedsprakige boodschappen\n  -V|--version         Toon versie en sluit af\n  --vgs|--volgroups|--volume-groups\n                       Toon LVM volume groepen\n  -x                   Traceer libguestfs API aanroepen\nVoor meer informatie, zie de man pagina %s(1).\n"
+msgstr ""
+"%s: toon bestandssystemen, partities, blokapparaten, LVM in een VM\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] -d domname\n"
+"  %s [--opties] -a disk.img [-a disk.img ...]\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --all                Toon alles\n"
+"  --blkdevs|--block-devices\n"
+"                       Toon blokapparaten\n"
+"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+"  --csv                Toon als door komma's gescheiden waardes\n"
+"  -d|--domain guest    Voeg schijf toe van libvirt gast\n"
+"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
+"  --extra              Toon swap en data bestandssystemen\n"
+"  --filesystems        Toon aankoppelbare bestandssystemen\n"
+"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
+"  -h|--human-readable  Leesbare groottes in --long output\n"
+"  --help               Toon korte hulp\n"
+"  --keys-from-stdin    Leen wachtzinnen in van stdin\n"
+"  -l|--long            Lange output\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       Toon LVM logische volumes\n"
+"  --no-title           Geen titel in --long output\n"
+"  --parts|--partitions Toon partities\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       Toon LVM fysieke volumes\n"
+"  --uuid|--uuids       Voeg UUID's toe aan --long output\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Toon versie en sluit af\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       Toon LVM volume groepen\n"
+"  -x                   Traceer libguestfs API aanroepen\n"
+"Voor meer informatie, zie de man pagina %s(1).\n"
 
 #: cat/filesystems.c:303 cat/ls.c:332 df/main.c:262 diff/diff.c:328
 #, c-format
@@ -2063,14 +2299,44 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: toon bestanden in een virtuele machine\nCopyright (C) 2010-2012 Red Hat Inc.\nGebruik:\n  %s [--opties] -d domname dir [dir ...]\n  %s [--opties] -a disk.img [-a disk.img ...] dir [dir ...]\nOpties:\n  -a|--add image       Voeg image toe\n  --checksum[=...]     Toon bestand checksums\n  -c|--connect uri     Specificeer libvirt URI voor -d optie\n  --csv                Door komma's gescheiden waarde output\n  -d|--domain guest    Voeg schijven toe van libvirt gast\n  --echo-keys          Zet echo voor wachtzinnen niet uit\n  --extra-stats        Toon extra statistieken\n  --format[=raw|..]    Forceer schijf formaat voor -a optie\n  --help               Toon korte hulp\n  -h|--human-readable  Leesbare groottes in output\n  --keys-from-stdin    Lees wachtzinnen van stdin\n  -l|--long            Lange output lijst\n  -R|--recursive       Recursieve output lijst\n  --times              Toon bestand tijden\n  --time-days          Toon bestand tijden als dagen voor nu\n  --time-relative      Toon bestand tijden als seconden voor nu\n  --time-t             Toon bestand tijden als time_t's\n  --uids               Toon UID, GID\n  -v|--verbose         Breedsprakige boodschappen\n  -V|--version         Toon versie en sluit af\n  -x                   Traceer libguestfs API aanroepen\nVoor meer informatie, zie de man pagina %s(1).\n"
+msgstr ""
+"%s: toon bestanden in een virtuele machine\n"
+"Copyright (C) 2010-2012 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] -d domname dir [dir ...]\n"
+"  %s [--opties] -a disk.img [-a disk.img ...] dir [dir ...]\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --checksum[=...]     Toon bestand checksums\n"
+"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+"  --csv                Door komma's gescheiden waarde output\n"
+"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
+"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
+"  --extra-stats        Toon extra statistieken\n"
+"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
+"  --help               Toon korte hulp\n"
+"  -h|--human-readable  Leesbare groottes in output\n"
+"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
+"  -l|--long            Lange output lijst\n"
+"  -R|--recursive       Recursieve output lijst\n"
+"  --times              Toon bestand tijden\n"
+"  --time-days          Toon bestand tijden als dagen voor nu\n"
+"  --time-relative      Toon bestand tijden als seconden voor nu\n"
+"  --time-t             Toon bestand tijden als time_t's\n"
+"  --uids               Toon UID, GID\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Toon versie en sluit af\n"
+"  -x                   Traceer libguestfs API aanroepen\n"
+"Voor meer informatie, zie de man pagina %s(1).\n"
 
 #: cat/ls.c:323
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
 "For more information, read the virt-ls(1) man page.\n"
-msgstr "%s: gebruikte een vlag die alleen met de -lR mode gecombeneerd kan worden\nVoor meer informatie, lees de virt-ls(1) man pagina.\n"
+msgstr ""
+"%s: gebruikte een vlag die alleen met de -lR mode gecombeneerd kan worden\n"
+"Voor meer informatie, lees de virt-ls(1) man pagina.\n"
 
 #: cat/visit.c:102
 #, c-format
@@ -2090,7 +2356,8 @@ msgstr "%s: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
 #: df/domains.c:93
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
-msgstr "%s: kon het aantal draaiende domeinen niet krijgen (code %d, domein %d): %s\n"
+msgstr ""
+"%s: kon het aantal draaiende domeinen niet krijgen (code %d, domein %d): %s\n"
 
 #: df/domains.c:103
 #, c-format
@@ -2100,7 +2367,8 @@ msgstr "%s: kon draaiende domeinen niet tonen (code %d, domein %d): %s\n"
 #: df/domains.c:114
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
-msgstr "%s: kon het aantal inactieve domeinen niet krijgen (code %d, domein %d): %s\n"
+msgstr ""
+"%s: kon het aantal inactieve domeinen niet krijgen (code %d, domein %d): %s\n"
 
 #: df/domains.c:124
 #, c-format
@@ -2225,12 +2493,12 @@ msgstr ""
 msgid "%s: extra arguments on the command line\n"
 msgstr ""
 
-#: diff/diff.c:732
+#: diff/diff.c:739
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:736
+#: diff/diff.c:743
 msgid "End of diff"
 msgstr ""
 
@@ -2321,7 +2589,9 @@ msgstr "voeg een station toe in snapshot mode (alleen-lezen)"
 
 #: fish/cmds.c:3743
 msgid "add a drive read-only specifying the QEMU block emulation to use"
-msgstr "voeg een station alleen-lezen toe met het specificeren van de te gebruiken QEMU blok emulatie"
+msgstr ""
+"voeg een station alleen-lezen toe met het specificeren van de te gebruiken "
+"QEMU blok emulatie"
 
 #: fish/cmds.c:3744
 msgid "add a temporary scratch drive"
@@ -2329,7 +2599,9 @@ msgstr ""
 
 #: fish/cmds.c:3745
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr "voeg een station toe met het specificeren van de te gebruiken QEMU blok emulatie"
+msgstr ""
+"voeg een station toe met het specificeren van de te gebruiken QEMU blok "
+"emulatie"
 
 #: fish/cmds.c:3746
 msgid "allocate and add a disk file"
@@ -2763,7 +3035,8 @@ msgstr "zoek alle bestanden en mappen op"
 
 #: fish/cmds.c:3860
 msgid "find all files and directories, returning NUL-separated list"
-msgstr "zoek alle bestanden en mappen op, geef een door NUL gescheiden lijst terug"
+msgstr ""
+"zoek alle bestanden en mappen op, geef een door NUL gescheiden lijst terug"
 
 #: fish/cmds.c:3861
 msgid "find a filesystem by label"
@@ -3047,7 +3320,8 @@ msgstr "verkrijg station letter afbeelding"
 
 #: fish/cmds.c:3935
 msgid "get filesystems associated with inspected operating system"
-msgstr "verkrijg bestandssystemen geassocieerd met geïnspecteerd besturingssysteem"
+msgstr ""
+"verkrijg bestandssystemen geassocieerd met geïnspecteerd besturingssysteem"
 
 #: fish/cmds.c:3936
 msgid "get format of inspected operating system"
@@ -3091,7 +3365,9 @@ msgstr "verkrijg product variant van geinspecteerd bestandssysteem"
 
 #: fish/cmds.c:3946
 msgid "return list of operating systems found by last inspection"
-msgstr "geef de lijst van besturingssystemen terug gevonden tijdens de laatste inspectie"
+msgstr ""
+"geef de lijst van besturingssystemen terug gevonden tijdens de laatste "
+"inspectie"
 
 #: fish/cmds.c:3947
 msgid "get type of inspected operating system"
@@ -3119,7 +3395,8 @@ msgstr "verkrijg netinst (netwerk installer) vlag voor installatie schijf"
 
 #: fish/cmds.c:3953 fish/cmds.c:3954
 msgid "get list of applications installed in the operating system"
-msgstr "verkrijg lijst van toepassingen geïnstalleerd voor het besturingssysteem"
+msgstr ""
+"verkrijg lijst van toepassingen geïnstalleerd voor het besturingssysteem"
 
 #: fish/cmds.c:3955
 msgid "inspect disk and return list of operating systems found"
@@ -3599,7 +3876,8 @@ msgstr "sla NTFS op naar backup bestand"
 
 #: fish/cmds.c:4084
 msgid "fix common errors and force Windows to check NTFS"
-msgstr "repareer veel voorkomende fouten en forceer Windows om NTFS te controleren"
+msgstr ""
+"repareer veel voorkomende fouten en forceer Windows om NTFS te controleren"
 
 #: fish/cmds.c:4085
 msgid "resize an NTFS filesystem"
@@ -3775,11 +4053,13 @@ msgstr "verander grootte van een ext2, ext3 of ext4 bestandssysteem"
 
 #: fish/cmds.c:4131
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
-msgstr "verklein een ext2, ext3 of ext4 bestandssysteem naar de minimale grootte"
+msgstr ""
+"verklein een ext2, ext3 of ext4 bestandssysteem naar de minimale grootte"
 
 #: fish/cmds.c:4132
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr "verander grootte van een ext2, ext3 of ext4 bestandssysteem (met grootte)"
+msgstr ""
+"verander grootte van een ext2, ext3 of ext4 bestandssysteem (met grootte)"
 
 #: fish/cmds.c:4133
 msgid "remove a file"
@@ -4031,7 +4311,8 @@ msgstr "zet swap op swap partitie volgens UUID aan"
 
 #: fish/cmds.c:4199
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr "synchroniseer schijven, schrijven wordt doorgespoeld naar het schijf image"
+msgstr ""
+"synchroniseer schijven, schrijven wordt doorgespoeld naar het schijf image"
 
 #: fish/cmds.c:4200
 msgid "install the SYSLINUX bootloader"
@@ -4135,7 +4416,8 @@ msgstr "verkrijg het bestandssysteem label"
 
 #: fish/cmds.c:4227
 msgid "get the Linux VFS type corresponding to a mounted device"
-msgstr "verkrijg het Linux VFS type dat correspondeert met een aangekoppeld apparaat"
+msgstr ""
+"verkrijg het Linux VFS type dat correspondeert met een aangekoppeld apparaat"
 
 #: fish/cmds.c:4228
 msgid "get the filesystem UUID"
@@ -4187,7 +4469,8 @@ msgstr "laat de LVM volume groepen (VG's) zien"
 
 #: fish/cmds.c:4241
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
-msgstr "opnieuw scannen voor LVM fysiwkw volumes, volume groepen en logische volumes"
+msgstr ""
+"opnieuw scannen voor LVM fysiwkw volumes, volume groepen en logische volumes"
 
 #: fish/cmds.c:4242
 msgid "get the UUID of a volume group"
@@ -4259,7 +4542,9 @@ msgstr "bepaal bestand type in een gecomprimeerd bestand"
 
 #: fish/cmds.c:4265
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "Gebruik -h <cmd> / help <cmd> om gedetailleerde hulp voor een commando te tonen."
+msgstr ""
+"Gebruik -h <cmd> / help <cmd> om gedetailleerde hulp voor een commando te "
+"tonen."
 
 #: fish/cmds.c:4805 fish/cmds.c:4834 fish/cmds.c:4867 fish/cmds.c:4897
 #: fish/cmds.c:5124 fish/cmds.c:5150 fish/cmds.c:5243 fish/cmds.c:5269
@@ -4666,9 +4951,10 @@ msgstr "%s: %s:regel %d: fout bij ontleden van configuratie bestand: %s\n"
 #: fish/copy.c:51
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
-"image\n"
-msgstr "gebruik 'copy-in <local> [<local>...] <remotedir>' om bestanden naar de image te kopieren\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+msgstr ""
+"gebruik 'copy-in <local> [<local>...] <remotedir>' om bestanden naar de "
+"image te kopieren\n"
 
 #: fish/copy.c:69
 #, c-format
@@ -4685,7 +4971,9 @@ msgstr "fout: argument heeft lengte nul of is langer dan toegestaan\n"
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
-msgstr "gebruik 'copy-out <remote> [<remote>...] <localdir>' om bestanden uit de image te kopieren\n"
+msgstr ""
+"gebruik 'copy-out <remote> [<remote>...] <localdir>' om bestanden uit de "
+"image te kopieren\n"
 
 #: fish/copy.c:213
 #, c-format
@@ -4715,7 +5003,9 @@ msgstr "onbekende event naam: %s\n"
 #: fish/events.c:166
 #, c-format
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
-msgstr "gebruik 'event <naam> <eventset> <script>' om een event handler te registreren\n"
+msgstr ""
+"gebruik 'event <naam> <eventset> <script>' om een event handler te "
+"registreren\n"
 
 #: fish/events.c:225
 #, c-format
@@ -4732,7 +5022,7 @@ msgstr "delete-event: %s: zo'n event handler is niet bekend\n"
 msgid "use 'list-events' to list event handlers\n"
 msgstr "gebruik 'list-events' om event handlers te tonen\n"
 
-#: fish/fish.c:108
+#: fish/fish.c:109
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -4783,43 +5073,48 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:251
+#: fish/fish.c:252
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID was geen getal: %s\n"
 
-#: fish/fish.c:258
+#: fish/fish.c:259
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr "%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op afstand\n"
+msgstr ""
+"%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op "
+"afstand\n"
 
-#: fish/fish.c:311
+#: fish/fish.c:312
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:318
+#: fish/fish.c:319
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: er kan slechts een -f parameter opgegeven worden\n"
 
-#: fish/fish.c:510
+#: fish/fish.c:514
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
-msgstr "%s: de --listen en --remote opties kunnen niet tegelijkertijd gebruikt worden\n"
+msgstr ""
+"%s: de --listen en --remote opties kunnen niet tegelijkertijd gebruikt "
+"worden\n"
 
-#: fish/fish.c:518
+#: fish/fish.c:522
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters op de commando regel met --listen vlag\n"
 
-#: fish/fish.c:524
+#: fish/fish.c:528
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr "%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
+msgstr ""
+"%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
 
-#: fish/fish.c:699
+#: fish/fish.c:703
 #, c-format
 msgid ""
 "\n"
@@ -4832,113 +5127,129 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:857 fish/fish.c:873
+#: fish/fish.c:861 fish/fish.c:877
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: commando argumenten niet gescheiden door spaties\n"
 
-#: fish/fish.c:867
+#: fish/fish.c:871
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: niet afgesloten enkel aanhalingsteken\n"
 
-#: fish/fish.c:897
+#: fish/fish.c:901
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: interne fout bij ontleden van tekenreeks op '%s'\n"
 
-#: fish/fish.c:914
+#: fish/fish.c:918
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: teveel argumenten\n"
 
-#: fish/fish.c:989
+#: fish/fish.c:993
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr "%s: ongeldige escape volgorde in string (begint bij offset %d)\n"
 
-#: fish/fish.c:998
+#: fish/fish.c:1002
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: niet afgesloten dubbel aanhalingsteken\n"
 
-#: fish/fish.c:1061
+#: fish/fish.c:1065
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: leeg commando op commando regel\n"
 
-#: fish/fish.c:1219
+#: fish/fish.c:1223
 msgid "display a list of commands or help on a command"
 msgstr "laat een lijst van commando's of hulp over een commando zien"
 
-#: fish/fish.c:1221
+#: fish/fish.c:1225
 msgid "quit guestfish"
 msgstr "sluit guestfish af"
 
-#: fish/fish.c:1232
+#: fish/fish.c:1236
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
 "     help cmd\n"
 "     help\n"
-msgstr "help - laat een lijst van commando's of hulp over een commando zien\n     help cmd\n     help\n"
+msgstr ""
+"help - laat een lijst van commando's of hulp over een commando zien\n"
+"     help cmd\n"
+"     help\n"
 
-#: fish/fish.c:1240
+#: fish/fish.c:1244
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
-msgstr "quit - sluit guestfish af\n     quit\n"
+msgstr ""
+"quit - sluit guestfish af\n"
+"     quit\n"
 
-#: fish/fish.c:1245
+#: fish/fish.c:1249
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: commando niet bekend, gebruik -h om alle commando's te tonen\n"
 
-#: fish/fish.c:1261
+#: fish/fish.c:1265
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
 "For a list of commands:             guestfish -h\n"
 "For complete documentation:         man guestfish\n"
-msgstr "Wilde je een schijf image openen?  guestfish -a disk.img\nVoor een lijst commando's:         guestfish -h\nVoor complete documentatie:        man guestfish\n"
+msgstr ""
+"Wilde je een schijf image openen?  guestfish -a disk.img\n"
+"Voor een lijst commando's:         guestfish -h\n"
+"Voor complete documentatie:        man guestfish\n"
 
-#: fish/fish.c:1270
+#: fish/fish.c:1274
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: fout: %s\n"
 
-#: fish/fish.c:1313
+#: fish/fish.c:1317
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
 
-#: fish/fish.c:1421
+#: fish/fish.c:1425
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Los aanhalingsteken in tekenreeks \"%s\"\n"
 
-#: fish/fish.c:1758
+#: fish/fish.c:1762
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
-msgstr "%s: om Windows station letters te gebruiken, moet je de gast inspecteren (\"-i\" optie of draai het \"inspect-os\" commando)\n"
+msgstr ""
+"%s: om Windows station letters te gebruiken, moet je de gast inspecteren (\"-"
+"i\" optie of draai het \"inspect-os\" commando)\n"
 
-#: fish/fish.c:1778
+#: fish/fish.c:1782
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
-msgstr "%s: station '%c:' niet gevonden.  Om de beschikbare stations te tonen voer je uit:\n  inspect-get-drive-mappings %s\n"
+msgstr ""
+"%s: station '%c:' niet gevonden.  Om de beschikbare stations te tonen voer "
+"je uit:\n"
+"  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1797
+#: fish/fish.c:1801
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
 "  umount-all\n"
 "  mount %s /\n"
-msgstr "%s: toegang tot '%c:', koppel %s eerst aan.  Een manier om dit te doen is:\n  umount-all\n  mount %s /\n"
+msgstr ""
+"%s: toegang tot '%c:', koppel %s eerst aan.  Een manier om dit te doen is:\n"
+"  umount-all\n"
+"  mount %s /\n"
 
 #: fish/glob.c:62
 #, c-format
@@ -4953,10 +5264,16 @@ msgstr "glob: guestfs_glob_expand aanroep mislukte: %s\n"
 #: fish/help.c:39
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' "
+"command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
-msgstr "Voeg schijf disk images toe om te onderzoeken met de -a of -d opties, of het 'add' commando.\nOf creëer een nieuwe schijf image met -N, of de 'alloc' of 'sparse' commando's.\nZodra je dit gedaan hebt, gebruik je het 'run' commando.\n"
+msgstr ""
+"Voeg schijf disk images toe om te onderzoeken met de -a of -d opties, of het "
+"'add' commando.\n"
+"Of creëer een nieuwe schijf image met -N, of de 'alloc' of 'sparse' "
+"commando's.\n"
+"Zodra je dit gedaan hebt, gebruik je het 'run' commando.\n"
 
 #: fish/help.c:45
 #, c-format
@@ -4964,7 +5281,10 @@ msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
 "mount them to examine or modify the contents using 'mount-ro' or\n"
 "'mount'.\n"
-msgstr "Bepaal welke bestandssystemen beschikbaar zijn met 'list-filesystems' en \nkoppel ze dan aan om de inhoud te bekijken of te veranderen \nmet 'mount-ro' of 'mount-options'.\n"
+msgstr ""
+"Bepaal welke bestandssystemen beschikbaar zijn met 'list-filesystems' en \n"
+"koppel ze dan aan om de inhoud te bekijken of te veranderen \n"
+"met 'mount-ro' of 'mount-options'.\n"
 
 #: fish/help.c:53
 #, c-format
@@ -4972,7 +5292,10 @@ msgid ""
 "For more information about a command, use 'help cmd'.\n"
 "\n"
 "To read the manual, type 'man'.\n"
-msgstr "Voor meer informatie over een commando, gebruik je 'help cmd'.\n\nOm de manual te lezen, type je 'man'.\n"
+msgstr ""
+"Voor meer informatie over een commando, gebruik je 'help cmd'.\n"
+"\n"
+"Om de manual te lezen, type je 'man'.\n"
 
 #: fish/hexedit.c:42
 #, c-format
@@ -4990,7 +5313,10 @@ msgid ""
 "hexedit: %s is larger than %s. You must supply a limit using\n"
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
 "  'hexedit %s <start> <max>'.\n"
-msgstr "hexedit: %s is groter dan %s. Je moet een limit opgeven met\n  'hexedit %s <max>' (b.v. 'hexedit %s 1M') of een reeks met\n  'hexedit %s <start> <max>'.\n"
+msgstr ""
+"hexedit: %s is groter dan %s. Je moet een limit opgeven met\n"
+"  'hexedit %s <max>' (b.v. 'hexedit %s 1M') of een reeks met\n"
+"  'hexedit %s <start> <max>'.\n"
 
 #: fish/hexedit.c:93
 #, c-format
@@ -5019,7 +5345,25 @@ msgid ""
 "If using other virt tools, this disk image won't work\n"
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
-msgstr "%s: er werd op deze schijf geen besturingssysteem gevonden\n\nAls de guestfish '-i' optie gebruikt werd, verwijder je deze optie en in plaats daarvan\ngebruik je de commando's 'run' gevolgd door 'list-filesystems'.\nJe kunt daarna gewenste bestanssystemen handmatig aankopplen met het\n'mount' of 'mount-ro' commando.\n\nAls guestmount '-i' gebruikt wprdt, verwijder je deze optie en je kiest de\nbestandsysteem/systemen die je wilt zien met handmatig de '-m' opties(s) toe te voegen.\nGeruik 'virt-filesystems' om ye zien welke bestandssystemen beschikbaar zijn.\n\nAls andere virt gereedschappen gebruikt worden zal deze schijf image niet werken\nmet deze gereedschappen.  Gebruik de guestfish equivalente commando's\n(zie de virt tool manual pagina).\n"
+msgstr ""
+"%s: er werd op deze schijf geen besturingssysteem gevonden\n"
+"\n"
+"Als de guestfish '-i' optie gebruikt werd, verwijder je deze optie en in "
+"plaats daarvan\n"
+"gebruik je de commando's 'run' gevolgd door 'list-filesystems'.\n"
+"Je kunt daarna gewenste bestanssystemen handmatig aankopplen met het\n"
+"'mount' of 'mount-ro' commando.\n"
+"\n"
+"Als guestmount '-i' gebruikt wprdt, verwijder je deze optie en je kiest de\n"
+"bestandsysteem/systemen die je wilt zien met handmatig de '-m' opties(s) toe "
+"te voegen.\n"
+"Geruik 'virt-filesystems' om ye zien welke bestandssystemen beschikbaar "
+"zijn.\n"
+"\n"
+"Als andere virt gereedschappen gebruikt worden zal deze schijf image niet "
+"werken\n"
+"met deze gereedschappen.  Gebruik de guestfish equivalente commando's\n"
+"(zie de virt tool manual pagina).\n"
 
 #: fish/inspect.c:96
 #, c-format
@@ -5038,12 +5382,28 @@ msgid ""
 "If using other virt tools, multi-boot operating systems won't work\n"
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
-msgstr "%s: multi-boot besturingssystemen worden niet ondersteund\n\nAls de guestfish '-i' optie gebruikt wortdt, verwijder je deze optie en in plaats\ndaarvan gebruik je de commando's 'run' gevolgd door 'list-filesystems'.\nJe kunt daarna de gewenste bestandssystemen aankoppelen met het\n'mount' of 'mount-ro' commando.\n\nIf using guestmount '-i', remove this option and choose the\nfilesystem(s) you want to see by manually adding '-m' option(s).\nUse 'virt-filesystems' to see what filesystems are available.\n\nIf using other virt tools, multi-boot operating systems won't work\nwith these tools.  Use the guestfish equivalent commands\n(see the virt tool manual page).\n"
+msgstr ""
+"%s: multi-boot besturingssystemen worden niet ondersteund\n"
+"\n"
+"Als de guestfish '-i' optie gebruikt wortdt, verwijder je deze optie en in "
+"plaats\n"
+"daarvan gebruik je de commando's 'run' gevolgd door 'list-filesystems'.\n"
+"Je kunt daarna de gewenste bestandssystemen aankoppelen met het\n"
+"'mount' of 'mount-ro' commando.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, multi-boot operating systems won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
 
 #: fish/inspect.c:158
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr "%s: sommige bestandssystemen konden niet aangekoppeld worden (genegeerd)\n"
+msgstr ""
+"%s: sommige bestandssystemen konden niet aangekoppeld worden (genegeerd)\n"
 
 #: fish/inspect.c:174
 #, c-format
@@ -5090,12 +5450,15 @@ msgstr "%s: '%s' kon niet aangekoppeld worden.\n"
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
-msgstr "%s: Check mount(8) man pagina om er zeker van te zijn dat opties '%s'\n%s: ondersteund worden door het bestandssysteem dat aangekoppeld wordt.\n"
+msgstr ""
+"%s: Check mount(8) man pagina om er zeker van te zijn dat opties '%s'\n"
+"%s: ondersteund worden door het bestandssysteem dat aangekoppeld wordt.\n"
 
 #: fish/options.c:263
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr "%s: Bedoelde je het om een van deze bestandssystemen aan te koppelen?\n"
+msgstr ""
+"%s: Bedoelde je het om een van deze bestandssystemen aan te koppelen?\n"
 
 #: fish/prep-boot.c:35 fish/prep-boot.c:89 fish/prep-disk.c:35
 #: fish/prep-fs.c:35 fish/prep-lv.c:70 fish/prep-lv.c:113 fish/prep-part.c:35
@@ -5167,7 +5530,9 @@ msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
 msgid ""
 "List of available prepared disk images:\n"
 "\n"
-msgstr "Lijst van beschikbare aangemaakte schijf images:\n\n"
+msgstr ""
+"Lijst van beschikbare aangemaakte schijf images:\n"
+"\n"
 
 #: fish/prep.c:41
 #, c-format
@@ -5175,7 +5540,10 @@ msgid ""
 "guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
-msgstr "guestfish -N %-8s - %s\n\n%s\n"
+msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
 
 #: fish/prep.c:49
 #, c-format
@@ -5204,12 +5572,17 @@ msgstr ""
 msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter.\n"
-msgstr "guestfish: -N parameter '%s': zo'n geprepareerde schijf image is niet bekend.\nGebruik 'guestfish -N help' om alle mogelijke waardes voor de -N parameter te tonen.\n"
+msgstr ""
+"guestfish: -N parameter '%s': zo'n geprepareerde schijf image is niet "
+"bekend.\n"
+"Gebruik 'guestfish -N help' om alle mogelijke waardes voor de -N parameter "
+"te tonen.\n"
 
 #: fish/prep.c:163
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
-msgstr "guestfish: fout bij creëren van aangemaakte schijf image '%s' op '%s': "
+msgstr ""
+"guestfish: fout bij creëren van aangemaakte schijf image '%s' op '%s': "
 
 #: fish/rc.c:68
 #, c-format
@@ -5227,7 +5600,10 @@ msgstr "guestfish: protocol fout: kon 'hello' boodschap niet lezen\n"
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
-msgstr "guestfish: protocol fout: versie komt niet overeen, server versie '%s' komt niet overeen met cliënt versie '%s'. De twee versies moeten exact overeenkomen.\n"
+msgstr ""
+"guestfish: protocol fout: versie komt niet overeen, server versie '%s' komt "
+"niet overeen met cliënt versie '%s'. De twee versies moeten exact "
+"overeenkomen.\n"
 
 #: fish/rc.c:385 fish/rc.c:399
 #, c-format
@@ -5237,7 +5613,8 @@ msgstr "guestfish: remote: het lijkt erop dat de server niet draait\n"
 #: fish/rc.c:411 fish/rc.c:425
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr "guestfish: protocol fout: kon initiële groeten niet naar de server sturen\n"
+msgstr ""
+"guestfish: protocol fout: kon initiële groeten niet naar de server sturen\n"
 
 #: fish/rc.c:436
 #, c-format
@@ -5301,7 +5678,9 @@ msgstr "BELANGRIJK: Dit programma WIST ALLE DATA op schijven."
 msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
-msgstr "Probeer `%s --help' voor meer informatie.\n%s\n"
+msgstr ""
+"Probeer `%s --help' voor meer informatie.\n"
+"%s\n"
 
 #: format/format.c:69
 #, c-format
@@ -5348,7 +5727,11 @@ msgid ""
 "may mean there is some sort of partition table or disk\n"
 "data which we are unable to remove.  If you think this\n"
 "is a bug, please file a bug at http://libguestfs.org/\n"
-msgstr "%s: herscannen van de schijven mislukte na twee pogingen.  Dit\nkan beteken dat er een soort partitie tabel of schijf\ndata is die we niet kuinnen verwijderen.  Als je denkt dat\ndit een bug is, maak je een bug aan op http://libguestfs.org/\n"
+msgstr ""
+"%s: herscannen van de schijven mislukte na twee pogingen.  Dit\n"
+"kan beteken dat er een soort partitie tabel of schijf\n"
+"data is die we niet kuinnen verwijderen.  Als je denkt dat\n"
+"dit een bug is, maak je een bug aan op http://libguestfs.org/\n"
 
 #: format/format.c:312
 #, c-format
@@ -5416,7 +5799,8 @@ msgstr "%s: --live is niet compatibel met -a optie\n"
 #: fuse/guestmount.c:357 fuse/guestunmount.c:153
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
-msgstr "%s: je moet een aankoppel punt in het host bestandssysteem specificeren\n"
+msgstr ""
+"%s: je moet een aankoppel punt in het host bestandssysteem specificeren\n"
 
 #: fuse/guestunmount.c:56
 #, c-format
@@ -5476,7 +5860,25 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "  --xpath query        Perform an XPath query\n"
 "For more information, see the manpage %s(1).\n"
-msgstr "%s: toon informatie over een virtuele machine\nCopyright (C) 2010 Red Hat Inc.\nGebruik:\n  %s [--opties] -d domname file [file ...]\n  %s [--opties] -a disk.img [-a disk.img ...] file [file ...]\nOpties:\n  -a|--add image       Voeg image toe\n  -c|--connect uri     Specificeer libvirt URI voor -d optie\n  -d|--domain guest    Voeg schijven toe van libvirt gast\n  --echo-keys          Zet echo voor wachtzinnen niet uit\n  --format[=raw|..]    Forceer schijf formaat voor -a optie\n  --help               Toon beknopte hulp\n  --keys-from-stdin    Lees wachtzinnen vanaf stdin\n  -v|--verbose         Uitgebreide boodschappen\n  -V|--version         Toon versie en sluit af\n  -x                   Traceer libguestfs API aanroepen\n  --xpath query        Voer een XPath bevraging uit\nVoor meer informatie, referre ja naar de man pagina %s(1).\n"
+msgstr ""
+"%s: toon informatie over een virtuele machine\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] -d domname file [file ...]\n"
+"  %s [--opties] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+"  -d|--domain guest    Voeg schijven toe van libvirt gast\n"
+"  --echo-keys          Zet echo voor wachtzinnen niet uit\n"
+"  --format[=raw|..]    Forceer schijf formaat voor -a optie\n"
+"  --help               Toon beknopte hulp\n"
+"  --keys-from-stdin    Lees wachtzinnen vanaf stdin\n"
+"  -v|--verbose         Uitgebreide boodschappen\n"
+"  -V|--version         Toon versie en sluit af\n"
+"  -x                   Traceer libguestfs API aanroepen\n"
+"  --xpath query        Voer een XPath bevraging uit\n"
+"Voor meer informatie, referre ja naar de man pagina %s(1).\n"
 
 #: inspector/inspector.c:242
 #, c-format
@@ -5488,15 +5890,30 @@ msgstr "%s: kan --xpath niet samen met andere opties gebruiken.\n"
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
+"must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
-msgstr "%s: binnen deze schijf image kon geen besturingssysteem ontdekt worden.\n\nDit kan zijn omdat het bestand geen schijf image is, of geen virtuele machine image is, of omdat het besturingssysteem type niet begrepen wordt door libguestfs.\n\nOPMERKING voor Red Hat Enterprise Linux 6 gebruikers: voor Windows gast ondersteuning\nmoet je support you must het afzonderlijke libguestfs-winsupport pakket installeren.\n\nAls je vindt dat dit een fout is, dien dan een bug rapport in met\nzo veel mogelijk informatie over de schijf image.\n"
+msgstr ""
+"%s: binnen deze schijf image kon geen besturingssysteem ontdekt worden.\n"
+"\n"
+"Dit kan zijn omdat het bestand geen schijf image is, of geen virtuele "
+"machine image is, of omdat het besturingssysteem type niet begrepen wordt "
+"door libguestfs.\n"
+"\n"
+"OPMERKING voor Red Hat Enterprise Linux 6 gebruikers: voor Windows gast "
+"ondersteuning\n"
+"moet je support you must het afzonderlijke libguestfs-winsupport pakket "
+"installeren.\n"
+"\n"
+"Als je vindt dat dit een fout is, dien dan een bug rapport in met\n"
+"zo veel mogelijk informatie over de schijf image.\n"
 
 #: inspector/inspector.c:291
 #, c-format
@@ -5678,7 +6095,9 @@ msgstr ""
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
-msgstr "Inspecteren van virtuele machine of disk image ...\n\n"
+msgstr ""
+"Inspecteren van virtuele machine of disk image ...\n"
+"\n"
 
 #: rescue/rescue.c:420
 #, c-format
@@ -5686,7 +6105,11 @@ msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
 "commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n"
 "\n"
-msgstr "Deze schijf bevat een of meer besturingssystemen.  Je kunt deze mount\ncommando's gebruiken in virt-rescue (op de ><rescue> prompt) voor het aankoppelen van bestandssystemen.\n\n"
+msgstr ""
+"Deze schijf bevat een of meer besturingssystemen.  Je kunt deze mount\n"
+"commando's gebruiken in virt-rescue (op de ><rescue> prompt) voor het "
+"aankoppelen van bestandssystemen.\n"
+"\n"
 
 #: rescue/rescue.c:430
 #, c-format
@@ -5695,7 +6118,11 @@ msgid ""
 "# type: %s, distro: %s, version: %d.%d\n"
 "# %s\n"
 "\n"
-msgstr "# %s is de root van een %s besturingssysteem\n# type: %s, distro: %s, versie: %d.%d\n# %s\n\n"
+msgstr ""
+"# %s is de root van een %s besturingssysteem\n"
+"# type: %s, distro: %s, versie: %d.%d\n"
+"# %s\n"
+"\n"
 
 #: rescue/rescue.c:487
 #, c-format
@@ -5714,7 +6141,12 @@ msgid ""
 "operating system.  You can use these mount commands in virt-rescue (at the\n"
 "><rescue> prompt) to mount these filesystems.\n"
 "\n"
-msgstr "Deze schijf bevat een of meer besturingssystemen, maar we herkennen geen\nvan e besrturingssystemen.  Je kunt deze mount commando's gebruiken in virt-rescue (op de\n><rescue> prompt) om dze bestandssystemen aan te koppelen.\n\n"
+msgstr ""
+"Deze schijf bevat een of meer besturingssystemen, maar we herkennen geen\n"
+"van e besrturingssystemen.  Je kunt deze mount commando's gebruiken in virt-"
+"rescue (op de\n"
+"><rescue> prompt) om dze bestandssystemen aan te koppelen.\n"
+"\n"
 
 #: rescue/rescue.c:499
 #, c-format
@@ -5726,7 +6158,9 @@ msgstr "# %s heeft type '%s'\n"
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
-msgstr "kan geen geschikte libguestfs supermin vinden, fixed of oude-stijl toepassing op LIBGUESTFS_PATH (zoek pad: %s)"
+msgstr ""
+"kan geen geschikte libguestfs supermin vinden, fixed of oude-stijl "
+"toepassing op LIBGUESTFS_PATH (zoek pad: %s)"
 
 #: src/appliance.c:248
 #, c-format
@@ -5741,7 +6175,9 @@ msgstr "beveiliging: toepassing %s in cache is geen map (mode %o)"
 #: src/appliance.c:258
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr "beveiliging: toepassing %s in cache is beschrijfbaar door groep of anderen (mode %o)"
+msgstr ""
+"beveiliging: toepassing %s in cache is beschrijfbaar door groep of anderen "
+"(mode %o)"
 
 #: src/conn-socket.c:63
 msgid "accept_connection called twice"
@@ -6162,7 +6598,9 @@ msgstr "grootte van %s buitensporig (%<PRIi64> bytes)"
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
-msgstr "bestand-architectuur API is niet beschikbaar omdat deze versie van libguestfs gecompileerd werd zonder de libmagic bibliotheek"
+msgstr ""
+"bestand-architectuur API is niet beschikbaar omdat deze versie van "
+"libguestfs gecompileerd werd zonder de libmagic bibliotheek"
 
 #: src/fuse.c:927
 msgid "filesystem is already mounted in another thread"
@@ -6316,12 +6754,15 @@ msgstr "geen inspectie data: roep eerst guestfs_inspect_os aan"
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
-msgstr "%s: root apparaat niet gevonden: roep deze functie alleen aan met een root apparaat eerder teruggegeven door guestfs_inspect_os"
+msgstr ""
+"%s: root apparaat niet gevonden: roep deze functie alleen aan met een root "
+"apparaat eerder teruggegeven door guestfs_inspect_os"
 
 #: src/launch-direct.c:165
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
-msgstr "niet afgesloten aanhalingsteken (%c) in commandoregel in de buurt van: %s"
+msgstr ""
+"niet afgesloten aanhalingsteken (%c) in commandoregel in de buurt van: %s"
 
 #: src/launch-direct.c:184
 #, c-format
@@ -6332,9 +6773,9 @@ msgstr "kan string in aanhalingstekens in de buurt van: %s niet ontleden"
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
-" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
-"(you might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
+"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
+"might need to log out and log in again)."
 msgstr ""
 
 #: src/launch-direct.c:287 src/launch-uml.c:159
@@ -6343,7 +6784,8 @@ msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
 #: src/launch-direct.c:878 src/launch-libvirt.c:541
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
+msgstr ""
+"qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
 #: src/launch-direct.c:1267 src/launch-libvirt.c:1275
 #, c-format
@@ -6579,7 +7021,9 @@ msgstr ""
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
-msgstr "%s moet alleen aangeroepen worden vanuit de GUESTFS_EVENT_LIBVIRT_AUTH event afhandeling"
+msgstr ""
+"%s moet alleen aangeroepen worden vanuit de GUESTFS_EVENT_LIBVIRT_AUTH event "
+"afhandeling"
 
 #: src/libvirt-auth.c:277 src/libvirt-auth.c:297 src/libvirt-auth.c:317
 #: src/libvirt-auth.c:338
@@ -6618,18 +7062,28 @@ msgstr "fout bij verkrijgen van domein info: %s"
 #: src/libvirt-domain.c:249
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
-msgstr "fout: domein is een live virtuele machine.\nSchrijven naar de schijven van een draaiende virtuele machine kan schijf corruptie veroorzaken.\nGebruik read-only toegang, of als de gast de guestfsd daemon draait\nspecificeer je live toegang.  In de meeste libguestfs gereedschappen zijn deze opties respectievelijk\n--ro of --live.  Raadpleeg de documentatie voor meer informatie."
+msgstr ""
+"fout: domein is een live virtuele machine.\n"
+"Schrijven naar de schijven van een draaiende virtuele machine kan schijf "
+"corruptie veroorzaken.\n"
+"Gebruik read-only toegang, of als de gast de guestfsd daemon draait\n"
+"specificeer je live toegang.  In de meeste libguestfs gereedschappen zijn "
+"deze opties respectievelijk\n"
+"--ro of --live.  Raadpleeg de documentatie voor meer informatie."
 
 #: src/libvirt-domain.c:337
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
-msgstr "%s: schijf is in libvirt XML  <readonly/> gemarkeerd, en readonlydisk was ingesteld op \"error\""
+msgstr ""
+"%s: schijf is in libvirt XML  <readonly/> gemarkeerd, en readonlydisk was "
+"ingesteld op \"error\""
 
 #: src/libvirt-domain.c:405 src/libvirt-domain.c:477 src/libvirt-domain.c:698
 msgid "unable to evaluate XPath expression"
@@ -6677,7 +7131,9 @@ msgstr "libvirt domein heeft geen schijven"
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
-msgstr "deze gast heeft geen libvirt <channel> definitie voor guestfsd\nZie ATTACHING TO RUNNING DAEMONS in guestfs(3) voor meer informate."
+msgstr ""
+"deze gast heeft geen libvirt <channel> definitie voor guestfsd\n"
+"Zie ATTACHING TO RUNNING DAEMONS in guestfs(3) voor meer informate."
 
 #: src/libvirt-domain.c:747
 #, c-format
@@ -6743,7 +7199,9 @@ msgstr "schrijven naar daemon socket"
 
 #: src/proto.c:837
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr "receive_file_data: onverwachte vlag ontvangen bij het lezen van bestand chunks"
+msgstr ""
+"receive_file_data: onverwachte vlag ontvangen bij het lezen van bestand "
+"chunks"
 
 #: src/proto.c:845
 msgid "failed to parse file chunk"
@@ -6845,7 +7303,9 @@ msgstr ""
 msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
-msgstr "libguestfs-test-tool: ontleden van omgevingsvariabelen mislukte.\nControleer eerdere boodschappen en de output van het 'printenv' commando.\n"
+msgstr ""
+"libguestfs-test-tool: ontleden van omgevingsvariabelen mislukte.\n"
+"Controleer eerdere boodschappen en de output van het 'printenv' commando.\n"
 
 #: test-tool/test-tool.c:226
 #, c-format
@@ -6909,7 +7369,9 @@ msgstr "virt-list-partitions: geen image of VM naam opgegeven"
 
 #: tools/virt-tar:190 tools/virt-tar:197
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-msgstr "virt-tar: extraheer/upload mode twee keer gespecificeerd op de commando-regel\n"
+msgstr ""
+"virt-tar: extraheer/upload mode twee keer gespecificeerd op de commando-"
+"regel\n"
 
 #: tools/virt-tar:219
 msgid "virt-tar: no image, VM names, directory or filename given"
@@ -6934,12 +7396,22 @@ msgstr "virt-tar: {dir}: map naam moet beginnen met het '/' karakter\n"
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual machine\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
-msgstr "{prog}: In deze schijf image kon geen besturingssysteem ontdekt worden.\n\nDit kan zijn omdat het bestand geen schijf image is, of geen virtuele machine\nimage is, of omdat het besturingssysteem type niet door libguestfs wordt begrepen.\n\nAls je vindt dat dit een fout is, dien dan een bug rapport in met zoveel mogelijk informatie over de schijf image.\n"
+msgstr ""
+"{prog}: In deze schijf image kon geen besturingssysteem ontdekt worden.\n"
+"\n"
+"Dit kan zijn omdat het bestand geen schijf image is, of geen virtuele "
+"machine\n"
+"image is, of omdat het besturingssysteem type niet door libguestfs wordt "
+"begrepen.\n"
+"\n"
+"Als je vindt dat dit een fout is, dien dan een bug rapport in met zoveel "
+"mogelijk informatie over de schijf image.\n"
 
 #: tools/virt-tar:262 tools/virt-win-reg:302
 #, perl-brace-format
@@ -6954,7 +7426,9 @@ msgstr "geen libvirt domein naam of schijf image gegeven\n"
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
-msgstr "verwacht 1 of 2 extra parameters, subkey pad en optioneel de waarde om te exporteren\n"
+msgstr ""
+"verwacht 1 of 2 extra parameters, subkey pad en optioneel de waarde om te "
+"exporteren\n"
 
 #: tools/virt-win-reg:483
 #, perl-brace-format
