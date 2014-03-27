@@ -434,7 +434,8 @@ main (int argc, char *argv[])
     sigaction (SIGINT, &sa, NULL);
     sigaction (SIGQUIT, &sa, NULL);
 
-    guestfs_set_pgroup (g, 1);
+    if (guestfs_set_pgroup (g, 1) == -1)
+      exit (EXIT_FAILURE);
   }
 
   /* Old-style -i syntax?  Since -a/-d/-N and -i was disallowed
@@ -489,8 +490,10 @@ main (int argc, char *argv[])
      * solution would be to call launch () etc after the fork, but
      * that greatly complicates the code here).
      */
-    if (remote_control_listen)
-      guestfs_set_recovery_proc (g, 0);
+    if (remote_control_listen) {
+      if (guestfs_set_recovery_proc (g, 0) == -1)
+        exit (EXIT_FAILURE);
+    }
 
     if (launch () == -1) exit (EXIT_FAILURE);
 
