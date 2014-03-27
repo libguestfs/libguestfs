@@ -46,6 +46,7 @@
 
 #include "c-ctype.h"
 #include "closeout.h"
+#include "ignore-value.h"
 
 /* Return from parse_command_line.  See description below. */
 struct parsed_command {
@@ -597,7 +598,7 @@ static void
 user_cancel (int sig)
 {
   if (g)
-    guestfs_user_cancel (g);
+    ignore_value (guestfs_user_cancel (g));
 }
 
 static void
