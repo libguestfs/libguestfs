@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	test-virt-rescue.pl \
+	test-virt-rescue-suggest.sh \
 	virt-rescue.pod
 
 CLEANFILES = stamp-virt-rescue.pod
@@ -78,6 +79,13 @@ stamp-virt-rescue.pod: virt-rescue.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+TESTS =
+
 if ENABLE_APPLIANCE
-TESTS = test-virt-rescue.pl
+TESTS += \
+	test-virt-rescue.pl \
+	test-virt-rescue-suggest.sh
 endif ENABLE_APPLIANCE
+
+check-valgrind:
+	$(MAKE) TESTS="test-virt-rescue-suggest.sh" VG="$(top_builddir)/run @VG@" check
