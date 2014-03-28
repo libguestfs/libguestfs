@@ -278,6 +278,9 @@ virt_index_validate_SOURCES = \
 virt_index_validate_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
 
+virt_index_validate_LDADD = \
+       -L../gnulib/lib/.libs -lgnu
+
 man_MANS += virt-index-validate.1
 noinst_DATA += $(top_builddir)/html/virt-index-validate.1.html
 
