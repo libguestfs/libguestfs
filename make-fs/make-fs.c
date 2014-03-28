@@ -419,6 +419,7 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
     }
     if (fgets (line, sizeof line, fp) == NULL) {
       perror ("fgets");
+      fclose (fp);
       return -1;
     }
     fclose (fp);
