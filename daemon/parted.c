@@ -917,10 +917,12 @@ do_part_get_gpt_type (const char *device, int partnum)
 char *
 do_part_get_name (const char *device, int partnum)
 {
-  char *parttype = do_part_get_parttype (device);
+  CLEANUP_FREE char *parttype = do_part_get_parttype (device);
+
   if (STREQ (parttype, "gpt"))
     return sgdisk_info_extract_field (device, partnum,
-                                      "Partition name", extract_optionally_quoted);
+                                      "Partition name",
+                                      extract_optionally_quoted);
 
   reply_with_error ("cannot get the partition name from '%s' layouts", parttype);
   return NULL;
