@@ -212,19 +212,20 @@ print_stats (guestfs_h *g, const char *before_or_after)
     return;
 
   CLEANUP_FREE_STATVFS struct guestfs_statvfs *stats = guestfs_statvfs (g, "/");
-
-  fprintf (stderr, "%s uploading:\n", before_or_after);
-  fprintf (stderr, "  bsize = %" PRIi64 "\n", stats->bsize);
-  fprintf (stderr, "  frsize = %" PRIi64 "\n", stats->frsize);
-  fprintf (stderr, "  blocks = %" PRIi64 "\n", stats->blocks);
-  fprintf (stderr, "  bfree = %" PRIi64 "\n", stats->bfree);
-  fprintf (stderr, "  bavail = %" PRIi64 "\n", stats->bavail);
-  fprintf (stderr, "  files = %" PRIi64 "\n", stats->files);
-  fprintf (stderr, "  ffree = %" PRIi64 "\n", stats->ffree);
-  fprintf (stderr, "  favail = %" PRIi64 "\n", stats->favail);
-  fprintf (stderr, "  fsid = %" PRIi64 "\n", stats->fsid);
-  fprintf (stderr, "  flag = %" PRIi64 "\n", stats->flag);
-  fprintf (stderr, "  namemax = %" PRIi64 "\n", stats->namemax);
+  if (stats) {
+    fprintf (stderr, "%s uploading:\n", before_or_after);
+    fprintf (stderr, "  bsize = %" PRIi64 "\n", stats->bsize);
+    fprintf (stderr, "  frsize = %" PRIi64 "\n", stats->frsize);
+    fprintf (stderr, "  blocks = %" PRIi64 "\n", stats->blocks);
+    fprintf (stderr, "  bfree = %" PRIi64 "\n", stats->bfree);
+    fprintf (stderr, "  bavail = %" PRIi64 "\n", stats->bavail);
+    fprintf (stderr, "  files = %" PRIi64 "\n", stats->files);
+    fprintf (stderr, "  ffree = %" PRIi64 "\n", stats->ffree);
+    fprintf (stderr, "  favail = %" PRIi64 "\n", stats->favail);
+    fprintf (stderr, "  fsid = %" PRIi64 "\n", stats->fsid);
+    fprintf (stderr, "  flag = %" PRIi64 "\n", stats->flag);
+    fprintf (stderr, "  namemax = %" PRIi64 "\n", stats->namemax);
+  }
 }
 
 /* Execute a command, sending output to a file. */
