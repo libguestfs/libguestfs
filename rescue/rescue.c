@@ -384,10 +384,7 @@ static void
 do_suggestion (struct drv *drvs)
 {
   CLEANUP_FREE_STRING_LIST char **roots = NULL;
-  size_t i, j;
-  CLEANUP_FREE char *type = NULL, *distro = NULL, *product_name = NULL;
-  int major, minor;
-  CLEANUP_FREE_STRING_LIST char **mps = NULL;
+  size_t i;
 
   /* For inspection, force add_drives to add the drives read-only. */
   read_only = 1;
@@ -421,6 +418,11 @@ do_suggestion (struct drv *drvs)
             "commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n\n"));
 
   for (i = 0; roots[i] != NULL; ++i) {
+    CLEANUP_FREE_STRING_LIST char **mps = NULL;
+    CLEANUP_FREE char *type = NULL, *distro = NULL, *product_name = NULL;
+    int major, minor;
+    size_t j;
+
     type = guestfs_inspect_get_type (g, roots[i]);
     distro = guestfs_inspect_get_distro (g, roots[i]);
     product_name = guestfs_inspect_get_product_name (g, roots[i]);
