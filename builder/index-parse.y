@@ -58,7 +58,6 @@ concat_newline (const char *str1, const char *str2)
 %}
 
 %code requires {
-#include "index-parse.h"
 #ifndef YY_TYPEDEF_YY_SCANNER_T
 #define YY_TYPEDEF_YY_SCANNER_T
 typedef void *yyscan_t;
