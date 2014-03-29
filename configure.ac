@@ -677,10 +677,16 @@ test "x$XZCAT" = "xno" && AC_MSG_ERROR([xzcat must be installed])
 AC_DEFINE_UNQUOTED([XZCAT],["$XZCAT"],[Name of xzcat program.])
 
 dnl liblzma can be used by virt-builder (optional).
-PKG_CHECK_MODULES([LIBLZMA], [liblzma],[
+PKG_CHECK_MODULES([LIBLZMA], [liblzma], [
     AC_SUBST([LIBLZMA_CFLAGS])
     AC_SUBST([LIBLZMA_LIBS])
     AC_DEFINE([HAVE_LIBLZMA],[1],[liblzma found at compile time.])
+
+    dnl Old lzma in RHEL 6 didn't have some APIs we need.
+    old_LIBS="$LIBS"
+    LIBS="$LIBS $LIBLZMA_LIBS"
+    AC_CHECK_FUNCS([lzma_index_stream_flags lzma_index_stream_padding])
+    LIBS="$old_LIBS"
 ],
 [AC_MSG_WARN([liblzma not found, virt-builder will be slower])])
 

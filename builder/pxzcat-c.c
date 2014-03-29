@@ -36,6 +36,10 @@
 
 #include "ignore-value.h"
 
+#if HAVE_LIBLZMA
+#include <lzma.h>
+#endif
+
 #ifdef HAVE_CAML_UNIXSUPPORT_H
 #include <caml/unixsupport.h>
 #else
@@ -43,18 +47,24 @@
 extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #endif
 
-#ifdef HAVE_LIBLZMA
-#include <lzma.h>
-
-static void pxzcat (value filenamev, value outputfilev, unsigned nr_threads);
+#if defined (HAVE_LIBLZMA) && \
+  defined (HAVE_LZMA_INDEX_STREAM_FLAGS) && \
+  defined (HAVE_LZMA_INDEX_STREAM_PADDING)
+#define PARALLEL_XZCAT 1
+#else
+#define PARALLEL_XZCAT 0
 #endif
+
+#if PARALLEL_XZCAT
+static void pxzcat (value filenamev, value outputfilev, unsigned nr_threads);
+#endif /* PARALLEL_XZCAT */
 
 value
 virt_builder_pxzcat (value inputfilev, value outputfilev)
 {
   CAMLparam2 (inputfilev, outputfilev);
 
-#ifdef HAVE_LIBLZMA
+#if PARALLEL_XZCAT
 
   /* Parallel implementation of xzcat (pxzcat). */
   /* XXX Make number of threads configurable? */
@@ -73,7 +83,7 @@ virt_builder_pxzcat (value inputfilev, value outputfilev)
    */
   pxzcat (inputfilev, outputfilev, nr_threads);
 
-#else
+#else /* !PARALLEL_XZCAT */
 
   /* Fallback: use regular xzcat. */
   int fd;
@@ -105,12 +115,12 @@ virt_builder_pxzcat (value inputfilev, value outputfilev)
   if (!WIFEXITED (status) || WEXITSTATUS (status) != 0)
     caml_failwith (XZCAT " program failed, see earlier error messages");
 
-#endif
+#endif /* !PARALLEL_XZCAT */
 
   CAMLreturn (Val_unit);
 }
 
-#ifdef HAVE_LIBLZMA
+#if PARALLEL_XZCAT
 
 #define DEBUG 0
 
@@ -649,4 +659,4 @@ worker_thread (void *vp)
   return &state->status;
 }
 
-#endif /* HAVE_LIBLZMA */
+#endif /* PARALLEL_XZCAT */
