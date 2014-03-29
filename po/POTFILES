@@ -284,6 +284,7 @@ src/events.c
 src/file.c
 src/filearch.c
 src/fuse.c
+src/guid.c
 src/handle.c
 src/info.c
 src/inspect-apps.c

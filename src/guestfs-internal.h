@@ -845,7 +845,7 @@ extern void guestfs___cleanup_cmd_close (struct command **);
 extern char *guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 extern bool guestfs___discard_possible (guestfs_h *g, struct drive *drv, unsigned long qemu_version);
 
-/* utils.c */
+/* guid.c */
 extern int guestfs___validate_guid (const char *);
 
 #endif /* GUESTFS_INTERNAL_H_ */
