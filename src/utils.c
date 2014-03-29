@@ -67,7 +67,7 @@ char **
 guestfs___copy_string_list (char *const *argv)
 {
   size_t n = guestfs___count_strings (argv);
-  size_t i;
+  size_t i, j;
   char **ret;
 
   ret = malloc ((n+1) * sizeof (char *));
@@ -78,7 +78,7 @@ guestfs___copy_string_list (char *const *argv)
   for (i = 0; i < n; ++i) {
     ret[i] = strdup (argv[i]);
     if (ret[i] == NULL) {
-      for (size_t j = 0; j < i; ++j)
+      for (j = 0; j < i; ++j)
         free (ret[j]);
       free (ret);
       return NULL;
