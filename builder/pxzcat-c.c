@@ -55,6 +55,12 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #define PARALLEL_XZCAT 0
 #endif
 
+value
+virt_builder_using_parallel_xzcat (value unitv)
+{
+  return PARALLEL_XZCAT ? Val_true : Val_false;
+}
+
 #if PARALLEL_XZCAT
 static void pxzcat (value filenamev, value outputfilev, unsigned nr_threads);
 #endif /* PARALLEL_XZCAT */

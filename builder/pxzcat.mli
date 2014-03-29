@@ -29,3 +29,6 @@ val pxzcat : string -> string -> unit
         If liblzma was found at compile time, this uses an internal
         implementation of parallel xzcat.  Otherwise regular xzcat is
         used. *)
+
+val using_parallel_xzcat : unit -> bool
+(** Returns [true] iff the implementation uses parallel xzcat. *)

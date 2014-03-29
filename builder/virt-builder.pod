@@ -344,6 +344,12 @@ I<--long> is a shorthand for the C<long> format.
 
 See also: I<--source>, I<--notes>, L</SOURCES OF TEMPLATES>.
 
+=item B<--machine-readable>
+
+This option is used to make the output more machine friendly
+when being parsed by other programs.  See
+L</MACHINE READABLE OUTPUT> below.
+
 =item B<-m> MB
 
 =item B<--memsize> MB
@@ -1541,6 +1547,26 @@ boot.  Guests will reboot themselves once the first time you use them,
 which is normal and harmless.
 
 =back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-builder from other
+programs, GUIs etc.
+
+Use the option on its own to query the capabilities of the
+virt-builder binary.  Typical output looks like this:
+
+ $ virt-builder --machine-readable
+ virt-builder
+ arch
+ config-file
+ customize
+ json-list
+ pxzcat
+
+A list of features is printed, one per line, and the program exits
+with status 0.
 
 =head1 ENVIRONMENT VARIABLES
 

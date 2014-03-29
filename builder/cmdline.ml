@@ -81,6 +81,8 @@ let parse_cmdline () =
       eprintf (f_"%s: invalid --list-format type '%s', see the man page.\n") prog fmt;
       exit 1 in
 
+  let machine_readable = ref false in
+
   let memsize = ref None in
   let set_memsize arg = memsize := Some arg in
 
@@ -134,6 +136,7 @@ let parse_cmdline () =
     "--list-format", Arg.String list_set_format,
                                             "short|long|json" ^ " " ^ s_"Set the format for --list (default: short)";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
@@ -201,6 +204,7 @@ read the man page virt-builder(1).
   let format = match !format with "" -> None | s -> Some s in
   let gpg = !gpg in
   let list_format = !list_format in
+  let machine_readable = !machine_readable in
   let memsize = !memsize in
   let network = !network in
   let ops = get_customize_ops () in
@@ -210,6 +214,17 @@ read the man page virt-builder(1).
   let smp = !smp in
   let sources = List.rev !sources in
   let sync = !sync in
+
+  (* No arguments and machine-readable mode?  Print some facts. *)
+  if args = [] && machine_readable then (
+    printf "virt-builder\n";
+    printf "arch\n";
+    printf "config-file\n";
+    printf "customize\n";
+    printf "json-list\n";
+    if Pxzcat.using_parallel_xzcat () then printf "pxzcat\n";
+    exit 0
+  );
 
   (* Check options. *)
   let arg =
