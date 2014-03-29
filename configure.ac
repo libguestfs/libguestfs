@@ -1661,6 +1661,7 @@ AC_CONFIG_FILES([Makefile
                  po/Makefile
                  python/Makefile
                  python/examples/Makefile
+                 python/setup.py
                  rescue/Makefile
                  resize/Makefile
                  ruby/Makefile
