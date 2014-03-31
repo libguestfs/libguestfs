@@ -278,7 +278,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   int virtio_scsi;
   struct hv_param *hp;
   bool has_kvm;
-  bool force_tcg;
+  int force_tcg;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -289,6 +289,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   force_tcg = guestfs___get_backend_setting_bool (g, "force_tcg");
+  if (force_tcg == -1)
+    return -1;
 
   if (!force_tcg)
     debian_kvm_warning (g);

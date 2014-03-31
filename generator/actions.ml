@@ -3091,39 +3091,6 @@ can read a journal entry of any size, ie. it is not limited by
 the libguestfs protocol." };
 
   { defaults with
-    name = "set_backend_settings";
-    style = RErr, [StringList "settings"], [];
-    config_only = true;
-    blocking = false;
-    shortdesc = "set per-backend settings";
-    longdesc = "\
-Set a list of zero or more settings which are passed through to
-the current backend.  Each setting is a string which is interpreted
-in a backend-specific way, or ignored if not understood by the
-backend.
-
-The default value is an empty list, unless the environment
-variable C<LIBGUESTFS_BACKEND_SETTINGS> was set when the handle
-was created.  This environment variable contains a colon-separated
-list of settings.
-
-See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
-
-  { defaults with
-    name = "get_backend_settings";
-    style = RStringList "settings", [], [];
-    blocking = false;
-    tests = [
-      InitNone, Always, TestRun (
-        [["get_backend_settings"]]), []
-    ];
-    shortdesc = "get per-backend settings";
-    longdesc = "\
-Return the current backend settings.
-
-See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
-
-  { defaults with
     name = "disk_create";
     style = RErr, [String "filename"; String "format"; Int64 "size"], [OString "backingfile"; OString "backingformat"; OString "preallocation"; OString "compat"; OInt "clustersize"];
     test_excuse = "tests in tests/create subdirectory";
@@ -3170,6 +3137,93 @@ this setting may be any power of two between 512 and 2097152.
 
 Note that this call does not add the new disk to the handle.  You
 may need to call C<guestfs_add_drive_opts> separately." };
+
+  { defaults with
+    name = "get_backend_settings";
+    style = RStringList "settings", [], [];
+    blocking = false;
+    tests = [
+      InitNone, Always, TestRun (
+        [["get_backend_settings"]]), []
+    ];
+    shortdesc = "get per-backend settings";
+    longdesc = "\
+Return the current backend settings.
+
+This call returns all backend settings strings.  If you want to
+find a single backend setting, see C<guestfs_get_backend_setting>.
+
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+
+  { defaults with
+    name = "set_backend_settings";
+    style = RErr, [StringList "settings"], [];
+    config_only = true;
+    blocking = false;
+    shortdesc = "replace per-backend settings strings";
+    longdesc = "\
+Set a list of zero or more settings which are passed through to
+the current backend.  Each setting is a string which is interpreted
+in a backend-specific way, or ignored if not understood by the
+backend.
+
+The default value is an empty list, unless the environment
+variable C<LIBGUESTFS_BACKEND_SETTINGS> was set when the handle
+was created.  This environment variable contains a colon-separated
+list of settings.
+
+This call replaces all backend settings.  If you want to replace
+a single backend setting, see C<guestfs_set_backend_setting>.
+If you want to clear a single backend setting, see
+C<guestfs_clear_backend_setting>.
+
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+
+  { defaults with
+    name = "get_backend_setting";
+    style = RString "val", [String "name"], [];
+    blocking = false;
+    shortdesc = "get a single per-backend settings string";
+    longdesc = "\
+Find a backend setting string which is either C<\"name\"> or
+begins with C<\"name=\">.  If C<\"name\">, this returns the
+string C<\"1\">.  If C<\"name=\">, this returns the part
+after the equals sign (which may be an empty string).
+
+If no such setting is found, this function throws an error.
+The errno (see C<guestfs_last_errno>) will be C<ESRCH> in this
+case.
+
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+
+  { defaults with
+    name = "set_backend_setting";
+    style = RErr, [String "name"; String "val"], [];
+    config_only = true;
+    blocking = false;
+    shortdesc = "set a single per-backend settings string";
+    longdesc = "\
+Append C<\"name=value\"> to the backend settings string list.
+However if a string already exists matching C<\"name\">
+or beginning with C<\"name=\">, then that setting is replaced.
+
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+
+  { defaults with
+    name = "clear_backend_setting";
+    style = RInt "count", [String "name"], [];
+    config_only = true;
+    blocking = false;
+    shortdesc = "remove a single per-backend settings string";
+    longdesc = "\
+If there is a backend setting string matching C<\"name\"> or
+beginning with C<\"name=\">, then that string is removed
+from the backend settings.
+
+This call returns the number of strings which were removed
+(which may be 0, 1 or greater than 1).
+
+See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
 
 ]
 

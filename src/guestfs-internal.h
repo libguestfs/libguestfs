@@ -605,6 +605,9 @@ struct guestfs_message_header;
 struct guestfs_message_error;
 struct guestfs_progress;
 
+/* handle.c */
+extern int guestfs___get_backend_setting_bool (guestfs_h *g, const char *name);
+
 /* errors.c */
 extern void guestfs___init_error_handler (guestfs_h *g);
 
@@ -736,8 +739,6 @@ extern char *guestfs___appliance_command_line (guestfs_h *g, const char *applian
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
 extern void guestfs___register_backend (const char *name, const struct backend_ops *);
 extern int guestfs___set_backend (guestfs_h *g, const char *method);
-extern const char *guestfs___get_backend_setting (guestfs_h *g, const char *name);
-extern int guestfs___get_backend_setting_bool (guestfs_h *g, const char *name);
 
 /* inspect.c */
 extern void guestfs___free_inspect_info (guestfs_h *g);

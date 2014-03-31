@@ -31,6 +31,7 @@ check_PROGRAMS = \
 	test-config \
 	test-add-drive-opts \
 	test-last-errno \
+	test-backend-settings \
 	test-private-data \
 	test-user-cancel \
 	test-debug-to-file \
@@ -45,6 +46,7 @@ TESTS = \
 	test-config \
 	test-add-drive-opts \
 	test-last-errno \
+	test-backend-settings \
 	test-private-data \
 	test-user-cancel \
 	test-debug-to-file \
@@ -159,6 +161,16 @@ test_last_errno_CFLAGS = \
 test_last_errno_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
+
+test_backend_settings_SOURCES = test-backend-settings.c
+test_backend_settings_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+test_backend_settings_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+test_backend_settings_LDADD = \
+	$(top_builddir)/src/libutils_la-utils.lo \
+	$(top_builddir)/src/libguestfs.la
 
 test_private_data_SOURCES = test-private-data.c
 test_private_data_CPPFLAGS = \

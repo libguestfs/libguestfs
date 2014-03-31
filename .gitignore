@@ -461,6 +461,7 @@ Makefile.in
 /test.out
 /tests/c-api/test-add-drive-opts
 /tests/c-api/test-add-libvirt-dom
+/tests/c-api/test-backend-settings
 /tests/c-api/test-command
 /tests/c-api/test-config
 /tests/c-api/test-create-handle

@@ -724,6 +724,108 @@ guestfs__get_backend_settings (guestfs_h *g)
   return ret;                   /* caller frees */
 }
 
+char *
+guestfs__get_backend_setting (guestfs_h *g, const char *name)
+{
+  char **settings = g->backend_settings;
+  size_t namelen = strlen (name);
+  size_t i;
+
+  if (settings == NULL)
+    goto not_found;
+
+  for (i = 0; settings[i] != NULL; ++i) {
+    /* "name" is the same as "name=1" */
+    if (STREQ (settings[i], name))
+      return safe_strdup (g, "1");
+    /* "name=...", return value */
+    if (STRPREFIX (settings[i], name) && settings[i][namelen] == '=')
+      return safe_strdup (g, &settings[i][namelen+1]);
+  }
+
+ not_found:
+  guestfs___error_errno (g, ESRCH, _("setting not found"));
+  return NULL;
+}
+
+int
+guestfs__clear_backend_setting (guestfs_h *g, const char *name)
+{
+  char **settings = g->backend_settings;
+  size_t namelen = strlen (name);
+  size_t i, j;
+  int count = 0;
+
+  if (settings == NULL)
+    return 0;
+
+  for (i = 0; settings[i] != NULL; ++i) {
+    if (STREQ (settings[i], name) ||
+        (STRPREFIX (settings[i], name) && settings[i][namelen] == '=')) {
+      count++;
+      free (settings[i]);
+
+      /* We move all the following strings down one place, including the NULL. */
+      for (j = i; settings[j] != NULL; ++j)
+        settings[j] = settings[j+1];
+
+      i--;
+    }
+  }
+
+  return count;
+}
+
+int
+guestfs__set_backend_setting (guestfs_h *g, const char *name, const char *value)
+{
+  char *new_setting;
+  size_t len;
+
+  new_setting = safe_asprintf (g, "%s=%s", name, value);
+
+  if (g->backend_settings == NULL) {
+    g->backend_settings = safe_malloc (g, sizeof (char *));
+    g->backend_settings[0] = NULL;
+    len = 0;
+  }
+  else {
+    ignore_value (guestfs_clear_backend_setting (g, name));
+    len = guestfs___count_strings (g->backend_settings);
+  }
+
+  g->backend_settings =
+    safe_realloc (g, g->backend_settings, (len+2) * sizeof (char *));
+  g->backend_settings[len++] = new_setting;
+  g->backend_settings[len++] = NULL;
+
+  return 0;
+}
+
+/* This is a convenience function, but we might consider exporting
+ * it as an API in future.
+ */
+int
+guestfs___get_backend_setting_bool (guestfs_h *g, const char *name)
+{
+  CLEANUP_FREE char *value = NULL;
+
+  guestfs_push_error_handler (g, NULL, NULL);
+  value = guestfs_get_backend_setting (g, name);
+  guestfs_pop_error_handler (g);
+
+  if (value == NULL && guestfs_last_errno (g) == ESRCH)
+    return 0;
+
+  if (value == NULL)
+    return -1;
+
+  if (STREQ (value, "1"))
+    return 1;
+
+  return 0;
+}
+
 int
 guestfs__set_pgroup (guestfs_h *g, int v)
 {
