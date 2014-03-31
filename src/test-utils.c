@@ -16,6 +16,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/* This is not just a test of 'utils.c'.  We can test other internal
+ * functions here too.
+ */
+
 #include <config.h>
 
 #include <stdio.h>

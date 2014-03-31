@@ -249,7 +249,8 @@ libvirt_is_version_CFLAGS = \
 endif
 
 # Tests: main tests are in tests/c-api.  Here we just have some
-# internal tests of utility functions.
+# internal tests of utility functions.  Note we don't just test what's
+# in utils.c, we can test other functions as well here.
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
 
@@ -264,6 +265,7 @@ test_utils_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
 test_utils_LDADD = \
+	libguestfs_la-guid.lo \
 	libutils.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
