@@ -161,6 +161,7 @@ guestfs_create_flags (unsigned flags, ...)
   return g;
 
  error:
+  guestfs___free_string_list (g->backend_settings);
   free (g->backend);
   free (g->program);
   free (g->path);
@@ -371,6 +372,7 @@ guestfs_close (guestfs_h *g)
   free (g->hv);
   free (g->backend);
   free (g->backend_data);
+  guestfs___free_string_list (g->backend_settings);
   free (g->append);
   free (g);
 }
