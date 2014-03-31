@@ -1078,6 +1078,7 @@ digital signature):
  [fedora-18]
  name=Fedora® 18
  osinfo=fedora18
+ arch=x86_64
  file=fedora-18.xz
  checksum[sha512]=...
  format=raw
@@ -1088,6 +1089,7 @@ digital signature):
  [fedora-19]
  name=Fedora® 19
  osinfo=fedora19
+ arch=x86_64
  file=fedora-19.xz
  checksum[sha512]=...
  revision=3
@@ -1121,6 +1123,11 @@ I<--list> output but is otherwise not significant.
 
 This optional field maps the operating system to the associated
 libosinfo ID.  Virt-builder does not use it (yet).
+
+=item C<arch=ARCH>
+
+The architecture of the operating system installed within the
+template. This field is required.
 
 =item C<file=PATH>
 
