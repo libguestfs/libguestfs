@@ -266,11 +266,12 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   if (libvirt_selinux_label (g, doc, &label, &imagelabel) == -1)
     return -1;
   if (label && imagelabel) {
-    guestfs_internal_set_libvirt_selinux_label (g, label, imagelabel);
-    guestfs_internal_set_libvirt_selinux_norelabel_disks (g, 1);
+    guestfs_set_backend_setting (g, "internal_libvirt_label", label);
+    guestfs_set_backend_setting (g, "internal_libvirt_imagelabel", imagelabel);
+    guestfs_set_backend_setting (g, "internal_libvirt_norelabel_disks", "1");
   }
   else
-    guestfs_internal_set_libvirt_selinux_norelabel_disks (g, 0);
+    guestfs_clear_backend_setting (g, "internal_libvirt_norelabel_disks");
 
   /* Add the disks. */
   data.optargs.bitmask = 0;

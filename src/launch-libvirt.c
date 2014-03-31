@@ -317,6 +317,16 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   if (parse_capabilities (g, capabilities_xml, data) == -1)
     goto cleanup;
 
+  /* Misc backend settings. */
+  guestfs_push_error_handler (g, NULL, NULL);
+  data->selinux_label =
+    guestfs_get_backend_setting (g, "internal_libvirt_label");
+  data->selinux_imagelabel =
+    guestfs_get_backend_setting (g, "internal_libvirt_imagelabel");
+  data->selinux_norelabel_disks =
+    guestfs___get_backend_setting_bool (g, "internal_libvirt_norelabel_disks");
+  guestfs_pop_error_handler (g);
+
   /* Locate and/or build the appliance. */
   TRACE0 (launch_build_libvirt_appliance_start);
 
@@ -1883,28 +1893,6 @@ construct_libvirt_xml_hot_add_disk (guestfs_h *g,
   return ret;
 }
 
-static int
-set_libvirt_selinux_label (guestfs_h *g, void *datav,
-                           const char *label, const char *imagelabel)
-{
-  struct backend_libvirt_data *data = datav;
-
-  free (data->selinux_label);
-  data->selinux_label = safe_strdup (g, label);
-  free (data->selinux_imagelabel);
-  data->selinux_imagelabel = safe_strdup (g, imagelabel);
-  return 0;
-}
-
-static int
-set_libvirt_selinux_norelabel_disks (guestfs_h *g, void *datav, int flag)
-{
-  struct backend_libvirt_data *data = datav;
-
-  data->selinux_norelabel_disks = flag;
-  return 0;
-}
-
 static struct backend_ops backend_libvirt_ops = {
   .data_size = sizeof (struct backend_libvirt_data),
   .create_cow_overlay = create_cow_overlay_libvirt,
@@ -1913,8 +1901,6 @@ static struct backend_ops backend_libvirt_ops = {
   .max_disks = max_disks_libvirt,
   .hot_add_drive = hot_add_drive_libvirt,
   .hot_remove_drive = hot_remove_drive_libvirt,
-  .set_libvirt_selinux_label = set_libvirt_selinux_label,
-  .set_libvirt_selinux_norelabel_disks = set_libvirt_selinux_norelabel_disks,
 };
 
 static void init_backend (void) __attribute__((constructor));

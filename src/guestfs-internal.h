@@ -300,14 +300,6 @@ struct backend_ops {
   /* Hotplugging drives. */
   int (*hot_add_drive) (guestfs_h *g, void *data, struct drive *drv, size_t drv_index);
   int (*hot_remove_drive) (guestfs_h *g, void *data, struct drive *drv, size_t drv_index);
-
-  /* These are a hack used to communicate between guestfs_add_domain and
-   * the libvirt backend.  We will probably remove these in a future
-   * version once we can find a better way to pass this information
-   * around.
-   */
-  int (*set_libvirt_selinux_label) (guestfs_h *g, void *data, const char *label, const char *imagelabel);
-  int (*set_libvirt_selinux_norelabel_disks) (guestfs_h *g, void *data, int flag);
 };
 
 /* Connection module.  A 'connection' represents the appliance console
