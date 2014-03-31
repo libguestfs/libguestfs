@@ -28,8 +28,11 @@ fi
 
 rm -f virt-rescue-suggest.out
 
-$VG ./virt-rescue --suggest "$guest" > virt-rescue-suggest.out
-if [ "$(grep '^mount ' virt-rescue-suggest.out)" != "mount /dev/VG/Root /sysroot/
+$VG ./virt-rescue --suggest "$guest" |
+  grep '^mount ' |
+  sed -r 's,/dev/[abce-ln-z]+d,/dev/sd,' > virt-rescue-suggest.out
+
+if [ "$(cat virt-rescue-suggest.out)" != "mount /dev/VG/Root /sysroot/
 mount /dev/sda1 /sysroot/boot
 mount --bind /dev /sysroot/dev
 mount --bind /dev/pts /sysroot/dev/pts
