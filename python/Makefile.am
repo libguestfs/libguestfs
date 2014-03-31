@@ -25,6 +25,7 @@ generator_built = \
 EXTRA_DIST = \
 	$(generator_built) \
 	MANIFEST.in \
+	README.txt \
 	setup.py.in \
 	run-bindtests \
 	run-python-tests \
