@@ -387,8 +387,8 @@ copying mode must be used instead.
 
 =head1 SEE ALSO
 
-L<virt-filesystems(1)>,
 L<virt-df(1)>,
+L<virt-filesystems(1)>,
 L<virt-resize(1)>,
 L<virt-rescue(1)>,
 L<guestfs(3)>,
