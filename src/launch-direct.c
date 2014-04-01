@@ -471,15 +471,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* These are recommended settings, see RHBZ#1053847. */
   ADD_CMDLINE ("-rtc");
   ADD_CMDLINE ("driftfix=slew");
-#if !defined(__arm__) && !defined(__aarch64__) && !defined(__powerpc__)
-  /* qemu-system-arm and qemu-system-ppc64 advertises the -no-hpet option
-   * but if you try to use it, it usefully says:
-   *   "Option no-hpet not supported for this target".
-   * Cheers qemu developers.  How many years have we been asking for
-   * capabilities?  Could be 3 or 4 years, I forget.
-   */
-  ADD_CMDLINE ("-no-hpet");
-#endif
+  if (qemu_supports (g, data, "-no-hpet")) {
+    ADD_CMDLINE ("-no-hpet");
+  }
   if (data->qemu_version_major < 1 ||
       (data->qemu_version_major == 1 && data->qemu_version_minor <= 2))
     ADD_CMDLINE ("-no-kvm-pit-reinjection");
