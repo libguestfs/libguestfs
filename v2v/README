@@ -1,0 +1,23 @@
+Missing features compared to Perl version:
+
+ - user-custom in virt-v2v.conf to install custom packages (virt-customize?)
+ - Windows support
+ - Fix configure_kernel on SUSE (see Mike Latimer's email)
+ - RHEV-M metadata
+ - testing
+
+Notes on the support matrix for upstream virt-v2v:
+
+- All these in 32- and 64-bit variants.
+
+- All these as Xen HV and PV variants, and ESX guests.
+
+- RHEL 3, 4, 5, 6, 7.
+- RHEL 4.5, 4.8, 5.2, 5.4 - tested particularly because virtio was added
+  between these releases.
+
+- Windows XP, 2000, 2003, 2008.
+
+- SUSE: OpenSUSE 13.1, SLES11 SP3, SLES12.
+
+- VirtualBox: Not tested.

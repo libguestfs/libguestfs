@@ -1599,6 +1599,8 @@ AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
 AC_CONFIG_FILES([sparsify/link.sh],
                 [chmod +x,-w sparsify/link.sh])
+AC_CONFIG_FILES([v2v/link.sh],
+                [chmod +x,-w v2v/link.sh])
 
 AC_CONFIG_FILES([Makefile
                  align/Makefile
@@ -1702,7 +1704,8 @@ AC_CONFIG_FILES([Makefile
                  tests/tmpdirs/Makefile
                  tests/xfs/Makefile
                  tests/xml/Makefile
-                 tools/Makefile])
+                 tools/Makefile
+                 v2v/Makefile])
 AC_OUTPUT
 
 dnl Produce summary.

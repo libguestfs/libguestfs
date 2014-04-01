@@ -81,3 +81,14 @@ sysprep/sysprep_operation_udev_persistent_net.ml
 sysprep/sysprep_operation_user_account.ml
 sysprep/sysprep_operation_utmp.ml
 sysprep/sysprep_operation_yum_uuid.ml
+v2v/cmdline.ml
+v2v/convert_linux_common.ml
+v2v/convert_linux_enterprise.ml
+v2v/convert_linux_grub.ml
+v2v/convert_windows.ml
+v2v/source_libvirt.ml
+v2v/target_local.ml
+v2v/types.ml
+v2v/utils.ml
+v2v/v2v.ml
+v2v/xml.ml

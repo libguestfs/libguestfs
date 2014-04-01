@@ -1,0 +1,306 @@
+=head1 NAME
+
+virt-v2v - Convert a guest to use KVM
+
+=head1 SYNOPSIS
+
+ virt-v2v -ic esx://esx.example.com/ -os imported esx_guest
+
+ virt-v2v -ic esx://esx.example.com/ \
+   -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
+
+ virt-v2v -i libvirtxml -o local -os /tmp guest-domain.xml
+
+=head1 DESCRIPTION
+
+Virt-v2v converts guests from a foreign hypervisor to run on KVM,
+managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
+2.2 or later. It can currently convert Red Hat Enterprise Linux and
+Windows guests running on Xen and VMware ESX.
+
+There is also a companion front-end called "virt-p2v" which comes as an
+ISO or CD image that can be booted on physical machines.
+
+This manual page documents the rewritten virt-v2v included in
+libguestfs E<ge> 1.28.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<--debug-gc>
+
+Debug garbage collection and memory allocation.  This is only useful
+when debugging memory problems in virt-v2v or the OCaml libguestfs
+bindings.
+
+=item B<-i libvirt>
+
+Set the input method to I<libvirt>.  This is the default.
+
+In this mode you have to specify a libvirt guest name on the command
+line.  You may also specify a libvirt connection URI (see I<-ic>).
+
+=item B<-i libvirtxml>
+
+Set the input method to I<libvirtxml>.
+
+In this mode you have to pass a libvirt XML file on the command line.
+This file is read in order to get metadata about the source guest
+(such as its name, amount of memory), and also to locate the input
+disks.
+
+=item B<-ic> libvirtURI
+
+Specify a libvirt connection URI to use when reading the guest.  This
+is only used when S<I<-i libvirt>>.
+
+Only local libvirt connections and ESX connections can be used.
+Remote libvirt connections will not work in general.
+
+=item B<--machine-readable>
+
+This option is used to make the output more machine friendly
+when being parsed by other programs.  See
+L</MACHINE READABLE OUTPUT> below.
+
+=item B<-o libvirt>
+
+Set the output method to I<libvirt>.  This is the default.
+
+In this mode, the converted guest is created as a libvirt guest.  You
+may also specify a libvirt connection URI (see I<-oc>).
+
+=item B<-o local>
+
+Set the output method to I<local>.
+
+In this mode, the converted guest is written to a local directory
+specified by I<-os /dir> (the directory must exist).  The converted
+guest's disks are written as:
+
+ /dir/disk-sda
+ /dir/disk-sdb
+ [etc]
+
+and a libvirt XML file is created containing guest metadata
+(C</dir/name.xml>, where C<name> is the guest name).
+
+=item B<-o rhev>
+
+Set the output method to I<rhev>.
+
+The converted guest is written to a RHEV Export Storage Domain.  The
+I<-os> parameter must also be used to specify the location of the
+Export Storage Domain.  Note this does not actually import the guest
+into RHEV.  You have to do that manually later using the UI.
+
+=item B<-oa sparse>
+
+=item B<-oa preallocated>
+
+Set the output file allocation mode.  The default is C<sparse>.
+
+=item B<-oc> libvirtURI
+
+Specify a libvirt connection to use when writing the converted guest.
+This is only used when S<I<-o libvirt>>.
+
+Only local libvirt connections can be used.  Remote libvirt
+connections will not work.
+
+=item B<-of> format
+
+When converting the guest, convert the disks to the given format.
+
+If not specified, then the input format is used.
+
+=item B<-on> name
+
+Rename the guest when converting it.  If this option is not used then
+the output name is the same as the input name.
+
+=item B<-os> storage
+
+The location of the storage for the converted guest.
+
+For I<-o libvirt>, this is a libvirt pool (see S<C<virsh pool-list>>).
+
+For I<-o local>, this is a directory name.  The directory must exist.
+
+For I<-o rhev>, this is an NFS path of the form
+C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:
+
+ rhev-storage.example.com:/rhev/export
+
+The NFS export must be mountable and writable by the user and host
+running virt-v2v, since the virt-v2v program has to actually mount it
+when it runs.
+
+=item B<-q>
+
+=item B<--quiet>
+
+This disables progress bars and other unnecessary output.
+
+=item B<--root ask>
+
+=item B<--root single>
+
+=item B<--root first>
+
+=item B<--root> /dev/sdX
+
+=item B<--root> /dev/VG/LV
+
+Choose the root filesystem to be converted.
+
+In the case where the virtual machine is dual-boot or multi-boot, or
+where the VM has other filesystems that look like operating systems,
+this option can be used to select the root filesystem (a.k.a. C<C:>
+drive or C</>) of the operating system that is to be converted.  The
+Windows Recovery Console, certain attached DVD drives, and bugs in
+libguestfs inspection heuristics, can make a guest look like a
+multi-boot operating system.
+
+The default in virt-v2v E<le> 0.7.1 was S<I<--root single>>, which
+causes virt-v2v to die if a multi-boot operating system is found.
+
+Since virt-v2v E<ge> 0.7.2 the default is now S<I<--root ask>>: If the
+VM is found to be multi-boot, then virt-v2v will stop and list the
+possible root filesystems and ask the user which to use.  This
+requires that virt-v2v is run interactively.
+
+S<I<--root first>> means to choose the first root device in the case
+of a multi-boot operating system.  Since this is a heuristic, it may
+sometimes choose the wrong one.
+
+You can also name a specific root device, eg. S<I<--root /dev/sda2>>
+would mean to use the second partition on the first hard drive.  If
+the named root device does not exist or was not detected as a root
+device, then virt-v2v will fail.
+
+Note that there is a bug in grub which prevents it from successfully
+booting a multiboot system if VirtIO is enabled.  Grub is only able to
+boot an operating system from the first VirtIO disk.  Specifically,
+C</boot> must be on the first VirtIO disk, and it cannot chainload an
+OS which is not in the first VirtIO disk.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-v2v from
+other programs, GUIs etc.
+
+There are two ways to use this option.
+
+Firstly use the option on its own to query the capabilities of the
+virt-v2v binary.  Typical output looks like this:
+
+ $ virt-v2v --machine-readable
+ virt-v2v
+ libguestfs-rewrite
+
+A list of features is printed, one per line, and the program exits
+with status 0.
+
+Secondly use the option in conjunction with other options to make the
+regular program output more machine friendly.
+
+At the moment this means:
+
+=over 4
+
+=item 1.
+
+Progress bar messages can be parsed from stdout by looking for this
+regular expression:
+
+ ^[0-9]+/[0-9]+$
+
+=item 2.
+
+The calling program should treat messages sent to stdout (except for
+progress bar messages) as status messages.  They can be logged and/or
+displayed to the user.
+
+=item 3.
+
+The calling program should treat messages sent to stderr as error
+messages.  In addition, virt-v2v exits with a non-zero status
+code if there was a fatal error.
+
+=back
+
+Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable>
+option at all.  The option was added when virt-v2v was rewritten in 2014.
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item TMPDIR
+
+Location of the temporary directory used for the potentially large
+temporary overlay file.
+
+You should ensure there is enough free space in the worst case for a
+full copy of the source disk (I<virtual> size), or else set C<$TMPDIR>
+to point to another directory that has enough space.
+
+This defaults to C</tmp>.
+
+Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if
+you use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of
+I<half> of physical RAM.  If virt-v2v exceeds this, it will hang.
+The solution is either to use a real disk, or to increase the maximum
+size of the tmpfs mountpoint, eg:
+
+ mount -o remount,size=10G /tmp
+
+=back
+
+For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
+
+=head1 SEE ALSO
+
+L<virt-df(1)>,
+L<virt-filesystems(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<qemu-img(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+Matthew Booth
+
+Mike Latimer
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2014 Red Hat Inc.

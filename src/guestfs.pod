@@ -4420,6 +4420,10 @@ created by another.
 
 Command line tools written in Perl (L<virt-win-reg(1)> and many others).
 
+=item C<v2v>
+
+L<virt-v2v(1)> command and documentation.
+
 =item C<csharp>
 
 =item C<erlang>
@@ -4773,6 +4777,7 @@ L<virt-sysprep(1)>,
 L<virt-tar(1)>,
 L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,
+L<virt-v2v(1)>,
 L<virt-win-reg(1)>,
 L<guestfs-faq(1)>,
 L<guestfs-performance(1)>,

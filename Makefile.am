@@ -132,7 +132,8 @@ SUBDIRS += \
 	builder builder/website \
 	resize \
 	sparsify \
-	sysprep
+	sysprep \
+	v2v
 endif
 
 # Perl tools.
@@ -257,6 +258,7 @@ HTMLFILES = \
 	html/virt-tar.1.html \
 	html/virt-tar-in.1.html \
 	html/virt-tar-out.1.html \
+	html/virt-v2v.1.html \
 	html/virt-win-reg.1.html
 
 HTMLSUPPORTFILES = \
@@ -319,7 +321,7 @@ all-local:
 	grep -v -E '^python/utils.c$$' | \
 	LC_ALL=C sort > po/POTFILES
 	cd $(srcdir); \
-	find builder customize mllib resize sparsify sysprep -name '*.ml' | \
+	find builder customize mllib resize sparsify sysprep v2v -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
 
 # Manual pages in top level directory.
