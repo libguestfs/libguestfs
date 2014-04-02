@@ -233,6 +233,7 @@ read the man page virt-customize(1).
     ) roots;
   );
 
+  msg (f_"Finishing off");
   g#shutdown ();
   g#close ();
 
