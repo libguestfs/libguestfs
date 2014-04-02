@@ -13,6 +13,17 @@ builder/setlocale.ml
 builder/sigchecker.ml
 builder/sources.ml
 builder/uname.ml
+customize/crypt.ml
+customize/customize_cmdline.ml
+customize/customize_main.ml
+customize/customize_run.ml
+customize/firstboot.ml
+customize/hostname.ml
+customize/password.ml
+customize/perl_edit.ml
+customize/random_seed.ml
+customize/timezone.ml
+customize/urandom.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
