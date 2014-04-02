@@ -29,8 +29,6 @@
 #define YY_EXTRA_TYPE struct parse_context *
 #define YY_USER_ACTION yylloc->first_line = yylloc->last_line = yylineno;
 
-extern void yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg);
-
 %}
 
 %option nounput
@@ -110,8 +108,7 @@ extern void yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *c
 
  /* anything else is an error */
 . {
-  yyerror (yylloc, yyscanner, yyextra, "unexpected character in input");
-  exit (EXIT_FAILURE);
+  return UNKNOWN_LINE;
 }
 
 %%
