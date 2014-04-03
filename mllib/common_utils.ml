@@ -174,6 +174,14 @@ let iteri f xs =
   in
   loop 0 xs
 
+let rec mapi i f =
+  function
+  | [] -> []
+  | a::l ->
+    let r = f i a in
+    r :: mapi (i + 1) f l
+let mapi f l = mapi 0 f l
+
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
  *)
