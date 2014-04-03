@@ -30,11 +30,11 @@ EXTRA_DIST = \
 	$(SOURCES) \
 	libguestfs.gpg \
 	test-index \
-	virt-builder.pod \
-	virt-index-validate.pod \
 	test-virt-builder.sh \
 	test-virt-builder-list.sh \
-	test-virt-builder-planner.sh
+	test-virt-builder-planner.sh \
+	virt-builder.pod \
+	virt-index-validate.pod
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 
