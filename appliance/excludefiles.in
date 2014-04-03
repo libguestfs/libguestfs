@@ -27,8 +27,11 @@ dnl The right kernel modules are added back by supermin.
 -/usr/share/gnome/help/*
 -/usr/share/cracklib/*
 -/usr/share/i18n/*
+-/usr/share/pkgconfig/*
 
 dnl For Debian:
 -/usr/share/lintian/*
 -/usr/share/initramfs-tools/*
+-/usr/share/doc-base/*
+-/usr/share/bug/*
 -/etc/initramfs-tools/*
