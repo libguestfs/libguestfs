@@ -1,0 +1,8 @@
+name=Phony Fedora
+arch=x86_64
+file=fedora.xz
+format=raw
+size=1073741824
+expand=/dev/sda2
+lvexpand=/dev/VG/Root
+notes=Phony Fedora look-alike used for testing.
