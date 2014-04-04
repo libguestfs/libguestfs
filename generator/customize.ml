@@ -44,6 +44,16 @@ and op_type =
 | UserPasswordSelector of string        (* user:selector *)
 
 let ops = [
+  { op_name = "chmod";
+    op_type = StringPair "PERMISSIONS:FILE";
+    op_discrim = "`Chmod";
+    op_shortdesc = "Change the permissions of a file";
+    op_pod_longdesc = "\
+Change the permissions of C<FILE> to C<PERMISSIONS>.
+
+I<Note>: C<PERMISSIONS> by default would be decimal, unless you prefix
+it with C<0> to get octal, ie. use C<0700> not C<700>.";
+  };
   { op_name = "delete";
     op_type = String "PATH";
     op_discrim = "`Delete";

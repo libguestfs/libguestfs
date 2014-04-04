@@ -168,6 +168,14 @@ exec >>%s 2>&1
   (* Perform the remaining customizations in command-line order. *)
   List.iter (
     function
+    | `Chmod (mode, path) ->
+      msg (f_"Changing permissions of %s to %s") path mode;
+      (* If the mode string is octal, add the OCaml prefix for octal values
+       * so it is properly converted as octal integer.
+       *)
+      let mode = if string_prefix mode "0" then "0o" ^ mode else mode in
+      g#chmod (int_of_string mode) path
+
     | `Command cmd ->
       msg (f_"Running: %s") cmd;
       do_run ~display:cmd cmd

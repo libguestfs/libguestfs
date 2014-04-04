@@ -29,6 +29,7 @@ for f in ../tests/guests/{debian,fedora,ubuntu}.img; do
 	$VG ./virt-customize -n -a $f \
             --no-network \
             --write /etc/motd:HELLO \
+            --chmod 0600:/etc/motd \
             --delete /etc/motd
     fi
 done
