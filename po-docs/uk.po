@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-03-31 18:06+0200\n"
+"POT-Creation-Date: 2014-04-06 16:17+0200\n"
 "PO-Revision-Date: 2014-03-26 16:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -616,10 +616,11 @@ msgstr ""
 #: ../cat/virt-cat.pod:118 ../cat/virt-filesystems.pod:183
 #: ../cat/virt-ls.pod:331 ../customize/virt-customize.pod:105
 #: ../df/virt-df.pod:128 ../diff/virt-diff.pod:148 ../edit/virt-edit.pod:147
-#: ../fish/guestfish.pod:243 ../fish/guestfish.pod:701
-#: ../format/virt-format.pod:100 ../inspector/virt-inspector.pod:348
-#: ../rescue/virt-rescue.pod:168 ../src/guestfs.pod:4211
-#: ../sysprep/virt-sysprep.pod:158 ../sysprep/virt-sysprep.pod:201
+#: ../examples/guestfs-recipes.pod:448 ../fish/guestfish.pod:243
+#: ../fish/guestfish.pod:701 ../format/virt-format.pod:100
+#: ../inspector/virt-inspector.pod:348 ../rescue/virt-rescue.pod:168
+#: ../src/guestfs.pod:4211 ../sysprep/virt-sysprep.pod:158
+#: ../sysprep/virt-sysprep.pod:201
 msgid "For example:"
 msgstr "Приклад:"
 
@@ -1222,9 +1223,8 @@ msgstr ""
 #: ../edit/virt-edit.pod:355 ../fish/guestfish.pod:1380
 #: ../format/virt-format.pod:181 ../fuse/guestmount.pod:403
 #: ../fuse/guestunmount.pod:124 ../inspector/virt-inspector.pod:494
-#: ../resize/virt-resize.pod:749 ../sparsify/virt-sparsify.pod:347
-#: ../sparsify/virt-sparsify.pod:382 ../sysprep/virt-sysprep.pod:521
-#: ../test-tool/libguestfs-test-tool.pod:170
+#: ../resize/virt-resize.pod:749 ../sparsify/virt-sparsify.pod:377
+#: ../sysprep/virt-sysprep.pod:521 ../test-tool/libguestfs-test-tool.pod:170
 msgid "EXIT STATUS"
 msgstr "СТАН ВИХОДУ"
 
@@ -1433,7 +1433,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:115 ../df/virt-df.pod:263 ../diff/virt-diff.pod:251
 #: ../edit/virt-edit.pod:360 ../erlang/examples/guestfs-erlang.pod:95
 #: ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1209
-#: ../examples/guestfs-performance.pod:557 ../examples/guestfs-recipes.pod:649
+#: ../examples/guestfs-performance.pod:557 ../examples/guestfs-recipes.pod:659
 #: ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1601
 #: ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48
 #: ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45
@@ -1445,7 +1445,7 @@ msgstr ""
 #: ../ocaml/examples/guestfs-ocaml.pod:76 ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:419
 #: ../resize/virt-resize.pod:754 ../ruby/examples/guestfs-ruby.pod:34
-#: ../sparsify/virt-sparsify.pod:393 ../src/guestfs.pod:4716
+#: ../sparsify/virt-sparsify.pod:388 ../src/guestfs.pod:4716
 #: ../sysprep/virt-sysprep.pod:525 ../test-tool/libguestfs-test-tool.pod:180
 #: ../tools/virt-list-filesystems:188 ../tools/virt-list-partitions:270
 #: ../tools/virt-tar:299 ../tools/virt-win-reg:790
@@ -1469,7 +1469,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:371 ../format/virt-format.pod:195
 #: ../guestfs-release-notes.pod:3017 ../make-fs/virt-make-fs.pod:229
 #: ../rescue/virt-rescue.pod:429 ../resize/virt-resize.pod:777
-#: ../sparsify/virt-sparsify.pod:406 ../tools/virt-list-filesystems:200
+#: ../sparsify/virt-sparsify.pod:401 ../tools/virt-list-filesystems:200
 #: ../tools/virt-list-partitions:281 ../tools/virt-tar:313
 #: ../tools/virt-win-reg:804
 msgid "AUTHOR"
@@ -1483,7 +1483,7 @@ msgstr "АВТОР"
 #: ../df/virt-df.pod:273 ../diff/virt-diff.pod:263 ../edit/virt-edit.pod:373
 #: ../format/virt-format.pod:197 ../inspector/virt-inspector.pod:514
 #: ../make-fs/virt-make-fs.pod:231 ../rescue/virt-rescue.pod:431
-#: ../resize/virt-resize.pod:779 ../sparsify/virt-sparsify.pod:408
+#: ../resize/virt-resize.pod:779 ../sparsify/virt-sparsify.pod:403
 #: ../sysprep/virt-sysprep.pod:544 ../tools/virt-list-filesystems:202
 #: ../tools/virt-list-partitions:283 ../tools/virt-tar:315
 #: ../tools/virt-win-reg:806
@@ -1499,7 +1499,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../daemon/guestfsd.pod:124 ../df/virt-df.pod:275 ../diff/virt-diff.pod:265
 #: ../edit/virt-edit.pod:375 ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1219
-#: ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:668
+#: ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:678
 #: ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1637
 #: ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62
 #: ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60
@@ -1511,7 +1511,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:433
 #: ../resize/virt-resize.pod:781 ../ruby/examples/guestfs-ruby.pod:52
-#: ../sparsify/virt-sparsify.pod:410 ../src/guestfs.pod:4777
+#: ../sparsify/virt-sparsify.pod:405 ../src/guestfs.pod:4777
 #: ../sysprep/virt-sysprep.pod:548 ../test-tool/libguestfs-test-tool.pod:190
 #: ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285
 #: ../tools/virt-tar:317 ../tools/virt-win-reg:808
@@ -1827,7 +1827,7 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:159
 #: ../builder/virt-builder.pod:1578 ../edit/virt-edit.pod:335
 #: ../fish/guestfish.pod:1385 ../fuse/guestunmount.pod:113
-#: ../rescue/virt-rescue.pod:388 ../sparsify/virt-sparsify.pod:352
+#: ../rescue/virt-rescue.pod:388 ../sparsify/virt-sparsify.pod:347
 #: ../src/guestfs.pod:4608 ../test-tool/libguestfs-test-tool.pod:175
 msgid "ENVIRONMENT VARIABLES"
 msgstr "ЗМІННІ СЕРЕДОВИЩА"
@@ -1854,7 +1854,7 @@ msgstr ""
 #: ../customize/virt-customize.pod:233
 #: ../erlang/examples/guestfs-erlang.pod:110
 #: ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1215
-#: ../examples/guestfs-performance.pod:569 ../examples/guestfs-recipes.pod:664
+#: ../examples/guestfs-performance.pod:569 ../examples/guestfs-recipes.pod:674
 #: ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1633
 #: ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58
 #: ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56
@@ -1873,7 +1873,7 @@ msgstr "АВТОРИ"
 #: ../appliance/libguestfs-make-fixed-appliance.pod:174
 #: ../erlang/examples/guestfs-erlang.pod:112
 #: ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1217
-#: ../examples/guestfs-performance.pod:571 ../examples/guestfs-recipes.pod:666
+#: ../examples/guestfs-performance.pod:571 ../examples/guestfs-recipes.pod:676
 #: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1635
 #: ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60
 #: ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58
@@ -1890,7 +1890,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:178 ../cat/virt-ls.pod:505
 #: ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267
-#: ../edit/virt-edit.pod:377 ../examples/guestfs-recipes.pod:670
+#: ../edit/virt-edit.pod:377 ../examples/guestfs-recipes.pod:680
 #: ../fish/guestfish.pod:1639 ../fuse/guestmount.pod:428
 #: ../guestfs-release-notes.pod:3023 ../rescue/virt-rescue.pod:435
 #: ../src/guestfs.pod:4779 ../test-tool/libguestfs-test-tool.pod:192
@@ -5581,7 +5581,6 @@ msgstr ""
 #: ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260 ../diff/virt-diff.pod:248
 #: ../edit/virt-edit.pod:357 ../fuse/guestmount.pod:405
 #: ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:751
-#: ../sparsify/virt-sparsify.pod:349
 msgid ""
 "This program returns 0 if successful, or non-zero if there was an error."
 msgstr ""
@@ -8421,7 +8420,7 @@ msgstr ""
 
 #. type: textblock
 #: ../customize/virt-customize.pod:239 ../fish/libguestfs-tools.conf.pod:102
-#: ../sparsify/virt-sparsify.pod:412 ../sysprep/virt-sysprep.pod:550
+#: ../sparsify/virt-sparsify.pod:407 ../sysprep/virt-sysprep.pod:550
 msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
@@ -9485,7 +9484,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:225 ../examples/guestfs-recipes.pod:581
+#: ../edit/virt-edit.pod:225 ../examples/guestfs-recipes.pod:591
 #, no-wrap
 msgid ""
 " virt-edit -d domname /etc/passwd -e 's/^root:.*?:/root::/'\n"
@@ -14707,7 +14706,7 @@ msgid "Read the Windows Event Log (Windows Vista or later only):"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:416 ../examples/guestfs-recipes.pod:574
+#: ../examples/guestfs-recipes.pod:416 ../examples/guestfs-recipes.pod:584
 msgid ""
 "L<https://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-"
 "guestfish/#content>"
@@ -14773,40 +14772,73 @@ msgstr ""
 
 #. type: =head1
 #: ../examples/guestfs-recipes.pod:441
-msgid "Install RPMs in a guest"
+#, fuzzy
+#| msgid "Install RPMs in a guest"
+msgid "Install packages (RPMs, Debian packages) in a guest"
 msgstr "Встановлення RPM у гостьовій системі"
 
 #. type: textblock
 #: ../examples/guestfs-recipes.pod:443
 msgid ""
-"The link below contains a method to install RPMs in a guest.  In fact the "
-"RPMs are just uploaded to the guest along with a \"firstboot\" script that "
-"installs them next time the guest is booted.  You could use this technique "
-"to install vital security updates in an offline guest."
+"Since libguestfs 1.26, L<virt-builder(1)>, L<virt-customize(1)> and L<virt-"
+"sysprep(1)> have an I<--install> option for installing packages in Linux "
+"guests.  (Use virt-customize if you have an existing guest, or virt-builder "
+"if you want to create a guest from scratch)."
 msgstr ""
 
-#. type: textblock
-#: ../examples/guestfs-recipes.pod:449
+#. type: verbatim
+#: ../examples/guestfs-recipes.pod:450
+#, fuzzy, no-wrap
+#| msgid ""
+#| " virt-builder fedora-20 --install inkscape\n"
+#| "\n"
 msgid ""
-"L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content>"
+" virt-builder fedora-20 --install emacs\n"
+"\n"
 msgstr ""
-"L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/#content>"
-
-#. type: textblock
-#: ../examples/guestfs-recipes.pod:451
-msgid ""
-"Since libguestfs 1.20, L<virt-sysprep(1)> has an option for installing "
-"firstboot scripts in Linux guests.  Since libguestfs 1.24, L<virt-"
-"builder(1)> can be used to build guests, installing packages along the way."
-msgstr ""
+" virt-builder fedora-20 --install inkscape\n"
+"\n"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:456
-msgid "Install SYSLINUX bootloader in a guest"
+#: ../examples/guestfs-recipes.pod:452
+#, fuzzy
+#| msgid "Installing packages at build time from a side repository"
+msgid "Install packages from an alternate repository"
+msgstr "Встановлення пакунків зі стороннього сховища під час збирання"
+
+#. type: textblock
+#: ../examples/guestfs-recipes.pod:454
+msgid ""
+"Since libguestfs 1.26, you can use L<virt-builder(1)>, L<virt-customize(1)> "
+"or L<virt-sysprep(1)> I<--edit> option to edit repository metadata before "
+"installing packages"
 msgstr ""
 
 #. type: textblock
 #: ../examples/guestfs-recipes.pod:458
+msgid ""
+"For example this would install packages from the updates-testing repository "
+"in Fedora:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-recipes.pod:461
+#, no-wrap
+msgid ""
+" virt-builder fedora-20 \\\n"
+"   --edit '/etc/yum.repos.d/fedora-updates-testing.repo:\n"
+"             s/enabled=0/enabled=1/' \\\n"
+"   --install emacs\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: ../examples/guestfs-recipes.pod:466
+msgid "Install SYSLINUX bootloader in a guest"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-recipes.pod:468
 msgid ""
 "SYSLINUX is a small, easy to configure bootloader for Linux and Windows "
 "guests.  If your guest is not bootable, you can install the SYSLINUX "
@@ -14815,7 +14847,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:464
+#: ../examples/guestfs-recipes.pod:474
 msgid ""
 "This guide assumes a Linux guest where C</dev/sda1> is C</boot>, C</boot/"
 "vmlinuz> is the guest kernel, and C</dev/sda3> is the root partition.  For a "
@@ -14824,7 +14856,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:469
+#: ../examples/guestfs-recipes.pod:479
 msgid ""
 "Create a C<syslinux.cfg> configuration file.  You should check the SYSLINUX "
 "documentation at L<http://www.syslinux.org> but it may look something like "
@@ -14832,7 +14864,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:473
+#: ../examples/guestfs-recipes.pod:483
 #, no-wrap
 msgid ""
 " DEFAULT linux\n"
@@ -14845,14 +14877,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:480
+#: ../examples/guestfs-recipes.pod:490
 msgid ""
 "Locate the syslinux master boot record (a file called something like C</usr/"
 "share/syslinux/mbr.bin>)."
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:483
+#: ../examples/guestfs-recipes.pod:493
 #, no-wrap
 msgid ""
 " guestfish -a disk.img -i\n"
@@ -14869,7 +14901,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:494
+#: ../examples/guestfs-recipes.pod:504
 msgid ""
 "See also: L<http://rwmj.wordpress.com/2013/04/04/new-in-libguestfs-use-"
 "syslinux-or-extlinux-to-make-bootable-guests/#content>"
@@ -14878,46 +14910,46 @@ msgstr ""
 "syslinux-or-extlinux-to-make-bootable-guests/#content>"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:497
+#: ../examples/guestfs-recipes.pod:507
 msgid "List applications installed in a VM"
 msgstr "Показати список програм, встановлених у віртуальній машині"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:499
+#: ../examples/guestfs-recipes.pod:509
 msgid "Save the following to a file C<list-apps.sh>:"
-msgstr ""
-
-#. type: verbatim
-#: ../examples/guestfs-recipes.pod:501
-#, no-wrap
-msgid ""
-" #!/bin/sh -\n"
-" set -e\n"
-" eval \"$(guestfish --ro -d \"$1\" --i --listen)\"\n"
-" root=\"$(guestfish --remote inspect-get-roots)\"\n"
-" guestfish --remote inspect-list-applications \"$root\"\n"
-" guestfish --remote exit\n"
-"\n"
-msgstr ""
-" #!/bin/sh -\n"
-" set -e\n"
-" eval \"$(guestfish --ro -d \"$1\" --i --listen)\"\n"
-" root=\"$(guestfish --remote inspect-get-roots)\"\n"
-" guestfish --remote inspect-list-applications \"$root\"\n"
-" guestfish --remote exit\n"
-"\n"
-
-#. type: textblock
-#: ../examples/guestfs-recipes.pod:508
-msgid ""
-"Make the file executable and then you can run it on any named virtual "
-"machine:"
 msgstr ""
 
 #. type: verbatim
 #: ../examples/guestfs-recipes.pod:511
 #, no-wrap
 msgid ""
+" #!/bin/sh -\n"
+" set -e\n"
+" eval \"$(guestfish --ro -d \"$1\" --i --listen)\"\n"
+" root=\"$(guestfish --remote inspect-get-roots)\"\n"
+" guestfish --remote inspect-list-applications \"$root\"\n"
+" guestfish --remote exit\n"
+"\n"
+msgstr ""
+" #!/bin/sh -\n"
+" set -e\n"
+" eval \"$(guestfish --ro -d \"$1\" --i --listen)\"\n"
+" root=\"$(guestfish --remote inspect-get-roots)\"\n"
+" guestfish --remote inspect-list-applications \"$root\"\n"
+" guestfish --remote exit\n"
+"\n"
+
+#. type: textblock
+#: ../examples/guestfs-recipes.pod:518
+msgid ""
+"Make the file executable and then you can run it on any named virtual "
+"machine:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-recipes.pod:521
+#, no-wrap
+msgid ""
 " # list-apps.sh WinGuest\n"
 " [0] = {\n"
 "   app_name: Mozilla Firefox (3.6.12)\n"
@@ -14981,7 +15013,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:541
+#: ../examples/guestfs-recipes.pod:551
 msgid ""
 "If you want to run the script on disk images (instead of libvirt virtual "
 "machines), change C<-d \"$1\"> to C<-a \"$1\">.  See also L<virt-"
@@ -14989,22 +15021,22 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:545
+#: ../examples/guestfs-recipes.pod:555
 msgid "List files and directories in a VM"
 msgstr "Показати список файлів і каталогів у віртуальній машині"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:547
+#: ../examples/guestfs-recipes.pod:557
 msgid "Use L<virt-ls(1)>."
 msgstr "Скористайтеся L<virt-ls(1)>."
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:549
+#: ../examples/guestfs-recipes.pod:559
 msgid "List services in a Windows VM"
 msgstr "Показати список служб у віртуальній машині Windows"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:551
+#: ../examples/guestfs-recipes.pod:561
 msgid ""
 "The link below contains a script that can be used to list out the services "
 "from a Windows VM, and whether those services run at boot time or are loaded "
@@ -15012,7 +15044,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:555
+#: ../examples/guestfs-recipes.pod:565
 msgid ""
 "L<https://rwmj.wordpress.com/2010/12/10/tip-list-services-in-a-windows-guest/"
 "#content>"
@@ -15021,39 +15053,39 @@ msgstr ""
 "#content>"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:557
+#: ../examples/guestfs-recipes.pod:567
 msgid "Make a disk image sparse"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:559
+#: ../examples/guestfs-recipes.pod:569
 msgid "Use L<virt-sparsify(1)>."
 msgstr "Скористайтеся L<virt-sparsify(1)>."
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:561
+#: ../examples/guestfs-recipes.pod:571
 msgid "Monitor disk usage over time"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:563
+#: ../examples/guestfs-recipes.pod:573
 msgid ""
 "You can use L<virt-df(1)> to monitor disk usage of your guests over time.  "
 "The link below contains a guide."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:566
+#: ../examples/guestfs-recipes.pod:576
 msgid "L<http://virt-tools.org/learning/advanced-virt-df/>"
 msgstr "L<http://virt-tools.org/learning/advanced-virt-df/>"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:568
+#: ../examples/guestfs-recipes.pod:578
 msgid "Reading the Windows Event Log from Windows Vista (or later)"
 msgstr "Читання журналу подій у Windows з версії Windows Vista"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:570
+#: ../examples/guestfs-recipes.pod:580
 msgid ""
 "L<guestfish(1)> plus the tools described in the link below can be used to "
 "read out the Windows Event Log from any virtual machine running Windows "
@@ -15061,19 +15093,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:576
+#: ../examples/guestfs-recipes.pod:586
 msgid "Remove root password (Linux)"
 msgstr "Вилучення пароля root (Linux)"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:578
+#: ../examples/guestfs-recipes.pod:588
 msgid ""
 "Using the L<virt-edit(1)> I<-e> option you can do simple replacements on "
 "files.  One use is to remove the root password from a Linux guest:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:583
+#: ../examples/guestfs-recipes.pod:593
 #, no-wrap
 msgid ""
 " virt-edit -a disk.img /etc/passwd -e 's/^root:.*?:/root::/'\n"
@@ -15081,12 +15113,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:585
+#: ../examples/guestfs-recipes.pod:595
 msgid "Remove Administrator password (Windows)"
 msgstr "Вилучення пароля адміністратора (Windows)"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:587
+#: ../examples/guestfs-recipes.pod:597
 msgid ""
 "The link below contains one technique for removing the Administrator "
 "password from a Windows VM, or to be more precise, it gives you a command "
@@ -15094,7 +15126,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:592
+#: ../examples/guestfs-recipes.pod:602
 msgid ""
 "L<https://mdbooth.wordpress.com/2010/10/18/resetting-a-windows-guests-"
 "administrator-password-with-guestfish/>"
@@ -15103,12 +15135,12 @@ msgstr ""
 "administrator-password-with-guestfish/>"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:594
+#: ../examples/guestfs-recipes.pod:604
 msgid "Sysprepping a virtual machine (Windows)"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:596
+#: ../examples/guestfs-recipes.pod:606
 msgid ""
 "It is possible to do a \"sysprep\" using libguestfs alone, although not "
 "straightforward.  Currently there is code in the Aeolus Oz project which "
@@ -15117,7 +15149,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:601
+#: ../examples/guestfs-recipes.pod:611
 msgid ""
 "L<https://github.com/clalancette/oz> L<https://www.redhat.com/archives/virt-"
 "tools-list/2011-May/msg00019.html>"
@@ -15126,12 +15158,12 @@ msgstr ""
 "tools-list/2011-May/msg00019.html>"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:604
+#: ../examples/guestfs-recipes.pod:614
 msgid "Unpack a live CD"
 msgstr "Розпакування компакт-диска з портативною системою"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:606
+#: ../examples/guestfs-recipes.pod:616
 msgid ""
 "Linux live CDs often contain multiple layers of disk images wrapped like a "
 "Russian doll.  You can use L<guestfish(1)> to look inside these multiple "
@@ -15139,7 +15171,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:610
+#: ../examples/guestfs-recipes.pod:620
 msgid ""
 "L<https://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-"
 "live-cd/#content>"
@@ -15148,19 +15180,19 @@ msgstr ""
 "live-cd/#content>"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:612
+#: ../examples/guestfs-recipes.pod:622
 msgid "Uploading and downloading files"
 msgstr "Вивантаження і звантаження файлів"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:614
+#: ../examples/guestfs-recipes.pod:624
 msgid ""
 "The link below contains general tips on uploading (copying in)  and "
 "downloading (copying out) files from VMs."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:617
+#: ../examples/guestfs-recipes.pod:627
 msgid ""
 "L<https://rwmj.wordpress.com/2010/12/02/tip-uploading-and-downloading/"
 "#content>"
@@ -15169,19 +15201,19 @@ msgstr ""
 "#content>"
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:619
+#: ../examples/guestfs-recipes.pod:629
 msgid "Uploading raw filesystem content"
 msgstr "Вивантаження даних на файлові системи без обробки"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:621
+#: ../examples/guestfs-recipes.pod:631
 msgid ""
 "You can use L<guestfish(1)> to upload whole filesystems into a VM, even into "
 "a filesystem which is encrypted or buried inside an LV or RAID device:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:625
+#: ../examples/guestfs-recipes.pod:635
 #, no-wrap
 msgid ""
 " guestfish --rw -a disk.img run : upload sda1.img /dev/sda1\n"
@@ -15189,7 +15221,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:627
+#: ../examples/guestfs-recipes.pod:637
 #, no-wrap
 msgid ""
 " guestfish --rw -d Guest run : upload lv.img /dev/vg_guest/lv_root\n"
@@ -15197,7 +15229,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:629
+#: ../examples/guestfs-recipes.pod:639
 msgid ""
 "One common problem is that the filesystem isn't the right size for the "
 "target.  If it is too large, there's not much you can do with libguestfs - "
@@ -15207,7 +15239,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-recipes.pod:635
+#: ../examples/guestfs-recipes.pod:645
 #, no-wrap
 msgid ""
 " guestfish --rw -d Guest run : \\\n"
@@ -15221,24 +15253,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:639
+#: ../examples/guestfs-recipes.pod:649
 msgid "(or use C<ntfsresize> if the filesystem is NTFS)."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-recipes.pod:641
+#: ../examples/guestfs-recipes.pod:651
 msgid "Use libguestfs tools on VMware ESX guests"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:643
+#: ../examples/guestfs-recipes.pod:653
 msgid ""
 "The link below explains how to use libguestfs, L<guestfish(1)> and the virt "
 "tools on any VMware ESX guests, by first sharing the VMware VMFS over sshfs."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:647
+#: ../examples/guestfs-recipes.pod:657
 msgid ""
 "L<https://rwmj.wordpress.com/2011/05/10/tip-use-libguestfs-on-vmware-esx-"
 "guests/#content>"
@@ -15247,7 +15279,7 @@ msgstr ""
 "guests/#content>"
 
 #. type: textblock
-#: ../examples/guestfs-recipes.pod:651
+#: ../examples/guestfs-recipes.pod:661
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<guestfs-examples(3)>, L<guestfs-"
 "erlang(3)>, L<guestfs-golang(3)>, L<guestfs-java(3)>, L<guestfs-lua(3)>, "
@@ -38745,7 +38777,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1531 ../sparsify/virt-sparsify.pod:356
+#: ../fish/guestfish.pod:1531 ../sparsify/virt-sparsify.pod:351
 #: ../src/guestfs.pod:4710
 msgid "TMPDIR"
 msgstr "ТИМЧАСОВИЙ КАТАЛОГ"
@@ -52027,7 +52059,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:56 ../sparsify/virt-sparsify.pod:375
+#: ../sparsify/virt-sparsify.pod:56 ../sparsify/virt-sparsify.pod:370
 msgid ""
 "If you are using the I<--in-place> option, then large amounts of temporary "
 "space are B<not> required."
@@ -52440,14 +52472,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:358
+#: ../sparsify/virt-sparsify.pod:353
 msgid ""
 "Location of the temporary directory used for the potentially large temporary "
 "overlay file."
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:361
+#: ../sparsify/virt-sparsify.pod:356
 msgid ""
 "You should ensure there is enough free space in the worst case for a full "
 "copy of the source disk (I<virtual> size), or else set C<$TMPDIR> to point "
@@ -52455,12 +52487,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:365
+#: ../sparsify/virt-sparsify.pod:360
 msgid "This defaults to C</tmp>."
 msgstr "Типовим значенням є C</tmp>."
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:367
+#: ../sparsify/virt-sparsify.pod:362
 msgid ""
 "Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if you "
 "use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of I<half> of "
@@ -52470,7 +52502,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sparsify/virt-sparsify.pod:373
+#: ../sparsify/virt-sparsify.pod:368
 #, no-wrap
 msgid ""
 " mount -o remount,size=10G /tmp\n"
@@ -52480,7 +52512,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:380
+#: ../sparsify/virt-sparsify.pod:375
 msgid ""
 "For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
@@ -52488,19 +52520,19 @@ msgstr ""
 "VARIABLES>."
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:384
+#: ../sparsify/virt-sparsify.pod:379
 msgid ""
 "This program returns 0 if the operation completed without errors.  (This "
 "doesn't necessarily mean that space could be freed up.)"
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:387
+#: ../sparsify/virt-sparsify.pod:382
 msgid "A non-zero exit code indicates an error."
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:389
+#: ../sparsify/virt-sparsify.pod:384
 msgid ""
 "If the exit code is C<3> and the I<--in-place> option was used, that "
 "indicates that discard support is not available in libguestfs, so copying "
@@ -52508,9 +52540,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:395
+#: ../sparsify/virt-sparsify.pod:390
+#, fuzzy
+#| msgid ""
+#| "L<virt-filesystems(1)>, L<virt-df(1)>, L<virt-resize(1)>, L<virt-"
+#| "rescue(1)>, L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, "
+#| "L<fallocate(1)>, L<qemu-img(1)>, L<http://libguestfs.org/>."
 msgid ""
-"L<virt-filesystems(1)>, L<virt-df(1)>, L<virt-resize(1)>, L<virt-rescue(1)>, "
+"L<virt-df(1)>, L<virt-filesystems(1)>, L<virt-resize(1)>, L<virt-rescue(1)>, "
 "L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-"
 "img(1)>, L<http://libguestfs.org/>."
 msgstr ""
@@ -84870,3 +84907,10 @@ msgstr ""
 #: ../tools/virt-win-reg:810
 msgid "Copyright (C) 2010 Red Hat Inc."
 msgstr "©Red Hat Inc., 2010"
+
+#~ msgid ""
+#~ "L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/"
+#~ "#content>"
+#~ msgstr ""
+#~ "L<https://rwmj.wordpress.com/2010/12/01/tip-install-rpms-in-a-guest/"
+#~ "#content>"
