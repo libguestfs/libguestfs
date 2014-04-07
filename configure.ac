@@ -1556,6 +1556,7 @@ dnl For search paths.
 AC_DEFINE_UNQUOTED([PATH_SEPARATOR],["$PATH_SEPARATOR"],
                    [Character that separates path elements in search paths])
 
+AC_MSG_CHECKING([if we should run the GNUlib tests])
 AC_ARG_ENABLE([gnulib-tests],
     [AS_HELP_STRING([--disable-gnulib-tests],
         [disable running GNU Portability library tests @<:@default=yes@:>@])],
