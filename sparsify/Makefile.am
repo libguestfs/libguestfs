@@ -1,5 +1,5 @@
 # libguestfs virt-sparsify tool
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2011-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,46 +18,45 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES) \
+	$(SOURCES_ML) $(SOURCES_C) \
 	virt-sparsify.pod \
 	test-virt-sparsify.sh \
 	test-virt-sparsify-in-place.sh
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 
-# Alphabetical order.
-SOURCES = \
+SOURCES_ML = \
 	cmdline.ml \
 	copying.ml \
 	in_place.ml \
-	sparsify.ml \
+	sparsify.ml
+
+SOURCES_C = \
+	$(top_builddir)/fish/progress.c \
+	$(top_builddir)/mllib/tty-c.c \
+	$(top_builddir)/mllib/progress-c.c \
 	statvfs-c.c
 
 if HAVE_OCAML
 
-# Note this list must be in dependency order.
-deps = \
-	$(top_builddir)/fish/guestfish-progress.o \
-	$(top_builddir)/mllib/tty-c.o \
-	$(top_builddir)/mllib/progress-c.o \
-	$(top_builddir)/mllib/common_gettext.cmx \
-	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/tTY.cmx \
-	$(top_builddir)/mllib/progress.cmx \
-	$(top_builddir)/mllib/config.cmx \
-	statvfs-c.o \
-	cmdline.cmx \
-	copying.cmx \
-	in_place.cmx \
-	sparsify.cmx
+bin_PROGRAMS = virt-sparsify
 
-if HAVE_OCAMLOPT
-OBJECTS = $(deps)
-else
-OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
-endif
+virt_sparsify_SOURCES = $(SOURCES_C)
+virt_sparsify_CFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/fish
 
-bin_SCRIPTS = virt-sparsify
+BOBJECTS = \
+	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/tTY.cmo \
+	$(top_builddir)/mllib/progress.cmo \
+	$(top_builddir)/mllib/config.cmo \
+	$(SOURCES_ML:.ml=.cmo)
+XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
@@ -71,45 +70,32 @@ if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
-OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX $(OCAMLPACKAGES)
-OCAMLOPTFLAGS = $(OCAMLCFLAGS)
+OCAMLFLAGS = -g -warn-error CDEFLMPSUVYZX
 
-if HAVE_OCAMLOPT
-virt-sparsify: $(OBJECTS)
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
-	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib -lncurses \
-	  $(OCAML_GCOV_LDFLAGS) \
-	  -o $@
+if !HAVE_OCAMLOPT
+OBJECTS = $(BOBJECTS)
+BEST    = c
+OCAMLLINKFLAGS = -custom
+OCAMLPACKAGES += mlguestfs.cma
 else
-virt-sparsify: $(OBJECTS)
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
-	  mlguestfs.cma -linkpkg $^ \
-	  -cclib -lncurses \
-	  -custom \
-	  $(OCAML_GCOV_LDFLAGS) \
-	  -o $@
+OBJECTS = $(XOBJECTS)
+BEST    = opt
+OCAMLPACKAGES += mlguestfs.cmxa
 endif
 
+virt_sparsify_DEPENDENCIES = $(OBJECTS)
+
+virt_sparsify_LINK = \
+	./link.sh \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
+	  $(OBJECTS) -o $@
+
 .mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
-
-# automake will decide we don't need C support in this file.  Really
-# we do, so we have to provide it ourselves.
-
-DEFAULT_INCLUDES = \
-	-I. \
-	-I$(top_builddir) \
-	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish
-
-.c.o:
-	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 
 # Manual pages and HTML files for the website.
 
