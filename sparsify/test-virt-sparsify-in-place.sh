@@ -67,7 +67,11 @@ if [ $size_before -lt 310000 ]; then
     exit 1
 fi
 
-if [ $size_after -gt 15000 ]; then
+# The space we're expecting to recover is 300 + 10 MB, so as long as
+# size_before - size_after > 300000 it shows we have recovered the
+# majority of the file space and sparsification is working.  (RHBZ#1079210)
+
+if [ $((size_before-size_after)) -le 300000 ]; then
     echo "test virt-sparsify --in-place: size_after ($size_after) too large"
     echo "sparsification failed"
     exit 1
