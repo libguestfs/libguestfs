@@ -68,7 +68,9 @@ let globs = List.sort compare [
   "/root/install.log.syslog";
   "/root/anaconda-ks.cfg";
   "/root/anaconda-post.log";
+  "/root/initial-setup-ks.cfg";
   "/var/log/anaconda.syslog";
+  "/var/log/anaconda/*";
 
   (* GDM and session preferences. *)
   "/var/cache/gdm/*";
