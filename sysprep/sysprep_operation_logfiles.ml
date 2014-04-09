@@ -101,6 +101,9 @@ let globs = List.sort compare [
 
   (* Red Hat subscription manager log files *)
   "/var/log/rhsm/*";
+
+  (* journals of systemd *)
+  "/var/log/journal/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
