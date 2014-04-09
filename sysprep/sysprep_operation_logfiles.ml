@@ -122,6 +122,9 @@ let globs = List.sort compare [
 
   (* log files of exim *)
   "/var/log/exim4/*";
+
+  (* log files of ConsoleKit *)
+  "/var/log/ConsoleKit/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
