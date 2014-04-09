@@ -115,6 +115,10 @@ let globs = List.sort compare [
 
   (* journals of systemd *)
   "/var/log/journal/*";
+
+  (* Debian logs: apt & aptitude *)
+  "/var/log/aptitude*";
+  "/var/log/apt/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
