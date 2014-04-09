@@ -122,14 +122,12 @@ if HAVE_OCAMLOPT
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
 	  -cclib '$(OCAMLCLIBS)' \
-	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 else
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
 	  mlguestfs.cma -linkpkg $^ \
 	  -cclib '$(OCAMLCLIBS)' \
 	  -custom \
-	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 endif
 

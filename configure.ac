@@ -998,30 +998,6 @@ AS_IF([test "x$VALGRIND" != "xno"],[
 AC_SUBST([VG])
 AM_SUBST_NOTMAKE([VG])
 
-dnl Enable profiling?
-AC_ARG_ENABLE([code-profiling],
-    AS_HELP_STRING([--enable-code-profiling], [enable code profiling]),
-    [],
-    [enable_code_profiling=no])
-AS_IF([test "x$enable_code_profiling" != "xno"],[
-    GPROF_CFLAGS="-pg"
-    AC_SUBST([GPROF_CFLAGS])
-])
-
-dnl Enable code coverage?
-AC_ARG_ENABLE([code-coverage],
-    AS_HELP_STRING([--enable-code-coverage], [enable code coverage]),
-    [],
-    [enable_code_coverage=no])
-AS_IF([test "x$enable_code_coverage" != "xno"],[
-    GCOV_CFLAGS="-fprofile-arcs -ftest-coverage"
-    AC_SUBST([GCOV_CFLAGS])
-    dnl This is a hack to make OCaml programs work when they
-    dnl link to C code that is compiled with gcov flags.
-    OCAML_GCOV_LDFLAGS="-cclib -lgcov"
-    AC_SUBST([OCAML_GCOV_LDFLAGS])
-])
-
 dnl Check for OCaml (optional, for OCaml bindings and OCaml tools).
 OCAMLC=no
 OCAMLFIND=no

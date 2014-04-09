@@ -49,7 +49,6 @@ virt_diff_CPPFLAGS = \
 
 virt_diff_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
 virt_diff_LDADD = \

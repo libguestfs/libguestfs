@@ -165,7 +165,6 @@ virt-builder: $(OBJECTS)
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ \
 	  -cclib '$(OCAMLCLIBS)' \
-	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 else
 virt-builder: $(OBJECTS)
@@ -173,7 +172,6 @@ virt-builder: $(OBJECTS)
 	  mlguestfs.cma -linkpkg $^ \
 	  -cclib '$(OCAMLCLIBS)' \
 	  -custom \
-	  $(OCAML_GCOV_LDFLAGS) \
 	  -o $@
 endif
 

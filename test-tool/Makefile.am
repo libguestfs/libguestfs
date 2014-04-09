@@ -33,8 +33,7 @@ libguestfs_test_tool_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
 
 libguestfs_test_tool_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 libguestfs_test_tool_LDADD = \
 	$(top_builddir)/src/libguestfs.la \

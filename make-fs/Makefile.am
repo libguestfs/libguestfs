@@ -44,7 +44,6 @@ virt_make_fs_CPPFLAGS = \
 
 virt_make_fs_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
 virt_make_fs_LDADD = \

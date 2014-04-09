@@ -37,7 +37,6 @@ test_parallel_mount_local_CPPFLAGS = \
 test_parallel_mount_local_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(FUSE_CFLAGS)
 test_parallel_mount_local_LDADD = \
 	$(FUSE_LIBS) \

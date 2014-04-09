@@ -75,7 +75,6 @@ virt_inspector_CPPFLAGS = \
 
 virt_inspector_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(LIBCONFIG_CFLAGS)
 

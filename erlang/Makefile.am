@@ -61,8 +61,7 @@ erl_guestfs_CPPFLAGS = \
 	-I$(ERLANG_LIB_DIR_erl_interface)/include
 
 erl_guestfs_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 erl_guestfs_LDADD = \
 	$(ERLANG_LIB_DIR_erl_interface)/lib/liberl_interface.a \

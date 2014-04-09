@@ -88,8 +88,7 @@ rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 rhbz501893_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz501893_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -98,8 +97,7 @@ rhbz790721_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 rhbz790721_CFLAGS = \
 	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz790721_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -109,8 +107,7 @@ rhbz914931_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1
 rhbz914931_CFLAGS = \
 	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz914931_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -120,8 +117,7 @@ rhbz1055452_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1
 rhbz1055452_CFLAGS = \
 	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz1055452_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 

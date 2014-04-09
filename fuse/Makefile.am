@@ -61,7 +61,6 @@ guestmount_CPPFLAGS = \
 
 guestmount_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(FUSE_CFLAGS)
@@ -86,8 +85,7 @@ guestunmount_CPPFLAGS = \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 guestunmount_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestunmount_LDADD = \
 	$(top_builddir)/src/libutils.la \
@@ -151,8 +149,7 @@ test_guestunmount_fd_CPPFLAGS = \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 test_guestunmount_fd_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 test_guestunmount_fd_LDADD = \
 	$(top_builddir)/src/libutils.la \

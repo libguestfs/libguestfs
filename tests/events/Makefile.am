@@ -37,7 +37,6 @@ test_libvirt_auth_callbacks_CPPFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_libvirt_auth_callbacks_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS) \
 	$(LIBVIRT_CFLAGS)
 test_libvirt_auth_callbacks_LDADD = \
         $(top_builddir)/src/libutils.la \

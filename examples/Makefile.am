@@ -59,8 +59,7 @@ copy_over_CPPFLAGS = \
 copy_over_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 copy_over_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBVIRT_LIBS)
@@ -72,8 +71,7 @@ libvirt_auth_CPPFLAGS = \
 libvirt_auth_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 libvirt_auth_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBVIRT_LIBS)
@@ -84,8 +82,7 @@ create_disk_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 create_disk_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 create_disk_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -94,8 +91,7 @@ debug_logging_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 debug_logging_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 debug_logging_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -104,8 +100,7 @@ display_icon_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 display_icon_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 display_icon_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -114,8 +109,7 @@ inspect_vm_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 inspect_vm_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 inspect_vm_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
@@ -128,8 +122,7 @@ mount_local_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(FUSE_CFLAGS) \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 mount_local_LDADD = \
 	$(FUSE_LIBS) \
 	$(top_builddir)/src/libguestfs.la
@@ -141,8 +134,7 @@ virt_dhcp_address_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 virt_dhcp_address_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GPROF_CFLAGS) $(GCOV_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 virt_dhcp_address_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 endif
