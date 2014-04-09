@@ -119,6 +119,9 @@ let globs = List.sort compare [
   (* Debian logs: apt & aptitude *)
   "/var/log/aptitude*";
   "/var/log/apt/*";
+
+  (* log files of exim *)
+  "/var/log/exim4/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
