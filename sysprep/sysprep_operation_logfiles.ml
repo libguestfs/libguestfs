@@ -91,6 +91,9 @@ let globs = List.sort compare [
   (* log file of gdm *)
   "/var/log/gdm/*";
 
+  (* log file of lightdm *)
+  "/var/log/lightdm/*";
+
   (* log file of ntp *)
   "/var/log/ntpstats/*";
 
