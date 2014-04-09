@@ -42,6 +42,9 @@ let globs = List.sort compare [
   "/var/log/apache2/*_log-*";
   "/var/log/ntp";
   "/var/log/tuned/tuned.log";
+  "/var/log/debug*";
+  "/var/log/syslog*";
+  "/var/log/faillog*";
 
   (* logfiles configured by /etc/logrotate.d/* *)
   "/var/log/BackupPC/LOG";
