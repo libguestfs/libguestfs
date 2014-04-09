@@ -72,6 +72,9 @@ let globs = List.sort compare [
   "/var/log/anaconda.syslog";
   "/var/log/anaconda/*";
 
+  (* debian-installer files *)
+  "/var/log/installer/*";
+
   (* GDM and session preferences. *)
   "/var/cache/gdm/*";
   "/var/lib/AccountService/users/*";
