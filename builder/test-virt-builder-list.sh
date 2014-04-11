@@ -23,6 +23,7 @@ set -e
 
 abs_builddir=$(pwd)
 
+export XDG_CONFIG_HOME=
 export XDG_CONFIG_DIRS="$abs_builddir/test-config"
 
 short_list=$($VG ./virt-builder --no-check-signature --no-cache --list)
