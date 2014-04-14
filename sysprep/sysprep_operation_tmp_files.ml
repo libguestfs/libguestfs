@@ -24,15 +24,22 @@ module G = Guestfs
 let tmp_files_perform ~debug ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
-    let paths = [ "/tmp/*";
-                  "/var/tmp/*"; ] in
+    let paths = [ "/tmp";
+                  "/var/tmp"; ] in
     List.iter (
       fun path ->
-        let files = g#glob_expand path in
+        let files = g#glob_expand (path ^ "/*") in
         Array.iter (
           fun file ->
             g#rm_rf file;
         ) files;
+        (try
+          let files = g#ls path in
+          Array.iter (
+            fun file ->
+              g#rm_rf (path ^ "/" ^ file);
+          ) files
+        with G.Error _ -> ());
     ) paths
   )
 
