@@ -75,12 +75,11 @@ OCAMLFLAGS = -g -warn-error CDEFLMPSUVYZX
 if !HAVE_OCAMLOPT
 OBJECTS = $(BOBJECTS)
 BEST    = c
-OCAMLLINKFLAGS = -custom
-OCAMLPACKAGES += mlguestfs.cma
+OCAMLLINKFLAGS = mlguestfs.cma -custom
 else
 OBJECTS = $(XOBJECTS)
 BEST    = opt
-OCAMLPACKAGES += mlguestfs.cmxa
+OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
 
 virt_sparsify_DEPENDENCIES = $(OBJECTS)
