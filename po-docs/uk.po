@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-04-06 16:17+0200\n"
+"POT-Creation-Date: 2014-04-15 14:17+0200\n"
 "PO-Revision-Date: 2014-03-26 16:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -1251,8 +1251,8 @@ msgstr "Ця програма повертає:"
 #: ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51
 #: ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:181
 #: ../cat/virt-cat.pod:186 ../cat/virt-cat.pod:191 ../cat/virt-cat.pod:202
-#: ../cat/virt-cat.pod:206 ../customize/customize-options.pod:189
-#: ../customize/customize-options.pod:193 ../edit/virt-edit.pod:272
+#: ../cat/virt-cat.pod:206 ../customize/customize-options.pod:196
+#: ../customize/customize-options.pod:200 ../edit/virt-edit.pod:272
 #: ../edit/virt-edit.pod:277 ../edit/virt-edit.pod:282
 #: ../edit/virt-edit.pod:293 ../edit/virt-edit.pod:297
 #: ../examples/guestfs-faq.pod:188 ../examples/guestfs-faq.pod:194
@@ -1362,8 +1362,8 @@ msgstr "Ця програма повертає:"
 #: ../src/guestfs.pod:4435 ../src/guestfs.pod:4440 ../src/guestfs.pod:4444
 #: ../src/guestfs.pod:4448 ../src/guestfs.pod:4462 ../src/guestfs.pod:4466
 #: ../src/guestfs.pod:4471 ../src/guestfs.pod:4475
-#: ../sysprep/sysprep-extra-options.pod:200
-#: ../sysprep/sysprep-extra-options.pod:204 ../sysprep/virt-sysprep.pod:285
+#: ../sysprep/sysprep-extra-options.pod:208
+#: ../sysprep/sysprep-extra-options.pod:212 ../sysprep/virt-sysprep.pod:285
 #: ../sysprep/virt-sysprep.pod:289 ../sysprep/virt-sysprep.pod:293
 #: ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:312
 #: ../sysprep/virt-sysprep.pod:316 ../sysprep/virt-sysprep.pod:320
@@ -7745,118 +7745,139 @@ msgstr ""
 
 #. type: =item
 #: ../customize/customize-options.pod:28
-msgid "B<--delete> PATH"
-msgstr ""
+#, fuzzy
+#| msgid "B<--attach> ISOFILE"
+msgid "B<--chmod> PERMISSIONS:FILE"
+msgstr "B<--attach> ФАЙЛ_ISO"
 
 #. type: textblock
 #: ../customize/customize-options.pod:30
 #: ../sysprep/sysprep-extra-options.pod:4
+msgid "Change the permissions of C<FILE> to C<PERMISSIONS>."
+msgstr ""
+
+#. type: textblock
+#: ../customize/customize-options.pod:32
+#: ../sysprep/sysprep-extra-options.pod:6
+msgid ""
+"I<Note>: C<PERMISSIONS> by default would be decimal, unless you prefix it "
+"with C<0> to get octal, ie. use C<0700> not C<700>."
+msgstr ""
+
+#. type: =item
+#: ../customize/customize-options.pod:35
+msgid "B<--delete> PATH"
+msgstr ""
+
+#. type: textblock
+#: ../customize/customize-options.pod:37
+#: ../sysprep/sysprep-extra-options.pod:12
 msgid ""
 "Delete a file from the guest.  Or delete a directory (and all its contents, "
 "recursively)."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:33
-#: ../sysprep/sysprep-extra-options.pod:7
+#: ../customize/customize-options.pod:40
+#: ../sysprep/sysprep-extra-options.pod:15
 msgid "See also: I<--upload>, I<--scrub>."
 msgstr "Див. також I<--upload>, I<--scrub>."
 
 #. type: =item
-#: ../customize/customize-options.pod:35
+#: ../customize/customize-options.pod:42
 msgid "B<--edit> FILE:EXPR"
 msgstr "B<--edit> ФАЙЛ:ВИРАЗ"
 
 #. type: textblock
-#: ../customize/customize-options.pod:37
-#: ../sysprep/sysprep-extra-options.pod:12
+#: ../customize/customize-options.pod:44
+#: ../sysprep/sysprep-extra-options.pod:20
 msgid "Edit C<FILE> using the Perl expression C<EXPR>."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:39 ../edit/virt-edit.pod:133
-#: ../sysprep/sysprep-extra-options.pod:14
+#: ../customize/customize-options.pod:46 ../edit/virt-edit.pod:133
+#: ../sysprep/sysprep-extra-options.pod:22
 msgid ""
 "Be careful to properly quote the expression to prevent it from being altered "
 "by the shell."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:42 ../edit/virt-edit.pod:136
-#: ../sysprep/sysprep-extra-options.pod:17
+#: ../customize/customize-options.pod:49 ../edit/virt-edit.pod:136
+#: ../sysprep/sysprep-extra-options.pod:25
 msgid "Note that this option is only available when Perl 5 is installed."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:44
-#: ../sysprep/sysprep-extra-options.pod:19
+#: ../customize/customize-options.pod:51
+#: ../sysprep/sysprep-extra-options.pod:27
 msgid "See L<virt-edit(1)/NON-INTERACTIVE EDITING>."
 msgstr "Див. L<virt-edit(1)/NON-INTERACTIVE EDITING>."
 
 #. type: =item
-#: ../customize/customize-options.pod:46
+#: ../customize/customize-options.pod:53
 msgid "B<--firstboot> SCRIPT"
 msgstr "B<--firstboot> СКРИПТ"
 
 #. type: textblock
-#: ../customize/customize-options.pod:48
-#: ../sysprep/sysprep-extra-options.pod:24
+#: ../customize/customize-options.pod:55
+#: ../sysprep/sysprep-extra-options.pod:32
 msgid ""
 "Install C<SCRIPT> inside the guest, so that when the guest first boots up, "
 "the script runs (as root, late in the boot process)."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:51
-#: ../sysprep/sysprep-extra-options.pod:27
+#: ../customize/customize-options.pod:58
+#: ../sysprep/sysprep-extra-options.pod:35
 msgid "The script is automatically chmod +x after installation in the guest."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:53
-#: ../sysprep/sysprep-extra-options.pod:29
+#: ../customize/customize-options.pod:60
+#: ../sysprep/sysprep-extra-options.pod:37
 msgid ""
 "The alternative version I<--firstboot-command> is the same, but it "
 "conveniently wraps the command up in a single line script for you."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:56 ../customize/customize-options.pod:66
-#: ../sysprep/sysprep-extra-options.pod:32
-#: ../sysprep/sysprep-extra-options.pod:43
+#: ../customize/customize-options.pod:63 ../customize/customize-options.pod:73
+#: ../sysprep/sysprep-extra-options.pod:40
+#: ../sysprep/sysprep-extra-options.pod:51
 msgid ""
 "You can have multiple I<--firstboot> options.  They run in the same order "
 "that they appear on the command line."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:59 ../customize/customize-options.pod:69
-#: ../sysprep/sysprep-extra-options.pod:35
-#: ../sysprep/sysprep-extra-options.pod:46
+#: ../customize/customize-options.pod:66 ../customize/customize-options.pod:76
+#: ../sysprep/sysprep-extra-options.pod:43
+#: ../sysprep/sysprep-extra-options.pod:54
 msgid "See also I<--run>."
 msgstr "Див. також I<--run>."
 
 #. type: =item
-#: ../customize/customize-options.pod:61
+#: ../customize/customize-options.pod:68
 msgid "B<--firstboot-command> 'CMD+ARGS'"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:63
-#: ../sysprep/sysprep-extra-options.pod:40
+#: ../customize/customize-options.pod:70
+#: ../sysprep/sysprep-extra-options.pod:48
 msgid ""
 "Run command (and arguments) inside the guest when the guest first boots up "
 "(as root, late in the boot process)."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:71
+#: ../customize/customize-options.pod:78
 msgid "B<--firstboot-install> PKG,PKG.."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:73
-#: ../sysprep/sysprep-extra-options.pod:51
+#: ../customize/customize-options.pod:80
+#: ../sysprep/sysprep-extra-options.pod:59
 msgid ""
 "Install the named packages (a comma-separated list).  These are installed "
 "when the guest first boots using the guest's package manager (eg. apt, yum, "
@@ -7864,35 +7885,35 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:77 ../customize/customize-options.pod:91
-#: ../sysprep/sysprep-extra-options.pod:55
-#: ../sysprep/sysprep-extra-options.pod:71
+#: ../customize/customize-options.pod:84 ../customize/customize-options.pod:98
+#: ../sysprep/sysprep-extra-options.pod:63
+#: ../sysprep/sysprep-extra-options.pod:79
 msgid ""
 "For an overview on the different ways to install packages, see L<virt-"
 "builder(1)/INSTALLING PACKAGES>."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:80
+#: ../customize/customize-options.pod:87
 msgid "B<--hostname> HOSTNAME"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:82
-#: ../sysprep/sysprep-extra-options.pod:61
+#: ../customize/customize-options.pod:89
+#: ../sysprep/sysprep-extra-options.pod:69
 msgid ""
 "Set the hostname of the guest to C<HOSTNAME>.  You can use a dotted hostname."
 "domainname (FQDN) if you want."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:85
+#: ../customize/customize-options.pod:92
 msgid "B<--install> PKG,PKG.."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:87
-#: ../sysprep/sysprep-extra-options.pod:67
+#: ../customize/customize-options.pod:94
+#: ../sysprep/sysprep-extra-options.pod:75
 msgid ""
 "Install the named packages (a comma-separated list).  These are installed "
 "during the image build using the guest's package manager (eg. apt, yum, "
@@ -7900,51 +7921,51 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:94
-#: ../sysprep/sysprep-extra-options.pod:74
+#: ../customize/customize-options.pod:101
+#: ../sysprep/sysprep-extra-options.pod:82
 msgid "See also I<--update>."
 msgstr "Див. також I<--update>."
 
 #. type: =item
-#: ../customize/customize-options.pod:96
-msgid "B<--link> TARGET:LINK[:LINK..]"
-msgstr ""
-
-#. type: textblock
-#: ../customize/customize-options.pod:98
-#: ../sysprep/sysprep-extra-options.pod:79
-msgid ""
-"Create symbolic link(s) in the guest, starting at C<LINK> and pointing at "
-"C<TARGET>."
-msgstr ""
-
-#. type: =item
-#: ../customize/customize-options.pod:101
-msgid "B<--mkdir> DIR"
-msgstr ""
-
-#. type: textblock
 #: ../customize/customize-options.pod:103
-#: ../sysprep/sysprep-extra-options.pod:85
-msgid "Create a directory in the guest."
+msgid "B<--link> TARGET:LINK[:LINK..]"
 msgstr ""
 
 #. type: textblock
 #: ../customize/customize-options.pod:105
 #: ../sysprep/sysprep-extra-options.pod:87
 msgid ""
+"Create symbolic link(s) in the guest, starting at C<LINK> and pointing at "
+"C<TARGET>."
+msgstr ""
+
+#. type: =item
+#: ../customize/customize-options.pod:108
+msgid "B<--mkdir> DIR"
+msgstr ""
+
+#. type: textblock
+#: ../customize/customize-options.pod:110
+#: ../sysprep/sysprep-extra-options.pod:93
+msgid "Create a directory in the guest."
+msgstr ""
+
+#. type: textblock
+#: ../customize/customize-options.pod:112
+#: ../sysprep/sysprep-extra-options.pod:95
+msgid ""
 "This uses S<C<mkdir -p>> so any intermediate directories are created, and it "
 "also works if the directory already exists."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:108
+#: ../customize/customize-options.pod:115
 msgid "B<--no-logfile>"
 msgstr "B<--no-logfile>"
 
 #. type: textblock
-#: ../customize/customize-options.pod:110
-#: ../sysprep/sysprep-extra-options.pod:93
+#: ../customize/customize-options.pod:117
+#: ../sysprep/sysprep-extra-options.pod:101
 msgid ""
 "Scrub C<builder.log> (log file from build commands) from the image after "
 "building is complete.  If you don't want to reveal precisely how the image "
@@ -7952,56 +7973,56 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:114
-#: ../sysprep/sysprep-extra-options.pod:97
+#: ../customize/customize-options.pod:121
+#: ../sysprep/sysprep-extra-options.pod:105
 msgid "See also: L</LOG FILE>."
 msgstr "Див. також L</LOG FILE>."
 
 #. type: =item
-#: ../customize/customize-options.pod:116
+#: ../customize/customize-options.pod:123
 msgid "B<--password> USER:SELECTOR"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:118
-#: ../sysprep/sysprep-extra-options.pod:102
+#: ../customize/customize-options.pod:125
+#: ../sysprep/sysprep-extra-options.pod:110
 msgid ""
 "Set the password for C<USER>.  (Note this option does I<not> create the user "
 "account)."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:121
-#: ../customize/customize-options.pod:142
-#: ../sysprep/sysprep-extra-options.pod:105
-#: ../sysprep/sysprep-extra-options.pod:128
+#: ../customize/customize-options.pod:128
+#: ../customize/customize-options.pod:149
+#: ../sysprep/sysprep-extra-options.pod:113
+#: ../sysprep/sysprep-extra-options.pod:136
 msgid ""
 "See L<virt-builder(1)/USERS AND PASSWORDS> for the format of the C<SELECTOR> "
 "field, and also how to set up user accounts."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:124
+#: ../customize/customize-options.pod:131
 msgid "B<--password-crypto> md5|sha256|sha512"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:126
-#: ../sysprep/sysprep-extra-options.pod:111
+#: ../customize/customize-options.pod:133
+#: ../sysprep/sysprep-extra-options.pod:119
 msgid "Set the password encryption to C<md5>, C<sha256> or C<sha512>."
 msgstr "Встановити спосіб шифрування паролів: C<md5>, C<sha256> або C<sha512>."
 
 #. type: textblock
-#: ../customize/customize-options.pod:128
-#: ../sysprep/sysprep-extra-options.pod:113
+#: ../customize/customize-options.pod:135
+#: ../sysprep/sysprep-extra-options.pod:121
 msgid ""
 "C<sha256> and C<sha512> require glibc E<ge> 2.7 (check crypt(3) inside the "
 "guest)."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:131
-#: ../sysprep/sysprep-extra-options.pod:116
+#: ../customize/customize-options.pod:138
+#: ../sysprep/sysprep-extra-options.pod:124
 msgid ""
 "C<md5> will work with relatively old Linux guests (eg. RHEL 3), but is not "
 "secure against modern attacks."
@@ -8010,8 +8031,8 @@ msgstr ""
 "(наприкладRHEL 3), але є незахищеним щодо новітніх способів атак."
 
 #. type: textblock
-#: ../customize/customize-options.pod:134
-#: ../sysprep/sysprep-extra-options.pod:119
+#: ../customize/customize-options.pod:141
+#: ../sysprep/sysprep-extra-options.pod:127
 msgid ""
 "The default is C<sha512> unless libguestfs detects an old guest that didn't "
 "have support for SHA-512, in which case it will use C<md5>.  You can "
@@ -8024,32 +8045,32 @@ msgstr ""
 "спосіб шифрування."
 
 #. type: =item
-#: ../customize/customize-options.pod:138
+#: ../customize/customize-options.pod:145
 msgid "B<--root-password> SELECTOR"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:140
-#: ../sysprep/sysprep-extra-options.pod:126
+#: ../customize/customize-options.pod:147
+#: ../sysprep/sysprep-extra-options.pod:134
 msgid "Set the root password."
 msgstr "Встановити пароль користувача root."
 
 #. type: textblock
-#: ../customize/customize-options.pod:145
-#: ../sysprep/sysprep-extra-options.pod:131
+#: ../customize/customize-options.pod:152
+#: ../sysprep/sysprep-extra-options.pod:139
 msgid ""
 "Note: In virt-builder, if you I<don't> set I<--root-password> then the guest "
 "is given a I<random> root password."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:148
+#: ../customize/customize-options.pod:155
 msgid "B<--run> SCRIPT"
 msgstr "B<--run> СКРИПТ"
 
 #. type: textblock
-#: ../customize/customize-options.pod:150
-#: ../sysprep/sysprep-extra-options.pod:137
+#: ../customize/customize-options.pod:157
+#: ../sysprep/sysprep-extra-options.pod:145
 msgid ""
 "Run the shell script (or any program) called C<SCRIPT> on the disk image.  "
 "The script runs virtualized inside a small appliance, chrooted into the "
@@ -8057,16 +8078,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:154
-#: ../sysprep/sysprep-extra-options.pod:141
+#: ../customize/customize-options.pod:161
+#: ../sysprep/sysprep-extra-options.pod:149
 msgid "The script is automatically chmod +x."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:156
-#: ../customize/customize-options.pod:172
-#: ../sysprep/sysprep-extra-options.pod:143
-#: ../sysprep/sysprep-extra-options.pod:160
+#: ../customize/customize-options.pod:163
+#: ../customize/customize-options.pod:179
+#: ../sysprep/sysprep-extra-options.pod:151
+#: ../sysprep/sysprep-extra-options.pod:168
 msgid ""
 "If libguestfs supports it then a limited network connection is available but "
 "it only allows outgoing network connections.  You can also attach data disks "
@@ -8076,104 +8097,104 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:162
-#: ../sysprep/sysprep-extra-options.pod:149
+#: ../customize/customize-options.pod:169
+#: ../sysprep/sysprep-extra-options.pod:157
 msgid ""
 "You can have multiple I<--run> options.  They run in the same order that "
 "they appear on the command line."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:165
-#: ../customize/customize-options.pod:181
-#: ../sysprep/sysprep-extra-options.pod:152
-#: ../sysprep/sysprep-extra-options.pod:169
+#: ../customize/customize-options.pod:172
+#: ../customize/customize-options.pod:188
+#: ../sysprep/sysprep-extra-options.pod:160
+#: ../sysprep/sysprep-extra-options.pod:177
 msgid "See also: I<--firstboot>, I<--attach>, I<--upload>."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:167
+#: ../customize/customize-options.pod:174
 msgid "B<--run-command> 'CMD+ARGS'"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:169
-#: ../sysprep/sysprep-extra-options.pod:157
+#: ../customize/customize-options.pod:176
+#: ../sysprep/sysprep-extra-options.pod:165
 msgid ""
 "Run the command and arguments on the disk image.  The command runs "
 "virtualized inside a small appliance, chrooted into the guest filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:178
-#: ../sysprep/sysprep-extra-options.pod:166
+#: ../customize/customize-options.pod:185
+#: ../sysprep/sysprep-extra-options.pod:174
 msgid ""
 "You can have multiple I<--run-command> options.  They run in the same order "
 "that they appear on the command line."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:183
+#: ../customize/customize-options.pod:190
 msgid "B<--scrub> FILE"
 msgstr "B<--scrub> ФАЙЛ"
 
 #. type: textblock
-#: ../customize/customize-options.pod:185
-#: ../sysprep/sysprep-extra-options.pod:196
+#: ../customize/customize-options.pod:192
+#: ../sysprep/sysprep-extra-options.pod:204
 msgid "Scrub a file from the guest.  This is like I<--delete> except that:"
 msgstr ""
 "Витерти файл з гостьової системи. Подібне до I<--delete>, окрім того, що:"
 
 #. type: textblock
-#: ../customize/customize-options.pod:191
-#: ../sysprep/sysprep-extra-options.pod:202
+#: ../customize/customize-options.pod:198
+#: ../sysprep/sysprep-extra-options.pod:210
 msgid "It scrubs the data so a guest could not recover it."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:195
-#: ../sysprep/sysprep-extra-options.pod:206
+#: ../customize/customize-options.pod:202
+#: ../sysprep/sysprep-extra-options.pod:214
 msgid "It cannot delete directories, only regular files."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:199
+#: ../customize/customize-options.pod:206
 msgid "B<--selinux-relabel>"
 msgstr "B<--selinux-relabel>"
 
 #. type: textblock
-#: ../customize/customize-options.pod:201
-#: ../sysprep/sysprep-extra-options.pod:213
+#: ../customize/customize-options.pod:208
+#: ../sysprep/sysprep-extra-options.pod:221
 msgid "Relabel files in the guest so that they have the correct SELinux label."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:203
-#: ../sysprep/sysprep-extra-options.pod:215
+#: ../customize/customize-options.pod:210
+#: ../sysprep/sysprep-extra-options.pod:223
 msgid "You should only use this option for guests which support SELinux."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:205
+#: ../customize/customize-options.pod:212
 msgid "B<--timezone> TIMEZONE"
 msgstr "B<--timezone> ЧАСОВИЙ_ПОЯС"
 
 #. type: textblock
-#: ../customize/customize-options.pod:207
-#: ../sysprep/sysprep-extra-options.pod:220
+#: ../customize/customize-options.pod:214
+#: ../sysprep/sysprep-extra-options.pod:228
 msgid ""
 "Set the default timezone of the guest to C<TIMEZONE>.  Use a location string "
 "like C<Europe/London>"
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:210
+#: ../customize/customize-options.pod:217
 msgid "B<--update>"
 msgstr "B<--update>"
 
 #. type: textblock
-#: ../customize/customize-options.pod:212
-#: ../sysprep/sysprep-extra-options.pod:226
+#: ../customize/customize-options.pod:219
+#: ../sysprep/sysprep-extra-options.pod:234
 msgid ""
 "Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever command "
 "is required to update the packages already installed in the template to "
@@ -8181,19 +8202,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:216
-#: ../sysprep/sysprep-extra-options.pod:230
+#: ../customize/customize-options.pod:223
+#: ../sysprep/sysprep-extra-options.pod:238
 msgid "See also I<--install>."
 msgstr "Див. також I<--install>."
 
 #. type: =item
-#: ../customize/customize-options.pod:218
+#: ../customize/customize-options.pod:225
 msgid "B<--upload> FILE:DEST"
 msgstr "B<--upload> ФАЙЛ:ПРИЗНАЧЕННЯ"
 
 #. type: textblock
-#: ../customize/customize-options.pod:220
-#: ../sysprep/sysprep-extra-options.pod:235
+#: ../customize/customize-options.pod:227
+#: ../sysprep/sysprep-extra-options.pod:243
 msgid ""
 "Upload local file C<FILE> to destination C<DEST> in the disk image.  File "
 "owner and permissions from the original are preserved, so you should set "
@@ -8201,16 +8222,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:224
-#: ../sysprep/sysprep-extra-options.pod:239
+#: ../customize/customize-options.pod:231
+#: ../sysprep/sysprep-extra-options.pod:247
 msgid ""
 "C<DEST> could be the final filename.  This can be used to rename the file on "
 "upload."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:227
-#: ../sysprep/sysprep-extra-options.pod:242
+#: ../customize/customize-options.pod:234
+#: ../sysprep/sysprep-extra-options.pod:250
 msgid ""
 "If C<DEST> is a directory name (which must already exist in the guest)  then "
 "the file is uploaded into that directory, and it keeps the same name as on "
@@ -8218,19 +8239,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:231
-#: ../sysprep/sysprep-extra-options.pod:246
+#: ../customize/customize-options.pod:238
+#: ../sysprep/sysprep-extra-options.pod:254
 msgid "See also: I<--mkdir>, I<--delete>, I<--scrub>."
 msgstr "Див. також I<--mkdir>, I<--delete>, I<--scrub>."
 
 #. type: =item
-#: ../customize/customize-options.pod:233
+#: ../customize/customize-options.pod:240
 msgid "B<--write> FILE:CONTENT"
 msgstr "B<--write> ФАЙЛ:ДАНІ"
 
 #. type: textblock
-#: ../customize/customize-options.pod:235
-#: ../sysprep/sysprep-extra-options.pod:251
+#: ../customize/customize-options.pod:242
+#: ../sysprep/sysprep-extra-options.pod:259
 msgid "Write C<CONTENT> to C<FILE>."
 msgstr "Записати C<ДАНІ> до файла C<ФАЙЛ>."
 
@@ -81762,86 +81783,91 @@ msgstr ""
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:1
-msgid "B<--delete> PATH (see C<customize> below)"
+msgid "B<--chmod> PERMISSIONS:FILE (see C<customize> below)"
 msgstr ""
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:9
+msgid "B<--delete> PATH (see C<customize> below)"
+msgstr ""
+
+#. type: =item
+#: ../sysprep/sysprep-extra-options.pod:17
 msgid "B<--edit> FILE:EXPR (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:21
+#: ../sysprep/sysprep-extra-options.pod:29
 msgid "B<--firstboot> SCRIPT (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:37
+#: ../sysprep/sysprep-extra-options.pod:45
 msgid "B<--firstboot-command> 'CMD+ARGS' (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:48
+#: ../sysprep/sysprep-extra-options.pod:56
 msgid "B<--firstboot-install> PKG,PKG..  (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:58
+#: ../sysprep/sysprep-extra-options.pod:66
 msgid "B<--hostname> HOSTNAME (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:64
+#: ../sysprep/sysprep-extra-options.pod:72
 msgid "B<--install> PKG,PKG..  (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:76
+#: ../sysprep/sysprep-extra-options.pod:84
 msgid "B<--link> TARGET:LINK[:LINK..] (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:82
+#: ../sysprep/sysprep-extra-options.pod:90
 msgid "B<--mkdir> DIR (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:90
+#: ../sysprep/sysprep-extra-options.pod:98
 msgid "B<--no-logfile> (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:99
+#: ../sysprep/sysprep-extra-options.pod:107
 msgid "B<--password> USER:SELECTOR (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:108
+#: ../sysprep/sysprep-extra-options.pod:116
 msgid "B<--password-crypto> md5|sha256|sha512 (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:123
+#: ../sysprep/sysprep-extra-options.pod:131
 msgid "B<--root-password> SELECTOR (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:134
+#: ../sysprep/sysprep-extra-options.pod:142
 msgid "B<--run> SCRIPT (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:154
+#: ../sysprep/sysprep-extra-options.pod:162
 msgid "B<--run-command> 'CMD+ARGS' (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:171
+#: ../sysprep/sysprep-extra-options.pod:179
 msgid "B<--script> SCRIPT (see C<script> below)"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:174
+#: ../sysprep/sysprep-extra-options.pod:182
 msgid ""
 "Run the named C<SCRIPT> (a shell script or program) against the guest.  The "
 "script can be any program on the host.  The script's current directory will "
@@ -81849,19 +81875,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:178
+#: ../sysprep/sysprep-extra-options.pod:186
 msgid ""
 "B<Note:> If the script is not on the $PATH, then you must give the full "
 "absolute path to the script."
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:181
+#: ../sysprep/sysprep-extra-options.pod:189
 msgid "B<--scriptdir> SCRIPTDIR (see C<script> below)"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:184
+#: ../sysprep/sysprep-extra-options.pod:192
 msgid ""
 "The mount point (an empty directory on the host) used when the C<script> "
 "operation is enabled and one or more scripts are specified using I<--script> "
@@ -81872,12 +81898,12 @@ msgstr ""
 "допомогою I<--script>."
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:188
+#: ../sysprep/sysprep-extra-options.pod:196
 msgid "B<Note:> C<SCRIPTDIR> B<must> be an absolute path."
 msgstr "B<Зауваження:> C<SCRIPTDIR> B<має> бути вказано повністю."
 
 #. type: textblock
-#: ../sysprep/sysprep-extra-options.pod:190
+#: ../sysprep/sysprep-extra-options.pod:198
 msgid ""
 "If I<--scriptdir> is not specified then a temporary mountpoint will be "
 "created."
@@ -81885,32 +81911,32 @@ msgstr ""
 "Якщо I<--scriptdir> не вказано, буде створено тимчасову точку монтування"
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:193
+#: ../sysprep/sysprep-extra-options.pod:201
 msgid "B<--scrub> FILE (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:210
+#: ../sysprep/sysprep-extra-options.pod:218
 msgid "B<--selinux-relabel> (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:217
+#: ../sysprep/sysprep-extra-options.pod:225
 msgid "B<--timezone> TIMEZONE (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:223
+#: ../sysprep/sysprep-extra-options.pod:231
 msgid "B<--update> (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:232
+#: ../sysprep/sysprep-extra-options.pod:240
 msgid "B<--upload> FILE:DEST (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:248
+#: ../sysprep/sysprep-extra-options.pod:256
 msgid "B<--write> FILE:CONTENT (see C<customize> below)"
 msgstr ""
 
@@ -82175,6 +82201,7 @@ msgid ""
 " /etc/Pegasus/*.srl\n"
 " /root/anaconda-ks.cfg\n"
 " /root/anaconda-post.log\n"
+" /root/initial-setup-ks.cfg\n"
 " /root/install.log\n"
 " /root/install.log.syslog\n"
 " /var/cache/fontconfig/*\n"
@@ -82185,26 +82212,36 @@ msgid ""
 " /var/lib/logrotate.status\n"
 " /var/log/*.log*\n"
 " /var/log/BackupPC/LOG\n"
+" /var/log/ConsoleKit/*\n"
 " /var/log/anaconda.syslog\n"
+" /var/log/anaconda/*\n"
 " /var/log/apache2/*_log\n"
 " /var/log/apache2/*_log-*\n"
+" /var/log/apt/*\n"
+" /var/log/aptitude*\n"
 " /var/log/audit/*\n"
 " /var/log/btmp*\n"
 " /var/log/ceph/*.log\n"
 " /var/log/chrony/*.log\n"
 " /var/log/cron*\n"
 " /var/log/cups/*_log\n"
+" /var/log/debug*\n"
 " /var/log/dmesg*\n"
+" /var/log/exim4/*\n"
+" /var/log/faillog*\n"
 " /var/log/gdm/*\n"
 " /var/log/glusterfs/*glusterd.vol.log\n"
 " /var/log/glusterfs/glusterfs.log\n"
 " /var/log/httpd/*log\n"
+" /var/log/installer/*\n"
 " /var/log/jetty/jetty-console.log\n"
+" /var/log/journal/*\n"
 " /var/log/lastlog*\n"
 " /var/log/libvirt/libvirtd.log\n"
 " /var/log/libvirt/lxc/*.log\n"
 " /var/log/libvirt/qemu/*.log\n"
 " /var/log/libvirt/uml/*.log\n"
+" /var/log/lightdm/*\n"
 " /var/log/mail/*\n"
 " /var/log/maillog*\n"
 " /var/log/messages*\n"
@@ -82217,6 +82254,7 @@ msgid ""
 " /var/log/setroubleshoot/*.log\n"
 " /var/log/spooler*\n"
 " /var/log/squid/*.log\n"
+" /var/log/syslog*\n"
 " /var/log/tallylog*\n"
 " /var/log/tuned/tuned.log\n"
 " /var/log/wtmp*\n"
@@ -82225,17 +82263,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:166
+#: ../sysprep/sysprep-operations.pod:178
 msgid "B<lvm-uuids> *"
 msgstr "B<lvm-uuids> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:169
+#: ../sysprep/sysprep-operations.pod:181
 msgid "Change LVM2 PV and VG UUIDs."
 msgstr "Змінити UUID ФТ і ГТ LVM2."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:171
+#: ../sysprep/sysprep-operations.pod:183
 msgid ""
 "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
 "(VGs), new random UUIDs are generated and assigned to those PVs and VGs."
@@ -82244,17 +82282,17 @@ msgstr ""
 "(ГТ) LVM2 для ФТ і ГТ буде створено і призначено випадкові UUID."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:174
+#: ../sysprep/sysprep-operations.pod:186
 msgid "B<machine-id> *"
 msgstr "B<ід-комп’ютера> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:177
+#: ../sysprep/sysprep-operations.pod:189
 msgid "Remove the local machine ID."
 msgstr "Вилучити ідентифікатор локального комп’ютера."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:179
+#: ../sysprep/sysprep-operations.pod:191
 msgid ""
 "The machine ID is usually generated from a random source during system "
 "installation and stays constant for all subsequent boots.  Optionally, for "
@@ -82268,27 +82306,27 @@ msgstr ""
 "якщо буде виявлено порожнє значення."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:184
+#: ../sysprep/sysprep-operations.pod:196
 msgid "B<mail-spool> *"
 msgstr "B<mail-spool> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:187
+#: ../sysprep/sysprep-operations.pod:199
 msgid "Remove email from the local mail spool directory."
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:189
+#: ../sysprep/sysprep-operations.pod:201
 msgid "B<net-hostname> *"
 msgstr "B<net-hostname> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:192
+#: ../sysprep/sysprep-operations.pod:204
 msgid "Remove HOSTNAME in network interface configuration."
 msgstr "Вилучити HOSTNAME у налаштуваннях інтерфейсу мережі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:194 ../sysprep/sysprep-operations.pod:202
+#: ../sysprep/sysprep-operations.pod:206 ../sysprep/sysprep-operations.pod:214
 msgid ""
 "For Fedora and Red Hat Enterprise Linux, this is removed from C<ifcfg-*> "
 "files."
@@ -82296,27 +82334,27 @@ msgstr ""
 "Для Fedora і Red Hat Enterprise Linux це вилучається з файлів C<ifcfg-*>."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:197
+#: ../sysprep/sysprep-operations.pod:209
 msgid "B<net-hwaddr> *"
 msgstr "B<net-hwaddr> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:200
+#: ../sysprep/sysprep-operations.pod:212
 msgid "Remove HWADDR (hard-coded MAC address) configuration."
 msgstr "Вилучити налаштування HWADDR (апаратної адреси MAC)."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:205
+#: ../sysprep/sysprep-operations.pod:217
 msgid "B<pacct-log> *"
 msgstr "B<pacct-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:208
+#: ../sysprep/sysprep-operations.pod:220
 msgid "Remove the process accounting log files."
 msgstr "Вилучити файли журналу обліку процесів."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:210
+#: ../sysprep/sysprep-operations.pod:222
 msgid ""
 "The system wide process accounting will store to the pacct log files if the "
 "process accounting is on."
@@ -82325,67 +82363,67 @@ msgstr ""
 "увімкнено облік процесів."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:213
+#: ../sysprep/sysprep-operations.pod:225
 msgid "B<package-manager-cache> *"
 msgstr "B<package-manager-cache> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:216
+#: ../sysprep/sysprep-operations.pod:228
 msgid "Remove package manager cache."
 msgstr "Вилучити кеш керування пакунками."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:218
+#: ../sysprep/sysprep-operations.pod:230
 msgid "B<pam-data> *"
 msgstr "B<pam-data> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:221
+#: ../sysprep/sysprep-operations.pod:233
 msgid "Remove the PAM data in the guest."
 msgstr "Вилучити дані PAM у гостьовій системі."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:223
+#: ../sysprep/sysprep-operations.pod:235
 msgid "B<puppet-data-log> *"
 msgstr "B<puppet-data-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:226
+#: ../sysprep/sysprep-operations.pod:238
 msgid "Remove the data and log files of puppet."
 msgstr "Вилучити дані та файли журналів puppet."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:228
+#: ../sysprep/sysprep-operations.pod:240
 msgid "B<rh-subscription-manager> *"
 msgstr "B<rh-subscription-manager> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:231
+#: ../sysprep/sysprep-operations.pod:243
 msgid "Remove the RH subscription manager files."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:233
+#: ../sysprep/sysprep-operations.pod:245
 msgid "B<rhn-systemid> *"
 msgstr "B<rhn-systemid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:236
+#: ../sysprep/sysprep-operations.pod:248
 msgid "Remove the RHN system ID."
 msgstr "Вилучити ідентифікатор системи у RHN."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:238
+#: ../sysprep/sysprep-operations.pod:250
 msgid "B<rpm-db> *"
 msgstr "B<rpm-db> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:241
+#: ../sysprep/sysprep-operations.pod:253
 msgid "Remove host-specific RPM database files."
 msgstr "Вилучити специфічні для системи файли баз даних RPM."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:243
+#: ../sysprep/sysprep-operations.pod:255
 msgid ""
 "Remove host-specific RPM database files and locks.  RPM will recreate these "
 "files automatically if needed."
@@ -82394,34 +82432,34 @@ msgstr ""
 "створено ці файли, якщо це потрібно."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:246
+#: ../sysprep/sysprep-operations.pod:258
 msgid "B<samba-db-log> *"
 msgstr "B<samba-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:249
+#: ../sysprep/sysprep-operations.pod:261
 msgid "Remove the database and log files of Samba."
 msgstr "Вилучити бази даних та файли журналів Samba."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:251
+#: ../sysprep/sysprep-operations.pod:263
 msgid "B<script> *"
 msgstr "B<script> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:254
+#: ../sysprep/sysprep-operations.pod:266
 msgid "Run arbitrary scripts against the guest."
 msgstr "Запустити довільні скрипти дій над гостьовою системою."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:256
+#: ../sysprep/sysprep-operations.pod:268
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:259
+#: ../sysprep/sysprep-operations.pod:271
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -82429,14 +82467,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:263
+#: ../sysprep/sysprep-operations.pod:275
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:266
+#: ../sysprep/sysprep-operations.pod:278
 msgid ""
 "The script or program is run with its current directory being the guest's "
 "root directory, so relative paths should be used.  For example: C<rm etc/"
@@ -82445,14 +82483,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:272
+#: ../sysprep/sysprep-operations.pod:284
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:275
+#: ../sysprep/sysprep-operations.pod:287
 msgid ""
 "B<Note:> This is different from I<--firstboot> scripts (which run in the "
 "context of the guest when it is booting first time).  I<--script> scripts "
@@ -82460,27 +82498,27 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:279
+#: ../sysprep/sysprep-operations.pod:291
 msgid "B<smolt-uuid> *"
 msgstr "B<smolt-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:282
+#: ../sysprep/sysprep-operations.pod:294
 msgid "Remove the Smolt hardware UUID."
 msgstr "Вилучити UUID обладнання Smolt."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:284
+#: ../sysprep/sysprep-operations.pod:296
 msgid "B<ssh-hostkeys> *"
 msgstr "B<ssh-hostkeys> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:287
+#: ../sysprep/sysprep-operations.pod:299
 msgid "Remove the SSH host keys in the guest."
 msgstr "Вилучити ключі вузла SSH у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:289
+#: ../sysprep/sysprep-operations.pod:301
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
@@ -82489,7 +82527,7 @@ msgstr ""
 "завантаження гостьової системи."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:292
+#: ../sysprep/sysprep-operations.pod:304
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
@@ -82498,7 +82536,7 @@ msgstr ""
 "надасть вам додаткове попередження щодо зміни ключа вузла:"
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:295
+#: ../sysprep/sysprep-operations.pod:307
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -82514,17 +82552,17 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:300
+#: ../sysprep/sysprep-operations.pod:312
 msgid "B<ssh-userdir> *"
 msgstr "B<ssh-userdir> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:303
+#: ../sysprep/sysprep-operations.pod:315
 msgid "Remove \".ssh\" directories in the guest."
 msgstr "Вилучити каталоги «.ssh» у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:305
+#: ../sysprep/sysprep-operations.pod:317
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other users who have a "
 "C<.ssh> directory in their home directory."
@@ -82533,12 +82571,12 @@ msgstr ""
 "домашні каталоги яких містять каталог C<.ssh>."
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:308
+#: ../sysprep/sysprep-operations.pod:320
 msgid "Notes on ssh-userdir"
 msgstr "Зауваження щодо ssh-userdir"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:310
+#: ../sysprep/sysprep-operations.pod:322
 msgid ""
 "Currently this only looks in C</root> and C</home/*> for home directories, "
 "so users with home directories in other locations won't have the ssh files "
@@ -82549,42 +82587,42 @@ msgstr ""
 "у інших каталогах, не буде вилучено."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:314
+#: ../sysprep/sysprep-operations.pod:326
 msgid "B<sssd-db-log> *"
 msgstr "B<sssd-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:317
+#: ../sysprep/sysprep-operations.pod:329
 msgid "Remove the database and log files of sssd."
 msgstr "Вилучити бази даних і файли журналів sssd."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:319
+#: ../sysprep/sysprep-operations.pod:331
 msgid "B<tmp-files> *"
 msgstr "B<tmp-files> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:322
+#: ../sysprep/sysprep-operations.pod:334
 msgid "Remove temporary files."
 msgstr "Вилучити тимчасові файли."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:324
+#: ../sysprep/sysprep-operations.pod:336
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:326
+#: ../sysprep/sysprep-operations.pod:338
 msgid "B<udev-persistent-net> *"
 msgstr "B<udev-persistent-net> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:329
+#: ../sysprep/sysprep-operations.pod:341
 msgid "Remove udev persistent net rules."
 msgstr "Вилучити постійні правила мережі udev."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:331
+#: ../sysprep/sysprep-operations.pod:343
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
@@ -82593,7 +82631,7 @@ msgstr ""
 "адресу гостьової системи на фіксований пристрій ethernet (наприклад eth0)."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:334
+#: ../sysprep/sysprep-operations.pod:346
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -82607,17 +82645,17 @@ msgstr ""
 "udev цьому можна запобігти."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:339
+#: ../sysprep/sysprep-operations.pod:351
 msgid "B<user-account>"
 msgstr "B<user-account>"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:341
+#: ../sysprep/sysprep-operations.pod:353
 msgid "Remove the user accounts in the guest."
 msgstr "Вилучити облікові записи користувачів у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:343
+#: ../sysprep/sysprep-operations.pod:355
 msgid ""
 "Remove all the user accounts and their home directories.  The \"root\" "
 "account is not removed."
@@ -82626,12 +82664,12 @@ msgstr ""
 "Обліковий запис «root» вилучено не буде."
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:346
+#: ../sysprep/sysprep-operations.pod:358
 msgid "Notes on user-account"
 msgstr "Зауваження щодо user-account"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:348
+#: ../sysprep/sysprep-operations.pod:360
 msgid ""
 "Currently this does not remove the user accounts from C</etc/shadow>.  This "
 "is because there is no lens for the shadow password file in Augeas."
@@ -82640,17 +82678,17 @@ msgstr ""
 "Причиною є те, що у Augeas ще немає модуля для файлів паролів shadow."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:352
+#: ../sysprep/sysprep-operations.pod:364
 msgid "B<utmp> *"
 msgstr "B<utmp> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:355
+#: ../sysprep/sysprep-operations.pod:367
 msgid "Remove the utmp file."
 msgstr "Вилучити файл utmp."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:357
+#: ../sysprep/sysprep-operations.pod:369
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -82662,17 +82700,17 @@ msgstr ""
 "у старіших версіях дистрибутивів."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:361
+#: ../sysprep/sysprep-operations.pod:373
 msgid "B<yum-uuid> *"
 msgstr "B<yum-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:364
+#: ../sysprep/sysprep-operations.pod:376
 msgid "Remove the yum UUID."
 msgstr "Вилучити UUID yum."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:366
+#: ../sysprep/sysprep-operations.pod:378
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."

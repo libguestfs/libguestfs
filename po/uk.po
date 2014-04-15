@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-04-06 16:17+0100\n"
+"POT-Creation-Date: 2014-04-15 14:17+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -100,7 +100,7 @@ msgstr "%s (проігноровано)\n"
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:329 ../builder/builder.ml:620
+#: ../customize/customize_run.ml:337 ../builder/builder.ml:620
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (прогіноровано)\n"
 
@@ -325,7 +325,7 @@ msgstr "%s: порожній аргумент параметра --expand"
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
 
-#: ../customize/customize_run.ml:183
+#: ../customize/customize_run.ml:191
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
@@ -419,7 +419,7 @@ msgid "%s: invalid --list-format type '%s', see the man page.\n"
 msgstr ""
 "%s: некоректний тип --list-format, «%s», див. сторінку підручника (man).\n"
 
-#: ../customize/customize_cmdline.ml:118 ../customize/customize_cmdline.ml:106
+#: ../customize/customize_cmdline.ml:120 ../customize/customize_cmdline.ml:108
 msgid "%s: invalid format for '--%s' parameter, see the man page.\n"
 msgstr ""
 
@@ -699,13 +699,13 @@ msgstr "%s: попередження: кеш %s: %s\n"
 msgid "%s: warning: gpg program is not available\n"
 msgstr "%s: попередження: немає доступу до програми gpg\n"
 
-#: ../customize/customize_run.ml:211
+#: ../customize/customize_run.ml:219
 msgid ""
 "%s: warning: hostname could not be set for this type of guest\n"
 "%!"
 msgstr ""
 
-#: ../customize/customize_run.ml:289
+#: ../customize/customize_run.ml:297
 msgid ""
 "%s: warning: passwords could not be set for this type of guest\n"
 "%!"
@@ -717,7 +717,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../customize/customize_run.ml:248
+#: ../customize/customize_run.ml:256
 msgid ""
 "%s: warning: timezone could not be set for this type of guest\n"
 "%!"
@@ -735,7 +735,7 @@ msgstr "%s: параметру --enable не можна передавати п�
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: вам слід передати параметр -a або -d\n"
 
-#: ../customize/customize_cmdline.ml:225 ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:237 ../customize/customize_cmdline.ml:162
 msgid "'CMD+ARGS'"
 msgstr ""
 
@@ -765,11 +765,11 @@ msgstr "параметр --shrink вказано двічі"
 msgid "Add disk image file"
 msgstr "Додати файл образу диска"
 
-#: ../customize/customize_cmdline.ml:176
+#: ../customize/customize_cmdline.ml:188
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:172
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
@@ -796,6 +796,14 @@ msgstr "Змінити UUID ФТ і ГТ LVM2"
 #: ../sysprep/sysprep_operation_fs_uuids.ml:46
 msgid "Change filesystem UUIDs"
 msgstr "Змінити UUID файлових систем"
+
+#: ../customize/customize_cmdline.ml:134
+msgid "Change the permissions of a file"
+msgstr ""
+
+#: ../customize/customize_run.ml:172
+msgid "Changing permissions of %s to %s"
+msgstr ""
 
 #: ../builder/cmdline.ml:117 ../builder/cmdline.ml:115
 msgid "Check digital signatures"
@@ -841,7 +849,7 @@ msgstr ""
 "Копіювання %s ...\n"
 "%!"
 
-#: ../customize/customize_cmdline.ml:192
+#: ../customize/customize_cmdline.ml:204
 msgid "Create a directory"
 msgstr ""
 
@@ -853,7 +861,7 @@ msgstr ""
 "Створити файл накладки у %s для захисту диска початкових даних…\n"
 "%!"
 
-#: ../customize/customize_cmdline.ml:186
+#: ../customize/customize_cmdline.ml:198
 msgid "Create symbolic links"
 msgstr ""
 
@@ -897,7 +905,7 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:192
+#: ../customize/customize_cmdline.ml:204
 msgid "DIR"
 msgstr ""
 
@@ -909,7 +917,7 @@ msgstr "Діагностика GC та розподілу пам’яті"
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностика GC та розподілу пам’яті (внутрішня)"
 
-#: ../customize/customize_cmdline.ml:128
+#: ../customize/customize_cmdline.ml:140
 msgid "Delete a file or directory"
 msgstr ""
 
@@ -921,7 +929,7 @@ msgstr "Вилучити розділ"
 msgid "Delete the template cache"
 msgstr "Вилучити кеш шаблонів"
 
-#: ../customize/customize_run.ml:176
+#: ../customize/customize_run.ml:184
 msgid "Deleting: %s"
 msgstr ""
 
@@ -1013,11 +1021,11 @@ msgstr "Створити дамп POD (вбудоване)"
 msgid "Dump POD for options (internal)"
 msgstr "Створити дамп POD для параметрів (вбудоване)"
 
-#: ../customize/customize_cmdline.ml:138
+#: ../customize/customize_cmdline.ml:150
 msgid "Edit file using Perl expression"
 msgstr ""
 
-#: ../customize/customize_run.ml:180
+#: ../customize/customize_run.ml:188
 msgid "Editing: %s"
 msgstr ""
 
@@ -1098,19 +1106,19 @@ msgstr ""
 "Розширення %s%s за допомогою методу «%s»…\n"
 "%!"
 
-#: ../customize/customize_cmdline.ml:231
+#: ../customize/customize_cmdline.ml:243
 msgid "FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:263
+#: ../customize/customize_cmdline.ml:275
 msgid "FILE:CONTENT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:253
+#: ../customize/customize_cmdline.ml:265
 msgid "FILE:DEST"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:138
+#: ../customize/customize_cmdline.ml:150
 msgid "FILE:EXPR"
 msgstr ""
 
@@ -1210,7 +1218,7 @@ msgstr "Назва повністю:"
 msgid "Get kernel from image"
 msgstr "Отримати назву ядра з образу"
 
-#: ../customize/customize_cmdline.ml:166
+#: ../customize/customize_cmdline.ml:178
 msgid "HOSTNAME"
 msgstr ""
 
@@ -1230,19 +1238,19 @@ msgstr ""
 "Віртуальний розмір диска вхідних даних = %Ld байтів (%s)\n"
 "%!"
 
-#: ../customize/customize_run.ml:192
+#: ../customize/customize_run.ml:200
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:197
+#: ../customize/customize_run.ml:205
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:204
+#: ../customize/customize_run.ml:212
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:215
+#: ../customize/customize_run.ml:223
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -1250,7 +1258,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr "Ключ: %s\n"
 
-#: ../customize/customize_run.ml:222
+#: ../customize/customize_run.ml:230
 msgid "Linking: %s -> %s"
 msgstr ""
 
@@ -1272,7 +1280,7 @@ msgstr "Показати список підтримуваних команд"
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення даних придатною для читання даних"
 
-#: ../customize/customize_run.ml:227
+#: ../customize/customize_run.ml:235
 msgid "Making directory: %s"
 msgstr ""
 
@@ -1324,7 +1332,7 @@ msgstr ""
 "(ГТ) LVM2\n"
 "для ФТ і ГТ буде створено і призначено випадкові UUID."
 
-#: ../sysprep/sysprep_operation_logfiles.ml:119
+#: ../sysprep/sysprep_operation_logfiles.ml:143
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -1363,11 +1371,15 @@ msgstr "Розмір результату: %s"
 msgid "Output: %s"
 msgstr "Виведення: %s"
 
-#: ../customize/customize_cmdline.ml:128
+#: ../customize/customize_cmdline.ml:140
 msgid "PATH"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:176 ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:134
+msgid "PERMISSIONS:FILE"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:188 ../customize/customize_cmdline.ml:172
 msgid "PKG,PKG.."
 msgstr ""
 
@@ -1400,7 +1412,7 @@ msgstr ""
 "Ознайомтеся зі сторінкою підручника (man) virt-sysprep(1), щоб дізнатися "
 "більше.\n"
 
-#: ../customize/customize_cmdline.ml:284
+#: ../customize/customize_cmdline.ml:296
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
@@ -1464,7 +1476,7 @@ msgstr ""
 "Вилучити специфічні для системи файли баз даних RPM. RPM буде\n"
 "повторно створено ці файли, якщо це потрібно."
 
-#: ../sysprep/sysprep_operation_logfiles.ml:117
+#: ../sysprep/sysprep_operation_logfiles.ml:141
 msgid "Remove many log files from the guest"
 msgstr "Вилучити з гостьової системи багато файлів журналів"
 
@@ -1472,7 +1484,7 @@ msgstr "Вилучити з гостьової системи багато фа�
 msgid "Remove package manager cache"
 msgstr "Вилучити кеш керування пакунками"
 
-#: ../sysprep/sysprep_operation_tmp_files.ml:43
+#: ../sysprep/sysprep_operation_tmp_files.ml:50
 msgid "Remove temporary files"
 msgstr "Вилучити тимчасові файли"
 
@@ -1628,19 +1640,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr "Запустити довільні скрипти дій над гостьовою системою"
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:162
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:225
+#: ../customize/customize_cmdline.ml:237
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:144
+#: ../customize/customize_cmdline.ml:156
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:219
+#: ../customize/customize_cmdline.ml:231
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1661,19 +1673,19 @@ msgstr ""
 "B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
 "слід вказати шлях до скрипту повністю."
 
-#: ../customize/customize_run.ml:237 ../customize/customize_run.ml:172
+#: ../customize/customize_run.ml:245 ../customize/customize_run.ml:180
 msgid "Running: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:219 ../customize/customize_cmdline.ml:144
+#: ../customize/customize_cmdline.ml:231 ../customize/customize_cmdline.ml:156
 msgid "SCRIPT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:213
+#: ../customize/customize_cmdline.ml:225
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:294
+#: ../customize/customize_run.ml:302
 msgid "SELinux relabelling"
 msgstr ""
 
@@ -1681,19 +1693,19 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr "Скрипт або програма, яку слід запустити у гостьовій системі"
 
-#: ../customize/customize_cmdline.ml:231
+#: ../customize/customize_cmdline.ml:243
 msgid "Scrub a file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:269
+#: ../customize/customize_cmdline.ml:281
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:313
+#: ../customize/customize_run.ml:321
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:242
+#: ../customize/customize_run.ml:250
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -1751,11 +1763,11 @@ msgstr "Встановити назву файла виведених даних
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Встановити вирівнювання розділів (типове значення: 128 секторів)"
 
-#: ../customize/customize_cmdline.ml:278
+#: ../customize/customize_cmdline.ml:290
 msgid "Set password crypto"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:213
+#: ../customize/customize_cmdline.ml:225
 msgid "Set root password"
 msgstr ""
 
@@ -1767,7 +1779,7 @@ msgstr "Встановити адресу джерела"
 msgid "Set template cache dir"
 msgstr "Встановити назву каталогу кешу шаблонів"
 
-#: ../customize/customize_cmdline.ml:237
+#: ../customize/customize_cmdline.ml:249
 msgid "Set the default timezone"
 msgstr ""
 
@@ -1775,7 +1787,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr "Встановити формат для --list (типовий формат: short)"
 
-#: ../customize/customize_cmdline.ml:166
+#: ../customize/customize_cmdline.ml:178
 msgid "Set the hostname"
 msgstr ""
 
@@ -1783,7 +1795,7 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr "Встановити архітектуру результату"
 
-#: ../customize/customize_cmdline.ml:203
+#: ../customize/customize_cmdline.ml:215
 msgid "Set user password"
 msgstr ""
 
@@ -1791,7 +1803,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:284
+#: ../customize/customize_run.ml:292
 msgid "Setting passwords"
 msgstr ""
 
@@ -1801,11 +1813,11 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../customize/customize_run.ml:209
+#: ../customize/customize_run.ml:217
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:246
+#: ../customize/customize_run.ml:254
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -1842,11 +1854,11 @@ msgstr ""
 "уважно перевірте, чи завантажується новий диск і чи працює він належним "
 "чином.\n"
 
-#: ../customize/customize_cmdline.ml:186
+#: ../customize/customize_cmdline.ml:198
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:237
+#: ../customize/customize_cmdline.ml:249
 msgid "TIMEZONE"
 msgstr ""
 
@@ -2027,7 +2039,7 @@ msgstr ""
 "систему\n"
 "для експлоїтів. Будьте обережні."
 
-#: ../sysprep/sysprep_operation_tmp_files.ml:44
+#: ../sysprep/sysprep_operation_tmp_files.ml:51
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
@@ -2047,7 +2059,7 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr "Вимкнути розріджене копіювання"
 
-#: ../customize/customize_cmdline.ml:203
+#: ../customize/customize_cmdline.ml:215
 msgid "USER:SELECTOR"
 msgstr ""
 
@@ -2055,27 +2067,27 @@ msgstr ""
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
-#: ../customize/customize_cmdline.ml:243
+#: ../customize/customize_cmdline.ml:255
 msgid "Update core packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:252
+#: ../customize/customize_run.ml:260
 msgid "Updating core packages"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:253
+#: ../customize/customize_cmdline.ml:265
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:257
+#: ../customize/customize_run.ml:265
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:263
+#: ../customize/customize_cmdline.ml:275
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:276
+#: ../customize/customize_run.ml:284
 msgid "Writing: %s"
 msgstr ""
 
