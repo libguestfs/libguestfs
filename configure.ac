@@ -783,16 +783,29 @@ working.
             AC_MSG_FAILURE([$QEMU version must be >= 1.0.])
         fi
 
-        AC_MSG_CHECKING([that $QEMU -display none -machine accel=kvm:tcg -device ? works])
-        if $QEMU -display none -machine accel=kvm:tcg -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
+	dnl Unfortunately $QEMU -device \? won't just work.  We probably
+	dnl need to add a cocktail of different arguments which differ
+	dnl on the various emulators.  Thanks, qemu.
+	AC_MSG_CHECKING([what extra options we need to use for qemu feature tests])
+	QEMU_OPTIONS_FOR_CONFIGURE=
+	# Note: the order we test these matters.
+	for opt in "-machine virt" "-machine accel=kvm:tcg" "-display none"; do
+	    if $QEMU $QEMU_OPTIONS_FOR_CONFIGURE $opt -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
+	        QEMU_OPTIONS_FOR_CONFIGURE="$QEMU_OPTIONS_FOR_CONFIGURE $opt"
+	    fi
+	done
+	AC_MSG_RESULT([$QEMU_OPTIONS_FOR_CONFIGURE])
+
+        AC_MSG_CHECKING([that $QEMU $QEMU_OPTIONS_FOR_CONFIGURE -device ? works])
+        if $QEMU $QEMU_OPTIONS_FOR_CONFIGURE -device \? >&AS_MESSAGE_LOG_FD 2>&1; then
             AC_MSG_RESULT([yes])
         else
             AC_MSG_RESULT([no])
-            AC_MSG_FAILURE([$QEMU -display none -machine accel=kvm:tcg -device ? doesn't work.])
+            AC_MSG_FAILURE([$QEMU $QEMU_OPTIONS_FOR_CONFIGURE -device ? doesn't work.])
         fi
 
         AC_MSG_CHECKING([for virtio-serial support in $QEMU])
-        if $QEMU $QEMU_OPTIONS -display none -machine accel=kvm:tcg -device \? 2>&1 | grep -sq virtio-serial; then
+        if $QEMU $QEMU_OPTIONS_FOR_CONFIGURE -device \? 2>&1 | grep -sq virtio-serial; then
             AC_MSG_RESULT([yes])
         else
             AC_MSG_RESULT([no])
