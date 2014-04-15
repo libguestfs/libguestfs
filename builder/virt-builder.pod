@@ -1010,6 +1010,31 @@ This optional field represents the URI (although only I<file://> URIs
 are accepted) of the key used to sign the index file.
 If not present, the index file referred by I<uri=..> is not signed.
 
+=item C<proxy=MODE>
+
+This optional field specifies the proxy mode, to be used when downloading
+the index file of this repository.  The possible values are:
+
+=over 4
+
+=item B<no>, B<off>
+
+No proxy is being used at all, even overriding the system configuration.
+
+=item B<system>
+
+The proxy used is the system one.
+
+=item I<anything else>
+
+Specifies the actual proxy configuration to be used, overriding the system
+configuration.
+
+=back
+
+If not present, the assumed value is to respect the proxy settings of the
+system (i.e. as if B<system> would be specified).
+
 =back
 
 For serious virt-builder use, you may want to create your own

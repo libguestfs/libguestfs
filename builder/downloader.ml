@@ -37,25 +37,30 @@ type t = {
   cache : string option;                (* cache directory for templates *)
 }
 
+type proxy_mode =
+  | UnsetProxy
+  | SystemProxy
+  | ForcedProxy of string
+
 let create ~debug ~curl ~cache = {
   debug = debug;
   curl = curl;
   cache = cache;
 }
 
-let rec download ~prog t ?template ?progress_bar uri =
+let rec download ~prog t ?template ?progress_bar ?(proxy = SystemProxy) uri =
   match template with
   | None ->                       (* no cache, simple download *)
     (* Create a temporary name. *)
     let tmpfile = Filename.temp_file "vbcache" ".txt" in
-    download_to ~prog t ?progress_bar uri tmpfile;
+    download_to ~prog t ?progress_bar ~proxy uri tmpfile;
     (tmpfile, true)
 
   | Some (name, arch, revision) ->
     match t.cache with
     | None ->
       (* Not using the cache at all? *)
-      download t ~prog ?progress_bar uri
+      download t ~prog ?progress_bar ~proxy uri
 
     | Some cachedir ->
       let filename = cache_of_name cachedir name arch revision in
@@ -64,11 +69,11 @@ let rec download ~prog t ?template ?progress_bar uri =
        * If not, download it.
        *)
       if not (Sys.file_exists filename) then
-        download_to ~prog t ?progress_bar uri filename;
+        download_to ~prog t ?progress_bar ~proxy uri filename;
 
       (filename, false)
 
-and download_to ~prog t ?(progress_bar = false) uri filename =
+and download_to ~prog t ?(progress_bar = false) ~proxy uri filename =
   let parseduri =
     try URI.parse_uri uri
     with Invalid_argument "URI.parse_uri" ->
@@ -95,9 +100,11 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
         prog path;
       exit 1
     )
-  | _ -> (* Any other protocol. *)
+  | _ as protocol -> (* Any other protocol. *)
+    let outenv = proxy_envvar protocol proxy in
     (* Get the status code first to ensure the file exists. *)
-    let cmd = sprintf "%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
+    let cmd = sprintf "%s%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
+      outenv
       t.curl
       (if t.debug then "" else " -s -S")
       (quote uri) in
@@ -122,7 +129,8 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
     );
 
     (* Now download the file. *)
-    let cmd = sprintf "%s%s -g -o %s %s"
+    let cmd = sprintf "%s%s%s -g -o %s %s"
+      outenv
       t.curl
       (if t.debug then "" else if progress_bar then " -#" else " -s -S")
       (quote filename_new) (quote uri) in
@@ -137,3 +145,23 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
 
   (* Rename the file if the download was successful. *)
   rename filename_new filename
+
+and proxy_envvar protocol = function
+  | UnsetProxy ->
+    (match protocol with
+    | "http" -> "env http_proxy= no_proxy=* "
+    | "https" -> "env https_proxy= no_proxy=* "
+    | "ftp" -> "env ftp_proxy= no_proxy=* "
+    | _ -> "env no_proxy=* "
+    )
+  | SystemProxy ->
+    (* No changes required. *)
+    ""
+  | ForcedProxy proxy ->
+    let proxy = Filename.quote proxy in
+    (match protocol with
+    | "http" -> sprintf "env http_proxy=%s no_proxy= " proxy
+    | "https" -> sprintf "env https_proxy=%s no_proxy= " proxy
+    | "ftp" -> sprintf "env ftp_proxy=%s no_proxy= " proxy
+    | _ -> ""
+    )

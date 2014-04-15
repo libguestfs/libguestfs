@@ -26,6 +26,7 @@ type source = {
   name : string;
   uri : string;
   gpgkey : string option;
+  proxy : Downloader.proxy_mode;
 }
 
 module StringSet = Set.Make (String)
@@ -65,8 +66,17 @@ let parse_conf ~prog ~debug file =
               );
               None
             ) in
+        let proxy =
+          try
+            (match (List.assoc ("proxy", None) fields) with
+            | "no" | "off" -> Downloader.UnsetProxy
+            | "system" -> Downloader.SystemProxy
+            | _ as proxy -> Downloader.ForcedProxy proxy
+            )
+          with
+            Not_found -> Downloader.SystemProxy in
         {
-          name = n; uri = uri; gpgkey = gpgkey;
+          name = n; uri = uri; gpgkey = gpgkey; proxy = proxy;
         }
       in
       try (give_source n fields) :: acc

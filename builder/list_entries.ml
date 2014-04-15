@@ -47,7 +47,7 @@ and list_entries_long ~sources index =
   let langs = Languages.languages () in
 
   List.iter (
-    fun (source, key) ->
+    fun (source, key, proxy) ->
       printf (f_"Source URI: %s\n") source;
       (match key with
       | Sigchecker.No_Key -> ()
@@ -136,7 +136,7 @@ and list_entries_json ~sources index =
   printf "  \"version\": %d,\n" 1;
   printf "  \"sources\": [\n";
   iteri (
-    fun i (source, key) ->
+    fun i (source, key, proxy) ->
       printf "  {\n";
       (match key with
       | Sigchecker.No_Key -> ()

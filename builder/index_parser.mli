@@ -36,4 +36,4 @@ and entry = {
   sigchecker : Sigchecker.t;
 }
 
-val get_index : prog:string -> debug:bool -> downloader:Downloader.t -> sigchecker:Sigchecker.t -> string -> index
+val get_index : prog:string -> debug:bool -> downloader:Downloader.t -> sigchecker:Sigchecker.t -> proxy:Downloader.proxy_mode -> string -> index

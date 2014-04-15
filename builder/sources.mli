@@ -20,6 +20,7 @@ type source = {
   name : string;
   uri : string;
   gpgkey : string option;
+  proxy : Downloader.proxy_mode;
 }
 
 val read_sources : prog:string -> debug:bool -> source list

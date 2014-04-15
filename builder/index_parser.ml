@@ -102,7 +102,7 @@ let print_entry chan (name, { printable_name = printable_name;
   ) notes;
   if hidden then fp "hidden=true\n"
 
-let get_index ~prog ~debug ~downloader ~sigchecker source =
+let get_index ~prog ~debug ~downloader ~sigchecker ~proxy source =
   let corrupt_file () =
     eprintf (f_"\nThe index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.\n")
       source;
@@ -111,7 +111,7 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
 
   let rec get_index () =
     (* Get the index page. *)
-    let tmpfile, delete_tmpfile = Downloader.download ~prog downloader source in
+    let tmpfile, delete_tmpfile = Downloader.download ~prog downloader ~proxy source in
 
     (* Check index file signature (also verifies it was fully
      * downloaded and not corrupted in transit).

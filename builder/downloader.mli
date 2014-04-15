@@ -29,10 +29,18 @@ type filename = string
 type t
 (** The abstract data type. *)
 
+(** Type of proxy. *)
+type proxy_mode =
+  | UnsetProxy                 (* The proxy is forced off. *)
+  | SystemProxy                (* The proxy is not changed (follows the
+                                * system configuration).
+                                *)
+  | ForcedProxy of string      (* The proxy is forced to the specified URL. *)
+
 val create : debug:bool -> curl:string -> cache:string option -> t
 (** Create the abstract type. *)
 
-val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_bar:bool -> uri -> (filename * bool)
+val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_bar:bool -> ?proxy:proxy_mode -> uri -> (filename * bool)
 (** Download the URI, returning the downloaded filename and a
     temporary file flag.  The temporary file flag is [true] iff
     the downloaded file is temporary and should be deleted by the
@@ -44,4 +52,7 @@ val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_ba
 
     If [~progress_bar:true] then display a progress bar if the file
     doesn't come from the cache.  In debug mode, progress messages
-    are always displayed. *)
+    are always displayed.
+
+    [proxy] specifies the type of proxy to be used in the transfer,
+    if possible. *)
