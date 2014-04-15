@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-04-15 14:17+0100\n"
+"POT-Creation-Date: 2014-04-15 23:28+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -81,11 +81,11 @@ msgstr ""
 msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
-#: ../builder/sources.ml:54
+#: ../builder/sources.ml:55
 msgid "%s: '%s' has invalid gpgkey URI\n"
 msgstr ""
 
-#: ../builder/sources.ml:64
+#: ../builder/sources.ml:65
 msgid "%s: '%s' has non-local gpgkey URI\n"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr ""
 msgid "%s: --update is not supported for this guest operating system\n"
 msgstr ""
 
-#: ../builder/sources.ml:77
+#: ../builder/sources.ml:87
 msgid "%s: ... read %d sources\n"
 msgstr ""
 
@@ -210,11 +210,11 @@ msgstr ""
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
-#: ../builder/downloader.ml:94
+#: ../builder/downloader.ml:99
 msgid "%s: cp (download) command failed copying '%s'\n"
 msgstr ""
 
-#: ../builder/downloader.ml:132
+#: ../builder/downloader.ml:140
 msgid "%s: curl (download) command failed downloading '%s'\n"
 msgstr ""
 
@@ -282,7 +282,7 @@ msgstr ""
 msgid "%s: exception: %s\n"
 msgstr ""
 
-#: ../builder/downloader.ml:119
+#: ../builder/downloader.ml:126
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
@@ -291,7 +291,7 @@ msgstr ""
 msgid "%s: failure: %s\n"
 msgstr ""
 
-#: ../builder/sources.ml:120
+#: ../builder/sources.ml:130
 msgid "%s: file error: %s: %s\n"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:251
-#. ../builder/sources.ml:125
+#. ../builder/sources.ml:135
 #. ../builder/builder.ml:713
 #: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1315
 msgid "%s: internal error: invalid argument: %s\n"
@@ -366,7 +366,7 @@ msgstr ""
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: ../builder/sources.ml:46
+#: ../builder/sources.ml:47
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
@@ -489,11 +489,11 @@ msgstr ""
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: ../builder/sources.ml:35
+#: ../builder/sources.ml:36
 msgid "%s: trying to read %s\n"
 msgstr ""
 
-#: ../builder/downloader.ml:107
+#: ../builder/downloader.ml:114
 msgid ""
 "%s: unexpected output from curl command, enable debug and look at previous "
 "messages\n"
@@ -888,7 +888,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../builder/downloader.ml:75
+#: ../builder/downloader.ml:80
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
