@@ -821,7 +821,8 @@ Import the disk image into libvirt using L<virt-install(1)>
 I<--import> option.
 
  virt-install --import \
-   --name guest --ram 2048 --disk path=disk.img,format=raw
+   --name guest --ram 2048 \
+   --disk path=disk.img,format=raw --os-variant fedora20
 
 Notes:
 
@@ -833,6 +834,14 @@ You I<must> specify the correct format.  The format is C<raw> unless
 you used virt-builder's I<--format> option.
 
 =item 2.
+
+I<--os-variant> is highly recommended, because it will present optimum
+devices to enable the guest to run most efficiently.  To get a list
+of all variants, do:
+
+ virt-install --os-variant list
+
+=item 3.
 
 You can run virt-install as root or non-root.  Each works slightly
 differently because libvirt manages a different set of virtual
