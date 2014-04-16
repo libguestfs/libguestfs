@@ -533,7 +533,10 @@ let main () =
       msg (f_"Resizing (using virt-resize) to expand the disk to %s")
         (human_size osize);
       let preallocation = if oformat = "qcow2" then Some "metadata" else None in
-      (new G.guestfs ())#disk_create ?preallocation ofile oformat osize;
+      let () =
+        let g = new G.guestfs () in
+        if debug then ( g#set_trace true; g#set_verbose true );
+        g#disk_create ?preallocation ofile oformat osize in
       let cmd =
         sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
           (if debug then " --verbose" else " --quiet")
