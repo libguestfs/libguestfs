@@ -126,9 +126,13 @@ You can ignore this warning or change it to a hard failure using the
      * - detect if compat=1.1 was supported
      * - add lazy_refcounts option
      *)
-    (new G.guestfs ())#disk_create
-      ~backingfile:indisk ?backingformat:format ~compat:"1.1"
-      tmp "qcow2" Int64.minus_one;
+    let () =
+      let g = new G.guestfs () in
+      if trace then g#set_trace true;
+      if verbose then g#set_verbose true;
+      g#disk_create
+        ~backingfile:indisk ?backingformat:format ~compat:"1.1"
+        tmp "qcow2" Int64.minus_one in
 
     tmp in
 
