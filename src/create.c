@@ -27,7 +27,12 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
 #include <errno.h>
+
+#ifdef HAVE_LINUX_FS_H
+#include <linux/fs.h>
+#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -90,6 +95,36 @@ guestfs__disk_create (guestfs_h *g, const char *filename,
 }
 
 static int
+disk_create_raw_block (guestfs_h *g, const char *filename)
+{
+  int fd;
+
+  fd = open (filename, O_WRONLY|O_NOCTTY|O_CLOEXEC, 0666);
+  if (fd == -1) {
+    perrorf (g, _("cannot open block device: %s"), filename);
+    return -1;
+  }
+
+  /* Just discard blocks, if possible.  However don't try too hard. */
+#if defined(BLKGETSIZE64) && defined(BLKDISCARD)
+  uint64_t size;
+  uint64_t range[2];
+
+  if (ioctl (fd, BLKGETSIZE64, &size) == 0) {
+    range[0] = 0;
+    range[1] = size;
+    if (ioctl (fd, BLKDISCARD, range) == 0)
+      debug (g, "disk_create: %s: BLKDISCARD failed on this device: %m",
+             filename);
+  }
+#endif
+
+  close (fd);
+
+  return 0;
+}
+
+static int
 disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
                  const struct guestfs_disk_create_argv *optargs)
 {
@@ -123,18 +158,15 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
     return -1;
   }
 
-  /* This version refuses to overwrite block devices or char devices.
-   * XXX It would be possible to make it work with block devices.
-   */
   if (stat (filename, &statbuf) == 0) {
-    if (S_ISBLK (statbuf.st_mode)) {
-      error (g, _("refusing to overwrite block device '%s'"), filename);
-      return -1;
-    }
+    /* Refuse to overwrite char devices. */
     if (S_ISCHR (statbuf.st_mode)) {
       error (g, _("refusing to overwrite char device '%s'"), filename);
       return -1;
     }
+    /* Block devices have to be handled specially. */
+    if (S_ISBLK (statbuf.st_mode))
+      return disk_create_raw_block (g, filename);
   }
 
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0666);

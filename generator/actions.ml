@@ -3084,6 +3084,10 @@ size of the backing file, which is discovered automatically.  You
 are encouraged to also pass C<backingformat> to describe the format
 of C<backingfile>.
 
+If C<filename> refers to a block device, then the device is
+formatted.  The C<size> is ignored since block devices have an
+intrinsic size.
+
 The other optional parameters are:
 
 =over 4
