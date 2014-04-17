@@ -886,27 +886,6 @@ extract_uuid (const char *value)
   return ret;
 }
 
-static char *
-extract_optionally_quoted (const char *value)
-{
-  size_t value_len = strlen (value);
-
-  if (value_len >= 2 &&
-      ((value[0] == '\'' && value[value_len - 1] == '\'') ||
-       (value[0] == '"' && value[value_len - 1] == '"'))) {
-    value_len -= 2;
-    ++value;
-  }
-
-  char *ret = strndup (value, value_len);
-  if (ret == NULL) {
-    reply_with_perror ("strndup");
-    return NULL;
-  }
-
-  return ret;
-}
-
 char *
 do_part_get_gpt_type (const char *device, int partnum)
 {
@@ -919,10 +898,61 @@ do_part_get_name (const char *device, int partnum)
 {
   CLEANUP_FREE char *parttype = do_part_get_parttype (device);
 
-  if (STREQ (parttype, "gpt"))
-    return sgdisk_info_extract_field (device, partnum,
-                                      "Partition name",
-                                      extract_optionally_quoted);
+  if (STREQ (parttype, "gpt")) {
+    int parted_has_m_opt = test_parted_m_opt ();
+    if (parted_has_m_opt == -1)
+      return NULL;
+
+    CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
+    if (!out)
+      return NULL;
+
+    if (parted_has_m_opt) {
+      /* New-style parsing using the "machine-readable" format from
+       * 'parted -m'.
+       */
+      CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
+
+      if (!lines)
+        return NULL;
+
+      if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
+        reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
+                          lines[0] ? lines[0] : "(signature was null)");
+        return NULL;
+      }
+
+      if (lines[1] == NULL) {
+        reply_with_error ("parted didn't return a line describing the device");
+        return NULL;
+      }
+
+      size_t row;
+      int pnum;
+      for (row = 2; lines[row] != NULL; ++row) {
+        if (sscanf (lines[row], "%d:", &pnum) != 1) {
+          reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
+          return NULL;
+        }
+        if (pnum == partnum)
+          break;
+      }
+
+      if (lines[row] == NULL) {
+        reply_with_error ("partition number %d not found", partnum);
+        return NULL;
+      }
+
+      char *name = get_table_field (lines[row], 5);
+      if (name == NULL)
+        reply_with_error ("cannot get the name field from '%s'", lines[row]);
+
+      return name;
+    }
+  } else {
+    reply_with_error ("parted does not support the machine output (-m)");
+    return NULL;
+  }
 
   reply_with_error ("cannot get the partition name from '%s' layouts", parttype);
   return NULL;
