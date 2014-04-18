@@ -15,7 +15,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'test/unit'
+begin
+  require 'minitest/autorun'
+rescue LoadError
+  require 'test/unit'
+  MiniTest = Test
+  module Test
+    Assertions = Unit::Assertions
+    module Assertions
+      alias refute_nil assert_not_nil
+    end
+  end
+end
 
 $:.unshift(File::join(File::dirname(__FILE__), "..", "lib"))
 $:.unshift(File::join(File::dirname(__FILE__), "..", "ext", "guestfs"))
