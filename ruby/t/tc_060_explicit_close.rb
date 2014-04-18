@@ -17,10 +17,10 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < Test::Unit::TestCase
+class TestLoad < MiniTest::Unit::TestCase
   def test_explicit_close
     g = Guestfs::Guestfs.new()
-    assert_not_nil (g)
+    refute_nil (g)
     g.close()
   end
 end

@@ -21,7 +21,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < Test::Unit::TestCase
+class TestLoad < MiniTest::Unit::TestCase
   def test_rhbz664558c6
     g = Guestfs::Guestfs.new()
 

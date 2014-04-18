@@ -17,13 +17,13 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < Test::Unit::TestCase
+class TestLoad < MiniTest::Unit::TestCase
   def test_create_multiple
     g1 = Guestfs::Guestfs.new()
     g2 = Guestfs::Guestfs.new()
     g3 = Guestfs::Guestfs.new()
-    assert_not_nil (g1)
-    assert_not_nil (g2)
-    assert_not_nil (g3)
+    refute_nil (g1)
+    refute_nil (g2)
+    refute_nil (g3)
   end
 end

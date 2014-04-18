@@ -17,13 +17,13 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < Test::Unit::TestCase
+class TestLoad < MiniTest::Unit::TestCase
   def test_rhbz507346
     g = Guestfs::Guestfs.new()
     g.add_drive_scratch(10*1024*1024)
     g.launch()
 
-    exception = assert_raise TypeError do
+    exception = assert_raises TypeError do
         g.command(1)
     end
     assert_match /wrong argument type Fixnum \(expected Array\)/, exception.message

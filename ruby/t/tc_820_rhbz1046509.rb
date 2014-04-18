@@ -20,7 +20,7 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < Test::Unit::TestCase
+class TestLoad < MiniTest::Unit::TestCase
   def _handleok(g)
     g.add_drive("/dev/null")
     g.close()
