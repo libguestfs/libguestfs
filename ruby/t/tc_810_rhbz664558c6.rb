@@ -1,5 +1,5 @@
 # libguestfs Ruby bindings -*- ruby -*-
-# Copyright (C) 2011 Red Hat Inc.
+# Copyright (C) 2011-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,7 @@
 # the interpreter to segfault.  See:
 # https://bugzilla.redhat.com/show_bug.cgi?id=664558#c6
 
-require 'test/unit'
-$:.unshift(File::join(File::dirname(__FILE__), "..", "lib"))
-$:.unshift(File::join(File::dirname(__FILE__), "..", "ext", "guestfs"))
-require 'guestfs'
+require File::join(File::dirname(__FILE__), 'test_helper')
 
 class TestLoad < Test::Unit::TestCase
   def test_rhbz664558c6
