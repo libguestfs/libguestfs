@@ -15,10 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'test/unit'
-$:.unshift(File::join(File::dirname(__FILE__), "..", "lib"))
-$:.unshift(File::join(File::dirname(__FILE__), "..", "ext", "guestfs"))
-require 'guestfs'
+require File::join(File::dirname(__FILE__), 'test_helper')
 
 class TestLoad < Test::Unit::TestCase
   def test_events
