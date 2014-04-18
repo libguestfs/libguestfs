@@ -1,5 +1,5 @@
 # libguestfs Ruby bindings -*- ruby -*-
-# Copyright (C) 2013-2014 Red Hat Inc.
+# Copyright (C) 2009-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,15 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require File::join(File::dirname(__FILE__), 'test_helper')
+require 'test/unit'
 
-class TestLoad < Test::Unit::TestCase
-  def test_create_multiple
-    g1 = Guestfs::Guestfs.new()
-    g2 = Guestfs::Guestfs.new()
-    g3 = Guestfs::Guestfs.new()
-    assert_not_nil (g1)
-    assert_not_nil (g2)
-    assert_not_nil (g3)
-  end
-end
+$:.unshift(File::join(File::dirname(__FILE__), "..", "lib"))
+$:.unshift(File::join(File::dirname(__FILE__), "..", "ext", "guestfs"))
+require 'guestfs'
