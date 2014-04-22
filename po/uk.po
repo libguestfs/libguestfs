@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-04-15 23:28+0100\n"
+"POT-Creation-Date: 2014-04-22 13:38+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -100,7 +100,7 @@ msgstr "%s (проігноровано)\n"
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:337 ../builder/builder.ml:620
+#: ../customize/customize_run.ml:337 ../builder/builder.ml:623
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (прогіноровано)\n"
 
@@ -330,12 +330,12 @@ msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:52 ../resize/resize.ml:1302
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:704
 msgid "%s: error: %s: %s\n"
 msgstr "%s: помилка: %s: %s\n"
 
 #: ../sparsify/sparsify.ml:55 ../resize/resize.ml:1305
-#: ../builder/builder.ml:704
+#: ../builder/builder.ml:707
 msgid "%s: error: %s: %s: %s\n"
 msgstr "%s: помилка: %s: %s: %s\n"
 
@@ -356,7 +356,7 @@ msgid "%s: error: no cache directory\n"
 msgstr "%s: помилка: немає каталогу кешування\n"
 
 #. ../customize/customize_main.ml:261
-#. ../builder/builder.ml:722
+#. ../builder/builder.ml:725
 #: ../sparsify/sparsify.ml:74 ../resize/resize.ml:1324
 msgid "%s: exception: %s\n"
 msgstr "%s: виключення: %s\n"
@@ -366,7 +366,7 @@ msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr "%s: не вдалося отримати %s: код стану HTTP %s\n"
 
 #: ../sparsify/sparsify.ml:62 ../resize/resize.ml:1312
-#: ../builder/builder.ml:710
+#: ../builder/builder.ml:713
 msgid "%s: failure: %s\n"
 msgstr "%s: помилка: %s\n"
 
@@ -396,20 +396,20 @@ msgstr ""
 "образу. Потрібний розмір = %s, мінімальний розмір = %s\n"
 
 #. ../customize/customize_main.ml:258
-#. ../builder/builder.ml:719
+#. ../builder/builder.ml:722
 #: ../sparsify/sparsify.ml:71 ../resize/resize.ml:1321
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr "%s: внутрішня помилка: сталося виключення Not_found\n"
 
 #. ../customize/customize_main.ml:254
-#. ../builder/builder.ml:716
+#. ../builder/builder.ml:719
 #: ../sparsify/sparsify.ml:68 ../resize/resize.ml:1318
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr "%s: внутрішня помилка: помилка твердження у %s, рядок %d, символ %d\n"
 
 #. ../customize/customize_main.ml:251
 #. ../builder/sources.ml:135
-#. ../builder/builder.ml:713
+#. ../builder/builder.ml:716
 #: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1315
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr "%s: внутрішня помилка: некоректний аргумент: %s\n"
@@ -428,7 +428,7 @@ msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:59 ../resize/resize.ml:1309
-#: ../builder/builder.ml:707
+#: ../builder/builder.ml:710
 msgid "%s: libguestfs error: %s\n"
 msgstr "%s: помилка libguestfs: %s\n"
 
@@ -459,7 +459,7 @@ msgstr "%s: розмір нового розділу є нульовим або 
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: запис «%s» у %s не містить частини «uri», пропускаємо його\n"
 
-#: ../builder/builder.ml:624
+#: ../builder/builder.ml:627
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -813,7 +813,7 @@ msgstr "Перевірити цифрові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:202
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:206
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -825,11 +825,11 @@ msgstr ""
 msgid "Compressed output format"
 msgstr "Стиснений формат виведення даних"
 
-#: ../builder/builder.ml:572
+#: ../builder/builder.ml:575
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../sparsify/copying.ml:257
+#: ../sparsify/copying.ml:261
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -1062,7 +1062,7 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з виведеними вище "
 "повідомленнями про помилки.\n"
 
-#: ../sparsify/copying.ml:136
+#: ../sparsify/copying.ml:140
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -1135,7 +1135,7 @@ msgstr ""
 "\n"
 "Повідомлення про помилку: %s"
 
-#: ../sparsify/copying.ml:186
+#: ../sparsify/copying.ml:190
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
@@ -1143,7 +1143,7 @@ msgstr ""
 "Заповнити вільне місце у %s нулями…\n"
 "%!"
 
-#: ../sparsify/copying.ml:236
+#: ../sparsify/copying.ml:240
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -1159,7 +1159,7 @@ msgstr "Відбиток чинного ключа підпису"
 msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
-#: ../customize/customize_main.ml:236 ../builder/builder.ml:669
+#: ../customize/customize_main.ml:236 ../builder/builder.ml:672
 msgid "Finishing off"
 msgstr "Остаточне коригування"
 
@@ -1206,7 +1206,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../builder/builder.ml:659
+#: ../builder/builder.ml:662
 msgid "Free space: %s (%Ld%%)"
 msgstr "Вільне місце: %s (%Ld%%)"
 
@@ -1351,7 +1351,7 @@ msgstr ""
 "підтримку,\n"
 "буде створено нові випадкові UUID, які буде пов’язано з файловими системами."
 
-#: ../builder/builder.ml:585
+#: ../builder/builder.ml:588
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
@@ -1359,15 +1359,15 @@ msgstr "Відкриваємо новий диск"
 msgid "Output format (default: raw)"
 msgstr "Формат виведених даних (типово, raw)"
 
-#: ../builder/builder.ml:656
+#: ../builder/builder.ml:659
 msgid "Output format: %s"
 msgstr "Формат результату: %s"
 
-#: ../builder/builder.ml:655
+#: ../builder/builder.ml:658
 msgid "Output size: %s"
 msgstr "Розмір результату: %s"
 
-#: ../builder/builder.ml:654
+#: ../builder/builder.ml:657
 msgid "Output: %s"
 msgstr "Виведення: %s"
 
@@ -1630,7 +1630,7 @@ msgstr "Змінити розміри розділу"
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:559
+#: ../builder/builder.ml:562
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Зміна розмірів контейнера (але не файлової системи) для розширення диска до "
@@ -1845,7 +1845,7 @@ msgstr "Адреса джерела: %s\n"
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr "Виконання дії з розрідження на місці завершено без помилок.\n"
 
-#: ../sparsify/copying.ml:275
+#: ../sparsify/copying.ml:279
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -2043,7 +2043,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:657
+#: ../builder/builder.ml:660
 msgid "Total usable space: %s"
 msgstr "Загальний придатний до використання об’єм: %s"
 
@@ -2119,7 +2119,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Занулити файлову систему"
 
-#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:176
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:180
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -2187,7 +2187,7 @@ msgstr "роботу зовнішньої програми «%s» перерва
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
-#: ../sparsify/copying.ml:270
+#: ../sparsify/copying.ml:274
 msgid "external command failed: %s"
 msgstr "помилка зовнішньої програми: %s"
 
@@ -2274,7 +2274,7 @@ msgstr "pread-device: коротке читання"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:211
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:215
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
@@ -7192,93 +7192,93 @@ msgstr "write_data: сокет не з’єднано"
 msgid "error reading console messages from the appliance"
 msgstr "помилка під час читання повідомлень консолі з базової системи"
 
-#: src/create.c:54
+#: src/create.c:59
 msgid "if using a backing file, size must be passed as -1"
 msgstr ""
 "якщо використовується файл резервної копії, розмір має бути передано як -1"
 
-#: src/create.c:62
+#: src/create.c:67
 #, c-format
 msgid "invalid size: %<PRIi64>"
 msgstr "некоректний розмір: %<PRIi64>"
 
-#: src/create.c:70
+#: src/create.c:75
 msgid "backingfile cannot be used for raw format disks"
 msgstr "backingfile не можна використовувати для неформатованих дисків (raw)"
 
-#: src/create.c:85
+#: src/create.c:90
 #, c-format
 msgid "unsupported format '%s'"
 msgstr "непідтримуваний формат «%s»"
 
-#: src/create.c:103
+#: src/create.c:104
+#, c-format
+msgid "cannot open block device: %s"
+msgstr ""
+
+#: src/create.c:138
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 "параметр backingformat не можна використовувати, якщо використовується "
 "формат raw"
 
-#: src/create.c:112 src/create.c:240
+#: src/create.c:147 src/create.c:272
 #, c-format
 msgid "invalid value for preallocation parameter '%s'"
 msgstr "некоректне значення для параметра preallocation, «%s»"
 
-#: src/create.c:118
+#: src/create.c:153
 msgid "compat parameter cannot be used with raw format"
 msgstr ""
 "параметр compat не можна використовувати, якщо використовується формат raw"
 
-#: src/create.c:122
+#: src/create.c:157
 msgid "clustersize parameter cannot be used with raw format"
 msgstr ""
 "параметр clustersize не можна використовувати, якщо використовується формат "
 "raw"
 
-#: src/create.c:131
-#, c-format
-msgid "refusing to overwrite block device '%s'"
-msgstr "відмова у перезаписі блокового пристрою «%s»"
-
-#: src/create.c:135
+#: src/create.c:164
 #, c-format
 msgid "refusing to overwrite char device '%s'"
 msgstr "відмова у перезаписі символьного пристрою «%s»"
 
-#: src/create.c:142
+#: src/create.c:174
 #, c-format
 msgid "cannot create raw file: %s"
 msgstr "не вдалося створити файл raw: %s"
 
-#: src/create.c:148
+#: src/create.c:180
 #, c-format
 msgid "%s: truncate"
 msgstr "%s: обрізати"
 
-#: src/create.c:161
+#: src/create.c:193
 #, c-format
 msgid "%s: fallocate"
 msgstr "%s: fallocate"
 
-#: src/create.c:179
+#: src/create.c:211
 #, c-format
 msgid "%s: write"
 msgstr "%s: записати"
 
-#: src/create.c:190
+#: src/create.c:222
 #, c-format
 msgid "%s: close"
 msgstr "%s: закрити"
 
-#: src/create.c:232
+#: src/create.c:264
 #, c-format
 msgid "invalid value for backingformat parameter '%s'"
 msgstr "некоректне значення для параметра backingformat, «%s»"
 
-#: src/create.c:248
+#: src/create.c:280
 #, c-format
 msgid "invalid value for compat parameter '%s'"
 msgstr "некоректне значення для параметра compat, «%s»"
 
-#: src/create.c:256
+#: src/create.c:288
 #, c-format
 msgid "invalid value for clustersize parameter '%d'"
 msgstr "некоректне значення для параметра clustersize, «%d»"
@@ -8609,6 +8609,9 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "refusing to overwrite block device '%s'"
+#~ msgstr "відмова у перезаписі блокового пристрою «%s»"
 
 #~ msgid "set per-backend settings"
 #~ msgstr "встановити параметри окремого модуля"

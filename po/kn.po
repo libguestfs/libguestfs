@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-04-15 23:28+0100\n"
+"POT-Creation-Date: 2014-04-22 13:38+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
@@ -73,7 +73,7 @@ msgstr ""
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:337 ../builder/builder.ml:620
+#: ../customize/customize_run.ml:337 ../builder/builder.ml:623
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -253,12 +253,12 @@ msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:52 ../resize/resize.ml:1302
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:704
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:55 ../resize/resize.ml:1305
-#: ../builder/builder.ml:704
+#: ../builder/builder.ml:707
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgid "%s: error: no cache directory\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:261
-#. ../builder/builder.ml:722
+#. ../builder/builder.ml:725
 #: ../sparsify/sparsify.ml:74 ../resize/resize.ml:1324
 msgid "%s: exception: %s\n"
 msgstr ""
@@ -287,7 +287,7 @@ msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:62 ../resize/resize.ml:1312
-#: ../builder/builder.ml:710
+#: ../builder/builder.ml:713
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -312,20 +312,20 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_main.ml:258
-#. ../builder/builder.ml:719
+#. ../builder/builder.ml:722
 #: ../sparsify/sparsify.ml:71 ../resize/resize.ml:1321
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:254
-#. ../builder/builder.ml:716
+#. ../builder/builder.ml:719
 #: ../sparsify/sparsify.ml:68 ../resize/resize.ml:1318
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:251
 #. ../builder/sources.ml:135
-#. ../builder/builder.ml:713
+#. ../builder/builder.ml:716
 #: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1315
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
@@ -343,7 +343,7 @@ msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:59 ../resize/resize.ml:1309
-#: ../builder/builder.ml:707
+#: ../builder/builder.ml:710
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
@@ -370,7 +370,7 @@ msgstr ""
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
-#: ../builder/builder.ml:624
+#: ../builder/builder.ml:627
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -665,7 +665,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:202
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:206
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -675,11 +675,11 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../builder/builder.ml:572
+#: ../builder/builder.ml:575
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:257
+#: ../sparsify/copying.ml:261
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -892,7 +892,7 @@ msgstr ""
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:136
+#: ../sparsify/copying.ml:140
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -952,13 +952,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:186
+#: ../sparsify/copying.ml:190
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/copying.ml:236
+#: ../sparsify/copying.ml:240
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -972,7 +972,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:236 ../builder/builder.ml:669
+#: ../customize/customize_main.ml:236 ../builder/builder.ml:672
 msgid "Finishing off"
 msgstr ""
 
@@ -1013,7 +1013,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:659
+#: ../builder/builder.ml:662
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -1142,7 +1142,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:585
+#: ../builder/builder.ml:588
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1150,15 +1150,15 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:656
+#: ../builder/builder.ml:659
 msgid "Output format: %s"
 msgstr ""
 
-#: ../builder/builder.ml:655
+#: ../builder/builder.ml:658
 msgid "Output size: %s"
 msgstr ""
 
-#: ../builder/builder.ml:654
+#: ../builder/builder.ml:657
 msgid "Output: %s"
 msgstr ""
 
@@ -1396,7 +1396,7 @@ msgstr ""
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:559
+#: ../builder/builder.ml:562
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:275
+#: ../sparsify/copying.ml:279
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -1725,7 +1725,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:657
+#: ../builder/builder.ml:660
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -1793,7 +1793,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:176
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:180
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -1853,7 +1853,7 @@ msgstr ""
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/copying.ml:270
+#: ../sparsify/copying.ml:274
 msgid "external command failed: %s"
 msgstr ""
 
@@ -1936,7 +1936,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:211
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:215
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -6173,87 +6173,87 @@ msgstr ""
 msgid "error reading console messages from the appliance"
 msgstr ""
 
-#: src/create.c:54
+#: src/create.c:59
 msgid "if using a backing file, size must be passed as -1"
 msgstr ""
 
-#: src/create.c:62
+#: src/create.c:67
 #, c-format
 msgid "invalid size: %<PRIi64>"
 msgstr ""
 
-#: src/create.c:70
+#: src/create.c:75
 msgid "backingfile cannot be used for raw format disks"
 msgstr ""
 
-#: src/create.c:85
+#: src/create.c:90
 #, c-format
 msgid "unsupported format '%s'"
 msgstr ""
 
-#: src/create.c:103
+#: src/create.c:104
+#, c-format
+msgid "cannot open block device: %s"
+msgstr ""
+
+#: src/create.c:138
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:112 src/create.c:240
+#: src/create.c:147 src/create.c:272
 #, c-format
 msgid "invalid value for preallocation parameter '%s'"
 msgstr ""
 
-#: src/create.c:118
+#: src/create.c:153
 msgid "compat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:122
+#: src/create.c:157
 msgid "clustersize parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:131
-#, c-format
-msgid "refusing to overwrite block device '%s'"
-msgstr ""
-
-#: src/create.c:135
+#: src/create.c:164
 #, c-format
 msgid "refusing to overwrite char device '%s'"
 msgstr ""
 
-#: src/create.c:142
+#: src/create.c:174
 #, c-format
 msgid "cannot create raw file: %s"
 msgstr ""
 
-#: src/create.c:148
+#: src/create.c:180
 #, c-format
 msgid "%s: truncate"
 msgstr ""
 
-#: src/create.c:161
+#: src/create.c:193
 #, c-format
 msgid "%s: fallocate"
 msgstr ""
 
-#: src/create.c:179
+#: src/create.c:211
 #, c-format
 msgid "%s: write"
 msgstr ""
 
-#: src/create.c:190
+#: src/create.c:222
 #, c-format
 msgid "%s: close"
 msgstr ""
 
-#: src/create.c:232
+#: src/create.c:264
 #, c-format
 msgid "invalid value for backingformat parameter '%s'"
 msgstr ""
 
-#: src/create.c:248
+#: src/create.c:280
 #, c-format
 msgid "invalid value for compat parameter '%s'"
 msgstr ""
 
-#: src/create.c:256
+#: src/create.c:288
 #, c-format
 msgid "invalid value for clustersize parameter '%d'"
 msgstr ""
