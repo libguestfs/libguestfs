@@ -383,15 +383,53 @@ You'll have to compile from source, and port it.
 
 =head2 How can I compile and install libguestfs from source?
 
-If your Linux distro has a working port of supermin (that is,
-Fedora, S<Red Hat Enterprise Linux E<ge> 6.3>, Debian, Ubuntu and ArchLinux)
-then you should just be able to compile from source in the usual way.
-Download the latest tarball from L<http://libguestfs.org/download>,
-unpack it, and start by reading the README file.
+You can compile libguestfs from git or a source tarball.  Read the
+README file before starting.
 
-If you I<don't> have supermin, you will need to use the "fixed
-appliance method".  See:
-L<http://libguestfs.org/download/binaries/appliance/>
+Git: L<https://github.com/libguestfs/libguestfs>
+Source tarballs: L<http://libguestfs.org/download>
+
+Don't run C<make install>!  Use the C<./run> script instead (see README).
+
+=head2 How can I compile and install libguestfs if my distro doesn't
+have new enough qemu/supermin/kernel?
+
+Libguestfs needs supermin 5.  If supermin 5 hasn't been ported to your
+distro, then see the question below.
+
+First compile qemu, supermin and/or the kernel from source.  You do
+I<not> need to C<make install> them.
+
+In the libguestfs source directory, create two files.  C<localconfigure>
+should contain:
+
+ source localenv
+ #export PATH=/tmp/qemu/x86_64-softmmu:$PATH
+ ./autogen.sh --prefix /usr "$@"
+
+Make C<localconfigure> executable.
+
+C<localenv> should contain:
+
+ #export SUPERMIN=/tmp/supermin/src/supermin
+ #export LIBGUESTFS_HV=/tmp/qemu/x86_64-softmmu/qemu-system-x86_64
+ #export SUPERMIN_KERNEL=/tmp/linux/arch/x86/boot/bzImage
+ #export SUPERMIN_MODULES=/tmp/lib/modules/3.XX.0
+
+Uncomment and adjust these lines as required to use the alternate
+programs you have compiled.
+
+Use C<./localconfigure> instead of C<./configure>, but otherwise you
+compile libguestfs as usual.
+
+=head2 How can I compile and install libguestfs without supermin?
+
+If supermin 5 supports your distro, but you don't happen to have a new
+enough supermin installed, then see the previous question.
+
+If supermin 5 doesn't support your distro at all, you will need to use
+the "fixed appliance method" where you use a pre-compiled binary
+appliance.  See: L<http://libguestfs.org/download/binaries/appliance/>
 
 Patches to port supermin to more Linux distros are welcome.
 
