@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-03-27 12:03+0000\n"
+"POT-Creation-Date: 2014-04-22 17:25+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/fedora/language/"
@@ -67,12 +67,20 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../sysprep/main.ml:265
+#: ../sysprep/main.ml:265 ../customize/customize_main.ml:226
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../builder/builder.ml:620
+#: ../customize/customize_main.ml:248
+msgid "%s: %s\n"
+msgstr ""
+
+#: ../customize/customize_run.ml:329 ../builder/builder.ml:623
 msgid "%s: %s (ignored)\n"
+msgstr ""
+
+#: ../customize/customize_run.ml:83
+msgid "%s: %s: command exited with an error\n"
 msgstr ""
 
 #: ../builder/sources.ml:54
@@ -83,7 +91,7 @@ msgstr ""
 msgid "%s: '%s' has non-local gpgkey URI\n"
 msgstr ""
 
-#: ../sysprep/main.ml:62
+#: ../sysprep/main.ml:62 ../customize/customize_main.ml:68
 msgid "%s: --domain option can only be given once\n"
 msgstr ""
 
@@ -95,6 +103,10 @@ msgstr ""
 msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
+#: ../customize/customize_run.ml:111
+msgid "%s: --install is not supported for this guest operating system\n"
+msgstr ""
+
 #: ../sysprep/main.ml:120
 msgid "%s: --operations: '%s' is not a known operation\n"
 msgstr ""
@@ -103,11 +115,15 @@ msgstr ""
 msgid "%s: --operations: empty operation name\n"
 msgstr ""
 
+#: ../customize/customize_run.ml:140
+msgid "%s: --update is not supported for this guest operating system\n"
+msgstr ""
+
 #: ../builder/sources.ml:77
 msgid "%s: ... read %d sources\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:196
+#: ../mllib/common_utils.ml:204
 msgid ""
 "%s: If reporting bugs, run %s with debugging enabled (-v) and include the "
 "complete output."
@@ -208,6 +224,18 @@ msgstr ""
 msgid "%s: curl is not installed (or does not work)\n"
 msgstr ""
 
+#: ../customize/customize_main.ml:119
+msgid ""
+"%s: customize a virtual machine\n"
+"\n"
+" virt-customize [--options] -d domname\n"
+"\n"
+" virt-customize [--options] -a disk.img [-a disk.img ...]\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-customize(1).\n"
+msgstr ""
+
 #: ../builder/builder.ml:130
 msgid ""
 "%s: disabling the cache\n"
@@ -218,17 +246,21 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../mllib/common_utils.ml:192
+#: ../mllib/common_utils.ml:200
 msgid "%s: error: %s"
 msgstr ""
 
+#: ../customize/customize_run.ml:183
+msgid "%s: error: %s is not a regular file in the guest\n"
+msgstr ""
+
 #: ../sparsify/sparsify.ml:52 ../resize/resize.ml:1302
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:704
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:55 ../resize/resize.ml:1305
-#: ../builder/builder.ml:704
+#: ../builder/builder.ml:707
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -236,12 +268,19 @@ msgstr ""
 msgid "%s: error: could not find cache directory. Is $HOME set?\n"
 msgstr ""
 
+#: ../customize/customize_run.ml:161
+msgid ""
+"%s: error: multiple --root-password/--password options set the password for "
+"user '%s' twice.\n"
+msgstr ""
+
 #: ../builder/builder.ml:188
 msgid "%s: error: no cache directory\n"
 msgstr ""
 
+#. ../customize/customize_main.ml:261
+#. ../builder/builder.ml:725
 #: ../sparsify/sparsify.ml:74 ../resize/resize.ml:1324
-#: ../builder/builder.ml:722
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -250,7 +289,7 @@ msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:62 ../resize/resize.ml:1312
-#: ../builder/builder.ml:710
+#: ../builder/builder.ml:713
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -274,19 +313,22 @@ msgid ""
 "Requested size = %s, minimum size = %s\n"
 msgstr ""
 
+#. ../customize/customize_main.ml:258
+#. ../builder/builder.ml:722
 #: ../sparsify/sparsify.ml:71 ../resize/resize.ml:1321
-#: ../builder/builder.ml:719
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
+#. ../customize/customize_main.ml:254
+#. ../builder/builder.ml:719
 #: ../sparsify/sparsify.ml:68 ../resize/resize.ml:1318
-#: ../builder/builder.ml:716
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#. ../builder/builder.ml:713
+#. ../customize/customize_main.ml:251
+#. ../builder/sources.ml:125
+#. ../builder/builder.ml:716
 #: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1315
-#: ../builder/sources.ml:125
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -294,9 +336,21 @@ msgstr ""
 msgid "%s: invalid --list-format type '%s', see the man page.\n"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:118 ../customize/customize_cmdline.ml:106
+msgid "%s: invalid format for '--%s' parameter, see the man page.\n"
+msgstr ""
+
+#: ../customize/password.ml:71
+msgid "%s: invalid password selector '%s'; see the man page.\n"
+msgstr ""
+
 #: ../sparsify/sparsify.ml:59 ../resize/resize.ml:1309
-#: ../builder/builder.ml:707
+#: ../builder/builder.ml:710
 msgid "%s: libguestfs error: %s\n"
+msgstr ""
+
+#: ../customize/customize_run.ml:53
+msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
 #: ../resize/resize.ml:802
@@ -318,13 +372,13 @@ msgstr ""
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
-#: ../builder/builder.ml:624
+#: ../builder/builder.ml:627
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
 msgstr ""
 
-#: ../sysprep/main.ml:248
+#: ../sysprep/main.ml:248 ../customize/customize_main.ml:212
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
@@ -364,6 +418,12 @@ msgstr ""
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
+#: ../customize/password.ml:48
+msgid ""
+"%s: password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or "
+"\"sha512\".\n"
+msgstr ""
+
 #: ../resize/resize.ml:413
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
@@ -391,6 +451,16 @@ msgstr ""
 #: ../builder/cmdline.ml:306
 msgid ""
 "%s: sorry, cannot run commands on a guest with a different architecture\n"
+msgstr ""
+
+#: ../customize/customize_run.ml:115
+msgid ""
+"%s: sorry, don't know how to use --install with the '%s' package manager\n"
+msgstr ""
+
+#: ../customize/customize_run.ml:144
+msgid ""
+"%s: sorry, don't know how to use --update with the '%s' package manager\n"
 msgstr ""
 
 #: ../builder/cmdline.ml:282
@@ -485,7 +555,31 @@ msgstr ""
 msgid "%s: warning: gpg program is not available\n"
 msgstr ""
 
-#: ../sysprep/main.ml:198
+#: ../customize/customize_run.ml:211
+msgid ""
+"%s: warning: hostname could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../customize/customize_run.ml:289
+msgid ""
+"%s: warning: passwords could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../customize/customize_run.ml:152
+msgid ""
+"%s: warning: random seed could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../customize/customize_run.ml:248
+msgid ""
+"%s: warning: timezone could not be set for this type of guest\n"
+"%!"
+msgstr ""
+
+#: ../sysprep/main.ml:198 ../customize/customize_main.ml:152
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr ""
 
@@ -493,8 +587,12 @@ msgstr ""
 msgid "%s: you cannot pass an empty argument to --enable\n"
 msgstr ""
 
-#: ../sysprep/main.ml:185
+#: ../sysprep/main.ml:185 ../customize/customize_main.ml:139
 msgid "%s: you must give either -a or -d options\n"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:225 ../customize/customize_cmdline.ml:150
+msgid "'CMD+ARGS'"
 msgstr ""
 
 #: ../sparsify/cmdline.ml:49
@@ -515,8 +613,18 @@ msgstr ""
 msgid "--shrink option given twice"
 msgstr ""
 
+#. ../customize/customize_main.ml:76
+#. ../customize/customize_main.ml:75
 #: ../sysprep/main.ml:132 ../sysprep/main.ml:131
 msgid "Add disk image file"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:176
+msgid "Add package(s) to install"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:160
+msgid "Add package(s) to install at first boot"
 msgstr ""
 
 #: ../sparsify/cmdline.ml:78
@@ -531,7 +639,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../builder/cmdline.ml:105
+#: ../customize/customize_main.ml:77 ../builder/cmdline.ml:105
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
@@ -551,7 +659,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:202
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:206
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -561,11 +669,11 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../builder/builder.ml:572
+#: ../builder/builder.ml:575
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:257
+#: ../sparsify/copying.ml:261
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -581,10 +689,18 @@ msgid ""
 "%!"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:192
+msgid "Create a directory"
+msgstr ""
+
 #: ../sparsify/copying.ml:117
 msgid ""
 "Create overlay file in %s to protect source disk ...\n"
 "%!"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:186
+msgid "Create symbolic links"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_user_account.ml:67
@@ -618,12 +734,20 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:192
+msgid "DIR"
+msgstr ""
+
 #: ../sparsify/cmdline.ml:71 ../resize/resize.ml:185
 msgid "Debug GC and memory allocations"
 msgstr ""
 
-#: ../sysprep/main.ml:135
+#: ../sysprep/main.ml:135 ../customize/customize_main.ml:82
 msgid "Debug GC and memory allocations (internal)"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:128
+msgid "Delete a file or directory"
 msgstr ""
 
 #: ../resize/resize.ml:186
@@ -634,7 +758,11 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../builder/cmdline.ml:140
+#: ../customize/customize_run.ml:176
+msgid "Deleting: %s"
+msgstr ""
+
+#: ../customize/customize_main.ml:93 ../builder/cmdline.ml:140
 msgid "Disable appliance network"
 msgstr ""
 
@@ -657,6 +785,8 @@ msgid "Display installation notes"
 msgstr ""
 
 #. ../resize/resize.ml:211
+#. ../customize/customize_main.ml:100
+#. ../customize/customize_main.ml:99
 #. ../builder/cmdline.ml:154
 #. ../builder/cmdline.ml:153
 #: ../sysprep/main.ml:155 ../sysprep/main.ml:154 ../sparsify/cmdline.ml:83
@@ -687,6 +817,8 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
+#. ../customize/customize_main.ml:95
+#. ../customize/customize_main.ml:94
 #: ../sysprep/main.ml:151 ../sysprep/main.ml:150
 msgid "Don't print log messages"
 msgstr ""
@@ -715,12 +847,22 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../builder/cmdline.ml:139
+#: ../customize/customize_cmdline.ml:138
+msgid "Edit file using Perl expression"
+msgstr ""
+
+#: ../customize/customize_run.ml:180
+msgid "Editing: %s"
+msgstr ""
+
+#: ../customize/customize_main.ml:92 ../builder/cmdline.ml:139
 msgid "Enable appliance network (default)"
 msgstr ""
 
 #. ../resize/resize.ml:209
 #. ../resize/resize.ml:183
+#. ../customize/customize_main.ml:98
+#. ../customize/customize_main.ml:97
 #. ../builder/cmdline.ml:152
 #. ../builder/cmdline.ml:151
 #: ../sysprep/main.ml:153 ../sysprep/main.ml:152 ../sparsify/cmdline.ml:81
@@ -731,6 +873,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
+#. ../customize/customize_main.ml:101
 #: ../sysprep/main.ml:156 ../sparsify/cmdline.ml:85
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
@@ -743,7 +886,7 @@ msgstr ""
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:136
+#: ../sparsify/copying.ml:140
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -755,7 +898,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:233
+#: ../sysprep/main.ml:233 ../customize/customize_main.ml:184
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -779,6 +922,22 @@ msgid ""
 "%!"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:231
+msgid "FILE"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:263
+msgid "FILE:CONTENT"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:253
+msgid "FILE:DEST"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:138
+msgid "FILE:EXPR"
+msgstr ""
+
 #: ../resize/resize.ml:921
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
@@ -787,13 +946,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:186
+#: ../sparsify/copying.ml:190
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/copying.ml:236
+#: ../sparsify/copying.ml:240
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -807,7 +966,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:669
+#: ../customize/customize_main.ml:236 ../builder/builder.ml:672
 msgid "Finishing off"
 msgstr ""
 
@@ -848,7 +1007,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:659
+#: ../builder/builder.ml:662
 msgid "Free space: %s (%Ld%%)"
 msgstr ""
 
@@ -858,6 +1017,10 @@ msgstr ""
 
 #: ../builder/cmdline.ml:129
 msgid "Get kernel from image"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:166
+msgid "HOSTNAME"
 msgstr ""
 
 #: ../sparsify/cmdline.ml:73
@@ -874,14 +1037,35 @@ msgid ""
 "%!"
 msgstr ""
 
+#: ../customize/customize_run.ml:192
+msgid "Installing firstboot command: [%d] %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:197
+msgid "Installing firstboot packages: [%d] %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:204
+msgid "Installing firstboot script: [%d] %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:215
+msgid "Installing packages: %s"
+msgstr ""
+
 #: ../builder/list_entries.ml:57
 msgid "Key: %s\n"
+msgstr ""
+
+#: ../customize/customize_run.ml:222
+msgid "Linking: %s -> %s"
 msgstr ""
 
 #: ../builder/cmdline.ml:132 ../builder/cmdline.ml:131
 msgid "List available templates"
 msgstr ""
 
+#. ../customize/customize_main.ml:89
 #. ../builder/cmdline.ml:136
 #: ../sysprep/main.ml:146 ../sparsify/cmdline.ml:76 ../resize/resize.ml:192
 msgid "List long options"
@@ -893,6 +1077,10 @@ msgstr ""
 
 #: ../sparsify/cmdline.ml:77 ../resize/resize.ml:197
 msgid "Make output machine readable"
+msgstr ""
+
+#: ../customize/customize_run.ml:227
+msgid "Making directory: %s"
 msgstr ""
 
 #: ../builder/list_entries.ml:76
@@ -948,7 +1136,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:585
+#: ../builder/builder.ml:588
 msgid "Opening the new disk"
 msgstr ""
 
@@ -956,18 +1144,29 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:656
+#: ../builder/builder.ml:659
 msgid "Output format: %s"
 msgstr ""
 
-#: ../builder/builder.ml:655
+#: ../builder/builder.ml:658
 msgid "Output size: %s"
 msgstr ""
 
-#: ../builder/builder.ml:654
+#: ../builder/builder.ml:657
 msgid "Output: %s"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:128
+msgid "PATH"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:176 ../customize/customize_cmdline.ml:160
+msgid "PKG,PKG.."
+msgstr ""
+
+#. ../customize/customize_main.ml:87
+#. ../customize/customize_main.ml:86
+#. ../customize/customize_main.ml:85
 #: ../sysprep/main.ml:140 ../sysprep/main.ml:139 ../sysprep/main.ml:138
 msgid "Perform a dry run"
 msgstr ""
@@ -984,8 +1183,16 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
+#: ../customize/customize_main.ml:153 ../customize/customize_main.ml:140
+msgid "Read virt-customize(1) man page for further information.\n"
+msgstr ""
+
 #: ../sysprep/main.ml:199 ../sysprep/main.ml:186
 msgid "Read virt-sysprep(1) man page for further information.\n"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:284
+msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_ssh_userdir.ml:38
@@ -1179,12 +1386,28 @@ msgstr ""
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:559
+#: ../builder/builder.ml:562
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:108
 msgid "Run arbitrary scripts against the guest"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:150
+msgid "Run command at first guest boot"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:225
+msgid "Run command in disk image"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:144
+msgid "Run script at first guest boot"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:219
+msgid "Run script in disk image"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:148
@@ -1197,15 +1420,47 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
+#: ../customize/customize_run.ml:237 ../customize/customize_run.ml:172
+msgid "Running: %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:219 ../customize/customize_cmdline.ml:144
+msgid "SCRIPT"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:213
+msgid "SELECTOR"
+msgstr ""
+
+#: ../customize/customize_run.ml:294
+msgid "SELinux relabelling"
+msgstr ""
+
 #: ../sysprep/sysprep_operation_script.ml:146
 msgid "Script or program to run on guest"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:231
+msgid "Scrub a file"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:269
+msgid "Scrub build log file"
+msgstr ""
+
+#: ../customize/customize_run.ml:313
+msgid "Scrubbing the log file"
+msgstr ""
+
+#: ../customize/customize_run.ml:242
+msgid "Scrubbing: %s"
 msgstr ""
 
 #: ../builder/cmdline.ml:130
 msgid "Set GPG binary/command"
 msgstr ""
 
-#: ../builder/cmdline.ml:107
+#: ../customize/customize_main.ml:79 ../builder/cmdline.ml:107
 msgid "Set attach disk format"
 msgstr ""
 
@@ -1213,19 +1468,25 @@ msgstr ""
 msgid "Set curl binary/command"
 msgstr ""
 
-#: ../sysprep/main.ml:144
+#: ../sysprep/main.ml:144 ../customize/customize_main.ml:88
 msgid "Set format (default: auto)"
 msgstr ""
 
+#. ../customize/customize_main.ml:81
+#. ../customize/customize_main.ml:80
 #: ../sysprep/main.ml:134 ../sysprep/main.ml:133
 msgid "Set libvirt URI"
 msgstr ""
 
+#. ../customize/customize_main.ml:84
+#. ../customize/customize_main.ml:83
 #: ../sysprep/main.ml:137 ../sysprep/main.ml:136
 msgid "Set libvirt guest name"
 msgstr ""
 
-#: ../builder/cmdline.ml:138 ../builder/cmdline.ml:137
+#. ../builder/cmdline.ml:138
+#. ../builder/cmdline.ml:137
+#: ../customize/customize_main.ml:91 ../customize/customize_main.ml:90
 msgid "Set memory size"
 msgstr ""
 
@@ -1233,7 +1494,7 @@ msgstr ""
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
-#: ../builder/cmdline.ml:148
+#: ../customize/customize_main.ml:96 ../builder/cmdline.ml:148
 msgid "Set number of vCPUs"
 msgstr ""
 
@@ -1249,6 +1510,14 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:278
+msgid "Set password crypto"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:213
+msgid "Set root password"
+msgstr ""
+
 #: ../builder/cmdline.ml:149
 msgid "Set source URL"
 msgstr ""
@@ -1257,12 +1526,46 @@ msgstr ""
 msgid "Set template cache dir"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:237
+msgid "Set the default timezone"
+msgstr ""
+
 #: ../builder/cmdline.ml:135
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:166
+msgid "Set the hostname"
+msgstr ""
+
 #: ../builder/cmdline.ml:104
 msgid "Set the output architecture"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:203
+msgid "Set user password"
+msgstr ""
+
+#: ../customize/customize_run.ml:150
+msgid "Setting a random seed"
+msgstr ""
+
+#: ../customize/customize_run.ml:284
+msgid "Setting passwords"
+msgstr ""
+
+#: ../customize/password.ml:116
+msgid ""
+"Setting random password of %s to %s\n"
+"%!"
+msgstr ""
+
+#: ../customize/customize_run.ml:209
+msgid "Setting the hostname: %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:246
+msgid "Setting the timezone: %s"
 msgstr ""
 
 #: ../resize/resize.ml:900
@@ -1287,10 +1590,18 @@ msgstr ""
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:275
+#: ../sparsify/copying.ml:279
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:186
+msgid "TARGET:LINK[:LINK..]"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:237
+msgid "TIMEZONE"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:109
@@ -1404,7 +1715,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:657
+#: ../builder/builder.ml:660
 msgid "Total usable space: %s"
 msgstr ""
 
@@ -1418,8 +1729,36 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:203
+msgid "USER:SELECTOR"
+msgstr ""
+
 #: ../builder/builder.ml:521
 msgid "Uncompressing"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:243
+msgid "Update core packages"
+msgstr ""
+
+#: ../customize/customize_run.ml:252
+msgid "Updating core packages"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:253
+msgid "Upload local file to destination"
+msgstr ""
+
+#: ../customize/customize_run.ml:257
+msgid "Uploading: %s to %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:263
+msgid "Write file"
+msgstr ""
+
+#: ../customize/customize_run.ml:276
+msgid "Writing: %s"
 msgstr ""
 
 #: ../resize/resize.ml:758
@@ -1444,7 +1783,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:176
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:180
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -1478,6 +1817,8 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
+#. ../customize/customize_main.ml:84
+#. ../customize/customize_main.ml:83
 #: ../sysprep/main.ml:137 ../sysprep/main.ml:136
 msgid "domain"
 msgstr ""
@@ -1490,32 +1831,39 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../mllib/common_utils.ml:346
+#: ../mllib/common_utils.ml:354
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:348
+#: ../mllib/common_utils.ml:356
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:350
+#: ../mllib/common_utils.ml:358
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/copying.ml:270
+#: ../sparsify/copying.ml:274
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:163
+#: ../sysprep/main.ml:163 ../customize/customize_main.ml:117
 msgid "extra parameter on the command line"
 msgstr ""
 
+#. ../customize/customize_main.ml:76
+#. ../customize/customize_main.ml:75
 #: ../sysprep/main.ml:132 ../sysprep/main.ml:131
 msgid "file"
 msgstr ""
 
+#: ../customize/firstboot.ml:82
+msgid "firstboot: failed: "
+msgstr ""
+
 #. ../resize/resize.ml:202
 #. ../resize/resize.ml:190
+#. ../customize/customize_main.ml:88
 #: ../sysprep/main.ml:144 ../sparsify/cmdline.ml:72 ../sparsify/cmdline.ml:70
 msgid "format"
 msgstr ""
@@ -1578,7 +1926,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:211
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:215
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -1629,6 +1977,8 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
+#. ../customize/customize_main.ml:81
+#. ../customize/customize_main.ml:80
 #: ../sysprep/main.ml:134 ../sysprep/main.ml:133
 msgid "uri"
 msgstr ""
@@ -1683,6 +2033,10 @@ msgid ""
 " - Use the '-v' option and look for earlier error messages.\n"
 " - Delete the cache: virt-builder --delete-cache\n"
 " - Check no one has tampered with the website or your network!\n"
+msgstr ""
+
+#: ../customize/perl_edit.ml:73
+msgid "virt-builder: error: could not evaluate Perl expression '%s'\n"
 msgstr ""
 
 #: ../builder/sigchecker.ml:102
@@ -1808,6 +2162,14 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation.ml:138
 msgid "virt-sysprep: operation name is an empty string\n"
+msgstr ""
+
+#: ../customize/password.ml:170
+msgid ""
+"virt-sysprep: password: warning: using insecure md5 password encryption for\n"
+"guest of type %s version %d.\n"
+"If this is incorrect, use --password-crypto option and file a bug.\n"
+"%!"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:63
@@ -5763,33 +6125,33 @@ msgstr ""
 msgid "%s: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: make-fs/make-fs.c:248 make-fs/make-fs.c:305
+#: make-fs/make-fs.c:249 make-fs/make-fs.c:306
 #, c-format
 msgid "%s: %s command failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:426
+#: make-fs/make-fs.c:428
 #, c-format
 msgid "%s: cannot parse the output of 'du' command: %s\n"
 msgstr ""
 
-#: make-fs/make-fs.c:462
+#: make-fs/make-fs.c:464
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar archive\n"
 msgstr ""
 
-#: make-fs/make-fs.c:493
+#: make-fs/make-fs.c:495
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:616
+#: make-fs/make-fs.c:618
 #, c-format
 msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:816
+#: make-fs/make-fs.c:818
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr ""
@@ -5855,14 +6217,14 @@ msgid ""
 "at the moment.  As a workaround, forcing backend = 'direct'.\n"
 msgstr ""
 
-#: rescue/rescue.c:401
+#: rescue/rescue.c:398
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:420
+#: rescue/rescue.c:417
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -5870,7 +6232,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:430
+#: rescue/rescue.c:432
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -5879,7 +6241,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:487
+#: rescue/rescue.c:489
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -5889,7 +6251,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/rescue.c:494
+#: rescue/rescue.c:496
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -5898,7 +6260,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:499
+#: rescue/rescue.c:501
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
@@ -5947,87 +6309,87 @@ msgstr ""
 msgid "error reading console messages from the appliance"
 msgstr ""
 
-#: src/create.c:54
+#: src/create.c:59
 msgid "if using a backing file, size must be passed as -1"
 msgstr ""
 
-#: src/create.c:62
+#: src/create.c:67
 #, c-format
 msgid "invalid size: %<PRIi64>"
 msgstr ""
 
-#: src/create.c:70
+#: src/create.c:75
 msgid "backingfile cannot be used for raw format disks"
 msgstr ""
 
-#: src/create.c:85
+#: src/create.c:90
 #, c-format
 msgid "unsupported format '%s'"
 msgstr ""
 
-#: src/create.c:103
+#: src/create.c:104
+#, c-format
+msgid "cannot open block device: %s"
+msgstr ""
+
+#: src/create.c:138
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:112 src/create.c:240
+#: src/create.c:147 src/create.c:272
 #, c-format
 msgid "invalid value for preallocation parameter '%s'"
 msgstr ""
 
-#: src/create.c:118
+#: src/create.c:153
 msgid "compat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:122
+#: src/create.c:157
 msgid "clustersize parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:131
-#, c-format
-msgid "refusing to overwrite block device '%s'"
-msgstr ""
-
-#: src/create.c:135
+#: src/create.c:164
 #, c-format
 msgid "refusing to overwrite char device '%s'"
 msgstr ""
 
-#: src/create.c:142
+#: src/create.c:174
 #, c-format
 msgid "cannot create raw file: %s"
 msgstr ""
 
-#: src/create.c:148
+#: src/create.c:180
 #, c-format
 msgid "%s: truncate"
 msgstr ""
 
-#: src/create.c:161
+#: src/create.c:193
 #, c-format
 msgid "%s: fallocate"
 msgstr ""
 
-#: src/create.c:179
+#: src/create.c:211
 #, c-format
 msgid "%s: write"
 msgstr ""
 
-#: src/create.c:190
+#: src/create.c:222
 #, c-format
 msgid "%s: close"
 msgstr ""
 
-#: src/create.c:232
+#: src/create.c:264
 #, c-format
 msgid "invalid value for backingformat parameter '%s'"
 msgstr ""
 
-#: src/create.c:248
+#: src/create.c:280
 #, c-format
 msgid "invalid value for compat parameter '%s'"
 msgstr ""
 
-#: src/create.c:256
+#: src/create.c:288
 #, c-format
 msgid "invalid value for clustersize parameter '%d'"
 msgstr ""
@@ -6408,16 +6770,16 @@ msgstr ""
 msgid "'direct' backend does not work"
 msgstr ""
 
-#: src/handle.c:229
+#: src/handle.c:230
 msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:303
+#: src/handle.c:304
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: llamado dos veces en la misma manipulación\n"
 
-#: src/handle.c:501
+#: src/handle.c:503
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
@@ -6529,45 +6891,45 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch-direct.c:878 src/launch-libvirt.c:541
+#: src/launch-direct.c:872 src/launch-libvirt.c:541
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch-direct.c:1267 src/launch-libvirt.c:1275
+#: src/launch-direct.c:1261 src/launch-libvirt.c:1277
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1422
+#: src/launch-direct.c:1416
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1431
+#: src/launch-direct.c:1425
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1438
+#: src/launch-direct.c:1432
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1446
+#: src/launch-direct.c:1440
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1454
+#: src/launch-direct.c:1448
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1477
+#: src/launch-direct.c:1471
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -6636,44 +6998,44 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1229
+#: src/launch-libvirt.c:1231
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1352
+#: src/launch-libvirt.c:1354
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1377
+#: src/launch-libvirt.c:1379
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1384
+#: src/launch-libvirt.c:1386
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1662
+#: src/launch-libvirt.c:1664
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1699 src/launch-libvirt.c:1732
+#: src/launch-libvirt.c:1701 src/launch-libvirt.c:1734
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1791
+#: src/launch-libvirt.c:1793
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1822
+#: src/launch-libvirt.c:1824
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -6976,27 +7338,27 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/utils.c:198
+#: src/utils.c:196
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:201
+#: src/utils.c:199
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:205
+#: src/utils.c:203
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:209
+#: src/utils.c:207
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:213
+#: src/utils.c:211
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
