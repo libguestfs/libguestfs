@@ -18,8 +18,8 @@ managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
 2.2 or later. It can currently convert Red Hat Enterprise Linux and
 Windows guests running on Xen and VMware ESX.
 
-There is also a companion front-end called "virt-p2v" which comes as an
-ISO or CD image that can be booted on physical machines.
+There is also a companion front-end called L<virt-p2v(1)> which comes
+as an ISO or CD image that can be booted on physical machines.
 
 This manual page documents the rewritten virt-v2v included in
 libguestfs E<ge> 1.28.
@@ -286,6 +286,7 @@ For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
 
 =head1 SEE ALSO
 
+L<virt-p2v(1)>,
 L<virt-df(1)>,
 L<virt-filesystems(1)>,
 L<guestfs(3)>,

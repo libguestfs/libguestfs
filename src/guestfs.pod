@@ -4370,6 +4370,10 @@ L<virt-make-fs(1)> command and documentation.
 Various libraries and common code used by L<virt-resize(1)> and
 the other tools which are written in OCaml.
 
+=item C<p2v>
+
+L<virt-p2v(1)> command and documentation.
+
 =item C<po>
 
 Translations of simple gettext strings.
@@ -4770,6 +4774,7 @@ L<virt-list-filesystems(1)>,
 L<virt-list-partitions(1)>,
 L<virt-ls(1)>,
 L<virt-make-fs(1)>,
+L<virt-p2v(1)>,
 L<virt-rescue(1)>,
 L<virt-resize(1)>,
 L<virt-sparsify(1)>,

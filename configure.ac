@@ -118,6 +118,9 @@ gl_INIT
 AC_PROG_LIBTOOL
 AC_PROG_LN_S
 
+dnl Define the host CPU architecture (defines 'host_cpu')
+AC_CANONICAL_HOST
+
 # Define $(SED).
 m4_ifdef([AC_PROG_SED],[
     AC_PROG_SED
@@ -933,6 +936,16 @@ PKG_CHECK_MODULES([LIBCONFIG], [libconfig],[
     [AC_MSG_WARN([libconfig not found, some features will be disabled])])
 AM_CONDITIONAL([HAVE_LIBCONFIG],[test "x$LIBCONFIG_LIBS" != "x"])
 
+dnl Check for gtk2 library, used by virt-p2v.
+PKG_CHECK_MODULES([GTK2], [gtk+-2.0], [
+    AC_SUBST([GTK2_CFLAGS])
+    AC_SUBST([GTK2_LIBS])
+],
+    [AC_MSG_WARN([gtk2 not found, virt-p2v will be disabled])])
+
+dnl Can we build virt-p2v?
+AM_CONDITIONAL([HAVE_P2V], [test "x$GTK2_LIBS" != "x"])
+
 dnl hivex library (highly recommended)
 dnl This used to be a part of libguestfs, but was spun off into its
 dnl own separate upstream project in libguestfs 1.0.85.
@@ -1645,6 +1658,7 @@ AC_CONFIG_FILES([Makefile
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile
+                 p2v/Makefile
                  perl/Makefile
                  perl/Makefile.PL
                  perl/examples/Makefile
@@ -1723,6 +1737,8 @@ echo       "guestfish and C-based virt tools .... yes"
 echo       "FUSE filesystem ..................... $enable_fuse"
 AS_ECHO_N(["GNU gettext for i18n ................ "])
 if test "x$HAVE_GNU_GETTEXT_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+AS_ECHO_N(["virt-p2v ............................ "])
+if test "x$HAVE_P2V_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["OCaml bindings ...................... "])
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 AS_ECHO_N(["OCaml-based virt tools .............. "])

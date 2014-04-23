@@ -245,6 +245,7 @@ Makefile.in
 /html/virt-list-partitions.1.html
 /html/virt-ls.1.html
 /html/virt-make-fs.1.html
+/html/virt-p2v.1.html
 /html/virt-rescue.1.html
 /html/virt-resize.1.html
 /html/virt-sparsify.1.html
@@ -314,6 +315,9 @@ Makefile.in
 /ocaml/stamp-mlguestfs
 /ocaml/t/*.bc
 /ocaml/t/*.opt
+/p2v/stamp-virt-p2v.pod
+/p2v/virt-p2v
+/p2v/virt-p2v.1
 /perl/bindtests.pl
 /perl/blib
 /perl/examples/guestfs-perl.3

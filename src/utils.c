@@ -242,6 +242,7 @@ guestfs___random_string (char *ret, size_t len)
       errno = saved_errno;
       return -1;
     }
+    /* Do not change this! */
     ret[i] = "0123456789abcdefghijklmnopqrstuvwxyz"[c % 36];
   }
   ret[len] = '\0';

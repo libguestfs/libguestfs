@@ -1,0 +1,219 @@
+=head1 NAME
+
+virt-p2v - Convert a physical machine to use KVM
+
+=head1 SYNOPSIS
+
+ virt-p2v
+
+ virt-p2v.iso
+
+=head1 DESCRIPTION
+
+Virt-p2v converts a physical machine to run virtualized on KVM,
+managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
+2.2 or later.
+
+Normally you don't run the virt-p2v program directly.  Instead you
+have to boot the physical machine using the bootable CD-ROM, ISO or
+PXE image.  This bootable image contains the virt-p2v binary and runs
+it automatically.  This manual page documents both the binary and the
+bootable image.
+
+=head1 NETWORK SETUP
+
+Virt-p2v runs on the physical machine which you want to convert.  It
+has to talk to another server called the "conversion server" which
+must have L<virt-v2v(1)> installed on it.  It always talks to the
+conversion server over SSH:
+
+ +-----------+                +-------------+
+ | virt-p2v  |                | virt-v2v    |
+ | (physical | ssh connection | (conversion |
+ |  server)  ----------------->  server)    |
+ +-----------+                +-------------+
+
+The virt-v2v program on the conversion server does the actual
+conversion (physical to virtual, and virtual to virtual conversions
+are sufficiently similar that we use the same program to do both).
+
+The SSH connection is always initiated from the physical server.  All
+data is transferred over the SSH connection.  In terms of firewall and
+network configuration, you only need to ensure that the physical
+server has access to a port (usually TCP port 22) on the conversion
+server.  (Note that the physical machine may reconnect several times
+during the conversion process.)
+
+The conversion server does not need to be a physical machine.  It
+could be a virtual machine, as long as it has sufficient memory and
+disk space to do the conversion, and as long as the physical machine
+can connect directly to its SSH port.
+
+Because all of the data on the physical server's hard drive(s) has to
+be copied over the network, the speed of conversion is largely
+determined by the speed of the network between the two machines.
+
+=head1 GUI INTERACTIVE CONFIGURATION
+
+When you start virt-p2v, you'll see a graphical configuration dialog
+that walks you through connection to the conversion server, asks for
+the password, which local hard disks you want to convert, and other
+things like the name of the guest to create and the number of virtual
+CPUs to give it.
+
+=head1 KERNEL COMMAND LINE CONFIGURATION
+
+If you don't want to configure things using the graphical UI, an
+alternative is to configure through the kernel command line.  This is
+especially convenient if you are converting a lot of physical machines
+which are booted using PXE.
+
+Where exactly you set command line arguments depends on your PXE
+implementation, but for pxelinux you put them in the C<APPEND> field
+in the C<pxelinux.cfg> file.  For example:
+
+ DEFAULT p2v
+ TIMEOUT 20
+ PROMPT 0
+ LABEL p2v
+   KERNEL virt-p2v-vmlinuz
+   APPEND initrd=virt-p2v-initrd p2v.server=conv.example.com p2v.password=secret
+
+You have to set some or all of the following command line arguments:
+
+=over 4
+
+=item B<p2v.server=SERVER>
+
+The name or IP address of the conversion server.
+
+This is always required if you are using the kernel configuration
+method.  If virt-p2v does not find this on the kernel command line
+then it switches to the GUI (interactive) configuration method.
+
+=item B<p2v.port=NN>
+
+The SSH port number on the conversion server (default: C<22>).
+
+=item B<p2v.username=USERNAME>
+
+The SSH username that we log in as on the conversion server
+(default: C<root>).
+
+=item B<p2v.password=PASSWORD>
+
+The SSH password that we use to log in to the conversion server.
+
+The default is to try with no password.  If this fails then virt-p2v
+will ask the user to type the password (probably several times during
+conversion).
+
+Note that virt-p2v does not support authentication using key
+distribution at this time.
+
+=item B<p2v.sudo>
+
+Use C<p2v.sudo> to tell virt-p2v to use L<sudo(8)> to gain root
+privileges on the conversion server after logging in as a non-root
+user (default: do not use sudo).
+
+=item B<p2v.name=GUESTNAME>
+
+The name of the guest that is created.  The default is to try to
+derive a name from the physical machine's hostname (if possible) else
+use a randomly generated name.
+
+=item B<p2v.vcpus=NN>
+
+The number of virtual CPUs to give to the guest.  The default is to
+use the same as the number of physical CPUs.
+
+=item B<p2v.memory=NN(M|G)>
+
+The size of the guest memory.  You can specify this in megabytes or
+gigabytes by using (eg) C<p2v.memory=1024M> or C<p2v.memory=1G>.  The
+default is to use the same amount of RAM as on the physical machine.
+
+=item B<p2v.debug>
+
+Use this to enable full debugging of virt-v2v.
+
+If asked to diagnose a problem with virt-p2v, you should add
+C<p2v.debug> to the kernel command line, and examine the log file
+which is left in C</tmp> on the conversion server.
+
+=item B<p2v.disks=sdX,sdY,..>
+
+A list of physical hard disks to convert, for example:
+
+ p2v.disks=sda,sdc
+
+The default is to convert all local hard disks that are found.
+
+=item B<p2v.removable=srX,srY,..>
+
+A list of removable media to convert.  The default is to create
+virtual removable devices for every physical removable device found.
+Note that the content of removable media is never copied over.
+
+=item B<p2v.interfaces=em1,..>
+
+A list of network interfaces to convert.  The default is to create
+virtual network interfaces for every physical network interface found.
+
+=item B<ip=dhcp>
+
+Use DHCP for configuring the network interface (this is the default).
+
+=begin comment
+
+=item B<ip=ADDR:GATEWAY:NETMASK>
+
+Set up a static IPv4 network configuration.
+
+=end comment
+
+=back
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<--cmdline=CMDLINE>
+
+This is used for debugging. Instead of parsing the kernel command line
+from C</proc/cmdline>, parse the string parameter C<CMDLINE>.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable debugging (on the conversion server).
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=back
+
+=head1 SEE ALSO
+
+L<virt-v2v(1)>,
+L<qemu-nbd(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+Matthew Booth
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2014 Red Hat Inc.
