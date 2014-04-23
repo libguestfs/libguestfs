@@ -69,8 +69,7 @@ let main () =
       (match cache with
       | Some cachedir ->
         msg "Deleting: %s" cachedir;
-        let cmd = sprintf "rm -rf %s" (quote cachedir) in
-        ignore (Sys.command cmd);
+        Cache.clean_cachedir cachedir;
         exit 0
       | None ->
         eprintf (f_"%s: error: could not find cache directory. Is $HOME set?\n")
@@ -109,27 +108,17 @@ let main () =
     exit 1
   );
 
-  (* Create the cache directory. *)
+  (* Create the cache. *)
   let cache =
     match cache with
     | None -> None
     | Some dir ->
-      (* Annoyingly Sys.is_directory throws an exception on failure
-       * (RHBZ#1022431).
-       *)
-      if (try Sys.is_directory dir with Sys_error _ -> false) then
-        Some dir
-      else (
-        (* Try to make the directory.  If that fails, warn and continue
-         * without any cache.
-         *)
-        try mkdir dir 0o755; Some dir
-        with exn ->
-          eprintf (f_"%s: warning: cache %s: %s\n") prog dir
-            (Printexc.to_string exn);
-          eprintf (f_"%s: disabling the cache\n%!") prog;
-          None
-      )
+      try Some (Cache.create ~debug ~directory:dir)
+      with exn ->
+        eprintf (f_"%s: warning: cache %s: %s\n") prog dir
+          (Printexc.to_string exn);
+        eprintf (f_"%s: disabling the cache\n%!") prog;
+        None
   in
 
   (* Download the sources. *)
@@ -167,17 +156,16 @@ let main () =
 
     | `Print_cache ->                   (* --print-cache *)
       (match cache with
-      | Some cachedir ->
-        printf (f_"cache directory: %s\n") cachedir;
-        List.iter (
-          fun (name, { Index_parser.revision = revision; arch = arch; hidden = hidden }) ->
-            if not hidden then (
-              let filename = Downloader.cache_of_name cachedir name arch revision in
-              let cached = Sys.file_exists filename in
-              printf "%-24s %-10s %s\n" name arch
-                (if cached then s_"cached" else (*s_*)"no")
-            )
-        ) index
+      | Some cache ->
+        let l = List.filter (
+          fun (_, { Index_parser.hidden = hidden }) ->
+            hidden <> true
+        ) index in
+        let l = List.map (
+          fun (name, { Index_parser.revision = revision; arch = arch }) ->
+            (name, arch, revision)
+        ) l in
+        Cache.print_item_status cache ~header:true l
       | None -> printf (f_"no cache directory\n")
       );
       exit 0

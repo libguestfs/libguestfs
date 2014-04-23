@@ -18,11 +18,6 @@
 
 (** This module is a wrapper around curl, plus local caching. *)
 
-val cache_of_name : string -> string -> string -> int -> string
-(** [cache_of_name cachedir name arch revision] returns the filename
-    of the cached file.  (Note: It doesn't check if the filename
-    exists, this is just a simple string transformation). *)
-
 type uri = string
 type filename = string
 
@@ -37,7 +32,7 @@ type proxy_mode =
                                 *)
   | ForcedProxy of string      (* The proxy is forced to the specified URL. *)
 
-val create : debug:bool -> curl:string -> cache:string option -> t
+val create : debug:bool -> curl:string -> cache:Cache.t option -> t
 (** Create the abstract type. *)
 
 val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_bar:bool -> ?proxy:proxy_mode -> uri -> (filename * bool)

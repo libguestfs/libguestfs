@@ -1,5 +1,6 @@
 builder/architecture.ml
 builder/builder.ml
+builder/cache.ml
 builder/cmdline.ml
 builder/downloader.ml
 builder/get_kernel.ml

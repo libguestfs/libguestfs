@@ -46,6 +46,8 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 SOURCES = \
 	architecture.ml \
 	builder.ml \
+	cache.mli \
+	cache.ml \
 	cmdline.ml \
 	downloader.mli \
 	downloader.ml \
@@ -120,6 +122,7 @@ deps = \
 	paths.cmx \
 	languages.cmx \
 	get_kernel.cmx \
+	cache.cmx \
 	downloader.cmx \
 	sigchecker.cmx \
 	index_parser.cmx \

@@ -23,10 +23,6 @@ open Unix
 open Printf
 
 let quote = Filename.quote
-let (//) = Filename.concat
-
-let cache_of_name cachedir name arch revision =
-  cachedir // sprintf "%s.%s.%d" name arch revision
 
 type uri = string
 type filename = string
@@ -34,7 +30,7 @@ type filename = string
 type t = {
   debug : bool;
   curl : string;
-  cache : string option;                (* cache directory for templates *)
+  cache : Cache.t option;               (* cache for templates *)
 }
 
 type proxy_mode =
@@ -62,8 +58,8 @@ let rec download ~prog t ?template ?progress_bar ?(proxy = SystemProxy) uri =
       (* Not using the cache at all? *)
       download t ~prog ?progress_bar ~proxy uri
 
-    | Some cachedir ->
-      let filename = cache_of_name cachedir name arch revision in
+    | Some cache ->
+      let filename = Cache.cache_of_name cache name arch revision in
 
       (* Is the requested template name + revision in the cache already?
        * If not, download it.
@@ -81,7 +77,7 @@ and download_to ~prog t ?(progress_bar = false) ~proxy uri filename =
       exit 1 in
 
   (* Note because there may be parallel virt-builder instances running
-   * and also to avoid partial downloads in the cachedir if the network
+   * and also to avoid partial downloads in the cache if the network
    * fails, we download to a random name in the cache and then
    * atomically rename it to the final filename.
    *)
