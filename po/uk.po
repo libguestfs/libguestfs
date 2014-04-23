@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-04-22 13:38+0100\n"
+"POT-Creation-Date: 2014-04-23 19:49+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -100,7 +100,7 @@ msgstr "%s (проігноровано)\n"
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:337 ../builder/builder.ml:623
+#: ../customize/customize_run.ml:337 ../builder/builder.ml:611
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (прогіноровано)\n"
 
@@ -269,7 +269,7 @@ msgstr ""
 "матеріал\n"
 "можна знайти на сторінці підручника (man) програми virt-builder(1).\n"
 
-#: ../builder/builder.ml:212
+#: ../builder/builder.ml:200
 msgid ""
 "%s: cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types.\n"
@@ -278,22 +278,22 @@ msgstr ""
 "Скористайтеся параметром --list, щоб переглянути список доступних типів "
 "операційних систем.\n"
 
-#: ../builder/builder.ml:295
+#: ../builder/builder.ml:283
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 "%s: виведення даних на символьний пристрій або до /dev/null неможливе\n"
 
-#: ../builder/downloader.ml:99
+#: ../builder/downloader.ml:95
 msgid "%s: cp (download) command failed copying '%s'\n"
 msgstr ""
 "%s: команда копіювання (cp) або отримання даних не змогла виконати "
 "копіювання «%s»\n"
 
-#: ../builder/downloader.ml:140
+#: ../builder/downloader.ml:136
 msgid "%s: curl (download) command failed downloading '%s'\n"
 msgstr "%s: команді для отримання даних (curl) не вдалося отримати «%s»\n"
 
-#: ../builder/builder.ml:101
+#: ../builder/builder.ml:100
 msgid "%s: curl is not installed (or does not work)\n"
 msgstr "%s: curl не встановлено (або програма є непрацездатною)\n"
 
@@ -309,7 +309,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:130
+#: ../builder/builder.ml:120
 msgid ""
 "%s: disabling the cache\n"
 "%!"
@@ -330,16 +330,16 @@ msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:52 ../resize/resize.ml:1302
-#: ../builder/builder.ml:704
+#: ../builder/builder.ml:692
 msgid "%s: error: %s: %s\n"
 msgstr "%s: помилка: %s: %s\n"
 
 #: ../sparsify/sparsify.ml:55 ../resize/resize.ml:1305
-#: ../builder/builder.ml:707
+#: ../builder/builder.ml:695
 msgid "%s: error: %s: %s: %s\n"
 msgstr "%s: помилка: %s: %s: %s\n"
 
-#: ../builder/builder.ml:76
+#: ../builder/builder.ml:75
 msgid "%s: error: could not find cache directory. Is $HOME set?\n"
 msgstr ""
 "%s: помилка: не вдалося знайти каталог кешу. Чи встановлено значення змінної "
@@ -351,22 +351,22 @@ msgid ""
 "user '%s' twice.\n"
 msgstr ""
 
-#: ../builder/builder.ml:188
+#: ../builder/builder.ml:176
 msgid "%s: error: no cache directory\n"
 msgstr "%s: помилка: немає каталогу кешування\n"
 
 #. ../customize/customize_main.ml:261
-#. ../builder/builder.ml:725
+#. ../builder/builder.ml:713
 #: ../sparsify/sparsify.ml:74 ../resize/resize.ml:1324
 msgid "%s: exception: %s\n"
 msgstr "%s: виключення: %s\n"
 
-#: ../builder/downloader.ml:126
+#: ../builder/downloader.ml:122
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr "%s: не вдалося отримати %s: код стану HTTP %s\n"
 
 #: ../sparsify/sparsify.ml:62 ../resize/resize.ml:1312
-#: ../builder/builder.ml:713
+#: ../builder/builder.ml:701
 msgid "%s: failure: %s\n"
 msgstr "%s: помилка: %s\n"
 
@@ -378,7 +378,7 @@ msgstr "%s: помилка під час обробки файла: %s: %s\n"
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
 
-#: ../builder/builder.ml:91
+#: ../builder/builder.ml:90
 msgid ""
 "%s: gpg is not installed (or does not work)\n"
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
@@ -387,7 +387,7 @@ msgstr ""
 "Вам слід встановити gpg, скористатися іншим значенням аргументу --gpg або "
 "скористатися параметром --no-check-signature.\n"
 
-#: ../builder/builder.ml:322
+#: ../builder/builder.ml:310
 msgid ""
 "%s: images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s\n"
@@ -396,20 +396,20 @@ msgstr ""
 "образу. Потрібний розмір = %s, мінімальний розмір = %s\n"
 
 #. ../customize/customize_main.ml:258
-#. ../builder/builder.ml:722
+#. ../builder/builder.ml:710
 #: ../sparsify/sparsify.ml:71 ../resize/resize.ml:1321
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr "%s: внутрішня помилка: сталося виключення Not_found\n"
 
 #. ../customize/customize_main.ml:254
-#. ../builder/builder.ml:719
+#. ../builder/builder.ml:707
 #: ../sparsify/sparsify.ml:68 ../resize/resize.ml:1318
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr "%s: внутрішня помилка: помилка твердження у %s, рядок %d, символ %d\n"
 
 #. ../customize/customize_main.ml:251
 #. ../builder/sources.ml:135
-#. ../builder/builder.ml:716
+#. ../builder/builder.ml:704
 #: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1315
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr "%s: внутрішня помилка: некоректний аргумент: %s\n"
@@ -428,7 +428,7 @@ msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
 #: ../sparsify/sparsify.ml:59 ../resize/resize.ml:1309
-#: ../builder/builder.ml:710
+#: ../builder/builder.ml:698
 msgid "%s: libguestfs error: %s\n"
 msgstr "%s: помилка libguestfs: %s\n"
 
@@ -459,7 +459,7 @@ msgstr "%s: розмір нового розділу є нульовим або 
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: запис «%s» у %s не містить частини «uri», пропускаємо його\n"
 
-#: ../builder/builder.ml:627
+#: ../builder/builder.ml:615
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -473,7 +473,7 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
 
-#: ../builder/builder.ml:447
+#: ../builder/builder.ml:435
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -484,7 +484,7 @@ msgstr ""
 "Будь ласка, повідомте про неї, вказавши використані вами параметри\n"
 "командного рядка.\n"
 
-#: ../builder/builder.ml:327
+#: ../builder/builder.ml:315
 msgid ""
 "%s: output size is too large for this block device.  Requested size = %s, "
 "output block device = %s, output block device size = %s\n"
@@ -623,7 +623,7 @@ msgstr "%s: цей розділ перекривається з попередн
 msgid "%s: trying to read %s\n"
 msgstr "%s: намагаємося прочитати %s\n"
 
-#: ../builder/downloader.ml:114
+#: ../builder/downloader.ml:110
 msgid ""
 "%s: unexpected output from curl command, enable debug and look at previous "
 "messages\n"
@@ -687,15 +687,15 @@ msgstr ""
 "%s: virt-builder: забагато параметрів, мало бути вказано лише версію "
 "операційної системи.\n"
 
-#: ../builder/builder.ml:108
+#: ../builder/builder.ml:107
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr "%s: virt-resize не встановлено (або програма є непрацездатною)\n"
 
-#: ../builder/builder.ml:128
+#: ../builder/builder.ml:118
 msgid "%s: warning: cache %s: %s\n"
 msgstr "%s: попередження: кеш %s: %s\n"
 
-#: ../builder/builder.ml:95
+#: ../builder/builder.ml:94
 msgid "%s: warning: gpg program is not available\n"
 msgstr "%s: попередження: немає доступу до програми gpg\n"
 
@@ -825,7 +825,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr "Стиснений формат виведення даних"
 
-#: ../builder/builder.ml:575
+#: ../builder/builder.ml:563
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
@@ -837,7 +837,7 @@ msgstr ""
 "Скопіювати призначення і виконати розрідження…\n"
 "%!"
 
-#: ../builder/builder.ml:506
+#: ../builder/builder.ml:494
 msgid "Copying"
 msgstr "Копіювання"
 
@@ -1009,7 +1009,7 @@ msgstr "Отримати усі шаблони до кешу"
 msgid "Download size:"
 msgstr "Розмір отриманих даних:"
 
-#: ../builder/builder.ml:241 ../builder/builder.ml:195
+#: ../builder/builder.ml:229 ../builder/builder.ml:183
 msgid "Downloading: %s"
 msgstr "Отримання: %s"
 
@@ -1056,7 +1056,7 @@ msgstr "Увімкнути трасування викликів libguestfs"
 msgid "Enable/disable specific operations"
 msgstr "Увімкнути або вимкнути певні дії"
 
-#: ../builder/downloader.ml:80
+#: ../builder/downloader.ml:76
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з виведеними вище "
@@ -1159,7 +1159,7 @@ msgstr "Відбиток чинного ключа підпису"
 msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
-#: ../customize/customize_main.ml:236 ../builder/builder.ml:672
+#: ../customize/customize_main.ml:236 ../builder/builder.ml:660
 msgid "Finishing off"
 msgstr "Остаточне коригування"
 
@@ -1206,7 +1206,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../builder/builder.ml:662
+#: ../builder/builder.ml:650
 msgid "Free space: %s (%Ld%%)"
 msgstr "Вільне місце: %s (%Ld%%)"
 
@@ -1351,7 +1351,7 @@ msgstr ""
 "підтримку,\n"
 "буде створено нові випадкові UUID, які буде пов’язано з файловими системами."
 
-#: ../builder/builder.ml:588
+#: ../builder/builder.ml:576
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
@@ -1359,15 +1359,15 @@ msgstr "Відкриваємо новий диск"
 msgid "Output format (default: raw)"
 msgstr "Формат виведених даних (типово, raw)"
 
-#: ../builder/builder.ml:659
+#: ../builder/builder.ml:647
 msgid "Output format: %s"
 msgstr "Формат результату: %s"
 
-#: ../builder/builder.ml:658
+#: ../builder/builder.ml:646
 msgid "Output size: %s"
 msgstr "Розмір результату: %s"
 
-#: ../builder/builder.ml:657
+#: ../builder/builder.ml:645
 msgid "Output: %s"
 msgstr "Виведення: %s"
 
@@ -1390,7 +1390,7 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
-#: ../builder/builder.ml:442
+#: ../builder/builder.ml:430
 msgid "Planning how to build this image"
 msgstr "Планування побудови цього образу"
 
@@ -1626,11 +1626,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../builder/builder.ml:533
+#: ../builder/builder.ml:521
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:562
+#: ../builder/builder.ml:550
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Зміна розмірів контейнера (але не файлової системи) для розширення диска до "
@@ -1997,7 +1997,7 @@ msgstr ""
 "Дані обліку процесів системи будуть зберігатися у файлах журналу\n"
 "pacct, якщо увімкнено облік процесів."
 
-#: ../builder/builder.ml:226
+#: ../builder/builder.ml:214
 msgid "There are no notes for %s\n"
 msgstr "Немає нотаток щодо %s\n"
 
@@ -2043,7 +2043,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:660
+#: ../builder/builder.ml:648
 msgid "Total usable space: %s"
 msgstr "Загальний придатний до використання об’єм: %s"
 
@@ -2063,7 +2063,7 @@ msgstr "Вимкнути розріджене копіювання"
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../builder/builder.ml:521
+#: ../builder/builder.ml:509
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
@@ -2135,11 +2135,11 @@ msgstr "значенням вирівнювання не може бути чи�
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
-#: ../builder/builder.ml:171
+#: ../builder/cache.ml:58
 msgid "cache directory: %s\n"
 msgstr "Каталог кешування: %s\n"
 
-#: ../builder/builder.ml:178
+#: ../builder/cache.ml:64
 msgid "cached"
 msgstr "кешовано"
 
@@ -2225,7 +2225,7 @@ msgstr "логічний том"
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../builder/builder.ml:181
+#: ../builder/builder.ml:169
 msgid "no cache directory\n"
 msgstr "немає каталогу кешування\n"
 
