@@ -768,7 +768,7 @@ working.
     fi
 
     AC_MSG_CHECKING([for $QEMU version >= 1])
-    if $QEMU -version | grep -sq 'version @<:@1-@:>@'; then
+    if $QEMU -version | grep -sq 'version @<:@1-9@:>@'; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_RESULT([no])
