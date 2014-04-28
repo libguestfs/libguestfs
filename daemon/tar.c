@@ -47,11 +47,14 @@ is_chown_supported (const char *dir)
 {
   size_t len = sysroot_len + strlen (dir) + 64;
   char buf[len];
-  int fd, r, saved_errno;
+  int fd, r, err, saved_errno;
 
   /* Create a randomly named file. */
   snprintf (buf, len, "%s%s/XXXXXXXX.XXX", sysroot, dir);
   if (random_name (buf) == -1) {
+    err = errno;
+    r = cancel_receive ();
+    errno = err;
     reply_with_perror ("random_name");
     return -1;
   }
@@ -59,6 +62,9 @@ is_chown_supported (const char *dir)
   /* Maybe 'dir' is not a directory or filesystem not writable? */
   fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);
   if (fd == -1) {
+    err = errno;
+    r = cancel_receive ();
+    errno = err;
     reply_with_perror ("%s", dir);
     return -1;
   }
@@ -78,6 +84,9 @@ is_chown_supported (const char *dir)
 
   if (r == -1) {
     /* Some other error? */
+    err = errno;
+    r = cancel_receive ();
+    errno = err;
     reply_with_perror_errno (saved_errno, "unexpected error in fchown");
     return -1;
   }
@@ -153,6 +162,9 @@ do_tar_in (const char *dir, const char *compress)
 
   fd = mkstemp (error_file);
   if (fd == -1) {
+    err = errno;
+    r = cancel_receive ();
+    errno = err;
     reply_with_perror ("mkstemp");
     return -1;
   }
