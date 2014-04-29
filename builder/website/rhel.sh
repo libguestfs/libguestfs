@@ -60,6 +60,15 @@ case $version in
         optionalsrpms=$topurl/Server/optional/source/SRPMS
         bootfs=ext4
         ;;
+    7rc)
+        major=7
+        topurl=ftp://ftp.redhat.com/redhat/rhel/rc/7
+        tree=$topurl/Server/x86_64/os
+        srpms=$topurl/Server/source/SRPMS
+        optional=$topurl/Server-optional/x86_64/os
+        optionalsrpms=$topurl/Server-optional/source/SRPMS
+        bootfs=ext4
+        ;;
     *)
         echo "$0: version $version not supported by this script yet"
         exit 1
