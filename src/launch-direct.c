@@ -1022,6 +1022,10 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   guestfs___cmd_add_arg (cmd3, g->hv);
   guestfs___cmd_add_arg (cmd3, "-display");
   guestfs___cmd_add_arg (cmd3, "none");
+#ifdef MACHINE_TYPE
+  guestfs___cmd_add_arg (cmd3, "-M");
+  guestfs___cmd_add_arg (cmd3, MACHINE_TYPE);
+#endif
   guestfs___cmd_add_arg (cmd3, "-machine");
   guestfs___cmd_add_arg (cmd3, "accel=kvm:tcg");
   guestfs___cmd_add_arg (cmd3, "-device");
