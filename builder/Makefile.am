@@ -314,5 +314,5 @@ if HAVE_OCAML
 # index-parse.h.
 index-parser-c.c index-scan.c index-validate.c: index-parse.h
 index-parse.h: index-parse.y
-	$(MAKE) index-parse.c
+	$(MAKE) index-parse.h
 endif
