@@ -21,6 +21,7 @@ type uri = {
   protocol : string;
   server : string array option;
   username : string option;
+  password : string option;
 }
 
 external parse_uri : string -> uri = "virt_resize_parse_uri"

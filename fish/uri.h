@@ -26,6 +26,7 @@ struct uri {
   char *protocol;               /* protocol (eg. "file", "nbd") */
   char **server;                /* server(s) - can be NULL */
   char *username;               /* username - can be NULL */
+  char *password;               /* password - can be NULL */
 };
 
 /* Parse the '-a' option parameter 'arg', and place the result in

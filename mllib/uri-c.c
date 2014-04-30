@@ -47,7 +47,7 @@ virt_resize_parse_uri (value argv /* arg value, not an array! */)
     caml_invalid_argument ("URI.parse_uri");
 
   /* Convert the struct into an OCaml tuple. */
-  rv = caml_alloc_tuple (4);
+  rv = caml_alloc_tuple (5);
 
   /* path : string */
   sv = caml_copy_string (uri.path);
@@ -80,6 +80,17 @@ virt_resize_parse_uri (value argv /* arg value, not an array! */)
   else
     ov = Val_int (0);
   Store_field (rv, 3, ov);
+
+  /* password : string option */
+  if (uri.password) {
+    sv = caml_copy_string (uri.password);
+    free (uri.password);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else
+    ov = Val_int (0);
+  Store_field (rv, 4, ov);
 
   CAMLreturn (rv);
 }
