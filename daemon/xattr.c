@@ -55,6 +55,7 @@ static guestfs_int_xattr_list *getxattrs (const char *path, ssize_t (*listxattr)
 static int _setxattr (const char *xattr, const char *val, int vallen, const char *path, int (*setxattr) (const char *path, const char *name, const void *value, size_t size, int flags));
 static int _removexattr (const char *xattr, const char *path, int (*removexattr) (const char *path, const char *name));
 static char *_listxattrs (const char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t *size);
+static char *_getxattr (const char *name, const char *path, ssize_t (*getxattr) (const char *path, const char *name, void *value, size_t size), size_t *size_r);
 
 guestfs_int_xattr_list *
 do_getxattrs (const char *path)
@@ -448,6 +449,15 @@ do_internal_lxattrlist (const char *path, char *const *names)
 char *
 do_getxattr (const char *path, const char *name, size_t *size_r)
 {
+  return _getxattr (name, path, getxattr, size_r);
+}
+
+static char *
+_getxattr (const char *name, const char *path,
+           ssize_t (*getxattr) (const char *path, const char *name,
+                                void *value, size_t size),
+           size_t *size_r)
+{
   ssize_t r;
   char *buf;
   size_t len;
@@ -496,49 +506,7 @@ do_getxattr (const char *path, const char *name, size_t *size_r)
 char *
 do_lgetxattr (const char *path, const char *name, size_t *size_r)
 {
-  ssize_t r;
-  char *buf;
-  size_t len;
-
-  CHROOT_IN;
-  r = lgetxattr (path, name, NULL, 0);
-  CHROOT_OUT;
-  if (r == -1) {
-    reply_with_perror ("lgetxattr");
-    return NULL;
-  }
-
-  len = r;
-
-  if (len > XATTR_SIZE_MAX) {
-    reply_with_error ("extended attribute is too large");
-    return NULL;
-  }
-
-  buf = malloc (len);
-  if (buf == NULL) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-
-  CHROOT_IN;
-  r = lgetxattr (path, name, buf, len);
-  CHROOT_OUT;
-  if (r == -1) {
-    reply_with_perror ("lgetxattr");
-    free (buf);
-    return NULL;
-  }
-
-  if (len != (size_t) r) {
-    reply_with_error ("lgetxattr: unexpected size (%zu/%zd)", len, r);
-    free (buf);
-    return NULL;
-  }
-
-  /* Must set size_r last thing before returning. */
-  *size_r = len;
-  return buf; /* caller frees */
+  return _getxattr (name, path, lgetxattr, size_r);
 }
 
 int
