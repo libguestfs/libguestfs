@@ -1195,12 +1195,14 @@ qemu_escape_param (guestfs_h *g, const char *param)
 
 static char *
 make_uri (guestfs_h *g, const char *scheme, const char *user,
+          const char *password,
           struct drive_server *server, const char *path)
 {
   xmlURI uri = { .scheme = (char *) scheme,
                  .user = (char *) user };
   CLEANUP_FREE char *query = NULL;
   CLEANUP_FREE char *pathslash = NULL;
+  CLEANUP_FREE char *userauth = NULL;
 
   /* Need to add a leading '/' to URI paths since xmlSaveUri doesn't. */
   if (path[0] != '/') {
@@ -1209,6 +1211,13 @@ make_uri (guestfs_h *g, const char *scheme, const char *user,
   }
   else
     uri.path = (char *) path;
+
+  /* Rebuild user:password. */
+  if (user != NULL && password != NULL) {
+    /* Keep the string in an own variable so it can be freed automatically. */
+    userauth = safe_asprintf (g, "%s:%s", user, password);
+    uri.user = userauth;
+  }
 
   switch (server->transport) {
   case drive_transport_none:
@@ -1255,34 +1264,37 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
     return path;
 
   case drive_protocol_ftp:
-    return make_uri (g, "ftp", src->username,
+    return make_uri (g, "ftp", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
 
   case drive_protocol_ftps:
-    return make_uri (g, "ftps", src->username,
+    return make_uri (g, "ftps", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
 
   case drive_protocol_gluster:
     switch (src->servers[0].transport) {
     case drive_transport_none:
-      return make_uri (g, "gluster", NULL, &src->servers[0], src->u.exportname);
+      return make_uri (g, "gluster", NULL, NULL,
+                       &src->servers[0], src->u.exportname);
     case drive_transport_tcp:
-      return make_uri (g, "gluster+tcp",
-                       NULL, &src->servers[0], src->u.exportname);
+      return make_uri (g, "gluster+tcp", NULL, NULL,
+                       &src->servers[0], src->u.exportname);
     case drive_transport_unix:
-      return make_uri (g, "gluster+unix", NULL, &src->servers[0], NULL);
+      return make_uri (g, "gluster+unix", NULL, NULL,
+                       &src->servers[0], NULL);
     }
 
   case drive_protocol_http:
-    return make_uri (g, "http", src->username,
+    return make_uri (g, "http", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
 
   case drive_protocol_https:
-    return make_uri (g, "https", src->username,
+    return make_uri (g, "https", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
 
   case drive_protocol_iscsi:
-    return make_uri (g, "iscsi", NULL, &src->servers[0], src->u.exportname);
+    return make_uri (g, "iscsi", NULL, NULL,
+                     &src->servers[0], src->u.exportname);
 
   case drive_protocol_nbd: {
     CLEANUP_FREE char *p = NULL;
@@ -1368,11 +1380,11 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
                             src->u.exportname);
 
   case drive_protocol_ssh:
-    return make_uri (g, "ssh", src->username,
+    return make_uri (g, "ssh", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
 
   case drive_protocol_tftp:
-    return make_uri (g, "tftp", src->username,
+    return make_uri (g, "tftp", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
   }
 

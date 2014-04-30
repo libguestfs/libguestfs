@@ -23,6 +23,7 @@ type uri = {
   protocol : string;                    (** protocol, eg. [file], [nbd] *)
   server : string array option;         (** list of servers *)
   username : string option;             (** username *)
+  password : string option;             (** password *)
 }
 
 val parse_uri : string -> uri

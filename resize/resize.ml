@@ -322,8 +322,9 @@ read the man page virt-resize(1).
     let g = new G.guestfs () in
     if debug then g#set_trace true;
     let _, { URI.path = path; protocol = protocol;
-             server = server; username = username } = infile in
-    g#add_drive ?format ~readonly:true ~protocol ?server ?username path;
+             server = server; username = username;
+             password = password } = infile in
+    g#add_drive ?format ~readonly:true ~protocol ?server ?username ?secret:password path;
     (* The output disk is being created, so use cache=unsafe here. *)
     g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe"
       outfile;

@@ -34,7 +34,7 @@
 #include "uri.h"
 
 static int is_uri (const char *arg);
-static int parse (const char *arg, char **path_ret, char **protocol_ret, char ***server_ret, char **username_ret);
+static int parse (const char *arg, char **path_ret, char **protocol_ret, char ***server_ret, char **username_ret, char **password_ret);
 static char *query_get (xmlURIPtr uri, const char *search_name);
 static int make_server (xmlURIPtr uri, const char *socket, char ***ret);
 
@@ -45,10 +45,11 @@ parse_uri (const char *arg, struct uri *uri_ret)
   char *protocol = NULL;
   char **server = NULL;
   char *username = NULL;
+  char *password = NULL;
 
   /* Does it look like a URI? */
   if (is_uri (arg)) {
-    if (parse (arg, &path, &protocol, &server, &username) == -1)
+    if (parse (arg, &path, &protocol, &server, &username, &password) == -1)
       return -1;
   }
   else {
@@ -70,6 +71,7 @@ parse_uri (const char *arg, struct uri *uri_ret)
   uri_ret->protocol = protocol;
   uri_ret->server = server;
   uri_ret->username = username;
+  uri_ret->password = password;
   return 0;
 }
 
@@ -99,7 +101,7 @@ is_uri (const char *arg)
 
 static int
 parse (const char *arg, char **path_ret, char **protocol_ret,
-           char ***server_ret, char **username_ret)
+           char ***server_ret, char **username_ret, char **password_ret)
 {
   CLEANUP_XMLFREEURI xmlURIPtr uri = NULL;
   CLEANUP_FREE char *socket = NULL;
@@ -150,16 +152,31 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
     return -1;
   }
 
+  *password_ret = NULL;
+  *username_ret = NULL;
   if (uri->user && STRNEQ (uri->user, "")) {
+    char *p = strchr (uri->user, ':');
+    if (p != NULL) {
+      if (STRNEQ (p+1, "")) {
+        *password_ret = strdup (p+1);
+        if (*password_ret == NULL) {
+          perror ("strdup: password");
+          free (*protocol_ret);
+          guestfs___free_string_list (*server_ret);
+          return -1;
+        }
+      }
+      *p = '\0';
+    }
     *username_ret = strdup (uri->user);
     if (*username_ret == NULL) {
       perror ("strdup: username");
+      free (*password_ret);
       free (*protocol_ret);
       guestfs___free_string_list (*server_ret);
       return -1;
     }
   }
-  else *username_ret = NULL;
 
   /* We may have to adjust the path depending on the protocol.  For
    * example ceph/rbd URIs look like rbd:///pool/disk, but the
@@ -180,6 +197,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
     free (*protocol_ret);
     guestfs___free_string_list (*server_ret);
     free (*username_ret);
+    free (*password_ret);
     return -1;
   }
 

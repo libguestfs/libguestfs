@@ -67,6 +67,7 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
     drv->uri.protocol = uri.protocol;
     drv->uri.server = uri.server;
     drv->uri.username = uri.username;
+    drv->uri.password = uri.password;
     drv->uri.format = format;
     drv->uri.orig_uri = arg;
   }
@@ -166,6 +167,10 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
       if (drv->uri.username) {
         ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK;
         ad_optargs.username = drv->uri.username;
+      }
+      if (drv->uri.password) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SECRET_BITMASK;
+        ad_optargs.secret = drv->uri.password;
       }
 
       r = guestfs_add_drive_opts_argv (g, drv->uri.path, &ad_optargs);
@@ -290,6 +295,7 @@ free_drives (struct drv *drv)
     free (drv->uri.protocol);
     guestfs___free_string_list (drv->uri.server);
     free (drv->uri.username);
+    free (drv->uri.password);
     break;
   case drv_d:
     /* d.filename is optarg, don't free it */

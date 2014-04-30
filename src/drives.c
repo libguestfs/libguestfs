@@ -200,11 +200,6 @@ static struct drive *
 create_drive_curl (guestfs_h *g,
                    const struct drive_create_data *data)
 {
-  if (data->secret != NULL) {
-    error (g, _("curl: you cannot specify a secret with this protocol"));
-    return NULL;
-  }
-
   if (data->nr_servers != 1) {
     error (g, _("curl: you must specify exactly one server"));
     return NULL;
@@ -371,11 +366,6 @@ static struct drive *
 create_drive_ssh (guestfs_h *g,
                   const struct drive_create_data *data)
 {
-  if (data->secret != NULL) {
-    error (g, _("ssh: you cannot specify a secret with this protocol"));
-    return NULL;
-  }
-
   if (data->nr_servers != 1) {
     error (g, _("ssh: you must specify exactly one server"));
     return NULL;

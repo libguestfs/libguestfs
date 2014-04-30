@@ -68,6 +68,7 @@ struct drv {
       char *protocol;       /* protocol (eg. "nbd") */
       char **server;        /* server(s) - can be NULL */
       char *username;       /* username - can be NULL */
+      char *password;       /* password - can be NULL */
       const char *format;   /* format (NULL == autodetect) */
       const char *orig_uri; /* original URI (for error messages etc.) */
     } uri;
