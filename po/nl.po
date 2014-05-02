@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-04-23 19:49+0100\n"
+"POT-Creation-Date: 2014-05-02 11:16+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
@@ -7173,45 +7173,45 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-direct.c:874 src/launch-libvirt.c:551
+#: src/launch-direct.c:858 src/launch-libvirt.c:551
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch-direct.c:1263 src/launch-libvirt.c:1289
+#: src/launch-direct.c:1251 src/launch-libvirt.c:1289
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: kon '%s' niet converteren naar een absoluut pad"
 
-#: src/launch-direct.c:1418
+#: src/launch-direct.c:1406
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1427
+#: src/launch-direct.c:1415
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1434
+#: src/launch-direct.c:1422
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1442
+#: src/launch-direct.c:1430
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1450
+#: src/launch-direct.c:1438
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1473
+#: src/launch-direct.c:1461
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
