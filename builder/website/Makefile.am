@@ -34,6 +34,7 @@ EXTRA_DIST = \
 	fedora.sh \
 	fedora-*.xz.sig \
 	rhel.sh \
+	rhel-*.xz.sig \
 	scientificlinux.sh \
 	scientificlinux-*.xz.sig \
 	ubuntu.preseed \
