@@ -11882,6 +11882,34 @@ blocks of zero bytes when read the next time.
 If it returns false, then it may be that discarded blocks are
 read as stale or random data." };
 
+  { defaults with
+    name = "cpio_out";
+    style = RErr, [String "directory"; FileOut "cpiofile"], [OString "format"];
+    proc_nr = Some 419;
+    cancellable = true;
+    shortdesc = "pack directory into cpio file";
+    longdesc = "\
+This command packs the contents of C<directory> and downloads
+it to local file C<cpiofile>.
+
+The optional C<format> parameter can be used to select the format.
+Only the following formats are currently permitted:
+
+=over 4
+
+=item C<newc>
+
+New (SVR4) portable format.  This format happens to be compatible
+with the cpio-like format used by the Linux kernel for initramfs.
+
+This is the default format.
+
+=item C<crc>
+
+New (SVR4) portable format with a checksum.
+
+=back" };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

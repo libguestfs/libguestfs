@@ -27,6 +27,7 @@ daemon/cmp.c
 daemon/command.c
 daemon/compress.c
 daemon/copy.c
+daemon/cpio.c
 daemon/cpmv.c
 daemon/dd.c
 daemon/debug.c
@@ -174,6 +175,7 @@ gobject/src/optargs-copy_device_to_device.c
 gobject/src/optargs-copy_device_to_file.c
 gobject/src/optargs-copy_file_to_device.c
 gobject/src/optargs-copy_file_to_file.c
+gobject/src/optargs-cpio_out.c
 gobject/src/optargs-disk_create.c
 gobject/src/optargs-e2fsck.c
 gobject/src/optargs-fstrim.c
