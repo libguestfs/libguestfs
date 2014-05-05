@@ -27,6 +27,7 @@ let rec set_random_seed (g : Guestfs.guestfs) root =
   if typ = "linux" then (
     let files = [
       "/var/lib/random-seed";         (* Fedora *)
+      "/var/lib/systemd/random-seed"; (* Fedora after F20? *)
       "/var/lib/urandom/random-seed"; (* Debian *)
       "/var/lib/misc/random-seed";    (* SuSE *)
     ] in
