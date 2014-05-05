@@ -449,6 +449,7 @@ guestfs___check_package_format (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_SLES:
   case OS_DISTRO_CENTOS:
   case OS_DISTRO_SCIENTIFIC_LINUX:
+  case OS_DISTRO_ORACLE_LINUX:
     fs->package_format = OS_PACKAGE_FORMAT_RPM;
     break;
 
@@ -494,6 +495,7 @@ guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_RHEL:
   case OS_DISTRO_CENTOS:
   case OS_DISTRO_SCIENTIFIC_LINUX:
+  case OS_DISTRO_ORACLE_LINUX:
     if (fs->major_version >= 5)
       fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
     else

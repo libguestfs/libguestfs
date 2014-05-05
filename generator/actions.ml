@@ -1077,6 +1077,10 @@ OpenBSD.
 
 OpenSUSE.
 
+=item \"oraclelinux\"
+
+Oracle Linux.
+
 =item \"pardus\"
 
 Pardus.

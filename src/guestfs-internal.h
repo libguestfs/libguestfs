@@ -540,6 +540,7 @@ enum inspect_os_distro {
   OS_DISTRO_SUSE_BASED,
   OS_DISTRO_SLES,
   OS_DISTRO_OPENBSD,
+  OS_DISTRO_ORACLE_LINUX,
 };
 
 enum inspect_os_package_format {

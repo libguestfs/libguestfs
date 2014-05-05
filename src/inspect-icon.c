@@ -137,6 +137,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     case OS_DISTRO_REDHAT_BASED:
     case OS_DISTRO_CENTOS:
     case OS_DISTRO_SCIENTIFIC_LINUX:
+    case OS_DISTRO_ORACLE_LINUX:
       r = icon_rhel (g, fs, &size);
       break;
 

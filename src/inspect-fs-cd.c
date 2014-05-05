@@ -211,6 +211,16 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
     free (str);
   }
 
+  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+                                     "^family = Oracle Linux Server$",
+                                     0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    fs->distro = OS_DISTRO_ORACLE_LINUX;
+    free (str);
+  }
+
   /* XXX should do major.minor before this */
   r = guestfs___first_egrep_of_file (g, "/.treeinfo",
                                      "^version = [[:digit:]]+", 0, &str);
@@ -319,6 +329,21 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
     fs->distro = OS_DISTRO_RHEL;
     fs->major_version =
       guestfs___parse_unsigned_int_ignore_trailing (g, &str[26]);
+    free (str);
+    if (fs->major_version == -1)
+      return -1;
+  }
+
+  /* XXX parse major.minor */
+  r = guestfs___first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+                                     "^menu title Welcome to Oracle Linux Server [[:digit:]]+",
+                           0, &str);
+  if (r == -1)
+    return -1;
+  if (r > 0) {
+    fs->distro = OS_DISTRO_ORACLE_LINUX;
+    fs->major_version =
+      guestfs___parse_unsigned_int_ignore_trailing (g, &str[42]);
     free (str);
     if (fs->major_version == -1)
       return -1;

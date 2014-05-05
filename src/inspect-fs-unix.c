@@ -60,6 +60,9 @@ static pcre *re_centos_no_minor;
 static pcre *re_scientific_linux_old;
 static pcre *re_scientific_linux;
 static pcre *re_scientific_linux_no_minor;
+static pcre *re_oracle_linux_old;
+static pcre *re_oracle_linux;
+static pcre *re_oracle_linux_no_minor;
 static pcre *re_major_minor;
 static pcre *re_xdev;
 static pcre *re_cciss;
@@ -112,6 +115,12 @@ compile_regexps (void)
            "Scientific Linux.*release (\\d+)\\.(\\d+)", 0);
   COMPILE (re_scientific_linux_no_minor,
            "Scientific Linux.*release (\\d+)", 0);
+  COMPILE (re_oracle_linux_old,
+           "Oracle Linux.*release (\\d+).*Update (\\d+)", 0);
+  COMPILE (re_oracle_linux,
+           "Oracle Linux.*release (\\d+)\\.(\\d+)", 0);
+  COMPILE (re_oracle_linux_no_minor,
+           "Oracle Linux.*release (\\d+)", 0);
   COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0);
   COMPILE (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0);
@@ -141,6 +150,9 @@ free_regexps (void)
   pcre_free (re_scientific_linux_old);
   pcre_free (re_scientific_linux);
   pcre_free (re_scientific_linux_no_minor);
+  pcre_free (re_oracle_linux_old);
+  pcre_free (re_oracle_linux);
+  pcre_free (re_oracle_linux_no_minor);
   pcre_free (re_major_minor);
   pcre_free (re_xdev);
   pcre_free (re_cciss);
@@ -417,8 +429,39 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       goto skip_release_checks;
   }
 
-  if (guestfs_is_file_opts (g, "/etc/redhat-release",
+  /* Oracle Linux includes a "/etc/redhat-release" file, hence the Oracle check
+   * needs to be performed before the Red-Hat one.
+   */
+  if (guestfs_is_file_opts (g, "/etc/oracle-release",
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+
+    fs->distro = OS_DISTRO_ORACLE_LINUX;
+
+    if (parse_release_file (g, fs, "/etc/oracle-release") == -1)
+      return -1;
+
+    if (match2 (g, fs->product_name, re_oracle_linux_old, &major, &minor) ||
+        match2 (g, fs->product_name, re_oracle_linux, &major, &minor)) {
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1) {
+        free (minor);
+        return -1;
+      }
+      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      free (minor);
+      if (fs->minor_version == -1)
+        return -1;
+    } else if ((major = match1 (g, fs->product_name, re_oracle_linux_no_minor)) != NULL) {
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1)
+        return -1;
+      fs->minor_version = 0;
+    }
+  }
+  else if (guestfs_is_file_opts (g, "/etc/redhat-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     fs->distro = OS_DISTRO_REDHAT_BASED; /* Something generic Red Hat-like. */
 
     if (parse_release_file (g, fs, "/etc/redhat-release") == -1)

@@ -164,6 +164,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_MEEGO: ret = safe_strdup (g, "meego"); break;
   case OS_DISTRO_OPENBSD: ret = safe_strdup (g, "openbsd"); break;
   case OS_DISTRO_OPENSUSE: ret = safe_strdup (g, "opensuse"); break;
+  case OS_DISTRO_ORACLE_LINUX: ret = safe_strdup (g, "oraclelinux"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
