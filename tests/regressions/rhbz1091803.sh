@@ -28,8 +28,13 @@ if [ -n "$SKIP_TEST_RHBZ1091803_SH" ]; then
     exit 77
 fi
 
+rm -f rhbz1091803.img
+
+touch rhbz1091803.img
+truncate -s 100M rhbz1091803.img
+
 ../../fish/guestfish <<EOF
-scratch 100M
+add-drive rhbz1091803.img format:raw
 run
 mkfs ext2 /dev/sda
 mount /dev/sda /
@@ -37,3 +42,5 @@ mount /dev/sda /
 # Appliance has now crashed, so any subsequent command fails:
 ping-daemon
 EOF
+
+rm rhbz1091803.img
