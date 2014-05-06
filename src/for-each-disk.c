@@ -88,7 +88,8 @@ guestfs___for_each_disk (guestfs_h *g,
   /* Now the horrible task of parsing out the fields we need from the XML.
    * http://www.xmlsoft.org/examples/xpath1.c
    */
-  doc = xmlParseMemory (xml, strlen (xml));
+  doc = xmlReadMemory (xml, strlen (xml),
+                       NULL, NULL, XML_PARSE_NONET);
   if (doc == NULL) {
     error_function (g, 0,
                     _("unable to parse XML information returned by libvirt"));
