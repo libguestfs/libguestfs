@@ -269,7 +269,7 @@ read_osinfo_db_xml (guestfs_h *g, const char *filename)
 
   snprintf (pathname, pathname_len, "%s/%s", LIBOSINFO_DB_OS_PATH, filename);
 
-  doc = xmlParseFile (pathname);
+  doc = xmlReadFile (pathname, NULL, XML_PARSE_NONET);
   if (doc == NULL) {
     debug (g, "osinfo: unable to parse XML file %s", pathname);
     return 0;
