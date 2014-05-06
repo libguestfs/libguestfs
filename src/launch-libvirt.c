@@ -611,7 +611,8 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
   size_t seen_qemu, seen_kvm;
   int force_tcg;
 
-  doc = xmlParseMemory (capabilities_xml, strlen (capabilities_xml));
+  doc = xmlReadMemory (capabilities_xml, strlen (capabilities_xml),
+                       NULL, NULL, XML_PARSE_NONET);
   if (doc == NULL) {
     error (g, _("unable to parse capabilities XML returned by libvirt"));
     return -1;

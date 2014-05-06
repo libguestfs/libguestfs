@@ -750,7 +750,8 @@ get_domain_xml (guestfs_h *g, virDomainPtr dom)
   }
 
   /* Parse the domain XML into an XML document. */
-  doc = xmlParseMemory (xml, strlen (xml));
+  doc = xmlReadMemory (xml, strlen (xml),
+                       NULL, NULL, XML_PARSE_NONET);
   if (doc == NULL) {
     error (g, _("unable to parse XML information returned by libvirt"));
     return NULL;
