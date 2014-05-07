@@ -33,6 +33,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
+static const char ourenvvar[] = "SKIP_TEST_CHARSET_FIDELITY";
+
 struct filesystem {
   const char *fs_name;          /* Name of filesystem. */
   int fs_case_insensitive;      /* True if filesystem is case insensitive. */
@@ -78,7 +80,7 @@ main (int argc, char *argv[])
   struct filesystem *fs;
 
   /* Allow this test to be skipped. */
-  str = getenv ("SKIP_TEST_CHARSET_FIDELITY");
+  str = getenv (ourenvvar);
   if (str && STREQ (str, "1")) {
     printf ("%s: test skipped because environment variable is set.\n",
             program_name);
@@ -113,10 +115,20 @@ static void
 test_filesystem (guestfs_h *g, const struct filesystem *fs)
 {
   const char *feature[] = { fs->fs_feature, NULL };
+  char envvar[sizeof (ourenvvar) + 20];
+  char *str;
 
   if (fs->fs_feature && !guestfs_feature_available (g, (char **) feature)) {
     printf ("skipped test of %s because %s feature not available\n",
             fs->fs_name, fs->fs_feature);
+    return;
+  }
+
+  snprintf (envvar, sizeof envvar, "%s_%s", ourenvvar, fs->fs_name);
+  str = getenv (envvar);
+  if (str && STREQ (str, "1")) {
+    printf ("skipped test of %s because environment variable is set\n",
+            fs->fs_name);
     return;
   }
 
