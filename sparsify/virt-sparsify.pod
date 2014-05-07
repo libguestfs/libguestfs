@@ -72,6 +72,11 @@ Virt-sparsify cannot yet sparsify the space between partitions.  Note
 that this space is often used for critical items like bootloaders so
 it's not really unused.
 
+=item *
+
+In copy mode, qcow2 internal snapshots are not copied over to the
+destination image.
+
 =back
 
 You may also want to read the manual pages for the associated tools
