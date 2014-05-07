@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-04-22 17:25+0100\n"
+"POT-Creation-Date: 2014-05-07 16:57+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/fedora/language/"
@@ -7011,40 +7011,40 @@ msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch-direct.c:1261 src/launch-libvirt.c:1277
+#: src/launch-direct.c:1265 src/launch-libvirt.c:1278
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1416
+#: src/launch-direct.c:1420
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1425
+#: src/launch-direct.c:1429
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1432
+#: src/launch-direct.c:1436
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1440
+#: src/launch-direct.c:1444
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1448
+#: src/launch-direct.c:1452
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1471
+#: src/launch-direct.c:1475
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -7079,21 +7079,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:606
+#: src/launch-libvirt.c:607
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:612 src/libvirt-domain.c:387 src/libvirt-domain.c:470
+#: src/launch-libvirt.c:613 src/libvirt-domain.c:387 src/libvirt-domain.c:470
 #: src/libvirt-domain.c:683
 msgid "unable to create new XPath context"
 msgstr "nie można utworzyć nowego kontekstu XPath"
 
-#: src/launch-libvirt.c:622
+#: src/launch-libvirt.c:623
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:655
+#: src/launch-libvirt.c:656
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -7108,49 +7108,49 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:886
+#: src/launch-libvirt.c:887
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1231
+#: src/launch-libvirt.c:1232
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1354
+#: src/launch-libvirt.c:1355
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1379
+#: src/launch-libvirt.c:1380
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1386
+#: src/launch-libvirt.c:1387
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1664
+#: src/launch-libvirt.c:1665
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1701 src/launch-libvirt.c:1734
+#: src/launch-libvirt.c:1702 src/launch-libvirt.c:1735
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1793
+#: src/launch-libvirt.c:1794
 msgid "could not attach disk to libvirt domain"
 msgstr "niemożna dołączyć dysku do domeny biblioteki libvirt"
 
-#: src/launch-libvirt.c:1824
+#: src/launch-libvirt.c:1825
 msgid "could not detach disk from libvirt domain"
 msgstr "nie można odłączyć dysku od domeny biblioteki libvirt"
 
@@ -7365,12 +7365,12 @@ msgstr ""
 msgid "error reading libvirt XML information: %s"
 msgstr "błąd podczas odczytywania informacji XML biblioteki libvirt: %s"
 
-#: src/libvirt-domain.c:754
+#: src/libvirt-domain.c:755
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 "nie można przetworzyć informacji XML zwróconej przez bibliotekę libvirt"
 
-#: src/libvirt-domain.c:764
+#: src/libvirt-domain.c:765
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
