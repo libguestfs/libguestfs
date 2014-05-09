@@ -131,80 +131,80 @@ AC_PROG_CC_STDC
 AC_PROG_INSTALL
 AC_PROG_CPP
 
-AC_ARG_ENABLE([gcc-warnings],
-    [AS_HELP_STRING([--enable-gcc-warnings],
-                    [turn on lots of GCC warnings (for developers)])],
+AC_ARG_ENABLE([werror],
+    [AS_HELP_STRING([--enable-werror],
+                    [turn GCC warnings into errors (for developers)])],
     [case $enableval in
      yes|no) ;;
-     *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
+     *)      AC_MSG_ERROR([bad value $enableval for werror option]) ;;
      esac
-     gl_gcc_warnings=$enableval],
-    [gl_gcc_warnings=no]
+     gl_gcc_werror=$enableval],
+    [gl_gcc_werror=no]
 )
 
-if test "$gl_gcc_warnings" = yes; then
+if test "$gl_gcc_werror" = yes; then
     gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
     AC_SUBST([WERROR_CFLAGS])
+fi
 
-    # This, $nw, is the list of warnings we disable.
-    nw=
-    nw="$nw -Waggregate-return"      # anachronistic
-    nw="$nw -Wc++-compat"            # We don't care about C++ compilers
-    nw="$nw -Wundef"                 # Warns on '#if GNULIB_FOO' etc in gnulib
-    nw="$nw -Wtraditional"           # Warns on #elif which we use often
-    nw="$nw -Wcast-qual"             # Too many warnings for now
-    nw="$nw -Wconversion"            # Too many warnings for now
-    nw="$nw -Wsystem-headers"        # Don't let system headers trigger warnings
-    nw="$nw -Wsign-conversion"       # Not an error
-    nw="$nw -Wtraditional-conversion" # Don't care about pre-ANSI compilers
-    nw="$nw -Wpadded"                # Our structs are not padded
-    nw="$nw -Wvla"                   # two warnings in mount.c
-    # things I might fix soon:
-    nw="$nw -Wmissing-format-attribute" # daemon.h's asprintf_nowarn
-    nw="$nw -Winline"                # daemon.h's asprintf_nowarn
-    nw="$nw -Wshadow"                # numerous, plus we're not unanimous
-    nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
+dnl This, $nw, is the list of warnings we disable.
+nw=
+nw="$nw -Waggregate-return"          # anachronistic
+nw="$nw -Wc++-compat"                # We don't care about C++ compilers
+nw="$nw -Wundef"                     # Warns on '#if GNULIB_FOO' etc in gnulib
+nw="$nw -Wtraditional"               # Warns on #elif which we use often
+nw="$nw -Wcast-qual"                 # Too many warnings for now
+nw="$nw -Wconversion"                # Too many warnings for now
+nw="$nw -Wsystem-headers"            # Don't let system headers trigger warnings
+nw="$nw -Wsign-conversion"           # Not an error
+nw="$nw -Wtraditional-conversion"    # Don't care about pre-ANSI compilers
+nw="$nw -Wpadded"                    # Our structs are not padded
+nw="$nw -Wvla"                       # two warnings in mount.c
+dnl things I might fix soon:
+nw="$nw -Wmissing-format-attribute"  # daemon.h's asprintf_nowarn
+nw="$nw -Winline"                    # daemon.h's asprintf_nowarn
+nw="$nw -Wshadow"                    # numerous, plus we're not unanimous
+nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                      # was not possible, safe to ignore
-    nw="$nw -Wpacked"                # Allow attribute((packed)) on structs
-    nw="$nw -Wlong-long"             # Allow long long since it's required
+nw="$nw -Wpacked"                    # Allow attribute((packed)) on structs
+nw="$nw -Wlong-long"                 # Allow long long since it's required
                                      # by Python, Ruby and xstrtoll.
-    nw="$nw -Wsuggest-attribute=pure" # Don't suggest pure functions.
-    nw="$nw -Wsuggest-attribute=const" # Don't suggest const functions.
-    nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
-    nw="$nw -Wswitch-default"        # This warning is actively dangerous.
-    nw="$nw -Woverlength-strings"    # Who cares about stupid ISO C99 limit.
+nw="$nw -Wsuggest-attribute=pure"    # Don't suggest pure functions.
+nw="$nw -Wsuggest-attribute=const"   # Don't suggest const functions.
+nw="$nw -Wunsuffixed-float-constants" # Don't care about these.
+nw="$nw -Wswitch-default"            # This warning is actively dangerous.
+nw="$nw -Woverlength-strings"        # Who cares about stupid ISO C99 limit.
 
-    gl_MANYWARN_ALL_GCC([ws])
-    gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
-    for w in $ws; do
-        gl_WARN_ADD([$w])
-    done
+gl_MANYWARN_ALL_GCC([ws])
+gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
+for w in $ws; do
+    gl_WARN_ADD([$w])
+done
 
-    # Normally we disable warnings in $nw above.  However $nw only
-    # filters out exact matching warning strings from a list inside
-    # gnulib (see m4/manywarnings.m4).  So we need to explicitly list a
-    # few disabled warnings below.
+dnl Normally we disable warnings in $nw above.  However $nw only
+dnl filters out exact matching warning strings from a list inside
+dnl gnulib (see m4/manywarnings.m4).  So we need to explicitly list a
+dnl few disabled warnings below.
 
-    # Unused parameters are not a bug.
-    gl_WARN_ADD([-Wno-unused-parameter])
+dnl Unused parameters are not a bug.
+gl_WARN_ADD([-Wno-unused-parameter])
 
-    # Missing field initializers is not a bug in C.
-    gl_WARN_ADD([-Wno-missing-field-initializers])
+dnl Missing field initializers is not a bug in C.
+gl_WARN_ADD([-Wno-missing-field-initializers])
 
-    # Display the name of the warning option with the warning.
-    gl_WARN_ADD([-fdiagnostics-show-option])
+dnl Display the name of the warning option with the warning.
+gl_WARN_ADD([-fdiagnostics-show-option])
 
-    AC_SUBST([WARN_CFLAGS])
+AC_SUBST([WARN_CFLAGS])
 
-    AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
-    AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
-    AH_VERBATIM([FORTIFY_SOURCE],[
+AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
+AC_DEFINE([GNULIB_PORTCHECK], [1], [Enable some gnulib portability checks.])
+AH_VERBATIM([FORTIFY_SOURCE],[
 /* Enable compile-time and run-time bounds-checking, and some warnings. */
 #if __OPTIMIZE__ && (! defined (_FORTIFY_SOURCE) || _FORTIFY_SOURCE < 2)
 # undef _FORTIFY_SOURCE
 # define _FORTIFY_SOURCE 2
 #endif])
-fi
 
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
