@@ -29,13 +29,20 @@ my $bootloader = $ENV{BOOTLOADER} || "syslinux";
 my $disk = "$bootloader-guest.img";
 
 # Find prerequisites.
-my $mbr = "/usr/share/syslinux/mbr.bin";
-unless (-f $mbr) {
-    $mbr = "/usr/lib/syslinux/mbr.bin";
-    unless (-f $mbr) {
-        print "$0: mbr.bin (from SYSLINUX) not found, skipping test\n";
-        exit 77;
-    }
+my $mbr;
+my @mbr_paths = (
+  "/usr/share/syslinux/mbr.bin",
+  "/usr/lib/syslinux/mbr.bin"
+);
+foreach my $m (@mbr_paths) {
+  if (-f $m) {
+    $mbr = $m;
+    last;
+  }
+}
+unless (defined $mbr) {
+    print "$0: mbr.bin (from SYSLINUX) not found, skipping test\n";
+    exit 77;
 }
 print "mbr: $mbr\n";
 
