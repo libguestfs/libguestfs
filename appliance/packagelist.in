@@ -60,11 +60,18 @@ ifelse(DEBIAN,1,
   e2fsprogs
   extlinux
   genisoimage
+dnl gfs-tools, gfs2-tools have been renamed to gfs2-utils
   gfs-tools
   gfs2-tools
+  gfs2-utils
   grub2-common
   hfsplus
+dnl iproute has been renamed to iproute2
   iproute
+  iproute2
+  iputils-ping
+  iputils-arping
+  iputils-tracepath
   libaugeas0
   libcap2
   libhivex0
