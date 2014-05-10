@@ -32,6 +32,7 @@ fi
 version=$1
 output=rhel-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
+guestroot=/dev/sda3
 
 case $version in
     5.*)
@@ -41,6 +42,7 @@ case $version in
         tree=$topurl/x86_64/os
         srpms=$topurl/source/SRPMS
         bootfs=ext2
+        guestroot=/dev/sda2
         ;;
     6.*)
         major=6
@@ -178,7 +180,7 @@ virt-install \
 
 # We have to replace yum config so it doesn't try to use RHN (it
 # won't be registered).
-guestfish --rw -a $output -m /dev/sda3 \
+guestfish --rw -a $output -m $guestroot \
   upload $yum /etc/yum.repos.d/download.devel.redhat.com.repo
 
 source $(dirname "$0")/compress.sh $output
