@@ -26,14 +26,16 @@ export LANG=C
 set -e
 set -x
 
-if [ $# -ne 2 ]; then
-    echo "$0 VERSION DIST"
+if [ $# -lt 2 -o $# -gt 3 ]; then
+    echo "$0 VERSION DIST [OSVARIANT]"
     exit 1
 fi
 
 # Some configuration.
 version=$1
 dist=$2
+osvariant=$3
+if [ -z "$osvariant" ]; then osvariant=ubuntu$dist; fi
 location=http://archive.ubuntu.net/ubuntu/dists/$dist/main/installer-amd64
 output=ubuntu-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
@@ -61,7 +63,7 @@ trap cleanup INT QUIT TERM EXIT ERR
 virt-install \
     --name=$tmpname \
     --ram=1024 \
-    --os-type=linux --os-variant=ubuntu$dist \
+    --os-type=linux --os-variant=$osvariant \
     --initrd-inject=$(pwd)/preseed.cfg \
     --extra-args="auto console=tty0 console=ttyS0,115200" \
     --disk=$(pwd)/$output,size=4 \
