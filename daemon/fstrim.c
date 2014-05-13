@@ -35,7 +35,8 @@ GUESTFSD_EXT_CMD(str_fstrim, fstrim);
 int
 optgroup_fstrim_available (void)
 {
-  return prog_exists (str_fstrim);
+  /* Disabled in RHEL 6, https://bugzilla.redhat.com/show_bug.cgi?id=982979 */
+  return 0;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
