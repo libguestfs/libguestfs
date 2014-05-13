@@ -9728,6 +9728,7 @@ See also C<guestfs_available>, L<guestfs(3)/AVAILABILITY>." };
   { defaults with
     name = "fstrim";
     style = RErr, [Pathname "mountpoint"], [OInt64 "offset"; OInt64 "length"; OInt64 "minimumfreeextent"];
+    visibility = VDebug;
     proc_nr = Some 334;
     optional = Some "fstrim";
     shortdesc = "trim free space in a filesystem";
