@@ -178,12 +178,13 @@ let main () =
       | Some _ ->
         List.iter (
           fun (name,
-               { Index_parser.revision = revision; file_uri = file_uri }) ->
+               { Index_parser.revision = revision; file_uri = file_uri;
+                 proxy = proxy }) ->
             let template = name, arch, revision in
             msg (f_"Downloading: %s") file_uri;
             let progress_bar = not quiet in
             ignore (Downloader.download ~prog downloader ~template ~progress_bar
-                      file_uri)
+                      ~proxy file_uri)
         ) index;
         exit 0
       );
@@ -224,11 +225,13 @@ let main () =
   (* Download the template, or it may be in the cache. *)
   let template =
     let template, delete_on_exit =
-      let { Index_parser.revision = revision; file_uri = file_uri } = entry in
+      let { Index_parser.revision = revision; file_uri = file_uri;
+            proxy = proxy } = entry in
       let template = arg, arch, revision in
       msg (f_"Downloading: %s") file_uri;
       let progress_bar = not quiet in
-      Downloader.download ~prog downloader ~template ~progress_bar file_uri in
+      Downloader.download ~prog downloader ~template ~progress_bar ~proxy
+        file_uri in
     if delete_on_exit then unlink_on_exit template;
     template in
 
