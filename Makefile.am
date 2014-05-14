@@ -105,7 +105,7 @@ SUBDIRS += csharp
 
 # OCaml tools.
 if HAVE_OCAML
-SUBDIRS += resize sparsify sysprep
+SUBDIRS += mllib resize sparsify sysprep
 endif
 
 # Perl tools.

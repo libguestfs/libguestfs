@@ -1,5 +1,5 @@
 (* virt-sysprep
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2013 Fujitsu Limited.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,23 +21,37 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let rhn_systemid_perform g root =
+let firewall_rules_perform g root =
   let typ = g#inspect_get_type root in
-  let distro = g#inspect_get_distro root in
+  if typ <> "windows" then (
+    let paths = [ "/etc/sysconfig/iptables";
+                  "/etc/firewalld/services/*";
+                  "/etc/firewalld/zones/*"; ] in
+    List.iter (
+      fun path ->
+        let files = g#glob_expand path in
+        Array.iter (
+          fun file ->
+            try g#rm file with G.Error _ -> ()
+        ) files;
+    ) paths;
 
-  match typ, distro with
-  | "linux", "rhel" ->
-    (try g#rm "/etc/sysconfig/rhn/systemid" with G.Error _ -> ());
-    (try g#rm "/etc/sysconfig/rhn/osad-auth.conf" with G.Error _ -> ());
     []
-  | _ -> []
+  )
+  else []
 
 let op = {
   defaults with
-    name = "rhn-systemid";
-    enabled_by_default = true;
-    heading = s_"Remove the RHN system ID";
-    perform_on_filesystems = Some rhn_systemid_perform;
+    name = "firewall-rules";
+    enabled_by_default = false;
+    heading = s_"Remove the firewall rules";
+    pod_description = Some (s_"\
+This removes custom firewall rules by removing C</etc/sysconfig/iptables>
+or custom firewalld configuration in C</etc/firewalld/*/*>.
+
+Note this is I<not> enabled by default since it may expose guests to
+exploits.  Use with care.");
+    perform_on_filesystems = Some firewall_rules_perform;
 }
 
 let () = register_operation op

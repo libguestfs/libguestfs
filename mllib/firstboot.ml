@@ -19,7 +19,6 @@
 open Printf
 
 open Common_utils
-open Sysprep_operation
 open Common_gettext.Gettext
 
 (* For Linux guests. *)
@@ -46,6 +45,9 @@ let firstboot_sh = sprintf "\
 d=%s/scripts
 logfile=~root/virt-sysprep-firstboot.log
 
+echo \"$0\" \"$@\" >>$logfile
+echo \"Scripts dir: $d\" >>$logfile
+
 if test \"$1\" = \"start\"
 then
   for f in $d/* ; do
@@ -62,12 +64,12 @@ fi
 let firstboot_service = sprintf "\
 [Unit]
 Description=virt-sysprep firstboot service
-After=syslog.target network.target
+After=network.target
 Before=prefdm.service
 
 [Service]
 Type=oneshot
-ExecStart=%s/firstboot.sh
+ExecStart=%s/firstboot.sh start
 RemainAfterExit=yes
 
 [Install]
@@ -77,16 +79,22 @@ WantedBy=default.target
 let failed fs =
   ksprintf (fun msg -> failwith (s_"firstboot: failed: " ^ msg)) fs
 
-let rec install_service g distro =
+let rec install_service (g : Guestfs.guestfs) distro =
   g#mkdir_p firstboot_dir;
   g#mkdir_p (sprintf "%s/scripts" firstboot_dir);
   g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
   g#chmod 0o755 (sprintf "%s/firstboot.sh" firstboot_dir);
 
-  (* systemd, else assume sysvinit *)
-  if g#is_dir "/etc/systemd" then
-    install_systemd_service g
-  else
+  (* Note we install both systemd and sysvinit services.  This is
+   * because init systems can be switched at runtime, and it's easy to
+   * tell if systemd is installed (eg. Ubuntu uses upstart but installs
+   * systemd configuration directories).  There is no danger of a
+   * firstboot script running twice because they disable themselves
+   * after running.
+   *)
+  if g#is_dir "/etc/systemd/system" then
+    install_systemd_service g;
+  if g#is_dir "/etc/rc.d" || g#is_dir "/etc/init.d" then
     install_sysvinit_service g distro
 
 (* Install the systemd firstboot service, if not installed already. *)
@@ -101,7 +109,7 @@ and install_sysvinit_service g = function
     install_sysvinit_redhat g
   | "opensuse"|"sles"|"suse-based" ->
     install_sysvinit_suse g
-  | "debian" ->
+  | "debian"|"ubuntu" ->
     install_sysvinit_debian g
   | distro ->
     failed "guest type %s is not supported" distro
@@ -145,7 +153,7 @@ and install_sysvinit_debian g =
   g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
     "/etc/rc5.d/S99virt-sysprep-firstboot"
 
-let add_firstboot_script g root id content =
+let add_firstboot_script (g : Guestfs.guestfs) root i content =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
@@ -153,7 +161,7 @@ let add_firstboot_script g root id content =
     install_service g distro;
     let t = Int64.of_float (Unix.time ()) in
     let r = string_random8 () in
-    let filename = sprintf "%s/scripts/%Ld-%s-%s" firstboot_dir t r id in
+    let filename = sprintf "%s/scripts/%04d-%Ld-%s" firstboot_dir i t r in
     g#write filename content;
     g#chmod 0o755 filename
 

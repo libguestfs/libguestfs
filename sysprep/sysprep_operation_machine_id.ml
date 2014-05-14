@@ -31,18 +31,17 @@ let machine_id_perform g root =
   )
   else []
 
-let machine_id_op = {
-  name = "machine-id";
-  enabled_by_default = true;
-  heading = s_"Remove the local machine ID";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "machine-id";
+    enabled_by_default = true;
+    heading = s_"Remove the local machine ID";
+    pod_description = Some (s_"\
 The machine ID is usually generated from a random source during system
 installation and stays constant for all subsequent boots.  Optionally,
 for stateless systems it is generated during runtime at boot if it is
 found to be empty.");
-  extra_args = [];
-  perform_on_filesystems = Some machine_id_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some machine_id_perform;
 }
 
-let () = register_operation machine_id_op
+let () = register_operation op

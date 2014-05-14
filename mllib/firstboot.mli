@@ -16,28 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Sysprep_operation
-open Common_gettext.Gettext
+val add_firstboot_script : Guestfs.guestfs -> string -> int -> string -> unit
+  (** [add_firstboot_script g root idx content] adds a firstboot
+      script called [shortname] containing [content].
 
-module G = Guestfs
+      NB. [content] is the contents of the script, {b not} a filename.
 
-let rhn_systemid_perform g root =
-  let typ = g#inspect_get_type root in
-  let distro = g#inspect_get_distro root in
+      The scripts run in index ([idx]) order.
 
-  match typ, distro with
-  | "linux", "rhel" ->
-    (try g#rm "/etc/sysconfig/rhn/systemid" with G.Error _ -> ());
-    (try g#rm "/etc/sysconfig/rhn/osad-auth.conf" with G.Error _ -> ());
-    []
-  | _ -> []
-
-let op = {
-  defaults with
-    name = "rhn-systemid";
-    enabled_by_default = true;
-    heading = s_"Remove the RHN system ID";
-    perform_on_filesystems = Some rhn_systemid_perform;
-}
-
-let () = register_operation op
+      You should make sure the filesystem is relabelled after calling this. *)

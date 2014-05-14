@@ -29,6 +29,7 @@ let min_extra_partition = 10L *^ 1024L *^ 1024L
 
 (* Command line argument parsing. *)
 let prog = Filename.basename Sys.executable_name
+let error fs = error ~prog fs
 
 type align_first_t = [ `Never | `Always | `Auto ]
 
@@ -628,7 +629,7 @@ let () =
 
     (* Parse the size field. *)
     let oldsize = p.p_part.G.part_size in
-    let newsize = parse_size oldsize sizefield in
+    let newsize = parse_resize ~prog oldsize sizefield in
 
     if newsize <= 0L then
       error (f_"%s: new partition size is zero or negative") dev;

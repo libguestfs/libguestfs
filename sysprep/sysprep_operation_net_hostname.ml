@@ -43,16 +43,15 @@ let net_hostname_perform g root =
 
   | _ -> []
 
-let net_hostname_op = {
-  name = "net-hostname";
-  enabled_by_default = true;
-  heading = s_"Remove HOSTNAME in network interface configuration";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "net-hostname";
+    enabled_by_default = true;
+    heading = s_"Remove HOSTNAME in network interface configuration";
+    pod_description = Some (s_"\
 For Fedora and Red Hat Enterprise Linux,
 this is removed from C<ifcfg-*> files.");
-  extra_args = [];
-  perform_on_filesystems = Some net_hostname_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some net_hostname_perform;
 }
 
-let () = register_operation net_hostname_op
+let () = register_operation op

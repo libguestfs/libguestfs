@@ -29,17 +29,16 @@ let utmp_perform g root =
   );
   []
 
-let utmp_op = {
-  name = "utmp";
-  enabled_by_default = true;
-  heading = s_"Remove the utmp file";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "utmp";
+    enabled_by_default = true;
+    heading = s_"Remove the utmp file";
+    pod_description = Some (s_"\
 This file records who is currently logged in on a machine.  In modern
 Linux distros it is stored in a ramdisk and hence not part of the
 virtual machine's disk, but it was stored on disk in older distros.");
-  extra_args = [];
-  perform_on_filesystems = Some utmp_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some utmp_perform;
 }
 
-let () = register_operation utmp_op
+let () = register_operation op

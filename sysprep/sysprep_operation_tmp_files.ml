@@ -1,5 +1,5 @@
 (* virt-sysprep
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2013 Fujitsu Limited.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,23 +21,32 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let rhn_systemid_perform g root =
+let tmp_files_perform g root =
   let typ = g#inspect_get_type root in
-  let distro = g#inspect_get_distro root in
+  if typ <> "windows" then (
+    let paths = [ "/tmp/*";
+                  "/var/tmp/*"; ] in
+    List.iter (
+      fun path ->
+        let files = g#glob_expand path in
+        Array.iter (
+          fun file ->
+            g#rm_rf file;
+        ) files;
+    ) paths;
 
-  match typ, distro with
-  | "linux", "rhel" ->
-    (try g#rm "/etc/sysconfig/rhn/systemid" with G.Error _ -> ());
-    (try g#rm "/etc/sysconfig/rhn/osad-auth.conf" with G.Error _ -> ());
     []
-  | _ -> []
+  )
+  else []
 
 let op = {
   defaults with
-    name = "rhn-systemid";
+    name = "tmp-files";
     enabled_by_default = true;
-    heading = s_"Remove the RHN system ID";
-    perform_on_filesystems = Some rhn_systemid_perform;
+    heading = s_"Remove temporary files";
+    pod_description = Some (s_"\
+This removes temporary files under C</tmp> and C</var/tmp>.");
+    perform_on_filesystems = Some tmp_files_perform;
 }
 
 let () = register_operation op

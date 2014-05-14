@@ -66,6 +66,7 @@ mkdir /etc
 mkdir /home
 mkdir /usr
 mkdir-p /var/lib/dpkg
+mkdir /var/lib/urandom
 
 upload fstab.tmp.$$ /etc/fstab
 write /etc/debian_version "5.0.1"

@@ -40,7 +40,6 @@ let globs = List.sort compare [
   "/var/log/wtmp*";
   "/var/log/apache2/*_log";
   "/var/log/apache2/*_log-*";
-  "/var/log/audit/audit.log";
   "/var/log/ntp";
 
   (* logfiles configured by /etc/logrotate.d/* *)
@@ -80,6 +79,15 @@ let globs = List.sort compare [
 
   (* man pages cache *)
   "/var/cache/man/*";
+
+  (* log file of sysstat *)
+  "/var/log/sa/*";
+
+  (* log file of gdm *)
+  "/var/log/gdm/*";
+
+  (* log file of ntp *)
+  "/var/log/ntpstats/*";
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
@@ -90,18 +98,17 @@ let logfiles_perform g root =
   );
   []
 
-let logfiles_op = {
-  name = "logfiles";
-  enabled_by_default = true;
-  heading = s_"Remove many log files from the guest";
-  pod_description = Some (
-    sprintf (f_"\
+let op = {
+  defaults with
+    name = "logfiles";
+    enabled_by_default = true;
+    heading = s_"Remove many log files from the guest";
+    pod_description = Some (
+      sprintf (f_"\
 On Linux the following files are removed:
 
 %s") globs_as_pod);
-  extra_args = [];
-  perform_on_filesystems = Some logfiles_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some logfiles_perform;
 }
 
-let () = register_operation logfiles_op
+let () = register_operation op

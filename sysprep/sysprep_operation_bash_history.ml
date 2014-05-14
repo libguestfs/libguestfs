@@ -33,16 +33,19 @@ let bash_history_perform g root =
   )
   else []
 
-let bash_history_op = {
-  name = "bash-history";
-  enabled_by_default = true;
-  heading = s_"Remove the bash history in the guest";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "bash-history";
+    enabled_by_default = true;
+    heading = s_"Remove the bash history in the guest";
+    pod_description = Some (s_"\
 Remove the bash history of user \"root\" and any other users
 who have a C<.bash_history> file in their home directory.");
-  extra_args = [];
-  perform_on_filesystems = Some bash_history_perform;
-  perform_on_devices = None;
+    pod_notes = Some (s_"\
+Currently this only looks in C</root> and C</home/*> for
+home directories, so users with home directories in other
+locations won't have the bash history removed.");
+    perform_on_filesystems = Some bash_history_perform;
 }
 
-let () = register_operation bash_history_op
+let () = register_operation op

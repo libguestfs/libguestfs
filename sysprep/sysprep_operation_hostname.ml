@@ -26,81 +26,34 @@ module G = Guestfs
 
 let hostname = ref "localhost.localdomain"
 
-let hostname_perform g root =
-  let typ = g#inspect_get_type root in
-  let distro = g#inspect_get_distro root in
-  let major_version = g#inspect_get_major_version root in
+let hostname_perform (g : Guestfs.guestfs) root =
+  if Hostname.set_hostname g root !hostname then [ `Created_files ] else []
 
-  (* Replace <key>=... entry in file.  The code assumes it's a small,
-   * plain text file.
-   *)
-  let replace_line_in_file filename key value =
-    let content =
-      if g#is_file filename then (
-        let lines = Array.to_list (g#read_lines filename) in
-        let lines = List.filter (
-          fun line -> not (string_prefix line (key ^ "="))
-        ) lines in
-        let lines = lines @ [sprintf "%s=%s" key value] in
-        String.concat "\n" lines ^ "\n"
-      ) else (
-        sprintf "%s=%s\n" key value
-      ) in
-    g#write filename content
-  in
+let op = {
+  defaults with
+    name = "hostname";
+    enabled_by_default = true;
+    heading = s_"Change the hostname of the guest";
 
-  let update_etc_hostname () =
-    g#write "/etc/hostname" !hostname
-  in
-
-  let update_etc_machine_info () =
-    replace_line_in_file "/etc/machine-info" "PRETTY_HOSTNAME" !hostname
-  in
-
-  match typ, distro, major_version with
-  (* Fedora 18 (hence RHEL 7+) changed to using /etc/hostname
-   * (RHBZ#881953, RHBZ#858696).  We may also need to modify
-   * /etc/machine-info (RHBZ#890027).
-   *)
-  | "linux", "fedora", v when v >= 18 ->
-    update_etc_hostname ();
-    update_etc_machine_info ();
-    [ `Created_files ]
-  | "linux", ("rhel"|"centos"|"scientificlinux"|"redhat-based"), v when v >= 7 ->
-    update_etc_hostname ();
-    update_etc_machine_info ();
-    [ `Created_files ]
-  | "linux", ("debian"|"ubuntu"), _ ->
-    update_etc_hostname ();
-    [ `Created_files ]
-
-  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
-    replace_line_in_file "/etc/sysconfig/network" "HOSTNAME" !hostname;
-    [ `Created_files ]
-
-  | "linux", ("opensuse"|"sles"|"suse-based"), _ ->
-    g#write "/etc/HOSTNAME" !hostname;
-    [ `Created_files ]
-
-  | _ -> []
-
-let hostname_op = {
-  name = "hostname";
-  enabled_by_default = true;
-  heading = s_"Change the hostname of the guest";
-  pod_description = Some (s_"\
+    pod_description = Some (s_"\
 This operation changes the hostname of the guest to the value
 given in the I<--hostname> parameter.
 
 If the I<--hostname> parameter is not given, then the hostname is changed
 to C<localhost.localdomain>.");
-  extra_args = [
-    ("--hostname", Arg.Set_string hostname, s_"hostname" ^ " " ^ s_"New hostname"),
-    s_"\
+
+    pod_notes = Some (s_"\
+Currently this can only set the hostname on Linux guests.");
+
+    extra_args = [
+      { extra_argspec = "--hostname", Arg.Set_string hostname, s_"hostname" ^ " " ^ s_"New hostname";
+        extra_pod_argval = Some "HOSTNAME";
+        extra_pod_description = s_"\
 Change the hostname.  If not given, defaults to C<localhost.localdomain>."
-  ];
-  perform_on_filesystems = Some hostname_perform;
-  perform_on_devices = None;
+      }
+    ];
+
+    perform_on_filesystems = Some hostname_perform;
 }
 
-let () = register_operation hostname_op
+let () = register_operation op

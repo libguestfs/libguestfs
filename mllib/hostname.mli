@@ -1,5 +1,5 @@
 (* virt-sysprep
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2012-2014 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val add_firstboot_script : Guestfs.guestfs -> string -> string -> string -> unit
-  (** [add_firstboot_script g root id content] adds a firstboot
-      script called [shortname] containing [content].
-
-      NB. [content] is the contents of the script, {b not} a filename.
-
-      [id] should be a short name containing only 7 bit ASCII [-a-z0-9].
-
-      You should make sure the filesystem is relabelled after calling this. *)
+val set_hostname : Guestfs.guestfs -> string -> string -> bool
+(** Set the hostname in a guest.  Returns true if it was able to
+    do set it, false if not. *)

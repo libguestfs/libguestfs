@@ -47,14 +47,12 @@ let ca_certificates_perform g root =
   )
   else []
 
-let ca_certificates_op = {
-  name = "ca-certificates";
-  enabled_by_default = false;
-  heading = s_"Remove CA certificates in the guest";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some ca_certificates_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "ca-certificates";
+    enabled_by_default = false;
+    heading = s_"Remove CA certificates in the guest";
+    perform_on_filesystems = Some ca_certificates_perform;
 }
 
-let () = register_operation ca_certificates_op
+let () = register_operation op

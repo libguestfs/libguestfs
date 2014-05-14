@@ -43,14 +43,12 @@ let blkid_tab_perform g root =
   )
   else []
 
-let blkid_tab_op = {
-  name = "blkid-tab";
-  enabled_by_default = true;
-  heading = s_"Remove blkid tab in the guest";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some blkid_tab_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "blkid-tab";
+    enabled_by_default = true;
+    heading = s_"Remove blkid tab in the guest";
+    perform_on_filesystems = Some blkid_tab_perform;
 }
 
-let () = register_operation blkid_tab_op
+let () = register_operation op

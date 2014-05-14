@@ -43,16 +43,15 @@ let net_hwaddr_perform g root =
 
   | _ -> []
 
-let net_hwaddr_op = {
-  name = "net-hwaddr";
-  enabled_by_default = true;
-  heading = s_"Remove HWADDR (hard-coded MAC address) configuration";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "net-hwaddr";
+    enabled_by_default = true;
+    heading = s_"Remove HWADDR (hard-coded MAC address) configuration";
+    pod_description = Some (s_"\
 For Fedora and Red Hat Enterprise Linux,
 this is removed from C<ifcfg-*> files.");
-  extra_args = [];
-  perform_on_filesystems = Some net_hwaddr_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some net_hwaddr_perform;
 }
 
-let () = register_operation net_hwaddr_op
+let () = register_operation op

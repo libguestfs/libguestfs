@@ -30,11 +30,12 @@ let udev_persistent_net_perform g root =
   )
   else []
 
-let udev_persistent_net_op = {
-  name = "udev-persistent-net";
-  enabled_by_default = true;
-  heading = s_"Remove udev persistent net rules";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "udev-persistent-net";
+    enabled_by_default = true;
+    heading = s_"Remove udev persistent net rules";
+    pod_description = Some (s_"\
 Remove udev persistent net rules which map the guest's existing MAC
 address to a fixed ethernet device (eg. eth0).
 
@@ -42,9 +43,7 @@ After a guest is cloned, the MAC address usually changes.  Since the
 old MAC address occupies the old name (eg. eth0), this means the fresh
 MAC address is assigned to a new name (eg. eth1) and this is usually
 undesirable.  Erasing the udev persistent net rules avoids this.");
-  extra_args = [];
-  perform_on_filesystems = Some udev_persistent_net_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some udev_persistent_net_perform;
 }
 
-let () = register_operation udev_persistent_net_op
+let () = register_operation op

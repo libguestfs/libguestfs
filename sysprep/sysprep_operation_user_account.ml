@@ -58,16 +58,19 @@ let user_account_perform g root =
   )
   else []
 
-let user_account_op = {
-  name = "user-account";
-  enabled_by_default = false;
-  heading = s_"Remove the user accounts in the guest";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "user-account";
+    enabled_by_default = false;
+    heading = s_"Remove the user accounts in the guest";
+    pod_description = Some (s_"\
 Remove all the user accounts and their home directories.
 The \"root\" account is not removed.");
-  extra_args = [];
-  perform_on_filesystems = Some user_account_perform;
-  perform_on_devices = None;
+    pod_notes = Some (s_"\
+Currently this does not remove the user accounts from
+C</etc/shadow>.  This is because there is no lens for
+the shadow password file in Augeas.");
+    perform_on_filesystems = Some user_account_perform;
 }
 
-let () = register_operation user_account_op
+let () = register_operation op

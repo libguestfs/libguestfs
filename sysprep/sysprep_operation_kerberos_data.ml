@@ -40,14 +40,12 @@ let kerberos_data_perform g root =
   )
   else []
 
-let kerberos_data_op = {
-  name = "kerberos-data";
-  enabled_by_default = false;
-  heading = s_"Remove Kerberos data in the guest";
-  pod_description = None;
-  extra_args = [];
-  perform_on_filesystems = Some kerberos_data_perform;
-  perform_on_devices = None;
+let op = {
+  defaults with
+    name = "kerberos-data";
+    enabled_by_default = false;
+    heading = s_"Remove Kerberos data in the guest";
+    perform_on_filesystems = Some kerberos_data_perform;
 }
 
-let () = register_operation kerberos_data_op
+let () = register_operation op

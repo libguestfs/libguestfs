@@ -239,6 +239,12 @@ Makefile.in
 /m4/ltversion.m4
 /maint.mk
 /missing
+/mllib/.depend
+/mllib/common_gettext.ml
+/mllib/common_utils_tests
+/mllib/config.ml
+/mllib/dummy
+/mllib/libdir.ml
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml
@@ -338,8 +344,6 @@ Makefile.in
 /rescue/virt-rescue
 /rescue/virt-rescue.1
 /resize/.depend
-/resize/common_gettext.ml
-/resize/common_utils_tests
 /resize/stamp-virt-resize.pod
 /resize/virt-resize
 /resize/virt-resize.1

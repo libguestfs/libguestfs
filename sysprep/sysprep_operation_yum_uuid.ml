@@ -29,16 +29,15 @@ let yum_uuid_perform g root =
   )
   else []
 
-let yum_uuid_op = {
-  name = "yum-uuid";
-  enabled_by_default = true;
-  heading = s_"Remove the yum UUID";
-  pod_description = Some (s_"\
+let op = {
+  defaults with
+    name = "yum-uuid";
+    enabled_by_default = true;
+    heading = s_"Remove the yum UUID";
+    pod_description = Some (s_"\
 Yum creates a fresh UUID the next time it runs when it notices that the
 original UUID has been erased.");
-  extra_args = [];
-  perform_on_filesystems = Some yum_uuid_perform;
-  perform_on_devices = None;
+    perform_on_filesystems = Some yum_uuid_perform;
 }
 
-let () = register_operation yum_uuid_op
+let () = register_operation op

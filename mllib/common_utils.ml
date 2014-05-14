@@ -1,5 +1,5 @@
 (* Common utilities for OCaml tools in libguestfs.
- * Copyright (C) 2010-2013 Red Hat Inc.
+ * Copyright (C) 2010-2014 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,9 @@ let ( *^ ) = Int64.mul
 let ( /^ ) = Int64.div
 let ( &^ ) = Int64.logand
 let ( ~^ ) = Int64.lognot
+
+(* Return 'i' rounded up to the next multiple of 'a'. *)
+let roundup64 i a = let a = a -^ 1L in (i +^ a) &^ (~^ a)
 
 let int_of_le32 str =
   assert (String.length str = 4);
@@ -108,7 +111,8 @@ let rec replace_str s s1 s2 =
     s' ^ s2 ^ replace_str s'' s1 s2
   )
 
-let rec string_split sep str =
+(* Split a string into multiple strings at each separator. *)
+let rec string_nsplit sep str =
   let len = String.length str in
   let seplen = String.length sep in
   let i = string_find str sep in
@@ -116,7 +120,21 @@ let rec string_split sep str =
   else (
     let s' = String.sub str 0 i in
     let s'' = String.sub str (i+seplen) (len-i-seplen) in
-    s' :: string_split sep s''
+    s' :: string_nsplit sep s''
+  )
+
+(* Split a string at the first occurrence of the separator, returning
+ * the part before and the part after.  If separator is not found,
+ * return the whole string and an empty string.
+ *)
+let string_split sep str =
+  let len = String.length sep in
+  let seplen = String.length str in
+  let i = string_find str sep in
+
+  if i = -1 then str, ""
+  else (
+    String.sub str 0 i, String.sub str (i + len) (seplen - i - len)
   )
 
 let string_random8 =
@@ -131,13 +149,52 @@ let string_random8 =
       ) [1;2;3;4;5;6;7;8]
     )
 
-let error fs =
+(* Drop elements from a list while a predicate is true. *)
+let rec dropwhile f = function
+  | [] -> []
+  | x :: xs when f x -> dropwhile f xs
+  | xs -> xs
+
+(* Take elements from a list while a predicate is true. *)
+let rec takewhile f = function
+  | x :: xs when f x -> x :: takewhile f xs
+  | _ -> []
+
+let rec filter_map f = function
+  | [] -> []
+  | x :: xs ->
+      match f x with
+      | Some y -> y :: filter_map f xs
+      | None -> filter_map f xs
+
+let iteri f xs =
+  let rec loop i = function
+    | [] -> ()
+    | x :: xs -> f i x; loop (i+1) xs
+  in
+  loop 0 xs
+
+(* Timestamped progress messages, used for ordinary messages when not
+ * --quiet.
+ *)
+let start_t = Unix.time ()
+let make_message_function ~quiet fs =
+  let p str =
+    if not quiet then (
+      let t = sprintf "%.1f" (Unix.time () -. start_t) in
+      printf "[%6s] %s\n%!" t str
+    )
+  in
+  ksprintf p fs
+
+let error ~prog fs =
   let display str =
-    wrap ~chan:stderr (s_"virt-resize: error: " ^ str);
+    wrap ~chan:stderr (sprintf (f_"%s: error: %s") prog str);
     prerr_newline ();
     prerr_newline ();
     wrap ~chan:stderr
-      (s_"If reporting bugs, run virt-resize with the '-d' option and include the complete output.");
+      (sprintf (f_"%s: If reporting bugs, run %s with debugging enabled (-v) and include the complete output.")
+         prog prog);
     prerr_newline ();
     exit 1
   in
@@ -163,8 +220,30 @@ let read_whole_file path =
   close_in chan;
   Buffer.contents buf
 
-(* Parse the size field from --resize and --resize-force options. *)
+(* Parse a size field, eg. "10G". *)
 let parse_size =
+  let const_re = Str.regexp "^\\([.0-9]+\\)\\([bKMG]\\)$" in
+  fun ~prog field ->
+    let matches rex = Str.string_match rex field 0 in
+    let sub i = Str.matched_group i field in
+    let size_scaled f = function
+      | "b" -> Int64.of_float f
+      | "K" -> Int64.of_float (f *. 1024.)
+      | "M" -> Int64.of_float (f *. 1024. *. 1024.)
+      | "G" -> Int64.of_float (f *. 1024. *. 1024. *. 1024.)
+      | _ -> assert false
+    in
+
+    if matches const_re then (
+      size_scaled (float_of_string (sub 1)) (sub 2)
+    )
+    else
+      error ~prog "%s: cannot parse size field" field
+
+(* Parse a size field, eg. "10G", "+20%" etc.  Used particularly by
+ * virt-resize --resize and --resize-force options.
+ *)
+let parse_resize =
   let const_re = Str.regexp "^\\([.0-9]+\\)\\([bKMG]\\)$"
   and plus_const_re = Str.regexp "^\\+\\([.0-9]+\\)\\([bKMG]\\)$"
   and minus_const_re = Str.regexp "^-\\([.0-9]+\\)\\([bKMG]\\)$"
@@ -172,7 +251,7 @@ let parse_size =
   and plus_percent_re = Str.regexp "^\\+\\([.0-9]+\\)%$"
   and minus_percent_re = Str.regexp "^-\\([.0-9]+\\)%$"
   in
-  fun oldsize field ->
+  fun ~prog oldsize field ->
     let matches rex = Str.string_match rex field 0 in
     let sub i = Str.matched_group i field in
     let size_scaled f = function
@@ -207,7 +286,7 @@ let parse_size =
       oldsize -^ oldsize *^ percent /^ 1000L
     )
     else
-      error "virt-resize: %s: cannot parse size field" field
+      error ~prog "%s: cannot parse resize field" field
 
 let human_size i =
   let sign, i = if i < 0L then "-", Int64.neg i else "", i in
@@ -246,3 +325,86 @@ let skip_dashes str =
 
 let compare_command_line_args a b =
   compare (String.lowercase (skip_dashes a)) (String.lowercase (skip_dashes b))
+
+(* Implements `--long-options'. *)
+let long_options = ref ([] : (Arg.key * Arg.spec * Arg.doc) list)
+let display_long_options () =
+  List.iter (
+    fun (arg, _, _) ->
+      if string_prefix arg "--" && arg <> "--long-options" then
+        printf "%s\n" arg
+  ) !long_options;
+  exit 0
+
+(* Run an external command, slurp up the output as a list of lines. *)
+let external_command ~prog cmd =
+  let chan = Unix.open_process_in cmd in
+  let lines = ref [] in
+  (try while true do lines := input_line chan :: !lines done
+   with End_of_file -> ());
+  let lines = List.rev !lines in
+  let stat = Unix.close_process_in chan in
+  (match stat with
+  | Unix.WEXITED 0 -> ()
+  | Unix.WEXITED i ->
+    error ~prog (f_"external command '%s' exited with error %d") cmd i
+  | Unix.WSIGNALED i ->
+    error ~prog (f_"external command '%s' killed by signal %d") cmd i
+  | Unix.WSTOPPED i ->
+    error ~prog (f_"external command '%s' stopped by signal %d") cmd i
+  );
+  lines
+
+(* Run uuidgen to return a random UUID. *)
+let uuidgen ~prog () =
+  let lines = external_command ~prog "uuidgen -r" in
+  assert (List.length lines >= 1);
+  let uuid = List.hd lines in
+  let len = String.length uuid in
+  let uuid, len =
+    if len > 0 && uuid.[len-1] = '\n' then
+      String.sub uuid 0 (len-1), len-1
+    else
+      uuid, len in
+  if len < 10 then assert false; (* sanity check on uuidgen *)
+  uuid
+
+(* Unlink a temporary file on exit. *)
+let unlink_on_exit =
+  let files = ref [] in
+  let registered_handlers = ref false in
+
+  let rec unlink_files () =
+    List.iter (
+      fun file -> try Unix.unlink file with _ -> ()
+    ) !files
+  and register_handlers () =
+    (* Unlink on exit. *)
+    at_exit unlink_files
+  in
+
+  fun file ->
+    files := file :: !files;
+    if not !registered_handlers then (
+      register_handlers ();
+      registered_handlers := true
+    )
+
+(* Using the libguestfs API, recursively remove only files from the
+ * given directory.  Useful for cleaning /var/cache etc in sysprep
+ * without removing the actual directory structure.  Also if 'dir' is
+ * not a directory or doesn't exist, ignore it.
+ *
+ * XXX Could be faster with a specific API for doing this.
+ *)
+let rm_rf_only_files (g : Guestfs.guestfs) dir =
+  if g#is_dir dir then (
+    let files = Array.map (Filename.concat dir) (g#find dir) in
+    let files = Array.to_list files in
+    let files = List.filter g#is_file files in
+    List.iter g#rm files
+  )
+
+let is_char_device file =
+  try (Unix.stat file).Unix.st_kind = Unix.S_CHR
+  with Unix.Unix_error _ -> false
