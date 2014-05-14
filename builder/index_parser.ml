@@ -40,6 +40,7 @@ and entry = {
   hidden : bool;
 
   sigchecker : Sigchecker.t;
+  proxy : Downloader.proxy_mode;
 }
 
 let print_entry chan (name, { printable_name = printable_name;
@@ -259,6 +260,7 @@ let get_index ~prog ~debug ~downloader ~sigchecker ~proxy source =
                         lvexpand = lvexpand;
                         notes = notes;
                         hidden = hidden;
+                        proxy = proxy;
                         sigchecker = sigchecker } in
           n, entry
       ) sections in
