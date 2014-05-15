@@ -37,6 +37,7 @@
 ../lua/examples/guestfs-lua.pod
 ../make-fs/virt-make-fs.pod
 ../ocaml/examples/guestfs-ocaml.pod
+../p2v/virt-p2v.pod
 ../perl/examples/guestfs-perl.pod
 ../python/examples/guestfs-python.pod
 ../rescue/virt-rescue.pod
@@ -55,3 +56,4 @@
 ../tools/virt-list-partitions
 ../tools/virt-tar
 ../tools/virt-win-reg
+../v2v/virt-v2v.pod
