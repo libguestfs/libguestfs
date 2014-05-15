@@ -4374,6 +4374,10 @@ the other tools which are written in OCaml.
 
 L<virt-p2v(1)> command and documentation.
 
+=item C<p2v-iso>
+
+Scripts for building the virt-p2v ISO or disk image.
+
 =item C<po>
 
 Translations of simple gettext strings.

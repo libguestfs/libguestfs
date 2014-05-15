@@ -1,0 +1,14 @@
+virt-p2v - Convert a physical machine to use KVM.
+
+***
+The root password is "p2v" (without quotes).
+
+If virt-p2v is not running, you can start it by typing:
+
+                launch-virt-p2v
+
+If virt-p2v didn't start automatically, look for logs:
+
+                systemctl status p2v -l
+***
+

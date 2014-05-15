@@ -82,7 +82,7 @@ SUBDIRS += fish
 # virt-tools in C.
 SUBDIRS += align cat diff df edit format inspector make-fs rescue
 if HAVE_P2V
-SUBDIRS += p2v
+SUBDIRS += p2v p2v-iso
 endif
 
 # bash-completion
