@@ -17,7 +17,7 @@ OCaml tips:
 (1) In emacs, install tuareg-mode to display and format OCaml code
 correctly.  'vim' comes with a good OCaml editing mode by default.
 
-(2) Read the resources at http://ocaml-tutorial.org/
+(2) Read the resources at http://ocaml.org/learn/
 
 (3) A module called 'Foo' is defined in one or two files called
 'foo.mli' and 'foo.ml' (NB: lowercase first letter).  The *.mli file,
