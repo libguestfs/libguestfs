@@ -48,7 +48,7 @@ DISTRO=@DISTRO@
 # Note that it doesn't require libguestfs, which simplifies things.
 case "@DISTRO@" in
     REDHAT)
-        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drv-*,xorg-x11-fonts-Type1
+        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1
         selinux_relabel=--selinux-relabel
         ;;
     DEBIAN|UBUNTU)
