@@ -62,6 +62,11 @@ case "@DISTRO@" in
         exit 1
 esac
 
+# Deal with stupid autotools libexecdir-not-expandable crap.
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+libexecdir="@libexecdir@"
+
 # Run virt-builder.  Note we controversially assume systemd here.  We
 # could provide a sysvinit fallback if required.
 virt-builder "$OSVERSION" \
@@ -69,10 +74,11 @@ virt-builder "$OSVERSION" \
     --update \
     --install $deps \
     --root-password password:p2v \
-    --upload $srcdir/issue:/etc/issue \
-    --upload $srcdir/issue:/etc/issue.net \
-    --upload ../p2v/virt-p2v:/usr/bin/ \
-    --upload $srcdir/launch-virt-p2v:/usr/bin/ \
+    --upload "$srcdir"/issue:/etc/issue \
+    --upload "$srcdir"/issue:/etc/issue.net \
+    --mkdir "$libexecdir" \
+    --upload ../p2v/virt-p2v:"$libexecdir" \
+    --upload "$srcdir"/launch-virt-p2v:/usr/bin/ \
     --upload p2v.service:/etc/systemd/system/ \
     --mkdir /etc/systemd/system/default.target.wants \
     --link /etc/systemd/system/p2v.service:/etc/systemd/system/default.target.wants/p2v.service \

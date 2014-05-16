@@ -318,6 +318,7 @@ Makefile.in
 /p2v/stamp-virt-p2v.pod
 /p2v/virt-p2v
 /p2v/virt-p2v.1
+/p2v-iso/launch-virt-p2v
 /p2v-iso/virt-builder-target.sh
 /perl/bindtests.pl
 /perl/blib

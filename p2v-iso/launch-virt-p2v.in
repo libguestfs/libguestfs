@@ -1,4 +1,5 @@
 #!/bin/bash -
+# @configure_input@
 # (C) Copyright 2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,4 +19,4 @@
 # This normally runs from systemd which deals with logging.
 
 cd /
-xinit /usr/bin/virt-p2v
+xinit @libexecdir@/virt-p2v

@@ -23,10 +23,11 @@ EXTRA_DIST = \
 CLEANFILES = stamp-virt-p2v.pod
 
 # Although virt-p2v is a regular binary, it is not usually installed
-# since it only functions when contained in an ISO or PXE image which
-# is used to boot the physical machine (since otherwise virt-p2v would
-# not be able to get a consistent snapshot of the physical disks).
-noinst_PROGRAMS = virt-p2v
+# in /usr/bin since it only functions when contained in an ISO or PXE
+# image which is used to boot the physical machine (since otherwise
+# virt-p2v would not be able to get a consistent snapshot of the
+# physical disks).
+libexec_PROGRAMS = virt-p2v
 
 # Note that miniexpect comes from here:
 # http://git.annexia.org/?p=miniexpect.git;a=summary

@@ -20,11 +20,18 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	README \
 	issue \
-	launch-virt-p2v \
+	launch-virt-p2v.in \
 	p2v.service \
 	virt-builder-target.sh.in
 
 # You need to read the README file before trying any of these targets.
 
-virt-builder-target: virt-builder-target.sh
+virt-builder-target: virt-builder-target.sh launch-virt-p2v
 	srcdir=$(srcdir) $(top_builddir)/run ./virt-builder-target.sh
+
+# Deal with stupid autotools libexecdir-not-expandable crap.
+launch-virt-p2v: launch-virt-p2v.in
+	rm -f $@ $@-t
+	sed 's,@''libexecdir@,$(libexecdir),g' < $< > $@-t
+	chmod 0555 $@-t
+	mv $@-t $@
