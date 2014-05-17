@@ -645,12 +645,12 @@ let main () =
 
       Some (
         String.concat "\n" [
-          sprintf (f_"Output: %s") output_filename;
-          sprintf (f_"Output size: %s") (human_size output_size);
-          sprintf (f_"Output format: %s") output_format;
-          sprintf (f_"Total usable space: %s")
+          sprintf "%30s: %s" (s_"Output file") output_filename;
+          sprintf "%30s: %s" (s_"Output size") (human_size output_size);
+          sprintf "%30s: %s" (s_"Output format") output_format;
+          sprintf "%30s: %s" (s_"Total usable space")
             (human_size total_bytes);
-          sprintf (f_"Free space: %s (%Ld%%)")
+          sprintf "%30s: %s (%Ld%%)" (s_"Free space")
             (human_size free_bytes) free_percent;
         ] ^ "\n"
       )
