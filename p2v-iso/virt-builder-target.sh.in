@@ -16,6 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+unset CDPATH
+set -e
+
 if [ -z "$OUTPUT" ]; then
     echo "$0: You didn't set the output file or device (OUTPUT). Read the README file!"
     exit 1
