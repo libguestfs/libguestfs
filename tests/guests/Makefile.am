@@ -65,9 +65,9 @@ display = \
 	-@echo -n '$(1): file size bytes: '; \
 	stat -c %s $(1); \
 	echo -n '$(1): allocated bytes: '; \
-	du -B 1 $(1) | awk '{print $$1}'; \
+	du -B 1 $(1) | $(AWK) '{print $$1}'; \
 	echo -n '$(1): MD5 hash:        '; \
-	md5sum $(1) | awk '{print $$1}'
+	md5sum $(1) | $(AWK) '{print $$1}'
 
 # Make several different blank images.  These are not guests, but we
 # include them in the libvirt fake XML to make sure that virt-df and

@@ -91,6 +91,17 @@ AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number.])
 AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number.])
 AC_DEFINE_UNQUOTED([PACKAGE_VERSION_EXTRA],["$libguestfs_extra"],[Extra version string.])
 
+# Define $(SED).
+m4_ifdef([AC_PROG_SED],[
+    AC_PROG_SED
+],[
+    dnl ... else hope for the best
+    AC_SUBST([SED], "sed")
+])
+
+# Define $(AWK).
+AC_PROG_AWK
+
 dnl Default backend.
 AC_MSG_CHECKING([if the user specified a default backend])
 AC_ARG_WITH([default-backend],
@@ -117,14 +128,6 @@ gl_INIT
 
 AC_PROG_LIBTOOL
 AC_PROG_LN_S
-
-# Define $(SED).
-m4_ifdef([AC_PROG_SED],[
-    AC_PROG_SED
-],[
-    dnl ... else hope for the best
-    AC_SUBST([SED], "sed")
-])
 
 dnl Check for basic C environment.
 AC_PROG_CC_STDC
@@ -492,8 +495,8 @@ if test "x$ENABLE_APPLIANCE" = "xyes"; then
     AC_MSG_CHECKING([supermin is new enough])
     $SUPERMIN --version >&AS_MESSAGE_LOG_FD 2>&1 ||
         AC_MSG_ERROR([supermin >= $supermin_min must be installed, your version is too old])
-    supermin_major="`$SUPERMIN --version | awk '{print $2}' | awk -F. '{print $1}'`"
-    supermin_minor="`$SUPERMIN --version | awk '{print $2}' | awk -F. '{print $2}'`"
+    supermin_major="`$SUPERMIN --version | $AWK '{print $2}' | $AWK -F. '{print $1}'`"
+    supermin_minor="`$SUPERMIN --version | $AWK '{print $2}' | $AWK -F. '{print $2}'`"
     AC_MSG_RESULT([$supermin_major.$supermin_minor])
 
     if test "$supermin_major" -lt "$supermin_major_min" || \
@@ -1357,9 +1360,9 @@ if test "x$with_java" != "xno"; then
         fi
 
         dnl JNI version.
-        jni_major_version=`echo "$VERSION" | awk -F. '{print $1}'`
-        jni_minor_version=`echo "$VERSION" | awk -F. '{print $2}'`
-        jni_micro_version=`echo "$VERSION" | awk -F. '{print $3}'`
+        jni_major_version=`echo "$VERSION" | $AWK -F. '{print $1}'`
+        jni_minor_version=`echo "$VERSION" | $AWK -F. '{print $2}'`
+        jni_micro_version=`echo "$VERSION" | $AWK -F. '{print $3}'`
         JNI_VERSION_INFO=`expr "$jni_major_version" + "$jni_minor_version"`":$jni_micro_version:$jni_minor_version"
     fi
 
@@ -1431,7 +1434,7 @@ AS_IF([test "x$enable_lua" != "xno"],[
     AC_CHECK_PROG([LUA],[lua],[lua],[no])
     AS_IF([test "x$LUA" != "xno"],[
         AC_MSG_CHECKING([for Lua version])
-        LUA_VERSION=`$LUA -e 'print(_VERSION)' | awk '{print $2}'`
+        LUA_VERSION=`$LUA -e 'print(_VERSION)' | $AWK '{print $2}'`
         AC_MSG_RESULT([$LUA_VERSION])
         dnl On Debian it's 'lua5.1', 'lua5.2' etc.  On Fedora, just 'lua'.
         PKG_CHECK_MODULES([LUA], [lua$LUA_VERSION],[

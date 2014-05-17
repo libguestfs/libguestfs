@@ -196,7 +196,7 @@ export G_DEBUG=gc-friendly
 
 # This is a cheap way to find some use-after-free and uninitialized
 # read problems when using glibc.
-random_val="$(awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)"
+random_val="$(@AWK@ 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)"
 export MALLOC_PERTURB_=$random_val
 
 # Do we have libtool?  If we have it then we can use it to make
