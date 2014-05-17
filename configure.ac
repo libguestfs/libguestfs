@@ -102,26 +102,6 @@ m4_ifdef([AC_PROG_SED],[
 # Define $(AWK).
 AC_PROG_AWK
 
-dnl Default backend.
-AC_MSG_CHECKING([if the user specified a default backend])
-AC_ARG_WITH([default-backend],
-    [AS_HELP_STRING([--with-default-backend="direct|libvirt|..."],
-        [set default backend @<:@default=direct@:>@])],
-    [DEFAULT_BACKEND="$withval"],
-    [DEFAULT_BACKEND=direct])
-AC_MSG_RESULT([$DEFAULT_BACKEND])
-AC_DEFINE_UNQUOTED([DEFAULT_BACKEND],["$DEFAULT_BACKEND"],
-                   [Default backend.])
-
-dnl Fail with error if user does --with-default-attach-method.
-AC_ARG_WITH([default-attach-method],
-    [AS_HELP_STRING([--with-default-attach-method="..."],
-        [use --with-default-backend instead])],
-    [AC_MSG_FAILURE([--with-default-attach-method no longer works in
-this version of libguestfs, use
-  ./configure --with-default-backend=$withval
-instead.])])
-
 dnl Early gnulib initialization.
 gl_EARLY
 gl_INIT
@@ -363,6 +343,26 @@ fi
 AC_MSG_RESULT([$msgfmt_is_gnu])
 AM_CONDITIONAL([HAVE_GNU_GETTEXT],
     [test "x$XGETTEXT" != "xno" && test "x$MSGCAT" != "xno" && test "x$MSGFMT" != "xno" && test "x$MSGMERGE" != "xno" && test "x$msgfmt_is_gnu" != "xno"])
+
+dnl Default backend.
+AC_MSG_CHECKING([if the user specified a default backend])
+AC_ARG_WITH([default-backend],
+    [AS_HELP_STRING([--with-default-backend="direct|libvirt|..."],
+        [set default backend @<:@default=direct@:>@])],
+    [DEFAULT_BACKEND="$withval"],
+    [DEFAULT_BACKEND=direct])
+AC_MSG_RESULT([$DEFAULT_BACKEND])
+AC_DEFINE_UNQUOTED([DEFAULT_BACKEND],["$DEFAULT_BACKEND"],
+                   [Default backend.])
+
+dnl Fail with error if user does --with-default-attach-method.
+AC_ARG_WITH([default-attach-method],
+    [AS_HELP_STRING([--with-default-attach-method="..."],
+        [use --with-default-backend instead])],
+    [AC_MSG_FAILURE([--with-default-attach-method no longer works in
+this version of libguestfs, use
+  ./configure --with-default-backend=$withval
+instead.])])
 
 dnl Build the daemon?
 AC_MSG_CHECKING([if we should build the daemon])
