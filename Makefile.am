@@ -225,6 +225,7 @@ HTMLFILES = \
 	html/guestfs-java.3.html \
 	html/guestfs-lua.3.html \
 	html/guestfs-ocaml.3.html \
+	html/guestfs-p2v-iso.1.html \
 	html/guestfs-performance.1.html \
 	html/guestfs-perl.3.html \
 	html/guestfs-python.3.html \

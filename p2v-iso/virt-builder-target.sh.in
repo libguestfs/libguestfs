@@ -20,12 +20,14 @@ unset CDPATH
 set -e
 
 if [ -z "$OUTPUT" ]; then
-    echo "$0: You didn't set the output file or device (OUTPUT). Read the README file!"
+    echo "$0: You didn't set the output file or device (OUTPUT)."
+    echo "Read guestfs-p2v-iso.txt!"
     exit 1
 fi
 
 if [ -z "$OSVERSION" ]; then
-    echo "$0: You didn't set OSVERSION. Read the README file!"
+    echo "$0: You didn't set OSVERSION."
+    echo "Read guestfs-p2v-iso.txt!"
     exit 1
 fi
 
