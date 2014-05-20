@@ -49,20 +49,11 @@ run_supported (const char *cmd, size_t argc, char *argv[])
   }
 
   for (i = 0; groups[i] != NULL; ++i) {
-    size_t l = strlen (groups[i]);
-    size_t j;
-    for (j = 0; j < len-l; ++j)
-      putchar (' ');
-    printf ("%s", groups[i]);
-    putchar (' ');
-
     char *gg[] = { groups[i], NULL };
     int r = guestfs_available (g, gg);
-    if (r == 0)
-      printf ("%s", _("yes"));
-    else
-      printf ("%s", _("no"));
-    putchar ('\n');
+    const char *str = r == 0 ? _("yes") : _("no");
+
+    printf ("%*s %s\n", (int) len, groups[i], str);
   }
 
   /* Restore error handler. */
