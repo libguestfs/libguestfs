@@ -101,7 +101,7 @@ flag to leave space in the filesystem if you want it.
 An alternative way to leave extra space but not make the output image
 any bigger is to use an alternative disk image format (instead of the
 default "raw" format).  Using I<--format=qcow2> will use the native
-QEmu/KVM qcow2 image format (check your hypervisor supports this
+qemu/KVM qcow2 image format (check your hypervisor supports this
 before using it).  This allows you to choose a large I<--size> but the
 extra space won't actually be allocated in the image until you try to
 store something in it.
