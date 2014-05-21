@@ -27,6 +27,7 @@ open Actions
  * list of functions.
  *)
 let optgroups_retired = [
+  "realpath";
 ]
 
 (* Create list of optional groups. *)

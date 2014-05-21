@@ -308,7 +308,6 @@ AC_CHECK_FUNCS([\
     ntohs \
     posix_fallocate \
     posix_fadvise \
-    realpath \
     removexattr \
     setitimer \
     setxattr \

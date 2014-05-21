@@ -33,14 +33,6 @@
 #include "optgroups.h"
 #include "actions.h"
 
-#ifdef HAVE_REALPATH
-
-int
-optgroup_realpath_available (void)
-{
-  return 1;
-}
-
 char *
 do_realpath (const char *path)
 {
@@ -56,12 +48,6 @@ do_realpath (const char *path)
 
   return ret;			/* caller frees */
 }
-
-#else /* !HAVE_REALPATH */
-
-OPTGROUP_REALPATH_NOT_AVAILABLE
-
-#endif /* !HAVE_REALPATH */
 
 static int find_path_element (int fd_cwd, int is_end, const char *name, char **name_ret);
 

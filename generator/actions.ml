@@ -6665,7 +6665,6 @@ matching lines." };
     name = "realpath";
     style = RString "rpath", [Pathname "path"], [];
     proc_nr = Some 163;
-    optional = Some "realpath";
     tests = [
       InitISOFS, Always, TestResultString (
         [["realpath"; "/../directory"]], "/directory"), []
