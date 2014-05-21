@@ -58,8 +58,11 @@ do_scrub_file (const char *file)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  /* Make the path relative to /sysroot. */
-  buf = sysroot_path (file);
+  /* Resolve the path to the file, and make the result relative to /sysroot.
+   * If it fails, then the file most probably does not exist or "file" is
+   * a symlink pointing outside the chroot.
+   */
+  buf = sysroot_realpath (file);
   if (!buf) {
     reply_with_perror ("malloc");
     return -1;

@@ -5141,7 +5141,18 @@ manual page for more details." };
     tests = [
       InitScratchFS, Always, TestRun (
         [["write"; "/scrub_file"; "content"];
-         ["scrub_file"; "/scrub_file"]])
+         ["scrub_file"; "/scrub_file"]]);
+      InitScratchFS, Always, TestRun (
+        [["write"; "/scrub_file_2"; "content"];
+         ["ln_s"; "/scrub_file_2"; "/scrub_file_2_link"];
+         ["scrub_file"; "/scrub_file_2_link"]]);
+      InitScratchFS, Always, TestLastFail (
+        [["ln_s"; "/scrub_file_3_notexisting"; "/scrub_file_3_link"];
+         ["scrub_file"; "/scrub_file_3_link"]]);
+      InitScratchFS, Always, TestLastFail (
+        [["write"; "/scrub_file_4"; "content"];
+         ["ln_s"; "../sysroot/scrub_file_4"; "/scrub_file_4_link"];
+         ["scrub_file"; "/scrub_file_4_link"]]);
     ];
     shortdesc = "scrub (securely wipe) a file";
     longdesc = "\
