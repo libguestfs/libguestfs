@@ -392,6 +392,27 @@ sysroot_path (const char *path)
   return r;
 }
 
+/* Resolve path within sysroot, calling sysroot_path on the resolved path.
+ *
+ * Caller must check for NULL and call reply_with_perror ("malloc/realpath")
+ * if it is.  Caller must also free the string.
+ *
+ * See also the custom %R printf formatter which does shell quoting too.
+ */
+char *
+sysroot_realpath (const char *path)
+{
+  CLEANUP_FREE char *rp = NULL;
+
+  CHROOT_IN;
+  rp = realpath (path, NULL);
+  CHROOT_OUT;
+  if (rp == NULL)
+    return NULL;
+
+  return sysroot_path (rp);
+}
+
 int
 xwrite (int sock, const void *v_buf, size_t len)
 {

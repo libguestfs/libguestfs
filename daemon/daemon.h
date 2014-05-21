@@ -41,6 +41,7 @@ extern const char *sysroot;
 extern size_t sysroot_len;
 
 extern char *sysroot_path (const char *path);
+extern char *sysroot_realpath (const char *path);
 
 extern int is_root_device (const char *device);
 
