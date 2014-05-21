@@ -713,11 +713,27 @@ and generate_daemon_optgroups_c () =
   pr "#include \"optgroups.h\"\n";
   pr "\n";
 
+  if optgroups_retired <> [] then (
+    pr "static int\n";
+    pr "dummy_available (void)\n";
+    pr "{\n";
+    pr "  return 1;\n";
+    pr "}\n";
+    pr "\n";
+
+    List.iter (
+      fun group ->
+        pr "#define optgroup_%s_available dummy_available\n" group;
+    ) optgroups_retired;
+
+    pr "\n";
+  );
+
   pr "struct optgroup optgroups[] = {\n";
   List.iter (
-    fun (group, _) ->
+    fun group ->
       pr "  { \"%s\", optgroup_%s_available },\n" group group
-  ) optgroups;
+  ) optgroups_names_all;
   pr "  { NULL, NULL }\n";
   pr "};\n"
 
@@ -729,9 +745,9 @@ and generate_daemon_optgroups_h () =
   pr "\n";
 
   List.iter (
-    fun (group, _) ->
+    fun group ->
       pr "extern int optgroup_%s_available (void);\n" group
-  ) optgroups;
+  ) optgroups_names;
 
   pr "\n";
 

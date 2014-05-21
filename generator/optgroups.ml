@@ -19,7 +19,15 @@
 (* Please read generator/README first. *)
 
 open Types
+open Utils
 open Actions
+
+(* The list of optional groups which need to be in the daemon as always
+ * available.  These are "retired" as they no longer appear in the
+ * list of functions.
+ *)
+let optgroups_retired = [
+]
 
 (* Create list of optional groups. *)
 let optgroups =
@@ -42,3 +50,17 @@ let optgroups =
         group, fns
     ) groups in
   List.sort (fun x y -> compare (fst x) (fst y)) groups
+
+let optgroups_names =
+  fst (List.split optgroups)
+
+let optgroups_names_all =
+  List.sort compare (optgroups_names @ optgroups_retired)
+
+let () =
+  let file = "generator/optgroups.ml" in
+  List.iter (
+    fun x ->
+      if List.mem x optgroups_names then
+        failwithf "%s: optgroups_retired list contains optgroup with functions (%s)" file x
+  ) optgroups_retired
