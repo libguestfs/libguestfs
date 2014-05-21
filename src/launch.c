@@ -302,10 +302,12 @@ guestfs__config (guestfs_h *g,
  * Note that this returns a newly allocated buffer which must be freed
  * by the caller.
  */
-#if defined(__arm__)
-#define SERIAL_CONSOLE "ttyAMA0"
+#if defined(__powerpc64__)
+#define SERIAL_CONSOLE "console=hvc0 console=ttyS0"
+#elif defined(__arm__)
+#define SERIAL_CONSOLE "console=ttyAMA0"
 #else
-#define SERIAL_CONSOLE "ttyS0"
+#define SERIAL_CONSOLE "console=ttyS0"
 #endif
 
 char *
@@ -339,7 +341,7 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
 #ifdef __i386__
      " noapic"                  /* workaround for RHBZ#857026 */
 #endif
-     " console=" SERIAL_CONSOLE /* serial console */
+     " " SERIAL_CONSOLE /* serial console */
      " udevtimeout=600" /* good for very slow systems (RHBZ#480319) */
      " no_timer_check"  /* fix for RHBZ#502058 */
      "%s"               /* lpj */
