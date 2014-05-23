@@ -41,6 +41,7 @@
 
 #include "options.h"
 
+static int write_pipe_fd (int fd);
 static int write_pid_file (const char *pid_file, pid_t pid);
 
 #ifndef HAVE_FUSE_OPT_ADD_OPT_ESCAPED
@@ -111,6 +112,7 @@ usage (int status)
              "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
              "  -d|--domain guest    Add disks from libvirt guest\n"
              "  --echo-keys          Don't turn off echo for passphrases\n"
+             "  --fd=FD              Write to pipe FD when mountpoint is ready\n"
              "  --format[=raw|..]    Force disk format for -a option\n"
              "  --fuse-help          Display extra FUSE options\n"
              "  -i|--inspector       Automatically mount filesystems\n"
@@ -155,6 +157,7 @@ main (int argc, char *argv[])
     { "dir-cache-timeout", 1, 0, 0 },
     { "domain", 1, 0, 'd' },
     { "echo-keys", 0, 0, 0 },
+    { "fd", 1, 0, 0 },
     { "format", 2, 0, 0 },
     { "fuse-help", 0, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
@@ -190,6 +193,7 @@ main (int argc, char *argv[])
   int do_fork = 1;
   char *fuse_options = NULL;
   char *pid_file = NULL;
+  int pipe_fd = -1;
 
   struct guestfs_mount_local_argv optargs;
 
@@ -237,6 +241,12 @@ main (int argc, char *argv[])
         pid_file = optarg;
       } else if (STREQ (long_options[option_index].name, "no-fork")) {
         do_fork = 0;
+      } else if (STREQ (long_options[option_index].name, "fd")) {
+        if (sscanf (optarg, "%d", &pipe_fd) != 1 || pipe_fd < 0) {
+          fprintf (stderr, _("%s: unable to parse --fd option value: %s\n"),
+                   program_name, optarg);
+          exit (EXIT_FAILURE);
+        }
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -413,6 +423,8 @@ main (int argc, char *argv[])
     if (pid != 0) {             /* parent */
       if (write_pid_file (pid_file, pid) == -1)
         _exit (EXIT_FAILURE);
+      if (write_pipe_fd (pipe_fd) == -1)
+        _exit (EXIT_FAILURE);
 
       _exit (EXIT_SUCCESS);
     }
@@ -435,8 +447,10 @@ main (int argc, char *argv[])
     }
   }
   else {
-    /* not forking, write PID file anyway */
+    /* not forking, write PID file and pipe FD anyway */
     if (write_pid_file (pid_file, getpid ()) == -1)
+      exit (EXIT_FAILURE);
+    if (write_pipe_fd (pipe_fd) == -1)
       exit (EXIT_FAILURE);
   }
 
@@ -484,6 +498,27 @@ write_pid_file (const char *pid_file, pid_t pid)
 
   if (fclose (fp) == -1)
     goto error;
+
+  return 0;
+}
+
+static int
+write_pipe_fd (int fd)
+{
+  char c = 0;
+
+  if (fd < 0)
+    return 0;
+
+  if (write (fd, &c, 1) != 1) {
+    perror ("write (--fd option)");
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    perror ("close (--fd option)");
+    return -1;
+  }
 
   return 0;
 }

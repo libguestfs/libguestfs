@@ -212,6 +212,13 @@ echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room
 you can specify this flag to see what you are typing.
 
+=item B<--fd=FD>
+
+Specify a pipe or eventfd file descriptor.  When the mountpoint is
+ready to be used, guestmount writes a single byte to this file
+descriptor.  This can be used in conjunction with I<--no-fork> in
+order to run guestmount captive under another process.
+
 =item B<--format=raw|qcow2|..>
 
 =item B<--format>
