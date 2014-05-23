@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-05-15 22:59+0200\n"
+"POT-Creation-Date: 2014-05-23 10:44+0200\n"
 "PO-Revision-Date: 2014-03-26 16:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/fedora/language/"
@@ -41,13 +41,14 @@ msgstr ""
 #: ../guestfs-release-notes.pod:1 ../inspector/virt-inspector.pod:1
 #: ../java/examples/guestfs-java.pod:1 ../lua/examples/guestfs-lua.pod:1
 #: ../make-fs/virt-make-fs.pod:1 ../ocaml/examples/guestfs-ocaml.pod:1
-#: ../p2v/virt-p2v.pod:1 ../perl/examples/guestfs-perl.pod:1
-#: ../python/examples/guestfs-python.pod:1 ../rescue/virt-rescue.pod:1
-#: ../resize/virt-resize.pod:1 ../ruby/examples/guestfs-ruby.pod:1
-#: ../sparsify/virt-sparsify.pod:1 ../src/guestfs.pod:1
-#: ../sysprep/virt-sysprep.pod:1 ../test-tool/libguestfs-test-tool.pod:1
-#: ../tools/virt-list-filesystems:27 ../tools/virt-list-partitions:27
-#: ../tools/virt-tar:28 ../tools/virt-win-reg:32 ../v2v/virt-v2v.pod:1
+#: ../p2v-iso/guestfs-p2v-iso.pod:1 ../p2v/virt-p2v.pod:1
+#: ../perl/examples/guestfs-perl.pod:1 ../python/examples/guestfs-python.pod:1
+#: ../rescue/virt-rescue.pod:1 ../resize/virt-resize.pod:1
+#: ../ruby/examples/guestfs-ruby.pod:1 ../sparsify/virt-sparsify.pod:1
+#: ../src/guestfs.pod:1 ../sysprep/virt-sysprep.pod:1
+#: ../test-tool/libguestfs-test-tool.pod:1 ../tools/virt-list-filesystems:27
+#: ../tools/virt-list-partitions:27 ../tools/virt-tar:28
+#: ../tools/virt-win-reg:32 ../v2v/virt-v2v.pod:1
 msgid "NAME"
 msgstr "名前"
 
@@ -1351,52 +1352,60 @@ msgstr "このプログラムは以下を返します:"
 #: ../guestfs-release-notes.pod:1179 ../guestfs-release-notes.pod:1375
 #: ../guestfs-release-notes.pod:1380 ../guestfs-release-notes.pod:1385
 #: ../inspector/virt-inspector.pod:512 ../inspector/virt-inspector.pod:516
-#: ../resize/virt-resize.pod:371 ../resize/virt-resize.pod:375
-#: ../resize/virt-resize.pod:384 ../resize/virt-resize.pod:390
-#: ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50
-#: ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64
-#: ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75
-#: ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141
-#: ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150
-#: ../src/guestfs-actions.pod:1023 ../src/guestfs-actions.pod:1029
-#: ../src/guestfs-actions.pod:1037 ../src/guestfs-actions.pod:1044
-#: ../src/guestfs-actions.pod:1051 ../src/guestfs-actions.pod:3312
-#: ../src/guestfs-actions.pod:3316 ../src/guestfs-actions.pod:3320
-#: ../src/guestfs-actions.pod:3324 ../src/guestfs-actions.pod:3332
-#: ../src/guestfs-actions.pod:3336 ../src/guestfs-actions.pod:3340
-#: ../src/guestfs-actions.pod:3350 ../src/guestfs-actions.pod:3354
-#: ../src/guestfs-actions.pod:3358 ../src/guestfs-actions.pod:3533
-#: ../src/guestfs-actions.pod:3537 ../src/guestfs-actions.pod:3542
-#: ../src/guestfs-actions.pod:3603 ../src/guestfs-actions.pod:3607
-#: ../src/guestfs-actions.pod:3612 ../src/guestfs-actions.pod:4503
-#: ../src/guestfs-actions.pod:4510 ../src/guestfs-actions.pod:4517
-#: ../src/guestfs-actions.pod:5392 ../src/guestfs-actions.pod:5398
-#: ../src/guestfs-actions.pod:5406 ../src/guestfs-actions.pod:5413
-#: ../src/guestfs-actions.pod:5420 ../src/guestfs.pod:396
-#: ../src/guestfs.pod:401 ../src/guestfs.pod:406 ../src/guestfs.pod:410
-#: ../src/guestfs.pod:415 ../src/guestfs.pod:419 ../src/guestfs.pod:424
-#: ../src/guestfs.pod:429 ../src/guestfs.pod:780 ../src/guestfs.pod:787
-#: ../src/guestfs.pod:793 ../src/guestfs.pod:799 ../src/guestfs.pod:805
-#: ../src/guestfs.pod:810 ../src/guestfs.pod:816 ../src/guestfs.pod:1044
-#: ../src/guestfs.pod:1048 ../src/guestfs.pod:1054 ../src/guestfs.pod:1137
-#: ../src/guestfs.pod:1142 ../src/guestfs.pod:1146 ../src/guestfs.pod:1152
-#: ../src/guestfs.pod:1156 ../src/guestfs.pod:1160 ../src/guestfs.pod:1165
-#: ../src/guestfs.pod:1734 ../src/guestfs.pod:1738 ../src/guestfs.pod:1742
-#: ../src/guestfs.pod:1747 ../src/guestfs.pod:1755 ../src/guestfs.pod:1774
-#: ../src/guestfs.pod:1782 ../src/guestfs.pod:1799 ../src/guestfs.pod:1804
-#: ../src/guestfs.pod:1808 ../src/guestfs.pod:1997 ../src/guestfs.pod:2001
-#: ../src/guestfs.pod:2005 ../src/guestfs.pod:2009 ../src/guestfs.pod:2013
-#: ../src/guestfs.pod:2017 ../src/guestfs.pod:2673 ../src/guestfs.pod:2678
-#: ../src/guestfs.pod:2682 ../src/guestfs.pod:2786 ../src/guestfs.pod:2791
-#: ../src/guestfs.pod:2795 ../src/guestfs.pod:2805 ../src/guestfs.pod:3236
-#: ../src/guestfs.pod:3241 ../src/guestfs.pod:3247 ../src/guestfs.pod:3255
-#: ../src/guestfs.pod:3772 ../src/guestfs.pod:3778 ../src/guestfs.pod:3783
-#: ../src/guestfs.pod:3789 ../src/guestfs.pod:4184 ../src/guestfs.pod:4188
-#: ../src/guestfs.pod:4192 ../src/guestfs.pod:4196 ../src/guestfs.pod:4200
-#: ../src/guestfs.pod:4204 ../src/guestfs.pod:4208 ../src/guestfs.pod:4471
-#: ../src/guestfs.pod:4476 ../src/guestfs.pod:4480 ../src/guestfs.pod:4484
-#: ../src/guestfs.pod:4498 ../src/guestfs.pod:4502 ../src/guestfs.pod:4507
-#: ../src/guestfs.pod:4511 ../sysprep/sysprep-extra-options.pod:208
+#: ../p2v-iso/guestfs-p2v-iso.pod:28 ../p2v-iso/guestfs-p2v-iso.pod:33
+#: ../p2v-iso/guestfs-p2v-iso.pod:38 ../p2v-iso/guestfs-p2v-iso.pod:44
+#: ../p2v-iso/guestfs-p2v-iso.pod:48 ../p2v-iso/guestfs-p2v-iso.pod:52
+#: ../p2v-iso/guestfs-p2v-iso.pod:56 ../p2v-iso/guestfs-p2v-iso.pod:62
+#: ../p2v-iso/guestfs-p2v-iso.pod:68 ../p2v-iso/guestfs-p2v-iso.pod:183
+#: ../p2v-iso/guestfs-p2v-iso.pod:187 ../p2v-iso/guestfs-p2v-iso.pod:191
+#: ../p2v-iso/guestfs-p2v-iso.pod:209 ../p2v-iso/guestfs-p2v-iso.pod:214
+#: ../p2v-iso/guestfs-p2v-iso.pod:218 ../resize/virt-resize.pod:371
+#: ../resize/virt-resize.pod:375 ../resize/virt-resize.pod:384
+#: ../resize/virt-resize.pod:390 ../sparsify/virt-sparsify.pod:46
+#: ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59
+#: ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69
+#: ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137
+#: ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145
+#: ../sparsify/virt-sparsify.pod:150 ../src/guestfs-actions.pod:1023
+#: ../src/guestfs-actions.pod:1029 ../src/guestfs-actions.pod:1037
+#: ../src/guestfs-actions.pod:1044 ../src/guestfs-actions.pod:1051
+#: ../src/guestfs-actions.pod:3312 ../src/guestfs-actions.pod:3316
+#: ../src/guestfs-actions.pod:3320 ../src/guestfs-actions.pod:3324
+#: ../src/guestfs-actions.pod:3332 ../src/guestfs-actions.pod:3336
+#: ../src/guestfs-actions.pod:3340 ../src/guestfs-actions.pod:3350
+#: ../src/guestfs-actions.pod:3354 ../src/guestfs-actions.pod:3358
+#: ../src/guestfs-actions.pod:3533 ../src/guestfs-actions.pod:3537
+#: ../src/guestfs-actions.pod:3542 ../src/guestfs-actions.pod:3603
+#: ../src/guestfs-actions.pod:3607 ../src/guestfs-actions.pod:3612
+#: ../src/guestfs-actions.pod:4503 ../src/guestfs-actions.pod:4510
+#: ../src/guestfs-actions.pod:4517 ../src/guestfs-actions.pod:5392
+#: ../src/guestfs-actions.pod:5398 ../src/guestfs-actions.pod:5406
+#: ../src/guestfs-actions.pod:5413 ../src/guestfs-actions.pod:5420
+#: ../src/guestfs.pod:396 ../src/guestfs.pod:401 ../src/guestfs.pod:406
+#: ../src/guestfs.pod:410 ../src/guestfs.pod:415 ../src/guestfs.pod:419
+#: ../src/guestfs.pod:424 ../src/guestfs.pod:429 ../src/guestfs.pod:780
+#: ../src/guestfs.pod:787 ../src/guestfs.pod:793 ../src/guestfs.pod:799
+#: ../src/guestfs.pod:805 ../src/guestfs.pod:810 ../src/guestfs.pod:816
+#: ../src/guestfs.pod:1044 ../src/guestfs.pod:1048 ../src/guestfs.pod:1054
+#: ../src/guestfs.pod:1137 ../src/guestfs.pod:1142 ../src/guestfs.pod:1146
+#: ../src/guestfs.pod:1152 ../src/guestfs.pod:1156 ../src/guestfs.pod:1160
+#: ../src/guestfs.pod:1165 ../src/guestfs.pod:1734 ../src/guestfs.pod:1738
+#: ../src/guestfs.pod:1742 ../src/guestfs.pod:1747 ../src/guestfs.pod:1755
+#: ../src/guestfs.pod:1774 ../src/guestfs.pod:1782 ../src/guestfs.pod:1799
+#: ../src/guestfs.pod:1804 ../src/guestfs.pod:1808 ../src/guestfs.pod:1997
+#: ../src/guestfs.pod:2001 ../src/guestfs.pod:2005 ../src/guestfs.pod:2009
+#: ../src/guestfs.pod:2013 ../src/guestfs.pod:2017 ../src/guestfs.pod:2673
+#: ../src/guestfs.pod:2678 ../src/guestfs.pod:2682 ../src/guestfs.pod:2786
+#: ../src/guestfs.pod:2791 ../src/guestfs.pod:2795 ../src/guestfs.pod:2805
+#: ../src/guestfs.pod:3236 ../src/guestfs.pod:3241 ../src/guestfs.pod:3247
+#: ../src/guestfs.pod:3255 ../src/guestfs.pod:3772 ../src/guestfs.pod:3778
+#: ../src/guestfs.pod:3783 ../src/guestfs.pod:3789 ../src/guestfs.pod:4184
+#: ../src/guestfs.pod:4188 ../src/guestfs.pod:4192 ../src/guestfs.pod:4196
+#: ../src/guestfs.pod:4200 ../src/guestfs.pod:4204 ../src/guestfs.pod:4208
+#: ../src/guestfs.pod:4471 ../src/guestfs.pod:4476 ../src/guestfs.pod:4480
+#: ../src/guestfs.pod:4484 ../src/guestfs.pod:4498 ../src/guestfs.pod:4502
+#: ../src/guestfs.pod:4507 ../src/guestfs.pod:4511
+#: ../sysprep/sysprep-extra-options.pod:208
 #: ../sysprep/sysprep-extra-options.pod:212 ../sysprep/virt-sysprep.pod:285
 #: ../sysprep/virt-sysprep.pod:289 ../sysprep/virt-sysprep.pod:293
 #: ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:312
@@ -1480,8 +1489,8 @@ msgstr ""
 #: ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:3006
 #: ../inspector/virt-inspector.pod:499 ../java/examples/guestfs-java.pod:156
 #: ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215
-#: ../ocaml/examples/guestfs-ocaml.pod:76 ../p2v/virt-p2v.pod:205
-#: ../perl/examples/guestfs-perl.pod:38
+#: ../ocaml/examples/guestfs-ocaml.pod:76 ../p2v-iso/guestfs-p2v-iso.pod:224
+#: ../p2v/virt-p2v.pod:205 ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:419
 #: ../resize/virt-resize.pod:754 ../ruby/examples/guestfs-ruby.pod:34
 #: ../sparsify/virt-sparsify.pod:393 ../src/guestfs.pod:4752
@@ -1507,10 +1516,10 @@ msgstr ""
 #: ../daemon/guestfsd.pod:120 ../df/virt-df.pod:271 ../diff/virt-diff.pod:261
 #: ../edit/virt-edit.pod:371 ../format/virt-format.pod:195
 #: ../guestfs-release-notes.pod:3017 ../make-fs/virt-make-fs.pod:229
-#: ../rescue/virt-rescue.pod:429 ../resize/virt-resize.pod:777
-#: ../sparsify/virt-sparsify.pod:406 ../tools/virt-list-filesystems:200
-#: ../tools/virt-list-partitions:281 ../tools/virt-tar:313
-#: ../tools/virt-win-reg:804
+#: ../p2v-iso/guestfs-p2v-iso.pod:232 ../rescue/virt-rescue.pod:429
+#: ../resize/virt-resize.pod:777 ../sparsify/virt-sparsify.pod:406
+#: ../tools/virt-list-filesystems:200 ../tools/virt-list-partitions:281
+#: ../tools/virt-tar:313 ../tools/virt-win-reg:804
 msgid "AUTHOR"
 msgstr "著者"
 
@@ -1547,8 +1556,8 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:3021
 #: ../inspector/virt-inspector.pod:522 ../java/examples/guestfs-java.pod:175
 #: ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233
-#: ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v.pod:217
-#: ../perl/examples/guestfs-perl.pod:57
+#: ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v-iso/guestfs-p2v-iso.pod:236
+#: ../p2v/virt-p2v.pod:217 ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:433
 #: ../resize/virt-resize.pod:781 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:410 ../src/guestfs.pod:4815
@@ -1947,10 +1956,10 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267
 #: ../edit/virt-edit.pod:377 ../examples/guestfs-recipes.pod:680
 #: ../fish/guestfish.pod:1641 ../fuse/guestmount.pod:428
-#: ../guestfs-release-notes.pod:3023 ../p2v/virt-p2v.pod:219
-#: ../rescue/virt-rescue.pod:435 ../src/guestfs.pod:4817
-#: ../test-tool/libguestfs-test-tool.pod:192 ../tools/virt-list-partitions:287
-#: ../v2v/virt-v2v.pod:307
+#: ../guestfs-release-notes.pod:3023 ../p2v-iso/guestfs-p2v-iso.pod:238
+#: ../p2v/virt-p2v.pod:219 ../rescue/virt-rescue.pod:435
+#: ../src/guestfs.pod:4817 ../test-tool/libguestfs-test-tool.pod:192
+#: ../tools/virt-list-partitions:287 ../v2v/virt-v2v.pod:307
 msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr ""
 
@@ -2882,10 +2891,11 @@ msgstr ""
 #: ../customize/virt-customize.pod:155 ../examples/guestfs-faq.pod:483
 #: ../examples/guestfs-faq.pod:712 ../examples/guestfs-performance.pod:159
 #: ../examples/guestfs-performance.pod:201 ../examples/guestfs-recipes.pod:406
-#: ../rescue/virt-rescue.pod:326 ../resize/virt-resize.pod:29
-#: ../resize/virt-resize.pod:619 ../sparsify/virt-sparsify.pod:323
-#: ../src/guestfs.pod:485 ../src/guestfs.pod:1819 ../src/guestfs.pod:2091
-#: ../src/guestfs.pod:2389 ../src/guestfs.pod:3883 ../v2v/virt-v2v.pod:236
+#: ../p2v-iso/guestfs-p2v-iso.pod:117 ../rescue/virt-rescue.pod:326
+#: ../resize/virt-resize.pod:29 ../resize/virt-resize.pod:619
+#: ../sparsify/virt-sparsify.pod:323 ../src/guestfs.pod:485
+#: ../src/guestfs.pod:1819 ../src/guestfs.pod:2091 ../src/guestfs.pod:2389
+#: ../src/guestfs.pod:3883 ../v2v/virt-v2v.pod:236
 msgid "1."
 msgstr "1."
 
@@ -2901,10 +2911,11 @@ msgstr ""
 #: ../customize/virt-customize.pod:160 ../examples/guestfs-faq.pod:488
 #: ../examples/guestfs-faq.pod:722 ../examples/guestfs-performance.pod:165
 #: ../examples/guestfs-performance.pod:208 ../examples/guestfs-recipes.pod:412
-#: ../rescue/virt-rescue.pod:334 ../resize/virt-resize.pod:42
-#: ../resize/virt-resize.pod:626 ../sparsify/virt-sparsify.pod:330
-#: ../src/guestfs.pod:491 ../src/guestfs.pod:1823 ../src/guestfs.pod:2095
-#: ../src/guestfs.pod:2393 ../src/guestfs.pod:3908 ../v2v/virt-v2v.pod:243
+#: ../p2v-iso/guestfs-p2v-iso.pod:124 ../rescue/virt-rescue.pod:334
+#: ../resize/virt-resize.pod:42 ../resize/virt-resize.pod:626
+#: ../sparsify/virt-sparsify.pod:330 ../src/guestfs.pod:491
+#: ../src/guestfs.pod:1823 ../src/guestfs.pod:2095 ../src/guestfs.pod:2393
+#: ../src/guestfs.pod:3908 ../v2v/virt-v2v.pod:243
 msgid "2."
 msgstr "2."
 
@@ -34028,7 +34039,7 @@ msgstr ""
 msgid ""
 "C<remotefilename> is overwritten starting at the byte C<offset> specified.  "
 "The intention is to overwrite parts of existing files or devices, although "
-"if a non-existant file is specified then it is created with a \"hole\" "
+"if a non-existent file is specified then it is created with a \"hole\" "
 "before C<offset>.  The size of the data written is implicit in the size of "
 "the source C<filename>."
 msgstr ""
@@ -44233,7 +44244,7 @@ msgstr "L<https://bugzilla.redhat.com/847549>"
 #. type: textblock
 #: ../guestfs-release-notes.pod:1043
 msgid ""
-"Addng a zero-length virtio-scsi disk causes: qemu-kvm: hw/scsi-bus.c:1568: "
+"Adding a zero-length virtio-scsi disk causes: qemu-kvm: hw/scsi-bus.c:1568: "
 "scsi_req_complete: Assertion `req->status == -1' failed."
 msgstr ""
 
@@ -45339,7 +45350,7 @@ msgstr "L<https://bugzilla.redhat.com/823885>"
 #: ../guestfs-release-notes.pod:1611
 msgid ""
 "virt-make-fs cannot create vfat filesystem containing filesystems with "
-"chinese characters"
+"Chinese characters"
 msgstr ""
 
 #. type: =item
@@ -47526,7 +47537,7 @@ msgid ""
 " - 674130 Inspection code fails for Windows guest with two disks\n"
 " - 682756 libguestfs trace segfaults when list-filesystems returns error\n"
 " - 682979 libguestfs incorrectly detects Red Hat desktop as 'redhat-based' instead of 'redhat'\n"
-" - 690819 mkfs fails creating a filesytem on a disk device when using a disk with 'ide' interface\n"
+" - 690819 mkfs fails creating a filesystem on a disk device when using a disk with 'ide' interface\n"
 " - 691389 Extended attributes don't work over guestmount (FUSE)\n"
 " - 691724 virt-inspector reports unknown filesystem /dev/vda1\n"
 " - 692545 inspect-list-applications fails to detect 32 bit apps installed under WOW64 emulator on 64 bit Windows\n"
@@ -48770,7 +48781,7 @@ msgstr ""
 "L<guestfish(1)>, L<http://libguestfs.org/>"
 
 #. type: textblock
-#: ../guestfs-release-notes.pod:3019
+#: ../guestfs-release-notes.pod:3019 ../p2v-iso/guestfs-p2v-iso.pod:234
 msgid "Richard W.M. Jones"
 msgstr "Richard W.M. Jones"
 
@@ -50545,7 +50556,7 @@ msgstr ""
 msgid ""
 "An alternative way to leave extra space but not make the output image any "
 "bigger is to use an alternative disk image format (instead of the default "
-"\"raw\" format).  Using I<--format=qcow2> will use the native QEmu/KVM qcow2 "
+"\"raw\" format).  Using I<--format=qcow2> will use the native qemu/KVM qcow2 "
 "image format (check your hypervisor supports this before using it).  This "
 "allows you to choose a large I<--size> but the extra space won't actually be "
 "allocated in the image until you try to store something in it."
@@ -50904,6 +50915,410 @@ msgid ""
 "L<guestfs-python(3)>, L<guestfs-recipes(1)>, L<guestfs-ruby(3)>, L<http://"
 "libguestfs.org/>, L<http://caml.inria.fr/>."
 msgstr ""
+
+#. type: verbatim
+#: ../p2v-iso/guestfs-p2v-iso.pod:3
+#, no-wrap
+msgid ""
+" guestfs-p2v-iso - How to build the virt-p2v disk image or CD/ISO\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: ../p2v-iso/guestfs-p2v-iso.pod:5
+msgid "ABOUT THIS DOCUMENT"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:7
+msgid ""
+"This document describes how to build the virt-p2v disk image from the C<p2v-"
+"iso> directory in the libguestfs sources."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:10
+msgid ""
+"It B<does not> describe how to use or boot virt-p2v.  For that you need to "
+"read the L<virt-p2v(1)> manual page.  This document is only for developers."
+msgstr ""
+
+#. type: =head1
+#: ../p2v-iso/guestfs-p2v-iso.pod:14
+msgid "ABOUT THE VIRT-P2V ISO"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:16
+msgid ""
+"virt-p2v converts physical machines to run on KVM.  Normally you should not "
+"run virt-p2v directly.  Instead you have to boot the physical machine using "
+"the bootable CD-ROM, ISO, PXE or disk image which is provided by this "
+"directory.  The reason for this is so that virt-p2v runs in a \"clean\" "
+"environment, with no other processes running and modifying the disks."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:23
+msgid ""
+"The libguestfs source directory C<p2v-iso> contains the scripts used to "
+"build the bootable image."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:30
+msgid ""
+"It B<does not> contain the source to L<virt-p2v(1)>.  See C<p2v> for the "
+"source of virt-p2v."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:35
+msgid ""
+"It B<does not> contain instructions for how to run virt-p2v.  For that you "
+"need to read the L<virt-p2v(1)> manual page."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:40
+msgid "It B<does not> build anything when you run C<make>.  This is because:"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:46
+msgid "building the disk image takes a long time"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:50
+msgid "you wouldn't want to rebuild it every time virt-p2v changes"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:54
+msgid "how and what to build depends on your environment"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:58
+msgid ""
+"for some targets, it isn't even possible to build anything without root "
+"permissions / a network connection / a remote service (like Fedora's Koji)"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:64
+msgid "some targets require interaction, eg. inserting a USB key"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:70
+msgid ""
+"For the same reasons as above, C<make check> and C<make install> in this "
+"directory do nothing."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:75
+msgid ""
+"Although for historical reasons this is known as the virt-p2v \"ISO\", it "
+"may not actually build an ISO-formatted CD image.  Some of the targets build "
+"simple disk images or USB keys."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:79
+msgid ""
+"Although virt-p2v should be run on a physical machine, for testing purposes "
+"you can (and we often do) run it in a virtual machine."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:82
+msgid ""
+"Running the virt-p2v ISO in a VM is also a legitimate way to convert a "
+"virtual machine from a hypervisor which is not supported by virt-v2v (Hyper-"
+"V is one such hypervisor)."
+msgstr ""
+
+#. type: =head1
+#: ../p2v-iso/guestfs-p2v-iso.pod:86
+msgid "WHICH TARGET SHOULD YOU CHOOSE?"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:88
+msgid "For a list of all targets and how to use them, see below."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:90
+msgid "B<Most users> should choose C<virt-builder-target>."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:92
+msgid ""
+"Fedora, Red Hat Enterprise Linux, CentOS and Scientific Linux users may wish "
+"to try the C<kickstart-target>."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:95
+msgid ""
+"Fedora and RHEL developers who have been given C<spin-livecd> permission by "
+"the Fedora/RHEL Koji/Brew administrators may wish to try building the "
+"C<kickstart-target> as a Fedora/RHEL \"Spin\"."
+msgstr ""
+
+#. type: =head1
+#: ../p2v-iso/guestfs-p2v-iso.pod:99
+#, fuzzy
+#| msgid "C<builder>"
+msgid "C<virt-builder-target>"
+msgstr "C<builder>"
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:101
+msgid ""
+"This target uses virt-builder (see L<virt-builder(1)>) to build a bootable "
+"disk image or USB key containing the locally built virt-p2v binary from the "
+"C<p2v> in the source."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:105
+msgid ""
+"Use a disk image if you want to test virt-p2v inside a virtual machine.  To "
+"use virt-p2v for real, you will need an empty USB key E<ge> 6 GB in size.  "
+"Use this target to write the USB key, which you can then plug into the "
+"physical machine to start the P2V process."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:110
+msgid ""
+"Most users should use this target.  It does not require any special "
+"permissions, but it does need network access."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:113
+msgid "To use the virt-builder target:"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:119
+msgid ""
+"Choose the os-version which most closely matches your distro from this list:"
+msgstr ""
+
+#. type: verbatim
+#: ../p2v-iso/guestfs-p2v-iso.pod:122
+#, fuzzy, no-wrap
+#| msgid ""
+#| " virt-df\n"
+#| "\n"
+msgid ""
+"  virt-builder -l\n"
+"\n"
+msgstr ""
+" virt-df\n"
+"\n"
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:126
+msgid ""
+"Choose the output, which could be a file [filename] or a USB key [eg. C</dev/"
+"sdX>]."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:131
+#, fuzzy
+#| msgid "The full path of the file or directory."
+msgid "Then run this command (from the C<p2v-iso> directory):"
+msgstr "ファイルまたはディレクトリの完全パス。"
+
+#. type: verbatim
+#: ../p2v-iso/guestfs-p2v-iso.pod:133
+#, no-wrap
+msgid ""
+" make virt-builder-target OSVERSION=fedora-20 OUTPUT=/dev/sdX\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:135
+msgid ""
+"After building the image, you can boot it directly on physical hardware, or "
+"for testing in qemu or KVM (see the virt-builder man page for example qemu "
+"and virt-install command lines)."
+msgstr ""
+
+#. type: =head1
+#: ../p2v-iso/guestfs-p2v-iso.pod:139
+msgid "C<kickstart-target>"
+msgstr ""
+
+#. type: =head2
+#: ../p2v-iso/guestfs-p2v-iso.pod:141
+msgid "Building the kickstart file"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:143
+msgid ""
+"Kickstart is a format used by Red Hat-derived distributions (such as Fedora, "
+"Red Hat Enterprise Linux, CentOS, Scientific Linux, and others) to describe "
+"how to make live CDs, install the distro, make \"Spins\" and so on.  It is "
+"driven by a kickstart file."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:148
+msgid "Running:"
+msgstr ""
+
+#. type: verbatim
+#: ../p2v-iso/guestfs-p2v-iso.pod:150
+#, no-wrap
+msgid ""
+" make kickstart-target.sh REPO=... [PROXY=...]\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:152
+msgid "simply builds the kickstart file called C<p2v.ks>."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:154
+msgid "The variables you can specify are:"
+msgstr ""
+
+#. type: =item
+#: ../p2v-iso/guestfs-p2v-iso.pod:158
+msgid "REPO"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:160
+msgid "A list of repositories to use, eg: REPO=fedora,rawhide"
+msgstr ""
+
+#. type: =item
+#: ../p2v-iso/guestfs-p2v-iso.pod:162
+msgid "PROXY"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:164
+msgid "An optional web proxy (URL) to use for downloading packages."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:168
+msgid ""
+"After building the kickstart file (C<p2v.ks>) it's a good idea to check it."
+msgstr ""
+
+#. type: =head2
+#: ../p2v-iso/guestfs-p2v-iso.pod:171
+msgid "Locally building a live CD/ISO"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:173
+msgid ""
+"You can make a live CD on a Red Hat-derived distribution using livecd-"
+"creator:"
+msgstr ""
+
+#. type: verbatim
+#: ../p2v-iso/guestfs-p2v-iso.pod:176
+#, no-wrap
+msgid ""
+" sudo livecd-creator p2v.ks\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:178
+msgid ""
+"Before running this note that you should probably run C<livecd-creator> in a "
+"disposable virtual machine for these reasons:"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:185
+msgid "You have to disable SELinux when running the tool."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:189
+msgid "This tool has to be run as root, and has some nasty failure modes."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:193
+msgid ""
+"You can only create the exact same Live CD distro as the host distro.  Cross-"
+"builds will fail in strange ways (eg. RHBZ#1092327)."
+msgstr ""
+
+#. type: =head2
+#: ../p2v-iso/guestfs-p2v-iso.pod:198
+msgid "Building a spin using Koji"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:200
+msgid ""
+"This requires C<spin-livecd> permissions on Koji, which are not given out "
+"usually, even to Fedora packagers.  However assuming you have been given "
+"these permissions (or have your own Koji instance, I guess), then you can do:"
+msgstr ""
+
+#. type: verbatim
+#: ../p2v-iso/guestfs-p2v-iso.pod:205
+#, no-wrap
+msgid ""
+" koji spin-livecd [--scratch] p2v 1.XX.YY rawhide x86_64 p2v.ks\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:211
+msgid ""
+"Add the C<--scratch> option to do a scratch build (recommended for testing)."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:216
+msgid "C<1.XX.YY> should match the libguestfs version"
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:220
+msgid "Instead of C<rawhide> you can use any Koji target."
+msgstr ""
+
+#. type: textblock
+#: ../p2v-iso/guestfs-p2v-iso.pod:226
+#, fuzzy
+#| msgid ""
+#| "L<virt-filesystems(1)>, L<virt-df(1)>, L<virt-resize(1)>, L<virt-"
+#| "rescue(1)>, L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, "
+#| "L<fallocate(1)>, L<qemu-img(1)>, L<http://libguestfs.org/>."
+msgid ""
+"L<virt-p2v(1)>, L<virt-v2v(1)>, L<virt-builder(1)>, L<livecd-creator(8)>, "
+"L<http://libguestfs.org/>"
+msgstr ""
+"L<virt-filesystems(1)>, L<virt-df(1)>, L<virt-resize(1)>, L<virt-rescue(1)>, "
+"L<guestfs(3)>, L<guestfish(1)>, L<truncate(1)>, L<fallocate(1)>, L<qemu-"
+"img(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
 #: ../p2v/virt-p2v.pod:3
@@ -72516,33 +72931,23 @@ msgstr "次の関数: L</guestfs_ntfsresize> L</guestfs_ntfsresize_size>"
 
 #. type: =item
 #: ../src/guestfs-availability.pod:264
-msgid "B<realpath>"
-msgstr "B<realpath>"
-
-#. type: textblock
-#: ../src/guestfs-availability.pod:266
-msgid "The following functions: L</guestfs_realpath>"
-msgstr "次の関数: L</guestfs_realpath>"
-
-#. type: =item
-#: ../src/guestfs-availability.pod:269
 msgid "B<rsync>"
 msgstr "B<rsync>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:271
+#: ../src/guestfs-availability.pod:266
 msgid ""
 "The following functions: L</guestfs_rsync> L</guestfs_rsync_in> L</"
 "guestfs_rsync_out>"
 msgstr "次の関数: L</guestfs_rsync> L</guestfs_rsync_in> L</guestfs_rsync_out>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:276
+#: ../src/guestfs-availability.pod:271
 msgid "B<scrub>"
 msgstr "B<scrub>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:278
+#: ../src/guestfs-availability.pod:273
 msgid ""
 "The following functions: L</guestfs_scrub_device> L</guestfs_scrub_file> L</"
 "guestfs_scrub_freespace>"
@@ -72551,42 +72956,42 @@ msgstr ""
 "guestfs_scrub_freespace>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:283
+#: ../src/guestfs-availability.pod:278
 msgid "B<selinux>"
 msgstr "B<selinux>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:285
+#: ../src/guestfs-availability.pod:280
 msgid "The following functions: L</guestfs_getcon> L</guestfs_setcon>"
 msgstr "次の関数: L</guestfs_getcon> L</guestfs_setcon>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:289
+#: ../src/guestfs-availability.pod:284
 msgid "B<syslinux>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:291
+#: ../src/guestfs-availability.pod:286
 msgid "The following functions: L</guestfs_syslinux>"
 msgstr "次の関数: L</guestfs_syslinux>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:294
+#: ../src/guestfs-availability.pod:289
 msgid "B<wipefs>"
 msgstr "B<wipefs>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:296
+#: ../src/guestfs-availability.pod:291
 msgid "The following functions: L</guestfs_wipefs>"
 msgstr "次の関数: L</guestfs_wipefs>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:299
+#: ../src/guestfs-availability.pod:294
 msgid "B<xfs>"
 msgstr "B<xfs>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:301
+#: ../src/guestfs-availability.pod:296
 msgid ""
 "The following functions: L</guestfs_xfs_admin> L</guestfs_xfs_growfs> L</"
 "guestfs_xfs_info> L</guestfs_xfs_repair>"
@@ -72595,22 +73000,22 @@ msgstr ""
 "L</guestfs_xfs_repair>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:307
+#: ../src/guestfs-availability.pod:302
 msgid "B<xz>"
 msgstr "B<xz>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:309
+#: ../src/guestfs-availability.pod:304
 msgid "The following functions: L</guestfs_txz_in> L</guestfs_txz_out>"
 msgstr "次の関数: L</guestfs_txz_in> L</guestfs_txz_out>"
 
 #. type: =item
-#: ../src/guestfs-availability.pod:313
+#: ../src/guestfs-availability.pod:308
 msgid "B<zerofree>"
 msgstr "B<zerofree>"
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:315
+#: ../src/guestfs-availability.pod:310
 msgid "The following functions: L</guestfs_zerofree>"
 msgstr "次の関数: L</guestfs_zerofree>"
 
@@ -87575,6 +87980,12 @@ msgstr ""
 #: ../v2v/virt-v2v.pod:303
 msgid "Mike Latimer"
 msgstr ""
+
+#~ msgid "B<realpath>"
+#~ msgstr "B<realpath>"
+
+#~ msgid "The following functions: L</guestfs_realpath>"
+#~ msgstr "次の関数: L</guestfs_realpath>"
 
 #~ msgid ""
 #~ "The link below contains a method to install RPMs in a guest.  In fact the "

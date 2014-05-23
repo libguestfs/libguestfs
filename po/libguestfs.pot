@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.27.11\n"
+"Project-Id-Version: libguestfs 1.27.12\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-05-16 11:08+0100\n"
+"POT-Creation-Date: 2014-05-23 10:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1110,7 +1110,7 @@ msgid "Format of output disk (default: same as input)"
 msgstr ""
 
 #: ../builder/builder.ml:653
-msgid "Free space: %s (%Ld%%)"
+msgid "Free space"
 msgstr ""
 
 #: ../builder/list_entries.ml:73
@@ -1260,20 +1260,20 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
+#: ../builder/builder.ml:648
+msgid "Output file"
+msgstr ""
+
+#: ../builder/builder.ml:650
+msgid "Output format"
+msgstr ""
+
 #: ../builder/cmdline.ml:129
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:650
-msgid "Output format: %s"
-msgstr ""
-
 #: ../builder/builder.ml:649
-msgid "Output size: %s"
-msgstr ""
-
-#: ../builder/builder.ml:648
-msgid "Output: %s"
+msgid "Output size"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:140
@@ -1864,7 +1864,7 @@ msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
 #: ../builder/builder.ml:651
-msgid "Total usable space: %s"
+msgid "Total usable space"
 msgstr ""
 
 #: ../sparsify/in_place.ml:88
@@ -5930,11 +5930,11 @@ msgstr ""
 msgid "use '%s VAR' to unset an environment variable\n"
 msgstr ""
 
-#: fish/supported.c:62
+#: fish/supported.c:54
 msgid "yes"
 msgstr ""
 
-#: fish/supported.c:64
+#: fish/supported.c:54
 msgid "no"
 msgstr ""
 
