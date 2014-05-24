@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-05-07 16:57+0100\n"
+"POT-Creation-Date: 2014-05-24 18:40+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/fedora/language/"
@@ -47,31 +47,31 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:862
+#: ../resize/resize.ml:863
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:847 ../resize/resize.ml:828
+#: ../resize/resize.ml:848 ../resize/resize.ml:829
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:864
+#: ../resize/resize.ml:865
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:866
+#: ../resize/resize.ml:867
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../sysprep/main.ml:265 ../customize/customize_main.ml:226
+#: ../sysprep/main.ml:266 ../customize/customize_main.ml:227
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:248
+#: ../customize/customize_main.ml:249
 msgid "%s: %s\n"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgid ""
 "complete output."
 msgstr ""
 
-#: ../resize/resize.ml:655
+#: ../resize/resize.ml:656
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -138,11 +138,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:844
+#: ../resize/resize.ml:845
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: ../resize/resize.ml:651
+#: ../resize/resize.ml:652
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -151,7 +151,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:647
+#: ../resize/resize.ml:648
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -160,7 +160,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:644
+#: ../resize/resize.ml:645
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -168,21 +168,21 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:821
+#: ../resize/resize.ml:822
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:823
+#: ../resize/resize.ml:824
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:819
+#: ../resize/resize.ml:820
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:825
+#: ../resize/resize.ml:826
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
@@ -254,12 +254,12 @@ msgstr ""
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:52 ../resize/resize.ml:1302
+#: ../sparsify/sparsify.ml:52 ../resize/resize.ml:1303
 #: ../builder/builder.ml:704
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:55 ../resize/resize.ml:1305
+#: ../sparsify/sparsify.ml:55 ../resize/resize.ml:1306
 #: ../builder/builder.ml:707
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
@@ -278,9 +278,9 @@ msgstr ""
 msgid "%s: error: no cache directory\n"
 msgstr ""
 
-#. ../customize/customize_main.ml:261
+#. ../customize/customize_main.ml:262
 #. ../builder/builder.ml:725
-#: ../sparsify/sparsify.ml:74 ../resize/resize.ml:1324
+#: ../sparsify/sparsify.ml:74 ../resize/resize.ml:1325
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:62 ../resize/resize.ml:1312
+#: ../sparsify/sparsify.ml:62 ../resize/resize.ml:1313
 #: ../builder/builder.ml:713
 msgid "%s: failure: %s\n"
 msgstr ""
@@ -297,7 +297,7 @@ msgstr ""
 msgid "%s: file error: %s: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:387 ../resize/resize.ml:384
+#: ../resize/resize.ml:388 ../resize/resize.ml:385
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
@@ -313,22 +313,22 @@ msgid ""
 "Requested size = %s, minimum size = %s\n"
 msgstr ""
 
-#. ../customize/customize_main.ml:258
+#. ../customize/customize_main.ml:259
 #. ../builder/builder.ml:722
-#: ../sparsify/sparsify.ml:71 ../resize/resize.ml:1321
+#: ../sparsify/sparsify.ml:71 ../resize/resize.ml:1322
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#. ../customize/customize_main.ml:254
+#. ../customize/customize_main.ml:255
 #. ../builder/builder.ml:719
-#: ../sparsify/sparsify.ml:68 ../resize/resize.ml:1318
+#: ../sparsify/sparsify.ml:68 ../resize/resize.ml:1319
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
-#. ../customize/customize_main.ml:251
+#. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:125
 #. ../builder/builder.ml:716
-#: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1315
+#: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1316
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -344,7 +344,7 @@ msgstr ""
 msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:59 ../resize/resize.ml:1309
+#: ../sparsify/sparsify.ml:59 ../resize/resize.ml:1310
 #: ../builder/builder.ml:710
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
@@ -353,18 +353,18 @@ msgstr ""
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
-#: ../resize/resize.ml:802
+#: ../resize/resize.ml:803
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:673
+#: ../resize/resize.ml:674
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:682
+#: ../resize/resize.ml:683
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
@@ -378,7 +378,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information.\n"
 msgstr ""
 
-#: ../sysprep/main.ml:248 ../customize/customize_main.ml:212
+#: ../sysprep/main.ml:249 ../customize/customize_main.ml:213
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
@@ -395,26 +395,26 @@ msgid ""
 "output block device = %s, output block device size = %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:595
+#: ../resize/resize.ml:596
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:591
+#: ../resize/resize.ml:592
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:587
+#: ../resize/resize.ml:588
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:498
+#: ../resize/resize.ml:499
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:493
+#: ../resize/resize.ml:494
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
@@ -424,7 +424,7 @@ msgid ""
 "\"sha512\".\n"
 msgstr ""
 
-#: ../resize/resize.ml:413
+#: ../resize/resize.ml:414
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
@@ -479,15 +479,15 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:629
+#: ../resize/resize.ml:630
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:625
+#: ../resize/resize.ml:626
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:508
+#: ../resize/resize.ml:509
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
@@ -501,7 +501,7 @@ msgid ""
 "messages\n"
 msgstr ""
 
-#: ../resize/resize.ml:399
+#: ../resize/resize.ml:400
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -683,7 +683,7 @@ msgstr ""
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1104
+#: ../resize/resize.ml:1105
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -892,13 +892,13 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:347
+#: ../resize/resize.ml:348
 msgid ""
 "Examining %s ...\n"
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:233 ../customize/customize_main.ml:184
+#: ../sysprep/main.ml:234 ../customize/customize_main.ml:185
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -910,13 +910,13 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1265
+#: ../resize/resize.ml:1266
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1246
+#: ../resize/resize.ml:1247
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -938,7 +938,7 @@ msgstr ""
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../resize/resize.ml:921
+#: ../resize/resize.ml:922
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -966,11 +966,11 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:236 ../builder/builder.ml:672
+#: ../customize/customize_main.ml:237 ../builder/builder.ml:672
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1165
+#: ../resize/resize.ml:1166
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -1372,7 +1372,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../resize/resize.ml:1292
+#: ../resize/resize.ml:1293
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -1568,7 +1568,7 @@ msgstr ""
 msgid "Setting the timezone: %s"
 msgstr ""
 
-#: ../resize/resize.ml:900
+#: ../resize/resize.ml:901
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -1685,13 +1685,13 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:787
+#: ../resize/resize.ml:788
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../resize/resize.ml:859
+#: ../resize/resize.ml:860
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -1761,13 +1761,13 @@ msgstr ""
 msgid "Writing: %s"
 msgstr ""
 
-#: ../resize/resize.ml:758
+#: ../resize/resize.ml:759
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:770
+#: ../resize/resize.ml:771
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -1918,7 +1918,7 @@ msgstr ""
 msgid "part=size"
 msgstr ""
 
-#: ../resize/resize.ml:957 ../resize/resize.ml:933
+#: ../resize/resize.ml:958 ../resize/resize.ml:934
 msgid "pread-device: short read"
 msgstr ""
 
@@ -1946,30 +1946,30 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../sysprep/main.ml:289
+#: ../sysprep/main.ml:290
 msgid "sysprep operation failed: %s\n"
 msgstr ""
 
-#: ../sysprep/main.ml:301
+#: ../sysprep/main.ml:302
 msgid "sysprep operation failed: exception: %s\n"
 msgstr ""
 
-#: ../sysprep/main.ml:298
+#: ../sysprep/main.ml:299
 msgid ""
 "sysprep operation failed: internal error: Not_found exception was thrown\n"
 msgstr ""
 
-#: ../sysprep/main.ml:295
+#: ../sysprep/main.ml:296
 msgid ""
 "sysprep operation failed: internal error: assertion failed at %s, line %d, "
 "char %d\n"
 msgstr ""
 
-#: ../sysprep/main.ml:292
+#: ../sysprep/main.ml:293
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:439
+#: ../resize/resize.ml:440
 msgid "the source disk has no partitions"
 msgstr ""
 
@@ -2184,7 +2184,7 @@ msgstr ""
 msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:1162
+#: ../resize/resize.ml:1163
 msgid ""
 "warning: first partition is NTFS but does not contain NTFS boot loader "
 "magic\n"
@@ -2207,7 +2207,7 @@ msgstr ""
 msgid "you cannot use --in-place and -o options together"
 msgstr ""
 
-#: ../resize/resize.ml:746
+#: ../resize/resize.ml:747
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
@@ -5584,24 +5584,24 @@ msgstr "Utilice 'man' sin parámetros para abrir el manual\n"
 msgid "use '%s filename' to page a file\n"
 msgstr "utilice '%s nombre de archivo' para paginar un archivo\n"
 
-#: fish/options.c:106
+#: fish/options.c:107
 #, c-format
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: demasiados discos añadidos en la línea de comando\n"
 
-#: fish/options.c:255
+#: fish/options.c:260
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr ""
 
-#: fish/options.c:259
+#: fish/options.c:264
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
 
-#: fish/options.c:263
+#: fish/options.c:268
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
@@ -5789,11 +5789,11 @@ msgstr "use '%s VAR value' para crear una variable de entorno\n"
 msgid "use '%s VAR' to unset an environment variable\n"
 msgstr "use '%s VAR value' para eliminar una variable de entorno\n"
 
-#: fish/supported.c:62
+#: fish/supported.c:54
 msgid "yes"
 msgstr "si"
 
-#: fish/supported.c:64
+#: fish/supported.c:54
 msgid "no"
 msgstr "no"
 
@@ -5802,17 +5802,17 @@ msgstr "no"
 msgid "use 'time command [args...]'\n"
 msgstr "utilice 'time comando [args...]'\n"
 
-#: fish/uri.c:110
+#: fish/uri.c:112
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
 msgstr ""
 
-#: fish/uri.c:121
+#: fish/uri.c:123
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
 msgstr ""
 
-#: fish/uri.c:129
+#: fish/uri.c:131
 #, c-format
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
@@ -6412,215 +6412,207 @@ msgid "this backend does not support adding read-only drives"
 msgstr ""
 
 #: src/drives.c:204
-msgid "curl: you cannot specify a secret with this protocol"
-msgstr ""
-
-#: src/drives.c:209
 msgid "curl: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:215
+#: src/drives.c:210
 msgid "curl: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:220
+#: src/drives.c:215
 msgid "curl: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:225
+#: src/drives.c:220
 msgid "curl: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:237
+#: src/drives.c:232
 msgid "gluster: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:241
+#: src/drives.c:236
 msgid "gluster: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:246
+#: src/drives.c:241
 msgid "gluster: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:251
+#: src/drives.c:246
 msgid "gluster: volume name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:256
+#: src/drives.c:251
 msgid "gluster: volume/image must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:280
+#: src/drives.c:275
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:284
+#: src/drives.c:279
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:289
+#: src/drives.c:284
 msgid "nbd: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:308
+#: src/drives.c:303
 msgid "rbd: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:312
+#: src/drives.c:307
 msgid "rbd: port number must be specified"
 msgstr ""
 
-#: src/drives.c:318
+#: src/drives.c:313
 msgid "rbd: image name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:323
+#: src/drives.c:318
 msgid "rbd: image name must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:337
+#: src/drives.c:332
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:341
+#: src/drives.c:336
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:348
+#: src/drives.c:343
 msgid "sheepdog: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:352
+#: src/drives.c:347
 msgid "sheepdog: port number must be specified"
 msgstr ""
 
-#: src/drives.c:358
+#: src/drives.c:353
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:363
+#: src/drives.c:358
 msgid "sheepdog: volume parameter must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:375
-msgid "ssh: you cannot specify a secret with this protocol"
-msgstr ""
-
-#: src/drives.c:380
+#: src/drives.c:370
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:386
+#: src/drives.c:376
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:391
+#: src/drives.c:381
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:396
+#: src/drives.c:386
 msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:401
+#: src/drives.c:391
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: src/drives.c:413
+#: src/drives.c:403
 msgid "iscsi: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:418
+#: src/drives.c:408
 msgid "iscsi: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:423
+#: src/drives.c:413
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:429
+#: src/drives.c:419
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:434
+#: src/drives.c:424
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: src/drives.c:439
+#: src/drives.c:429
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:461
+#: src/drives.c:451
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:700
+#: src/drives.c:690
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:712
+#: src/drives.c:702
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:719
+#: src/drives.c:709
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:730
+#: src/drives.c:720
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:812
+#: src/drives.c:802
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:821
+#: src/drives.c:811
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:827 src/drives.c:833
+#: src/drives.c:817 src/drives.c:823
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "el parámetro %s está vacío o contiene caracteres no permitidos"
 
-#: src/drives.c:839
+#: src/drives.c:829
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:845
+#: src/drives.c:835
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:852
+#: src/drives.c:842
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:857
+#: src/drives.c:847
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:861
+#: src/drives.c:851
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:924
+#: src/drives.c:914
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:942 src/drives.c:1090
+#: src/drives.c:932 src/drives.c:1080
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:948
+#: src/drives.c:938
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1075
+#: src/drives.c:1065
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -6896,40 +6888,40 @@ msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch-direct.c:1265 src/launch-libvirt.c:1278
+#: src/launch-direct.c:1274 src/launch-libvirt.c:1278
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1420
+#: src/launch-direct.c:1432
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1429
+#: src/launch-direct.c:1441
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1436
+#: src/launch-direct.c:1448
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1444
+#: src/launch-direct.c:1456
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1452
+#: src/launch-direct.c:1464
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1475
+#: src/launch-direct.c:1487
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "

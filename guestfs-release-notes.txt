@@ -958,7 +958,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.22
 
     https://bugzilla.redhat.com/847549
 
-      Addng a zero-length virtio-scsi disk causes: qemu-kvm:
+      Adding a zero-length virtio-scsi disk causes: qemu-kvm:
       hw/scsi-bus.c:1568: scsi_req_complete: Assertion `req->status == -1'
       failed.
 
@@ -1488,7 +1488,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.20
     https://bugzilla.redhat.com/823885
 
       virt-make-fs cannot create vfat filesystem containing filesystems
-      with chinese characters
+      with Chinese characters
 
     https://bugzilla.redhat.com/823883
 
@@ -2330,7 +2330,7 @@ Release notes for libguestfs 1.10.0
      - 674130 Inspection code fails for Windows guest with two disks
      - 682756 libguestfs trace segfaults when list-filesystems returns error
      - 682979 libguestfs incorrectly detects Red Hat desktop as 'redhat-based' instead of 'redhat'
-     - 690819 mkfs fails creating a filesytem on a disk device when using a disk with 'ide' interface
+     - 690819 mkfs fails creating a filesystem on a disk device when using a disk with 'ide' interface
      - 691389 Extended attributes don't work over guestmount (FUSE)
      - 691724 virt-inspector reports unknown filesystem /dev/vda1
      - 692545 inspect-list-applications fails to detect 32 bit apps installed under WOW64 emulator on 64 bit Windows
