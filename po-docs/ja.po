@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-05-23 10:44+0200\n"
+"POT-Creation-Date: 2014-05-24 19:10+0200\n"
 "PO-Revision-Date: 2014-03-26 16:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/fedora/language/"
@@ -406,7 +406,7 @@ msgstr "オプション"
 #: ../cat/virt-ls.pod:253 ../customize/virt-customize.pod:31
 #: ../daemon/guestfsd.pod:49 ../df/virt-df.pod:75 ../diff/virt-diff.pod:39
 #: ../edit/virt-edit.pod:64 ../fish/guestfish.pod:156
-#: ../format/virt-format.pod:61 ../fuse/guestmount.pod:233
+#: ../format/virt-format.pod:61 ../fuse/guestmount.pod:240
 #: ../fuse/guestunmount.pod:79 ../inspector/virt-inspector.pod:56
 #: ../make-fs/virt-make-fs.pod:121 ../p2v/virt-p2v.pod:182
 #: ../rescue/virt-rescue.pod:117 ../resize/virt-resize.pod:270
@@ -582,7 +582,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:141 ../cat/virt-cat.pod:109
 #: ../cat/virt-filesystems.pod:174 ../cat/virt-ls.pod:322
 #: ../df/virt-df.pod:119 ../diff/virt-diff.pod:138 ../fish/guestfish.pod:234
-#: ../format/virt-format.pod:91 ../fuse/guestmount.pod:215
+#: ../format/virt-format.pod:91 ../fuse/guestmount.pod:222
 #: ../inspector/virt-inspector.pod:96 ../rescue/virt-rescue.pod:159
 msgid "B<--format=raw|qcow2|..>"
 msgstr "B<--format=raw|qcow2|..>"
@@ -592,7 +592,7 @@ msgstr "B<--format=raw|qcow2|..>"
 #: ../cat/virt-filesystems.pod:176 ../cat/virt-ls.pod:324
 #: ../df/virt-df.pod:121 ../diff/virt-diff.pod:140 ../edit/virt-edit.pod:140
 #: ../fish/guestfish.pod:236 ../format/virt-format.pod:93
-#: ../fuse/guestmount.pod:217 ../inspector/virt-inspector.pod:98
+#: ../fuse/guestmount.pod:224 ../inspector/virt-inspector.pod:98
 #: ../rescue/virt-rescue.pod:161
 msgid "B<--format>"
 msgstr "B<--format>"
@@ -601,7 +601,7 @@ msgstr "B<--format>"
 #: ../align/virt-alignment-scan.pod:145 ../cat/virt-cat.pod:113
 #: ../cat/virt-filesystems.pod:178 ../cat/virt-ls.pod:326
 #: ../df/virt-df.pod:123 ../edit/virt-edit.pod:142 ../fish/guestfish.pod:238
-#: ../format/virt-format.pod:95 ../fuse/guestmount.pod:219
+#: ../format/virt-format.pod:95 ../fuse/guestmount.pod:226
 #: ../rescue/virt-rescue.pod:163
 msgid ""
 "The default for the I<-a> option is to auto-detect the format of the disk "
@@ -766,7 +766,7 @@ msgstr ""
 #: ../cat/virt-ls.pod:419 ../customize/virt-customize.pod:190
 #: ../daemon/guestfsd.pod:60 ../df/virt-df.pod:183 ../diff/virt-diff.pod:200
 #: ../edit/virt-edit.pod:167 ../fish/guestfish.pod:419
-#: ../format/virt-format.pod:153 ../fuse/guestmount.pod:352
+#: ../format/virt-format.pod:153 ../fuse/guestmount.pod:359
 #: ../inspector/virt-inspector.pod:116 ../make-fs/virt-make-fs.pod:197
 #: ../p2v/virt-p2v.pod:191 ../rescue/virt-rescue.pod:238
 #: ../resize/virt-resize.pod:577 ../sparsify/virt-sparsify.pod:249
@@ -780,7 +780,7 @@ msgstr "B<-v>"
 #: ../cat/virt-ls.pod:421 ../customize/virt-customize.pod:192
 #: ../daemon/guestfsd.pod:62 ../df/virt-df.pod:185 ../diff/virt-diff.pod:202
 #: ../edit/virt-edit.pod:169 ../fish/guestfish.pod:421
-#: ../format/virt-format.pod:155 ../fuse/guestmount.pod:354
+#: ../format/virt-format.pod:155 ../fuse/guestmount.pod:361
 #: ../inspector/virt-inspector.pod:118 ../make-fs/virt-make-fs.pod:199
 #: ../p2v/virt-p2v.pod:193 ../rescue/virt-rescue.pod:240
 #: ../resize/virt-resize.pod:579 ../sparsify/virt-sparsify.pod:251
@@ -807,7 +807,7 @@ msgstr "デバッグ用の冗長なメッセージを有効にします。"
 #: ../cat/virt-ls.pod:425 ../customize/virt-customize.pod:196
 #: ../df/virt-df.pod:189 ../diff/virt-diff.pod:206 ../edit/virt-edit.pod:173
 #: ../fish/guestfish.pod:426 ../format/virt-format.pod:159
-#: ../fuse/guestmount.pod:358 ../fuse/guestunmount.pod:105
+#: ../fuse/guestmount.pod:365 ../fuse/guestunmount.pod:105
 #: ../inspector/virt-inspector.pod:122 ../make-fs/virt-make-fs.pod:203
 #: ../p2v/virt-p2v.pod:197 ../rescue/virt-rescue.pod:244
 #: ../resize/virt-resize.pod:583 ../sparsify/virt-sparsify.pod:255
@@ -824,7 +824,7 @@ msgstr "B<-V>"
 #: ../cat/virt-ls.pod:427 ../customize/virt-customize.pod:198
 #: ../df/virt-df.pod:191 ../diff/virt-diff.pod:208 ../edit/virt-edit.pod:175
 #: ../fish/guestfish.pod:428 ../format/virt-format.pod:161
-#: ../fuse/guestmount.pod:360 ../fuse/guestunmount.pod:107
+#: ../fuse/guestmount.pod:367 ../fuse/guestunmount.pod:107
 #: ../inspector/virt-inspector.pod:124 ../make-fs/virt-make-fs.pod:205
 #: ../p2v/virt-p2v.pod:199 ../rescue/virt-rescue.pod:246
 #: ../resize/virt-resize.pod:585 ../sparsify/virt-sparsify.pod:257
@@ -855,7 +855,7 @@ msgstr "バージョン番号を表示して、終了します。"
 #: ../customize/virt-customize.pod:202 ../df/virt-df.pod:195
 #: ../diff/virt-diff.pod:212 ../edit/virt-edit.pod:179
 #: ../fish/guestfish.pod:441 ../format/virt-format.pod:175
-#: ../fuse/guestmount.pod:373 ../inspector/virt-inspector.pod:128
+#: ../fuse/guestmount.pod:380 ../inspector/virt-inspector.pod:128
 #: ../make-fs/virt-make-fs.pod:209 ../rescue/virt-rescue.pod:259
 #: ../sparsify/virt-sparsify.pod:261 ../sysprep/virt-sysprep.pod:231
 #: ../tools/virt-tar:155 ../v2v/virt-v2v.pod:205
@@ -1256,7 +1256,7 @@ msgstr ""
 #: ../cat/virt-ls.pod:484 ../customize/virt-customize.pod:212
 #: ../daemon/guestfsd.pod:71 ../df/virt-df.pod:258 ../diff/virt-diff.pod:246
 #: ../edit/virt-edit.pod:355 ../fish/guestfish.pod:1380
-#: ../format/virt-format.pod:181 ../fuse/guestmount.pod:403
+#: ../format/virt-format.pod:181 ../fuse/guestmount.pod:410
 #: ../fuse/guestunmount.pod:124 ../inspector/virt-inspector.pod:494
 #: ../resize/virt-resize.pod:749 ../sparsify/virt-sparsify.pod:382
 #: ../sysprep/virt-sysprep.pod:521 ../test-tool/libguestfs-test-tool.pod:170
@@ -1485,7 +1485,7 @@ msgstr ""
 #: ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48
 #: ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45
 #: ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185
-#: ../fuse/guestmount.pod:408 ../fuse/guestunmount.pod:147
+#: ../fuse/guestmount.pod:415 ../fuse/guestunmount.pod:147
 #: ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:3006
 #: ../inspector/virt-inspector.pod:499 ../java/examples/guestfs-java.pod:156
 #: ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215
@@ -1552,7 +1552,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62
 #: ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60
 #: ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199
-#: ../fuse/guestmount.pod:426 ../fuse/guestunmount.pod:160
+#: ../fuse/guestmount.pod:433 ../fuse/guestunmount.pod:160
 #: ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:3021
 #: ../inspector/virt-inspector.pod:522 ../java/examples/guestfs-java.pod:175
 #: ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233
@@ -1921,7 +1921,7 @@ msgstr ""
 #: ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1635
 #: ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58
 #: ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56
-#: ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:422
+#: ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:429
 #: ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91
 #: ../inspector/virt-inspector.pod:508 ../java/examples/guestfs-java.pod:171
 #: ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:91
@@ -1941,7 +1941,7 @@ msgstr "著者"
 #: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1637
 #: ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60
 #: ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58
-#: ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:424
+#: ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:431
 #: ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93
 #: ../java/examples/guestfs-java.pod:173 ../lua/examples/guestfs-lua.pod:153
 #: ../ocaml/examples/guestfs-ocaml.pod:93 ../perl/examples/guestfs-perl.pod:55
@@ -1955,7 +1955,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../appliance/libguestfs-make-fixed-appliance.pod:178 ../cat/virt-ls.pod:505
 #: ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267
 #: ../edit/virt-edit.pod:377 ../examples/guestfs-recipes.pod:680
-#: ../fish/guestfish.pod:1641 ../fuse/guestmount.pod:428
+#: ../fish/guestfish.pod:1641 ../fuse/guestmount.pod:435
 #: ../guestfs-release-notes.pod:3023 ../p2v-iso/guestfs-p2v-iso.pod:238
 #: ../p2v/virt-p2v.pod:219 ../rescue/virt-rescue.pod:435
 #: ../src/guestfs.pod:4817 ../test-tool/libguestfs-test-tool.pod:192
@@ -2958,7 +2958,7 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:411 ../fish/guestfish.pod:358
-#: ../fuse/guestmount.pod:286
+#: ../fuse/guestmount.pod:293
 msgid "B<--no-sync>"
 msgstr "B<--no-sync>"
 
@@ -5495,7 +5495,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1651 ../cat/virt-cat.pod:244
 #: ../cat/virt-filesystems.pod:390 ../cat/virt-ls.pod:486
 #: ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260 ../diff/virt-diff.pod:248
-#: ../edit/virt-edit.pod:357 ../fuse/guestmount.pod:405
+#: ../edit/virt-edit.pod:357 ../fuse/guestmount.pod:412
 #: ../inspector/virt-inspector.pod:496 ../resize/virt-resize.pod:751
 msgid ""
 "This program returns 0 if successful, or non-zero if there was an error."
@@ -5838,7 +5838,7 @@ msgstr ""
 #. type: =item
 #: ../cat/virt-cat.pod:133 ../cat/virt-filesystems.pod:204
 #: ../cat/virt-ls.pod:355 ../diff/virt-diff.pod:172 ../edit/virt-edit.pod:162
-#: ../fish/guestfish.pod:290 ../fuse/guestmount.pod:245
+#: ../fish/guestfish.pod:290 ../fuse/guestmount.pod:252
 #: ../inspector/virt-inspector.pod:111
 msgid "B<--keys-from-stdin>"
 msgstr "B<--keys-from-stdin>"
@@ -5846,7 +5846,7 @@ msgstr "B<--keys-from-stdin>"
 #. type: textblock
 #: ../cat/virt-cat.pod:135 ../cat/virt-filesystems.pod:206
 #: ../cat/virt-ls.pod:357 ../diff/virt-diff.pod:174 ../edit/virt-edit.pod:164
-#: ../fish/guestfish.pod:292 ../fuse/guestmount.pod:247
+#: ../fish/guestfish.pod:292 ../fuse/guestmount.pod:254
 #: ../inspector/virt-inspector.pod:113
 msgid ""
 "Read key or passphrase parameters from stdin.  The default is to try to read "
@@ -8320,7 +8320,7 @@ msgstr ""
 
 #. type: =item
 #: ../customize/virt-customize.pod:89 ../fish/guestfish.pod:356
-#: ../fuse/guestmount.pod:284 ../resize/virt-resize.pod:447
+#: ../fuse/guestmount.pod:291 ../resize/virt-resize.pod:447
 #: ../sysprep/virt-sysprep.pod:79
 msgid "B<-n>"
 msgstr "B<-n>"
@@ -8513,7 +8513,7 @@ msgstr "B<-?>"
 
 #. type: =item
 #: ../daemon/guestfsd.pod:53 ../fish/guestfish.pod:398
-#: ../fuse/guestmount.pod:334 ../rescue/virt-rescue.pod:196
+#: ../fuse/guestmount.pod:341 ../rescue/virt-rescue.pod:196
 msgid "B<-r>"
 msgstr "B<-r>"
 
@@ -8538,7 +8538,7 @@ msgstr ""
 
 #. type: =head1
 #: ../daemon/guestfsd.pod:76 ../fish/guestfish.pod:1537
-#: ../fuse/guestmount.pod:384 ../rescue/virt-rescue.pod:400
+#: ../fuse/guestmount.pod:391 ../rescue/virt-rescue.pod:400
 msgid "FILES"
 msgstr "ファイル"
 
@@ -8808,7 +8808,7 @@ msgid "You are not allowed to use I<-h> and I<--csv> at the same time."
 msgstr "I<-h> と I<--csv> を同時に使用することはできません。"
 
 #. type: =item
-#: ../df/virt-df.pod:151 ../fish/guestfish.pod:259 ../fuse/guestmount.pod:237
+#: ../df/virt-df.pod:151 ../fish/guestfish.pod:259 ../fuse/guestmount.pod:244
 msgid "B<-i>"
 msgstr "B<-i>"
 
@@ -36992,12 +36992,12 @@ msgstr ""
 "add> 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:261 ../fuse/guestmount.pod:239
+#: ../fish/guestfish.pod:261 ../fuse/guestmount.pod:246
 msgid "B<--inspector>"
 msgstr "B<--inspector>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:263 ../fuse/guestmount.pod:241
+#: ../fish/guestfish.pod:263 ../fuse/guestmount.pod:248
 msgid ""
 "Using L<virt-inspector(1)> code, inspect the disks looking for an operating "
 "system and mount filesystems as they would be mounted on the real virtual "
@@ -37108,12 +37108,12 @@ msgstr ""
 "guestfish のソケット経由のリモート制御 > 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:300 ../fuse/guestmount.pod:250
+#: ../fish/guestfish.pod:300 ../fuse/guestmount.pod:257
 msgid "B<--live>"
 msgstr "B<--live>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:302 ../fuse/guestmount.pod:252
+#: ../fish/guestfish.pod:302 ../fuse/guestmount.pod:259
 msgid ""
 "Connect to a live virtual machine.  (Experimental, see L<guestfs(3)/"
 "ATTACHING TO RUNNING DAEMONS>)."
@@ -37127,7 +37127,7 @@ msgid "B<-m dev[:mountpoint[:options[:fstype]]]>"
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:307 ../fuse/guestmount.pod:257
+#: ../fish/guestfish.pod:307 ../fuse/guestmount.pod:264
 msgid "B<--mount dev[:mountpoint[:options[:fstype]]]>"
 msgstr ""
 
@@ -37173,7 +37173,7 @@ msgstr ""
 "は、 L<virt-filesystems(1)> コマンドを使用することもできます。"
 
 #. type: textblock
-#: ../fish/guestfish.pod:324 ../fuse/guestmount.pod:265
+#: ../fish/guestfish.pod:324 ../fuse/guestmount.pod:272
 msgid ""
 "The third (and rarely used) part of the mount parameter is the list of mount "
 "options used to mount the underlying filesystem.  If this is not given, then "
@@ -37188,7 +37188,7 @@ msgstr ""
 "(I<--ro> フラグが使用されている場合) になります。"
 
 #. type: verbatim
-#: ../fish/guestfish.pod:332 ../fuse/guestmount.pod:273
+#: ../fish/guestfish.pod:332 ../fuse/guestmount.pod:280
 #, no-wrap
 msgid ""
 " -m /dev/sda1:/:acl,user_xattr\n"
@@ -37205,7 +37205,7 @@ msgstr ""
 "す。"
 
 #. type: textblock
-#: ../fish/guestfish.pod:336 ../fuse/guestmount.pod:275
+#: ../fish/guestfish.pod:336 ../fuse/guestmount.pod:282
 msgid ""
 "The fourth part of the parameter is the filesystem driver to use, such as "
 "C<ext3> or C<ntfs>. This is rarely needed, but can be useful if multiple "
@@ -37359,7 +37359,7 @@ msgstr ""
 "guestfish のソケット経由のリモート制御 > 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:400 ../fuse/guestmount.pod:336
+#: ../fish/guestfish.pod:400 ../fuse/guestmount.pod:343
 #: ../rescue/virt-rescue.pod:198
 msgid "B<--ro>"
 msgstr "B<--ro>"
@@ -37401,7 +37401,7 @@ msgid "See also L</OPENING DISKS FOR READ AND WRITE> below."
 msgstr "以下の L</OPENING DISKS FOR READ AND WRITE> 参照。"
 
 #. type: =item
-#: ../fish/guestfish.pod:415 ../fuse/guestmount.pod:348
+#: ../fish/guestfish.pod:415 ../fuse/guestmount.pod:355
 #: ../rescue/virt-rescue.pod:220
 msgid "B<--selinux>"
 msgstr "B<--selinux>"
@@ -37424,19 +37424,19 @@ msgid "Display the guestfish / libguestfs version number and exit."
 msgstr "guestfish / libguestfs のバージョン番号を表示して、終了します。"
 
 #. type: =item
-#: ../fish/guestfish.pod:432 ../fuse/guestmount.pod:364
+#: ../fish/guestfish.pod:432 ../fuse/guestmount.pod:371
 #: ../rescue/virt-rescue.pod:250
 msgid "B<-w>"
 msgstr "B<-w>"
 
 #. type: =item
-#: ../fish/guestfish.pod:434 ../fuse/guestmount.pod:366
+#: ../fish/guestfish.pod:434 ../fuse/guestmount.pod:373
 #: ../rescue/virt-rescue.pod:252
 msgid "B<--rw>"
 msgstr "B<--rw>"
 
 #. type: textblock
-#: ../fish/guestfish.pod:436 ../fuse/guestmount.pod:368
+#: ../fish/guestfish.pod:436 ../fuse/guestmount.pod:375
 msgid ""
 "This changes the I<-a>, I<-d> and I<-m> options so that disks are added and "
 "mounts are done read-write."
@@ -40055,31 +40055,31 @@ msgid "See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>."
 msgstr ""
 
 #. type: =item
-#: ../fish/guestfish.pod:1541 ../fuse/guestmount.pod:388
+#: ../fish/guestfish.pod:1541 ../fuse/guestmount.pod:395
 #: ../rescue/virt-rescue.pod:404
 msgid "$XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf"
 msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:1543 ../fish/libguestfs-tools.conf.pod:67
-#: ../fuse/guestmount.pod:390 ../rescue/virt-rescue.pod:406
+#: ../fuse/guestmount.pod:397 ../rescue/virt-rescue.pod:406
 msgid "$HOME/.libguestfs-tools.rc"
 msgstr "$HOME/.libguestfs-tools.rc"
 
 #. type: =item
-#: ../fish/guestfish.pod:1545 ../fuse/guestmount.pod:392
+#: ../fish/guestfish.pod:1545 ../fuse/guestmount.pod:399
 #: ../rescue/virt-rescue.pod:408
 msgid "$XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf"
 msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:1547 ../fish/libguestfs-tools.conf.pod:77
-#: ../fuse/guestmount.pod:394 ../rescue/virt-rescue.pod:410
+#: ../fuse/guestmount.pod:401 ../rescue/virt-rescue.pod:410
 msgid "/etc/libguestfs-tools.conf"
 msgstr "/etc/libguestfs-tools.conf"
 
 #. type: textblock
-#: ../fish/guestfish.pod:1549 ../fuse/guestmount.pod:396
+#: ../fish/guestfish.pod:1549 ../fuse/guestmount.pod:403
 #: ../rescue/virt-rescue.pod:412
 msgid ""
 "This configuration file controls the default read-only or read-write mode "
@@ -40087,7 +40087,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish.pod:1552 ../fuse/guestmount.pod:399
+#: ../fish/guestfish.pod:1552 ../fuse/guestmount.pod:406
 #: ../rescue/virt-rescue.pod:415
 msgid "See L<libguestfs-tools.conf(5)>."
 msgstr ""
@@ -41433,8 +41433,22 @@ msgid ""
 "requests, only cache existing ones."
 msgstr ""
 
+#. type: =item
+#: ../fuse/guestmount.pod:215 ../fuse/guestunmount.pod:74
+msgid "B<--fd=FD>"
+msgstr ""
+
 #. type: textblock
-#: ../fuse/guestmount.pod:224
+#: ../fuse/guestmount.pod:217
+msgid ""
+"Specify a pipe or eventfd file descriptor.  When the mountpoint is ready to "
+"be used, guestmount writes a single byte to this file descriptor.  This can "
+"be used in conjunction with I<--no-fork> in order to run guestmount captive "
+"under another process."
+msgstr ""
+
+#. type: textblock
+#: ../fuse/guestmount.pod:231
 msgid ""
 "If you have untrusted raw-format guest disk images, you should use this "
 "option to specify the disk format.  This avoids a possible security problem "
@@ -41447,51 +41461,51 @@ msgstr ""
 "guestfs(3)/guestfs_add_drive_opts> 参照。"
 
 #. type: =item
-#: ../fuse/guestmount.pod:229
+#: ../fuse/guestmount.pod:236
 msgid "B<--fuse-help>"
 msgstr "B<--fuse-help>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:231
+#: ../fuse/guestmount.pod:238
 msgid "Display help on special FUSE options (see I<-o> below)."
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:235 ../fuse/guestunmount.pod:81
+#: ../fuse/guestmount.pod:242 ../fuse/guestunmount.pod:81
 msgid "Display brief help and exit."
 msgstr "簡単なヘルプを表示して、終了します。"
 
 #. type: =item
-#: ../fuse/guestmount.pod:255
+#: ../fuse/guestmount.pod:262
 msgid "B<-m dev[:mountpoint[:options[:fstype]]>"
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:259
+#: ../fuse/guestmount.pod:266
 msgid ""
 "Mount the named partition or logical volume on the given mountpoint B<in the "
 "guest> (this has nothing to do with mountpoints in the host)."
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:262
+#: ../fuse/guestmount.pod:269
 msgid ""
 "If the mountpoint is omitted, it defaults to C</>.  You have to mount "
 "something on C</>."
 msgstr ""
 
 #. type: =item
-#: ../fuse/guestmount.pod:280
+#: ../fuse/guestmount.pod:287
 msgid "B<--no-fork>"
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:282
+#: ../fuse/guestmount.pod:289
 msgid "Don't daemonize (or fork into the background)."
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:288
+#: ../fuse/guestmount.pod:295
 msgid ""
 "By default, we attempt to sync the guest disk when the FUSE mountpoint is "
 "unmounted.  If you specify this option, then we don't attempt to sync the "
@@ -41499,22 +41513,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fuse/guestmount.pod:293
+#: ../fuse/guestmount.pod:300
 msgid "B<-o option>"
 msgstr "B<-o option>"
 
 #. type: =item
-#: ../fuse/guestmount.pod:295
+#: ../fuse/guestmount.pod:302
 msgid "B<--option option>"
 msgstr "B<--option option>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:297
+#: ../fuse/guestmount.pod:304
 msgid "Pass extra options to FUSE."
 msgstr "追加オプションを FUSE に渡します。"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:299
+#: ../fuse/guestmount.pod:306
 msgid ""
 "To get a list of all the extra options supported by FUSE, use the command "
 "below.  Note that only the FUSE I<-o> options can be passed, and only some "
@@ -41522,7 +41536,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../fuse/guestmount.pod:303
+#: ../fuse/guestmount.pod:310
 #, no-wrap
 msgid ""
 " guestmount --fuse-help\n"
@@ -41532,37 +41546,37 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:305
+#: ../fuse/guestmount.pod:312
 msgid "Some potentially useful FUSE options:"
 msgstr ""
 
 #. type: =item
-#: ../fuse/guestmount.pod:309
+#: ../fuse/guestmount.pod:316
 msgid "B<-o allow_other>"
 msgstr "B<-o allow_other>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:311
+#: ../fuse/guestmount.pod:318
 msgid "Allow other users to see the filesystem."
 msgstr ""
 
 #. type: =item
-#: ../fuse/guestmount.pod:313
+#: ../fuse/guestmount.pod:320
 msgid "B<-o attr_timeout=N>"
 msgstr "B<-o attr_timeout=N>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:315
+#: ../fuse/guestmount.pod:322
 msgid "Enable attribute caching by FUSE, and set the timeout to I<N> seconds."
 msgstr ""
 
 #. type: =item
-#: ../fuse/guestmount.pod:317
+#: ../fuse/guestmount.pod:324
 msgid "B<-o kernel_cache>"
 msgstr "B<-o kernel_cache>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:319
+#: ../fuse/guestmount.pod:326
 msgid ""
 "Allow the kernel to cache files (reduces the number of reads that have to go "
 "through the L<guestfs(3)> API).  This is generally a good idea if you can "
@@ -41570,36 +41584,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../fuse/guestmount.pod:323
+#: ../fuse/guestmount.pod:330
 msgid "B<-o uid=N> B<-o gid=N>"
 msgstr "B<-o uid=N> B<-o gid=N>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:325
+#: ../fuse/guestmount.pod:332
 msgid ""
 "Use these options to map all UIDs and GIDs inside the guest filesystem to "
 "the chosen values."
 msgstr ""
 
 #. type: =item
-#: ../fuse/guestmount.pod:330
+#: ../fuse/guestmount.pod:337
 msgid "B<--pid-file filename>"
 msgstr "B<--pid-file filename>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:332
+#: ../fuse/guestmount.pod:339
 msgid "Write the PID of the guestmount worker process to C<filename>."
 msgstr "C<filename> に guestmount ワーカープロセスの PID を書き込みます。"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:338
+#: ../fuse/guestmount.pod:345
 msgid ""
 "Add devices and mount everything read-only.  Also disallow writes and make "
 "the disk appear read-only to FUSE."
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:341
+#: ../fuse/guestmount.pod:348
 msgid ""
 "This is highly recommended if you are not going to edit the guest disk.  If "
 "the guest is running and this option is I<not> supplied, then there is a "
@@ -41608,49 +41622,49 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:346 ../rescue/virt-rescue.pod:206
+#: ../fuse/guestmount.pod:353 ../rescue/virt-rescue.pod:206
 msgid "See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>."
 msgstr "L<guestfish(1)/OPENING DISKS FOR READ AND WRITE> 参照。"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:350
+#: ../fuse/guestmount.pod:357
 msgid "Enable SELinux support for the guest."
 msgstr "仮想マシンの SELinux サポートを有効にします。"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:356
+#: ../fuse/guestmount.pod:363
 msgid "Enable verbose messages from underlying libguestfs."
 msgstr "libguestfs からの冗長なメッセージを有効にします。"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:362 ../fuse/guestunmount.pod:109
+#: ../fuse/guestmount.pod:369 ../fuse/guestunmount.pod:109
 msgid "Display the program version and exit."
 msgstr "プログラムのバージョンを表示して、終了します。"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:371 ../rescue/virt-rescue.pod:257
+#: ../fuse/guestmount.pod:378 ../rescue/virt-rescue.pod:257
 msgid "See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>."
 msgstr "L<guestfish(1)/OPENING DISKS FOR READ AND WRITE> 参照。"
 
 #. type: =item
-#: ../fuse/guestmount.pod:375
+#: ../fuse/guestmount.pod:382
 msgid "B<--trace>"
 msgstr "B<--trace>"
 
 #. type: textblock
-#: ../fuse/guestmount.pod:377
+#: ../fuse/guestmount.pod:384
 msgid "Trace libguestfs calls and entry into each FUSE function."
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:379
+#: ../fuse/guestmount.pod:386
 msgid ""
 "This also stops the daemon from forking into the background (see I<--no-"
 "fork>)."
 msgstr ""
 
 #. type: textblock
-#: ../fuse/guestmount.pod:410
+#: ../fuse/guestmount.pod:417
 msgid ""
 "L<guestunmount(1)>, L<fusermount(1)>, L<guestfish(1)>, L<virt-inspector(1)>, "
 "L<virt-cat(1)>, L<virt-edit(1)>, L<virt-tar(1)>, L<libguestfs-tools."
@@ -41796,11 +41810,6 @@ msgstr ""
 msgid ""
 " trap \"guestunmount mountpoint\" EXIT INT QUIT TERM\n"
 "\n"
-msgstr ""
-
-#. type: =item
-#: ../fuse/guestunmount.pod:74
-msgid "B<--fd=FD>"
 msgstr ""
 
 #. type: textblock

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-05-23 10:44+0100\n"
+"POT-Creation-Date: 2014-05-24 19:10+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam (http://www.transifex.com/projects/p/fedora/"
@@ -2492,7 +2492,7 @@ msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
 #: align/scan.c:73 cat/cat.c:56 cat/filesystems.c:87 cat/ls.c:83 df/main.c:66
-#: diff/diff.c:91 edit/edit.c:68 fish/fish.c:105 fuse/guestmount.c:99
+#: diff/diff.c:91 edit/edit.c:68 fish/fish.c:105 fuse/guestmount.c:100
 #: fuse/guestunmount.c:52 inspector/inspector.c:67 make-fs/make-fs.c:73
 #: p2v/main.c:65 rescue/rescue.c:56
 #, c-format
@@ -2523,7 +2523,7 @@ msgstr ""
 
 #: align/scan.c:133 cat/cat.c:115 cat/filesystems.c:187 cat/ls.c:174
 #: df/main.c:133 diff/diff.c:191 diff/diff.c:197 edit/edit.c:134
-#: fish/fish.c:235 format/format.c:129 fuse/guestmount.c:206
+#: fish/fish.c:235 format/format.c:129 fuse/guestmount.c:210
 #: inspector/inspector.c:127 make-fs/make-fs.c:115 rescue/rescue.c:135
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
@@ -2531,7 +2531,7 @@ msgstr "guestfs_create: ഹാന്‍ഡില്‍ ഉണ്ടാക്ക�
 
 #: align/scan.c:153 builder/index-validate.c:84 cat/cat.c:137
 #: cat/filesystems.c:241 cat/ls.c:224 df/main.c:157 diff/diff.c:262
-#: edit/edit.c:156 fish/fish.c:293 format/format.c:183 fuse/guestmount.c:241
+#: edit/edit.c:156 fish/fish.c:293 format/format.c:183 fuse/guestmount.c:251
 #: fuse/guestunmount.c:124 inspector/inspector.c:151 make-fs/make-fs.c:142
 #: p2v/main.c:126 rescue/rescue.c:192
 #, c-format
@@ -6033,7 +6033,7 @@ msgstr ""
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
 
-#: fuse/guestmount.c:103
+#: fuse/guestmount.c:104
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -6047,6 +6047,7 @@ msgid ""
 "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --echo-keys          Don't turn off echo for passphrases\n"
+"  --fd=FD              Write to pipe FD when mountpoint is ready\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --fuse-help          Display extra FUSE options\n"
 "  -i|--inspector       Automatically mount filesystems\n"
@@ -6066,32 +6067,37 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:309
+#: fuse/guestmount.c:246
 #, c-format
-msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
+msgid "%s: unable to parse --fd option value: %s\n"
 msgstr ""
 
 #: fuse/guestmount.c:319
 #, c-format
+msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
+msgstr ""
+
+#: fuse/guestmount.c:329
+#, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr ""
 
-#: fuse/guestmount.c:326
+#: fuse/guestmount.c:336
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:341
+#: fuse/guestmount.c:351
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr ""
 
-#: fuse/guestmount.c:348
+#: fuse/guestmount.c:358
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr ""
 
-#: fuse/guestmount.c:357 fuse/guestunmount.c:153
+#: fuse/guestmount.c:367 fuse/guestunmount.c:153
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ഹോസ്റ്റ് ഫയല്‍സിസ്റ്റത്തില്‍ ഒരു മൌണ്ട് പോയിന്റ് നല്‍കണം\n"
