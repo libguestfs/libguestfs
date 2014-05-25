@@ -62,6 +62,14 @@ main (int argc, char *argv[])
     exit (77);
   }
 
+  /* Skip the test if /dev/fuse is not writable, because guestmount
+   * will fail.
+   */
+  if (access ("/dev/fuse", W_OK) == -1) {
+    perror ("/dev/fuse");
+    exit (77);
+  }
+
   /* Create the pipe. */
   if (pipe (pipefd) == -1) {
     perror ("pipe");
