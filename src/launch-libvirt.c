@@ -1099,6 +1099,10 @@ construct_libvirt_xml_boot (guestfs_h *g,
       string (cmdline);
     } end_element ();
 
+    start_element ("bios") {
+      attribute ("useserial", "yes");
+    } end_element ();
+
   } end_element ();
 
   return 0;
