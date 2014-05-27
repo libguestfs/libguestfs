@@ -522,6 +522,15 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
  * +guestfs_%s+[http://libguestfs.org/guestfs.3.html#guestfs_%s]).
  */
 " f.name args ret f.shortdesc doc f.name f.name
+      ) else (
+        pr "\
+/*
+ * call-seq:
+ *   g.%s
+ *
+ * :nodoc:
+ */
+" f.name
       );
 
       (* Generate the function.  Prototype is completely different
