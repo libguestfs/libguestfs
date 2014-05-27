@@ -32,6 +32,7 @@ and entry = {
   lvexpand : string option;
   notes : (string * string) list;
   hidden : bool;
+  aliases : string list option;
 
   sigchecker : Sigchecker.t;
   proxy : Downloader.proxy_mode;

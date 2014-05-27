@@ -192,6 +192,18 @@ let main () =
     | (`Install|`Notes) as mode -> mode in
 
   (* Which os-version (ie. index entry)? *)
+  let arg =
+    (* Try to resolve the alias. *)
+    try
+      let item =
+        List.find (
+          fun (name, { Index_parser.aliases = aliases }) ->
+            match aliases with
+            | None -> false
+            | Some l -> List.mem arg l
+        ) index in
+        fst item
+    with Not_found -> arg in
   let item =
     try List.find (
       fun (name, { Index_parser.arch = a }) ->

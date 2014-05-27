@@ -1288,6 +1288,14 @@ Using the hidden flag prevents the template from being listed by the
 I<--list> option (but it is still installable).  This is used for test
 images.
 
+=item C<aliases=ALIAS1 ALIAS2 ...>
+
+This optional field specifies a list of aliases, separated by spaces,
+for the image.  For example, an alias could be used to always point
+to the latest version of a certain image, leaving the old versions
+available in the index instead of updating the same image (see the
+C<revision> field).
+
 =back
 
 =head3 Running virt-builder against multiple sources

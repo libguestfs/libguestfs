@@ -38,6 +38,7 @@ and entry = {
   lvexpand : string option;
   notes : (string * string) list;
   hidden : bool;
+  aliases : string list option;
 
   sigchecker : Sigchecker.t;
   proxy : Downloader.proxy_mode;
@@ -56,6 +57,7 @@ let print_entry chan (name, { printable_name = printable_name;
                               expand = expand;
                               lvexpand = lvexpand;
                               notes = notes;
+                              aliases = aliases;
                               hidden = hidden }) =
   let fp fs = fprintf chan fs in
   fp "[%s]\n" name;
@@ -101,6 +103,10 @@ let print_entry chan (name, { printable_name = printable_name;
       | "" -> fp "notes=%s\n" notes
       | lang -> fp "notes[%s]=%s\n" lang notes
   ) notes;
+  (match aliases with
+  | None -> ()
+  | Some l -> fp "aliases=%s\n" (String.concat " " l)
+  );
   if hidden then fp "hidden=true\n"
 
 let get_index ~prog ~debug ~downloader ~sigchecker ~proxy source =
@@ -245,6 +251,13 @@ let get_index ~prog ~debug ~downloader ~sigchecker ~proxy source =
               eprintf (f_"virt-builder: cannot parse 'hidden' field for '%s'\n")
                 n;
               corrupt_file () in
+          let aliases =
+            let l =
+              try string_nsplit " " (List.assoc ("aliases", None) fields)
+              with Not_found -> [] in
+            match l with
+            | [] -> None
+            | l -> Some l in
 
           let entry = { printable_name = printable_name;
                         osinfo = osinfo;
@@ -260,6 +273,7 @@ let get_index ~prog ~debug ~downloader ~sigchecker ~proxy source =
                         lvexpand = lvexpand;
                         notes = notes;
                         hidden = hidden;
+                        aliases = aliases;
                         proxy = proxy;
                         sigchecker = sigchecker } in
           n, entry

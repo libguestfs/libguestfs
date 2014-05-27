@@ -65,6 +65,7 @@ and list_entries_long ~sources index =
                  size = size;
                  compressed_size = compressed_size;
                  notes = notes;
+                 aliases = aliases;
                  hidden = hidden }) ->
       if not hidden then (
         printf "%-24s %s\n" "os-version:" name;
@@ -78,6 +79,11 @@ and list_entries_long ~sources index =
         | None -> ()
         | Some size ->
           printf "%-24s %s\n" (s_"Download size:") (human_size size);
+        );
+        (match aliases with
+        | None -> ()
+        | Some l -> printf "%-24s %s\n" (s_"Aliases:")
+                      (String.concat " " l);
         );
         let notes = Languages.find_notes langs notes in
         (match notes with
@@ -116,6 +122,15 @@ and list_entries_json ~sources index =
     | None -> ()
     | Some n ->
       printf "    \"%s\": \"%Ld\",\n" key n in
+  let json_optional_printf_stringlist key = function
+    | None -> ()
+    | Some l ->
+      printf "    \"%s\": [" key;
+      iteri (
+        fun i alias ->
+          printf " \"%s\"%s" alias (trailing_comma i (List.length l))
+      ) l;
+      printf " ],\n" in
   let print_notes = function
     | [] -> ()
     | notes ->
@@ -156,6 +171,7 @@ and list_entries_json ~sources index =
                    size = size;
                    compressed_size = compressed_size;
                    notes = notes;
+                   aliases = aliases;
                    hidden = hidden }) ->
       printf "  {\n";
       printf "    \"os-version\": \"%s\",\n" name;
@@ -164,6 +180,7 @@ and list_entries_json ~sources index =
       printf "    \"size\": %Ld,\n" size;
       json_optional_printf_int64 "compressed-size" compressed_size;
       print_notes notes;
+      json_optional_printf_stringlist "aliases" aliases;
       printf "    \"hidden\": %s\n" (json_string_of_bool hidden);
       printf "  }%s\n" (trailing_comma i (List.length index))
   ) index;
