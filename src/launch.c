@@ -342,7 +342,7 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " noapic"                  /* workaround for RHBZ#857026 */
 #endif
      " " SERIAL_CONSOLE /* serial console */
-     " udevtimeout=600" /* good for very slow systems (RHBZ#480319) */
+     " udevtimeout=6000"/* for slow systems (RHBZ#480319, RHBZ#1096579) */
      " no_timer_check"  /* fix for RHBZ#502058 */
      "%s"               /* lpj */
      " acpi=off"        /* we don't need ACPI, turn it off */
