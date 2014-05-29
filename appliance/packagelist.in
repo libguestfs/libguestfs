@@ -7,6 +7,7 @@ dnl
 dnl   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
 dnl   DEBIAN=1     For Debian.
 dnl   UBUNTU=1     For Ubuntu.
+dnl   MAGEIA=1     For Mageia
 dnl   ARCHLINUX=1  For Archlinux.
 dnl
 dnl There is also a list of packages which are excluded if they appear
@@ -177,15 +178,35 @@ ifelse(FRUGALWARE,1,
 )
 
 ifelse(MAGEIA,1,
+  augeas
+  btrfs-progs
+  cryptsetup
+  chkconfig /* for /etc/init.d */
+  e2fsprogs
+  cdrkit-genisoimage
+  extlinux
+  gfs2-utils
+  grub
+  hfsplus-tools
   hivex
-  libaugeas0
-  lib64augeas0
-  libcryptsetup4
-  lib64cryptsetup4
-  libpcre1
-  lib64pcre1
-  libselinux1
-  lib64selinux1
+  iproute2
+  iputils
+  libcap
+  nilfs-utils
+  ntfsprogs
+  ntfs-3g
+  openssh-clients
+  pcre
+  reiserfs-utils
+  libselinux
+  systemd /* for /sbin/reboot and udevd */
+  vim-minimal
+  xz
+  yajl,
+  module-init-tools
+  procps-ng
+  udev
+  util-linux-ng
 )
 
 acl
