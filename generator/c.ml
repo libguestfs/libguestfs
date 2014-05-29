@@ -1658,9 +1658,9 @@ and generate_client_actions hash () =
     let args_passed_to_daemon =
       List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
         args in
-    (match args_passed_to_daemon with
-    | [] -> ()
-    | _ -> pr "  struct guestfs_%s_args args;\n" name
+    (match args_passed_to_daemon, optargs with
+    | [], [] -> ()
+    | _, _ -> pr "  struct guestfs_%s_args args;\n" name
     );
 
     pr "  guestfs_message_header hdr;\n";
