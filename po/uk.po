@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-05-24 19:10+0100\n"
+"POT-Creation-Date: 2014-05-30 18:03+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../builder/index_parser.ml:108
+#: ../builder/index_parser.ml:114
 msgid ""
 "\n"
 "The index file downloaded from '%s' is corrupt.\n"
@@ -100,7 +100,7 @@ msgstr "%s (проігноровано)\n"
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:337 ../builder/builder.ml:614
+#: ../customize/customize_run.ml:337 ../builder/builder.ml:626
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (прогіноровано)\n"
 
@@ -269,7 +269,7 @@ msgstr ""
 "матеріал\n"
 "можна знайти на сторінці підручника (man) програми virt-builder(1).\n"
 
-#: ../builder/builder.ml:201
+#: ../builder/builder.ml:213
 msgid ""
 "%s: cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types.\n"
@@ -278,7 +278,7 @@ msgstr ""
 "Скористайтеся параметром --list, щоб переглянути список доступних типів "
 "операційних систем.\n"
 
-#: ../builder/builder.ml:286
+#: ../builder/builder.ml:298
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 "%s: виведення даних на символьний пристрій або до /dev/null неможливе\n"
@@ -351,12 +351,12 @@ msgstr ""
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#. ../builder/builder.ml:695
+#. ../builder/builder.ml:707
 #: ../v2v/v2v.ml:327 ../sparsify/sparsify.ml:52 ../resize/resize.ml:1303
 msgid "%s: error: %s: %s\n"
 msgstr "%s: помилка: %s: %s\n"
 
-#. ../builder/builder.ml:698
+#. ../builder/builder.ml:710
 #: ../v2v/v2v.ml:330 ../sparsify/sparsify.ml:55 ../resize/resize.ml:1306
 msgid "%s: error: %s: %s: %s\n"
 msgstr "%s: помилка: %s: %s: %s\n"
@@ -378,7 +378,7 @@ msgid "%s: error: no cache directory\n"
 msgstr "%s: помилка: немає каталогу кешування\n"
 
 #. ../customize/customize_main.ml:262
-#. ../builder/builder.ml:716
+#. ../builder/builder.ml:728
 #: ../v2v/v2v.ml:352 ../sparsify/sparsify.ml:74 ../resize/resize.ml:1325
 msgid "%s: exception: %s\n"
 msgstr "%s: виключення: %s\n"
@@ -387,7 +387,7 @@ msgstr "%s: виключення: %s\n"
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr "%s: не вдалося отримати %s: код стану HTTP %s\n"
 
-#. ../builder/builder.ml:704
+#. ../builder/builder.ml:716
 #: ../v2v/v2v.ml:340 ../sparsify/sparsify.ml:62 ../resize/resize.ml:1313
 msgid "%s: failure: %s\n"
 msgstr "%s: помилка: %s\n"
@@ -409,7 +409,7 @@ msgstr ""
 "Вам слід встановити gpg, скористатися іншим значенням аргументу --gpg або "
 "скористатися параметром --no-check-signature.\n"
 
-#: ../builder/builder.ml:313
+#: ../builder/builder.ml:325
 msgid ""
 "%s: images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s\n"
@@ -418,20 +418,20 @@ msgstr ""
 "образу. Потрібний розмір = %s, мінімальний розмір = %s\n"
 
 #. ../customize/customize_main.ml:259
-#. ../builder/builder.ml:713
+#. ../builder/builder.ml:725
 #: ../v2v/v2v.ml:349 ../sparsify/sparsify.ml:71 ../resize/resize.ml:1322
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr "%s: внутрішня помилка: сталося виключення Not_found\n"
 
 #. ../customize/customize_main.ml:255
-#. ../builder/builder.ml:710
+#. ../builder/builder.ml:722
 #: ../v2v/v2v.ml:346 ../sparsify/sparsify.ml:68 ../resize/resize.ml:1319
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr "%s: внутрішня помилка: помилка твердження у %s, рядок %d, символ %d\n"
 
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:135
-#. ../builder/builder.ml:707
+#. ../builder/builder.ml:719
 #: ../v2v/v2v.ml:343 ../sparsify/sparsify.ml:65 ../resize/resize.ml:1316
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr "%s: внутрішня помилка: некоректний аргумент: %s\n"
@@ -449,7 +449,7 @@ msgstr ""
 msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
-#. ../builder/builder.ml:701
+#. ../builder/builder.ml:713
 #: ../v2v/v2v.ml:337 ../sparsify/sparsify.ml:59 ../resize/resize.ml:1310
 msgid "%s: libguestfs error: %s\n"
 msgstr "%s: помилка libguestfs: %s\n"
@@ -481,7 +481,7 @@ msgstr "%s: розмір нового розділу є нульовим або 
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: запис «%s» у %s не містить частини «uri», пропускаємо його\n"
 
-#: ../builder/builder.ml:618
+#: ../builder/builder.ml:630
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -495,7 +495,7 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
 
-#: ../builder/builder.ml:438
+#: ../builder/builder.ml:450
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -506,7 +506,7 @@ msgstr ""
 "Будь ласка, повідомте про неї, вказавши використані вами параметри\n"
 "командного рядка.\n"
 
-#: ../builder/builder.ml:318
+#: ../builder/builder.ml:330
 msgid ""
 "%s: output size is too large for this block device.  Requested size = %s, "
 "output block device = %s, output block device size = %s\n"
@@ -843,11 +843,15 @@ msgstr ""
 msgid "Add qemu-img options"
 msgstr "Додати параметри qemu-img"
 
+#: ../builder/list_entries.ml:85
+msgid "Aliases:"
+msgstr ""
+
 #: ../resize/resize.ml:180
 msgid "Align first partition (default: auto)"
 msgstr "Вирівняти перший розділ (типове значення: auto)"
 
-#: ../builder/list_entries.ml:75
+#: ../builder/list_entries.ml:76
 msgid "Architecture:"
 msgstr "Архітектура:"
 
@@ -895,7 +899,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr "Стиснений формат виведення даних"
 
-#: ../builder/builder.ml:566
+#: ../builder/builder.ml:578
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
@@ -915,7 +919,7 @@ msgstr ""
 "Скопіювати призначення і виконати розрідження…\n"
 "%!"
 
-#: ../builder/builder.ml:497
+#: ../builder/builder.ml:509
 msgid "Copying"
 msgstr "Копіювання"
 
@@ -1096,11 +1100,11 @@ msgstr "Не виводити даних резюме"
 msgid "Download all templates to the cache"
 msgstr "Отримати усі шаблони до кешу"
 
-#: ../builder/list_entries.ml:80
+#: ../builder/list_entries.ml:81
 msgid "Download size:"
 msgstr "Розмір отриманих даних:"
 
-#: ../builder/builder.ml:231 ../builder/builder.ml:184
+#: ../builder/builder.ml:243 ../builder/builder.ml:184
 msgid "Downloading: %s"
 msgstr "Отримання: %s"
 
@@ -1256,7 +1260,7 @@ msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
 #: ../v2v/v2v.ml:209 ../customize/customize_main.ml:237
-#: ../builder/builder.ml:663
+#: ../builder/builder.ml:675
 msgid "Finishing off"
 msgstr "Остаточне коригування"
 
@@ -1303,11 +1307,11 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../builder/builder.ml:653
+#: ../builder/builder.ml:665
 msgid "Free space"
 msgstr ""
 
-#: ../builder/list_entries.ml:73
+#: ../builder/list_entries.ml:74
 msgid "Full name:"
 msgstr "Назва повністю:"
 
@@ -1395,7 +1399,7 @@ msgstr "Зробити машину виведення даних придатн
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../builder/list_entries.ml:76
+#: ../builder/list_entries.ml:77
 msgid "Minimum/default size:"
 msgstr "Мінімальний/Типовий розмір:"
 
@@ -1423,7 +1427,7 @@ msgstr ""
 msgid "Notes on %s"
 msgstr "Нотатки щодо %s"
 
-#: ../builder/list_entries.ml:86
+#: ../builder/list_entries.ml:92
 msgid ""
 "Notes:\n"
 "\n"
@@ -1462,7 +1466,7 @@ msgstr ""
 "підтримку,\n"
 "буде створено нові випадкові UUID, які буде пов’язано з файловими системами."
 
-#: ../builder/builder.ml:579
+#: ../builder/builder.ml:591
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
@@ -1470,11 +1474,11 @@ msgstr "Відкриваємо новий диск"
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../builder/builder.ml:648
+#: ../builder/builder.ml:660
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:650
+#: ../builder/builder.ml:662
 msgid "Output format"
 msgstr ""
 
@@ -1482,7 +1486,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr "Формат виведених даних (типово, raw)"
 
-#: ../builder/builder.ml:649
+#: ../builder/builder.ml:661
 msgid "Output size"
 msgstr ""
 
@@ -1505,7 +1509,7 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
-#: ../builder/builder.ml:433
+#: ../builder/builder.ml:445
 msgid "Planning how to build this image"
 msgstr "Планування побудови цього образу"
 
@@ -1745,11 +1749,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../builder/builder.ml:524
+#: ../builder/builder.ml:536
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:553
+#: ../builder/builder.ml:565
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Зміна розмірів контейнера (але не файлової системи) для розширення диска до "
@@ -2136,7 +2140,7 @@ msgstr ""
 "Дані обліку процесів системи будуть зберігатися у файлах журналу\n"
 "pacct, якщо увімкнено облік процесів."
 
-#: ../builder/builder.ml:215
+#: ../builder/builder.ml:227
 msgid "There are no notes for %s\n"
 msgstr "Немає нотаток щодо %s\n"
 
@@ -2182,7 +2186,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:651
+#: ../builder/builder.ml:663
 msgid "Total usable space"
 msgstr ""
 
@@ -2206,7 +2210,7 @@ msgstr "Вимкнути розріджене копіювання"
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../builder/builder.ml:512
+#: ../builder/builder.ml:524
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
@@ -2596,23 +2600,23 @@ msgstr "адреса"
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr "спосіб використання: %s [--параметри] початковий_диск диск_результату"
 
-#: ../builder/index_parser.ml:220
+#: ../builder/index_parser.ml:226
 msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
 msgstr "virt-builder: не вдалося обробити поле compressed_size для «%s»\n"
 
-#: ../builder/index_parser.ml:245
+#: ../builder/index_parser.ml:251
 msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
 msgstr "virt-builder: не вдалося обробити поле hidden для «%s»\n"
 
-#: ../builder/index_parser.ml:199
+#: ../builder/index_parser.ml:205
 msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
 msgstr "virt-builder: не вдалося обробити поле revision для «%s»\n"
 
-#: ../builder/index_parser.ml:211
+#: ../builder/index_parser.ml:217
 msgid "virt-builder: cannot parse 'size' field for '%s'\n"
 msgstr "virt-builder: не вдалося обробити поле size для «%s»\n"
 
-#: ../builder/index_parser.ml:282
+#: ../builder/index_parser.ml:296
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 "virt-builder: не можна використовувати адресу («%s») у файлі покажчика\n"
@@ -2729,13 +2733,13 @@ msgstr ""
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr "virt-builder: get-kernel: не знайдено операційної системи\n"
 
-#: ../builder/index_parser.ml:160
+#: ../builder/index_parser.ml:166
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 "virt-builder: покажчик пошкоджено: %s: поле «%s» використано декілька разів\n"
 
-#: ../builder/index_parser.ml:158
+#: ../builder/index_parser.ml:164
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s[%s]' appears two or more "
 "times\n"
@@ -2743,7 +2747,7 @@ msgstr ""
 "virt-builder: покажчик пошкоджено: %s: поле «%s[%s]» використано декілька "
 "разів\n"
 
-#: ../builder/index_parser.ml:142
+#: ../builder/index_parser.ml:148
 msgid ""
 "virt-builder: index is corrupt: os-version '%s' with architecture '%s' "
 "appears two or more times\n"
@@ -2751,15 +2755,15 @@ msgstr ""
 "virt-builder: покажчик пошкоджено: версію операційної системи «%s» з "
 "архітектурою «%s» використано декілька разів\n"
 
-#: ../builder/index_parser.ml:184
+#: ../builder/index_parser.ml:190
 msgid "virt-builder: no 'arch' entry for '%s'\n"
 msgstr "virt-builder: немає запису «arch» (адреси) для «%s»\n"
 
-#: ../builder/index_parser.ml:179
+#: ../builder/index_parser.ml:185
 msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
 msgstr "virt-builder: немає запису «file» (адреси) для «%s»\n"
 
-#: ../builder/index_parser.ml:208
+#: ../builder/index_parser.ml:214
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr "virt-builder: немає поля «size» для «%s»\n"
 
@@ -2767,14 +2771,14 @@ msgstr "virt-builder: немає поля «size» для «%s»\n"
 msgid "virt-builder: no kernel found\n"
 msgstr "virt-builder: не знайдено ядра\n"
 
-#: ../builder/index_parser.ml:287
+#: ../builder/index_parser.ml:301
 msgid ""
 "virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 "virt-builder: у файлі покажчика вам слід використовувати відносні шляхи (не "
 "«%s»)\n"
 
-#: ../builder/index_parser.ml:278
+#: ../builder/index_parser.ml:292
 msgid "virt-builder: zero length path in the index file\n"
 msgstr "virt-builder: шлях нульової довжини у файлі покажчика\n"
 
@@ -8298,7 +8302,7 @@ msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1260 src/launch-libvirt.c:1290
+#: src/launch-direct.c:1260 src/launch-libvirt.c:1294
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -8432,11 +8436,11 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1244
+#: src/launch-libvirt.c:1248
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1367
+#: src/launch-libvirt.c:1371
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -8444,7 +8448,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1392
+#: src/launch-libvirt.c:1396
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -8456,7 +8460,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1399
+#: src/launch-libvirt.c:1403
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -8469,20 +8473,20 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1677
+#: src/launch-libvirt.c:1681
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1714 src/launch-libvirt.c:1747
+#: src/launch-libvirt.c:1718 src/launch-libvirt.c:1751
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1806
+#: src/launch-libvirt.c:1810
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1837
+#: src/launch-libvirt.c:1841
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
