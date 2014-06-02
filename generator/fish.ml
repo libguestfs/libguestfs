@@ -31,6 +31,14 @@ open Prepopts
 open C
 open Events
 
+type func =
+  | Function of string           (* The description. *)
+  | Alias of string              (* The function of which it is one the
+                                  * aliases.
+                                  *)
+
+let func_compare (n1, _) (n2, _) = compare n1 n2
+
 let fish_functions_and_commands_sorted =
   List.sort action_compare (fish_functions_sorted @ fish_commands)
 
@@ -45,6 +53,21 @@ let get_aliases { fish_alias = fish_alias; non_c_aliases = non_c_aliases } =
   let non_c_aliases =
     List.map (fun n -> replace_char n '_' '-') non_c_aliases in
   fish_alias @ non_c_aliases
+
+let all_functions_commands_and_aliases_sorted =
+  let all =
+    List.fold_right (
+      fun ({ name = name; shortdesc = shortdesc } as f) acc ->
+        let aliases = get_aliases f in
+        let aliases = List.filter (
+          fun x ->
+            Filename.check_suffix x "-opts" <> true
+        ) aliases in
+        let aliases = List.map (fun x -> x, Alias name) aliases in
+        let foo = (name, Function shortdesc) :: aliases in
+        foo @ acc
+    ) (fish_functions_sorted @ fish_commands) [] in
+  List.sort func_compare all
 
 (* Generate a lot of different functions for guestfish. *)
 let generate_fish_cmds () =
@@ -179,11 +202,18 @@ Guestfish will prompt for these separately."
   pr "  printf (\"    %%-16s     %%s\\n\", _(\"Command\"), _(\"Description\"));\n";
   pr "  list_builtin_commands ();\n";
   List.iter (
-    fun { name = name; shortdesc = shortdesc } ->
+    fun (name, f) ->
       let name = replace_char name '_' '-' in
-      pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
-        name shortdesc
-  ) fish_functions_and_commands_sorted;
+      match f with
+      | Function shortdesc ->
+        pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
+          name shortdesc
+      | Alias f ->
+        let f = replace_char f '_' '-' in
+        pr "  printf (\"%%-20s \", \"%s\");\n" name;
+        pr "  printf (_(\"alias for '%%s'\"), \"%s\");\n" f;
+        pr "  putchar ('\\n');\n"
+  ) all_functions_commands_and_aliases_sorted;
   pr "  printf (\"    %%s\\n\",";
   pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
   pr "}\n";
