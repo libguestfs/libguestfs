@@ -27,6 +27,7 @@ open Actions
  * list of functions.
  *)
 let optgroups_retired = [
+  "augeas";
   "realpath";
 ]
 

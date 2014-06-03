@@ -3472,7 +3472,6 @@ of the L<lvs(8)> command.  The \"full\" version includes all fields." };
     name = "aug_init";
     style = RErr, [Pathname "root"; Int "flags"], [];
     proc_nr = Some 16;
-    optional = Some "augeas";
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -3538,7 +3537,6 @@ To find out more about Augeas, see L<http://augeas.net/>." };
     name = "aug_close";
     style = RErr, [], [];
     proc_nr = Some 26;
-    optional = Some "augeas";
     shortdesc = "close the current Augeas handle";
     longdesc = "\
 Close the current Augeas handle and free up any resources
@@ -3550,7 +3548,6 @@ Augeas functions." };
     name = "aug_defvar";
     style = RInt "nrnodes", [String "name"; OptString "expr"], [];
     proc_nr = Some 17;
-    optional = Some "augeas";
     shortdesc = "define an Augeas variable";
     longdesc = "\
 Defines an Augeas variable C<name> whose value is the result
@@ -3564,7 +3561,6 @@ C<0> if C<expr> evaluates to something which is not a nodeset." };
     name = "aug_defnode";
     style = RStruct ("nrnodescreated", "int_bool"), [String "name"; String "expr"; String "val"], [];
     proc_nr = Some 18;
-    optional = Some "augeas";
     shortdesc = "define an Augeas node";
     longdesc = "\
 Defines a variable C<name> whose value is the result of
@@ -3582,7 +3578,6 @@ if a node was created." };
     name = "aug_get";
     style = RString "val", [String "augpath"], [];
     proc_nr = Some 19;
-    optional = Some "augeas";
     shortdesc = "look up the value of an Augeas path";
     longdesc = "\
 Look up the value associated with C<path>.  If C<path>
@@ -3592,7 +3587,6 @@ matches exactly one node, the C<value> is returned." };
     name = "aug_set";
     style = RErr, [String "augpath"; String "val"], [];
     proc_nr = Some 20;
-    optional = Some "augeas";
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -3614,7 +3608,6 @@ C<guestfs_aug_clear> call." };
     name = "aug_insert";
     style = RErr, [String "augpath"; String "label"; Bool "before"], [];
     proc_nr = Some 21;
-    optional = Some "augeas";
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -3642,7 +3635,6 @@ with a bracketed index C<[N]>." };
     name = "aug_rm";
     style = RInt "nrnodes", [String "augpath"], [];
     proc_nr = Some 22;
-    optional = Some "augeas";
     shortdesc = "remove an Augeas path";
     longdesc = "\
 Remove C<path> and all of its children.
@@ -3653,7 +3645,6 @@ On success this returns the number of entries which were removed." };
     name = "aug_mv";
     style = RErr, [String "src"; String "dest"], [];
     proc_nr = Some 23;
-    optional = Some "augeas";
     shortdesc = "move Augeas node";
     longdesc = "\
 Move the node C<src> to C<dest>.  C<src> must match exactly
@@ -3663,7 +3654,6 @@ one node.  C<dest> is overwritten if it exists." };
     name = "aug_match";
     style = RStringList "matches", [String "augpath"], [];
     proc_nr = Some 24;
-    optional = Some "augeas";
     shortdesc = "return Augeas nodes which match augpath";
     longdesc = "\
 Returns a list of paths which match the path expression C<path>.
@@ -3674,7 +3664,6 @@ exactly one node in the current tree." };
     name = "aug_save";
     style = RErr, [], [];
     proc_nr = Some 25;
-    optional = Some "augeas";
     shortdesc = "write all pending Augeas changes to disk";
     longdesc = "\
 This writes all pending changes to disk.
@@ -3686,7 +3675,6 @@ how files are saved." };
     name = "aug_load";
     style = RErr, [], [];
     proc_nr = Some 27;
-    optional = Some "augeas";
     shortdesc = "load files into the tree";
     longdesc = "\
 Load files into the tree.
@@ -3698,7 +3686,6 @@ details." };
     name = "aug_ls";
     style = RStringList "matches", [String "augpath"], [];
     proc_nr = Some 28;
-    optional = Some "augeas";
     tests = [
       InitBasicFS, Always, TestResult (
         [["mkdir"; "/etc"];
@@ -8252,7 +8239,6 @@ group." };
     name = "aug_clear";
     style = RErr, [String "augpath"], [];
     proc_nr = Some 239;
-    optional = Some "augeas";
     shortdesc = "clear Augeas path";
     longdesc = "\
 Set the value associated with C<path> to C<NULL>.  This
@@ -11757,7 +11743,6 @@ See also C<guestfs_journal_get_data_threshold>." };
     name = "aug_setm";
     style = RInt "nodes", [String "base"; OptString "sub"; String "val"], [];
     proc_nr = Some 411;
-    optional = Some "augeas";
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -11781,7 +11766,6 @@ This returns the number of nodes modified." };
     name = "aug_label";
     style = RString "label", [String "augpath"], [];
     proc_nr = Some 412;
-    optional = Some "augeas";
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];

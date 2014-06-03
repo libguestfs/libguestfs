@@ -29,12 +29,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-int
-optgroup_augeas_available (void)
-{
-  return 1;
-}
-
 /* The Augeas handle.  We maintain a single handle per daemon, which
  * is all that is necessary and reduces the complexity of the API
  * considerably.
