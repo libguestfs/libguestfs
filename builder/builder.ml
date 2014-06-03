@@ -36,6 +36,41 @@ let prog = Filename.basename Sys.executable_name
 
 let () = Random.self_init ()
 
+let remove_duplicates index =
+  (* Fill an hash with the higher revision of the available
+   * (name, arch) tuples, so it possible to ignore duplicates,
+   * and versions with a lower revision.
+   *)
+  let nseen = Hashtbl.create 13 in
+  List.iter (
+    fun (name, { Index_parser.arch = arch; revision = revision }) ->
+      let id = name, arch in
+      try
+        let rev = Hashtbl.find nseen id in
+        if revision > rev then
+          Hashtbl.replace nseen id revision
+      with Not_found ->
+        Hashtbl.add nseen id revision
+  ) index;
+  List.filter (
+    fun (name, { Index_parser.arch = arch; revision = revision }) ->
+      let id = name, arch in
+      try
+        let rev = Hashtbl.find nseen (name, arch) in
+        (* Take the first occurrency with the higher revision,
+         * removing it from the hash so the other occurrencies
+         * are ignored.
+         *)
+        if revision = rev then (
+          Hashtbl.remove nseen id;
+          true
+        ) else
+          false
+      with Not_found ->
+        (* Already taken, so ignore. *)
+        false
+  ) index
+
 let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let mode, arg,
@@ -146,6 +181,7 @@ let main () =
           Index_parser.get_index ~prog ~debug ~downloader ~sigchecker ~proxy source
       ) sources
     ) in
+  let index = remove_duplicates index in
 
   (* Now handle the remaining modes. *)
   let mode =
