@@ -222,6 +222,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
   }
   else if (is_dir_etc &&
            is_dir_bin &&
+           guestfs_is_file (g, "/netbsd") > 0 &&
            guestfs_is_file (g, "/etc/fstab") > 0 &&
            guestfs_is_file (g, "/etc/release") > 0) {
     /* Ignore /dev/sda1 which is a shadow of the real root filesystem
