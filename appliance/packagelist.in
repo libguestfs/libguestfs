@@ -202,7 +202,7 @@ ifelse(MAGEIA,1,
   systemd /* for /sbin/reboot and udevd */
   vim-minimal
   xz
-  yajl,
+  yajl
   module-init-tools
   procps-ng
   udev
