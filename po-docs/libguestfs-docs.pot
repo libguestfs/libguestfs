@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.27.14\n"
+"Project-Id-Version: libguestfs 1.27.15\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-05-30 18:03+0200\n"
+"POT-Creation-Date: 2014-06-10 20:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64512,47 +64512,31 @@ msgstr ""
 
 #. type: =item
 #: ../src/guestfs-availability.pod:35
-msgid "B<augeas>"
-msgstr ""
-
-#. type: textblock
-#: ../src/guestfs-availability.pod:37
-msgid ""
-"The following functions: L</guestfs_aug_clear> L</guestfs_aug_close> "
-"L</guestfs_aug_defnode> L</guestfs_aug_defvar> L</guestfs_aug_get> "
-"L</guestfs_aug_init> L</guestfs_aug_insert> L</guestfs_aug_label> "
-"L</guestfs_aug_load> L</guestfs_aug_ls> L</guestfs_aug_match> "
-"L</guestfs_aug_mv> L</guestfs_aug_rm> L</guestfs_aug_save> "
-"L</guestfs_aug_set> L</guestfs_aug_setm>"
-msgstr ""
-
-#. type: =item
-#: ../src/guestfs-availability.pod:55
 msgid "B<blkdiscard>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:57
+#: ../src/guestfs-availability.pod:37
 msgid "The following functions: L</guestfs_blkdiscard>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:60
+#: ../src/guestfs-availability.pod:40
 msgid "B<blkdiscardzeroes>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:62
+#: ../src/guestfs-availability.pod:42
 msgid "The following functions: L</guestfs_blkdiscardzeroes>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:65
+#: ../src/guestfs-availability.pod:45
 msgid "B<btrfs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:67
+#: ../src/guestfs-availability.pod:47
 msgid ""
 "The following functions: L</guestfs_btrfs_device_add> "
 "L</guestfs_btrfs_device_delete> L</guestfs_btrfs_filesystem_balance> "
@@ -64564,54 +64548,54 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:82
+#: ../src/guestfs-availability.pod:62
 msgid "B<extlinux>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:84
+#: ../src/guestfs-availability.pod:64
 msgid "The following functions: L</guestfs_extlinux>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:87
+#: ../src/guestfs-availability.pod:67
 msgid "B<fstrim>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:89
+#: ../src/guestfs-availability.pod:69
 msgid "The following functions: L</guestfs_fstrim>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:92
+#: ../src/guestfs-availability.pod:72
 msgid "B<gdisk>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:94
+#: ../src/guestfs-availability.pod:74
 msgid ""
 "The following functions: L</guestfs_part_get_gpt_type> "
 "L</guestfs_part_set_gpt_type>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:98
+#: ../src/guestfs-availability.pod:78
 msgid "B<grub>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:100
+#: ../src/guestfs-availability.pod:80
 msgid "The following functions: L</guestfs_grub_install>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:103
+#: ../src/guestfs-availability.pod:83
 msgid "B<hivex>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:105
+#: ../src/guestfs-availability.pod:85
 msgid ""
 "The following functions: L</guestfs_hivex_close> L</guestfs_hivex_commit> "
 "L</guestfs_hivex_node_add_child> L</guestfs_hivex_node_children> "
@@ -64624,12 +64608,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:123
+#: ../src/guestfs-availability.pod:103
 msgid "B<inotify>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:125
+#: ../src/guestfs-availability.pod:105
 msgid ""
 "The following functions: L</guestfs_inotify_add_watch> "
 "L</guestfs_inotify_close> L</guestfs_inotify_files> L</guestfs_inotify_init> "
@@ -64637,12 +64621,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:133
+#: ../src/guestfs-availability.pod:113
 msgid "B<journal>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:135
+#: ../src/guestfs-availability.pod:115
 msgid ""
 "The following functions: L</guestfs_internal_journal_get> "
 "L</guestfs_journal_close> L</guestfs_journal_get_data_threshold> "
@@ -64651,12 +64635,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:144
+#: ../src/guestfs-availability.pod:124
 msgid "B<ldm>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:146
+#: ../src/guestfs-availability.pod:126
 msgid ""
 "The following functions: L</guestfs_ldmtool_create_all> "
 "L</guestfs_ldmtool_diskgroup_disks> L</guestfs_ldmtool_diskgroup_name> "
@@ -64668,44 +64652,44 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:160
+#: ../src/guestfs-availability.pod:140
 msgid "B<linuxcaps>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:162
+#: ../src/guestfs-availability.pod:142
 msgid "The following functions: L</guestfs_cap_get_file> L</guestfs_cap_set_file>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:166
+#: ../src/guestfs-availability.pod:146
 msgid "B<linuxfsuuid>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:168
+#: ../src/guestfs-availability.pod:148
 msgid ""
 "The following functions: L</guestfs_mke2fs_JU> L</guestfs_mke2journal_U> "
 "L</guestfs_mkswap_U> L</guestfs_swapoff_uuid> L</guestfs_swapon_uuid>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:175
+#: ../src/guestfs-availability.pod:155
 msgid "B<linuxmodules>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:177
+#: ../src/guestfs-availability.pod:157
 msgid "The following functions: L</guestfs_modprobe>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:180
+#: ../src/guestfs-availability.pod:160
 msgid "B<linuxxattrs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:182
+#: ../src/guestfs-availability.pod:162
 msgid ""
 "The following functions: L</guestfs_getxattr> L</guestfs_getxattrs> "
 "L</guestfs_internal_lxattrlist> L</guestfs_lgetxattr> L</guestfs_lgetxattrs> "
@@ -64714,12 +64698,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:193
+#: ../src/guestfs-availability.pod:173
 msgid "B<luks>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:195
+#: ../src/guestfs-availability.pod:175
 msgid ""
 "The following functions: L</guestfs_luks_add_key> L</guestfs_luks_close> "
 "L</guestfs_luks_format> L</guestfs_luks_format_cipher> "
@@ -64727,12 +64711,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:204
+#: ../src/guestfs-availability.pod:184
 msgid "B<lvm2>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:206
+#: ../src/guestfs-availability.pod:186
 msgid ""
 "The following functions: L</guestfs_lvcreate> L</guestfs_lvcreate_free> "
 "L</guestfs_lvm_remove_all> L</guestfs_lvm_set_filter> L</guestfs_lvremove> "
@@ -64746,134 +64730,134 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:234
+#: ../src/guestfs-availability.pod:214
 msgid "B<mdadm>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:236
+#: ../src/guestfs-availability.pod:216
 msgid ""
 "The following functions: L</guestfs_md_create> L</guestfs_md_detail> "
 "L</guestfs_md_stat> L</guestfs_md_stop>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:242
+#: ../src/guestfs-availability.pod:222
 msgid "B<mknod>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:244
+#: ../src/guestfs-availability.pod:224
 msgid ""
 "The following functions: L</guestfs_mkfifo> L</guestfs_mknod> "
 "L</guestfs_mknod_b> L</guestfs_mknod_c>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:250
+#: ../src/guestfs-availability.pod:230
 msgid "B<ntfs3g>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:252
+#: ../src/guestfs-availability.pod:232
 msgid ""
 "The following functions: L</guestfs_ntfs_3g_probe> L</guestfs_ntfsclone_in> "
 "L</guestfs_ntfsclone_out> L</guestfs_ntfsfix>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:258
+#: ../src/guestfs-availability.pod:238
 msgid "B<ntfsprogs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:260
+#: ../src/guestfs-availability.pod:240
 msgid "The following functions: L</guestfs_ntfsresize> L</guestfs_ntfsresize_size>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:264
+#: ../src/guestfs-availability.pod:244
 msgid "B<rsync>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:266
+#: ../src/guestfs-availability.pod:246
 msgid ""
 "The following functions: L</guestfs_rsync> L</guestfs_rsync_in> "
 "L</guestfs_rsync_out>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:271
+#: ../src/guestfs-availability.pod:251
 msgid "B<scrub>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:273
+#: ../src/guestfs-availability.pod:253
 msgid ""
 "The following functions: L</guestfs_scrub_device> L</guestfs_scrub_file> "
 "L</guestfs_scrub_freespace>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:278
+#: ../src/guestfs-availability.pod:258
 msgid "B<selinux>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:280
+#: ../src/guestfs-availability.pod:260
 msgid "The following functions: L</guestfs_getcon> L</guestfs_setcon>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:284
+#: ../src/guestfs-availability.pod:264
 msgid "B<syslinux>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:286
+#: ../src/guestfs-availability.pod:266
 msgid "The following functions: L</guestfs_syslinux>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:289
+#: ../src/guestfs-availability.pod:269
 msgid "B<wipefs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:291
+#: ../src/guestfs-availability.pod:271
 msgid "The following functions: L</guestfs_wipefs>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:294
+#: ../src/guestfs-availability.pod:274
 msgid "B<xfs>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:296
+#: ../src/guestfs-availability.pod:276
 msgid ""
 "The following functions: L</guestfs_xfs_admin> L</guestfs_xfs_growfs> "
 "L</guestfs_xfs_info> L</guestfs_xfs_repair>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:302
+#: ../src/guestfs-availability.pod:282
 msgid "B<xz>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:304
+#: ../src/guestfs-availability.pod:284
 msgid "The following functions: L</guestfs_txz_in> L</guestfs_txz_out>"
 msgstr ""
 
 #. type: =item
-#: ../src/guestfs-availability.pod:308
+#: ../src/guestfs-availability.pod:288
 msgid "B<zerofree>"
 msgstr ""
 
 #. type: textblock
-#: ../src/guestfs-availability.pod:310
+#: ../src/guestfs-availability.pod:290
 msgid "The following functions: L</guestfs_zerofree>"
 msgstr ""
 
