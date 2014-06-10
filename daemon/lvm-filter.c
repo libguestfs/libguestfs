@@ -200,7 +200,7 @@ vgchange (const char *vgchange_flag)
   CLEANUP_FREE char *err = NULL;
   int r = command (NULL, &err, str_lvm, "vgchange", vgchange_flag, NULL);
   if (r == -1) {
-    reply_with_error ("vgchange: %s", err);
+    reply_with_error ("vgchange %s: %s", vgchange_flag, err);
     return -1;
   }
 
