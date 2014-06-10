@@ -38,16 +38,19 @@ int
 do_grub_install (const char *root, const char *device)
 {
   int r;
-  CLEANUP_FREE char *err = NULL, *buf = NULL;
+  CLEANUP_FREE char *err = NULL, *buf = NULL, *out = NULL;
 
   if (asprintf_nowarn (&buf, "--root-directory=%R", root) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
 
-  r = command (NULL, &err, str_grub_install, buf, device, NULL);
+  r = command (verbose ? &out : NULL, &err,
+               str_grub_install, buf, device, NULL);
 
   if (r == -1) {
+    if (verbose)
+      fprintf (stderr, "grub output:\n%s\n", out);
     reply_with_error ("%s", err);
     return -1;
   }
