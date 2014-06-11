@@ -42,6 +42,7 @@ case $version in
         tree=$topurl/x86_64/os/Server
         srpms=$topurl/source/SRPMS
         bootfs=ext2
+        rootfs=ext4
         guestroot=/dev/sda2
         ;;
     6.*)
@@ -52,24 +53,17 @@ case $version in
         optional=$topurl/Server/optional/x86_64/os
         optionalsrpms=$topurl/Server/optional/source/SRPMS
         bootfs=ext4
+        rootfs=ext4
         ;;
-    7beta1)
+    7.*)
         major=7
-        topurl=http://download.devel.redhat.com/released/RHEL-7/7.0-Beta-1
+        topurl=http://download.devel.redhat.com/released/RHEL-$major/$version
         tree=$topurl/Server/x86_64/os
         srpms=$topurl/source/SRPMS
         optional=$topurl/Server/optional/x86_64/os
         optionalsrpms=$topurl/Server/optional/source/SRPMS
         bootfs=ext4
-        ;;
-    7rc)
-        major=7
-        topurl=ftp://ftp.redhat.com/redhat/rhel/rc/7
-        tree=$topurl/Server/x86_64/os
-        srpms=$topurl/Server/source/SRPMS
-        optional=$topurl/Server-optional/x86_64/os
-        optionalsrpms=$topurl/Server-optional/source/SRPMS
-        bootfs=ext4
+        rootfs=xfs
         ;;
     *)
         echo "$0: version $version not supported by this script yet"
@@ -104,7 +98,7 @@ zerombr
 clearpart --all --initlabel
 part /boot --fstype=$bootfs --size=512         --asprimary
 part swap                   --size=1024        --asprimary
-part /     --fstype=ext4    --size=1024 --grow --asprimary
+part /     --fstype=$rootfs --size=1024 --grow --asprimary
 
 # Halt the system once configuration has finished.
 poweroff
