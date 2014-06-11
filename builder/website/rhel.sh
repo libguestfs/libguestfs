@@ -60,8 +60,8 @@ case $version in
         topurl=http://download.devel.redhat.com/released/RHEL-$major/$version
         tree=$topurl/Server/x86_64/os
         srpms=$topurl/source/SRPMS
-        optional=$topurl/Server/optional/x86_64/os
-        optionalsrpms=$topurl/Server/optional/source/SRPMS
+        optional=$topurl/Server-optional/x86_64/os
+        optionalsrpms=$topurl/Server-optional/source/tree
         bootfs=ext4
         rootfs=xfs
         ;;
