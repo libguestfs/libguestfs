@@ -60,6 +60,16 @@ poweroff
 %packages
 @core
 %end
+
+%post
+# Enable Xen domU support:
+pushd /etc/dracut.conf.d
+echo 'add_drivers+="xen:vbd xen:vif"' > virt-builder-xen-drivers.conf
+popd
+# Rerun dracut for the installed kernel (not the running kernel):
+KERNEL_VERSION=$(rpm -q kernel --qf '%{version}-%{release}.%{arch}\n')
+dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
+%end
 EOF
 
 # Clean up function.
