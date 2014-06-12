@@ -26,19 +26,13 @@ EXTRA_DIST = \
 	index \
 	index.asc \
 	centos.sh \
-	centos-*.xz.sig \
-	cirros-*.xz.sig \
 	debian.preseed \
 	debian.sh \
-	debian-*.xz.sig \
 	fedora.sh \
 	rhel.sh \
-	rhel-*.xz.sig \
 	scientificlinux.sh \
-	scientificlinux-*.xz.sig \
 	ubuntu.preseed \
-	ubuntu.sh \
-	ubuntu-*.*.xz.sig
+	ubuntu.sh
 
 CLEANFILES = *~
 
