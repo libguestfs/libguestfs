@@ -159,11 +159,11 @@ name=Fedora® 20
 osinfo=fedora20
 arch=x86_64
 file=fedora-20.xz
-sig=fedora-20.xz.sig
-checksum=fadde95d55323d1d24ad8a968ac0b5b1f94148e8caa8c96e596b3c71a57569f7b6e18767dbe9b32822bf6caecde6e45f89277f85970569079b1f65ceaf6ed7ba
+revision=2
+checksum=983a1b33c34cb311ea3a283f06312d24dc81041b64ebc90e40ef2fd7587362acd1a5654b13252f9f57001870aa95495065537e730d5225b49389c1a0478cb028
 format=raw
 size=4294967296
-compressed_size=182477140
+compressed_size=181164220
 expand=/dev/sda3
 notes=Fedora 20.
  

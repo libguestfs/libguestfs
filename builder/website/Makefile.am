@@ -32,7 +32,6 @@ EXTRA_DIST = \
 	debian.sh \
 	debian-*.xz.sig \
 	fedora.sh \
-	fedora-*.xz.sig \
 	rhel.sh \
 	rhel-*.xz.sig \
 	scientificlinux.sh \
