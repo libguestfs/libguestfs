@@ -131,10 +131,11 @@ name=Fedora® 19
 osinfo=fedora19
 arch=x86_64
 file=fedora-19.xz
-checksum=6228792b15df695260eea5530770e22b1bce40a1986410252928adbe4131ab85c031bcf8892736b63240fd585e39a5f44ed7770ba0dc1e6d8de6834cccee3767
+revision=2
+checksum=acecd8d4bca0d6a3f937e0c9386f3185c916df3eaf5f825988c73d41e946a6dc4fda06cdd74a12bc60932edd65846097547b11aca2309a61dd6d0e91ab9d16f3
 format=raw
 size=4294967296
-compressed_size=172190964
+compressed_size=169531628
 expand=/dev/sda3
 notes=Fedora 19.
  
