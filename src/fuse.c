@@ -296,26 +296,49 @@ mount_local_access (const char *path, int mask)
     return -EROFS;
 
   r = mount_local_getattr (path, &statbuf);
-  if (r < 0 || mask == F_OK)
+  if (r < 0 || mask == F_OK) {
+    debug (g, "%s: mount_local_getattr returned r = %d", path, r);
     return r;
+  }
 
   fuse = fuse_get_context ();
 
-  if (mask & R_OK)
-    ok = ok &&
-      (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IRUSR
-       : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IRGRP
-       : statbuf.st_mode & S_IROTH);
-  if (mask & W_OK)
-    ok = ok &&
-      (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IWUSR
-       : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IWGRP
-       : statbuf.st_mode & S_IWOTH);
-  if (mask & X_OK)
-    ok = ok &&
-      (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IXUSR
-       : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IXGRP
-       : statbuf.st_mode & S_IXOTH);
+  /* Root user should be able to access everything, so only bother
+   * with these fine-grained tests for non-root.  (RHBZ#1106548).
+   */
+  if (fuse->uid != 0) {
+    if (mask & R_OK)
+      ok = ok &&
+        (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IRUSR
+           : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IRGRP
+           : statbuf.st_mode & S_IROTH);
+    if (mask & W_OK)
+      ok = ok &&
+        (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IWUSR
+           : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IWGRP
+           : statbuf.st_mode & S_IWOTH);
+    if (mask & X_OK)
+      ok = ok &&
+        (  fuse->uid == statbuf.st_uid ? statbuf.st_mode & S_IXUSR
+           : fuse->gid == statbuf.st_gid ? statbuf.st_mode & S_IXGRP
+           : statbuf.st_mode & S_IXOTH);
+  }
+
+  debug (g, "%s: "
+         "testing access mask%s%s%s%s: "
+         "caller UID:GID = %d:%d, "
+         "file UID:GID = %d:%d, "
+         "file mode = %o, "
+         "result = %s",
+         path,
+         mask & R_OK ? " R_OK" : "",
+         mask & W_OK ? " W_OK" : "",
+         mask & X_OK ? " X_OK" : "",
+         mask == 0 ? " 0" : "",
+         fuse->uid, fuse->gid,
+         statbuf.st_uid, statbuf.st_gid,
+         statbuf.st_mode,
+         ok ? "OK" : "EACCESS");
 
   return ok ? 0 : -EACCES;
 }
