@@ -275,8 +275,7 @@ TEXTFILES = BUGS README TODO
 BUILDERFILES = \
 	builder/website/README \
 	builder/website/index \
-	builder/website/index.asc \
-	builder/website/*.xz
+	builder/website/index.asc
 
 WEBSITEDIR = $(HOME)/d/websites/libguestfs
 
