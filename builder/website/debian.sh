@@ -64,6 +64,7 @@ virt-install \
     --initrd-inject=$(pwd)/preseed.cfg \
     --extra-args="auto console=tty0 console=ttyS0,115200" \
     --disk=$(pwd)/$output,size=4 \
+    --serial pty \
     --location=$location \
     --nographics \
     --noreboot
