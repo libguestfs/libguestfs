@@ -276,8 +276,7 @@ BUILDERFILES = \
 	builder/website/README \
 	builder/website/index \
 	builder/website/index.asc \
-	builder/website/*.xz \
-	builder/website/*.xz.sig
+	builder/website/*.xz
 
 WEBSITEDIR = $(HOME)/d/websites/libguestfs
 
