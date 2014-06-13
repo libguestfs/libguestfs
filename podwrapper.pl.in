@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # podwrapper.pl
-# Copyright (C) 2010-2012 Red Hat Inc.
+# Copyright (C) 2010-2014 Red Hat Inc.
 # @configure_input@
 #
 # This program is free software; you can redistribute it and/or modify
@@ -293,7 +293,7 @@ foreach (@verbatims) {
 die "$progname: $input: =encoding must not be present in input\n"
     if $content =~ /^=encoding/m;
 
-$content = "=encoding utf8\n\n$content";
+$content =~ s/^=head1(.*)/\n=encoding utf8\n\n=head1$1/m;
 
 if ($strict_checks) {
     # Verify sections present / not present.
