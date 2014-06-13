@@ -34,13 +34,8 @@ type t = {
 }
 
 let create ~debug ~directory =
-  (* Annoyingly Sys.is_directory throws an exception on failure
-   * (RHBZ#1022431).
-   *)
-  let is_dir = try Sys.is_directory directory with Sys_error _ -> false in
-  if is_dir = false then (
-    mkdir directory 0o755
-  );
+  if not (is_directory directory) then
+    mkdir directory 0o755;
   {
     debug = debug;
     directory = directory;

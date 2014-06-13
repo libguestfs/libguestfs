@@ -181,9 +181,7 @@ read the man page virt-v2v(1).
     | `Local ->
       if output_storage = "" then
         error (f_"-o local: output directory was not specified, use '-os /dir'");
-      let dir_exists =
-        try Sys.is_directory output_storage with Sys_error _ -> false in
-      if not dir_exists then
+      if not (is_directory output_storage) then
         error (f_"-os %s: output directory does not exist or is not a directory")
           output_storage;
       OutputLocal output_storage
