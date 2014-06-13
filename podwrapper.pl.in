@@ -293,7 +293,7 @@ foreach (@verbatims) {
 die "$progname: $input: =encoding must not be present in input\n"
     if $content =~ /^=encoding/m;
 
-$content =~ s/^=head1(.*)/\n=encoding utf8\n\n=head1$1/m;
+$content =~ s/^=(.*)/\n=encoding utf8\n\n=$1/m;
 
 if ($strict_checks) {
     # Verify sections present / not present.
