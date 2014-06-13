@@ -33,8 +33,11 @@ open Cmdline
 external statvfs_free_space : string -> int64 =
   "virt_sparsify_statvfs_free_space"
 
+type tmp_place = Directory of string | Block_device of string
+
 let run indisk outdisk check_tmpdir compress convert
-    format ignores machine_readable option quiet verbose trace zeroes =
+    format ignores machine_readable option tmp_param
+    quiet verbose trace zeroes =
 
   (* Once we have got past argument parsing and start to create
    * temporary files (including the potentially massive overlay file), we
@@ -65,20 +68,30 @@ let run indisk outdisk check_tmpdir compress convert
   if output_format = "raw" && compress then
     error (f_"--compress cannot be used for raw output.  Remove this option or use --convert qcow2.");
 
-  (* Get virtual size of the input disk. *)
-  let virtual_size = (new G.guestfs ())#disk_virtual_size indisk in
-  if not quiet then
-    printf (f_"Input disk virtual size = %Ld bytes (%s)\n%!")
-      virtual_size (human_size virtual_size);
+  (* Use TMPDIR or --tmp parameter? *)
+  let tmp_place =
+    match tmp_param with
+    | None -> Directory Filename.temp_dir_name (* $TMPDIR or /tmp *)
+    | Some dir when is_directory dir -> Directory dir
+    | Some dev when is_block_device dev -> Block_device dev
+    | Some path ->
+      error (f_"--tmp parameter must point to a directory or a block device") in
 
-  (* Check there is enough space in $TMPDIR. *)
-  let tmpdir = Filename.temp_dir_name in
+  (* Check there is enough space in temporary directory. *)
+  (match tmp_place with
+  | Block_device _ -> ()
+  | Directory tmpdir ->
+    (* Get virtual size of the input disk. *)
+    let virtual_size = (new G.guestfs ())#disk_virtual_size indisk in
+    if not quiet then
+      printf (f_"Input disk virtual size = %Ld bytes (%s)\n%!")
+        virtual_size (human_size virtual_size);
 
-  let print_warning () =
-    let free_space = statvfs_free_space tmpdir in
-    let extra_needed = virtual_size -^ free_space in
-    if extra_needed > 0L then (
-      eprintf (f_"\
+    let print_warning () =
+      let free_space = statvfs_free_space tmpdir in
+      let extra_needed = virtual_size -^ free_space in
+      if extra_needed > 0L then (
+        eprintf (f_"\
 
 WARNING: There may not be enough free space on %s.
 You may need to set TMPDIR to point to a directory with more free space.
@@ -92,34 +105,47 @@ You can ignore this warning or change it to a hard failure using the
 --check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sparsify(1).
 
 %!")
-        tmpdir (human_size virtual_size)
-        (human_size free_space) (human_size extra_needed);
-      true
-    ) else false
-  in
+          tmpdir (human_size virtual_size)
+          (human_size free_space) (human_size extra_needed);
+        true
+      ) else false
+    in
 
-  (match check_tmpdir with
-  | `Ignore -> ()
-  | `Continue -> ignore (print_warning ())
-  | `Warn ->
-    if print_warning () then (
-      eprintf "Press RETURN to continue or ^C to quit.\n%!";
-      ignore (read_line ())
-    );
-  | `Fail ->
-    if print_warning () then (
-      eprintf "Exiting because --check-tmpdir=fail was set.\n%!";
-      exit 2
-    )
+    match check_tmpdir with
+    | `Ignore -> ()
+    | `Continue -> ignore (print_warning ())
+    | `Warn ->
+      if print_warning () then (
+        eprintf "Press RETURN to continue or ^C to quit.\n%!";
+        ignore (read_line ())
+      );
+    | `Fail ->
+      if print_warning () then (
+        eprintf "Exiting because --check-tmpdir=fail was set.\n%!";
+        exit 2
+      )
   );
-
-  if not quiet then
-    printf (f_"Create overlay file in %s to protect source disk ...\n%!") tmpdir;
 
   (* Create the temporary overlay file. *)
   let overlaydisk =
-    let tmp = Filename.temp_file "sparsify" ".qcow2" in
-    unlink_on_exit tmp;
+    if not quiet then (
+      match tmp_place with
+      | Directory tmpdir ->
+        printf (f_"Create overlay file in %s to protect source disk ...\n%!")
+          tmpdir
+      | Block_device device ->
+        printf (f_"Create overlay device %s to protect source disk ...\n%!")
+          device
+    );
+
+    let tmp =
+      match tmp_place with
+      | Directory temp_dir ->
+        let tmp = Filename.temp_file ~temp_dir "sparsify" ".qcow2" in
+        unlink_on_exit tmp;
+        tmp
+
+      | Block_device device -> device in
 
     (* Create it with the indisk as the backing file. *)
     (* XXX Old code used to:

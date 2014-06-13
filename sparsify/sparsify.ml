@@ -34,9 +34,9 @@ let rec main () =
     parse_cmdline () in
 
   (match mode with
-  | Mode_copying (outdisk, check_tmpdir, compress, convert, option) ->
+  | Mode_copying (outdisk, check_tmpdir, compress, convert, option, tmp) ->
     Copying.run indisk outdisk check_tmpdir compress convert
-      format ignores machine_readable option quiet verbose trace zeroes
+      format ignores machine_readable option tmp quiet verbose trace zeroes
   | Mode_in_place ->
     In_place.run indisk format ignores machine_readable
       quiet verbose trace zeroes
