@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-06-10 20:37+0100\n"
+"POT-Creation-Date: 2014-06-13 22:43+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/fedora/language/"
@@ -32,7 +32,7 @@ msgid ""
 "version.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:81
+#: ../sparsify/copying.ml:94
 msgid ""
 "\n"
 "WARNING: There may not be enough free space on %s.\n"
@@ -492,7 +492,7 @@ msgstr ""
 msgid "%s: source and fingerprint lists are not the same length\n"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:92
+#: ../sparsify/cmdline.ml:95
 msgid ""
 "%s: sparsify a virtual machine disk\n"
 "\n"
@@ -648,11 +648,11 @@ msgstr ""
 msgid "'CMD+ARGS'"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:49
+#: ../sparsify/cmdline.ml:50
 msgid "--check-tmpdir: unknown argument `%s'\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:66
+#: ../sparsify/copying.ml:69
 msgid ""
 "--compress cannot be used for raw output.  Remove this option or use --"
 "convert qcow2."
@@ -666,6 +666,10 @@ msgstr ""
 msgid "--shrink option given twice"
 msgstr ""
 
+#: ../sparsify/copying.ml:78
+msgid "--tmp parameter must point to a directory or a block device"
+msgstr ""
+
 #: ../v2v/cmdline.ml:179
 msgid "-o libvirt: do not use the -os option"
 msgstr ""
@@ -674,11 +678,11 @@ msgstr ""
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:192
+#: ../v2v/cmdline.ml:190
 msgid "-o local: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:187
+#: ../v2v/cmdline.ml:185
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -696,7 +700,7 @@ msgstr ""
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:78
+#: ../sparsify/cmdline.ml:80
 msgid "Add qemu-img options"
 msgstr "Dodaje opcje qemu-img"
 
@@ -736,11 +740,11 @@ msgstr ""
 msgid "Check digital signatures"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:68
+#: ../sparsify/cmdline.ml:70
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:206
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:232
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -750,7 +754,7 @@ msgstr ""
 msgid "Closing the overlay"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:69
+#: ../sparsify/cmdline.ml:71
 msgid "Compressed output format"
 msgstr ""
 
@@ -766,7 +770,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../sparsify/copying.ml:261
+#: ../sparsify/copying.ml:287
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -792,7 +796,13 @@ msgstr ""
 msgid "Create a directory"
 msgstr ""
 
-#: ../sparsify/copying.ml:117
+#: ../sparsify/copying.ml:137
+msgid ""
+"Create overlay device %s to protect source disk ...\n"
+"%!"
+msgstr ""
+
+#: ../sparsify/copying.ml:134
 msgid ""
 "Create overlay file in %s to protect source disk ...\n"
 "%!"
@@ -845,7 +855,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../v2v/cmdline.ml:83 ../sparsify/cmdline.ml:71 ../resize/resize.ml:185
+#: ../v2v/cmdline.ml:83 ../sparsify/cmdline.ml:73 ../resize/resize.ml:185
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -891,7 +901,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#. ../sparsify/cmdline.ml:83
+#. ../sparsify/cmdline.ml:86
 #. ../resize/resize.ml:211
 #. ../customize/customize_main.ml:100
 #. ../customize/customize_main.ml:99
@@ -967,7 +977,7 @@ msgstr ""
 msgid "Enable appliance network (default)"
 msgstr ""
 
-#. ../sparsify/cmdline.ml:81
+#. ../sparsify/cmdline.ml:84
 #. ../resize/resize.ml:209
 #. ../resize/resize.ml:183
 #. ../customize/customize_main.ml:98
@@ -983,7 +993,7 @@ msgid "Enable specific operations"
 msgstr ""
 
 #. ../customize/customize_main.ml:101
-#: ../v2v/cmdline.ml:101 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:85
+#: ../v2v/cmdline.ml:101 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -999,7 +1009,7 @@ msgstr ""
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:140
+#: ../sparsify/copying.ml:166
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -1061,7 +1071,7 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:190
+#: ../sparsify/copying.ml:216
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
@@ -1069,7 +1079,7 @@ msgstr ""
 "Wypełnia wolne miejsce w %s zerami ...\n"
 "%!"
 
-#: ../sparsify/copying.ml:240
+#: ../sparsify/copying.ml:266
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -1113,7 +1123,7 @@ msgstr "Wymusza ntfsresize"
 msgid "Forcefully resize partition"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:72 ../resize/resize.ml:190
+#: ../sparsify/cmdline.ml:74 ../resize/resize.ml:190
 msgid "Format of input disk"
 msgstr ""
 
@@ -1121,7 +1131,7 @@ msgstr ""
 msgid "Format of output disk"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:70
+#: ../sparsify/cmdline.ml:72
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
@@ -1145,7 +1155,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:73
+#: ../sparsify/cmdline.ml:75
 msgid "Ignore filesystem"
 msgstr "Ignoruje system plików"
 
@@ -1153,7 +1163,7 @@ msgstr "Ignoruje system plików"
 msgid "Ignore partition"
 msgstr "Ignoruje partycję"
 
-#: ../sparsify/copying.ml:71
+#: ../sparsify/copying.ml:87
 msgid ""
 "Input disk virtual size = %Ld bytes (%s)\n"
 "%!"
@@ -1198,7 +1208,7 @@ msgstr ""
 #. ../resize/resize.ml:192
 #. ../customize/customize_main.ml:89
 #. ../builder/cmdline.ml:138
-#: ../v2v/cmdline.ml:86 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:76
+#: ../v2v/cmdline.ml:86 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:78
 msgid "List long options"
 msgstr ""
 
@@ -1207,7 +1217,7 @@ msgid "List supported operations"
 msgstr "Wyświetla listę obsługiwanych działań"
 
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:87 ../sparsify/cmdline.ml:77 ../resize/resize.ml:197
+#: ../v2v/cmdline.ml:87 ../sparsify/cmdline.ml:79 ../resize/resize.ml:197
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1219,7 +1229,7 @@ msgstr ""
 msgid "Minimum/default size:"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:74
+#: ../sparsify/cmdline.ml:76
 msgid "Modify the disk image in-place"
 msgstr ""
 
@@ -1319,7 +1329,7 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:94 ../sparsify/cmdline.ml:79
+#: ../v2v/cmdline.ml:94 ../sparsify/cmdline.ml:81
 msgid "Quiet output"
 msgstr ""
 
@@ -1692,6 +1702,10 @@ msgstr ""
 msgid "Set template cache dir"
 msgstr ""
 
+#: ../sparsify/cmdline.ml:83
+msgid "Set temporary block device or directory"
+msgstr ""
+
 #: ../customize/customize_cmdline.ml:249
 msgid "Set the default timezone"
 msgstr ""
@@ -1756,7 +1770,7 @@ msgstr ""
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:279
+#: ../sparsify/copying.ml:305
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -1949,11 +1963,11 @@ msgid ""
 "original UUID has been erased."
 msgstr ""
 
-#: ../sparsify/cmdline.ml:86
+#: ../sparsify/cmdline.ml:89
 msgid "Zero filesystem"
 msgstr "Wypełnia system plików zerami"
 
-#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:180
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:206
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -1965,19 +1979,23 @@ msgstr ""
 msgid "alignment cannot be < 1"
 msgstr ""
 
+#: ../sparsify/cmdline.ml:83
+msgid "block|dir"
+msgstr ""
+
 #: ../resize/resize.ml:130
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
-#: ../builder/cache.ml:58
+#: ../builder/cache.ml:53
 msgid "cache directory: %s\n"
 msgstr ""
 
-#: ../builder/cache.ml:64
+#: ../builder/cache.ml:59
 msgid "cached"
 msgstr ""
 
-#: ../sparsify/copying.ml:61
+#: ../sparsify/copying.ml:64
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
@@ -2056,7 +2074,7 @@ msgstr ""
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/copying.ml:274
+#: ../sparsify/copying.ml:300
 msgid "external command failed: %s"
 msgstr ""
 
@@ -2077,11 +2095,11 @@ msgstr ""
 #. ../resize/resize.ml:202
 #. ../resize/resize.ml:190
 #. ../customize/customize_main.ml:88
-#: ../sysprep/main.ml:144 ../sparsify/cmdline.ml:72 ../sparsify/cmdline.ml:70
+#: ../sysprep/main.ml:144 ../sparsify/cmdline.ml:74 ../sparsify/cmdline.ml:72
 msgid "format"
 msgstr "format"
 
-#: ../sparsify/cmdline.ml:86 ../sparsify/cmdline.ml:73
+#: ../sparsify/cmdline.ml:89 ../sparsify/cmdline.ml:75
 msgid "fs"
 msgstr ""
 
@@ -2138,7 +2156,7 @@ msgstr ""
 msgid "operations"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:78
+#: ../sparsify/cmdline.ml:80
 msgid "option"
 msgstr ""
 
@@ -2146,11 +2164,11 @@ msgstr ""
 msgid "opts"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:167
+#: ../sparsify/cmdline.ml:172
 msgid "output '%s' cannot be a block device, it must be a regular file"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:171
+#: ../sparsify/cmdline.ml:176
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
@@ -2171,7 +2189,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:215
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:241
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -2486,19 +2504,23 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:178
+#: ../sparsify/cmdline.ml:183
 msgid "you cannot use --in-place and --check-tmpdir options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:181
+#: ../sparsify/cmdline.ml:186
 msgid "you cannot use --in-place and --compress options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:184
+#: ../sparsify/cmdline.ml:189
 msgid "you cannot use --in-place and --convert options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:187
+#: ../sparsify/cmdline.ml:195
+msgid "you cannot use --in-place and --tmp options together"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:192
 msgid "you cannot use --in-place and -o options together"
 msgstr ""
 
@@ -2506,7 +2528,7 @@ msgstr ""
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:152 ../resize/resize.ml:301
+#: ../sparsify/cmdline.ml:157 ../resize/resize.ml:301
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
@@ -7332,50 +7354,50 @@ msgstr ""
 "API architektury plików jest niedostępne, ponieważ ta wersja biblioteki "
 "libguestfs została skompilowana bez biblioteki libmagic"
 
-#: src/fuse.c:927
+#: src/fuse.c:950
 msgid "filesystem is already mounted in another thread"
 msgstr "system plików jest już zamontowany w innym wątku"
 
-#: src/fuse.c:952
+#: src/fuse.c:975
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr "fuse_opt_add_arg: %s"
 
-#: src/fuse.c:969
+#: src/fuse.c:992
 #, c-format
 msgid "fuse_mount: %s"
 msgstr "fuse_mount: %s"
 
-#: src/fuse.c:987
+#: src/fuse.c:1010
 #, c-format
 msgid "fuse_new: %s"
 msgstr "fuse_new: %s"
 
-#: src/fuse.c:1016
+#: src/fuse.c:1039
 msgid "you must call guestfs_mount_local first"
 msgstr "należy najpierw wywołać guestfs_mount_local"
 
-#: src/fuse.c:1027
+#: src/fuse.c:1050
 #, c-format
 msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
 "Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
 msgstr ""
 
-#: src/fuse.c:1037
+#: src/fuse.c:1060
 #, c-format
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: src/fuse.c:1087
+#: src/fuse.c:1110
 msgid "no filesystem is mounted"
 msgstr "żaden system plików nie jest zamontowany"
 
-#: src/fuse.c:1205
+#: src/fuse.c:1228
 msgid "could not initialize dir cache hashtables"
 msgstr "nie można zainicjować tablic sum mieszania katalogu pamięci podręcznej"
 
-#: src/fuse.c:1460
+#: src/fuse.c:1483
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
