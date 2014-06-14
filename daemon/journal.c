@@ -214,6 +214,23 @@ do_journal_set_data_threshold (int64_t threshold)
   return 0;
 }
 
+int64_t
+do_journal_get_realtime_usec (void)
+{
+  int r;
+  size_t ret;
+
+  NEED_HANDLE (-1);
+
+  r = sd_journal_get_realtime_usec (j, &ret);
+  if (r < 0) {
+    reply_with_perror_errno (-r, "sd_journal_get_realtime_usec");
+    return -1;
+  }
+
+  return ret;
+}
+
 #else /* !HAVE_SD_JOURNAL */
 
 OPTGROUP_JOURNAL_NOT_AVAILABLE

@@ -11908,6 +11908,16 @@ New (SVR4) portable format with a checksum.
 
 =back" };
 
+  { defaults with
+    name = "journal_get_realtime_usec";
+    style = RInt64 "usec", [], [];
+    proc_nr = Some 420;
+    optional = Some "journal";
+    test_excuse = "tests in tests/journal subdirectory";
+    shortdesc = "get the timestamp of the current journal entry";
+    longdesc = "\
+Get the realtime (wallclock) timestamp of the current journal entry." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
