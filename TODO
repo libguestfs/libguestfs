@@ -590,3 +590,11 @@ Python
 
 It seems as if we should call PyErr_Clear() somewhere in every
 Python binding.
+
+Improvements in virt-log
+------------------------
+
+- Make it faster, especially if the user wants to grep the output.
+
+- Support Windows guests, see
+  http://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/

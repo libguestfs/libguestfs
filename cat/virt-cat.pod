@@ -34,15 +34,6 @@ C<mydomain>:
 
  virt-cat -d mydomain /etc/fstab
 
-List syslog messages from a VM disk image file:
-
- virt-cat -a disk.img /var/log/messages | tail
-
-Find out what DHCP IP address a VM acquired:
-
- virt-cat -d mydomain /var/log/messages | \
-   grep 'dhclient: bound to' | tail
-
 Find out what packages were recently installed:
 
  virt-cat -d mydomain /var/log/yum.log | tail
@@ -169,6 +160,12 @@ name as a guest.
 
 For compatibility the old style is still supported.
 
+=head1 LOG FILES
+
+To list out the log files from guests, see the related tool
+L<virt-log(1)>.  It understands binary log formats such as the systemd
+journal.
+
 =head1 WINDOWS PATHS
 
 C<virt-cat> has a limited ability to understand Windows drive letters
@@ -250,6 +247,7 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-copy-out(1)>,
 L<virt-edit(1)>,
+L<virt-log(1)>,
 L<virt-tar-out(1)>,
 L<http://libguestfs.org/>.
 

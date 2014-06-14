@@ -28,6 +28,7 @@ scripts = \
 	virt-filesystems \
 	virt-format \
 	virt-inspector \
+	virt-log \
 	virt-ls \
 	virt-rescue \
 	virt-resize \
@@ -50,6 +51,8 @@ virt-filesystems:
 virt-format:
 	ln -sf virt-alignment-scan $@
 virt-inspector:
+	ln -sf virt-alignment-scan $@
+virt-log:
 	ln -sf virt-alignment-scan $@
 virt-ls:
 	ln -sf virt-alignment-scan $@

@@ -9,6 +9,7 @@ builder/setlocale-c.c
 builder/uname-c.c
 cat/cat.c
 cat/filesystems.c
+cat/log.c
 cat/ls.c
 cat/visit.c
 customize/crypt-c.c

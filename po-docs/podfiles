@@ -4,6 +4,7 @@
 ../builder/virt-index-validate.pod
 ../cat/virt-cat.pod
 ../cat/virt-filesystems.pod
+../cat/virt-log.pod
 ../cat/virt-ls.pod
 ../customize/customize-options.pod
 ../customize/customize-synopsis.pod

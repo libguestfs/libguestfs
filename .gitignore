@@ -48,6 +48,7 @@ Makefile.in
 /bash/virt-filesystems
 /bash/virt-format
 /bash/virt-inspector
+/bash/virt-log
 /bash/virt-ls
 /bash/virt-sysprep
 /bash/virt-sparsify
@@ -72,6 +73,8 @@ Makefile.in
 /cat/virt-cat.1
 /cat/virt-filesystems
 /cat/virt-filesystems.1
+/cat/virt-log
+/cat/virt-log.1
 /cat/virt-ls
 /cat/virt-ls.1
 /ChangeLog
@@ -245,6 +248,7 @@ Makefile.in
 /html/virt-inspector.1.html
 /html/virt-list-filesystems.1.html
 /html/virt-list-partitions.1.html
+/html/virt-log.1.html
 /html/virt-ls.1.html
 /html/virt-make-fs.1.html
 /html/virt-p2v.1.html

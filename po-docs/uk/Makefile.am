@@ -64,6 +64,7 @@ MANPAGES = \
 	virt-inspector.1 \
 	virt-list-filesystems.1 \
 	virt-list-partitions.1 \
+	virt-log.1 \
 	virt-ls.1 \
 	virt-make-fs.1 \
 	virt-rescue.1 \

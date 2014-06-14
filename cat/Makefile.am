@@ -1,5 +1,5 @@
-# libguestfs virt-cat, virt-filesystems and virt-ls.
-# Copyright (C) 2010-2012 Red Hat Inc.
+# libguestfs virt-cat, virt-filesystems, virt-log and virt-ls.
+# Copyright (C) 2010-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,12 +22,18 @@ EXTRA_DIST = \
 	virt-cat.pod \
 	test-virt-filesystems.sh \
 	virt-filesystems.pod \
+	test-virt-log.sh \
+	virt-log.pod \
 	test-virt-ls.sh \
 	virt-ls.pod
 
-CLEANFILES = stamp-virt-cat.pod stamp-virt-ls.pod stamp-virt-filesystems.pod
+CLEANFILES = \
+	stamp-virt-cat.pod \
+	stamp-virt-filesystems.pod \
+	stamp-virt-log.pod \
+	stamp-virt-ls.pod
 
-bin_PROGRAMS = virt-cat virt-filesystems virt-ls
+bin_PROGRAMS = virt-cat virt-filesystems virt-log virt-ls
 
 SHARED_SOURCE_FILES = \
 	../fish/domain.c \
@@ -82,6 +88,28 @@ virt_filesystems_LDADD = \
 	$(LIBVIRT_LIBS) \
 	../gnulib/lib/libgnu.la
 
+virt_log_SOURCES = \
+	$(SHARED_SOURCE_FILES) \
+	log.c
+
+virt_log_CPPFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+
+virt_log_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBXML2_CFLAGS)
+
+virt_log_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	../gnulib/lib/libgnu.la
+
 virt_ls_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
 	ls.c \
@@ -107,11 +135,12 @@ virt_ls_LDADD = \
 	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.
-man_MANS = virt-cat.1 virt-filesystems.1 virt-ls.1
+man_MANS = virt-cat.1 virt-filesystems.1 virt-log.1 virt-ls.1
 
 noinst_DATA = \
 	$(top_builddir)/html/virt-cat.1.html \
 	$(top_builddir)/html/virt-filesystems.1.html \
+	$(top_builddir)/html/virt-log.1.html \
 	$(top_builddir)/html/virt-ls.1.html
 
 virt-cat.1 $(top_builddir)/html/virt-cat.1.html: stamp-virt-cat.pod
@@ -120,16 +149,6 @@ stamp-virt-cat.pod: virt-cat.pod
 	$(PODWRAPPER) \
 	  --man virt-cat.1 \
 	  --html $(top_builddir)/html/virt-cat.1.html \
-	  --license GPLv2+ \
-	  $<
-	touch $@
-
-virt-ls.1 $(top_builddir)/html/virt-ls.1.html: stamp-virt-ls.pod
-
-stamp-virt-ls.pod: virt-ls.pod
-	$(PODWRAPPER) \
-	  --man virt-ls.1 \
-	  --html $(top_builddir)/html/virt-ls.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
@@ -144,6 +163,26 @@ stamp-virt-filesystems.pod: virt-filesystems.pod
 	  $<
 	touch $@
 
+virt-log.1 $(top_builddir)/html/virt-log.1.html: stamp-virt-log.pod
+
+stamp-virt-log.pod: virt-log.pod
+	$(PODWRAPPER) \
+	  --man virt-log.1 \
+	  --html $(top_builddir)/html/virt-log.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
+virt-ls.1 $(top_builddir)/html/virt-ls.1.html: stamp-virt-ls.pod
+
+stamp-virt-ls.pod: virt-ls.pod
+	$(PODWRAPPER) \
+	  --man virt-ls.1 \
+	  --html $(top_builddir)/html/virt-ls.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
 # Tests.
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
@@ -152,6 +191,7 @@ if ENABLE_APPLIANCE
 TESTS = \
 	test-virt-cat.sh \
 	test-virt-filesystems.sh \
+	test-virt-log.sh \
 	test-virt-ls.sh
 endif ENABLE_APPLIANCE
 
