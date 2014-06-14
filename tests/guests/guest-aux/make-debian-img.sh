@@ -76,6 +76,7 @@ mkdir /bin
 mkdir /etc
 mkdir-p /var/lib/dpkg
 mkdir /var/lib/urandom
+mkdir /var/log
 
 upload fstab.tmp.$$ /etc/fstab
 write /etc/debian_version "5.0.1"
@@ -84,6 +85,8 @@ write /etc/hostname "debian.invalid"
 upload $SRCDIR/guest-aux/debian-packages /var/lib/dpkg/status
 
 upload $SRCDIR/../data/bin-x86_64-dynamic /bin/ls
+
+upload $SRCDIR/guest-aux/debian-syslog /var/log/syslog
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf
