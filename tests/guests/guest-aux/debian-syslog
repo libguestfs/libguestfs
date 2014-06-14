@@ -1,0 +1,5 @@
+Jun 14 11:48:55 debian.invalid NetworkManager[2392]: <info> Policy set 'Wired connection 1' (eth0) as default for IPv4 routing and DNS.
+Jun 14 11:48:55 debian.invalid NetworkManager[2392]: <info> Policy set 'Wired connection 1' (eth0) as default for IPv6 routing and DNS.
+Jun 14 11:48:55 debian.invalid NetworkManager[2392]: <info> Activation (eth0) Stage 5 of 5 (IPv6 Commit) complete.
+Jun 14 11:49:00 debian.invalid dbus[2367]: [system] Activating service name='org.freedesktop.ConsoleKit' (using servicehelper)
+Jun 14 11:49:00 debian.invalid dbus[2367]: [system] Successfully activated service 'org.freedesktop.ConsoleKit'
