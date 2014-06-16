@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	guest-aux/make-debian-img.sh \
 	guest-aux/debian-packages \
+	guest-aux/debian-syslog \
 	guest-aux/make-fedora-img.pl \
 	guest-aux/fedora-journal.tar.xz \
 	guest-aux/fedora-name.db.txt \
