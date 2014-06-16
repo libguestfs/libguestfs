@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <errno.h>
@@ -30,6 +31,8 @@
 #include <libintl.h>
 #include <syslog.h>
 #include <time.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include "c-ctype.h"
 
@@ -52,6 +55,7 @@ int inspector = 1;
 static int do_log (void);
 static int do_log_journal (void);
 static int do_log_text_file (const char *filename);
+static int do_log_windows_evtx (void);
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -232,6 +236,17 @@ do_log (void)
   if (!type)
     return -1;
 
+  /* Windows needs special handling. */
+  if (STREQ (type, "windows")) {
+    if (guestfs_inspect_get_major_version (g, root) >= 6)
+      return do_log_windows_evtx ();
+
+    fprintf (stderr,
+             _("%s: Windows Event Log for pre-Vista guests is not supported.\n"),
+             program_name);
+    return -1;
+  }
+
   /* systemd journal? */
   guestfs_push_error_handler (g, NULL, NULL);
   journal_files = guestfs_ls (g, JOURNAL_DIR);
@@ -251,16 +266,6 @@ do_log (void)
                                 -1) == 1)
         return do_log_text_file (logfiles[i]);
     }
-  }
-
-  /* Windows is not supported right now, so give an error message. */
-  if (STREQ (type, "windows")) {
-    fprintf (stderr,
-             _("%s: Windows guests are not supported right now.\n"
-               "In the meantime, try using the technique described here:\n"
-               "http://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/\n"),
-             program_name);
-    return -1;
   }
 
   /* Otherwise, there are no log files.  Hmm, is this right? XXX */
@@ -395,4 +400,79 @@ static int
 do_log_text_file (const char *filename)
 {
   return guestfs_download (g, filename, "/dev/stdout");
+}
+
+/* For Windows >= Vista, if evtxdump.py is installed then we can
+ * use it to dump the System.evtx log.
+ */
+static int
+do_log_windows_evtx (void)
+{
+  CLEANUP_FREE char *filename = NULL;
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
+  CLEANUP_UNLINK_FREE char *localfile = NULL;
+  CLEANUP_FREE char *cmd = NULL;
+  char dev_fd[64];
+  int fd, status;
+
+  if (system ("evtxdump.py -h >/dev/null 2>&1") != 0) {
+    fprintf (stderr, _("%s: you need to install 'evtxdump.py' (from the python-evtx package)\n"
+                       "in order to parse Windows Event Logs.  If you cannot install this, then\n"
+                       "use virt-copy-out(1) to copy the contents of /Windows/System32/winevt/Logs\n"
+                       "from this guest, and examine in a binary file viewer.\n"),
+             program_name);
+    return -1;
+  }
+
+  /* Check if System.evtx exists.  XXX Allow the filename to be
+   * configurable, since there are many logs.
+   */
+  filename = guestfs_case_sensitive_path (g, "/Windows/System32/winevt/Logs/System.evtx");
+  if (filename == NULL)
+    return -1;
+
+  /* Note that guestfs_case_sensitive_path does NOT check for existence. */
+  if (guestfs_is_file_opts (g, filename,
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1,
+                            -1) <= 0) {
+    fprintf (stderr, _("%s: Windows Event Log file (%s) not found\n"),
+             program_name, filename);
+    return -1;
+  }
+
+  /* Download the file to a temporary.  Python-evtx wants to mmap
+   * the file so we cannot use a pipe.
+   */
+  if (asprintf (&localfile, "%s/virtlogXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
+  if ((fd = mkstemp (localfile)) == -1) {
+    perror ("mkstemp");
+    return -1;
+  }
+
+  snprintf (dev_fd, sizeof dev_fd, "/dev/fd/%d", fd);
+
+  if (guestfs_download (g, filename, dev_fd) == -1)
+    return -1;
+  close (fd);
+
+  /* This should be safe as long as $TMPDIR is not set to something wild. */
+  if (asprintf (&cmd, "evtxdump.py '%s'", localfile) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
+
+  status = system (cmd);
+  if (status) {
+    char buf[256];
+    fprintf (stderr, "%s: %s\n",
+             program_name,
+             guestfs___exit_status_to_string (status, "evtxdump.py",
+                                              buf, sizeof buf));
+    return -1;
+  }
+
+  return 0;
 }
