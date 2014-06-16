@@ -317,7 +317,7 @@ do_log_journal (void)
     return -1;
 
   while ((r = guestfs_journal_next (g)) > 0) {
-    CLEANUP_FREE struct guestfs_xattr_list *xattrs = NULL;
+    CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
     const char *priority_str, *identifier, *comm, *pid, *message;
     size_t priority_len, identifier_len, comm_len, pid_len, message_len;
     int priority = LOG_INFO;
