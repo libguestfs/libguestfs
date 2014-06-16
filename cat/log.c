@@ -325,7 +325,7 @@ do_log_journal (void)
 
     xattrs = guestfs_journal_get (g);
     if (xattrs == NULL)
-      exit (EXIT_FAILURE);
+      return -1;
 
     ts = guestfs_journal_get_realtime_usec (g); /* error checked below */
 
