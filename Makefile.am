@@ -253,6 +253,7 @@ HTMLFILES = \
 	html/virt-inspector.1.html \
 	html/virt-list-filesystems.1.html \
 	html/virt-list-partitions.1.html \
+	html/virt-log.1.html \
 	html/virt-ls.1.html \
 	html/virt-make-fs.1.html \
 	html/virt-rescue.1.html \
