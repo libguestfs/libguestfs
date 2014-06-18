@@ -66,6 +66,7 @@ let rec main () =
         let cmd =
           sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
             (quote qemu_uri) (quote options) overlay in
+        if verbose then printf "%s\n%!" cmd;
         if Sys.command cmd <> 0 then
           error (f_"qemu-img command failed, see earlier errors");
         overlay, qemu_uri, format
