@@ -272,7 +272,7 @@ object (self)
        ignore (g#command [| "grub2-mkconfig"; "-o"; config_file |])
      with
        G.Error msg ->
-         eprintf (f_"%s: warning: could not update grub2 console: %s (ignored)\n")
+         eprintf (f_"%s: warning: could not update grub2 console: %s (ignored)\n%!")
            prog msg
     )
 

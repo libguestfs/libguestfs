@@ -128,11 +128,12 @@ let create_xml ?dir xml =
           )
         | "" -> ()
         | protocol ->
-          eprintf (f_"%s: warning: network <disk> with <source protocol='%s'> was ignored")
+          eprintf (f_"%s: warning: network <disk> with <source protocol='%s'> was ignored\n%!")
             prog protocol
         )
       | disk_type ->
-        eprintf (f_"%s: warning: <disk type='%s'> was ignored") prog disk_type
+        eprintf (f_"%s: warning: <disk type='%s'> was ignored\n%!")
+          prog disk_type
     done;
     List.rev !disks in
 

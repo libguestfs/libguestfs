@@ -197,7 +197,7 @@ Grub1/grub-legacy error was: %s")
           Convert_linux_common.augeas_reload verbose g
         with
           G.Error msg ->
-            eprintf (f_"%s: warning: VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)")
+            eprintf (f_"%s: warning: VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)\n%!")
               prog msg
     )
 
@@ -282,7 +282,7 @@ Grub1/grub-legacy error was: %s")
         Convert_linux_common.augeas_reload verbose g
       with
         G.Error msg ->
-          eprintf (f_"%s: warning: VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)")
+          eprintf (f_"%s: warning: VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)\n%!")
             prog msg
     )
 
@@ -372,7 +372,7 @@ Grub1/grub-legacy error was: %s")
       upgrade_package "kernel" (0_l, "2.6.25.5", "1.1")
 
     | _ ->
-      eprintf (f_"%s: warning: don't know how to install virtio drivers for %s %d")
+      eprintf (f_"%s: warning: don't know how to install virtio drivers for %s %d\n%!")
         prog distro major_version;
       false
 
