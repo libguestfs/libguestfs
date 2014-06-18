@@ -45,6 +45,8 @@ let rec main () =
     | InputLibvirtXML filename ->
       Source_libvirt.create_from_xml filename in
 
+  if verbose then printf "%s%!" (string_of_source source);
+
   (* Create a qcow2 v3 overlay to protect the source image(s).  There
    * is a specific reason to use the newer qcow2 variant: Because the
    * L2 table can store zero clusters efficiently, and because

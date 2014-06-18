@@ -43,6 +43,9 @@ type source = {
 and source_disk = string * string option
 (** A source file is a qemu URI and a format. *)
 
+val string_of_source : source -> string
+val string_of_source_disk : source_disk -> string
+
 type overlay = {
   ov_overlay : string;       (** Local overlay file (qcow2 format). *)
   ov_target_file : string;   (** Destination file (real). *)
