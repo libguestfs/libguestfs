@@ -162,7 +162,7 @@ let rec main () =
     fun i ov ->
       msg (f_"Copying disk %d/%d to %s (%s)")
         (i+1) nr_overlays ov.ov_target_file ov.ov_target_format;
-      if verbose then printf "%s\n%!" (string_of_overlay ov);
+      if verbose then printf "%s%!" (string_of_overlay ov);
 
       (* It turns out that libguestfs's disk creation code is
        * considerably more flexible and easier to use than qemu-img, so
