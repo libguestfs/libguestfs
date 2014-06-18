@@ -458,3 +458,7 @@ let is_char_device file =
 let is_directory path =
   try Sys.is_directory path
   with Sys_error _ -> false
+
+let absolute_path path =
+  if not (Filename.is_relative path) then path
+  else Sys.getcwd () // path
