@@ -23,9 +23,6 @@ module G = Guestfs
 
 open Printf
 
-let rex_numbers = Str.regexp "^\\([0-9]+\\)\\(.*\\)$"
-let rex_letters = Str.regexp_case_fold "^\\([a-z]+\\)\\(.*\\)$"
-
 (* Originally:
  * http://rwmj.wordpress.com/2013/09/13/get-kernel-and-initramfs-from-a-disk-image/
  *)
@@ -96,26 +93,3 @@ let rec get_kernel ~debug ?format ?output disk =
   (* Shutdown. *)
   g#shutdown ();
   g#close ()
-
-and compare_version v1 v2 =
-  compare (split_version v1) (split_version v2)
-
-and split_version = function
-  | "" -> []
-  | str ->
-    let first, rest =
-      if Str.string_match rex_numbers str 0 then (
-        let n = Str.matched_group 1 str in
-        let rest = Str.matched_group 2 str in
-        let n =
-          try `Number (int_of_string n)
-          with Failure "int_of_string" -> `String n in
-        n, rest
-      )
-      else if Str.string_match rex_letters str 0 then
-        `String (Str.matched_group 1 str), Str.matched_group 2 str
-      else (
-        let len = String.length str in
-        `Char str.[0], String.sub str 1 (len-1)
-      ) in
-    first :: split_version rest
