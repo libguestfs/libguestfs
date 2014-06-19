@@ -24,10 +24,10 @@ open Common_utils
 open Types
 open Utils
 
-let initialize dir overlays =
+let initialize dir source overlays =
   List.map (
     fun ov ->
-      let target_file = dir // "disk-" ^ ov.ov_sd in
+      let target_file = dir // source.s_name ^ "-" ^ ov.ov_sd in
       { ov with ov_target_file = target_file; ov_target_file_tmp = target_file }
   ) overlays
 

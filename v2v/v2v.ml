@@ -93,7 +93,8 @@ let rec main () =
    * work.
    *)
   let overlays =
-    initialize_target g output output_alloc output_format overlays in
+    initialize_target g
+      source output output_alloc output_format output_name overlays in
 
   (* Inspection - this also mounts up the filesystems. *)
   msg (f_"Inspecting the overlay");
@@ -214,7 +215,8 @@ let rec main () =
   if debug_gc then
     Gc.compact ()
 
-and initialize_target g output output_alloc output_format overlays =
+and initialize_target g
+    source output output_alloc output_format output_name overlays =
   let overlays =
     mapi (
       fun i (overlay, qemu_uri, backing_format) ->
@@ -247,9 +249,13 @@ and initialize_target g output output_alloc output_format overlays =
           ov_source_file = qemu_uri; ov_source_format = backing_format; }
     ) overlays in
   let overlays =
+    let renamed_source =
+      match output_name with
+      | None -> source
+      | Some name -> { source with s_name = name } in
     match output with
     | OutputLibvirt oc -> assert false
-    | OutputLocal dir -> Target_local.initialize dir overlays
+    | OutputLocal dir -> Target_local.initialize dir renamed_source overlays
     | OutputRHEV os -> assert false in
   overlays
 
