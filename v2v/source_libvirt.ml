@@ -95,7 +95,7 @@ let create_xml ?dir xml =
       Xml.xpathctx_set_current_context xpathctx node;
 
       let format =
-        let format = xpath_to_string "driver/@type" "" in
+        let format = xpath_to_string "driver[name='qemu']/@type" "" in
         if format <> "" then Some format else None in
 
       (* The <disk type='...'> attribute may be 'block', 'file' or
