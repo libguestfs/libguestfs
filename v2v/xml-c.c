@@ -165,7 +165,10 @@ v2v_xml_xpathobj_nr_nodes (value xpathobjv)
   CAMLparam1 (xpathobjv);
   xmlXPathObjectPtr xpathobj = Xpathobj_val (xpathobjv);
 
-  CAMLreturn (Val_int (xpathobj->nodesetval->nodeNr));
+  if (xpathobj->nodesetval == NULL)
+    CAMLreturn (Val_int (0));
+  else
+    CAMLreturn (Val_int (xpathobj->nodesetval->nodeNr));
 }
 
 value
