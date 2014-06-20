@@ -32,7 +32,9 @@ open Common_utils
 open Utils
 open Types
 
-let rec convert ?(keep_serial_console = true) verbose (g : Guestfs.guestfs)
+module StringMap = Map.Make (String)
+
+let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     ({ i_root = root; i_apps = apps }
         as inspect) source =
   let typ = g#inspect_get_type root
@@ -51,6 +53,17 @@ let rec convert ?(keep_serial_console = true) verbose (g : Guestfs.guestfs)
 
   and is_suse_family =
     (distro = "sles" || distro = "suse-based" || distro = "opensuse") in
+
+  (* A map of app2_name -> application2, for easier lookups.  Note
+   * that app names are not unique!  (eg. 'kernel' can appear multiple
+   * times)
+   *)
+  let apps_map = List.fold_left (
+    fun map app ->
+      let name = app.G.app2_name in
+      let vs = try StringMap.find name map with Not_found -> [] in
+      StringMap.add name (app :: vs) map
+  ) StringMap.empty apps in
 
   let rec clean_rpmdb () =
     (* Clean RPM database. *)
