@@ -350,26 +350,28 @@ Grub1/grub-legacy error was: %s")
       if !updated then g#aug_save ();
     )
 
-  and install_virtio () =
-    (* How you install virtio depends on the guest type.  Note that most
-     * modern guests already support virtio, so we do nothing for them.
-     * In Perl virt-v2v this was done via a configuration database
-     * (virt-v2v.db).  This function returns true if virtio is supported
-     * already or if we managed to install it.
+  and can_do_virtio () =
+    (* In the previous virt-v2v, this was a function that installed
+     * virtio, eg. by updating the kernel.  However that function
+     * (which only applied to RHEL <= 5) was very difficult to write
+     * and maintain.  Instead what we do here is to check if the kernel
+     * supports virtio, warn if it doesn't (and give some hint about
+     * what to do) and return false.  Note that all recent Linux comes
+     * with virtio drivers.
      *)
     match distro, major_version, minor_version with
     (* RHEL 6+ has always supported virtio. *)
     | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), v, _ when v >= 6 ->
       true
     | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), 5, _ ->
-      let kernel = upgrade_package "kernel" (0_l, "2.6.18", "128.el5") in
-      let lvm2 = upgrade_package "lvm2" (0_l, "2.02.40", "6.el5") in
+      let kernel = check_kernel_package (0_l, "2.6.18", "128.el5") in
+      let lvm2 = check_package "lvm2" (0_l, "2.02.40", "6.el5") in
       let selinux =
-        upgrade_package ~ifinstalled:true
+        check_package ~ifinstalled:true
           "selinux-policy-targeted" (0_l, "2.4.6", "203.el5") in
       kernel && lvm2 && selinux
     | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), 4, _ ->
-      upgrade_package "kernel" (0_l, "2.6.9", "89.EL")
+      check_kernel_package (0_l, "2.6.9", "89.EL")
 
     (* All supported Fedora versions support virtio. *)
     | "fedora", _, _ -> true
@@ -377,17 +379,70 @@ Grub1/grub-legacy error was: %s")
     (* SLES 11 supports virtio in the kernel. *)
     | ("sles"|"suse-based"), v, _ when v >= 11 -> true
     | ("sles"|"suse-based"), 10, _ ->
-      upgrade_package "kernel" (0_l, "2.6.16.60", "0.85.1")
+      check_kernel_package (0_l, "2.6.16.60", "0.85.1")
 
     (* OpenSUSE. *)
     | "opensuse", v, _ when v >= 11 -> true
     | "opensuse", 10, _ ->
-      upgrade_package "kernel" (0_l, "2.6.25.5", "1.1")
+      check_kernel_package (0_l, "2.6.25.5", "1.1")
 
     | _ ->
       eprintf (f_"%s: warning: don't know how to install virtio drivers for %s %d\n%!")
         prog distro major_version;
       false
+
+  and check_kernel_package minversion =
+    let names = ["kernel"; "kernel-PAE"; "kernel-hugemem"; "kernel-smp";
+                 "kernel-largesmp"; "kernel-pae"; "kernel-default"] in
+    let found = List.exists (
+      fun name -> check_package ~warn:false name minversion
+    ) names in
+    if not found then (
+      let _, minversion, minrelease = minversion in
+      eprintf (f_"%s: warning: cannot enable virtio in this guest.\nTo enable virtio you need to install a kernel >= %s-%s and run %s again.\n%!")
+        prog minversion minrelease prog
+    );
+    found
+
+  and check_package ?(ifinstalled = false) ?(warn = true) name minversion =
+    let installed =
+      let apps = try StringMap.find name apps_map with Not_found -> [] in
+      List.rev (List.sort compare_app2_versions apps) in
+
+    match ifinstalled, installed with
+    (* If the package is not installed, ignore the request. *)
+    | true, [] -> true
+    (* Is the package already installed at the minimum version? *)
+    | _, (installed::_)
+      when compare_app2_version_min installed minversion >= 0 -> true
+    (* User will need to install the package to get virtio. *)
+    | _ ->
+      if warn then (
+        let _, minversion, minrelease = minversion in
+        eprintf (f_"%s: warning: cannot enable virtio in this guest.\nTo enable virtio you need to upgrade %s >= %s-%s and run %s again.\n%!")
+          prog name minversion minrelease prog
+      );
+      false
+
+  and compare_app2_versions app1 app2 =
+    let i = compare app1.G.app2_epoch app2.G.app2_epoch in
+    if i <> 0 then i
+    else (
+      let i = compare_version app1.G.app2_version app2.G.app2_version in
+      if i <> 0 then i
+      else
+        compare_version app1.G.app2_release app2.G.app2_release
+    )
+
+  and compare_app2_version_min app1 (min_epoch, min_version, min_release) =
+    let i = compare app1.G.app2_epoch min_epoch in
+    if i <> 0 then i
+    else (
+      let i = compare_version app1.G.app2_version min_version in
+      if i <> 0 then i
+      else
+        compare_version app1.G.app2_release min_release
+    )
 
   and configure_kernel virtio grub =
     let kernels = grub#list_kernels () in
@@ -600,17 +655,6 @@ Grub1/grub-legacy error was: %s")
 
     g#aug_save ()
 
-  (* Upgrade 'pkg' to >= minversion.  Returns true if that was possible. *)
-  and upgrade_package ?(ifinstalled = false) name minversion =
-
-
-
-
-
-    (* XXX *)
-    true
-
-
   in
 
   clean_rpmdb ();
@@ -623,7 +667,7 @@ Grub1/grub-legacy error was: %s")
   unconfigure_vmware ();
   unconfigure_citrix ();
 
-  let virtio = install_virtio () in
+  let virtio = can_do_virtio () in
   let kernel_version = configure_kernel virtio grub in (*XXX*) ignore kernel_version;
   if keep_serial_console then (
     configure_console ();

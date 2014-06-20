@@ -208,6 +208,40 @@ Enable tracing of libguestfs API calls.
 
 =back
 
+=head1 ENABLING VIRTIO
+
+"Virtio" is the name for a set of drivers which make disk (block
+device), network and other guest operations work much faster on KVM.
+
+Older versions of virt-v2v could install these drivers for certain
+guests.  This version of virt-v2v does I<not> attempt to install these
+drivers, but will warn you if they are not installed already.
+
+In order to enable virtio, and hence improve performance of the guest
+after conversion, you should ensure that the B<minimum> versions of
+packages are installed I<before> conversion, by consulting the table
+below.
+
+ RHEL 3         No virtio drivers are available
+ 
+ RHEL 4         kernel >= 2.5.9-89.EL
+ 
+ RHEL 5         kernel >= 2.6.18-128.el5
+                lvm2 >= 2.02.40-6.el5
+                selinux-policy-targeted >= 2.4.6-203.el5
+ 
+ RHEL 6+        All versions support virtio
+ 
+ Fedora         All versions support virtio
+ 
+ SLES 11+       All versions support virtio
+ 
+ SLES 10        kernel >= 2.6.16.60-0.85.1
+ 
+ OpenSUSE 11+   All versions support virtio
+ 
+ OpenSUSE 10    kernel >= 2.6.25.5-1.1
+
 =head1 MACHINE READABLE OUTPUT
 
 The I<--machine-readable> option can be used to make the output more
