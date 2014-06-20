@@ -1,6 +1,6 @@
 #!/bin/bash -
 # virt-builder
-# Copyright (C) 2013 Red Hat Inc.
+# Copyright (C) 2013-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,9 +30,19 @@ version=$1
 output=centos-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
-# We rebuild this every time there is a new 6.x release, and bump
-# the revision in the index.
-tree=http://mirror.bytemark.co.uk/centos/$version/os/x86_64/
+case $version in
+    6)
+        # We rebuild this every time there is a new 6.x release, and bump
+        # the revision in the index.
+        tree=http://mirror.bytemark.co.uk/centos/$version/os/x86_64/
+        major=6
+        ;;
+    7qa)
+        # QA (pre-) release.
+        tree=http://buildlogs.centos.org/centos/7/os/x86_64-20140614/
+        major=7
+        ;;
+esac
 
 rm -f $output $output.old $output.xz
 
@@ -76,7 +86,7 @@ virt-install \
     --name=$tmpname \
     --ram=2048 \
     --cpu=host --vcpus=2 \
-    --os-type=linux --os-variant=rhel$version \
+    --os-type=linux --os-variant=rhel$major \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=ttyS0,115200 proxy=$http_proxy" \
     --disk $(pwd)/$output,size=6 \
