@@ -212,8 +212,8 @@ Grub1/grub-legacy error was: %s")
           Convert_linux_common.augeas_reload verbose g
         with
           G.Error msg ->
-            eprintf (f_"%s: warning: VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)\n%!")
-              prog msg
+            warning ~prog (f_"VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)")
+              msg
     )
 
   and unconfigure_vmware () =
@@ -297,8 +297,8 @@ Grub1/grub-legacy error was: %s")
         Convert_linux_common.augeas_reload verbose g
       with
         G.Error msg ->
-          eprintf (f_"%s: warning: VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)\n%!")
-            prog msg
+          warning ~prog (f_"VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)")
+            msg
     )
 
   and unconfigure_citrix () =
@@ -389,8 +389,8 @@ Grub1/grub-legacy error was: %s")
       check_kernel_package (0_l, "2.6.25.5", "1.1")
 
     | _ ->
-      eprintf (f_"%s: warning: don't know how to install virtio drivers for %s %d\n%!")
-        prog distro major_version;
+      warning ~prog (f_"don't know how to install virtio drivers for %s %d\n%!")
+        distro major_version;
       false
 
   and check_kernel_package minversion =
@@ -401,8 +401,8 @@ Grub1/grub-legacy error was: %s")
     ) names in
     if not found then (
       let _, minversion, minrelease = minversion in
-      eprintf (f_"%s: warning: cannot enable virtio in this guest.\nTo enable virtio you need to install a kernel >= %s-%s and run %s again.\n%!")
-        prog minversion minrelease prog
+      warning ~prog (f_"cannot enable virtio in this guest.\nTo enable virtio you need to install a kernel >= %s-%s and run %s again.")
+        minversion minrelease prog
     );
     found
 
@@ -421,8 +421,8 @@ Grub1/grub-legacy error was: %s")
     | _ ->
       if warn then (
         let _, minversion, minrelease = minversion in
-        eprintf (f_"%s: warning: cannot enable virtio in this guest.\nTo enable virtio you need to upgrade %s >= %s-%s and run %s again.\n%!")
-          prog name minversion minrelease prog
+        warning ~prog (f_"cannot enable virtio in this guest.\nTo enable virtio you need to upgrade %s >= %s-%s and run %s again.")
+          name minversion minrelease prog
       );
       false
 

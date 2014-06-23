@@ -208,6 +208,13 @@ let error ~prog ?(exit_code = 1) fs =
   in
   ksprintf display fs
 
+let warning ~prog fs =
+  let display str =
+    wrap ~chan:stderr (sprintf (f_"%s: warning: %s") prog str);
+    prerr_newline ();
+  in
+  ksprintf display fs
+
 let read_whole_file path =
   let buf = Buffer.create 16384 in
   let chan = open_in path in

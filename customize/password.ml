@@ -84,7 +84,7 @@ let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./"
 let rec set_linux_passwords ~prog ?password_crypto g root passwords =
   let crypto =
     match password_crypto with
-    | None -> default_crypto g root
+    | None -> default_crypto ~prog g root
     | Some c -> c in
 
   (* XXX Would like to use Augeas here, but Augeas doesn't support
@@ -145,7 +145,7 @@ and encrypt password crypto =
  * precede this date only support md5, whereas all guests after this
  * date can support sha512.
  *)
-and default_crypto g root =
+and default_crypto ~prog g root =
   let distro = g#inspect_get_distro root in
   let major = g#inspect_get_major_version root in
   match distro, major with
@@ -167,9 +167,6 @@ and default_crypto g root =
   | "ubuntu", _ -> `MD5
 
   | _, _ ->
-    eprintf (f_"\
-virt-sysprep: password: warning: using insecure md5 password encryption for
-guest of type %s version %d.
-If this is incorrect, use --password-crypto option and file a bug.\n%!")
-      distro major;
+    warning ~prog (f_"password: using insecure md5 password encryption for
+guest of type %s version %d.\nIf this is incorrect, use --password-crypto option and file a bug.") distro major;
     `MD5

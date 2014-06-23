@@ -149,7 +149,7 @@ exec >>%s 2>&1
   (* Set the random seed. *)
   msg (f_"Setting a random seed");
   if not (Random_seed.set_random_seed g root) then
-    eprintf (f_"%s: warning: random seed could not be set for this type of guest\n%!") prog;
+    warning ~prog (f_"random seed could not be set for this type of guest");
 
   (* Used for numbering firstboot commands. *)
   let i = ref 0 in
@@ -216,8 +216,7 @@ exec >>%s 2>&1
     | `Hostname hostname ->
       msg (f_"Setting the hostname: %s") hostname;
       if not (Hostname.set_hostname g root hostname) then
-        eprintf (f_"%s: warning: hostname could not be set for this type of guest\n%!")
-          prog
+        warning ~prog (f_"hostname could not be set for this type of guest")
 
     | `InstallPackages pkgs ->
       msg (f_"Installing packages: %s") (String.concat " " pkgs);
@@ -253,8 +252,7 @@ exec >>%s 2>&1
     | `Timezone tz ->
       msg (f_"Setting the timezone: %s") tz;
       if not (Timezone.set_timezone ~prog g root tz) then
-        eprintf (f_"%s: warning: timezone could not be set for this type of guest\n%!")
-          prog
+        warning ~prog (f_"timezone could not be set for this type of guest")
 
     | `Update ->
       msg (f_"Updating core packages");
@@ -294,8 +292,7 @@ exec >>%s 2>&1
       set_linux_passwords ~prog ?password_crypto g root passwords
 
     | _ ->
-      eprintf (f_"%s: warning: passwords could not be set for this type of guest\n%!")
-        prog
+      warning ~prog (f_"passwords could not be set for this type of guest")
   );
 
   if ops.flags.selinux_relabel then (

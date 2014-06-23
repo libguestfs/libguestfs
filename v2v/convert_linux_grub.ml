@@ -21,6 +21,7 @@ module G = Guestfs
 open Printf
 
 open Common_gettext.Gettext
+open Common_utils
 
 open Utils
 open Types
@@ -272,8 +273,8 @@ object (self)
        ignore (g#command [| "grub2-mkconfig"; "-o"; config_file |])
      with
        G.Error msg ->
-         eprintf (f_"%s: warning: could not update grub2 console: %s (ignored)\n%!")
-           prog msg
+         warning ~prog (f_"could not update grub2 console: %s (ignored)")
+           msg
     )
 
   method configure_console () = self#update_console ~remove:false
