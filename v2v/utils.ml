@@ -62,3 +62,12 @@ and compare_app2_version_min app1 (min_epoch, min_version, min_release) =
     else
       compare_version app1.Guestfs.app2_release min_release
   )
+
+let remove_duplicates xs =
+  let h = Hashtbl.create (List.length xs) in
+  let rec loop = function
+    | [] -> []
+    | x :: xs when Hashtbl.mem h x -> xs
+    | x :: xs -> Hashtbl.add h x true; x :: loop xs
+  in
+  loop xs

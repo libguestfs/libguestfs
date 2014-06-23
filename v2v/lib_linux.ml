@@ -123,7 +123,9 @@ let file_list_of_package verbose (g : Guestfs.guestfs) inspect name =
   | "rpm" ->
     let cmd = [| "rpm"; "-ql"; name |] in
     if verbose then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
-    Array.to_list (g#command_lines cmd)
+    let files = g#command_lines cmd in
+    let files = Array.to_list files in
+    List.sort compare files
   | format ->
     error (f_"don't know how to get list of files from package using %s")
       format
@@ -151,99 +153,3 @@ let rec file_owner verbose g inspect path =
 and is_file_owned verbose g inspect path =
   try file_owner verbose g inspect path; true
   with Not_found -> false
-
-type kernel_info = {
-  base_package : string;          (* base package, eg. "kernel-PAE" *)
-  version : string;               (* kernel version *)
-  modules : string list;          (* list of kernel modules *)
-  arch : string;                  (* kernel arch *)
-}
-
-(* There was some crazy SUSE stuff going on in the Perl version
- * of virt-v2v, which I have dropped from this as I couldn't
- * understand what on earth it was doing.  - RWMJ
- *)
-let inspect_linux_kernel verbose (g : Guestfs.guestfs) inspect path =
-  let base_package = file_owner verbose g inspect path in
-
-  (* Try to get kernel version by examination of the binary.
-   * See supermin.git/src/kernel.ml
-   *)
-  let version =
-    try
-      let hdrS = g#pread path 4 514L in
-      if hdrS <> "HdrS" then raise Not_found;
-      let s = g#pread path 2 518L in
-      let s = (Char.code s.[1] lsl 8) lor Char.code s.[0] in
-      if s < 0x1ff then raise Not_found;
-      let offset = g#pread path 2 526L in
-      let offset = (Char.code offset.[1] lsl 8) lor Char.code offset.[0] in
-      if offset < 0 then raise Not_found;
-      let buf = g#pread path (offset + 0x200) 132L in
-      let rec loop i =
-        if i < 132 then (
-          if buf.[i] = '\000' || buf.[i] = ' ' ||
-            buf.[i] = '\t' || buf.[i] = '\n' then
-            String.sub buf 0 i
-          else
-            loop (i+1)
-        )
-        else raise Not_found
-      in
-      let v = loop 0 in
-      (* There must be a corresponding modules directory. *)
-      let modpath = sprintf "/lib/modules/%s" v in
-      if not (g#is_dir modpath) then
-        raise Not_found;
-      Some (v, modpath)
-    with Not_found -> None in
-
-  (* Apparently Xen PV kernels don't contain a version number,
-   * so try to guess the version from the filename.
-   *)
-  let version =
-    match version with
-    | Some v -> Some v
-    | None ->
-      let rex = Str.regexp "^/boot/vmlinuz-\\(.*\\)" in
-      if Str.string_match rex path 0 then (
-        let v = Str.matched_group 1 path in
-        let modpath = sprintf "/lib/modules/%s" v in
-        if g#is_dir modpath then Some (v, modpath) else None
-      )
-      else None in
-
-  (* If we sill didn't find a version, give up here. *)
-  match version with
-  | None -> None
-  | Some (version, modpath) ->
-
-    (* List modules. *)
-    let modules = g#find modpath in
-    let modules = Array.to_list modules in
-    let rex = Str.regexp ".*\\.k?o$" in
-    let modules = List.filter (fun m -> Str.string_match rex m 0) modules in
-
-    assert (List.length modules > 0);
-
-    (* Determine the kernel architecture by looking at the architecture
-     * of an arbitrary kernel module.
-     *)
-    let arch =
-      let any_module = modpath ^ List.hd modules in
-      g#file_architecture any_module in
-
-    (* Just return the module names, without path or extension. *)
-    let rex = Str.regexp ".*/\\([^/]+\\)\\.k?o$/" in
-    let modules = filter_map (
-      fun m ->
-        if Str.string_match rex m 0 then
-          Some (Str.matched_group 1 m)
-        else
-          None
-    ) modules in
-
-    Some { base_package = base_package;
-           version = version;
-           modules = modules;
-           arch = arch }

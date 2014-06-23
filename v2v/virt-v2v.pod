@@ -208,6 +208,38 @@ Enable tracing of libguestfs API calls.
 
 =back
 
+=head1 XEN PARAVIRTUALIZED GUESTS
+
+Older versions of virt-v2v could turn a Xen paravirtualized (PV) guest
+into a KVM guest by installing a new kernel.  This version of virt-v2v
+does I<not> attempt to install any new kernels.  Instead it will give
+you an error if there are I<only> Xen PV kernels available.
+
+Therefore before conversion you should check that a regular kernel is
+installed.  For some older Linux distributions, this means installing
+a kernel from the table below:
+
+ RHEL 3         (Does not apply, as there was no Xen PV kernel)
+ 
+ RHEL 4         i686 with > 10GB of RAM: install 'kernel-hugemem'
+                i686 SMP: install 'kernel-smp'
+                other i686: install 'kernel'
+                x86-64 SMP with > 8 CPUs: install 'kernel-largesmp'
+                x86-64 SMP: install 'kernel-smp'
+                other x86-64: install 'kernel'
+ 
+ RHEL 5         i686: install 'kernel-PAE'
+                x86-64: install 'kernel'
+ 
+ SLES 10        i586 with > 10GB of RAM: install 'kernel-bigsmp'
+                i586 SMP: install 'kernel-smp'
+                other i586: install 'kernel-default'
+                x86-64 SMP: install 'kernel-smp'
+                other x86-64: install 'kernel-default'
+ 
+ SLES 11+       i586: install 'kernel-pae'
+                x86-64: install 'kernel-default'
+
 =head1 ENABLING VIRTIO
 
 "Virtio" is the name for a set of drivers which make disk (block

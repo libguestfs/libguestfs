@@ -34,27 +34,330 @@ open Types
 
 module G = Guestfs
 
+(* Kernel information. *)
+type kernel_info = {
+  ki_app : G.application2;         (* The RPM package data. *)
+  ki_name : string;                (* eg. "kernel-PAE" *)
+  ki_arch : string;                (* Kernel architecture. *)
+  ki_vmlinuz : string;             (* The path of the vmlinuz file. *)
+  ki_vmlinuz_stat : G.stat;        (* stat(2) of vmlinuz *)
+  ki_modpath : string;             (* The module path. *)
+  ki_modules : string list;        (* The list of module names. *)
+  ki_supports_virtio : bool;       (* Kernel has virtio drivers? *)
+  ki_is_xen_kernel : bool;         (* Is a Xen paravirt kernel? *)
+}
+
+let string_of_kernel_info ki =
+  sprintf "(%s, %s, %s, virtio=%b, xen=%b)"
+    ki.ki_name ki.ki_arch ki.ki_vmlinuz
+    ki.ki_supports_virtio ki.ki_is_xen_kernel
+
+(* The conversion function. *)
 let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     ({ i_root = root; i_apps = apps; i_apps_map = apps_map }
         as inspect) source =
-  let typ = g#inspect_get_type root
-  and distro = g#inspect_get_distro root
-  and arch = g#inspect_get_arch root
-  and major_version = g#inspect_get_major_version root
-  and minor_version = g#inspect_get_minor_version root
-  and package_format = g#inspect_get_package_format root
-  and package_management = g#inspect_get_package_management root in
+  (*----------------------------------------------------------------------*)
+  (* Inspect the guest first.  We already did some basic inspection in
+   * the common v2v.ml code, but that has to deal with generic guests
+   * (anything common to Linux and Windows).  Here we do more detailed
+   * inspection which can make the assumption that we are dealing with
+   * an Enterprise Linux guest using RPM.
+   *)
 
+  (* We use Augeas for inspection and conversion, so initialize it early. *)
+  Lib_linux.augeas_init verbose g;
+
+  (* Basic inspection data available as local variables. *)
+  let typ = g#inspect_get_type root in
   assert (typ = "linux");
 
-  let is_rhel_family =
-    (distro = "rhel" || distro = "centos"
-            || distro = "scientificlinux" || distro = "redhat-based")
+  let distro = g#inspect_get_distro root in
+  let family =
+    match distro with
+    | "rhel" | "centos" | "scientificlinux" | "redhat-based" -> `RHEL_family
+    | "sles" | "suse-based" | "opensuse" -> `SUSE_family
+    | _ -> assert false in
 
-  and is_suse_family =
-    (distro = "sles" || distro = "suse-based" || distro = "opensuse") in
+(*
+  let arch = g#inspect_get_arch root
+  and major_version = g#inspect_get_major_version root
+  and minor_version = g#inspect_get_minor_version root
+*)
+  let package_format = g#inspect_get_package_format root
+  and package_management = g#inspect_get_package_management root in
 
-  let rec clean_rpmdb () =
+  assert (package_format = "rpm");
+
+  (* What grub is installed? *)
+  let grub_config, grub =
+    try
+      List.find (
+        fun (grub_config, _) -> g#is_file ~followsymlinks:true grub_config
+      ) [
+        "/boot/grub2/grub.cfg", `Grub2;
+        "/boot/grub/menu.lst", `Grub1;
+        "/boot/grub/grub.conf", `Grub1;
+      ]
+    with
+      Not_found ->
+        error (f_"no grub1/grub-legacy or grub2 configuration file was found") in
+
+  (* Grub prefix?  Usually "/boot". *)
+  let grub_prefix =
+    match grub with
+    | `Grub2 -> ""
+    | `Grub1 ->
+      let mounts = g#inspect_get_mountpoints root in
+      try
+        List.find (
+          fun path -> List.mem_assoc path mounts
+        ) [ "/boot/grub"; "/boot" ]
+      with Not_found -> "" in
+
+  (* EFI? *)
+  let efi =
+    if Array.length (g#glob_expand "/boot/efi/EFI/*/grub.cfg") < 1 then
+      None
+    else (
+      (* Check the first partition of each device looking for an EFI
+       * boot partition. We can't be sure which device is the boot
+       * device, so we just check them all.
+       *)
+      let devs = g#list_devices () in
+      let devs = Array.to_list devs in
+      try
+        Some (
+          List.find (
+            fun dev ->
+              try
+                g#part_get_gpt_type dev 1
+                = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
+              with G.Error _ -> false
+          ) devs
+        )
+      with Not_found -> None
+    ) in
+
+  (* What kernel/kernel-like packages are installed on the current guest? *)
+  let installed_kernels : kernel_info list =
+    let rex = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
+    let rex2 = Str.regexp ".*/\\([^/]+\\)\\.k?o\\(\\.xz\\)?$" in
+    filter_map (
+      function
+      | { G.app2_name = name } as app
+          when name = "kernel" || string_prefix name "kernel-" ->
+        (try
+           (* For each kernel, list the files directly owned by the kernel. *)
+           let files = Lib_linux.file_list_of_package verbose g inspect name in
+
+           (* Which of these is the kernel itself? *)
+           let vmlinuz = List.find (
+             fun filename -> string_prefix filename "/boot/vmlinuz-"
+           ) files in
+           (* Which of these is the modpath? *)
+           let modpath = List.find (
+             fun filename ->
+               String.length filename >= 14 &&
+                 string_prefix filename "/lib/modules/"
+           ) files in
+
+           (* Check vmlinuz & modpath exist. *)
+           if not (g#is_dir ~followsymlinks:true modpath) then
+             raise Not_found;
+           let vmlinuz_stat =
+             try g#stat vmlinuz with G.Error _ -> raise Not_found in
+
+           (* Get all modules, which might include custom-installed
+            * modules that don't appear in 'files' list above.
+            *)
+           let modules = g#find modpath in
+           let modules = Array.to_list modules in
+           let modules =
+             List.filter (fun m -> Str.string_match rex m 0) modules in
+           assert (List.length modules > 0);
+
+           (* Determine the kernel architecture by looking at the
+            * architecture of an arbitrary kernel module.
+            *)
+           let arch =
+             let any_module = modpath ^ List.hd modules in
+             g#file_architecture any_module in
+
+           (* Just return the module names, without path or extension. *)
+           let modules = filter_map (
+             fun m ->
+               if Str.string_match rex2 m 0 then
+                 Some (Str.matched_group 1 m)
+               else
+                 None
+           ) modules in
+           assert (List.length modules > 0);
+
+           let supports_virtio = List.mem "virtio_net" modules in
+           let is_xen_kernel = List.mem "xennet" modules in
+
+           Some {
+             ki_app  = app;
+             ki_name = name;
+             ki_arch = arch;
+             ki_vmlinuz = vmlinuz;
+             ki_vmlinuz_stat = vmlinuz_stat;
+             ki_modpath = modpath;
+             ki_modules = modules;
+             ki_supports_virtio = supports_virtio;
+             ki_is_xen_kernel = is_xen_kernel;
+           }
+
+         with Not_found -> None
+        )
+
+      | _ -> None
+    ) apps in
+
+  if verbose then (
+    printf "installed kernel packages in this guest:\n";
+    List.iter (
+      fun kernel -> printf "\t%s\n" (string_of_kernel_info kernel)
+    ) installed_kernels;
+    flush stdout
+  );
+
+  if installed_kernels = [] then
+    error (f_"no installed kernel packages were found.\n\nThis probably indicates that %s was unable to inspect this guest properly.")
+      prog;
+
+  (* Now the difficult bit.  Get the grub kernels.  The first in this
+   * list is the default booting kernel.
+   *)
+  let grub_kernels : kernel_info list =
+    (* Helper function for SUSE: remove (hdX,X) prefix from a path. *)
+    let remove_hd_prefix  =
+      let rex = Str.regexp "^(hd.*)\\(.*\\)" in
+      Str.replace_first rex "\\1"
+    in
+
+    let vmlinuzes =
+      match grub with
+      | `Grub1 ->
+        let paths =
+          let expr = sprintf "/files%s/title/kernel" grub_config in
+          let paths = g#aug_match expr in
+          let paths = Array.to_list paths in
+
+          (* Remove duplicates. *)
+          let paths = remove_duplicates paths in
+
+          (* Get the default kernel from grub if it's set. *)
+          let default =
+            let expr = sprintf "/files%s/default" grub_config in
+            try
+              let idx = g#aug_get expr in
+              let idx = int_of_string idx in
+              (* Grub indices are zero-based, augeas is 1-based. *)
+              let expr =
+                sprintf "/files%s/title[%d]/kernel" grub_config (idx+1) in
+              Some expr
+            with Not_found -> None in
+
+          (* If a default kernel was set, put it at the beginning of the paths
+           * list.  If not set, assume the first kernel always boots (?)
+           *)
+          match default with
+          | None -> paths
+          | Some p -> p :: List.filter ((<>) p) paths in
+
+        (* Resolve the Augeas paths to kernel filenames. *)
+        let vmlinuzes = List.map g#aug_get paths in
+
+        (* Make sure kernel does not begin with (hdX,X). *)
+        let vmlinuzes = List.map remove_hd_prefix vmlinuzes in
+
+        (* Prepend grub filesystem. *)
+        List.map ((^) grub_prefix) vmlinuzes
+
+      | `Grub2 ->
+        let get_default_image () =
+          let cmd =
+            if g#exists "/sbin/grubby" then
+              [| "grubby"; "--default-kernel" |]
+            else
+              [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; "
+                    InitLibrary();
+                    my $default = Bootloader::Tools::GetDefaultSection();
+                    print $default->{image};
+                 " |] in
+          match g#command cmd with
+          | "" -> None
+          | k ->
+            let len = String.length k in
+            let k =
+              if len > 0 && k.[len-1] = '\n' then
+                String.sub k 0 (len-1)
+              else k in
+            Some (remove_hd_prefix k)
+        in
+
+        let vmlinuzes =
+          (match get_default_image () with
+          | None -> []
+          | Some k -> [k]) @
+            (* This is how the grub2 config generator enumerates kernels. *)
+            Array.to_list (g#glob_expand "/boot/kernel-*") @
+            Array.to_list (g#glob_expand "/boot/vmlinuz-*") @
+            Array.to_list (g#glob_expand "/vmlinuz-*") in
+        let rex = Str.regexp ".*\\.\\(dpkg-.*|rpmsave|rpmnew\\)$" in
+        let vmlinuzes = List.filter (
+          fun file -> not (Str.string_match rex file 0)
+        ) vmlinuzes in
+        vmlinuzes in
+
+    (* Map these to installed kernels. *)
+    filter_map (
+      fun vmlinuz ->
+        try
+          let statbuf = g#stat vmlinuz in
+          let kernel =
+            List.find (
+              fun { ki_vmlinuz_stat = s } ->
+                statbuf.G.dev = s.G.dev && statbuf.G.ino = s.G.ino
+            ) installed_kernels in
+          Some kernel
+        with Not_found -> None
+    ) vmlinuzes in
+
+  if verbose then (
+    printf "grub kernels in this guest (first in list is default):\n";
+    List.iter (
+      fun kernel -> printf "\t%s\n" (string_of_kernel_info kernel)
+    ) grub_kernels;
+    flush stdout
+  );
+
+  if grub_kernels = [] then
+    error (f_"no kernels were found in the grub configuration.\n\nThis probably indicates that %s was unable to parse the grub configuration of this guest.")
+      prog;
+
+  (*----------------------------------------------------------------------*)
+  (* Conversion step. *)
+
+  let rec augeas_grub_configuration () =
+    match grub with
+    | `Grub1 ->
+      (* Ensure Augeas is reading the grub configuration file, and if not
+       * then add it.
+       *)
+      let incls = g#aug_match "/augeas/load/Grub/incl" in
+      let incls = Array.to_list incls in
+      let incls_contains_conf =
+        List.exists (fun incl -> g#aug_get incl = grub_config) incls in
+      if not incls_contains_conf then (
+        g#aug_set "/augeas/load/Grub/incl[last()+1]" grub_config;
+        Lib_linux.augeas_reload verbose g;
+      )
+
+    | `Grub2 -> () (* Not necessary for grub2. *)
+
+  and clean_rpmdb () =
     (* Clean RPM database. *)
     assert (package_format = "rpm");
     let dbfiles = g#glob_expand "/var/lib/rpm/__db.00?" in
@@ -67,19 +370,6 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
      *)
     if g#is_file ~followsymlinks:true "/usr/sbin/load_policy" then
       g#touch "/.autorelabel";
-
-  and get_grub () =
-    (* Detect if grub2 or grub1 is installed by trying to create
-     * an object of each sort.
-     *)
-    try Convert_linux_grub.grub2 verbose g inspect
-    with Failure grub2_error ->
-      try Convert_linux_grub.grub1 verbose g inspect
-      with Failure grub1_error ->
-        error (f_"no grub configuration found in this guest.
-Grub2 error was: %s
-Grub1/grub-legacy error was: %s")
-          grub2_error grub1_error
 
   and unconfigure_xen () =
     (* Remove kmod-xenpv-* (RHEL 3). *)
@@ -133,7 +423,7 @@ Grub1/grub-legacy error was: %s")
       );
     );
 
-    if is_suse_family then (
+    if family = `SUSE_family then (
       (* Remove xen modules from INITRD_MODULES and DOMU_INITRD_MODULES. *)
       let variables = ["INITRD_MODULES"; "DOMU_INITRD_MODULES"] in
       let xen_modules = ["xennet"; "xen-vnif"; "xenblk"; "xen-vbd"] in
@@ -339,226 +629,88 @@ Grub1/grub-legacy error was: %s")
       if !updated then g#aug_save ();
     )
 
-  and can_do_virtio () =
-    (* In the previous virt-v2v, this was a function that installed
-     * virtio, eg. by updating the kernel.  However that function
-     * (which only applied to RHEL <= 5) was very difficult to write
-     * and maintain.  Instead what we do here is to check if the kernel
-     * supports virtio, warn if it doesn't (and give some hint about
-     * what to do) and return false.  Note that all recent Linux comes
-     * with virtio drivers.
-     *)
-    match distro, major_version, minor_version with
-    (* RHEL 6+ has always supported virtio. *)
-    | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), v, _ when v >= 6 ->
-      true
-    | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), 5, _ ->
-      let kernel = check_kernel_package (0_l, "2.6.18", "128.el5") in
-      let lvm2 = check_package "lvm2" (0_l, "2.02.40", "6.el5") in
-      let selinux =
-        check_package ~ifinstalled:true
-          "selinux-policy-targeted" (0_l, "2.4.6", "203.el5") in
-      kernel && lvm2 && selinux
-    | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), 4, _ ->
-      check_kernel_package (0_l, "2.6.9", "89.EL")
+  and unconfigure_efi () =
+    match efi with
+    | None -> ()
+    | Some dev ->
+      match grub with
+      | `Grub1 ->
+        g#cp "/etc/grub.conf" "/boot/grub/grub.conf";
+        g#ln_sf "/boot/grub/grub.conf" "/etc/grub.conf";
 
-    (* All supported Fedora versions support virtio. *)
-    | "fedora", _, _ -> true
+        (* Reload Augeas to pick up new location of grub.conf. *)
+        Lib_linux.augeas_reload verbose g;
 
-    (* SLES 11 supports virtio in the kernel. *)
-    | ("sles"|"suse-based"), v, _ when v >= 11 -> true
-    | ("sles"|"suse-based"), 10, _ ->
-      check_kernel_package (0_l, "2.6.16.60", "0.85.1")
+        ignore (g#command [| "grub-install"; dev |])
 
-    (* OpenSUSE. *)
-    | "opensuse", v, _ when v >= 11 -> true
-    | "opensuse", 10, _ ->
-      check_kernel_package (0_l, "2.6.25.5", "1.1")
-
-    | _ ->
-      warning ~prog (f_"don't know how to install virtio drivers for %s %d\n%!")
-        distro major_version;
-      false
-
-  and check_kernel_package minversion =
-    let names = ["kernel"; "kernel-PAE"; "kernel-hugemem"; "kernel-smp";
-                 "kernel-largesmp"; "kernel-pae"; "kernel-default"] in
-    let found = List.exists (
-      fun name -> check_package ~warn:false name minversion
-    ) names in
-    if not found then (
-      let _, minversion, minrelease = minversion in
-      warning ~prog (f_"cannot enable virtio in this guest.\nTo enable virtio you need to install a kernel >= %s-%s and run %s again.")
-        minversion minrelease prog
-    );
-    found
-
-  and check_package ?(ifinstalled = false) ?(warn = true) name minversion =
-    let installed =
-      let apps = try StringMap.find name apps_map with Not_found -> [] in
-      List.rev (List.sort compare_app2_versions apps) in
-
-    match ifinstalled, installed with
-    (* If the package is not installed, ignore the request. *)
-    | true, [] -> true
-    (* Is the package already installed at the minimum version? *)
-    | _, (installed::_)
-      when compare_app2_version_min installed minversion >= 0 -> true
-    (* User will need to install the package to get virtio. *)
-    | _ ->
-      if warn then (
-        let _, minversion, minrelease = minversion in
-        warning ~prog (f_"cannot enable virtio in this guest.\nTo enable virtio you need to upgrade %s >= %s-%s and run %s again.")
-          name minversion minrelease prog
-      );
-      false
-
-  and configure_kernel virtio grub =
-    let kernels = grub#list_kernels () in
-
-    let bootable_kernel =
-      let rec loop =
-        function
-        | [] -> None
-        | path :: paths ->
-          let kernel =
-            Lib_linux.inspect_linux_kernel verbose g inspect path in
-          match kernel with
-          | None -> loop paths
-          | Some kernel when is_hv_kernel kernel -> loop paths
-          | Some kernel when virtio && not (supports_virtio kernel) ->
-            loop paths
-          | Some kernel -> Some kernel
-      in
-      loop kernels in
-
-    (* If virtio == true, then a virtio kernel should have been
-     * installed.  If we didn't find one, it indicates a bug in
-     * virt-v2v.
-     *)
-    if virtio && bootable_kernel = None then
-      error (f_"virtio configured, but no virtio kernel found");
-
-    (* No bootable kernel was found.  Install one. *)
-    let bootable_kernel =
-      match bootable_kernel with
-      | Some k -> k
-      | None ->
-        (* Find which kernel is currently used by the guest. *)
-        let current_kernel =
-          let rec loop = function
-            | [] -> "kernel"
-            | path :: paths ->
-              let kernel =
-                Lib_linux.inspect_linux_kernel verbose g inspect
-                  path in
-              match kernel with
-              | None -> loop paths
-              | Some kernel -> kernel.Lib_linux.base_package
-          in
-          loop kernels in
-
-        (* Replace kernel-xen with a suitable kernel. *)
-        let current_kernel =
-          if string_find current_kernel "kernel-xen" >= 0 then
-            xen_replacement_kernel ()
-          else
-            current_kernel in
-
-        (* Install the kernel.  However we need a way to detect the
-         * version of the kernel that has just been installed.  A quick
-         * way is to compare /lib/modules before and after.
+      | `Grub2 ->
+        (* EFI systems boot using grub2-efi, and probably don't have the
+         * base grub2 package installed.
          *)
-        let files1 = g#ls "/lib/modules" in
-        let files1 = Array.to_list files1 in
-        Lib_linux.install verbose g inspect [current_kernel];
-        let files2 = g#ls "/lib/modules" in
-        let files2 = Array.to_list files2 in
+        Lib_linux.install verbose g inspect ["grub2"];
 
-        (* Note that g#ls is guaranteed to return the strings in order. *)
-        let rec loop files1 files2 =
-          match files1, files2 with
-          | [], [] ->
-            error (f_"tried to install '%s', but no kernel package was installed") current_kernel
-          | (v1 :: _), [] ->
-            error (f_"tried to install '%s', but there are now fewer directories under /lib/modules!") current_kernel
-          | [], (v2 :: _) -> v2
-          | (v1 :: _), (v2 :: _) when v1 <> v2 -> v2
-          | (_ :: v1s), (_ :: v2s) -> loop v1s v2s
-        in
-        let version = loop files1 files2 in
+        (* Relabel the EFI boot partition as a BIOS boot partition. *)
+        g#part_set_gpt_type dev 1 "21686148-6449-6E6F-744E-656564454649";
 
-        { Lib_linux.base_package = current_kernel;
-          version = version; modules = []; arch = "" } in
+        (* Delete the fstab entry for the EFI boot partition. *)
+        let nodes = g#aug_match "/files/etc/fstab/*[file = '/boot/efi']" in
+        let nodes = Array.to_list nodes in
+        List.iter (fun node -> ignore (g#aug_rm node)) nodes;
+        g#aug_save ();
 
-    (* Set /etc/sysconfig/kernel DEFAULTKERNEL to point to the new
-     * kernel package name.
+        (* Install grub2 in the BIOS boot partition. This overwrites the
+         * previous contents of the EFI boot partition.
+         *)
+        ignore (g#command [| "grub2-install"; dev |]);
+
+        (* Re-generate the grub2 config, and put it in the correct place *)
+        ignore (g#command [| "grub2-mkconfig"; "-o"; "/boot/grub2/grub.cfg" |])
+
+  and configure_kernel () =
+    (* Previously this function would try to install kernels, but we
+     * don't do that any longer.
      *)
-    if g#is_file ~followsymlinks:true "/etc/sysconfig/kernel" then (
-      let base_package = bootable_kernel.Lib_linux.base_package in
-      let paths =
-        g#aug_match "/files/etc/sysconfig/kernel/DEFAULTKERNEL/value" in
-      let paths = Array.to_list paths in
-      List.iter (fun path -> g#aug_set path base_package) paths;
-      g#aug_save ()
-    );
 
-    (* Return the installed kernel version. *)
-    bootable_kernel.Lib_linux.version
+    (* Check a non-Xen kernel exists. *)
+    let only_xen_kernels = List.for_all (
+      fun { ki_is_xen_kernel = is_xen_kernel } -> is_xen_kernel
+    ) grub_kernels in
+    if only_xen_kernels then
+      error (f_"only Xen kernels are installed in this guest.\n\nRead the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what to do.") prog;
 
-  and supports_virtio { Lib_linux.modules = modules } =
-    List.mem "virtio_blk" modules && List.mem "virtio_net" modules
+    (* Enable the best non-Xen kernel, where "best" means the one with
+     * the highest version which supports virtio.
+     *)
+    let best_kernel =
+      let compare_best_kernels k1 k2 =
+        let i = compare k1.ki_supports_virtio k2.ki_supports_virtio in
+        if i <> 0 then i
+        else compare_app2_versions k1.ki_app k2.ki_app
+      in
+      let kernels = grub_kernels in
+      let kernels = List.filter (fun { ki_is_xen_kernel = is_xen_kernel } -> not is_xen_kernel) kernels in
+      let kernels = List.sort compare_best_kernels kernels in
+      let kernels = List.rev kernels (* so best is first *) in
+      List.hd kernels in
+    if best_kernel <> List.hd grub_kernels then
+      grub_set_bootable best_kernel;
 
-  (* Is it a hypervisor-specific kernel? *)
-  and is_hv_kernel { Lib_linux.modules = modules } =
-    List.mem "xennet" modules           (* Xen PV kernel. *)
+    (* Does the best/bootable kernel support virtio? *)
+    best_kernel.ki_supports_virtio
 
-  (* Find a suitable replacement for kernel-xen. *)
-  and xen_replacement_kernel () =
-    if is_rhel_family then (
-      match major_version, arch with
-      | 5, ("i386"|"i486"|"i586"|"i686") -> "kernel-PAE"
-      | 5, _ -> "kernel"
-      | 4, ("i386"|"i486"|"i586"|"i686") ->
-        (* If guest has >= 10GB of RAM, give it a hugemem kernel. *)
-        if source.s_memory >= 10L *^ 1024L *^ 1024L *^ 1024L then
-          "kernel-hugemem"
-        (* SMP kernel for guests with > 1 vCPU. *)
-        else if source.s_vcpu > 1 then
-          "kernel-smp"
-        else
-          "kernel"
-      | 4, _ ->
-        if source.s_vcpu > 8 then "kernel-largesmp"
-        else if source.s_vcpu > 1 then "kernel-smp"
-        else "kernel"
-      | _, _ -> "kernel"
-    )
-    else if is_suse_family then (
-      match distro, major_version, arch with
-      | "opensuse", _, _ -> "kernel-default"
-      | _, v, ("i386"|"i486"|"i586"|"i686") when v >= 11 ->
-        if source.s_memory >= 10L *^ 1024L *^ 1024L *^ 1024L then
-          "kernel-pae"
-        else
-          "kernel"
-      | _, v, _ when v >= 11 -> "kernel-default"
-      | _, 10, ("i386"|"i486"|"i586"|"i686") ->
-        if source.s_memory >= 10L *^ 1024L *^ 1024L *^ 1024L then
-          "kernel-bigsmp"
-        else if source.s_vcpu > 1 then
-          "kernel-smp"
-        else
-          "kernel-default"
-      | _, 10, _ ->
-        if source.s_vcpu > 1 then
-          "kernel-smp"
-        else
-          "kernel-default"
-      | _ -> "kernel-default"
-    )
-    else
-      "kernel" (* conservative default *)
+  and grub_set_bootable kernel =
+    let cmd =
+      if g#exists "/sbin/grubby" then
+        [| "grubby"; "--set-kernel"; kernel.ki_vmlinuz |]
+      else
+        [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; sprintf "
+              InitLibrary();
+              my @sections = GetSectionList(type=>image, image=>\"%s\");
+              my $section = GetSection(@sections);
+              my $newdefault = $section->{name};
+              SetGlobals(default, \"$newdefault\");
+            " kernel.ki_vmlinuz |] in
+    ignore (g#command cmd)
 
   (* We configure a console on ttyS0. Make sure existing console
    * references use it.  N.B. Note that the RHEL 6 xen guest kernel
@@ -596,6 +748,28 @@ Grub1/grub-legacy error was: %s")
 
     g#aug_save ()
 
+  and grub_configure_console () =
+    match grub with
+    | `Grub1 ->
+      let rex = Str.regexp "\\(.*\\)\\b\\([xh]vc0\\)\\b\\(.*\\)" in
+      let expr = sprintf "/files%s/title/kernel/console" grub_config in
+
+      let paths = g#aug_match expr in
+      let paths = Array.to_list paths in
+      List.iter (
+        fun path ->
+          let console = g#aug_get path in
+          if Str.string_match rex console 0 then (
+            let console = Str.global_replace rex "\\1ttyS0\\3" console in
+            g#aug_set path console
+          )
+      ) paths;
+
+      g#aug_save ()
+
+    | `Grub2 ->
+      grub2_update_console ~remove:false
+
   (* If the target doesn't support a serial console, we want to remove
    * all references to it instead.
    *)
@@ -624,28 +798,85 @@ Grub1/grub-legacy error was: %s")
 
     g#aug_save ()
 
+  and grub_remove_console () =
+    match grub with
+    | `Grub1 ->
+      let rex = Str.regexp "\\(.*\\)\\b\\([xh]vc0\\)\\b\\(.*\\)" in
+      let expr = sprintf "/files%s/title/kernel/console" grub_config in
+
+      let rec loop = function
+        | [] -> ()
+        | path :: paths ->
+          let console = g#aug_get path in
+          if Str.string_match rex console 0 then (
+            ignore (g#aug_rm path);
+            (* All the paths are invalid, restart the loop. *)
+            let paths = g#aug_match expr in
+            let paths = Array.to_list paths in
+            loop paths
+          )
+          else
+            loop paths
+      in
+      let paths = g#aug_match expr in
+      let paths = Array.to_list paths in
+      loop paths;
+
+      g#aug_save ()
+
+    | `Grub2 ->
+      grub2_update_console ~remove:true
+
+  and grub2_update_console ~remove =
+    let rex = Str.regexp "\\(.*\\)\\bconsole=[xh]vc0\\b\\(.*\\)" in
+
+    let grub_cmdline_expr =
+      if g#exists "/etc/sysconfig/grub" then
+        "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX"
+      else
+        "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT" in
+
+    (try
+       let grub_cmdline = g#aug_get grub_cmdline_expr in
+       let grub_cmdline =
+         if Str.string_match rex grub_cmdline 0 then (
+           if remove then
+             Str.global_replace rex "\\1\\3" grub_cmdline
+           else
+             Str.global_replace rex "\\1console=ttyS0\\3" grub_cmdline
+         )
+         else grub_cmdline in
+       g#aug_set grub_cmdline_expr grub_cmdline;
+       g#aug_save ();
+
+       ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
+     with
+       G.Error msg ->
+         warning ~prog (f_"could not update grub2 console: %s (ignored)")
+           msg
+    )
+
   in
 
+  augeas_grub_configuration ();
   clean_rpmdb ();
   autorelabel ();
-  Lib_linux.augeas_init verbose g;
-  let grub = get_grub () in
 
   unconfigure_xen ();
   unconfigure_vbox ();
   unconfigure_vmware ();
   unconfigure_citrix ();
+  unconfigure_efi ();
 
-  let virtio = can_do_virtio () in
-  let kernel_version = configure_kernel virtio grub in (*XXX*) ignore kernel_version;
+  let virtio = configure_kernel () in
+
   if keep_serial_console then (
     configure_console ();
-    grub#configure_console ()
+    grub_configure_console ();
   ) else (
     remove_console ();
-    grub#remove_console ()
+    grub_remove_console ();
   );
-
 
 
 

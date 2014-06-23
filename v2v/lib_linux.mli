@@ -39,13 +39,3 @@ val file_owner : bool -> Guestfs.guestfs -> Types.inspect -> string -> string
 
 val is_file_owned : bool -> Guestfs.guestfs -> Types.inspect -> string -> bool
 (** Returns true if the file is owned by an installed package. *)
-
-type kernel_info = {
-  base_package : string;          (* base package, eg. "kernel-PAE" *)
-  version : string;               (* kernel version *)
-  modules : string list;          (* list of kernel modules *)
-  arch : string;                  (* kernel arch *)
-}
-
-val inspect_linux_kernel : bool -> Guestfs.guestfs -> Types.inspect -> string -> kernel_info option
-(** Inspect a Linux kernel (by path) and return various information. *)
