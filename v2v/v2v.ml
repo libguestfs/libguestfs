@@ -327,7 +327,18 @@ and inspect_source g root_choice =
   let apps = g#inspect_list_applications2 root in
   let apps = Array.to_list apps in
 
-  { i_root = root; i_apps = apps; }
+  (* A map of app2_name -> application2, for easier lookups.  Note
+   * that app names are not unique!  (eg. 'kernel' can appear multiple
+   * times)
+   *)
+  let apps_map = List.fold_left (
+    fun map app ->
+      let name = app.G.app2_name in
+      let vs = try StringMap.find name map with Not_found -> [] in
+      StringMap.add name (app :: vs) map
+  ) StringMap.empty apps in
+
+  { i_root = root; i_apps = apps; i_apps_map = apps_map; }
 
 let () =
   try main ()

@@ -67,7 +67,11 @@ val string_of_overlay : overlay -> string
 
 type inspect = {
   i_root : string;                      (** Root device. *)
-  i_apps : Guestfs.application2 list;   (** Packages installed. *)
+  i_apps : Guestfs.application2 list;   (** List of packages installed. *)
+  i_apps_map : Guestfs.application2 list StringMap.t;
+    (** This is a map from the app name to the application object.
+        Since RPM allows multiple packages with the same name to be
+        installed, the value is a list. *)
 }
 (** Inspection information.  Only the applications list is stored here
     as that is the only one which is slow/inconvenient to fetch. *)

@@ -100,6 +100,7 @@ ov_source_format = %s
 type inspect = {
   i_root : string;
   i_apps : Guestfs.application2 list;
+  i_apps_map : Guestfs.application2 list StringMap.t;
 }
 
 type guestcaps = {
