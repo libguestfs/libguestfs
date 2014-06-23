@@ -84,6 +84,8 @@ usage (int status)
              "  --format[=raw|..]    Force disk format for -a option\n"
              "  --help               Display brief help\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
+             "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+             "                       Mount dev on mnt (if omitted, /)\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
@@ -106,7 +108,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:b:c:d:e:vVx";
+  static const char *options = "a:b:c:d:e:m:vVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "backup", 1, 0, 'b' },
@@ -119,12 +121,16 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "keys-from-stdin", 0, 0, 0 },
     { "long-options", 0, 0, 0 },
+    { "mount", 1, 0, 'm' },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
   };
   struct drv *drvs = NULL;
   struct drv *drv;
+  struct mp *mps = NULL;
+  struct mp *mp;
+  char *p;
   const char *format = NULL;
   int c;
   int option_index;
@@ -189,6 +195,11 @@ main (int argc, char *argv[])
       perl_expr = optarg;
       break;
 
+    case 'm':
+      OPTION_m;
+      inspector = 0;
+      break;
+
     case 'v':
       OPTION_v;
       break;
@@ -251,7 +262,7 @@ main (int argc, char *argv[])
    * values.
    */
   assert (read_only == 0);
-  assert (inspector == 1);
+  assert (inspector == 1 || mps != NULL);
   assert (live == 0);
 
   /* User must specify at least one filename on the command line. */
@@ -268,10 +279,14 @@ main (int argc, char *argv[])
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
 
-  inspect_mount ();
+  if (mps != NULL)
+    mount_mps (mps);
+  else
+    inspect_mount ();
 
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
+  free_mps (mps);
 
   edit_files (argc - optind, &argv[optind]);
 
@@ -288,16 +303,19 @@ static void
 edit_files (int argc, char *argv[])
 {
   int i;
-  char *root;
-  CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_get_roots (g);
+  char *root = NULL;
+  CLEANUP_FREE_STRING_LIST char **roots = NULL;
 
-  if (!roots)
-    exit (EXIT_FAILURE);
+  if (inspector) {
+    roots = guestfs_inspect_get_roots (g);
+    if (!roots)
+      exit (EXIT_FAILURE);
 
-  /* Get root mountpoint. */
-  /* see fish/inspect.c:inspect_mount */
-  assert (roots[0] != NULL && roots[1] == NULL);
-  root = roots[0];
+    /* Get root mountpoint. */
+    /* see fish/inspect.c:inspect_mount */
+    assert (roots[0] != NULL && roots[1] == NULL);
+    root = roots[0];
+  }
 
   for (i = 0; i < argc; ++i)
     edit (argv[i], root);
@@ -318,7 +336,7 @@ edit (const char *filename, const char *root)
   CLEANUP_FREE char *backupname = NULL;
 
   /* Windows?  Special handling is required. */
-  if (is_windows (g, root))
+  if (root != NULL && is_windows (g, root))
     filename = filename_to_free = windows_path (g, root, filename);
 
   /* Download the file to a temporary. */
