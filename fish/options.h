@@ -75,11 +75,13 @@ struct drv {
     struct {
       char *guest;          /* guest name */
     } d;
+#if COMPILING_GUESTFISH
     struct {
       char *filename;       /* disk filename (testX.img) */
       void *data;           /* prepared type */
       void (*data_free)(void*); /* function to free 'data' */
     } N;
+#endif
   };
 
   /* Opaque pointer.  Not used by the options-parsing code, and so
