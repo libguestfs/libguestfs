@@ -124,7 +124,7 @@ let rec main () =
           | OutputRHEV _ -> Some false
           | OutputLibvirt _ | OutputLocal _ -> None in
 
-        Convert_linux_enterprise.convert ?keep_serial_console
+        Convert_linux.convert ?keep_serial_console
           verbose g inspect source
 
       | distro ->
