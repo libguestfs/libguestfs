@@ -24,9 +24,6 @@ open Common_utils
 open Types
 open Utils
 
-module StringMap = Map.Make (String)
-let keys map = StringMap.fold (fun k _ ks -> k :: ks) map []
-
 (* Wrappers around aug_init & aug_load which can dump out full Augeas
  * parsing problems when debugging is enabled.
  *)
@@ -68,7 +65,7 @@ and augeas_debug_errors g =
           ) map detail_paths
       ) StringMap.empty errors in
 
-    let filenames = keys map in
+    let filenames = StringMap.keys map in
     let filenames = List.sort compare filenames in
 
     List.iter (

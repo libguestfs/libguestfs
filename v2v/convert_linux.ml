@@ -34,8 +34,6 @@ open Types
 
 module G = Guestfs
 
-module StringMap = Map.Make (String)
-
 let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     ({ i_root = root; i_apps = apps }
         as inspect) source =

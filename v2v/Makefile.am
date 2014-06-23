@@ -34,6 +34,7 @@ SOURCES_MLI = \
 	xml.mli
 
 SOURCES_ML = \
+	stringMap.ml \
 	types.ml \
 	utils.ml \
 	xml.ml \
