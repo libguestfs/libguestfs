@@ -70,6 +70,8 @@ usage (int status)
              "  --format[=raw|..]    Force disk format for -a option\n"
              "  --help               Display brief help\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
+             "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+             "                       Mount dev on mnt (if omitted, /)\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
@@ -89,7 +91,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:c:d:vVx";
+  static const char *options = "a:c:d:m:vVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "connect", 1, 0, 'c' },
@@ -99,12 +101,16 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "keys-from-stdin", 0, 0, 0 },
     { "long-options", 0, 0, 0 },
+    { "mount", 1, 0, 'm' },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
   };
   struct drv *drvs = NULL;
   struct drv *drv;
+  struct mp *mps = NULL;
+  struct mp *mp;
+  char *p;
   const char *format = NULL;
   int c;
   int r;
@@ -150,6 +156,11 @@ main (int argc, char *argv[])
 
     case 'd':
       OPTION_d;
+      break;
+
+    case 'm':
+      OPTION_m;
+      inspector = 0;
       break;
 
     case 'v':
@@ -214,7 +225,7 @@ main (int argc, char *argv[])
    * values.
    */
   assert (read_only == 1);
-  assert (inspector == 1);
+  assert (inspector == 1 || mps != NULL);
   assert (live == 0);
 
   /* User must specify at least one filename on the command line. */
@@ -225,18 +236,20 @@ main (int argc, char *argv[])
   if (drvs == NULL)
     usage (EXIT_FAILURE);
 
-  /* Add drives, inspect and mount.  Note that inspector is always true,
-   * and there is no -m option.
-   */
+  /* Add drives, inspect and mount. */
   add_drives (drvs, 'a');
 
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
 
-  inspect_mount ();
+  if (mps != NULL)
+    mount_mps (mps);
+  else
+    inspect_mount ();
 
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
+  free_mps (mps);
 
   r = do_cat (argc - optind, &argv[optind]);
 
@@ -249,19 +262,23 @@ static int
 do_cat (int argc, char *argv[])
 {
   unsigned errors = 0;
-  int windows, i;
+  int windows = 0;
+  int i;
   char *root;
+  CLEANUP_FREE_STRING_LIST char **roots = NULL;
 
-  /* Get root mountpoint.  See: fish/inspect.c:inspect_mount */
-  CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_get_roots (g);
+  if (inspector) {
+    /* Get root mountpoint.  See: fish/inspect.c:inspect_mount */
+    roots = guestfs_inspect_get_roots (g);
 
-  assert (roots);
-  assert (roots[0] != NULL);
-  assert (roots[1] == NULL);
-  root = roots[0];
+    assert (roots);
+    assert (roots[0] != NULL);
+    assert (roots[1] == NULL);
+    root = roots[0];
 
-  /* Windows?  Special handling is required. */
-  windows = is_windows (g, root);
+    /* Windows?  Special handling is required. */
+    windows = is_windows (g, root);
+  }
 
   for (i = 0; i < argc; ++i) {
     CLEANUP_FREE char *filename_to_free = NULL;
