@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Common Linux conversion code. *)
+(** Common Linux functions. *)
 
 val augeas_init : bool -> Guestfs.guestfs -> unit
 val augeas_reload : bool -> Guestfs.guestfs -> unit

@@ -24,10 +24,10 @@ EXTRA_DIST = \
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
 
 SOURCES_MLI = \
-	convert_linux_common.mli \
 	convert_linux_enterprise.mli \
 	convert_linux_grub.mli \
 	convert_windows.mli \
+	lib_linux.mli \
 	source_libvirt.mli \
 	target_local.mli \
 	types.mli \
@@ -37,9 +37,9 @@ SOURCES_ML = \
 	types.ml \
 	utils.ml \
 	xml.ml \
+	lib_linux.ml \
 	cmdline.ml \
 	source_libvirt.ml \
-	convert_linux_common.ml \
 	convert_linux_grub.ml \
 	convert_linux_enterprise.ml \
 	convert_windows.ml \

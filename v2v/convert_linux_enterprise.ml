@@ -104,7 +104,7 @@ Grub1/grub-legacy error was: %s")
           else
             None
       ) apps in
-    Convert_linux_common.remove verbose g inspect xenmods;
+    Lib_linux.remove verbose g inspect xenmods;
 
     (* Undo related nastiness if kmod-xenpv was installed. *)
     if xenmods <> [] then (
@@ -119,7 +119,7 @@ Grub1/grub-legacy error was: %s")
 
       (* Check it's not owned by an installed application. *)
       let dirs = List.filter (
-        fun d -> not (Convert_linux_common.file_owned verbose g inspect d)
+        fun d -> not (Lib_linux.file_owned verbose g inspect d)
       ) dirs in
 
       (* Remove any unowned xenpv directories. *)
@@ -177,7 +177,7 @@ Grub1/grub-legacy error was: %s")
         fun { G.app2_name = name } -> name = package_name
       ) apps in
     if has_guest_additions then
-      Convert_linux_common.remove verbose g inspect [package_name];
+      Lib_linux.remove verbose g inspect [package_name];
 
     (* Guest Additions might have been installed from a tarball.  The
      * above code won't detect this case.  Look for the uninstall tool
@@ -209,7 +209,7 @@ Grub1/grub-legacy error was: %s")
           ignore (g#command [| vboxuninstall |]);
 
           (* Reload Augeas to detect changes made by vbox tools uninst. *)
-          Convert_linux_common.augeas_reload verbose g
+          Lib_linux.augeas_reload verbose g
         with
           G.Error msg ->
             warning ~prog (f_"VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)")
@@ -282,7 +282,7 @@ Grub1/grub-legacy error was: %s")
     );
 
     let remove = !remove in
-    Convert_linux_common.remove verbose g inspect remove;
+    Lib_linux.remove verbose g inspect remove;
 
     (* VMware Tools may have been installed from a tarball, so the
      * above code won't remove it.  Look for the uninstall tool and run
@@ -294,7 +294,7 @@ Grub1/grub-legacy error was: %s")
         ignore (g#command [| uninstaller |]);
 
         (* Reload Augeas to detect changes made by vbox tools uninst. *)
-        Convert_linux_common.augeas_reload verbose g
+        Lib_linux.augeas_reload verbose g
       with
         G.Error msg ->
           warning ~prog (f_"VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)")
@@ -309,7 +309,7 @@ Grub1/grub-legacy error was: %s")
     let pkgs = List.map (fun { G.app2_name = name } -> name) pkgs in
 
     if pkgs <> [] then (
-      Convert_linux_common.remove verbose g inspect pkgs;
+      Lib_linux.remove verbose g inspect pkgs;
 
       (* Installing these guest utilities automatically unconfigures
        * ttys in /etc/inittab if the system uses it. We need to put
@@ -455,7 +455,7 @@ Grub1/grub-legacy error was: %s")
         | [] -> None
         | path :: paths ->
           let kernel =
-            Convert_linux_common.inspect_linux_kernel verbose g inspect path in
+            Lib_linux.inspect_linux_kernel verbose g inspect path in
           match kernel with
           | None -> loop paths
           | Some kernel when is_hv_kernel kernel -> loop paths
@@ -483,11 +483,11 @@ Grub1/grub-legacy error was: %s")
             | [] -> "kernel"
             | path :: paths ->
               let kernel =
-                Convert_linux_common.inspect_linux_kernel verbose g inspect
+                Lib_linux.inspect_linux_kernel verbose g inspect
                   path in
               match kernel with
               | None -> loop paths
-              | Some kernel -> kernel.Convert_linux_common.base_package
+              | Some kernel -> kernel.Lib_linux.base_package
           in
           loop kernels in
 
@@ -504,7 +504,7 @@ Grub1/grub-legacy error was: %s")
          *)
         let files1 = g#ls "/lib/modules" in
         let files1 = Array.to_list files1 in
-        Convert_linux_common.install verbose g inspect [current_kernel];
+        Lib_linux.install verbose g inspect [current_kernel];
         let files2 = g#ls "/lib/modules" in
         let files2 = Array.to_list files2 in
 
@@ -521,14 +521,14 @@ Grub1/grub-legacy error was: %s")
         in
         let version = loop files1 files2 in
 
-        { Convert_linux_common.base_package = current_kernel;
+        { Lib_linux.base_package = current_kernel;
           version = version; modules = []; arch = "" } in
 
     (* Set /etc/sysconfig/kernel DEFAULTKERNEL to point to the new
      * kernel package name.
      *)
     if g#is_file ~followsymlinks:true "/etc/sysconfig/kernel" then (
-      let base_package = bootable_kernel.Convert_linux_common.base_package in
+      let base_package = bootable_kernel.Lib_linux.base_package in
       let paths =
         g#aug_match "/files/etc/sysconfig/kernel/DEFAULTKERNEL/value" in
       let paths = Array.to_list paths in
@@ -537,13 +537,13 @@ Grub1/grub-legacy error was: %s")
     );
 
     (* Return the installed kernel version. *)
-    bootable_kernel.Convert_linux_common.version
+    bootable_kernel.Lib_linux.version
 
-  and supports_virtio { Convert_linux_common.modules = modules } =
+  and supports_virtio { Lib_linux.modules = modules } =
     List.mem "virtio_blk" modules && List.mem "virtio_net" modules
 
   (* Is it a hypervisor-specific kernel? *)
-  and is_hv_kernel { Convert_linux_common.modules = modules } =
+  and is_hv_kernel { Lib_linux.modules = modules } =
     List.mem "xennet" modules           (* Xen PV kernel. *)
 
   (* Find a suitable replacement for kernel-xen. *)
@@ -661,7 +661,7 @@ Grub1/grub-legacy error was: %s")
 
   clean_rpmdb ();
   autorelabel ();
-  Convert_linux_common.augeas_init verbose g;
+  Lib_linux.augeas_init verbose g;
   let grub = get_grub () in
 
   unconfigure_xen ();
