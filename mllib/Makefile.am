@@ -26,6 +26,7 @@ CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o
 SOURCES = \
 	common_gettext.ml \
 	common_utils.ml \
+	common_utils.mli \
 	common_utils_tests.ml \
 	config.ml \
 	fsync-c.c \
