@@ -508,13 +508,6 @@ suggest_filesystems (void)
 #undef TEST_MOUNTABLE
 }
 
-struct scratch_disk {
-  struct scratch_disk *next;
-  char *filename;
-};
-static struct scratch_disk *scratch_disks = NULL;
-
-static void unlink_scratch_disks (void);
 static void add_scratch_disk (struct drv **drvs);
 
 static void
@@ -529,46 +522,7 @@ add_scratch_disks (int n, struct drv **drvs)
 static void
 add_scratch_disk (struct drv **drvs)
 {
-  char filename_s[] = "/var/tmp/rescueXXXXXX";
-  int fd;
-  char *filename;
-  struct scratch_disk *sd;
   struct drv *drv;
-
-  /* XXX Is there a reason we're not using guestfs_add_drive_scratch here? */
-
-  /* Create a temporary file, raw sparse format. */
-  fd = mkstemp (filename_s);
-  if (fd == -1) {
-    perror ("mkstemp: scratch disk");
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, 10737418240ULL) == -1) {
-    perror ("ftruncate: scratch disk");
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror ("close: scratch disk");
-    exit (EXIT_FAILURE);
-  }
-
-  filename = strdup (filename_s);
-  if (filename == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-
-  /* Remember this scratch disk, so we can clean it up at exit. */
-  if (scratch_disks == NULL)
-    atexit (unlink_scratch_disks);
-  sd = malloc (sizeof (struct scratch_disk));
-  if (!sd) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-  sd->filename = filename;
-  sd->next = scratch_disks;
-  scratch_disks = sd;
 
   /* Add the scratch disk to the drives list. */
   drv = calloc (1, sizeof (struct drv));
@@ -576,26 +530,9 @@ add_scratch_disk (struct drv **drvs)
     perror ("malloc");
     exit (EXIT_FAILURE);
   }
-  drv->type = drv_a;
+  drv->type = drv_scratch;
   drv->nr_drives = -1;
-  drv->a.filename = strdup (filename);
-  if (!drv->a.filename) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
-  drv->a.format = "raw";
-  drv->a.cachemode = "unsafe"; /* because it's a scratch disk */
+  drv->scratch.size = INT64_C (10737418240);
   drv->next = *drvs;
   *drvs = drv;
-}
-
-/* Called atexit to unlink the scratch disks. */
-static void
-unlink_scratch_disks (void)
-{
-  while (scratch_disks) {
-    unlink (scratch_disks->filename);
-    free (scratch_disks->filename);
-    scratch_disks = scratch_disks->next;
-  }
 }

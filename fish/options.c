@@ -204,6 +204,17 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
       break;
 #endif
 
+#if COMPILING_VIRT_RESCUE
+    case drv_scratch:
+      r = guestfs_add_drive_scratch (g, drv->scratch.size, -1);
+      if (r == -1)
+        exit (EXIT_FAILURE);
+
+      drv->nr_drives = 1;
+      next_drive++;
+      break;
+#endif
+
     default: /* keep GCC happy */
       abort ();
     }
@@ -304,6 +315,11 @@ free_drives (struct drv *drv)
   case drv_N:
     free (drv->N.filename);
     drv->N.data_free (drv->N.data);
+    break;
+#endif
+#if COMPILING_VIRT_RESCUE
+  case drv_scratch:
+    /* nothing */
     break;
 #endif
   default: ;                    /* keep GCC happy */

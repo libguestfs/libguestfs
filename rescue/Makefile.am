@@ -41,6 +41,7 @@ virt_rescue_SOURCES = \
 	rescue.c
 
 virt_rescue_CPPFLAGS = \
+	-DCOMPILING_VIRT_RESCUE=1 \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \

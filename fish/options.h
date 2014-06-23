@@ -55,6 +55,9 @@ struct drv {
 #if COMPILING_GUESTFISH
     drv_N,                      /* -N option (guestfish only) */
 #endif
+#if COMPILING_VIRT_RESCUE
+    drv_scratch,                /* --scratch option (virt-rescue only) */
+#endif
   } type;
   union {
     struct {
@@ -81,6 +84,11 @@ struct drv {
       void *data;           /* prepared type */
       void (*data_free)(void*); /* function to free 'data' */
     } N;
+#endif
+#if COMPILING_VIRT_RESCUE
+    struct {
+      int64_t size;         /* size of the disk in bytes */
+    } scratch;
 #endif
   };
 
