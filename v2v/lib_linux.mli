@@ -31,7 +31,13 @@ val install : bool -> Guestfs.guestfs -> Types.inspect -> string list -> unit
 val remove : bool -> Guestfs.guestfs -> Types.inspect -> string list -> unit
 (** Uninstall package(s). *)
 
-val file_owned : bool -> Guestfs.guestfs -> Types.inspect -> string -> bool
+val file_list_of_package : bool -> Guestfs.guestfs -> Types.inspect -> string -> string list
+(** Return list of files owned by package. *)
+
+val file_owner : bool -> Guestfs.guestfs -> Types.inspect -> string -> string
+(** Return the name of the package that owns a file. *)
+
+val is_file_owned : bool -> Guestfs.guestfs -> Types.inspect -> string -> bool
 (** Returns true if the file is owned by an installed package. *)
 
 type kernel_info = {

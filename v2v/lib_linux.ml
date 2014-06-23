@@ -116,16 +116,41 @@ let remove verbose g inspect packages =
         format (String.concat " " packages)
   )
 
-let file_owned verbose g inspect file =
-  let root = inspect.i_root in
-  let package_format = g#inspect_get_package_format root in
+let file_list_of_package verbose (g : Guestfs.guestfs) inspect name =
+  let package_format = g#inspect_get_package_format inspect.i_root in
+
   match package_format with
   | "rpm" ->
-      let cmd = [| "rpm"; "-qf"; file |] in
-      (try ignore (g#command cmd); true with Guestfs.Error _ -> false)
+    let cmd = [| "rpm"; "-ql"; name |] in
+    if verbose then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
+    Array.to_list (g#command_lines cmd)
+  | format ->
+    error (f_"don't know how to get list of files from package using %s")
+      format
+
+let rec file_owner verbose g inspect path =
+  let package_format = g#inspect_get_package_format inspect.i_root in
+  match package_format with
+  | "rpm" ->
+      (* Although it is possible in RPM for multiple packages to own
+       * a file, this deliberately only returns one package.
+       *)
+      let cmd = [| "rpm"; "-qf"; "--qf"; "%{NAME}"; path |] in
+      if verbose then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
+      (try g#command cmd
+       with Guestfs.Error msg as exn ->
+         if string_find msg "is not owned" >= 0 then
+           raise Not_found
+         else
+           raise exn
+      )
 
   | format ->
-    error (f_"don't know how to find package owner using %s") format
+    error (f_"don't know how to find file owner using %s") format
+
+and is_file_owned verbose g inspect path =
+  try file_owner verbose g inspect path; true
+  with Not_found -> false
 
 type kernel_info = {
   base_package : string;          (* base package, eg. "kernel-PAE" *)
@@ -139,16 +164,7 @@ type kernel_info = {
  * understand what on earth it was doing.  - RWMJ
  *)
 let inspect_linux_kernel verbose (g : Guestfs.guestfs) inspect path =
-  let root = inspect.i_root in
-
-  let base_package =
-    let package_format = g#inspect_get_package_format root in
-    match package_format with
-    | "rpm" ->
-      let cmd = [| "rpm"; "-qf"; "--qf"; "%{NAME}"; path |] in
-      g#command cmd
-    | format ->
-      error (f_"don't know how to inspect kernel using %s") format in
+  let base_package = file_owner verbose g inspect path in
 
   (* Try to get kernel version by examination of the binary.
    * See supermin.git/src/kernel.ml

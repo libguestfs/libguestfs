@@ -106,7 +106,7 @@ Grub1/grub-legacy error was: %s")
 
       (* Check it's not owned by an installed application. *)
       let dirs = List.filter (
-        fun d -> not (Lib_linux.file_owned verbose g inspect d)
+        fun d -> not (Lib_linux.is_file_owned verbose g inspect d)
       ) dirs in
 
       (* Remove any unowned xenpv directories. *)
