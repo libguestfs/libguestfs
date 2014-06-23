@@ -102,6 +102,8 @@ usage (int status)
              "  -h|--human-readable  Human-readable sizes in output\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  -l|--long            Long listing\n"
+             "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+             "                       Mount dev on mnt (if omitted, /)\n"
              "  -R|--recursive       Recursive listing\n"
              "  --times              Display file times\n"
              "  --time-days          Display file times as days before now\n"
@@ -130,7 +132,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:c:d:hlRvVx";
+  static const char *options = "a:c:d:hlm:RvVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "checksum", 2, 0, 0 },
@@ -147,6 +149,7 @@ main (int argc, char *argv[])
     { "keys-from-stdin", 0, 0, 0 },
     { "long", 0, 0, 'l' },
     { "long-options", 0, 0, 0 },
+    { "mount", 1, 0, 'm' },
     { "recursive", 0, 0, 'R' },
     { "time", 0, 0, 0 },
     { "times", 0, 0, 0 },
@@ -161,6 +164,9 @@ main (int argc, char *argv[])
   };
   struct drv *drvs = NULL;
   struct drv *drv;
+  struct mp *mps = NULL;
+  struct mp *mp;
+  char *p;
   const char *format = NULL;
   int c;
   int option_index;
@@ -247,6 +253,11 @@ main (int argc, char *argv[])
       mode |= MODE_LS_L;
       break;
 
+    case 'm':
+      OPTION_m;
+      inspector = 0;
+      break;
+
     case 'R':
       mode |= MODE_LS_R;
       break;
@@ -313,7 +324,7 @@ main (int argc, char *argv[])
    * values.
    */
   assert (read_only == 1);
-  assert (inspector == 1);
+  assert (inspector == 1 || mps != NULL);
   assert (live == 0);
 
   /* Many flags only apply to -lR mode. */
@@ -342,18 +353,20 @@ main (int argc, char *argv[])
   if (drvs == NULL)
     usage (EXIT_FAILURE);
 
-  /* Add drives, inspect and mount.  Note that inspector is always true,
-   * and there is no -m option.
-   */
+  /* Add drives, inspect and mount. */
   add_drives (drvs, 'a');
 
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
 
-  inspect_mount ();
+  if (mps != NULL)
+    mount_mps (mps);
+  else
+    inspect_mount ();
 
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
+  free_mps (mps);
 
   unsigned errors = 0;
 
