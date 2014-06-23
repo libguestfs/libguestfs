@@ -56,6 +56,9 @@ val make_message_function : quiet:bool -> ('a, unit, string, unit) format4 -> 'a
 val error : prog:string -> ?exit_code:int -> ('a, unit, string, 'b) format4 -> 'a
 (** Standard error function. *)
 
+val warning : prog:string -> ('a, unit, string, unit) format4 -> 'a
+(** Standard warning function. *)
+
 val read_whole_file : string -> string
 (** Read in the whole file as a string. *)
 

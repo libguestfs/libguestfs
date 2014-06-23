@@ -1160,7 +1160,7 @@ read the man page virt-resize(1).
       (* Sanity check: it contains the NTFS magic. *)
       let magic = g#pread_device target 8 3L in
       if magic <> "NTFS    " then
-        eprintf (f_"warning: first partition is NTFS but does not contain NTFS boot loader magic\n%!")
+        warning ~prog (f_"first partition is NTFS but does not contain NTFS boot loader magic")
       else (
         if not quiet then
           printf (f_"Fixing first NTFS partition boot record ...\n%!");

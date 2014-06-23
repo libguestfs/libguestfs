@@ -127,7 +127,7 @@ let main () =
       exit 1
     )
     else if debug then
-      eprintf (f_"%s: warning: gpg program is not available\n") prog
+      warning ~prog (f_"gpg program is not available")
   );
 
   (* Check that curl works. *)
@@ -160,9 +160,8 @@ let main () =
          *)
         try mkdir dir 0o755; Some dir
         with exn ->
-          eprintf (f_"%s: warning: cache %s: %s\n") prog dir
-            (Printexc.to_string exn);
-          eprintf (f_"%s: disabling the cache\n%!") prog;
+          warning ~prog (f_"cache %s: %s") dir (Printexc.to_string exn);
+          warning ~prog (f_"disabling the cache");
           None
       )
   in
