@@ -413,26 +413,6 @@ Grub1/grub-legacy error was: %s")
       );
       false
 
-  and compare_app2_versions app1 app2 =
-    let i = compare app1.G.app2_epoch app2.G.app2_epoch in
-    if i <> 0 then i
-    else (
-      let i = compare_version app1.G.app2_version app2.G.app2_version in
-      if i <> 0 then i
-      else
-        compare_version app1.G.app2_release app2.G.app2_release
-    )
-
-  and compare_app2_version_min app1 (min_epoch, min_version, min_release) =
-    let i = compare app1.G.app2_epoch min_epoch in
-    if i <> 0 then i
-    else (
-      let i = compare_version app1.G.app2_version min_version in
-      if i <> 0 then i
-      else
-        compare_version app1.G.app2_release min_release
-    )
-
   and configure_kernel virtio grub =
     let kernels = grub#list_kernels () in
 
