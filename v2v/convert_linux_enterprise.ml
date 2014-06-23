@@ -32,6 +32,8 @@ open Common_utils
 open Utils
 open Types
 
+module G = Guestfs
+
 module StringMap = Map.Make (String)
 
 let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)

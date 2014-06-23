@@ -131,7 +131,7 @@ read the man page virt-sparsify(1).
     printf "check-tmpdir\n";
     printf "in-place\n";
     printf "tmp-option\n";
-    let g = new G.guestfs () in
+    let g = new Guestfs.guestfs () in
     g#add_drive "/dev/null";
     g#launch ();
     if g#feature_available [| "ntfsprogs"; "ntfs3g" |] then

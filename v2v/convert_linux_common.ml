@@ -96,7 +96,7 @@ and augeas_debug_errors g =
 
     flush stdout
   with
-    G.Error msg -> eprintf "%s: augeas: %s (ignored)\n" prog msg
+    Guestfs.Error msg -> eprintf "%s: augeas: %s (ignored)\n" prog msg
 
 let install verbose g inspect packages =
   assert false
@@ -125,7 +125,7 @@ let file_owned verbose g inspect file =
   match package_format with
   | "rpm" ->
       let cmd = [| "rpm"; "-qf"; file |] in
-      (try ignore (g#command cmd); true with G.Error _ -> false)
+      (try ignore (g#command cmd); true with Guestfs.Error _ -> false)
 
   | format ->
     error (f_"don't know how to find package owner using %s") format
