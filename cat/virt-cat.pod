@@ -137,7 +137,7 @@ If the mountpoint is omitted, it defaults to C</>.
 Specifying any mountpoint disables the inspection of the guest and
 the mount of its root and all of its mountpoints, so make sure
 to mount all the mountpoints needed to work with the filenames
-gives as arguments.
+given as arguments.
 
 If you don't know what filesystems a disk image contains, you can
 either run guestfish without this option, then list the partitions,
