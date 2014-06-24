@@ -833,7 +833,7 @@ read the man page virt-resize(1).
                      (expand_content_method p.p_type))
               ) else "" in
 
-        wrap ~hanging:4 (text ^ "\n\n")
+        wrap ~indent:4 (text ^ "\n\n")
     ) partitions;
 
     List.iter (
@@ -852,7 +852,7 @@ read the man page virt-resize(1).
                      (expand_content_method lv.lv_type))
               ) else "" in
 
-            wrap ~hanging:4 (text ^ "\n\n")
+            wrap ~indent:4 (text ^ "\n\n")
     ) lvs;
 
     if surplus > 0L then (
