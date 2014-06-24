@@ -32,13 +32,13 @@ type uri = string
 type filename = string
 
 type t = {
-  debug : bool;
+  verbose : bool;
   curl : string;
   cache : string option;                (* cache directory for templates *)
 }
 
-let create ~debug ~curl ~cache = {
-  debug = debug;
+let create ~verbose ~curl ~cache = {
+  verbose = verbose;
   curl = curl;
   cache = cache;
 }
@@ -87,7 +87,7 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
   | "file" ->
     let path = parseduri.URI.path in
     let cmd = sprintf "cp%s %s %s"
-      (if t.debug then " -v" else "")
+      (if t.verbose then " -v" else "")
       (quote path) (quote filename_new) in
     let r = Sys.command cmd in
     if r <> 0 then (
@@ -99,9 +99,9 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
     (* Get the status code first to ensure the file exists. *)
     let cmd = sprintf "%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
       t.curl
-      (if t.debug then "" else " -s -S")
+      (if t.verbose then "" else " -s -S")
       (quote uri) in
-    if t.debug then eprintf "%s\n%!" cmd;
+    if t.verbose then eprintf "%s\n%!" cmd;
     let lines = external_command ~prog cmd in
     if List.length lines < 1 then (
       eprintf (f_"%s: unexpected output from curl command, enable debug and look at previous messages\n")
@@ -124,9 +124,9 @@ and download_to ~prog t ?(progress_bar = false) uri filename =
     (* Now download the file. *)
     let cmd = sprintf "%s%s -g -o %s %s"
       t.curl
-      (if t.debug then "" else if progress_bar then " -#" else " -s -S")
+      (if t.verbose then "" else if progress_bar then " -#" else " -s -S")
       (quote filename_new) (quote uri) in
-    if t.debug then eprintf "%s\n%!" cmd;
+    if t.verbose then eprintf "%s\n%!" cmd;
     let r = Sys.command cmd in
     if r <> 0 then (
       eprintf (f_"%s: curl (download) command failed downloading '%s'\n")

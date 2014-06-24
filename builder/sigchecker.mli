@@ -23,7 +23,7 @@ type gpgkey_type =
   | Fingerprint of string
   | KeyFile of string
 
-val create : debug:bool -> gpg:string -> gpgkey:gpgkey_type -> check_signature:bool -> t
+val create : verbose:bool -> gpg:string -> gpgkey:gpgkey_type -> check_signature:bool -> t
 
 val verify : t -> string -> unit
 (** Verify the file is signed (if check_signature is true). *)

@@ -22,4 +22,4 @@ type source = {
   gpgkey : string option;
 }
 
-val read_sources : prog:string -> debug:bool -> source list
+val read_sources : prog:string -> verbose:bool -> source list

@@ -30,7 +30,7 @@ type gpgkey_type =
   | KeyFile of string
 
 type t = {
-  debug : bool;
+  verbose : bool;
   gpg : string;
   fingerprint : string;
   check_signature : bool;
@@ -38,13 +38,13 @@ type t = {
 }
 
 (* Import the specified key file. *)
-let import_keyfile ~gpg ~gpghome ~debug keyfile =
+let import_keyfile ~gpg ~gpghome ~verbose keyfile =
   let status_file = Filename.temp_file "vbstat" ".txt" in
   unlink_on_exit status_file;
   let cmd = sprintf "%s --homedir %s --status-file %s --import %s%s"
     gpg gpghome (quote status_file) (quote keyfile)
-    (if debug then "" else " >/dev/null 2>&1") in
-  if debug then eprintf "%s\n%!" cmd;
+    (if verbose then "" else " >/dev/null 2>&1") in
+  if verbose then eprintf "%s\n%!" cmd;
   let r = Sys.command cmd in
   if r <> 0 then (
     eprintf (f_"virt-builder: error: could not import public key\nUse the '-v' option and look for earlier error messages.\n");
@@ -52,7 +52,7 @@ let import_keyfile ~gpg ~gpghome ~debug keyfile =
   );
   status_file
 
-let rec create ~debug ~gpg ~gpgkey ~check_signature =
+let rec create ~verbose ~gpg ~gpgkey ~check_signature =
   (* Create a temporary directory for gnupg. *)
   let tmpdir = Mkdtemp.mkdtemp (Filename.temp_dir_name // "vb.gpghome.XXXXXX") in
   rmdir_on_exit tmpdir;
@@ -67,8 +67,8 @@ let rec create ~debug ~gpg ~gpgkey ~check_signature =
        * cannot.
        *)
       let cmd = sprintf "%s --homedir %s --list-keys%s"
-        gpg tmpdir (if debug then "" else " >/dev/null 2>&1") in
-      if debug then eprintf "%s\n%!" cmd;
+        gpg tmpdir (if verbose then "" else " >/dev/null 2>&1") in
+      if verbose then eprintf "%s\n%!" cmd;
       let r = Sys.command cmd in
       if r <> 0 then (
         eprintf (f_"virt-builder: error: GPG failure: could not run GPG the first time\nUse the '-v' option and look for earlier error messages.\n");
@@ -78,7 +78,7 @@ let rec create ~debug ~gpg ~gpgkey ~check_signature =
       | No_Key ->
         assert false
       | KeyFile kf ->
-        let status_file = import_keyfile gpg tmpdir debug kf in
+        let status_file = import_keyfile gpg tmpdir verbose kf in
         let status = read_whole_file status_file in
         let status = string_nsplit "\n" status in
         let fingerprint = ref "" in
@@ -95,19 +95,19 @@ let rec create ~debug ~gpg ~gpgkey ~check_signature =
         unlink_on_exit filename;
         let cmd = sprintf "%s --yes --armor --output %s --export %s%s"
           gpg (quote filename) (quote fp)
-          (if debug then "" else " >/dev/null 2>&1") in
-        if debug then eprintf "%s\n%!" cmd;
+          (if verbose then "" else " >/dev/null 2>&1") in
+        if verbose then eprintf "%s\n%!" cmd;
         let r = Sys.command cmd in
         if r <> 0 then (
           eprintf (f_"virt-builder: error: could not export public key\nUse the '-v' option and look for earlier error messages.\n");
           exit 1
         );
-        ignore (import_keyfile gpg tmpdir debug filename);
+        ignore (import_keyfile gpg tmpdir verbose filename);
         fp
     ) else
       "" in
   {
-    debug = debug;
+    verbose = verbose;
     gpg = gpg;
     fingerprint = fingerprint;
     check_signature = check_signature;
@@ -161,9 +161,9 @@ and do_verify t args =
   let cmd =
     sprintf "%s --homedir %s --verify%s --status-file %s %s"
         t.gpg t.gpghome
-        (if t.debug then "" else " -q --logger-file /dev/null")
+        (if t.verbose then "" else " -q --logger-file /dev/null")
         (quote status_file) args in
-  if t.debug then eprintf "%s\n%!" cmd;
+  if t.verbose then eprintf "%s\n%!" cmd;
   let r = Sys.command cmd in
   if r <> 0 then (
     eprintf (f_"virt-builder: error: GPG failure: could not verify digital signature of file\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!\n");
@@ -196,7 +196,7 @@ let verify_checksum t (SHA512 csum) filename =
   unlink_on_exit csum_file;
   let cmd = sprintf "sha512sum %s | awk '{print $1}' > %s"
     (quote filename) (quote csum_file) in
-  if t.debug then eprintf "%s\n%!" cmd;
+  if t.verbose then eprintf "%s\n%!" cmd;
   let r = Sys.command cmd in
   if r <> 0 then (
     eprintf (f_"virt-builder: error: could not run sha512sum command to verify checksum\n");

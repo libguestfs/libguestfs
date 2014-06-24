@@ -29,7 +29,7 @@ type filename = string
 type t
 (** The abstract data type. *)
 
-val create : debug:bool -> curl:string -> cache:string option -> t
+val create : verbose:bool -> curl:string -> cache:string option -> t
 (** Create the abstract type. *)
 
 val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_bar:bool -> uri -> (filename * bool)
@@ -43,5 +43,5 @@ val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_ba
     and revision are used for cache control (see the man page for details).
 
     If [~progress_bar:true] then display a progress bar if the file
-    doesn't come from the cache.  In debug mode, progress messages
+    doesn't come from the cache.  In verbose mode, progress messages
     are always displayed. *)

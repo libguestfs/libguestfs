@@ -270,7 +270,7 @@ let do_sysprep () =
 
         (* Perform the filesystem operations. *)
         Sysprep_operation.perform_operations_on_filesystems
-          ?operations ~debug:verbose ~quiet g root side_effects;
+          ?operations ~verbose ~quiet g root side_effects;
 
         (* Unmount everything in this guest. *)
         g#umount_all ();
@@ -279,7 +279,7 @@ let do_sysprep () =
 
         (* Perform the block device operations. *)
         Sysprep_operation.perform_operations_on_devices
-          ?operations ~debug:verbose ~quiet g root side_effects;
+          ?operations ~verbose ~quiet g root side_effects;
     ) roots
 
 (* Finished. *)

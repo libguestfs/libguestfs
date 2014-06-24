@@ -33,7 +33,7 @@ end
 
 class device_side_effects = object end
 
-type 'a callback = debug:bool -> quiet:bool -> Guestfs.guestfs -> string -> 'a -> unit
+type 'a callback = verbose:bool -> quiet:bool -> Guestfs.guestfs -> string -> 'a -> unit
 
 type operation = {
   order : int;
@@ -276,7 +276,7 @@ let compare_operations { order = o1; name = n1 } { order = o2; name = n2 } =
   let i = compare o1 o2 in
   if i <> 0 then i else compare n1 n2
 
-let perform_operations_on_filesystems ?operations ~debug ~quiet g root
+let perform_operations_on_filesystems ?operations ~verbose ~quiet g root
     side_effects =
   assert !baked;
 
@@ -295,11 +295,11 @@ let perform_operations_on_filesystems ?operations ~debug ~quiet g root
     function
     | { name = name; perform_on_filesystems = Some fn } ->
       msg "Performing %S ..." name;
-      fn ~debug ~quiet g root side_effects
+      fn ~verbose ~quiet g root side_effects
     | { perform_on_filesystems = None } -> ()
   ) ops
 
-let perform_operations_on_devices ?operations ~debug ~quiet g root
+let perform_operations_on_devices ?operations ~verbose ~quiet g root
     side_effects =
   assert !baked;
 
@@ -318,6 +318,6 @@ let perform_operations_on_devices ?operations ~debug ~quiet g root
     function
     | { name = name; perform_on_devices = Some fn } ->
       msg "Performing %S ..." name;
-      fn ~debug ~quiet g root side_effects
+      fn ~verbose ~quiet g root side_effects
     | { perform_on_devices = None } -> ()
   ) ops

@@ -30,8 +30,8 @@ type source = {
 
 module StringSet = Set.Make (String)
 
-let parse_conf ~prog ~debug file =
-  if debug then (
+let parse_conf ~prog ~verbose file =
+  if verbose then (
     eprintf (f_"%s: trying to read %s\n") prog file;
   );
   let sections = Ini_reader.read_ini ~prog file in
@@ -50,7 +50,7 @@ let parse_conf ~prog ~debug file =
             try Some (URI.parse_uri (List.assoc ("gpgkey", None) fields)) with
             | Not_found -> None
             | Invalid_argument "URI.parse_uri" as ex ->
-              if debug then (
+              if verbose then (
                 eprintf (f_"%s: '%s' has invalid gpgkey URI\n") prog n;
               );
               raise ex in
@@ -60,7 +60,7 @@ let parse_conf ~prog ~debug file =
             (match uri.URI.protocol with
             | "file" -> Some uri.URI.path
             | _ ->
-              if debug then (
+              if verbose then (
                 eprintf (f_"%s: '%s' has non-local gpgkey URI\n") prog n;
               );
               None
@@ -73,7 +73,7 @@ let parse_conf ~prog ~debug file =
       with Not_found | Invalid_argument _ -> acc
   ) sections [] in
 
-  if debug then (
+  if verbose then (
     eprintf (f_"%s: ... read %d sources\n") prog (List.length sources);
   );
 
@@ -91,7 +91,7 @@ let merge_sources current_sources new_sources =
 let filter_filenames filename =
   Filename.check_suffix filename ".conf"
 
-let read_sources ~prog ~debug =
+let read_sources ~prog ~verbose =
   let dirs = Paths.xdg_config_dirs ~prog in
   let dirs =
     match Paths.xdg_config_home ~prog with
@@ -108,7 +108,7 @@ let read_sources ~prog ~debug =
       List.fold_left (
         fun acc file ->
           try (
-            let s = merge_sources acc (parse_conf ~prog ~debug (dir // file)) in
+            let s = merge_sources acc (parse_conf ~prog ~verbose (dir // file)) in
             (* Add the current file name to the set only if its parsing
              * was successful.
              *)
@@ -116,12 +116,12 @@ let read_sources ~prog ~debug =
             s
           ) with
           | Unix_error (code, fname, _) ->
-            if debug then (
+            if verbose then (
               eprintf (f_"%s: file error: %s: %s\n") prog fname (error_message code)
             );
             acc
           | Invalid_argument msg ->
-            if debug then (
+            if verbose then (
               eprintf (f_"%s: internal error: invalid argument: %s\n") prog msg
             );
             acc
