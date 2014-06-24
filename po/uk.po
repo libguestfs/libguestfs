@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-06-16 10:48+0100\n"
+"POT-Creation-Date: 2014-06-23 22:16+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -100,7 +100,7 @@ msgstr "%s (проігноровано)\n"
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:337 ../builder/builder.ml:662
+#: ../customize/customize_run.ml:334 ../builder/builder.ml:661
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (прогіноровано)\n"
 
@@ -269,7 +269,7 @@ msgstr ""
 "матеріал\n"
 "можна знайти на сторінці підручника (man) програми virt-builder(1).\n"
 
-#: ../builder/builder.ml:249
+#: ../builder/builder.ml:248
 msgid ""
 "%s: cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types.\n"
@@ -278,7 +278,7 @@ msgstr ""
 "Скористайтеся параметром --list, щоб переглянути список доступних типів "
 "операційних систем.\n"
 
-#: ../builder/builder.ml:334
+#: ../builder/builder.ml:333
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 "%s: виведення даних на символьний пристрій або до /dev/null неможливе\n"
@@ -327,14 +327,6 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:155
-msgid ""
-"%s: disabling the cache\n"
-"%!"
-msgstr ""
-"%s: вимикаємо кеш\n"
-"%!"
-
 #: ../resize/resize.ml:155
 msgid "%s: empty --expand option"
 msgstr "%s: порожній аргумент параметра --expand"
@@ -343,7 +335,7 @@ msgstr "%s: порожній аргумент параметра --expand"
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
 
-#: ../v2v/v2v.ml:334
+#: ../v2v/v2v.ml:354
 msgid "%s: error: %s\n"
 msgstr ""
 
@@ -351,13 +343,13 @@ msgstr ""
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#. ../builder/builder.ml:743
-#: ../v2v/v2v.ml:327 ../sparsify/sparsify.ml:52 ../resize/resize.ml:1303
+#. ../builder/builder.ml:742
+#: ../v2v/v2v.ml:347 ../sparsify/sparsify.ml:52 ../resize/resize.ml:1303
 msgid "%s: error: %s: %s\n"
 msgstr "%s: помилка: %s: %s\n"
 
-#. ../builder/builder.ml:746
-#: ../v2v/v2v.ml:330 ../sparsify/sparsify.ml:55 ../resize/resize.ml:1306
+#. ../builder/builder.ml:745
+#: ../v2v/v2v.ml:350 ../sparsify/sparsify.ml:55 ../resize/resize.ml:1306
 msgid "%s: error: %s: %s: %s\n"
 msgstr "%s: помилка: %s: %s: %s\n"
 
@@ -373,13 +365,13 @@ msgid ""
 "user '%s' twice.\n"
 msgstr ""
 
-#: ../builder/builder.ml:212
+#: ../builder/builder.ml:211
 msgid "%s: error: no cache directory\n"
 msgstr "%s: помилка: немає каталогу кешування\n"
 
 #. ../customize/customize_main.ml:262
-#. ../builder/builder.ml:764
-#: ../v2v/v2v.ml:352 ../sparsify/sparsify.ml:74 ../resize/resize.ml:1325
+#. ../builder/builder.ml:763
+#: ../v2v/v2v.ml:372 ../sparsify/sparsify.ml:74 ../resize/resize.ml:1325
 msgid "%s: exception: %s\n"
 msgstr "%s: виключення: %s\n"
 
@@ -387,8 +379,8 @@ msgstr "%s: виключення: %s\n"
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr "%s: не вдалося отримати %s: код стану HTTP %s\n"
 
-#. ../builder/builder.ml:752
-#: ../v2v/v2v.ml:340 ../sparsify/sparsify.ml:62 ../resize/resize.ml:1313
+#. ../builder/builder.ml:751
+#: ../v2v/v2v.ml:360 ../sparsify/sparsify.ml:62 ../resize/resize.ml:1313
 msgid "%s: failure: %s\n"
 msgstr "%s: помилка: %s\n"
 
@@ -409,7 +401,7 @@ msgstr ""
 "Вам слід встановити gpg, скористатися іншим значенням аргументу --gpg або "
 "скористатися параметром --no-check-signature.\n"
 
-#: ../builder/builder.ml:361
+#: ../builder/builder.ml:360
 msgid ""
 "%s: images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s\n"
@@ -418,21 +410,21 @@ msgstr ""
 "образу. Потрібний розмір = %s, мінімальний розмір = %s\n"
 
 #. ../customize/customize_main.ml:259
-#. ../builder/builder.ml:761
-#: ../v2v/v2v.ml:349 ../sparsify/sparsify.ml:71 ../resize/resize.ml:1322
+#. ../builder/builder.ml:760
+#: ../v2v/v2v.ml:369 ../sparsify/sparsify.ml:71 ../resize/resize.ml:1322
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr "%s: внутрішня помилка: сталося виключення Not_found\n"
 
 #. ../customize/customize_main.ml:255
-#. ../builder/builder.ml:758
-#: ../v2v/v2v.ml:346 ../sparsify/sparsify.ml:68 ../resize/resize.ml:1319
+#. ../builder/builder.ml:757
+#: ../v2v/v2v.ml:366 ../sparsify/sparsify.ml:68 ../resize/resize.ml:1319
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr "%s: внутрішня помилка: помилка твердження у %s, рядок %d, символ %d\n"
 
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:135
-#. ../builder/builder.ml:755
-#: ../v2v/v2v.ml:343 ../sparsify/sparsify.ml:65 ../resize/resize.ml:1316
+#. ../builder/builder.ml:754
+#: ../v2v/v2v.ml:363 ../sparsify/sparsify.ml:65 ../resize/resize.ml:1316
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr "%s: внутрішня помилка: некоректний аргумент: %s\n"
 
@@ -449,8 +441,8 @@ msgstr ""
 msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
-#. ../builder/builder.ml:749
-#: ../v2v/v2v.ml:337 ../sparsify/sparsify.ml:59 ../resize/resize.ml:1310
+#. ../builder/builder.ml:748
+#: ../v2v/v2v.ml:357 ../sparsify/sparsify.ml:59 ../resize/resize.ml:1310
 msgid "%s: libguestfs error: %s\n"
 msgstr "%s: помилка libguestfs: %s\n"
 
@@ -481,7 +473,7 @@ msgstr "%s: розмір нового розділу є нульовим або 
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: запис «%s» у %s не містить частини «uri», пропускаємо його\n"
 
-#: ../builder/builder.ml:666
+#: ../builder/builder.ml:665
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -495,7 +487,7 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr "%s: у образі гостьової системи не знайдено операційних систем\n"
 
-#: ../builder/builder.ml:486
+#: ../builder/builder.ml:485
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -506,7 +498,7 @@ msgstr ""
 "Будь ласка, повідомте про неї, вказавши використані вами параметри\n"
 "командного рядка.\n"
 
-#: ../builder/builder.ml:366
+#: ../builder/builder.ml:365
 msgid ""
 "%s: output size is too large for this block device.  Requested size = %s, "
 "output block device = %s, output block device size = %s\n"
@@ -713,64 +705,8 @@ msgstr ""
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr "%s: virt-resize не встановлено (або програма є непрацездатною)\n"
 
-#: ../v2v/source_libvirt.ml:116
-msgid "%s: warning: <disk type='%s'> was ignored"
-msgstr ""
-
-#: ../v2v/convert_linux_enterprise.ml:285
-msgid ""
-"%s: warning: VMware tools was detected, but uninstallation failed.  The "
-"error message was: %s (ignored)"
-msgstr ""
-
-#: ../v2v/convert_linux_enterprise.ml:200
-msgid ""
-"%s: warning: VirtualBox Guest Additions were detected, but uninstallation "
-"failed.  The error message was: %s (ignored)"
-msgstr ""
-
-#: ../builder/builder.ml:153
-msgid "%s: warning: cache %s: %s\n"
-msgstr "%s: попередження: кеш %s: %s\n"
-
-#: ../v2v/convert_linux_grub.ml:275
-msgid "%s: warning: could not update grub2 console: %s (ignored)\n"
-msgstr ""
-
-#: ../v2v/convert_linux_enterprise.ml:375
-msgid "%s: warning: don't know how to install virtio drivers for %s %d"
-msgstr ""
-
-#: ../builder/builder.ml:129
-msgid "%s: warning: gpg program is not available\n"
-msgstr "%s: попередження: немає доступу до програми gpg\n"
-
-#: ../customize/customize_run.ml:219
-msgid ""
-"%s: warning: hostname could not be set for this type of guest\n"
-"%!"
-msgstr ""
-
-#: ../v2v/source_libvirt.ml:112
-msgid "%s: warning: network <disk> with <source protocol='%s'> was ignored"
-msgstr ""
-
-#: ../customize/customize_run.ml:297
-msgid ""
-"%s: warning: passwords could not be set for this type of guest\n"
-"%!"
-msgstr ""
-
-#: ../customize/customize_run.ml:152
-msgid ""
-"%s: warning: random seed could not be set for this type of guest\n"
-"%!"
-msgstr ""
-
-#: ../customize/customize_run.ml:256
-msgid ""
-"%s: warning: timezone could not be set for this type of guest\n"
-"%!"
+#: ../mllib/common_utils.ml:213
+msgid "%s: warning: %s"
 msgstr ""
 
 #: ../sysprep/main.ml:198 ../customize/customize_main.ml:152
@@ -829,6 +765,10 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
+#: ../v2v/source_libvirt.ml:135
+msgid "<disk type='%s'> was ignored"
+msgstr ""
+
 #. ../customize/customize_main.ml:76
 #. ../customize/customize_main.ml:75
 #: ../sysprep/main.ml:132 ../sysprep/main.ml:131
@@ -867,7 +807,7 @@ msgstr "Долучити диск або образ ISO під час встан
 msgid "Change LVM2 PV and VG UUIDs"
 msgstr "Змінити UUID ФТ і ГТ LVM2"
 
-#: ../sysprep/sysprep_operation_fs_uuids.ml:46
+#: ../sysprep/sysprep_operation_fs_uuids.ml:50
 msgid "Change filesystem UUIDs"
 msgstr "Змінити UUID файлових систем"
 
@@ -895,7 +835,7 @@ msgstr ""
 "Спорожнення розділу резервної пам’яті Linux на %s…\n"
 "%!"
 
-#: ../v2v/v2v.ml:145
+#: ../v2v/v2v.ml:149
 msgid "Closing the overlay"
 msgstr ""
 
@@ -903,15 +843,15 @@ msgstr ""
 msgid "Compressed output format"
 msgstr "Стиснений формат виведення даних"
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:613
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:107
+#: ../v2v/v2v.ml:111
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:105
+#: ../v2v/v2v.ml:109
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -923,7 +863,7 @@ msgstr ""
 "Скопіювати призначення і виконати розрідження…\n"
 "%!"
 
-#: ../builder/builder.ml:545
+#: ../builder/builder.ml:544
 msgid "Copying"
 msgstr "Копіювання"
 
@@ -935,7 +875,7 @@ msgstr ""
 "Копіювання %s ...\n"
 "%!"
 
-#: ../v2v/v2v.ml:162
+#: ../v2v/v2v.ml:166
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -961,11 +901,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:55
+#: ../v2v/v2v.ml:57
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:187
+#: ../v2v/v2v.ml:191
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1114,7 +1054,7 @@ msgstr "Отримати усі шаблони до кешу"
 msgid "Download size:"
 msgstr "Розмір отриманих даних:"
 
-#: ../builder/builder.ml:279 ../builder/builder.ml:220
+#: ../builder/builder.ml:278 ../builder/builder.ml:219
 msgid "Downloading: %s"
 msgstr "Отримання: %s"
 
@@ -1162,7 +1102,7 @@ msgstr "Увімкнути трасування викликів libguestfs"
 msgid "Enable/disable specific operations"
 msgstr "Увімкнути або вимкнути певні дії"
 
-#: ../v2v/v2v.ml:280
+#: ../v2v/v2v.ml:289
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1269,8 +1209,8 @@ msgstr "Відбиток чинного ключа підпису"
 msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
-#: ../v2v/v2v.ml:209 ../customize/customize_main.ml:237
-#: ../builder/builder.ml:711
+#: ../v2v/v2v.ml:213 ../customize/customize_main.ml:237
+#: ../builder/builder.ml:710
 msgid "Finishing off"
 msgstr "Остаточне коригування"
 
@@ -1317,7 +1257,7 @@ msgstr ""
 "Формат диска результатів (типове значення: той самий, що і у початкового "
 "диска)"
 
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:700
 msgid "Free space"
 msgstr ""
 
@@ -1353,7 +1293,7 @@ msgstr ""
 "Віртуальний розмір диска вхідних даних = %Ld байтів (%s)\n"
 "%!"
 
-#: ../v2v/v2v.ml:96
+#: ../v2v/v2v.ml:100
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1369,7 +1309,7 @@ msgstr ""
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:223
+#: ../customize/customize_run.ml:222
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -1381,7 +1321,7 @@ msgstr "Ключ: %s\n"
 msgid "Libvirt URI"
 msgstr ""
 
-#: ../customize/customize_run.ml:230
+#: ../customize/customize_run.ml:229
 msgid "Linking: %s -> %s"
 msgstr ""
 
@@ -1405,7 +1345,7 @@ msgstr "Показати список підтримуваних команд"
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення даних придатною для читання даних"
 
-#: ../customize/customize_run.ml:235
+#: ../customize/customize_run.ml:234
 msgid "Making directory: %s"
 msgstr ""
 
@@ -1467,7 +1407,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../sysprep/sysprep_operation_fs_uuids.ml:47
+#: ../sysprep/sysprep_operation_fs_uuids.ml:51
 msgid ""
 "On guests and filesystem types where this is supported,\n"
 "new random UUIDs are generated and assigned to filesystems."
@@ -1476,19 +1416,19 @@ msgstr ""
 "підтримку,\n"
 "буде створено нові випадкові UUID, які буде пов’язано з файловими системами."
 
-#: ../builder/builder.ml:627
+#: ../builder/builder.ml:626
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
-#: ../v2v/v2v.ml:75
+#: ../v2v/v2v.ml:78
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../builder/builder.ml:696
+#: ../builder/builder.ml:695
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:698
+#: ../builder/builder.ml:697
 msgid "Output format"
 msgstr ""
 
@@ -1496,7 +1436,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr "Формат виведених даних (типово, raw)"
 
-#: ../builder/builder.ml:697
+#: ../builder/builder.ml:696
 msgid "Output size"
 msgstr ""
 
@@ -1519,7 +1459,7 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
-#: ../builder/builder.ml:481
+#: ../builder/builder.ml:480
 msgid "Planning how to build this image"
 msgstr "Планування побудови цього образу"
 
@@ -1759,11 +1699,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../builder/builder.ml:572
+#: ../builder/builder.ml:571
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:601
+#: ../builder/builder.ml:600
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Зміна розмірів контейнера (але не файлової системи) для розширення диска до "
@@ -1806,7 +1746,7 @@ msgstr ""
 "B<Зауваження:> якщо скрипт не зберігається у каталозі $PATH, вам\n"
 "слід вказати шлях до скрипту повністю."
 
-#: ../customize/customize_run.ml:245 ../customize/customize_run.ml:180
+#: ../customize/customize_run.ml:244 ../customize/customize_run.ml:180
 msgid "Running: %s"
 msgstr ""
 
@@ -1818,7 +1758,7 @@ msgstr ""
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:302
+#: ../customize/customize_run.ml:299
 msgid "SELinux relabelling"
 msgstr ""
 
@@ -1834,11 +1774,11 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:321
+#: ../customize/customize_run.ml:318
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:250
+#: ../customize/customize_run.ml:249
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -1960,7 +1900,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:292
+#: ../customize/customize_run.ml:290
 msgid "Setting passwords"
 msgstr ""
 
@@ -1974,7 +1914,7 @@ msgstr ""
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:254
+#: ../customize/customize_run.ml:253
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -2094,7 +2034,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../sysprep/sysprep_operation_fs_uuids.ml:50
+#: ../sysprep/sysprep_operation_fs_uuids.ml:54
 msgid ""
 "The fs-uuids operation is disabled by default because it does\n"
 "not yet find and update all the places in the guest that use\n"
@@ -2154,7 +2094,7 @@ msgstr ""
 "Дані обліку процесів системи будуть зберігатися у файлах журналу\n"
 "pacct, якщо увімкнено облік процесів."
 
-#: ../builder/builder.ml:263
+#: ../builder/builder.ml:262
 msgid "There are no notes for %s\n"
 msgstr "Немає нотаток щодо %s\n"
 
@@ -2200,7 +2140,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:699
+#: ../builder/builder.ml:698
 msgid "Total usable space"
 msgstr ""
 
@@ -2212,7 +2152,7 @@ msgstr ""
 "Обрізаємо %s ...\n"
 "%!"
 
-#: ../v2v/v2v.ml:136
+#: ../v2v/v2v.ml:140
 msgid "Trimming filesystems to reduce amount of data to copy"
 msgstr ""
 
@@ -2224,7 +2164,7 @@ msgstr "Вимкнути розріджене копіювання"
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../builder/builder.ml:560
+#: ../builder/builder.ml:559
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
@@ -2232,7 +2172,7 @@ msgstr "Розпаковуємо"
 msgid "Update core packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:260
+#: ../customize/customize_run.ml:258
 msgid "Updating core packages"
 msgstr ""
 
@@ -2240,15 +2180,27 @@ msgstr ""
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:265
+#: ../customize/customize_run.ml:263
 msgid "Uploading: %s to %s"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:287
+msgid ""
+"VMware tools was detected, but uninstallation failed.  The error message "
+"was: %s (ignored)"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:202
+msgid ""
+"VirtualBox Guest Additions were detected, but uninstallation failed.  The "
+"error message was: %s (ignored)"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:275
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:284
+#: ../customize/customize_run.ml:282
 msgid "Writing: %s"
 msgstr ""
 
@@ -2300,6 +2252,10 @@ msgstr ""
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
+#: ../builder/builder.ml:153
+msgid "cache %s: %s"
+msgstr ""
+
 #: ../builder/cache.ml:53
 msgid "cache directory: %s\n"
 msgstr "Каталог кешування: %s\n"
@@ -2314,19 +2270,43 @@ msgstr ""
 "не вдалося визначити формат диска з вхідними даними; скористайтеся "
 "параметром --format"
 
-#: ../v2v/v2v.ml:283
+#: ../v2v/convert_linux.ml:391
+msgid ""
+"cannot enable virtio in this guest.\n"
+"To enable virtio you need to install a kernel >= %s-%s and run %s again."
+msgstr ""
+
+#: ../v2v/convert_linux.ml:411
+msgid ""
+"cannot enable virtio in this guest.\n"
+"To enable virtio you need to upgrade %s >= %s-%s and run %s again."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:42
+msgid "cannot set random UUID on filesystem %s type %s: %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:292
 msgid "connection closed"
+msgstr ""
+
+#: ../v2v/convert_linux_grub.ml:276
+msgid "could not update grub2 console: %s (ignored)"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:133
 msgid "dir"
 msgstr "каталог"
 
+#: ../builder/builder.ml:154
+msgid "disabling the cache"
+msgstr ""
+
 #: ../sparsify/in_place.ml:43
 msgid "discard/trim is not supported: %s"
 msgstr "підтримки discard/trim не передбачено: %s"
 
-#: ../v2v/v2v.ml:229
+#: ../v2v/v2v.ml:234
 msgid ""
 "disk %s (%s) has no defined format, you have to either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
@@ -2339,19 +2319,25 @@ msgstr ""
 msgid "domain"
 msgstr "домен"
 
-#: ../v2v/convert_linux_common.ml:131
-msgid "don't know how to find package owner using %s"
+#: ../v2v/lib_linux.ml:149
+msgid "don't know how to find file owner using %s"
 msgstr ""
 
-#: ../v2v/convert_linux_common.ml:154
-msgid "don't know how to inspect kernel using %s"
+#: ../v2v/lib_linux.ml:128
+msgid "don't know how to get list of files from package using %s"
 msgstr ""
 
-#: ../v2v/convert_linux_common.ml:118
+#: ../v2v/convert_linux.ml:379
+msgid ""
+"don't know how to install virtio drivers for %s %d\n"
+"%!"
+msgstr ""
+
+#: ../v2v/lib_linux.ml:115
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:267
+#: ../v2v/v2v.ml:276
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2367,7 +2353,7 @@ msgstr ""
 "помилка під час обробки адреси «%s». Ознайомтеся з виведеними вище "
 "повідомленнями про помилки."
 
-#: ../v2v/source_libvirt.ml:46
+#: ../v2v/source_libvirt.ml:63
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
@@ -2379,17 +2365,17 @@ msgstr ""
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:354
+#: ../mllib/common_utils.ml:388
 msgid "external command '%s' exited with error %d"
 msgstr ""
 "спроба виконання зовнішньої програми «%s» завершилася повідомлення про "
 "помилку %d"
 
-#: ../mllib/common_utils.ml:356
+#: ../mllib/common_utils.ml:390
 msgid "external command '%s' killed by signal %d"
 msgstr "роботу зовнішньої програми «%s» перервано з сигналом %d"
 
-#: ../mllib/common_utils.ml:358
+#: ../mllib/common_utils.ml:392
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
@@ -2407,6 +2393,10 @@ msgstr "зайвий параметр у командному рядку"
 msgid "file"
 msgstr "файл"
 
+#: ../resize/resize.ml:1163
+msgid "first partition is NTFS but does not contain NTFS boot loader magic"
+msgstr ""
+
 #: ../customize/firstboot.ml:82
 msgid "firstboot: failed: "
 msgstr ""
@@ -2422,11 +2412,23 @@ msgstr "формат"
 msgid "fs"
 msgstr "файлова система"
 
-#: ../v2v/v2v.ml:305
+#: ../builder/builder.ml:129
+msgid "gpg program is not available"
+msgstr ""
+
+#: ../customize/customize_run.ml:219
+msgid "hostname could not be set for this type of guest"
+msgstr ""
+
+#: ../v2v/v2v.ml:314
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
 "probably a bug in libguestfs.  root=%s fmt=%s"
+msgstr ""
+
+#: ../v2v/source_libvirt.ml:39
+msgid "libvirt returned a non-absolute path in the XML (%s)"
 msgstr ""
 
 #. ../resize/resize.ml:193
@@ -2434,36 +2436,40 @@ msgstr ""
 msgid "lv"
 msgstr "логічний том"
 
-#: ../v2v/v2v.ml:290
+#: ../v2v/v2v.ml:299
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
+msgstr ""
+
+#: ../v2v/source_libvirt.ml:131
+msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
 #: ../resize/resize.ml:180
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../builder/builder.ml:205
+#: ../builder/builder.ml:204
 msgid "no cache directory\n"
 msgstr "немає каталогу кешування\n"
 
-#: ../v2v/convert_linux_enterprise.ml:77
+#: ../v2v/convert_linux.ml:79
 msgid ""
 "no grub configuration found in this guest.\n"
 "Grub2 error was: %s\n"
 "Grub1/grub-legacy error was: %s"
 msgstr ""
 
-#: ../v2v/convert_linux_grub.ml:187
+#: ../v2v/convert_linux_grub.ml:188
 msgid "no grub/grub1/grub-legacy configuration file was found"
 msgstr ""
 
-#: ../v2v/convert_linux_grub.ml:288
+#: ../v2v/convert_linux_grub.ml:289
 msgid "no grub2 configuration file was found (expecting %s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:260
+#: ../v2v/v2v.ml:269
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2504,6 +2510,17 @@ msgstr "частина"
 msgid "part=size"
 msgstr "частина=розмір"
 
+#: ../customize/password.ml:170
+msgid ""
+"password: using insecure md5 password encryption for\n"
+"guest of type %s version %d.\n"
+"If this is incorrect, use --password-crypto option and file a bug."
+msgstr ""
+
+#: ../customize/customize_run.ml:295
+msgid "passwords could not be set for this type of guest"
+msgstr ""
+
 #: ../resize/resize.ml:958 ../resize/resize.ml:934
 msgid "pread-device: short read"
 msgstr "pread-device: коротке читання"
@@ -2518,15 +2535,19 @@ msgstr ""
 "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
 "(свопінгу)"
 
-#: ../v2v/v2v.ml:183 ../v2v/v2v.ml:70
+#: ../v2v/v2v.ml:187 ../v2v/v2v.ml:73
 msgid "qemu-img command failed, see earlier errors"
+msgstr ""
+
+#: ../customize/customize_run.ml:152
+msgid "random seed could not be set for this type of guest"
 msgstr ""
 
 #: ../resize/resize.ml:128
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../v2v/v2v.ml:298
+#: ../v2v/v2v.ml:307
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2574,15 +2595,19 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr "на початковому диску немає розділів"
 
-#: ../v2v/source_libvirt.ml:75
+#: ../v2v/source_libvirt.ml:92
 msgid "this guest has no non-removable disks"
 msgstr ""
 
-#: ../v2v/convert_linux_enterprise.ml:445
+#: ../customize/customize_run.ml:255
+msgid "timezone could not be set for this type of guest"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:482
 msgid "tried to install '%s', but no kernel package was installed"
 msgstr ""
 
-#: ../v2v/convert_linux_enterprise.ml:447
+#: ../v2v/convert_linux.ml:484
 msgid ""
 "tried to install '%s', but there are now fewer directories under /lib/"
 "modules!"
@@ -2739,7 +2764,7 @@ msgstr ""
 "типу\n"
 "man-in-the-middle.\n"
 
-#: ../builder/get_kernel.ml:44
+#: ../builder/get_kernel.ml:41
 msgid ""
 "virt-builder: get-kernel: dual/multi-boot images are not supported by this "
 "tool\n"
@@ -2747,7 +2772,7 @@ msgstr ""
 "virt-builder: get-kernel: у цьому інструменті не передбачено підтримки "
 "образів з варіантами завантаження\n"
 
-#: ../builder/get_kernel.ml:40
+#: ../builder/get_kernel.ml:37
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr "virt-builder: get-kernel: не знайдено операційної системи\n"
 
@@ -2785,7 +2810,7 @@ msgstr "virt-builder: немає запису «file» (адреси) для «%
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr "virt-builder: немає поля «size» для «%s»\n"
 
-#: ../builder/get_kernel.ml:75
+#: ../builder/get_kernel.ml:72
 msgid "virt-builder: no kernel found\n"
 msgstr "virt-builder: не знайдено ядра\n"
 
@@ -2845,14 +2870,6 @@ msgstr "virt-sysprep: для дії %s немає заголовка\n"
 msgid "virt-sysprep: operation name is an empty string\n"
 msgstr "virt-sysprep: назвою дії є порожній рядок\n"
 
-#: ../customize/password.ml:170
-msgid ""
-"virt-sysprep: password: warning: using insecure md5 password encryption for\n"
-"guest of type %s version %d.\n"
-"If this is incorrect, use --password-crypto option and file a bug.\n"
-"%!"
-msgstr ""
-
 #: ../sysprep/sysprep_operation_script.ml:63
 msgid "virt-sysprep: script: failed (code %d)\n"
 msgstr "virt-sysprep: скрипт: помилка (код %d)\n"
@@ -2861,33 +2878,17 @@ msgstr "virt-sysprep: скрипт: помилка (код %d)\n"
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr "virt-sysprep: скрипт: перервано сигналом (%d)\n"
 
-#: ../v2v/v2v.ml:127
+#: ../v2v/v2v.ml:131
 msgid "virt-v2v is unable to convert this guest type (linux/distro=%s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:133
+#: ../v2v/v2v.ml:137
 msgid "virt-v2v is unable to convert this guest type (type=%s)"
 msgstr ""
 
-#: ../v2v/convert_linux_enterprise.ml:403
+#: ../v2v/convert_linux.ml:440
 msgid "virtio configured, but no virtio kernel found"
 msgstr ""
-
-#: ../sysprep/sysprep_operation_fs_uuids.ml:38
-msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
-msgstr ""
-"попередження: встановлення випадкового UUID для файлової системи %s типу %s "
-"є неможливим: %s\n"
-
-#: ../resize/resize.ml:1163
-msgid ""
-"warning: first partition is NTFS but does not contain NTFS boot loader "
-"magic\n"
-"%!"
-msgstr ""
-"попередження: першим розділом є NTFS, але не виявлено даних щодо "
-"завантажувача NTFS\n"
-"%!"
 
 #: ../sparsify/cmdline.ml:183
 msgid "you cannot use --in-place and --check-tmpdir options together"
@@ -2968,17 +2969,17 @@ msgstr ""
 "  -x                   Трасувати виклики API libguestfs\n"
 "З докладнішими даними можна ознайомитися на сторінці довідника (man) %s(1).\n"
 
-#: align/scan.c:133 cat/cat.c:115 cat/filesystems.c:187 cat/log.c:122
-#: cat/ls.c:174 df/main.c:133 diff/diff.c:191 diff/diff.c:197 edit/edit.c:134
+#: align/scan.c:133 cat/cat.c:121 cat/filesystems.c:187 cat/log.c:122
+#: cat/ls.c:180 df/main.c:133 diff/diff.c:191 diff/diff.c:197 edit/edit.c:140
 #: fish/fish.c:235 format/format.c:129 fuse/guestmount.c:210
 #: inspector/inspector.c:127 make-fs/make-fs.c:115 rescue/rescue.c:135
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
-#: align/scan.c:153 builder/index-validate.c:84 cat/cat.c:137
-#: cat/filesystems.c:241 cat/log.c:144 cat/ls.c:224 df/main.c:157
-#: diff/diff.c:262 edit/edit.c:156 fish/fish.c:293 format/format.c:183
+#: align/scan.c:153 builder/index-validate.c:84 cat/cat.c:143
+#: cat/filesystems.c:241 cat/log.c:144 cat/ls.c:230 df/main.c:157
+#: diff/diff.c:262 edit/edit.c:162 fish/fish.c:293 format/format.c:183
 #: fuse/guestmount.c:251 fuse/guestunmount.c:124 inspector/inspector.c:151
 #: make-fs/make-fs.c:142 p2v/main.c:126 rescue/rescue.c:192
 #, c-format
@@ -3081,37 +3082,22 @@ msgid ""
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: показ файлів у віртуальній машині\n"
-"© Red Hat Inc., 2010\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену файл [файл ...]\n"
-"  %s [--параметри] -a диск.img [-a диск.img ...] файл [файл ...]\n"
-"Options:\n"
-"  -a|--add образ       Додати образ\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --echo-keys          Не вимикати показ введених символів паролів\n"
-"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
-"  --help               Показати короткі довідкові дані\n"
-"  --keys-from-stdin    Прочитати паролі зі stdin\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
-"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/cat.c:357 edit/edit.c:582 fish/fish.c:1768
+#: cat/cat.c:374 edit/edit.c:600 fish/fish.c:1768
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для використання літерних позначень дисків Windows ваша система має бути "
 "гостьовою системою Windows\n"
 
-#: cat/cat.c:371 edit/edit.c:596
+#: cat/cat.c:388 edit/edit.c:614
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
 msgstr "%s: диск '%c:' не знайдено.\n"
@@ -3193,7 +3179,7 @@ msgstr ""
 "  -x                   Показати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
-#: cat/filesystems.c:303 cat/ls.c:332 df/main.c:262 diff/diff.c:328
+#: cat/filesystems.c:303 cat/ls.c:343 df/main.c:262 diff/diff.c:328
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: не можна одночасно використовувати параметри -h та --csv.\n"
@@ -3265,6 +3251,8 @@ msgid ""
 "  -h|--human-readable  Human-readable sizes in output\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  -l|--long            Long listing\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
 "  -R|--recursive       Recursive listing\n"
 "  --times              Display file times\n"
 "  --time-days          Display file times as days before now\n"
@@ -3276,36 +3264,8 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: показ файлів у віртуальній машині\n"
-"© Red Hat Inc., 2010–2012\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену каталог [каталог ...]\n"
-"  %s [--параметри] -a образ.img [-a образ.img ...] каталог [каталог ...]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  --checksum[=...]     Показати контрольні суми файлів\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  --csv                Вивести значення, відокремлені комами\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --echo-keys          Не показувати символи паролів\n"
-"  --extra-stats        Показати додаткові статистичні дані\n"
-"  --format[=raw|..]    Примусово встановити формат диска для параметра -a\n"
-"  --help               Показати коротку довідку\n"
-"  -h|--human-readable  Зручний для читання вивід розмірів\n"
-"  --keys-from-stdin    Читати паролі з stdin\n"
-"  -l|--long            Довгий список\n"
-"  -R|--recursive       Рекурсивний список\n"
-"  --times              Показувати час створення файлів\n"
-"  --time-days          Показувати час створення у днях до поточного\n"
-"  --time-relative      Показувати час створення у секундах до поточної\n"
-"  --time-t             Показувати час створення у форматі time_t\n"
-"  --uids               Показувати UID, GID\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики API libguestfs\n"
-"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/ls.c:323
+#: cat/ls.c:334
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -3559,39 +3519,20 @@ msgid ""
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: редагування файла у віртуальній машині\n"
-"© Red Hat Inc., 2009–2014\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену файл [файл ...]\n"
-"  %s [--параметри] -a образ.img [-a образ.img ...] файл [файл ...]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  -b|--backup .ext     Створити резервну копію початкового файла з назвою "
-"поч_файл.ext\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --echo-keys          Не вимикати показ символів паролів\n"
-"  -e|--expr вираз      Неінтерактивне редагування за допомогою формального "
-"виразу Perl\n"
-"  --format[=raw|..]    Примусово встановити формат диска для параметра -a\n"
-"  --help               Показати коротку довідку\n"
-"  --keys-from-stdin    Читати паролі з stdin\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики API libguestfs\n"
-"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: edit/edit.c:168
+#: edit/edit.c:174
 #, c-format
 msgid "%s: -b option given multiple times\n"
 msgstr "%s: параметр -b вказано декілька разів\n"
 
-#: edit/edit.c:185
+#: edit/edit.c:191
 #, c-format
 msgid "%s: -e option given multiple times\n"
 msgstr "%s: параметр -e вказано декілька разів\n"
@@ -6648,12 +6589,12 @@ msgstr ""
 msgid "%s: too many drives added on the command line\n"
 msgstr "%s: у командному рядку вказано занадто багато пристроїв\n"
 
-#: fish/options.c:260
+#: fish/options.c:271
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: не вдалося змонтувати «%s».\n"
 
-#: fish/options.c:264
+#: fish/options.c:275
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -6663,7 +6604,7 @@ msgstr ""
 "параметрами «%s»\n"
 "%s: підтримуються файловою системою, яка монтується.\n"
 
-#: fish/options.c:268
+#: fish/options.c:279
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr "%s: ви хотіли змонтувати одну з цих файлових систем?\n"
@@ -9132,6 +9073,175 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "%s: disabling the cache\n"
+#~ "%!"
+#~ msgstr ""
+#~ "%s: вимикаємо кеш\n"
+#~ "%!"
+
+#~ msgid "%s: warning: cache %s: %s\n"
+#~ msgstr "%s: попередження: кеш %s: %s\n"
+
+#~ msgid "%s: warning: gpg program is not available\n"
+#~ msgstr "%s: попередження: немає доступу до програми gpg\n"
+
+#~ msgid "warning: cannot set random UUID on filesystem %s type %s: %s\n"
+#~ msgstr ""
+#~ "попередження: встановлення випадкового UUID для файлової системи %s типу "
+#~ "%s є неможливим: %s\n"
+
+#~ msgid ""
+#~ "warning: first partition is NTFS but does not contain NTFS boot loader "
+#~ "magic\n"
+#~ "%!"
+#~ msgstr ""
+#~ "попередження: першим розділом є NTFS, але не виявлено даних щодо "
+#~ "завантажувача NTFS\n"
+#~ "%!"
+
+#~ msgid ""
+#~ "%s: display files in a virtual machine\n"
+#~ "Copyright (C) 2010 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname file [file ...]\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: показ файлів у віртуальній машині\n"
+#~ "© Red Hat Inc., 2010\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену файл [файл ...]\n"
+#~ "  %s [--параметри] -a диск.img [-a диск.img ...] файл [файл ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          Не вимикати показ введених символів паролів\n"
+#~ "  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+#~ "  --help               Показати короткі довідкові дані\n"
+#~ "  --keys-from-stdin    Прочитати паролі зі stdin\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики програмного інтерфейсу "
+#~ "libguestfs\n"
+#~ "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "%s: list files in a virtual machine\n"
+#~ "Copyright (C) 2010-2012 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname dir [dir ...]\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...] dir [dir ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  --checksum[=...]     Display file checksums\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --csv                Comma-Separated Values output\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  --extra-stats        Display extra stats\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  -h|--human-readable  Human-readable sizes in output\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  -l|--long            Long listing\n"
+#~ "  -R|--recursive       Recursive listing\n"
+#~ "  --times              Display file times\n"
+#~ "  --time-days          Display file times as days before now\n"
+#~ "  --time-relative      Display file times as seconds before now\n"
+#~ "  --time-t             Display file times as time_t's\n"
+#~ "  --uids               Display UID, GID\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: показ файлів у віртуальній машині\n"
+#~ "© Red Hat Inc., 2010–2012\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену каталог [каталог ...]\n"
+#~ "  %s [--параметри] -a образ.img [-a образ.img ...] каталог [каталог ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  --checksum[=...]     Показати контрольні суми файлів\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  --csv                Вивести значення, відокремлені комами\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          Не показувати символи паролів\n"
+#~ "  --extra-stats        Показати додаткові статистичні дані\n"
+#~ "  --format[=raw|..]    Примусово встановити формат диска для параметра -"
+#~ "a\n"
+#~ "  --help               Показати коротку довідку\n"
+#~ "  -h|--human-readable  Зручний для читання вивід розмірів\n"
+#~ "  --keys-from-stdin    Читати паролі з stdin\n"
+#~ "  -l|--long            Довгий список\n"
+#~ "  -R|--recursive       Рекурсивний список\n"
+#~ "  --times              Показувати час створення файлів\n"
+#~ "  --time-days          Показувати час створення у днях до поточного\n"
+#~ "  --time-relative      Показувати час створення у секундах до поточної\n"
+#~ "  --time-t             Показувати час створення у форматі time_t\n"
+#~ "  --uids               Показувати UID, GID\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики API libguestfs\n"
+#~ "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "%s: Edit a file in a virtual machine\n"
+#~ "Copyright (C) 2009-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname file [file ...]\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -b|--backup .ext     Backup original as original.ext\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  -e|--expr expr       Non-interactive editing using Perl expr\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: редагування файла у віртуальній машині\n"
+#~ "© Red Hat Inc., 2009–2014\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену файл [файл ...]\n"
+#~ "  %s [--параметри] -a образ.img [-a образ.img ...] файл [файл ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  -b|--backup .ext     Створити резервну копію початкового файла з назвою "
+#~ "поч_файл.ext\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          Не вимикати показ символів паролів\n"
+#~ "  -e|--expr вираз      Неінтерактивне редагування за допомогою "
+#~ "формального виразу Perl\n"
+#~ "  --format[=raw|..]    Примусово встановити формат диска для параметра -"
+#~ "a\n"
+#~ "  --help               Показати коротку довідку\n"
+#~ "  --keys-from-stdin    Читати паролі з stdin\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики API libguestfs\n"
+#~ "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
 #~ msgid ""
 #~ "%s: FUSE module for libguestfs\n"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-06-16 10:49+0200\n"
+"POT-Creation-Date: 2014-06-23 23:28+0200\n"
 "PO-Revision-Date: 2014-03-26 16:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/fedora/language/"
@@ -767,10 +767,10 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:193 ../builder/virt-builder.pod:488
-#: ../cat/virt-cat.pod:129 ../cat/virt-filesystems.pod:265
-#: ../cat/virt-log.pod:112 ../cat/virt-ls.pod:419
+#: ../cat/virt-cat.pod:165 ../cat/virt-filesystems.pod:265
+#: ../cat/virt-log.pod:112 ../cat/virt-ls.pod:455
 #: ../customize/virt-customize.pod:190 ../daemon/guestfsd.pod:60
-#: ../df/virt-df.pod:183 ../diff/virt-diff.pod:200 ../edit/virt-edit.pod:167
+#: ../df/virt-df.pod:183 ../diff/virt-diff.pod:200 ../edit/virt-edit.pod:203
 #: ../fish/guestfish.pod:419 ../format/virt-format.pod:153
 #: ../fuse/guestmount.pod:359 ../inspector/virt-inspector.pod:116
 #: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v.pod:191
@@ -782,10 +782,10 @@ msgstr "B<-v>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:195 ../builder/virt-builder.pod:490
-#: ../cat/virt-cat.pod:131 ../cat/virt-filesystems.pod:267
-#: ../cat/virt-log.pod:114 ../cat/virt-ls.pod:421
+#: ../cat/virt-cat.pod:167 ../cat/virt-filesystems.pod:267
+#: ../cat/virt-log.pod:114 ../cat/virt-ls.pod:457
 #: ../customize/virt-customize.pod:192 ../daemon/guestfsd.pod:62
-#: ../df/virt-df.pod:185 ../diff/virt-diff.pod:202 ../edit/virt-edit.pod:169
+#: ../df/virt-df.pod:185 ../diff/virt-diff.pod:202 ../edit/virt-edit.pod:205
 #: ../fish/guestfish.pod:421 ../format/virt-format.pod:155
 #: ../fuse/guestmount.pod:361 ../inspector/virt-inspector.pod:118
 #: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v.pod:193
@@ -796,11 +796,11 @@ msgid "B<--verbose>"
 msgstr "B<--verbose>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:197 ../cat/virt-cat.pod:133
+#: ../align/virt-alignment-scan.pod:197 ../cat/virt-cat.pod:169
 #: ../cat/virt-filesystems.pod:269 ../cat/virt-log.pod:116
-#: ../cat/virt-ls.pod:423 ../customize/virt-customize.pod:194
+#: ../cat/virt-ls.pod:459 ../customize/virt-customize.pod:194
 #: ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../diff/virt-diff.pod:204
-#: ../edit/virt-edit.pod:171 ../format/virt-format.pod:157
+#: ../edit/virt-edit.pod:207 ../format/virt-format.pod:157
 #: ../inspector/virt-inspector.pod:120 ../rescue/virt-rescue.pod:242
 #: ../sparsify/virt-sparsify.pod:269 ../sysprep/virt-sysprep.pod:223
 #: ../v2v/virt-v2v.pod:197
@@ -811,10 +811,10 @@ msgstr "デバッグ用の冗長なメッセージを有効にします。"
 #: ../align/virt-alignment-scan.pod:199
 #: ../appliance/libguestfs-make-fixed-appliance.pod:105
 #: ../builder/virt-builder.pod:497 ../builder/virt-index-validate.pod:66
-#: ../cat/virt-cat.pod:135 ../cat/virt-filesystems.pod:271
-#: ../cat/virt-log.pod:118 ../cat/virt-ls.pod:425
+#: ../cat/virt-cat.pod:171 ../cat/virt-filesystems.pod:271
+#: ../cat/virt-log.pod:118 ../cat/virt-ls.pod:461
 #: ../customize/virt-customize.pod:196 ../df/virt-df.pod:189
-#: ../diff/virt-diff.pod:206 ../edit/virt-edit.pod:173
+#: ../diff/virt-diff.pod:206 ../edit/virt-edit.pod:209
 #: ../fish/guestfish.pod:426 ../format/virt-format.pod:159
 #: ../fuse/guestmount.pod:365 ../fuse/guestunmount.pod:105
 #: ../inspector/virt-inspector.pod:122 ../make-fs/virt-make-fs.pod:203
@@ -829,10 +829,10 @@ msgstr "B<-V>"
 #: ../align/virt-alignment-scan.pod:201
 #: ../appliance/libguestfs-make-fixed-appliance.pod:107
 #: ../builder/virt-builder.pod:499 ../builder/virt-index-validate.pod:68
-#: ../cat/virt-cat.pod:137 ../cat/virt-filesystems.pod:273
-#: ../cat/virt-log.pod:120 ../cat/virt-ls.pod:427
+#: ../cat/virt-cat.pod:173 ../cat/virt-filesystems.pod:273
+#: ../cat/virt-log.pod:120 ../cat/virt-ls.pod:463
 #: ../customize/virt-customize.pod:198 ../df/virt-df.pod:191
-#: ../diff/virt-diff.pod:208 ../edit/virt-edit.pod:175
+#: ../diff/virt-diff.pod:208 ../edit/virt-edit.pod:211
 #: ../fish/guestfish.pod:428 ../format/virt-format.pod:161
 #: ../fuse/guestmount.pod:367 ../fuse/guestunmount.pod:107
 #: ../inspector/virt-inspector.pod:124 ../make-fs/virt-make-fs.pod:205
@@ -846,10 +846,10 @@ msgstr "B<--version>"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:203 ../builder/virt-builder.pod:501
-#: ../builder/virt-index-validate.pod:70 ../cat/virt-cat.pod:139
+#: ../builder/virt-index-validate.pod:70 ../cat/virt-cat.pod:175
 #: ../cat/virt-filesystems.pod:275 ../cat/virt-log.pod:122
-#: ../cat/virt-ls.pod:429 ../customize/virt-customize.pod:200
-#: ../df/virt-df.pod:193 ../diff/virt-diff.pod:210 ../edit/virt-edit.pod:177
+#: ../cat/virt-ls.pod:465 ../customize/virt-customize.pod:200
+#: ../df/virt-df.pod:193 ../diff/virt-diff.pod:210 ../edit/virt-edit.pod:213
 #: ../format/virt-format.pod:163 ../inspector/virt-inspector.pod:126
 #: ../make-fs/virt-make-fs.pod:207 ../p2v/virt-p2v.pod:201
 #: ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:587
@@ -860,10 +860,10 @@ msgid "Display version number and exit."
 msgstr "バージョン番号を表示して、終了します。"
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:205 ../cat/virt-cat.pod:141
+#: ../align/virt-alignment-scan.pod:205 ../cat/virt-cat.pod:177
 #: ../cat/virt-filesystems.pod:285 ../cat/virt-log.pod:124
-#: ../cat/virt-ls.pod:431 ../customize/virt-customize.pod:202
-#: ../df/virt-df.pod:195 ../diff/virt-diff.pod:212 ../edit/virt-edit.pod:179
+#: ../cat/virt-ls.pod:467 ../customize/virt-customize.pod:202
+#: ../df/virt-df.pod:195 ../diff/virt-diff.pod:212 ../edit/virt-edit.pod:215
 #: ../fish/guestfish.pod:441 ../format/virt-format.pod:175
 #: ../fuse/guestmount.pod:380 ../inspector/virt-inspector.pod:128
 #: ../make-fs/virt-make-fs.pod:209 ../rescue/virt-rescue.pod:259
@@ -873,10 +873,10 @@ msgid "B<-x>"
 msgstr "B<-x>"
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:207 ../cat/virt-cat.pod:143
+#: ../align/virt-alignment-scan.pod:207 ../cat/virt-cat.pod:179
 #: ../cat/virt-filesystems.pod:287 ../cat/virt-log.pod:126
-#: ../cat/virt-ls.pod:433 ../customize/virt-customize.pod:204
-#: ../df/virt-df.pod:197 ../diff/virt-diff.pod:214 ../edit/virt-edit.pod:181
+#: ../cat/virt-ls.pod:469 ../customize/virt-customize.pod:204
+#: ../df/virt-df.pod:197 ../diff/virt-diff.pod:214 ../edit/virt-edit.pod:217
 #: ../format/virt-format.pod:177 ../inspector/virt-inspector.pod:130
 #: ../rescue/virt-rescue.pod:261 ../sparsify/virt-sparsify.pod:279
 #: ../sysprep/virt-sysprep.pod:233 ../v2v/virt-v2v.pod:207
@@ -1233,9 +1233,9 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:350 ../cat/virt-cat.pod:232
+#: ../align/virt-alignment-scan.pod:350 ../cat/virt-cat.pod:268
 #: ../cat/virt-filesystems.pod:381 ../cat/virt-log.pod:130
-#: ../cat/virt-ls.pod:477 ../df/virt-df.pod:251 ../edit/virt-edit.pod:348
+#: ../cat/virt-ls.pod:513 ../df/virt-df.pod:251 ../edit/virt-edit.pod:384
 #: ../inspector/virt-inspector.pod:364 ../rescue/virt-rescue.pod:393
 #: ../resize/virt-resize.pod:742 ../sysprep/virt-sysprep.pod:514
 #: ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263
@@ -1244,9 +1244,9 @@ msgid "SHELL QUOTING"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:352 ../cat/virt-cat.pod:234
+#: ../align/virt-alignment-scan.pod:352 ../cat/virt-cat.pod:270
 #: ../cat/virt-filesystems.pod:383 ../cat/virt-log.pod:132
-#: ../cat/virt-ls.pod:479 ../df/virt-df.pod:253 ../edit/virt-edit.pod:350
+#: ../cat/virt-ls.pod:515 ../df/virt-df.pod:253 ../edit/virt-edit.pod:386
 #: ../inspector/virt-inspector.pod:366 ../rescue/virt-rescue.pod:395
 #: ../resize/virt-resize.pod:744 ../sysprep/virt-sysprep.pod:516
 #: ../tools/virt-list-filesystems:183 ../tools/virt-list-partitions:265
@@ -1262,10 +1262,10 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:357
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154
 #: ../builder/virt-builder.pod:1657 ../builder/virt-index-validate.pod:74
-#: ../cat/virt-cat.pod:239 ../cat/virt-filesystems.pod:388
-#: ../cat/virt-log.pod:137 ../cat/virt-ls.pod:484
+#: ../cat/virt-cat.pod:275 ../cat/virt-filesystems.pod:388
+#: ../cat/virt-log.pod:137 ../cat/virt-ls.pod:520
 #: ../customize/virt-customize.pod:212 ../daemon/guestfsd.pod:71
-#: ../df/virt-df.pod:258 ../diff/virt-diff.pod:246 ../edit/virt-edit.pod:355
+#: ../df/virt-df.pod:258 ../diff/virt-diff.pod:246 ../edit/virt-edit.pod:391
 #: ../fish/guestfish.pod:1380 ../format/virt-format.pod:181
 #: ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:124
 #: ../inspector/virt-inspector.pod:494 ../resize/virt-resize.pod:749
@@ -1295,12 +1295,12 @@ msgstr "このプログラムは以下を返します:"
 #: ../builder/virt-builder.pod:1536 ../builder/virt-builder.pod:1540
 #: ../builder/virt-builder.pod:1544 ../builder/virt-index-validate.pod:32
 #: ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51
-#: ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:178
-#: ../cat/virt-cat.pod:183 ../cat/virt-cat.pod:188 ../cat/virt-cat.pod:199
-#: ../cat/virt-cat.pod:203 ../customize/customize-options.pod:196
-#: ../customize/customize-options.pod:200 ../edit/virt-edit.pod:272
-#: ../edit/virt-edit.pod:277 ../edit/virt-edit.pod:282
-#: ../edit/virt-edit.pod:293 ../edit/virt-edit.pod:297
+#: ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:214
+#: ../cat/virt-cat.pod:219 ../cat/virt-cat.pod:224 ../cat/virt-cat.pod:235
+#: ../cat/virt-cat.pod:239 ../customize/customize-options.pod:196
+#: ../customize/customize-options.pod:200 ../edit/virt-edit.pod:308
+#: ../edit/virt-edit.pod:313 ../edit/virt-edit.pod:318
+#: ../edit/virt-edit.pod:329 ../edit/virt-edit.pod:333
 #: ../examples/guestfs-faq.pod:188 ../examples/guestfs-faq.pod:194
 #: ../examples/guestfs-faq.pod:198 ../examples/guestfs-faq.pod:203
 #: ../examples/guestfs-faq.pod:759 ../examples/guestfs-faq.pod:765
@@ -1486,10 +1486,10 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:391
 #: ../appliance/libguestfs-make-fixed-appliance.pod:164
 #: ../builder/virt-builder.pod:1662 ../builder/virt-index-validate.pod:79
-#: ../cat/virt-cat.pod:244 ../cat/virt-filesystems.pod:393
-#: ../cat/virt-log.pod:142 ../cat/virt-ls.pod:489
+#: ../cat/virt-cat.pod:280 ../cat/virt-filesystems.pod:393
+#: ../cat/virt-log.pod:142 ../cat/virt-ls.pod:525
 #: ../customize/virt-customize.pod:216 ../daemon/guestfsd.pod:115
-#: ../df/virt-df.pod:263 ../diff/virt-diff.pod:251 ../edit/virt-edit.pod:360
+#: ../df/virt-df.pod:263 ../diff/virt-diff.pod:251 ../edit/virt-edit.pod:396
 #: ../erlang/examples/guestfs-erlang.pod:95
 #: ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1247
 #: ../examples/guestfs-performance.pod:557 ../examples/guestfs-recipes.pod:659
@@ -1508,7 +1508,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:412 ../src/guestfs.pod:4752
 #: ../sysprep/virt-sysprep.pod:525 ../test-tool/libguestfs-test-tool.pod:180
 #: ../tools/virt-list-filesystems:188 ../tools/virt-list-partitions:270
-#: ../tools/virt-tar:299 ../tools/virt-win-reg:790 ../v2v/virt-v2v.pod:287
+#: ../tools/virt-tar:299 ../tools/virt-win-reg:790 ../v2v/virt-v2v.pod:321
 msgid "SEE ALSO"
 msgstr "関連項目"
 
@@ -1523,10 +1523,10 @@ msgstr ""
 
 #. type: =head1
 #: ../align/virt-alignment-scan.pod:400 ../builder/virt-builder.pod:1681
-#: ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:254
+#: ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:290
 #: ../cat/virt-filesystems.pod:404 ../cat/virt-log.pod:152
-#: ../cat/virt-ls.pod:499 ../daemon/guestfsd.pod:120 ../df/virt-df.pod:271
-#: ../diff/virt-diff.pod:261 ../edit/virt-edit.pod:371
+#: ../cat/virt-ls.pod:535 ../daemon/guestfsd.pod:120 ../df/virt-df.pod:271
+#: ../diff/virt-diff.pod:261 ../edit/virt-edit.pod:407
 #: ../format/virt-format.pod:195 ../guestfs-release-notes.pod:3017
 #: ../make-fs/virt-make-fs.pod:229 ../p2v-iso/guestfs-p2v-iso.pod:232
 #: ../rescue/virt-rescue.pod:429 ../resize/virt-resize.pod:777
@@ -1538,17 +1538,17 @@ msgstr "著者"
 
 #. type: textblock
 #: ../align/virt-alignment-scan.pod:402 ../builder/virt-builder.pod:1683
-#: ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:256
+#: ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:292
 #: ../cat/virt-filesystems.pod:406 ../cat/virt-log.pod:154
-#: ../cat/virt-ls.pod:501 ../customize/virt-customize.pod:235
+#: ../cat/virt-ls.pod:537 ../customize/virt-customize.pod:235
 #: ../daemon/guestfsd.pod:122 ../df/virt-df.pod:273 ../diff/virt-diff.pod:263
-#: ../edit/virt-edit.pod:373 ../format/virt-format.pod:197
+#: ../edit/virt-edit.pod:409 ../format/virt-format.pod:197
 #: ../inspector/virt-inspector.pod:514 ../make-fs/virt-make-fs.pod:231
 #: ../p2v/virt-p2v.pod:213 ../rescue/virt-rescue.pod:431
 #: ../resize/virt-resize.pod:779 ../sparsify/virt-sparsify.pod:427
 #: ../sysprep/virt-sysprep.pod:544 ../tools/virt-list-filesystems:202
 #: ../tools/virt-list-partitions:283 ../tools/virt-tar:315
-#: ../tools/virt-win-reg:806 ../v2v/virt-v2v.pod:299
+#: ../tools/virt-win-reg:806 ../v2v/virt-v2v.pod:333
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 
@@ -1556,10 +1556,10 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../align/virt-alignment-scan.pod:404
 #: ../appliance/libguestfs-make-fixed-appliance.pod:176
 #: ../builder/virt-builder.pod:1685 ../builder/virt-index-validate.pod:88
-#: ../cat/virt-cat.pod:258 ../cat/virt-filesystems.pod:408
-#: ../cat/virt-log.pod:156 ../cat/virt-ls.pod:503
+#: ../cat/virt-cat.pod:294 ../cat/virt-filesystems.pod:408
+#: ../cat/virt-log.pod:156 ../cat/virt-ls.pod:539
 #: ../customize/virt-customize.pod:237 ../daemon/guestfsd.pod:124
-#: ../df/virt-df.pod:275 ../diff/virt-diff.pod:265 ../edit/virt-edit.pod:375
+#: ../df/virt-df.pod:275 ../diff/virt-diff.pod:265 ../edit/virt-edit.pod:411
 #: ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1257
 #: ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:678
@@ -1578,7 +1578,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../sparsify/virt-sparsify.pod:429 ../src/guestfs.pod:4816
 #: ../sysprep/virt-sysprep.pod:548 ../test-tool/libguestfs-test-tool.pod:190
 #: ../tools/virt-list-filesystems:204 ../tools/virt-list-partitions:285
-#: ../tools/virt-tar:317 ../tools/virt-win-reg:808 ../v2v/virt-v2v.pod:305
+#: ../tools/virt-tar:317 ../tools/virt-win-reg:808 ../v2v/virt-v2v.pod:339
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
 
@@ -1902,11 +1902,11 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:159
-#: ../builder/virt-builder.pod:1620 ../edit/virt-edit.pod:335
+#: ../builder/virt-builder.pod:1620 ../edit/virt-edit.pod:371
 #: ../fish/guestfish.pod:1385 ../fuse/guestunmount.pod:113
 #: ../rescue/virt-rescue.pod:388 ../sparsify/virt-sparsify.pod:368
 #: ../src/guestfs.pod:4644 ../test-tool/libguestfs-test-tool.pod:175
-#: ../v2v/virt-v2v.pod:260
+#: ../v2v/virt-v2v.pod:294
 msgid "ENVIRONMENT VARIABLES"
 msgstr "環境変数"
 
@@ -1944,7 +1944,7 @@ msgstr ""
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4812
 #: ../sysprep/virt-sysprep.pod:542 ../test-tool/libguestfs-test-tool.pod:186
-#: ../v2v/virt-v2v.pod:297
+#: ../v2v/virt-v2v.pod:331
 msgid "AUTHORS"
 msgstr "著者"
 
@@ -1967,14 +1967,14 @@ msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:178 ../cat/virt-ls.pod:505
+#: ../appliance/libguestfs-make-fixed-appliance.pod:178 ../cat/virt-ls.pod:541
 #: ../daemon/guestfsd.pod:126 ../df/virt-df.pod:277 ../diff/virt-diff.pod:267
-#: ../edit/virt-edit.pod:377 ../examples/guestfs-recipes.pod:680
+#: ../edit/virt-edit.pod:413 ../examples/guestfs-recipes.pod:680
 #: ../fish/guestfish.pod:1642 ../fuse/guestmount.pod:435
 #: ../guestfs-release-notes.pod:3023 ../p2v-iso/guestfs-p2v-iso.pod:238
 #: ../p2v/virt-p2v.pod:219 ../rescue/virt-rescue.pod:435
 #: ../src/guestfs.pod:4818 ../test-tool/libguestfs-test-tool.pod:192
-#: ../tools/virt-list-partitions:287 ../v2v/virt-v2v.pod:307
+#: ../tools/virt-list-partitions:287 ../v2v/virt-v2v.pod:341
 msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr ""
 
@@ -2717,7 +2717,7 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:306 ../cat/virt-filesystems.pod:209
-#: ../cat/virt-ls.pod:360 ../tools/virt-list-filesystems:107
+#: ../cat/virt-ls.pod:396 ../tools/virt-list-filesystems:107
 #: ../tools/virt-list-partitions:118
 msgid "B<-l>"
 msgstr "B<-l>"
@@ -2911,7 +2911,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:29 ../resize/virt-resize.pod:619
 #: ../sparsify/virt-sparsify.pod:339 ../src/guestfs.pod:485
 #: ../src/guestfs.pod:1819 ../src/guestfs.pod:2091 ../src/guestfs.pod:2389
-#: ../src/guestfs.pod:3883 ../v2v/virt-v2v.pod:236
+#: ../src/guestfs.pod:3883 ../v2v/virt-v2v.pod:270
 msgid "1."
 msgstr "1."
 
@@ -2931,7 +2931,7 @@ msgstr ""
 #: ../resize/virt-resize.pod:42 ../resize/virt-resize.pod:626
 #: ../sparsify/virt-sparsify.pod:346 ../src/guestfs.pod:491
 #: ../src/guestfs.pod:1823 ../src/guestfs.pod:2095 ../src/guestfs.pod:2393
-#: ../src/guestfs.pod:3908 ../v2v/virt-v2v.pod:243
+#: ../src/guestfs.pod:3908 ../v2v/virt-v2v.pod:277
 msgid "2."
 msgstr "2."
 
@@ -2949,7 +2949,7 @@ msgstr ""
 #: ../examples/guestfs-recipes.pod:418 ../rescue/virt-rescue.pod:343
 #: ../resize/virt-resize.pod:50 ../resize/virt-resize.pod:632
 #: ../sparsify/virt-sparsify.pod:352 ../src/guestfs.pod:502
-#: ../src/guestfs.pod:1827 ../src/guestfs.pod:2399 ../v2v/virt-v2v.pod:249
+#: ../src/guestfs.pod:1827 ../src/guestfs.pod:2399 ../v2v/virt-v2v.pod:283
 msgid "3."
 msgstr "3."
 
@@ -5382,7 +5382,7 @@ msgstr ""
 
 #. type: =head1
 #: ../builder/virt-builder.pod:1600 ../resize/virt-resize.pod:591
-#: ../sparsify/virt-sparsify.pod:313 ../v2v/virt-v2v.pod:211
+#: ../sparsify/virt-sparsify.pod:313 ../v2v/virt-v2v.pod:245
 msgid "MACHINE READABLE OUTPUT"
 msgstr "マシン可読な出力"
 
@@ -5440,7 +5440,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1617 ../resize/virt-resize.pod:609
-#: ../sparsify/virt-sparsify.pod:329 ../v2v/virt-v2v.pod:226
+#: ../sparsify/virt-sparsify.pod:329 ../v2v/virt-v2v.pod:260
 msgid ""
 "A list of features is printed, one per line, and the program exits with "
 "status 0."
@@ -5522,10 +5522,10 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1659 ../cat/virt-cat.pod:241
+#: ../builder/virt-builder.pod:1659 ../cat/virt-cat.pod:277
 #: ../cat/virt-filesystems.pod:390 ../cat/virt-log.pod:139
-#: ../cat/virt-ls.pod:486 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260
-#: ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:357
+#: ../cat/virt-ls.pod:522 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:260
+#: ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:393
 #: ../fuse/guestmount.pod:412 ../inspector/virt-inspector.pod:496
 #: ../resize/virt-resize.pod:751
 msgid ""
@@ -5854,19 +5854,117 @@ msgstr ""
 "標準入力からキーまたはパスフレーズのパラメーターを読み込みます。 標準で C</"
 "dev/tty> を開いているユーザーから読み込もうとします。"
 
+#. type: =item
+#: ../cat/virt-cat.pod:129 ../cat/virt-ls.pod:360 ../edit/virt-edit.pod:167
+#: ../fish/guestfish.pod:305
+msgid "B<-m dev[:mountpoint[:options[:fstype]]]>"
+msgstr ""
+
+#. type: =item
+#: ../cat/virt-cat.pod:131 ../cat/virt-ls.pod:362 ../edit/virt-edit.pod:169
+#: ../fish/guestfish.pod:307 ../fuse/guestmount.pod:264
+msgid "B<--mount dev[:mountpoint[:options[:fstype]]]>"
+msgstr ""
+
+#. type: textblock
+#: ../cat/virt-cat.pod:133 ../cat/virt-ls.pod:364 ../edit/virt-edit.pod:171
+#: ../fish/guestfish.pod:309
+msgid "Mount the named partition or logical volume on the given mountpoint."
+msgstr ""
+"指定されたマウントポイントにある、 名前付きパーティションまたは論理ボリューム"
+"をマウントします。"
+
+#. type: textblock
+#: ../cat/virt-cat.pod:135 ../cat/virt-ls.pod:366 ../edit/virt-edit.pod:173
+#: ../fish/guestfish.pod:311
+msgid "If the mountpoint is omitted, it defaults to C</>."
+msgstr "マウントポイントが省略された場合、標準で C</> になります。"
+
+#. type: textblock
+#: ../cat/virt-cat.pod:137 ../cat/virt-ls.pod:368 ../edit/virt-edit.pod:175
+msgid ""
+"Specifying any mountpoint disables the inspection of the guest and the mount "
+"of its root and all of its mountpoints, so make sure to mount all the "
+"mountpoints needed to work with the filenames gives as arguments."
+msgstr ""
+
+#. type: textblock
+#: ../cat/virt-cat.pod:142 ../cat/virt-ls.pod:373 ../edit/virt-edit.pod:180
+#: ../fish/guestfish.pod:318
+msgid ""
+"If you don't know what filesystems a disk image contains, you can either run "
+"guestfish without this option, then list the partitions, filesystems and LVs "
+"available (see L</list-partitions>, L</list-filesystems> and L</lvs> "
+"commands), or you can use the L<virt-filesystems(1)> program."
+msgstr ""
+"仮想マシンのディスクイメージに含まれるファイルシステムが不明な場合、 "
+"guestfish をこのオプションなしで実行することもできます。 そうすると、利用可能"
+"なパーティション、ファイルシステム、 論理ボリューム (LVM) の一覧が表示されま"
+"す (L</list-partitions>, L</list-filesystems>, L</lvs> コマンド参照)。 また"
+"は、 L<virt-filesystems(1)> コマンドを使用することもできます。"
+
+#. type: textblock
+#: ../cat/virt-cat.pod:148 ../cat/virt-ls.pod:379 ../edit/virt-edit.pod:186
+#: ../fish/guestfish.pod:324 ../fuse/guestmount.pod:272
+msgid ""
+"The third (and rarely used) part of the mount parameter is the list of mount "
+"options used to mount the underlying filesystem.  If this is not given, then "
+"the mount options are either the empty string or C<ro> (the latter if the "
+"I<--ro> flag is used).  By specifying the mount options, you override this "
+"default choice.  Probably the only time you would use this is to enable ACLs "
+"and/or extended attributes if the filesystem can support them:"
+msgstr ""
+"マウントパラメーターの三番目の (ほとんど使用されない) 項目は、 バックエンドの"
+"ファイルシステムをマウントするために使用される マウントオプションの一覧で"
+"す。 これが指定されていない場合、 マウントオプションは空文字列または C<ro> "
+"(I<--ro> フラグが使用されている場合) になります。"
+
+#. type: verbatim
+#: ../cat/virt-cat.pod:156 ../cat/virt-ls.pod:387 ../edit/virt-edit.pod:194
+#: ../fish/guestfish.pod:332 ../fuse/guestmount.pod:280
+#, no-wrap
+msgid ""
+" -m /dev/sda1:/:acl,user_xattr\n"
+"\n"
+msgstr ""
+" -m /dev/sda1:/:acl,user_xattr\n"
+"\n"
+
+#. type: textblock
+#: ../cat/virt-cat.pod:158 ../cat/virt-ls.pod:389 ../edit/virt-edit.pod:196
+#: ../fish/guestfish.pod:334
+msgid "Using this flag is equivalent to using the C<mount-options> command."
+msgstr ""
+"このフラグを使用することは、 C<mount-options> コマンドを使用することと同等で"
+"す。"
+
+#. type: textblock
+#: ../cat/virt-cat.pod:160 ../cat/virt-ls.pod:391 ../edit/virt-edit.pod:198
+#: ../fish/guestfish.pod:336 ../fuse/guestmount.pod:282
+msgid ""
+"The fourth part of the parameter is the filesystem driver to use, such as "
+"C<ext3> or C<ntfs>. This is rarely needed, but can be useful if multiple "
+"drivers are valid for a filesystem (eg: C<ext2> and C<ext3>), or if "
+"libguestfs misidentifies a filesystem."
+msgstr ""
+"パラメーターの四番目の項目は使用するファイルシステムドライバー (C<ext3> や "
+"C<ntfs> など) です。 これはほとんど必要ありません。 しかし、複数のドライバー"
+"がファイルシステムに対して有効である場合 (例: C<ext2> と C<ext3>)、 または "
+"libguestfs がファイルシステムを誤検知している場合、 これは有用です。"
+
 #. type: =head1
-#: ../cat/virt-cat.pod:147 ../cat/virt-ls.pod:437 ../edit/virt-edit.pod:185
+#: ../cat/virt-cat.pod:183 ../cat/virt-ls.pod:473 ../edit/virt-edit.pod:221
 #: ../inspector/virt-inspector.pod:141 ../rescue/virt-rescue.pod:265
 msgid "OLD-STYLE COMMAND LINE ARGUMENTS"
 msgstr "旧形式のコマンドライン引数"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:149
+#: ../cat/virt-cat.pod:185
 msgid "Previous versions of virt-cat allowed you to write either:"
 msgstr "以前のバージョンの virt-cat はどちらの書き込みもできます:"
 
 #. type: verbatim
-#: ../cat/virt-cat.pod:151
+#: ../cat/virt-cat.pod:187
 #, no-wrap
 msgid ""
 " virt-cat disk.img [disk.img ...] file\n"
@@ -5876,13 +5974,13 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:153 ../cat/virt-ls.pod:443 ../edit/virt-edit.pod:191
+#: ../cat/virt-cat.pod:189 ../cat/virt-ls.pod:479 ../edit/virt-edit.pod:227
 #: ../inspector/virt-inspector.pod:147 ../rescue/virt-rescue.pod:271
 msgid "or"
 msgstr "または"
 
 #. type: verbatim
-#: ../cat/virt-cat.pod:155
+#: ../cat/virt-cat.pod:191
 #, no-wrap
 msgid ""
 " virt-cat guestname file\n"
@@ -5892,7 +5990,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:157 ../cat/virt-ls.pod:447 ../edit/virt-edit.pod:195
+#: ../cat/virt-cat.pod:193 ../cat/virt-ls.pod:483 ../edit/virt-edit.pod:231
 #: ../inspector/virt-inspector.pod:151 ../rescue/virt-rescue.pod:275
 msgid ""
 "whereas in this version you should use I<-a> or I<-d> respectively to avoid "
@@ -5900,32 +5998,32 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:161 ../cat/virt-ls.pod:451 ../edit/virt-edit.pod:199
+#: ../cat/virt-cat.pod:197 ../cat/virt-ls.pod:487 ../edit/virt-edit.pod:235
 #: ../inspector/virt-inspector.pod:155 ../rescue/virt-rescue.pod:279
 msgid "For compatibility the old style is still supported."
 msgstr "互換性のため古い形式がまだサポートされています。"
 
 #. type: =head1
-#: ../cat/virt-cat.pod:163
+#: ../cat/virt-cat.pod:199
 #, fuzzy
 #| msgid "LISTING FILES"
 msgid "LOG FILES"
 msgstr "ファイルの一覧表示方法"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:165
+#: ../cat/virt-cat.pod:201
 msgid ""
 "To list out the log files from guests, see the related tool L<virt-log(1)>.  "
 "It understands binary log formats such as the systemd journal."
 msgstr ""
 
 #. type: =head1
-#: ../cat/virt-cat.pod:169 ../edit/virt-edit.pod:263 ../fish/guestfish.pod:886
+#: ../cat/virt-cat.pod:205 ../edit/virt-edit.pod:299 ../fish/guestfish.pod:886
 msgid "WINDOWS PATHS"
 msgstr "Windows のパス"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:171
+#: ../cat/virt-cat.pod:207
 msgid ""
 "C<virt-cat> has a limited ability to understand Windows drive letters and "
 "paths (eg. C<E:\\foo\\bar.txt>)."
@@ -5934,53 +6032,53 @@ msgstr ""
 "C<E:\\foo\\bar.txt>）。"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:174 ../edit/virt-edit.pod:268
+#: ../cat/virt-cat.pod:210 ../edit/virt-edit.pod:304
 msgid "If and only if the guest is running Windows then:"
 msgstr "仮想マシンが Windows を実行している場合に限り:"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:180 ../edit/virt-edit.pod:274
+#: ../cat/virt-cat.pod:216 ../edit/virt-edit.pod:310
 msgid ""
 "Drive letter prefixes like C<C:> are resolved against the Windows Registry "
 "to the correct filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:185 ../edit/virt-edit.pod:279
+#: ../cat/virt-cat.pod:221 ../edit/virt-edit.pod:315
 msgid ""
 "Any backslash (C<\\>) characters in the path are replaced with forward "
 "slashes so that libguestfs can process it."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:190
+#: ../cat/virt-cat.pod:226
 msgid ""
 "The path is resolved case insensitively to locate the file that should be "
 "displayed."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:195 ../edit/virt-edit.pod:289
+#: ../cat/virt-cat.pod:231 ../edit/virt-edit.pod:325
 msgid "There are some known shortcomings:"
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:201 ../edit/virt-edit.pod:295
+#: ../cat/virt-cat.pod:237 ../edit/virt-edit.pod:331
 msgid "Some NTFS symbolic links may not be followed correctly."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-cat.pod:205 ../edit/virt-edit.pod:299
+#: ../cat/virt-cat.pod:241 ../edit/virt-edit.pod:335
 msgid "NTFS junction points that cross filesystems are not followed."
 msgstr ""
 
 #. type: =head1
-#: ../cat/virt-cat.pod:209 ../edit/virt-edit.pod:303
+#: ../cat/virt-cat.pod:245 ../edit/virt-edit.pod:339
 msgid "USING GUESTFISH"
 msgstr "guestfish の使用法"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:211
+#: ../cat/virt-cat.pod:247
 msgid ""
 "L<guestfish(1)> is a more powerful, lower level tool which you can use when "
 "C<virt-cat> doesn't work."
@@ -5989,12 +6087,12 @@ msgstr ""
 "な、より低レベルなツールです。"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:214
+#: ../cat/virt-cat.pod:250
 msgid "Using C<virt-cat> is approximately equivalent to doing:"
 msgstr "C<virt-cat> を使用することは、次のこととほぼ同等です:"
 
 #. type: verbatim
-#: ../cat/virt-cat.pod:216
+#: ../cat/virt-cat.pod:252
 #, no-wrap
 msgid ""
 " guestfish --ro -i -d domname download file -\n"
@@ -6004,7 +6102,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:218
+#: ../cat/virt-cat.pod:254
 msgid ""
 "where C<domname> is the name of the libvirt guest, and C<file> is the full "
 "path to the file.  Note the final C<-> (meaning \"output to stdout\")."
@@ -6014,7 +6112,7 @@ msgstr ""
 "い。"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:222
+#: ../cat/virt-cat.pod:258
 msgid ""
 "The command above uses libguestfs's guest inspection feature and so does not "
 "work on guests that libguestfs cannot inspect, or on things like arbitrary "
@@ -6027,7 +6125,7 @@ msgstr ""
 "ジから直接ファイルを表示するには、次を使用します:"
 
 #. type: verbatim
-#: ../cat/virt-cat.pod:227
+#: ../cat/virt-cat.pod:263
 #, no-wrap
 msgid ""
 " guestfish --ro -a disk.img -m /dev/sda1 download file -\n"
@@ -6037,7 +6135,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:229
+#: ../cat/virt-cat.pod:265
 msgid ""
 "where C<disk.img> is the disk image, C</dev/sda1> is the filesystem within "
 "the disk image, and C<file> is the full path to the file."
@@ -6046,7 +6144,7 @@ msgstr ""
 "ファイルシステム、そして C<file> はファイルの完全パスです。"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:246
+#: ../cat/virt-cat.pod:282
 #, fuzzy
 #| msgid ""
 #| "L<guestfs(3)>, L<guestfish(1)>, L<virt-copy-out(1)>, L<virt-edit(1)>, "
@@ -6059,7 +6157,7 @@ msgstr ""
 "tar-out(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../cat/virt-cat.pod:260 ../cat/virt-filesystems.pod:410
+#: ../cat/virt-cat.pod:296 ../cat/virt-filesystems.pod:410
 #: ../inspector/virt-inspector.pod:524 ../ocaml/examples/guestfs-ocaml.pod:97
 #: ../python/examples/guestfs-python.pod:71 ../resize/virt-resize.pod:783
 #: ../ruby/examples/guestfs-ruby.pod:54
@@ -6442,7 +6540,7 @@ msgid "In I<--long> mode, display sizes in human-readable format."
 msgstr "I<--long> モードでは、読みやすい形式で容量を表示します。"
 
 #. type: =item
-#: ../cat/virt-filesystems.pod:211 ../cat/virt-ls.pod:362
+#: ../cat/virt-filesystems.pod:211 ../cat/virt-ls.pod:398
 #: ../tools/virt-list-filesystems:109 ../tools/virt-list-partitions:120
 msgid "B<--long>"
 msgstr "B<--long>"
@@ -6754,13 +6852,13 @@ msgid "The UUID is only displayed if the I<--uuid> option is given."
 msgstr "I<--uuid> オプションが指定されると、 UUID のみが表示されます。"
 
 #. type: =head1
-#: ../cat/virt-filesystems.pod:357 ../cat/virt-ls.pod:453
+#: ../cat/virt-filesystems.pod:357 ../cat/virt-ls.pod:489
 #: ../df/virt-df.pod:227 ../diff/virt-diff.pod:222
 msgid "NOTE ABOUT CSV FORMAT"
 msgstr "CSV 形式に関する注意"
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:359 ../cat/virt-ls.pod:455
+#: ../cat/virt-filesystems.pod:359 ../cat/virt-ls.pod:491
 #: ../df/virt-df.pod:229 ../diff/virt-diff.pod:224
 msgid ""
 "Comma-separated values (CSV) is a deceptive format.  It I<seems> like it "
@@ -6768,7 +6866,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:362 ../cat/virt-ls.pod:458
+#: ../cat/virt-filesystems.pod:362 ../cat/virt-ls.pod:494
 #: ../df/virt-df.pod:232 ../diff/virt-diff.pod:227
 msgid ""
 "Myth: Just split fields at commas.  Reality: This does I<not> work "
@@ -6778,7 +6876,7 @@ msgstr ""
 "2 つの列があります:"
 
 #. type: verbatim
-#: ../cat/virt-filesystems.pod:365 ../cat/virt-ls.pod:461
+#: ../cat/virt-filesystems.pod:365 ../cat/virt-ls.pod:497
 #: ../df/virt-df.pod:235 ../diff/virt-diff.pod:230
 #, no-wrap
 msgid ""
@@ -6789,7 +6887,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:367 ../cat/virt-ls.pod:463
+#: ../cat/virt-filesystems.pod:367 ../cat/virt-ls.pod:499
 #: ../df/virt-df.pod:237 ../diff/virt-diff.pod:232
 msgid ""
 "Myth: Read the file one line at a time.  Reality: This does I<not> work "
@@ -6799,7 +6897,7 @@ msgstr ""
 ">。この例は 1 つの行があります:"
 
 #. type: verbatim
-#: ../cat/virt-filesystems.pod:370 ../cat/virt-ls.pod:466
+#: ../cat/virt-filesystems.pod:370 ../cat/virt-ls.pod:502
 #: ../df/virt-df.pod:240 ../diff/virt-diff.pod:235
 #, no-wrap
 msgid ""
@@ -6812,7 +6910,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:373 ../cat/virt-ls.pod:469
+#: ../cat/virt-filesystems.pod:373 ../cat/virt-ls.pod:505
 #: ../df/virt-df.pod:243 ../diff/virt-diff.pod:238
 msgid ""
 "For shell scripts, use C<csvtool> (L<http://merjis.com/developers/csv> also "
@@ -6820,7 +6918,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:376 ../cat/virt-ls.pod:472
+#: ../cat/virt-filesystems.pod:376 ../cat/virt-ls.pod:508
 #: ../df/virt-df.pod:246 ../diff/virt-diff.pod:241
 msgid ""
 "For other languages, use a CSV processing library (eg. C<Text::CSV> for Perl "
@@ -6828,7 +6926,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-filesystems.pod:379 ../cat/virt-ls.pod:475
+#: ../cat/virt-filesystems.pod:379 ../cat/virt-ls.pod:511
 #: ../df/virt-df.pod:249 ../diff/virt-diff.pod:244
 msgid "Most spreadsheets and databases can import CSV directly."
 msgstr ""
@@ -7640,8 +7738,8 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-ls.pod:282 ../cat/virt-ls.pod:319 ../cat/virt-ls.pod:352
-#: ../cat/virt-ls.pod:385 ../cat/virt-ls.pod:395 ../cat/virt-ls.pod:402
-#: ../cat/virt-ls.pod:409 ../cat/virt-ls.pod:416 ../diff/virt-diff.pod:169
+#: ../cat/virt-ls.pod:421 ../cat/virt-ls.pod:431 ../cat/virt-ls.pod:438
+#: ../cat/virt-ls.pod:445 ../cat/virt-ls.pod:452 ../diff/virt-diff.pod:169
 msgid ""
 "This option only has effect in I<-lR> output mode.  See L</RECURSIVE LONG "
 "LISTING> above."
@@ -7697,17 +7795,17 @@ msgid "Display file sizes in human-readable format."
 msgstr "読みやすい形式でファイル容量を表示します。"
 
 #. type: =item
-#: ../cat/virt-ls.pod:364
+#: ../cat/virt-ls.pod:400
 msgid "B<-R>"
 msgstr "B<-R>"
 
 #. type: =item
-#: ../cat/virt-ls.pod:366
+#: ../cat/virt-ls.pod:402
 msgid "B<--recursive>"
 msgstr "B<--recursive>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:368
+#: ../cat/virt-ls.pod:404
 msgid ""
 "Select the mode.  With neither of these options, C<virt-ls> produces a "
 "simple, flat list of the files in the named directory.  See L</SIMPLE "
@@ -7715,90 +7813,90 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:372
+#: ../cat/virt-ls.pod:408
 msgid ""
 "C<virt-ls -l> produces a \"long listing\", which shows more detail.  See L</"
 "LONG LISTING>."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:375
+#: ../cat/virt-ls.pod:411
 msgid ""
 "C<virt-ls -R> produces a recursive list of files starting at the named "
 "directory.  See L</RECURSIVE LISTING>."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:378
+#: ../cat/virt-ls.pod:414
 msgid ""
 "C<virt-ls -lR> produces a recursive long listing which can be more easily "
 "parsed.  See L</RECURSIVE LONG LISTING>."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:381 ../diff/virt-diff.pod:177
+#: ../cat/virt-ls.pod:417 ../diff/virt-diff.pod:177
 msgid "B<--times>"
 msgstr "B<--times>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:383 ../diff/virt-diff.pod:179
+#: ../cat/virt-ls.pod:419 ../diff/virt-diff.pod:179
 msgid "Display time fields."
 msgstr "時間の項目を表示します。"
 
 #. type: =item
-#: ../cat/virt-ls.pod:388 ../diff/virt-diff.pod:181
+#: ../cat/virt-ls.pod:424 ../diff/virt-diff.pod:181
 msgid "B<--time-days>"
 msgstr "B<--time-days>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:390 ../diff/virt-diff.pod:183
+#: ../cat/virt-ls.pod:426 ../diff/virt-diff.pod:183
 msgid "Display time fields as days before now (negative if in the future)."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:392 ../diff/virt-diff.pod:185
+#: ../cat/virt-ls.pod:428 ../diff/virt-diff.pod:185
 msgid ""
 "Note that C<0> in output means \"up to 1 day before now\", or that the age "
 "of the file is between 0 and 86399 seconds."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:398 ../diff/virt-diff.pod:188
+#: ../cat/virt-ls.pod:434 ../diff/virt-diff.pod:188
 msgid "B<--time-relative>"
 msgstr "B<--time-relative>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:400 ../diff/virt-diff.pod:190
+#: ../cat/virt-ls.pod:436 ../diff/virt-diff.pod:190
 msgid "Display time fields as seconds before now (negative if in the future)."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:405 ../diff/virt-diff.pod:192
+#: ../cat/virt-ls.pod:441 ../diff/virt-diff.pod:192
 msgid "B<--time-t>"
 msgstr "B<--time-t>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:407 ../diff/virt-diff.pod:194
+#: ../cat/virt-ls.pod:443 ../diff/virt-diff.pod:194
 msgid "Display time fields as seconds since the Unix epoch."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:412 ../diff/virt-diff.pod:196
+#: ../cat/virt-ls.pod:448 ../diff/virt-diff.pod:196
 msgid "B<--uids>"
 msgstr "B<--uids>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:414 ../diff/virt-diff.pod:198
+#: ../cat/virt-ls.pod:450 ../diff/virt-diff.pod:198
 msgid "Display UID and GID fields."
 msgstr "UID と GID の項目を表示します。"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:439
+#: ../cat/virt-ls.pod:475
 msgid "Previous versions of virt-ls allowed you to write either:"
 msgstr "前のバージョンの virt-ls により、次のどちらも書くことができます:"
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:441
+#: ../cat/virt-ls.pod:477
 #, no-wrap
 msgid ""
 " virt-ls disk.img [disk.img ...] /dir\n"
@@ -7808,7 +7906,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../cat/virt-ls.pod:445
+#: ../cat/virt-ls.pod:481
 #, no-wrap
 msgid ""
 " virt-ls guestname /dir\n"
@@ -7818,7 +7916,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:491
+#: ../cat/virt-ls.pod:527
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-out(1)>, L<virt-"
 "diff(1)>, L<virt-tar-out(1)>, L<http://libguestfs.org/>."
@@ -9361,7 +9459,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:17 ../edit/virt-edit.pod:189
+#: ../edit/virt-edit.pod:17 ../edit/virt-edit.pod:225
 #, no-wrap
 msgid ""
 " virt-edit disk.img [disk.img ...] file\n"
@@ -9626,12 +9724,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:187
+#: ../edit/virt-edit.pod:223
 msgid "Previous versions of virt-edit allowed you to write either:"
 msgstr "前のバージョンの virt-edit はどちらを書くこともできます:"
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:193
+#: ../edit/virt-edit.pod:229
 #, no-wrap
 msgid ""
 " virt-edit guestname file\n"
@@ -9641,19 +9739,19 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../edit/virt-edit.pod:201
+#: ../edit/virt-edit.pod:237
 msgid "NON-INTERACTIVE EDITING"
 msgstr "非対話的な編集方法"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:203
+#: ../edit/virt-edit.pod:239
 msgid ""
 "C<virt-edit> normally calls out to C<$EDITOR> (or vi) so the system "
 "administrator can interactively edit the file."
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:206
+#: ../edit/virt-edit.pod:242
 msgid ""
 "There are two ways also to use C<virt-edit> from scripts in order to make "
 "automated edits to files.  (Note that although you I<can> use C<virt-edit> "
@@ -9662,7 +9760,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:212
+#: ../edit/virt-edit.pod:248
 msgid ""
 "The first method is to temporarily set C<$EDITOR> to any script or program "
 "you want to run.  The script is invoked as C<$EDITOR tmpfile> and it should "
@@ -9670,7 +9768,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:216
+#: ../edit/virt-edit.pod:252
 msgid ""
 "The second method is to use the I<-e> parameter of C<virt-edit> to run a "
 "short Perl snippet in the style of L<sed(1)>.  For example to replace all "
@@ -9678,7 +9776,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:220
+#: ../edit/virt-edit.pod:256
 #, no-wrap
 msgid ""
 " virt-edit -d domname filename -e 's/foo/bar/'\n"
@@ -9688,14 +9786,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:222
+#: ../edit/virt-edit.pod:258
 msgid ""
 "The full power of Perl regular expressions can be used (see L<perlre(1)>).  "
 "For example to delete root's password you could do:"
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:225 ../examples/guestfs-recipes.pod:591
+#: ../edit/virt-edit.pod:261 ../examples/guestfs-recipes.pod:591
 #, no-wrap
 msgid ""
 " virt-edit -d domname /etc/passwd -e 's/^root:.*?:/root::/'\n"
@@ -9705,7 +9803,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:227
+#: ../edit/virt-edit.pod:263
 msgid ""
 "What really happens is that the snippet is evaluated as a Perl expression "
 "for each line of the file.  The line, including the final C<\\n>, is passed "
@@ -9713,14 +9811,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:232
+#: ../edit/virt-edit.pod:268
 msgid ""
 "To delete a line, set C<$_> to the empty string.  For example, to delete the "
 "C<apache> user account from the password file you can do:"
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:235
+#: ../edit/virt-edit.pod:271
 #, no-wrap
 msgid ""
 " virt-edit -d mydomain /etc/passwd -e '$_ = \"\" if /^apache:/'\n"
@@ -9730,7 +9828,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:237
+#: ../edit/virt-edit.pod:273
 msgid ""
 "To insert a line, prepend or append it to C<$_>.  However appending lines to "
 "the end of the file is rather difficult this way since there is no concept "
@@ -9740,14 +9838,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:243
+#: ../edit/virt-edit.pod:279
 msgid ""
 "The variable C<$lineno> contains the current line number.  As is "
 "traditional, the first line in the file is number C<1>."
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:246
+#: ../edit/virt-edit.pod:282
 msgid ""
 "The return value from the expression is ignored, but the expression may call "
 "C<die> in order to abort the whole program, leaving the original file "
@@ -9755,7 +9853,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:250
+#: ../edit/virt-edit.pod:286
 msgid ""
 "Remember when matching the end of a line that C<$_> may contain the final C<"
 "\\n>, or (for DOS files) C<\\r\\n>, or if the file does not end with a "
@@ -9764,7 +9862,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:255
+#: ../edit/virt-edit.pod:291
 #, no-wrap
 msgid ""
 " /some text(\\r?\\n)?$/\n"
@@ -9774,14 +9872,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:257
+#: ../edit/virt-edit.pod:293
 msgid ""
 "Alternately, use the perl C<chomp> function, being careful not to chomp C<"
 "$_> itself (since that would remove all newlines from the file):"
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:261
+#: ../edit/virt-edit.pod:297
 #, no-wrap
 msgid ""
 " my $m = $_; chomp $m; $m =~ /some text$/\n"
@@ -9791,33 +9889,33 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:265
+#: ../edit/virt-edit.pod:301
 msgid ""
 "C<virt-edit> has a limited ability to understand Windows drive letters and "
 "paths (eg. C<E:\\foo\\bar.txt>)."
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:284
+#: ../edit/virt-edit.pod:320
 msgid ""
 "The path is resolved case insensitively to locate the file that should be "
 "edited."
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:305
+#: ../edit/virt-edit.pod:341
 msgid ""
 "L<guestfish(1)> is a more powerful, lower level tool which you can use when "
 "C<virt-edit> doesn't work."
 msgstr ""
 
 #. type: textblock
-#: ../edit/virt-edit.pod:308
+#: ../edit/virt-edit.pod:344
 msgid "Using C<virt-edit> is approximately equivalent to doing:"
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:310
+#: ../edit/virt-edit.pod:346
 #, no-wrap
 msgid ""
 " guestfish --rw -i -d domname edit /file\n"
@@ -9827,7 +9925,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:312
+#: ../edit/virt-edit.pod:348
 msgid ""
 "where C<domname> is the name of the libvirt guest, and C</file> is the full "
 "path to the file."
@@ -9836,7 +9934,7 @@ msgstr ""
 "スです。"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:315
+#: ../edit/virt-edit.pod:351
 msgid ""
 "The command above uses libguestfs's guest inspection feature and so does not "
 "work on guests that libguestfs cannot inspect, or on things like arbitrary "
@@ -9845,7 +9943,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:320
+#: ../edit/virt-edit.pod:356
 #, no-wrap
 msgid ""
 " guestfish --rw -a disk.img -m /dev/sda1 edit /file\n"
@@ -9855,7 +9953,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:322
+#: ../edit/virt-edit.pod:358
 msgid ""
 "where C<disk.img> is the disk image, C</dev/sda1> is the filesystem within "
 "the disk image to edit, and C</file> is the full path to the file."
@@ -9864,7 +9962,7 @@ msgstr ""
 "ジにあるファイルシステム、C</file> はファイルの完全パスです。"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:326
+#: ../edit/virt-edit.pod:362
 msgid ""
 "C<virt-edit> cannot create new files.  Use the guestfish commands C<touch>, "
 "C<write> or C<upload> instead:"
@@ -9873,7 +9971,7 @@ msgstr ""
 "C<touch>, C<write> または C<upload> を使用してください:"
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:329
+#: ../edit/virt-edit.pod:365
 #, no-wrap
 msgid ""
 " guestfish --rw -i -d domname touch /newfile\n"
@@ -9883,7 +9981,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:331
+#: ../edit/virt-edit.pod:367
 #, no-wrap
 msgid ""
 " guestfish --rw -i -d domname write /newfile \"new content\"\n"
@@ -9893,7 +9991,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../edit/virt-edit.pod:333
+#: ../edit/virt-edit.pod:369
 #, no-wrap
 msgid ""
 " guestfish --rw -i -d domname upload localfile /newfile\n"
@@ -9903,12 +10001,12 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../edit/virt-edit.pod:339
+#: ../edit/virt-edit.pod:375
 msgid "C<EDITOR>"
 msgstr "C<EDITOR>"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:341
+#: ../edit/virt-edit.pod:377
 msgid ""
 "If set, this string is used as the editor.  It may contain arguments, eg. C<"
 "\"emacs -nw\">"
@@ -9917,12 +10015,12 @@ msgstr ""
 "\"> のように、引数を含めることもできます。"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:344
+#: ../edit/virt-edit.pod:380
 msgid "If not set, C<vi> is used."
 msgstr "設定されていないと、C<vi> が使用されます。"
 
 #. type: textblock
-#: ../edit/virt-edit.pod:362
+#: ../edit/virt-edit.pod:398
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-in(1)>, L<virt-"
 "tar-in(1)>, L<http://libguestfs.org/>, L<perl(1)>, L<perlre(1)>."
@@ -37315,28 +37413,6 @@ msgstr ""
 "動作中の仮想マシンに接続します。 (実験的、L<guestfs(3)/ATTACHING TO RUNNING "
 "DAEMONS> 参照)。"
 
-#. type: =item
-#: ../fish/guestfish.pod:305
-msgid "B<-m dev[:mountpoint[:options[:fstype]]]>"
-msgstr ""
-
-#. type: =item
-#: ../fish/guestfish.pod:307 ../fuse/guestmount.pod:264
-msgid "B<--mount dev[:mountpoint[:options[:fstype]]]>"
-msgstr ""
-
-#. type: textblock
-#: ../fish/guestfish.pod:309
-msgid "Mount the named partition or logical volume on the given mountpoint."
-msgstr ""
-"指定されたマウントポイントにある、 名前付きパーティションまたは論理ボリューム"
-"をマウントします。"
-
-#. type: textblock
-#: ../fish/guestfish.pod:311
-msgid "If the mountpoint is omitted, it defaults to C</>."
-msgstr "マウントポイントが省略された場合、標準で C</> になります。"
-
 #. type: textblock
 #: ../fish/guestfish.pod:313
 msgid "You have to mount something on C</> before most commands will work."
@@ -37351,65 +37427,6 @@ msgid ""
 msgstr ""
 "何らかの I<-m> または I<--mount> オプションが指定されると、 仮想マシンが自動"
 "的に起動されます。"
-
-#. type: textblock
-#: ../fish/guestfish.pod:318
-msgid ""
-"If you don't know what filesystems a disk image contains, you can either run "
-"guestfish without this option, then list the partitions, filesystems and LVs "
-"available (see L</list-partitions>, L</list-filesystems> and L</lvs> "
-"commands), or you can use the L<virt-filesystems(1)> program."
-msgstr ""
-"仮想マシンのディスクイメージに含まれるファイルシステムが不明な場合、 "
-"guestfish をこのオプションなしで実行することもできます。 そうすると、利用可能"
-"なパーティション、ファイルシステム、 論理ボリューム (LVM) の一覧が表示されま"
-"す (L</list-partitions>, L</list-filesystems>, L</lvs> コマンド参照)。 また"
-"は、 L<virt-filesystems(1)> コマンドを使用することもできます。"
-
-#. type: textblock
-#: ../fish/guestfish.pod:324 ../fuse/guestmount.pod:272
-msgid ""
-"The third (and rarely used) part of the mount parameter is the list of mount "
-"options used to mount the underlying filesystem.  If this is not given, then "
-"the mount options are either the empty string or C<ro> (the latter if the "
-"I<--ro> flag is used).  By specifying the mount options, you override this "
-"default choice.  Probably the only time you would use this is to enable ACLs "
-"and/or extended attributes if the filesystem can support them:"
-msgstr ""
-"マウントパラメーターの三番目の (ほとんど使用されない) 項目は、 バックエンドの"
-"ファイルシステムをマウントするために使用される マウントオプションの一覧で"
-"す。 これが指定されていない場合、 マウントオプションは空文字列または C<ro> "
-"(I<--ro> フラグが使用されている場合) になります。"
-
-#. type: verbatim
-#: ../fish/guestfish.pod:332 ../fuse/guestmount.pod:280
-#, no-wrap
-msgid ""
-" -m /dev/sda1:/:acl,user_xattr\n"
-"\n"
-msgstr ""
-" -m /dev/sda1:/:acl,user_xattr\n"
-"\n"
-
-#. type: textblock
-#: ../fish/guestfish.pod:334
-msgid "Using this flag is equivalent to using the C<mount-options> command."
-msgstr ""
-"このフラグを使用することは、 C<mount-options> コマンドを使用することと同等で"
-"す。"
-
-#. type: textblock
-#: ../fish/guestfish.pod:336 ../fuse/guestmount.pod:282
-msgid ""
-"The fourth part of the parameter is the filesystem driver to use, such as "
-"C<ext3> or C<ntfs>. This is rarely needed, but can be useful if multiple "
-"drivers are valid for a filesystem (eg: C<ext2> and C<ext3>), or if "
-"libguestfs misidentifies a filesystem."
-msgstr ""
-"パラメーターの四番目の項目は使用するファイルシステムドライバー (C<ext3> や "
-"C<ntfs> など) です。 これはほとんど必要ありません。 しかし、複数のドライバー"
-"がファイルシステムに対して有効である場合 (例: C<ext2> と C<ext3>)、 または "
-"libguestfs がファイルシステムを誤検知している場合、 これは有用です。"
 
 #. type: textblock
 #: ../fish/guestfish.pod:343
@@ -40239,7 +40256,7 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish.pod:1531 ../sparsify/virt-sparsify.pod:372
-#: ../src/guestfs.pod:4746 ../v2v/virt-v2v.pod:264
+#: ../src/guestfs.pod:4746 ../v2v/virt-v2v.pod:298
 msgid "TMPDIR"
 msgstr "TMPDIR"
 
@@ -51921,7 +51938,7 @@ msgid "L<virt-v2v(1)>, L<qemu-nbd(1)>, L<http://libguestfs.org/>."
 msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:215 ../v2v/virt-v2v.pod:301
+#: ../p2v/virt-p2v.pod:215 ../v2v/virt-v2v.pod:335
 msgid "Matthew Booth"
 msgstr ""
 
@@ -53993,7 +54010,7 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:597 ../sparsify/virt-sparsify.pod:319
-#: ../v2v/virt-v2v.pod:217
+#: ../v2v/virt-v2v.pod:251
 msgid "There are two ways to use this option."
 msgstr "このオプションを使用するには 2 通りの方法があります。"
 
@@ -54026,7 +54043,7 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:612 ../sparsify/virt-sparsify.pod:332
-#: ../v2v/virt-v2v.pod:229
+#: ../v2v/virt-v2v.pod:263
 msgid ""
 "Secondly use the option in conjunction with other options to make the "
 "regular program output more machine friendly."
@@ -54034,13 +54051,13 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:615 ../sparsify/virt-sparsify.pod:335
-#: ../v2v/virt-v2v.pod:232
+#: ../v2v/virt-v2v.pod:266
 msgid "At the moment this means:"
 msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:621 ../sparsify/virt-sparsify.pod:341
-#: ../v2v/virt-v2v.pod:238
+#: ../v2v/virt-v2v.pod:272
 msgid ""
 "Progress bar messages can be parsed from stdout by looking for this regular "
 "expression:"
@@ -54048,7 +54065,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../resize/virt-resize.pod:624 ../sparsify/virt-sparsify.pod:344
-#: ../v2v/virt-v2v.pod:241
+#: ../v2v/virt-v2v.pod:275
 #, no-wrap
 msgid ""
 " ^[0-9]+/[0-9]+$\n"
@@ -54059,7 +54076,7 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:628 ../sparsify/virt-sparsify.pod:348
-#: ../v2v/virt-v2v.pod:245
+#: ../v2v/virt-v2v.pod:279
 msgid ""
 "The calling program should treat messages sent to stdout (except for "
 "progress bar messages) as status messages.  They can be logged and/or "
@@ -54906,7 +54923,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:374 ../v2v/virt-v2v.pod:266
+#: ../sparsify/virt-sparsify.pod:374 ../v2v/virt-v2v.pod:300
 msgid ""
 "Location of the temporary directory used for the potentially large temporary "
 "overlay file."
@@ -54920,7 +54937,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:380 ../v2v/virt-v2v.pod:269
+#: ../sparsify/virt-sparsify.pod:380 ../v2v/virt-v2v.pod:303
 msgid ""
 "You should ensure there is enough free space in the worst case for a full "
 "copy of the source disk (I<virtual> size), or else set C<$TMPDIR> to point "
@@ -54928,7 +54945,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:384 ../v2v/virt-v2v.pod:273
+#: ../sparsify/virt-sparsify.pod:384 ../v2v/virt-v2v.pod:307
 msgid "This defaults to C</tmp>."
 msgstr "この初期値は C</tmp> です。"
 
@@ -54943,7 +54960,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sparsify/virt-sparsify.pod:392 ../v2v/virt-v2v.pod:281
+#: ../sparsify/virt-sparsify.pod:392 ../v2v/virt-v2v.pod:315
 #, no-wrap
 msgid ""
 " mount -o remount,size=10G /tmp\n"
@@ -54953,7 +54970,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:399 ../v2v/virt-v2v.pod:285
+#: ../sparsify/virt-sparsify.pod:399 ../v2v/virt-v2v.pod:319
 msgid ""
 "For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr "他の環境変数は L<guestfs(3)/環境変数> を参照してください。"
@@ -88151,8 +88168,110 @@ msgid ""
 "first VirtIO disk."
 msgstr ""
 
+#. type: =head1
+#: ../v2v/virt-v2v.pod:211
+msgid "ENABLING VIRTIO"
+msgstr ""
+
 #. type: textblock
 #: ../v2v/virt-v2v.pod:213
+msgid ""
+"\"Virtio\" is the name for a set of drivers which make disk (block device), "
+"network and other guest operations work much faster on KVM."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/virt-v2v.pod:216
+msgid ""
+"Older versions of virt-v2v could install these drivers for certain guests.  "
+"This version of virt-v2v does I<not> attempt to install these drivers, but "
+"will warn you if they are not installed already."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/virt-v2v.pod:220
+msgid ""
+"In order to enable virtio, and hence improve performance of the guest after "
+"conversion, you should ensure that the B<minimum> versions of packages are "
+"installed I<before> conversion, by consulting the table below."
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:225
+#, no-wrap
+msgid ""
+" RHEL 3         No virtio drivers are available\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:227
+#, no-wrap
+msgid ""
+" RHEL 4         kernel >= 2.5.9-89.EL\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:229
+#, no-wrap
+msgid ""
+" RHEL 5         kernel >= 2.6.18-128.el5\n"
+"                lvm2 >= 2.02.40-6.el5\n"
+"                selinux-policy-targeted >= 2.4.6-203.el5\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:233
+#, no-wrap
+msgid ""
+" RHEL 6+        All versions support virtio\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:235
+#, no-wrap
+msgid ""
+" Fedora         All versions support virtio\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:237
+#, no-wrap
+msgid ""
+" SLES 11+       All versions support virtio\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:239
+#, no-wrap
+msgid ""
+" SLES 10        kernel >= 2.6.16.60-0.85.1\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:241
+#, no-wrap
+msgid ""
+" OpenSUSE 11+   All versions support virtio\n"
+" \n"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/virt-v2v.pod:243
+#, no-wrap
+msgid ""
+" OpenSUSE 10    kernel >= 2.6.25.5-1.1\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/virt-v2v.pod:247
 #, fuzzy
 #| msgid ""
 #| "The I<--machine-readable> option can be used to make the output more "
@@ -88168,14 +88287,14 @@ msgstr ""
 "用です。"
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:219
+#: ../v2v/virt-v2v.pod:253
 msgid ""
 "Firstly use the option on its own to query the capabilities of the virt-v2v "
 "binary.  Typical output looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:222
+#: ../v2v/virt-v2v.pod:256
 #, fuzzy, no-wrap
 #| msgid ""
 #| " $ virt-sparsify --machine-readable\n"
@@ -88196,7 +88315,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:251
+#: ../v2v/virt-v2v.pod:285
 msgid ""
 "The calling program should treat messages sent to stderr as error messages.  "
 "In addition, virt-v2v exits with a non-zero status code if there was a fatal "
@@ -88204,14 +88323,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:257
+#: ../v2v/virt-v2v.pod:291
 msgid ""
 "Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable> option at "
 "all.  The option was added when virt-v2v was rewritten in 2014."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:275
+#: ../v2v/virt-v2v.pod:309
 msgid ""
 "Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if you "
 "use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of I<half> of "
@@ -88221,7 +88340,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:289
+#: ../v2v/virt-v2v.pod:323
 #, fuzzy
 #| msgid ""
 #| "L<virt-filesystems(1)>, L<virt-df(1)>, L<virt-resize(1)>, L<virt-"
@@ -88236,7 +88355,7 @@ msgstr ""
 "img(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:303
+#: ../v2v/virt-v2v.pod:337
 msgid "Mike Latimer"
 msgstr ""
 
