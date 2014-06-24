@@ -500,6 +500,10 @@ your bug report.
 
 Display version number and exit.
 
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
 =back
 
 =head2 Customization options

@@ -27,7 +27,7 @@ open Password
 
 let quote = Filename.quote
 
-let run ~prog ~debug ~quiet (g : Guestfs.guestfs) root (ops : ops) =
+let run ~prog ~verbose ~quiet (g : Guestfs.guestfs) root (ops : ops) =
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
   let msg fs = make_message_function ~quiet fs in
 
@@ -75,7 +75,7 @@ exec >>%s 2>&1
 %s
 " (quote logfile) env_vars cmd in
 
-    if debug then eprintf "running command:\n%s\n%!" cmd;
+    if verbose then eprintf "running command:\n%s\n%!" cmd;
     try ignore (g#sh cmd)
     with
       Guestfs.Error msg ->
@@ -193,7 +193,7 @@ exec >>%s 2>&1
         exit 1
       );
 
-      Perl_edit.edit_file ~debug g path expr
+      Perl_edit.edit_file ~verbose g path expr
 
     | `FirstbootCommand cmd ->
       incr i;
@@ -313,7 +313,7 @@ exec >>%s 2>&1
    * If debugging, dump out the log file.
    * Then if asked, scrub the log file.
    *)
-  if debug then debug_logfile ();
+  if verbose then debug_logfile ();
   if ops.flags.scrub_logfile && g#exists logfile then (
     msg (f_"Scrubbing the log file");
 
@@ -330,7 +330,7 @@ exec >>%s 2>&1
    *)
   (try ignore (g#debug "sh" [| "fuser"; "-k"; "/sysroot" |])
    with exn ->
-     if debug then
+     if verbose then
        eprintf (f_"%s: %s (ignored)\n") prog (Printexc.to_string exn)
   );
   g#ping_daemon () (* tiny delay after kill *)

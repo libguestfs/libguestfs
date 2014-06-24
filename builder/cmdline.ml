@@ -60,7 +60,6 @@ let parse_cmdline () =
 
   let check_signature = ref true in
   let curl = ref "curl" in
-  let debug = ref false in
 
   let delete_on_failure = ref true in
 
@@ -101,6 +100,8 @@ let parse_cmdline () =
   let add_source arg = sources := arg :: !sources in
 
   let sync = ref true in
+  let trace = ref false in
+  let verbose = ref false in
 
   let argspec = [
     "--arch",    Arg.Set_string arch,       "arch" ^ " " ^ s_"Set the output architecture";
@@ -151,10 +152,11 @@ let parse_cmdline () =
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
-    "-v",        Arg.Set debug,             " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Set debug,             " " ^ s_"Enable debugging messages";
+    "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
+    "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  " " ^ s_"Display version and exit";
+    "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   let customize_argspec, get_customize_ops =
     Customize_cmdline.argspec ~prog () in
@@ -198,7 +200,6 @@ read the man page virt-builder(1).
   let cache = !cache in
   let check_signature = !check_signature in
   let curl = !curl in
-  let debug = !debug in
   let delete_on_failure = !delete_on_failure in
   let fingerprints = List.rev !fingerprints in
   let format = match !format with "" -> None | s -> Some s in
@@ -214,6 +215,8 @@ read the man page virt-builder(1).
   let smp = !smp in
   let sources = List.rev !sources in
   let sync = !sync in
+  let trace = !trace in
+  let verbose = !verbose in
 
   (* No arguments and machine-readable mode?  Print some facts. *)
   if args = [] && machine_readable then (
@@ -339,6 +342,7 @@ read the man page virt-builder(1).
     ) in
 
   mode, arg,
-  arch, attach, cache, check_signature, curl, debug,
+  arch, attach, cache, check_signature, curl,
   delete_on_failure, format, gpg, list_format, memsize,
-  network, ops, output, quiet, size, smp, sources, sync
+  network, ops, output, quiet, size, smp, sources, sync,
+  trace, verbose

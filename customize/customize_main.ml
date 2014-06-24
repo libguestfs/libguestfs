@@ -228,7 +228,7 @@ read the man page virt-customize(1).
         ) mps;
 
         (* Do the customization. *)
-        Customize_run.run ~prog ~debug:verbose ~quiet g root ops;
+        Customize_run.run ~prog ~verbose ~quiet g root ops;
 
         g#umount_all ();
     ) roots;

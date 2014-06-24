@@ -586,6 +586,10 @@ Enable debugging messages.
 
 Display version number and exit.
 
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
 =back
 
 =head1 MACHINE READABLE OUTPUT

@@ -109,7 +109,7 @@ let print_entry chan (name, { printable_name = printable_name;
   );
   if hidden then fp "hidden=true\n"
 
-let get_index ~prog ~debug ~downloader ~sigchecker ~proxy source =
+let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
   let corrupt_file () =
     eprintf (f_"\nThe index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.\n")
       source;
@@ -279,7 +279,7 @@ let get_index ~prog ~debug ~downloader ~sigchecker ~proxy source =
           n, entry
       ) sections in
 
-    if debug then (
+    if verbose then (
       eprintf "index file (%s) after parsing (C parser):\n" source;
       List.iter (print_entry Pervasives.stderr) entries
     );

@@ -25,7 +25,7 @@ open Printf
  *
  * Code copied from virt-edit.
  *)
-let rec edit_file ~debug (g : Guestfs.guestfs) file expr =
+let rec edit_file ~verbose (g : Guestfs.guestfs) file expr =
   let file_old = file ^ "~" in
   g#rename file file_old;
 
@@ -34,7 +34,7 @@ let rec edit_file ~debug (g : Guestfs.guestfs) file expr =
   unlink_on_exit tmpfile;
   g#download file_old tmpfile;
 
-  do_perl_edit ~debug g tmpfile expr;
+  do_perl_edit ~verbose g tmpfile expr;
 
   (* Upload the file.  Unlike virt-edit we can afford to fail here
    * so we don't need the temporary upload file.
@@ -45,7 +45,7 @@ let rec edit_file ~debug (g : Guestfs.guestfs) file expr =
   g#copy_attributes ~all:true file_old file;
   g#rm file_old
 
-and do_perl_edit ~debug g file expr =
+and do_perl_edit ~verbose g file expr =
   (* Pass the expression to Perl via the environment.  This sidesteps
    * any quoting problems with the already complex Perl command line.
    *)
@@ -65,7 +65,7 @@ and do_perl_edit ~debug g file expr =
       close STDOUT or die \"close: $!\";
     ' < %s > %s.out" file file in
 
-  if debug then
+  if verbose then
     eprintf "%s\n%!" cmd;
 
   let r = Sys.command cmd in
