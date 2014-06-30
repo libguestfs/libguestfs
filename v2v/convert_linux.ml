@@ -82,11 +82,13 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     | _ -> assert false in
 
 (*
-  let arch = g#inspect_get_arch root
-  and major_version = g#inspect_get_major_version root
+  let arch = g#inspect_get_arch root in
+*)
+  let major_version = g#inspect_get_major_version root
+(*
   and minor_version = g#inspect_get_minor_version root
 *)
-  let package_format = g#inspect_get_package_format root
+  and package_format = g#inspect_get_package_format root
   and package_management = g#inspect_get_package_management root in
 
   assert (package_format = "rpm");
@@ -731,6 +733,8 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     if best_kernel <> List.hd grub_kernels then
       grub_set_bootable best_kernel;
 
+    rebuild_initrd best_kernel;
+
     (* Does the best/bootable kernel support virtio? *)
     best_kernel.ki_supports_virtio
 
@@ -747,6 +751,101 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
               SetGlobals(default, \"$newdefault\");
             " kernel.ki_vmlinuz |] in
     ignore (g#command cmd)
+
+  (* Even though the kernel was already installed (this version of
+   * virt-v2v does not install new kernels), it could have an
+   * initrd that does not have support virtio.  Therefore rebuild
+   * the initrd.
+   *)
+  and rebuild_initrd kernel =
+    match kernel.ki_initrd with
+    | None -> ()
+    | Some initrd ->
+      let virtio = kernel.ki_supports_virtio in
+      let modules =
+        if virtio then
+          (* The order of modules here is deliberately the same as the
+           * order specified in the postinstall script of kmod-virtio in
+           * RHEL3. The reason is that the probing order determines the
+           * major number of vdX block devices. If we change it, RHEL 3
+           * KVM guests won't boot.
+           *)
+          [ "virtio"; "virtio_ring"; "virtio_blk"; "virtio_net";
+            "virtio_pci" ]
+        else
+          [ "sym53c8xx" (* XXX why not "ide"? *) ] in
+
+      (* Move the old initrd file out of the way.  Note that dracut/mkinitrd
+       * will refuse to overwrite an old file so we have to do this.
+       *)
+      g#mv initrd (initrd ^ ".pre-v2v");
+
+      if g#is_file ~followsymlinks:true "/sbin/dracut" then (
+        (* Dracut. *)
+        ignore (
+          g#command [| "/sbin/dracut";
+                       "--add-drivers"; String.concat " " modules;
+                       initrd; kernel.ki_version |]
+        )
+      )
+      else if family = `SUSE_family
+           && g#is_file ~followsymlinks:true "/sbin/mkinitrd" then (
+        ignore (
+          g#command [| "/sbin/mkinitrd";
+                       "-m"; String.concat " " modules;
+                       "-i"; initrd;
+                       "-k"; kernel.ki_vmlinuz |]
+        )
+      )
+      else if g#is_file ~followsymlinks:true "/sbin/mkinitrd" then (
+        let module_args = List.map (sprintf "--with=%s") modules in
+        let args =
+          [ "/sbin/mkinitrd" ] @ module_args @ [ initrd; kernel.ki_version ] in
+
+        (* We explicitly modprobe ext2 here. This is required by
+         * mkinitrd on RHEL 3, and shouldn't hurt on other OSs. We
+         * don't care if this fails.
+         *)
+        (try g#modprobe "ext2" with G.Error _ -> ());
+
+        (* loop is a module in RHEL 5. Try to load it. Doesn't matter
+         * for other OSs if it doesn't exist, but RHEL 5 will complain:
+         *   "All of your loopback devices are in use."
+         *
+         * XXX RHEL 3 unfortunately will give this error anyway.
+         * mkinitrd runs the nash command `findlodev' which is
+         * essentially incompatible with modern kernels that don't
+         * have fixed /dev/loopN devices.
+         *)
+        (try g#modprobe "loop" with G.Error _ -> ());
+
+        (* RHEL 4 mkinitrd determines if the root filesystem is on LVM
+         * by checking if the device name (after following symlinks)
+         * starts with /dev/mapper. However, on recent kernels/udevs,
+         * /dev/mapper/foo is just a symlink to /dev/dm-X. This means
+         * that RHEL 4 mkinitrd running in the appliance fails to
+         * detect root on LVM. We check ourselves if root is on LVM,
+         * and frig RHEL 4's mkinitrd if it is by setting root_lvm=1 in
+         * its environment. This overrides an internal variable in
+         * mkinitrd, and is therefore extremely nasty and applicable
+         * only to a particular version of mkinitrd.
+         *)
+        let env =
+          if family = `RHEL_family && major_version = 4 then
+            Some "root_lvm=1"
+          else
+            None in
+
+        match env with
+        | None -> ignore (g#command (Array.of_list args))
+        | Some env ->
+          let cmd = sprintf "sh -c '%s %s'" env (String.concat " " args) in
+          ignore (g#sh cmd)
+      )
+      else (
+        error (f_"unable to rebuild initrd (%s) because mkinitrd or dracut was not found in the guest")
+          initrd
+      )
 
   (* We configure a console on ttyS0. Make sure existing console
    * references use it.  N.B. Note that the RHEL 6 xen guest kernel
