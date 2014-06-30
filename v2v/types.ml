@@ -38,7 +38,11 @@ type source = {
   s_features : string list;
   s_disks : source_disk list;
 }
-and source_disk = string * string option
+and source_disk = {
+  s_qemu_uri : string;
+  s_format : string option;
+  s_target_dev : string option;
+}
 
 let rec string_of_source s =
   sprintf "\
@@ -58,11 +62,16 @@ s_disks = [%s]
     (String.concat "," s.s_features)
     (String.concat "," (List.map string_of_source_disk s.s_disks))
 
-and string_of_source_disk (path, format) =
-  path ^
-    match format with
+and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
+                            s_target_dev = target_dev } =
+  sprintf "%s%s%s"
+    qemu_uri
+    (match format with
     | None -> ""
-    | Some format -> " (" ^ format ^ ")"
+    | Some format -> " (" ^ format ^ ")")
+    (match target_dev with
+    | None -> ""
+    | Some target_dev -> " [" ^ target_dev ^ "]")
 
 type overlay = {
   ov_overlay : string;

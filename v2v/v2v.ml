@@ -57,7 +57,7 @@ let rec main () =
   msg (f_"Creating an overlay to protect the source from being modified");
   let overlays =
     List.map (
-      fun (qemu_uri, format) ->
+      fun { s_qemu_uri = qemu_uri; s_format = format } ->
         let overlay = Filename.temp_file "v2vovl" ".qcow2" in
         unlink_on_exit overlay;
 

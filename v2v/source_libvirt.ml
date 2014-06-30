@@ -83,7 +83,16 @@ let create_xml ?dir xml =
 
   (* Non-removable disk devices. *)
   let disks =
-    let disks = ref [] in
+    let get_disks, add_disk =
+      let disks = ref [] in
+      let get_disks () = List.rev !disks in
+      let add_disk qemu_uri format target_dev =
+        disks :=
+          { s_qemu_uri = qemu_uri; s_format = format;
+            s_target_dev = target_dev } :: !disks
+      in
+      get_disks, add_disk
+    in
     let obj =
       Xml.xpath_eval_expression xpathctx
         "/domain/devices/disk[@device='disk']" in
@@ -93,6 +102,10 @@ let create_xml ?dir xml =
     for i = 0 to nr_nodes-1 do
       let node = Xml.xpathobj_node doc obj i in
       Xml.xpathctx_set_current_context xpathctx node;
+
+      let target_dev =
+        let target_dev = xpath_to_string "target/@dev" "" in
+        if target_dev <> "" then Some target_dev else None in
 
       let format =
         let format = xpath_to_string "driver[name='qemu']/@type" "" in
@@ -105,11 +118,11 @@ let create_xml ?dir xml =
       | "block" ->
         let path = xpath_to_string "source/@dev" "" in
         if path <> "" then
-          disks := (absolute_path_of_disk path, format) :: !disks
+          add_disk (absolute_path_of_disk path) format target_dev
       | "file" ->
         let path = xpath_to_string "source/@file" "" in
         if path <> "" then
-          disks := (absolute_path_of_disk path, format) :: !disks
+          add_disk (absolute_path_of_disk path) format target_dev
       | "network" ->
         (* We only handle <source protocol="nbd"> here, and that is
          * intended only for virt-p2v.  Any other network disk is
@@ -124,7 +137,7 @@ let create_xml ?dir xml =
              * XXX Quoting, although it's not needed for virt-p2v.
              *)
             let path = sprintf "nbd:%s:%d" host port in
-            disks := (path, format) :: !disks
+            add_disk path format target_dev
           )
         | "" -> ()
         | protocol ->
@@ -134,7 +147,7 @@ let create_xml ?dir xml =
       | disk_type ->
         warning ~prog (f_"<disk type='%s'> was ignored") disk_type
     done;
-    List.rev !disks in
+    get_disks () in
 
   (* XXX Much more metadata needs to be collected here:
    * - graphics

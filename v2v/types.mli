@@ -40,8 +40,12 @@ type source = {
 }
 (** The source: metadata, disk images. *)
 
-and source_disk = string * string option
-(** A source file is a qemu URI and a format. *)
+and source_disk = {
+  s_qemu_uri : string;                  (** QEMU URI of source disk. *)
+  s_format : string option;             (** Format. *)
+  s_target_dev : string option;         (** Target @dev from libvirt XML. *)
+}
+(** A source disk. *)
 
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
