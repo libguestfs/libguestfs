@@ -38,9 +38,11 @@ module G = Guestfs
 type kernel_info = {
   ki_app : G.application2;         (* The RPM package data. *)
   ki_name : string;                (* eg. "kernel-PAE" *)
+  ki_version : string;             (* version-release *)
   ki_arch : string;                (* Kernel architecture. *)
   ki_vmlinuz : string;             (* The path of the vmlinuz file. *)
   ki_vmlinuz_stat : G.stat;        (* stat(2) of vmlinuz *)
+  ki_initrd : string option;       (* Path of initramfs, if found. *)
   ki_modpath : string;             (* The module path. *)
   ki_modules : string list;        (* The list of module names. *)
   ki_supports_virtio : bool;       (* Kernel has virtio drivers? *)
@@ -48,8 +50,9 @@ type kernel_info = {
 }
 
 let string_of_kernel_info ki =
-  sprintf "(%s, %s, %s, virtio=%b, xen=%b)"
-    ki.ki_name ki.ki_arch ki.ki_vmlinuz
+  sprintf "(%s, %s, %s, %s, %s, virtio=%b, xen=%b)"
+    ki.ki_name ki.ki_version ki.ki_arch ki.ki_vmlinuz
+    (match ki.ki_initrd with None -> "None" | Some f -> f)
     ki.ki_supports_virtio ki.ki_is_xen_kernel
 
 (* The conversion function. *)
@@ -140,8 +143,9 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
 
   (* What kernel/kernel-like packages are installed on the current guest? *)
   let installed_kernels : kernel_info list =
-    let rex = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
-    let rex2 = Str.regexp ".*/\\([^/]+\\)\\.k?o\\(\\.xz\\)?$" in
+    let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
+    let rex_ko_extract = Str.regexp ".*/\\([^/]+\\)\\.k?o\\(\\.xz\\)?$" in
+    let rex_initrd = Str.regexp "^initr\\(d\\|amfs\\)-.*\\.img$" in
     filter_map (
       function
       | { G.app2_name = name } as app
@@ -167,13 +171,43 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
            let vmlinuz_stat =
              try g#stat vmlinuz with G.Error _ -> raise Not_found in
 
+           (* Get/construct the version.  XXX Read this from kernel file. *)
+           let version =
+             sprintf "%s-%s" app.G.app2_version app.G.app2_release in
+
+           (* Find the initramfs which corresponds to the kernel.
+            * Since the initramfs is built at runtime, and doesn't have
+            * to be covered by the RPM file list, this is basically
+            * guesswork.
+            *)
+           let initrd =
+             let files = g#ls "/boot" in
+             let files = Array.to_list files in
+             let files =
+               List.filter (fun n -> Str.string_match rex_initrd n 0) files in
+             let files =
+               List.filter (
+                 fun n ->
+                   string_find n app.G.app2_version >= 0 &&
+                   string_find n app.G.app2_release >= 0
+               ) files in
+             match files with
+             | [] ->
+               warning ~prog (f_"no initrd was found in /boot matching %s %s.")
+                 name version;
+               None
+             | [x] -> Some ("/boot/" ^ x)
+             | _ ->
+               error (f_"multiple files in /boot could be the initramfs matching %s %s.  This could be a bug in virt-v2v.")
+                 name version in
+
            (* Get all modules, which might include custom-installed
             * modules that don't appear in 'files' list above.
             *)
            let modules = g#find modpath in
            let modules = Array.to_list modules in
            let modules =
-             List.filter (fun m -> Str.string_match rex m 0) modules in
+             List.filter (fun m -> Str.string_match rex_ko m 0) modules in
            assert (List.length modules > 0);
 
            (* Determine the kernel architecture by looking at the
@@ -186,7 +220,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
            (* Just return the module names, without path or extension. *)
            let modules = filter_map (
              fun m ->
-               if Str.string_match rex2 m 0 then
+               if Str.string_match rex_ko_extract m 0 then
                  Some (Str.matched_group 1 m)
                else
                  None
@@ -199,9 +233,11 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
            Some {
              ki_app  = app;
              ki_name = name;
+             ki_version = version;
              ki_arch = arch;
              ki_vmlinuz = vmlinuz;
              ki_vmlinuz_stat = vmlinuz_stat;
+             ki_initrd = initrd;
              ki_modpath = modpath;
              ki_modules = modules;
              ki_supports_virtio = supports_virtio;
