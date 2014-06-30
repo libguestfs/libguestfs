@@ -1004,6 +1004,137 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
            msg
     )
 
+  and remap_block_devices virtio =
+    (* This function's job is to iterate over boot configuration
+     * files, replacing "hda" with "vda" or whatever is appropriate.
+     * This is mostly applicable to old guests, since newer OSes use
+     * LABEL or UUID where possible.
+     *
+     * The original Convert::Linux::_remap_block_devices function was
+     * very complex indeed.  This drops most of the complexity.  In
+     * particular it assumes all non-removable source disks will be
+     * added to the target in the order they appear in the libvirt XML.
+     *)
+    let block_prefix =
+      match family, major_version with
+      | `RHEL_family, v when v < 5 ->
+        (* RHEL < 5 used old ide driver *) "hd"
+      | `RHEL_family, 5 ->
+        (* RHEL 5 uses libata, but udev still uses: *) "hd"
+      | `SUSE_family, _ ->
+        (* SUSE uses libata, but still presents IDE disks as: *) "hd"
+      | _, _ ->
+        (* All modern distros use libata: *) "sd" in
+    let map =
+      mapi (
+        fun i disk ->
+          let source_dev =
+            match disk.s_target_dev with (* target/@dev in _source_ HV *)
+            | Some dev -> dev
+            | None -> (* ummm, what? *) block_prefix ^ drive_name i in
+          let target_dev = block_prefix ^ drive_name i in
+          source_dev, target_dev
+      ) source.s_disks in
+
+    (* Possible Augeas paths to search for device names. *)
+    let paths = [
+      (* /etc/fstab *)
+      "/files/etc/fstab/*/spec";
+
+      (* grub-legacy config *)
+      "/files" ^ grub_config ^ "/*/kernel/root";
+      "/files" ^ grub_config ^ "/*/kernel/resume";
+      "/files/boot/grub/device.map/*[label() != \"#comment\"]";
+
+      (* grub2 config *)
+      "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
+      "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
+      "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT";
+    ] in
+
+    (* Which of these paths actually exist? *)
+    let paths =
+      List.flatten (List.map Array.to_list (List.map g#aug_match paths)) in
+
+    (* Map device names for each entry. *)
+    let rex_resume = Str.regexp "^\\(.*resume=\\)\\(/dev/[^ ]\\)\\(.*\\)$"
+    and rex_device_cciss_p =
+      Str.regexp "^/dev/\\(cciss/c[0-9]+d[0-9]+\\)p\\([0-9]+\\)$"
+    and rex_device_cciss =
+      Str.regexp "^/dev/\\(cciss/c[0-9]+d[0-9]+\\)$"
+    and rex_device_p =
+      Str.regexp "^/dev/\\([a-z]+\\)\\([0-9]*\\)$"
+    and rex_device =
+      Str.regexp "^/dev/\\([a-z]+\\)$" in
+
+    let rec replace_if_device path value =
+      if Str.string_match rex_device_cciss_p value 0 then (
+        let device = Str.matched_group 1 value
+        and part = Str.matched_group 2 value in
+        "/dev/" ^ replace path device ^ part
+      )
+      else if Str.string_match rex_device_cciss value 0 then (
+        let device = Str.matched_group 1 value in
+        "/dev/" ^ replace path device
+      )
+      else if Str.string_match rex_device_p value 0 then (
+        let device = Str.matched_group 1 value
+        and part = Str.matched_group 2 value in
+        "/dev/" ^ replace path device ^ part
+      )
+      else if Str.string_match rex_device value 0 then (
+        let device = Str.matched_group 1 value in
+        "/dev/" ^ replace path device
+      )
+      else (* doesn't look like a known device name *)
+        value
+
+    and replace path device =
+      try List.assoc device map
+      with Not_found ->
+        if string_find device "md" = -1 && string_find device "fd" = -1 then
+          warning ~prog (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
+            path device;
+        device
+    in
+
+    let changed = ref false in
+    List.iter (
+      fun path ->
+        let value = g#aug_get path in
+
+        let value =
+          (* Handle grub2 resume=<dev> specially. *)
+          if string_find path "GRUB_CMDLINE" >= 0 then (
+            if Str.string_match rex_resume value 0 then (
+              let start = Str.matched_group 1 value
+              and device = Str.matched_group 2 value
+              and end_ = Str.matched_group 3 value in
+              let device = replace_if_device path device in
+              start ^ device ^ end_
+            )
+            else value
+          )
+          else replace_if_device path value in
+
+        g#aug_set path value;
+        changed := true
+    ) paths;
+
+    if !changed then (
+      g#aug_save ();
+
+      (* If it's grub2, we have to regenerate the config files. *)
+      if grub = `Grub2 then
+        ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |]);
+
+      Lib_linux.augeas_reload verbose g
+    );
+
+    (* Delete blkid caches if they exist, since they will refer to the old
+     * device names.  blkid will rebuild these on demand.
+     *)
+    List.iter g#rm_f ["/etc/blkid/blkid.tab"; "/etc/blkid.tab"]
   in
 
   augeas_grub_configuration ();
@@ -1027,12 +1158,13 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     grub_remove_console ();
   );
 
+  (*
+    XXX to do from original v2v:
+    configure display driver
+    configure_kernel_modules  # updates /etc/modules.conf and friends
+  *)
 
-
-
-
-
-
+  remap_block_devices virtio;
 
   let guestcaps = {
     gcaps_block_bus = if virtio then "virtio" else "ide";
