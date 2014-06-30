@@ -131,7 +131,7 @@ let rec main () =
         error (f_"virt-v2v is unable to convert this guest type (linux/distro=%s)") distro
       );
 
-    | "windows" -> Convert_windows.convert verbose g inspect
+    | "windows" -> Convert_windows.convert verbose g inspect source
 
     | typ ->
       error (f_"virt-v2v is unable to convert this guest type (type=%s)") typ in

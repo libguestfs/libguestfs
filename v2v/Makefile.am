@@ -112,6 +112,10 @@ virt_v2v_LINK = \
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 
+# Data directory.
+
+virttoolsdatadir = $(datadir)/virt-tools
+
 # Manual pages and HTML files for the website.
 
 man_MANS = virt-v2v.1

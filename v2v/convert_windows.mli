@@ -16,4 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val convert : bool -> Guestfs.guestfs -> Types.inspect -> Types.guestcaps
+val convert : bool -> Guestfs.guestfs -> Types.inspect -> Types.source -> Types.guestcaps

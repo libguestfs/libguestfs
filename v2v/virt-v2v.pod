@@ -240,14 +240,17 @@ a kernel from the table below:
  SLES 11+       i586: install 'kernel-pae'
                 x86-64: install 'kernel-default'
 
+ Windows        (Does not apply, as there is no Xen PV Windows kernel)
+
 =head1 ENABLING VIRTIO
 
 "Virtio" is the name for a set of drivers which make disk (block
 device), network and other guest operations work much faster on KVM.
 
 Older versions of virt-v2v could install these drivers for certain
-guests.  This version of virt-v2v does I<not> attempt to install these
-drivers, but will warn you if they are not installed already.
+Linux guests.  This version of virt-v2v does I<not> attempt to install
+new Linux kernels or drivers, but will warn you if they are not
+installed already.
 
 In order to enable virtio, and hence improve performance of the guest
 after conversion, you should ensure that the B<minimum> versions of
@@ -273,6 +276,9 @@ below.
  OpenSUSE 11+   All versions support virtio
  
  OpenSUSE 10    kernel >= 2.6.25.5-1.1
+
+ Windows        Drivers are installed from /usr/share/virtio-win
+                if present
 
 =head1 MACHINE READABLE OUTPUT
 
@@ -323,11 +329,25 @@ code if there was a fatal error.
 Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable>
 option at all.  The option was added when virt-v2v was rewritten in 2014.
 
+=head1 FILES
+
+=over 4
+
+=item C</usr/share/virtio-win>
+
+(Optional)
+
+If this directory is present, then virtio drivers for Windows guests
+will be found from this directory and installed in the guest during
+conversion.
+
+=back
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
 
-=item TMPDIR
+=item C<TMPDIR>
 
 Location of the temporary directory used for the potentially large
 temporary overlay file.
@@ -345,6 +365,42 @@ The solution is either to use a real disk, or to increase the maximum
 size of the tmpfs mountpoint, eg:
 
  mount -o remount,size=10G /tmp
+
+=item C<VIRT_TOOLS_DATA_DIR>
+
+This can point to the directory containing data files used for Windows
+conversion.
+
+Normally you do not need to set this.  If not set, a compiled-in
+default will be used (something like C</usr/share/virt-tools>).
+
+This directory may contain the following files:
+
+=over 4
+
+=item C<rhsrvany.exe>
+
+(Required when doing conversions of Windows guests)
+
+This is the RHSrvAny Windows binary, used to install a "firstboot"
+script in the guest during conversion of Windows guests.
+
+See also: C<https://github.com/rwmjones/rhsrvany>
+
+=item C<rhev-apt.exe>
+
+(Optional)
+
+The RHEV Application Provisioning Tool (RHEV APT).  If this file is
+present, then RHEV APT will be installed in the Windows guest during
+conversion.  This tool is a guest agent which ensures that the virtio
+drivers remain up to date when the guest is running on Red Hat
+Enterprise Virtualization (RHEV).
+
+This file comes from Red Hat Enterprise Virtualization (RHEV), and is
+not distributed with virt-v2v.
+
+=back
 
 =back
 
