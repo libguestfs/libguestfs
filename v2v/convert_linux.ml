@@ -704,6 +704,19 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
         (* Re-generate the grub2 config, and put it in the correct place *)
         ignore (g#command [| "grub2-mkconfig"; "-o"; "/boot/grub2/grub.cfg" |])
 
+  and unconfigure_kudzu () =
+    (* Disable kudzu in the guest
+     * Kudzu will detect the changed network hardware at boot time and
+     * either:
+     * - require manual intervention, or
+     * - disable the network interface
+     * Neither of these behaviours is desirable.
+     *)
+    if g#is_file ~followsymlinks:true "/etc/init.d/kudzu"
+      && g#is_file ~followsymlinks:true "/sbin/chkconfig" then (
+        ignore (g#command [| "/sbin/chkconfig"; "kudzu"; "off" |])
+      )
+
   and configure_kernel () =
     (* Previously this function would try to install kernels, but we
      * don't do that any longer.
@@ -1002,6 +1015,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
   unconfigure_vmware ();
   unconfigure_citrix ();
   unconfigure_efi ();
+  unconfigure_kudzu ();
 
   let virtio = configure_kernel () in
 
