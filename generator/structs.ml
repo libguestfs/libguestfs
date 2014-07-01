@@ -382,6 +382,10 @@ let camel_name_of_struct name = (lookup_struct name).s_camel_name
 
 let cols_of_struct name = (lookup_struct name).s_cols
 
-let external_structs = List.filter (fun x -> not x.s_internal) structs
+let compare_structs { s_name = n1 } { s_name = n2 } = compare n1 n2
 
-let internal_structs = List.filter (fun x -> x.s_internal) structs
+let external_structs =
+  List.sort compare_structs (List.filter (fun x -> not x.s_internal) structs)
+
+let internal_structs =
+  List.sort compare_structs (List.filter (fun x -> x.s_internal) structs)
