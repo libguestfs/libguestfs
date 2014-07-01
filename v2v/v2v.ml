@@ -143,7 +143,7 @@ let rec main () =
     List.iter (
       fun (_, mp) ->
         try g#fstrim mp
-        with G.Error msg -> eprintf "%s: %s (ignored)\n" mp msg
+        with G.Error msg -> warning ~prog (f_"%s: %s (ignored)") mp msg
     ) mps in
 
   msg (f_"Closing the overlay");
