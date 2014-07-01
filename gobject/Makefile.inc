@@ -23,26 +23,26 @@ guestfs_gobject_headers= \
   include/guestfs-gobject.h \
   include/guestfs-gobject/session.h \
   include/guestfs-gobject/tristate.h \
-  include/guestfs-gobject/struct-int_bool.h \
-  include/guestfs-gobject/struct-lvm_pv.h \
-  include/guestfs-gobject/struct-lvm_vg.h \
-  include/guestfs-gobject/struct-lvm_lv.h \
-  include/guestfs-gobject/struct-stat.h \
-  include/guestfs-gobject/struct-statvfs.h \
-  include/guestfs-gobject/struct-dirent.h \
-  include/guestfs-gobject/struct-version.h \
-  include/guestfs-gobject/struct-xattr.h \
-  include/guestfs-gobject/struct-inotify_event.h \
-  include/guestfs-gobject/struct-partition.h \
   include/guestfs-gobject/struct-application.h \
   include/guestfs-gobject/struct-application2.h \
-  include/guestfs-gobject/struct-isoinfo.h \
-  include/guestfs-gobject/struct-mdstat.h \
   include/guestfs-gobject/struct-btrfssubvolume.h \
-  include/guestfs-gobject/struct-xfsinfo.h \
-  include/guestfs-gobject/struct-utsname.h \
+  include/guestfs-gobject/struct-dirent.h \
   include/guestfs-gobject/struct-hivex_node.h \
   include/guestfs-gobject/struct-hivex_value.h \
+  include/guestfs-gobject/struct-inotify_event.h \
+  include/guestfs-gobject/struct-int_bool.h \
+  include/guestfs-gobject/struct-isoinfo.h \
+  include/guestfs-gobject/struct-lvm_lv.h \
+  include/guestfs-gobject/struct-lvm_pv.h \
+  include/guestfs-gobject/struct-lvm_vg.h \
+  include/guestfs-gobject/struct-mdstat.h \
+  include/guestfs-gobject/struct-partition.h \
+  include/guestfs-gobject/struct-stat.h \
+  include/guestfs-gobject/struct-statvfs.h \
+  include/guestfs-gobject/struct-utsname.h \
+  include/guestfs-gobject/struct-version.h \
+  include/guestfs-gobject/struct-xattr.h \
+  include/guestfs-gobject/struct-xfsinfo.h \
   include/guestfs-gobject/optargs-add_domain.h \
   include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_drive_scratch.h \
@@ -100,26 +100,26 @@ guestfs_gobject_headers= \
 guestfs_gobject_sources= \
   src/session.c \
   src/tristate.c \
-  src/struct-int_bool.c \
-  src/struct-lvm_pv.c \
-  src/struct-lvm_vg.c \
-  src/struct-lvm_lv.c \
-  src/struct-stat.c \
-  src/struct-statvfs.c \
-  src/struct-dirent.c \
-  src/struct-version.c \
-  src/struct-xattr.c \
-  src/struct-inotify_event.c \
-  src/struct-partition.c \
   src/struct-application.c \
   src/struct-application2.c \
-  src/struct-isoinfo.c \
-  src/struct-mdstat.c \
   src/struct-btrfssubvolume.c \
-  src/struct-xfsinfo.c \
-  src/struct-utsname.c \
+  src/struct-dirent.c \
   src/struct-hivex_node.c \
   src/struct-hivex_value.c \
+  src/struct-inotify_event.c \
+  src/struct-int_bool.c \
+  src/struct-isoinfo.c \
+  src/struct-lvm_lv.c \
+  src/struct-lvm_pv.c \
+  src/struct-lvm_vg.c \
+  src/struct-mdstat.c \
+  src/struct-partition.c \
+  src/struct-stat.c \
+  src/struct-statvfs.c \
+  src/struct-utsname.c \
+  src/struct-version.c \
+  src/struct-xattr.c \
+  src/struct-xfsinfo.c \
   src/optargs-add_domain.c \
   src/optargs-add_drive.c \
   src/optargs-add_drive_scratch.c \
