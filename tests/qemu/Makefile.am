@@ -23,7 +23,8 @@ include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
 	qemu-liveness.sh \
-	qemu-snapshot-isolation.sh
+	qemu-snapshot-isolation.sh \
+	qemu-force-tcg.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
