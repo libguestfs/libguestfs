@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-06-23 22:16+0100\n"
+"POT-Creation-Date: 2014-07-02 13:52+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam (http://www.transifex.com/projects/p/fedora/"
@@ -45,21 +45,21 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:863
+#: ../resize/resize.ml:867
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:848 ../resize/resize.ml:829
+#: ../resize/resize.ml:852 ../resize/resize.ml:833
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:865
+#: ../resize/resize.ml:869
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:867
+#: ../resize/resize.ml:871
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -69,11 +69,21 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
+#: ../v2v/convert_linux.ml:1096
+msgid ""
+"%s references unknown device \"%s\".  You may have to fix this entry "
+"manually after conversion."
+msgstr ""
+
 #: ../customize/customize_main.ml:249
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:334 ../builder/builder.ml:661
+#: ../v2v/v2v.ml:146
+msgid "%s: %s (ignored)"
+msgstr ""
+
+#: ../customize/customize_run.ml:334 ../builder/builder.ml:662
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -121,13 +131,13 @@ msgstr ""
 msgid "%s: ... read %d sources\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:204
+#: ../mllib/common_utils.ml:220
 msgid ""
-"%s: If reporting bugs, run %s with debugging enabled (-v) and include the "
+"%s: If reporting bugs, run %s with debugging enabled (-v -x) and include the "
 "complete output."
 msgstr ""
 
-#: ../resize/resize.ml:656
+#: ../resize/resize.ml:660
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -136,11 +146,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:845
+#: ../resize/resize.ml:849
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: ../resize/resize.ml:652
+#: ../resize/resize.ml:656
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -149,7 +159,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:648
+#: ../resize/resize.ml:652
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -158,7 +168,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:645
+#: ../resize/resize.ml:649
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -166,25 +176,25 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:822
+#: ../resize/resize.ml:826
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:824
+#: ../resize/resize.ml:828
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:820
+#: ../resize/resize.ml:824
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:826
+#: ../resize/resize.ml:830
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
-#: ../builder/cmdline.ml:176
+#: ../builder/cmdline.ml:178
 msgid ""
 "%s: build virtual machine images quickly\n"
 "\n"
@@ -200,13 +210,13 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../builder/builder.ml:248
+#: ../builder/builder.ml:249
 msgid ""
 "%s: cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types.\n"
 msgstr ""
 
-#: ../builder/builder.ml:333
+#: ../builder/builder.ml:334
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
@@ -236,7 +246,7 @@ msgstr ""
 msgid "%s: curl (download) command failed downloading '%s'\n"
 msgstr ""
 
-#: ../builder/builder.ml:135
+#: ../builder/builder.ml:136
 msgid "%s: curl is not installed (or does not work)\n"
 msgstr ""
 
@@ -252,11 +262,11 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:155
+#: ../resize/resize.ml:154
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../mllib/common_utils.ml:200
+#: ../mllib/common_utils.ml:216
 msgid "%s: error: %s"
 msgstr ""
 
@@ -268,17 +278,17 @@ msgstr ""
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#. ../builder/builder.ml:742
-#: ../v2v/v2v.ml:347 ../sparsify/sparsify.ml:52 ../resize/resize.ml:1303
+#. ../builder/builder.ml:743
+#: ../v2v/v2v.ml:347 ../sparsify/sparsify.ml:52 ../resize/resize.ml:1308
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#. ../builder/builder.ml:745
-#: ../v2v/v2v.ml:350 ../sparsify/sparsify.ml:55 ../resize/resize.ml:1306
+#. ../builder/builder.ml:746
+#: ../v2v/v2v.ml:350 ../sparsify/sparsify.ml:55 ../resize/resize.ml:1311
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
-#: ../builder/builder.ml:110
+#: ../builder/builder.ml:111
 msgid "%s: error: could not find cache directory. Is $HOME set?\n"
 msgstr ""
 
@@ -288,13 +298,13 @@ msgid ""
 "user '%s' twice.\n"
 msgstr ""
 
-#: ../builder/builder.ml:211
+#: ../builder/builder.ml:212
 msgid "%s: error: no cache directory\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:262
-#. ../builder/builder.ml:763
-#: ../v2v/v2v.ml:372 ../sparsify/sparsify.ml:74 ../resize/resize.ml:1325
+#. ../builder/builder.ml:764
+#: ../v2v/v2v.ml:372 ../sparsify/sparsify.ml:74 ../resize/resize.ml:1330
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -302,8 +312,8 @@ msgstr ""
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
-#. ../builder/builder.ml:751
-#: ../v2v/v2v.ml:360 ../sparsify/sparsify.ml:62 ../resize/resize.ml:1313
+#. ../builder/builder.ml:752
+#: ../v2v/v2v.ml:360 ../sparsify/sparsify.ml:62 ../resize/resize.ml:1318
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -311,42 +321,42 @@ msgstr ""
 msgid "%s: file error: %s: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:388 ../resize/resize.ml:385
+#: ../resize/resize.ml:392 ../resize/resize.ml:389
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: ../builder/builder.ml:125
+#: ../builder/builder.ml:126
 msgid ""
 "%s: gpg is not installed (or does not work)\n"
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:360
+#: ../builder/builder.ml:361
 msgid ""
 "%s: images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:259
-#. ../builder/builder.ml:760
-#: ../v2v/v2v.ml:369 ../sparsify/sparsify.ml:71 ../resize/resize.ml:1322
+#. ../builder/builder.ml:761
+#: ../v2v/v2v.ml:369 ../sparsify/sparsify.ml:71 ../resize/resize.ml:1327
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:255
-#. ../builder/builder.ml:757
-#: ../v2v/v2v.ml:366 ../sparsify/sparsify.ml:68 ../resize/resize.ml:1319
+#. ../builder/builder.ml:758
+#: ../v2v/v2v.ml:366 ../sparsify/sparsify.ml:68 ../resize/resize.ml:1324
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:135
-#. ../builder/builder.ml:754
-#: ../v2v/v2v.ml:363 ../sparsify/sparsify.ml:65 ../resize/resize.ml:1316
+#. ../builder/builder.ml:755
+#: ../v2v/v2v.ml:363 ../sparsify/sparsify.ml:65 ../resize/resize.ml:1321
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:81
+#: ../builder/cmdline.ml:80
 msgid "%s: invalid --list-format type '%s', see the man page.\n"
 msgstr ""
 
@@ -358,8 +368,8 @@ msgstr ""
 msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
-#. ../builder/builder.ml:748
-#: ../v2v/v2v.ml:357 ../sparsify/sparsify.ml:59 ../resize/resize.ml:1310
+#. ../builder/builder.ml:749
+#: ../v2v/v2v.ml:357 ../sparsify/sparsify.ml:59 ../resize/resize.ml:1315
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
@@ -367,18 +377,18 @@ msgstr ""
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
-#: ../resize/resize.ml:803
+#: ../resize/resize.ml:807
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:674
+#: ../resize/resize.ml:678
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:683
+#: ../resize/resize.ml:687
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
@@ -386,7 +396,7 @@ msgstr ""
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
-#: ../builder/builder.ml:665
+#: ../builder/builder.ml:666
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -396,39 +406,39 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
-#: ../builder/builder.ml:485
+#: ../builder/builder.ml:486
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
 "Please file a bug, giving the command line arguments you used.\n"
 msgstr ""
 
-#: ../builder/builder.ml:365
+#: ../builder/builder.ml:366
 msgid ""
 "%s: output size is too large for this block device.  Requested size = %s, "
 "output block device = %s, output block device size = %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:596
+#: ../resize/resize.ml:600
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:592
+#: ../resize/resize.ml:596
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:588
+#: ../resize/resize.ml:592
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:499
+#: ../resize/resize.ml:503
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:494
+#: ../resize/resize.ml:498
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
@@ -438,7 +448,7 @@ msgid ""
 "\"sha512\".\n"
 msgstr ""
 
-#: ../resize/resize.ml:414
+#: ../resize/resize.ml:418
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
@@ -454,7 +464,7 @@ msgid ""
 "read the man page virt-sysprep(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:218
+#: ../resize/resize.ml:220
 msgid ""
 "%s: resize a virtual machine disk\n"
 "\n"
@@ -462,7 +472,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:321
+#: ../builder/cmdline.ml:324
 msgid ""
 "%s: sorry, cannot run commands on a guest with a different architecture\n"
 msgstr ""
@@ -477,7 +487,7 @@ msgid ""
 "%s: sorry, don't know how to use --update with the '%s' package manager\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:297
+#: ../builder/cmdline.ml:300
 msgid "%s: source and fingerprint lists are not the same length\n"
 msgstr ""
 
@@ -493,15 +503,15 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:630
+#: ../resize/resize.ml:634
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:626
+#: ../resize/resize.ml:630
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:509
+#: ../resize/resize.ml:513
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
@@ -515,53 +525,53 @@ msgid ""
 "messages\n"
 msgstr ""
 
-#: ../resize/resize.ml:400
+#: ../resize/resize.ml:404
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../builder/cmdline.ml:265
+#: ../builder/cmdline.ml:268
 msgid ""
 "%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
 "need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:272
+#: ../builder/cmdline.ml:275
 msgid ""
 "%s: virt-builder --get-kernel image\n"
 "Missing 'image' (disk image file) argument.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:275
+#: ../builder/cmdline.ml:278
 msgid "%s: virt-builder --get-kernel: too many parameters\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:246
+#: ../builder/cmdline.ml:249
 msgid "%s: virt-builder --list does not need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:253
+#: ../builder/cmdline.ml:256
 msgid ""
 "%s: virt-builder --notes os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:236
+#: ../builder/cmdline.ml:239
 msgid ""
 "%s: virt-builder os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:256 ../builder/cmdline.ml:239
+#: ../builder/cmdline.ml:259 ../builder/cmdline.ml:242
 msgid "%s: virt-builder: too many parameters, expecting 'os-version'\n"
 msgstr ""
 
-#: ../builder/builder.ml:142
+#: ../builder/builder.ml:143
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:213
+#: ../mllib/common_utils.ml:229
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -591,11 +601,11 @@ msgid ""
 "convert qcow2."
 msgstr ""
 
-#: ../resize/resize.ml:156
+#: ../resize/resize.ml:155
 msgid "--expand option given twice"
 msgstr ""
 
-#: ../resize/resize.ml:173
+#: ../resize/resize.ml:172
 msgid "--shrink option given twice"
 msgstr ""
 
@@ -619,7 +629,7 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/source_libvirt.ml:135
+#: ../v2v/source_libvirt.ml:148
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
@@ -645,7 +655,7 @@ msgstr ""
 msgid "Aliases:"
 msgstr ""
 
-#: ../resize/resize.ml:180
+#: ../resize/resize.ml:181
 msgid "Align first partition (default: auto)"
 msgstr ""
 
@@ -653,7 +663,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../customize/customize_main.ml:77 ../builder/cmdline.ml:107
+#: ../customize/customize_main.ml:77 ../builder/cmdline.ml:108
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
@@ -673,7 +683,7 @@ msgstr ""
 msgid "Changing permissions of %s to %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:117 ../builder/cmdline.ml:115
+#: ../builder/cmdline.ml:118 ../builder/cmdline.ml:116
 msgid "Check digital signatures"
 msgstr ""
 
@@ -695,7 +705,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../builder/builder.ml:613
+#: ../builder/builder.ml:614
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -713,11 +723,11 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:544
+#: ../builder/builder.ml:545
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1105
+#: ../resize/resize.ml:1109
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -790,7 +800,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../v2v/cmdline.ml:83 ../sparsify/cmdline.ml:73 ../resize/resize.ml:185
+#: ../v2v/cmdline.ml:83 ../sparsify/cmdline.ml:73 ../resize/resize.ml:186
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -802,11 +812,11 @@ msgstr ""
 msgid "Delete a file or directory"
 msgstr ""
 
-#: ../resize/resize.ml:186
+#: ../resize/resize.ml:187
 msgid "Delete partition"
 msgstr ""
 
-#: ../builder/cmdline.ml:124
+#: ../builder/cmdline.ml:125
 msgid "Delete the template cache"
 msgstr ""
 
@@ -814,15 +824,15 @@ msgstr ""
 msgid "Deleting: %s"
 msgstr ""
 
-#: ../customize/customize_main.ml:93 ../builder/cmdline.ml:143
+#: ../customize/customize_main.ml:93 ../builder/cmdline.ml:144
 msgid "Disable appliance network"
 msgstr ""
 
-#: ../builder/cmdline.ml:121 ../builder/cmdline.ml:119
+#: ../builder/cmdline.ml:122 ../builder/cmdline.ml:120
 msgid "Disable digital signatures"
 msgstr ""
 
-#: ../builder/cmdline.ml:111
+#: ../builder/cmdline.ml:112
 msgid "Disable template cache"
 msgstr ""
 
@@ -832,41 +842,41 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:144
+#: ../builder/cmdline.ml:145
 msgid "Display installation notes"
 msgstr ""
 
 #. ../sparsify/cmdline.ml:86
-#. ../resize/resize.ml:211
+#. ../resize/resize.ml:212
 #. ../customize/customize_main.ml:100
 #. ../customize/customize_main.ml:99
+#. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#. ../builder/cmdline.ml:156
 #: ../v2v/cmdline.ml:99 ../sysprep/main.ml:155 ../sysprep/main.ml:154
 msgid "Display version and exit"
 msgstr ""
 
-#: ../builder/cmdline.ml:153
+#: ../builder/cmdline.ml:154
 msgid "Do not fsync output file on exit"
 msgstr ""
 
-#: ../resize/resize.ml:182
+#: ../resize/resize.ml:183
 msgid "Don't copy boot loader"
 msgstr ""
 
-#: ../resize/resize.ml:189
+#: ../resize/resize.ml:190
 msgid "Don't create extra partition"
 msgstr ""
 
-#: ../builder/cmdline.ml:126
+#: ../builder/cmdline.ml:127
 msgid "Don't delete output file on failure"
 msgstr ""
 
-#: ../resize/resize.ml:188
+#: ../resize/resize.ml:189
 msgid "Don't expand content"
 msgstr ""
 
-#: ../resize/resize.ml:198
+#: ../resize/resize.ml:199
 msgid "Don't perform changes"
 msgstr ""
 
@@ -876,11 +886,11 @@ msgstr ""
 msgid "Don't print log messages"
 msgstr ""
 
-#: ../resize/resize.ml:203
+#: ../resize/resize.ml:204
 msgid "Don't print the summary"
 msgstr ""
 
-#: ../builder/cmdline.ml:113
+#: ../builder/cmdline.ml:114
 msgid "Download all templates to the cache"
 msgstr ""
 
@@ -888,7 +898,7 @@ msgstr ""
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:278 ../builder/builder.ml:219
+#: ../builder/builder.ml:279 ../builder/builder.ml:220
 msgid "Downloading: %s"
 msgstr ""
 
@@ -908,17 +918,17 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../customize/customize_main.ml:92 ../builder/cmdline.ml:142
+#: ../customize/customize_main.ml:92 ../builder/cmdline.ml:143
 msgid "Enable appliance network (default)"
 msgstr ""
 
 #. ../sparsify/cmdline.ml:84
-#. ../resize/resize.ml:209
-#. ../resize/resize.ml:183
+#. ../resize/resize.ml:210
+#. ../resize/resize.ml:184
 #. ../customize/customize_main.ml:98
 #. ../customize/customize_main.ml:97
+#. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#. ../builder/cmdline.ml:154
 #: ../v2v/cmdline.ml:97 ../sysprep/main.ml:153 ../sysprep/main.ml:152
 msgid "Enable debugging messages"
 msgstr ""
@@ -927,7 +937,9 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
+#. ../resize/resize.ml:214
 #. ../customize/customize_main.ml:101
+#. ../builder/cmdline.ml:159
 #: ../v2v/cmdline.ml:101 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
@@ -950,7 +962,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:348
+#: ../resize/resize.ml:352
 msgid ""
 "Examining %s ...\n"
 "%!"
@@ -960,21 +972,21 @@ msgstr ""
 msgid "Examining the guest ..."
 msgstr ""
 
-#: ../resize/resize.ml:193
+#: ../resize/resize.ml:194
 msgid "Expand logical volume"
 msgstr ""
 
-#: ../resize/resize.ml:187
+#: ../resize/resize.ml:188
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1266
+#: ../resize/resize.ml:1271
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1247
+#: ../resize/resize.ml:1252
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -996,7 +1008,7 @@ msgstr ""
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../resize/resize.ml:922
+#: ../resize/resize.ml:926
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -1016,7 +1028,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:128
+#: ../builder/cmdline.ml:129
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
@@ -1025,11 +1037,11 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #: ../v2v/v2v.ml:213 ../customize/customize_main.ml:237
-#: ../builder/builder.ml:710
+#: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1166
+#: ../resize/resize.ml:1170
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -1046,19 +1058,19 @@ msgid ""
 "this is removed from C<ifcfg-*> files."
 msgstr ""
 
-#: ../resize/resize.ml:201
+#: ../resize/resize.ml:202
 msgid "Force ntfsresize"
 msgstr ""
 
-#: ../resize/resize.ml:206
+#: ../resize/resize.ml:207
 msgid "Forcefully resize partition"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:74 ../resize/resize.ml:190
+#: ../sparsify/cmdline.ml:74 ../resize/resize.ml:191
 msgid "Format of input disk"
 msgstr ""
 
-#: ../resize/resize.ml:202
+#: ../resize/resize.ml:203
 msgid "Format of output disk"
 msgstr ""
 
@@ -1066,7 +1078,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:700
+#: ../builder/builder.ml:701
 msgid "Free space"
 msgstr ""
 
@@ -1074,7 +1086,7 @@ msgstr ""
 msgid "Full name:"
 msgstr ""
 
-#: ../builder/cmdline.ml:131
+#: ../builder/cmdline.ml:132
 msgid "Get kernel from image"
 msgstr ""
 
@@ -1090,7 +1102,7 @@ msgstr ""
 msgid "Ignore filesystem"
 msgstr ""
 
-#: ../resize/resize.ml:191
+#: ../resize/resize.ml:192
 msgid "Ignore partition"
 msgstr ""
 
@@ -1132,13 +1144,13 @@ msgstr ""
 msgid "Linking: %s -> %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:134 ../builder/cmdline.ml:133
+#: ../builder/cmdline.ml:135 ../builder/cmdline.ml:134
 msgid "List available templates"
 msgstr ""
 
-#. ../resize/resize.ml:192
+#. ../resize/resize.ml:193
 #. ../customize/customize_main.ml:89
-#. ../builder/cmdline.ml:138
+#. ../builder/cmdline.ml:139
 #: ../v2v/cmdline.ml:86 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:78
 msgid "List long options"
 msgstr ""
@@ -1147,8 +1159,8 @@ msgstr ""
 msgid "List supported operations"
 msgstr ""
 
-#. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:87 ../sparsify/cmdline.ml:79 ../resize/resize.ml:197
+#. ../builder/cmdline.ml:140
+#: ../v2v/cmdline.ml:87 ../sparsify/cmdline.ml:79 ../resize/resize.ml:198
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1168,7 +1180,7 @@ msgstr ""
 msgid "Mount point on host"
 msgstr ""
 
-#: ../builder/cmdline.ml:149
+#: ../builder/cmdline.ml:150
 msgid "No progress messages"
 msgstr ""
 
@@ -1209,7 +1221,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:626
+#: ../builder/builder.ml:627
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1217,19 +1229,19 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:696
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:697
+#: ../builder/builder.ml:698
 msgid "Output format"
 msgstr ""
 
-#: ../builder/cmdline.ml:129
+#: ../builder/cmdline.ml:130
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../builder/builder.ml:696
+#: ../builder/builder.ml:697
 msgid "Output size"
 msgstr ""
 
@@ -1252,11 +1264,11 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr ""
 
-#: ../builder/builder.ml:480
+#: ../builder/builder.ml:481
 msgid "Planning how to build this image"
 msgstr ""
 
-#: ../builder/cmdline.ml:148
+#: ../builder/cmdline.ml:149
 msgid "Print info about template cache"
 msgstr ""
 
@@ -1457,21 +1469,21 @@ msgstr ""
 msgid "Rename guest when converting"
 msgstr ""
 
-#: ../resize/resize.ml:1293
+#: ../resize/resize.ml:1298
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
 msgstr ""
 
-#: ../resize/resize.ml:205
+#: ../resize/resize.ml:206
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:571
+#: ../builder/builder.ml:572
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:600
+#: ../builder/builder.ml:601
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -1541,15 +1553,15 @@ msgstr ""
 msgid "Scrubbing: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:132
+#: ../builder/cmdline.ml:133
 msgid "Set GPG binary/command"
 msgstr ""
 
-#: ../customize/customize_main.ml:79 ../builder/cmdline.ml:109
+#: ../customize/customize_main.ml:79 ../builder/cmdline.ml:110
 msgid "Set attach disk format"
 msgstr ""
 
-#: ../builder/cmdline.ml:122
+#: ../builder/cmdline.ml:123
 msgid "Set curl binary/command"
 msgstr ""
 
@@ -1573,8 +1585,8 @@ msgstr ""
 msgid "Set libvirt guest name"
 msgstr ""
 
+#. ../builder/cmdline.ml:142
 #. ../builder/cmdline.ml:141
-#. ../builder/cmdline.ml:140
 #: ../customize/customize_main.ml:91 ../customize/customize_main.ml:90
 msgid "Set memory size"
 msgstr ""
@@ -1583,7 +1595,7 @@ msgstr ""
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
-#: ../customize/customize_main.ml:96 ../builder/cmdline.ml:151
+#: ../customize/customize_main.ml:96 ../builder/cmdline.ml:152
 msgid "Set number of vCPUs"
 msgstr ""
 
@@ -1591,11 +1603,11 @@ msgstr ""
 msgid "Set output allocation mode"
 msgstr ""
 
-#: ../builder/cmdline.ml:150
+#: ../builder/cmdline.ml:151
 msgid "Set output disk size"
 msgstr ""
 
-#: ../builder/cmdline.ml:146 ../builder/cmdline.ml:145
+#: ../builder/cmdline.ml:147 ../builder/cmdline.ml:146
 msgid "Set output filename"
 msgstr ""
 
@@ -1611,7 +1623,7 @@ msgstr ""
 msgid "Set output storage location"
 msgstr ""
 
-#: ../resize/resize.ml:181
+#: ../resize/resize.ml:182
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
@@ -1623,11 +1635,11 @@ msgstr ""
 msgid "Set root password"
 msgstr ""
 
-#: ../builder/cmdline.ml:152
+#: ../builder/cmdline.ml:153
 msgid "Set source URL"
 msgstr ""
 
-#: ../builder/cmdline.ml:110
+#: ../builder/cmdline.ml:111
 msgid "Set template cache dir"
 msgstr ""
 
@@ -1639,7 +1651,7 @@ msgstr ""
 msgid "Set the default timezone"
 msgstr ""
 
-#: ../builder/cmdline.ml:137
+#: ../builder/cmdline.ml:138
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
@@ -1647,7 +1659,7 @@ msgstr ""
 msgid "Set the hostname"
 msgstr ""
 
-#: ../builder/cmdline.ml:106
+#: ../builder/cmdline.ml:107
 msgid "Set the output architecture"
 msgstr ""
 
@@ -1677,17 +1689,17 @@ msgstr ""
 msgid "Setting the timezone: %s"
 msgstr ""
 
-#: ../resize/resize.ml:901
+#: ../resize/resize.ml:905
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
 msgstr ""
 
-#: ../builder/cmdline.ml:135
+#: ../builder/cmdline.ml:136
 msgid "Shortcut for --list-format short"
 msgstr ""
 
-#: ../resize/resize.ml:207
+#: ../resize/resize.ml:208
 msgid "Shrink partition"
 msgstr ""
 
@@ -1790,17 +1802,17 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../builder/builder.ml:262
+#: ../builder/builder.ml:263
 msgid "There are no notes for %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:788
+#: ../resize/resize.ml:792
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../resize/resize.ml:860
+#: ../resize/resize.ml:864
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -1824,7 +1836,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:698
+#: ../builder/builder.ml:699
 msgid "Total usable space"
 msgstr ""
 
@@ -1838,7 +1850,7 @@ msgstr ""
 msgid "Trimming filesystems to reduce amount of data to copy"
 msgstr ""
 
-#: ../resize/resize.ml:208
+#: ../resize/resize.ml:209
 msgid "Turn off sparse copying"
 msgstr ""
 
@@ -1846,7 +1858,7 @@ msgstr ""
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../builder/builder.ml:559
+#: ../builder/builder.ml:560
 msgid "Uncompressing"
 msgstr ""
 
@@ -1866,13 +1878,13 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:287
+#: ../v2v/convert_linux.ml:615
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:202
+#: ../v2v/convert_linux.ml:530
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -1886,13 +1898,13 @@ msgstr ""
 msgid "Writing: %s"
 msgstr ""
 
-#: ../resize/resize.ml:759
+#: ../resize/resize.ml:763
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:771
+#: ../resize/resize.ml:775
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -1914,7 +1926,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:256
+#: ../resize/resize.ml:259
 msgid "alignment cannot be < 1"
 msgstr ""
 
@@ -1926,7 +1938,7 @@ msgstr ""
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
-#: ../builder/builder.ml:153
+#: ../builder/builder.ml:154
 msgid "cache %s: %s"
 msgstr ""
 
@@ -1942,18 +1954,6 @@ msgstr ""
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:391
-msgid ""
-"cannot enable virtio in this guest.\n"
-"To enable virtio you need to install a kernel >= %s-%s and run %s again."
-msgstr ""
-
-#: ../v2v/convert_linux.ml:411
-msgid ""
-"cannot enable virtio in this guest.\n"
-"To enable virtio you need to upgrade %s >= %s-%s and run %s again."
-msgstr ""
-
 #: ../sysprep/sysprep_operation_fs_uuids.ml:42
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
@@ -1962,7 +1962,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/convert_linux_grub.ml:276
+#: ../v2v/convert_linux.ml:1003
 msgid "could not update grub2 console: %s (ignored)"
 msgstr ""
 
@@ -1970,7 +1970,7 @@ msgstr ""
 msgid "dir"
 msgstr ""
 
-#: ../builder/builder.ml:154
+#: ../builder/builder.ml:155
 msgid "disabling the cache"
 msgstr ""
 
@@ -1991,18 +1991,12 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/lib_linux.ml:149
+#: ../v2v/lib_linux.ml:151
 msgid "don't know how to find file owner using %s"
 msgstr ""
 
-#: ../v2v/lib_linux.ml:128
+#: ../v2v/lib_linux.ml:130
 msgid "don't know how to get list of files from package using %s"
-msgstr ""
-
-#: ../v2v/convert_linux.ml:379
-msgid ""
-"don't know how to install virtio drivers for %s %d\n"
-"%!"
 msgstr ""
 
 #: ../v2v/lib_linux.ml:115
@@ -2015,11 +2009,11 @@ msgid ""
 "that contains the main operating system from the list below:\n"
 msgstr ""
 
-#: ../resize/resize.ml:172
+#: ../resize/resize.ml:171
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../resize/resize.ml:307
+#: ../resize/resize.ml:310
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
@@ -2035,15 +2029,15 @@ msgstr ""
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:388
+#: ../mllib/common_utils.ml:404
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:390
+#: ../mllib/common_utils.ml:406
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:392
+#: ../mllib/common_utils.ml:408
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2061,7 +2055,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../resize/resize.ml:1163
+#: ../resize/resize.ml:1167
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
@@ -2069,8 +2063,8 @@ msgstr ""
 msgid "firstboot: failed: "
 msgstr ""
 
-#. ../resize/resize.ml:202
-#. ../resize/resize.ml:190
+#. ../resize/resize.ml:203
+#. ../resize/resize.ml:191
 #. ../customize/customize_main.ml:88
 #: ../sysprep/main.ml:144 ../sparsify/cmdline.ml:74 ../sparsify/cmdline.ml:72
 msgid "format"
@@ -2080,7 +2074,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../builder/builder.ml:129
+#: ../builder/builder.ml:130
 msgid "gpg program is not available"
 msgstr ""
 
@@ -2099,8 +2093,8 @@ msgstr ""
 msgid "libvirt returned a non-absolute path in the XML (%s)"
 msgstr ""
 
-#. ../resize/resize.ml:193
-#: ../resize/resize.ml:196 ../resize/resize.ml:195 ../resize/resize.ml:194
+#. ../resize/resize.ml:194
+#: ../resize/resize.ml:197 ../resize/resize.ml:196 ../resize/resize.ml:195
 msgid "lv"
 msgstr ""
 
@@ -2110,31 +2104,45 @@ msgid ""
 "option to change how virt-v2v handles this."
 msgstr ""
 
-#: ../v2v/source_libvirt.ml:131
+#: ../v2v/convert_linux.ml:203
+msgid ""
+"multiple files in /boot could be the initramfs matching %s %s.  This could "
+"be a bug in virt-v2v."
+msgstr ""
+
+#: ../v2v/source_libvirt.ml:144
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../resize/resize.ml:180
+#: ../resize/resize.ml:181
 msgid "never|always|auto"
 msgstr ""
 
-#: ../builder/builder.ml:204
+#: ../builder/builder.ml:205
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:79
+#: ../v2v/convert_linux.ml:108
+msgid "no grub1/grub-legacy or grub2 configuration file was found"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:198
+msgid "no initrd was found in /boot matching %s %s."
+msgstr ""
+
+#: ../v2v/convert_linux.ml:264
 msgid ""
-"no grub configuration found in this guest.\n"
-"Grub2 error was: %s\n"
-"Grub1/grub-legacy error was: %s"
+"no installed kernel packages were found.\n"
+"\n"
+"This probably indicates that %s was unable to inspect this guest properly."
 msgstr ""
 
-#: ../v2v/convert_linux_grub.ml:188
-msgid "no grub/grub1/grub-legacy configuration file was found"
-msgstr ""
-
-#: ../v2v/convert_linux_grub.ml:289
-msgid "no grub2 configuration file was found (expecting %s)"
+#: ../v2v/convert_linux.ml:375
+msgid ""
+"no kernels were found in the grub configuration.\n"
+"\n"
+"This probably indicates that %s was unable to parse the grub configuration "
+"of this guest."
 msgstr ""
 
 #: ../v2v/v2v.ml:269
@@ -2143,6 +2151,14 @@ msgstr ""
 
 #: ../resize/resize.ml:129
 msgid "ntfsresize"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:730
+msgid ""
+"only Xen kernels are installed in this guest.\n"
+"\n"
+"Read the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what "
+"to do."
 msgstr ""
 
 #: ../sysprep/main.ml:143
@@ -2165,12 +2181,12 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#. ../resize/resize.ml:186
-#: ../resize/resize.ml:207 ../resize/resize.ml:191 ../resize/resize.ml:187
+#. ../resize/resize.ml:187
+#: ../resize/resize.ml:208 ../resize/resize.ml:192 ../resize/resize.ml:188
 msgid "part"
 msgstr ""
 
-#: ../resize/resize.ml:206 ../resize/resize.ml:205
+#: ../resize/resize.ml:207 ../resize/resize.ml:206
 msgid "part=size"
 msgstr ""
 
@@ -2185,7 +2201,7 @@ msgstr ""
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
-#: ../resize/resize.ml:958 ../resize/resize.ml:934
+#: ../resize/resize.ml:962 ../resize/resize.ml:938
 msgid "pread-device: short read"
 msgstr ""
 
@@ -2221,7 +2237,7 @@ msgstr ""
 msgid "script failed"
 msgstr ""
 
-#: ../resize/resize.ml:181
+#: ../resize/resize.ml:182
 msgid "sectors"
 msgstr ""
 
@@ -2248,11 +2264,11 @@ msgstr ""
 msgid "sysprep operation failed: internal error: invalid argument: %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:440
+#: ../resize/resize.ml:444
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../v2v/source_libvirt.ml:92
+#: ../v2v/source_libvirt.ml:101
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -2260,17 +2276,13 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:482
-msgid "tried to install '%s', but no kernel package was installed"
-msgstr ""
-
-#: ../v2v/convert_linux.ml:484
+#: ../v2v/convert_linux.ml:859
 msgid ""
-"tried to install '%s', but there are now fewer directories under /lib/"
-"modules!"
+"unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
+"the guest"
 msgstr ""
 
-#: ../resize/resize.ml:265
+#: ../resize/resize.ml:268
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
@@ -2296,7 +2308,7 @@ msgstr ""
 msgid "uri"
 msgstr ""
 
-#: ../resize/resize.ml:295
+#: ../resize/resize.ml:298
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
@@ -2385,13 +2397,13 @@ msgid ""
 "you are susceptible to man-in-the-middle attacks.\n"
 msgstr ""
 
-#: ../builder/get_kernel.ml:41
+#: ../builder/get_kernel.ml:42
 msgid ""
 "virt-builder: get-kernel: dual/multi-boot images are not supported by this "
 "tool\n"
 msgstr ""
 
-#: ../builder/get_kernel.ml:37
+#: ../builder/get_kernel.ml:38
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr ""
 
@@ -2424,7 +2436,7 @@ msgstr ""
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/get_kernel.ml:72
+#: ../builder/get_kernel.ml:73
 msgid "virt-builder: no kernel found\n"
 msgstr ""
 
@@ -2493,10 +2505,6 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (type=%s)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:440
-msgid "virtio configured, but no virtio kernel found"
-msgstr ""
-
 #: ../sparsify/cmdline.ml:183
 msgid "you cannot use --in-place and --check-tmpdir options together"
 msgstr ""
@@ -2517,11 +2525,11 @@ msgstr ""
 msgid "you cannot use --in-place and -o options together"
 msgstr ""
 
-#: ../resize/resize.ml:747
+#: ../resize/resize.ml:751
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:157 ../resize/resize.ml:301
+#: ../sparsify/cmdline.ml:157 ../resize/resize.ml:304
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
