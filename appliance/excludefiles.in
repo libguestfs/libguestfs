@@ -28,6 +28,13 @@ dnl The right kernel modules are added back by supermin.
 -/usr/share/cracklib/*
 -/usr/share/i18n/*
 
+-/var/log/*.log*
+-/var/log/cron*
+-/var/log/lastlog*
+-/var/log/messages*
+-/var/log/secure*
+-/var/log/syslog*
+
 dnl For Debian:
 -/usr/share/lintian/*
 -/usr/share/initramfs-tools/*
