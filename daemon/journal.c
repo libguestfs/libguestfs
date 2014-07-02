@@ -218,17 +218,17 @@ int64_t
 do_journal_get_realtime_usec (void)
 {
   int r;
-  size_t ret;
+  uint64_t usec;
 
   NEED_HANDLE (-1);
 
-  r = sd_journal_get_realtime_usec (j, &ret);
+  r = sd_journal_get_realtime_usec (j, &usec);
   if (r < 0) {
     reply_with_perror_errno (-r, "sd_journal_get_realtime_usec");
     return -1;
   }
 
-  return ret;
+  return (int64_t) usec;
 }
 
 #else /* !HAVE_SD_JOURNAL */
