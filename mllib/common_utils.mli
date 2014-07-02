@@ -102,7 +102,7 @@ val rm_rf_only_files : Guestfs.guestfs -> string -> unit
     given directory.  Useful for cleaning [/var/cache] etc in sysprep
     without removing the actual directory structure.  Also if [dir] is
     not a directory or doesn't exist, ignore it.
-    
+
     XXX Could be faster with a specific API for doing this. *)
 
 val detect_compression : string -> [`Unknown | `XZ]
