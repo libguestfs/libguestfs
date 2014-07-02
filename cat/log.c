@@ -345,11 +345,11 @@ do_log_journal (void)
     /* Timestamp. */
     if (ts >= 0) {
       char buf[64];
+      time_t t = ts / 1000000;
       struct tm tm;
 
-      ts /= 1000000;
       if (strftime (buf, sizeof buf, "%b %d %H:%M:%S",
-                    localtime_r (&ts, &tm)) <= 0) {
+                    localtime_r (&t, &tm)) <= 0) {
         fprintf (stderr, _("%s: could not format journal entry timestamp\n"),
                  program_name);
         errors++;
