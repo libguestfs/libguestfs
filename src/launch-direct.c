@@ -418,6 +418,18 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
 
+#if !defined(__arm__)
+  /* It is faster to pass the CPU host model to the appliance,
+   * allowing maximum speed for things like checksums, encryption.
+   * Only do this with KVM.  It is broken in subtle ways on TCG, and
+   * fairly pointless anyway.
+   */
+  if (has_kvm && !force_tcg) {
+    ADD_CMDLINE ("-cpu");
+    ADD_CMDLINE ("host");
+  }
+#endif
+
   /* The qemu -machine option (added 2010-12) is a bit more sane
    * since it falls back through various different acceleration
    * modes, so try that first (thanks Markus Armbruster).
