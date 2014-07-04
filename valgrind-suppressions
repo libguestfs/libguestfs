@@ -228,6 +228,14 @@
    fun:virNetClientProgramCall
 }
 
+# RHBZ#1116427
+{
+   libvirt_leak_5
+   Memcheck:Leak
+   ...
+   fun:virFileFindResourceFull
+}
+
 # FUSE leaks the per-thread context (although the code looks
 # like it attempts to clean it up).  In older fuse, it uses
 # malloc.  In newer fuse it uses calloc.
