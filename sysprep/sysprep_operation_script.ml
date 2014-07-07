@@ -44,7 +44,7 @@ let rec script_perform ~verbose ~quiet (g : Guestfs.guestfs) root side_effects =
       match !scriptdir with
       | Some dir -> dir, false
       | None ->
-        let tmpdir = Mkdtemp.mkdtemp (Filename.temp_dir_name // "virt-sysprep.XXXXXX") in
+        let tmpdir = Mkdtemp.temp_dir "virt-sysprep." "" in
         tmpdir, true in
 
     (* Mount the directory locally. *)

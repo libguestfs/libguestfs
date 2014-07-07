@@ -54,7 +54,7 @@ let import_keyfile ~gpg ~gpghome ~verbose keyfile =
 
 let rec create ~verbose ~gpg ~gpgkey ~check_signature =
   (* Create a temporary directory for gnupg. *)
-  let tmpdir = Mkdtemp.mkdtemp (Filename.temp_dir_name // "vb.gpghome.XXXXXX") in
+  let tmpdir = Mkdtemp.temp_dir "vb.gpghome." "" in
   rmdir_on_exit tmpdir;
   (* Make sure we have no check_signature=true with no actual key. *)
   let check_signature, gpgkey =
