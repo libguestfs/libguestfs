@@ -960,11 +960,6 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
   if (entries == NULL)
     return -1;
 
-  if (entries[0] == NULL) {
-    error (g, _("could not parse /etc/fstab or empty file"));
-    return -1;
-  }
-
   for (entry = entries; *entry != NULL; entry++) {
     CLEANUP_FREE char *spec = NULL;
     CLEANUP_FREE char *mp = NULL;
