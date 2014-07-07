@@ -16,4 +16,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Common_utils
+
 external mkdtemp : string -> string = "virt_builder_mkdtemp"
+
+let temp_dir ?(base_dir = Filename.temp_dir_name) prefix suffix =
+  mkdtemp (base_dir // (prefix ^ "XXXXXX" ^ suffix))
