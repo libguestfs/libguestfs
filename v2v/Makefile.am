@@ -68,9 +68,20 @@ virt_v2v_CFLAGS = \
 BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/regedit.cmo \
 	$(top_builddir)/mllib/tTY.cmo \
 	$(top_builddir)/mllib/progress.cmo \
 	$(top_builddir)/mllib/config.cmo \
+	$(top_builddir)/customize/urandom.cmx \
+	$(top_builddir)/customize/random_seed.cmx \
+	$(top_builddir)/customize/hostname.cmx \
+	$(top_builddir)/customize/timezone.cmx \
+	$(top_builddir)/customize/firstboot.cmx \
+	$(top_builddir)/customize/perl_edit.cmx \
+	$(top_builddir)/customize/crypt-c.o \
+	$(top_builddir)/customize/crypt.cmx \
+	$(top_builddir)/customize/password.cmx \
+	$(top_builddir)/customize/customize_run.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
@@ -82,7 +93,8 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/src/.libs \
 	-I ../gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
-	-I $(top_builddir)/mllib
+	-I $(top_builddir)/mllib \
+	-I $(top_builddir)/customize
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
@@ -150,7 +162,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mllib $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

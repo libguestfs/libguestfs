@@ -92,12 +92,6 @@ if [ -z "$XDG_CONFIG_DIRS" ]; then
     export XDG_CONFIG_DIRS
 fi
 
-# Data directory used by virt-v2v.
-if [ -z "$VIRT_TOOLS_DATA_DIR" ]; then
-    VIRT_TOOLS_DATA_DIR="$s/v2v"
-    export VIRT_TOOLS_DATA_DIR
-fi
-
 # For Perl.
 if [ -z "$PERL5LIB" ]; then
     PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
