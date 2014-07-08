@@ -1642,6 +1642,28 @@ are actually interpreted by L<curl(1)>, not virt-builder.
 Used to determine the location of the template cache, and the location
 of the user' sources.  See L</CACHING> and L</SOURCES OF TEMPLATES>.
 
+=item C<VIRT_TOOLS_DATA_DIR>
+
+This can point to the directory containing data files used for Windows
+firstboot installation.
+
+Normally you do not need to set this.  If not set, a compiled-in
+default will be used (something like C</usr/share/virt-tools>).
+
+This directory may contain the following files:
+
+=over 4
+
+=item C<rhsrvany.exe>
+
+This is the RHSrvAny Windows binary, used to install a "firstboot"
+script in Windows guests.  It is required if you intend to use the
+I<--firstboot> or I<--firstboot-command> options with Windows guests.
+
+See also: C<https://github.com/rwmjones/rhsrvany>
+
+=back
+
 =item C<XDG_CACHE_HOME>
 
 Used to determine the location of the template cache.  See L</CACHING>.

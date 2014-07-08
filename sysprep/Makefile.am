@@ -88,6 +88,7 @@ deps = \
 	$(top_builddir)/mllib/config.cmx \
 	$(top_builddir)/mllib/mkdtemp-c.o \
 	$(top_builddir)/mllib/mkdtemp.cmx \
+	$(top_builddir)/mllib/regedit.cmx \
 	$(top_builddir)/customize/crypt-c.o \
 	$(top_builddir)/customize/crypt.cmx \
 	$(top_builddir)/customize/urandom.cmx \

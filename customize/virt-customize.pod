@@ -213,6 +213,36 @@ __CUSTOMIZE_OPTIONS__
 
 This program returns 0 on success, or 1 if there was an error.
 
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item C<VIRT_TOOLS_DATA_DIR>
+
+This can point to the directory containing data files used for Windows
+firstboot installation.
+
+Normally you do not need to set this.  If not set, a compiled-in
+default will be used (something like C</usr/share/virt-tools>).
+
+This directory may contain the following files:
+
+=over 4
+
+=item C<rhsrvany.exe>
+
+This is the RHSrvAny Windows binary, used to install a "firstboot"
+script in Windows guests.  It is required if you intend to use the
+I<--firstboot> or I<--firstboot-command> options with Windows guests.
+
+See also: C<https://github.com/rwmjones/rhsrvany>
+
+=back
+
+=back
+
+For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,

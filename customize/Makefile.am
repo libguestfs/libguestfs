@@ -65,6 +65,7 @@ deps = \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/config.cmx \
+	$(top_builddir)/mllib/regedit.cmx \
 	$(top_builddir)/mllib/uri-c.o \
 	$(top_builddir)/mllib/uRI.cmx \
 	crypt-c.o
