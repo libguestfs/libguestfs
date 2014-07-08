@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-07-02 13:52+0100\n"
+"POT-Creation-Date: 2014-07-08 14:08+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -728,6 +728,13 @@ msgstr "%s: параметру --enable не можна передавати п�
 #: ../sysprep/main.ml:185 ../customize/customize_main.ml:139
 msgid "%s: you must give either -a or -d options\n"
 msgstr "%s: вам слід передати параметр -a або -d\n"
+
+#: ../v2v/convert_windows.ml:58
+msgid ""
+"'%s' is missing.  This file is required in order to do Windows conversions.  "
+"You can get it by building rhsrvany (https://github.com/rwmjones/rhsrvany).  "
+"Original error: %s"
+msgstr ""
 
 #: ../customize/customize_cmdline.ml:237 ../customize/customize_cmdline.ml:162
 msgid "'CMD+ARGS'"
@@ -2284,12 +2291,36 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
+#: ../v2v/convert_windows.ml:133
+msgid ""
+"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
+"\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
+msgstr ""
+
 #: ../v2v/v2v.ml:292
 msgid "connection closed"
 msgstr ""
 
+#: ../v2v/convert_windows.ml:276
+msgid ""
+"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
+"\\CurrentVersion"
+msgstr ""
+
 #: ../v2v/convert_linux.ml:1003
 msgid "could not update grub2 console: %s (ignored)"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:115
+msgid ""
+"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This "
+"is a bug in virt-v2v, please report it."
+msgstr ""
+
+#: ../v2v/convert_windows.ml:109
+msgid ""
+"decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  "
+"This could be a bug in virt-v2v."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:133
@@ -8256,15 +8287,11 @@ msgid "release file %s is empty or malformed"
 msgstr "файл випуску %s є порожнім або форматованим з помилками"
 
 #: src/inspect-fs-unix.c:265 src/inspect-fs-unix.c:347
-#: src/inspect-fs-unix.c:922 src/inspect-fs-unix.c:1622 src/inspect-fs.c:567
+#: src/inspect-fs-unix.c:922 src/inspect-fs-unix.c:1617 src/inspect-fs.c:567
 #: src/inspect-fs.c:613 src/inspect.c:540
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
-
-#: src/inspect-fs-unix.c:964
-msgid "could not parse /etc/fstab or empty file"
-msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
 #: src/inspect-fs.c:394 src/inspect-fs.c:407
 #, c-format
@@ -8327,36 +8354,36 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:858 src/launch-libvirt.c:551
+#: src/launch-direct.c:870 src/launch-libvirt.c:551
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1260 src/launch-libvirt.c:1296
+#: src/launch-direct.c:1272 src/launch-libvirt.c:1296
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-direct.c:1418
+#: src/launch-direct.c:1430
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr "не можна вмикати discard для цього диска: qemu < 1.5"
 
-#: src/launch-direct.c:1427
+#: src/launch-direct.c:1439
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 "не можна вмикати discard для цього диска: на диску є призначена лише для "
 "читання накладка"
 
-#: src/launch-direct.c:1434
+#: src/launch-direct.c:1446
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 "не можна вмикати discard для цього диска: вам слід вказати формат файла"
 
-#: src/launch-direct.c:1442
+#: src/launch-direct.c:1454
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
@@ -8364,7 +8391,7 @@ msgstr ""
 "не можна вмикати discard для цього диска: у qemu < 1.6  не передбачено "
 "підтримки discard для файлів qcow2"
 
-#: src/launch-direct.c:1450
+#: src/launch-direct.c:1462
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
@@ -8373,7 +8400,7 @@ msgstr ""
 "не можна вмикати discard для цього диска: у qemu не передбачено підтримки "
 "discard для файлів у форматі «%s»"
 
-#: src/launch-direct.c:1473
+#: src/launch-direct.c:1485
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -9079,6 +9106,9 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "could not parse /etc/fstab or empty file"
+#~ msgstr "не вдалося обробити /etc/fstab або порожній файл"
 
 #~ msgid ""
 #~ "%s: If reporting bugs, run %s with debugging enabled (-v) and include the "

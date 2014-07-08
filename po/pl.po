@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-07-02 13:52+0100\n"
+"POT-Creation-Date: 2014-07-08 14:08+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/fedora/language/"
@@ -590,6 +590,13 @@ msgstr ""
 
 #: ../sysprep/main.ml:185 ../customize/customize_main.ml:139
 msgid "%s: you must give either -a or -d options\n"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:58
+msgid ""
+"'%s' is missing.  This file is required in order to do Windows conversions.  "
+"You can get it by building rhsrvany (https://github.com/rwmjones/rhsrvany).  "
+"Original error: %s"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:237 ../customize/customize_cmdline.ml:162
@@ -1973,12 +1980,36 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
+#: ../v2v/convert_windows.ml:133
+msgid ""
+"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
+"\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
+msgstr ""
+
 #: ../v2v/v2v.ml:292
 msgid "connection closed"
 msgstr ""
 
+#: ../v2v/convert_windows.ml:276
+msgid ""
+"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
+"\\CurrentVersion"
+msgstr ""
+
 #: ../v2v/convert_linux.ml:1003
 msgid "could not update grub2 console: %s (ignored)"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:115
+msgid ""
+"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This "
+"is a bug in virt-v2v, please report it."
+msgstr ""
+
+#: ../v2v/convert_windows.ml:109
+msgid ""
+"decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  "
+"This could be a bug in virt-v2v."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:133
@@ -7500,15 +7531,11 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:265 src/inspect-fs-unix.c:347
-#: src/inspect-fs-unix.c:922 src/inspect-fs-unix.c:1622 src/inspect-fs.c:567
+#: src/inspect-fs-unix.c:922 src/inspect-fs-unix.c:1617 src/inspect-fs.c:567
 #: src/inspect-fs.c:613 src/inspect.c:540
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądnie duży (%<PRIi64> bajtów)"
-
-#: src/inspect-fs-unix.c:964
-msgid "could not parse /etc/fstab or empty file"
-msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
 
 #: src/inspect-fs.c:394 src/inspect-fs.c:407
 #, c-format
@@ -7566,45 +7593,45 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: src/launch-direct.c:858 src/launch-libvirt.c:551
+#: src/launch-direct.c:870 src/launch-libvirt.c:551
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch-direct.c:1260 src/launch-libvirt.c:1296
+#: src/launch-direct.c:1272 src/launch-libvirt.c:1296
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1418
+#: src/launch-direct.c:1430
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1427
+#: src/launch-direct.c:1439
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1434
+#: src/launch-direct.c:1446
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1442
+#: src/launch-direct.c:1454
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1450
+#: src/launch-direct.c:1462
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1473
+#: src/launch-direct.c:1485
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -8236,6 +8263,9 @@ msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
+
+#~ msgid "could not parse /etc/fstab or empty file"
+#~ msgstr "nie można przetworzyć pliku /etc/fstab lub pustego pliku"
 
 #~ msgid ""
 #~ "%s: display files in a virtual machine\n"
