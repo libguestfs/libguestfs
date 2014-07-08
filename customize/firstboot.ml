@@ -22,9 +22,10 @@ open Common_utils
 open Common_gettext.Gettext
 
 (* For Linux guests. *)
-let firstboot_dir = "/usr/lib/virt-sysprep"
+module Linux = struct
+  let firstboot_dir = "/usr/lib/virt-sysprep"
 
-let firstboot_sh = sprintf "\
+  let firstboot_sh = sprintf "\
 #!/bin/sh -
 
 ### BEGIN INIT INFO
@@ -61,7 +62,7 @@ then
 fi
 " firstboot_dir
 
-let firstboot_service = sprintf "\
+  let firstboot_service = sprintf "\
 [Unit]
 Description=virt-sysprep firstboot service
 After=network.target
@@ -78,89 +79,90 @@ StandardError=inherit
 WantedBy=default.target
 " firstboot_dir
 
-let rec install_service ~prog (g : Guestfs.guestfs) distro =
-  g#mkdir_p firstboot_dir;
-  g#mkdir_p (sprintf "%s/scripts" firstboot_dir);
-  g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
-  g#chmod 0o755 (sprintf "%s/firstboot.sh" firstboot_dir);
+  let rec install_service ~prog (g : Guestfs.guestfs) distro =
+    g#mkdir_p firstboot_dir;
+    g#mkdir_p (sprintf "%s/scripts" firstboot_dir);
+    g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
+    g#chmod 0o755 (sprintf "%s/firstboot.sh" firstboot_dir);
 
-  (* Note we install both systemd and sysvinit services.  This is
-   * because init systems can be switched at runtime, and it's easy to
-   * tell if systemd is installed (eg. Ubuntu uses upstart but installs
-   * systemd configuration directories).  There is no danger of a
-   * firstboot script running twice because they disable themselves
-   * after running.
-   *)
-  if g#is_dir "/etc/systemd/system" then
-    install_systemd_service g;
-  if g#is_dir "/etc/rc.d" || g#is_dir "/etc/init.d" then
-    install_sysvinit_service ~prog g distro
+    (* Note we install both systemd and sysvinit services.  This is
+     * because init systems can be switched at runtime, and it's easy to
+     * tell if systemd is installed (eg. Ubuntu uses upstart but installs
+     * systemd configuration directories).  There is no danger of a
+     * firstboot script running twice because they disable themselves
+     * after running.
+     *)
+    if g#is_dir "/etc/systemd/system" then
+      install_systemd_service g;
+    if g#is_dir "/etc/rc.d" || g#is_dir "/etc/init.d" then
+      install_sysvinit_service ~prog g distro
 
-(* Install the systemd firstboot service, if not installed already. *)
-and install_systemd_service g =
-  g#write (sprintf "%s/firstboot.service" firstboot_dir) firstboot_service;
-  g#mkdir_p "/etc/systemd/system/default.target.wants";
-  g#ln_sf (sprintf "%s/firstboot.service" firstboot_dir)
-    "/etc/systemd/system/default.target.wants"
+  (* Install the systemd firstboot service, if not installed already. *)
+  and install_systemd_service g =
+    g#write (sprintf "%s/firstboot.service" firstboot_dir) firstboot_service;
+    g#mkdir_p "/etc/systemd/system/default.target.wants";
+    g#ln_sf (sprintf "%s/firstboot.service" firstboot_dir)
+      "/etc/systemd/system/default.target.wants"
 
-and install_sysvinit_service ~prog g = function
-  | "fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based" ->
-    install_sysvinit_redhat g
-  | "opensuse"|"sles"|"suse-based" ->
-    install_sysvinit_suse g
-  | "debian"|"ubuntu" ->
-    install_sysvinit_debian g
-  | distro ->
-    error ~prog (f_"guest type %s is not supported") distro
+  and install_sysvinit_service ~prog g = function
+    | "fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based" ->
+      install_sysvinit_redhat g
+    | "opensuse"|"sles"|"suse-based" ->
+      install_sysvinit_suse g
+    | "debian"|"ubuntu" ->
+      install_sysvinit_debian g
+    | distro ->
+      error ~prog (f_"guest type %s is not supported") distro
 
-and install_sysvinit_redhat g =
-  g#mkdir_p "/etc/rc.d/rc2.d";
-  g#mkdir_p "/etc/rc.d/rc3.d";
-  g#mkdir_p "/etc/rc.d/rc5.d";
-  g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/rc.d/rc2.d/S99virt-sysprep-firstboot";
-  g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/rc.d/rc3.d/S99virt-sysprep-firstboot";
-  g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/rc.d/rc5.d/S99virt-sysprep-firstboot"
+  and install_sysvinit_redhat g =
+    g#mkdir_p "/etc/rc.d/rc2.d";
+    g#mkdir_p "/etc/rc.d/rc3.d";
+    g#mkdir_p "/etc/rc.d/rc5.d";
+    g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
+      "/etc/rc.d/rc2.d/S99virt-sysprep-firstboot";
+    g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
+      "/etc/rc.d/rc3.d/S99virt-sysprep-firstboot";
+    g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
+      "/etc/rc.d/rc5.d/S99virt-sysprep-firstboot"
 
-(* Make firstboot.sh look like a runlevel script to avoid insserv warnings. *)
-and install_sysvinit_suse g =
-  g#mkdir_p "/etc/init.d/rc2.d";
-  g#mkdir_p "/etc/init.d/rc3.d";
-  g#mkdir_p "/etc/init.d/rc5.d";
-  g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/init.d/virt-sysprep-firstboot";
-  g#ln_sf "../virt-sysprep-firstboot"
-    "/etc/init.d/rc2.d/S99virt-sysprep-firstboot";
-  g#ln_sf "../virt-sysprep-firstboot"
-    "/etc/init.d/rc3.d/S99virt-sysprep-firstboot";
-  g#ln_sf "../virt-sysprep-firstboot"
-    "/etc/init.d/rc5.d/S99virt-sysprep-firstboot"
+  (* Make firstboot.sh look like a runlevel script to avoid insserv warnings. *)
+  and install_sysvinit_suse g =
+    g#mkdir_p "/etc/init.d/rc2.d";
+    g#mkdir_p "/etc/init.d/rc3.d";
+    g#mkdir_p "/etc/init.d/rc5.d";
+    g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
+      "/etc/init.d/virt-sysprep-firstboot";
+    g#ln_sf "../virt-sysprep-firstboot"
+      "/etc/init.d/rc2.d/S99virt-sysprep-firstboot";
+    g#ln_sf "../virt-sysprep-firstboot"
+      "/etc/init.d/rc3.d/S99virt-sysprep-firstboot";
+    g#ln_sf "../virt-sysprep-firstboot"
+      "/etc/init.d/rc5.d/S99virt-sysprep-firstboot"
 
-and install_sysvinit_debian g =
-  g#mkdir_p "/etc/init.d";
-  g#mkdir_p "/etc/rc2.d";
-  g#mkdir_p "/etc/rc3.d";
-  g#mkdir_p "/etc/rc5.d";
-  g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-    "/etc/init.d/virt-sysprep-firstboot";
-  g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
-    "/etc/rc2.d/S99virt-sysprep-firstboot";
-  g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
-    "/etc/rc3.d/S99virt-sysprep-firstboot";
-  g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
-    "/etc/rc5.d/S99virt-sysprep-firstboot"
+  and install_sysvinit_debian g =
+    g#mkdir_p "/etc/init.d";
+    g#mkdir_p "/etc/rc2.d";
+    g#mkdir_p "/etc/rc3.d";
+    g#mkdir_p "/etc/rc5.d";
+    g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
+      "/etc/init.d/virt-sysprep-firstboot";
+    g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
+      "/etc/rc2.d/S99virt-sysprep-firstboot";
+    g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
+      "/etc/rc3.d/S99virt-sysprep-firstboot";
+    g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
+      "/etc/rc5.d/S99virt-sysprep-firstboot"
+end
 
 let add_firstboot_script ~prog (g : Guestfs.guestfs) root i content =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
   | "linux", _ ->
-    install_service ~prog g distro;
+    Linux.install_service ~prog g distro;
     let t = Int64.of_float (Unix.time ()) in
     let r = string_random8 () in
-    let filename = sprintf "%s/scripts/%04d-%Ld-%s" firstboot_dir i t r in
+    let filename = sprintf "%s/scripts/%04d-%Ld-%s" Linux.firstboot_dir i t r in
     g#write filename content;
     g#chmod 0o755 filename
 
