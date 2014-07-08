@@ -40,6 +40,8 @@ SOURCES = \
 	progress-c.c \
 	progress.mli \
 	progress.ml \
+	regedit.mli \
+	regedit.ml \
 	tty-c.c \
 	tTY.mli \
 	tTY.ml \
@@ -62,7 +64,8 @@ ocaml_modules = config \
 	progress \
 	uRI \
 	mkdtemp \
-	planner
+	planner \
+	regedit
 
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
