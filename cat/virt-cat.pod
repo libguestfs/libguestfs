@@ -265,13 +265,6 @@ file from a disk image directly, use:
 where C<disk.img> is the disk image, C</dev/sda1> is the filesystem
 within the disk image, and C<file> is the full path to the file.
 
-=head1 SHELL QUOTING
-
-Libvirt guest names can contain arbitrary characters, some of which
-have meaning to the shell such as C<#> and space.  You may need to
-quote or escape these characters on the command line.  See the shell
-manual page L<sh(1)> for details.
-
 =head1 EXIT STATUS
 
 This program returns 0 if successful, or non-zero if there was an

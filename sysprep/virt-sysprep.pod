@@ -511,13 +511,6 @@ module:
 Windows 8 "fast startup" can prevent virt-sysprep from working.
 See L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>.
 
-=head1 SHELL QUOTING
-
-Libvirt guest names can contain arbitrary characters, some of which
-have meaning to the shell such as C<#> and space.  You may need to
-quote or escape these characters on the command line.  See the shell
-manual page L<sh(1)> for details.
-
 =head1 EXIT STATUS
 
 This program returns 0 on success, or 1 if there was an error.
