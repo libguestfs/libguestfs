@@ -198,20 +198,20 @@ exec >>%s 2>&1
     | `FirstbootCommand cmd ->
       incr i;
       msg (f_"Installing firstboot command: [%d] %s") !i cmd;
-      Firstboot.add_firstboot_script g root !i cmd
+      Firstboot.add_firstboot_script ~prog g root !i cmd
 
     | `FirstbootPackages pkgs ->
       incr i;
       msg (f_"Installing firstboot packages: [%d] %s") !i
         (String.concat " " pkgs);
       let cmd = guest_install_command pkgs in
-      Firstboot.add_firstboot_script g root !i cmd
+      Firstboot.add_firstboot_script ~prog g root !i cmd
 
     | `FirstbootScript script ->
       incr i;
       msg (f_"Installing firstboot script: [%d] %s") !i script;
       let cmd = read_whole_file script in
-      Firstboot.add_firstboot_script g root !i cmd
+      Firstboot.add_firstboot_script ~prog g root !i cmd
 
     | `Hostname hostname ->
       msg (f_"Setting the hostname: %s") hostname;
