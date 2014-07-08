@@ -37,10 +37,10 @@ case $version in
         tree=http://mirror.bytemark.co.uk/centos/$version/os/x86_64/
         major=6
         ;;
-    7qa)
-        # QA (pre-) release.
-        tree=http://buildlogs.centos.org/centos/7/os/x86_64-20140614/
+    7.*)
         major=7
+        # XXX Need to fix the URL when 7.1 comes out.
+        tree=http://mirror.centos.org/centos-7/$major/os/x86_64/
         ;;
 esac
 
