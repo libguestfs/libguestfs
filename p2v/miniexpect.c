@@ -35,6 +35,13 @@
 
 #include <pcre.h>
 
+/* RHEL 6 pcre did not define PCRE_PARTIAL_SOFT.  However PCRE_PARTIAL
+ * is a synonym so use that.
+ */
+#ifndef PCRE_PARTIAL_SOFT
+#define PCRE_PARTIAL_SOFT PCRE_PARTIAL
+#endif
+
 #include "miniexpect.h"
 
 #define DEBUG 0
