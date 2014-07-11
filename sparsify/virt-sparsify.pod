@@ -121,8 +121,8 @@ Display help.
 
 =item B<--check-tmpdir=fail>
 
-Check if L</TMPDIR> has enough space to complete the operation.  This
-is just an estimate.
+Check if L</TMPDIR> or I<--tmp> directory has enough space to complete
+the operation.  This is just an estimate.
 
 If the check indicates a problem, then you can either:
 
@@ -223,6 +223,22 @@ them with commas, eg:
 
 This disables progress bars and other unnecessary output.
 
+=item B<--tmp> block_device
+
+=item B<--tmp> dir
+
+In copying mode only, use the named device or directory as the
+location of the temporary overlay (see also L</TMPDIR> below).
+
+If the parameter given is a block device, then the block device is
+written to directly.
+B<Note this erases the existing contents of the block device>.
+
+If the parameter is a directory, then this is the same as setting the
+L</TMPDIR> environment variable.
+
+You cannot use this option and I<--in-place> together.
+
 =item B<-v>
 
 =item B<--verbose>
@@ -317,6 +333,9 @@ error.
 
 Location of the temporary directory used for the potentially large
 temporary overlay file.
+
+In virt-sparsify E<ge> 1.28, you can override this environment
+variable using the I<--tmp> option.
 
 You should ensure there is enough free space in the worst case for a
 full copy of the source disk (I<virtual> size), or else set C<$TMPDIR>
