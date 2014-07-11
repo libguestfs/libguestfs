@@ -33,7 +33,8 @@ open Cmdline
 external statvfs_free_space : string -> int64 =
   "virt_sparsify_statvfs_free_space"
 
-type tmp_place = Directory of string | Block_device of string
+type tmp_place =
+| Directory of string | Block_device of string | Prebuilt_file of string
 
 let run indisk outdisk check_tmpdir compress convert
     format ignores machine_readable option tmp_param
@@ -74,12 +75,26 @@ let run indisk outdisk check_tmpdir compress convert
     | None -> Directory Filename.temp_dir_name (* $TMPDIR or /tmp *)
     | Some dir when is_directory dir -> Directory dir
     | Some dev when is_block_device dev -> Block_device dev
+    | Some file when string_prefix file "prebuilt:" ->
+      let file = String.sub file 9 (String.length file - 9) in
+      if not (Sys.file_exists file) then
+        error (f_"--tmp prebuilt:file: %s: file does not exist") file;
+      let g = new G.guestfs () in
+      if trace then g#set_trace true;
+      if verbose then g#set_verbose true;
+      if g#disk_format file <> "qcow2" then
+        error (f_"--tmp prebuilt:file: %s: file format is not qcow2") file;
+      if not (g#disk_has_backing_file file) then
+        error (f_"--tmp prebuilt:file: %s: file does not have backing file")
+          file;
+      Prebuilt_file file
     | Some path ->
-      error (f_"--tmp parameter must point to a directory or a block device") in
+      error (f_"--tmp parameter must point to a directory, block device or prebuilt file") in
 
   (* Check there is enough space in temporary directory. *)
   (match tmp_place with
-  | Block_device _ -> ()
+  | Block_device _
+  | Prebuilt_file _ -> ()
   | Directory tmpdir ->
     (* Get virtual size of the input disk. *)
     let virtual_size = (new G.guestfs ())#disk_virtual_size indisk in
@@ -136,31 +151,38 @@ You can ignore this warning or change it to a hard failure using the
       | Block_device device ->
         printf (f_"Create overlay device %s to protect source disk ...\n%!")
           device
+      | Prebuilt_file file ->
+        printf (f_"Using prebuilt file %s as overlay ...\n%!") file
     );
 
-    let tmp =
-      match tmp_place with
-      | Directory temp_dir ->
-        let tmp = Filename.temp_file ~temp_dir "sparsify" ".qcow2" in
-        unlink_on_exit tmp;
-        tmp
-
-      | Block_device device -> device in
-
-    (* Create it with the indisk as the backing file. *)
+    (* Create 'tmp' with the indisk as the backing file. *)
     (* XXX Old code used to:
      * - detect if compat=1.1 was supported
      * - add lazy_refcounts option
      *)
-    let () =
+    let create tmp =
       let g = new G.guestfs () in
       if trace then g#set_trace true;
       if verbose then g#set_verbose true;
       g#disk_create
         ~backingfile:indisk ?backingformat:format ~compat:"1.1"
-        tmp "qcow2" Int64.minus_one in
+        tmp "qcow2" Int64.minus_one
+    in
 
-    tmp in
+    match tmp_place with
+    | Directory temp_dir ->
+      let tmp = Filename.temp_file ~temp_dir "sparsify" ".qcow2" in
+      unlink_on_exit tmp;
+      create tmp;
+      tmp
+
+    | Block_device device ->
+      create device;
+      device
+
+    | Prebuilt_file file ->
+      (* Don't create anything, use the prebuilt file as overlay. *)
+      file in
 
   if not quiet then
     printf (f_"Examine source disk ...\n%!");

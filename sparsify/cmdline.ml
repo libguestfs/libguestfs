@@ -80,7 +80,7 @@ let parse_cmdline () =
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             ditto;
-    "--tmp",     Arg.Set_string tmp,        s_"block|dir" ^ " " ^ s_"Set temporary block device or directory";
+    "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device, directory or prebuilt file";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
