@@ -412,3 +412,10 @@ let is_block_device file =
 let is_char_device file =
   try (Unix.stat file).Unix.st_kind = Unix.S_CHR
   with Unix.Unix_error _ -> false
+
+(* Annoyingly Sys.is_directory throws an exception on failure
+ * (RHBZ#1022431).
+ *)
+let is_directory path =
+  try Sys.is_directory path
+  with Sys_error _ -> false
