@@ -239,6 +239,33 @@ L</TMPDIR> environment variable.
 
 You cannot use this option and I<--in-place> together.
 
+=item B<--tmp> prebuilt:file
+
+In copying mode only, the specialized option I<--tmp prebuilt:file>
+(where C<prebuilt:> is a literal string) causes virt-sparsify to use
+the qcow2 C<file> as temporary space.
+
+=over 4
+
+=item *
+
+The file B<must> be freshly formatted as qcow2, with indisk as the
+backing file.
+
+=item *
+
+If you rerun virt-sparsify, you B<must> recreate the file before
+each run.
+
+=item *
+
+Virt-sparsify does not delete the file.
+
+=back
+
+This option is used by oVirt which requires a specially formatted
+temporary file.
+
 =item B<-v>
 
 =item B<--verbose>

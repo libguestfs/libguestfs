@@ -83,7 +83,7 @@ let indisk, outdisk, check_tmpdir, compress, convert, debug_gc,
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             " -\"-";
-    "--tmp",     Arg.Set_string tmp,        s_"block|dir" ^ " " ^ s_"Set temporary block device or directory";
+    "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device or directory";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           " -\"-";
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
@@ -242,7 +242,8 @@ let () =
   if output_format = "raw" && compress then
     error (f_"--compress cannot be used for raw output.  Remove this option or use --convert qcow2.")
 
-type tmp_place = Directory of string | Block_device of string
+type tmp_place =
+| Directory of string | Block_device of string | Prebuilt_file of string
 
 (* Use TMPDIR or --tmp parameter? *)
 let tmp_place =
@@ -250,13 +251,27 @@ let tmp_place =
   | None -> Directory Filename.temp_dir_name (* $TMPDIR or /tmp *)
   | Some dir when is_directory dir -> Directory dir
   | Some dev when is_block_device dev -> Block_device dev
+  | Some file when string_prefix file "prebuilt:" ->
+    let file = String.sub file 9 (String.length file - 9) in
+    if not (Sys.file_exists file) then
+      error (f_"--tmp prebuilt:file: %s: file does not exist") file;
+    let g = new G.guestfs () in
+    if trace then g#set_trace true;
+    if verbose then g#set_verbose true;
+    if g#disk_format file <> "qcow2" then
+      error (f_"--tmp prebuilt:file: %s: file format is not qcow2") file;
+    if not (g#disk_has_backing_file file) then
+      error (f_"--tmp prebuilt:file: %s: file does not have backing file")
+        file;
+    Prebuilt_file file
   | Some path ->
     error (f_"--tmp parameter must point to a directory or a block device")
 
 (* Check there is enough space in temporary directory. *)
 let () =
   match tmp_place with
-  | Block_device _ -> ()
+  | Block_device _
+  | Prebuilt_file _ -> ()
   | Directory tmpdir ->
     (* Get virtual size of the input disk. *)
     let virtual_size = (new G.guestfs ())#disk_virtual_size indisk in
@@ -312,43 +327,45 @@ let overlaydisk =
     | Block_device device ->
       printf (f_"Create overlay device %s to protect source disk ...\n%!")
         device
+    | Prebuilt_file file ->
+      printf (f_"Using prebuilt file %s as overlay ...\n%!") file
   );
 
-  let tmp =
-    match tmp_place with
-    | Directory temp_dir ->
-      let tmp = Filename.temp_file ~temp_dir "sparsify" ".qcow2" in
-      let unlink_tmp () = try unlink tmp with _ -> () in
+  (* Create 'tmp' with the indisk as the backing file. *)
+  let create tmp =
+    let cmd =
+      let options =
+        let backing_file_option =
+          [sprintf "backing_file=%s" (replace_str indisk "," ",,")] in
+        let backing_fmt_option =
+          match format with
+          | None -> []
+          | Some fmt -> [sprintf "backing_fmt=%s" fmt] in
+        let version3 =
+          if qemu_img_version >= 1.1 then ["compat=1.1"] else [] in
+        backing_file_option @ backing_fmt_option @ version3 in
+      sprintf "qemu-img create -f qcow2 -o %s %s > /dev/null"
+        (Filename.quote (String.concat "," options)) (Filename.quote tmp) in
+    if verbose then
+      printf "%s\n%!" cmd;
+    if Sys.command cmd <> 0 then
+      error (f_"external command failed: %s") cmd;
+  in
 
-      (* Unlink on exit. *)
-      at_exit unlink_tmp;
+  match tmp_place with
+  | Directory temp_dir ->
+    let tmp = Filename.temp_file ~temp_dir "sparsify" ".qcow2" in
+    unlink_on_exit tmp;
+    create tmp;
+    tmp
 
-      (* Unlink on sigint. *)
-      Sys.set_signal Sys.sigint (Sys.Signal_handle (fun _ -> unlink_tmp ()));
-      tmp
+  | Block_device device ->
+    create device;
+    device
 
-   | Block_device device -> device in
-
-  (* Create it with the indisk as the backing file. *)
-  let cmd =
-    let options =
-      let backing_file_option =
-        [sprintf "backing_file=%s" (replace_str indisk "," ",,")] in
-      let backing_fmt_option =
-        match format with
-        | None -> []
-        | Some fmt -> [sprintf "backing_fmt=%s" fmt] in
-      let version3 =
-        if qemu_img_version >= 1.1 then ["compat=1.1"] else [] in
-      backing_file_option @ backing_fmt_option @ version3 in
-    sprintf "qemu-img create -f qcow2 -o %s %s > /dev/null"
-      (Filename.quote (String.concat "," options)) (Filename.quote tmp) in
-  if verbose then
-    printf "%s\n%!" cmd;
-  if Sys.command cmd <> 0 then
-    error (f_"external command failed: %s") cmd;
-
-  tmp
+  | Prebuilt_file file ->
+    (* Don't create anything, use the prebuilt file as overlay. *)
+    file
 
 let () =
   if not quiet then
