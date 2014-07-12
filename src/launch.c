@@ -342,6 +342,9 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " noapic"                  /* workaround for RHBZ#857026 */
 #endif
      " " SERIAL_CONSOLE /* serial console */
+#ifdef __aarch64__
+     " earlyprintk=pl011,0x9000000 ignore_loglevel"
+#endif
      " udevtimeout=6000"/* for slow systems (RHBZ#480319, RHBZ#1096579) */
      " no_timer_check"  /* fix for RHBZ#502058 */
      "%s"               /* lpj */
