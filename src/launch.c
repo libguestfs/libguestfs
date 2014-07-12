@@ -304,7 +304,7 @@ guestfs__config (guestfs_h *g,
  */
 #if defined(__powerpc64__)
 #define SERIAL_CONSOLE "console=hvc0 console=ttyS0"
-#elif defined(__arm__)
+#elif defined(__arm__) || defined(__aarch64__)
 #define SERIAL_CONSOLE "console=ttyAMA0"
 #else
 #define SERIAL_CONSOLE "console=ttyS0"
