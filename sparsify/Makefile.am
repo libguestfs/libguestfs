@@ -70,7 +70,7 @@ if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
-OCAMLFLAGS = -g -warn-error CDEFLMPSUVYZX
+OCAMLFLAGS = -g -warn-error CDEFLMPSUVYZX-3
 
 if !HAVE_OCAMLOPT
 OBJECTS = $(BOBJECTS)
