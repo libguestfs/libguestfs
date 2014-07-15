@@ -29,7 +29,7 @@ if [ -n "$SKIP_TEST_RHBZ690819_SH" ]; then
 fi
 
 arch="$(uname -m)"
-if [[ "$arch" =~ ^arm ]]; then
+if [[ "$arch" =~ ^arm || "$arch" = "aarch64" ]]; then
     echo "$0: test skipped because ARM does not support 'ide' interface."
     exit 77
 fi
