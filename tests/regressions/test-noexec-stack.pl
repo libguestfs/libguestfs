@@ -18,6 +18,11 @@
 use strict;
 use warnings;
 
+if ($ENV{SKIP_TEST_NOEXEC_STACK_PL}) {
+    print "$0: skipped test because environment variable is set\n";
+    exit 77;
+}
+
 die("NOEXEC_CHECK not set") unless(exists($ENV{NOEXEC_CHECK}));
 
 my @files = split(/ /, $ENV{NOEXEC_CHECK});
