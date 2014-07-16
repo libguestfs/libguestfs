@@ -24,7 +24,7 @@ if [ -n "$SKIP_QEMU_FORCE_TCG_SH" ]; then
 fi
 
 # Only applicable to the direct and libvirt backends:
-if [ "$($guestfish get-backend)" = "uml" ]; then
+if [ "$(../../fish/guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because it is only applicable when qemu is being used."
     exit 77
 fi
