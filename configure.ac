@@ -181,6 +181,12 @@ gl_WARN_ADD([-Wno-missing-field-initializers])
 dnl Display the name of the warning option with the warning.
 gl_WARN_ADD([-fdiagnostics-show-option])
 
+dnl Now some warnings we want to enable and/or customize ...
+
+dnl Warn about large stack allocations.  10000 happens to be the
+dnl same size as Coverity warns about.
+gl_WARN_ADD([-Wframe-larger-than=10000])
+
 AC_SUBST([WARN_CFLAGS])
 
 AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])

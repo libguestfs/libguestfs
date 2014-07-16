@@ -108,7 +108,7 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
   uint64_t position = 0, size = (uint64_t) ssize;
 
   while (position < size) {
-    char buf[1024*1024];
+    char buf[BUFSIZ];
 
     /* Calculate bytes to copy. */
     uint64_t n64 = size - position;

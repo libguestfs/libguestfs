@@ -197,7 +197,7 @@ int
 do_is_zero (const char *path)
 {
   int fd;
-  char buf[1024*1024];
+  char buf[BUFSIZ];
   ssize_t r;
 
   CHROOT_IN;
@@ -234,7 +234,7 @@ int
 do_is_zero_device (const char *device)
 {
   int fd;
-  char buf[1024*1024];
+  char buf[BUFSIZ];
   ssize_t r;
 
   fd = open (device, O_RDONLY|O_CLOEXEC);

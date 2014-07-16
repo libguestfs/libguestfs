@@ -222,12 +222,18 @@ static void send_error (int errnum, const char *msg);
 void
 reply_with_error_errno (int err, const char *fs, ...)
 {
-  char buf[GUESTFS_ERROR_LEN];
+  CLEANUP_FREE char *buf = NULL;
   va_list args;
+  int r;
 
   va_start (args, fs);
-  vsnprintf (buf, sizeof buf, fs, args);
+  r = vasprintf (&buf, fs, args);
   va_end (args);
+
+  if (r == -1) {
+    perror ("vasprintf");
+    exit (EXIT_FAILURE);
+  }
 
   send_error (err, buf);
 }
@@ -235,15 +241,24 @@ reply_with_error_errno (int err, const char *fs, ...)
 void
 reply_with_perror_errno (int err, const char *fs, ...)
 {
-  char buf1[GUESTFS_ERROR_LEN];
-  char buf2[GUESTFS_ERROR_LEN];
+  CLEANUP_FREE char *buf1 = NULL;
+  CLEANUP_FREE char *buf2 = NULL;
   va_list args;
+  int r;
 
   va_start (args, fs);
-  vsnprintf (buf1, sizeof buf1, fs, args);
+  r = vasprintf (&buf1, fs, args);
   va_end (args);
 
-  snprintf (buf2, sizeof buf2, "%s: %s", buf1, strerror (err));
+  if (r == -1) {
+  error:
+    perror ("vasprintf");
+    exit (EXIT_FAILURE);
+  }
+
+  r = asprintf (&buf2, "%s: %s", buf1, strerror (err));
+  if (r == -1)
+    goto error;
 
   send_error (err, buf2);
 }
@@ -252,7 +267,7 @@ static void
 send_error (int errnum, const char *msg)
 {
   XDR xdr;
-  char buf[GUESTFS_ERROR_LEN + 200];
+  CLEANUP_FREE char *buf = NULL;
   char lenbuf[4];
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
@@ -260,7 +275,12 @@ send_error (int errnum, const char *msg)
 
   fprintf (stderr, "guestfsd: error: %s\n", msg);
 
-  xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
+  buf = malloc (GUESTFS_ERROR_LEN + 200);
+  if (!buf) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+  xdrmem_create (&xdr, buf, GUESTFS_ERROR_LEN + 200, XDR_ENCODE);
 
   memset (&hdr, 0, sizeof hdr);
   hdr.prog = GUESTFS_PROGRAM;
@@ -308,12 +328,17 @@ void
 reply (xdrproc_t xdrp, char *ret)
 {
   XDR xdr;
-  char buf[GUESTFS_MESSAGE_MAX];
+  CLEANUP_FREE char *buf = NULL;
   char lenbuf[4];
   struct guestfs_message_header hdr;
   uint32_t len;
 
-  xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
+  buf = malloc (GUESTFS_MESSAGE_MAX);
+  if (!buf) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+  xdrmem_create (&xdr, buf, GUESTFS_MESSAGE_MAX, XDR_ENCODE);
 
   memset (&hdr, 0, sizeof hdr);
   hdr.prog = GUESTFS_PROGRAM;
