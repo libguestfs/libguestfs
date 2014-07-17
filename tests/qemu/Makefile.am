@@ -29,4 +29,29 @@ TESTS = \
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
-	$(TESTS)
+	$(TESTS) \
+	qemu-boot.c
+
+# qemu-boot is built but not run by default as it is mainly
+# a qemu & kernel diagnostic tool.
+
+check_PROGRAMS = qemu-boot
+
+qemu_boot_SOURCES = \
+	../../df/estimate-max-threads.c \
+	../../df/estimate-max-threads.h \
+	qemu-boot.c
+qemu_boot_CPPFLAGS = \
+	-DGUESTFS_PRIVATE=1 \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/df
+qemu_boot_CFLAGS = \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+qemu_boot_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(top_builddir)/gnulib/lib/libgnu.la
