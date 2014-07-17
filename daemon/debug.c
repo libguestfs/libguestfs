@@ -65,6 +65,7 @@ static char *debug_help (const char *subcmd, size_t argc, char *const *const arg
 static char *debug_binaries (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_core_pattern (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_env (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_error (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_ldd (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_ls (const char *subcmd, size_t argc, char *const *const argv);
@@ -83,6 +84,7 @@ static struct cmd cmds[] = {
   { "binaries", debug_binaries },
   { "core_pattern", debug_core_pattern },
   { "env", debug_env },
+  { "error", debug_error },
   { "fds", debug_fds },
   { "ldd", debug_ldd },
   { "ls", debug_ls },
@@ -316,6 +318,44 @@ debug_setenv (const char *subcmd, size_t argc, char *const *const argv)
   }
 
   return ret;
+}
+
+/* Send back an error of different lengths. */
+static char *
+debug_error (const char *subcmd, size_t argc, char *const *const argv)
+{
+  unsigned len;
+  CLEANUP_FREE char *buf = NULL;
+
+  if (argc != 1) {
+  error:
+    reply_with_error ("debug error: expecting one arg: length of error message");
+    return NULL;
+  }
+
+  if (sscanf (argv[0], "%u", &len) != 1)
+    goto error;
+
+  if (len > 1000000) {
+    reply_with_error ("debug error: length argument too large");
+    return NULL;
+  }
+
+  buf = malloc (len + 1);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  memset (buf, 'a', len);
+  buf[len] = '\0';
+
+  /* So that the regression test can tell this is the true return path
+   * from the function and not an actual error, we set errno to some
+   * value that cannot be returned by any other error path.
+   */
+  reply_with_error_errno (EROFS, "%s", buf);
+  return NULL;
 }
 
 /* Return binaries in the appliance.

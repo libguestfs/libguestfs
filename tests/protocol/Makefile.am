@@ -17,7 +17,7 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-TESTS = \
+EXTRA_DIST = \
 	test-both-ends-cancel.sh \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
@@ -28,5 +28,29 @@ TESTS = \
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-EXTRA_DIST = \
-	$(TESTS)
+TESTS = \
+	test-both-ends-cancel.sh \
+	test-cancellation-download-librarycancels.sh \
+	test-cancellation-upload-daemoncancels.sh \
+	test-error-messages \
+	test-launch-race.pl \
+	test-qemudie-killsub.sh \
+	test-qemudie-midcommand.sh \
+	test-qemudie-synch.sh
+
+check_PROGRAMS = test-error-messages
+
+test_error_messages_SOURCES = \
+	test-error-messages.c
+test_error_messages_CPPFLAGS = \
+	-DGUESTFS_PRIVATE=1 \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+test_error_messages_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_error_messages_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(top_builddir)/gnulib/lib/libgnu.la
