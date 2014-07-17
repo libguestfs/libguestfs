@@ -217,7 +217,7 @@ main_loop (int _sock)
   }
 }
 
-static void send_error (int errnum, const char *msg);
+static void send_error (int errnum, char *msg);
 
 void
 reply_with_error_errno (int err, const char *fs, ...)
@@ -264,7 +264,7 @@ reply_with_perror_errno (int err, const char *fs, ...)
 }
 
 static void
-send_error (int errnum, const char *msg)
+send_error (int errnum, char *msg)
 {
   XDR xdr;
   CLEANUP_FREE char *buf = NULL;
@@ -273,7 +273,17 @@ send_error (int errnum, const char *msg)
   struct guestfs_message_error err;
   unsigned len;
 
+  /* Print the full length error message. */
   fprintf (stderr, "guestfsd: error: %s\n", msg);
+
+  /* We want to truncate the error message to GUESTFS_ERROR_LEN bytes
+   * (not including the \0 since it is not encoded in XDR).  This is
+   * so that the xdr_guestfs_message_error call below won't fail on
+   * very long error messages.  We can overwrite the message since all
+   * callers of send_error pass a temporary buffer.
+   */
+  if (strlen (msg) > GUESTFS_ERROR_LEN)
+    msg[GUESTFS_ERROR_LEN] = '\0';
 
   buf = malloc (GUESTFS_ERROR_LEN + 200);
   if (!buf) {
