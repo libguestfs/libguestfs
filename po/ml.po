@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # rjones <rjones@redhat.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2014-07-21 14:35+0100\n"
-"PO-Revision-Date: 2014-03-26 16:49+0000\n"
+"PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Malayalam (http://www.transifex.com/projects/p/fedora/"
-"language/ml/)\n"
-"Language: ml\n"
+"Language-Team: Malayalam (http://www.transifex.com/projects/p/libguestfs/language/ml/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ml\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: align/scan.c:73 cat/cat.c:56 cat/filesystems.c:87 cat/log.c:64 cat/ls.c:83
@@ -894,9 +892,7 @@ msgstr "ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ�
 
 #: fish/cmds.c:3886
 msgid "report file system disk space usage (human readable)"
-msgstr ""
-"ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ്കിലുള്ള സ്ഥലത്തിന്റെ ഉപയോഗം രേഖപ്പെടുത്തുക (മനുഷ്യര്‍ക്കു് വായിക്കുവാന്‍ "
-"സാധിക്കുന്നതു്)"
+msgstr "ഫയല്‍ സിസ്റ്റത്തിന്റെ ഡിസ്കിലുള്ള സ്ഥലത്തിന്റെ ഉപയോഗം രേഖപ്പെടുത്തുക (മനുഷ്യര്‍ക്കു് വായിക്കുവാന്‍ സാധിക്കുന്നതു്)"
 
 #: fish/cmds.c:3890
 msgid "create a blank disk image"
@@ -2174,8 +2170,7 @@ msgstr "വീണ്ടെടുക്കുന്ന പ്രക്രിയ �
 
 #: fish/cmds.c:4281
 msgid "set SELinux enabled or disabled at appliance boot"
-msgstr ""
-"പ്രയോഗം ബൂട്ട് ചെയ്യുമ്പോള്‍ SELinux പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
+msgstr "പ്രയോഗം ബൂട്ട് ചെയ്യുമ്പോള്‍ SELinux പ്രവര്‍ത്തന സജ്ജമാക്കുക അല്ലെങ്കില്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
 #: fish/cmds.c:4282
 msgid "set number of virtual CPUs in appliance"
@@ -2933,7 +2928,8 @@ msgstr ""
 #: fish/copy.c:51
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:69
@@ -3147,19 +3143,14 @@ msgid ""
 "help - display a list of commands or help on a command\n"
 "     help cmd\n"
 "     help\n"
-msgstr ""
-"help - കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുന്നു\n"
-"     help cmd\n"
-"     help\n"
+msgstr "help - കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുന്നു\n     help cmd\n     help\n"
 
 #: fish/fish.c:1244
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
-msgstr ""
-"quit - quit guestfish\n"
-"     quit\n"
+msgstr "quit - quit guestfish\n     quit\n"
 
 #: fish/fish.c:1249
 #, c-format
@@ -3224,8 +3215,7 @@ msgstr "glob: guestfs_glob_expand കോള്‍ പരാജയപ്പെട
 #: fish/help.c:39
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -3499,9 +3489,7 @@ msgstr "guestfish: protocol error: 'hello' സന്ദേശം വായിക
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
-msgstr ""
-"guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് "
-"പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
+msgstr "guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
 
 #: fish/rc.c:385 fish/rc.c:399
 #, c-format
@@ -3511,8 +3499,7 @@ msgstr "guestfish: remote: സര്‍വര്‍ പ്രവര്‍ത്�
 #: fish/rc.c:411 fish/rc.c:425
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr ""
-"guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
+msgstr "guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
 
 #: fish/rc.c:436
 #, c-format
@@ -3769,12 +3756,10 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4035,8 +4020,7 @@ msgstr ""
 #: p2v/gui.c:861
 #, c-format
 msgid ""
-"Log files and debug information is saved to this directory on the conversion "
-"server:\n"
+"Log files and debug information is saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -4803,9 +4787,9 @@ msgstr ""
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: src/launch-direct.c:287 src/launch-uml.c:159
@@ -5089,8 +5073,7 @@ msgstr ""
 #: src/libvirt-domain.c:249
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -5406,8 +5389,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"

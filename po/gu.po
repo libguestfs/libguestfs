@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # rjones <rjones@redhat.com>, 2011
 # sweta <swkothar@redhat.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2014-07-21 14:35+0100\n"
-"PO-Revision-Date: 2014-03-26 16:49+0000\n"
+"PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Gujarati (http://www.transifex.com/projects/p/fedora/language/"
-"gu/)\n"
-"Language: gu\n"
+"Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/language/gu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: gu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: align/scan.c:73 cat/cat.c:56 cat/filesystems.c:87 cat/log.c:64 cat/ls.c:83
@@ -2931,7 +2929,8 @@ msgstr ""
 #: fish/copy.c:51
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 
 #: fish/copy.c:69
@@ -3145,19 +3144,14 @@ msgid ""
 "help - display a list of commands or help on a command\n"
 "     help cmd\n"
 "     help\n"
-msgstr ""
-"help - આદેશોની યાદીને દર્શાવો અથવા આદેશ પર મદદ\n"
-"     help cmd\n"
-"     મદદ\n"
+msgstr "help - આદેશોની યાદીને દર્શાવો અથવા આદેશ પર મદદ\n     help cmd\n     મદદ\n"
 
 #: fish/fish.c:1244
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
-msgstr ""
-"quit - guestfish માંથી બહાર નીકળો\n"
-"     બહાર નીકળો\n"
+msgstr "quit - guestfish માંથી બહાર નીકળો\n     બહાર નીકળો\n"
 
 #: fish/fish.c:1249
 #, c-format
@@ -3222,8 +3216,7 @@ msgstr "glob: guestfs_glob_expand કોલ નિષ્ફળ: %s\n"
 #: fish/help.c:39
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
@@ -3445,10 +3438,7 @@ msgid ""
 "guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
-msgstr ""
-"guestfish -N %-8s - %s\n"
-"\n"
-"%s\n"
+msgstr "guestfish -N %-8s - %s\n\n%s\n"
 
 #: fish/prep.c:49
 #, c-format
@@ -3500,9 +3490,7 @@ msgstr "guestfish: પ્રોટોકોલ ભૂલ: 'hello' સંદે�
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
-msgstr ""
-"guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ ક્લાઇન્ટ આવૃત્તિ "
-"'%s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે બંધબેસતી હોવી જ જોઇએ.\n"
+msgstr "guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ ક્લાઇન્ટ આવૃત્તિ '%s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે બંધબેસતી હોવી જ જોઇએ.\n"
 
 #: fish/rc.c:385 fish/rc.c:399
 #, c-format
@@ -3769,12 +3757,10 @@ msgstr ""
 msgid ""
 "%s: no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -4035,8 +4021,7 @@ msgstr ""
 #: p2v/gui.c:861
 #, c-format
 msgid ""
-"Log files and debug information is saved to this directory on the conversion "
-"server:\n"
+"Log files and debug information is saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
 
@@ -4803,9 +4788,9 @@ msgstr ""
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 
 #: src/launch-direct.c:287 src/launch-uml.c:159
@@ -5089,8 +5074,7 @@ msgstr "ડોમેઇન જાણકારીને મેળવી રહ્
 #: src/libvirt-domain.c:249
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
@@ -5406,8 +5390,7 @@ msgstr ""
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
