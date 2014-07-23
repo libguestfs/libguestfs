@@ -344,6 +344,12 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " " SERIAL_CONSOLE /* serial console */
 #ifdef __aarch64__
      " earlyprintk=pl011,0x9000000 ignore_loglevel"
+     /* This option turns off the EFI RTC device.  QEMU VMs don't
+      * currently provide EFI, and if the device is compiled in it
+      * will try to call the EFI function GetTime unconditionally
+      * (causing a call to NULL).  However this option requires a
+      * non-upstream patch.
+      */
      " efi-rtc=noprobe"
 #endif
      " udevtimeout=6000"/* for slow systems (RHBZ#480319, RHBZ#1096579) */
