@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.27.22\n"
+"Project-Id-Version: libguestfs 1.27.23\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-07-21 14:14+0200\n"
+"POT-Creation-Date: 2014-07-23 17:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -764,7 +764,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:350 ../appliance/libguestfs-make-fixed-appliance.pod:154 ../builder/virt-builder.pod:1661 ../builder/virt-index-validate.pod:74 ../cat/virt-cat.pod:268 ../cat/virt-filesystems.pod:381 ../cat/virt-log.pod:130 ../cat/virt-ls.pod:513 ../customize/virt-customize.pod:212 ../daemon/guestfsd.pod:71 ../df/virt-df.pod:251 ../diff/virt-diff.pod:246 ../edit/virt-edit.pod:384 ../fish/guestfish.pod:1380 ../format/virt-format.pod:181 ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:124 ../inspector/virt-inspector.pod:487 ../resize/virt-resize.pod:746 ../sparsify/virt-sparsify.pod:428 ../sysprep/virt-sysprep.pod:514 ../test-tool/libguestfs-test-tool.pod:170
+#: ../align/virt-alignment-scan.pod:350 ../appliance/libguestfs-make-fixed-appliance.pod:154 ../builder/virt-builder.pod:1683 ../builder/virt-index-validate.pod:74 ../cat/virt-cat.pod:268 ../cat/virt-filesystems.pod:381 ../cat/virt-log.pod:130 ../cat/virt-ls.pod:513 ../customize/virt-customize.pod:212 ../daemon/guestfsd.pod:71 ../df/virt-df.pod:251 ../diff/virt-diff.pod:246 ../edit/virt-edit.pod:384 ../fish/guestfish.pod:1380 ../format/virt-format.pod:181 ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:124 ../inspector/virt-inspector.pod:487 ../resize/virt-resize.pod:746 ../sparsify/virt-sparsify.pod:428 ../sysprep/virt-sysprep.pod:514 ../test-tool/libguestfs-test-tool.pod:170
 msgid "EXIT STATUS"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:164 ../builder/virt-builder.pod:1666 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518 ../customize/virt-customize.pod:216 ../daemon/guestfsd.pod:115 ../df/virt-df.pod:256 ../diff/virt-diff.pod:251 ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1247 ../examples/guestfs-performance.pod:557 ../examples/guestfs-recipes.pod:659 ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1601 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:415 ../fuse/guestunmount.pod:147 ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:3006 ../inspector/virt-inspector.pod:492 ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:76 ../p2v-iso/guestfs-p2v-iso.pod:224 ../p2v/virt-p2v.pod:205 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412 ../resize/virt-resize.pod:751 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4752 ../sysprep/virt-sysprep.pod:518 ../test-tool/libguestfs-test-tool.pod:180 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/virt-v2v.pod:409
+#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:164 ../builder/virt-builder.pod:1688 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518 ../customize/virt-customize.pod:246 ../daemon/guestfsd.pod:115 ../df/virt-df.pod:256 ../diff/virt-diff.pod:251 ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1247 ../examples/guestfs-performance.pod:557 ../examples/guestfs-recipes.pod:659 ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1601 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:415 ../fuse/guestunmount.pod:147 ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:3006 ../inspector/virt-inspector.pod:492 ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:76 ../p2v-iso/guestfs-p2v-iso.pod:224 ../p2v/virt-p2v.pod:205 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412 ../resize/virt-resize.pod:751 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4752 ../sysprep/virt-sysprep.pod:548 ../test-tool/libguestfs-test-tool.pod:180 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/virt-v2v.pod:409
 msgid "SEE ALSO"
 msgstr ""
 
@@ -835,17 +835,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:393 ../builder/virt-builder.pod:1685 ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:283 ../cat/virt-filesystems.pod:397 ../cat/virt-log.pod:145 ../cat/virt-ls.pod:528 ../daemon/guestfsd.pod:120 ../df/virt-df.pod:264 ../diff/virt-diff.pod:261 ../edit/virt-edit.pod:400 ../format/virt-format.pod:195 ../guestfs-release-notes.pod:3017 ../make-fs/virt-make-fs.pod:229 ../p2v-iso/guestfs-p2v-iso.pod:232 ../rescue/virt-rescue.pod:422 ../resize/virt-resize.pod:774 ../sparsify/virt-sparsify.pod:452 ../tools/virt-list-filesystems:193 ../tools/virt-list-partitions:274 ../tools/virt-tar:306 ../tools/virt-win-reg:799
+#: ../align/virt-alignment-scan.pod:393 ../builder/virt-builder.pod:1707 ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:283 ../cat/virt-filesystems.pod:397 ../cat/virt-log.pod:145 ../cat/virt-ls.pod:528 ../daemon/guestfsd.pod:120 ../df/virt-df.pod:264 ../diff/virt-diff.pod:261 ../edit/virt-edit.pod:400 ../format/virt-format.pod:195 ../guestfs-release-notes.pod:3017 ../make-fs/virt-make-fs.pod:229 ../p2v-iso/guestfs-p2v-iso.pod:232 ../rescue/virt-rescue.pod:422 ../resize/virt-resize.pod:774 ../sparsify/virt-sparsify.pod:452 ../tools/virt-list-filesystems:193 ../tools/virt-list-partitions:274 ../tools/virt-tar:306 ../tools/virt-win-reg:799
 msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:395 ../builder/virt-builder.pod:1687 ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:285 ../cat/virt-filesystems.pod:399 ../cat/virt-log.pod:147 ../cat/virt-ls.pod:530 ../customize/virt-customize.pod:235 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:266 ../diff/virt-diff.pod:263 ../edit/virt-edit.pod:402 ../format/virt-format.pod:197 ../inspector/virt-inspector.pod:507 ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v.pod:213 ../rescue/virt-rescue.pod:424 ../resize/virt-resize.pod:776 ../sparsify/virt-sparsify.pod:454 ../sysprep/virt-sysprep.pod:537 ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276 ../tools/virt-tar:308 ../tools/virt-win-reg:801 ../v2v/virt-v2v.pod:421
+#: ../align/virt-alignment-scan.pod:395 ../builder/virt-builder.pod:1709 ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:285 ../cat/virt-filesystems.pod:399 ../cat/virt-log.pod:147 ../cat/virt-ls.pod:530 ../customize/virt-customize.pod:265 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:266 ../diff/virt-diff.pod:263 ../edit/virt-edit.pod:402 ../format/virt-format.pod:197 ../inspector/virt-inspector.pod:507 ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v.pod:213 ../rescue/virt-rescue.pod:424 ../resize/virt-resize.pod:776 ../sparsify/virt-sparsify.pod:454 ../sysprep/virt-sysprep.pod:567 ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276 ../tools/virt-tar:308 ../tools/virt-win-reg:801 ../v2v/virt-v2v.pod:421
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:176 ../builder/virt-builder.pod:1689 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532 ../customize/virt-customize.pod:237 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:268 ../diff/virt-diff.pod:265 ../edit/virt-edit.pod:404 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1257 ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:678 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1640 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:433 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:3021 ../inspector/virt-inspector.pod:515 ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v-iso/guestfs-p2v-iso.pod:236 ../p2v/virt-p2v.pod:217 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:778 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4816 ../sysprep/virt-sysprep.pod:541 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/virt-v2v.pod:427
+#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:176 ../builder/virt-builder.pod:1711 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532 ../customize/virt-customize.pod:267 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:268 ../diff/virt-diff.pod:265 ../edit/virt-edit.pod:404 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1257 ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:678 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1640 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:433 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:3021 ../inspector/virt-inspector.pod:515 ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v-iso/guestfs-p2v-iso.pod:236 ../p2v/virt-p2v.pod:217 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:778 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4816 ../sysprep/virt-sysprep.pod:571 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/virt-v2v.pod:427
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1129,7 +1129,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:159 ../builder/virt-builder.pod:1624 ../edit/virt-edit.pod:371 ../fish/guestfish.pod:1385 ../fuse/guestunmount.pod:113 ../rescue/virt-rescue.pod:388 ../sparsify/virt-sparsify.pod:395 ../src/guestfs.pod:4644 ../test-tool/libguestfs-test-tool.pod:175 ../v2v/virt-v2v.pod:346
+#: ../appliance/libguestfs-make-fixed-appliance.pod:159 ../builder/virt-builder.pod:1624 ../customize/virt-customize.pod:216 ../edit/virt-edit.pod:371 ../fish/guestfish.pod:1385 ../fuse/guestunmount.pod:113 ../rescue/virt-rescue.pod:388 ../sparsify/virt-sparsify.pod:395 ../src/guestfs.pod:4644 ../sysprep/virt-sysprep.pod:518 ../test-tool/libguestfs-test-tool.pod:175 ../v2v/virt-v2v.pod:346
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
@@ -1148,7 +1148,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:172 ../customize/virt-customize.pod:233 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1253 ../examples/guestfs-performance.pod:569 ../examples/guestfs-recipes.pod:674 ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1636 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:429 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:171 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:91 ../p2v/virt-p2v.pod:211 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:65 ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4812 ../sysprep/virt-sysprep.pod:535 ../test-tool/libguestfs-test-tool.pod:186 ../v2v/virt-v2v.pod:419
+#: ../appliance/libguestfs-make-fixed-appliance.pod:172 ../customize/virt-customize.pod:263 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1253 ../examples/guestfs-performance.pod:569 ../examples/guestfs-recipes.pod:674 ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1636 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:429 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:501 ../java/examples/guestfs-java.pod:171 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:91 ../p2v/virt-p2v.pod:211 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:65 ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4812 ../sysprep/virt-sysprep.pod:565 ../test-tool/libguestfs-test-tool.pod:186 ../v2v/virt-v2v.pod:419
 msgid "AUTHORS"
 msgstr ""
 
@@ -4587,46 +4587,88 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1645
+#: ../builder/virt-builder.pod:1645 ../customize/virt-customize.pod:220 ../sysprep/virt-sysprep.pod:522 ../v2v/virt-v2v.pod:369
+msgid "C<VIRT_TOOLS_DATA_DIR>"
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:1647 ../customize/virt-customize.pod:222 ../sysprep/virt-sysprep.pod:524
+msgid ""
+"This can point to the directory containing data files used for Windows "
+"firstboot installation."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:1650 ../customize/virt-customize.pod:225 ../sysprep/virt-sysprep.pod:527 ../v2v/virt-v2v.pod:374
+msgid ""
+"Normally you do not need to set this.  If not set, a compiled-in default "
+"will be used (something like C</usr/share/virt-tools>)."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:1653 ../customize/virt-customize.pod:228 ../sysprep/virt-sysprep.pod:530 ../v2v/virt-v2v.pod:377
+msgid "This directory may contain the following files:"
+msgstr ""
+
+#. type: =item
+#: ../builder/virt-builder.pod:1657 ../customize/virt-customize.pod:232 ../sysprep/virt-sysprep.pod:534 ../v2v/virt-v2v.pod:381
+msgid "C<rhsrvany.exe>"
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:1659 ../customize/virt-customize.pod:234 ../sysprep/virt-sysprep.pod:536
+msgid ""
+"This is the RHSrvAny Windows binary, used to install a \"firstboot\" script "
+"in Windows guests.  It is required if you intend to use the I<--firstboot> "
+"or I<--firstboot-command> options with Windows guests."
+msgstr ""
+
+#. type: textblock
+#: ../builder/virt-builder.pod:1663 ../customize/virt-customize.pod:238 ../sysprep/virt-sysprep.pod:540 ../v2v/virt-v2v.pod:388
+msgid "See also: C<https://github.com/rwmjones/rhsrvany>"
+msgstr ""
+
+#. type: =item
+#: ../builder/virt-builder.pod:1667
 msgid "C<XDG_CACHE_HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1647
+#: ../builder/virt-builder.pod:1669
 msgid "Used to determine the location of the template cache.  See L</CACHING>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1649
+#: ../builder/virt-builder.pod:1671
 msgid "C<XDG_CONFIG_HOME>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1651
+#: ../builder/virt-builder.pod:1673
 msgid ""
 "Used to determine the location of the user' sources.  See L</SOURCES OF "
 "TEMPLATES>."
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:1654
+#: ../builder/virt-builder.pod:1676
 msgid "C<XDG_CONFIG_DIRS>"
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1656
+#: ../builder/virt-builder.pod:1678
 msgid ""
 "Used to determine the location of the system sources.  See L</SOURCES OF "
 "TEMPLATES>."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1663 ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:383 ../cat/virt-log.pod:132 ../cat/virt-ls.pod:515 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:253 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:386 ../fuse/guestmount.pod:412 ../inspector/virt-inspector.pod:489 ../resize/virt-resize.pod:748
+#: ../builder/virt-builder.pod:1685 ../cat/virt-cat.pod:270 ../cat/virt-filesystems.pod:383 ../cat/virt-log.pod:132 ../cat/virt-ls.pod:515 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:253 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:386 ../fuse/guestmount.pod:412 ../inspector/virt-inspector.pod:489 ../resize/virt-resize.pod:748
 msgid "This program returns 0 if successful, or non-zero if there was an error."
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1668
+#: ../builder/virt-builder.pod:1690
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<guestmount(1)>, L<virt-copy-out(1)>, "
 "L<virt-customize(1)>, L<virt-install(1)>, L<virt-rescue(1)>, "
@@ -4636,7 +4678,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1691 ../builder/virt-index-validate.pod:90 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97
+#: ../builder/virt-builder.pod:1713 ../builder/virt-index-validate.pod:90 ../fuse/guestunmount.pod:162 ../golang/examples/guestfs-golang.pod:97
 msgid "Copyright (C) 2013 Red Hat Inc."
 msgstr ""
 
@@ -7294,7 +7336,12 @@ msgid "This program returns 0 on success, or 1 if there was an error."
 msgstr ""
 
 #. type: textblock
-#: ../customize/virt-customize.pod:218
+#: ../customize/virt-customize.pod:244 ../sparsify/virt-sparsify.pod:426 ../sysprep/virt-sysprep.pod:546 ../v2v/virt-v2v.pod:407
+msgid "For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>."
+msgstr ""
+
+#. type: textblock
+#: ../customize/virt-customize.pod:248
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-builder(1)>, L<virt-clone(1)>, "
 "L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, "
@@ -7303,7 +7350,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/virt-customize.pod:239 ../fish/libguestfs-tools.conf.pod:102 ../sparsify/virt-sparsify.pod:458 ../sysprep/virt-sysprep.pod:543
+#: ../customize/virt-customize.pod:269 ../fish/libguestfs-tools.conf.pod:102 ../sparsify/virt-sparsify.pod:458 ../sysprep/virt-sysprep.pod:573
 msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
@@ -50266,11 +50313,6 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:426 ../v2v/virt-v2v.pod:407
-msgid "For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>."
-msgstr ""
-
-#. type: textblock
 #: ../sparsify/virt-sparsify.pod:430
 msgid ""
 "This program returns 0 if the operation completed without errors.  (This "
@@ -76916,7 +76958,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:520
+#: ../sysprep/virt-sysprep.pod:550
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-builder(1)>, L<virt-clone(1)>, "
 "L<virt-customize(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, "
@@ -76925,12 +76967,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:539
+#: ../sysprep/virt-sysprep.pod:569
 msgid "Wanlong Gao, Fujitsu Ltd."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:545
+#: ../sysprep/virt-sysprep.pod:575
 msgid "Copyright (C) 2012 Fujitsu Ltd."
 msgstr ""
 
@@ -78928,33 +78970,11 @@ msgid ""
 "mountpoint, eg:"
 msgstr ""
 
-#. type: =item
-#: ../v2v/virt-v2v.pod:369
-msgid "C<VIRT_TOOLS_DATA_DIR>"
-msgstr ""
-
 #. type: textblock
 #: ../v2v/virt-v2v.pod:371
 msgid ""
 "This can point to the directory containing data files used for Windows "
 "conversion."
-msgstr ""
-
-#. type: textblock
-#: ../v2v/virt-v2v.pod:374
-msgid ""
-"Normally you do not need to set this.  If not set, a compiled-in default "
-"will be used (something like C</usr/share/virt-tools>)."
-msgstr ""
-
-#. type: textblock
-#: ../v2v/virt-v2v.pod:377
-msgid "This directory may contain the following files:"
-msgstr ""
-
-#. type: =item
-#: ../v2v/virt-v2v.pod:381
-msgid "C<rhsrvany.exe>"
 msgstr ""
 
 #. type: textblock
@@ -78967,11 +78987,6 @@ msgstr ""
 msgid ""
 "This is the RHSrvAny Windows binary, used to install a \"firstboot\" script "
 "in the guest during conversion of Windows guests."
-msgstr ""
-
-#. type: textblock
-#: ../v2v/virt-v2v.pod:388
-msgid "See also: C<https://github.com/rwmjones/rhsrvany>"
 msgstr ""
 
 #. type: =item
