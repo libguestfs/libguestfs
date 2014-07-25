@@ -30,12 +30,13 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
 	$(TESTS) \
-	qemu-boot.c
+	qemu-boot.c \
+	qemu-speed-test.c
 
-# qemu-boot is built but not run by default as it is mainly
-# a qemu & kernel diagnostic tool.
+# qemu-boot & qemu-speed-test are built but not run by default as they
+# are mainly qemu & kernel diagnostic tools.
 
-check_PROGRAMS = qemu-boot
+check_PROGRAMS = qemu-boot qemu-speed-test
 
 qemu_boot_SOURCES = \
 	../../df/estimate-max-threads.c \
@@ -50,6 +51,22 @@ qemu_boot_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 qemu_boot_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(top_builddir)/gnulib/lib/libgnu.la
+
+qemu_speed_test_SOURCES = \
+	qemu-speed-test.c
+qemu_speed_test_CPPFLAGS = \
+	-DGUESTFS_PRIVATE=1 \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/df
+qemu_speed_test_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+qemu_speed_test_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \

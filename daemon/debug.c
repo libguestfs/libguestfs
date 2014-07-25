@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2014 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,6 +64,7 @@ struct cmd {
 static char *debug_help (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_binaries (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_core_pattern (const char *subcmd, size_t argc, char *const *const argv);
+static char *debug_device_speed (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_env (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_error (const char *subcmd, size_t argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, size_t argc, char *const *const argv);
@@ -83,6 +84,7 @@ static struct cmd cmds[] = {
   { "help", debug_help },
   { "binaries", debug_binaries },
   { "core_pattern", debug_core_pattern },
+  { "device_speed", debug_device_speed },
   { "env", debug_env },
   { "error", debug_error },
   { "fds", debug_fds },
@@ -747,6 +749,130 @@ debug_qtrace (const char *subcmd, size_t argc, char *const *const argv)
   }
 
   return ret;
+}
+
+/* Used to test read and write speed. */
+static char *
+debug_device_speed (const char *subcmd, size_t argc, char *const *const argv)
+{
+  const char *device;
+  int writing, err;
+  unsigned secs;
+  int64_t size, position, copied;
+  CLEANUP_FREE void *buf = NULL;
+  struct timeval now, end;
+  ssize_t r;
+  int fd;
+  char *ret;
+
+  if (argc != 3) {
+  bad_args:
+    reply_with_error ("device_speed <device> <r|w> <secs>");
+    return NULL;
+  }
+
+  device = argv[0];
+  if (STREQ (argv[1], "r") || STREQ (argv[1], "read"))
+    writing = 0;
+  else if (STREQ (argv[1], "w") || STREQ (argv[1], "write"))
+    writing = 1;
+  else
+    goto bad_args;
+  if (sscanf (argv[2], "%u", &secs) != 1)
+    goto bad_args;
+
+  /* Find the size of the device. */
+  size = do_blockdev_getsize64 (device);
+  if (size == -1)
+    return NULL;
+
+  if (size < BUFSIZ) {
+    reply_with_error ("%s: device is too small", device);
+    return NULL;
+  }
+
+  /* Because we're using O_DIRECT, the buffer must be aligned. */
+  err = posix_memalign (&buf, 4096, BUFSIZ);
+  if (err != 0) {
+    reply_with_error_errno (err, "posix_memalign");
+    return NULL;
+  }
+
+  /* Any non-zero data will do. */
+  memset (buf, 100, BUFSIZ);
+
+  fd = open (device, (writing ? O_WRONLY : O_RDONLY) | O_CLOEXEC | O_DIRECT);
+  if (fd == -1) {
+    reply_with_perror ("open: %s", device);
+    return NULL;
+  }
+
+  /* Now we read or write to the device, wrapping around to the
+   * beginning when we reach the end, and only stop when <secs>
+   * seconds has elapsed.
+   */
+  gettimeofday (&end, NULL);
+  end.tv_sec += secs;
+
+  position = copied = 0;
+
+  for (;;) {
+    gettimeofday (&now, NULL);
+    if (now.tv_sec > end.tv_sec ||
+        (now.tv_sec == end.tv_sec && now.tv_usec > end.tv_usec))
+      break;
+
+    /* Because of O_DIRECT, only write whole, aligned buffers. */
+  again:
+    if (size - position < BUFSIZ) {
+      position = 0;
+      goto again;
+    }
+
+    /*
+    if (verbose) {
+      fprintf (stderr, "p%s (fd, buf, %d, %" PRIi64 ")\n",
+               writing ? "write" : "read", BUFSIZ, position);
+    }
+    */
+
+    if (writing) {
+      r = pwrite (fd, buf, BUFSIZ, position);
+      if (r == -1) {
+        reply_with_perror ("write: %s", device);
+        goto error;
+      }
+    }
+    else {
+      r = pread (fd, buf, BUFSIZ, position);
+      if (r == -1) {
+        reply_with_perror ("read: %s", device);
+        goto error;
+      }
+      if (r == 0) {
+        reply_with_error ("unexpected end of file while reading");
+        goto error;
+      }
+    }
+    position += BUFSIZ;
+    copied += r;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", device);
+    return NULL;
+  }
+
+  if (asprintf (&ret, "%" PRIi64, copied) == -1) {
+    reply_with_perror ("asprintf");
+    return NULL;
+  }
+
+  return ret;
+
+ error:
+  close (fd);
+  return NULL;
 }
 
 /* Has one FileIn parameter. */
