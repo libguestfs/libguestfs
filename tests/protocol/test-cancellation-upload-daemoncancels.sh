@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,8 @@
 
 set -e
 
-../../fish/guestfish -N test-cancellation-upload-daemoncancels.img=fs \
+../../fish/guestfish \
+    -N test-cancellation-upload-daemoncancels.img=fs:ext2:10M \
     -m /dev/sda1 <<'EOF'
 # Upload image, daemon should cancel because the image is too large
 # to upload into itself.
