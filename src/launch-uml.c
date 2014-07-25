@@ -333,6 +333,9 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
         goto dup_failed;
 
       close (csv[1]);
+
+      /* RHBZ#1123007 */
+      close_file_descriptors (fd >= 2 && fd != dsv[1]);
     }
 
     /* Dump the command line (after setting up stderr above). */
@@ -360,7 +363,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   if (g->recovery_proc) {
     r = fork ();
     if (r == 0) {
-      int i, fd, max_fd;
+      int i;
       struct sigaction sa;
       pid_t vmlinux_pid = data->pid;
       pid_t parent_pid = getppid ();
@@ -380,13 +383,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
       /* Close all other file descriptors.  This ensures that we don't
        * hold open (eg) pipes from the parent process.
        */
-      max_fd = sysconf (_SC_OPEN_MAX);
-      if (max_fd == -1)
-        max_fd = 1024;
-      if (max_fd > 65536)
-        max_fd = 65536; /* bound the amount of work we do here */
-      for (fd = 0; fd < max_fd; ++fd)
-        close (fd);
+      close_file_descriptors (1);
 
       /* It would be nice to be able to put this in the same process
        * group as vmlinux (ie. setpgid (0, vmlinux_pid)).  However
