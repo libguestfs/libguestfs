@@ -130,7 +130,7 @@ mexp_spawnl (const char *file, const char *arg, ...)
 mexp_h *
 mexp_spawnv (const char *file, char **argv)
 {
-  mexp_h *h;
+  mexp_h *h = NULL;
   int fd = -1;
   int err;
   char slave[1024];
@@ -206,6 +206,8 @@ mexp_spawnv (const char *file, char **argv)
     close (fd);
   if (pid > 0)
     waitpid (pid, NULL, 0);
+  if (h != NULL)
+    mexp_close (h);
   errno = err;
   return NULL;
 }
