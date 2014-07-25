@@ -24,6 +24,8 @@ use Sys::Guestfs;
 
 my $g = Sys::Guestfs->new ();
 
+exit 77 if $ENV{SKIP_TEST_HOT_ADD_PL};
+
 # Skip the test if the default backend isn't libvirt, since only
 # the libvirt backend supports hotplugging.
 my $backend = $g->get_backend ();
