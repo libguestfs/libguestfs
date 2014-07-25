@@ -20,6 +20,11 @@
 
 set -e
 
+if [ -n "$SKIP_TEST_LVM_FILTERING_SH" ]; then
+    echo "$0: skipping test because environment variable is set."
+    exit 77
+fi
+
 rm -f test-lvm-filtering-1.img test-lvm-filtering-2.img
 
 actual=$(../../fish/guestfish <<'EOF'
