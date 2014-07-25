@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2013 Red Hat Inc.
+ * Copyright (C) 2013-2014 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -163,5 +163,19 @@ extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomain
 #else
 #  define program_name "libguestfs"
 #endif
+
+/* Close all file descriptors matching the condition. */
+#define close_file_descriptors(cond) do {                               \
+    int max_fd = sysconf (_SC_OPEN_MAX);                                \
+    int fd;                                                             \
+    if (max_fd == -1)                                                   \
+      max_fd = 1024;                                                    \
+    if (max_fd > 65536)                                                 \
+      max_fd = 65536;          /* bound the amount of work we do here */ \
+    for (fd = 0; fd < max_fd; ++fd) {                                   \
+      if (cond)                                                         \
+        close (fd);                                                     \
+    }                                                                   \
+  } while (0)
 
 #endif /* GUESTFS_INTERNAL_FRONTEND_H_ */
