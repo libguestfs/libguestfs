@@ -114,6 +114,7 @@ mexp_spawnl (const char *file, const char *arg, ...)
     new_argv = realloc (argv, sizeof (char *) * (i+1));
     if (new_argv == NULL) {
       free (argv);
+      va_end (args);
       return NULL;
     }
     argv = new_argv;
@@ -122,6 +123,7 @@ mexp_spawnl (const char *file, const char *arg, ...)
 
   h = mexp_spawnv (file, argv);
   free (argv);
+  va_end (args);
   return h;
 }
 
