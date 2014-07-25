@@ -378,7 +378,7 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
   struct stat statbuf;
   const char *argv[6];
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
-  FILE *fp;
+  CLEANUP_FCLOSE FILE *fp = NULL;
   char line[256];
   size_t len;
 
@@ -419,10 +419,8 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
     }
     if (fgets (line, sizeof line, fp) == NULL) {
       perror ("fgets");
-      fclose (fp);
       return -1;
     }
-    fclose (fp);
 
     if (sscanf (line, "%" SCNu64, estimate_rtn) != 1) {
       fprintf (stderr, _("%s: cannot parse the output of 'du' command: %s\n"),
@@ -448,7 +446,6 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
       perror ("fgets");
       return -1;
     }
-    fclose (fp);
 
     len = strlen (line);
     if (len > 0 && line[len-1] == '\n')
