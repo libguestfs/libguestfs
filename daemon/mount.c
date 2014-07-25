@@ -390,6 +390,12 @@ do_umount_all (void)
   }
 
   while ((m = getmntent (fp)) != NULL) {
+    if (verbose) {
+      fprintf (stderr, "umount-all: /proc/mounts: fsname=%s dir=%s type=%s opts=%s freq=%d passno=%d\n",
+               m->mnt_fsname, m->mnt_dir, m->mnt_type, m->mnt_opts,
+               m->mnt_freq, m->mnt_passno);
+    }
+
     /* Allow a mount directory like "/sysroot". */
     if (sysroot_len > 0 && STREQ (m->mnt_dir, sysroot)) {
       if (add_string (&mounts, m->mnt_dir) == -1) {
