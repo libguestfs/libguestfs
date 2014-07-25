@@ -425,6 +425,7 @@ read the man page virt-resize(1).
         else (
           g#mount_ro dev "/";
           let stat = g#statvfs "/" in
+          g#umount "/";
           let size = stat.G.bsize *^ stat.G.blocks in
           ContentFS (fs, size)
         )
