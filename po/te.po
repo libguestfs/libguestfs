@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-07-04 12:43+0100\n"
+"POT-Creation-Date: 2014-07-26 21:49+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/fedora/language/"
@@ -45,21 +45,21 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:867
+#: ../resize/resize.ml:868
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:852 ../resize/resize.ml:833
+#: ../resize/resize.ml:853 ../resize/resize.ml:834
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:869
+#: ../resize/resize.ml:870
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:871
+#: ../resize/resize.ml:872
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -127,7 +127,7 @@ msgid ""
 "complete output."
 msgstr ""
 
-#: ../resize/resize.ml:660
+#: ../resize/resize.ml:661
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -136,11 +136,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:849
+#: ../resize/resize.ml:850
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: ../resize/resize.ml:656
+#: ../resize/resize.ml:657
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -149,7 +149,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:652
+#: ../resize/resize.ml:653
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -158,7 +158,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:649
+#: ../resize/resize.ml:650
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -166,21 +166,21 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:826
+#: ../resize/resize.ml:827
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:828
+#: ../resize/resize.ml:829
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:824
+#: ../resize/resize.ml:825
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:830
+#: ../resize/resize.ml:831
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
@@ -242,17 +242,21 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
+#: ../sysprep/main.ml:297
+msgid "%s: error: %s\n"
+msgstr ""
+
 #: ../customize/customize_run.ml:183
 msgid "%s: error: %s is not a regular file in the guest\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:52 ../resize/resize.ml:1308
-#: ../builder/builder.ml:740
+#. ../builder/builder.ml:740
+#: ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52 ../resize/resize.ml:1309
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:55 ../resize/resize.ml:1311
-#: ../builder/builder.ml:743
+#. ../builder/builder.ml:743
+#: ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55 ../resize/resize.ml:1312
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -272,7 +276,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:262
 #. ../builder/builder.ml:761
-#: ../sparsify/sparsify.ml:74 ../resize/resize.ml:1330
+#: ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74 ../resize/resize.ml:1331
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -280,8 +284,8 @@ msgstr ""
 msgid "%s: failed to download %s: HTTP status code %s\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:62 ../resize/resize.ml:1318
-#: ../builder/builder.ml:749
+#. ../builder/builder.ml:749
+#: ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62 ../resize/resize.ml:1319
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -307,20 +311,20 @@ msgstr ""
 
 #. ../customize/customize_main.ml:259
 #. ../builder/builder.ml:758
-#: ../sparsify/sparsify.ml:71 ../resize/resize.ml:1327
+#: ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71 ../resize/resize.ml:1328
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:255
 #. ../builder/builder.ml:755
-#: ../sparsify/sparsify.ml:68 ../resize/resize.ml:1324
+#: ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68 ../resize/resize.ml:1325
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:125
 #. ../builder/builder.ml:752
-#: ../sparsify/sparsify.ml:65 ../resize/resize.ml:1321
+#: ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65 ../resize/resize.ml:1322
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -336,8 +340,8 @@ msgstr ""
 msgid "%s: invalid password selector '%s'; see the man page.\n"
 msgstr ""
 
-#: ../sparsify/sparsify.ml:59 ../resize/resize.ml:1315
-#: ../builder/builder.ml:746
+#. ../builder/builder.ml:746
+#: ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59 ../resize/resize.ml:1316
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
@@ -345,18 +349,18 @@ msgstr ""
 msgid "%s: log file %s: %s (ignored)\n"
 msgstr ""
 
-#: ../resize/resize.ml:807
+#: ../resize/resize.ml:808
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:678
+#: ../resize/resize.ml:679
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:687
+#: ../resize/resize.ml:688
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
@@ -387,26 +391,26 @@ msgid ""
 "output block device = %s, output block device size = %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:600
+#: ../resize/resize.ml:601
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:596
+#: ../resize/resize.ml:597
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:592
+#: ../resize/resize.ml:593
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:503
+#: ../resize/resize.ml:504
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:498
+#: ../resize/resize.ml:499
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
@@ -471,15 +475,15 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:634
+#: ../resize/resize.ml:635
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:630
+#: ../resize/resize.ml:631
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:513
+#: ../resize/resize.ml:514
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
@@ -647,7 +651,7 @@ msgstr ""
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1109
+#: ../resize/resize.ml:1110
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -875,13 +879,13 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1271
+#: ../resize/resize.ml:1272
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1252
+#: ../resize/resize.ml:1253
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -903,7 +907,7 @@ msgstr ""
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../resize/resize.ml:926
+#: ../resize/resize.ml:927
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -935,7 +939,7 @@ msgstr ""
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1170
+#: ../resize/resize.ml:1171
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -1337,7 +1341,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../resize/resize.ml:1298
+#: ../resize/resize.ml:1299
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -1533,7 +1537,7 @@ msgstr ""
 msgid "Setting the timezone: %s"
 msgstr ""
 
-#: ../resize/resize.ml:905
+#: ../resize/resize.ml:906
 msgid ""
 "Setting up initial partition table on %s ...\n"
 "%!"
@@ -1650,13 +1654,13 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:792
+#: ../resize/resize.ml:793
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../resize/resize.ml:864
+#: ../resize/resize.ml:865
 msgid "There is a surplus of %s."
 msgstr ""
 
@@ -1726,13 +1730,13 @@ msgstr ""
 msgid "Writing: %s"
 msgstr ""
 
-#: ../resize/resize.ml:763
+#: ../resize/resize.ml:764
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:775
+#: ../resize/resize.ml:776
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -1834,12 +1838,8 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../resize/resize.ml:1167
+#: ../resize/resize.ml:1168
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
-msgstr ""
-
-#: ../customize/firstboot.ml:82
-msgid "firstboot: failed: "
 msgstr ""
 
 #. ../resize/resize.ml:203
@@ -1855,6 +1855,14 @@ msgstr ""
 
 #: ../builder/builder.ml:131
 msgid "gpg program is not available"
+msgstr ""
+
+#: ../customize/firstboot.ml:114
+msgid "guest type %s is not supported"
+msgstr ""
+
+#: ../customize/firstboot.ml:168
+msgid "guest type %s/%s is not supported"
 msgstr ""
 
 #: ../customize/customize_run.ml:211
@@ -1891,10 +1899,6 @@ msgid "opts"
 msgstr ""
 
 #: ../sparsify/cmdline.ml:167
-msgid "output '%s' cannot be a block device, it must be a regular file"
-msgstr ""
-
-#: ../sparsify/cmdline.ml:171
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
@@ -1918,7 +1922,7 @@ msgstr ""
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
-#: ../resize/resize.ml:962 ../resize/resize.ml:938
+#: ../resize/resize.ml:963 ../resize/resize.ml:939
 msgid "pread-device: short read"
 msgstr ""
 
@@ -1950,30 +1954,7 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../sysprep/main.ml:290
-msgid "sysprep operation failed: %s\n"
-msgstr ""
-
-#: ../sysprep/main.ml:302
-msgid "sysprep operation failed: exception: %s\n"
-msgstr ""
-
-#: ../sysprep/main.ml:299
-msgid ""
-"sysprep operation failed: internal error: Not_found exception was thrown\n"
-msgstr ""
-
-#: ../sysprep/main.ml:296
-msgid ""
-"sysprep operation failed: internal error: assertion failed at %s, line %d, "
-"char %d\n"
-msgstr ""
-
-#: ../sysprep/main.ml:293
-msgid "sysprep operation failed: internal error: invalid argument: %s\n"
-msgstr ""
-
-#: ../resize/resize.ml:444
+#: ../resize/resize.ml:445
 msgid "the source disk has no partitions"
 msgstr ""
 
@@ -2180,23 +2161,23 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:178
+#: ../sparsify/cmdline.ml:174
 msgid "you cannot use --in-place and --check-tmpdir options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:181
+#: ../sparsify/cmdline.ml:177
 msgid "you cannot use --in-place and --compress options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:184
+#: ../sparsify/cmdline.ml:180
 msgid "you cannot use --in-place and --convert options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:187
+#: ../sparsify/cmdline.ml:183
 msgid "you cannot use --in-place and -o options together"
 msgstr ""
 
-#: ../resize/resize.ml:751
+#: ../resize/resize.ml:752
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
@@ -5956,28 +5937,28 @@ msgstr ""
 msgid "%s: %s command failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:428
+#: make-fs/make-fs.c:426
 #, c-format
 msgid "%s: cannot parse the output of 'du' command: %s\n"
 msgstr ""
 
-#: make-fs/make-fs.c:464
+#: make-fs/make-fs.c:461
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar archive\n"
 msgstr ""
 
-#: make-fs/make-fs.c:495
+#: make-fs/make-fs.c:492
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:618
+#: make-fs/make-fs.c:615
 #, c-format
 msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:818
+#: make-fs/make-fs.c:815
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr ""
@@ -6641,14 +6622,10 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:253 src/inspect-fs-unix.c:335
-#: src/inspect-fs-unix.c:879 src/inspect-fs-unix.c:1579 src/inspect-fs.c:564
+#: src/inspect-fs-unix.c:879 src/inspect-fs-unix.c:1574 src/inspect-fs.c:564
 #: src/inspect-fs.c:610 src/inspect.c:539
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
-msgstr ""
-
-#: src/inspect-fs-unix.c:921
-msgid "could not parse /etc/fstab or empty file"
 msgstr ""
 
 #: src/inspect-fs.c:393 src/inspect-fs.c:406
@@ -6703,44 +6680,44 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launchకు ముందుగా మీరు guestfs_add_driveను పిలువవలెను"
 
-#: src/launch-direct.c:872 src/launch-libvirt.c:541
+#: src/launch-direct.c:873 src/launch-libvirt.c:541
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
-#: src/launch-direct.c:1274 src/launch-libvirt.c:1284
+#: src/launch-direct.c:1275 src/launch-libvirt.c:1284
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1432
+#: src/launch-direct.c:1433
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1441
+#: src/launch-direct.c:1442
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1448
+#: src/launch-direct.c:1449
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1456
+#: src/launch-direct.c:1457
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1464
+#: src/launch-direct.c:1465
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1487
+#: src/launch-direct.c:1488
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -6879,7 +6856,7 @@ msgid ""
 "uml backend does not support drives with 'discard' parameter set to 'enable'"
 msgstr ""
 
-#: src/launch-uml.c:476
+#: src/launch-uml.c:473
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
