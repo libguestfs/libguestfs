@@ -502,6 +502,12 @@ build-test-guests:
 print-subdirs:
 	@echo $(SUBDIRS)
 
+# Commit everything in current directory to HEAD, and set commit
+# message to current version (only for maintainer).
+
+maintainer-commit:
+	git commit -a -m "Version $(VERSION)."
+
 # Tag HEAD with current version (only for maintainer).
 
 maintainer-tag:
