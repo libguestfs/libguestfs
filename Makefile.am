@@ -219,24 +219,13 @@ EXTRA_DIST = \
 HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
-	html/guestfs-erlang.3.html \
 	html/guestfs-faq.1.html \
-	html/guestfs-golang.3.html \
-	html/guestfs-java.3.html \
-	html/guestfs-lua.3.html \
-	html/guestfs-ocaml.3.html \
-	html/guestfs-p2v-iso.1.html \
 	html/guestfs-performance.1.html \
-	html/guestfs-perl.3.html \
-	html/guestfs-python.3.html \
 	html/guestfs-recipes.1.html \
 	html/guestfs-release-notes.1.html \
-	html/guestfs-ruby.3.html \
 	html/guestfs-testing.1.html \
 	html/guestfsd.8.html \
 	html/guestfish.1.html \
-	html/guestmount.1.html \
-	html/guestunmount.1.html \
 	html/libguestfs-make-fixed-appliance.1.html \
 	html/libguestfs-test-tool.1.html \
 	html/virt-alignment-scan.1.html \
@@ -265,6 +254,39 @@ HTMLFILES = \
 	html/virt-tar-out.1.html \
 	html/virt-v2v.1.html \
 	html/virt-win-reg.1.html
+
+if HAVE_ERLANG
+HTMLFILES += html/guestfs-erlang.3.html
+endif
+if HAVE_GOLANG
+HTMLFILES += html/guestfs-golang.3.html
+endif
+if HAVE_JAVA
+HTMLFILES += html/guestfs-java.3.html
+endif
+if HAVE_LUA
+HTMLFILES += html/guestfs-lua.3.html
+endif
+if HAVE_OCAML
+HTMLFILES += html/guestfs-ocaml.3.html
+endif
+if HAVE_PERL
+HTMLFILES += html/guestfs-perl.3.html
+endif
+if HAVE_PYTHON
+HTMLFILES += html/guestfs-python.3.html
+endif
+if HAVE_P2V
+HTMLFILES += html/guestfs-p2v-iso.1.html
+endif
+if HAVE_RUBY
+HTMLFILES += html/guestfs-ruby.3.html
+endif
+if HAVE_FUSE
+HTMLFILES += \
+	html/guestmount.1.html \
+	html/guestunmount.1.html
+endif
 
 HTMLSUPPORTFILES = \
 	html/draft.png \
