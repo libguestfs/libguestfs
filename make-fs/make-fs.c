@@ -382,15 +382,18 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
   char line[256];
   size_t len;
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
+  int fd;
 
   if (asprintf (&tmpfile, "%s/makefsXXXXXX", tmpdir) == -1) {
     perror ("asprintf");
     return -1;
   }
-  if (mkstemp (tmpfile) == -1) {
+  fd = mkstemp (tmpfile);
+  if (fd == -1) {
     perror (tmpfile);
     return -1;
   }
+  close (fd);
 
   if (stat (input, &statbuf) == -1) {
     perror (input);
