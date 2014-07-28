@@ -1218,7 +1218,7 @@ make_uri (guestfs_h *g, const char *scheme, const char *user,
   CLEANUP_FREE char *userauth = NULL;
 
   /* Need to add a leading '/' to URI paths since xmlSaveUri doesn't. */
-  if (path[0] != '/') {
+  if (path != NULL && path[0] != '/') {
     pathslash = safe_asprintf (g, "/%s", path);
     uri.path = pathslash;
   }
