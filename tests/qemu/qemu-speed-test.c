@@ -31,6 +31,7 @@
 #include <string.h>
 #include <inttypes.h>
 #include <errno.h>
+#include <getopt.h>
 #include <unistd.h>
 #include <signal.h>
 #include <assert.h>
@@ -42,11 +43,102 @@
 static void test_virtio_serial (void);
 static void test_block_device (void);
 
+/* Which tests are enabled? -- All by default. */
+static int virtio_serial_upload = 1;
+static int virtio_serial_download = 1;
+static int block_device_write = 1;
+static int block_device_read = 1;
+
+static void
+reset_default_tests (int *flag)
+{
+  if (*flag) {
+    virtio_serial_upload = 0;
+    virtio_serial_download = 0;
+    block_device_write = 0;
+    block_device_read = 0;
+    *flag = 0;
+  }
+}
+
+static void
+usage (int exitcode)
+{
+  fprintf (stderr,
+           "qemu-speed-test: Test the speed of qemu features.\n"
+           "\n"
+           "To run all tests (recommended), do:\n"
+           "  qemu-speed-test\n"
+           "\n"
+           "To run only specific tests, do:\n"
+           "  qemu-speed-test --option [--option ...]\n"
+           "where the test options are:\n"
+           "  --virtio-serial-upload\n"
+           "  --virtio-serial-download\n"
+           "  --block-device-write\n"
+           "  --block-device-read\n");
+  exit (exitcode);
+}
+
 int
 main (int argc, char *argv[])
 {
-  if (argc != 1) {
-    fprintf (stderr, "%s: this program takes no arguments\n",
+  enum { HELP_OPTION = CHAR_MAX + 1 };
+  static const char *options = "";
+  static const struct option long_options[] = {
+    { "help", 0, 0, HELP_OPTION },
+
+    /* Tests. */
+    { "virtio-serial-upload", 0, 0, 0 },
+    { "virtio-serial-download", 0, 0, 0 },
+    { "block-device-write", 0, 0, 0 },
+    { "block-device-read", 0, 0, 0 },
+
+    { 0, 0, 0, 0 }
+  };
+  int c, option_index;
+  int reset_flag = 1;
+
+  for (;;) {
+    c = getopt_long (argc, argv, options, long_options, &option_index);
+    if (c == -1) break;
+
+    switch (c) {
+    case 0:
+      /* Options which are long only. */
+      if (STREQ (long_options[option_index].name, "virtio-serial-upload")) {
+        reset_default_tests (&reset_flag);
+        virtio_serial_upload = 1;
+      }
+      else if (STREQ (long_options[option_index].name, "virtio-serial-download")) {
+        reset_default_tests (&reset_flag);
+        virtio_serial_download = 1;
+      }
+      else if (STREQ (long_options[option_index].name, "block-device-write")) {
+        reset_default_tests (&reset_flag);
+        block_device_write = 1;
+      }
+      else if (STREQ (long_options[option_index].name, "block-device-read")) {
+        reset_default_tests (&reset_flag);
+        block_device_read = 1;
+      }
+      else {
+        fprintf (stderr, "%s: unknown long option: %s (%d)\n",
+                 program_name, long_options[option_index].name, option_index);
+        exit (EXIT_FAILURE);
+      }
+      break;
+
+    case HELP_OPTION:
+      usage (EXIT_SUCCESS);
+
+    default:
+      usage (EXIT_FAILURE);
+    }
+  }
+
+  if (optind != argc) {
+    fprintf (stderr, "%s: extra arguments found on the command line\n",
              program_name);
     exit (EXIT_FAILURE);
   }
@@ -136,6 +228,9 @@ test_virtio_serial (void)
   char tmpfile[] = "/tmp/speedtestXXXXXX";
   struct sigaction sa, old_sa;
 
+  if (!virtio_serial_upload && !virtio_serial_download)
+    return;
+
   /* Create a sparse file.  We could upload from /dev/zero, but we
    * won't get progress messages because libguestfs tests if the
    * source file is a regular file.
@@ -186,68 +281,72 @@ test_virtio_serial (void)
   if (eh == -1)
     exit (EXIT_FAILURE);
 
-  gettimeofday (&start, NULL);
-  rate = -1;
-  operation = "upload";
-  alarm (TEST_SERIAL_MAX_TIME);
+  if (virtio_serial_upload) {
+    gettimeofday (&start, NULL);
+    rate = -1;
+    operation = "upload";
+    alarm (TEST_SERIAL_MAX_TIME);
 
-  /* For the upload test, upload the sparse file to /dev/null in the
-   * appliance.  Hopefully this is mostly testing just virtio-serial.
-   */
-  guestfs_push_error_handler (g, NULL, NULL);
-  r = guestfs_upload (g, tmpfile, "/dev/null");
-  alarm (0);
-  unlink (tmpfile);
-  guestfs_pop_error_handler (g);
+    /* For the upload test, upload the sparse file to /dev/null in the
+     * appliance.  Hopefully this is mostly testing just virtio-serial.
+     */
+    guestfs_push_error_handler (g, NULL, NULL);
+    r = guestfs_upload (g, tmpfile, "/dev/null");
+    alarm (0);
+    unlink (tmpfile);
+    guestfs_pop_error_handler (g);
 
-  /* It's possible that the upload will finish before the alarm fires,
-   * or that the upload will be stopped by the alarm.
-   */
-  if (r == -1 && guestfs_last_errno (g) != EINTR) {
-    fprintf (stderr,
-             "%s: expecting upload command to return EINTR\n%s\n",
-             program_name, guestfs_last_error (g));
-    exit (EXIT_FAILURE);
+    /* It's possible that the upload will finish before the alarm fires,
+     * or that the upload will be stopped by the alarm.
+     */
+    if (r == -1 && guestfs_last_errno (g) != EINTR) {
+      fprintf (stderr,
+               "%s: expecting upload command to return EINTR\n%s\n",
+               program_name, guestfs_last_error (g));
+      exit (EXIT_FAILURE);
+    }
+
+    if (rate == -1) {
+    rate_error:
+      fprintf (stderr, "%s: internal error: progress callback was not called! (r=%d, errno=%d)\n",
+               program_name,
+               r, guestfs_last_errno (g));
+      exit (EXIT_FAILURE);
+    }
+
+    print_rate ("virtio-serial upload rate:", rate);
   }
 
-  if (rate == -1) {
-  rate_error:
-    fprintf (stderr, "%s: internal error: progress callback was not called! (r=%d, errno=%d)\n",
-             program_name,
-             r, guestfs_last_errno (g));
-    exit (EXIT_FAILURE);
+  if (virtio_serial_download) {
+    /* For the download test, download a sparse file within the
+     * appliance to /dev/null on the host.
+     */
+    if (guestfs_touch (g, "/sparse") == -1)
+      exit (EXIT_FAILURE);
+    if (guestfs_truncate_size (g, "/sparse", TEST_SERIAL_MAX_SIZE) == -1)
+      exit (EXIT_FAILURE);
+
+    gettimeofday (&start, NULL);
+    rate = -1;
+    operation = "download";
+    alarm (TEST_SERIAL_MAX_TIME);
+    guestfs_push_error_handler (g, NULL, NULL);
+    r = guestfs_download (g, "/sparse", "/dev/null");
+    alarm (0);
+    guestfs_pop_error_handler (g);
+
+    if (r == -1 && guestfs_last_errno (g) != EINTR) {
+      fprintf (stderr,
+               "%s: expecting download command to return EINTR\n%s\n",
+               program_name, guestfs_last_error (g));
+      exit (EXIT_FAILURE);
+    }
+
+    if (rate == -1)
+      goto rate_error;
+
+    print_rate ("virtio-serial download rate:", rate);
   }
-
-  print_rate ("virtio-serial upload rate:", rate);
-
-  /* For the download test, download a sparse file within the
-   * appliance to /dev/null on the host.
-   */
-  if (guestfs_touch (g, "/sparse") == -1)
-    exit (EXIT_FAILURE);
-  if (guestfs_truncate_size (g, "/sparse", TEST_SERIAL_MAX_SIZE) == -1)
-    exit (EXIT_FAILURE);
-
-  gettimeofday (&start, NULL);
-  rate = -1;
-  operation = "download";
-  alarm (TEST_SERIAL_MAX_TIME);
-  guestfs_push_error_handler (g, NULL, NULL);
-  r = guestfs_download (g, "/sparse", "/dev/null");
-  alarm (0);
-  guestfs_pop_error_handler (g);
-
-  if (r == -1 && guestfs_last_errno (g) != EINTR) {
-    fprintf (stderr,
-             "%s: expecting download command to return EINTR\n%s\n",
-             program_name, guestfs_last_error (g));
-    exit (EXIT_FAILURE);
-  }
-
-  if (rate == -1)
-    goto rate_error;
-
-  print_rate ("virtio-serial download rate:", rate);
 
   if (guestfs_shutdown (g) == -1)
     exit (EXIT_FAILURE);
@@ -261,6 +360,10 @@ test_virtio_serial (void)
 /* The time we will spend running the test (seconds). */
 #define TEST_BLOCK_DEVICE_TIME 30
 
+/* Stringify macro. */
+#define XSTR(x) STR(x)
+#define STR(x) #x
+
 static void
 test_block_device (void)
 {
@@ -270,6 +373,9 @@ test_block_device (void)
   char *r;
   const char *argv[4];
   int64_t bytes_written, bytes_read;
+
+  if (!block_device_write && !block_device_read)
+    return;
 
   g = guestfs_create ();
   if (!g) {
@@ -308,43 +414,45 @@ test_block_device (void)
     exit (EXIT_FAILURE);
   }
 
-  /* Test write speed. */
-  argv[0] = devices[0];
-  argv[1] = "w";
-#define XSTR(x) STR(x)
-#define STR(x) #x
-  argv[2] = XSTR(TEST_BLOCK_DEVICE_TIME);
-  argv[3] = NULL;
-  r = guestfs_debug (g, "device_speed", (char **) argv);
-  if (r == NULL)
-    exit (EXIT_FAILURE);
+  if (block_device_write) {
+    /* Test write speed. */
+    argv[0] = devices[0];
+    argv[1] = "w";
+    argv[2] = XSTR(TEST_BLOCK_DEVICE_TIME);
+    argv[3] = NULL;
+    r = guestfs_debug (g, "device_speed", (char **) argv);
+    if (r == NULL)
+      exit (EXIT_FAILURE);
 
-  if (sscanf (r, "%" SCNi64, &bytes_written) != 1) {
-    fprintf (stderr, "%s: could not parse device_speed output\n",
-             program_name);
-    exit (EXIT_FAILURE);
+    if (sscanf (r, "%" SCNi64, &bytes_written) != 1) {
+      fprintf (stderr, "%s: could not parse device_speed output\n",
+               program_name);
+      exit (EXIT_FAILURE);
+    }
+
+    print_rate ("block device writes:",
+                bytes_written / TEST_BLOCK_DEVICE_TIME);
   }
 
-  print_rate ("block device writes:", bytes_written / TEST_BLOCK_DEVICE_TIME);
+  if (block_device_read) {
+    /* Test read speed. */
+    argv[0] = devices[0];
+    argv[1] = "r";
+    argv[2] = XSTR(TEST_BLOCK_DEVICE_TIME);
+    argv[3] = NULL;
+    r = guestfs_debug (g, "device_speed", (char **) argv);
+    if (r == NULL)
+      exit (EXIT_FAILURE);
 
-  /* Test read speed. */
-  argv[0] = devices[0];
-  argv[1] = "r";
-#define XSTR(x) STR(x)
-#define STR(x) #x
-  argv[2] = XSTR(TEST_BLOCK_DEVICE_TIME);
-  argv[3] = NULL;
-  r = guestfs_debug (g, "device_speed", (char **) argv);
-  if (r == NULL)
-    exit (EXIT_FAILURE);
+    if (sscanf (r, "%" SCNi64, &bytes_read) != 1) {
+      fprintf (stderr, "%s: could not parse device_speed output\n",
+               program_name);
+      exit (EXIT_FAILURE);
+    }
 
-  if (sscanf (r, "%" SCNi64, &bytes_read) != 1) {
-    fprintf (stderr, "%s: could not parse device_speed output\n",
-             program_name);
-    exit (EXIT_FAILURE);
+    print_rate ("block device reads:",
+                bytes_read / TEST_BLOCK_DEVICE_TIME);
   }
-
-  print_rate ("block device reads:", bytes_read / TEST_BLOCK_DEVICE_TIME);
 
   if (guestfs_shutdown (g) == -1)
     exit (EXIT_FAILURE);
