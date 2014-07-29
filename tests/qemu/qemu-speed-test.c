@@ -49,6 +49,8 @@ static int virtio_serial_download = 1;
 static int block_device_write = 1;
 static int block_device_read = 1;
 
+static int max_time_override = 0;
+
 static void
 reset_default_tests (int *flag)
 {
@@ -76,7 +78,12 @@ usage (int exitcode)
            "  --virtio-serial-upload\n"
            "  --virtio-serial-download\n"
            "  --block-device-write\n"
-           "  --block-device-read\n");
+           "  --block-device-read\n"
+           "\n"
+           "Other options:\n"
+           "  --help                       Display help output and exit\n"
+           "  -t <SECS> | --time=<SECS>    Set max length of test in seconds\n"
+           );
   exit (exitcode);
 }
 
@@ -84,9 +91,10 @@ int
 main (int argc, char *argv[])
 {
   enum { HELP_OPTION = CHAR_MAX + 1 };
-  static const char *options = "";
+  static const char *options = "t:";
   static const struct option long_options[] = {
     { "help", 0, 0, HELP_OPTION },
+    { "time", 1, 0, 't' },
 
     /* Tests. */
     { "virtio-serial-upload", 0, 0, 0 },
@@ -125,6 +133,15 @@ main (int argc, char *argv[])
       else {
         fprintf (stderr, "%s: unknown long option: %s (%d)\n",
                  program_name, long_options[option_index].name, option_index);
+        exit (EXIT_FAILURE);
+      }
+      break;
+
+    case 't':
+      if (sscanf (optarg, "%d", &max_time_override) != 1 ||
+          max_time_override < 0) {
+        fprintf (stderr, "%s: -t: argument is not a positive integer\n",
+                 program_name);
         exit (EXIT_FAILURE);
       }
       break;
@@ -285,7 +302,7 @@ test_virtio_serial (void)
     gettimeofday (&start, NULL);
     rate = -1;
     operation = "upload";
-    alarm (TEST_SERIAL_MAX_TIME);
+    alarm (max_time_override > 0 ? max_time_override : TEST_SERIAL_MAX_TIME);
 
     /* For the upload test, upload the sparse file to /dev/null in the
      * appliance.  Hopefully this is mostly testing just virtio-serial.
@@ -329,7 +346,7 @@ test_virtio_serial (void)
     gettimeofday (&start, NULL);
     rate = -1;
     operation = "download";
-    alarm (TEST_SERIAL_MAX_TIME);
+    alarm (max_time_override > 0 ? max_time_override : TEST_SERIAL_MAX_TIME);
     guestfs_push_error_handler (g, NULL, NULL);
     r = guestfs_download (g, "/sparse", "/dev/null");
     alarm (0);
@@ -360,10 +377,6 @@ test_virtio_serial (void)
 /* The time we will spend running the test (seconds). */
 #define TEST_BLOCK_DEVICE_TIME 30
 
-/* Stringify macro. */
-#define XSTR(x) STR(x)
-#define STR(x) #x
-
 static void
 test_block_device (void)
 {
@@ -372,10 +385,14 @@ test_block_device (void)
   CLEANUP_FREE char **devices = NULL;
   char *r;
   const char *argv[4];
+  int t = max_time_override > 0 ? max_time_override : TEST_BLOCK_DEVICE_TIME;
+  char tbuf[64];
   int64_t bytes_written, bytes_read;
 
   if (!block_device_write && !block_device_read)
     return;
+
+  snprintf (tbuf, sizeof tbuf, "%d", t);
 
   g = guestfs_create ();
   if (!g) {
@@ -418,7 +435,7 @@ test_block_device (void)
     /* Test write speed. */
     argv[0] = devices[0];
     argv[1] = "w";
-    argv[2] = XSTR(TEST_BLOCK_DEVICE_TIME);
+    argv[2] = tbuf;
     argv[3] = NULL;
     r = guestfs_debug (g, "device_speed", (char **) argv);
     if (r == NULL)
@@ -430,15 +447,14 @@ test_block_device (void)
       exit (EXIT_FAILURE);
     }
 
-    print_rate ("block device writes:",
-                bytes_written / TEST_BLOCK_DEVICE_TIME);
+    print_rate ("block device writes:", bytes_written / t);
   }
 
   if (block_device_read) {
     /* Test read speed. */
     argv[0] = devices[0];
     argv[1] = "r";
-    argv[2] = XSTR(TEST_BLOCK_DEVICE_TIME);
+    argv[2] = tbuf;
     argv[3] = NULL;
     r = guestfs_debug (g, "device_speed", (char **) argv);
     if (r == NULL)
@@ -450,8 +466,7 @@ test_block_device (void)
       exit (EXIT_FAILURE);
     }
 
-    print_rate ("block device reads:",
-                bytes_read / TEST_BLOCK_DEVICE_TIME);
+    print_rate ("block device reads:", bytes_read / t);
   }
 
   if (guestfs_shutdown (g) == -1)
