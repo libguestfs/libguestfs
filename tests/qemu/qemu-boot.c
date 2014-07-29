@@ -147,6 +147,12 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
+  if (optind != argc) {
+    fprintf (stderr, "%s: extra arguments found on the command line\n",
+             program_name);
+    exit (EXIT_FAILURE);
+  }
+
   /* Calculate the number of threads to use. */
   if (P > 0)
     P = MIN (n, P);
