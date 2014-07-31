@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-07-26 21:49+0100\n"
+"POT-Creation-Date: 2014-07-31 10:01+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -5981,28 +5981,28 @@ msgstr ""
 msgid "%s: %s command failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:426
+#: make-fs/make-fs.c:430
 #, c-format
 msgid "%s: cannot parse the output of 'du' command: %s\n"
 msgstr ""
 
-#: make-fs/make-fs.c:461
+#: make-fs/make-fs.c:465
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar archive\n"
 msgstr ""
 
-#: make-fs/make-fs.c:492
+#: make-fs/make-fs.c:496
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:615
+#: make-fs/make-fs.c:619
 #, c-format
 msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:815
+#: make-fs/make-fs.c:819
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr ""
