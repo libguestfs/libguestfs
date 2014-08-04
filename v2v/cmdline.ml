@@ -42,6 +42,7 @@ let parse_cmdline () =
   let quiet = ref false in
   let verbose = ref false in
   let trace = ref false in
+  let vmtype = ref "" in
 
   let input_mode = ref `Libvirt in
   let set_input_mode = function
@@ -98,6 +99,7 @@ let parse_cmdline () =
     "--verbose", Arg.Set verbose,           ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  ditto;
+    "--vmtype",  Arg.Set_string vmtype,     "server|desktop " ^ s_"Set vmtype (for RHEV)";
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   long_options := argspec;
@@ -139,6 +141,13 @@ read the man page virt-v2v(1).
   let root_choice = !root_choice in
   let verbose = !verbose in
   let trace = !trace in
+  let vmtype =
+    match !vmtype with
+    | "server" -> Some `Server
+    | "desktop" -> Some `Desktop
+    | "" -> None
+    | _ ->
+      error (f_"unknown --vmtype option, must be \"server\" or \"desktop\"") in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
@@ -177,6 +186,8 @@ read the man page virt-v2v(1).
     | `Libvirt ->
       if output_storage <> "" then
         error (f_"-o libvirt: do not use the -os option");
+      if vmtype <> None then
+        error (f_"--vmtype option can only be used with '-o rhev'");
       OutputLibvirt output_conn
     | `Local ->
       if output_storage = "" then
@@ -184,11 +195,13 @@ read the man page virt-v2v(1).
       if not (is_directory output_storage) then
         error (f_"-os %s: output directory does not exist or is not a directory")
           output_storage;
+      if vmtype <> None then
+        error (f_"--vmtype option can only be used with '-o rhev'");
       OutputLocal output_storage
     | `RHEV ->
       if output_storage = "" then
         error (f_"-o local: output storage was not specified, use '-os'");
-      OutputRHEV output_storage in
+      OutputRHEV (output_storage, vmtype) in
 
   input, output,
   debug_gc, output_alloc, output_format, output_name,

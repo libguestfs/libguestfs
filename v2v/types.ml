@@ -27,7 +27,7 @@ type input =
 type output =
 | OutputLibvirt of string option
 | OutputLocal of string
-| OutputRHEV of string
+| OutputRHEV of string * [`Server|`Desktop] option
 
 type source = {
   s_dom_type : string;
@@ -83,6 +83,7 @@ type overlay = {
   ov_preallocation : string option;
   ov_source_file : string;
   ov_source_format : string option;
+  ov_vol_uuid : string;
 }
 
 let string_of_overlay ov =
@@ -96,6 +97,7 @@ ov_virtual_size = %Ld
 ov_preallocation = %s
 ov_source_file = %s
 ov_source_format = %s
+ov_vol_uuid = %s
 "
     ov.ov_overlay
     ov.ov_target_file ov.ov_target_file_tmp
@@ -105,6 +107,7 @@ ov_source_format = %s
     (match ov.ov_preallocation with None -> "None" | Some s -> s)
     ov.ov_source_file
     (match ov.ov_source_format with None -> "None" | Some s -> s)
+    ov.ov_vol_uuid
 
 type inspect = {
   i_root : string;

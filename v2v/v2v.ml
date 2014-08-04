@@ -93,7 +93,7 @@ let rec main () =
    * work.
    *)
   let overlays =
-    initialize_target g
+    initialize_target ~verbose g
       source output output_alloc output_format output_name overlays in
 
   (* Inspection - this also mounts up the filesystems. *)
@@ -197,7 +197,9 @@ let rec main () =
     | OutputLibvirt oc -> assert false
     | OutputLocal dir ->
       Target_local.create_metadata dir renamed_source overlays guestcaps
-    | OutputRHEV os -> assert false in
+    | OutputRHEV (os, vmtype) ->
+      Target_RHEV.create_metadata os vmtype renamed_source output_alloc
+        overlays inspect guestcaps in
 
   (* If we wrote to a temporary file, rename to the real file. *)
   List.iter (
@@ -213,7 +215,7 @@ let rec main () =
   if debug_gc then
     Gc.compact ()
 
-and initialize_target g
+and initialize_target ~verbose g
     source output output_alloc output_format output_name overlays =
   let overlays =
     mapi (
@@ -244,7 +246,8 @@ and initialize_target g
           ov_target_file = ""; ov_target_file_tmp = "";
           ov_target_format = format;
           ov_sd = sd; ov_virtual_size = vsize; ov_preallocation = preallocation;
-          ov_source_file = qemu_uri; ov_source_format = backing_format; }
+          ov_source_file = qemu_uri; ov_source_format = backing_format;
+          ov_vol_uuid = "" }
     ) overlays in
   let overlays =
     let renamed_source =
@@ -254,7 +257,8 @@ and initialize_target g
     match output with
     | OutputLibvirt oc -> assert false
     | OutputLocal dir -> Target_local.initialize dir renamed_source overlays
-    | OutputRHEV os -> assert false in
+    | OutputRHEV (os, _) ->
+      Target_RHEV.initialize ~verbose os renamed_source output_alloc overlays in
   overlays
 
 and inspect_source g root_choice =

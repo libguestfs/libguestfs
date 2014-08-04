@@ -26,7 +26,7 @@ type input =
 type output =
 | OutputLibvirt of string option    (* -o libvirt: -oc *)
 | OutputLocal of string             (* -o local: directory *)
-| OutputRHEV of string              (* -o rhev: output storage *)
+| OutputRHEV of string * [`Server|`Desktop] option (* -o rhev: output storage *)
 (** The output arguments as specified on the command line. *)
 
 type source = {
@@ -62,8 +62,11 @@ type overlay = {
   (* Note: the next two fields are for information only and must not
    * be opened/copied/etc.
    *)
-  ov_source_file : string;   (** qemu URI for source file. *)
+  ov_source_file : string;          (** qemu URI for source file. *)
   ov_source_format : string option; (** Source file format, if known. *)
+
+  (* Only used by RHEV.  XXX Should be parameterized type. *)
+  ov_vol_uuid : string;                 (** RHEV volume UUID *)
 }
 (** Disk overlays and destination disks. *)
 

@@ -132,14 +132,22 @@ For I<-o libvirt>, this is a libvirt pool (see S<C<virsh pool-list>>).
 
 For I<-o local>, this is a directory name.  The directory must exist.
 
-For I<-o rhev>, this is an NFS path of the form
-C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:
+For I<-o rhev>, this can be an NFS path of the Export Storage Domain
+of the form C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:
 
  rhev-storage.example.com:/rhev/export
 
 The NFS export must be mountable and writable by the user and host
 running virt-v2v, since the virt-v2v program has to actually mount it
-when it runs.
+when it runs.  So you probably have to run virt-v2v as C<root>.
+
+B<Or:> You can mount the Export Storage Domain yourself, and point
+I<-os> to the mountpoint.  Note that virt-v2v will still need to write
+to this remote directory, so virt-v2v will still need to run as
+C<root>.
+
+You will get an error if virt-v2v is unable to mount/write to the
+Export Storage Domain.
 
 =item B<-q>
 
@@ -201,6 +209,13 @@ Enable verbose messages for debugging.
 =item B<--version>
 
 Display version number and exit.
+
+=item B<--vmtype> server|desktop
+
+For the RHEV target only, specify the type of guest.  You can set this
+to C<server> or C<desktop>.  If the option is not given, then a
+suitable default is chosen based on the detected guest operating
+system.
 
 =item B<-x>
 
