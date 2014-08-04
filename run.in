@@ -60,7 +60,7 @@ export T
 export LIBGUESTFS_TMPDIR="$b/tmp"
 export LIBGUESTFS_CACHEDIR="$b/tmp"
 mkdir -p "$b/tmp"
-chcon --reference=/tmp tmp 2>/dev/null ||:
+chcon --reference=/tmp "$b/tmp" 2>/dev/null ||:
 
 # Only set path if the appliance was enabled.
 if [ "x@ENABLE_APPLIANCE@" = "xyes" ]; then
