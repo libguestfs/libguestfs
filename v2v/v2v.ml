@@ -102,18 +102,16 @@ let rec main () =
 
   (* Conversion. *)
   let guestcaps =
-    let root = inspect.i_root in
-
-    (match g#inspect_get_product_name root with
+    (match inspect.i_product_name with
     | "unknown" ->
       msg (f_"Converting the guest to run on KVM")
     | prod ->
       msg (f_"Converting %s to run on KVM") prod
     );
 
-    match g#inspect_get_type root with
+    match inspect.i_type with
     | "linux" ->
-      (match g#inspect_get_distro root with
+      (match inspect.i_distro with
       | "fedora"
       | "rhel" | "centos" | "scientificlinux" | "redhat-based"
       | "sles" | "suse-based" | "opensuse" ->
@@ -338,7 +336,18 @@ and inspect_source g root_choice =
       StringMap.add name (app :: vs) map
   ) StringMap.empty apps in
 
-  { i_root = root; i_apps = apps; i_apps_map = apps_map; }
+  { i_root = root;
+    i_type = g#inspect_get_type root;
+    i_distro = g#inspect_get_distro root;
+    i_arch = g#inspect_get_arch root;
+    i_major_version = g#inspect_get_major_version root;
+    i_minor_version = g#inspect_get_minor_version root;
+    i_package_format = g#inspect_get_package_format root;
+    i_package_management = g#inspect_get_package_management root;
+    i_product_name = g#inspect_get_product_name root;
+    i_product_variant = g#inspect_get_product_variant root;
+    i_apps = apps;
+    i_apps_map = apps_map; }
 
 let () =
   try main ()

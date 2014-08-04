@@ -62,10 +62,7 @@ let convert verbose (g : G.guestfs) inspect source =
           rhev_apt_exe msg;
         None in
 
-  let systemroot = g#inspect_get_windows_systemroot inspect.i_root
-  and major_version = g#inspect_get_major_version inspect.i_root
-  and minor_version = g#inspect_get_minor_version inspect.i_root
-  and arch = g#inspect_get_arch inspect.i_root in
+  let systemroot = g#inspect_get_windows_systemroot inspect.i_root in
 
   (* This is a wrapper that handles opening and closing the hive
    * properly around a function [f].  If [~write] is [true] then the
@@ -223,7 +220,7 @@ echo uninstalling Xen PV driver
 
     (* See if the drivers for this guest are available in virtio_win_dir. *)
     let path =
-      match major_version, minor_version, arch with
+      match inspect.i_major_version, inspect.i_minor_version, inspect.i_arch with
       | 5, 1, "i386" ->
         Some (virtio_win_dir // "drivers/i386/WinXP")
       | 5, 2, "i386" ->
@@ -254,7 +251,8 @@ echo uninstalling Xen PV driver
     match path with
     | None ->
       warning ~prog (f_"there are no virtio drivers available for this version of Windows (%d.%d %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
-        major_version minor_version arch virtio_win_dir;
+        inspect.i_major_version inspect.i_minor_version
+        inspect.i_arch virtio_win_dir;
       ( "ide", "rtl8139" )
 
     | Some path ->
@@ -263,7 +261,8 @@ echo uninstalling Xen PV driver
         let block_path = path // "viostor.sys" in
         if not (Sys.file_exists block_path) then (
           warning ~prog (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
-            major_version minor_version arch block_path;
+            inspect.i_major_version inspect.i_minor_version
+            inspect.i_arch block_path;
           "ide"
         )
         else (
@@ -279,7 +278,8 @@ echo uninstalling Xen PV driver
         let net_path = path // "netkvm.inf" in
         if not (Sys.file_exists net_path) then (
           warning ~prog (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
-            major_version minor_version arch net_path;
+            inspect.i_major_version inspect.i_minor_version
+            inspect.i_arch net_path;
           "rtl8139"
         )
         else

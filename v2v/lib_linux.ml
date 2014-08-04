@@ -100,8 +100,7 @@ let install verbose g inspect packages =
 
 let remove verbose g inspect packages =
   if packages <> [] then (
-    let root = inspect.i_root in
-    let package_format = g#inspect_get_package_format root in
+    let package_format = inspect.i_package_format in
     match package_format with
     | "rpm" ->
       let cmd = [ "rpm"; "-e" ] @ packages in
@@ -117,7 +116,7 @@ let remove verbose g inspect packages =
   )
 
 let file_list_of_package verbose (g : Guestfs.guestfs) inspect name =
-  let package_format = g#inspect_get_package_format inspect.i_root in
+  let package_format = inspect.i_package_format in
 
   match package_format with
   | "rpm" ->
@@ -131,7 +130,7 @@ let file_list_of_package verbose (g : Guestfs.guestfs) inspect name =
       format
 
 let rec file_owner verbose g inspect path =
-  let package_format = g#inspect_get_package_format inspect.i_root in
+  let package_format = inspect.i_package_format in
   match package_format with
   | "rpm" ->
       (* Although it is possible in RPM for multiple packages to own

@@ -57,8 +57,7 @@ let string_of_kernel_info ki =
 
 (* The conversion function. *)
 let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
-    ({ i_root = root; i_apps = apps; i_apps_map = apps_map }
-        as inspect) source =
+    inspect source =
   (*----------------------------------------------------------------------*)
   (* Inspect the guest first.  We already did some basic inspection in
    * the common v2v.ml code, but that has to deal with generic guests
@@ -71,27 +70,15 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
   Lib_linux.augeas_init verbose g;
 
   (* Basic inspection data available as local variables. *)
-  let typ = g#inspect_get_type root in
-  assert (typ = "linux");
+  assert (inspect.i_type = "linux");
 
-  let distro = g#inspect_get_distro root in
   let family =
-    match distro with
+    match inspect.i_distro with
     | "rhel" | "centos" | "scientificlinux" | "redhat-based" -> `RHEL_family
     | "sles" | "suse-based" | "opensuse" -> `SUSE_family
     | _ -> assert false in
 
-(*
-  let arch = g#inspect_get_arch root in
-*)
-  let major_version = g#inspect_get_major_version root
-(*
-  and minor_version = g#inspect_get_minor_version root
-*)
-  and package_format = g#inspect_get_package_format root
-  and package_management = g#inspect_get_package_management root in
-
-  assert (package_format = "rpm");
+  assert (inspect.i_package_format = "rpm");
 
   (* What grub is installed? *)
   let grub_config, grub =
@@ -112,7 +99,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     match grub with
     | `Grub2 -> ""
     | `Grub1 ->
-      let mounts = g#inspect_get_mountpoints root in
+      let mounts = g#inspect_get_mountpoints inspect.i_root in
       try
         List.find (
           fun path -> List.mem_assoc path mounts
@@ -250,7 +237,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
         )
 
       | _ -> None
-    ) apps in
+    ) inspect.i_apps in
 
   if verbose then (
     printf "installed kernel packages in this guest:\n";
@@ -397,7 +384,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
 
   and clean_rpmdb () =
     (* Clean RPM database. *)
-    assert (package_format = "rpm");
+    assert (inspect.i_package_format = "rpm");
     let dbfiles = g#glob_expand "/var/lib/rpm/__db.00?" in
     let dbfiles = Array.to_list dbfiles in
     List.iter g#rm_f dbfiles
@@ -418,7 +405,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
             Some name
           else
             None
-      ) apps in
+      ) inspect.i_apps in
     Lib_linux.remove verbose g inspect xenmods;
 
     (* Undo related nastiness if kmod-xenpv was installed. *)
@@ -490,7 +477,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     let has_guest_additions =
       List.exists (
         fun { G.app2_name = name } -> name = package_name
-      ) apps in
+      ) inspect.i_apps in
     if has_guest_additions then
       Lib_linux.remove verbose g inspect [package_name];
 
@@ -552,7 +539,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
           libraries := name :: !libraries
         else if string_prefix name "vmware-tools-" then
           remove := name :: !remove
-    ) apps;
+    ) inspect.i_apps;
     let libraries = !libraries in
 
     (* VMware tools includes 'libraries' packages which provide custom
@@ -563,7 +550,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
      *)
     if libraries <> [] then (
       (* We only support removal of libraries on systems which use yum. *)
-      if package_management = "yum" then (
+      if inspect.i_package_management = "yum" then (
         List.iter (
           fun library ->
             let provides =
@@ -620,7 +607,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     let pkgs =
       List.filter (
         fun { G.app2_name = name } -> string_prefix name "xe-guest-utilities"
-      ) apps in
+      ) inspect.i_apps in
     let pkgs = List.map (fun { G.app2_name = name } -> name) pkgs in
 
     if pkgs <> [] then (
@@ -844,7 +831,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
          * only to a particular version of mkinitrd.
          *)
         let env =
-          if family = `RHEL_family && major_version = 4 then
+          if family = `RHEL_family && inspect.i_major_version = 4 then
             Some "root_lvm=1"
           else
             None in
@@ -1016,7 +1003,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
      * added to the target in the order they appear in the libvirt XML.
      *)
     let block_prefix =
-      match family, major_version with
+      match family, inspect.i_major_version with
       | `RHEL_family, v when v < 5 ->
         (* RHEL < 5 used old ide driver *) "hd"
       | `RHEL_family, 5 ->
