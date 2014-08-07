@@ -482,8 +482,8 @@ guestfs_lua_delete_event_callback (lua_State *L)
       pr "\n";
 
       pr "  if (g == NULL)\n";
-      pr "    luaL_error (L, \"Guestfs.%%s: handle is closed\",\n";
-      pr "                \"%s\");\n" name;
+      pr "    return luaL_error (L, \"Guestfs.%%s: handle is closed\",\n";
+      pr "                       \"%s\");\n" name;
       pr "\n";
 
       iteri (
