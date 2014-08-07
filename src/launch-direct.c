@@ -279,6 +279,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   struct hv_param *hp;
   bool has_kvm;
   int force_tcg;
+  const char *cpu_model;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -418,17 +419,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
 
-#if !defined(__arm__)
-  /* It is faster to pass the CPU host model to the appliance,
-   * allowing maximum speed for things like checksums, encryption.
-   * Only do this with KVM.  It is broken in subtle ways on TCG, and
-   * fairly pointless anyway.
-   */
-  if (has_kvm && !force_tcg) {
+  cpu_model = guestfs___get_cpu_model (has_kvm && !force_tcg);
+  if (cpu_model) {
     ADD_CMDLINE ("-cpu");
-    ADD_CMDLINE ("host");
+    ADD_CMDLINE (cpu_model);
   }
-#endif
 
   /* The qemu -machine option (added 2010-12) is a bit more sane
    * since it falls back through various different acceleration

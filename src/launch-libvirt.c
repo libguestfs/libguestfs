@@ -999,6 +999,8 @@ construct_libvirt_xml_cpu (guestfs_h *g,
                            const struct libvirt_xml_params *params,
                            xmlTextWriterPtr xo)
 {
+  const char *cpu_model;
+
   start_element ("memory") {
     attribute ("unit", "MiB");
     string_format ("%d", g->memsize);
@@ -1009,21 +1011,25 @@ construct_libvirt_xml_cpu (guestfs_h *g,
     string_format ("%d", g->memsize);
   } end_element ();
 
-#if !defined(__arm__)
-  /* It is faster to pass the CPU host model to the appliance,
-   * allowing maximum speed for things like checksums, encryption.
-   * Only do this with KVM.  It is broken in subtle ways on TCG, and
-   * fairly pointless anyway.
-   */
-  if (params->data->is_kvm) {
+  cpu_model = guestfs___get_cpu_model (params->data->is_kvm);
+  if (cpu_model) {
     start_element ("cpu") {
-      attribute ("mode", "host-passthrough");
-      start_element ("model") {
-        attribute ("fallback", "allow");
-      } end_element ();
+      if (STREQ (cpu_model, "host")) {
+        attribute ("mode", "host-passthrough");
+        start_element ("model") {
+          attribute ("fallback", "allow");
+        } end_element ();
+      }
+      else {
+        /* XXX This does not work, see:
+         * https://www.redhat.com/archives/libvirt-users/2014-August/msg00043.html
+         */
+        start_element ("model") {
+          string (cpu_model);
+        } end_element ();
+      }
     } end_element ();
   }
-#endif
 
   start_element ("vcpu") {
     string_format ("%d", g->smp);

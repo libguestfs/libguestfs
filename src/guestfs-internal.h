@@ -730,6 +730,7 @@ extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, .
 extern void guestfs___launch_send_progress (guestfs_h *g, int perdozen);
 extern char *guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
+const char *guestfs___get_cpu_model (int kvm);
 extern void guestfs___register_backend (const char *name, const struct backend_ops *);
 extern int guestfs___set_backend (guestfs_h *g, const char *method);
 
