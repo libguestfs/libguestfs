@@ -280,11 +280,7 @@ cleanup_free_mountable (mountable_t *mountable)
         pr "  if (! optgroup_%s_available ()) {\n" group;
         if is_filein then
           pr "    cancel_receive ();\n";
-        pr "    reply_with_error_errno (ENOTSUP,\n";
-        pr "       \"feature '%%s' is not available in this\\n\"\n";
-        pr "       \"build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\\n\"\n";
-        pr "       \"how to check for the availability of features.\",\n";
-        pr "       \"%s\");\n" group;
+        pr "    reply_with_unavailable_feature (\"%s\");\n" group;
         pr "    goto done_no_free;\n";
         pr "  }\n";
         pr "\n"

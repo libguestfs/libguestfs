@@ -245,6 +245,12 @@ extern void reply_with_perror_errno (int err, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 #define reply_with_error(...) reply_with_error_errno(0, __VA_ARGS__)
 #define reply_with_perror(...) reply_with_perror_errno(errno, __VA_ARGS__)
+#define reply_with_unavailable_feature(feature) \
+  reply_with_error_errno (ENOTSUP, \
+     "feature '%s' is not available in this\n" \
+     "build of libguestfs.  Read 'AVAILABILITY' in the guestfs(3) man page for\n" \
+     "how to check for the availability of features.", \
+     feature)
 
 /* daemon functions that receive files (FileIn) should call
  * receive_file for each FileIn parameter.
