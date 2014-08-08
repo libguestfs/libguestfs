@@ -33,6 +33,8 @@
 #include <libvirt/virterror.h>
 #endif
 
+#include "ignore-value.h"
+
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 #include "options.h"
@@ -224,6 +226,7 @@ worker_thread (void *thread_data_vp)
       if (err != 0) {
         thread_failure ("pthread_cond_wait", err);
         thread_data->r = -1;
+        ignore_value (pthread_mutex_unlock (&retire_mutex));
         return &thread_data->r;
       }
     }
