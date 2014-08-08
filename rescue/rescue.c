@@ -157,7 +157,7 @@ main (int argc, char *argv[])
         else
           format = optarg;
       } else if (STREQ (long_options[option_index].name, "smp")) {
-        if (sscanf (optarg, "%u", &smp) != 1) {
+        if (sscanf (optarg, "%d", &smp) != 1) {
           fprintf (stderr, _("%s: could not parse --smp parameter '%s'\n"),
                    program_name, optarg);
           exit (EXIT_FAILURE);
@@ -208,7 +208,7 @@ main (int argc, char *argv[])
       break;
 
     case 'm':
-      if (sscanf (optarg, "%u", &memsize) != 1) {
+      if (sscanf (optarg, "%d", &memsize) != 1) {
         fprintf (stderr, _("%s: could not parse memory size '%s'\n"),
                  program_name, optarg);
         exit (EXIT_FAILURE);
