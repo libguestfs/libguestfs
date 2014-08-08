@@ -72,10 +72,8 @@ checksum (const char *csumtype, int fd)
   size_t len;
 
   program = program_of_csum (csumtype);
-  if (program == NULL) {
-    close (fd);
+  if (program == NULL)
     return NULL;
-  }
 
   pulse_mode_start ();
 
@@ -100,7 +98,7 @@ checksum (const char *csumtype, int fd)
 char *
 do_checksum (const char *csumtype, const char *path)
 {
-  int fd;
+  CLEANUP_CLOSE int fd = -1;
 
   CHROOT_IN;
   fd = open (path, O_RDONLY|O_CLOEXEC);
@@ -117,7 +115,7 @@ do_checksum (const char *csumtype, const char *path)
 char *
 do_checksum_device (const char *csumtype, const char *device)
 {
-  int fd;
+  CLEANUP_CLOSE int fd = -1;
 
   fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
