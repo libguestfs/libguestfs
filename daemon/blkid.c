@@ -197,19 +197,19 @@ blkid_without_p_i_opt(const char *device)
   if (add_string (&ret, "TYPE") == -1) goto error;
   s = get_blkid_tag (device, "TYPE");
   if (s == NULL) goto error;
-  if (add_string (&ret, s) == -1)
+  if (add_string_nodup (&ret, s) == -1)
     goto error;
 
   if (add_string (&ret, "LABEL") == -1) goto error;
   s = get_blkid_tag (device, "LABEL");
   if (s == NULL) goto error;
-  if (add_string (&ret, s) == -1)
+  if (add_string_nodup (&ret, s) == -1)
     goto error;
 
   if (add_string (&ret, "UUID") == -1) goto error;
   s = get_blkid_tag (device, "UUID");
   if (s == NULL) goto error;
-  if (add_string (&ret, s) == -1)
+  if (add_string_nodup (&ret, s) == -1)
     goto error;
 
   if (end_stringsbuf (&ret) == -1) goto error;
@@ -217,7 +217,7 @@ blkid_without_p_i_opt(const char *device)
   return ret.argv;
 error:
   if (ret.argv)
-    free_strings (ret.argv);
+    free_stringslen (ret.argv, ret.size);
   return NULL;
 }
 
