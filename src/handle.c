@@ -226,11 +226,14 @@ parse_environment (guestfs_h *g,
 
   str = do_getenv (data, "LIBGUESTFS_MEMSIZE");
   if (str) {
-    if (sscanf (str, "%d", &memsize) != 1 || memsize < MIN_MEMSIZE) {
-      error (g, _("non-numeric or too small value for LIBGUESTFS_MEMSIZE"));
+    if (sscanf (str, "%d", &memsize) != 1) {
+      error (g, _("non-numeric value for LIBGUESTFS_MEMSIZE"));
       return -1;
     }
-    guestfs_set_memsize (g, memsize);
+    if (guestfs_set_memsize (g, memsize) == -1) {
+      /* set_memsize produces an error message already. */
+      return -1;
+    }
   }
 
   str = do_getenv (data, "LIBGUESTFS_BACKEND");
@@ -552,6 +555,10 @@ guestfs__get_append (guestfs_h *g)
 int
 guestfs__set_memsize (guestfs_h *g, int memsize)
 {
+  if (memsize < MIN_MEMSIZE) {
+    error (g, _("too small value for memsize (must be at least %d)"), MIN_MEMSIZE);
+    return -1;
+  }
   g->memsize = memsize;
   return 0;
 }

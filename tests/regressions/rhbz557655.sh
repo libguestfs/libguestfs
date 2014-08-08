@@ -27,13 +27,11 @@ export LANG=C
 ../../fish/guestfish >> rhbz557655.out 2>> rhbz557655.err <<EOF
 # set-memsize is just a convenient non-daemon function that
 # takes a single integer argument.
-set-memsize 0
+set-memsize 500
 get-memsize
-set-memsize 0x10
+set-memsize 0x200
 get-memsize
-set-memsize 010
-get-memsize
-set-memsize -1073741824
+set-memsize 010000
 get-memsize
 set-memsize 1073741823
 get-memsize

@@ -272,6 +272,7 @@ TESTS = \
 	test-d.sh \
 	test-escapes.sh \
 	test-events.sh \
+	test-invalid-params.sh \
 	test-tilde.sh
 
 if ENABLE_APPLIANCE
