@@ -1482,3 +1482,12 @@ cleanup_unlink_free (void *ptr)
     free (filename);
   }
 }
+
+void
+cleanup_close (void *ptr)
+{
+  int fd = * (int *) ptr;
+
+  if (fd >= 0)
+    close (fd);
+}
