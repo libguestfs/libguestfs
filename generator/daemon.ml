@@ -360,7 +360,7 @@ cleanup_free_mountable (mountable_t *mountable)
             pr "  /* Copy the string list and apply device name translation\n";
             pr "   * to each one.\n";
             pr "   */\n";
-            pr "  %s = malloc (sizeof (char *) * (args.%s.%s_len+1));\n" n n n;
+            pr "  %s = calloc (args.%s.%s_len+1, sizeof (char *));\n" n n n;
             pr "  {\n";
             pr "    size_t i;\n";
             pr "    for (i = 0; i < args.%s.%s_len; ++i)\n" n n;
