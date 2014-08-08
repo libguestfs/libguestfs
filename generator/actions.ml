@@ -3929,7 +3929,16 @@ as C</dev/sda1>." };
          ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
          ["vgcreate"; "VG2"; "/dev/sda3"];
          ["vgs"]],
-        "is_string_list (ret, 2, \"VG1\", \"VG2\")"), []
+        "is_string_list (ret, 2, \"VG1\", \"VG2\")"), [];
+      InitEmpty, Always, TestLastFail (
+        [["part_init"; "/dev/sda"; "mbr"];
+         ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+         ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+         ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
+         ["pvcreate"; "/dev/sda1"];
+         ["pvcreate"; "/dev/sda2"];
+         ["pvcreate"; "/dev/sda3"];
+         ["vgcreate"; "VG1"; "/foo/bar /dev/sda2"]]), [];
     ];
     shortdesc = "create an LVM volume group";
     longdesc = "\
