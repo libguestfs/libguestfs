@@ -57,10 +57,10 @@ virt_p2v_CFLAGS = \
 	$(GTK2_CFLAGS)
 
 virt_p2v_LDADD = \
+	$(top_builddir)/src/libutils.la \
 	$(PCRE_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(GTK2_LIBS) \
-	$(top_builddir)/src/libutils.la \
 	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.
