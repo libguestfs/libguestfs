@@ -511,7 +511,9 @@ put_table (char * const * const argv)
         function
         | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
         | OStringList n ->
-          pr "  if (py_%s != Py_None)\n" n;
+          let uc_n = String.uppercase n in
+          pr "  if (py_%s != Py_None && (optargs_s.bitmask & %s_%s_BITMASK) != 0)\n"
+            n c_optarg_prefix uc_n;
           pr "    free ((char **) optargs_s.%s);\n" n
       ) optargs;
 
