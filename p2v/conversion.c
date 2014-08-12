@@ -205,7 +205,7 @@ start_conversion (struct config *config,
                    " -i libvirtxml"
                    " -o local -os /tmp" /* XXX */
                    " --root first"
-                   " %s/libvirt.conf"
+                   " %s/guest.xml"
                    " </dev/null" /* stdin */
                    " 2>&1"       /* output */
                    " ;"

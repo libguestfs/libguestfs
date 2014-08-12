@@ -619,9 +619,9 @@ start_remote_connection (struct config *config,
   if (wait_for_prompt (h) == -1)
     goto error;
 
-  /* Upload the libvirt configuration file to the remote directory. */
+  /* Upload the guest libvirt XML to the remote directory. */
   if (mexp_printf (h,
-                   "cat > '%s/libvirt.conf' << '__%s__'\n"
+                   "cat > '%s/guest.xml' << '__%s__'\n"
                    "%s"
                    "__%s__\n",
                    remote_dir, magic,
