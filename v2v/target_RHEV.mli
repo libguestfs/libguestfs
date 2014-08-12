@@ -16,9 +16,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val initialize : verbose:bool -> string -> Types.source ->
-  [`Sparse | `Preallocated] -> Types.overlay list -> Types.overlay list
+val initialize : verbose:bool -> string -> Types.output_rhev_params ->
+  Types.source -> [`Sparse | `Preallocated] ->
+  Types.overlay list -> Types.overlay list
 
-val create_metadata : string -> [`Server | `Desktop] option -> Types.source ->
-  [`Sparse | `Preallocated] -> Types.overlay list -> Types.inspect ->
-  Types.guestcaps -> unit
+val create_metadata : string -> Types.output_rhev_params ->
+  Types.source -> [`Sparse | `Preallocated] -> Types.overlay list ->
+  Types.inspect -> Types.guestcaps -> unit

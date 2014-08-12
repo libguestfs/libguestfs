@@ -26,8 +26,13 @@ type input =
 type output =
 | OutputLibvirt of string option    (* -o libvirt: -oc *)
 | OutputLocal of string             (* -o local: directory *)
-| OutputRHEV of string * [`Server|`Desktop] option (* -o rhev: output storage *)
+| OutputRHEV of string * output_rhev_params (* -o rhev: output storage *)
 (** The output arguments as specified on the command line. *)
+
+and output_rhev_params = {
+  vmtype : [`Server|`Desktop] option;   (* --vmtype *)
+}
+(** Miscellaneous extra command line parameters used by RHEV. *)
 
 type source = {
   s_dom_type : string;                  (** Source domain type, eg "kvm" *)

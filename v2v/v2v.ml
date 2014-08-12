@@ -197,8 +197,8 @@ let rec main () =
     | OutputLibvirt oc -> assert false
     | OutputLocal dir ->
       Target_local.create_metadata dir renamed_source overlays guestcaps
-    | OutputRHEV (os, vmtype) ->
-      Target_RHEV.create_metadata os vmtype renamed_source output_alloc
+    | OutputRHEV (os, rhev_params) ->
+      Target_RHEV.create_metadata os rhev_params renamed_source output_alloc
         overlays inspect guestcaps in
 
   (* If we wrote to a temporary file, rename to the real file. *)
@@ -257,8 +257,9 @@ and initialize_target ~verbose g
     match output with
     | OutputLibvirt oc -> assert false
     | OutputLocal dir -> Target_local.initialize dir renamed_source overlays
-    | OutputRHEV (os, _) ->
-      Target_RHEV.initialize ~verbose os renamed_source output_alloc overlays in
+    | OutputRHEV (os, rhev_params) ->
+      Target_RHEV.initialize ~verbose
+        os rhev_params renamed_source output_alloc overlays in
   overlays
 
 and inspect_source g root_choice =

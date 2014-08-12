@@ -27,7 +27,11 @@ type input =
 type output =
 | OutputLibvirt of string option
 | OutputLocal of string
-| OutputRHEV of string * [`Server|`Desktop] option
+| OutputRHEV of string * output_rhev_params
+
+and output_rhev_params = {
+  vmtype : [`Server|`Desktop] option;
+}
 
 type source = {
   s_dom_type : string;

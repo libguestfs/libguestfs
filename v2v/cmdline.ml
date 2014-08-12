@@ -201,7 +201,8 @@ read the man page virt-v2v(1).
     | `RHEV ->
       if output_storage = "" then
         error (f_"-o rhev: output storage was not specified, use '-os'");
-      OutputRHEV (output_storage, vmtype) in
+      let rhev_params = { vmtype = vmtype } in
+      OutputRHEV (output_storage, rhev_params) in
 
   input, output,
   debug_gc, output_alloc, output_format, output_name,

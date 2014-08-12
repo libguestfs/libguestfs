@@ -70,7 +70,7 @@ let iso_time =
  * done the conversion and copy, and the user won't thank us for
  * displaying errors there.
  *)
-let rec initialize ~verbose os source output_alloc overlays =
+let rec initialize ~verbose os rhev_params source output_alloc overlays =
   esd := mount_and_check_export_storage_domain ~verbose os;
   if verbose then
     eprintf "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s\n%!" !esd.mp !esd.uuid;
@@ -243,14 +243,14 @@ and check_export_storage_domain os mp =
   { mp = mp; uuid = uuid }
 
 (* This is called after conversion to write the OVF metadata. *)
-let rec create_metadata os vmtype source output_alloc
+let rec create_metadata os rhev_params source output_alloc
     overlays inspect guestcaps =
   let vm_uuid = uuidgen ~prog () in
 
   let memsize_mb = source.s_memory /^ 1024L /^ 1024L in
 
   let vmtype =
-    match vmtype with
+    match rhev_params.vmtype with
     | Some vmtype -> vmtype
     | None -> get_vmtype inspect in
   let vmtype = match vmtype with `Desktop -> "DESKTOP" | `Server -> "SERVER" in
