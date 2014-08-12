@@ -516,8 +516,7 @@ and add_disks output_alloc overlays guestcaps ovf =
     fun i ov ->
       let is_boot_drive = i == 0 in
 
-      let target_file = ov.ov_target_file
-      and vol_uuid = ov.ov_vol_uuid in
+      let vol_uuid = ov.ov_vol_uuid in
       assert (vol_uuid <> "");
 
       let fileref = !image_uuid // vol_uuid in
@@ -525,8 +524,17 @@ and add_disks output_alloc overlays guestcaps ovf =
       let size_gb =
         Int64.to_float ov.ov_virtual_size /. 1024. /. 1024. /. 1024. in
       let usage_gb =
-        let usage_mb = du_m target_file in
-        Int64.to_float usage_mb /. 1024. in
+        (* In the --no-copy case it can happen that the target file
+         * does not exist.  In that case we simply omit the
+         * ovf:actual_size attribute.
+         *)
+        if Sys.file_exists ov.ov_target_file then (
+          let usage_mb = du_m ov.ov_target_file in
+          if usage_mb > 0L then (
+            let usage_mb = Int64.to_float usage_mb /. 1024. in
+            Some usage_mb
+          ) else None
+        ) else None in
 
       let format_for_rhev =
         match ov.ov_target_format with
@@ -552,10 +560,9 @@ and add_disks output_alloc overlays guestcaps ovf =
 
       (* Add disk to DiskSection. *)
       let disk =
-        e "Disk" [
+        let attrs = [
           "ovf:diskId", vol_uuid;
           "ovf:size", sprintf "%.1f" size_gb;
-          "ovf:actual_size", sprintf "%.1f" usage_gb;
           "ovf:fileRef", fileref;
           "ovf:parentRef", "";
           "ovf:vm_snapshot_id", uuidgen ~prog ();
@@ -566,7 +573,13 @@ and add_disks output_alloc overlays guestcaps ovf =
             if guestcaps.gcaps_block_bus = "virtio" then "VirtIO" else "IDE";
           "ovf:disk-type", "System"; (* RHBZ#744538 *)
           "ovf:boot", if is_boot_drive then "True" else "False";
-        ] [] in
+        ] in
+        let attrs =
+          match usage_gb with
+          | None -> attrs
+          | Some usage_gb ->
+            ("ovf:actual_size", sprintf "%.1f" usage_gb) :: attrs in
+        e "Disk" attrs [] in
       append_child disk disk_section;
 
       (* Add disk to VirtualHardware. *)

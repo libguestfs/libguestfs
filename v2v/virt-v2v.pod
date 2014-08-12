@@ -68,6 +68,18 @@ This option is used to make the output more machine friendly
 when being parsed by other programs.  See
 L</MACHINE READABLE OUTPUT> below.
 
+=item B<--no-copy>
+
+Don't copy the disks.  Instead, conversion is performed (and thrown
+away), and metadata is written, but no disks are created.
+
+This is useful in two cases: Either you want to test if conversion is
+likely to succeed, without the long copying process.  Or you are only
+interested in looking at the metadata.
+
+This option is not compatible with I<-o libvirt> since it would create
+a faulty guest (one with no disks).
+
 =item B<-o libvirt>
 
 Set the output method to I<libvirt>.  This is the default.

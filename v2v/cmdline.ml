@@ -33,6 +33,7 @@ let parse_cmdline () =
   in
 
   let debug_gc = ref false in
+  let do_copy = ref true in
   let input_conn = ref "" in
   let output_conn = ref "" in
   let output_format = ref "" in
@@ -91,6 +92,7 @@ let parse_cmdline () =
     "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
+    "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
     "-o",        Arg.String set_output_mode, "libvirt|local|rhev " ^ s_"Set output mode (default: libvirt)";
     "-oa",       Arg.String set_output_alloc, "sparse|preallocated " ^ s_"Set output allocation mode";
     "-oc",       Arg.Set_string output_conn, "uri " ^ s_"Libvirt URI";
@@ -139,6 +141,7 @@ read the man page virt-v2v(1).
   (* Dereference the arguments. *)
   let args = List.rev !args in
   let debug_gc = !debug_gc in
+  let do_copy = !do_copy in
   let input_conn = match !input_conn with "" -> None | s -> Some s in
   let input_mode = !input_mode in
   let machine_readable = !machine_readable in
@@ -202,7 +205,10 @@ read the man page virt-v2v(1).
         error (f_"-o libvirt: do not use the -os option");
       if vmtype <> None then
         error (f_"--vmtype option can only be used with '-o rhev'");
+      if not do_copy then
+        error (f_"--no-copy and '-o libvirt' cannot be used at the same time");
       OutputLibvirt output_conn
+
     | `Local ->
       if output_storage = "" then
         error (f_"-o local: output directory was not specified, use '-os /dir'");
@@ -212,6 +218,7 @@ read the man page virt-v2v(1).
       if vmtype <> None then
         error (f_"--vmtype option can only be used with '-o rhev'");
       OutputLocal output_storage
+
     | `RHEV ->
       if output_storage = "" then
         error (f_"-o rhev: output storage was not specified, use '-os'");
@@ -224,5 +231,5 @@ read the man page virt-v2v(1).
       OutputRHEV (output_storage, rhev_params) in
 
   input, output,
-  debug_gc, output_alloc, output_format, output_name,
+  debug_gc, do_copy, output_alloc, output_format, output_name,
   quiet, root_choice, trace, verbose

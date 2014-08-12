@@ -32,7 +32,7 @@ let () = Random.self_init ()
 let rec main () =
   (* Handle the command line. *)
   let input, output,
-    debug_gc, output_alloc, output_format, output_name,
+    debug_gc, do_copy, output_alloc, output_format, output_name,
     quiet, root_choice, trace, verbose =
     Cmdline.parse_cmdline () in
 
@@ -134,56 +134,60 @@ let rec main () =
     | typ ->
       error (f_"virt-v2v is unable to convert this guest type (type=%s)") typ in
 
-  (* Trim the filesystems to reduce transfer size. *)
-  msg (f_"Trimming filesystems to reduce amount of data to copy");
-  let () =
+  if do_copy then (
+    (* Trim the filesystems to reduce transfer size. *)
+    msg (f_"Trimming filesystems to reduce amount of data to copy");
     let mps = g#mountpoints () in
     List.iter (
       fun (_, mp) ->
         try g#fstrim mp
         with G.Error msg -> warning ~prog (f_"%s: %s (ignored)") mp msg
-    ) mps in
+    ) mps
+  );
 
   msg (f_"Closing the overlay");
   g#umount_all ();
   g#shutdown ();
   g#close ();
 
-  (* Copy the source to the output. *)
   let delete_target_on_exit = ref true in
-  at_exit (fun () ->
-    if !delete_target_on_exit then (
-      List.iter (
-        fun ov -> try Unix.unlink ov.ov_target_file with _ -> ()
-      ) overlays
-    )
-  );
-  let nr_overlays = List.length overlays in
-  iteri (
-    fun i ov ->
-      msg (f_"Copying disk %d/%d to %s (%s)")
-        (i+1) nr_overlays ov.ov_target_file ov.ov_target_format;
-      if verbose then printf "%s%!" (string_of_overlay ov);
 
-      (* It turns out that libguestfs's disk creation code is
-       * considerably more flexible and easier to use than qemu-img, so
-       * create the disk explicitly using libguestfs then pass the
-       * 'qemu-img convert -n' option so qemu reuses the disk.
-       *)
-      let preallocation = ov.ov_preallocation in
-      let compat =
-        match ov.ov_target_format with "qcow2" -> Some "1.1" | _ -> None in
-      (new G.guestfs ())#disk_create ov.ov_target_file
-        ov.ov_target_format ov.ov_virtual_size ?preallocation ?compat;
+  if do_copy then (
+    (* Copy the source to the output. *)
+    at_exit (fun () ->
+      if !delete_target_on_exit then (
+        List.iter (
+          fun ov -> try Unix.unlink ov.ov_target_file with _ -> ()
+        ) overlays
+      )
+    );
+    let nr_overlays = List.length overlays in
+    iteri (
+      fun i ov ->
+        msg (f_"Copying disk %d/%d to %s (%s)")
+          (i+1) nr_overlays ov.ov_target_file ov.ov_target_format;
+        if verbose then printf "%s%!" (string_of_overlay ov);
 
-      let cmd =
-        sprintf "qemu-img convert -n -f qcow2 -O %s %s %s"
-          (quote ov.ov_target_format) (quote ov.ov_overlay)
-          (quote ov.ov_target_file) in
-      if verbose then printf "%s\n%!" cmd;
-      if Sys.command cmd <> 0 then
-        error (f_"qemu-img command failed, see earlier errors");
-  ) overlays;
+        (* It turns out that libguestfs's disk creation code is
+         * considerably more flexible and easier to use than qemu-img, so
+         * create the disk explicitly using libguestfs then pass the
+         * 'qemu-img convert -n' option so qemu reuses the disk.
+         *)
+        let preallocation = ov.ov_preallocation in
+        let compat =
+          match ov.ov_target_format with "qcow2" -> Some "1.1" | _ -> None in
+        (new G.guestfs ())#disk_create ov.ov_target_file
+          ov.ov_target_format ov.ov_virtual_size ?preallocation ?compat;
+
+        let cmd =
+          sprintf "qemu-img convert -n -f qcow2 -O %s %s %s"
+            (quote ov.ov_target_format) (quote ov.ov_overlay)
+            (quote ov.ov_target_file) in
+        if verbose then printf "%s\n%!" cmd;
+        if Sys.command cmd <> 0 then
+          error (f_"qemu-img command failed, see earlier errors");
+    ) overlays
+  ) (* do_copy *);
 
   (* Create output metadata. *)
   msg (f_"Creating output metadata");
