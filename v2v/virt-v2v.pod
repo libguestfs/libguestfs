@@ -90,6 +90,10 @@ guest's disks are written as:
 and a libvirt XML file is created containing guest metadata
 (C</dir/name.xml>, where C<name> is the guest name).
 
+=item B<-o ovirt>
+
+This is the same as I<-o rhev>.
+
 =item B<-o rhev>
 
 Set the output method to I<rhev>.
