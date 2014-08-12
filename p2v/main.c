@@ -268,11 +268,52 @@ compare (const void *vp1, const void *vp2)
   return strcmp (*p1, *p2);
 }
 
+/* Get parent device of a partition.  Returns 0 if no parent device
+ * could be found.
+ */
+static dev_t
+partition_parent (dev_t part_dev)
+{
+  CLEANUP_FCLOSE FILE *fp = NULL;
+  CLEANUP_FREE char *path = NULL, *content = NULL;
+  size_t len;
+  unsigned parent_major, parent_minor;
+
+  if (asprintf (&path, "/sys/dev/block/%d:%d/../dev",
+                major (part_dev), minor (part_dev)) == -1) {
+    perror ("asprintf");
+    exit (EXIT_FAILURE);
+  }
+
+  fp = fopen (path, "r");
+  if (fp == NULL)
+    return 0;
+
+  if (getline (&content, &len, fp) == -1) {
+    perror ("getline");
+    exit (EXIT_FAILURE);
+  }
+
+  if (sscanf (content, "%u:%u", &parent_major, &parent_minor) != 2)
+    return 0;
+
+  return makedev (parent_major, parent_minor);
+}
+
+/* Return true if the named device (eg. dev == "sda") contains the
+ * root filesystem.  root_device is the major:minor of the root
+ * filesystem (eg. 8:1 if the root filesystem was /dev/sda1).
+ *
+ * This doesn't work for LVs and so on.  However we only really care
+ * if this test works on the P2V ISO where the root device is a
+ * regular partition.
+ */
 static int
 device_contains (const char *dev, dev_t root_device)
 {
-  CLEANUP_FREE char *dev_name;
   struct stat statbuf;
+  CLEANUP_FREE char *dev_name = NULL;
+  dev_t root_device_parent;
 
   if (asprintf (&dev_name, "/dev/%s", dev) == -1) {
     perror ("asprintf");
@@ -282,17 +323,15 @@ device_contains (const char *dev, dev_t root_device)
   if (stat (dev_name, &statbuf) == -1)
     return 0;
 
+  /* See if dev is the root_device. */
   if (statbuf.st_rdev == root_device)
     return 1;
 
-  /* Could be a partition.  XXX Very hacky and incorrect way to get
-   * the device from its partition.
-   */
-  if (minor (root_device) < 8 /* any major:minor where minor is "small" */ &&
-      statbuf.st_rdev == makedev (major (root_device), 0))
-    return 1;
-  if (major (statbuf.st_rdev) == 8 /* SCSI */ &&
-      statbuf.st_rdev == makedev (major (root_device), minor (root_device) & 0xf))
+  /* See if dev is the parent device of the root_device. */
+  root_device_parent = partition_parent (root_device);
+  if (root_device_parent == 0)
+    return 0;
+  if (statbuf.st_rdev == root_device_parent)
     return 1;
 
   return 0;
@@ -331,12 +370,7 @@ find_all_disks (void)
         STRPREFIX (d->d_name, "vd")) {
       char *p;
 
-      /* Skip the device containing the root filesystem.  This is only
-       * an approximate test -- for example it doesn't work if the
-       * root filesystem is on an LV.  However it doesn't need to be
-       * completely accurate, and we only really care that it works on
-       * the p2v ISO.
-       */
+      /* Skip the device containing the root filesystem. */
       if (device_contains (d->d_name, root_device))
         continue;
 
