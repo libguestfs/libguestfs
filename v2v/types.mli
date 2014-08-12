@@ -30,6 +30,9 @@ type output =
 (** The output arguments as specified on the command line. *)
 
 and output_rhev_params = {
+  image_uuid : string option;           (* --rhev-image-uuid *)
+  vol_uuids : string list;              (* --rhev-vol-uuid (multiple) *)
+  vm_uuid : string option;              (* --rhev-vm-uuid *)
   vmtype : [`Server|`Desktop] option;   (* --vmtype *)
 }
 (** Miscellaneous extra command line parameters used by RHEV. *)

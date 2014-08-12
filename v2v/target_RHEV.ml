@@ -40,8 +40,10 @@ type export_storage_domain = {
 (* Export Storage Domain mountpoint. *)
 let esd = ref { mp = ""; uuid = "" }
 (* Target image directory, UUID. *)
-let image_uuid = ref ""
 let image_dir = ref ""
+let image_uuid = ref ""
+(* Target VM UUID. *)
+let vm_uuid = ref ""
 (* Flag to indicate if the target image (image_dir) should be
  * deleted.  This is set to false once we know the conversion was
  * successful.
@@ -75,14 +77,17 @@ let rec initialize ~verbose os rhev_params source output_alloc overlays =
   if verbose then
     eprintf "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s\n%!" !esd.mp !esd.uuid;
 
-  (* Create a unique UUID for the final image. *)
-  image_uuid := uuidgen ~prog ();
-  image_dir := !esd.mp // !esd.uuid // "images" // !image_uuid;
+  let overlays =
+    let _image_uuid, _vm_uuid, overlays = create_uuids rhev_params overlays in
+    image_uuid := _image_uuid;
+    vm_uuid := _vm_uuid;
+    overlays in
 
   (* We need to create the target image directory so there's a place
    * for the main program to copy the images to.  However if image
    * conversion fails for any reason then we delete this directory.
    *)
+  image_dir := !esd.mp // !esd.uuid // "images" // !image_uuid;
   mkdir !image_dir 0o755;
   at_exit (fun () ->
     if !delete_target_directory then (
@@ -113,8 +118,7 @@ let rec initialize ~verbose os rhev_params source output_alloc overlays =
 
     List.map (
       fun ov ->
-        let vol_uuid = uuidgen ~prog () in
-        let target_file = !image_dir // vol_uuid in
+        let target_file = !image_dir // ov.ov_vol_uuid in
 
         if verbose then
           eprintf "RHEV: will export %s to %s\n%!" ov.ov_sd target_file;
@@ -155,8 +159,7 @@ let rec initialize ~verbose os rhev_params source output_alloc overlays =
         close_out chan;
 
         { ov with
-          ov_target_file_tmp = target_file; ov_target_file = target_file;
-          ov_vol_uuid = vol_uuid }
+          ov_target_file_tmp = target_file; ov_target_file = target_file }
     ) overlays in
 
   (* Return the list of overlays. *)
@@ -242,11 +245,42 @@ and check_export_storage_domain os mp =
   (* Looks good, so return the ESD object. *)
   { mp = mp; uuid = uuid }
 
+(* Create unique UUIDs for everything, either based on the command
+ * line parameters or else we invent them here.
+ *)
+and create_uuids rhev_params overlays =
+  let image_uuid =
+    match rhev_params.image_uuid with
+    | Some uuid -> uuid
+    | None -> uuidgen ~prog () in
+  let vm_uuid =
+    match rhev_params.vm_uuid with
+    | Some uuid -> uuid
+    | None -> uuidgen ~prog () in
+
+  (* ... and for volumes. *)
+  let overlays =
+    match rhev_params.vol_uuids with
+    | [] ->
+      List.map (
+        fun ov ->
+          let uuid = uuidgen ~prog () in
+          { ov with ov_vol_uuid = uuid }
+      ) overlays
+    | uuids ->
+      try
+        List.map (
+          fun (ov, uuid) -> { ov with ov_vol_uuid = uuid }
+        ) (List.combine overlays uuids)
+      with Invalid_argument _ ->
+        error (f_"the number of '--rhev-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
+          (List.length overlays) in
+
+  image_uuid, vm_uuid, overlays
+
 (* This is called after conversion to write the OVF metadata. *)
 let rec create_metadata os rhev_params source output_alloc
     overlays inspect guestcaps =
-  let vm_uuid = uuidgen ~prog () in
-
   let memsize_mb = source.s_memory /^ 1024L /^ 1024L in
 
   let vmtype =
@@ -286,7 +320,7 @@ let rec create_metadata os rhev_params source output_alloc
         e "VmType" [] [PCData vmtype];
         e "DefaultDisplayType" [] [PCData "1"];
 
-        e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
+        e "Section" ["ovf:id", !vm_uuid; "ovf:required", "false";
                      "xsi:type", "ovf:OperatingSystemSection_Type"] [
           e "Info" [] [PCData "Guest Operating System"];
           e "Description" [] [PCData ostype];
@@ -341,9 +375,9 @@ let rec create_metadata os rhev_params source output_alloc
 
 
   (* Write it to the metadata file. *)
-  let dir = !esd.mp // !esd.uuid // "master" // "vms" // vm_uuid in
+  let dir = !esd.mp // !esd.uuid // "master" // "vms" // !vm_uuid in
   mkdir dir 0o755;
-  let file = dir // vm_uuid ^ ".ovf" in
+  let file = dir // !vm_uuid ^ ".ovf" in
   let chan = open_out file in
   doc_to_chan chan ovf;
   close_out chan;

@@ -30,6 +30,9 @@ type output =
 | OutputRHEV of string * output_rhev_params
 
 and output_rhev_params = {
+  image_uuid : string option;
+  vol_uuids : string list;
+  vm_uuid : string option;
   vmtype : [`Server|`Desktop] option;
 }
 

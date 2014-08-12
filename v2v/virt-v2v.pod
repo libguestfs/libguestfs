@@ -159,6 +159,44 @@ Export Storage Domain.
 
 This disables progress bars and other unnecessary output.
 
+=item B<--rhev-image-uuid> UUID
+
+=item B<--rhev-vol-uuid> UUID
+
+=item B<--rhev-vm-uuid> UUID
+
+Normally the RHEV output mode chooses a random UUID for each of:
+
+=over 4
+
+=item *
+
+the image directory (I<--rhev-image-uuid>)
+
+=item *
+
+once for each guest disk (I<--rhev-vol-uuid>)
+
+=item *
+
+the VM and OVF file (I<--rhev-vm-uuid>).
+
+=back
+
+However you can force specific UUIDs instead by using these options.
+
+You can use I<--rhev-image-uuid> and I<--rhev-vm-uuid> on the command
+line at most once.
+
+If the guest has more than one virtual disk, then you should use
+I<--rhev-vol-uuid> multiple times to change the UUID of each guest
+disk.
+
+The format of UUIDs is: C<12345678-1234-1234-1234-123456789abc> (each
+hex digit can be C<0-9> or C<a-f>), conforming to S<OSF DCE 1.1>.
+
+These options can only be used with I<-o rhev>.
+
 =item B<--root ask>
 
 =item B<--root single>

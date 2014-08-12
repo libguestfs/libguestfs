@@ -40,6 +40,8 @@ let parse_cmdline () =
   let output_storage = ref "" in
   let machine_readable = ref false in
   let quiet = ref false in
+  let rhev_image_uuid = ref "" in
+  let rhev_vm_uuid = ref "" in
   let verbose = ref false in
   let trace = ref false in
   let vmtype = ref "" in
@@ -79,6 +81,9 @@ let parse_cmdline () =
       error (f_"unknown --root option: %s") s
   in
 
+  let rhev_vol_uuids = ref [] in
+  let add_rhev_vol_uuid s = rhev_vol_uuids := s :: !rhev_vol_uuids in
+
   let ditto = " -\"-" in
   let argspec = Arg.align [
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
@@ -94,6 +99,12 @@ let parse_cmdline () =
     "-os",       Arg.Set_string output_storage, "storage " ^ s_"Set output storage location";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             ditto;
+    "--rhev-image-uuid",
+                 Arg.Set_string rhev_image_uuid, "uuid " ^ s_"Output image UUID";
+    "--rhev-vol-uuid",
+                 Arg.String add_rhev_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
+    "--rhev-vm-uuid",
+                 Arg.Set_string rhev_vm_uuid, "uuid " ^ s_"Output VM UUID";
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
@@ -138,6 +149,9 @@ read the man page virt-v2v(1).
   let output_name = match !output_name with "" -> None | s -> Some s in
   let output_storage = !output_storage in
   let quiet = !quiet in
+  let rhev_image_uuid = match !rhev_image_uuid with "" -> None | s -> Some s in
+  let rhev_vol_uuids = List.rev !rhev_vol_uuids in
+  let rhev_vm_uuid = match !rhev_vm_uuid with "" -> None | s -> Some s in
   let root_choice = !root_choice in
   let verbose = !verbose in
   let trace = !trace in
@@ -201,7 +215,12 @@ read the man page virt-v2v(1).
     | `RHEV ->
       if output_storage = "" then
         error (f_"-o rhev: output storage was not specified, use '-os'");
-      let rhev_params = { vmtype = vmtype } in
+      let rhev_params = {
+        image_uuid = rhev_image_uuid;
+        vol_uuids = rhev_vol_uuids;
+        vm_uuid = rhev_vm_uuid;
+        vmtype = vmtype;
+      } in
       OutputRHEV (output_storage, rhev_params) in
 
   input, output,
