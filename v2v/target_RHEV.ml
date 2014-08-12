@@ -158,8 +158,7 @@ let rec initialize ~verbose os rhev_params source output_alloc overlays =
         fpf "EOF\n";
         close_out chan;
 
-        { ov with
-          ov_target_file_tmp = target_file; ov_target_file = target_file }
+        { ov with ov_target_file = target_file }
     ) overlays in
 
   (* Return the list of overlays. *)

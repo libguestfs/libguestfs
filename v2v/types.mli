@@ -60,8 +60,7 @@ val string_of_source_disk : source_disk -> string
 
 type overlay = {
   ov_overlay : string;       (** Local overlay file (qcow2 format). *)
-  ov_target_file : string;   (** Destination file (real). *)
-  ov_target_file_tmp : string;    (** Destination file (temporary). *)
+  ov_target_file : string;   (** Destination file. *)
   ov_target_format : string; (** Destination format (eg. -of option). *)
   ov_sd : string;            (** sdX libguestfs name of disk. *)
   ov_virtual_size : int64;   (** Virtual disk size in bytes. *)

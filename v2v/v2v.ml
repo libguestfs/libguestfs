@@ -154,7 +154,7 @@ let rec main () =
   at_exit (fun () ->
     if !delete_target_on_exit then (
       List.iter (
-        fun ov -> try Unix.unlink ov.ov_target_file_tmp with _ -> ()
+        fun ov -> try Unix.unlink ov.ov_target_file with _ -> ()
       ) overlays
     )
   );
@@ -173,13 +173,13 @@ let rec main () =
       let preallocation = ov.ov_preallocation in
       let compat =
         match ov.ov_target_format with "qcow2" -> Some "1.1" | _ -> None in
-      (new G.guestfs ())#disk_create ov.ov_target_file_tmp
+      (new G.guestfs ())#disk_create ov.ov_target_file
         ov.ov_target_format ov.ov_virtual_size ?preallocation ?compat;
 
       let cmd =
         sprintf "qemu-img convert -n -f qcow2 -O %s %s %s"
           (quote ov.ov_target_format) (quote ov.ov_overlay)
-          (quote ov.ov_target_file_tmp) in
+          (quote ov.ov_target_file) in
       if verbose then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
@@ -201,16 +201,8 @@ let rec main () =
       Target_RHEV.create_metadata os rhev_params renamed_source output_alloc
         overlays inspect guestcaps in
 
-  (* If we wrote to a temporary file, rename to the real file. *)
-  List.iter (
-    fun ov ->
-      if ov.ov_target_file_tmp <> ov.ov_target_file then
-        rename ov.ov_target_file_tmp ov.ov_target_file
-  ) overlays;
-
-  delete_target_on_exit := false;
-
   msg (f_"Finishing off");
+  delete_target_on_exit := false;  (* Don't delete target on exit. *)
 
   if debug_gc then
     Gc.compact ()
@@ -243,7 +235,7 @@ and initialize_target ~verbose g
           | _ -> None (* ignore -oa flag for other formats *) in
 
         { ov_overlay = overlay;
-          ov_target_file = ""; ov_target_file_tmp = "";
+          ov_target_file = "";
           ov_target_format = format;
           ov_sd = sd; ov_virtual_size = vsize; ov_preallocation = preallocation;
           ov_source_file = qemu_uri; ov_source_format = backing_format;

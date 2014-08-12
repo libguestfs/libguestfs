@@ -28,7 +28,7 @@ let initialize dir source overlays =
   List.map (
     fun ov ->
       let target_file = dir // source.s_name ^ "-" ^ ov.ov_sd in
-      { ov with ov_target_file = target_file; ov_target_file_tmp = target_file }
+      { ov with ov_target_file = target_file }
   ) overlays
 
 let create_metadata dir source overlays guestcaps =
