@@ -200,7 +200,7 @@ read the man page virt-v2v(1).
       OutputLocal output_storage
     | `RHEV ->
       if output_storage = "" then
-        error (f_"-o local: output storage was not specified, use '-os'");
+        error (f_"-o rhev: output storage was not specified, use '-os'");
       OutputRHEV (output_storage, vmtype) in
 
   input, output,
