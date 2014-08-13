@@ -1,0 +1,30 @@
+Missing features compared to Perl version:
+
+ - user-custom in virt-v2v.conf to install custom packages (virt-customize?)
+ - Fix configure_kernel on SUSE (see Mike Latimer's email)
+ - RHEV-M metadata
+ - testing
+
+To do:
+
+ - p2v network dialog and network configuration
+
+p2v/conversion.c:                "/tmp/virt-p2v-%04d%02d%02d-XXXXXXXX",
+p2v/conversion.c:                   " -o local -os /tmp" /* XXX */
+p2v/conversion.c:  /* XXX quoting needs to be improved here XXX */
+p2v/conversion.c:  /* XXX features: acpi, apic, pae */
+p2v/gui.c:  /* XXX It would be nice not to have to set this explicitly, but
+p2v/main.c:/* XXX Copied from fish/options.c. */
+v2v/convert_linux.ml:           (* Get/construct the version.  XXX Read this fro
+v2v/convert_linux.ml:          [ "sym53c8xx" (* XXX why not "ide"? *) ] in
+v2v/convert_linux.ml:         * XXX RHEL 3 unfortunately will give this error an
+v2v/convert_linux.ml:    XXX to do from original v2v:
+v2v/convert_linux.ml:  (* XXX display *)
+v2v/convert_windows.ml:      g#upload rhev_apt_exe "/rhev-apt.exe"; (* XXX *)
+v2v/convert_windows.ml:    (* XXX display *)
+v2v/source_libvirt.ml:             * XXX Quoting, although it's not needed for v
+v2v/source_libvirt.ml:  (* XXX Much more metadata needs to be collected here:
+v2v/target_RHEV.ml:  (* XXX Missing here from old virt-v2v:
+v2v/target_local.ml:  (* XXX Missing here from old virt-v2v:
+v2v/types.mli:  (* Only used by RHEV.  XXX Should be parameterized type. *)
+v2v/types.mli:  (* XXX acpi, display *)
