@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <locale.h>
 #include <libintl.h>
 
 #include <libvirt/libvirt.h>
