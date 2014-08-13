@@ -56,6 +56,7 @@ mkfs ntfs /dev/sda2
 
 # Enough to fool inspection API.
 mount /dev/sda2 /
+mkdir-p /Windows/Drivers
 mkdir-p /Windows/System32/Config
 
 upload $SRCDIR/guest-aux/windows-software /Windows/System32/Config/SOFTWARE
