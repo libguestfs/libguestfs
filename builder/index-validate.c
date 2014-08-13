@@ -24,6 +24,7 @@
 #include <limits.h>
 #include <getopt.h>
 #include <errno.h>
+#include <locale.h>
 #include <libintl.h>
 
 #include <guestfs.h>
