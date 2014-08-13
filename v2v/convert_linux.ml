@@ -74,6 +74,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
 
   let family =
     match inspect.i_distro with
+    | "fedora"
     | "rhel" | "centos" | "scientificlinux" | "redhat-based" -> `RHEL_family
     | "sles" | "suse-based" | "opensuse" -> `SUSE_family
     | _ -> assert false in
