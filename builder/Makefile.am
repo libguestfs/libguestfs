@@ -317,3 +317,8 @@ index-parser-c.c index-scan.c index-validate.c: index-parse.h
 index-parse.h: index-parse.y
 	$(MAKE) index-parse.h
 endif
+
+# Apparently there's no clean way with Automake to not have them
+# in the distribution, so just remove them from the distdir.
+dist-hook:
+	rm -f $(distdir)/index-parse.c $(distdir)/index-parse.h $(distdir)/index-scan.c
