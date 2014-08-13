@@ -28,6 +28,25 @@
         <uuid>01234567-0123-0123-0123-012345678901</uuid>
       </filesystem>
     </filesystems>
-    <applications/>
+    <applications>
+      <application>
+        <name>test1</name>
+        <version>1.0</version>
+        <release>1.fc14</release>
+        <arch>x86_64</arch>
+      </application>
+      <application>
+        <name>test2</name>
+        <version>2.0</version>
+        <release>2.fc14</release>
+        <arch>x86_64</arch>
+      </application>
+      <application>
+        <name>test3</name>
+        <version>3.0</version>
+        <release>3.fc14</release>
+        <arch>x86_64</arch>
+      </application>
+    </applications>
   </operatingsystem>
 </operatingsystems>
