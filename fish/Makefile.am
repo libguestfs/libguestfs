@@ -311,6 +311,7 @@ EXTRA_DIST += \
 	test-find0.sh \
 	test-glob.sh \
 	test-inspect.sh \
+	test-invalid-params.sh \
 	test-mount-local.sh \
 	test-prep.sh \
 	test-read-file.sh \
