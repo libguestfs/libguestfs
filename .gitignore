@@ -545,7 +545,13 @@ Makefile.in
 /test-tool/stamp-libguestfs-test-tool.pod
 /tools/virt-*.1
 /v2v/.depend
+/v2v/centos-6.img
+/v2v/centos-7.0.img
+/v2v/fedora-20.img
 /v2v/link.sh
+/v2v/rhel-5.10.img
+/v2v/rhel-6.5.img
+/v2v/rhel-7.0.img
 /v2v/stamp-virt-v2v.pod
 /v2v/virt-v2v
 /v2v/virt-v2v.1

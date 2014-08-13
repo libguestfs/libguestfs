@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
+	$(TESTS) $(SLOW_TESTS) \
 	virt-v2v.pod
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
@@ -154,14 +155,64 @@ CLEANFILES += stamp-virt-v2v.pod
 
 # Tests.
 
+# The virt-v2v tests here are not meant to be thorough tests of guest
+# conversion.  There is a test suite used to test conversion which is
+# kept outside libguestfs because it contains lots of proprietary
+# unredistributable guests like Windows.
+#
+# The tests here instead are testing:
+#
+# - virt-v2v command line arguments
+# - virt-v2v reads and writes files to the correct places
+# - valgrind & memory leaks
+# - any conversion properties that can be tested using just the
+#   phony guests (but we don't go out of our way here)
+# - that up to date guests don't crash virt-v2v
+
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
-TESTS =
+TESTS = \
+	test-v2v-machine-readable.sh \
+	test-v2v-no-copy.sh \
+	test-v2v-of-option.sh \
+	test-v2v-on-option.sh \
+	test-v2v-rhev.sh \
+	test-v2v-rhev-options.sh \
+	test-v2v-windows-conversion.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
+
+SLOW_TESTS = \
+	test-v2v-real-conversions.sh
+
+check-slow: $(real_guests:%=%.img)
+	$(MAKE) check TESTS="$(SLOW_TESTS)"
+
+# A selection of real guests that test-v2v-real-conversions.sh will
+# try to convert.  This is only used by 'make check-slow'.
+
+real_guests = \
+	centos-6 \
+	centos-7.0 \
+	fedora-20 \
+	rhel-5.10 \
+	rhel-6.5 \
+	rhel-7.0
+
+$(real_guests:%=%.img):
+	rm -f $@
+	n=`basename $@ .img`;                                            \
+	vb="$(top_builddir)/run $(top_builddir)/builder/virt-builder";   \
+	if $$vb --help >/dev/null && $$vb --notes $$n >/dev/null; then   \
+	  $$vb $$n;                                                      \
+	else                                                             \
+	  touch $$n.img;                                                 \
+	fi
+
+CLEANFILES += $(real_guests:%=%.img)
 
 # Dependencies.
 depend: .depend
