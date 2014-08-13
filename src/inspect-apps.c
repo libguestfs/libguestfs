@@ -226,7 +226,7 @@ read_rpm_name (guestfs_h *g,
     return 0;
 
   /* A name entry will have as many links as installed instances of
-   * that pacakge.  For example, if glibc.i686 and glibc.x86_64 are
+   * that package.  For example, if glibc.i686 and glibc.x86_64 are
    * both installed, then there will be a link for each Packages
    * entry.  Add an entry onto list for all installed instances.
    */
