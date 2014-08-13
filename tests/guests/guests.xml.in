@@ -48,7 +48,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/no-such-disk.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -64,7 +64,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/blank-bootroot.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -80,7 +80,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/blank-bootrootlv.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -96,7 +96,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/blank-disk.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -112,7 +112,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/blank-fs.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -128,7 +128,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/blank-part.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -144,7 +144,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/debian.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -160,7 +160,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/fedora-btrfs.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -176,7 +176,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/fedora.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -192,7 +192,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/fedora-md1.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -208,7 +208,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/fedora-md2.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -224,7 +224,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/ubuntu.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
@@ -240,7 +240,7 @@
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='@abs_builddir@/windows.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>

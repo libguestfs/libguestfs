@@ -57,7 +57,7 @@ foreach (@ARGV) {
     </os>
     <devices>
       <disk type='file' device='disk'>
-        <driver name='qemu'/>
+        <driver name='qemu' type='raw'/>
         <source file='$outdir/$_'/>
         <target dev='vda' bus='virtio'/>
       </disk>
