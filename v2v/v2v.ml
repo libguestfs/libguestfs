@@ -77,8 +77,8 @@ let rec main () =
   (* Open the guestfs handle. *)
   msg (f_"Opening the overlay");
   let g = new G.guestfs () in
-  g#set_trace trace;
-  g#set_verbose verbose;
+  if trace then g#set_trace true;
+  if verbose then g#set_verbose true;
   g#set_network true;
   List.iter (
     fun (overlay, _, _) ->
