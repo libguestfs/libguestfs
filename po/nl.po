@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-08-05 18:04+0100\n"
+"POT-Creation-Date: 2014-08-13 22:08+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1083
+#: ../v2v/convert_linux.ml:1084
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -222,7 +222,7 @@ msgstr ""
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:109
+#: ../v2v/cmdline.ml:122
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -272,7 +272,7 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:367 ../sysprep/main.ml:297
+#: ../v2v/v2v.ml:364 ../sysprep/main.ml:297
 msgid "%s: error: %s\n"
 msgstr ""
 
@@ -282,13 +282,13 @@ msgstr ""
 
 #. ../resize/resize.ml:1309
 #. ../builder/builder.ml:743
-#: ../v2v/v2v.ml:360 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
+#: ../v2v/v2v.ml:357 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
 #. ../resize/resize.ml:1312
 #. ../builder/builder.ml:746
-#: ../v2v/v2v.ml:363 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
+#: ../v2v/v2v.ml:360 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -309,7 +309,7 @@ msgstr ""
 #. ../resize/resize.ml:1331
 #. ../customize/customize_main.ml:262
 #. ../builder/builder.ml:764
-#: ../v2v/v2v.ml:385 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
+#: ../v2v/v2v.ml:382 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -319,7 +319,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1319
 #. ../builder/builder.ml:752
-#: ../v2v/v2v.ml:373 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
+#: ../v2v/v2v.ml:370 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -346,14 +346,14 @@ msgstr ""
 #. ../resize/resize.ml:1328
 #. ../customize/customize_main.ml:259
 #. ../builder/builder.ml:761
-#: ../v2v/v2v.ml:382 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
+#: ../v2v/v2v.ml:379 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
 #. ../resize/resize.ml:1325
 #. ../customize/customize_main.ml:255
 #. ../builder/builder.ml:758
-#: ../v2v/v2v.ml:379 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
+#: ../v2v/v2v.ml:376 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
@@ -361,7 +361,7 @@ msgstr ""
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:135
 #. ../builder/builder.ml:755
-#: ../v2v/v2v.ml:376 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
+#: ../v2v/v2v.ml:373 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1316
 #. ../builder/builder.ml:749
-#: ../v2v/v2v.ml:370 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
+#: ../v2v/v2v.ml:367 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
@@ -628,6 +628,10 @@ msgstr ""
 msgid "--expand option given twice"
 msgstr ""
 
+#: ../v2v/cmdline.ml:209
+msgid "--no-copy and '-o libvirt' cannot be used at the same time"
+msgstr ""
+
 #: ../resize/resize.ml:172
 msgid "--shrink option given twice"
 msgstr ""
@@ -649,23 +653,23 @@ msgstr ""
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
 msgstr ""
 
-#: ../v2v/cmdline.ml:199 ../v2v/cmdline.ml:190
+#: ../v2v/cmdline.ml:219 ../v2v/cmdline.ml:207
 msgid "--vmtype option can only be used with '-o rhev'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:188
+#: ../v2v/cmdline.ml:205
 msgid "-o libvirt: do not use the -os option"
 msgstr ""
 
-#: ../v2v/cmdline.ml:194
+#: ../v2v/cmdline.ml:214
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:203
-msgid "-o local: output storage was not specified, use '-os'"
+#: ../v2v/cmdline.ml:224
+msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:196
+#: ../v2v/cmdline.ml:216
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -737,7 +741,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:147
+#: ../v2v/v2v.ml:148
 msgid "Closing the overlay"
 msgstr ""
 
@@ -773,7 +777,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:164
+#: ../v2v/v2v.ml:167
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -801,7 +805,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:189
+#: ../v2v/v2v.ml:193
 msgid "Creating output metadata"
 msgstr ""
 
@@ -840,7 +844,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../v2v/cmdline.ml:84 ../sparsify/cmdline.ml:73 ../resize/resize.ml:186
+#: ../v2v/cmdline.ml:90 ../sparsify/cmdline.ml:73 ../resize/resize.ml:186
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -892,7 +896,7 @@ msgstr ""
 #. ../customize/customize_main.ml:99
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:100 ../sysprep/main.ml:155 ../sysprep/main.ml:154
+#: ../v2v/cmdline.ml:113 ../sysprep/main.ml:155 ../sysprep/main.ml:154
 msgid "Display version and exit"
 msgstr ""
 
@@ -969,7 +973,7 @@ msgstr ""
 #. ../customize/customize_main.ml:97
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:98 ../sysprep/main.ml:153 ../sysprep/main.ml:152
+#: ../v2v/cmdline.ml:111 ../sysprep/main.ml:153 ../sysprep/main.ml:152
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -980,7 +984,7 @@ msgstr ""
 #. ../resize/resize.ml:214
 #. ../customize/customize_main.ml:101
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:103 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:88
+#: ../v2v/cmdline.ml:116 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -988,7 +992,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:291
+#: ../v2v/v2v.ml:288
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1076,7 +1080,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:213 ../customize/customize_main.ml:237
+#: ../v2v/v2v.ml:208 ../customize/customize_main.ml:237
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1134,7 +1138,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:97
+#: ../v2v/cmdline.ml:110
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1172,11 +1176,15 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
+#: ../v2v/cmdline.ml:95
+msgid "Just write the metadata"
+msgstr ""
+
 #: ../builder/list_entries.ml:57
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:91 ../v2v/cmdline.ml:86
+#: ../v2v/cmdline.ml:98 ../v2v/cmdline.ml:92
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1191,7 +1199,7 @@ msgstr ""
 #. ../resize/resize.ml:193
 #. ../customize/customize_main.ml:89
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:87 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:78
+#: ../v2v/cmdline.ml:93 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:78
 msgid "List long options"
 msgstr ""
 
@@ -1200,7 +1208,7 @@ msgid "List supported operations"
 msgstr ""
 
 #. ../builder/cmdline.ml:140
-#: ../v2v/cmdline.ml:88 ../sparsify/cmdline.ml:79 ../resize/resize.ml:198
+#: ../v2v/cmdline.ml:94 ../sparsify/cmdline.ml:79 ../resize/resize.ml:198
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1269,6 +1277,10 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
+#: ../v2v/cmdline.ml:109
+msgid "Output VM UUID"
+msgstr ""
+
 #: ../builder/builder.ml:696
 msgid "Output file"
 msgstr ""
@@ -1281,8 +1293,16 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
+#: ../v2v/cmdline.ml:105
+msgid "Output image UUID"
+msgstr ""
+
 #: ../builder/builder.ml:697
 msgid "Output size"
+msgstr ""
+
+#: ../v2v/cmdline.ml:107
+msgid "Output vol UUID(s)"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:140
@@ -1312,11 +1332,11 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:95 ../sparsify/cmdline.ml:81
+#: ../v2v/cmdline.ml:102 ../sparsify/cmdline.ml:81
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:503 ../v2v/target_RHEV.ml:137
+#: ../v2v/target_RHEV.ml:544 ../v2v/target_RHEV.ml:141
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -1509,7 +1529,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:93
+#: ../v2v/cmdline.ml:100
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -1613,7 +1633,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:85
+#: ../v2v/cmdline.ml:91
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -1643,7 +1663,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:90
+#: ../v2v/cmdline.ml:97
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -1655,15 +1675,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:92
+#: ../v2v/cmdline.ml:99
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:89
+#: ../v2v/cmdline.ml:96
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:94
+#: ../v2v/cmdline.ml:101
 msgid "Set output storage location"
 msgstr ""
 
@@ -1711,7 +1731,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:102
+#: ../v2v/cmdline.ml:115
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -1894,7 +1914,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:138
+#: ../v2v/v2v.ml:139
 msgid "Trimming filesystems to reduce amount of data to copy"
 msgstr ""
 
@@ -1932,13 +1952,13 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:602
+#: ../v2v/convert_linux.ml:603
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:517
+#: ../v2v/convert_linux.ml:518
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2018,7 +2038,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:294
+#: ../v2v/v2v.ml:291
 msgid "connection closed"
 msgstr ""
 
@@ -2028,14 +2048,14 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:206
+#: ../v2v/target_RHEV.ml:208
 msgid ""
 "could not read the Export Storage Domain specified by the '-os %s' parameter "
 "on the command line.  Is it really an OVirt or RHEV-M Export Storage "
 "Domain?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:990
+#: ../v2v/convert_linux.ml:991
 msgid "could not update grub2 console: %s (ignored)"
 msgstr ""
 
@@ -2063,7 +2083,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:234
+#: ../v2v/v2v.ml:230
 msgid ""
 "disk %s (%s) has no defined format, you have to either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
@@ -2088,7 +2108,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:278
+#: ../v2v/v2v.ml:275
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2106,11 +2126,11 @@ msgstr ""
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:180
+#: ../v2v/cmdline.ml:197
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:172
+#: ../v2v/cmdline.ml:189
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
@@ -2171,7 +2191,7 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:316
+#: ../v2v/v2v.ml:313
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2187,7 +2207,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:183
+#: ../v2v/target_RHEV.ml:185
 msgid ""
 "mount command failed, see earlier errors.\n"
 "\n"
@@ -2195,13 +2215,13 @@ msgid ""
 "[-os %s], or else you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:301
+#: ../v2v/v2v.ml:298
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:190
+#: ../v2v/convert_linux.ml:191
 msgid ""
 "multiple files in /boot could be the initramfs matching %s %s.  This could "
 "be a bug in virt-v2v."
@@ -2219,22 +2239,22 @@ msgstr ""
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:95
+#: ../v2v/convert_linux.ml:96
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:185
+#: ../v2v/convert_linux.ml:186
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:251
+#: ../v2v/convert_linux.ml:252
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
 "This probably indicates that %s was unable to inspect this guest properly."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:362
+#: ../v2v/convert_linux.ml:363
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -2242,7 +2262,7 @@ msgid ""
 "of this guest."
 msgstr ""
 
-#: ../v2v/v2v.ml:271
+#: ../v2v/v2v.ml:268
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2250,7 +2270,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:717
+#: ../v2v/convert_linux.ml:718
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2306,7 +2326,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:185 ../v2v/v2v.ml:73
+#: ../v2v/v2v.ml:188 ../v2v/v2v.ml:73
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2318,7 +2338,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:309
+#: ../v2v/v2v.ml:306
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2334,14 +2354,14 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:226
+#: ../v2v/target_RHEV.ml:228
 msgid ""
 "the Export Storage Domain (%s) has not been attached to any Data Center.\n"
 "\n"
 "You have to do this through the RHEV-M / OVirt user interface first."
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:231
+#: ../v2v/target_RHEV.ml:233
 msgid ""
 "the Export Storage Domain (%s) is not writable.\n"
 "\n"
@@ -2350,11 +2370,17 @@ msgid ""
 "Original error was: %s"
 msgstr ""
 
+#: ../v2v/target_RHEV.ml:275
+msgid ""
+"the number of '--rhev-vol-uuid' parameters passed on the command line has to "
+"match the number of guest disk images (for this guest: %d)"
+msgstr ""
+
 #: ../resize/resize.ml:445
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:129
+#: ../v2v/target_RHEV.ml:133
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -2363,13 +2389,13 @@ msgid ""
 "about this issue."
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:220
+#: ../v2v/target_RHEV.ml:222
 msgid ""
 "there are multiple UUIDs in the Export Storage Domain (%s).  This is "
 "unexpected, and may be a bug in virt-v2v or OVirt."
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:218
+#: ../v2v/target_RHEV.ml:220
 msgid ""
 "there are no UUIDs in the Export Storage Domain (%s).  Is it really an OVirt "
 "or RHEV-M Export Storage Domain?"
@@ -2407,7 +2433,7 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:846
+#: ../v2v/convert_linux.ml:847
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -2417,27 +2443,27 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:79
+#: ../v2v/cmdline.ml:82
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:150
+#: ../v2v/cmdline.ml:167
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:52
+#: ../v2v/cmdline.ml:55
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:61
+#: ../v2v/cmdline.ml:64
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:69
+#: ../v2v/cmdline.ml:72
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/target_RHEV.ml:456
+#: ../v2v/target_RHEV.ml:489
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
@@ -2710,7 +2736,7 @@ msgstr ""
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: hendel aanmaken mislukte\n"
 
-#: align/scan.c:153 builder/index-validate.c:84 cat/cat.c:143
+#: align/scan.c:153 builder/index-validate.c:85 cat/cat.c:143
 #: cat/filesystems.c:241 cat/log.c:144 cat/ls.c:230 df/main.c:157
 #: diff/diff.c:262 edit/edit.c:162 fish/fish.c:293 format/format.c:183
 #: fuse/guestmount.c:251 fuse/guestunmount.c:124 inspector/inspector.c:151
@@ -2742,43 +2768,43 @@ msgstr "uitlijning < 4K"
 msgid "alignment < 64K"
 msgstr "uitlijning < 64K"
 
-#: builder/index-validate.c:116
+#: builder/index-validate.c:117
 #, c-format
 msgid "%s: %s: error closing input file: %m (ignored)\n"
 msgstr ""
 
-#: builder/index-validate.c:122
+#: builder/index-validate.c:123
 #, c-format
 msgid "%s: '%s' could not be validated, see errors above\n"
 msgstr ""
 
-#: builder/index-validate.c:129
+#: builder/index-validate.c:130
 #, c-format
 msgid "%s: %s contains comments which will not work with virt-builder 1.24.1\n"
 msgstr ""
 
-#: builder/index-validate.c:142
+#: builder/index-validate.c:143
 #, c-format
 msgid ""
 "%s: %s: section [%s] has invalid characters which will not work with virt-"
 "builder 1.24.0\n"
 msgstr ""
 
-#: builder/index-validate.c:153
+#: builder/index-validate.c:154
 #, c-format
 msgid ""
 "%s: %s: section [%s], field '%s' has invalid characters which will not work "
 "with virt-builder 1.24.0\n"
 msgstr ""
 
-#: builder/index-validate.c:162
+#: builder/index-validate.c:163
 #, c-format
 msgid ""
 "%s: %s: section [%s], field '%s' has invalid characters which will not work "
 "with virt-builder 1.24.1\n"
 msgstr ""
 
-#: builder/index-validate.c:173
+#: builder/index-validate.c:174
 #, c-format
 msgid ""
 "%s: %s: section [%s] is missing a 'sig' field which will not work with virt-"
@@ -7542,21 +7568,26 @@ msgid "'direct' backend does not work"
 msgstr ""
 
 #: src/handle.c:230
-msgid "non-numeric or too small value for LIBGUESTFS_MEMSIZE"
+msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:304
+#: src/handle.c:307
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: twee keer dezelfde hendel aangeroepen\n"
 
-#: src/handle.c:503
+#: src/handle.c:506
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:747
+#: src/handle.c:559
+#, c-format
+msgid "too small value for memsize (must be at least %d)"
+msgstr ""
+
+#: src/handle.c:754
 msgid "setting not found"
 msgstr ""
 
@@ -7659,49 +7690,49 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:287 src/launch-uml.c:159
+#: src/launch-direct.c:288 src/launch-uml.c:159
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-direct.c:871 src/launch-libvirt.c:551
+#: src/launch-direct.c:866 src/launch-libvirt.c:551
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch-direct.c:1273 src/launch-libvirt.c:1296
+#: src/launch-direct.c:1268 src/launch-libvirt.c:1302
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: kon '%s' niet converteren naar een absoluut pad"
 
-#: src/launch-direct.c:1431
+#: src/launch-direct.c:1426
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1440
+#: src/launch-direct.c:1435
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1447
+#: src/launch-direct.c:1442
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1455
+#: src/launch-direct.c:1450
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1463
+#: src/launch-direct.c:1458
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1486
+#: src/launch-direct.c:1481
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -7770,44 +7801,44 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1250
+#: src/launch-libvirt.c:1256
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1373
+#: src/launch-libvirt.c:1379
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1398
+#: src/launch-libvirt.c:1404
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1405
+#: src/launch-libvirt.c:1411
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1683
+#: src/launch-libvirt.c:1689
 msgid "could not destroy libvirt domain"
 msgstr "kon libvirt domein niet vernietigen"
 
-#: src/launch-libvirt.c:1720 src/launch-libvirt.c:1753
+#: src/launch-libvirt.c:1726 src/launch-libvirt.c:1759
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: interne fout bij formuleren van foutboodschap"
 
-#: src/launch-libvirt.c:1812
+#: src/launch-libvirt.c:1818
 msgid "could not attach disk to libvirt domain"
 msgstr "kon schijf niet koppelen aan libvirt domein"
 
-#: src/launch-libvirt.c:1843
+#: src/launch-libvirt.c:1849
 msgid "could not detach disk from libvirt domain"
 msgstr "kon schijf niet loskoppelen van libvirt domein"
 
