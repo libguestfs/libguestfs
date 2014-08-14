@@ -4,10 +4,12 @@ Missing features compared to Perl version:
  - Fix configure_kernel on SUSE (see Mike Latimer's email)
  - RHEV-M metadata
  - testing
+ - -o libvirt
 
-To do:
+p2v:
 
- - p2v network dialog and network configuration
+ - network dialog and network configuration
+ - control where the image is sent (ie. RHEV ESD, libvirt, etc)
 
 p2v/conversion.c:                "/tmp/virt-p2v-%04d%02d%02d-XXXXXXXX",
 p2v/conversion.c:                   " -o local -os /tmp" /* XXX */
