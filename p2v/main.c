@@ -489,48 +489,20 @@ find_all_interfaces (void)
 static char *
 read_cmdline (void)
 {
-  int fd;
-  size_t len = 0;
-  ssize_t n;
-  char buf[256];
-  char *r = NULL, *newr;
+  CLEANUP_FCLOSE FILE *fp = NULL;
+  char *ret = NULL;
+  size_t len;
 
-  fd = open ("/proc/cmdline", O_RDONLY|O_CLOEXEC);
-  if (fd == -1) {
+  fp = fopen ("/proc/cmdline", "re");
+  if (fp == NULL) {
     perror ("/proc/cmdline");
     return NULL;
   }
 
-  for (;;) {
-    n = read (fd, buf, sizeof buf);
-    if (n == -1) {
-      perror ("read");
-      free (r);
-      close (fd);
-      return NULL;
-    }
-    if (n == 0)
-      break;
-    newr = realloc (r, len + n + 1); /* + 1 is for terminating NUL */
-    if (newr == NULL) {
-      perror ("realloc");
-      free (r);
-      close (fd);
-      return NULL;
-    }
-    r = newr;
-    memcpy (&r[len], buf, n);
-    len += n;
-  }
-
-  if (r)
-    r[len] = '\0';
-
-  if (close (fd) == -1) {
-    perror ("close");
-    free (r);
+  if (getline (&ret, &len, fp) == -1) {
+    perror ("getline");
     return NULL;
   }
 
-  return r;
+  return ret;
 }
