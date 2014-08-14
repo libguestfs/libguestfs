@@ -76,6 +76,7 @@ dnl iproute has been renamed to iproute2
   iputils-arping
   iputils-tracepath
   libaugeas0
+  libc-bin
   libcap2
   libhivex0
   libpcre3
