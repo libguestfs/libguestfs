@@ -41,6 +41,12 @@ if ! test -f $f || ! test -s $f; then
     exit 77
 fi
 
+virt_tools_data_dir=${VIRT_TOOLS_DATA_DIR:-/usr/share/virt-tools}
+if ! test -r $virt_tools_data_dir/rhsrvany.exe; then
+    echo "$0: test skipped because rhsrvany.exe is not installed"
+    exit 77
+fi
+
 # Return a random element from the array 'choices'.
 function random_choice
 {
