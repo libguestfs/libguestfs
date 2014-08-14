@@ -11,6 +11,9 @@ dnl   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
 dnl   DEBIAN=1     For Debian.
 dnl   UBUNTU=1     For Ubuntu.
 dnl   ARCHLINUX=1  For Archlinux.
+dnl   SUSE=1       For OpenSUSE.
+dnl   FRUGALWARE=1 For Frugalware.
+dnl   MAGEIA=1     For Mageia.
 dnl
 dnl Note that any matching file will be dropped from the appliance.
 dnl Of course, this may break the appliance, so be careful.
