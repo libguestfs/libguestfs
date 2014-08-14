@@ -360,12 +360,14 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
            "  <os>\n"
            "    <type arch='" host_cpu "'>hvm</type>\n"
            "  </os>\n"
+           "  <features>%s%s%s</features>\n"
            "  <devices>\n",
            config->guestname,
            memkb, memkb,
-           config->vcpus);
-
-  /* XXX features: acpi, apic, pae */
+           config->vcpus,
+           config->flags & FLAG_ACPI ? "<acpi/>" : "",
+           config->flags & FLAG_APIC ? "<apic/>" : "",
+           config->flags & FLAG_PAE  ? "<pae/>" : "");
 
   for (i = 0; config->disks[i] != NULL; ++i) {
     fprintf (fp,
@@ -418,6 +420,8 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
                "    </interface>\n");
     }
   }
+
+  /* Old virt-p2v didn't try to model the graphics hardware. */
 
   fprintf (fp,
            "  </devices>\n"

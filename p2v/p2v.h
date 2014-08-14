@@ -61,10 +61,15 @@ struct config {
   char *guestname;
   int vcpus;
   uint64_t memory;
+  int flags;
   char **disks;
   char **removable;
   char **interfaces;
 };
+
+#define FLAG_ACPI 1
+#define FLAG_APIC 2
+#define FLAG_PAE  4
 
 extern struct config *new_config (void);
 extern struct config *copy_config (struct config *);

@@ -46,6 +46,7 @@ static void set_config_defaults (struct config *config);
 static void find_all_disks (void);
 static void find_all_interfaces (void);
 static char *read_cmdline (void);
+static int cpuinfo_flags (void);
 
 enum { HELP_OPTION = CHAR_MAX + 1 };
 static const char *options = "Vv";
@@ -186,6 +187,7 @@ set_config_defaults (struct config *config)
 {
   long i;
   char hostname[257];
+  int flags;
 
   /* Default guest name is derived from the source hostname.  If we
    * assume that the p2v ISO gets its IP address and hostname from
@@ -250,6 +252,12 @@ set_config_defaults (struct config *config)
   config->memory |= config->memory >> 16;
   config->memory |= config->memory >> 32;
   config->memory++;
+
+  flags = cpuinfo_flags ();
+  if (flags >= 0)
+    config->flags = flags;
+  else
+    config->flags = 0;
 
   find_all_disks ();
   config->disks = guestfs___copy_string_list (all_disks);
@@ -502,6 +510,52 @@ read_cmdline (void)
   if (getline (&ret, &len, fp) == -1) {
     perror ("getline");
     return NULL;
+  }
+
+  return ret;
+}
+
+/* Read the list of flags from /proc/cpuinfo. */
+static int
+cpuinfo_flags (void)
+{
+  const char *cmd;
+  CLEANUP_PCLOSE FILE *fp = NULL;
+  CLEANUP_FREE char *flag = NULL;
+  ssize_t len;
+  size_t buflen = 0;
+  int ret = 0;
+
+  /* Get the flags, one per line. */
+  cmd = "< /proc/cpuinfo "
+#if defined(__arm__)
+    "grep ^Features"
+#else
+    "grep ^flags"
+#endif
+    " | awk '{ for (i = 3; i <= NF; ++i) { print $i }; exit }'";
+
+  fp = popen (cmd, "re");
+  if (fp == NULL) {
+    perror ("/proc/cpuinfo");
+    return -1;
+  }
+
+  while (errno = 0, (len = getline (&flag, &buflen, fp)) != -1) {
+    if (len > 0 && flag[len-1] == '\n')
+      flag[len-1] = '\0';
+
+    if (STREQ (flag, "acpi"))
+      ret |= FLAG_ACPI;
+    else if (STREQ (flag, "apic"))
+      ret |= FLAG_APIC;
+    else if (STREQ (flag, "pae"))
+      ret |= FLAG_PAE;
+  }
+
+  if (errno) {
+    perror ("getline");
+    return -1;
   }
 
   return ret;
