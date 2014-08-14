@@ -289,11 +289,19 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     return -1;
   }
 
+  /* Try to guess if KVM is available.  We are just checking that
+   * /dev/kvm is openable.  That's not reliable, since /dev/kvm
+   * might be openable by qemu but not by us (think: SELinux) in
+   * which case the user would not get hardware virtualization,
+   * although at least shouldn't fail.
+   */
+  has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
+
   force_tcg = guestfs___get_backend_setting_bool (g, "force_tcg");
   if (force_tcg == -1)
     return -1;
 
-  if (!force_tcg)
+  if (!has_kvm && !force_tcg)
     debian_kvm_warning (g);
 
   guestfs___launch_send_progress (g, 0);
@@ -410,14 +418,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     ADD_CMDLINE ("-s");
     warning (g, "qemu debugging is enabled, connect gdb to tcp::1234 to begin");
   }
-
-  /* Try to guess if KVM is available.  We are just checking that
-   * /dev/kvm is openable.  That's not reliable, since /dev/kvm
-   * might be openable by qemu but not by us (think: SELinux) in
-   * which case the user would not get hardware virtualization,
-   * although at least shouldn't fail.
-   */
-  has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
 
   cpu_model = guestfs___get_cpu_model (has_kvm && !force_tcg);
   if (cpu_model) {
