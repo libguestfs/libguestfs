@@ -56,6 +56,7 @@
 #define CLEANUP_XMLXPATHFREEOBJECT                                      \
   __attribute__((cleanup(guestfs___cleanup_xmlXPathFreeObject)))
 #define CLEANUP_FCLOSE __attribute__((cleanup(guestfs___cleanup_fclose)))
+#define CLEANUP_PCLOSE __attribute__((cleanup(guestfs___cleanup_pclose)))
 #else
 #define CLEANUP_FREE
 #define CLEANUP_FREE_STRING_LIST
@@ -68,6 +69,7 @@
 #define CLEANUP_XMLXPATHFREECONTEXT
 #define CLEANUP_XMLXPATHFREEOBJECT
 #define CLEANUP_FCLOSE
+#define CLEANUP_PCLOSE
 #endif
 
 /* NB: At some point we will stop exporting these safe_* allocation
@@ -118,6 +120,7 @@ extern void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
 extern void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
 extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
 extern void guestfs___cleanup_fclose (void *ptr);
+extern void guestfs___cleanup_pclose (void *ptr);
 
 /* These are in a separate header so the header can be generated.
  * Don't include the following file directly:

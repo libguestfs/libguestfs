@@ -131,3 +131,12 @@ guestfs___cleanup_fclose (void *ptr)
   if (f)
     fclose (f);
 }
+
+void
+guestfs___cleanup_pclose (void *ptr)
+{
+  FILE *f = * (FILE **) ptr;
+
+  if (f)
+    pclose (f);
+}
