@@ -175,6 +175,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
 TESTS = \
+	test-v2v-libvirt.sh \
 	test-v2v-machine-readable.sh \
 	test-v2v-no-copy.sh \
 	test-v2v-of-option.sh \
