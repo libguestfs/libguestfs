@@ -47,7 +47,7 @@ Set the input method to I<disk>.
 In this mode you can read a virtual machine disk image with no
 metadata.  virt-v2v tries to guess the best default metadata.  This is
 usually adequate but you can get finer control (eg. of memory and
-vCPUs) by using I<-libvirtxml> instead.  Only guests that use a single
+vCPUs) by using I<-i libvirtxml> instead.  Only guests that use a single
 disk can be imported this way.
 
 =item B<-i libvirt>
