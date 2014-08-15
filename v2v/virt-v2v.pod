@@ -578,8 +578,11 @@ For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
 =head1 SEE ALSO
 
 L<virt-p2v(1)>,
+L<virt-customize(1)>,
 L<virt-df(1)>,
 L<virt-filesystems(1)>,
+L<virt-sparsify(1)>,
+L<virt-sysprep(1)>,
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<qemu-img(1)>,
