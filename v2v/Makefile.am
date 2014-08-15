@@ -175,13 +175,13 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
 TESTS = \
-	test-v2v-libvirt.sh \
 	test-v2v-machine-readable.sh \
 	test-v2v-no-copy.sh \
+	test-v2v-o-libvirt.sh \
+	test-v2v-o-rhev.sh \
+	test-v2v-o-rhev-options.sh \
 	test-v2v-of-option.sh \
 	test-v2v-on-option.sh \
-	test-v2v-rhev.sh \
-	test-v2v-rhev-options.sh \
 	test-v2v-windows-conversion.sh
 endif ENABLE_APPLIANCE
 

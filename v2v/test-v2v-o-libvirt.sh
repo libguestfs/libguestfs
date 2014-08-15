@@ -22,7 +22,7 @@ unset CDPATH
 export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_LIBVIRT_SH" ]; then
+if [ -n "$SKIP_TEST_V2V_O_LIBVIRT_SH" ]; then
     echo "$0: test skipped because environment variable is set"
     exit 77
 fi
@@ -58,7 +58,7 @@ fi
 # Generate a random guest name.
 guestname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
-d=test-v2v-libvirt.d
+d=test-v2v-o-libvirt.d
 rm -rf $d
 mkdir $d
 

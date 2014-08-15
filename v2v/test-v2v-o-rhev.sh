@@ -22,7 +22,7 @@ unset CDPATH
 export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_RHEV_SH" ]; then
+if [ -n "$SKIP_TEST_V2V_O_RHEV_SH" ]; then
     echo "$0: test skipped because environment variable is set"
     exit 77
 fi
@@ -47,7 +47,7 @@ if ! test -r $virt_tools_data_dir/rhsrvany.exe; then
     exit 77
 fi
 
-d=test-v2v-rhev.d
+d=test-v2v-o-rhev.d
 rm -rf $d
 mkdir $d
 
