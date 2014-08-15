@@ -92,6 +92,7 @@ let rec main () =
    * just so we can display errors to the user before doing too much
    * work.
    *)
+  msg (f_"Initializing the target %s") (output_as_options output);
   let overlays =
     initialize_target ~verbose g
       source output output_alloc output_format output_name overlays in

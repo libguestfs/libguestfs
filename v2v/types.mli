@@ -37,6 +37,9 @@ and output_rhev_params = {
 }
 (** Miscellaneous extra command line parameters used by RHEV. *)
 
+val output_as_options : output -> string
+(** Converts the output struct into the equivalent command line options. *)
+
 type source = {
   s_dom_type : string;                  (** Source domain type, eg "kvm" *)
   s_name : string;                      (** Guest name. *)
