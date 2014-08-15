@@ -110,6 +110,9 @@ ifelse(ARCHLINUX,1,
   libcap
   linux
   lrzip
+  dnl syslinux has mtools as optional dependency, but in reality it's
+  dnl a hard one:
+  mtools
   nilfs-utils
   ntfsprogs
   ntfs-3g
