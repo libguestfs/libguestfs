@@ -220,6 +220,7 @@ HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
 	html/guestfs-faq.1.html \
+	html/guestfs-p2v-iso.1.html \
 	html/guestfs-performance.1.html \
 	html/guestfs-recipes.1.html \
 	html/guestfs-release-notes.1.html \
@@ -245,6 +246,7 @@ HTMLFILES = \
 	html/virt-log.1.html \
 	html/virt-ls.1.html \
 	html/virt-make-fs.1.html \
+	html/virt-p2v.1.html \
 	html/virt-rescue.1.html \
 	html/virt-resize.1.html \
 	html/virt-sparsify.1.html \
