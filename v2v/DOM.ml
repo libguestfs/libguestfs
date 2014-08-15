@@ -47,9 +47,13 @@ and element_to_chan chan
     { e_name = name; e_attrs = attrs; e_children = children } =
   fprintf chan "<%s" name;
   List.iter (fun (n, v) -> fprintf chan " %s='%s'" n (xml_quote_attr v)) attrs;
-  output_char chan '>';
-  List.iter (node_to_chan chan) children;
-  fprintf chan "</%s>" name
+  if children <> [] then (
+    output_char chan '>';
+    List.iter (node_to_chan chan) children;
+    fprintf chan "</%s>" name
+  ) else (
+    output_string chan "/>"
+  )
 
 let doc_to_chan chan doc =
   fprintf chan "<?xml version='1.0' encoding='utf-8'?>\n";
