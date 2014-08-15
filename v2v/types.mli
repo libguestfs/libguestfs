@@ -24,7 +24,7 @@ type input =
 (** The input arguments as specified on the command line. *)
 
 type output =
-| OutputLibvirt of string option    (* -o libvirt: -oc *)
+| OutputLibvirt of string option * string (* -o libvirt: -oc & -os *)
 | OutputLocal of string             (* -o local: directory *)
 | OutputRHEV of string * output_rhev_params (* -o rhev: output storage *)
 (** The output arguments as specified on the command line. *)

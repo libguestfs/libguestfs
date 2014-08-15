@@ -199,7 +199,8 @@ let rec main () =
       | None -> source
       | Some name -> { source with s_name = name } in
     match output with
-    | OutputLibvirt oc -> assert false
+    | OutputLibvirt (oc, os) ->
+      Target_libvirt.create_metadata oc os renamed_source overlays guestcaps
     | OutputLocal dir ->
       Target_local.create_metadata dir renamed_source overlays guestcaps
     | OutputRHEV (os, rhev_params) ->
@@ -252,7 +253,8 @@ and initialize_target ~verbose g
       | None -> source
       | Some name -> { source with s_name = name } in
     match output with
-    | OutputLibvirt oc -> assert false
+    | OutputLibvirt (oc, os) ->
+      Target_libvirt.initialize oc os renamed_source overlays
     | OutputLocal dir -> Target_local.initialize dir renamed_source overlays
     | OutputRHEV (os, rhev_params) ->
       Target_RHEV.initialize ~verbose

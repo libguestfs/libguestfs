@@ -87,6 +87,8 @@ Set the output method to I<libvirt>.  This is the default.
 In this mode, the converted guest is created as a libvirt guest.  You
 may also specify a libvirt connection URI (see I<-oc>).
 
+See L</OUTPUT TO LIBVIRT> below.
+
 =item B<-o local>
 
 Set the output method to I<local>.
@@ -124,7 +126,7 @@ Set the output file allocation mode.  The default is C<sparse>.
 =item B<-oc> libvirtURI
 
 Specify a libvirt connection to use when writing the converted guest.
-This is only used when S<I<-o libvirt>>.
+This is only used when S<I<-o libvirt>>.  See L</OUTPUT TO LIBVIRT> below.
 
 Only local libvirt connections can be used.  Remote libvirt
 connections will not work.
@@ -144,7 +146,8 @@ the output name is the same as the input name.
 
 The location of the storage for the converted guest.
 
-For I<-o libvirt>, this is a libvirt pool (see S<C<virsh pool-list>>).
+For I<-o libvirt>, this is a libvirt directory pool
+(see S<C<virsh pool-list>>).
 
 For I<-o local>, this is a directory name.  The directory must exist.
 
@@ -397,6 +400,79 @@ code if there was a fatal error.
 
 Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable>
 option at all.  The option was added when virt-v2v was rewritten in 2014.
+
+=head1 OUTPUT TO LIBVIRT
+
+The I<-o libvirt> option lets you upload the converted guest to
+a libvirt-managed host.  There are several limitations:
+
+=over 4
+
+=item *
+
+You can only use a local libvirt connection [see below for how to
+workaround this].
+
+=item *
+
+The I<-os pool> option must specify a directory pool, not anything
+more exotic such as iSCSI [but see below].
+
+=item *
+
+You can only upload to a KVM hypervisor.
+
+=back
+
+B<To output to a remote libvirt instance and/or a non-directory storage pool>
+you have to use the following workaround:
+
+=over 4
+
+=item 1.
+
+Use virt-v2v in I<-o local> mode to convert the guest disks and
+metadata into a local temporary directory:
+
+ virt-v2v [...] -o local -os /tmp
+
+This creates two (or more) files in C</tmp> called:
+
+ /tmp/NAME.xml     # the libvirt XML (metadata)
+ /tmp/NAME-sda     # the guest's first disk
+
+(for C<NAME> substitute the guest's name).
+
+=item 2.
+
+Upload the converted disk(s) into the storage pool called C<POOL>:
+
+ size=$(stat -c%s /tmp/NAME-sda)
+ virsh vol-create-as POOL NAME-sda $size --format raw
+ virsh vol-upload --pool POOL NAME-sda /tmp/NAME-sda
+
+=item 3.
+
+Edit C</tmp/NAME.xml> to change C</tmp/NAME-sda> to the pool name.
+In other words, locate the following bit of XML:
+
+ <disk type='file' device='disk'>
+   <driver name='qemu' type='raw' cache='none' />
+   <source file='/tmp/NAME-sda' />
+   <target dev='hda' bus='ide' />
+ </disk>
+
+and change I<only> the E<lt>sourceE<gt> element to:
+
+   <source pool='POOL' volume='NAME-sda' />
+
+=item 4.
+
+Define the final guest in libvirt:
+
+ virsh define /tmp/NAME.xml
+
+=back
 
 =head1 FILES
 

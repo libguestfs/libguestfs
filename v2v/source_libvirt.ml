@@ -51,8 +51,8 @@ let create_xml ?dir xml =
     else (
       let node = Xml.xpathobj_node doc obj 0 in
       Xml.node_as_string node
-    ) in
-  let xpath_to_int expr default =
+    )
+  and xpath_to_int expr default =
     let obj = Xml.xpath_eval_expression xpathctx expr in
     if Xml.xpathobj_nr_nodes obj < 1 then default
     else (
@@ -62,7 +62,8 @@ let create_xml ?dir xml =
       with Failure "int_of_string" ->
         error (f_"expecting XML expression to return an integer (expression: %s)")
           expr
-    ) in
+    )
+  in
 
   let dom_type = xpath_to_string "/domain/@type" "" in
   let name = xpath_to_string "/domain/name/text()" "" in

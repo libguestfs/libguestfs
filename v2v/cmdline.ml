@@ -201,13 +201,13 @@ read the man page virt-v2v(1).
   let output =
     match output_mode with
     | `Libvirt ->
-      if output_storage <> "" then
-        error (f_"-o libvirt: do not use the -os option");
+      let output_storage =
+        if output_storage = "" then "default" else output_storage in
       if vmtype <> None then
         error (f_"--vmtype option can only be used with '-o rhev'");
       if not do_copy then
         error (f_"--no-copy and '-o libvirt' cannot be used at the same time");
-      OutputLibvirt output_conn
+      OutputLibvirt (output_conn, output_storage)
 
     | `Local ->
       if output_storage = "" then

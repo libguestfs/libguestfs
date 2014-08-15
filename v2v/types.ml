@@ -25,7 +25,7 @@ type input =
 | InputLibvirtXML of string
 
 type output =
-| OutputLibvirt of string option
+| OutputLibvirt of string option * string
 | OutputLocal of string
 | OutputRHEV of string * output_rhev_params
 

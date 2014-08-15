@@ -16,10 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(*
-val initialize : string -> Types.source -> Types.overlay list -> Types.overlay list
+val initialize : string option -> string -> Types.source -> Types.overlay list -> Types.overlay list
 
-val create_metadata : string -> Types.source -> Types.overlay list -> Types.guestcaps -> unit
-*)
+val create_metadata : string option -> string -> Types.source -> Types.overlay list -> Types.guestcaps -> unit
 
-val create_libvirt_xml : Types.source -> Types.overlay list -> Types.guestcaps -> DOM.doc
+val create_libvirt_xml : ?pool:string -> Types.source -> Types.overlay list -> Types.guestcaps -> DOM.doc
