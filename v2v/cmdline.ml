@@ -35,6 +35,7 @@ let parse_cmdline () =
   let debug_gc = ref false in
   let do_copy = ref true in
   let input_conn = ref "" in
+  let input_format = ref "" in
   let output_conn = ref "" in
   let output_format = ref "" in
   let output_name = ref "" in
@@ -49,6 +50,7 @@ let parse_cmdline () =
 
   let input_mode = ref `Libvirt in
   let set_input_mode = function
+    | "disk" -> input_mode := `Disk
     | "libvirt" -> input_mode := `Libvirt
     | "libvirtxml" -> input_mode := `LibvirtXML
     | s ->
@@ -88,8 +90,10 @@ let parse_cmdline () =
   let ditto = " -\"-" in
   let argspec = Arg.align [
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
-    "-i",        Arg.String set_input_mode, "libvirtxml|libvirt " ^ s_"Set input mode (default: libvirt)";
+    "-i",        Arg.String set_input_mode, "disk|libvirt|libvirtxml " ^ s_"Set input mode (default: libvirt)";
     "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
+    "-if",       Arg.Set_string input_format,
+                                            "format " ^ s_"Input format (for -i disk)";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
@@ -129,6 +133,8 @@ let parse_cmdline () =
 
  virt-v2v -i libvirtxml -o local -os /tmp guest-domain.xml
 
+ virt-v2v -i disk -o local -os /tmp disk.img
+
 There is a companion front-end called \"virt-p2v\" which comes as an
 ISO or CD image that can be booted on physical machines.
 
@@ -143,6 +149,7 @@ read the man page virt-v2v(1).
   let debug_gc = !debug_gc in
   let do_copy = !do_copy in
   let input_conn = match !input_conn with "" -> None | s -> Some s in
+  let input_format = match !input_format with "" -> None | s -> Some s in
   let input_mode = !input_mode in
   let machine_readable = !machine_readable in
   let output_alloc = !output_alloc in
@@ -178,6 +185,15 @@ read the man page virt-v2v(1).
   (* Parsing of the argument(s) depends on the input mode. *)
   let input =
     match input_mode with
+    | `Disk ->
+      (* -i disk: Expecting a single argument, the disk filename. *)
+      let disk =
+        match args with
+        | [disk] -> disk
+        | _ ->
+          error (f_"expecting a disk image (filename) on the command line") in
+      InputDisk (input_format, disk)
+
     | `Libvirt ->
       (* -i libvirt: Expecting a single argument which is the name
        * of the libvirt guest.
@@ -188,6 +204,7 @@ read the man page virt-v2v(1).
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
       InputLibvirt (input_conn, guest)
+
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)
       let filename =

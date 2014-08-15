@@ -11,6 +11,8 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -i libvirtxml -o local -os /tmp guest-domain.xml
 
+ virt-v2v -i disk -o local -os /tmp disk.img
+
 =head1 DESCRIPTION
 
 Virt-v2v converts guests from a foreign hypervisor to run on KVM,
@@ -38,6 +40,16 @@ Debug garbage collection and memory allocation.  This is only useful
 when debugging memory problems in virt-v2v or the OCaml libguestfs
 bindings.
 
+=item B<-i disk>
+
+Set the input method to I<disk>.
+
+In this mode you can read a virtual machine disk image with no
+metadata.  virt-v2v tries to guess the best default metadata.  This is
+usually adequate but you can get finer control (eg. of memory and
+vCPUs) by using I<-libvirtxml> instead.  Only guests that use a single
+disk can be imported this way.
+
 =item B<-i libvirt>
 
 Set the input method to I<libvirt>.  This is the default.
@@ -61,6 +73,12 @@ is only used when S<I<-i libvirt>>.
 
 Only local libvirt connections and ESX connections can be used.
 Remote libvirt connections will not work in general.
+
+=item B<-if> format
+
+For I<-i disk> only, this specifies the format of the input disk
+image.  For other input methods you should specify the input
+format in the metadata.
 
 =item B<--machine-readable>
 

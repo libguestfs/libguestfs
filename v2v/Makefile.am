@@ -29,6 +29,7 @@ SOURCES_MLI = \
 	convert_windows.mli \
 	DOM.mli \
 	lib_linux.mli \
+	source_disk.mli \
 	source_libvirt.mli \
 	target_libvirt.mli \
 	target_local.mli \
@@ -44,6 +45,7 @@ SOURCES_ML = \
 	DOM.ml \
 	lib_linux.ml \
 	cmdline.ml \
+	source_disk.ml \
 	source_libvirt.ml \
 	convert_linux.ml \
 	convert_windows.ml \
@@ -175,6 +177,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
 TESTS = \
+	test-v2v-i-disk.sh \
 	test-v2v-machine-readable.sh \
 	test-v2v-no-copy.sh \
 	test-v2v-o-libvirt.sh \

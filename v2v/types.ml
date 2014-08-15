@@ -21,6 +21,7 @@ open Printf
 (* Types.  See types.mli for documentation. *)
 
 type input =
+| InputDisk of string option * string
 | InputLibvirt of string option * string
 | InputLibvirtXML of string
 

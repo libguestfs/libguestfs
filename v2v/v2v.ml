@@ -40,6 +40,8 @@ let rec main () =
 
   let source =
     match input with
+    | InputDisk (input_format, disk) ->
+      Source_disk.create input_format disk
     | InputLibvirt (libvirt_uri, guest) ->
       Source_libvirt.create libvirt_uri guest
     | InputLibvirtXML filename ->

@@ -1,6 +1,5 @@
-(* configuration for mllib.
- * @configure_input@
- * Copyright (C) 2013 Red Hat Inc.
+(* virt-v2v
+ * Copyright (C) 2009-2014 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-let package_name = "@PACKAGE_NAME@"
-let package_version = "@PACKAGE_VERSION@"
-let prefix = "@prefix@"
-let datadir = prefix ^ "/share"
-let host_cpu = "@host_cpu@"
+(** [-i disk] source. *)
+
+val create : string option -> string -> Types.source
+(** [create input_format disk] reads the disk image and returns a {!Types.source}. *)

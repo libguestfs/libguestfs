@@ -87,6 +87,7 @@ v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
 v2v/lib_linux.ml
+v2v/source_disk.ml
 v2v/source_libvirt.ml
 v2v/stringMap.ml
 v2v/target_RHEV.ml

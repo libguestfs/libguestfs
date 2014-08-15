@@ -19,6 +19,7 @@
 (** Types. *)
 
 type input =
+| InputDisk of string option * string   (* -i disk: format + file name *)
 | InputLibvirt of string option * string (* -i libvirt: -ic + guest name *)
 | InputLibvirtXML of string         (* -i libvirtxml: XML file name *)
 (** The input arguments as specified on the command line. *)
