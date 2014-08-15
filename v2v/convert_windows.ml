@@ -470,6 +470,7 @@ echo uninstalling Xen PV driver
   let guestcaps = {
     gcaps_block_bus = block_driver;
     gcaps_net_bus = net_driver;
+    gcaps_acpi = true;
     (* XXX display *)
   } in
 

@@ -992,6 +992,13 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
            msg
     )
 
+  and supports_acpi () =
+    (* ACPI known to cause RHEL 3 to fail. *)
+    if family = `RHEL_family && inspect.i_major_version == 3 then
+      false
+    else
+      true
+
   and remap_block_devices virtio =
     (* This function's job is to iterate over boot configuration
      * files, replacing "hda" with "vda" or whatever is appropriate.
@@ -1146,6 +1153,8 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     grub_remove_console ();
   );
 
+  let acpi = supports_acpi () in
+
   (*
     XXX to do from original v2v:
     configure display driver
@@ -1157,6 +1166,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
   let guestcaps = {
     gcaps_block_bus = if virtio then "virtio" else "ide";
     gcaps_net_bus = if virtio then "virtio" else "e1000";
+    gcaps_acpi = acpi;
   (* XXX display *)
   } in
 

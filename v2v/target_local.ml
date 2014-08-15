@@ -48,7 +48,14 @@ let create_metadata dir source overlays guestcaps =
   p "    <type arch='%s'>hvm</type>\n" source.s_arch;
   p "  </os>\n";
   p "  <features>\n";
-  List.iter (p "    <%s/>\n") source.s_features;
+  List.iter (
+    fun feature ->
+      if feature = "acpi" && not guestcaps.gcaps_acpi then
+        (* drop acpi if the guest doesn't support it *) ()
+      else
+        (* pass through all other features *)
+        p "    <%s/>\n" feature
+  ) source.s_features;
   p "  </features>\n";
 
   p "  <on_poweroff>destroy</on_poweroff>\n";

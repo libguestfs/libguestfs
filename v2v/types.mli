@@ -101,6 +101,7 @@ type inspect = {
 type guestcaps = {
   gcaps_block_bus : string;    (** "virtio", "ide", possibly others *)
   gcaps_net_bus : string;      (** "virtio", "e1000", possibly others *)
+  gcaps_acpi : bool;           (** guest supports acpi *)
   (* XXX acpi, display *)
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)

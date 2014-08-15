@@ -132,4 +132,5 @@ type inspect = {
 type guestcaps = {
   gcaps_block_bus : string;
   gcaps_net_bus : string;
+  gcaps_acpi : bool;
 }
