@@ -30,6 +30,7 @@ SOURCES_MLI = \
 	DOM.mli \
 	lib_linux.mli \
 	source_libvirt.mli \
+	target_libvirt.mli \
 	target_local.mli \
 	target_RHEV.mli \
 	types.mli \
@@ -46,6 +47,7 @@ SOURCES_ML = \
 	source_libvirt.ml \
 	convert_linux.ml \
 	convert_windows.ml \
+	target_libvirt.ml \
 	target_local.ml \
 	target_RHEV.ml \
 	v2v.ml

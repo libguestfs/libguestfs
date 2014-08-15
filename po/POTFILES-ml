@@ -90,6 +90,7 @@ v2v/lib_linux.ml
 v2v/source_libvirt.ml
 v2v/stringMap.ml
 v2v/target_RHEV.ml
+v2v/target_libvirt.ml
 v2v/target_local.ml
 v2v/types.ml
 v2v/utils.ml
