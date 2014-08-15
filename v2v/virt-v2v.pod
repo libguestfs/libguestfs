@@ -486,9 +486,15 @@ In other words, locate the following bit of XML:
    <target dev='hda' bus='ide' />
  </disk>
 
-and change I<only> the E<lt>sourceE<gt> element to:
+and change two things: The C<type='file'> attribute must be changed to
+C<type='volume'>, and the C<E<lt>sourceE<gt>> element must be changed
+to include C<pool> and C<volume> attributes:
 
+ <disk type='volume' device='disk'>
+   ...
    <source pool='POOL' volume='NAME-sda' />
+   ...
+ </disk>
 
 =item 4.
 
