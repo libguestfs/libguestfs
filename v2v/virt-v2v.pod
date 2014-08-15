@@ -66,6 +66,10 @@ This file is read in order to get metadata about the source guest
 (such as its name, amount of memory), and also to locate the input
 disks.
 
+=item B<-i local>
+
+This is the same as I<-i disk>.
+
 =item B<-ic> libvirtURI
 
 Specify a libvirt connection URI to use when reading the guest.  This

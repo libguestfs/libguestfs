@@ -50,7 +50,7 @@ let parse_cmdline () =
 
   let input_mode = ref `Libvirt in
   let set_input_mode = function
-    | "disk" -> input_mode := `Disk
+    | "disk" | "local" -> input_mode := `Disk
     | "libvirt" -> input_mode := `Libvirt
     | "libvirtxml" -> input_mode := `LibvirtXML
     | s ->
