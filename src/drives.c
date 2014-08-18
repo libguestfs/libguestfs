@@ -743,8 +743,7 @@ parse_servers (guestfs_h *g, char *const *strs,
 
   for (i = 0; i < n; ++i) {
     if (parse_one_server (g, strs[i], &servers[i]) == -1) {
-      if (i > 0)
-        free_drive_servers (servers, i-1);
+      free_drive_servers (servers, i);
       return -1;
     }
   }
