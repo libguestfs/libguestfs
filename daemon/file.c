@@ -552,12 +552,12 @@ do_zfile (const char *method, const char *path)
 
   if (fgets (line, sizeof line, fp) == NULL) {
     reply_with_perror ("fgets");
-    fclose (fp);
+    pclose (fp);
     return NULL;
   }
 
-  if (fclose (fp) == -1) {
-    reply_with_perror ("fclose");
+  if (pclose (fp) == -1) {
+    reply_with_perror ("pclose");
     return NULL;
   }
 
