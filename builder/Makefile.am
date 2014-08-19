@@ -218,12 +218,12 @@ fedora.qcow2: ../tests/guests/fedora.img
 
 fedora.qcow2.xz: fedora.qcow2
 	rm -f $@ $@-t
-	xz --best --block-size=16777216 -c $< > $@-t
+	xz --best -c $< > $@-t
 	mv $@-t $@
 
 %.xz: ../tests/guests/%.img
 	rm -f $@ $@-t
-	xz --best --block-size=16777216 -c $< > $@-t
+	xz --best -c $< > $@-t
 	mv $@-t $@
 
 TESTS = test-virt-builder-list.sh
