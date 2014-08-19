@@ -3944,7 +3944,7 @@ The test environment has 4 block devices:
 
 General block device for testing.
 
-=item C</dev/sdb> 50MB
+=item C</dev/sdb> 500MB
 
 C</dev/sdb1> is an ext2 filesystem used for testing
 filesystem write operations.
