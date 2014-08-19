@@ -26,48 +26,13 @@
 char *
 do_echo_daemon (char *const *argv)
 {
-  char *out = NULL;
-  size_t out_len = 0;
+  char *out;
 
-  /* Iterate over argv entries until reaching the NULL terminator */
-  while (*argv) {
-    char add_space = 0;
-
-    /* Store the end of current output */
-    size_t out_end = out_len;
-
-    /* Calculate the new output size */
-    size_t arg_len = strlen(*argv);
-    out_len += arg_len;
-
-    /* We will prepend a space if this isn't the first argument added */
-    if (NULL != out) {
-      out_len++;
-      add_space = 1;
-    }
-
-    /* Make the output buffer big enough for the string and its terminator */
-    char *out_new = realloc (out, out_len + 1);
-    if (NULL == out_new) {
-      reply_with_perror ("realloc");
-      free (out);
-      return 0;
-    }
-    out = out_new;
-
-    /* Prepend a space if required */
-    if (add_space) {
-      out[out_end++] = ' ';
-    }
-
-    /* Copy the argument to the output */
-    memcpy(&out[out_end], *argv, arg_len);
-
-    argv++;
+  out = join_strings (" ", argv);
+  if (out == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
   }
-
-  /* NULL terminate the output */
-  out[out_len] = '\0';
 
   return out;
 }
