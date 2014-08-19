@@ -125,6 +125,27 @@ ifelse(ARCHLINUX,1,
   zfs-fuse
 )
 
+ifelse(SUSE,1,
+  augeas
+  dnl It seems no other augeas package depends on it.
+  augeas-lenses
+  btrfsprogs
+  cryptsetup
+  e2fsprogs
+  genisoimage
+  gptfdisk
+  hivex
+  iproute2
+  iputils
+  libcap2
+  libselinux1
+  reiserfs
+  syslinux
+  systemd
+  vim
+  xz
+)
+
 ifelse(FRUGALWARE,1,
   augeas
   btrfs-progs
