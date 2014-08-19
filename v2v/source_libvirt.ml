@@ -82,6 +82,31 @@ let create_xml ?dir xml =
     done;
     !features in
 
+  let display =
+    let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/graphics" in
+    let nr_nodes = Xml.xpathobj_nr_nodes obj in
+    if nr_nodes < 1 then None
+    else (
+      (* Ignore everything except the first <graphics> device. *)
+      let node = Xml.xpathobj_node doc obj 0 in
+      Xml.xpathctx_set_current_context xpathctx node;
+      let keymap =
+        match xpath_to_string "@keymap" "" with "" -> None | k -> Some k in
+      let password =
+        match xpath_to_string "@passwd" "" with "" -> None | pw -> Some pw in
+      match xpath_to_string "@type" "" with
+      | "" -> None
+      | "vnc" ->
+        Some { s_display_type = `VNC;
+               s_keymap = keymap; s_password = password }
+      | "spice" ->
+        Some { s_display_type = `Spice;
+               s_keymap = keymap; s_password = password }
+      | t ->
+        warning ~prog (f_"display <graphics type='%s'> was ignored") t;
+        None
+    ) in
+
   (* Non-removable disk devices. *)
   let disks =
     let get_disks, add_disk =
@@ -150,13 +175,60 @@ let create_xml ?dir xml =
     done;
     get_disks () in
 
-  (* XXX Much more metadata needs to be collected here:
-   * - graphics
-   * - cdroms
-   * - floppies
-   * - network interfaces
-   * See: lib/Sys/VirtConvert/Connection/LibVirt.pm
-   *)
+  (* Removable devices, CD-ROMs and floppy disks. *)
+  let removables =
+    let obj =
+      Xml.xpath_eval_expression xpathctx
+        "/domain/devices/disk[@device='cdrom' or @device='floppy']" in
+    let nr_nodes = Xml.xpathobj_nr_nodes obj in
+    let disks = ref [] in
+    for i = 0 to nr_nodes-1 do
+      let node = Xml.xpathobj_node doc obj i in
+      Xml.xpathctx_set_current_context xpathctx node;
+
+      let target_dev =
+        let target_dev = xpath_to_string "target/@dev" "" in
+        if target_dev <> "" then Some target_dev else None in
+
+      let typ =
+        match xpath_to_string "@device" "" with
+        | "cdrom" -> `CDROM
+        | "floppy" -> `Floppy
+        | _ -> assert false (* libxml2 error? *) in
+
+      let disk =
+        { s_removable_type = typ; s_removable_target_dev = target_dev } in
+      disks := disk :: !disks
+    done;
+    List.rev !disks in
+
+  (* Network interfaces. *)
+  let nics =
+    let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/interface" in
+    let nr_nodes = Xml.xpathobj_nr_nodes obj in
+    let nics = ref [] in
+    for i = 0 to nr_nodes-1 do
+      let node = Xml.xpathobj_node doc obj i in
+      Xml.xpathctx_set_current_context xpathctx node;
+
+      let mac = xpath_to_string "mac/@address" "" in
+      let mac = match mac with "" -> None | mac -> Some mac in
+
+      let vnet_type =
+        match xpath_to_string "@type" "" with
+        | "network" -> Some `Network
+        | "bridge" -> Some `Bridge
+        | _ -> None in
+      match vnet_type with
+      | None -> ()
+      | Some vnet_type ->
+        let vnet = xpath_to_string "source/@network | source/@bridge" "" in
+        if vnet <> "" then (
+          let nic = { s_mac = mac; s_vnet = vnet; s_vnet_type = vnet_type } in
+          nics := nic :: !nics
+        )
+    done;
+    List.rev !nics in
 
   {
     s_dom_type = dom_type;
@@ -165,7 +237,10 @@ let create_xml ?dir xml =
     s_vcpu = vcpu;
     s_arch = arch;
     s_features = features;
+    s_display = display;
     s_disks = disks;
+    s_removables = removables;
+    s_nics = nics;
   }
 
 let create_from_xml file =

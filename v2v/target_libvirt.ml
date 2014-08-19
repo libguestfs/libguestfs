@@ -25,6 +25,14 @@ open Types
 open Utils
 open DOM
 
+let append_child child = function
+  | PCData _ -> assert false
+  | Element e -> e.e_children <- e.e_children @ [child]
+
+let append_attr attr = function
+  | PCData _ -> assert false
+  | Element e -> e.e_attrs <- e.e_attrs @ [attr]
+
 let create_libvirt_xml ?pool source overlays guestcaps =
   let memory_k = source.s_memory /^ 1024L in
 
@@ -67,14 +75,90 @@ let create_libvirt_xml ?pool source overlays guestcaps =
         ]
     ) overlays in
 
-  (* XXX Missing here from list of devices compared to old virt-v2v:
-     <video/>
-     <graphics/>
-     cdroms and floppies
-     network interfaces
-     See: lib/Sys/VirtConvert/Connection/LibVirtTarget.pm
-  *)
-  let devices = disks @
+  let removables =
+    (* CDs will be added as IDE devices if we're using virtio, else
+     * they will be added as the same as the disk bus.  The original
+     * s_removable_target_dev is ignored (same as old virt-v2v).
+     *)
+    let cdrom_bus, cdrom_block_prefix, cdrom_index =
+      match guestcaps.gcaps_block_bus with
+      | "virtio" | "ide" -> "ide", "hd", ref 0
+      | bus -> bus, "sd", ref (List.length overlays) in
+
+    (* Floppy disks always occupy their own virtual bus. *)
+    let fd_bus = "fdc" and fd_index = ref 0 in
+
+    List.map (
+      function
+      | { s_removable_type = `CDROM } ->
+        let i = !cdrom_index in
+        incr cdrom_index;
+        let name = cdrom_block_prefix ^ drive_name i in
+        e "disk" [ "device", "cdrom"; "type", "file" ] [
+          e "driver" [ "name", "qemu"; "type", "raw" ] [];
+          e "target" [ "dev", name; "bus", cdrom_bus ] []
+        ]
+
+      | { s_removable_type = `Floppy } ->
+        let i = !fd_index in
+        incr fd_index;
+        let name = "fd" ^ drive_name i in
+        e "disk" [ "device", "floppy"; "type", "file" ] [
+          e "driver" [ "name", "qemu"; "type", "raw" ] [];
+          e "target" [ "dev", name; "bus", fd_bus ] []
+        ]
+    ) source.s_removables in
+
+  let nics =
+    List.map (
+      fun { s_mac = mac; s_vnet_type = vnet_type; s_vnet = vnet } ->
+        let vnet_type_str =
+          match vnet_type with
+          | `Bridge -> "bridge" | `Network -> "network" in
+
+        let nic =
+          e "interface" [ "type", vnet_type_str ] [
+            e "source" [ vnet_type_str, vnet ] [];
+            e "model" [ "type", guestcaps.gcaps_net_bus ] [];
+          ] in
+
+        (match mac with
+        | None -> ()
+        | Some mac ->
+          append_child (e "mac" [ "address", mac ] []) nic);
+
+        nic
+    ) source.s_nics in
+
+  (* Same as old virt-v2v, we always add a display here even if it was
+   * missing from the old metadata.
+   *)
+  let video, graphics =
+    let video, graphics =
+      match guestcaps.gcaps_video with
+      | "qxl" ->
+        e "video" [ "type", "qxl"; "ram", "65536" ] [],
+        e "graphics" [ "type", "vnc" ] []
+      | "cirrus" ->
+        e "video" [ "type", "cirrus"; "vram", "9216" ] [],
+        e "graphics" [ "type", "spice" ] []
+      | video_type ->
+        e "video" [ "type", video_type ] [],
+        e "graphics" [ "type", video_type (* ? *) ] [] in
+
+    append_attr ("heads", "1") video;
+
+    append_attr ("autoport", "yes") graphics;
+    (match source.s_display with
+    | Some { s_keymap = Some km } -> append_attr ("keymap", km) graphics
+    | _ -> ());
+    (match source.s_display with
+    | Some { s_password = Some pw } -> append_attr ("password", pw) graphics
+    | _ -> ());
+
+    video, graphics in
+
+  let devices = disks @ removables @ nics @ [video] @ [graphics] @
   (* Standard devices added to every guest. *) [
     e "input" ["type", "tablet"; "bus", "usb"] [];
     e "input" ["type", "mouse"; "bus", "ps2"] [];

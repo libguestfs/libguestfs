@@ -471,7 +471,10 @@ echo uninstalling Xen PV driver
     gcaps_block_bus = block_driver;
     gcaps_net_bus = net_driver;
     gcaps_acpi = true;
-    (* XXX display *)
+    (* Old virt-v2v would always present a QXL video display to converted
+     * guests.  Unclear if this is correct.  XXX
+     *)
+    gcaps_video = "qxl";
   } in
 
   guestcaps

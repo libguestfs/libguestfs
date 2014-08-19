@@ -48,7 +48,10 @@ type source = {
   s_vcpu : int;                         (** Number of CPUs. *)
   s_arch : string;                      (** Architecture. *)
   s_features : string list;             (** Machine features. *)
+  s_display : source_display option;    (** Guest display. *)
   s_disks : source_disk list;           (** Disk images. *)
+  s_removables : source_removable list; (** CDROMs etc. *)
+  s_nics : source_nic list;             (** NICs. *)
 }
 (** The source: metadata, disk images. *)
 
@@ -58,6 +61,26 @@ and source_disk = {
   s_target_dev : string option;         (** Target @dev from libvirt XML. *)
 }
 (** A source disk. *)
+
+and source_removable = {
+  s_removable_type : [`CDROM|`Floppy];  (** Type.  *)
+  s_removable_target_dev : string option; (** Target @dev from libvirt XML. *)
+}
+(** Removable media. *)
+
+and source_nic = {
+  s_mac : string option;                (** MAC address. *)
+  s_vnet : string;                      (** Source network name. *)
+  s_vnet_type : [`Bridge|`Network];     (** Source network type. *)
+}
+(** Network interfaces. *)
+
+and source_display = {
+  s_display_type : [`VNC|`Spice];       (** Display type. *)
+  s_keymap : string option;             (** Guest keymap. *)
+  s_password : string option;           (** If required, password to access
+                                            the display. *)
+}
 
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
@@ -106,6 +129,6 @@ type guestcaps = {
   gcaps_block_bus : string;    (** "virtio", "ide", possibly others *)
   gcaps_net_bus : string;      (** "virtio", "e1000", possibly others *)
   gcaps_acpi : bool;           (** guest supports acpi *)
-  (* XXX acpi, display *)
+  gcaps_video : string;        (** "qxl", "cirrus" *)
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)

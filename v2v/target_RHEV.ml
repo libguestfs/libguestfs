@@ -363,15 +363,20 @@ let rec create_metadata os rhev_params source output_alloc
   (* Add disks to the OVF XML. *)
   add_disks output_alloc overlays guestcaps ovf;
 
-  (* XXX Missing here from old virt-v2v:
-     cdroms and floppies
-     network interfaces
-     display
-     See: lib/Sys/VirtConvert/Connection/RHEVTarget.pm
-  *)
+  (* Old virt-v2v ignored removable media. XXX *)
 
+  (* Add networks to the OVF XML. *)
+  add_networks source.s_nics guestcaps ovf;
 
-
+  (* Old virt-v2v didn't really look at the video and display
+   * metadata, instead just adding a single standard display (see
+   * above).  However it did warn if there was a password on the
+   * display of the old guest.
+   *)
+  (match source with
+  | { s_display = Some { s_password = Some _ } } ->
+    warning ~prog (f_"This guest required a password for connection to its display, but this is not supported by RHEV.  Therefore the converted guest's display will not require a separate password to connect.");
+  | _ -> ());
 
   (* Write it to the metadata file. *)
   let dir = !esd.mp // !esd.uuid // "master" // "vms" // !vm_uuid in
@@ -506,11 +511,6 @@ and add_disks output_alloc overlays guestcaps ovf =
     try find_node_by_attr sections ("xsi:type", "ovf:VirtualHardwareSection_Type")
     with Not_found -> assert false in
 
-  let append_child child = function
-    | PCData _ -> assert false
-    | Element e -> e.e_children <- e.e_children @ [child]
-  in
-
   (* Iterate over the disks, adding them to the OVF document. *)
   iteri (
     fun i ov ->
@@ -612,3 +612,53 @@ and du_m filename =
   match lines with
   | line::_ -> (try Int64.of_string line with _ -> 0L)
   | [] -> 0L
+
+(* This modifies the OVF DOM, adding a section for each NIC. *)
+and add_networks nics guestcaps ovf =
+  let network_section =
+    let sections = path_to_nodes ovf ["ovf:Envelope"; "Section"] in
+    try find_node_by_attr sections ("xsi:type", "ovf:NetworkSection_Type")
+    with Not_found -> assert false in
+  let virtualhardware_section =
+    let sections = path_to_nodes ovf ["ovf:Envelope"; "Content"; "Section"] in
+    try find_node_by_attr sections ("xsi:type", "ovf:VirtualHardwareSection_Type")
+    with Not_found -> assert false in
+
+  (* Iterate over the NICs, adding them to the OVF document. *)
+  iteri (
+    fun i { s_mac = mac; s_vnet_type = vnet_type; s_vnet = vnet } ->
+      let dev = sprintf "eth%d" i in
+
+      let model =
+        match guestcaps.gcaps_net_bus with
+        | "rtl8139" -> "1"
+        | "e1000" -> "2"
+        | "virtio" -> "3"
+        | bus ->
+          warning ~prog (f_"unknown NIC model %s for ethernet device %s.  This NIC will be imported as rtl8139 instead.")
+            bus dev;
+          "1" in
+
+      let network = e "Network" ["ovf:name", vnet] [] in
+      append_child network network_section;
+
+      let item =
+        let children = [
+          e "rasd:InstanceId" [] [PCData "3"];
+          e "rasd:Caption" [] [PCData (sprintf "Ethernet adapter on %s" vnet)];
+          e "rasd:ResourceType" [] [PCData "10"];
+          e "rasd:ResourceSubType" [] [PCData model];
+          e "rasd:Connection" [] [PCData vnet];
+          e "rasd:Name" [] [PCData dev];
+        ] in
+        let children =
+          match mac with
+          | None -> children
+          | Some mac -> children @ [e "rasd:MACAddress" [] [PCData mac]] in
+        e "Item" [] children in
+      append_child item virtualhardware_section;
+  ) nics
+
+and append_child child = function
+  | PCData _ -> assert false
+  | Element e -> e.e_children <- e.e_children @ [child]

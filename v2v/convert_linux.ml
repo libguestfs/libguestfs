@@ -999,6 +999,49 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     else
       true
 
+  and get_display_driver () =
+    if family = `SUSE_family then "cirrus" else "qxl"
+
+  and configure_display_driver video =
+    let updated = ref false in
+
+    let xorg_conf =
+      if not (g#is_file ~followsymlinks:true "/etc/X11/xorg.conf") &&
+        g#is_file ~followsymlinks:true "/etc/X11/XF86Config"
+      then (
+        g#aug_set "/augeas/load/Xorg/incl[last()+1]" "/etc/X11/XF86Config";
+        g#aug_load ();
+        "/etc/X11/XF86Config"
+        )
+      else
+        "/etc/X11/xorg.conf" in
+
+    let paths = g#aug_match ("/files" ^ xorg_conf ^ "/Device/Driver") in
+    Array.iter (
+      fun path ->
+        g#aug_set path video;
+        updated := true
+    ) paths;
+
+    (* Remove VendorName and BoardName if present. *)
+    let paths = g#aug_match ("/files" ^ xorg_conf ^ "/Device/VendorName") in
+    Array.iter (fun path -> ignore (g#aug_rm path)) paths;
+    let paths = g#aug_match ("/files" ^ xorg_conf ^ "/Device/BoardName") in
+    Array.iter (fun path -> ignore (g#aug_rm path)) paths;
+
+    g#aug_save ();
+
+    (* If we updated the X driver, checkthat X itself is installed,
+     * and warn if not.  Old virt-v2v used to attempt to install X here
+     * but that way lies insanity and ruin.
+     *)
+    if !updated &&
+      not (g#is_file ~followsymlinks:true "/usr/bin/X") &&
+      not (g#is_file ~followsymlinks:true "/usr/bin/X11/X") then
+      warning ~prog
+        (f_"The display driver was updated to '%s', but X11 does not seem to be installed in the guest.  X may not function correctly.")
+        video
+
   and remap_block_devices virtio =
     (* This function's job is to iterate over boot configuration
      * files, replacing "hda" with "vda" or whatever is appropriate.
@@ -1155,9 +1198,11 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
 
   let acpi = supports_acpi () in
 
+  let video = get_display_driver () in
+  configure_display_driver video;
+
   (*
     XXX to do from original v2v:
-    configure display driver
     configure_kernel_modules  # updates /etc/modules.conf and friends
   *)
 
@@ -1167,7 +1212,7 @@ let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
     gcaps_block_bus = if virtio then "virtio" else "ide";
     gcaps_net_bus = if virtio then "virtio" else "e1000";
     gcaps_acpi = acpi;
-  (* XXX display *)
+    gcaps_video = video;
   } in
 
   guestcaps

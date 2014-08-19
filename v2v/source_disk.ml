@@ -56,6 +56,13 @@ let create input_format disk =
     s_target_dev = None;
   } in
 
+  (* Give the guest a simple generic network interface. *)
+  let network = {
+    s_mac = None;
+    s_vnet = "default";
+    s_vnet_type = `Network
+  } in
+
   let source = {
     s_dom_type = "kvm";
     s_name = name;
@@ -63,7 +70,10 @@ let create input_format disk =
     s_vcpu = 1;                         (* 1 vCPU is a safe default *)
     s_arch = Config.host_cpu;
     s_features = [ "acpi"; "apic"; "pae" ];
+    s_display = None;
     s_disks = [disk];
+    s_removables = [];
+    s_nics = [ network ];
   } in
 
   source

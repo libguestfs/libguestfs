@@ -64,12 +64,29 @@ type source = {
   s_vcpu : int;
   s_arch : string;
   s_features : string list;
+  s_display : source_display option;
   s_disks : source_disk list;
+  s_removables : source_removable list;
+  s_nics : source_nic list;
 }
 and source_disk = {
   s_qemu_uri : string;
   s_format : string option;
   s_target_dev : string option;
+}
+and source_removable = {
+  s_removable_type : [`CDROM|`Floppy];
+  s_removable_target_dev : string option;
+}
+and source_nic = {
+  s_mac : string option;
+  s_vnet : string;
+  s_vnet_type : [`Bridge|`Network];
+}
+and source_display = {
+  s_display_type : [`VNC|`Spice];
+  s_keymap : string option;
+  s_password : string option;
 }
 
 let rec string_of_source s =
@@ -80,7 +97,10 @@ s_memory = %Ld
 s_vcpu = %d
 s_arch = %s
 s_features = [%s]
+s_display = %s
 s_disks = [%s]
+s_removables = [%s]
+s_nics = [%s]
 "
     s.s_dom_type
     s.s_name
@@ -88,7 +108,12 @@ s_disks = [%s]
     s.s_vcpu
     s.s_arch
     (String.concat "," s.s_features)
+    (match s.s_display with
+    | None -> ""
+    | Some display -> string_of_source_display display)
     (String.concat "," (List.map string_of_source_disk s.s_disks))
+    (String.concat "," (List.map string_of_source_removable s.s_removables))
+    (String.concat "," (List.map string_of_source_nic s.s_nics))
 
 and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
                             s_target_dev = target_dev } =
@@ -100,6 +125,29 @@ and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
     (match target_dev with
     | None -> ""
     | Some target_dev -> " [" ^ target_dev ^ "]")
+
+and string_of_source_removable { s_removable_type = typ;
+                                 s_removable_target_dev = target_dev } =
+  sprintf "%s%s"
+    (match typ with `CDROM -> "cdrom" | `Floppy -> "floppy")
+    (match target_dev with
+    | None -> ""
+    | Some target_dev -> " [" ^ target_dev ^ "]")
+
+and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
+  sprintf "%s%s%s"
+    (match typ with `Bridge -> "bridge" | `Network -> "network")
+    vnet
+    (match mac with
+    | None -> ""
+    | Some mac -> " " ^ mac)
+
+and string_of_source_display { s_display_type = typ;
+                               s_keymap = keymap; s_password = password } =
+  sprintf "%s%s%s"
+    (match typ with `VNC -> "vnc" | `Spice -> "spice")
+    (match keymap with None -> "" | Some km -> " " ^ km)
+    (match password with None -> "" | Some _ -> " with password")
 
 type overlay = {
   ov_overlay : string;
@@ -154,4 +202,5 @@ type guestcaps = {
   gcaps_block_bus : string;
   gcaps_net_bus : string;
   gcaps_acpi : bool;
+  gcaps_video : string;
 }
