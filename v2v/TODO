@@ -30,3 +30,15 @@ v2v/target_RHEV.ml:  (* XXX Missing here from old virt-v2v:
 v2v/target_local.ml:  (* XXX Missing here from old virt-v2v:
 v2v/types.mli:  (* Only used by RHEV.  XXX Should be parameterized type. *)
 v2v/types.mli:  (* XXX acpi, display *)
+
+For OVA support we need to have the source write to the final target
+directory (where possible as it might not always be possible to do
+that).  One way to do this is to have an early target hook, called
+before Target_*.initialize.  This could return a hint to indicate
+whether the target supports writing directly to the output storage
+directory, and where that is, and then the source could use that to
+write directory.  Also s_disks would need to contain a flag to
+indicate that the main code shouldn't create overlays in this case.
+
+Consider turning inputs and outputs into classes, so
+source_libvirt -> input_libvirt which is a subclass of input.
