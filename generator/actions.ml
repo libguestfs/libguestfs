@@ -7210,7 +7210,9 @@ was built (see C<appliance/kmod.whitelist.in> in the source)." };
     proc_nr = Some 195;
     tests = [
       InitNone, Always, TestResultString (
-        [["echo_daemon"; "This is a test"]], "This is a test"), []
+        [["echo_daemon"; "This is a test"]], "This is a test"), [];
+      InitNone, Always, TestResultString (
+        [["echo_daemon"; ""]], ""), [];
     ];
     shortdesc = "echo arguments back to the client";
     longdesc = "\
