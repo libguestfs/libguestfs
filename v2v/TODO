@@ -26,6 +26,11 @@ v2v/source_libvirt.ml:             * XXX Quoting, although it's not needed for v
 v2v/target_RHEV.ml:  (* Old virt-v2v ignored removable media. XXX *)
 v2v/types.mli:  (* Only used by RHEV.  XXX Should be parameterized type. *)
 
+Perform network mapping on command line, eg:
+ --network net1        # Means map "default" to "net1"
+ --network net:net2    # Means map "net" to "net2"
+How did old virt-v2v do this?
+
 For OVA support we need to have the source write to the final target
 directory (where possible as it might not always be possible to do
 that).  One way to do this is to have an early target hook, called
