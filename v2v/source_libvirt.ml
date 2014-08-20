@@ -24,24 +24,9 @@ open Common_utils
 open Types
 open Utils
 
-let create_xml ?dir xml =
-  (* When reading libvirt XML from a file (-i libvirtxml) we allow
-   * paths to disk images in the libvirt XML to be relative.  Relative
-   * paths are in fact not permitted in real libvirt XML, but they are
-   * very useful when dealing with test images or when writing the XML
-   * by hand.
-   *)
-  let absolute_path_of_disk path =
-    if not (Filename.is_relative path) then path
-    else (
-      match dir with
-      | None ->
-        error (f_"libvirt returned a non-absolute path in the XML (%s)") path
-      | Some dir ->
-        dir // path
-    )
-  in
+let identity x = x
 
+let create_xml ?(map_source_file = identity) ?(map_source_dev = identity) xml =
   let doc = Xml.parse_memory xml in
   let xpathctx = Xml.xpath_new_context doc in
 
@@ -143,12 +128,16 @@ let create_xml ?dir xml =
       match xpath_to_string "@type" "" with
       | "block" ->
         let path = xpath_to_string "source/@dev" "" in
-        if path <> "" then
+        if path <> "" then (
+          let path = map_source_dev path in
           add_disk path format target_dev
+        )
       | "file" ->
         let path = xpath_to_string "source/@file" "" in
-        if path <> "" then
-          add_disk (absolute_path_of_disk path) format target_dev
+        if path <> "" then (
+          let path = map_source_file path in
+          add_disk path format target_dev
+        )
       | "network" ->
         (* We only handle <source protocol="nbd"> here, and that is
          * intended only for virt-p2v.  Any other network disk is
@@ -245,8 +234,19 @@ let create_xml ?dir xml =
 
 let create_from_xml file =
   let xml = read_whole_file file in
+
+  (* When reading libvirt XML from a file (-i libvirtxml) we allow
+   * paths to disk images in the libvirt XML to be relative (to the XML
+   * file).  Relative paths are in fact not permitted in real libvirt
+   * XML, but they are very useful when dealing with test images or
+   * when writing the XML by hand.
+   *)
   let dir = Filename.dirname (absolute_path file) in
-  create_xml ~dir xml
+  let map_source_file path =
+    if not (Filename.is_relative path) then path else dir // path
+  in
+
+  create_xml ~map_source_file xml
 
 let create libvirt_uri guest =
   let cmd =
