@@ -86,6 +86,7 @@ v2v/DOM.ml
 v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
+v2v/lib_esx.ml
 v2v/lib_linux.ml
 v2v/source_disk.ml
 v2v/source_libvirt.ml

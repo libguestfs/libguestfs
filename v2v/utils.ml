@@ -46,6 +46,19 @@ let xml_quote_pcdata str =
   let str = Common_utils.replace_str str ">" "&gt;" in
   str
 
+(* URI quoting. *)
+let uri_quote str =
+  let len = String.length str in
+  let xs = ref [] in
+  for i = 0 to len-1 do
+    xs :=
+      (match str.[i] with
+      | ('a'..'z' | '0'..'9') as c -> String.make 1 c
+      | c -> sprintf "%%%02x" (Char.code c)
+      ) :: !xs
+  done;
+  String.concat "" (List.rev !xs)
+
 external drive_name : int -> string = "v2v_utils_drive_name"
 
 let compare_app2_versions app1 app2 =

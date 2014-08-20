@@ -28,6 +28,7 @@ SOURCES_MLI = \
 	convert_linux.mli \
 	convert_windows.mli \
 	DOM.mli \
+	lib_esx.mli \
 	lib_linux.mli \
 	source_disk.mli \
 	source_libvirt.mli \
@@ -43,6 +44,7 @@ SOURCES_ML = \
 	utils.ml \
 	xml.ml \
 	DOM.ml \
+	lib_esx.ml \
 	lib_linux.ml \
 	cmdline.ml \
 	source_disk.ml \

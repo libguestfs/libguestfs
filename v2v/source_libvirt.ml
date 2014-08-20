@@ -236,6 +236,7 @@ let create_xml ?(map_source_file = identity) ?(map_source_dev = identity) xml =
     s_nics = nics;
   }
 
+(* -i libvirtxml *)
 let create_from_xml file =
   let xml = read_whole_file file in
 
@@ -252,11 +253,46 @@ let create_from_xml file =
 
   create_xml ~map_source_file xml
 
+(* -i libvirt [-ic libvirt_uri] *)
 let create libvirt_uri guest =
+  (* Depending on the libvirt URI we may need to convert <source/>
+   * paths so we can access them remotely (if that is possible).  This
+   * is only true for remote, non-NULL URIs.  (We assume the user
+   * doesn't try setting $LIBVIRT_URI.  If they do that then all bets
+   * are off).
+   *)
+  let map_source_file, map_source_dev =
+    match libvirt_uri with
+    | None -> None, None
+    | Some orig_uri ->
+      let { Xml.uri_server = server; uri_scheme = scheme } as uri =
+        try Xml.parse_uri orig_uri
+        with Invalid_argument msg ->
+          error (f_"could not parse '-ic %s'.  Original error message was: %s")
+            orig_uri msg in
+      match server, scheme with
+      | None, _
+      | Some "", _ ->                   (* Not a remote URI. *)
+        None, None
+      | Some _, None                    (* No scheme? *)
+      | Some _, Some "" ->
+        None, None
+      | Some _, Some "esx" ->           (* esx://... *)
+        let f = Lib_esx.map_path_to_uri uri in Some f, Some f
+      (* XXX Missing: Look for qemu+ssh://, xen+ssh:// and use an ssh
+       * connection.  This was supported in old virt-v2v.
+       *)
+      | Some _, Some _ ->               (* Unknown remote scheme. *)
+        warning ~prog (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
+          orig_uri;
+        None, None in
+
+  (* Get the libvirt XML. *)
   let cmd =
     match libvirt_uri with
     | None -> sprintf "virsh dumpxml %s" (quote guest)
     | Some uri -> sprintf "virsh -c %s dumpxml %s" (quote uri) (quote guest) in
   let lines = external_command ~prog cmd in
   let xml = String.concat "\n" lines in
-  create_xml xml
+
+  create_xml ?map_source_file ?map_source_dev xml
