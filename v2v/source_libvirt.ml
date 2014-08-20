@@ -201,7 +201,11 @@ let create_xml ?(map_source_file = identity) ?(map_source_dev = identity) xml =
       Xml.xpathctx_set_current_context xpathctx node;
 
       let mac = xpath_to_string "mac/@address" "" in
-      let mac = match mac with "" -> None | mac -> Some mac in
+      let mac =
+        match mac with
+        | ""
+        | "00:00:00:00:00:00" (* thanks, VMware *) -> None
+        | mac -> Some mac in
 
       let vnet_type =
         match xpath_to_string "@type" "" with
