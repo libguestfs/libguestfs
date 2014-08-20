@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* Mini interface to libxml2 for parsing libvirt XML. */
+/* Mini interface to libxml2. */
 
 #include <config.h>
 
@@ -31,6 +31,7 @@
 #include <caml/mlvalues.h>
 
 #include <libxml/xpath.h>
+#include <libxml/uri.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -244,4 +245,97 @@ v2v_xml_node_ptr_as_string (value docv, value nodev)
   default:
     caml_invalid_argument ("node_as_string: don't know how to convert this node to a string");
   }
+}
+
+value
+v2v_xml_parse_uri (value strv)
+{
+  CAMLparam1 (strv);
+  CAMLlocal3 (rv, sv, ov);
+  xmlURIPtr uri;
+
+  uri = xmlParseURI (String_val (strv));
+  if (uri == NULL)
+    caml_invalid_argument ("parse_uri: unable to parse URI");
+
+  rv = caml_alloc_tuple (9);
+
+  /* field 0: uri_scheme : string option */
+  if (uri->scheme) {
+    sv = caml_copy_string (uri->scheme);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 0, ov);
+
+  /* field 1: uri_opaque : string option */
+  if (uri->opaque) {
+    sv = caml_copy_string (uri->opaque);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 1, ov);
+
+  /* field 2: uri_authority : string option */
+  if (uri->authority) {
+    sv = caml_copy_string (uri->authority);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 2, ov);
+
+  /* field 3: uri_server : string option */
+  if (uri->server) {
+    sv = caml_copy_string (uri->server);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 3, ov);
+
+  /* field 4: uri_user : string option */
+  if (uri->user) {
+    sv = caml_copy_string (uri->user);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 4, ov);
+
+  /* field 5: uri_port : int */
+  Store_field (rv, 5, Val_int (uri->port));
+
+  /* field 6: uri_path : string option */
+  if (uri->path) {
+    sv = caml_copy_string (uri->path);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 6, ov);
+
+  /* field 7: uri_fragment : string option */
+  if (uri->fragment) {
+    sv = caml_copy_string (uri->fragment);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 7, ov);
+
+  /* field 8: uri_query_raw : string option */
+  if (uri->query_raw) {
+    sv = caml_copy_string (uri->query_raw);
+    ov = caml_alloc (1, 0);
+    Store_field (ov, 0, sv);
+  }
+  else ov = Val_int (0);
+  Store_field (rv, 8, ov);
+
+  xmlFreeURI (uri);
+
+  CAMLreturn (rv);
 }
