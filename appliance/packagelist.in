@@ -211,6 +211,7 @@ ifelse(MAGEIA,1,
   chkconfig /* for /etc/init.d */
   e2fsprogs
   cdrkit-genisoimage
+  cdrkit-isotools
   extlinux
   gfs2-utils
   grub
@@ -219,6 +220,8 @@ ifelse(MAGEIA,1,
   iproute2
   iputils
   libcap
+  dnl syslinux uses mtools without depending on it
+  mtools
   nilfs-utils
   ntfsprogs
   ntfs-3g
