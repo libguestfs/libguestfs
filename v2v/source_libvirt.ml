@@ -144,7 +144,7 @@ let create_xml ?dir xml =
       | "block" ->
         let path = xpath_to_string "source/@dev" "" in
         if path <> "" then
-          add_disk (absolute_path_of_disk path) format target_dev
+          add_disk path format target_dev
       | "file" ->
         let path = xpath_to_string "source/@file" "" in
         if path <> "" then
