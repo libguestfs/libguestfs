@@ -139,6 +139,7 @@ ifelse(SUSE,1,
   iputils
   libcap2
   libselinux1
+  mkisofs
   reiserfs
   syslinux
   systemd
