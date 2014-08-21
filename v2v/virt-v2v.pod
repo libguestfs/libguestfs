@@ -530,55 +530,6 @@ I<--bridge> option instead.  For example:
  
  $ virt-v2v [...] --bridge br0:targetbr
 
-=head1 MACHINE READABLE OUTPUT
-
-The I<--machine-readable> option can be used to make the output more
-machine friendly, which is useful when calling virt-v2v from
-other programs, GUIs etc.
-
-There are two ways to use this option.
-
-Firstly use the option on its own to query the capabilities of the
-virt-v2v binary.  Typical output looks like this:
-
- $ virt-v2v --machine-readable
- virt-v2v
- libguestfs-rewrite
-
-A list of features is printed, one per line, and the program exits
-with status 0.
-
-Secondly use the option in conjunction with other options to make the
-regular program output more machine friendly.
-
-At the moment this means:
-
-=over 4
-
-=item 1.
-
-Progress bar messages can be parsed from stdout by looking for this
-regular expression:
-
- ^[0-9]+/[0-9]+$
-
-=item 2.
-
-The calling program should treat messages sent to stdout (except for
-progress bar messages) as status messages.  They can be logged and/or
-displayed to the user.
-
-=item 3.
-
-The calling program should treat messages sent to stderr as error
-messages.  In addition, virt-v2v exits with a non-zero status
-code if there was a fatal error.
-
-=back
-
-Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable>
-option at all.  The option was added when virt-v2v was rewritten in 2014.
-
 =head1 OUTPUT TO LIBVIRT
 
 The I<-o libvirt> option lets you upload the converted guest to
@@ -657,6 +608,55 @@ Define the final guest in libvirt:
  virsh define /tmp/NAME.xml
 
 =back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-v2v from
+other programs, GUIs etc.
+
+There are two ways to use this option.
+
+Firstly use the option on its own to query the capabilities of the
+virt-v2v binary.  Typical output looks like this:
+
+ $ virt-v2v --machine-readable
+ virt-v2v
+ libguestfs-rewrite
+
+A list of features is printed, one per line, and the program exits
+with status 0.
+
+Secondly use the option in conjunction with other options to make the
+regular program output more machine friendly.
+
+At the moment this means:
+
+=over 4
+
+=item 1.
+
+Progress bar messages can be parsed from stdout by looking for this
+regular expression:
+
+ ^[0-9]+/[0-9]+$
+
+=item 2.
+
+The calling program should treat messages sent to stdout (except for
+progress bar messages) as status messages.  They can be logged and/or
+displayed to the user.
+
+=item 3.
+
+The calling program should treat messages sent to stderr as error
+messages.  In addition, virt-v2v exits with a non-zero status
+code if there was a fatal error.
+
+=back
+
+Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable>
+option at all.  The option was added when virt-v2v was rewritten in 2014.
 
 =head1 FILES
 
