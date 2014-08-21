@@ -41,7 +41,7 @@ if [ "$(id -u)" -eq 0 ]; then
 fi
 
 abs_top_builddir="$(cd ..; pwd)"
-libvirt_uri="test://$abs_top_builddir/tests/guests/guests-all-good.xml"
+libvirt_uri="test://$abs_top_builddir/tests/guests/guests.xml"
 
 f=../tests/guests/windows.img
 if ! test -f $f || ! test -s $f; then
