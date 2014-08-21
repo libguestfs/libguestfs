@@ -166,11 +166,14 @@ type inspect = {
 }
 
 type guestcaps = {
-  gcaps_block_bus : string;
-  gcaps_net_bus : string;
+  gcaps_block_bus : guestcaps_block_type;
+  gcaps_net_bus : guestcaps_net_type;
+  gcaps_video : guestcaps_video_type;
   gcaps_acpi : bool;
-  gcaps_video : string;
 }
+and guestcaps_block_type = Virtio_blk | IDE
+and guestcaps_net_type = Virtio_net | E1000 | RTL8139
+and guestcaps_video_type = QXL | Cirrus
 
 type output_rhev_params = {
   image_uuid : string option;

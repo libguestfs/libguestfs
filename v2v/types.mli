@@ -107,12 +107,22 @@ type inspect = {
 (** Inspection information. *)
 
 type guestcaps = {
-  gcaps_block_bus : string;    (** "virtio", "ide", possibly others *)
-  gcaps_net_bus : string;      (** "virtio", "e1000", possibly others *)
-  gcaps_acpi : bool;           (** guest supports acpi *)
-  gcaps_video : string;        (** "qxl", "cirrus" *)
+  gcaps_block_bus : guestcaps_block_type;
+  gcaps_net_bus : guestcaps_net_type;
+  gcaps_video : guestcaps_video_type;
+  (** Best block device, ntework device and video device guest can
+      access.  These are determined during conversion by inspecting the
+      guest (and in some cases conversion can actually enhance these by
+      installing drivers).  Thus this is not known until after
+      conversion. *)
+
+  gcaps_acpi : bool;           (** True if guest supports acpi. *)
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
+
+and guestcaps_block_type = Virtio_blk | IDE
+and guestcaps_net_type = Virtio_net | E1000 | RTL8139
+and guestcaps_video_type = QXL | Cirrus
 
 class virtual input : bool -> object
   method virtual as_options : string

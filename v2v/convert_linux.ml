@@ -1000,9 +1000,11 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
       true
 
   and get_display_driver () =
-    if family = `SUSE_family then "cirrus" else "qxl"
+    if family = `SUSE_family then Cirrus else QXL
 
   and configure_display_driver video =
+    let video_driver = match video with QXL -> "qxl" | Cirrus -> "cirrus" in
+
     let updated = ref false in
 
     let xorg_conf =
@@ -1019,7 +1021,7 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
     let paths = g#aug_match ("/files" ^ xorg_conf ^ "/Device/Driver") in
     Array.iter (
       fun path ->
-        g#aug_set path video;
+        g#aug_set path video_driver;
         updated := true
     ) paths;
 
@@ -1040,7 +1042,7 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
       not (g#is_file ~followsymlinks:true "/usr/bin/X11/X") then
       warning ~prog
         (f_"The display driver was updated to '%s', but X11 does not seem to be installed in the guest.  X may not function correctly.")
-        video
+        video_driver
 
   and remap_block_devices virtio =
     (* This function's job is to iterate over boot configuration
@@ -1209,10 +1211,10 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
   remap_block_devices virtio;
 
   let guestcaps = {
-    gcaps_block_bus = if virtio then "virtio" else "ide";
-    gcaps_net_bus = if virtio then "virtio" else "e1000";
-    gcaps_acpi = acpi;
+    gcaps_block_bus = if virtio then Virtio_blk else IDE;
+    gcaps_net_bus = if virtio then Virtio_net else E1000;
     gcaps_video = video;
+    gcaps_acpi = acpi;
   } in
 
   guestcaps

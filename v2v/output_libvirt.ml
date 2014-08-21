@@ -45,7 +45,11 @@ let create_libvirt_xml ?pool source overlays guestcaps =
 
   let disks =
     let block_prefix =
-      if guestcaps.gcaps_block_bus = "virtio" then "vd" else "hd" in
+      match guestcaps.gcaps_block_bus with
+      | Virtio_blk -> "vd" | IDE -> "hd" in
+    let block_bus =
+      match guestcaps.gcaps_block_bus with
+      | Virtio_blk -> "virtio" | IDE -> "ide" in
     List.mapi (
       fun i ov ->
         e "disk" [
@@ -70,7 +74,7 @@ let create_libvirt_xml ?pool source overlays guestcaps =
           );
           e "target" [
             "dev", block_prefix ^ (drive_name i);
-            "bus", guestcaps.gcaps_block_bus;
+            "bus", block_bus;
           ] [];
         ]
     ) overlays in
@@ -82,8 +86,8 @@ let create_libvirt_xml ?pool source overlays guestcaps =
      *)
     let cdrom_bus, cdrom_block_prefix, cdrom_index =
       match guestcaps.gcaps_block_bus with
-      | "virtio" | "ide" -> "ide", "hd", ref 0
-      | bus -> bus, "sd", ref (List.length overlays) in
+      | Virtio_blk | IDE -> "ide", "hd", ref 0
+      (* | bus -> bus, "sd", ref (List.length overlays) *) in
 
     (* Floppy disks always occupy their own virtual bus. *)
     let fd_bus = "fdc" and fd_index = ref 0 in
@@ -110,6 +114,9 @@ let create_libvirt_xml ?pool source overlays guestcaps =
     ) source.s_removables in
 
   let nics =
+    let net_model =
+      match guestcaps.gcaps_net_bus with
+      | Virtio_net -> "virtio" | E1000 -> "e1000" | RTL8139 -> "rtl8139" in
     List.map (
       fun { s_mac = mac; s_vnet_type = vnet_type; s_vnet = vnet } ->
         let vnet_type_str =
@@ -119,7 +126,7 @@ let create_libvirt_xml ?pool source overlays guestcaps =
         let nic =
           e "interface" [ "type", vnet_type_str ] [
             e "source" [ vnet_type_str, vnet ] [];
-            e "model" [ "type", guestcaps.gcaps_net_bus ] [];
+            e "model" [ "type", net_model ] [];
           ] in
 
         (match mac with
@@ -136,15 +143,12 @@ let create_libvirt_xml ?pool source overlays guestcaps =
   let video, graphics =
     let video, graphics =
       match guestcaps.gcaps_video with
-      | "qxl" ->
+      | QXL ->
         e "video" [ "type", "qxl"; "ram", "65536" ] [],
         e "graphics" [ "type", "vnc" ] []
-      | "cirrus" ->
+      | Cirrus ->
         e "video" [ "type", "cirrus"; "vram", "9216" ] [],
-        e "graphics" [ "type", "spice" ] []
-      | video_type ->
-        e "video" [ "type", video_type ] [],
-        e "graphics" [ "type", video_type (* ? *) ] [] in
+        e "graphics" [ "type", "spice" ] [] in
 
     append_attr ("heads", "1") video;
 

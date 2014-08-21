@@ -495,7 +495,8 @@ object
               "ovf:volume-type", output_alloc_for_rhev;
               "ovf:format", "http://en.wikipedia.org/wiki/Byte"; (* wtf? *)
               "ovf:disk-interface",
-              if guestcaps.gcaps_block_bus = "virtio" then "VirtIO" else "IDE";
+              (match guestcaps.gcaps_block_bus with
+              | Virtio_blk -> "VirtIO" | IDE -> "IDE");
               "ovf:disk-type", "System"; (* RHBZ#744538 *)
               "ovf:boot", if is_boot_drive then "True" else "False";
             ] in
@@ -558,13 +559,13 @@ object
 
           let model =
             match guestcaps.gcaps_net_bus with
-            | "rtl8139" -> "1"
-            | "e1000" -> "2"
-            | "virtio" -> "3"
-            | bus ->
+            | RTL8139 -> "1"
+            | E1000 -> "2"
+            | Virtio_net -> "3"
+            (*| bus ->
               warning ~prog (f_"unknown NIC model %s for ethernet device %s.  This NIC will be imported as rtl8139 instead.")
                 bus dev;
-              "1" in
+              "1" *) in
 
           let network = e "Network" ["ovf:name", vnet] [] in
           append_child network network_section;

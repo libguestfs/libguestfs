@@ -253,38 +253,38 @@ echo uninstalling Xen PV driver
       warning ~prog (f_"there are no virtio drivers available for this version of Windows (%d.%d %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
         inspect.i_major_version inspect.i_minor_version
         inspect.i_arch virtio_win_dir;
-      ( "ide", "rtl8139" )
+      ( IDE, RTL8139 )
 
     | Some path ->
       (* Can we install the block driver? *)
-      let block =
+      let block : guestcaps_block_type =
         let block_path = path // "viostor.sys" in
         if not (Sys.file_exists block_path) then (
           warning ~prog (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
             inspect.i_major_version inspect.i_minor_version
             inspect.i_arch block_path;
-          "ide"
+          IDE
         )
         else (
           let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
           let target = g#case_sensitive_path target in
           g#cp block_path target;
           add_viostor_to_critical_device_database root current_cs;
-          "virtio"
+          Virtio_blk
         ) in
 
       (* Can we install the virtio-net driver? *)
-      let net =
+      let net : guestcaps_net_type =
         let net_path = path // "netkvm.inf" in
         if not (Sys.file_exists net_path) then (
           warning ~prog (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
             inspect.i_major_version inspect.i_minor_version
             inspect.i_arch net_path;
-          "rtl8139"
+          RTL8139
         )
         else
           (* It will be installed at firstboot. *)
-          "virtio" in
+          Virtio_net in
 
       (* Copy the drivers to the driverdir.  They will be installed at
        * firstboot.
@@ -470,11 +470,11 @@ echo uninstalling Xen PV driver
   let guestcaps = {
     gcaps_block_bus = block_driver;
     gcaps_net_bus = net_driver;
-    gcaps_acpi = true;
     (* Old virt-v2v would always present a QXL video display to converted
      * guests.  Unclear if this is correct.  XXX
      *)
-    gcaps_video = "qxl";
+    gcaps_video = QXL;
+    gcaps_acpi = true;
   } in
 
   guestcaps
