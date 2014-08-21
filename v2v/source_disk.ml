@@ -65,7 +65,7 @@ let create input_format disk =
 
   let source = {
     s_dom_type = "kvm";
-    s_name = name;
+    s_name = name; s_orig_name = name;
     s_memory = 2048L *^ 1024L *^ 1024L; (* 2048 MB *)
     s_vcpu = 1;                         (* 1 vCPU is a safe default *)
     s_arch = Config.host_cpu;

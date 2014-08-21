@@ -60,6 +60,7 @@ let output_as_options = function
 type source = {
   s_dom_type : string;
   s_name : string;
+  s_orig_name : string;
   s_memory : int64;
   s_vcpu : int;
   s_arch : string;

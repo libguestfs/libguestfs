@@ -49,6 +49,15 @@ let rec main () =
 
   if verbose then printf "%s%!" (string_of_source source);
 
+  (* Map source name. *)
+  let source =
+    match output_name with
+    | None -> source
+    (* Note the s_orig_name field retains the original name in case we
+     * need it for some reason.
+     *)
+    | Some name -> { source with s_name = name } in
+
   (* Create a qcow2 v3 overlay to protect the source image(s).  There
    * is a specific reason to use the newer qcow2 variant: Because the
    * L2 table can store zero clusters efficiently, and because
@@ -194,20 +203,15 @@ let rec main () =
 
   (* Create output metadata. *)
   msg (f_"Creating output metadata");
-  let () =
-    (* Are we going to rename the guest? *)
-    let renamed_source =
-      match output_name with
-      | None -> source
-      | Some name -> { source with s_name = name } in
-    match output with
-    | OutputLibvirt (oc, os) ->
-      Target_libvirt.create_metadata oc os renamed_source overlays guestcaps
-    | OutputLocal dir ->
-      Target_local.create_metadata dir renamed_source overlays guestcaps
-    | OutputRHEV (os, rhev_params) ->
-      Target_RHEV.create_metadata os rhev_params renamed_source output_alloc
-        overlays inspect guestcaps in
+  (match output with
+  | OutputLibvirt (oc, os) ->
+    Target_libvirt.create_metadata oc os source overlays guestcaps
+  | OutputLocal dir ->
+    Target_local.create_metadata dir source overlays guestcaps
+  | OutputRHEV (os, rhev_params) ->
+    Target_RHEV.create_metadata os rhev_params source output_alloc
+      overlays inspect guestcaps
+  );
 
   msg (f_"Finishing off");
   delete_target_on_exit := false;  (* Don't delete target on exit. *)
@@ -250,17 +254,13 @@ and initialize_target ~verbose g
           ov_vol_uuid = "" }
     ) overlays in
   let overlays =
-    let renamed_source =
-      match output_name with
-      | None -> source
-      | Some name -> { source with s_name = name } in
     match output with
     | OutputLibvirt (oc, os) ->
-      Target_libvirt.initialize oc os renamed_source overlays
-    | OutputLocal dir -> Target_local.initialize dir renamed_source overlays
+      Target_libvirt.initialize oc os source overlays
+    | OutputLocal dir -> Target_local.initialize dir source overlays
     | OutputRHEV (os, rhev_params) ->
       Target_RHEV.initialize ~verbose
-        os rhev_params renamed_source output_alloc overlays in
+        os rhev_params source output_alloc overlays in
   overlays
 
 and inspect_source g root_choice =

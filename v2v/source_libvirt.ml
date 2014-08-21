@@ -225,7 +225,7 @@ let create_xml ?(map_source_file = identity) ?(map_source_dev = identity) xml =
 
   {
     s_dom_type = dom_type;
-    s_name = name;
+    s_name = name; s_orig_name = name;
     s_memory = memory;
     s_vcpu = vcpu;
     s_arch = arch;

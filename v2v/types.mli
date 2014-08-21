@@ -44,6 +44,9 @@ val output_as_options : output -> string
 type source = {
   s_dom_type : string;                  (** Source domain type, eg "kvm" *)
   s_name : string;                      (** Guest name. *)
+  s_orig_name : string;                 (** Original guest name (if we rename
+                                            the guest using -on, original is
+                                            still saved here). *)
   s_memory : int64;                     (** Memory size (bytes). *)
   s_vcpu : int;                         (** Number of CPUs. *)
   s_arch : string;                      (** Architecture. *)
