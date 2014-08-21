@@ -19,5 +19,11 @@
 (** [-i libvirt] and [-i libvirtxml] sources. *)
 
 val input_libvirt : bool -> string option -> string -> Types.input
+(** [input_libvirt verbose libvirt_uri guest] creates and returns a
+    new {!Types.input} object specialized for reading input from
+    libvirt sources. *)
 
 val input_libvirtxml : bool -> string -> Types.input
+(** [input_libvirtxml verbose xml_file] creates and returns a new
+    {!Types.input} object specialized for reading input from local
+    libvirt XML files. *)

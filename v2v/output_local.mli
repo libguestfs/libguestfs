@@ -19,3 +19,6 @@
 (** [-o local] target. *)
 
 val output_local : bool -> string -> Types.output
+(** [output_local verbose filename] creates and returns a new
+    {!Types.output} object specialized for writing output to local
+    files. *)

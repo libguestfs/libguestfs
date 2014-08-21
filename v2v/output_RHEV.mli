@@ -27,3 +27,6 @@ type rhev_params = {
 (** Miscellaneous extra command line parameters used by RHEV. *)
 
 val output_rhev : bool -> string -> rhev_params -> [`Sparse|`Preallocated] -> Types.output
+(** [output_rhev verbose os rhev_params output_alloc] creates and
+    returns a new {!Types.output} object specialized for writing
+    output to RHEV-M or oVirt. *)

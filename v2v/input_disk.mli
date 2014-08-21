@@ -19,3 +19,6 @@
 (** [-i disk] source. *)
 
 val input_disk : bool -> string option -> string -> Types.input
+(** [input_disk verbose input_format disk] creates and returns a new
+    {!Types.input} object specialized for reading input from local
+    disk images. *)

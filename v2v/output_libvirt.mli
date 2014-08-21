@@ -19,6 +19,9 @@
 (** [-o libvirt] target. *)
 
 val output_libvirt : bool -> string option -> string -> Types.output
+(** [output_libvirt verbose oc output_pool] creates and returns a new
+    {!Types.output} object specialized for writing output to
+    libvirt. *)
 
 val create_libvirt_xml : ?pool:string -> Types.source -> Types.overlay list -> Types.guestcaps -> DOM.doc
 (** This is called from {!Output_local} to generate the libvirt XML. *)
