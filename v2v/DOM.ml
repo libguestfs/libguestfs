@@ -25,6 +25,7 @@ open Printf
 
 type node =
   | PCData of string
+  | Comment of string
   | Element of element
 and element = {
   e_name : string;                      (* Name of element. *)
@@ -47,6 +48,7 @@ let e name attrs children =
  *)
 let rec node_to_chan ?(indent = 0) chan = function
   | PCData str -> output_string chan (xml_quote_pcdata str)
+  | Comment str -> output_spaces chan indent; fprintf chan "<!-- %s -->" str
   | Element e -> element_to_chan ~indent chan e
 and element_to_chan ?(indent = 0) chan
     { e_name = name; e_attrs = attrs; e_children = children } =
@@ -64,6 +66,10 @@ and element_to_chan ?(indent = 0) chan
         node_to_chan ~indent:(indent+2) chan child;
       | PCData _ as child ->
         last_child_was_element := false;
+        node_to_chan ~indent:(indent+2) chan child;
+      | Comment _ as child ->
+        last_child_was_element := true;
+        output_char chan '\n';
         node_to_chan ~indent:(indent+2) chan child;
     ) children;
     if !last_child_was_element then (
@@ -93,6 +99,7 @@ let path_to_nodes doc path =
           List.filter (
             function
             | PCData _ -> false
+            | Comment _ -> false
             | Element e when e.e_name = p -> true
             | Element _ -> false
           ) nodes
@@ -101,6 +108,7 @@ let path_to_nodes doc path =
             filter_map (
               function
               | PCData _ -> None
+              | Comment _ -> None
               | Element e when e.e_name = p -> Some e.e_children
               | Element _ -> None
             ) nodes in
@@ -113,7 +121,7 @@ let filter_node_list_by_attr nodes attr =
   List.filter (
     function
     | Element { e_attrs = attrs } when List.mem attr attrs -> true
-    | Element _ | PCData _ -> false
+    | Element _ | PCData _ | Comment _ -> false
   ) nodes
 
 let find_node_by_attr nodes attr =

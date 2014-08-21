@@ -26,11 +26,11 @@ open Utils
 open DOM
 
 let append_child child = function
-  | PCData _ -> assert false
+  | PCData _ | Comment _  -> assert false
   | Element e -> e.e_children <- e.e_children @ [child]
 
 let append_attr attr = function
-  | PCData _ -> assert false
+  | PCData _ | Comment _ -> assert false
   | Element e -> e.e_attrs <- e.e_attrs @ [attr]
 
 let create_libvirt_xml ?pool source overlays guestcaps =

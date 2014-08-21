@@ -20,6 +20,7 @@
 
 type node =
   | PCData of string
+  | Comment of string
   | Element of element
 and element = {
   e_name : string;                      (** Name of element. *)

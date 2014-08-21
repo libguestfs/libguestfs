@@ -42,7 +42,7 @@ type export_storage_domain = {
 }
 
 let append_child child = function
-  | PCData _ -> assert false
+  | PCData _ | Comment _ -> assert false
   | Element e -> e.e_children <- e.e_children @ [child]
 
 (* We set the creation time to be the same for all dates in
