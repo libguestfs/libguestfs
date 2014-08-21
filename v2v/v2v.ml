@@ -47,6 +47,8 @@ let rec main () =
     printf (f_"Source guest information (--print-source option):\n");
     printf "\n";
     printf "%s\n" (string_of_source source);
+    if debug_gc then
+      Gc.compact ();
     exit 0
   );
 
