@@ -40,16 +40,36 @@ let doc name attrs children =
 let e name attrs children =
   Element { e_name = name; e_attrs = attrs; e_children = children }
 
-let rec node_to_chan chan = function
+(* This outputs nicely formatted and indented XML, ie. with lots of
+ * whitespace.  As far as I know this is safe for the kind of documents
+ * we will be writing, ie. libvirt XML and OVF metadata, where
+ * whitespace is generally not significant, but readability is useful.
+ *)
+let rec node_to_chan ?(indent = 0) chan = function
   | PCData str -> output_string chan (xml_quote_pcdata str)
-  | Element e -> element_to_chan chan e
-and element_to_chan chan
+  | Element e -> element_to_chan ~indent chan e
+and element_to_chan ?(indent = 0) chan
     { e_name = name; e_attrs = attrs; e_children = children } =
+  output_spaces chan indent;
   fprintf chan "<%s" name;
   List.iter (fun (n, v) -> fprintf chan " %s='%s'" n (xml_quote_attr v)) attrs;
   if children <> [] then (
-    output_char chan '>';
-    List.iter (node_to_chan chan) children;
+    output_string chan ">";
+    let last_child_was_element = ref false in
+    List.iter (
+      function
+      | Element _ as child ->
+        last_child_was_element := true;
+        output_char chan '\n';
+        node_to_chan ~indent:(indent+2) chan child;
+      | PCData _ as child ->
+        last_child_was_element := false;
+        node_to_chan ~indent:(indent+2) chan child;
+    ) children;
+    if !last_child_was_element then (
+      output_char chan '\n';
+      output_spaces chan indent
+    );
     fprintf chan "</%s>" name
   ) else (
     output_string chan "/>"
@@ -57,7 +77,8 @@ and element_to_chan chan
 
 let doc_to_chan chan doc =
   fprintf chan "<?xml version='1.0' encoding='utf-8'?>\n";
-  element_to_chan chan doc
+  element_to_chan chan doc;
+  fprintf chan "\n"
 
 let path_to_nodes doc path =
   match path with
