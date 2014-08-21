@@ -79,9 +79,6 @@ type overlay = {
    *)
   ov_source_file : string;          (** qemu URI for source file. *)
   ov_source_format : string option; (** Source file format, if known. *)
-
-  (* Only used by RHEV.  XXX Should be parameterized type. *)
-  ov_vol_uuid : string;                 (** RHEV volume UUID *)
 }
 (** Disk overlays and destination disks. *)
 

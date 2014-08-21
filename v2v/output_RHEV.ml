@@ -79,11 +79,17 @@ object
 
   (* Export Storage Domain mountpoint. *)
   val mutable esd = { mp = ""; uuid = "" }
+
   (* Target image directory, UUID. *)
   val mutable image_dir = ""
   val mutable image_uuid = ""
+
   (* Target VM UUID. *)
   val mutable vm_uuid = ""
+
+  (* Map overlay to volume UUID.  Key is [ov.ov_sd] field which is unique. *)
+  val vol_uuid = Hashtbl.create 13
+
   (* Flag to indicate if the target image (image_dir) should be
    * deleted.  This is set to false once we know the conversion was
    * successful.
@@ -189,34 +195,34 @@ object
      * line parameters or else we invent them here.
      *)
     let create_uuids () =
-      let image_uuid =
-        match rhev_params.image_uuid with
+      image_uuid <-
+        (match rhev_params.image_uuid with
         | Some uuid -> uuid
-        | None -> uuidgen ~prog () in
-      let vm_uuid =
-        match rhev_params.vm_uuid with
+        | None -> uuidgen ~prog ());
+      vm_uuid <-
+        (match rhev_params.vm_uuid with
         | Some uuid -> uuid
-        | None -> uuidgen ~prog () in
+        | None -> uuidgen ~prog ());
 
-      (* ... and for volumes. *)
-      let overlays =
-        match rhev_params.vol_uuids with
-        | [] ->
-          List.map (
-            fun ov ->
-              let uuid = uuidgen ~prog () in
-              { ov with ov_vol_uuid = uuid }
-          ) overlays
-        | uuids ->
-          try
-            List.map (
-              fun (ov, uuid) -> { ov with ov_vol_uuid = uuid }
-            ) (List.combine overlays uuids)
-          with Invalid_argument _ ->
-            error (f_"the number of '--rhev-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
-              (List.length overlays) in
-
-      image_uuid, vm_uuid, overlays
+      (match rhev_params.vol_uuids with
+      | [] ->
+        (* Generate random volume UUIDs for each overlay. *)
+        List.iter (
+          fun ov ->
+            let uuid = uuidgen ~prog () in
+            Hashtbl.replace vol_uuid ov.ov_sd uuid
+        ) overlays
+      | uuids ->
+        (* Use the volume UUIDs passed to us on the command line. *)
+        try
+          List.iter (
+            fun (ov, uuid) ->
+              Hashtbl.replace vol_uuid ov.ov_sd uuid
+          ) (List.combine overlays uuids)
+        with Invalid_argument _ ->
+          error (f_"the number of '--rhev-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
+            (List.length overlays)
+      )
     in
 
     esd <- mount_and_check_export_storage_domain ();
@@ -224,11 +230,7 @@ object
       eprintf "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s\n%!"
         esd.mp esd.uuid;
 
-    let overlays =
-      let _image_uuid, _vm_uuid, overlays = create_uuids () in
-      image_uuid <- _image_uuid;
-      vm_uuid <- _vm_uuid;
-      overlays in
+    create_uuids ();
 
     (* We need to create the target image directory so there's a place
      * for the main program to copy the images to.  However if image
@@ -265,7 +267,10 @@ object
 
       List.map (
         fun ov ->
-          let target_file = image_dir // ov.ov_vol_uuid in
+          let vol_uuid =
+            try Hashtbl.find vol_uuid ov.ov_sd
+            with Not_found -> assert false in
+          let target_file = image_dir // vol_uuid in
 
           if verbose then
             eprintf "RHEV: will export %s to %s\n%!" ov.ov_sd target_file;
@@ -441,8 +446,9 @@ object
         fun i ov ->
           let is_boot_drive = i == 0 in
 
-          let vol_uuid = ov.ov_vol_uuid in
-          assert (vol_uuid <> "");
+          let vol_uuid =
+            try Hashtbl.find vol_uuid ov.ov_sd
+            with Not_found -> assert false in
 
           let fileref = image_uuid // vol_uuid in
 

@@ -264,8 +264,7 @@ and initialize_target ~verbose g
           ov_target_file = "";
           ov_target_format = format;
           ov_sd = sd; ov_virtual_size = vsize; ov_preallocation = preallocation;
-          ov_source_file = qemu_uri; ov_source_format = backing_format;
-          ov_vol_uuid = "" }
+          ov_source_file = qemu_uri; ov_source_format = backing_format }
     ) overlays in
   let overlays = output#prepare_output source overlays in
   overlays
