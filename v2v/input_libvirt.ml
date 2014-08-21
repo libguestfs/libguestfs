@@ -60,9 +60,9 @@ object
 
     let dom_type = xpath_to_string "/domain/@type" "" in
     let name = xpath_to_string "/domain/name/text()" "" in
-    let memory = xpath_to_int "/domain/memory/text()" 0 in
+    let memory = xpath_to_int "/domain/memory/text()" (1024L *^ 1024L) in
     let memory = Int64.of_int memory *^ 1024L in
-    let vcpu = xpath_to_int "/domain/vcpu/text()" 0 in
+    let vcpu = xpath_to_int "/domain/vcpu/text()" 1 in
     let arch = xpath_to_string "/domain/os/type/@arch" "" in
 
     let features =
