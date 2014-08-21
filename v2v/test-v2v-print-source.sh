@@ -49,6 +49,7 @@ mv $d/output $d/output.orig
 < $d/output.orig \
 grep -v 'Opening the source' |
 grep -v 'Source guest information' |
+sed -e 's,/.*/,/,' |
 grep -v '^$' \
 > $d/output
 
@@ -60,7 +61,7 @@ hypervisor type: test
    CPU features: 
         display: 
 disks:
-	/home/rjones/d/libguestfs/tests/guests/windows.img (raw) [vda]
+	/windows.img (raw) [vda]
 removable media:
 NICs:" ]; then
     echo "$0: unexpected output from test:"
