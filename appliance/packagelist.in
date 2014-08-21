@@ -133,6 +133,7 @@ ifelse(SUSE,1,
   cryptsetup
   e2fsprogs
   genisoimage
+  glibc-locale
   gptfdisk
   hivex
   iproute2
