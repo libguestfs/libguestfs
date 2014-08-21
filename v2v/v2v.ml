@@ -34,7 +34,7 @@ let rec main () =
   let input, output,
     debug_gc, do_copy, network_map,
     output_alloc, output_format, output_name,
-    quiet, root_choice, trace, verbose =
+    print_source, quiet, root_choice, trace, verbose =
     Cmdline.parse_cmdline () in
 
   let msg fs = make_message_function ~quiet fs in
@@ -47,6 +47,14 @@ let rec main () =
       Source_libvirt.create libvirt_uri guest
     | InputLibvirtXML filename ->
       Source_libvirt.create_from_xml filename in
+
+  (* Print source and stop. *)
+  if print_source then (
+    printf (f_"Source guest information (--print-source option):\n");
+    printf "\n";
+    printf "%s\n" (string_of_source source);
+    exit 0
+  );
 
   if verbose then printf "%s%!" (string_of_source source);
 

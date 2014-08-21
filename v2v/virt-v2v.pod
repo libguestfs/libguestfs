@@ -193,6 +193,8 @@ Map network (or bridge) called C<in> to network (or bridge) called
 C<out>.  If no C<in:> prefix is given, all other networks (or bridges)
 are mapped to C<out>.
 
+See L</NETWORKS AND BRIDGES> below.
+
 =item B<--no-copy>
 
 Don't copy the disks.  Instead, conversion is performed (and thrown
@@ -292,6 +294,12 @@ C<root>.
 
 You will get an error if virt-v2v is unable to mount/write to the
 Export Storage Domain.
+
+=item B<--print-source>
+
+Print information about the source guest and stop.  This option is
+useful when you are setting up network and bridge maps.
+See L</NETWORKS AND BRIDGES>.
 
 =item B<-q>
 
@@ -478,6 +486,49 @@ below.
 
  Windows        Drivers are installed from /usr/share/virtio-win
                 if present
+
+=head1 NETWORKS AND BRIDGES
+
+Guests are usually connected to one or more networks, and when
+converted to the target hypervisor you usually want to reconnect those
+networks at the destination.  The options I<--network> and I<--bridge>
+allow you to do that.
+
+If you are unsure of what networks and bridges are in use on the
+source hypervisor, then you can examine the source metadata (libvirt
+XML, vCenter information, etc.).  Or you can run virt-v2v with the
+I<--print-source> option which causes virt-v2v to print out the
+information it has about the guest on the source and then exit.
+
+In the I<--print-source> output you will see a section showing the
+guest's Network Interface Cards (NICs):
+
+ $ virt-v2v [-i ...] --print-source name
+ [...]
+ NICs:
+     Network "default" mac: 52:54:00:d0:cf:0e
+
+This is typical of a libvirt guest: It has a single network interface
+connected to a network called C<default>.
+
+To map a specific network to a target network, for example C<default>
+on the source to C<rhevm> on the target, use:
+
+ virt-v2v [...] --network default:rhevm
+
+To map every network to a target network, use:
+
+ virt-v2v [...] --network rhevm
+
+Bridges are handled in the same way, but you have to use the
+I<--bridge> option instead.  For example:
+
+ $ virt-v2v [-i ...] --print-source name
+ [...]
+ NICs:
+     Bridge "br0"
+ 
+ $ virt-v2v [...] --bridge br0:targetbr
 
 =head1 MACHINE READABLE OUTPUT
 

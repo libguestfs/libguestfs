@@ -92,20 +92,22 @@ and source_display = {
 }
 
 let rec string_of_source s =
-  sprintf "\
-s_dom_type = %s
-s_name = %s
-s_memory = %Ld
-s_vcpu = %d
-s_arch = %s
-s_features = [%s]
-s_display = %s
-s_disks = [%s]
-s_removables = [%s]
-s_nics = [%s]
+  sprintf "    source name: %s
+hypervisor type: %s
+         memory: %Ld (bytes)
+       nr vCPUs: %d
+           arch: %s
+   CPU features: %s
+        display: %s
+disks:
+%s
+removable media:
+%s
+NICs:
+%s
 "
-    s.s_dom_type
     s.s_name
+    s.s_dom_type
     s.s_memory
     s.s_vcpu
     s.s_arch
@@ -113,13 +115,13 @@ s_nics = [%s]
     (match s.s_display with
     | None -> ""
     | Some display -> string_of_source_display display)
-    (String.concat "," (List.map string_of_source_disk s.s_disks))
-    (String.concat "," (List.map string_of_source_removable s.s_removables))
-    (String.concat "," (List.map string_of_source_nic s.s_nics))
+    (String.concat "\n" (List.map string_of_source_disk s.s_disks))
+    (String.concat "\n" (List.map string_of_source_removable s.s_removables))
+    (String.concat "\n" (List.map string_of_source_nic s.s_nics))
 
 and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
                             s_target_dev = target_dev } =
-  sprintf "%s%s%s"
+  sprintf "\t%s%s%s"
     qemu_uri
     (match format with
     | None -> ""
@@ -130,19 +132,19 @@ and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
 
 and string_of_source_removable { s_removable_type = typ;
                                  s_removable_target_dev = target_dev } =
-  sprintf "%s%s"
-    (match typ with `CDROM -> "cdrom" | `Floppy -> "floppy")
+  sprintf "\t%s%s"
+    (match typ with `CDROM -> "CD-ROM" | `Floppy -> "Floppy")
     (match target_dev with
     | None -> ""
     | Some target_dev -> " [" ^ target_dev ^ "]")
 
 and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
-  sprintf "%s%s%s"
-    (match typ with Bridge -> "bridge" | Network -> "network")
+  sprintf "\t%s \"%s\"%s"
+    (match typ with Bridge -> "Bridge" | Network -> "Network")
     vnet
     (match mac with
     | None -> ""
-    | Some mac -> " " ^ mac)
+    | Some mac -> " mac: " ^ mac)
 
 and string_of_source_display { s_display_type = typ;
                                s_keymap = keymap; s_password = password } =

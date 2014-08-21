@@ -36,11 +36,12 @@ let parse_cmdline () =
   let do_copy = ref true in
   let input_conn = ref "" in
   let input_format = ref "" in
+  let machine_readable = ref false in
   let output_conn = ref "" in
   let output_format = ref "" in
   let output_name = ref "" in
   let output_storage = ref "" in
-  let machine_readable = ref false in
+  let print_source = ref false in
   let quiet = ref false in
   let rhev_image_uuid = ref "" in
   let rhev_vm_uuid = ref "" in
@@ -118,6 +119,7 @@ let parse_cmdline () =
     "-of",       Arg.Set_string output_format, "raw|qcow2 " ^ s_"Set output format";
     "-on",       Arg.Set_string output_name, "name " ^ s_"Rename guest when converting";
     "-os",       Arg.Set_string output_storage, "storage " ^ s_"Set output storage location";
+    "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             ditto;
     "--rhev-image-uuid",
@@ -174,6 +176,7 @@ read the man page virt-v2v(1).
   let output_mode = !output_mode in
   let output_name = match !output_name with "" -> None | s -> Some s in
   let output_storage = !output_storage in
+  let print_source = !print_source in
   let quiet = !quiet in
   let rhev_image_uuid = match !rhev_image_uuid with "" -> None | s -> Some s in
   let rhev_vol_uuids = List.rev !rhev_vol_uuids in
@@ -266,4 +269,4 @@ read the man page virt-v2v(1).
   input, output,
   debug_gc, do_copy, network_map,
   output_alloc, output_format, output_name,
-  quiet, root_choice, trace, verbose
+  print_source, quiet, root_choice, trace, verbose
