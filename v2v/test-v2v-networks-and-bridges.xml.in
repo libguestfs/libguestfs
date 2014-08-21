@@ -1,0 +1,87 @@
+<!--
+libguestfs virt-v2v tool
+Copyright (C) 2009-2014 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+@configure_input@
+-->
+<node>
+  <domain type='test'>
+    <name>windows</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu' type='raw'/>
+        <source file='@abs_top_builddir@/tests/guests/windows.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+
+      <!-- various different networks and bridges which should
+           be renamed by the test -->
+
+      <!-- standard ESX bridge -->
+      <interface type='bridge'>
+        <mac address='00:00:00:00:00:00'/>
+        <source bridge='VM Network'/>
+        <model type='e1000'/>
+      </interface>
+
+      <!-- another bridge to be remapped -->
+      <interface type='bridge'>
+        <mac address='52:54:00:01:02:03'/>
+        <source bridge='bob'/>
+        <model type='e1000'/>
+      </interface>
+
+      <!-- typical libvirt network -->
+      <interface type='network'>
+        <mac address='52:54:00:01:02:04'/>
+        <source network='default'/>
+        <model type='virtio'/>
+      </interface>
+
+      <!-- some more random networks to map -->
+      <interface type='network'>
+        <mac address='52:54:00:01:02:05'/>
+        <source network='john'/>
+        <model type='virtio'/>
+      </interface>
+
+      <interface type='network'>
+        <source network='paul'/>
+        <model type='virtio'/>
+        <mac address='52:54:00:01:02:06'/>
+      </interface>
+
+      <interface type='network'>
+        <model type='rtl8139'/>
+        <source network='george'/>
+        <mac address='52:54:00:01:02:07'/>
+      </interface>
+
+      <interface type='network'>
+        <mac address='52:54:00:01:02:08'/>
+        <model type='virtio'/>
+        <source network='ringo'/>
+      </interface>
+
+    </devices>
+  </domain>
+</node>

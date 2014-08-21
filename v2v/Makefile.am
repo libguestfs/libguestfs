@@ -20,6 +20,8 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	$(TESTS) $(SLOW_TESTS) \
+	test-v2v-networks-and-bridges-expected.xml \
+	test-v2v-networks-and-bridges.xml.in \
 	virt-v2v.pod
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
@@ -181,6 +183,7 @@ if ENABLE_APPLIANCE
 TESTS = \
 	test-v2v-i-disk.sh \
 	test-v2v-machine-readable.sh \
+	test-v2v-networks-and-bridges.sh \
 	test-v2v-no-copy.sh \
 	test-v2v-o-libvirt.sh \
 	test-v2v-o-rhev.sh \
@@ -190,6 +193,11 @@ TESTS = \
 	test-v2v-print-source.sh \
 	test-v2v-windows-conversion.sh
 endif ENABLE_APPLIANCE
+
+# This forces the file to be updated before running the tests, in case
+# the .xml.in file has been changed.  Be nice if automake just did the
+# right thing here.
+check_DATA = test-v2v-networks-and-bridges.xml
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check

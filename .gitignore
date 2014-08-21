@@ -553,5 +553,6 @@ Makefile.in
 /v2v/rhel-6.5.img
 /v2v/rhel-7.0.img
 /v2v/stamp-virt-v2v.pod
+/v2v/test-v2v-networks-and-bridges.xml
 /v2v/virt-v2v
 /v2v/virt-v2v.1
