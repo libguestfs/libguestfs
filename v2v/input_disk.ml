@@ -69,7 +69,7 @@ class input_disk verbose input_format disk = object
     (* Give the guest a simple generic network interface. *)
     let network = {
       s_mac = None;
-      s_vnet = "default";
+      s_vnet = "default"; s_vnet_orig = "default";
       s_vnet_type = Network
     } in
 

@@ -225,7 +225,12 @@ object
         | Some vnet_type ->
           let vnet = xpath_to_string "source/@network | source/@bridge" "" in
           if vnet <> "" then (
-            let nic = { s_mac = mac; s_vnet = vnet; s_vnet_type = vnet_type } in
+            let nic = {
+              s_mac = mac;
+              s_vnet = vnet;
+              s_vnet_orig = vnet;
+              s_vnet_type = vnet_type
+            } in
             nics := nic :: !nics
           )
       done;

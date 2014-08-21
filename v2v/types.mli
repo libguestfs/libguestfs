@@ -51,6 +51,7 @@ and source_removable = {
 and source_nic = {
   s_mac : string option;                (** MAC address. *)
   s_vnet : string;                      (** Source network name. *)
+  s_vnet_orig : string;                 (** Original network (if we map it). *)
   s_vnet_type : vnet_type;              (** Source network type. *)
 }
 (** Network interfaces. *)

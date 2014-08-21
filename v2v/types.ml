@@ -45,6 +45,7 @@ and source_removable = {
 and source_nic = {
   s_mac : string option;
   s_vnet : string;
+  s_vnet_orig : string;
   s_vnet_type : vnet_type;
 }
 and vnet_type = Bridge | Network

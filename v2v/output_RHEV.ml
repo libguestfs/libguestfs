@@ -563,7 +563,8 @@ object
 
       (* Iterate over the NICs, adding them to the OVF document. *)
       iteri (
-        fun i { s_mac = mac; s_vnet_type = vnet_type; s_vnet = vnet } ->
+        fun i { s_mac = mac; s_vnet_type = vnet_type;
+                s_vnet = vnet; s_vnet_orig = vnet_orig } ->
           let dev = sprintf "eth%d" i in
 
           let model =
@@ -575,6 +576,12 @@ object
               warning ~prog (f_"unknown NIC model %s for ethernet device %s.  This NIC will be imported as rtl8139 instead.")
                 bus dev;
               "1" *) in
+
+          if vnet_orig <> vnet then (
+            let c = Comment (sprintf "mapped from \"%s\" to \"%s\""
+                               vnet_orig vnet) in
+            append_child c network_section
+          );
 
           let network = e "Network" ["ovf:name", vnet] [] in
           append_child network network_section;
