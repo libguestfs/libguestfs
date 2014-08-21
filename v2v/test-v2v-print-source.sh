@@ -45,9 +45,14 @@ $VG ./virt-v2v --debug-gc \
     -o local -os $d \
     --print-source > $d/output
 
-if [ "$(cat $d/output)" != "Source guest information (--print-source option):
+mv $d/output $d/output.orig
+< $d/output.orig \
+grep -v 'Opening the source' |
+grep -v 'Source guest information' |
+grep -v '^$' \
+> $d/output
 
-    source name: windows
+if [ "$(cat $d/output)" != "    source name: windows
 hypervisor type: test
          memory: 1073741824 (bytes)
        nr vCPUs: 1
@@ -57,10 +62,9 @@ hypervisor type: test
 disks:
 	/home/rjones/d/libguestfs/tests/guests/windows.img (raw) [vda]
 removable media:
-
 NICs:" ]; then
     echo "$0: unexpected output from test:"
-    cat $d/output
+    cat $d/output.orig
     exit 1
 fi
 

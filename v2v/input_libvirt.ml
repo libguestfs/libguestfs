@@ -27,9 +27,11 @@ open Utils
 let identity x = x
 
 class input_libvirt
-  ?(map_source_file = identity) ?(map_source_dev = identity) xml =
+  options ?(map_source_file = identity) ?(map_source_dev = identity) xml =
 object
   inherit input
+
+  method as_options = options
 
   method source () =
     let doc = Xml.parse_memory xml in
@@ -244,6 +246,8 @@ end
 
 (* -i libvirtxml *)
 let input_libvirtxml file =
+  let options = "-i libvirtxml " ^ file in
+
   let xml = read_whole_file file in
 
   (* When reading libvirt XML from a file (-i libvirtxml) we allow
@@ -257,10 +261,17 @@ let input_libvirtxml file =
     if not (Filename.is_relative path) then path else dir // path
   in
 
-  new input_libvirt ~map_source_file xml
+  new input_libvirt options ~map_source_file xml
 
 (* -i libvirt [-ic libvirt_uri] *)
 let input_libvirt libvirt_uri guest =
+  let options =
+    sprintf "-i libvirt%s %s"
+      (match libvirt_uri with
+      | None -> ""
+      | Some uri -> " -ic " ^ uri)
+      guest in
+
   (* Depending on the libvirt URI we may need to convert <source/>
    * paths so we can access them remotely (if that is possible).  This
    * is only true for remote, non-NULL URIs.  (We assume the user
@@ -301,4 +312,4 @@ let input_libvirt libvirt_uri guest =
   let lines = external_command ~prog cmd in
   let xml = String.concat "\n" lines in
 
-  new input_libvirt ?map_source_file ?map_source_dev xml
+  new input_libvirt options ?map_source_file ?map_source_dev xml

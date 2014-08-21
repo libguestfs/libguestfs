@@ -27,6 +27,13 @@ open Utils
 class input_disk input_format disk = object
   inherit input
 
+  method as_options =
+    sprintf "-i disk%s %s"
+      (match input_format with
+      | None -> ""
+      | Some fmt -> " -if " ^ fmt)
+      disk
+
   method source () =
     (* What name should we use for the guest?  We try to derive it from
      * the filename passed in.  Users can override this using the

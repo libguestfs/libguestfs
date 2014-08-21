@@ -39,6 +39,7 @@ let rec main () =
 
   let msg fs = make_message_function ~quiet fs in
 
+  msg (f_"Opening the source %s") input#as_options;
   let source = input#source () in
 
   (* Print source and stop. *)

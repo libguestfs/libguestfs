@@ -180,6 +180,7 @@ type output_rhev_params = {
 }
 
 class virtual input = object
+  method virtual as_options : string
   method virtual source : unit -> source
 end
 
