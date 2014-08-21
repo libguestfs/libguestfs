@@ -32,7 +32,8 @@ let () = Random.self_init ()
 let rec main () =
   (* Handle the command line. *)
   let input, output,
-    debug_gc, do_copy, output_alloc, output_format, output_name,
+    debug_gc, do_copy, network_map,
+    output_alloc, output_format, output_name,
     quiet, root_choice, trace, verbose =
     Cmdline.parse_cmdline () in
 
@@ -57,6 +58,28 @@ let rec main () =
      * need it for some reason.
      *)
     | Some name -> { source with s_name = name } in
+
+  (* Map networks and bridges. *)
+  let source =
+    let { s_nics = nics } = source in
+    let nics = List.map (
+      fun ({ s_vnet_type = t; s_vnet = vnet } as nic) ->
+        try
+          (* Look for a --network or --bridge parameter which names this
+           * network/bridge (eg. --network in:out).
+           *)
+          let new_name = List.assoc (t, vnet) network_map in
+          { nic with s_vnet = new_name }
+        with Not_found ->
+          try
+            (* Not found, so look for a default mapping (eg. --network out). *)
+            let new_name = List.assoc (t, "") network_map in
+            { nic with s_vnet = new_name }
+          with Not_found ->
+            (* Not found, so return the original NIC unchanged. *)
+            nic
+    ) nics in
+    { source with s_nics = nics } in
 
   (* Create a qcow2 v3 overlay to protect the source image(s).  There
    * is a specific reason to use the newer qcow2 variant: Because the

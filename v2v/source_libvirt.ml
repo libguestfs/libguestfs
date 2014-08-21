@@ -209,8 +209,8 @@ let create_xml ?(map_source_file = identity) ?(map_source_dev = identity) xml =
 
       let vnet_type =
         match xpath_to_string "@type" "" with
-        | "network" -> Some `Network
-        | "bridge" -> Some `Bridge
+        | "network" -> Some Network
+        | "bridge" -> Some Bridge
         | _ -> None in
       match vnet_type with
       | None -> ()

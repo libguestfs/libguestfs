@@ -114,7 +114,7 @@ let create_libvirt_xml ?pool source overlays guestcaps =
       fun { s_mac = mac; s_vnet_type = vnet_type; s_vnet = vnet } ->
         let vnet_type_str =
           match vnet_type with
-          | `Bridge -> "bridge" | `Network -> "network" in
+          | Bridge -> "bridge" | Network -> "network" in
 
         let nic =
           e "interface" [ "type", vnet_type_str ] [

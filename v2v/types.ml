@@ -82,8 +82,9 @@ and source_removable = {
 and source_nic = {
   s_mac : string option;
   s_vnet : string;
-  s_vnet_type : [`Bridge|`Network];
+  s_vnet_type : vnet_type;
 }
+and vnet_type = Bridge | Network
 and source_display = {
   s_display_type : [`VNC|`Spice];
   s_keymap : string option;
@@ -137,7 +138,7 @@ and string_of_source_removable { s_removable_type = typ;
 
 and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
   sprintf "%s%s%s"
-    (match typ with `Bridge -> "bridge" | `Network -> "network")
+    (match typ with Bridge -> "bridge" | Network -> "network")
     vnet
     (match mac with
     | None -> ""

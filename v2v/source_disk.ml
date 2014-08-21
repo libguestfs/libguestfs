@@ -60,7 +60,7 @@ let create input_format disk =
   let network = {
     s_mac = None;
     s_vnet = "default";
-    s_vnet_type = `Network
+    s_vnet_type = Network
   } in
 
   let source = {
@@ -73,7 +73,7 @@ let create input_format disk =
     s_display = None;
     s_disks = [disk];
     s_removables = [];
-    s_nics = [ network ];
+    s_nics = [network];
   } in
 
   source

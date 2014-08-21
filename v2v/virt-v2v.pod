@@ -7,7 +7,7 @@ virt-v2v - Convert a guest to use KVM
  virt-v2v -ic esx://esx.example.com/ esx_guest
 
  virt-v2v -ic esx://esx.example.com/ \
-   -o rhev -os rhev.nfs:/export_domain esx_guest
+   -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
 
  virt-v2v -i libvirtxml -o local -os /tmp guest-domain.xml
 
@@ -80,10 +80,11 @@ This is the same as the previous example, except you want to send the
 guest to a RHEV-M Export Storage Domain which is located remotely
 (over NFS) at C<rhev.nfs:/export_domain>.  If you are unclear about
 the location of the Export Storage Domain you should check the
-settings on your RHEV-M management console.
+settings on your RHEV-M management console.  Guest network
+interface(s) are connected to the target network called C<rhevm>.
 
  virt-v2v -ic esx://esx.example.com/ \
-   -o rhev -os rhev.nfs:/export_domain esx_guest
+   -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
 
 In this case the host running virt-v2v acts as a B<conversion server>.
 
@@ -119,6 +120,10 @@ command line.
 =item B<--help>
 
 Display help.
+
+=item B<--bridge> ...
+
+See I<--network> below.
 
 =item B<--debug-gc>
 
@@ -175,6 +180,18 @@ format in the metadata.
 This option is used to make the output more machine friendly
 when being parsed by other programs.  See
 L</MACHINE READABLE OUTPUT> below.
+
+=item B<--network> in:out
+
+=item B<--network> out
+
+=item B<--bridge> in:out
+
+=item B<--bridge> out
+
+Map network (or bridge) called C<in> to network (or bridge) called
+C<out>.  If no C<in:> prefix is given, all other networks (or bridges)
+are mapped to C<out>.
 
 =item B<--no-copy>
 

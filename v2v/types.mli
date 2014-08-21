@@ -74,9 +74,10 @@ and source_removable = {
 and source_nic = {
   s_mac : string option;                (** MAC address. *)
   s_vnet : string;                      (** Source network name. *)
-  s_vnet_type : [`Bridge|`Network];     (** Source network type. *)
+  s_vnet_type : vnet_type;              (** Source network type. *)
 }
 (** Network interfaces. *)
+and vnet_type = Bridge | Network
 
 and source_display = {
   s_display_type : [`VNC|`Spice];       (** Display type. *)
