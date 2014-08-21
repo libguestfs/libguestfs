@@ -26,4 +26,4 @@ type rhev_params = {
 }
 (** Miscellaneous extra command line parameters used by RHEV. *)
 
-val output_rhev : verbose:bool -> string -> rhev_params -> [`Sparse|`Preallocated] -> Types.output
+val output_rhev : bool -> string -> rhev_params -> [`Sparse|`Preallocated] -> Types.output

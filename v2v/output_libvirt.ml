@@ -187,8 +187,8 @@ let create_libvirt_xml ?pool source overlays guestcaps =
 
   doc
 
-class output_libvirt oc output_pool = object
-  inherit output
+class output_libvirt verbose oc output_pool = object
+  inherit output verbose
 
   method as_options =
     match oc with

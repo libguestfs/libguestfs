@@ -18,7 +18,7 @@
 
 (** [-o libvirt] target. *)
 
-val output_libvirt : string option -> string -> Types.output
+val output_libvirt : bool -> string option -> string -> Types.output
 
 val create_libvirt_xml : ?pool:string -> Types.source -> Types.overlay list -> Types.guestcaps -> DOM.doc
 (** This is called from {!Output_local} to generate the libvirt XML. *)

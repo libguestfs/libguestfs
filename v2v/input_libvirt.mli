@@ -18,6 +18,6 @@
 
 (** [-i libvirt] and [-i libvirtxml] sources. *)
 
-val input_libvirt : string option -> string -> Types.input
+val input_libvirt : bool -> string option -> string -> Types.input
 
-val input_libvirtxml : string -> Types.input
+val input_libvirtxml : bool -> string -> Types.input

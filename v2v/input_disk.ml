@@ -24,8 +24,8 @@ open Common_utils
 open Types
 open Utils
 
-class input_disk input_format disk = object
-  inherit input
+class input_disk verbose input_format disk = object
+  inherit input verbose
 
   method as_options =
     sprintf "-i disk%s %s"

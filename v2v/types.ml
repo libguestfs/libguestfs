@@ -179,12 +179,12 @@ type output_rhev_params = {
   vmtype : [`Server|`Desktop] option;
 }
 
-class virtual input = object
+class virtual input verbose = object
   method virtual as_options : string
   method virtual source : unit -> source
 end
 
-class virtual output = object
+class virtual output verbose = object
   method virtual as_options : string
   method virtual prepare_output : source -> overlay list -> overlay list
   method virtual create_metadata : source -> overlay list -> guestcaps -> inspect -> unit

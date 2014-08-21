@@ -18,4 +18,4 @@
 
 (** [-i disk] source. *)
 
-val input_disk : string option -> string -> Types.input
+val input_disk : bool -> string option -> string -> Types.input

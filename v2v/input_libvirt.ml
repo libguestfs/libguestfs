@@ -27,9 +27,10 @@ open Utils
 let identity x = x
 
 class input_libvirt
+  verbose
   options ?(map_source_file = identity) ?(map_source_dev = identity) xml =
 object
-  inherit input
+  inherit input verbose
 
   method as_options = options
 
@@ -245,7 +246,7 @@ object
 end
 
 (* -i libvirtxml *)
-let input_libvirtxml file =
+let input_libvirtxml verbose file =
   let options = "-i libvirtxml " ^ file in
 
   let xml = read_whole_file file in
@@ -261,10 +262,10 @@ let input_libvirtxml file =
     if not (Filename.is_relative path) then path else dir // path
   in
 
-  new input_libvirt options ~map_source_file xml
+  new input_libvirt verbose options ~map_source_file xml
 
 (* -i libvirt [-ic libvirt_uri] *)
-let input_libvirt libvirt_uri guest =
+let input_libvirt verbose libvirt_uri guest =
   let options =
     sprintf "-i libvirt%s %s"
       (match libvirt_uri with
@@ -312,4 +313,4 @@ let input_libvirt libvirt_uri guest =
   let lines = external_command ~prog cmd in
   let xml = String.concat "\n" lines in
 
-  new input_libvirt options ?map_source_file ?map_source_dev xml
+  new input_libvirt verbose options ?map_source_file ?map_source_dev xml

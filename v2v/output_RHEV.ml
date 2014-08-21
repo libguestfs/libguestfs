@@ -55,9 +55,9 @@ let iso_time =
     (tm.tm_year + 1900) (tm.tm_mon + 1) tm.tm_mday
     tm.tm_hour tm.tm_min tm.tm_sec
 
-class output_rhev ~verbose os rhev_params output_alloc =
+class output_rhev verbose os rhev_params output_alloc =
 object
-  inherit output
+  inherit output verbose
 
   method as_options =
     sprintf "-o rhev -os %s%s%s%s%s" os

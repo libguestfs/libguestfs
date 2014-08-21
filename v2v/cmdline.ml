@@ -211,7 +211,7 @@ read the man page virt-v2v(1).
         | [disk] -> disk
         | _ ->
           error (f_"expecting a disk image (filename) on the command line") in
-      Input_disk.input_disk input_format disk
+      Input_disk.input_disk verbose input_format disk
 
     | `Libvirt ->
       (* -i libvirt: Expecting a single argument which is the name
@@ -222,7 +222,7 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
-      Input_libvirt.input_libvirt input_conn guest
+      Input_libvirt.input_libvirt verbose input_conn guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)
@@ -231,7 +231,7 @@ read the man page virt-v2v(1).
         | [filename] -> filename
         | _ ->
           error (f_"expecting a libvirt XML file name on the command line") in
-      Input_libvirt.input_libvirtxml filename in
+      Input_libvirt.input_libvirtxml verbose filename in
 
   (* Parse the output mode. *)
   let output =
@@ -243,7 +243,7 @@ read the man page virt-v2v(1).
         error (f_"--vmtype option can only be used with '-o rhev'");
       if not do_copy then
         error (f_"--no-copy and '-o libvirt' cannot be used at the same time");
-      Output_libvirt.output_libvirt output_conn output_storage
+      Output_libvirt.output_libvirt verbose output_conn output_storage
 
     | `Local ->
       if output_storage = "" then
@@ -253,7 +253,7 @@ read the man page virt-v2v(1).
           output_storage;
       if vmtype <> None then
         error (f_"--vmtype option can only be used with '-o rhev'");
-      Output_local.output_local output_storage
+      Output_local.output_local verbose output_storage
 
     | `RHEV ->
       if output_storage = "" then
@@ -264,7 +264,7 @@ read the man page virt-v2v(1).
         vm_uuid = rhev_vm_uuid;
         vmtype = vmtype;
       } in
-      Output_RHEV.output_rhev ~verbose output_storage rhev_params output_alloc in
+      Output_RHEV.output_rhev verbose output_storage rhev_params output_alloc in
 
   input, output,
   debug_gc, do_copy, network_map,

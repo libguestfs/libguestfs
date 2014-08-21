@@ -18,4 +18,4 @@
 
 (** [-o local] target. *)
 
-val output_local : string -> Types.output
+val output_local : bool -> string -> Types.output

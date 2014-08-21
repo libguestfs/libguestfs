@@ -114,7 +114,7 @@ type guestcaps = {
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
 
-class virtual input : object
+class virtual input : bool -> object
   method virtual as_options : string
   (** Converts the input object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
@@ -123,7 +123,7 @@ class virtual input : object
 end
 (** Encapsulates all [-i], etc input arguments as an object. *)
 
-class virtual output : object
+class virtual output : bool -> object
   method virtual as_options : string
   (** Converts the output object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
