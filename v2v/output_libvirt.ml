@@ -64,7 +64,7 @@ let create_libvirt_xml ?pool source overlays guestcaps =
           (match pool with
           | None ->
             e "source" [
-              "file", ov.ov_target_file;
+              "file", absolute_path ov.ov_target_file;
             ] []
           | Some pool ->
             e "source" [
