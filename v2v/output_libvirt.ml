@@ -187,73 +187,84 @@ let create_libvirt_xml ?pool source overlays guestcaps =
 
   doc
 
-let initialize oc output_pool source overlays =
-  (* Connect to output libvirt instance and check that the pool exists
-   * and dump out its XML.
-   *)
-  let cmd =
+class output_libvirt oc output_pool = object
+  inherit output
+
+  method as_options =
     match oc with
-    | None -> sprintf "virsh pool-dumpxml %s" (quote output_pool)
-    | Some uri ->
-      sprintf "virsh -c %s dumpxml %s" (quote uri) (quote output_pool) in
-  let lines = external_command ~prog cmd in
-  let xml = String.concat "\n" lines in
-  let doc = Xml.parse_memory xml in
-  let xpathctx = Xml.xpath_new_context doc in
+    | None -> sprintf "-o libvirt -os %s" output_pool
+    | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
-  let xpath_to_string expr default =
-    let obj = Xml.xpath_eval_expression xpathctx expr in
-    if Xml.xpathobj_nr_nodes obj < 1 then default
-    else (
-      let node = Xml.xpathobj_node doc obj 0 in
-      Xml.node_as_string node
-    )
-  in
+  method prepare_output source overlays =
+    (* Connect to output libvirt instance and check that the pool exists
+     * and dump out its XML.
+     *)
+    let cmd =
+      match oc with
+      | None -> sprintf "virsh pool-dumpxml %s" (quote output_pool)
+      | Some uri ->
+        sprintf "virsh -c %s dumpxml %s" (quote uri) (quote output_pool) in
+    let lines = external_command ~prog cmd in
+    let xml = String.concat "\n" lines in
+    let doc = Xml.parse_memory xml in
+    let xpathctx = Xml.xpath_new_context doc in
 
-  (* We can only output to a pool of type 'dir' (directory). *)
-  let pool_type = xpath_to_string "/pool/@type" "" in
-  if pool_type <> "dir" then
-    error (f_"-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
-  let target_path = xpath_to_string "/pool/target/path/text()" "" in
-  if target_path = "" || not (is_directory target_path) then
-    error (f_"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path element either does not exist or is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
+    let xpath_to_string expr default =
+      let obj = Xml.xpath_eval_expression xpathctx expr in
+      if Xml.xpathobj_nr_nodes obj < 1 then default
+      else (
+        let node = Xml.xpathobj_node doc obj 0 in
+        Xml.node_as_string node
+      )
+    in
 
-  (* Set up the overlays. *)
-  List.map (
-    fun ov ->
-      let target_file = target_path // source.s_name ^ "-" ^ ov.ov_sd in
-      { ov with ov_target_file = target_file }
-  ) overlays
+    (* We can only output to a pool of type 'dir' (directory). *)
+    let pool_type = xpath_to_string "/pool/@type" "" in
+    if pool_type <> "dir" then
+      error (f_"-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
+    let target_path = xpath_to_string "/pool/target/path/text()" "" in
+    if target_path = "" || not (is_directory target_path) then
+      error (f_"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path element either does not exist or is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
 
-let create_metadata oc output_pool source overlays guestcaps =
-  (* We copied directly into the final pool directory.  However we
-   * have to tell libvirt.
-   *)
-  let cmd =
-    match oc with
-    | None -> sprintf "virsh pool-refresh %s" (quote output_pool)
-    | Some uri ->
-      sprintf "virsh -c %s pool-refresh %s"
-        (quote uri) (quote output_pool) in
-  if Sys.command cmd <> 0 then
-    warning ~prog (f_"could not refresh libvirt pool %s") output_pool;
+    (* Set up the overlays. *)
+    List.map (
+      fun ov ->
+        let target_file = target_path // source.s_name ^ "-" ^ ov.ov_sd in
+        { ov with ov_target_file = target_file }
+    ) overlays
 
-  (* Create the metadata. *)
-  let doc = create_libvirt_xml ~pool:output_pool source overlays guestcaps in
+  method create_metadata source overlays guestcaps _ =
+    (* We copied directly into the final pool directory.  However we
+     * have to tell libvirt.
+     *)
+    let cmd =
+      match oc with
+      | None -> sprintf "virsh pool-refresh %s" (quote output_pool)
+      | Some uri ->
+        sprintf "virsh -c %s pool-refresh %s"
+          (quote uri) (quote output_pool) in
+    if Sys.command cmd <> 0 then
+      warning ~prog (f_"could not refresh libvirt pool %s") output_pool;
 
-  let tmpfile, chan = Filename.open_temp_file "v2vlibvirt" ".xml" in
-  DOM.doc_to_chan chan doc;
-  close_out chan;
+    (* Create the metadata. *)
+    let doc = create_libvirt_xml ~pool:output_pool source overlays guestcaps in
 
-  (* Define the domain in libvirt. *)
-  let cmd =
-    match oc with
-    | None -> sprintf "virsh define %s" (quote tmpfile)
-    | Some uri ->
-      sprintf "virsh -c %s define %s" (quote uri) (quote tmpfile) in
-  if Sys.command cmd = 0 then (
-    try Unix.unlink tmpfile with _ -> ()
-  ) else (
-    warning ~prog (f_"could not define libvirt domain.  The libvirt XML is still available in '%s'.  Try running 'virsh define %s' yourself instead.")
-      tmpfile tmpfile
-  );
+    let tmpfile, chan = Filename.open_temp_file "v2vlibvirt" ".xml" in
+    DOM.doc_to_chan chan doc;
+    close_out chan;
+
+    (* Define the domain in libvirt. *)
+    let cmd =
+      match oc with
+      | None -> sprintf "virsh define %s" (quote tmpfile)
+      | Some uri ->
+        sprintf "virsh -c %s define %s" (quote uri) (quote tmpfile) in
+    if Sys.command cmd = 0 then (
+      try Unix.unlink tmpfile with _ -> ()
+    ) else (
+      warning ~prog (f_"could not define libvirt domain.  The libvirt XML is still available in '%s'.  Try running 'virsh define %s' yourself instead.")
+        tmpfile tmpfile
+    );
+end
+
+let output_libvirt = new output_libvirt

@@ -16,6 +16,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val initialize : string -> Types.source -> Types.overlay list -> Types.overlay list
+(** [-i disk] source. *)
 
-val create_metadata : string -> Types.source -> Types.overlay list -> Types.guestcaps -> unit
+val input_disk : string option -> string -> Types.input

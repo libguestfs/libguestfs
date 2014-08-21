@@ -39,14 +39,7 @@ let rec main () =
 
   let msg fs = make_message_function ~quiet fs in
 
-  let source =
-    match input with
-    | InputDisk (input_format, disk) ->
-      Source_disk.create input_format disk
-    | InputLibvirt (libvirt_uri, guest) ->
-      Source_libvirt.create libvirt_uri guest
-    | InputLibvirtXML filename ->
-      Source_libvirt.create_from_xml filename in
+  let source = input#source () in
 
   (* Print source and stop. *)
   if print_source then (
@@ -134,7 +127,7 @@ let rec main () =
    * just so we can display errors to the user before doing too much
    * work.
    *)
-  msg (f_"Initializing the target %s") (output_as_options output);
+  msg (f_"Initializing the target %s") output#as_options;
   let overlays =
     initialize_target ~verbose g
       source output output_alloc output_format output_name overlays in
@@ -160,12 +153,9 @@ let rec main () =
       | "sles" | "suse-based" | "opensuse" ->
 
         (* RHEV doesn't support serial console so remove any on conversion. *)
-        let keep_serial_console =
-          match output with
-          | OutputRHEV _ -> Some false
-          | OutputLibvirt _ | OutputLocal _ -> None in
+        let keep_serial_console = output#keep_serial_console in
 
-        Convert_linux.convert ?keep_serial_console
+        Convert_linux.convert ~keep_serial_console
           verbose g inspect source
 
       | distro ->
@@ -234,15 +224,7 @@ let rec main () =
 
   (* Create output metadata. *)
   msg (f_"Creating output metadata");
-  (match output with
-  | OutputLibvirt (oc, os) ->
-    Target_libvirt.create_metadata oc os source overlays guestcaps
-  | OutputLocal dir ->
-    Target_local.create_metadata dir source overlays guestcaps
-  | OutputRHEV (os, rhev_params) ->
-    Target_RHEV.create_metadata os rhev_params source output_alloc
-      overlays inspect guestcaps
-  );
+  output#create_metadata source overlays guestcaps inspect;
 
   msg (f_"Finishing off");
   delete_target_on_exit := false;  (* Don't delete target on exit. *)
@@ -284,14 +266,7 @@ and initialize_target ~verbose g
           ov_source_file = qemu_uri; ov_source_format = backing_format;
           ov_vol_uuid = "" }
     ) overlays in
-  let overlays =
-    match output with
-    | OutputLibvirt (oc, os) ->
-      Target_libvirt.initialize oc os source overlays
-    | OutputLocal dir -> Target_local.initialize dir source overlays
-    | OutputRHEV (os, rhev_params) ->
-      Target_RHEV.initialize ~verbose
-        os rhev_params source output_alloc overlays in
+  let overlays = output#prepare_output source overlays in
   overlays
 
 and inspect_source g root_choice =

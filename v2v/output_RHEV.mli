@@ -16,12 +16,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** [-i libvirt] and [-i libvirtxml] sources. *)
+(** [-o rhev] target. *)
 
-val create : string option -> string -> Types.source
-(** [create libvirt_uri guest] reads the source metadata from the
-    named libvirt guest. *)
+type rhev_params = {
+  image_uuid : string option;           (* --rhev-image-uuid *)
+  vol_uuids : string list;              (* --rhev-vol-uuid (multiple) *)
+  vm_uuid : string option;              (* --rhev-vm-uuid *)
+  vmtype : [`Server|`Desktop] option;   (* --vmtype *)
+}
+(** Miscellaneous extra command line parameters used by RHEV. *)
 
-val create_from_xml : string -> Types.source
-(** [create_from_xml filename] reads the source metadata from the
-    libvirt XML file. *)
+val output_rhev : verbose:bool -> string -> rhev_params -> [`Sparse|`Preallocated] -> Types.output

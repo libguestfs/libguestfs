@@ -56,7 +56,7 @@ let string_of_kernel_info ki =
     ki.ki_supports_virtio ki.ki_is_xen_kernel
 
 (* The conversion function. *)
-let rec convert ?(keep_serial_console = true) verbose (g : G.guestfs)
+let rec convert ~keep_serial_console verbose (g : G.guestfs)
     inspect source =
   (*----------------------------------------------------------------------*)
   (* Inspect the guest first.  We already did some basic inspection in

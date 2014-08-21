@@ -211,7 +211,7 @@ read the man page virt-v2v(1).
         | [disk] -> disk
         | _ ->
           error (f_"expecting a disk image (filename) on the command line") in
-      InputDisk (input_format, disk)
+      Input_disk.input_disk input_format disk
 
     | `Libvirt ->
       (* -i libvirt: Expecting a single argument which is the name
@@ -222,7 +222,7 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
-      InputLibvirt (input_conn, guest)
+      Input_libvirt.input_libvirt input_conn guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)
@@ -231,7 +231,7 @@ read the man page virt-v2v(1).
         | [filename] -> filename
         | _ ->
           error (f_"expecting a libvirt XML file name on the command line") in
-      InputLibvirtXML filename in
+      Input_libvirt.input_libvirtxml filename in
 
   (* Parse the output mode. *)
   let output =
@@ -243,7 +243,7 @@ read the man page virt-v2v(1).
         error (f_"--vmtype option can only be used with '-o rhev'");
       if not do_copy then
         error (f_"--no-copy and '-o libvirt' cannot be used at the same time");
-      OutputLibvirt (output_conn, output_storage)
+      Output_libvirt.output_libvirt output_conn output_storage
 
     | `Local ->
       if output_storage = "" then
@@ -253,18 +253,18 @@ read the man page virt-v2v(1).
           output_storage;
       if vmtype <> None then
         error (f_"--vmtype option can only be used with '-o rhev'");
-      OutputLocal output_storage
+      Output_local.output_local output_storage
 
     | `RHEV ->
       if output_storage = "" then
         error (f_"-o rhev: output storage was not specified, use '-os'");
       let rhev_params = {
-        image_uuid = rhev_image_uuid;
+        Output_RHEV.image_uuid = rhev_image_uuid;
         vol_uuids = rhev_vol_uuids;
         vm_uuid = rhev_vm_uuid;
         vmtype = vmtype;
       } in
-      OutputRHEV (output_storage, rhev_params) in
+      Output_RHEV.output_rhev ~verbose output_storage rhev_params output_alloc in
 
   input, output,
   debug_gc, do_copy, network_map,

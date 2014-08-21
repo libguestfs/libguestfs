@@ -18,29 +18,6 @@
 
 (** Types. *)
 
-type input =
-| InputDisk of string option * string   (* -i disk: format + file name *)
-| InputLibvirt of string option * string (* -i libvirt: -ic + guest name *)
-| InputLibvirtXML of string         (* -i libvirtxml: XML file name *)
-(** The input arguments as specified on the command line. *)
-
-type output =
-| OutputLibvirt of string option * string (* -o libvirt: -oc & -os *)
-| OutputLocal of string             (* -o local: directory *)
-| OutputRHEV of string * output_rhev_params (* -o rhev: output storage *)
-(** The output arguments as specified on the command line. *)
-
-and output_rhev_params = {
-  image_uuid : string option;           (* --rhev-image-uuid *)
-  vol_uuids : string list;              (* --rhev-vol-uuid (multiple) *)
-  vm_uuid : string option;              (* --rhev-vm-uuid *)
-  vmtype : [`Server|`Desktop] option;   (* --vmtype *)
-}
-(** Miscellaneous extra command line parameters used by RHEV. *)
-
-val output_as_options : output -> string
-(** Converts the output struct into the equivalent command line options. *)
-
 type source = {
   s_dom_type : string;                  (** Source domain type, eg "kvm" *)
   s_name : string;                      (** Guest name. *)
@@ -136,3 +113,22 @@ type guestcaps = {
   gcaps_video : string;        (** "qxl", "cirrus" *)
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
+
+class virtual input : object
+  method virtual source : unit -> source
+  (** Examine the source hypervisor and create a source struct. *)
+end
+(** Encapsulates all [-i], etc input arguments as an object. *)
+
+class virtual output : object
+  method virtual as_options : string
+  (** Converts the output object back to the equivalent command line options.
+      This is just used for pretty-printing log messages. *)
+  method virtual prepare_output : source -> overlay list -> overlay list
+  (** Called before conversion to prepare the output. *)
+  method virtual create_metadata : source -> overlay list -> guestcaps -> inspect -> unit
+  (** Called after conversion to finish off and create metadata. *)
+  method keep_serial_console : bool
+  (** Whether this output supports serial consoles (RHEV does not). *)
+end
+(** Encapsulates all [-o], etc output arguments as an object. *)

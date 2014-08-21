@@ -20,43 +20,6 @@ open Printf
 
 (* Types.  See types.mli for documentation. *)
 
-type input =
-| InputDisk of string option * string
-| InputLibvirt of string option * string
-| InputLibvirtXML of string
-
-type output =
-| OutputLibvirt of string option * string
-| OutputLocal of string
-| OutputRHEV of string * output_rhev_params
-
-and output_rhev_params = {
-  image_uuid : string option;
-  vol_uuids : string list;
-  vm_uuid : string option;
-  vmtype : [`Server|`Desktop] option;
-}
-
-let output_as_options = function
-  | OutputLibvirt (None, os) ->
-    sprintf "-o libvirt -os %s" os
-  | OutputLibvirt (Some uri, os) ->
-    sprintf "-o libvirt -oc %s -os %s" uri os
-  | OutputLocal os ->
-    sprintf "-o local -os %s" os
-  | OutputRHEV (os, params) ->
-    sprintf "-o rhev -os %s%s%s%s%s" os
-      (match params.image_uuid with
-      | None -> "" | Some uuid -> sprintf " --rhev-image-uuid %s" uuid)
-      (String.concat ""
-         (List.map (sprintf " --rhev-vol-uuid %s") params.vol_uuids))
-      (match params.vm_uuid with
-      | None -> "" | Some uuid -> sprintf " --rhev-vm-uuid %s" uuid)
-      (match params.vmtype with
-      | None -> ""
-      | Some `Server -> " --vmtype server"
-      | Some `Desktop -> " --vmtype desktop")
-
 type source = {
   s_dom_type : string;
   s_name : string;
@@ -208,3 +171,21 @@ type guestcaps = {
   gcaps_acpi : bool;
   gcaps_video : string;
 }
+
+type output_rhev_params = {
+  image_uuid : string option;
+  vol_uuids : string list;
+  vm_uuid : string option;
+  vmtype : [`Server|`Desktop] option;
+}
+
+class virtual input = object
+  method virtual source : unit -> source
+end
+
+class virtual output = object
+  method virtual as_options : string
+  method virtual prepare_output : source -> overlay list -> overlay list
+  method virtual create_metadata : source -> overlay list -> guestcaps -> inspect -> unit
+  method keep_serial_console = true
+end

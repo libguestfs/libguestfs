@@ -16,27 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Printf
+(** [-i libvirt] and [-i libvirtxml] sources. *)
 
-open Common_gettext.Gettext
-open Common_utils
+val input_libvirt : string option -> string -> Types.input
 
-open Types
-open Utils
-
-let initialize dir source overlays =
-  List.map (
-    fun ov ->
-      let target_file = dir // source.s_name ^ "-" ^ ov.ov_sd in
-      { ov with ov_target_file = target_file }
-  ) overlays
-
-let create_metadata dir source overlays guestcaps =
-  let doc = Target_libvirt.create_libvirt_xml source overlays guestcaps in
-
-  let name = source.s_name in
-  let file = dir // name ^ ".xml" in
-
-  let chan = open_out file in
-  DOM.doc_to_chan chan doc;
-  close_out chan
+val input_libvirtxml : string -> Types.input

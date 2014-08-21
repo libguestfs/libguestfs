@@ -30,11 +30,11 @@ SOURCES_MLI = \
 	DOM.mli \
 	lib_esx.mli \
 	lib_linux.mli \
-	source_disk.mli \
-	source_libvirt.mli \
-	target_libvirt.mli \
-	target_local.mli \
-	target_RHEV.mli \
+	input_disk.mli \
+	input_libvirt.mli \
+	output_libvirt.mli \
+	output_local.mli \
+	output_RHEV.mli \
 	types.mli \
 	xml.mli
 
@@ -46,14 +46,14 @@ SOURCES_ML = \
 	DOM.ml \
 	lib_esx.ml \
 	lib_linux.ml \
-	cmdline.ml \
-	source_disk.ml \
-	source_libvirt.ml \
+	input_disk.ml \
+	input_libvirt.ml \
 	convert_linux.ml \
 	convert_windows.ml \
-	target_libvirt.ml \
-	target_local.ml \
-	target_RHEV.ml \
+	output_libvirt.ml \
+	output_local.ml \
+	output_RHEV.ml \
+	cmdline.ml \
 	v2v.ml
 
 SOURCES_C = \

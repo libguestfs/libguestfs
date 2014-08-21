@@ -35,6 +35,3 @@ whether the target supports writing directly to the output storage
 directory, and where that is, and then the source could use that to
 write directory.  Also s_disks would need to contain a flag to
 indicate that the main code shouldn't create overlays in this case.
-
-Consider turning inputs and outputs into classes, so
-source_libvirt -> input_libvirt which is a subclass of input.
