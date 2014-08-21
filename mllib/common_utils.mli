@@ -34,6 +34,9 @@ val le32_of_int : int64 -> string
 val wrap : ?chan:out_channel -> ?indent:int -> string -> unit
 (** Wrap text. *)
 
+val output_spaces : out_channel -> int -> unit
+(** Write [n] spaces to [out_channel]. *)
+
 val string_prefix : string -> string -> bool
 val string_find : string -> string -> int
 val replace_str : string -> string -> string -> string
