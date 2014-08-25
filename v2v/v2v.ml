@@ -132,8 +132,25 @@ let rec main () =
    *)
   msg (f_"Initializing the target %s") output#as_options;
   let overlays =
-    initialize_target ~verbose g
-      source output output_format output_name overlays in
+    mapi (
+      fun i (overlay, qemu_uri, backing_format) ->
+        (* Grab the virtual size of each disk. *)
+        let sd = "sd" ^ drive_name i in
+        let dev = "/dev/" ^ sd in
+        let vsize = g#blockdev_getsize64 dev in
+
+        (* What output format should we use? *)
+        let format =
+          match output_format, backing_format with
+          | Some format, _ -> format    (* -of overrides everything *)
+          | None, Some format -> format (* same as backing format *)
+          | None, None ->
+            error (f_"disk %s (%s) has no defined format, you have to either define the original format in the source metadata, or use the '-of' option to force the output format") sd qemu_uri in
+
+        { ov_overlay = overlay; ov_target_file = ""; ov_target_format = format;
+          ov_sd = sd; ov_virtual_size = vsize; ov_source_file = qemu_uri }
+    ) overlays in
+  let overlays = output#prepare_output source overlays in
 
   (* Inspection - this also mounts up the filesystems. *)
   msg (f_"Inspecting the overlay");
@@ -241,33 +258,6 @@ let rec main () =
 
   if debug_gc then
     Gc.compact ()
-
-and initialize_target ~verbose g
-    source output output_format output_name overlays =
-  let overlays =
-    mapi (
-      fun i (overlay, qemu_uri, backing_format) ->
-        (* Grab the virtual size of each disk. *)
-        let sd = "sd" ^ drive_name i in
-        let dev = "/dev/" ^ sd in
-        let vsize = g#blockdev_getsize64 dev in
-
-        (* What output format should we use? *)
-        let format =
-          match output_format, backing_format with
-          | Some format, _ -> format    (* -of overrides everything *)
-          | None, Some format -> format (* same as backing format *)
-          | None, None ->
-            error (f_"disk %s (%s) has no defined format, you have to either define the original format in the source metadata, or use the '-of' option to force the output format") sd qemu_uri in
-
-        { ov_overlay = overlay;
-          ov_target_file = "";
-          ov_target_format = format;
-          ov_sd = sd; ov_virtual_size = vsize;
-          ov_source_file = qemu_uri }
-    ) overlays in
-  let overlays = output#prepare_output source overlays in
-  overlays
 
 and inspect_source g root_choice =
   let roots = g#inspect_os () in
