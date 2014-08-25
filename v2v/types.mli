@@ -74,11 +74,10 @@ type overlay = {
   ov_sd : string;            (** sdX libguestfs name of disk. *)
   ov_virtual_size : int64;   (** Virtual disk size in bytes. *)
 
-  (* Note: the next two fields are for information only and must not
-   * be opened/copied/etc.
+  (* Note: The ov_source_file is for information ONLY (eg. printing
+   * error messages).  It must NOT be opened/read/modified.
    *)
   ov_source_file : string;          (** qemu URI for source file. *)
-  ov_source_format : string option; (** Source file format, if known. *)
 }
 (** Disk overlays and destination disks. *)
 

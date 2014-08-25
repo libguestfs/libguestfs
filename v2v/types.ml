@@ -124,7 +124,6 @@ type overlay = {
   ov_sd : string;
   ov_virtual_size : int64;
   ov_source_file : string;
-  ov_source_format : string option;
 }
 
 let string_of_overlay ov =
@@ -135,7 +134,6 @@ ov_target_format = %s
 ov_sd = %s
 ov_virtual_size = %Ld
 ov_source_file = %s
-ov_source_format = %s
 "
     ov.ov_overlay
     ov.ov_target_file
@@ -143,7 +141,6 @@ ov_source_format = %s
     ov.ov_sd
     ov.ov_virtual_size
     ov.ov_source_file
-    (match ov.ov_source_format with None -> "None" | Some s -> s)
 
 type inspect = {
   i_root : string;
