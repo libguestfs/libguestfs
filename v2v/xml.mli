@@ -31,9 +31,9 @@ val xpath_eval_expression : xpathctx -> string -> xpathobj
 (** xmlXPathEvalExpression *)
 
 val xpathobj_nr_nodes : xpathobj -> int
-(** Get the number of nodes in the node set of the xmlXPathObjectPtr. *)
+(** Get the number of nodes in the nodeset of the xmlXPathObjectPtr. *)
 val xpathobj_node : doc -> xpathobj -> int -> node
-(** Get the number of nodes in the node set of the xmlXPathObjectPtr. *)
+(** Get the i'th node in the nodeset of the xmlXPathObjectPtr. *)
 
 val xpathctx_set_current_context : xpathctx -> node -> unit
 (** Set the current context of an xmlXPathContextPtr to the node.
