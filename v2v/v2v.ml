@@ -165,27 +165,19 @@ let rec main () =
       msg (f_"Converting %s to run on KVM") prod
     );
 
-    match inspect.i_type with
-    | "linux" ->
-      (match inspect.i_distro with
-      | "fedora"
-      | "rhel" | "centos" | "scientificlinux" | "redhat-based"
-      | "sles" | "suse-based" | "opensuse" ->
-
+    match inspect.i_type, inspect.i_distro with
+    | "linux", ("fedora"
+                   | "rhel" | "centos" | "scientificlinux" | "redhat-based"
+                   | "sles" | "suse-based" | "opensuse") ->
         (* RHEV doesn't support serial console so remove any on conversion. *)
         let keep_serial_console = output#keep_serial_console in
+        Convert_linux.convert ~keep_serial_console verbose g inspect source
 
-        Convert_linux.convert ~keep_serial_console
-          verbose g inspect source
+    | "windows", _ -> Convert_windows.convert verbose g inspect source
 
-      | distro ->
-        error (f_"virt-v2v is unable to convert this guest type (linux/distro=%s)") distro
-      );
-
-    | "windows" -> Convert_windows.convert verbose g inspect source
-
-    | typ ->
-      error (f_"virt-v2v is unable to convert this guest type (type=%s)") typ in
+    | typ, distro ->
+      error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
+        typ distro in
 
   if do_copy then (
     (* Trim the filesystems to reduce transfer size. *)
