@@ -180,8 +180,11 @@ let rec main () =
         typ distro in
 
   if do_copy then (
-    (* Trim the filesystems to reduce transfer size. *)
-    msg (f_"Trimming filesystems to reduce amount of data to copy");
+    (* Doing fstrim on all the filesystems reduces the transfer size
+     * because unused blocks are marked in the overlay and thus do
+     * not have to be copied.
+     *)
+    msg (f_"Mapping filesystem data to avoid copying unused and blank areas");
     let mps = g#mountpoints () in
     List.iter (
       fun (_, mp) ->
