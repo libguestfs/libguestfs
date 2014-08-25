@@ -106,7 +106,7 @@ type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;
   gcaps_video : guestcaps_video_type;
-  (** Best block device, ntework device and video device guest can
+  (** Best block device, network device and video device guest can
       access.  These are determined during conversion by inspecting the
       guest (and in some cases conversion can actually enhance these by
       installing drivers).  Thus this is not known until after
