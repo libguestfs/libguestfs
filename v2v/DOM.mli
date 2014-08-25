@@ -19,9 +19,9 @@
 (** Poor man's XML DOM, mutable for easy of modification. *)
 
 type node =
-  | PCData of string
-  | Comment of string
-  | Element of element
+  | PCData of string                    (** Text. *)
+  | Comment of string                   (** <!-- comment --> *)
+  | Element of element                  (** <element/> with attrs and children *)
 and element = {
   e_name : string;                      (** Name of element. *)
   mutable e_attrs : attr list;          (** Attributes. *)
