@@ -118,29 +118,41 @@ and string_of_source_display { s_display_type = typ;
     (match password with None -> "" | Some _ -> " with password")
 
 type overlay = {
-  ov_overlay : string;
-  ov_target_file : string;
-  ov_target_format : string;
+  ov_overlay_file : string;
   ov_sd : string;
   ov_virtual_size : int64;
-  ov_source_file : string;
+  ov_source : source_disk;
 }
 
 let string_of_overlay ov =
   sprintf "\
-ov_overlay = %s
-ov_target_file = %s
-ov_target_format = %s
+ov_overlay_file = %s
 ov_sd = %s
 ov_virtual_size = %Ld
-ov_source_file = %s
+ov_source = %s
 "
-    ov.ov_overlay
-    ov.ov_target_file
-    ov.ov_target_format
+    ov.ov_overlay_file
     ov.ov_sd
     ov.ov_virtual_size
-    ov.ov_source_file
+    ov.ov_source.s_qemu_uri
+
+type target = {
+  target_file : string;
+  target_format : string;
+  target_overlay : overlay;
+}
+
+let string_of_target t =
+  sprintf "\
+target_file = %s
+target_format = %s
+target_overlay = %s
+target_overlay.ov_source = %s
+"
+    t.target_file
+    t.target_format
+    t.target_overlay.ov_overlay_file
+    t.target_overlay.ov_source.s_qemu_uri
 
 type inspect = {
   i_root : string;
@@ -181,7 +193,7 @@ end
 
 class virtual output verbose = object
   method virtual as_options : string
-  method virtual prepare_output : source -> overlay list -> overlay list
-  method virtual create_metadata : source -> overlay list -> guestcaps -> inspect -> unit
+  method virtual prepare_targets : source -> target list -> target list
+  method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
   method keep_serial_console = true
 end

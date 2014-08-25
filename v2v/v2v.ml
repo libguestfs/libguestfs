@@ -95,9 +95,9 @@ let rec main () =
   msg (f_"Creating an overlay to protect the source from being modified");
   let overlays =
     List.map (
-      fun { s_qemu_uri = qemu_uri; s_format = format } ->
-        let overlay = Filename.temp_file "v2vovl" ".qcow2" in
-        unlink_on_exit overlay;
+      fun ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
+        let overlay_file = Filename.temp_file "v2vovl" ".qcow2" in
+        unlink_on_exit overlay_file;
 
         let options =
           "compat=1.1,lazy_refcounts=on" ^
@@ -105,11 +105,11 @@ let rec main () =
             | Some fmt -> ",backing_fmt=" ^ fmt) in
         let cmd =
           sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
-            (quote qemu_uri) (quote options) overlay in
+            (quote qemu_uri) (quote options) overlay_file in
         if verbose then printf "%s\n%!" cmd;
         if Sys.command cmd <> 0 then
           error (f_"qemu-img command failed, see earlier errors");
-        overlay, qemu_uri, format
+        overlay_file, source
     ) source.s_disks in
 
   (* Open the guestfs handle. *)
@@ -119,38 +119,45 @@ let rec main () =
   if verbose then g#set_verbose true;
   g#set_network true;
   List.iter (
-    fun (overlay, _, _) ->
-      g#add_drive_opts overlay
+    fun (overlay_file, _) ->
+      g#add_drive_opts overlay_file
         ~format:"qcow2" ~cachemode:"unsafe" ~discard:"besteffort"
   ) overlays;
 
   g#launch ();
+
+  let overlays =
+    mapi (
+      fun i (overlay_file, source) ->
+        (* Grab the virtual size of each disk. *)
+        let sd = "sd" ^ drive_name i in
+        let dev = "/dev/" ^ sd in
+        let vsize = g#blockdev_getsize64 dev in
+
+        { ov_overlay_file = overlay_file; ov_sd = sd;
+          ov_virtual_size = vsize; ov_source = source }
+    ) overlays in
 
   (* Work out where we will write the final output.  Do this early
    * just so we can display errors to the user before doing too much
    * work.
    *)
   msg (f_"Initializing the target %s") output#as_options;
-  let overlays =
-    mapi (
-      fun i (overlay, qemu_uri, backing_format) ->
-        (* Grab the virtual size of each disk. *)
-        let sd = "sd" ^ drive_name i in
-        let dev = "/dev/" ^ sd in
-        let vsize = g#blockdev_getsize64 dev in
-
+  let targets =
+    List.map (
+      fun ov ->
         (* What output format should we use? *)
         let format =
-          match output_format, backing_format with
+          match output_format, ov.ov_source.s_format with
           | Some format, _ -> format    (* -of overrides everything *)
           | None, Some format -> format (* same as backing format *)
           | None, None ->
-            error (f_"disk %s (%s) has no defined format, you have to either define the original format in the source metadata, or use the '-of' option to force the output format") sd qemu_uri in
+            error (f_"disk %s (%s) has no defined format, you have to either define the original format in the source metadata, or use the '-of' option to force the output format") ov.ov_sd ov.ov_source.s_qemu_uri in
 
-        { ov_overlay = overlay; ov_target_file = ""; ov_target_format = format;
-          ov_sd = sd; ov_virtual_size = vsize; ov_source_file = qemu_uri }
+        (* output#prepare_targets will fill in the target_file field. *)
+        { target_file = ""; target_format = format; target_overlay = ov }
     ) overlays in
-  let overlays = output#prepare_output source overlays in
+  let targets = output#prepare_targets source targets in
 
   (* Inspection - this also mounts up the filesystems. *)
   msg (f_"Inspecting the overlay");
@@ -205,16 +212,16 @@ let rec main () =
     at_exit (fun () ->
       if !delete_target_on_exit then (
         List.iter (
-          fun ov -> try Unix.unlink ov.ov_target_file with _ -> ()
-        ) overlays
+          fun t -> try Unix.unlink t.target_file with _ -> ()
+        ) targets
       )
     );
-    let nr_overlays = List.length overlays in
+    let nr_disks = List.length targets in
     iteri (
-      fun i ov ->
+      fun i t ->
         msg (f_"Copying disk %d/%d to %s (%s)")
-          (i+1) nr_overlays ov.ov_target_file ov.ov_target_format;
-        if verbose then printf "%s%!" (string_of_overlay ov);
+          (i+1) nr_disks t.target_file t.target_format;
+        if verbose then printf "%s%!" (string_of_target t);
 
         (* It turns out that libguestfs's disk creation code is
          * considerably more flexible and easier to use than qemu-img, so
@@ -223,30 +230,31 @@ let rec main () =
          *)
         (* What output preallocation mode should we use? *)
         let preallocation =
-          match ov.ov_target_format, output_alloc with
+          match t.target_format, output_alloc with
           | "raw", `Sparse -> Some "sparse"
           | "raw", `Preallocated -> Some "full"
           | "qcow2", `Sparse -> Some "off" (* ? *)
           | "qcow2", `Preallocated -> Some "metadata"
           | _ -> None (* ignore -oa flag for other formats *) in
         let compat =
-          match ov.ov_target_format with "qcow2" -> Some "1.1" | _ -> None in
-        (new G.guestfs ())#disk_create ov.ov_target_file
-          ov.ov_target_format ov.ov_virtual_size ?preallocation ?compat;
+          match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
+        (new G.guestfs ())#disk_create
+          t.target_file t.target_format t.target_overlay.ov_virtual_size
+          ?preallocation ?compat;
 
         let cmd =
           sprintf "qemu-img convert -n -f qcow2 -O %s %s %s"
-            (quote ov.ov_target_format) (quote ov.ov_overlay)
-            (quote ov.ov_target_file) in
+            (quote t.target_format) (quote t.target_overlay.ov_overlay_file)
+            (quote t.target_file) in
         if verbose then printf "%s\n%!" cmd;
         if Sys.command cmd <> 0 then
           error (f_"qemu-img command failed, see earlier errors");
-    ) overlays
+    ) targets
   ) (* do_copy *);
 
   (* Create output metadata. *)
   msg (f_"Creating output metadata");
-  output#create_metadata source overlays guestcaps inspect;
+  output#create_metadata source targets guestcaps inspect;
 
   msg (f_"Finishing off");
   delete_target_on_exit := false;  (* Don't delete target on exit. *)

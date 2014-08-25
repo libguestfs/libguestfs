@@ -68,20 +68,28 @@ val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
 
 type overlay = {
-  ov_overlay : string;       (** Local overlay file (qcow2 format). *)
-  ov_target_file : string;   (** Destination file. *)
-  ov_target_format : string; (** Destination format (eg. -of option). *)
+  ov_overlay_file : string;  (** Local overlay file (qcow2 format). *)
   ov_sd : string;            (** sdX libguestfs name of disk. *)
   ov_virtual_size : int64;   (** Virtual disk size in bytes. *)
 
-  (* Note: The ov_source_file is for information ONLY (eg. printing
+  (* Note: The ov_source is for information ONLY (eg. printing
    * error messages).  It must NOT be opened/read/modified.
    *)
-  ov_source_file : string;          (** qemu URI for source file. *)
+  ov_source : source_disk;   (** Link back to the source disk. *)
 }
-(** Disk overlays and destination disks. *)
+(** Overlay disk. *)
 
 val string_of_overlay : overlay -> string
+
+type target = {
+  target_file : string;      (** Destination file. *)
+  target_format : string;    (** Destination format (eg. -of option). *)
+
+  target_overlay : overlay;  (** Link back to the overlay disk. *)
+}
+(** Target disk. *)
+
+val string_of_target : target -> string
 
 type inspect = {
   i_root : string;                      (** Root device. *)
@@ -133,9 +141,9 @@ class virtual output : bool -> object
   method virtual as_options : string
   (** Converts the output object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
-  method virtual prepare_output : source -> overlay list -> overlay list
+  method virtual prepare_targets : source -> target list -> target list
   (** Called before conversion to prepare the output. *)
-  method virtual create_metadata : source -> overlay list -> guestcaps -> inspect -> unit
+  method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
   (** Called after conversion to finish off and create metadata. *)
   method keep_serial_console : bool
   (** Whether this output supports serial consoles (RHEV does not). *)

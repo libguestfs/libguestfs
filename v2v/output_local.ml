@@ -29,15 +29,15 @@ class output_local verbose dir = object
 
   method as_options = sprintf "-o local -os %s" dir
 
-  method prepare_output source overlays =
+  method prepare_targets source targets =
     List.map (
-      fun ov ->
-        let target_file = dir // source.s_name ^ "-" ^ ov.ov_sd in
-        { ov with ov_target_file = target_file }
-    ) overlays
+      fun t ->
+        let target_file = dir // source.s_name ^ "-" ^ t.target_overlay.ov_sd in
+        { t with target_file = target_file }
+    ) targets
 
-  method create_metadata source overlays guestcaps _ =
-    let doc = Output_libvirt.create_libvirt_xml source overlays guestcaps in
+  method create_metadata source targets guestcaps _ =
+    let doc = Output_libvirt.create_libvirt_xml source targets guestcaps in
 
     let name = source.s_name in
     let file = dir // name ^ ".xml" in

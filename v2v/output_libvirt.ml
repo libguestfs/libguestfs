@@ -33,7 +33,7 @@ let append_attr attr = function
   | PCData _ | Comment _ -> assert false
   | Element e -> e.e_attrs <- e.e_attrs @ [attr]
 
-let create_libvirt_xml ?pool source overlays guestcaps =
+let create_libvirt_xml ?pool source targets guestcaps =
   let memory_k = source.s_memory /^ 1024L in
 
   let features =
@@ -51,25 +51,25 @@ let create_libvirt_xml ?pool source overlays guestcaps =
       match guestcaps.gcaps_block_bus with
       | Virtio_blk -> "virtio" | IDE -> "ide" in
     List.mapi (
-      fun i ov ->
+      fun i t ->
         e "disk" [
           "type", if pool = None then "file" else "volume";
           "device", "disk"
         ] [
           e "driver" [
             "name", "qemu";
-            "type", ov.ov_target_format;
+            "type", t.target_format;
             "cache", "none"
           ] [];
           (match pool with
           | None ->
             e "source" [
-              "file", absolute_path ov.ov_target_file;
+              "file", absolute_path t.target_file;
             ] []
           | Some pool ->
             e "source" [
               "pool", pool;
-              "volume", Filename.basename ov.ov_target_file;
+              "volume", Filename.basename t.target_file;
             ] []
           );
           e "target" [
@@ -77,7 +77,7 @@ let create_libvirt_xml ?pool source overlays guestcaps =
             "bus", block_bus;
           ] [];
         ]
-    ) overlays in
+    ) targets in
 
   let removables =
     (* CDs will be added as IDE devices if we're using virtio, else
@@ -87,7 +87,7 @@ let create_libvirt_xml ?pool source overlays guestcaps =
     let cdrom_bus, cdrom_block_prefix, cdrom_index =
       match guestcaps.gcaps_block_bus with
       | Virtio_blk | IDE -> "ide", "hd", ref 0
-      (* | bus -> bus, "sd", ref (List.length overlays) *) in
+      (* | bus -> bus, "sd", ref (List.length targets) *) in
 
     (* Floppy disks always occupy their own virtual bus. *)
     let fd_bus = "fdc" and fd_index = ref 0 in
@@ -207,7 +207,7 @@ class output_libvirt verbose oc output_pool = object
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
-  method prepare_output source overlays =
+  method prepare_targets source targets =
     (* Connect to output libvirt instance and check that the pool exists
      * and dump out its XML.
      *)
@@ -238,14 +238,15 @@ class output_libvirt verbose oc output_pool = object
     if target_path = "" || not (is_directory target_path) then
       error (f_"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path element either does not exist or is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
 
-    (* Set up the overlays. *)
+    (* Set up the targets. *)
     List.map (
-      fun ov ->
-        let target_file = target_path // source.s_name ^ "-" ^ ov.ov_sd in
-        { ov with ov_target_file = target_file }
-    ) overlays
+      fun t ->
+        let target_file =
+          target_path // source.s_name ^ "-" ^ t.target_overlay.ov_sd in
+        { t with target_file = target_file }
+    ) targets
 
-  method create_metadata source overlays guestcaps _ =
+  method create_metadata source targets guestcaps _ =
     (* We copied directly into the final pool directory.  However we
      * have to tell libvirt.
      *)
@@ -259,7 +260,7 @@ class output_libvirt verbose oc output_pool = object
       warning ~prog (f_"could not refresh libvirt pool %s") output_pool;
 
     (* Create the metadata. *)
-    let doc = create_libvirt_xml ~pool:output_pool source overlays guestcaps in
+    let doc = create_libvirt_xml ~pool:output_pool source targets guestcaps in
 
     let tmpfile, chan = Filename.open_temp_file "v2vlibvirt" ".xml" in
     DOM.doc_to_chan chan doc;
