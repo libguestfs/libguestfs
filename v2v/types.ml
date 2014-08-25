@@ -123,7 +123,6 @@ type overlay = {
   ov_target_format : string;
   ov_sd : string;
   ov_virtual_size : int64;
-  ov_preallocation : string option;
   ov_source_file : string;
   ov_source_format : string option;
 }
@@ -135,7 +134,6 @@ ov_target_file = %s
 ov_target_format = %s
 ov_sd = %s
 ov_virtual_size = %Ld
-ov_preallocation = %s
 ov_source_file = %s
 ov_source_format = %s
 "
@@ -144,7 +142,6 @@ ov_source_format = %s
     ov.ov_target_format
     ov.ov_sd
     ov.ov_virtual_size
-    (match ov.ov_preallocation with None -> "None" | Some s -> s)
     ov.ov_source_file
     (match ov.ov_source_format with None -> "None" | Some s -> s)
 

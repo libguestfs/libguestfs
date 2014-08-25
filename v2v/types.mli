@@ -73,7 +73,6 @@ type overlay = {
   ov_target_format : string; (** Destination format (eg. -of option). *)
   ov_sd : string;            (** sdX libguestfs name of disk. *)
   ov_virtual_size : int64;   (** Virtual disk size in bytes. *)
-  ov_preallocation : string option;     (** ?preallocation option. *)
 
   (* Note: the next two fields are for information only and must not
    * be opened/copied/etc.

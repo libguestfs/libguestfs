@@ -133,7 +133,7 @@ let rec main () =
   msg (f_"Initializing the target %s") output#as_options;
   let overlays =
     initialize_target ~verbose g
-      source output output_alloc output_format output_name overlays in
+      source output output_format output_name overlays in
 
   (* Inspection - this also mounts up the filesystems. *)
   msg (f_"Inspecting the overlay");
@@ -209,7 +209,14 @@ let rec main () =
          * create the disk explicitly using libguestfs then pass the
          * 'qemu-img convert -n' option so qemu reuses the disk.
          *)
-        let preallocation = ov.ov_preallocation in
+        (* What output preallocation mode should we use? *)
+        let preallocation =
+          match ov.ov_target_format, output_alloc with
+          | "raw", `Sparse -> Some "sparse"
+          | "raw", `Preallocated -> Some "full"
+          | "qcow2", `Sparse -> Some "off" (* ? *)
+          | "qcow2", `Preallocated -> Some "metadata"
+          | _ -> None (* ignore -oa flag for other formats *) in
         let compat =
           match ov.ov_target_format with "qcow2" -> Some "1.1" | _ -> None in
         (new G.guestfs ())#disk_create ov.ov_target_file
@@ -236,7 +243,7 @@ let rec main () =
     Gc.compact ()
 
 and initialize_target ~verbose g
-    source output output_alloc output_format output_name overlays =
+    source output output_format output_name overlays =
   let overlays =
     mapi (
       fun i (overlay, qemu_uri, backing_format) ->
@@ -253,19 +260,10 @@ and initialize_target ~verbose g
           | None, None ->
             error (f_"disk %s (%s) has no defined format, you have to either define the original format in the source metadata, or use the '-of' option to force the output format") sd qemu_uri in
 
-        (* What output preallocation mode should we use? *)
-        let preallocation =
-          match format, output_alloc with
-          | "raw", `Sparse -> Some "sparse"
-          | "raw", `Preallocated -> Some "full"
-          | "qcow2", `Sparse -> Some "off" (* ? *)
-          | "qcow2", `Preallocated -> Some "metadata"
-          | _ -> None (* ignore -oa flag for other formats *) in
-
         { ov_overlay = overlay;
           ov_target_file = "";
           ov_target_format = format;
-          ov_sd = sd; ov_virtual_size = vsize; ov_preallocation = preallocation;
+          ov_sd = sd; ov_virtual_size = vsize;
           ov_source_file = qemu_uri; ov_source_format = backing_format }
     ) overlays in
   let overlays = output#prepare_output source overlays in
