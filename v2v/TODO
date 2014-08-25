@@ -2,9 +2,9 @@ Missing features compared to Perl version:
 
  - user-custom in virt-v2v.conf to install custom packages (virt-customize?)
  - Fix configure_kernel on SUSE (see Mike Latimer's email)
- - RHEV-M metadata
  - testing
- - -o libvirt
+
+Progress bars for copy.
 
 p2v:
 
