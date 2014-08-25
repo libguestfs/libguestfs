@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-07-31 10:01+0100\n"
+"POT-Creation-Date: 2014-08-24 22:57+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/fedora/language/"
@@ -2224,7 +2224,7 @@ msgstr ""
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: હેન્ડલ ને બનાવવાનું નિષ્ફળ\n"
 
-#: align/scan.c:153 builder/index-validate.c:84 cat/cat.c:137
+#: align/scan.c:153 builder/index-validate.c:85 cat/cat.c:137
 #: cat/filesystems.c:241 cat/ls.c:224 df/main.c:157 diff/diff.c:262
 #: edit/edit.c:156 fish/fish.c:293 format/format.c:183 fuse/guestmount.c:241
 #: fuse/guestunmount.c:124 inspector/inspector.c:151 make-fs/make-fs.c:142
@@ -2256,43 +2256,43 @@ msgstr ""
 msgid "alignment < 64K"
 msgstr ""
 
-#: builder/index-validate.c:116
+#: builder/index-validate.c:117
 #, c-format
 msgid "%s: %s: error closing input file: %m (ignored)\n"
 msgstr ""
 
-#: builder/index-validate.c:122
+#: builder/index-validate.c:123
 #, c-format
 msgid "%s: '%s' could not be validated, see errors above\n"
 msgstr ""
 
-#: builder/index-validate.c:129
+#: builder/index-validate.c:130
 #, c-format
 msgid "%s: %s contains comments which will not work with virt-builder 1.24.1\n"
 msgstr ""
 
-#: builder/index-validate.c:142
+#: builder/index-validate.c:143
 #, c-format
 msgid ""
 "%s: %s: section [%s] has invalid characters which will not work with virt-"
 "builder 1.24.0\n"
 msgstr ""
 
-#: builder/index-validate.c:153
+#: builder/index-validate.c:154
 #, c-format
 msgid ""
 "%s: %s: section [%s], field '%s' has invalid characters which will not work "
 "with virt-builder 1.24.0\n"
 msgstr ""
 
-#: builder/index-validate.c:162
+#: builder/index-validate.c:163
 #, c-format
 msgid ""
 "%s: %s: section [%s], field '%s' has invalid characters which will not work "
 "with virt-builder 1.24.1\n"
 msgstr ""
 
-#: builder/index-validate.c:173
+#: builder/index-validate.c:174
 #, c-format
 msgid ""
 "%s: %s: section [%s] is missing a 'sig' field which will not work with virt-"
@@ -6356,72 +6356,72 @@ msgstr ""
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:690
+#: src/drives.c:695
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:702
+#: src/drives.c:707
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:709
+#: src/drives.c:714
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:720
+#: src/drives.c:725
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:802
+#: src/drives.c:809
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:811
+#: src/drives.c:818
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:817 src/drives.c:823
+#: src/drives.c:824 src/drives.c:830
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:829
+#: src/drives.c:836
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:835
+#: src/drives.c:842
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:842
+#: src/drives.c:849
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:847
+#: src/drives.c:854
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:851
+#: src/drives.c:858
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:914
+#: src/drives.c:921
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:932 src/drives.c:1080
+#: src/drives.c:939 src/drives.c:1087
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:938
+#: src/drives.c:945
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1065
+#: src/drives.c:1072
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""

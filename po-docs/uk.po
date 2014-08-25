@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-07-04 12:43+0200\n"
+"POT-Creation-Date: 2014-08-24 22:57+0200\n"
 "PO-Revision-Date: 2014-03-26 16:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -80078,7 +80078,9 @@ msgstr ""
 
 #. type: =item
 #: ../src/guestfs.pod:3923
-msgid "C</dev/sdb> 50MB"
+#, fuzzy
+#| msgid "C</dev/sdb> 50MB"
+msgid "C</dev/sdb> 500MB"
 msgstr "C</dev/sdb> 50 МБ"
 
 #. type: textblock
