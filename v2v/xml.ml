@@ -31,6 +31,7 @@ type node = doc * node_ptr
 external parse_memory : string -> doc = "v2v_xml_parse_memory"
 external xpath_new_context : doc -> xpathctx = "v2v_xml_xpath_new_context"
 external xpath_eval_expression : xpathctx -> string -> xpathobj = "v2v_xml_xpath_eval_expression"
+external xpath_register_ns : xpathctx -> string -> string -> unit = "v2v_xml_xpath_register_ns"
 
 external xpathobj_nr_nodes : xpathobj -> int = "v2v_xml_xpathobj_nr_nodes"
 external xpathobj_get_node_ptr : xpathobj -> int -> node_ptr = "v2v_xml_xpathobj_get_node_ptr"

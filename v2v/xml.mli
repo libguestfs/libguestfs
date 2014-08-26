@@ -29,6 +29,8 @@ val xpath_new_context : doc -> xpathctx
 (** xmlXPathNewContext *)
 val xpath_eval_expression : xpathctx -> string -> xpathobj
 (** xmlXPathEvalExpression *)
+val xpath_register_ns : xpathctx -> string -> string -> unit
+(** xmlXPathRegisterNs *)
 
 val xpathobj_nr_nodes : xpathobj -> int
 (** Get the number of nodes in the nodeset of the xmlXPathObjectPtr. *)
