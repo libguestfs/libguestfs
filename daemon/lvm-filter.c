@@ -25,11 +25,29 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
+#include <augeas.h>
+
 #include "c-ctype.h"
 #include "ignore-value.h"
 
 #include "daemon.h"
 #include "actions.h"
+
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_AUG_CLOSE __attribute__((cleanup(cleanup_aug_close)))
+
+static void
+cleanup_aug_close (void *ptr)
+{
+  augeas *aug = * (augeas **) ptr;
+
+  if (aug != NULL)
+    aug_close (aug);
+}
+
+#else
+#define CLEANUP_AUG_CLOSE
+#endif
 
 GUESTFSD_EXT_CMD(str_lvm, lvm);
 GUESTFSD_EXT_CMD(str_cp, cp);
@@ -107,87 +125,76 @@ rm_lvm_system_dir (void)
   ignore_value (system (cmd));
 }
 
-/* Does the current line match the regexp /^\s*filter\s*=/ */
-static int
-is_filter_line (const char *line)
-{
-  while (*line && c_isspace (*line))
-    line++;
-  if (!*line)
-    return 0;
-
-  if (! STRPREFIX (line, "filter"))
-    return 0;
-  line += 6;
-
-  while (*line && c_isspace (*line))
-    line++;
-  if (!*line)
-    return 0;
-
-  if (*line != '=')
-    return 0;
-
-  return 1;
-}
-
 /* Rewrite the 'filter = [ ... ]' line in lvm.conf. */
 static int
-set_filter (const char *filter)
+set_filter (char *const *filters)
 {
-  char lvm_conf[64];
-  snprintf (lvm_conf, sizeof lvm_conf, "%s/lvm/lvm.conf", lvm_system_dir);
+  CLEANUP_AUG_CLOSE augeas *aug = NULL;
+  int r;
+  int count;
 
-  char lvm_conf_new[64];
-  snprintf (lvm_conf_new, sizeof lvm_conf, "%s/lvm/lvm.conf.new",
-            lvm_system_dir);
-
-  FILE *ifp = fopen (lvm_conf, "r");
-  if (ifp == NULL) {
-    reply_with_perror ("open: %s", lvm_conf);
-    return -1;
-  }
-  FILE *ofp = fopen (lvm_conf_new, "w");
-  if (ofp == NULL) {
-    reply_with_perror ("open: %s", lvm_conf_new);
-    fclose (ifp);
+  /* Small optimization: do not load the files at init time,
+   * but do that only after having applied the transformation.
+   */
+  const int flags = AUG_NO_ERR_CLOSE | AUG_NO_LOAD;
+  aug = aug_init (lvm_system_dir, "/usr/share/guestfs/", flags);
+  if (!aug) {
+    reply_with_error ("augeas initialization failed");
     return -1;
   }
 
-  CLEANUP_FREE char *line = NULL;
-  size_t allocsize = 0;
-  while (getline (&line, &allocsize, ifp) != -1) {
-    int r;
-    if (is_filter_line (line)) {
-      r = fprintf (ofp, "    filter = [ %s ]\n", filter);
-    } else {
-      r = fprintf (ofp, "%s", line);
-    }
-    if (r < 0) {
-      /* NB. fprintf doesn't set errno on error. */
-      reply_with_error ("%s: write failed", lvm_conf_new);
-      fclose (ifp);
-      fclose (ofp);
-      unlink (lvm_conf_new);
+  if (aug_error (aug) != AUG_NOERROR) {
+    AUGEAS_ERROR ("aug_init");
+    return -1;
+  }
+
+  r = aug_transform (aug, "guestfs_lvm_conf", "/lvm/lvm.conf",
+                     0 /* = included */);
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_transform");
+    return -1;
+  }
+
+  if (aug_load (aug) == -1) {
+    AUGEAS_ERROR ("aug_load");
+    return -1;
+  }
+
+  /* Remove all the old filters ... */
+  r = aug_rm (aug, "/files/lvm/lvm.conf/devices/dict/filter/list/*");
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_rm");
+    return -1;
+  }
+
+  /* ... and add the new ones. */
+  for (count = 0; filters[count] != NULL; ++count) {
+    char buf[128];
+
+    snprintf (buf, sizeof buf,
+              "/files/lvm/lvm.conf/devices/dict/filter/list/%d/str",
+              count + 1);
+
+    if (aug_set (aug, buf, filters[count]) == -1) {
+      AUGEAS_ERROR ("aug_set: %d: %s", count, filters[count]);
       return -1;
     }
   }
 
-  if (fclose (ifp) == EOF) {
-    reply_with_perror ("close: %s", lvm_conf);
-    unlink (lvm_conf_new);
-    fclose (ofp);
+  /* Safety check for the written filter nodes. */
+  r = aug_match (aug, "/files/lvm/lvm.conf/devices/dict/filter/list/*/str",
+                 NULL);
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_match");
     return -1;
   }
-  if (fclose (ofp) == EOF) {
-    reply_with_perror ("close: %s", lvm_conf_new);
-    unlink (lvm_conf_new);
+  if (r != count) {
+    reply_with_error ("filters# vs matches mismatch: %d vs %d", count, r);
     return -1;
   }
 
-  if (rename (lvm_conf_new, lvm_conf) == -1) {
-    reply_with_perror ("rename: %s", lvm_conf);
-    unlink (lvm_conf_new);
+  if (aug_save (aug) == -1) {
+    AUGEAS_ERROR ("aug_save");
     return -1;
   }
 
@@ -240,25 +247,16 @@ rescan (void)
   return 0;
 }
 
-/* Construct the new, specific filter string.  We can assume that
+/* Construct the new, specific filter strings.  We can assume that
  * the 'devices' array does not contain any regexp metachars,
  * because it's already been checked by the stub code.
  */
-static char *
-make_filter_string (char *const *devices)
+static char **
+make_filter_strings (char *const *devices)
 {
   size_t i;
-  size_t len = 64;
-  for (i = 0; devices[i] != NULL; ++i)
-    len += 2 * strlen (devices[i]) + 64;
+  DECLARE_STRINGSBUF (ret);
 
-  char *filter = malloc (len);
-  if (filter == NULL) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-
-  char *p = filter;
   for (i = 0; devices[i] != NULL; ++i) {
     /* Because of the way matching works in LVM (yes, they wrote their
      * own regular expression engine!), each match clause should be either:
@@ -269,33 +267,38 @@ make_filter_string (char *const *devices)
      *     "a|^/dev/sda$|", "a|^/dev/sda[0-9]|",
      */
     size_t slen = strlen (devices[i]);
-    char str[2*slen+64];
 
-    if (c_isdigit (devices[i][slen-1])) /* single partition */
-      snprintf (str, 2*slen+64, "\"a|^%s$|\", ", devices[i]);
-    else                        /* whole block device */
-      snprintf (str, 2*slen+64, "\"a|^%s$|\", \"a|^%s[0-9]|\", ",
-                devices[i], devices[i]);
+    if (add_sprintf (&ret, "a|^%s$|", devices[i]) == -1)
+      goto error;
 
-    strcpy (p, str);
-    p += strlen (str);
+    if (!c_isdigit (devices[i][slen-1])) {
+      /* whole block device */
+      if (add_sprintf (&ret, "a|^%s[0-9]|", devices[i]) == -1)
+        goto error;
+    }
   }
-  strcpy (p, "\"r|.*|\"");
+  if (add_string (&ret, "r|.*|") == -1)
+    goto error;
 
-  return filter;                /* Caller must free. */
+  end_stringsbuf (&ret);
+  return ret.argv;
+error:
+  if (ret.argv)
+    free_stringslen (ret.argv, ret.size);
+  return NULL;
 }
 
 int
 do_lvm_set_filter (char *const *devices)
 {
-  CLEANUP_FREE char *filter = make_filter_string (devices);
-  if (filter == NULL)
+  CLEANUP_FREE_STRING_LIST char **filters = make_filter_strings (devices);
+  if (filters == NULL)
     return -1;
 
   if (deactivate () == -1)
     return -1;
 
-  int r = set_filter (filter);
+  int r = set_filter (filters);
   if (r == -1)
     return -1;
 
@@ -308,10 +311,12 @@ do_lvm_set_filter (char *const *devices)
 int
 do_lvm_clear_filter (void)
 {
+  const char *const filters[2] = { "a/.*/", NULL };
+
   if (deactivate () == -1)
     return -1;
 
-  if (set_filter ("\"a/.*/\"") == -1)
+  if (set_filter ((char *const *) filters) == -1)
     return -1;
 
   if (rescan () == -1)
