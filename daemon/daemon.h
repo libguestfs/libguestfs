@@ -416,6 +416,23 @@ is_zero (const char *buffer, size_t size)
     }                                                   \
     while (0)
 
+/* Calls reply_with_error, but includes the Augeas error details. */
+#define AUGEAS_ERROR(fs,...)                                            \
+  do {                                                                  \
+    int code = aug_error (aug);                                         \
+    if (code == AUG_ENOMEM)                                             \
+      reply_with_error (fs ": augeas out of memory", ##__VA_ARGS__);    \
+    else {                                                              \
+      const char *message = aug_error_message (aug);                    \
+      const char *minor = aug_error_minor_message (aug);                \
+      const char *details = aug_error_details (aug);                    \
+      reply_with_error (fs ": %s%s%s%s%s", ##__VA_ARGS__,               \
+                          message,                                      \
+                          minor ? ": " : "", minor ? minor : "",        \
+                          details ? ": " : "", details ? details : ""); \
+    }                                                                   \
+  } while (0)
+
 #ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_FREE __attribute__((cleanup(cleanup_free)))
 #define CLEANUP_FREE_STRING_LIST                        \
