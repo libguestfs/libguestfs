@@ -61,8 +61,16 @@ object
         | Some _, Some "" ->
           None, None
 
-        | Some _, Some "esx" ->         (* esx://... *)
-          let f = Lib_esx.map_path_to_uri uri in
+        | Some server, Some ("esx"|"gsx"|"vpx" as scheme) -> (* ESX *)
+          (* Check the backend is not libvirt.  Works around a libvirt bug
+           * (RHBZ#1134592).
+           *)
+          let libguestfs_backend = (new Guestfs.guestfs ())#get_backend () in
+          if libguestfs_backend = "libvirt" then (
+            error (f_"ESX: because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
+          );
+
+          let f = Lib_esx.map_path_to_uri verbose uri scheme server in
           Some f, Some f
 
         (* XXX Missing: Look for qemu+ssh://, xen+ssh:// and use an ssh

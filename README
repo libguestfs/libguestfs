@@ -52,7 +52,8 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | qemu         | 1.2.0       | R | 1.1 may work, but has broken virtio-scsi|
 +--------------+-------------+---+-----------------------------------------+
-| qemu-img     |             | R |                                         |
+| qemu-img     |             | R | >= 2.2.0 is required for virt-v2v but   |
+|              |             |   | optional elsewhere                      |
 +--------------+-------------+---+-----------------------------------------+
 | kernel       | 2.6.34      | R | Make sure the following are enabled     |
 |              |             |   | compiled in or as a module:             |

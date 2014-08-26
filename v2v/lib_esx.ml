@@ -18,12 +18,17 @@
 
 (** Functions for dealing with ESX. *)
 
+open Common_gettext.Gettext
+open Common_utils
+
 open Xml
 open Utils
 
 open Printf
 
 let esx_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
+
+let session_cookie = ref ""
 
 (* Map an ESX <source/> to a qemu URI using the cURL driver
  * in qemu.  The 'path' will be something like
@@ -32,48 +37,183 @@ let esx_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
  *
  * including those literal spaces in the string.
  *
- * We want to convert that into the following URL:
- *   "https://user:password@server/folder/Fedora 20/Fedora 20-flat.vmdk" ^
- *     "?dcPath=ha-datacenter&dsName=datastore1"
- *
- * Note that the URL we create here is passed to qemu-img and is
- * ultimately parsed by curl_easy_setopt (CURLOPT_URL).
- *
  * XXX Old virt-v2v could also handle snapshots, ie:
  *
  *   "[datastore1] Fedora 20/Fedora 20-NNNNNN.vmdk"
  *
- * However this requires access to the server which we don't necessarily
- * have here.
+ * XXX Need to handle templates.  The file is called "-delta.vmdk" in
+ * place of "-flat.vmdk".
  *)
-let map_path_to_uri uri path format =
+let rec map_path_to_uri verbose uri scheme server path format =
   if not (Str.string_match esx_re path 0) then
     path, format
   else (
     let datastore = Str.matched_group 1 path
-    and vmdk = Str.matched_group 2 path in
+    and path = Str.matched_group 2 path in
 
-    let user =
-      match uri.uri_user with
-      | None -> ""
-      | Some user -> user ^ "@" (* No need to quote it, see RFC 2617. *) in
-    let server =
-      match uri.uri_server with
-      | None -> assert false (* checked by caller *)
-      | Some server -> server in
+    (* Get the datacenter. *)
+    let datacenter = get_datacenter uri scheme in
+
     let port =
       match uri.uri_port with
       | 443 -> ""
       | n when n >= 1 -> ":" ^ string_of_int n
       | _ -> "" in
 
-    let qemu_uri =
+    let url =
       sprintf
-        "https://%s%s%s/folder/%s-flat.vmdk?dcPath=ha-datacenter&dsName=%s"
-        user server port vmdk (uri_quote datastore) in
+        "https://%s%s/folder/%s-flat.vmdk?dcPath=%s&dsName=%s"
+        server port
+        (uri_quote path) (uri_quote datacenter) (uri_quote datastore) in
+
+    (* If no_verify=1 was passed in the libvirt URI, then we have to
+     * turn off certificate verification here too.
+     *)
+    let sslverify =
+      match uri.uri_query_raw with
+      | None -> true
+      | Some query ->
+        (* XXX only works if the query string is not URI-quoted *)
+        string_find query "no_verify=1" = -1 in
+
+    (* Now we have to query the server to get the session cookie. *)
+    let session_cookie = get_session_cookie verbose uri sslverify url in
+
+    (* Construct the JSON parameters. *)
+    let json_params = [
+      "file.driver", "https";
+      "file.url", url;
+      "file.timeout", "60";
+    ] in
+
+    let json_params =
+      if sslverify then json_params
+      else ("file.sslverify", "off") :: json_params in
+
+    let json_params =
+      match session_cookie with
+      | None -> json_params
+      | Some cookie -> ("file.cookie", cookie) :: json_params in
+
+    if verbose then (
+      printf "esx: json parameters:\n";
+      List.iter (fun (n, v) -> printf "  %s : %s\n" n v) json_params
+    );
+
+    (* Turn the JSON parameters into a 'json:' protocol string.
+     *
+     * Notes:
+     *
+     * (1) This requires qemu-img >= 2.1.0.
+     *
+     * (2) We don't 'quote' the commas, because in {!V2v} we pass the
+     * option to qemu-img create -b (not -o backing_file=...) and so
+     * extra quoting of commas is not required.  However if we changed
+     * things in future then we might requiring quoting of commas to be
+     * added somewhere.
+     *)
+    let qemu_uri =
+      sprintf "json: { %s }"
+        (String.concat " , " (
+          List.map
+            (fun (n, v) -> sprintf "\"%s\" : \"%s\"" n (json_quote v))
+            json_params
+         )
+        ) in
 
     (* The libvirt ESX driver doesn't normally specify a format, but
      * the format of the -flat file is *always* raw, so force it here.
      *)
     qemu_uri, Some "raw"
+  )
+
+and get_datacenter uri scheme =
+  let default_dc = "ha-datacenter" in
+  match scheme with
+  | "vpx" ->           (* Hopefully the first part of the path. *)
+    (match uri.uri_path with
+    | None ->
+      warning ~prog (f_"esx: URI (-ic parameter) contains no path, so we cannot determine the datacenter name");
+      default_dc
+    | Some path ->
+      let path =
+        let len = String.length path in
+        if len > 0 && path.[0] = '/' then
+          String.sub path 1 (len-1)
+        else path in
+      let len =
+        try String.index path '/' with Not_found -> String.length path in
+      String.sub path 0 len
+    );
+  | "esx" -> (* Connecting to an ESXi hypervisor directly, so it's fixed. *)
+    default_dc
+  | _ ->                            (* Don't know, so guess. *)
+    default_dc
+
+and get_session_cookie verbose uri sslverify url =
+  (* Memoize the session cookie. *)
+  if !session_cookie <> "" then
+    Some !session_cookie
+  else (
+    let cmd =
+      sprintf "curl -s%s%s%s -I %s ||:"
+        (if not sslverify then " --insecure" else "")
+        (match uri.uri_user with Some _ -> " -u" | None -> "")
+        (match uri.uri_user with Some user -> " " ^ quote user | None -> "")
+        (quote url) in
+    let lines = external_command ~prog cmd in
+
+    let dump_response chan =
+      fprintf chan "%s\n" cmd;
+      List.iter (fun x -> fprintf chan "%s\n" x) lines
+    in
+
+    if verbose then dump_response stdout;
+
+    (* Look for the last HTTP/x.y NNN status code in the output. *)
+    let status = ref "" in
+    List.iter (
+      fun line ->
+        let len = String.length line in
+        if len >= 12 && String.sub line 0 5 = "HTTP/" then
+          status := String.sub line 9 3
+    ) lines;
+    let status = !status in
+    if status = "" then (
+      dump_response stderr;
+      error (f_"esx: no status code in output of 'curl' command.  Is 'curl' installed?")
+    );
+
+    if status = "401" then (
+      dump_response stderr;
+      error (f_"esx: incorrect username or password")
+    );
+
+    if status = "404" then (
+      dump_response stderr;
+      error (f_"esx: URL not found: %s") url
+    );
+
+    if status <> "200" then (
+      dump_response stderr;
+      error (f_"esx: invalid response from server")
+    );
+
+    (* Get the cookie. *)
+    List.iter (
+      fun line ->
+        let len = String.length line in
+        if len >= 12 && String.sub line 0 12 = "Set-Cookie: " then (
+          let line = String.sub line 12 (len-12) in
+          let cookie, _ = string_split ";" line in
+          session_cookie := cookie
+        )
+    ) lines;
+    if !session_cookie = "" then (
+      dump_response stderr;
+      warning ~prog (f_"esx: could not read session cookie from the vCenter Server, conversion may consume all sessions on the server and fail part way through");
+      None
+    )
+    else
+      Some !session_cookie
   )

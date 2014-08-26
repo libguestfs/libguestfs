@@ -4,9 +4,9 @@ virt-v2v - Convert a guest to use KVM
 
 =head1 SYNOPSIS
 
- virt-v2v -ic esx://esx.example.com/ esx_guest
+ virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest
 
- virt-v2v -ic esx://esx.example.com/ \
+ virt-v2v -ic vpx://esx.example.com/Datacenter/esxi \
    -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
 
  virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml
@@ -63,16 +63,20 @@ I<-o rhev> is used to write to a RHEV-M / oVirt target.
 
 =head1 EXAMPLES
 
-=head2 Convert from VMware ESX server to local libvirt
+=head2 Convert from VMware vCenter server to local libvirt
 
-You have a VMware ESX server called C<esx.example.com>.  You want to
-convert a guest called C<esx_guest> to run locally under libvirt.
+You have a VMware vCenter server called C<esx.example.com>, a
+datacenter called C<Datacenter>, and an ESXi hypervisor called
+C<esxi>.  You want to convert a guest called C<esx_guest> to run
+locally under libvirt.
 
- virt-v2v -ic esx://example.com esx_guest
+ virt-v2v -ic vpx://example.com/Datacenter/esxi esx_guest
 
 In this case you will most likely have to run virt-v2v as C<root>,
 since it needs to talk to the system libvirt daemon and copy the guest
 disks to C</var/lib/libvirt/images>.
+
+For more information see L</INPUT FROM VMWARE VCENTER SERVER> below.
 
 =head2 Convert from ESX to RHEV-M/oVirt
 
@@ -83,7 +87,7 @@ the location of the Export Storage Domain you should check the
 settings on your RHEV-M management console.  Guest network
 interface(s) are connected to the target network called C<rhevm>.
 
- virt-v2v -ic esx://esx.example.com/ \
+ virt-v2v -ic vpx://esx.example.com/Datacenter/esxi \
    -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
 
 In this case the host running virt-v2v acts as a B<conversion server>.
@@ -168,6 +172,8 @@ is only used when S<I<-i libvirt>>.
 
 Only local libvirt connections and ESX connections can be used.
 Remote libvirt connections will not work in general.
+
+See also L</INPUT FROM VMWARE VCENTER SERVER> below.
 
 =item B<-if> format
 
@@ -529,6 +535,76 @@ I<--bridge> option instead.  For example:
      Bridge "br0"
  
  $ virt-v2v [...] --bridge br0:targetbr
+
+=head1 INPUT FROM VMWARE VCENTER SERVER
+
+Virt-v2v is able to import guests from VMware vCenter Server.
+
+Note that virt-v2v B<cannot> import guests directly from an ESXi
+hypervisor.
+
+Virt-v2v uses libvirt for access to vCenter, and therefore the input
+mode should be I<-i libvirt>.  As this is the default, you don't need
+to specify it on the command line.
+
+The libvirt URI of a vCenter server looks something like this:
+
+ vpx://user@server/Datacenter/esxi
+
+where C<user@> is the (optional, but recommended) user to connect as,
+C<server> is the vCenter Server (I<not> hypervisor), C<Datacenter> is
+the name of the datacenter, and C<esxi> is the name of the ESXi
+hypervisor running the guest.
+
+For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
+
+=head2 ESX: TEST LIBVIRT CONNECTION TO VCENTER
+
+Use the L<virsh(1)> command to list the guests on the vCenter Server
+like this:
+
+ $ virsh -c 'vpx://root@esx.example.com/Datacenter/esxi' list --all
+ Enter root's password for esx.example.com: ***
+ 
+  Id    Name                           State
+ ----------------------------------------------------
+  -     Fedora 20                      shut off
+  -     Windows 2003                   shut off
+
+If you get an error "Peer certificate cannot be authenticated with
+given CA certificates" or similar, then you can either import the ESX
+host's certificate, or bypass signature verification by adding the
+C<?no_verify=1> flag:
+
+ $ virsh -c 'vpx://root@esx.example.com/Datacenter/esxi?no_verify=1' list --all
+
+You should also try dumping the metadata from any guest on your
+server, like this:
+
+ $ virsh -c 'vpx://root@esx.example.com/Datacenter/esxi' dumpxml "Windows 2003"
+ <domain type='vmware'>
+   <name>Windows 2003</name>
+   [...]
+ </domain>
+
+B<If the above commands do not work, then virt-v2v is not going to
+work either>.  Fix your libvirt configuration and/or your VMware
+vCenter Server before continuing.
+
+=head2 ESX: IMPORTING A GUEST
+
+To import a particular guest from vCenter Server, do:
+
+ $ virt-v2v -ic 'esx://root@esx.example.com/Datacenter/esxi?no_verify=1' \
+   "Windows 2003" \
+   -o local -os /var/tmp
+
+where C<Windows 2003> is the name of the guest (which must be shut
+down).
+
+In this case the output flags are set to write the converted guest to
+a temporary directory as this is just an example, but you can also
+write to libvirt or RHEV.
 
 =head1 OUTPUT TO LIBVIRT
 
