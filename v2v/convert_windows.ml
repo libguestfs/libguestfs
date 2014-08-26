@@ -215,7 +215,6 @@ echo uninstalling Xen PV driver
   and install_virtio_drivers root current_cs =
     (* Copy the virtio drivers to the guest. *)
     let driverdir = sprintf "%s/Drivers/VirtIO" systemroot in
-    let driverdir = g#case_sensitive_path driverdir in
     g#mkdir_p driverdir;
 
     (* See if the drivers for this guest are available in virtio_win_dir. *)
