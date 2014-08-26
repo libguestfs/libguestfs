@@ -476,6 +476,26 @@ add_string (struct stringsbuf *sb, const char *str)
 }
 
 int
+add_sprintf (struct stringsbuf *sb, const char *fs, ...)
+{
+  va_list args;
+  char *str;
+  int r;
+
+  va_start (args, fs);
+  r = vasprintf (&str, fs, args);
+  va_end (args);
+  if (r == -1) {
+    reply_with_perror ("vasprintf");
+    free_stringslen (sb->argv, sb->size);
+    sb->argv = NULL;
+    return -1;
+  }
+
+  return add_string_nodup (sb, str);
+}
+
+int
 end_stringsbuf (struct stringsbuf *sb)
 {
   return add_string_nodup (sb, NULL);
