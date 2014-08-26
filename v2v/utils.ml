@@ -34,16 +34,16 @@ let quote = Filename.quote
  * quotes around the attribute.
  *)
 let xml_quote_attr str =
-  let str = Common_utils.replace_str str "&" "&amp;" in
-  let str = Common_utils.replace_str str "'" "&apos;" in
-  let str = Common_utils.replace_str str "<" "&lt;" in
-  let str = Common_utils.replace_str str ">" "&gt;" in
+  let str = replace_str str "&" "&amp;" in
+  let str = replace_str str "'" "&apos;" in
+  let str = replace_str str "<" "&lt;" in
+  let str = replace_str str ">" "&gt;" in
   str
 
 let xml_quote_pcdata str =
-  let str = Common_utils.replace_str str "&" "&amp;" in
-  let str = Common_utils.replace_str str "<" "&lt;" in
-  let str = Common_utils.replace_str str ">" "&gt;" in
+  let str = replace_str str "&" "&amp;" in
+  let str = replace_str str "<" "&lt;" in
+  let str = replace_str str ">" "&gt;" in
   str
 
 (* URI quoting. *)
