@@ -9,9 +9,9 @@ virt-v2v - Convert a guest to use KVM
  virt-v2v -ic esx://esx.example.com/ \
    -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
 
- virt-v2v -i libvirtxml -o local -os /tmp guest-domain.xml
+ virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml
 
- virt-v2v -i disk -o local -os /tmp disk.img
+ virt-v2v -i disk -o local -os /var/tmp disk.img
 
 =head1 DESCRIPTION
 
@@ -97,17 +97,17 @@ user interface.
 Given a disk image from another hypervisor that you want to convert to
 run on KVM, you have two options.  The simplest way is to try:
 
- virt-v2v -i disk -o local -os /tmp disk.img
+ virt-v2v -i disk -o local -os /var/tmp disk.img
 
 where virt-v2v guesses everything about the input C<disk.img> and (in
-this case) writes the converted result to C</tmp>.
+this case) writes the converted result to C</var/tmp>.
 
 A more complex method is to write some
 L<libvirt XML|http://libvirt.org/formatdomain.html> describing the
 input guest (if you can get the source hypervisor to provide you with
 libvirt XML, then so much the better).  You can then do:
 
- virt-v2v -i libvirtxml -o local -os /tmp guest-domain.xml
+ virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml
 
 Since C<guest-domain.xml> contains the path(s) to the guest disk
 image(s) you do not need to specify the name of the disk image on the
@@ -563,12 +563,12 @@ you have to use the following workaround:
 Use virt-v2v in I<-o local> mode to convert the guest disks and
 metadata into a local temporary directory:
 
- virt-v2v [...] -o local -os /tmp
+ virt-v2v [...] -o local -os /var/tmp
 
-This creates two (or more) files in C</tmp> called:
+This creates two (or more) files in C</var/tmp> called:
 
- /tmp/NAME.xml     # the libvirt XML (metadata)
- /tmp/NAME-sda     # the guest's first disk
+ /var/tmp/NAME.xml     # the libvirt XML (metadata)
+ /var/tmp/NAME-sda     # the guest's first disk
 
 (for C<NAME> substitute the guest's name).
 
@@ -576,18 +576,18 @@ This creates two (or more) files in C</tmp> called:
 
 Upload the converted disk(s) into the storage pool called C<POOL>:
 
- size=$(stat -c%s /tmp/NAME-sda)
+ size=$(stat -c%s /var/tmp/NAME-sda)
  virsh vol-create-as POOL NAME-sda $size --format raw
- virsh vol-upload --pool POOL NAME-sda /tmp/NAME-sda
+ virsh vol-upload --pool POOL NAME-sda /var/tmp/NAME-sda
 
 =item 3.
 
-Edit C</tmp/NAME.xml> to change C</tmp/NAME-sda> to the pool name.
-In other words, locate the following bit of XML:
+Edit C</var/tmp/NAME.xml> to change C</var/tmp/NAME-sda> to the pool
+name.  In other words, locate the following bit of XML:
 
  <disk type='file' device='disk'>
    <driver name='qemu' type='raw' cache='none' />
-   <source file='/tmp/NAME-sda' />
+   <source file='/var/tmp/NAME-sda' />
    <target dev='hda' bus='ide' />
  </disk>
 
