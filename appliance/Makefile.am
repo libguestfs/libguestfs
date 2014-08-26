@@ -21,6 +21,7 @@ EXTRA_DIST = \
 	99-guestfs-serial.rules \
 	excludefiles.in \
 	guestfsd.suppressions \
+	guestfs_lvm_conf.aug \
 	hostfiles.in \
 	init \
 	libguestfs-make-fixed-appliance.in \
@@ -74,12 +75,13 @@ packagelist: packagelist.in Makefile
 	cmp -s $@ $@-t || mv $@-t $@
 	rm -f $@-t
 
-supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions
+supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions guestfs_lvm_conf.aug
 	rm -f $@ $@-t
 	rm -rf tmp-d
-	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc
+	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc tmp-d/usr/share/guestfs
 	ln ../daemon/guestfsd tmp-d$(DAEMON_SUPERMIN_DIR)/guestfsd
 	ln $(srcdir)/guestfsd.suppressions tmp-d/etc/guestfsd.suppressions
+	ln $(srcdir)/guestfs_lvm_conf.aug tmp-d/usr/share/guestfs/guestfs_lvm_conf.aug
 	( cd tmp-d && tar zcf - * ) > $@-t
 	rm -r tmp-d
 	mv $@-t $@
