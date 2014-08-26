@@ -215,7 +215,7 @@ class output_libvirt verbose oc output_pool = object
       match oc with
       | None -> sprintf "virsh pool-dumpxml %s" (quote output_pool)
       | Some uri ->
-        sprintf "virsh -c %s dumpxml %s" (quote uri) (quote output_pool) in
+        sprintf "virsh -c %s pool-dumpxml %s" (quote uri) (quote output_pool) in
     let lines = external_command ~prog cmd in
     let xml = String.concat "\n" lines in
     let doc = Xml.parse_memory xml in
