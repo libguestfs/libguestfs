@@ -19,3 +19,4 @@
 (* [virsh dumpxml] but with non-broken authentication handling. *)
 
 external dumpxml : ?conn:string -> string -> string = "v2v_dumpxml"
+external pool_dumpxml : ?conn:string -> string -> string = "v2v_pool_dumpxml"

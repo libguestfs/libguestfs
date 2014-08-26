@@ -114,10 +114,63 @@ v2v_dumpxml (value connv, value domnamev)
   CAMLreturn (retv);
 }
 
+value
+v2v_pool_dumpxml (value connv, value poolnamev)
+{
+  CAMLparam2 (connv, poolnamev);
+  CAMLlocal1 (retv);
+  const char *conn_uri = NULL;
+  const char *poolname;
+  virConnectPtr conn;
+  virStoragePoolPtr pool;
+  char *xml;
+
+  if (connv != Val_int (0))
+    conn_uri = String_val (Field (connv, 0)); /* Some conn */
+
+  /* We have to call the default authentication handler, not least
+   * since it handles all the PolicyKit crap.  However it also makes
+   * coding this simpler.
+   */
+  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault, VIR_CONNECT_RO);
+  if (conn == NULL) {
+    if (conn_uri)
+      raise_error ("cannot open libvirt connection '%s'", conn_uri);
+    else
+      raise_error ("cannot open libvirt connection");
+  }
+
+  /* Look up the pool. */
+  poolname = String_val (poolnamev);
+
+  pool = virStoragePoolLookupByName (conn, poolname);
+  if (!pool) {
+    virConnectClose (conn);
+    raise_error ("cannot find libvirt pool '%s'", poolname);
+  }
+
+  xml = virStoragePoolGetXMLDesc (pool, 0);
+  virStoragePoolFree (pool);
+  virConnectClose (conn);
+  if (xml == NULL)
+    raise_error ("cannot fetch XML description of guest '%s'", poolname);
+
+  retv = caml_copy_string (xml);
+  free (xml);
+
+  CAMLreturn (retv);
+}
+
 #else /* !HAVE_LIBVIRT */
 
 value
 v2v_dumpxml (value connv, value domv)
+{
+  caml_invalid_argument ("virt-v2v was compiled without libvirt support");
+}
+
+value
+v2v_pool_dumpxml (value connv, value poolv)
 {
   caml_invalid_argument ("virt-v2v was compiled without libvirt support");
 }

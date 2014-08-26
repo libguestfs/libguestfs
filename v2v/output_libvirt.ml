@@ -211,13 +211,7 @@ class output_libvirt verbose oc output_pool = object
     (* Connect to output libvirt instance and check that the pool exists
      * and dump out its XML.
      *)
-    let cmd =
-      match oc with
-      | None -> sprintf "virsh pool-dumpxml %s" (quote output_pool)
-      | Some uri ->
-        sprintf "virsh -c %s pool-dumpxml %s" (quote uri) (quote output_pool) in
-    let lines = external_command ~prog cmd in
-    let xml = String.concat "\n" lines in
+    let xml = Domainxml.pool_dumpxml ?conn:oc output_pool in
     let doc = Xml.parse_memory xml in
     let xpathctx = Xml.xpath_new_context doc in
 
