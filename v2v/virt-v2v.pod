@@ -155,7 +155,7 @@ Set the input method to I<libvirtxml>.
 In this mode you have to pass a libvirt XML file on the command line.
 This file is read in order to get metadata about the source guest
 (such as its name, amount of memory), and also to locate the input
-disks.
+disks.  See L</MINIMAL XML FOR -i libvirtxml OPTION> below.
 
 =item B<-i local>
 
@@ -605,9 +605,46 @@ to include C<pool> and C<volume> attributes:
 
 Define the final guest in libvirt:
 
- virsh define /tmp/NAME.xml
+ virsh define /var/tmp/NAME.xml
 
 =back
+
+=head1 MINIMAL XML FOR -i libvirtxml OPTION
+
+When using the I<-i libvirtxml> option, you have to supply some
+libvirt XML.  Writing this from scratch is hard, so the template below
+is helpful.
+
+B<Note this should only be used for testing and/or where you know what
+you're doing!>  If you have libvirt metadata for the guest, always use
+that instead.
+
+ <domain type='kvm'>
+   <name>NAME</name>
+   <memory>1048576</memory>
+   <vcpu>2</vcpu>
+   <os>
+     <type>hvm</type>
+     <boot dev='hd'/>
+   </os>
+   <features>
+     <acpi/>
+     <apic/>
+     <pae/>
+   </features>
+   <devices>
+     <disk type='file' device='disk'>
+       <driver name='qemu' type='raw'/>
+       <source file='/path/to/disk/image'/>
+       <target dev='hda' bus='ide'/>
+     </disk>
+     <interface type='network'>
+       <mac address='52:54:00:01:02:03'/>
+       <source network='default'/>
+       <model type='rtl8139'/>
+     </interface>
+   </devices>
+ </domain>
 
 =head1 MACHINE READABLE OUTPUT
 
