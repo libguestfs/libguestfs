@@ -27,6 +27,8 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
 value
 virt_sparsify_statvfs_free_space (value pathv)
 {

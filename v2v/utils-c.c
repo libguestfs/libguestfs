@@ -29,6 +29,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
 value
 v2v_utils_drive_name (value indexv)
 {

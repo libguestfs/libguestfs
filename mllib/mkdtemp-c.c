@@ -34,6 +34,8 @@
 extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #endif
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
 value
 virt_builder_mkdtemp (value val_pattern)
 {

@@ -36,6 +36,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
 /* xmlDocPtr type */
 #define Doc_val(v) (*((xmlDocPtr *)Data_custom_val(v)))
 

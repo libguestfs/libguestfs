@@ -26,6 +26,8 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
 value
 virt_sysprep_crypt (value keyv, value saltv)
 {

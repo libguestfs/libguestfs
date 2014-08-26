@@ -72,12 +72,14 @@ if HAVE_OCAML
 bin_PROGRAMS = virt-v2v
 
 virt_v2v_SOURCES = $(SOURCES_C)
-virt_v2v_CFLAGS = \
+virt_v2v_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/fish
+virt_v2v_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
 BOBJECTS = \

@@ -25,6 +25,8 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
 /* RHEL 5-era ocaml didn't have Unix.isatty.
  *
  * Note this function is marked as "noalloc" so it must not call any

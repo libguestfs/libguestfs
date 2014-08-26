@@ -42,12 +42,14 @@ if HAVE_OCAML
 bin_PROGRAMS = virt-sparsify
 
 virt_sparsify_SOURCES = $(SOURCES_C)
-virt_sparsify_CFLAGS = \
+virt_sparsify_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/src \
 	-I$(top_srcdir)/fish
+virt_sparsify_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \

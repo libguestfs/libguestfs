@@ -33,6 +33,8 @@
 
 #include "progress.h"
 
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+
 #define Bar_val(v) (*((struct progress_bar **)Data_custom_val(v)))
 
 static void
