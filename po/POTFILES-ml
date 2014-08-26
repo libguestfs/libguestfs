@@ -86,6 +86,7 @@ v2v/DOM.ml
 v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
+v2v/domainxml.ml
 v2v/input_disk.ml
 v2v/input_libvirt.ml
 v2v/lib_esx.ml

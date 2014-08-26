@@ -30,6 +30,7 @@ SOURCES_MLI = \
 	convert_linux.mli \
 	convert_windows.mli \
 	DOM.mli \
+	domainxml.mli \
 	lib_esx.mli \
 	lib_linux.mli \
 	input_disk.mli \
@@ -45,6 +46,7 @@ SOURCES_ML = \
 	types.ml \
 	utils.ml \
 	xml.ml \
+	domainxml.ml \
 	DOM.ml \
 	lib_esx.ml \
 	lib_linux.ml \
@@ -65,7 +67,8 @@ SOURCES_C = \
 	$(top_builddir)/mllib/mkdtemp-c.c \
 	$(top_builddir)/customize/crypt-c.c \
 	utils-c.c \
-	xml-c.c
+	xml-c.c \
+	domainxml-c.c
 
 if HAVE_OCAML
 
@@ -80,7 +83,8 @@ virt_v2v_CPPFLAGS = \
 	-I$(top_srcdir)/fish
 virt_v2v_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBXML2_CFLAGS)
+	$(LIBXML2_CFLAGS) \
+	$(LIBVIRT_CFLAGS)
 
 BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \

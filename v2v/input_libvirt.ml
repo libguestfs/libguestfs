@@ -311,11 +311,6 @@ let input_libvirt verbose libvirt_uri guest =
         None, None in
 
   (* Get the libvirt XML. *)
-  let cmd =
-    match libvirt_uri with
-    | None -> sprintf "virsh dumpxml %s" (quote guest)
-    | Some uri -> sprintf "virsh -c %s dumpxml %s" (quote uri) (quote guest) in
-  let lines = external_command ~prog cmd in
-  let xml = String.concat "\n" lines in
+  let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
 
   new input_libvirt verbose options ?map_source_file ?map_source_dev xml
