@@ -58,6 +58,13 @@ let parse_libvirt_xml ?(map_source_file = identity) ?(map_source_dev = identity)
   let vcpu = xpath_to_int "/domain/vcpu/text()" 1 in
   let arch = xpath_to_string "/domain/os/type/@arch" "" in
 
+  if dom_type = "" then
+    error (f_"in the libvirt XML metadata, <domain type='...'> is missing or empty");
+  if name = "" then
+    error (f_"in the libvirt XML metadata, <name> is missing or empty");
+  if arch = "" then
+    error (f_"in the libvirt XML metadata, <os><type arch='...'> is missing or empty");
+
   let features =
     let features = ref [] in
     let obj = Xml.xpath_eval_expression xpathctx "/domain/features/*" in
