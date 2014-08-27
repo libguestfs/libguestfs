@@ -122,10 +122,6 @@ You can ignore this warning or change it to a hard failure using the
     unlink_on_exit tmp;
 
     (* Create it with the indisk as the backing file. *)
-    (* XXX Old code used to:
-     * - detect if compat=1.1 was supported
-     * - add lazy_refcounts option
-     *)
     let () =
       let g = new G.guestfs () in
       if trace then g#set_trace true;
