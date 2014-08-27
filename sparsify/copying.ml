@@ -156,10 +156,6 @@ You can ignore this warning or change it to a hard failure using the
     );
 
     (* Create 'tmp' with the indisk as the backing file. *)
-    (* XXX Old code used to:
-     * - detect if compat=1.1 was supported
-     * - add lazy_refcounts option
-     *)
     let create tmp =
       let g = new G.guestfs () in
       if trace then g#set_trace true;
