@@ -160,6 +160,7 @@ fish/supported.c
 fish/tilde.c
 fish/time.c
 fish/uri.c
+fish/windows.c
 format/format.c
 fuse/guestmount.c
 fuse/guestunmount.c

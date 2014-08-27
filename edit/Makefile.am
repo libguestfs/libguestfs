@@ -33,7 +33,9 @@ SHARED_SOURCE_FILES = \
 	../fish/options.h \
 	../fish/options.c \
 	../fish/uri.h \
-	../fish/uri.c
+	../fish/uri.c \
+	../fish/windows.h \
+	../fish/windows.c
 
 virt_edit_SOURCES = \
 	$(SHARED_SOURCE_FILES) \
