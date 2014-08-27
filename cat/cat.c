@@ -33,6 +33,7 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "windows.h"
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -46,8 +47,6 @@ const char *libvirt_uri = NULL;
 int inspector = 1;
 
 static int do_cat (int argc, char *argv[]);
-static int is_windows (guestfs_h *g, const char *root);
-static char *windows_path (guestfs_h *g, const char *root, const char *filename);
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -285,7 +284,8 @@ do_cat (int argc, char *argv[])
     const char *filename = argv[i];
 
     if (windows) {
-      filename = filename_to_free = windows_path (g, root, filename);
+      filename = filename_to_free = windows_path (g, root, filename,
+                                                  1 /* readonly */);
       if (filename == NULL) {
         errors++;
         continue;
@@ -297,110 +297,4 @@ do_cat (int argc, char *argv[])
   }
 
   return errors == 0 ? 0 : -1;
-}
-
-static int
-is_windows (guestfs_h *g, const char *root)
-{
-  char *type;
-  int w;
-
-  type = guestfs_inspect_get_type (g, root);
-  if (!type)
-    return 0;
-
-  w = STREQ (type, "windows");
-  free (type);
-  return w;
-}
-
-static void mount_drive_letter_ro (char drive_letter, const char *root);
-
-static char *
-windows_path (guestfs_h *g, const char *root, const char *path)
-{
-  char *ret;
-  size_t i;
-
-  /* If there is a drive letter, rewrite the path. */
-  if (c_isalpha (path[0]) && path[1] == ':') {
-    char drive_letter = c_tolower (path[0]);
-    /* This returns the newly allocated string. */
-    mount_drive_letter_ro (drive_letter, root);
-    ret = strdup (path + 2);
-    if (ret == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
-  }
-  else if (!*path) {
-    ret = strdup ("/");
-    if (ret == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
-  }
-  else {
-    ret = strdup (path);
-    if (ret == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
-  }
-
-  /* Blindly convert any backslashes into forward slashes.  Is this good? */
-  for (i = 0; i < strlen (ret); ++i)
-    if (ret[i] == '\\')
-      ret[i] = '/';
-
-  /* If this fails, we want to return NULL. */
-  char *t = guestfs_case_sensitive_path (g, ret);
-  free (ret);
-  ret = t;
-
-  return ret;
-}
-
-static void
-mount_drive_letter_ro (char drive_letter, const char *root)
-{
-  char **drives;
-  char *device;
-  size_t i;
-
-  /* Resolve the drive letter using the drive mappings table. */
-  drives = guestfs_inspect_get_drive_mappings (g, root);
-  if (drives == NULL || drives[0] == NULL) {
-    fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
-             program_name);
-    exit (EXIT_FAILURE);
-  }
-
-  device = NULL;
-  for (i = 0; drives[i] != NULL; i += 2) {
-    if (c_tolower (drives[i][0]) == drive_letter && drives[i][1] == '\0') {
-      device = drives[i+1];
-      break;
-    }
-  }
-
-  if (device == NULL) {
-    fprintf (stderr, _("%s: drive '%c:' not found.\n"),
-             program_name, drive_letter);
-    exit (EXIT_FAILURE);
-  }
-
-  /* Unmount current disk and remount device. */
-  if (guestfs_umount_all (g) == -1)
-    exit (EXIT_FAILURE);
-
-  if (guestfs_mount_ro (g, device, "/") == -1)
-    exit (EXIT_FAILURE);
-
-  for (i = 0; drives[i] != NULL; ++i)
-    free (drives[i]);
-  free (drives);
-  /* Don't need to free (device) because that string was in the
-   * drives array.
-   */
 }
