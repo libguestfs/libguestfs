@@ -243,7 +243,8 @@ let rec main () =
           ?preallocation ?compat;
 
         let cmd =
-          sprintf "qemu-img convert -n -f qcow2 -O %s %s %s"
+          sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
+            (if not quiet then " -p" else "")
             (quote t.target_format) (quote t.target_overlay.ov_overlay_file)
             (quote t.target_file) in
         if verbose then printf "%s\n%!" cmd;

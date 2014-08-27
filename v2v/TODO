@@ -4,7 +4,7 @@ Missing features compared to Perl version:
  - Fix configure_kernel on SUSE (see Mike Latimer's email)
  - testing
 
-Progress bars for copy.
+Proper progress bars when copying.
 
 p2v:
 
