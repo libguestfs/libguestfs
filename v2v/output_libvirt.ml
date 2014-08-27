@@ -188,7 +188,7 @@ let create_libvirt_xml ?pool source targets guestcaps =
       e "os" [] [
         e "type" ["arch", source.s_arch] [PCData "hvm"];
       ];
-      e "features" [] (List.map (fun s -> PCData s) features);
+      e "features" [] (List.map (fun s -> e s [] []) features);
 
       e "on_poweroff" [] [PCData "destroy"];
       e "on_reboot" [] [PCData "restart"];
