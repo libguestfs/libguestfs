@@ -231,7 +231,7 @@ read the man page virt-v2v(1).
         | [filename] -> filename
         | _ ->
           error (f_"expecting a libvirt XML file name on the command line") in
-      Input_libvirt.input_libvirtxml verbose filename in
+      Input_libvirtxml.input_libvirtxml verbose filename in
 
   (* Parse the output mode. *)
   let output =

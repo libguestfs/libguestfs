@@ -16,9 +16,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** [-i libvirt] source. *)
+(** [-i libvirtxml] source. *)
 
-val input_libvirt : bool -> string option -> string -> Types.input
-(** [input_libvirt verbose libvirt_uri guest] creates and returns a
-    new {!Types.input} object specialized for reading input from
-    libvirt sources. *)
+val parse_libvirt_xml : ?map_source_file:(string -> string) -> ?map_source_dev:(string -> string) -> string -> Types.source
+(** Take libvirt XML and parse it into a {!Types.source} structure.
+
+    The optional [?map_source_file] and [?map_source_dev] functions
+    are used to map [<source file="..."/>] and [<source dev="..."/>]
+    from the XML into QEMU URIs.  If not given, then an identity
+    mapping is used.
+
+    This function is also used by {!Input_libvirt}, hence it is
+    exported. *)
+
+val input_libvirtxml : bool -> string -> Types.input
+(** [input_libvirtxml verbose xml_file] creates and returns a new
+    {!Types.input} object specialized for reading input from local
+    libvirt XML files. *)

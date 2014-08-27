@@ -35,6 +35,7 @@ SOURCES_MLI = \
 	lib_linux.mli \
 	input_disk.mli \
 	input_libvirt.mli \
+	input_libvirtxml.mli \
 	output_libvirt.mli \
 	output_local.mli \
 	output_RHEV.mli \
@@ -51,6 +52,7 @@ SOURCES_ML = \
 	lib_esx.ml \
 	lib_linux.ml \
 	input_disk.ml \
+	input_libvirtxml.ml \
 	input_libvirt.ml \
 	convert_linux.ml \
 	convert_windows.ml \
