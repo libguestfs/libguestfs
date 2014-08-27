@@ -100,7 +100,7 @@ let rec main () =
         unlink_on_exit overlay_file;
 
         let options =
-          "compat=1.1,lazy_refcounts=on" ^
+          "compat=1.1" ^
             (match format with None -> ""
             | Some fmt -> ",backing_fmt=" ^ fmt) in
         let cmd =
