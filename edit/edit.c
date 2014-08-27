@@ -335,9 +335,12 @@ edit (const char *filename, const char *root)
   CLEANUP_FREE char *backupname = NULL;
 
   /* Windows?  Special handling is required. */
-  if (root != NULL && is_windows (g, root))
+  if (root != NULL && is_windows (g, root)) {
     filename = filename_to_free = windows_path (g, root, filename,
                                                 0 /* not read only */);
+    if (filename == NULL)
+      exit (EXIT_FAILURE);
+  }
 
   /* Download the file to a temporary. */
   fd = mkstemp (tmpfile);
