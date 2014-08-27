@@ -36,9 +36,11 @@ extern int is_windows (guestfs_h *g, const char *root);
  *  - 'root' must be a Windows installation
  *  - relies on an already being done introspection
  *  - will unmount all the existing mount points and mount the Windows root
+ *    (according to 'readonly')
  *  - will exit() on memory allocation failures, and if it is not possible
  *    to get the true path on case-insensitive filesystems
  */
-extern char *windows_path (guestfs_h *g, const char *root, const char *path);
+extern char *windows_path (guestfs_h *g, const char *root, const char *path,
+                           int readonly);
 
 #endif

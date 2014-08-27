@@ -33,7 +33,7 @@
 #include "c-ctype.h"
 
 static void mount_drive_letter (guestfs_h *g, char drive_letter,
-                                const char *root);
+                                const char *root, int readonly);
 
 int
 is_windows (guestfs_h *g, const char *root)
@@ -48,7 +48,7 @@ is_windows (guestfs_h *g, const char *root)
 }
 
 char *
-windows_path (guestfs_h *g, const char *root, const char *path)
+windows_path (guestfs_h *g, const char *root, const char *path, int readonly)
 {
   char *ret;
   size_t i;
@@ -57,7 +57,7 @@ windows_path (guestfs_h *g, const char *root, const char *path)
   if (c_isalpha (path[0]) && path[1] == ':') {
     char drive_letter = c_tolower (path[0]);
     /* This returns the newly allocated string. */
-    mount_drive_letter (g, drive_letter, root);
+    mount_drive_letter (g, drive_letter, root, readonly);
     ret = strdup (path + 2);
     if (ret == NULL) {
       perror ("strdup");
@@ -94,7 +94,8 @@ windows_path (guestfs_h *g, const char *root, const char *path)
 }
 
 static void
-mount_drive_letter (guestfs_h *g, char drive_letter, const char *root)
+mount_drive_letter (guestfs_h *g, char drive_letter, const char *root,
+                    int readonly)
 {
   char *device;
   size_t i;
@@ -126,7 +127,7 @@ mount_drive_letter (guestfs_h *g, char drive_letter, const char *root)
   if (guestfs_umount_all (g) == -1)
     exit (EXIT_FAILURE);
 
-  if (guestfs_mount (g, device, "/") == -1)
+  if ((readonly ? guestfs_mount_ro : guestfs_mount) (g, device, "/") == -1)
     exit (EXIT_FAILURE);
 
   /* Don't need to free (device) because that string was in the

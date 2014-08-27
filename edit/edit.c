@@ -336,7 +336,8 @@ edit (const char *filename, const char *root)
 
   /* Windows?  Special handling is required. */
   if (root != NULL && is_windows (g, root))
-    filename = filename_to_free = windows_path (g, root, filename);
+    filename = filename_to_free = windows_path (g, root, filename,
+                                                0 /* not read only */);
 
   /* Download the file to a temporary. */
   fd = mkstemp (tmpfile);
