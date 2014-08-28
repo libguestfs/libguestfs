@@ -24,9 +24,11 @@ open Common_utils
 open Types
 open Utils
 
-let identity x = x
+type map_source = string -> string option -> string * string option
 
-let parse_libvirt_xml ?(map_source_file = identity) ?(map_source_dev = identity)
+let no_map : map_source = fun x y -> x, y
+
+let parse_libvirt_xml ?(map_source_file = no_map) ?(map_source_dev = no_map)
     xml =
   let doc = Xml.parse_memory xml in
   let xpathctx = Xml.xpath_new_context doc in
@@ -137,13 +139,13 @@ let parse_libvirt_xml ?(map_source_file = identity) ?(map_source_dev = identity)
       | "block" ->
         let path = xpath_to_string "source/@dev" "" in
         if path <> "" then (
-          let path = map_source_dev path in
+          let path, format = map_source_dev path format in
           add_disk path format target_dev
         )
       | "file" ->
         let path = xpath_to_string "source/@file" "" in
         if path <> "" then (
-          let path = map_source_file path in
+          let path, format = map_source_file path format in
           add_disk path format target_dev
         )
       | "network" ->
@@ -265,8 +267,10 @@ object
      * when writing the XML by hand.
      *)
     let dir = Filename.dirname (absolute_path file) in
-    let map_source_file path =
-      if not (Filename.is_relative path) then path else dir // path
+    let map_source_file path format =
+      let path =
+        if not (Filename.is_relative path) then path else dir // path in
+      path, format
     in
 
     parse_libvirt_xml ~map_source_file xml

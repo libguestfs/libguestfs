@@ -46,9 +46,9 @@ let esx_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
  * However this requires access to the server which we don't necessarily
  * have here.
  *)
-let map_path_to_uri uri path =
+let map_path_to_uri uri path format =
   if not (Str.string_match esx_re path 0) then
-    path
+    path, format
   else (
     let datastore = Str.matched_group 1 path
     and vmdk = Str.matched_group 2 path in
@@ -67,7 +67,13 @@ let map_path_to_uri uri path =
       | n when n >= 1 -> ":" ^ string_of_int n
       | _ -> "" in
 
-    sprintf
-      "https://%s%s%s/folder/%s-flat.vmdk?dcPath=ha-datacenter&dsName=%s"
-      user server port vmdk (uri_quote datastore)
+    let qemu_uri =
+      sprintf
+        "https://%s%s%s/folder/%s-flat.vmdk?dcPath=ha-datacenter&dsName=%s"
+        user server port vmdk (uri_quote datastore) in
+
+    (* The libvirt ESX driver doesn't normally specify a format, but
+     * the format of the -flat file is *always* raw, so force it here.
+     *)
+    qemu_uri, Some "raw"
   )
