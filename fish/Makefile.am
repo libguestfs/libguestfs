@@ -87,6 +87,8 @@ guestfish_SOURCES = \
 	echo.c \
 	edit.c \
 	events.c \
+	file-edit.c \
+	file-edit.h \
 	fish.c \
 	fish.h \
 	glob.c \
