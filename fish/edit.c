@@ -60,5 +60,5 @@ run_edit (const char *cmd, size_t argc, char *argv[])
 
   r = edit_file_editor (g, remotefilename, editor, NULL);
 
-  return r;
+  return r == -1 ? -1 : 0;
 }

@@ -101,7 +101,7 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
   /* Changed? */
   if (oldstat.st_ctime == newstat.st_ctime &&
       oldstat.st_size == newstat.st_size)
-    return 0;
+    return 1;
 
   /* Upload to a new file in the same directory, so if it fails we
    * don't end up with a partially written file.  Give the new file

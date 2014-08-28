@@ -26,7 +26,8 @@
  * If 'backup_extension' is not null, then a copy of 'filename' is saved
  * with 'backup_extension' appended to its file name.
  *
- * Returns -1 for failure, 0 otherwise.
+ * Returns -1 for failure, 0 on success, 1 if the editor did not change
+ * the file (e.g. the user closed the editor without saving).
  */
 extern int edit_file_editor (guestfs_h *g, const char *filename,
                              const char *editor, const char *backup_extension);
