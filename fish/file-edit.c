@@ -35,9 +35,12 @@
 #include "guestfs-internal-frontend.h"
 
 static char *generate_random_name (const char *filename);
+static char *generate_backup_name (const char *filename,
+                                   const char *backup_extension);
 
 int
-edit_file_editor (guestfs_h *g, const char *filename, const char *editor)
+edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
+                  const char *backup_extension)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
   CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
@@ -120,6 +123,17 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor)
       GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
     return -1;
 
+  /* Backup or overwrite the file. */
+  if (backup_extension) {
+    CLEANUP_FREE char *backupname = NULL;
+
+    backupname = generate_backup_name (filename, backup_extension);
+    if (backupname == NULL)
+      return -1;
+
+    if (guestfs_mv (g, filename, backupname) == -1)
+      return -1;
+  }
   if (guestfs_mv (g, newname, filename) == -1)
     return -1;
 
@@ -156,6 +170,21 @@ generate_random_name (const char *filename)
   for (i = 0; i < 8; ++i)
     *p++ = random_char ();
   *p++ = '\0';
+
+  return ret; /* caller will free */
+}
+
+static char *
+generate_backup_name (const char *filename, const char *backup_extension)
+{
+  char *ret;
+
+  assert (backup_extension != NULL);
+
+  if (asprintf (&ret, "%s%s", filename, backup_extension) == -1) {
+    perror ("asprintf");
+    return NULL;
+  }
 
   return ret; /* caller will free */
 }

@@ -58,7 +58,7 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   if (remotefilename == NULL)
     return -1;
 
-  r = edit_file_editor (g, remotefilename, editor);
+  r = edit_file_editor (g, remotefilename, editor, NULL);
 
   return r;
 }
