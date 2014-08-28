@@ -43,6 +43,7 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor)
   CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
   char buf[256];
   CLEANUP_FREE char *newname = NULL;
+  CLEANUP_FREE char *cmd = NULL;
   struct stat oldstat, newstat;
   int r, fd;
 
@@ -77,12 +78,14 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor)
   }
 
   /* Edit it. */
-  /* XXX Safe? */
-  snprintf (buf, sizeof buf, "%s %s", editor, tmpfilename);
+  if (asprintf (&cmd, "%s %s", editor, tmpfilename) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
 
-  r = system (buf);
-  if (r != 0) {
-    perror (buf);
+  r = system (cmd);
+  if (r == -1 || WEXITSTATUS (r) != 0) {
+    perror (cmd);
     return -1;
   }
 
