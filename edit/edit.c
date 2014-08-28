@@ -38,6 +38,7 @@
 #include "guestfs.h"
 #include "options.h"
 #include "windows.h"
+#include "file-edit.h"
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -55,10 +56,6 @@ static const char *perl_expr = NULL;
 
 static void edit_files (int argc, char *argv[]);
 static void edit (const char *filename, const char *root);
-static char *edit_interactively (const char *tmpfile);
-static char *edit_non_interactively (const char *tmpfile);
-static char *generate_random_name (const char *filename);
-static char *generate_backup_name (const char *filename);
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -324,15 +321,7 @@ static void
 edit (const char *filename, const char *root)
 {
   CLEANUP_FREE char *filename_to_free = NULL;
-  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
-  char tmpfile[strlen (tmpdir) + 32];
-  sprintf (tmpfile, "%s/virteditXXXXXX", tmpdir);
-
-  int fd;
-  char fdbuf[32];
-  CLEANUP_FREE char *upload_from = NULL;
-  CLEANUP_FREE char *newname = NULL;
-  CLEANUP_FREE char *backupname = NULL;
+  int r;
 
   /* Windows?  Special handling is required. */
   if (root != NULL && is_windows (g, root)) {
@@ -342,239 +331,26 @@ edit (const char *filename, const char *root)
       exit (EXIT_FAILURE);
   }
 
-  /* Download the file to a temporary. */
-  fd = mkstemp (tmpfile);
-  if (fd == -1) {
-    perror ("mkstemp");
+  if (perl_expr != NULL) {
+    r = edit_file_perl (g, filename, perl_expr, backup_extension);
+  } else {
+    const char *editor;
+
+    editor = getenv ("EDITOR");
+    if (editor == NULL)
+      editor = "vi";
+
+    r = edit_file_editor (g, filename, editor, backup_extension);
+  }
+
+  switch (r) {
+  case -1:
     exit (EXIT_FAILURE);
-  }
-
-  snprintf (fdbuf, sizeof fdbuf, "/dev/fd/%d", fd);
-
-  if (guestfs_download (g, filename, fdbuf) == -1)
-    goto error;
-
-  if (close (fd) == -1) {
-    perror (tmpfile);
-    goto error;
-  }
-
-  if (!perl_expr)
-    upload_from = edit_interactively (tmpfile);
-  else
-    upload_from = edit_non_interactively (tmpfile);
-
-  /* We don't always need to upload: upload_from could be NULL because
-   * the user closed the editor without changing the file.
-   */
-  if (upload_from) {
-    /* Upload to a new file in the same directory, so if it fails we
-     * don't end up with a partially written file.  Give the new file
-     * a completely random name so we have only a tiny chance of
-     * overwriting some existing file.
-     */
-    newname = generate_random_name (filename);
-
-    if (guestfs_upload (g, upload_from, newname) == -1)
-      goto error;
-
-    /* Set the permissions, UID, GID and SELinux context of the new
-     * file to match the old file (RHBZ#788641).
-     */
-    if (guestfs_copy_attributes (g, filename, newname,
-        GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
-      goto error;
-
-    /* Backup or overwrite the file. */
-    if (backup_extension) {
-      backupname = generate_backup_name (filename);
-      if (guestfs_mv (g, filename, backupname) == -1)
-        goto error;
-    }
-    if (guestfs_mv (g, newname, filename) == -1)
-      goto error;
-  }
-
-  unlink (tmpfile);
-  return;
-
- error:
-  unlink (tmpfile);
-  exit (EXIT_FAILURE);
-}
-
-static char *
-edit_interactively (const char *tmpfile)
-{
-  struct utimbuf times;
-  struct stat oldstat, newstat;
-  const char *editor;
-  CLEANUP_FREE char *cmd = NULL;
-  int r;
-  char *ret;
-
-  /* Set the time back a few seconds on the original file.  This is so
-   * that if the user is very fast at editing, or if EDITOR is an
-   * automatic editor, then the edit might happen within the 1 second
-   * granularity of mtime, and we would think the file hasn't changed.
-   */
-  if (stat (tmpfile, &oldstat) == -1) {
-    perror (tmpfile);
-    exit (EXIT_FAILURE);
-  }
-
-  times.actime = oldstat.st_atime - 5;
-  times.modtime = oldstat.st_mtime - 5;
-  if (utime (tmpfile, &times) == -1) {
-    perror ("utimes");
-    exit (EXIT_FAILURE);
-  }
-
-  if (stat (tmpfile, &oldstat) == -1) {
-    perror (tmpfile);
-    exit (EXIT_FAILURE);
-  }
-
-  editor = getenv ("EDITOR");
-  if (editor == NULL)
-    editor = "vi";
-
-  if (asprintf (&cmd, "%s %s", editor, tmpfile) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-
-  if (verbose)
-    fprintf (stderr, "%s\n", cmd);
-
-  r = system (cmd);
-  if (r == -1 || WEXITSTATUS (r) != 0)
-    exit (EXIT_FAILURE);
-
-  if (stat (tmpfile, &newstat) == -1) {
-    perror (tmpfile);
-    exit (EXIT_FAILURE);
-  }
-
-  if (oldstat.st_ctime == newstat.st_ctime &&
-      oldstat.st_mtime == newstat.st_mtime) {
+  case 1:
     printf ("File not changed.\n");
-    return NULL;
+    break;
+  default:
+    /* Success. */
+    break;
   }
-
-  ret = strdup (tmpfile);
-  if (!ret) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
-
-  return ret;
-}
-
-/* Note that virt-builder uses exactly the same code .. in OCaml. */
-static char *
-edit_non_interactively (const char *tmpfile)
-{
-  CLEANUP_FREE char *cmd = NULL, *outfile = NULL;
-  char *ret;
-  int r;
-
-  assert (perl_expr != NULL);
-
-  /* Pass the expression to Perl via the environment.  This sidesteps
-   * any quoting problems with the already complex Perl command line.
-   */
-  setenv ("virt_edit_expr", perl_expr, 1);
-
-  /* Call out to a canned Perl script. */
-  if (asprintf (&cmd,
-                "perl -e '"
-                "$lineno = 0; "
-                "$expr = $ENV{virt_edit_expr}; "
-                "while (<STDIN>) { "
-                "  $lineno++; "
-                "  eval $expr; "
-                "  die if $@; "
-                "  print STDOUT $_ or die \"print: $!\"; "
-                "} "
-                "close STDOUT or die \"close: $!\"; "
-                "' < %s > %s.out",
-                tmpfile, tmpfile) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-
-  if (verbose)
-    fprintf (stderr, "%s\n", cmd);
-
-  r = system (cmd);
-  if (r == -1 || WEXITSTATUS (r) != 0)
-    exit (EXIT_FAILURE);
-
-  if (asprintf (&outfile, "%s.out", tmpfile) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-
-  if (rename (outfile, tmpfile) == -1) {
-    perror ("rename");
-    exit (EXIT_FAILURE);
-  }
-
-  ret = strdup (tmpfile);
-  if (!ret) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
-
-  return ret; /* caller will free */
-}
-
-static char
-random_char (void)
-{
-  char c[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return c[random () % (sizeof c - 1)];
-}
-
-static char *
-generate_random_name (const char *filename)
-{
-  char *ret, *p;
-  size_t i;
-
-  ret = malloc (strlen (filename) + 16);
-  if (!ret) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
-  strcpy (ret, filename);
-
-  p = strrchr (ret, '/');
-  assert (p);
-  p++;
-
-  /* Because of "+ 16" above, there should be enough space in the
-   * output buffer to write 8 random characters here.
-   */
-  for (i = 0; i < 8; ++i)
-    *p++ = random_char ();
-  *p++ = '\0';
-
-  return ret; /* caller will free */
-}
-
-static char *
-generate_backup_name (const char *filename)
-{
-  char *ret;
-
-  assert (backup_extension != NULL);
-
-  if (asprintf (&ret, "%s%s", filename, backup_extension) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-
-  return ret; /* caller will free */
 }
