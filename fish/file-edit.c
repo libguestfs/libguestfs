@@ -159,6 +159,116 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
   return 0;
 }
 
+int
+edit_file_perl (guestfs_h *g, const char *filename, const char *perl_expr,
+                const char *backup_extension)
+{
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
+  CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
+  char buf[256];
+  CLEANUP_FREE char *newname = NULL;
+  CLEANUP_FREE char *cmd = NULL;
+  CLEANUP_FREE char *outfile = NULL;
+  int r, fd;
+
+  /* Download the file and write it to a temporary. */
+  if (asprintf (&tmpfilename, "%s/libguestfsXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
+
+  fd = mkstemp (tmpfilename);
+  if (fd == -1) {
+    perror ("mkstemp");
+    return -1;
+  }
+
+  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
+
+  if (guestfs_download (g, filename, buf) == -1) {
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    perror (tmpfilename);
+    return -1;
+  }
+
+  if (asprintf (&outfile, "%s.out", tmpfilename) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
+
+  /* Pass the expression to Perl via the environment.  This sidesteps
+   * any quoting problems with the already complex Perl command line.
+   */
+  setenv ("virt_edit_expr", perl_expr, 1);
+
+  /* Call out to a canned Perl script. */
+  if (asprintf (&cmd,
+                "perl -e '"
+                "$lineno = 0; "
+                "$expr = $ENV{virt_edit_expr}; "
+                "while (<STDIN>) { "
+                "  $lineno++; "
+                "  eval $expr; "
+                "  die if $@; "
+                "  print STDOUT $_ or die \"print: $!\"; "
+                "} "
+                "close STDOUT or die \"close: $!\"; "
+                "' < %s > %s",
+                tmpfilename, outfile) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
+
+  r = system (cmd);
+  if (r == -1 || WEXITSTATUS (r) != 0)
+    return -1;
+
+  if (rename (outfile, tmpfilename) == -1) {
+    perror ("rename");
+    return -1;
+  }
+
+  /* Upload to a new file in the same directory, so if it fails we
+   * don't end up with a partially written file.  Give the new file
+   * a completely random name so we have only a tiny chance of
+   * overwriting some existing file.
+   */
+  newname = generate_random_name (filename);
+  if (!newname)
+    return -1;
+
+  /* Write new content. */
+  if (guestfs_upload (g, tmpfilename, newname) == -1)
+    return -1;
+
+  /* Set the permissions, UID, GID and SELinux context of the new
+   * file to match the old file (RHBZ#788641).
+   */
+  if (guestfs_copy_attributes (g, filename, newname,
+      GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
+    return -1;
+
+  /* Backup or overwrite the file. */
+  if (backup_extension) {
+    CLEANUP_FREE char *backupname = NULL;
+
+    backupname = generate_backup_name (filename, backup_extension);
+    if (backupname == NULL)
+      return -1;
+
+    if (guestfs_mv (g, filename, backupname) == -1)
+      return -1;
+  }
+  if (guestfs_mv (g, newname, filename) == -1)
+    return -1;
+
+  return 0;
+}
+
 static char
 random_char (void)
 {

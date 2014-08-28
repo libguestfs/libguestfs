@@ -32,4 +32,15 @@
 extern int edit_file_editor (guestfs_h *g, const char *filename,
                              const char *editor, const char *backup_extension);
 
+/**
+ * Edit 'filename' running the specified 'perl_expr' using Perl.
+ * If 'backup_extension' is not null, then a copy of 'filename' is saved
+ * with 'backup_extension' appended to its file name.
+ *
+ * Returns -1 for failure, 0 otherwise (on success).
+ */
+extern int edit_file_perl (guestfs_h *g, const char *filename,
+                           const char *perl_expr,
+                           const char *backup_extension);
+
 #endif
