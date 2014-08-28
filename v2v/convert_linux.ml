@@ -534,11 +534,13 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
     let remove = ref [] and libraries = ref [] in
     List.iter (
       fun { G.app2_name = name } ->
-        if name = "open-vm-tools" then
-          remove := name :: !remove
-        else if string_prefix name "vmware-tools-libraries-" then
+        if string_prefix name "vmware-tools-libraries-" then
           libraries := name :: !libraries
         else if string_prefix name "vmware-tools-" then
+          remove := name :: !remove
+        else if name = "VMwareTools" then
+          remove := name :: !remove
+        else if string_prefix name "kmod-vmware-tools" then
           remove := name :: !remove
     ) inspect.i_apps;
     let libraries = !libraries in
@@ -568,10 +570,14 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
 
             (* Install the dependencies with yum.  Use yum explicitly
              * because we don't have package names and local install is
-             * impractical.  - RWMJ: Not convinced the original Perl code
-             * would work, so I'm just installing the dependencies.
+             * impractical.
              *)
-            let cmd = [ "yum"; "install"; "-y" ] @ provides in
+            let cmd = ["yum"; "-q"; "resolvedep"] @ provides in
+            let cmd = Array.of_list cmd in
+            let replacements = g#command_lines cmd in
+            let replacements = Array.to_list replacements in
+
+            let cmd = [ "yum"; "install"; "-y" ] @ replacements in
             let cmd = Array.of_list cmd in
             (try
                ignore (g#command cmd);
