@@ -101,6 +101,7 @@ deps = \
 	$(top_builddir)/customize/hostname.cmx \
 	$(top_builddir)/customize/timezone.cmx \
 	$(top_builddir)/customize/firstboot.cmx \
+	$(top_builddir)/customize/perl_edit-c.o \
 	$(top_builddir)/customize/perl_edit.cmx \
 	$(top_builddir)/customize/crypt-c.o \
 	$(top_builddir)/customize/crypt.cmx \
@@ -108,6 +109,7 @@ deps = \
 	$(top_builddir)/customize/customize_cmdline.cmx \
 	$(top_builddir)/customize/customize_run.cmx \
 	$(top_builddir)/fish/guestfish-uri.o \
+	$(top_builddir)/fish/guestfish-file-edit.o \
 	index-scan.o \
 	index-struct.o \
 	index-parse.o \

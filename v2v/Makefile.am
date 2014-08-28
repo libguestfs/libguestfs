@@ -64,10 +64,12 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	$(top_builddir)/fish/progress.c \
+	$(top_builddir)/fish/file-edit.c \
 	$(top_builddir)/mllib/tty-c.c \
 	$(top_builddir)/mllib/progress-c.c \
 	$(top_builddir)/mllib/mkdtemp-c.c \
 	$(top_builddir)/customize/crypt-c.c \
+	$(top_builddir)/customize/perl_edit-c.c \
 	utils-c.c \
 	xml-c.c \
 	domainxml-c.c

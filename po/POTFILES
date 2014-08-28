@@ -13,6 +13,7 @@ cat/log.c
 cat/ls.c
 cat/visit.c
 customize/crypt-c.c
+customize/perl_edit-c.c
 daemon/9p.c
 daemon/acl.c
 daemon/augeas.c

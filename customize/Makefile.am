@@ -49,6 +49,7 @@ SOURCES = \
 	customize_main.ml \
 	password.ml \
 	password.mli \
+	perl_edit-c.c \
 	perl_edit.ml \
 	perl_edit.mli \
 	random_seed.ml \
@@ -62,13 +63,15 @@ if HAVE_OCAML
 
 deps = \
 	$(top_builddir)/fish/guestfish-uri.o \
+	$(top_builddir)/fish/guestfish-file-edit.o \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/config.cmx \
 	$(top_builddir)/mllib/regedit.cmx \
 	$(top_builddir)/mllib/uri-c.o \
 	$(top_builddir)/mllib/uRI.cmx \
-	crypt-c.o
+	crypt-c.o \
+	perl_edit-c.o
 
 if HAVE_OCAMLOPT
 OBJECTS = $(deps)
