@@ -332,7 +332,7 @@ edit (const char *filename, const char *root)
   }
 
   if (perl_expr != NULL) {
-    r = edit_file_perl (g, filename, perl_expr, backup_extension);
+    r = edit_file_perl (g, filename, perl_expr, backup_extension, verbose);
   } else {
     const char *editor;
 
@@ -340,7 +340,7 @@ edit (const char *filename, const char *root)
     if (editor == NULL)
       editor = "vi";
 
-    r = edit_file_editor (g, filename, editor, backup_extension);
+    r = edit_file_editor (g, filename, editor, backup_extension, verbose);
   }
 
   switch (r) {

@@ -41,7 +41,7 @@ static char *generate_backup_name (const char *filename,
 
 int
 edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
-                  const char *backup_extension)
+                  const char *backup_extension, int verbose)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
   CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
@@ -105,6 +105,9 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
     return -1;
   }
 
+  if (verbose)
+    fprintf (stderr, "%s\n", cmd);
+
   r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0) {
     perror (cmd);
@@ -161,7 +164,7 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
 
 int
 edit_file_perl (guestfs_h *g, const char *filename, const char *perl_expr,
-                const char *backup_extension)
+                const char *backup_extension, int verbose)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
   CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
@@ -222,6 +225,9 @@ edit_file_perl (guestfs_h *g, const char *filename, const char *perl_expr,
     perror ("asprintf");
     return -1;
   }
+
+  if (verbose)
+    fprintf (stderr, "%s\n", cmd);
 
   r = system (cmd);
   if (r == -1 || WEXITSTATUS (r) != 0)

@@ -30,7 +30,8 @@
  * the file (e.g. the user closed the editor without saving).
  */
 extern int edit_file_editor (guestfs_h *g, const char *filename,
-                             const char *editor, const char *backup_extension);
+                             const char *editor, const char *backup_extension,
+                             int verbose);
 
 /**
  * Edit 'filename' running the specified 'perl_expr' using Perl.
@@ -41,6 +42,6 @@ extern int edit_file_editor (guestfs_h *g, const char *filename,
  */
 extern int edit_file_perl (guestfs_h *g, const char *filename,
                            const char *perl_expr,
-                           const char *backup_extension);
+                           const char *backup_extension, int verbose);
 
 #endif
