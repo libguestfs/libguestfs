@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-08-24 21:20+0100\n"
+"POT-Creation-Date: 2014-08-28 21:59+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/libguestfs/"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:176
+#: ../v2v/output_RHEV.ml:285
 msgid ""
 "%s does not exist or is not a directory.\n"
 "\n"
@@ -84,7 +84,7 @@ msgid ""
 "you can also find this out through the RHEV-M user interface."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1136
+#: ../v2v/convert_linux.ml:1142
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -94,7 +94,7 @@ msgstr ""
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:180
+#: ../v2v/v2v.ml:199
 msgid "%s: %s (ignored)"
 msgstr ""
 
@@ -244,9 +244,9 @@ msgid ""
 " virt-v2v -ic esx://esx.example.com/ -o rhev -os rhev.nfs:/export_domain --"
 "network rhevm esx_guest\n"
 "\n"
-" virt-v2v -i libvirtxml -o local -os /tmp guest-domain.xml\n"
+" virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml\n"
 "\n"
-" virt-v2v -i disk -o local -os /tmp disk.img\n"
+" virt-v2v -i disk -o local -os /var/tmp disk.img\n"
 "\n"
 "There is a companion front-end called \"virt-p2v\" which comes as an\n"
 "ISO or CD image that can be booted on physical machines.\n"
@@ -287,7 +287,7 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:377 ../sysprep/main.ml:297
+#: ../v2v/v2v.ml:369 ../sysprep/main.ml:297
 msgid "%s: error: %s\n"
 msgstr ""
 
@@ -297,13 +297,13 @@ msgstr ""
 
 #. ../resize/resize.ml:1309
 #. ../builder/builder.ml:743
-#: ../v2v/v2v.ml:370 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
+#: ../v2v/v2v.ml:362 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
 #. ../resize/resize.ml:1312
 #. ../builder/builder.ml:746
-#: ../v2v/v2v.ml:373 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
+#: ../v2v/v2v.ml:365 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgstr ""
 #. ../resize/resize.ml:1331
 #. ../customize/customize_main.ml:262
 #. ../builder/builder.ml:764
-#: ../v2v/v2v.ml:395 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
+#: ../v2v/v2v.ml:387 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -334,7 +334,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1319
 #. ../builder/builder.ml:752
-#: ../v2v/v2v.ml:383 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
+#: ../v2v/v2v.ml:375 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -361,14 +361,14 @@ msgstr ""
 #. ../resize/resize.ml:1328
 #. ../customize/customize_main.ml:259
 #. ../builder/builder.ml:761
-#: ../v2v/v2v.ml:392 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
+#: ../v2v/v2v.ml:384 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
 #. ../resize/resize.ml:1325
 #. ../customize/customize_main.ml:255
 #. ../builder/builder.ml:758
-#: ../v2v/v2v.ml:389 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
+#: ../v2v/v2v.ml:381 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
@@ -376,7 +376,7 @@ msgstr ""
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:135
 #. ../builder/builder.ml:755
-#: ../v2v/v2v.ml:386 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
+#: ../v2v/v2v.ml:378 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -394,7 +394,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1316
 #. ../builder/builder.ml:749
-#: ../v2v/v2v.ml:380 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
+#: ../v2v/v2v.ml:372 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
@@ -676,14 +676,14 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:239
+#: ../v2v/output_libvirt.ml:233
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
 "section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:236
+#: ../v2v/output_libvirt.ml:230
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -701,7 +701,7 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:171
+#: ../v2v/input_libvirtxml.ml:173
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
@@ -763,13 +763,13 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:254
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:250
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:184
+#: ../v2v/v2v.ml:203
 msgid "Closing the overlay"
 msgstr ""
 
@@ -781,15 +781,15 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:148
+#: ../v2v/v2v.ml:172
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:146
+#: ../v2v/v2v.ml:170
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../sparsify/copying.ml:309
+#: ../sparsify/copying.ml:305
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -805,7 +805,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:203
+#: ../v2v/v2v.ml:222
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -833,7 +833,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:229
+#: ../v2v/v2v.ml:257
 msgid "Creating output metadata"
 msgstr ""
 
@@ -982,6 +982,16 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
+#: ../v2v/input_libvirt.ml:70
+msgid ""
+"ESX: because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?"
+"id=1134592 you must set this environment variable:\n"
+"\n"
+"export LIBGUESTFS_BACKEND=direct\n"
+"\n"
+"and then rerun the virt-v2v command."
+msgstr ""
+
 #: ../customize/customize_cmdline.ml:150
 msgid "Edit file using Perl expression"
 msgstr ""
@@ -1020,7 +1030,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:301
+#: ../v2v/v2v.ml:293
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1028,7 +1038,7 @@ msgstr ""
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:188
+#: ../sparsify/copying.ml:184
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -1088,13 +1098,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:238
+#: ../sparsify/copying.ml:234
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/copying.ml:288
+#: ../sparsify/copying.ml:284
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -1108,7 +1118,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:232 ../customize/customize_main.ml:237
+#: ../v2v/v2v.ml:260 ../customize/customize_main.ml:237
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1178,7 +1188,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:133
+#: ../v2v/v2v.ml:145
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1192,7 +1202,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:139
+#: ../v2v/v2v.ml:163
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1258,6 +1268,10 @@ msgstr ""
 
 #: ../v2v/cmdline.ml:114
 msgid "Map network 'in' to 'out'"
+msgstr ""
+
+#: ../v2v/v2v.ml:194
+msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
 #: ../builder/list_entries.ml:77
@@ -1388,7 +1402,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:478 ../v2v/output_RHEV.ml:296
+#: ../v2v/output_RHEV.ml:483 ../v2v/output_RHEV.ml:408
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -1835,7 +1849,7 @@ msgstr ""
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:327
+#: ../sparsify/copying.ml:323
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -1889,7 +1903,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1044
+#: ../v2v/convert_linux.ml:1050
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -1953,7 +1967,7 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:702
+#: ../v2v/output_RHEV.ml:707
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
@@ -1981,10 +1995,6 @@ msgstr ""
 msgid ""
 "Trimming %s ...\n"
 "%!"
-msgstr ""
-
-#: ../v2v/v2v.ml:175
-msgid "Trimming filesystems to reduce amount of data to copy"
 msgstr ""
 
 #: ../resize/resize.ml:209
@@ -2021,7 +2031,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:603
+#: ../v2v/convert_linux.ml:609
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2063,7 +2073,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:228
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:224
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -2111,38 +2121,38 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:304
+#: ../v2v/v2v.ml:296
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:277
+#: ../v2v/output_libvirt.ml:272
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:394
+#: ../v2v/convert_windows.ml:393
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:294
+#: ../v2v/input_libvirt.ml:52
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:154
+#: ../v2v/output_RHEV.ml:263
 msgid ""
 "could not read the Export Storage Domain specified by the '-os %s' parameter "
 "on the command line.  Is it really an OVirt or RHEV-M Export Storage "
 "Domain?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:259
+#: ../v2v/output_libvirt.ml:254
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:991
+#: ../v2v/convert_linux.ml:997
 msgid "could not update grub2 console: %s (ignored)"
 msgstr ""
 
@@ -2170,14 +2180,14 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:254
+#: ../v2v/v2v.ml:155
 msgid ""
 "disk %s (%s) has no defined format, you have to either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
 "format"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:99
+#: ../v2v/input_libvirtxml.ml:101
 msgid "display <graphics type='%s'> was ignored"
 msgstr ""
 
@@ -2199,7 +2209,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:288
+#: ../v2v/v2v.ml:280
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2213,7 +2223,35 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:56
+#: ../v2v/lib_esx.ml:136
+msgid ""
+"esx: URI (-ic parameter) contains no path, so we cannot determine the "
+"datacenter name"
+msgstr ""
+
+#: ../v2v/lib_esx.ml:194
+msgid "esx: URL not found: %s"
+msgstr ""
+
+#: ../v2v/lib_esx.ml:214
+msgid ""
+"esx: could not read session cookie from the vCenter Server, conversion may "
+"consume all sessions on the server and fail part way through"
+msgstr ""
+
+#: ../v2v/lib_esx.ml:189
+msgid "esx: incorrect username or password"
+msgstr ""
+
+#: ../v2v/lib_esx.ml:199
+msgid "esx: invalid response from server"
+msgstr ""
+
+#: ../v2v/lib_esx.ml:184
+msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:51
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
@@ -2241,7 +2279,7 @@ msgstr ""
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/copying.ml:322
+#: ../sparsify/copying.ml:318
 msgid "external command failed: %s"
 msgstr ""
 
@@ -2286,11 +2324,23 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
+#: ../v2v/input_libvirtxml.ml:64
+msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:66
+msgid "in the libvirt XML metadata, <name> is missing or empty"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:68
+msgid "in the libvirt XML metadata, <os><type arch='...'> is missing or empty"
+msgstr ""
+
 #: ../v2v/cmdline.ml:65
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
-#: ../v2v/v2v.ml:326
+#: ../v2v/v2v.ml:318
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2302,7 +2352,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:131
+#: ../v2v/output_RHEV.ml:240
 msgid ""
 "mount command failed, see earlier errors.\n"
 "\n"
@@ -2310,7 +2360,7 @@ msgid ""
 "[-os %s], or else you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:311
+#: ../v2v/v2v.ml:303
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2322,7 +2372,7 @@ msgid ""
 "be a bug in virt-v2v."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:167
+#: ../v2v/input_libvirtxml.ml:169
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
@@ -2357,11 +2407,11 @@ msgid ""
 "of this guest."
 msgstr ""
 
-#: ../v2v/v2v.ml:281
+#: ../v2v/v2v.ml:273
 msgid "no root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:309
+#: ../v2v/input_libvirt.ml:80
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
@@ -2371,7 +2421,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:718
+#: ../v2v/convert_linux.ml:724
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2423,11 +2473,11 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:263
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:259
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:224 ../v2v/v2v.ml:111
+#: ../v2v/v2v.ml:252 ../v2v/v2v.ml:111
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2439,7 +2489,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:319
+#: ../v2v/v2v.ml:311
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2455,7 +2505,7 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:182
+#: ../v2v/output_RHEV.ml:291
 msgid ""
 "the Export Storage Domain (%s) is not writable.\n"
 "\n"
@@ -2464,7 +2514,7 @@ msgid ""
 "Original error was: %s"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:226
+#: ../v2v/output_RHEV.ml:335
 msgid ""
 "the number of '--rhev-vol-uuid' parameters passed on the command line has to "
 "match the number of guest disk images (for this guest: %d)"
@@ -2474,7 +2524,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:288
+#: ../v2v/output_RHEV.ml:398
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -2483,19 +2533,19 @@ msgid ""
 "about this issue."
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:168
+#: ../v2v/output_RHEV.ml:277
 msgid ""
 "there are multiple UUIDs in the Export Storage Domain (%s).  This is "
 "unexpected, and may be a bug in virt-v2v or OVirt."
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:166
+#: ../v2v/output_RHEV.ml:275
 msgid ""
 "there are no UUIDs in the Export Storage Domain (%s).  Is it really an OVirt "
 "or RHEV-M Export Storage Domain?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:253
+#: ../v2v/convert_windows.ml:252
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -2503,7 +2553,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:263
+#: ../v2v/convert_windows.ml:262
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver here: %s\n"
@@ -2511,7 +2561,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:280
+#: ../v2v/convert_windows.ml:279
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver here: %s\n"
@@ -2519,7 +2569,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:120
+#: ../v2v/input_libvirtxml.ml:122
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -2527,7 +2577,7 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:847
+#: ../v2v/convert_linux.ml:853
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -2557,7 +2607,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:426
+#: ../v2v/output_RHEV.ml:163
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
@@ -2756,12 +2806,8 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:165
-msgid "virt-v2v is unable to convert this guest type (linux/distro=%s)"
-msgstr ""
-
-#: ../v2v/v2v.ml:171
-msgid "virt-v2v is unable to convert this guest type (type=%s)"
+#: ../v2v/v2v.ml:186
+msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
 #: ../sparsify/cmdline.ml:179
