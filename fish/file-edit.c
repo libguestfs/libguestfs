@@ -31,6 +31,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <assert.h>
+#include <utime.h>
 
 #include "guestfs-internal-frontend.h"
 
@@ -49,6 +50,7 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
   CLEANUP_FREE char *cmd = NULL;
   struct stat oldstat, newstat;
   int r, fd;
+  struct utimbuf times;
 
   /* Download the file and write it to a temporary. */
   if (asprintf (&tmpfilename, "%s/libguestfsXXXXXX", tmpdir) == -1) {
@@ -71,6 +73,23 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
 
   if (close (fd) == -1) {
     perror (tmpfilename);
+    return -1;
+  }
+
+  /* Set the time back a few seconds on the original file.  This is so
+   * that if the user is very fast at editing, or if EDITOR is an
+   * automatic editor, then the edit might happen within the 1 second
+   * granularity of mtime, and we would think the file hasn't changed.
+   */
+  if (stat (tmpfilename, &oldstat) == -1) {
+    perror (tmpfilename);
+    return -1;
+  }
+
+  times.actime = oldstat.st_atime - 5;
+  times.modtime = oldstat.st_mtime - 5;
+  if (utime (tmpfilename, &times) == -1) {
+    perror ("utimes");
     return -1;
   }
 
