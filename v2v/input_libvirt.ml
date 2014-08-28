@@ -51,15 +51,20 @@ object
           with Invalid_argument msg ->
             error (f_"could not parse '-ic %s'.  Original error message was: %s")
               orig_uri msg in
+
         match server, scheme with
         | None, _
         | Some "", _ ->                 (* Not a remote URI. *)
           None, None
+
         | Some _, None                  (* No scheme? *)
         | Some _, Some "" ->
           None, None
+
         | Some _, Some "esx" ->         (* esx://... *)
-          let f = Lib_esx.map_path_to_uri uri in Some f, Some f
+          let f = Lib_esx.map_path_to_uri uri in
+          Some f, Some f
+
         (* XXX Missing: Look for qemu+ssh://, xen+ssh:// and use an ssh
          * connection.  This was supported in old virt-v2v.
          *)
