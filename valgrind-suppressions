@@ -236,6 +236,13 @@
    ...
    fun:virFileFindResourceFull
 }
+# RHBZ#1135388
+{
+   libvirt_leak_6
+   Memcheck:Leak
+   ...
+   fun:testDomainGenerateIfnames
+}
 
 # FUSE leaks the per-thread context (although the code looks
 # like it attempts to clean it up).  In older fuse, it uses
