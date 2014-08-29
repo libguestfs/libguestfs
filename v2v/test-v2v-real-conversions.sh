@@ -45,7 +45,7 @@ for file in *.img; do
   <name>$n</name>
   <memory>1048576</memory>
   <os>
-    <type>hvm</type>
+    <type arch='$(uname -m)'>hvm</type>
     <boot dev='hd'/>
   </os>
   <devices>
