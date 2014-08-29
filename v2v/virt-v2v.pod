@@ -13,7 +13,7 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -i disk -o local -os /var/tmp disk.img
 
- virt-v2v -i disk -o glance -os glance_image_name
+ virt-v2v -i disk disk.img -o glance -os glance_image_name
 
 =head1 DESCRIPTION
 
