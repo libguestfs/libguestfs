@@ -602,6 +602,10 @@ To import a particular guest from vCenter Server, do:
 where C<Windows 2003> is the name of the guest (which must be shut
 down).
 
+Note that you may be asked for the vCenter password I<twice>.  This
+happens once because libvirt needs it, and a second time because
+virt-v2v itself connects directly to the server.
+
 In this case the output flags are set to write the converted guest to
 a temporary directory as this is just an example, but you can also
 write to libvirt or RHEV.
