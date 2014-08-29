@@ -35,6 +35,9 @@
 
 #include "guestfs-internal-frontend.h"
 
+static int do_download (guestfs_h *g, const char *filename, char **tempfile);
+static int do_upload (guestfs_h *g, const char *filename, const char *tempfile,
+                      const char *backup_extension);
 static char *generate_random_name (const char *filename);
 static char *generate_backup_name (const char *filename,
                                    const char *backup_extension);
@@ -43,38 +46,15 @@ int
 edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
                   const char *backup_extension, int verbose)
 {
-  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
   CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
-  char buf[256];
-  CLEANUP_FREE char *newname = NULL;
   CLEANUP_FREE char *cmd = NULL;
   struct stat oldstat, newstat;
-  int r, fd;
+  int r;
   struct utimbuf times;
 
   /* Download the file and write it to a temporary. */
-  if (asprintf (&tmpfilename, "%s/libguestfsXXXXXX", tmpdir) == -1) {
-    perror ("asprintf");
+  if (do_download (g, filename, &tmpfilename) == -1)
     return -1;
-  }
-
-  fd = mkstemp (tmpfilename);
-  if (fd == -1) {
-    perror ("mkstemp");
-    return -1;
-  }
-
-  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
-
-  if (guestfs_download (g, filename, buf) == -1) {
-    close (fd);
-    return -1;
-  }
-
-  if (close (fd) == -1) {
-    perror (tmpfilename);
-    return -1;
-  }
 
   /* Set the time back a few seconds on the original file.  This is so
    * that if the user is very fast at editing, or if EDITOR is an
@@ -125,38 +105,7 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
       oldstat.st_size == newstat.st_size)
     return 1;
 
-  /* Upload to a new file in the same directory, so if it fails we
-   * don't end up with a partially written file.  Give the new file
-   * a completely random name so we have only a tiny chance of
-   * overwriting some existing file.
-   */
-  newname = generate_random_name (filename);
-  if (!newname)
-    return -1;
-
-  /* Write new content. */
-  if (guestfs_upload (g, tmpfilename, newname) == -1)
-    return -1;
-
-  /* Set the permissions, UID, GID and SELinux context of the new
-   * file to match the old file (RHBZ#788641).
-   */
-  if (guestfs_copy_attributes (g, filename, newname,
-      GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
-    return -1;
-
-  /* Backup or overwrite the file. */
-  if (backup_extension) {
-    CLEANUP_FREE char *backupname = NULL;
-
-    backupname = generate_backup_name (filename, backup_extension);
-    if (backupname == NULL)
-      return -1;
-
-    if (guestfs_mv (g, filename, backupname) == -1)
-      return -1;
-  }
-  if (guestfs_mv (g, newname, filename) == -1)
+  if (do_upload (g, filename, tmpfilename, backup_extension) == -1)
     return -1;
 
   return 0;
@@ -166,37 +115,14 @@ int
 edit_file_perl (guestfs_h *g, const char *filename, const char *perl_expr,
                 const char *backup_extension, int verbose)
 {
-  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
   CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
-  char buf[256];
-  CLEANUP_FREE char *newname = NULL;
   CLEANUP_FREE char *cmd = NULL;
   CLEANUP_FREE char *outfile = NULL;
-  int r, fd;
+  int r;
 
   /* Download the file and write it to a temporary. */
-  if (asprintf (&tmpfilename, "%s/libguestfsXXXXXX", tmpdir) == -1) {
-    perror ("asprintf");
+  if (do_download (g, filename, &tmpfilename) == -1)
     return -1;
-  }
-
-  fd = mkstemp (tmpfilename);
-  if (fd == -1) {
-    perror ("mkstemp");
-    return -1;
-  }
-
-  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
-
-  if (guestfs_download (g, filename, buf) == -1) {
-    close (fd);
-    return -1;
-  }
-
-  if (close (fd) == -1) {
-    perror (tmpfilename);
-    return -1;
-  }
 
   if (asprintf (&outfile, "%s.out", tmpfilename) == -1) {
     perror ("asprintf");
@@ -238,6 +164,57 @@ edit_file_perl (guestfs_h *g, const char *filename, const char *perl_expr,
     return -1;
   }
 
+  if (do_upload (g, filename, tmpfilename, backup_extension) == -1)
+    return -1;
+
+  return 0;
+}
+
+static int
+do_download (guestfs_h *g, const char *filename, char **tempfile)
+{
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
+  CLEANUP_UNLINK_FREE char *tmpfilename = NULL;
+  char buf[256];
+  int fd;
+
+  /* Download the file and write it to a temporary. */
+  if (asprintf (&tmpfilename, "%s/libguestfsXXXXXX", tmpdir) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
+
+  fd = mkstemp (tmpfilename);
+  if (fd == -1) {
+    perror ("mkstemp");
+    return -1;
+  }
+
+  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
+
+  if (guestfs_download (g, filename, buf) == -1) {
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    perror (tmpfilename);
+    return -1;
+  }
+
+  /* Hand over the temporary file. */
+  *tempfile = tmpfilename;
+  tmpfilename = NULL;
+
+  return 0;
+}
+
+static int
+do_upload (guestfs_h *g, const char *filename, const char *tempfile,
+           const char *backup_extension)
+{
+  CLEANUP_FREE char *newname = NULL;
+
   /* Upload to a new file in the same directory, so if it fails we
    * don't end up with a partially written file.  Give the new file
    * a completely random name so we have only a tiny chance of
@@ -248,7 +225,7 @@ edit_file_perl (guestfs_h *g, const char *filename, const char *perl_expr,
     return -1;
 
   /* Write new content. */
-  if (guestfs_upload (g, tmpfilename, newname) == -1)
+  if (guestfs_upload (g, tempfile, newname) == -1)
     return -1;
 
   /* Set the permissions, UID, GID and SELinux context of the new
