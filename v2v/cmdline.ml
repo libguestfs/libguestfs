@@ -73,6 +73,7 @@ let parse_cmdline () =
 
   let output_mode = ref `Libvirt in
   let set_output_mode = function
+    | "glance" -> output_mode := `Glance
     | "libvirt" -> output_mode := `Libvirt
     | "local" -> output_mode := `Local
     | "ovirt" | "rhev" -> output_mode := `RHEV
@@ -113,7 +114,7 @@ let parse_cmdline () =
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "--network", Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
     "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
-    "-o",        Arg.String set_output_mode, "libvirt|local|rhev " ^ s_"Set output mode (default: libvirt)";
+    "-o",        Arg.String set_output_mode, "libvirt|local|rhev|glance " ^ s_"Set output mode (default: libvirt)";
     "-oa",       Arg.String set_output_alloc, "sparse|preallocated " ^ s_"Set output allocation mode";
     "-oc",       Arg.Set_string output_conn, "uri " ^ s_"Libvirt URI";
     "-of",       Arg.Set_string output_format, "raw|qcow2 " ^ s_"Set output format";
@@ -151,6 +152,8 @@ let parse_cmdline () =
  virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml
 
  virt-v2v -i disk -o local -os /var/tmp disk.img
+
+ virt-v2v -i disk -o glance -os glance_image_name
 
 There is a companion front-end called \"virt-p2v\" which comes as an
 ISO or CD image that can be booted on physical machines.
@@ -236,6 +239,17 @@ read the man page virt-v2v(1).
   (* Parse the output mode. *)
   let output =
     match output_mode with
+    | `Glance ->
+      if output_storage = "" then
+        error (f_"-o glance: output image name was not specified, use '-os glance_image_name'");
+      if output_conn <> None then
+        error (f_"-o glance: -oc option cannot be used in this output mode");
+      if vmtype <> None then
+        error (f_"--vmtype option can only be used with '-o rhev'");
+      if not do_copy then
+        error (f_"--no-copy and '-o glance' cannot be used at the same time");
+      Output_glance.output_glance verbose output_storage
+
     | `Libvirt ->
       let output_storage =
         if output_storage = "" then "default" else output_storage in

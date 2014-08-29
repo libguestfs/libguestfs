@@ -13,6 +13,8 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -i disk -o local -os /var/tmp disk.img
 
+ virt-v2v -i disk -o glance -os glance_image_name
+
 =head1 DESCRIPTION
 
 Virt-v2v converts guests from a foreign hypervisor to run on KVM,
@@ -34,8 +36,8 @@ libguestfs E<ge> 1.28.
                     └──> │ conversion │ ──┘
  -i libvirt ───────────> │ server     │ ────────> -o libvirt
   (default)         ┌──> │            │ ──┐        (default)
-                    │    │            │   │
- -i libvirtxml ─────┘    │            │   └────────> -o rhev
+                    │    │            │ ─┐└──────> -o glance
+ -i libvirtxml ─────┘    │            │  └─────────> -o rhev
                          └────────────┘
 
 Virt-v2v has a number of possible input and output modes, selected
@@ -52,6 +54,8 @@ testing).
 
 I<-i libvirtxml> is used to read from libvirt XML files.  This is the
 method used by L<virt-p2v(1)> behind the scenes.
+
+I<-o glance> is used for writing to OpenStack Glance.
 
 I<-o libvirt> is used for writing to any libvirt target.  Libvirt can
 connect to local or remote KVM hypervisors.  The I<-oc> option selects
@@ -95,6 +99,13 @@ In this case the host running virt-v2v acts as a B<conversion server>.
 Note that after conversion, the guest will appear in the RHEV-M Export
 Storage Domain, from where you will need to import it using the RHEV-M
 user interface.
+
+=head2 Convert disk image to OpenStack glance
+
+Given a disk image from another hypervisor that you want to convert to
+run on OpenStack (only KVM-based OpenStack is supported), you can do:
+
+ virt-v2v -i disk disk.img -o glance -os glance_image_name
 
 =head2 Convert disk image to disk image
 
@@ -213,6 +224,13 @@ interested in looking at the metadata.
 This option is not compatible with I<-o libvirt> since it would create
 a faulty guest (one with no disks).
 
+This option is not compatible with I<-o glance> for technical reasons.
+
+=item B<-o glance>
+
+Set the output method to OpenStack Glance.  In this mode the converted
+guest is uploaded to Glance as the image named in the I<-os> parameter.
+
 =item B<-o libvirt>
 
 Set the output method to I<libvirt>.  This is the default.
@@ -278,6 +296,8 @@ the output name is the same as the input name.
 =item B<-os> storage
 
 The location of the storage for the converted guest.
+
+For I<-o glance>, this is the Glance image name.
 
 For I<-o libvirt>, this is a libvirt directory pool
 (see S<C<virsh pool-list>>).
