@@ -143,9 +143,9 @@ let parse_cmdline () =
     sprintf (f_"\
 %s: convert a guest to use KVM
 
- virt-v2v -ic esx://esx.example.com/ -os imported esx_guest
+ virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported esx_guest
 
- virt-v2v -ic esx://esx.example.com/ \
+ virt-v2v -ic vpx://esx.example.com/Datacenter/esxi \
    -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
 
  virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml

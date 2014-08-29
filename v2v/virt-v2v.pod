@@ -595,7 +595,7 @@ vCenter Server before continuing.
 
 To import a particular guest from vCenter Server, do:
 
- $ virt-v2v -ic 'esx://root@esx.example.com/Datacenter/esxi?no_verify=1' \
+ $ virt-v2v -ic 'vpx://root@esx.example.com/Datacenter/esxi?no_verify=1' \
    "Windows 2003" \
    -o local -os /var/tmp
 
