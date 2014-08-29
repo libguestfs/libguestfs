@@ -152,6 +152,8 @@ struct guestfs___add_libvirt_dom_argv {
   const char *cachemode;
 #define GUESTFS___ADD_LIBVIRT_DOM_DISCARD_BITMASK (UINT64_C(1)<<5)
   const char *discard;
+#define GUESTFS___ADD_LIBVIRT_DOM_COPYONREAD_BITMASK (UINT64_C(1)<<6)
+  int copyonread;
 };
 
 extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);

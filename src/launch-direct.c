@@ -528,7 +528,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
        * the if=... at the end.
        */
       param = safe_asprintf
-        (g, "file=%s%s,cache=%s%s%s%s%s%s,id=hd%zu",
+        (g, "file=%s%s,cache=%s%s%s%s%s%s%s,id=hd%zu",
          escaped_file,
          drv->readonly ? ",snapshot=on" : "",
          drv->cachemode ? drv->cachemode : "writeback",
@@ -537,6 +537,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
          drv->src.format ? drv->src.format : "",
          drv->disk_label ? ",serial=" : "",
          drv->disk_label ? drv->disk_label : "",
+         drv->copyonread ? ",copy-on-read=on" : "",
          i);
     }
     else {

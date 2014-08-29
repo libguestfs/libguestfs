@@ -65,6 +65,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   const char *iface;
   const char *cachemode;
   const char *discard;
+  bool copyonread;
   struct guestfs___add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
 
   libvirturi = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIBVIRTURI_BITMASK
@@ -83,6 +84,8 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
             ? optargs->cachemode : NULL;
   discard = optargs->bitmask & GUESTFS_ADD_DOMAIN_DISCARD_BITMASK
           ? optargs->discard : NULL;
+  copyonread = optargs->bitmask & GUESTFS_ADD_DOMAIN_COPYONREAD_BITMASK
+               ? optargs->copyonread : false;
 
   if (live && readonly) {
     error (g, _("you cannot set both live and readonly flags"));
@@ -143,6 +146,10 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
     optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_DISCARD_BITMASK;
     optargs2.discard = discard;
   }
+  if (copyonread) {
+    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_COPYONREAD_BITMASK;
+    optargs2.copyonread = copyonread;
+  }
 
   r = guestfs___add_libvirt_dom (g, dom, &optargs2);
 
@@ -179,6 +186,7 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   const char *iface;
   const char *cachemode;
   const char *discard;
+  bool copyonread;
   int live;
   /* Default for back-compat reasons: */
   enum readonlydisk readonlydisk = readonlydisk_write;
@@ -219,6 +227,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   discard =
     optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_DISCARD_BITMASK
     ? optargs->discard : NULL;
+
+  copyonread =
+    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_COPYONREAD_BITMASK
+    ? optargs->copyonread : false;
 
   if (live && readonly) {
     error (g, _("you cannot set both live and readonly flags"));
@@ -288,6 +300,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   if (discard) {
     data.optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_DISCARD_BITMASK;
     data.optargs.discard = discard;
+  }
+  if (copyonread) {
+    data.optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_COPYONREAD_BITMASK;
+    data.optargs.copyonread = copyonread;
   }
 
   /* Checkpoint the command line around the operation so that either

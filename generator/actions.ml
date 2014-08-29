@@ -1290,7 +1290,7 @@ not all belong to a single logical operating system
 
   { defaults with
     name = "add_drive";
-    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"];
+    style = RErr, [String "filename"], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"; OBool "copyonread"];
     once_had_no_optargs = true;
     blocking = false;
     fish_alias = ["add"];
@@ -1538,6 +1538,15 @@ possible, but don't mind if it doesn't work.
 
 =back
 
+=item C<copyonread>
+
+The boolean parameter C<copyonread> enables copy-on-read support.
+This only affects disk formats which have backing files, and causes
+reads to be stored in the overlay layer, speeding up multiple reads
+of the same area of disk.
+
+The default is false.
+
 =back" };
 
   { defaults with
@@ -1580,7 +1589,7 @@ not part of the formal API and can be removed or changed at any time." };
 
   { defaults with
     name = "add_domain";
-    style = RInt "nrdisks", [String "dom"], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"; OString "cachemode"; OString "discard"];
+    style = RInt "nrdisks", [String "dom"], [OString "libvirturi"; OBool "readonly"; OString "iface"; OBool "live"; OBool "allowuuid"; OString "readonlydisk"; OString "cachemode"; OString "discard"; OBool "copyonread"];
     fish_alias = ["domain"]; config_only = true;
     shortdesc = "add the disk(s) from a named libvirt domain";
     longdesc = "\
@@ -1672,7 +1681,7 @@ C<guestfs_add_drive_opts>." };
 This interface is not quite baked yet. -- RWMJ 2010-11-11
   { defaults with
     name = "add_libvirt_dom";
-    style = RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"; String "readonlydisk"; OString "cachemode"; OString "discard"];
+    style = RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"; String "readonlydisk"; OString "cachemode"; OString "discard"; OBool "copyonread"];
     in_fish = false;
     shortdesc = "add the disk(s) from a libvirt domain";
     longdesc = "\

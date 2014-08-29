@@ -62,6 +62,7 @@ struct drive_create_data {
   const char *disk_label;
   const char *cachemode;
   enum discard discard;
+  bool copyonread;
 };
 
 /* Compile all the regular expressions once when the shared library is
@@ -146,6 +147,7 @@ create_drive_file (guestfs_h *g,
   drv->disk_label = data->disk_label ? safe_strdup (g, data->disk_label) : NULL;
   drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
   drv->discard = data->discard;
+  drv->copyonread = data->copyonread;
 
   if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
@@ -181,6 +183,7 @@ create_drive_non_file (guestfs_h *g,
   drv->disk_label = data->disk_label ? safe_strdup (g, data->disk_label) : NULL;
   drv->cachemode = data->cachemode ? safe_strdup (g, data->cachemode) : NULL;
   drv->discard = data->discard;
+  drv->copyonread = data->copyonread;
 
   if (data->readonly) {
     if (create_overlay (g, drv) == -1) {
@@ -467,6 +470,7 @@ create_drive_dev_null (guestfs_h *g,
 
   data->exportname = tmpfile;
   data->discard = discard_disable;
+  data->copyonread = false;
 
   return create_drive_file (g, data);
 }
@@ -532,7 +536,7 @@ static char *
 drive_to_string (guestfs_h *g, const struct drive *drv)
 {
   return safe_asprintf
-    (g, "%s%s%s%s protocol=%s%s%s%s%s%s%s%s%s%s",
+    (g, "%s%s%s%s protocol=%s%s%s%s%s%s%s%s%s%s%s",
      drv->src.u.path,
      drv->readonly ? " readonly" : "",
      drv->src.format ? " format=" : "",
@@ -547,7 +551,8 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
      drv->cachemode ? " cache=" : "",
      drv->cachemode ? : "",
      drv->discard == discard_disable ? "" :
-     drv->discard == discard_enable ? " discard=enable" : " discard=besteffort");
+     drv->discard == discard_enable ? " discard=enable" : " discard=besteffort",
+     drv->copyonread ? " copyonread" : "");
 }
 
 /* Add struct drive to the g->drives vector at the given index. */
@@ -813,6 +818,10 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   }
   else
     data.discard = discard_disable;
+
+  data.copyonread =
+    optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_COPYONREAD_BITMASK
+    ? optargs->copyonread : false;
 
   if (data.readonly && data.discard == discard_enable) {
     error (g, _("discard support cannot be enabled on read-only drives"));
