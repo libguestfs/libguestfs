@@ -333,15 +333,9 @@ edit (const char *filename, const char *root)
 
   if (perl_expr != NULL) {
     r = edit_file_perl (g, filename, perl_expr, backup_extension, verbose);
-  } else {
-    const char *editor;
-
-    editor = getenv ("EDITOR");
-    if (editor == NULL)
-      editor = "vi";
-
-    r = edit_file_editor (g, filename, editor, backup_extension, verbose);
-  }
+  } else
+    r = edit_file_editor (g, filename, NULL /* use $EDITOR */,
+                          backup_extension, verbose);
 
   switch (r) {
   case -1:

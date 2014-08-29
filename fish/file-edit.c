@@ -52,6 +52,12 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
   int r;
   struct utimbuf times;
 
+  if (editor == NULL) {
+    editor = getenv ("EDITOR");
+    if (editor == NULL)
+      editor = "vi";
+  }
+
   /* Download the file and write it to a temporary. */
   if (do_download (g, filename, &tmpfilename) == -1)
     return -1;

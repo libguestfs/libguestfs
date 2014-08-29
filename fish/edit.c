@@ -47,11 +47,8 @@ run_edit (const char *cmd, size_t argc, char *argv[])
     editor = "vi";
   else if (STRCASEEQ (cmd, "emacs"))
     editor = "emacs -nw";
-  else {
-    editor = getenv ("EDITOR");
-    if (editor == NULL)
-      editor = "vi"; /* could be cruel here and choose ed(1) */
-  }
+  else
+    editor = NULL; /* use $EDITOR */
 
   /* Handle 'win:...' prefix. */
   remotefilename = win_prefix (argv[0]);

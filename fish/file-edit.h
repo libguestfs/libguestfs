@@ -25,6 +25,9 @@
  * Edit 'filename' using the specified 'editor' application.
  * If 'backup_extension' is not null, then a copy of 'filename' is saved
  * with 'backup_extension' appended to its file name.
+ * If 'editor' is null, then the EDITOR environment variable
+ * will be queried for the editor application, leaving "vi" as fallback
+ * if not set.
  *
  * Returns -1 for failure, 0 on success, 1 if the editor did not change
  * the file (e.g. the user closed the editor without saving).
