@@ -122,6 +122,7 @@ let rec main () =
     fun (overlay_file, _) ->
       g#add_drive_opts overlay_file
         ~format:"qcow2" ~cachemode:"unsafe" ~discard:"besteffort"
+        ~copyonread:true
   ) overlays;
 
   g#launch ();
