@@ -18,7 +18,7 @@
 
 (** [-o glance] target. *)
 
-val output_glance : bool -> string -> Types.output
-(** [output_glance verbose filename] creates and returns a new
+val output_glance : bool -> Types.output
+(** [output_glance verbose] creates and returns a new
     {!Types.output} object specialized for writing output to OpenStack
     glance. *)

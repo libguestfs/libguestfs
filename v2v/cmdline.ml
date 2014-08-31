@@ -240,15 +240,15 @@ read the man page virt-v2v(1).
   let output =
     match output_mode with
     | `Glance ->
-      if output_storage = "" then
-        error (f_"-o glance: output image name was not specified, use '-os glance_image_name'");
       if output_conn <> None then
         error (f_"-o glance: -oc option cannot be used in this output mode");
+      if output_storage <> "" then
+        error (f_"-o glance: -os option cannot be used in this output mode");
       if vmtype <> None then
         error (f_"--vmtype option can only be used with '-o rhev'");
       if not do_copy then
         error (f_"--no-copy and '-o glance' cannot be used at the same time");
-      Output_glance.output_glance verbose output_storage
+      Output_glance.output_glance verbose
 
     | `Libvirt ->
       let output_storage =

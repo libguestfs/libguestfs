@@ -24,7 +24,7 @@ open Common_utils
 open Types
 open Utils
 
-class output_glance verbose image_name =
+class output_glance verbose =
   (* Although glance can slurp in a stream from stdin, unfortunately
    * 'qemu-img convert' cannot write to a stream (although I guess
    * it could be implemented at least for raw).  Therefore we have
@@ -37,7 +37,7 @@ class output_glance verbose image_name =
 object
   inherit output verbose
 
-  method as_options = sprintf "-o glance -os %s" image_name
+  method as_options = "-o glance"
 
   method prepare_targets source targets =
     (* This does nothing useful except to check that the user has
@@ -64,7 +64,7 @@ object
     let { target_file = target_file; target_format = target_format } =
       List.hd targets in
     let cmd =
-      sprintf "glance image-create --name %s --disk-format=%s --container-format=bare %s"
+      sprintf "glance image-create --name %s --disk-format=%s --container-format=bare --file %s"
         (quote source.s_name) (quote target_format) target_file in
     if verbose then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then
@@ -86,8 +86,6 @@ object
       "hypervisor_type", "kvm";
       "vm_mode", "hvm";
       "os_type", inspect.i_type;
-      "os_version",
-      sprintf "%d.%d" inspect.i_major_version inspect.i_minor_version;
       "os_distro",
       (match inspect.i_distro with
       (* http://docs.openstack.org/grizzly/openstack-compute/admin/content/image-metadata.html *)
@@ -96,28 +94,34 @@ object
       | x -> x (* everything else is the same in libguestfs and OpenStack *)
       )
     ] in
+    let properties =
+      match inspect.i_major_version, inspect.i_minor_version with
+      | 0, 0 -> properties
+      | x, 0 -> ("os_version", string_of_int x) :: properties
+      | x, y -> ("os_version", sprintf "%d.%d" x y) :: properties in
 
-    (* Set the properties one at a time so if any fails we can give
-     * a warning message (failing to set properties is not fatal).
-     *)
+    (* Glance doesn't appear to check the properties. *)
     let cmd =
-      sprintf "glance image-update --min-ram %Ld %s"
-        min_ram (quote source.s_name) in
+      sprintf "glance image-update --min-ram %Ld %s %s"
+        min_ram
+        (String.concat " " (
+          List.map (
+            fun (k, v) ->
+              sprintf "--property %s=%s" (quote k) (quote v)
+          ) properties
+        ))
+        (quote source.s_name) in
     if verbose then printf "%s\n%!" cmd;
-    if Sys.command cmd <> 0 then
-      warning ~prog (f_"glance: failed to set --min-ram to %Ld (MB) (ignored)")
-        min_ram;
-
-    List.iter (
-      fun (k,v) ->
-        let cmd =
-          sprintf "glance image-update --property %s=%s %s"
-            (quote k) (quote v) (quote source.s_name) in
-        if verbose then printf "%s\n%!" cmd;
-        if Sys.command cmd <> 0 then
-          warning ~prog (f_"glance: failed to set property '%s' to '%s' (ignored)")
-            k v
-    ) properties
+    if Sys.command cmd <> 0 then (
+      warning ~prog (f_"glance: failed to set image properties (ignored)");
+      (* Dump out the image properties so the user can set them. *)
+      printf "Image properties:\n";
+      printf "  --min-ram %Ld\n" min_ram;
+      List.iter (
+	fun (k, v) ->
+	  printf "  --property %s=%s" (quote k) (quote v)
+      ) properties
+    )
 end
 
 let output_glance = new output_glance

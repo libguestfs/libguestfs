@@ -53,6 +53,6 @@ ln -sf "$(which echo)" glance
 
 $VG ./virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
-    -o glance -os test
+    -o glance -on test
 
 rm glance

@@ -13,7 +13,7 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -i disk -o local -os /var/tmp disk.img
 
- virt-v2v -i disk disk.img -o glance -os glance_image_name
+ virt-v2v -i disk disk.img -o glance
 
 =head1 DESCRIPTION
 
@@ -105,7 +105,9 @@ user interface.
 Given a disk image from another hypervisor that you want to convert to
 run on OpenStack (only KVM-based OpenStack is supported), you can do:
 
- virt-v2v -i disk disk.img -o glance -os glance_image_name
+ virt-v2v -i disk disk.img -o glance
+
+To control the name of the image in glance, use the I<-on> option.
 
 =head2 Convert disk image to disk image
 
@@ -229,7 +231,8 @@ This option is not compatible with I<-o glance> for technical reasons.
 =item B<-o glance>
 
 Set the output method to OpenStack Glance.  In this mode the converted
-guest is uploaded to Glance as the image named in the I<-os> parameter.
+guest is uploaded to Glance.  You can control the image name by setting
+the I<-on> option.
 
 =item B<-o libvirt>
 
@@ -296,8 +299,6 @@ the output name is the same as the input name.
 =item B<-os> storage
 
 The location of the storage for the converted guest.
-
-For I<-o glance>, this is the Glance image name.
 
 For I<-o libvirt>, this is a libvirt directory pool
 (see S<C<virsh pool-list>>).
