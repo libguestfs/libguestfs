@@ -16,5 +16,5 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-external edit_file : verbose:bool -> Guestfs.guestfs -> string -> string -> unit
+external edit_file : verbose:bool -> Guestfs.t -> string -> string -> unit
   = "virt_customize_edit_file_perl"

@@ -193,7 +193,7 @@ exec >>%s 2>&1
         exit 1
       );
 
-      Perl_edit.edit_file ~verbose g path expr
+      Perl_edit.edit_file ~verbose g#ocaml_handle path expr
 
     | `FirstbootCommand cmd ->
       incr i;

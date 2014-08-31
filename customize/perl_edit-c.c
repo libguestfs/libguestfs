@@ -38,14 +38,13 @@
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 value
-virt_customize_edit_file_perl (value verbosev, value guestfsv, value filev,
+virt_customize_edit_file_perl (value verbosev, value gv, value filev,
                                value exprv)
 {
-  CAMLparam4 (verbosev, guestfsv, filev, exprv);
+  CAMLparam4 (verbosev, gv, filev, exprv);
   int r;
-  guestfs_h *g;
+  guestfs_h *g = Guestfs_val (gv);
 
-  g = Guestfs_val (guestfsv);
   r = edit_file_perl (g, String_val (filev), String_val (exprv), NULL,
                       Bool_val (verbosev));
   if (r == -1)
