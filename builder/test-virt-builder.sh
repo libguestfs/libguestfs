@@ -65,6 +65,7 @@ $VG ./virt-builder phony-fedora \
     --mkdir /etc/foo/bar/baz \
     --write '/etc/foo/bar/baz/foo:Hello World' \
     --upload Makefile:/Makefile \
+    --edit '/Makefile: s{^#.*}{}' \
     --upload Makefile:/etc/foo/bar/baz \
     --delete /Makefile \
     --link /etc/foo/bar/baz/foo:/foo \
