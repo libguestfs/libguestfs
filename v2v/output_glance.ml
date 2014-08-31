@@ -31,7 +31,8 @@ class output_glance verbose =
    * to write to a temporary file.  XXX
    *)
   let tmpdir =
-    let t = Mkdtemp.temp_dir "glance." "" in
+    let base_dir = (new Guestfs.guestfs ())#get_cachedir () in
+    let t = Mkdtemp.temp_dir ~base_dir "glance." "" in
     rmdir_on_exit t;
     t in
 object
