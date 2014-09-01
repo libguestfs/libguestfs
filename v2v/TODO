@@ -8,9 +8,13 @@ Proper progress bars when copying.
 
 p2v:
 
+ - test mode
+ - vmlinuz + initrd? - if not possible, remove from man page
+ - PXE boot
+ - short transfers?
  - network dialog and network configuration
- - network mapping
- - control where the image is sent (ie. RHEV ESD, libvirt, etc)
+ - GUI controls for network mapping
+ - GUI controls for p2v.output, p2v.output_storage, etc.
 
 p2v/conversion.c:                "/tmp/virt-p2v-%04d%02d%02d-XXXXXXXX",
 p2v/conversion.c:                   " -o local -os /tmp" /* XXX */
