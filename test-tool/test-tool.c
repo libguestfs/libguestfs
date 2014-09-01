@@ -195,8 +195,6 @@ main (int argc, char *argv[])
   for (i = 0; environ[i] != NULL; ++i) {
     if (STRPREFIX (environ[i], "LIBGUESTFS_"))
       printf ("%s\n", environ[i]);
-    if (STRPREFIX (environ[i], "FEBOOTSTRAP_"))
-      printf ("%s\n", environ[i]);
     if (STRPREFIX (environ[i], "SUPERMIN_"))
       printf ("%s\n", environ[i]);
     if (STRPREFIX (environ[i], "LIBVIRT_"))
