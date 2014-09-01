@@ -109,6 +109,11 @@ let rec main () =
         if verbose then printf "%s\n%!" cmd;
         if Sys.command cmd <> 0 then
           error (f_"qemu-img command failed, see earlier errors");
+
+        (* Sanity check created overlay (see below). *)
+        if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
+          error (f_"internal error: qemu-img did not create overlay with backing file");
+
         overlay_file, source
     ) source.s_disks in
 
@@ -224,6 +229,16 @@ let rec main () =
           (i+1) nr_disks t.target_file t.target_format;
         if verbose then printf "%s%!" (string_of_target t);
 
+        (* We noticed that qemu sometimes corrupts the qcow2 file on
+         * exit.  This only seemed to happen with lazy_refcounts was
+         * used.  The symptom was that the header wasn't written back
+         * to the disk correctly and the file appeared to have no
+         * backing file.  Just sanity check this here.
+         *)
+        let overlay_file = t.target_overlay.ov_overlay_file in
+        if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
+          error (f_"internal error: qemu corrupted the overlay file");
+
         (* It turns out that libguestfs's disk creation code is
          * considerably more flexible and easier to use than qemu-img, so
          * create the disk explicitly using libguestfs then pass the
@@ -246,7 +261,7 @@ let rec main () =
         let cmd =
           sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
             (if not quiet then " -p" else "")
-            (quote t.target_format) (quote t.target_overlay.ov_overlay_file)
+            (quote t.target_format) (quote overlay_file)
             (quote t.target_file) in
         if verbose then printf "%s\n%!" cmd;
         if Sys.command cmd <> 0 then

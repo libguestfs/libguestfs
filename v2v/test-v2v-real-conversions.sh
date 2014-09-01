@@ -65,6 +65,17 @@ EOF
       # Test the libvirt XML metadata and a disk was created.
       test -f $d/$n.xml
       test -f $d/$n-sda
+
+      # Test the disk has a similar size to the original.
+      size_before="$(du $file | awk '{print $1}')"
+      size_after="$(du $d/$n-sda | awk '{print $1}')"
+      diff="$(( 100 * size_after / size_before ))"
+      if test $diff -lt 50; then
+          echo "$0: disk image may have been corrupted or truncated"
+          echo "size_before=$size_before size_after=$size_after diff=$diff"
+          ls -l $file $d/$n-sda
+          exit 1
+      fi
     fi
 done
 
