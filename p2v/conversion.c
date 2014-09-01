@@ -246,6 +246,9 @@ start_conversion (struct config *config,
       notify_ui (NOTIFY_REMOTE_MESSAGE, buf);
   }
 
+  if (notify_ui)
+    notify_ui (NOTIFY_STATUS, _("Control connection closed by remote."));
+
   ret = 0;
  out:
   if (control_h)
