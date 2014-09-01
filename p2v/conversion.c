@@ -302,7 +302,7 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
        * these ssh connections is to send a signal.  Just closing the
        * pipe doesn't do anything.
        */
-      kill (data_conns[i].h->pid, SIGTERM);
+      kill (data_conns[i].h->pid, SIGHUP);
       mexp_close (data_conns[i].h);
     }
 
