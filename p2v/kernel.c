@@ -130,26 +130,35 @@ kernel_configuration (struct config *config, const char *cmdline)
 
   r = strstr (cmdline, "p2v.disks=");
   if (r) {
+    CLEANUP_FREE char *t;
+
     r += 5+5;
     len = strcspn (r, " ");
+    t = strndup (r, len);
     guestfs___free_string_list (config->disks);
-    config->disks = guestfs___split_string (',', r);
+    config->disks = guestfs___split_string (',', t);
   }
 
   r = strstr (cmdline, "p2v.removable=");
   if (r) {
+    CLEANUP_FREE char *t;
+
     r += 5+9;
     len = strcspn (r, " ");
+    t = strndup (r, len);
     guestfs___free_string_list (config->removable);
-    config->removable = guestfs___split_string (',', r);
+    config->removable = guestfs___split_string (',', t);
   }
 
   r = strstr (cmdline, "p2v.interfaces=");
   if (r) {
+    CLEANUP_FREE char *t;
+
     r += 5+10;
     len = strcspn (r, " ");
+    t = strndup (r, len);
     guestfs___free_string_list (config->interfaces);
-    config->interfaces = guestfs___split_string (',', r);
+    config->interfaces = guestfs___split_string (',', t);
   }
 
   if (start_conversion (config, notify_ui_callback) == -1) {
