@@ -8,7 +8,6 @@ Proper progress bars when copying.
 
 p2v:
 
- - test mode
  - vmlinuz + initrd? - if not possible, remove from man page
  - PXE boot
  - short transfers?

@@ -83,10 +83,11 @@ stamp-virt-p2v.pod: virt-p2v.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-#if ENABLE_APPLIANCE
-#TESTS = \
-#	test-virt-p2v.sh
-#endif ENABLE_APPLIANCE
-#
-#check-valgrind:
-#	$(MAKE) VG="$(top_builddir)/run @VG@" check
+if ENABLE_APPLIANCE
+TESTS = \
+	test-virt-p2v.sh
+endif ENABLE_APPLIANCE
+
+EXTRA_DIST += \
+	$(TESTS) \
+	test-virt-p2v-ssh.sh

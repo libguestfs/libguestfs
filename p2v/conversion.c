@@ -132,7 +132,15 @@ start_conversion (struct config *config,
       goto out;
     }
 
-    if (asprintf (&device, "/dev/%s", config->disks[i]) == -1) {
+    if (config->disks[i][0] == '/') {
+      device = strdup (config->disks[i]);
+      if (!device) {
+        perror ("strdup");
+        cleanup_data_conns (data_conns, nr_disks);
+        exit (EXIT_FAILURE);
+      }
+    }
+    else if (asprintf (&device, "/dev/%s", config->disks[i]) == -1) {
       perror ("asprintf");
       cleanup_data_conns (data_conns, nr_disks);
       exit (EXIT_FAILURE);
@@ -412,7 +420,7 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
 
   /* XXX quoting needs to be improved here XXX */
   fprintf (fp,
-           "<domain>\n"
+           "<domain type='physical'>\n"
            "  <name>%s</name>\n"
            "  <memory unit='KiB'>%" PRIu64 "</memory>\n"
            "  <currentMemory unit='KiB'>%" PRIu64 "</currentMemory>\n"
@@ -430,6 +438,19 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
            config->flags & FLAG_PAE  ? "<pae/>" : "");
 
   for (i = 0; config->disks[i] != NULL; ++i) {
+    char target_dev[64];
+
+    if (config->disks[i][0] == '/') {
+    target_sd:
+      memcpy (target_dev, "sd", 2);
+      guestfs___drive_name (i, &target_dev[2]);
+    } else {
+      if (strlen (config->disks[i]) <= sizeof (target_dev) - 1)
+        strcpy (target_dev, config->disks[i]);
+      else
+        goto target_sd;
+    }
+
     fprintf (fp,
              "    <disk type='network' device='disk'>\n"
              "      <driver name='qemu' type='raw'/>\n"
@@ -438,7 +459,7 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
              "      </source>\n"
              "      <target dev='%s'/>\n"
              "    </disk>\n",
-             data_conns[i].nbd_remote_port, config->disks[i]);
+             data_conns[i].nbd_remote_port, target_dev);
   }
 
   if (config->removable) {
