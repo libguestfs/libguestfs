@@ -116,7 +116,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) $^ | \
+	$(OCAMLFIND) ocamldep -all -I ../ocaml -I $(abs_srcdir) $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
