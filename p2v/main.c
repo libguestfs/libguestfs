@@ -266,6 +266,12 @@ set_config_defaults (struct config *config)
   find_all_interfaces ();
   if (all_interfaces)
     config->interfaces = guestfs___copy_string_list (all_interfaces);
+
+  /* Default output drops the guest onto /var/tmp on the conversion
+   * server, a hopefully safe default.
+   */
+  config->output = strdup ("local");
+  config->output_storage = strdup ("/var/tmp");
 }
 
 static int

@@ -46,6 +46,8 @@ new_config (void)
 #endif
   c->port = 22;
 
+  c->output_allocation = OUTPUT_ALLOCATION_NONE;
+
   return c;
 }
 
@@ -71,6 +73,12 @@ copy_config (struct config *old)
     c->removable = guestfs___copy_string_list (c->removable);
   if (c->interfaces)
     c->interfaces = guestfs___copy_string_list (c->interfaces);
+  if (c->output)
+    c->output = strdup (c->output);
+  if (c->output_format)
+    c->output_format = strdup (c->output_format);
+  if (c->output_storage)
+    c->output_storage = strdup (c->output_storage);
 
   return c;
 }
@@ -85,5 +93,8 @@ free_config (struct config *c)
   guestfs___free_string_list (c->disks);
   guestfs___free_string_list (c->removable);
   guestfs___free_string_list (c->interfaces);
+  free (c->output);
+  free (c->output_format);
+  free (c->output_storage);
   free (c);
 }

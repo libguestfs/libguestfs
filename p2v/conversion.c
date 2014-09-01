@@ -46,6 +46,7 @@ struct data_conn {
   int nbd_remote_port;      /* remote NBD port on conversion server */
 };
 
+static int send_quoted (mexp_h *, const char *s);
 static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static char *generate_libvirt_xml (struct config *, struct data_conn *);
@@ -197,32 +198,65 @@ start_conversion (struct config *config,
   if (notify_ui)
     notify_ui (NOTIFY_STATUS, _("Doing conversion ..."));
 
-  if (mexp_printf (control_h,
-                   "( "
-                   "%s"
-                   "virt-v2v"
-                   "%s"
-                   " -i libvirtxml"
-                   " -o local -os /tmp" /* XXX */
-                   " --root first"
-                   " %s/guest.xml"
-                   " </dev/null" /* stdin */
-                   " 2>&1"       /* output */
-                   " ;"
-                   " echo $? > %s/status"
-                   " )"
-                   " | tee %s/virt-v2v-conversion-log.txt"
-                   " ;"
-                   " exit"
-                   "\n",
+  /* Build the virt-v2v command up in pieces to make the quoting
+   * slightly more sane.
+   */
+  if (mexp_printf (control_h, "( %s virt-v2v%s -i libvirtxml",
                    config->sudo ? "sudo " : "",
-                   config->verbose ? " -v -x" : "",
-                   remote_dir,
-                   remote_dir,
-                   remote_dir) == -1) {
+                   config->verbose ? " -v -x" : "") == -1) {
+  printf_fail:
     set_conversion_error ("mexp_printf: virt-v2v command: %m");
     goto out;
   }
+  if (config->output) {         /* -o */
+    if (mexp_printf (control_h, " -o ") == -1)
+      goto printf_fail;
+    if (send_quoted (control_h, config->output) == -1)
+      goto printf_fail;
+  }
+  switch (config->output_allocation) { /* -oa */
+  case OUTPUT_ALLOCATION_NONE:
+    /* nothing */
+    break;
+  case OUTPUT_ALLOCATION_SPARSE:
+    if (mexp_printf (control_h, " -oa sparse") == -1)
+      goto printf_fail;
+    break;
+  case OUTPUT_ALLOCATION_PREALLOCATED:
+    if (mexp_printf (control_h, " -oa preallocated") == -1)
+      goto printf_fail;
+    break;
+  default:
+    abort ();
+  }
+  if (config->output_format) {  /* -of */
+    if (mexp_printf (control_h, " -of ") == -1)
+      goto printf_fail;
+    if (send_quoted (control_h, config->output_format) == -1)
+      goto printf_fail;
+  }
+  if (config->output_storage) { /* -os */
+    if (mexp_printf (control_h, " -os ") == -1)
+      goto printf_fail;
+    if (send_quoted (control_h, config->output_storage) == -1)
+      goto printf_fail;
+  }
+  if (mexp_printf (control_h, " --root first") == -1)
+    goto printf_fail;
+  if (mexp_printf (control_h, " %s/guest.xml", remote_dir) == -1)
+    goto printf_fail;
+  /* no stdin, and send stdout and stderr to the same place */
+  if (mexp_printf (control_h, " </dev/null 2>&1") == -1)
+    goto printf_fail;
+  if (mexp_printf (control_h, " ; echo $? > %s/status", remote_dir) == -1)
+    goto printf_fail;
+  if (mexp_printf (control_h, " ) | tee %s/virt-v2v-conversion-log.txt",
+                   remote_dir) == -1)
+    goto printf_fail;
+  if (mexp_printf (control_h, "; exit") == -1)
+    goto printf_fail;
+  if (mexp_printf (control_h, "\n") == -1)
+    goto printf_fail;
 
   /* Read output from the virt-v2v process and echo it through the
    * notify function, until virt-v2v closes the connection.
@@ -255,6 +289,26 @@ start_conversion (struct config *config,
     mexp_close (control_h);
   cleanup_data_conns (data_conns, nr_disks);
   return ret;
+}
+
+/* Send a shell-quoted string to remote. */
+static int
+send_quoted (mexp_h *h, const char *s)
+{
+  if (mexp_printf (h, "\"") == -1)
+    return -1;
+  while (*s) {
+    if (*s == '$' || *s == '`' || *s == '\\' || *s == '"') {
+      if (mexp_printf (h, "\\") == -1)
+        return -1;
+    }
+    if (mexp_printf (h, "%c", *s) == -1)
+      return -1;
+    ++s;
+  }
+  if (mexp_printf (h, "\"") == -1)
+    return -1;
+  return 0;
 }
 
 /* Note: returns process ID (> 0) or 0 if there is an error. */
@@ -480,6 +534,13 @@ debug_parameters (struct config *config)
       fprintf (stderr, " %s", config->interfaces[i]);
   }
   fprintf (stderr, "\n");
+  fprintf (stderr, "output . . . . .   %s\n",
+           config->output ? config->output : "none");
+  fprintf (stderr, "output alloc . .   %d\n", config->output_allocation);
+  fprintf (stderr, "output format  .   %s\n",
+           config->output_format ? config->output_format : "none");
+  fprintf (stderr, "output storage .   %s\n",
+           config->output_storage ? config->output_storage : "none");
   fprintf (stderr, "\n");
 #endif
 }

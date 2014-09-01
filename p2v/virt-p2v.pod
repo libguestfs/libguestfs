@@ -77,7 +77,7 @@ in the C<pxelinux.cfg> file.  For example:
  PROMPT 0
  LABEL p2v
    KERNEL virt-p2v-vmlinuz
-   APPEND initrd=virt-p2v-initrd p2v.server=conv.example.com p2v.password=secret
+   APPEND initrd=virt-p2v-initrd p2v.server=conv.example.com p2v.password=secret p2v.output=libvirt
 
 You have to set some or all of the following command line arguments:
 
@@ -160,6 +160,31 @@ Note that the content of removable media is never copied over.
 
 A list of network interfaces to convert.  The default is to create
 virtual network interfaces for every physical network interface found.
+
+=item B<p2v.output=[libvirt|local|...]>
+
+Set the output mode.  This is the same as the virt-v2v I<-o> option.
+See L<virt-v2v(1)/OPTIONS>.
+
+If not specified, the default is C<local>, and the converted guest is
+written to C</var/tmp>.
+
+=item B<p2v.output_allocation=sparse|preallocated>
+
+Set the output allocation mode.  This is the same as the virt-v2v
+I<-oa> option.  See L<virt-v2v(1)/OPTIONS>.
+
+=item B<p2v.output_format=raw|sparse|...>
+
+Set the output format.  This is the same as the virt-v2v I<-oa>
+option.  See L<virt-v2v(1)/OPTIONS>.
+
+=item B<p2v.output_storage=...>
+
+Set the output storage.  This is the same as the virt-v2v I<-os>
+option.  See L<virt-v2v(1)/OPTIONS>.
+
+If not specified, the default is C</var/tmp> (on the conversion server).
 
 =item B<ip=dhcp>
 
