@@ -31,13 +31,13 @@ libguestfs E<ge> 1.28.
 =head1 INPUT AND OUTPUT MODES
 
                          ┌────────────┐
- -i disk ───────────┐    │            │   ┌───────> -o local
+ -i disk ───────────┐    │            │   ┌───────▶ -o local
                     │    │ virt-v2v   │   │
-                    └──> │ conversion │ ──┘
- -i libvirt ───────────> │ server     │ ────────> -o libvirt
-  (default)         ┌──> │            │ ──┐        (default)
-                    │    │            │ ─┐└──────> -o glance
- -i libvirtxml ─────┘    │            │  └─────────> -o rhev
+                    └──▶ │ conversion │ ──┘
+ -i libvirt ───────────▶ │ server     │ ────────▶ -o libvirt
+  (default)         ┌──▶ │            │ ──┐        (default)
+                    │    │            │ ─┐└──────▶ -o glance
+ -i libvirtxml ─────┘    │            │  └─────────▶ -o rhev
                          └────────────┘
 
 Virt-v2v has a number of possible input and output modes, selected

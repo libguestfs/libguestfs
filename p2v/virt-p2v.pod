@@ -27,11 +27,11 @@ has to talk to another server called the "conversion server" which
 must have L<virt-v2v(1)> installed on it.  It always talks to the
 conversion server over SSH:
 
- +-----------+                +-------------+
- | virt-p2v  |                | virt-v2v    |
- | (physical | ssh connection | (conversion |
- |  server)  ----------------->  server)    |
- +-----------+                +-------------+
+ ┌──────────────┐                  ┌─────────────────┐
+ │ virt-p2v     │                  │ virt-v2v        │
+ │ (physical    │  ssh connection  │ (conversion     │
+ │  server)   ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍▶ server)       │
+ └──────────────┘                  └─────────────────┘
 
 The virt-v2v program on the conversion server does the actual
 conversion (physical to virtual, and virtual to virtual conversions

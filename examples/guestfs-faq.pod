@@ -509,21 +509,19 @@ In Fedora E<ge> 18 and RHEL E<ge> 7, libguestfs uses libvirt to manage
 the appliance.  Previously (and upstream) libguestfs runs qemu
 directly:
 
- +----------------------------------+
- | libguestfs                       |
- +----------------+-----------------+
- | direct backend | libvirt backend |
- +----------------+-----------------+
-        |                  |
-        v                  v
-    +-------+         +----------+
-    | qemu  |         | libvirtd |
-    +-------+         +----------+
-                           |
-                           v
-                       +-------+
-                       | qemu  |
-                       +-------+
+ ┌──────────────────────────────────┐
+ │ libguestfs                       │
+ ├────────────────┬─────────────────┤
+ │ direct backend │ libvirt backend │
+ └────────────────┴─────────────────┘
+        ↓                  ↓
+    ┌───────┐         ┌──────────┐
+    │ qemu  │         │ libvirtd │
+    └───────┘         └──────────┘
+                           ↓
+                       ┌───────┐
+                       │ qemu  │
+                       └───────┘
  
     upstream          Fedora 18+
     non-Fedora         RHEL 7+
@@ -1144,14 +1142,14 @@ In contrast, when the virtual machine boots, it mounts those
 filesystems into a consistent hierarchy such as:
 
  /          (/dev/sda2)
- |
- +-- /boot  (/dev/sda1)
- |
- +-- /home  (/dev/vg_external/Homes)
- |
- +-- /usr   (/dev/vg_os/lv_usr)
- |
- +-- /var   (/dev/vg_os/lv_var)
+ │
+ ├── /boot  (/dev/sda1)
+ │
+ ├── /home  (/dev/vg_external/Homes)
+ │
+ ├── /usr   (/dev/vg_os/lv_usr)
+ │
+ └── /var   (/dev/vg_os/lv_var)
 
 (or drive letters on Windows).
 

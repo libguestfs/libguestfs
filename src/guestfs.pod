@@ -3392,25 +3392,24 @@ Internally, libguestfs is implemented by running an appliance (a
 special type of small virtual machine) using L<qemu(1)>.  Qemu runs as
 a child process of the main program.
 
-  ___________________
- /                   \
- | main program      |
- |                   |
- |                   |           child process / appliance
- |                   |           __________________________
- |                   |          / qemu                     \
- +-------------------+   RPC    |      +-----------------+ |
- | libguestfs     <--------------------> guestfsd        | |
- |                   |          |      +-----------------+ |
- \___________________/          |      | Linux kernel    | |
-                                |      +--^--------------+ |
-                                \_________|________________/
-                                          |
-                                   _______v______
-                                  /              \
-                                  | Device or    |
-                                  | disk image   |
-                                  \______________/
+ ┌───────────────────┐
+ │ main program      │
+ │                   │
+ │                   │           child process / appliance
+ │                   │          ┌──────────────────────────┐
+ │                   │          │ qemu                     │
+ ├───────────────────┤   RPC    │      ┌─────────────────┐ │
+ │ libguestfs  ◀╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍▶ guestfsd        │ │
+ │                   │          │      ├─────────────────┤ │
+ └───────────────────┘          │      │ Linux kernel    │ │
+                                │      └────────┬────────┘ │
+                                └───────────────│──────────┘
+                                                │
+                                                │ virtio-scsi
+                                         ┌──────┴──────┐
+                                         │  Device or  │
+                                         │  disk image │
+                                         └─────────────┘
 
 The library, linked to the main program, creates the child process and
 hence the appliance in the L</guestfs_launch> function.

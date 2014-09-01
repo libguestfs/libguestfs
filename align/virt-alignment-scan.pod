@@ -250,13 +250,13 @@ Partitions which are not aligned correctly to the underlying
 storage cause extra I/O.  For example:
 
                        sect#63
-                       +--------------------------+------
-                       |         guest            |
-                       |    filesystem block      |
- ---+------------------+------+-------------------+-----+---
-    |  host block             |  host block             |
-    |                         |                         |
- ---+-------------------------+-------------------------+---
+                       ┌──────────────────────────┬ ─ ─ ─ ─
+                       │         guest            │
+                       │    filesystem block      │
+  ─ ┬──────────────────┴──────┬───────────────────┴─────┬ ─ ─
+    │  host block             │  host block             │
+    │                         │                         │
+  ─ ┴─────────────────────────┴─────────────────────────┴ ─ ─
 
 In this example, each time a 4K guest block is read, two blocks on the
 host must be accessed (so twice as much I/O is done).  When a 4K guest
