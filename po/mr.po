@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-08-29 22:41+0100\n"
+"POT-Creation-Date: 2014-09-01 17:38+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/libguestfs/"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:200
+#: ../v2v/v2v.ml:205
 msgid "%s: %s (ignored)"
 msgstr ""
 
@@ -290,7 +290,7 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:370 ../sysprep/main.ml:297
+#: ../v2v/v2v.ml:385 ../sysprep/main.ml:297
 msgid "%s: error: %s\n"
 msgstr ""
 
@@ -300,13 +300,13 @@ msgstr ""
 
 #. ../resize/resize.ml:1309
 #. ../builder/builder.ml:743
-#: ../v2v/v2v.ml:363 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
+#: ../v2v/v2v.ml:378 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
 #. ../resize/resize.ml:1312
 #. ../builder/builder.ml:746
-#: ../v2v/v2v.ml:366 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
+#: ../v2v/v2v.ml:381 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -327,7 +327,7 @@ msgstr ""
 #. ../resize/resize.ml:1331
 #. ../customize/customize_main.ml:262
 #. ../builder/builder.ml:764
-#: ../v2v/v2v.ml:388 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
+#: ../v2v/v2v.ml:403 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -337,7 +337,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1319
 #. ../builder/builder.ml:752
-#: ../v2v/v2v.ml:376 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
+#: ../v2v/v2v.ml:391 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -364,14 +364,14 @@ msgstr ""
 #. ../resize/resize.ml:1328
 #. ../customize/customize_main.ml:259
 #. ../builder/builder.ml:761
-#: ../v2v/v2v.ml:385 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
+#: ../v2v/v2v.ml:400 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
 #. ../resize/resize.ml:1325
 #. ../customize/customize_main.ml:255
 #. ../builder/builder.ml:758
-#: ../v2v/v2v.ml:382 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
+#: ../v2v/v2v.ml:397 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:135
 #. ../builder/builder.ml:755
-#: ../v2v/v2v.ml:379 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
+#: ../v2v/v2v.ml:394 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -397,7 +397,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1316
 #. ../builder/builder.ml:749
-#: ../v2v/v2v.ml:373 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
+#: ../v2v/v2v.ml:388 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
@@ -683,13 +683,12 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:246
+#: ../v2v/cmdline.ml:244
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:244
-msgid ""
-"-o glance: output image name was not specified, use '-os glance_image_name'"
+#: ../v2v/cmdline.ml:246
+msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 
 #: ../v2v/output_libvirt.ml:233
@@ -785,7 +784,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:204
+#: ../v2v/v2v.ml:209
 msgid "Closing the overlay"
 msgstr ""
 
@@ -797,11 +796,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:173
+#: ../v2v/v2v.ml:178
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:171
+#: ../v2v/v2v.ml:176
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -821,7 +820,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:223
+#: ../v2v/v2v.ml:228
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -849,7 +848,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:258
+#: ../v2v/v2v.ml:273
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1046,7 +1045,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:294
+#: ../v2v/v2v.ml:309
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1134,7 +1133,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:261 ../customize/customize_main.ml:237
+#: ../v2v/v2v.ml:276 ../customize/customize_main.ml:237
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1204,7 +1203,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:146
+#: ../v2v/v2v.ml:151
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1218,7 +1217,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:164
+#: ../v2v/v2v.ml:169
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1286,7 +1285,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:195
+#: ../v2v/v2v.ml:200
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1347,7 +1346,7 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../v2v/v2v.ml:116
+#: ../v2v/v2v.ml:121
 msgid "Opening the overlay"
 msgstr ""
 
@@ -2137,7 +2136,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:297
+#: ../v2v/v2v.ml:312
 msgid "connection closed"
 msgstr ""
 
@@ -2196,7 +2195,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:156
+#: ../v2v/v2v.ml:161
 msgid ""
 "disk %s (%s) has no defined format, you have to either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
@@ -2225,7 +2224,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:281
+#: ../v2v/v2v.ml:296
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2324,28 +2323,24 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../v2v/output_glance.ml:54
+#: ../v2v/output_glance.ml:55
 msgid ""
 "glance: OpenStack conversion only supports virtual machines with a single "
 "disk image.  This VM has %d"
 msgstr ""
 
-#: ../v2v/output_glance.ml:108
-msgid "glance: failed to set --min-ram to %Ld (MB) (ignored)"
+#: ../v2v/output_glance.ml:117
+msgid "glance: failed to set image properties (ignored)"
 msgstr ""
 
-#: ../v2v/output_glance.ml:118
-msgid "glance: failed to set property '%s' to '%s' (ignored)"
-msgstr ""
-
-#: ../v2v/output_glance.ml:49
+#: ../v2v/output_glance.ml:50
 msgid ""
 "glance: glance client is not installed or set up correctly.  You may need to "
 "set environment variables or source a script to enable authentication.  See "
 "preceding messages for details."
 msgstr ""
 
-#: ../v2v/output_glance.ml:71
+#: ../v2v/output_glance.ml:72
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
@@ -2377,11 +2372,19 @@ msgstr ""
 msgid "in the libvirt XML metadata, <os><type arch='...'> is missing or empty"
 msgstr ""
 
+#: ../v2v/v2v.ml:240
+msgid "internal error: qemu corrupted the overlay file"
+msgstr ""
+
+#: ../v2v/v2v.ml:115
+msgid "internal error: qemu-img did not create overlay with backing file"
+msgstr ""
+
 #: ../v2v/cmdline.ml:65
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
-#: ../v2v/v2v.ml:319
+#: ../v2v/v2v.ml:334
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2401,7 +2404,7 @@ msgid ""
 "[-os %s], or else you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:304
+#: ../v2v/v2v.ml:319
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2448,7 +2451,7 @@ msgid ""
 "of this guest."
 msgstr ""
 
-#: ../v2v/v2v.ml:274
+#: ../v2v/v2v.ml:289
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2518,7 +2521,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:253 ../v2v/v2v.ml:111
+#: ../v2v/v2v.ml:268 ../v2v/v2v.ml:111
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2530,7 +2533,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:312
+#: ../v2v/v2v.ml:327
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2843,7 +2846,7 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:187
+#: ../v2v/v2v.ml:192
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -6816,17 +6819,21 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:116
+#: p2v/conversion.c:117
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:186
+#: p2v/conversion.c:195
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:198
+#: p2v/conversion.c:207
 msgid "Doing conversion ..."
+msgstr ""
+
+#: p2v/conversion.c:292
+msgid "Control connection closed by remote."
 msgstr ""
 
 #: p2v/gui.c:109
@@ -8254,54 +8261,54 @@ msgid ""
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:226
+#: test-tool/test-tool.c:224
 #, c-format
 msgid "libguestfs-test-tool: failed to add scratch drive\n"
 msgstr ""
 
-#: test-tool/test-tool.c:276
+#: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: अप्लायंस सुरू करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:288
+#: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:294
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 अपयशी\n"
 
-#: test-tool/test-tool.c:300
+#: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 यांस / वर माऊंट करण्यास अपयशी\n"
 
-#: test-tool/test-tool.c:307
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:313
+#: test-tool/test-tool.c:311
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:347
+#: test-tool/test-tool.c:345
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:355
+#: test-tool/test-tool.c:353
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "बाइनरी '%s' अस्तित्वात नाही किंवा एक्जीक्यूटेबल नाही\n"
 
-#: test-tool/test-tool.c:372
+#: test-tool/test-tool.c:370
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu स्रोत डिरेक्ट्री प्रमाणे आढळले नाही\n"
