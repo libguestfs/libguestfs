@@ -216,10 +216,23 @@ do_download (guestfs_h *g, const char *filename, char **tempfile)
 }
 
 static int
-do_upload (guestfs_h *g, const char *filename, const char *tempfile,
+do_upload (guestfs_h *g, const char *fn, const char *tempfile,
            const char *backup_extension)
 {
+  CLEANUP_FREE char *filename = NULL;
   CLEANUP_FREE char *newname = NULL;
+
+  /* Resolve the file name and write to the actual target, since
+   * that is the file it was opened earlier; otherwise, if it is
+   * a symlink it will be overwritten by a regular file with the
+   * new content.
+   *
+   * Theoretically realpath should work, but just check again
+   * to be safe.
+   */
+  filename = guestfs_realpath (g, fn);
+  if (filename == NULL)
+    return -1;
 
   /* Upload to a new file in the same directory, so if it fails we
    * don't end up with a partially written file.  Give the new file
