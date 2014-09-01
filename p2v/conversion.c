@@ -233,11 +233,14 @@ start_conversion (struct config *config,
 
     r = read (control_h->fd, buf, sizeof buf - 1);
     if (r == -1) {
+      /* See comment about this in miniexpect.c. */
+      if (errno == EIO)
+        break;                  /* EOF */
       set_conversion_error ("read: %m");
       goto out;
     }
     if (r == 0)
-      break;
+      break;                    /* EOF */
     buf[r] = '\0';
     if (notify_ui)
       notify_ui (NOTIFY_REMOTE_MESSAGE, buf);
