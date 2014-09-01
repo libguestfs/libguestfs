@@ -43,6 +43,12 @@ cat /file.txt
 stat /file.txt | grep mode:
 stat /file.txt | grep uid:
 stat /file.txt | grep gid:
+echo ==========
+write /file-2.txt "symlink test\n"
+ln-s /file-2.txt /symlink-2.txt
+edit /symlink-2.txt
+is-symlink /symlink-2.txt
+cat /symlink-2.txt
 EOF
 )
 
@@ -51,7 +57,11 @@ second line of text
 
 mode: 33152
 uid: 10
-gid: 11" ]; then
+gid: 11
+==========
+true
+symlink test
+second line of text" ]; then
     echo "$0: error: output of guestfish after edit command did not match expected output"
     echo "$output"
     exit 1

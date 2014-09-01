@@ -310,6 +310,7 @@ edit (const char *filename, const char *root)
   CLEANUP_FREE char *upload_from = NULL;
   CLEANUP_FREE char *newname = NULL;
   CLEANUP_FREE char *backupname = NULL;
+  CLEANUP_FREE char *newdestfilename = NULL;
 
   /* Windows?  Special handling is required. */
   if (is_windows (g, root))
@@ -341,12 +342,24 @@ edit (const char *filename, const char *root)
    * the user closed the editor without changing the file.
    */
   if (upload_from) {
+    /* Resolve the file name and write to the actual target, since
+     * that is the file it was opened earlier; otherwise, if it is
+     * a symlink it will be overwritten by a regular file with the
+     * new content.
+     *
+     * Theoretically realpath should work, but just check again
+     * to be safe.
+     */
+    newdestfilename = guestfs_realpath (g, filename);
+    if (newdestfilename == NULL)
+      goto error;
+
     /* Upload to a new file in the same directory, so if it fails we
      * don't end up with a partially written file.  Give the new file
      * a completely random name so we have only a tiny chance of
      * overwriting some existing file.
      */
-    newname = generate_random_name (filename);
+    newname = generate_random_name (newdestfilename);
 
     if (guestfs_upload (g, upload_from, newname) == -1)
       goto error;
@@ -354,16 +367,16 @@ edit (const char *filename, const char *root)
     /* Set the permissions, UID, GID and SELinux context of the new
      * file to match the old file (RHBZ#788641).
      */
-    if (copy_attributes (filename, newname) == -1)
+    if (copy_attributes (newdestfilename, newname) == -1)
       goto error;
 
     /* Backup or overwrite the file. */
     if (backup_extension) {
-      backupname = generate_backup_name (filename);
-      if (guestfs_mv (g, filename, backupname) == -1)
+      backupname = generate_backup_name (newdestfilename);
+      if (guestfs_mv (g, newdestfilename, backupname) == -1)
         goto error;
     }
-    if (guestfs_mv (g, newname, filename) == -1)
+    if (guestfs_mv (g, newname, newdestfilename) == -1)
       goto error;
   }
 

@@ -44,6 +44,7 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   char buf[256];
   const char *editor;
   CLEANUP_FREE char *remotefilename = NULL, *newname = NULL;
+  CLEANUP_FREE char *newdestfilename = NULL;
   struct stat oldstat, newstat;
   int r, fd;
 
@@ -119,12 +120,24 @@ run_edit (const char *cmd, size_t argc, char *argv[])
       oldstat.st_size == newstat.st_size)
     return 0;
 
+  /* Resolve the file name and write to the actual target, since
+   * that is the file it was opened earlier; otherwise, if it is
+   * a symlink it will be overwritten by a regular file with the
+   * new content.
+   *
+   * Theoretically realpath should work, but just check again
+   * to be safe.
+   */
+  newdestfilename = guestfs_realpath (g, remotefilename);
+  if (newdestfilename == NULL)
+    return -1;
+
   /* Upload to a new file in the same directory, so if it fails we
    * don't end up with a partially written file.  Give the new file
    * a completely random name so we have only a tiny chance of
    * overwriting some existing file.
    */
-  newname = generate_random_name (remotefilename);
+  newname = generate_random_name (newdestfilename);
   if (!newname)
     return -1;
 
@@ -138,7 +151,7 @@ run_edit (const char *cmd, size_t argc, char *argv[])
   if (copy_attributes (remotefilename, newname) == -1)
     return -1;
 
-  if (guestfs_mv (g, newname, remotefilename) == -1)
+  if (guestfs_mv (g, newname, newdestfilename) == -1)
     return -1;
 
   return 0;
