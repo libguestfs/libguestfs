@@ -59,6 +59,8 @@
 int v2v_major;
 int v2v_minor;
 int v2v_release;
+char **input_drivers = NULL;
+char **output_drivers = NULL;
 
 static char *ssh_error;
 
@@ -98,7 +100,9 @@ static void free_regexps (void) __attribute__((destructor));
 static pcre *password_re;
 static pcre *prompt_re;
 static pcre *version_re;
-static pcre *libguestfs_rewrite_re;
+static pcre *feature_libguestfs_rewrite_re;
+static pcre *feature_input_re;
+static pcre *feature_output_re;
 static pcre *portfwd_re;
 
 static void
@@ -123,7 +127,9 @@ compile_regexps (void)
   COMPILE (prompt_re, "###([0123456789abcdefghijklmnopqrstuvwxyz]{8})### ", 0);
   COMPILE (version_re,
            "virt-v2v ([1-9]\\d*)\\.([1-9]\\d*)\\.([1-9]\\d*)", 0);
-  COMPILE (libguestfs_rewrite_re, "libguestfs-rewrite", 0);
+  COMPILE (feature_libguestfs_rewrite_re, "libguestfs-rewrite", 0);
+  COMPILE (feature_input_re, "input:(\\w*)", 0);
+  COMPILE (feature_output_re, "output:(\\w*)", 0);
   COMPILE (portfwd_re, "Allocated port (\\d+) for remote forward", 0);
 }
 
@@ -133,7 +139,9 @@ free_regexps (void)
   pcre_free (password_re);
   pcre_free (prompt_re);
   pcre_free (version_re);
-  pcre_free (libguestfs_rewrite_re);
+  pcre_free (feature_libguestfs_rewrite_re);
+  pcre_free (feature_input_re);
+  pcre_free (feature_output_re);
   pcre_free (portfwd_re);
 }
 
@@ -319,6 +327,9 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   return h;
 }
 
+static void add_input_driver (const char *name, size_t len);
+static void add_output_driver (const char *name, size_t len);
+
 #pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn" /* WTF? */
 int
 test_connection (struct config *config)
@@ -341,54 +352,62 @@ test_connection (struct config *config)
     return -1;
   }
 
-  switch (mexp_expect (h,
-                       (mexp_regexp[]) {
-                         { 100, .re = version_re },
-                         { 101, .re = prompt_re },
-                         { 0 }
-                       }, ovector, ovecsize)) {
-  case 100:                     /* Got version string. */
-    major_str = strndup (&h->buffer[ovector[2]], ovector[3]-ovector[2]);
-    minor_str = strndup (&h->buffer[ovector[4]], ovector[5]-ovector[4]);
-    release_str = strndup (&h->buffer[ovector[6]], ovector[7]-ovector[6]);
-    sscanf (major_str, "%d", &v2v_major);
-    sscanf (minor_str, "%d", &v2v_minor);
-    sscanf (release_str, "%d", &v2v_release);
+  for (;;) {
+    switch (mexp_expect (h,
+                         (mexp_regexp[]) {
+                           { 100, .re = version_re },
+                           { 101, .re = prompt_re },
+                           { 0 }
+                         }, ovector, ovecsize)) {
+    case 100:                   /* Got version string. */
+      major_str = strndup (&h->buffer[ovector[2]], ovector[3]-ovector[2]);
+      minor_str = strndup (&h->buffer[ovector[4]], ovector[5]-ovector[4]);
+      release_str = strndup (&h->buffer[ovector[6]], ovector[7]-ovector[6]);
+      sscanf (major_str, "%d", &v2v_major);
+      sscanf (minor_str, "%d", &v2v_minor);
+      sscanf (release_str, "%d", &v2v_release);
 #if DEBUG_STDERR
-    fprintf (stderr, "%s: remote virt-v2v version: %d.%d.%d\n",
-             program_name, v2v_major, v2v_minor, v2v_release);
+      fprintf (stderr, "%s: remote virt-v2v version: %d.%d.%d\n",
+               program_name, v2v_major, v2v_minor, v2v_release);
 #endif
-    if (v2v_major < 1 || v2v_major > 1) {
+      if (v2v_major < 1 || v2v_major > 1) {
+        mexp_close (h);
+        set_ssh_error ("invalid version major (%d)", v2v_major);
+        return -1;
+      }
+      break;
+
+    case 101:             /* Got the prompt. */
+      goto end_of_version;
+
+    case MEXP_EOF:
       mexp_close (h);
-      set_ssh_error ("invalid version major (%d)", v2v_major);
+      set_ssh_error ("unexpected end of file waiting virt-v2v -V output");
+      return -1;
+
+    case MEXP_TIMEOUT:
+      mexp_close (h);
+      set_ssh_error ("timeout waiting for virt-v2v -V output");
+      return -1;
+
+    case MEXP_ERROR:
+      set_ssh_error ("mexp_expect: %m");
+      mexp_close (h);
+      return -1;
+
+    case MEXP_PCRE_ERROR:
+      set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+      mexp_close (h);
       return -1;
     }
-    break;
+  }
+ end_of_version:
 
-  case 101:                     /* Got the prompt, but no version string. */
+  /* Got the prompt but no version number. */
+  if (v2v_major == 0) {
     mexp_close (h);
     set_ssh_error ("virt-v2v is not installed on the conversion server, "
                    "or it might be a too old version");
-    return -1;
-
-  case MEXP_EOF:
-    mexp_close (h);
-    set_ssh_error ("unexpected end of file waiting virt-v2v -V output");
-    return -1;
-
-  case MEXP_TIMEOUT:
-    mexp_close (h);
-    set_ssh_error ("timeout waiting for virt-v2v -V output");
-    return -1;
-
-  case MEXP_ERROR:
-    set_ssh_error ("mexp_expect: %m");
-    mexp_close (h);
-    return -1;
-
-  case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", h->pcre_error);
-    mexp_close (h);
     return -1;
   }
 
@@ -400,35 +419,58 @@ test_connection (struct config *config)
     return -1;
   }
 
-  switch (mexp_expect (h,
-                       (mexp_regexp[]) {
-                         { 100, .re = libguestfs_rewrite_re },
-                         { 0 }
-                       }, ovector, ovecsize)) {
-  case 100:                     /* Got feature: libguestfs-rewrite. */
-    feature_libguestfs_rewrite = 1;
-    break;
+  for (;;) {
+    CLEANUP_FREE char *feature = NULL;
 
-  case MEXP_EOF:
-    mexp_close (h);
-    set_ssh_error ("unexpected end of file waiting virt-v2v --machine-readable output");
-    return -1;
+    switch (mexp_expect (h,
+                         (mexp_regexp[]) {
+                           { 100, .re = feature_libguestfs_rewrite_re },
+                           { 101, .re = feature_input_re },
+                           { 102, .re = feature_output_re },
+                           { 103, .re = prompt_re },
+                           { 0 }
+                         }, ovector, ovecsize)) {
+    case 100:                   /* libguestfs-rewrite. */
+      feature_libguestfs_rewrite = 1;
+      break;
 
-  case MEXP_TIMEOUT:
-    mexp_close (h);
-    set_ssh_error ("timeout waiting virt-v2v --machine-readable output");
-    return -1;
+    case 101:
+      /* input:<driver-name> corresponds to an -i option in virt-v2v. */
+      add_input_driver (&h->buffer[ovector[2]],
+                        (size_t) (ovector[3]-ovector[2]));
+      break;
 
-  case MEXP_ERROR:
-    set_ssh_error ("mexp_expect: %m");
-    mexp_close (h);
-    return -1;
+    case 102:
+      /* output:<driver-name> corresponds to an -o option in virt-v2v. */
+      add_output_driver (&h->buffer[ovector[2]],
+                         (size_t) (ovector[3]-ovector[2]));
+      break;
 
-  case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", h->pcre_error);
-    mexp_close (h);
-    return -1;
+    case 103:                   /* Got prompt, so end of output. */
+      goto end_of_machine_readable;
+
+    case MEXP_EOF:
+      mexp_close (h);
+      set_ssh_error ("unexpected end of file waiting virt-v2v --machine-readable output");
+      return -1;
+
+    case MEXP_TIMEOUT:
+      mexp_close (h);
+      set_ssh_error ("timeout waiting virt-v2v --machine-readable output");
+      return -1;
+
+    case MEXP_ERROR:
+      set_ssh_error ("mexp_expect: %m");
+      mexp_close (h);
+      return -1;
+
+    case MEXP_PCRE_ERROR:
+      set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+      mexp_close (h);
+      return -1;
+    }
   }
+ end_of_machine_readable:
 
   if (!feature_libguestfs_rewrite) {
     mexp_close (h);
@@ -471,6 +513,49 @@ test_connection (struct config *config)
   }
 
   return 0;
+}
+
+static void
+add_option (const char *type, char ***drivers, const char *name, size_t len)
+{
+  size_t n;
+
+  if (*drivers == NULL)
+    n = 0;
+  else
+    n = guestfs___count_strings (*drivers);
+
+  n++;
+
+  *drivers = realloc (*drivers, (n+1) * sizeof (char *));
+  if (*drivers == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  (*drivers)[n-1] = strndup (name, len);
+  if ((*drivers)[n-1] == NULL) {
+    perror ("strndup");
+    exit (EXIT_FAILURE);
+  }
+  (*drivers)[n] = NULL;
+
+#if DEBUG_STDERR
+  fprintf (stderr, "%s: remote virt-v2v supports %s driver %s\n",
+           program_name, type, (*drivers)[n-1]);
+#endif
+}
+
+static void
+add_input_driver (const char *name, size_t len)
+{
+  add_option ("input", &input_drivers, name, len);
+}
+
+static void
+add_output_driver (const char *name, size_t len)
+{
+  add_option ("output", &output_drivers, name, len);
 }
 
 /* The p2v ISO should allow us to open up just about any port. */

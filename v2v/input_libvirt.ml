@@ -88,3 +88,4 @@ object
 end
 
 let input_libvirt = new input_libvirt
+let () = Modules_list.register_input_module "libvirt"

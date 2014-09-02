@@ -277,3 +277,4 @@ object
 end
 
 let input_libvirtxml = new input_libvirtxml
+let () = Modules_list.register_input_module "libvirtxml"

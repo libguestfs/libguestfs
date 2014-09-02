@@ -720,3 +720,4 @@ object
 end
 
 let output_rhev = new output_rhev
+let () = Modules_list.register_output_module "rhev"

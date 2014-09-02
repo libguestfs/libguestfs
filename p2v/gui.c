@@ -90,6 +90,7 @@ static void test_connection_clicked (GtkWidget *w, gpointer data);
 static void *test_connection_thread (void *data);
 static void about_button_clicked (GtkWidget *w, gpointer data);
 static void connection_next_clicked (GtkWidget *w, gpointer data);
+static void repopulate_output_combo (struct config *config);
 
 static void
 create_connection_dialog (struct config *config)
@@ -470,23 +471,7 @@ create_conversion_dialog (struct config *config)
                     0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
   o_combo = gtk_combo_box_new_text ();
   gtk_widget_set_tooltip_markup (o_combo, _("<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the conversion server.  <b>local</b> means put it in a directory on the conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  <b>glance</b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for more information about output options."));
-  /* XXX Add list of input and output drivers to virt-v2v --machine-readable
-   * and pick them up for this list.
-   */
-  gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "libvirt");
-  gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "local");
-  gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "rhev");
-  gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "glance");
-  if (config->output) {
-    if (STREQ (config->output, "libvirt"))
-      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 0);
-    else if (STREQ (config->output, "local") || STREQ (config->output, "disk"))
-      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 1);
-    else if (STREQ (config->output, "rhev") || STREQ (config->output, "ovirt"))
-      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 2);
-    else if (STREQ (config->output, "glance"))
-      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 3);
-  }
+  repopulate_output_combo (config);
   gtk_table_attach (GTK_TABLE (output_tbl), o_combo,
                     1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
 
@@ -627,6 +612,57 @@ show_conversion_dialog (void)
 
   /* Show the conversion dialog. */
   gtk_widget_show_all (conv_dlg);
+
+  /* output_drivers may have been updated, so repopulate o_combo. */
+  repopulate_output_combo (NULL);
+}
+
+static void
+repopulate_output_combo (struct config *config)
+{
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  CLEANUP_FREE char *output;
+  size_t i;
+
+  /* Which driver is currently selected? */
+  if (config && config->output)
+    output = strdup (config->output);
+  else
+    output = gtk_combo_box_get_active_text (GTK_COMBO_BOX (o_combo));
+
+  /* Remove existing rows in o_combo. */
+  model = gtk_combo_box_get_model (GTK_COMBO_BOX (o_combo));
+  while (gtk_tree_model_get_iter_first (model, &iter)) {
+    gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+  }
+
+  /* List of output_drivers from virt-v2v not read yet, so present
+   * a standard set of drivers.
+   */
+  if (output_drivers == NULL) {
+    gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "libvirt");
+    gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "local");
+    gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "rhev");
+    if (output == NULL || STREQ (output, "libvirt"))
+      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 0);
+    else if (STREQ (output, "local"))
+      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 1);
+    else if (STREQ (output, "rhev"))
+      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 2);
+  }
+  /* List of -o options read from remote virt-v2v --machine-readable. */
+  else {
+    for (i = 0; output_drivers[i] != NULL; ++i)
+      gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), output_drivers[i]);
+    if (output) {
+      for (i = 0; output_drivers[i] != NULL; ++i)
+        if (STREQ (output, output_drivers[i]))
+          gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), i);
+    }
+    else
+      gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 0);
+  }
 }
 
 static void

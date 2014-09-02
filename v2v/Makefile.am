@@ -31,11 +31,12 @@ SOURCES_MLI = \
 	convert_windows.mli \
 	DOM.mli \
 	domainxml.mli \
-	lib_esx.mli \
-	lib_linux.mli \
 	input_disk.mli \
 	input_libvirt.mli \
 	input_libvirtxml.mli \
+	lib_esx.mli \
+	lib_linux.mli \
+	modules_list.mli \
 	output_glance.mli \
 	output_libvirt.mli \
 	output_local.mli \
@@ -52,6 +53,7 @@ SOURCES_ML = \
 	DOM.ml \
 	lib_esx.ml \
 	lib_linux.ml \
+	modules_list.ml \
 	input_disk.ml \
 	input_libvirtxml.ml \
 	input_libvirt.ml \

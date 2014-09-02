@@ -90,3 +90,4 @@ class input_disk verbose input_format disk = object
 end
 
 let input_disk = new input_disk
+let () = Modules_list.register_input_module "disk"

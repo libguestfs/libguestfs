@@ -275,3 +275,4 @@ class output_libvirt verbose oc output_pool = object
 end
 
 let output_libvirt = new output_libvirt
+let () = Modules_list.register_output_module "libvirt"

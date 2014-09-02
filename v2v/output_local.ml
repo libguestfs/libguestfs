@@ -48,3 +48,4 @@ class output_local verbose dir = object
 end
 
 let output_local = new output_local
+let () = Modules_list.register_output_module "local"
