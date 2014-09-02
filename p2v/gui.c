@@ -417,6 +417,7 @@ create_conversion_dialog (struct config *config)
 
   /* The left column: target properties and output options. */
   target_frame = gtk_frame_new (_("Target properties"));
+  gtk_container_set_border_width (GTK_CONTAINER (target_frame), 4);
 
   target_vbox = gtk_vbox_new (FALSE, 1);
 
@@ -456,6 +457,7 @@ create_conversion_dialog (struct config *config)
   gtk_container_add (GTK_CONTAINER (target_frame), target_vbox);
 
   output_frame = gtk_frame_new (_("Virt-v2v output options"));
+  gtk_container_set_border_width (GTK_CONTAINER (output_frame), 4);
 
   output_vbox = gtk_vbox_new (FALSE, 1);
 
@@ -549,7 +551,9 @@ create_conversion_dialog (struct config *config)
 
   /* The right column: select devices to be converted. */
   disks_frame = gtk_frame_new (_("Fixed hard disks"));
+  gtk_container_set_border_width (GTK_CONTAINER (disks_frame), 4);
   disks_sw = gtk_scrolled_window_new (NULL, NULL);
+  gtk_container_set_border_width (GTK_CONTAINER (disks_sw), 8);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (disks_sw),
                                   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
   disks_list = gtk_tree_view_new ();
@@ -559,7 +563,9 @@ create_conversion_dialog (struct config *config)
   gtk_container_add (GTK_CONTAINER (disks_frame), disks_sw);
 
   removable_frame = gtk_frame_new (_("Removable media"));
+  gtk_container_set_border_width (GTK_CONTAINER (removable_frame), 4);
   removable_sw = gtk_scrolled_window_new (NULL, NULL);
+  gtk_container_set_border_width (GTK_CONTAINER (removable_sw), 8);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (removable_sw),
                                   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
   removable_list = gtk_tree_view_new ();
@@ -569,7 +575,9 @@ create_conversion_dialog (struct config *config)
   gtk_container_add (GTK_CONTAINER (removable_frame), removable_sw);
 
   interfaces_frame = gtk_frame_new (_("Network interfaces"));
+  gtk_container_set_border_width (GTK_CONTAINER (interfaces_frame), 4);
   interfaces_sw = gtk_scrolled_window_new (NULL, NULL);
+  gtk_container_set_border_width (GTK_CONTAINER (interfaces_sw), 8);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (interfaces_sw),
                                   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
   interfaces_list = gtk_tree_view_new ();
