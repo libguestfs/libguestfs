@@ -161,33 +161,41 @@ kernel_configuration (struct config *config, const char *cmdline)
     config->interfaces = guestfs___split_string (',', t);
   }
 
-  r = strstr (cmdline, "p2v.output=");
+  r = strstr (cmdline, "p2v.o=");
   if (r) {
-    r += 5+6;
+    r += 5+1;
     len = strcspn (r, " ");
     free (config->output);
     config->output = strndup (r, len);
   }
 
-  r = strstr (cmdline, "p2v.output_allocation=sparse");
+  r = strstr (cmdline, "p2v.oa=sparse");
   if (r)
     config->output_allocation = OUTPUT_ALLOCATION_SPARSE;
 
-  r = strstr (cmdline, "p2v.output_allocation=preallocated");
+  r = strstr (cmdline, "p2v.oa=preallocated");
   if (r)
     config->output_allocation = OUTPUT_ALLOCATION_PREALLOCATED;
 
-  r = strstr (cmdline, "p2v.output_format=");
+  r = strstr (cmdline, "p2v.oc=");
   if (r) {
-    r += 5+13;
+    r += 5+2;
+    len = strcspn (r, " ");
+    free (config->output_connection);
+    config->output_connection = strndup (r, len);
+  }
+
+  r = strstr (cmdline, "p2v.of=");
+  if (r) {
+    r += 5+2;
     len = strcspn (r, " ");
     free (config->output_format);
     config->output_format = strndup (r, len);
   }
 
-  r = strstr (cmdline, "p2v.output_storage=");
+  r = strstr (cmdline, "p2v.os=");
   if (r) {
-    r += 5+14;
+    r += 5+2;
     len = strcspn (r, " ");
     free (config->output_storage);
     config->output_storage = strndup (r, len);

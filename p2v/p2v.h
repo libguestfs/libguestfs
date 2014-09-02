@@ -67,6 +67,7 @@ struct config {
   char **interfaces;
   char *output;
   int output_allocation;
+  char *output_connection;
   char *output_format;
   char *output_storage;
 };

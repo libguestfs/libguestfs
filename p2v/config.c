@@ -75,6 +75,8 @@ copy_config (struct config *old)
     c->interfaces = guestfs___copy_string_list (c->interfaces);
   if (c->output)
     c->output = strdup (c->output);
+  if (c->output_connection)
+    c->output_connection = strdup (c->output_connection);
   if (c->output_format)
     c->output_format = strdup (c->output_format);
   if (c->output_storage)
@@ -94,6 +96,7 @@ free_config (struct config *c)
   guestfs___free_string_list (c->removable);
   guestfs___free_string_list (c->interfaces);
   free (c->output);
+  free (c->output_connection);
   free (c->output_format);
   free (c->output_storage);
   free (c);
