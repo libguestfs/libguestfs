@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-01 17:38+0100\n"
+"POT-Creation-Date: 2014-09-02 17:05+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "%s: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:205
+#: ../v2v/v2v.ml:215
 msgid "%s: %s (ignored)"
 msgstr ""
 
@@ -141,6 +141,10 @@ msgstr ""
 
 #: ../customize/customize_run.ml:140
 msgid "%s: --update is not supported for this guest operating system\n"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:44
+msgid "%s: --user-accounts: empty user name\n"
 msgstr ""
 
 #: ../builder/sources.ml:87
@@ -290,7 +294,7 @@ msgstr ""
 msgid "%s: error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:385 ../sysprep/main.ml:297
+#: ../v2v/v2v.ml:395 ../sysprep/main.ml:297
 msgid "%s: error: %s\n"
 msgstr ""
 
@@ -300,13 +304,13 @@ msgstr ""
 
 #. ../resize/resize.ml:1309
 #. ../builder/builder.ml:743
-#: ../v2v/v2v.ml:378 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
+#: ../v2v/v2v.ml:388 ../sysprep/main.ml:290 ../sparsify/sparsify.ml:52
 msgid "%s: error: %s: %s\n"
 msgstr ""
 
 #. ../resize/resize.ml:1312
 #. ../builder/builder.ml:746
-#: ../v2v/v2v.ml:381 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
+#: ../v2v/v2v.ml:391 ../sysprep/main.ml:293 ../sparsify/sparsify.ml:55
 msgid "%s: error: %s: %s: %s\n"
 msgstr ""
 
@@ -327,7 +331,7 @@ msgstr ""
 #. ../resize/resize.ml:1331
 #. ../customize/customize_main.ml:262
 #. ../builder/builder.ml:764
-#: ../v2v/v2v.ml:403 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
+#: ../v2v/v2v.ml:413 ../sysprep/main.ml:316 ../sparsify/sparsify.ml:74
 msgid "%s: exception: %s\n"
 msgstr ""
 
@@ -337,7 +341,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1319
 #. ../builder/builder.ml:752
-#: ../v2v/v2v.ml:391 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
+#: ../v2v/v2v.ml:401 ../sysprep/main.ml:303 ../sparsify/sparsify.ml:62
 msgid "%s: failure: %s\n"
 msgstr ""
 
@@ -364,14 +368,14 @@ msgstr ""
 #. ../resize/resize.ml:1328
 #. ../customize/customize_main.ml:259
 #. ../builder/builder.ml:761
-#: ../v2v/v2v.ml:400 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
+#: ../v2v/v2v.ml:410 ../sysprep/main.ml:313 ../sparsify/sparsify.ml:71
 msgid "%s: internal error: Not_found exception was thrown\n"
 msgstr ""
 
 #. ../resize/resize.ml:1325
 #. ../customize/customize_main.ml:255
 #. ../builder/builder.ml:758
-#: ../v2v/v2v.ml:397 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
+#: ../v2v/v2v.ml:407 ../sysprep/main.ml:309 ../sparsify/sparsify.ml:68
 msgid "%s: internal error: assertion failed at %s, line %d, char %d\n"
 msgstr ""
 
@@ -379,7 +383,7 @@ msgstr ""
 #. ../customize/customize_main.ml:252
 #. ../builder/sources.ml:135
 #. ../builder/builder.ml:755
-#: ../v2v/v2v.ml:394 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
+#: ../v2v/v2v.ml:404 ../sysprep/main.ml:306 ../sparsify/sparsify.ml:65
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -397,7 +401,7 @@ msgstr ""
 
 #. ../resize/resize.ml:1316
 #. ../builder/builder.ml:749
-#: ../v2v/v2v.ml:388 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
+#: ../v2v/v2v.ml:398 ../sysprep/main.ml:300 ../sparsify/sparsify.ml:59
 msgid "%s: libguestfs error: %s\n"
 msgstr ""
 
@@ -754,6 +758,15 @@ msgstr ""
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
+#: ../sysprep/sysprep_operation_user_account.ml:105
+msgid ""
+"By default remove all the user accounts and their home directories.\n"
+"The \"root\" account is not removed.\n"
+"\n"
+"See the I<--user-accounts> parameter for a way to specify\n"
+"how to remove only some users, or to not remove some others."
+msgstr ""
+
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:44
 msgid "Change LVM2 PV and VG UUIDs"
 msgstr ""
@@ -784,7 +797,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:209
+#: ../v2v/v2v.ml:219
 msgid "Closing the overlay"
 msgstr ""
 
@@ -796,11 +809,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:178
+#: ../v2v/v2v.ml:188
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:176
+#: ../v2v/v2v.ml:186
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -820,7 +833,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:228
+#: ../v2v/v2v.ml:238
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -848,11 +861,11 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:273
+#: ../v2v/v2v.ml:283
 msgid "Creating output metadata"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:67
+#: ../sysprep/sysprep_operation_user_account.ml:111
 msgid ""
 "Currently this does not remove the user accounts from\n"
 "C</etc/shadow>.  This is because there is no lens for\n"
@@ -1045,7 +1058,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:309
+#: ../v2v/v2v.ml:319
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1133,7 +1146,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:276 ../customize/customize_main.ml:237
+#: ../v2v/v2v.ml:286 ../customize/customize_main.ml:237
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1217,7 +1230,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:169
+#: ../v2v/v2v.ml:179
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1285,7 +1298,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:200
+#: ../v2v/v2v.ml:210
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1465,12 +1478,6 @@ msgstr ""
 msgid "Remove Kerberos data in the guest"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:64
-msgid ""
-"Remove all the user accounts and their home directories.\n"
-"The \"root\" account is not removed."
-msgstr ""
-
 #: ../sysprep/sysprep_operation_blkid_tab.ml:47
 msgid "Remove blkid tab in the guest"
 msgstr ""
@@ -1579,7 +1586,7 @@ msgstr ""
 msgid "Remove the process accounting log files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:63
+#: ../sysprep/sysprep_operation_user_account.ml:104
 msgid "Remove the user accounts in the guest"
 msgstr ""
 
@@ -1961,6 +1968,21 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
+#: ../sysprep/sysprep_operation_user_account.ml:118
+msgid ""
+"The user accounts to be removed (or not) from the guest.\n"
+"The value of this option is a list of user names separated by comma,\n"
+"where specifying an user means it is going to be removed,\n"
+"while prepending C<-> in front of it name means it is not removed.\n"
+"For example:\n"
+"\n"
+" --user-accounts bob,eve\n"
+"\n"
+"would only remove the user accounts C<bob> and C<eve>.\n"
+"\n"
+"This option can be specified multiple times."
+msgstr ""
+
 #: ../builder/builder.ml:263
 msgid "There are no notes for %s\n"
 msgstr ""
@@ -2038,6 +2060,10 @@ msgstr ""
 
 #: ../customize/customize_run.ml:263
 msgid "Uploading: %s to %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:116
+msgid "Users to remove/keep"
 msgstr ""
 
 #: ../sparsify/copying.ml:155
@@ -2136,7 +2162,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:312
+#: ../v2v/v2v.ml:322
 msgid "connection closed"
 msgstr ""
 
@@ -2224,7 +2250,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:296
+#: ../v2v/v2v.ml:306
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2372,7 +2398,7 @@ msgstr ""
 msgid "in the libvirt XML metadata, <os><type arch='...'> is missing or empty"
 msgstr ""
 
-#: ../v2v/v2v.ml:240
+#: ../v2v/v2v.ml:250
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -2384,7 +2410,7 @@ msgstr ""
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
-#: ../v2v/v2v.ml:334
+#: ../v2v/v2v.ml:344
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2404,7 +2430,7 @@ msgid ""
 "[-os %s], or else you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:319
+#: ../v2v/v2v.ml:329
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2451,7 +2477,7 @@ msgid ""
 "of this guest."
 msgstr ""
 
-#: ../v2v/v2v.ml:289
+#: ../v2v/v2v.ml:299
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2489,6 +2515,17 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
+#: ../v2v/v2v.ml:171
+msgid ""
+"output format should be 'raw' or 'qcow2'.\n"
+"\n"
+"Use the '-of <format>' option to select a different output format for the "
+"converted guest.\n"
+"\n"
+"Other output formats are not supported at the moment, although might be "
+"considered in future."
+msgstr ""
+
 #. ../resize/resize.ml:187
 #: ../resize/resize.ml:208 ../resize/resize.ml:192 ../resize/resize.ml:188
 msgid "part"
@@ -2521,7 +2558,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:268 ../v2v/v2v.ml:111
+#: ../v2v/v2v.ml:278 ../v2v/v2v.ml:111
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2533,7 +2570,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:327
+#: ../v2v/v2v.ml:337
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2663,6 +2700,10 @@ msgstr ""
 
 #: ../resize/resize.ml:298
 msgid "usage is: %s [--options] indisk outdisk"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:116
+msgid "users"
 msgstr ""
 
 #: ../builder/index_parser.ml:226
@@ -2846,7 +2887,7 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:192
+#: ../v2v/v2v.ml:202
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -6750,148 +6791,205 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:117
+#: p2v/conversion.c:120
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:195
+#: p2v/conversion.c:198
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:207
+#: p2v/conversion.c:210
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:292
+#: p2v/conversion.c:295
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:109
+#: p2v/gui.c:111
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:114
+#: p2v/gui.c:116
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:124
+#: p2v/gui.c:126
 msgid "SSH port:"
 msgstr ""
 
-#: p2v/gui.c:135
+#: p2v/gui.c:137
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:147
+#: p2v/gui.c:149
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:163
+#: p2v/gui.c:165
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:170
+#: p2v/gui.c:172
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:192
+#: p2v/gui.c:194
 msgid "Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:193
+#: p2v/gui.c:195
 msgid "About ..."
 msgstr ""
 
-#: p2v/gui.c:194
+#: p2v/gui.c:196
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:244
+#: p2v/gui.c:246
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:252
+#: p2v/gui.c:254
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:260
+#: p2v/gui.c:262
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:301
+#: p2v/gui.c:303
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:320
+#: p2v/gui.c:322
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:414
+#: p2v/gui.c:421
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:419
+#: p2v/gui.c:427
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:429
+#: p2v/gui.c:437
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:439
+#: p2v/gui.c:447
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:451
+#: p2v/gui.c:461
+msgid "Virt-v2v output options"
+msgstr ""
+
+#: p2v/gui.c:467
+msgid "Output to (-o):"
+msgstr ""
+
+#: p2v/gui.c:472
+msgid ""
+"<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
+"conversion server.  <b>local</b> means put it in a directory on the "
+"conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  <b>glance</"
+"b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
+"more information about output options."
+msgstr ""
+
+#: p2v/gui.c:493
+msgid "Output conn. (-oc):"
+msgstr ""
+
+#: p2v/gui.c:498
+msgid ""
+"For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
+"the guest to the default libvirt instance on the conversion server.  For "
+"others, leave this field blank."
+msgstr ""
+
+#: p2v/gui.c:504
+msgid "Output storage (-os):"
+msgstr ""
+
+#: p2v/gui.c:509
+msgid ""
+"For <b>local</b>, put the directory name on the conversion server.  For "
+"<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
+"others, leave this field blank."
+msgstr ""
+
+#: p2v/gui.c:515
+msgid "Output format (-of):"
+msgstr ""
+
+#: p2v/gui.c:520
+msgid ""
+"The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
+"defaults to <b>raw</b>."
+msgstr ""
+
+#: p2v/gui.c:526
+msgid "Output allocation (-oa):"
+msgstr ""
+
+#: p2v/gui.c:545
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
 msgstr ""
 
-#: p2v/gui.c:461
+#: p2v/gui.c:555
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:471
+#: p2v/gui.c:567
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:481
+#: p2v/gui.c:579
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:502
+#: p2v/gui.c:606
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:503
+#: p2v/gui.c:607
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:592 p2v/gui.c:647 p2v/gui.c:688
+#: p2v/gui.c:696 p2v/gui.c:751 p2v/gui.c:799
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:599 p2v/gui.c:654 p2v/gui.c:695
+#: p2v/gui.c:703 p2v/gui.c:758 p2v/gui.c:806
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:606
+#: p2v/gui.c:710
 msgid "Size (GB)"
 msgstr ""
 
-#: p2v/gui.c:613
+#: p2v/gui.c:717
 msgid "Model"
 msgstr ""
 
-#: p2v/gui.c:833
+#: p2v/gui.c:813
+msgid "Connect to virtual network"
+msgstr ""
+
+#: p2v/gui.c:1022
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:861
+#: p2v/gui.c:1050
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -6899,34 +6997,34 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:922
+#: p2v/gui.c:1111
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:923 p2v/gui.c:956
+#: p2v/gui.c:1112 p2v/gui.c:1145
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:954
+#: p2v/gui.c:1143
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1005
+#: p2v/gui.c:1230
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1006
+#: p2v/gui.c:1231
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1015
+#: p2v/gui.c:1240
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1016
+#: p2v/gui.c:1241
 msgid "Conversion was successful"
 msgstr ""
 
