@@ -13,7 +13,6 @@ p2v:
  - short transfers?
  - network dialog and network configuration
  - GUI controls for network mapping
- - GUI controls for p2v.output, p2v.output_storage, etc.
 
 p2v/conversion.c:                "/tmp/virt-p2v-%04d%02d%02d-XXXXXXXX",
 p2v/conversion.c:                   " -o local -os /tmp" /* XXX */
