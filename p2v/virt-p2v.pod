@@ -161,6 +161,24 @@ Note that the content of removable media is never copied over.
 A list of network interfaces to convert.  The default is to create
 virtual network interfaces for every physical network interface found.
 
+=item B<p2v.network=interface:target,...>
+
+Controls how network interfaces are connected to virtual networks on
+the target hypervisor.  The default is to connect all network
+interfaces to the target C<default> network.
+
+You give a comma-separated list of C<interface:target> pairs, plus
+optionally a default target.  For example:
+
+ p2v.network=em1:rhevm
+
+maps interface C<em1> to target network C<rhevm>.
+
+ p2v.network=em1:rhevm,em2:management,other
+
+maps interface C<em1> to C<rhevm>, and C<em2> to C<management>, and
+any other interface that is found to C<other>.
+
 =item B<p2v.o=[libvirt|local|...]>
 
 Set the output mode.  This is the same as the virt-v2v I<-o> option.

@@ -11,7 +11,6 @@ p2v:
  - vmlinuz + initrd? - if not possible, remove from man page
  - PXE boot
  - network dialog and network configuration
- - GUI controls for network mapping
  - why is the Back button insensitive?
 
 p2v/gui.c:  /* XXX It would be nice not to have to set this explicitly, but

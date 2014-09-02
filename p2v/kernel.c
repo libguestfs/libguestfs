@@ -161,6 +161,17 @@ kernel_configuration (struct config *config, const char *cmdline)
     config->interfaces = guestfs___split_string (',', t);
   }
 
+  r = strstr (cmdline, "p2v.network=");
+  if (r) {
+    CLEANUP_FREE char *t;
+
+    r += 5+7;
+    len = strcspn (r, " ");
+    t = strndup (r, len);
+    guestfs___free_string_list (config->network_map);
+    config->network_map = guestfs___split_string (',', t);
+  }
+
   r = strstr (cmdline, "p2v.o=");
   if (r) {
     r += 5+1;

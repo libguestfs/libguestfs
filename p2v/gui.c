@@ -360,6 +360,7 @@ static void populate_disks (GtkTreeView *disks_list);
 static void populate_removable (GtkTreeView *removable_list);
 static void populate_interfaces (GtkTreeView *interfaces_list);
 static void toggled (GtkCellRendererToggle *cell, gchar *path_str, gpointer data);
+static void network_edited_callback (GtkCellRendererToggle *cell, gchar *path_str, gchar *new_text, gpointer data);
 static void set_disks_from_ui (struct config *);
 static void set_removable_from_ui (struct config *);
 static void set_interfaces_from_ui (struct config *);
@@ -384,6 +385,7 @@ enum {
 enum {
   INTERFACES_COL_CONVERT = 0,
   INTERFACES_COL_DEVICE,
+  INTERFACES_COL_NETWORK,
   NUM_INTERFACES_COLS,
 };
 
@@ -766,18 +768,25 @@ static void
 populate_interfaces (GtkTreeView *interfaces_list)
 {
   GtkListStore *interfaces_store;
-  GtkCellRenderer *interfaces_col_convert, *interfaces_col_device;
+  GtkCellRenderer *interfaces_col_convert, *interfaces_col_device,
+    *interfaces_col_network;
   GtkTreeIter iter;
   size_t i;
 
   interfaces_store = gtk_list_store_new (NUM_INTERFACES_COLS,
-                                         G_TYPE_BOOLEAN, G_TYPE_STRING);
+                                         G_TYPE_BOOLEAN, G_TYPE_STRING,
+                                         G_TYPE_STRING);
   if (all_interfaces) {
     for (i = 0; all_interfaces[i] != NULL; ++i) {
       gtk_list_store_append (interfaces_store, &iter);
       gtk_list_store_set (interfaces_store, &iter,
-                          INTERFACES_COL_CONVERT, TRUE,
+                          /* Only convert the first interface.  As
+                           * they are sorted, this is usually the
+                           * physical interface.
+                           */
+                          INTERFACES_COL_CONVERT, i == 0,
                           INTERFACES_COL_DEVICE, all_interfaces[i],
+                          INTERFACES_COL_NETWORK, "default",
                           -1);
     }
   }
@@ -798,9 +807,20 @@ populate_interfaces (GtkTreeView *interfaces_list)
                                                interfaces_col_device,
                                                "text", INTERFACES_COL_DEVICE,
                                                NULL);
+  interfaces_col_network = gtk_cell_renderer_text_new ();
+  gtk_tree_view_insert_column_with_attributes (interfaces_list,
+                                               -1,
+                                               _("Connect to virtual network"),
+                                               interfaces_col_network,
+                                               "text", INTERFACES_COL_NETWORK,
+                                               NULL);
 
   g_signal_connect (interfaces_col_convert, "toggled",
                     G_CALLBACK (toggled), interfaces_store);
+
+  g_object_set (interfaces_col_network, "editable", TRUE, NULL);
+  g_signal_connect (interfaces_col_network, "edited",
+                    G_CALLBACK (network_edited_callback), interfaces_store);
 }
 
 static void
@@ -815,6 +835,25 @@ toggled (GtkCellRendererToggle *cell, gchar *path_str, gpointer data)
   gtk_tree_model_get (model, &iter, 0 /* CONVERT */, &v, -1);
   v ^= 1;
   gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0 /* CONVERT */, v, -1);
+  gtk_tree_path_free (path);
+}
+
+static void
+network_edited_callback (GtkCellRendererToggle *cell, gchar *path_str,
+                         gchar *new_text, gpointer data)
+{
+  GtkTreeModel *model = data;
+  GtkTreePath *path;
+  GtkTreeIter iter;
+
+  if (new_text == NULL || STREQ (new_text, ""))
+    return;
+
+  path = gtk_tree_path_new_from_string (path_str);
+
+  gtk_tree_model_get_iter (model, &iter, path);
+  gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                      INTERFACES_COL_NETWORK, new_text, -1);
   gtk_tree_path_free (path);
 }
 
@@ -875,6 +914,54 @@ set_interfaces_from_ui (struct config *config)
 {
   set_from_ui_generic (all_interfaces, &config->interfaces,
                        GTK_TREE_VIEW (interfaces_list));
+}
+
+static void
+set_network_map_from_ui (struct config *config)
+{
+  GtkTreeView *list;
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  gboolean b;
+  const char *s;
+  size_t i, j;
+
+  if (all_interfaces == NULL) {
+    guestfs___free_string_list (config->network_map);
+    config->network_map = NULL;
+    return;
+  }
+
+  list = GTK_TREE_VIEW (interfaces_list);
+  model = gtk_tree_view_get_model (list);
+
+  guestfs___free_string_list (config->network_map);
+  config->network_map =
+    malloc ((1 + guestfs___count_strings (all_interfaces))
+            * sizeof (char *));
+  if (config->network_map == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+  i = j = 0;
+
+  b = gtk_tree_model_get_iter_first (model, &iter);
+  while (b) {
+    gtk_tree_model_get (model, &iter, INTERFACES_COL_NETWORK, &s, -1);
+    if (s) {
+      assert (all_interfaces[i] != NULL);
+      if (asprintf (&config->network_map[j], "%s:%s",
+                    all_interfaces[i], s) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+      ++j;
+    }
+    b = gtk_tree_model_iter_next (model, &iter);
+    ++i;
+  }
+
+  config->network_map[j] = NULL;
 }
 
 /* The conversion dialog Back button has been clicked. */
@@ -1064,6 +1151,7 @@ start_conversion_clicked (GtkWidget *w, gpointer data)
   /* List of removable media and network interfaces. */
   set_removable_from_ui (config);
   set_interfaces_from_ui (config);
+  set_network_map_from_ui (config);
 
   /* Output selection. */
   free (config->output);

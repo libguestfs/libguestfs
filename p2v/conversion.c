@@ -52,6 +52,7 @@ static int send_quoted (mexp_h *, const char *s);
 static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static char *generate_libvirt_xml (struct config *, struct data_conn *);
+static const char *map_interface_to_network (struct config *, const char *interface);
 static void debug_parameters (struct config *);
 
 static char *conversion_error;
@@ -582,8 +583,12 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
 
       if (config->interfaces) {
         for (i = 0; config->interfaces[i] != NULL; ++i) {
+          const char *target_network;
           CLEANUP_FREE char *mac_filename = NULL;
           CLEANUP_FREE char *mac = NULL;
+
+          target_network =
+            map_interface_to_network (config, config->interfaces[i]);
 
           if (asprintf (&mac_filename, "/sys/class/net/%s/address",
                         config->interfaces[i]) == -1) {
@@ -600,7 +605,7 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
           start_element ("interface") {
             attribute ("type", "network");
             start_element ("source") {
-              attribute ("network", "default");
+              attribute ("network", target_network);
             } end_element ();
             start_element ("target") {
               attribute ("dev", config->interfaces[i]);
@@ -629,6 +634,37 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
   }
 
   return ret;
+}
+
+/* Using config->network_map, map the interface to a target network
+ * name.  If no map is found, return "default".  See virt-p2v(1)
+ * documentation of "p2v.network" for how the network map works.
+ *
+ * Note this returns a static string which is only valid as long as
+ * config->network_map is not freed.
+ */
+static const char *
+map_interface_to_network (struct config *config, const char *interface)
+{
+  size_t i, len;
+
+  if (config->network_map == NULL)
+    return "default";
+
+  for (i = 0; config->network_map[i] != NULL; ++i) {
+    /* The default map maps everything. */
+    if (strchr (config->network_map[i], ':') == NULL)
+      return config->network_map[i];
+
+    /* interface: ? */
+    len = strlen (interface);
+    if (STRPREFIX (config->network_map[i], interface) &&
+        config->network_map[i][len] == ':')
+      return &config->network_map[i][len+1];
+  }
+
+  /* No mapping found. */
+  return "default";
 }
 
 static void
@@ -672,6 +708,12 @@ debug_parameters (struct config *config)
   if (config->interfaces != NULL) {
     for (i = 0; config->interfaces[i] != NULL; ++i)
       fprintf (stderr, " %s", config->interfaces[i]);
+  }
+  fprintf (stderr, "\n");
+  fprintf (stderr, "network map  . .  ");
+  if (config->network_map != NULL) {
+    for (i = 0; config->network_map[i] != NULL; ++i)
+      fprintf (stderr, " %s", config->network_map[i]);
   }
   fprintf (stderr, "\n");
   fprintf (stderr, "output . . . . .   %s\n",

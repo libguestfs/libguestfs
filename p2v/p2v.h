@@ -65,6 +65,7 @@ struct config {
   char **disks;
   char **removable;
   char **interfaces;
+  char **network_map;
   char *output;
   int output_allocation;
   char *output_connection;
