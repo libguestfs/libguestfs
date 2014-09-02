@@ -13,18 +13,10 @@ p2v:
  - network dialog and network configuration
  - why is the Back button insensitive?
 
-p2v/gui.c:  /* XXX It would be nice not to have to set this explicitly, but
 p2v/main.c:/* XXX Copied from fish/options.c. */
 v2v/convert_linux.ml:           (* Get/construct the version.  XXX Read this fro
 v2v/convert_linux.ml:          [ "sym53c8xx" (* XXX why not "ide"? *) ] in
 v2v/convert_linux.ml:         * XXX RHEL 3 unfortunately will give this error an
 v2v/convert_linux.ml:    XXX to do from original v2v:
 v2v/convert_windows.ml:      g#upload rhev_apt_exe "/rhev-apt.exe"; (* XXX *)
-v2v/convert_windows.ml:     * guests.  Unclear if this is correct.  XXX
-v2v/input_libvirt.ml:        (* XXX Missing: Look for qemu+ssh://, xen+ssh:// an
 v2v/input_libvirtxml.ml:             * XXX Quoting, although it's not needed for
-v2v/lib_esx.ml: * XXX Old virt-v2v could also handle snapshots, ie:
-v2v/lib_esx.ml: * XXX Need to handle templates.  The file is called "-delta.vmdk
-v2v/lib_esx.ml:        (* XXX only works if the query string is not URI-quoted *
-v2v/output_RHEV.ml:    (* Old virt-v2v ignored removable media. XXX *)
-v2v/output_glance.ml:   * to write to a temporary file.  XXX
