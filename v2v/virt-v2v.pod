@@ -251,12 +251,15 @@ In this mode, the converted guest is written to a local directory
 specified by I<-os /dir> (the directory must exist).  The converted
 guest's disks are written as:
 
- /dir/disk-sda
- /dir/disk-sdb
+ /dir/name-sda
+ /dir/name-sdb
  [etc]
 
-and a libvirt XML file is created containing guest metadata
-(C</dir/name.xml>, where C<name> is the guest name).
+and a libvirt XML file is created containing guest metadata:
+
+ /dir/name.xml
+
+where C<name> is the guest name.
 
 =item B<-o ovirt>
 
