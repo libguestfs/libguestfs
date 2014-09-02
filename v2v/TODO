@@ -13,7 +13,6 @@ p2v:
  - network dialog and network configuration
  - GUI controls for network mapping
  - why is the Back button insensitive?
- - use libxml2 in p2v/conversion.c to generate libvirt XML
 
 p2v/gui.c:  /* XXX It would be nice not to have to set this explicitly, but
 p2v/gui.c:  /* XXX Add list of input and output drivers to virt-v2v --machine-re
