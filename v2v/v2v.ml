@@ -160,6 +160,16 @@ let rec main () =
           | None, None ->
             error (f_"disk %s (%s) has no defined format, you have to either define the original format in the source metadata, or use the '-of' option to force the output format") ov.ov_sd ov.ov_source.s_qemu_uri in
 
+        (* What really happens here is that the call to #disk_create
+         * below fails if the format is not raw or qcow2.  We would
+         * have to extend libguestfs to support further formats, which
+         * is trivial, but we'd want to check that the files being
+         * created by qemu-img really work.  In any case, fail here,
+         * early, not below, later.
+         *)
+        if format <> "raw" && format <> "qcow2" then
+          error (f_"output format should be 'raw' or 'qcow2'.\n\nUse the '-of <format>' option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
+
         (* output#prepare_targets will fill in the target_file field. *)
         { target_file = ""; target_format = format; target_overlay = ov }
     ) overlays in
