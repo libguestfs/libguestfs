@@ -45,3 +45,10 @@ dnl For Debian:
 -/usr/share/doc-base/*
 -/usr/share/bug/*
 -/etc/initramfs-tools/*
+
+dnl For Ubuntu:
+ifelse(UBUNTU,1,
+dnl This lvm2 rule automatically re-enables vgs when they are added
+dnl or changed
+-/lib/udev/rules.d/85-lvm2.rules
+)
