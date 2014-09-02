@@ -4,6 +4,8 @@ Missing features compared to Perl version:
  - Fix configure_kernel on SUSE (see Mike Latimer's email)
  - testing
 
+virt-v2v bash (tab) completion
+
 Proper progress bars when copying.
 
 p2v:
