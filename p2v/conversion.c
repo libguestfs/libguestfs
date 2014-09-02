@@ -677,6 +677,8 @@ debug_parameters (struct config *config)
   fprintf (stderr, "output . . . . .   %s\n",
            config->output ? config->output : "none");
   fprintf (stderr, "output alloc . .   %d\n", config->output_allocation);
+  fprintf (stderr, "output conn  . .   %s\n",
+           config->output_connection ? config->output_connection : "none");
   fprintf (stderr, "output format  .   %s\n",
            config->output_format ? config->output_format : "none");
   fprintf (stderr, "output storage .   %s\n",
