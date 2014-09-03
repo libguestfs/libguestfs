@@ -231,6 +231,32 @@ let warning ~prog fs =
   in
   ksprintf display fs
 
+(* All the OCaml virt-* programs use this wrapper to catch exceptions
+ * and print them nicely.
+ *)
+let run_main_and_handle_errors ~prog main =
+  try main ()
+  with
+  | Unix.Unix_error (code, fname, "") -> (* from a syscall *)
+    error ~prog (f_"%s: %s") fname (Unix.error_message code)
+  | Unix.Unix_error (code, fname, param) -> (* from a syscall *)
+    error ~prog (f_"%s: %s: %s") fname (Unix.error_message code) param
+  | Sys_error msg ->                    (* from a syscall *)
+    error ~prog (f_"%s") msg
+  | G.Error msg ->                      (* from libguestfs *)
+    error ~prog (f_"libguestfs error: %s") msg
+  | Failure msg ->                      (* from failwith/failwithf *)
+    error ~prog (f_"failure: %s") msg
+  | Invalid_argument msg ->             (* probably should never happen *)
+    error ~prog (f_"internal error: invalid argument: %s") msg
+  | Assert_failure (file, line, char) -> (* should never happen *)
+    error ~prog (f_"internal error: assertion failed at %s, line %d, char %d")
+      file line char
+  | Not_found ->                        (* should never happen *)
+    error ~prog (f_"internal error: Not_found exception was thrown")
+  | exn ->                              (* something not matched above *)
+    error ~prog (f_"exception: %s") (Printexc.to_string exn)
+
 let read_whole_file path =
   let buf = Buffer.create 16384 in
   let chan = open_in path in

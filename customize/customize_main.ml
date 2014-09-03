@@ -242,25 +242,4 @@ read the man page virt-customize(1).
     Gc.compact ()
 
 (* Finished. *)
-let () =
-  (try main ()
-   with
-   | Failure msg ->                     (* from failwith/failwithf *)
-     eprintf (f_"%s: %s\n") prog msg;
-     exit 1
-   | Invalid_argument msg ->            (* probably should never happen *)
-     eprintf (f_"%s: internal error: invalid argument: %s\n") prog msg;
-     exit 1
-   | Assert_failure (file, line, char) -> (* should never happen *)
-     eprintf (f_"%s: internal error: assertion failed at %s, line %d, char %d\n")
-       prog file line char;
-     exit 1
-   | Not_found ->                       (* should never happen *)
-     eprintf (f_"%s: internal error: Not_found exception was thrown\n") prog;
-     exit 1
-   | exn ->
-     eprintf (f_"%s: exception: %s\n") prog (Printexc.to_string exn);
-     exit 1
-  );
-
-  exit 0
+let () = run_main_and_handle_errors ~prog main
