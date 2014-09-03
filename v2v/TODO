@@ -3,6 +3,7 @@ Missing features compared to Perl version:
  - user-custom in virt-v2v.conf to install custom packages (virt-customize?)
  - Fix configure_kernel on SUSE (see Mike Latimer's email)
  - testing
+ - xen+ssh://remote, supported by old virt-v2v
 
 virt-v2v bash (tab) completion
 
