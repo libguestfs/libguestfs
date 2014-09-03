@@ -67,7 +67,7 @@ and _wrap chan indent column i len str =
   if i < len then (
     let (j, break) = _wrap_find_next_break i len str in
     let next_column =
-      if column + (j-i) >= 72 then (
+      if column + (j-i) >= 76 then (
         output_char chan '\n';
         output_spaces chan indent;
         indent + (j-i) + 1
