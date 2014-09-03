@@ -843,7 +843,8 @@ static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_x
   } while (0)
 
 /* <element/> */
-#define empty_element(element) start_element(element) {} end_element ()
+#define empty_element(element) \
+  do { start_element(element) {} end_element (); } while (0)
 
 /* key=value attribute of the current element. */
 #define attribute(key,value)                                            \
