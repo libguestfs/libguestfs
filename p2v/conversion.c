@@ -402,7 +402,8 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
   } while (0)
 
 /* <element/> */
-#define empty_element(element) start_element(element) {} end_element ()
+#define empty_element(element) \
+  do { start_element(element) {} end_element (); } while (0)
 
 /* key=value attribute of the current element. */
 #define attribute(key,value)                                            \
