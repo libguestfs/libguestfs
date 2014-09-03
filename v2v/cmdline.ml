@@ -102,11 +102,16 @@ let parse_cmdline () =
   let rhev_vol_uuids = ref [] in
   let add_rhev_vol_uuid s = rhev_vol_uuids := s :: !rhev_vol_uuids in
 
+  let i_options =
+    String.concat "|" (Modules_list.input_modules ())
+  and o_options =
+    String.concat "|" (Modules_list.output_modules ()) in
+
   let ditto = " -\"-" in
   let argspec = Arg.align [
     "--bridge",  Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
-    "-i",        Arg.String set_input_mode, "disk|libvirt|libvirtxml " ^ s_"Set input mode (default: libvirt)";
+    "-i",        Arg.String set_input_mode, i_options ^ " " ^ s_"Set input mode (default: libvirt)";
     "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
     "-if",       Arg.Set_string input_format,
                                             "format " ^ s_"Input format (for -i disk)";
@@ -114,7 +119,7 @@ let parse_cmdline () =
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "--network", Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
     "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
-    "-o",        Arg.String set_output_mode, "libvirt|local|rhev|glance " ^ s_"Set output mode (default: libvirt)";
+    "-o",        Arg.String set_output_mode, o_options ^ " " ^ s_"Set output mode (default: libvirt)";
     "-oa",       Arg.String set_output_alloc, "sparse|preallocated " ^ s_"Set output allocation mode";
     "-oc",       Arg.Set_string output_conn, "uri " ^ s_"Libvirt URI";
     "-of",       Arg.Set_string output_format, "raw|qcow2 " ^ s_"Set output format";
