@@ -84,6 +84,14 @@ let user_account_perform ~verbose ~quiet g root side_effects =
           String.sub userpath (i+1) (String.length userpath -i-1) in
         if uid >= uid_min && uid <= uid_max
            && check_remove_user username then (
+          (* Get the home before removing the passwd entry. *)
+          let home_dir =
+            try Some (g#aug_get (userpath ^ "/home"))
+            with _ ->
+              if verbose then
+                warning ~prog (f_"Cannot get the home directory for %s")
+                  username;
+              None in
           g#aug_rm userpath;
           (* XXX Augeas doesn't yet have a lens for /etc/shadow, so the
            * next line currently does nothing, but should start to
@@ -91,7 +99,9 @@ let user_account_perform ~verbose ~quiet g root side_effects =
            *)
           g#aug_rm (sprintf "/files/etc/shadow/%s" username);
           g#aug_rm (sprintf "/files/etc/group/%s" username);
-          g#rm_rf ("/home/" ^ username)
+          match home_dir with
+          | None -> ()
+          | Some dir -> g#rm_rf dir
         )
     ) users;
     g#aug_save ();
