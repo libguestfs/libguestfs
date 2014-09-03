@@ -217,7 +217,7 @@ let error ~prog ?(exit_code = 1) fs =
     prerr_newline ();
     prerr_newline ();
     wrap ~chan:stderr
-      (sprintf (f_"%s: If reporting bugs, run %s with debugging enabled (-v -x) and include the complete output.")
+      (sprintf (f_"If reporting bugs, run %s with debugging enabled and include the complete output:\n\n  %s -v -x [...]")
          prog prog);
     prerr_newline ();
     exit exit_code
