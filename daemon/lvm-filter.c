@@ -33,22 +33,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-#ifdef HAVE_ATTRIBUTE_CLEANUP
-#define CLEANUP_AUG_CLOSE __attribute__((cleanup(cleanup_aug_close)))
-
-static void
-cleanup_aug_close (void *ptr)
-{
-  augeas *aug = * (augeas **) ptr;
-
-  if (aug != NULL)
-    aug_close (aug);
-}
-
-#else
-#define CLEANUP_AUG_CLOSE
-#endif
-
 GUESTFSD_EXT_CMD(str_lvm, lvm);
 GUESTFSD_EXT_CMD(str_cp, cp);
 GUESTFSD_EXT_CMD(str_rm, rm);

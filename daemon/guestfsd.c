@@ -47,6 +47,8 @@
 # include <printf.h>
 #endif
 
+#include <augeas.h>
+
 #include "sockets.h"
 #include "c-ctype.h"
 #include "ignore-value.h"
@@ -1510,4 +1512,13 @@ cleanup_close (void *ptr)
 
   if (fd >= 0)
     close (fd);
+}
+
+void
+cleanup_aug_close (void *ptr)
+{
+  augeas *aug = * (augeas **) ptr;
+
+  if (aug != NULL)
+    aug_close (aug);
 }
