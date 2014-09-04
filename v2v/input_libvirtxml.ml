@@ -129,8 +129,10 @@ let parse_libvirt_xml ?(map_source_file = no_map) ?(map_source_dev = no_map)
         if target_dev <> "" then Some target_dev else None in
 
       let format =
-        let format = xpath_to_string "driver[@name='qemu']/@type" "" in
-        if format <> "" then Some format else None in
+        match xpath_to_string "driver/@type" "" with
+        | "aio" -> Some "raw" (* Xen wierdness *)
+        | "" -> None
+        | format -> Some format in
 
       (* The <disk type='...'> attribute may be 'block', 'file' or
        * 'network'.  We ignore any other types.
