@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-08-24 22:57+0100\n"
+"POT-Creation-Date: 2014-09-04 16:14+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/fedora/language/"
@@ -628,7 +628,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:206
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:202
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -642,7 +642,7 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:261
+#: ../sparsify/copying.ml:257
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -856,7 +856,7 @@ msgstr ""
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:140
+#: ../sparsify/copying.ml:136
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -916,13 +916,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:190
+#: ../sparsify/copying.ml:186
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/copying.ml:240
+#: ../sparsify/copying.ml:236
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -1560,7 +1560,7 @@ msgstr ""
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:279
+#: ../sparsify/copying.ml:275
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -1753,7 +1753,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:180
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:176
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -1825,7 +1825,7 @@ msgstr ""
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/copying.ml:274
+#: ../sparsify/copying.ml:270
 msgid "external command failed: %s"
 msgstr ""
 
@@ -1931,7 +1931,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:215
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:211
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -6688,7 +6688,7 @@ msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ન�
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
 
-#: src/launch-direct.c:1275 src/launch-libvirt.c:1284
+#: src/launch-direct.c:1275 src/launch-libvirt.c:1285
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -6785,49 +6785,49 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:887
+#: src/launch-libvirt.c:888
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1238
+#: src/launch-libvirt.c:1239
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1361
+#: src/launch-libvirt.c:1362
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1386
+#: src/launch-libvirt.c:1387
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1393
+#: src/launch-libvirt.c:1394
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1671
+#: src/launch-libvirt.c:1672
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1708 src/launch-libvirt.c:1741
+#: src/launch-libvirt.c:1709 src/launch-libvirt.c:1742
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1800
+#: src/launch-libvirt.c:1801
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1831
+#: src/launch-libvirt.c:1832
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -7191,54 +7191,54 @@ msgid ""
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:226
+#: test-tool/test-tool.c:224
 #, c-format
 msgid "libguestfs-test-tool: failed to add scratch drive\n"
 msgstr ""
 
-#: test-tool/test-tool.c:276
+#: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: સાધનને શરૂ કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:288
+#: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:294
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:300
+#: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: / પર mount /dev/sda1 કરવાનું નિષ્ફળ\n"
 
-#: test-tool/test-tool.c:307
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr ""
 
-#: test-tool/test-tool.c:313
+#: test-tool/test-tool.c:311
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:347
+#: test-tool/test-tool.c:345
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:355
+#: test-tool/test-tool.c:353
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "બાઇનરી '%s' એ અસ્તિત્વ ધરાવતુ નથી અથવા એક્સિક્યૂટેબલ નથી\n"
 
-#: test-tool/test-tool.c:372
+#: test-tool/test-tool.c:370
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu સ્ત્રોત ડિરેક્ટરીનાં જેવુ લાગતુ નથી\n"

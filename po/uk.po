@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-08-24 22:57+0100\n"
+"POT-Creation-Date: 2014-09-04 16:14+0100\n"
 "PO-Revision-Date: 2014-03-26 16:49+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/fedora/"
@@ -771,7 +771,7 @@ msgstr "Перевірити цифрові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:206
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:202
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -787,7 +787,7 @@ msgstr "Стиснений формат виведення даних"
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../sparsify/copying.ml:261
+#: ../sparsify/copying.ml:257
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -1021,7 +1021,7 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з виведеними вище "
 "повідомленнями про помилки.\n"
 
-#: ../sparsify/copying.ml:140
+#: ../sparsify/copying.ml:136
 msgid ""
 "Examine source disk ...\n"
 "%!"
@@ -1094,7 +1094,7 @@ msgstr ""
 "\n"
 "Повідомлення про помилку: %s"
 
-#: ../sparsify/copying.ml:190
+#: ../sparsify/copying.ml:186
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
@@ -1102,7 +1102,7 @@ msgstr ""
 "Заповнити вільне місце у %s нулями…\n"
 "%!"
 
-#: ../sparsify/copying.ml:240
+#: ../sparsify/copying.ml:236
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -1800,7 +1800,7 @@ msgstr "Адреса джерела: %s\n"
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr "Виконання дії з розрідження на місці завершено без помилок.\n"
 
-#: ../sparsify/copying.ml:279
+#: ../sparsify/copying.ml:275
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
@@ -2074,7 +2074,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Занулити файлову систему"
 
-#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:180
+#: ../sparsify/in_place.ml:76 ../sparsify/copying.ml:176
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -2154,7 +2154,7 @@ msgstr "роботу зовнішньої програми «%s» перерва
 msgid "external command '%s' stopped by signal %d"
 msgstr "роботу зовнішньої програми «%s» зупинено з сигналом %d"
 
-#: ../sparsify/copying.ml:274
+#: ../sparsify/copying.ml:270
 msgid "external command failed: %s"
 msgstr "помилка зовнішньої програми: %s"
 
@@ -2262,7 +2262,7 @@ msgstr "pread-device: коротке читання"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:215
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:211
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 "pwrite: короткий запис відновлення заголовка розділу резервної пам’яті "
@@ -7778,7 +7778,7 @@ msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1275 src/launch-libvirt.c:1284
+#: src/launch-direct.c:1275 src/launch-libvirt.c:1285
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -7907,16 +7907,16 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:887
+#: src/launch-libvirt.c:888
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1238
+#: src/launch-libvirt.c:1239
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1361
+#: src/launch-libvirt.c:1362
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -7924,7 +7924,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1386
+#: src/launch-libvirt.c:1387
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -7936,7 +7936,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1393
+#: src/launch-libvirt.c:1394
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -7949,20 +7949,20 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1671
+#: src/launch-libvirt.c:1672
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:1708 src/launch-libvirt.c:1741
+#: src/launch-libvirt.c:1709 src/launch-libvirt.c:1742
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:1800
+#: src/launch-libvirt.c:1801
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:1831
+#: src/launch-libvirt.c:1832
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -8376,42 +8376,42 @@ msgstr ""
 "Ознайомтеся з попередніми повідомленнями та даними, виведеними командою "
 "«printenv».\n"
 
-#: test-tool/test-tool.c:226
+#: test-tool/test-tool.c:224
 #, c-format
 msgid "libguestfs-test-tool: failed to add scratch drive\n"
 msgstr "libguestfs-test-tool: не вдалося додати фальшивий диск\n"
 
-#: test-tool/test-tool.c:276
+#: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: не вдалося запустити пристрій\n"
 
-#: test-tool/test-tool.c:288
+#: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
 msgstr "libguestfs-test-tool: не вдалося запустити part-disk\n"
 
-#: test-tool/test-tool.c:294
+#: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: не вдалося виконати mkfs.ext2\n"
 
-#: test-tool/test-tool.c:300
+#: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: не вдалося змонтувати /dev/sda1 до /\n"
 
-#: test-tool/test-tool.c:307
+#: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
 msgstr "libguestfs-test-tool: не вдалося виконати touch для файла\n"
 
-#: test-tool/test-tool.c:313
+#: test-tool/test-tool.c:311
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
 msgstr "libguestfs-test-tool: спроба завершення роботи зазнала невдачі\n"
 
-#: test-tool/test-tool.c:347
+#: test-tool/test-tool.c:345
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -8421,12 +8421,12 @@ msgstr ""
 "встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir.\n"
 
-#: test-tool/test-tool.c:355
+#: test-tool/test-tool.c:353
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "Виконуваного файла «%s» не існує або вказаний файл не є виконуваним\n"
 
-#: test-tool/test-tool.c:372
+#: test-tool/test-tool.c:370
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
