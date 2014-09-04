@@ -87,42 +87,36 @@ let rec set_linux_passwords ~prog ?password_crypto g root passwords =
     | None -> default_crypto ~prog g root
     | Some c -> c in
 
-  (* XXX Would like to use Augeas here, but Augeas doesn't support
-   * /etc/shadow (as of 1.1.0).
-   *)
+  g#aug_init "/" 0;
+  let users = Array.to_list (g#aug_ls "/files/etc/shadow") in
+  List.iter (
+    fun userpath ->
+      let user =
+        let i = String.rindex userpath '/' in
+        String.sub userpath (i+1) (String.length userpath -i-1) in
+      try
+        (* Each line is: "user:[!!]password:..."
+         * !! at the front of the password field means the account is locked.
+         *)
+        let selector = Hashtbl.find passwords user in
+        let pwfield =
+          match selector with
+          | { pw_locked = locked;
+              pw_password = Password password } ->
+            (if locked then "!!" else "") ^ encrypt password crypto
+          | { pw_locked = locked;
+              pw_password = Random_password } ->
+            let password = make_random_password () in
+            printf (f_"Setting random password of %s to %s\n%!")
+              user password;
+            (if locked then "!!" else "") ^ encrypt password crypto
+          | { pw_locked = true; pw_password = Disabled_password } -> "!!*"
+          | { pw_locked = false; pw_password = Disabled_password } -> "*" in
+        g#aug_set (userpath ^ "/password") pwfield
+      with Not_found -> ()
+  ) users;
+  g#aug_save ();
 
-  let shadow = Array.to_list (g#read_lines "/etc/shadow") in
-  let shadow =
-    List.map (
-      fun line ->
-        try
-          (* Each line is: "user:[!!]password:..."
-           * !! at the front of the password field means the account is locked.
-           * 'i' points to the first colon, 'j' to the second colon.
-           *)
-          let i = String.index line ':' in
-          let user = String.sub line 0 i in
-          let selector = Hashtbl.find passwords user in
-          let j = String.index_from line (i+1) ':' in
-          let rest = String.sub line j (String.length line - j) in
-          let pwfield =
-            match selector with
-            | { pw_locked = locked;
-                pw_password = Password password } ->
-              (if locked then "!!" else "") ^ encrypt password crypto
-            | { pw_locked = locked;
-                pw_password = Random_password } ->
-              let password = make_random_password () in
-              printf (f_"Setting random password of %s to %s\n%!")
-                user password;
-              (if locked then "!!" else "") ^ encrypt password crypto
-            | { pw_locked = true; pw_password = Disabled_password } -> "!!*"
-            | { pw_locked = false; pw_password = Disabled_password } -> "*" in
-          user ^ ":" ^ pwfield ^ rest
-        with Not_found -> line
-    ) shadow in
-
-  g#write "/etc/shadow" (String.concat "\n" shadow ^ "\n");
   (* In virt-sysprep /.autorelabel will label it correctly. *)
   g#chmod 0 "/etc/shadow"
 
