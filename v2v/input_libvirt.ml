@@ -24,6 +24,15 @@ open Common_utils
 open Types
 open Utils
 
+(* Check the backend is not libvirt.  Works around a libvirt bug
+ * (RHBZ#1134592).  This can be removed once the libvirt bug is fixed.
+ *)
+let error_if_libvirt_backend () =
+  let libguestfs_backend = (new Guestfs.guestfs ())#get_backend () in
+  if libguestfs_backend = "libvirt" then (
+    error (f_"because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
+  )
+
 class input_libvirt verbose libvirt_uri guest =
 object
   inherit input verbose
@@ -62,19 +71,18 @@ object
           None, None
 
         | Some server, Some ("esx"|"gsx"|"vpx" as scheme) -> (* ESX *)
-          (* Check the backend is not libvirt.  Works around a libvirt bug
-           * (RHBZ#1134592).
-           *)
-          let libguestfs_backend = (new Guestfs.guestfs ())#get_backend () in
-          if libguestfs_backend = "libvirt" then (
-            error (f_"ESX: because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
-          );
-
+          error_if_libvirt_backend ();
           let f = Lib_esx.map_path_to_uri verbose uri scheme server in
           Some f, Some f
 
-        (* XXX Missing: Look for qemu+ssh://, xen+ssh:// and use an ssh
-         * connection.  This was supported in old virt-v2v.
+        | Some server, Some ("xen+ssh" as scheme) -> (* Xen over SSH *)
+          error_if_libvirt_backend ();
+          let f = Lib_xen.map_path_to_uri verbose uri scheme server in
+          Some f, Some f
+
+        (* Old virt-v2v also supported qemu+ssh://.  However I am
+         * deliberately not supporting this in new virt-v2v.  Don't
+         * use virt-v2v if a guest already runs on KVM.
          *)
         | Some _, Some _ ->             (* Unknown remote scheme. *)
           warning ~prog (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
