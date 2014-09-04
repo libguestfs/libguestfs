@@ -93,10 +93,6 @@ let user_account_perform ~verbose ~quiet g root side_effects =
                   username;
               None in
           g#aug_rm userpath;
-          (* XXX Augeas doesn't yet have a lens for /etc/shadow, so the
-           * next line currently does nothing, but should start to
-           * work in a future version.
-           *)
           g#aug_rm (sprintf "/files/etc/shadow/%s" username);
           g#aug_rm (sprintf "/files/etc/group/%s" username);
           match home_dir with
@@ -118,10 +114,6 @@ The \"root\" account is not removed.
 
 See the I<--user-accounts> parameter for a way to specify
 how to remove only some users, or to not remove some others.");
-    pod_notes = Some (s_"\
-Currently this does not remove the user accounts from
-C</etc/shadow>.  This is because there is no lens for
-the shadow password file in Augeas.");
     extra_args = [
       { extra_argspec = "--user-accounts", Arg.String set_users, s_"users" ^ " " ^ s_"Users to remove/keep";
         extra_pod_argval = Some "USERS";
