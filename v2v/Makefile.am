@@ -38,6 +38,7 @@ SOURCES_MLI = \
 	lib_linux.mli \
 	modules_list.mli \
 	output_glance.mli \
+	input_ova.mli \
 	output_libvirt.mli \
 	output_local.mli \
 	output_RHEV.mli \
@@ -57,6 +58,7 @@ SOURCES_ML = \
 	input_disk.ml \
 	input_libvirtxml.ml \
 	input_libvirt.ml \
+	input_ova.ml \
 	convert_linux.ml \
 	convert_windows.ml \
 	output_glance.ml \
@@ -195,6 +197,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 if ENABLE_APPLIANCE
 TESTS = \
+	test-v2v-i-ova.sh \
 	test-v2v-i-disk.sh \
 	test-v2v-machine-readable.sh \
 	test-v2v-networks-and-bridges.sh \

@@ -54,6 +54,7 @@ let parse_cmdline () =
     | "disk" | "local" -> input_mode := `Disk
     | "libvirt" -> input_mode := `Libvirt
     | "libvirtxml" -> input_mode := `LibvirtXML
+    | "ova" -> input_mode := `OVA
     | s ->
       error (f_"unknown -i option: %s") s
   in
@@ -241,7 +242,16 @@ read the man page virt-v2v(1).
         | [filename] -> filename
         | _ ->
           error (f_"expecting a libvirt XML file name on the command line") in
-      Input_libvirtxml.input_libvirtxml verbose filename in
+      Input_libvirtxml.input_libvirtxml verbose filename
+
+    | `OVA ->
+      (* -i ova: Expecting an ova filename (tar file). *)
+      let filename =
+        match args with
+        | [filename] -> filename
+        | _ ->
+          error (f_"expecting an OVA file name on the command line") in
+      Input_ova.input_ova verbose filename in
 
   (* Parse the output mode. *)
   let output =

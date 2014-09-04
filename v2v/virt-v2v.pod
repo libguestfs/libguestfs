@@ -32,8 +32,8 @@ libguestfs E<ge> 1.28.
 
                          ┌────────────┐
  -i disk ───────────┐    │            │   ┌───────▶ -o local
-                    │    │ virt-v2v   │   │
-                    └──▶ │ conversion │ ──┘
+                    └──▶ │ virt-v2v   │   │
+ -i ova  ──────────────▶ │ conversion │ ──┘
  -i libvirt ───────────▶ │ server     │ ────────▶ -o libvirt
   (default)         ┌──▶ │            │ ──┐        (default)
                     │    │            │ ─┐└──────▶ -o glance
@@ -51,6 +51,8 @@ option selects the precise libvirt source.
 
 I<-i disk> is used for reading from local disk images (mainly for
 testing).
+
+I<-i ova> is used for reading from libvirt ova source file.
 
 I<-i libvirtxml> is used to read from libvirt XML files.  This is the
 method used by L<virt-p2v(1)> behind the scenes.
@@ -157,6 +159,14 @@ metadata.  virt-v2v tries to guess the best default metadata.  This is
 usually adequate but you can get finer control (eg. of memory and
 vCPUs) by using I<-i libvirtxml> instead.  Only guests that use a single
 disk can be imported this way.
+
+=item B<-i ova>
+
+Set the input method to I<ova>.
+
+In this mode you can read a vmware ova file (tar format).
+virt-v2v tries to read the ova manifest file and check the ova files
+for validity (checksum) as well as analyzing the ovf file.
 
 =item B<-i libvirt>
 

@@ -90,6 +90,7 @@ v2v/domainxml.ml
 v2v/input_disk.ml
 v2v/input_libvirt.ml
 v2v/input_libvirtxml.ml
+v2v/input_ova.ml
 v2v/lib_esx.ml
 v2v/lib_linux.ml
 v2v/modules_list.ml
