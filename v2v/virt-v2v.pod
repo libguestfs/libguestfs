@@ -32,13 +32,14 @@ libguestfs E<ge> 1.28.
 
                          ┌────────────┐
  -i disk ───────────┐    │            │   ┌───────▶ -o local
-                    └──▶ │ virt-v2v   │   │
- -i ova  ──────────────▶ │ conversion │ ──┘
- -i libvirt ───────────▶ │ server     │ ────────▶ -o libvirt
-  (default)         ┌──▶ │            │ ──┐        (default)
-                    │    │            │ ─┐└──────▶ -o glance
- -i libvirtxml ─────┘    │            │  └─────────▶ -o rhev
-                         └────────────┘
+ -i ova  ─────────┐ └──▶ │ virt-v2v   │   │
+                  └────▶ │ conversion │ ──┘
+ ESX ──▶┌────────────┐   │ server     │    ┌────────────┐
+ Xen ──▶│ -i libvirt ──▶ │            │ ───▶ -o libvirt │─▶ KVM
+ ... ──▶│  (default) │   │            │    │  (default) │
+        └────────────┘   │            │ ──┐└────────────┘
+ -i libvirtxml ────────▶ │            │ ─┐└──────▶ -o glance
+                         └────────────┘  └─────────▶ -o rhev
 
 Virt-v2v has a number of possible input and output modes, selected
 using the I<-i> and I<-o> options.  Only one input and output mode can
