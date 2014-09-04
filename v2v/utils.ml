@@ -61,19 +61,6 @@ let uri_quote str =
   done;
   String.concat "" (List.rev !xs)
 
-(* JSON quoting. *)
-let json_quote str =
-  let str = replace_str str "\\" "\\\\" in
-  let str = replace_str str "\"" "\\\"" in
-  let str = replace_str str "'" "\\'" in
-  let str = replace_str str "\008" "\\b" in
-  let str = replace_str str "\012" "\\f" in
-  let str = replace_str str "\n" "\\n" in
-  let str = replace_str str "\r" "\\r" in
-  let str = replace_str str "\t" "\\t" in
-  let str = replace_str str "\011" "\\v" in
-  str
-
 external drive_name : int -> string = "v2v_utils_drive_name"
 
 let compare_app2_versions app1 app2 =

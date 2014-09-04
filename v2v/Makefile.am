@@ -34,6 +34,7 @@ SOURCES_MLI = \
 	input_disk.mli \
 	input_libvirt.mli \
 	input_libvirtxml.mli \
+	JSON.mli \
 	lib_esx.mli \
 	lib_linux.mli \
 	modules_list.mli \
@@ -52,6 +53,7 @@ SOURCES_ML = \
 	xml.ml \
 	domainxml.ml \
 	DOM.ml \
+	JSON.ml \
 	lib_esx.ml \
 	lib_linux.ml \
 	modules_list.ml \

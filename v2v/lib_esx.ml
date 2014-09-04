@@ -81,45 +81,27 @@ let rec map_path_to_uri verbose uri scheme server path format =
 
     (* Construct the JSON parameters. *)
     let json_params = [
-      "file.driver", "https";
-      "file.url", url;
-      "file.timeout", "60";
+      "file.driver", JSON.String "https";
+      "file.url", JSON.String url;
+      "file.timeout", JSON.Int 60;
     ] in
 
     let json_params =
       if sslverify then json_params
-      else ("file.sslverify", "off") :: json_params in
+      else ("file.sslverify", JSON.String "off") :: json_params in
 
     let json_params =
       match session_cookie with
       | None -> json_params
-      | Some cookie -> ("file.cookie", cookie) :: json_params in
+      | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
 
-    if verbose then (
-      printf "esx: json parameters:\n";
-      List.iter (fun (n, v) -> printf "  %s : %s\n" n v) json_params
-    );
+    if verbose then
+      printf "esx: json parameters: %s\n" (JSON.string_of_doc json_params);
 
     (* Turn the JSON parameters into a 'json:' protocol string.
-     *
-     * Notes:
-     *
-     * (1) This requires qemu-img >= 2.1.0.
-     *
-     * (2) We don't 'quote' the commas, because in {!V2v} we pass the
-     * option to qemu-img create -b (not -o backing_file=...) and so
-     * extra quoting of commas is not required.  However if we changed
-     * things in future then we might requiring quoting of commas to be
-     * added somewhere.
+     * Note this requires qemu-img >= 2.1.0.
      *)
-    let qemu_uri =
-      sprintf "json: { %s }"
-        (String.concat " , " (
-          List.map
-            (fun (n, v) -> sprintf "\"%s\" : \"%s\"" n (json_quote v))
-            json_params
-         )
-        ) in
+    let qemu_uri = "json: " ^ JSON.string_of_doc json_params in
 
     (* The libvirt ESX driver doesn't normally specify a format, but
      * the format of the -flat file is *always* raw, so force it here.

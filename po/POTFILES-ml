@@ -83,6 +83,7 @@ sysprep/sysprep_operation_user_account.ml
 sysprep/sysprep_operation_utmp.ml
 sysprep/sysprep_operation_yum_uuid.ml
 v2v/DOM.ml
+v2v/JSON.ml
 v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
