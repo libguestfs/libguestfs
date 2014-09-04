@@ -109,13 +109,13 @@ let rec set_linux_passwords ~prog ?password_crypto g root passwords =
             match selector with
             | { pw_locked = locked;
                 pw_password = Password password } ->
-              if locked then "!!" else "" ^ encrypt password crypto
+              (if locked then "!!" else "") ^ encrypt password crypto
             | { pw_locked = locked;
                 pw_password = Random_password } ->
               let password = make_random_password () in
               printf (f_"Setting random password of %s to %s\n%!")
                 user password;
-              if locked then "!!" else "" ^ encrypt password crypto
+              (if locked then "!!" else "") ^ encrypt password crypto
             | { pw_locked = true; pw_password = Disabled_password } -> "!!*"
             | { pw_locked = false; pw_password = Disabled_password } -> "*" in
           user ^ ":" ^ pwfield ^ rest
