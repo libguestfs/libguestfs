@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-09-04 14:52+0200\n"
+"POT-Creation-Date: 2014-09-05 15:23+0200\n"
 "PO-Revision-Date: 2014-07-22 18:04+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -85336,30 +85336,18 @@ msgid ""
 "some users, or to not remove some others."
 msgstr ""
 
-#. type: =head3
-#: ../sysprep/sysprep-operations.pod:361
-msgid "Notes on user-account"
-msgstr ""
-
-#. type: textblock
-#: ../sysprep/sysprep-operations.pod:363
-msgid ""
-"Currently this does not remove the user accounts from C</etc/shadow>.  This "
-"is because there is no lens for the shadow password file in Augeas."
-msgstr ""
-
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:367
+#: ../sysprep/sysprep-operations.pod:361
 msgid "B<utmp> *"
 msgstr "B<utmp> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:370
+#: ../sysprep/sysprep-operations.pod:364
 msgid "Remove the utmp file."
 msgstr "utmp ファイルを削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:372
+#: ../sysprep/sysprep-operations.pod:366
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -85370,17 +85358,17 @@ msgstr ""
 "ません。しかし、古いディストリビューションは、ディスクに保存していました。"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:376
+#: ../sysprep/sysprep-operations.pod:370
 msgid "B<yum-uuid> *"
 msgstr "B<yum-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:379
+#: ../sysprep/sysprep-operations.pod:373
 msgid "Remove the yum UUID."
 msgstr "yum UUID を削除します。"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:381
+#: ../sysprep/sysprep-operations.pod:375
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."

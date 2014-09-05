@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.27.37\n"
+"Project-Id-Version: libguestfs 1.27.38\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-09-04 14:52+0200\n"
+"POT-Creation-Date: 2014-09-05 15:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76316,30 +76316,18 @@ msgid ""
 "some users, or to not remove some others."
 msgstr ""
 
-#. type: =head3
-#: ../sysprep/sysprep-operations.pod:361
-msgid "Notes on user-account"
-msgstr ""
-
-#. type: textblock
-#: ../sysprep/sysprep-operations.pod:363
-msgid ""
-"Currently this does not remove the user accounts from C</etc/shadow>.  This "
-"is because there is no lens for the shadow password file in Augeas."
-msgstr ""
-
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:367
+#: ../sysprep/sysprep-operations.pod:361
 msgid "B<utmp> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:370
+#: ../sysprep/sysprep-operations.pod:364
 msgid "Remove the utmp file."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:372
+#: ../sysprep/sysprep-operations.pod:366
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -76347,17 +76335,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:376
+#: ../sysprep/sysprep-operations.pod:370
 msgid "B<yum-uuid> *"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:379
+#: ../sysprep/sysprep-operations.pod:373
 msgid "Remove the yum UUID."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:381
+#: ../sysprep/sysprep-operations.pod:375
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-09-04 14:52+0200\n"
+"POT-Creation-Date: 2014-09-05 15:23+0200\n"
 "PO-Revision-Date: 2014-07-22 18:04+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -84389,32 +84389,18 @@ msgid ""
 "some users, or to not remove some others."
 msgstr ""
 
-#. type: =head3
-#: ../sysprep/sysprep-operations.pod:361
-msgid "Notes on user-account"
-msgstr "Зауваження щодо user-account"
-
-#. type: textblock
-#: ../sysprep/sysprep-operations.pod:363
-msgid ""
-"Currently this does not remove the user accounts from C</etc/shadow>.  This "
-"is because there is no lens for the shadow password file in Augeas."
-msgstr ""
-"У поточній версії записи користувачів не вилучаються з C</etc/shadow>. "
-"Причиною є те, що у Augeas ще немає модуля для файлів паролів shadow."
-
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:367
+#: ../sysprep/sysprep-operations.pod:361
 msgid "B<utmp> *"
 msgstr "B<utmp> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:370
+#: ../sysprep/sysprep-operations.pod:364
 msgid "Remove the utmp file."
 msgstr "Вилучити файл utmp."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:372
+#: ../sysprep/sysprep-operations.pod:366
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -84426,17 +84412,17 @@ msgstr ""
 "у старіших версіях дистрибутивів."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:376
+#: ../sysprep/sysprep-operations.pod:370
 msgid "B<yum-uuid> *"
 msgstr "B<yum-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:379
+#: ../sysprep/sysprep-operations.pod:373
 msgid "Remove the yum UUID."
 msgstr "Вилучити UUID yum."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:381
+#: ../sysprep/sysprep-operations.pod:375
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."
@@ -88542,6 +88528,16 @@ msgstr ""
 #: ../v2v/virt-v2v.pod:975
 msgid "Mike Latimer"
 msgstr ""
+
+#~ msgid "Notes on user-account"
+#~ msgstr "Зауваження щодо user-account"
+
+#~ msgid ""
+#~ "Currently this does not remove the user accounts from C</etc/shadow>.  "
+#~ "This is because there is no lens for the shadow password file in Augeas."
+#~ msgstr ""
+#~ "У поточній версії записи користувачів не вилучаються з C</etc/shadow>. "
+#~ "Причиною є те, що у Augeas ще немає модуля для файлів паролів shadow."
 
 #~ msgid ""
 #~ "                       sect#63\n"

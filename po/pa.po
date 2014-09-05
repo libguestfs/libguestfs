@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-04 14:52+0100\n"
+"POT-Creation-Date: 2014-09-05 15:23+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -89,7 +89,7 @@ msgid ""
 "you can also find this out through the RHEV-M user interface."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1142
+#: ../v2v/convert_linux.ml:1145
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -632,7 +632,7 @@ msgstr ""
 msgid "--vmtype option can only be used with '-o rhev'"
 msgstr ""
 
-#: ../v2v/input_disk.ml:44
+#: ../v2v/input_disk.ml:49
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
@@ -669,7 +669,7 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:175
+#: ../v2v/input_libvirtxml.ml:179
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
@@ -707,7 +707,7 @@ msgstr ""
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:115
+#: ../sysprep/sysprep_operation_user_account.ml:111
 msgid ""
 "By default remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed.\n"
@@ -820,13 +820,6 @@ msgstr ""
 
 #: ../v2v/v2v.ml:283
 msgid "Creating output metadata"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_user_account.ml:121
-msgid ""
-"Currently this does not remove the user accounts from\n"
-"C</etc/shadow>.  This is because there is no lens for\n"
-"the shadow password file in Augeas."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_bash_history.ml:42
@@ -1545,7 +1538,7 @@ msgstr ""
 msgid "Remove the process accounting log files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:114
+#: ../sysprep/sysprep_operation_user_account.ml:110
 msgid "Remove the user accounts in the guest"
 msgstr ""
 
@@ -1790,7 +1783,7 @@ msgstr ""
 msgid "Setting passwords"
 msgstr ""
 
-#: ../customize/password.ml:116
+#: ../customize/password.ml:110
 msgid ""
 "Setting random password of %s to %s\n"
 "%!"
@@ -1884,7 +1877,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1050
+#: ../v2v/convert_linux.ml:1053
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -1927,7 +1920,7 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:128
+#: ../sysprep/sysprep_operation_user_account.ml:120
 msgid ""
 "The user accounts to be removed (or not) from the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2021,7 +2014,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:126
+#: ../sysprep/sysprep_operation_user_account.ml:118
 msgid "Users to remove/keep"
 msgstr ""
 
@@ -2031,13 +2024,13 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:609
+#: ../v2v/convert_linux.ml:612
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:518
+#: ../v2v/convert_linux.ml:521
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2117,7 +2110,7 @@ msgstr ""
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
-#: ../v2v/input_disk.ml:60
+#: ../v2v/input_disk.ml:65
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
@@ -2151,7 +2144,7 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:61
+#: ../v2v/input_libvirt.ml:66
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
@@ -2174,7 +2167,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:997
+#: ../v2v/convert_linux.ml:1000
 msgid "could not update grub2 console: %s (ignored)"
 msgstr ""
 
@@ -2209,7 +2202,7 @@ msgid ""
 "format"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:101
+#: ../v2v/input_libvirtxml.ml:105
 msgid "display <graphics type='%s'> was ignored"
 msgstr ""
 
@@ -2281,7 +2274,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:102 ../v2v/input_libvirtxml.ml:51
+#: ../v2v/input_ova.ml:102 ../v2v/input_libvirtxml.ml:55
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
@@ -2383,15 +2376,15 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:64
+#: ../v2v/input_libvirtxml.ml:68
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:66
+#: ../v2v/input_libvirtxml.ml:70
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:68
+#: ../v2v/input_libvirtxml.ml:72
 msgid "in the libvirt XML metadata, <os><type arch='...'> is missing or empty"
 msgstr ""
 
@@ -2449,13 +2442,13 @@ msgid ""
 "option to change how virt-v2v handles this."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:191
+#: ../v2v/convert_linux.ml:194
 msgid ""
 "multiple files in /boot could be the initramfs matching %s %s.  This could "
 "be a bug in virt-v2v."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:171
+#: ../v2v/input_libvirtxml.ml:175
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
@@ -2471,18 +2464,18 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:186
+#: ../v2v/convert_linux.ml:189
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:252
+#: ../v2v/convert_linux.ml:255
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
 "This probably indicates that %s was unable to inspect this guest properly."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:363
+#: ../v2v/convert_linux.ml:366
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -2498,7 +2491,7 @@ msgstr ""
 msgid "no root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:88
+#: ../v2v/input_libvirt.ml:93
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
@@ -2508,7 +2501,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:724
+#: ../v2v/convert_linux.ml:727
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2552,7 +2545,7 @@ msgstr ""
 msgid "part=size"
 msgstr ""
 
-#: ../customize/password.ml:170
+#: ../customize/password.ml:164
 msgid ""
 "password: using insecure md5 password encryption for\n"
 "guest of type %s version %d.\n"
@@ -2667,7 +2660,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:122
+#: ../v2v/input_libvirtxml.ml:126
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -2675,7 +2668,7 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:853
+#: ../v2v/convert_linux.ml:856
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -2719,7 +2712,7 @@ msgstr ""
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:126
+#: ../sysprep/sysprep_operation_user_account.ml:118
 msgid "users"
 msgstr ""
 
