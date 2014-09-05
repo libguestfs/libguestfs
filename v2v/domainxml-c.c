@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <string.h>
 #include <errno.h>
 
 #include <caml/alloc.h>
@@ -76,10 +77,13 @@ v2v_dumpxml (value connv, value domnamev)
   const char *domname;
   virConnectPtr conn;
   virDomainPtr dom;
+  int is_test_uri = 0, state, reason;
   char *xml;
 
-  if (connv != Val_int (0))
+  if (connv != Val_int (0)) {
     conn_uri = String_val (Field (connv, 0)); /* Some conn */
+    is_test_uri = STRPREFIX (conn_uri, "test:");
+  }
 
   /* We have to call the default authentication handler, not least
    * since it handles all the PolicyKit crap.  However it also makes
@@ -100,6 +104,20 @@ v2v_dumpxml (value connv, value domnamev)
   if (!dom) {
     virConnectClose (conn);
     raise_error ("cannot find libvirt domain '%s'", domname);
+  }
+
+  /* As a side-effect we check that the domain is shut down.  Of course
+   * this is only appropriate for virt-v2v.  (RHBZ#1138586)
+   */
+  if (!is_test_uri) {
+    if (virDomainGetState (dom, &state, &reason, 0) == 0) {
+      if (state == VIR_DOMAIN_RUNNING) {
+        virDomainFree (dom);
+        virConnectClose (conn);
+        raise_error ("libvirt domain '%s' is running, it must be shut down in order to perform virt-v2v conversion",
+                     domname);
+      }
+    }
   }
 
   xml = virDomainGetXMLDesc (dom, 0);
