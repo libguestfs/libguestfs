@@ -39,7 +39,9 @@ class input_disk verbose input_format disk = object
      * the filename passed in.  Users can override this using the
      * `-on name' option.
      *)
-    let name = Filename.chop_extension (Filename.basename disk) in
+    let name = Filename.basename disk in
+    let name =
+      try Filename.chop_extension name with Invalid_argument _ -> name in
     if name = "" then
       error (f_"-i disk: invalid input filename (%s)") disk;
 
