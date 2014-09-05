@@ -36,7 +36,7 @@ class input_disk verbose input_format disk = object
 
   method source () =
     (* Check the input file exists and is readable. *)
-    Unix.access disk [R_OK];
+    Unix.access disk [Unix.R_OK];
 
     (* What name should we use for the guest?  We try to derive it from
      * the filename passed in.  Users can override this using the
