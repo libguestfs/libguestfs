@@ -280,8 +280,11 @@ make_filter_strings (char *const *devices)
   if (add_string (&ret, "r|.*|") == -1)
     goto error;
 
-  end_stringsbuf (&ret);
+  if (end_stringsbuf (&ret) == -1)
+    goto error;
+
   return ret.argv;
+
 error:
   if (ret.argv)
     free_stringslen (ret.argv, ret.size);
