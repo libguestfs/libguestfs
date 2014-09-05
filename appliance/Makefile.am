@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	excludefiles.in \
 	guestfsd.suppressions \
 	guestfs_lvm_conf.aug \
+	guestfs_shadow.aug \
 	hostfiles.in \
 	init \
 	libguestfs-make-fixed-appliance.in \
