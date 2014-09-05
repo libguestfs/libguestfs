@@ -181,6 +181,9 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
                    string_find n app.G.app2_version >= 0 &&
                    string_find n app.G.app2_release >= 0
                ) files in
+             (* Don't consider kdump initramfs images (RHBZ#1138184). *)
+             let files =
+               List.filter (fun n -> string_find n "kdump.img" == -1) files in
              match files with
              | [] ->
                warning ~prog (f_"no initrd was found in /boot matching %s %s.")
