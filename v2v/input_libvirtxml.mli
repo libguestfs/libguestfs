@@ -22,7 +22,7 @@ type map_source = string -> string option -> string * string option
 (** Map function that takes [path] and [format] parameters, and
     returns the possibly rewritten [qemu_uri, format] pair. *)
 
-val parse_libvirt_xml : ?map_source_file:map_source -> ?map_source_dev:map_source -> string -> Types.source
+val parse_libvirt_xml : verbose:bool -> ?map_source_file:map_source -> ?map_source_dev:map_source -> string -> Types.source
 (** Take libvirt XML and parse it into a {!Types.source} structure.
 
     The optional [?map_source_file] and [?map_source_dev] functions

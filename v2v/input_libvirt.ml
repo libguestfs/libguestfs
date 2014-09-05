@@ -94,7 +94,8 @@ object
             orig_uri;
           None, None in
 
-    Input_libvirtxml.parse_libvirt_xml ?map_source_file ?map_source_dev xml
+    Input_libvirtxml.parse_libvirt_xml ~verbose
+      ?map_source_file ?map_source_dev xml
 end
 
 let input_libvirt = new input_libvirt
