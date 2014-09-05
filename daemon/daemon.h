@@ -228,8 +228,22 @@ extern void copy_lvm (void);
 /*-- in zero.c --*/
 extern void wipe_device_before_mkfs (const char *device);
 
-/*-- in augeas.c, hivex.c, journal.c --*/
+/*-- in augeas.c --*/
+extern void aug_read_version (void);
 extern void aug_finalize (void);
+
+/* The version of augeas, saved as:
+ * (MAJOR << 16) | (MINOR << 8) | PATCH
+ */
+extern int augeas_version;
+static inline int
+augeas_is_version (int major, int minor, int patch)
+{
+  aug_read_version (); /* Lazy version reading. */
+  return augeas_version >= ((major << 16) | (minor << 8) | patch);
+}
+
+/*-- hivex.c, journal.c --*/
 extern void hivex_finalize (void);
 extern void journal_finalize (void);
 
