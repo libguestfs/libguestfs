@@ -38,7 +38,8 @@
 ../lua/examples/guestfs-lua.pod
 ../make-fs/virt-make-fs.pod
 ../ocaml/examples/guestfs-ocaml.pod
-../p2v-iso/guestfs-p2v-iso.pod
+../p2v/virt-p2v-make-disk.pod
+../p2v/virt-p2v-make-kickstart.pod
 ../p2v/virt-p2v.pod
 ../perl/examples/guestfs-perl.pod
 ../python/examples/guestfs-python.pod

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-05 15:23+0100\n"
+"POT-Creation-Date: 2014-09-06 20:02+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -6843,93 +6843,89 @@ msgstr ""
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:112
+#: p2v/gui.c:115
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:117
+#: p2v/gui.c:120
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:127
+#: p2v/gui.c:130
 msgid "SSH port:"
 msgstr ""
 
-#: p2v/gui.c:138
+#: p2v/gui.c:141
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:150
+#: p2v/gui.c:153
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:166
+#: p2v/gui.c:169
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:173
+#: p2v/gui.c:176
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:195
-msgid "Configure network ..."
+#: p2v/gui.c:199
+msgid "virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:196
-msgid "About ..."
-msgstr ""
-
-#: p2v/gui.c:197
+#: p2v/gui.c:200
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:247
+#: p2v/gui.c:250
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:255
+#: p2v/gui.c:258
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:263
+#: p2v/gui.c:266
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:304
+#: p2v/gui.c:307
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:323
+#: p2v/gui.c:326
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:422
+#: p2v/gui.c:429
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:428
+#: p2v/gui.c:435
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:438
+#: p2v/gui.c:445
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:448
+#: p2v/gui.c:455
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:462
+#: p2v/gui.c:469
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:468
+#: p2v/gui.c:475
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:473
+#: p2v/gui.c:480
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -6938,93 +6934,109 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:478
+#: p2v/gui.c:485
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:483
+#: p2v/gui.c:490
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:489
+#: p2v/gui.c:496
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:494
+#: p2v/gui.c:501
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:500
+#: p2v/gui.c:507
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:505
+#: p2v/gui.c:512
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:511
+#: p2v/gui.c:518
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:530
+#: p2v/gui.c:537
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
 msgstr ""
 
-#: p2v/gui.c:540
+#: p2v/gui.c:546
+msgid "Information"
+msgstr ""
+
+#: p2v/gui.c:554
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:552
+#: p2v/gui.c:566
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:564
+#: p2v/gui.c:578
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:591
+#: p2v/gui.c:606
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:592
+#: p2v/gui.c:607
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:732 p2v/gui.c:787 p2v/gui.c:835
+#: p2v/gui.c:643
+#, c-format
+msgid "virt-p2v (client) %s"
+msgstr ""
+
+#: p2v/gui.c:646
+#, c-format
+msgid ""
+"virt-p2v (client) %s\n"
+"virt-v2v (conversion server) %d.%d.%d"
+msgstr ""
+
+#: p2v/gui.c:769 p2v/gui.c:824 p2v/gui.c:872
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:739 p2v/gui.c:794 p2v/gui.c:842
+#: p2v/gui.c:776 p2v/gui.c:831 p2v/gui.c:879
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:746
+#: p2v/gui.c:783
 msgid "Size (GB)"
 msgstr ""
 
-#: p2v/gui.c:753
+#: p2v/gui.c:790
 msgid "Model"
 msgstr ""
 
-#: p2v/gui.c:849
+#: p2v/gui.c:886
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1058
+#: p2v/gui.c:1095
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:1086
+#: p2v/gui.c:1123
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -7032,34 +7044,34 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1147
+#: p2v/gui.c:1184
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1148 p2v/gui.c:1181
+#: p2v/gui.c:1185 p2v/gui.c:1218
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1179
+#: p2v/gui.c:1216
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1266
+#: p2v/gui.c:1303
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1267
+#: p2v/gui.c:1304
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1276
+#: p2v/gui.c:1313
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1277
+#: p2v/gui.c:1314
 msgid "Conversion was successful"
 msgstr ""
 
