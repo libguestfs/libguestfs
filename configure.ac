@@ -1614,6 +1614,10 @@ AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
                 [chmod +x,-w appliance/libguestfs-make-fixed-appliance])
 AC_CONFIG_FILES([inspector/test-xmllint.sh],
                 [chmod +x,-w inspector/test-xmllint.sh])
+AC_CONFIG_FILES([p2v/virt-p2v-make-disk],
+                [chmod +x,-w p2v/virt-p2v-make-disk])
+AC_CONFIG_FILES([p2v/virt-p2v-make-kickstart],
+                [chmod +x,-w p2v/virt-p2v-make-kickstart])
 AC_CONFIG_FILES([php/extension/php-for-tests.sh],
                 [chmod +x,-w php/extension/php-for-tests.sh])
 AC_CONFIG_FILES([pick-guests.pl],

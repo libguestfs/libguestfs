@@ -10,8 +10,6 @@ Proper progress bars when copying.
 
 p2v:
 
- - vmlinuz + initrd? - if not possible, remove from man page
- - PXE boot
  - network dialog and network configuration
  - why is the Back button insensitive?
 

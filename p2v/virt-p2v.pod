@@ -17,8 +17,11 @@ managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
 Normally you don't run the virt-p2v program directly.  Instead you
 have to boot the physical machine using the bootable CD-ROM, ISO or
 PXE image.  This bootable image contains the virt-p2v binary and runs
-it automatically.  This manual page documents both the binary and the
-bootable image.
+it automatically.
+
+This manual page documents running the virt-p2v program.  To create
+the bootable image you should look at L<virt-p2v-make-disk(1)> or
+L<virt-p2v-make-kickstart(1)>.
 
 =head1 NETWORK SETUP
 
@@ -253,6 +256,8 @@ Display version number and exit.
 
 =head1 SEE ALSO
 
+L<virt-p2v-make-disk(1)>,
+L<virt-p2v-make-kickstart(1)>,
 L<virt-v2v(1)>,
 L<qemu-nbd(1)>,
 L<http://libguestfs.org/>.

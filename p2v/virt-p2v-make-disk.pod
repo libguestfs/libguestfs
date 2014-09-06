@@ -1,0 +1,115 @@
+=head1 NAME
+
+virt-p2v-make-disk - Build the virt-p2v disk using virt-builder
+
+=head1 SYNOPSIS
+
+ virt-p2v-make-disk -o /dev/sdX os-version
+
+=head1 DESCRIPTION
+
+L<virt-p2v(1)> converts a physical machine to run virtualized on KVM,
+managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
+2.2 or later.
+
+virt-p2v-make-disk is a script which creates a bootable disk image or
+USB key containing virt-p2v.  It uses L<virt-builder(1)> to do this,
+and is just a small shell script around virt-builder.
+
+virt-p2v-make-disk has two required parameters:
+
+The I<-o> parameter specifies where the output should go, for example
+to a USB key (eg. C<-o /dev/sdX>) or to a file.  If you pass a device
+name, then B<the existing contents of the device will be erased>.
+
+The C<os-version> parameter is the base Linux distro to use for the
+operating system on the ISO.  To list possible C<os-version>
+combinations, do:
+
+ virt-builder -l
+
+=head2 EXAMPLES
+
+Write a virt-p2v bootable USB key on C</dev/sdX> (and existing content
+is erased), using Fedora 20 as the base distribution:
+
+ virt-p2v-make-disk -o /dev/sdX fedora-20
+
+Write a virt-p2v bootable virtual disk image, and boot it under qemu:
+
+ virt-p2v-make-disk -o /var/tmp/p2v.img fedora-20
+ qemu-kvm -m 1024 -boot c \
+   -drive file=/var/tmp/p2v.img,if=virtio,index=0 \
+   -drive file=/var/tmp/guest.img,if=virtio,index=1
+
+where C</var/tmp/guest.img> would be the disk image of some guest that
+you want to convert (for testing only).
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<-o> OUTPUT
+
+=item B<--output> OUTPUT
+
+Write output to C<OUTPUT>, which can be a local file or block device.
+B<The existing contents of the device will be erased>.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=back
+
+=head1 FILES
+
+=over 4
+
+=item C<$libexecdir/virt-p2v>
+
+The L<virt-p2v(1)> binary which is copied into the bootable disk
+image.  The location of the binary can be changed by setting the
+C<VIRT_P2V_DATA_DIR> environment variable.
+
+=item C<$datadir/issue>
+
+=item C<$datadir/launch-virt-p2v.in>
+
+=item C<$datadir/p2v.service>
+
+Various data files that are copied into the bootable disk image.
+
+=back
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item C<VIRT_P2V_DATA_DIR>
+
+The directory where virt-p2v-make-disk looks for data files (see
+L</FILES> above).  If not set, a compiled-in location is used.
+
+=back
+
+=head1 SEE ALSO
+
+L<virt-p2v(1)>,
+L<virt-p2v-make-kickstart(1)>,
+L<virt-v2v(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2014 Red Hat Inc.

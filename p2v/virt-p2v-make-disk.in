@@ -1,0 +1,146 @@
+#!/bin/bash -
+# @configure_input@
+# virt-p2v-make-disk
+# Copyright (C) 2014 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+unset CDPATH
+
+program="virt-p2v-make-disk"
+version="@PACKAGE_VERSION@"
+
+TEMP=`getopt \
+        -o o:V \
+        --long help,output:,version \
+        -n $program -- "$@"`
+if [ $? != 0 ]; then
+    echo "$program: problem parsing the command line arguments"
+    exit 1
+fi
+eval set -- "$TEMP"
+
+output=
+
+usage ()
+{
+    echo "Usage:"
+    echo "  $program [--options] -o /dev/sdX os-version"
+    echo
+    echo "Read $program(1) man page for more information."
+    exit $1
+}
+
+while true; do
+    case "$1" in
+        -o|--output)
+            output="$2"
+            shift 2;;
+        -V|--version)
+            echo "$program $version"
+            exit 0;;
+        --help)
+            usage 0;;
+        --)
+            shift
+            break;;
+        *)
+            echo "internal error ($1)"
+            exit 1;;
+    esac
+done
+
+if [ -z "$output" ]; then
+    echo "$program: You must set the -o (--output) option."
+    exit 1
+fi
+
+if [ $# -ne 1 ]; then
+    echo "$program: Missing os-version.  See $program(1)."
+    exit 1
+fi
+
+osversion="$1"
+
+# The dependencies are:
+#
+#   - pcre (library only)
+#   - libxml2 (library only)
+#   - gtk2 (library only)
+#   - ssh
+#   - qemu-nbd
+#   - xinit (script, part of X)
+#   - Xorg (or another X server, but only Xorg has been tested)
+#   - Xorg drivers
+#   - some fonts
+#
+# Note that libguestfs is NOT a dependency.
+case "$osversion" in
+    centos-*|fedora-*|rhel-*|scientificlinux-*)
+        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1
+        selinux_relabel=--selinux-relabel
+        ;;
+    debian-*|ubuntu-*)
+        deps=libpcre3,libxml2,libgtk2.0-0,openssh-client,qemu-utils,xorg,xserver-xorg-video-all
+        ;;
+    archlinux-*)
+        deps=pcre,libxml2,gtk2,openssh,qemu,xorg-xinit,xorg-server,xf86-video-*
+        ;;
+    opensuse-*|suse-*)
+        deps=pcre,libxml2,gtk2,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/xinit,/usr/bin/Xorg,xf86-video-*
+        ;;
+    *)
+        echo "$program: internal error: could not work out the Linux distro from '$osversion'"
+        exit 1
+esac
+
+# Deal with stupid autotools libexecdir-not-expandable crap.
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+libexecdir="@libexecdir@"
+
+if [ -n "$VIRT_P2V_DATA_DIR" ]; then
+    datadir="$VIRT_P2V_DATA_DIR"
+    host_libexecdir="$VIRT_P2V_DATA_DIR"
+else
+    datadir="@datadir@/virt-p2v"
+    host_libexecdir="@libexecdir@"
+fi
+
+# Run virt-builder.  Note we controversially assume systemd here.  We
+# could provide a sysvinit fallback if required.
+exec \
+virt-builder "$osversion"                                       \
+    --output "$output"                                          \
+    --update                                                    \
+    --install "$deps"                                           \
+    --root-password password:p2v                                \
+    --upload "$datadir"/issue:/etc/issue                        \
+    --upload "$datadir"/issue:/etc/issue.net                    \
+    --mkdir "$libexecdir"                                       \
+    --upload "$host_libexecdir"/virt-p2v:"$libexecdir"          \
+    --chmod 0755:"$libexecdir"/virt-p2v                         \
+    --upload "$datadir"/launch-virt-p2v:/usr/bin/               \
+    --chmod 0755:/usr/bin/launch-virt-p2v                       \
+    --upload "$datadir"/p2v.service:/etc/systemd/system/        \
+    --mkdir /etc/systemd/system/default.target.wants            \
+    --link /etc/systemd/system/p2v.service:/etc/systemd/system/default.target.wants/p2v.service \
+    --edit '/usr/lib/systemd/system/getty@.service:
+        s/^ExecStart=(.*)/ExecStart=$1 -a root/
+    '                                                           \
+    --edit '/etc/systemd/logind.conf:
+        s/^[Login]/[Login]\nReserveVT=1\n/
+    '                                                           \
+    $selinux_relabel

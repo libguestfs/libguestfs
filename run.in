@@ -92,6 +92,12 @@ if [ -z "$XDG_CONFIG_DIRS" ]; then
     export XDG_CONFIG_DIRS
 fi
 
+# virt-p2v-make-* data directory.
+if [ -z "$VIRT_P2V_DATA_DIR" ]; then
+    VIRT_P2V_DATA_DIR="$b/p2v"
+    export VIRT_P2V_DATA_DIR
+fi
+
 # For Perl.
 if [ -z "$PERL5LIB" ]; then
     PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"

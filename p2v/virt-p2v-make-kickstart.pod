@@ -1,0 +1,201 @@
+=head1 NAME
+
+virt-p2v-make-kickstart - Build the virt-p2v kickstart
+
+=head1 SYNOPSIS
+
+ virt-p2v-make-kickstart [-o p2v.ks] [--proxy=http://...] repo [repo...]
+
+=head1 DESCRIPTION
+
+L<virt-p2v(1)> converts a physical machine to run virtualized on KVM,
+managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
+2.2 or later.
+
+Kickstart is a format used by Red Hat-derived distributions (such as
+Fedora, Red Hat Enterprise Linux, CentOS, Scientific Linux, and
+others) to describe how to make live CDs, install the distro, make
+"Spins" and so on.  It is driven by a kickstart file.
+
+virt-p2v-make-kickstart builds a kickstart file which can be used to
+build a bootable P2V ISO, live CD, USB key, or PXE image.  This tool
+only builds the kickstart file, but this manual page describes some of
+the ways you can use the kickstart file.
+
+=head1 BUILDING THE KICKSTART FILE
+
+Using virt-p2v-make-kickstart is very simple:
+
+ virt-p2v-make-kickstart fedora
+
+will build a kickstart file for Fedora.  The kickstart file will be
+called C<p2v.ks> and located in the current directory.
+
+The parameters are a list of one or more repositories.  Some built-in
+repositories are available: C<fedora>, C<rawhide> or C<koji>.  You can
+also use a URL as a parameter to point to a repository.
+
+To control the name of the output file, use the I<-o> parameter.  To
+tell kickstart to use a proxy server or web cache to download files,
+use the I<--proxy> parameter.
+
+=head1 BUILDING A LIVE CD / ISO
+
+Once you have the kickstart file, you can use L<livecd-creator(8)>
+to make a live CD:
+
+ sudo livecd-creator p2v.ks
+
+Before running this note that you should probably run
+C<livecd-creator> in a disposable virtual machine for these reasons:
+
+=over 4
+
+=item *
+
+You have to disable SELinux when running the tool.
+
+=item *
+
+This tool has to be run as root, and has some nasty failure modes.
+
+=item *
+
+You can only create the exact same Live CD distro as the host
+distro.  Cross-builds will fail in strange ways (eg. RHBZ#1092327).
+
+=back
+
+=head1 BUILDING A FEDORA SPIN USING KOJI
+
+This requires C<spin-livecd> permissions on Koji, which are not given
+out usually, even to Fedora packagers.  However assuming you have been
+given these permissions (or have your own Koji instance, I guess),
+then you can do:
+
+ koji spin-livecd [--scratch] p2v 1.XX.YY rawhide x86_64 p2v.ks
+
+=over 4
+
+=item *
+
+Add the C<--scratch> option to do a scratch build (recommended for
+testing).
+
+=item *
+
+C<1.XX.YY> should match the libguestfs version
+
+=item *
+
+Instead of C<rawhide> you can use any Koji target.
+
+=back
+
+=head1 BUILDING BOOTABLE USB KEY
+
+Use the L<livecd-iso-to-disk(8)> program to convert the ISO created
+above to a USB key:
+
+ sudo livecd-iso-to-disk livecd-p2v.iso /dev/sdX
+
+=head1 BUILDING A PXE BOOT IMAGE
+
+Use the C<livecd-iso-to-pxeboot> program to convert the ISO created
+above to a PXE boot image.
+
+ sudo livecd-iso-to-pxeboot livecd-p2v.iso
+
+This creates a C<tftpboot> subdirectory under the current directory
+containing the files required to PXE boot virt-p2v:
+
+ $ ls -1R tftpboot/
+ tftpboot/:
+ initrd0.img
+ pxelinux.0
+ pxelinux.cfg/
+ vmlinuz0
+ 
+ tftpboot/pxelinux.cfg:
+ default
+
+=head1 TESTING THE P2V ISO USING QEMU
+
+You can use qemu to test-boot the P2V ISO:
+
+ qemu-kvm -m 1024 -hda /tmp/guest.img -cdrom /tmp/livecd-p2v.iso -boot d
+
+Note that C<-hda> is the (virtual) system that you want to convert
+(for test purposes).  It could be any guest type supported by
+L<virt-v2v(1)>, including Windows or Red Hat Enterprise Linux.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<-o> OUTPUT
+
+=item B<--output> OUTPUT
+
+Write kickstart to C<OUTPUT>.  If not specified, the default is
+C<p2v.ks> in the current directory.
+
+=item B<--proxy> URL
+
+Tell the kickstart to use a proxy server or web cache for downloads.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=back
+
+=head1 FILES
+
+=over 4
+
+=item C<$datadir/issue>
+
+=item C<$datadir/launch-virt-p2v.in>
+
+=item C<$datadir/p2v.ks.in>
+
+=item C<$datadir/p2v.service>
+
+Various data files that used to make the kickstart.
+
+=back
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item C<VIRT_P2V_DATA_DIR>
+
+The directory where virt-p2v-make-kickstart looks for data files (see
+L</FILES> above).  If not set, a compiled-in location is used.
+
+=back
+
+=head1 SEE ALSO
+
+L<virt-p2v(1)>,
+L<virt-p2v-make-disk(1)>,
+L<virt-v2v(1)>,
+L<livecd-creator(8)>,
+L<livecd-iso-to-disk(8)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2014 Red Hat Inc.

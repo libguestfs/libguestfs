@@ -1,0 +1,158 @@
+#!/bin/bash -
+# @configure_input@
+# virt-p2v-make-kickstart
+# Copyright (C) 2014 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+unset CDPATH
+
+program="virt-p2v-make-kickstart"
+version="@PACKAGE_VERSION@"
+
+TEMP=`getopt \
+        -o o:V \
+        --long help,output:,proxy:,version \
+        -n $program -- "$@"`
+if [ $? != 0 ]; then
+    echo "$program: problem parsing the command line arguments"
+    exit 1
+fi
+eval set -- "$TEMP"
+
+usage ()
+{
+    echo "Usage:"
+    echo "  $program [--options] [-o p2v.ks] [--proxy=http://...] repo [repo...]"
+    echo
+    echo "Read $program(1) man page for more information."
+    exit $1
+}
+
+output=p2v.ks
+proxy=
+
+while true; do
+    case "$1" in
+        -o|--output)
+            output="$2"
+            shift 2;;
+        --proxy)
+            proxy="--proxy=$2"
+            shift 2;;
+        --repo)
+            repo="$2"
+            shift 2;;
+        -V|--version)
+            echo "$program $version"
+            exit 0;;
+        --help)
+            usage 0;;
+        --)
+            shift
+            break;;
+        *)
+            echo "internal error ($1)"
+            exit 1;;
+    esac
+done
+
+if [ $# -lt 1 ]; then
+    echo "$program: Missing repo(s).  See $program(1)."
+    exit 1
+fi
+
+set -e
+
+# Deal with stupid autotools libexecdir-not-expandable crap.
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+libexecdir="@libexecdir@"
+
+if [ -n "$VIRT_P2V_DATA_DIR" ]; then
+    datadir="$VIRT_P2V_DATA_DIR"
+    host_libexecdir="$VIRT_P2V_DATA_DIR"
+else
+    datadir="@datadir@/virt-p2v"
+    host_libexecdir="@libexecdir@"
+fi
+
+# Base64-encode the files that we need to embed into the kickstart.
+base64_issue="$(base64 $datadir/issue)"
+base64_launch_virt_p2v="$(base64 $datadir/launch-virt-p2v)"
+base64_p2v_service="$(base64 $datadir/p2v.service)"
+
+# virt-p2v binary is too large unless we strip it and compress it.
+tmpfile="$(mktemp -u)"
+cp $host_libexecdir/virt-p2v $tmpfile
+strip --strip-all $tmpfile
+gzip -9 $tmpfile
+base64_virt_p2v="$(base64 $tmpfile.gz)"
+rm $tmpfile.gz
+
+# Repositories.
+repos=
+i=0
+for repo in "$@"; do
+    case "$repo" in
+        fedora)
+            repos="$repos
+repo --name=fedora --mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-\$releasever\\\\&arch=\$basearch $proxy
+"
+            ;;
+        rawhide)
+            repos="$repos
+repo --name=rawhide --mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=rawhide\\\\&arch=\$basearch $proxy
+"
+            ;;
+        koji)
+            repos="$repos
+repo --name=koji --baseurl=http://koji.fedoraproject.org/repos/rawhide/latest/\$basearch/ $proxy
+"
+            ;;
+        *)
+            # A custom repo is just a URL.
+            ((i++))
+            repos="$repos
+repo --name=custom$i --baseurl=$repo $proxy
+"
+            ;;
+    esac
+done
+
+# Now generate the final kickstart, substituting as necessary.
+# AWK FTW!
+@AWK@ \
+  -v "base64_issue=$base64_issue" \
+  -v "base64_launch_virt_p2v=$base64_launch_virt_p2v" \
+  -v "base64_p2v_service=$base64_p2v_service" \
+  -v "base64_virt_p2v=$base64_virt_p2v" \
+  -v "repos=$repos" \
+  -v "libexecdir=$libexecdir" \
+  '{
+    gsub (/__PACKAGE_NAME__/, "@PACKAGE_NAME@");
+    gsub (/__PACKAGE_VERSION__/, "@PACKAGE_VERSION@");
+    gsub (/__BASE64_ISSUE__/, base64_issue);
+    gsub (/__BASE64_LAUNCH_VIRT_P2V__/, base64_launch_virt_p2v);
+    gsub (/__BASE64_P2V_SERVICE__/, base64_p2v_service);
+    gsub (/__BASE64_VIRT_P2V__/, base64_virt_p2v);
+    gsub (/__REPOS__/, repos);
+    gsub (/__LIBEXECDIR__/, libexecdir);
+    print;
+  }' \
+  $datadir/p2v.ks.in > $output-t
+mv $output-t $output
+
+echo "Kickstart file written to $output"

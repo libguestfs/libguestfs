@@ -245,7 +245,6 @@ HTMLFILES = \
 	html/virt-log.1.html \
 	html/virt-ls.1.html \
 	html/virt-make-fs.1.html \
-	html/virt-p2v.1.html \
 	html/virt-rescue.1.html \
 	html/virt-resize.1.html \
 	html/virt-sparsify.1.html \
@@ -284,6 +283,12 @@ if HAVE_FUSE
 HTMLFILES += \
 	html/guestmount.1.html \
 	html/guestunmount.1.html
+endif
+if HAVE_P2V
+HTMLFILES += \
+	html/virt-p2v.1.html \
+	html/virt-p2v-make-disk.1.html \
+	html/virt-p2v-make-kickstart.1.html
 endif
 
 HTMLSUPPORTFILES = \
