@@ -46,6 +46,8 @@ static void show_connection_dialog (void);
 static void show_conversion_dialog (void);
 static void show_running_dialog (void);
 
+static void set_info_label (void);
+
 /* The connection dialog. */
 static GtkWidget *conn_dlg,
   *server_entry, *port_entry,
@@ -56,6 +58,7 @@ static GtkWidget *conn_dlg,
 static GtkWidget *conv_dlg,
   *guestname_entry, *vcpus_entry, *memory_entry,
   *o_combo, *oc_entry, *os_entry, *of_entry, *oa_combo,
+  *info_label,
   *debug_button,
   *disks_list, *removable_list, *interfaces_list,
   *start_button;
@@ -193,7 +196,7 @@ create_connection_dialog (struct config *config)
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conn_dlg),
                           _("Configure network ..."), 1,
-                          _("About ..."), 2,
+                          _("virt-p2v " PACKAGE_VERSION " ..."), 2,
                           _("Next"), 3,
                           NULL);
 
@@ -325,6 +328,9 @@ test_connection_thread (void *data)
     /* Enable the Next button. */
     gtk_widget_set_sensitive (next_button, TRUE);
     gtk_widget_grab_focus (next_button);
+
+    /* Update the information in the conversion dialog. */
+    set_info_label ();
   }
   gdk_threads_leave ();
 
@@ -399,6 +405,7 @@ create_conversion_dialog (struct config *config)
   GtkWidget *guestname_label, *vcpus_label, *memory_label;
   GtkWidget *output_frame, *output_vbox, *output_tbl;
   GtkWidget *o_label, *oa_label, *oc_label, *of_label, *os_label;
+  GtkWidget *info_frame;
   GtkWidget *disks_frame, *disks_sw;
   GtkWidget *removable_frame, *removable_sw;
   GtkWidget *interfaces_frame, *interfaces_sw;
@@ -415,7 +422,7 @@ create_conversion_dialog (struct config *config)
 
   /* The main dialog area. */
   hbox = gtk_hbox_new (TRUE, 1);
-  left_vbox = gtk_vbox_new (TRUE, 1);
+  left_vbox = gtk_vbox_new (FALSE, 1);
   right_vbox = gtk_vbox_new (TRUE, 1);
 
   /* The left column: target properties and output options. */
@@ -536,6 +543,13 @@ create_conversion_dialog (struct config *config)
   gtk_box_pack_start (GTK_BOX (output_vbox), debug_button, TRUE, TRUE, 0);
   gtk_container_add (GTK_CONTAINER (output_frame), output_vbox);
 
+  info_frame = gtk_frame_new (_("Information"));
+  gtk_container_set_border_width (GTK_CONTAINER (info_frame), 4);
+  info_label = gtk_label_new (NULL);
+  gtk_misc_set_alignment (GTK_MISC (info_label), 0.1, 0.5);
+  set_info_label ();
+  gtk_container_add (GTK_CONTAINER (info_frame), info_label);
+
   /* The right column: select devices to be converted. */
   disks_frame = gtk_frame_new (_("Fixed hard disks"));
   gtk_container_set_border_width (GTK_CONTAINER (disks_frame), 4);
@@ -576,6 +590,7 @@ create_conversion_dialog (struct config *config)
   /* Pack the top level dialog. */
   gtk_box_pack_start (GTK_BOX (left_vbox), target_frame, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (left_vbox), output_frame, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (left_vbox), info_frame, TRUE, TRUE, 0);
 
   gtk_box_pack_start (GTK_BOX (right_vbox), disks_frame, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (right_vbox), removable_frame, TRUE, TRUE, 0);
@@ -615,6 +630,28 @@ show_conversion_dialog (void)
 
   /* output_drivers may have been updated, so repopulate o_combo. */
   repopulate_output_combo (NULL);
+}
+
+/* Update the information in the conversion dialog. */
+static void
+set_info_label (void)
+{
+  CLEANUP_FREE char *text;
+  int r;
+
+  if (!v2v_major)
+    r = asprintf (&text, _("virt-p2v (client) %s"), PACKAGE_VERSION);
+  else
+    r = asprintf (&text,
+                  _("virt-p2v (client) %s\n"
+                    "virt-v2v (conversion server) %d.%d.%d"),
+                  PACKAGE_VERSION, v2v_major, v2v_minor, v2v_release);
+  if (r == -1) {
+    perror ("asprintf");
+    return;
+  }
+
+  gtk_label_set_text (GTK_LABEL (info_label), text);
 }
 
 static void
