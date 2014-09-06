@@ -1271,7 +1271,7 @@ start_conversion_thread (void *data)
   else {
     dlg = gtk_message_dialog_new (GTK_WINDOW (run_dlg),
                                   GTK_DIALOG_DESTROY_WITH_PARENT,
-                                  GTK_MESSAGE_ERROR,
+                                  GTK_MESSAGE_INFO,
                                   GTK_BUTTONS_OK,
                                   _("The conversion was successful."));
     gtk_window_set_title (GTK_WINDOW (dlg), _("Conversion was successful"));
