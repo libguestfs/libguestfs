@@ -82,7 +82,7 @@ SUBDIRS += fish
 # virt-tools in C.
 SUBDIRS += align cat diff df edit format inspector make-fs rescue
 if HAVE_P2V
-SUBDIRS += p2v p2v-iso
+SUBDIRS += p2v
 endif
 
 # bash-completion
@@ -220,7 +220,6 @@ HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
 	html/guestfs-faq.1.html \
-	html/guestfs-p2v-iso.1.html \
 	html/guestfs-performance.1.html \
 	html/guestfs-recipes.1.html \
 	html/guestfs-release-notes.1.html \
@@ -277,9 +276,6 @@ HTMLFILES += html/guestfs-perl.3.html
 endif
 if HAVE_PYTHON
 HTMLFILES += html/guestfs-python.3.html
-endif
-if HAVE_P2V
-HTMLFILES += html/guestfs-p2v-iso.1.html
 endif
 if HAVE_RUBY
 HTMLFILES += html/guestfs-ruby.3.html

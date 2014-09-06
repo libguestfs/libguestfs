@@ -219,7 +219,6 @@ Makefile.in
 /html/guestfs-java.3.html
 /html/guestfs-lua.3.html
 /html/guestfs-ocaml.3.html
-/html/guestfs-p2v-iso.1.html
 /html/guestfs-performance.1.html
 /html/guestfs-perl.3.html
 /html/guestfs-python.3.html
@@ -324,13 +323,6 @@ Makefile.in
 /p2v/stamp-virt-p2v.pod
 /p2v/virt-p2v
 /p2v/virt-p2v.1
-/p2v-iso/guestfs-p2v-iso.1
-/p2v-iso/guestfs-p2v-iso.txt
-/p2v-iso/kickstart-target.sh
-/p2v-iso/launch-virt-p2v
-/p2v-iso/p2v.ks
-/p2v-iso/stamp-guestfs-p2v-iso.pod
-/p2v-iso/virt-builder-target.sh
 /perl/bindtests.pl
 /perl/blib
 /perl/examples/guestfs-perl.3
