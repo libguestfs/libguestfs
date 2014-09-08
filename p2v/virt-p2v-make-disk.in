@@ -85,21 +85,22 @@ osversion="$1"
 #   - Xorg (or another X server, but only Xorg has been tested)
 #   - Xorg drivers
 #   - some fonts
+#   - matchbox (window manager, another could be used)
 #
 # Note that libguestfs is NOT a dependency.
 case "$osversion" in
     centos-*|fedora-*|rhel-*|scientificlinux-*)
-        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1
+        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1,matchbox-window-manager
         selinux_relabel=--selinux-relabel
         ;;
     debian-*|ubuntu-*)
-        deps=libpcre3,libxml2,libgtk2.0-0,openssh-client,qemu-utils,xorg,xserver-xorg-video-all
+        deps=libpcre3,libxml2,libgtk2.0-0,openssh-client,qemu-utils,xorg,xserver-xorg-video-all,matchbox-window-manager
         ;;
     archlinux-*)
-        deps=pcre,libxml2,gtk2,openssh,qemu,xorg-xinit,xorg-server,xf86-video-*
+        deps=pcre,libxml2,gtk2,openssh,qemu,xorg-xinit,xorg-server,xf86-video-*,matchbox-window-manager
         ;;
     opensuse-*|suse-*)
-        deps=pcre,libxml2,gtk2,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/xinit,/usr/bin/Xorg,xf86-video-*
+        deps=pcre,libxml2,gtk2,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/xinit,/usr/bin/Xorg,xf86-video-*,matchbox-window-manager
         ;;
     *)
         echo "$program: internal error: could not work out the Linux distro from '$osversion'"

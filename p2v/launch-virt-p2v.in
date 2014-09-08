@@ -18,5 +18,12 @@
 
 # This normally runs from systemd which deals with logging.
 
-cd /
-xinit @libexecdir@/virt-p2v
+# To save one script, invoke self again to run the window manager
+# and virt-p2v.
+if [ "$1" = "run" ]; then
+    cd /
+    matchbox-window-manager &
+    exec @libexecdir@/virt-p2v
+else
+    xinit "$0" run
+fi

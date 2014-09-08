@@ -60,6 +60,7 @@ kernel
 /usr/bin/Xorg
 xorg-x11-drivers
 xorg-x11-fonts-Type1
+matchbox-window-manager
 pcre
 libxml2
 gtk2
