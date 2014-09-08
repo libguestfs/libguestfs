@@ -38,6 +38,7 @@
 
 #include "p2v.h"
 
+int fullscreen;
 char **all_disks;
 char **all_removable;
 char **all_interfaces;
@@ -54,6 +55,7 @@ static const struct option long_options[] = {
   { "help", 0, 0, HELP_OPTION },
   { "cmdline", 1, 0, 0 },
   { "long-options", 0, 0, 0 },
+  { "fullscreen", 0, 0, 0 },
   { "verbose", 0, 0, 'v' },
   { "version", 0, 0, 'V' },
   { 0, 0, 0, 0 }
@@ -74,7 +76,8 @@ usage (int status)
              "Options:\n"
              "  --help                 Display brief help\n"
              " --cmdline=CMDLINE       Used to debug command line parsing\n"
-              "  -v|--verbose           Verbose messages\n"
+             " --fullscreen            Run virt-p2v in full screen mode\n"
+             "  -v|--verbose           Verbose messages\n"
              "  -V|--version           Display version and exit\n"
              "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name);
