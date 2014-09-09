@@ -1478,7 +1478,17 @@ random_name (char *template)
 void
 udev_settle (void)
 {
-  (void) command (NULL, NULL, str_udevadm, "settle", NULL);
+  char cmd[80];
+  int r;
+
+  snprintf (cmd, sizeof cmd, "udevadm%s settle", verbose ? " --debug" : "");
+  if (verbose)
+    printf ("%s\n", cmd);
+  r = system (cmd);
+  if (r == -1)
+    perror ("system");
+  else if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    fprintf (stderr, "warning: udevadm command failed\n");
 }
 
 /* Use by the CLEANUP_* macros.  Do not call these directly. */
