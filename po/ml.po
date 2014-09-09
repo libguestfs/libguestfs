@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-06 20:02+0100\n"
+"POT-Creation-Date: 2014-09-09 15:37+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam (http://www.transifex.com/projects/p/libguestfs/"
@@ -88,7 +88,7 @@ msgid ""
 "you can also find this out through the RHEV-M user interface."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1145
+#: ../v2v/convert_linux.ml:1160
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -98,7 +98,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:215
+#: ../v2v/v2v.ml:219
 msgid "%s: %s (ignored)"
 msgstr ""
 
@@ -743,6 +743,10 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
+#: ../v2v/v2v.ml:183
+msgid "Checking for sufficient free disk space in the guest"
+msgstr ""
+
 #: ../v2v/input_ova.ml:74
 msgid "Checksum of %s does not match manifest sha1 %s"
 msgstr ""
@@ -753,7 +757,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:219
+#: ../v2v/v2v.ml:223
 msgid "Closing the overlay"
 msgstr ""
 
@@ -765,11 +769,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:188
+#: ../v2v/v2v.ml:192
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:186
+#: ../v2v/v2v.ml:190
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -789,7 +793,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:238
+#: ../v2v/v2v.ml:242
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -817,7 +821,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:283
+#: ../v2v/v2v.ml:287
 msgid "Creating output metadata"
 msgstr ""
 
@@ -997,7 +1001,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:319
+#: ../v2v/v2v.ml:323
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1089,7 +1093,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:286 ../customize/customize_main.ml:237
+#: ../v2v/v2v.ml:290 ../customize/customize_main.ml:237
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1249,7 +1253,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:210
+#: ../v2v/v2v.ml:214
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1876,7 +1880,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1053
+#: ../v2v/convert_linux.ml:1068
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2127,7 +2131,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:322
+#: ../v2v/v2v.ml:326
 msgid "connection closed"
 msgstr ""
 
@@ -2166,7 +2170,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1000
+#: ../v2v/convert_linux.ml:1015
 msgid "could not update grub2 console: %s (ignored)"
 msgstr ""
 
@@ -2223,7 +2227,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:306
+#: ../v2v/v2v.ml:310
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2399,7 +2403,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:250
+#: ../v2v/v2v.ml:254
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -2415,7 +2419,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:344
+#: ../v2v/v2v.ml:348
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2435,7 +2439,7 @@ msgid ""
 "[-os %s], or else you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:329
+#: ../v2v/v2v.ml:333
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2486,7 +2490,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:299
+#: ../v2v/v2v.ml:303
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2494,6 +2498,12 @@ msgstr ""
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
+msgstr ""
+
+#: ../v2v/v2v.ml:415
+msgid ""
+"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
+"%Ld bytes needed"
 msgstr ""
 
 #: ../resize/resize.ml:129
@@ -2567,7 +2577,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:278 ../v2v/v2v.ml:111
+#: ../v2v/v2v.ml:282 ../v2v/v2v.ml:111
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2579,7 +2589,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:337
+#: ../v2v/v2v.ml:341
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2667,7 +2677,7 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:856
+#: ../v2v/convert_linux.ml:871
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -2896,7 +2906,7 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:202
+#: ../v2v/v2v.ml:206
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -2931,7 +2941,7 @@ msgstr ""
 #: align/scan.c:73 cat/cat.c:55 cat/filesystems.c:87 cat/log.c:64 cat/ls.c:83
 #: df/main.c:66 diff/diff.c:91 edit/edit.c:64 fish/fish.c:105
 #: fuse/guestmount.c:100 fuse/guestunmount.c:52 inspector/inspector.c:67
-#: make-fs/make-fs.c:73 p2v/main.c:66 rescue/rescue.c:56
+#: make-fs/make-fs.c:73 p2v/main.c:68 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "കൂടുതല്‍ വിവരങ്ങള്‍ക്കായി `%s --help' ശ്രമിക്കുക.\n"
@@ -2970,7 +2980,7 @@ msgstr "guestfs_create: ഹാന്‍ഡില്‍ ഉണ്ടാക്ക�
 #: cat/filesystems.c:241 cat/log.c:144 cat/ls.c:230 df/main.c:157
 #: diff/diff.c:262 edit/edit.c:158 fish/fish.c:293 format/format.c:183
 #: fuse/guestmount.c:251 fuse/guestunmount.c:124 inspector/inspector.c:151
-#: make-fs/make-fs.c:142 p2v/main.c:127 rescue/rescue.c:192
+#: make-fs/make-fs.c:142 p2v/main.c:130 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: അപരിചിതമായ ലോങ് ഉപാധി: %s (%d)\n"
@@ -7052,7 +7062,7 @@ msgstr ""
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/main.c:70
+#: p2v/main.c:72
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -7062,12 +7072,13 @@ msgid ""
 "Options:\n"
 "  --help                 Display brief help\n"
 " --cmdline=CMDLINE       Used to debug command line parsing\n"
+" --fullscreen            Run virt-p2v in full screen mode\n"
 "  -v|--verbose           Verbose messages\n"
 "  -V|--version           Display version and exit\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:150
+#: p2v/main.c:153
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""

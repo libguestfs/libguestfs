@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-09-06 20:02+0200\n"
+"POT-Creation-Date: 2014-09-09 15:37+0200\n"
 "PO-Revision-Date: 2014-07-22 18:04+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -51120,14 +51120,14 @@ msgstr ""
 #. type: textblock
 #: ../p2v/virt-p2v-make-disk.pod:15
 msgid ""
-"Virt-p2v-make-disk is a script which creates a bootable disk image or USB "
+"virt-p2v-make-disk is a script which creates a bootable disk image or USB "
 "key containing virt-p2v.  It uses L<virt-builder(1)> to do this, and is just "
 "a small shell script around virt-builder."
 msgstr ""
 
 #. type: textblock
 #: ../p2v/virt-p2v-make-disk.pod:19
-msgid "Virt-p2v-make-disk has two required parameters:"
+msgid "virt-p2v-make-disk has two required parameters:"
 msgstr ""
 
 #. type: textblock
@@ -51305,7 +51305,7 @@ msgstr ""
 #. type: textblock
 #: ../p2v/virt-p2v-make-kickstart.pod:20
 msgid ""
-"Virt-p2v-make-kickstart builds a kickstart file which can be used to build a "
+"virt-p2v-make-kickstart builds a kickstart file which can be used to build a "
 "bootable P2V ISO, live CD, USB key, or PXE image.  This tool only builds the "
 "kickstart file, but this manual page describes some of the ways you can use "
 "the kickstart file."
