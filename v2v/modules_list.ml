@@ -26,3 +26,20 @@ and register_output_module name =
 
 let input_modules () = List.sort compare !input_modules
 and output_modules () = List.sort compare !output_modules
+
+type conversion_fn =
+  verbose:bool -> keep_serial_console:bool ->
+  Guestfs.guestfs -> Types.inspect -> Types.source -> Types.guestcaps
+
+let convert_modules = ref []
+
+let register_convert_module inspect_fn name conversion_fn =
+  convert_modules := (inspect_fn, (name, conversion_fn)) :: !convert_modules
+
+let find_convert_module inspect =
+  let rec loop = function
+    | [] -> raise Not_found
+    | (inspect_fn, ret) :: _ when inspect_fn inspect -> ret
+    | _ :: rest -> loop rest
+  in
+  loop !convert_modules

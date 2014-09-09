@@ -192,19 +192,16 @@ let rec main () =
       msg (f_"Converting %s to run on KVM") prod
     );
 
-    match inspect.i_type, inspect.i_distro with
-    | "linux", ("fedora"
-                   | "rhel" | "centos" | "scientificlinux" | "redhat-based"
-                   | "sles" | "suse-based" | "opensuse") ->
-        (* RHEV doesn't support serial console so remove any on conversion. *)
-        let keep_serial_console = output#keep_serial_console in
-        Convert_linux.convert ~keep_serial_console verbose g inspect source
+    (* RHEV doesn't support serial console so remove any on conversion. *)
+    let keep_serial_console = output#keep_serial_console in
 
-    | "windows", _ -> Convert_windows.convert verbose g inspect source
-
-    | typ, distro ->
-      error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
-        typ distro in
+    let conversion_name, convert =
+      try Modules_list.find_convert_module inspect
+      with Not_found ->
+        error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
+          inspect.i_type inspect.i_distro in
+    if verbose then printf "picked conversion module %s\n%!" conversion_name;
+    convert ~verbose ~keep_serial_console g inspect source in
 
   if do_copy then (
     (* Doing fstrim on all the filesystems reduces the transfer size

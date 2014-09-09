@@ -56,8 +56,7 @@ let string_of_kernel_info ki =
     ki.ki_supports_virtio ki.ki_is_xen_kernel
 
 (* The conversion function. *)
-let rec convert ~keep_serial_console verbose (g : G.guestfs)
-    inspect source =
+let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   (*----------------------------------------------------------------------*)
   (* Inspect the guest first.  We already did some basic inspection in
    * the common v2v.ml code, but that has to deal with generic guests
@@ -1242,3 +1241,13 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
   } in
 
   guestcaps
+
+let () =
+  let matching = function
+    | { i_type = "linux";
+        i_distro = ("fedora"
+                       | "rhel" | "centos" | "scientificlinux" | "redhat-based"
+                       | "sles" | "suse-based" | "opensuse") } -> true
+    | _ -> false
+  in
+  Modules_list.register_convert_module matching "enterprise-linux" convert

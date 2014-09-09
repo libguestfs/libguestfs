@@ -41,7 +41,7 @@ module G = Guestfs
 
 type ('a, 'b) maybe = Either of 'a | Or of 'b
 
-let convert verbose (g : G.guestfs) inspect source =
+let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   (* Get the data directory. *)
   let virt_tools_data_dir =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
@@ -477,3 +477,10 @@ echo uninstalling Xen PV driver
   } in
 
   guestcaps
+
+let () =
+  let matching = function
+    | { i_type = "windows" } -> true
+    | _ -> false
+  in
+  Modules_list.register_convert_module matching "windows" convert
