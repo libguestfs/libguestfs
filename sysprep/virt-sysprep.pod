@@ -250,7 +250,7 @@ Operations can be individually enabled using the
 I<--enable>/I<--operations> options.
 Use a comma-separated list, for example:
 
- virt-sysprep --operations=ssh-hostkeys,udev-persistent-net [etc..]
+ virt-sysprep --operations ssh-hostkeys,udev-persistent-net [etc..]
 
 Future versions of virt-sysprep may add more operations.  If you are
 using virt-sysprep and want predictable behaviour, specify only the
