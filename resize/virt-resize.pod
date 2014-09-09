@@ -155,9 +155,9 @@ to fill the rest of the available space:
 If the expanded partition in the image contains a filesystem or LVM
 PV, then if virt-resize knows how, it will resize the contents, the
 equivalent of calling a command such as L<pvresize(8)>,
-L<resize2fs(8)>, L<ntfsresize(8)> or L<btrfs(8)>.  However virt-resize
-does not know how to resize some filesystems, so you would have to
-online resize them after booting the guest.
+L<resize2fs(8)>, L<ntfsresize(8)>, L<btrfs(8)> or L<xfs_growfs(8)>.
+However virt-resize does not know how to resize some filesystems, so
+you would have to online resize them after booting the guest.
 
  # virt-resize --expand /dev/sda2 nbd://example.com outdisk
 
@@ -390,6 +390,10 @@ could also resize LVs as desired after boot.
 =item *
 
 Btrfs filesystems, if libguestfs was compiled with support for btrfs.
+
+=item *
+
+XFS filesystems, if libguestfs was compiled with support for XFS.
 
 =back
 
@@ -760,6 +764,7 @@ L<lvresize(8)>,
 L<resize2fs(8)>,
 L<ntfsresize(8)>,
 L<btrfs(8)>,
+L<xfs_growfs(8)>,
 L<virsh(1)>,
 L<parted(8)>,
 L<truncate(1)>,

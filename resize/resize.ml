@@ -121,13 +121,14 @@ let debug_logvol lv =
   eprintf "\tcontent: %s\n" (string_of_partition_content lv.lv_type)
 
 type expand_content_method =
-  | PVResize | Resize2fs | NTFSResize | BtrfsFilesystemResize
+  | PVResize | Resize2fs | NTFSResize | BtrfsFilesystemResize | XFSGrowFS
 
 let string_of_expand_content_method = function
   | PVResize -> s_"pvresize"
   | Resize2fs -> s_"resize2fs"
   | NTFSResize -> s_"ntfsresize"
   | BtrfsFilesystemResize -> s_"btrfs-filesystem-resize"
+  | XFSGrowFS -> s_"xfs_growfs"
 
 (* Main program. *)
 let main () =
@@ -287,6 +288,8 @@ read the man page virt-resize(1).
         printf "ntfs\n";
       if g#feature_available [| "btrfs" |] then
         printf "btrfs\n";
+      if g#feature_available [| "xfs" |] then
+        printf "xfs\n";
       exit 0
     );
 
@@ -316,9 +319,10 @@ read the man page virt-resize(1).
     lv_expands, machine_readable, ntfsresize_force, output_format,
     quiet, resizes, resizes_force, shrink, sparse, trace, verbose in
 
-  (* Default to true, since NTFS and btrfs support are usually available. *)
+  (* Default to true, since NTFS/btrfs/XFS support are usually available. *)
   let ntfs_available = ref true in
   let btrfs_available = ref true in
+  let xfs_available = ref true in
 
   (* Add in and out disks to the handle and launch. *)
   let connect_both_disks () =
@@ -343,6 +347,7 @@ read the man page virt-resize(1).
     (* Update features available in the daemon. *)
     ntfs_available := g#feature_available [|"ntfsprogs"; "ntfs3g"|];
     btrfs_available := g#feature_available [|"btrfs"|];
+    xfs_available := g#feature_available [|"xfs"|];
 
     g
   in
@@ -552,6 +557,7 @@ read the man page virt-resize(1).
       | ContentFS (("ext2"|"ext3"|"ext4"), _) -> true
       | ContentFS (("ntfs"), _) when !ntfs_available -> true
       | ContentFS (("btrfs"), _) when !btrfs_available -> true
+      | ContentFS (("xfs"), _) when !xfs_available -> true
       | ContentFS (_, _) -> false
       | ContentExtendedPartition -> false
     else
@@ -565,6 +571,7 @@ read the man page virt-resize(1).
       | ContentFS (("ext2"|"ext3"|"ext4"), _) -> Resize2fs
       | ContentFS (("ntfs"), _) when !ntfs_available -> NTFSResize
       | ContentFS (("btrfs"), _) when !btrfs_available -> BtrfsFilesystemResize
+      | ContentFS (("xfs"), _) when !xfs_available -> XFSGrowFS
       | ContentFS (_, _) -> assert false
       | ContentExtendedPartition -> assert false
     else
@@ -1226,18 +1233,20 @@ read the man page virt-resize(1).
 
   if to_be_expanded then (
     (* Helper function to expand partition or LV content. *)
-    let do_expand_content target = function
+    let do_expand_content target =
+      let with_mounted dev (resize : string -> unit) =
+        (* Btrfs and XFS need to mount the filesystem to resize it. *)
+        assert (Array.length (g#mounts ()) = 0);
+        g#mount dev "/";
+        resize "/";
+        g#umount "/"
+      in
+      function
       | PVResize -> g#pvresize target
       | Resize2fs -> g#resize2fs target
       | NTFSResize -> g#ntfsresize ~force:ntfsresize_force target
-      | BtrfsFilesystemResize ->
-          (* Complicated ...  Btrfs forces us to mount the filesystem
-           * in order to resize it.
-           *)
-          assert (Array.length (g#mounts ()) = 0);
-          g#mount target "/";
-          g#btrfs_filesystem_resize "/";
-          g#umount "/"
+      | BtrfsFilesystemResize -> with_mounted target g#btrfs_filesystem_resize
+      | XFSGrowFS -> with_mounted target g#xfs_growfs
     in
 
     (* Expand partition content as required. *)
