@@ -790,12 +790,27 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
        *)
       g#mv initrd (initrd ^ ".pre-v2v");
 
+      (* dracut and mkinitrd want what they call the "kernel version".  What
+       * they actually mean is the last element of the module path
+       * (eg. /lib/modules/2.6.32-496.el6.x86_64 -> 2.6.32-496.el6.x86_64)
+       * which might include the arch.  Get that here.
+       *)
+      let mkinitrd_kv =
+        let modpath = kernel.ki_modpath in
+        let len = String.length modpath in
+        try
+          let i = String.rindex modpath '/' in
+          String.sub modpath (i+1) (len - (i+1))
+        with
+          Not_found ->
+            invalid_arg (sprintf "invalid module path: %s" modpath) in
+
       if g#is_file ~followsymlinks:true "/sbin/dracut" then (
         (* Dracut. *)
         ignore (
           g#command [| "/sbin/dracut";
                        "--add-drivers"; String.concat " " modules;
-                       initrd; kernel.ki_version |]
+                       initrd; mkinitrd_kv |]
         )
       )
       else if family = `SUSE_family
@@ -810,7 +825,7 @@ let rec convert ~keep_serial_console verbose (g : G.guestfs)
       else if g#is_file ~followsymlinks:true "/sbin/mkinitrd" then (
         let module_args = List.map (sprintf "--with=%s") modules in
         let args =
-          [ "/sbin/mkinitrd" ] @ module_args @ [ initrd; kernel.ki_version ] in
+          [ "/sbin/mkinitrd" ] @ module_args @ [ initrd; mkinitrd_kv ] in
 
         (* We explicitly modprobe ext2 here. This is required by
          * mkinitrd on RHEL 3, and shouldn't hurt on other OSs. We
