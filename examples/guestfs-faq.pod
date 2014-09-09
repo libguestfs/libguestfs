@@ -422,6 +422,8 @@ programs you have compiled.
 Use C<./localconfigure> instead of C<./configure>, but otherwise you
 compile libguestfs as usual.
 
+Don't run C<make install>!  Use the C<./run> script instead (see README).
+
 =head2 How can I compile and install libguestfs without supermin?
 
 If supermin 5 supports your distro, but you don't happen to have a new
