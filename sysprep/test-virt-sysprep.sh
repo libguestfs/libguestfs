@@ -27,6 +27,7 @@ operations=$(
     sed 's/,$//'
 )
 echo operations=$operations
+echo
 
 # virt-sysprep with the -n option doesn't modify the guest.  It ought
 # to be able to sysprep any of our test guests.
@@ -34,7 +35,9 @@ echo operations=$operations
 for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
+	echo "Running virt-sysprep on $f ..."
 	$VG ./virt-sysprep -q -n --enable "$operations" -a $f
+	echo
     fi
 done
 
