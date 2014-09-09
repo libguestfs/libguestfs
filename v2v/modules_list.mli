@@ -43,3 +43,6 @@ val find_convert_module : Types.inspect -> string * conversion_fn
 (** [find_convert_module inspect] returns the name and conversion
     function for the guest with inspection data in [inspect], else
     throws [Not_found]. *)
+
+val convert_modules : unit -> string list
+(** Return the list of conversion modules. *)

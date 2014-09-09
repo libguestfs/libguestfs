@@ -43,3 +43,6 @@ let find_convert_module inspect =
     | _ :: rest -> loop rest
   in
   loop !convert_modules
+
+let convert_modules () =
+  List.sort compare (List.map (fun (_, (name, _)) -> name) !convert_modules)
