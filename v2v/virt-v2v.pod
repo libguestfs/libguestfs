@@ -161,14 +161,6 @@ usually adequate but you can get finer control (eg. of memory and
 vCPUs) by using I<-i libvirtxml> instead.  Only guests that use a single
 disk can be imported this way.
 
-=item B<-i ova>
-
-Set the input method to I<ova>.
-
-In this mode you can read a VMware ova file.  Virt-v2v will read the
-ova manifest file and check the vmdk volumes for validity (checksums)
-as well as analyzing the ovf file, and then convert the guest.
-
 =item B<-i libvirt>
 
 Set the input method to I<libvirt>.  This is the default.
@@ -188,6 +180,14 @@ disks.  See L</MINIMAL XML FOR -i libvirtxml OPTION> below.
 =item B<-i local>
 
 This is the same as I<-i disk>.
+
+=item B<-i ova>
+
+Set the input method to I<ova>.
+
+In this mode you can read a VMware ova file.  Virt-v2v will read the
+ova manifest file and check the vmdk volumes for validity (checksums)
+as well as analyzing the ovf file, and then convert the guest.
 
 =item B<-ic> libvirtURI
 
