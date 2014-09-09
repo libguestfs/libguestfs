@@ -241,6 +241,10 @@ a faulty guest (one with no disks).
 
 This option is not compatible with I<-o glance> for technical reasons.
 
+=item B<-o disk>
+
+This is the same as I<-o local>.
+
 =item B<-o glance>
 
 Set the output method to OpenStack Glance.  In this mode the converted

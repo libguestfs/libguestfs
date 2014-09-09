@@ -76,7 +76,7 @@ let parse_cmdline () =
   let set_output_mode = function
     | "glance" -> output_mode := `Glance
     | "libvirt" -> output_mode := `Libvirt
-    | "local" -> output_mode := `Local
+    | "disk" | "local" -> output_mode := `Local
     | "ovirt" | "rhev" -> output_mode := `RHEV
     | s ->
       error (f_"unknown -o option: %s") s
