@@ -179,6 +179,10 @@ let rec main () =
   msg (f_"Inspecting the overlay");
   let inspect = inspect_source g root_choice in
 
+  (* Check there is enough free space to perform conversion. *)
+  msg (f_"Checking for sufficient free disk space in the guest");
+  check_free_space g;
+
   (* Conversion. *)
   let guestcaps =
     (match inspect.i_product_name with
@@ -380,5 +384,36 @@ and inspect_source g root_choice =
     i_product_variant = g#inspect_get_product_variant root;
     i_apps = apps;
     i_apps_map = apps_map; }
+
+(* Conversion can fail if there is no space on the guest filesystems
+ * (RHBZ#1139543).  To avoid this situation, check there is some
+ * headroom.  Mainly we care about the root filesystem.
+ *)
+and check_free_space g =
+  let mps = g#mountpoints () in
+  List.iter (
+    fun (_, mp) ->
+      (* bfree = free blocks for root user *)
+      let { G.bfree = bfree; bsize = bsize } = g#statvfs mp in
+      let free_bytes = bfree *^ bsize in
+      let needed_bytes =
+        match mp with
+        | "/" ->
+          (* We may install some packages, and they would usually go
+           * on the root filesystem.
+           *)
+          20_000_000L
+        | "/boot" ->
+          (* We usually regenerate the initramfs, which has a typical size
+           * of 20-30MB.  Hence:
+           *)
+          50_000_000L
+        | _ ->
+          (* For everything else, just make sure there is some free space. *)
+          10_000_000L in
+      if free_bytes < needed_bytes then
+        error (f_"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < %Ld bytes needed")
+          mp free_bytes needed_bytes
+  ) mps
 
 let () = run_main_and_handle_errors ~prog main
