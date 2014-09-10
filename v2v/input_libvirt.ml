@@ -33,6 +33,15 @@ let error_if_libvirt_backend () =
     error (f_"because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
   )
 
+(* xen+ssh URLs use the SSH driver in CURL.  Currently this requires
+ * ssh-agent authentication.  Give a clear error if this hasn't been
+ * set up (RHBZ#1139973).
+ *)
+let error_if_no_ssh_agent () =
+  try ignore (Sys.getenv "SSH_AUTH_SOCK")
+  with Not_found ->
+    error (f_"ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page.")
+
 class input_libvirt verbose libvirt_uri guest =
 object
   inherit input verbose
@@ -82,6 +91,7 @@ object
 
         | Some server, Some ("xen+ssh" as scheme) -> (* Xen over SSH *)
           error_if_libvirt_backend ();
+          error_if_no_ssh_agent ();
           let f = Lib_xen.map_path_to_uri verbose uri scheme server in
           Some f, Some f
 
