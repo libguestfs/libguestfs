@@ -154,7 +154,8 @@ complete_dest_paths_generator (const char *text, int state)
       /* If we've got a partial path already, we need to list everything
        * in that directory, otherwise list everything in /
        */
-      char *p, *dir;
+      CLEANUP_FREE char *dir = NULL;
+      char *p;
       struct guestfs_dirent_list *dirents;
 
       p = strrchr (text, '/');
