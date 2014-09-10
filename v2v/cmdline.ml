@@ -49,8 +49,11 @@ let parse_cmdline () =
   let trace = ref false in
   let vmtype = ref "" in
 
-  let input_mode = ref `Libvirt in
-  let set_input_mode = function
+  let input_mode = ref `Not_set in
+  let set_input_mode mode =
+    if !input_mode <> `Not_set then
+      error (f_"%s option used more than once on the command line") "-i";
+    match mode with
     | "disk" | "local" -> input_mode := `Disk
     | "libvirt" -> input_mode := `Libvirt
     | "libvirtxml" -> input_mode := `LibvirtXML
@@ -72,8 +75,11 @@ let parse_cmdline () =
     add_network, add_bridge
   in
 
-  let output_mode = ref `Libvirt in
-  let set_output_mode = function
+  let output_mode = ref `Not_set in
+  let set_output_mode mode =
+    if !output_mode <> `Not_set then
+      error (f_"%s option used more than once on the command line") "-o";
+    match mode with
     | "glance" -> output_mode := `Glance
     | "libvirt" -> output_mode := `Libvirt
     | "disk" | "local" -> output_mode := `Local
@@ -225,6 +231,7 @@ read the man page virt-v2v(1).
           error (f_"expecting a disk image (filename) on the command line") in
       Input_disk.input_disk verbose input_format disk
 
+    | `Not_set
     | `Libvirt ->
       (* -i libvirt: Expecting a single argument which is the name
        * of the libvirt guest.
@@ -268,6 +275,7 @@ read the man page virt-v2v(1).
         error (f_"--no-copy and '-o glance' cannot be used at the same time");
       Output_glance.output_glance verbose
 
+    | `Not_set
     | `Libvirt ->
       let output_storage =
         if output_storage = "" then "default" else output_storage in
