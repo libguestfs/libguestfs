@@ -55,8 +55,8 @@ static struct filesystem filesystems[] = {
   { "ext3",  0, 0, NULL, NULL, 0, 0 },
   { "ext4",  0, 0, NULL, NULL, 0, 0 },
   { "btrfs", 0, 0, NULL, "btrfs", 0, 0 },
-  { "vfat",  1, 0, "utf8", NULL, 1, 1 },
-  { "msdos", 1, 1, NULL, NULL, 0, 0 },
+  { "vfat",  1, 0, "iocharset=iso8859-1,utf8", NULL, 1, 1 },
+  { "msdos", 1, 1, "iocharset=iso8859-1", NULL, 0, 0 },
   /* In reality NTFS is case insensitive, but the ntfs-3g driver isn't. */
   { "ntfs",  0, 0, NULL, "ntfs3g", 0, 0 },
 };
