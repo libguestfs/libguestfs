@@ -33,6 +33,7 @@
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
+#include <libvirt/virterror.h>
 #endif
 
 #include "guestfs.h"
@@ -68,6 +69,30 @@ raise_error (const char *fs, ...)
   caml_invalid_argument (msg);
 }
 
+/* Get the remote domain state (running, etc.).  Use virDomainGetState
+ * which is most efficient, but if it's not implemented, fall back to
+ * virDomainGetInfo.  See equivalent code in virsh.
+ */
+static int
+get_dom_state (virDomainPtr dom)
+{
+  int state, reason;
+  virErrorPtr err;
+  virDomainInfo info;
+
+  if (virDomainGetState (dom, &state, &reason, 0) == 0)
+    return state;
+
+  err = virGetLastError ();
+  if (!err || err->code != VIR_ERR_NO_SUPPORT)
+    return -1;
+
+  if (virDomainGetInfo (dom, &info) == 0)
+    return info.state;
+
+  return -1;
+}
+
 value
 v2v_dumpxml (value connv, value domnamev)
 {
@@ -77,7 +102,7 @@ v2v_dumpxml (value connv, value domnamev)
   const char *domname;
   virConnectPtr conn;
   virDomainPtr dom;
-  int is_test_uri = 0, state, reason;
+  int is_test_uri = 0;
   char *xml;
 
   if (connv != Val_int (0)) {
@@ -110,13 +135,13 @@ v2v_dumpxml (value connv, value domnamev)
    * this is only appropriate for virt-v2v.  (RHBZ#1138586)
    */
   if (!is_test_uri) {
-    if (virDomainGetState (dom, &state, &reason, 0) == 0) {
-      if (state == VIR_DOMAIN_RUNNING) {
-        virDomainFree (dom);
-        virConnectClose (conn);
-        raise_error ("libvirt domain '%s' is running, it must be shut down in order to perform virt-v2v conversion",
-                     domname);
-      }
+    int state = get_dom_state (dom);
+
+    if (state == VIR_DOMAIN_RUNNING) {
+      virDomainFree (dom);
+      virConnectClose (conn);
+      raise_error ("libvirt domain '%s' is running, it must be shut down in order to perform virt-v2v conversion",
+                   domname);
     }
   }
 
