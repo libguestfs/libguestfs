@@ -558,7 +558,11 @@ read the man page virt-resize(1).
       | ContentFS (("ntfs"), _) when !ntfs_available -> true
       | ContentFS (("btrfs"), _) when !btrfs_available -> true
       | ContentFS (("xfs"), _) when !xfs_available -> true
-      | ContentFS (_, _) -> false
+      | ContentFS (fs, _) ->
+        if verbose then
+          eprintf "Unknown/unavailable method for expanding filesystem %s\n"
+            fs;
+        false
       | ContentExtendedPartition -> false
     else
       fun _ -> false
