@@ -243,6 +243,10 @@ read the man page virt-builder(1).
         exit 1
       )
     | `List ->
+      if format <> None then (
+        eprintf (f_"%s: virt-builder --list: use '--list-format', not '--format'.\n") prog;
+        exit 1
+      );
       (match args with
       | [] -> ""
       | _ ->

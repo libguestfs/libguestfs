@@ -307,13 +307,13 @@ alternate home directory:
 
 =item B<--list>
 
-=item B<--list --format> format
+=item B<--list --list-format> format
 
 =item B<--list --long>
 
 List available templates.
 
-It is possible to choose with I<--format> the output format for the list
+It is possible to choose with I<--list-format> the output format for the list
 templates:
 
 =over 4
