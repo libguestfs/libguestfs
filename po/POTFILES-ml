@@ -96,10 +96,10 @@ v2v/lib_esx.ml
 v2v/lib_linux.ml
 v2v/lib_xen.ml
 v2v/modules_list.ml
-v2v/output_RHEV.ml
 v2v/output_glance.ml
 v2v/output_libvirt.ml
 v2v/output_local.ml
+v2v/output_rhev.ml
 v2v/stringMap.ml
 v2v/types.ml
 v2v/utils.ml

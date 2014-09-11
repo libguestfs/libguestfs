@@ -44,7 +44,7 @@ SOURCES_MLI = \
 	input_ova.mli \
 	output_libvirt.mli \
 	output_local.mli \
-	output_RHEV.mli \
+	output_rhev.mli \
 	types.mli \
 	xml.mli
 
@@ -69,7 +69,7 @@ SOURCES_ML = \
 	output_glance.ml \
 	output_libvirt.ml \
 	output_local.ml \
-	output_RHEV.ml \
+	output_rhev.ml \
 	cmdline.ml \
 	v2v.ml
 
