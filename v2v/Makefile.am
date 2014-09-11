@@ -38,6 +38,7 @@ SOURCES_MLI = \
 	JSON.mli \
 	lib_esx.mli \
 	lib_linux.mli \
+	lib_ovf.mli \
 	lib_xen.mli \
 	modules_list.mli \
 	output_glance.mli \
@@ -58,6 +59,7 @@ SOURCES_ML = \
 	JSON.ml \
 	lib_esx.ml \
 	lib_xen.ml \
+	lib_ovf.ml \
 	lib_linux.ml \
 	modules_list.ml \
 	input_disk.ml \
