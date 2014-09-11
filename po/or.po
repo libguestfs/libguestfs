@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-10 22:07+0100\n"
+"POT-Creation-Date: 2014-09-11 19:36+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/libguestfs/"
@@ -73,19 +73,18 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:285
+#: ../v2v/output_rhev.ml:92
 msgid ""
 "%s does not exist or is not a directory.\n"
 "\n"
-"Most likely cause: Either the Export Storage Domain (%s) has not been "
-"attached to any Data Center, or the path %s is not an Export Storage Domain "
-"at all.\n"
+"Most likely cause: Either the %s (%s) has not been attached to any Data "
+"Center, or the path %s is not an %s at all.\n"
 "\n"
-"You have to attach the Export Storage Domain to a Data Center using the RHEV-"
-"M / OVirt user interface first.\n"
+"You have to attach the %s to a Data Center using the RHEV-M / OVirt user "
+"interface first.\n"
 "\n"
-"If you don't know what the Export Storage Domain mount point should be then "
-"you can also find this out through the RHEV-M user interface."
+"If you don't know what the %s mount point should be then you can also find "
+"this out through the RHEV-M user interface."
 msgstr ""
 
 #: ../v2v/cmdline.ml:81 ../v2v/cmdline.ml:55
@@ -245,7 +244,7 @@ msgstr ""
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:156
+#: ../v2v/cmdline.ml:157
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -456,7 +455,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:324
+#: ../builder/cmdline.ml:328
 msgid ""
 "%s: sorry, cannot run commands on a guest with a different architecture\n"
 msgstr ""
@@ -471,7 +470,7 @@ msgid ""
 "%s: sorry, don't know how to use --update with the '%s' package manager\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:300
+#: ../builder/cmdline.ml:304
 msgid "%s: source and fingerprint lists are not the same length\n"
 msgstr ""
 
@@ -515,27 +514,31 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../builder/cmdline.ml:268
+#: ../builder/cmdline.ml:272
 msgid ""
 "%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not "
 "need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:275
+#: ../builder/cmdline.ml:279
 msgid ""
 "%s: virt-builder --get-kernel image\n"
 "Missing 'image' (disk image file) argument.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:278
+#: ../builder/cmdline.ml:282
 msgid "%s: virt-builder --get-kernel: too many parameters\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:249
+#: ../builder/cmdline.ml:253
 msgid "%s: virt-builder --list does not need any extra arguments.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:256
+#: ../builder/cmdline.ml:247
+msgid "%s: virt-builder --list: use '--list-format', not '--format'.\n"
+msgstr ""
+
+#: ../builder/cmdline.ml:260
 msgid ""
 "%s: virt-builder --notes os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names.\n"
@@ -547,7 +550,7 @@ msgid ""
 "Missing 'os-version'. Use '--list' to list available template names.\n"
 msgstr ""
 
-#: ../builder/cmdline.ml:259 ../builder/cmdline.ml:242
+#: ../builder/cmdline.ml:263 ../builder/cmdline.ml:242
 msgid "%s: virt-builder: too many parameters, expecting 'os-version'\n"
 msgstr ""
 
@@ -602,11 +605,11 @@ msgstr ""
 msgid "--expand option given twice"
 msgstr ""
 
-#: ../v2v/cmdline.ml:275
+#: ../v2v/cmdline.ml:276
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:285
+#: ../v2v/cmdline.ml:286
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
@@ -631,19 +634,27 @@ msgstr ""
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
 msgstr ""
 
-#: ../v2v/cmdline.ml:295 ../v2v/cmdline.ml:283 ../v2v/cmdline.ml:273
-msgid "--vmtype option can only be used with '-o rhev'"
+#: ../v2v/cmdline.ml:274
+msgid "--vmtype option cannot be used with '-o glance'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:284
+msgid "--vmtype option cannot be used with '-o libvirt'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:296
+msgid "--vmtype option cannot be used with '-o local'"
 msgstr ""
 
 #: ../v2v/input_disk.ml:49
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:269
+#: ../v2v/cmdline.ml:270
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:271
+#: ../v2v/cmdline.ml:272
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 
@@ -660,15 +671,23 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:290
+#: ../v2v/cmdline.ml:291
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:300
+#: ../v2v/cmdline.ml:301
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:292
+#: ../v2v/cmdline.ml:308
+msgid "-o vdsm: either --vdsm-image-uuid or --vdsm-vm-uuid was not specified"
+msgstr ""
+
+#: ../v2v/cmdline.ml:306
+msgid "-o vdsm: output storage was not specified, use '-os'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:293
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -857,7 +876,11 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../v2v/cmdline.ml:120 ../sparsify/cmdline.ml:73 ../resize/resize.ml:187
+#: ../v2v/output_vdsm.ml:84
+msgid "Data Domain"
+msgstr ""
+
+#: ../v2v/cmdline.ml:121 ../sparsify/cmdline.ml:73 ../resize/resize.ml:187
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -909,7 +932,7 @@ msgstr ""
 #. ../customize/customize_main.ml:99
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:147 ../sysprep/main.ml:155 ../sysprep/main.ml:154
+#: ../v2v/cmdline.ml:148 ../sysprep/main.ml:155 ../sysprep/main.ml:154
 msgid "Display version and exit"
 msgstr ""
 
@@ -986,7 +1009,7 @@ msgstr ""
 #. ../customize/customize_main.ml:97
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:145 ../sysprep/main.ml:153 ../sysprep/main.ml:152
+#: ../v2v/cmdline.ml:146 ../sysprep/main.ml:153 ../sysprep/main.ml:152
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -997,7 +1020,7 @@ msgstr ""
 #. ../resize/resize.ml:215
 #. ../customize/customize_main.ml:101
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:150 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:88
+#: ../v2v/cmdline.ml:151 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1051,6 +1074,10 @@ msgstr ""
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:167
+msgid "Export Storage Domain"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:243
@@ -1155,7 +1182,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:144
+#: ../v2v/cmdline.ml:139
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1185,7 +1212,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/cmdline.ml:124
+#: ../v2v/cmdline.ml:125
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1209,7 +1236,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:128
+#: ../v2v/cmdline.ml:129
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1217,7 +1244,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:131 ../v2v/cmdline.ml:122
+#: ../v2v/cmdline.ml:132 ../v2v/cmdline.ml:123
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1232,7 +1259,7 @@ msgstr ""
 #. ../resize/resize.ml:194
 #. ../customize/customize_main.ml:89
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:125 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:78
+#: ../v2v/cmdline.ml:126 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:78
 msgid "List long options"
 msgstr ""
 
@@ -1241,7 +1268,7 @@ msgid "List supported operations"
 msgstr ""
 
 #. ../builder/cmdline.ml:140
-#: ../v2v/cmdline.ml:126 ../sparsify/cmdline.ml:79 ../resize/resize.ml:199
+#: ../v2v/cmdline.ml:127 ../sparsify/cmdline.ml:79 ../resize/resize.ml:199
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1249,11 +1276,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:119
+#: ../v2v/cmdline.ml:120
 msgid "Map bridge 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:127
+#: ../v2v/cmdline.ml:128
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
@@ -1294,6 +1321,10 @@ msgid ""
 "%s\n"
 msgstr ""
 
+#: ../v2v/output_vdsm.ml:103
+msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
+msgstr ""
+
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid ""
 "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
@@ -1326,7 +1357,7 @@ msgstr ""
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:143
+#: ../v2v/cmdline.ml:145
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1342,7 +1373,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:139
+#: ../v2v/cmdline.ml:141
 msgid "Output image UUID"
 msgstr ""
 
@@ -1350,7 +1381,7 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:141
+#: ../v2v/cmdline.ml:143
 msgid "Output vol UUID(s)"
 msgstr ""
 
@@ -1381,15 +1412,15 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:135
+#: ../v2v/cmdline.ml:136
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/cmdline.ml:136 ../sparsify/cmdline.ml:81
+#: ../v2v/cmdline.ml:137 ../sparsify/cmdline.ml:81
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:483 ../v2v/output_RHEV.ml:408
+#: ../v2v/lib_ovf.ml:349 ../v2v/lib_ovf.ml:175
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -1576,7 +1607,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:133
+#: ../v2v/cmdline.ml:134
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -1680,7 +1711,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:121
+#: ../v2v/cmdline.ml:122
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -1710,7 +1741,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:130
+#: ../v2v/cmdline.ml:131
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -1722,15 +1753,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:132
+#: ../v2v/cmdline.ml:133
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:129
+#: ../v2v/cmdline.ml:130
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:134
+#: ../v2v/cmdline.ml:135
 msgid "Set output storage location"
 msgstr ""
 
@@ -1778,7 +1809,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:149
+#: ../v2v/cmdline.ml:150
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -1963,7 +1994,7 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:707
+#: ../v2v/lib_ovf.ml:296
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
@@ -2163,11 +2194,10 @@ msgstr ""
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:263
+#: ../v2v/output_rhev.ml:70
 msgid ""
-"could not read the Export Storage Domain specified by the '-os %s' parameter "
-"on the command line.  Is it really an OVirt or RHEV-M Export Storage "
-"Domain?  The original error is: %s"
+"could not read the %s specified by the '-os %s' parameter on the command "
+"line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
 #: ../v2v/output_libvirt.ml:254
@@ -2285,19 +2315,19 @@ msgstr ""
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:231
+#: ../v2v/cmdline.ml:232
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:252
+#: ../v2v/cmdline.ml:253
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:243
+#: ../v2v/cmdline.ml:244
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:261
+#: ../v2v/cmdline.ml:262
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -2383,6 +2413,10 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
+#: ../v2v/output_vdsm.ml:94
+msgid "image directory (%s) does not exist or is not a directory"
+msgstr ""
+
 #: ../v2v/input_libvirtxml.ml:68
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
@@ -2435,12 +2469,12 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:240
+#: ../v2v/output_rhev.ml:47
 msgid ""
 "mount command failed, see earlier errors.\n"
 "\n"
-"This probably means you didn't specify the right Export Storage Domain path "
-"[-os %s], or else you need to rerun virt-v2v as root."
+"This probably means you didn't specify the right %s path [-os %s], or else "
+"you need to rerun virt-v2v as root."
 msgstr ""
 
 #: ../v2v/v2v.ml:330
@@ -2615,18 +2649,18 @@ msgid ""
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:291
+#: ../v2v/output_rhev.ml:99
 msgid ""
-"the Export Storage Domain (%s) is not writable.\n"
+"the %s (%s) is not writable.\n"
 "\n"
 "This probably means you need to run virt-v2v as 'root'.\n"
 "\n"
 "Original error was: %s"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:335
+#: ../v2v/output_vdsm.ml:80
 msgid ""
-"the number of '--rhev-vol-uuid' parameters passed on the command line has to "
+"the number of '--vdsm-vol-uuid' parameters passed on the command line has to "
 "match the number of guest disk images (for this guest: %d)"
 msgstr ""
 
@@ -2634,7 +2668,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:398
+#: ../v2v/lib_ovf.ml:165
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -2643,16 +2677,14 @@ msgid ""
 "about this issue."
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:277
+#: ../v2v/output_rhev.ml:84
 msgid ""
-"there are multiple UUIDs in the Export Storage Domain (%s).  This is "
-"unexpected, and may be a bug in virt-v2v or OVirt."
+"there are multiple UUIDs in the %s (%s).  This is unexpected, and may be a "
+"bug in virt-v2v or OVirt."
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:275
-msgid ""
-"there are no UUIDs in the Export Storage Domain (%s).  Is it really an OVirt "
-"or RHEV-M Export Storage Domain?"
+#: ../v2v/output_rhev.ml:82
+msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
 #: ../v2v/convert_windows.ml:252
@@ -2697,11 +2729,11 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:106
+#: ../v2v/cmdline.ml:107
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:208
+#: ../v2v/cmdline.ml:209
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
@@ -2709,15 +2741,15 @@ msgstr ""
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:88
+#: ../v2v/cmdline.ml:89
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:96
+#: ../v2v/cmdline.ml:97
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/output_RHEV.ml:163
+#: ../v2v/lib_ovf.ml:148
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
