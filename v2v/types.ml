@@ -179,13 +179,6 @@ and guestcaps_block_type = Virtio_blk | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
 
-type output_rhev_params = {
-  image_uuid : string option;
-  vol_uuids : string list;
-  vm_uuid : string option;
-  vmtype : [`Server|`Desktop] option;
-}
-
 class virtual input verbose = object
   method virtual as_options : string
   method virtual source : unit -> source
