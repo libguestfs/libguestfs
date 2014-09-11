@@ -33,13 +33,13 @@ libguestfs E<ge> 1.28.
                          ┌────────────┐
  -i disk ───────────┐    │            │   ┌───────▶ -o local
  -i ova  ─────────┐ └──▶ │ virt-v2v   │   │
-                  └────▶ │ conversion │ ──┘
- ESX ──▶┌────────────┐   │ server     │    ┌────────────┐
- Xen ──▶│ -i libvirt ──▶ │            │ ───▶ -o libvirt │─▶ KVM
- ... ──▶│  (default) │   │            │    │  (default) │
-        └────────────┘   │            │ ──┐└────────────┘
- -i libvirtxml ────────▶ │            │ ─┐└──────▶ -o glance
-                         └────────────┘  └─────────▶ -o rhev
+                  └────▶ │ conversion │ ──┘┌────────────┐
+ ESX ──▶┌────────────┐   │ server     │ ───▶ -o libvirt │─▶ KVM
+ Xen ──▶│ -i libvirt ──▶ │            │    │  (default) │
+ ... ──▶│  (default) │   │            │ ──┐└────────────┘
+        └────────────┘   │            │ ─┐└──────▶ -o glance
+ -i libvirtxml ────────▶ │            │ ┐└─────────▶ -o rhev
+                         └────────────┘ └──────────▶ -o vdsm
 
 Virt-v2v has a number of possible input and output modes, selected
 using the I<-i> and I<-o> options.  Only one input and output mode can
@@ -66,7 +66,8 @@ the precise libvirt target.
 
 I<-o local> is used to write to a local disk image (mainly for testing).
 
-I<-o rhev> is used to write to a RHEV-M / oVirt target.
+I<-o rhev> is used to write to a RHEV-M / oVirt target.  I<-o vdsm>
+is only used when virt-v2v runs under VDSM control.
 
 =head1 EXAMPLES
 
@@ -291,6 +292,13 @@ I<-os> parameter must also be used to specify the location of the
 Export Storage Domain.  Note this does not actually import the guest
 into RHEV.  You have to do that manually later using the UI.
 
+=item B<-o vdsm>
+
+Set the output method to I<vdsm>.
+
+This mode is similar to I<-o rhev> but is only used by RHEV VDSM
+when it runs virt-v2v under VDSM control.
+
 =item B<-oa sparse>
 
 =item B<-oa preallocated>
@@ -354,44 +362,6 @@ See L</NETWORKS AND BRIDGES>.
 
 This disables progress bars and other unnecessary output.
 
-=item B<--rhev-image-uuid> UUID
-
-=item B<--rhev-vol-uuid> UUID
-
-=item B<--rhev-vm-uuid> UUID
-
-Normally the RHEV output mode chooses a random UUID for each of:
-
-=over 4
-
-=item *
-
-the image directory (I<--rhev-image-uuid>)
-
-=item *
-
-once for each guest disk (I<--rhev-vol-uuid>)
-
-=item *
-
-the VM and OVF file (I<--rhev-vm-uuid>).
-
-=back
-
-However you can force specific UUIDs instead by using these options.
-
-You can use I<--rhev-image-uuid> and I<--rhev-vm-uuid> on the command
-line at most once.
-
-If the guest has more than one virtual disk, then you should use
-I<--rhev-vol-uuid> multiple times to change the UUID of each guest
-disk.
-
-The format of UUIDs is: C<12345678-1234-1234-1234-123456789abc> (each
-hex digit can be C<0-9> or C<a-f>), conforming to S<OSF DCE 1.1>.
-
-These options can only be used with I<-o rhev>.
-
 =item B<--root ask>
 
 =item B<--root single>
@@ -435,6 +405,39 @@ boot an operating system from the first VirtIO disk.  Specifically,
 C</boot> must be on the first VirtIO disk, and it cannot chainload an
 OS which is not in the first VirtIO disk.
 
+=item B<--vdsm-image-uuid> UUID
+
+=item B<--vdsm-vol-uuid> UUID
+
+=item B<--vdsm-vm-uuid> UUID
+
+Normally the RHEV output mode chooses random UUIDs for the target
+guest.  However VDSM needs to control the UUIDs and passes these
+parameters when virt-v2v runs under VDSM control.  The parameters
+control:
+
+=over 4
+
+=item *
+
+the image directory (I<--vdsm-image-uuid>)
+
+=item *
+
+UUIDs for each guest disk (I<--vdsm-vol-uuid>) (this option
+is passed once for each guest disk)
+
+=item *
+
+the VM and OVF file (I<--vdsm-vm-uuid>).
+
+=back
+
+The format of UUIDs is: C<12345678-1234-1234-1234-123456789abc> (each
+hex digit can be C<0-9> or C<a-f>), conforming to S<OSF DCE 1.1>.
+
+These options can only be used with I<-o vdsm>.
+
 =item B<-v>
 
 =item B<--verbose>
@@ -451,10 +454,10 @@ Display version number and exit.
 
 =item B<--vmtype server>
 
-For the RHEV target only, specify the type of guest.  You can set this
-to C<desktop> or C<server>.  If the option is not given, then a
-suitable default is chosen based on the detected guest operating
-system.
+For the I<-o rhev> or I<-o vdsm> targets only, specify the type of
+guest.  You can set this to C<desktop> or C<server>.  If the option is
+not given, then a suitable default is chosen based on the detected
+guest operating system.
 
 =item B<-x>
 

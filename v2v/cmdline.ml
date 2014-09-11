@@ -43,8 +43,8 @@ let parse_cmdline () =
   let output_storage = ref "" in
   let print_source = ref false in
   let quiet = ref false in
-  let rhev_image_uuid = ref "" in
-  let rhev_vm_uuid = ref "" in
+  let vdsm_image_uuid = ref "" in
+  let vdsm_vm_uuid = ref "" in
   let verbose = ref false in
   let trace = ref false in
   let vmtype = ref "" in
@@ -84,6 +84,7 @@ let parse_cmdline () =
     | "libvirt" -> output_mode := `Libvirt
     | "disk" | "local" -> output_mode := `Local
     | "ovirt" | "rhev" -> output_mode := `RHEV
+    | "vdsm" -> output_mode := `VDSM
     | s ->
       error (f_"unknown -o option: %s") s
   in
@@ -106,8 +107,8 @@ let parse_cmdline () =
       error (f_"unknown --root option: %s") s
   in
 
-  let rhev_vol_uuids = ref [] in
-  let add_rhev_vol_uuid s = rhev_vol_uuids := s :: !rhev_vol_uuids in
+  let vdsm_vol_uuids = ref [] in
+  let add_vdsm_vol_uuid s = vdsm_vol_uuids := s :: !vdsm_vol_uuids in
 
   let i_options =
     String.concat "|" (Modules_list.input_modules ())
@@ -135,13 +136,13 @@ let parse_cmdline () =
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             ditto;
-    "--rhev-image-uuid",
-                 Arg.Set_string rhev_image_uuid, "uuid " ^ s_"Output image UUID";
-    "--rhev-vol-uuid",
-                 Arg.String add_rhev_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
-    "--rhev-vm-uuid",
-                 Arg.Set_string rhev_vm_uuid, "uuid " ^ s_"Output VM UUID";
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
+    "--vdsm-image-uuid",
+                 Arg.Set_string vdsm_image_uuid, "uuid " ^ s_"Output image UUID";
+    "--vdsm-vol-uuid",
+                 Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
+    "--vdsm-vm-uuid",
+                 Arg.Set_string vdsm_vm_uuid, "uuid " ^ s_"Output VM UUID";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
@@ -193,10 +194,10 @@ read the man page virt-v2v(1).
   let output_storage = !output_storage in
   let print_source = !print_source in
   let quiet = !quiet in
-  let rhev_image_uuid = match !rhev_image_uuid with "" -> None | s -> Some s in
-  let rhev_vol_uuids = List.rev !rhev_vol_uuids in
-  let rhev_vm_uuid = match !rhev_vm_uuid with "" -> None | s -> Some s in
   let root_choice = !root_choice in
+  let vdsm_image_uuid = !vdsm_image_uuid in
+  let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
+  let vdsm_vm_uuid = !vdsm_vm_uuid in
   let verbose = !verbose in
   let trace = !trace in
   let vmtype =
@@ -270,7 +271,7 @@ read the man page virt-v2v(1).
       if output_storage <> "" then
         error (f_"-o glance: -os option cannot be used in this output mode");
       if vmtype <> None then
-        error (f_"--vmtype option can only be used with '-o rhev'");
+        error (f_"--vmtype option cannot be used with '-o glance'");
       if not do_copy then
         error (f_"--no-copy and '-o glance' cannot be used at the same time");
       Output_glance.output_glance verbose
@@ -280,7 +281,7 @@ read the man page virt-v2v(1).
       let output_storage =
         if output_storage = "" then "default" else output_storage in
       if vmtype <> None then
-        error (f_"--vmtype option can only be used with '-o rhev'");
+        error (f_"--vmtype option cannot be used with '-o libvirt'");
       if not do_copy then
         error (f_"--no-copy and '-o libvirt' cannot be used at the same time");
       Output_libvirt.output_libvirt verbose output_conn output_storage
@@ -292,19 +293,26 @@ read the man page virt-v2v(1).
         error (f_"-os %s: output directory does not exist or is not a directory")
           output_storage;
       if vmtype <> None then
-        error (f_"--vmtype option can only be used with '-o rhev'");
+        error (f_"--vmtype option cannot be used with '-o local'");
       Output_local.output_local verbose output_storage
 
     | `RHEV ->
       if output_storage = "" then
         error (f_"-o rhev: output storage was not specified, use '-os'");
-      let rhev_params = {
-        Output_rhev.image_uuid = rhev_image_uuid;
-        vol_uuids = rhev_vol_uuids;
-        vm_uuid = rhev_vm_uuid;
-        vmtype = vmtype;
+      Output_rhev.output_rhev verbose output_storage vmtype output_alloc
+
+    | `VDSM ->
+      if output_storage = "" then
+        error (f_"-o vdsm: output storage was not specified, use '-os'");
+      if vdsm_image_uuid = "" || vdsm_vm_uuid = "" then
+        error (f_"-o vdsm: either --vdsm-image-uuid or --vdsm-vm-uuid was not specified");
+      let vdsm_params = {
+        Output_vdsm.image_uuid = vdsm_image_uuid;
+        vol_uuids = vdsm_vol_uuids;
+        vm_uuid = vdsm_vm_uuid;
       } in
-      Output_rhev.output_rhev verbose output_storage rhev_params output_alloc in
+      Output_vdsm.output_vdsm verbose output_storage vdsm_params
+        vmtype output_alloc in
 
   input, output,
   debug_gc, do_copy, network_map,

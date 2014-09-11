@@ -18,17 +18,8 @@
 
 (** Functions for dealing with OVF files. *)
 
-open Common_gettext.Gettext
-open Common_utils
+val create_meta_files : bool -> [`Sparse|`Preallocated] -> string -> string -> Types.target list -> unit
+(** Generate the .meta file associated with each volume. *)
 
-open Utils
-
-open Printf
-
-val ovf_vmtype : Types.inspect -> [`Server|`Desktop]
-(** Guess vmtype based on the guest inspection data.  This is used
-    when the [--vmtype] parameter is NOT passed. *)
-
-val ovf_ostype : Types.inspect -> string
-(** Determine the ovf:OperatingSystemSection_Type from libguestfs
-    inspection. *)
+val create_ovf : bool -> Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> [`Sparse|`Preallocated] -> [`Server|`Desktop] option -> string -> string -> string list -> string -> DOM.doc
+(** Create the OVF file. *)

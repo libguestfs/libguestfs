@@ -16,12 +16,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** [-o rhev] target. *)
+(** [-o vdsm] target. *)
 
-val mount_and_check_storage_domain : bool -> string -> string -> (string * string)
-(** This helper function is also used by the VDSM target. *)
+type vdsm_params = {
+  image_uuid : string;                (* --vdsm-image-uuid *)
+  vol_uuids : string list;            (* --vdsm-vol-uuid (multiple) *)
+  vm_uuid : string;                   (* --vdsm-vm-uuid *)
+}
+(** Miscellaneous extra command line parameters used by VDSM. *)
 
-val output_rhev : bool -> string -> [`Server|`Desktop] option -> [`Sparse|`Preallocated] -> Types.output
-(** [output_rhev verbose os vmtype output_alloc] creates and
+val output_vdsm : bool -> string -> vdsm_params -> [`Server|`Desktop] option -> [`Sparse|`Preallocated] -> Types.output
+(** [output_vdsm verbose os rhev_params output_alloc] creates and
     returns a new {!Types.output} object specialized for writing
-    output to RHEV-M or oVirt Export Storage Domain. *)
+    output to Data Domains directly under VDSM control. *)
