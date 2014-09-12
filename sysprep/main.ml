@@ -54,15 +54,12 @@ let main () =
       let uri =
         try URI.parse_uri arg
         with Invalid_argument "URI.parse_uri" ->
-          eprintf "Error parsing URI '%s'. Look for error messages printed above.\n" arg;
-          exit 1 in
+          error ~prog (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
       let format = match !format with "auto" -> None | fmt -> Some fmt in
       files := (uri, format) :: !files
     and set_domain dom =
-      if !domain <> None then (
-        eprintf (f_"%s: --domain option can only be given once\n") prog;
-        exit 1
-      );
+      if !domain <> None then
+        error ~prog (f_"--domain option can only be given once");
       domain := Some dom
     and dump_pod () =
       Sysprep_operation.dump_pod ();
@@ -71,22 +68,16 @@ let main () =
       Sysprep_operation.dump_pod_options ();
       exit 0
     and set_enable ops =
-      if !operations <> None then (
-        eprintf (f_"%s: --enable option can only be given once\n") prog;
-        exit 1
-      );
-      if ops = "" then (
-        eprintf (f_"%s: you cannot pass an empty argument to --enable\n") prog;
-        exit 1
-      );
+      if !operations <> None then
+        error ~prog (f_"--enable option can only be given once");
+      if ops = "" then
+        error ~prog (f_"you cannot pass an empty argument to --enable");
       let ops = string_nsplit "," ops in
       let opset = List.fold_left (
         fun opset op_name ->
           try Sysprep_operation.add_to_set op_name opset
           with Not_found ->
-            eprintf (f_"%s: --enable: '%s' is not a known operation\n")
-              prog op_name;
-            exit 1
+            error ~prog (f_"--enable: '%s' is not a known operation") op_name
       ) Sysprep_operation.empty_set ops in
       operations := Some opset
     and set_operations op_string =
@@ -105,9 +96,7 @@ let main () =
               `Add op_name in
           match op with
           | `Add "" | `Remove "" ->
-            eprintf (f_"%s: --operations: empty operation name\n")
-              prog;
-            exit 1
+            error ~prog (f_"--operations: empty operation name")
           | `Add "defaults" -> Sysprep_operation.add_defaults_to_set opset
           | `Remove "defaults" -> Sysprep_operation.remove_defaults_from_set opset
           | `Add "all" -> Sysprep_operation.add_all_to_set opset
@@ -118,9 +107,7 @@ let main () =
               | `Remove n -> Sysprep_operation.remove_from_set in
             try f n opset with
             | Not_found ->
-              eprintf (f_"%s: --operations: '%s' is not a known operation\n")
-                prog n;
-              exit 1
+              error ~prog (f_"--operations: '%s' is not a known operation") n
       ) currentopset ops in
       operations := Some opset
     and list_operations () =
@@ -183,9 +170,7 @@ read the man page virt-sysprep(1).
     let add =
       match files, domain with
       | [], None ->
-        eprintf (f_"%s: you must give either -a or -d options\n") prog;
-        eprintf (f_"Read virt-sysprep(1) man page for further information.\n");
-        exit 1
+        error ~prog (f_"you must give either -a or -d options.  Read virt-sysprep(1) man page for further information.")
       | [], Some dom ->
         fun (g : Guestfs.guestfs) readonly ->
           let allowuuid = true in
@@ -196,9 +181,7 @@ read the man page virt-sysprep(1).
                     ?libvirturi ~allowuuid ~readonlydisk
                     dom)
       | _, Some _ ->
-        eprintf (f_"%s: you cannot give -a and -d options together\n") prog;
-        eprintf (f_"Read virt-sysprep(1) man page for further information.\n");
-        exit 1
+        error ~prog (f_"you cannot give -a and -d options together.  Read virt-sysprep(1) man page for further information.")
       | files, None ->
         fun g readonly ->
           List.iter (
@@ -252,8 +235,7 @@ read the man page virt-sysprep(1).
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with
   | [] ->
-    eprintf (f_"%s: no operating systems were found in the guest image\n") prog;
-    exit 1
+    error ~prog (f_"no operating systems were found in the guest image")
   | roots ->
     List.iter (
       fun root ->

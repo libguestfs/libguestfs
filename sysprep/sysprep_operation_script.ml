@@ -27,10 +27,8 @@ module G = Guestfs
 
 let scriptdir = ref None
 let set_scriptdir dir =
-  if !scriptdir <> None then (
-    eprintf (f_"virt-sysprep: --scriptdir cannot be used more than once\n");
-    exit 1
-  );
+  if !scriptdir <> None then
+    error ~prog (f_"--scriptdir cannot be used more than once");
   scriptdir := Some dir
 
 let scripts = ref []
