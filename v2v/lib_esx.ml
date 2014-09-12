@@ -77,7 +77,7 @@ let rec map_path_to_uri verbose uri scheme server path format =
         string_find query "no_verify=1" = -1 in
 
     (* Now we have to query the server to get the session cookie. *)
-    let session_cookie = get_session_cookie verbose uri sslverify url in
+    let session_cookie = get_session_cookie verbose scheme uri sslverify url in
 
     (* Construct the JSON parameters. *)
     let json_params = [
@@ -132,7 +132,7 @@ and get_datacenter uri scheme =
   | _ ->                            (* Don't know, so guess. *)
     default_dc
 
-and get_session_cookie verbose uri sslverify url =
+and get_session_cookie verbose scheme uri sslverify url =
   (* Memoize the session cookie. *)
   if !session_cookie <> "" then
     Some !session_cookie
@@ -168,7 +168,11 @@ and get_session_cookie verbose uri sslverify url =
 
     if status = "401" then (
       dump_response stderr;
-      error (f_"esx: incorrect username or password")
+      if uri.uri_user <> None then
+        error (f_"esx: incorrect username or password")
+      else
+        error (f_"esx: incorrect username or password.  You might need to specify the username in the URI like this: %s://USERNAME@[etc]")
+          scheme
     );
 
     if status = "404" then (
