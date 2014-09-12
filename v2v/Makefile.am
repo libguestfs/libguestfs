@@ -45,6 +45,7 @@ SOURCES_MLI = \
 	input_ova.mli \
 	output_libvirt.mli \
 	output_local.mli \
+	output_null.mli \
 	output_rhev.mli \
 	output_vdsm.mli \
 	types.mli \
@@ -69,6 +70,7 @@ SOURCES_ML = \
 	input_ova.ml \
 	convert_linux.ml \
 	convert_windows.ml \
+	output_null.ml \
 	output_glance.ml \
 	output_libvirt.ml \
 	output_local.ml \
@@ -213,6 +215,7 @@ TESTS = \
 	test-v2v-no-copy.sh \
 	test-v2v-o-glance.sh \
 	test-v2v-o-libvirt.sh \
+	test-v2v-o-null.sh \
 	test-v2v-o-rhev.sh \
 	test-v2v-o-vdsm-options.sh \
 	test-v2v-of-option.sh \

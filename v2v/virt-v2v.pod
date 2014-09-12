@@ -30,9 +30,9 @@ libguestfs E<ge> 1.28.
 
 =head1 INPUT AND OUTPUT MODES
 
-                         ┌────────────┐
- -i disk ───────────┐    │            │   ┌───────▶ -o local
- -i ova  ─────────┐ └──▶ │ virt-v2v   │   │
+                         ┌────────────┐  ┌─────────▶ -o null
+ -i disk ───────────┐    │            │  │┌───────▶ -o local
+ -i ova  ─────────┐ └──▶ │ virt-v2v   │ ─┘│
                   └────▶ │ conversion │ ──┘┌────────────┐
  ESX ──▶┌────────────┐   │ server     │ ───▶ -o libvirt │─▶ KVM
  Xen ──▶│ -i libvirt ──▶ │            │    │  (default) │
@@ -231,7 +231,8 @@ See L</NETWORKS AND BRIDGES> below.
 =item B<--no-copy>
 
 Don't copy the disks.  Instead, conversion is performed (and thrown
-away), and metadata is written, but no disks are created.
+away), and metadata is written, but no disks are created.  See
+also discussion of S<I<-o null>> below.
 
 This is useful in two cases: Either you want to test if conversion is
 likely to succeed, without the long copying process.  Or you are only
@@ -278,6 +279,14 @@ and a libvirt XML file is created containing guest metadata:
  /dir/name.xml
 
 where C<name> is the guest name.
+
+=item B<-o null>
+
+Set the output method to I<null>.
+
+The guest is converted and copied (unless you also specify
+I<--no-copy>), but the results are thrown away and no metadata is
+written.
 
 =item B<-o ovirt>
 
