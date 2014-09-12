@@ -166,7 +166,7 @@ let parse_cmdline () =
 
  virt-v2v -i disk -o local -os /var/tmp disk.img
 
- virt-v2v -i disk disk.img -o glance -os glance_image_name
+ virt-v2v -i disk disk.img -o glance
 
 There is a companion front-end called \"virt-p2v\" which comes as an
 ISO or CD image that can be booted on physical machines.
