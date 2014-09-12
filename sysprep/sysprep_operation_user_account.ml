@@ -28,38 +28,26 @@ module G = Guestfs
 
 module StringSet = Set.Make (String)
 
-let users_included = ref StringSet.empty
-let users_excluded = ref StringSet.empty
-let set_users users =
+let remove_users = ref StringSet.empty
+let keep_users = ref StringSet.empty
+let add_users set users =
   let users = string_nsplit "," users in
   List.iter (
-    fun user ->
-      let op =
-        if string_prefix user "-" then
-          `Exclude (String.sub user 1 (String.length user - 1))
-        else
-          `Include user in
-      match op with
-      | `Include "" | `Exclude "" ->
-        eprintf (f_"%s: --user-accounts: empty user name\n")
-          prog;
-        exit 1
-      | `Include n ->
-        users_included := StringSet.add n !users_included;
-        users_excluded := StringSet.remove n !users_excluded
-      | `Exclude n ->
-        users_included := StringSet.remove n !users_included;
-        users_excluded := StringSet.add n !users_excluded
+    function
+    | "" ->
+      error ~prog (f_"user-accounts: empty user name")
+    | user ->
+      set := StringSet.add user !set
   ) users
 
 let check_remove_user user =
   (* If an user is explicitly excluded, keep it. *)
-  if StringSet.mem user !users_excluded then
+  if StringSet.mem user !keep_users then
     false
   (* If the list of included users is empty (thus no users were explicitly
    * included), or an user is explicitly included, remove it. *)
-  else if StringSet.is_empty !users_included
-          or StringSet.mem user !users_included then
+  else if StringSet.is_empty !remove_users
+      || StringSet.mem user !remove_users then
     true
   (* Any other case, not a reason to remove it. *)
   else
@@ -112,21 +100,35 @@ let op = {
 By default remove all the user accounts and their home directories.
 The \"root\" account is not removed.
 
-See the I<--user-accounts> parameter for a way to specify
+See the I<--remove-user-accounts> parameter for a way to specify
 how to remove only some users, or to not remove some others.");
     extra_args = [
-      { extra_argspec = "--user-accounts", Arg.String set_users, s_"users" ^ " " ^ s_"Users to remove/keep";
+      { extra_argspec = "--remove-user-accounts", Arg.String (add_users remove_users), s_"users" ^ " " ^ s_"Users to remove";
         extra_pod_argval = Some "USERS";
         extra_pod_description = s_"\
-The user accounts to be removed (or not) from the guest.
+The user accounts to be removed from the guest.
 The value of this option is a list of user names separated by comma,
-where specifying an user means it is going to be removed,
-while prepending C<-> in front of it name means it is not removed.
+where specifying an user means it is going to be removed.
 For example:
 
- --user-accounts bob,eve
+ --remove-user-accounts bob,eve
 
 would only remove the user accounts C<bob> and C<eve>.
+
+This option can be specified multiple times."
+      };
+
+      { extra_argspec = "--keep-user-accounts", Arg.String (add_users keep_users), s_"users" ^ " " ^ s_"Users to keep";
+        extra_pod_argval = Some "USERS";
+        extra_pod_description = s_"\
+The user accounts to be kept in the guest.
+The value of this option is a list of user names separated by comma,
+where specifying an user means it is going to be kept.
+For example:
+
+ --keep-user-accounts mary
+
+would keep the user account C<mary>.
 
 This option can be specified multiple times."
       };
