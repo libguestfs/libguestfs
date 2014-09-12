@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-11 19:36+0100\n"
+"POT-Creation-Date: 2014-09-12 22:42+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: ../sysprep/main.ml:266 ../customize/customize_main.ml:227
+#: ../sysprep/main.ml:254 ../customize/customize_main.ml:227
 msgid "%s (ignored)\n"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1159
+#: ../v2v/convert_linux.ml:1166
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -126,36 +126,16 @@ msgstr ""
 msgid "%s: '%s' has non-local gpgkey URI\n"
 msgstr ""
 
-#: ../sysprep/main.ml:62 ../customize/customize_main.ml:68
+#: ../customize/customize_main.ml:68
 msgid "%s: --domain option can only be given once\n"
-msgstr ""
-
-#: ../sysprep/main.ml:74
-msgid "%s: --enable option can only be given once\n"
-msgstr ""
-
-#: ../sysprep/main.ml:86
-msgid "%s: --enable: '%s' is not a known operation\n"
 msgstr ""
 
 #: ../customize/customize_run.ml:111
 msgid "%s: --install is not supported for this guest operating system\n"
 msgstr ""
 
-#: ../sysprep/main.ml:120
-msgid "%s: --operations: '%s' is not a known operation\n"
-msgstr ""
-
-#: ../sysprep/main.ml:107
-msgid "%s: --operations: empty operation name\n"
-msgstr ""
-
 #: ../customize/customize_run.ml:140
 msgid "%s: --update is not supported for this guest operating system\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_user_account.ml:44
-msgid "%s: --user-accounts: empty user name\n"
 msgstr ""
 
 #: ../builder/sources.ml:87
@@ -245,7 +225,7 @@ msgstr ""
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:157
+#: ../v2v/cmdline.ml:158
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -258,7 +238,7 @@ msgid ""
 "\n"
 " virt-v2v -i disk -o local -os /var/tmp disk.img\n"
 "\n"
-" virt-v2v -i disk disk.img -o glance -os glance_image_name\n"
+" virt-v2v -i disk disk.img -o glance\n"
 "\n"
 "There is a companion front-end called \"virt-p2v\" which comes as an\n"
 "ISO or CD image that can be booted on physical machines.\n"
@@ -386,7 +366,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information.\n"
 msgstr ""
 
-#: ../sysprep/main.ml:249 ../customize/customize_main.ml:213
+#: ../customize/customize_main.ml:213
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
@@ -436,7 +416,7 @@ msgstr ""
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
-#: ../sysprep/main.ml:165
+#: ../sysprep/main.ml:153
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -563,15 +543,11 @@ msgstr ""
 msgid "%s: warning: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:198 ../customize/customize_main.ml:152
+#: ../customize/customize_main.ml:152
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr ""
 
-#: ../sysprep/main.ml:78
-msgid "%s: you cannot pass an empty argument to --enable\n"
-msgstr ""
-
-#: ../sysprep/main.ml:185 ../customize/customize_main.ml:139
+#: ../customize/customize_main.ml:139
 msgid "%s: you must give either -a or -d options\n"
 msgstr ""
 
@@ -602,16 +578,40 @@ msgid ""
 "convert qcow2."
 msgstr ""
 
+#: ../sysprep/main.ml:62
+msgid "--domain option can only be given once"
+msgstr ""
+
+#: ../sysprep/main.ml:72
+msgid "--enable option can only be given once"
+msgstr ""
+
+#: ../sysprep/main.ml:80
+msgid "--enable: '%s' is not a known operation"
+msgstr ""
+
 #: ../resize/resize.ml:156
 msgid "--expand option given twice"
 msgstr ""
 
-#: ../v2v/cmdline.ml:276
+#: ../v2v/cmdline.ml:277
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:286
+#: ../v2v/cmdline.ml:287
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
+msgstr ""
+
+#: ../sysprep/main.ml:110
+msgid "--operations: '%s' is not a known operation"
+msgstr ""
+
+#: ../sysprep/main.ml:99
+msgid "--operations: empty operation name"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:31
+msgid "--scriptdir cannot be used more than once"
 msgstr ""
 
 #: ../resize/resize.ml:173
@@ -635,27 +635,31 @@ msgstr ""
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
 msgstr ""
 
-#: ../v2v/cmdline.ml:274
+#: ../v2v/cmdline.ml:275
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:284
+#: ../v2v/cmdline.ml:285
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:296
+#: ../v2v/cmdline.ml:297
 msgid "--vmtype option cannot be used with '-o local'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:306
+msgid "--vmtype option cannot be used with '-o null'"
 msgstr ""
 
 #: ../v2v/input_disk.ml:49
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:270
+#: ../v2v/cmdline.ml:271
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:272
+#: ../v2v/cmdline.ml:273
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 
@@ -672,33 +676,41 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:291
+#: ../v2v/cmdline.ml:292
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:301
+#: ../v2v/cmdline.ml:302
+msgid "-o null: -oc option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:304
+msgid "-o null: -os option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:311
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:308
+#: ../v2v/cmdline.ml:318
 msgid "-o vdsm: either --vdsm-image-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:306
+#: ../v2v/cmdline.ml:316
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:293
+#: ../v2v/cmdline.ml:294
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:179
+#: ../v2v/input_libvirtxml.ml:187
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
 #. ../customize/customize_main.ml:76
 #. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:132 ../sysprep/main.ml:131
+#: ../sysprep/main.ml:120 ../sysprep/main.ml:119
 msgid "Add disk image file"
 msgstr ""
 
@@ -730,16 +742,16 @@ msgstr ""
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:111
+#: ../sysprep/sysprep_operation_user_account.ml:99
 msgid ""
 "By default remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed.\n"
 "\n"
-"See the I<--user-accounts> parameter for a way to specify\n"
+"See the I<--remove-user-accounts> parameter for a way to specify\n"
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:92
+#: ../sysprep/sysprep_operation_user_account.ml:80
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
@@ -881,11 +893,11 @@ msgstr ""
 msgid "Data Domain"
 msgstr ""
 
-#: ../v2v/cmdline.ml:121 ../sparsify/cmdline.ml:73 ../resize/resize.ml:187
+#: ../v2v/cmdline.ml:122 ../sparsify/cmdline.ml:73 ../resize/resize.ml:187
 msgid "Debug GC and memory allocations"
 msgstr ""
 
-#: ../sysprep/main.ml:135 ../customize/customize_main.ml:82
+#: ../sysprep/main.ml:123 ../customize/customize_main.ml:82
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -933,7 +945,7 @@ msgstr ""
 #. ../customize/customize_main.ml:99
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:148 ../sysprep/main.ml:155 ../sysprep/main.ml:154
+#: ../v2v/cmdline.ml:149 ../sysprep/main.ml:143 ../sysprep/main.ml:142
 msgid "Display version and exit"
 msgstr ""
 
@@ -963,7 +975,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:95
 #. ../customize/customize_main.ml:94
-#: ../sysprep/main.ml:151 ../sysprep/main.ml:150
+#: ../sysprep/main.ml:139 ../sysprep/main.ml:138
 msgid "Don't print log messages"
 msgstr ""
 
@@ -983,11 +995,11 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:141
+#: ../sysprep/main.ml:129
 msgid "Dump POD (internal)"
 msgstr ""
 
-#: ../sysprep/main.ml:142
+#: ../sysprep/main.ml:130
 msgid "Dump POD for options (internal)"
 msgstr ""
 
@@ -1010,22 +1022,22 @@ msgstr ""
 #. ../customize/customize_main.ml:97
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:146 ../sysprep/main.ml:153 ../sysprep/main.ml:152
+#: ../v2v/cmdline.ml:147 ../sysprep/main.ml:141 ../sysprep/main.ml:140
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../sysprep/main.ml:143
+#: ../sysprep/main.ml:131
 msgid "Enable specific operations"
 msgstr ""
 
 #. ../resize/resize.ml:215
 #. ../customize/customize_main.ml:101
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:151 ../sysprep/main.ml:156 ../sparsify/cmdline.ml:88
+#: ../v2v/cmdline.ml:152 ../sysprep/main.ml:144 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sysprep/main.ml:149 ../sysprep/main.ml:148
+#: ../sysprep/main.ml:137 ../sysprep/main.ml:136
 msgid "Enable/disable specific operations"
 msgstr ""
 
@@ -1053,7 +1065,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:234 ../customize/customize_main.ml:185
+#: ../sysprep/main.ml:224 ../customize/customize_main.ml:185
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -1183,7 +1195,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:139
+#: ../v2v/cmdline.ml:140
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1213,7 +1225,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/cmdline.ml:125
+#: ../v2v/cmdline.ml:126
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1237,7 +1249,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:129
+#: ../v2v/cmdline.ml:130
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1245,7 +1257,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:132 ../v2v/cmdline.ml:123
+#: ../v2v/cmdline.ml:133 ../v2v/cmdline.ml:124
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1260,16 +1272,16 @@ msgstr ""
 #. ../resize/resize.ml:194
 #. ../customize/customize_main.ml:89
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:126 ../sysprep/main.ml:146 ../sparsify/cmdline.ml:78
+#: ../v2v/cmdline.ml:127 ../sysprep/main.ml:134 ../sparsify/cmdline.ml:78
 msgid "List long options"
 msgstr ""
 
-#: ../sysprep/main.ml:145
+#: ../sysprep/main.ml:133
 msgid "List supported operations"
 msgstr ""
 
 #. ../builder/cmdline.ml:140
-#: ../v2v/cmdline.ml:127 ../sparsify/cmdline.ml:79 ../resize/resize.ml:199
+#: ../v2v/cmdline.ml:128 ../sparsify/cmdline.ml:79 ../resize/resize.ml:199
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1277,11 +1289,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:120
+#: ../v2v/cmdline.ml:121
 msgid "Map bridge 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:128
+#: ../v2v/cmdline.ml:129
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
@@ -1297,7 +1309,7 @@ msgstr ""
 msgid "Modify the disk image in-place"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:133
+#: ../sysprep/sysprep_operation_script.ml:131
 msgid "Mount point on host"
 msgstr ""
 
@@ -1311,7 +1323,7 @@ msgid ""
 "guest is booted."
 msgstr ""
 
-#: ../sysprep/sysprep_operation.ml:215
+#: ../sysprep/sysprep_operation.ml:196
 msgid "Notes on %s"
 msgstr ""
 
@@ -1358,7 +1370,7 @@ msgstr ""
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:145
+#: ../v2v/cmdline.ml:146
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1374,7 +1386,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:141
+#: ../v2v/cmdline.ml:142
 msgid "Output image UUID"
 msgstr ""
 
@@ -1382,7 +1394,7 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:143
+#: ../v2v/cmdline.ml:144
 msgid "Output vol UUID(s)"
 msgstr ""
 
@@ -1398,10 +1410,18 @@ msgstr ""
 msgid "PKG,PKG.."
 msgstr ""
 
+#: ../sysprep/sysprep_operation.ml:157
+msgid "POD for %s must not end with newline"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:166
+msgid "POD notes for %s must not end with newline"
+msgstr ""
+
 #. ../customize/customize_main.ml:87
 #. ../customize/customize_main.ml:86
 #. ../customize/customize_main.ml:85
-#: ../sysprep/main.ml:140 ../sysprep/main.ml:139 ../sysprep/main.ml:138
+#: ../sysprep/main.ml:128 ../sysprep/main.ml:127 ../sysprep/main.ml:126
 msgid "Perform a dry run"
 msgstr ""
 
@@ -1413,11 +1433,11 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:136
+#: ../v2v/cmdline.ml:137
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/cmdline.ml:137 ../sparsify/cmdline.ml:81
+#: ../v2v/cmdline.ml:138 ../sparsify/cmdline.ml:81
 msgid "Quiet output"
 msgstr ""
 
@@ -1427,10 +1447,6 @@ msgstr ""
 
 #: ../customize/customize_main.ml:153 ../customize/customize_main.ml:140
 msgid "Read virt-customize(1) man page for further information.\n"
-msgstr ""
-
-#: ../sysprep/main.ml:199 ../sysprep/main.ml:186
-msgid "Read virt-sysprep(1) man page for further information.\n"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:296
@@ -1577,7 +1593,7 @@ msgstr ""
 msgid "Remove the process accounting log files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:110
+#: ../sysprep/sysprep_operation_user_account.ml:98
 msgid "Remove the user accounts in the guest"
 msgstr ""
 
@@ -1608,7 +1624,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:134
+#: ../v2v/cmdline.ml:135
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -1630,7 +1646,7 @@ msgstr ""
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:108
+#: ../sysprep/sysprep_operation_script.ml:106
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
@@ -1650,7 +1666,7 @@ msgstr ""
 msgid "Run script in disk image"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:148
+#: ../sysprep/sysprep_operation_script.ml:146
 msgid ""
 "Run the named C<SCRIPT> (a shell script or program) against the\n"
 "guest.  The script can be any program on the host.  The script's\n"
@@ -1676,7 +1692,7 @@ msgstr ""
 msgid "SELinux relabelling"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:146
+#: ../sysprep/sysprep_operation_script.ml:144
 msgid "Script or program to run on guest"
 msgstr ""
 
@@ -1708,23 +1724,23 @@ msgstr ""
 msgid "Set curl binary/command"
 msgstr ""
 
-#: ../sysprep/main.ml:144 ../customize/customize_main.ml:88
+#: ../sysprep/main.ml:132 ../customize/customize_main.ml:88
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:122
+#: ../v2v/cmdline.ml:123
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
 #. ../customize/customize_main.ml:81
 #. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:134 ../sysprep/main.ml:133
+#: ../sysprep/main.ml:122 ../sysprep/main.ml:121
 msgid "Set libvirt URI"
 msgstr ""
 
 #. ../customize/customize_main.ml:84
 #. ../customize/customize_main.ml:83
-#: ../sysprep/main.ml:137 ../sysprep/main.ml:136
+#: ../sysprep/main.ml:125 ../sysprep/main.ml:124
 msgid "Set libvirt guest name"
 msgstr ""
 
@@ -1734,7 +1750,7 @@ msgstr ""
 msgid "Set memory size"
 msgstr ""
 
-#: ../sysprep/main.ml:147
+#: ../sysprep/main.ml:135
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
@@ -1742,7 +1758,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:131
+#: ../v2v/cmdline.ml:132
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -1754,15 +1770,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:133
+#: ../v2v/cmdline.ml:134
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:130
+#: ../v2v/cmdline.ml:131
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:135
+#: ../v2v/cmdline.ml:136
 msgid "Set output storage location"
 msgstr ""
 
@@ -1810,7 +1826,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:150
+#: ../v2v/cmdline.ml:151
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -1876,7 +1892,7 @@ msgstr ""
 msgid "TIMEZONE"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:109
+#: ../sysprep/sysprep_operation_script.ml:107
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs\n"
 "against the guest.\n"
@@ -1916,7 +1932,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1067
+#: ../v2v/convert_linux.ml:1074
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -1941,7 +1957,7 @@ msgid ""
 "found to be empty."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:135
+#: ../sysprep/sysprep_operation_script.ml:133
 msgid ""
 "The mount point (an empty directory on the host) used when\n"
 "the C<script> operation is enabled and one or more scripts\n"
@@ -1959,15 +1975,28 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:120
+#: ../sysprep/sysprep_operation_user_account.ml:123
 msgid ""
-"The user accounts to be removed (or not) from the guest.\n"
+"The user accounts to be kept in the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
-"where specifying an user means it is going to be removed,\n"
-"while prepending C<-> in front of it name means it is not removed.\n"
+"where specifying an user means it is going to be kept.\n"
 "For example:\n"
 "\n"
-" --user-accounts bob,eve\n"
+" --keep-user-accounts mary\n"
+"\n"
+"would keep the user account C<mary>.\n"
+"\n"
+"This option can be specified multiple times."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:108
+msgid ""
+"The user accounts to be removed from the guest.\n"
+"The value of this option is a list of user names separated by comma,\n"
+"where specifying an user means it is going to be removed.\n"
+"For example:\n"
+"\n"
+" --remove-user-accounts bob,eve\n"
 "\n"
 "would only remove the user accounts C<bob> and C<eve>.\n"
 "\n"
@@ -2053,8 +2082,12 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:118
-msgid "Users to remove/keep"
+#: ../sysprep/sysprep_operation_user_account.ml:121
+msgid "Users to keep"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:106
+msgid "Users to remove"
 msgstr ""
 
 #: ../sparsify/copying.ml:155
@@ -2063,13 +2096,13 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:611
+#: ../v2v/convert_linux.ml:618
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:520
+#: ../v2v/convert_linux.ml:527
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2205,7 +2238,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1014
+#: ../v2v/convert_linux.ml:1021
 msgid "could not update grub2 console: %s (ignored)"
 msgstr ""
 
@@ -2221,12 +2254,16 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:133
+#: ../sysprep/sysprep_operation_script.ml:131
 msgid "dir"
 msgstr ""
 
 #: ../builder/builder.ml:155
 msgid "disabling the cache"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:143
+msgid "disallowed character (%c) in operation name"
 msgstr ""
 
 #: ../sparsify/in_place.ml:43
@@ -2246,7 +2283,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:84
 #. ../customize/customize_main.ml:83
-#: ../sysprep/main.ml:137 ../sysprep/main.ml:136
+#: ../sysprep/main.ml:125 ../sysprep/main.ml:124
 msgid "domain"
 msgstr ""
 
@@ -2268,11 +2305,15 @@ msgid ""
 "that contains the main operating system from the list below:\n"
 msgstr ""
 
+#: ../sysprep/sysprep_operation.ml:131
+msgid "duplicate operation name (%s)"
+msgstr ""
+
 #: ../resize/resize.ml:172
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../resize/resize.ml:313
+#: ../sysprep/main.ml:57 ../resize/resize.ml:313
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
@@ -2286,21 +2327,27 @@ msgid ""
 "datacenter name"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:176
+#: ../v2v/lib_esx.ml:180
 msgid "esx: URL not found: %s"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:196
+#: ../v2v/lib_esx.ml:200
 msgid ""
 "esx: could not read session cookie from the vCenter Server, conversion may "
 "consume all sessions on the server and fail part way through"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:171
+#: ../v2v/lib_esx.ml:172
 msgid "esx: incorrect username or password"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:181
+#: ../v2v/lib_esx.ml:174
+msgid ""
+"esx: incorrect username or password.  You might need to specify the username "
+"in the URI like this: %s://USERNAME@[etc]"
+msgstr ""
+
+#: ../v2v/lib_esx.ml:185
 msgid "esx: invalid response from server"
 msgstr ""
 
@@ -2316,19 +2363,19 @@ msgstr ""
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:232
+#: ../v2v/cmdline.ml:233
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:253
+#: ../v2v/cmdline.ml:254
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:244
+#: ../v2v/cmdline.ml:245
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:262
+#: ../v2v/cmdline.ml:263
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -2348,7 +2395,7 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:163 ../customize/customize_main.ml:117
+#: ../sysprep/main.ml:151 ../customize/customize_main.ml:117
 msgid "extra parameter on the command line"
 msgstr ""
 
@@ -2358,7 +2405,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:76
 #. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:132 ../sysprep/main.ml:131
+#: ../sysprep/main.ml:120 ../sysprep/main.ml:119
 msgid "file"
 msgstr ""
 
@@ -2369,7 +2416,7 @@ msgstr ""
 #. ../resize/resize.ml:204
 #. ../resize/resize.ml:192
 #. ../customize/customize_main.ml:88
-#: ../sysprep/main.ml:144 ../sparsify/cmdline.ml:74 ../sparsify/cmdline.ml:72
+#: ../sysprep/main.ml:132 ../sparsify/cmdline.ml:74 ../sparsify/cmdline.ml:72
 msgid "format"
 msgstr ""
 
@@ -2408,6 +2455,10 @@ msgstr ""
 
 #: ../customize/firstboot.ml:284
 msgid "guest type %s/%s is not supported"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:149
+msgid "heading for %s must not end with newline or period"
 msgstr ""
 
 #: ../customize/customize_run.ml:219
@@ -2484,13 +2535,7 @@ msgid ""
 "option to change how virt-v2v handles this."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:193
-msgid ""
-"multiple files in /boot could be the initramfs matching %s %s.  This could "
-"be a bug in virt-v2v."
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:175
+#: ../v2v/input_libvirtxml.ml:183
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
@@ -2506,23 +2551,27 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:188
+#: ../v2v/convert_linux.ml:198
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:254
+#: ../v2v/convert_linux.ml:261
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
 "This probably indicates that %s was unable to inspect this guest properly."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:365
+#: ../v2v/convert_linux.ml:372
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
 "This probably indicates that %s was unable to parse the grub configuration "
 "of this guest."
+msgstr ""
+
+#: ../sysprep/main.ml:238
+msgid "no operating systems were found in the guest image"
 msgstr ""
 
 #: ../v2v/input_ova.ml:70
@@ -2549,7 +2598,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:726
+#: ../v2v/convert_linux.ml:733
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2557,7 +2606,23 @@ msgid ""
 "to do."
 msgstr ""
 
-#: ../sysprep/main.ml:143
+#: ../sysprep/sysprep_operation.ml:155
+msgid "operation %s has no POD"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:164
+msgid "operation %s has no POD notes"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:147
+msgid "operation %s has no heading"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:138
+msgid "operation name is an empty string"
+msgstr ""
+
+#: ../sysprep/main.ml:131
 msgid "operations"
 msgstr ""
 
@@ -2565,7 +2630,7 @@ msgstr ""
 msgid "option"
 msgstr ""
 
-#: ../sysprep/main.ml:147
+#: ../sysprep/main.ml:135
 msgid "opts"
 msgstr ""
 
@@ -2632,11 +2697,11 @@ msgstr ""
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:146
+#: ../sysprep/sysprep_operation_script.ml:144
 msgid "script"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:73
+#: ../sysprep/sysprep_operation_script.ml:71
 msgid "script failed"
 msgstr ""
 
@@ -2720,7 +2785,7 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:870
+#: ../v2v/convert_linux.ml:877
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -2730,11 +2795,11 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:107
+#: ../v2v/cmdline.ml:108
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:209
+#: ../v2v/cmdline.ml:210
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
@@ -2742,11 +2807,11 @@ msgstr ""
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:89
+#: ../v2v/cmdline.ml:90
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:97
+#: ../v2v/cmdline.ml:98
 msgid "unknown -oa option: %s"
 msgstr ""
 
@@ -2756,7 +2821,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:81
 #. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:134 ../sysprep/main.ml:133
+#: ../sysprep/main.ml:122 ../sysprep/main.ml:121
 msgid "uri"
 msgstr ""
 
@@ -2764,7 +2829,24 @@ msgstr ""
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:118
+#: ../sysprep/sysprep_operation_user_account.ml:139
+msgid ""
+"user-accounts: --keep-user-accounts parameter was used, but the \"user-"
+"account\" operation is not enabled"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:141
+msgid ""
+"user-accounts: --remove-user-accounts parameter was used, but the \"user-"
+"account\" operation is not enabled"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:38
+msgid "user-accounts: empty user name"
+msgstr ""
+
+#. ../sysprep/sysprep_operation_user_account.ml:106
+#: ../sysprep/sysprep_operation_user_account.ml:121
 msgid "users"
 msgstr ""
 
@@ -2901,51 +2983,11 @@ msgstr ""
 msgid "virt-builder: zero length path in the index file\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:31
-msgid "virt-sysprep: --scriptdir cannot be used more than once\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:168
-msgid "virt-sysprep: POD for %s must not end with newline\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:182
-msgid "virt-sysprep: POD notes for %s must not end with newline\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:145
-msgid "virt-sysprep: disallowed character (%c) in operation name\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:129
-msgid "virt-sysprep: duplicate operation name (%s)\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:155
-msgid "virt-sysprep: heading for %s must not end with newline or period\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:164
-msgid "virt-sysprep: operation %s has no POD\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:178
-msgid "virt-sysprep: operation %s has no POD notes\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:151
-msgid "virt-sysprep: operation %s has no heading\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation.ml:138
-msgid "virt-sysprep: operation name is an empty string\n"
-msgstr ""
-
-#: ../sysprep/sysprep_operation_script.ml:63
+#: ../sysprep/sysprep_operation_script.ml:61
 msgid "virt-sysprep: script: failed (code %d)\n"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_script.ml:67
+#: ../sysprep/sysprep_operation_script.ml:65
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
@@ -2955,6 +2997,16 @@ msgstr ""
 
 #: ../resize/resize.ml:131
 msgid "xfs_growfs"
+msgstr ""
+
+#: ../sysprep/main.ml:184
+msgid ""
+"you cannot give -a and -d options together.  Read virt-sysprep(1) man page "
+"for further information."
+msgstr ""
+
+#: ../sysprep/main.ml:74
+msgid "you cannot pass an empty argument to --enable"
 msgstr ""
 
 #: ../sparsify/cmdline.ml:179
@@ -2983,6 +3035,12 @@ msgstr ""
 
 #: ../sparsify/cmdline.ml:157 ../resize/resize.ml:307
 msgid "you cannot use the same disk image for input and output"
+msgstr ""
+
+#: ../sysprep/main.ml:173
+msgid ""
+"you must give either -a or -d options.  Read virt-sysprep(1) man page for "
+"further information."
 msgstr ""
 
 #: align/scan.c:73 cat/cat.c:55 cat/filesystems.c:87 cat/log.c:64 cat/ls.c:83
