@@ -183,15 +183,22 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
              (* Don't consider kdump initramfs images (RHBZ#1138184). *)
              let files =
                List.filter (fun n -> string_find n "kdump.img" == -1) files in
+             (* If several files match, take the shortest match.  This
+              * handles the case where we have a mix of same-version non-Xen
+              * and Xen kernels:
+              *   initrd-2.6.18-308.el5.img
+              *   initrd-2.6.18-308.el5xen.img
+              * and kernel 2.6.18-308.el5 (non-Xen) will match both
+              * (RHBZ#1141145).
+              *)
+             let cmp a b = compare (String.length a) (String.length b) in
+             let files = List.sort cmp files in
              match files with
              | [] ->
                warning ~prog (f_"no initrd was found in /boot matching %s %s.")
                  name version;
                None
-             | [x] -> Some ("/boot/" ^ x)
-             | _ ->
-               error (f_"multiple files in /boot could be the initramfs matching %s %s.  This could be a bug in virt-v2v.")
-                 name version in
+             | x :: _ -> Some ("/boot/" ^ x) in
 
            (* Get all modules, which might include custom-installed
             * modules that don't appear in 'files' list above.
