@@ -134,6 +134,11 @@ This option can be specified multiple times."
       };
     ];
     perform_on_filesystems = Some user_account_perform;
+    not_enabled_check_args = fun () ->
+      if not (StringSet.is_empty !keep_users) then
+        error ~prog (f_"user-accounts: --keep-user-accounts parameter was used, but the \"user-account\" operation is not enabled");
+      if not (StringSet.is_empty !remove_users) then
+        error ~prog (f_"user-accounts: --remove-user-accounts parameter was used, but the \"user-account\" operation is not enabled");
 }
 
 let () = register_operation op
