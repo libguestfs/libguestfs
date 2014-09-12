@@ -138,6 +138,12 @@ let parse_libvirt_xml ~verbose
         | "" -> None
         | format -> Some format in
 
+      (* Local files should be readable.  This just avoids calling
+       * qemu-img with a bad backing file and then getting an
+       * impenetrable error from qemu-img (RHBZ#1140946).
+       *)
+      let error_if_file_not_readable path = Unix.access path [Unix.R_OK] in
+
       (* The <disk type='...'> attribute may be 'block', 'file' or
        * 'network'.  We ignore any other types.
        *)
@@ -145,12 +151,14 @@ let parse_libvirt_xml ~verbose
       | "block" ->
         let path = xpath_to_string "source/@dev" "" in
         if path <> "" then (
+          error_if_file_not_readable path;
           let path, format = map_source_dev path format in
           add_disk path format target_dev
         )
       | "file" ->
         let path = xpath_to_string "source/@file" "" in
         if path <> "" then (
+          error_if_file_not_readable path;
           let path, format = map_source_file path format in
           add_disk path format target_dev
         )
