@@ -73,6 +73,11 @@ type operation = {
       You can decide the types of the arguments, whether they are
       mandatory etc. *)
 
+  not_enabled_check_args : unit -> unit;
+  (** If the operation is [not] enabled (or disabled), this function is
+      called after argument parsing and can be used to check that
+      no useless extra_args were passed by the user. *)
+
   perform_on_filesystems : filesystem_side_effects callback option;
   (** The function which is called to perform this operation, when
       enabled.
@@ -168,6 +173,10 @@ val remove_defaults_from_set : set -> set
 val remove_all_from_set : set -> set
 (** [remove_all_from_set set] removes from [set] all the available
     operations. *)
+
+val not_enabled_check_args : ?operations:set -> unit -> unit
+(** Call [not_enabled_check_args] on all operations in the set
+    which are {i not} enabled. *)
 
 val perform_operations_on_filesystems : ?operations:set -> verbose:bool -> quiet:bool -> Guestfs.guestfs -> string -> filesystem_side_effects -> unit
 (** Perform all operations, or the subset listed in the [operations] set. *)

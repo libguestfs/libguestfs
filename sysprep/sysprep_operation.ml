@@ -43,6 +43,7 @@ type operation = {
   pod_description : string option;
   pod_notes : string option;
   extra_args : extra_arg list;
+  not_enabled_check_args : unit -> unit;
   perform_on_filesystems : filesystem_side_effects callback option;
   perform_on_devices : device_side_effects callback option;
 }
@@ -60,6 +61,7 @@ let defaults = {
   pod_description = None;
   pod_notes = None;
   extra_args = [];
+  not_enabled_check_args = (fun () -> ());
   perform_on_filesystems = None;
   perform_on_devices = None;
 }
@@ -271,6 +273,17 @@ let list_operations () =
         (if op.enabled_by_default then "*" else " ")
         op.heading
   ) !all_operations
+
+let not_enabled_check_args ?operations () =
+  let enabled_ops =
+    match operations with
+    | None -> !enabled_by_default_operations
+    | Some opset -> (* just the operation names listed *)
+      OperationSet.elements opset in
+  let all_ops = opset_of_oplist !all_operations in
+  let enabled_ops = opset_of_oplist enabled_ops in
+  let disabled_ops = OperationSet.diff all_ops enabled_ops in
+  OperationSet.iter (fun op -> op.not_enabled_check_args ()) disabled_ops
 
 let compare_operations { order = o1; name = n1 } { order = o2; name = n2 } =
   let i = compare o1 o2 in

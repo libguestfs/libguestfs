@@ -221,6 +221,12 @@ read the man page virt-sysprep(1).
   let trace = !trace in
   let verbose = !verbose in
 
+  (* At this point we know which operations are enabled.  So call the
+   * not_enabled_check_args method of all *disabled* operations, so
+   * they have a chance to check for unused command line args.
+   *)
+  Sysprep_operation.not_enabled_check_args ?operations ();
+
   (* Parse the mount options string into a function that maps the
    * mountpoint to the mount options.
    *)
