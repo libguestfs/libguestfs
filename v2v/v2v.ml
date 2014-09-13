@@ -170,8 +170,12 @@ let rec main () =
         if format <> "raw" && format <> "qcow2" then
           error (f_"output format should be 'raw' or 'qcow2'.\n\nUse the '-of <format>' option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
 
-        (* output#prepare_targets will fill in the target_file field. *)
-        { target_file = ""; target_format = format; target_overlay = ov }
+        (* output#prepare_targets will fill in the target_file field.
+         * estimate_target_size will fill in the target_estimated_size field.
+         *)
+        { target_file = ""; target_format = format;
+          target_estimated_size = None;
+          target_overlay = ov }
     ) overlays in
   let targets = output#prepare_targets source targets in
 
@@ -186,12 +190,19 @@ let rec main () =
   let mpstats = List.map (
     fun (dev, path) ->
       let statvfs = g#statvfs path in
-      { mp_dev = dev; mp_path = path; mp_statvfs = statvfs }
+      let vfs = g#vfs_type dev in
+      { mp_dev = dev; mp_path = path; mp_statvfs = statvfs; mp_vfs = vfs }
   ) (g#mountpoints ()) in
 
   (* Check there is enough free space to perform conversion. *)
   msg (f_"Checking for sufficient free disk space in the guest");
   check_free_space mpstats;
+
+  (* Estimate space required on target for each disk.  Note this is a max. *)
+  msg (f_"Estimating space required on target for each disk");
+  let targets = estimate_target_size ~verbose mpstats targets in
+
+  output#check_target_free_space source targets;
 
   (* Conversion. *)
   let guestcaps =
@@ -420,5 +431,133 @@ and check_free_space mpstats =
         error (f_"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < %Ld bytes needed")
           mp free_bytes needed_bytes
   ) mpstats
+
+(* Estimate the space required on the target for each disk.  It is the
+ * maximum space that might be required, but in reasonable cases much
+ * less space would actually be needed.
+ *
+ * As a starting point we could take ov_virtual_size (plus a tiny
+ * overhead for qcow2 headers etc) as the maximum.  However that's not
+ * very useful.  Other information we have available is:
+ *
+ * - The list of filesystems across the source disk(s).
+ *
+ * - The disk used/free of each of those filesystems, and the
+ * filesystem type.
+ *
+ * Note that we do NOT have the used size of the source disk (because
+ * it may be remote).
+ *
+ * How do you attribute filesystem usage through to backing disks,
+ * since one filesystem might span multiple disks?
+ *
+ * How do you account for non-filesystem usage (eg. swap, partitions
+ * that libguestfs cannot read, the space between LVs/partitions)?
+ *
+ * Another wildcard is that although we try to run {c fstrim} on each
+ * source filesystem, it can fail in some common scenarios.  Also
+ * qemu-img will do zero detection.  Both of these can be big wins when
+ * they work.
+ *
+ * The algorithm used here is this:
+ *
+ * (1) Calculate the total virtual size of all guest filesystems.
+ * eg: [ "/boot" = 500 MB, "/" = 2.5 GB ], total = 3 GB
+ *
+ * (2) Calculate the total virtual size of all source disks.
+ * eg: [ sda = 1 GB, sdb = 3 GB ], total = 4 GB
+ *
+ * (3) The ratio of (1):(2) is the maximum that could be freed up if
+ * all filesystems were effectively zeroed out during the conversion.
+ * eg. ratio = 3/4
+ *
+ * (4) Work out how much filesystem space we are likely to save if
+ * fstrim works, but exclude a few cases where fstrim will probably
+ * fail (eg. filesystems that don't support fstrim).  This is the
+ * conversion saving.
+ * eg. [ "/boot" = 200 MB used, "/" = 1 GB used ], saving = 3 - 1.2 = 1.8
+ *
+ * (5) Scale the conversion saving (4) by the ratio (3), and allocate
+ * that saving across all source disks in proportion to their
+ * virtual size.
+ * eg. scaled saving is 1.8 * 3/4 = 1.35 GB
+ *     sda has 1/4 of total virtual size, so it gets a saving of 1.35/4
+ *     sda final estimated size = 1 - (1.35/4) = 0.6625 GB
+ *     sdb has 3/4 of total virtual size, so it gets a saving of 3 * 1.35 / 4
+ *     sdb final estimate size = 3 - (3*1.35/4) = 1.9875 GB
+ *)
+and estimate_target_size ~verbose mpstats targets =
+  let sum = List.fold_left (+^) 0L in
+
+  (* (1) *)
+  let fs_total_size =
+    sum (
+      List.map (fun { mp_statvfs = s } -> s.G.blocks *^ s.G.bsize) mpstats
+    ) in
+  if verbose then
+    printf "estimate_target_size: fs_total_size = %Ld [%s]\n%!"
+      fs_total_size (human_size fs_total_size);
+
+  (* (2) *)
+  let source_total_size =
+    sum (List.map (fun t -> t.target_overlay.ov_virtual_size) targets) in
+  if verbose then
+    printf "estimate_target_size: source_total_size = %Ld [%s]\n%!"
+      source_total_size (human_size source_total_size);
+
+  if source_total_size = 0L then     (* Avoid divide by zero error. *)
+    targets
+  else (
+    (* (3) Store the ratio as a float to avoid overflows later. *)
+    let ratio =
+      Int64.to_float fs_total_size /. Int64.to_float source_total_size in
+    if verbose then
+      printf "estimate_target_size: ratio = %.3f\n%!" ratio;
+
+    (* (4) *)
+    let fs_free =
+      sum (
+        List.map (
+          function
+          (* On filesystems supported by fstrim, assume we can save all
+           * the free space.
+           *)
+          | { mp_vfs = "ext2"|"ext3"|"ext4"|"xfs"; mp_statvfs = s } ->
+            s.G.bfree *^ s.G.bsize
+
+          (* fstrim is only supported on NTFS very recently, and has a
+           * lot of limitations.  So make the safe assumption for now
+           * that it's not going to work.
+           *)
+          | { mp_vfs = "ntfs" } -> 0L
+
+          (* For other filesystems, sorry we can't free anything :-/ *)
+          | _ -> 0L
+        ) mpstats
+      ) in
+    if verbose then
+      printf "estimate_target_size: fs_free = %Ld [%s]\n%!"
+        fs_free (human_size fs_free);
+    let scaled_saving = Int64.of_float (Int64.to_float fs_free *. ratio) in
+    if verbose then
+      printf "estimate_target_size: scaled_saving = %Ld [%s]\n%!"
+        scaled_saving (human_size scaled_saving);
+
+    (* (5) *)
+    let targets = List.map (
+      fun ({ target_overlay = ov } as t) ->
+        let size = ov.ov_virtual_size in
+        let proportion =
+          Int64.to_float size /. Int64.to_float source_total_size in
+        let estimated_size =
+          size -^ Int64.of_float (proportion *. Int64.to_float scaled_saving) in
+        if verbose then
+          printf "estimate_target_size: %s: %Ld [%s]\n%!"
+            ov.ov_sd estimated_size (human_size estimated_size);
+        { t with target_estimated_size = Some estimated_size }
+    ) targets in
+
+    targets
+  )
 
 let () = run_main_and_handle_errors ~prog main

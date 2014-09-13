@@ -84,6 +84,7 @@ val string_of_overlay : overlay -> string
 type target = {
   target_file : string;      (** Destination file. *)
   target_format : string;    (** Destination format (eg. -of option). *)
+  target_estimated_size : int64 option; (** Est. max. space taken on target. *)
 
   target_overlay : overlay;  (** Link back to the overlay disk. *)
 }
@@ -114,6 +115,7 @@ type mpstat = {
   mp_dev : string;                      (** Filesystem device (eg. /dev/sda1) *)
   mp_path : string;                     (** Guest mountpoint (eg. /boot) *)
   mp_statvfs : Guestfs.statvfs;         (** Free space stats. *)
+  mp_vfs : string;                      (** VFS type (eg. "ext4") *)
 }
 (** Mountpoint stats, used for free space estimation. *)
 
@@ -150,6 +152,9 @@ class virtual output : bool -> object
       This is just used for pretty-printing log messages. *)
   method virtual prepare_targets : source -> target list -> target list
   (** Called before conversion to prepare the output. *)
+  method check_target_free_space : source -> target list -> unit
+  (** Called before conversion.  Can be used to check there is enough space
+      on the target, using the [target.target_estimated_size] field. *)
   method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
   (** Called after conversion to finish off and create metadata. *)
   method keep_serial_console : bool
