@@ -336,8 +336,8 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
         if Sys.file_exists t.target_file then (
           let usage_mb = du_m t.target_file in
           if usage_mb > 0L then (
-            let usage_mb = Int64.to_float usage_mb /. 1024. in
-            Some usage_mb
+            let usage_gb = Int64.to_float usage_mb /. 1024. in
+            Some usage_gb
           ) else None
         ) else None in
 
