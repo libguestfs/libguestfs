@@ -329,17 +329,20 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
       let size_gb =
         Int64.to_float ov.ov_virtual_size /. 1024. /. 1024. /. 1024. in
       let usage_gb =
-        (* In the --no-copy case it can happen that the target file
-         * does not exist.  In that case we simply omit the
-         * ovf:actual_size attribute.
-         *)
         if Sys.file_exists t.target_file then (
           let usage_mb = du_m t.target_file in
           if usage_mb > 0L then (
             let usage_gb = Int64.to_float usage_mb /. 1024. in
             Some usage_gb
           ) else None
-        ) else None in
+        ) else (
+          (* In the --no-copy case the target file does not exist.  In
+           * that case we use the estimated size.
+           *)
+          match t.target_estimated_size with
+          | None -> None
+          | Some size -> Some (Int64.to_float size /. 1024. /. 1024. /. 1024.)
+        ) in
 
       let format_for_rhev =
         match t.target_format with
