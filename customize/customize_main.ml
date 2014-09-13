@@ -32,7 +32,10 @@ let prog = Filename.basename Sys.executable_name
 let main () =
   let attach = ref [] in
   let attach_format = ref None in
-  let set_attach_format = function
+  let attach_format_consumed = ref true in
+  let set_attach_format s =
+    attach_format_consumed := false;
+    match s with
     | "auto" -> attach_format := None
     | s -> attach_format := Some s
   in
@@ -42,6 +45,11 @@ let main () =
   let dryrun = ref false in
   let files = ref [] in
   let format = ref "auto" in
+  let format_consumed = ref true in
+  let set_format s =
+    format := s;
+    format_consumed := false
+  in
   let libvirturi = ref "" in
   let memsize = ref None in
   let set_memsize arg = memsize := Some arg in
@@ -62,7 +70,8 @@ let main () =
         eprintf "Error parsing URI '%s'. Look for error messages printed above.\n" arg;
         exit 1 in
     let format = match !format with "auto" -> None | fmt -> Some fmt in
-    files := (uri, format) :: !files
+    files := (uri, format) :: !files;
+    format_consumed := true
   and set_domain dom =
     if !domain <> None then (
       eprintf (f_"%s: --domain option can only be given once\n") prog;
@@ -85,7 +94,7 @@ let main () =
     "-n",        Arg.Set dryrun,            " " ^ s_"Perform a dry run";
     "--dryrun",  Arg.Set dryrun,            " " ^ s_"Perform a dry run";
     "--dry-run", Arg.Set dryrun,            " " ^ s_"Perform a dry run";
-    "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
+    "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
@@ -128,6 +137,12 @@ read the man page virt-customize(1).
 ")
       prog in
   Arg.parse argspec anon_fun usage_msg;
+
+  if not !format_consumed then
+    error ~prog (f_"--format parameter must appear before -a parameter");
+
+  if not !attach_format_consumed then
+    error ~prog (f_"--attach-format parameter must appear before --attach parameter");
 
   (* Check -a and -d options. *)
   let files = !files in

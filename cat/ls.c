@@ -168,6 +168,7 @@ main (int argc, char *argv[])
   struct mp *mp;
   char *p;
   const char *format = NULL;
+  bool format_consumed = true;
   int c;
   int option_index;
 #define MODE_LS_L  1
@@ -194,10 +195,7 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else if (STREQ (long_options[option_index].name, "checksum") ||
                  STREQ (long_options[option_index].name, "checksums")) {
         if (!optarg || STREQ (optarg, ""))
@@ -326,6 +324,8 @@ main (int argc, char *argv[])
   assert (read_only == 1);
   assert (inspector == 1 || mps != NULL);
   assert (live == 0);
+
+  CHECK_OPTION_format_consumed;
 
   /* Many flags only apply to -lR mode. */
   if (mode != MODE_LS_LR &&

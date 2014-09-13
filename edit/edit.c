@@ -128,6 +128,7 @@ main (int argc, char *argv[])
   struct mp *mp;
   char *p;
   const char *format = NULL;
+  bool format_consumed = true;
   int c;
   int option_index;
 
@@ -150,10 +151,7 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -264,6 +262,8 @@ main (int argc, char *argv[])
   /* User must specify at least one filename on the command line. */
   if (optind >= argc || argc - optind < 1)
     usage (EXIT_FAILURE);
+
+  CHECK_OPTION_format_consumed;
 
   /* User must have specified some drives. */
   if (drvs == NULL)

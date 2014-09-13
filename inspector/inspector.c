@@ -119,6 +119,7 @@ main (int argc, char *argv[])
   struct drv *drvs = NULL;
   struct drv *drv;
   const char *format = NULL;
+  bool format_consumed = true;
   int c;
   int option_index;
 
@@ -141,10 +142,7 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else if (STREQ (long_options[option_index].name, "xpath")) {
         xpath = optarg;
       } else {
@@ -233,6 +231,8 @@ main (int argc, char *argv[])
   /* Must be no extra arguments on the command line. */
   if (optind != argc)
     usage (EXIT_FAILURE);
+
+  CHECK_OPTION_format_consumed;
 
   /* XPath is modal: no drives should be specified.  There must be
    * one extra parameter on the command line.

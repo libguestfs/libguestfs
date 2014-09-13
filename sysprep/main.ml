@@ -39,13 +39,19 @@ let main () =
     let domain = ref None in
     let dryrun = ref false in
     let files = ref [] in
-    let format = ref "auto" in
     let quiet = ref false in
     let libvirturi = ref "" in
+    let mount_opts = ref "" in
     let operations = ref None in
     let trace = ref false in
     let verbose = ref false in
-    let mount_opts = ref "" in
+
+    let format = ref "auto" in
+    let format_consumed = ref true in
+    let set_format s =
+      format := s;
+      format_consumed := false
+    in
 
     let display_version () =
       printf "virt-sysprep %s\n" Config.package_version;
@@ -56,7 +62,8 @@ let main () =
         with Invalid_argument "URI.parse_uri" ->
           error ~prog (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
       let format = match !format with "auto" -> None | fmt -> Some fmt in
-      files := (uri, format) :: !files
+      files := (uri, format) :: !files;
+      format_consumed := true
     and set_domain dom =
       if !domain <> None then
         error ~prog (f_"--domain option can only be given once");
@@ -129,7 +136,7 @@ let main () =
       "--dump-pod", Arg.Unit dump_pod,        " " ^ s_"Dump POD (internal)";
       "--dump-pod-options", Arg.Unit dump_pod_options, " " ^ s_"Dump POD for options (internal)";
       "--enable",  Arg.String set_enable,     s_"operations" ^ " " ^ s_"Enable specific operations";
-      "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
+      "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
       "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
       "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
       "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (eg /:noatime;/var:rw,noatime)";
@@ -162,6 +169,9 @@ read the man page virt-sysprep(1).
 ")
         prog in
     Arg.parse argspec anon_fun usage_msg;
+
+    if not !format_consumed then
+      error ~prog (f_"--format parameter must appear before -a parameter");
 
     (* Check -a and -d options. *)
     let files = !files in

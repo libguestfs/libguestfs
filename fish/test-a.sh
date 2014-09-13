@@ -44,9 +44,9 @@ $VG ./guestfish -x --format -a test-a.img </dev/null >test-a.out 2>&1
 
 ! grep -sq 'add_drive.*format' test-a.out
 
-$VG ./guestfish -x -a test-a.img --format=qcow2 </dev/null >test-a.out 2>&1
+$VG ./guestfish -x -a test-a.img --format=raw -a /dev/null </dev/null >test-a.out 2>&1
 
-! grep -sq 'add_drive.*format' test-a.out
+! grep -sq 'add_drive.*test-a.img.*format' test-a.out
 
 rm test-a.out
 rm test-a.img

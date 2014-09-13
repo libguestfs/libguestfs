@@ -184,6 +184,7 @@ main (int argc, char *argv[])
   struct mp *mp;
   char *p;
   const char *format = NULL;
+  bool format_consumed = true;
   int c, r;
   int option_index;
   struct sigaction sa;
@@ -227,10 +228,7 @@ main (int argc, char *argv[])
         if (guestfs_set_selinux (g, 1) == -1)
           exit (EXIT_FAILURE);
       } else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
@@ -311,6 +309,8 @@ main (int argc, char *argv[])
       usage (EXIT_FAILURE);
     }
   }
+
+  CHECK_OPTION_format_consumed;
 
   /* Check we have the right options. */
   if (!live) {

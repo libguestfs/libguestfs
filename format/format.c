@@ -120,6 +120,7 @@ main (int argc, char *argv[])
   };
   struct drv *drvs = NULL;
   const char *format = NULL;
+  bool format_consumed = true;
   int c;
   int option_index;
   int retry, retries;
@@ -139,10 +140,7 @@ main (int argc, char *argv[])
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
       else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else if (STREQ (long_options[option_index].name, "filesystem")) {
         if (STREQ (optarg, "none"))
           filesystem = NULL;
@@ -226,6 +224,8 @@ main (int argc, char *argv[])
   /* Must be no extra arguments on the command line. */
   if (optind != argc)
     usage (EXIT_FAILURE);
+
+  CHECK_OPTION_format_consumed;
 
   /* The user didn't specify any drives to format. */
   if (drvs == NULL)

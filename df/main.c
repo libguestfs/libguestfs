@@ -123,6 +123,7 @@ main (int argc, char *argv[])
   struct drv *drvs = NULL;
   struct drv *drv;
   const char *format = NULL;
+  bool format_consumed = true;
   int c;
   int option_index;
   size_t max_threads = 0;
@@ -143,10 +144,7 @@ main (int argc, char *argv[])
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
       else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else if (STREQ (long_options[option_index].name, "csv")) {
         csv = 1;
       } else if (STREQ (long_options[option_index].name, "one-per-guest")) {
@@ -254,6 +252,8 @@ main (int argc, char *argv[])
   /* Must be no extra arguments on the command line. */
   if (optind != argc)
     usage (EXIT_FAILURE);
+
+  CHECK_OPTION_format_consumed;
 
   /* -h and --csv doesn't make sense.  Spreadsheets will corrupt these
    * fields.  (RHBZ#600977).

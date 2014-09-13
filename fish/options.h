@@ -19,6 +19,7 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+#include <stdbool.h>
 #include <getopt.h>
 
 #include "guestfs-internal-frontend.h"
@@ -140,10 +141,16 @@ extern void free_mps (struct mp *mp);
 extern void display_long_options (const struct option *) __attribute__((noreturn));
 
 #define OPTION_a                                \
-  option_a (optarg, format, &drvs)
+  do {                                          \
+  option_a (optarg, format, &drvs);             \
+  format_consumed = true;                       \
+  } while (0)
 
 #define OPTION_A                                \
-  option_a (optarg, format, &drvs2)
+  do {                                          \
+    option_a (optarg, format, &drvs2);          \
+    format_consumed = true;                     \
+  } while (0)
 
 #define OPTION_c                                \
   libvirt_uri = optarg
@@ -153,6 +160,15 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
 
 #define OPTION_D                                \
   option_d (optarg, &drvs2)
+
+#define OPTION_format                           \
+  do {                                          \
+    if (!optarg || STREQ (optarg, ""))          \
+      format = NULL;                            \
+    else                                        \
+      format = optarg;                          \
+    format_consumed = false;                    \
+  } while (0)
 
 #define OPTION_i                                \
   inspector = 1
@@ -216,5 +232,15 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
 
 #define OPTION_x                                \
   guestfs_set_trace (g, 1)
+
+#define CHECK_OPTION_format_consumed                                    \
+  do {                                                                  \
+    if (!format_consumed) {                                             \
+      fprintf (stderr,                                                  \
+               _("%s: --format parameter must appear before -a parameter\n"), \
+               program_name);                                           \
+      exit (EXIT_FAILURE);                                              \
+    }                                                                   \
+  } while (0)
 
 #endif /* OPTIONS_H */

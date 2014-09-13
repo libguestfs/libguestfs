@@ -182,6 +182,7 @@ main (int argc, char *argv[])
   struct drv *drvs = NULL;      /* First guest. */
   struct drv *drvs2 = NULL;     /* Second guest. */
   const char *format = NULL;
+  bool format_consumed = true;
   int c;
   int option_index;
   struct tree *tree1, *tree2;
@@ -211,10 +212,7 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else if (STREQ (long_options[option_index].name, "all")) {
         enable_extra_stats = enable_times = enable_uids = enable_xattrs = 1;
       } else if (STREQ (long_options[option_index].name, "atime")) {
@@ -343,6 +341,8 @@ main (int argc, char *argv[])
   assert (read_only == 1);
   assert (inspector == 1);
   assert (live == 0);
+
+  CHECK_OPTION_format_consumed;
 
   unsigned errors = 0;
 

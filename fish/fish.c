@@ -214,6 +214,7 @@ main (int argc, char *argv[])
   struct mp *mp;
   char *p, *file = NULL;
   const char *format = NULL;
+  bool format_consumed = true;
   int c;
   int option_index;
   struct sigaction sa;
@@ -274,10 +275,7 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
-        if (!optarg || STREQ (optarg, ""))
-          format = NULL;
-        else
-          format = optarg;
+        OPTION_format;
       } else if (STREQ (long_options[option_index].name, "csh")) {
         remote_control_csh = 1;
       } else if (STREQ (long_options[option_index].name, "live")) {
@@ -474,6 +472,8 @@ main (int argc, char *argv[])
       optind++;
     }
   }
+
+  CHECK_OPTION_format_consumed;
 
   /* If we've got drives to add, add them now. */
   add_drives (drvs, 'a');
