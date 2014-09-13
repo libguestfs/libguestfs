@@ -179,9 +179,19 @@ let rec main () =
   msg (f_"Inspecting the overlay");
   let inspect = inspect_source g root_choice in
 
+  (* The guest free disk space check and the target free space
+   * estimation both require statvfs information from mountpoints, so
+   * get that information first.
+   *)
+  let mpstats = List.map (
+    fun (dev, path) ->
+      let statvfs = g#statvfs path in
+      { mp_dev = dev; mp_path = path; mp_statvfs = statvfs }
+  ) (g#mountpoints ()) in
+
   (* Check there is enough free space to perform conversion. *)
   msg (f_"Checking for sufficient free disk space in the guest");
-  check_free_space g;
+  check_free_space mpstats;
 
   (* Conversion. *)
   let guestcaps =
@@ -386,12 +396,10 @@ and inspect_source g root_choice =
  * (RHBZ#1139543).  To avoid this situation, check there is some
  * headroom.  Mainly we care about the root filesystem.
  *)
-and check_free_space g =
-  let mps = g#mountpoints () in
+and check_free_space mpstats =
   List.iter (
-    fun (_, mp) ->
+    fun { mp_path = mp; mp_statvfs = { G.bfree = bfree; bsize = bsize } } ->
       (* bfree = free blocks for root user *)
-      let { G.bfree = bfree; bsize = bsize } = g#statvfs mp in
       let free_bytes = bfree *^ bsize in
       let needed_bytes =
         match mp with
@@ -411,6 +419,6 @@ and check_free_space g =
       if free_bytes < needed_bytes then
         error (f_"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < %Ld bytes needed")
           mp free_bytes needed_bytes
-  ) mps
+  ) mpstats
 
 let () = run_main_and_handle_errors ~prog main

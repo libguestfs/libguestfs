@@ -169,6 +169,12 @@ type inspect = {
   i_apps_map : Guestfs.application2 list StringMap.t;
 }
 
+type mpstat = {
+  mp_dev : string;
+  mp_path : string;
+  mp_statvfs : Guestfs.statvfs;
+}
+
 type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;
