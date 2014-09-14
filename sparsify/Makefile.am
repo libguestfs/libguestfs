@@ -95,8 +95,10 @@ virt_sparsify_LINK = \
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
+if HAVE_OCAMLOPT
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
+endif
 
 # Manual pages and HTML files for the website.
 

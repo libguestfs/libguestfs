@@ -147,8 +147,10 @@ endif
 	$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
+if HAVE_OCAMLOPT
 %.opt: %.cmx mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
+endif
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
@@ -160,10 +162,12 @@ guestfs.cmo: guestfs.ml
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $@
 %.cmo: %.ml mlguestfs.cma
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -package unix -c $< -o $@
+if HAVE_OCAMLOPT
 guestfs.cmx: guestfs.ml
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $@
 %.cmx: %.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $@
+endif
 
 depend: .depend
 

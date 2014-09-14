@@ -185,8 +185,10 @@ endif
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
 .ml.cmo:
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+if HAVE_OCAMLOPT
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
+endif
 
 # Manual pages and HTML files for the website.
 
