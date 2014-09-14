@@ -35,6 +35,7 @@ SOURCES_MLI = \
 	input_disk.mli \
 	input_libvirt.mli \
 	input_libvirtxml.mli \
+	input_ova.mli \
 	JSON.mli \
 	lib_esx.mli \
 	lib_linux.mli \
@@ -42,12 +43,12 @@ SOURCES_MLI = \
 	lib_xen.mli \
 	modules_list.mli \
 	output_glance.mli \
-	input_ova.mli \
 	output_libvirt.mli \
 	output_local.mli \
 	output_null.mli \
 	output_rhev.mli \
 	output_vdsm.mli \
+	stringMap.mli \
 	types.mli \
 	xml.mli
 
