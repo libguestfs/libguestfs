@@ -51,7 +51,7 @@ if [ -z "$UDEVD" ]; then
   echo "udev not found!  Things will probably not work ..."
 fi
 
-$UDEVD --daemon
+$UDEVD --daemon #--debug
 udevadm trigger
 udevadm settle --timeout=600
 
