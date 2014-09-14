@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-12 22:42+0100\n"
+"POT-Creation-Date: 2014-09-14 13:57+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/projects/p/libguestfs/"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: ../sysprep/main.ml:254 ../customize/customize_main.ml:227
+#: ../sysprep/main.ml:264 ../customize/customize_main.ml:242
 msgid "%s (ignored)\n"
 msgstr ""
 
@@ -101,7 +101,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:216
+#: ../v2v/v2v.ml:237
 msgid "%s: %s (ignored)"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "%s: '%s' has non-local gpgkey URI\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:68
+#: ../customize/customize_main.ml:77
 msgid "%s: --domain option can only be given once\n"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "%s: curl is not installed (or does not work)\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:119
+#: ../customize/customize_main.ml:128
 msgid ""
 "%s: customize a virtual machine\n"
 "\n"
@@ -365,7 +365,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information.\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:213
+#: ../customize/customize_main.ml:228
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
@@ -415,7 +415,7 @@ msgstr ""
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
-#: ../sysprep/main.ml:153
+#: ../sysprep/main.ml:160
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -542,11 +542,11 @@ msgstr ""
 msgid "%s: warning: %s"
 msgstr ""
 
-#: ../customize/customize_main.ml:152
+#: ../customize/customize_main.ml:167
 msgid "%s: you cannot give -a and -d options together\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:139
+#: ../customize/customize_main.ml:154
 msgid "%s: you must give either -a or -d options\n"
 msgstr ""
 
@@ -567,6 +567,10 @@ msgstr ""
 msgid "'CMD+ARGS'"
 msgstr ""
 
+#: ../customize/customize_main.ml:145
+msgid "--attach-format parameter must appear before --attach parameter"
+msgstr ""
+
 #: ../sparsify/cmdline.ml:50
 msgid "--check-tmpdir: unknown argument `%s'\n"
 msgstr ""
@@ -577,20 +581,24 @@ msgid ""
 "convert qcow2."
 msgstr ""
 
-#: ../sysprep/main.ml:62
+#: ../sysprep/main.ml:69
 msgid "--domain option can only be given once"
 msgstr ""
 
-#: ../sysprep/main.ml:72
+#: ../sysprep/main.ml:79
 msgid "--enable option can only be given once"
 msgstr ""
 
-#: ../sysprep/main.ml:80
+#: ../sysprep/main.ml:87
 msgid "--enable: '%s' is not a known operation"
 msgstr ""
 
 #: ../resize/resize.ml:156
 msgid "--expand option given twice"
+msgstr ""
+
+#: ../sysprep/main.ml:174 ../customize/customize_main.ml:142
+msgid "--format parameter must appear before -a parameter"
 msgstr ""
 
 #: ../v2v/cmdline.ml:277
@@ -601,11 +609,11 @@ msgstr ""
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
-#: ../sysprep/main.ml:110
+#: ../sysprep/main.ml:117
 msgid "--operations: '%s' is not a known operation"
 msgstr ""
 
-#: ../sysprep/main.ml:99
+#: ../sysprep/main.ml:106
 msgid "--operations: empty operation name"
 msgstr ""
 
@@ -707,9 +715,9 @@ msgstr ""
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#. ../customize/customize_main.ml:76
-#. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:120 ../sysprep/main.ml:119
+#. ../customize/customize_main.ml:85
+#. ../customize/customize_main.ml:84
+#: ../sysprep/main.ml:127 ../sysprep/main.ml:126
 msgid "Add disk image file"
 msgstr ""
 
@@ -737,7 +745,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../customize/customize_main.ml:77 ../builder/cmdline.ml:108
+#: ../customize/customize_main.ml:86 ../builder/cmdline.ml:108
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
@@ -778,7 +786,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:183
+#: ../v2v/v2v.ml:198
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
@@ -792,7 +800,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:220
+#: ../v2v/v2v.ml:241
 msgid "Closing the overlay"
 msgstr ""
 
@@ -804,11 +812,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:192
+#: ../v2v/v2v.ml:213
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:190
+#: ../v2v/v2v.ml:211
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -828,7 +836,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:239
+#: ../v2v/v2v.ml:260
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -856,7 +864,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:284
+#: ../v2v/v2v.ml:305
 msgid "Creating output metadata"
 msgstr ""
 
@@ -896,7 +904,7 @@ msgstr ""
 msgid "Debug GC and memory allocations"
 msgstr ""
 
-#: ../sysprep/main.ml:123 ../customize/customize_main.ml:82
+#: ../sysprep/main.ml:130 ../customize/customize_main.ml:91
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -916,7 +924,7 @@ msgstr ""
 msgid "Deleting: %s"
 msgstr ""
 
-#: ../customize/customize_main.ml:93 ../builder/cmdline.ml:144
+#: ../customize/customize_main.ml:102 ../builder/cmdline.ml:144
 msgid "Disable appliance network"
 msgstr ""
 
@@ -940,11 +948,11 @@ msgstr ""
 
 #. ../sparsify/cmdline.ml:86
 #. ../resize/resize.ml:213
-#. ../customize/customize_main.ml:100
-#. ../customize/customize_main.ml:99
+#. ../customize/customize_main.ml:109
+#. ../customize/customize_main.ml:108
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:149 ../sysprep/main.ml:143 ../sysprep/main.ml:142
+#: ../v2v/cmdline.ml:149 ../sysprep/main.ml:150 ../sysprep/main.ml:149
 msgid "Display version and exit"
 msgstr ""
 
@@ -972,9 +980,9 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#. ../customize/customize_main.ml:95
-#. ../customize/customize_main.ml:94
-#: ../sysprep/main.ml:139 ../sysprep/main.ml:138
+#. ../customize/customize_main.ml:104
+#. ../customize/customize_main.ml:103
+#: ../sysprep/main.ml:146 ../sysprep/main.ml:145
 msgid "Don't print log messages"
 msgstr ""
 
@@ -994,11 +1002,11 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:129
+#: ../sysprep/main.ml:136
 msgid "Dump POD (internal)"
 msgstr ""
 
-#: ../sysprep/main.ml:130
+#: ../sysprep/main.ml:137
 msgid "Dump POD for options (internal)"
 msgstr ""
 
@@ -1010,37 +1018,37 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../customize/customize_main.ml:92 ../builder/cmdline.ml:143
+#: ../customize/customize_main.ml:101 ../builder/cmdline.ml:143
 msgid "Enable appliance network (default)"
 msgstr ""
 
 #. ../sparsify/cmdline.ml:84
 #. ../resize/resize.ml:211
 #. ../resize/resize.ml:185
-#. ../customize/customize_main.ml:98
-#. ../customize/customize_main.ml:97
+#. ../customize/customize_main.ml:107
+#. ../customize/customize_main.ml:106
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:147 ../sysprep/main.ml:141 ../sysprep/main.ml:140
+#: ../v2v/cmdline.ml:147 ../sysprep/main.ml:148 ../sysprep/main.ml:147
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../sysprep/main.ml:131
+#: ../sysprep/main.ml:138
 msgid "Enable specific operations"
 msgstr ""
 
 #. ../resize/resize.ml:215
-#. ../customize/customize_main.ml:101
+#. ../customize/customize_main.ml:110
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:152 ../sysprep/main.ml:144 ../sparsify/cmdline.ml:88
+#: ../v2v/cmdline.ml:152 ../sysprep/main.ml:151 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sysprep/main.ml:137 ../sysprep/main.ml:136
+#: ../sysprep/main.ml:144 ../sysprep/main.ml:143
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:320
+#: ../v2v/v2v.ml:341
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1050,6 +1058,10 @@ msgstr ""
 
 #: ../v2v/input_ova.ml:141
 msgid "Error parsing disk fileRef"
+msgstr ""
+
+#: ../v2v/v2v.ml:202
+msgid "Estimating space required on target for each disk"
 msgstr ""
 
 #: ../sparsify/copying.ml:184
@@ -1064,7 +1076,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:224 ../customize/customize_main.ml:185
+#: ../sysprep/main.ml:234 ../customize/customize_main.ml:200
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -1136,7 +1148,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:287 ../customize/customize_main.ml:237
+#: ../v2v/v2v.ml:308 ../customize/customize_main.ml:252
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1228,7 +1240,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:179
+#: ../v2v/v2v.ml:183
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1269,13 +1281,13 @@ msgid "List available templates"
 msgstr ""
 
 #. ../resize/resize.ml:194
-#. ../customize/customize_main.ml:89
+#. ../customize/customize_main.ml:98
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:127 ../sysprep/main.ml:134 ../sparsify/cmdline.ml:78
+#: ../v2v/cmdline.ml:127 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:78
 msgid "List long options"
 msgstr ""
 
-#: ../sysprep/main.ml:133
+#: ../sysprep/main.ml:140
 msgid "List supported operations"
 msgstr ""
 
@@ -1296,7 +1308,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:211
+#: ../v2v/v2v.ml:232
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1417,10 +1429,10 @@ msgstr ""
 msgid "POD notes for %s must not end with newline"
 msgstr ""
 
-#. ../customize/customize_main.ml:87
-#. ../customize/customize_main.ml:86
-#. ../customize/customize_main.ml:85
-#: ../sysprep/main.ml:128 ../sysprep/main.ml:127 ../sysprep/main.ml:126
+#. ../customize/customize_main.ml:96
+#. ../customize/customize_main.ml:95
+#. ../customize/customize_main.ml:94
+#: ../sysprep/main.ml:135 ../sysprep/main.ml:134 ../sysprep/main.ml:133
 msgid "Perform a dry run"
 msgstr ""
 
@@ -1440,11 +1452,11 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:349 ../v2v/lib_ovf.ml:175
+#: ../v2v/lib_ovf.ml:352 ../v2v/lib_ovf.ml:175
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
-#: ../customize/customize_main.ml:153 ../customize/customize_main.ml:140
+#: ../customize/customize_main.ml:168 ../customize/customize_main.ml:155
 msgid "Read virt-customize(1) man page for further information.\n"
 msgstr ""
 
@@ -1715,7 +1727,7 @@ msgstr ""
 msgid "Set GPG binary/command"
 msgstr ""
 
-#: ../customize/customize_main.ml:79 ../builder/cmdline.ml:110
+#: ../customize/customize_main.ml:88 ../builder/cmdline.ml:110
 msgid "Set attach disk format"
 msgstr ""
 
@@ -1723,7 +1735,7 @@ msgstr ""
 msgid "Set curl binary/command"
 msgstr ""
 
-#: ../sysprep/main.ml:132 ../customize/customize_main.ml:88
+#: ../sysprep/main.ml:139 ../customize/customize_main.ml:97
 msgid "Set format (default: auto)"
 msgstr ""
 
@@ -1731,29 +1743,29 @@ msgstr ""
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
-#. ../customize/customize_main.ml:81
-#. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:122 ../sysprep/main.ml:121
+#. ../customize/customize_main.ml:90
+#. ../customize/customize_main.ml:89
+#: ../sysprep/main.ml:129 ../sysprep/main.ml:128
 msgid "Set libvirt URI"
 msgstr ""
 
-#. ../customize/customize_main.ml:84
-#. ../customize/customize_main.ml:83
-#: ../sysprep/main.ml:125 ../sysprep/main.ml:124
+#. ../customize/customize_main.ml:93
+#. ../customize/customize_main.ml:92
+#: ../sysprep/main.ml:132 ../sysprep/main.ml:131
 msgid "Set libvirt guest name"
 msgstr ""
 
 #. ../builder/cmdline.ml:142
 #. ../builder/cmdline.ml:141
-#: ../customize/customize_main.ml:91 ../customize/customize_main.ml:90
+#: ../customize/customize_main.ml:100 ../customize/customize_main.ml:99
 msgid "Set memory size"
 msgstr ""
 
-#: ../sysprep/main.ml:135
+#: ../sysprep/main.ml:142
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
-#: ../customize/customize_main.ml:96 ../builder/cmdline.ml:152
+#: ../customize/customize_main.ml:105 ../builder/cmdline.ml:152
 msgid "Set number of vCPUs"
 msgstr ""
 
@@ -2199,7 +2211,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:323
+#: ../v2v/v2v.ml:344
 msgid "connection closed"
 msgstr ""
 
@@ -2280,9 +2292,9 @@ msgstr ""
 msgid "display <graphics type='%s'> was ignored"
 msgstr ""
 
-#. ../customize/customize_main.ml:84
-#. ../customize/customize_main.ml:83
-#: ../sysprep/main.ml:125 ../sysprep/main.ml:124
+#. ../customize/customize_main.ml:93
+#. ../customize/customize_main.ml:92
+#: ../sysprep/main.ml:132 ../sysprep/main.ml:131
 msgid "domain"
 msgstr ""
 
@@ -2298,7 +2310,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:307
+#: ../v2v/v2v.ml:328
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2312,7 +2324,7 @@ msgstr ""
 msgid "empty --shrink option"
 msgstr ""
 
-#: ../sysprep/main.ml:57 ../resize/resize.ml:313
+#: ../sysprep/main.ml:63 ../resize/resize.ml:313
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
@@ -2394,7 +2406,7 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:151 ../customize/customize_main.ml:117
+#: ../sysprep/main.ml:158 ../customize/customize_main.ml:126
 msgid "extra parameter on the command line"
 msgstr ""
 
@@ -2402,9 +2414,9 @@ msgstr ""
 msgid "failure: %s"
 msgstr ""
 
-#. ../customize/customize_main.ml:76
-#. ../customize/customize_main.ml:75
-#: ../sysprep/main.ml:120 ../sysprep/main.ml:119
+#. ../customize/customize_main.ml:85
+#. ../customize/customize_main.ml:84
+#: ../sysprep/main.ml:127 ../sysprep/main.ml:126
 msgid "file"
 msgstr ""
 
@@ -2414,8 +2426,8 @@ msgstr ""
 
 #. ../resize/resize.ml:204
 #. ../resize/resize.ml:192
-#. ../customize/customize_main.ml:88
-#: ../sysprep/main.ml:132 ../sparsify/cmdline.ml:74 ../sparsify/cmdline.ml:72
+#. ../customize/customize_main.ml:97
+#: ../sysprep/main.ml:139 ../sparsify/cmdline.ml:74 ../sparsify/cmdline.ml:72
 msgid "format"
 msgstr ""
 
@@ -2492,7 +2504,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:251
+#: ../v2v/v2v.ml:272
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -2508,7 +2520,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:345
+#: ../v2v/v2v.ml:366
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2528,7 +2540,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:330
+#: ../v2v/v2v.ml:351
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2569,7 +2581,7 @@ msgid ""
 "of this guest."
 msgstr ""
 
-#: ../sysprep/main.ml:238
+#: ../sysprep/main.ml:248
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
@@ -2577,7 +2589,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:300
+#: ../v2v/v2v.ml:321
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2587,7 +2599,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:412
+#: ../v2v/v2v.ml:431
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2621,7 +2633,7 @@ msgstr ""
 msgid "operation name is an empty string"
 msgstr ""
 
-#: ../sysprep/main.ml:131
+#: ../sysprep/main.ml:138
 msgid "operations"
 msgstr ""
 
@@ -2629,7 +2641,7 @@ msgstr ""
 msgid "option"
 msgstr ""
 
-#: ../sysprep/main.ml:135
+#: ../sysprep/main.ml:142
 msgid "opts"
 msgstr ""
 
@@ -2680,7 +2692,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:279 ../v2v/v2v.ml:111
+#: ../v2v/v2v.ml:300 ../v2v/v2v.ml:111
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2692,7 +2704,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:338
+#: ../v2v/v2v.ml:359
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2818,9 +2830,9 @@ msgstr ""
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
-#. ../customize/customize_main.ml:81
-#. ../customize/customize_main.ml:80
-#: ../sysprep/main.ml:122 ../sysprep/main.ml:121
+#. ../customize/customize_main.ml:90
+#. ../customize/customize_main.ml:89
+#: ../sysprep/main.ml:129 ../sysprep/main.ml:128
 msgid "uri"
 msgstr ""
 
@@ -2990,7 +3002,7 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:201
+#: ../v2v/v2v.ml:222
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -2998,13 +3010,13 @@ msgstr ""
 msgid "xfs_growfs"
 msgstr ""
 
-#: ../sysprep/main.ml:184
+#: ../sysprep/main.ml:194
 msgid ""
 "you cannot give -a and -d options together.  Read virt-sysprep(1) man page "
 "for further information."
 msgstr ""
 
-#: ../sysprep/main.ml:74
+#: ../sysprep/main.ml:81
 msgid "you cannot pass an empty argument to --enable"
 msgstr ""
 
@@ -3036,7 +3048,7 @@ msgstr ""
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
-#: ../sysprep/main.ml:173
+#: ../sysprep/main.ml:183
 msgid ""
 "you must give either -a or -d options.  Read virt-sysprep(1) man page for "
 "further information."
@@ -3072,24 +3084,24 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:133 cat/cat.c:120 cat/filesystems.c:187 cat/log.c:122
-#: cat/ls.c:180 df/main.c:133 diff/diff.c:191 diff/diff.c:197 edit/edit.c:136
-#: fish/fish.c:235 format/format.c:129 fuse/guestmount.c:210
-#: inspector/inspector.c:127 make-fs/make-fs.c:115 rescue/rescue.c:135
+#: align/scan.c:134 cat/cat.c:121 cat/filesystems.c:188 cat/log.c:123
+#: cat/ls.c:181 df/main.c:134 diff/diff.c:192 diff/diff.c:198 edit/edit.c:137
+#: fish/fish.c:236 format/format.c:130 fuse/guestmount.c:211
+#: inspector/inspector.c:128 make-fs/make-fs.c:115 rescue/rescue.c:136
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ஹாண்டிலை உருவாக்க முடியவில்லை\n"
 
-#: align/scan.c:153 builder/index-validate.c:85 cat/cat.c:142
-#: cat/filesystems.c:241 cat/log.c:144 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:262 edit/edit.c:158 fish/fish.c:293 format/format.c:183
-#: fuse/guestmount.c:251 fuse/guestunmount.c:124 inspector/inspector.c:151
-#: make-fs/make-fs.c:142 p2v/main.c:130 rescue/rescue.c:192
+#: align/scan.c:151 builder/index-validate.c:85 cat/cat.c:140
+#: cat/filesystems.c:239 cat/log.c:142 cat/ls.c:228 df/main.c:155
+#: diff/diff.c:260 edit/edit.c:156 fish/fish.c:291 format/format.c:181
+#: fuse/guestmount.c:249 fuse/guestunmount.c:124 inspector/inspector.c:149
+#: make-fs/make-fs.c:142 p2v/main.c:130 rescue/rescue.c:190
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
 
-#: align/scan.c:173 df/main.c:185
+#: align/scan.c:171 df/main.c:183
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr ""
@@ -3218,7 +3230,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/filesystems.c:303 cat/ls.c:343 df/main.c:262 diff/diff.c:328
+#: cat/filesystems.c:303 cat/ls.c:343 df/main.c:262 diff/diff.c:326
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -3454,12 +3466,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:319
+#: diff/diff.c:317
 #, c-format
 msgid "%s: you must specify some -a|-A|-d|-D options, see %s(1)\n"
 msgstr ""
 
-#: diff/diff.c:334
+#: diff/diff.c:332
 #, c-format
 msgid "%s: extra arguments on the command line\n"
 msgstr ""
@@ -3499,12 +3511,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/edit.c:170
+#: edit/edit.c:168
 #, c-format
 msgid "%s: -b option given multiple times\n"
 msgstr ""
 
-#: edit/edit.c:187
+#: edit/edit.c:185
 #, c-format
 msgid "%s: -e option given multiple times\n"
 msgstr ""
@@ -6059,23 +6071,23 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:252
+#: fish/fish.c:253
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ஆனது எண் இல்லை: %s\n"
 
-#: fish/fish.c:259
+#: fish/fish.c:260
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID க்கு தொலை செயற்பாட்டைPID க்கு அமை\n"
 
-#: fish/fish.c:312
+#: fish/fish.c:310
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:319
+#: fish/fish.c:317
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ஒரே ஒரு -f அளவுரு கொடுக்கப்படலாம்\n"
@@ -6627,12 +6639,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: format/format.c:150
+#: format/format.c:148
 #, c-format
 msgid "%s: no filesystem was specified\n"
 msgstr ""
 
-#: format/format.c:158
+#: format/format.c:156
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr ""
@@ -6685,7 +6697,7 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:246
+#: fuse/guestmount.c:244
 #, c-format
 msgid "%s: unable to parse --fd option value: %s\n"
 msgstr ""
@@ -7215,27 +7227,27 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/rescue.c:161
+#: rescue/rescue.c:159
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
 msgstr ""
 
-#: rescue/rescue.c:166
+#: rescue/rescue.c:164
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/rescue.c:179
+#: rescue/rescue.c:177
 #, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
 msgstr ""
 
-#: rescue/rescue.c:185
+#: rescue/rescue.c:183
 #, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/rescue.c:212
+#: rescue/rescue.c:210
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
