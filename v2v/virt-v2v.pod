@@ -166,8 +166,9 @@ disk can be imported this way.
 
 Set the input method to I<libvirt>.  This is the default.
 
-In this mode you have to specify a libvirt guest name on the command
-line.  You may also specify a libvirt connection URI (see I<-ic>).
+In this mode you have to specify a libvirt guest name or UUID on the
+command line.  You may also specify a libvirt connection URI (see
+I<-ic>).
 
 =item B<-i libvirtxml>
 

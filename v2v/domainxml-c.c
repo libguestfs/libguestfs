@@ -119,7 +119,11 @@ v2v_dumpxml (value connv, value domnamev)
   /* Look up the domain. */
   domname = String_val (domnamev);
 
-  dom = virDomainLookupByName (conn, domname);
+  dom = virDomainLookupByUUIDString (conn, domname);
+
+  if (!dom)
+    dom = virDomainLookupByName (conn, domname);
+
   if (!dom) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
