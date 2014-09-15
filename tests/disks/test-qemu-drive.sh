@@ -21,8 +21,6 @@ export LANG=C
 
 set -e
 
-guestfish=../../fish/guestfish
-
 export LIBGUESTFS_BACKEND=direct
 export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"
 export DEBUG_QEMU_FILE="${abs_builddir}/test-qemu-drive.out"
@@ -46,7 +44,7 @@ rm -f "$DEBUG_QEMU_FILE"
 
 # Ceph (RBD).
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "abc-def/ghi-jkl" "format:raw" "protocol:rbd" \
     "server:1.2.3.4:1234 1.2.3.5:1235 1.2.3.6:1236"
   run
@@ -55,7 +53,7 @@ check_output
 grep -sq -- '-drive file=rbd:abc-def/ghi-jkl:mon_host=1.2.3.4\\:1234\\;1.2.3.5\\:1235\\;1.2.3.6\\:1236:auth_supported=none,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "abc-def/ghi-jkl" "format:raw" "protocol:rbd"
   run
 EOF
@@ -65,7 +63,7 @@ rm "$DEBUG_QEMU_FILE"
 
 # HTTP.
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "/disk.img" "format:raw" "protocol:http" "server:www.example.com"
   run
 EOF
@@ -75,7 +73,7 @@ rm "$DEBUG_QEMU_FILE"
 
 # Gluster.
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "volname/image" "format:raw" "protocol:gluster" "server:www.example.com:24007"
   run
 EOF
@@ -85,7 +83,7 @@ rm "$DEBUG_QEMU_FILE"
 
 # iSCSI.
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "target-iqn-name/lun" "format:raw" "protocol:iscsi" "server:www.example.com:3000"
   run
 EOF
@@ -95,7 +93,7 @@ rm "$DEBUG_QEMU_FILE"
 
 # NBD.
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "" "format:raw" "protocol:nbd" "server:1.2.3.4:1234"
   run
 EOF
@@ -103,7 +101,7 @@ check_output
 grep -sq -- '-drive file=nbd:1.2.3.4:1234,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "" "format:raw" "protocol:nbd" "server:unix:/socket"
   run
 EOF
@@ -113,7 +111,7 @@ rm "$DEBUG_QEMU_FILE"
 
 # Sheepdog.
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "volume" "format:raw" "protocol:sheepdog"
   run
 EOF
@@ -123,7 +121,7 @@ rm "$DEBUG_QEMU_FILE"
 
 # SSH.
 
-$guestfish <<EOF ||:
+guestfish <<EOF ||:
   add "/disk.img" "format:raw" "protocol:ssh" "server:example.com" \
     "username:rich"
   run

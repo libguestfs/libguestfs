@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_NETWORKS_AND_BRIDGES_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -52,7 +52,7 @@ rm -rf $d
 mkdir $d
 
 # Use --no-copy because we only care about metadata for this test.
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o local -os $d --no-copy \
     --bridge "VM Network:bridge1" \

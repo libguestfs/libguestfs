@@ -23,7 +23,7 @@ export LANG=C
 
 rm -f test.out
 
-$VG ./guestfish > test.out <<EOF
+$VG guestfish > test.out <<EOF
 scratch 50MB
 run
 part-disk /dev/sda mbr

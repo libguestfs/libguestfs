@@ -27,12 +27,12 @@ set -e
 HOME=$(pwd)
 export HOME
 
-if [ `echo 'echo ~' | $VG ./guestfish` != "$HOME" ]; then
+if [ `echo 'echo ~' | $VG guestfish` != "$HOME" ]; then
     echo "$0: failed: did not expand ~ correctly"
     exit 1
 fi
 
-if [ `echo 'echo ~/foo' | $VG ./guestfish` != "$HOME/foo" ]; then
+if [ `echo 'echo ~/foo' | $VG guestfish` != "$HOME/foo" ]; then
     echo "$0: failed: did not expand ~/foo correctly"
     exit 1
 fi
@@ -41,12 +41,12 @@ fi
 # should have a home directory.
 root="$(echo ~root)"
 
-if [ `echo 'echo ~root' | $VG ./guestfish` != "$root" ]; then
+if [ `echo 'echo ~root' | $VG guestfish` != "$root" ]; then
     echo "$0: failed: did not expand ~root correctly"
     exit 1
 fi
 
-if [ `echo 'echo ~root/foo' | $VG ./guestfish` != "$root/foo" ]; then
+if [ `echo 'echo ~root/foo' | $VG guestfish` != "$root/foo" ]; then
     echo "$0: failed: did not expand ~root/foo correctly"
     exit 1
 fi
@@ -55,12 +55,12 @@ fi
 unset HOME
 home="$(echo ~)"
 
-if [ `echo 'echo ~' | $VG ./guestfish` != "$home" ]; then
+if [ `echo 'echo ~' | $VG guestfish` != "$home" ]; then
     echo "$0: failed: did not expand ~ correctly when \$HOME unset"
     exit 1
 fi
 
-if [ `echo 'echo ~/foo' | $VG ./guestfish` != "$home/foo" ]; then
+if [ `echo 'echo ~/foo' | $VG guestfish` != "$home/foo" ]; then
     echo "$0: failed: did not expand ~/foo correctly when \$HOME unset"
     exit 1
 fi

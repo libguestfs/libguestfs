@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_WINDOWS_CONVERSION_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -61,7 +61,7 @@ d=test-v2v-windows-conversion.d
 rm -rf $d
 mkdir $d
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o local -os $d \
     --root $root
@@ -71,7 +71,7 @@ test -f $d/windows.xml
 test -f $d/windows-sda
 
 # Test some aspects of the target disk image.
-../fish/guestfish --ro -a $d/windows-sda -i <<EOF
+guestfish --ro -a $d/windows-sda -i <<EOF
   is-dir "/Program Files/Red Hat/Firstboot"
   is-file "/Program Files/Red Hat/Firstboot/firstboot.bat"
   is-dir "/Program Files/Red Hat/Firstboot/scripts"

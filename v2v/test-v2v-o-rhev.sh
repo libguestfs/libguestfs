@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_O_RHEV_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -57,7 +57,7 @@ mkdir $d/12345678-1234-1234-1234-123456789abc/images
 mkdir $d/12345678-1234-1234-1234-123456789abc/master
 mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o rhev -os $d
 

@@ -26,7 +26,7 @@
 
 set -e
 
-../../fish/guestfish -N rhbz503169c13.img=fs -m /dev/sda1 <<EOF
+guestfish -N rhbz503169c13.img=fs -m /dev/sda1 <<EOF
 mkdir /dev
 -command /ignore-this-error
 unmount-all

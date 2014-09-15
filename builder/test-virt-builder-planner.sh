@@ -29,7 +29,7 @@ if [ ! -f fedora.xz -o ! -f fedora.qcow2 -o ! -f fedora.qcow2.xz ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because backend is UML"
     exit 77
 fi
@@ -43,8 +43,8 @@ for input in phony-fedora phony-fedora-qcow2 phony-fedora-qcow2-uncompressed pho
             if [ "$size" != "none" ]; then args="$args --size $size"; fi
             if [ "$format" != "none" ]; then args="$args --format $format"; fi
 
-            echo $VG ./virt-builder $input $args
-            $VG ./virt-builder $input $args
+            echo $VG virt-builder $input $args
+            $VG virt-builder $input $args
         done
     done
 done

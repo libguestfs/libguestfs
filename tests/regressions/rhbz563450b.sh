@@ -29,7 +29,7 @@ fi
 
 rm -f test.out
 
-../../fish/guestfish --ro > test.out <<EOF
+guestfish --ro > test.out <<EOF
 add-cdrom ../data/test.iso
 
 run

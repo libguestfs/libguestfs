@@ -23,7 +23,7 @@ set -e
 
 rm -f test-reopen.img
 
-$VG ./guestfish <<'EOF'
+$VG guestfish <<'EOF'
 reopen
 reopen
 reopen

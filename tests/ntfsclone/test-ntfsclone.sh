@@ -27,10 +27,8 @@ fi
 
 rm -f test-ntfsclone.img ntfsclone-backup1 ntfsclone-backup2
 
-guestfish=../../fish/guestfish
-
 # Skip if ntfs-3g is not supported by the appliance.
-if ! $guestfish add /dev/null : run : available "ntfs3g"; then
+if ! guestfish add /dev/null : run : available "ntfs3g"; then
     echo "$0: skipped because ntfs-3g is not supported by the appliance"
     exit 77
 fi
@@ -41,14 +39,14 @@ if [ ! -s ../guests/windows.img ]; then
 fi
 
 # Export the filesystems to the backup file.
-$guestfish --ro -a ../guests/windows.img <<EOF
+guestfish --ro -a ../guests/windows.img <<EOF
 run
 ntfsclone-out /dev/sda1 ntfsclone-backup1 preservetimestamps:true force:true
 ntfsclone-out /dev/sda2 ntfsclone-backup2 metadataonly:true ignorefscheck:true
 EOF
 
 # Restore to another disk image.
-output=$($guestfish -N test-ntfsclone.img=part:300M <<EOF
+output=$(guestfish -N test-ntfsclone.img=part:300M <<EOF
 ntfsclone-in ntfsclone-backup1 /dev/sda1
 vfs-type /dev/sda1
 EOF

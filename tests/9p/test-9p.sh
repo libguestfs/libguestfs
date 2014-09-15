@@ -26,7 +26,7 @@ if [ -n "$SKIP_TEST_9P_SH" ]; then
     exit 77
 fi
 
-backend="$(../../fish/guestfish get-backend)"
+backend="$(guestfish get-backend)"
 if [[ "$backend" != "direct" ]]; then
     echo "$0: test skipped because backend ($backend) is not 'direct'."
     exit 77
@@ -45,7 +45,7 @@ fi
 
 rm -f test-9p.img test-9p.out
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
 # This dummy disk is not actually used, but libguestfs requires one.
 sparse test-9p.img 1M
 

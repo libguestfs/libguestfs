@@ -22,23 +22,21 @@
 
 set -e
 
-guestfish=../../fish/guestfish
-
 # UML backend doesn't support qcow2 format.
 supports_qcow2=yes
-if [ "$($guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     supports_qcow2=no
 fi
 
 rm -f isolation1.img isolation2.img isolation3.img
 
-../../fish/guestfish sparse isolation1.img 100M
+guestfish sparse isolation1.img 100M
 isolation1_md5sum="$(md5sum isolation1.img | awk '{print $1}')"
-../../fish/guestfish sparse isolation2.img 100M
+guestfish sparse isolation2.img 100M
 isolation2_md5sum="$(md5sum isolation2.img | awk '{print $1}')"
 
 if [ "$supports_qcow2" = "yes" ]; then
-    ../../fish/guestfish \
+    guestfish \
         disk-create isolation3.img qcow2 100M preallocation:metadata
     isolation3_md5sum="$(md5sum isolation3.img | awk '{print $1}')"
     add3="add-drive-opts isolation3.img format:qcow2 readonly:true"
@@ -53,7 +51,7 @@ fi
 
 # The vitally important calls are 'add-drive-ro' and
 # 'add-drive-opts ... readonly:true'.
-../../fish/guestfish <<EOF
+guestfish <<EOF
 add-drive-ro isolation1.img
 add-drive-opts isolation2.img format:raw readonly:true
 $add3

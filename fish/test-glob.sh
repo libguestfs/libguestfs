@@ -22,7 +22,7 @@ set -e
 
 rm -f test-glob.img test-glob.out
 
-$VG ./guestfish -N test-glob.img=disk:1G > test-glob.out <<EOF
+$VG guestfish -N test-glob.img=disk:1G > test-glob.out <<EOF
 
 pvcreate /dev/sda
 # Because glob doesn't do device name translation, we cannot test

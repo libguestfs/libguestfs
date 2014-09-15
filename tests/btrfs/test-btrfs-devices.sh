@@ -24,8 +24,6 @@
 
 set -e
 
-guestfish=../../fish/guestfish
-
 # Allow the test to be skipped since btrfs is often broken.
 if [ -n "$SKIP_TEST_BTRFS_DEVICES_SH" ]; then
     echo "$0: skipping test because environment variable is set."
@@ -33,14 +31,14 @@ if [ -n "$SKIP_TEST_BTRFS_DEVICES_SH" ]; then
 fi
 
 # If btrfs is not available, bail.
-if ! $guestfish -a /dev/null run : available btrfs; then
+if ! guestfish -a /dev/null run : available btrfs; then
     echo "$0: skipping test because btrfs is not available"
     exit 77
 fi
 
 rm -f test-btrfs-devices-{1,2,3,4}.img
 
-$guestfish <<EOF
+guestfish <<EOF
 # Add four empty disks
 sparse test-btrfs-devices-1.img 1G
 sparse test-btrfs-devices-2.img 1G

@@ -19,7 +19,7 @@
 export LANG=C
 set -e
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
@@ -29,7 +29,7 @@ rm -f test-virt-sparsify-1.img test-virt-sparsify-2.img
 # Create a filesystem, fill it with data, then delete the data.  Then
 # prove that sparsifying it reduces the size of the final filesystem.
 
-$VG ../fish/guestfish \
+$VG guestfish \
     -N test-virt-sparsify-1.img=bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt <<EOF
 mount /dev/VG/LV /
 mkdir /boot
@@ -42,7 +42,7 @@ rm /boot/big
 umount-all
 EOF
 
-$VG ./virt-sparsify --debug-gc test-virt-sparsify-1.img --convert qcow2 test-virt-sparsify-2.img
+$VG virt-sparsify --debug-gc test-virt-sparsify-1.img --convert qcow2 test-virt-sparsify-2.img
 
 size_before=$(du -s test-virt-sparsify-1.img | awk '{print $1}')
 size_after=$(du -s test-virt-sparsify-2.img | awk '{print $1}')

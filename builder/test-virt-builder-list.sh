@@ -26,7 +26,7 @@ abs_builddir=$(pwd)
 export XDG_CONFIG_HOME=
 export XDG_CONFIG_DIRS="$abs_builddir/test-config"
 
-short_list=$($VG ./virt-builder --no-check-signature --no-cache --list)
+short_list=$($VG virt-builder --no-check-signature --no-cache --list)
 
 if [ "$short_list" != "phony-debian             x86_64     Phony Debian
 phony-fedora             x86_64     Phony Fedora
@@ -40,7 +40,7 @@ phony-windows            x86_64     Phony Windows" ]; then
     exit 1
 fi
 
-long_list=$(./virt-builder --no-check-signature --no-cache --list --long)
+long_list=$(virt-builder --no-check-signature --no-cache --list --long)
 
 if [ "$long_list" != "Source URI: file://$abs_builddir/test-index
 
@@ -111,7 +111,7 @@ Phony Windows look-alike used for testing." ]; then
     exit 1
 fi
 
-json_list=$(./virt-builder --no-check-signature --no-cache --list --list-format json)
+json_list=$(virt-builder --no-check-signature --no-cache --list --list-format json)
 
 if [ "$json_list" != "{
   \"version\": 1,

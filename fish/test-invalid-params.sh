@@ -23,7 +23,7 @@ set -e
 
 # Memory size
 output=$(
-$VG ./guestfish <<EOF
+$VG guestfish <<EOF
 set-memsize 400
 -set-memsize 0
 -set-memsize 100
@@ -42,7 +42,7 @@ fi
 
 # smp
 output=$(
-$VG ./guestfish <<EOF
+$VG guestfish <<EOF
 set-smp 2
 -set-smp 0
 -set-smp 300
@@ -58,7 +58,7 @@ fi
 
 # Backend
 output=$(
-$VG ./guestfish <<EOF
+$VG guestfish <<EOF
 set-backend direct
 -set-backend backend-which-does-not-exist
 get-backend

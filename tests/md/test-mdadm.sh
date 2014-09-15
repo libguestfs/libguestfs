@@ -27,7 +27,7 @@ fi
 
 rm -f mdadm-{1,2,3,4}.img
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
 # Add four empty disks
 sparse mdadm-1.img 100M
 sparse mdadm-2.img 100M
@@ -97,15 +97,15 @@ write /r5t3/baz "testing"
 
 EOF
 
-eval `../../fish/guestfish --listen`
-../../fish/guestfish --remote add-ro mdadm-1.img
-../../fish/guestfish --remote add-ro mdadm-2.img
-../../fish/guestfish --remote add-ro mdadm-3.img
-../../fish/guestfish --remote add-ro mdadm-4.img
-../../fish/guestfish --remote run
+eval `guestfish --listen`
+guestfish --remote add-ro mdadm-1.img
+guestfish --remote add-ro mdadm-2.img
+guestfish --remote add-ro mdadm-3.img
+guestfish --remote add-ro mdadm-4.img
+guestfish --remote run
 
-for md in `../../fish/guestfish --remote list-md-devices`; do
-  ../../fish/guestfish --remote md-detail "$md" > md-detail.out
+for md in `guestfish --remote list-md-devices`; do
+  guestfish --remote md-detail "$md" > md-detail.out
 
   sed 's/:\s*/=/' md-detail.out > md-detail.out.sh
   . md-detail.out.sh
@@ -148,24 +148,24 @@ for md in `../../fish/guestfish --remote list-md-devices`; do
   if [ "$error" -eq 1 ]; then
     echo "$0: Unexpected output from md-detail for device $md"
     cat md-detail.out
-    ../../fish/guestfish --remote exit
+    guestfish --remote exit
     exit 1
   fi
 done
 
-../../fish/guestfish --remote exit
+guestfish --remote exit
 
-eval `../../fish/guestfish --listen`
-../../fish/guestfish --remote add-ro mdadm-1.img
-../../fish/guestfish --remote add-ro mdadm-2.img
-../../fish/guestfish --remote add-ro mdadm-3.img
-../../fish/guestfish --remote add-ro mdadm-4.img
-../../fish/guestfish --remote run
+eval `guestfish --listen`
+guestfish --remote add-ro mdadm-1.img
+guestfish --remote add-ro mdadm-2.img
+guestfish --remote add-ro mdadm-3.img
+guestfish --remote add-ro mdadm-4.img
+guestfish --remote run
 
-for md in `../../fish/guestfish --remote list-md-devices`; do
-  ../../fish/guestfish --remote md-stop "$md"
+for md in `guestfish --remote list-md-devices`; do
+  guestfish --remote md-stop "$md"
 done
 
-../../fish/guestfish --remote exit
+guestfish --remote exit
 
 rm md-detail.out mdadm-1.img mdadm-2.img mdadm-3.img mdadm-4.img

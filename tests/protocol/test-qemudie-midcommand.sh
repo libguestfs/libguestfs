@@ -20,14 +20,14 @@
 
 set -e
 
-if [ "$(../../fish/guestfish get-backend)" != "direct" ]; then
+if [ "$(guestfish get-backend)" != "direct" ]; then
     echo "$0: test skipped because default backend is not 'direct'"
     exit 77
 fi
 
 rm -f qemudie-midcommand.pid
 
-../../fish/guestfish <<'EOF'
+guestfish <<'EOF'
 scratch 100M
 run
 # Kill the subprocess after a short wait.

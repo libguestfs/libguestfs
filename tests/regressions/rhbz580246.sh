@@ -29,7 +29,7 @@ dd if=/dev/zero of=rhbz580246.img bs=1M count=2
 tar cf rhbz580246.tar rhbz580246.img
 
 output=$(
-../../fish/guestfish 2>&1 <<'EOF'
+guestfish 2>&1 <<'EOF'
 add rhbz580246.img
 run
 mkfs ext2 /dev/sda

@@ -28,7 +28,7 @@ if [ -n "$SKIP_TEST_RHBZ1091803_SH" ]; then
     exit 77
 fi
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
 scratch 100M
 run
 mkfs ext2 /dev/sda

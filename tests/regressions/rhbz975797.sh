@@ -38,7 +38,7 @@ if [[ "$arch" =~ ^ppc ]]; then
     exit 77
 fi
 
-backend="$(../../fish/guestfish get-backend)"
+backend="$(guestfish get-backend)"
 if [[ "$backend" =~ ^libvirt ]]; then
     echo "$0: test skipped because backend ($backend) is 'libvirt'."
     exit 77
@@ -58,11 +58,11 @@ fi
 
 # Use real disk images here since the code for adding /dev/null may
 # take shortcuts.
-../../fish/guestfish sparse rhbz975797-1.img 1G
-../../fish/guestfish sparse rhbz975797-2.img 1G
-../../fish/guestfish sparse rhbz975797-3.img 1G
+guestfish sparse rhbz975797-1.img 1G
+guestfish sparse rhbz975797-2.img 1G
+guestfish sparse rhbz975797-3.img 1G
 
-$timeout ../../fish/guestfish <<EOF
+$timeout guestfish <<EOF
 add-drive rhbz975797-1.img iface:virtio
 add-drive rhbz975797-2.img iface:ide
 add-drive rhbz975797-3.img

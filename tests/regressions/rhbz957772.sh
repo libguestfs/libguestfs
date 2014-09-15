@@ -23,7 +23,7 @@
 set -e
 export LANG=C
 
-../../fish/guestfish -N rhbz957772.img=fs -m /dev/sda1 <<EOF
+guestfish -N rhbz957772.img=fs -m /dev/sda1 <<EOF
 mkdir "/test 1"
 touch "/test 2"
 tar-out "/test 1" /dev/null

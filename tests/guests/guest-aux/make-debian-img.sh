@@ -31,7 +31,7 @@ LABEL=BOOT /boot ext2 default 0 0
 EOF
 
 # Create a disk image.
-../../fish/guestfish <<EOF
+guestfish <<EOF
 sparse debian.img.tmp.$$ 512M
 run
 

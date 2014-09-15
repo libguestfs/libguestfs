@@ -23,20 +23,19 @@
 set -e
 export LANG=C
 
-guestfish=../../fish/guestfish
 output=rhbz727178.output
 
 rm -f binaries.tmp $output
 
-eval `$guestfish -a /dev/null --listen`
+eval `guestfish -a /dev/null --listen`
 
-$guestfish --remote -- run
-$guestfish --remote -- debug binaries "" |
+guestfish --remote -- run
+guestfish --remote -- debug binaries "" |
     grep -E '^/(bin|sbin|usr/bin|usr/sbin|usr/libexec)/' > binaries.tmp
 
 while read ex; do
     echo ldd $ex
-    $guestfish --remote -- -debug ldd $ex
+    guestfish --remote -- -debug ldd $ex
 done < binaries.tmp > $output
 
 if grep -E '\bnot found\b|undefined symbol' $output; then

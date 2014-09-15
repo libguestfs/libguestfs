@@ -26,14 +26,14 @@ set -e
 }
 
 # If luks is not available, bail.
-if ! ../../fish/guestfish -a /dev/null run : available luks; then
+if ! guestfish -a /dev/null run : available luks; then
     echo "$0: skipping test because luks is not available"
     exit 77
 fi
 
 rm -f test-luks-list.img test-luks-list.out
 
-../../fish/guestfish --keys-from-stdin > test-luks-list.out <<'EOF'
+guestfish --keys-from-stdin > test-luks-list.out <<'EOF'
 sparse test-luks-list.img 1G
 run
 part-init /dev/sda mbr

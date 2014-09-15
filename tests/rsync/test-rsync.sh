@@ -22,8 +22,6 @@
 unset CDPATH
 set -e
 
-guestfish=../../fish/guestfish
-
 if [ -n "$SKIP_TEST_RSYNC_SH" ]; then
     echo "$0: test skipped because environment variable is set."
     exit 77
@@ -35,13 +33,13 @@ if ! rsync --help >/dev/null 2>&1; then
     exit 77
 fi
 
-if [ "$($guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because networking is not available in the UML backend"
     exit 77
 fi
 
 # If rsync is not available, bail.
-if ! $guestfish -a /dev/null run : available rsync; then
+if ! guestfish -a /dev/null run : available rsync; then
     echo "$0: skipping test because rsync is not available in the appliance"
     exit 77
 fi
@@ -86,7 +84,7 @@ trap cleanup INT TERM QUIT EXIT
 ip=169.254.2.2
 user="$(id -un)"
 
-$guestfish --network -N test-rsync.img=fs -m /dev/sda1 <<EOF
+guestfish --network -N test-rsync.img=fs -m /dev/sda1 <<EOF
 mkdir /dir1
 rsync-in "rsync://$user@$ip:$port/src/" /dir1/ archive:true
 mkdir /dir2

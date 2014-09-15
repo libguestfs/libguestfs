@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_ON_OPTION_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -51,7 +51,7 @@ d=test-v2v-windows-conversion.d
 rm -rf $d
 mkdir $d
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o local -os $d -on this-is-not-windows
 

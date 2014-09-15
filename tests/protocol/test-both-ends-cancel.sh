@@ -22,7 +22,7 @@
 
 set -e
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
 scratch 100M
 run
 -tar-in /tmp/nosuchfile /blah

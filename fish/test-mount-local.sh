@@ -61,7 +61,7 @@ rm -rf test-mount-local-mp
 
 mkdir test-mount-local-mp
 
-if ! ./guestfish -N test-mount-local.img=fs -m /dev/sda1 2>test-mount-local.errors <<EOF; then
+if ! guestfish -N test-mount-local.img=fs -m /dev/sda1 2>test-mount-local.errors <<EOF; then
 mount-local test-mount-local-mp
 ! $0 --run-test &
 mount-local-run

@@ -29,7 +29,7 @@ fi
 
 rm -f test.out
 
-../../fish/guestfish --ro > test.out <<EOF
+guestfish --ro > test.out <<EOF
 add-drive-ro ../guests/fedora.img
 add-cdrom ../data/test.iso
 add-drive-ro ../guests/debian.img

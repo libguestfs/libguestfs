@@ -29,4 +29,4 @@ fi
 guestsdir="$(cd ../tests/guests && pwd)"
 libvirt_uri="test://$guestsdir/guests.xml"
 
-$VG ./virt-df -c "$libvirt_uri"
+$VG virt-df -c "$libvirt_uri"

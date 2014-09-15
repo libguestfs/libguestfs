@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_O_GLANCE_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -51,7 +51,7 @@ fi
 # glance binary.
 ln -sf "$(which echo)" glance
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o glance -on test
 

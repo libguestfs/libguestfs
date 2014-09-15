@@ -19,7 +19,7 @@
 export LANG=C
 set -e
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
@@ -29,13 +29,13 @@ fi
 # This exercises a number of interesting codepaths including resizing
 # LV content, handling GPT, and using qcow2 as a target.
 
-$VG ../fish/guestfish \
+$VG guestfish \
     -N test-virt-resize-1.img=bootrootlv:/dev/VG/LV:ext2:ext4:400M:32M:gpt </dev/null
 
-$VG ../fish/guestfish \
+$VG guestfish \
     disk-create test-virt-resize-2.img qcow2 500M preallocation:metadata
 
-$VG ./virt-resize -d --debug-gc \
+$VG virt-resize -d --debug-gc \
     --expand /dev/sda2 \
     --lv-expand /dev/VG/LV \
     --format raw --output-format qcow2 \
@@ -45,7 +45,7 @@ $VG ./virt-resize -d --debug-gc \
 # image created above contains no data, we will nevertheless use
 # similar operations to ones that might be used by a real admin.
 
-../fish/guestfish -a test-virt-resize-1.img <<EOF
+guestfish -a test-virt-resize-1.img <<EOF
 run
 resize2fs-size /dev/VG/LV 190M
 lvresize /dev/VG/LV 190
@@ -53,8 +53,8 @@ pvresize-size /dev/sda2 200M
 fsck ext4 /dev/VG/LV
 EOF
 
-rm -f test-virt-resize-2.img; ../fish/guestfish sparse test-virt-resize-2.img 300M
-$VG ./virt-resize -d --debug-gc \
+rm -f test-virt-resize-2.img; guestfish sparse test-virt-resize-2.img 300M
+$VG virt-resize -d --debug-gc \
     --shrink /dev/sda2 \
     --format raw --output-format raw \
     test-virt-resize-1.img test-virt-resize-2.img

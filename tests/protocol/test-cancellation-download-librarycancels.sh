@@ -31,7 +31,7 @@ tmpfile=`mktemp`
 size=$(awk 'BEGIN{ srand(); print int(16*1024*rand()) }')
 echo "$0: test size $size (bytes)"
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
 # We want the file to be fully allocated.
 alloc $tmpfile 10M
 run

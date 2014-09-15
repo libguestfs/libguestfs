@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_VIRT_P2V_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -61,7 +61,7 @@ export PATH=$d:$PATH
 # The Linux kernel command line.
 cmdline="p2v.server=localhost p2v.name=windows p2v.debug p2v.disks=$f p2v.o=local p2v.os=$d p2v.network=em1:wired,other"
 
-./virt-p2v --cmdline="$cmdline"
+virt-p2v --cmdline="$cmdline"
 
 # Test the libvirt XML metadata and a disk was created.
 test -f $d/windows.xml

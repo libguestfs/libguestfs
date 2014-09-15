@@ -33,7 +33,7 @@ for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
         b=$(basename "$f" .xml)
-	$VG ./virt-inspector -a "$f" > "actual-$b.xml"
+	$VG virt-inspector -a "$f" > "actual-$b.xml"
         # This 'diff' command will fail (because of -e option) if there
         # are any differences.
         diff -ur $diff_ignore "expected-$b.xml" "actual-$b.xml"
@@ -42,6 +42,6 @@ done
 
 # We could also test this image, but mdadm is problematic for
 # many users.
-# $VG ./virt-inspector \
+# $VG virt-inspector \
 #   -a ../tests/guests/fedora-md1.img \
 #   -a ../tests/guests/fedora-md2.img

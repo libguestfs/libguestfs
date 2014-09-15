@@ -21,5 +21,5 @@ set -e
 
 # Read out the log files from the image using virt-log.
 for f in ../tests/guests/{fedora,debian,ubuntu}.img; do
-    if [ -s "$f" ]; then $VG ./virt-log -a "$f"; fi
+    if [ -s "$f" ]; then $VG virt-log -a "$f"; fi
 done

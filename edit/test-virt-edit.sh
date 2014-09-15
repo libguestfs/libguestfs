@@ -19,7 +19,7 @@
 export LANG=C
 set -e
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
@@ -28,15 +28,15 @@ rm -f test.qcow2
 
 # Make a copy of the Fedora image so we can write to it then
 # discard it.
-../fish/guestfish -- \
+guestfish -- \
   disk-create test.qcow2 qcow2 -1 \
     backingfile:../tests/guests/fedora.img backingformat:raw
 
 # Edit interactively.  We have to simulate this by setting $EDITOR.
 # The command will be: echo newline >> /tmp/file
 export EDITOR='echo newline >>'
-./virt-edit -a test.qcow2 /etc/test3
-if [ "$(../cat/virt-cat -a test.qcow2 /etc/test3)" != "a
+virt-edit -a test.qcow2 /etc/test3
+if [ "$(virt-cat -a test.qcow2 /etc/test3)" != "a
 b
 c
 d
@@ -50,8 +50,8 @@ unset EDITOR
 
 # Edit non-interactively, only if we have 'perl' binary.
 if perl --version >/dev/null 2>&1; then
-    ./virt-edit -a test.qcow2 /etc/test3 -e 's/^[a-f]/$lineno/'
-    if [ "$(../cat/virt-cat -a test.qcow2 /etc/test3)" != "1
+    virt-edit -a test.qcow2 /etc/test3 -e 's/^[a-f]/$lineno/'
+    if [ "$(virt-cat -a test.qcow2 /etc/test3)" != "1
 2
 3
 4
@@ -65,7 +65,7 @@ fi
 
 # Verify the mode of /etc/test3 is still 0600 and the UID:GID is 10:11.
 # See tests/guests/guest-aux/make-fedora-img.pl and RHBZ#788641.
-if [ "$(../fish/guestfish -i -a test.qcow2 --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
+if [ "$(guestfish -i -a test.qcow2 --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
 mode: 33152
 uid: 10" ]; then
     echo "$0: error: editing /etc/test3 did not preserve permissions or ownership"

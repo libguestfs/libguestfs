@@ -22,7 +22,7 @@ set -e
 
 rm -f test.out
 
-$VG ./guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' | grep -v 'library command' | grep -v 'get_path' > test.out
+$VG guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' | grep -v 'library command' | grep -v 'get_path' > test.out
 trace true
 
 event ev1 * "echo $EVENT $@"

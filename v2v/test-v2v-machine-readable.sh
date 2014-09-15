@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_MACHINE_READABLE_SH" ]; then
     exit 77
 fi
 
-$VG ./virt-v2v --debug-gc --machine-readable > test-v2v-machine-readable.out
+$VG virt-v2v --debug-gc --machine-readable > test-v2v-machine-readable.out
 grep virt-v2v test-v2v-machine-readable.out
 grep libguestfs-rewrite test-v2v-machine-readable.out
 

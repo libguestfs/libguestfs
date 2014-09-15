@@ -26,7 +26,7 @@ for f in ../tests/guests/{debian,fedora,ubuntu}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
         # Add --no-network so UML works.
-	$VG ./virt-customize -n -a $f \
+	$VG virt-customize -n -a $f \
             --no-network \
             --write /etc/motd:HELLO \
             --chmod 0600:/etc/motd \

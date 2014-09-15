@@ -22,7 +22,7 @@ set -e
 
 rm -f test.output test.error test.error.old
 
-$VG ./guestfish <<'EOF' 2>test.error | od -b > test.output
+$VG guestfish <<'EOF' 2>test.error | od -b > test.output
 echo ""
 echo " "
 echo "  "

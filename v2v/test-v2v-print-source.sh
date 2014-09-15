@@ -40,7 +40,7 @@ d=test-v2v-print-source.d
 rm -rf $d
 mkdir $d
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o local -os $d \
     --print-source > $d/output

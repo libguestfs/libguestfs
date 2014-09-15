@@ -26,7 +26,7 @@
 set -e
 export LANG=C
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
 
 add-ro /dev/null
 run

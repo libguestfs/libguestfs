@@ -38,7 +38,7 @@ if [[ "$arch" =~ ^ppc ]]; then
     exit 77
 fi
 
-backend="$(../../fish/guestfish get-backend)"
+backend="$(guestfish get-backend)"
 if [[ "$backend" =~ ^libvirt ]]; then
     echo "$0: test skipped because backend ($backend) is 'libvirt'."
     exit 77
@@ -51,9 +51,9 @@ fi
 
 rm -f rhbz690819.img
 
-../../fish/guestfish sparse rhbz690819.img 100M
+guestfish sparse rhbz690819.img 100M
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
 add-drive-with-if rhbz690819.img ide
 run
 mkfs ext3 /dev/sda

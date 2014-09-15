@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_I_OVA_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -68,7 +68,7 @@ tar -cf $ova $ovf $mf $vmdk
 rm -rf $ovf $mf $vmdk
 popd
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i ova $d/$ova \
     -o local -of raw -os $d
 

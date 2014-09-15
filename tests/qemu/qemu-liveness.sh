@@ -24,10 +24,10 @@ set -e
 
 rm -f liveness1.img
 
-../../fish/guestfish sparse liveness1.img 100M
+guestfish sparse liveness1.img 100M
 liveness1_md5sum="$(md5sum liveness1.img | awk '{print $1}')"
 
-../../fish/guestfish <<'EOF'
+guestfish <<'EOF'
 add liveness1.img format:raw
 run
 

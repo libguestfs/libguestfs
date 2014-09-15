@@ -22,11 +22,9 @@
 set -e
 export LANG=C
 
-guestfish=../../fish/guestfish
-
 rm -f test.output
 
-$guestfish > test.output <<EOF
+guestfish > test.output <<EOF
 scratch 100M
 run
 part-init /dev/sda mbr
@@ -48,7 +46,7 @@ false" ]; then
     exit 1
 fi
 
-$guestfish > test.output <<EOF
+guestfish > test.output <<EOF
 scratch 100M
 run
 part-init /dev/sda mbr

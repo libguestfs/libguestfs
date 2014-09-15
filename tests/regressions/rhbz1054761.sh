@@ -30,14 +30,14 @@ fi
 
 rm -f rhbz1054761-[ab].img
 
-../../fish/guestfish -N rhbz1054761-a.img=disk -N rhbz1054761-b.img=disk <<EOF
+guestfish -N rhbz1054761-a.img=disk -N rhbz1054761-b.img=disk <<EOF
 pvcreate /dev/sda
 pvcreate /dev/sdb
 vgcreate VG "/dev/sda /dev/sdb"
 EOF
 
 output="$(
-    ../../fish/guestfish -a rhbz1054761-a.img run : pvs |
+    guestfish -a rhbz1054761-a.img run : pvs |
         sed -r 's,^/dev/[abce-ln-z]+d,/dev/sd,'
 )"
 if [ "$output" != "/dev/sda" ]; then

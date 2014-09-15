@@ -24,7 +24,7 @@ if [ -n "$SKIP_TEST_VIRT_SPARSIFY_IN_PLACE_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support discard"
     exit 77
 fi
@@ -34,7 +34,7 @@ rm -f test-virt-sparsify-in-place.img
 # Create a filesystem, fill it with data, then delete the data.  Then
 # prove that sparsifying it reduces the size of the final filesystem.
 
-$VG ../fish/guestfish \
+$VG guestfish \
     -N test-virt-sparsify-in-place.img=bootrootlv:/dev/VG/LV:ext4:ext4:400M:32M:gpt <<EOF
 mount /dev/VG/LV /
 mkdir /boot
@@ -49,7 +49,7 @@ EOF
 
 size_before=$(du -s test-virt-sparsify-in-place.img | awk '{print $1}')
 
-$VG ./virt-sparsify --debug-gc --in-place test-virt-sparsify-in-place.img || {
+$VG virt-sparsify --debug-gc --in-place test-virt-sparsify-in-place.img || {
     if [ "$?" -eq 3 ]; then
         rm test-virt-sparsify-in-place.img
         echo "$0: discard not supported in virt-sparsify"

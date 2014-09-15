@@ -25,7 +25,7 @@ export LANG=C
 
 rm -f rhbz895904.img rhbz895904.out
 
-../../fish/guestfish -N rhbz895904.img=fs -m /dev/sda1 <<EOF | sort -k 3 > rhbz895904.out
+guestfish -N rhbz895904.img=fs -m /dev/sda1 <<EOF | sort -k 3 > rhbz895904.out
 mkdir /test
 touch /test/file1
 mkdir /test/subdir

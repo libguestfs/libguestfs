@@ -27,7 +27,7 @@ fi
 
 rm -f test-lvm-filtering-1.img test-lvm-filtering-2.img
 
-actual=$(../../fish/guestfish <<'EOF'
+actual=$(guestfish <<'EOF'
 sparse test-lvm-filtering-1.img 1G
 sparse test-lvm-filtering-2.img 1G
 

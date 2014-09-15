@@ -20,20 +20,20 @@
 
 set -e
 
-eval "$(./guestfish --listen)"
+eval "$(guestfish --listen)"
 
-$VG ./guestfish --remote event close_event close "echo closed"
+$VG guestfish --remote event close_event close "echo closed"
 
-output="$($VG ./guestfish --remote list-events)"
+output="$($VG guestfish --remote list-events)"
 if [ "$output" != '"close_event" (0): close: echo closed' ]; then
     echo "$0: list-events failed:"
     echo "$output"
-    ./guestfish --remote exit
+    guestfish --remote exit
     exit 1
 fi
 
 # Test close event (RHBZ#802389).
-output="$($VG ./guestfish --remote quit)"
+output="$($VG guestfish --remote quit)"
 
 if [ "$output" != "closed" ]; then
     echo "$0: close event failed:"

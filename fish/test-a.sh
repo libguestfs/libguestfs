@@ -23,28 +23,28 @@ set -e
 rm -f test-a.out
 rm -f test-a.img
 
-$VG ./guestfish sparse test-a.img 100M
+$VG guestfish sparse test-a.img 100M
 
-$VG ./guestfish -x -a test-a.img </dev/null >test-a.out 2>&1
+$VG guestfish -x -a test-a.img </dev/null >test-a.out 2>&1
 
 ! grep -sq 'add_drive.*format' test-a.out
 
 rm test-a.img
-$VG ./guestfish disk-create test-a.img qcow2 100M
+$VG guestfish disk-create test-a.img qcow2 100M
 
-$VG ./guestfish -x --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
+$VG guestfish -x --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
 
 grep -sq 'add_drive.*format:qcow2' test-a.out
 
-$VG ./guestfish -x --ro --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
+$VG guestfish -x --ro --format=qcow2 -a test-a.img </dev/null >test-a.out 2>&1
 
 grep -sq 'add_drive.*readonly:true.*format:qcow2' test-a.out
 
-$VG ./guestfish -x --format -a test-a.img </dev/null >test-a.out 2>&1
+$VG guestfish -x --format -a test-a.img </dev/null >test-a.out 2>&1
 
 ! grep -sq 'add_drive.*format' test-a.out
 
-$VG ./guestfish -x -a test-a.img --format=raw -a /dev/null </dev/null >test-a.out 2>&1
+$VG guestfish -x -a test-a.img --format=raw -a /dev/null </dev/null >test-a.out 2>&1
 
 ! grep -sq 'add_drive.*test-a.img.*format' test-a.out
 

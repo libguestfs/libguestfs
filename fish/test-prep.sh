@@ -22,7 +22,7 @@ rm -f prep*.img
 
 # It would be nice if we could keep this automatically in sync
 # with the prepared disk types.  XXX
-$VG ./guestfish \
+$VG guestfish \
     -N prep1.img=disk \
     -N prep2.img=part \
     -N prep3.img=fs \

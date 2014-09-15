@@ -46,14 +46,11 @@ nr_stages=$(grep "^stage " $0 | wc -l)
 # and move to that directory for the initial phase of the script.
 top_builddir=$(cd "$top_builddir" > /dev/null; pwd)
 
-# Paths to the other programs and files.  NB: Must be absolute paths.
-guestfish="$top_builddir/fish/guestfish"
-guestmount="$top_builddir/fuse/guestmount"
-guestunmount="$top_builddir/fuse/guestunmount"
+# Paths to the other files.  NB: Must be absolute paths.
 image="$top_builddir/fuse/test-fuse.img"
 mp="$top_builddir/fuse/test-fuse-mp"
 
-if [ ! -x "$guestfish" -o ! -x "$guestmount" -o ! -x "$guestunmount" ]
+if ! guestfish --help >/dev/null 2>&1 || ! guestmount --help >/dev/null 2>&1 || ! guestunmount --help >/dev/null 2>&1
 then
     echo "$0: error: guestfish, guestmount or guestunmount are not available"
     exit 1
@@ -82,7 +79,7 @@ function cleanup ()
     if [ -x /sbin/fuser ]; then /sbin/fuser "$mp"; fi
 
     if [ -n "$mounted" ]; then
-        $guestunmount "$mp"
+        guestunmount "$mp"
     fi
 
     rm -f "$image"
@@ -99,7 +96,7 @@ function stage ()
 }
 
 stage Create filesystem with some initial content
-$guestfish <<EOF
+guestfish <<EOF
   sparse "$image" 10M
   run
   part-disk /dev/sda mbr
@@ -116,7 +113,7 @@ $guestfish <<EOF
 EOF
 
 stage Mounting the filesystem
-$guestmount \
+guestmount \
     -a "$image" -m /dev/sda1:/:acl,user_xattr \
     -o uid="$(id -u)" -o gid="$(id -g)" "$mp"
 # To debug guestmount, add this to the end of the preceding command:

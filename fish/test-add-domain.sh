@@ -25,10 +25,10 @@ rm -f test-add-domain.xml test-add-domain.out
 
 cwd="$(pwd)"
 
-$VG ./guestfish sparse test-add-domain-1.img 1M
-$VG ./guestfish sparse test-add-domain-2.img 1M
-$VG ./guestfish disk-create test-add-domain-3.img qcow2 1M
-$VG ./guestfish sparse test-add-domain-4.img 1M
+$VG guestfish sparse test-add-domain-1.img 1M
+$VG guestfish sparse test-add-domain-2.img 1M
+$VG guestfish disk-create test-add-domain-3.img qcow2 1M
+$VG guestfish sparse test-add-domain-4.img 1M
 
 # Libvirt test XML, see libvirt.git/examples/xml/test/testnode.xml
 cat > test-add-domain.xml <<EOF
@@ -66,7 +66,7 @@ cat > test-add-domain.xml <<EOF
 </node>
 EOF
 
-$VG ./guestfish >test-add-domain.out <<EOF
+$VG guestfish >test-add-domain.out <<EOF
   domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true
   debug-drives
 EOF
@@ -76,7 +76,7 @@ grep -sq "test-add-domain-2.img readonly format=raw" test-add-domain.out
 grep -sq "test-add-domain-3.img readonly format=qcow2" test-add-domain.out
 
 # Test readonlydisk = "ignore".
-$VG ./guestfish >test-add-domain.out <<EOF
+$VG guestfish >test-add-domain.out <<EOF
   -domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true readonlydisk:ignore
   debug-drives
 EOF
@@ -88,7 +88,7 @@ grep -sq "test-add-domain-3.img" test-add-domain.out
 # Test atomicity.
 rm test-add-domain-3.img
 
-$VG ./guestfish >test-add-domain.out <<EOF
+$VG guestfish >test-add-domain.out <<EOF
   -domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true
   debug-drives
 EOF

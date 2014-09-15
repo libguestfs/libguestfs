@@ -28,7 +28,7 @@ fi
 
 rm -f virt-rescue-suggest.out
 
-$VG ./virt-rescue --suggest "$guest" |
+$VG virt-rescue --suggest "$guest" |
   grep '^mount ' |
   sed -r 's,/dev/[abce-ln-z]+d,/dev/sd,' > virt-rescue-suggest.out
 

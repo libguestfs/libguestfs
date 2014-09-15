@@ -26,7 +26,7 @@ fi
 guestsdir="$(cd ../tests/guests && pwd)"
 libvirt_uri="test://$guestsdir/guests-all-good.xml"
 
-$VG ./virt-alignment-scan -c "$libvirt_uri"
+$VG virt-alignment-scan -c "$libvirt_uri"
 r=$?
 
 # 0, 2 and 3 are reasonable non-error exit codes.  Others are errors.

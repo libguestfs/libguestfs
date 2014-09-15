@@ -22,7 +22,7 @@
 
 set -e
 
-../../fish/guestfish \
+guestfish \
     -N test-cancellation-upload-daemoncancels.img=fs:ext2:10M \
     -m /dev/sda1 <<'EOF'
 # Upload image, daemon should cancel because the image is too large

@@ -35,11 +35,11 @@ fi
 # so we fake that now.
 
 rm -f passwords.qcow2 password
-../fish/guestfish -- \
+guestfish -- \
     disk-create passwords.qcow2 qcow2 -1 \
       backingfile:../tests/guests/fedora.img backingformat:raw
 
-../fish/guestfish -a passwords.qcow2 -i <<'EOF'
+guestfish -a passwords.qcow2 -i <<'EOF'
 write-append /etc/shadow "test01::15677:0:99999:7:::\n"
 write-append /etc/shadow "test02::15677:0:99999:7:::\n"
 write-append /etc/shadow "test03::15677:0:99999:7:::\n"
@@ -57,7 +57,7 @@ echo 123456 > password
 
 # Run virt-sysprep password operation.
 
-./virt-sysprep \
+virt-sysprep \
     -a passwords.qcow2 \
     --enable customize \
     --password test01:password:123456 \

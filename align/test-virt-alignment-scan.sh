@@ -18,7 +18,7 @@
 
 export LANG=C
 
-$VG ./virt-alignment-scan -a ../tests/guests/fedora.img
+$VG virt-alignment-scan -a ../tests/guests/fedora.img
 r=$?
 
 # 0, 2 and 3 are reasonable non-error exit codes.  Others are errors.

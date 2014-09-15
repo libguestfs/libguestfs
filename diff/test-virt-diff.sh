@@ -24,7 +24,7 @@ if [ ! -f ../tests/guests/fedora.img ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because backend is UML"
     exit 77
 fi
@@ -32,16 +32,16 @@ fi
 rm -f fedora.qcow2
 
 # Modify a copy of the image.
-../fish/guestfish -- \
+guestfish -- \
   disk-create fedora.qcow2 qcow2 -1 \
     backingfile:../tests/guests/fedora.img backingformat:raw
 
-../fish/guestfish -a fedora.qcow2 -i <<EOF
+guestfish -a fedora.qcow2 -i <<EOF
 touch /diff
 write-append /etc/motd "Testing virt-diff\n"
 EOF
 
-output="$($VG ./virt-diff -a ../tests/guests/fedora.img -A fedora.qcow2)"
+output="$($VG virt-diff -a ../tests/guests/fedora.img -A fedora.qcow2)"
 
 expected="\
 + - 0644          0 /diff

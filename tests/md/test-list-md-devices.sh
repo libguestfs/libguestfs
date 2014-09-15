@@ -26,7 +26,7 @@ if [ -n "$SKIP_TEST_LIST_MD_DEVICES_SH" ]; then
 fi
 
 output=$(
-../../fish/guestfish <<EOF
+guestfish <<EOF
 # Add 2 empty disks
 sparse list-md-devices-1.img 100M
 sparse list-md-devices-2.img 100M
@@ -49,7 +49,7 @@ fi
 
 # Ensure list-md-devices now returns the newly created md device
 output=$(
-../../fish/guestfish -a list-md-devices-1.img -a list-md-devices-2.img <<EOF
+guestfish -a list-md-devices-1.img -a list-md-devices-2.img <<EOF
 run
 list-md-devices
 EOF

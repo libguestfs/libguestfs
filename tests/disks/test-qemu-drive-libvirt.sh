@@ -41,8 +41,7 @@ if ! ../../src/libvirt-is-version 1 1 3; then
     exit 77
 fi
 
-guestfish="\
-  ../../fish/guestfish -c test://$abs_builddir/test-qemu-drive-libvirt.xml"
+guestfish="guestfish -c test://$abs_builddir/test-qemu-drive-libvirt.xml"
 
 export LIBGUESTFS_BACKEND=direct
 export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"

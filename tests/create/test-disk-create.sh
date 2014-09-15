@@ -25,7 +25,7 @@ rm -f disk*.img file:*.img
 
 # XXX We should also test failure paths.
 
-../../fish/guestfish <<EOF
+guestfish <<EOF
   disk-create disk1.img  raw   256K
   disk-create disk2.img  raw   256K preallocation:sparse
   disk-create disk3.img  raw   256K preallocation:full
@@ -45,7 +45,7 @@ rm -f disk*.img file:*.img
   disk-create disk,,0.img qcow2 256K
 EOF
 
-output="$(../../fish/guestfish <<EOF
+output="$(guestfish <<EOF
   disk-format disk1.img
   disk-format disk2.img
   disk-format disk3.img

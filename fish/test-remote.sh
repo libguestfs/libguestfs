@@ -22,24 +22,24 @@ set -e
 
 rm -f test-remote.img
 
-eval `./guestfish --listen`
+eval `guestfish --listen`
 
-$VG ./guestfish --remote alloc test-remote.img 10M
-$VG ./guestfish --remote run
-$VG ./guestfish --remote part-disk /dev/sda mbr
-$VG ./guestfish --remote mkfs ext2 /dev/sda1
-$VG ./guestfish --remote mount /dev/sda1 /
+$VG guestfish --remote alloc test-remote.img 10M
+$VG guestfish --remote run
+$VG guestfish --remote part-disk /dev/sda mbr
+$VG guestfish --remote mkfs ext2 /dev/sda1
+$VG guestfish --remote mount /dev/sda1 /
 
 # Failure of the above commands will cause the guestfish listener to exit.
 # Incorrect return from echo_daemon will not, so need to ensure the listener
 # exits in any case, while still reporting an error.
 error=0
-echo=$($VG ./guestfish --remote echo_daemon "This is a test")
+echo=$($VG guestfish --remote echo_daemon "This is a test")
 if [ "$echo" != "This is a test" ]; then
     error=1;
 fi
 
-$VG ./guestfish --remote exit
+$VG guestfish --remote exit
 
 rm test-remote.img
 

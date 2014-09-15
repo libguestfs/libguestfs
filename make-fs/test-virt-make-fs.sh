@@ -40,7 +40,7 @@ if [ -n "$SKIP_TEST_VIRT_MAKE_FS_BTRFS" ]; then
 fi
 
 # UML backend doesn't support qcow2.
-if [ "$(../fish/guestfish get-backend)" != "uml" ]; then
+if [ "$(guestfish get-backend)" != "uml" ]; then
     qcow2_supported=yes
 fi
 
@@ -94,6 +94,6 @@ dd if=/dev/zero of=test.file bs=1024 count=$tarsize
 tar -c -f test.tar test.file
 rm test.file
 
-$VG ./virt-make-fs $params -- test.tar output.img
+$VG virt-make-fs $params -- test.tar output.img
 
 rm test.tar output.img

@@ -22,7 +22,7 @@ set -e
 
 rm -f test-stringlist.img
 
-eval `./guestfish --listen`
+eval `guestfish --listen`
 
 error=0
 
@@ -32,15 +32,15 @@ function check_echo {
 
     local echo
 
-    echo=$($VG ./guestfish --remote echo_daemon "$test")
+    echo=$($VG guestfish --remote echo_daemon "$test")
     if [ "$echo" != "$expected" ]; then
         echo "Expected \"$expected\", got \"$echo\""
         error=1
     fi
 }
 
-$VG ./guestfish --remote alloc test-stringlist.img 10M
-$VG ./guestfish --remote run
+$VG guestfish --remote alloc test-stringlist.img 10M
+$VG guestfish --remote run
 
 check_echo "' '"            " "
 check_echo "\'"             "'"
@@ -53,7 +53,7 @@ check_echo "'foo' 'bar'"    "foo bar"
 check_echo "'foo' "         "foo"
 check_echo " 'foo'"         "foo"
 
-$VG ./guestfish --remote exit
+$VG guestfish --remote exit
 
 rm test-stringlist.img
 

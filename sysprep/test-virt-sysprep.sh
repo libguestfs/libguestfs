@@ -21,7 +21,7 @@ set -e
 
 # Get a comma-separated list of the enabled-by-default operations.
 operations=$(
-  ./virt-sysprep --list-operations |
+  virt-sysprep --list-operations |
     fgrep '*' |
     awk '{printf ("%s,",$1)}' |
     sed 's/,$//'
@@ -36,13 +36,13 @@ for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
 	echo "Running virt-sysprep on $f ..."
-	$VG ./virt-sysprep -q -n --enable "$operations" -a $f
+	$VG virt-sysprep -q -n --enable "$operations" -a $f
 	echo
     fi
 done
 
 # We could also test this image, but mdadm is problematic for
 # many users.
-# $VG ./virt-sysprep -q -n \
+# $VG virt-sysprep -q -n \
 #   -a ../tests/guests/fedora-md1.img \
 #   -a ../tests/guests/fedora-md2.img

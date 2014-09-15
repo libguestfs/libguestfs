@@ -38,7 +38,7 @@ if [ ! -f ../tests/guests/fedora.img ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because uml backend does not support qcow2"
     exit 77
 fi
@@ -47,7 +47,7 @@ rm -f test.qcow2 test-copy.qcow2 test.pid
 rm -rf mp
 
 # Make a copy of the Fedora image so we can write to it then discard it.
-../fish/guestfish -- \
+guestfish -- \
     disk-create test.qcow2 qcow2 -1 \
       backingfile:../tests/guests/fedora.img backingformat:raw
 
@@ -77,7 +77,7 @@ fi
 # It should now be safe to copy and read the disk image.
 cp test.qcow2 test-copy.qcow2
 
-if [ "$(../fish/guestfish -a test-copy.qcow2 --ro -i is-file /test-umount)" != "true" ]; then
+if [ "$(guestfish -a test-copy.qcow2 --ro -i is-file /test-umount)" != "true" ]; then
     echo "$0: test failed"
     exit 1
 fi

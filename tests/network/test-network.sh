@@ -28,10 +28,10 @@ if [ -n "$SKIP_TEST_RHBZ690819_SH" ]; then
     exit 77
 fi
 
-backend="$(../../fish/guestfish get-backend)"
+backend="$(guestfish get-backend)"
 if [[ "$backend" =~ ^uml ]]; then
     echo "$0: test skipped because backend ($backend) is 'uml'."
     exit 77
 fi
 
-../../fish/guestfish --network -a /dev/null run
+guestfish --network -a /dev/null run

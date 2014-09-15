@@ -37,7 +37,7 @@ rm -f list-fs.output
 # md127 : 20M ext4
 # vg0 : 16M LV (lv0)
 # lv0 : 16M vfat
-../../fish/guestfish <<EOF | sed -r s,/dev/[abce-ln-z]+d,/dev/sd,g > list-fs.output
+guestfish <<EOF | sed -r s,/dev/[abce-ln-z]+d,/dev/sd,g > list-fs.output
 # Add 2 empty disks
 scratch 50M
 scratch 50M

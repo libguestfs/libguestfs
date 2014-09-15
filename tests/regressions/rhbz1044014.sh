@@ -28,7 +28,7 @@ if [ -n "$SKIP_TEST_RHBZ1044014_SH" ]; then
 fi
 
 # Check we are running against the libvirt backend.
-backend="$(../../fish/guestfish get-backend)"
+backend="$(guestfish get-backend)"
 if [[ ! ( "$backend" =~ ^libvirt ) ]]; then
     echo "$0: test skipped because backend ($backend) is not libvirt."
     exit 77
@@ -49,7 +49,7 @@ export LIBGUESTFS_BACKEND="libvirt:test://$(pwd)/$srcdir/rhbz1044014.xml"
 
 rm -f rhbz1044014.out
 
-../../fish/guestfish -- -run < $srcdir/rhbz1044014.in > rhbz1044014.out 2>&1 || {
+guestfish -- -run < $srcdir/rhbz1044014.in > rhbz1044014.out 2>&1 || {
     r=$?
     if [ $r -ne 0 ]; then
         cat rhbz1044014.out

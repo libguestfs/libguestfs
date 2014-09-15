@@ -27,14 +27,14 @@
 export LANG=C
 set -e
 
-if [ ! -x builder/virt-builder ]; then
+if ! virt-builder --help >/dev/null 2>&1 || [ ! -f builder/virt-builder.pod ]; then
     echo "$0: running the test from the wrong directory, or libguestfs has not been built"
     exit 1
 fi
 
 if [ $# -lt 1 ]; then
     echo "$0: missing os-version"
-    echo "try: ./run builder/virt-builder -l"
+    echo "try: ./run virt-builder -l"
     exit 1
 fi
 
@@ -42,7 +42,7 @@ osversion="$1"
 shift
 output="$osversion.img"
 
-builder/virt-builder "$osversion" \
+virt-builder "$osversion" \
     --no-cache -v \
     --size 10G \
     --root-password password:123456 \

@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_O_LIBVIRT_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network"
     exit 77
 fi
@@ -66,7 +66,7 @@ mkdir $d
 virsh pool-destroy test-v2v-libvirt ||:
 virsh pool-create-as test-v2v-libvirt dir - - - - $(pwd)/$d
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o libvirt -os test-v2v-libvirt -on $guestname
 

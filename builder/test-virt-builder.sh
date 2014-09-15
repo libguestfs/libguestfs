@@ -37,7 +37,7 @@ fi
 output=phony-fedora.img
 
 format=qcow2
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     format=raw
 
     # XXX We specifically want virt-builder to work with the UML
@@ -55,7 +55,7 @@ rm -f $output
 # Note we cannot test --install, --run since the phony Fedora doesn't
 # have a real OS inside just some configuration files.  Just about
 # every other option is fair game.
-$VG ./virt-builder phony-fedora \
+$VG virt-builder phony-fedora \
     -v --no-cache --no-check-signature $no_network \
     -o $output --size 2G --format $format \
     --arch x86_64 \
@@ -74,7 +74,7 @@ $VG ./virt-builder phony-fedora \
     --firstboot-install "minicom,inkscape"
 
 # Check that some modifications were made.
-$VG ../fish/guestfish --ro -i -a $output > test.out <<EOF
+$VG guestfish --ro -i -a $output > test.out <<EOF
 # Uploaded files
 is-file /etc/foo/bar/baz/Makefile
 cat /etc/foo/bar/baz/foo

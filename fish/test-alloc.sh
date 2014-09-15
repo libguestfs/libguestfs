@@ -22,7 +22,7 @@ set -e
 
 rm -f test-alloc.img
 
-$VG ./guestfish alloc test-alloc.img 200000
+$VG guestfish alloc test-alloc.img 200000
 if [ "$(stat -c '%s' test-alloc.img)" -ne 200000 ]; then
     echo "$0: alloc command failed to create file of the correct size"
     exit 1
@@ -33,7 +33,7 @@ if [ "$(stat -c '%b' test-alloc.img)" -eq 0 ]; then
     exit 1
 fi
 
-$VG ./guestfish sparse test-alloc.img 100000
+$VG guestfish sparse test-alloc.img 100000
 if [ "$(stat -c '%s' test-alloc.img)" -ne 100000 ]; then
     echo "$0: sparse command failed to create file of the correct size"
     exit 1

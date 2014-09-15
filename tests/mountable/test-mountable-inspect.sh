@@ -19,7 +19,6 @@
 set -e
 export LANG=C
 
-guestfish=../../fish/guestfish
 canonical="sed s,/dev/vd,/dev/sd,g"
 
 # Allow the test to be skipped since btrfs is often broken.
@@ -28,13 +27,13 @@ if [ -n "$SKIP_TEST_MOUNTABLE_INSPECT_SH" ]; then
     exit 77
 fi
 
-if [ "$($guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
 
 # Bail if btrfs is not available.
-if ! $guestfish -a /dev/null run : available btrfs; then
+if ! guestfish -a /dev/null run : available btrfs; then
     echo "$0: skipping test because btrfs is not available"
     exit 77
 fi
@@ -43,13 +42,13 @@ rm -f root.tmp test.qcow2 test.output
 
 # Start with the regular (good) fedora image, modify /etc/fstab
 # and then inspect it.
-$guestfish -- \
+guestfish -- \
   disk-create test.qcow2 qcow2 -1 \
     backingfile:../guests/fedora-btrfs.img backingformat:raw
 
 # Test that basic inspection works and the expected filesystems are
 # found
-$guestfish -a test.qcow2 -i <<'EOF' | sort | $canonical > test.output
+guestfish -a test.qcow2 -i <<'EOF' | sort | $canonical > test.output
   inspect-get-roots | head -1 > root.tmp
   <! echo inspect-get-mountpoints "`cat root.tmp`"
 EOF
@@ -63,7 +62,7 @@ if [ "$(cat test.output)" != "/: btrfsvol:/dev/sda2/root
 fi
 
 # Additional sanity check: did we get the release name right?
-$guestfish -a test.qcow2 -i <<'EOF' > test.output
+guestfish -a test.qcow2 -i <<'EOF' > test.output
   inspect-get-roots | head -1 > root.tmp
   <! echo inspect-get-product-name "`cat root.tmp`"
 EOF

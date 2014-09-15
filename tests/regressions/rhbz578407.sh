@@ -23,21 +23,19 @@
 
 set -e
 
-guestfish=../../fish/guestfish
-
 # Start remote guestfish.
-eval `$guestfish --listen 2>/dev/null`
+eval `guestfish --listen 2>/dev/null`
 
 # This should succeed.
-$guestfish --remote version > /dev/null
+guestfish --remote version > /dev/null
 
 # This command will fail (because appliance not launched), but
 # prefixing with '-' should make remote guestfish ignore the failure.
-$guestfish --remote -- -lvs
+guestfish --remote -- -lvs
 
 # Remote guestfish should still be running.
-$guestfish --remote version > /dev/null
-$guestfish --remote exit
+guestfish --remote version > /dev/null
+guestfish --remote exit
 
 # Try some other command line argument tests which are related the fix.
-$guestfish -- version : -lvs : version > /dev/null 2>&1
+guestfish -- version : -lvs : version > /dev/null 2>&1

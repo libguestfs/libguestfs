@@ -27,7 +27,7 @@ if [ -n "$SKIP_TEST_V2V_OF_OPTION_SH" ]; then
     exit 77
 fi
 
-if [ "$(../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: test skipped because UML backend does not support network or qcow2"
     exit 77
 fi
@@ -51,12 +51,12 @@ d=test-v2v-windows-conversion.d
 rm -rf $d
 mkdir $d
 
-$VG ./virt-v2v --debug-gc \
+$VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o local -os $d -of qcow2
 
 # Test the disk is qcow2 format.
-if [ "$(../fish/guestfish disk-format $d/windows-sda)" != qcow2 ]; then
+if [ "$(guestfish disk-format $d/windows-sda)" != qcow2 ]; then
     echo "$0: test failed: output is not qcow2"
     exit 1
 fi

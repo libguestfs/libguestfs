@@ -25,10 +25,10 @@ rm -f test-d.xml test-d.out
 
 cwd="$(pwd)"
 
-$VG ./guestfish sparse test-d-1.img 1M
-$VG ./guestfish sparse test-d-2.img 1M
-$VG ./guestfish disk-create test-d-3.img qcow2 1M
-$VG ./guestfish sparse test-d-4.img 1M
+$VG guestfish sparse test-d-1.img 1M
+$VG guestfish sparse test-d-2.img 1M
+$VG guestfish disk-create test-d-3.img qcow2 1M
+$VG guestfish sparse test-d-4.img 1M
 
 # Libvirt test XML, see libvirt.git/examples/xml/test/testnode.xml
 cat > test-d.xml <<EOF
@@ -66,7 +66,7 @@ cat > test-d.xml <<EOF
 </node>
 EOF
 
-$VG ./guestfish -c "test://$cwd/test-d.xml" --ro -d guest \
+$VG guestfish -c "test://$cwd/test-d.xml" --ro -d guest \
   debug-drives </dev/null >test-d.out
 grep -sq "test-d-1.img readonly" test-d.out
 ! grep -sq "test-d-1.img.*format" test-d.out

@@ -58,7 +58,7 @@ for file in *.img; do
 </domain>
 EOF
 
-      ./virt-v2v --debug-gc \
+      virt-v2v --debug-gc \
           -i libvirtxml $d/$n-input.xml \
           -o local -os $d
 

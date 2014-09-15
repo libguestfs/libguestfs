@@ -36,11 +36,11 @@ filenames[9]='raw:'
 
 rm -f -- rhbz811649.img "${filenames[@]}"
 
-../../fish/guestfish sparse rhbz811649.img 10M
+guestfish sparse rhbz811649.img 10M
 
 for f in "${filenames[@]}"; do
     ln -- rhbz811649.img "$f"
-    ../../fish/guestfish <<EOF
+    guestfish <<EOF
 add "$f"
 run
 EOF

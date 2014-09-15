@@ -30,7 +30,7 @@ fi
 
 rm -f rhbz1001875.img rhbz1001875-[123].tar
 
-../../fish/guestfish -N rhbz1001875.img=fs -m /dev/sda1 <<EOF
+guestfish -N rhbz1001875.img=fs -m /dev/sda1 <<EOF
 touch /hello
 touch /world
 touch /helloworld

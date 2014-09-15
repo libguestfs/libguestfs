@@ -25,7 +25,7 @@ fi
 
 # UML doesn't support qcow2.  Conceivably there might be a similar
 # problem with UML COW images which would require a separate test.
-if [ "$(../../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
@@ -115,7 +115,7 @@ popd
 # codepaths in most backends, so we should test each separately.
 for ro in readonly:true readonly:false; do
     for prefix in "./" "" "$(pwd)/"; do
-        $VG ../../fish/guestfish <<EOF
+        $VG guestfish <<EOF
             add-drive ${prefix}overlay1            $ro format:qcow2
             add-drive ${prefix}overlay2            $ro format:qcow2
             add-drive ${prefix}overlay3            $ro format:qcow2

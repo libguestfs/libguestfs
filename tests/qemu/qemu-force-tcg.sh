@@ -24,7 +24,7 @@ if [ -n "$SKIP_QEMU_FORCE_TCG_SH" ]; then
 fi
 
 # Only applicable to the direct and libvirt backends:
-if [ "$(../../fish/guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because it is only applicable when qemu is being used."
     exit 77
 fi
@@ -33,7 +33,7 @@ set -e
 
 rm -f qemu-force-tcg.out
 
-../../fish/guestfish -a /dev/null <<EOF
+guestfish -a /dev/null <<EOF
 set-backend-setting force_tcg 1
 run
 debug sh "cat /sys/devices/system/clocksource/clocksource0/current_clocksource" | cat > qemu-force-tcg.out

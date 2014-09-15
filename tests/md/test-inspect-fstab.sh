@@ -22,10 +22,9 @@
 set -e
 export LANG=C
 
-guestfish=../../fish/guestfish
 canonical="sed -r s,/dev/[abce-ln-z]+d,/dev/sd,g"
 
-if [ "$($guestfish get-backend)" = "uml" ]; then
+if [ "$(guestfish get-backend)" = "uml" ]; then
     echo "$0: skipping test because uml backend does not support qcow2"
     exit 77
 fi
@@ -34,7 +33,7 @@ rm -f inspect-fstab-1.qcow2 inspect-fstab.fstab inspect-fstab.output
 
 # Start with the regular (good) fedora image, modify /etc/fstab
 # and then inspect it.
-$guestfish -- \
+guestfish -- \
   disk-create inspect-fstab-1.qcow2 qcow2 -1 \
     backingfile:../guests/fedora.img backingformat:raw
 
@@ -56,14 +55,14 @@ cat <<'EOF' > inspect-fstab.fstab
 /dev/disk/by-id/ata-QEMU_HARDDISK_QM00001-part3 /id3 ext2 default 0 0
 EOF
 
-$guestfish -a inspect-fstab-1.qcow2 <<'EOF'
+guestfish -a inspect-fstab-1.qcow2 <<'EOF'
   run
   mount /dev/VG/Root /
   upload inspect-fstab.fstab /etc/fstab
 EOF
 
 # This will give a warning, but should not fail.
-$guestfish -a inspect-fstab-1.qcow2 -i <<'EOF' | sort | $canonical > inspect-fstab.output
+guestfish -a inspect-fstab-1.qcow2 -i <<'EOF' | sort | $canonical > inspect-fstab.output
   inspect-get-mountpoints /dev/VG/Root
 EOF
 
@@ -88,13 +87,13 @@ cat <<'EOF' > inspect-fstab.fstab
 /dev/xvdg1 /boot ext2 default 0 0
 EOF
 
-$guestfish -a inspect-fstab-1.qcow2 <<'EOF'
+guestfish -a inspect-fstab-1.qcow2 <<'EOF'
   run
   mount /dev/VG/Root /
   upload inspect-fstab.fstab /etc/fstab
 EOF
 
-$guestfish <<'EOF' | $canonical > inspect-fstab.output
+guestfish <<'EOF' | $canonical > inspect-fstab.output
   add inspect-fstab-1.qcow2 readonly:true name:xvdg
   run
   inspect-os
@@ -119,13 +118,13 @@ cat <<'EOF' > inspect-fstab.fstab
 /dev/cciss/c1d3 /var ext2 default 0 0
 EOF
 
-$guestfish -a inspect-fstab-1.qcow2 <<'EOF'
+guestfish -a inspect-fstab-1.qcow2 <<'EOF'
   run
   mount /dev/VG/Root /
   upload inspect-fstab.fstab /etc/fstab
 EOF
 
-$guestfish <<'EOF' | $canonical > inspect-fstab.output
+guestfish <<'EOF' | $canonical > inspect-fstab.output
   add inspect-fstab-1.qcow2 readonly:true name:cciss/c1d3
   run
   inspect-os
