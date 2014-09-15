@@ -339,7 +339,7 @@ the output name is the same as the input name.
 The location of the storage for the converted guest.
 
 For I<-o libvirt>, this is a libvirt directory pool
-(see S<C<virsh pool-list>>).
+(see S<C<virsh pool-list>>) or pool UUID.
 
 For I<-o local>, this is a directory name.  The directory must exist.
 

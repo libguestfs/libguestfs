@@ -30,4 +30,5 @@ val dumpxml : ?conn:string -> string -> string
 
 val pool_dumpxml : ?conn:string -> string -> string
 (** [pool_dumpxml ?conn pool] returns the libvirt XML of pool [pool].
-    The optional [?conn] parameter is the libvirt connection URI. *)
+    The optional [?conn] parameter is the libvirt connection URI.
+    [pool] may be a pool name or UUID. *)

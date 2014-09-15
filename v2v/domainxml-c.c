@@ -209,7 +209,11 @@ v2v_pool_dumpxml (value connv, value poolnamev)
   /* Look up the pool. */
   poolname = String_val (poolnamev);
 
-  pool = virStoragePoolLookupByName (conn, poolname);
+  pool = virStoragePoolLookupByUUIDString (conn, poolname);
+
+  if (!pool)
+    pool = virStoragePoolLookupByName (conn, poolname);
+
   if (!pool) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
