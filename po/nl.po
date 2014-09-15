@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-14 13:57+0100\n"
+"POT-Creation-Date: 2014-09-15 10:59+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -713,7 +713,7 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:187
+#: ../v2v/input_libvirtxml.ml:179
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
@@ -2548,7 +2548,7 @@ msgid ""
 "option to change how virt-v2v handles this."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:183
+#: ../v2v/input_libvirtxml.ml:175
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
@@ -8702,6 +8702,43 @@ msgstr "Binair programma '%s' bestaat niet of is niet uitvoerbaar\n"
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ziet er niet uit als een qemu bron map\n"
+
+#: v2v/domainxml-c.c:107 v2v/domainxml-c.c:197
+#, c-format
+msgid "cannot open libvirt connection '%s'"
+msgstr ""
+
+#: v2v/domainxml-c.c:109 v2v/domainxml-c.c:199
+#, c-format
+msgid "cannot open libvirt connection"
+msgstr ""
+
+#: v2v/domainxml-c.c:130
+#, c-format
+msgid "cannot find libvirt domain '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:143
+#, c-format
+msgid ""
+"libvirt domain '%s' is running, it must be shut down in order to perform "
+"virt-v2v conversion"
+msgstr ""
+
+#: v2v/domainxml-c.c:155
+#, c-format
+msgid "cannot fetch XML description of guest '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:220
+#, c-format
+msgid "cannot find libvirt pool '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:229
+#, c-format
+msgid "cannot fetch XML description of pool '%s': %s"
+msgstr ""
 
 #: tools/virt-list-filesystems:147
 msgid "virt-list-filesystems: no image or VM name given"
