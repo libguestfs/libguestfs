@@ -208,8 +208,8 @@ type fish_output_t =
   | FishOutputHexadecimal (* for int return, print in hex *)
 
 (* See guestfs(3)/EXTENDING LIBGUESTFS. *)
-type tests = (test_init * test_prereq * test * test_cleanup) list
-and test =
+type c_api_tests = (c_api_test_init * c_api_test_prereq * c_api_test * c_api_test_cleanup) list
+and c_api_test =
     (* Run the command sequence and just expect nothing to fail. *)
   | TestRun of seq
 
@@ -241,7 +241,7 @@ and test =
   | TestLastFail of seq
 
 (* Test prerequisites. *)
-and test_prereq =
+and c_api_test_prereq =
     (* Test always runs. *)
   | Always
 
@@ -254,7 +254,7 @@ and test_prereq =
   | IfAvailable of string
 
 (* Some initial scenarios for testing. *)
-and test_init =
+and c_api_test_init =
     (* Do nothing, block devices could contain random stuff including
      * LVM PVs, and some filesystems might be mounted.  This is usually
      * a bad idea.
@@ -309,7 +309,7 @@ and test_init =
   | InitScratchFS
 
 (* Cleanup commands which are run whether the test succeeds or fails. *)
-and test_cleanup = cmd list
+and c_api_test_cleanup = cmd list
 
 (* Sequence of commands for testing. *)
 and seq = cmd list
@@ -328,7 +328,7 @@ type action = {
   name : string;                  (* name, not including "guestfs_" *)
   style : style;                  (* args and return value *)
   proc_nr : int option;           (* proc number, None for non-daemon *)
-  tests : tests;                  (* tests *)
+  tests : c_api_tests;            (* C API tests *)
   test_excuse : string;           (* if there's no tests ... *)
   shortdesc : string;             (* single line description *)
   longdesc : string;              (* longer documentation *)

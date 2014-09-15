@@ -28,8 +28,8 @@ open Optgroups
 open Actions
 open Structs
 
-(* Generate the tests. *)
-let rec generate_tests () =
+(* Generate the C API tests. *)
+let rec generate_c_api_tests () =
   generate_header CStyle GPLv2plus;
 
   pr "\

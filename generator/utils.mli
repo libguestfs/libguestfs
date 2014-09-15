@@ -99,7 +99,7 @@ val name_of_argt : Types.argt -> string
 val name_of_optargt : Types.optargt -> string
 (** Extract optional argument name. *)
 
-val seq_of_test : Types.test -> Types.seq
+val seq_of_test : Types.c_api_test -> Types.seq
 (** Extract test sequence from a test. *)
 
 val c_quote : string -> string
