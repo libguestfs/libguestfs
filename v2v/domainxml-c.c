@@ -25,6 +25,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h>
+#include <libintl.h>
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
@@ -43,30 +44,10 @@
 
 #ifdef HAVE_LIBVIRT
 
-static void raise_error (const char *fs, ...)
-  __attribute__((noreturn))
-  __attribute__((format (printf,1,2)));
-
-/* Note we rely on libvirt printing errors to stderr, so the exception
- * doesn't need to contain the actual error from libvirt.
- */
 static void
-raise_error (const char *fs, ...)
+ignore_errors (void *ignore, virErrorPtr ignore2)
 {
-  va_list args;
-  /* We have to assemble the error on the stack because a dynamic
-   * string couldn't be freed.
-   */
-  char msg[256];
-  int len;
-
-  va_start (args, fs);
-  len = vsnprintf (msg, sizeof msg, fs , args);
-  va_end (args);
-
-  if (len < 0) caml_failwith (fs);
-
-  caml_invalid_argument (msg);
+  /* empty */
 }
 
 /* Get the remote domain state (running, etc.).  Use virDomainGetState
@@ -100,6 +81,11 @@ v2v_dumpxml (value connv, value domnamev)
   CAMLlocal1 (retv);
   const char *conn_uri = NULL;
   const char *domname;
+  /* We have to assemble the error on the stack because a dynamic
+   * string couldn't be freed.
+   */
+  char errmsg[256];
+  virErrorPtr err;
   virConnectPtr conn;
   virDomainPtr dom;
   int is_test_uri = 0;
@@ -117,18 +103,29 @@ v2v_dumpxml (value connv, value domnamev)
   conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault, VIR_CONNECT_RO);
   if (conn == NULL) {
     if (conn_uri)
-      raise_error ("cannot open libvirt connection '%s'", conn_uri);
+      snprintf (errmsg, sizeof errmsg,
+                _("cannot open libvirt connection '%s'"), conn_uri);
     else
-      raise_error ("cannot open libvirt connection");
+      snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
+    caml_invalid_argument (errmsg);
   }
+
+  /* Suppress default behaviour of printing errors to stderr.  Note
+   * you can't set this to NULL to ignore errors; setting it to NULL
+   * restores the default error handler ...
+   */
+  virConnSetErrorFunc (conn, NULL, ignore_errors);
 
   /* Look up the domain. */
   domname = String_val (domnamev);
 
   dom = virDomainLookupByName (conn, domname);
   if (!dom) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot find libvirt domain '%s': %s"), domname, err->message);
     virConnectClose (conn);
-    raise_error ("cannot find libvirt domain '%s'", domname);
+    caml_invalid_argument (errmsg);
   }
 
   /* As a side-effect we check that the domain is shut down.  Of course
@@ -138,18 +135,27 @@ v2v_dumpxml (value connv, value domnamev)
     int state = get_dom_state (dom);
 
     if (state == VIR_DOMAIN_RUNNING) {
+      snprintf (errmsg, sizeof errmsg,
+                _("libvirt domain '%s' is running, it must be shut down in order to perform virt-v2v conversion"),
+                domname);
       virDomainFree (dom);
       virConnectClose (conn);
-      raise_error ("libvirt domain '%s' is running, it must be shut down in order to perform virt-v2v conversion",
-                   domname);
+      caml_invalid_argument (errmsg);
     }
   }
 
   xml = virDomainGetXMLDesc (dom, 0);
+  if (xml == NULL) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot fetch XML description of guest '%s': %s"),
+              domname, err->message);
+    virDomainFree (dom);
+    virConnectClose (conn);
+    caml_invalid_argument (errmsg);
+  }
   virDomainFree (dom);
   virConnectClose (conn);
-  if (xml == NULL)
-    raise_error ("cannot fetch XML description of guest '%s'", domname);
 
   retv = caml_copy_string (xml);
   free (xml);
@@ -164,6 +170,11 @@ v2v_pool_dumpxml (value connv, value poolnamev)
   CAMLlocal1 (retv);
   const char *conn_uri = NULL;
   const char *poolname;
+  /* We have to assemble the error on the stack because a dynamic
+   * string couldn't be freed.
+   */
+  char errmsg[256];
+  virErrorPtr err;
   virConnectPtr conn;
   virStoragePoolPtr pool;
   char *xml;
@@ -178,25 +189,43 @@ v2v_pool_dumpxml (value connv, value poolnamev)
   conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault, VIR_CONNECT_RO);
   if (conn == NULL) {
     if (conn_uri)
-      raise_error ("cannot open libvirt connection '%s'", conn_uri);
+      snprintf (errmsg, sizeof errmsg,
+                _("cannot open libvirt connection '%s'"), conn_uri);
     else
-      raise_error ("cannot open libvirt connection");
+      snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
+    caml_invalid_argument (errmsg);
   }
+
+  /* Suppress default behaviour of printing errors to stderr.  Note
+   * you can't set this to NULL to ignore errors; setting it to NULL
+   * restores the default error handler ...
+   */
+  virConnSetErrorFunc (conn, NULL, ignore_errors);
 
   /* Look up the pool. */
   poolname = String_val (poolnamev);
 
   pool = virStoragePoolLookupByName (conn, poolname);
   if (!pool) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot find libvirt pool '%s': %s"), poolname, err->message);
     virConnectClose (conn);
-    raise_error ("cannot find libvirt pool '%s'", poolname);
+    caml_invalid_argument (errmsg);
   }
 
   xml = virStoragePoolGetXMLDesc (pool, 0);
+  if (xml == NULL) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot fetch XML description of pool '%s': %s"),
+              poolname, err->message);
+    virStoragePoolFree (pool);
+    virConnectClose (conn);
+    caml_invalid_argument (errmsg);
+  }
   virStoragePoolFree (pool);
   virConnectClose (conn);
-  if (xml == NULL)
-    raise_error ("cannot fetch XML description of guest '%s'", poolname);
 
   retv = caml_copy_string (xml);
   free (xml);
