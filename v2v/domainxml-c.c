@@ -138,9 +138,11 @@ v2v_dumpxml (value connv, value domnamev)
   if (!is_test_uri) {
     int state = get_dom_state (dom);
 
-    if (state == VIR_DOMAIN_RUNNING) {
+    if (state == VIR_DOMAIN_RUNNING ||
+        state == VIR_DOMAIN_BLOCKED ||
+        state == VIR_DOMAIN_PAUSED) {
       snprintf (errmsg, sizeof errmsg,
-                _("libvirt domain '%s' is running, it must be shut down in order to perform virt-v2v conversion"),
+                _("libvirt domain '%s' is running or paused.  It must be shut down in order to perform virt-v2v conversion"),
                 domname);
       virDomainFree (dom);
       virConnectClose (conn);
