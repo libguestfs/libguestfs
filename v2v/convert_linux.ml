@@ -1106,6 +1106,20 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           source_dev, target_dev
       ) source.s_disks in
 
+    (* If a Xen guest has non-PV devices, Xen also simultaneously
+     * presents these as xvd devices. i.e. hdX and xvdX both exist and
+     * are the same device.
+     *
+     * This mapping is also useful for P2V conversion of Citrix
+     * Xenserver guests done in HVM mode. Disks are detected as sdX,
+     * although the guest uses xvdX natively.
+     *)
+    let map = map @
+      mapi (
+        fun i disk ->
+          "xvd" ^ drive_name i, block_prefix ^ drive_name i
+      ) source.s_disks in
+
     (* Possible Augeas paths to search for device names. *)
     let paths = [
       (* /etc/fstab *)
