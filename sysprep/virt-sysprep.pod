@@ -194,9 +194,12 @@ shown and all operations were enabled by default.
 
 =item B<--mount-options> mp:opts[;mp:opts;...]
 
-Set the mount options for each mountpoint in the guest.  Use a
-semicolon-separated list of C<mountpoint:options> pairs.  You may need
-to quote this list to protect it from the shell.
+Set the mount options used when libguestfs opens the disk image.  Note
+this has no effect on the guest.  It is used when opening certain
+guests such as ones using the UFS (BSD) filesystem.
+
+Use a semicolon-separated list of C<mountpoint:options> pairs.
+You may need to quote this list to protect it from the shell.
 
 For example:
 
