@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-15 10:59+0100\n"
+"POT-Creation-Date: 2014-09-16 16:41+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1166
+#: ../v2v/convert_linux.ml:1180
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2285,7 +2285,14 @@ msgstr ""
 
 #: ../v2v/v2v.ml:161
 msgid ""
-"disk %s (%s) has no defined format, you have to either define the original "
+"disk %s (%s) has no defined format.\n"
+"\n"
+"The input metadata did not define the disk format (eg. raw/qcow2/etc) of "
+"this disk, and so virt-v2v will try to autodetect the format when reading "
+"it.\n"
+"\n"
+"However because the input format was not defined, we do not know what output "
+"format you want to use.  You have two choices: either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
 "format"
 msgstr ""
@@ -8653,12 +8660,12 @@ msgstr "El binario '%s' no existe o no es un ejecutable\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: no parece un directorio fuente de qemu\n"
 
-#: v2v/domainxml-c.c:107 v2v/domainxml-c.c:197
+#: v2v/domainxml-c.c:107 v2v/domainxml-c.c:199
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
-#: v2v/domainxml-c.c:109 v2v/domainxml-c.c:199
+#: v2v/domainxml-c.c:109 v2v/domainxml-c.c:201
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
@@ -8668,24 +8675,24 @@ msgstr ""
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:143
+#: v2v/domainxml-c.c:145
 #, c-format
 msgid ""
-"libvirt domain '%s' is running, it must be shut down in order to perform "
-"virt-v2v conversion"
+"libvirt domain '%s' is running or paused.  It must be shut down in order to "
+"perform virt-v2v conversion"
 msgstr ""
 
-#: v2v/domainxml-c.c:155
+#: v2v/domainxml-c.c:157
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:220
+#: v2v/domainxml-c.c:222
 #, c-format
 msgid "cannot find libvirt pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:229
+#: v2v/domainxml-c.c:231
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr ""
