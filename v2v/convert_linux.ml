@@ -757,7 +757,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   and grub_set_bootable kernel =
     let cmd =
       if g#exists "/sbin/grubby" then
-        [| "grubby"; "--set-kernel"; kernel.ki_vmlinuz |]
+        [| "grubby"; "--set-default"; kernel.ki_vmlinuz |]
       else
         [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; sprintf "
               InitLibrary();
