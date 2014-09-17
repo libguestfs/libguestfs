@@ -151,6 +151,7 @@ and get_ostype = function
 
 (* Generate the .meta file associated with each volume. *)
 let create_meta_files verbose output_alloc sd_uuid image_uuid targets =
+  (* Note: Upper case in the .meta, mixed case in the OVF. *)
   let output_alloc_for_rhev =
     match output_alloc with
     | `Sparse -> "SPARSE"
@@ -356,10 +357,11 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
         | _ ->
           error (f_"RHEV does not support the output format '%s', only raw or qcow2") t.target_format in
 
+      (* Note: Upper case in the .meta, mixed case in the OVF. *)
       let output_alloc_for_rhev =
         match output_alloc with
-        | `Sparse -> "SPARSE"
-        | `Preallocated -> "PREALLOCATED" in
+        | `Sparse -> "Sparse"
+        | `Preallocated -> "Preallocated" in
 
       (* Add disk to <References/> node. *)
       let disk =
