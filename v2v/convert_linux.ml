@@ -1086,15 +1086,17 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
      * added to the target in the order they appear in the libvirt XML.
      *)
     let block_prefix =
-      match family, inspect.i_major_version with
-      | `RHEL_family, v when v < 5 ->
-        (* RHEL < 5 used old ide driver *) "hd"
-      | `RHEL_family, 5 ->
-        (* RHEL 5 uses libata, but udev still uses: *) "hd"
-      | `SUSE_family, _ ->
-        (* SUSE uses libata, but still presents IDE disks as: *) "hd"
-      | _, _ ->
-        (* All modern distros use libata: *) "sd" in
+      if virtio then "vd"
+      else
+        match family, inspect.i_major_version with
+        | `RHEL_family, v when v < 5 ->
+          (* RHEL < 5 used old ide driver *) "hd"
+        | `RHEL_family, 5 ->
+          (* RHEL 5 uses libata, but udev still uses: *) "hd"
+        | `SUSE_family, _ ->
+          (* SUSE uses libata, but still presents IDE disks as: *) "hd"
+        | _, _ ->
+          (* All modern distros use libata: *) "sd" in
     let map =
       mapi (
         fun i disk ->
