@@ -34,8 +34,9 @@ let op = {
     enabled_by_default = false;
     heading = s_"Flag the system for reconfiguration";
     pod_description = Some (s_"\
-Note that this may require user intervention when the
-guest is booted.");
+For Linux guests, this touches C</.unconfigured>, which causes
+the first boot to interactively query the user for settings such
+as the root password and timezone.");
     perform_on_filesystems = Some flag_reconfiguration;
 }
 
