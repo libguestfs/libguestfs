@@ -291,9 +291,12 @@ Windows guest support.
 
 =item Debian and Ubuntu
 
-After installing libguestfs you need to do:
+For libguestfs E<lt> 1.26, after installing libguestfs you need to do:
 
  sudo update-guestfs-appliance
+
+(This script has been removed on Debian/Ubuntu with libguestfs E<ge> 1.26
+and instead the appliance is built on demand.)
 
 On Ubuntu only:
 
