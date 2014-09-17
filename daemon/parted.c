@@ -954,7 +954,7 @@ do_part_get_name (const char *device, int partnum)
       return name;
     }
   } else {
-    reply_with_error ("parted does not support the machine output (-m)");
+    reply_with_error ("part-get-name can only be used on GUID Partition Tables");
     return NULL;
   }
 
