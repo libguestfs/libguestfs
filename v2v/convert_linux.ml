@@ -749,10 +749,10 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     if best_kernel <> List.hd grub_kernels then
       grub_set_bootable best_kernel;
 
-    rebuild_initrd best_kernel;
-
     (* Does the best/bootable kernel support virtio? *)
-    best_kernel.ki_supports_virtio
+    let virtio = best_kernel.ki_supports_virtio in
+
+    best_kernel, virtio
 
   and grub_set_bootable kernel =
     let cmd =
@@ -1234,7 +1234,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   unconfigure_efi ();
   unconfigure_kudzu ();
 
-  let virtio = configure_kernel () in
+  let kernel, virtio = configure_kernel () in
 
   if keep_serial_console then (
     configure_console ();
@@ -1255,6 +1255,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   *)
 
   remap_block_devices virtio;
+  rebuild_initrd kernel;
 
   let guestcaps = {
     gcaps_block_bus = if virtio then Virtio_blk else IDE;
