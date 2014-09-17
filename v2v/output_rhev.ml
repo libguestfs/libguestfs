@@ -96,7 +96,7 @@ and check_storage_domain verbose domain_class os mp =
   (* Check that the SD is writable. *)
   let testfile = mp // uuid // "v2v-write-test" in
   let write_test_failed err =
-    error (f_"the %s (%s) is not writable.\n\nThis probably means you need to run virt-v2v as 'root'.\n\nOriginal error was: %s")
+    error (f_"the %s (%s) is not writable.\n\nThis probably means you need to run virt-v2v as root.\n\nOriginal error was: %s")
       domain_class os err;
   in
   (try
