@@ -205,7 +205,7 @@ let rec create_ovf verbose source targets guestcaps inspect
     match vmtype with
       | Some vmtype -> vmtype
       | None -> get_vmtype inspect in
-  let vmtype = match vmtype with `Desktop -> "DESKTOP" | `Server -> "SERVER" in
+  let vmtype = match vmtype with `Desktop -> "0" | `Server -> "1" in
   let ostype = get_ostype inspect in
 
   let ovf : doc =

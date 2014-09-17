@@ -73,8 +73,8 @@ $VG ./virt-v2v --debug-gc \
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf
 
-# Test the OVF metadata contains <VmType>DESKTOP</VmType>.
-grep '<VmType>DESKTOP</VmType>' \
+# Test the OVF metadata contains <VmType>0</VmType> (desktop).
+grep '<VmType>0</VmType>' \
     $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf
 
 pushd $d/12345678-1234-1234-1234-123456789abc/images/IMAGE
