@@ -24,6 +24,8 @@
  * - OpenSUSE and Fedora (not enterprisey, but similar enough to RHEL/SUSE)
  *)
 
+(* < mdbooth> It's all in there for a reason :/ *)
+
 open Printf
 
 open Common_gettext.Gettext
@@ -1074,6 +1076,106 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         (f_"The display driver was updated to '%s', but X11 does not seem to be installed in the guest.  X may not function correctly.")
         video_driver
 
+  and configure_kernel_modules virtio =
+    (* This function modifies modules.conf (and its various aliases). *)
+
+    (* Update 'alias eth0 ...'. *)
+    let paths = augeas_modprobe ". =~ regexp('eth[0-9]+')" in
+    let net_device = if virtio then "virtio_net" else "e1000" in
+    List.iter (
+      fun path -> g#aug_set (path ^ "/modulename") net_device
+    ) paths;
+
+    (* Update 'alias scsi_hostadapter ...' *)
+    let paths = augeas_modprobe ". =~ regexp('scsi_hostadapter.*')" in
+    if virtio then (
+      if paths <> [] then (
+        (* There's only 1 scsi controller in the converted guest.
+         * Convert only the first scsi_hostadapter entry to virtio
+         * and delete other scsi_hostadapter entries.
+         *)
+        let path, paths_to_delete = List.hd paths, List.tl paths in
+
+        (* Note that we delete paths in reverse order. This means we don't
+         * have to worry about alias indices being changed.
+         *)
+        List.iter (fun path -> ignore (g#aug_rm path))
+          (List.rev paths_to_delete);
+
+        g#aug_set (path ^ "/modulename") "virtio_blk"
+      ) else (
+        (* We have to add a scsi_hostadapter. *)
+        let modpath = discover_modpath () in
+        g#aug_set (sprintf "/files%s/alias[last()+1]" modpath)
+          "scsi_hostadapter";
+        g#aug_set (sprintf "/files%s/alias[last()]/modulename" modpath)
+          "virtio_blk"
+      )
+    ) else (* not virtio *) (
+      (* There is no scsi controller in an IDE guest. *)
+      List.iter (fun path -> ignore (g#aug_rm path)) (List.rev paths)
+    );
+
+    (* Display a warning about any leftover Xen modules which we
+     * haven't converted.  These are likely to cause an error when
+     * we run mkinitrd.
+     *)
+    let xen_modules = [ "xennet"; "xen-vnif"; "xenblk"; "xen-vbd" ] in
+    let query =
+      "modulename =~ regexp('" ^ String.concat "|" xen_modules ^ "')" in
+    let paths = augeas_modprobe query in
+    List.iter (
+      fun path ->
+        let device = g#aug_get path in
+        let module_ = g#aug_get (path ^ "/modulename") in
+        warning ~prog (f_"don't know how to update %s which loads the %s module")
+          device module_;
+    ) paths;
+
+    (* Update files. *)
+    g#aug_save ()
+
+  and augeas_modprobe query =
+    (* Execute g#aug_match, but against every known location of modules.conf. *)
+    let paths = [
+      "/files/etc/conf.modules/alias";
+      "/files/etc/modules.conf/alias";
+      "/files/etc/modprobe.conf/alias";
+      "/files/etc/modprobe.d/*/alias";
+    ] in
+    let paths =
+      List.map (
+        fun p ->
+          let p = sprintf "%s[%s]" p query in
+          Array.to_list (g#aug_match p)
+      ) paths in
+    List.flatten paths
+
+  and discover_modpath () =
+    (* Find what /etc/modprobe.conf is called today. *)
+    let modpath = ref "" in
+
+    (* Note that we're checking in ascending order of preference so
+     * that the last discovered method will be chosen.
+     *)
+    List.iter (
+      fun file ->
+        if g#is_file ~followsymlinks:true file then
+          modpath := file
+    ) [ "/etc/conf.modules"; "/etc/modules.conf" ];
+
+    if g#is_file ~followsymlinks:true "/etc/modprobe.conf" then
+      modpath := "modprobe.conf";
+
+    if g#is_dir ~followsymlinks:true "/etc/modprobe.d" then
+      (* Create a new file /etc/modprobe.d/virt-v2v-added.conf. *)
+      modpath := "modprobe.d/virt-v2v-added.conf";
+
+    if !modpath = "" then
+      error (f_"unable to find any valid modprobe configuration file such as /etc/modprobe.conf");
+
+    !modpath
+
   and remap_block_devices virtio =
     (* This function's job is to iterate over boot configuration
      * files, replacing "hda" with "vda" or whatever is appropriate.
@@ -1248,13 +1350,8 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
 
   let video = get_display_driver () in
   configure_display_driver video;
-
-  (*
-    XXX to do from original v2v:
-    configure_kernel_modules  # updates /etc/modules.conf and friends
-  *)
-
   remap_block_devices virtio;
+  configure_kernel_modules virtio;
   rebuild_initrd kernel;
 
   let guestcaps = {
