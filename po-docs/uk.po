@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-09-15 10:59+0200\n"
+"POT-Creation-Date: 2014-09-17 15:50+0200\n"
 "PO-Revision-Date: 2014-07-22 18:04+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -635,7 +635,7 @@ msgstr ""
 #: ../fish/guestfish.pod:701 ../format/virt-format.pod:100
 #: ../inspector/virt-inspector.pod:348 ../rescue/virt-rescue.pod:168
 #: ../src/guestfs.pod:4234 ../sysprep/virt-sysprep.pod:158
-#: ../sysprep/virt-sysprep.pod:201
+#: ../sysprep/virt-sysprep.pod:204
 msgid "For example:"
 msgstr "Приклад:"
 
@@ -735,7 +735,7 @@ msgstr ""
 #. type: =item
 #: ../align/virt-alignment-scan.pod:177 ../customize/virt-customize.pod:178
 #: ../fuse/guestunmount.pod:83 ../resize/virt-resize.pod:511
-#: ../sparsify/virt-sparsify.pod:243 ../sysprep/virt-sysprep.pod:211
+#: ../sparsify/virt-sparsify.pod:243 ../sysprep/virt-sysprep.pod:214
 #: ../v2v/virt-v2v.pod:369
 msgid "B<-q>"
 msgstr "B<-q>"
@@ -744,7 +744,7 @@ msgstr "B<-q>"
 #: ../align/virt-alignment-scan.pod:179 ../builder/virt-builder.pod:452
 #: ../customize/virt-customize.pod:180 ../fuse/guestunmount.pod:85
 #: ../resize/virt-resize.pod:513 ../sparsify/virt-sparsify.pod:245
-#: ../sysprep/virt-sysprep.pod:213 ../v2v/virt-v2v.pod:371
+#: ../sysprep/virt-sysprep.pod:216 ../v2v/virt-v2v.pod:371
 msgid "B<--quiet>"
 msgstr "B<--quiet>"
 
@@ -793,7 +793,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:359 ../inspector/virt-inspector.pod:116
 #: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v.pod:243
 #: ../rescue/virt-rescue.pod:238 ../resize/virt-resize.pod:581
-#: ../sparsify/virt-sparsify.pod:292 ../sysprep/virt-sysprep.pod:219
+#: ../sparsify/virt-sparsify.pod:292 ../sysprep/virt-sysprep.pod:222
 #: ../v2v/virt-v2v.pod:451
 msgid "B<-v>"
 msgstr "B<-v>"
@@ -808,7 +808,7 @@ msgstr "B<-v>"
 #: ../fuse/guestmount.pod:361 ../inspector/virt-inspector.pod:118
 #: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v.pod:245
 #: ../rescue/virt-rescue.pod:240 ../resize/virt-resize.pod:583
-#: ../sparsify/virt-sparsify.pod:294 ../sysprep/virt-sysprep.pod:221
+#: ../sparsify/virt-sparsify.pod:294 ../sysprep/virt-sysprep.pod:224
 #: ../v2v/virt-v2v.pod:453
 msgid "B<--verbose>"
 msgstr "B<--verbose>"
@@ -820,7 +820,7 @@ msgstr "B<--verbose>"
 #: ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../diff/virt-diff.pod:204
 #: ../edit/virt-edit.pod:207 ../format/virt-format.pod:157
 #: ../inspector/virt-inspector.pod:120 ../rescue/virt-rescue.pod:242
-#: ../sparsify/virt-sparsify.pod:296 ../sysprep/virt-sysprep.pod:223
+#: ../sparsify/virt-sparsify.pod:296 ../sysprep/virt-sysprep.pod:226
 #: ../v2v/virt-v2v.pod:455
 msgid "Enable verbose messages for debugging."
 msgstr "Увімкнути докладний показ повідомлень з метою діагностики."
@@ -839,7 +839,7 @@ msgstr "Увімкнути докладний показ повідомлень 
 #: ../p2v/virt-p2v-make-disk.pod:63 ../p2v/virt-p2v-make-kickstart.pod:151
 #: ../p2v/virt-p2v.pod:249 ../rescue/virt-rescue.pod:244
 #: ../resize/virt-resize.pod:587 ../sparsify/virt-sparsify.pod:298
-#: ../sysprep/virt-sysprep.pod:225 ../test-tool/libguestfs-test-tool.pod:59
+#: ../sysprep/virt-sysprep.pod:228 ../test-tool/libguestfs-test-tool.pod:59
 #: ../v2v/virt-v2v.pod:457
 msgid "B<-V>"
 msgstr "B<-V>"
@@ -858,7 +858,7 @@ msgstr "B<-V>"
 #: ../p2v/virt-p2v-make-disk.pod:65 ../p2v/virt-p2v-make-kickstart.pod:153
 #: ../p2v/virt-p2v.pod:251 ../rescue/virt-rescue.pod:246
 #: ../resize/virt-resize.pod:589 ../sparsify/virt-sparsify.pod:300
-#: ../sysprep/virt-sysprep.pod:227 ../test-tool/libguestfs-test-tool.pod:61
+#: ../sysprep/virt-sysprep.pod:230 ../test-tool/libguestfs-test-tool.pod:61
 #: ../tools/virt-list-filesystems:68 ../tools/virt-list-partitions:69
 #: ../tools/virt-tar:116 ../tools/virt-win-reg:109 ../v2v/virt-v2v.pod:459
 msgid "B<--version>"
@@ -874,7 +874,7 @@ msgstr "B<--version>"
 #: ../make-fs/virt-make-fs.pod:207 ../p2v/virt-p2v-make-disk.pod:67
 #: ../p2v/virt-p2v-make-kickstart.pod:155 ../p2v/virt-p2v.pod:253
 #: ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:591
-#: ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:229
+#: ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:232
 #: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
 #: ../tools/virt-tar:118 ../tools/virt-win-reg:111 ../v2v/virt-v2v.pod:461
 msgid "Display version number and exit."
@@ -890,7 +890,7 @@ msgstr "Показати дані щодо версії і завершити р
 #: ../fuse/guestmount.pod:380 ../inspector/virt-inspector.pod:128
 #: ../make-fs/virt-make-fs.pod:209 ../rescue/virt-rescue.pod:259
 #: ../resize/virt-resize.pod:593 ../sparsify/virt-sparsify.pod:304
-#: ../sysprep/virt-sysprep.pod:231 ../tools/virt-tar:155
+#: ../sysprep/virt-sysprep.pod:234 ../tools/virt-tar:155
 #: ../v2v/virt-v2v.pod:472
 msgid "B<-x>"
 msgstr "B<-x>"
@@ -903,7 +903,7 @@ msgstr "B<-x>"
 #: ../diff/virt-diff.pod:214 ../edit/virt-edit.pod:217
 #: ../format/virt-format.pod:177 ../inspector/virt-inspector.pod:130
 #: ../rescue/virt-rescue.pod:261 ../resize/virt-resize.pod:595
-#: ../sparsify/virt-sparsify.pod:306 ../sysprep/virt-sysprep.pod:233
+#: ../sparsify/virt-sparsify.pod:306 ../sysprep/virt-sysprep.pod:236
 #: ../v2v/virt-v2v.pod:474
 msgid "Enable tracing of libguestfs API calls."
 msgstr "Увімкнути трасування викликів програмного інтерфейсу libguestfs."
@@ -1220,7 +1220,7 @@ msgstr ""
 #: ../fish/guestfish.pod:1380 ../format/virt-format.pod:181
 #: ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:124
 #: ../inspector/virt-inspector.pod:487 ../resize/virt-resize.pod:750
-#: ../sparsify/virt-sparsify.pod:428 ../sysprep/virt-sysprep.pod:514
+#: ../sparsify/virt-sparsify.pod:428 ../sysprep/virt-sysprep.pod:517
 #: ../test-tool/libguestfs-test-tool.pod:170
 msgid "EXIT STATUS"
 msgstr "СТАН ВИХОДУ"
@@ -1365,14 +1365,14 @@ msgstr "Ця програма повертає:"
 #: ../src/guestfs.pod:4472 ../src/guestfs.pod:4476 ../src/guestfs.pod:4480
 #: ../src/guestfs.pod:4494 ../src/guestfs.pod:4498 ../src/guestfs.pod:4503
 #: ../src/guestfs.pod:4507 ../sysprep/sysprep-extra-options.pod:236
-#: ../sysprep/sysprep-extra-options.pod:240 ../sysprep/virt-sysprep.pod:285
-#: ../sysprep/virt-sysprep.pod:289 ../sysprep/virt-sysprep.pod:293
-#: ../sysprep/virt-sysprep.pod:297 ../sysprep/virt-sysprep.pod:312
-#: ../sysprep/virt-sysprep.pod:316 ../sysprep/virt-sysprep.pod:320
-#: ../sysprep/virt-sysprep.pod:324 ../sysprep/virt-sysprep.pod:328
-#: ../sysprep/virt-sysprep.pod:381 ../sysprep/virt-sysprep.pod:393
-#: ../sysprep/virt-sysprep.pod:397 ../sysprep/virt-sysprep.pod:405
-#: ../sysprep/virt-sysprep.pod:411 ../tools/virt-win-reg:194
+#: ../sysprep/sysprep-extra-options.pod:240 ../sysprep/virt-sysprep.pod:288
+#: ../sysprep/virt-sysprep.pod:292 ../sysprep/virt-sysprep.pod:296
+#: ../sysprep/virt-sysprep.pod:300 ../sysprep/virt-sysprep.pod:315
+#: ../sysprep/virt-sysprep.pod:319 ../sysprep/virt-sysprep.pod:323
+#: ../sysprep/virt-sysprep.pod:327 ../sysprep/virt-sysprep.pod:331
+#: ../sysprep/virt-sysprep.pod:384 ../sysprep/virt-sysprep.pod:396
+#: ../sysprep/virt-sysprep.pod:400 ../sysprep/virt-sysprep.pod:408
+#: ../sysprep/virt-sysprep.pod:414 ../tools/virt-win-reg:194
 #: ../tools/virt-win-reg:199 ../tools/virt-win-reg:205
 #: ../tools/virt-win-reg:754 ../tools/virt-win-reg:760
 #: ../tools/virt-win-reg:766 ../v2v/virt-v2v.pod:431 ../v2v/virt-v2v.pod:435
@@ -1453,7 +1453,7 @@ msgstr ""
 #: ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412
 #: ../resize/virt-resize.pod:755 ../ruby/examples/guestfs-ruby.pod:34
 #: ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4748
-#: ../sysprep/virt-sysprep.pod:548 ../test-tool/libguestfs-test-tool.pod:180
+#: ../sysprep/virt-sysprep.pod:551 ../test-tool/libguestfs-test-tool.pod:180
 #: ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263
 #: ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/virt-v2v.pod:973
 msgid "SEE ALSO"
@@ -1493,7 +1493,7 @@ msgstr "АВТОР"
 #: ../p2v/virt-p2v-make-disk.pod:111 ../p2v/virt-p2v-make-kickstart.pod:197
 #: ../p2v/virt-p2v.pod:267 ../rescue/virt-rescue.pod:424
 #: ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:454
-#: ../sysprep/virt-sysprep.pod:567 ../tools/virt-list-filesystems:195
+#: ../sysprep/virt-sysprep.pod:570 ../tools/virt-list-filesystems:195
 #: ../tools/virt-list-partitions:276 ../tools/virt-tar:308
 #: ../tools/virt-win-reg:801 ../v2v/virt-v2v.pod:988
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
@@ -1524,7 +1524,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426
 #: ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4812
-#: ../sysprep/virt-sysprep.pod:571 ../test-tool/libguestfs-test-tool.pod:190
+#: ../sysprep/virt-sysprep.pod:574 ../test-tool/libguestfs-test-tool.pod:190
 #: ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278
 #: ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/virt-v2v.pod:998
 msgid "COPYRIGHT"
@@ -1842,7 +1842,7 @@ msgstr ""
 #: ../fuse/guestunmount.pod:113 ../p2v/virt-p2v-make-disk.pod:91
 #: ../p2v/virt-p2v-make-kickstart.pod:175 ../rescue/virt-rescue.pod:388
 #: ../sparsify/virt-sparsify.pod:395 ../src/guestfs.pod:4640
-#: ../sysprep/virt-sysprep.pod:518 ../test-tool/libguestfs-test-tool.pod:175
+#: ../sysprep/virt-sysprep.pod:521 ../test-tool/libguestfs-test-tool.pod:175
 #: ../v2v/virt-v2v.pod:910
 msgid "ENVIRONMENT VARIABLES"
 msgstr "ЗМІННІ СЕРЕДОВИЩА"
@@ -1881,7 +1881,7 @@ msgstr ""
 #: ../p2v/virt-p2v.pod:265 ../perl/examples/guestfs-perl.pod:53
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4808
-#: ../sysprep/virt-sysprep.pod:565 ../test-tool/libguestfs-test-tool.pod:186
+#: ../sysprep/virt-sysprep.pod:568 ../test-tool/libguestfs-test-tool.pod:186
 #: ../v2v/virt-v2v.pod:986
 msgid "AUTHORS"
 msgstr "АВТОРИ"
@@ -5255,7 +5255,7 @@ msgstr ""
 
 #. type: =head1
 #: ../builder/virt-builder.pod:1470 ../src/guestfs.pod:1935
-#: ../sysprep/virt-sysprep.pod:478
+#: ../sysprep/virt-sysprep.pod:481
 msgid "SECURITY"
 msgstr "БЕЗПЕКА"
 
@@ -5595,13 +5595,13 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:1645 ../customize/virt-customize.pod:220
-#: ../sysprep/virt-sysprep.pod:522 ../v2v/virt-v2v.pod:933
+#: ../sysprep/virt-sysprep.pod:525 ../v2v/virt-v2v.pod:933
 msgid "C<VIRT_TOOLS_DATA_DIR>"
 msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1647 ../customize/virt-customize.pod:222
-#: ../sysprep/virt-sysprep.pod:524
+#: ../sysprep/virt-sysprep.pod:527
 msgid ""
 "This can point to the directory containing data files used for Windows "
 "firstboot installation."
@@ -5609,7 +5609,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1650 ../customize/virt-customize.pod:225
-#: ../sysprep/virt-sysprep.pod:527 ../v2v/virt-v2v.pod:938
+#: ../sysprep/virt-sysprep.pod:530 ../v2v/virt-v2v.pod:938
 msgid ""
 "Normally you do not need to set this.  If not set, a compiled-in default "
 "will be used (something like C</usr/share/virt-tools>)."
@@ -5617,19 +5617,19 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1653 ../customize/virt-customize.pod:228
-#: ../sysprep/virt-sysprep.pod:530 ../v2v/virt-v2v.pod:941
+#: ../sysprep/virt-sysprep.pod:533 ../v2v/virt-v2v.pod:941
 msgid "This directory may contain the following files:"
 msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:1657 ../customize/virt-customize.pod:232
-#: ../sysprep/virt-sysprep.pod:534 ../v2v/virt-v2v.pod:945
+#: ../sysprep/virt-sysprep.pod:537 ../v2v/virt-v2v.pod:945
 msgid "C<rhsrvany.exe>"
 msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1659 ../customize/virt-customize.pod:234
-#: ../sysprep/virt-sysprep.pod:536
+#: ../sysprep/virt-sysprep.pod:539
 msgid ""
 "This is the RHSrvAny Windows binary, used to install a \"firstboot\" script "
 "in Windows guests.  It is required if you intend to use the I<--firstboot> "
@@ -5638,7 +5638,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1663 ../customize/virt-customize.pod:238
-#: ../sysprep/virt-sysprep.pod:540 ../v2v/virt-v2v.pod:952
+#: ../sysprep/virt-sysprep.pod:543 ../v2v/virt-v2v.pod:952
 msgid "See also: C<https://github.com/rwmjones/rhsrvany>"
 msgstr ""
 
@@ -8682,23 +8682,23 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/virt-customize.pod:182 ../sysprep/virt-sysprep.pod:215
+#: ../customize/virt-customize.pod:182 ../sysprep/virt-sysprep.pod:218
 msgid "Don't print log messages."
 msgstr "Не виводити повідомлень до журналу."
 
 #. type: textblock
-#: ../customize/virt-customize.pod:184 ../sysprep/virt-sysprep.pod:217
+#: ../customize/virt-customize.pod:184 ../sysprep/virt-sysprep.pod:220
 msgid "To enable detailed logging of individual file operations, use I<-x>."
 msgstr ""
 
 #. type: textblock
-#: ../customize/virt-customize.pod:214 ../sysprep/virt-sysprep.pod:516
+#: ../customize/virt-customize.pod:214 ../sysprep/virt-sysprep.pod:519
 msgid "This program returns 0 on success, or 1 if there was an error."
 msgstr ""
 
 #. type: textblock
 #: ../customize/virt-customize.pod:244 ../sparsify/virt-sparsify.pod:426
-#: ../sysprep/virt-sysprep.pod:546 ../v2v/virt-v2v.pod:971
+#: ../sysprep/virt-sysprep.pod:549 ../v2v/virt-v2v.pod:971
 msgid ""
 "For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
@@ -8716,7 +8716,7 @@ msgstr ""
 
 #. type: textblock
 #: ../customize/virt-customize.pod:269 ../fish/libguestfs-tools.conf.pod:102
-#: ../sparsify/virt-sparsify.pod:458 ../sysprep/virt-sysprep.pod:573
+#: ../sparsify/virt-sparsify.pod:458 ../sysprep/virt-sysprep.pod:576
 msgid "Copyright (C) 2011-2014 Red Hat Inc."
 msgstr ""
 
@@ -38774,7 +38774,7 @@ msgstr ""
 
 #. type: =head2
 #: ../fish/guestfish.pod:1348 ../resize/virt-resize.pod:706
-#: ../sparsify/virt-sparsify.pod:390 ../sysprep/virt-sysprep.pod:509
+#: ../sparsify/virt-sparsify.pod:390 ../sysprep/virt-sysprep.pod:512
 #: ../tools/virt-win-reg:618
 msgid "WINDOWS 8"
 msgstr "WINDOWS 8"
@@ -84000,23 +84000,24 @@ msgstr "Позначити систему для зміни налаштуван
 
 #. type: textblock
 #: ../sysprep/sysprep-operations.pod:81
-msgid "Note that this may require user intervention when the guest is booted."
+msgid ""
+"For Linux guests, this touches C</.unconfigured>, which causes the first "
+"boot to interactively query the user for settings such as the root password "
+"and timezone."
 msgstr ""
-"Зауважте, що це може потребувати втручання користувача під час завантаження "
-"гостьової системи."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:84
+#: ../sysprep/sysprep-operations.pod:85
 msgid "B<fs-uuids>"
 msgstr "B<fs-uuids>"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:86
+#: ../sysprep/sysprep-operations.pod:87
 msgid "Change filesystem UUIDs."
 msgstr "Змінити UUID файлових систем."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:88
+#: ../sysprep/sysprep-operations.pod:89
 msgid ""
 "On guests and filesystem types where this is supported, new random UUIDs are "
 "generated and assigned to filesystems."
@@ -84026,12 +84027,12 @@ msgstr ""
 "системами."
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:91
+#: ../sysprep/sysprep-operations.pod:92
 msgid "Notes on fs-uuids"
 msgstr "Зауваження щодо fs-uuids"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:93
+#: ../sysprep/sysprep-operations.pod:94
 msgid ""
 "The fs-uuids operation is disabled by default because it does not yet find "
 "and update all the places in the guest that use the UUIDs.  For example C</"
@@ -84045,37 +84046,37 @@ msgstr ""
 "завантаження."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:99
+#: ../sysprep/sysprep-operations.pod:100
 msgid "See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
 msgstr "Див. L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:101
+#: ../sysprep/sysprep-operations.pod:102
 msgid "B<kerberos-data>"
 msgstr "B<дані-kerberos>"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:103
+#: ../sysprep/sysprep-operations.pod:104
 msgid "Remove Kerberos data in the guest."
 msgstr "Вилучити дані Kerberos у гостьовій системі."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:105
+#: ../sysprep/sysprep-operations.pod:106
 msgid "B<logfiles> *"
 msgstr "B<logfiles> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:108
+#: ../sysprep/sysprep-operations.pod:109
 msgid "Remove many log files from the guest."
 msgstr "Вилучити з гостьової системи багато файлів журналів."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:110
+#: ../sysprep/sysprep-operations.pod:111
 msgid "On Linux the following files are removed:"
 msgstr "У Linux вилучено такі файли:"
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:112
+#: ../sysprep/sysprep-operations.pod:113
 #, no-wrap
 msgid ""
 " /etc/Pegasus/*.cnf\n"
@@ -84147,17 +84148,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:178
+#: ../sysprep/sysprep-operations.pod:179
 msgid "B<lvm-uuids> *"
 msgstr "B<lvm-uuids> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:181
+#: ../sysprep/sysprep-operations.pod:182
 msgid "Change LVM2 PV and VG UUIDs."
 msgstr "Змінити UUID ФТ і ГТ LVM2."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:183
+#: ../sysprep/sysprep-operations.pod:184
 msgid ""
 "On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
 "(VGs), new random UUIDs are generated and assigned to those PVs and VGs."
@@ -84166,17 +84167,17 @@ msgstr ""
 "(ГТ) LVM2 для ФТ і ГТ буде створено і призначено випадкові UUID."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:186
+#: ../sysprep/sysprep-operations.pod:187
 msgid "B<machine-id> *"
 msgstr "B<ід-комп’ютера> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:189
+#: ../sysprep/sysprep-operations.pod:190
 msgid "Remove the local machine ID."
 msgstr "Вилучити ідентифікатор локального комп’ютера."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:191
+#: ../sysprep/sysprep-operations.pod:192
 msgid ""
 "The machine ID is usually generated from a random source during system "
 "installation and stays constant for all subsequent boots.  Optionally, for "
@@ -84190,27 +84191,27 @@ msgstr ""
 "якщо буде виявлено порожнє значення."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:196
+#: ../sysprep/sysprep-operations.pod:197
 msgid "B<mail-spool> *"
 msgstr "B<mail-spool> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:199
+#: ../sysprep/sysprep-operations.pod:200
 msgid "Remove email from the local mail spool directory."
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:201
+#: ../sysprep/sysprep-operations.pod:202
 msgid "B<net-hostname> *"
 msgstr "B<net-hostname> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:204
+#: ../sysprep/sysprep-operations.pod:205
 msgid "Remove HOSTNAME in network interface configuration."
 msgstr "Вилучити HOSTNAME у налаштуваннях інтерфейсу мережі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:206 ../sysprep/sysprep-operations.pod:214
+#: ../sysprep/sysprep-operations.pod:207 ../sysprep/sysprep-operations.pod:215
 msgid ""
 "For Fedora and Red Hat Enterprise Linux, this is removed from C<ifcfg-*> "
 "files."
@@ -84218,27 +84219,27 @@ msgstr ""
 "Для Fedora і Red Hat Enterprise Linux це вилучається з файлів C<ifcfg-*>."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:209
+#: ../sysprep/sysprep-operations.pod:210
 msgid "B<net-hwaddr> *"
 msgstr "B<net-hwaddr> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:212
+#: ../sysprep/sysprep-operations.pod:213
 msgid "Remove HWADDR (hard-coded MAC address) configuration."
 msgstr "Вилучити налаштування HWADDR (апаратної адреси MAC)."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:217
+#: ../sysprep/sysprep-operations.pod:218
 msgid "B<pacct-log> *"
 msgstr "B<pacct-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:220
+#: ../sysprep/sysprep-operations.pod:221
 msgid "Remove the process accounting log files."
 msgstr "Вилучити файли журналу обліку процесів."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:222
+#: ../sysprep/sysprep-operations.pod:223
 msgid ""
 "The system wide process accounting will store to the pacct log files if the "
 "process accounting is on."
@@ -84247,67 +84248,67 @@ msgstr ""
 "увімкнено облік процесів."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:225
+#: ../sysprep/sysprep-operations.pod:226
 msgid "B<package-manager-cache> *"
 msgstr "B<package-manager-cache> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:228
+#: ../sysprep/sysprep-operations.pod:229
 msgid "Remove package manager cache."
 msgstr "Вилучити кеш керування пакунками."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:230
+#: ../sysprep/sysprep-operations.pod:231
 msgid "B<pam-data> *"
 msgstr "B<pam-data> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:233
+#: ../sysprep/sysprep-operations.pod:234
 msgid "Remove the PAM data in the guest."
 msgstr "Вилучити дані PAM у гостьовій системі."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:235
+#: ../sysprep/sysprep-operations.pod:236
 msgid "B<puppet-data-log> *"
 msgstr "B<puppet-data-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:238
+#: ../sysprep/sysprep-operations.pod:239
 msgid "Remove the data and log files of puppet."
 msgstr "Вилучити дані та файли журналів puppet."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:240
+#: ../sysprep/sysprep-operations.pod:241
 msgid "B<rh-subscription-manager> *"
 msgstr "B<rh-subscription-manager> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:243
+#: ../sysprep/sysprep-operations.pod:244
 msgid "Remove the RH subscription manager files."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:245
+#: ../sysprep/sysprep-operations.pod:246
 msgid "B<rhn-systemid> *"
 msgstr "B<rhn-systemid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:248
+#: ../sysprep/sysprep-operations.pod:249
 msgid "Remove the RHN system ID."
 msgstr "Вилучити ідентифікатор системи у RHN."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:250
+#: ../sysprep/sysprep-operations.pod:251
 msgid "B<rpm-db> *"
 msgstr "B<rpm-db> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:253
+#: ../sysprep/sysprep-operations.pod:254
 msgid "Remove host-specific RPM database files."
 msgstr "Вилучити специфічні для системи файли баз даних RPM."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:255
+#: ../sysprep/sysprep-operations.pod:256
 msgid ""
 "Remove host-specific RPM database files and locks.  RPM will recreate these "
 "files automatically if needed."
@@ -84316,34 +84317,34 @@ msgstr ""
 "створено ці файли, якщо це потрібно."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:258
+#: ../sysprep/sysprep-operations.pod:259
 msgid "B<samba-db-log> *"
 msgstr "B<samba-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:261
+#: ../sysprep/sysprep-operations.pod:262
 msgid "Remove the database and log files of Samba."
 msgstr "Вилучити бази даних та файли журналів Samba."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:263
+#: ../sysprep/sysprep-operations.pod:264
 msgid "B<script> *"
 msgstr "B<script> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:266
+#: ../sysprep/sysprep-operations.pod:267
 msgid "Run arbitrary scripts against the guest."
 msgstr "Запустити довільні скрипти дій над гостьовою системою."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:268
+#: ../sysprep/sysprep-operations.pod:269
 msgid ""
 "The C<script> module lets you run arbitrary shell scripts or programs "
 "against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:271
+#: ../sysprep/sysprep-operations.pod:272
 msgid ""
 "Note this feature requires FUSE support.  You may have to enable this in "
 "your host, for example by adding the current user to the C<fuse> group, or "
@@ -84351,14 +84352,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:275
+#: ../sysprep/sysprep-operations.pod:276
 msgid ""
 "Use one or more I<--script> parameters to specify scripts or programs that "
 "will be run against the guest."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:278
+#: ../sysprep/sysprep-operations.pod:279
 msgid ""
 "The script or program is run with its current directory being the guest's "
 "root directory, so relative paths should be used.  For example: C<rm etc/"
@@ -84367,14 +84368,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:284
+#: ../sysprep/sysprep-operations.pod:285
 msgid ""
 "Normally a temporary mount point for the guest is used, but you can choose a "
 "specific one by using the I<--scriptdir> parameter."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:287
+#: ../sysprep/sysprep-operations.pod:288
 msgid ""
 "B<Note:> This is different from I<--firstboot> scripts (which run in the "
 "context of the guest when it is booting first time).  I<--script> scripts "
@@ -84382,27 +84383,27 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:291
+#: ../sysprep/sysprep-operations.pod:292
 msgid "B<smolt-uuid> *"
 msgstr "B<smolt-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:294
+#: ../sysprep/sysprep-operations.pod:295
 msgid "Remove the Smolt hardware UUID."
 msgstr "Вилучити UUID обладнання Smolt."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:296
+#: ../sysprep/sysprep-operations.pod:297
 msgid "B<ssh-hostkeys> *"
 msgstr "B<ssh-hostkeys> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:299
+#: ../sysprep/sysprep-operations.pod:300
 msgid "Remove the SSH host keys in the guest."
 msgstr "Вилучити ключі вузла SSH у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:301
+#: ../sysprep/sysprep-operations.pod:302
 msgid ""
 "The SSH host keys are regenerated (differently) next time the guest is "
 "booted."
@@ -84411,7 +84412,7 @@ msgstr ""
 "завантаження гостьової системи."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:304
+#: ../sysprep/sysprep-operations.pod:305
 msgid ""
 "If, after cloning, the guest gets the same IP address, ssh will give you a "
 "stark warning about the host key changing:"
@@ -84420,7 +84421,7 @@ msgstr ""
 "надасть вам додаткове попередження щодо зміни ключа вузла:"
 
 #. type: verbatim
-#: ../sysprep/sysprep-operations.pod:307
+#: ../sysprep/sysprep-operations.pod:308
 #, no-wrap
 msgid ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
@@ -84436,17 +84437,17 @@ msgstr ""
 "\n"
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:312
+#: ../sysprep/sysprep-operations.pod:313
 msgid "B<ssh-userdir> *"
 msgstr "B<ssh-userdir> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:315
+#: ../sysprep/sysprep-operations.pod:316
 msgid "Remove \".ssh\" directories in the guest."
 msgstr "Вилучити каталоги «.ssh» у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:317
+#: ../sysprep/sysprep-operations.pod:318
 msgid ""
 "Remove the C<.ssh> directory of user \"root\" and any other users who have a "
 "C<.ssh> directory in their home directory."
@@ -84455,12 +84456,12 @@ msgstr ""
 "домашні каталоги яких містять каталог C<.ssh>."
 
 #. type: =head3
-#: ../sysprep/sysprep-operations.pod:320
+#: ../sysprep/sysprep-operations.pod:321
 msgid "Notes on ssh-userdir"
 msgstr "Зауваження щодо ssh-userdir"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:322
+#: ../sysprep/sysprep-operations.pod:323
 msgid ""
 "Currently this only looks in C</root> and C</home/*> for home directories, "
 "so users with home directories in other locations won't have the ssh files "
@@ -84471,42 +84472,42 @@ msgstr ""
 "у інших каталогах, не буде вилучено."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:326
+#: ../sysprep/sysprep-operations.pod:327
 msgid "B<sssd-db-log> *"
 msgstr "B<sssd-db-log> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:329
+#: ../sysprep/sysprep-operations.pod:330
 msgid "Remove the database and log files of sssd."
 msgstr "Вилучити бази даних і файли журналів sssd."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:331
+#: ../sysprep/sysprep-operations.pod:332
 msgid "B<tmp-files> *"
 msgstr "B<tmp-files> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:334
+#: ../sysprep/sysprep-operations.pod:335
 msgid "Remove temporary files."
 msgstr "Вилучити тимчасові файли."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:336
+#: ../sysprep/sysprep-operations.pod:337
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:338
+#: ../sysprep/sysprep-operations.pod:339
 msgid "B<udev-persistent-net> *"
 msgstr "B<udev-persistent-net> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:341
+#: ../sysprep/sysprep-operations.pod:342
 msgid "Remove udev persistent net rules."
 msgstr "Вилучити постійні правила мережі udev."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:343
+#: ../sysprep/sysprep-operations.pod:344
 msgid ""
 "Remove udev persistent net rules which map the guest's existing MAC address "
 "to a fixed ethernet device (eg. eth0)."
@@ -84515,7 +84516,7 @@ msgstr ""
 "адресу гостьової системи на фіксований пристрій ethernet (наприклад eth0)."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:346
+#: ../sysprep/sysprep-operations.pod:347
 msgid ""
 "After a guest is cloned, the MAC address usually changes.  Since the old MAC "
 "address occupies the old name (eg. eth0), this means the fresh MAC address "
@@ -84529,17 +84530,17 @@ msgstr ""
 "udev цьому можна запобігти."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:351
+#: ../sysprep/sysprep-operations.pod:352
 msgid "B<user-account>"
 msgstr "B<user-account>"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:353
+#: ../sysprep/sysprep-operations.pod:354
 msgid "Remove the user accounts in the guest."
 msgstr "Вилучити облікові записи користувачів у гостьовій системі."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:355
+#: ../sysprep/sysprep-operations.pod:356
 #, fuzzy
 #| msgid ""
 #| "Remove all the user accounts and their home directories.  The \"root\" "
@@ -84552,24 +84553,24 @@ msgstr ""
 "Обліковий запис «root» вилучено не буде."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:358
+#: ../sysprep/sysprep-operations.pod:359
 msgid ""
 "See the I<--remove-user-accounts> parameter for a way to specify how to "
 "remove only some users, or to not remove some others."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:361
+#: ../sysprep/sysprep-operations.pod:362
 msgid "B<utmp> *"
 msgstr "B<utmp> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:364
+#: ../sysprep/sysprep-operations.pod:365
 msgid "Remove the utmp file."
 msgstr "Вилучити файл utmp."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:366
+#: ../sysprep/sysprep-operations.pod:367
 msgid ""
 "This file records who is currently logged in on a machine.  In modern Linux "
 "distros it is stored in a ramdisk and hence not part of the virtual "
@@ -84581,17 +84582,17 @@ msgstr ""
 "у старіших версіях дистрибутивів."
 
 #. type: =head2
-#: ../sysprep/sysprep-operations.pod:370
+#: ../sysprep/sysprep-operations.pod:371
 msgid "B<yum-uuid> *"
 msgstr "B<yum-uuid> *"
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:373
+#: ../sysprep/sysprep-operations.pod:374
 msgid "Remove the yum UUID."
 msgstr "Вилучити UUID yum."
 
 #. type: textblock
-#: ../sysprep/sysprep-operations.pod:375
+#: ../sysprep/sysprep-operations.pod:376
 msgid ""
 "Yum creates a fresh UUID the next time it runs when it notices that the "
 "original UUID has been erased."
@@ -84862,13 +84863,20 @@ msgstr ""
 #. type: textblock
 #: ../sysprep/virt-sysprep.pod:197
 msgid ""
-"Set the mount options for each mountpoint in the guest.  Use a semicolon-"
-"separated list of C<mountpoint:options> pairs.  You may need to quote this "
-"list to protect it from the shell."
+"Set the mount options used when libguestfs opens the disk image.  Note this "
+"has no effect on the guest.  It is used when opening certain guests such as "
+"ones using the UFS (BSD) filesystem."
+msgstr ""
+
+#. type: textblock
+#: ../sysprep/virt-sysprep.pod:201
+msgid ""
+"Use a semicolon-separated list of C<mountpoint:options> pairs.  You may need "
+"to quote this list to protect it from the shell."
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:203
+#: ../sysprep/virt-sysprep.pod:206
 #, no-wrap
 msgid ""
 " --mount-options \"/:noatime\"\n"
@@ -84878,12 +84886,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:205
+#: ../sysprep/virt-sysprep.pod:208
 msgid "will mount the root directory with C<notime>.  This example:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:207
+#: ../sysprep/virt-sysprep.pod:210
 #, no-wrap
 msgid ""
 " --mount-options \"/:noatime;/var:rw,nodiratime\"\n"
@@ -84893,29 +84901,29 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:209
+#: ../sysprep/virt-sysprep.pod:212
 msgid "will do the same, plus mount C</var> with C<rw,nodiratime>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:235
+#: ../sysprep/virt-sysprep.pod:238
 msgid "__EXTRA_OPTIONS__"
 msgstr ""
 
 #. type: =head1
-#: ../sysprep/virt-sysprep.pod:239
+#: ../sysprep/virt-sysprep.pod:242
 msgid "OPERATIONS"
 msgstr "ДІЇ"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:241
+#: ../sysprep/virt-sysprep.pod:244
 msgid ""
 "If the I<--enable>/I<--operations> option is I<not> given, then most sysprep "
 "operations are enabled."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:244
+#: ../sysprep/virt-sysprep.pod:247
 msgid ""
 "Use C<virt-sysprep --list-operations> to list all operations for your virt-"
 "sysprep binary.  The ones which are enabled by default are marked with a "
@@ -84924,14 +84932,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:249
+#: ../sysprep/virt-sysprep.pod:252
 msgid ""
 "Operations can be individually enabled using the I<--enable>/I<--operations> "
 "options.  Use a comma-separated list, for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:253
+#: ../sysprep/virt-sysprep.pod:256
 #, fuzzy, no-wrap
 #| msgid ""
 #| " --enable ssh-hostkeys,udev-persistent-net\n"
@@ -84944,7 +84952,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:255
+#: ../sysprep/virt-sysprep.pod:258
 msgid ""
 "Future versions of virt-sysprep may add more operations.  If you are using "
 "virt-sysprep and want predictable behaviour, specify only the operations "
@@ -84952,24 +84960,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:259
+#: ../sysprep/virt-sysprep.pod:262
 msgid ""
 "C<*> = enabled by default when no I<--enable>/I<--operations> option is "
 "given."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:262
+#: ../sysprep/virt-sysprep.pod:265
 msgid "__OPERATIONS__"
 msgstr ""
 
 #. type: =head1
-#: ../sysprep/virt-sysprep.pod:264
+#: ../sysprep/virt-sysprep.pod:267
 msgid "COPYING AND CLONING"
 msgstr "КОПІЮВАННЯ ТА КЛОНУВАННЯ"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:266
+#: ../sysprep/virt-sysprep.pod:269
 msgid ""
 "Virt-sysprep can be used as part of a process of cloning guests, or to "
 "prepare a template from which guests can be cloned.  There are many "
@@ -84978,17 +84986,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:271
+#: ../sysprep/virt-sysprep.pod:274
 msgid "A virtual machine (when switched off) consists of two parts:"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:275
+#: ../sysprep/virt-sysprep.pod:278
 msgid "I<configuration>"
 msgstr "I<налаштування>"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:277
+#: ../sysprep/virt-sysprep.pod:280
 msgid ""
 "The configuration or description of the guest.  eg. The libvirt XML (see "
 "C<virsh dumpxml>), the running configuration of the guest, or another "
@@ -84996,74 +85004,74 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:281
+#: ../sysprep/virt-sysprep.pod:284
 msgid "Some configuration items that might need to be changed:"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:287
+#: ../sysprep/virt-sysprep.pod:290
 msgid "name"
 msgstr "назва"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:291 ../sysprep/virt-sysprep.pod:318
+#: ../sysprep/virt-sysprep.pod:294 ../sysprep/virt-sysprep.pod:321
 msgid "UUID"
 msgstr "UUID"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:295
+#: ../sysprep/virt-sysprep.pod:298
 msgid "path to block device(s)"
 msgstr "шлях до блокових пристроїв"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:299
+#: ../sysprep/virt-sysprep.pod:302
 msgid "network card MAC address"
 msgstr "MAC-адреса мережевої картки"
 
 #. type: =item
-#: ../sysprep/virt-sysprep.pod:303
+#: ../sysprep/virt-sysprep.pod:306
 msgid "I<block device(s)>"
 msgstr "I<блокові пристрої>"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:305
+#: ../sysprep/virt-sysprep.pod:308
 msgid ""
 "One or more hard disk images, themselves containing files, directories, "
 "applications, kernels, configuration, etc."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:308
+#: ../sysprep/virt-sysprep.pod:311
 msgid "Some things inside the block devices that might need to be changed:"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:314
+#: ../sysprep/virt-sysprep.pod:317
 msgid "hostname and other net configuration"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:322
+#: ../sysprep/virt-sysprep.pod:325
 msgid "SSH host keys"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:326
+#: ../sysprep/virt-sysprep.pod:329
 msgid "Windows unique security ID (SID)"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:330
+#: ../sysprep/virt-sysprep.pod:333
 msgid "Puppet registration"
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/virt-sysprep.pod:336
+#: ../sysprep/virt-sysprep.pod:339
 msgid "COPYING THE BLOCK DEVICE"
 msgstr "КОПІЮВАННЯ БЛОКОВОГО ПРИСТРОЮ"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:338
+#: ../sysprep/virt-sysprep.pod:341
 msgid ""
 "Starting with an original guest, you probably wish to copy the guest block "
 "device and its configuration to make a template.  Then once you are happy "
@@ -85071,7 +85079,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:343
+#: ../sysprep/virt-sysprep.pod:346
 #, no-wrap
 msgid ""
 "                        virt-sysprep\n"
@@ -85093,14 +85101,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:351
+#: ../sysprep/virt-sysprep.pod:354
 msgid ""
 "You can, of course, just copy the block device on the host using L<cp(1)> or "
 "L<dd(1)>."
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:354
+#: ../sysprep/virt-sysprep.pod:357
 #, no-wrap
 msgid ""
 "                   dd                 dd\n"
@@ -85112,12 +85120,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:360
+#: ../sysprep/virt-sysprep.pod:363
 msgid "There are some smarter (and faster) ways too:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:362
+#: ../sysprep/virt-sysprep.pod:365
 #, no-wrap
 msgid ""
 "                          snapshot\n"
@@ -85129,14 +85137,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:368
+#: ../sysprep/virt-sysprep.pod:371
 msgid ""
 "You may want to run virt-sysprep twice, once to reset the guest (to make a "
 "template) and a second time to customize the guest for a specific user:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:372
+#: ../sysprep/virt-sysprep.pod:375
 #, no-wrap
 msgid ""
 "                    virt-sysprep        virt-sysprep\n"
@@ -85149,12 +85157,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:383
+#: ../sysprep/virt-sysprep.pod:386
 msgid "Create a snapshot using qemu-img:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:385
+#: ../sysprep/virt-sysprep.pod:388
 #, no-wrap
 msgid ""
 " qemu-img create -f qcow2 -o backing_file=original snapshot.qcow\n"
@@ -85162,57 +85170,57 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:387
+#: ../sysprep/virt-sysprep.pod:390
 msgid ""
 "The advantage is that you don't need to copy the original (very fast)  and "
 "only changes are stored (less storage required)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:390
+#: ../sysprep/virt-sysprep.pod:393
 msgid ""
 "Note that writing to the backing file once you have created guests on top of "
 "it is not possible: you will corrupt the guests."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:395
+#: ../sysprep/virt-sysprep.pod:398
 msgid "Create a snapshot using C<lvcreate --snapshot>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:399
+#: ../sysprep/virt-sysprep.pod:402
 msgid ""
 "Other ways to create snapshots include using filesystems-level tools (for "
 "filesystems such as btrfs)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:402
+#: ../sysprep/virt-sysprep.pod:405
 msgid ""
 "Most Network Attached Storage (NAS) devices can also create cheap snapshots "
 "from files or LUNs."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:407
+#: ../sysprep/virt-sysprep.pod:410
 msgid ""
 "Get your NAS to duplicate the LUN.  Most NAS devices can also duplicate LUNs "
 "very cheaply (they copy them on-demand in the background)."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:413
+#: ../sysprep/virt-sysprep.pod:416
 msgid "Prepare your template using L<virt-sparsify(1)>.  See below."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/virt-sysprep.pod:417
+#: ../sysprep/virt-sysprep.pod:420
 msgid "VIRT-CLONE"
 msgstr "VIRT-CLONE"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:419
+#: ../sysprep/virt-sysprep.pod:422
 msgid ""
 "A separate tool, L<virt-clone(1)>, can be used to duplicate the block device "
 "and/or modify the external libvirt configuration of a guest.  It will reset "
@@ -85220,19 +85228,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:424
+#: ../sysprep/virt-sysprep.pod:427
 msgid ""
 "L<virt-clone(1)> does not use libguestfs and cannot look inside the disk "
 "image.  This was the original motivation to write virt-sysprep."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/virt-sysprep.pod:427
+#: ../sysprep/virt-sysprep.pod:430
 msgid "SPARSIFY"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:429
+#: ../sysprep/virt-sysprep.pod:432
 #, no-wrap
 msgid ""
 "              virt-sparsify\n"
@@ -85241,26 +85249,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:432
+#: ../sysprep/virt-sysprep.pod:435
 msgid ""
 "L<virt-sparsify(1)> can be used to make the cloning template smaller, making "
 "it easier to compress and/or faster to copy."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:435
+#: ../sysprep/virt-sysprep.pod:438
 msgid ""
 "Notice that since virt-sparsify also copies the image, you can use it to "
 "make the initial copy (instead of C<dd>)."
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/virt-sysprep.pod:438
+#: ../sysprep/virt-sysprep.pod:441
 msgid "RESIZE"
 msgstr "ЗМІНА РОЗМІРІВ"
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:440
+#: ../sysprep/virt-sysprep.pod:443
 #, no-wrap
 msgid ""
 "                         virt-resize\n"
@@ -85272,7 +85280,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:446
+#: ../sysprep/virt-sysprep.pod:449
 msgid ""
 "If you want to give people cloned guests, but let them pick the size of the "
 "guest themselves (eg. depending on how much they are prepared to pay for "
@@ -85282,12 +85290,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../sysprep/virt-sysprep.pod:452
+#: ../sysprep/virt-sysprep.pod:455
 msgid "FIRSTBOOT VS SCRIPT"
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:454
+#: ../sysprep/virt-sysprep.pod:457
 msgid ""
 "The two options I<--firstboot> and I<--script> both supply shell scripts "
 "that are run against the guest.  However these two options are significantly "
@@ -85295,7 +85303,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:458
+#: ../sysprep/virt-sysprep.pod:461
 msgid ""
 "I<--firstboot script> uploads the file C<script> into the guest and arranges "
 "that it will run, in the guest, when the guest is next booted.  (The script "
@@ -85303,14 +85311,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:462
+#: ../sysprep/virt-sysprep.pod:465
 msgid ""
 "I<--script script> runs the shell C<script> I<on the host>, with its current "
 "directory inside the guest filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:465
+#: ../sysprep/virt-sysprep.pod:468
 msgid ""
 "If you needed, for example, to C<yum install> new packages, then you I<must "
 "not> use I<--script> for this, since that would (a) run the C<yum> command "
@@ -85320,7 +85328,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:471
+#: ../sysprep/virt-sysprep.pod:474
 msgid ""
 "On the other hand if you need to make adjustments to the guest filesystem "
 "(eg. copying in files), then I<--script> is ideal since (a)  it has access "
@@ -85328,12 +85336,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:476
+#: ../sysprep/virt-sysprep.pod:479
 msgid "Either or both options can be used multiple times on the command line."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:480
+#: ../sysprep/virt-sysprep.pod:483
 msgid ""
 "Although virt-sysprep removes some sensitive information from the guest, it "
 "does not pretend to remove all of it.  You should examine the L</OPERATIONS> "
@@ -85341,7 +85349,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:484
+#: ../sysprep/virt-sysprep.pod:487
 msgid ""
 "Sensitive files are simply removed.  The data they contained may still exist "
 "on the disk, easily recovered with a hex editor or undelete tool.  The I<--"
@@ -85352,24 +85360,24 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../sysprep/virt-sysprep.pod:491
+#: ../sysprep/virt-sysprep.pod:494
 msgid "RANDOM SEED"
 msgstr "БАЗА ВИПАДКОВОСТІ"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:493
+#: ../sysprep/virt-sysprep.pod:496
 msgid "I<(This section applies to Linux guests only)>"
 msgstr "I<(Цей розділ стосується лише гостьових систем Linux)>"
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:495
+#: ../sysprep/virt-sysprep.pod:498
 msgid ""
 "For supported guests, virt-sysprep writes a few bytes of randomness from the "
 "host into the guest's random seed file."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:498
+#: ../sysprep/virt-sysprep.pod:501
 msgid ""
 "If this is just done once and the guest is cloned from the same template, "
 "then each guest will start with the same entropy, and things like SSH host "
@@ -85377,14 +85385,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:502
+#: ../sysprep/virt-sysprep.pod:505
 msgid ""
 "Therefore you should arrange to add more randomness I<after> cloning from a "
 "template too, which can be done by enabling just the customize module:"
 msgstr ""
 
 #. type: verbatim
-#: ../sysprep/virt-sysprep.pod:506
+#: ../sysprep/virt-sysprep.pod:509
 #, no-wrap
 msgid ""
 " cp template.img newguest.img\n"
@@ -85393,14 +85401,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:511
+#: ../sysprep/virt-sysprep.pod:514
 msgid ""
 "Windows 8 \"fast startup\" can prevent virt-sysprep from working.  See "
 "L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:550
+#: ../sysprep/virt-sysprep.pod:553
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-builder(1)>, L<virt-clone(1)>, L<virt-"
 "customize(1)>, L<virt-rescue(1)>, L<virt-resize(1)>, L<virt-sparsify(1)>, "
@@ -85409,12 +85417,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:569
+#: ../sysprep/virt-sysprep.pod:572
 msgid "Wanlong Gao, Fujitsu Ltd."
 msgstr ""
 
 #. type: textblock
-#: ../sysprep/virt-sysprep.pod:575
+#: ../sysprep/virt-sysprep.pod:578
 msgid "Copyright (C) 2012 Fujitsu Ltd."
 msgstr ""
 
@@ -88758,6 +88766,12 @@ msgstr ""
 #: ../v2v/virt-v2v.pod:996
 msgid "Tingting Zheng"
 msgstr ""
+
+#~ msgid ""
+#~ "Note that this may require user intervention when the guest is booted."
+#~ msgstr ""
+#~ "Зауважте, що це може потребувати втручання користувача під час "
+#~ "завантаження гостьової системи."
 
 #~ msgid "Notes on user-account"
 #~ msgstr "Зауваження щодо user-account"
