@@ -998,31 +998,38 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   and grub2_update_console ~remove =
     let rex = Str.regexp "\\(.*\\)\\bconsole=[xh]vc0\\b\\(.*\\)" in
 
-    let grub_cmdline_expr =
-      if g#exists "/etc/sysconfig/grub" then
-        "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX"
+    let paths = [
+      "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
+      "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
+      "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT"
+    ] in
+    let paths = List.map g#aug_match paths in
+    let paths = List.map Array.to_list paths in
+    let paths = List.flatten paths in
+    match paths with
+    | [] ->
+      if not remove then
+        warning ~prog (f_"could not add grub2 serial console (ignored)")
       else
-        "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT" in
+        warning ~prog (f_"could not remove grub2 serial console (ignored)")
+    | path :: _ ->
+      let grub_cmdline = g#aug_get path in
+      if Str.string_match rex grub_cmdline 0 then (
+        let new_grub_cmdline =
+          if not remove then
+            Str.global_replace rex "\\1console=ttyS0\\3" grub_cmdline
+          else
+            Str.global_replace rex "\\1\\3" grub_cmdline in
+        g#aug_set path new_grub_cmdline;
+        g#aug_save ();
 
-    (try
-       let grub_cmdline = g#aug_get grub_cmdline_expr in
-       let grub_cmdline =
-         if Str.string_match rex grub_cmdline 0 then (
-           if remove then
-             Str.global_replace rex "\\1\\3" grub_cmdline
-           else
-             Str.global_replace rex "\\1console=ttyS0\\3" grub_cmdline
-         )
-         else grub_cmdline in
-       g#aug_set grub_cmdline_expr grub_cmdline;
-       g#aug_save ();
-
-       ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
-     with
-       G.Error msg ->
-         warning ~prog (f_"could not update grub2 console: %s (ignored)")
-           msg
-    )
+        try
+          ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
+        with
+          G.Error msg ->
+            warning ~prog (f_"could not rebuild grub2 configuration file (%s).  This may mean that grub output will not be sent to the serial port, but otherwise should be harmless.  Original error message: %s")
+              grub_config msg
+      )
 
   and supports_acpi () =
     (* ACPI known to cause RHEL 3 to fail. *)
