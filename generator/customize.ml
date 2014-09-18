@@ -320,7 +320,9 @@ See also: L</LOG FILE>.";
     flag_ml_var = "password_crypto";
     flag_shortdesc = "Set password crypto";
     flag_pod_longdesc = "\
-Set the password encryption to C<md5>, C<sha256> or C<sha512>.
+When the virt tools change or set a password in the guest, this
+option sets the password encryption of that password to
+C<md5>, C<sha256> or C<sha512>.
 
 C<sha256> and C<sha512> require glibc E<ge> 2.7 (check crypt(3) inside
 the guest).
@@ -330,7 +332,13 @@ is not secure against modern attacks.
 
 The default is C<sha512> unless libguestfs detects an old guest that
 didn't have support for SHA-512, in which case it will use C<md5>.
-You can override libguestfs by specifying this option.";
+You can override libguestfs by specifying this option.
+
+Note this does not change the default password encryption used
+by the guest when you create new user accounts inside the guest.
+If you want to do that, then you should use the I<--edit> option
+to modify C</etc/sysconfig/authconfig> (Fedora, RHEL) or
+C</etc/pam.d/common-password> (Debian, Ubuntu).";
   };
   { flag_name = "selinux-relabel";
     flag_type = FlagBool false (* XXX - the default in virt-builder *);
