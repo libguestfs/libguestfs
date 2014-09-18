@@ -2,6 +2,344 @@ NAME
 
     guestfs-release-notes - libguestfs Release Notes
 
+RELEASE NOTES FOR LIBGUESTFS 1.28
+
+    These release notes only cover the differences from the previous
+    stable/dev branch split (1.26.0). For detailed changelogs, please see
+    the git repository, or the ChangeLog file distributed in the tarball.
+
+ New features
+
+  Tools
+
+    virt-v2v(1) and virt-p2v(1) are tools for converting from foreign
+    hypervisors or physical machines, to KVM. These tools were previously a
+    separate project. The code for both tools has been integrated into the
+    libguestfs tree. As part of the refactoring, virt-p2v has been
+    rewritten (from Ruby, now C), and virt-v2v now uses several modern
+    features of qemu which make it run many times faster than before.
+    virt-v2v(1) can import from: VMware vCenter, VMware OVA files, local
+    disk files, libvirt, RHEL 5 Xen. It can output to: oVirt or Red Hat
+    Enterprise Virtualization (RHEV-M), OpenStack Glance, libvirt.
+
+    virt-log(1) is a new tool for listing log files from guests. It
+    supports a variety of guests including Linux traditional, Linux using
+    journal, and Windows event log.
+
+    virt-builder(1) has a new --machine-readable option to make it simpler
+    to consume virt-builder from other programs.
+
+    New virt-builder(1) and virt-customize(1) --chmod option.
+
+    virt-sysprep(1) will now remove: systemd journals, anaconda logs,
+    lightdm logs, debian-installer files, apt logs, exim logs, ConsoleKit
+    logs, and several other log files. The virt-sysprep user-account
+    operation is now able to remove or keep particular user accounts. (Pino
+    Toscano).
+
+    New guestmount(1) --fd option, allowing you to run guestmount captive
+    under another process.
+
+    virt-sparsify(1) has a new --tmp option allowing you to precisely
+    control where temporary files are stored.
+
+    virt-sparsify(1) can now write to a block device.
+
+    virt-customize(1) and virt-sysprep(1) now support adding firstboot
+    scripts to Windows guests.
+
+    virt-cat(1), virt-edit(1), virt-ls(1) now support the -m option,
+    allowing you to override automatic inspection of guests and instead
+    specify where to mount partitions (Pino Toscano).
+
+  Language bindings
+
+    You can build a Python distribution using make -C python sdist
+
+    Ruby bindings have switched from Test::Unit to MiniTest.
+
+    The Java bindings are now compatible with OpenJDK 8 (Pino Toscano).
+
+  Inspection
+
+    Oracle Linux is returned as oraclelinux (Nikos Skalkotos).
+
+    Linux guests which do not have /etc/fstab can now be handled (Pino
+    Toscano).
+
+  Architectures
+
+    Aarch64 (64 bit ARM) support has been added.
+
+ Security
+
+    CVE-2014-0191 Network usage and entity resolution in XML parsing
+
+      Libguestfs previously used unsafe libxml2 APIs for parsing libvirt
+      XML. These APIs defaulted to allowing network connections to be made
+      when certain XML documents were presented. Using a malformed XML
+      document it was also possible to exhaust all CPU, memory or file
+      descriptors on the machine.
+
+      Since the libvirt XML comes from a trusted source (the libvirt
+      daemon) it is not thought that this could have been exploitable.
+
+      This was fixed in libguestfs ≥ 1.27.9 and the fix was backported to
+      stable versions ≥ 1.26.2, ≥ 1.24.9, ≥ 1.22.10 and ≥ 1.20.13. (Thanks:
+      Dan Berrange, Pino Toscano).
+
+ API
+
+  New APIs
+
+    guestfs_clear_backend_setting
+
+    guestfs_get_backend_setting
+
+    guestfs_set_backend_setting
+
+      Use these APIs to set individual backend settings.
+
+    guestfs_cpio_out
+
+      Convert a directory within the disk image to cpio format.
+
+    guestfs_journal_get_realtime_usec
+
+      Fetch precise journal times, see sd_journal_get_realtime_usec(3).
+
+ Build changes
+
+    Libguestfs can now be built with qemu 2.x.
+
+    Add support for packaging the appliance on Mageia (Joseph Wang, Thierry
+    Vignaud).
+
+    Augeas is now a required dependency.
+
+    Flex and bison are now required dependencies.
+
+ Internals
+
+    You can now connect gdb to qemu by specifying
+    LIBGUESTFS_BACKEND_SETTINGS=gdb
+
+    Serial BIOS (sgabios) is now used by the libvirt backend (on x86 only)
+    so that we see early BIOS messages.
+
+    For the OCaml virt tools, exceptions are now handled and printed by a
+    common function.
+
+    A GCC warning about large stack frames is now enabled by default.
+    Several places that used large arrays and structures on the stack have
+    been fixed.
+
+    There is now a test for booting the appliance repeatedly. Useful for
+    finding kernel leaks. See: tests/qemu/qemu-boot.c
+
+    There is a test for testing the speed of various qemu features such as
+    virtio-serial uploads and block device writes. See:
+    tests/qemu/qemu-speed-test.c
+
+    GCC warnings are now enabled for OCaml-C bindings in the OCaml virt
+    tools.
+
+    The code for editing files used by virt-edit(1), guestfish(1) edit
+    command, virt-customize(1) --edit option and more is now shared between
+    all these utilities (thanks Pino Toscano).
+
+ Bugs fixed
+
+    https://bugzilla.redhat.com/1142416
+
+      part-get-name give 'libguestfs: error: part_get_name: parted does not
+      support the machine output (-m)' error message when run
+      'part-get-name /dev/sda 1'
+
+    https://bugzilla.redhat.com/1142186
+
+      virt-sysprep option '--mount-options' don't work well
+
+    https://bugzilla.redhat.com/1142158
+
+      Illegal command 'part-get-name /dev/sda1 1' cause libguestfs
+      appliance crashed
+
+    https://bugzilla.redhat.com/1142004
+
+      virt-v2v prints waring:WARNING:/files/boot/grub/device.map references
+      unknown device "xvda"
+
+    https://bugzilla.redhat.com/1141723
+
+      virt-v2v: error: disk sda has no defined format shows when converting
+      xen hvm guest
+
+    https://bugzilla.redhat.com/1141680
+
+      [RFE] virt-v2 should support convert a domain with using domain's
+      UUID instead of domain name
+
+    https://bugzilla.redhat.com/1141631
+
+      [RFE] virt-v2 should support convert a guest to a dir-pool with using
+      pool's uuid
+
+    https://bugzilla.redhat.com/1141157
+
+      virt-sysprep option '--user-accounts' don't work well
+
+    https://bugzilla.redhat.com/1141113
+
+      virt-v2v fails to convert esx guests
+
+    https://bugzilla.redhat.com/1140894
+
+      No error messages output if append '--format qcow2' after '-a
+      guest.img', guest.img is a raw format image file
+
+    https://bugzilla.redhat.com/1140547
+
+      virt-builder option '--format' don't work well
+
+    https://bugzilla.redhat.com/1140156
+
+      RFE: Export to RHEV data domain
+
+    https://bugzilla.redhat.com/1140050
+
+      No error shows when multiple conflicting options used with virt-v2v
+
+    https://bugzilla.redhat.com/1139973
+
+      Improve the error info when converting xen guest with no passwordless
+      SSH access configured
+
+    https://bugzilla.redhat.com/1139543
+
+      Improve the error info when converting guest with no space left
+
+    https://bugzilla.redhat.com/1138586
+
+      No error shows when converting running guest with virt-v2v
+
+    https://bugzilla.redhat.com/1138184
+
+      virt-v2v will fail when converting guests with initramfs-*kdump.img
+      under /boot
+
+    https://bugzilla.redhat.com/1138182
+
+      xen guest will be kernel panic after converted by virt-v2v
+
+    https://bugzilla.redhat.com/1130189
+
+      Annoying message about permissions of /dev/kvm
+
+    https://bugzilla.redhat.com/1123007
+
+      libguestfs 'direct' backend should close file descriptors before
+      exec-ing qemu to avoid leaking !O_CLOEXEC fds
+
+    https://bugzilla.redhat.com/1122557
+
+      virt-sparsify overwrites block devices if used as output files
+
+    https://bugzilla.redhat.com/1113156
+
+      Empty fstab breaks libguestfs inspection
+
+    https://bugzilla.redhat.com/1111662
+
+      Guestfs.Error("vgchange_uuid_all: Volume group has active logical
+      volumes")
+
+    https://bugzilla.redhat.com/1109174
+
+      virt-win-reg manual page is corrupted
+
+    https://bugzilla.redhat.com/1106548
+
+      root gets an error accessing to a non-root dir on a snapshot
+      guestmount VMDK img
+
+    https://bugzilla.redhat.com/1103877
+
+      These APIs also need to add to `guestfish -h` command list
+
+    https://bugzilla.redhat.com/1102448
+
+      mageia package list is incorrect
+
+    https://bugzilla.redhat.com/1102447
+
+      libguestfs 1.27.13 does not build due to libxml library order
+
+    https://bugzilla.redhat.com/1100498
+
+      RFE: non-polling mechanism to detect guestmount --no-fork readiness
+
+    https://bugzilla.redhat.com/1099490
+
+      scrub-file can't handle link file
+
+    https://bugzilla.redhat.com/1098718
+
+      RFE: virt-builder aliases
+
+    https://bugzilla.redhat.com/1096465
+
+      virt-builder "proxy=off" setting doesn't turn off the proxy for
+      downloads
+
+    https://bugzilla.redhat.com/1094746
+
+      virt-sparsify man failes to mention what happens to snapshots within
+      a qcow2 image (they are discarded)
+
+    https://bugzilla.redhat.com/1092753
+
+      virt-builder: If several repos contain the same os-version images,
+      then they are duplicated in -l output
+
+    https://bugzilla.redhat.com/1091803
+
+      tar-in-opts execute failed that cause libguestfs appliance crashed
+
+    https://bugzilla.redhat.com/1088424
+
+      virt-resize: libguestfs error: part_set_name: parted: /dev/sdb: Error
+      during translation: Invalid or incomplete multibyte or wide character
+
+    https://bugzilla.redhat.com/1088262
+
+      virt-builder cannot write to a block device
+
+    https://bugzilla.redhat.com/1085029
+
+      Ruby tests fail with latest Ruby
+
+    https://bugzilla.redhat.com/1079210
+
+      virt-sparsify --in-place cannot sparsify as much as it should
+
+    https://bugzilla.redhat.com/1079182
+
+      virt-df cannot report used disk space of windows guest when updated
+      to 6.5
+
+    https://bugzilla.redhat.com/1077817
+
+      virt-builder error: "syntax error at line 3: syntax error"
+
+    https://bugzilla.redhat.com/1056290
+
+      virt-sparsify overwrites block devices if used as output files
+
+    https://bugzilla.redhat.com/812970
+
+      virt-rescue cannot set ><rescue> prompt, on Ubuntu 12.04
+
 RELEASE NOTES FOR LIBGUESTFS 1.26
 
     These release notes only cover the differences from the previous
