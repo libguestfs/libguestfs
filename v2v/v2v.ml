@@ -224,6 +224,14 @@ let rec main () =
     if verbose then printf "picked conversion module %s\n%!" conversion_name;
     convert ~verbose ~keep_serial_console g inspect source in
 
+  (* Did we manage to install virtio drivers? *)
+  if not quiet then (
+    if guestcaps.gcaps_block_bus = Virtio_blk then
+      printf (f_"This guest has virtio drivers installed.\n%!")
+    else
+      printf (f_"This guest does not have virtio drivers installed.\n%!");
+  );
+
   if do_copy then (
     (* Doing fstrim on all the filesystems reduces the transfer size
      * because unused blocks are marked in the overlay and thus do
