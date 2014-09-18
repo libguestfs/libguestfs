@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.27.48\n"
+"Project-Id-Version: libguestfs 1.27.49\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-17 15:49+0100\n"
+"POT-Creation-Date: 2014-09-18 18:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,7 +90,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1284
+#: ../v2v/convert_linux.ml:1291
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -100,7 +100,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:237
+#: ../v2v/v2v.ml:245
 msgid "%s: %s (ignored)"
 msgstr ""
 
@@ -799,7 +799,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:241
+#: ../v2v/v2v.ml:249
 msgid "Closing the overlay"
 msgstr ""
 
@@ -835,7 +835,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:260
+#: ../v2v/v2v.ml:268
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -863,7 +863,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:305
+#: ../v2v/v2v.ml:313
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1047,7 +1047,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:341
+#: ../v2v/v2v.ml:349
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1147,7 +1147,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:308 ../customize/customize_main.ml:252
+#: ../v2v/v2v.ml:316 ../customize/customize_main.ml:252
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1314,7 +1314,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:232
+#: ../v2v/v2v.ml:240
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1943,7 +1943,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1076
+#: ../v2v/convert_linux.ml:1083
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2033,6 +2033,18 @@ msgid ""
 "This file records who is currently logged in on a machine.  In modern\n"
 "Linux distros it is stored in a ramdisk and hence not part of the\n"
 "virtual machine's disk, but it was stored on disk in older distros."
+msgstr ""
+
+#: ../v2v/v2v.ml:232
+msgid ""
+"This guest does not have virtio drivers installed.\n"
+"%!"
+msgstr ""
+
+#: ../v2v/v2v.ml:230
+msgid ""
+"This guest has virtio drivers installed.\n"
+"%!"
 msgstr ""
 
 #: ../v2v/lib_ovf.ml:297
@@ -2211,17 +2223,23 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:344
+#: ../v2v/v2v.ml:352
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:248
+#: ../v2v/convert_linux.ml:1012
+msgid "could not add grub2 serial console (ignored)"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:250
 msgid ""
-"could not chown newly created RHEV files and directories to 36.36. You may "
-"need to do this by hand, otherwise RHEV-M may give errors when trying to "
-"import this domain.\n"
+"could not chown newly created RHEV files and directories to vdsm.kvm.\n"
 "\n"
-"The directories (and all files inside) that have to be owned by 36.36 are:\n"
+"You will need to do this operation by hand, otherwise RHEV-M will give "
+"errors when trying to import this domain.\n"
+"\n"
+"The directories (and all files inside) that have to be owned by vdsm.kvm "
+"are:\n"
 "%s\n"
 "%s"
 msgstr ""
@@ -2256,12 +2274,19 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
+#: ../v2v/convert_linux.ml:1030
+msgid ""
+"could not rebuild grub2 configuration file (%s).  This may mean that grub "
+"output will not be sent to the serial port, but otherwise should be "
+"harmless.  Original error message: %s"
+msgstr ""
+
 #: ../v2v/output_libvirt.ml:254
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1023
-msgid "could not update grub2 console: %s (ignored)"
+#: ../v2v/convert_linux.ml:1014
+msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
 #: ../mllib/regedit.ml:55
@@ -2328,11 +2353,11 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1131
+#: ../v2v/convert_linux.ml:1138
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
-#: ../v2v/v2v.ml:328
+#: ../v2v/v2v.ml:336
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2526,7 +2551,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:272
+#: ../v2v/v2v.ml:280
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -2542,7 +2567,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:366
+#: ../v2v/v2v.ml:374
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2562,7 +2587,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:351
+#: ../v2v/v2v.ml:359
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2611,7 +2636,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:321
+#: ../v2v/v2v.ml:329
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2621,7 +2646,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:431
+#: ../v2v/v2v.ml:439
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2714,7 +2739,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:300 ../v2v/v2v.ml:111
+#: ../v2v/v2v.ml:308 ../v2v/v2v.ml:111
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2726,7 +2751,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:359
+#: ../v2v/v2v.ml:367
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2818,7 +2843,7 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1175
+#: ../v2v/convert_linux.ml:1182
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
