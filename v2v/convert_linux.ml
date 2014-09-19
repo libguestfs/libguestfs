@@ -82,6 +82,11 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   (* We use Augeas for inspection and conversion, so initialize it early. *)
   Lib_linux.augeas_init verbose g;
 
+  (* Clean RPM database.  This must be done early to avoid RHBZ#1143866. *)
+  let dbfiles = g#glob_expand "/var/lib/rpm/__db.00?" in
+  let dbfiles = Array.to_list dbfiles in
+  List.iter g#rm_f dbfiles;
+
   (* What grub is installed? *)
   let grub_config, grub =
     try
@@ -393,13 +398,6 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       )
 
     | `Grub2 -> () (* Not necessary for grub2. *)
-
-  and clean_rpmdb () =
-    (* Clean RPM database. *)
-    assert (inspect.i_package_format = "rpm");
-    let dbfiles = g#glob_expand "/var/lib/rpm/__db.00?" in
-    let dbfiles = Array.to_list dbfiles in
-    List.iter g#rm_f dbfiles
 
   and autorelabel () =
     (* Only do autorelabel if load_policy binary exists.  Actually
@@ -1333,7 +1331,6 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   in
 
   augeas_grub_configuration ();
-  clean_rpmdb ();
   autorelabel ();
 
   unconfigure_xen ();
