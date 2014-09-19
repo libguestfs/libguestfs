@@ -828,29 +828,29 @@ read the man page virt-resize(1).
     printf "**********\n\n";
     printf "Summary of changes:\n\n";
 
-    List.iter (
-      fun ({ p_name = name; p_part = { G.part_size = oldsize }} as p) ->
+    let rec print_summary p =
         let text =
           match p.p_operation with
           | OpCopy ->
-              sprintf (f_"%s: This partition will be left alone.") name
+              sprintf (f_"%s: This partition will be left alone.") p.p_name
           | OpIgnore ->
-              sprintf (f_"%s: This partition will be created, but the contents will be ignored (ie. not copied to the target).") name
+              sprintf (f_"%s: This partition will be created, but the contents will be ignored (ie. not copied to the target).") p.p_name
           | OpDelete ->
-              sprintf (f_"%s: This partition will be deleted.") name
+              sprintf (f_"%s: This partition will be deleted.") p.p_name
           | OpResize newsize ->
               sprintf (f_"%s: This partition will be resized from %s to %s.")
-                name (human_size oldsize) (human_size newsize) ^
+                p.p_name (human_size p.p_part.G.part_size) (human_size newsize) ^
               if can_expand_content p.p_type then (
                 sprintf (f_"  The %s on %s will be expanded using the '%s' method.")
                   (string_of_partition_content_no_size p.p_type)
-                  name
+                  p.p_name
                   (string_of_expand_content_method
                      (expand_content_method p.p_type))
               ) else "" in
 
-        wrap ~indent:4 (text ^ "\n\n")
-    ) partitions;
+        wrap ~indent:4 (text ^ "\n\n") in
+
+    List.iter print_summary partitions;
 
     List.iter (
       fun ({ lv_name = name } as lv) ->
