@@ -367,7 +367,7 @@ read the man page virt-resize(1).
    * way to do it is with g#blockdev_getsize64.
    *)
   let sectsize, insize, outsize =
-    let sectsize = g#blockdev_getss "/dev/sdb" in
+    let sectsize = Int64.of_int (g#blockdev_getss "/dev/sdb") in
     let insize = g#blockdev_getsize64 "/dev/sda" in
     let outsize = g#blockdev_getsize64 "/dev/sdb" in
     if verbose then (
@@ -722,7 +722,7 @@ read the man page virt-resize(1).
       let first_part_start_sects =
         match partitions with
         | { p_part = { G.part_start = start }} :: _ ->
-          start /^ Int64.of_int sectsize
+          start /^ sectsize
         | [] -> 0L in
 
       let max_bootloader_sects = Int64.of_int max_bootloader /^ 512L in
@@ -737,7 +737,7 @@ read the man page virt-resize(1).
       (* Add up the total max. overhead. *)
       let overhead_sects =
         start_overhead_sects +^ alignment_sects +^ gpt_end_sects in
-      Int64.of_int sectsize *^ overhead_sects in
+      sectsize *^ overhead_sects in
 
     let required = List.fold_left (
       fun total p ->
@@ -1019,8 +1019,6 @@ read the man page virt-resize(1).
    * on the target.
    *)
   let partitions =
-    let sectsize = Int64.of_int sectsize in
-
     let rec loop partnum start = function
       | p :: ps ->
         (match p.p_operation with
