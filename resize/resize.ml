@@ -1138,8 +1138,7 @@ read the man page virt-resize(1).
    * so that we can magically change the primary partition to an extended
    * partition if necessary.
    *)
-  List.iter (
-    fun p ->
+  let set_partition_bootable_and_id p =
       if p.p_bootable then
         g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
 
@@ -1155,7 +1154,8 @@ read the man page virt-resize(1).
       | MBR, MBR_ID mbr_id ->
         g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
       | GPT, (No_ID|MBR_ID _) | MBR, (No_ID|GPT_Type _) -> ()
-  ) partitions;
+  in
+  List.iter set_partition_bootable_and_id partitions;
 
   (* Fix the bootloader if we aligned the first partition. *)
   if align_first_partition_and_fix_bootloader then (
