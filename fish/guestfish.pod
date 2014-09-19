@@ -1336,7 +1336,7 @@ A bold black version of the ordinary prompt.
 =item *
 
  GUESTFISH_PS1='\[\e[1;32m\]><fs>\[\e[0;31m\] '
- GUESTFISH_OUTPUT='\e[0;30m'
+ GUESTFISH_OUTPUT='\e[0m'
  GUESTFISH_RESTORE="$GUESTFISH_OUTPUT"
  GUESTFISH_INIT='\e[1;34m'
 
