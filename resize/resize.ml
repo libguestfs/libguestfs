@@ -1097,8 +1097,7 @@ read the man page virt-resize(1).
   ) partitions;
 
   (* Copy over the data. *)
-  List.iter (
-    fun p ->
+  let copy_partition p =
       match p.p_operation with
       | OpCopy | OpResize _ ->
         (* XXX Old code had 'when target_partnum > 0', but it appears
@@ -1132,7 +1131,8 @@ read the man page virt-resize(1).
            g#copy_device_to_device ~srcoffset ~size:copysize "/dev/sda" target
         )
       | OpIgnore | OpDelete -> ()
-  ) partitions;
+  in
+  List.iter copy_partition partitions;
 
   (* Set bootable and MBR IDs.  Do this *after* copying over the data,
    * so that we can magically change the primary partition to an extended
