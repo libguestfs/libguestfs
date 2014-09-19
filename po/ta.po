@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-18 18:06+0100\n"
+"POT-Creation-Date: 2014-09-19 14:48+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/projects/p/libguestfs/"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:864 ../resize/resize.ml:845
+#: ../resize/resize.ml:864 ../resize/resize.ml:844
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
@@ -65,7 +65,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:245
+#: ../mllib/common_utils.ml:246
 msgid "%s"
 msgstr ""
 
@@ -91,13 +91,13 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1291
+#: ../v2v/convert_linux.ml:1289
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:241
+#: ../mllib/common_utils.ml:242
 msgid "%s: %s"
 msgstr ""
 
@@ -109,7 +109,7 @@ msgstr ""
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:243
+#: ../mllib/common_utils.ml:244
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -180,21 +180,21 @@ msgid ""
 "error came from '%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:838
+#: ../resize/resize.ml:837
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:840
+#: ../resize/resize.ml:839
 msgid "%s: This partition will be deleted."
 msgstr ""
 
-#: ../resize/resize.ml:836
+#: ../resize/resize.ml:835
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:842
+#: ../resize/resize.ml:841
 msgid "%s: This partition will be resized from %s to %s."
 msgstr ""
 
@@ -274,7 +274,7 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../mllib/common_utils.ml:216
+#: ../mllib/common_utils.ml:217
 msgid "%s: error: %s"
 msgstr ""
 
@@ -538,7 +538,7 @@ msgstr ""
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:229
+#: ../mllib/common_utils.ml:230
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -830,7 +830,7 @@ msgstr ""
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1121
+#: ../resize/resize.ml:1118
 msgid ""
 "Copying %s ...\n"
 "%!"
@@ -1088,13 +1088,13 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../resize/resize.ml:1285
+#: ../resize/resize.ml:1283
 msgid ""
 "Expanding %s using the '%s' method ...\n"
 "%!"
 msgstr ""
 
-#: ../resize/resize.ml:1266
+#: ../resize/resize.ml:1263
 msgid ""
 "Expanding %s%s using the '%s' method ...\n"
 "%!"
@@ -1153,7 +1153,7 @@ msgstr ""
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1182
+#: ../resize/resize.ml:1180
 msgid ""
 "Fixing first NTFS partition boot record ...\n"
 "%!"
@@ -1217,7 +1217,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:220
+#: ../mllib/common_utils.ml:221
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1640,7 +1640,7 @@ msgstr ""
 msgid "Rename guest when converting"
 msgstr ""
 
-#: ../resize/resize.ml:1312
+#: ../resize/resize.ml:1310
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -1944,7 +1944,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1083
+#: ../v2v/convert_linux.ml:1081
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2120,13 +2120,13 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:620
+#: ../v2v/convert_linux.ml:618
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:529
+#: ../v2v/convert_linux.ml:527
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2228,7 +2228,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1012
+#: ../v2v/convert_linux.ml:1010
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2275,7 +2275,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1030
+#: ../v2v/convert_linux.ml:1028
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2286,7 +2286,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1014
+#: ../v2v/convert_linux.ml:1012
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2354,7 +2354,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1138
+#: ../v2v/convert_linux.ml:1136
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2414,7 +2414,7 @@ msgstr ""
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
-#: ../mllib/common_utils.ml:258
+#: ../mllib/common_utils.ml:259
 msgid "exception: %s"
 msgstr ""
 
@@ -2438,15 +2438,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:430
+#: ../mllib/common_utils.ml:431
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:432
+#: ../mllib/common_utils.ml:433
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:434
+#: ../mllib/common_utils.ml:435
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2458,7 +2458,7 @@ msgstr ""
 msgid "extra parameter on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:249
+#: ../mllib/common_utils.ml:250
 msgid "failure: %s"
 msgstr ""
 
@@ -2468,7 +2468,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../resize/resize.ml:1179
+#: ../resize/resize.ml:1177
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
@@ -2540,15 +2540,15 @@ msgstr ""
 msgid "in the libvirt XML metadata, <os><type arch='...'> is missing or empty"
 msgstr ""
 
-#: ../mllib/common_utils.ml:256
+#: ../mllib/common_utils.ml:257
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:253
+#: ../mllib/common_utils.ml:254
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:251
+#: ../mllib/common_utils.ml:252
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -2564,7 +2564,7 @@ msgstr ""
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
-#: ../mllib/common_utils.ml:247
+#: ../mllib/common_utils.ml:248
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -2606,22 +2606,22 @@ msgstr ""
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:97
+#: ../v2v/convert_linux.ml:102
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:200
+#: ../v2v/convert_linux.ml:205
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:263
+#: ../v2v/convert_linux.ml:268
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
 "This probably indicates that %s was unable to inspect this guest properly."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:374
+#: ../v2v/convert_linux.ml:379
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -2657,7 +2657,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:735
+#: ../v2v/convert_linux.ml:733
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2844,13 +2844,13 @@ msgstr ""
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1182
+#: ../v2v/convert_linux.ml:1180
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:879
+#: ../v2v/convert_linux.ml:877
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"

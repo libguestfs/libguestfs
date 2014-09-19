@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-09-18 18:06+0200\n"
+"POT-Creation-Date: 2014-09-19 14:49+0200\n"
 "PO-Revision-Date: 2014-07-22 18:04+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -38774,10 +38774,16 @@ msgstr ""
 
 #. type: verbatim
 #: ../fish/guestfish.pod:1338
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " GUESTFISH_PS1='\\[\\e[1;32m\\]><fs>\\[\\e[0;31m\\] '\n"
+#| " GUESTFISH_OUTPUT='\\e[0;30m'\n"
+#| " GUESTFISH_RESTORE=\"$GUESTFISH_OUTPUT\"\n"
+#| " GUESTFISH_INIT='\\e[1;34m'\n"
+#| "\n"
 msgid ""
 " GUESTFISH_PS1='\\[\\e[1;32m\\]><fs>\\[\\e[0;31m\\] '\n"
-" GUESTFISH_OUTPUT='\\e[0;30m'\n"
+" GUESTFISH_OUTPUT='\\e[0m'\n"
 " GUESTFISH_RESTORE=\"$GUESTFISH_OUTPUT\"\n"
 " GUESTFISH_INIT='\\e[1;34m'\n"
 "\n"
