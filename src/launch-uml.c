@@ -44,7 +44,9 @@ struct backend_uml_data {
   char umid[UML_UMID_LEN+1];    /* umid=<...> unique ID. */
 };
 
+#if 0
 static void print_vmlinux_command_line (guestfs_h *g, char **argv);
+#endif
 
 /* Run uml_mkcow to create a COW overlay. */
 static char *
@@ -82,6 +84,7 @@ create_cow_overlay_uml (guestfs_h *g, void *datav, struct drive *drv)
   return make_cow_overlay (g, drv->src.u.path);
 }
 
+#if 0
 /* Test for features which are not supported by the UML backend.
  * Possibly some of these should just be warnings, not errors.
  */
@@ -129,10 +132,17 @@ uml_supported (guestfs_h *g)
 
   return true;
 }
+#endif
 
 static int
 launch_uml (guestfs_h *g, void *datav, const char *arg)
 {
+  error (g,
+	 "launch: In RHEL, only the 'libvirt' or 'direct' method is supported.\n"
+	 "In particular, User-Mode Linux (UML) is not supported.");
+  return -1;
+
+#if 0
   struct backend_uml_data *data = datav;
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (cmdline);
   int console_sock = -1, daemon_sock = -1;
@@ -488,8 +498,10 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   }
   g->state = CONFIG;
   return -1;
+#endif
 }
 
+#if 0
 /* This is called from the forked subprocess just before vmlinux runs,
  * so it can just print the message straight to stderr, where it will
  * be picked up and funnelled through the usual appliance event API.
@@ -519,6 +531,7 @@ print_vmlinux_command_line (guestfs_h *g, char **argv)
 
   fputc ('\n', stderr);
 }
+#endif
 
 static int
 shutdown_uml (guestfs_h *g, void *datav, int check_for_errors)
