@@ -24,7 +24,6 @@ set -e
 
 $TEST_FUNCTIONS
 skip_if_skipped
-skip_if_backend uml
 
 guestfish <<EOF
 -add-domain rhbz1370424 \

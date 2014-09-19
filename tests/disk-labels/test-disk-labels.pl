@@ -25,11 +25,6 @@ use Sys::Guestfs;
 
 exit 77 if $ENV{SKIP_TEST_DISK_LABELS_PL};
 
-if (Sys::Guestfs->new()->get_backend() eq "uml") {
-    print "$0: test skipped because UML backend does not support disk labels\n";
-    exit 77
-}
-
 my $g = Sys::Guestfs->new ();
 
 # Add two drives.

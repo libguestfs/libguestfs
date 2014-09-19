@@ -27,11 +27,6 @@ END { kill 15, $pid if $pid > 0 };
 
 exit 77 if $ENV{SKIP_TEST_NBD_PL};
 
-if (Sys::Guestfs->new()->get_backend() eq "uml") {
-    print "$0: test skipped because UML backend does not support NBD\n";
-    exit 77
-}
-
 # Check we have qemu-nbd.
 if (system ("qemu-nbd --help >/dev/null 2>&1") != 0) {
     print "$0: test skipped because qemu-nbd program not found\n";

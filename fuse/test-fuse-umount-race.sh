@@ -25,8 +25,6 @@ $TEST_FUNCTIONS
 skip_if_skipped "test-fuse.sh"
 skip_if_skipped
 skip_unless_phony_guest fedora.img
-# UML backend does not support qcow2.
-skip_if_backend uml
 skip_unless_fuse
 
 rm -f test.qcow2 test-copy.qcow2 test.pid

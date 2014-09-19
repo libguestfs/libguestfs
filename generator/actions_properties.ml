@@ -32,8 +32,7 @@ let non_daemon_functions = [
     longdesc = "\
 Set the hypervisor binary that we will use.  The hypervisor
 depends on the backend, but is usually the location of the
-qemu/KVM hypervisor.  For the uml backend, it is the location
-of the C<linux> or C<vmlinux> binary.
+qemu/KVM hypervisor.
 
 The default is chosen when the library was compiled by the
 configure script.

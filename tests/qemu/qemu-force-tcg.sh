@@ -20,8 +20,6 @@
 
 $TEST_FUNCTIONS
 skip_if_skipped
-# Only applicable if the backend uses qemu.
-skip_if_backend uml
 
 set -e
 

@@ -73,7 +73,6 @@ main (int argc, char *argv[])
   virDomainPtr dom;
   virErrorPtr err;
   int r;
-  char *backend;
   char cwd[1024];
   FILE *fp;
   char libvirt_uri[sizeof cwd + 64];
@@ -85,13 +84,6 @@ main (int argc, char *argv[])
   g = guestfs_create ();
   if (g == NULL)
     error (EXIT_FAILURE, errno, "guestfs_create");
-
-  backend = guestfs_get_backend (g);
-  if (STREQ (backend, "uml")) {
-    free (backend);
-    error (77, 0, "test skipped because UML backend does not support qcow2");
-  }
-  free (backend);
 
   /* Create the libvirt XML and test images in the current
    * directory.

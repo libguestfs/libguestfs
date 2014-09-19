@@ -271,10 +271,6 @@ Optional.  Used only for testing.
 
 Optional.  qemu-nbd is used for testing.
 
-=item uml_mkcow
-
-Optional.  For the L<UML backend|guestfs(3)/BACKEND>.
-
 =item curl
 
 Optional.  Used by virt-builder for downloads.

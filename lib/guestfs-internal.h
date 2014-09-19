@@ -292,7 +292,7 @@ struct drive {
    * it is non-NULL, else consult the original source above.
    *
    * Note that the overlay is in a backend-specific format, probably
-   * different from the source format.  eg. qcow2, UML COW.
+   * different from the source format.  eg. qcow2
    */
   char *overlay;
 
@@ -812,7 +812,6 @@ void guestfs_int_init_direct_backend (void) __attribute__((constructor));
 #ifdef HAVE_LIBVIRT_BACKEND
 void guestfs_int_init_libvirt_backend (void) __attribute__((constructor));
 #endif
-void guestfs_int_init_uml_backend (void) __attribute__((constructor));
 
 /* qemu.c */
 struct qemu_data;

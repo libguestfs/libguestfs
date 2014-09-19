@@ -97,7 +97,6 @@ libguestfs_la_SOURCES = \
 	launch.c \
 	launch-direct.c \
 	launch-libvirt.c \
-	launch-uml.c \
 	libvirt-auth.c \
 	libvirt-domain.c \
 	lpj.c \

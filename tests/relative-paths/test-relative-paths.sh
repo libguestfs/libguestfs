@@ -21,10 +21,6 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-# UML doesn't support qcow2.  Conceivably there might be a similar
-# problem with UML COW images which would require a separate test.
-skip_if_backend uml
-
 rm -f backing*
 rm -f overlay*
 rm -f link*

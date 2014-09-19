@@ -24,8 +24,6 @@ set -e
 
 $TEST_FUNCTIONS
 skip_if_skipped
-# UML backend doesn't support qcow2 format.
-skip_if_backend uml
 
 f=isolation-qcow2.img
 rm -f $f

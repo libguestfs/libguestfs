@@ -313,7 +313,6 @@ lib/inspect-osinfo.c
 lib/journal.c
 lib/launch-direct.c
 lib/launch-libvirt.c
-lib/launch-uml.c
 lib/launch.c
 lib/libvirt-auth.c
 lib/libvirt-domain.c

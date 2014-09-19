@@ -1481,17 +1481,6 @@ URI would be C<libvirt:qemu:///session>
 The libvirt backend supports more features, including
 hotplugging (see L</HOTPLUGGING>) and sVirt.
 
-=item C<uml>
-
-Run the User-Mode Linux kernel.  The location of the kernel is set
-using C<$LIBGUESTFS_HV> or using the L</guestfs_set_qemu> API (note
-that qemu is not involved, we just reuse the same variable in the
-handle for convenience).
-
-User-Mode Linux can be much faster, simpler and more lightweight than
-using a full-blown virtual machine, but it also has some shortcomings.
-See L</USER-MODE LINUX BACKEND> below.
-
 =back
 
 C<direct> is usually the default backend.  However since libguestfs
@@ -1552,84 +1541,6 @@ tip: look in the kernel C<log_buf>).
 On Fedora, install C<kernel-debuginfo> for the C<vmlinux> file
 (containing symbols).  Make sure the symbols precisely match the
 kernel being used.
-
-=head2 USER-MODE LINUX BACKEND
-
-Setting the following environment variables (or the equivalent in the
-API) selects the User-Mode Linux backend:
-
- export LIBGUESTFS_BACKEND=uml
- export LIBGUESTFS_HV=/path/to/vmlinux
-
-C<vmlinux> (or it may be called C<linux>) is the Linux binary,
-compiled to run as a userspace process.  Note that we reuse the qemu
-variable in the handle for convenience; qemu is not involved.
-
-User-Mode Linux can be faster and more lightweight than running a
-full-blown virtual machine as the backend (especially if you are
-already running libguestfs in a virtual machine or cloud instance),
-but it also has some shortcomings compared to the usual qemu/KVM-based
-backend.
-
-=head3 BUILDING USER-MODE LINUX FROM SOURCE
-
-Your Linux distro may provide UML in which case you can ignore this
-section.
-
-These instructions are adapted from:
-L<http://user-mode-linux.sourceforge.net/source.html>
-
-=over 4
-
-=item 1. Check out Linux sources
-
-Clone the Linux git repository or download the Linux source tarball.
-
-=item 2. Configure the kernel
-
-B<Note:> All ‘make’ commands must have C<ARCH=um> added.
-
- make menuconfig ARCH=um
-
-Make sure any filesystem drivers that you need are compiled into the
-kernel.
-
-B<Currently, it needs a large amount of extra work to get modules
-working>.  It’s recommended that you disable module support in the
-kernel configuration, which will cause everything to be compiled into
-the image.
-
-=item 3. Build the kernel
-
- make ARCH=um
-
-This will leave a file called C<linux> or C<vmlinux> in the top-level
-directory.  This is the UML kernel.  You should set C<LIBGUESTFS_HV>
-to point to this file.
-
-=back
-
-=head3 USER-MODE LINUX DIFFERENCES FROM KVM
-
-=over 4
-
-=item UML only supports raw-format images
-
-Only plain raw-format images will work.  No qcow2, no backing files.
-
-=item UML does not support any remote drives
-
-No NBD, etc.
-
-=item UML only works on ix86 and x86-64
-
-=item UML is experimental
-
-In particular, support for UML in libguestfs depends on support for
-UML in the upstream kernel.  If UML was ever removed from the upstream
-Linux kernel, then we might remove it from libguestfs too.
-
-=back
 
 =head2 ABI GUARANTEE
 

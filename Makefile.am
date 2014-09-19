@@ -302,8 +302,6 @@ check-all:
 	  check-valgrind \
 	  check-direct \
 	  check-valgrind-direct \
-	  check-uml \
-	  check-valgrind-uml \
 	  check-with-upstream-qemu \
 	  check-with-upstream-libvirt \
 	  check-slow
@@ -340,24 +338,6 @@ check-valgrind-direct:
 	fi
 
 check-valgrind-with-appliance: check-valgrind-direct
-
-# Tests which currently fail under UML:
-# - blockdev --setro seems to have no effect on /dev/ubd* devices [*]
-# - RHBZ#914931: test is sent a SIGTERM, apparently by UML [*]
-# - tests/md/test-inspect-fstab-md.sh hangs at various places during the
-#   test, eg. running mdadm, mounting MD filesystem [*]
-# [*] = likely to be a bug in UML itself
-SKIP_TESTS_FAILING_IN_UML = \
-	SKIP_TEST_BLOCKDEV_GETRO=1 \
-	SKIP_TEST_BLOCKDEV_SETRO=1 \
-	SKIP_TEST_RHBZ914931=1 \
-	SKIP_TEST_INSPECT_FSTAB_MD_SH=1
-
-check-uml:
-	$(MAKE) LIBGUESTFS_BACKEND=uml $(SKIP_TESTS_FAILING_IN_UML) check
-
-check-valgrind-uml:
-	$(MAKE) LIBGUESTFS_BACKEND=uml $(SKIP_TESTS_FAILING_IN_UML) check-valgrind
 
 QEMUDIR = $(HOME)/d/qemu
 QEMUBINARY = $(QEMUDIR)/x86_64-softmmu/qemu-system-x86_64
@@ -499,8 +479,6 @@ help:
 	@echo "make check-valgrind               Run a subset of the tests under valgrind."
 	@echo "make check-direct                 Test using direct backend."
 	@echo "make check-valgrind-direct        Test valgrind + direct backend."
-	@echo "make check-uml                    Test using User-Mode Linux."
-	@echo "make check-valgrind-uml           Test valgrind + User-Mode Linux."
 	@echo "make check-with-upstream-qemu     Test using upstream qemu."
 	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
 	@echo "make check-slow                   Slow/long-running tests."

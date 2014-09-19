@@ -649,21 +649,6 @@ using C<./configure --with-default-backend=...>
 Run a subset of the test suite under valgrind using the
 default appliance back-end.
 
-=item C<make check-uml>
-
-Runs all tests using the User-Mode Linux backend.
-
-As there is no standard location for the User-Mode Linux kernel, you
-I<have> to set C<LIBGUESTFS_HV> to point to the kernel image, eg:
-
- make check-uml LIBGUESTFS_HV=~/d/linux-um/vmlinux
-
-=item C<make check-valgrind-uml>
-
-Runs all tests using the User-Mode Linux backend, under valgrind.
-
-As above, you have to set C<LIBGUESTFS_HV> to point to the kernel.
-
 =item C<make check-with-upstream-qemu>
 
 Runs all tests using a local qemu binary.  It looks for the qemu

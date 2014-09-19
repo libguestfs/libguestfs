@@ -532,11 +532,6 @@ virt-builder
  - /etc/resolv.conf handling works but is best described as a hack:
    https://github.com/libguestfs/libguestfs/commit/9521422ce60578f7196cc8b7977d998159238c19
 
- - let's make UML work
-   + SLIRP is insecure, but we could allow just a bare web proxy which
-     gets proxied over virtio-serial to the outside world (except
-     virtio-serial can't be multiplexed)
-
  - sometimes (not always) aug_init takes ages, why?
 
 Midnight Commander (mc) extension

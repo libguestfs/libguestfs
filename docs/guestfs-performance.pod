@@ -365,43 +365,6 @@ L<http://rwmj.wordpress.com/2013/02/25/multiple-libguestfs-appliances-in-paralle
      printf ("%d %.2f\n", $nr_threads, $end_t - $start_t);
  }
 
-=head1 USING USER-MODE LINUX
-
-Since libguestfs 1.24, it has been possible to use the User-Mode Linux
-(uml) backend instead of KVM
-(see L<guestfs(3)/USER-MODE LINUX BACKEND>).  This section makes some
-general remarks about this backend, but it is B<highly advisable> to
-measure your own workload under UML rather than trusting comments or
-intuition.
-
-=over 4
-
-=item *
-
-UML usually performs the same or slightly slower than KVM, on baremetal.
-
-=item *
-
-However UML often performs the same under virtualization as it does on
-baremetal, whereas KVM can run much slower under virtualization (since
-hardware virt acceleration is not available).
-
-=item *
-
-Upload and download is as much as 10 times slower on UML than KVM.
-Libguestfs sends this data over the UML emulated serial port, which is
-far less efficient than KVM’s virtio-serial.
-
-=item *
-
-UML lacks some features (eg. qcow2 support), so it may not be
-applicable at all.
-
-=back
-
-For some actual figures, see:
-L<http://rwmj.wordpress.com/2013/08/14/performance-of-user-mode-linux-as-a-libguestfs-backend/#content>
-
 =head1 TROUBLESHOOTING POOR PERFORMANCE
 
 =head2 Ensure hardware virtualization is available

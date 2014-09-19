@@ -281,21 +281,7 @@ build_supermin_appliance (guestfs_h *g,
   /* Touch the files so they don't get deleted (as they are in /var/tmp). */
   (void) utimes (appliance->kernel, NULL);
   (void) utimes (appliance->initrd, NULL);
-
-  /* Checking backend != "uml" is a big hack.  UML encodes the mtime
-   * of the original backing file (in this case, the appliance) in the
-   * COW file, and checks it when adding it to the VM.  If there are
-   * multiple threads running and one touches the appliance here, it
-   * will disturb the mtime and UML will give an error.
-   *
-   * We can get rid of this hack as soon as UML fixes the
-   * ubdN=cow,original parsing bug, since we won't need to run
-   * uml_mkcow separately, so there is no possible race.
-   *
-   * XXX
-   */
-  if (STRNEQ (g->backend, "uml"))
-    (void) utimes (appliance->image, NULL);
+  (void) utimes (appliance->image, NULL);
 
   return 0;
 }

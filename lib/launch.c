@@ -284,14 +284,6 @@ guestfs_impl_config (guestfs_h *g,
 {
   struct hv_param *hp;
 
-  /*
-    XXX For qemu this made sense, but not for uml.
-    if (hv_param[0] != '-') {
-    error (g, _("parameter must begin with '-' character"));
-    return -1;
-    }
-  */
-
   /* A bit fascist, but the user will probably break the extra
    * parameters that we add if they try to set any of these.
    */
@@ -431,5 +423,4 @@ guestfs_int_force_load_backends[] = {
 #ifdef HAVE_LIBVIRT_BACKEND
   guestfs_int_init_libvirt_backend,
 #endif
-  guestfs_int_init_uml_backend,
 };

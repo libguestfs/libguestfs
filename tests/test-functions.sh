@@ -54,7 +54,7 @@ skip_if_skipped ()
 }
 
 # Skip if the current libguestfs backend is $1.
-# eg. skip_if_backend uml
+# eg. skip_if_backend libvirt
 skip_if_backend ()
 {
     local b="$(guestfish get-backend)"

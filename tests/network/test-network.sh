@@ -24,6 +24,5 @@ set -e
 
 $TEST_FUNCTIONS
 skip_if_skipped
-skip_if_backend uml
 
 guestfish --network -a /dev/null run

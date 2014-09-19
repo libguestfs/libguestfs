@@ -44,10 +44,6 @@ case "$backend" in
         echo "$0: skipping test because host firewall will probably prevent this test from working"
         exit 77
         ;;
-    uml)
-        echo "$0: skipping test because networking is not available in the UML backend"
-        exit 77
-        ;;
     *)
         echo "$0: don't know how to get IP address of backend $backend"
         exit 77
