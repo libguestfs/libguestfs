@@ -27,7 +27,6 @@ ifelse(REDHAT,1,
   btrfs-progs
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
-  e2fsprogs
   dnl e4fsprogs only exists on RHEL 5, will be ignored everywhere else.
   e4fsprogs
   genisoimage
@@ -60,7 +59,6 @@ ifelse(DEBIAN,1,
   bsdmainutils
   btrfs-tools
   cryptsetup
-  e2fsprogs
   extlinux
   genisoimage
 dnl gfs-tools, gfs2-tools have been renamed to gfs2-utils
@@ -102,7 +100,6 @@ ifelse(ARCHLINUX,1,
   btrfs-progs
   cdrkit
   cryptsetup
-  e2fsprogs
   grub
   hivex
   iproute2
@@ -131,7 +128,6 @@ ifelse(SUSE,1,
   augeas-lenses
   btrfsprogs
   cryptsetup
-  e2fsprogs
   genisoimage
   glibc-locale
   gptfdisk
@@ -151,7 +147,6 @@ ifelse(FRUGALWARE,1,
   augeas
   btrfs-progs
   cryptsetup-luks
-  e2fsprogs
   cdrkit
   grub2
   hfsplus
@@ -178,7 +173,6 @@ ifelse(MAGEIA,1,
   btrfs-progs
   cryptsetup
   chkconfig /* for /etc/init.d */
-  e2fsprogs
   cdrkit-genisoimage
   cdrkit-isotools
   extlinux
@@ -216,6 +210,7 @@ coreutils
 cpio
 diffutils
 dosfstools
+e2fsprogs
 file
 findutils
 gawk
