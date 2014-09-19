@@ -28,6 +28,7 @@ val ( ~^ ) : int64 -> int64
 (** Various int64 operators. *)
 
 val roundup64 : int64 -> int64 -> int64
+val div_roundup64 : int64 -> int64 -> int64
 val int_of_le32 : string -> int64
 val le32_of_int : int64 -> string
 

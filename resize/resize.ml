@@ -1026,7 +1026,7 @@ read the man page virt-resize(1).
 
         | OpIgnore | OpCopy ->          (* same size *)
           (* Size in sectors. *)
-          let size = (p.p_part.G.part_size +^ sectsize -^ 1L) /^ sectsize in
+          let size = div_roundup64 p.p_part.G.part_size sectsize in
           (* Start of next partition + alignment. *)
           let end_ = start +^ size in
           let next = roundup64 end_ alignment in
@@ -1040,7 +1040,7 @@ read the man page virt-resize(1).
 
         | OpResize newsize ->           (* resized partition *)
           (* New size in sectors. *)
-          let size = (newsize +^ sectsize -^ 1L) /^ sectsize in
+          let size = div_roundup64 newsize sectsize in
           (* Start of next partition + alignment. *)
           let next = start +^ size in
           let next = roundup64 next alignment in
