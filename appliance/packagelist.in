@@ -78,6 +78,7 @@ dnl iproute has been renamed to iproute2
   libcap2
   libhivex0
   libpcre3
+  libsystemd0
   libsystemd-id128-0
   libsystemd-journal0
   libyajl2
@@ -89,6 +90,7 @@ dnl iproute has been renamed to iproute2
   openssh-client
   reiserfsprogs
   sysvinit                  dnl for /sbin/reboot
+  systemd                   dnl alternative for /sbin/reboot
   ufsutils
   vim-tiny
   xz-utils
