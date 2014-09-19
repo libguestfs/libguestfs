@@ -142,7 +142,6 @@ ifelse(SUSE,1,
   libselinux1
   mkisofs
   reiserfs
-  syslinux
   systemd
   vim
   xz
@@ -165,45 +164,13 @@ ifelse(FRUGALWARE,1,
   openssh
   pcre
   reiserfsprogs
-  syslinux
   systemd
   vim
   xz
   yajl
   xfsprogs-acl
   xfsprogs-attr
-  bash
-  binutils
-  bzip2
-  coreutils
-  cpio
-  diffutils
-  dosfstools
-  file
-  findutils
-  gawk
   gptfdisk
-  grep
-  gzip
-  jfsutils
-  kmod
-  less
-  libxml2
-  lsof
-  lsscsi
-  lvm2
-  mdadm
-  module-init-tools
-  parted
-  procps
-  psmisc
-  rsync
-  sed
-  strace
-  syslinux
-  tar
-  util-linux
-  xfsprogs
 )
 
 ifelse(MAGEIA,1,
@@ -238,7 +205,6 @@ ifelse(MAGEIA,1,
   module-init-tools
   procps-ng
   udev
-  util-linux-ng
 )
 
 acl
