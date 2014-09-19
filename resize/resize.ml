@@ -1252,8 +1252,7 @@ read the man page virt-resize(1).
     in
 
     (* Expand partition content as required. *)
-    List.iter (
-      function
+    let expand_partition_content = function
       | ({ p_operation = OpResize _ } as p)
           when can_expand_content p.p_type ->
           let source = p.p_name in
@@ -1269,7 +1268,8 @@ read the man page virt-resize(1).
           do_expand_content target meth
       | { p_operation = (OpCopy | OpIgnore | OpDelete | OpResize _) }
         -> ()
-    ) partitions;
+    in
+    List.iter expand_partition_content partitions;
 
     (* Expand logical volume content as required. *)
     List.iter (
