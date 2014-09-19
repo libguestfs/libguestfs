@@ -67,9 +67,6 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
    * an Enterprise Linux guest using RPM.
    *)
 
-  (* We use Augeas for inspection and conversion, so initialize it early. *)
-  Lib_linux.augeas_init verbose g;
-
   (* Basic inspection data available as local variables. *)
   assert (inspect.i_type = "linux");
 
@@ -81,6 +78,9 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     | _ -> assert false in
 
   assert (inspect.i_package_format = "rpm");
+
+  (* We use Augeas for inspection and conversion, so initialize it early. *)
+  Lib_linux.augeas_init verbose g;
 
   (* What grub is installed? *)
   let grub_config, grub =
