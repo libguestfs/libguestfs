@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Poor man's XML DOM, mutable for easy of modification. *)
+(** Poor man's XML DOM, mutable for ease of modification. *)
 
 type node =
   | PCData of string                    (** Text. *)
