@@ -63,6 +63,15 @@ let uri_quote str =
 
 external drive_name : int -> string = "v2v_utils_drive_name"
 
+(* Map guest architecture found by inspection to the architecture
+ * that KVM must emulate.  Note for x86 we assume a 64 bit hypervisor.
+ *)
+let kvm_arch = function
+  | "i386" | "i486" | "i586" | "i686"
+  | "x86_64" -> "x86_64"
+  | "unknown" -> "x86_64" (* most likely *)
+  | arch -> arch
+
 let compare_app2_versions app1 app2 =
   let i = compare app1.Guestfs.app2_epoch app2.Guestfs.app2_epoch in
   if i <> 0 then i

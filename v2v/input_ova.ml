@@ -206,7 +206,6 @@ object
       s_orig_name = name;
       s_memory = memory;
       s_vcpu = cpu;
-      s_arch = "x86_64"; (* XXX: no architucture in ovf, this entry will be overritten at os inspection via libguestfs *)
       s_features = []; (* FIXME: *)
       s_display = None; (* FIXME: *)
       s_disks = !disks;

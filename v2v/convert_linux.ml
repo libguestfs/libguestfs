@@ -1362,6 +1362,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     gcaps_block_bus = if virtio then Virtio_blk else IDE;
     gcaps_net_bus = if virtio then Virtio_net else E1000;
     gcaps_video = video;
+    gcaps_arch = Utils.kvm_arch inspect.i_arch;
     gcaps_acpi = acpi;
   } in
 

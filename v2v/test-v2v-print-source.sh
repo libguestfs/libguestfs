@@ -57,7 +57,6 @@ if [ "$(cat $d/output)" != "    source name: windows
 hypervisor type: test
          memory: 1073741824 (bytes)
        nr vCPUs: 1
-           arch: i686
    CPU features: 
         display: 
 disks:

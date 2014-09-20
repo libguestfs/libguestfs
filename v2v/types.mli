@@ -26,7 +26,6 @@ type source = {
                                             still saved here). *)
   s_memory : int64;                     (** Memory size (bytes). *)
   s_vcpu : int;                         (** Number of CPUs. *)
-  s_arch : string;                      (** Architecture. *)
   s_features : string list;             (** Machine features. *)
   s_display : source_display option;    (** Guest display. *)
   s_disks : source_disk list;           (** Disk images. *)
@@ -129,7 +128,8 @@ type guestcaps = {
       installing drivers).  Thus this is not known until after
       conversion. *)
 
-  gcaps_acpi : bool;           (** True if guest supports acpi. *)
+  gcaps_arch : string;      (** Architecture that KVM must emulate. *)
+  gcaps_acpi : bool;        (** True if guest supports acpi. *)
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
 

@@ -62,14 +62,11 @@ let parse_libvirt_xml ~verbose
   let memory = xpath_to_int "/domain/memory/text()" (1024 * 1024) in
   let memory = Int64.of_int memory *^ 1024L in
   let vcpu = xpath_to_int "/domain/vcpu/text()" 1 in
-  let arch = xpath_to_string "/domain/os/type/@arch" "" in
 
   if dom_type = "" then
     error (f_"in the libvirt XML metadata, <domain type='...'> is missing or empty");
   if name = "" then
     error (f_"in the libvirt XML metadata, <name> is missing or empty");
-  if arch = "" then
-    error (f_"in the libvirt XML metadata, <os><type arch='...'> is missing or empty");
 
   let features =
     let features = ref [] in
@@ -249,7 +246,6 @@ let parse_libvirt_xml ~verbose
     s_name = name; s_orig_name = name;
     s_memory = memory;
     s_vcpu = vcpu;
-    s_arch = arch;
     s_features = features;
     s_display = display;
     s_disks = disks;

@@ -83,7 +83,7 @@ object
       | Virtio_net -> "virtio"
       | E1000 -> "e1000"
       | RTL8139 -> "rtl8139");
-      "architecture", source.s_arch;
+      "architecture", guestcaps.gcaps_arch;
       "hypervisor_type", "kvm";
       "vm_mode", "hvm";
       "os_type", inspect.i_type;

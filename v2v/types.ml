@@ -26,7 +26,6 @@ type source = {
   s_orig_name : string;
   s_memory : int64;
   s_vcpu : int;
-  s_arch : string;
   s_features : string list;
   s_display : source_display option;
   s_disks : source_disk list;
@@ -60,7 +59,6 @@ let rec string_of_source s =
 hypervisor type: %s
          memory: %Ld (bytes)
        nr vCPUs: %d
-           arch: %s
    CPU features: %s
         display: %s
 disks:
@@ -74,7 +72,6 @@ NICs:
     s.s_dom_type
     s.s_memory
     s.s_vcpu
-    s.s_arch
     (String.concat "," s.s_features)
     (match s.s_display with
     | None -> ""
@@ -184,6 +181,7 @@ type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;
   gcaps_video : guestcaps_video_type;
+  gcaps_arch : string;
   gcaps_acpi : bool;
 }
 and guestcaps_block_type = Virtio_blk | IDE

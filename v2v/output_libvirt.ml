@@ -186,7 +186,7 @@ let create_libvirt_xml ?pool source targets guestcaps =
       e "currentMemory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
       e "vcpu" [] [PCData (string_of_int source.s_vcpu)];
       e "os" [] [
-        e "type" ["arch", source.s_arch] [PCData "hvm"];
+        e "type" ["arch", guestcaps.gcaps_arch] [PCData "hvm"];
       ];
       e "features" [] (List.map (fun s -> e s [] []) features);
 
