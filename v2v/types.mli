@@ -68,7 +68,7 @@ val string_of_source_disk : source_disk -> string
 
 type overlay = {
   ov_overlay_file : string;  (** Local overlay file (qcow2 format). *)
-  ov_sd : string;            (** sdX libguestfs name of disk. *)
+  ov_sd : string;            (** "sda", "sdb" etc - canonical device name. *)
   ov_virtual_size : int64;   (** Virtual disk size in bytes. *)
 
   (* Note: The ov_source is for information ONLY (eg. printing
