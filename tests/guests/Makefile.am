@@ -60,16 +60,6 @@ CLEANFILES = $(check_DATA) \
 	stamp-fedora-md.img \
 	*.tmp.*
 
-# Macro to display some information about each created disk, which
-# is useful for debugging.
-display = \
-	-@echo -n '$(1): file size bytes: '; \
-	stat -c %s $(1); \
-	echo -n '$(1): allocated bytes: '; \
-	du -B 1 $(1) | $(AWK) '{print $$1}'; \
-	echo -n '$(1): MD5 hash:        '; \
-	md5sum $(1) | $(AWK) '{print $$1}'
-
 # Make several different blank images.  These are not guests, but we
 # include them in the libvirt fake XML to make sure that virt-df and
 # virt-alignment-scan don't break when they encounter them.
@@ -79,7 +69,6 @@ blank-%.img:
 	  ../../fish/guestfish \
 	    -N $@-t="$$(echo $@ | sed -e 's/blank-//' -e 's/.img//')" exit
 	mv $@-t $@
-	$(call display,$@)
 
 # Make a (dummy) Fedora image.
 fedora.img: guest-aux/make-fedora-img.pl \
@@ -87,7 +76,6 @@ fedora.img: guest-aux/make-fedora-img.pl \
 		guest-aux/fedora-name.db \
 		guest-aux/fedora-packages.db
 	SRCDIR=$(srcdir) LAYOUT=partitions $(top_builddir)/run --test $<
-	$(call display,$@)
 
 # Make a (dummy) Fedora image using md devices
 fedora-md1.img fedora-md2.img: stamp-fedora-md.img
@@ -98,8 +86,6 @@ stamp-fedora-md.img: guest-aux/make-fedora-img.pl \
 		guest-aux/fedora-packages.db
 	rm -f $@
 	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test $<
-	$(call display,fedora-md1.img)
-	$(call display,fedora-md2.img)
 	touch $@
 
 fedora-btrfs.img: guest-aux/make-fedora-img.pl \
@@ -107,23 +93,19 @@ fedora-btrfs.img: guest-aux/make-fedora-img.pl \
 		guest-aux/fedora-name.db \
 		guest-aux/fedora-packages.db
 	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test $<
-	$(call display,$@)
 
 # Make a (dummy) Debian image.
 debian.img: guest-aux/make-debian-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
-	$(call display,$@)
 
 # Make a (dummy) Ubuntu image.
 ubuntu.img: guest-aux/make-ubuntu-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
-	$(call display,$@)
 
 # Make a (dummy) Windows image.
 windows.img: guest-aux/make-windows-img.sh \
 	     guest-aux/windows-software guest-aux/windows-system
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
-	$(call display,$@)
 
 guests-all-good.xml: guest-aux/make-guests-all-good.pl $(disk_images)
 	rm -f $@ $@-t
