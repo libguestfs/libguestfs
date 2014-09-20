@@ -72,7 +72,6 @@ images_files_build = \
 	100kallspaces \
 	100krandom \
 	10klines \
-	abssymlink \
 	blank-disk-1s.raw \
 	blank-disk-1s.qcow2 \
 	blank-disk-1K.raw \
@@ -95,10 +94,12 @@ images_files = $(images_files_src) $(images_files_build)
 test.iso: $(images_files)
 	rm -f $@ $@-t
 	mkdir -p directory
+	ln -sf /10klines abssymlink
 	$(GENISOIMAGE) -J -r -graft-points \
 	  -o $@-t \
-	  $(images_files) /directory=directory
+	  $(images_files) /directory=directory abssymlink
 	rmdir directory
+	rm abssymlink
 	mv $@-t $@
 
 100kallzeroes:
@@ -129,11 +130,6 @@ test.iso: $(images_files)
 	  i=$$(($$i+1)); \
 	done > $@-t
 	mv $@-t $@
-
-# XXX Make examines this file and believes that it does not exist,
-# resulting in the ISO being rebuilt every time.
-abssymlink:
-	ln -sf /10klines $@
 
 # Blank disk images in various sizes and formats.
 blank-disk-1s.raw:
