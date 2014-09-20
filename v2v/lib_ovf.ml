@@ -337,18 +337,13 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
       in
       let size_gb = bytes_to_gb ov.ov_virtual_size in
       let actual_size_gb =
-        if Sys.file_exists t.target_file then (
-          let actual_size = du t.target_file in
-          if actual_size > 0L then Some (bytes_to_gb actual_size)
-          else None
-        ) else (
+        match t.target_actual_size, t.target_estimated_size with
+        | Some actual_size, _ -> Some (bytes_to_gb actual_size)
           (* In the --no-copy case the target file does not exist.  In
            * that case we use the estimated size.
            *)
-          match t.target_estimated_size with
-          | None -> None
-          | Some size -> Some (bytes_to_gb size)
-        ) in
+        | None, Some estimated_size -> Some (bytes_to_gb estimated_size)
+        | None, None -> None in
 
       let format_for_rhev =
         match t.target_format with
@@ -415,19 +410,6 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
         ] in
       append_child item virtualhardware_section;
   ) (List.combine targets vol_uuids)
-
-and du filename =
-  (* There's no OCaml binding for st_blocks, so run coreutils 'du'
-   * to get the used size in bytes.
-   *)
-  let cmd = sprintf "du -b %s | awk '{print $1}'" (quote filename) in
-  let lines = external_command ~prog cmd in
-  (* We really don't want the metadata generation to fail because
-   * of some silly usage information, so ignore errors here.
-   *)
-  match lines with
-  | line::_ -> (try Int64.of_string line with _ -> 0L)
-  | [] -> 0L
 
 (* This modifies the OVF DOM, adding a section for each NIC. *)
 and add_networks nics guestcaps ovf =

@@ -83,7 +83,13 @@ val string_of_overlay : overlay -> string
 type target = {
   target_file : string;      (** Destination file. *)
   target_format : string;    (** Destination format (eg. -of option). *)
+
+  (* Note that the estimate is filled in by core v2v.ml code before
+   * copying starts, and the actual size is filled in after copying
+   * (but may not be filled in if [--no-copy] so don't rely on it).
+   *)
   target_estimated_size : int64 option; (** Est. max. space taken on target. *)
+  target_actual_size : int64 option; (** Actual size on target. *)
 
   target_overlay : overlay;  (** Link back to the overlay disk. *)
 }

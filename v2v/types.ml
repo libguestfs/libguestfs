@@ -137,6 +137,7 @@ type target = {
   target_file : string;
   target_format : string;
   target_estimated_size : int64 option;
+  target_actual_size : int64 option;
   target_overlay : overlay;
 }
 

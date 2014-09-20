@@ -172,9 +172,11 @@ let rec main () =
 
         (* output#prepare_targets will fill in the target_file field.
          * estimate_target_size will fill in the target_estimated_size field.
+         * actual_target_size will fill in the target_actual_size field.
          *)
         { target_file = ""; target_format = format;
           target_estimated_size = None;
+          target_actual_size = None;
           target_overlay = ov }
     ) overlays in
   let targets = output#prepare_targets source targets in
@@ -253,61 +255,68 @@ let rec main () =
 
   let delete_target_on_exit = ref true in
 
-  if do_copy then (
-    (* Copy the source to the output. *)
-    at_exit (fun () ->
-      if !delete_target_on_exit then (
-        List.iter (
-          fun t -> try Unix.unlink t.target_file with _ -> ()
-        ) targets
-      )
-    );
-    let nr_disks = List.length targets in
-    iteri (
-      fun i t ->
-        msg (f_"Copying disk %d/%d to %s (%s)")
-          (i+1) nr_disks t.target_file t.target_format;
-        if verbose then printf "%s%!" (string_of_target t);
+  let targets =
+    if not do_copy then targets
+    else (
+      (* Copy the source to the output. *)
+      at_exit (fun () ->
+        if !delete_target_on_exit then (
+          List.iter (
+            fun t -> try Unix.unlink t.target_file with _ -> ()
+          ) targets
+        )
+      );
+      let nr_disks = List.length targets in
+      mapi (
+        fun i t ->
+          msg (f_"Copying disk %d/%d to %s (%s)")
+            (i+1) nr_disks t.target_file t.target_format;
+          if verbose then printf "%s%!" (string_of_target t);
 
-        (* We noticed that qemu sometimes corrupts the qcow2 file on
-         * exit.  This only seemed to happen with lazy_refcounts was
-         * used.  The symptom was that the header wasn't written back
-         * to the disk correctly and the file appeared to have no
-         * backing file.  Just sanity check this here.
-         *)
-        let overlay_file = t.target_overlay.ov_overlay_file in
-        if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
-          error (f_"internal error: qemu corrupted the overlay file");
+          (* We noticed that qemu sometimes corrupts the qcow2 file on
+           * exit.  This only seemed to happen with lazy_refcounts was
+           * used.  The symptom was that the header wasn't written back
+           * to the disk correctly and the file appeared to have no
+           * backing file.  Just sanity check this here.
+           *)
+          let overlay_file = t.target_overlay.ov_overlay_file in
+          if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
+            error (f_"internal error: qemu corrupted the overlay file");
 
-        (* It turns out that libguestfs's disk creation code is
-         * considerably more flexible and easier to use than qemu-img, so
-         * create the disk explicitly using libguestfs then pass the
-         * 'qemu-img convert -n' option so qemu reuses the disk.
-         *)
-        (* What output preallocation mode should we use? *)
-        let preallocation =
-          match t.target_format, output_alloc with
-          | "raw", `Sparse -> Some "sparse"
-          | "raw", `Preallocated -> Some "full"
-          | "qcow2", `Sparse -> Some "off" (* ? *)
-          | "qcow2", `Preallocated -> Some "metadata"
-          | _ -> None (* ignore -oa flag for other formats *) in
-        let compat =
-          match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
-        (new G.guestfs ())#disk_create
-          t.target_file t.target_format t.target_overlay.ov_virtual_size
-          ?preallocation ?compat;
+          (* It turns out that libguestfs's disk creation code is
+           * considerably more flexible and easier to use than qemu-img, so
+           * create the disk explicitly using libguestfs then pass the
+           * 'qemu-img convert -n' option so qemu reuses the disk.
+           *)
+          (* What output preallocation mode should we use? *)
+          let preallocation =
+            match t.target_format, output_alloc with
+            | "raw", `Sparse -> Some "sparse"
+            | "raw", `Preallocated -> Some "full"
+            | "qcow2", `Sparse -> Some "off" (* ? *)
+            | "qcow2", `Preallocated -> Some "metadata"
+            | _ -> None (* ignore -oa flag for other formats *) in
+          let compat =
+            match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
+          (new G.guestfs ())#disk_create
+            t.target_file t.target_format t.target_overlay.ov_virtual_size
+            ?preallocation ?compat;
 
-        let cmd =
-          sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
-            (if not quiet then " -p" else "")
-            (quote t.target_format) (quote overlay_file)
-            (quote t.target_file) in
-        if verbose then printf "%s\n%!" cmd;
-        if Sys.command cmd <> 0 then
-          error (f_"qemu-img command failed, see earlier errors");
-    ) targets
-  ) (* do_copy *);
+          let cmd =
+            sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
+              (if not quiet then " -p" else "")
+              (quote t.target_format) (quote overlay_file)
+              (quote t.target_file) in
+          if verbose then printf "%s\n%!" cmd;
+          if Sys.command cmd <> 0 then
+            error (f_"qemu-img command failed, see earlier errors");
+
+          (* Calculate the actual size on the target, returns an updated
+           * target structure.
+           *)
+          actual_target_size t
+      ) targets
+    ) (* do_copy *) in
 
   (* Create output metadata. *)
   msg (f_"Creating output metadata");
@@ -567,5 +576,20 @@ and estimate_target_size ~verbose mpstats targets =
 
     targets
   )
+
+(* Update the target_actual_size field in the target structure. *)
+and actual_target_size target =
+  { target with target_actual_size = du target.target_file }
+
+(* There's no OCaml binding for st_blocks, so run coreutils 'du'
+ * to get the used size in bytes.
+ *)
+and du filename =
+  let cmd = sprintf "du -b %s | awk '{print $1}'" (quote filename) in
+  let lines = external_command ~prog cmd in
+  (* Ignore errors because we want to avoid failures after copying. *)
+  match lines with
+  | line::_ -> (try Some (Int64.of_string line) with _ -> None)
+  | [] -> None
 
 let () = run_main_and_handle_errors ~prog main
