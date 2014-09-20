@@ -116,14 +116,6 @@ type inspect = {
 }
 (** Inspection information. *)
 
-type mpstat = {
-  mp_dev : string;                      (** Filesystem device (eg. /dev/sda1) *)
-  mp_path : string;                     (** Guest mountpoint (eg. /boot) *)
-  mp_statvfs : Guestfs.statvfs;         (** Free space stats. *)
-  mp_vfs : string;                      (** VFS type (eg. "ext4") *)
-}
-(** Mountpoint stats, used for free space estimation. *)
-
 type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;

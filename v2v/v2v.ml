@@ -27,6 +27,14 @@ open Common_utils
 open Types
 open Utils
 
+(* Mountpoint stats, used for free space estimation. *)
+type mpstat = {
+  mp_dev : string;                      (* Filesystem device (eg. /dev/sda1) *)
+  mp_path : string;                     (* Guest mountpoint (eg. /boot) *)
+  mp_statvfs : Guestfs.statvfs;         (* Free space stats. *)
+  mp_vfs : string;                      (* VFS type (eg. "ext4") *)
+}
+
 let () = Random.self_init ()
 
 let rec main () =
