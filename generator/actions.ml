@@ -782,6 +782,8 @@ to specify the QEMU interface emulation to use at run time." };
     style = RString "arch", [Pathname "filename"], [];
     tests = [
       InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-aarch64-dynamic"]], "aarch64"), [];
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-i586-dynamic"]], "i386"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-sparc-dynamic"]], "sparc"), [];
@@ -791,6 +793,8 @@ to specify the QEMU interface emulation to use at run time." };
         [["file_architecture"; "/bin-win64.exe"]], "x86_64"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-x86_64-dynamic"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-aarch64.so"]], "aarch64"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-i586.so"]], "i386"), [];
       InitISOFS, Always, TestResultString (

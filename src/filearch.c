@@ -101,6 +101,8 @@ canonical_elf_arch (guestfs_h *g, const char *elf_arch)
     r = "ppc64";
   else if (strstr (elf_arch, "PowerPC"))
     r = "ppc";
+  else if (strstr (elf_arch, "ARM aarch64"))
+    r = "aarch64";
   else
     r = elf_arch;
 
