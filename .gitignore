@@ -184,6 +184,7 @@ Makefile.in
 /fuse/guestunmount.1
 /fuse/stamp-guestmount.pod
 /fuse/stamp-guestunmount.pod
+/fuse/test-fuse
 /fuse/test-guestmount-fd
 /fuse/test-guestunmount-fd
 /generator/.depend

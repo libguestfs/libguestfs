@@ -166,6 +166,7 @@ fish/windows.c
 format/format.c
 fuse/guestmount.c
 fuse/guestunmount.c
+fuse/test-fuse.c
 fuse/test-guestmount-fd.c
 fuse/test-guestunmount-fd.c
 gobject/src/optargs-add_domain.c

@@ -131,7 +131,7 @@ TESTS = \
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-fuse.sh \
+	test-fuse \
 	test-fuse-umount-race.sh \
 	test-guestmount-fd
 endif ENABLE_APPLIANCE
@@ -140,7 +140,25 @@ TESTS_ENVIRONMENT = \
 	top_builddir=.. \
 	$(top_builddir)/run --test
 
-check_PROGRAMS = test-guestmount-fd test-guestunmount-fd
+check_PROGRAMS = test-fuse test-guestmount-fd test-guestunmount-fd
+
+test_fuse_SOURCES = \
+	test-fuse.c
+
+test_fuse_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+
+test_fuse_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+
+test_fuse_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(ACL_LIBS) \
+	../gnulib/lib/libgnu.la
 
 test_guestmount_fd_SOURCES = \
 	test-guestmount-fd.c
