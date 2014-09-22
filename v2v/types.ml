@@ -198,6 +198,7 @@ class virtual output verbose = object
   method virtual as_options : string
   method virtual prepare_targets : source -> target list -> target list
   method check_target_free_space (_ : source) (_ : target list) = ()
+  method disk_create = (new Guestfs.guestfs ())#disk_create
   method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
   method keep_serial_console = true
 end

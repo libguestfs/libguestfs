@@ -155,6 +155,9 @@ class virtual output : bool -> object
       on the target, using the [target.target_estimated_size] field. *)
   method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
   (** Called after conversion to finish off and create metadata. *)
+  method disk_create : ?backingfile:string -> ?backingformat:string -> ?preallocation:string -> ?compat:string -> ?clustersize:int -> string -> string -> int64 -> unit
+  (** Called in order to create disks on the target.  The method has the
+      same signature as Guestfs#disk_create. *)
   method keep_serial_console : bool
   (** Whether this output supports serial consoles (RHEV does not). *)
 end

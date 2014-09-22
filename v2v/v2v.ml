@@ -292,9 +292,14 @@ let rec main () =
             error (f_"internal error: qemu corrupted the overlay file");
 
           (* It turns out that libguestfs's disk creation code is
-           * considerably more flexible and easier to use than qemu-img, so
-           * create the disk explicitly using libguestfs then pass the
-           * 'qemu-img convert -n' option so qemu reuses the disk.
+           * considerably more flexible and easier to use than
+           * qemu-img, so create the disk explicitly using libguestfs
+           * then pass the 'qemu-img convert -n' option so qemu reuses
+           * the disk.
+           *
+           * Also we allow the output mode to actually create the disk
+           * image.  This lets the output mode set ownership and
+           * permissions correctly if required.
            *)
           (* What output preallocation mode should we use? *)
           let preallocation =
@@ -306,7 +311,7 @@ let rec main () =
             | _ -> None (* ignore -oa flag for other formats *) in
           let compat =
             match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
-          (new G.guestfs ())#disk_create
+          output#disk_create
             t.target_file t.target_format t.target_overlay.ov_virtual_size
             ?preallocation ?compat;
 
