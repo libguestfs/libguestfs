@@ -221,7 +221,16 @@ object
       ) (List.combine targets vol_uuids) in
 
     (* Generate the .meta file associated with each volume. *)
-    Lib_ovf.create_meta_files verbose output_alloc esd_uuid image_uuid targets;
+    let metas =
+      Lib_ovf.create_meta_files verbose output_alloc esd_uuid image_uuid
+        targets in
+    List.iter (
+      fun ({ target_file = target_file }, meta) ->
+        let meta_filename = target_file ^ ".meta" in
+        let chan = open_out meta_filename in
+        output_string chan meta;
+        close_out chan
+    ) (List.combine targets metas);
 
     (* Return the list of targets. *)
     targets

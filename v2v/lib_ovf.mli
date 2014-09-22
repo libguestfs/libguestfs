@@ -18,8 +18,14 @@
 
 (** Functions for dealing with OVF files. *)
 
-val create_meta_files : bool -> [`Sparse|`Preallocated] -> string -> string -> Types.target list -> unit
-(** Generate the .meta file associated with each volume. *)
+val create_meta_files : bool -> [`Sparse|`Preallocated] -> string -> string -> Types.target list -> string list
+(** Create the .meta file associated with each target.
+
+
+    Note this does not write them, since output_rhev has to do a
+    permissions dance when writing files.  Instead the contents of each
+    file is returned (one per target), and they must be written to
+    [target_file ^ ".meta"]. *)
 
 val create_ovf : bool -> Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> [`Sparse|`Preallocated] -> [`Server|`Desktop] option -> string -> string -> string list -> string -> DOM.doc
 (** Create the OVF file. *)

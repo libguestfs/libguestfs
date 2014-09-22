@@ -157,10 +157,8 @@ let create_meta_files verbose output_alloc sd_uuid image_uuid targets =
     | `Sparse -> "SPARSE"
     | `Preallocated -> "PREALLOCATED" in
 
-  List.iter (
-    fun ({ target_overlay = ov; target_file = target_file } as t) ->
-      let vol_meta = target_file ^ ".meta" in
-
+  List.map (
+    fun ({ target_overlay = ov } as t) ->
       let size_in_sectors =
         if ov.ov_virtual_size &^ 511L <> 0L then
           error (f_"the virtual size of the input disk %s is not an exact multiple of 512 bytes.  The virtual size is: %Ld.\n\nThis probably means something unexpected is going on, so please file a bug about this issue.")
@@ -175,23 +173,23 @@ let create_meta_files verbose output_alloc sd_uuid image_uuid targets =
         | _ ->
           error (f_"RHEV does not support the output format '%s', only raw or qcow2") t.target_format in
 
-      let chan = open_out vol_meta in
-      let fpf fs = fprintf chan fs in
-      fpf "DOMAIN=%s\n" sd_uuid; (* "Domain" as in Storage Domain *)
-      fpf "VOLTYPE=LEAF\n";
-      fpf "CTIME=%.0f\n" time;
-      fpf "MTIME=%.0f\n" time;
-      fpf "IMAGE=%s\n" image_uuid;
-      fpf "DISKTYPE=1\n";
-      fpf "PUUID=00000000-0000-0000-0000-000000000000\n";
-      fpf "LEGALITY=LEGAL\n";
-      fpf "POOL_UUID=\n";
-      fpf "SIZE=%Ld\n" size_in_sectors;
-      fpf "FORMAT=%s\n" format_for_rhev;
-      fpf "TYPE=%s\n" output_alloc_for_rhev;
-      fpf "DESCRIPTION=%s\n" title;
-      fpf "EOF\n";
-      close_out chan;
+      let buf = Buffer.create 256 in
+      let bpf fs = bprintf buf fs in
+      bpf "DOMAIN=%s\n" sd_uuid; (* "Domain" as in Storage Domain *)
+      bpf "VOLTYPE=LEAF\n";
+      bpf "CTIME=%.0f\n" time;
+      bpf "MTIME=%.0f\n" time;
+      bpf "IMAGE=%s\n" image_uuid;
+      bpf "DISKTYPE=1\n";
+      bpf "PUUID=00000000-0000-0000-0000-000000000000\n";
+      bpf "LEGALITY=LEGAL\n";
+      bpf "POOL_UUID=\n";
+      bpf "SIZE=%Ld\n" size_in_sectors;
+      bpf "FORMAT=%s\n" format_for_rhev;
+      bpf "TYPE=%s\n" output_alloc_for_rhev;
+      bpf "DESCRIPTION=%s\n" title;
+      bpf "EOF\n";
+      Buffer.contents buf
   ) targets
 
 (* Create the OVF file. *)
