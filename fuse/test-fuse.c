@@ -249,9 +249,7 @@ test_fuse (void)
   unsigned u, u1;
   int fd;
   struct timeval tv[2];
-#if 0
   struct timespec ts[2];
-#endif
   acl_t acl;
   char *acl_text;
 
@@ -574,8 +572,6 @@ test_fuse (void)
     return -1;
   }
 
-#if 0
-  /* Does not work! See https://bugzilla.redhat.com/show_bug.cgi?id=1144766 */
   STAGE ("checking utimens");
 
   fd = open ("timestamp", O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0644);
@@ -605,7 +601,6 @@ test_fuse (void)
     return -1;
   }
   close (fd);
-#endif
 
   STAGE ("checking writes");
 
