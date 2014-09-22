@@ -43,7 +43,7 @@ type kernel_info = {
   ki_version : string;             (* version-release *)
   ki_arch : string;                (* Kernel architecture. *)
   ki_vmlinuz : string;             (* The path of the vmlinuz file. *)
-  ki_vmlinuz_stat : G.stat;        (* stat(2) of vmlinuz *)
+  ki_vmlinuz_stat : G.statns;      (* stat(2) of vmlinuz *)
   ki_initrd : string option;       (* Path of initramfs, if found. *)
   ki_modpath : string;             (* The module path. *)
   ki_modules : string list;        (* The list of module names. *)
@@ -165,7 +165,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
            if not (g#is_dir ~followsymlinks:true modpath) then
              raise Not_found;
            let vmlinuz_stat =
-             try g#stat vmlinuz with G.Error _ -> raise Not_found in
+             try g#statns vmlinuz with G.Error _ -> raise Not_found in
 
            (* Get/construct the version.  XXX Read this from kernel file. *)
            let version =
@@ -357,11 +357,11 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     filter_map (
       fun vmlinuz ->
         try
-          let statbuf = g#stat vmlinuz in
+          let statbuf = g#statns vmlinuz in
           let kernel =
             List.find (
               fun { ki_vmlinuz_stat = s } ->
-                statbuf.G.dev = s.G.dev && statbuf.G.ino = s.G.ino
+                statbuf.G.st_dev = s.G.st_dev && statbuf.G.st_ino = s.G.st_ino
             ) installed_kernels in
           Some kernel
         with Not_found -> None

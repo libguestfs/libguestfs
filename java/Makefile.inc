@@ -34,6 +34,7 @@ java_built_sources = \
 	com/redhat/et/libguestfs/PV.java \
 	com/redhat/et/libguestfs/Partition.java \
 	com/redhat/et/libguestfs/Stat.java \
+	com/redhat/et/libguestfs/StatNS.java \
 	com/redhat/et/libguestfs/StatVFS.java \
 	com/redhat/et/libguestfs/UTSName.java \
 	com/redhat/et/libguestfs/VG.java \

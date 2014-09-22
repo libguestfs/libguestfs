@@ -270,6 +270,12 @@ dnl Check if stat has the required fields.
 AC_STRUCT_ST_BLOCKS
 AC_CHECK_MEMBER([struct stat.st_blksize],[
     AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'.])])
+AC_CHECK_MEMBER([struct stat.st_atim.tv_nsec],[
+    AC_DEFINE([HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC],[1],[Define to 1 if 'st_mtim.tv_nsec' is a member of 'struct stat'.])])
+AC_CHECK_MEMBER([struct stat.st_mtim.tv_nsec],[
+    AC_DEFINE([HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC],[1],[Define to 1 if 'st_mtim.tv_nsec' is a member of 'struct stat'.])])
+AC_CHECK_MEMBER([struct stat.st_ctim.tv_nsec],[
+    AC_DEFINE([HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC],[1],[Define to 1 if 'st_mtim.tv_nsec' is a member of 'struct stat'.])])
 
 dnl Define a C symbol for the host CPU architecture.
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])

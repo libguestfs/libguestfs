@@ -598,3 +598,9 @@ Improvements in virt-log
 
 - Support Windows guests, see
   http://rwmj.wordpress.com/2011/04/17/decoding-the-windows-event-log-using-guestfish/
+
+Subsecond handling in virt-diff, virt-ls
+----------------------------------------
+
+Handle nanoseconds properly.  You should be able to specify them on
+the command line and display them.

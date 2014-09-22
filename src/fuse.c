@@ -165,7 +165,7 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
    */
   names = malloc ((ents->len + 1) * sizeof (char *));
   if (names) {
-    CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *ss = NULL;
+    CLEANUP_FREE_STATNS_LIST struct guestfs_statns_list *ss = NULL;
     CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
     char **links;
 
@@ -173,26 +173,35 @@ mount_local_readdir (const char *path, void *buf, fuse_fill_dir_t filler,
       names[i] = ents->val[i].name;
     names[i] = NULL;
 
-    ss = guestfs_lstatlist (g, path, names);
+    ss = guestfs_lstatnslist (g, path, names);
     if (ss) {
       for (i = 0; i < ss->len; ++i) {
-        if (ss->val[i].ino >= 0) {
+        if (ss->val[i].st_ino >= 0) {
           struct stat statbuf;
 
           memset (&statbuf, 0, sizeof statbuf);
-          statbuf.st_dev = ss->val[i].dev;
-          statbuf.st_ino = ss->val[i].ino;
-          statbuf.st_mode = ss->val[i].mode;
-          statbuf.st_nlink = ss->val[i].nlink;
-          statbuf.st_uid = ss->val[i].uid;
-          statbuf.st_gid = ss->val[i].gid;
-          statbuf.st_rdev = ss->val[i].rdev;
-          statbuf.st_size = ss->val[i].size;
-          statbuf.st_blksize = ss->val[i].blksize;
-          statbuf.st_blocks = ss->val[i].blocks;
-          statbuf.st_atime = ss->val[i].atime;
-          statbuf.st_mtime = ss->val[i].mtime;
-          statbuf.st_ctime = ss->val[i].ctime;
+          statbuf.st_dev = ss->val[i].st_dev;
+          statbuf.st_ino = ss->val[i].st_ino;
+          statbuf.st_mode = ss->val[i].st_mode;
+          statbuf.st_nlink = ss->val[i].st_nlink;
+          statbuf.st_uid = ss->val[i].st_uid;
+          statbuf.st_gid = ss->val[i].st_gid;
+          statbuf.st_rdev = ss->val[i].st_rdev;
+          statbuf.st_size = ss->val[i].st_size;
+          statbuf.st_blksize = ss->val[i].st_blksize;
+          statbuf.st_blocks = ss->val[i].st_blocks;
+          statbuf.st_atime = ss->val[i].st_atime_sec;
+#ifdef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
+          statbuf.st_atim.tv_nsec = ss->val[i].st_atime_nsec;
+#endif
+          statbuf.st_mtime = ss->val[i].st_mtime_sec;
+#ifdef HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC
+          statbuf.st_mtim.tv_nsec = ss->val[i].st_mtime_nsec;
+#endif
+          statbuf.st_ctime = ss->val[i].st_ctime_sec;
+#ifdef HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC
+          statbuf.st_ctim.tv_nsec = ss->val[i].st_ctime_nsec;
+#endif
 
           lsc_insert (g, path, names[i], now, &statbuf);
         }
@@ -246,7 +255,7 @@ static int
 mount_local_getattr (const char *path, struct stat *statbuf)
 {
   const struct stat *buf;
-  CLEANUP_FREE_STAT struct guestfs_stat *r = NULL;
+  CLEANUP_FREE_STAT struct guestfs_statns *r = NULL;
   DECL_G ();
   DEBUG_CALL ("%s, %p", path, statbuf);
 
@@ -256,24 +265,33 @@ mount_local_getattr (const char *path, struct stat *statbuf)
     return 0;
   }
 
-  r = guestfs_lstat (g, path);
+  r = guestfs_lstatns (g, path);
   if (r == NULL)
     RETURN_ERRNO;
 
   memset (statbuf, 0, sizeof *statbuf);
-  statbuf->st_dev = r->dev;
-  statbuf->st_ino = r->ino;
-  statbuf->st_mode = r->mode;
-  statbuf->st_nlink = r->nlink;
-  statbuf->st_uid = r->uid;
-  statbuf->st_gid = r->gid;
-  statbuf->st_rdev = r->rdev;
-  statbuf->st_size = r->size;
-  statbuf->st_blksize = r->blksize;
-  statbuf->st_blocks = r->blocks;
-  statbuf->st_atime = r->atime;
-  statbuf->st_mtime = r->mtime;
-  statbuf->st_ctime = r->ctime;
+  statbuf->st_dev = r->st_dev;
+  statbuf->st_ino = r->st_ino;
+  statbuf->st_mode = r->st_mode;
+  statbuf->st_nlink = r->st_nlink;
+  statbuf->st_uid = r->st_uid;
+  statbuf->st_gid = r->st_gid;
+  statbuf->st_rdev = r->st_rdev;
+  statbuf->st_size = r->st_size;
+  statbuf->st_blksize = r->st_blksize;
+  statbuf->st_blocks = r->st_blocks;
+  statbuf->st_atime = r->st_atime_sec;
+#ifdef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
+  statbuf->st_atim.tv_nsec = r->st_atime_nsec;
+#endif
+  statbuf->st_mtime = r->st_mtime_sec;
+#ifdef HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC
+  statbuf->st_mtim.tv_nsec = r->st_mtime_nsec;
+#endif
+  statbuf->st_ctime = r->st_ctime_sec;
+#ifdef HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC
+  statbuf->st_ctim.tv_nsec = r->st_ctime_nsec;
+#endif
 
   return 0;
 }
@@ -1133,7 +1151,7 @@ guestfs__umount_local (guestfs_h *g,
  * Note on attribute caching: FUSE can cache filesystem attributes for
  * short periods of time (configurable via -o attr_timeout).  It
  * doesn't cache xattrs, and in any case FUSE caching doesn't solve
- * the problem that we have to make a series of guestfs_lstat and
+ * the problem that we have to make a series of guestfs_lstatns and
  * guestfs_lgetxattr calls when we first list a directory (thus, many
  * round trips).
  *

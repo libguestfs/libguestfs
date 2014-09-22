@@ -78,7 +78,7 @@ static void output_int64 (int64_t);
 static void output_int64_dev (int64_t);
 static void output_int64_perms (int64_t);
 static void output_int64_size (int64_t);
-static void output_int64_time (int64_t);
+static void output_int64_time (int64_t secs, int64_t nsecs);
 static void output_int64_uid (int64_t);
 static void output_string (const char *);
 static void output_string_link (const char *);
@@ -398,7 +398,7 @@ struct tree {
 
 struct file {
   char *path;
-  struct guestfs_stat *stat;
+  struct guestfs_statns *stat;
   struct guestfs_xattr_list *xattrs;
   char *csum;                  /* Checksum. If NULL, use file times and size. */
 };
@@ -410,7 +410,7 @@ free_tree (struct tree *t)
 
   for (i = 0; i < t->nr_files; ++i) {
     free (t->files[i].path);
-    guestfs_free_stat (t->files[i].stat);
+    guestfs_free_statns (t->files[i].stat);
     guestfs_free_xattr_list (t->files[i].xattrs);
     free (t->files[i].csum);
   }
@@ -420,7 +420,7 @@ free_tree (struct tree *t)
   free (t);
 }
 
-static int visit_entry (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs, void *vt);
+static int visit_entry (const char *dir, const char *name, const struct guestfs_statns *stat, const struct guestfs_xattr_list *xattrs, void *vt);
 
 static struct tree *
 visit_guest (guestfs_h *g)
@@ -454,13 +454,13 @@ visit_guest (guestfs_h *g)
  */
 static int
 visit_entry (const char *dir, const char *name,
-             const struct guestfs_stat *stat_orig,
+             const struct guestfs_statns *stat_orig,
              const struct guestfs_xattr_list *xattrs_orig,
              void *vt)
 {
   struct tree *t = vt;
   char *path = NULL, *csum = NULL;
-  struct guestfs_stat *stat = NULL;
+  struct guestfs_statns *stat = NULL;
   struct guestfs_xattr_list *xattrs = NULL;
   size_t i;
 
@@ -469,7 +469,7 @@ visit_entry (const char *dir, const char *name,
   /* Copy the stats and xattrs because the visit function will
    * free them after we return.
    */
-  stat = guestfs_copy_stat (stat_orig);
+  stat = guestfs_copy_statns (stat_orig);
   if (stat == NULL) {
     perror ("guestfs_copy_stat");
     goto error;
@@ -480,7 +480,7 @@ visit_entry (const char *dir, const char *name,
     goto error;
   }
 
-  if (checksum && is_reg (stat->mode)) {
+  if (checksum && is_reg (stat->st_mode)) {
     csum = guestfs_checksum (t->g, checksum, path);
     if (!csum)
       goto error;
@@ -488,19 +488,20 @@ visit_entry (const char *dir, const char *name,
 
   /* If --atime option was NOT passed, flatten the atime field. */
   if (!atime)
-    stat->atime = 0;
+    stat->st_atime_sec = 0;
 
   /* If --dir-links option was NOT passed, flatten nlink field in
    * directories.
    */
-  if (!dir_links && is_dir (stat->mode))
-    stat->nlink = 0;
+  if (!dir_links && is_dir (stat->st_mode))
+    stat->st_nlink = 0;
 
   /* If --dir-times option was NOT passed, flatten time fields in
    * directories.
    */
-  if (!dir_times && is_dir (stat->mode))
-    stat->atime = stat->mtime = stat->ctime = 0;
+  if (!dir_times && is_dir (stat->st_mode))
+    stat->st_atime_sec = stat->st_mtime_sec = stat->st_ctime_sec =
+      stat->st_atime_nsec = stat->st_mtime_nsec = stat->st_ctime_nsec = 0;
 
   /* Add the pathname and stats to the list. */
   i = t->nr_files++;
@@ -535,7 +536,7 @@ visit_entry (const char *dir, const char *name,
  error:
   free (path);
   free (csum);
-  guestfs_free_stat (stat);
+  guestfs_free_statns (stat);
   guestfs_free_xattr_list (xattrs);
   return -1;
 }
@@ -622,7 +623,7 @@ compare_stats (struct file *file1, struct file *file2)
 {
   int r;
 
-  r = guestfs_compare_stat (file1->stat, file2->stat);
+  r = guestfs_compare_statns (file1->stat, file2->stat);
   if (r != 0)
     return r;
 
@@ -640,10 +641,10 @@ changed (guestfs_h *g1, struct file *file1,
 {
   /* Did file content change? */
   if (cst != 0 ||
-      (is_reg (file1->stat->mode) && is_reg (file2->stat->mode) &&
-       (file1->stat->mtime != file2->stat->mtime ||
-        file1->stat->ctime != file2->stat->ctime ||
-        file1->stat->size != file2->stat->size))) {
+      (is_reg (file1->stat->st_mode) && is_reg (file2->stat->st_mode) &&
+       (file1->stat->st_mtime_sec != file2->stat->st_mtime_sec ||
+        file1->stat->st_ctime_sec != file2->stat->st_ctime_sec ||
+        file1->stat->st_size != file2->stat->st_size))) {
     output_start_line ();
     output_string ("=");
     output_file (g1, file1);
@@ -673,19 +674,19 @@ changed (guestfs_h *g1, struct file *file1,
     output_string ("changed:");
 #define COMPARE_STAT(n) \
     if (file1->stat->n != file2->stat->n) output_string (#n)
-    COMPARE_STAT (dev);
-    COMPARE_STAT (ino);
-    COMPARE_STAT (mode);
-    COMPARE_STAT (nlink);
-    COMPARE_STAT (uid);
-    COMPARE_STAT (gid);
-    COMPARE_STAT (rdev);
-    COMPARE_STAT (size);
-    COMPARE_STAT (blksize);
-    COMPARE_STAT (blocks);
-    COMPARE_STAT (atime);
-    COMPARE_STAT (mtime);
-    COMPARE_STAT (ctime);
+    COMPARE_STAT (st_dev);
+    COMPARE_STAT (st_ino);
+    COMPARE_STAT (st_mode);
+    COMPARE_STAT (st_nlink);
+    COMPARE_STAT (st_uid);
+    COMPARE_STAT (st_gid);
+    COMPARE_STAT (st_rdev);
+    COMPARE_STAT (st_size);
+    COMPARE_STAT (st_blksize);
+    COMPARE_STAT (st_blocks);
+    COMPARE_STAT (st_atime_sec);
+    COMPARE_STAT (st_mtime_sec);
+    COMPARE_STAT (st_ctime_sec);
 #undef COMPARE_STAT
     if (guestfs_compare_xattr_list (file1->xattrs, file2->xattrs))
       output_string ("xattrs");
@@ -701,8 +702,8 @@ diff (struct file *file1, guestfs_h *g1, struct file *file2, guestfs_h *g2)
   CLEANUP_FREE char *tmpd, *tmpda = NULL, *tmpdb = NULL, *cmd = NULL;
   int r;
 
-  assert (is_reg (file1->stat->mode));
-  assert (is_reg (file2->stat->mode));
+  assert (is_reg (file1->stat->st_mode));
+  assert (is_reg (file2->stat->st_mode));
 
   if (asprintf (&tmpd, "%s/virtdiffXXXXXX", tmpdir) < 0) {
     perror ("asprintf");
@@ -755,47 +756,47 @@ output_file (guestfs_h *g, struct file *file)
   size_t i;
   CLEANUP_FREE char *link = NULL;
 
-  if (is_reg (file->stat->mode))
+  if (is_reg (file->stat->st_mode))
     filetype = "-";
-  else if (is_dir (file->stat->mode))
+  else if (is_dir (file->stat->st_mode))
     filetype = "d";
-  else if (is_chr (file->stat->mode))
+  else if (is_chr (file->stat->st_mode))
     filetype = "c";
-  else if (is_blk (file->stat->mode))
+  else if (is_blk (file->stat->st_mode))
     filetype = "b";
-  else if (is_fifo (file->stat->mode))
+  else if (is_fifo (file->stat->st_mode))
     filetype = "p";
-  else if (is_lnk (file->stat->mode))
+  else if (is_lnk (file->stat->st_mode))
     filetype = "l";
-  else if (is_sock (file->stat->mode))
+  else if (is_sock (file->stat->st_mode))
     filetype = "s";
   else
     filetype = "u";
 
   output_string (filetype);
-  output_int64_perms (file->stat->mode & 07777);
+  output_int64_perms (file->stat->st_mode & 07777);
 
-  output_int64_size (file->stat->size);
+  output_int64_size (file->stat->st_size);
 
   /* Display extra fields when enabled. */
   if (enable_uids) {
-    output_int64_uid (file->stat->uid);
-    output_int64_uid (file->stat->gid);
+    output_int64_uid (file->stat->st_uid);
+    output_int64_uid (file->stat->st_gid);
   }
 
   if (enable_times) {
     if (atime)
-      output_int64_time (file->stat->atime);
-    output_int64_time (file->stat->mtime);
-    output_int64_time (file->stat->ctime);
+      output_int64_time (file->stat->st_atime_sec, file->stat->st_atime_nsec);
+    output_int64_time (file->stat->st_mtime_sec, file->stat->st_mtime_nsec);
+    output_int64_time (file->stat->st_ctime_sec, file->stat->st_ctime_nsec);
   }
 
   if (enable_extra_stats) {
-    output_int64_dev (file->stat->dev);
-    output_int64 (file->stat->ino);
-    output_int64 (file->stat->nlink);
-    output_int64_dev (file->stat->rdev);
-    output_int64 (file->stat->blocks);
+    output_int64_dev (file->stat->st_dev);
+    output_int64 (file->stat->st_ino);
+    output_int64 (file->stat->st_nlink);
+    output_int64_dev (file->stat->st_rdev);
+    output_int64 (file->stat->st_blocks);
   }
 
   if (file->csum)
@@ -803,7 +804,7 @@ output_file (guestfs_h *g, struct file *file)
 
   output_string (file->path);
 
-  if (is_lnk (file->stat->mode)) {
+  if (is_lnk (file->stat->st_mode)) {
     /* XXX Fix this for NTFS. */
     link = guestfs_readlink (g, file->path);
     if (link)
@@ -1056,7 +1057,7 @@ output_int64_perms (int64_t i)
 }
 
 static void
-output_int64_time (int64_t i)
+output_int64_time (int64_t secs, int64_t nsecs)
 {
   int r;
 
@@ -1066,19 +1067,19 @@ output_int64_time (int64_t i)
   if (time_t_output) {
     switch (time_relative) {
     case 0:                     /* --time-t */
-      r = printf ("%10" PRIi64, i);
+      r = printf ("%10" PRIi64, secs);
       break;
     case 1:                     /* --time-relative */
-      r = printf ("%8" PRIi64, now - i);
+      r = printf ("%8" PRIi64, now - secs);
       break;
     case 2:                     /* --time-days */
     default:
-      r = printf ("%3" PRIi64, (now - i) / 86400);
+      r = printf ("%3" PRIi64, (now - secs) / 86400);
       break;
     }
   }
   else {
-    time_t t = (time_t) i;
+    time_t t = (time_t) secs;
     char buf[64];
     struct tm *tm;
 

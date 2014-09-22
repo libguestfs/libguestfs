@@ -377,33 +377,33 @@ guestfs__write_append (guestfs_h *g, const char *path,
   return write_or_append (g, path, content, size, 1);
 }
 
-#define LSTATLIST_MAX 1000
+#define LSTATNSLIST_MAX 1000
 
-struct guestfs_stat_list *
-guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
+struct guestfs_statns_list *
+guestfs__lstatnslist (guestfs_h *g, const char *dir, char * const*names)
 {
   size_t len = guestfs___count_strings (names);
   size_t old_len;
-  struct guestfs_stat_list *ret;
+  struct guestfs_statns_list *ret;
 
   ret = safe_malloc (g, sizeof *ret);
   ret->len = 0;
   ret->val = NULL;
 
   while (len > 0) {
-    CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *stats = NULL;
+    CLEANUP_FREE_STATNS_LIST struct guestfs_statns_list *stats = NULL;
 
     /* Note we don't need to free up the strings because take_strings
      * does not do a deep copy.
      */
-    CLEANUP_FREE char **first = take_strings (g, names, LSTATLIST_MAX, &names);
+    CLEANUP_FREE char **first = take_strings (g, names, LSTATNSLIST_MAX, &names);
 
-    len = len <= LSTATLIST_MAX ? 0 : len - LSTATLIST_MAX;
+    len = len <= LSTATNSLIST_MAX ? 0 : len - LSTATNSLIST_MAX;
 
-    stats = guestfs_internal_lstatlist (g, dir, first);
+    stats = guestfs_internal_lstatnslist (g, dir, first);
 
     if (stats == NULL) {
-      guestfs_free_stat_list (ret);
+      guestfs_free_statns_list (ret);
       return NULL;
     }
 
@@ -411,9 +411,9 @@ guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
     old_len = ret->len;
     ret->len += stats->len;
     ret->val = safe_realloc (g, ret->val,
-                             ret->len * sizeof (struct guestfs_stat));
+                             ret->len * sizeof (struct guestfs_statns));
     memcpy (&ret->val[old_len], stats->val,
-            stats->len * sizeof (struct guestfs_stat));
+            stats->len * sizeof (struct guestfs_statns));
   }
 
   return ret;
@@ -601,4 +601,73 @@ guestfs__ls (guestfs_h *g, const char *directory)
   if (fd >= 0)
     close (fd);
   return NULL;
+}
+
+static void
+statns_to_old_stat (struct guestfs_statns *a, struct guestfs_stat *r)
+{
+  r->dev = a->st_dev;
+  r->ino = a->st_ino;
+  r->mode = a->st_mode;
+  r->nlink = a->st_nlink;
+  r->uid = a->st_uid;
+  r->gid = a->st_gid;
+  r->rdev = a->st_rdev;
+  r->size = a->st_size;
+  r->blksize = a->st_blksize;
+  r->blocks = a->st_blocks;
+  r->atime = a->st_atime_sec;
+  r->mtime = a->st_mtime_sec;
+  r->ctime = a->st_ctime_sec;
+}
+
+struct guestfs_stat *
+guestfs__stat (guestfs_h *g, const char *path)
+{
+  CLEANUP_FREE_STATNS struct guestfs_statns *r;
+  struct guestfs_stat *ret;
+
+  r = guestfs_statns (g, path);
+  if (r == NULL)
+    return NULL;
+
+  ret = safe_malloc (g, sizeof *ret);
+  statns_to_old_stat (r, ret);
+  return ret;                   /* caller frees */
+}
+
+struct guestfs_stat *
+guestfs__lstat (guestfs_h *g, const char *path)
+{
+  CLEANUP_FREE_STATNS struct guestfs_statns *r;
+  struct guestfs_stat *ret;
+
+  r = guestfs_lstatns (g, path);
+  if (r == NULL)
+    return NULL;
+
+  ret = safe_malloc (g, sizeof *ret);
+  statns_to_old_stat (r, ret);
+  return ret;                   /* caller frees */
+}
+
+struct guestfs_stat_list *
+guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
+{
+  CLEANUP_FREE_STATNS_LIST struct guestfs_statns_list *r;
+  struct guestfs_stat_list *ret;
+  size_t i;
+
+  r = guestfs_lstatnslist (g, dir, names);
+  if (r == NULL)
+    return NULL;
+
+  ret = safe_malloc (g, sizeof *ret);
+  ret->len = r->len;
+  ret->val = safe_calloc (g, r->len, sizeof (struct guestfs_stat));
+
+  for (i = 0; i < r->len; ++i)
+    statns_to_old_stat (&r->val[i], &ret->val[i]);
+
+  return ret;
 }

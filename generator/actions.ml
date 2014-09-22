@@ -2605,6 +2605,7 @@ See also C<guestfs_write>." };
   { defaults with
     name = "lstatlist";
     style = RStructList ("statbufs", "stat"), [Pathname "path"; StringList "names"], [];
+    deprecated_by = Some "lstatnslist";
     shortdesc = "lstat on multiple files";
     longdesc = "\
 This call allows you to perform the C<guestfs_lstat> operation
@@ -2613,7 +2614,26 @@ C<names> is the list of files from this directory.
 
 On return you get a list of stat structs, with a one-to-one
 correspondence to the C<names> list.  If any name did not exist
-or could not be lstat'd, then the C<ino> field of that structure
+or could not be lstat'd, then the C<st_ino> field of that structure
+is set to C<-1>.
+
+This call is intended for programs that want to efficiently
+list a directory contents without making many round-trips.
+See also C<guestfs_lxattrlist> for a similarly efficient call
+for getting extended attributes." };
+
+  { defaults with
+    name = "lstatnslist";
+    style = RStructList ("statbufs", "statns"), [Pathname "path"; StringList "names"], [];
+    shortdesc = "lstat on multiple files";
+    longdesc = "\
+This call allows you to perform the C<guestfs_lstatns> operation
+on multiple files, where all files are in the directory C<path>.
+C<names> is the list of files from this directory.
+
+On return you get a list of stat structs, with a one-to-one
+correspondence to the C<names> list.  If any name did not exist
+or could not be lstat'd, then the C<st_ino> field of that structure
 is set to C<-1>.
 
 This call is intended for programs that want to efficiently
@@ -3222,6 +3242,38 @@ This call returns the number of strings which were removed
 (which may be 0, 1 or greater than 1).
 
 See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
+
+  { defaults with
+    name = "stat";
+    style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
+    deprecated_by = Some "statns";
+    tests = [
+      InitISOFS, Always, TestResult (
+        [["stat"; "/empty"]], "ret->size == 0"), []
+    ];
+    shortdesc = "get file information";
+    longdesc = "\
+Returns file information for the given C<path>.
+
+This is the same as the C<stat(2)> system call." };
+
+  { defaults with
+    name = "lstat";
+    style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
+    deprecated_by = Some "lstatns";
+    tests = [
+      InitISOFS, Always, TestResult (
+        [["lstat"; "/empty"]], "ret->size == 0"), []
+    ];
+    shortdesc = "get file information for a symbolic link";
+    longdesc = "\
+Returns file information for the given C<path>.
+
+This is the same as C<guestfs_stat> except that if C<path>
+is a symbolic link, then the link is stat-ed, not the file it
+refers to.
+
+This is the same as the C<lstat(2)> system call." };
 
 ]
 
@@ -4345,38 +4397,6 @@ This is the same as C<guestfs_command>, but splits the
 result into a list of lines.
 
 See also: C<guestfs_sh_lines>" };
-
-  { defaults with
-    name = "stat";
-    style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
-    proc_nr = Some 52;
-    tests = [
-      InitISOFS, Always, TestResult (
-        [["stat"; "/empty"]], "ret->size == 0"), []
-    ];
-    shortdesc = "get file information";
-    longdesc = "\
-Returns file information for the given C<path>.
-
-This is the same as the C<stat(2)> system call." };
-
-  { defaults with
-    name = "lstat";
-    style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
-    proc_nr = Some 53;
-    tests = [
-      InitISOFS, Always, TestResult (
-        [["lstat"; "/empty"]], "ret->size == 0"), []
-    ];
-    shortdesc = "get file information for a symbolic link";
-    longdesc = "\
-Returns file information for the given C<path>.
-
-This is the same as C<guestfs_stat> except that if C<path>
-is a symbolic link, then the link is stat-ed, not the file it
-refers to.
-
-This is the same as the C<lstat(2)> system call." };
 
   { defaults with
     name = "statvfs";
@@ -7491,30 +7511,6 @@ the link itself is changed, not the target.
 Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy)." };
-
-  { defaults with
-    name = "internal_lstatlist";
-    style = RStructList ("statbufs", "stat"), [Pathname "path"; StringList "names"], [];
-    proc_nr = Some 204;
-    visibility = VInternal;
-    shortdesc = "lstat on multiple files";
-    longdesc = "\
-This call allows you to perform the C<guestfs_lstat> operation
-on multiple files, where all files are in the directory C<path>.
-C<names> is the list of files from this directory.
-
-On return you get a list of stat structs, with a one-to-one
-correspondence to the C<names> list.  If any name did not exist
-or could not be lstat'd, then the C<ino> field of that structure
-is set to C<-1>.
-
-This call is intended for programs that want to efficiently
-list a directory contents without making many round-trips.
-See also C<guestfs_lxattrlist> for a similarly efficient call
-for getting extended attributes.  Very long directory listings
-might cause the protocol message size to be exceeded, causing
-this call to fail.  The caller must split up such requests
-into smaller groups of names." };
 
   { defaults with
     name = "internal_lxattrlist";
@@ -11941,6 +11937,47 @@ New (SVR4) portable format with a checksum.
     shortdesc = "get the timestamp of the current journal entry";
     longdesc = "\
 Get the realtime (wallclock) timestamp of the current journal entry." };
+
+  { defaults with
+    name = "statns";
+    style = RStruct ("statbuf", "statns"), [Pathname "path"], [];
+    proc_nr = Some 421;
+    tests = [
+      InitISOFS, Always, TestResult (
+        [["statns"; "/empty"]], "ret->st_size == 0"), []
+    ];
+    shortdesc = "get file information";
+    longdesc = "\
+Returns file information for the given C<path>.
+
+This is the same as the C<stat(2)> system call." };
+
+  { defaults with
+    name = "lstatns";
+    style = RStruct ("statbuf", "statns"), [Pathname "path"], [];
+    proc_nr = Some 422;
+    tests = [
+      InitISOFS, Always, TestResult (
+        [["lstatns"; "/empty"]], "ret->st_size == 0"), []
+    ];
+    shortdesc = "get file information for a symbolic link";
+    longdesc = "\
+Returns file information for the given C<path>.
+
+This is the same as C<guestfs_statns> except that if C<path>
+is a symbolic link, then the link is stat-ed, not the file it
+refers to.
+
+This is the same as the C<lstat(2)> system call." };
+
+  { defaults with
+    name = "internal_lstatnslist";
+    style = RStructList ("statbufs", "statns"), [Pathname "path"; StringList "names"], [];
+    proc_nr = Some 423;
+    visibility = VInternal;
+    shortdesc = "lstat on multiple files";
+    longdesc = "\
+This is the internal call which implements C<guestfs_lstatnslist>." };
 
 ]
 

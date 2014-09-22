@@ -71,7 +71,7 @@ static void output_int64 (int64_t);
 static void output_int64_dev (int64_t);
 static void output_int64_perms (int64_t);
 static void output_int64_size (int64_t);
-static void output_int64_time (int64_t);
+static void output_int64_time (int64_t secs, int64_t nsecs);
 static void output_int64_uid (int64_t);
 static void output_string (const char *);
 static void output_string_link (const char *);
@@ -449,7 +449,7 @@ do_ls_R (const char *dir)
   return 0;
 }
 
-static int show_file (const char *dir, const char *name, const struct guestfs_stat *stat, const struct guestfs_xattr_list *xattrs, void *unused);
+static int show_file (const char *dir, const char *name, const struct guestfs_statns *stat, const struct guestfs_xattr_list *xattrs, void *unused);
 
 static int
 do_ls_lR (const char *dir)
@@ -466,7 +466,7 @@ do_ls_lR (const char *dir)
  */
 static int
 show_file (const char *dir, const char *name,
-           const struct guestfs_stat *stat,
+           const struct guestfs_statns *stat,
            const struct guestfs_xattr_list *xattrs,
            void *unused)
 {
@@ -476,45 +476,45 @@ show_file (const char *dir, const char *name,
   /* Display the basic fields. */
   output_start_line ();
 
-  if (is_reg (stat->mode))
+  if (is_reg (stat->st_mode))
     filetype = "-";
-  else if (is_dir (stat->mode))
+  else if (is_dir (stat->st_mode))
     filetype = "d";
-  else if (is_chr (stat->mode))
+  else if (is_chr (stat->st_mode))
     filetype = "c";
-  else if (is_blk (stat->mode))
+  else if (is_blk (stat->st_mode))
     filetype = "b";
-  else if (is_fifo (stat->mode))
+  else if (is_fifo (stat->st_mode))
     filetype = "p";
-  else if (is_lnk (stat->mode))
+  else if (is_lnk (stat->st_mode))
     filetype = "l";
-  else if (is_sock (stat->mode))
+  else if (is_sock (stat->st_mode))
     filetype = "s";
   else
     filetype = "u";
   output_string (filetype);
-  output_int64_perms (stat->mode & 07777);
+  output_int64_perms (stat->st_mode & 07777);
 
-  output_int64_size (stat->size);
+  output_int64_size (stat->st_size);
 
   /* Display extra fields when enabled. */
   if (enable_uids) {
-    output_int64_uid (stat->uid);
-    output_int64_uid (stat->gid);
+    output_int64_uid (stat->st_uid);
+    output_int64_uid (stat->st_gid);
   }
 
   if (enable_times) {
-    output_int64_time (stat->atime);
-    output_int64_time (stat->mtime);
-    output_int64_time (stat->ctime);
+    output_int64_time (stat->st_atime_sec, stat->st_atime_nsec);
+    output_int64_time (stat->st_mtime_sec, stat->st_mtime_nsec);
+    output_int64_time (stat->st_ctime_sec, stat->st_ctime_nsec);
   }
 
   if (enable_extra_stats) {
-    output_int64_dev (stat->dev);
-    output_int64 (stat->ino);
-    output_int64 (stat->nlink);
-    output_int64_dev (stat->rdev);
-    output_int64 (stat->blocks);
+    output_int64_dev (stat->st_dev);
+    output_int64 (stat->st_ino);
+    output_int64 (stat->st_nlink);
+    output_int64_dev (stat->st_rdev);
+    output_int64 (stat->st_blocks);
   }
 
   /* Disabled for now -- user would definitely want these to be interpreted.
@@ -524,7 +524,7 @@ show_file (const char *dir, const char *name,
 
   path = full_path (dir, name);
 
-  if (checksum && is_reg (stat->mode)) {
+  if (checksum && is_reg (stat->st_mode)) {
     csum = guestfs_checksum (g, checksum, path);
     if (!csum)
       exit (EXIT_FAILURE);
@@ -534,7 +534,7 @@ show_file (const char *dir, const char *name,
 
   output_string (path);
 
-  if (is_lnk (stat->mode))
+  if (is_lnk (stat->st_mode))
     /* XXX Fix this for NTFS. */
     link = guestfs_readlink (g, path);
   if (link)
@@ -703,7 +703,7 @@ output_int64_perms (int64_t i)
 }
 
 static void
-output_int64_time (int64_t i)
+output_int64_time (int64_t secs, int64_t nsecs)
 {
   int r;
 
@@ -713,19 +713,19 @@ output_int64_time (int64_t i)
   if (time_t_output) {
     switch (time_relative) {
     case 0:                     /* --time-t */
-      r = printf ("%10" PRIi64, i);
+      r = printf ("%10" PRIi64, secs);
       break;
     case 1:                     /* --time-relative */
-      r = printf ("%8" PRIi64, now - i);
+      r = printf ("%8" PRIi64, now - secs);
       break;
     case 2:                     /* --time-days */
     default:
-      r = printf ("%3" PRIi64, (now - i) / 86400);
+      r = printf ("%3" PRIi64, (now - secs) / 86400);
       break;
     }
   }
   else {
-    time_t t = (time_t) i;
+    time_t t = (time_t) secs;
     char buf[64];
     struct tm *tm;
 

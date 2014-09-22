@@ -12,6 +12,7 @@ MDStat.java
 PV.java
 Partition.java
 Stat.java
+StatNS.java
 StatVFS.java
 UTSName.java
 VG.java

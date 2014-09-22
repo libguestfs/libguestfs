@@ -247,9 +247,9 @@ test_fuse (void)
   char buf[128];
   ssize_t r;
   unsigned u, u1;
-#if 0
   int fd;
   struct timeval tv[2];
+#if 0
   struct timespec ts[2];
 #endif
   acl_t acl;
@@ -544,7 +544,6 @@ test_fuse (void)
     return -1;
   }
 
-#if 0
   STAGE ("checking utimes");
 
   fd = open ("timestamp", O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0644);
@@ -574,7 +573,6 @@ test_fuse (void)
              (int) statbuf.st_mtime, (int) statbuf.st_mtim.tv_nsec);
     return -1;
   }
-#endif
 
 #if 0
   /* Does not work! See https://bugzilla.redhat.com/show_bug.cgi?id=1144766 */

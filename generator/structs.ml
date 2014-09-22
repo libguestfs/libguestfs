@@ -143,6 +143,36 @@ let structs = [
     "ctime", FInt64;
     ];
     s_camel_name = "Stat" };
+  (* Because we omitted the nanosecond fields from the above struct,
+   * we also have this:
+   *)
+  { defaults with
+    s_name = "statns";
+    s_cols = [
+    "st_dev", FInt64;
+    "st_ino", FInt64;
+    "st_mode", FInt64;
+    "st_nlink", FInt64;
+    "st_uid", FInt64;
+    "st_gid", FInt64;
+    "st_rdev", FInt64;
+    "st_size", FInt64;
+    "st_blksize", FInt64;
+    "st_blocks", FInt64;
+    "st_atime_sec", FInt64;
+    "st_atime_nsec", FInt64;
+    "st_mtime_sec", FInt64;
+    "st_mtime_nsec", FInt64;
+    "st_ctime_sec", FInt64;
+    "st_ctime_nsec", FInt64;
+    "st_spare1", FInt64;
+    "st_spare2", FInt64;
+    "st_spare3", FInt64;
+    "st_spare4", FInt64;
+    "st_spare5", FInt64;
+    "st_spare6", FInt64;
+    ];
+    s_camel_name = "StatNS" };
   { defaults with
     s_name = "statvfs";
     s_cols = [

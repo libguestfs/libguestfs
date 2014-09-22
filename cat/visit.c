@@ -51,11 +51,11 @@ _visit (guestfs_h *g, int depth, const char *dir,
    * case.
    */
   if (depth == 0) {
-    CLEANUP_FREE_STAT struct guestfs_stat *stat = NULL;
+    CLEANUP_FREE_STATNS struct guestfs_statns *stat = NULL;
     CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
     int r;
 
-    stat = guestfs_lstat (g, dir);
+    stat = guestfs_lstatns (g, dir);
     if (stat == NULL)
       return -1;
 
@@ -71,14 +71,14 @@ _visit (guestfs_h *g, int depth, const char *dir,
 
   size_t i, xattrp;
   CLEANUP_FREE_STRING_LIST char **names = NULL;
-  CLEANUP_FREE_STAT_LIST struct guestfs_stat_list *stats = NULL;
+  CLEANUP_FREE_STAT_LIST struct guestfs_statns_list *stats = NULL;
   CLEANUP_FREE_XATTR_LIST struct guestfs_xattr_list *xattrs = NULL;
 
   names = guestfs_ls (g, dir);
   if (names == NULL)
     return -1;
 
-  stats = guestfs_lstatlist (g, dir, names);
+  stats = guestfs_lstatnslist (g, dir, names);
   if (stats == NULL)
     return -1;
 
@@ -123,7 +123,7 @@ _visit (guestfs_h *g, int depth, const char *dir,
       return -1;
 
     /* Recursively call visit, but only on directories. */
-    if (is_dir (stats->val[i].mode)) {
+    if (is_dir (stats->val[i].st_mode)) {
       path = full_path (dir, names[i]);
       if (_visit (g, depth + 1, path, f, opaque) == -1)
         return -1;

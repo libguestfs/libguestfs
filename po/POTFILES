@@ -238,6 +238,7 @@ gobject/src/struct-lvm_vg.c
 gobject/src/struct-mdstat.c
 gobject/src/struct-partition.c
 gobject/src/struct-stat.c
+gobject/src/struct-statns.c
 gobject/src/struct-statvfs.c
 gobject/src/struct-utsname.c
 gobject/src/struct-version.c
