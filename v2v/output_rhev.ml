@@ -38,8 +38,13 @@ let rec mount_and_check_storage_domain verbose domain_class os =
   | server, export ->
     let export = "/" ^ export in
 
-    (* Try mounting it. *)
+    (* Create a mountpoint.  Default mode is too restrictive for us
+     * when we need to write into the directory as 36:36.
+     *)
     let mp = Mkdtemp.temp_dir "v2v." "" in
+    chmod mp 0o755;
+
+    (* Try mounting it. *)
     let cmd =
       sprintf "mount %s:%s %s" (quote server) (quote export) (quote mp) in
     if verbose then printf "%s\n%!" cmd;
@@ -111,7 +116,19 @@ and check_storage_domain verbose domain_class os mp =
   (* Looks good, so return the SD mountpoint and UUID. *)
   (mp, uuid)
 
+(* UID:GID required for files and directories when writing to ESD. *)
+let uid = 36 and gid = 36
+
 class output_rhev verbose os vmtype output_alloc =
+  (* Create a UID-switching handle.  If we're not root, create a dummy
+   * one because we cannot switch UIDs.
+   *)
+  let running_as_root = geteuid () = 0 in
+  let kvmuid_t =
+    if running_as_root then
+      Kvmuid.create ~uid ~gid ()
+    else
+      Kvmuid.create () in
 object
   inherit output verbose
 
@@ -171,6 +188,23 @@ object
       eprintf "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s\n%!"
         esd_mp esd_uuid;
 
+    (* See if we can write files as UID:GID 36:36. *)
+    let () =
+      let testfile = esd_mp // esd_uuid // "v2v-uid-test" in
+      Kvmuid.make_file kvmuid_t testfile "";
+      let stat = stat testfile in
+      Kvmuid.unlink kvmuid_t testfile;
+      let actual_uid = stat.st_uid and actual_gid = stat.st_gid in
+      if verbose then
+        eprintf "RHEV: actual UID:GID of new files is %d:%d\n"
+          actual_uid actual_gid;
+      if uid <> actual_uid || gid <> actual_gid then (
+        if running_as_root then
+          warning ~prog (f_"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n\nYou will have to chown the files that virt-v2v creates after the run, otherwise RHEV-M will not be able to import the VM.") uid gid
+        else
+          warning ~prog (f_"cannot write files to the NFS server as %d:%d. You might want to stop virt-v2v (^C) and rerun it as root.") uid gid
+      ) in
+
     (* Create unique UUIDs for everything *)
     image_uuid <- uuidgen ~prog ();
     vm_uuid <- uuidgen ~prog ();
@@ -185,7 +219,7 @@ object
      * conversion fails for any reason then we delete this directory.
      *)
     image_dir <- esd_mp // esd_uuid // "images" // image_uuid;
-    mkdir image_dir 0o755;
+    Kvmuid.mkdir kvmuid_t image_dir 0o755;
     at_exit (fun () ->
       if delete_target_directory then (
         let cmd = sprintf "rm -rf %s" (quote image_dir) in
@@ -227,13 +261,20 @@ object
     List.iter (
       fun ({ target_file = target_file }, meta) ->
         let meta_filename = target_file ^ ".meta" in
-        let chan = open_out meta_filename in
-        output_string chan meta;
-        close_out chan
+        Kvmuid.make_file kvmuid_t meta_filename meta
     ) (List.combine targets metas);
 
     (* Return the list of targets. *)
     targets
+
+  method disk_create ?backingfile ?backingformat ?preallocation ?compat
+    ?clustersize path format size =
+    Kvmuid.func kvmuid_t (
+      fun () ->
+        let g = new Guestfs.guestfs () in
+        g#disk_create ?backingfile ?backingformat ?preallocation ?compat
+          ?clustersize path format size
+    )
 
   (* This is called after conversion to write the OVF metadata. *)
   method create_metadata source targets guestcaps inspect =
@@ -243,11 +284,9 @@ object
 
     (* Write it to the metadata file. *)
     let dir = esd_mp // esd_uuid // "master" // "vms" // vm_uuid in
-    mkdir dir 0o755;
+    Kvmuid.mkdir kvmuid_t dir 0o755;
     let file = dir // vm_uuid ^ ".ovf" in
-    let chan = open_out file in
-    doc_to_chan chan ovf;
-    close_out chan;
+    Kvmuid.output kvmuid_t file (fun chan -> doc_to_chan chan ovf);
 
     (* Finished, so don't delete the target directory on exit. *)
     delete_target_directory <- false

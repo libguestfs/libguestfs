@@ -37,6 +37,7 @@ SOURCES_MLI = \
 	input_libvirtxml.mli \
 	input_ova.mli \
 	JSON.mli \
+	kvmuid.mli \
 	lib_esx.mli \
 	lib_linux.mli \
 	lib_ovf.mli \
@@ -60,6 +61,7 @@ SOURCES_ML = \
 	domainxml.ml \
 	DOM.ml \
 	JSON.ml \
+	kvmuid.ml \
 	lib_esx.ml \
 	lib_xen.ml \
 	lib_ovf.ml \
@@ -88,9 +90,10 @@ SOURCES_C = \
 	$(top_builddir)/mllib/mkdtemp-c.c \
 	$(top_builddir)/customize/crypt-c.c \
 	$(top_builddir)/customize/perl_edit-c.c \
+	domainxml-c.c \
+	kvmuid-c.c \
 	utils-c.c \
-	xml-c.c \
-	domainxml-c.c
+	xml-c.c
 
 if HAVE_OCAML
 
