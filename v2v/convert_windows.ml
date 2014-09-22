@@ -267,7 +267,7 @@ echo uninstalling Xen PV driver
         else (
           let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
           let target = g#case_sensitive_path target in
-          g#cp block_path target;
+          g#upload block_path target;
           add_viostor_to_critical_device_database root current_cs;
           Virtio_blk
         ) in
