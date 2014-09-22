@@ -451,13 +451,8 @@ read the man page virt-resize(1).
 
     (* Filter out logical partitions.  See note above. *)
     let parts =
-      match parttype with
-      | GPT -> parts
-      | MBR ->
-        List.filter (function
-        | { G.part_num = part_num } when part_num >= 5_l -> false
-        | _ -> true
-        ) parts in
+        List.filter (fun p -> parttype <> MBR || p.G.part_num <= 4_l)
+        parts in
 
     let partitions =
       List.map (
