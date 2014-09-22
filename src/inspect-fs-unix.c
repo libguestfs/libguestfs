@@ -77,6 +77,7 @@ static pcre *re_nld;
 static pcre *re_opensuse_version;
 static pcre *re_sles_version;
 static pcre *re_sles_patchlevel;
+static pcre *re_minix;
 
 static void compile_regexps (void) __attribute__((constructor));
 static void free_regexps (void) __attribute__((destructor));
@@ -135,6 +136,7 @@ compile_regexps (void)
   COMPILE (re_opensuse_version, "^VERSION = (\\d+)\\.(\\d+)", 0);
   COMPILE (re_sles_version, "^VERSION = (\\d+)", 0);
   COMPILE (re_sles_patchlevel, "^PATCHLEVEL = (\\d+)", 0);
+  COMPILE (re_minix, "^(\\d+)\\.(\\d+)(\\.(\\d+))?", 0);
 }
 
 static void
@@ -167,6 +169,7 @@ free_regexps (void)
   pcre_free (re_opensuse_version);
   pcre_free (re_sles_version);
   pcre_free (re_sles_patchlevel);
+  pcre_free (re_minix);
 }
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
@@ -782,6 +785,48 @@ guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
+/* The currently mounted device is maybe to be a Minix root. */
+int
+guestfs___check_minix_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  fs->type = OS_TYPE_MINIX;
+
+  if (guestfs_is_file_opts (g, "/etc/version",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    char *major, *minor;
+    if (parse_release_file (g, fs, "/etc/version") == -1)
+      return -1;
+
+    if (match2 (g, fs->product_name, re_minix, &major, &minor)) {
+      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1) {
+        free (minor);
+        return -1;
+      }
+      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      free (minor);
+      if (fs->minor_version == -1)
+        return -1;
+    }
+  } else {
+    return -1;
+  }
+
+  /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* TODO: enable fstab inspection once resolve_fstab_device implements
+   * the proper mapping from the Minix device names to the appliance names
+   */
+
+  /* Determine hostname. */
+  if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
+
 static void
 check_architecture (guestfs_h *g, struct inspect_fs *fs)
 {
@@ -860,6 +905,18 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs_is_file (g, "/etc/rc.conf")) {
       if (check_hostname_freebsd (g, fs) == -1)
         return -1;
+    }
+    break;
+
+  case OS_TYPE_MINIX:
+    if (guestfs_is_file (g, "/etc/hostname.file")) {
+      fs->hostname = guestfs___first_line_of_file (g, "/etc/hostname.file");
+      if (fs->hostname == NULL)
+        return -1;
+      if (STREQ (fs->hostname, "")) {
+        free (fs->hostname);
+        fs->hostname = NULL;
+      }
     }
     break;
 

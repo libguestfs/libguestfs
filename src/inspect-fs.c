@@ -247,6 +247,17 @@ check_filesystem (guestfs_h *g, const char *mountable,
     if (guestfs___check_hurd_root (g, fs) == -1)
       return -1;
   }
+  /* Minix root? */
+  else if (is_dir_etc &&
+           is_dir_bin &&
+           guestfs_is_file (g, "/service/vm") > 0 &&
+           guestfs_is_file (g, "/etc/fstab") > 0 &&
+           guestfs_is_file (g, "/etc/version") > 0) {
+    fs->is_root = 1;
+    fs->format = OS_FORMAT_INSTALLED;
+    if (guestfs___check_minix_root (g, fs) == -1)
+      return -1;
+  }
   /* Linux root? */
   else if (is_dir_etc &&
            (is_dir_bin ||

@@ -197,6 +197,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
   case OS_TYPE_NETBSD:
   case OS_TYPE_DOS:
   case OS_TYPE_OPENBSD:
+  case OS_TYPE_MINIX:
   case OS_TYPE_UNKNOWN:
     ; /* nothing */
   }

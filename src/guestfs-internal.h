@@ -513,6 +513,7 @@ enum inspect_os_type {
   OS_TYPE_HURD,
   OS_TYPE_DOS,
   OS_TYPE_OPENBSD,
+  OS_TYPE_MINIX,
 };
 
 enum inspect_os_distro {
@@ -758,6 +759,7 @@ extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_minix_root (guestfs_h *g, struct inspect_fs *fs);
 
 /* inspect-fs-windows.c */
 extern char *guestfs___case_sensitive_path_silently (guestfs_h *g, const char *);

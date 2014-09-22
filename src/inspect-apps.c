@@ -157,6 +157,7 @@ guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
       break;
 
     case OS_TYPE_FREEBSD:
+    case OS_TYPE_MINIX:
     case OS_TYPE_NETBSD:
     case OS_TYPE_DOS:
     case OS_TYPE_OPENBSD:

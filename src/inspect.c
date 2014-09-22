@@ -118,6 +118,7 @@ guestfs__inspect_get_type (guestfs_h *g, const char *root)
   case OS_TYPE_FREEBSD: ret = safe_strdup (g, "freebsd"); break;
   case OS_TYPE_HURD: ret = safe_strdup (g, "hurd"); break;
   case OS_TYPE_LINUX: ret = safe_strdup (g, "linux"); break;
+  case OS_TYPE_MINIX: ret = safe_strdup (g, "minix"); break;
   case OS_TYPE_NETBSD: ret = safe_strdup (g, "netbsd"); break;
   case OS_TYPE_OPENBSD: ret = safe_strdup (g, "openbsd"); break;
   case OS_TYPE_WINDOWS: ret = safe_strdup (g, "windows"); break;
