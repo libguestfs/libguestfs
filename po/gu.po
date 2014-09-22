@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-22 18:24+0100\n"
+"POT-Creation-Date: 2014-09-22 22:40+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:92
+#: ../v2v/output_rhev.ml:97
 msgid ""
 "%s does not exist or is not a directory.\n"
 "\n"
@@ -865,7 +865,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:330
+#: ../v2v/v2v.ml:335
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1049,7 +1049,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:366
+#: ../v2v/v2v.ml:371
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1101,7 +1101,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:167
+#: ../v2v/output_rhev.ml:184
 msgid "Export Storage Domain"
 msgstr ""
 
@@ -1149,7 +1149,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:333 ../customize/customize_main.ml:252
+#: ../v2v/v2v.ml:338 ../customize/customize_main.ml:252
 #: ../builder/builder.ml:711
 msgid "Finishing off"
 msgstr ""
@@ -1454,7 +1454,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:353 ../v2v/lib_ovf.ml:176
+#: ../v2v/lib_ovf.ml:351 ../v2v/lib_ovf.ml:174
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -2049,7 +2049,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:297
+#: ../v2v/lib_ovf.ml:295
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
@@ -2225,7 +2225,23 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/v2v.ml:369
+#: ../v2v/output_rhev.ml:203
+msgid ""
+"cannot write files to the NFS server as %d:%d, even though we appear to be "
+"running as root. This probably means the NFS client or idmapd is not "
+"configured properly.\n"
+"\n"
+"You will have to chown the files that virt-v2v creates after the run, "
+"otherwise RHEV-M will not be able to import the VM."
+msgstr ""
+
+#: ../v2v/output_rhev.ml:205
+msgid ""
+"cannot write files to the NFS server as %d:%d. You might want to stop virt-"
+"v2v (^C) and rerun it as root."
+msgstr ""
+
+#: ../v2v/v2v.ml:374
 msgid "connection closed"
 msgstr ""
 
@@ -2257,7 +2273,7 @@ msgstr ""
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:70
+#: ../v2v/output_rhev.ml:75
 msgid ""
 "could not read the %s specified by the '-os %s' parameter on the command "
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
@@ -2350,7 +2366,7 @@ msgstr ""
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
-#: ../v2v/v2v.ml:353
+#: ../v2v/v2v.ml:358
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2560,7 +2576,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:391
+#: ../v2v/v2v.ml:396
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2572,7 +2588,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:47
+#: ../v2v/output_rhev.ml:52
 msgid ""
 "mount command failed, see earlier errors.\n"
 "\n"
@@ -2580,7 +2596,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:376
+#: ../v2v/v2v.ml:381
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2629,7 +2645,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:346
+#: ../v2v/v2v.ml:351
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2639,7 +2655,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:456
+#: ../v2v/v2v.ml:461
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2732,7 +2748,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:320 ../v2v/v2v.ml:119
+#: ../v2v/v2v.ml:325 ../v2v/v2v.ml:119
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2744,7 +2760,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:384
+#: ../v2v/v2v.ml:389
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2766,7 +2782,15 @@ msgid ""
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:99
+#: ../v2v/kvmuid.ml:55
+msgid "subprocess exited with non-zero error code %d"
+msgstr ""
+
+#: ../v2v/kvmuid.ml:57
+msgid "subprocess signalled or stopped by signal %d"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:104
 msgid ""
 "the %s (%s) is not writable.\n"
 "\n"
@@ -2785,7 +2809,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:166
+#: ../v2v/lib_ovf.ml:164
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -2794,13 +2818,13 @@ msgid ""
 "about this issue."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:84
+#: ../v2v/output_rhev.ml:89
 msgid ""
 "there are multiple UUIDs in the %s (%s).  This is unexpected, and may be a "
 "bug in virt-v2v or OVirt."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:82
+#: ../v2v/output_rhev.ml:87
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
