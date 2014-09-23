@@ -173,7 +173,7 @@ object
 
     (* See if we can write files as UID:GID 36:36. *)
     let () =
-      let testfile = esd_mp // esd_uuid // "v2v-uid-test" in
+      let testfile = esd_mp // esd_uuid // string_random8 () in
       Kvmuid.make_file kvmuid_t testfile "";
       let stat = stat testfile in
       Kvmuid.unlink kvmuid_t testfile;
