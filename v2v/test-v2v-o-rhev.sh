@@ -57,7 +57,9 @@ mkdir $d/12345678-1234-1234-1234-123456789abc/images
 mkdir $d/12345678-1234-1234-1234-123456789abc/master
 mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms
 
-$VG virt-v2v --debug-gc \
+# $VG - XXX Disabled because the forking used to write files in -o rhev
+# mode confuses valgrind.
+virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o rhev -os $d
 
