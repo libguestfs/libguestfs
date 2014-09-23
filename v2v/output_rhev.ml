@@ -28,9 +28,7 @@ open DOM
 
 let rec mount_and_check_storage_domain verbose domain_class os =
   (* The user can either specify -os nfs:/export, or a local directory
-   * which is assumed to be the already-mounted NFS export.  In either
-   * case we need to check that we have sufficient permissions to write
-   * to this mountpoint.
+   * which is assumed to be the already-mounted NFS export.
    *)
   match string_split ":/" os with
   | mp, "" ->                         (* Already mounted directory. *)
@@ -97,21 +95,6 @@ and check_storage_domain verbose domain_class os mp =
       error (f_"%s does not exist or is not a directory.\n\nMost likely cause: Either the %s (%s) has not been attached to any Data Center, or the path %s is not an %s at all.\n\nYou have to attach the %s to a Data Center using the RHEV-M / OVirt user interface first.\n\nIf you don't know what the %s mount point should be then you can also find this out through the RHEV-M user interface.")
         master_vms_dir domain_class os os
         domain_class domain_class domain_class in
-
-  (* Check that the SD is writable. *)
-  let testfile = mp // uuid // "v2v-write-test" in
-  let write_test_failed err =
-    error (f_"the %s (%s) is not writable.\n\nThis probably means you need to run virt-v2v as root.\n\nOriginal error was: %s")
-      domain_class os err;
-  in
-  (try
-     let chan = open_out testfile in
-     close_out chan;
-     unlink testfile
-   with
-   | Sys_error err -> write_test_failed err
-   | Unix_error (code, _, _) -> write_test_failed (error_message code)
-  );
 
   (* Looks good, so return the SD mountpoint and UUID. *)
   (mp, uuid)
