@@ -256,7 +256,13 @@ object
       fun () ->
         let g = new Guestfs.guestfs () in
         g#disk_create ?backingfile ?backingformat ?preallocation ?compat
-          ?clustersize path format size
+          ?clustersize path format size;
+        (* Make it sufficiently writable so that possibly root, or
+         * root squashed qemu-img will definitely be able to open it.
+         * An example of how root squashing nonsense makes everyone
+         * less secure.
+         *)
+        chmod path 0o666
     )
 
   (* This is called after conversion to write the OVF metadata. *)
