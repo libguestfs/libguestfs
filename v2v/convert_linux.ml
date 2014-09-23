@@ -1265,6 +1265,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       "/files" ^ grub_config ^ "/*/kernel/root";
       "/files" ^ grub_config ^ "/*/kernel/resume";
       "/files/boot/grub/device.map/*[label() != \"#comment\"]";
+      "/files/etc/sysconfig/grub/boot";
 
       (* grub2 config *)
       "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
