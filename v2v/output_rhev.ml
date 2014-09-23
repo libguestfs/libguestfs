@@ -206,7 +206,7 @@ object
     at_exit (fun () ->
       if delete_target_directory then (
         let cmd = sprintf "rm -rf %s" (quote image_dir) in
-        ignore (Sys.command cmd)
+        Kvmuid.command kvmuid_t cmd
       )
     );
     if verbose then
