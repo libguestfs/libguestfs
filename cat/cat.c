@@ -29,8 +29,6 @@
 #include <assert.h>
 #include <libintl.h>
 
-#include "c-ctype.h"
-
 #include "guestfs.h"
 #include "options.h"
 #include "windows.h"

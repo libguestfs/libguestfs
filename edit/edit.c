@@ -33,7 +33,6 @@
 #include <utime.h>
 
 #include "xvasprintf.h"
-#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "options.h"

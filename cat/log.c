@@ -34,8 +34,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "c-ctype.h"
-
 #include "guestfs.h"
 #include "options.h"
 
