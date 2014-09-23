@@ -6,12 +6,12 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest
 
- virt-v2v -ic vpx://esx.example.com/Datacenter/esxi \
-   -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
+ virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest \
+   -o rhev -os rhev.nfs:/export_domain --network rhevm
 
- virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml
+ virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
- virt-v2v -i disk -o local -os /var/tmp disk.img
+ virt-v2v -i disk disk.img -o local -os /var/tmp
 
  virt-v2v -i disk disk.img -o glance
 
@@ -118,7 +118,7 @@ To control the name of the image in glance, use the I<-on> option.
 Given a disk image from another hypervisor that you want to convert to
 run on KVM, you have two options.  The simplest way is to try:
 
- virt-v2v -i disk -o local -os /var/tmp disk.img
+ virt-v2v -i disk disk.img -o local -os /var/tmp
 
 where virt-v2v guesses everything about the input C<disk.img> and (in
 this case) writes the converted result to C</var/tmp>.
@@ -128,7 +128,7 @@ L<libvirt XML|http://libvirt.org/formatdomain.html> describing the
 input guest (if you can get the source hypervisor to provide you with
 libvirt XML, then so much the better).  You can then do:
 
- virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml
+ virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
 Since C<guest-domain.xml> contains the path(s) to the guest disk
 image(s) you do not need to specify the name of the disk image on the

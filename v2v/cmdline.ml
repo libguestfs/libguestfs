@@ -160,12 +160,12 @@ let parse_cmdline () =
 
  virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported esx_guest
 
- virt-v2v -ic vpx://esx.example.com/Datacenter/esxi \
-   -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
+ virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest \
+   -o rhev -os rhev.nfs:/export_domain --network rhevm
 
- virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml
+ virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
- virt-v2v -i disk -o local -os /var/tmp disk.img
+ virt-v2v -i disk disk.img -o local -os /var/tmp
 
  virt-v2v -i disk disk.img -o glance
 
