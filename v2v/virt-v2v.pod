@@ -31,12 +31,12 @@ libguestfs E<ge> 1.28.
 =head1 INPUT AND OUTPUT MODES
 
                          ┌────────────┐  ┌─────────▶ -o null
- -i disk ───────────┐    │            │  │┌───────▶ -o local
- -i ova  ─────────┐ └──▶ │ virt-v2v   │ ─┘│
-                  └────▶ │ conversion │ ──┘┌────────────┐
- ESX ──▶┌────────────┐   │ server     │ ───▶ -o libvirt │─▶ KVM
- Xen ──▶│ -i libvirt ──▶ │            │    │  (default) │
- ... ──▶│  (default) │   │            │ ──┐└────────────┘
+ -i disk ───────────┐    │            │ ─┘┌───────▶ -o local
+ -i ova  ─────────┐ └──▶ │ virt-v2v   │ ──┘┌───────▶ -o qemu
+                  └────▶ │ conversion │ ───┘┌────────────┐
+ ESX ──▶┌────────────┐   │ server     │ ────▶ -o libvirt │─▶ KVM
+ Xen ──▶│ -i libvirt ──▶ │            │     │  (default) │
+ ... ──▶│  (default) │   │            │ ──┐ └────────────┘
         └────────────┘   │            │ ─┐└──────▶ -o glance
  -i libvirtxml ────────▶ │            │ ┐└─────────▶ -o rhev
                          └────────────┘ └──────────▶ -o vdsm
@@ -64,7 +64,11 @@ I<-o libvirt> is used for writing to any libvirt target.  Libvirt can
 connect to local or remote KVM hypervisors.  The I<-oc> option selects
 the precise libvirt target.
 
-I<-o local> is used to write to a local disk image (mainly for testing).
+I<-o local> is used to write to a local disk image with a local
+libvirt configuration file (mainly for testing).
+
+I<-o qemu> writes to a local disk image with a shell script for
+booting the guest directly in qemu (mainly for testing).
 
 I<-o rhev> is used to write to a RHEV-M / oVirt target.  I<-o vdsm>
 is only used when virt-v2v runs under VDSM control.
@@ -133,6 +137,11 @@ libvirt XML, then so much the better).  You can then do:
 Since C<guest-domain.xml> contains the path(s) to the guest disk
 image(s) you do not need to specify the name of the disk image on the
 command line.
+
+To convert a local disk image and immediately boot it in local
+qemu, do:
+
+ virt-v2v -i disk disk.img -o qemu -os /var/tmp --qemu-boot
 
 =head1 OPTIONS
 
@@ -293,6 +302,17 @@ written.
 
 This is the same as I<-o rhev>.
 
+=item B<-o qemu>
+
+Set the output method to I<qemu>.
+
+This is similar to I<-o local>, except that a shell script is written
+which you can use to boot the guest in qemu.  The converted disks and
+shell script are written to the directory specified by I<-os>.
+
+When using this output mode, you can also specify the I<--qemu-boot>
+option which boots the guest under qemu immediately.
+
 =item B<-o rhev>
 
 Set the output method to I<rhev>.
@@ -341,7 +361,8 @@ The location of the storage for the converted guest.
 For I<-o libvirt>, this is a libvirt directory pool
 (see S<C<virsh pool-list>>) or pool UUID.
 
-For I<-o local>, this is a directory name.  The directory must exist.
+For I<-o local> and I<-o qemu>, this is a directory name.  The
+directory must exist.
 
 For I<-o rhev>, this can be an NFS path of the Export Storage Domain
 of the form C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:
@@ -365,6 +386,11 @@ Export Storage Domain.
 Print information about the source guest and stop.  This option is
 useful when you are setting up network and bridge maps.
 See L</NETWORKS AND BRIDGES>.
+
+=item B<--qemu-boot>
+
+When using I<-o qemu> only, this boots the guest immediately after
+virt-v2v finishes.
 
 =item B<-q>
 

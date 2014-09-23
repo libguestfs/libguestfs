@@ -47,6 +47,7 @@ SOURCES_MLI = \
 	output_libvirt.mli \
 	output_local.mli \
 	output_null.mli \
+	output_qemu.mli \
 	output_rhev.mli \
 	output_vdsm.mli \
 	stringMap.mli \
@@ -77,6 +78,7 @@ SOURCES_ML = \
 	output_glance.ml \
 	output_libvirt.ml \
 	output_local.ml \
+	output_qemu.ml \
 	output_rhev.ml \
 	output_vdsm.ml \
 	cmdline.ml \
@@ -222,6 +224,7 @@ TESTS = \
 	test-v2v-o-glance.sh \
 	test-v2v-o-libvirt.sh \
 	test-v2v-o-null.sh \
+	test-v2v-o-qemu.sh \
 	test-v2v-o-rhev.sh \
 	test-v2v-o-vdsm-options.sh \
 	test-v2v-of-option.sh \

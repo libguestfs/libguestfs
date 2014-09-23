@@ -102,6 +102,7 @@ v2v/output_glance.ml
 v2v/output_libvirt.ml
 v2v/output_local.ml
 v2v/output_null.ml
+v2v/output_qemu.ml
 v2v/output_rhev.ml
 v2v/output_vdsm.ml
 v2v/stringMap.ml

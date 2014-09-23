@@ -42,6 +42,7 @@ let parse_cmdline () =
   let output_name = ref "" in
   let output_storage = ref "" in
   let print_source = ref false in
+  let qemu_boot = ref false in
   let quiet = ref false in
   let vdsm_image_uuid = ref "" in
   let vdsm_vm_uuid = ref "" in
@@ -85,6 +86,7 @@ let parse_cmdline () =
     | "disk" | "local" -> output_mode := `Local
     | "null" -> output_mode := `Null
     | "ovirt" | "rhev" -> output_mode := `RHEV
+    | "qemu" -> output_mode := `QEmu
     | "vdsm" -> output_mode := `VDSM
     | s ->
       error (f_"unknown -o option: %s") s
@@ -135,6 +137,7 @@ let parse_cmdline () =
     "-on",       Arg.Set_string output_name, "name " ^ s_"Rename guest when converting";
     "-os",       Arg.Set_string output_storage, "storage " ^ s_"Set output storage location";
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
+    "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"Boot in qemu (-o qemu only)";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             ditto;
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
@@ -194,6 +197,7 @@ read the man page virt-v2v(1).
   let output_name = match !output_name with "" -> None | s -> Some s in
   let output_storage = !output_storage in
   let print_source = !print_source in
+  let qemu_boot = !qemu_boot in
   let quiet = !quiet in
   let root_choice = !root_choice in
   let vdsm_image_uuid = !vdsm_image_uuid in
@@ -271,6 +275,8 @@ read the man page virt-v2v(1).
         error (f_"-o glance: -oc option cannot be used in this output mode");
       if output_storage <> "" then
         error (f_"-o glance: -os option cannot be used in this output mode");
+      if qemu_boot then
+        error (f_"-o glance: --qemu-boot option cannot be used in this output mode");
       if vmtype <> None then
         error (f_"--vmtype option cannot be used with '-o glance'");
       if not do_copy then
@@ -281,6 +287,8 @@ read the man page virt-v2v(1).
     | `Libvirt ->
       let output_storage =
         if output_storage = "" then "default" else output_storage in
+      if qemu_boot then
+        error (f_"-o libvirt: --qemu-boot option cannot be used in this output mode");
       if vmtype <> None then
         error (f_"--vmtype option cannot be used with '-o libvirt'");
       if not do_copy then
@@ -293,6 +301,8 @@ read the man page virt-v2v(1).
       if not (is_directory output_storage) then
         error (f_"-os %s: output directory does not exist or is not a directory")
           output_storage;
+      if qemu_boot then
+        error (f_"-o local: --qemu-boot option cannot be used in this output mode");
       if vmtype <> None then
         error (f_"--vmtype option cannot be used with '-o local'");
       Output_local.output_local verbose output_storage
@@ -302,18 +312,30 @@ read the man page virt-v2v(1).
         error (f_"-o null: -oc option cannot be used in this output mode");
       if output_storage <> "" then
         error (f_"-o null: -os option cannot be used in this output mode");
+      if qemu_boot then
+        error (f_"-o null: --qemu-boot option cannot be used in this output mode");
       if vmtype <> None then
         error (f_"--vmtype option cannot be used with '-o null'");
       Output_null.output_null verbose
 
+    | `QEmu ->
+      if not (is_directory output_storage) then
+        error (f_"-os %s: output directory does not exist or is not a directory")
+          output_storage;
+      Output_qemu.output_qemu verbose output_storage qemu_boot
+
     | `RHEV ->
       if output_storage = "" then
         error (f_"-o rhev: output storage was not specified, use '-os'");
+      if qemu_boot then
+        error (f_"-o rhev: --qemu-boot option cannot be used in this output mode");
       Output_rhev.output_rhev verbose output_storage vmtype output_alloc
 
     | `VDSM ->
       if output_storage = "" then
         error (f_"-o vdsm: output storage was not specified, use '-os'");
+      if qemu_boot then
+        error (f_"-o vdsm: --qemu-boot option cannot be used in this output mode");
       if vdsm_image_uuid = "" || vdsm_vm_uuid = "" then
         error (f_"-o vdsm: either --vdsm-image-uuid or --vdsm-vm-uuid was not specified");
       let vdsm_params = {
