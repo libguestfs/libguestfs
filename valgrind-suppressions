@@ -243,6 +243,14 @@
    ...
    fun:testDomainGenerateIfnames
 }
+# Possibly RHBZ#1145649
+{
+   libvirt_leak_7
+   Memcheck:Leak
+   ...
+   fun:selabel_close
+   fun:virSecuritySELinuxSecurityDriverClose
+}
 
 # FUSE leaks the per-thread context (although the code looks
 # like it attempts to clean it up).  In older fuse, it uses
