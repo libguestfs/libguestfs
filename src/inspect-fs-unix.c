@@ -78,6 +78,7 @@ static pcre *re_opensuse_version;
 static pcre *re_sles_version;
 static pcre *re_sles_patchlevel;
 static pcre *re_minix;
+static pcre *re_hurd_dev;
 
 static void compile_regexps (void) __attribute__((constructor));
 static void free_regexps (void) __attribute__((destructor));
@@ -137,6 +138,7 @@ compile_regexps (void)
   COMPILE (re_sles_version, "^VERSION = (\\d+)", 0);
   COMPILE (re_sles_patchlevel, "^PATCHLEVEL = (\\d+)", 0);
   COMPILE (re_minix, "^(\\d+)\\.(\\d+)(\\.(\\d+))?", 0);
+  COMPILE (re_hurd_dev, "^/dev/(h)d(\\d+)s(\\d+)$", 0);
 }
 
 static void
@@ -170,6 +172,7 @@ free_regexps (void)
   pcre_free (re_sles_version);
   pcre_free (re_sles_patchlevel);
   pcre_free (re_minix);
+  pcre_free (re_hurd_dev);
 }
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
@@ -776,7 +779,11 @@ guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
   /* Determine the architecture. */
   check_architecture (g, fs);
 
-  /* XXX Check for /etc/fstab. */
+  if (guestfs_is_file (g, "/etc/fstab") > 0) {
+    const char *configfiles[] = { "/etc/fstab", NULL };
+    if (inspect_with_augeas (g, fs, configfiles, check_fstab) == -1)
+      return -1;
+  }
 
   /* Determine hostname. */
   if (check_hostname_unix (g, fs) == -1)
@@ -1631,6 +1638,21 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
   }
   else if ((part = match1 (g, spec, re_diskbyid)) != NULL) {
     r = resolve_fstab_device_diskbyid (g, part, &device);
+    free (part);
+    if (r == -1)
+      return NULL;
+  }
+  else if (match3 (g, spec, re_hurd_dev, &type, &disk, &part)) {
+    /* Hurd disk devices are like /dev/hdNsM, where hdN is the
+     * N-th disk and M is the M-th partition on that disk.
+     * Turn the disk number into a letter-based identifier, so
+     * we can resolve it easily.
+     */
+    int disk_i = guestfs___parse_unsigned_int (g, disk);
+    const char disk_as_letter[2] = { disk_i + 'a', 0 };
+    r = resolve_fstab_device_xdev (g, type, disk_as_letter, part, &device);
+    free (type);
+    free (disk);
     free (part);
     if (r == -1)
       return NULL;
