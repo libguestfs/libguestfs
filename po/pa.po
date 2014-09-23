@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-22 22:40+0100\n"
+"POT-Creation-Date: 2014-09-23 16:53+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "%s (ignored)\n"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:97
+#: ../v2v/output_rhev.ml:95
 msgid ""
 "%s does not exist or is not a directory.\n"
 "\n"
@@ -88,7 +88,7 @@ msgid ""
 "this out through the RHEV-M user interface."
 msgstr ""
 
-#: ../v2v/cmdline.ml:81 ../v2v/cmdline.ml:55
+#: ../v2v/cmdline.ml:82 ../v2v/cmdline.ml:56
 msgid "%s option used more than once on the command line"
 msgstr ""
 
@@ -225,18 +225,18 @@ msgstr ""
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:158
+#: ../v2v/cmdline.ml:161
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
 " virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported esx_guest\n"
 "\n"
-" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -o rhev -os rhev.nfs:/"
-"export_domain --network rhevm esx_guest\n"
+" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest -o rhev -os "
+"rhev.nfs:/export_domain --network rhevm\n"
 "\n"
-" virt-v2v -i libvirtxml -o local -os /var/tmp guest-domain.xml\n"
+" virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
-" virt-v2v -i disk -o local -os /var/tmp disk.img\n"
+" virt-v2v -i disk disk.img -o local -os /var/tmp\n"
 "\n"
 " virt-v2v -i disk disk.img -o glance\n"
 "\n"
@@ -602,11 +602,11 @@ msgstr ""
 msgid "--format parameter must appear before -a parameter"
 msgstr ""
 
-#: ../v2v/cmdline.ml:277
+#: ../v2v/cmdline.ml:283
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:287
+#: ../v2v/cmdline.ml:295
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
@@ -643,19 +643,19 @@ msgstr ""
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
 msgstr ""
 
-#: ../v2v/cmdline.ml:275
+#: ../v2v/cmdline.ml:281
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:285
+#: ../v2v/cmdline.ml:293
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:297
+#: ../v2v/cmdline.ml:307
 msgid "--vmtype option cannot be used with '-o local'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:306
+#: ../v2v/cmdline.ml:318
 msgid "--vmtype option cannot be used with '-o null'"
 msgstr ""
 
@@ -663,12 +663,20 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:271
+#: ../v2v/cmdline.ml:279
+msgid "-o glance: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:275
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:273
+#: ../v2v/cmdline.ml:277
 msgid "-o glance: -os option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:291
+msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
 #: ../v2v/output_libvirt.ml:233
@@ -684,31 +692,47 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:292
+#: ../v2v/cmdline.ml:305
+msgid "-o local: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:300
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:302
+#: ../v2v/cmdline.ml:316
+msgid "-o null: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:312
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:304
+#: ../v2v/cmdline.ml:314
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:311
+#: ../v2v/cmdline.ml:331
+msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:329
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:318
+#: ../v2v/cmdline.ml:338
+msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:340
 msgid "-o vdsm: either --vdsm-image-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:316
+#: ../v2v/cmdline.ml:336
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:294
+#: ../v2v/cmdline.ml:323 ../v2v/cmdline.ml:302
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -748,6 +772,10 @@ msgstr ""
 
 #: ../customize/customize_main.ml:86 ../builder/cmdline.ml:108
 msgid "Attach data disk/ISO during install"
+msgstr ""
+
+#: ../v2v/cmdline.ml:140
+msgid "Boot in qemu (-o qemu only)"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_user_account.ml:99
@@ -901,7 +929,7 @@ msgstr ""
 msgid "Data Domain"
 msgstr ""
 
-#: ../v2v/cmdline.ml:122 ../sparsify/cmdline.ml:73 ../resize/resize.ml:187
+#: ../v2v/cmdline.ml:124 ../sparsify/cmdline.ml:73 ../resize/resize.ml:187
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -953,7 +981,7 @@ msgstr ""
 #. ../customize/customize_main.ml:108
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:149 ../sysprep/main.ml:150 ../sysprep/main.ml:149
+#: ../v2v/cmdline.ml:152 ../sysprep/main.ml:150 ../sysprep/main.ml:149
 msgid "Display version and exit"
 msgstr ""
 
@@ -1030,7 +1058,7 @@ msgstr ""
 #. ../customize/customize_main.ml:106
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:147 ../sysprep/main.ml:148 ../sysprep/main.ml:147
+#: ../v2v/cmdline.ml:150 ../sysprep/main.ml:148 ../sysprep/main.ml:147
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -1041,7 +1069,7 @@ msgstr ""
 #. ../resize/resize.ml:215
 #. ../customize/customize_main.ml:110
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:152 ../sysprep/main.ml:151 ../sparsify/cmdline.ml:88
+#: ../v2v/cmdline.ml:155 ../sysprep/main.ml:151 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1101,7 +1129,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:184
+#: ../v2v/output_rhev.ml:167
 msgid "Export Storage Domain"
 msgstr ""
 
@@ -1214,7 +1242,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:140
+#: ../v2v/cmdline.ml:143
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1244,7 +1272,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/cmdline.ml:126
+#: ../v2v/cmdline.ml:128
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1268,7 +1296,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:130
+#: ../v2v/cmdline.ml:132
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1276,7 +1304,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:133 ../v2v/cmdline.ml:124
+#: ../v2v/cmdline.ml:135 ../v2v/cmdline.ml:126
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1291,7 +1319,7 @@ msgstr ""
 #. ../resize/resize.ml:194
 #. ../customize/customize_main.ml:98
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:127 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:78
+#: ../v2v/cmdline.ml:129 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:78
 msgid "List long options"
 msgstr ""
 
@@ -1300,7 +1328,7 @@ msgid "List supported operations"
 msgstr ""
 
 #. ../builder/cmdline.ml:140
-#: ../v2v/cmdline.ml:128 ../sparsify/cmdline.ml:79 ../resize/resize.ml:199
+#: ../v2v/cmdline.ml:130 ../sparsify/cmdline.ml:79 ../resize/resize.ml:199
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1308,11 +1336,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:121
+#: ../v2v/cmdline.ml:123
 msgid "Map bridge 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:129
+#: ../v2v/cmdline.ml:131
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
@@ -1383,7 +1411,7 @@ msgstr ""
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:146
+#: ../v2v/cmdline.ml:149
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1399,7 +1427,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:142
+#: ../v2v/cmdline.ml:145
 msgid "Output image UUID"
 msgstr ""
 
@@ -1407,7 +1435,7 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:144
+#: ../v2v/cmdline.ml:147
 msgid "Output vol UUID(s)"
 msgstr ""
 
@@ -1446,11 +1474,11 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:137
+#: ../v2v/cmdline.ml:139
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/cmdline.ml:138 ../sparsify/cmdline.ml:81
+#: ../v2v/cmdline.ml:141 ../sparsify/cmdline.ml:81
 msgid "Quiet output"
 msgstr ""
 
@@ -1637,7 +1665,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:135
+#: ../v2v/cmdline.ml:137
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -1741,7 +1769,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:123
+#: ../v2v/cmdline.ml:125
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -1771,7 +1799,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:132
+#: ../v2v/cmdline.ml:134
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -1783,15 +1811,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:134
+#: ../v2v/cmdline.ml:136
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:131
+#: ../v2v/cmdline.ml:133
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:136
+#: ../v2v/cmdline.ml:138
 msgid "Set output storage location"
 msgstr ""
 
@@ -1839,7 +1867,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:151
+#: ../v2v/cmdline.ml:154
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -2225,7 +2253,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:203
+#: ../v2v/output_rhev.ml:186
 msgid ""
 "cannot write files to the NFS server as %d:%d, even though we appear to be "
 "running as root. This probably means the NFS client or idmapd is not "
@@ -2235,7 +2263,7 @@ msgid ""
 "otherwise RHEV-M will not be able to import the VM."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:205
+#: ../v2v/output_rhev.ml:188
 msgid ""
 "cannot write files to the NFS server as %d:%d. You might want to stop virt-"
 "v2v (^C) and rerun it as root."
@@ -2273,7 +2301,7 @@ msgstr ""
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:75
+#: ../v2v/output_rhev.ml:73
 msgid ""
 "could not read the %s specified by the '-os %s' parameter on the command "
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
@@ -2430,19 +2458,19 @@ msgstr ""
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:233
+#: ../v2v/cmdline.ml:237
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:254
+#: ../v2v/cmdline.ml:258
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:245
+#: ../v2v/cmdline.ml:249
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:263
+#: ../v2v/cmdline.ml:267
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -2564,7 +2592,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:69
+#: ../v2v/cmdline.ml:70
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
@@ -2588,7 +2616,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:52
+#: ../v2v/output_rhev.ml:50
 msgid ""
 "mount command failed, see earlier errors.\n"
 "\n"
@@ -2790,15 +2818,6 @@ msgstr ""
 msgid "subprocess signalled or stopped by signal %d"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:104
-msgid ""
-"the %s (%s) is not writable.\n"
-"\n"
-"This probably means you need to run virt-v2v as root.\n"
-"\n"
-"Original error was: %s"
-msgstr ""
-
 #: ../v2v/output_vdsm.ml:80
 msgid ""
 "the number of '--vdsm-vol-uuid' parameters passed on the command line has to "
@@ -2818,13 +2837,13 @@ msgid ""
 "about this issue."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:89
+#: ../v2v/output_rhev.ml:87
 msgid ""
 "there are multiple UUIDs in the %s (%s).  This is unexpected, and may be a "
 "bug in virt-v2v or OVirt."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:87
+#: ../v2v/output_rhev.ml:85
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
@@ -2876,23 +2895,23 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:108
+#: ../v2v/cmdline.ml:110
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:210
+#: ../v2v/cmdline.ml:214
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:62
+#: ../v2v/cmdline.ml:63
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:90
+#: ../v2v/cmdline.ml:92
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:98
+#: ../v2v/cmdline.ml:100
 msgid "unknown -oa option: %s"
 msgstr ""
 
@@ -3124,10 +3143,10 @@ msgid ""
 "further information."
 msgstr ""
 
-#: align/scan.c:73 cat/cat.c:55 cat/filesystems.c:87 cat/log.c:64 cat/ls.c:83
-#: df/main.c:66 diff/diff.c:91 edit/edit.c:64 fish/fish.c:105
+#: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:83
+#: df/main.c:66 diff/diff.c:91 edit/edit.c:63 fish/fish.c:105
 #: fuse/guestmount.c:100 fuse/guestunmount.c:52 inspector/inspector.c:67
-#: make-fs/make-fs.c:73 p2v/main.c:68 rescue/rescue.c:56
+#: make-fs/make-fs.c:73 p2v/main.c:67 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ `%s --help' ਵਰਤੋ।\n"
@@ -3154,19 +3173,19 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:134 cat/cat.c:121 cat/filesystems.c:188 cat/log.c:123
-#: cat/ls.c:181 df/main.c:134 diff/diff.c:192 diff/diff.c:198 edit/edit.c:137
+#: align/scan.c:134 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
+#: cat/ls.c:181 df/main.c:134 diff/diff.c:192 diff/diff.c:198 edit/edit.c:136
 #: fish/fish.c:236 format/format.c:130 fuse/guestmount.c:211
 #: inspector/inspector.c:128 make-fs/make-fs.c:115 rescue/rescue.c:136
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ਹੈਂਡਲ ਬਣਾਉਣ ਵਿੱਚ ਫੇਲ\n"
 
-#: align/scan.c:151 builder/index-validate.c:85 cat/cat.c:140
-#: cat/filesystems.c:239 cat/log.c:142 cat/ls.c:228 df/main.c:155
-#: diff/diff.c:260 edit/edit.c:156 fish/fish.c:291 format/format.c:181
+#: align/scan.c:151 builder/index-validate.c:85 cat/cat.c:138
+#: cat/filesystems.c:239 cat/log.c:140 cat/ls.c:228 df/main.c:155
+#: diff/diff.c:260 edit/edit.c:155 fish/fish.c:291 format/format.c:181
 #: fuse/guestmount.c:249 fuse/guestunmount.c:124 inspector/inspector.c:149
-#: make-fs/make-fs.c:142 p2v/main.c:130 rescue/rescue.c:190
+#: make-fs/make-fs.c:142 p2v/main.c:129 rescue/rescue.c:190
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ਅਣਜਾਣ long ਚੋਣ: %s (%d)\n"
@@ -3237,7 +3256,7 @@ msgid ""
 "builder 1.24.0\n"
 msgstr ""
 
-#: cat/cat.c:59
+#: cat/cat.c:57
 #, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -3339,7 +3358,7 @@ msgstr ""
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: ਤੁਸੀਂ -h ਅਤੇ --csv ਚੋਣਾਂ ਇਕੱਠੀਆਂ ਨਹੀਂ ਵਰਤ ਸਕਦੇ।\n"
 
-#: cat/log.c:68
+#: cat/log.c:66
 #, c-format
 msgid ""
 "%s: display log files in a virtual machine\n"
@@ -3361,17 +3380,17 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/log.c:245
+#: cat/log.c:243
 #, c-format
 msgid "%s: Windows Event Log for pre-Vista guests is not supported.\n"
 msgstr ""
 
-#: cat/log.c:353
+#: cat/log.c:351
 #, c-format
 msgid "%s: could not format journal entry timestamp\n"
 msgstr ""
 
-#: cat/log.c:419
+#: cat/log.c:417
 #, c-format
 msgid ""
 "%s: you need to install 'evtxdump.py' (from the python-evtx package)\n"
@@ -3380,7 +3399,7 @@ msgid ""
 "from this guest, and examine in a binary file viewer.\n"
 msgstr ""
 
-#: cat/log.c:438
+#: cat/log.c:436
 #, c-format
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
@@ -3589,7 +3608,7 @@ msgstr ""
 msgid "End of diff"
 msgstr ""
 
-#: edit/edit.c:68
+#: edit/edit.c:67
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
@@ -3615,12 +3634,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/edit.c:168
+#: edit/edit.c:167
 #, c-format
 msgid "%s: -b option given multiple times\n"
 msgstr ""
 
-#: edit/edit.c:185
+#: edit/edit.c:184
 #, c-format
 msgid "%s: -e option given multiple times\n"
 msgstr ""
@@ -7063,106 +7082,106 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:120
+#: p2v/conversion.c:119
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:198
+#: p2v/conversion.c:197
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:210
+#: p2v/conversion.c:209
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:295
+#: p2v/conversion.c:294
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:115
+#: p2v/gui.c:114
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:120
+#: p2v/gui.c:119
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:130
+#: p2v/gui.c:129
 msgid "SSH port:"
 msgstr ""
 
-#: p2v/gui.c:141
+#: p2v/gui.c:140
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:153
+#: p2v/gui.c:152
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:169
+#: p2v/gui.c:168
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:176
+#: p2v/gui.c:175
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:199
+#: p2v/gui.c:198
 msgid "virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:200
+#: p2v/gui.c:199
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:250
+#: p2v/gui.c:249
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:258
+#: p2v/gui.c:257
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:266
+#: p2v/gui.c:265
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:307
+#: p2v/gui.c:306
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:326
+#: p2v/gui.c:325
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:429
+#: p2v/gui.c:428
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:435
+#: p2v/gui.c:434
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:445
+#: p2v/gui.c:444
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:455
+#: p2v/gui.c:454
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:469
+#: p2v/gui.c:468
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:475
+#: p2v/gui.c:474
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:480
+#: p2v/gui.c:479
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -7171,109 +7190,109 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:485
+#: p2v/gui.c:484
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:490
+#: p2v/gui.c:489
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:496
+#: p2v/gui.c:495
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:501
+#: p2v/gui.c:500
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:507
+#: p2v/gui.c:506
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:512
+#: p2v/gui.c:511
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:518
+#: p2v/gui.c:517
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:537
+#: p2v/gui.c:536
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
 msgstr ""
 
-#: p2v/gui.c:546
+#: p2v/gui.c:545
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:554
+#: p2v/gui.c:553
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:566
+#: p2v/gui.c:565
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:578
+#: p2v/gui.c:577
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:606
+#: p2v/gui.c:605
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:607
+#: p2v/gui.c:606
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:643
+#: p2v/gui.c:642
 #, c-format
 msgid "virt-p2v (client) %s"
 msgstr ""
 
-#: p2v/gui.c:646
+#: p2v/gui.c:645
 #, c-format
 msgid ""
 "virt-p2v (client) %s\n"
 "virt-v2v (conversion server) %d.%d.%d"
 msgstr ""
 
-#: p2v/gui.c:769 p2v/gui.c:824 p2v/gui.c:872
+#: p2v/gui.c:768 p2v/gui.c:823 p2v/gui.c:871
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:776 p2v/gui.c:831 p2v/gui.c:879
+#: p2v/gui.c:775 p2v/gui.c:830 p2v/gui.c:878
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:783
+#: p2v/gui.c:782
 msgid "Size (GB)"
 msgstr ""
 
-#: p2v/gui.c:790
+#: p2v/gui.c:789
 msgid "Model"
 msgstr ""
 
-#: p2v/gui.c:886
+#: p2v/gui.c:885
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1095
+#: p2v/gui.c:1094
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:1123
+#: p2v/gui.c:1122
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -7281,38 +7300,38 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1184
+#: p2v/gui.c:1183
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1185 p2v/gui.c:1218
+#: p2v/gui.c:1184 p2v/gui.c:1217
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1216
+#: p2v/gui.c:1215
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1303
+#: p2v/gui.c:1302
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1304
+#: p2v/gui.c:1303
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1313
+#: p2v/gui.c:1312
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1314
+#: p2v/gui.c:1313
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/main.c:72
+#: p2v/main.c:71
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -7328,7 +7347,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:153
+#: p2v/main.c:152
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
@@ -7442,24 +7461,24 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: src/appliance.c:186
+#: src/appliance.c:185
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:248
+#: src/appliance.c:247
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
 msgstr "ਸੁਰੱਖਿਆ: ਕੈਸ਼ ਜੰਤਰ %s ਨੂੰ UID %d ਦੁਆਰਾ ਨਹੀਂ ਰੋਕਿਆ ਹੈ"
 
-#: src/appliance.c:253
+#: src/appliance.c:252
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "security: cached appliance %s is not a directory (mode %o)"
 
-#: src/appliance.c:258
+#: src/appliance.c:257
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr "ਸੁਰੱਖਿਆ: ਕੈਸ਼ ਜੰਤਰ %s ਗਰੁੱਪ ਜਾਂ ਹੋਰ (mode %o) ਦੁਆਰਾ ਲਿਖਣਯੋਗ ਹੈ"
@@ -7995,41 +8014,41 @@ msgstr ""
 msgid "%s: cannot detect virtual size of disk image"
 msgstr ""
 
-#: src/inspect-fs-unix.c:220
+#: src/inspect-fs-unix.c:226
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:265 src/inspect-fs-unix.c:347
-#: src/inspect-fs-unix.c:922 src/inspect-fs-unix.c:1617 src/inspect-fs.c:567
-#: src/inspect-fs.c:613 src/inspect.c:540
+#: src/inspect-fs-unix.c:271 src/inspect-fs-unix.c:353
+#: src/inspect-fs-unix.c:986 src/inspect-fs-unix.c:1696 src/inspect-fs.c:578
+#: src/inspect-fs.c:624 src/inspect.c:541
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s ਦਾ ਅਕਾਰ ਬੇਲੋੜਾ ਹੈ (%<PRIi64> ਬਾਈਟਾਂ)"
 
-#: src/inspect-fs.c:394 src/inspect-fs.c:407
+#: src/inspect-fs.c:405 src/inspect-fs.c:418
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "ਵਰਜਨ ਨੰਬਰ ਵਿੱਚ ਪੂਰਨਅੰਕ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਿਆ: %s"
 
-#: src/inspect-icon.c:632
+#: src/inspect-icon.c:633
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:235
+#: src/inspect.c:236
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "ਇੱਕ Windows ਗਿਸਟ ਨਹੀਂ ਹੈ, ਜਾਂ systemroot ਦਾ ਪਤਾ ਨਹੀਂ ਲਾਇਆ ਜਾ ਸਕਦਾ"
 
-#: src/inspect.c:251
+#: src/inspect.c:252
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:578
+#: src/inspect.c:579
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "ਕੋਈ ਪੜਤਾਲ ਡਾਟਾ ਨਹੀਂ ਹੈ: ਪਹਿਲਾਂ guestfs_inspect_os ਨੂੰ ਕਾਲ ਕਰੋ"
 
-#: src/inspect.c:588
+#: src/inspect.c:589
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
