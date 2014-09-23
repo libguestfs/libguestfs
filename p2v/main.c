@@ -28,7 +28,6 @@
 #include <errno.h>
 #include <dirent.h>
 #include <locale.h>
-#include <assert.h>
 #include <libintl.h>
 #include <sys/types.h>
 #include <sys/stat.h>

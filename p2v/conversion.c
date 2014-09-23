@@ -28,7 +28,6 @@
 #include <time.h>
 #include <errno.h>
 #include <locale.h>
-#include <assert.h>
 #include <libintl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
