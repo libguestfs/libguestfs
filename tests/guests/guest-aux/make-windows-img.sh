@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2010-2012 Red Hat Inc.
+# Copyright (C) 2010-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -57,6 +57,7 @@ mkfs ntfs /dev/sda2
 # Enough to fool inspection API.
 mount /dev/sda2 /
 mkdir-p /Windows/System32/Config
+mkdir-p /Windows/System32/Drivers
 
 upload $SRCDIR/guest-aux/windows-software /Windows/System32/Config/SOFTWARE
 upload $SRCDIR/guest-aux/windows-system /Windows/System32/Config/SYSTEM
