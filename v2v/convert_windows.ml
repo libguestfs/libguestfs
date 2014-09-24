@@ -290,8 +290,10 @@ echo uninstalling Xen PV driver
        *)
       let files = Sys.readdir path in
       let files = Array.to_list files in
-      let files = List.map ((//) path) files in
-      List.iter (fun file -> g#upload file driverdir) files;
+      List.iter (
+        fun file ->
+          g#upload (path // file) (driverdir // file)
+      ) files;
 
       (block, net)
 
