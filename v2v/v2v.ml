@@ -402,7 +402,11 @@ and inspect_source g root_choice =
   List.iter (
     fun (mp, dev) ->
       try g#mount dev mp
-      with G.Error msg -> eprintf "%s (ignored)\n" msg
+      with G.Error msg ->
+        if mp = "/" then
+          error "%s" msg
+        else
+          warning ~prog (f_"%s (ignored)") msg
   ) mps;
 
   (* Get list of applications/packages installed. *)
