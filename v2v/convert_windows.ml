@@ -219,37 +219,38 @@ echo uninstalling Xen PV driver
 
     (* See if the drivers for this guest are available in virtio_win_dir. *)
     let path =
-      match inspect.i_major_version, inspect.i_minor_version,
-      inspect.i_arch, inspect.i_product_variant with
-      | 5, 1, "i386", _ ->
+      match inspect.i_arch,
+      inspect.i_major_version, inspect.i_minor_version,
+      inspect.i_product_variant with
+      | "i386", 5, 1, _ ->
         Some (virtio_win_dir // "drivers/i386/WinXP")
-      | 5, 2, "i386", _ ->
+      | "i386", 5, 2, _ ->
         Some (virtio_win_dir // "drivers/i386/Win2003")
-      | 6, 0, "i386", _ ->
+      | "i386", 6, 0, _ ->
         Some (virtio_win_dir // "drivers/i386/Win2008")
-      | 6, 1, "i386", _ ->
+      | "i386", 6, 1, _ ->
         Some (virtio_win_dir // "drivers/i386/Win7")
-      | 6, 2, "i386", _ ->
+      | "i386", 6, 2, _ ->
         Some (virtio_win_dir // "drivers/i386/Win8")
-      | 6, 3, "i386", _ ->
+      | "i386", 6, 3, _ ->
         Some (virtio_win_dir // "drivers/i386/Win8.1")
 
-      | 5, 2, "x86_64", _ ->
+      | "x86_64", 5, 2, _ ->
         Some (virtio_win_dir // "drivers/amd64/Win2003")
-      | 6, 0, "x86_64", _ ->
+      | "x86_64", 6, 0, _ ->
         Some (virtio_win_dir // "drivers/amd64/Win2008")
-      | 6, 1, "x86_64", "Server" ->
-        Some (virtio_win_dir // "drivers/amd64/Win2008R2")
-      | 6, 1, "x86_64", "Client" ->
+      | "x86_64", 6, 1, "Client" ->
         Some (virtio_win_dir // "drivers/amd64/Win7")
-      | 6, 2, "x86_64", "Server" ->
-        Some (virtio_win_dir // "drivers/amd64/Win2012")
-      | 6, 2, "x86_64", "Client" ->
+      | "x86_64", 6, 1, "Server" ->
+        Some (virtio_win_dir // "drivers/amd64/Win2008R2")
+      | "x86_64", 6, 2, "Client" ->
         Some (virtio_win_dir // "drivers/amd64/Win8")
-      | 6, 3, "x86_64", "Server" ->
-        Some (virtio_win_dir // "drivers/amd64/Win2012R2")
-      | 6, 3, "x86_64", "Client" ->
+      | "x86_64", 6, 2, "Server" ->
+        Some (virtio_win_dir // "drivers/amd64/Win2012")
+      | "x86_64", 6, 3, "Client" ->
         Some (virtio_win_dir // "drivers/amd64/Win8.1")
+      | "x86_64", 6, 3, "Server" ->
+        Some (virtio_win_dir // "drivers/amd64/Win2012R2")
 
       | _ ->
         None in
