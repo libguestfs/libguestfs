@@ -263,9 +263,10 @@ echo uninstalling Xen PV driver
 
     match path with
     | None ->
-      warning ~prog (f_"there are no virtio drivers available for this version of Windows (%d.%d %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
+      warning ~prog (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
         inspect.i_major_version inspect.i_minor_version
-        inspect.i_arch virtio_win_dir;
+        inspect.i_arch inspect.i_product_variant
+        virtio_win_dir;
       ( IDE, RTL8139 )
 
     | Some path ->
