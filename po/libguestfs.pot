@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.27.53\n"
+"Project-Id-Version: libguestfs 1.27.54\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-23 16:53+0100\n"
+"POT-Creation-Date: 2014-09-24 19:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,6 +68,10 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
+#: ../v2v/v2v.ml:413
+msgid "%s (ignored)"
+msgstr ""
+
 #: ../sysprep/main.ml:264 ../customize/customize_main.ml:242
 msgid "%s (ignored)\n"
 msgstr ""
@@ -90,7 +94,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1316
+#: ../v2v/convert_linux.ml:1317
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2281,7 +2285,7 @@ msgid ""
 "'%s'.  Try running 'virsh define %s' yourself instead."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:393
+#: ../v2v/convert_windows.ml:408
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2681,7 +2685,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:461
+#: ../v2v/v2v.ml:469
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2845,7 +2849,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:252
+#: ../v2v/convert_windows.ml:265
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -2853,7 +2857,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:262
+#: ../v2v/convert_windows.ml:275
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver here: %s\n"
@@ -2861,7 +2865,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:279
+#: ../v2v/convert_windows.ml:292
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver here: %s\n"
@@ -2881,6 +2885,15 @@ msgstr ""
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
+msgstr ""
+
+#: ../v2v/v2v.ml:408
+msgid ""
+"unable to mount the disk image for writing. This has probably happened "
+"because Windows Hibernation or Fast Restart is being used in this guest. You "
+"have to disable this (in the guest) in order to use virt-v2v.\n"
+"\n"
+"Original error message: %s"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:904
