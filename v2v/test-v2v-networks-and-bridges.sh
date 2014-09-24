@@ -66,7 +66,10 @@ $VG virt-v2v --debug-gc \
 test -f $d/windows.xml
 
 # Extract just the network interfaces from the XML.
-sed -n '/interface/,/\/interface/p' $d/windows.xml > $d/networks
+# Delete the network model XML because that can change depending
+# on whether virtio-win is installed or not.
+sed -n '/interface/,/\/interface/p' $d/windows.xml |
+  grep -v 'model type=' > $d/networks
 
 # Test that the output has mapped the networks and bridges correctly.
 diff -ur test-v2v-networks-and-bridges-expected.xml $d/networks
