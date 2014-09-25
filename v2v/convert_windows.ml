@@ -72,7 +72,7 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   let rec with_hive name ~write f =
     let filename = sprintf "%s/system32/config/%s" systemroot name in
     let filename = g#case_sensitive_path filename in
-    g#hivex_open ~write ~verbose ~debug:verbose filename;
+    g#hivex_open ~write ~verbose (* ~debug:verbose *) filename;
     let r =
       try
         let root = g#hivex_root () in
