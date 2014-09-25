@@ -104,7 +104,8 @@ let rec main () =
   let overlays =
     List.map (
       fun ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
-        let overlay_file = Filename.temp_file "v2vovl" ".qcow2" in
+        let temp_dir = (new Guestfs.guestfs ())#get_cachedir () in
+        let overlay_file = Filename.temp_file ~temp_dir "v2vovl" ".qcow2" in
         unlink_on_exit overlay_file;
 
         let options =
