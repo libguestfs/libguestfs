@@ -271,7 +271,7 @@ let rec main () =
       at_exit (fun () ->
         if !delete_target_on_exit then (
           List.iter (
-            fun t -> try Unix.unlink t.target_file with _ -> ()
+            fun t -> try unlink t.target_file with _ -> ()
           ) targets
         )
       );
