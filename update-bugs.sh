@@ -23,9 +23,10 @@
 # eg. if there is no net access or no 'bugzilla' program, but if that
 # happens just exit and leave the BUGS file alone.
 
-bugzilla query -c libguestfs \
-  --outputformat='%{bug_id} %{bug_status} %{short_desc}' |
-  perl -e '
+bugzilla --nosslverify query -c libguestfs \
+  --outputformat='%{bug_id} %{bug_status} %{short_desc}' > .bugs.tmp || exit 0
+
+perl -e '
     sub bugclass {
       local $_ = shift;
       return 1 if /NEW/;
@@ -44,11 +45,15 @@ bugzilla query -c libguestfs \
     while (<>) {
       /^(\d+) (\w+) (.*)/; push @bugs, [bugclass($2), $1, $2, $3];
     }
+    # No bugs?  Fail.
+    print STDERR "#bugs = ", 0+@bugs;
+    if (0+@bugs == 0) {
+        die "failed to get list of bugs\n"
+    }
     foreach (sort compare @bugs) {
       print $_->[1], " ", $_->[2], " ", $_->[3], "\n";
     }
-' \
-> .bugs.tmp || exit 0
+' < .bugs.tmp > .bugs.tmp2 || exit 0
 
 # Any errors from now on are fatal.
 set -e
@@ -119,7 +124,7 @@ while read bugno status summary; do
     echo "$bugno $status https://bugzilla.redhat.com/show_bug.cgi?id=$bugno"
     echo "  $summary"
     echo
-done < .bugs.tmp
+done < .bugs.tmp2
 
 if [ $count -ge 1 ]; then
     echo "($count bugs)"
@@ -127,5 +132,5 @@ if [ $count -ge 1 ]; then
 fi
 echo "End of BUGS file."
 
-# Clean up temporary file.
-rm .bugs.tmp
+# Clean up temporary files.
+rm .bugs.tmp .bugs.tmp2
