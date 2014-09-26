@@ -857,6 +857,26 @@ Define the final guest in libvirt:
 
 =back
 
+=head1 DEBUGGING RHEV-M IMPORT FAILURES
+
+When you export to the RHEV-M Export Storage Domain, and then import
+that guest through the RHEV-M UI, you may encounter an import failure.
+Diagnosing these failures is infuriatingly difficult as the UI
+generally hides the true reason for the failure.
+
+There are two log files of interest.  The first is stored on the
+RHEV-M server itself, and is called
+C</var/log/ovirt-engine/engine.log>
+
+The second file, which is the most useful, is found on the SPM host
+(SPM stands for "Storage Pool Manager").  This is a RHEV node that is
+elected to do all metadata modifications in the data center, such as
+image or snapshot creation.  You can find out which host is the
+current SPM from the "Hosts" tab "Spm Status" column.  Once you have
+located the SPM, log into it and grab the file
+C</var/log/vdsm/vdsm.log> which will contain detailed error messages
+from low-level commands.
+
 =head1 MINIMAL XML FOR -i libvirtxml OPTION
 
 When using the I<-i libvirtxml> option, you have to supply some
