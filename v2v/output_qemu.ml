@@ -38,7 +38,7 @@ object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata source targets guestcaps _ =
+  method create_metadata source targets guestcaps inspect =
     let name = source.s_name in
     let file = dir // name ^ ".sh" in
 
@@ -69,6 +69,10 @@ object
         fpf "%s-drive %s" nl (quote drive_param)
     ) targets;
 
+    (* XXX Missing:
+     * - removable devices
+     *)
+
     let net_bus =
       match guestcaps.gcaps_net_bus with
       | Virtio_net -> "virtio-net-pci"
@@ -81,14 +85,25 @@ object
           net_bus i (match nic.s_mac with None -> "" | Some mac -> ",mac=" ^ mac)
     ) source.s_nics;
 
+    (* Add a display. *)
+    (match source.s_display with
+    | None -> ()
+    | Some display ->
+      (match display.s_display_type with
+      | `Window ->
+        fpf "%s-display gtk" nl
+      | `VNC ->
+        fpf "%s-display vnc=:0" nl
+      | `Spice ->
+        fpf "%s-spice port=5900,addr=127.0.0.1" nl
+      );
+      fpf "%s-vga %s" nl
+        (match guestcaps.gcaps_video with Cirrus -> "cirrus" | QXL -> "qxl")
+    );
+
     (* Add a serial console to Linux guests. *)
     if inspect.i_type = "linux" then
       fpf "%s-serial stdio" nl;
-
-    (* XXX Missing:
-     * - removable devices
-     * - display
-     *)
 
     fpf "\n";
 
