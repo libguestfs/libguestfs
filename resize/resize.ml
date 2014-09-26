@@ -1019,11 +1019,11 @@ read the man page virt-resize(1).
    * the final list just contains partitions that need to be created
    * on the target.
    *)
-  let partitions =
-    let rec loop partnum start = function
+    let rec calculate_target_partitions partnum start ~create_surplus = function
       | p :: ps ->
         (match p.p_operation with
-        | OpDelete -> loop partnum start ps (* skip p *)
+        | OpDelete ->
+            calculate_target_partitions partnum start ~create_surplus ps (* skip p *)
 
         | OpIgnore | OpCopy ->          (* same size *)
           (* Size in sectors. *)
@@ -1037,7 +1037,8 @@ read the man page virt-resize(1).
               partnum start (end_ -^ 1L);
 
           { p with p_target_start = start; p_target_end = end_ -^ 1L;
-            p_target_partnum = partnum } :: loop (partnum+1) next ps
+            p_target_partnum = partnum } ::
+              calculate_target_partitions (partnum+1) next ~create_surplus ps
 
         | OpResize newsize ->           (* resized partition *)
           (* New size in sectors. *)
@@ -1051,12 +1052,13 @@ read the man page virt-resize(1).
               partnum newsize start (next -^ 1L);
 
           { p with p_target_start = start; p_target_end = next -^ 1L;
-            p_target_partnum = partnum } :: loop (partnum+1) next ps
+            p_target_partnum = partnum } ::
+              calculate_target_partitions (partnum+1) next ~create_surplus ps
         )
 
       | [] ->
         (* Create the surplus partition if there is room for it. *)
-        if extra_partition && surplus >= min_extra_partition then (
+        if create_surplus && extra_partition && surplus >= min_extra_partition then (
           [ {
             (* Since this partition has no source, this data is
              * meaningless and not used since the operation is
@@ -1077,6 +1079,7 @@ read the man page virt-resize(1).
         else
           [] in
 
+  let partitions =
     (* Choose the alignment of the first partition based on the
      * '--align-first' option.  Old virt-resize used to always align this
      * to 64 sectors, but this causes boot failures unless we are able to
@@ -1089,7 +1092,7 @@ read the man page virt-resize(1).
         (* Preserve the existing start, but convert to sectors. *)
         (List.hd partitions).p_part.G.part_start /^ sectsize in
 
-    loop 1 start partitions in
+    calculate_target_partitions 1 start ~create_surplus:true partitions in
 
   (* Now partition the target disk. *)
   List.iter (
