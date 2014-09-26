@@ -84,7 +84,8 @@ class input_disk verbose input_format disk = object
       s_memory = 2048L *^ 1024L *^ 1024L; (* 2048 MB *)
       s_vcpu = 1;                         (* 1 vCPU is a safe default *)
       s_features = [ "acpi"; "apic"; "pae" ];
-      s_display = None;
+      s_display =
+        Some { s_display_type = `Window; s_keymap = None; s_password = None };
       s_disks = [disk];
       s_removables = [];
       s_nics = [network];

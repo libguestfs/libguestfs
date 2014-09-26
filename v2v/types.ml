@@ -49,7 +49,7 @@ and source_nic = {
 }
 and vnet_type = Bridge | Network
 and source_display = {
-  s_display_type : [`VNC|`Spice];
+  s_display_type : [`Window|`VNC|`Spice];
   s_keymap : string option;
   s_password : string option;
 }
@@ -110,7 +110,7 @@ and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
 and string_of_source_display { s_display_type = typ;
                                s_keymap = keymap; s_password = password } =
   sprintf "%s%s%s"
-    (match typ with `VNC -> "vnc" | `Spice -> "spice")
+    (match typ with `Window -> "window" | `VNC -> "vnc" | `Spice -> "spice")
     (match keymap with None -> "" | Some km -> " " ^ km)
     (match password with None -> "" | Some _ -> " with password")
 

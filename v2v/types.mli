@@ -57,10 +57,10 @@ and source_nic = {
 and vnet_type = Bridge | Network
 
 and source_display = {
-  s_display_type : [`VNC|`Spice];       (** Display type. *)
-  s_keymap : string option;             (** Guest keymap. *)
-  s_password : string option;           (** If required, password to access
-                                            the display. *)
+  s_display_type : [`Window|`VNC|`Spice]; (** Display type. *)
+  s_keymap : string option;               (** Guest keymap. *)
+  s_password : string option;      (** If required, password to access
+                                       the display. *)
 }
 
 val string_of_source : source -> string
