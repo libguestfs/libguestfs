@@ -1095,10 +1095,17 @@ read the man page virt-resize(1).
 
     calculate_target_partitions 1 start ~create_surplus:true partitions in
 
+  let mbr_part_type x =
+    (* for GPT, all partitions are regarded as Primary Partition. *)
+    if parttype = GPT then "primary"
+    else if x.p_part.G.part_num <= 4l && x.p_type <> ContentExtendedPartition then "primary"
+    else if x.p_part.G.part_num <= 4l && x.p_type = ContentExtendedPartition then "extended"
+    else "logical" in
+
   (* Now partition the target disk. *)
   List.iter (
     fun p ->
-      g#part_add "/dev/sdb" "primary" p.p_target_start p.p_target_end
+      g#part_add "/dev/sdb" (mbr_part_type p) p.p_target_start p.p_target_end
   ) partitions;
 
   (* Copy over the data. *)
