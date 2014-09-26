@@ -144,6 +144,16 @@ object
     (* Return the list of targets. *)
     targets
 
+  method disk_create ?backingfile ?backingformat ?preallocation ?compat
+    ?clustersize path format size =
+    let g = new Guestfs.guestfs () in
+    (* For qcow2, override v2v-supplied compat option, because RHEL 6
+     * nodes cannot handle qcow2 v3 (RHBZ#1145582).
+     *)
+    let compat = if format <> "qcow2" then compat else Some "0.10" in
+    g#disk_create ?backingfile ?backingformat ?preallocation ?compat
+      ?clustersize path format size
+
   (* This is called after conversion to write the OVF metadata. *)
   method create_metadata source targets guestcaps inspect =
     (* Create the metadata. *)
