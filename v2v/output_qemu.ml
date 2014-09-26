@@ -81,8 +81,9 @@ object
           net_bus i (match nic.s_mac with None -> "" | Some mac -> ",mac=" ^ mac)
     ) source.s_nics;
 
-    (* Add a serial console. *)
-    fpf "%s-serial stdio" nl;
+    (* Add a serial console to Linux guests. *)
+    if inspect.i_type = "linux" then
+      fpf "%s-serial stdio" nl;
 
     (* XXX Missing:
      * - removable devices
