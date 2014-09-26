@@ -33,6 +33,7 @@ let parse_cmdline () =
   in
 
   let debug_gc = ref false in
+  let debug_overlays = ref false in
   let do_copy = ref true in
   let input_conn = ref "" in
   let input_format = ref "" in
@@ -122,6 +123,10 @@ let parse_cmdline () =
   let argspec = Arg.align [
     "--bridge",  Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
+    "--debug-overlay",Arg.Set debug_overlays,
+                                            " " ^ s_"Save overlay files";
+    "--debug-overlays",Arg.Set debug_overlays,
+                                            ditto;
     "-i",        Arg.String set_input_mode, i_options ^ " " ^ s_"Set input mode (default: libvirt)";
     "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
     "-if",       Arg.Set_string input_format,
@@ -184,6 +189,7 @@ read the man page virt-v2v(1).
   (* Dereference the arguments. *)
   let args = List.rev !args in
   let debug_gc = !debug_gc in
+  let debug_overlays = !debug_overlays in
   let do_copy = !do_copy in
   let input_conn = match !input_conn with "" -> None | s -> Some s in
   let input_format = match !input_format with "" -> None | s -> Some s in
@@ -347,6 +353,6 @@ read the man page virt-v2v(1).
         vmtype output_alloc in
 
   input, output,
-  debug_gc, do_copy, network_map,
+  debug_gc, debug_overlays, do_copy, network_map,
   output_alloc, output_format, output_name,
   print_source, quiet, root_choice, trace, verbose

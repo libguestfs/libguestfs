@@ -161,6 +161,12 @@ Debug garbage collection and memory allocation.  This is only useful
 when debugging memory problems in virt-v2v or the OCaml libguestfs
 bindings.
 
+=item B<--debug-overlays>
+
+Save the overlay file(s) created during conversion.  This option is
+only used for debugging virt-v2v and may be removed in a future
+version.
+
 =item B<-i disk>
 
 Set the input method to I<disk>.
