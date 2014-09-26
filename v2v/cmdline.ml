@@ -77,6 +77,24 @@ let parse_cmdline () =
     add_network, add_bridge
   in
 
+  let no_trim = ref [] in
+  let set_no_trim = function
+    | "all" | "ALL" | "*" ->
+      (* Note: this is a magic value tested in the main code.  The
+       * no_trim list does NOT support wildcards.
+       *)
+      no_trim := ["*"]
+    | mps ->
+      let mps = string_nsplit "," mps in
+      List.iter (
+        fun mp ->
+          if String.length mp = 0 then
+            error (f_"--no-trim: empty mountpoint");
+          if mp.[0] <> '/' then
+            error (f_"--no-trim: %s: mountpoint does not begin with '/'") mp;
+      ) mps
+  in
+
   let output_mode = ref `Not_set in
   let set_output_mode mode =
     if !output_mode <> `Not_set then
@@ -124,17 +142,18 @@ let parse_cmdline () =
     "--bridge",  Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
     "--debug-overlay",Arg.Set debug_overlays,
-                                            " " ^ s_"Save overlay files";
+    " " ^ s_"Save overlay files";
     "--debug-overlays",Arg.Set debug_overlays,
-                                            ditto;
+    ditto;
     "-i",        Arg.String set_input_mode, i_options ^ " " ^ s_"Set input mode (default: libvirt)";
     "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
     "-if",       Arg.Set_string input_format,
-                                            "format " ^ s_"Input format (for -i disk)";
+    "format " ^ s_"Input format (for -i disk)";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "--network", Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
     "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
+    "--no-trim", Arg.String set_no_trim,    "all|mp,mp,.." ^ s_"Don't trim selected mounts";
     "-o",        Arg.String set_output_mode, o_options ^ " " ^ s_"Set output mode (default: libvirt)";
     "-oa",       Arg.String set_output_alloc, "sparse|preallocated " ^ s_"Set output allocation mode";
     "-oc",       Arg.Set_string output_conn, "uri " ^ s_"Libvirt URI";
@@ -147,11 +166,11 @@ let parse_cmdline () =
     "--quiet",   Arg.Set quiet,             ditto;
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
     "--vdsm-image-uuid",
-                 Arg.Set_string vdsm_image_uuid, "uuid " ^ s_"Output image UUID";
+    Arg.Set_string vdsm_image_uuid, "uuid " ^ s_"Output image UUID";
     "--vdsm-vol-uuid",
-                 Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
+    Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
     "--vdsm-vm-uuid",
-                 Arg.Set_string vdsm_vm_uuid, "uuid " ^ s_"Output VM UUID";
+    Arg.Set_string vdsm_vm_uuid, "uuid " ^ s_"Output VM UUID";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
@@ -196,6 +215,7 @@ read the man page virt-v2v(1).
   let input_mode = !input_mode in
   let machine_readable = !machine_readable in
   let network_map = !network_map in
+  let no_trim = !no_trim in
   let output_alloc = !output_alloc in
   let output_conn = match !output_conn with "" -> None | s -> Some s in
   let output_format = match !output_format with "" -> None | s -> Some s in
@@ -353,6 +373,6 @@ read the man page virt-v2v(1).
         vmtype output_alloc in
 
   input, output,
-  debug_gc, debug_overlays, do_copy, network_map,
+  debug_gc, debug_overlays, do_copy, network_map, no_trim,
   output_alloc, output_format, output_name,
   print_source, quiet, root_choice, trace, verbose

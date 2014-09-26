@@ -40,7 +40,7 @@ let () = Random.self_init ()
 let rec main () =
   (* Handle the command line. *)
   let input, output,
-    debug_gc, debug_overlays, do_copy, network_map,
+    debug_gc, debug_overlays, do_copy, network_map, no_trim,
     output_alloc, output_format, output_name,
     print_source, quiet, root_choice, trace, verbose =
     Cmdline.parse_cmdline () in
@@ -244,7 +244,7 @@ let rec main () =
       printf (f_"This guest does not have virtio drivers installed.\n%!");
   );
 
-  if do_copy || debug_overlays then (
+  if no_trim <> ["*"] && (do_copy || debug_overlays) then (
     (* Doing fstrim on all the filesystems reduces the transfer size
      * because unused blocks are marked in the overlay and thus do
      * not have to be copied.
@@ -253,8 +253,10 @@ let rec main () =
     let mps = g#mountpoints () in
     List.iter (
       fun (_, mp) ->
-        try g#fstrim mp
-        with G.Error msg -> warning ~prog (f_"%s: %s (ignored)") mp msg
+        if not (List.mem mp no_trim) then (
+          try g#fstrim mp
+          with G.Error msg -> warning ~prog (f_"%s: %s (ignored)") mp msg
+        )
     ) mps
   );
 
