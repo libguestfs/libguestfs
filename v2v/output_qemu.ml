@@ -45,15 +45,16 @@ object
     let chan = open_out file in
 
     let fpf fs = fprintf chan fs in
+    let nl = " \\\n\t" in
     fpf "#!/bin/sh -\n";
     fpf "\n";
-    fpf "qemu-system-%s \\\n" guestcaps.gcaps_arch;
-    fpf "\t-no-user-config -nodefaults \\\n";
-    fpf "\t-name %s \\\n" (quote source.s_name);
-    fpf "\t-machine accel=kvm:tcg \\\n";
-    fpf "\t-m %Ld \\\n" (source.s_memory /^ 1024L /^ 1024L);
+    fpf "qemu-system-%s" guestcaps.gcaps_arch;
+    fpf "%s-no-user-config -nodefaults" nl;
+    fpf "%s-name %s" nl (quote source.s_name);
+    fpf "%s-machine accel=kvm:tcg" nl;
+    fpf "%s-m %Ld" nl (source.s_memory /^ 1024L /^ 1024L);
     if source.s_vcpu > 1 then
-      fpf "\t-smp %d \\\n" source.s_vcpu;
+      fpf "%s-smp %d" nl source.s_vcpu;
 
     let block_bus =
       match guestcaps.gcaps_block_bus with
@@ -65,7 +66,7 @@ object
         let drive_param =
           sprintf "file=%s,format=%s,if=%s"
             qemu_quoted_filename t.target_format block_bus in
-        fpf "\t-drive %s\\\n" (quote drive_param)
+        fpf "%s-drive %s" nl (quote drive_param)
     ) targets;
 
     let net_bus =
@@ -75,18 +76,20 @@ object
       | RTL8139 -> "rtl8139" in
     List.iteri (
       fun i nic ->
-        fpf "\t-netdev user,id=net%d \\\n" i;
-        fpf "\t-device %s,netdev=net%d%s \\\n"
+        fpf "%s-netdev user,id=net%d" nl i;
+        fpf "%s-device %s,netdev=net%d%s" nl
           net_bus i (match nic.s_mac with None -> "" | Some mac -> ",mac=" ^ mac)
     ) source.s_nics;
 
     (* Add a serial console. *)
-    fpf "\t-serial stdio\n";
+    fpf "%s-serial stdio" nl;
 
     (* XXX Missing:
      * - removable devices
      * - display
      *)
+
+    fpf "\n";
 
     close_out chan;
 
