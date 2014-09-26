@@ -36,6 +36,7 @@
 
 #ifdef HAVE_ACL
 #include <sys/acl.h>
+#include <acl/libacl.h>
 #endif
 
 #ifdef HAVE_ATTR_XATTR_H
@@ -646,12 +647,12 @@ test_fuse (void)
       perror ("acl_get_file: acl");
       return -1;
     }
-    acl_text = acl_to_text (acl, NULL);
+    acl_text = acl_to_any_text (acl, NULL, '\n', TEXT_SOME_EFFECTIVE | TEXT_NUMERIC_IDS);
     if (acl_text == NULL) {
-      perror ("acl_to_text: acl");
+      perror ("acl_to_any_text: acl");
       return -1;
     }
-    if (STRNEQ (acl_text, "user::rwx\nuser:500:r--\ngroup::rwx\nmask::rwx\nother::r-x\n")) {
+    if (STRNEQ (acl_text, "user::rwx\nuser:500:r--\ngroup::rwx\nmask::rwx\nother::r-x")) {
       fprintf (stderr, "unexpected acl: %s\n", acl_text);
       return -1;
     }
