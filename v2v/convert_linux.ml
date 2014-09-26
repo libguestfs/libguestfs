@@ -1313,7 +1313,8 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     and replace path device =
       try List.assoc device map
       with Not_found ->
-        if string_find device "md" = -1 && string_find device "fd" = -1 then
+        if string_find device "md" = -1 && string_find device "fd" = -1 &&
+          device <> "cdrom" then
           warning ~prog (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
             path device;
         device
