@@ -291,7 +291,13 @@ Into this directory are written various files which include:
 
 =over 4
 
-=item C<guest.xml>
+=item C<name>
+
+I<before conversion>
+
+The name (usually the hostname) of the physical machine.
+
+=item C<physical.xml>
 
 I<before conversion>
 
@@ -302,12 +308,6 @@ option.
 Note this is not "real" libvirt XML (and must B<never> be loaded into
 libvirt, which would reject it anyhow).  Also it is not the same as
 the libvirt XML which virt-v2v generates in certain output modes.
-
-=item C<name>
-
-I<before conversion>
-
-The name (usually the hostname) of the physical machine.
 
 =item C<status>
 
@@ -368,10 +368,10 @@ used.  Secondly libguestfs creates an overlay on top of the NBD
 connection which stores writes in a temporary file on the conversion
 file.
 
-The final step is to send the virt-v2v command to the conversion
-server over the control connection.  This references the C<guest.xml>
-file (see above), which in turn references the NBD listening port(s)
-of the data connection(s).
+The final step is to send the S<C<virt-v2v -i libvirtxml physical.xml ...>>
+command to the conversion server over the control connection.  This
+references the C<physical.xml> file (see above), which in turn
+references the NBD listening port(s) of the data connection(s).
 
 Output from the virt-v2v command (messages, debugging etc) is saved
 both in the log file on the conversion server, and sent over the

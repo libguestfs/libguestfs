@@ -706,7 +706,7 @@ start_remote_connection (struct config *config,
 
   /* Upload the guest libvirt XML to the remote directory. */
   if (mexp_printf (h,
-                   "cat > '%s/guest.xml' << '__%s__'\n"
+                   "cat > '%s/physical.xml' << '__%s__'\n"
                    "%s"
                    "__%s__\n",
                    remote_dir, magic,

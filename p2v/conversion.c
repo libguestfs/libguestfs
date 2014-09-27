@@ -253,7 +253,7 @@ start_conversion (struct config *config,
   }
   if (mexp_printf (control_h, " --root first") == -1)
     goto printf_fail;
-  if (mexp_printf (control_h, " %s/guest.xml", remote_dir) == -1)
+  if (mexp_printf (control_h, " %s/physical.xml", remote_dir) == -1)
     goto printf_fail;
   /* no stdin, and send stdout and stderr to the same place */
   if (mexp_printf (control_h, " </dev/null 2>&1") == -1)
