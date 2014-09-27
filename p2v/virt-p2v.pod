@@ -401,9 +401,9 @@ Set the output connection libvirt URI.  This is the same as the
 virt-v2v I<-oc> option.  See L<virt-v2v(1)/OPTIONS> and
 L<http://libvirt.org/uri.html>
 
-=item B<p2v.of=raw|sparse|...>
+=item B<p2v.of=raw|qcow2|...>
 
-Set the output format.  This is the same as the virt-v2v I<-oa>
+Set the output format.  This is the same as the virt-v2v I<-of>
 option.  See L<virt-v2v(1)/OPTIONS>.
 
 =item B<p2v.os=...>
