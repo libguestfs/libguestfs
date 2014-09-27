@@ -9,8 +9,9 @@ virt-p2v-make-disk - Build the virt-p2v disk using virt-builder
 =head1 DESCRIPTION
 
 L<virt-p2v(1)> converts a physical machine to run virtualized on KVM,
-managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
-2.2 or later.
+managed by libvirt, OpenStack, oVirt, Red Hat Enterprise
+Virtualisation (RHEV), or one of the other targets supported by
+L<virt-v2v(1)>.
 
 virt-p2v-make-disk is a script which creates a bootable disk image or
 USB key containing virt-p2v.  It uses L<virt-builder(1)> to do this,

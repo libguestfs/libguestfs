@@ -9,8 +9,9 @@ virt-p2v-make-kickstart - Build the virt-p2v kickstart
 =head1 DESCRIPTION
 
 L<virt-p2v(1)> converts a physical machine to run virtualized on KVM,
-managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
-2.2 or later.
+managed by libvirt, OpenStack, oVirt, Red Hat Enterprise
+Virtualisation (RHEV), or one of the other targets supported by
+L<virt-v2v(1)>.
 
 Kickstart is a format used by Red Hat-derived distributions (such as
 Fedora, Red Hat Enterprise Linux, CentOS, Scientific Linux, and
