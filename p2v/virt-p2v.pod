@@ -254,12 +254,136 @@ Display version number and exit.
 
 =back
 
+=head1 HOW VIRT-P2V WORKS
+
+B<Note this section is not normative.>  We may change how virt-p2v
+works at any time in the future.
+
+As described above, virt-p2v runs on a physical machine, interrogates
+the user or the kernel command line for configuration, and then
+establishes one or more ssh connections to the virt-v2v conversion
+server.  The ssh connections are interactive shell sessions to the
+remote host, but the commands sent are generated entirely by virt-p2v
+itself, not by the user.  For data transfer, virt-p2v will use the
+reverse port forward feature of ssh (ie. C<ssh -R>).
+
+It will first make one or more test connections, which are used to
+query the remote version of virt-v2v and its features.  The test
+connections are closed before conversion begins.
+
+ ┌──────────────┐                      ┌─────────────────┐
+ │ virt-p2v     │                      │ virt-v2v        │
+ │ (physical    │  control connection  │ (conversion     │
+ │  server)   ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍▶ server)       │
+ └──────────────┘                      └─────────────────┘
+
+Once virt-p2v is ready to start conversion, it will open a single ssh
+control connection.  It first sends a mkdir command to create a
+temporary directory on the conversion server.  The directory name is
+randomly chosen and is displayed in the GUI.  It has the form:
+
+ /tmp/virt-p2v-YYYYMMDD-XXXXXXXX
+
+where C<YYYYMMDD> is the current date, and the X's are random
+characters.
+
+Into this directory are written various files which include:
+
+=over 4
+
+=item C<guest.xml>
+
+I<before conversion>
+
+Libvirt XML describing the physical machine.  It is used to pass data
+about the physical source host to L<virt-v2v(1)> via the I<-i libvirtxml>
+option.
+
+Note this is not "real" libvirt XML (and must B<never> be loaded into
+libvirt, which would reject it anyhow).  Also it is not the same as
+the libvirt XML which virt-v2v generates in certain output modes.
+
+=item C<name>
+
+I<before conversion>
+
+The name (usually the hostname) of the physical machine.
+
+=item C<status>
+
+I<after conversion>
+
+The final status of the conversion.  C<0> if the conversion was
+successful.  Non-zero if the conversion failed.
+
+=item C<time>
+
+I<before conversion>
+
+The start date/time of conversion.
+
+=item C<virt-v2v-conversion-log.txt>
+
+I<during/after conversion>
+
+The conversion log.  This is just the output of the virt-v2v command
+on the conversion server.  If conversion fails, you should examine
+this log file, and you may be asked to supply the B<complete>,
+B<unedited> log file in any bug reports or support tickets.
+
+=back
+
+Before conversion actually begins, virt-p2v then makes one or more
+further ssh connections to the server for data transfer.  The transfer
+protocol used currently is NBD (Network Block Device) and the server
+is L<qemu-nbd(1)>.  There is one ssh connection per physical hard disk
+on the source machine (the common case — a single hard disk — is shown
+below):
+
+ ┌──────────────┐                      ┌─────────────────┐
+ │ virt-p2v     │                      │ virt-v2v        │
+ │ (physical    │  control connection  │ (conversion     │
+ │  server)   ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍▶ server)       │
+ │              │                      │                 │
+ │              │  data connection     │                 │
+ │            ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍▶               │
+ │qemu-nbd ← ─┘ │                      │└─ ← NBD         │
+ │/dev/sda      │                      │     requests    │
+ ∼              ∼                      ∼                 ∼
+ └──────────────┘                      └─────────────────┘
+
+Although the ssh data connection is originated from the physical
+server and terminates on the conversion server, in fact NBD requests
+flow in the opposite direction.  This is because the reverse port
+forward feature of ssh (C<ssh -R>) is used to open a port on the
+loopback interface of the conversion server which is proxied back by
+ssh to the qemu-nbd server running on the physical machine.  The
+effect, in brief, is that virt-v2v via libguestfs can open nbd
+connections which directly read the hard disk(s) of the physical
+server.
+
+Two layers of protection are used to ensure that there are no writes
+to the hard disks: Firstly, the qemu-nbd I<-r> (readonly) option is
+used.  Secondly libguestfs creates an overlay on top of the NBD
+connection which stores writes in a temporary file on the conversion
+file.
+
+The final step is to send the virt-v2v command to the conversion
+server over the control connection.  This references the C<guest.xml>
+file (see above), which in turn references the NBD listening port(s)
+of the data connection(s).
+
+Output from the virt-v2v command (messages, debugging etc) is saved
+both in the log file on the conversion server, and sent over the
+control connection to be displayed in the graphical UI.
+
 =head1 SEE ALSO
 
 L<virt-p2v-make-disk(1)>,
 L<virt-p2v-make-kickstart(1)>,
 L<virt-v2v(1)>,
 L<qemu-nbd(1)>,
+L<ssh(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
