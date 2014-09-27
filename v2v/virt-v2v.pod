@@ -18,9 +18,10 @@ virt-v2v - Convert a guest to use KVM
 =head1 DESCRIPTION
 
 Virt-v2v converts guests from a foreign hypervisor to run on KVM,
-managed by libvirt or Red Hat Enterprise Virtualisation (RHEV) version
-2.2 or later. It can currently convert Red Hat Enterprise Linux and
-Windows guests running on Xen and VMware ESX.
+managed by libvirt, OpenStack, oVirt, Red Hat Enterprise
+Virtualisation (RHEV) or several other targets.  It can currently
+convert Red Hat Enterprise Linux and Windows guests running on Xen and
+VMware ESX.
 
 There is also a companion front-end called L<virt-p2v(1)> which comes
 as an ISO or CD image that can be booted on physical machines.
