@@ -196,7 +196,7 @@ I<not> copied over.
      [✔]      em1    [default_____________] │
      [ ]      wlp3s0 [default_____________] │
 
-In the Network interfaces pane, select the network interfaces that
+In the Network interfaces panel, select the network interfaces that
 should be created in the guest after conversion.  You can also connect
 these to guest hypervisor networks (for further information about
 this feature, see L<virt-v2v(2)/NETWORKS AND BRIDGES>).
