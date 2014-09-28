@@ -116,7 +116,7 @@ run on OpenStack (only KVM-based OpenStack is supported), you can do:
 
  virt-v2v -i disk disk.img -o glance
 
-To control the name of the image in glance, use the I<-on> option.
+To control the name of the image in Glance, use the I<-on> option.
 
 =head2 Convert disk image to disk image
 
