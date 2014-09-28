@@ -79,7 +79,7 @@ object
      * module deals with shell and qemu comma quoting.
      *)
     let cmd = Qemuopts.create () in
-    Qemuopts.set_binary_by_arch cmd (Some guestcaps.gcaps_arch);
+    Qemuopts.set_binary cmd "/usr/libexec/qemu-kvm";
 
     let flag = Qemuopts.flag cmd
     and arg = Qemuopts.arg cmd
