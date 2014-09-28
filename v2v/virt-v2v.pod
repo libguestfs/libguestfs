@@ -858,6 +858,55 @@ Define the final guest in libvirt:
 
 =back
 
+=head1 RUNNING VIRT-V2V AS ROOT OR NON-ROOT
+
+Nothing in virt-v2v inherently needs root access, and it will run just
+fine as a non-root user.  However, certain external features may
+require either root or a special user:
+
+=over 4
+
+=item Mounting the Export Storage Domain
+
+When using I<-o rhev -os server:/esd> virt-v2v has to have sufficient
+privileges to NFS mount the Export Storage Domain from C<server>.
+
+You can avoid needing root here by mounting it yourself before running
+virt-v2v, and passing I<-os /mountpoint> instead, but first of all
+read the next S<section ...>
+
+=item Writing to the Export Storage Domain as 36:36
+
+RHEV-M cannot read files and directories from the Export Storage
+Domain unless they have UID:GID 36:36.  You will see VM import
+problems if the UID:GID is not correct.
+
+When you run virt-v2v I<-o rhev> as root, virt-v2v attempts to create
+files and directories with the correct ownership.  If you run virt-v2v
+as non-root, it will probably still work, but you will need to
+manually change ownership after virt-v2v has finished.
+
+=item Writing to libvirt
+
+When using I<-o libvirt>, you may need to run virt-v2v as root so that
+it can write to the libvirt system instance (ie. C<qemu:///system>)
+and to the default location for disk images (usually
+C</var/lib/libvirt/images>).
+
+You can avoid this by setting up libvirt connection authentication,
+see L<http://libvirt.org/auth.html>.  Alternatively, use
+I<-oc qemu:///session>, which will write to your per-user libvirt
+instance.
+
+=item Writing to Glance
+
+This does I<not> need root (in fact it probably won't work), but may
+require either a special user and/or for you to source a script that
+sets authentication environment variables.  Consult the Glance
+documentation.
+
+=back
+
 =head1 DEBUGGING RHEV-M IMPORT FAILURES
 
 When you export to the RHEV-M Export Storage Domain, and then import
