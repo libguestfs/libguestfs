@@ -32,7 +32,7 @@ and arg =
   | Commas of string * string list
 
 let create ?(arch = "x86_64") () =
-  { cmd = "qemu-system-" ^ arch; args = [] }
+  { cmd = "/usr/libexec/qemu-kvm"; args = [] }
 
 let flag t k =
   assert (String.is_prefix k "-");
