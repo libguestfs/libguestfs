@@ -48,7 +48,7 @@ object
     let nl = " \\\n\t" in
     fpf "#!/bin/sh -\n";
     fpf "\n";
-    fpf "qemu-system-%s" guestcaps.gcaps_arch;
+    fpf "/usr/libexec/qemu-kvm";
     fpf "%s-no-user-config -nodefaults" nl;
     fpf "%s-name %s" nl (quote source.s_name);
     fpf "%s-machine accel=kvm:tcg" nl;
