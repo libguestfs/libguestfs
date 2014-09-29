@@ -273,6 +273,7 @@ python/guestfs-py-byhand.c
 python/guestfs-py.c
 rescue/rescue.c
 rescue/test-virt-rescue.pl
+resize/test-virt-resize.pl
 ruby/ext/guestfs/_guestfs.c
 sparsify/statvfs-c.c
 src/actions-0.c

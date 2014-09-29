@@ -20,7 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES) \
 	virt-resize.pod \
-	test-virt-resize.sh
+	test-virt-resize.pl
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-resize
 
@@ -136,7 +136,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS =
 if ENABLE_APPLIANCE
-TESTS += test-virt-resize.sh
+TESTS += test-virt-resize.pl
 endif
 
 check-valgrind:
