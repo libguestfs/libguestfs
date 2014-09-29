@@ -231,9 +231,9 @@ convert the format on the fly.  The output format is simply determined
 by the format of the empty output container that you provide.  Thus to
 create qcow2 output, use:
 
- qemu-img create [-c] -f qcow2 -o preallocation=metadata outdisk [size]
+ qemu-img create -f qcow2 -o preallocation=metadata outdisk [size]
 
-instead of the truncate command (use I<-c> for a compressed disk).
+instead of the truncate command.
 
 Similarly, to get non-sparse raw output use:
 
