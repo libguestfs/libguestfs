@@ -1096,11 +1096,13 @@ read the man page virt-resize(1).
     calculate_target_partitions 1 start ~create_surplus:true partitions in
 
   let mbr_part_type x =
+    match parttype, x.p_part.G.part_num <= 4_l, x.p_type with
     (* for GPT, all partitions are regarded as Primary Partition. *)
-    if parttype = GPT then "primary"
-    else if x.p_part.G.part_num <= 4l && x.p_type <> ContentExtendedPartition then "primary"
-    else if x.p_part.G.part_num <= 4l && x.p_type = ContentExtendedPartition then "extended"
-    else "logical" in
+    | GPT, _, _ -> "primary"
+    | MBR, true, (ContentUnknown|ContentPV _|ContentFS _) -> "primary"
+    | MBR, true, ContentExtendedPartition -> "extended"
+    | MBR, false, _ -> "logical"
+  in
 
   (* Now partition the target disk. *)
   List.iter (
