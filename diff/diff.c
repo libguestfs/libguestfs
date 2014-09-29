@@ -488,7 +488,7 @@ visit_entry (const char *dir, const char *name,
 
   /* If --atime option was NOT passed, flatten the atime field. */
   if (!atime)
-    stat->st_atime_sec = 0;
+    stat->st_atime_sec = stat->st_atime_nsec = 0;
 
   /* If --dir-links option was NOT passed, flatten nlink field in
    * directories.
