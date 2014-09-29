@@ -633,7 +633,11 @@ let main () =
     (match smp with None -> () | Some smp -> g#set_smp smp);
     g#set_network network;
 
-    g#set_selinux ops.flags.selinux_relabel;
+    (* Make sure to turn SELinux off to avoid awkward interactions
+     * between the appliance kernel and applications/libraries interacting
+     * with SELinux xattrs.
+     *)
+    g#set_selinux false;
 
     (* The output disk is being created, so use cache=unsafe here. *)
     g#add_drive_opts ~format:output_format ~cachemode:"unsafe" output_filename;

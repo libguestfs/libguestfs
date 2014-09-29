@@ -208,7 +208,11 @@ read the man page virt-customize(1).
     (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
     (match smp with None -> () | Some smp -> g#set_smp smp);
     g#set_network network;
-    g#set_selinux ops.flags.selinux_relabel;
+    (* Make sure to turn SELinux off to avoid awkward interactions
+     * between the appliance kernel and applications/libraries interacting
+     * with SELinux xattrs.
+     *)
+    g#set_selinux false;
 
     (* Add disks. *)
     add g dryrun;
