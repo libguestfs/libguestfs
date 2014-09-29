@@ -81,11 +81,18 @@ and read_password_from_file filename =
 (* Permissible characters in a salt. *)
 let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./"
 
-let rec set_linux_passwords ~prog ?password_crypto g root passwords =
+let rec set_linux_passwords ~prog ?password_crypto (g : Guestfs.guestfs) root passwords =
   let crypto =
     match password_crypto with
     | None -> default_crypto ~prog g root
     | Some c -> c in
+
+  (* Create a (almost) empty temporary file with the attributes of
+   * /etc/shadow, so we can restore them later.
+   *)
+  let tempfile = g#mktemp "/etc/shadow.guestfsXXXXXX" in
+  g#write tempfile "*";
+  g#copy_attributes ~all:true "/etc/shadow" tempfile;
 
   g#aug_init "/" 0;
   let users = Array.to_list (g#aug_ls "/files/etc/shadow") in
@@ -116,9 +123,11 @@ let rec set_linux_passwords ~prog ?password_crypto g root passwords =
       with Not_found -> ()
   ) users;
   g#aug_save ();
+  g#aug_close ();
 
-  (* In virt-sysprep /.autorelabel will label it correctly. *)
-  g#chmod 0 "/etc/shadow"
+  (* Restore all the attributes from the temporary file, and remove it. *)
+  g#copy_attributes ~all:true tempfile "/etc/shadow";
+  g#rm tempfile
 
 (* Encrypt each password.  Use glibc (on the host).  See:
  * https://rwmj.wordpress.com/2013/07/09/setting-the-root-or-other-passwords-in-a-linux-guest/
