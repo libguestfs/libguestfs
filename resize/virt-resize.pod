@@ -541,7 +541,7 @@ For example:
 
 You can increase the size of any partition.  Virt-resize will expand
 the direct content of the partition if it knows how (see I<--expand>
-below).
+above).
 
 You can only I<decrease> the size of partitions that contain
 filesystems or PVs which have already been shrunk.  Virt-resize will
