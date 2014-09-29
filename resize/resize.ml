@@ -1019,65 +1019,66 @@ read the man page virt-resize(1).
    * the final list just contains partitions that need to be created
    * on the target.
    *)
-    let rec calculate_target_partitions partnum start ~create_surplus = function
-      | p :: ps ->
-        (match p.p_operation with
-        | OpDelete ->
-            calculate_target_partitions partnum start ~create_surplus ps (* skip p *)
+  let rec calculate_target_partitions partnum start ~create_surplus = function
+    | p :: ps ->
+      (match p.p_operation with
+      | OpDelete ->
+        calculate_target_partitions partnum start ~create_surplus ps (* skip p *)
 
-        | OpIgnore | OpCopy ->          (* same size *)
-          (* Size in sectors. *)
-          let size = div_roundup64 p.p_part.G.part_size sectsize in
-          (* Start of next partition + alignment. *)
-          let end_ = start +^ size in
-          let next = roundup64 end_ alignment in
+      | OpIgnore | OpCopy ->          (* same size *)
+        (* Size in sectors. *)
+        let size = div_roundup64 p.p_part.G.part_size sectsize in
+        (* Start of next partition + alignment. *)
+        let end_ = start +^ size in
+        let next = roundup64 end_ alignment in
 
-          if verbose then
-            eprintf "target partition %d: ignore or copy: start=%Ld end=%Ld\n%!"
-              partnum start (end_ -^ 1L);
+        if verbose then
+          eprintf "target partition %d: ignore or copy: start=%Ld end=%Ld\n%!"
+            partnum start (end_ -^ 1L);
 
-          { p with p_target_start = start; p_target_end = end_ -^ 1L;
-            p_target_partnum = partnum } ::
-              calculate_target_partitions (partnum+1) next ~create_surplus ps
+        { p with p_target_start = start; p_target_end = end_ -^ 1L;
+          p_target_partnum = partnum } ::
+          calculate_target_partitions (partnum+1) next ~create_surplus ps
 
-        | OpResize newsize ->           (* resized partition *)
-          (* New size in sectors. *)
-          let size = div_roundup64 newsize sectsize in
-          (* Start of next partition + alignment. *)
-          let next = start +^ size in
-          let next = roundup64 next alignment in
+      | OpResize newsize ->           (* resized partition *)
+        (* New size in sectors. *)
+        let size = div_roundup64 newsize sectsize in
+        (* Start of next partition + alignment. *)
+        let next = start +^ size in
+        let next = roundup64 next alignment in
 
-          if verbose then
-            eprintf "target partition %d: resize: newsize=%Ld start=%Ld end=%Ld\n%!"
-              partnum newsize start (next -^ 1L);
+        if verbose then
+          eprintf "target partition %d: resize: newsize=%Ld start=%Ld end=%Ld\n%!"
+            partnum newsize start (next -^ 1L);
 
-          { p with p_target_start = start; p_target_end = next -^ 1L;
-            p_target_partnum = partnum } ::
-              calculate_target_partitions (partnum+1) next ~create_surplus ps
-        )
+        { p with p_target_start = start; p_target_end = next -^ 1L;
+          p_target_partnum = partnum } ::
+          calculate_target_partitions (partnum+1) next ~create_surplus ps
+      )
 
-      | [] ->
-        (* Create the surplus partition if there is room for it. *)
-        if create_surplus && extra_partition && surplus >= min_extra_partition then (
-          [ {
-            (* Since this partition has no source, this data is
-             * meaningless and not used since the operation is
-             * OpIgnore.
-             *)
-            p_name = "";
-            p_part = { G.part_num = 0l; part_start = 0L; part_end = 0L;
-                       part_size = 0L };
-            p_bootable = false; p_id = No_ID; p_type = ContentUnknown;
-            p_label = None;
+    | [] ->
+      (* Create the surplus partition if there is room for it. *)
+      if create_surplus && extra_partition && surplus >= min_extra_partition then (
+        [ {
+          (* Since this partition has no source, this data is
+           * meaningless and not used since the operation is
+           * OpIgnore.
+           *)
+          p_name = "";
+          p_part = { G.part_num = 0l; part_start = 0L; part_end = 0L;
+                     part_size = 0L };
+          p_bootable = false; p_id = No_ID; p_type = ContentUnknown;
+          p_label = None;
 
-            (* Target information is meaningful. *)
-            p_operation = OpIgnore;
-            p_target_partnum = partnum;
-            p_target_start = start; p_target_end = ~^ 64L
-          } ]
-        )
-        else
-          [] in
+          (* Target information is meaningful. *)
+          p_operation = OpIgnore;
+          p_target_partnum = partnum;
+          p_target_start = start; p_target_end = ~^ 64L
+        } ]
+      )
+      else
+        []
+  in
 
   let partitions =
     (* Choose the alignment of the first partition based on the
