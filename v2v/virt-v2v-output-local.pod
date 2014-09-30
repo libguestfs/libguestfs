@@ -9,7 +9,7 @@ or libvirt
 
  virt-v2v [-i* options] -o local -os DIRECTORY
 
- virt-v2v [-i* options] -o qemu -os DIRECTORY [--qemu-boot]
+ virt-v2v [-i* options] -o qemu -os DIRECTORY
 
  virt-v2v [-i* options] -o json -os DIRECTORY
                         [-oo json-disks-pattern=PATTERN]
@@ -50,12 +50,10 @@ where C<NAME> is the guest name.
 
 =item B<-o qemu -os> C<DIRECTORY>
 
-=item B<-o qemu -os> C<DIRECTORY> B<--qemu-boot>
-
 This converts the guest to files in C<DIRECTORY>.  Unlike I<-o local>
 above, a shell script is created which contains the raw qemu command
 you would need to boot the guest.  However the shell script is not
-run, I<unless> you also add the I<--qemu-boot> option.
+run.
 
 =item B<-o json -os> C<DIRECTORY>
 
