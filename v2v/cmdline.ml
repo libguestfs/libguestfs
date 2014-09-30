@@ -240,7 +240,6 @@ let parse_cmdline () =
                                     s_"Estimate size of source and stop";
     [ L"print-source" ], Getopt.Set print_source,
                                     s_"Print source and stop";
-    [ L"qemu-boot" ], Getopt.Set qemu_boot, s_"Boot in qemu (-o qemu only)";
     [ L"root" ],     Getopt.String ("ask|... ", set_root_choice),
                                     s_"How to choose root filesystem";
     [ L"vddk-config" ], Getopt.String ("filename", set_input_option_compat "vddk-config"),
@@ -588,6 +587,8 @@ read the man page virt-v2v(1).
         | Some d when not (is_directory d) ->
            error (f_"-os %s: output directory does not exist or is not a directory") d
         | Some d -> d in
+      if qemu_boot then
+        error (f_"-o qemu: the --qemu-boot option cannot be used in RHEL");
       Output_qemu.output_qemu os qemu_boot,
       output_format, output_alloc
 
