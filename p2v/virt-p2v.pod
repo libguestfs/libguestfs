@@ -218,7 +218,7 @@ the drives are I<not> copied over.
 In the Network interfaces panel, select the network interfaces that
 should be created in the guest after conversion.  You can also connect
 these to target hypervisor networks (for further information about
-this feature, see L<virt-v2v(2)/NETWORKS AND BRIDGES>).
+this feature, see L<virt-v2v(1)/NETWORKS AND BRIDGES>).
 
 When you are ready to begin the conversion, press the
 C<Start conversion> button:
