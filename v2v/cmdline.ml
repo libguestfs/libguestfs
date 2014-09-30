@@ -214,7 +214,6 @@ let parse_cmdline () =
     "--password-file", Arg.String (set_string_option_once "--password-file" password_file),
                                             "file " ^ s_"Use password from file";
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
-    "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"Boot in qemu (-o qemu only)";
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
     "--vdsm-image-uuid", Arg.String add_vdsm_image_uuid, "uuid " ^ s_"Output image UUID(s)";
     "--vdsm-vol-uuid", Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
@@ -416,6 +415,8 @@ read the man page virt-v2v(1).
         | Some d when not (is_directory d) ->
            error (f_"-os %s: output directory does not exist or is not a directory") d
         | Some d -> d in
+      if qemu_boot then
+        error (f_"-o qemu: the --qemu-boot option cannot be used in RHEL");
       Output_qemu.output_qemu os qemu_boot
 
     | `RHEV ->

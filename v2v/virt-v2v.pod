@@ -145,11 +145,6 @@ Since F<guest-domain.xml> contains the path(s) to the guest disk
 image(s) you do not need to specify the name of the disk image on the
 command line.
 
-To convert a local disk image and immediately boot it in local
-qemu, do:
-
- virt-v2v -i disk disk.img -o qemu -os /var/tmp --qemu-boot
-
 =head1 SUPPORT MATRIX
 
 =head2 Hypervisors (Input)
@@ -478,9 +473,6 @@ This is similar to I<-o local>, except that a shell script is written
 which you can use to boot the guest in qemu.  The converted disks and
 shell script are written to the directory specified by I<-os>.
 
-When using this output mode, you can also specify the I<--qemu-boot>
-option which boots the guest under qemu immediately.
-
 =item B<-o rhev>
 
 Set the output method to I<rhev>.
@@ -565,11 +557,6 @@ mode C<0600> so that others cannot read it.
 Print information about the source guest and stop.  This option is
 useful when you are setting up network and bridge maps.
 See L</NETWORKS AND BRIDGES>.
-
-=item B<--qemu-boot>
-
-When using I<-o qemu> only, this boots the guest immediately after
-virt-v2v finishes.
 
 =item B<-q>
 
