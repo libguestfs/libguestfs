@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-09-29 16:16+0100\n"
+"POT-Creation-Date: 2014-10-01 16:47+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -77,7 +77,7 @@ msgstr ""
 msgid "%s (ignored)"
 msgstr ""
 
-#: ../sysprep/main.ml:264 ../customize/customize_main.ml:246
+#: ../sysprep/main.ml:266 ../customize/customize_main.ml:246
 msgid "%s (ignored)\n"
 msgstr ""
 
@@ -423,7 +423,7 @@ msgstr ""
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
-#: ../sysprep/main.ml:160
+#: ../sysprep/main.ml:162
 msgid ""
 "%s: reset or unconfigure a virtual machine so clones can be made\n"
 "\n"
@@ -605,7 +605,7 @@ msgstr ""
 msgid "--expand option given twice"
 msgstr ""
 
-#: ../sysprep/main.ml:174 ../customize/customize_main.ml:142
+#: ../sysprep/main.ml:176 ../customize/customize_main.ml:142
 msgid "--format parameter must appear before -a parameter"
 msgstr ""
 
@@ -848,6 +848,10 @@ msgstr ""
 msgid "Closing the overlay"
 msgstr ""
 
+#: ../sysprep/main.ml:144
+msgid "Compatibility option, does nothing"
+msgstr ""
+
 #: ../sparsify/cmdline.ml:71
 msgid "Compressed output format"
 msgstr ""
@@ -996,7 +1000,7 @@ msgstr ""
 #. ../customize/customize_main.ml:108
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:176 ../sysprep/main.ml:150 ../sysprep/main.ml:149
+#: ../v2v/cmdline.ml:176 ../sysprep/main.ml:152 ../sysprep/main.ml:151
 msgid "Display version and exit"
 msgstr ""
 
@@ -1026,7 +1030,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:104
 #. ../customize/customize_main.ml:103
-#: ../sysprep/main.ml:146 ../sysprep/main.ml:145
+#: ../sysprep/main.ml:148 ../sysprep/main.ml:147
 msgid "Don't print log messages"
 msgstr ""
 
@@ -1077,7 +1081,7 @@ msgstr ""
 #. ../customize/customize_main.ml:106
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:174 ../sysprep/main.ml:148 ../sysprep/main.ml:147
+#: ../v2v/cmdline.ml:174 ../sysprep/main.ml:150 ../sysprep/main.ml:149
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -1088,11 +1092,11 @@ msgstr ""
 #. ../resize/resize.ml:218
 #. ../customize/customize_main.ml:110
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:179 ../sysprep/main.ml:151 ../sparsify/cmdline.ml:88
+#: ../v2v/cmdline.ml:179 ../sysprep/main.ml:153 ../sparsify/cmdline.ml:88
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
-#: ../sysprep/main.ml:144 ../sysprep/main.ml:143
+#: ../sysprep/main.ml:146 ../sysprep/main.ml:145
 msgid "Enable/disable specific operations"
 msgstr ""
 
@@ -1124,7 +1128,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../sysprep/main.ml:234 ../customize/customize_main.ml:200
+#: ../sysprep/main.ml:236 ../customize/customize_main.ml:200
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -2517,7 +2521,7 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../sysprep/main.ml:158 ../customize/customize_main.ml:126
+#: ../sysprep/main.ml:160 ../customize/customize_main.ml:126
 msgid "extra parameter on the command line"
 msgstr ""
 
@@ -2692,7 +2696,7 @@ msgid ""
 "of this guest."
 msgstr ""
 
-#: ../sysprep/main.ml:248
+#: ../sysprep/main.ml:250
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
@@ -3131,7 +3135,7 @@ msgstr ""
 msgid "xfs_growfs"
 msgstr ""
 
-#: ../sysprep/main.ml:194
+#: ../sysprep/main.ml:196
 msgid ""
 "you cannot give -a and -d options together.  Read virt-sysprep(1) man page "
 "for further information."
@@ -3169,7 +3173,7 @@ msgstr ""
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 
-#: ../sysprep/main.ml:183
+#: ../sysprep/main.ml:185
 msgid ""
 "you must give either -a or -d options.  Read virt-sysprep(1) man page for "
 "further information."
