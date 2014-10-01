@@ -140,6 +140,8 @@ let main () =
       "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
       "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
       "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (eg /:noatime;/var:rw,noatime)";
+      "--no-selinux-relabel", Arg.Unit (fun () -> ()),
+                                              " " ^ s_"Compatibility option, does nothing";
       "--operation",  Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
       "--operations", Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
       "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
