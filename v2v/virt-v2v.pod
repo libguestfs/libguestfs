@@ -900,6 +900,55 @@ additional details.
 If you export several guests, then you can import them all at the same
 time through the UI.
 
+=head1 POST-CONVERSION TASKS
+
+=head2 Guest network configuration
+
+Virt-v2v cannot currently reconfigure a guest's network configuration.
+If the converted guest is not connected to the same subnet as the
+source, its network configuration may have to be updated.  See also
+L<virt-customize(1)>.
+
+=head2 Converting a Windows guest
+
+When converting a Windows guests, the conversion process is split into
+two stages:
+
+=over
+
+=item 1
+
+Offline conversion.
+
+=item 2
+
+First boot.
+
+=back
+
+The guest will be bootable after the offline conversion stage, but
+will not yet have all necessary drivers installed to work correctly.
+These will be installed automatically the first time the guest boots.
+
+B<N.B.> Take care not to interrupt the automatic driver installation
+process when logging in to the guest for the first time, as this may
+prevent the guest from subsequently booting correctly.
+
+=head2 Windows Recovery Console
+
+Virt-v2v does not support conversion of the Windows Recovery Console.
+If a guest has a recovery console installed and VirtIO was enabled
+during conversion, attempting to boot the recovery console will result
+in a BSOD.
+
+Windows XP x86 does not support the Windows Recovery Console on VirtIO
+systems, so there is no resolution to this.  However, on Windows XP
+AMD64 and Windows 2003 (x86 and AMD64), the recovery console can be
+re-installed after conversion.  The re-installation procedure is the
+same as the initial installation procedure.  It is not necessary to
+remove the recovery console first.  Following re-installation, the
+recovery console will work as intended.
+
 =head1 RUNNING VIRT-V2V AS ROOT OR NON-ROOT
 
 Nothing in virt-v2v inherently needs root access, and it will run just
