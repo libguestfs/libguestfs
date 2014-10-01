@@ -663,6 +663,18 @@ hypervisor running the guest.
 
 For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
 
+=head2 ESX: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
+
+For Windows guests, you should remove VMware tools before conversion.
+Although this is not strictly necessary, and the guest will still be
+able to run, if you don't do this then the converted guest will
+complain on every boot.  The tools cannot be removed after conversion
+because the uninstaller checks if it is running on VMware and refuses
+to start (which is also the reason that virt-v2v cannot remove them).
+
+This is not necessary for Linux guests, as virt-v2v is able to remove
+VMware tools.
+
 =head2 ESX: TEST LIBVIRT CONNECTION TO VCENTER
 
 Use the L<virsh(1)> command to list the guests on the vCenter Server
