@@ -199,6 +199,16 @@ let rec mapi i f =
     r :: mapi (i + 1) f l
 let mapi f l = mapi 0 f l
 
+(* ANSI terminal colours. *)
+let ansi_green ?(chan = stdout) () =
+  if TTY.isatty_stdout () then output_string chan "\x1b[0;32m"
+let ansi_red ?(chan = stdout) () =
+  if TTY.isatty_stdout () then output_string chan "\x1b[1;31m"
+let ansi_blue ?(chan = stdout) () =
+  if TTY.isatty_stdout () then output_string chan "\x1b[1;34m"
+let ansi_restore ?(chan = stdout) () =
+  if TTY.isatty_stdout () then output_string chan "\x1b[0m"
+
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
  *)
@@ -207,19 +217,26 @@ let make_message_function ~quiet fs =
   let p str =
     if not quiet then (
       let t = sprintf "%.1f" (Unix.time () -. start_t) in
-      printf "[%6s] %s\n%!" t str
+      printf "[%6s] " t;
+      ansi_green ();
+      printf "%s" str;
+      ansi_restore ();
+      print_newline ()
     )
   in
   ksprintf p fs
 
 let error ~prog ?(exit_code = 1) fs =
   let display str =
-    wrap ~chan:stderr (sprintf (f_"%s: error: %s") prog str);
+    let chan = stderr in
+    ansi_red ~chan ();
+    wrap ~chan (sprintf (f_"%s: error: %s") prog str);
     prerr_newline ();
     prerr_newline ();
-    wrap ~chan:stderr
+    wrap ~chan
       (sprintf (f_"If reporting bugs, run %s with debugging enabled and include the complete output:\n\n  %s -v -x [...]")
          prog prog);
+    ansi_restore ~chan ();
     prerr_newline ();
     exit exit_code
   in
@@ -227,7 +244,10 @@ let error ~prog ?(exit_code = 1) fs =
 
 let warning ~prog fs =
   let display str =
-    wrap ~chan:stderr (sprintf (f_"%s: warning: %s") prog str);
+    let chan = stderr in
+    ansi_blue ~chan ();
+    wrap ~chan (sprintf (f_"%s: warning: %s") prog str);
+    ansi_restore ~chan ();
     prerr_newline ();
   in
   ksprintf display fs

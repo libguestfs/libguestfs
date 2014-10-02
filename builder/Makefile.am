@@ -87,6 +87,8 @@ deps = \
 	$(top_builddir)/mllib/libdir.cmx \
 	$(top_builddir)/mllib/config.cmx \
 	$(top_builddir)/mllib/common_gettext.cmx \
+	$(top_builddir)/mllib/tty-c.o \
+	$(top_builddir)/mllib/tTY.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/fsync-c.o \
 	$(top_builddir)/mllib/fsync.cmx \

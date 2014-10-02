@@ -65,6 +65,8 @@ deps = \
 	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/fish/guestfish-file-edit.o \
 	$(top_builddir)/mllib/common_gettext.cmx \
+	$(top_builddir)/mllib/tty-c.o \
+	$(top_builddir)/mllib/tTY.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/config.cmx \
 	$(top_builddir)/mllib/regedit.cmx \

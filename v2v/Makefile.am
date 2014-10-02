@@ -116,9 +116,9 @@ virt_v2v_CFLAGS = \
 
 BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/tTY.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
-	$(top_builddir)/mllib/tTY.cmo \
 	$(top_builddir)/mllib/progress.cmo \
 	$(top_builddir)/mllib/config.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
