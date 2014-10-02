@@ -33,33 +33,10 @@ if ! rsync --help >/dev/null 2>&1; then
     exit 77
 fi
 
-# Get host IP address.  XXX Bit of a hack.
-backend="$(guestfish get-backend)"
-case "$backend" in
-    direct)
-        ip=169.254.2.2
-        listen_address=localhost
-        ;;
-    libvirt|libvirt:*)
-        # This would work, except that the host firewall is effective
-        # on virbr0, and that is likely to block the non-standard port
-        # number that we listen on.
-#        ip="$(ip -4 -o address show virbr0 |
-#                  awk '{print $4}' |
-#                  awk -F/ '{print $1}')"
-#        listen_address="$ip"
-        echo "$0: skipping test because host firewall will probably prevent this test from working"
-        exit 77
-        ;;
-    uml)
-        echo "$0: skipping test because networking is not available in the UML backend"
-        exit 77
-        ;;
-    *)
-        echo "$0: don't know how to get IP address of backend $backend"
-        exit 77
-        ;;
-esac
+if [ "$(guestfish get-backend)" = "uml" ]; then
+    echo "$0: skipping test because networking is not available in the UML backend"
+    exit 77
+fi
 
 # If rsync is not available, bail.
 if ! guestfish -a /dev/null run : available rsync; then
@@ -79,7 +56,7 @@ port="$(awk 'BEGIN{srand(); print 65000+int(500*rand())}' </dev/null)"
 
 # Write an rsync daemon config file.
 cat > rsyncd.conf <<EOF
-address = $listen_address
+address = localhost
 port = $port
 pid file = $pwd/rsyncd.pid
 [src]
@@ -103,6 +80,8 @@ function cleanup ()
 }
 trap cleanup INT TERM QUIT EXIT
 
+# XXX
+ip=169.254.2.2
 user="$(id -un)"
 
 guestfish --network -N test-rsync.img=fs -m /dev/sda1 <<EOF
