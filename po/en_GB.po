@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-01 16:47+0100\n"
+"POT-Creation-Date: 2014-10-02 15:54+0100\n"
 "PO-Revision-Date: 2014-07-22 18:03+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -65,11 +65,11 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:246
+#: ../mllib/common_utils.ml:266
 msgid "%s"
 msgstr ""
 
-#: ../v2v/v2v.ml:428
+#: ../v2v/v2v.ml:450
 msgid "%s (ignored)"
 msgstr ""
 
@@ -101,7 +101,7 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:242
+#: ../mllib/common_utils.ml:262
 msgid "%s: %s"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:244
+#: ../mllib/common_utils.ml:264
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../mllib/common_utils.ml:217
+#: ../mllib/common_utils.ml:233
 msgid "%s: error: %s"
 msgstr ""
 
@@ -542,7 +542,7 @@ msgstr ""
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:230
+#: ../mllib/common_utils.ml:249
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -908,7 +908,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:339
+#: ../v2v/v2v.ml:361
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1096,7 +1096,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:386
+#: ../v2v/v2v.ml:408
 msgid "Enter number between 1 and %d: "
 msgstr ""
 
@@ -1196,7 +1196,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:353 ../customize/customize_main.ml:256
+#: ../v2v/v2v.ml:375 ../customize/customize_main.ml:256
 #: ../builder/builder.ml:715
 msgid "Finishing off"
 msgstr ""
@@ -1265,7 +1265,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:221
+#: ../mllib/common_utils.ml:237
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1458,7 +1458,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:349
+#: ../v2v/v2v.ml:371
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -2296,7 +2296,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:389
+#: ../v2v/v2v.ml:411
 msgid "connection closed"
 msgstr ""
 
@@ -2421,7 +2421,7 @@ msgstr ""
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
-#: ../v2v/v2v.ml:373
+#: ../v2v/v2v.ml:395
 msgid ""
 "dual- or multi-boot operating system detected. Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -2477,7 +2477,7 @@ msgstr ""
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
-#: ../mllib/common_utils.ml:259
+#: ../mllib/common_utils.ml:279
 msgid "exception: %s"
 msgstr ""
 
@@ -2501,15 +2501,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:431
+#: ../mllib/common_utils.ml:451
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:433
+#: ../mllib/common_utils.ml:453
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:435
+#: ../mllib/common_utils.ml:455
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2521,7 +2521,7 @@ msgstr ""
 msgid "extra parameter on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:250
+#: ../mllib/common_utils.ml:270
 msgid "failure: %s"
 msgstr ""
 
@@ -2599,15 +2599,15 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../mllib/common_utils.ml:257
+#: ../mllib/common_utils.ml:277
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:254
+#: ../mllib/common_utils.ml:274
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:252
+#: ../mllib/common_utils.ml:272
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -2627,11 +2627,11 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:248
+#: ../mllib/common_utils.ml:268
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:411
+#: ../v2v/v2v.ml:433
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2651,7 +2651,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:396
+#: ../v2v/v2v.ml:418
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2700,7 +2700,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:366
+#: ../v2v/v2v.ml:388
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2710,7 +2710,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:484
+#: ../v2v/v2v.ml:506
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2815,7 +2815,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:404
+#: ../v2v/v2v.ml:426
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2908,7 +2908,7 @@ msgid ""
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:423
+#: ../v2v/v2v.ml:445
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -8070,11 +8070,11 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-direct.c:867 src/launch-libvirt.c:551
+#: src/launch-direct.c:867 src/launch-libvirt.c:558
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1269 src/launch-libvirt.c:1303
+#: src/launch-direct.c:1269 src/launch-libvirt.c:1323
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -8114,25 +8114,25 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:233
+#: src/launch-libvirt.c:234
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:242
+#: src/launch-libvirt.c:243
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:277
+#: src/launch-libvirt.c:278
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:306
+#: src/launch-libvirt.c:307
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:479
+#: src/launch-libvirt.c:486
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8142,21 +8142,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:617
+#: src/launch-libvirt.c:624
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:623 src/libvirt-domain.c:404 src/libvirt-domain.c:487
+#: src/launch-libvirt.c:630 src/libvirt-domain.c:404 src/libvirt-domain.c:487
 #: src/libvirt-domain.c:700
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:633
+#: src/launch-libvirt.c:640
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:666
+#: src/launch-libvirt.c:673
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -8171,49 +8171,49 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:900
+#: src/launch-libvirt.c:907
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1257
+#: src/launch-libvirt.c:1277
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1380
+#: src/launch-libvirt.c:1400
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1405
+#: src/launch-libvirt.c:1425
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1412
+#: src/launch-libvirt.c:1432
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1693
+#: src/launch-libvirt.c:1692
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1730 src/launch-libvirt.c:1763
+#: src/launch-libvirt.c:1732 src/launch-libvirt.c:1765
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1822
+#: src/launch-libvirt.c:1824
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1853
+#: src/launch-libvirt.c:1855
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
