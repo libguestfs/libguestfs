@@ -331,7 +331,29 @@ let rec main () =
           (* Calculate the actual size on the target, returns an updated
            * target structure.
            *)
-          actual_target_size t
+          let t = actual_target_size t in
+
+          (* If verbose, find out how close the estimate was.  This is
+           * for developer information only - so we can increase the
+           * accuracy of the estimate.
+           *)
+          if verbose then (
+            match t.target_estimated_size, t.target_actual_size with
+            | None, None | None, Some _ | Some _, None | Some _, Some 0L -> ()
+            | Some estimate, Some actual ->
+              let pc =
+                100. *. Int64.to_float estimate /. Int64.to_float actual
+                -. 100. in
+              printf "%s: estimate %Ld (%s) versus actual %Ld (%s): %.1f%%"
+                t.target_overlay.ov_sd
+                estimate (human_size estimate)
+                actual (human_size actual)
+                pc;
+              if pc < 0. then printf " ! ESTIMATE TOO LOW !";
+              printf "\n";
+          );
+
+          t
       ) targets
     ) (* do_copy *) in
 
