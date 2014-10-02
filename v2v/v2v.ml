@@ -621,7 +621,7 @@ and actual_target_size target =
  * to get the used size in bytes.
  *)
 and du filename =
-  let cmd = sprintf "du -b %s | awk '{print $1}'" (quote filename) in
+  let cmd = sprintf "du --block-size=1 %s | awk '{print $1}'" (quote filename) in
   let lines = external_command ~prog cmd in
   (* Ignore errors because we want to avoid failures after copying. *)
   match lines with
