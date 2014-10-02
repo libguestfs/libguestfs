@@ -1419,16 +1419,6 @@ On Fedora, install C<kernel-debuginfo> for the C<vmlinux> file
 (containing symbols).  Make sure the symbols precisely match the
 kernel being used.
 
-=head3 network_bridge
-
-The libvirt backend supports:
-
- export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=virbrX
-
-This allows you to override the bridge that is connected to when the
-network is enabled.  The default is C<virbr0>.  See also
-L</guestfs_set_network>.
-
 =head2 ATTACHING TO RUNNING DAEMONS
 
 I<Note (1):> This is B<highly experimental> and has a tendency to eat

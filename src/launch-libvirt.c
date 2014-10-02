@@ -105,7 +105,6 @@ struct backend_libvirt_data {
   char *selinux_label;
   char *selinux_imagelabel;
   bool selinux_norelabel_disks;
-  char *network_bridge;
   char name[DOMAIN_NAME_LEN];   /* random name */
   bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
   unsigned long qemu_version;   /* qemu version (from libvirt) */
@@ -332,12 +331,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     guestfs_get_backend_setting (g, "internal_libvirt_imagelabel");
   data->selinux_norelabel_disks =
     guestfs___get_backend_setting_bool (g, "internal_libvirt_norelabel_disks");
-  if (g->enable_network) {
-    data->network_bridge =
-      guestfs_get_backend_setting (g, "network_bridge");
-    if (!data->network_bridge)
-      data->network_bridge = safe_strdup (g, "virbr0");
-  }
   guestfs_pop_error_handler (g);
 
   /* Locate and/or build the appliance. */
@@ -1267,19 +1260,6 @@ construct_libvirt_xml_devices (guestfs_h *g,
       } end_element ();
     } end_element ();
 
-    /* Connect to libvirt bridge (see: RHBZ#1148012). */
-    if (g->enable_network) {
-      start_element ("interface") {
-        attribute ("type", "bridge");
-        start_element ("source") {
-          attribute ("bridge", params->data->network_bridge);
-        } end_element ();
-        start_element ("model") {
-          attribute ("type", "virtio");
-        } end_element ();
-      } end_element ();
-    }
-
   } end_element (); /* </devices> */
 
   return 0;
@@ -1661,6 +1641,27 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
       attribute ("value", tmpdir);
     } end_element ();
 
+    /* Workaround because libvirt user networking cannot specify "net="
+     * parameter.
+     */
+    if (g->enable_network) {
+      start_element ("qemu:arg") {
+        attribute ("value", "-netdev");
+      } end_element ();
+
+      start_element ("qemu:arg") {
+        attribute ("value", "user,id=usernet,net=169.254.0.0/16");
+      } end_element ();
+
+      start_element ("qemu:arg") {
+        attribute ("value", "-device");
+      } end_element ();
+
+      start_element ("qemu:arg") {
+        attribute ("value", VIRTIO_NET ",netdev=usernet");
+      } end_element ();
+    }
+
     /* The qemu command line arguments requested by the caller. */
     for (hp = g->hv_params; hp; hp = hp->next) {
       start_element ("qemu:arg") {
@@ -1744,9 +1745,6 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
   data->selinux_label = NULL;
   free (data->selinux_imagelabel);
   data->selinux_imagelabel = NULL;
-
-  free (data->network_bridge);
-  data->network_bridge = NULL;
 
   free (data->uefi_code);
   data->uefi_code = NULL;
