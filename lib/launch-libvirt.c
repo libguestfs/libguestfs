@@ -126,7 +126,6 @@ struct backend_libvirt_data {
   char *selinux_label;
   char *selinux_imagelabel;
   bool selinux_norelabel_disks;
-  char *network_bridge;
   char name[DOMAIN_NAME_LEN];   /* random name */
   bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
   struct version libvirt_version; /* libvirt version */
@@ -167,7 +166,6 @@ static int is_blk (const char *path);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
 static void set_socket_create_context (guestfs_h *g);
 static void clear_socket_create_context (guestfs_h *g);
-static int check_bridge_exists (guestfs_h *g, const char *brname);
 
 #if HAVE_LIBSELINUX
 static void selinux_warning (guestfs_h *g, const char *func, const char *selinux_op, const char *data);
@@ -448,16 +446,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     guestfs_get_backend_setting (g, "internal_libvirt_imagelabel");
   data->selinux_norelabel_disks =
     guestfs_int_get_backend_setting_bool (g, "internal_libvirt_norelabel_disks");
-  if (g->enable_network) {
-    data->network_bridge =
-      guestfs_get_backend_setting (g, "network_bridge");
-    if (!data->network_bridge)
-      data->network_bridge = safe_strdup (g, "virbr0");
-  }
   guestfs_pop_error_handler (g);
-
-  if (g->enable_network && check_bridge_exists (g, data->network_bridge) == -1)
-    goto cleanup;
 
   /* Locate and/or build the appliance. */
   TRACE0 (launch_build_libvirt_appliance_start);
@@ -1308,19 +1297,6 @@ construct_libvirt_xml_devices (guestfs_h *g,
       } end_element ();
     } end_element ();
 
-    /* Connect to libvirt bridge (see: RHBZ#1148012). */
-    if (g->enable_network) {
-      start_element ("interface") {
-        attribute ("type", "bridge");
-        start_element ("source") {
-          attribute ("bridge", params->data->network_bridge);
-        } end_element ();
-        start_element ("model") {
-          attribute ("type", "virtio");
-        } end_element ();
-      } end_element ();
-    }
-
     /* Libvirt adds some devices by default.  Indicate to libvirt
      * that we don't want them.
      */
@@ -1725,6 +1701,27 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
       attribute ("value", tmpdir);
     } end_element ();
 
+    /* Workaround because libvirt user networking cannot specify "net="
+     * parameter.
+     */
+    if (g->enable_network) {
+      start_element ("qemu:arg") {
+        attribute ("value", "-netdev");
+      } end_element ();
+
+      start_element ("qemu:arg") {
+        attribute ("value", "user,id=usernet,net=169.254.0.0/16");
+      } end_element ();
+
+      start_element ("qemu:arg") {
+        attribute ("value", "-device");
+      } end_element ();
+
+      start_element ("qemu:arg") {
+        attribute ("value", VIRTIO_DEVICE_NAME ("virtio-net") ",netdev=usernet");
+      } end_element ();
+    }
+
     /* The qemu command line arguments requested by the caller. */
     for (hp = g->hv_params; hp; hp = hp->next) {
       start_element ("qemu:arg") {
@@ -1961,49 +1958,6 @@ is_blk (const char *path)
   return S_ISBLK (statbuf.st_mode);
 }
 
-static int
-is_dir (const char *path)
-{
-  struct stat statbuf;
-
-  if (stat (path, &statbuf) == -1)
-    return 0;
-  return S_ISDIR (statbuf.st_mode);
-}
-
-/* Used to check the network_bridge exists, or give a useful error
- * message.
- */
-static int
-check_bridge_exists (guestfs_h *g, const char *brname)
-{
-  CLEANUP_FREE char *path = NULL;
-
-  /* If this doesn't look like Linux, give up. */
-  if (!is_dir ("/sys/class/net"))
-    return 0;
-
-  /* Does the interface exist and is it a bridge? */
-  path = safe_asprintf (g, "/sys/class/net/%s/bridge", brname);
-  if (is_dir (path))
-    return 0;
-
-  error (g,
-         _("bridge ‘%s’ not found.  Try running:\n"
-           "\n"
-           "  brctl show\n"
-           "\n"
-           "to get a list of bridges on the host, and then selecting the\n"
-           "bridge you wish the appliance network to connect to using:\n"
-           "\n"
-           "  export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<bridge name>\n"
-           "\n"
-           "You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
-           "For further information see guestfs(3)."),
-         brname);
-  return -1;
-}
-
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
 {
@@ -2048,9 +2002,6 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
   data->selinux_label = NULL;
   free (data->selinux_imagelabel);
   data->selinux_imagelabel = NULL;
-
-  free (data->network_bridge);
-  data->network_bridge = NULL;
 
   for (i = 0; i < data->nr_secrets; ++i)
     free (data->secrets[i].secret);
