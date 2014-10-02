@@ -23,7 +23,7 @@
 set -e
 export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ690819_SH" ]; then
+if [ -n "$SKIP_TEST_NETWORK_SH" ]; then
     echo "$0: test skipped because environment variable is set."
     exit 77
 fi
