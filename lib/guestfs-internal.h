@@ -147,6 +147,17 @@
 #define MACHINE_TYPE "pseries"
 #endif
 
+/* Differences in qemu device names on ARMv7 (virtio-mmio), s/390x
+ * (CCW) vs normal hardware with PCI.
+ */
+#if defined(__arm__)
+#define VIRTIO_DEVICE_NAME(type) type "-device"
+#elif defined(__s390x__)
+#define VIRTIO_DEVICE_NAME(type) type "-ccw"
+#else
+#define VIRTIO_DEVICE_NAME(type) type "-pci"
+#endif
+
 /* Guestfs handle and associated structures. */
 
 /* State. */

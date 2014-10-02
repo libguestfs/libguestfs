@@ -49,17 +49,6 @@
 #include "guestfs_protocol.h"
 #include "qemuopts.h"
 
-/* Differences in qemu device names on ARMv7 (virtio-mmio), s/390x
- * (CCW) vs normal hardware with PCI.
- */
-#if defined(__arm__)
-#define VIRTIO_DEVICE_NAME(type) type "-device"
-#elif defined(__s390x__)
-#define VIRTIO_DEVICE_NAME(type) type "-ccw"
-#else
-#define VIRTIO_DEVICE_NAME(type) type "-pci"
-#endif
-
 /* Per-handle data. */
 struct backend_direct_data {
   pid_t pid;                    /* Qemu PID. */
