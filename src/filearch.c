@@ -103,6 +103,8 @@ canonical_elf_arch (guestfs_h *g, const char *elf_arch)
     r = "ppc";
   else if (strstr (elf_arch, "ARM aarch64"))
     r = "aarch64";
+  else if (strstr (elf_arch, "ARM"))
+    r = "arm";
   else
     r = elf_arch;
 

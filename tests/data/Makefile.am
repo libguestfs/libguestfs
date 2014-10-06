@@ -27,12 +27,14 @@ EXTRA_DIST = \
 	mbr-ext2-empty.img.gz \
 	empty known-1 known-2 known-3 known-4 known-5 \
 	bin-aarch64-dynamic \
+	bin-armv7-dynamic \
 	bin-i586-dynamic \
 	bin-sparc-dynamic \
 	bin-win32.exe \
 	bin-win64.exe \
 	bin-x86_64-dynamic \
 	lib-aarch64.so \
+	lib-armv7.so \
 	lib-i586.so \
 	lib-sparc.so \
 	lib-win32.dll \
@@ -52,12 +54,14 @@ images_files_src = \
 	$(srcdir)/known-4 \
 	$(srcdir)/known-5 \
 	$(srcdir)/bin-aarch64-dynamic \
+	$(srcdir)/bin-armv7-dynamic \
 	$(srcdir)/bin-i586-dynamic \
 	$(srcdir)/bin-sparc-dynamic \
 	$(srcdir)/bin-win32.exe \
 	$(srcdir)/bin-win64.exe \
 	$(srcdir)/bin-x86_64-dynamic \
 	$(srcdir)/lib-aarch64.so \
+	$(srcdir)/lib-armv7.so \
 	$(srcdir)/lib-i586.so \
 	$(srcdir)/lib-sparc.so \
 	$(srcdir)/lib-win32.dll \

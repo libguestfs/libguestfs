@@ -784,6 +784,8 @@ to specify the QEMU interface emulation to use at run time." };
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-aarch64-dynamic"]], "aarch64"), [];
       InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-armv7-dynamic"]], "arm"), [];
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-i586-dynamic"]], "i386"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-sparc-dynamic"]], "sparc"), [];
@@ -795,6 +797,8 @@ to specify the QEMU interface emulation to use at run time." };
         [["file_architecture"; "/bin-x86_64-dynamic"]], "x86_64"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-aarch64.so"]], "aarch64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-armv7.so"]], "arm"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-i586.so"]], "i386"), [];
       InitISOFS, Always, TestResultString (
@@ -847,6 +851,10 @@ Intel Itanium.
 =item \"ppc64\"
 
 64 bit Power PC.
+
+=item \"arm\"
+
+32 bit ARM.
 
 =item \"aarch64\"
 
