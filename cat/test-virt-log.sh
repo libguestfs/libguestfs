@@ -19,7 +19,32 @@
 export LANG=C
 set -e
 
+can_handle ()
+{
+    fn=$(basename $1)
+    case "$fn" in
+    fedora.img)
+        guestfish -a /dev/null run : available journal
+        ;;
+    *)
+        return 0
+        ;;
+    esac
+}
+
 # Read out the log files from the image using virt-log.
 for f in ../tests/guests/{fedora,debian,ubuntu}.img; do
-    if [ -s "$f" ]; then $VG virt-log -a "$f"; fi
+    echo "Trying $f ..."
+    if [ ! -s "$f" ]; then
+        echo "SKIP: empty file"
+        echo
+        continue
+    fi
+    if ! can_handle "$f"; then
+        echo "SKIP: cannot handle $f"
+        echo
+        continue
+    fi
+    $VG virt-log -a "$f"
+    echo
 done
