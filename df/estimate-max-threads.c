@@ -44,7 +44,7 @@ estimate_max_threads (void)
 
   /* Choose the number of threads based on the amount of free memory. */
   mbytes_str = read_line_from ("LANG=C free -m | "
-                               "grep 'buffers/cache' | awk '{print $NF}'");
+                               "grep '^Mem' | awk '{print $4+$6+$7}'");
   if (mbytes_str == NULL)
     return 1;
 
