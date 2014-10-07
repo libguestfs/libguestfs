@@ -20,7 +20,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
     features of qemu which make it run many times faster than before.
     virt-v2v(1) can import from: VMware vCenter, VMware OVA files, local
     disk files, libvirt, RHEL 5 Xen. It can output to: oVirt or Red Hat
-    Enterprise Virtualization (RHEV-M), OpenStack Glance, libvirt.
+    Enterprise Virtualization (RHEV-M), OpenStack Glance, libvirt, qemu,
+    local disk files.
 
     virt-log(1) is a new tool for listing log files from guests. It
     supports a variety of guests including Linux traditional, Linux using
@@ -33,9 +34,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
 
     virt-sysprep(1) will now remove: systemd journals, anaconda logs,
     lightdm logs, debian-installer files, apt logs, exim logs, ConsoleKit
-    logs, and several other log files. The virt-sysprep user-account
-    operation is now able to remove or keep particular user accounts. (Pino
-    Toscano).
+    logs, firewalld logs, grubby logs, proftpd logs, libvirt/libxml logs,
+    and several other log files. The virt-sysprep user-account operation is
+    now able to remove or keep particular user accounts. (Pino Toscano).
 
     New guestmount(1) --fd option, allowing you to run guestmount captive
     under another process.
@@ -52,6 +53,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
     allowing you to override automatic inspection of guests and instead
     specify where to mount partitions (Pino Toscano).
 
+    The virt tools now have coloured output: green for OK, red for errors,
+    blue for warnings.
+
   Language bindings
 
     You can build a Python distribution using make -C python sdist
@@ -67,9 +71,14 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
     Linux guests which do not have /etc/fstab can now be handled (Pino
     Toscano).
 
+    Minix is returned as minix (Pino Toscano).
+
   Architectures
 
     Aarch64 (64 bit ARM) support has been added.
+
+    Inspection and the guestfs_file_architecture call can now recognize arm
+    (32 bit) and aarch64 guests.
 
  Security
 
@@ -87,6 +96,12 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
       This was fixed in libguestfs ≥ 1.27.9 and the fix was backported to
       stable versions ≥ 1.26.2, ≥ 1.24.9, ≥ 1.22.10 and ≥ 1.20.13. (Thanks:
       Dan Berrange, Pino Toscano).
+
+    Shellshock (bash CVE-2014-6271)
+
+      This bash bug indirectly affects libguestfs. For more information
+      see:
+      https://www.redhat.com/archives/libguestfs/2014-September/msg00252.html
 
  API
 
@@ -108,6 +123,15 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
 
       Fetch precise journal times, see sd_journal_get_realtime_usec(3).
 
+    guestfs_lstatns
+
+    guestfs_lstatnslist
+
+    guestfs_statns
+
+      Enhanced versions of guestfs_lstat, guestfs_lstatlist, guestfs_stat
+      which return nanosecond timestamps.
+
  Build changes
 
     Libguestfs can now be built with qemu 2.x.
@@ -120,6 +144,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
     Flex and bison are now required dependencies.
 
  Internals
+
+    User-Mode Linux (UML) is no longer a supported backend (although still
+    available). It will be supported again once someone steps in and fixes
+    various regressions and brokenness in the UML (Linux) kernel.
 
     You can now connect gdb to qemu by specifying
     LIBGUESTFS_BACKEND_SETTINGS=gdb
@@ -148,7 +176,89 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
     command, virt-customize(1) --edit option and more is now shared between
     all these utilities (thanks Pino Toscano).
 
+    The FUSE tests were rewritten in C to ensure finer control over how
+    system calls are tested.
+
+    The update-bugs.sh script has been fixed so it should no longer create
+    an empty BUGS file if the Bugzilla server is unavailable.
+
+    The virt-resize(1) tests now use a stochastic method to ensure much
+    deeper and broader testing.
+
+    When the network is enabled, the appliance now uses DHCP to acquire an
+    IP address.
+
+    If libvirt is being used then the appliance will connect to virbr0 (can
+    be overridden by setting
+    LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<some_bridge>). This enables
+    full-featured network connections, with working ICMP, ping and so on.
+
  Bugs fixed
+
+    https://bugzilla.redhat.com/1148355
+
+      virt-filesystems: incorrect LVM vg name when listing Fedora 21 Alpha
+      Atomic image filesystems
+
+    https://bugzilla.redhat.com/1148072
+
+      Option missing --no-selinux-relabel
+
+    https://bugzilla.redhat.com/1148012
+
+      RFE: Allow qemu-bridge-helper to be used to implement
+      guestfs_set_network
+
+    https://bugzilla.redhat.com/1146815
+
+      virt-v2v prints warning: /files/etc/fstab/8/spec references unknown
+      device "cdrom"
+
+    https://bugzilla.redhat.com/1146275
+
+      regression setting root password with virt-builder/virt-customize
+
+    https://bugzilla.redhat.com/1146017
+
+      virt-v2v -v -x during windows guest conversion will hang at hivex:
+      hivex_open: used block id ……
+
+    https://bugzilla.redhat.com/1145995
+
+      Improve the error info when converting windows guest with unclean
+      file system
+
+    https://bugzilla.redhat.com/1144891
+
+      RFE: stat calls do not return nanosecond timestamps
+
+    https://bugzilla.redhat.com/1144766
+
+      futimens() is a no-op via guestmount
+
+    https://bugzilla.redhat.com/1144201
+
+      guestfish can not restore terminal's output colour when exit
+      guestfish, if the terminal's background colour is black then it will
+      make a inconvenient
+
+    https://bugzilla.redhat.com/1143949
+
+      virt-customize option '--password-crypto' do not work
+
+    https://bugzilla.redhat.com/1143887
+
+      Warning shows when converting guests to rhev:chown: changing
+      ownership of ‘/tmp/v2v.u48xag/*.ovf’: Invalid argument
+
+    https://bugzilla.redhat.com/1143883
+
+      warning shows when converting rhel7 guest:virt-v2v:could not update
+      grub2 console: aug_get: no matching node (ignored)
+
+    https://bugzilla.redhat.com/1143866
+
+      virt-v2v fails with error: cannot open Packages index using db5
 
     https://bugzilla.redhat.com/1142416
 
@@ -189,9 +299,17 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
 
       virt-sysprep option '--user-accounts' don't work well
 
+    https://bugzilla.redhat.com/1141145
+
+      virt-v2v fails to convert xen pv guests.
+
     https://bugzilla.redhat.com/1141113
 
       virt-v2v fails to convert esx guests
+
+    https://bugzilla.redhat.com/1140946
+
+      qemu-img shows error message for backing file twice
 
     https://bugzilla.redhat.com/1140894
 
@@ -282,6 +400,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
     https://bugzilla.redhat.com/1099490
 
       scrub-file can't handle link file
+
+    https://bugzilla.redhat.com/1099284
+
+      typo errors in man pages
 
     https://bugzilla.redhat.com/1098718
 
