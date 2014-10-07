@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-02 15:54+0100\n"
-"PO-Revision-Date: 2014-07-22 18:03+0000\n"
+"POT-Creation-Date: 2014-10-07 13:30+0100\n"
+"PO-Revision-Date: 2014-10-07 12:23+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
 "language/es/)\n"
@@ -1407,7 +1407,7 @@ msgid ""
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:143
+#: ../sysprep/sysprep_operation_logfiles.ml:147
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -1569,7 +1569,7 @@ msgid ""
 "recreate these files automatically if needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:141
+#: ../sysprep/sysprep_operation_logfiles.ml:145
 msgid "Remove many log files from the guest"
 msgstr ""
 
@@ -8000,12 +8000,12 @@ msgid ""
 "See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"
 msgstr ""
 
-#: src/filearch.c:161
+#: src/filearch.c:163
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "el tamaño de %s es irracional (%<PRIi64> bytes)"
 
-#: src/filearch.c:276
+#: src/filearch.c:278
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
