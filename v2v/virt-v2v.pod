@@ -4,9 +4,9 @@ virt-v2v - Convert a guest to use KVM
 
 =head1 SYNOPSIS
 
- virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest
+ virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest
 
- virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest \
+ virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest \
    -o rhev -os rhev.nfs:/export_domain --network rhevm
 
  virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
@@ -78,12 +78,12 @@ is only used when virt-v2v runs under VDSM control.
 
 =head2 Convert from VMware vCenter server to local libvirt
 
-You have a VMware vCenter server called C<esx.example.com>, a
+You have a VMware vCenter server called C<vcenter.example.com>, a
 datacenter called C<Datacenter>, and an ESXi hypervisor called
 C<esxi>.  You want to convert a guest called C<esx_guest> to run
 locally under libvirt.
 
- virt-v2v -ic vpx://example.com/Datacenter/esxi esx_guest
+ virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest
 
 In this case you will most likely have to run virt-v2v as C<root>,
 since it needs to talk to the system libvirt daemon and copy the guest
@@ -100,8 +100,8 @@ the location of the Export Storage Domain you should check the
 settings on your RHEV-M management console.  Guest network
 interface(s) are connected to the target network called C<rhevm>.
 
- virt-v2v -ic vpx://esx.example.com/Datacenter/esxi \
-   -o rhev -os rhev.nfs:/export_domain --network rhevm esx_guest
+ virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest \
+   -o rhev -os rhev.nfs:/export_domain --network rhevm
 
 In this case the host running virt-v2v acts as a B<conversion server>.
 
