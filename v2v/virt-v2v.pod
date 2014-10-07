@@ -654,17 +654,6 @@ Virt-v2v uses libvirt for access to vCenter, and therefore the input
 mode should be I<-i libvirt>.  As this is the default, you don't need
 to specify it on the command line.
 
-The libvirt URI of a vCenter server looks something like this:
-
- vpx://user@server/Datacenter/esxi
-
-where C<user@> is the (optional, but recommended) user to connect as,
-C<server> is the vCenter Server (I<not> hypervisor), C<Datacenter> is
-the name of the datacenter, and C<esxi> is the name of the ESXi
-hypervisor running the guest.
-
-For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
-
 =head2 ESX: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
 
 For Windows guests, you should remove VMware tools before conversion.
@@ -677,13 +666,74 @@ to start (which is also the reason that virt-v2v cannot remove them).
 This is not necessary for Linux guests, as virt-v2v is able to remove
 VMware tools.
 
+=head2 ESX: VCENTER URI
+
+The libvirt URI of a vCenter server looks something like this:
+
+ vpx://user@server/Datacenter/esxi
+
+where:
+
+=over 4
+
+=item C<user@>
+
+is the (optional, but recommended) user to connect as
+
+=item C<server>
+
+is the vCenter Server (I<not> hypervisor)
+
+=item C<Datacenter>
+
+is the name of the datacenter
+
+=item C<esxi>
+
+is the name of the ESXi hypervisor running the guest.
+
+=back
+
+If the VMware deployment is using clusters and/or folders, then these
+may need to be added to the URI, eg:
+
+ vpx://user@server/Datacenter/cluster1/esxi
+
+For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
+
+Typical errors from libvirt / virsh when the URI is wrong include:
+
+=over 4
+
+=item *
+
+Could not find datacenter specified in [...]
+
+=item *
+
+Could not find compute resource specified in [...]
+
+=item *
+
+Path [...] does not specify a compute resource
+
+=item *
+
+Path [...] does not specify a host system
+
+=item *
+
+Could not find host system specified in [...]
+
+=back
+
 =head2 ESX: TEST LIBVIRT CONNECTION TO VCENTER
 
 Use the L<virsh(1)> command to list the guests on the vCenter Server
 like this:
 
- $ virsh -c 'vpx://root@esx.example.com/Datacenter/esxi' list --all
- Enter root's password for esx.example.com: ***
+ $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' list --all
+ Enter root's password for vcenter.example.com: ***
  
   Id    Name                           State
  ----------------------------------------------------
@@ -695,12 +745,12 @@ given CA certificates" or similar, then you can either import the ESX
 host's certificate, or bypass signature verification by adding the
 C<?no_verify=1> flag:
 
- $ virsh -c 'vpx://root@esx.example.com/Datacenter/esxi?no_verify=1' list --all
+ $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' list --all
 
 You should also try dumping the metadata from any guest on your
 server, like this:
 
- $ virsh -c 'vpx://root@esx.example.com/Datacenter/esxi' dumpxml "Windows 2003"
+ $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' dumpxml "Windows 2003"
  <domain type='vmware'>
    <name>Windows 2003</name>
    [...]
@@ -714,7 +764,7 @@ vCenter Server before continuing.
 
 To import a particular guest from vCenter Server, do:
 
- $ virt-v2v -ic 'vpx://root@esx.example.com/Datacenter/esxi?no_verify=1' \
+ $ virt-v2v -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \
    "Windows 2003" \
    -o local -os /var/tmp
 
