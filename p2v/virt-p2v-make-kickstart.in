@@ -124,7 +124,7 @@ repo --name=koji --baseurl=http://koji.fedoraproject.org/repos/rawhide/latest/\$
             ;;
         *)
             # A custom repo is just a URL.
-            ((i++))
+            ((i++)) ||:
             repos="$repos
 repo --name=custom$i --baseurl=$repo $proxy
 "
