@@ -278,6 +278,11 @@ by a comma-separated list of their mount point(s) in the guest).
 Typically you would use I<--no-trim /boot> to work around the grub bug
 mentioned above.
 
+You can also disable trimming on partitions using the libguestfs
+naming scheme for devices, eg: I<--no-trim /dev/sdb2> means do not
+trim the second partition on the second block device.  Use
+L<virt-filesystems(1)> to list filesystem names in a guest.
+
 =item B<-o disk>
 
 This is the same as I<-o local>.

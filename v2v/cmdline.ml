@@ -88,9 +88,9 @@ let parse_cmdline () =
       List.iter (
         fun mp ->
           if String.length mp = 0 then
-            error (f_"--no-trim: empty mountpoint");
+            error (f_"--no-trim: empty parameter");
           if mp.[0] <> '/' then
-            error (f_"--no-trim: %s: mountpoint does not begin with '/'") mp;
+            error (f_"--no-trim: %s: mountpoint/device name does not begin with '/'") mp;
       ) mps;
       no_trim := mps
   in

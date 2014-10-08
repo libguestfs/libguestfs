@@ -256,20 +256,15 @@ let rec main () =
       printf (f_"This guest does not have virtio drivers installed.\n%!");
   );
 
+  g#umount_all ();
+
   if no_trim <> ["*"] && (do_copy || debug_overlays) then (
     (* Doing fstrim on all the filesystems reduces the transfer size
      * because unused blocks are marked in the overlay and thus do
      * not have to be copied.
      *)
     msg (f_"Mapping filesystem data to avoid copying unused and blank areas");
-    let mps = g#mountpoints () in
-    List.iter (
-      fun (_, mp) ->
-        if not (List.mem mp no_trim) then (
-          try g#fstrim mp
-          with G.Error msg -> warning ~prog (f_"%s: %s (ignored)") mp msg
-        )
-    ) mps
+    do_fstrim ~verbose g no_trim inspect;
   );
 
   msg (f_"Closing the overlay");
@@ -505,6 +500,7 @@ and inspect_source g root_choice =
     i_package_management = g#inspect_get_package_management root;
     i_product_name = g#inspect_get_product_name root;
     i_product_variant = g#inspect_get_product_variant root;
+    i_mountpoints = mps;
     i_apps = apps;
     i_apps_map = apps_map; }
 
@@ -536,6 +532,60 @@ and check_free_space mpstats =
         error (f_"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < %Ld bytes needed")
           mp free_bytes needed_bytes
   ) mpstats
+
+(* Perform the fstrim.  The trimming bit is easy.  Dealing with the
+ * [--no-trim] parameter .. not so much.
+ *)
+and do_fstrim ~verbose g no_trim inspect =
+  (* Get all filesystems. *)
+  let fses = g#list_filesystems () in
+
+  let fses = filter_map (
+    function (_, ("unknown"|"swap")) -> None | (dev, _) -> Some dev
+  ) fses in
+
+  let fses =
+    if no_trim = [] then fses
+    else (
+      if verbose then (
+        printf "no_trim: %s\n" (String.concat " " no_trim);
+        printf "filesystems before considering no_trim: %s\n"
+          (String.concat " " fses)
+      );
+
+      (* Drop any filesystems that match a device name in the no_trim list. *)
+      let fses = List.filter (
+        fun dev ->
+          not (List.mem (g#canonical_device_name dev) no_trim)
+      ) fses in
+
+      (* Drop any mountpoints matching the no_trim list. *)
+      let dev_to_mp =
+        List.map (fun (mp, dev) -> g#canonical_device_name dev, mp)
+          inspect.i_mountpoints in
+      let fses = List.filter (
+        fun dev ->
+          try not (List.mem (List.assoc dev dev_to_mp) no_trim)
+          with Not_found -> true
+      ) fses in
+
+      if verbose then
+        printf "filesystems after considering no_trim: %s\n%!"
+          (String.concat " " fses);
+
+      fses
+    ) in
+
+  (* Trim the remaining filesystems. *)
+  List.iter (
+    fun dev ->
+      g#umount_all ();
+      let mounted = try g#mount dev "/"; true with G.Error _ -> false in
+      if mounted then (
+        try g#fstrim "/"
+        with G.Error msg -> warning ~prog (f_"%s (ignored)") msg
+      )
+  ) fses
 
 (* Estimate the space required on the target for each disk.  It is the
  * maximum space that might be required, but in reasonable cases much

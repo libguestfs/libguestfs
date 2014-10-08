@@ -167,6 +167,7 @@ type inspect = {
   i_package_management : string;
   i_product_name : string;
   i_product_variant : string;
+  i_mountpoints : (string * string) list;
   i_apps : Guestfs.application2 list;
   i_apps_map : Guestfs.application2 list StringMap.t;
 }
