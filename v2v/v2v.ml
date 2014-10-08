@@ -35,6 +35,12 @@ type mpstat = {
   mp_vfs : string;                      (* VFS type (eg. "ext4") *)
 }
 
+let print_mpstat chan { mp_dev = dev; mp_path = path;
+                        mp_statvfs = s; mp_vfs = vfs } =
+  fprintf chan "mountpoint statvfs %s %s (%s):\n" dev path vfs;
+  fprintf chan "  bsize=%Ld blocks=%Ld bfree=%Ld bavail=%Ld\n"
+    s.G.bsize s.G.blocks s.G.bfree s.G.bavail
+
 let () = Random.self_init ()
 
 let rec main () =
@@ -205,6 +211,12 @@ let rec main () =
       let vfs = g#vfs_type dev in
       { mp_dev = dev; mp_path = path; mp_statvfs = statvfs; mp_vfs = vfs }
   ) (g#mountpoints ()) in
+
+  if verbose then (
+    (* This is useful for debugging speed / fstrim issues. *)
+    printf "mpstats:\n";
+    List.iter (print_mpstat Pervasives.stdout) mpstats
+  );
 
   (* Check there is enough free space to perform conversion. *)
   msg (f_"Checking for sufficient free disk space in the guest");
