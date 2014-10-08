@@ -199,6 +199,12 @@ let rec mapi i f =
     r :: mapi (i + 1) f l
 let mapi f l = mapi 0 f l
 
+let rec combine3 xs ys zs =
+  match xs, ys, zs with
+  | [], [], [] -> []
+  | x::xs, y::ys, z::zs -> (x, y, z) :: combine3 xs ys zs
+  | _ -> invalid_arg "combine3"
+
 (* ANSI terminal colours. *)
 let ansi_green ?(chan = stdout) () =
   if TTY.isatty_stdout () then output_string chan "\x1b[0;32m"

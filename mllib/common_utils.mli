@@ -53,6 +53,9 @@ val iteri : (int -> 'a -> 'b) -> 'a list -> unit
 val mapi : (int -> 'a -> 'b) -> 'a list -> 'b list
 (** Various higher-order functions. *)
 
+val combine3 : 'a list -> 'b list -> 'c list -> ('a * 'b * 'c) list
+(** Like {!List.combine} but for triples.  All lists must be the same length. *)
+
 val make_message_function : quiet:bool -> ('a, unit, string, unit) format4 -> 'a
 (** Timestamped progress messages.  Used for ordinary messages when
     not [--quiet]. *)
