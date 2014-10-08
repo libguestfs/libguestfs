@@ -45,6 +45,6 @@ for f in ../tests/guests/{fedora,debian,ubuntu}.img; do
         echo
         continue
     fi
-    $VG virt-log -a "$f" |& cat
+    $VG virt-log -a "$f"
     echo
 done
