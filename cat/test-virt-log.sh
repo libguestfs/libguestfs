@@ -32,6 +32,8 @@ can_handle ()
     esac
 }
 
+tmpfile=`mktemp`
+
 # Read out the log files from the image using virt-log.
 for f in ../tests/guests/{fedora,debian,ubuntu}.img; do
     echo "Trying $f ..."
@@ -45,6 +47,9 @@ for f in ../tests/guests/{fedora,debian,ubuntu}.img; do
         echo
         continue
     fi
-    $VG virt-log -a "$f"
+    $VG virt-log -a "$f" &> $tmpfile
+    cat $tmpfile
     echo
 done
+
+rm -f $tmpfile
