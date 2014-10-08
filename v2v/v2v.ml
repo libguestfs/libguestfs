@@ -337,13 +337,31 @@ let rec main () =
               (quote t.target_format) (quote overlay_file)
               (quote t.target_file) in
           if verbose then printf "%s\n%!" cmd;
+          let start_time = gettimeofday () in
           if Sys.command cmd <> 0 then
             error (f_"qemu-img command failed, see earlier errors");
+          let end_time = gettimeofday () in
 
           (* Calculate the actual size on the target, returns an updated
            * target structure.
            *)
           let t = actual_target_size t in
+
+          (* If verbose, print the virtual and real copying rates. *)
+          let elapsed_time = end_time -. start_time in
+          if verbose && elapsed_time > 0. then (
+            let rate =
+              Int64.to_float t.target_overlay.ov_virtual_size
+              /. 1024. /. 1024. *. 10. /. elapsed_time in
+            printf "virtual copying rate: %.1f M bits/sec\n%!" rate;
+
+            match t.target_actual_size with
+            | None -> ()
+            | Some actual ->
+              let rate =
+                Int64.to_float actual /. 1024. /. 1024. *. 10. /. elapsed_time in
+              printf "real copying rate: %.1f M bits/sec\n%!" rate
+          );
 
           (* If verbose, find out how close the estimate was.  This is
            * for developer information only - so we can increase the
@@ -362,7 +380,7 @@ let rec main () =
                 actual (human_size actual)
                 pc;
               if pc < 0. then printf " ! ESTIMATE TOO LOW !";
-              printf "\n";
+              printf "\n%!";
           );
 
           t
