@@ -393,7 +393,12 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
 
       (* Add disk to VirtualHardware. *)
       let item =
+        (* This text MUST begin with the string "Drive " or the file
+         * will not parse.
+         *)
+        let caption = sprintf "Drive %d" (i+1) in
         e "Item" [] [
+          e "rasd:Caption" [] [PCData caption];
           e "rasd:InstanceId" [] [PCData vol_uuid];
           e "rasd:ResourceType" [] [PCData "17"];
           e "rasd:HostResource" [] [PCData fileref];
