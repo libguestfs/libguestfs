@@ -91,7 +91,8 @@ let parse_cmdline () =
             error (f_"--no-trim: empty mountpoint");
           if mp.[0] <> '/' then
             error (f_"--no-trim: %s: mountpoint does not begin with '/'") mp;
-      ) mps
+      ) mps;
+      no_trim := mps
   in
 
   let output_mode = ref `Not_set in
