@@ -131,20 +131,17 @@ object
   val mutable esd_mp = ""
   val mutable esd_uuid = ""
 
-  (* Target image directory, UUID. *)
-  val mutable image_dir = ""
-  val mutable image_uuid = ""
-
   (* Target VM UUID. *)
   val mutable vm_uuid = ""
 
-  (* Volume UUIDs.  The length of this list will be the same as the
-   * list of targets.
+  (* Image and volume UUIDs.  The length of these lists will be the
+   * same as the list of targets.
    *)
+  val mutable image_uuids = []
   val mutable vol_uuids = []
 
-  (* Flag to indicate if the target image (image_dir) should be
-   * deleted.  This is set to false once we know the conversion was
+  (* Flag to indicate if the target image dir(s) should be deleted.
+   * This is set to false once we know the conversion was
    * successful.
    *)
   val mutable delete_target_directory = true
@@ -189,37 +186,46 @@ object
       ) in
 
     (* Create unique UUIDs for everything *)
-    image_uuid <- uuidgen ~prog ();
     vm_uuid <- uuidgen ~prog ();
-    (* Generate random volume UUIDs for each target. *)
+    (* Generate random image and volume UUIDs for each target. *)
+    image_uuids <-
+      List.map (
+        fun _ -> uuidgen ~prog ()
+      ) targets;
     vol_uuids <-
       List.map (
         fun _ -> uuidgen ~prog ()
       ) targets;
 
-    (* We need to create the target image directory so there's a place
+    (* We need to create the target image director(ies) so there's a place
      * for the main program to copy the images to.  However if image
      * conversion fails for any reason then we delete this directory.
      *)
-    image_dir <- esd_mp // esd_uuid // "images" // image_uuid;
-    Kvmuid.mkdir kvmuid_t image_dir 0o755;
+    let images_dir = esd_mp // esd_uuid // "images" in
+    List.iter (
+      fun image_uuid ->
+        let d = images_dir // image_uuid in
+        Kvmuid.mkdir kvmuid_t d 0o755
+    ) image_uuids;
     at_exit (fun () ->
       if delete_target_directory then (
-        let cmd = sprintf "rm -rf %s" (quote image_dir) in
-        Kvmuid.command kvmuid_t cmd
+        List.iter (
+          fun image_uuid ->
+            let d = images_dir // image_uuid in
+            let cmd = sprintf "rm -rf %s" d in
+            Kvmuid.command kvmuid_t cmd
+        ) image_uuids
       )
     );
-    if verbose then
-      eprintf "RHEV: image directory: %s\n%!" image_dir;
 
     (* The final directory structure should look like this:
-     *   /<MP>/<ESD_UUID>/images/<IMAGE_UUID>/
-     *      <VOL_UUID_1>        # first disk - will be created by main code
-     *      <VOL_UUID_1>.meta   # first disk
-     *      <VOL_UUID_2>        # second disk - will be created by main code
-     *      <VOL_UUID_2>.meta   # second disk
-     *      <VOL_UUID_3>        # etc
-     *      <VOL_UUID_3>.meta   #
+     *   /<MP>/<ESD_UUID>/images/
+     *      <IMAGE_UUID_1>/<VOL_UUID_1>        # first disk (gen'd by main code)
+     *      <IMAGE_UUID_1>/<VOL_UUID_1>.meta   # first disk
+     *      <IMAGE_UUID_2>/<VOL_UUID_2>        # second disk
+     *      <IMAGE_UUID_2>/<VOL_UUID_2>.meta   # second disk
+     *      <IMAGE_UUID_3>/<VOL_UUID_3>        # etc
+     *      <IMAGE_UUID_3>/<VOL_UUID_3>.meta   #
      *)
 
     (* Generate the randomly named target files (just the names).
@@ -227,19 +233,19 @@ object
      *)
     let targets =
       List.map (
-        fun ({ target_overlay = ov } as t, vol_uuid) ->
+        fun ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
           let ov_sd = ov.ov_sd in
-          let target_file = image_dir // vol_uuid in
+          let target_file = images_dir // image_uuid // vol_uuid in
 
           if verbose then
             eprintf "RHEV: will export %s to %s\n%!" ov_sd target_file;
 
           { t with target_file = target_file }
-      ) (List.combine targets vol_uuids) in
+      ) (combine3 targets image_uuids vol_uuids) in
 
     (* Generate the .meta file associated with each volume. *)
     let metas =
-      Lib_ovf.create_meta_files verbose output_alloc esd_uuid image_uuid
+      Lib_ovf.create_meta_files verbose output_alloc esd_uuid image_uuids
         targets in
     List.iter (
       fun ({ target_file = target_file }, meta) ->
@@ -273,7 +279,7 @@ object
   method create_metadata source targets guestcaps inspect =
     (* Create the metadata. *)
     let ovf = Lib_ovf.create_ovf verbose source targets guestcaps inspect
-      output_alloc vmtype esd_uuid image_uuid vol_uuids vm_uuid in
+      output_alloc vmtype esd_uuid image_uuids vol_uuids vm_uuid in
 
     (* Write it to the metadata file. *)
     let dir = esd_mp // esd_uuid // "master" // "vms" // vm_uuid in

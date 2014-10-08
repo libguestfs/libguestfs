@@ -19,7 +19,7 @@
 (** [-o vdsm] target. *)
 
 type vdsm_params = {
-  image_uuid : string;                (* --vdsm-image-uuid *)
+  image_uuids : string list;          (* --vdsm-image-uuid (multiple) *)
   vol_uuids : string list;            (* --vdsm-vol-uuid (multiple) *)
   vm_uuid : string;                   (* --vdsm-vm-uuid *)
 }

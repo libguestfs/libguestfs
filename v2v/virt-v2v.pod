@@ -483,7 +483,8 @@ control:
 
 =item *
 
-the image directory (I<--vdsm-image-uuid>)
+the image directory of each guest disk (I<--vdsm-image-uuid>) (this
+option is passed once for each guest disk)
 
 =item *
 

@@ -27,7 +27,7 @@ open Utils
 open DOM
 
 type vdsm_params = {
-  image_uuid : string;
+  image_uuids : string list;
   vol_uuids : string list;
   vm_uuid : string;
 }
@@ -37,8 +37,9 @@ object
   inherit output verbose
 
   method as_options =
-    sprintf "-o vdsm -os %s --vdsm-image-uuid %s%s --vdsm-vm-uuid %s%s" os
-      vdsm_params.image_uuid
+    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s%s" os
+      (String.concat ""
+         (List.map (sprintf " --vdsm-image-uuid %s") vdsm_params.image_uuids))
       (String.concat ""
          (List.map (sprintf " --vdsm-vol-uuid %s") vdsm_params.vol_uuids))
       vdsm_params.vm_uuid
@@ -55,9 +56,6 @@ object
   (* Data Domain mountpoint. *)
   val mutable dd_mp = ""
   val mutable dd_uuid = ""
-
-  (* Target image directory. *)
-  val mutable image_dir = ""
 
   (* Target metadata directory. *)
   val mutable ovf_dir = ""
@@ -76,8 +74,9 @@ object
    * displaying errors there.
    *)
   method prepare_targets _ targets =
-    if List.length vdsm_params.vol_uuids <> List.length targets then
-      error (f_"the number of '--vdsm-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
+    if List.length vdsm_params.image_uuids <> List.length targets ||
+      List.length vdsm_params.vol_uuids <> List.length targets then
+      error (f_"the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
         (List.length targets);
 
     let mp, uuid =
@@ -88,14 +87,15 @@ object
       eprintf "VDSM: DD mountpoint: %s\nVDSM: DD UUID: %s\n%!"
         dd_mp dd_uuid;
 
-    (* Note that VDSM has to create this directory. *)
-    image_dir <- dd_mp // dd_uuid // "images" // vdsm_params.image_uuid;
-    if not (is_directory image_dir) then
-      error (f_"image directory (%s) does not exist or is not a directory")
-        image_dir;
-
-    if verbose then
-      eprintf "VDSM: image directory: %s\n%!" image_dir;
+    (* Note that VDSM has to create all these directories. *)
+    let images_dir = dd_mp // dd_uuid // "images" in
+    List.iter (
+      fun image_uuid ->
+        let d = images_dir // image_uuid in
+        if not (is_directory d) then
+          error (f_"image directory (%s) does not exist or is not a directory")
+            d
+    ) vdsm_params.image_uuids;
 
     (* Note that VDSM has to create this directory too. *)
     ovf_dir <- dd_mp // dd_uuid // "master" // "vms" // vdsm_params.vm_uuid;
@@ -107,32 +107,32 @@ object
       eprintf "VDSM: OVF (metadata) directory: %s\n%!" ovf_dir;
 
     (* The final directory structure should look like this:
-     *   /<MP>/<ESD_UUID>/images/<IMAGE_UUID>/
-     *      <VOL_UUID_1>        # first disk - will be created by main code
-     *      <VOL_UUID_1>.meta   # first disk
-     *      <VOL_UUID_2>        # second disk - will be created by main code
-     *      <VOL_UUID_2>.meta   # second disk
-     *      <VOL_UUID_3>        # etc
-     *      <VOL_UUID_3>.meta   #
+     *   /<MP>/<ESD_UUID>/images/
+     *      <IMAGE_UUID_1>/<VOL_UUID_1>        # first disk (gen'd by main code)
+     *      <IMAGE_UUID_1>/<VOL_UUID_1>.meta   # first disk
+     *      <IMAGE_UUID_2>/<VOL_UUID_2>        # second disk
+     *      <IMAGE_UUID_2>/<VOL_UUID_2>.meta   # second disk
+     *      <IMAGE_UUID_3>/<VOL_UUID_3>        # etc
+     *      <IMAGE_UUID_3>/<VOL_UUID_3>.meta   #
      *)
 
     (* Create the target filenames. *)
     let targets =
       List.map (
-        fun ({ target_overlay = ov } as t, vol_uuid) ->
+        fun ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
           let ov_sd = ov.ov_sd in
-          let target_file = image_dir // vol_uuid in
+          let target_file = images_dir // image_uuid // vol_uuid in
 
           if verbose then
             eprintf "VDSM: will export %s to %s\n%!" ov_sd target_file;
 
           { t with target_file = target_file }
-      ) (List.combine targets vdsm_params.vol_uuids) in
+      ) (combine3 targets vdsm_params.image_uuids vdsm_params.vol_uuids) in
 
     (* Generate the .meta files associated with each volume. *)
     let metas =
       Lib_ovf.create_meta_files verbose output_alloc dd_uuid
-        vdsm_params.image_uuid targets in
+        vdsm_params.image_uuids targets in
     List.iter (
       fun ({ target_file = target_file }, meta) ->
         let meta_filename = target_file ^ ".meta" in
@@ -159,7 +159,7 @@ object
     (* Create the metadata. *)
     let ovf = Lib_ovf.create_ovf verbose source targets guestcaps inspect
       output_alloc vmtype dd_uuid
-      vdsm_params.image_uuid
+      vdsm_params.image_uuids
       vdsm_params.vol_uuids
       vdsm_params.vm_uuid in
 

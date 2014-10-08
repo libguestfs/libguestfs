@@ -150,7 +150,7 @@ and get_ostype = function
     "Unassigned"
 
 (* Generate the .meta file associated with each volume. *)
-let create_meta_files verbose output_alloc sd_uuid image_uuid targets =
+let create_meta_files verbose output_alloc sd_uuid image_uuids targets =
   (* Note: Upper case in the .meta, mixed case in the OVF. *)
   let output_alloc_for_rhev =
     match output_alloc with
@@ -158,7 +158,7 @@ let create_meta_files verbose output_alloc sd_uuid image_uuid targets =
     | `Preallocated -> "PREALLOCATED" in
 
   List.map (
-    fun ({ target_overlay = ov } as t) ->
+    fun ({ target_overlay = ov } as t, image_uuid) ->
       let size_in_sectors =
         if ov.ov_virtual_size &^ 511L <> 0L then
           error (f_"the virtual size of the input disk %s is not an exact multiple of 512 bytes.  The virtual size is: %Ld.\n\nThis probably means something unexpected is going on, so please file a bug about this issue.")
@@ -190,11 +190,11 @@ let create_meta_files verbose output_alloc sd_uuid image_uuid targets =
       bpf "DESCRIPTION=%s\n" title;
       bpf "EOF\n";
       Buffer.contents buf
-  ) targets
+  ) (List.combine targets image_uuids)
 
 (* Create the OVF file. *)
 let rec create_ovf verbose source targets guestcaps inspect
-    output_alloc vmtype sd_uuid image_uuid vol_uuids vm_uuid =
+    output_alloc vmtype sd_uuid image_uuids vol_uuids vm_uuid =
   assert (List.length targets = List.length vol_uuids);
 
   let memsize_mb = source.s_memory /^ 1024L /^ 1024L in
@@ -278,7 +278,7 @@ let rec create_ovf verbose source targets guestcaps inspect
     ] in
 
   (* Add disks to the OVF XML. *)
-  add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf;
+  add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf;
 
   (* Old virt-v2v ignored removable media. XXX *)
 
@@ -303,7 +303,7 @@ and append_child child = function
   | Element e -> e.e_children <- e.e_children @ [child]
 
 (* This modifies the OVF DOM, adding a section for each disk. *)
-and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
+and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
   let references =
     let nodes = path_to_nodes ovf ["ovf:Envelope"; "References"] in
     match nodes with
@@ -320,7 +320,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
 
   (* Iterate over the disks, adding them to the OVF document. *)
   iteri (
-    fun i ({ target_overlay = ov } as t, vol_uuid) ->
+    fun i ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
       let is_boot_drive = i == 0 in
 
       let fileref = image_uuid // vol_uuid in
@@ -412,7 +412,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuid vol_uuids ovf =
           e "rasd:last_modified_date" [] [PCData iso_time];
         ] in
       append_child item virtualhardware_section;
-  ) (List.combine targets vol_uuids)
+  ) (combine3 targets image_uuids vol_uuids)
 
 (* This modifies the OVF DOM, adding a section for each NIC. *)
 and add_networks nics guestcaps ovf =
