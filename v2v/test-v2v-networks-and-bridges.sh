@@ -56,10 +56,10 @@ $VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o local -os $d --no-copy \
     --bridge "VM Network:bridge1" \
-    --bridge bridge2 \
+    -b bridge2 \
     --network default:network1 \
     --network john:network2 \
-    --network paul:network3 \
+    -n paul:network3 \
     --network network4
 
 # Test the libvirt XML metadata was created.

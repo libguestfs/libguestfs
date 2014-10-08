@@ -152,6 +152,8 @@ qemu, do:
 
 Display help.
 
+=item B<-b> ...
+
 =item B<--bridge> ...
 
 See I<--network> below.
@@ -231,9 +233,17 @@ This option is used to make the output more machine friendly
 when being parsed by other programs.  See
 L</MACHINE READABLE OUTPUT> below.
 
+=item B<-n> in:out
+
+=item B<-n> out
+
 =item B<--network> in:out
 
 =item B<--network> out
+
+=item B<-b> in:out
+
+=item B<-b> out
 
 =item B<--bridge> in:out
 
