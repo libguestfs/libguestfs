@@ -1,0 +1,402 @@
+I exported a 2-disk guest from RHEV-M 3.4.0 to see what files it
+creates in the Export Storage Domain, and this document summarises the
+results of that.
+
+----------------------------------------------------------------------
+
+File layout in ESD:
+
+./master/vms/723e029d-4154-40c7-92b7-5090aee986e0/723e029d-4154-40c7-92b7-5090aee986e0.ovf
+
+First guest disk (20G):
+
+./images/2717b56e-fe78-4575-a6a9-76b6dec7c796/150850e7-51ab-4dac-9547-30b2fbc817fc.meta
+./images/2717b56e-fe78-4575-a6a9-76b6dec7c796/150850e7-51ab-4dac-9547-30b2fbc817fc
+
+Second guest disk (2G):
+
+./images/834b8284-9100-41a8-a575-a2303cd0186d/6bcc6613-cf96-4533-a036-bd2f415443fe
+./images/834b8284-9100-41a8-a575-a2303cd0186d/6bcc6613-cf96-4533-a036-bd2f415443fe.meta
+
+----------------------------------------------------------------------
+
+Contents of OVF:
+
+<?xml version='1.0' encoding='utf-8'?>
+<ovf:Envelope xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1/"
+xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ovf:version="3.4.0.0">
+  <References>
+    <File ovf:href="2717b56e-fe78-4575-a6a9-76b6dec7c796/150850e7-51ab-4dac-9547-30b2fbc817fc"
+    ovf:id="150850e7-51ab-4dac-9547-30b2fbc817fc"
+    ovf:size="21474836480" ovf:description="Active VM" />
+    <File ovf:href="834b8284-9100-41a8-a575-a2303cd0186d/6bcc6613-cf96-4533-a036-bd2f415443fe"
+    ovf:id="6bcc6613-cf96-4533-a036-bd2f415443fe"
+    ovf:size="2147483648" ovf:description="Active VM" />
+    <Nic ovf:id="4e9a951b-08ce-48a7-9dfc-1e6daf2d684c" />
+  </References>
+  <Section xsi:type="ovf:NetworkSection_Type">
+    <Info>List of networks</Info>
+    <Network ovf:name="Network 1" />
+  </Section>
+  <Section xsi:type="ovf:DiskSection_Type">
+    <Info>List of Virtual Disks</Info>
+    <Disk ovf:diskId="150850e7-51ab-4dac-9547-30b2fbc817fc"
+    ovf:size="20" ovf:actual_size="3"
+    ovf:vm_snapshot_id="18d67202-603d-4381-a904-4d19adef3281"
+    ovf:parentRef=""
+    ovf:fileRef="2717b56e-fe78-4575-a6a9-76b6dec7c796/150850e7-51ab-4dac-9547-30b2fbc817fc"
+    ovf:format="http://www.vmware.com/specifications/vmdk.html#sparse"
+    ovf:volume-format="RAW" ovf:volume-type="Sparse"
+    ovf:disk-interface="VirtIO_SCSI" ovf:boot="true"
+    ovf:disk-alias="fedora20_Disk1"
+    ovf:wipe-after-delete="false" />
+    <Disk ovf:diskId="6bcc6613-cf96-4533-a036-bd2f415443fe"
+    ovf:size="2" ovf:actual_size="0"
+    ovf:vm_snapshot_id="18d67202-603d-4381-a904-4d19adef3281"
+    ovf:parentRef=""
+    ovf:fileRef="834b8284-9100-41a8-a575-a2303cd0186d/6bcc6613-cf96-4533-a036-bd2f415443fe"
+    ovf:format="http://www.vmware.com/specifications/vmdk.html#sparse"
+    ovf:volume-format="RAW" ovf:volume-type="Sparse"
+    ovf:disk-interface="VirtIO" ovf:boot="false"
+    ovf:disk-alias="fedora20_Disk2"
+    ovf:wipe-after-delete="false" />
+  </Section>
+  <Content ovf:id="out" xsi:type="ovf:VirtualSystem_Type">
+    <Description></Description>
+    <CreationDate>2014/07/31 21:14:14</CreationDate>
+    <ExportDate>2014/10/08 13:33:46</ExportDate>
+    <DeleteProtected>false</DeleteProtected>
+    <SsoMethod>guest_agent</SsoMethod>
+    <IsSmartcardEnabled>false</IsSmartcardEnabled>
+    <TimeZone></TimeZone>
+    <default_boot_sequence>9</default_boot_sequence>
+    <Generation>4</Generation>
+    <VmType>1</VmType>
+    <MinAllocatedMem>1024</MinAllocatedMem>
+    <IsStateless>false</IsStateless>
+    <IsRunAndPause>false</IsRunAndPause>
+    <AutoStartup>false</AutoStartup>
+    <Priority>1</Priority>
+    <CreatedByUserId>
+    fdfc627c-d875-11e0-90f0-83df133b58cc</CreatedByUserId>
+    <VmInit ovf:regenerateKeys="false" ovf:networks="[ ]"
+    ovf:customScript="" />
+    <Name>fedora20</Name>
+    <TemplateId>00000000-0000-0000-0000-000000000000</TemplateId>
+    <TemplateName>Blank</TemplateName>
+    <IsInitilized>true</IsInitilized>
+    <Origin>3</Origin>
+    <DefaultDisplayType>1</DefaultDisplayType>
+    <TrustedService>false</TrustedService>
+    <OriginalTemplateId>
+    00000000-0000-0000-0000-000000000000</OriginalTemplateId>
+    <OriginalTemplateName>Blank</OriginalTemplateName>
+    <UseLatestVersion>false</UseLatestVersion>
+    <Section ovf:id="723e029d-4154-40c7-92b7-5090aee986e0"
+    ovf:required="false"
+    xsi:type="ovf:OperatingSystemSection_Type">
+      <Info>Guest Operating System</Info>
+      <Description>rhel_7x64</Description>
+    </Section>
+    <Section xsi:type="ovf:VirtualHardwareSection_Type">
+      <Info>1 CPU, 1024 Memeory</Info>
+      <System>
+        <vssd:VirtualSystemType>ENGINE
+        3.4.0.0</vssd:VirtualSystemType>
+      </System>
+      <Item>
+        <rasd:Caption>1 virtual cpu</rasd:Caption>
+        <rasd:Description>Number of virtual CPU</rasd:Description>
+        <rasd:InstanceId>1</rasd:InstanceId>
+        <rasd:ResourceType>3</rasd:ResourceType>
+        <rasd:num_of_sockets>1</rasd:num_of_sockets>
+        <rasd:cpu_per_socket>1</rasd:cpu_per_socket>
+      </Item>
+      <Item>
+        <rasd:Caption>1024 MB of memory</rasd:Caption>
+        <rasd:Description>Memory Size</rasd:Description>
+        <rasd:InstanceId>2</rasd:InstanceId>
+        <rasd:ResourceType>4</rasd:ResourceType>
+        <rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
+        <rasd:VirtualQuantity>1024</rasd:VirtualQuantity>
+      </Item>
+      <Item>
+        <rasd:Caption>fedora20_Disk1</rasd:Caption>
+        <rasd:InstanceId>
+        150850e7-51ab-4dac-9547-30b2fbc817fc</rasd:InstanceId>
+        <rasd:ResourceType>17</rasd:ResourceType>
+        <rasd:HostResource>
+        2717b56e-fe78-4575-a6a9-76b6dec7c796/150850e7-51ab-4dac-9547-30b2fbc817fc</rasd:HostResource>
+        <rasd:Parent>
+        00000000-0000-0000-0000-000000000000</rasd:Parent>
+        <rasd:Template>
+        00000000-0000-0000-0000-000000000000</rasd:Template>
+        <rasd:ApplicationList></rasd:ApplicationList>
+        <rasd:StorageId>
+        b592eac5-7c12-4843-ae51-7b0f90a9dfb4</rasd:StorageId>
+        <rasd:StoragePoolId>
+        00000002-0002-0002-0002-0000000000f2</rasd:StoragePoolId>
+        <rasd:CreationDate>2014/07/31 21:15:03</rasd:CreationDate>
+        <rasd:LastModified>2014/07/31 21:15:03</rasd:LastModified>
+        <rasd:last_modified_date>2014/10/08
+        13:33:46</rasd:last_modified_date>
+        <Type>disk</Type>
+        <Device>disk</Device>
+        <rasd:Address>{unit=0, bus=0, target=0, controller=0,
+        type=drive}</rasd:Address>
+        <BootOrder>1</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>scsi0-0-0-0</Alias>
+      </Item>
+      <Item>
+        <rasd:Caption>fedora20_Disk2</rasd:Caption>
+        <rasd:InstanceId>
+        6bcc6613-cf96-4533-a036-bd2f415443fe</rasd:InstanceId>
+        <rasd:ResourceType>17</rasd:ResourceType>
+        <rasd:HostResource>
+        834b8284-9100-41a8-a575-a2303cd0186d/6bcc6613-cf96-4533-a036-bd2f415443fe</rasd:HostResource>
+        <rasd:Parent>
+        00000000-0000-0000-0000-000000000000</rasd:Parent>
+        <rasd:Template>
+        00000000-0000-0000-0000-000000000000</rasd:Template>
+        <rasd:ApplicationList></rasd:ApplicationList>
+        <rasd:StorageId>
+        b592eac5-7c12-4843-ae51-7b0f90a9dfb4</rasd:StorageId>
+        <rasd:StoragePoolId>
+        00000002-0002-0002-0002-0000000000f2</rasd:StoragePoolId>
+        <rasd:CreationDate>2014/10/08 13:06:51</rasd:CreationDate>
+        <rasd:LastModified>2014/10/08 13:06:51</rasd:LastModified>
+        <rasd:last_modified_date>2014/10/08
+        13:33:46</rasd:last_modified_date>
+        <Type>disk</Type>
+        <Device>disk</Device>
+        <rasd:Address></rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias></Alias>
+      </Item>
+      <Item>
+        <rasd:Caption>Ethernet adapter on rhevm</rasd:Caption>
+        <rasd:InstanceId>
+        4e9a951b-08ce-48a7-9dfc-1e6daf2d684c</rasd:InstanceId>
+        <rasd:ResourceType>10</rasd:ResourceType>
+        <rasd:OtherResourceType>ovirtmgmt</rasd:OtherResourceType>
+        <rasd:ResourceSubType>3</rasd:ResourceSubType>
+        <rasd:Connection>rhevm</rasd:Connection>
+        <rasd:Linked>true</rasd:Linked>
+        <rasd:Name>nic1</rasd:Name>
+        <rasd:MACAddress>00:1a:4a:6b:ec:cb</rasd:MACAddress>
+        <rasd:speed>1000</rasd:speed>
+        <Type>interface</Type>
+        <Device>bridge</Device>
+        <rasd:Address>{bus=0x00, domain=0x0000, type=pci,
+        slot=0x03, function=0x0}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>net0</Alias>
+      </Item>
+      <Item>
+        <rasd:Caption>USB Controller</rasd:Caption>
+        <rasd:InstanceId>3</rasd:InstanceId>
+        <rasd:ResourceType>23</rasd:ResourceType>
+        <rasd:UsbPolicy>DISABLED</rasd:UsbPolicy>
+      </Item>
+      <Item>
+        <rasd:Caption>Graphical Controller</rasd:Caption>
+        <rasd:InstanceId>
+        74e9c132-70a0-4114-8c63-f1a8414439f3</rasd:InstanceId>
+        <rasd:ResourceType>20</rasd:ResourceType>
+        <rasd:VirtualQuantity>1</rasd:VirtualQuantity>
+        <rasd:SinglePciQxl>true</rasd:SinglePciQxl>
+        <Type>video</Type>
+        <Device>qxl</Device>
+        <rasd:Address>{bus=0x00, domain=0x0000, type=pci,
+        slot=0x02, function=0x0}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>true</IsReadOnly>
+        <Alias>video0</Alias>
+        <SpecParams>
+          <ram>65536</ram>
+          <vram>32768</vram>
+          <heads>1</heads>
+        </SpecParams>
+      </Item>
+      <Item>
+        <rasd:Caption>CDROM</rasd:Caption>
+        <rasd:InstanceId>
+        f539c2b6-a64d-4856-a2ef-4d5d610124a7</rasd:InstanceId>
+        <rasd:ResourceType>15</rasd:ResourceType>
+        <Type>disk</Type>
+        <Device>cdrom</Device>
+        <rasd:Address>{unit=0, bus=1, target=0, controller=0,
+        type=drive}</rasd:Address>
+        <BootOrder>2</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>true</IsReadOnly>
+        <Alias>ide0-1-0</Alias>
+        <SpecParams>
+          <path></path>
+        </SpecParams>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        13215af9-485e-4eed-ad08-d7ac421c5d51</rasd:InstanceId>
+        <Type>controller</Type>
+        <Device>usb</Device>
+        <rasd:Address>{bus=0x00, domain=0x0000, type=pci,
+        slot=0x01, function=0x2}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>usb0</Alias>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        34e58a07-be16-496c-b3bf-138d41996e96</rasd:InstanceId>
+        <Type>channel</Type>
+        <Device>spicevmc</Device>
+        <rasd:Address>{port=3, bus=0, controller=0,
+        type=virtio-serial}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>channel2</Alias>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        93c31401-d15b-45c1-9a0f-053616f3d6ad</rasd:InstanceId>
+        <Type>channel</Type>
+        <Device>unix</Device>
+        <rasd:Address>{port=2, bus=0, controller=0,
+        type=virtio-serial}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>channel1</Alias>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        a47198dc-9ce6-4ec1-9936-e731e25d3957</rasd:InstanceId>
+        <Type>controller</Type>
+        <Device>ide</Device>
+        <rasd:Address>{bus=0x00, domain=0x0000, type=pci,
+        slot=0x01, function=0x1}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>ide0</Alias>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        b7dbcd22-2580-4ef0-af85-cbed64952cf2</rasd:InstanceId>
+        <Type>controller</Type>
+        <Device>virtio-serial</Device>
+        <rasd:Address>{bus=0x00, domain=0x0000, type=pci,
+        slot=0x05, function=0x0}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>virtio-serial0</Alias>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        de72be17-014f-4ba8-b78d-48217bd06af3</rasd:InstanceId>
+        <Type>channel</Type>
+        <Device>unix</Device>
+        <rasd:Address>{port=1, bus=0, controller=0,
+        type=virtio-serial}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>channel0</Alias>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        734fad08-019f-4482-acb3-011f3f79819e</rasd:InstanceId>
+        <Type>controller</Type>
+        <Device>virtio-scsi</Device>
+        <rasd:Address>{bus=0x00, domain=0x0000, type=pci,
+        slot=0x04, function=0x0}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>false</IsReadOnly>
+        <Alias>scsi0</Alias>
+      </Item>
+      <Item>
+        <rasd:ResourceType>0</rasd:ResourceType>
+        <rasd:InstanceId>
+        c4eb8c25-7d85-4cc9-9e3c-cfd1c455b05b</rasd:InstanceId>
+        <Type>balloon</Type>
+        <Device>memballoon</Device>
+        <rasd:Address>{bus=0x00, domain=0x0000, type=pci,
+        slot=0x06, function=0x0}</rasd:Address>
+        <BootOrder>0</BootOrder>
+        <IsPlugged>true</IsPlugged>
+        <IsReadOnly>true</IsReadOnly>
+        <Alias>balloon0</Alias>
+        <SpecParams>
+          <model>virtio</model>
+        </SpecParams>
+      </Item>
+    </Section>
+    <Section xsi:type="ovf:SnapshotsSection_Type">
+      <Snapshot ovf:id="18d67202-603d-4381-a904-4d19adef3281">
+        <Type>ACTIVE</Type>
+        <Description>Active VM</Description>
+        <CreationDate>2014/07/31 21:14:14</CreationDate>
+      </Snapshot>
+    </Section>
+  </Content>
+</ovf:Envelope>
+
+----------------------------------------------------------------------
+
+Contents of first disk .meta file:
+
+DOMAIN=39b6af0e-1d64-40c2-97e4-4f094f1919c7
+VOLTYPE=LEAF
+CTIME=1412773630
+FORMAT=RAW
+IMAGE=2717b56e-fe78-4575-a6a9-76b6dec7c796
+DISKTYPE=2
+PUUID=00000000-0000-0000-0000-000000000000
+LEGALITY=LEGAL
+MTIME=1412773653
+POOL_UUID=
+DESCRIPTION=
+TYPE=SPARSE
+SIZE=41943040
+EOF
+
+----------------------------------------------------------------------
+
+Contents of second disk .meta:
+
+DOMAIN=39b6af0e-1d64-40c2-97e4-4f094f1919c7
+VOLTYPE=LEAF
+CTIME=1412773629
+FORMAT=RAW
+IMAGE=834b8284-9100-41a8-a575-a2303cd0186d
+DISKTYPE=2
+PUUID=00000000-0000-0000-0000-000000000000
+LEGALITY=LEGAL
+MTIME=1412773630
+POOL_UUID=
+DESCRIPTION=
+TYPE=SPARSE
+SIZE=4194304
+EOF
