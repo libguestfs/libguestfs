@@ -29,8 +29,12 @@
 #include "daemon.h"
 #include "actions.h"
 
+/* wrflags */
 #define DEST_FILE_FLAGS O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666
 #define DEST_DEVICE_FLAGS O_WRONLY|O_CLOEXEC, 0
+
+/* flags */
+#define COPY_UNLINK_DEST_ON_FAILURE 1
 
 /* NB: We cheat slightly by assuming that optargs_bitmask is
  * compatible for all four of the calls.  This is true provided they
@@ -42,6 +46,7 @@ static int
 copy (const char *src, const char *src_display,
       const char *dest, const char *dest_display,
       int wrflags, int wrmode,
+      int flags,
       int64_t srcoffset, int64_t destoffset, int64_t size, int sparse)
 {
   int64_t saved_size = size;
@@ -105,6 +110,8 @@ copy (const char *src, const char *src_display,
     reply_with_perror ("lseek: %s", dest_display);
     close (src_fd);
     close (dest_fd);
+    if (flags & COPY_UNLINK_DEST_ON_FAILURE)
+      unlink (dest);
     return -1;
   }
 
@@ -127,6 +134,8 @@ copy (const char *src, const char *src_display,
       reply_with_perror ("read: %s", src_display);
       close (src_fd);
       close (dest_fd);
+      if (flags & COPY_UNLINK_DEST_ON_FAILURE)
+        unlink (dest);
       return -1;
     }
 
@@ -136,6 +145,8 @@ copy (const char *src, const char *src_display,
       reply_with_error ("%s: input too short", src_display);
       close (src_fd);
       close (dest_fd);
+      if (flags & COPY_UNLINK_DEST_ON_FAILURE)
+        unlink (dest);
       return -1;
     }
 
@@ -148,6 +159,8 @@ copy (const char *src, const char *src_display,
         reply_with_perror ("%s: seek (because of sparse flag)", dest_display);
         close (src_fd);
         close (dest_fd);
+        if (flags & COPY_UNLINK_DEST_ON_FAILURE)
+          unlink (dest);
         return -1;
       }
       goto sparse_skip;
@@ -161,6 +174,8 @@ copy (const char *src, const char *src_display,
       reply_with_perror ("%s: write", dest_display);
       close (src_fd);
       close (dest_fd);
+      if (flags & COPY_UNLINK_DEST_ON_FAILURE)
+        unlink (dest);
       return -1;
     }
   sparse_skip:
@@ -177,11 +192,15 @@ copy (const char *src, const char *src_display,
   if (close (src_fd) == -1) {
     reply_with_perror ("close: %s", src_display);
     close (dest_fd);
+    if (flags & COPY_UNLINK_DEST_ON_FAILURE)
+      unlink (dest);
     return -1;
   }
 
   if (close (dest_fd) == -1) {
     reply_with_perror ("close: %s", dest_display);
+    if (flags & COPY_UNLINK_DEST_ON_FAILURE)
+      unlink (dest);
     return -1;
   }
 
@@ -193,7 +212,7 @@ do_copy_device_to_device (const char *src, const char *dest,
                           int64_t srcoffset, int64_t destoffset, int64_t size,
                           int sparse)
 {
-  return copy (src, src, dest, dest, DEST_DEVICE_FLAGS,
+  return copy (src, src, dest, dest, DEST_DEVICE_FLAGS, 0,
                srcoffset, destoffset, size, sparse);
 }
 
@@ -209,7 +228,7 @@ do_copy_device_to_file (const char *src, const char *dest,
     return -1;
   }
 
-  return copy (src, src, dest_buf, dest, DEST_FILE_FLAGS,
+  return copy (src, src, dest_buf, dest, DEST_FILE_FLAGS, 0,
                srcoffset, destoffset, size, sparse);
 }
 
@@ -225,7 +244,7 @@ do_copy_file_to_device (const char *src, const char *dest,
     return -1;
   }
 
-  return copy (src_buf, src, dest, dest, DEST_DEVICE_FLAGS,
+  return copy (src_buf, src, dest, dest, DEST_DEVICE_FLAGS, 0,
                srcoffset, destoffset, size, sparse);
 }
 
@@ -249,5 +268,6 @@ do_copy_file_to_file (const char *src, const char *dest,
   }
 
   return copy (src_buf, src, dest_buf, dest, DEST_FILE_FLAGS,
+               COPY_UNLINK_DEST_ON_FAILURE,
                srcoffset, destoffset, size, sparse);
 }
