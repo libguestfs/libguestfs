@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-10-08 15:39+0200\n"
+"POT-Creation-Date: 2014-10-09 10:29+0200\n"
 "PO-Revision-Date: 2014-10-07 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -723,7 +723,7 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:177 ../customize/virt-customize.pod:178
 #: ../fuse/guestunmount.pod:83 ../resize/virt-resize.pod:511
 #: ../sparsify/virt-sparsify.pod:243 ../sysprep/virt-sysprep.pod:214
-#: ../v2v/virt-v2v.pod:422
+#: ../v2v/virt-v2v.pod:437
 msgid "B<-q>"
 msgstr "B<-q>"
 
@@ -731,7 +731,7 @@ msgstr "B<-q>"
 #: ../align/virt-alignment-scan.pod:179 ../builder/virt-builder.pod:452
 #: ../customize/virt-customize.pod:180 ../fuse/guestunmount.pod:85
 #: ../resize/virt-resize.pod:513 ../sparsify/virt-sparsify.pod:245
-#: ../sysprep/virt-sysprep.pod:216 ../v2v/virt-v2v.pod:424
+#: ../sysprep/virt-sysprep.pod:216 ../v2v/virt-v2v.pod:439
 msgid "B<--quiet>"
 msgstr "B<--quiet>"
 
@@ -775,13 +775,13 @@ msgstr ""
 #: ../cat/virt-cat.pod:165 ../cat/virt-filesystems.pod:265
 #: ../cat/virt-log.pod:112 ../cat/virt-ls.pod:455
 #: ../customize/virt-customize.pod:190 ../daemon/guestfsd.pod:60
-#: ../df/virt-df.pod:183 ../diff/virt-diff.pod:200 ../edit/virt-edit.pod:203
+#: ../df/virt-df.pod:183 ../diff/virt-diff.pod:197 ../edit/virt-edit.pod:203
 #: ../fish/guestfish.pod:419 ../format/virt-format.pod:153
 #: ../fuse/guestmount.pod:359 ../inspector/virt-inspector.pod:116
 #: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v.pod:443
 #: ../rescue/virt-rescue.pod:238 ../resize/virt-resize.pod:581
 #: ../sparsify/virt-sparsify.pod:292 ../sysprep/virt-sysprep.pod:222
-#: ../v2v/virt-v2v.pod:505
+#: ../v2v/virt-v2v.pod:520
 msgid "B<-v>"
 msgstr "B<-v>"
 
@@ -790,13 +790,13 @@ msgstr "B<-v>"
 #: ../cat/virt-cat.pod:167 ../cat/virt-filesystems.pod:267
 #: ../cat/virt-log.pod:114 ../cat/virt-ls.pod:457
 #: ../customize/virt-customize.pod:192 ../daemon/guestfsd.pod:62
-#: ../df/virt-df.pod:185 ../diff/virt-diff.pod:202 ../edit/virt-edit.pod:205
+#: ../df/virt-df.pod:185 ../diff/virt-diff.pod:199 ../edit/virt-edit.pod:205
 #: ../fish/guestfish.pod:421 ../format/virt-format.pod:155
 #: ../fuse/guestmount.pod:361 ../inspector/virt-inspector.pod:118
 #: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v.pod:445
 #: ../rescue/virt-rescue.pod:240 ../resize/virt-resize.pod:583
 #: ../sparsify/virt-sparsify.pod:294 ../sysprep/virt-sysprep.pod:224
-#: ../v2v/virt-v2v.pod:507
+#: ../v2v/virt-v2v.pod:522
 msgid "B<--verbose>"
 msgstr "B<--verbose>"
 
@@ -804,11 +804,11 @@ msgstr "B<--verbose>"
 #: ../align/virt-alignment-scan.pod:197 ../cat/virt-cat.pod:169
 #: ../cat/virt-filesystems.pod:269 ../cat/virt-log.pod:116
 #: ../cat/virt-ls.pod:459 ../customize/virt-customize.pod:194
-#: ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../diff/virt-diff.pod:204
+#: ../daemon/guestfsd.pod:64 ../df/virt-df.pod:187 ../diff/virt-diff.pod:201
 #: ../edit/virt-edit.pod:207 ../format/virt-format.pod:157
 #: ../inspector/virt-inspector.pod:120 ../rescue/virt-rescue.pod:242
 #: ../sparsify/virt-sparsify.pod:296 ../sysprep/virt-sysprep.pod:226
-#: ../v2v/virt-v2v.pod:509
+#: ../v2v/virt-v2v.pod:524
 msgid "Enable verbose messages for debugging."
 msgstr "デバッグ用の冗長なメッセージを有効にします。"
 
@@ -819,7 +819,7 @@ msgstr "デバッグ用の冗長なメッセージを有効にします。"
 #: ../cat/virt-cat.pod:171 ../cat/virt-filesystems.pod:271
 #: ../cat/virt-log.pod:118 ../cat/virt-ls.pod:461
 #: ../customize/virt-customize.pod:196 ../df/virt-df.pod:189
-#: ../diff/virt-diff.pod:206 ../edit/virt-edit.pod:209
+#: ../diff/virt-diff.pod:203 ../edit/virt-edit.pod:209
 #: ../fish/guestfish.pod:426 ../format/virt-format.pod:159
 #: ../fuse/guestmount.pod:365 ../fuse/guestunmount.pod:105
 #: ../inspector/virt-inspector.pod:122 ../make-fs/virt-make-fs.pod:203
@@ -827,7 +827,7 @@ msgstr "デバッグ用の冗長なメッセージを有効にします。"
 #: ../p2v/virt-p2v.pod:449 ../rescue/virt-rescue.pod:244
 #: ../resize/virt-resize.pod:587 ../sparsify/virt-sparsify.pod:298
 #: ../sysprep/virt-sysprep.pod:228 ../test-tool/libguestfs-test-tool.pod:59
-#: ../v2v/virt-v2v.pod:511
+#: ../v2v/virt-v2v.pod:526
 msgid "B<-V>"
 msgstr "B<-V>"
 
@@ -838,7 +838,7 @@ msgstr "B<-V>"
 #: ../cat/virt-cat.pod:173 ../cat/virt-filesystems.pod:273
 #: ../cat/virt-log.pod:120 ../cat/virt-ls.pod:463
 #: ../customize/virt-customize.pod:198 ../df/virt-df.pod:191
-#: ../diff/virt-diff.pod:208 ../edit/virt-edit.pod:211
+#: ../diff/virt-diff.pod:205 ../edit/virt-edit.pod:211
 #: ../fish/guestfish.pod:428 ../format/virt-format.pod:161
 #: ../fuse/guestmount.pod:367 ../fuse/guestunmount.pod:107
 #: ../inspector/virt-inspector.pod:124 ../make-fs/virt-make-fs.pod:205
@@ -847,7 +847,7 @@ msgstr "B<-V>"
 #: ../resize/virt-resize.pod:589 ../sparsify/virt-sparsify.pod:300
 #: ../sysprep/virt-sysprep.pod:230 ../test-tool/libguestfs-test-tool.pod:61
 #: ../tools/virt-list-filesystems:68 ../tools/virt-list-partitions:69
-#: ../tools/virt-tar:116 ../tools/virt-win-reg:109 ../v2v/virt-v2v.pod:513
+#: ../tools/virt-tar:116 ../tools/virt-win-reg:109 ../v2v/virt-v2v.pod:528
 msgid "B<--version>"
 msgstr "B<--version>"
 
@@ -856,14 +856,14 @@ msgstr "B<--version>"
 #: ../builder/virt-index-validate.pod:70 ../cat/virt-cat.pod:175
 #: ../cat/virt-filesystems.pod:275 ../cat/virt-log.pod:122
 #: ../cat/virt-ls.pod:465 ../customize/virt-customize.pod:200
-#: ../df/virt-df.pod:193 ../diff/virt-diff.pod:210 ../edit/virt-edit.pod:213
+#: ../df/virt-df.pod:193 ../diff/virt-diff.pod:207 ../edit/virt-edit.pod:213
 #: ../format/virt-format.pod:163 ../inspector/virt-inspector.pod:126
 #: ../make-fs/virt-make-fs.pod:207 ../p2v/virt-p2v-make-disk.pod:68
 #: ../p2v/virt-p2v-make-kickstart.pod:156 ../p2v/virt-p2v.pod:453
 #: ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:591
 #: ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:232
 #: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
-#: ../tools/virt-tar:118 ../tools/virt-win-reg:111 ../v2v/virt-v2v.pod:515
+#: ../tools/virt-tar:118 ../tools/virt-win-reg:111 ../v2v/virt-v2v.pod:530
 msgid "Display version number and exit."
 msgstr "バージョン番号を表示して、終了します。"
 
@@ -872,13 +872,13 @@ msgstr "バージョン番号を表示して、終了します。"
 #: ../cat/virt-cat.pod:177 ../cat/virt-filesystems.pod:285
 #: ../cat/virt-log.pod:124 ../cat/virt-ls.pod:467
 #: ../customize/virt-customize.pod:202 ../df/virt-df.pod:195
-#: ../diff/virt-diff.pod:212 ../edit/virt-edit.pod:215
+#: ../diff/virt-diff.pod:209 ../edit/virt-edit.pod:215
 #: ../fish/guestfish.pod:441 ../format/virt-format.pod:175
 #: ../fuse/guestmount.pod:380 ../inspector/virt-inspector.pod:128
 #: ../make-fs/virt-make-fs.pod:209 ../rescue/virt-rescue.pod:259
 #: ../resize/virt-resize.pod:593 ../sparsify/virt-sparsify.pod:304
 #: ../sysprep/virt-sysprep.pod:234 ../tools/virt-tar:155
-#: ../v2v/virt-v2v.pod:526
+#: ../v2v/virt-v2v.pod:541
 msgid "B<-x>"
 msgstr "B<-x>"
 
@@ -887,11 +887,11 @@ msgstr "B<-x>"
 #: ../cat/virt-cat.pod:179 ../cat/virt-filesystems.pod:287
 #: ../cat/virt-log.pod:126 ../cat/virt-ls.pod:469
 #: ../customize/virt-customize.pod:204 ../df/virt-df.pod:197
-#: ../diff/virt-diff.pod:214 ../edit/virt-edit.pod:217
+#: ../diff/virt-diff.pod:211 ../edit/virt-edit.pod:217
 #: ../format/virt-format.pod:177 ../inspector/virt-inspector.pod:130
 #: ../rescue/virt-rescue.pod:261 ../resize/virt-resize.pod:595
 #: ../sparsify/virt-sparsify.pod:306 ../sysprep/virt-sysprep.pod:236
-#: ../v2v/virt-v2v.pod:528
+#: ../v2v/virt-v2v.pod:543
 msgid "Enable tracing of libguestfs API calls."
 msgstr "libguestfs API 呼び出しのトレースを有効にします。"
 
@@ -1242,7 +1242,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:268 ../cat/virt-filesystems.pod:381
 #: ../cat/virt-log.pod:130 ../cat/virt-ls.pod:513
 #: ../customize/virt-customize.pod:212 ../daemon/guestfsd.pod:71
-#: ../df/virt-df.pod:251 ../diff/virt-diff.pod:246 ../edit/virt-edit.pod:384
+#: ../df/virt-df.pod:251 ../diff/virt-diff.pod:243 ../edit/virt-edit.pod:384
 #: ../fish/guestfish.pod:1380 ../format/virt-format.pod:181
 #: ../fuse/guestmount.pod:410 ../fuse/guestunmount.pod:124
 #: ../inspector/virt-inspector.pod:487 ../resize/virt-resize.pod:750
@@ -1401,10 +1401,10 @@ msgstr "このプログラムは以下を返します:"
 #: ../sysprep/virt-sysprep.pod:414 ../tools/virt-win-reg:194
 #: ../tools/virt-win-reg:199 ../tools/virt-win-reg:205
 #: ../tools/virt-win-reg:754 ../tools/virt-win-reg:760
-#: ../tools/virt-win-reg:766 ../v2v/virt-v2v.pod:484 ../v2v/virt-v2v.pod:489
-#: ../v2v/virt-v2v.pod:494 ../v2v/virt-v2v.pod:709 ../v2v/virt-v2v.pod:713
-#: ../v2v/virt-v2v.pod:717 ../v2v/virt-v2v.pod:721 ../v2v/virt-v2v.pod:725
-#: ../v2v/virt-v2v.pod:854 ../v2v/virt-v2v.pod:859 ../v2v/virt-v2v.pod:864
+#: ../tools/virt-win-reg:766 ../v2v/virt-v2v.pod:499 ../v2v/virt-v2v.pod:504
+#: ../v2v/virt-v2v.pod:509 ../v2v/virt-v2v.pod:724 ../v2v/virt-v2v.pod:728
+#: ../v2v/virt-v2v.pod:732 ../v2v/virt-v2v.pod:736 ../v2v/virt-v2v.pod:740
+#: ../v2v/virt-v2v.pod:869 ../v2v/virt-v2v.pod:874 ../v2v/virt-v2v.pod:879
 msgid "*"
 msgstr "*"
 
@@ -1423,7 +1423,7 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:364 ../src/guestfs.pod:2286
-#: ../v2v/virt-v2v.pod:970
+#: ../v2v/virt-v2v.pod:985
 msgid "1"
 msgstr "1"
 
@@ -1434,7 +1434,7 @@ msgstr "ディスクイメージまたは仮想マシンのスキャン中にエ
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:370 ../src/guestfs.pod:2290
-#: ../v2v/virt-v2v.pod:974
+#: ../v2v/virt-v2v.pod:989
 msgid "2"
 msgstr "2"
 
@@ -1468,7 +1468,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386
 #: ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518
 #: ../customize/virt-customize.pod:246 ../daemon/guestfsd.pod:115
-#: ../df/virt-df.pod:256 ../diff/virt-diff.pod:251 ../edit/virt-edit.pod:389
+#: ../df/virt-df.pod:256 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:389
 #: ../erlang/examples/guestfs-erlang.pod:95
 #: ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1251
 #: ../examples/guestfs-performance.pod:557 ../examples/guestfs-recipes.pod:659
@@ -1488,7 +1488,7 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4750
 #: ../sysprep/virt-sysprep.pod:551 ../test-tool/libguestfs-test-tool.pod:180
 #: ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263
-#: ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/virt-v2v.pod:1245
+#: ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/virt-v2v.pod:1260
 msgid "SEE ALSO"
 msgstr "関連項目"
 
@@ -1506,7 +1506,7 @@ msgstr ""
 #: ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:283
 #: ../cat/virt-filesystems.pod:397 ../cat/virt-log.pod:145
 #: ../cat/virt-ls.pod:528 ../daemon/guestfsd.pod:120 ../df/virt-df.pod:264
-#: ../diff/virt-diff.pod:261 ../edit/virt-edit.pod:400
+#: ../diff/virt-diff.pod:258 ../edit/virt-edit.pod:400
 #: ../format/virt-format.pod:195 ../guestfs-release-notes.pod:3476
 #: ../make-fs/virt-make-fs.pod:229 ../rescue/virt-rescue.pod:422
 #: ../resize/virt-resize.pod:779 ../sparsify/virt-sparsify.pod:452
@@ -1520,7 +1520,7 @@ msgstr "著者"
 #: ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:285
 #: ../cat/virt-filesystems.pod:399 ../cat/virt-log.pod:147
 #: ../cat/virt-ls.pod:530 ../customize/virt-customize.pod:265
-#: ../daemon/guestfsd.pod:122 ../df/virt-df.pod:266 ../diff/virt-diff.pod:263
+#: ../daemon/guestfsd.pod:122 ../df/virt-df.pod:266 ../diff/virt-diff.pod:260
 #: ../edit/virt-edit.pod:402 ../format/virt-format.pod:197
 #: ../inspector/virt-inspector.pod:507 ../make-fs/virt-make-fs.pod:231
 #: ../p2v/virt-p2v-make-disk.pod:112 ../p2v/virt-p2v-make-kickstart.pod:198
@@ -1528,7 +1528,7 @@ msgstr "著者"
 #: ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:454
 #: ../sysprep/virt-sysprep.pod:570 ../tools/virt-list-filesystems:195
 #: ../tools/virt-list-partitions:276 ../tools/virt-tar:308
-#: ../tools/virt-win-reg:801 ../v2v/virt-v2v.pod:1261
+#: ../tools/virt-win-reg:801 ../v2v/virt-v2v.pod:1276
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 
@@ -1539,7 +1539,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401
 #: ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532
 #: ../customize/virt-customize.pod:267 ../daemon/guestfsd.pod:124
-#: ../df/virt-df.pod:268 ../diff/virt-diff.pod:265 ../edit/virt-edit.pod:404
+#: ../df/virt-df.pod:268 ../diff/virt-diff.pod:262 ../edit/virt-edit.pod:404
 #: ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1261
 #: ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:678
@@ -1559,7 +1559,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4814
 #: ../sysprep/virt-sysprep.pod:574 ../test-tool/libguestfs-test-tool.pod:190
 #: ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278
-#: ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/virt-v2v.pod:1271
+#: ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/virt-v2v.pod:1286
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
 
@@ -1889,7 +1889,7 @@ msgstr ""
 #: ../p2v/virt-p2v-make-kickstart.pod:176 ../rescue/virt-rescue.pod:388
 #: ../sparsify/virt-sparsify.pod:395 ../src/guestfs.pod:4642
 #: ../sysprep/virt-sysprep.pod:521 ../test-tool/libguestfs-test-tool.pod:175
-#: ../v2v/virt-v2v.pod:1182
+#: ../v2v/virt-v2v.pod:1197
 msgid "ENVIRONMENT VARIABLES"
 msgstr "環境変数"
 
@@ -1928,7 +1928,7 @@ msgstr ""
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4810
 #: ../sysprep/virt-sysprep.pod:568 ../test-tool/libguestfs-test-tool.pod:186
-#: ../v2v/virt-v2v.pod:1259
+#: ../v2v/virt-v2v.pod:1274
 msgid "AUTHORS"
 msgstr "著者"
 
@@ -1952,14 +1952,14 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:178 ../cat/virt-ls.pod:534
-#: ../daemon/guestfsd.pod:126 ../df/virt-df.pod:270 ../diff/virt-diff.pod:267
+#: ../daemon/guestfsd.pod:126 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264
 #: ../edit/virt-edit.pod:406 ../examples/guestfs-recipes.pod:680
 #: ../fish/guestfish.pod:1642 ../fuse/guestmount.pod:435
 #: ../guestfs-release-notes.pod:3482 ../p2v/virt-p2v-make-disk.pod:116
 #: ../p2v/virt-p2v-make-kickstart.pod:202 ../p2v/virt-p2v.pod:596
 #: ../rescue/virt-rescue.pod:428 ../src/guestfs.pod:4816
 #: ../test-tool/libguestfs-test-tool.pod:192 ../tools/virt-list-partitions:280
-#: ../v2v/virt-v2v.pod:1273
+#: ../v2v/virt-v2v.pod:1288
 msgid "Copyright (C) 2009-2014 Red Hat Inc."
 msgstr ""
 
@@ -2794,13 +2794,13 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:347 ../resize/virt-resize.pod:445
-#: ../sparsify/virt-sparsify.pod:223 ../v2v/virt-v2v.pod:228
+#: ../sparsify/virt-sparsify.pod:223 ../v2v/virt-v2v.pod:230
 msgid "B<--machine-readable>"
 msgstr "B<--machine-readable>"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:349 ../resize/virt-resize.pod:447
-#: ../sparsify/virt-sparsify.pod:225 ../v2v/virt-v2v.pod:230
+#: ../sparsify/virt-sparsify.pod:225 ../v2v/virt-v2v.pod:232
 msgid ""
 "This option is used to make the output more machine friendly when being "
 "parsed by other programs.  See L</MACHINE READABLE OUTPUT> below."
@@ -2898,8 +2898,8 @@ msgstr ""
 #: ../rescue/virt-rescue.pod:326 ../resize/virt-resize.pod:29
 #: ../resize/virt-resize.pod:627 ../sparsify/virt-sparsify.pod:366
 #: ../src/guestfs.pod:485 ../src/guestfs.pod:1829 ../src/guestfs.pod:2101
-#: ../src/guestfs.pod:2399 ../src/guestfs.pod:3892 ../v2v/virt-v2v.pod:875
-#: ../v2v/virt-v2v.pod:1144
+#: ../src/guestfs.pod:2399 ../src/guestfs.pod:3892 ../v2v/virt-v2v.pod:890
+#: ../v2v/virt-v2v.pod:1159
 msgid "1."
 msgstr "1."
 
@@ -2918,8 +2918,8 @@ msgstr ""
 #: ../rescue/virt-rescue.pod:334 ../resize/virt-resize.pod:42
 #: ../resize/virt-resize.pod:634 ../sparsify/virt-sparsify.pod:373
 #: ../src/guestfs.pod:491 ../src/guestfs.pod:1833 ../src/guestfs.pod:2105
-#: ../src/guestfs.pod:2403 ../src/guestfs.pod:3917 ../v2v/virt-v2v.pod:889
-#: ../v2v/virt-v2v.pod:1151
+#: ../src/guestfs.pod:2403 ../src/guestfs.pod:3917 ../v2v/virt-v2v.pod:904
+#: ../v2v/virt-v2v.pod:1166
 msgid "2."
 msgstr "2."
 
@@ -2937,8 +2937,8 @@ msgstr ""
 #: ../examples/guestfs-recipes.pod:418 ../rescue/virt-rescue.pod:343
 #: ../resize/virt-resize.pod:50 ../resize/virt-resize.pod:640
 #: ../sparsify/virt-sparsify.pod:379 ../src/guestfs.pod:502
-#: ../src/guestfs.pod:1837 ../src/guestfs.pod:2409 ../v2v/virt-v2v.pod:897
-#: ../v2v/virt-v2v.pod:1157
+#: ../src/guestfs.pod:1837 ../src/guestfs.pod:2409 ../v2v/virt-v2v.pod:912
+#: ../v2v/virt-v2v.pod:1172
 msgid "3."
 msgstr "3."
 
@@ -2953,7 +2953,7 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:405 ../customize/virt-customize.pod:172
 #: ../rescue/virt-rescue.pod:352 ../resize/virt-resize.pod:59
-#: ../v2v/virt-v2v.pod:918
+#: ../v2v/virt-v2v.pod:933
 msgid "4."
 msgstr "4."
 
@@ -5368,7 +5368,7 @@ msgstr ""
 
 #. type: =head1
 #: ../builder/virt-builder.pod:1604 ../resize/virt-resize.pod:599
-#: ../sparsify/virt-sparsify.pod:340 ../v2v/virt-v2v.pod:1109
+#: ../sparsify/virt-sparsify.pod:340 ../v2v/virt-v2v.pod:1124
 msgid "MACHINE READABLE OUTPUT"
 msgstr "マシン可読な出力"
 
@@ -5403,7 +5403,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1621 ../resize/virt-resize.pod:617
-#: ../sparsify/virt-sparsify.pod:356 ../v2v/virt-v2v.pod:1130
+#: ../sparsify/virt-sparsify.pod:356 ../v2v/virt-v2v.pod:1145
 msgid ""
 "A list of features is printed, one per line, and the program exits with "
 "status 0."
@@ -5452,7 +5452,7 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:1645 ../customize/virt-customize.pod:220
-#: ../sysprep/virt-sysprep.pod:525 ../v2v/virt-v2v.pod:1205
+#: ../sysprep/virt-sysprep.pod:525 ../v2v/virt-v2v.pod:1220
 msgid "C<VIRT_TOOLS_DATA_DIR>"
 msgstr ""
 
@@ -5466,7 +5466,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1650 ../customize/virt-customize.pod:225
-#: ../sysprep/virt-sysprep.pod:530 ../v2v/virt-v2v.pod:1210
+#: ../sysprep/virt-sysprep.pod:530 ../v2v/virt-v2v.pod:1225
 msgid ""
 "Normally you do not need to set this.  If not set, a compiled-in default "
 "will be used (something like C</usr/share/virt-tools>)."
@@ -5474,13 +5474,13 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1653 ../customize/virt-customize.pod:228
-#: ../sysprep/virt-sysprep.pod:533 ../v2v/virt-v2v.pod:1213
+#: ../sysprep/virt-sysprep.pod:533 ../v2v/virt-v2v.pod:1228
 msgid "This directory may contain the following files:"
 msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:1657 ../customize/virt-customize.pod:232
-#: ../sysprep/virt-sysprep.pod:537 ../v2v/virt-v2v.pod:1217
+#: ../sysprep/virt-sysprep.pod:537 ../v2v/virt-v2v.pod:1232
 msgid "C<rhsrvany.exe>"
 msgstr ""
 
@@ -5495,7 +5495,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:1663 ../customize/virt-customize.pod:238
-#: ../sysprep/virt-sysprep.pod:543 ../v2v/virt-v2v.pod:1224
+#: ../sysprep/virt-sysprep.pod:543 ../v2v/virt-v2v.pod:1239
 msgid "See also: C<https://github.com/rwmjones/rhsrvany>"
 msgstr ""
 
@@ -5537,7 +5537,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1685 ../cat/virt-cat.pod:270
 #: ../cat/virt-filesystems.pod:383 ../cat/virt-log.pod:132
 #: ../cat/virt-ls.pod:515 ../daemon/guestfsd.pod:73 ../df/virt-df.pod:253
-#: ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:386
+#: ../diff/virt-diff.pod:245 ../edit/virt-edit.pod:386
 #: ../fuse/guestmount.pod:412 ../inspector/virt-inspector.pod:489
 #: ../resize/virt-resize.pod:752
 msgid ""
@@ -5848,7 +5848,7 @@ msgstr ""
 
 #. type: =item
 #: ../cat/virt-cat.pod:124 ../cat/virt-filesystems.pod:204
-#: ../cat/virt-log.pod:107 ../cat/virt-ls.pod:355 ../diff/virt-diff.pod:172
+#: ../cat/virt-log.pod:107 ../cat/virt-ls.pod:355 ../diff/virt-diff.pod:169
 #: ../edit/virt-edit.pod:162 ../fish/guestfish.pod:290
 #: ../fuse/guestmount.pod:252 ../inspector/virt-inspector.pod:111
 msgid "B<--keys-from-stdin>"
@@ -5856,7 +5856,7 @@ msgstr "B<--keys-from-stdin>"
 
 #. type: textblock
 #: ../cat/virt-cat.pod:126 ../cat/virt-filesystems.pod:206
-#: ../cat/virt-log.pod:109 ../cat/virt-ls.pod:357 ../diff/virt-diff.pod:174
+#: ../cat/virt-log.pod:109 ../cat/virt-ls.pod:357 ../diff/virt-diff.pod:171
 #: ../edit/virt-edit.pod:164 ../fish/guestfish.pod:292
 #: ../fuse/guestmount.pod:254 ../inspector/virt-inspector.pod:113
 msgid ""
@@ -6857,13 +6857,13 @@ msgstr "I<--uuid> オプションが指定されると、 UUID のみが表示�
 
 #. type: =head1
 #: ../cat/virt-filesystems.pod:357 ../cat/virt-ls.pod:489
-#: ../df/virt-df.pod:227 ../diff/virt-diff.pod:222
+#: ../df/virt-df.pod:227 ../diff/virt-diff.pod:219
 msgid "NOTE ABOUT CSV FORMAT"
 msgstr "CSV 形式に関する注意"
 
 #. type: textblock
 #: ../cat/virt-filesystems.pod:359 ../cat/virt-ls.pod:491
-#: ../df/virt-df.pod:229 ../diff/virt-diff.pod:224
+#: ../df/virt-df.pod:229 ../diff/virt-diff.pod:221
 msgid ""
 "Comma-separated values (CSV) is a deceptive format.  It I<seems> like it "
 "should be easy to parse, but it is definitely not easy to parse."
@@ -6871,7 +6871,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-filesystems.pod:362 ../cat/virt-ls.pod:494
-#: ../df/virt-df.pod:232 ../diff/virt-diff.pod:227
+#: ../df/virt-df.pod:232 ../diff/virt-diff.pod:224
 msgid ""
 "Myth: Just split fields at commas.  Reality: This does I<not> work "
 "reliably.  This example has two columns:"
@@ -6881,7 +6881,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../cat/virt-filesystems.pod:365 ../cat/virt-ls.pod:497
-#: ../df/virt-df.pod:235 ../diff/virt-diff.pod:230
+#: ../df/virt-df.pod:235 ../diff/virt-diff.pod:227
 #, no-wrap
 msgid ""
 " \"foo,bar\",baz\n"
@@ -6892,7 +6892,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-filesystems.pod:367 ../cat/virt-ls.pod:499
-#: ../df/virt-df.pod:237 ../diff/virt-diff.pod:232
+#: ../df/virt-df.pod:237 ../diff/virt-diff.pod:229
 msgid ""
 "Myth: Read the file one line at a time.  Reality: This does I<not> work "
 "reliably.  This example has one row:"
@@ -6902,7 +6902,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../cat/virt-filesystems.pod:370 ../cat/virt-ls.pod:502
-#: ../df/virt-df.pod:240 ../diff/virt-diff.pod:235
+#: ../df/virt-df.pod:240 ../diff/virt-diff.pod:232
 #, no-wrap
 msgid ""
 " \"foo\n"
@@ -6915,7 +6915,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-filesystems.pod:373 ../cat/virt-ls.pod:505
-#: ../df/virt-df.pod:243 ../diff/virt-diff.pod:238
+#: ../df/virt-df.pod:243 ../diff/virt-diff.pod:235
 msgid ""
 "For shell scripts, use C<csvtool> (L<http://merjis.com/developers/csv> also "
 "packaged in major Linux distributions)."
@@ -6923,7 +6923,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-filesystems.pod:376 ../cat/virt-ls.pod:508
-#: ../df/virt-df.pod:246 ../diff/virt-diff.pod:241
+#: ../df/virt-df.pod:246 ../diff/virt-diff.pod:238
 msgid ""
 "For other languages, use a CSV processing library (eg. C<Text::CSV> for Perl "
 "or Python's built-in csv library)."
@@ -6931,7 +6931,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-filesystems.pod:379 ../cat/virt-ls.pod:511
-#: ../df/virt-df.pod:249 ../diff/virt-diff.pod:244
+#: ../df/virt-df.pod:249 ../diff/virt-diff.pod:241
 msgid "Most spreadsheets and databases can import CSV directly."
 msgstr ""
 
@@ -7686,7 +7686,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-ls.pod:282 ../cat/virt-ls.pod:319 ../cat/virt-ls.pod:352
 #: ../cat/virt-ls.pod:421 ../cat/virt-ls.pod:431 ../cat/virt-ls.pod:438
-#: ../cat/virt-ls.pod:445 ../cat/virt-ls.pod:452 ../diff/virt-diff.pod:169
+#: ../cat/virt-ls.pod:445 ../cat/virt-ls.pod:452
 msgid ""
 "This option only has effect in I<-lR> output mode.  See L</RECURSIVE LONG "
 "LISTING> above."
@@ -7781,59 +7781,59 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:417 ../diff/virt-diff.pod:177
+#: ../cat/virt-ls.pod:417 ../diff/virt-diff.pod:174
 msgid "B<--times>"
 msgstr "B<--times>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:419 ../diff/virt-diff.pod:179
+#: ../cat/virt-ls.pod:419 ../diff/virt-diff.pod:176
 msgid "Display time fields."
 msgstr "時間の項目を表示します。"
 
 #. type: =item
-#: ../cat/virt-ls.pod:424 ../diff/virt-diff.pod:181
+#: ../cat/virt-ls.pod:424 ../diff/virt-diff.pod:178
 msgid "B<--time-days>"
 msgstr "B<--time-days>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:426 ../diff/virt-diff.pod:183
+#: ../cat/virt-ls.pod:426 ../diff/virt-diff.pod:180
 msgid "Display time fields as days before now (negative if in the future)."
 msgstr ""
 
 #. type: textblock
-#: ../cat/virt-ls.pod:428 ../diff/virt-diff.pod:185
+#: ../cat/virt-ls.pod:428 ../diff/virt-diff.pod:182
 msgid ""
 "Note that C<0> in output means \"up to 1 day before now\", or that the age "
 "of the file is between 0 and 86399 seconds."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:434 ../diff/virt-diff.pod:188
+#: ../cat/virt-ls.pod:434 ../diff/virt-diff.pod:185
 msgid "B<--time-relative>"
 msgstr "B<--time-relative>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:436 ../diff/virt-diff.pod:190
+#: ../cat/virt-ls.pod:436 ../diff/virt-diff.pod:187
 msgid "Display time fields as seconds before now (negative if in the future)."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:441 ../diff/virt-diff.pod:192
+#: ../cat/virt-ls.pod:441 ../diff/virt-diff.pod:189
 msgid "B<--time-t>"
 msgstr "B<--time-t>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:443 ../diff/virt-diff.pod:194
+#: ../cat/virt-ls.pod:443 ../diff/virt-diff.pod:191
 msgid "Display time fields as seconds since the Unix epoch."
 msgstr ""
 
 #. type: =item
-#: ../cat/virt-ls.pod:448 ../diff/virt-diff.pod:196
+#: ../cat/virt-ls.pod:448 ../diff/virt-diff.pod:193
 msgid "B<--uids>"
 msgstr "B<--uids>"
 
 #. type: textblock
-#: ../cat/virt-ls.pod:450 ../diff/virt-diff.pod:198
+#: ../cat/virt-ls.pod:450 ../diff/virt-diff.pod:195
 msgid "Display UID and GID fields."
 msgstr "UID と GID の項目を表示します。"
 
@@ -8646,7 +8646,7 @@ msgstr ""
 
 #. type: textblock
 #: ../customize/virt-customize.pod:244 ../sparsify/virt-sparsify.pod:426
-#: ../sysprep/virt-sysprep.pod:549 ../v2v/virt-v2v.pod:1243
+#: ../sysprep/virt-sysprep.pod:549 ../v2v/virt-v2v.pod:1258
 msgid ""
 "For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr "他の環境変数は L<guestfs(3)/環境変数> を参照してください。"
@@ -8786,7 +8786,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:76 ../fish/guestfish.pod:1537
 #: ../fuse/guestmount.pod:391 ../p2v/virt-p2v-make-disk.pod:72
 #: ../p2v/virt-p2v-make-kickstart.pod:160 ../rescue/virt-rescue.pod:393
-#: ../v2v/virt-v2v.pod:1168
+#: ../v2v/virt-v2v.pod:1183
 msgid "FILES"
 msgstr "ファイル"
 
@@ -9366,17 +9366,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../diff/virt-diff.pod:216
+#: ../diff/virt-diff.pod:213
 msgid "B<--xattrs>"
 msgstr ""
 
 #. type: textblock
-#: ../diff/virt-diff.pod:218
+#: ../diff/virt-diff.pod:215
 msgid "Display extended attributes."
 msgstr ""
 
 #. type: textblock
-#: ../diff/virt-diff.pod:253
+#: ../diff/virt-diff.pod:250
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-cat(1)>, L<virt-copy-out(1)>, L<virt-"
 "ls(1)>, L<virt-tar-out(1)>, L<http://libguestfs.org/>."
@@ -17428,7 +17428,7 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:348 ../src/guestfs-actions.pod:446
-#: ../v2v/virt-v2v.pod:684
+#: ../v2v/virt-v2v.pod:699
 msgid "C<server>"
 msgstr ""
 
@@ -53760,7 +53760,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:592 ../v2v/virt-v2v.pod:1263
+#: ../p2v/virt-p2v.pod:592 ../v2v/virt-v2v.pod:1278
 msgid "Matthew Booth"
 msgstr ""
 
@@ -55347,7 +55347,7 @@ msgstr "デバッグメッセージを有効にします。"
 
 #. type: =item
 #: ../resize/virt-resize.pod:338 ../sparsify/virt-sparsify.pod:186
-#: ../v2v/virt-v2v.pod:159
+#: ../v2v/virt-v2v.pod:161
 msgid "B<--debug-gc>"
 msgstr "B<--debug-gc>"
 
@@ -55835,7 +55835,7 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:605 ../sparsify/virt-sparsify.pod:346
-#: ../v2v/virt-v2v.pod:1115
+#: ../v2v/virt-v2v.pod:1130
 msgid "There are two ways to use this option."
 msgstr "このオプションを使用するには 2 通りの方法があります。"
 
@@ -55868,7 +55868,7 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:620 ../sparsify/virt-sparsify.pod:359
-#: ../v2v/virt-v2v.pod:1137
+#: ../v2v/virt-v2v.pod:1152
 msgid ""
 "Secondly use the option in conjunction with other options to make the "
 "regular program output more machine friendly."
@@ -55876,13 +55876,13 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:623 ../sparsify/virt-sparsify.pod:362
-#: ../v2v/virt-v2v.pod:1140
+#: ../v2v/virt-v2v.pod:1155
 msgid "At the moment this means:"
 msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:629 ../sparsify/virt-sparsify.pod:368
-#: ../v2v/virt-v2v.pod:1146
+#: ../v2v/virt-v2v.pod:1161
 msgid ""
 "Progress bar messages can be parsed from stdout by looking for this regular "
 "expression:"
@@ -55890,7 +55890,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../resize/virt-resize.pod:632 ../sparsify/virt-sparsify.pod:371
-#: ../v2v/virt-v2v.pod:1149
+#: ../v2v/virt-v2v.pod:1164
 #, no-wrap
 msgid ""
 " ^[0-9]+/[0-9]+$\n"
@@ -55901,7 +55901,7 @@ msgstr ""
 
 #. type: textblock
 #: ../resize/virt-resize.pod:636 ../sparsify/virt-sparsify.pod:375
-#: ../v2v/virt-v2v.pod:1153
+#: ../v2v/virt-v2v.pod:1168
 msgid ""
 "The calling program should treat messages sent to stdout (except for "
 "progress bar messages) as status messages.  They can be logged and/or "
@@ -56382,23 +56382,27 @@ msgstr ""
 
 #. type: =item
 #: ../sparsify/virt-sparsify.pod:122
-msgid "B<--check-tmpdir=ignore>"
+msgid "B<--check-tmpdir ignore>"
 msgstr ""
 
 #. type: =item
 #: ../sparsify/virt-sparsify.pod:124
-msgid "B<--check-tmpdir=continue>"
+msgid "B<--check-tmpdir continue>"
 msgstr ""
 
 #. type: =item
 #: ../sparsify/virt-sparsify.pod:126
-msgid "B<--check-tmpdir=warn>"
-msgstr ""
+#, fuzzy
+#| msgid "B<--checksum>"
+msgid "B<--check-tmpdir warn>"
+msgstr "B<--checksum>"
 
 #. type: =item
 #: ../sparsify/virt-sparsify.pod:128
-msgid "B<--check-tmpdir=fail>"
-msgstr ""
+#, fuzzy
+#| msgid "B<--checksum>"
+msgid "B<--check-tmpdir fail>"
+msgstr "B<--checksum>"
 
 #. type: textblock
 #: ../sparsify/virt-sparsify.pod:130
@@ -56595,7 +56599,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:247 ../v2v/virt-v2v.pod:426
+#: ../sparsify/virt-sparsify.pod:247 ../v2v/virt-v2v.pod:441
 msgid "This disables progress bars and other unnecessary output."
 msgstr ""
 
@@ -56778,7 +56782,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:401 ../v2v/virt-v2v.pod:1188
+#: ../sparsify/virt-sparsify.pod:401 ../v2v/virt-v2v.pod:1203
 msgid ""
 "Location of the temporary directory used for the potentially large temporary "
 "overlay file."
@@ -56792,7 +56796,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:407 ../v2v/virt-v2v.pod:1191
+#: ../sparsify/virt-sparsify.pod:407 ../v2v/virt-v2v.pod:1206
 msgid ""
 "You should ensure there is enough free space in the worst case for a full "
 "copy of the source disk (I<virtual> size), or else set C<$TMPDIR> to point "
@@ -56800,7 +56804,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../sparsify/virt-sparsify.pod:411 ../v2v/virt-v2v.pod:1195
+#: ../sparsify/virt-sparsify.pod:411 ../v2v/virt-v2v.pod:1210
 msgid "This defaults to C</tmp>."
 msgstr "この初期値は C</tmp> です。"
 
@@ -56815,7 +56819,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../sparsify/virt-sparsify.pod:419 ../v2v/virt-v2v.pod:1203
+#: ../sparsify/virt-sparsify.pod:419 ../v2v/virt-v2v.pod:1218
 #, no-wrap
 msgid ""
 " mount -o remount,size=10G /tmp\n"
@@ -90003,45 +90007,50 @@ msgstr ""
 
 #. type: =item
 #: ../v2v/virt-v2v.pod:155
+msgid "B<-b> ..."
+msgstr ""
+
+#. type: =item
+#: ../v2v/virt-v2v.pod:157
 msgid "B<--bridge> ..."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:157
+#: ../v2v/virt-v2v.pod:159
 msgid "See I<--network> below."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:161
+#: ../v2v/virt-v2v.pod:163
 msgid ""
 "Debug garbage collection and memory allocation.  This is only useful when "
 "debugging memory problems in virt-v2v or the OCaml libguestfs bindings."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:165
+#: ../v2v/virt-v2v.pod:167
 msgid "B<--debug-overlays>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:167
+#: ../v2v/virt-v2v.pod:169
 msgid ""
 "Save the overlay file(s) created during conversion.  This option is only "
 "used for debugging virt-v2v and may be removed in a future version."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:171
+#: ../v2v/virt-v2v.pod:173
 msgid "B<-i disk>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:173
+#: ../v2v/virt-v2v.pod:175
 msgid "Set the input method to I<disk>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:175
+#: ../v2v/virt-v2v.pod:177
 msgid ""
 "In this mode you can read a virtual machine disk image with no metadata.  "
 "virt-v2v tries to guess the best default metadata.  This is usually adequate "
@@ -90051,34 +90060,34 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:181
+#: ../v2v/virt-v2v.pod:183
 msgid "B<-i libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:183
+#: ../v2v/virt-v2v.pod:185
 msgid "Set the input method to I<libvirt>.  This is the default."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:185
+#: ../v2v/virt-v2v.pod:187
 msgid ""
 "In this mode you have to specify a libvirt guest name or UUID on the command "
 "line.  You may also specify a libvirt connection URI (see I<-ic>)."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:189
+#: ../v2v/virt-v2v.pod:191
 msgid "B<-i libvirtxml>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:191
+#: ../v2v/virt-v2v.pod:193
 msgid "Set the input method to I<libvirtxml>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:193
+#: ../v2v/virt-v2v.pod:195
 msgid ""
 "In this mode you have to pass a libvirt XML file on the command line.  This "
 "file is read in order to get metadata about the source guest (such as its "
@@ -90087,27 +90096,27 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:198
+#: ../v2v/virt-v2v.pod:200
 msgid "B<-i local>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:200
+#: ../v2v/virt-v2v.pod:202
 msgid "This is the same as I<-i disk>."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:202
+#: ../v2v/virt-v2v.pod:204
 msgid "B<-i ova>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:204
+#: ../v2v/virt-v2v.pod:206
 msgid "Set the input method to I<ova>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:206
+#: ../v2v/virt-v2v.pod:208
 msgid ""
 "In this mode you can read a VMware ova file.  Virt-v2v will read the ova "
 "manifest file and check the vmdk volumes for validity (checksums)  as well "
@@ -90115,19 +90124,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:210
+#: ../v2v/virt-v2v.pod:212
 msgid "B<-ic> libvirtURI"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:212
+#: ../v2v/virt-v2v.pod:214
 msgid ""
 "Specify a libvirt connection URI to use when reading the guest.  This is "
 "only used when S<I<-i libvirt>>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:215
+#: ../v2v/virt-v2v.pod:217
 msgid ""
 "Only local libvirt connections, ESX connections, or RHEL 5 Xen remote "
 "connections can be used.  Other remote libvirt connections will not work in "
@@ -90135,46 +90144,68 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:219
+#: ../v2v/virt-v2v.pod:221
 msgid ""
 "See also L</INPUT FROM VMWARE VCENTER SERVER>, L</INPUT FROM RHEL 5 XEN> "
 "below."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:222
+#: ../v2v/virt-v2v.pod:224
 msgid "B<-if> format"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:224
+#: ../v2v/virt-v2v.pod:226
 msgid ""
 "For I<-i disk> only, this specifies the format of the input disk image.  For "
 "other input methods you should specify the input format in the metadata."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:234
-msgid "B<--network> in:out"
-msgstr ""
-
-#. type: =item
 #: ../v2v/virt-v2v.pod:236
-msgid "B<--network> out"
+msgid "B<-n> in:out"
 msgstr ""
 
 #. type: =item
 #: ../v2v/virt-v2v.pod:238
+#, fuzzy
+#| msgid "B<-n>"
+msgid "B<-n> out"
+msgstr "B<-n>"
+
+#. type: =item
+#: ../v2v/virt-v2v.pod:240
+msgid "B<--network> in:out"
+msgstr ""
+
+#. type: =item
+#: ../v2v/virt-v2v.pod:242
+msgid "B<--network> out"
+msgstr ""
+
+#. type: =item
+#: ../v2v/virt-v2v.pod:244
+msgid "B<-b> in:out"
+msgstr ""
+
+#. type: =item
+#: ../v2v/virt-v2v.pod:246
+msgid "B<-b> out"
+msgstr ""
+
+#. type: =item
+#: ../v2v/virt-v2v.pod:248
 msgid "B<--bridge> in:out"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:240
+#: ../v2v/virt-v2v.pod:250
 msgid "B<--bridge> out"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:242
+#: ../v2v/virt-v2v.pod:252
 msgid ""
 "Map network (or bridge) called C<in> to network (or bridge) called C<out>.  "
 "If no C<in:> prefix is given, all other networks (or bridges)  are mapped to "
@@ -90182,17 +90213,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:246
+#: ../v2v/virt-v2v.pod:256
 msgid "See L</NETWORKS AND BRIDGES> below."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:248
+#: ../v2v/virt-v2v.pod:258
 msgid "B<--no-copy>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:250
+#: ../v2v/virt-v2v.pod:260
 msgid ""
 "Don't copy the disks.  Instead, conversion is performed (and thrown away), "
 "and metadata is written, but no disks are created.  See also discussion of "
@@ -90200,7 +90231,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:254
+#: ../v2v/virt-v2v.pod:264
 msgid ""
 "This is useful in two cases: Either you want to test if conversion is likely "
 "to succeed, without the long copying process.  Or you are only interested in "
@@ -90208,29 +90239,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:258
+#: ../v2v/virt-v2v.pod:268
 msgid ""
 "This option is not compatible with I<-o libvirt> since it would create a "
 "faulty guest (one with no disks)."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:261
+#: ../v2v/virt-v2v.pod:271
 msgid "This option is not compatible with I<-o glance> for technical reasons."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:263
+#: ../v2v/virt-v2v.pod:273
 msgid "B<--no-trim all>"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:265
+#: ../v2v/virt-v2v.pod:275
 msgid "B<--no-trim> mp[,mp...]"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:267
+#: ../v2v/virt-v2v.pod:277
 msgid ""
 "By default virt-v2v runs L<fstrim(8)> to reduce the amount of data that "
 "needs to be copied.  This is known to break some buggy bootloaders causing "
@@ -90239,7 +90270,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:272
+#: ../v2v/virt-v2v.pod:282
 msgid ""
 "You can use I<--no-trim all> to disable all trimming.  Note this will "
 "greatly increase the amount of data that has to be copied and can make virt-"
@@ -90247,30 +90278,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:276
+#: ../v2v/virt-v2v.pod:286
 msgid ""
 "You can also disable trimming on selected filesystems only (specified by a "
 "comma-separated list of their mount point(s) in the guest).  Typically you "
 "would use I<--no-trim /boot> to work around the grub bug mentioned above."
 msgstr ""
 
+#. type: textblock
+#: ../v2v/virt-v2v.pod:291
+msgid ""
+"You can also disable trimming on partitions using the libguestfs naming "
+"scheme for devices, eg: I<--no-trim /dev/sdb2> means do not trim the second "
+"partition on the second block device.  Use L<virt-filesystems(1)> to list "
+"filesystem names in a guest."
+msgstr ""
+
 #. type: =item
-#: ../v2v/virt-v2v.pod:281
+#: ../v2v/virt-v2v.pod:296
 msgid "B<-o disk>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:283
+#: ../v2v/virt-v2v.pod:298
 msgid "This is the same as I<-o local>."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:285
+#: ../v2v/virt-v2v.pod:300
 msgid "B<-o glance>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:287
+#: ../v2v/virt-v2v.pod:302
 msgid ""
 "Set the output method to OpenStack Glance.  In this mode the converted guest "
 "is uploaded to Glance.  You can control the image name by setting the I<-on> "
@@ -90278,39 +90318,39 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:291
+#: ../v2v/virt-v2v.pod:306
 msgid "B<-o libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:293
+#: ../v2v/virt-v2v.pod:308
 msgid "Set the output method to I<libvirt>.  This is the default."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:295
+#: ../v2v/virt-v2v.pod:310
 msgid ""
 "In this mode, the converted guest is created as a libvirt guest.  You may "
 "also specify a libvirt connection URI (see I<-oc>)."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:298
+#: ../v2v/virt-v2v.pod:313
 msgid "See L</OUTPUT TO LIBVIRT> below."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:300
+#: ../v2v/virt-v2v.pod:315
 msgid "B<-o local>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:302
+#: ../v2v/virt-v2v.pod:317
 msgid "Set the output method to I<local>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:304
+#: ../v2v/virt-v2v.pod:319
 msgid ""
 "In this mode, the converted guest is written to a local directory specified "
 "by I<-os /dir> (the directory must exist).  The converted guest's disks are "
@@ -90318,7 +90358,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:308
+#: ../v2v/virt-v2v.pod:323
 #, no-wrap
 msgid ""
 " /dir/name-sda\n"
@@ -90328,12 +90368,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:312
+#: ../v2v/virt-v2v.pod:327
 msgid "and a libvirt XML file is created containing guest metadata:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:314
+#: ../v2v/virt-v2v.pod:329
 #, no-wrap
 msgid ""
 " /dir/name.xml\n"
@@ -90341,49 +90381,49 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:316
+#: ../v2v/virt-v2v.pod:331
 msgid "where C<name> is the guest name."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:318
+#: ../v2v/virt-v2v.pod:333
 msgid "B<-o null>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:320
+#: ../v2v/virt-v2v.pod:335
 msgid "Set the output method to I<null>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:322
+#: ../v2v/virt-v2v.pod:337
 msgid ""
 "The guest is converted and copied (unless you also specify I<--no-copy>), "
 "but the results are thrown away and no metadata is written."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:326
+#: ../v2v/virt-v2v.pod:341
 msgid "B<-o ovirt>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:328
+#: ../v2v/virt-v2v.pod:343
 msgid "This is the same as I<-o rhev>."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:330
+#: ../v2v/virt-v2v.pod:345
 msgid "B<-o qemu>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:332
+#: ../v2v/virt-v2v.pod:347
 msgid "Set the output method to I<qemu>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:334
+#: ../v2v/virt-v2v.pod:349
 msgid ""
 "This is similar to I<-o local>, except that a shell script is written which "
 "you can use to boot the guest in qemu.  The converted disks and shell script "
@@ -90391,24 +90431,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:338
+#: ../v2v/virt-v2v.pod:353
 msgid ""
 "When using this output mode, you can also specify the I<--qemu-boot> option "
 "which boots the guest under qemu immediately."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:341
+#: ../v2v/virt-v2v.pod:356
 msgid "B<-o rhev>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:343
+#: ../v2v/virt-v2v.pod:358
 msgid "Set the output method to I<rhev>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:345
+#: ../v2v/virt-v2v.pod:360
 msgid ""
 "The converted guest is written to a RHEV Export Storage Domain.  The I<-os> "
 "parameter must also be used to specify the location of the Export Storage "
@@ -90417,121 +90457,121 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:350
+#: ../v2v/virt-v2v.pod:365
 msgid "See L</OUTPUT TO RHEV> below."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:352
+#: ../v2v/virt-v2v.pod:367
 msgid "B<-o vdsm>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:354
+#: ../v2v/virt-v2v.pod:369
 msgid "Set the output method to I<vdsm>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:356
+#: ../v2v/virt-v2v.pod:371
 msgid ""
 "This mode is similar to I<-o rhev> but is only used by RHEV VDSM when it "
 "runs virt-v2v under VDSM control."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:359
+#: ../v2v/virt-v2v.pod:374
 msgid "B<-oa sparse>"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:361
+#: ../v2v/virt-v2v.pod:376
 msgid "B<-oa preallocated>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:363
+#: ../v2v/virt-v2v.pod:378
 msgid "Set the output file allocation mode.  The default is C<sparse>."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:365
+#: ../v2v/virt-v2v.pod:380
 msgid "B<-oc> libvirtURI"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:367
+#: ../v2v/virt-v2v.pod:382
 msgid ""
 "Specify a libvirt connection to use when writing the converted guest.  This "
 "is only used when S<I<-o libvirt>>.  See L</OUTPUT TO LIBVIRT> below."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:370
+#: ../v2v/virt-v2v.pod:385
 msgid ""
 "Only local libvirt connections can be used.  Remote libvirt connections will "
 "not work."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:373
+#: ../v2v/virt-v2v.pod:388
 msgid "B<-of> format"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:375
+#: ../v2v/virt-v2v.pod:390
 msgid "When converting the guest, convert the disks to the given format."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:377
+#: ../v2v/virt-v2v.pod:392
 msgid "If not specified, then the input format is used."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:379
+#: ../v2v/virt-v2v.pod:394
 msgid "B<-on> name"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:381
+#: ../v2v/virt-v2v.pod:396
 msgid ""
 "Rename the guest when converting it.  If this option is not used then the "
 "output name is the same as the input name."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:384
+#: ../v2v/virt-v2v.pod:399
 msgid "B<-os> storage"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:386
+#: ../v2v/virt-v2v.pod:401
 msgid "The location of the storage for the converted guest."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:388
+#: ../v2v/virt-v2v.pod:403
 msgid ""
 "For I<-o libvirt>, this is a libvirt directory pool (see S<C<virsh pool-"
 "list>>) or pool UUID."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:391
+#: ../v2v/virt-v2v.pod:406
 msgid ""
 "For I<-o local> and I<-o qemu>, this is a directory name.  The directory "
 "must exist."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:394
+#: ../v2v/virt-v2v.pod:409
 msgid ""
 "For I<-o rhev>, this can be an NFS path of the Export Storage Domain of the "
 "form C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:397
+#: ../v2v/virt-v2v.pod:412
 #, no-wrap
 msgid ""
 " rhev-storage.example.com:/rhev/export\n"
@@ -90539,7 +90579,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:399
+#: ../v2v/virt-v2v.pod:414
 msgid ""
 "The NFS export must be mountable and writable by the user and host running "
 "virt-v2v, since the virt-v2v program has to actually mount it when it runs.  "
@@ -90547,7 +90587,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:403
+#: ../v2v/virt-v2v.pod:418
 msgid ""
 "B<Or:> You can mount the Export Storage Domain yourself, and point I<-os> to "
 "the mountpoint.  Note that virt-v2v will still need to write to this remote "
@@ -90555,19 +90595,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:408
+#: ../v2v/virt-v2v.pod:423
 msgid ""
 "You will get an error if virt-v2v is unable to mount/write to the Export "
 "Storage Domain."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:411
+#: ../v2v/virt-v2v.pod:426
 msgid "B<--print-source>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:413
+#: ../v2v/virt-v2v.pod:428
 msgid ""
 "Print information about the source guest and stop.  This option is useful "
 "when you are setting up network and bridge maps.  See L</NETWORKS AND "
@@ -90575,49 +90615,49 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:417
+#: ../v2v/virt-v2v.pod:432
 msgid "B<--qemu-boot>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:419
+#: ../v2v/virt-v2v.pod:434
 msgid ""
 "When using I<-o qemu> only, this boots the guest immediately after virt-v2v "
 "finishes."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:428
+#: ../v2v/virt-v2v.pod:443
 msgid "B<--root ask>"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:430
+#: ../v2v/virt-v2v.pod:445
 msgid "B<--root single>"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:432
+#: ../v2v/virt-v2v.pod:447
 msgid "B<--root first>"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:434
+#: ../v2v/virt-v2v.pod:449
 msgid "B<--root> /dev/sdX"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:436
+#: ../v2v/virt-v2v.pod:451
 msgid "B<--root> /dev/VG/LV"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:438
+#: ../v2v/virt-v2v.pod:453
 msgid "Choose the root filesystem to be converted."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:440
+#: ../v2v/virt-v2v.pod:455
 msgid ""
 "In the case where the virtual machine is dual-boot or multi-boot, or where "
 "the VM has other filesystems that look like operating systems, this option "
@@ -90628,14 +90668,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:448
+#: ../v2v/virt-v2v.pod:463
 msgid ""
 "The default in virt-v2v E<le> 0.7.1 was S<I<--root single>>, which causes "
 "virt-v2v to die if a multi-boot operating system is found."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:451
+#: ../v2v/virt-v2v.pod:466
 msgid ""
 "Since virt-v2v E<ge> 0.7.2 the default is now S<I<--root ask>>: If the VM is "
 "found to be multi-boot, then virt-v2v will stop and list the possible root "
@@ -90644,7 +90684,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:456
+#: ../v2v/virt-v2v.pod:471
 msgid ""
 "S<I<--root first>> means to choose the first root device in the case of a "
 "multi-boot operating system.  Since this is a heuristic, it may sometimes "
@@ -90652,7 +90692,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:460
+#: ../v2v/virt-v2v.pod:475
 msgid ""
 "You can also name a specific root device, eg. S<I<--root /dev/sda2>> would "
 "mean to use the second partition on the first hard drive.  If the named root "
@@ -90661,7 +90701,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:465
+#: ../v2v/virt-v2v.pod:480
 msgid ""
 "Note that there is a bug in grub which prevents it from successfully booting "
 "a multiboot system if VirtIO is enabled.  Grub is only able to boot an "
@@ -90671,22 +90711,22 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:471
+#: ../v2v/virt-v2v.pod:486
 msgid "B<--vdsm-image-uuid> UUID"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:473
+#: ../v2v/virt-v2v.pod:488
 msgid "B<--vdsm-vol-uuid> UUID"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:475
+#: ../v2v/virt-v2v.pod:490
 msgid "B<--vdsm-vm-uuid> UUID"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:477
+#: ../v2v/virt-v2v.pod:492
 msgid ""
 "Normally the RHEV output mode chooses random UUIDs for the target guest.  "
 "However VDSM needs to control the UUIDs and passes these parameters when "
@@ -90694,48 +90734,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:486
+#: ../v2v/virt-v2v.pod:501
 msgid ""
 "the image directory of each guest disk (I<--vdsm-image-uuid>) (this option "
 "is passed once for each guest disk)"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:491
+#: ../v2v/virt-v2v.pod:506
 msgid ""
 "UUIDs for each guest disk (I<--vdsm-vol-uuid>) (this option is passed once "
 "for each guest disk)"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:496
+#: ../v2v/virt-v2v.pod:511
 msgid "the VM and OVF file (I<--vdsm-vm-uuid>)."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:500
+#: ../v2v/virt-v2v.pod:515
 msgid ""
 "The format of UUIDs is: C<12345678-1234-1234-1234-123456789abc> (each hex "
 "digit can be C<0-9> or C<a-f>), conforming to S<OSF DCE 1.1>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:503
+#: ../v2v/virt-v2v.pod:518
 msgid "These options can only be used with I<-o vdsm>."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:517
+#: ../v2v/virt-v2v.pod:532
 msgid "B<--vmtype desktop>"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:519
+#: ../v2v/virt-v2v.pod:534
 msgid "B<--vmtype server>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:521
+#: ../v2v/virt-v2v.pod:536
 msgid ""
 "For the I<-o rhev> or I<-o vdsm> targets only, specify the type of guest.  "
 "You can set this to C<desktop> or C<server>.  If the option is not given, "
@@ -90744,12 +90784,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:532
+#: ../v2v/virt-v2v.pod:547
 msgid "XEN PARAVIRTUALIZED GUESTS"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:534
+#: ../v2v/virt-v2v.pod:549
 msgid ""
 "Older versions of virt-v2v could turn a Xen paravirtualized (PV) guest into "
 "a KVM guest by installing a new kernel.  This version of virt-v2v does "
@@ -90758,7 +90798,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:539
+#: ../v2v/virt-v2v.pod:554
 msgid ""
 "Therefore before conversion you should check that a regular kernel is "
 "installed.  For some older Linux distributions, this means installing a "
@@ -90766,7 +90806,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:543
+#: ../v2v/virt-v2v.pod:558
 #, no-wrap
 msgid ""
 " RHEL 3         (Does not apply, as there was no Xen PV kernel)\n"
@@ -90774,7 +90814,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:545
+#: ../v2v/virt-v2v.pod:560
 #, no-wrap
 msgid ""
 " RHEL 4         i686 with > 10GB of RAM: install 'kernel-hugemem'\n"
@@ -90787,7 +90827,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:552
+#: ../v2v/virt-v2v.pod:567
 #, no-wrap
 msgid ""
 " RHEL 5         i686: install 'kernel-PAE'\n"
@@ -90796,7 +90836,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:555
+#: ../v2v/virt-v2v.pod:570
 #, no-wrap
 msgid ""
 " SLES 10        i586 with > 10GB of RAM: install 'kernel-bigsmp'\n"
@@ -90808,7 +90848,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:561
+#: ../v2v/virt-v2v.pod:576
 #, no-wrap
 msgid ""
 " SLES 11+       i586: install 'kernel-pae'\n"
@@ -90817,7 +90857,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:564
+#: ../v2v/virt-v2v.pod:579
 #, no-wrap
 msgid ""
 " Windows        (Does not apply, as there is no Xen PV Windows kernel)\n"
@@ -90825,19 +90865,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:566
+#: ../v2v/virt-v2v.pod:581
 msgid "ENABLING VIRTIO"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:568
+#: ../v2v/virt-v2v.pod:583
 msgid ""
 "\"Virtio\" is the name for a set of drivers which make disk (block device), "
 "network and other guest operations work much faster on KVM."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:571
+#: ../v2v/virt-v2v.pod:586
 msgid ""
 "Older versions of virt-v2v could install these drivers for certain Linux "
 "guests.  This version of virt-v2v does I<not> attempt to install new Linux "
@@ -90845,7 +90885,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:576
+#: ../v2v/virt-v2v.pod:591
 msgid ""
 "In order to enable virtio, and hence improve performance of the guest after "
 "conversion, you should ensure that the B<minimum> versions of packages are "
@@ -90853,7 +90893,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:581
+#: ../v2v/virt-v2v.pod:596
 #, no-wrap
 msgid ""
 " RHEL 3         No virtio drivers are available\n"
@@ -90861,7 +90901,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:583
+#: ../v2v/virt-v2v.pod:598
 #, no-wrap
 msgid ""
 " RHEL 4         kernel >= 2.5.9-89.EL\n"
@@ -90869,7 +90909,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:585
+#: ../v2v/virt-v2v.pod:600
 #, no-wrap
 msgid ""
 " RHEL 5         kernel >= 2.6.18-128.el5\n"
@@ -90879,7 +90919,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:589
+#: ../v2v/virt-v2v.pod:604
 #, no-wrap
 msgid ""
 " RHEL 6+        All versions support virtio\n"
@@ -90887,7 +90927,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:591
+#: ../v2v/virt-v2v.pod:606
 #, no-wrap
 msgid ""
 " Fedora         All versions support virtio\n"
@@ -90895,7 +90935,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:593
+#: ../v2v/virt-v2v.pod:608
 #, no-wrap
 msgid ""
 " SLES 11+       All versions support virtio\n"
@@ -90903,7 +90943,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:595
+#: ../v2v/virt-v2v.pod:610
 #, no-wrap
 msgid ""
 " SLES 10        kernel >= 2.6.16.60-0.85.1\n"
@@ -90911,7 +90951,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:597
+#: ../v2v/virt-v2v.pod:612
 #, no-wrap
 msgid ""
 " OpenSUSE 11+   All versions support virtio\n"
@@ -90919,7 +90959,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:599
+#: ../v2v/virt-v2v.pod:614
 #, no-wrap
 msgid ""
 " OpenSUSE 10    kernel >= 2.6.25.5-1.1\n"
@@ -90927,7 +90967,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:601
+#: ../v2v/virt-v2v.pod:616
 #, no-wrap
 msgid ""
 " Windows        Drivers are installed from /usr/share/virtio-win\n"
@@ -90936,12 +90976,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:604
+#: ../v2v/virt-v2v.pod:619
 msgid "NETWORKS AND BRIDGES"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:606
+#: ../v2v/virt-v2v.pod:621
 msgid ""
 "Guests are usually connected to one or more networks, and when converted to "
 "the target hypervisor you usually want to reconnect those networks at the "
@@ -90949,7 +90989,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:611
+#: ../v2v/virt-v2v.pod:626
 msgid ""
 "If you are unsure of what networks and bridges are in use on the source "
 "hypervisor, then you can examine the source metadata (libvirt XML, vCenter "
@@ -90959,14 +90999,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:617
+#: ../v2v/virt-v2v.pod:632
 msgid ""
 "In the I<--print-source> output you will see a section showing the guest's "
 "Network Interface Cards (NICs):"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:620
+#: ../v2v/virt-v2v.pod:635
 #, no-wrap
 msgid ""
 " $ virt-v2v [-i ...] --print-source name\n"
@@ -90977,21 +91017,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:625
+#: ../v2v/virt-v2v.pod:640
 msgid ""
 "This is typical of a libvirt guest: It has a single network interface "
 "connected to a network called C<default>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:628
+#: ../v2v/virt-v2v.pod:643
 msgid ""
 "To map a specific network to a target network, for example C<default> on the "
 "source to C<rhevm> on the target, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:631
+#: ../v2v/virt-v2v.pod:646
 #, no-wrap
 msgid ""
 " virt-v2v [...] --network default:rhevm\n"
@@ -90999,12 +91039,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:633
+#: ../v2v/virt-v2v.pod:648
 msgid "To map every network to a target network, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:635
+#: ../v2v/virt-v2v.pod:650
 #, no-wrap
 msgid ""
 " virt-v2v [...] --network rhevm\n"
@@ -91012,14 +91052,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:637
+#: ../v2v/virt-v2v.pod:652
 msgid ""
 "Bridges are handled in the same way, but you have to use the I<--bridge> "
 "option instead.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:640
+#: ../v2v/virt-v2v.pod:655
 #, no-wrap
 msgid ""
 " $ virt-v2v [-i ...] --print-source name\n"
@@ -91030,7 +91070,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:645
+#: ../v2v/virt-v2v.pod:660
 #, no-wrap
 msgid ""
 " $ virt-v2v [...] --bridge br0:targetbr\n"
@@ -91038,23 +91078,23 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:647
+#: ../v2v/virt-v2v.pod:662
 msgid "INPUT FROM VMWARE VCENTER SERVER"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:649
+#: ../v2v/virt-v2v.pod:664
 msgid "Virt-v2v is able to import guests from VMware vCenter Server."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:651
+#: ../v2v/virt-v2v.pod:666
 msgid ""
 "Note that virt-v2v B<cannot> import guests directly from an ESXi hypervisor."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:654
+#: ../v2v/virt-v2v.pod:669
 msgid ""
 "Virt-v2v uses libvirt for access to vCenter, and therefore the input mode "
 "should be I<-i libvirt>.  As this is the default, you don't need to specify "
@@ -91062,12 +91102,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:658
+#: ../v2v/virt-v2v.pod:673
 msgid "ESX: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:660
+#: ../v2v/virt-v2v.pod:675
 msgid ""
 "For Windows guests, you should remove VMware tools before conversion.  "
 "Although this is not strictly necessary, and the guest will still be able to "
@@ -91078,24 +91118,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:667
+#: ../v2v/virt-v2v.pod:682
 msgid ""
 "This is not necessary for Linux guests, as virt-v2v is able to remove VMware "
 "tools."
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:670
+#: ../v2v/virt-v2v.pod:685
 msgid "ESX: VCENTER URI"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:672
+#: ../v2v/virt-v2v.pod:687
 msgid "The libvirt URI of a vCenter server looks something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:674
+#: ../v2v/virt-v2v.pod:689
 #, no-wrap
 msgid ""
 " vpx://user@server/Datacenter/esxi\n"
@@ -91103,54 +91143,54 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:676
+#: ../v2v/virt-v2v.pod:691
 msgid "where:"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:680
+#: ../v2v/virt-v2v.pod:695
 msgid "C<user@>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:682
+#: ../v2v/virt-v2v.pod:697
 msgid "is the (optional, but recommended) user to connect as"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:686
+#: ../v2v/virt-v2v.pod:701
 msgid "is the vCenter Server (I<not> hypervisor)"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:688
+#: ../v2v/virt-v2v.pod:703
 msgid "C<Datacenter>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:690
+#: ../v2v/virt-v2v.pod:705
 msgid "is the name of the datacenter"
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:692
+#: ../v2v/virt-v2v.pod:707
 msgid "C<esxi>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:694
+#: ../v2v/virt-v2v.pod:709
 msgid "is the name of the ESXi hypervisor running the guest."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:698
+#: ../v2v/virt-v2v.pod:713
 msgid ""
 "If the VMware deployment is using clusters and/or folders, then these may "
 "need to be added to the URI, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:701
+#: ../v2v/virt-v2v.pod:716
 #, no-wrap
 msgid ""
 " vpx://user@server/Datacenter/cluster1/esxi\n"
@@ -91158,55 +91198,55 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:703
+#: ../v2v/virt-v2v.pod:718
 msgid ""
 "For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:705
+#: ../v2v/virt-v2v.pod:720
 msgid "Typical errors from libvirt / virsh when the URI is wrong include:"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:711
+#: ../v2v/virt-v2v.pod:726
 msgid "Could not find datacenter specified in [...]"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:715
+#: ../v2v/virt-v2v.pod:730
 msgid "Could not find compute resource specified in [...]"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:719
+#: ../v2v/virt-v2v.pod:734
 msgid "Path [...] does not specify a compute resource"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:723
+#: ../v2v/virt-v2v.pod:738
 msgid "Path [...] does not specify a host system"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:727
+#: ../v2v/virt-v2v.pod:742
 msgid "Could not find host system specified in [...]"
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:731
+#: ../v2v/virt-v2v.pod:746
 msgid "ESX: TEST LIBVIRT CONNECTION TO VCENTER"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:733
+#: ../v2v/virt-v2v.pod:748
 msgid ""
 "Use the L<virsh(1)> command to list the guests on the vCenter Server like "
 "this:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:736
+#: ../v2v/virt-v2v.pod:751
 #, no-wrap
 msgid ""
 " $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' list --all\n"
@@ -91215,7 +91255,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:739
+#: ../v2v/virt-v2v.pod:754
 #, no-wrap
 msgid ""
 "  Id    Name                           State\n"
@@ -91226,7 +91266,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:744
+#: ../v2v/virt-v2v.pod:759
 msgid ""
 "If you get an error \"Peer certificate cannot be authenticated with given CA "
 "certificates\" or similar, then you can either import the ESX host's "
@@ -91235,7 +91275,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:749
+#: ../v2v/virt-v2v.pod:764
 #, no-wrap
 msgid ""
 " $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' list --all\n"
@@ -91243,14 +91283,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:751 ../v2v/virt-v2v.pod:819
+#: ../v2v/virt-v2v.pod:766 ../v2v/virt-v2v.pod:834
 msgid ""
 "You should also try dumping the metadata from any guest on your server, like "
 "this:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:754
+#: ../v2v/virt-v2v.pod:769
 #, no-wrap
 msgid ""
 " $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' dumpxml \"Windows 2003\"\n"
@@ -91262,7 +91302,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:760
+#: ../v2v/virt-v2v.pod:775
 msgid ""
 "B<If the above commands do not work, then virt-v2v is not going to work "
 "either>.  Fix your libvirt configuration and/or your VMware vCenter Server "
@@ -91270,17 +91310,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:764
+#: ../v2v/virt-v2v.pod:779
 msgid "ESX: IMPORTING A GUEST"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:766
+#: ../v2v/virt-v2v.pod:781
 msgid "To import a particular guest from vCenter Server, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:768
+#: ../v2v/virt-v2v.pod:783
 #, no-wrap
 msgid ""
 " $ virt-v2v -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \\\n"
@@ -91290,13 +91330,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:772
+#: ../v2v/virt-v2v.pod:787
 msgid ""
 "where C<Windows 2003> is the name of the guest (which must be shut down)."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:775
+#: ../v2v/virt-v2v.pod:790
 msgid ""
 "Note that you may be asked for the vCenter password I<twice>.  This happens "
 "once because libvirt needs it, and a second time because virt-v2v itself "
@@ -91304,7 +91344,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:779 ../v2v/virt-v2v.pod:843
+#: ../v2v/virt-v2v.pod:794 ../v2v/virt-v2v.pod:858
 msgid ""
 "In this case the output flags are set to write the converted guest to a "
 "temporary directory as this is just an example, but you can also write to "
@@ -91312,17 +91352,17 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:783
+#: ../v2v/virt-v2v.pod:798
 msgid "INPUT FROM RHEL 5 XEN"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:785
+#: ../v2v/virt-v2v.pod:800
 msgid "Virt-v2v is able to import Xen guests from RHEL 5 Xen hosts."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:787
+#: ../v2v/virt-v2v.pod:802
 msgid ""
 "Virt-v2v uses libvirt for access to the remote Xen host, and therefore the "
 "input mode should be I<-i libvirt>.  As this is the default, you don't need "
@@ -91330,33 +91370,33 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:791
+#: ../v2v/virt-v2v.pod:806
 msgid "XEN: SET UP SSH-AGENT ACCESS TO XEN HOST"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:793
+#: ../v2v/virt-v2v.pod:808
 msgid ""
 "Currently you must enable passwordless SSH access to the remote Xen host "
 "from the virt-v2v conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:796
+#: ../v2v/virt-v2v.pod:811
 msgid ""
 "You must also use ssh-agent, and add your ssh public key to C</root/.ssh/"
 "authorized_keys> (on the Xen host)."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:799
+#: ../v2v/virt-v2v.pod:814
 msgid ""
 "After doing this, you should check that passwordless access works from the "
 "virt-v2v server to the Xen host.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:802
+#: ../v2v/virt-v2v.pod:817
 #, no-wrap
 msgid ""
 " $ ssh root@xen.example.com\n"
@@ -91365,24 +91405,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:805
+#: ../v2v/virt-v2v.pod:820
 msgid ""
 "Note that password-interactive and Kerberos access are B<not> supported.  "
 "You B<have> to set up ssh access using ssh-agent and authorized_keys."
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:809
+#: ../v2v/virt-v2v.pod:824
 msgid "XEN: TEST LIBVIRT CONNECTION TO REMOTE XEN HOST"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:811
+#: ../v2v/virt-v2v.pod:826
 msgid "Use the L<virsh(1)> command to list the guests on the remote Xen host:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:813
+#: ../v2v/virt-v2v.pod:828
 #, no-wrap
 msgid ""
 " $ virsh -c xen+ssh://root@xen.example.com list --all\n"
@@ -91394,7 +91434,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:822
+#: ../v2v/virt-v2v.pod:837
 #, no-wrap
 msgid ""
 " $ virsh -c xen+ssh://root@xen.example.com dumpxml rhel49-x86_64-pv\n"
@@ -91406,7 +91446,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:828
+#: ../v2v/virt-v2v.pod:843
 msgid ""
 "B<If the above commands do not work, then virt-v2v is not going to work "
 "either>.  Fix your libvirt configuration or the remote server before "
@@ -91414,17 +91454,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:832
+#: ../v2v/virt-v2v.pod:847
 msgid "XEN: IMPORTING A GUEST"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:834
+#: ../v2v/virt-v2v.pod:849
 msgid "To import a particular guest from a Xen server, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:836
+#: ../v2v/virt-v2v.pod:851
 #, no-wrap
 msgid ""
 " $ virt-v2v -ic 'xen+ssh://root@xen.example.com' \\\n"
@@ -91434,58 +91474,58 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:840
+#: ../v2v/virt-v2v.pod:855
 msgid ""
 "where C<rhel49-x86_64-pv> is the name of the guest (which must be shut down)."
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:847
+#: ../v2v/virt-v2v.pod:862
 msgid "OUTPUT TO LIBVIRT"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:849
+#: ../v2v/virt-v2v.pod:864
 msgid ""
 "The I<-o libvirt> option lets you upload the converted guest to a libvirt-"
 "managed host.  There are several limitations:"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:856
+#: ../v2v/virt-v2v.pod:871
 msgid ""
 "You can only use a local libvirt connection [see below for how to workaround "
 "this]."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:861
+#: ../v2v/virt-v2v.pod:876
 msgid ""
 "The I<-os pool> option must specify a directory pool, not anything more "
 "exotic such as iSCSI [but see below]."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:866
+#: ../v2v/virt-v2v.pod:881
 msgid "You can only upload to a KVM hypervisor."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:870
+#: ../v2v/virt-v2v.pod:885
 msgid ""
 "B<To output to a remote libvirt instance and/or a non-directory storage "
 "pool> you have to use the following workaround:"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:877
+#: ../v2v/virt-v2v.pod:892
 msgid ""
 "Use virt-v2v in I<-o local> mode to convert the guest disks and metadata "
 "into a local temporary directory:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:880
+#: ../v2v/virt-v2v.pod:895
 #, no-wrap
 msgid ""
 " virt-v2v [...] -o local -os /var/tmp\n"
@@ -91493,12 +91533,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:882
+#: ../v2v/virt-v2v.pod:897
 msgid "This creates two (or more) files in C</var/tmp> called:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:884
+#: ../v2v/virt-v2v.pod:899
 #, no-wrap
 msgid ""
 " /var/tmp/NAME.xml     # the libvirt XML (metadata)\n"
@@ -91507,17 +91547,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:887
+#: ../v2v/virt-v2v.pod:902
 msgid "(for C<NAME> substitute the guest's name)."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:891
+#: ../v2v/virt-v2v.pod:906
 msgid "Upload the converted disk(s) into the storage pool called C<POOL>:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:893
+#: ../v2v/virt-v2v.pod:908
 #, no-wrap
 msgid ""
 " size=$(stat -c%s /var/tmp/NAME-sda)\n"
@@ -91527,14 +91567,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:899
+#: ../v2v/virt-v2v.pod:914
 msgid ""
 "Edit C</var/tmp/NAME.xml> to change C</var/tmp/NAME-sda> to the pool name.  "
 "In other words, locate the following bit of XML:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:902
+#: ../v2v/virt-v2v.pod:917
 #, no-wrap
 msgid ""
 " <disk type='file' device='disk'>\n"
@@ -91546,7 +91586,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:908
+#: ../v2v/virt-v2v.pod:923
 msgid ""
 "and change two things: The C<type='file'> attribute must be changed to "
 "C<type='volume'>, and the C<E<lt>sourceE<gt>> element must be changed to "
@@ -91554,7 +91594,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:912
+#: ../v2v/virt-v2v.pod:927
 #, no-wrap
 msgid ""
 " <disk type='volume' device='disk'>\n"
@@ -91566,12 +91606,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:920
+#: ../v2v/virt-v2v.pod:935
 msgid "Define the final guest in libvirt:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:922
+#: ../v2v/virt-v2v.pod:937
 #, no-wrap
 msgid ""
 " virsh define /var/tmp/NAME.xml\n"
@@ -91579,12 +91619,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:926
+#: ../v2v/virt-v2v.pod:941
 msgid "OUTPUT TO RHEV"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:928
+#: ../v2v/virt-v2v.pod:943
 msgid ""
 "This section only applies to the I<-o rhev> output mode.  If you use virt-"
 "v2v from the RHEV-M user interface, then behind the scenes the import is "
@@ -91593,7 +91633,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:933
+#: ../v2v/virt-v2v.pod:948
 msgid ""
 "You have to specify I<-o rhev> and an I<-os> option that points to the RHEV-"
 "M Export Storage Domain.  You can either specify the NFS server and "
@@ -91604,7 +91644,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:940
+#: ../v2v/virt-v2v.pod:955
 msgid ""
 "On successful completion virt-v2v will have written the new guest to the "
 "Export Storage Domain, but it will not yet be ready to run.  It must be "
@@ -91612,7 +91652,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:944
+#: ../v2v/virt-v2v.pod:959
 msgid ""
 "In RHEV E<ge> 2.2 this is done from the Storage tab.  Select the export "
 "domain the guest was written to.  A pane will appear underneath the storage "
@@ -91622,24 +91662,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:951
+#: ../v2v/virt-v2v.pod:966
 msgid ""
 "If you export several guests, then you can import them all at the same time "
 "through the UI."
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:954
+#: ../v2v/virt-v2v.pod:969
 msgid "POST-CONVERSION TASKS"
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:956
+#: ../v2v/virt-v2v.pod:971
 msgid "Guest network configuration"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:958
+#: ../v2v/virt-v2v.pod:973
 msgid ""
 "Virt-v2v cannot currently reconfigure a guest's network configuration.  If "
 "the converted guest is not connected to the same subnet as the source, its "
@@ -91647,29 +91687,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:963
+#: ../v2v/virt-v2v.pod:978
 msgid "Converting a Windows guest"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:965
+#: ../v2v/virt-v2v.pod:980
 msgid ""
 "When converting a Windows guests, the conversion process is split into two "
 "stages:"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:972
+#: ../v2v/virt-v2v.pod:987
 msgid "Offline conversion."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:976
+#: ../v2v/virt-v2v.pod:991
 msgid "First boot."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:980
+#: ../v2v/virt-v2v.pod:995
 msgid ""
 "The guest will be bootable after the offline conversion stage, but will not "
 "yet have all necessary drivers installed to work correctly.  These will be "
@@ -91677,7 +91717,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:984
+#: ../v2v/virt-v2v.pod:999
 msgid ""
 "B<N.B.> Take care not to interrupt the automatic driver installation process "
 "when logging in to the guest for the first time, as this may prevent the "
@@ -91685,12 +91725,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../v2v/virt-v2v.pod:988
+#: ../v2v/virt-v2v.pod:1003
 msgid "Windows Recovery Console"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:990
+#: ../v2v/virt-v2v.pod:1005
 msgid ""
 "Virt-v2v does not support conversion of the Windows Recovery Console.  If a "
 "guest has a recovery console installed and VirtIO was enabled during "
@@ -91698,7 +91738,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:995
+#: ../v2v/virt-v2v.pod:1010
 msgid ""
 "Windows XP x86 does not support the Windows Recovery Console on VirtIO "
 "systems, so there is no resolution to this.  However, on Windows XP AMD64 "
@@ -91710,12 +91750,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:1003
+#: ../v2v/virt-v2v.pod:1018
 msgid "RUNNING VIRT-V2V AS ROOT OR NON-ROOT"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1005
+#: ../v2v/virt-v2v.pod:1020
 msgid ""
 "Nothing in virt-v2v inherently needs root access, and it will run just fine "
 "as a non-root user.  However, certain external features may require either "
@@ -91723,19 +91763,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:1011
+#: ../v2v/virt-v2v.pod:1026
 msgid "Mounting the Export Storage Domain"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1013
+#: ../v2v/virt-v2v.pod:1028
 msgid ""
 "When using I<-o rhev -os server:/esd> virt-v2v has to have sufficient "
 "privileges to NFS mount the Export Storage Domain from C<server>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1016
+#: ../v2v/virt-v2v.pod:1031
 msgid ""
 "You can avoid needing root here by mounting it yourself before running virt-"
 "v2v, and passing I<-os /mountpoint> instead, but first of all read the next "
@@ -91743,12 +91783,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:1020
+#: ../v2v/virt-v2v.pod:1035
 msgid "Writing to the Export Storage Domain as 36:36"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1022
+#: ../v2v/virt-v2v.pod:1037
 msgid ""
 "RHEV-M cannot read files and directories from the Export Storage Domain "
 "unless they have UID:GID 36:36.  You will see VM import problems if the UID:"
@@ -91756,7 +91796,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1026
+#: ../v2v/virt-v2v.pod:1041
 msgid ""
 "When you run virt-v2v I<-o rhev> as root, virt-v2v attempts to create files "
 "and directories with the correct ownership.  If you run virt-v2v as non-"
@@ -91765,12 +91805,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:1031
+#: ../v2v/virt-v2v.pod:1046
 msgid "Writing to libvirt"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1033
+#: ../v2v/virt-v2v.pod:1048
 msgid ""
 "When using I<-o libvirt>, you may need to run virt-v2v as root so that it "
 "can write to the libvirt system instance (ie. C<qemu:///system>)  and to the "
@@ -91778,7 +91818,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1038
+#: ../v2v/virt-v2v.pod:1053
 msgid ""
 "You can avoid this by setting up libvirt connection authentication, see "
 "L<http://libvirt.org/auth.html>.  Alternatively, use I<-oc qemu:///session>, "
@@ -91786,12 +91826,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:1043
+#: ../v2v/virt-v2v.pod:1058
 msgid "Writing to Glance"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1045
+#: ../v2v/virt-v2v.pod:1060
 msgid ""
 "This does I<not> need root (in fact it probably won't work), but may require "
 "either a special user and/or for you to source a script that sets "
@@ -91799,12 +91839,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:1052
+#: ../v2v/virt-v2v.pod:1067
 msgid "DEBUGGING RHEV-M IMPORT FAILURES"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1054
+#: ../v2v/virt-v2v.pod:1069
 msgid ""
 "When you export to the RHEV-M Export Storage Domain, and then import that "
 "guest through the RHEV-M UI, you may encounter an import failure.  "
@@ -91813,14 +91853,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1059
+#: ../v2v/virt-v2v.pod:1074
 msgid ""
 "There are two log files of interest.  The first is stored on the RHEV-M "
 "server itself, and is called C</var/log/ovirt-engine/engine.log>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1063
+#: ../v2v/virt-v2v.pod:1078
 msgid ""
 "The second file, which is the most useful, is found on the SPM host (SPM "
 "stands for \"Storage Pool Manager\").  This is a RHEV node that is elected "
@@ -91832,19 +91872,19 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../v2v/virt-v2v.pod:1072
+#: ../v2v/virt-v2v.pod:1087
 msgid "MINIMAL XML FOR -i libvirtxml OPTION"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1074
+#: ../v2v/virt-v2v.pod:1089
 msgid ""
 "When using the I<-i libvirtxml> option, you have to supply some libvirt "
 "XML.  Writing this from scratch is hard, so the template below is helpful."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1078
+#: ../v2v/virt-v2v.pod:1093
 msgid ""
 "B<Note this should only be used for testing and/or where you know what "
 "you're doing!> If you have libvirt metadata for the guest, always use that "
@@ -91852,7 +91892,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:1082
+#: ../v2v/virt-v2v.pod:1097
 #, no-wrap
 msgid ""
 " <domain type='kvm'>\n"
@@ -91885,7 +91925,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1111
+#: ../v2v/virt-v2v.pod:1126
 msgid ""
 "The I<--machine-readable> option can be used to make the output more machine "
 "friendly, which is useful when calling virt-v2v from other programs, GUIs "
@@ -91893,14 +91933,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1117
+#: ../v2v/virt-v2v.pod:1132
 msgid ""
 "Firstly use the option on its own to query the capabilities of the virt-v2v "
 "binary.  Typical output looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/virt-v2v.pod:1120
+#: ../v2v/virt-v2v.pod:1135
 #, no-wrap
 msgid ""
 " $ virt-v2v --machine-readable\n"
@@ -91916,7 +91956,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1133
+#: ../v2v/virt-v2v.pod:1148
 msgid ""
 "The C<input:> and C<output:> features refer to I<-i> and I<-o> (input and "
 "output mode) options supported by this binary.  The C<convert:> features "
@@ -91924,7 +91964,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1159
+#: ../v2v/virt-v2v.pod:1174
 msgid ""
 "The calling program should treat messages sent to stderr as error messages.  "
 "In addition, virt-v2v exits with a non-zero status code if there was a fatal "
@@ -91932,36 +91972,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1165
+#: ../v2v/virt-v2v.pod:1180
 msgid ""
 "Virt-v2v E<le> 0.9.1 did not support the I<--machine-readable> option at "
 "all.  The option was added when virt-v2v was rewritten in 2014."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:1172
+#: ../v2v/virt-v2v.pod:1187
 msgid "C</usr/share/virtio-win>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1174 ../v2v/virt-v2v.pod:1228
+#: ../v2v/virt-v2v.pod:1189 ../v2v/virt-v2v.pod:1243
 msgid "(Optional)"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1176
+#: ../v2v/virt-v2v.pod:1191
 msgid ""
 "If this directory is present, then virtio drivers for Windows guests will be "
 "found from this directory and installed in the guest during conversion."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:1186
+#: ../v2v/virt-v2v.pod:1201
 msgid "C<TMPDIR>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1197
+#: ../v2v/virt-v2v.pod:1212
 msgid ""
 "Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if you "
 "use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of I<half> of "
@@ -91971,31 +92011,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1207
+#: ../v2v/virt-v2v.pod:1222
 msgid ""
 "This can point to the directory containing data files used for Windows "
 "conversion."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1219
+#: ../v2v/virt-v2v.pod:1234
 msgid "(Required when doing conversions of Windows guests)"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1221
+#: ../v2v/virt-v2v.pod:1236
 msgid ""
 "This is the RHSrvAny Windows binary, used to install a \"firstboot\" script "
 "in the guest during conversion of Windows guests."
 msgstr ""
 
 #. type: =item
-#: ../v2v/virt-v2v.pod:1226
+#: ../v2v/virt-v2v.pod:1241
 msgid "C<rhev-apt.exe>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1230
+#: ../v2v/virt-v2v.pod:1245
 msgid ""
 "The RHEV Application Provisioning Tool (RHEV APT).  If this file is present, "
 "then RHEV APT will be installed in the Windows guest during conversion.  "
@@ -92005,14 +92045,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1236
+#: ../v2v/virt-v2v.pod:1251
 msgid ""
 "This file comes from Red Hat Enterprise Virtualization (RHEV), and is not "
 "distributed with virt-v2v."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1247
+#: ../v2v/virt-v2v.pod:1262
 msgid ""
 "L<virt-p2v(1)>, L<virt-customize(1)>, L<virt-df(1)>, L<virt-filesystems(1)>, "
 "L<virt-sparsify(1)>, L<virt-sysprep(1)>, L<guestfs(3)>, L<guestfish(1)>, "
@@ -92020,16 +92060,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1265
+#: ../v2v/virt-v2v.pod:1280
 msgid "Mike Latimer"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1267
+#: ../v2v/virt-v2v.pod:1282
 msgid "Shahar Havivi"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/virt-v2v.pod:1269
+#: ../v2v/virt-v2v.pod:1284
 msgid "Tingting Zheng"
 msgstr ""
