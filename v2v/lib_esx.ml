@@ -84,6 +84,8 @@ let rec map_path_to_uri verbose uri scheme server path format =
       "file.driver", JSON.String "https";
       "file.url", JSON.String url;
       "file.timeout", JSON.Int 60;
+      (* Choose a large readahead.  See: RHBZ#1151033 *)
+      "file.readahead", JSON.Int (64 * 1024 * 1024);
     ] in
 
     let json_params =
