@@ -98,8 +98,11 @@ let parse_libvirt_xml ~verbose
       | "spice" ->
         Some { s_display_type = `Spice;
                s_keymap = keymap; s_password = password }
+      | "sdl"|"desktop" as t ->
+        warning ~prog (f_"virt-v2v does not support local displays, so <graphics type='%s'> in the input libvirt XML was ignored") t;
+        None
       | t ->
-        warning ~prog (f_"display <graphics type='%s'> was ignored") t;
+        warning ~prog (f_"display <graphics type='%s'> in the input libvirt XML was ignored") t;
         None
     ) in
 
