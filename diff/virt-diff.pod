@@ -166,9 +166,6 @@ security problem with malicious guests (CVE-2010-3851).
 
 Display file sizes in human-readable format.
 
-This option only has effect in I<-lR> output mode.  See
-L</RECURSIVE LONG LISTING> above.
-
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
