@@ -84,6 +84,7 @@ sysprep/sysprep_operation_utmp.ml
 sysprep/sysprep_operation_yum_uuid.ml
 v2v/DOM.ml
 v2v/JSON.ml
+v2v/OVF.ml
 v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
@@ -93,10 +94,7 @@ v2v/input_libvirt.ml
 v2v/input_libvirtxml.ml
 v2v/input_ova.ml
 v2v/kvmuid.ml
-v2v/lib_esx.ml
-v2v/lib_linux.ml
-v2v/lib_ovf.ml
-v2v/lib_xen.ml
+v2v/linux.ml
 v2v/modules_list.ml
 v2v/output_glance.ml
 v2v/output_libvirt.ml
@@ -109,4 +107,6 @@ v2v/stringMap.ml
 v2v/types.ml
 v2v/utils.ml
 v2v/v2v.ml
+v2v/vCenter.ml
+v2v/xen.ml
 v2v/xml.ml

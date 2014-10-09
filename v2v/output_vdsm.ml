@@ -131,7 +131,7 @@ object
 
     (* Generate the .meta files associated with each volume. *)
     let metas =
-      Lib_ovf.create_meta_files verbose output_alloc dd_uuid
+      OVF.create_meta_files verbose output_alloc dd_uuid
         vdsm_params.image_uuids targets in
     List.iter (
       fun ({ target_file = target_file }, meta) ->
@@ -157,7 +157,7 @@ object
   (* This is called after conversion to write the OVF metadata. *)
   method create_metadata source targets guestcaps inspect =
     (* Create the metadata. *)
-    let ovf = Lib_ovf.create_ovf verbose source targets guestcaps inspect
+    let ovf = OVF.create_ovf verbose source targets guestcaps inspect
       output_alloc vmtype dd_uuid
       vdsm_params.image_uuids
       vdsm_params.vol_uuids

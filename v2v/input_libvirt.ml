@@ -86,13 +86,13 @@ object
 
         | Some server, Some ("esx"|"gsx"|"vpx" as scheme) -> (* ESX *)
           error_if_libvirt_backend ();
-          let f = Lib_esx.map_path_to_uri verbose uri scheme server in
+          let f = VCenter.map_path_to_uri verbose uri scheme server in
           Some f, Some f
 
         | Some server, Some ("xen+ssh" as scheme) -> (* Xen over SSH *)
           error_if_libvirt_backend ();
           error_if_no_ssh_agent ();
-          let f = Lib_xen.map_path_to_uri verbose uri scheme server in
+          let f = Xen.map_path_to_uri verbose uri scheme server in
           Some f, Some f
 
         (* Old virt-v2v also supported qemu+ssh://.  However I am

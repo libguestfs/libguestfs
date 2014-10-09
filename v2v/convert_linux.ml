@@ -80,7 +80,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   assert (inspect.i_package_format = "rpm");
 
   (* We use Augeas for inspection and conversion, so initialize it early. *)
-  Lib_linux.augeas_init verbose g;
+  Linux.augeas_init verbose g;
 
   (* Clean RPM database.  This must be done early to avoid RHBZ#1143866. *)
   let dbfiles = g#glob_expand "/var/lib/rpm/__db.00?" in
@@ -148,7 +148,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           when name = "kernel" || string_prefix name "kernel-" ->
         (try
            (* For each kernel, list the files directly owned by the kernel. *)
-           let files = Lib_linux.file_list_of_package verbose g inspect name in
+           let files = Linux.file_list_of_package verbose g inspect name in
 
            (* Which of these is the kernel itself? *)
            let vmlinuz = List.find (
@@ -394,7 +394,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         List.exists (fun incl -> g#aug_get incl = grub_config) incls in
       if not incls_contains_conf then (
         g#aug_set "/augeas/load/Grub/incl[last()+1]" grub_config;
-        Lib_linux.augeas_reload verbose g;
+        Linux.augeas_reload verbose g;
       )
 
     | `Grub2 -> () (* Not necessary for grub2. *)
@@ -416,7 +416,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           else
             None
       ) inspect.i_apps in
-    Lib_linux.remove verbose g inspect xenmods;
+    Linux.remove verbose g inspect xenmods;
 
     (* Undo related nastiness if kmod-xenpv was installed. *)
     if xenmods <> [] then (
@@ -431,7 +431,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
 
       (* Check it's not owned by an installed application. *)
       let dirs = List.filter (
-        fun d -> not (Lib_linux.is_file_owned verbose g inspect d)
+        fun d -> not (Linux.is_file_owned verbose g inspect d)
       ) dirs in
 
       (* Remove any unowned xenpv directories. *)
@@ -489,7 +489,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         fun { G.app2_name = name } -> name = package_name
       ) inspect.i_apps in
     if has_guest_additions then
-      Lib_linux.remove verbose g inspect [package_name];
+      Linux.remove verbose g inspect [package_name];
 
     (* Guest Additions might have been installed from a tarball.  The
      * above code won't detect this case.  Look for the uninstall tool
@@ -521,7 +521,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           ignore (g#command [| vboxuninstall |]);
 
           (* Reload Augeas to detect changes made by vbox tools uninst. *)
-          Lib_linux.augeas_reload verbose g
+          Linux.augeas_reload verbose g
         with
           G.Error msg ->
             warning ~prog (f_"VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)")
@@ -600,7 +600,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     );
 
     let remove = !remove in
-    Lib_linux.remove verbose g inspect remove;
+    Linux.remove verbose g inspect remove;
 
     (* VMware Tools may have been installed from a tarball, so the
      * above code won't remove it.  Look for the uninstall tool and run
@@ -612,7 +612,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         ignore (g#command [| uninstaller |]);
 
         (* Reload Augeas to detect changes made by vbox tools uninst. *)
-        Lib_linux.augeas_reload verbose g
+        Linux.augeas_reload verbose g
       with
         G.Error msg ->
           warning ~prog (f_"VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)")
@@ -627,7 +627,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     let pkgs = List.map (fun { G.app2_name = name } -> name) pkgs in
 
     if pkgs <> [] then (
-      Lib_linux.remove verbose g inspect pkgs;
+      Linux.remove verbose g inspect pkgs;
 
       (* Installing these guest utilities automatically unconfigures
        * ttys in /etc/inittab if the system uses it. We need to put
@@ -680,7 +680,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         g#ln_sf "/boot/grub/grub.conf" "/etc/grub.conf";
 
         (* Reload Augeas to pick up new location of grub.conf. *)
-        Lib_linux.augeas_reload verbose g;
+        Linux.augeas_reload verbose g;
 
         ignore (g#command [| "grub-install"; dev |])
 
@@ -688,7 +688,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         (* EFI systems boot using grub2-efi, and probably don't have the
          * base grub2 package installed.
          *)
-        Lib_linux.install verbose g inspect ["grub2"];
+        Linux.install verbose g inspect ["grub2"];
 
         (* Relabel the EFI boot partition as a BIOS boot partition. *)
         g#part_set_gpt_type dev 1 "21686148-6449-6E6F-744E-656564454649";
@@ -1350,7 +1350,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       if grub = `Grub2 then
         ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |]);
 
-      Lib_linux.augeas_reload verbose g
+      Linux.augeas_reload verbose g
     );
 
     (* Delete blkid caches if they exist, since they will refer to the old
