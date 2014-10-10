@@ -184,7 +184,7 @@ ifelse(MAGEIA,1,
   chkconfig /* for /etc/init.d */
   cdrkit-genisoimage
   cdrkit-isotools
-  dhcp-client
+  dhclient
   extlinux
   gfs2-utils
   grub
