@@ -26,7 +26,6 @@ ifelse(REDHAT,1,
   augeas-libs
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
-  dhclient
   genisoimage
   gfs-utils
   gfs2-utils
@@ -72,7 +71,6 @@ dnl iproute has been renamed to iproute2
   iputils-ping
   iputils-arping
   iputils-tracepath
-  isc-dhcp-client
   libaugeas0
   libc-bin
   libcap2
@@ -102,7 +100,6 @@ ifelse(ARCHLINUX,1,
   augeas
   cdrkit
   cryptsetup
-  dhclient
   grub
   hivex
   iproute2
@@ -131,8 +128,6 @@ ifelse(SUSE,1,
   augeas-lenses
   btrfsprogs
   cryptsetup
-  dhcpcd
-  dhcp-client
   genisoimage
   glibc-locale
   gptfdisk
@@ -156,7 +151,6 @@ ifelse(FRUGALWARE,1,
   augeas
   cryptsetup-luks
   cdrkit
-  dhclient
   grub2
   hfsplus
   iproute2
@@ -183,7 +177,6 @@ ifelse(MAGEIA,1,
   chkconfig /* for /etc/init.d */
   cdrkit-genisoimage
   cdrkit-isotools
-  dhclient
   extlinux
   gfs2-utils
   grub
