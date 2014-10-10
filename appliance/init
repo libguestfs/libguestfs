@@ -79,13 +79,12 @@ hwclock -u -s
 ip addr add 127.0.0.1/8 brd + dev lo scope host
 ip link set dev lo up
 
-if grep -sq guestfs_network=1 /proc/cmdline; then
-    if dhclient --version >/dev/null 2>&1; then
-        dhclient
-    else
-        dhcpcd
-    fi
-fi
+ip addr add 169.254.2.10/16 brd + dev eth0 scope global
+ip link set dev eth0 up
+
+ip route add default via 169.254.2.2
+
+echo nameserver 169.254.2.3 > /etc/resolv.conf
 
 # Scan for MDs.
 mdadm -As --auto=yes --run
