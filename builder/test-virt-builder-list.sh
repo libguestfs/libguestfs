@@ -116,81 +116,81 @@ json_list=$(virt-builder --no-check-signature --no-cache --list --list-format js
 if [ "$json_list" != "{
   \"version\": 1,
   \"sources\": [
-  {
-    \"uri\": \"file://$abs_builddir/test-index\"
-  }
+    {
+      \"uri\": \"file://$abs_builddir/test-index\"
+    }
   ],
   \"templates\": [
-  {
-    \"os-version\": \"phony-debian\",
-    \"full-name\": \"Phony Debian\",
-    \"arch\": \"x86_64\",
-    \"size\": 536870912,
-    \"notes\": {
-      \"C\": \"Phony Debian look-alike used for testing.\"
+    {
+      \"os-version\": \"phony-debian\",
+      \"full-name\": \"Phony Debian\",
+      \"arch\": \"x86_64\",
+      \"size\": 536870912,
+      \"notes\": {
+        \"C\": \"Phony Debian look-alike used for testing.\"
+      },
+      \"hidden\": false
     },
-    \"hidden\": false
-  },
-  {
-    \"os-version\": \"phony-fedora\",
-    \"full-name\": \"Phony Fedora\",
-    \"arch\": \"x86_64\",
-    \"size\": 1073741824,
-    \"notes\": {
-      \"C\": \"Phony Fedora look-alike used for testing.\"
+    {
+      \"os-version\": \"phony-fedora\",
+      \"full-name\": \"Phony Fedora\",
+      \"arch\": \"x86_64\",
+      \"size\": 1073741824,
+      \"notes\": {
+        \"C\": \"Phony Fedora look-alike used for testing.\"
+      },
+      \"hidden\": false
     },
-    \"hidden\": false
-  },
-  {
-    \"os-version\": \"phony-fedora-qcow2\",
-    \"full-name\": \"Phony Fedora qcow2\",
-    \"arch\": \"x86_64\",
-    \"size\": 1073741824,
-    \"notes\": {
-      \"C\": \"Phony Fedora look-alike used for testing.\"
+    {
+      \"os-version\": \"phony-fedora-qcow2\",
+      \"full-name\": \"Phony Fedora qcow2\",
+      \"arch\": \"x86_64\",
+      \"size\": 1073741824,
+      \"notes\": {
+        \"C\": \"Phony Fedora look-alike used for testing.\"
+      },
+      \"hidden\": false
     },
-    \"hidden\": false
-  },
-  {
-    \"os-version\": \"phony-fedora-qcow2-uncompressed\",
-    \"full-name\": \"Phony Fedora qcow2 uncompressed\",
-    \"arch\": \"x86_64\",
-    \"size\": 1073741824,
-    \"notes\": {
-      \"C\": \"Phony Fedora look-alike used for testing.\"
+    {
+      \"os-version\": \"phony-fedora-qcow2-uncompressed\",
+      \"full-name\": \"Phony Fedora qcow2 uncompressed\",
+      \"arch\": \"x86_64\",
+      \"size\": 1073741824,
+      \"notes\": {
+        \"C\": \"Phony Fedora look-alike used for testing.\"
+      },
+      \"hidden\": false
     },
-    \"hidden\": false
-  },
-  {
-    \"os-version\": \"phony-fedora-no-format\",
-    \"full-name\": \"Phony Fedora\",
-    \"arch\": \"x86_64\",
-    \"size\": 1073741824,
-    \"notes\": {
-      \"C\": \"Phony Fedora look-alike used for testing.\"
+    {
+      \"os-version\": \"phony-fedora-no-format\",
+      \"full-name\": \"Phony Fedora\",
+      \"arch\": \"x86_64\",
+      \"size\": 1073741824,
+      \"notes\": {
+        \"C\": \"Phony Fedora look-alike used for testing.\"
+      },
+      \"hidden\": false
     },
-    \"hidden\": false
-  },
-  {
-    \"os-version\": \"phony-ubuntu\",
-    \"full-name\": \"Phony Ubuntu\",
-    \"arch\": \"x86_64\",
-    \"size\": 536870912,
-    \"notes\": {
-      \"C\": \"Phony Ubuntu look-alike used for testing.\"
+    {
+      \"os-version\": \"phony-ubuntu\",
+      \"full-name\": \"Phony Ubuntu\",
+      \"arch\": \"x86_64\",
+      \"size\": 536870912,
+      \"notes\": {
+        \"C\": \"Phony Ubuntu look-alike used for testing.\"
+      },
+      \"hidden\": false
     },
-    \"hidden\": false
-  },
-  {
-    \"os-version\": \"phony-windows\",
-    \"full-name\": \"Phony Windows\",
-    \"arch\": \"x86_64\",
-    \"size\": 536870912,
-    \"notes\": {
-      \"C\": \"Phony Windows look-alike used for testing.\"
-    },
-    \"hidden\": false
-  }
+    {
+      \"os-version\": \"phony-windows\",
+      \"full-name\": \"Phony Windows\",
+      \"arch\": \"x86_64\",
+      \"size\": 536870912,
+      \"notes\": {
+        \"C\": \"Phony Windows look-alike used for testing.\"
+      },
+      \"hidden\": false
+    }
   ]
 }" ]; then
     echo "$0: unexpected --list --format json output:"

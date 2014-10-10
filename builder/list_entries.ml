@@ -97,92 +97,64 @@ and list_entries_long ~sources index =
   ) index
 
 and list_entries_json ~sources index =
-  let trailing_comma index size =
-    if index = size - 1 then "" else "," in
-  let json_string_of_bool b =
-    if b then "true" else "false" in
-  let json_string_escape str =
-    let res = ref "" in
-    for i = 0 to String.length str - 1 do
-      res := !res ^ (match str.[i] with
-        | '"' -> "\\\""
-        | '\\' -> "\\\\"
-        | '\b' -> "\\b"
-        | '\n' -> "\\n"
-        | '\r' -> "\\r"
-        | '\t' -> "\\t"
-        | c -> String.make 1 c)
-    done;
-    !res in
-  let json_optional_printf_string key = function
-    | None -> ()
-    | Some str ->
-      printf "    \"%s\": \"%s\",\n" key (json_string_escape str) in
-  let json_optional_printf_int64 key = function
-    | None -> ()
-    | Some n ->
-      printf "    \"%s\": \"%Ld\",\n" key n in
-  let json_optional_printf_stringlist key = function
-    | None -> ()
-    | Some l ->
-      printf "    \"%s\": [" key;
-      iteri (
-        fun i alias ->
-          printf " \"%s\"%s" alias (trailing_comma i (List.length l))
-      ) l;
-      printf " ],\n" in
-  let print_notes = function
-    | [] -> ()
-    | notes ->
-      printf "    \"notes\": {\n";
-      iteri (
-        fun i (lang, langnotes) ->
-          let lang =
-            match lang with
-            | "" -> "C"
-            | x -> x in
-          printf "      \"%s\": \"%s\"%s\n"
-            (json_string_escape lang) (json_string_escape langnotes)
-            (trailing_comma i (List.length notes))
-      ) notes;
-      printf "    },\n" in
-
-  printf "{\n";
-  printf "  \"version\": %d,\n" 1;
-  printf "  \"sources\": [\n";
-  iteri (
-    fun i (source, key, proxy) ->
-      printf "  {\n";
-      (match key with
-      | Sigchecker.No_Key -> ()
-      | Sigchecker.Fingerprint fp ->
-        printf "    \"fingerprint\": \"%s\",\n" fp;
-      | Sigchecker.KeyFile kf ->
-        printf "    \"key\": \"%s\",\n" kf;
-      );
-      printf "    \"uri\": \"%s\"\n" source;
-      printf "  }%s\n" (trailing_comma i (List.length sources))
-  ) sources;
-  printf "  ],\n";
-  printf "  \"templates\": [\n";
-  iteri (
-    fun i (name, { Index_parser.printable_name = printable_name;
+  let json_sources =
+    List.map (
+      fun (source, key, proxy) ->
+        let item = [ "uri", JSON.String source ] in
+        let item =
+          match key with
+          | Sigchecker.No_Key -> item
+          | Sigchecker.Fingerprint fp ->
+            ("fingerprint", JSON.String fp) :: item
+          | Sigchecker.KeyFile kf ->
+            ("key", JSON.String kf) :: item in
+        JSON.Dict item
+    ) sources in
+  let json_templates =
+    List.map (
+      fun (name, { Index_parser.printable_name = printable_name;
                    arch = arch;
                    size = size;
                    compressed_size = compressed_size;
                    notes = notes;
                    aliases = aliases;
                    hidden = hidden }) ->
-      printf "  {\n";
-      printf "    \"os-version\": \"%s\",\n" name;
-      json_optional_printf_string "full-name" printable_name;
-      printf "    \"arch\": \"%s\",\n" arch;
-      printf "    \"size\": %Ld,\n" size;
-      json_optional_printf_int64 "compressed-size" compressed_size;
-      print_notes notes;
-      json_optional_printf_stringlist "aliases" aliases;
-      printf "    \"hidden\": %s\n" (json_string_of_bool hidden);
-      printf "  }%s\n" (trailing_comma i (List.length index))
-  ) index;
-  printf "  ]\n";
- printf "}\n"
+        let item = [ "os-version", JSON.String name ] in
+        let item =
+          match printable_name with
+          | None -> item
+          | Some str -> ("full-name", JSON.String str) :: item in
+        let item = ("arch", JSON.String arch) :: item in
+        let item = ("size", JSON.Int64 size) :: item in
+        let item =
+          match compressed_size with
+          | None -> item
+          | Some n -> ("compressed-size", JSON.String (Int64.to_string n)) :: item in
+        let item =
+          let json_notes =
+            List.fold_right (
+              fun (lang, langnotes) acc ->
+                let lang =
+                  match lang with
+                  | "" -> "C"
+                  | x -> x in
+                (lang, JSON.String langnotes) :: acc
+            ) notes [] in
+          if List.length json_notes = 0 then item
+          else ("notes", JSON.Dict json_notes) :: item in
+        let item =
+          match aliases with
+          | None -> item
+          | Some l ->
+            let l = List.map (fun x -> JSON.String x) l in
+            ("aliases", JSON.List l) :: item in
+        let item = ("hidden", JSON.Bool hidden) :: item in
+        JSON.Dict (List.rev item)
+    ) index in
+  let doc = [
+    "version", JSON.Int 1;
+    "sources", JSON.List json_sources;
+    "templates", JSON.List json_templates;
+  ] in
+  print_string (JSON.string_of_doc ~fmt:JSON.Indented doc);
+  print_newline ()

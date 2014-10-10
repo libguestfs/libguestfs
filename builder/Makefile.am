@@ -94,6 +94,7 @@ deps = \
 	$(top_builddir)/mllib/fsync.cmx \
 	$(top_builddir)/mllib/planner.cmx \
 	$(top_builddir)/mllib/regedit.cmx \
+	$(top_builddir)/mllib/JSON.cmx \
 	$(top_builddir)/mllib/uri-c.o \
 	$(top_builddir)/mllib/uRI.cmx \
 	$(top_builddir)/mllib/mkdtemp-c.o \
