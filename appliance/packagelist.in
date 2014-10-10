@@ -105,8 +105,7 @@ ifelse(ARCHLINUX,1,
   cdrkit
   cdrtools
   cryptsetup
-  dhcpcd
-  gptfdisk
+  dhclient
   grub
   hivex
   iproute2
