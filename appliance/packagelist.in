@@ -205,9 +205,6 @@ ifelse(MAGEIA,1,
   vim-minimal
   xz
   yajl
-  module-init-tools
-  procps-ng
-  udev
 )
 
 acl
