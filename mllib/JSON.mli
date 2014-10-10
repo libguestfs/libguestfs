@@ -16,11 +16,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Poor man's JSON generator. *)
+(** Simple JSON generator. *)
 
 type field = string * json_t
-and json_t = String of string | Int of int
+and json_t =
+  | String of string
+  | Int of int
+  | Int64 of int64
+  | Bool of bool
+  | List of json_t list
+  | Dict of field list
 and doc = field list
 
-val string_of_doc : doc -> string
+type output_format =
+  | Compact
+  | Indented
+
+val string_of_doc : ?fmt:output_format -> doc -> string
   (** Serialize {!doc} object as a string. *)
