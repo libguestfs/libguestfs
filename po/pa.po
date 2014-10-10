@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-09 10:28+0100\n"
+"POT-Creation-Date: 2014-10-10 16:57+0100\n"
 "PO-Revision-Date: 2014-10-07 12:23+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -1504,7 +1504,7 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:351 ../v2v/lib_ovf.ml:174
+#: ../v2v/OVF.ml:351 ../v2v/OVF.ml:174
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -2103,7 +2103,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:295
+#: ../v2v/OVF.ml:295
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
@@ -2404,15 +2404,15 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/lib_linux.ml:150
+#: ../v2v/linux.ml:150
 msgid "don't know how to find file owner using %s"
 msgstr ""
 
-#: ../v2v/lib_linux.ml:129
+#: ../v2v/linux.ml:129
 msgid "don't know how to get list of files from package using %s"
 msgstr ""
 
-#: ../v2v/lib_linux.ml:114
+#: ../v2v/linux.ml:114
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
@@ -2442,37 +2442,37 @@ msgstr ""
 msgid "error running command: %s"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:118
+#: ../v2v/vCenter.ml:120
 msgid ""
 "esx: URI (-ic parameter) contains no path, so we cannot determine the "
 "datacenter name"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:180
+#: ../v2v/vCenter.ml:182
 msgid "esx: URL not found: %s"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:200
+#: ../v2v/vCenter.ml:202
 msgid ""
 "esx: could not read session cookie from the vCenter Server, conversion may "
 "consume all sessions on the server and fail part way through"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:172
+#: ../v2v/vCenter.ml:174
 msgid "esx: incorrect username or password"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:174
+#: ../v2v/vCenter.ml:176
 msgid ""
 "esx: incorrect username or password.  You might need to specify the username "
 "in the URI like this: %s://USERNAME@[etc]"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:185
+#: ../v2v/vCenter.ml:187
 msgid "esx: invalid response from server"
 msgstr ""
 
-#: ../v2v/lib_esx.ml:166
+#: ../v2v/vCenter.ml:168
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
@@ -2851,7 +2851,7 @@ msgid ""
 "guest: %d)"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:164
+#: ../v2v/OVF.ml:164
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -2947,7 +2947,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/lib_ovf.ml:148
+#: ../v2v/OVF.ml:148
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
