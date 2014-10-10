@@ -32,6 +32,8 @@ SOURCES = \
 	fsync-c.c \
 	fsync.mli \
 	fsync.ml \
+	JSON.mli \
+	JSON.ml \
 	mkdtemp.mli \
 	mkdtemp.ml \
 	mkdtemp-c.c \
@@ -65,7 +67,8 @@ ocaml_modules = config \
 	uRI \
 	mkdtemp \
 	planner \
-	regedit
+	regedit \
+	JSON
 
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \

@@ -25,6 +25,7 @@ customize/perl_edit.ml
 customize/random_seed.ml
 customize/timezone.ml
 customize/urandom.ml
+mllib/JSON.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
@@ -83,7 +84,6 @@ sysprep/sysprep_operation_user_account.ml
 sysprep/sysprep_operation_utmp.ml
 sysprep/sysprep_operation_yum_uuid.ml
 v2v/DOM.ml
-v2v/JSON.ml
 v2v/OVF.ml
 v2v/cmdline.ml
 v2v/convert_linux.ml

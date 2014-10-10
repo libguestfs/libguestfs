@@ -37,7 +37,6 @@ SOURCES_MLI = \
 	input_libvirt.mli \
 	input_libvirtxml.mli \
 	input_ova.mli \
-	JSON.mli \
 	kvmuid.mli \
 	linux.mli \
 	modules_list.mli \
@@ -62,7 +61,6 @@ SOURCES_ML = \
 	xml.ml \
 	domainxml.ml \
 	DOM.ml \
-	JSON.ml \
 	kvmuid.ml \
 	vCenter.ml \
 	xen.ml \
@@ -122,6 +120,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/progress.cmo \
 	$(top_builddir)/mllib/config.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
+	$(top_builddir)/mllib/JSON.cmo \
 	$(top_builddir)/customize/urandom.cmo \
 	$(top_builddir)/customize/random_seed.cmo \
 	$(top_builddir)/customize/hostname.cmo \
