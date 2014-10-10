@@ -27,7 +27,6 @@ ifelse(REDHAT,1,
   btrfs-progs
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
-  dhclient
   dnl e4fsprogs only exists on RHEL 5, will be ignored everywhere else.
   e4fsprogs
   genisoimage
@@ -74,7 +73,6 @@ dnl iproute has been renamed to iproute2
   iputils-ping
   iputils-arping
   iputils-tracepath
-  isc-dhcp-client
   libaugeas0
   libc-bin
   libcap2
@@ -104,7 +102,6 @@ ifelse(ARCHLINUX,1,
   btrfs-progs
   cdrkit
   cryptsetup
-  dhclient
   grub
   hivex
   iproute2
@@ -133,7 +130,6 @@ ifelse(SUSE,1,
   augeas-lenses
   btrfsprogs
   cryptsetup
-  dhcpcd
   genisoimage
   glibc-locale
   gptfdisk
@@ -154,7 +150,6 @@ ifelse(FRUGALWARE,1,
   btrfs-progs
   cryptsetup-luks
   cdrkit
-  dhclient
   grub2
   hfsplus
   iproute2
@@ -182,7 +177,6 @@ ifelse(MAGEIA,1,
   chkconfig /* for /etc/init.d */
   cdrkit-genisoimage
   cdrkit-isotools
-  dhclient
   extlinux
   gfs2-utils
   grub
