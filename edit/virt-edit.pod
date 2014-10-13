@@ -135,7 +135,7 @@ being altered by the shell.
 
 Note that this option is only available when Perl 5 is installed.
 
-=item B<--format> raw|qcow2|...
+=item B<--format=raw|qcow2|..>
 
 =item B<--format>
 
