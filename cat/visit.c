@@ -138,13 +138,18 @@ full_path (const char *dir, const char *name)
 {
   int r;
   char *path;
+  int len;
+
+  len = strlen (dir);
+  if (len > 0 && dir[len - 1] == '/')
+    --len;
 
   if (STREQ (dir, "/"))
     r = asprintf (&path, "/%s", name ? name : "");
   else if (name)
-    r = asprintf (&path, "%s/%s", dir, name);
+    r = asprintf (&path, "%.*s/%s", len, dir, name);
   else
-    r = asprintf (&path, "%s", dir);
+    r = asprintf (&path, "%.*s", len, dir);
 
   if (r == -1) {
     perror ("asprintf");
