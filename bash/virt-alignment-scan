@@ -106,3 +106,9 @@ _virt_sysprep ()
     _guestfs_virttools "$(virt-sysprep --long-options)" 0
 } &&
 complete -o default -F _virt_sysprep virt-sysprep
+
+_virt_log ()
+{
+    _guestfs_virttools "$(virt-log --long-options)" 1
+} &&
+complete -o default -F _virt_log virt-log
