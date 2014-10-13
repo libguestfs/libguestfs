@@ -443,13 +443,18 @@ and inspect_source g root_choice =
         error (f_"multi-boot operating systems are not supported by virt-v2v. Use the --root option to change how virt-v2v handles this.")
 
       | `First ->
-        List.hd roots
+        let root = List.hd roots in
+        info ~prog (f_"Picked %s because '--root first' was used.") root;
+        root
 
       | `Dev dev ->
-        if List.mem dev roots then dev
-        else
-          error (f_"root device %s not found.  Roots found were: %s")
-            dev (String.concat " " roots) in
+        let root =
+          if List.mem dev roots then dev
+          else
+            error (f_"root device %s not found.  Roots found were: %s")
+              dev (String.concat " " roots) in
+        info ~prog (f_"Picked %s because '--root %s' was used.") root dev;
+        root in
 
   (* Reject this OS if it doesn't look like an installed image. *)
   let () =
