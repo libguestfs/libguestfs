@@ -423,8 +423,8 @@ and inspect_source g root_choice =
           fun i root ->
             let prod = g#inspect_get_product_name root in
             match prod with
-            | "unknown" -> printf " [%d] %s\n" i root
-            | prod -> printf " [%d] %s (%s)\n" i root prod
+            | "unknown" -> printf " [%d] %s\n" (i+1) root
+            | prod -> printf " [%d] %s (%s)\n" (i+1) root prod
         ) roots;
         printf "\n";
         let i = ref 0 in
