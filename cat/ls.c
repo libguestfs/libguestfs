@@ -524,12 +524,15 @@ show_file (const char *dir, const char *name,
 
   path = full_path (dir, name);
 
-  if (checksum && is_reg (stat->st_mode)) {
-    csum = guestfs_checksum (g, checksum, path);
-    if (!csum)
-      exit (EXIT_FAILURE);
+  if (checksum) {
+    if (is_reg (stat->st_mode)) {
+      csum = guestfs_checksum (g, checksum, path);
+      if (!csum)
+        exit (EXIT_FAILURE);
 
-    output_string (csum);
+      output_string (csum);
+    } else if (csv)
+      output_string ("");
   }
 
   output_string (path);
