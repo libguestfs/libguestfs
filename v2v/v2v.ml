@@ -417,7 +417,7 @@ and inspect_source g root_choice =
       | `Ask ->
         (* List out the roots and ask the user to choose. *)
         printf "\n***\n";
-        printf (f_"dual- or multi-boot operating system detected. Choose the root filesystem\nthat contains the main operating system from the list below:\n");
+        printf (f_"Dual- or multi-boot operating system detected.  Choose the root filesystem\nthat contains the main operating system from the list below:\n");
         printf "\n";
         iteri (
           fun i root ->
@@ -430,11 +430,15 @@ and inspect_source g root_choice =
         let i = ref 0 in
         let n = List.length roots in
         while !i < 1 || !i > n do
-          printf (f_"Enter number between 1 and %d: ") n;
-          (try i := int_of_string (read_line ())
-           with
-           | End_of_file -> error (f_"connection closed")
-           | Failure "int_of_string" -> ()
+          printf (f_"Enter a number between 1 and %d, or 'exit': ") n;
+          let input = read_line () in
+          if input = "exit" || input = "q" || input = "quit" then
+            exit 0
+          else (
+            try i := int_of_string input
+            with
+            | End_of_file -> error (f_"connection closed")
+            | Failure "int_of_string" -> ()
           )
         done;
         List.nth roots (!i - 1)
