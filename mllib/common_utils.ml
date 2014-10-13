@@ -212,6 +212,8 @@ let ansi_red ?(chan = stdout) () =
   if TTY.isatty_stdout () then output_string chan "\x1b[1;31m"
 let ansi_blue ?(chan = stdout) () =
   if TTY.isatty_stdout () then output_string chan "\x1b[1;34m"
+let ansi_magenta ?(chan = stdout) () =
+  if TTY.isatty_stdout () then output_string chan "\x1b[1;35m"
 let ansi_restore ?(chan = stdout) () =
   if TTY.isatty_stdout () then output_string chan "\x1b[0m"
 
@@ -255,6 +257,16 @@ let warning ~prog fs =
     wrap ~chan (sprintf (f_"%s: warning: %s") prog str);
     ansi_restore ~chan ();
     prerr_newline ();
+  in
+  ksprintf display fs
+
+let info ~prog fs =
+  let display str =
+    let chan = stdout in
+    ansi_magenta ~chan ();
+    wrap ~chan (sprintf (f_"%s: %s") prog str);
+    ansi_restore ~chan ();
+    print_newline ();
   in
   ksprintf display fs
 

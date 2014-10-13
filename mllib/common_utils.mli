@@ -66,6 +66,9 @@ val error : prog:string -> ?exit_code:int -> ('a, unit, string, 'b) format4 -> '
 val warning : prog:string -> ('a, unit, string, unit) format4 -> 'a
 (** Standard warning function. *)
 
+val info : prog:string -> ('a, unit, string, unit) format4 -> 'a
+(** Standard info function.  Note: Use full sentences for this. *)
+
 val run_main_and_handle_errors : prog:string -> (unit -> unit) -> unit
 (** Common function for handling pretty-printing exceptions. *)
 

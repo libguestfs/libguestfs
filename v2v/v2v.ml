@@ -251,9 +251,9 @@ let rec main () =
   (* Did we manage to install virtio drivers? *)
   if not quiet then (
     if guestcaps.gcaps_block_bus = Virtio_blk then
-      printf (f_"This guest has virtio drivers installed.\n%!")
+      info ~prog (f_"This guest has virtio drivers installed.")
     else
-      printf (f_"This guest does not have virtio drivers installed.\n%!");
+      info ~prog (f_"This guest does not have virtio drivers installed.");
   );
 
   g#umount_all ();
