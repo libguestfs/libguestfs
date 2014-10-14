@@ -1108,7 +1108,7 @@ output_int64_uid (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf ("%4" PRIi64, i) < 0) {
+  if (printf (csv ? "%" PRIi64 : "%4" PRIi64, i) < 0) {
     perror ("printf");
     exit (EXIT_FAILURE);
   }
