@@ -109,12 +109,23 @@ object
       )
     in
 
-    let disks = ref [] in
-    let removables = ref [] in
+    (* Search for vm name. *)
+    let name =
+      xpath_to_string "/ovf:Envelope/ovf:VirtualSystem/ovf:Name/text()" "" in
+    if name = "" then
+      error (f_"could not parse ovf:Name from OVF document");
 
-    (* Resources hard-disk, CD-ROMs and floppy. *)
-    let add_resource id =
-      let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=%d]" id in
+    (* Search for memory. *)
+    let memory = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()" (1024 * 1024) in
+    let memory = Int64.of_int (memory * 1024 * 1024) in
+
+    (* Search for number of vCPUs. *)
+    let vcpu = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
+
+    (* Hard disks (ResourceType = 17). *)
+    let disks = ref [] in
+    let () =
+      let expr = "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=17]" in
       let obj = Xml.xpath_eval_expression xpathctx expr in
       let nr_nodes = Xml.xpathobj_nr_nodes obj in
       for i = 0 to nr_nodes-1 do
@@ -133,67 +144,67 @@ object
 
         let target_dev = target_dev ^ drive_name address in
 
-        (* Add disk(17)/removables to its collections. *)
-        if id = 17 then (
-          Xml.xpathctx_set_current_context xpathctx n;
-          let file_id = xpath_to_string "rasd:HostResource/text()" "" in
-          let rex = Str.regexp "^ovf:/disk/\\(.*\\)" in
-          if Str.string_match rex file_id 0 then (
-            let file_id = Str.matched_group 1 file_id in
-            let expr = sprintf "/ovf:Envelope/ovf:DiskSection/ovf:Disk[@ovf:diskId='%s']/@ovf:fileRef" file_id in
-            let file_ref = xpath_to_string expr "" in
-            if file_ref == "" then error (f_"error parsing disk fileRef");
-            let expr = sprintf "/ovf:Envelope/ovf:References/ovf:File[@ovf:id='%s']/@ovf:href" file_ref in
-            let file_name = xpath_to_string expr "" in
-            let disk = {
-              s_qemu_uri= tmpdir // file_name;
-              s_format = Some "vmdk";
-              s_target_dev = Some target_dev;
-            } in
-            disks := disk :: !disks;
-          ) else
-            error (f_"could not parse disk rasd:HostResource from OVF document");
-        )
-        else (
-          (* 14: Floppy 15: CD 16: CDROM*)
-          let typ =
-            match id with
+        Xml.xpathctx_set_current_context xpathctx n;
+        let file_id = xpath_to_string "rasd:HostResource/text()" "" in
+        let rex = Str.regexp "^ovf:/disk/\\(.*\\)" in
+        if Str.string_match rex file_id 0 then (
+          let file_id = Str.matched_group 1 file_id in
+          let expr = sprintf "/ovf:Envelope/ovf:DiskSection/ovf:Disk[@ovf:diskId='%s']/@ovf:fileRef" file_id in
+          let file_ref = xpath_to_string expr "" in
+          if file_ref == "" then error (f_"error parsing disk fileRef");
+          let expr = sprintf "/ovf:Envelope/ovf:References/ovf:File[@ovf:id='%s']/@ovf:href" file_ref in
+          let file_name = xpath_to_string expr "" in
+          let disk = {
+            s_qemu_uri= tmpdir // file_name;
+            s_format = Some "vmdk";
+            s_target_dev = Some target_dev;
+          } in
+          disks := disk :: !disks;
+        ) else
+          error (f_"could not parse disk rasd:HostResource from OVF document")
+      done in
+    let disks = List.rev !disks in
+
+    (* Floppies (ResourceType = 14), CDs (ResourceType = 15) and
+     * CDROMs (ResourceType = 16).  (What is the difference?)  Try hard
+     * to preserve the original ordering from the OVF.
+     *)
+    let removables = ref [] in
+    let () =
+      let expr =
+        "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=14 or rasd:ResourceType/text()=15 or rasd:ResourceType/text()=16]" in
+      let obj = Xml.xpath_eval_expression xpathctx expr in
+      let nr_nodes = Xml.xpathobj_nr_nodes obj in
+      for i = 0 to nr_nodes-1 do
+        let n = Xml.xpathobj_node doc obj i in
+        Xml.xpathctx_set_current_context xpathctx n;
+        let id = xpath_to_int "rasd:ResourceType/text()" 0 in
+        assert (id = 14 || id = 15 || id = 16);
+        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
+        let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
+        (* Probably the parent controller. *)
+        let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceId/text()=%d]/rasd:ResourceType/text()" parent_id in
+        let controller = xpath_to_int expr 0 in
+        (* 6: iscsi controller, 5: ide. assuming scsi or ide *)
+        let target_dev =
+          match controller with
+          | 6 -> "sd"
+          | 0 | 5 | _ (* XXX floppy should be 'fd'? *) -> "hd" in
+
+        let target_dev = target_dev ^ drive_name address in
+
+        let typ =
+          match id with
             | 14 -> `Floppy
             | 15 | 16 -> `CDROM
             | _ -> assert false in
-          let disk = {
-            s_removable_type = typ;
-            s_removable_target_dev = Some target_dev
-          } in
-          removables := disk :: !removables;
-        )
-      done;
-    in
-
-    (* Search for vm name. *)
-    let name =
-      xpath_to_string "/ovf:Envelope/ovf:VirtualSystem/ovf:Name/text()" "" in
-    if name = "" then
-      error (f_"could not parse ovf:Name from OVF document");
-
-    (* Search for memory. *)
-    let memory = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()" (1024 * 1024) in
-    let memory = Int64.of_int (memory * 1024 * 1024) in
-
-    (* Search for number of vCPUs. *)
-    let vcpu = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
-
-    (* Search for floppies. *)
-    add_resource 14;
-
-    (* Search for CDs. *)
-    add_resource 15;
-
-    (* Search for CDROMs. *)
-    add_resource 16;
-
-    (* Search for hard disks. *)
-    add_resource 17;
+        let disk = {
+          s_removable_type = typ;
+          s_removable_target_dev = Some target_dev
+        } in
+        removables := disk :: !removables;
+      done in
+    let removables = List.rev !removables in
 
     (* Search for networks ResourceType: 10 *)
     let nics = ref [] in
@@ -220,8 +231,8 @@ object
       s_vcpu = vcpu;
       s_features = []; (* XXX *)
       s_display = None; (* XXX *)
-      s_disks = List.rev !disks;
-      s_removables = List.rev !removables;
+      s_disks = disks;
+      s_removables = removables;
       s_nics = List.rev !nics;
     } in
 
