@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-10-10 16:57+0200\n"
+"POT-Creation-Date: 2014-10-15 22:18+0300\n"
 "PO-Revision-Date: 2014-10-07 12:24+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -590,9 +590,9 @@ msgstr ""
 #: ../align/virt-alignment-scan.pod:141 ../cat/virt-cat.pod:100
 #: ../cat/virt-filesystems.pod:174 ../cat/virt-log.pod:83
 #: ../cat/virt-ls.pod:322 ../df/virt-df.pod:119 ../diff/virt-diff.pod:138
-#: ../fish/guestfish.pod:234 ../format/virt-format.pod:91
-#: ../fuse/guestmount.pod:222 ../inspector/virt-inspector.pod:96
-#: ../rescue/virt-rescue.pod:159
+#: ../edit/virt-edit.pod:138 ../fish/guestfish.pod:234
+#: ../format/virt-format.pod:91 ../fuse/guestmount.pod:222
+#: ../inspector/virt-inspector.pod:96 ../rescue/virt-rescue.pod:159
 msgid "B<--format=raw|qcow2|..>"
 msgstr "B<--format=raw|qcow2|..>"
 
@@ -9666,11 +9666,6 @@ msgid ""
 msgstr ""
 "外部エディターを起動する代わりに、ファイルにある各行に対して非対話的に Perl "
 "表現 C<EXPR> を適用します。以下の L</非対話的な編集方法> を参照してください。"
-
-#. type: =item
-#: ../edit/virt-edit.pod:138
-msgid "B<--format> raw|qcow2|..."
-msgstr "B<--format> raw|qcow2|..."
 
 #. type: verbatim
 #: ../edit/virt-edit.pod:149
@@ -92109,3 +92104,6 @@ msgstr ""
 #: ../v2v/virt-v2v.pod:1284
 msgid "Tingting Zheng"
 msgstr ""
+
+#~ msgid "B<--format> raw|qcow2|..."
+#~ msgstr "B<--format> raw|qcow2|..."

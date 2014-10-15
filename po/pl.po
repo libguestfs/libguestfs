@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-10 16:57+0100\n"
+"POT-Creation-Date: 2014-10-15 22:17+0200\n"
 "PO-Revision-Date: 2014-10-07 12:23+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -69,11 +69,11 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:272
+#: ../mllib/common_utils.ml:284
 msgid "%s"
 msgstr ""
 
-#: ../v2v/v2v.ml:586 ../v2v/v2v.ml:475
+#: ../v2v/v2v.ml:595 ../v2v/v2v.ml:484
 msgid "%s (ignored)"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:268
+#: ../mllib/common_utils.ml:280 ../mllib/common_utils.ml:267
 msgid "%s: %s"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:270
+#: ../mllib/common_utils.ml:282
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../mllib/common_utils.ml:239
+#: ../mllib/common_utils.ml:241
 msgid "%s: error: %s"
 msgstr ""
 
@@ -542,7 +542,7 @@ msgstr ""
 msgid "%s: virt-resize is not installed (or does not work)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:255
+#: ../mllib/common_utils.ml:257
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -832,10 +832,6 @@ msgstr ""
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/input_ova.ml:74
-msgid "Checksum of %s does not match manifest sha1 %s"
-msgstr ""
-
 #: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:250
 msgid ""
 "Clearing Linux swap on %s ...\n"
@@ -1052,6 +1048,12 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
+#: ../v2v/v2v.ml:420
+msgid ""
+"Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
+"that contains the main operating system from the list below:\n"
+msgstr ""
+
 #: ../sysprep/main.ml:136
 msgid "Dump POD (internal)"
 msgstr ""
@@ -1099,15 +1101,11 @@ msgid "Enable/disable specific operations"
 msgstr ""
 
 #: ../v2v/v2v.ml:433
-msgid "Enter number between 1 and %d: "
+msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
 #: ../builder/downloader.ml:76
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
-msgstr ""
-
-#: ../v2v/input_ova.ml:141
-msgid "Error parsing disk fileRef"
 msgstr ""
 
 #: ../v2v/v2v.ml:226
@@ -1267,7 +1265,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:243
+#: ../mllib/common_utils.ml:245
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1489,6 +1487,14 @@ msgstr ""
 #. ../customize/customize_main.ml:94
 #: ../sysprep/main.ml:135 ../sysprep/main.ml:134 ../sysprep/main.ml:133
 msgid "Perform a dry run"
+msgstr ""
+
+#: ../v2v/v2v.ml:460
+msgid "Picked %s because '--root %s' was used."
+msgstr ""
+
+#: ../v2v/v2v.ml:451
+msgid "Picked %s because '--root first' was used."
 msgstr ""
 
 #: ../builder/builder.ml:481
@@ -2095,15 +2101,11 @@ msgid ""
 msgstr ""
 
 #: ../v2v/v2v.ml:256
-msgid ""
-"This guest does not have virtio drivers installed.\n"
-"%!"
+msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
 #: ../v2v/v2v.ml:254
-msgid ""
-"This guest has virtio drivers installed.\n"
-"%!"
+msgid "This guest has virtio drivers installed."
 msgstr ""
 
 #: ../v2v/OVF.ml:295
@@ -2298,7 +2300,11 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:436
+#: ../v2v/input_ova.ml:73
+msgid "checksum of %s does not match manifest sha1 %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:440
 msgid "connection closed"
 msgstr ""
 
@@ -2322,11 +2328,11 @@ msgstr ""
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:147
+#: ../v2v/input_ova.ml:164
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:165
+#: ../v2v/input_ova.ml:116
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2423,12 +2429,6 @@ msgstr ""
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
-#: ../v2v/v2v.ml:420
-msgid ""
-"dual- or multi-boot operating system detected. Choose the root filesystem\n"
-"that contains the main operating system from the list below:\n"
-msgstr ""
-
 #: ../sysprep/sysprep_operation.ml:131
 msgid "duplicate operation name (%s)"
 msgstr ""
@@ -2441,8 +2441,12 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:44
-msgid "error running command: %s"
+#: ../v2v/input_ova.ml:154
+msgid "error parsing disk fileRef"
+msgstr ""
+
+#: ../v2v/input_ova.ml:43
+msgid "error unpacking OVA file: %s"
 msgstr ""
 
 #: ../v2v/vCenter.ml:120
@@ -2479,11 +2483,11 @@ msgstr ""
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
-#: ../mllib/common_utils.ml:285
+#: ../mllib/common_utils.ml:297
 msgid "exception: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:102 ../v2v/input_libvirtxml.ml:55
+#: ../v2v/input_ova.ml:107 ../v2v/input_libvirtxml.ml:55
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
@@ -2503,15 +2507,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:457
+#: ../mllib/common_utils.ml:469
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:459
+#: ../mllib/common_utils.ml:471
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:461
+#: ../mllib/common_utils.ml:473
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2523,7 +2527,7 @@ msgstr ""
 msgid "extra parameter on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:276
+#: ../mllib/common_utils.ml:288
 msgid "failure: %s"
 msgstr ""
 
@@ -2601,15 +2605,15 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../mllib/common_utils.ml:283
+#: ../mllib/common_utils.ml:295
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:280
+#: ../mllib/common_utils.ml:292
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:278
+#: ../mllib/common_utils.ml:290
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -2629,11 +2633,11 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:274
+#: ../mllib/common_utils.ml:286
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:458
+#: ../v2v/v2v.ml:467
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2653,7 +2657,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:443
+#: ../v2v/v2v.ml:447
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2698,7 +2702,7 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
-#: ../v2v/input_ova.ml:70
+#: ../v2v/input_ova.ml:69
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
@@ -2712,7 +2716,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:532
+#: ../v2v/v2v.ml:541
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2817,7 +2821,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:451
+#: ../v2v/v2v.ml:458
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2911,7 +2915,7 @@ msgid ""
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:470
+#: ../v2v/v2v.ml:479
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
