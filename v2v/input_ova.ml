@@ -220,9 +220,9 @@ object
       s_vcpu = vcpu;
       s_features = []; (* XXX *)
       s_display = None; (* XXX *)
-      s_disks = !disks;
-      s_removables = !removables;
-      s_nics = !nics;
+      s_disks = List.rev !disks;
+      s_removables = List.rev !removables;
+      s_nics = List.rev !nics;
     } in
 
     source
