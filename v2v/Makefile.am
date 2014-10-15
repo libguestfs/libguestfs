@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	$(TESTS) $(SLOW_TESTS) \
 	HACKING README.RHEV-M \
 	test-v2v-i-ova.ovf \
+	test-v2v-i-ova.xml \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.xml.in \
 	virt-v2v.pod

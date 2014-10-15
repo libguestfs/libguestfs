@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<domain type='kvm'>
+  <name>TestOva</name>
+  <memory unit='KiB'>2097152</memory>
+  <currentMemory unit='KiB'>2097152</currentMemory>
+  <vcpu>1</vcpu>
+  <os>
+    <type arch='x86_64'>hvm</type>
+  </os>
+  <features/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <devices>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='raw' cache='none'/>
+      <source file='TestOva-sda'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+    <disk device='cdrom' type='file'>
+      <driver name='qemu' type='raw'/>
+      <target dev='hda' bus='ide'/>
+    </disk>
+    <disk device='floppy' type='file'>
+      <driver name='qemu' type='raw'/>
+      <target dev='fda' bus='fdc'/>
+    </disk>
+    <interface type='network'>
+      <source network='Ethernet 1'/>
+      <model type='virtio'/>
+    </interface>
+    <video type='qxl' ram='65536' heads='1'/>
+    <graphics type='vnc' autoport='yes'/>
+    <input type='tablet' bus='usb'/>
+    <input type='mouse' bus='ps2'/>
+    <console type='pty'/>
+  </devices>
+</domain>

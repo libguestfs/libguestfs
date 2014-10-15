@@ -52,7 +52,6 @@ vmdk=test-ova.vmdk
 ovf=test-v2v-i-ova.ovf
 mf=test-ova.mf
 ova=test-ova.ova
-xml=TestOva.xml
 raw=TestOva-sda
 
 qemu-img convert $f -O vmdk $d/$vmdk
@@ -74,6 +73,14 @@ $VG virt-v2v --debug-gc \
 
 # Test the libvirt XML metadata and a disk was created.
 test -f $d/$raw
-test -f $d/$xml
+test -f $d/TestOva.xml
+
+# Normalize the XML output.
+mv $d/TestOva.xml $d/TestOva.xml.old
+sed "s,source file='.*TestOva-sda',source file='TestOva-sda'," \
+    < $d/TestOva.xml.old > $d/TestOva.xml
+
+# Check the libvirt XML output.
+diff -u test-v2v-i-ova.xml $d/TestOva.xml
 
 rm -rf $d
