@@ -420,8 +420,6 @@ test_connection (struct config *config)
   }
 
   for (;;) {
-    CLEANUP_FREE char *feature = NULL;
-
     switch (mexp_expect (h,
                          (mexp_regexp[]) {
                            { 100, .re = feature_libguestfs_rewrite_re },
