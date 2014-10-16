@@ -288,6 +288,7 @@ AC_CHECK_HEADERS([\
     attr/xattr.h \
     byteswap.h \
     endian.h \
+    sys/endian.h \
     errno.h \
     linux/fs.h \
     linux/raid/md_u.h \

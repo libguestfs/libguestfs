@@ -31,6 +31,9 @@
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
+#ifdef HAVE_SYS_ENDIAN_H
+#include <sys/endian.h>
+#endif
 
 /* be32toh is usually a macro definend in <endian.h>, but it might be
  * a function in some system so check both, and if neither is defined
