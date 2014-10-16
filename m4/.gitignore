@@ -271,3 +271,6 @@
 /xstrtol.m4
 /xvasprintf.m4
 /yield.m4
+/isatty.m4
+/ptsname_r.m4
+/ttyname_r.m4

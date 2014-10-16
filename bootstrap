@@ -77,6 +77,7 @@ openat
 perror
 pipe2
 pread
+ptsname_r
 read-file
 readlink
 select
