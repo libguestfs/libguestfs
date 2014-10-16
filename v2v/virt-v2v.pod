@@ -966,6 +966,68 @@ additional details.
 If you export several guests, then you can import them all at the same
 time through the UI.
 
+=head1 RESOURCE REQUIREMENTS
+
+=head2 Network
+
+The most important resource for virt-v2v appears to be network
+bandwidth.  Virt-v2v should be able to copy guest data at gigabit
+ethernet speeds or greater.
+
+Ensure that the network connections between servers (conversion
+server, NFS server, vCenter, Xen) are as fast and as low latency as
+possible.
+
+=head2 Disk space
+
+Virt-v2v places potentially large temporary files in C<$TMPDIR> (which
+is C</var/tmp> if you don't set it).  Using tmpfs is a bad idea.
+
+For each guest disk, an overlay is stored temporarily.  This stores
+the changes made during conversion, and is used as a cache.  The
+overlays are not particularly large - tens or low hundreds of
+megabytes per disk is typical.  In addition to the overlay(s), input
+and output methods may use disk space, as outlined in the table below.
+
+=over 4
+
+=item I<-i ova>
+
+This temporarily places a full copy of the uncompressed source disks
+in C<$TMPDIR>.
+
+=item I<-o glance>
+
+This temporarily places a full copy of the output disks in C<$TMPDIR>.
+
+=item I<-o local>
+
+=item I<-o qemu>
+
+You must ensure there is sufficient space in the output directory for
+the converted guest.
+
+=item I<-o null>
+
+This temporarily places a full copy of the output disks in C<$TMPDIR>.
+
+=back
+
+=head2 VMware vCenter resources
+
+Copying from VMware vCenter is currently quite slow, but we believe
+this to be an issue with VMware.  Ensuring the VMware ESXi hypervisor
+and vCenter guest are running on fast hardware with plenty of memory
+should alleviate this.
+
+=head2 Compute power and RAM
+
+Virt-v2v is not especially compute or RAM intensive.  If you are
+running many parallel conversions, then you may consider allocating
+one CPU core and 512 MB - 1 GB of RAM per running instance.
+
+Virt-v2v can be run in a virtual machine.
+
 =head1 POST-CONVERSION TASKS
 
 =head2 Guest network configuration
@@ -1203,19 +1265,7 @@ conversion.
 Location of the temporary directory used for the potentially large
 temporary overlay file.
 
-You should ensure there is enough free space in the worst case for a
-full copy of the source disk (I<virtual> size), or else set C<$TMPDIR>
-to point to another directory that has enough space.
-
-This defaults to C</tmp>.
-
-Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if
-you use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of
-I<half> of physical RAM.  If virt-v2v exceeds this, it will hang.
-The solution is either to use a real disk, or to increase the maximum
-size of the tmpfs mountpoint, eg:
-
- mount -o remount,size=10G /tmp
+See the L</Disk space> section above.
 
 =item C<VIRT_TOOLS_DATA_DIR>
 
