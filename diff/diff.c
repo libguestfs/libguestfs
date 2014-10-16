@@ -30,6 +30,7 @@
 #include <assert.h>
 #include <time.h>
 #include <libintl.h>
+#include <sys/wait.h>
 
 #include "c-ctype.h"
 #include "human.h"

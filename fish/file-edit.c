@@ -32,6 +32,7 @@
 #include <sys/stat.h>
 #include <assert.h>
 #include <utime.h>
+#include <sys/wait.h>
 
 #include "guestfs-internal-frontend.h"
 
