@@ -1221,6 +1221,7 @@ and generate_client_actions hash () =
 #include <inttypes.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <string.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-internal.h\"

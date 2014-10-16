@@ -29,6 +29,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <assert.h>
+#include <string.h>
 
 #if HAVE_YAJL
 #include <yajl/yajl_tree.h>

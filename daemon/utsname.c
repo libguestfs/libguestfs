@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/utsname.h>
+#include <string.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"

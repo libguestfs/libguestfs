@@ -24,6 +24,7 @@
 #include <fcntl.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <string.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
