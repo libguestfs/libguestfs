@@ -23,6 +23,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"
