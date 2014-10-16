@@ -192,13 +192,13 @@ parse_environment (guestfs_h *g,
     guestfs_set_verbose (g, 1);
 
   str = do_getenv (data, "LIBGUESTFS_TMPDIR");
-  if (str) {
+  if (str && STRNEQ (str, "")) {
     if (guestfs_set_tmpdir (g, str) == -1)
       return -1;
   }
 
   str = do_getenv (data, "LIBGUESTFS_CACHEDIR");
-  if (str) {
+  if (str && STRNEQ (str, "")) {
     if (guestfs_set_cachedir (g, str) == -1)
       return -1;
   }
@@ -208,15 +208,15 @@ parse_environment (guestfs_h *g,
     return -1;
 
   str = do_getenv (data, "LIBGUESTFS_PATH");
-  if (str)
+  if (str && STRNEQ (str, ""))
     guestfs_set_path (g, str);
 
   str = do_getenv (data, "LIBGUESTFS_HV");
-  if (str)
+  if (str && STRNEQ (str, ""))
     guestfs_set_hv (g, str);
   else {
     str = do_getenv (data, "LIBGUESTFS_QEMU");
-    if (str)
+    if (str && STRNEQ (str, ""))
       guestfs_set_hv (g, str);
   }
 
@@ -225,7 +225,7 @@ parse_environment (guestfs_h *g,
     guestfs_set_append (g, str);
 
   str = do_getenv (data, "LIBGUESTFS_MEMSIZE");
-  if (str) {
+  if (str && STRNEQ (str, "")) {
     if (sscanf (str, "%d", &memsize) != 1) {
       error (g, _("non-numeric value for LIBGUESTFS_MEMSIZE"));
       return -1;
@@ -237,20 +237,20 @@ parse_environment (guestfs_h *g,
   }
 
   str = do_getenv (data, "LIBGUESTFS_BACKEND");
-  if (str) {
+  if (str && STRNEQ (str, "")) {
     if (guestfs_set_backend (g, str) == -1)
       return -1;
   }
   else {
     str = do_getenv (data, "LIBGUESTFS_ATTACH_METHOD");
-    if (str) {
+    if (str && STRNEQ (str, "")) {
       if (guestfs_set_backend (g, str) == -1)
         return -1;
     }
   }
 
   str = do_getenv (data, "LIBGUESTFS_BACKEND_SETTINGS");
-  if (str && STRNEQ (str, "")) {
+  if (str) {
     CLEANUP_FREE_STRING_LIST char **settings = guestfs___split_string (':', str);
 
     if (settings == NULL) {
