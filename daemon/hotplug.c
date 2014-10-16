@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <time.h>
+#include <string.h>
 
 #include "guestfs_protocol.h"
 #include "daemon.h"

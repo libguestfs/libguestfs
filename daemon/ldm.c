@@ -24,6 +24,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <glob.h>
+#include <string.h>
 
 #if HAVE_YAJL
 #include <yajl/yajl_tree.h>

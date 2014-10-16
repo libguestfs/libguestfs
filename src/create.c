@@ -29,6 +29,7 @@
 #include <sys/wait.h>
 #include <sys/ioctl.h>
 #include <errno.h>
+#include <string.h>
 
 #ifdef HAVE_LINUX_FS_H
 #include <linux/fs.h>

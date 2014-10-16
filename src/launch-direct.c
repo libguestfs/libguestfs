@@ -34,6 +34,7 @@
 #include <sys/un.h>
 #include <grp.h>
 #include <assert.h>
+#include <string.h>
 
 #include <pcre.h>
 
