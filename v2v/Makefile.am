@@ -215,8 +215,11 @@ CLEANFILES += stamp-virt-v2v.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-if ENABLE_APPLIANCE
 TESTS = \
+	test-v2v-i-ova-two-disks.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
 	test-v2v-i-ova.sh \
 	test-v2v-i-disk.sh \
 	test-v2v-machine-readable.sh \
