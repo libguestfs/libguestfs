@@ -251,8 +251,10 @@ test_fuse (void)
   int fd;
   struct timeval tv[2];
   struct timespec ts[2];
+#ifdef HAVE_ACL
   acl_t acl;
   char *acl_text;
+#endif
 
   STAGE ("checking initial files exist");
 
