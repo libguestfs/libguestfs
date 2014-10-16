@@ -40,44 +40,53 @@ object
     let cmd = sprintf "tar -xf %s -C %s" (quote ova) (quote tmpdir) in
     if verbose then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then
-      error (f_"error unpacking OVA file: %s") cmd;
+      error (f_"error unpacking %s, see earlier error messages") ova;
 
     let files = Sys.readdir tmpdir in
-    let mf = ref "" in
     let ovf = ref "" in
     (* Search for the ovf file. *)
-    Array.iter (fun file ->
-      if Filename.check_suffix file ".ovf" then
-        ovf := file
-      else if Filename.check_suffix file ".mf" then
-        mf := file
+    Array.iter (
+      fun file ->
+        if Filename.check_suffix file ".ovf" then ovf := file
+    ) files;
+    let ovf = !ovf in
+    if ovf = "" then
+      error (f_"no .ovf file was found in %s") ova;
+
+    (* Read any .mf (manifest) files and verify sha1. *)
+    let rex = Str.regexp "SHA1(\\(.*\\))=\\([0-9a-fA-F]+\\)\r?" in
+    Array.iter (
+      fun mf ->
+        if Filename.check_suffix mf ".mf" then (
+          let chan = open_in (tmpdir // mf) in
+          let rec loop () =
+            let line = input_line chan in
+            if Str.string_match rex line 0 then (
+              let disk = Str.matched_group 1 line in
+              let expected = Str.matched_group 2 line in
+              let cmd = sprintf "sha1sum %s" (quote (tmpdir // disk)) in
+              let out = external_command ~prog cmd in
+              match out with
+              | [] ->
+                error (f_"no output from sha1sum command, see previous errors")
+              | [line] ->
+                let actual, _ = string_split " " line in
+                if actual <> expected then
+                  error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
+                    disk mf disk actual disk expected;
+                if verbose then
+                  printf "sha1 of %s matches expected checksum %s\n%!"
+                    disk expected
+              | _::_ -> error (f_"cannot parse output of sha1sum command")
+            )
+          in
+          (try loop () with End_of_file -> ());
+          close_in chan
+        )
     ) files;
 
-    (* verify sha1 from manifest file *)
-    let mf = tmpdir // !mf in
-    let rex = Str.regexp "SHA1(\\(.*\\))= \\(.*?\\)\r\\?$" in
-    let lines = read_whole_file mf in
-    let lines = string_nsplit "\n" lines in
-    List.iter (
-      fun line ->
-        if Str.string_match rex line 0 then
-          let file = Str.matched_group 1 line in
-          let sha1 = Str.matched_group 2 line in
-          let cmd = sprintf "sha1sum %s" (quote (tmpdir // file)) in
-          let out = external_command ~prog cmd in
-          (match out with
-          | [] -> error (f_"no output from sha1sum command, see previous errors")
-          | [line] ->
-            let hash, _ = string_split " " line in
-            if hash <> sha1 then
-              error (f_"checksum of %s does not match manifest sha1 %s")
-                file sha1;
-          | _::_ -> error (f_"cannot parse output of sha1sum command")
-          );
-    ) lines;
-
     (* Parse the ovf file. *)
-    let xml = read_whole_file (tmpdir // !ovf) in
+    let xml = read_whole_file (tmpdir // ovf) in
     let doc = Xml.parse_memory xml in
 
     (* Handle namespaces. *)
