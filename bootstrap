@@ -64,6 +64,7 @@ gnumakefile
 hash
 hash-pjw
 human
+iconv
 ignore-value
 lock
 maintainer-makefile
