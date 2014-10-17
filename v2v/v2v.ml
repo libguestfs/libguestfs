@@ -53,6 +53,11 @@ let rec main () =
 
   let msg fs = make_message_function ~quiet fs in
 
+  (* Print the version, easier than asking users to tell us. *)
+  if verbose then
+    printf "%s: %s %s (%s)\n%!"
+      prog Config.package_name Config.package_version Config.host_cpu;
+
   msg (f_"Opening the source %s") input#as_options;
   let source = input#source () in
 
