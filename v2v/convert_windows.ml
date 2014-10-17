@@ -336,7 +336,7 @@ echo uninstalling Xen PV driver
         "Start", REG_DWORD 0x0_l;
         "Group", REG_SZ "SCSI miniport";
         "ErrorControl", REG_DWORD 0x1_l;
-        "ImagePath", REG_SZ "system32\\\\drivers\\\\viostor.sys";
+        "ImagePath", REG_EXPAND_SZ "system32\\drivers\\viostor.sys";
         "Tag", REG_DWORD 0x21_l ];
 
       [ current_cs; "Services"; "viostor"; "Parameters" ],
