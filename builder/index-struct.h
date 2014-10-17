@@ -44,7 +44,7 @@ struct parse_context {
    */
   int seen_comments;
   const char *input_file;
-  const char *program_name;
+  const char *progname;
   const char *error_suffix;
 };
 
