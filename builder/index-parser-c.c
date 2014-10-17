@@ -56,7 +56,7 @@ virt_builder_parse_index (value progv, value error_suffixv, value filenamev)
   FILE *in;
 
   parse_context_init (&context);
-  context.program_name = String_val (progv);
+  context.progname = String_val (progv);
   context.input_file = String_val (filenamev);
   context.error_suffix = String_val (error_suffixv);
 

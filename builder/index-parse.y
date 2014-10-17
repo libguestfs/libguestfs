@@ -153,8 +153,8 @@ yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, cons
   int has_suffix = context->error_suffix != NULL && context->error_suffix[0] != 0;
 
   fprintf (stderr, "%s%s%s%ssyntax error at line %d: %s%s%s\n",
-           context->program_name ? context->program_name : "",
-           context->program_name ? ": " : "",
+           context->progname ? context->progname : "",
+           context->progname ? ": " : "",
            context->input_file ? context->input_file : "",
            context->input_file ? ": " : "",
            yylloc->first_line, msg,
