@@ -161,6 +161,7 @@ libguestfs_la_LIBADD = \
 	$(LIB_CLOCK_GETTIME) \
 	$(LIBINTL) \
 	$(LTLIBTHREAD) \
+	$(LTLIBICONV) \
 	$(SERVENT_LIB)
 
 # Force libtool to name the library 'libguestfs.so.0.$(MAX_PROC_NR).0'.
