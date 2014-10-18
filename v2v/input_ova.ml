@@ -181,14 +181,36 @@ object
         let file_id = xpath_to_string "rasd:HostResource/text()" "" in
         let rex = Str.regexp "^ovf:/disk/\\(.*\\)" in
         if Str.string_match rex file_id 0 then (
+          (* Chase the references through to the actual file name. *)
           let file_id = Str.matched_group 1 file_id in
           let expr = sprintf "/ovf:Envelope/ovf:DiskSection/ovf:Disk[@ovf:diskId='%s']/@ovf:fileRef" file_id in
           let file_ref = xpath_to_string expr "" in
           if file_ref == "" then error (f_"error parsing disk fileRef");
           let expr = sprintf "/ovf:Envelope/ovf:References/ovf:File[@ovf:id='%s']/@ovf:href" file_ref in
-          let file_name = xpath_to_string expr "" in
+          let filename = xpath_to_string expr "" in
+
+          (* Does the file exist and is it readable? *)
+          let filename = exploded // filename in
+          Unix.access filename [Unix.R_OK];
+
+          (* The spec allows the file to be gzip-compressed, in which case
+           * we must uncompress it into the tmpdir.
+           *)
+          let filename =
+            if detect_file_type filename = `GZip then (
+              let new_filename = tmpdir // string_random8 () ^ ".vmdk" in
+              let cmd =
+                sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
+              if verbose then printf "%s\n%!" cmd;
+              if Sys.command cmd <> 0 then
+                error (f_"error uncompressing %s, see earlier error messages")
+                  filename;
+              new_filename
+            )
+            else filename in
+
           let disk = {
-            s_qemu_uri= exploded // file_name;
+            s_qemu_uri = filename;
             s_format = Some "vmdk";
             s_target_dev = Some target_dev;
           } in
