@@ -36,13 +36,37 @@ object
   method as_options = "-i ova " ^ ova
 
   method source () =
-    (* Extract ova (tar) file. *)
-    let cmd = sprintf "tar -xf %s -C %s" (quote ova) (quote tmpdir) in
-    if verbose then printf "%s\n%!" cmd;
-    if Sys.command cmd <> 0 then
-      error (f_"error unpacking %s, see earlier error messages") ova;
+    (* Extract ova file. *)
+    let exploded =
+      (* The spec allows a directory to be specified as an ova.  This
+       * is also pretty convenient.
+       *)
+      if is_directory ova then ova
+      else (
+        match detect_file_type ova with
+        | `Tar ->
+          (* Normal ovas are tar file (not compressed). *)
+          let cmd = sprintf "tar -xf %s -C %s" (quote ova) (quote tmpdir) in
+          if verbose then printf "%s\n%!" cmd;
+          if Sys.command cmd <> 0 then
+            error (f_"error unpacking %s, see earlier error messages") ova;
+          tmpdir
+        | `Zip ->
+          (* However, although not permitted by the spec, people ship
+           * zip files as ova too.
+           *)
+          let cmd = sprintf "unzip%s -j -d %s %s"
+            (if verbose then "" else " -q")
+            (quote tmpdir) (quote ova) in
+          if verbose then printf "%s\n%!" cmd;
+          if Sys.command cmd <> 0 then
+            error (f_"error unpacking %s, see earlier error messages") ova;
+          tmpdir
+        | `GZip | `XZ | `Unknown ->
+          error (f_"%s: unsupported file format") ova
+      ) in
 
-    let files = Sys.readdir tmpdir in
+    let files = Sys.readdir exploded in
     let ovf = ref "" in
     (* Search for the ovf file. *)
     Array.iter (
@@ -58,13 +82,13 @@ object
     Array.iter (
       fun mf ->
         if Filename.check_suffix mf ".mf" then (
-          let chan = open_in (tmpdir // mf) in
+          let chan = open_in (exploded // mf) in
           let rec loop () =
             let line = input_line chan in
             if Str.string_match rex line 0 then (
               let disk = Str.matched_group 1 line in
               let expected = Str.matched_group 2 line in
-              let cmd = sprintf "sha1sum %s" (quote (tmpdir // disk)) in
+              let cmd = sprintf "sha1sum %s" (quote (exploded // disk)) in
               let out = external_command ~prog cmd in
               match out with
               | [] ->
@@ -86,7 +110,7 @@ object
     ) files;
 
     (* Parse the ovf file. *)
-    let xml = read_whole_file (tmpdir // ovf) in
+    let xml = read_whole_file (exploded // ovf) in
     let doc = Xml.parse_memory xml in
 
     (* Handle namespaces. *)
@@ -164,7 +188,7 @@ object
           let expr = sprintf "/ovf:Envelope/ovf:References/ovf:File[@ovf:id='%s']/@ovf:href" file_ref in
           let file_name = xpath_to_string expr "" in
           let disk = {
-            s_qemu_uri= tmpdir // file_name;
+            s_qemu_uri= exploded // file_name;
             s_format = Some "vmdk";
             s_target_dev = Some target_dev;
           } in
