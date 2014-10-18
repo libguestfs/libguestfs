@@ -13,15 +13,15 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
   Tools
 
     virt-v2v(1) and virt-p2v(1) are tools for converting from foreign
-    hypervisors or physical machines, to KVM. These tools were previously a
-    separate project. The code for both tools has been integrated into the
-    libguestfs tree. As part of the refactoring, virt-p2v has been
-    rewritten (from Ruby, now C), and virt-v2v now uses several modern
-    features of qemu which make it run many times faster than before.
-    virt-v2v(1) can import from: VMware vCenter, VMware OVA files, local
-    disk files, libvirt, RHEL 5 Xen. It can output to: oVirt or Red Hat
-    Enterprise Virtualization (RHEV-M), OpenStack Glance, libvirt, qemu,
-    local disk files.
+    hypervisors (such as VMware or Xen) or physical machines, to KVM. These
+    tools were previously a separate project. The code for both tools has
+    been integrated into the libguestfs tree. As part of the refactoring,
+    virt-p2v has been rewritten (from Ruby, now C), and virt-v2v now uses
+    several modern features of qemu which make it run many times faster
+    than before. virt-v2v(1) can import from: VMware vCenter, VMware OVA
+    files, local disk files, libvirt, RHEL 5 Xen. It can output to: oVirt
+    or Red Hat Enterprise Virtualization (RHEV-M), OpenStack Glance,
+    libvirt, qemu, local disk files.
 
     virt-log(1) is a new tool for listing log files from guests. It
     supports a variety of guests including Linux traditional, Linux using
@@ -195,6 +195,47 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
 
  Bugs fixed
 
+    https://bugzilla.redhat.com/1153515
+
+      empty (but set) LIBGUESTFS_BACKEND prints libguestfs: error: invalid
+      backend:
+
+    https://bugzilla.redhat.com/1151766
+
+      libguestfs-bash-completion package contains file
+      /usr/share/bash-completion/completions/virt-log, but no _virt_log()
+      function in that file
+
+    https://bugzilla.redhat.com/1151738
+
+      typo error in man page of virt-edit
+
+    https://bugzilla.redhat.com/1151033
+
+      virt-v2v conversions from VMware vCenter server run slowly
+
+    https://bugzilla.redhat.com/1150880
+
+      virt-v2v: warning: display <graphics type='sdl'> was ignored when
+      converting rhel5 guest with sdl graphics
+
+    https://bugzilla.redhat.com/1150867
+
+      'copy-file-to-file /src /dest' create file /dest even if command
+      'copy-file-to-file /src /dest' failed
+
+    https://bugzilla.redhat.com/1150815
+
+      Can not find "RECURSIVE LONG LISTING" in 'man virt-diff'
+
+    https://bugzilla.redhat.com/1150701
+
+      virt-v2v does not fstrim data disks and non-mounted filesystems
+
+    https://bugzilla.redhat.com/1150475
+
+      Exporting 2+ disk guest to RHEV, only one disk shows after import
+
     https://bugzilla.redhat.com/1148355
 
       virt-filesystems: incorrect LVM vg name when listing Fedora 21 Alpha
@@ -227,6 +268,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
 
       Improve the error info when converting windows guest with unclean
       file system
+
+    https://bugzilla.redhat.com/1145916
+
+      virt-v2v fails to convert win7 guest
 
     https://bugzilla.redhat.com/1144891
 
@@ -460,7 +505,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.28
 
     https://bugzilla.redhat.com/812970
 
-      virt-rescue cannot set ><rescue> prompt, on Ubuntu 12.04
+      virt-rescue cannot set ≥<rescue> prompt, on Ubuntu 12.04
 
 RELEASE NOTES FOR LIBGUESTFS 1.26
 
