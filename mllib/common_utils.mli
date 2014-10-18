@@ -118,10 +118,8 @@ val rm_rf_only_files : Guestfs.guestfs -> string -> unit
 
     XXX Could be faster with a specific API for doing this. *)
 
-val detect_compression : string -> [`Unknown | `XZ]
-(** Detect compression of a file.
-
-    XXX Only detects the formats we need in virt-builder so far. *)
+val detect_file_type : string -> [`GZip | `Tar | `XZ | `Zip | `Unknown]
+(** Detect type of a file. *)
 
 val is_block_device : string -> bool
 val is_char_device : string -> bool

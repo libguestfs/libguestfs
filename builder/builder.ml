@@ -315,8 +315,12 @@ let main () =
       | None -> []
       | Some format -> [`Format, format] in
     let compression_tag =
-      match detect_compression template with
+      match detect_file_type template with
       | `XZ -> [ `XZ, "" ]
+      | `GZip | `Tar | `Zip ->
+        eprintf (f_"%s: input file (%s) has an unsupported type\n")
+          prog template;
+        exit 1
       | `Unknown -> [] in
     [ `Template, ""; `Filename, template; `Size, Int64.to_string size ] @
       format_tag @ compression_tag in
