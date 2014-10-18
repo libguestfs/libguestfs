@@ -25,6 +25,8 @@ EXTRA_DIST = \
 	test-v2v-i-ova.xml \
 	test-v2v-i-ova-two-disks.expected \
 	test-v2v-i-ova-two-disks.ovf \
+	test-v2v-i-ova-zip.expected \
+	test-v2v-i-ova-zip.ovf \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.xml.in \
 	virt-v2v.pod
@@ -218,7 +220,8 @@ CLEANFILES += stamp-virt-v2v.pod
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
-	test-v2v-i-ova-two-disks.sh
+	test-v2v-i-ova-two-disks.sh \
+	test-v2v-i-ova-zip.sh
 
 if ENABLE_APPLIANCE
 TESTS += \
