@@ -163,7 +163,7 @@ endif
 rc_protocol.c: rc_protocol.x
 	rm -f $@-t $@-t2
 	$(RPCGEN) $(RPCGEN_DEFS) -c -o $@-t $<
-	sed 's,\.\./\(\.\./\)*fish,.,' < $@-t > $@-t2
+	$(SED) 's,\.\./\(\.\./\)*fish,.,' < $@-t > $@-t2
 	rm $@-t
 	mv $@-t2 $@
 

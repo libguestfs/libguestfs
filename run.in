@@ -267,7 +267,7 @@ else
     echo "$b/run: command failed with exit code $fail"
 fi
 if [ -n "$RUN_OUTPUT_FILE" ]; then
-    testname=`echo "$1" | sed -e 's,^./,,g'`
+    testname=`echo "$1" | @SED@ -e 's,^./,,g'`
     echo "<test rescode=\"$fail\" name=\"$testname\" time=\"$(($end_t - $start_t))\">" >> $RUN_OUTPUT_FILE
     echo "<![CDATA[" >> $RUN_OUTPUT_FILE
     # skip the results of test-virt-rescue.pl, as they contain

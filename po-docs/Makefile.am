@@ -57,7 +57,7 @@ libguestfs-docs.pot: po4a.conf
 	  --copyright-holder "Red Hat Inc." \
 	  po4a.conf
 	for f in `cd $(srcdir); find $(linguas) -name '*.pod'`; do \
-	  sed '0,/^=encoding/d' < $$f > $$f.new; \
+	  $(SED) '0,/^=encoding/d' < $$f > $$f.new; \
 	  mv $$f.new $$f; \
 	done
 

@@ -89,7 +89,7 @@ virtp2vdata_DATA = \
 # Deal with stupid autotools libexecdir-not-expandable crap.
 launch-virt-p2v: launch-virt-p2v.in
 	rm -f $@ $@-t
-	sed 's,@''libexecdir@,$(libexecdir),g' < $< > $@-t
+	$(SED) 's,@''libexecdir@,$(libexecdir),g' < $< > $@-t
 	chmod 0555 $@-t
 	mv $@-t $@
 
