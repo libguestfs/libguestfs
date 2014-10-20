@@ -24,13 +24,7 @@ open Common_utils
 open Types
 open Utils
 
-type map_source = string -> string option -> string * string option
-
-let no_map : map_source = fun x y -> x, y
-
-let parse_libvirt_xml ~verbose
-    ?(map_source_file = no_map) ?(map_source_dev = no_map)
-    xml =
+let parse_libvirt_xml ~verbose xml =
   if verbose then
     printf "libvirt xml is:\n%s\n" xml;
 
@@ -144,16 +138,12 @@ let parse_libvirt_xml ~verbose
       match xpath_to_string "@type" "" with
       | "block" ->
         let path = xpath_to_string "source/@dev" "" in
-        if path <> "" then (
-          let path, format = map_source_dev path format in
+        if path <> "" then
           add_disk path format target_dev
-        )
       | "file" ->
         let path = xpath_to_string "source/@file" "" in
-        if path <> "" then (
-          let path, format = map_source_file path format in
+        if path <> "" then
           add_disk path format target_dev
-        )
       | "network" ->
         (* We only handle <source protocol="nbd"> here, and that is
          * intended only for virt-p2v.  Any other network disk is
@@ -265,6 +255,8 @@ object
   method source () =
     let xml = read_whole_file file in
 
+    let { s_disks = disks } as source = parse_libvirt_xml ~verbose xml in
+
     (* When reading libvirt XML from a file (-i libvirtxml) we allow
      * paths to disk images in the libvirt XML to be relative (to the XML
      * file).  Relative paths are in fact not permitted in real libvirt
@@ -272,13 +264,14 @@ object
      * when writing the XML by hand.
      *)
     let dir = Filename.dirname (absolute_path file) in
-    let map_source_file path format =
-      let path =
-        if not (Filename.is_relative path) then path else dir // path in
-      path, format
-    in
+    let disks = List.map (
+      fun ({ s_qemu_uri = path } as disk) ->
+        let path =
+          if not (Filename.is_relative path) then path else dir // path in
+        { disk with s_qemu_uri = path }
+    ) disks in
 
-    parse_libvirt_xml ~verbose ~map_source_file xml
+    { source with s_disks = disks }
 end
 
 let input_libvirtxml = new input_libvirtxml
