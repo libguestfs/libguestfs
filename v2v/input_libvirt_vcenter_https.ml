@@ -28,6 +28,10 @@ open Input_libvirt_other
 
 open Printf
 
+(* See RHBZ#1151033 and RHBZ#1153589. *)
+let readahead_for_conversion = None
+let readahead_for_copying = Some (64 * 1024 * 1024)
+
 (* Return the session cookie.  It is memoized, so you can call this
  * as often as required.
  *)
@@ -244,7 +248,9 @@ object
 
     let disks = List.map (
       fun ({ s_qemu_uri = path } as disk) ->
-        let qemu_uri = map_source_to_uri verbose parsed_uri scheme server path in
+        let readahead = readahead_for_conversion in
+        let qemu_uri = map_source_to_uri ?readahead
+	  verbose parsed_uri scheme server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but
          * the format of the -flat file is *always* raw, so force it here.
@@ -260,7 +266,8 @@ object
       try Hashtbl.find saved_source_paths overlay.ov_source.s_disk_id
       with Not_found -> failwith "internal error in adjust_overlay_parameters" in
     let backing_qemu_uri =
-      map_source_to_uri ~readahead:(64 * 1024 * 1024)
+      let readahead = readahead_for_copying in
+      map_source_to_uri ?readahead
         verbose parsed_uri scheme server orig_path in
 
     (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
