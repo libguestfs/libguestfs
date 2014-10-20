@@ -91,6 +91,9 @@ v2v/convert_windows.ml
 v2v/domainxml.ml
 v2v/input_disk.ml
 v2v/input_libvirt.ml
+v2v/input_libvirt_other.ml
+v2v/input_libvirt_vcenter_https.ml
+v2v/input_libvirt_xen_ssh.ml
 v2v/input_libvirtxml.ml
 v2v/input_ova.ml
 v2v/kvmuid.ml
@@ -107,6 +110,4 @@ v2v/stringMap.ml
 v2v/types.ml
 v2v/utils.ml
 v2v/v2v.ml
-v2v/vCenter.ml
-v2v/xen.ml
 v2v/xml.ml
