@@ -67,7 +67,7 @@ blank-%.img:
 	rm -f $@ $@-t
 	$(top_builddir)/run \
 	  ../../fish/guestfish \
-	    -N $@-t="$$(echo $@ | sed -e 's/blank-//' -e 's/.img//')" exit
+	    -N $@-t="$$(echo $@ | $(SED) -e 's/blank-//' -e 's/.img//')" exit
 	mv $@-t $@
 
 # Make a (dummy) Fedora image.
