@@ -35,6 +35,7 @@ type source = {
 (** The source: metadata, disk images. *)
 
 and source_disk = {
+  s_disk_id : int;                      (** A unique ID for each source disk. *)
   s_qemu_uri : string;                  (** QEMU URI of source disk. *)
   s_format : string option;             (** Format. *)
   s_target_dev : string option;         (** Target @dev from libvirt XML. *)

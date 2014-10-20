@@ -66,6 +66,7 @@ class input_disk verbose input_format disk = object
         | format -> format in
 
     let disk = {
+      s_disk_id = 0;
       s_qemu_uri = disk_absolute;
       s_format = Some format;
       s_target_dev = None;
