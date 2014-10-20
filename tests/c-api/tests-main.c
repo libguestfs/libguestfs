@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <assert.h>
+#include <sys/utsname.h>
 
 #include <pcre.h>
 
@@ -37,6 +38,8 @@
 #include "guestfs-internal-frontend.h"
 
 #include "tests.h"
+
+static int is_cross_appliance;
 
 int
 init_none (guestfs_h *g)
@@ -395,6 +398,12 @@ substitute_srcdir (const char *path)
   return ret;
 }
 
+int
+using_cross_appliance (void)
+{
+  return is_cross_appliance;
+}
+
 static void
 next_test (guestfs_h *g, size_t test_num, const char *test_name)
 {
@@ -475,6 +484,35 @@ create_handle (void)
   return g;
 }
 
+static int
+check_cross_appliance (guestfs_h *g)
+{
+  struct utsname host;
+  CLEANUP_FREE_UTSNAME struct guestfs_utsname *appliance = NULL;
+  int r;
+  struct guestfs_utsname host_utsname;
+
+  r = uname (&host);
+  if (r == -1) {
+    fprintf (stderr, "call to uname failed\n");
+    exit (EXIT_FAILURE);
+  }
+
+  appliance = guestfs_utsname (g);
+  if (appliance == NULL) {
+    fprintf (stderr, "call to guestfs_utsname failed: %d, %s\n",
+             guestfs_last_errno (g), guestfs_last_error (g));
+    exit (EXIT_FAILURE);
+  }
+
+  host_utsname.uts_sysname = host.sysname;
+  host_utsname.uts_release = host.release;
+  host_utsname.uts_version = host.version;
+  host_utsname.uts_machine = host.machine;
+
+  return guestfs_compare_utsname (appliance, &host_utsname);
+}
+
 static size_t
 perform_tests (guestfs_h *g)
 {
@@ -505,6 +543,7 @@ main (int argc, char *argv[])
   no_test_warnings ();
 
   g = create_handle ();
+  is_cross_appliance = check_cross_appliance (g);
 
   nr_failed = perform_tests (g);
 
