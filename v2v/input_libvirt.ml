@@ -79,6 +79,9 @@ class input_libvirt_vcenter_https
 object
   inherit input_libvirt verbose libvirt_uri guest
 
+  val mutable mapf = fun ?readahead uri format -> uri, format
+  val saved_uri = Hashtbl.create 13
+
   method source () =
     if verbose then printf "input_libvirt_vcenter_https: source()\n%!";
 
@@ -91,7 +94,15 @@ object
     let { s_disks = disks } as source =
       Input_libvirtxml.parse_libvirt_xml ~verbose xml in
 
-    let mapf = VCenter.map_path_to_uri verbose parsed_uri scheme server in
+    (* Save the mapf function and the original s_qemu_uri fields, so
+     * we can get them in the adjust_overlay_parameters method below.
+     *)
+    mapf <- VCenter.map_path_to_uri verbose parsed_uri scheme server;
+    List.iter (
+      fun disk ->
+        Hashtbl.add saved_uri disk.s_disk_id (disk.s_qemu_uri, disk.s_format)
+    ) disks;
+
     let disks = List.map (
       fun ({ s_qemu_uri = uri; s_format = format } as disk) ->
         let uri, format = mapf uri format in
@@ -99,6 +110,22 @@ object
     ) disks in
 
     { source with s_disks = disks }
+
+  (* See RHBZ#1151033 and RHBZ#1153589 for why this is necessary. *)
+  method adjust_overlay_parameters overlay =
+    let orig_uri, orig_format =
+      try Hashtbl.find saved_uri overlay.ov_source.s_disk_id
+      with Not_found -> failwith "internal error in adjust_overlay_parameters" in
+    let backing_file, _ =
+      mapf ~readahead:(64 * 1024 * 1024) orig_uri orig_format in
+
+    (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
+    let cmd =
+      sprintf "qemu-img rebase -u -b %s %s"
+        (quote backing_file) (quote overlay.ov_overlay_file) in
+    if verbose then printf "%s\n%!" cmd;
+    if Sys.command cmd <> 0 then
+      warning ~prog (f_"qemu-img rebase failed, see earlier errors")
 end
 
 (* Subclass specialized for handling Xen over SSH. *)

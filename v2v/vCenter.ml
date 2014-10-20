@@ -44,7 +44,7 @@ let session_cookie = ref ""
  * XXX Need to handle templates.  The file is called "-delta.vmdk" in
  * place of "-flat.vmdk".
  *)
-let rec map_path_to_uri verbose uri scheme server path format =
+let rec map_path_to_uri verbose uri scheme server ?readahead path format =
   if not (Str.string_match esx_re path 0) then
     path, format
   else (
@@ -84,9 +84,13 @@ let rec map_path_to_uri verbose uri scheme server path format =
       "file.driver", JSON.String "https";
       "file.url", JSON.String url;
       "file.timeout", JSON.Int 600;
-      (* Choose a large readahead.  See: RHBZ#1151033 *)
-      "file.readahead", JSON.Int (64 * 1024 * 1024);
     ] in
+
+    let json_params =
+      match readahead with
+      | None -> json_params
+      | Some readahead ->
+        ("file.readahead", JSON.Int readahead) :: json_params in
 
     let json_params =
       if sslverify then json_params
