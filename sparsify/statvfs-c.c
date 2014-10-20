@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/statvfs.h>
+#include <stdint.h>
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
