@@ -18,6 +18,6 @@
 
 (** Functions for dealing with ESX. *)
 
-val map_path_to_uri : bool -> Xml.uri -> string -> string -> string -> string option -> string * string option
+val map_path_to_uri : bool -> Xml.uri -> string -> string -> ?readahead:int -> string -> string option -> string * string option
 (** Map a VMware path like "[datastore1] guest/guest.vmdk" to the
     URL where we can fetch the data. *)
