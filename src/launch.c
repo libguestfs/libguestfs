@@ -353,6 +353,7 @@ guestfs___appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " efi-rtc=noprobe"
 #endif
      " udevtimeout=6000"/* for slow systems (RHBZ#480319, RHBZ#1096579) */
+     " udev.event-timeout=6000" /* for newer udevd */
      " no_timer_check"  /* fix for RHBZ#502058 */
      "%s"               /* lpj */
      " acpi=off"        /* we don't need ACPI, turn it off */
