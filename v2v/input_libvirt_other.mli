@@ -16,8 +16,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Functions for dealing with ESX. *)
+(** [-i libvirt] source. *)
 
-val map_path_to_uri : bool -> Xml.uri -> string -> string -> ?readahead:int -> string -> string option -> string * string option
-(** Map a VMware path like "[datastore1] guest/guest.vmdk" to the
-    URL where we can fetch the data. *)
+val error_if_libvirt_backend : unit -> unit
+val error_if_no_ssh_agent : unit -> unit
+
+class virtual input_libvirt : bool -> string option -> string -> object
+  method as_options : string
+  method virtual source : unit -> Types.source
+  method adjust_overlay_parameters : Types.overlay -> unit
+end
+
+val input_libvirt_other : bool -> string option -> string -> Types.input
