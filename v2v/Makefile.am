@@ -42,6 +42,9 @@ SOURCES_MLI = \
 	domainxml.mli \
 	input_disk.mli \
 	input_libvirt.mli \
+	input_libvirt_other.mli \
+	input_libvirt_vcenter_https.mli \
+	input_libvirt_xen_ssh.mli \
 	input_libvirtxml.mli \
 	input_ova.mli \
 	kvmuid.mli \
@@ -57,8 +60,6 @@ SOURCES_MLI = \
 	OVF.mli \
 	stringMap.mli \
 	types.mli \
-	vCenter.mli \
-	xen.mli \
 	xml.mli
 
 SOURCES_ML = \
@@ -69,13 +70,14 @@ SOURCES_ML = \
 	domainxml.ml \
 	DOM.ml \
 	kvmuid.ml \
-	vCenter.ml \
-	xen.ml \
 	OVF.ml \
 	linux.ml \
 	modules_list.ml \
 	input_disk.ml \
 	input_libvirtxml.ml \
+	input_libvirt_other.ml \
+	input_libvirt_vcenter_https.ml \
+	input_libvirt_xen_ssh.ml \
 	input_libvirt.ml \
 	input_ova.ml \
 	convert_linux.ml \

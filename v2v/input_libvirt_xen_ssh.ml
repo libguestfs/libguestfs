@@ -16,13 +16,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Functions for dealing with Xen. *)
+(** [-i libvirt] when the source is Xen *)
 
 open Common_gettext.Gettext
 open Common_utils
 
+open Types
 open Xml
 open Utils
+open Input_libvirt_other
 
 open Printf
 
@@ -40,7 +42,7 @@ open Printf
  *   "file.host_key_check": "no"
  * }
  *)
-let rec map_path_to_uri verbose uri scheme server path format =
+let map_path_to_uri verbose uri scheme server path format =
   (* Construct the JSON parameters. *)
   let json_params = [
     "file.driver", JSON.String "ssh";
@@ -69,3 +71,33 @@ let rec map_path_to_uri verbose uri scheme server path format =
   let qemu_uri = "json: " ^ JSON.string_of_doc json_params in
 
   qemu_uri, format
+
+(* Subclass specialized for handling Xen over SSH. *)
+class input_libvirt_xen_ssh verbose libvirt_uri parsed_uri scheme server guest =
+object
+  inherit input_libvirt verbose libvirt_uri guest
+
+  method source () =
+    if verbose then printf "input_libvirt_xen_ssh: source()\n%!";
+
+    error_if_libvirt_backend ();
+    error_if_no_ssh_agent ();
+
+    (* Get the libvirt XML.  This also checks (as a side-effect)
+     * that the domain is not running.  (RHBZ#1138586)
+     *)
+    let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
+    let { s_disks = disks } as source =
+      Input_libvirtxml.parse_libvirt_xml ~verbose xml in
+
+    let mapf = map_path_to_uri verbose parsed_uri scheme server in
+    let disks = List.map (
+      fun ({ s_qemu_uri = uri; s_format = format } as disk) ->
+        let uri, format = mapf uri format in
+        { disk with s_qemu_uri = uri; s_format = format }
+    ) disks in
+
+    { source with s_disks = disks }
+end
+
+let input_libvirt_xen_ssh = new input_libvirt_xen_ssh
