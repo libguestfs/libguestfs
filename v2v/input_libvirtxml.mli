@@ -18,17 +18,8 @@
 
 (** [-i libvirtxml] source. *)
 
-type map_source = string -> string option -> string * string option
-(** Map function that takes [path] and [format] parameters, and
-    returns the possibly rewritten [qemu_uri, format] pair. *)
-
-val parse_libvirt_xml : verbose:bool -> ?map_source_file:map_source -> ?map_source_dev:map_source -> string -> Types.source
+val parse_libvirt_xml : verbose:bool -> string -> Types.source
 (** Take libvirt XML and parse it into a {!Types.source} structure.
-
-    The optional [?map_source_file] and [?map_source_dev] functions
-    are used to map [<source file="..."/>] and [<source dev="..."/>]
-    from the XML into QEMU URIs.  If not given, then an identity
-    mapping is used.
 
     This function is also used by {!Input_libvirt}, hence it is
     exported. *)

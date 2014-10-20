@@ -82,16 +82,23 @@ object
   method source () =
     if verbose then printf "input_libvirt_vcenter_https: source()\n%!";
 
+    error_if_libvirt_backend ();
+
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
-
-    error_if_libvirt_backend ();
+    let { s_disks = disks } as source =
+      Input_libvirtxml.parse_libvirt_xml ~verbose xml in
 
     let mapf = VCenter.map_path_to_uri verbose parsed_uri scheme server in
-    Input_libvirtxml.parse_libvirt_xml ~verbose
-      ~map_source_file:mapf ~map_source_dev:mapf xml
+    let disks = List.map (
+      fun ({ s_qemu_uri = uri; s_format = format } as disk) ->
+        let uri, format = mapf uri format in
+        { disk with s_qemu_uri = uri; s_format = format }
+    ) disks in
+
+    { source with s_disks = disks }
 end
 
 (* Subclass specialized for handling Xen over SSH. *)
@@ -103,17 +110,24 @@ object
   method source () =
     if verbose then printf "input_libvirt_xen_ssh: source()\n%!";
 
+    error_if_libvirt_backend ();
+    error_if_no_ssh_agent ();
+
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
-
-    error_if_libvirt_backend ();
-    error_if_no_ssh_agent ();
+    let { s_disks = disks } as source =
+      Input_libvirtxml.parse_libvirt_xml ~verbose xml in
 
     let mapf = Xen.map_path_to_uri verbose parsed_uri scheme server in
-    Input_libvirtxml.parse_libvirt_xml ~verbose
-      ~map_source_file:mapf ~map_source_dev:mapf xml
+    let disks = List.map (
+      fun ({ s_qemu_uri = uri; s_format = format } as disk) ->
+        let uri, format = mapf uri format in
+        { disk with s_qemu_uri = uri; s_format = format }
+    ) disks in
+
+    { source with s_disks = disks }
 end
 
 (* Choose the right subclass based on the URI. *)
