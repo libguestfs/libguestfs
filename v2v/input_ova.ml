@@ -210,6 +210,7 @@ object
             else filename in
 
           let disk = {
+            s_disk_id = i;
             s_qemu_uri = filename;
             s_format = Some "vmdk";
             s_target_dev = Some target_dev;
