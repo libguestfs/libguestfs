@@ -33,6 +33,7 @@ type source = {
   s_nics : source_nic list;
 }
 and source_disk = {
+  s_disk_id : int;
   s_qemu_uri : string;
   s_format : string option;
   s_target_dev : string option;

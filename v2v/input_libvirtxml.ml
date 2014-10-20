@@ -103,11 +103,13 @@ let parse_libvirt_xml ~verbose xml =
   (* Non-removable disk devices. *)
   let disks =
     let get_disks, add_disk =
-      let disks = ref [] in
+      let disks = ref [] and i = ref 0 in
       let get_disks () = List.rev !disks in
       let add_disk qemu_uri format target_dev =
+        incr i;
         disks :=
-          { s_qemu_uri = qemu_uri; s_format = format;
+          { s_disk_id = !i;
+            s_qemu_uri = qemu_uri; s_format = format;
             s_target_dev = target_dev } :: !disks
       in
       get_disks, add_disk
