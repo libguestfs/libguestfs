@@ -194,6 +194,7 @@ and guestcaps_video_type = QXL | Cirrus
 class virtual input verbose = object
   method virtual as_options : string
   method virtual source : unit -> source
+  method adjust_overlay_parameters (_ : overlay) = ()
 end
 
 class virtual output verbose = object

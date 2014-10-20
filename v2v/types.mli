@@ -143,6 +143,9 @@ class virtual input : bool -> object
       This is just used for pretty-printing log messages. *)
   method virtual source : unit -> source
   (** Examine the source hypervisor and create a source struct. *)
+  method adjust_overlay_parameters : overlay -> unit
+  (** Called just before copying to allow the input module to adjust
+      parameters of the overlay disk. *)
 end
 (** Encapsulates all [-i], etc input arguments as an object. *)
 

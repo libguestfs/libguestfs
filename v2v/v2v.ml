@@ -307,6 +307,13 @@ let rec main () =
           if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
             error (f_"internal error: qemu corrupted the overlay file");
 
+          (* Give the input module a chance to adjust the parameters
+           * of the overlay/backing file.  This allows us to increase
+           * the readahead parameter when copying (see RHBZ#1151033 and
+           * RHBZ#1153589 for the gruesome details).
+           *)
+          input#adjust_overlay_parameters t.target_overlay;
+
           (* It turns out that libguestfs's disk creation code is
            * considerably more flexible and easier to use than
            * qemu-img, so create the disk explicitly using libguestfs
