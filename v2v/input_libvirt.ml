@@ -42,7 +42,8 @@ let error_if_no_ssh_agent () =
   with Not_found ->
     error (f_"ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page.")
 
-class input_libvirt verbose libvirt_uri guest =
+(* Superclass. *)
+class virtual input_libvirt verbose libvirt_uri guest =
 object
   inherit input verbose
 
@@ -52,61 +53,106 @@ object
       | None -> ""
       | Some uri -> " -ic " ^ uri)
       guest
+end
+
+(* Subclass specialized for handling anything that's *not* VMware vCenter
+ * or Xen.
+ *)
+class input_libvirt_other verbose libvirt_uri guest =
+object
+  inherit input_libvirt verbose libvirt_uri guest
 
   method source () =
+    if verbose then printf "input_libvirt_other: source()\n%!";
+
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
 
-    (* Depending on the libvirt URI we may need to convert <source/>
-     * paths so we can access them remotely (if that is possible).  This
-     * is only true for remote, non-NULL URIs.  (We assume the user
-     * doesn't try setting $LIBVIRT_URI.  If they do that then all bets
-     * are off).
-     *)
-    let map_source_file, map_source_dev =
-      match libvirt_uri with
-      | None -> None, None
-      | Some orig_uri ->
-        let { Xml.uri_server = server; uri_scheme = scheme } as uri =
-          try Xml.parse_uri orig_uri
-          with Invalid_argument msg ->
-            error (f_"could not parse '-ic %s'.  Original error message was: %s")
-              orig_uri msg in
-
-        match server, scheme with
-        | None, _
-        | Some "", _ ->                 (* Not a remote URI. *)
-          None, None
-
-        | Some _, None                  (* No scheme? *)
-        | Some _, Some "" ->
-          None, None
-
-        | Some server, Some ("esx"|"gsx"|"vpx" as scheme) -> (* ESX *)
-          error_if_libvirt_backend ();
-          let f = VCenter.map_path_to_uri verbose uri scheme server in
-          Some f, Some f
-
-        | Some server, Some ("xen+ssh" as scheme) -> (* Xen over SSH *)
-          error_if_libvirt_backend ();
-          error_if_no_ssh_agent ();
-          let f = Xen.map_path_to_uri verbose uri scheme server in
-          Some f, Some f
-
-        (* Old virt-v2v also supported qemu+ssh://.  However I am
-         * deliberately not supporting this in new virt-v2v.  Don't
-         * use virt-v2v if a guest already runs on KVM.
-         *)
-        | Some _, Some _ ->             (* Unknown remote scheme. *)
-          warning ~prog (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
-            orig_uri;
-          None, None in
-
-    Input_libvirtxml.parse_libvirt_xml ~verbose
-      ?map_source_file ?map_source_dev xml
+    Input_libvirtxml.parse_libvirt_xml ~verbose xml
 end
 
-let input_libvirt = new input_libvirt
+(* Subclass specialized for handling VMware vCenter over https. *)
+class input_libvirt_vcenter_https
+  verbose libvirt_uri parsed_uri scheme server guest =
+object
+  inherit input_libvirt verbose libvirt_uri guest
+
+  method source () =
+    if verbose then printf "input_libvirt_vcenter_https: source()\n%!";
+
+    (* Get the libvirt XML.  This also checks (as a side-effect)
+     * that the domain is not running.  (RHBZ#1138586)
+     *)
+    let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
+
+    error_if_libvirt_backend ();
+
+    let mapf = VCenter.map_path_to_uri verbose parsed_uri scheme server in
+    Input_libvirtxml.parse_libvirt_xml ~verbose
+      ~map_source_file:mapf ~map_source_dev:mapf xml
+end
+
+(* Subclass specialized for handling Xen over SSH. *)
+class input_libvirt_xen_ssh
+  verbose libvirt_uri parsed_uri scheme server guest =
+object
+  inherit input_libvirt verbose libvirt_uri guest
+
+  method source () =
+    if verbose then printf "input_libvirt_xen_ssh: source()\n%!";
+
+    (* Get the libvirt XML.  This also checks (as a side-effect)
+     * that the domain is not running.  (RHBZ#1138586)
+     *)
+    let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
+
+    error_if_libvirt_backend ();
+    error_if_no_ssh_agent ();
+
+    let mapf = Xen.map_path_to_uri verbose parsed_uri scheme server in
+    Input_libvirtxml.parse_libvirt_xml ~verbose
+      ~map_source_file:mapf ~map_source_dev:mapf xml
+end
+
+(* Choose the right subclass based on the URI. *)
+let input_libvirt verbose libvirt_uri guest =
+  match libvirt_uri with
+  | None ->
+    new input_libvirt_other verbose libvirt_uri guest
+
+  | Some orig_uri ->
+    let { Xml.uri_server = server; uri_scheme = scheme } as parsed_uri =
+      try Xml.parse_uri orig_uri
+      with Invalid_argument msg ->
+        error (f_"could not parse '-ic %s'.  Original error message was: %s")
+          orig_uri msg in
+
+    match server, scheme with
+    | None, _
+    | Some "", _                        (* Not a remote URI. *)
+
+    | Some _, None                      (* No scheme? *)
+    | Some _, Some "" ->
+      new input_libvirt_other verbose libvirt_uri guest
+
+    | Some server, Some ("esx"|"gsx"|"vpx" as scheme) -> (* vCenter over https *)
+      new input_libvirt_vcenter_https
+        verbose libvirt_uri parsed_uri scheme server guest
+
+    | Some server, Some ("xen+ssh" as scheme) -> (* Xen over SSH *)
+      new input_libvirt_xen_ssh
+        verbose libvirt_uri parsed_uri scheme server guest
+
+    (* Old virt-v2v also supported qemu+ssh://.  However I am
+     * deliberately not supporting this in new virt-v2v.  Don't
+     * use virt-v2v if a guest already runs on KVM.
+     *)
+
+    | Some _, Some _ ->             (* Unknown remote scheme. *)
+      warning ~prog (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
+        orig_uri;
+      new input_libvirt_other verbose libvirt_uri guest
+
 let () = Modules_list.register_input_module "libvirt"
