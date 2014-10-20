@@ -253,6 +253,11 @@ and c_api_test_prereq =
     (* Run the test only if 'string' is available in the daemon. *)
   | IfAvailable of string
 
+    (* Run the test when the appliance and the OS differ - for example,
+     * when using a fixed appliance created in a different OS/distribution.
+     *)
+  | IfNotCrossAppliance
+
 (* Some initial scenarios for testing. *)
 and c_api_test_init =
     (* Do nothing, block devices could contain random stuff including
