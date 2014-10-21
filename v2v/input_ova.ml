@@ -66,6 +66,11 @@ object
           error (f_"%s: unsupported file format") ova
       ) in
 
+    (* Exploded path must be absolute (RHBZ#1155121). *)
+    let exploded =
+      if not (Filename.is_relative exploded) then exploded
+      else Sys.getcwd () // exploded in
+
     let files = Sys.readdir exploded in
     let ovf = ref "" in
     (* Search for the ovf file. *)
