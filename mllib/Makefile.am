@@ -137,6 +137,7 @@ libdir.ml: Makefile
 # we do, so we have to provide it ourselves.
 
 DEFAULT_INCLUDES = \
+	$(LIBVIRT_CFLAGS) \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
