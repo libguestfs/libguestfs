@@ -733,7 +733,8 @@ dnl back to basic 'qemu'.  Allow the user to override it.
 qemu_system="$(
     echo qemu-system-$host_cpu |
     $SED -e 's/-i@<:@456@:>@86/-i386/g' \
-         -e 's/-arm.*/-arm/g'
+         -e 's/-arm.*/-arm/g' \
+         -e 's/-amd64/-x86_64/g'
     )"
 default_qemu="qemu-kvm kvm $qemu_system qemu"
 AC_ARG_WITH([qemu],
