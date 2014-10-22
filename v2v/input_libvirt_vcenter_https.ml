@@ -24,6 +24,7 @@ open Common_utils
 open Types
 open Xml
 open Utils
+open Input_libvirtxml
 open Input_libvirt_other
 
 open Printf
@@ -235,20 +236,28 @@ object
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
-    let { s_disks = disks } as source =
-      Input_libvirtxml.parse_libvirt_xml ~verbose xml in
+    let source, disks = parse_libvirt_xml ~verbose xml in
 
     (* Save the original source paths, so that we can remap them again
      * in [#adjust_overlay_parameters].
      *)
     List.iter (
-      fun { s_disk_id = id; s_qemu_uri = path } ->
-        Hashtbl.add saved_source_paths id path
+      function
+      | { p_source = P_source_dev _ } ->
+        (* Should never happen ... *)
+        error (f_"source disk has <source dev=...> attribute in XML")
+      | { p_source_disk = { s_disk_id = id }; p_source = P_dont_rewrite } ->
+        Hashtbl.add saved_source_paths id None
+      | { p_source_disk = { s_disk_id = id }; p_source = P_source_file path } ->
+        Hashtbl.add saved_source_paths id (Some path)
     ) disks;
 
+    let readahead = readahead_for_conversion in
     let disks = List.map (
-      fun ({ s_qemu_uri = path } as disk) ->
-        let readahead = readahead_for_conversion in
+      function
+      | { p_source = P_source_dev _ } -> assert false
+      | { p_source_disk = disk; p_source = P_dont_rewrite } -> disk
+      | { p_source_disk = disk; p_source = P_source_file path } ->
         let qemu_uri = map_source_to_uri ?readahead
 	  verbose parsed_uri scheme server path in
 
@@ -265,18 +274,21 @@ object
     let orig_path =
       try Hashtbl.find saved_source_paths overlay.ov_source.s_disk_id
       with Not_found -> failwith "internal error in adjust_overlay_parameters" in
-    let backing_qemu_uri =
+    match orig_path with
+    | None -> ()
+    | Some orig_path ->
       let readahead = readahead_for_copying in
-      map_source_to_uri ?readahead
-        verbose parsed_uri scheme server orig_path in
+      let backing_qemu_uri =
+        map_source_to_uri ?readahead
+          verbose parsed_uri scheme server orig_path in
 
-    (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
-    let cmd =
-      sprintf "qemu-img rebase -u -b %s %s"
-        (quote backing_qemu_uri) (quote overlay.ov_overlay_file) in
-    if verbose then printf "%s\n%!" cmd;
-    if Sys.command cmd <> 0 then
-      warning ~prog (f_"qemu-img rebase failed (ignored)")
+      (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
+      let cmd =
+        sprintf "qemu-img rebase -u -b %s %s"
+          (quote backing_qemu_uri) (quote overlay.ov_overlay_file) in
+      if verbose then printf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then
+        warning ~prog (f_"qemu-img rebase failed (ignored)")
 end
 
 let input_libvirt_vcenter_https = new input_libvirt_vcenter_https

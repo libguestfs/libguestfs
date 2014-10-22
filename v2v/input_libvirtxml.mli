@@ -18,8 +18,21 @@
 
 (** [-i libvirtxml] source. *)
 
-val parse_libvirt_xml : verbose:bool -> string -> Types.source
-(** Take libvirt XML and parse it into a {!Types.source} structure.
+type parsed_disk = {
+  p_source_disk : Types.source_disk;    (** Source disk. *)
+  p_source : parsed_source;         (** <source dev|file attribute> *)
+}
+and parsed_source =
+| P_source_dev of string             (** <source dev> *)
+| P_source_file of string            (** <source file> *)
+| P_dont_rewrite                     (** s_qemu_uri is already set. *)
+
+val parse_libvirt_xml : verbose:bool -> string -> Types.source * parsed_disk list
+(** Take libvirt XML and parse it into a {!Types.source} structure and a
+    list of source disks.
+
+    {b Note} the [source.s_disks] field is an empty list.  The caller
+    must map over the parsed disks and update the [source.s_disks] field.
 
     This function is also used by {!Input_libvirt}, hence it is
     exported. *)

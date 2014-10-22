@@ -24,6 +24,7 @@ open Common_utils
 open Types
 open Xml
 open Utils
+open Input_libvirtxml
 open Input_libvirt_other
 
 open Printf
@@ -45,8 +46,7 @@ object
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
-    let { s_disks = disks } as source =
-      Input_libvirtxml.parse_libvirt_xml ~verbose xml in
+    let source, disks = parse_libvirt_xml ~verbose xml in
 
     (* Map the <source/> filename (which is relative to the remote
      * Xen server) to an ssh URI.  This is a JSON URI looking something
@@ -61,7 +61,11 @@ object
      *   "file.host_key_check": "no"
      *)
     let disks = List.map (
-      fun ({ s_qemu_uri = path } as disk) ->
+      function
+      | { p_source_disk = disk; p_source = P_dont_rewrite } ->
+        disk
+      | { p_source_disk = disk; p_source = P_source_dev path }
+      | { p_source_disk = disk; p_source = P_source_file path } ->
         (* Construct the JSON parameters. *)
         let json_params = [
           "file.driver", JSON.String "ssh";
