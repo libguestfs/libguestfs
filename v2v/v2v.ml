@@ -73,6 +73,17 @@ let rec main () =
 
   if verbose then printf "%s%!" (string_of_source source);
 
+  assert (source.s_dom_type <> "");
+  assert (source.s_name <> "");
+  assert (source.s_memory > 0L);
+  assert (source.s_vcpu >= 1);
+  if source.s_disks = [] then
+    error (f_"source has no hard disks!");
+  List.iter (
+    fun disk ->
+      assert (disk.s_qemu_uri <> "");
+  ) source.s_disks;
+
   (* Map source name. *)
   let source =
     match output_name with
