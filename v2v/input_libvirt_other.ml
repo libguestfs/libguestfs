@@ -70,7 +70,10 @@ object
      *)
     let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
 
-    Input_libvirtxml.parse_libvirt_xml ~verbose xml
+    let source, disks = Input_libvirtxml.parse_libvirt_xml ~verbose xml in
+    let disks =
+      List.map (fun { Input_libvirtxml.p_source_disk = disk } -> disk) disks in
+    { source with s_disks = disks }
 end
 
 let input_libvirt_other = new input_libvirt_other
