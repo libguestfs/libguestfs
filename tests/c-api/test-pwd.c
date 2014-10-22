@@ -28,7 +28,7 @@
 int
 main (int argc, char *argv[])
 {
-  char *cwd = get_current_dir_name();
+  char *cwd = getcwd(NULL, 0);
   printf("%s", cwd);
 
   exit (EXIT_SUCCESS);

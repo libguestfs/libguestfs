@@ -70,9 +70,9 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  cwd = get_current_dir_name ();
+  cwd = getcwd (NULL, 0);
   if (cwd == NULL) {
-    perror ("get_current_dir_name");
+    perror ("getcwd");
     exit (EXIT_FAILURE);
   }
 
