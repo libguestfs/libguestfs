@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-18 09:24+0100\n"
+"POT-Creation-Date: 2014-10-22 14:35+0100\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -73,7 +73,7 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: ../v2v/v2v.ml:600 ../v2v/v2v.ml:489
+#: ../v2v/v2v.ml:618 ../v2v/v2v.ml:507
 msgid "%s (ignored)"
 msgstr ""
 
@@ -109,7 +109,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:334 ../builder/builder.ml:666
+#: ../customize/customize_run.ml:334 ../builder/builder.ml:670
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -224,7 +224,7 @@ msgid ""
 "Use --list to list available guest types.\n"
 msgstr ""
 
-#: ../builder/builder.ml:334
+#: ../builder/builder.ml:338
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr ""
 
@@ -232,10 +232,11 @@ msgstr ""
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
-" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported esx_guest\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported "
+"esx_guest\n"
 "\n"
-" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest -o rhev -os "
-"rhev.nfs:/export_domain --network rhevm\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -"
+"os rhev.nfs:/export_domain --network rhevm\n"
 "\n"
 " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
@@ -318,10 +319,14 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature.\n"
 msgstr ""
 
-#: ../builder/builder.ml:361
+#: ../builder/builder.ml:365
 msgid ""
 "%s: images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s\n"
+msgstr ""
+
+#: ../builder/builder.ml:321
+msgid "%s: input file (%s) has an unsupported type\n"
 msgstr ""
 
 #: ../builder/sources.ml:135
@@ -363,7 +368,7 @@ msgstr ""
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
-#: ../builder/builder.ml:670
+#: ../builder/builder.ml:674
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -373,14 +378,14 @@ msgstr ""
 msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 
-#: ../builder/builder.ml:486
+#: ../builder/builder.ml:490
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
 "Please file a bug, giving the command line arguments you used.\n"
 msgstr ""
 
-#: ../builder/builder.ml:366
+#: ../builder/builder.ml:370
 msgid ""
 "%s: output size is too large for this block device.  Requested size = %s, "
 "output block device = %s, output block device size = %s\n"
@@ -496,6 +501,10 @@ msgstr ""
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
+msgstr ""
+
+#: ../v2v/input_ova.ml:66
+msgid "%s: unsupported file format"
 msgstr ""
 
 #: ../builder/cmdline.ml:272
@@ -749,7 +758,7 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:179
+#: ../v2v/input_libvirtxml.ml:181
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
@@ -828,7 +837,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:227
+#: ../v2v/v2v.ml:238
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
@@ -838,7 +847,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:275
+#: ../v2v/v2v.ml:286
 msgid "Closing the overlay"
 msgstr ""
 
@@ -850,15 +859,15 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:618
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:242
+#: ../v2v/v2v.ml:253
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:240
+#: ../v2v/v2v.ml:251
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -868,7 +877,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:545
+#: ../builder/builder.ml:549
 msgid "Copying"
 msgstr ""
 
@@ -878,7 +887,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:296
+#: ../v2v/v2v.ml:307
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -902,11 +911,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:114
+#: ../v2v/v2v.ml:125
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:391
+#: ../v2v/v2v.ml:409
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1048,7 +1057,7 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:425
+#: ../v2v/v2v.ml:443
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1100,7 +1109,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:438
+#: ../v2v/v2v.ml:456
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
@@ -1108,7 +1117,7 @@ msgstr ""
 msgid "Error parsing URI '%s'. Look for error messages printed above.\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:231
+#: ../v2v/v2v.ml:242
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1196,8 +1205,8 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:405 ../customize/customize_main.ml:256
-#: ../builder/builder.ml:715
+#: ../v2v/v2v.ml:423 ../customize/customize_main.ml:256
+#: ../builder/builder.ml:719
 msgid "Finishing off"
 msgstr ""
 
@@ -1245,7 +1254,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:705
+#: ../builder/builder.ml:709
 msgid "Free space"
 msgstr ""
 
@@ -1281,7 +1290,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:172
+#: ../v2v/v2v.ml:183
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1295,7 +1304,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:206
+#: ../v2v/v2v.ml:217
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1363,7 +1372,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:271
+#: ../v2v/v2v.ml:282
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1418,11 +1427,11 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:627
+#: ../builder/builder.ml:631
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../v2v/v2v.ml:142
+#: ../v2v/v2v.ml:153
 msgid "Opening the overlay"
 msgstr ""
 
@@ -1434,11 +1443,11 @@ msgstr ""
 msgid "Output VM UUID"
 msgstr ""
 
-#: ../builder/builder.ml:700
+#: ../builder/builder.ml:704
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:702
+#: ../builder/builder.ml:706
 msgid "Output format"
 msgstr ""
 
@@ -1450,7 +1459,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:705
 msgid "Output size"
 msgstr ""
 
@@ -1458,7 +1467,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:401
+#: ../v2v/v2v.ml:419
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -1489,15 +1498,15 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr ""
 
-#: ../v2v/v2v.ml:465
+#: ../v2v/v2v.ml:483
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:456
+#: ../v2v/v2v.ml:474
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:481
+#: ../builder/builder.ml:485
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1710,11 +1719,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:572
+#: ../builder/builder.ml:576
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:601
+#: ../builder/builder.ml:605
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2100,11 +2109,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:261
+#: ../v2v/v2v.ml:272
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:259
+#: ../v2v/v2v.ml:270
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2128,7 +2137,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:703
+#: ../builder/builder.ml:707
 msgid "Total usable space"
 msgstr ""
 
@@ -2146,7 +2155,7 @@ msgstr ""
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../builder/builder.ml:560
+#: ../builder/builder.ml:564
 msgid "Uncompressing"
 msgstr ""
 
@@ -2232,7 +2241,7 @@ msgstr ""
 msgid "alignment cannot be < 1"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:33
+#: ../v2v/input_libvirt_other.ml:33
 msgid ""
 "because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 "
 "you must set this environment variable:\n"
@@ -2270,7 +2279,7 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/input_ova.ml:80
+#: ../v2v/input_ova.ml:109
 msgid "cannot parse output of sha1sum command"
 msgstr ""
 
@@ -2300,13 +2309,13 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:75
+#: ../v2v/input_ova.ml:104
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:445
+#: ../v2v/v2v.ml:463
 msgid "connection closed"
 msgstr ""
 
@@ -2326,15 +2335,15 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:75
+#: ../v2v/input_libvirt.ml:39
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:173
+#: ../v2v/input_ova.ml:225
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:125
+#: ../v2v/input_ova.ml:154
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2391,7 +2400,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:182
+#: ../v2v/v2v.ml:193
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2405,7 +2414,7 @@ msgid ""
 "format"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:105
+#: ../v2v/input_libvirtxml.ml:108
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2443,45 +2452,49 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:163
+#: ../v2v/input_ova.ml:193
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:43
+#: ../v2v/input_ova.ml:211
+msgid "error uncompressing %s, see earlier error messages"
+msgstr ""
+
+#: ../v2v/input_ova.ml:63 ../v2v/input_ova.ml:52
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/vCenter.ml:120
+#: ../v2v/input_libvirt_vcenter_https.ml:119
 msgid ""
 "esx: URI (-ic parameter) contains no path, so we cannot determine the "
 "datacenter name"
 msgstr ""
 
-#: ../v2v/vCenter.ml:182
+#: ../v2v/input_libvirt_vcenter_https.ml:85
 msgid "esx: URL not found: %s"
 msgstr ""
 
-#: ../v2v/vCenter.ml:202
+#: ../v2v/input_libvirt_vcenter_https.ml:105
 msgid ""
 "esx: could not read session cookie from the vCenter Server, conversion may "
 "consume all sessions on the server and fail part way through"
 msgstr ""
 
-#: ../v2v/vCenter.ml:174
+#: ../v2v/input_libvirt_vcenter_https.ml:77
 msgid "esx: incorrect username or password"
 msgstr ""
 
-#: ../v2v/vCenter.ml:176
+#: ../v2v/input_libvirt_vcenter_https.ml:79
 msgid ""
 "esx: incorrect username or password.  You might need to specify the username "
 "in the URI like this: %s://USERNAME@[etc]"
 msgstr ""
 
-#: ../v2v/vCenter.ml:187
+#: ../v2v/input_libvirt_vcenter_https.ml:90
 msgid "esx: invalid response from server"
 msgstr ""
 
-#: ../v2v/vCenter.ml:168
+#: ../v2v/input_libvirt_vcenter_https.ml:71
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
@@ -2489,7 +2502,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:116 ../v2v/input_libvirtxml.ml:55
+#: ../v2v/input_ova.ml:145 ../v2v/input_libvirtxml.ml:58
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
@@ -2599,11 +2612,11 @@ msgstr ""
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:67
+#: ../v2v/input_libvirtxml.ml:70
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:69
+#: ../v2v/input_libvirtxml.ml:72
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
@@ -2619,11 +2632,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:308
+#: ../v2v/v2v.ml:319
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:136
+#: ../v2v/v2v.ml:147
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -2639,7 +2652,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:472
+#: ../v2v/v2v.ml:490
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2659,13 +2672,13 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:452
+#: ../v2v/v2v.ml:470
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:175
+#: ../v2v/input_libvirtxml.ml:177
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
@@ -2673,7 +2686,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:54
+#: ../v2v/input_ova.ml:83
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -2708,21 +2721,21 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
-#: ../v2v/input_ova.ml:71
+#: ../v2v/input_ova.ml:100
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../v2v/v2v.ml:418
+#: ../v2v/v2v.ml:436
 msgid "no root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:103
+#: ../v2v/input_libvirt.ml:64
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:546
+#: ../v2v/v2v.ml:564
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2772,7 +2785,7 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../v2v/v2v.ml:192
+#: ../v2v/v2v.ml:203
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -2815,8 +2828,12 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:342 ../v2v/v2v.ml:132
+#: ../v2v/v2v.ml:360 ../v2v/v2v.ml:143
 msgid "qemu-img command failed, see earlier errors"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:291
+msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
 #: ../customize/customize_run.ml:152
@@ -2827,7 +2844,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:463
+#: ../v2v/v2v.ml:481
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2843,7 +2860,15 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:43
+#: ../v2v/input_libvirt_vcenter_https.ml:248
+msgid "source disk has <source dev=...> attribute in XML"
+msgstr ""
+
+#: ../v2v/v2v.ml:81
+msgid "source has no hard disks!"
+msgstr ""
+
+#: ../v2v/input_libvirt_other.ml:43
 msgid ""
 "ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  "
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
@@ -2907,7 +2932,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:126
+#: ../v2v/input_libvirtxml.ml:132
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -2921,7 +2946,7 @@ msgid ""
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:484
+#: ../v2v/v2v.ml:502
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3136,13 +3161,13 @@ msgstr ""
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:102
+#: ../v2v/input_libvirtxml.ml:105
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:251
+#: ../v2v/v2v.ml:262
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-18 09:24+0100\n"
+"POT-Creation-Date: 2014-10-22 14:35+0100\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "%s"
 msgstr "%s"
 
-#: ../v2v/v2v.ml:600 ../v2v/v2v.ml:489
+#: ../v2v/v2v.ml:618 ../v2v/v2v.ml:507
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../customize/customize_run.ml:334 ../builder/builder.ml:666
+#: ../customize/customize_run.ml:334 ../builder/builder.ml:670
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (проігноровано)\n"
 
@@ -301,7 +301,7 @@ msgstr ""
 "Скористайтеся параметром --list для отримання списку доступних гостьових "
 "систем.\n"
 
-#: ../builder/builder.ml:334
+#: ../builder/builder.ml:338
 msgid "%s: cannot output to a character device or /dev/null\n"
 msgstr "%s: виведення до символьного пристрою або /dev/null неможливе\n"
 
@@ -309,10 +309,11 @@ msgstr "%s: виведення до символьного пристрою аб
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
-" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported esx_guest\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported "
+"esx_guest\n"
 "\n"
-" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest -o rhev -os "
-"rhev.nfs:/export_domain --network rhevm\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -"
+"os rhev.nfs:/export_domain --network rhevm\n"
 "\n"
 " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
@@ -326,25 +327,6 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-v2v(1).\n"
 msgstr ""
-"%s: перетворити гостьову систему для використання KVM\n"
-"\n"
-" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported гість_esx\n"
-"\n"
-" virt-v2v -ic vpx://esx.example.com/Datacenter/esxi гість_esx -o rhev -os "
-"rhev.nfs:/домен_експортування --network rhevm\n"
-"\n"
-" virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
-"\n"
-" virt-v2v -i disk disk.img -o local -os /var/tmp\n"
-"\n"
-" virt-v2v -i disk disk.img -o glance\n"
-"\n"
-"Передбачено супутню оболонку з назвою «virt-p2v», яка постачається як\n"
-"образ ISO або компакт-диска, з якого можна завантажитися на фізичних "
-"машинах.\n"
-"\n"
-"Нижче наведено коротке резюме щодо параметрів. Докладніший опис наведено у\n"
-"підручнику (man) з virt-v2v(1).\n"
 
 #: ../builder/downloader.ml:95
 msgid "%s: cp (download) command failed copying '%s'\n"
@@ -428,13 +410,17 @@ msgstr ""
 "Вам слід встановити gpg, скористатися параметром --gpg або скористатися "
 "параметром --no-check-signature.\n"
 
-#: ../builder/builder.ml:361
+#: ../builder/builder.ml:365
 msgid ""
 "%s: images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s\n"
 msgstr ""
 "%s: образ не можна стискати, розмір виведених даних для цього образу є надто "
 "малим. Потрібний розмір = %s, мінімальний розмір = %s\n"
+
+#: ../builder/builder.ml:321
+msgid "%s: input file (%s) has an unsupported type\n"
+msgstr ""
 
 #: ../builder/sources.ml:135
 msgid "%s: internal error: invalid argument: %s\n"
@@ -484,7 +470,7 @@ msgstr "%s: розмір нового розділу є нульовим або 
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: немає запису «uri» для «%s» у %s, пропускаємо\n"
 
-#: ../builder/builder.ml:670
+#: ../builder/builder.ml:674
 msgid ""
 "%s: no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information.\n"
@@ -499,7 +485,7 @@ msgid "%s: no operating systems were found in the guest image\n"
 msgstr ""
 "%s: у образі гостьової системи не було знайдено жодної операційної системи\n"
 
-#: ../builder/builder.ml:486
+#: ../builder/builder.ml:490
 msgid ""
 "%s: no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -510,7 +496,7 @@ msgstr ""
 "Будь ласка, створіть повідомлення щодо вади, вказавши використані вами "
 "аргументи командного рядка.\n"
 
-#: ../builder/builder.ml:366
+#: ../builder/builder.ml:370
 msgid ""
 "%s: output size is too large for this block device.  Requested size = %s, "
 "output block device = %s, output block device size = %s\n"
@@ -669,6 +655,10 @@ msgid ""
 msgstr ""
 "%s: невідомий тип таблиці розділів.\n"
 "У virt-resize передбачено підтримку лише таблиць розділів MBR (DOS) та GPT."
+
+#: ../v2v/input_ova.ml:66
+msgid "%s: unsupported file format"
+msgstr ""
 
 #: ../builder/cmdline.ml:272
 msgid ""
@@ -968,7 +958,7 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:179
+#: ../v2v/input_libvirtxml.ml:181
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
@@ -1054,7 +1044,7 @@ msgstr "Перевірити числові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../v2v/v2v.ml:227
+#: ../v2v/v2v.ml:238
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
@@ -1066,7 +1056,7 @@ msgstr ""
 "Спорожнюємо резервну пам’ять Linux на %s…\n"
 "%!"
 
-#: ../v2v/v2v.ml:275
+#: ../v2v/v2v.ml:286
 msgid "Closing the overlay"
 msgstr "Закриваємо оверлей"
 
@@ -1078,15 +1068,15 @@ msgstr "Параметр, призначений для збереження с�
 msgid "Compressed output format"
 msgstr "Стиснутий формат виведення даних"
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:618
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:242
+#: ../v2v/v2v.ml:253
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:240
+#: ../v2v/v2v.ml:251
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -1098,7 +1088,7 @@ msgstr ""
 "Копіювати до призначення і розрідити…\n"
 "%!"
 
-#: ../builder/builder.ml:545
+#: ../builder/builder.ml:549
 msgid "Copying"
 msgstr "Копіювання"
 
@@ -1110,7 +1100,7 @@ msgstr ""
 "Копіюємо %s...\n"
 "%!"
 
-#: ../v2v/v2v.ml:296
+#: ../v2v/v2v.ml:307
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
@@ -1138,11 +1128,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
-#: ../v2v/v2v.ml:114
+#: ../v2v/v2v.ml:125
 msgid "Creating an overlay to protect the source from being modified"
 msgstr "Створюємо оверлей для захисту джерела від внесення змін"
 
-#: ../v2v/v2v.ml:391
+#: ../v2v/v2v.ml:409
 msgid "Creating output metadata"
 msgstr "Створюємо метадані результатів"
 
@@ -1294,7 +1284,7 @@ msgstr "Розмір отриманого:"
 msgid "Downloading: %s"
 msgstr "Отримуємо: %s"
 
-#: ../v2v/v2v.ml:425
+#: ../v2v/v2v.ml:443
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1346,7 +1336,7 @@ msgstr "Увімкнути трасування викликів libguestfs"
 msgid "Enable/disable specific operations"
 msgstr "Увімкнути або вимкнути специфічні операції"
 
-#: ../v2v/v2v.ml:438
+#: ../v2v/v2v.ml:456
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
@@ -1356,7 +1346,7 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше.\n"
 
-#: ../v2v/v2v.ml:231
+#: ../v2v/v2v.ml:242
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1461,8 +1451,8 @@ msgstr "Відбиток чинного ключа підписування"
 msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
-#: ../v2v/v2v.ml:405 ../customize/customize_main.ml:256
-#: ../builder/builder.ml:715
+#: ../v2v/v2v.ml:423 ../customize/customize_main.ml:256
+#: ../builder/builder.ml:719
 msgid "Finishing off"
 msgstr "Завершуємо"
 
@@ -1519,7 +1509,7 @@ msgstr ""
 "Формат диска виведених даних (типове значення: той самий формат, що і у "
 "вхідних даних)"
 
-#: ../builder/builder.ml:705
+#: ../builder/builder.ml:709
 msgid "Free space"
 msgstr "Вільне місце"
 
@@ -1559,7 +1549,7 @@ msgstr "Ігнорувати файлову систему"
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../v2v/v2v.ml:172
+#: ../v2v/v2v.ml:183
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
@@ -1575,7 +1565,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
-#: ../v2v/v2v.ml:206
+#: ../v2v/v2v.ml:217
 msgid "Inspecting the overlay"
 msgstr "Вивчаємо оверлей"
 
@@ -1643,7 +1633,7 @@ msgstr "Відобразити місток «in» на «out»"
 msgid "Map network 'in' to 'out'"
 msgstr "Відобразити мережу «in» на «out»"
 
-#: ../v2v/v2v.ml:271
+#: ../v2v/v2v.ml:282
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 "Виконуємо прив’язку даних файлової системи для уникнення копіювання "
@@ -1711,11 +1701,11 @@ msgstr ""
 "підтримку,\n"
 "буде створено нові випадкові UUID, які буде пов’язано з файловими системами."
 
-#: ../builder/builder.ml:627
+#: ../builder/builder.ml:631
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
-#: ../v2v/v2v.ml:142
+#: ../v2v/v2v.ml:153
 msgid "Opening the overlay"
 msgstr "Відкриваємо оверлей"
 
@@ -1727,11 +1717,11 @@ msgstr "Відкриваємо джерело %s"
 msgid "Output VM UUID"
 msgstr "Вивести UUID віртуальної машини"
 
-#: ../builder/builder.ml:700
+#: ../builder/builder.ml:704
 msgid "Output file"
 msgstr "Файл виведення"
 
-#: ../builder/builder.ml:702
+#: ../builder/builder.ml:706
 msgid "Output format"
 msgstr "Формат виведення"
 
@@ -1743,7 +1733,7 @@ msgstr "Формат виведення (типовий: raw)"
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:705
 msgid "Output size"
 msgstr "Розмір виведення"
 
@@ -1751,7 +1741,7 @@ msgstr "Розмір виведення"
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
-#: ../v2v/v2v.ml:401
+#: ../v2v/v2v.ml:419
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr "Оверлей збережено як %s [--debug-overlays]\n"
 
@@ -1782,15 +1772,15 @@ msgstr "Нотатки POD для %s не повинні завершувати�
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
-#: ../v2v/v2v.ml:465
+#: ../v2v/v2v.ml:483
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:456
+#: ../v2v/v2v.ml:474
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:481
+#: ../builder/builder.ml:485
 msgid "Planning how to build this image"
 msgstr "Плануємо побудову цього образу"
 
@@ -2024,11 +2014,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../builder/builder.ml:572
+#: ../builder/builder.ml:576
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:601
+#: ../builder/builder.ml:605
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Змінюємо розміри контейнера (але не файлової системи) для розширення диска "
@@ -2519,11 +2509,11 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:261
+#: ../v2v/v2v.ml:272
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:259
+#: ../v2v/v2v.ml:270
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2555,7 +2545,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:703
+#: ../builder/builder.ml:707
 msgid "Total usable space"
 msgstr "Загальне придатне до використання місце"
 
@@ -2575,7 +2565,7 @@ msgstr "Вимкнути розріджене копіювання"
 msgid "USER:SELECTOR"
 msgstr "КОРИСТУВАЧ:ВАРІАНТ"
 
-#: ../builder/builder.ml:560
+#: ../builder/builder.ml:564
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
@@ -2675,7 +2665,7 @@ msgstr ""
 msgid "alignment cannot be < 1"
 msgstr "значення вирівнювання не може бути меншим за 1"
 
-#: ../v2v/input_libvirt.ml:33
+#: ../v2v/input_libvirt_other.ml:33
 msgid ""
 "because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 "
 "you must set this environment variable:\n"
@@ -2722,7 +2712,7 @@ msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
 
-#: ../v2v/input_ova.ml:80
+#: ../v2v/input_ova.ml:109
 msgid "cannot parse output of sha1sum command"
 msgstr "не вдалося обробити дані, виведені програмою sha1sum"
 
@@ -2764,13 +2754,13 @@ msgstr ""
 "роботу virt-v2v (^C), а потім повторно запустити програму від імені "
 "користувача root."
 
-#: ../v2v/input_ova.ml:75
+#: ../v2v/input_ova.ml:104
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:445
+#: ../v2v/v2v.ml:463
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
@@ -2794,17 +2784,17 @@ msgstr ""
 "не вдалося знайти ключ реєстру HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
 
-#: ../v2v/input_libvirt.ml:75
+#: ../v2v/input_libvirt.ml:39
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 "не вдалося обробити параметр «-ic %s». Початкове повідомлення щодо помилки: "
 "%s"
 
-#: ../v2v/input_ova.ml:173
+#: ../v2v/input_ova.ml:225
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:125
+#: ../v2v/input_ova.ml:154
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -2871,7 +2861,7 @@ msgstr "заборонений символ (%c) у назві операції"
 msgid "discard/trim is not supported: %s"
 msgstr "підтримки відкидання або обрізання не передбачено: %s"
 
-#: ../v2v/v2v.ml:182
+#: ../v2v/v2v.ml:193
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2896,7 +2886,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/input_libvirtxml.ml:105
+#: ../v2v/input_libvirtxml.ml:108
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2940,15 +2930,19 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:163
+#: ../v2v/input_ova.ml:193
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:43
+#: ../v2v/input_ova.ml:211
+msgid "error uncompressing %s, see earlier error messages"
+msgstr ""
+
+#: ../v2v/input_ova.ml:63 ../v2v/input_ova.ml:52
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/vCenter.ml:120
+#: ../v2v/input_libvirt_vcenter_https.ml:119
 msgid ""
 "esx: URI (-ic parameter) contains no path, so we cannot determine the "
 "datacenter name"
@@ -2956,11 +2950,11 @@ msgstr ""
 "esx: адреса (параметр -ic) не містить шляху, отже ми не можемо визначити "
 "назву датацентру"
 
-#: ../v2v/vCenter.ml:182
+#: ../v2v/input_libvirt_vcenter_https.ml:85
 msgid "esx: URL not found: %s"
 msgstr "esx: адреси не знайдено: %s"
 
-#: ../v2v/vCenter.ml:202
+#: ../v2v/input_libvirt_vcenter_https.ml:105
 msgid ""
 "esx: could not read session cookie from the vCenter Server, conversion may "
 "consume all sessions on the server and fail part way through"
@@ -2968,11 +2962,11 @@ msgstr ""
 "esx: не вдалося прочитати куку сеансу з сервера vCenter. Перетворення може "
 "спожити усі сеанси на сервері і помилитися для одного з них."
 
-#: ../v2v/vCenter.ml:174
+#: ../v2v/input_libvirt_vcenter_https.ml:77
 msgid "esx: incorrect username or password"
 msgstr "esx: помилкове ім’я користувача або пароль"
 
-#: ../v2v/vCenter.ml:176
+#: ../v2v/input_libvirt_vcenter_https.ml:79
 msgid ""
 "esx: incorrect username or password.  You might need to specify the username "
 "in the URI like this: %s://USERNAME@[etc]"
@@ -2980,11 +2974,11 @@ msgstr ""
 "esx: помилкове ім’я користувача або пароль. Вам варто вказати ім’я "
 "користувача у адресі, ось так: %s://КОРИСТУВАЧ@[інше]"
 
-#: ../v2v/vCenter.ml:187
+#: ../v2v/input_libvirt_vcenter_https.ml:90
 msgid "esx: invalid response from server"
 msgstr "esx: некоректна відповідь сервера"
 
-#: ../v2v/vCenter.ml:168
+#: ../v2v/input_libvirt_vcenter_https.ml:71
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 "esx: немає коду стану у даних, виведених командою «curl». Чи встановлено "
@@ -2994,7 +2988,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr "виключення: %s"
 
-#: ../v2v/input_ova.ml:116 ../v2v/input_libvirtxml.ml:55
+#: ../v2v/input_ova.ml:145 ../v2v/input_libvirtxml.ml:58
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr "очікуємо, що вираз XML поверне ціле число (вираз: %s)"
 
@@ -3115,13 +3109,13 @@ msgstr "для цього типу гостьових систем не можн
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr "каталогу образу (%s) не існує, або ж це не каталог"
 
-#: ../v2v/input_libvirtxml.ml:67
+#: ../v2v/input_libvirtxml.ml:70
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 "у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
 "значення"
 
-#: ../v2v/input_libvirtxml.ml:69
+#: ../v2v/input_libvirtxml.ml:72
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
@@ -3137,11 +3131,11 @@ msgstr "внутрішня помилка: помилка оцінки у %s, р
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
-#: ../v2v/v2v.ml:308
+#: ../v2v/v2v.ml:319
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
-#: ../v2v/v2v.ml:136
+#: ../v2v/v2v.ml:147
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
@@ -3157,7 +3151,7 @@ msgstr "ядро %s перебуває поза ієрархією grub %s"
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
-#: ../v2v/v2v.ml:472
+#: ../v2v/v2v.ml:490
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3186,7 +3180,7 @@ msgstr ""
 "того, можливо, вам слід повторно запустити virt-v2v від імені користувача "
 "root."
 
-#: ../v2v/v2v.ml:452
+#: ../v2v/v2v.ml:470
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3195,7 +3189,7 @@ msgstr ""
 "завантаження. Скористайтеся параметром --root для зміни способу обробки "
 "таких систем за допомогою virt-v2v."
 
-#: ../v2v/input_libvirtxml.ml:175
+#: ../v2v/input_libvirtxml.ml:177
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr "мережу <disk> з <source protocol='%s'> проігноровано"
 
@@ -3203,7 +3197,7 @@ msgstr "мережу <disk> з <source protocol='%s'> проігноровано
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/input_ova.ml:54
+#: ../v2v/input_ova.ml:83
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3246,17 +3240,17 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
 
-#: ../v2v/input_ova.ml:71
+#: ../v2v/input_ova.ml:100
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 "немає даних, виведених програмою sha1sum, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/v2v.ml:418
+#: ../v2v/v2v.ml:436
 msgid "no root device found in this operating system image."
 msgstr "у цьому образі операційної системи не знайдено кореневого пристрою."
 
-#: ../v2v/input_libvirt.ml:103
+#: ../v2v/input_libvirt.ml:64
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
@@ -3264,7 +3258,7 @@ msgstr ""
 "немає підтримки віддалених з’єднань libvirt з «-ic %s». Перетворення може "
 "призвести до помилок під час спроб прочитати диски джерел даних."
 
-#: ../v2v/v2v.ml:546
+#: ../v2v/v2v.ml:564
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3322,7 +3316,7 @@ msgstr ""
 "виведенням «%s» не може бути символьний пристрій, виводити дані можна лише "
 "до звичайного файла"
 
-#: ../v2v/v2v.ml:192
+#: ../v2v/v2v.ml:203
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3378,11 +3372,15 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:342 ../v2v/v2v.ml:132
+#: ../v2v/v2v.ml:360 ../v2v/v2v.ml:143
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
 "помилок"
+
+#: ../v2v/input_libvirt_vcenter_https.ml:291
+msgid "qemu-img rebase failed (ignored)"
+msgstr ""
 
 #: ../customize/customize_run.ml:152
 msgid "random seed could not be set for this type of guest"
@@ -3393,7 +3391,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../v2v/v2v.ml:463
+#: ../v2v/v2v.ml:481
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 "не знайдено кореневого пристрою %s. Знайдено такі кореневі пристрої: %s"
@@ -3410,7 +3408,15 @@ msgstr "помилка скрипту"
 msgid "sectors"
 msgstr "сектори"
 
-#: ../v2v/input_libvirt.ml:43
+#: ../v2v/input_libvirt_vcenter_https.ml:248
+msgid "source disk has <source dev=...> attribute in XML"
+msgstr ""
+
+#: ../v2v/v2v.ml:81
+msgid "source has no hard disks!"
+msgstr ""
+
+#: ../v2v/input_libvirt_other.ml:43
 msgid ""
 "ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  "
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
@@ -3499,7 +3505,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/input_libvirtxml.ml:126
+#: ../v2v/input_libvirtxml.ml:132
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -3515,7 +3521,7 @@ msgstr ""
 "не вдалося знайти жодного коректного файла налаштувань modprobe, зокрема /"
 "etc/modprobe.conf"
 
-#: ../v2v/v2v.ml:484
+#: ../v2v/v2v.ml:502
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3789,13 +3795,13 @@ msgstr "virt-sysprep: скрипт: помилка (код %d)\n"
 msgid "virt-sysprep: script: killed by signal (%d)\n"
 msgstr "virt-sysprep: скрипт: роботу завершено сигналом (%d)\n"
 
-#: ../v2v/input_libvirtxml.ml:102
+#: ../v2v/input_libvirtxml.ml:105
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:251
+#: ../v2v/v2v.ml:262
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -10296,3 +10302,46 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "%s: convert a guest to use KVM\n"
+#~ "\n"
+#~ " virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported "
+#~ "esx_guest\n"
+#~ "\n"
+#~ " virt-v2v -ic vpx://esx.example.com/Datacenter/esxi esx_guest -o rhev -os "
+#~ "rhev.nfs:/export_domain --network rhevm\n"
+#~ "\n"
+#~ " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
+#~ "\n"
+#~ " virt-v2v -i disk disk.img -o local -os /var/tmp\n"
+#~ "\n"
+#~ " virt-v2v -i disk disk.img -o glance\n"
+#~ "\n"
+#~ "There is a companion front-end called \"virt-p2v\" which comes as an\n"
+#~ "ISO or CD image that can be booted on physical machines.\n"
+#~ "\n"
+#~ "A short summary of the options is given below.  For detailed help please\n"
+#~ "read the man page virt-v2v(1).\n"
+#~ msgstr ""
+#~ "%s: перетворити гостьову систему для використання KVM\n"
+#~ "\n"
+#~ " virt-v2v -ic vpx://esx.example.com/Datacenter/esxi -os imported "
+#~ "гість_esx\n"
+#~ "\n"
+#~ " virt-v2v -ic vpx://esx.example.com/Datacenter/esxi гість_esx -o rhev -os "
+#~ "rhev.nfs:/домен_експортування --network rhevm\n"
+#~ "\n"
+#~ " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
+#~ "\n"
+#~ " virt-v2v -i disk disk.img -o local -os /var/tmp\n"
+#~ "\n"
+#~ " virt-v2v -i disk disk.img -o glance\n"
+#~ "\n"
+#~ "Передбачено супутню оболонку з назвою «virt-p2v», яка постачається як\n"
+#~ "образ ISO або компакт-диска, з якого можна завантажитися на фізичних "
+#~ "машинах.\n"
+#~ "\n"
+#~ "Нижче наведено коротке резюме щодо параметрів. Докладніший опис наведено "
+#~ "у\n"
+#~ "підручнику (man) з virt-v2v(1).\n"
