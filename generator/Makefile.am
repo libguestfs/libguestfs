@@ -95,7 +95,7 @@ objects = \
 
 EXTRA_DIST = $(sources) files-generated.txt
 
-OCAMLCFLAGS = -warn-error CDEFLMPSUVYZX-3 -I $(srcdir) -I . -package unix,str
+OCAMLCFLAGS = $(OCAML_WARN_ERROR) -I $(srcdir) -I . -package unix,str
 
 noinst_PROGRAM = generator
 
