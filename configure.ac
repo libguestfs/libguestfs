@@ -1096,7 +1096,7 @@ AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX-3"
 AC_SUBST([OCAML_WARN_ERROR])
-OCAML_FLAGS="-g"
+OCAML_FLAGS="-g -annot"
 AC_SUBST([OCAML_FLAGS])
 
 dnl Check for Perl (optional, for Perl bindings and Perl tools).
