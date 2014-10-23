@@ -37,7 +37,7 @@ CLEANFILES += t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
 if HAVE_OCAML
 
-OCAMLCFLAGS = -g -warn-error CDEFLMPSUVYZX-3
+OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 noinst_DATA = mlguestfs.cma META

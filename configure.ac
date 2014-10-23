@@ -1093,6 +1093,12 @@ AC_CHECK_PROG([OCAML_GETTEXT],[ocaml-gettext],[ocaml-gettext],[no])
 AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
 
+dnl Flags we want to pass to every OCaml compiler call.
+OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX-3"
+AC_SUBST([OCAML_WARN_ERROR])
+OCAML_FLAGS="-g"
+AC_SUBST([OCAML_FLAGS])
+
 dnl Check for Perl (optional, for Perl bindings and Perl tools).
 AC_ARG_ENABLE([perl],
     AS_HELP_STRING([--disable-perl], [disable Perl language bindings]),
