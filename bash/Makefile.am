@@ -35,9 +35,14 @@ scripts = \
 	virt-sparsify \
 	virt-sysprep
 
+# Note: Don't distribute the symbolic links, only the real files.
 EXTRA_DIST = \
 	README \
-	$(scripts)
+	guestfish \
+	guestmount \
+	virt-alignment-scan \
+	virt-rescue \
+	virt-resize
 
 # Some of the scripts are simply symbolic links.
 virt-cat:
@@ -80,6 +85,12 @@ if HAVE_BASH_COMPLETION
 # Bash completion script.
 
 bashcompletiondir = $(BASH_COMPLETIONS_DIR)
-bashcompletion_DATA = $(scripts)
+#bashcompletion_DATA = $(scripts)
+
+all-local: $(scripts)
+
+install-data-local: $(scripts)
+	$(mkdir_p) $(DESTDIR)$(bashcompletiondir)
+	cp -d $(scripts) $(DESTDIR)$(bashcompletiondir)
 
 endif
