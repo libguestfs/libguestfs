@@ -77,8 +77,6 @@ supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfs_lvm_conf.aug guestfs_shadow
 	rm -rf tmp-d
 	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc tmp-d/usr/share/guestfs
 	ln ../daemon/guestfsd tmp-d$(DAEMON_SUPERMIN_DIR)/guestfsd
-	ln $(srcdir)/guestfs_lvm_conf.aug tmp-d/usr/share/guestfs/guestfs_lvm_conf.aug
-	ln $(srcdir)/guestfs_shadow.aug tmp-d/usr/share/guestfs/guestfs_shadow.aug
 	( cd tmp-d && tar zcf - * ) > $@-t
 	rm -r tmp-d
 	mv $@-t $@

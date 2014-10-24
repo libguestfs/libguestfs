@@ -122,7 +122,7 @@ set_filter (char *const *filters)
    * but do that only after having applied the transformation.
    */
   const int flags = AUG_NO_ERR_CLOSE | AUG_NO_LOAD;
-  aug = aug_init (lvm_system_dir, "/usr/share/guestfs/", flags);
+  aug = aug_init (lvm_system_dir, NULL, flags);
   if (!aug) {
     reply_with_error ("augeas initialization failed");
     return -1;
@@ -133,7 +133,7 @@ set_filter (char *const *filters)
     return -1;
   }
 
-  r = aug_transform (aug, "guestfs_lvm_conf", "/lvm/lvm.conf",
+  r = aug_transform (aug, "lvm", "/lvm/lvm.conf",
                      0 /* = included */);
   if (r == -1) {
     AUGEAS_ERROR ("aug_transform");

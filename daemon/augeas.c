@@ -134,7 +134,7 @@ do_aug_init (const char *root, int flags)
   }
 
   /* Pass AUG_NO_ERR_CLOSE so we can display detailed errors. */
-  aug = aug_init (buf, "/usr/share/guestfs/", flags | AUG_NO_ERR_CLOSE);
+  aug = aug_init (buf, NULL, flags | AUG_NO_ERR_CLOSE);
 
   if (!aug) {
     reply_with_error ("augeas initialization failed");
@@ -148,6 +148,8 @@ do_aug_init (const char *root, int flags)
     return -1;
   }
 
+  /* We already have the needed lenses in RHEL 7 */
+#if 0
   if (!augeas_is_version (1, 2, 1)) {
     int r = aug_transform (aug, "guestfs_shadow", "/etc/shadow",
                            0 /* = included */);
@@ -166,6 +168,7 @@ do_aug_init (const char *root, int flags)
       }
     }
   }
+#endif
 
   return 0;
 }
