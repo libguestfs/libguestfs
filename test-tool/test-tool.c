@@ -388,7 +388,11 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
            "#!/bin/sh -\n"
            "host_cpu=%s\n"
            "qemudir='%s'\n"
+           "if [ $host_cpu != \"ppc64le\" ]; then \n"
            "qemu=\"$qemudir/$host_cpu-softmmu/qemu-system-$host_cpu\"\n"
+           "else"
+           "qemu=\"$qemudir/$host_cpu-softmmu/qemu-system-ppc64\"\n"
+           "fi"
            "exec \"$qemu\" -L \"$qemudir/pc-bios\" \"$@\"\n",
            host_cpu, path);
   fclose (fp);
