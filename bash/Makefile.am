@@ -41,28 +41,39 @@ EXTRA_DIST = \
 
 # Some of the scripts are simply symbolic links.
 virt-cat:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-df:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-edit:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-filesystems:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-format:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-inspector:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-log:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-ls:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 virt-sysprep:
-	ln -sf virt-alignment-scan $@
+	rm -f $@
+	$(LN_S) virt-alignment-scan $@
 
 virt-builder:
-	ln -sf virt-resize $@
+	rm -f $@
+	$(LN_S) virt-resize $@
 virt-sparsify:
-	ln -sf virt-resize $@
+	rm -f $@
+	$(LN_S) virt-resize $@
 
 if HAVE_BASH_COMPLETION
 
