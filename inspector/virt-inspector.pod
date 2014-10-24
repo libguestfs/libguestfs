@@ -68,6 +68,12 @@ them with separate I<-a> options.
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
+=item B<-a> URI
+
+=item B<--add> URI
+
+Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
+
 =item B<-c URI>
 
 =item B<--connect URI>
