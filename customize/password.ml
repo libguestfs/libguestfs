@@ -18,6 +18,9 @@
 
 open Common_gettext.Gettext
 open Common_utils
+
+open Customize_utils
+
 open Printf
 
 type password_crypto = [`MD5 | `SHA256 | `SHA512 ]
@@ -40,23 +43,21 @@ let make_random_password =
   let chars = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789" in
   fun () -> Urandom.urandom_uniform 16 chars
 
-let password_crypto_of_string ~prog = function
+let password_crypto_of_string = function
   | "md5" -> `MD5
   | "sha256" -> `SHA256
   | "sha512" -> `SHA512
   | arg ->
-    eprintf (f_"%s: password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\".\n")
-      prog arg;
-    exit 1
+    error (f_"password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\"") arg
 
-let rec parse_selector ~prog arg =
-  parse_selector_list ~prog arg (string_nsplit ":" arg)
+let rec parse_selector arg =
+  parse_selector_list arg (string_nsplit ":" arg)
 
-and parse_selector_list ~prog orig_arg = function
+and parse_selector_list orig_arg = function
   | [ "lock"|"locked" ] ->
     { pw_locked = true; pw_password = Disabled_password }
   | ("lock"|"locked") :: rest ->
-    let pw = parse_selector_list ~prog orig_arg rest in
+    let pw = parse_selector_list orig_arg rest in
     { pw with pw_locked = true }
   | [ "file"; filename ] ->
     { pw_password = Password (read_password_from_file filename);
@@ -68,9 +69,7 @@ and parse_selector_list ~prog orig_arg = function
   | [ "disable"|"disabled" ] ->
     { pw_password = Disabled_password; pw_locked = false }
   | _ ->
-    eprintf (f_"%s: invalid password selector '%s'; see the man page.\n")
-      prog orig_arg;
-    exit 1
+    error (f_"invalid password selector '%s'; see the man page") orig_arg
 
 and read_password_from_file filename =
   let chan = open_in filename in
@@ -81,10 +80,10 @@ and read_password_from_file filename =
 (* Permissible characters in a salt. *)
 let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./"
 
-let rec set_linux_passwords ~prog ?password_crypto (g : Guestfs.guestfs) root passwords =
+let rec set_linux_passwords ?password_crypto (g : Guestfs.guestfs) root passwords =
   let crypto =
     match password_crypto with
-    | None -> default_crypto ~prog g root
+    | None -> default_crypto g root
     | Some c -> c in
 
   (* Create a (almost) empty temporary file with the attributes of
@@ -114,8 +113,7 @@ let rec set_linux_passwords ~prog ?password_crypto (g : Guestfs.guestfs) root pa
           | { pw_locked = locked;
               pw_password = Random_password } ->
             let password = make_random_password () in
-            printf (f_"Setting random password of %s to %s\n%!")
-              user password;
+            info (f_"Setting random password of %s to %s") user password;
             (if locked then "!!" else "") ^ encrypt password crypto
           | { pw_locked = true; pw_password = Disabled_password } -> "!!*"
           | { pw_locked = false; pw_password = Disabled_password } -> "*" in
@@ -148,7 +146,7 @@ and encrypt password crypto =
  * precede this date only support md5, whereas all guests after this
  * date can support sha512.
  *)
-and default_crypto ~prog g root =
+and default_crypto g root =
   let distro = g#inspect_get_distro root in
   let major = g#inspect_get_major_version root in
   match distro, major with
@@ -170,6 +168,6 @@ and default_crypto ~prog g root =
   | "ubuntu", _ -> `MD5
 
   | _, _ ->
-    warning ~prog (f_"password: using insecure md5 password encryption for
+    warning (f_"password: using insecure md5 password encryption for
 guest of type %s version %d.\nIf this is incorrect, use --password-crypto option and file a bug.") distro major;
     `MD5

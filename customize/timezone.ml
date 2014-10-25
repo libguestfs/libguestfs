@@ -18,9 +18,11 @@
 
 open Common_utils
 
+open Customize_utils
+
 open Printf
 
-let set_timezone ~prog (g : Guestfs.guestfs) root timezone =
+let set_timezone (g : Guestfs.guestfs) root timezone =
   let typ = g#inspect_get_type root in
 
   match typ with
@@ -31,7 +33,7 @@ let set_timezone ~prog (g : Guestfs.guestfs) root timezone =
   | "linux" ->
     let target = sprintf "/usr/share/zoneinfo/%s" timezone in
     if not (g#exists target) then
-      error ~prog "timezone '%s' does not exist, use a location like 'Europe/London'" timezone;
+      error "timezone '%s' does not exist, use a location like 'Europe/London'" timezone;
     g#ln_sf target "/etc/localtime";
     true
 

@@ -364,7 +364,7 @@ let rec generate_customize_cmdline_mli () =
 
   pr "\
 type argspec = Arg.key * Arg.spec * Arg.doc
-val argspec : prog:string -> unit -> (argspec * string option * string) list * (unit -> ops)
+val argspec : unit -> (argspec * string option * string) list * (unit -> ops)
 (** This returns a pair [(list, get_ops)].
 
     [list] is a list of the command line arguments, plus some extra data.
@@ -386,6 +386,8 @@ open Printf
 open Common_utils
 open Common_gettext.Gettext
 
+open Customize_utils
+
 ";
   generate_ops_struct_decl ();
   pr "\n";
@@ -393,7 +395,7 @@ open Common_gettext.Gettext
   pr "\
 type argspec = Arg.key * Arg.spec * Arg.doc
 
-let rec argspec ~prog () =
+let rec argspec () =
   let ops = ref [] in
 ";
   List.iter (
@@ -419,9 +421,8 @@ let rec argspec ~prog () =
     let i =
       try String.index arg ':'
       with Not_found ->
-        eprintf (f_\"%%s: invalid format for '--%%s' parameter, see the man page.\\n\")
-          prog option_name;
-        exit 1 in
+        error (f_\"invalid format for '--%%s' parameter, see the man page\")
+          option_name in
     let len = String.length arg in
     String.sub arg 0 i, String.sub arg (i+1) (len-(i+1))
   in
@@ -431,9 +432,8 @@ let rec argspec ~prog () =
   let split_links_list option_name arg =
     match string_nsplit \":\" arg with
     | [] | [_] ->
-      eprintf (f_\"%%s: invalid format for '--%%s' parameter, see the man page.\\n\")
-        prog option_name;
-      exit 1
+      error (f_\"invalid format for '--%%s' parameter, see the man page\")
+        option_name
     | target :: lns -> target, lns
   in
 
@@ -500,7 +500,7 @@ let rec argspec ~prog () =
       pr "      \"--%s\",\n" name;
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
-      pr "          let sel = Password.parse_selector ~prog s in\n";
+      pr "          let sel = Password.parse_selector s in\n";
       pr "          ops := %s sel :: !ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
@@ -513,7 +513,7 @@ let rec argspec ~prog () =
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
       pr "          let user, sel = split_string_pair \"%s\" s in\n" name;
-      pr "          let sel = Password.parse_selector ~prog sel in\n";
+      pr "          let sel = Password.parse_selector sel in\n";
       pr "          ops := %s (user, sel) :: !ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
@@ -541,7 +541,7 @@ let rec argspec ~prog () =
       pr "      \"--%s\",\n" name;
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
-      pr "          %s := Some (Password.password_crypto_of_string ~prog s)\n" var;
+      pr "          %s := Some (Password.password_crypto_of_string s)\n" var;
       pr "      ),\n";
       pr "      \"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";

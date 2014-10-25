@@ -19,6 +19,7 @@
 open Common_gettext.Gettext
 open Common_utils
 
+open Customize_utils
 open Customize_cmdline
 
 open Printf
@@ -26,8 +27,6 @@ open Printf
 module G = Guestfs
 
 let () = Random.self_init ()
-
-let prog = Filename.basename Sys.executable_name
 
 let main () =
   let attach = ref [] in
@@ -67,16 +66,14 @@ let main () =
     let uri =
       try URI.parse_uri arg
       with Invalid_argument "URI.parse_uri" ->
-        eprintf "Error parsing URI '%s'. Look for error messages printed above.\n" arg;
-        exit 1 in
+        error (f_"error parsing URI '%s'. Look for error messages printed above.")
+          arg in
     let format = match !format with "auto" -> None | fmt -> Some fmt in
     files := (uri, format) :: !files;
     format_consumed := true
   and set_domain dom =
-    if !domain <> None then (
-      eprintf (f_"%s: --domain option can only be given once\n") prog;
-      exit 1
-    );
+    if !domain <> None then
+      error (f_"--domain option can only be given once");
     domain := Some dom
   in
 
@@ -110,7 +107,7 @@ let main () =
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   let customize_argspec, get_customize_ops =
-    Customize_cmdline.argspec ~prog () in
+    Customize_cmdline.argspec () in
   let customize_argspec =
     List.map (fun (spec, _, _) -> spec) customize_argspec in
   let argspec = argspec @ customize_argspec in
@@ -139,10 +136,10 @@ read the man page virt-customize(1).
   Arg.parse argspec anon_fun usage_msg;
 
   if not !format_consumed then
-    error ~prog (f_"--format parameter must appear before -a parameter");
+    error (f_"--format parameter must appear before -a parameter");
 
   if not !attach_format_consumed then
-    error ~prog (f_"--attach-format parameter must appear before --attach parameter");
+    error (f_"--attach-format parameter must appear before --attach parameter");
 
   (* Check -a and -d options. *)
   let files = !files in
@@ -151,9 +148,7 @@ read the man page virt-customize(1).
   let add =
     match files, domain with
     | [], None ->
-      eprintf (f_"%s: you must give either -a or -d options\n") prog;
-      eprintf (f_"Read virt-customize(1) man page for further information.\n");
-      exit 1
+      error (f_"you must give either -a or -d options. Read virt-customize(1) man page for further information.")
     | [], Some dom ->
       fun (g : Guestfs.guestfs) readonly ->
         let allowuuid = true in
@@ -164,9 +159,7 @@ read the man page virt-customize(1).
                   ?libvirturi ~allowuuid ~readonlydisk
                   dom)
     | _, Some _ ->
-      eprintf (f_"%s: you cannot give -a and -d options together\n") prog;
-      eprintf (f_"Read virt-customize(1) man page for further information.\n");
-      exit 1
+      error (f_"you cannot give -a and -d options together. Read virt-customize(1) man page for further information.")
     | files, None ->
       fun g readonly ->
         List.iter (
@@ -229,8 +222,7 @@ read the man page virt-customize(1).
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with
   | [] ->
-    eprintf (f_"%s: no operating systems were found in the guest image\n") prog;
-    exit 1
+    error (f_"no operating systems were found in the guest image")
   | roots ->
     List.iter (
       fun root ->
@@ -243,11 +235,11 @@ read the man page virt-customize(1).
         List.iter (
           fun (mp, dev) ->
             try g#mount dev mp;
-            with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
+            with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
         ) mps;
 
         (* Do the customization. *)
-        Customize_run.run ~prog ~verbose ~quiet g root ops;
+        Customize_run.run ~verbose ~quiet g root ops;
 
         g#umount_all ();
     ) roots;

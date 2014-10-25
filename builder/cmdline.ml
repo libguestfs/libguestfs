@@ -157,8 +157,7 @@ let parse_cmdline () =
     "--version", Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
-  let customize_argspec, get_customize_ops =
-    Customize_cmdline.argspec ~prog () in
+  let customize_argspec, get_customize_ops = Customize_cmdline.argspec () in
   let customize_argspec =
     List.map (fun (spec, _, _) -> spec) customize_argspec in
   let argspec = argspec @ customize_argspec in
@@ -324,7 +323,7 @@ read the man page virt-builder(1).
     ) ops.ops in
     if has_set_root_password then ops
     else (
-      let pw = Password.parse_selector ~prog "random" in
+      let pw = Password.parse_selector "random" in
       { ops with ops = ops.ops @ [ `RootPassword pw ] }
     ) in
 

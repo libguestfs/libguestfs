@@ -18,7 +18,7 @@
 
 type password_crypto = [ `MD5 | `SHA256 | `SHA512 ]
 
-val password_crypto_of_string : prog:string -> string -> password_crypto
+val password_crypto_of_string : string -> password_crypto
 (** Parse --password-crypto parameter on command line. *)
 
 type password_selector = {
@@ -30,13 +30,13 @@ and password =
 | Random_password                    (** Choose a random password. *)
 | Disabled_password                  (** [*] in the password field. *)
 
-val parse_selector : prog:string -> string -> password_selector
+val parse_selector : string -> password_selector
 (** Parse the selector field in --password/--root-password.  Note this
     doesn't parse the username part.  Exits if the format is not valid. *)
 
 type password_map = (string, password_selector) Hashtbl.t
 (** A map of username -> selector. *)
 
-val set_linux_passwords : prog:string -> ?password_crypto:password_crypto -> Guestfs.guestfs -> string -> password_map -> unit
+val set_linux_passwords : ?password_crypto:password_crypto -> Guestfs.guestfs -> string -> password_map -> unit
 (** Adjust the passwords of a Linux guest according to the
     password map. *)

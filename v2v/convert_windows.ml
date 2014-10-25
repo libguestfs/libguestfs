@@ -148,7 +148,7 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
 
     (* Write the completed script to the guest. *)
     let firstboot_script = Buffer.contents fb in
-    Firstboot.add_firstboot_script ~prog g inspect.i_root 1 firstboot_script
+    Firstboot.add_firstboot_script g inspect.i_root 1 firstboot_script
 
   and configure_rhev_apt fb =
     (* Configure RHEV-APT (the RHEV guest agent).  However if it doesn't

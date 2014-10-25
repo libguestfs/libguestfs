@@ -42,6 +42,7 @@ SOURCES = \
 	customize_cmdline.mli \
 	customize_run.ml \
 	customize_run.mli \
+	customize_utils.ml \
 	firstboot.ml \
 	firstboot.mli \
 	hostname.ml \
@@ -83,6 +84,7 @@ endif
 
 # This list must be in dependency order.
 ocaml_modules = \
+	customize_utils \
 	crypt \
 	firstboot \
 	hostname \
