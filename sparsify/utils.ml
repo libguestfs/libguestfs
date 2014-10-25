@@ -16,34 +16,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Unix
+(* Utilities/common functions used in virt-sparsify only. *)
+
 open Printf
 
 open Common_utils
-open Common_gettext.Gettext
 
-open Utils
-open Cmdline
+let prog = Filename.basename Sys.executable_name
+let error ?exit_code fs = error ~prog ?exit_code fs
+let warning fs = warning ~prog fs
+let info fs = info ~prog fs
 
-module G = Guestfs
-
-let () = Random.self_init ()
-
-let rec main () =
-  let indisk, debug_gc, format, ignores, machine_readable,
-    quiet, verbose, trace, zeroes, mode =
-    parse_cmdline () in
-
-  (match mode with
-  | Mode_copying (outdisk, check_tmpdir, compress, convert, option, tmp) ->
-    Copying.run indisk outdisk check_tmpdir compress convert
-      format ignores machine_readable option tmp quiet verbose trace zeroes
-  | Mode_in_place ->
-    In_place.run indisk format ignores machine_readable
-      quiet verbose trace zeroes
-  );
-
-  if debug_gc then
-    Gc.compact ()
-
-let () = run_main_and_handle_errors ~prog main
+let quote = Filename.quote

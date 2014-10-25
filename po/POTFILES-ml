@@ -45,6 +45,7 @@ sparsify/cmdline.ml
 sparsify/copying.ml
 sparsify/in_place.ml
 sparsify/sparsify.ml
+sparsify/utils.ml
 sysprep/main.ml
 sysprep/sysprep_operation.ml
 sysprep/sysprep_operation_abrt_data.ml

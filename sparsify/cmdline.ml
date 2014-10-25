@@ -23,8 +23,7 @@ open Printf
 open Common_gettext.Gettext
 open Common_utils
 
-let prog = Filename.basename Sys.executable_name
-let error ?exit_code fs = error ~prog ?exit_code fs
+open Utils
 
 type mode_t =
 | Mode_copying of string * check_t * bool * string option * string option *
@@ -47,8 +46,7 @@ let parse_cmdline () =
     | "warn" | "warning" | "w" -> check_tmpdir := `Warn
     | "fail" | "f" | "error" -> check_tmpdir := `Fail
     | str ->
-      eprintf (f_"--check-tmpdir: unknown argument `%s'\n") str;
-      exit 1
+      error (f_"--check-tmpdir: unknown argument `%s'") str
   in
 
   let compress = ref false in
