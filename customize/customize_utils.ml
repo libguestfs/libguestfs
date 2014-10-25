@@ -1,5 +1,5 @@
-(* Set timezone in virt-sysprep and virt-builder.
- * Copyright (C) 2014 Red Hat Inc.
+(* virt-customize
+ * Copyright (C) 2013-2014 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val set_timezone : Guestfs.guestfs -> string -> string -> bool
-(** [set_timezone g root "Europe/London"] sets the default timezone
-    of the guest.  Returns [true] if it was able to set the
-    timezone or [false] if not. *)
+(* Utilities/common functions used in virt-customize only. *)
+
+open Printf
+
+open Common_utils
+
+let prog = Filename.basename Sys.executable_name
+let error ?exit_code fs = error ~prog ?exit_code fs
+let warning fs = warning ~prog fs
+let info fs = info ~prog fs
+
+let quote = Filename.quote

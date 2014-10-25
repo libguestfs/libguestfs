@@ -21,6 +21,7 @@ open Printf
 open Common_utils
 open Common_gettext.Gettext
 
+open Customize_utils
 open Regedit
 
 (* For Linux guests. *)
@@ -81,7 +82,7 @@ StandardError=inherit
 WantedBy=default.target
 " firstboot_dir
 
-  let rec install_service ~prog (g : Guestfs.guestfs) distro =
+  let rec install_service (g : Guestfs.guestfs) distro =
     g#mkdir_p firstboot_dir;
     g#mkdir_p (sprintf "%s/scripts" firstboot_dir);
     g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
@@ -97,7 +98,7 @@ WantedBy=default.target
     if g#is_dir "/etc/systemd/system" then
       install_systemd_service g;
     if g#is_dir "/etc/rc.d" || g#is_dir "/etc/init.d" then
-      install_sysvinit_service ~prog g distro
+      install_sysvinit_service g distro
 
   (* Install the systemd firstboot service, if not installed already. *)
   and install_systemd_service g =
@@ -106,7 +107,7 @@ WantedBy=default.target
     g#ln_sf (sprintf "%s/firstboot.service" firstboot_dir)
       "/etc/systemd/system/default.target.wants"
 
-  and install_sysvinit_service ~prog g = function
+  and install_sysvinit_service g = function
     | "fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based" ->
       install_sysvinit_redhat g
     | "opensuse"|"sles"|"suse-based" ->
@@ -114,7 +115,7 @@ WantedBy=default.target
     | "debian"|"ubuntu" ->
       install_sysvinit_debian g
     | distro ->
-      error ~prog (f_"guest type %s is not supported") distro
+      error (f_"guest type %s is not supported") distro
 
   and install_sysvinit_redhat g =
     g#mkdir_p "/etc/rc.d/rc2.d";
@@ -158,7 +159,7 @@ end
 
 module Windows = struct
 
-  let rec install_service ~prog (g : Guestfs.guestfs) root =
+  let rec install_service (g : Guestfs.guestfs) root =
     (* Get the data directory. *)
     let virt_tools_data_dir =
       try Sys.getenv "VIRT_TOOLS_DATA_DIR"
@@ -174,7 +175,7 @@ module Windows = struct
        close_in chan
      with
        Sys_error msg ->
-         error ~prog (f_"'%s' is missing.  This file is required in order to install Windows firstboot scripts.  You can get it by building rhsrvany (https://github.com/rwmjones/rhsrvany).  Original error: %s")
+         error (f_"'%s' is missing.  This file is required in order to install Windows firstboot scripts.  You can get it by building rhsrvany (https://github.com/rwmjones/rhsrvany).  Original error: %s")
            rhsrvany_exe msg
     );
 
@@ -261,12 +262,12 @@ module Windows = struct
 
 end
 
-let add_firstboot_script ~prog (g : Guestfs.guestfs) root i content =
+let add_firstboot_script (g : Guestfs.guestfs) root i content =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
   | "linux", _ ->
-    Linux.install_service ~prog g distro;
+    Linux.install_service g distro;
     let t = Int64.of_float (Unix.time ()) in
     let r = string_random8 () in
     let filename = sprintf "%s/scripts/%04d-%Ld-%s" Linux.firstboot_dir i t r in
@@ -274,11 +275,11 @@ let add_firstboot_script ~prog (g : Guestfs.guestfs) root i content =
     g#chmod 0o755 filename
 
   | "windows", _ ->
-    let firstboot_dir = Windows.install_service ~prog g root in
+    let firstboot_dir = Windows.install_service g root in
     let t = Int64.of_float (Unix.time ()) in
     let r = string_random8 () in
     let filename = sprintf "%s/scripts/%04d-%Ld-%s.bat" firstboot_dir i t r in
     g#write filename content
 
   | _ ->
-    error ~prog (f_"guest type %s/%s is not supported") typ distro
+    error (f_"guest type %s/%s is not supported") typ distro

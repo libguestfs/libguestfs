@@ -100,6 +100,7 @@ deps = \
 	$(top_builddir)/mllib/uRI.cmx \
 	$(top_builddir)/mllib/mkdtemp-c.o \
 	$(top_builddir)/mllib/mkdtemp.cmx \
+	$(top_builddir)/customize/customize_utils.cmx \
 	$(top_builddir)/customize/urandom.cmx \
 	$(top_builddir)/customize/random_seed.cmx \
 	$(top_builddir)/customize/hostname.cmx \

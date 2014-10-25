@@ -22,7 +22,7 @@ open Common_gettext.Gettext
 module G = Guestfs
 
 let customize_args, get_ops =
-  let args, get_ops = Customize_cmdline.argspec ~prog () in
+  let args, get_ops = Customize_cmdline.argspec () in
   let args = List.map (
     fun (spec, v, longdesc) ->
       { extra_argspec = spec;
@@ -32,7 +32,7 @@ let customize_args, get_ops =
 
 let customize_perform ~verbose ~quiet g root side_effects =
   let ops = get_ops () in
-  Customize_run.run ~prog ~verbose ~quiet g root ops;
+  Customize_run.run ~verbose ~quiet g root ops;
   side_effects#created_file () (* XXX Did we? *)
 
 let op = {
