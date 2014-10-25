@@ -251,7 +251,7 @@ class output_libvirt verbose oc output_pool = object
         sprintf "virsh -c %s pool-refresh %s"
           (quote uri) (quote output_pool) in
     if Sys.command cmd <> 0 then
-      warning ~prog (f_"could not refresh libvirt pool %s") output_pool;
+      warning (f_"could not refresh libvirt pool %s") output_pool;
 
     (* Create the metadata. *)
     let doc = create_libvirt_xml ~pool:output_pool source targets guestcaps in
@@ -269,7 +269,7 @@ class output_libvirt verbose oc output_pool = object
     if Sys.command cmd = 0 then (
       try Unix.unlink tmpfile with _ -> ()
     ) else (
-      warning ~prog (f_"could not define libvirt domain.  The libvirt XML is still available in '%s'.  Try running 'virsh define %s' yourself instead.")
+      warning (f_"could not define libvirt domain.  The libvirt XML is still available in '%s'.  Try running 'virsh define %s' yourself instead.")
         tmpfile tmpfile
     );
 end

@@ -61,7 +61,7 @@ let input_libvirt verbose libvirt_uri guest =
      *)
 
     | Some _, Some _ ->             (* Unknown remote scheme. *)
-      warning ~prog (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
+      warning (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
         orig_uri;
       Input_libvirt_other.input_libvirt_other verbose libvirt_uri guest
 

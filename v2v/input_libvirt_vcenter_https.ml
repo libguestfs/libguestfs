@@ -102,7 +102,7 @@ let get_session_cookie =
       ) lines;
       if !session_cookie = "" then (
         dump_response stderr;
-        warning ~prog (f_"esx: could not read session cookie from the vCenter Server, conversion may consume all sessions on the server and fail part way through");
+        warning (f_"esx: could not read session cookie from the vCenter Server, conversion may consume all sessions on the server and fail part way through");
         None
       )
       else
@@ -116,7 +116,7 @@ let get_datacenter uri scheme =
   | "vpx" ->           (* Hopefully the first part of the path. *)
     (match uri.uri_path with
     | None ->
-      warning ~prog (f_"esx: URI (-ic parameter) contains no path, so we cannot determine the datacenter name");
+      warning (f_"esx: URI (-ic parameter) contains no path, so we cannot determine the datacenter name");
       default_dc
     | Some path ->
       let path =
@@ -288,7 +288,7 @@ object
           (quote backing_qemu_uri) (quote overlay.ov_overlay_file) in
       if verbose then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then
-        warning ~prog (f_"qemu-img rebase failed (ignored)")
+        warning (f_"qemu-img rebase failed (ignored)")
 end
 
 let input_libvirt_vcenter_https = new input_libvirt_vcenter_https

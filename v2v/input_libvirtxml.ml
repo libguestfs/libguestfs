@@ -102,10 +102,10 @@ let parse_libvirt_xml ~verbose xml =
         Some { s_display_type = `Spice;
                s_keymap = keymap; s_password = password }
       | "sdl"|"desktop" as t ->
-        warning ~prog (f_"virt-v2v does not support local displays, so <graphics type='%s'> in the input libvirt XML was ignored") t;
+        warning (f_"virt-v2v does not support local displays, so <graphics type='%s'> in the input libvirt XML was ignored") t;
         None
       | t ->
-        warning ~prog (f_"display <graphics type='%s'> in the input libvirt XML was ignored") t;
+        warning (f_"display <graphics type='%s'> in the input libvirt XML was ignored") t;
         None
     ) in
 
@@ -174,11 +174,11 @@ let parse_libvirt_xml ~verbose xml =
           )
         | "" -> ()
         | protocol ->
-          warning ~prog (f_"network <disk> with <source protocol='%s'> was ignored")
+          warning (f_"network <disk> with <source protocol='%s'> was ignored")
             protocol
         )
       | disk_type ->
-        warning ~prog (f_"<disk type='%s'> was ignored") disk_type
+        warning (f_"<disk type='%s'> was ignored") disk_type
     done;
     get_disks () in
 

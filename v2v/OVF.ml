@@ -145,7 +145,7 @@ and get_ostype = function
   | { i_type = typ; i_distro = distro;
       i_major_version = major; i_minor_version = minor;
       i_product_name = product } ->
-    warning ~prog (f_"unknown guest operating system: %s %s %d.%d (%s)")
+    warning (f_"unknown guest operating system: %s %s %d.%d (%s)")
       typ distro major minor product;
     "Unassigned"
 
@@ -292,7 +292,7 @@ let rec create_ovf verbose source targets guestcaps inspect
    *)
   (match source with
   | { s_display = Some { s_password = Some _ } } ->
-    warning ~prog (f_"This guest required a password for connection to its display, but this is not supported by RHEV.  Therefore the converted guest's display will not require a separate password to connect.");
+    warning (f_"This guest required a password for connection to its display, but this is not supported by RHEV.  Therefore the converted guest's display will not require a separate password to connect.");
     | _ -> ());
 
   (* Return the OVF document. *)
@@ -437,7 +437,7 @@ and add_networks nics guestcaps ovf =
         | E1000 -> "2"
         | Virtio_net -> "3"
       (*| bus ->
-        warning ~prog (f_"unknown NIC model %s for ethernet device %s.  This NIC will be imported as rtl8139 instead.")
+        warning (f_"unknown NIC model %s for ethernet device %s.  This NIC will be imported as rtl8139 instead.")
         bus dev;
         "1" *) in
 

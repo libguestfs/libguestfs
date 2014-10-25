@@ -180,9 +180,9 @@ object
           actual_uid actual_gid;
       if uid <> actual_uid || gid <> actual_gid then (
         if running_as_root then
-          warning ~prog (f_"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n\nYou will have to chown the files that virt-v2v creates after the run, otherwise RHEV-M will not be able to import the VM.") uid gid
+          warning (f_"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n\nYou will have to chown the files that virt-v2v creates after the run, otherwise RHEV-M will not be able to import the VM.") uid gid
         else
-          warning ~prog (f_"cannot write files to the NFS server as %d:%d. You might want to stop virt-v2v (^C) and rerun it as root.") uid gid
+          warning (f_"cannot write files to the NFS server as %d:%d. You might want to stop virt-v2v (^C) and rerun it as root.") uid gid
       ) in
 
     (* Create unique UUIDs for everything *)
