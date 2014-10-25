@@ -19,6 +19,8 @@
 open Common_gettext.Gettext
 open Common_utils
 
+open Utils
+
 module G = Guestfs
 
 open Printf
@@ -34,14 +36,10 @@ let rec get_kernel ~trace ~verbose ?format ?output disk =
   g#launch ();
 
   let roots = g#inspect_os () in
-  if Array.length roots = 0 then (
-    eprintf (f_"virt-builder: get-kernel: no operating system found\n");
-    exit 1
-  );
-  if Array.length roots > 1 then (
-    eprintf (f_"virt-builder: get-kernel: dual/multi-boot images are not supported by this tool\n");
-    exit 1
-  );
+  if Array.length roots = 0 then
+    error (f_"get-kernel: no operating system found");
+  if Array.length roots > 1 then
+    error (f_"get-kernel: dual/multi-boot images are not supported by this tool");
   let root = roots.(0) in
 
   (* Mount up the disks. *)
@@ -51,7 +49,7 @@ let rec get_kernel ~trace ~verbose ?format ?output disk =
   List.iter (
     fun (mp, dev) ->
       try g#mount_ro dev mp
-      with Guestfs.Error msg -> eprintf "%s (ignored)\n" msg
+      with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
   ) mps;
 
   (* Get all kernels and initramfses. *)
@@ -69,10 +67,8 @@ let rec get_kernel ~trace ~verbose ?format ?output disk =
   let kernels = List.rev (List.sort compare_version kernels) in
   let initrds = List.rev (List.sort compare_version initrds) in
 
-  if kernels = [] then (
-    eprintf (f_"virt-builder: no kernel found\n");
-    exit 1
-  );
+  if kernels = [] then
+    error (f_"no kernel found");
 
   (* Download the latest. *)
   let outputdir =

@@ -19,10 +19,10 @@
 open Common_gettext.Gettext
 open Common_utils
 
+open Utils
+
 open Unix
 open Printf
-
-let quote = Filename.quote
 
 let clean_cachedir dir =
   let cmd = sprintf "rm -rf %s" (quote dir) in

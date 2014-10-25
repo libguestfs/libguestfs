@@ -14,6 +14,7 @@ builder/setlocale.ml
 builder/sigchecker.ml
 builder/sources.ml
 builder/uname.ml
+builder/utils.ml
 customize/crypt.ml
 customize/customize_cmdline.ml
 customize/customize_main.ml

@@ -75,7 +75,8 @@ SOURCES = \
 	sources.ml \
 	uname.ml \
 	uname.mli \
-	uname-c.c
+	uname-c.c \
+	utils.ml
 
 man_MANS =
 noinst_DATA =
@@ -113,6 +114,7 @@ deps = \
 	$(top_builddir)/customize/customize_run.cmx \
 	$(top_builddir)/fish/guestfish-uri.o \
 	$(top_builddir)/fish/guestfish-file-edit.o \
+	utils.cmx \
 	index-scan.o \
 	index-struct.o \
 	index-parse.o \

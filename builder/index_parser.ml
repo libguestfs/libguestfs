@@ -19,6 +19,8 @@
 open Common_gettext.Gettext
 open Common_utils
 
+open Utils
+
 open Printf
 open Unix
 
@@ -111,9 +113,7 @@ let print_entry chan (name, { printable_name = printable_name;
 
 let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
   let corrupt_file () =
-    eprintf (f_"\nThe index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.\n")
-      source;
-    exit 1
+    error (f_"The index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") source
   in
 
   let rec get_index () =
@@ -145,7 +145,7 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
       fun (n, arch) ->
         let id = n, arch in
         if Hashtbl.mem nseen id then (
-          eprintf (f_"virt-builder: index is corrupt: os-version '%s' with architecture '%s' appears two or more times\n") n arch;
+          eprintf (f_"%s: index is corrupt: os-version '%s' with architecture '%s' appears two or more times\n") prog n arch;
           corrupt_file ()
         );
         Hashtbl.add nseen id true
@@ -161,9 +161,9 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
             if Hashtbl.mem fseen hashkey then (
               (match subkey with
               | Some value ->
-                eprintf (f_"virt-builder: index is corrupt: %s: field '%s[%s]' appears two or more times\n") n field value
+                eprintf (f_"%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n") prog n field value
               | None ->
-                eprintf (f_"virt-builder: index is corrupt: %s: field '%s' appears two or more times\n") n field);
+                eprintf (f_"%s: index is corrupt: %s: field '%s' appears two or more times\n") prog n field);
               corrupt_file ()
             );
             Hashtbl.add fseen hashkey true
@@ -182,12 +182,12 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
           let file_uri =
             try make_absolute_uri (List.assoc ("file", None) fields)
             with Not_found ->
-              eprintf (f_"virt-builder: no 'file' (URI) entry for '%s'\n") n;
+              eprintf (f_"%s: no 'file' (URI) entry for '%s'\n") prog n;
             corrupt_file () in
           let arch =
             try List.assoc ("arch", None) fields
             with Not_found ->
-              eprintf (f_"virt-builder: no 'arch' entry for '%s'\n") n;
+              eprintf (f_"%s: no 'arch' entry for '%s'\n") prog n;
             corrupt_file () in
           let signature_uri =
             try Some (make_absolute_uri (List.assoc ("sig", None) fields))
@@ -202,8 +202,7 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
             with
             | Not_found -> 1
             | Failure "int_of_string" ->
-              eprintf (f_"virt-builder: cannot parse 'revision' field for '%s'\n")
-                n;
+              eprintf (f_"%s: cannot parse 'revision' field for '%s'\n") prog n;
               corrupt_file () in
           let format =
             try Some (List.assoc ("format", None) fields) with Not_found -> None in
@@ -211,11 +210,10 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
             try Int64.of_string (List.assoc ("size", None) fields)
             with
             | Not_found ->
-              eprintf (f_"virt-builder: no 'size' field for '%s'\n") n;
+              eprintf (f_"%s: no 'size' field for '%s'\n") prog n;
               corrupt_file ()
             | Failure "int_of_string" ->
-              eprintf (f_"virt-builder: cannot parse 'size' field for '%s'\n")
-                n;
+              eprintf (f_"%s: cannot parse 'size' field for '%s'\n") prog n;
               corrupt_file () in
           let compressed_size =
             try Some (Int64.of_string (List.assoc ("compressed_size", None) fields))
@@ -223,8 +221,8 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
             | Not_found ->
               None
             | Failure "int_of_string" ->
-              eprintf (f_"virt-builder: cannot parse 'compressed_size' field for '%s'\n")
-                n;
+              eprintf (f_"%s: cannot parse 'compressed_size' field for '%s'\n")
+                prog n;
               corrupt_file () in
           let expand =
             try Some (List.assoc ("expand", None) fields) with Not_found -> None in
@@ -248,8 +246,8 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
             with
             | Not_found -> false
             | Failure "bool_of_string" ->
-              eprintf (f_"virt-builder: cannot parse 'hidden' field for '%s'\n")
-                n;
+              eprintf (f_"%s: cannot parse 'hidden' field for '%s'\n")
+                prog n;
               corrupt_file () in
           let aliases =
             let l =
@@ -280,8 +278,8 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
       ) sections in
 
     if verbose then (
-      eprintf "index file (%s) after parsing (C parser):\n" source;
-      List.iter (print_entry Pervasives.stderr) entries
+      printf "index file (%s) after parsing (C parser):\n" source;
+      List.iter (print_entry Pervasives.stdout) entries
     );
 
     entries
@@ -289,16 +287,15 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
   (* Verify same-origin policy for the file= and sig= fields. *)
   and make_absolute_uri path =
     if String.length path = 0 then (
-      eprintf (f_"virt-builder: zero length path in the index file\n");
+      eprintf (f_"%s: zero length path in the index file\n") prog;
       corrupt_file ()
     )
     else if string_find path "://" >= 0 then (
-      eprintf (f_"virt-builder: cannot use a URI ('%s') in the index file\n")
-        path;
+      eprintf (f_"%s: cannot use a URI ('%s') in the index file\n") prog path;
       corrupt_file ()
     )
     else if path.[0] = '/' then (
-      eprintf (f_"virt-builder: you must use relative paths (not '%s') in the index file\n") path;
+      eprintf (f_"%s: you must use relative paths (not '%s') in the index file\n") prog path;
       corrupt_file ()
     )
     else (

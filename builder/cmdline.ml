@@ -23,12 +23,12 @@ open Common_utils
 
 open Customize_cmdline
 
+open Utils
+
 module G = Guestfs
 
 open Unix
 open Printf
-
-let prog = Filename.basename Sys.executable_name
 
 let parse_cmdline () =
   let display_version () =
@@ -77,8 +77,7 @@ let parse_cmdline () =
     | "long" -> `Long
     | "json" -> `Json
     | fmt ->
-      eprintf (f_"%s: invalid --list-format type '%s', see the man page.\n") prog fmt;
-      exit 1 in
+      error (f_"invalid --list-format type '%s', see the man page") fmt in
 
   let machine_readable = ref false in
 
@@ -236,32 +235,25 @@ read the man page virt-builder(1).
       (match args with
       | [arg] -> arg
       | [] ->
-        eprintf (f_"%s: virt-builder os-version\nMissing 'os-version'. Use '--list' to list available template names.\n") prog;
-        exit 1
+        error (f_"virt-builder os-version\nMissing 'os-version'. Use '--list' to list available template names.")
       | _ ->
-        eprintf (f_"%s: virt-builder: too many parameters, expecting 'os-version'\n") prog;
-        exit 1
+        error (f_"too many parameters, expecting 'os-version'")
       )
     | `List ->
-      if format <> None then (
-        eprintf (f_"%s: virt-builder --list: use '--list-format', not '--format'.\n") prog;
-        exit 1
-      );
+      if format <> None then
+        error (f_"virt-builder --list: use '--list-format', not '--format'");
       (match args with
       | [] -> ""
       | _ ->
-        eprintf (f_"%s: virt-builder --list does not need any extra arguments.\n") prog;
-        exit 1
+        error (f_"virt-builder --list does not need any extra arguments")
       )
     | `Notes ->
       (match args with
       | [arg] -> arg
       | [] ->
-        eprintf (f_"%s: virt-builder --notes os-version\nMissing 'os-version'. Use '--list' to list available template names.\n") prog;
-        exit 1
+        error (f_"virt-builder --notes os-version\nMissing 'os-version'. Use '--list' to list available template names.")
       | _ ->
-        eprintf (f_"%s: virt-builder: too many parameters, expecting 'os-version'\n") prog;
-        exit 1
+        error (f_"virt-builder: too many parameters, expecting 'os-version'");
       )
     | `Cache_all
     | `Print_cache
@@ -269,18 +261,15 @@ read the man page virt-builder(1).
       (match args with
       | [] -> ""
       | _ ->
-        eprintf (f_"%s: virt-builder --cache-all-templates/--print-cache/--delete-cache does not need any extra arguments.\n") prog;
-        exit 1
+        error (f_"virt-builder --cache-all-templates/--print-cache/--delete-cache does not need any extra arguments")
       )
     | `Get_kernel ->
       (match args with
       | [arg] -> arg
       | [] ->
-        eprintf (f_"%s: virt-builder --get-kernel image\nMissing 'image' (disk image file) argument.\n") prog;
-        exit 1
+        error (f_"virt-builder --get-kernel image\nMissing 'image' (disk image file) argument")
       | _ ->
-        eprintf (f_"%s: virt-builder --get-kernel: too many parameters\n") prog;
-        exit 1
+        error (f_"virt-builder --get-kernel: too many parameters")
       ) in
 
   (* Check source(s) and fingerprint(s). *)
@@ -300,11 +289,8 @@ read the man page virt-builder(1).
         repeat fingerprint nr_sources
       | xs -> xs in
 
-    if List.length fingerprints <> nr_sources then (
-      eprintf (f_"%s: source and fingerprint lists are not the same length\n")
-        prog;
-      exit 1
-    );
+    if List.length fingerprints <> nr_sources then
+      error (f_"source and fingerprint lists are not the same length");
 
     (* Combine the sources and fingerprints into a single list of pairs. *)
     List.combine sources fingerprints in
@@ -324,11 +310,8 @@ read the man page virt-builder(1).
           | `Password _ | `RootPassword _ | `Scrub _ | `Timezone _ | `Upload _
           | `Write _ | `Chmod _ -> false
         ) ops.ops in
-        if requires_execute_on_guest then (
-          eprintf (f_"%s: sorry, cannot run commands on a guest with a different architecture\n")
-            prog;
-          exit 1
-        );
+        if requires_execute_on_guest then
+          error (f_"sorry, cannot run commands on a guest with a different architecture");
       );
       target_arch in
 
