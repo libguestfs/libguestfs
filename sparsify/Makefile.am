@@ -26,6 +26,7 @@ EXTRA_DIST = \
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 
 SOURCES_ML = \
+	utils.ml \
 	cmdline.ml \
 	copying.ml \
 	in_place.ml \

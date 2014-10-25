@@ -21,12 +21,13 @@
 open Unix
 open Printf
 
+open Common_utils
 open Common_gettext.Gettext
 
-module G = Guestfs
-
-open Common_utils
+open Utils
 open Cmdline
+
+module G = Guestfs
 
 let rec run disk format ignores machine_readable quiet verbose trace zeroes =
   (* Connect to libguestfs. *)

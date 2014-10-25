@@ -23,12 +23,13 @@
 open Unix
 open Printf
 
+open Common_utils
 open Common_gettext.Gettext
 
-module G = Guestfs
-
-open Common_utils
+open Utils
 open Cmdline
+
+module G = Guestfs
 
 external statvfs_free_space : string -> int64 =
   "virt_sparsify_statvfs_free_space"
@@ -106,9 +107,8 @@ let run indisk outdisk check_tmpdir compress convert
       let free_space = statvfs_free_space tmpdir in
       let extra_needed = virtual_size -^ free_space in
       if extra_needed > 0L then (
-        eprintf (f_"\
-
-WARNING: There may not be enough free space on %s.
+        warning (f_"\
+There may not be enough free space on %s.
 You may need to set TMPDIR to point to a directory with more free space.
 
 Max needed: %s.  Free: %s.  May need another %s.
@@ -306,12 +306,12 @@ You can ignore this warning or change it to a hard failure using the
 
   let cmd =
     sprintf "qemu-img convert -f qcow2 -O %s%s%s %s %s"
-      (Filename.quote output_format)
+      (quote output_format)
       (if compress then " -c" else "")
       (match option with
       | None -> ""
-      | Some option -> " -o " ^ Filename.quote option)
-      (Filename.quote overlaydisk) (Filename.quote outdisk) in
+      | Some option -> " -o " ^ quote option)
+      (quote overlaydisk) (quote outdisk) in
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
