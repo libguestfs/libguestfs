@@ -23,14 +23,13 @@ module G = Guestfs
 open Common_utils
 open Password
 open Planner
+open Utils
 
 open Cmdline
 open Customize_cmdline
 
 open Unix
 open Printf
-
-let quote = Filename.quote
 
 let prog = Filename.basename Sys.executable_name
 
@@ -85,12 +84,12 @@ let main () =
 
   (* If debugging, echo the command line arguments and the sources. *)
   if verbose then (
-    eprintf "command line:";
-    List.iter (eprintf " %s") (Array.to_list Sys.argv);
-    prerr_newline ();
+    printf "command line:";
+    List.iter (printf " %s") (Array.to_list Sys.argv);
+    print_newline ();
     iteri (
       fun i (source, fingerprint) ->
-        eprintf "source[%d] = (%S, %S)\n" i source fingerprint
+        printf "source[%d] = (%S, %S)\n" i source fingerprint
     ) sources
   );
 
@@ -108,9 +107,7 @@ let main () =
         Cache.clean_cachedir cachedir;
         exit 0
       | None ->
-        eprintf (f_"%s: error: could not find cache directory. Is $HOME set?\n")
-          prog;
-        exit 1
+        error (f_"could not find cache directory. Is $HOME set?")
       )
 
     | (`Install|`List|`Notes|`Print_cache|`Cache_all) as mode -> mode in
@@ -122,27 +119,21 @@ let main () =
    *)
   let cmd = sprintf "%s --help >/dev/null 2>&1" gpg in
   if Sys.command cmd <> 0 then (
-    if check_signature then (
-      eprintf (f_"%s: gpg is not installed (or does not work)\nYou should install gpg, or use --gpg option, or use --no-check-signature.\n") prog;
-      exit 1
-    )
+    if check_signature then
+      error (f_"gpg is not installed (or does not work)\nYou should install gpg, or use --gpg option, or use --no-check-signature.")
     else if verbose then
-      warning ~prog (f_"gpg program is not available")
+      warning (f_"gpg program is not available")
   );
 
   (* Check that curl works. *)
   let cmd = sprintf "%s --help >/dev/null 2>&1" curl in
-  if Sys.command cmd <> 0 then (
-    eprintf (f_"%s: curl is not installed (or does not work)\n") prog;
-    exit 1
-  );
+  if Sys.command cmd <> 0 then
+    error (f_"curl is not installed (or does not work)");
 
   (* Check that virt-resize works. *)
   let cmd = "virt-resize --help >/dev/null 2>&1" in
-  if Sys.command cmd <> 0 then (
-    eprintf (f_"%s: virt-resize is not installed (or does not work)\n") prog;
-    exit 1
-  );
+  if Sys.command cmd <> 0 then
+    error (f_"virt-resize is not installed (or does not work)");
 
   (* Create the cache. *)
   let cache =
@@ -151,8 +142,8 @@ let main () =
     | Some dir ->
       try Some (Cache.create ~verbose ~directory:dir)
       with exn ->
-        warning ~prog (f_"cache %s: %s") dir (Printexc.to_string exn);
-        warning ~prog (f_"disabling the cache");
+        warning (f_"cache %s: %s") dir (Printexc.to_string exn);
+        warning (f_"disabling the cache");
         None
   in
 
@@ -209,8 +200,7 @@ let main () =
     | `Cache_all ->                     (* --cache-all-templates *)
       (match cache with
       | None ->
-        eprintf (f_"%s: error: no cache directory\n") prog;
-        exit 1
+        error (f_"no cache directory")
       | Some _ ->
         List.iter (
           fun (name,
@@ -246,9 +236,8 @@ let main () =
         name = arg && arch = Architecture.filter_arch a
     ) index
     with Not_found ->
-      eprintf (f_"%s: cannot find os-version '%s' with architecture '%s'.\nUse --list to list available guest types.\n")
-        prog arg arch;
-      exit 1 in
+      error (f_"cannot find os-version '%s' with architecture '%s'.\nUse --list to list available guest types.")
+        arg arch in
   let entry = snd item in
   let sigchecker = entry.Index_parser.sigchecker in
 
@@ -318,9 +307,7 @@ let main () =
       match detect_file_type template with
       | `XZ -> [ `XZ, "" ]
       | `GZip | `Tar | `Zip ->
-        eprintf (f_"%s: input file (%s) has an unsupported type\n")
-          prog template;
-        exit 1
+        error (f_"input file (%s) has an unsupported type") template
       | `Unknown -> [] in
     [ `Template, ""; `Filename, template; `Size, Int64.to_string size ] @
       format_tag @ compression_tag in
@@ -334,10 +321,8 @@ let main () =
     | Some output, None -> output, "raw"
     | Some output, Some format -> output, format in
 
-  if is_char_device output_filename then (
-    eprintf (f_"%s: cannot output to a character device or /dev/null\n") prog;
-    exit 1
-  );
+  if is_char_device output_filename then
+    error (f_"cannot output to a character device or /dev/null");
 
   let blockdev_getsize64 dev =
     let cmd = sprintf "blockdev --getsize64 %s" (quote dev) in
@@ -361,16 +346,12 @@ let main () =
       (* --size parameter missing, block device: use block device size *)
       | None -> blockdev_size in
 
-    if size < original_image_size then (
-      eprintf (f_"%s: images cannot be shrunk, the output size is too small for this image.  Requested size = %s, minimum size = %s\n")
-        prog (human_size size) (human_size original_image_size);
-      exit 1
-    )
-    else if output_is_block_dev && output_format = "raw" && size > blockdev_size then (
-      eprintf (f_"%s: output size is too large for this block device.  Requested size = %s, output block device = %s, output block device size = %s\n")
-        prog (human_size size) output_filename (human_size blockdev_size);
-      exit 1
-    );
+    if size < original_image_size then
+      error (f_"images cannot be shrunk, the output size is too small for this image.  Requested size = %s, minimum size = %s")
+        (human_size size) (human_size original_image_size)
+    else if output_is_block_dev && output_format = "raw" && size > blockdev_size then
+      error (f_"output size is too large for this block device.  Requested size = %s, output block device = %s, output block device size = %s")
+        (human_size size) output_filename (human_size blockdev_size);
     size in
 
   let goal =
@@ -487,45 +468,44 @@ let main () =
     try plan ~max_depth:5 transitions itags goal
     with
       Failure "plan" ->
-        eprintf (f_"%s: no plan could be found for making a disk image with\nthe required size, format etc. This is a bug in libguestfs!\nPlease file a bug, giving the command line arguments you used.\n") prog;
-        exit 1
+        error (f_"no plan could be found for making a disk image with\nthe required size, format etc. This is a bug in libguestfs!\nPlease file a bug, giving the command line arguments you used.");
   in
 
   (* Print out the plan. *)
   if verbose then (
     let print_tags tags =
       (try
-         let v = List.assoc `Filename tags in eprintf " +filename=%s" v
+         let v = List.assoc `Filename tags in printf " +filename=%s" v
        with Not_found -> ());
       (try
-         let v = List.assoc `Size tags in eprintf " +size=%s" v
+         let v = List.assoc `Size tags in printf " +size=%s" v
        with Not_found -> ());
       (try
-         let v = List.assoc `Format tags in eprintf " +format=%s" v
+         let v = List.assoc `Format tags in printf " +format=%s" v
        with Not_found -> ());
-      if List.mem_assoc `Template tags then eprintf " +template";
-      if List.mem_assoc `XZ tags then eprintf " +xz"
+      if List.mem_assoc `Template tags then printf " +template";
+      if List.mem_assoc `XZ tags then printf " +xz"
     in
     let print_task = function
-      | `Copy -> eprintf "cp"
-      | `Rename -> eprintf "mv"
-      | `Pxzcat -> eprintf "pxzcat"
-      | `Virt_resize -> eprintf "virt-resize"
-      | `Disk_resize -> eprintf "qemu-img resize"
-      | `Convert -> eprintf "qemu-img convert"
+      | `Copy -> printf "cp"
+      | `Rename -> printf "mv"
+      | `Pxzcat -> printf "pxzcat"
+      | `Virt_resize -> printf "virt-resize"
+      | `Disk_resize -> printf "qemu-img resize"
+      | `Convert -> printf "qemu-img convert"
     in
 
     iteri (
       fun i (itags, task, otags) ->
-        eprintf "%d: itags:" i;
+        printf "%d: itags:" i;
         print_tags itags;
-        eprintf "\n";
-        eprintf "%d: task : " i;
+        printf "\n";
+        printf "%d: task : " i;
         print_task task;
-        eprintf "\n";
-        eprintf "%d: otags:" i;
+        printf "\n";
+        printf "%d: otags:" i;
         print_tags otags;
-        eprintf "\n\n%!"
+        printf "\n\n%!"
     ) plan
   );
 
@@ -548,14 +528,14 @@ let main () =
       let ofile = List.assoc `Filename otags in
       msg (f_"Copying");
       let cmd = sprintf "cp %s %s" (quote ifile) (quote ofile) in
-      if verbose then eprintf "%s\n%!" cmd;
+      if verbose then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Rename, otags ->
       let ifile = List.assoc `Filename itags in
       let ofile = List.assoc `Filename otags in
       let cmd = sprintf "mv %s %s" (quote ifile) (quote ofile) in
-      if verbose then eprintf "%s\n%!" cmd;
+      if verbose then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Pxzcat, otags ->
@@ -595,7 +575,7 @@ let main () =
           | None -> ""
           | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
           (quote ifile) (quote ofile) in
-      if verbose then eprintf "%s\n%!" cmd;
+      if verbose then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Disk_resize, otags ->
@@ -606,7 +586,7 @@ let main () =
         (human_size osize);
       let cmd = sprintf "qemu-img resize %s %Ld%s"
         (quote ofile) osize (if verbose then "" else " >/dev/null") in
-      if verbose then eprintf "%s\n%!" cmd;
+      if verbose then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Convert, otags ->
@@ -623,7 +603,7 @@ let main () =
         | Some iformat -> sprintf " -f %s" (quote iformat))
         (quote ifile) (quote oformat) (quote ofile)
         (if verbose then "" else " >/dev/null 2>&1") in
-      if verbose then eprintf "%s\n%!" cmd;
+      if verbose then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
   ) plan;
 
@@ -667,12 +647,12 @@ let main () =
       List.iter (
         fun (mp, dev) ->
           try g#mount dev mp
-          with G.Error msg -> eprintf (f_"%s: %s (ignored)\n") prog msg
+          with G.Error msg -> warning (f_"%s (ignored)") msg
       ) mps;
       root
     | _ ->
-      eprintf (f_"%s: no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.\n") prog;
-      exit 1 in
+      error (f_"no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.")
+  in
 
   Customize_run.run ~prog ~verbose ~quiet g root ops;
 

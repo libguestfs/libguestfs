@@ -19,10 +19,10 @@
 open Common_gettext.Gettext
 open Common_utils
 
+open Utils
+
 open Unix
 open Printf
-
-let quote = Filename.quote
 
 type uri = string
 type filename = string
@@ -73,8 +73,8 @@ and download_to ~prog t ?(progress_bar = false) ~proxy uri filename =
   let parseduri =
     try URI.parse_uri uri
     with Invalid_argument "URI.parse_uri" ->
-      eprintf (f_"Error parsing URI '%s'. Look for error messages printed above.\n") uri;
-      exit 1 in
+      error (f_"error parsing URI '%s'. Look for error messages printed above.")
+        uri in
 
   (* Note because there may be parallel virt-builder instances running
    * and also to avoid partial downloads in the cache if the network
@@ -91,11 +91,8 @@ and download_to ~prog t ?(progress_bar = false) ~proxy uri filename =
       (if t.verbose then " -v" else "")
       (quote path) (quote filename_new) in
     let r = Sys.command cmd in
-    if r <> 0 then (
-      eprintf (f_"%s: cp (download) command failed copying '%s'\n")
-        prog path;
-      exit 1
-    )
+    if r <> 0 then
+      error (f_"cp (download) command failed copying '%s'") path;
   | _ as protocol -> (* Any other protocol. *)
     let outenv = proxy_envvar protocol proxy in
     (* Get the status code first to ensure the file exists. *)
@@ -104,13 +101,10 @@ and download_to ~prog t ?(progress_bar = false) ~proxy uri filename =
       t.curl
       (if t.verbose then "" else " -s -S")
       (quote uri) in
-    if t.verbose then eprintf "%s\n%!" cmd;
+    if t.verbose then printf "%s\n%!" cmd;
     let lines = external_command ~prog cmd in
-    if List.length lines < 1 then (
-      eprintf (f_"%s: unexpected output from curl command, enable debug and look at previous messages\n")
-        prog;
-      exit 1
-    );
+    if List.length lines < 1 then
+      error (f_"unexpected output from curl command, enable debug and look at previous messages");
     let status_code = List.hd lines in
     let bad_status_code = function
       | "" -> true
@@ -118,11 +112,8 @@ and download_to ~prog t ?(progress_bar = false) ~proxy uri filename =
       | s when s.[0] = '5' -> true (* 5xx *)
       | _ -> false
     in
-    if bad_status_code status_code then (
-      eprintf (f_"%s: failed to download %s: HTTP status code %s\n")
-        prog uri status_code;
-      exit 1
-    );
+    if bad_status_code status_code then
+      error (f_"failed to download %s: HTTP status code %s") uri status_code;
 
     (* Now download the file. *)
     let cmd = sprintf "%s%s%s -g -o %s %s"
@@ -130,13 +121,10 @@ and download_to ~prog t ?(progress_bar = false) ~proxy uri filename =
       t.curl
       (if t.verbose then "" else if progress_bar then " -#" else " -s -S")
       (quote filename_new) (quote uri) in
-    if t.verbose then eprintf "%s\n%!" cmd;
+    if t.verbose then printf "%s\n%!" cmd;
     let r = Sys.command cmd in
-    if r <> 0 then (
-      eprintf (f_"%s: curl (download) command failed downloading '%s'\n")
-        prog uri;
-      exit 1
-    )
+    if r <> 0 then
+      error (f_"curl (download) command failed downloading '%s'") uri;
   );
 
   (* Rename the file if the download was successful. *)
@@ -154,7 +142,7 @@ and proxy_envvar protocol = function
     (* No changes required. *)
     ""
   | ForcedProxy proxy ->
-    let proxy = Filename.quote proxy in
+    let proxy = quote proxy in
     (match protocol with
     | "http" -> sprintf "env http_proxy=%s no_proxy= " proxy
     | "https" -> sprintf "env https_proxy=%s no_proxy= " proxy

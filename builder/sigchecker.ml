@@ -19,10 +19,10 @@
 open Common_gettext.Gettext
 open Common_utils
 
+open Utils
+
 open Printf
 open Unix
-
-let quote = Filename.quote
 
 type gpgkey_type =
   | No_Key
@@ -44,12 +44,10 @@ let import_keyfile ~gpg ~gpghome ~verbose keyfile =
   let cmd = sprintf "%s --homedir %s --status-file %s --import %s%s"
     gpg gpghome (quote status_file) (quote keyfile)
     (if verbose then "" else " >/dev/null 2>&1") in
-  if verbose then eprintf "%s\n%!" cmd;
+  if verbose then printf "%s\n%!" cmd;
   let r = Sys.command cmd in
-  if r <> 0 then (
-    eprintf (f_"virt-builder: error: could not import public key\nUse the '-v' option and look for earlier error messages.\n");
-    exit 1
-  );
+  if r <> 0 then
+    error (f_"could not import public key\nUse the '-v' option and look for earlier error messages.");
   status_file
 
 let rec create ~verbose ~gpg ~gpgkey ~check_signature =
@@ -68,12 +66,10 @@ let rec create ~verbose ~gpg ~gpgkey ~check_signature =
        *)
       let cmd = sprintf "%s --homedir %s --list-keys%s"
         gpg tmpdir (if verbose then "" else " >/dev/null 2>&1") in
-      if verbose then eprintf "%s\n%!" cmd;
+      if verbose then printf "%s\n%!" cmd;
       let r = Sys.command cmd in
-      if r <> 0 then (
-        eprintf (f_"virt-builder: error: GPG failure: could not run GPG the first time\nUse the '-v' option and look for earlier error messages.\n");
-        exit 1
-      );
+      if r <> 0 then
+        error (f_"GPG failure: could not run GPG the first time\nUse the '-v' option and look for earlier error messages.");
       match gpgkey with
       | No_Key ->
         assert false
@@ -96,12 +92,10 @@ let rec create ~verbose ~gpg ~gpgkey ~check_signature =
         let cmd = sprintf "%s --yes --armor --output %s --export %s%s"
           gpg (quote filename) (quote fp)
           (if verbose then "" else " >/dev/null 2>&1") in
-        if verbose then eprintf "%s\n%!" cmd;
+        if verbose then printf "%s\n%!" cmd;
         let r = Sys.command cmd in
-        if r <> 0 then (
-          eprintf (f_"virt-builder: error: could not export public key\nUse the '-v' option and look for earlier error messages.\n");
-          exit 1
-        );
+        if r <> 0 then
+          error (f_"could not export public key\nUse the '-v' option and look for earlier error messages.");
         ignore (import_keyfile gpg tmpdir verbose filename);
         fp
     ) else
@@ -148,8 +142,7 @@ and verify_detached t filename sigfile =
   if t.check_signature then (
     match sigfile with
     | None ->
-      eprintf (f_"virt-builder: error: there is no detached signature file\nThis probably means the index file is missing a sig=... line.\nYou can use --no-check-signature to ignore this error, but that means\nyou are susceptible to man-in-the-middle attacks.\n");
-      exit 1
+      error (f_"there is no detached signature file\nThis probably means the index file is missing a sig=... line.\nYou can use --no-check-signature to ignore this error, but that means\nyou are susceptible to man-in-the-middle attacks.\n")
     | Some sigfile ->
       let args = sprintf "%s %s" (quote sigfile) (quote filename) in
       do_verify t args
@@ -163,12 +156,10 @@ and do_verify t args =
         t.gpg t.gpghome
         (if t.verbose then "" else " -q --logger-file /dev/null")
         (quote status_file) args in
-  if t.verbose then eprintf "%s\n%!" cmd;
+  if t.verbose then printf "%s\n%!" cmd;
   let r = Sys.command cmd in
-  if r <> 0 then (
-    eprintf (f_"virt-builder: error: GPG failure: could not verify digital signature of file\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!\n");
-    exit 1
-  );
+  if r <> 0 then
+    error (f_"GPG failure: could not verify digital signature of file\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!");
 
   (* Check the fingerprint is who it should be. *)
   let status = read_whole_file status_file in
@@ -183,11 +174,9 @@ and do_verify t args =
       | _ -> ()
   ) status;
 
-  if not (equal_fingerprints !fingerprint t.fingerprint) then (
-    eprintf (f_"virt-builder: error: fingerprint of signature does not match the expected fingerprint!\n  found fingerprint: %s\n  expected fingerprint: %s\n")
-      !fingerprint t.fingerprint;
-    exit 1
-  )
+  if not (equal_fingerprints !fingerprint t.fingerprint) then
+    error (f_"fingerprint of signature does not match the expected fingerprint!\n  found fingerprint: %s\n  expected fingerprint: %s")
+      !fingerprint t.fingerprint
 
 type csum_t = SHA512 of string
 
@@ -196,12 +185,10 @@ let verify_checksum t (SHA512 csum) filename =
   unlink_on_exit csum_file;
   let cmd = sprintf "sha512sum %s | awk '{print $1}' > %s"
     (quote filename) (quote csum_file) in
-  if t.verbose then eprintf "%s\n%!" cmd;
+  if t.verbose then printf "%s\n%!" cmd;
   let r = Sys.command cmd in
-  if r <> 0 then (
-    eprintf (f_"virt-builder: error: could not run sha512sum command to verify checksum\n");
-    exit 1
-  );
+  if r <> 0 then
+    error (f_"could not run sha512sum command to verify checksum");
 
   let csum_actual = read_whole_file csum_file in
 
@@ -212,8 +199,6 @@ let verify_checksum t (SHA512 csum) filename =
     else
       csum_actual in
 
-  if csum <> csum_actual then (
-    eprintf (f_"virt-builder: error: checksum of template did not match the expected checksum!\n  found checksum: %s\n  expected checksum: %s\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!\n")
-      csum_actual csum;
-    exit 1
-  )
+  if csum <> csum_actual then
+    error (f_"checksum of template did not match the expected checksum!\n  found checksum: %s\n  expected checksum: %s\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!")
+      csum_actual csum

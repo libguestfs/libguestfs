@@ -33,7 +33,7 @@ module StringSet = Set.Make (String)
 
 let parse_conf ~prog ~verbose file =
   if verbose then (
-    eprintf (f_"%s: trying to read %s\n") prog file;
+    printf (f_"%s: trying to read %s\n") prog file;
   );
   let sections = Ini_reader.read_ini ~prog ~error_suffix:"[ignored]" file in
 
@@ -52,7 +52,7 @@ let parse_conf ~prog ~verbose file =
             | Not_found -> None
             | Invalid_argument "URI.parse_uri" as ex ->
               if verbose then (
-                eprintf (f_"%s: '%s' has invalid gpgkey URI\n") prog n;
+                printf (f_"%s: '%s' has invalid gpgkey URI\n") prog n;
               );
               raise ex in
           match k with
@@ -62,7 +62,7 @@ let parse_conf ~prog ~verbose file =
             | "file" -> Some uri.URI.path
             | _ ->
               if verbose then (
-                eprintf (f_"%s: '%s' has non-local gpgkey URI\n") prog n;
+                printf (f_"%s: '%s' has non-local gpgkey URI\n") prog n;
               );
               None
             ) in
@@ -84,7 +84,7 @@ let parse_conf ~prog ~verbose file =
   ) sections [] in
 
   if verbose then (
-    eprintf (f_"%s: ... read %d sources\n") prog (List.length sources);
+    printf (f_"%s: ... read %d sources\n") prog (List.length sources);
   );
 
   sources
@@ -127,12 +127,12 @@ let read_sources ~prog ~verbose =
           ) with
           | Unix_error (code, fname, _) ->
             if verbose then (
-              eprintf (f_"%s: file error: %s: %s\n") prog fname (error_message code)
+              printf (f_"%s: file error: %s: %s\n") prog fname (error_message code)
             );
             acc
           | Invalid_argument msg ->
             if verbose then (
-              eprintf (f_"%s: internal error: invalid argument: %s\n") prog msg
+              printf (f_"%s: internal error: invalid argument: %s\n") prog msg
             );
             acc
       ) acc files
