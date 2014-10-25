@@ -19,16 +19,17 @@
 open Printf
 open Unix
 
-open Common_utils
-open Sysprep_operation
 open Common_gettext.Gettext
+open Common_utils
+
+open Sysprep_operation
 
 module G = Guestfs
 
 let scriptdir = ref None
 let set_scriptdir dir =
   if !scriptdir <> None then
-    error ~prog (f_"--scriptdir cannot be used more than once");
+    error (f_"--scriptdir cannot be used more than once");
   scriptdir := Some dir
 
 let scripts = ref []
@@ -58,11 +59,11 @@ let rec script_perform ~verbose ~quiet (g : Guestfs.guestfs) root side_effects =
       match snd (waitpid [] pid) with
       | WEXITED 0 -> true
       | WEXITED i ->
-        eprintf (f_"virt-sysprep: script: failed (code %d)\n") i;
+        warning (f_"script: failed (code %d)") i;
         false
       | WSIGNALED i
       | WSTOPPED i ->
-        eprintf (f_"virt-sysprep: script: killed by signal (%d)\n") i;
+        warning (f_"script: killed by signal (%d)") i;
         false in
 
     (* Remote temporary directory / mountpoint. *)

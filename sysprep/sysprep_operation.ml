@@ -22,7 +22,10 @@ open Printf
 
 open Common_gettext.Gettext
 
-let prog = "virt-sysprep"
+let prog = Filename.basename Sys.executable_name
+let error ?exit_code fs = error ~prog ?exit_code fs
+let warning fs = warning ~prog fs
+let info fs = info ~prog fs
 
 class filesystem_side_effects =
 object
@@ -128,42 +131,42 @@ and check_no_dupes ops =
     List.fold_left (
       fun opset op ->
         if OperationSet.mem op opset then
-          error ~prog (f_"duplicate operation name (%s)") op.name;
+          error (f_"duplicate operation name (%s)") op.name;
         add_to_set op.name opset
     ) empty_set ops
   )
 and check op =
   let n = String.length op.name in
   if n = 0 then
-    error ~prog (f_"operation name is an empty string");
+    error (f_"operation name is an empty string");
   for i = 0 to n-1 do
     match String.unsafe_get op.name i with
     | 'a'..'z' | 'A'..'Z' | '0'..'9' | '-' -> ()
     | c ->
-      error ~prog (f_"disallowed character (%c) in operation name") c
+      error (f_"disallowed character (%c) in operation name") c
   done;
   let n = String.length op.heading in
   if n = 0 then
-    error ~prog (f_"operation %s has no heading") op.name;
+    error (f_"operation %s has no heading") op.name;
   if op.heading.[n-1] = '\n' || op.heading.[n-1] = '.' then
-    error ~prog (f_"heading for %s must not end with newline or period") op.name;
+    error (f_"heading for %s must not end with newline or period") op.name;
   (match op.pod_description with
   | None -> ()
   | Some description ->
     let n = String.length description in
     if n = 0 then
-      error ~prog (f_"operation %s has no POD") op.name;
+      error (f_"operation %s has no POD") op.name;
     if description.[n-1] = '\n' then
-      error ~prog (f_"POD for %s must not end with newline") op.name;
+      error (f_"POD for %s must not end with newline") op.name;
   );
   (match op.pod_notes with
   | None -> ()
   | Some notes ->
     let n = String.length notes in
     if n = 0 then
-      error ~prog (f_"operation %s has no POD notes") op.name;
+      error (f_"operation %s has no POD notes") op.name;
     if notes.[n-1] = '\n' then
-      error ~prog (f_"POD notes for %s must not end with newline") op.name;
+      error (f_"POD notes for %s must not end with newline") op.name;
   )
 
 let extra_args () =
