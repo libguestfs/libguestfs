@@ -202,7 +202,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
              let files = List.sort cmp files in
              match files with
              | [] ->
-               warning ~prog (f_"no initrd was found in /boot matching %s %s.")
+               warning (f_"no initrd was found in /boot matching %s %s.")
                  name version;
                None
              | x :: _ -> Some ("/boot/" ^ x) in
@@ -524,7 +524,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           Linux.augeas_reload verbose g
         with
           G.Error msg ->
-            warning ~prog (f_"VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)")
+            warning (f_"VirtualBox Guest Additions were detected, but uninstallation failed.  The error message was: %s (ignored)")
               msg
     )
 
@@ -615,7 +615,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         Linux.augeas_reload verbose g
       with
         G.Error msg ->
-          warning ~prog (f_"VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)")
+          warning (f_"VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)")
             msg
     )
 
@@ -1034,9 +1034,9 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     match paths with
     | [] ->
       if not remove then
-        warning ~prog (f_"could not add grub2 serial console (ignored)")
+        warning (f_"could not add grub2 serial console (ignored)")
       else
-        warning ~prog (f_"could not remove grub2 serial console (ignored)")
+        warning (f_"could not remove grub2 serial console (ignored)")
     | path :: _ ->
       let grub_cmdline = g#aug_get path in
       if Str.string_match rex grub_cmdline 0 then (
@@ -1052,7 +1052,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
         with
           G.Error msg ->
-            warning ~prog (f_"could not rebuild grub2 configuration file (%s).  This may mean that grub output will not be sent to the serial port, but otherwise should be harmless.  Original error message: %s")
+            warning (f_"could not rebuild grub2 configuration file (%s).  This may mean that grub output will not be sent to the serial port, but otherwise should be harmless.  Original error message: %s")
               grub_config msg
       )
 
@@ -1104,8 +1104,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     if !updated &&
       not (g#is_file ~followsymlinks:true "/usr/bin/X") &&
       not (g#is_file ~followsymlinks:true "/usr/bin/X11/X") then
-      warning ~prog
-        (f_"The display driver was updated to '%s', but X11 does not seem to be installed in the guest.  X may not function correctly.")
+      warning (f_"The display driver was updated to '%s', but X11 does not seem to be installed in the guest.  X may not function correctly.")
         video_driver
 
   and configure_kernel_modules virtio =
@@ -1160,7 +1159,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       fun path ->
         let device = g#aug_get path in
         let module_ = g#aug_get (path ^ "/modulename") in
-        warning ~prog (f_"don't know how to update %s which loads the %s module")
+        warning (f_"don't know how to update %s which loads the %s module")
           device module_;
     ) paths;
 
@@ -1315,7 +1314,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       with Not_found ->
         if string_find device "md" = -1 && string_find device "fd" = -1 &&
           device <> "cdrom" then
-          warning ~prog (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
+          warning (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
             path device;
         device
     in

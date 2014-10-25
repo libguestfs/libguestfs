@@ -58,7 +58,7 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       Some rhev_apt_exe
     with
       Sys_error msg ->
-        warning ~prog (f_"'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original error: %s")
+        warning (f_"'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original error: %s")
           rhev_apt_exe msg;
         None in
 
@@ -107,7 +107,7 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       let uninstkey = "UninstallString" in
       let valueh = g#hivex_node_get_value node uninstkey in
       if valueh = 0L then (
-        warning ~prog (f_"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key")
+        warning (f_"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key")
           xenpvreg uninstkey;
         raise Not_found
       );
@@ -263,7 +263,7 @@ echo uninstalling Xen PV driver
 
     match path with
     | None ->
-      warning ~prog (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
+      warning (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
         inspect.i_major_version inspect.i_minor_version
         inspect.i_arch inspect.i_product_variant
         virtio_win_dir;
@@ -274,7 +274,7 @@ echo uninstalling Xen PV driver
       let block : guestcaps_block_type =
         let block_path = path // "viostor.sys" in
         if not (Sys.file_exists block_path) then (
-          warning ~prog (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
+          warning (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
             inspect.i_major_version inspect.i_minor_version
             inspect.i_arch block_path;
           IDE
@@ -291,7 +291,7 @@ echo uninstalling Xen PV driver
       let net : guestcaps_net_type =
         let net_path = path // "netkvm.inf" in
         if not (Sys.file_exists net_path) then (
-          warning ~prog (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
+          warning (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
             inspect.i_major_version inspect.i_minor_version
             inspect.i_arch net_path;
           RTL8139
@@ -412,7 +412,7 @@ echo uninstalling Xen PV driver
       in
       loop values
     with Not_found ->
-      warning ~prog (f_"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion")
+      warning (f_"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion")
 
   and fix_ntfs_heads () =
     (* NTFS hardcodes the number of heads on the drive which created

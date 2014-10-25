@@ -267,9 +267,9 @@ let rec main () =
   (* Did we manage to install virtio drivers? *)
   if not quiet then (
     if guestcaps.gcaps_block_bus = Virtio_blk then
-      info ~prog (f_"This guest has virtio drivers installed.")
+      info (f_"This guest has virtio drivers installed.")
     else
-      info ~prog (f_"This guest does not have virtio drivers installed.");
+      info (f_"This guest does not have virtio drivers installed.");
   );
 
   g#umount_all ();
@@ -471,7 +471,7 @@ and inspect_source g root_choice =
 
       | `First ->
         let root = List.hd roots in
-        info ~prog (f_"Picked %s because '--root first' was used.") root;
+        info (f_"Picked %s because '--root first' was used.") root;
         root
 
       | `Dev dev ->
@@ -480,7 +480,7 @@ and inspect_source g root_choice =
           else
             error (f_"root device %s not found.  Roots found were: %s")
               dev (String.concat " " roots) in
-        info ~prog (f_"Picked %s because '--root %s' was used.") root dev;
+        info (f_"Picked %s because '--root %s' was used.") root dev;
         root in
 
   (* Reject this OS if it doesn't look like an installed image. *)
@@ -504,7 +504,7 @@ and inspect_source g root_choice =
             error "%s" msg
         )
         else
-          warning ~prog (f_"%s (ignored)") msg
+          warning (f_"%s (ignored)") msg
   ) mps;
 
   (* Get list of applications/packages installed. *)
@@ -615,7 +615,7 @@ and do_fstrim ~verbose g no_trim inspect =
       let mounted = try g#mount dev "/"; true with G.Error _ -> false in
       if mounted then (
         try g#fstrim "/"
-        with G.Error msg -> warning ~prog (f_"%s (ignored)") msg
+        with G.Error msg -> warning (f_"%s (ignored)") msg
       )
   ) fses
 

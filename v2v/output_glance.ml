@@ -114,7 +114,7 @@ object
         (quote source.s_name) in
     if verbose then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then (
-      warning ~prog (f_"glance: failed to set image properties (ignored)");
+      warning (f_"glance: failed to set image properties (ignored)");
       (* Dump out the image properties so the user can set them. *)
       printf "Image properties:\n";
       printf "  --min-ram %Ld\n" min_ram;
