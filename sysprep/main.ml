@@ -19,9 +19,10 @@
 open Unix
 open Printf
 
+open Common_utils
 open Common_gettext.Gettext
 
-open Common_utils
+open Sysprep_operation
 
 module G = Guestfs
 
@@ -29,7 +30,6 @@ module G = Guestfs
 let () = Sysprep_operation.bake ()
 
 (* Command line argument parsing. *)
-let prog = Filename.basename Sys.executable_name
 
 let () = Random.self_init ()
 
@@ -60,13 +60,13 @@ let main () =
       let uri =
         try URI.parse_uri arg
         with Invalid_argument "URI.parse_uri" ->
-          error ~prog (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
+          error (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
       let format = match !format with "auto" -> None | fmt -> Some fmt in
       files := (uri, format) :: !files;
       format_consumed := true
     and set_domain dom =
       if !domain <> None then
-        error ~prog (f_"--domain option can only be given once");
+        error (f_"--domain option can only be given once");
       domain := Some dom
     and dump_pod () =
       Sysprep_operation.dump_pod ();
@@ -76,15 +76,15 @@ let main () =
       exit 0
     and set_enable ops =
       if !operations <> None then
-        error ~prog (f_"--enable option can only be given once");
+        error (f_"--enable option can only be given once");
       if ops = "" then
-        error ~prog (f_"you cannot pass an empty argument to --enable");
+        error (f_"you cannot pass an empty argument to --enable");
       let ops = string_nsplit "," ops in
       let opset = List.fold_left (
         fun opset op_name ->
           try Sysprep_operation.add_to_set op_name opset
           with Not_found ->
-            error ~prog (f_"--enable: '%s' is not a known operation") op_name
+            error (f_"--enable: '%s' is not a known operation") op_name
       ) Sysprep_operation.empty_set ops in
       operations := Some opset
     and set_operations op_string =
@@ -103,7 +103,7 @@ let main () =
               `Add op_name in
           match op with
           | `Add "" | `Remove "" ->
-            error ~prog (f_"--operations: empty operation name")
+            error (f_"--operations: empty operation name")
           | `Add "defaults" -> Sysprep_operation.add_defaults_to_set opset
           | `Remove "defaults" -> Sysprep_operation.remove_defaults_from_set opset
           | `Add "all" -> Sysprep_operation.add_all_to_set opset
@@ -114,7 +114,7 @@ let main () =
               | `Remove n -> Sysprep_operation.remove_from_set in
             try f n opset with
             | Not_found ->
-              error ~prog (f_"--operations: '%s' is not a known operation") n
+              error (f_"--operations: '%s' is not a known operation") n
       ) currentopset ops in
       operations := Some opset
     and list_operations () =
@@ -173,7 +173,7 @@ read the man page virt-sysprep(1).
     Arg.parse argspec anon_fun usage_msg;
 
     if not !format_consumed then
-      error ~prog (f_"--format parameter must appear before -a parameter");
+      error (f_"--format parameter must appear before -a parameter");
 
     (* Check -a and -d options. *)
     let files = !files in
@@ -182,7 +182,7 @@ read the man page virt-sysprep(1).
     let add =
       match files, domain with
       | [], None ->
-        error ~prog (f_"you must give either -a or -d options.  Read virt-sysprep(1) man page for further information.")
+        error (f_"you must give either -a or -d options.  Read virt-sysprep(1) man page for further information.")
       | [], Some dom ->
         fun (g : Guestfs.guestfs) readonly ->
           let allowuuid = true in
@@ -193,7 +193,7 @@ read the man page virt-sysprep(1).
                     ?libvirturi ~allowuuid ~readonlydisk
                     dom)
       | _, Some _ ->
-        error ~prog (f_"you cannot give -a and -d options together.  Read virt-sysprep(1) man page for further information.")
+        error (f_"you cannot give -a and -d options together.  Read virt-sysprep(1) man page for further information.")
       | files, None ->
         fun g readonly ->
           List.iter (
@@ -247,7 +247,7 @@ read the man page virt-sysprep(1).
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with
   | [] ->
-    error ~prog (f_"no operating systems were found in the guest image")
+    error (f_"no operating systems were found in the guest image")
   | roots ->
     List.iter (
       fun root ->
@@ -263,7 +263,7 @@ read the man page virt-sysprep(1).
             let opts = mount_opts mp in
 
             try g#mount_options opts dev mp;
-            with Guestfs.Error msg -> eprintf (f_"%s (ignored)\n") msg
+            with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
         ) mps;
 
         let side_effects = new Sysprep_operation.filesystem_side_effects in

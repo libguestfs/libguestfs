@@ -20,9 +20,9 @@
 open Printf
 
 open Common_utils
+open Common_gettext.Gettext
 
 open Sysprep_operation
-open Common_gettext.Gettext
 
 module G = Guestfs
 
@@ -35,7 +35,7 @@ let add_users set users =
   List.iter (
     function
     | "" ->
-      error ~prog (f_"user-accounts: empty user name")
+      error (f_"user-accounts: empty user name")
     | user ->
       set := StringSet.add user !set
   ) users
@@ -77,7 +77,7 @@ let user_account_perform ~verbose ~quiet g root side_effects =
             try Some (g#aug_get (userpath ^ "/home"))
             with _ ->
               if verbose then
-                warning ~prog (f_"Cannot get the home directory for %s")
+                warning (f_"Cannot get the home directory for %s")
                   username;
               None in
           g#aug_rm userpath;
@@ -136,9 +136,9 @@ This option can be specified multiple times."
     perform_on_filesystems = Some user_account_perform;
     not_enabled_check_args = fun () ->
       if not (StringSet.is_empty !keep_users) then
-        error ~prog (f_"user-accounts: --keep-user-accounts parameter was used, but the \"user-account\" operation is not enabled");
+        error (f_"user-accounts: --keep-user-accounts parameter was used, but the \"user-account\" operation is not enabled");
       if not (StringSet.is_empty !remove_users) then
-        error ~prog (f_"user-accounts: --remove-user-accounts parameter was used, but the \"user-account\" operation is not enabled");
+        error (f_"user-accounts: --remove-user-accounts parameter was used, but the \"user-account\" operation is not enabled");
 }
 
 let () = register_operation op
