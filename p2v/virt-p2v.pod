@@ -18,7 +18,10 @@ L<virt-v2v(1)>.
 Normally you don't run the virt-p2v program directly.  Instead you
 have to boot the physical machine using the bootable CD-ROM, ISO or
 PXE image.  This bootable image contains the virt-p2v binary and runs
-it automatically.
+it automatically.  Booting from a CD-ROM/etc is required because the
+disks which are being converted must be quiescent.  It is not safe to
+try to convert a running physical machine where other programs may be
+modifying the disk content at the same time.
 
 This manual page documents running the virt-p2v program.  To create
 the bootable image you should look at L<virt-p2v-make-disk(1)> or
