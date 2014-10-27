@@ -341,7 +341,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   strncpy (addr.sun_path, guestfsd_sock, UNIX_PATH_MAX);
   addr.sun_path[UNIX_PATH_MAX-1] = '\0';
 
-  if (bind (daemon_accept_sock, &addr, sizeof addr) == -1) {
+  if (bind (daemon_accept_sock, (struct sockaddr *) &addr,
+            sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup0;
   }

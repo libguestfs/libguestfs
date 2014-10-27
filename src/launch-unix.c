@@ -63,7 +63,7 @@ launch_unix (guestfs_h *g, void *datav, const char *sockpath)
 
   g->state = LAUNCHING;
 
-  if (connect (daemon_sock, &addr, sizeof addr) == -1) {
+  if (connect (daemon_sock, (struct sockaddr *) &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup;
   }

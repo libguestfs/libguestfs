@@ -404,7 +404,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   addr.sun_family = AF_UNIX;
   memcpy (addr.sun_path, params.guestfsd_path, UNIX_PATH_MAX);
 
-  if (bind (daemon_accept_sock, &addr, sizeof addr) == -1) {
+  if (bind (daemon_accept_sock, (struct sockaddr *) &addr,
+            sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup;
   }
@@ -428,7 +429,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   addr.sun_family = AF_UNIX;
   memcpy (addr.sun_path, params.console_path, UNIX_PATH_MAX);
 
-  if (bind (console_sock, &addr, sizeof addr) == -1) {
+  if (bind (console_sock, (struct sockaddr *) &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
     goto cleanup;
   }
