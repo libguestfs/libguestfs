@@ -2172,6 +2172,41 @@ sockets owned by another user's guestfish client or server.
 It is sufficient to update libguestfs to a version that is not
 vulnerable: libguestfs E<ge> 1.20.12, E<ge> 1.22.7 or E<ge> 1.24.
 
+=head2 Denial of service when inspecting disk images with corrupt btrfs volumes
+
+It was possible to crash libguestfs (and programs that use libguestfs
+as a library) by presenting a disk image containing a corrupt btrfs
+volume.
+
+This was caused by a NULL pointer dereference causing a denial of
+service, and is not thought to be exploitable any further.
+
+See commit d70ceb4cbea165c960710576efac5a5716055486 for the fix.  This
+fix is included in libguestfs stable branches S<E<ge> 1.26.0>, S<E<ge>
+1.24.6> and S<E<ge> 1.22.8>, and also in RHEL S<E<ge> 7.0>.
+Earlier versions of libguestfs are not vulnerable.
+
+=head2 CVE-2014-0191
+
+Libguestfs previously used unsafe libxml2 APIs for parsing libvirt
+XML.  These APIs defaulted to allowing network connections to be made
+when certain XML documents were presented.  Using a malformed XML
+document it was also possible to exhaust all CPU, memory or file
+descriptors on the machine.
+
+Since the libvirt XML comes from a trusted source (the libvirt daemon)
+it is not thought that this could have been exploitable.
+
+This was fixed in libguestfs E<ge> 1.27.9 and the fix was backported
+to stable versions E<ge> 1.26.2, E<ge> 1.24.9, E<ge> 1.22.10 and E<ge>
+1.20.13.
+
+=head2 Shellshock (bash CVE-2014-6271)
+
+This bash bug indirectly affects libguestfs.  For more information
+see:
+L<https://www.redhat.com/archives/libguestfs/2014-September/msg00252.html>
+
 =head2 CVE-2014-8484
 
 =head2 CVE-2014-8485
