@@ -64,6 +64,7 @@ matchbox-window-manager
 pcre
 libxml2
 gtk2
+@hardware-support --optional
 
 %end
 
