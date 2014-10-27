@@ -145,6 +145,4 @@ virt-builder "$osversion"                                       \
     --edit '/etc/systemd/logind.conf:
         s/^[Login]/[Login]\nReserveVT=1\n/
     '                                                           \
-    --write '/etc/dracut.conf.d/p2v.conf:add_drivers+=" usb-storage "' \
-    --run-command 'dracut -f'                                   \
     $selinux_relabel
