@@ -2172,6 +2172,18 @@ sockets owned by another user's guestfish client or server.
 It is sufficient to update libguestfs to a version that is not
 vulnerable: libguestfs E<ge> 1.20.12, E<ge> 1.22.7 or E<ge> 1.24.
 
+=head2 CVE-2014-8484
+
+=head2 CVE-2014-8485
+
+These two bugs in binutils affect the GNU L<strings(1)> program, and
+thus the L</guestfs_strings> and L</guestfs_strings_e> APIs in
+libguestfs.  Running strings on an untrusted file could cause
+arbitrary code execution (confined to the libguestfs appliance).
+
+There are thought to be many similar bugs in binutils, so even if
+these two bugs are fixed, avoid using these two libguestfs APIs.
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
