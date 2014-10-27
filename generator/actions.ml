@@ -5364,7 +5364,11 @@ The external L<cmp(1)> program is used for the comparison." };
     shortdesc = "print the printable strings in a file";
     longdesc = "\
 This runs the L<strings(1)> command on a file and returns
-the list of printable strings found." };
+the list of printable strings found.
+
+B<Use this API with caution.>  In particular, it's generally not
+a good idea to use it on untrusted files.  For more information
+see L<guestfs(3)/CVE-2014-8484>." };
 
   { defaults with
     name = "strings_e";
@@ -5419,7 +5423,11 @@ This is useful for examining binaries in Windows guests.
 
 =back
 
-The returned strings are transcoded to UTF-8." };
+The returned strings are transcoded to UTF-8.
+
+B<Use this API with caution.>  In particular, it's generally not
+a good idea to use it on untrusted files.  For more information
+see L<guestfs(3)/CVE-2014-8484>." };
 
   { defaults with
     name = "hexdump";
