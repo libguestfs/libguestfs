@@ -74,6 +74,14 @@ fi
 
 osversion="$1"
 
+# Create a temporary directory and clean it up when we finish.
+tmpdir="$(mktemp -d)"
+cleanup ()
+{
+    rm -rf $tmpdir
+}
+trap cleanup INT QUIT TERM EXIT ERR
+
 # The dependencies are:
 #
 #   - pcre (library only)
@@ -92,7 +100,21 @@ osversion="$1"
 case "$osversion" in
     centos-*|fedora-*|rhel-*|scientificlinux-*)
         deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1,matchbox-window-manager,@hardware-support
-        selinux_relabel=--selinux-relabel
+        cat > $tmpdir/p2v.conf <<'EOF'
+add_drivers+=" usb-storage "
+EOF
+        cat > $tmpdir/post-install <<'EOF'
+#!/bin/bash
+# Rebuild the initramfs.
+version=` rpm -q kernel | sort -rV | head -1 | sed 's/kernel-//' `
+dracut -f --kver $version
+EOF
+        # Double quotes because we want $tmpdir to be expanded:
+        extra_args="
+          --selinux-relabel
+          --upload $tmpdir/p2v.conf:/etc/dracut.conf.d/
+          --run $tmpdir/post-install
+        "
         ;;
     debian-*|ubuntu-*)
         deps=libpcre3,libxml2,libgtk2.0-0,openssh-client,qemu-utils,xorg,xserver-xorg-video-all,matchbox-window-manager
@@ -123,7 +145,6 @@ fi
 
 # Run virt-builder.  Note we controversially assume systemd here.  We
 # could provide a sysvinit fallback if required.
-exec \
 virt-builder "$osversion"                                       \
     --output "$output"                                          \
     --update                                                    \
@@ -145,4 +166,7 @@ virt-builder "$osversion"                                       \
     --edit '/etc/systemd/logind.conf:
         s/^[Login]/[Login]\nReserveVT=1\n/
     '                                                           \
-    $selinux_relabel
+    $extra_args
+
+# We have to do this so the cleanup() handler runs.
+exit $?
