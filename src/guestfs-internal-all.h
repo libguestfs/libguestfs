@@ -53,12 +53,6 @@
 #define SOCK_CLOEXEC 0
 #endif
 
-#ifdef __APPLE__
-#define UNIX_PATH_MAX 104
-#else
-#define UNIX_PATH_MAX 108
-#endif
-
 #ifndef MAX
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
