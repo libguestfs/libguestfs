@@ -85,12 +85,13 @@ osversion="$1"
 #   - Xorg (or another X server, but only Xorg has been tested)
 #   - Xorg drivers
 #   - some fonts
+#   - hardware support (firmware etc, RHBZ#1157679)
 #   - matchbox (window manager, another could be used)
 #
 # Note that libguestfs is NOT a dependency.
 case "$osversion" in
     centos-*|fedora-*|rhel-*|scientificlinux-*)
-        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1,matchbox-window-manager
+        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1,matchbox-window-manager,@hardware-support
         selinux_relabel=--selinux-relabel
         ;;
     debian-*|ubuntu-*)
