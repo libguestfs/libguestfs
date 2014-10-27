@@ -328,6 +328,30 @@ AC_CHECK_FUNCS([\
     statvfs \
     sync])
 
+dnl Check for UNIX_PATH_MAX, creating a custom one if not available.
+AC_MSG_CHECKING([for UNIX_PATH_MAX])
+AC_COMPILE_IFELSE([
+  AC_LANG_PROGRAM([[
+#include <sys/un.h>
+  ]], [[
+#ifndef UNIX_PATH_MAX
+#error UNIX_PATH_MAX not defined
+#endif
+  ]])], [
+    AC_MSG_RESULT([yes])
+  ], [
+    AC_MSG_RESULT([no])
+    AC_MSG_CHECKING([for size of sockaddr_un.sun_path])
+    AC_COMPUTE_INT(unix_path_max, [sizeof (myaddr.sun_path)], [
+#include <sys/un.h>
+struct sockaddr_un myaddr;
+      ], [
+        AC_MSG_ERROR([cannot get it])
+      ])
+    AC_MSG_RESULT([$unix_path_max])
+    AC_DEFINE_UNQUOTED([UNIX_PATH_MAX], $unix_path_max, [Custom value for UNIX_PATH_MAX])
+  ])
+
 dnl tgetent, tputs and UP [sic] are all required.  They come from libtinfo
 dnl which is pulled in as a dependency of libncurses.
 old_LIBS="$LIBS"
