@@ -49,6 +49,9 @@ __REPOS__
 # Note you must have a kernel, else the boot menu won't work:
 kernel
 
+# Required to run firewall --enabled kickstart command:
+firewalld
+
 # Needed by post script to unpack the blobs.
 /usr/bin/base64
 /usr/bin/gzip
