@@ -164,7 +164,9 @@ the guest boots.
 
 Or:
 
- virt-builder fedora-20 --edit '/etc/yum.conf: s/gpgcheck=1/gpgcheck=0/'
+ virt-builder fedora-20 \
+   --edit '/etc/yum.conf:
+             s/gpgcheck=1/gpgcheck=0/'
 
 which edits C</etc/yum.conf> inside the disk image (during disk image
 creation, long before boot).
