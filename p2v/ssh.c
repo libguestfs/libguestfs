@@ -345,8 +345,12 @@ test_connection (struct config *config)
   if (h == NULL)
     return -1;
 
-  /* Send 'virt-v2v -V' command and hope we get back a version string. */
-  if (mexp_printf (h, "%svirt-v2v -V\n", config->sudo ? "sudo " : "") == -1) {
+  /* Send 'virt-v2v --version' command and hope we get back a version string.
+   * Note old virt-v2v did not understand -V option.
+   */
+  if (mexp_printf (h,
+                   "%svirt-v2v --version\n",
+                   config->sudo ? "sudo " : "") == -1) {
     set_ssh_error ("mexp_printf: %m");
     mexp_close (h);
     return -1;
@@ -370,9 +374,12 @@ test_connection (struct config *config)
       fprintf (stderr, "%s: remote virt-v2v version: %d.%d.%d\n",
                program_name, v2v_major, v2v_minor, v2v_release);
 #endif
-      if (v2v_major < 1 || v2v_major > 1) {
+      /* This is an internal error.  Need to check this here so we
+       * don't confuse it with the no-version case below.
+       */
+      if (v2v_major < 1) {
         mexp_close (h);
-        set_ssh_error ("invalid version major (%d)", v2v_major);
+        set_ssh_error ("could not parse version string");
         return -1;
       }
       break;
@@ -382,12 +389,12 @@ test_connection (struct config *config)
 
     case MEXP_EOF:
       mexp_close (h);
-      set_ssh_error ("unexpected end of file waiting virt-v2v -V output");
+      set_ssh_error ("unexpected end of file waiting virt-v2v --version output");
       return -1;
 
     case MEXP_TIMEOUT:
       mexp_close (h);
-      set_ssh_error ("timeout waiting for virt-v2v -V output");
+      set_ssh_error ("timeout waiting for virt-v2v --version output");
       return -1;
 
     case MEXP_ERROR:
@@ -408,6 +415,27 @@ test_connection (struct config *config)
     mexp_close (h);
     set_ssh_error ("virt-v2v is not installed on the conversion server, "
                    "or it might be a too old version");
+    return -1;
+  }
+
+  /* The major version must always be 1. */
+  if (v2v_major != 1) {
+    mexp_close (h);
+    set_ssh_error ("virt-v2v major version is not 1 (major = %d), "
+                   "this version of virt-p2v is not compatible", v2v_major);
+    return -1;
+  }
+
+  /* The version of virt-v2v must be >= 1.28, just to make sure
+   * someone isn't (a) using one of the experimental 1.27 releases
+   * that we published during development, nor (b) using old virt-v2v.
+   * We should remain compatible with any virt-v2v after 1.28.
+   */
+  if (v2v_minor < 28) {
+    mexp_close (h);
+    set_ssh_error ("virt-v2v version is < 1.28 (major = %d, minor = %d), "
+                   "you must upgrade to virt-v2v >= 1.28 on "
+                   "the conversion server", v2v_major, v2v_minor);
     return -1;
   }
 
