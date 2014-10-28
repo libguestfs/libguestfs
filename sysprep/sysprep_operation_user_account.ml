@@ -83,6 +83,7 @@ let user_account_perform ~verbose ~quiet g root side_effects =
           g#aug_rm userpath;
           g#aug_rm (sprintf "/files/etc/shadow/%s" username);
           g#aug_rm (sprintf "/files/etc/group/%s" username);
+          g#rm_rf ("/var/spool/mail/" ^ username);
           match home_dir with
           | None -> ()
           | Some dir -> g#rm_rf dir
