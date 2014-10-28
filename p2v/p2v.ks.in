@@ -45,6 +45,9 @@ __REPOS__
 
 @core
 
+# rpm must be installed, else you'll hit RHBZ#1089566.
+rpm
+
 # Note you must have a kernel, else the boot menu won't work:
 kernel
 
