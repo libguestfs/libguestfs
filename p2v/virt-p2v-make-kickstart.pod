@@ -74,7 +74,7 @@ out usually, even to Fedora packagers.  However assuming you have been
 given these permissions (or have your own Koji instance, I guess),
 then you can do:
 
- koji spin-livecd [--scratch] p2v 1.XX.YY rawhide x86_64 p2v.ks
+ koji spin-livecd [--scratch] virt-p2v 1.XX.YY rawhide x86_64 p2v.ks
 
 =over 4
 
