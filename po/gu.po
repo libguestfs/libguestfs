@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-25 16:26+0100\n"
+"POT-Creation-Date: 2014-10-30 22:20+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
-#: ../v2v/cmdline.ml:101 ../v2v/cmdline.ml:56
+#: ../v2v/cmdline.ml:102 ../v2v/cmdline.ml:57
 msgid "%s option used more than once on the command line"
 msgstr ""
 
@@ -201,7 +201,7 @@ msgstr ""
 msgid "%s: command exited with an error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:190
+#: ../v2v/cmdline.ml:192
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -453,19 +453,19 @@ msgstr ""
 msgid "--install is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:314
+#: ../v2v/cmdline.ml:325
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:326
+#: ../v2v/cmdline.ml:337
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:93
+#: ../v2v/cmdline.ml:94
 msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:91
+#: ../v2v/cmdline.ml:92
 msgid "--no-trim: empty parameter"
 msgstr ""
 
@@ -475,6 +475,11 @@ msgstr ""
 
 #: ../sysprep/main.ml:106
 msgid "--operations: empty operation name"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:54
+msgid ""
+"--password-file parameter ignored because 'user@' was not given in the URL"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:32
@@ -506,19 +511,19 @@ msgstr ""
 msgid "--update is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:312
+#: ../v2v/cmdline.ml:323
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:324
+#: ../v2v/cmdline.ml:335
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:338
+#: ../v2v/cmdline.ml:349
 msgid "--vmtype option cannot be used with '-o local'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:349
+#: ../v2v/cmdline.ml:360
 msgid "--vmtype option cannot be used with '-o null'"
 msgstr ""
 
@@ -526,19 +531,19 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:310
+#: ../v2v/cmdline.ml:321
 msgid "-o glance: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:306
+#: ../v2v/cmdline.ml:317
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:308
+#: ../v2v/cmdline.ml:319
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:322
+#: ../v2v/cmdline.ml:333
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
@@ -555,49 +560,49 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:336
+#: ../v2v/cmdline.ml:347
 msgid "-o local: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:331
+#: ../v2v/cmdline.ml:342
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:347
+#: ../v2v/cmdline.ml:358
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:343
+#: ../v2v/cmdline.ml:354
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:345
+#: ../v2v/cmdline.ml:356
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:362
+#: ../v2v/cmdline.ml:373
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:360
+#: ../v2v/cmdline.ml:371
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:369
+#: ../v2v/cmdline.ml:380
 msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:371
+#: ../v2v/cmdline.ml:382
 msgid ""
 "-o vdsm: either --vdsm-image-uuid, --vdsm-vol-uuid or --vdsm-vm-uuid was not "
 "specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:367
+#: ../v2v/cmdline.ml:378
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:354 ../v2v/cmdline.ml:333
+#: ../v2v/cmdline.ml:365 ../v2v/cmdline.ml:344
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -639,11 +644,11 @@ msgstr ""
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
-#: ../v2v/cmdline.ml:169
+#: ../v2v/cmdline.ml:171
 msgid "Boot in qemu (-o qemu only)"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:99
+#: ../sysprep/sysprep_operation_user_account.ml:100
 msgid ""
 "By default remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed.\n"
@@ -792,7 +797,7 @@ msgstr ""
 msgid "Data Domain"
 msgstr ""
 
-#: ../v2v/cmdline.ml:147 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
+#: ../v2v/cmdline.ml:148 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -844,7 +849,7 @@ msgstr ""
 #. ../customize/customize_main.ml:105
 #. ../builder/cmdline.ml:157
 #. ../builder/cmdline.ml:156
-#: ../v2v/cmdline.ml:181 ../sysprep/main.ml:152 ../sysprep/main.ml:151
+#: ../v2v/cmdline.ml:183 ../sysprep/main.ml:152 ../sysprep/main.ml:151
 msgid "Display version and exit"
 msgstr ""
 
@@ -882,7 +887,7 @@ msgstr ""
 msgid "Don't print the summary"
 msgstr ""
 
-#: ../v2v/cmdline.ml:161
+#: ../v2v/cmdline.ml:162
 msgid "Don't trim selected mounts"
 msgstr ""
 
@@ -931,7 +936,7 @@ msgstr ""
 #. ../customize/customize_main.ml:103
 #. ../builder/cmdline.ml:155
 #. ../builder/cmdline.ml:154
-#: ../v2v/cmdline.ml:179 ../sysprep/main.ml:150 ../sysprep/main.ml:149
+#: ../v2v/cmdline.ml:181 ../sysprep/main.ml:150 ../sysprep/main.ml:149
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -942,7 +947,7 @@ msgstr ""
 #. ../resize/resize.ml:218
 #. ../customize/customize_main.ml:107
 #. ../builder/cmdline.ml:158
-#: ../v2v/cmdline.ml:184 ../sysprep/main.ml:153 ../sparsify/cmdline.ml:86
+#: ../v2v/cmdline.ml:186 ../sysprep/main.ml:153 ../sparsify/cmdline.ml:86
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1114,7 +1119,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:172
+#: ../v2v/cmdline.ml:174
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1144,7 +1149,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/cmdline.ml:155
+#: ../v2v/cmdline.ml:156
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1168,7 +1173,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:161
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1176,7 +1181,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:164 ../v2v/cmdline.ml:153
+#: ../v2v/cmdline.ml:165 ../v2v/cmdline.ml:154
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1191,7 +1196,7 @@ msgstr ""
 #. ../resize/resize.ml:197
 #. ../customize/customize_main.ml:95
 #. ../builder/cmdline.ml:138
-#: ../v2v/cmdline.ml:156 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
+#: ../v2v/cmdline.ml:157 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
 msgid "List long options"
 msgstr ""
 
@@ -1200,7 +1205,7 @@ msgid "List supported operations"
 msgstr ""
 
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:157 ../sparsify/cmdline.ml:77 ../resize/resize.ml:202
+#: ../v2v/cmdline.ml:158 ../sparsify/cmdline.ml:77 ../resize/resize.ml:202
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1208,11 +1213,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:145
+#: ../v2v/cmdline.ml:146
 msgid "Map bridge 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:158
+#: ../v2v/cmdline.ml:159
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
@@ -1283,7 +1288,7 @@ msgstr ""
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:178
+#: ../v2v/cmdline.ml:180
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1299,7 +1304,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:174
+#: ../v2v/cmdline.ml:176
 msgid "Output image UUID(s)"
 msgstr ""
 
@@ -1307,7 +1312,7 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:176
+#: ../v2v/cmdline.ml:178
 msgid "Output vol UUID(s)"
 msgstr ""
 
@@ -1358,11 +1363,11 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:168
+#: ../v2v/cmdline.ml:170
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/cmdline.ml:170 ../sparsify/cmdline.ml:79
+#: ../v2v/cmdline.ml:172 ../sparsify/cmdline.ml:79
 msgid "Quiet output"
 msgstr ""
 
@@ -1514,7 +1519,7 @@ msgstr ""
 msgid "Remove the process accounting log files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:98
+#: ../sysprep/sysprep_operation_user_account.ml:99
 msgid "Remove the user accounts in the guest"
 msgstr ""
 
@@ -1545,7 +1550,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:166
+#: ../v2v/cmdline.ml:167
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -1613,7 +1618,7 @@ msgstr ""
 msgid "SELinux relabelling"
 msgstr ""
 
-#: ../v2v/cmdline.ml:149
+#: ../v2v/cmdline.ml:150
 msgid "Save overlay files"
 msgstr ""
 
@@ -1653,7 +1658,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:152
+#: ../v2v/cmdline.ml:153
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -1683,7 +1688,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:163
+#: ../v2v/cmdline.ml:164
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -1695,15 +1700,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:165
+#: ../v2v/cmdline.ml:166
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:162
+#: ../v2v/cmdline.ml:163
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:167
+#: ../v2v/cmdline.ml:168
 msgid "Set output storage location"
 msgstr ""
 
@@ -1751,7 +1756,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:183
+#: ../v2v/cmdline.ml:185
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -1903,7 +1908,7 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:123
+#: ../sysprep/sysprep_operation_user_account.ml:124
 msgid ""
 "The user accounts to be kept in the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -1917,7 +1922,7 @@ msgid ""
 "This option can be specified multiple times."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:108
+#: ../sysprep/sysprep_operation_user_account.ml:109
 msgid ""
 "The user accounts to be removed from the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2034,11 +2039,15 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:121
+#: ../v2v/cmdline.ml:169
+msgid "Use password from file"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:122
 msgid "Users to keep"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:106
+#: ../sysprep/sysprep_operation_user_account.ml:107
 msgid "Users to remove"
 msgstr ""
 
@@ -2378,37 +2387,37 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:119
+#: ../v2v/input_libvirt_vcenter_https.ml:180
 msgid ""
 "esx: URI (-ic parameter) contains no path, so we cannot determine the "
 "datacenter name"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:85
+#: ../v2v/input_libvirt_vcenter_https.ml:113
 msgid "esx: URL not found: %s"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:105
+#: ../v2v/input_libvirt_vcenter_https.ml:133
 msgid ""
 "esx: could not read session cookie from the vCenter Server, conversion may "
 "consume all sessions on the server and fail part way through"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:77
+#: ../v2v/input_libvirt_vcenter_https.ml:105
 msgid "esx: incorrect username or password"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:79
+#: ../v2v/input_libvirt_vcenter_https.ml:107
 msgid ""
 "esx: incorrect username or password.  You might need to specify the username "
 "in the URI like this: %s://USERNAME@[etc]"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:90
+#: ../v2v/input_libvirt_vcenter_https.ml:118
 msgid "esx: invalid response from server"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:71
+#: ../v2v/input_libvirt_vcenter_https.ml:99
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
@@ -2420,19 +2429,19 @@ msgstr ""
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:268
+#: ../v2v/cmdline.ml:279
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:289
+#: ../v2v/cmdline.ml:300
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:280
+#: ../v2v/cmdline.ml:291
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:298
+#: ../v2v/cmdline.ml:309
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -2589,7 +2598,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:70
+#: ../v2v/cmdline.ml:71
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
@@ -2835,7 +2844,7 @@ msgstr ""
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:291
+#: ../v2v/input_libvirt_vcenter_https.ml:353
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
@@ -2887,7 +2896,7 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:248
+#: ../v2v/input_libvirt_vcenter_https.ml:310
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
@@ -3010,23 +3019,23 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:129
+#: ../v2v/cmdline.ml:130
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:245
+#: ../v2v/cmdline.ml:248
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:63
+#: ../v2v/cmdline.ml:64
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:111
+#: ../v2v/cmdline.ml:112
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:119
+#: ../v2v/cmdline.ml:120
 msgid "unknown -oa option: %s"
 msgstr ""
 
@@ -3048,13 +3057,13 @@ msgstr ""
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:139
+#: ../sysprep/sysprep_operation_user_account.ml:140
 msgid ""
 "user-accounts: --keep-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:141
+#: ../sysprep/sysprep_operation_user_account.ml:142
 msgid ""
 "user-accounts: --remove-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
@@ -3064,8 +3073,8 @@ msgstr ""
 msgid "user-accounts: empty user name"
 msgstr ""
 
-#. ../sysprep/sysprep_operation_user_account.ml:106
-#: ../sysprep/sysprep_operation_user_account.ml:121
+#. ../sysprep/sysprep_operation_user_account.ml:107
+#: ../sysprep/sysprep_operation_user_account.ml:122
 msgid "users"
 msgstr ""
 
@@ -8613,39 +8622,39 @@ msgstr "બાઇનરી '%s' એ અસ્તિત્વ ધરાવતુ 
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: qemu સ્ત્રોત ડિરેક્ટરીનાં જેવુ લાગતુ નથી\n"
 
-#: v2v/domainxml-c.c:107 v2v/domainxml-c.c:199
+#: v2v/domainxml-c.c:145 v2v/domainxml-c.c:237
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
-#: v2v/domainxml-c.c:109 v2v/domainxml-c.c:201
+#: v2v/domainxml-c.c:147 v2v/domainxml-c.c:239
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
 
-#: v2v/domainxml-c.c:130
+#: v2v/domainxml-c.c:168
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:145
+#: v2v/domainxml-c.c:183
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
 
-#: v2v/domainxml-c.c:157
+#: v2v/domainxml-c.c:195
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:222
+#: v2v/domainxml-c.c:260
 #, c-format
 msgid "cannot find libvirt pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:231
+#: v2v/domainxml-c.c:269
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr ""

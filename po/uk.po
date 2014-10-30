@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-25 16:26+0100\n"
+"POT-Creation-Date: 2014-10-30 22:20+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -86,7 +86,7 @@ msgstr ""
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
-#: ../v2v/cmdline.ml:101 ../v2v/cmdline.ml:56
+#: ../v2v/cmdline.ml:102 ../v2v/cmdline.ml:57
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "%s: command exited with an error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:190
+#: ../v2v/cmdline.ml:192
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -557,19 +557,19 @@ msgstr "Параметр --format слід вказувати до параме�
 msgid "--install is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:314
+#: ../v2v/cmdline.ml:325
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr "Не можна одночасно використовувати --no-copy і «-o glance»"
 
-#: ../v2v/cmdline.ml:326
+#: ../v2v/cmdline.ml:337
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr "Не можна одночасно використовувати --no-copy і «-o libvirt»"
 
-#: ../v2v/cmdline.ml:93
+#: ../v2v/cmdline.ml:94
 msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:91
+#: ../v2v/cmdline.ml:92
 msgid "--no-trim: empty parameter"
 msgstr ""
 
@@ -580,6 +580,11 @@ msgstr "--operations: «%s» не є відомою операцією"
 #: ../sysprep/main.ml:106
 msgid "--operations: empty operation name"
 msgstr "--operations: порожня назва операції"
+
+#: ../v2v/input_libvirt_vcenter_https.ml:54
+msgid ""
+"--password-file parameter ignored because 'user@' was not given in the URL"
+msgstr ""
 
 #: ../sysprep/sysprep_operation_script.ml:32
 msgid "--scriptdir cannot be used more than once"
@@ -612,19 +617,19 @@ msgstr "--tmp prebuilt:file: %s: форматом файла не є qcow2"
 msgid "--update is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:312
+#: ../v2v/cmdline.ml:323
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o glance»"
 
-#: ../v2v/cmdline.ml:324
+#: ../v2v/cmdline.ml:335
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o libvirt»"
 
-#: ../v2v/cmdline.ml:338
+#: ../v2v/cmdline.ml:349
 msgid "--vmtype option cannot be used with '-o local'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o local»"
 
-#: ../v2v/cmdline.ml:349
+#: ../v2v/cmdline.ml:360
 msgid "--vmtype option cannot be used with '-o null'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o null»"
 
@@ -632,25 +637,25 @@ msgstr "Параметр --vmtype не можна використовувати
 msgid "-i disk: invalid input filename (%s)"
 msgstr "-i диск: некоректна назва файла вхідних даних (%s)"
 
-#: ../v2v/cmdline.ml:310
+#: ../v2v/cmdline.ml:321
 msgid "-o glance: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o glance: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:306
+#: ../v2v/cmdline.ml:317
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 "-o glance: параметр -oc не можна використовувати у цьому режимі виведення "
 "даних"
 
-#: ../v2v/cmdline.ml:308
+#: ../v2v/cmdline.ml:319
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 "-o glance: параметр -os не можна використовувати у цьому режимі виведення "
 "даних"
 
-#: ../v2v/cmdline.ml:322
+#: ../v2v/cmdline.ml:333
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o libvirt: параметр --qemu-boot не можна використовувати у цьому режимі "
@@ -674,61 +679,61 @@ msgstr ""
 "-o libvirt: буфер виведення «%s» не є каталогом (type='dir'). Див. розділ "
 "«ВИВЕДЕННЯ ДО LIBVIRT» у підручнику virt-v2v(1)."
 
-#: ../v2v/cmdline.ml:336
+#: ../v2v/cmdline.ml:347
 msgid "-o local: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o local: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:331
+#: ../v2v/cmdline.ml:342
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o local: каталог виведення даних не вказано, скористайтеся параметром «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:347
+#: ../v2v/cmdline.ml:358
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o null: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:343
+#: ../v2v/cmdline.ml:354
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
 "-o null: параметр -oc не можна використовувати у цьому режимі виведення даних"
 
-#: ../v2v/cmdline.ml:345
+#: ../v2v/cmdline.ml:356
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
 "-o null: параметр -os не можна використовувати у цьому режимі виведення даних"
 
-#: ../v2v/cmdline.ml:362
+#: ../v2v/cmdline.ml:373
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o rhev: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:360
+#: ../v2v/cmdline.ml:371
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr "-o rhev: не вказано сховище виведення даних, скористайтеся «-os»"
 
-#: ../v2v/cmdline.ml:369
+#: ../v2v/cmdline.ml:380
 msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o vdsm: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:371
+#: ../v2v/cmdline.ml:382
 msgid ""
 "-o vdsm: either --vdsm-image-uuid, --vdsm-vol-uuid or --vdsm-vm-uuid was not "
 "specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:367
+#: ../v2v/cmdline.ml:378
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr "-o vdsm: не вказано сховище виведення даних, скористайтеся «-os»"
 
-#: ../v2v/cmdline.ml:354 ../v2v/cmdline.ml:333
+#: ../v2v/cmdline.ml:365 ../v2v/cmdline.ml:344
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
@@ -770,11 +775,11 @@ msgstr "Архітектура:"
 msgid "Attach data disk/ISO during install"
 msgstr "Долучити під час встановлення диск/ISO з даними"
 
-#: ../v2v/cmdline.ml:169
+#: ../v2v/cmdline.ml:171
 msgid "Boot in qemu (-o qemu only)"
 msgstr "Завантажитися у qemu (лише для -o qemu)"
 
-#: ../sysprep/sysprep_operation_user_account.ml:99
+#: ../sysprep/sysprep_operation_user_account.ml:100
 msgid ""
 "By default remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed.\n"
@@ -946,7 +951,7 @@ msgstr "КАТАЛОГ"
 msgid "Data Domain"
 msgstr "Домен даних"
 
-#: ../v2v/cmdline.ml:147 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
+#: ../v2v/cmdline.ml:148 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
 msgid "Debug GC and memory allocations"
 msgstr "Діагностувати збиральник сміття та розподіл пам’яті"
 
@@ -1000,7 +1005,7 @@ msgstr "Показати нотатки щодо встановлення"
 #. ../customize/customize_main.ml:105
 #. ../builder/cmdline.ml:157
 #. ../builder/cmdline.ml:156
-#: ../v2v/cmdline.ml:181 ../sysprep/main.ml:152 ../sysprep/main.ml:151
+#: ../v2v/cmdline.ml:183 ../sysprep/main.ml:152 ../sysprep/main.ml:151
 msgid "Display version and exit"
 msgstr "Вивести версію та вийти"
 
@@ -1038,7 +1043,7 @@ msgstr "Не виводити повідомлень до журналу"
 msgid "Don't print the summary"
 msgstr "Не виводити даних резюме"
 
-#: ../v2v/cmdline.ml:161
+#: ../v2v/cmdline.ml:162
 msgid "Don't trim selected mounts"
 msgstr "Не обрізати вибрані монтування"
 
@@ -1087,7 +1092,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 #. ../customize/customize_main.ml:103
 #. ../builder/cmdline.ml:155
 #. ../builder/cmdline.ml:154
-#: ../v2v/cmdline.ml:179 ../sysprep/main.ml:150 ../sysprep/main.ml:149
+#: ../v2v/cmdline.ml:181 ../sysprep/main.ml:150 ../sysprep/main.ml:149
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
@@ -1098,7 +1103,7 @@ msgstr "Увімкнути специфічні операції"
 #. ../resize/resize.ml:218
 #. ../customize/customize_main.ml:107
 #. ../builder/cmdline.ml:158
-#: ../v2v/cmdline.ml:184 ../sysprep/main.ml:153 ../sparsify/cmdline.ml:86
+#: ../v2v/cmdline.ml:186 ../sysprep/main.ml:153 ../sparsify/cmdline.ml:86
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -1288,7 +1293,7 @@ msgstr "Отримати ядро з образу"
 msgid "HOSTNAME"
 msgstr "НАЗВА_ВУЗЛА"
 
-#: ../v2v/cmdline.ml:172
+#: ../v2v/cmdline.ml:174
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
@@ -1324,7 +1329,7 @@ msgstr ""
 "Віртуальний розмір диска вхідних даних = %Ld байтів (%s)\n"
 "%!"
 
-#: ../v2v/cmdline.ml:155
+#: ../v2v/cmdline.ml:156
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
@@ -1348,7 +1353,7 @@ msgstr "Встановлюємо скрипт firstboot: [%d] %s"
 msgid "Installing packages: %s"
 msgstr "Встановлюємо пакунки: %s"
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:161
 msgid "Just write the metadata"
 msgstr "Просто записати метадані"
 
@@ -1356,7 +1361,7 @@ msgstr "Просто записати метадані"
 msgid "Key: %s\n"
 msgstr "Ключ: %s\n"
 
-#: ../v2v/cmdline.ml:164 ../v2v/cmdline.ml:153
+#: ../v2v/cmdline.ml:165 ../v2v/cmdline.ml:154
 msgid "Libvirt URI"
 msgstr "Адреса libvirt"
 
@@ -1371,7 +1376,7 @@ msgstr "Показати список доступних шаблонів"
 #. ../resize/resize.ml:197
 #. ../customize/customize_main.ml:95
 #. ../builder/cmdline.ml:138
-#: ../v2v/cmdline.ml:156 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
+#: ../v2v/cmdline.ml:157 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
 msgid "List long options"
 msgstr "Вивести список довгих версій параметрів"
 
@@ -1380,7 +1385,7 @@ msgid "List supported operations"
 msgstr "Вивести список підтримуваних операцій"
 
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:157 ../sparsify/cmdline.ml:77 ../resize/resize.ml:202
+#: ../v2v/cmdline.ml:158 ../sparsify/cmdline.ml:77 ../resize/resize.ml:202
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення придатною до читання"
 
@@ -1388,11 +1393,11 @@ msgstr "Зробити машину виведення придатною до �
 msgid "Making directory: %s"
 msgstr "Створюємо каталог: %s"
 
-#: ../v2v/cmdline.ml:145
+#: ../v2v/cmdline.ml:146
 msgid "Map bridge 'in' to 'out'"
 msgstr "Відобразити місток «in» на «out»"
 
-#: ../v2v/cmdline.ml:158
+#: ../v2v/cmdline.ml:159
 msgid "Map network 'in' to 'out'"
 msgstr "Відобразити мережу «in» на «out»"
 
@@ -1476,7 +1481,7 @@ msgstr "Відкриваємо оверлей"
 msgid "Opening the source %s"
 msgstr "Відкриваємо джерело %s"
 
-#: ../v2v/cmdline.ml:178
+#: ../v2v/cmdline.ml:180
 msgid "Output VM UUID"
 msgstr "Вивести UUID віртуальної машини"
 
@@ -1492,7 +1497,7 @@ msgstr "Формат виведення"
 msgid "Output format (default: raw)"
 msgstr "Формат виведення (типовий: raw)"
 
-#: ../v2v/cmdline.ml:174
+#: ../v2v/cmdline.ml:176
 msgid "Output image UUID(s)"
 msgstr ""
 
@@ -1500,7 +1505,7 @@ msgstr ""
 msgid "Output size"
 msgstr "Розмір виведення"
 
-#: ../v2v/cmdline.ml:176
+#: ../v2v/cmdline.ml:178
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
@@ -1551,11 +1556,11 @@ msgstr "Плануємо побудову цього образу"
 msgid "Print info about template cache"
 msgstr "Вивести дані щодо кешу шаблонів"
 
-#: ../v2v/cmdline.ml:168
+#: ../v2v/cmdline.ml:170
 msgid "Print source and stop"
 msgstr "Вивести джерело і припинити обробку"
 
-#: ../v2v/cmdline.ml:170 ../sparsify/cmdline.ml:79
+#: ../v2v/cmdline.ml:172 ../sparsify/cmdline.ml:79
 msgid "Quiet output"
 msgstr "Працювати без виведення повідомлень"
 
@@ -1716,7 +1721,7 @@ msgstr "Вилучити ідентифікатор локального ком�
 msgid "Remove the process accounting log files"
 msgstr "Вилучити файли журналу обліку процесів"
 
-#: ../sysprep/sysprep_operation_user_account.ml:98
+#: ../sysprep/sysprep_operation_user_account.ml:99
 msgid "Remove the user accounts in the guest"
 msgstr "Вилучити облікові записи користувачів у гостьовій системі"
 
@@ -1754,7 +1759,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Вилучити завдання at та cron користувачів"
 
-#: ../v2v/cmdline.ml:166
+#: ../v2v/cmdline.ml:167
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
@@ -1834,7 +1839,7 @@ msgstr "СЕЛЕКТОР"
 msgid "SELinux relabelling"
 msgstr "Зміна міток SELinux"
 
-#: ../v2v/cmdline.ml:149
+#: ../v2v/cmdline.ml:150
 msgid "Save overlay files"
 msgstr "Зберегти файли оверлеїв"
 
@@ -1874,7 +1879,7 @@ msgstr "Встановити програму або виконуваний фа
 msgid "Set format (default: auto)"
 msgstr "Встановити формат (типовий: auto)"
 
-#: ../v2v/cmdline.ml:152
+#: ../v2v/cmdline.ml:153
 msgid "Set input mode (default: libvirt)"
 msgstr "Встановити режим введення даних (типовий: libvirt)"
 
@@ -1904,7 +1909,7 @@ msgstr "Встановити параметри монтування (напри
 msgid "Set number of vCPUs"
 msgstr "Встановити кількість віртуальних процесорів"
 
-#: ../v2v/cmdline.ml:163
+#: ../v2v/cmdline.ml:164
 msgid "Set output allocation mode"
 msgstr "Встановити режим отримання пам’яті для виведення даних"
 
@@ -1916,15 +1921,15 @@ msgstr "Встановити розмір диска для виведення �
 msgid "Set output filename"
 msgstr "Встановити назву файла для виведення даних"
 
-#: ../v2v/cmdline.ml:165
+#: ../v2v/cmdline.ml:166
 msgid "Set output format"
 msgstr "встановити формат виведення даних"
 
-#: ../v2v/cmdline.ml:162
+#: ../v2v/cmdline.ml:163
 msgid "Set output mode (default: libvirt)"
 msgstr "Встановити режим виведення (типовий: libvirt)"
 
-#: ../v2v/cmdline.ml:167
+#: ../v2v/cmdline.ml:168
 msgid "Set output storage location"
 msgstr "Встановити розташування сховища виведених даних"
 
@@ -1973,7 +1978,7 @@ msgstr "Встановити архітектуру для виведення д
 msgid "Set user password"
 msgstr "Встановити пароль користувача"
 
-#: ../v2v/cmdline.ml:183
+#: ../v2v/cmdline.ml:185
 msgid "Set vmtype (for RHEV)"
 msgstr "Встановити значення vmtype (для RHEV)"
 
@@ -2190,7 +2195,7 @@ msgstr ""
 "Дані обліку процесів системи будуть зберігатися у файлах\n"
 "журналу pacct, якщо увімкнено облік процесів."
 
-#: ../sysprep/sysprep_operation_user_account.ml:123
+#: ../sysprep/sysprep_operation_user_account.ml:124
 msgid ""
 "The user accounts to be kept in the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2214,7 +2219,7 @@ msgstr ""
 "\n"
 "Цей параметр можна вказувати декілька разів у одній команді."
 
-#: ../sysprep/sysprep_operation_user_account.ml:108
+#: ../sysprep/sysprep_operation_user_account.ml:109
 msgid ""
 "The user accounts to be removed from the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2357,11 +2362,15 @@ msgstr "Вивантажити локальний файл у систему п�
 msgid "Uploading: %s to %s"
 msgstr "Вивантажуємо: %s до %s"
 
-#: ../sysprep/sysprep_operation_user_account.ml:121
+#: ../v2v/cmdline.ml:169
+msgid "Use password from file"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:122
 msgid "Users to keep"
 msgstr "Користувачі, записи яких слід зберегти"
 
-#: ../sysprep/sysprep_operation_user_account.ml:106
+#: ../sysprep/sysprep_operation_user_account.ml:107
 msgid "Users to remove"
 msgstr "Користувачі, записи яких слід вилучити"
 
@@ -2769,7 +2778,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:119
+#: ../v2v/input_libvirt_vcenter_https.ml:180
 msgid ""
 "esx: URI (-ic parameter) contains no path, so we cannot determine the "
 "datacenter name"
@@ -2777,11 +2786,11 @@ msgstr ""
 "esx: адреса (параметр -ic) не містить шляху, отже ми не можемо визначити "
 "назву датацентру"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:85
+#: ../v2v/input_libvirt_vcenter_https.ml:113
 msgid "esx: URL not found: %s"
 msgstr "esx: адреси не знайдено: %s"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:105
+#: ../v2v/input_libvirt_vcenter_https.ml:133
 msgid ""
 "esx: could not read session cookie from the vCenter Server, conversion may "
 "consume all sessions on the server and fail part way through"
@@ -2789,11 +2798,11 @@ msgstr ""
 "esx: не вдалося прочитати куку сеансу з сервера vCenter. Перетворення може "
 "спожити усі сеанси на сервері і помилитися для одного з них."
 
-#: ../v2v/input_libvirt_vcenter_https.ml:77
+#: ../v2v/input_libvirt_vcenter_https.ml:105
 msgid "esx: incorrect username or password"
 msgstr "esx: помилкове ім’я користувача або пароль"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:79
+#: ../v2v/input_libvirt_vcenter_https.ml:107
 msgid ""
 "esx: incorrect username or password.  You might need to specify the username "
 "in the URI like this: %s://USERNAME@[etc]"
@@ -2801,11 +2810,11 @@ msgstr ""
 "esx: помилкове ім’я користувача або пароль. Вам варто вказати ім’я "
 "користувача у адресі, ось так: %s://КОРИСТУВАЧ@[інше]"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:90
+#: ../v2v/input_libvirt_vcenter_https.ml:118
 msgid "esx: invalid response from server"
 msgstr "esx: некоректна відповідь сервера"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:71
+#: ../v2v/input_libvirt_vcenter_https.ml:99
 msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 "esx: немає коду стану у даних, виведених командою «curl». Чи встановлено "
@@ -2819,19 +2828,19 @@ msgstr "виключення: %s"
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr "очікуємо, що вираз XML поверне ціле число (вираз: %s)"
 
-#: ../v2v/cmdline.ml:268
+#: ../v2v/cmdline.ml:279
 msgid "expecting a disk image (filename) on the command line"
 msgstr "у командному рядку очікувався образ диска (назва файла)"
 
-#: ../v2v/cmdline.ml:289
+#: ../v2v/cmdline.ml:300
 msgid "expecting a libvirt XML file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла XML libvirt"
 
-#: ../v2v/cmdline.ml:280
+#: ../v2v/cmdline.ml:291
 msgid "expecting a libvirt guest name on the command line"
 msgstr "у командному рядку мало бути вказано назву гостьової системи libvirt"
 
-#: ../v2v/cmdline.ml:298
+#: ../v2v/cmdline.ml:309
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
@@ -3001,7 +3010,7 @@ msgstr "внутрішня помилка: файл оверлею пошкод�
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
-#: ../v2v/cmdline.ml:70
+#: ../v2v/cmdline.ml:71
 msgid "invalid --bridge or --network parameter"
 msgstr "некоректний параметр --bridge або --network"
 
@@ -3294,7 +3303,7 @@ msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:291
+#: ../v2v/input_libvirt_vcenter_https.ml:353
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
@@ -3348,7 +3357,7 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:248
+#: ../v2v/input_libvirt_vcenter_https.ml:310
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
@@ -3506,24 +3515,24 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: можливі варіанти — never|always|auto"
 
-#: ../v2v/cmdline.ml:129
+#: ../v2v/cmdline.ml:130
 msgid "unknown --root option: %s"
 msgstr "невідомий параметр --root: %s"
 
-#: ../v2v/cmdline.ml:245
+#: ../v2v/cmdline.ml:248
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 "невідомий параметр --vmtype, слід використовувати «server» або «desktop»"
 
-#: ../v2v/cmdline.ml:63
+#: ../v2v/cmdline.ml:64
 msgid "unknown -i option: %s"
 msgstr "невідомий параметр -i: %s"
 
-#: ../v2v/cmdline.ml:111
+#: ../v2v/cmdline.ml:112
 msgid "unknown -o option: %s"
 msgstr "невідомий параметр -o: %s"
 
-#: ../v2v/cmdline.ml:119
+#: ../v2v/cmdline.ml:120
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
@@ -3545,7 +3554,7 @@ msgstr "адреса"
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr "Користування: %s [--параметри] вхідний_диск вихідний_диск"
 
-#: ../sysprep/sysprep_operation_user_account.ml:139
+#: ../sysprep/sysprep_operation_user_account.ml:140
 msgid ""
 "user-accounts: --keep-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
@@ -3553,7 +3562,7 @@ msgstr ""
 "user-accounts: використано параметр --keep-user-accounts, але операцію «user-"
 "account» не увімкнено"
 
-#: ../sysprep/sysprep_operation_user_account.ml:141
+#: ../sysprep/sysprep_operation_user_account.ml:142
 msgid ""
 "user-accounts: --remove-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
@@ -3565,8 +3574,8 @@ msgstr ""
 msgid "user-accounts: empty user name"
 msgstr "user-accounts: порожнє ім’я користувача"
 
-#. ../sysprep/sysprep_operation_user_account.ml:106
-#: ../sysprep/sysprep_operation_user_account.ml:121
+#. ../sysprep/sysprep_operation_user_account.ml:107
+#: ../sysprep/sysprep_operation_user_account.ml:122
 msgid "users"
 msgstr "користувачі"
 
@@ -10001,22 +10010,22 @@ msgstr "Виконуваного файла «%s» не існує або вка
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
 
-#: v2v/domainxml-c.c:107 v2v/domainxml-c.c:199
+#: v2v/domainxml-c.c:145 v2v/domainxml-c.c:237
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr "не вдалося відкрити з’єднання libvirt «%s»"
 
-#: v2v/domainxml-c.c:109 v2v/domainxml-c.c:201
+#: v2v/domainxml-c.c:147 v2v/domainxml-c.c:239
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr "не вдалося відкрити з’єднання libvirt"
 
-#: v2v/domainxml-c.c:130
+#: v2v/domainxml-c.c:168
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr "не вдалося знайти домен libvirt «%s»: %s"
 
-#: v2v/domainxml-c.c:145
+#: v2v/domainxml-c.c:183
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
@@ -10025,17 +10034,17 @@ msgstr ""
 "Домен libvirt «%s» працює або його призупинено. Роботу домену слід завершити "
 "для виконання перетворення virt-v2v"
 
-#: v2v/domainxml-c.c:157
+#: v2v/domainxml-c.c:195
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr "не вдалося отримати опис XML гостьової системи «%s»: %s"
 
-#: v2v/domainxml-c.c:222
+#: v2v/domainxml-c.c:260
 #, c-format
 msgid "cannot find libvirt pool '%s': %s"
 msgstr "не вдалося знайти буфер libvirt «%s»: %s"
 
-#: v2v/domainxml-c.c:231
+#: v2v/domainxml-c.c:269
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr "не вдалося отримати опис XML буфера «%s»: %s"
