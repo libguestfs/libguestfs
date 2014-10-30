@@ -36,23 +36,45 @@ let readahead_for_copying = Some (64 * 1024 * 1024)
 (* Return the session cookie.  It is memoized, so you can call this
  * as often as required.
  *)
-let get_session_cookie =
+let rec get_session_cookie =
   let session_cookie = ref "" in
   fun verbose scheme uri sslverify url ->
     if !session_cookie <> "" then
       Some !session_cookie
     else (
-      let cmd =
-        sprintf "curl -s%s%s%s -I %s ||:"
-          (if not sslverify then " --insecure" else "")
-          (match uri.uri_user with Some _ -> " -u" | None -> "")
-          (match uri.uri_user with Some user -> " " ^ quote user | None -> "")
-          (quote url) in
-      let lines = external_command ~prog cmd in
+      let curl_args = [
+        "head", None;
+        "silent", None;
+        "url", Some url;
+      ] in
+      let curl_args =
+        match uri.uri_user with
+        | Some user -> ("user", Some user) :: curl_args
+        | None -> curl_args in
+      let curl_args =
+        if not sslverify then ("insecure", None) :: curl_args else curl_args in
+
+      let lines = run_curl_get_lines curl_args in
 
       let dump_response chan =
-        fprintf chan "%s\n" cmd;
-        List.iter (fun x -> fprintf chan "%s\n" x) lines
+        (* Don't print passwords in the debug output. *)
+        let curl_args =
+          List.map (
+            function
+            | ("user", Some _) -> ("user", Some "<hidden>")
+            | x -> x
+          ) curl_args in
+        (* Dump out the approximate curl command that was run. *)
+        fprintf chan "curl -q";
+        List.iter (
+          function
+          | name, None -> fprintf chan " --%s" name
+          | name, Some value -> fprintf chan " --%s %s" name (quote value)
+        ) curl_args;
+        fprintf chan "\n";
+        (* Dump out the output of the command. *)
+        List.iter (fun x -> fprintf chan "%s\n" x) lines;
+        flush chan
       in
 
       if verbose then dump_response stdout;
@@ -108,6 +130,39 @@ let get_session_cookie =
       else
         Some !session_cookie
     )
+
+(* Run 'curl' and pass the arguments securely through the --config
+ * option and an external file.
+ *)
+and run_curl_get_lines curl_args =
+  let config_file, chan = Filename.open_temp_file "v2vcurl" ".conf" in
+  List.iter (
+    function
+    | name, None -> fprintf chan "%s\n" name
+    | name, Some value ->
+      fprintf chan "%s = \"" name;
+      (* Write the quoted value.  See 'curl' man page for what is
+       * allowed here.
+       *)
+      let len = String.length value in
+      for i = 0 to len-1 do
+        match value.[i] with
+        | '\\' -> output_string chan "\\\\"
+        | '"' -> output_string chan "\\\""
+        | '\t' -> output_string chan "\\t"
+        | '\n' -> output_string chan "\\n"
+        | '\r' -> output_string chan "\\r"
+        | '\x0b' -> output_string chan "\\v"
+        | c -> output_char chan c
+      done;
+      fprintf chan "\"\n"
+  ) curl_args;
+  close_out chan;
+
+  let cmd = sprintf "curl -q --config %s" (quote config_file) in
+  let lines = external_command ~prog cmd in
+  Unix.unlink config_file;
+  lines
 
 (* Helper function to extract the datacenter from a URI. *)
 let get_datacenter uri scheme =
