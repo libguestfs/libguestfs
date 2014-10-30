@@ -509,6 +509,13 @@ C<root>.
 You will get an error if virt-v2v is unable to mount/write to the
 Export Storage Domain.
 
+=item B<--password-file> file
+
+Instead of asking for password(s) interactively, pass the password
+through a file.  Note the file should contain the whole password,
+B<without any trailing newline>, and for security the file should have
+mode C<0600> so that others cannot read it.
+
 =item B<--print-source>
 
 Print information about the source guest and stop.  This option is
@@ -875,7 +882,8 @@ down).
 
 Note that you may be asked for the vCenter password I<twice>.  This
 happens once because libvirt needs it, and a second time because
-virt-v2v itself connects directly to the server.
+virt-v2v itself connects directly to the server.  Use
+I<--password-file> to supply a password via a file.
 
 In this case the output flags are set to write the converted guest to
 a temporary directory as this is just an example, but you can also

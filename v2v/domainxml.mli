@@ -23,8 +23,8 @@
     password prompt to stdout, which is the same place we would be
     reading the XML from.  This file works around this brokenness. *)
 
-val dumpxml : ?conn:string -> string -> string
-(** [dumpxml ?conn dom] returns the libvirt XML of domain [dom].
+val dumpxml : ?password:string -> ?conn:string -> string -> string
+(** [dumpxml ?password ?conn dom] returns the libvirt XML of domain [dom].
     The optional [?conn] parameter is the libvirt connection URI.
     [dom] may be a guest name or UUID. *)
 
