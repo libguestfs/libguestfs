@@ -38,7 +38,7 @@ let readahead_for_copying = Some (64 * 1024 * 1024)
  *)
 let rec get_session_cookie =
   let session_cookie = ref "" in
-  fun verbose scheme uri sslverify url ->
+  fun verbose password scheme uri sslverify url ->
     if !session_cookie <> "" then
       Some !session_cookie
     else (
@@ -48,9 +48,15 @@ let rec get_session_cookie =
         "url", Some url;
       ] in
       let curl_args =
-        match uri.uri_user with
-        | Some user -> ("user", Some user) :: curl_args
-        | None -> curl_args in
+        match uri.uri_user, password with
+        | None, None -> curl_args
+        | None, Some _ ->
+          warning (f_"--password-file parameter ignored because 'user@' was not given in the URL");
+          curl_args
+        | Some user, None ->
+          ("user", Some user) :: curl_args
+        | Some user, Some password ->
+          ("user", Some (user ^ ":" ^ password)) :: curl_args in
       let curl_args =
         if not sslverify then ("insecure", None) :: curl_args else curl_args in
 
@@ -204,7 +210,7 @@ let get_datacenter uri scheme =
  *)
 let source_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
 
-let map_source_to_uri ?readahead verbose uri scheme server path =
+let map_source_to_uri ?readahead verbose password uri scheme server path =
   if not (Str.string_match source_re path 0) then
     path
   else (
@@ -237,7 +243,8 @@ let map_source_to_uri ?readahead verbose uri scheme server path =
         string_find query "no_verify=1" = -1 in
 
     (* Now we have to query the server to get the session cookie. *)
-    let session_cookie = get_session_cookie verbose scheme uri sslverify url in
+    let session_cookie =
+      get_session_cookie verbose password scheme uri sslverify url in
 
     (* Construct the JSON parameters. *)
     let json_params = [
@@ -274,9 +281,9 @@ let map_source_to_uri ?readahead verbose uri scheme server path =
 
 (* Subclass specialized for handling VMware vCenter over https. *)
 class input_libvirt_vcenter_https
-  verbose libvirt_uri parsed_uri scheme server guest =
+  verbose password libvirt_uri parsed_uri scheme server guest =
 object
-  inherit input_libvirt verbose libvirt_uri guest
+  inherit input_libvirt verbose password libvirt_uri guest
 
   val saved_source_paths = Hashtbl.create 13
 
@@ -290,7 +297,7 @@ object
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
-    let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
+    let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
     let source, disks = parse_libvirt_xml ~verbose xml in
 
     (* Save the original source paths, so that we can remap them again
@@ -314,7 +321,7 @@ object
       | { p_source_disk = disk; p_source = P_dont_rewrite } -> disk
       | { p_source_disk = disk; p_source = P_source_file path } ->
         let qemu_uri = map_source_to_uri ?readahead
-	  verbose parsed_uri scheme server path in
+	  verbose password parsed_uri scheme server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but
          * the format of the -flat file is *always* raw, so force it here.
@@ -335,7 +342,7 @@ object
       let readahead = readahead_for_copying in
       let backing_qemu_uri =
         map_source_to_uri ?readahead
-          verbose parsed_uri scheme server orig_path in
+          verbose password parsed_uri scheme server orig_path in
 
       (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
       let cmd =
