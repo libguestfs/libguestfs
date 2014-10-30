@@ -170,7 +170,7 @@ let parse_libvirt_xml ~verbose xml =
              * XXX Quoting, although it's not needed for virt-p2v.
              *)
             let path = sprintf "nbd:%s:%d" host port in
-            add_disk path format target_dev (P_dont_rewrite)
+            add_disk path format target_dev P_dont_rewrite
           )
         | "" -> ()
         | protocol ->
