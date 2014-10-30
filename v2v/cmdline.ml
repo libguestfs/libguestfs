@@ -42,6 +42,7 @@ let parse_cmdline () =
   let output_format = ref "" in
   let output_name = ref "" in
   let output_storage = ref "" in
+  let password_file = ref "" in
   let print_source = ref false in
   let qemu_boot = ref false in
   let quiet = ref false in
@@ -165,6 +166,7 @@ let parse_cmdline () =
     "-of",       Arg.Set_string output_format, "raw|qcow2 " ^ s_"Set output format";
     "-on",       Arg.Set_string output_name, "name " ^ s_"Rename guest when converting";
     "-os",       Arg.Set_string output_storage, "storage " ^ s_"Set output storage location";
+    "--password-file", Arg.Set_string password_file, "file " ^ s_"Use password from file";
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
     "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"Boot in qemu (-o qemu only)";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
@@ -227,6 +229,7 @@ read the man page virt-v2v(1).
   let output_mode = !output_mode in
   let output_name = match !output_name with "" -> None | s -> Some s in
   let output_storage = !output_storage in
+  let password_file = match !password_file with "" -> None | s -> Some s in
   let print_source = !print_source in
   let qemu_boot = !qemu_boot in
   let quiet = !quiet in
@@ -256,6 +259,14 @@ read the man page virt-v2v(1).
     exit 0
   );
 
+  (* Parse out the password from the password file. *)
+  let password =
+    match password_file with
+    | None -> None
+    | Some filename ->
+      let password = read_whole_file filename in
+      Some password in
+
   (* Parsing of the argument(s) depends on the input mode. *)
   let input =
     match input_mode with
@@ -278,7 +289,7 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
-      Input_libvirt.input_libvirt verbose input_conn guest
+      Input_libvirt.input_libvirt verbose password input_conn guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)

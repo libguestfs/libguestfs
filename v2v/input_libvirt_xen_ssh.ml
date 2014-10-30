@@ -30,9 +30,9 @@ open Input_libvirt_other
 open Printf
 
 (* Subclass specialized for handling Xen over SSH. *)
-class input_libvirt_xen_ssh verbose libvirt_uri parsed_uri scheme server guest =
+class input_libvirt_xen_ssh verbose password libvirt_uri parsed_uri scheme server guest =
 object
-  inherit input_libvirt verbose libvirt_uri guest
+  inherit input_libvirt verbose password libvirt_uri guest
 
   method source () =
     if verbose then
@@ -45,7 +45,7 @@ object
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
-    let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
+    let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
     let source, disks = parse_libvirt_xml ~verbose xml in
 
     (* Map the <source/> filename (which is relative to the remote

@@ -43,7 +43,7 @@ let error_if_no_ssh_agent () =
     error (f_"ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page.")
 
 (* Superclass. *)
-class virtual input_libvirt verbose libvirt_uri guest =
+class virtual input_libvirt verbose password libvirt_uri guest =
 object
   inherit input verbose
 
@@ -58,9 +58,9 @@ end
 (* Subclass specialized for handling anything that's *not* VMware vCenter
  * or Xen.
  *)
-class input_libvirt_other verbose libvirt_uri guest =
+class input_libvirt_other verbose password libvirt_uri guest =
 object
-  inherit input_libvirt verbose libvirt_uri guest
+  inherit input_libvirt verbose password libvirt_uri guest
 
   method source () =
     if verbose then printf "input_libvirt_other: source()\n%!";
@@ -68,7 +68,7 @@ object
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
-    let xml = Domainxml.dumpxml ?conn:libvirt_uri guest in
+    let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
 
     let source, disks = Input_libvirtxml.parse_libvirt_xml ~verbose xml in
     let disks =

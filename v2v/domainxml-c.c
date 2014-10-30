@@ -74,13 +74,47 @@ get_dom_state (virDomainPtr dom)
   return -1;
 }
 
-value
-v2v_dumpxml (value connv, value domnamev)
+/* See src/libvirt-auth.c for why we need this. */
+static int
+libvirt_auth_default_wrapper (virConnectCredentialPtr cred,
+                              unsigned int ncred,
+                              void *passwordvp)
 {
-  CAMLparam2 (connv, domnamev);
+  const char *password = passwordvp;
+  unsigned int i;
+
+  if (password) {
+    /* If --password-file was specified on the command line, and the
+     * libvirt handler is asking for a password, return that.
+     */
+    for (i = 0; i < ncred; ++i) {
+      if (cred[i].type == VIR_CRED_PASSPHRASE) {
+        cred[i].result = strdup (password);
+        cred[i].resultlen = strlen (password);
+      }
+      else {
+        cred[i].result = NULL;
+        cred[i].resultlen = 0;
+      }
+    }
+    return 0;
+  }
+  else {
+    /* No --password-file so call the default handler. */
+    return virConnectAuthPtrDefault->cb (cred, ncred,
+                                         virConnectAuthPtrDefault->cbdata);
+  }
+}
+
+value
+v2v_dumpxml (value passwordv, value connv, value domnamev)
+{
+  CAMLparam3 (passwordv, connv, domnamev);
   CAMLlocal1 (retv);
+  const char *password = NULL;
   const char *conn_uri = NULL;
   const char *domname;
+  virConnectAuth authdata;
   /* We have to assemble the error on the stack because a dynamic
    * string couldn't be freed.
    */
@@ -91,16 +125,20 @@ v2v_dumpxml (value connv, value domnamev)
   int is_test_uri = 0;
   char *xml;
 
+  if (passwordv != Val_int (0))
+    password = String_val (Field (passwordv, 0)); /* Some password */
+
   if (connv != Val_int (0)) {
     conn_uri = String_val (Field (connv, 0)); /* Some conn */
     is_test_uri = STRPREFIX (conn_uri, "test:");
   }
 
-  /* We have to call the default authentication handler, not least
-   * since it handles all the PolicyKit crap.  However it also makes
-   * coding this simpler.
-   */
-  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault, VIR_CONNECT_RO);
+  /* Set up authentication wrapper. */
+  authdata = *virConnectAuthPtrDefault;
+  authdata.cb = libvirt_auth_default_wrapper;
+  authdata.cbdata = (void *) password;
+
+  conn = virConnectOpenAuth (conn_uri, &authdata, VIR_CONNECT_RO);
   if (conn == NULL) {
     if (conn_uri)
       snprintf (errmsg, sizeof errmsg,
