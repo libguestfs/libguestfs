@@ -191,6 +191,7 @@ complete_dest_paths_generator (const char *text, int state)
                     words = w;
                     words[nr_words].name = p;
                     if (dirents->val[i].ftyp == 'u'
+                        || dirents->val[i].ftyp == 'l'
                         || dirents->val[i].ftyp == '?') {
                       CLEANUP_FREE char *rp = guestfs_realpath (g, words[nr_words].name);
                       if (rp)
