@@ -19,7 +19,7 @@
 type source = {
   name : string;
   uri : string;
-  gpgkey : string option;
+  gpgkey : Utils.gpgkey_type;
   proxy : Downloader.proxy_mode;
 }
 

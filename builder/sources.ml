@@ -25,7 +25,7 @@ open Unix
 type source = {
   name : string;
   uri : string;
-  gpgkey : string option;
+  gpgkey : Utils.gpgkey_type;
   proxy : Downloader.proxy_mode;
 }
 
@@ -56,15 +56,15 @@ let parse_conf ~prog ~verbose file =
               );
               raise ex in
           match k with
-          | None -> None
+          | None -> Utils.No_Key
           | Some uri ->
             (match uri.URI.protocol with
-            | "file" -> Some uri.URI.path
+            | "file" -> Utils.KeyFile uri.URI.path
             | _ ->
               if verbose then (
                 printf (f_"%s: '%s' has non-local gpgkey URI\n") prog n;
               );
-              None
+              Utils.No_Key
             ) in
         let proxy =
           try
