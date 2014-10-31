@@ -192,6 +192,7 @@ complete_dest_paths_generator (const char *text, int state)
                     words = w;
                     words[nr_words].name = p;
                     if (dirents->val[i].ftyp == 'u'
+                        || dirents->val[i].ftyp == 'l'
                         || dirents->val[i].ftyp == '?') {
                       int is_dir = guestfs_is_dir_opts (g, words[nr_words].name,
                         GUESTFS_IS_DIR_OPTS_FOLLOWSYMLINKS, 1, -1);
