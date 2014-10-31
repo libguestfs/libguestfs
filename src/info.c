@@ -110,7 +110,7 @@ cleanup_yajl_tree_free (void *ptr)
 # else
 # define CLEANUP_YAJL_TREE_FREE
 # endif
-#endif /* HAVE_ATTRIBUTE_CLEANUP */
+#endif
 
 static char *
 get_disk_format (guestfs_h *g, const char *filename)
