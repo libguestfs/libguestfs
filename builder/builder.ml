@@ -150,22 +150,23 @@ let main () =
   (* Download the sources. *)
   let downloader = Downloader.create ~verbose ~curl ~cache in
   let repos = Sources.read_sources ~prog ~verbose in
-  let repos = List.map (
-    fun { Sources.uri = uri; Sources.gpgkey = gpgkey; Sources.proxy = proxy } ->
-      uri, gpgkey, proxy
-  ) repos in
   let sources = List.map (
     fun (source, fingerprint) ->
-      source, Utils.Fingerprint fingerprint, Downloader.SystemProxy
+      {
+        Sources.name = source; uri = source;
+        gpgkey = Utils.Fingerprint fingerprint;
+        proxy = Downloader.SystemProxy;
+      }
   ) sources in
   let sources = List.append repos sources in
   let index : Index_parser.index =
     List.concat (
       List.map (
-        fun (source, key, proxy) ->
+        fun source ->
           let sigchecker =
-            Sigchecker.create ~verbose ~gpg ~check_signature ~gpgkey:key in
-          Index_parser.get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source
+            Sigchecker.create ~verbose ~gpg ~check_signature
+              ~gpgkey:source.Sources.gpgkey in
+          Index_parser.get_index ~prog ~verbose ~downloader ~sigchecker source
       ) sources
     ) in
   let index = remove_duplicates index in

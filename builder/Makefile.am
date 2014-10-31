@@ -132,11 +132,11 @@ deps = \
 	languages.cmx \
 	get_kernel.cmx \
 	cache.cmx \
+	sources.cmx \
 	downloader.cmx \
 	sigchecker.cmx \
 	index_parser.cmx \
 	list_entries.cmx \
-	sources.cmx \
 	cmdline.cmx \
 	builder.cmx
 

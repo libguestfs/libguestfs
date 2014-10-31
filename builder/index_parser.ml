@@ -111,14 +111,15 @@ let print_entry chan (name, { printable_name = printable_name;
   );
   if hidden then fp "hidden=true\n"
 
-let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
+let get_index ~prog ~verbose ~downloader ~sigchecker
+  { Sources.uri = uri; proxy = proxy } =
   let corrupt_file () =
-    error (f_"The index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") source
+    error (f_"The index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") uri
   in
 
   let rec get_index () =
     (* Get the index page. *)
-    let tmpfile, delete_tmpfile = Downloader.download ~prog downloader ~proxy source in
+    let tmpfile, delete_tmpfile = Downloader.download ~prog downloader ~proxy uri in
 
     (* Check index file signature (also verifies it was fully
      * downloaded and not corrupted in transit).
@@ -278,7 +279,7 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
       ) sections in
 
     if verbose then (
-      printf "index file (%s) after parsing (C parser):\n" source;
+      printf "index file (%s) after parsing (C parser):\n" uri;
       List.iter (print_entry Pervasives.stdout) entries
     );
 
@@ -301,10 +302,10 @@ let get_index ~prog ~verbose ~downloader ~sigchecker ~proxy source =
     else (
       (* Construct the URI. *)
       try
-        let i = String.rindex source '/' in
-        String.sub source 0 (i+1) ^ path
+        let i = String.rindex uri '/' in
+        String.sub uri 0 (i+1) ^ path
       with
-        Not_found -> source // path
+        Not_found -> uri // path
     )
   in
 

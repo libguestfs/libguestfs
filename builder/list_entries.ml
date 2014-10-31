@@ -47,9 +47,9 @@ and list_entries_long ~sources index =
   let langs = Languages.languages () in
 
   List.iter (
-    fun (source, key, proxy) ->
-      printf (f_"Source URI: %s\n") source;
-      (match key with
+    fun { Sources.uri = uri; gpgkey = gpgkey } ->
+      printf (f_"Source URI: %s\n") uri;
+      (match gpgkey with
       | Utils.No_Key -> ()
       | Utils.Fingerprint fp ->
         printf (f_"Fingerprint: %s\n") fp;
@@ -99,10 +99,10 @@ and list_entries_long ~sources index =
 and list_entries_json ~sources index =
   let json_sources =
     List.map (
-      fun (source, key, proxy) ->
-        let item = [ "uri", JSON.String source ] in
+      fun { Sources.uri = uri; gpgkey = gpgkey } ->
+        let item = [ "uri", JSON.String uri ] in
         let item =
-          match key with
+          match gpgkey with
           | Utils.No_Key -> item
           | Utils.Fingerprint fp ->
             ("fingerprint", JSON.String fp) :: item
