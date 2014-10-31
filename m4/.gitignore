@@ -5,6 +5,7 @@
 /argmatch.m4
 /arpa_inet_h.m4
 /asm-underscore.m4
+/base64.m4
 /btowc.m4
 /byteswap.m4
 /canonicalize-lgpl.m4
@@ -104,6 +105,7 @@
 /inttypes-pri.m4
 /ioctl.m4
 /i-ring.m4
+/isatty.m4
 /isc-posix.m4
 /largefile.m4
 /lchown.m4
@@ -166,6 +168,7 @@
 /printf-posix.m4
 /priv-set.m4
 /progtest.m4
+/ptsname_r.m4
 /putenv.m4
 /quotearg.m4
 /quote.m4
@@ -236,6 +239,7 @@
 /thread.m4
 /time_h.m4
 /timespec.m4
+/ttyname_r.m4
 /uintmax_t.m4
 /ulonglong.m4
 /ungetc.m4

@@ -41,6 +41,7 @@ accept4
 areadlink
 areadlinkat
 arpa_inet
+base64
 byteswap
 c-ctype
 cloexec

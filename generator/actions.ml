@@ -1452,7 +1452,7 @@ specify the remote username you want.
 =item C<secret>
 
 For the C<rbd> protocol only, this specifies the 'secret' to use when
-connecting to the remote device.
+connecting to the remote device.  It must be base64 encoded.
 
 If not given, then a secret matching the given username will be looked up in the
 default keychain locations, or if no username is given, then no authentication

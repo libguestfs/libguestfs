@@ -49,6 +49,7 @@
 #endif
 
 #include "glthread/lock.h"
+#include "base64.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -96,6 +97,27 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_VIRSECRETFREE __attribute__((cleanup(cleanup_virSecretFree)))
+
+static void
+cleanup_virSecretFree (void *ptr)
+{
+  virSecretPtr secret_obj = * (virSecretPtr *) ptr;
+  if (secret_obj)
+    virSecretFree (secret_obj);
+}
+
+#else /* !HAVE_ATTRIBUTE_CLEANUP */
+#define CLEANUP_VIRSECRETFREE
+#endif
+
+/* List used to store a mapping of secret to libvirt secret UUID. */
+struct secret {
+  char *secret;
+  char uuid[VIR_UUID_STRING_BUFLEN];
+};
+
 #define DOMAIN_NAME_LEN (8+16+1) /* "guestfs-" + random + \0 */
 
 /* Per-handle data. */
@@ -108,6 +130,8 @@ struct backend_libvirt_data {
   char name[DOMAIN_NAME_LEN];   /* random name */
   bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
   unsigned long qemu_version;   /* qemu version (from libvirt) */
+  struct secret *secrets;       /* list of secrets */
+  size_t nr_secrets;
   char *uefi_code;		/* UEFI (firmware) code and variables. */
   char *uefi_vars;
 };
@@ -130,6 +154,9 @@ struct libvirt_xml_params {
 };
 
 static int parse_capabilities (guestfs_h *g, const char *capabilities_xml, struct backend_libvirt_data *data);
+static int add_secret (guestfs_h *g, virConnectPtr conn, struct backend_libvirt_data *data, const struct drive *drv);
+static int find_secret (guestfs_h *g, const struct backend_libvirt_data *data, const struct drive *drv, const char **type, const char **uuid);
+static int have_secret (guestfs_h *g, const struct backend_libvirt_data *data, const struct drive *drv);
 static xmlChar *construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params);
 static void debug_appliance_permissions (guestfs_h *g);
 static void debug_socket_permissions (guestfs_h *g);
@@ -224,6 +251,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   CLEANUP_FREE xmlChar *xml = NULL;
   CLEANUP_FREE char *appliance = NULL;
   struct sockaddr_un addr;
+  struct drive *drv;
+  size_t i;
   int r;
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
@@ -454,6 +483,14 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
       }
     } else
       debug (g, "cannot find group 'qemu'");
+  }
+
+  /* Store any secrets in libvirtd, keeping a mapping from the secret
+   * to its UUID.
+   */
+  ITER_DRIVES (g, i, drv) {
+    if (add_secret (g, conn, data, drv) == -1)
+      goto cleanup;
   }
 
   /* Construct the libvirt XML. */
@@ -1275,6 +1312,8 @@ construct_libvirt_xml_disk (guestfs_h *g,
   CLEANUP_FREE char *path = NULL;
   int is_host_device;
   CLEANUP_FREE char *format = NULL;
+  const char *type, *uuid;
+  int r;
 
   /* XXX We probably could support this if we thought about it some more. */
   if (drv->iface) {
@@ -1386,9 +1425,15 @@ construct_libvirt_xml_disk (guestfs_h *g,
         if (drv->src.username != NULL) {
           start_element ("auth") {
             attribute ("username", drv->src.username);
-            /* TODO: write the drive secret, after first storing it separately
-             * in libvirt
-             */
+            r = find_secret (g, data, drv, &type, &uuid);
+            if (r == -1)
+              return -1;
+            if (r == 1) {
+              start_element ("secret") {
+                attribute ("type", type);
+                attribute ("uuid", uuid);
+              } end_element ();
+            }
           } end_element ();
         }
         break;
@@ -1696,6 +1741,216 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
 }
 
 static int
+construct_libvirt_xml_secret (guestfs_h *g,
+                              const struct backend_libvirt_data *data,
+                              const struct drive *drv,
+                              xmlTextWriterPtr xo)
+{
+  start_element ("secret") {
+    attribute ("ephemeral", "yes");
+    attribute ("private", "yes");
+    start_element ("description") {
+      string_format ("guestfs secret associated with %s %s",
+                     data->name, drv->src.u.path);
+    } end_element ();
+  } end_element ();
+
+  return 0;
+}
+
+/* If drv->src.secret != NULL, store the secret in libvirt, and save
+ * the UUID so we can retrieve it later.  Also there is some slight
+ * variation depending on the protocol.  See
+ * http://libvirt.org/formatsecret.html
+ */
+static int
+add_secret (guestfs_h *g, virConnectPtr conn,
+            struct backend_libvirt_data *data, const struct drive *drv)
+{
+  CLEANUP_XMLBUFFERFREE xmlBufferPtr xb = NULL;
+  xmlOutputBufferPtr ob;
+  CLEANUP_XMLFREETEXTWRITER xmlTextWriterPtr xo = NULL;
+  CLEANUP_FREE xmlChar *xml = NULL;
+  CLEANUP_VIRSECRETFREE virSecretPtr secret_obj = NULL;
+  const char *secret = drv->src.secret;
+  CLEANUP_FREE unsigned char *secret_raw = NULL;
+  size_t secret_raw_len = 0;
+  size_t i;
+
+  if (secret == NULL)
+    return 0;
+
+  /* If it was already stored, don't create another secret. */
+  if (have_secret (g, data, drv))
+    return 0;
+
+  /* Create the XML for the secret. */
+  xb = xmlBufferCreate ();
+  if (xb == NULL) {
+    perrorf (g, "xmlBufferCreate");
+    return -1;
+  }
+  ob = xmlOutputBufferCreateBuffer (xb, NULL);
+  if (ob == NULL) {
+    perrorf (g, "xmlOutputBufferCreateBuffer");
+    return -1;
+  }
+  xo = xmlNewTextWriter (ob);
+  if (xo == NULL) {
+    perrorf (g, "xmlNewTextWriter");
+    return -1;
+  }
+
+  if (xmlTextWriterSetIndent (xo, 1) == -1 ||
+      xmlTextWriterSetIndentString (xo, BAD_CAST "  ") == -1) {
+    perrorf (g, "could not set XML indent");
+    return -1;
+  }
+  if (xmlTextWriterStartDocument (xo, NULL, NULL, NULL) == -1) {
+    perrorf (g, "xmlTextWriterStartDocument");
+    return -1;
+  }
+
+  if (construct_libvirt_xml_secret (g, data, drv, xo) == -1)
+    return -1;
+
+  if (xmlTextWriterEndDocument (xo) == -1) {
+    perrorf (g, "xmlTextWriterEndDocument");
+    return -1;
+  }
+  xml = xmlBufferDetach (xb);
+  if (xml == NULL) {
+    perrorf (g, "xmlBufferDetach");
+    return -1;
+  }
+
+  debug (g, "libvirt secret XML:\n%s", xml);
+
+  /* Pass the XML to libvirt. */
+  secret_obj = virSecretDefineXML (conn, (const char *) xml, 0);
+  if (secret_obj == NULL) {
+    libvirt_error (g, _("could not define libvirt secret"));
+    return -1;
+  }
+
+  /* For Ceph, we have to base64 decode the secret.  For others, we
+   * currently just pass the secret straight through.
+   */
+  switch (drv->src.protocol) {
+  case drive_protocol_rbd:
+    if (!base64_decode_alloc (secret, strlen (secret),
+                              (char **) &secret_raw, &secret_raw_len)) {
+      error (g, _("rbd protocol secret must be base64 encoded"));
+      return -1;
+    }
+    if (secret_raw == NULL) {
+      error (g, _("base64_decode_alloc: %m"));
+      return -1;
+    }
+    break;
+  case drive_protocol_file:
+  case drive_protocol_ftp:
+  case drive_protocol_ftps:
+  case drive_protocol_gluster:
+  case drive_protocol_http:
+  case drive_protocol_https:
+  case drive_protocol_iscsi:
+  case drive_protocol_nbd:
+  case drive_protocol_sheepdog:
+  case drive_protocol_ssh:
+  case drive_protocol_tftp:
+    secret_raw = (unsigned char *) safe_strdup (g, secret);
+    secret_raw_len = strlen (secret);
+  }
+
+  /* Set the secret. */
+  if (virSecretSetValue (secret_obj, secret_raw, secret_raw_len, 0) == -1) {
+    libvirt_error (g, _("could not set libvirt secret value"));
+    return -1;
+  }
+
+  /* Get back the UUID and save it in the private data. */
+  i = data->nr_secrets;
+  data->nr_secrets++;
+  data->secrets =
+    safe_realloc (g, data->secrets, sizeof (struct secret) * data->nr_secrets);
+
+  data->secrets[i].secret = safe_strdup (g, secret);
+
+  if (virSecretGetUUIDString (secret_obj, data->secrets[i].uuid) == -1) {
+    libvirt_error (g, _("could not get UUID from libvirt secret"));
+    return -1;
+  }
+
+  return 0;
+}
+
+static int
+have_secret (guestfs_h *g,
+             const struct backend_libvirt_data *data, const struct drive *drv)
+{
+  size_t i;
+
+  if (drv->src.secret == NULL)
+    return 0;
+
+  for (i = 0; i < data->nr_secrets; ++i) {
+    if (STREQ (data->secrets[i].secret, drv->src.secret))
+      return 1;
+  }
+
+  return 0;
+}
+
+/* Find a secret previously stored in libvirt.  Returns the
+ * <secret type=... uuid=...> attributes.  This function returns -1
+ * if there was an error, 0 if there is no secret, and 1 if the
+ * secret was found and returned.
+ */
+static int
+find_secret (guestfs_h *g,
+             const struct backend_libvirt_data *data, const struct drive *drv,
+             const char **type, const char **uuid)
+{
+  size_t i;
+
+  if (drv->src.secret == NULL)
+    return 0;
+
+  for (i = 0; i < data->nr_secrets; ++i) {
+    if (STREQ (data->secrets[i].secret, drv->src.secret)) {
+      *uuid = data->secrets[i].uuid;
+
+      *type = "volume";
+
+      switch (drv->src.protocol) {
+      case drive_protocol_rbd:
+        *type = "ceph";
+        break;
+      case drive_protocol_iscsi:
+        *type = "iscsi";
+        break;
+      case drive_protocol_file:
+      case drive_protocol_ftp:
+      case drive_protocol_ftps:
+      case drive_protocol_gluster:
+      case drive_protocol_http:
+      case drive_protocol_https:
+      case drive_protocol_nbd:
+      case drive_protocol_sheepdog:
+      case drive_protocol_ssh:
+      case drive_protocol_tftp:
+        /* set to a default value above */ ;
+      }
+
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+static int
 is_blk (const char *path)
 {
   struct stat statbuf;
@@ -1717,6 +1972,7 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
   struct backend_libvirt_data *data = datav;
   virConnectPtr conn = data->conn;
   virDomainPtr dom = data->dom;
+  size_t i;
   int ret = 0;
   int flags;
 
@@ -1750,6 +2006,12 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
   data->uefi_code = NULL;
   free (data->uefi_vars);
   data->uefi_vars = NULL;
+
+  for (i = 0; i < data->nr_secrets; ++i)
+    free (data->secrets[i].secret);
+  free (data->secrets);
+  data->secrets = NULL;
+  data->nr_secrets = 0;
 
   return ret;
 }
@@ -1854,6 +2116,10 @@ hot_add_drive_libvirt (guestfs_h *g, void *datav,
     error (g, "%s: conn == NULL or dom == NULL", __func__);
     return -1;
   }
+
+  /* If the drive has an associated secret, store it in libvirt. */
+  if (add_secret (g, conn, data, drv) == -1)
+    return -1;
 
   /* Create the XML for the new disk. */
   xml = construct_libvirt_xml_hot_add_disk (g, data, drv, drv_index);
