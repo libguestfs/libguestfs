@@ -16,4 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val list_entries : list_format:([ `Short | `Long | `Json ]) -> sources:(string * Sigchecker.gpgkey_type * Downloader.proxy_mode) list -> Index_parser.index -> unit
+val list_entries : list_format:([ `Short | `Long | `Json ]) -> sources:(string * Utils.gpgkey_type * Downloader.proxy_mode) list -> Index_parser.index -> unit
