@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.3\n"
+"Project-Id-Version: libguestfs 1.29.4\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-10-30 22:20+0000\n"
+"POT-Creation-Date: 2014-10-31 17:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15422,7 +15422,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:389 ../src/guestfs-actions.pod:487
 msgid ""
 "For the C<rbd> protocol only, this specifies the 'secret' to use when "
-"connecting to the remote device."
+"connecting to the remote device.  It must be base64 encoded."
 msgstr ""
 
 #. type: textblock

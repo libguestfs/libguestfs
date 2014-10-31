@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-10-30 22:20+0000\n"
+"POT-Creation-Date: 2014-10-31 17:41+0000\n"
 "PO-Revision-Date: 2014-10-18 08:01+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -17547,7 +17547,7 @@ msgstr "C<secret>"
 #: ../fish/guestfish-actions.pod:389 ../src/guestfs-actions.pod:487
 msgid ""
 "For the C<rbd> protocol only, this specifies the 'secret' to use when "
-"connecting to the remote device."
+"connecting to the remote device.  It must be base64 encoded."
 msgstr ""
 
 #. type: textblock

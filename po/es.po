@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-30 22:20+0000\n"
+"POT-Creation-Date: 2014-10-31 17:41+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -48,7 +48,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:238
 #. ../builder/get_kernel.ml:52
-#. ../builder/builder.ml:650
+#. ../builder/builder.ml:647
 #: ../v2v/v2v.ml:618 ../v2v/v2v.ml:507 ../sysprep/main.ml:266
 msgid "%s (ignored)"
 msgstr ""
@@ -178,23 +178,23 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:224
+#: ../builder/index_parser.ml:225
 msgid "%s: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:249
+#: ../builder/index_parser.ml:250
 msgid "%s: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:205
+#: ../builder/index_parser.ml:206
 msgid "%s: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:216
+#: ../builder/index_parser.ml:217
 msgid "%s: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:294
+#: ../builder/index_parser.ml:295
 msgid "%s: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
@@ -253,15 +253,15 @@ msgstr ""
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: ../builder/index_parser.ml:166
+#: ../builder/index_parser.ml:167
 msgid "%s: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:164
+#: ../builder/index_parser.ml:165
 msgid "%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:148
+#: ../builder/index_parser.ml:149
 msgid ""
 "%s: index is corrupt: os-version '%s' with architecture '%s' appears two or "
 "more times\n"
@@ -286,15 +286,15 @@ msgstr ""
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: ../builder/index_parser.ml:190
+#: ../builder/index_parser.ml:191
 msgid "%s: no 'arch' entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:185
+#: ../builder/index_parser.ml:186
 msgid "%s: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:213
+#: ../builder/index_parser.ml:214
 msgid "%s: no 'size' field for '%s'\n"
 msgstr ""
 
@@ -391,11 +391,11 @@ msgstr ""
 msgid "%s: warning: %s"
 msgstr ""
 
-#: ../builder/index_parser.ml:298
+#: ../builder/index_parser.ml:299
 msgid "%s: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:290
+#: ../builder/index_parser.ml:291
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
@@ -548,14 +548,14 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:233
+#: ../v2v/output_libvirt.ml:321
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
 "section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:230
+#: ../v2v/output_libvirt.ml:318
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -708,7 +708,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../builder/builder.ml:598
+#: ../builder/builder.ml:595
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -726,7 +726,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../builder/builder.ml:529
+#: ../builder/builder.ml:526
 msgid "Copying"
 msgstr ""
 
@@ -900,7 +900,7 @@ msgstr ""
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:268 ../builder/builder.ml:210
+#: ../builder/builder.ml:265 ../builder/builder.ml:207
 msgid "Downloading: %s"
 msgstr ""
 
@@ -1043,7 +1043,7 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #: ../v2v/v2v.ml:423 ../customize/customize_main.ml:248
-#: ../builder/builder.ml:699
+#: ../builder/builder.ml:696
 msgid "Finishing off"
 msgstr ""
 
@@ -1089,7 +1089,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:689
+#: ../builder/builder.ml:686
 msgid "Free space"
 msgstr ""
 
@@ -1097,13 +1097,13 @@ msgstr ""
 msgid "Full name:"
 msgstr ""
 
-#: ../builder/sigchecker.ml:72
+#: ../builder/sigchecker.ml:67
 msgid ""
 "GPG failure: could not run GPG the first time\n"
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 
-#: ../builder/sigchecker.ml:162
+#: ../builder/sigchecker.ml:157
 msgid ""
 "GPG failure: could not verify digital signature of file\n"
 "Try:\n"
@@ -1277,7 +1277,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../builder/builder.ml:611
+#: ../builder/builder.ml:608
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1293,11 +1293,11 @@ msgstr ""
 msgid "Output VM UUID"
 msgstr ""
 
-#: ../builder/builder.ml:684
+#: ../builder/builder.ml:681
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:686
+#: ../builder/builder.ml:683
 msgid "Output format"
 msgstr ""
 
@@ -1309,7 +1309,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:685
+#: ../builder/builder.ml:682
 msgid "Output size"
 msgstr ""
 
@@ -1356,7 +1356,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:466
+#: ../builder/builder.ml:463
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1565,11 +1565,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:556
+#: ../builder/builder.ml:553
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:585
+#: ../builder/builder.ml:582
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -1876,7 +1876,7 @@ msgid ""
 "See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
 msgstr ""
 
-#: ../builder/index_parser.ml:116
+#: ../builder/index_parser.ml:117
 msgid ""
 "The index file downloaded from '%s' is corrupt.\n"
 "You need to ask the supplier of this file to fix it and upload a fixed "
@@ -1937,7 +1937,7 @@ msgid ""
 "This option can be specified multiple times."
 msgstr ""
 
-#: ../builder/builder.ml:252
+#: ../builder/builder.ml:249
 msgid "There are no notes for %s\n"
 msgstr ""
 
@@ -2002,7 +2002,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:687
+#: ../builder/builder.ml:684
 msgid "Total usable space"
 msgstr ""
 
@@ -2020,7 +2020,7 @@ msgstr ""
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../builder/builder.ml:544
+#: ../builder/builder.ml:541
 msgid "Uncompressing"
 msgstr ""
 
@@ -2148,13 +2148,13 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../builder/builder.ml:239
+#: ../builder/builder.ml:236
 msgid ""
 "cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../builder/builder.ml:325
+#: ../builder/builder.ml:322
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
@@ -2194,7 +2194,7 @@ msgid ""
 "expected sha1 (%s) = %s)"
 msgstr ""
 
-#: ../builder/sigchecker.ml:203
+#: ../builder/sigchecker.ml:198
 msgid ""
 "checksum of template did not match the expected checksum!\n"
 "  found checksum: %s\n"
@@ -2213,13 +2213,13 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:272
+#: ../v2v/output_libvirt.ml:371
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
 msgstr ""
 
-#: ../builder/sigchecker.ml:98
+#: ../builder/sigchecker.ml:93
 msgid ""
 "could not export public key\n"
 "Use the '-v' option and look for earlier error messages."
@@ -2235,7 +2235,7 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../builder/sigchecker.ml:50
+#: ../builder/sigchecker.ml:45
 msgid ""
 "could not import public key\n"
 "Use the '-v' option and look for earlier error messages."
@@ -2266,7 +2266,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:254
+#: ../v2v/output_libvirt.ml:343
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -2274,7 +2274,7 @@ msgstr ""
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
-#: ../builder/sigchecker.ml:191
+#: ../builder/sigchecker.ml:186
 msgid "could not run sha512sum command to verify checksum"
 msgstr ""
 
@@ -2480,7 +2480,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../builder/sigchecker.ml:178
+#: ../builder/sigchecker.ml:173
 msgid ""
 "fingerprint of signature does not match the expected fingerprint!\n"
 "  found fingerprint: %s\n"
@@ -2561,7 +2561,7 @@ msgstr ""
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
-#: ../builder/builder.ml:350
+#: ../builder/builder.ml:347
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
@@ -2575,7 +2575,7 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../builder/builder.ml:310
+#: ../builder/builder.ml:307
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
@@ -2671,11 +2671,11 @@ msgstr ""
 msgid "no .ovf file was found in %s"
 msgstr ""
 
-#: ../builder/builder.ml:203
+#: ../builder/builder.ml:200
 msgid "no cache directory"
 msgstr ""
 
-#: ../builder/builder.ml:196
+#: ../builder/builder.ml:193
 msgid "no cache directory\n"
 msgstr ""
 
@@ -2683,7 +2683,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:654
+#: ../builder/builder.ml:651
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -2720,7 +2720,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../builder/builder.ml:471
+#: ../builder/builder.ml:468
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -2798,7 +2798,7 @@ msgid ""
 "considered in future."
 msgstr ""
 
-#: ../builder/builder.ml:353
+#: ../builder/builder.ml:350
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
@@ -2926,6 +2926,10 @@ msgid ""
 "guest: %d)"
 msgstr ""
 
+#: ../v2v/output_libvirt.ml:46
+msgid "the target hypervisor does not support a %s KVM guest"
+msgstr ""
+
 #: ../v2v/OVF.ml:164
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
@@ -2953,7 +2957,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../builder/sigchecker.ml:145
+#: ../builder/sigchecker.ml:140
 msgid ""
 "there is no detached signature file\n"
 "This probably means the index file is missing a sig=... line.\n"
@@ -8213,12 +8217,12 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch-direct.c:868 src/launch-libvirt.c:559
+#: src/launch-direct.c:868 src/launch-libvirt.c:596
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch-direct.c:1270 src/launch-libvirt.c:1324
+#: src/launch-direct.c:1270 src/launch-libvirt.c:1363
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -8258,25 +8262,25 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:235
+#: src/launch-libvirt.c:264
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:244
+#: src/launch-libvirt.c:273
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:279
+#: src/launch-libvirt.c:308
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:308
+#: src/launch-libvirt.c:337
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:487
+#: src/launch-libvirt.c:524
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8286,21 +8290,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:625
+#: src/launch-libvirt.c:662
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:631 src/libvirt-domain.c:405 src/libvirt-domain.c:488
+#: src/launch-libvirt.c:668 src/libvirt-domain.c:405 src/libvirt-domain.c:488
 #: src/libvirt-domain.c:701
 msgid "unable to create new XPath context"
 msgstr "no es posible crear un nuevo contexto XPath"
 
-#: src/launch-libvirt.c:641
+#: src/launch-libvirt.c:678
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:674
+#: src/launch-libvirt.c:711
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -8315,49 +8319,70 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:908
+#: src/launch-libvirt.c:945
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1278
+#: src/launch-libvirt.c:1317
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1401
+#: src/launch-libvirt.c:1446
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1426
+#: src/launch-libvirt.c:1471
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1433
+#: src/launch-libvirt.c:1478
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1693
+#: src/launch-libvirt.c:1793
+msgid "could not define libvirt secret"
+msgstr ""
+
+#: src/launch-libvirt.c:1804
+msgid "rbd protocol secret must be base64 encoded"
+msgstr ""
+
+#: src/launch-libvirt.c:1808
+#, c-format
+msgid "base64_decode_alloc: %m"
+msgstr ""
+
+#: src/launch-libvirt.c:1829
+msgid "could not set libvirt secret value"
+msgstr ""
+
+#: src/launch-libvirt.c:1842
+msgid "could not get UUID from libvirt secret"
+msgstr ""
+
+#: src/launch-libvirt.c:1949
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1733 src/launch-libvirt.c:1766
+#: src/launch-libvirt.c:1995 src/launch-libvirt.c:2028
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1825
+#: src/launch-libvirt.c:2091
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1856
+#: src/launch-libvirt.c:2122
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
