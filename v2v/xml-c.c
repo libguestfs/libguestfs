@@ -197,6 +197,9 @@ v2v_xml_xpathobj_get_node_ptr (value xpathobjv, value iv)
   xmlXPathObjectPtr xpathobj = Xpathobj_val (xpathobjv);
   int i = Int_val (iv);
 
+  if (i < 0 || i >= xpathobj->nodesetval->nodeNr)
+    caml_invalid_argument ("get_node_ptr: node number out of range");
+
   /* Because xmlNodePtrs are owned by the document, we don't want to
    * wrap this up with a finalizer, so just pass the pointer straight
    * back to OCaml as a value.  OCaml will ignore it because it's
