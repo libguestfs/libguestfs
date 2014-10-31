@@ -34,8 +34,6 @@ libtoolize --copy --install
 gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 <$gnulib_tool || exit
 
-(cd daemon && mkdir -p tests lib && ../$gnulib_tool --dir=.. --update)
-
 modules='
 accept4
 areadlink
