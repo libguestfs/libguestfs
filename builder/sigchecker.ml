@@ -24,11 +24,6 @@ open Utils
 open Printf
 open Unix
 
-type gpgkey_type =
-  | No_Key
-  | Fingerprint of string
-  | KeyFile of string
-
 type t = {
   verbose : bool;
   gpg : string;

@@ -22,6 +22,11 @@ open Printf
 
 open Common_utils
 
+type gpgkey_type =
+  | No_Key
+  | Fingerprint of string
+  | KeyFile of string
+
 let prog = Filename.basename Sys.executable_name
 let error ?exit_code fs = error ~prog ?exit_code fs
 let warning fs = warning ~prog fs

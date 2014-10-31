@@ -154,13 +154,13 @@ let main () =
     fun { Sources.uri = uri; Sources.gpgkey = gpgkey; Sources.proxy = proxy } ->
       let gpgkey =
         match gpgkey with
-        | None -> Sigchecker.No_Key
-        | Some key -> Sigchecker.KeyFile key in
+        | None -> Utils.No_Key
+        | Some key -> Utils.KeyFile key in
       uri, gpgkey, proxy
   ) repos in
   let sources = List.map (
     fun (source, fingerprint) ->
-      source, Sigchecker.Fingerprint fingerprint, Downloader.SystemProxy
+      source, Utils.Fingerprint fingerprint, Downloader.SystemProxy
   ) sources in
   let sources = List.append repos sources in
   let index : Index_parser.index =
