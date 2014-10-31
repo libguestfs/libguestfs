@@ -25,6 +25,42 @@ open Types
 open Utils
 open DOM
 
+module StringSet = Set.Make (String)
+
+let string_set_of_list =
+  List.fold_left (fun set x -> StringSet.add x set) StringSet.empty
+
+let target_features_of_capabilities_doc doc arch =
+  let xpathctx = Xml.xpath_new_context doc in
+  let expr =
+    (* NB: Pay attention to the square brackets.  This returns the
+     * <guest> nodes!
+     *)
+    sprintf "/capabilities/guest[arch[@name='%s']/domain/@type='kvm']" arch in
+  let obj = Xml.xpath_eval_expression xpathctx expr in
+
+  if Xml.xpathobj_nr_nodes obj < 1 then (
+    (* Old virt-v2v used to die here, but that seems unfair since the
+     * user has gone through conversion before we reach here.
+     *)
+    warning (f_"the target hypervisor does not support a %s KVM guest") arch;
+    []
+  ) else (
+    let node (* first matching <guest> *) = Xml.xpathobj_node doc obj 0 in
+    Xml.xpathctx_set_current_context xpathctx node;
+
+    (* Get guest/features/* nodes. *)
+    let obj = Xml.xpath_eval_expression xpathctx "features/*" in
+
+    let features = ref [] in
+    for i = 0 to Xml.xpathobj_nr_nodes obj - 1 do
+      let feature_node = Xml.xpathobj_node doc obj i in
+      let feature_name = Xml.node_name feature_node in
+      features := feature_name :: !features
+    done;
+    !features
+  )
+
 let append_child child = function
   | PCData _ | Comment _  -> assert false
   | Element e -> e.e_children <- e.e_children @ [child]
@@ -33,15 +69,43 @@ let append_attr attr = function
   | PCData _ | Comment _ -> assert false
   | Element e -> e.e_attrs <- e.e_attrs @ [attr]
 
-let create_libvirt_xml ?pool source targets guestcaps =
+let create_libvirt_xml ?pool source targets guestcaps target_features =
   let memory_k = source.s_memory /^ 1024L in
 
+  (* We have the machine features of the guest when it was on the
+   * source hypervisor (source.s_features).  We have the acpi flag
+   * which tells us whether acpi is required by this guest
+   * (guestcaps.gcaps_acpi).  And we have the set of hypervisor
+   * features supported by the target (target_features).  Combine all
+   * this into a final list of features.
+   *)
+  let features = string_set_of_list source.s_features in
+  let target_features = string_set_of_list target_features in
+
+  (* If the guest supports ACPI, add it to the output XML.  Conversely
+   * if the guest does not support ACPI, then we must drop it.
+   * (RHBZ#1159258)
+   *)
   let features =
-    List.filter (
-      fun feature ->
-        (* drop acpi if the guest doesn't support it *)
-        feature <> "acpi" || guestcaps.gcaps_acpi
-    ) source.s_features in
+    if guestcaps.gcaps_acpi then
+      StringSet.add "acpi" features
+    else
+      StringSet.remove "acpi" features in
+
+  (* Make sure we don't add any features which are not supported by
+   * the target hypervisor.
+   *)
+  let features = StringSet.inter(*section*) features target_features in
+
+  (* But if the target supports apic or pae then we should add them
+   * anyway (old virt-v2v did this).
+   *)
+  let force_features = string_set_of_list ["apic"; "pae"] in
+  let force_features =
+    StringSet.inter(*section*) force_features target_features in
+  let features = StringSet.union features force_features in
+
+  let features = List.sort compare (StringSet.elements features) in
 
   let disks =
     let block_prefix =
@@ -202,12 +266,36 @@ let create_libvirt_xml ?pool source targets guestcaps =
 class output_libvirt verbose oc output_pool = object
   inherit output verbose
 
+  val mutable capabilities_doc = None
+
   method as_options =
     match oc with
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
   method prepare_targets source targets =
+    (* Get the capabilities from libvirt. *)
+    let cmd =
+      match oc with
+      | None -> "virsh capabilities"
+      | Some uri -> sprintf "virsh -c %s capabilities" (quote uri) in
+    if verbose then printf "%s\n%!" cmd;
+    let xml = external_command ~prog cmd in
+    let xml = String.concat "\n" xml in
+
+    if verbose then printf "libvirt capabilities XML:\n%s\n%!" xml;
+
+    (* This just checks that the capabilities XML is well-formed,
+     * early so that we catch parsing errors before conversion.
+     *)
+    let doc = Xml.parse_memory xml in
+
+    (* Stash the capabilities XML, since we cannot get the bits we
+     * need from it until we know the guest architecture, which happens
+     * after conversion.
+     *)
+    capabilities_doc <- Some doc;
+
     (* Connect to output libvirt instance and check that the pool exists
      * and dump out its XML.
      *)
@@ -250,11 +338,22 @@ class output_libvirt verbose oc output_pool = object
       | Some uri ->
         sprintf "virsh -c %s pool-refresh %s"
           (quote uri) (quote output_pool) in
+    if verbose then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then
       warning (f_"could not refresh libvirt pool %s") output_pool;
 
+    (* Parse the capabilities XML in order to get the supported features. *)
+    let doc =
+      match capabilities_doc with
+      | None -> assert false
+      | Some doc -> doc in
+    let target_features =
+      target_features_of_capabilities_doc doc guestcaps.gcaps_arch in
+
     (* Create the metadata. *)
-    let doc = create_libvirt_xml ~pool:output_pool source targets guestcaps in
+    let doc =
+      create_libvirt_xml ~pool:output_pool source targets
+        guestcaps target_features in
 
     let tmpfile, chan = Filename.open_temp_file "v2vlibvirt" ".xml" in
     DOM.doc_to_chan chan doc;
