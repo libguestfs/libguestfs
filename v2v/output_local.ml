@@ -37,7 +37,18 @@ class output_local verbose dir = object
     ) targets
 
   method create_metadata source targets guestcaps _ =
-    let doc = Output_libvirt.create_libvirt_xml source targets guestcaps in
+    (* We don't know what target features the hypervisor supports, but
+     * assume a common set that libvirt supports.
+     *)
+    let target_features =
+      match guestcaps.gcaps_arch with
+      | "i686" -> [ "acpi"; "apic"; "pae" ]
+      | "x86_64" -> [ "acpi"; "apic" ]
+      | _ -> [] in
+
+    let doc =
+      Output_libvirt.create_libvirt_xml source targets
+        guestcaps target_features in
 
     let name = source.s_name in
     let file = dir // name ^ ".xml" in
