@@ -152,10 +152,6 @@ let main () =
   let repos = Sources.read_sources ~prog ~verbose in
   let repos = List.map (
     fun { Sources.uri = uri; Sources.gpgkey = gpgkey; Sources.proxy = proxy } ->
-      let gpgkey =
-        match gpgkey with
-        | None -> Utils.No_Key
-        | Some key -> Utils.KeyFile key in
       uri, gpgkey, proxy
   ) repos in
   let sources = List.map (
