@@ -190,7 +190,13 @@ complete_dest_paths_generator (const char *text, int state)
                   else {
                     words = w;
                     words[nr_words].name = p;
-                    words[nr_words].is_dir = dirents->val[i].ftyp == 'd';
+                    if (dirents->val[i].ftyp == 'u'
+                        || dirents->val[i].ftyp == '?') {
+                      CLEANUP_FREE char *rp = guestfs_realpath (g, words[nr_words].name);
+                      if (rp)
+                        words[nr_words].is_dir = guestfs_is_dir (g, rp);
+                    } else
+                      words[nr_words].is_dir = dirents->val[i].ftyp == 'd';
                     nr_words++;
                   }
                 }
