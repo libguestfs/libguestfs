@@ -144,7 +144,7 @@ let parse_cmdline () =
   let ditto = " -\"-" in
   let argspec = Arg.align [
     "-b",        Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
-    "--bridge",  Arg.String add_bridge,     ditto;
+    "--bridge",  Arg.String add_bridge,     "in:out " ^ ditto;
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
     "--debug-overlay",Arg.Set debug_overlays,
     " " ^ s_"Save overlay files";
@@ -157,7 +157,7 @@ let parse_cmdline () =
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
-    "--network", Arg.String add_network,    ditto;
+    "--network", Arg.String add_network,    "in:out " ^ ditto;
     "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
     "--no-trim", Arg.String set_no_trim,    "all|mp,mp,.." ^ s_"Don't trim selected mounts";
     "-o",        Arg.String set_output_mode, o_options ^ " " ^ s_"Set output mode (default: libvirt)";
