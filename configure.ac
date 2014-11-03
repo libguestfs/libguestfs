@@ -1255,9 +1255,15 @@ AS_IF([test "x$enable_ruby" != "xno"],[
         libruby="$(cat conftest)"
         rm conftest
         AS_IF([test -n "$libruby"],[
+            ruby_cmd='puts RbConfig::CONFIG@<:@"libdir"@:>@'
+            echo running: $RUBY -rrbconfig -e \'$ruby_cmd\' >&AS_MESSAGE_LOG_FD
+            $RUBY -rrbconfig -e "$ruby_cmd" >conftest 2>&AS_MESSAGE_LOG_FD
+            libruby_libdir="$(cat conftest)"
+            rm conftest
+            test -n "$libruby_libdir" && libruby_libdir="-L$libruby_libdir"
             AC_MSG_RESULT([-l$libruby])
             AC_CHECK_LIB([$libruby],[ruby_init],
-                         [have_libruby=1],[have_libruby=])
+                         [have_libruby=1],[have_libruby=],[$libruby_libdir])
         ],[
             AC_MSG_RESULT([not found])
         ])
