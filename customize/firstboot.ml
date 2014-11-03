@@ -47,6 +47,7 @@ module Linux = struct
 ### END INIT INFO
 
 d=%s/scripts
+d_done=%s/scripts-done
 logfile=~root/virt-sysprep-firstboot.log
 
 echo \"$0\" \"$@\" 2>&1 | tee $logfile
@@ -54,16 +55,20 @@ echo \"Scripts dir: $d\" 2>&1 | tee $logfile
 
 if test \"$1\" = \"start\"
 then
+  mkdir -p $d_done
   for f in $d/* ; do
     if test -x \"$f\"
     then
+      # move the script to the 'scripts-done' directory, so it is not
+      # executed again at the next boot
+      mv $f $d_done
       echo '=== Running' $f '===' 2>&1 | tee $logfile
-      $f 2>&1 | tee $logfile
-      rm -f $f
+      $d_done/$(basename $f) 2>&1 | tee $logfile
     fi
   done
+  rm -f $d_done/*
 fi
-" firstboot_dir
+" firstboot_dir firstboot_dir
 
   let firstboot_service = sprintf "\
 [Unit]
