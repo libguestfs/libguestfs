@@ -774,6 +774,37 @@ If C</tmp> or C<C:\Temp> is missing.
 If you don't want the log file to appear in the final image, then
 use the I<--no-logfile> command line option.
 
+=head2 SSH KEYS
+
+The I<--ssh-inject> option is used to inject ssh keys for users in
+the guest, so they can login without supplying a password.
+
+The C<SELECTOR> part of the option value is optional; in this case,
+I<--ssh-inject> C<USER> means that we look in the I<current>
+user's C<~/.ssh> directory to find the default public ID file.  That
+key is uploaded.  "default public ID" is the I<default_ID_file> file
+described in L<ssh-copy-id(1)>.
+
+If specified, the C<SELECTOR> can be in one of the following formats:
+
+=over 4
+
+=item B<--ssh-inject> USER:file:FILENAME
+
+Read the ssh key from C<FILENAME>.  C<FILENAME> is usually a I<.pub>
+file.
+
+=item B<--ssh-inject> USER:string:KEY_STRING
+
+Use the specified C<KEY_STRING>.  C<KEY_STRING> is usually a public
+string like I<ssh-rsa AAAA.... user@localhost>.
+
+=back
+
+In any case, the C<~USER/.ssh> directory and the
+C<~USER/.ssh/authorized_keys> file will be created if not existing
+already.
+
 =head2 INSTALLATION PROCESS
 
 When you invoke virt-builder, installation proceeds as follows:

@@ -25,6 +25,7 @@ customize/hostname.ml
 customize/password.ml
 customize/perl_edit.ml
 customize/random_seed.ml
+customize/ssh_key.ml
 customize/timezone.ml
 customize/urandom.ml
 mllib/JSON.ml

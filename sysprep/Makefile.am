@@ -102,6 +102,7 @@ deps = \
 	$(top_builddir)/customize/firstboot.cmx \
 	$(top_builddir)/customize/perl_edit-c.o \
 	$(top_builddir)/customize/perl_edit.cmx \
+	$(top_builddir)/customize/ssh_key.cmx \
 	$(top_builddir)/customize/customize_cmdline.cmx \
 	$(top_builddir)/customize/customize_run.cmx \
 	$(top_builddir)/fish/guestfish-uri.o \

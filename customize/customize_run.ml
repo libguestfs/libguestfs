@@ -232,6 +232,14 @@ exec >>%s 2>&1
       msg (f_"Scrubbing: %s") path;
       g#scrub_file path
 
+    | `SSHInject (user, selector) ->
+      (match g#inspect_get_type root with
+      | "linux" | "freebsd" | "netbsd" | "openbsd" | "hurd" ->
+        msg (f_"SSH key inject: %s") user;
+        Ssh_key.do_ssh_inject_unix g user selector
+      | _ ->
+        warning (f_"SSH key could be injected for this type of guest"))
+
     | `Timezone tz ->
       msg (f_"Setting the timezone: %s") tz;
       if not (Timezone.set_timezone g root tz) then

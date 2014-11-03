@@ -42,6 +42,7 @@ and op_type =
 | TargetLinks of string                 (* target:link[:link...] *)
 | PasswordSelector of string            (* password selector *)
 | UserPasswordSelector of string        (* user:selector *)
+| SSHKeySelector of string              (* user:selector *)
 
 let ops = [
   { op_name = "chmod";
@@ -258,6 +259,22 @@ It scrubs the data so a guest could not recover it.
 It cannot delete directories, only regular files.
 
 =back";
+  };
+
+  { op_name = "ssh-inject";
+    op_type = SSHKeySelector "USER[:SELECTOR]";
+    op_discrim = "`SSHInject";
+    op_shortdesc = "Inject a public key into the guest";
+    op_pod_longdesc = "\
+Inject an ssh key so the given C<USER> will be able to log in over
+ssh without supplying a password.  The C<USER> must exist already
+in the guest.
+
+See L<virt-builder(1)/SSH KEYS> for the format of
+the C<SELECTOR> field.
+
+You can have multiple I<--ssh-inject> options, for different users
+and also for more keys for each user."
   };
 
   { op_name = "timezone";
@@ -539,6 +556,19 @@ let rec argspec () =
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
+    | { op_type = SSHKeySelector v; op_name = name; op_discrim = discrim;
+        op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
+      pr "    (\n";
+      pr "      \"--%s\",\n" name;
+      pr "      Arg.String (\n";
+      pr "        fun s ->\n";
+      pr "          let user, selstr = string_split \":\" s in\n";
+      pr "          let sel = Ssh_key.parse_selector selstr in\n";
+      pr "          ops := %s (user, sel) :: !ops\n" discrim;
+      pr "      ),\n";
+      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "    ),\n";
+      pr "    Some %S, %S;\n" v longdesc
   ) ops;
 
   List.iter (
@@ -606,6 +636,10 @@ type ops = {
         op_name = name } ->
       pr "  | %s of string * Password.password_selector\n      (* --%s %s *)\n"
         discrim name v
+    | { op_type = SSHKeySelector v; op_discrim = discrim;
+        op_name = name } ->
+      pr "  | %s of string * Ssh_key.ssh_key_selector\n      (* --%s %s *)\n"
+        discrim name v
   ) ops;
   pr "]\n";
 
@@ -631,7 +665,7 @@ let generate_customize_synopsis_pod () =
       | { op_type = Unit; op_name = n } ->
         n, sprintf "[--%s]" n
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v | UserPasswordSelector v;
+            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v;
           op_name = n } ->
         n, sprintf "[--%s %s]" n v
     ) ops @
@@ -671,7 +705,7 @@ let generate_customize_options_pod () =
       | { op_type = Unit; op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s>" n, ld
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v | UserPasswordSelector v;
+            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v;
           op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s> %s" n v, ld
     ) ops @
