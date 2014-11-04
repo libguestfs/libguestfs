@@ -22,6 +22,8 @@
 
 set -e
 
+. $srcdir/guestfs-md5.sh
+
 # UML backend doesn't support qcow2 format.
 supports_qcow2=yes
 if [ "$(guestfish get-backend)" = "uml" ]; then
@@ -31,14 +33,14 @@ fi
 rm -f isolation1.img isolation2.img isolation3.img
 
 guestfish sparse isolation1.img 100M
-isolation1_md5sum="$(md5sum isolation1.img | awk '{print $1}')"
+isolation1_md5sum="$(do_md5 isolation1.img)"
 guestfish sparse isolation2.img 100M
-isolation2_md5sum="$(md5sum isolation2.img | awk '{print $1}')"
+isolation2_md5sum="$(do_md5 isolation2.img)"
 
 if [ "$supports_qcow2" = "yes" ]; then
     guestfish \
         disk-create isolation3.img qcow2 100M preallocation:metadata
-    isolation3_md5sum="$(md5sum isolation3.img | awk '{print $1}')"
+    isolation3_md5sum="$(do_md5 isolation3.img)"
     add3="add-drive-opts isolation3.img format:qcow2 readonly:true"
     cmds3="
       part-disk /dev/sdc mbr
@@ -92,14 +94,14 @@ function serious_error
     exit 1
 }
 
-if [ "$(md5sum isolation1.img | awk '{print $1}')" != "$isolation1_md5sum" ]; then
+if [ "$(do_md5 isolation1.img)" != "$isolation1_md5sum" ]; then
     serious_error
 fi
-if [ "$(md5sum isolation2.img | awk '{print $1}')" != "$isolation2_md5sum" ]; then
+if [ "$(do_md5 isolation2.img)" != "$isolation2_md5sum" ]; then
     serious_error
 fi
 if [ "$supports_qcow2" = "yes" -a \
-     "$(md5sum isolation3.img | awk '{print $1}')" != "$isolation3_md5sum" ]; then
+     "$(do_md5 isolation3.img)" != "$isolation3_md5sum" ]; then
     serious_error
 fi
 

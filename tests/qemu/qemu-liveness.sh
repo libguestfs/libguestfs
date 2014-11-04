@@ -22,10 +22,12 @@
 
 set -e
 
+. $srcdir/guestfs-md5.sh
+
 rm -f liveness1.img
 
 guestfish sparse liveness1.img 100M
-liveness1_md5sum="$(md5sum liveness1.img | awk '{print $1}')"
+liveness1_md5sum="$(do_md5 liveness1.img)"
 
 guestfish <<'EOF'
 add liveness1.img format:raw
@@ -41,7 +43,7 @@ write /test "This is a test"
 EOF
 
 # Verify that the disk has changed.
-if [ "$(md5sum liveness1.img | awk '{print $1}')" = "$liveness1_md5sum" ]; then
+if [ "$(do_md5 liveness1.img)" = "$liveness1_md5sum" ]; then
     echo "***** ERROR *****"
     echo "Write operations are not modifying an attached disk."
     echo
