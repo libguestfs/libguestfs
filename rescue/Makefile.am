@@ -59,6 +59,7 @@ virt_rescue_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.

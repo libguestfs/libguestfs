@@ -144,6 +144,7 @@ guestfish_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/src/libutils.la \
 	$(LIBXML2_LIBS) \
+	$(LTLIBINTL) \
 	-lm
 
 # Make guestfish use the convenience libraries.

@@ -159,7 +159,7 @@ libguestfs_la_LIBADD = \
 	$(INET_NTOP_LIB) \
 	$(LIBSOCKET) \
 	$(LIB_CLOCK_GETTIME) \
-	$(LIBINTL) \
+	$(LTLIBINTL) \
 	$(LTLIBTHREAD) \
 	$(LTLIBICONV) \
 	$(SERVENT_LIB)
@@ -238,7 +238,8 @@ noinst_PROGRAMS += libvirt-is-version
 libvirt_is_version_SOURCES = libvirt-is-version.c
 
 libvirt_is_version_LDADD = \
-	$(LIBVIRT_LIBS)
+	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL)
 
 libvirt_is_version_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
@@ -266,6 +267,7 @@ test_utils_CFLAGS = \
 test_utils_LDADD = \
 	libguestfs_la-guid.lo \
 	libutils.la \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 check-valgrind:

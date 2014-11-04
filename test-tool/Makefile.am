@@ -37,6 +37,7 @@ libguestfs_test_tool_CFLAGS = \
 
 libguestfs_test_tool_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 libguestfs-test-tool.1 $(top_builddir)/html/libguestfs-test-tool.1.html: stamp-libguestfs-test-tool.pod

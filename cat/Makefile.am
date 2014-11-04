@@ -66,6 +66,7 @@ virt_cat_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 virt_filesystems_SOURCES = \
@@ -88,6 +89,7 @@ virt_filesystems_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 virt_log_SOURCES = \
@@ -110,6 +112,7 @@ virt_log_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 virt_ls_SOURCES = \
@@ -134,6 +137,7 @@ virt_ls_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.

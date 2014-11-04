@@ -50,6 +50,7 @@ virt_make_fs_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 # Manual pages and HTML files for the website.

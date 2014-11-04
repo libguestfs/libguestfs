@@ -383,6 +383,9 @@ AC_MSG_RESULT([$msgfmt_is_gnu])
 AM_CONDITIONAL([HAVE_GNU_GETTEXT],
     [test "x$XGETTEXT" != "xno" && test "x$MSGCAT" != "xno" && test "x$MSGFMT" != "xno" && test "x$MSGMERGE" != "xno" && test "x$msgfmt_is_gnu" != "xno"])
 
+dnl Check for gettext.
+AM_GNU_GETTEXT([external])
+
 dnl Default backend.
 AC_MSG_CHECKING([if the user specified a default backend])
 AC_ARG_WITH([default-backend],

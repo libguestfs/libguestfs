@@ -168,6 +168,7 @@ OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 OCAMLCLIBS  = \
 	$(LIBLZMA_LIBS) \
 	$(LIBXML2_LIBS) \
+	$(LIBINTL) \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu \
 	-pthread -lpthread \
@@ -299,6 +300,7 @@ virt_index_validate_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
 
 virt_index_validate_LDADD = \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 man_MANS += virt-index-validate.1

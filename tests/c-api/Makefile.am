@@ -90,6 +90,7 @@ tests_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 # This binary must be statically linked.  It is used for testing
@@ -162,6 +163,7 @@ test_backend_settings_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_backend_settings_LDADD = \
 	$(top_builddir)/src/libutils_la-utils.lo \
+	$(LTLIBINTL) \
 	$(top_builddir)/src/libguestfs.la
 
 test_private_data_SOURCES = test-private-data.c
@@ -203,6 +205,7 @@ test_environment_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_environment_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_event_string_SOURCES = test-event-string.c
@@ -214,6 +217,7 @@ test_event_string_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_event_string_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 #if HAVE_LIBVIRT

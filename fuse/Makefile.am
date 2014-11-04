@@ -71,6 +71,7 @@ guestmount_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 # guestunmount
@@ -91,6 +92,7 @@ guestunmount_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 # Documentation.
@@ -174,6 +176,7 @@ test_guestmount_fd_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 test_guestunmount_fd_SOURCES = \
@@ -191,6 +194,7 @@ test_guestunmount_fd_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la
 
 endif HAVE_FUSE
