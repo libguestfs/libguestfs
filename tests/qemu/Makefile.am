@@ -30,6 +30,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
 	$(TESTS) \
+	guestfs-md5.sh \
 	qemu-boot.c \
 	qemu-speed-test.c
 
