@@ -43,5 +43,6 @@ test_libvirt_auth_callbacks_LDADD = \
         $(top_builddir)/src/libguestfs.la \
         $(LIBVIRT_LIBS) \
         $(LIBXML2_LIBS) \
+        $(LTLIBINTL) \
         $(top_builddir)/gnulib/lib/libgnu.la
 endif

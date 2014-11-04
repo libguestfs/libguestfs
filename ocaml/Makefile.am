@@ -66,10 +66,12 @@ endif
 stamp-mlguestfs: libguestfsocaml.a $(guestfs_cmm)
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
+	  $(LTLIBINTL) \
 	  -L$(top_builddir)/src/.libs -lguestfs
 if HAVE_OCAMLOPT
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
+	  $(LTLIBINTL) \
 	  -L$(top_builddir)/src/.libs -lguestfs
 endif
 	touch $@

@@ -56,6 +56,7 @@ qemu_boot_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 qemu_speed_test_SOURCES = \
@@ -72,4 +73,5 @@ qemu_speed_test_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
