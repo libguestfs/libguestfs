@@ -50,8 +50,8 @@ d=%s/scripts
 d_done=%s/scripts-done
 logfile=~root/virt-sysprep-firstboot.log
 
-echo \"$0\" \"$@\" 2>&1 | tee $logfile
-echo \"Scripts dir: $d\" 2>&1 | tee $logfile
+echo \"$0\" \"$@\" 2>&1 | tee -a $logfile
+echo \"Scripts dir: $d\" 2>&1 | tee -a $logfile
 
 if test \"$1\" = \"start\"
 then
@@ -62,8 +62,8 @@ then
       # move the script to the 'scripts-done' directory, so it is not
       # executed again at the next boot
       mv $f $d_done
-      echo '=== Running' $f '===' 2>&1 | tee $logfile
-      $d_done/$(basename $f) 2>&1 | tee $logfile
+      echo '=== Running' $f '===' 2>&1 | tee -a $logfile
+      $d_done/$(basename $f) 2>&1 | tee -a $logfile
     fi
   done
   rm -f $d_done/*
