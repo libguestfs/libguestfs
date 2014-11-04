@@ -42,6 +42,9 @@ EXTRA_DIST = \
 	README \
 	$(scripts)
 
+CLEANFILES = \
+	$(symlinks)
+
 # Some of the scripts are simply symbolic links.
 virt-cat virt-df virt-edit virt-filesystems virt-format virt-inspector \
 virt-log virt-ls virt-sysprep:
@@ -60,13 +63,13 @@ bashcompletiondir = $(BASH_COMPLETIONS_DIR)
 #bashcompletion_DATA = $(scripts)
 
 all-local: $(scripts) $(symlinks)
-	test $(srcdir) != $(builddir) && cd $(srcdir) && cp $(scripts) $(abs_builddir)/
+	-test $(srcdir) != $(builddir) && cd $(srcdir) && cp $(scripts) $(abs_builddir)/
 
 install-data-local:
 	$(mkdir_p) $(DESTDIR)$(bashcompletiondir)
 	cp -d $(scripts) $(symlinks) $(DESTDIR)$(bashcompletiondir)
 
 clean-local:
-	test $(srcdir) != $(builddir) && rm -f $(symlinks) $(scripts)
+	-test $(srcdir) != $(builddir) && rm -f $(scripts)
 
 endif
