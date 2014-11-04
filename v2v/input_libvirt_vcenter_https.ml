@@ -96,26 +96,26 @@ let rec get_session_cookie =
       let status = !status in
       if status = "" then (
         dump_response stderr;
-        error (f_"esx: no status code in output of 'curl' command.  Is 'curl' installed?")
+        error (f_"vcenter: no status code in output of 'curl' command.  Is 'curl' installed?")
       );
 
       if status = "401" then (
         dump_response stderr;
         if uri.uri_user <> None then
-          error (f_"esx: incorrect username or password")
+          error (f_"vcenter: incorrect username or password")
         else
-          error (f_"esx: incorrect username or password.  You might need to specify the username in the URI like this: %s://USERNAME@[etc]")
+          error (f_"vcenter: incorrect username or password.  You might need to specify the username in the URI like this: %s://USERNAME@[etc]")
             scheme
       );
 
       if status = "404" then (
         dump_response stderr;
-        error (f_"esx: URL not found: %s") url
+        error (f_"vcenter: URL not found: %s") url
       );
 
       if status <> "200" then (
         dump_response stderr;
-        error (f_"esx: invalid response from server")
+        error (f_"vcenter: invalid response from server")
       );
 
       (* Get the cookie. *)
@@ -130,7 +130,7 @@ let rec get_session_cookie =
       ) lines;
       if !session_cookie = "" then (
         dump_response stderr;
-        warning ~prog (f_"esx: could not read session cookie from the vCenter Server, conversion may consume all sessions on the server and fail part way through");
+        warning ~prog (f_"vcenter: could not read session cookie from the vCenter Server, conversion may consume all sessions on the server and fail part way through");
         None
       )
       else
@@ -177,7 +177,7 @@ let get_datacenter uri scheme =
   | "vpx" ->           (* Hopefully the first part of the path. *)
     (match uri.uri_path with
     | None ->
-      warning ~prog (f_"esx: URI (-ic parameter) contains no path, so we cannot determine the datacenter name");
+      warning ~prog (f_"vcenter: URI (-ic parameter) contains no path, so we cannot determine the datacenter name");
       default_dc
     | Some path ->
       let path =
@@ -269,7 +269,7 @@ let map_source_to_uri ?readahead verbose password uri scheme server path =
       | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
 
     if verbose then
-      printf "esx: json parameters: %s\n" (JSON.string_of_doc json_params);
+      printf "vcenter: json parameters: %s\n" (JSON.string_of_doc json_params);
 
     (* Turn the JSON parameters into a 'json:' protocol string.
      * Note this requires qemu-img >= 2.1.0.
