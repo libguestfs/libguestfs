@@ -171,7 +171,7 @@ OCAMLCLIBS  = \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu \
 	-pthread -lpthread \
-	-lncurses -lcrypt
+	-ltinfo -lcrypt
 
 if HAVE_OCAMLOPT
 virt-builder: $(OBJECTS)
