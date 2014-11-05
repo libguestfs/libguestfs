@@ -2216,8 +2216,8 @@ thus the L</guestfs_strings> and L</guestfs_strings_e> APIs in
 libguestfs.  Running strings on an untrusted file could cause
 arbitrary code execution (confined to the libguestfs appliance).
 
-There are thought to be many similar bugs in binutils, so even if
-these two bugs are fixed, avoid using these two libguestfs APIs.
+In libguestfs E<ge> 1.29.5 and E<ge> 1.28.3, libguestfs uses the
+C<strings> I<-a> option to avoid BFD parsing on the file.
 
 =head1 CONNECTION MANAGEMENT
 

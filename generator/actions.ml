@@ -5366,9 +5366,9 @@ The external L<cmp(1)> program is used for the comparison." };
 This runs the L<strings(1)> command on a file and returns
 the list of printable strings found.
 
-B<Use this API with caution.>  In particular, it's generally not
-a good idea to use it on untrusted files.  For more information
-see L<guestfs(3)/CVE-2014-8484>." };
+The C<strings> command has, in the past, had problems with
+parsing untrusted files.  These are mitigated in the current
+version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>." };
 
   { defaults with
     name = "strings_e";
@@ -5425,9 +5425,9 @@ This is useful for examining binaries in Windows guests.
 
 The returned strings are transcoded to UTF-8.
 
-B<Use this API with caution.>  In particular, it's generally not
-a good idea to use it on untrusted files.  For more information
-see L<guestfs(3)/CVE-2014-8484>." };
+The C<strings> command has, in the past, had problems with
+parsing untrusted files.  These are mitigated in the current
+version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>." };
 
   { defaults with
     name = "hexdump";
