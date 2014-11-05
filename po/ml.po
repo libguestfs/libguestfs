@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-10-31 17:41+0000\n"
+"POT-Creation-Date: 2014-11-05 15:26+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam (http://www.transifex.com/projects/p/libguestfs/"
@@ -83,7 +83,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:317
+#: ../customize/customize_run.ml:325
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -397,7 +397,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/firstboot.ml:178
+#: ../customize/firstboot.ml:183
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -410,7 +410,7 @@ msgid ""
 "error: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:237 ../customize/customize_cmdline.ml:162
+#: ../customize/customize_cmdline.ml:239 ../customize/customize_cmdline.ml:164
 msgid "'CMD+ARGS'"
 msgstr ""
 
@@ -615,11 +615,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:188
+#: ../customize/customize_cmdline.ml:190
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:172
+#: ../customize/customize_cmdline.ml:174
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
@@ -668,7 +668,7 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:134
+#: ../customize/customize_cmdline.ml:136
 msgid "Change the permissions of a file"
 msgstr ""
 
@@ -736,7 +736,7 @@ msgstr ""
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:204
+#: ../customize/customize_cmdline.ml:206
 msgid "Create a directory"
 msgstr ""
 
@@ -752,7 +752,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:198
+#: ../customize/customize_cmdline.ml:200
 msgid "Create symbolic links"
 msgstr ""
 
@@ -788,7 +788,7 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:204
+#: ../customize/customize_cmdline.ml:206
 msgid "DIR"
 msgstr ""
 
@@ -804,7 +804,7 @@ msgstr ""
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:140
+#: ../customize/customize_cmdline.ml:142
 msgid "Delete a file or directory"
 msgstr ""
 
@@ -916,7 +916,7 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:152
 msgid "Edit file using Perl expression"
 msgstr ""
 
@@ -996,19 +996,19 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:243
+#: ../customize/customize_cmdline.ml:245
 msgid "FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:275
+#: ../customize/customize_cmdline.ml:288
 msgid "FILE:CONTENT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:265
+#: ../customize/customize_cmdline.ml:278
 msgid "FILE:DEST"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:152
 msgid "FILE:EXPR"
 msgstr ""
 
@@ -1114,7 +1114,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:178
+#: ../customize/customize_cmdline.ml:180
 msgid "HOSTNAME"
 msgstr ""
 
@@ -1140,6 +1140,10 @@ msgstr ""
 
 #: ../v2v/v2v.ml:183
 msgid "Initializing the target %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:256
+msgid "Inject a public key into the guest"
 msgstr ""
 
 #: ../sparsify/copying.ml:103
@@ -1319,15 +1323,15 @@ msgstr ""
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:140
+#: ../customize/customize_cmdline.ml:142
 msgid "PATH"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:134
+#: ../customize/customize_cmdline.ml:136
 msgid "PERMISSIONS:FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:188 ../customize/customize_cmdline.ml:172
+#: ../customize/customize_cmdline.ml:190 ../customize/customize_cmdline.ml:174
 msgid "PKG,PKG.."
 msgstr ""
 
@@ -1374,7 +1378,7 @@ msgstr ""
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:296
+#: ../customize/customize_cmdline.ml:309
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
@@ -1575,19 +1579,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:162
+#: ../customize/customize_cmdline.ml:164
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:237
+#: ../customize/customize_cmdline.ml:239
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:156
+#: ../customize/customize_cmdline.ml:158
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:231
+#: ../customize/customize_cmdline.ml:233
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1605,16 +1609,24 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:231 ../customize/customize_cmdline.ml:156
+#: ../customize/customize_cmdline.ml:233 ../customize/customize_cmdline.ml:158
 msgid "SCRIPT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:225
+#: ../customize/customize_cmdline.ml:227
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:282
+#: ../customize/customize_run.ml:290
 msgid "SELinux relabelling"
+msgstr ""
+
+#: ../customize/customize_run.ml:241
+msgid "SSH key could be injected for this type of guest"
+msgstr ""
+
+#: ../customize/customize_run.ml:238
+msgid "SSH key inject: %s"
 msgstr ""
 
 #: ../v2v/cmdline.ml:150
@@ -1625,15 +1637,15 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:243
+#: ../customize/customize_cmdline.ml:245
 msgid "Scrub a file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:281
+#: ../customize/customize_cmdline.ml:294
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:301
+#: ../customize/customize_run.ml:309
 msgid "Scrubbing the log file"
 msgstr ""
 
@@ -1715,11 +1727,11 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:290
+#: ../customize/customize_cmdline.ml:303
 msgid "Set password crypto"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:225
+#: ../customize/customize_cmdline.ml:227
 msgid "Set root password"
 msgstr ""
 
@@ -1735,7 +1747,7 @@ msgstr ""
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:249
+#: ../customize/customize_cmdline.ml:262
 msgid "Set the default timezone"
 msgstr ""
 
@@ -1743,7 +1755,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:178
+#: ../customize/customize_cmdline.ml:180
 msgid "Set the hostname"
 msgstr ""
 
@@ -1751,7 +1763,7 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:215
+#: ../customize/customize_cmdline.ml:217
 msgid "Set user password"
 msgstr ""
 
@@ -1763,7 +1775,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:273
+#: ../customize/customize_run.ml:281
 msgid "Setting passwords"
 msgstr ""
 
@@ -1775,7 +1787,7 @@ msgstr ""
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:236
+#: ../customize/customize_run.ml:244
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -1809,11 +1821,11 @@ msgid ""
 "carefully check that the target disk boots and works correctly.\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:198
+#: ../customize/customize_cmdline.ml:200
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:249
+#: ../customize/customize_cmdline.ml:262
 msgid "TIMEZONE"
 msgstr ""
 
@@ -2014,27 +2026,31 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:215
+#: ../customize/customize_cmdline.ml:217
 msgid "USER:SELECTOR"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:256
+msgid "USER[:SELECTOR]"
 msgstr ""
 
 #: ../builder/builder.ml:541
 msgid "Uncompressing"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:255
+#: ../customize/customize_cmdline.ml:268
 msgid "Update core packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:241
+#: ../customize/customize_run.ml:249
 msgid "Updating core packages"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:265
+#: ../customize/customize_cmdline.ml:278
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:246
+#: ../customize/customize_run.ml:254
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -2068,11 +2084,11 @@ msgid ""
 "error message was: %s (ignored)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:275
+#: ../customize/customize_cmdline.ml:288
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:265
+#: ../customize/customize_run.ml:273
 msgid "Writing: %s"
 msgstr ""
 
@@ -2386,40 +2402,6 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:180
-msgid ""
-"esx: URI (-ic parameter) contains no path, so we cannot determine the "
-"datacenter name"
-msgstr ""
-
-#: ../v2v/input_libvirt_vcenter_https.ml:113
-msgid "esx: URL not found: %s"
-msgstr ""
-
-#: ../v2v/input_libvirt_vcenter_https.ml:133
-msgid ""
-"esx: could not read session cookie from the vCenter Server, conversion may "
-"consume all sessions on the server and fail part way through"
-msgstr ""
-
-#: ../v2v/input_libvirt_vcenter_https.ml:105
-msgid "esx: incorrect username or password"
-msgstr ""
-
-#: ../v2v/input_libvirt_vcenter_https.ml:107
-msgid ""
-"esx: incorrect username or password.  You might need to specify the username "
-"in the URI like this: %s://USERNAME@[etc]"
-msgstr ""
-
-#: ../v2v/input_libvirt_vcenter_https.ml:118
-msgid "esx: invalid response from server"
-msgstr ""
-
-#: ../v2v/input_libvirt_vcenter_https.ml:99
-msgid "esx: no status code in output of 'curl' command.  Is 'curl' installed?"
-msgstr ""
-
 #: ../mllib/common_utils.ml:297
 msgid "exception: %s"
 msgstr ""
@@ -2539,11 +2521,11 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../customize/firstboot.ml:118
+#: ../customize/firstboot.ml:123
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:285
+#: ../customize/firstboot.ml:290
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -2605,12 +2587,16 @@ msgstr ""
 msgid "invalid --list-format type '%s', see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:121 ../customize/customize_cmdline.ml:110
+#: ../customize/customize_cmdline.ml:123 ../customize/customize_cmdline.ml:112
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
 #: ../customize/password.ml:72
 msgid "invalid password selector '%s'; see the man page"
+msgstr ""
+
+#: ../customize/ssh_key.ml:46
+msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:761
@@ -2823,7 +2809,7 @@ msgid ""
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:278
+#: ../customize/customize_run.ml:286
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -2909,6 +2895,26 @@ msgid ""
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
 msgstr ""
 
+#: ../customize/ssh_key.ml:58
+msgid "ssh-inject: $HOME environment variable is not set"
+msgstr ""
+
+#: ../customize/ssh_key.ml:95
+msgid "ssh-inject: key is an empty string"
+msgstr ""
+
+#: ../customize/ssh_key.ml:68
+msgid "ssh-inject: no public key file found in %s"
+msgstr ""
+
+#: ../customize/ssh_key.ml:85
+msgid "ssh-inject: public key file (%s) is empty"
+msgstr ""
+
+#: ../customize/ssh_key.ml:114
+msgid "ssh-inject: the user %s does not exist on the guest"
+msgstr ""
+
 #: ../v2v/kvmuid.ml:55
 msgid "subprocess exited with non-zero error code %d"
 msgstr ""
@@ -2983,7 +2989,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr ""
 
-#: ../customize/customize_run.ml:238
+#: ../customize/customize_run.ml:246
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
@@ -3079,6 +3085,41 @@ msgstr ""
 #. ../sysprep/sysprep_operation_user_account.ml:107
 #: ../sysprep/sysprep_operation_user_account.ml:122
 msgid "users"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:180
+msgid ""
+"vcenter: URI (-ic parameter) contains no path, so we cannot determine the "
+"datacenter name"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:113
+msgid "vcenter: URL not found: %s"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:133
+msgid ""
+"vcenter: could not read session cookie from the vCenter Server, conversion "
+"may consume all sessions on the server and fail part way through"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:105
+msgid "vcenter: incorrect username or password"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:107
+msgid ""
+"vcenter: incorrect username or password.  You might need to specify the "
+"username in the URI like this: %s://USERNAME@[etc]"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:118
+msgid "vcenter: invalid response from server"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:99
+msgid ""
+"vcenter: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
 #: ../builder/cmdline.ml:263
@@ -8067,44 +8108,44 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
 
-#: src/launch-direct.c:868 src/launch-libvirt.c:596
+#: src/launch-direct.c:869 src/launch-libvirt.c:597
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/launch-direct.c:1270 src/launch-libvirt.c:1363
+#: src/launch-direct.c:1271 src/launch-libvirt.c:1364
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1428
+#: src/launch-direct.c:1429
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1437
+#: src/launch-direct.c:1438
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1444
+#: src/launch-direct.c:1445
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1452
+#: src/launch-direct.c:1453
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1460
+#: src/launch-direct.c:1461
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1483
+#: src/launch-direct.c:1484
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -8129,7 +8170,7 @@ msgstr ""
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:524
+#: src/launch-libvirt.c:525
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8139,21 +8180,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:662
+#: src/launch-libvirt.c:663
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:668 src/libvirt-domain.c:405 src/libvirt-domain.c:488
+#: src/launch-libvirt.c:669 src/libvirt-domain.c:405 src/libvirt-domain.c:488
 #: src/libvirt-domain.c:701
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:678
+#: src/launch-libvirt.c:679
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:711
+#: src/launch-libvirt.c:712
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -8168,70 +8209,70 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:945
+#: src/launch-libvirt.c:946
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1317
+#: src/launch-libvirt.c:1318
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1446
+#: src/launch-libvirt.c:1447
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1471
+#: src/launch-libvirt.c:1472
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1478
+#: src/launch-libvirt.c:1479
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1793
+#: src/launch-libvirt.c:1794
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1804
+#: src/launch-libvirt.c:1805
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1808
+#: src/launch-libvirt.c:1809
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1829
+#: src/launch-libvirt.c:1830
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1842
+#: src/launch-libvirt.c:1843
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1949
+#: src/launch-libvirt.c:1950
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1995 src/launch-libvirt.c:2028
+#: src/launch-libvirt.c:1996 src/launch-libvirt.c:2029
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2091
+#: src/launch-libvirt.c:2092
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2122
+#: src/launch-libvirt.c:2123
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
