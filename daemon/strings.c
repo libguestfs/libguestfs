@@ -50,7 +50,7 @@ do_strings_e (const char *encoding, const char *path)
   }
 
   flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
-  r = commandf (&out, &err, flags, "strings", "-e", encoding, NULL);
+  r = commandf (&out, &err, flags, "strings", "-a", "-e", encoding, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return NULL;
