@@ -150,105 +150,111 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
            (* For each kernel, list the files directly owned by the kernel. *)
            let files = Linux.file_list_of_package verbose g inspect app in
 
-           (* Which of these is the kernel itself? *)
-           let vmlinuz = List.find (
-             fun filename -> string_prefix filename "/boot/vmlinuz-"
-           ) files in
-           (* Which of these is the modpath? *)
-           let modpath = List.find (
-             fun filename ->
-               String.length filename >= 14 &&
-                 string_prefix filename "/lib/modules/"
-           ) files in
+           if files = [] then (
+             warning (f_"package '%s' contains no files") name;
+             None
+           )
+           else (
+             (* Which of these is the kernel itself? *)
+             let vmlinuz = List.find (
+               fun filename -> string_prefix filename "/boot/vmlinuz-"
+             ) files in
+             (* Which of these is the modpath? *)
+             let modpath = List.find (
+               fun filename ->
+                 String.length filename >= 14 &&
+                   string_prefix filename "/lib/modules/"
+             ) files in
 
-           (* Check vmlinuz & modpath exist. *)
-           if not (g#is_dir ~followsymlinks:true modpath) then
-             raise Not_found;
-           let vmlinuz_stat =
-             try g#statns vmlinuz with G.Error _ -> raise Not_found in
+             (* Check vmlinuz & modpath exist. *)
+             if not (g#is_dir ~followsymlinks:true modpath) then
+               raise Not_found;
+             let vmlinuz_stat =
+               try g#statns vmlinuz with G.Error _ -> raise Not_found in
 
-           (* Get/construct the version.  XXX Read this from kernel file. *)
-           let version =
-             sprintf "%s-%s" app.G.app2_version app.G.app2_release in
+             (* Get/construct the version.  XXX Read this from kernel file. *)
+             let version =
+               sprintf "%s-%s" app.G.app2_version app.G.app2_release in
 
-           (* Find the initramfs which corresponds to the kernel.
-            * Since the initramfs is built at runtime, and doesn't have
-            * to be covered by the RPM file list, this is basically
-            * guesswork.
-            *)
-           let initrd =
-             let files = g#ls "/boot" in
-             let files = Array.to_list files in
-             let files =
-               List.filter (fun n -> Str.string_match rex_initrd n 0) files in
-             let files =
-               List.filter (
-                 fun n ->
-                   string_find n app.G.app2_version >= 0 &&
-                   string_find n app.G.app2_release >= 0
-               ) files in
-             (* Don't consider kdump initramfs images (RHBZ#1138184). *)
-             let files =
-               List.filter (fun n -> string_find n "kdump.img" == -1) files in
-             (* If several files match, take the shortest match.  This
-              * handles the case where we have a mix of same-version non-Xen
-              * and Xen kernels:
-              *   initrd-2.6.18-308.el5.img
-              *   initrd-2.6.18-308.el5xen.img
-              * and kernel 2.6.18-308.el5 (non-Xen) will match both
-              * (RHBZ#1141145).
+             (* Find the initramfs which corresponds to the kernel.
+              * Since the initramfs is built at runtime, and doesn't have
+              * to be covered by the RPM file list, this is basically
+              * guesswork.
               *)
-             let cmp a b = compare (String.length a) (String.length b) in
-             let files = List.sort cmp files in
-             match files with
-             | [] ->
-               warning (f_"no initrd was found in /boot matching %s %s.")
-                 name version;
-               None
-             | x :: _ -> Some ("/boot/" ^ x) in
-
-           (* Get all modules, which might include custom-installed
-            * modules that don't appear in 'files' list above.
-            *)
-           let modules = g#find modpath in
-           let modules = Array.to_list modules in
-           let modules =
-             List.filter (fun m -> Str.string_match rex_ko m 0) modules in
-           assert (List.length modules > 0);
-
-           (* Determine the kernel architecture by looking at the
-            * architecture of an arbitrary kernel module.
-            *)
-           let arch =
-             let any_module = modpath ^ List.hd modules in
-             g#file_architecture any_module in
-
-           (* Just return the module names, without path or extension. *)
-           let modules = filter_map (
-             fun m ->
-               if Str.string_match rex_ko_extract m 0 then
-                 Some (Str.matched_group 1 m)
-               else
+             let initrd =
+               let files = g#ls "/boot" in
+               let files = Array.to_list files in
+               let files =
+                 List.filter (fun n -> Str.string_match rex_initrd n 0) files in
+               let files =
+                 List.filter (
+                   fun n ->
+                     string_find n app.G.app2_version >= 0 &&
+                       string_find n app.G.app2_release >= 0
+                 ) files in
+               (* Don't consider kdump initramfs images (RHBZ#1138184). *)
+               let files =
+                 List.filter (fun n -> string_find n "kdump.img" == -1) files in
+               (* If several files match, take the shortest match.  This
+                * handles the case where we have a mix of same-version non-Xen
+                * and Xen kernels:
+                *   initrd-2.6.18-308.el5.img
+                *   initrd-2.6.18-308.el5xen.img
+                * and kernel 2.6.18-308.el5 (non-Xen) will match both
+                * (RHBZ#1141145).
+                *)
+               let cmp a b = compare (String.length a) (String.length b) in
+               let files = List.sort cmp files in
+               match files with
+               | [] ->
+                 warning (f_"no initrd was found in /boot matching %s %s.")
+                   name version;
                  None
-           ) modules in
-           assert (List.length modules > 0);
+               | x :: _ -> Some ("/boot/" ^ x) in
 
-           let supports_virtio = List.mem "virtio_net" modules in
-           let is_xen_kernel = List.mem "xennet" modules in
+             (* Get all modules, which might include custom-installed
+              * modules that don't appear in 'files' list above.
+              *)
+             let modules = g#find modpath in
+             let modules = Array.to_list modules in
+             let modules =
+               List.filter (fun m -> Str.string_match rex_ko m 0) modules in
+             assert (List.length modules > 0);
 
-           Some {
-             ki_app  = app;
-             ki_name = name;
-             ki_version = version;
-             ki_arch = arch;
-             ki_vmlinuz = vmlinuz;
-             ki_vmlinuz_stat = vmlinuz_stat;
-             ki_initrd = initrd;
-             ki_modpath = modpath;
-             ki_modules = modules;
-             ki_supports_virtio = supports_virtio;
-             ki_is_xen_kernel = is_xen_kernel;
-           }
+             (* Determine the kernel architecture by looking at the
+              * architecture of an arbitrary kernel module.
+              *)
+             let arch =
+               let any_module = modpath ^ List.hd modules in
+               g#file_architecture any_module in
+
+             (* Just return the module names, without path or extension. *)
+             let modules = filter_map (
+               fun m ->
+                 if Str.string_match rex_ko_extract m 0 then
+                   Some (Str.matched_group 1 m)
+                 else
+                   None
+             ) modules in
+             assert (List.length modules > 0);
+
+             let supports_virtio = List.mem "virtio_net" modules in
+             let is_xen_kernel = List.mem "xennet" modules in
+
+             Some {
+               ki_app  = app;
+               ki_name = name;
+               ki_version = version;
+               ki_arch = arch;
+               ki_vmlinuz = vmlinuz;
+               ki_vmlinuz_stat = vmlinuz_stat;
+               ki_initrd = initrd;
+               ki_modpath = modpath;
+               ki_modules = modules;
+               ki_supports_virtio = supports_virtio;
+               ki_is_xen_kernel = is_xen_kernel;
+             }
+           )
 
          with Not_found -> None
         )
