@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-11-05 15:26+0000\n"
+"POT-Creation-Date: 2014-11-06 22:06+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -48,7 +48,7 @@ msgstr ""
 #. ../customize/customize_main.ml:238
 #. ../builder/get_kernel.ml:52
 #. ../builder/builder.ml:647
-#: ../v2v/v2v.ml:618 ../v2v/v2v.ml:507 ../sysprep/main.ml:266
+#: ../v2v/v2v.ml:624 ../v2v/v2v.ml:507 ../sysprep/main.ml:266
 msgid "%s (ignored)"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1317
+#: ../v2v/convert_linux.ml:1323
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -1870,7 +1870,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1107
+#: ../v2v/convert_linux.ml:1113
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2073,13 +2073,13 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:618
+#: ../v2v/convert_linux.ml:624
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:527
+#: ../v2v/convert_linux.ml:533
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2224,7 +2224,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1037
+#: ../v2v/convert_linux.ml:1043
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2274,7 +2274,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1055
+#: ../v2v/convert_linux.ml:1061
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2285,7 +2285,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1039
+#: ../v2v/convert_linux.ml:1045
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2317,7 +2317,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:773
+#: ../v2v/convert_linux.ml:779
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -2361,19 +2361,19 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/linux.ml:150
+#: ../v2v/linux.ml:163
 msgid "don't know how to find file owner using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:129
+#: ../v2v/linux.ml:142
 msgid "don't know how to get list of files from package using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:114
+#: ../v2v/linux.ml:116
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1162
+#: ../v2v/convert_linux.ml:1168
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2600,7 +2600,7 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:761
+#: ../v2v/convert_linux.ml:767
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
@@ -2674,11 +2674,11 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:205
+#: ../v2v/convert_linux.ml:210
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:268
+#: ../v2v/convert_linux.ml:274
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
@@ -2689,7 +2689,7 @@ msgstr ""
 msgid "no kernel found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:379
+#: ../v2v/convert_linux.ml:385
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -2722,7 +2722,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:564
+#: ../v2v/v2v.ml:569
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2732,7 +2732,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:733
+#: ../v2v/convert_linux.ml:739
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2787,6 +2787,10 @@ msgstr ""
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:154
+msgid "package '%s' contains no files"
 msgstr ""
 
 #. ../resize/resize.ml:191
@@ -2998,7 +3002,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1206
+#: ../v2v/convert_linux.ml:1212
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3013,7 +3017,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:904
+#: ../v2v/convert_linux.ml:910
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
