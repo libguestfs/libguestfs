@@ -542,27 +542,33 @@ and inspect_source g root_choice =
  *)
 and check_free_space mpstats =
   List.iter (
-    fun { mp_path = mp; mp_statvfs = { G.bfree = bfree; bsize = bsize } } ->
-      (* bfree = free blocks for root user *)
-      let free_bytes = bfree *^ bsize in
-      let needed_bytes =
-        match mp with
-        | "/" ->
-          (* We may install some packages, and they would usually go
-           * on the root filesystem.
-           *)
-          20_000_000L
-        | "/boot" ->
-          (* We usually regenerate the initramfs, which has a typical size
-           * of 20-30MB.  Hence:
-           *)
-          50_000_000L
-        | _ ->
-          (* For everything else, just make sure there is some free space. *)
-          10_000_000L in
-      if free_bytes < needed_bytes then
-        error (f_"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < %Ld bytes needed")
-          mp free_bytes needed_bytes
+    fun { mp_path = mp;
+          mp_statvfs = { G.bfree = bfree; blocks = blocks; bsize = bsize } } ->
+      (* Ignore small filesystems. *)
+      let total_size = blocks *^ bsize in
+      if total_size > 100_000_000L then (
+        (* bfree = free blocks for root user *)
+        let free_bytes = bfree *^ bsize in
+        let needed_bytes =
+          match mp with
+          | "/" ->
+            (* We may install some packages, and they would usually go
+             * on the root filesystem.
+             *)
+            20_000_000L
+          | "/boot" ->
+            (* We usually regenerate the initramfs, which has a
+             * typical size of 20-30MB.  Hence:
+             *)
+            50_000_000L
+          | _ ->
+            (* For everything else, just make sure there is some free space. *)
+            10_000_000L in
+
+        if free_bytes < needed_bytes then
+          error (f_"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < %Ld bytes needed")
+            mp free_bytes needed_bytes
+      )
   ) mpstats
 
 (* Perform the fstrim.  The trimming bit is easy.  Dealing with the
