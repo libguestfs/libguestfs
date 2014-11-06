@@ -148,7 +148,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           when name = "kernel" || string_prefix name "kernel-" ->
         (try
            (* For each kernel, list the files directly owned by the kernel. *)
-           let files = Linux.file_list_of_package verbose g inspect name in
+           let files = Linux.file_list_of_package verbose g inspect app in
 
            (* Which of these is the kernel itself? *)
            let vmlinuz = List.find (

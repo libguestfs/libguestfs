@@ -31,7 +31,7 @@ val install : bool -> Guestfs.guestfs -> Types.inspect -> string list -> unit
 val remove : bool -> Guestfs.guestfs -> Types.inspect -> string list -> unit
 (** Uninstall package(s). *)
 
-val file_list_of_package : bool -> Guestfs.guestfs -> Types.inspect -> string -> string list
+val file_list_of_package : bool -> Guestfs.guestfs -> Types.inspect -> Guestfs.application2 -> string list
 (** Return list of files owned by package. *)
 
 val file_owner : bool -> Guestfs.guestfs -> Types.inspect -> string -> string
