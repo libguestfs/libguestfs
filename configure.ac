@@ -760,6 +760,7 @@ qemu_system="$(
     $SED -e 's/-i@<:@456@:>@86/-i386/g' \
          -e 's/-arm.*/-arm/g' \
          -e 's/-amd64/-x86_64/g' \
+         -e 's/-powerpc64/-ppc64/g' \
          -e 's/-ppc64le/-ppc64/g'
     )"
 default_qemu="qemu-kvm kvm $qemu_system qemu"
