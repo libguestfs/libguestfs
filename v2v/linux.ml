@@ -24,6 +24,8 @@ open Common_utils
 open Types
 open Utils
 
+module G = Guestfs
+
 (* Wrappers around aug_init & aug_load which can dump out full Augeas
  * parsing problems when debugging is enabled.
  *)
@@ -115,12 +117,23 @@ let remove verbose g inspect packages =
         format (String.concat " " packages)
   )
 
-let file_list_of_package verbose (g : Guestfs.guestfs) inspect name =
+let file_list_of_package verbose (g : Guestfs.guestfs) inspect app =
   let package_format = inspect.i_package_format in
 
   match package_format with
   | "rpm" ->
-    let cmd = [| "rpm"; "-ql"; name |] in
+    (* Since RPM allows multiple packages installed with the same
+     * name, always check the full ENVR here (RHBZ#1161250).
+     *)
+    let pkg_name =
+      sprintf "%s-%s-%s" app.G.app2_name
+        app.G.app2_version app.G.app2_release in
+    let pkg_name =
+      if app.G.app2_epoch > 0_l then
+        sprintf "%ld:%s" app.G.app2_epoch pkg_name
+      else
+        pkg_name in
+    let cmd = [| "rpm"; "-ql"; pkg_name |] in
     if verbose then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
     let files = g#command_lines cmd in
     let files = Array.to_list files in
