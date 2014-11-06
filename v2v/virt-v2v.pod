@@ -1171,6 +1171,30 @@ same as the initial installation procedure.  It is not necessary to
 remove the recovery console first.  Following re-installation, the
 recovery console will work as intended.
 
+=head1 FREE SPACE FOR CONVERSION
+
+Virt-v2v checks there is sufficient free space in the guest filesystem
+to perform the conversion.  Currently it checks:
+
+=over 4
+
+=item Root filesystem or C<C:\>
+
+Minimum free space: 20 MB
+
+=item C</boot>
+
+Minimum free space: 50 MB
+
+This is because we need to build a new initramfs for some Enterprise
+Linux conversions.
+
+=item Any other mountable filesystem
+
+Minimum free space: 10 MB
+
+=back
+
 =head1 RUNNING VIRT-V2V AS ROOT OR NON-ROOT
 
 Nothing in virt-v2v inherently needs root access, and it will run just
