@@ -74,11 +74,11 @@ object
     (* Set the properties (ie. metadata). *)
     let min_ram = source.s_memory /^ 1024L /^ 1024L in
     let properties = [
-      "hw_vif_model",
+      "hw_disk_bus",
       (match guestcaps.gcaps_block_bus with
       | Virtio_blk -> "virtio"
       | IDE -> "ide");
-      "hw_disk_bus",
+      "hw_vif_model",
       (match guestcaps.gcaps_net_bus with
       | Virtio_net -> "virtio"
       | E1000 -> "e1000"
