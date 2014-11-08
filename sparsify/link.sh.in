@@ -19,4 +19,4 @@
 # Hack automake to link binary properly.  There is no other way to add
 # the -cclib parameter to the end of the command line.
 
-exec "$@" -linkpkg -cclib '-ltinfo'
+exec "$@" -linkpkg -cclib '@LIBCURSES_LIBS@'
