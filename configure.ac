@@ -352,19 +352,13 @@ struct sockaddr_un myaddr;
     AC_DEFINE_UNQUOTED([UNIX_PATH_MAX], $unix_path_max, [Custom value for UNIX_PATH_MAX])
   ])
 
-dnl tgetent, tputs and UP [sic] are all required.  They come from libtinfo
-dnl which is pulled in as a dependency of libncurses.
-old_LIBS="$LIBS"
-AC_CHECK_LIB([tinfo], [tgetent], [], [
-    AC_MSG_ERROR(['libtinfo' library (usually part of ncurses) not found, or it doesn't contain 'tgetent'])
+dnl tgetent, tputs and UP [sic] are all required.  They come from the lower
+dnl tinfo library, but might be part of ncurses directly.
+PKG_CHECK_MODULES([LIBCURSES], [tinfo], [], [
+    PKG_CHECK_MODULES([LIBCURSES], [ncurses])
 ])
-AC_CHECK_LIB([tinfo], [tputs], [], [
-    AC_MSG_ERROR(['libtinfo' library (usually part of ncurses) not found, or it doesn't contain 'tputs'])
-])
-AC_CHECK_LIB([tinfo], [UP], [], [
-    AC_MSG_ERROR(['libtinfo' library (usually part of ncurses) not found, or it doesn't contain 'UP'])
-])
-LIBS="$old_LIBS"
+AC_SUBST([LIBCURSES_CFLAGS])
+AC_SUBST([LIBCURSES_LIBS])
 
 dnl GNU gettext tools (optional).
 AC_CHECK_PROG([XGETTEXT],[xgettext],[xgettext],[no])
