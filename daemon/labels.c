@@ -118,6 +118,12 @@ xfslabel (const char *device, const char *label)
     return -1;
   }
 
+  if (strlen (label) > XFS_LABEL_MAX) {
+    reply_with_error ("%s: xfs labels are limited to %d bytes",
+                      label, XFS_LABEL_MAX);
+    return -1;
+  }
+
   r = command (NULL, &err, str_xfs_admin, "-L", label, device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);

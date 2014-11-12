@@ -498,6 +498,12 @@ do_xfs_admin (const char *device,
   }
 
   if (optargs_bitmask & GUESTFS_XFS_ADMIN_LABEL_BITMASK) {
+    if (strlen (label) > XFS_LABEL_MAX) {
+      reply_with_error ("%s: xfs labels are limited to %d bytes",
+                        label, XFS_LABEL_MAX);
+      return -1;
+    }
+
     ADD_ARG (argv, i, "-L");
     ADD_ARG (argv, i, label);
   }
