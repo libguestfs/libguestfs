@@ -25,7 +25,7 @@ AM_CFLAGS = \
 	-I$(top_srcdir)/fish \
 	-pthread \
 	$(LIBLZMA_CFLAGS) \
-	$(LIBCURSES_CFLAGS)
+	$(LIBTINFO_CFLAGS)
 
 EXTRA_DIST = \
 	$(SOURCES) \
@@ -172,7 +172,7 @@ OCAMLCLIBS  = \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu \
 	-pthread -lpthread \
-	$(LIBCURSES_LIBS) -lcrypt
+	$(LIBTINFO_LIBS) -lcrypt
 
 if HAVE_OCAMLOPT
 virt-builder: $(OBJECTS)

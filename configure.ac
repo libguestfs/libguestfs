@@ -354,11 +354,11 @@ struct sockaddr_un myaddr;
 
 dnl tgetent, tputs and UP [sic] are all required.  They come from the lower
 dnl tinfo library, but might be part of ncurses directly.
-PKG_CHECK_MODULES([LIBCURSES], [tinfo], [], [
-    PKG_CHECK_MODULES([LIBCURSES], [ncurses])
+PKG_CHECK_MODULES([LIBTINFO], [tinfo], [], [
+    PKG_CHECK_MODULES([LIBTINFO], [ncurses])
 ])
-AC_SUBST([LIBCURSES_CFLAGS])
-AC_SUBST([LIBCURSES_LIBS])
+AC_SUBST([LIBTINFO_CFLAGS])
+AC_SUBST([LIBTINFO_LIBS])
 
 dnl GNU gettext tools (optional).
 AC_CHECK_PROG([XGETTEXT],[xgettext],[xgettext],[no])
