@@ -77,7 +77,8 @@ get_all_libvirt_domains (const char *libvirt_uri)
   size_t i;
 
   /* Get the list of all domains. */
-  conn = virConnectOpenReadOnly (libvirt_uri);
+  conn = virConnectOpenAuth (libvirt_uri, virConnectAuthPtrDefault,
+                             VIR_CONNECT_RO);
   if (!conn) {
     err = virGetLastError ();
     fprintf (stderr,
