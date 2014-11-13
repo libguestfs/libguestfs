@@ -99,7 +99,7 @@ OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 OCAMLCLIBS  = \
-	$(LIBXML2_LIBS) $(LIBINTL) $(LIBCURSES_LIBS) -lcrypt \
+	$(LIBXML2_LIBS) $(LIBINTL) $(LIBTINFO_LIBS) -lcrypt \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu
 
@@ -154,11 +154,11 @@ check_SCRIPTS = common_utils_tests
 if HAVE_OCAMLOPT
 common_utils_tests: common_gettext.cmx tty-c.o tTY.cmx common_utils.cmx common_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
-	  mlguestfs.cmxa -linkpkg $^ -cclib $(LIBCURSES_LIBS) -o $@
+	  mlguestfs.cmxa -linkpkg $^ -cclib $(LIBTINFO_LIBS) -o $@
 else
 common_utils_tests: common_gettext.cmo tty-c.o tTY.cmo common_utils.cmo common_utils_tests.cmo
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
-	  mlguestfs.cma -linkpkg $^ -cclib $(LIBCURSES_LIBS) -custom -o $@
+	  mlguestfs.cma -linkpkg $^ -cclib $(LIBTINFO_LIBS) -custom -o $@
 endif
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test

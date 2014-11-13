@@ -136,7 +136,7 @@ OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) $(OCAMLPACKAGES)
 OCAMLOPTFLAGS = $(OCAMLCFLAGS)
 
 OCAMLCLIBS  = \
-	$(LIBXML2_LIBS) $(LIBINTL) $(LIBCURSES_LIBS) -lcrypt \
+	$(LIBXML2_LIBS) $(LIBINTL) $(LIBTINFO_LIBS) -lcrypt \
 	-L../src/.libs -lutils \
 	-L../gnulib/lib/.libs -lgnu
 
