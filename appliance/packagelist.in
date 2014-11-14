@@ -143,6 +143,7 @@ ifelse(SUSE,1,
   iputils
   libcap2
   libselinux1
+  libyajl2
   mkisofs
   reiserfs
   systemd
