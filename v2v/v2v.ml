@@ -73,7 +73,7 @@ let rec main () =
 
   if verbose then printf "%s%!" (string_of_source source);
 
-  assert (source.s_dom_type <> "");
+  assert (source.s_hypervisor <> "");
   assert (source.s_name <> "");
   assert (source.s_memory > 0L);
   assert (source.s_vcpu >= 1);

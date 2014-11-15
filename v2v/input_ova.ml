@@ -285,7 +285,7 @@ object
     done;
 
     let source = {
-      s_dom_type = "vmware";
+      s_hypervisor = "vmware";
       s_name = name;
       s_orig_name = name;
       s_memory = memory;

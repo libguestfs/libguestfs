@@ -21,7 +21,7 @@ open Printf
 (* Types.  See types.mli for documentation. *)
 
 type source = {
-  s_dom_type : string;
+  s_hypervisor : string;
   s_name : string;
   s_orig_name : string;
   s_memory : int64;
@@ -70,7 +70,7 @@ NICs:
 %s
 "
     s.s_name
-    s.s_dom_type
+    s.s_hypervisor
     s.s_memory
     s.s_vcpu
     (String.concat "," s.s_features)
