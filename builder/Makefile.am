@@ -41,7 +41,7 @@ EXTRA_DIST = \
 	virt-builder.pod \
 	virt-index-validate.pod
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
+CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 
 # Alphabetical order.
 SOURCES = \

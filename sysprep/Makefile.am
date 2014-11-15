@@ -26,7 +26,7 @@ EXTRA_DIST = \
 	virt-sysprep.pod
 
 CLEANFILES = \
-	*~ *.cmi *.cmo *.cmx *.cmxa *.o \
+	*~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o \
 	virt-sysprep virt-sysprep.1 \
 	stamp-virt-sysprep.pod
 

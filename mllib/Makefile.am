@@ -20,7 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(filter-out config.ml,$(SOURCES))
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o
+CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o
 
 # Alphabetical order.
 SOURCES = \
