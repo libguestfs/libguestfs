@@ -60,13 +60,13 @@ let parse_libvirt_xml ~verbose xml =
     )
   in
 
-  let dom_type = xpath_to_string "/domain/@type" "" in
+  let hypervisor = xpath_to_string "/domain/@type" "" in
   let name = xpath_to_string "/domain/name/text()" "" in
   let memory = xpath_to_int "/domain/memory/text()" (1024 * 1024) in
   let memory = Int64.of_int memory *^ 1024L in
   let vcpu = xpath_to_int "/domain/vcpu/text()" 1 in
 
-  if dom_type = "" then
+  if hypervisor = "" then
     error (f_"in the libvirt XML metadata, <domain type='...'> is missing or empty");
   if name = "" then
     error (f_"in the libvirt XML metadata, <name> is missing or empty");
@@ -247,7 +247,7 @@ let parse_libvirt_xml ~verbose xml =
     List.rev !nics in
 
   ({
-    s_dom_type = dom_type;
+    s_hypervisor = hypervisor;
     s_name = name; s_orig_name = name;
     s_memory = memory;
     s_vcpu = vcpu;

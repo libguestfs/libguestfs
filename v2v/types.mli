@@ -19,7 +19,7 @@
 (** Types. *)
 
 type source = {
-  s_dom_type : string;                  (** Source domain type, eg "kvm" *)
+  s_hypervisor : string;                (** Source hypervisor, eg "vmware" *)
   s_name : string;                      (** Guest name. *)
   s_orig_name : string;                 (** Original guest name (if we rename
                                             the guest using -on, original is
