@@ -73,7 +73,12 @@ let rec main () =
 
   if verbose then printf "%s%!" (string_of_source source);
 
-  assert (source.s_hypervisor <> "");
+  (match source.s_hypervisor with
+  | `OtherHV hv ->
+    warning (f_"unknown source hypervisor ('%s') in metadata") hv
+  | _ -> ()
+  );
+
   assert (source.s_name <> "");
   assert (source.s_memory > 0L);
   assert (source.s_vcpu >= 1);

@@ -19,7 +19,7 @@
 (** Types. *)
 
 type source = {
-  s_hypervisor : string;                (** Source hypervisor, eg "vmware" *)
+  s_hypervisor : source_hypervisor;     (** Source hypervisor. *)
   s_name : string;                      (** Guest name. *)
   s_orig_name : string;                 (** Original guest name (if we rename
                                             the guest using -on, original is
@@ -33,6 +33,17 @@ type source = {
   s_nics : source_nic list;             (** NICs. *)
 }
 (** The source: metadata, disk images. *)
+
+and source_hypervisor =
+[ `QEmu | `KQemu | `KVM | `Xen | `LXC | `UML | `OpenVZ
+| `Test | `VMware | `HyperV | `VBox | `Phyp | `Parallels
+| `Bhyve
+| `Physical (** used by virt-p2v *)
+| `UnknownHV (** used by -i disk *)
+| `OtherHV of string ]
+(** Possible source hypervisors.  See
+    [libvirt.git/docs/schemas/domaincommon.rng] for the list supported
+    by libvirt. *)
 
 and source_disk = {
   s_disk_id : int;                      (** A unique ID for each source disk. *)
@@ -66,6 +77,9 @@ and source_display = {
 
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
+
+val string_of_source_hypervisor : source_hypervisor -> string
+val source_hypervisor_of_string : string -> source_hypervisor
 
 type overlay = {
   ov_overlay_file : string;  (** Local overlay file (qcow2 format). *)
