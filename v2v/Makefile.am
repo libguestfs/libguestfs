@@ -33,7 +33,7 @@ EXTRA_DIST = \
 	test-v2v-networks-and-bridges.xml.in \
 	virt-v2v.pod
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
+CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
 
 SOURCES_MLI = \
 	convert_linux.mli \

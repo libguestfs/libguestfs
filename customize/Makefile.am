@@ -23,7 +23,7 @@ EXTRA_DIST = \
 	virt-customize.pod
 
 CLEANFILES = \
-	*~ *.cmi *.cmo *.cmx *.cmxa *.o \
+	*~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o \
 	stamp-virt-customize.pod \
 	virt-customize virt-customize.1
 

@@ -23,7 +23,7 @@ EXTRA_DIST = \
 	test-virt-sparsify.sh \
 	test-virt-sparsify-in-place.sh
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
+CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 
 SOURCES_ML = \
 	utils.ml \
