@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-11-06 22:06+0000\n"
+"POT-Creation-Date: 2014-11-15 17:08+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -3557,29 +3557,29 @@ msgstr "%s: fout bij het verkrijgen van uitgebreide attributen voor %s %s\n"
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: error: kan xattr telling niet ontleden voor %s %s\n"
 
-#: df/domains.c:84
+#: df/domains.c:85
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
 msgstr "%s: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
 
-#: df/domains.c:93
+#: df/domains.c:94
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: kon het aantal draaiende domeinen niet krijgen (code %d, domein %d): %s\n"
 
-#: df/domains.c:103
+#: df/domains.c:104
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s\n"
 msgstr "%s: kon draaiende domeinen niet tonen (code %d, domein %d): %s\n"
 
-#: df/domains.c:114
+#: df/domains.c:115
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 "%s: kon het aantal inactieve domeinen niet krijgen (code %d, domein %d): %s\n"
 
-#: df/domains.c:124
+#: df/domains.c:125
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr "%s: kon inactieve domeinen niet tonen (code %d, domein %d): %s\n"
