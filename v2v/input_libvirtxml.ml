@@ -68,6 +68,8 @@ let parse_libvirt_xml ~verbose xml =
 
   if hypervisor = "" then
     error (f_"in the libvirt XML metadata, <domain type='...'> is missing or empty");
+  let hypervisor = source_hypervisor_of_string hypervisor in
+
   if name = "" then
     error (f_"in the libvirt XML metadata, <name> is missing or empty");
 

@@ -285,7 +285,7 @@ object
     done;
 
     let source = {
-      s_hypervisor = "vmware";
+      s_hypervisor = `VMware;
       s_name = name;
       s_orig_name = name;
       s_memory = memory;
