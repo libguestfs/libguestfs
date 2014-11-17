@@ -375,17 +375,18 @@ let rec main () =
           (* If verbose, print the virtual and real copying rates. *)
           let elapsed_time = end_time -. start_time in
           if verbose && elapsed_time > 0. then (
-            let rate =
-              Int64.to_float t.target_overlay.ov_virtual_size
-              /. 1024. /. 1024. *. 10. /. elapsed_time in
-            printf "virtual copying rate: %.1f M bits/sec\n%!" rate;
+            let mbps size time =
+              Int64.to_float size /. 1024. /. 1024. *. 10. /. time
+            in
+
+            printf "virtual copying rate: %.1f M bits/sec\n%!"
+              (mbps t.target_overlay.ov_virtual_size elapsed_time);
 
             match t.target_actual_size with
             | None -> ()
             | Some actual ->
-              let rate =
-                Int64.to_float actual /. 1024. /. 1024. *. 10. /. elapsed_time in
-              printf "real copying rate: %.1f M bits/sec\n%!" rate
+              printf "real copying rate: %.1f M bits/sec\n%!"
+                (mbps actual elapsed_time)
           );
 
           (* If verbose, find out how close the estimate was.  This is
