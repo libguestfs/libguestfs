@@ -304,24 +304,28 @@ icon_fedora (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
  * RHEL 5, 6:
  * As above, but the file has been optimized to about 16K.
  *
+ * In RHEL 7 the logos were completely broken (RHBZ#1063300).
+ *
  * Conveniently the RHEL clones also have the same file with the
  * same name, but containing their own logos.  Sense prevails!
  */
-#define SHADOWMAN_ICON "/usr/share/pixmaps/redhat/shadowman-transparent.png"
-
 static char *
 icon_rhel (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
   size_t max_size = 0;
+  const char *shadowman;
 
-  if (fs->distro == OS_DISTRO_RHEL) {
-    if (fs->major_version <= 4)
-      max_size = 66000;
-    else
-      max_size = 17000;
-  }
+  if (fs->major_version >= 5 && fs->major_version <= 6)
+    max_size = 17000;
+  else
+    max_size = 66000;
 
-  return get_png (g, fs, SHADOWMAN_ICON, size_r, max_size);
+  if (fs->major_version <= 6)
+    shadowman = "/usr/share/pixmaps/redhat/shadowman-transparent.png";
+  else
+    shadowman = "/usr/share/pixmaps/fedora-logo-sprite.png";
+
+  return get_png (g, fs, shadowman, size_r, max_size);
 }
 
 #define DEBIAN_ICON "/usr/share/pixmaps/debian-logo.png"
