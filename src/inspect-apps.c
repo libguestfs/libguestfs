@@ -253,14 +253,17 @@ read_rpm_name (guestfs_h *g,
 /* tag constants, see rpmtag.h in RPM for complete list */
 #define RPMTAG_VERSION 1001
 #define RPMTAG_RELEASE 1002
+#define RPMTAG_EPOCH 1003
 #define RPMTAG_ARCH 1022
 
 static char *
 get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
-                    size_t header_len, uint32_t tag)
+                    size_t header_len, uint32_t tag, char type)
 {
   uint32_t num_fields, offset;
   const unsigned char *cursor = header_start + 8, *store, *header_end;
+  size_t max_len;
+  char iv[4];
 
   /* This function parses the RPM header structure to pull out various
    * tag strings (version, release, arch, etc.).  For more detail on the
@@ -285,10 +288,24 @@ get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
   while (cursor < store && cursor <= header_end - 16) {
     if (be32toh (*(uint32_t *) cursor) == tag) {
       offset = be32toh(*(uint32_t *) (cursor + 8));
+
       if (store + offset >= header_end)
         return NULL;
-      return safe_strndup(g, (const char *) (store + offset),
-                          header_end - (store + offset));
+      max_len = header_end - (store + offset);
+
+      switch (type) {
+      case 's':
+        return safe_strndup (g, (const char *) (store + offset), max_len);
+
+      case 'i':
+        memset (iv, 0, sizeof iv);
+        memcpy (iv, (void *) (store + offset),
+                max_len > sizeof iv ? sizeof iv : max_len);
+        return safe_memdup (g, iv, sizeof iv);
+
+      default:
+        abort ();
+      }
     }
     cursor += 16;
   }
@@ -311,7 +328,9 @@ read_package (guestfs_h *g,
 {
   struct read_package_data *data = datav;
   struct rpm_name nkey, *entry;
-  CLEANUP_FREE char *version = NULL, *release = NULL, *arch = NULL;
+  CLEANUP_FREE char *version = NULL, *release = NULL,
+    *epoch_str = NULL, *arch = NULL;
+  int32_t epoch;
 
   /* This function reads one (key, value) pair from the Packages
    * database.  The key is the link field (see struct rpm_name).  The
@@ -336,13 +355,20 @@ read_package (guestfs_h *g,
    * application out of the binary value string.
    */
 
-  version = get_rpm_header_tag (g, value, valuelen, RPMTAG_VERSION);
-  release = get_rpm_header_tag (g, value, valuelen, RPMTAG_RELEASE);
-  arch = get_rpm_header_tag (g, value, valuelen, RPMTAG_ARCH);
+  version = get_rpm_header_tag (g, value, valuelen, RPMTAG_VERSION, 's');
+  release = get_rpm_header_tag (g, value, valuelen, RPMTAG_RELEASE, 's');
+  epoch_str = get_rpm_header_tag (g, value, valuelen, RPMTAG_EPOCH, 'i');
+  arch = get_rpm_header_tag (g, value, valuelen, RPMTAG_ARCH, 's');
+
+  /* The epoch is stored as big-endian integer. */
+  if (epoch_str)
+    epoch = be32toh (*(int32_t *) epoch_str);
+  else
+    epoch = 0;
 
   /* Add the application and what we know. */
   if (version && release)
-    add_application (g, data->apps, entry->name, "", 0, version, release,
+    add_application (g, data->apps, entry->name, "", epoch, version, release,
                      arch ? arch : "", "", "", "", "");
 
   return 0;
