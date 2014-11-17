@@ -169,10 +169,12 @@ let rec main () =
 
   g#launch ();
 
+  (* Create the list of overlays structs.  Query each disk for its
+   * virtual size, and fill in a few other fields.
+   *)
   let overlays =
     mapi (
       fun i (overlay_file, source) ->
-        (* Grab the virtual size of each disk. *)
         let sd = "sd" ^ drive_name i in
         let dev = "/dev/" ^ sd in
         let vsize = g#blockdev_getsize64 dev in
