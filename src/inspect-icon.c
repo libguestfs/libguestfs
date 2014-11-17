@@ -221,6 +221,7 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
          size_t *size_r, size_t max_size)
 {
   char *ret;
+  CLEANUP_FREE char *real = NULL;
   CLEANUP_FREE char *type = NULL;
   CLEANUP_FREE char *local = NULL;
   int r, w, h;
@@ -231,8 +232,15 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   if (r == 0)
     return NOT_FOUND;
 
+  /* Resolve the path, in case it's a symbolic link (as in RHEL 7). */
+  guestfs_push_error_handler (g, NULL, NULL);
+  real = guestfs_realpath (g, filename);
+  guestfs_pop_error_handler (g);
+  if (real == NULL)
+    return NOT_FOUND; /* could just be a broken link */
+
   /* Check the file type and geometry. */
-  type = guestfs_file (g, filename);
+  type = guestfs_file (g, real);
   if (!type)
     return NOT_FOUND;
 
@@ -249,7 +257,7 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   if (max_size == 0)
     max_size = 4 * w * h;
 
-  local = guestfs___download_to_tmp (g, fs, filename, "icon", max_size);
+  local = guestfs___download_to_tmp (g, fs, real, "icon", max_size);
   if (!local)
     return NOT_FOUND;
 
