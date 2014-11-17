@@ -60,6 +60,7 @@
 static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
 #endif
 static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application2_list *list_applications_pacman (guestfs_h *g, struct inspect_fs *fs);
 static struct guestfs_application2_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
 static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *description);
 static void sort_applications (struct guestfs_application2_list *);
@@ -145,6 +146,11 @@ guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
         break;
 
       case OS_PACKAGE_FORMAT_PACMAN:
+	ret = list_applications_pacman (g, fs);
+	if (ret == NULL)
+	  return NULL;
+	break;
+
       case OS_PACKAGE_FORMAT_EBUILD:
       case OS_PACKAGE_FORMAT_PISI:
       case OS_PACKAGE_FORMAT_PKGSRC:
@@ -517,6 +523,137 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   if (fp)
     fclose (fp);
   */
+  return ret;
+}
+
+static struct guestfs_application2_list *
+list_applications_pacman (guestfs_h *g, struct inspect_fs *fs)
+{
+  CLEANUP_FREE char *desc_file = NULL, *fname = NULL, *line = NULL;
+  CLEANUP_FREE_DIRENT_LIST struct guestfs_dirent_list *local_db = NULL;
+  struct guestfs_application2_list *apps = NULL, *ret = NULL;
+  struct guestfs_dirent *curr = NULL;
+  FILE *fp;
+  size_t i, allocsize = 0;
+  ssize_t len;
+  CLEANUP_FREE char *name = NULL, *version = NULL, *desc = NULL;
+  CLEANUP_FREE char *arch = NULL, *url = NULL;
+  char **key = NULL, *rel = NULL, *ver = NULL, *p;
+  int32_t epoch;
+  const size_t path_len = strlen ("/var/lib/pacman/local/") + strlen ("/desc");
+
+  local_db = guestfs_readdir (g, "/var/lib/pacman/local");
+  if (local_db == NULL)
+    return NULL;
+
+  /* Allocate 'apps' list. */
+  apps = safe_malloc (g, sizeof *apps);
+  apps->len = 0;
+  apps->val = NULL;
+
+  for (i = 0; i < local_db->len; i++) {
+    curr = &local_db->val[i];
+
+    if (curr->ftyp != 'd' || STREQ (curr->name, ".") || STREQ (curr->name, ".."))
+      continue;
+
+    free (fname);
+    fname = safe_malloc (g, strlen (curr->name) + path_len + 1);
+    sprintf (fname, "/var/lib/pacman/local/%s/desc", curr->name);
+    free (desc_file);
+    desc_file = guestfs___download_to_tmp (g, fs, fname, curr->name, 8192);
+
+    /* The desc files are small (4K). If the desc file does not exist or is
+     * larger than the 8K limit we've used, the database is probably corrupted,
+     * but we'll continue with the next package anyway.
+     */
+    if (desc_file == NULL)
+      continue;
+
+    fp = fopen (desc_file, "r");
+    if (fp == NULL) {
+      perrorf (g, "fopen: %s", desc_file);
+      goto out;
+    }
+
+    while ((len = getline(&line, &allocsize, fp)) != -1) {
+      if (len > 0 && line[len-1] == '\n') {
+        line[--len] = '\0';
+      }
+
+      /* empty line */
+      if (len == 0) {
+        key = NULL;
+        continue;
+      }
+
+      if (key != NULL) {
+        *key = safe_strdup (g, line);
+        key = NULL;
+        continue;
+      }
+
+      if (STREQ (line, "%NAME%"))
+        key = &name;
+      else if (STREQ (line, "%VERSION%"))
+        key = &version;
+      else if (STREQ (line, "%DESC%"))
+        key = &desc;
+      else if (STREQ (line, "%URL%"))
+        key = &url;
+      else if (STREQ (line, "%ARCH%"))
+        key = &arch;
+    }
+
+    if ((name == NULL) || (version == NULL) || (arch == NULL))
+       /* Those are mandatory fields. The file is corrupted */
+       goto after_add_application;
+
+    /* version: [epoch:]ver-rel */
+    p = strchr (version, ':');
+    if (p) {
+      *p = '\0';
+      epoch = guestfs___parse_unsigned_int (g, version); /* -1 on error */
+      ver = p + 1;
+    } else {
+      epoch = 0;
+      ver = version;
+    }
+
+    p = strchr (ver, '-');
+    if (p) {
+      *p = '\0';
+      rel = p + 1;
+    } else /* release is a mandatory field */
+      goto after_add_application;
+
+    if ((epoch >= 0) && (ver[0] != '\0') && (rel[0] != '\0'))
+      add_application (g, apps, name, "", epoch, ver, rel, arch, "", "",
+                       url ? : "", desc ? : "");
+
+    after_add_application:
+     key = NULL;
+     free (name);
+     free (version);
+     free (desc);
+     free (arch);
+     free (url);
+     name = version = desc = arch = url = NULL;
+     rel = ver = NULL; /* haven't allocated memory for those */
+
+     if (fclose (fp) == -1) {
+       perrorf (g, "fclose: %s", desc_file);
+       goto out;
+     }
+
+  }
+
+  ret = apps;
+
+  out:
+    if (ret == NULL)
+      guestfs_free_application2_list (apps);
+
   return ret;
 }
 
