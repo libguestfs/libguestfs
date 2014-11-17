@@ -338,7 +338,7 @@ Illegal command 'part-get-name /dev/sda1 1' cause libguestfs appliance crashed
 
 =item L<https://bugzilla.redhat.com/1142004>
 
-virt-v2v prints waring:WARNING:/files/boot/grub/device.map references unknown device "xvda"
+virt-v2v prints warning:WARNING:/files/boot/grub/device.map references unknown device "xvda"
 
 =item L<https://bugzilla.redhat.com/1141723>
 
