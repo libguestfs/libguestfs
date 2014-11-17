@@ -357,7 +357,7 @@ return the default path." };
     shortdesc = "add options to kernel command line";
     longdesc = "\
 This function is used to add additional options to the
-guest kernel command line.
+libguestfs appliance kernel command line.
 
 The default is C<NULL> unless overridden by setting
 C<LIBGUESTFS_APPEND> environment variable.
@@ -377,7 +377,7 @@ are passed (libguestfs always adds a few of its own)." };
     shortdesc = "get the additional kernel options";
     longdesc = "\
 Return the additional kernel options which are added to the
-guest kernel command line.
+libguestfs appliance kernel command line.
 
 If C<NULL> then no options are added." };
 
