@@ -439,6 +439,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   FILE *fp;
   char line[1024];
   size_t len;
+  int32_t epoch = 0;
   CLEANUP_FREE char *name = NULL, *version = NULL, *release = NULL, *arch = NULL;
   int installed_flag = 0;
 
@@ -482,23 +483,31 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
     else if (STRPREFIX (line, "Version: ")) {
       free (version);
       free (release);
-      char *p = strchr (&line[9], '-');
-      if (p) {
-        *p = '\0';
-        version = safe_strdup (g, &line[9]);
-        release = safe_strdup (g, p+1);
+      char *p1, *p2;
+      p1 = strchr (&line[9], ':');
+      if (p1) {
+        *p1++ = '\0';
+        epoch = guestfs___parse_unsigned_int (g, &line[9]); /* -1 on error */
       } else {
-        version = safe_strdup (g, &line[9]);
+        p1 = &line[9];
+        epoch = 0;
+      }
+      p2 = strchr (p1, '-');
+      if (p2) {
+        *p2++ = '\0';
+        release = safe_strdup (g, p2);
+      } else {
         release = NULL;
       }
+      version = safe_strdup (g, p1);
     }
     else if (STRPREFIX (line, "Architecture: ")) {
       free (arch);
       arch = safe_strdup (g, &line[14]);
     }
     else if (STREQ (line, "")) {
-      if (installed_flag && name && version)
-        add_application (g, apps, name, "", 0, version, release ? : "",
+      if (installed_flag && name && version && (epoch >= 0))
+        add_application (g, apps, name, "", epoch, version, release ? : "",
                          arch ? : "", "", "", "", "");
       free (name);
       free (version);
