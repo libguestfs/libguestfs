@@ -480,7 +480,9 @@ output_root (xmlTextWriterPtr xo, char *root)
 
   output_applications (xo, root);
 
-  /* Don't return favicon.  XXX Should we? */
+  /* Don't return favicon.  RHEL 7 and Fedora have crappy 16x16
+   * favicons in the base distro.
+   */
   str = guestfs_inspect_get_icon (g, root, &size,
                                   GUESTFS_INSPECT_GET_ICON_FAVICON, 0,
                                   -1);
