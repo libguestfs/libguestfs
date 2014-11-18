@@ -1332,7 +1332,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       fun path ->
         let value = g#aug_get path in
 
-        let value =
+        let new_value =
           (* Handle grub2 resume=<dev> specially. *)
           if string_find path "GRUB_CMDLINE" >= 0 then (
             if Str.string_match rex_resume value 0 then (
@@ -1346,8 +1346,10 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           )
           else replace_if_device path value in
 
-        g#aug_set path value;
-        changed := true
+        if value <> new_value then (
+          g#aug_set path new_value;
+          changed := true
+        )
     ) paths;
 
     if !changed then (
