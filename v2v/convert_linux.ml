@@ -1300,7 +1300,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     and rex_device_cciss =
       Str.regexp "^/dev/\\(cciss/c[0-9]+d[0-9]+\\)$"
     and rex_device_p =
-      Str.regexp "^/dev/\\([a-z]+\\)\\([0-9]*\\)$"
+      Str.regexp "^/dev/\\([a-z]+\\)\\([0-9]+\\)$"
     and rex_device =
       Str.regexp "^/dev/\\([a-z]+\\)$" in
 
