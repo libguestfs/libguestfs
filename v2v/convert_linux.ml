@@ -1263,6 +1263,15 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
           "xvd" ^ drive_name i, block_prefix_after_conversion ^ drive_name i
       ) source.s_disks in
 
+    if verbose then (
+      printf "block device map:\n";
+      List.iter (
+        fun (source_dev, target_dev) ->
+          printf "\t%s\t-> %s\n" source_dev target_dev
+      ) (List.sort (fun (a,_) (b,_) -> compare a b) map);
+      flush stdout
+    );
+
     (* Possible Augeas paths to search for device names. *)
     let paths = [
       (* /etc/fstab *)
