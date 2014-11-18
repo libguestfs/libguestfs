@@ -561,6 +561,7 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
           } end_element ();
           start_element ("target") {
             attribute ("dev", target_dev);
+            /* XXX Need to set bus to "ide" or "scsi" here. */
           } end_element ();
         } end_element ();
       }

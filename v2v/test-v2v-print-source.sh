@@ -60,7 +60,7 @@ hypervisor type: test
    CPU features: 
         display: 
 disks:
-	/windows.img (raw) [vda]
+	/windows.img (raw) [virtio]
 removable media:
 NICs:" ]; then
     echo "$0: unexpected output from test:"
