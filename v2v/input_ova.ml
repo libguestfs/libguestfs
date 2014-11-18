@@ -160,6 +160,24 @@ object
     (* Search for number of vCPUs. *)
     let vcpu = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
 
+    (* Helper function to return the parent controller of a disk. *)
+    let parent_controller id =
+      let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceID/text()=%d]/rasd:ResourceType/text()" id in
+      let controller = xpath_to_int expr 0 in
+
+      (* 6: iscsi controller, 5: ide *)
+      match controller with
+      | 6 -> Some `SCSI
+      | 5 -> Some `IDE
+      | 0 ->
+        warning (f_"ova hard disk has no parent controller, please report this as a bug supplying the *.ovf file extracted from the ova");
+        None
+      | _ ->
+        warning (f_"ova hard disk has an unknown VMware controller type (%d), please report this as a bug supplying the *.ovf file extracted from the ova")
+          controller;
+        None
+    in
+
     (* Hard disks (ResourceType = 17). *)
     let disks = ref [] in
     let () =
@@ -169,20 +187,14 @@ object
       for i = 0 to nr_nodes-1 do
         let n = Xml.xpathobj_node doc obj i in
         Xml.xpathctx_set_current_context xpathctx n;
-        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
         let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
 
+        (* XXX We assume the OVF lists these in order.
+        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
+        *)
+
         (* Find the parent controller. *)
-        let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceID/text()=%d]/rasd:ResourceType/text()" parent_id in
-        let controller = xpath_to_int expr 0 in
-
-        (* 6: iscsi controller, 5: ide. assuming scsi or ide *)
-        let target_dev =
-          match controller with
-          | 6 -> "sd"
-          | 0 | 5 | _ (* XXX floppy should be 'fd'? *) -> "hd" in
-
-        let target_dev = target_dev ^ drive_name address in
+        let controller = parent_controller parent_id in
 
         Xml.xpathctx_set_current_context xpathctx n;
         let file_id = xpath_to_string "rasd:HostResource/text()" "" in
@@ -220,7 +232,7 @@ object
             s_disk_id = i;
             s_qemu_uri = filename;
             s_format = Some "vmdk";
-            s_target_dev = Some target_dev;
+            s_controller = controller;
           } in
           disks := disk :: !disks;
         ) else
@@ -243,20 +255,14 @@ object
         Xml.xpathctx_set_current_context xpathctx n;
         let id = xpath_to_int "rasd:ResourceType/text()" 0 in
         assert (id = 14 || id = 15 || id = 16);
-        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
         let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
 
+        (* XXX We assume the OVF lists these in order.
+        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
+        *)
+
         (* Find the parent controller. *)
-        let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceID/text()=%d]/rasd:ResourceType/text()" parent_id in
-        let controller = xpath_to_int expr 0 in
-
-        (* 6: iscsi controller, 5: ide. assuming scsi or ide *)
-        let target_dev =
-          match controller with
-          | 6 -> "sd"
-          | 0 | 5 | _ (* XXX floppy should be 'fd'? *) -> "hd" in
-
-        let target_dev = target_dev ^ drive_name address in
+        let controller = parent_controller parent_id in
 
         let typ =
           match id with
@@ -265,7 +271,7 @@ object
             | _ -> assert false in
         let disk = {
           s_removable_type = typ;
-          s_removable_target_dev = Some target_dev
+          s_removable_controller = controller;
         } in
         removables := disk :: !removables;
       done in

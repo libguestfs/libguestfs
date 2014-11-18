@@ -7,9 +7,9 @@ hypervisor type: vmware
    CPU features: 
         display: 
 disks:
-	disk1.vmdk (vmdk) [hda]
+	disk1.vmdk (vmdk) [scsi]
 removable media:
-	CD-ROM [hda]
+	CD-ROM [ide]
 NICs:
 	Network "Network adapter 1"
 
