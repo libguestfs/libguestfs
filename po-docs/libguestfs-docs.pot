@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.7\n"
+"Project-Id-Version: libguestfs 1.29.8\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-11-15 17:09+0000\n"
+"POT-Creation-Date: 2014-11-18 16:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19505,8 +19505,8 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:2336 ../src/guestfs-actions.pod:3713
 msgid ""
-"Return the additional kernel options which are added to the guest kernel "
-"command line."
+"Return the additional kernel options which are added to the libguestfs "
+"appliance kernel command line."
 msgstr ""
 
 #. type: textblock
@@ -28575,8 +28575,8 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6634 ../src/guestfs-actions.pod:10860
 msgid ""
-"This function is used to add additional options to the guest kernel command "
-"line."
+"This function is used to add additional options to the libguestfs appliance "
+"kernel command line."
 msgstr ""
 
 #. type: textblock
@@ -39104,7 +39104,7 @@ msgstr ""
 #. type: textblock
 #: ../guestfs-release-notes.pod:341
 msgid ""
-"virt-v2v prints waring:WARNING:/files/boot/grub/device.map references "
+"virt-v2v prints warning:WARNING:/files/boot/grub/device.map references "
 "unknown device \"xvda\""
 msgstr ""
 

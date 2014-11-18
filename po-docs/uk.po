@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-11-06 22:06+0000\n"
+"POT-Creation-Date: 2014-11-18 16:50+0000\n"
 "PO-Revision-Date: 2014-10-18 08:01+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -21874,8 +21874,8 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:2336 ../src/guestfs-actions.pod:3713
 msgid ""
-"Return the additional kernel options which are added to the guest kernel "
-"command line."
+"Return the additional kernel options which are added to the libguestfs "
+"appliance kernel command line."
 msgstr ""
 
 #. type: textblock
@@ -31414,10 +31414,12 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6634 ../src/guestfs-actions.pod:10860
+#, fuzzy
+#| msgid "Pass additional options to the guest kernel."
 msgid ""
-"This function is used to add additional options to the guest kernel command "
-"line."
-msgstr ""
+"This function is used to add additional options to the libguestfs appliance "
+"kernel command line."
+msgstr "Передати додаткові параметри ядру гостьової системи."
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6637 ../src/guestfs-actions.pod:10863
@@ -42396,7 +42398,7 @@ msgstr "L<https://bugzilla.redhat.com/1142004>"
 #. type: textblock
 #: ../guestfs-release-notes.pod:341
 msgid ""
-"virt-v2v prints waring:WARNING:/files/boot/grub/device.map references "
+"virt-v2v prints warning:WARNING:/files/boot/grub/device.map references "
 "unknown device \"xvda\""
 msgstr ""
 

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-11-15 17:08+0000\n"
+"POT-Creation-Date: 2014-11-18 16:49+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -54,7 +54,7 @@ msgstr "%s"
 #. ../customize/customize_main.ml:238
 #. ../builder/get_kernel.ml:52
 #. ../builder/builder.ml:647
-#: ../v2v/v2v.ml:624 ../v2v/v2v.ml:507 ../sysprep/main.ml:266
+#: ../v2v/v2v.ml:632 ../v2v/v2v.ml:515 ../sysprep/main.ml:266
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -90,7 +90,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1323
+#: ../v2v/convert_linux.ml:1318
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -737,7 +737,7 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:181
+#: ../v2v/input_libvirtxml.ml:188
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
@@ -823,7 +823,7 @@ msgstr "Перевірити числові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../v2v/v2v.ml:238
+#: ../v2v/v2v.ml:245
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
@@ -835,7 +835,7 @@ msgstr ""
 "Спорожнюємо резервну пам’ять Linux на %s…\n"
 "%!"
 
-#: ../v2v/v2v.ml:286
+#: ../v2v/v2v.ml:293
 msgid "Closing the overlay"
 msgstr "Закриваємо оверлей"
 
@@ -851,11 +851,11 @@ msgstr "Стиснутий формат виведення даних"
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:253
+#: ../v2v/v2v.ml:260
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:251
+#: ../v2v/v2v.ml:258
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -875,7 +875,7 @@ msgstr "Копіювання"
 msgid "Copying %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:307
+#: ../v2v/v2v.ml:314
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
@@ -903,11 +903,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
-#: ../v2v/v2v.ml:125
+#: ../v2v/v2v.ml:130
 msgid "Creating an overlay to protect the source from being modified"
 msgstr "Створюємо оверлей для захисту джерела від внесення змін"
 
-#: ../v2v/v2v.ml:409
+#: ../v2v/v2v.ml:417
 msgid "Creating output metadata"
 msgstr "Створюємо метадані результатів"
 
@@ -1059,7 +1059,7 @@ msgstr "Розмір отриманого:"
 msgid "Downloading: %s"
 msgstr "Отримуємо: %s"
 
-#: ../v2v/v2v.ml:443
+#: ../v2v/v2v.ml:451
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1111,11 +1111,11 @@ msgstr "Увімкнути трасування викликів libguestfs"
 msgid "Enable/disable specific operations"
 msgstr "Увімкнути або вимкнути специфічні операції"
 
-#: ../v2v/v2v.ml:456
+#: ../v2v/v2v.ml:464
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:242
+#: ../v2v/v2v.ml:249
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1208,7 +1208,7 @@ msgstr "Відбиток чинного ключа підписування"
 msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
-#: ../v2v/v2v.ml:423 ../customize/customize_main.ml:248
+#: ../v2v/v2v.ml:431 ../customize/customize_main.ml:248
 #: ../builder/builder.ml:696
 msgid "Finishing off"
 msgstr "Завершуємо"
@@ -1317,7 +1317,7 @@ msgstr "Ігнорувати файлову систему"
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../v2v/v2v.ml:183
+#: ../v2v/v2v.ml:190
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
@@ -1337,7 +1337,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
-#: ../v2v/v2v.ml:217
+#: ../v2v/v2v.ml:224
 msgid "Inspecting the overlay"
 msgstr "Вивчаємо оверлей"
 
@@ -1405,7 +1405,7 @@ msgstr "Відобразити місток «in» на «out»"
 msgid "Map network 'in' to 'out'"
 msgstr "Відобразити мережу «in» на «out»"
 
-#: ../v2v/v2v.ml:282
+#: ../v2v/v2v.ml:289
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 "Виконуємо прив’язку даних файлової системи для уникнення копіювання "
@@ -1477,7 +1477,7 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
-#: ../v2v/v2v.ml:153
+#: ../v2v/v2v.ml:158
 msgid "Opening the overlay"
 msgstr "Відкриваємо оверлей"
 
@@ -1513,7 +1513,7 @@ msgstr "Розмір виведення"
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
-#: ../v2v/v2v.ml:419
+#: ../v2v/v2v.ml:427
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr "Оверлей збережено як %s [--debug-overlays]\n"
 
@@ -1544,11 +1544,11 @@ msgstr "Нотатки POD для %s не повинні завершувати�
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
-#: ../v2v/v2v.ml:483
+#: ../v2v/v2v.ml:491
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:474
+#: ../v2v/v2v.ml:482
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
@@ -2298,11 +2298,11 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:272
+#: ../v2v/v2v.ml:279
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:270
+#: ../v2v/v2v.ml:277
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2578,7 +2578,7 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../v2v/v2v.ml:463
+#: ../v2v/v2v.ml:471
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
@@ -2624,7 +2624,7 @@ msgstr ""
 "не вдалося обробити параметр «-ic %s». Початкове повідомлення щодо помилки: "
 "%s"
 
-#: ../v2v/input_ova.ml:225
+#: ../v2v/input_ova.ml:239
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
@@ -2711,7 +2711,7 @@ msgstr "заборонений символ (%c) у назві операції"
 msgid "discard/trim is not supported: %s"
 msgstr "підтримки відкидання або обрізання не передбачено: %s"
 
-#: ../v2v/v2v.ml:193
+#: ../v2v/v2v.ml:200
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2736,7 +2736,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/input_libvirtxml.ml:108
+#: ../v2v/input_libvirtxml.ml:110
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2782,11 +2782,11 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:193
+#: ../v2v/input_ova.ml:207
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:211
+#: ../v2v/input_ova.ml:225
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -2956,7 +2956,7 @@ msgstr ""
 "у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
 "значення"
 
-#: ../v2v/input_libvirtxml.ml:72
+#: ../v2v/input_libvirtxml.ml:74
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
@@ -2976,11 +2976,11 @@ msgstr "внутрішня помилка: помилка оцінки у %s, р
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
-#: ../v2v/v2v.ml:319
+#: ../v2v/v2v.ml:326
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
-#: ../v2v/v2v.ml:147
+#: ../v2v/v2v.ml:152
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
@@ -3012,7 +3012,7 @@ msgstr "ядро %s перебуває поза ієрархією grub %s"
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
-#: ../v2v/v2v.ml:490
+#: ../v2v/v2v.ml:498
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3045,7 +3045,7 @@ msgstr ""
 "того, можливо, вам слід повторно запустити virt-v2v від імені користувача "
 "root."
 
-#: ../v2v/v2v.ml:470
+#: ../v2v/v2v.ml:478
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3060,7 +3060,7 @@ msgid ""
 "twice"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:177
+#: ../v2v/input_libvirtxml.ml:184
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr "мережу <disk> з <source protocol='%s'> проігноровано"
 
@@ -3138,7 +3138,7 @@ msgid ""
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
 
-#: ../v2v/v2v.ml:436
+#: ../v2v/v2v.ml:444
 msgid "no root device found in this operating system image."
 msgstr "у цьому образі операційної системи не знайдено кореневого пристрою."
 
@@ -3150,7 +3150,7 @@ msgstr ""
 "немає підтримки віддалених з’єднань libvirt з «-ic %s». Перетворення може "
 "призвести до помилок під час спроб прочитати диски джерел даних."
 
-#: ../v2v/v2v.ml:569
+#: ../v2v/v2v.ml:577
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3208,7 +3208,7 @@ msgstr ""
 "виведенням «%s» не може бути символьний пристрій, виводити дані можна лише "
 "до звичайного файла"
 
-#: ../v2v/v2v.ml:203
+#: ../v2v/v2v.ml:210
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3230,6 +3230,18 @@ msgstr ""
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
+msgstr ""
+
+#: ../v2v/input_ova.ml:176
+msgid ""
+"ova hard disk has an unknown VMware controller type (%d), please report this "
+"as a bug supplying the *.ovf file extracted from the ova"
+msgstr ""
+
+#: ../v2v/input_ova.ml:173
+msgid ""
+"ova hard disk has no parent controller, please report this as a bug "
+"supplying the *.ovf file extracted from the ova"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:154
@@ -3279,7 +3291,7 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:360 ../v2v/v2v.ml:143
+#: ../v2v/v2v.ml:367 ../v2v/v2v.ml:148
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
@@ -3298,7 +3310,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../v2v/v2v.ml:481
+#: ../v2v/v2v.ml:489
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 "не знайдено кореневого пристрою %s. Знайдено такі кореневі пристрої: %s"
@@ -3343,7 +3355,7 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:81
+#: ../v2v/v2v.ml:86
 msgid "source has no hard disks!"
 msgstr ""
 
@@ -3468,7 +3480,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/input_libvirtxml.ml:132
+#: ../v2v/input_libvirtxml.ml:134
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -3488,7 +3500,7 @@ msgstr ""
 "не вдалося знайти жодного коректного файла налаштувань modprobe, зокрема /"
 "etc/modprobe.conf"
 
-#: ../v2v/v2v.ml:502
+#: ../v2v/v2v.ml:510
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3545,6 +3557,10 @@ msgstr "невідомий параметр -oa: %s"
 #: ../v2v/OVF.ml:148
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d (%s)"
+
+#: ../v2v/v2v.ml:78
+msgid "unknown source hypervisor ('%s') in metadata"
+msgstr ""
 
 #: ../resize/resize.ml:564
 msgid "unknown/unavailable method for expanding filesystem %s"
@@ -3664,13 +3680,13 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:105
+#: ../v2v/input_libvirtxml.ml:107
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:262
+#: ../v2v/v2v.ml:269
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -8100,37 +8116,37 @@ msgstr "%s: xmlOutputBufferCreateFd: не вдалося відкрити stdout
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: не вдалося створити процес запису libxml2\n"
 
-#: inspector/inspector.c:769
+#: inspector/inspector.c:771
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr "%s: не вдалося обробити код XML з stdin\n"
 
-#: inspector/inspector.c:775
+#: inspector/inspector.c:777
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr "%s: не вдалося створити контекст XPath\n"
 
-#: inspector/inspector.c:782
+#: inspector/inspector.c:784
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr "%s: не вдалося обробити вираз XPath\n"
 
-#: inspector/inspector.c:795
+#: inspector/inspector.c:797
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr "%s: помилка xmlSaveToFd\n"
 
-#: inspector/inspector.c:802
+#: inspector/inspector.c:804
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr "%s: помилка xmlNewDoc\n"
 
-#: inspector/inspector.c:807
+#: inspector/inspector.c:809
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr "%s: помилка xmlCopyNode\n"
 
-#: inspector/inspector.c:814
+#: inspector/inspector.c:816
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr "%s: помилка xmlSaveDoc\n"
@@ -9336,7 +9352,7 @@ msgstr "розмір %s неймовірно великий (%<PRIi64> байт�
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:634
+#: src/inspect-icon.c:646
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
