@@ -171,9 +171,11 @@ object
         Xml.xpathctx_set_current_context xpathctx n;
         let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
         let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
-        (* Probably the parent controller. *)
-        let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceId/text()=%d]/rasd:ResourceType/text()" parent_id in
+
+        (* Find the parent controller. *)
+        let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceID/text()=%d]/rasd:ResourceType/text()" parent_id in
         let controller = xpath_to_int expr 0 in
+
         (* 6: iscsi controller, 5: ide. assuming scsi or ide *)
         let target_dev =
           match controller with
@@ -243,9 +245,11 @@ object
         assert (id = 14 || id = 15 || id = 16);
         let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
         let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
-        (* Probably the parent controller. *)
-        let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceId/text()=%d]/rasd:ResourceType/text()" parent_id in
+
+        (* Find the parent controller. *)
+        let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceID/text()=%d]/rasd:ResourceType/text()" parent_id in
         let controller = xpath_to_int expr 0 in
+
         (* 6: iscsi controller, 5: ide. assuming scsi or ide *)
         let target_dev =
           match controller with
