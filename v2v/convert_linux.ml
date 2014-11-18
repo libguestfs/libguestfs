@@ -1305,55 +1305,54 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       Str.regexp "^/dev/\\([a-z]+\\)$" in
 
     let rec replace_if_device path value =
-      if Str.string_match rex_device_cciss_p value 0 then (
+      let replace device =
+        try List.assoc device map
+        with Not_found ->
+          if string_find device "md" = -1 && string_find device "fd" = -1 &&
+            device <> "cdrom" then
+            warning ~prog (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
+              path device;
+          device
+      in
+
+      if string_find path "GRUB_CMDLINE" >= 0 then (
+        (* Handle grub2 resume=<dev> specially. *)
+        if Str.string_match rex_resume value 0 then (
+          let start = Str.matched_group 1 value
+          and device = Str.matched_group 2 value
+          and end_ = Str.matched_group 3 value in
+          let device = replace_if_device path device in
+          start ^ device ^ end_
+        )
+        else value
+      )
+      else if Str.string_match rex_device_cciss_p value 0 then (
         let device = Str.matched_group 1 value
         and part = Str.matched_group 2 value in
-        "/dev/" ^ replace path device ^ part
+        "/dev/" ^ replace device ^ part
       )
       else if Str.string_match rex_device_cciss value 0 then (
         let device = Str.matched_group 1 value in
-        "/dev/" ^ replace path device
+        "/dev/" ^ replace device
       )
       else if Str.string_match rex_device_p value 0 then (
         let device = Str.matched_group 1 value
         and part = Str.matched_group 2 value in
-        "/dev/" ^ replace path device ^ part
+        "/dev/" ^ replace device ^ part
       )
       else if Str.string_match rex_device value 0 then (
         let device = Str.matched_group 1 value in
-        "/dev/" ^ replace path device
+        "/dev/" ^ replace device
       )
       else (* doesn't look like a known device name *)
         value
-
-    and replace path device =
-      try List.assoc device map
-      with Not_found ->
-        if string_find device "md" = -1 && string_find device "fd" = -1 &&
-          device <> "cdrom" then
-          warning ~prog (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
-            path device;
-        device
     in
 
     let changed = ref false in
     List.iter (
       fun path ->
         let value = g#aug_get path in
-
-        let new_value =
-          (* Handle grub2 resume=<dev> specially. *)
-          if string_find path "GRUB_CMDLINE" >= 0 then (
-            if Str.string_match rex_resume value 0 then (
-              let start = Str.matched_group 1 value
-              and device = Str.matched_group 2 value
-              and end_ = Str.matched_group 3 value in
-              let device = replace_if_device path device in
-              start ^ device ^ end_
-            )
-            else value
-          )
-          else replace_if_device path value in
+        let new_value = replace_if_device path value in
 
         if value <> new_value then (
           g#aug_set path new_value;
