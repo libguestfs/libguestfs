@@ -36,11 +36,12 @@ and source_disk = {
   s_disk_id : int;
   s_qemu_uri : string;
   s_format : string option;
-  s_target_dev : string option;
+  s_controller : s_controller option;
 }
+and s_controller = [`IDE | `SCSI | `Virtio_blk]
 and source_removable = {
   s_removable_type : [`CDROM|`Floppy];
-  s_removable_target_dev : string option;
+  s_removable_controller : s_controller option;
 }
 and source_nic = {
   s_mac : string option;
@@ -82,23 +83,28 @@ NICs:
     (String.concat "\n" (List.map string_of_source_nic s.s_nics))
 
 and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
-                            s_target_dev = target_dev } =
+                            s_controller = controller } =
   sprintf "\t%s%s%s"
     qemu_uri
     (match format with
     | None -> ""
     | Some format -> " (" ^ format ^ ")")
-    (match target_dev with
+    (match controller with
     | None -> ""
-    | Some target_dev -> " [" ^ target_dev ^ "]")
+    | Some controller -> " [" ^ string_of_controller controller ^ "]")
+
+and string_of_controller = function
+  | `IDE -> "ide"
+  | `SCSI -> "scsi"
+  | `Virtio_blk -> "virtio"
 
 and string_of_source_removable { s_removable_type = typ;
-                                 s_removable_target_dev = target_dev } =
+                                 s_removable_controller = controller } =
   sprintf "\t%s%s"
     (match typ with `CDROM -> "CD-ROM" | `Floppy -> "Floppy")
-    (match target_dev with
+    (match controller with
     | None -> ""
-    | Some target_dev -> " [" ^ target_dev ^ "]")
+    | Some controller -> " [" ^ string_of_controller controller ^ "]")
 
 and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
   sprintf "\t%s \"%s\"%s"

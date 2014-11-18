@@ -1219,26 +1219,33 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
      * particular it assumes all non-removable source disks will be
      * added to the target in the order they appear in the libvirt XML.
      *)
-    let block_prefix =
-      if virtio then "vd"
-      else
-        match family, inspect.i_major_version with
-        | `RHEL_family, v when v < 5 ->
-          (* RHEL < 5 used old ide driver *) "hd"
-        | `RHEL_family, 5 ->
-          (* RHEL 5 uses libata, but udev still uses: *) "hd"
-        | `SUSE_family, _ ->
-          (* SUSE uses libata, but still presents IDE disks as: *) "hd"
-        | _, _ ->
-          (* All modern distros use libata: *) "sd" in
+    let ide_block_prefix =
+      match family, inspect.i_major_version with
+      | `RHEL_family, v when v < 5 ->
+        (* RHEL < 5 used old ide driver *) "hd"
+      | `RHEL_family, 5 ->
+        (* RHEL 5 uses libata, but udev still uses: *) "hd"
+      | `SUSE_family, _ ->
+        (* SUSE uses libata, but still presents IDE disks as: *) "hd"
+      | _, _ ->
+        (* All modern distros use libata: *) "sd" in
+
+    let block_prefix_after_conversion =
+      if virtio then "vd" else ide_block_prefix in
+
     let map =
       mapi (
         fun i disk ->
-          let source_dev =
-            match disk.s_target_dev with (* target/@dev in _source_ HV *)
-            | Some dev -> dev
-            | None -> (* ummm, what? *) block_prefix ^ drive_name i in
-          let target_dev = block_prefix ^ drive_name i in
+          let block_prefix_before_conversion =
+            match disk.s_controller with
+            | Some `IDE -> ide_block_prefix
+            | Some `SCSI -> "sd"
+            | Some `Virtio_blk -> "vd"
+            | None ->
+              (* This is basically a guess.  It assumes the source used IDE. *)
+              ide_block_prefix in
+          let source_dev = block_prefix_before_conversion ^ drive_name i in
+          let target_dev = block_prefix_after_conversion ^ drive_name i in
           source_dev, target_dev
       ) source.s_disks in
 
@@ -1253,7 +1260,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     let map = map @
       mapi (
         fun i disk ->
-          "xvd" ^ drive_name i, block_prefix ^ drive_name i
+          "xvd" ^ drive_name i, block_prefix_after_conversion ^ drive_name i
       ) source.s_disks in
 
     (* Possible Augeas paths to search for device names. *)

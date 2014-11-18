@@ -38,13 +38,20 @@ and source_disk = {
   s_disk_id : int;                      (** A unique ID for each source disk. *)
   s_qemu_uri : string;                  (** QEMU URI of source disk. *)
   s_format : string option;             (** Format. *)
-  s_target_dev : string option;         (** Target @dev from libvirt XML. *)
+  s_controller : s_controller option;   (** Controller, eg. IDE, SCSI. *)
 }
 (** A source disk. *)
 
+and s_controller = [`IDE | `SCSI | `Virtio_blk]
+(** Source disk controller.
+
+    For the purposes of this field, we can treat virtio-scsi as
+    [`SCSI].  However we don't support conversions from virtio in any
+    case so virtio is here only to make it work for testing. *)
+
 and source_removable = {
   s_removable_type : [`CDROM|`Floppy];  (** Type.  *)
-  s_removable_target_dev : string option; (** Target @dev from libvirt XML. *)
+  s_removable_controller : s_controller option; (** Controller, eg. IDE, SCSI.*)
 }
 (** Removable media. *)
 

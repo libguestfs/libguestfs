@@ -146,7 +146,7 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
   let removables =
     (* CDs will be added as IDE devices if we're using virtio, else
      * they will be added as the same as the disk bus.  The original
-     * s_removable_target_dev is ignored (same as old virt-v2v).
+     * s_removable_controller is ignored (same as old virt-v2v).
      *)
     let cdrom_bus, cdrom_block_prefix, cdrom_index =
       match guestcaps.gcaps_block_bus with

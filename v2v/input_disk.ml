@@ -69,7 +69,7 @@ class input_disk verbose input_format disk = object
       s_disk_id = 0;
       s_qemu_uri = disk_absolute;
       s_format = Some format;
-      s_target_dev = None;
+      s_controller = None;
     } in
 
     (* Give the guest a simple generic network interface. *)
