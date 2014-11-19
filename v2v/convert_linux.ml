@@ -846,11 +846,12 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
 
       if g#is_file ~followsymlinks:true "/sbin/dracut" then (
         (* Dracut. *)
-        ignore (
-          g#command [| "/sbin/dracut";
-                       "--add-drivers"; String.concat " " modules;
-                       initrd; mkinitrd_kv |]
-        )
+        let args =
+          [ "/sbin/dracut" ]
+          @ (if verbose then [ "--verbose" ] else [])
+          @ [ "--add-drivers"; String.concat " " modules; initrd; mkinitrd_kv ]
+        in
+        ignore (g#command (Array.of_list args))
       )
       else if family = `SUSE_family
            && g#is_file ~followsymlinks:true "/sbin/mkinitrd" then (
