@@ -1293,6 +1293,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
       "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
       "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT";
+      "/files/boot/grub2/device.map/*[label() != \"#comment\"]";
     ] in
 
     (* Which of these paths actually exist? *)
