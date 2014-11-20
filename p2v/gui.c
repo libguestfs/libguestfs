@@ -1324,6 +1324,9 @@ start_conversion_thread (void *data)
     gtk_widget_destroy (dlg);
   }
 
+  /* Disable the cancel button. */
+  gtk_widget_set_sensitive (cancel_button, FALSE);
+
   /* Enable the reboot button. */
   gtk_widget_set_sensitive (reboot_button, TRUE);
 
