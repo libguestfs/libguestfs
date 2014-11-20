@@ -41,6 +41,15 @@ ln -s ../run/lock /var/lock
 # devtmpfs is required since udev 176
 mount -t devtmpfs /dev /dev
 
+# Static nodes must happen before udev is started.
+
+# Set up kmod static-nodes (RHBZ#1011907).
+mkdir -p /run/tmpfiles.d
+kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/kmod.conf
+
+# Set up tmpfiles (must run after kmod.conf is created above).
+systemd-tmpfiles --prefix=/dev --create
+
 # Find udevd and run it directly.
 for f in /sbin/udevd /lib/udev/udevd \
     /lib/systemd/systemd-udevd /usr/lib/systemd/systemd-udevd \
@@ -58,13 +67,6 @@ udevadm settle --timeout=600
 if grep -sq selinux=1 /proc/cmdline; then
   mount -t selinuxfs none /sys/fs/selinux
 fi
-
-# Set up kmod static-nodes (RHBZ#1011907).
-mkdir -p /run/tmpfiles.d
-kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/kmod.conf
-
-# Set up tmpfiles (must run after kmod.conf is created above).
-systemd-tmpfiles --prefix=/dev --create
 
 # Disk optimizations.
 # Increase the SCSI timeout so we can read remote images.
