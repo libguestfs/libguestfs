@@ -1373,8 +1373,14 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
 
     (* Delete blkid caches if they exist, since they will refer to the old
      * device names.  blkid will rebuild these on demand.
+     *
+     * Delete the LVM cache since it will contain references to the
+     * old devices (RHBZ#1164853).
      *)
-    List.iter g#rm_f ["/etc/blkid/blkid.tab"; "/etc/blkid.tab"]
+    List.iter g#rm_f [
+      "/etc/blkid/blkid.tab"; "/etc/blkid.tab";
+      "/etc/lvm/cache/.cache"
+    ];
   in
 
   augeas_grub_configuration ();
