@@ -1093,7 +1093,7 @@ create_running_dialog (void)
   gtk_dialog_add_buttons (GTK_DIALOG (run_dlg),
                           _("Cancel conversion"), 1,
                           NULL);
-  cancel_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (conv_dlg), 1);
+  cancel_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (run_dlg), 1);
   gtk_widget_set_sensitive (cancel_button, FALSE);
 
   /* Signals. */
