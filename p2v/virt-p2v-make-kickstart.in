@@ -97,6 +97,7 @@ base64_p2v_service="$(base64 $datadir/p2v.service)"
 # virt-p2v binary is too large unless we strip it and compress it.
 tmpfile="$(mktemp -u)"
 cp $host_libexecdir/virt-p2v $tmpfile
+md5sum_virt_p2v="$(md5sum $tmpfile | @AWK@ '{print $1}')"
 strip --strip-all $tmpfile
 gzip -9 $tmpfile
 base64_virt_p2v="$(base64 $tmpfile.gz)"
@@ -139,6 +140,7 @@ done
   -v "base64_launch_virt_p2v=$base64_launch_virt_p2v" \
   -v "base64_p2v_service=$base64_p2v_service" \
   -v "base64_virt_p2v=$base64_virt_p2v" \
+  -v "md5sum_virt_p2v=$md5sum_virt_p2v" \
   -v "repos=$repos" \
   -v "libexecdir=$libexecdir" \
   '{
@@ -148,6 +150,7 @@ done
     gsub (/__BASE64_LAUNCH_VIRT_P2V__/, base64_launch_virt_p2v);
     gsub (/__BASE64_P2V_SERVICE__/, base64_p2v_service);
     gsub (/__BASE64_VIRT_P2V__/, base64_virt_p2v);
+    gsub (/__MD5SUM_VIRT_P2V__/, md5sum_virt_p2v);
     gsub (/__REPOS__/, repos);
     gsub (/__LIBEXECDIR__/, libexecdir);
     print;
