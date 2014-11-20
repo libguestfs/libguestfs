@@ -1058,6 +1058,7 @@ static void set_log_dir (const char *remote_dir);
 static void set_status (const char *msg);
 static void add_v2v_output (const char *msg);
 static void *start_conversion_thread (void *data);
+static void cancel_conversion_clicked (GtkWidget *w, gpointer data);
 static void reboot_clicked (GtkWidget *w, gpointer data);
 
 static void
@@ -1105,6 +1106,8 @@ create_running_dialog (void)
   /* Signals. */
   g_signal_connect_swapped (G_OBJECT (run_dlg), "destroy",
                             G_CALLBACK (gtk_main_quit), NULL);
+  g_signal_connect (G_OBJECT (cancel_button), "clicked",
+                    G_CALLBACK (cancel_conversion_clicked), NULL);
   g_signal_connect (G_OBJECT (reboot_button), "clicked",
                     G_CALLBACK (reboot_clicked), NULL);
 }
@@ -1118,7 +1121,7 @@ show_running_dialog (void)
 
   /* Show the running dialog. */
   gtk_widget_show_all (run_dlg);
-  gtk_widget_set_sensitive (cancel_button, FALSE);
+  gtk_widget_set_sensitive (cancel_button, TRUE);
   gtk_widget_set_sensitive (reboot_button, FALSE);
 }
 
@@ -1361,6 +1364,13 @@ notify_ui_callback (int type, const char *data)
   }
 
   gdk_threads_leave ();
+}
+
+static void
+cancel_conversion_clicked (GtkWidget *w, gpointer data)
+{
+  /* This makes start_conversion return an error (eventually). */
+  cancel_conversion ();
 }
 
 static void

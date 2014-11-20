@@ -86,6 +86,8 @@ get_conversion_error (void)
   return conversion_error;
 }
 
+static volatile sig_atomic_t stop = 0;
+
 #pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn"
 int
 start_conversion (struct config *config,
@@ -271,7 +273,7 @@ start_conversion (struct config *config,
   /* Read output from the virt-v2v process and echo it through the
    * notify function, until virt-v2v closes the connection.
    */
-  for (;;) {
+  while (!stop) {
     char buf[257];
     ssize_t r;
 
@@ -290,6 +292,11 @@ start_conversion (struct config *config,
       notify_ui (NOTIFY_REMOTE_MESSAGE, buf);
   }
 
+  if (stop) {
+    set_conversion_error ("cancelled by user");
+    goto out;
+  }
+
   if (notify_ui)
     notify_ui (NOTIFY_STATUS, _("Control connection closed by remote."));
 
@@ -299,6 +306,12 @@ start_conversion (struct config *config,
     mexp_close (control_h);
   cleanup_data_conns (data_conns, nr_disks);
   return ret;
+}
+
+void
+cancel_conversion (void)
+{
+  stop = 1;
 }
 
 /* Send a shell-quoted string to remote. */
