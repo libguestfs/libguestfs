@@ -10248,19 +10248,19 @@ of the snapshot, in the form C</path/to/dest/name>." };
          ["btrfs_subvolume_create"; "/test1"];
          ["btrfs_subvolume_delete"; "/test1"]]), []
     ];
-    shortdesc = "delete a btrfs snapshot";
+    shortdesc = "delete a btrfs subvolume or snapshot";
     longdesc = "\
-Delete the named btrfs subvolume." };
+Delete the named btrfs subvolume or snapshot." };
 
   { defaults with
     name = "btrfs_subvolume_create";
     style = RErr, [Pathname "dest"], [];
     proc_nr = Some 324;
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeCreate";
-    shortdesc = "create a btrfs snapshot";
+    shortdesc = "create a btrfs subvolume";
     longdesc = "\
 Create a btrfs subvolume.  The C<dest> argument is the destination
-directory and the name of the snapshot, in the form C</path/to/dest/name>." };
+directory and the name of the subvolume, in the form C</path/to/dest/name>." };
 
   { defaults with
     name = "btrfs_subvolume_list";
