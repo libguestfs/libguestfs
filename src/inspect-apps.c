@@ -319,8 +319,6 @@ get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
   return NULL;
 }
 
-#pragma GCC diagnostic pop
-
 struct read_package_data {
   struct rpm_names_list *list;
   struct guestfs_application2_list *apps;
@@ -379,6 +377,8 @@ read_package (guestfs_h *g,
 
   return 0;
 }
+
+#pragma GCC diagnostic pop
 
 static struct guestfs_application2_list *
 list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
