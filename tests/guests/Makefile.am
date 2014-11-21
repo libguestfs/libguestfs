@@ -28,6 +28,8 @@ EXTRA_DIST = \
 	guest-aux/fedora-packages.db.txt \
 	guest-aux/fedora-packages.db \
 	guest-aux/make-ubuntu-img.sh \
+	guest-aux/make-archlinux-img.sh \
+	guest-aux/archlinux-package \
 	guest-aux/make-windows-img.sh \
 	guest-aux/windows-software \
 	guest-aux/windows-software.reg \
@@ -49,6 +51,7 @@ disk_images = \
 	fedora-md2.img \
 	fedora-btrfs.img \
 	ubuntu.img \
+	archlinux.img \
 	windows.img
 
 # This is 'check_DATA' because we don't need it until 'make check'
@@ -100,6 +103,10 @@ debian.img: guest-aux/make-debian-img.sh
 
 # Make a (dummy) Ubuntu image.
 ubuntu.img: guest-aux/make-ubuntu-img.sh
+	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
+
+# Make a (dummy) Arch Linux image.
+archlinux.img: guest-aux/make-archlinux-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
 
 # Make a (dummy) Windows image.

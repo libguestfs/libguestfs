@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/sda1</root>
+    <name>linux</name>
+    <arch>x86_64</arch>
+    <distro>archlinux</distro>
+    <major_version>0</major_version>
+    <minor_version>0</minor_version>
+    <package_format>pacman</package_format>
+    <package_management>pacman</package_management>
+    <hostname>archlinux.test</hostname>
+    <format>installed</format>
+    <mountpoints>
+      <mountpoint dev="/dev/sda1">/</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/sda1">
+        <type>ext4</type>
+        <uuid>01234567-0123-0123-0123-012345678902</uuid>
+      </filesystem>
+    </filesystems>
+    <applications>
+      <application>
+        <name>test-package</name>
+        <epoch>1</epoch>
+        <version>0.1</version>
+        <release>1</release>
+        <arch>x86_64</arch>
+        <url>http://libguestfs.org/</url>
+        <description>Test package for libguestfs</description>
+      </application>
+    </applications>
+  </operatingsystem>
+</operatingsystems>

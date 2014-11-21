@@ -1,0 +1,15 @@
+%NAME%
+test-package
+
+%VERSION%
+1:0.1-1
+
+%DESC%
+Test package for libguestfs
+
+%URL%
+http://libguestfs.org/
+
+%ARCH%
+x86_64
+

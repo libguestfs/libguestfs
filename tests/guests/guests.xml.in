@@ -232,6 +232,22 @@
   </domain>
 
   <domain type='test'>
+    <name>archlinux</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='file' device='disk'>
+        <driver name='qemu' type='raw'/>
+        <source file='@abs_builddir@/archlinux.img'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <domain type='test'>
     <name>windows</name>
     <memory>1048576</memory>
     <os>

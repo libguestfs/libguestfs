@@ -527,6 +527,7 @@ Makefile.in
 /tests/guests/guest-aux/windows-system
 /tests/guests/stamp-fedora-md.img
 /tests/guests/ubuntu.img
+/tests/guests/archlinux.img
 /tests/guests/windows.img
 /tests/mount-local/test-parallel-mount-local
 /tests/mountable/test-internal-parse-mountable
