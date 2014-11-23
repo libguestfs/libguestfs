@@ -32,6 +32,7 @@ daemon/copy.c
 daemon/cpio.c
 daemon/cpmv.c
 daemon/dd.c
+daemon/debug-bmap.c
 daemon/debug.c
 daemon/devsparts.c
 daemon/df.c

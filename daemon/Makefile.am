@@ -98,6 +98,7 @@ guestfsd_SOURCES = \
 	daemon.h \
 	dd.c \
 	debug.c \
+	debug-bmap.c \
 	devsparts.c \
 	df.c \
 	dir.c \

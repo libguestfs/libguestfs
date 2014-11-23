@@ -83,6 +83,9 @@ static void deliberately_cause_a_segfault (void);
 static struct cmd cmds[] = {
   { "help", debug_help },
   { "binaries", debug_binaries },
+  { "bmap", debug_bmap },
+  { "bmap_device", debug_bmap_device },
+  { "bmap_file", debug_bmap_file },
   { "core_pattern", debug_core_pattern },
   { "device_speed", debug_device_speed },
   { "env", debug_env },
