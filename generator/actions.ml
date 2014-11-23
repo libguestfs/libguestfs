@@ -12003,6 +12003,20 @@ This is the same as the C<lstat(2)> system call." };
     longdesc = "\
 This is the internal call which implements C<guestfs_lstatnslist>." };
 
+  { defaults with
+    name = "blockdev_setra";
+    style = RErr, [Device "device"; Int "sectors"], [];
+    proc_nr = Some 424;
+    tests = [
+      InitEmpty, Always, TestRun (
+        [["blockdev_setra"; "/dev/sda"; "1024" ]]), []
+    ];
+    shortdesc = "set readahead";
+    longdesc = "\
+Set readahead (in 512-byte sectors) for the device.
+
+This uses the L<blockdev(8)> command." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

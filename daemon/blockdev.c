@@ -89,6 +89,16 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
 }
 
 int
+do_blockdev_setra (const char *device, int sectors)
+{
+  if (sectors < 0) {
+    reply_with_error ("readahead sectors must be >= 0");
+    return -1;
+  }
+  return (int) call_blockdev (device, "--setra", sectors, 0);
+}
+
+int
 do_blockdev_setro (const char *device)
 {
   return (int) call_blockdev (device, "--setro", -1, 0);
