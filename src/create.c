@@ -261,7 +261,12 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
 
   if (optargs->bitmask & GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK) {
     backingformat = optargs->backingformat;
-    if (STRNEQ (backingformat, "raw") && STRNEQ (backingformat, "qcow2")) {
+    /* Conservative whitelist.  This can be extended with other
+     * valid formats as required.
+     */
+    if (STRNEQ (backingformat, "raw") &&
+        STRNEQ (backingformat, "qcow2") &&
+        STRNEQ (backingformat, "vmdk")) {
       error (g, _("invalid value for backingformat parameter '%s'"),
              backingformat);
       return -1;
