@@ -23,6 +23,21 @@ _guestfs_options_only ()
 
     _init_completion -s || return
 
+    case "$prev" in
+        --align-first)
+            COMPREPLY=( $( compgen -W "never always auto" -- "$cur") )
+            return ;;
+        --check-tmpdir)
+            COMPREPLY=( $( compgen -W "ignore i continue cont c warn warning w fail f error" -- "$cur") )
+            return ;;
+        --list-format)
+            COMPREPLY=( $( compgen -W "short long json" -- "$cur") )
+            return ;;
+        --password-crypto)
+            COMPREPLY=( $( compgen -W "md5 sha256 sha512" -- "$cur") )
+            return ;;
+    esac
+
     case "$cur" in
         --*)
             # --options
