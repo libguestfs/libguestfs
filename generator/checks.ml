@@ -157,7 +157,9 @@ let () =
   List.iter (
     fun { name = name; longdesc = longdesc } ->
       if longdesc.[String.length longdesc-1] = '\n' then
-        failwithf "long description of %s should not end with \\n." name
+        failwithf "long description of %s should not end with \\n." name;
+      if longdesc.[0] <> Char.uppercase longdesc.[0] then
+        failwithf "long description of %s should begin with uppercase." name
   ) (all_functions @ fish_commands);
 
   (* Check proc_nrs. *)
