@@ -35,8 +35,6 @@ _virt_rescue ()
 
     _init_completion -s || return
 
-    longopts="$(virt-rescue --long-options)"
-
     # See if user has specified certain options anywhere on the
     # command line before the current word.
     while [ $c -lt $COMP_CWORD ]; do
@@ -57,6 +55,7 @@ _virt_rescue ()
     case "$cur" in
         --*)
             # --options
+            longopts="$(virt-rescue --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
             return ;;
         *)

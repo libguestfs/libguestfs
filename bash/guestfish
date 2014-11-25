@@ -35,8 +35,6 @@ _guestfish ()
 
     _init_completion -s || return
 
-    longopts="$(guestfish --long-options)"
-
     # See if user has specified certain options anywhere on the
     # command line before the current word.
     while [ $c -lt $COMP_CWORD ]; do
@@ -60,6 +58,7 @@ _guestfish ()
     case "$cur" in
         --*)
             # --options
+            longopts="$(guestfish --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
             return ;;
         *)

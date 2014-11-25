@@ -19,13 +19,14 @@
 _guestfs_options_only ()
 {
     local cur prev words cword split
-    local longopts="$1"
+    local longopts tool="$1"
 
     _init_completion -s || return
 
     case "$cur" in
         --*)
             # --options
+            longopts="$($tool --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
             return ;;
         *)
@@ -36,18 +37,18 @@ _guestfs_options_only ()
 
 _virt_builder ()
 {
-    _guestfs_options_only "$(virt-builder --long-options)"
+    _guestfs_options_only "virt-builder"
 } &&
 complete -o default -F _virt_builder virt-builder
 
 _virt_resize ()
 {
-    _guestfs_options_only "$(virt-resize --long-options)"
+    _guestfs_options_only "virt-resize"
 } &&
 complete -o default -F _virt_resize virt-resize
 
 _virt_sparsify ()
 {
-    _guestfs_options_only "$(virt-sparsify --long-options)"
+    _guestfs_options_only "virt-sparsify"
 } &&
 complete -o default -F _virt_sparsify virt-sparsify

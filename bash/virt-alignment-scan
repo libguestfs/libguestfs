@@ -31,7 +31,7 @@ _guestfs_virsh_list ()
 _guestfs_virttools ()
 {
     local cur prev words cword split
-    local longopts="$1" flag_ro="$2" doms
+    local longopts tool="$1" flag_ro="$2" doms
 
     _init_completion -s || return
 
@@ -45,6 +45,7 @@ _guestfs_virttools ()
     case "$cur" in
         --*)
             # --options
+            longopts="$($tool --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
             return ;;
         *)
@@ -55,60 +56,60 @@ _guestfs_virttools ()
 
 _virt_alignment_scan ()
 {
-    _guestfs_virttools "$(virt-alignment-scan --long-options)" 1
+    _guestfs_virttools "virt-alignment-scan" 1
 } &&
 complete -o default -F _virt_alignment_scan virt-alignment-scan
 
 _virt_cat ()
 {
-    _guestfs_virttools "$(virt-cat --long-options)" 1
+    _guestfs_virttools "virt-cat" 1
 } &&
 complete -o default -F _virt_cat virt-cat
 
 _virt_df ()
 {
-    _guestfs_virttools "$(virt-df --long-options)" 1
+    _guestfs_virttools "virt-df" 1
 } &&
 complete -o default -F _virt_df virt-df
 
 _virt_edit ()
 {
-    _guestfs_virttools "$(virt-edit --long-options)" 0
+    _guestfs_virttools "virt-edit" 0
 } &&
 complete -o default -F _virt_edit virt-edit
 
 _virt_filesystems ()
 {
-    _guestfs_virttools "$(virt-filesystems --long-options)" 1
+    _guestfs_virttools "virt-filesystems" 1
 } &&
 complete -o default -F _virt_filesystems virt-filesystems
 
 _virt_format ()
 {
-    _guestfs_virttools "$(virt-format --long-options)" 0
+    _guestfs_virttools "virt-format" 0
 } &&
 complete -o default -F _virt_format virt-format
 
 _virt_inspector ()
 {
-    _guestfs_virttools "$(virt-inspector --long-options)" 1
+    _guestfs_virttools "virt-inspector" 1
 } &&
 complete -o default -F _virt_inspector virt-inspector
 
 _virt_ls ()
 {
-    _guestfs_virttools "$(virt-ls --long-options)" 1
+    _guestfs_virttools "virt-ls" 1
 } &&
 complete -o default -F _virt_ls virt-ls
 
 _virt_sysprep ()
 {
-    _guestfs_virttools "$(virt-sysprep --long-options)" 0
+    _guestfs_virttools "virt-sysprep" 0
 } &&
 complete -o default -F _virt_sysprep virt-sysprep
 
 _virt_log ()
 {
-    _guestfs_virttools "$(virt-log --long-options)" 1
+    _guestfs_virttools "virt-log" 1
 } &&
 complete -o default -F _virt_log virt-log
