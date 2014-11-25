@@ -170,10 +170,10 @@ object
       | 6 -> Some `SCSI
       | 5 -> Some `IDE
       | 0 ->
-        warning (f_"ova hard disk has no parent controller, please report this as a bug supplying the *.ovf file extracted from the ova");
+        warning (f_"ova disk has no parent controller, please report this as a bug supplying the *.ovf file extracted from the ova");
         None
       | _ ->
-        warning (f_"ova hard disk has an unknown VMware controller type (%d), please report this as a bug supplying the *.ovf file extracted from the ova")
+        warning (f_"ova disk has an unknown VMware controller type (%d), please report this as a bug supplying the *.ovf file extracted from the ova")
           controller;
         None
     in
