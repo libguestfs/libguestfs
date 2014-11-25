@@ -19,7 +19,7 @@
 _guestfs_options_only ()
 {
     local cur prev words cword split
-    local longopts tool="$1"
+    local shortopts longopts tool="$1"
 
     _init_completion -s || return
 
@@ -28,6 +28,12 @@ _guestfs_options_only ()
             # --options
             longopts="$($tool --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
+            return ;;
+        -*)
+            # -o and --options
+            shortopts="$($tool --short-options)"
+            longopts="$($tool --long-options)"
+            COMPREPLY=( $(compgen -W "$shortopts $longopts" -- "$cur") )
             return ;;
         *)
             COMPREPLY=( $(compgen "$cur") )

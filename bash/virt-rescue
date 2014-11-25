@@ -31,7 +31,7 @@ _guestfs_virsh_list ()
 _virt_rescue ()
 {
     local cur prev words cword split
-    local longopts flag_ro=0 c=1 word doms
+    local shortopts longopts flag_ro=0 c=1 word doms
 
     _init_completion -s || return
 
@@ -57,6 +57,12 @@ _virt_rescue ()
             # --options
             longopts="$(virt-rescue --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
+            return ;;
+        -*)
+            # -o and --options
+            shortopts="$(virt-rescue --short-options)"
+            longopts="$(virt-rescue --long-options)"
+            COMPREPLY=( $(compgen -W "$shortopts $longopts" -- "$cur") )
             return ;;
         *)
             COMPREPLY=( $(compgen "$cur") )

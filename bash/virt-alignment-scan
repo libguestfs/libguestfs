@@ -31,7 +31,7 @@ _guestfs_virsh_list ()
 _guestfs_virttools ()
 {
     local cur prev words cword split
-    local longopts tool="$1" flag_ro="$2" doms
+    local shortopts longopts tool="$1" flag_ro="$2" doms
 
     _init_completion -s || return
 
@@ -47,6 +47,12 @@ _guestfs_virttools ()
             # --options
             longopts="$($tool --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
+            return ;;
+        -*)
+            # -o and --options
+            shortopts="$($tool --short-options)"
+            longopts="$($tool --long-options)"
+            COMPREPLY=( $(compgen -W "$shortopts $longopts" -- "$cur") )
             return ;;
         *)
             COMPREPLY=( $(compgen "$cur") )
