@@ -62,7 +62,7 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
    */
   udev_settle ();
 
-  if (extraarg > 0) {
+  if (extraarg >= 0) {
     snprintf (buf, sizeof buf, "%d", extraarg);
     argv[2] = buf;
     argv[3] = device;
@@ -91,31 +91,31 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
 int
 do_blockdev_setro (const char *device)
 {
-  return (int) call_blockdev (device, "--setro", 0, 0);
+  return (int) call_blockdev (device, "--setro", -1, 0);
 }
 
 int
 do_blockdev_setrw (const char *device)
 {
-  return (int) call_blockdev (device, "--setrw", 0, 0);
+  return (int) call_blockdev (device, "--setrw", -1, 0);
 }
 
 int
 do_blockdev_getro (const char *device)
 {
-  return (int) call_blockdev (device, "--getro", 0, 1);
+  return (int) call_blockdev (device, "--getro", -1, 1);
 }
 
 int
 do_blockdev_getss (const char *device)
 {
-  return (int) call_blockdev (device, "--getss", 0, 1);
+  return (int) call_blockdev (device, "--getss", -1, 1);
 }
 
 int
 do_blockdev_getbsz (const char *device)
 {
-  return (int) call_blockdev (device, "--getbsz", 0, 1);
+  return (int) call_blockdev (device, "--getbsz", -1, 1);
 }
 
 int
@@ -128,23 +128,23 @@ do_blockdev_setbsz (const char *device, int blocksize)
 int64_t
 do_blockdev_getsz (const char *device)
 {
-  return call_blockdev (device, "--getsz", 0, 1);
+  return call_blockdev (device, "--getsz", -1, 1);
 }
 
 int64_t
 do_blockdev_getsize64 (const char *device)
 {
-  return call_blockdev (device, "--getsize64", 0, 1);
+  return call_blockdev (device, "--getsize64", -1, 1);
 }
 
 int
 do_blockdev_flushbufs (const char *device)
 {
-  return call_blockdev (device, "--flushbufs", 0, 0);
+  return call_blockdev (device, "--flushbufs", -1, 0);
 }
 
 int
 do_blockdev_rereadpt (const char *device)
 {
-  return call_blockdev (device, "--rereadpt", 0, 0);
+  return call_blockdev (device, "--rereadpt", -1, 0);
 }
