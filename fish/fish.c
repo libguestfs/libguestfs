@@ -204,6 +204,7 @@ main (int argc, char *argv[])
     { "ro", 0, 0, 'r' },
     { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
@@ -245,6 +246,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "listen"))
         remote_control_listen = 1;
       else if (STREQ (long_options[option_index].name, "remote")) {

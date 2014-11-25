@@ -92,6 +92,8 @@ val compare_command_line_args : string -> string -> int
 (** Compare command line arguments for equality, ignoring any leading [-]s. *)
 
 val long_options : (Arg.key * Arg.spec * Arg.doc) list ref
+val display_short_options : unit -> 'a
+(** Implements [--short-options]. *)
 val display_long_options : unit -> 'a
 (** Implements [--long-options]. *)
 

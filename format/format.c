@@ -113,6 +113,7 @@ main (int argc, char *argv[])
     { "long-options", 0, 0, 0 },
     { "lvm", 2, 0, 0 },
     { "partition", 2, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { "wipe", 0, 0, 0 },
@@ -139,6 +140,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
       } else if (STREQ (long_options[option_index].name, "filesystem")) {

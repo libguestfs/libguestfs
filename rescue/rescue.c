@@ -113,6 +113,7 @@ main (int argc, char *argv[])
     { "rw", 0, 0, 'w' },
     { "scratch", 2, 0, 0 },
     { "selinux", 0, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "smp", 1, 0, 0 },
     { "suggest", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
@@ -145,6 +146,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "selinux")) {
         if (guestfs_set_selinux (g, 1) == -1)
           exit (EXIT_FAILURE);

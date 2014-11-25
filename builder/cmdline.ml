@@ -135,6 +135,7 @@ let parse_cmdline () =
     "--long",    Arg.Unit list_set_long,    " " ^ s_"Shortcut for --list-format short";
     "--list-format", Arg.String list_set_format,
                                             "short|long|json" ^ " " ^ s_"Set the format for --list (default: short)";
+    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";

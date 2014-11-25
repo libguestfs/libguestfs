@@ -53,6 +53,7 @@ static const struct option long_options[] = {
   { "help", 0, 0, HELP_OPTION },
   { "cmdline", 1, 0, 0 },
   { "long-options", 0, 0, 0 },
+  { "short-options", 0, 0, 0 },
   { "verbose", 0, 0, 'v' },
   { "version", 0, 0, 'V' },
   { 0, 0, 0, 0 }
@@ -83,10 +84,21 @@ usage (int status)
 
 /* XXX Copied from fish/options.c. */
 static void
+display_short_options (const char *format)
+{
+  while (*format) {
+    if (*format != ':')
+      printf ("-%c\n", *format);
+    ++format;
+  }
+  exit (EXIT_SUCCESS);
+}
+
+static void
 display_long_options (const struct option *long_options)
 {
   while (long_options->name) {
-    if (STRNEQ (long_options->name, "long-options"))
+    if (STRNEQ (long_options->name, "long-options") && STRNEQ (long_options->name, "short-options"))
       printf ("--%s\n", long_options->name);
     long_options++;
   }
@@ -118,6 +130,9 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options")) {
         display_long_options (long_options);
+      }
+      else if (STREQ (long_options[option_index].name, "short-options")) {
+        display_short_options (options);
       }
       else if (STREQ (long_options[option_index].name, "cmdline")) {
         cmdline = strdup (optarg);

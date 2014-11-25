@@ -421,8 +421,15 @@ let skip_dashes str =
 let compare_command_line_args a b =
   compare (String.lowercase (skip_dashes a)) (String.lowercase (skip_dashes b))
 
-(* Implements `--long-options'. *)
+(* Implement `--short-options' and `--long-options'. *)
 let long_options = ref ([] : (Arg.key * Arg.spec * Arg.doc) list)
+let display_short_options () =
+  List.iter (
+    fun (arg, _, _) ->
+      if string_prefix arg "-" && not (string_prefix arg "--") then
+        printf "%s\n" arg
+  ) !long_options;
+  exit 0
 let display_long_options () =
   List.iter (
     fun (arg, _, _) ->

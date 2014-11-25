@@ -151,6 +151,7 @@ main (int argc, char *argv[])
     { "long-options", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
     { "recursive", 0, 0, 'R' },
+    { "short-options", 0, 0, 0 },
     { "time", 0, 0, 0 },
     { "times", 0, 0, 0 },
     { "time-days", 0, 0, 0 },
@@ -190,6 +191,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {

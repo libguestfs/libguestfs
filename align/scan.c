@@ -115,6 +115,7 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "long-options", 0, 0, 0 },
     { "quiet", 0, 0, 'q' },
+    { "short-options", 0, 0, 0 },
     { "uuid", 0, 0, 0, },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
@@ -143,6 +144,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
       } else if (STREQ (long_options[option_index].name, "uuid")) {

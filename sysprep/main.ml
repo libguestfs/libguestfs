@@ -138,6 +138,7 @@ let main () =
       "--enable",  Arg.String set_enable,     s_"operations" ^ " " ^ s_"Enable specific operations";
       "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
       "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
+      "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
       "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
       "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (eg /:noatime;/var:rw,noatime)";
       "--no-selinux-relabel", Arg.Unit (fun () -> ()),

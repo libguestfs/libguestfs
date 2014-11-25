@@ -164,6 +164,7 @@ main (int argc, char *argv[])
     { "physical-volumes", 0, 0, 0 },
     { "physvols", 0, 0, 0 },
     { "pvs", 0, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "uuid", 0, 0, 0 },
     { "uuids", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
@@ -197,6 +198,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {

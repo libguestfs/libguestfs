@@ -154,6 +154,7 @@ let parse_cmdline () =
     "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
     "-if",       Arg.Set_string input_format,
     "format " ^ s_"Input format (for -i disk)";
+    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";

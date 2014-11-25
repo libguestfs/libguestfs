@@ -73,6 +73,7 @@ let parse_cmdline () =
     "--ignore",  Arg.String (add ignores),  s_"fs" ^ " " ^ s_"Ignore filesystem";
     "--in-place", Arg.Set in_place,         " " ^ s_"Modify the disk image in-place";
     "--inplace", Arg.Set in_place,          ditto;
+    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";

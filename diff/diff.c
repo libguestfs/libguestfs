@@ -167,6 +167,7 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "human-readable", 0, 0, 'h' },
     { "keys-from-stdin", 0, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "time", 0, 0, 0 },
     { "times", 0, 0, 0 },
     { "time-days", 0, 0, 0 },
@@ -208,6 +209,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {

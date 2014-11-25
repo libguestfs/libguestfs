@@ -173,6 +173,7 @@ main (int argc, char *argv[])
     { "ro", 0, 0, 'r' },
     { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "trace", 0, 0, 'x' },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
@@ -220,6 +221,8 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options"))
         display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
       else if (STREQ (long_options[option_index].name, "dir-cache-timeout"))
         dir_cache_timeout = atoi (optarg);
       else if (STREQ (long_options[option_index].name, "fuse-help"))

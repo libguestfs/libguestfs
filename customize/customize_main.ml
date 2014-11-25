@@ -93,6 +93,7 @@ let main () =
     "--dry-run", Arg.Set dryrun,            " " ^ s_"Perform a dry run";
     "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";

@@ -194,6 +194,7 @@ let main () =
       "--no-extra-partition", Arg.Clear extra_partition, " " ^ s_"Don't create extra partition";
       "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
       "--ignore",  Arg.String (add ignores),  s_"part" ^ " " ^ s_"Ignore partition";
+      "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
       "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
       "--lv-expand", Arg.String (add lv_expands), s_"lv" ^ " " ^ s_"Expand logical volume";
       "--LV-expand", Arg.String (add lv_expands), s_"lv" ^ ditto;

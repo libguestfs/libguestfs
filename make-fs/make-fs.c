@@ -59,6 +59,7 @@ static const struct option long_options[] = {
   { "label", 1, 0, 0 },
   { "long-options", 0, 0, 0 },
   { "partition", 2, 0, 0 },
+  { "short-options", 0, 0, 0 },
   { "size", 1, 0, 's' },
   { "type", 1, 0, 't' },
   { "verbose", 0, 0, 'v' },
@@ -124,6 +125,9 @@ main (int argc, char *argv[])
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "long-options")) {
         display_long_options (long_options);
+      }
+      else if (STREQ (long_options[option_index].name, "short-options")) {
+        display_short_options (options);
       }
       else if (STREQ (long_options[option_index].name, "floppy")) {
         size_str = "1440K";
