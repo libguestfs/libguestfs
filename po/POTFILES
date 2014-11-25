@@ -252,7 +252,6 @@ make-fs/make-fs.c
 mllib/fsync-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c
-mllib/tty-c.c
 mllib/uri-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c.c

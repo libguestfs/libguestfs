@@ -95,7 +95,6 @@ SOURCES_ML = \
 SOURCES_C = \
 	$(top_builddir)/fish/progress.c \
 	$(top_builddir)/fish/file-edit.c \
-	$(top_builddir)/mllib/tty-c.c \
 	$(top_builddir)/mllib/progress-c.c \
 	$(top_builddir)/mllib/mkdtemp-c.c \
 	$(top_builddir)/customize/crypt-c.c \
@@ -123,7 +122,6 @@ virt_v2v_CFLAGS = \
 
 BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \
-	$(top_builddir)/mllib/tTY.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
 	$(top_builddir)/mllib/progress.cmo \

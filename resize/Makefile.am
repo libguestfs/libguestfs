@@ -32,8 +32,6 @@ if HAVE_OCAML
 
 # Note this list must be in dependency order.
 deps = \
-	$(top_builddir)/mllib/tty-c.o \
-	$(top_builddir)/mllib/tTY.cmx \
 	$(top_builddir)/mllib/fsync-c.o \
 	$(top_builddir)/mllib/fsync.cmx \
 	$(top_builddir)/fish/guestfish-progress.o \

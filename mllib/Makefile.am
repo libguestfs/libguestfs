@@ -44,9 +44,6 @@ SOURCES = \
 	progress.ml \
 	regedit.mli \
 	regedit.ml \
-	tty-c.c \
-	tTY.mli \
-	tTY.ml \
 	uri-c.c \
 	uRI.mli \
 	uRI.ml
@@ -60,7 +57,6 @@ if HAVE_OCAML
 ocaml_modules = config \
 	libdir \
 	common_gettext \
-	tTY \
 	common_utils \
 	fsync \
 	progress \
@@ -73,7 +69,6 @@ ocaml_modules = config \
 OBJECTS = \
 	$(top_builddir)/fish/guestfish-progress.o \
 	$(top_builddir)/fish/guestfish-uri.o \
-	tty-c.o \
 	fsync-c.o \
 	progress-c.o \
 	uri-c.o \
@@ -152,11 +147,11 @@ DEFAULT_INCLUDES = \
 check_SCRIPTS = common_utils_tests
 
 if HAVE_OCAMLOPT
-common_utils_tests: common_gettext.cmx tty-c.o tTY.cmx common_utils.cmx common_utils_tests.cmx
+common_utils_tests: common_gettext.cmx common_utils.cmx common_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -o $@
 else
-common_utils_tests: common_gettext.cmo tty-c.o tTY.cmo common_utils.cmo common_utils_tests.cmo
+common_utils_tests: common_gettext.cmo common_utils.cmo common_utils_tests.cmo
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
 	  mlguestfs.cma -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -custom -o $@
 endif

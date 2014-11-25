@@ -34,7 +34,6 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	$(top_builddir)/fish/progress.c \
-	$(top_builddir)/mllib/tty-c.c \
 	$(top_builddir)/mllib/progress-c.c \
 	statvfs-c.c
 
@@ -54,7 +53,6 @@ virt_sparsify_CFLAGS = \
 
 BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \
-	$(top_builddir)/mllib/tTY.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/progress.cmo \
 	$(top_builddir)/mllib/config.cmo \

@@ -39,7 +39,6 @@ mllib/mkdtemp.ml
 mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
-mllib/tTY.ml
 mllib/uRI.ml
 resize/resize.ml
 sparsify/cmdline.ml
