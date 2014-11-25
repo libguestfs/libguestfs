@@ -33,7 +33,7 @@ let set_up_progress_bar ?(machine_readable = false) (g : Guestfs.guestfs) =
   (* Only display progress bars if the machine_readable flag is set or
    * the output is a tty.
    *)
-  if machine_readable || TTY.isatty_stdout () then (
+  if machine_readable || Unix.isatty Unix.stdout then (
     (* Initialize the C mini library. *)
     let bar = progress_bar_init ~machine_readable in
 

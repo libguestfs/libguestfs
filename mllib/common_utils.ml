@@ -207,15 +207,15 @@ let rec combine3 xs ys zs =
 
 (* ANSI terminal colours. *)
 let ansi_green ?(chan = stdout) () =
-  if TTY.isatty_stdout () then output_string chan "\x1b[0;32m"
+  if Unix.isatty Unix.stdout then output_string chan "\x1b[0;32m"
 let ansi_red ?(chan = stdout) () =
-  if TTY.isatty_stdout () then output_string chan "\x1b[1;31m"
+  if Unix.isatty Unix.stdout then output_string chan "\x1b[1;31m"
 let ansi_blue ?(chan = stdout) () =
-  if TTY.isatty_stdout () then output_string chan "\x1b[1;34m"
+  if Unix.isatty Unix.stdout then output_string chan "\x1b[1;34m"
 let ansi_magenta ?(chan = stdout) () =
-  if TTY.isatty_stdout () then output_string chan "\x1b[1;35m"
+  if Unix.isatty Unix.stdout then output_string chan "\x1b[1;35m"
 let ansi_restore ?(chan = stdout) () =
-  if TTY.isatty_stdout () then output_string chan "\x1b[0m"
+  if Unix.isatty Unix.stdout then output_string chan "\x1b[0m"
 
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
