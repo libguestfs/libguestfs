@@ -10217,7 +10217,7 @@ See C<guestfs_get_e2generation>." };
 
   { defaults with
     name = "btrfs_subvolume_snapshot";
-    style = RErr, [Pathname "source"; Pathname "dest"], [OBool "ro"];
+    style = RErr, [Pathname "source"; Pathname "dest"], [OBool "ro"; OString "qgroupid"];
     proc_nr = Some 322;
     once_had_no_optargs = true;
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeSnapshot";
@@ -10229,7 +10229,8 @@ See C<guestfs_get_e2generation>." };
          ["btrfs_subvolume_create"; "/test1"];
          ["btrfs_subvolume_create"; "/test2"];
          ["btrfs_subvolume_create"; "/dir/test3"];
-         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test5"; "true"]]), []
+         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test5"; "true"; "NOARG"];
+         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test6"; ""; "0/1000"]]), []
     ];
     shortdesc = "create a btrfs snapshot";
     longdesc = "\
@@ -10237,7 +10238,9 @@ Create a snapshot of the btrfs subvolume C<source>.
 The C<dest> argument is the destination directory and the name
 of the snapshot, in the form C</path/to/dest/name>. By default
 the newly created snapshot is writable, if the value of optional
-parameter C<ro> is true, then a readonly snapshot is created." };
+parameter C<ro> is true, then a readonly snapshot is created. The
+optional parameter C<qgroupid> represents the qgroup which the
+newly created snapshot will be added to." };
 
   { defaults with
     name = "btrfs_subvolume_delete";
