@@ -220,7 +220,7 @@ main (int argc, char *argv[])
 
   if (verbose) {
     if (cmdline)
-      printf ("linux commmand line: %s\n", cmdline);
+      printf ("linux command line: %s\n", cmdline);
     else
       printf ("could not read linux command line\n");
   }
