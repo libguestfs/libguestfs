@@ -10217,8 +10217,9 @@ See C<guestfs_get_e2generation>." };
 
   { defaults with
     name = "btrfs_subvolume_snapshot";
-    style = RErr, [Pathname "source"; Pathname "dest"], [];
+    style = RErr, [Pathname "source"; Pathname "dest"], [OBool "ro"];
     proc_nr = Some 322;
+    once_had_no_optargs = true;
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeSnapshot";
     tests = [
       InitPartition, Always, TestRun (
@@ -10228,13 +10229,15 @@ See C<guestfs_get_e2generation>." };
          ["btrfs_subvolume_create"; "/test1"];
          ["btrfs_subvolume_create"; "/test2"];
          ["btrfs_subvolume_create"; "/dir/test3"];
-         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test4"]]), []
+         ["btrfs_subvolume_snapshot"; "/dir/test3"; "/dir/test5"; "true"]]), []
     ];
-    shortdesc = "create a writable btrfs snapshot";
+    shortdesc = "create a btrfs snapshot";
     longdesc = "\
-Create a writable snapshot of the btrfs subvolume C<source>.
+Create a snapshot of the btrfs subvolume C<source>.
 The C<dest> argument is the destination directory and the name
-of the snapshot, in the form C</path/to/dest/name>." };
+of the snapshot, in the form C</path/to/dest/name>. By default
+the newly created snapshot is writable, if the value of optional
+parameter C<ro> is true, then a readonly snapshot is created." };
 
   { defaults with
     name = "btrfs_subvolume_delete";

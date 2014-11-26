@@ -208,7 +208,7 @@ do_mkfs_btrfs (char *const *devices,
 }
 
 int
-do_btrfs_subvolume_snapshot (const char *source, const char *dest)
+do_btrfs_subvolume_snapshot (const char *source, const char *dest, int ro)
 {
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
@@ -231,6 +231,12 @@ do_btrfs_subvolume_snapshot (const char *source, const char *dest)
   ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "snapshot");
+
+  /* Optional arguments. */
+  if ((optargs_bitmask & GUESTFS_BTRFS_SUBVOLUME_SNAPSHOT_RO_BITMASK) &&
+      ro)
+    ADD_ARG (argv, i, "-r");
+
   ADD_ARG (argv, i, source_buf);
   ADD_ARG (argv, i, dest_buf);
   ADD_ARG (argv, i, NULL);
