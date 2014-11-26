@@ -49,6 +49,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-add_drive_scratch.h \
   include/guestfs-gobject/optargs-btrfs_filesystem_resize.h \
   include/guestfs-gobject/optargs-btrfs_fsck.h \
+  include/guestfs-gobject/optargs-btrfs_subvolume_snapshot.h \
   include/guestfs-gobject/optargs-compress_device_out.h \
   include/guestfs-gobject/optargs-compress_out.h \
   include/guestfs-gobject/optargs-copy_attributes.h \
@@ -127,6 +128,7 @@ guestfs_gobject_sources= \
   src/optargs-add_drive_scratch.c \
   src/optargs-btrfs_filesystem_resize.c \
   src/optargs-btrfs_fsck.c \
+  src/optargs-btrfs_subvolume_snapshot.c \
   src/optargs-compress_device_out.c \
   src/optargs-compress_out.c \
   src/optargs-copy_attributes.c \
