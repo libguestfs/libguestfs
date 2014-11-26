@@ -22,7 +22,8 @@ scripts = \
 	guestmount \
 	virt-alignment-scan \
 	virt-rescue \
-	virt-resize
+	virt-resize \
+	virt-v2v
 
 symlinks = \
 	virt-builder \
