@@ -166,7 +166,7 @@ do_filesystem_available (const char *filesystem)
   r = filesystem_available (filesystem);
   if (r == -1) {
     reply_with_error ("error testing for filesystem availability; "
-                      "enable verbose mode and look at preceeding output");
+                      "enable verbose mode and look at preceding output");
     return -1;
   }
 
