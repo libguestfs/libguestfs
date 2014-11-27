@@ -1,5 +1,5 @@
-If you want to hack on virt-v2v or virt-p2v, you've come to the right
-place ...
+If you want to hack on virt-v2v, you've come to the right place ...
+For virt-p2v, read this file, but also p2v/HACKING.
 
 First a little history.  Virt-v2v has been through at least two
 complete rewrites, so this is probably about the third version (but we
@@ -32,10 +32,3 @@ them.
 Every other file in this directory is a support module / library of
 some sort.  Some code is written in C, especially where we want to use
 an external C library such as libxml2.
-
-Virt-p2v is a front end on virt-v2v.  ie. All it does is act as a GUI
-front end, and it calls out to virt-v2v to perform the actual
-conversion.  Therefore most of the C code in the p2v/ subdirectory is
-Gtk (GUI) code, or supporting code for talking to the remote
-conversion server.  There is no special support for physical machines
-in virt-v2v.  They are converted in the same way as foreign VMs.
