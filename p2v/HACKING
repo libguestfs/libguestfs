@@ -1,0 +1,36 @@
+To see about hacking on virt-v2v, see v2v/HACKING.
+
+Virt-p2v is a front end on virt-v2v.  ie. All it does is act as a GUI
+front end, and it calls out to virt-v2v to perform the actual
+conversion.  Therefore most of the C code in the p2v/ subdirectory is
+Gtk (GUI) code, or supporting code for talking to the remote
+conversion server.  There is no special support for physical machines
+in virt-v2v.  They are converted in the same way as foreign VMs.
+
+There are two paths through the code, GUI or non-GUI (parsing the
+kernel command line):
+
+  main.c     --+---->   gui.c    -----+----> conversion.c
+               |                      |
+               |                      |
+               `---->  kernel.c  -----'
+
+but both paths call back to the conversion.c function
+'start_conversion' to run the remote virt-v2v.
+
+The main task of gui.c/kernel.c is to populate the virt-v2v
+configuration (config.c).
+
+During conversion, we need to establish ssh connections, and that is
+done using two libraries:
+
+  conversion.c  ------>  ssh.c  ------>  miniexpect.c
+
+where 'ssh.c' is responsible for managing ssh connections overall, and
+'miniexpect.c' implements "expect-like" functionality for talking
+interactively to the remote virt-v2v conversion server.
+
+(Note that miniexpect is a separate library with its own upstream, so
+if you patch miniexpect.c, then please make sure the changes get
+reflected in miniexpect's upstream too:
+http://git.annexia.org/?p=miniexpect.git;a=summary )
