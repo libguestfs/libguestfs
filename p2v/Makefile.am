@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	HACKING \
 	issue \
 	launch-virt-p2v.in \
 	p2v.ks.in \
