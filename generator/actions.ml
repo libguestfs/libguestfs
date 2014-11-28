@@ -8540,6 +8540,7 @@ To find a filesystem from the label, use C<guestfs_findfs_label>." };
   { defaults with
     name = "vfs_uuid";
     style = RString "uuid", [Mountable "mountable"], [];
+    fish_alias = ["get-uuid"];
     proc_nr = Some 254;
     tests =
       (let uuid = uuidgen () in [
