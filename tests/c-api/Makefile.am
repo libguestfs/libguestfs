@@ -38,11 +38,16 @@ check_PROGRAMS = \
 	test-environment \
 	test-pwd \
 	test-event-string
+if HAVE_LIBDL
+check_PROGRAMS += \
+	test-dlopen
+endif
 
 TESTS = \
 	tests \
 	test-just-header \
 	test-create-handle \
+	test-dlopen \
 	test-config \
 	test-add-drive-opts \
 	test-last-errno \
@@ -52,6 +57,10 @@ TESTS = \
 	test-debug-to-file \
 	test-environment \
 	test-event-string
+if HAVE_LIBDL
+TESTS += \
+	test-dlopen
+endif
 
 if HAVE_CXX
 check_PROGRAMS += test-just-header-cxx
@@ -129,6 +138,17 @@ test_create_handle_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_create_handle_LDADD = \
 	$(top_builddir)/src/libguestfs.la
+
+if HAVE_LIBDL
+test_dlopen_SOURCES = test-dlopen.c
+test_dlopen_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+test_dlopen_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	-DLIBRARY=\"$(top_builddir)/src/.libs/libguestfs.so.0\"
+test_dlopen_LDADD = \
+	-ldl
+endif
 
 test_config_SOURCES = test-config.c
 test_config_CPPFLAGS = \

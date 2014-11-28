@@ -581,6 +581,13 @@ AC_ARG_WITH([extra-packages],
     [EXTRA_PACKAGES=])
 AC_SUBST([EXTRA_PACKAGES])
 
+dnl Check for libdl/dlopen (optional - only used to test if the library
+dnl can be used with libdl).
+AC_CHECK_LIB([dl],[dlopen],[have_libdl=yes],[have_libdl=no])
+AC_CHECK_HEADERS([dlfcn.h],[have_dlfcn=yes],[have_dlfcn=no])
+AM_CONDITIONAL([HAVE_LIBDL],
+               [test "x$have_libdl" = "xyes" && test "x$have_dlfcn" = "xyes"])
+
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])

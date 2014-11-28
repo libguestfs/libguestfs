@@ -483,6 +483,7 @@ Makefile.in
 /tests/c-api/test-config
 /tests/c-api/test-create-handle
 /tests/c-api/test-debug-to-file
+/tests/c-api/test-dlopen
 /tests/c-api/test-environment
 /tests/c-api/test-event-string
 /tests/c-api/test*.img
