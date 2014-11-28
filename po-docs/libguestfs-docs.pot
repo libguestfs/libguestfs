@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.11\n"
+"Project-Id-Version: libguestfs 1.29.12\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-11-27 11:33+0000\n"
+"POT-Creation-Date: 2014-11-28 17:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14939,7 +14939,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:108 ../fish/guestfish-actions.pod:488 ../fish/guestfish-actions.pod:518 ../fish/guestfish-actions.pod:961 ../fish/guestfish-actions.pod:1540 ../fish/guestfish-actions.pod:1616 ../fish/guestfish-actions.pod:1850 ../fish/guestfish-actions.pod:1878 ../fish/guestfish-actions.pod:1895 ../fish/guestfish-actions.pod:1957 ../fish/guestfish-actions.pod:2003 ../fish/guestfish-actions.pod:2020 ../fish/guestfish-actions.pod:2374 ../fish/guestfish-actions.pod:2568 ../fish/guestfish-actions.pod:2582 ../fish/guestfish-actions.pod:2702 ../fish/guestfish-actions.pod:2865 ../fish/guestfish-actions.pod:3881 ../fish/guestfish-actions.pod:4302 ../fish/guestfish-actions.pod:4670 ../fish/guestfish-actions.pod:4695 ../fish/guestfish-actions.pod:5218 ../fish/guestfish-actions.pod:5234 ../fish/guestfish-actions.pod:5250 ../fish/guestfish-actions.pod:5266 ../fish/guestfish-actions.pod:5279 ../fish/guestfish-actions.pod:5292 ../fish/guestfish-actions.pod:5370 ../fish/guestfish-actions.pod:5507 ../fish/guestfish-actions.pod:5520 ../fish/guestfish-actions.pod:5845 ../fish/guestfish-actions.pod:6679 ../fish/guestfish-actions.pod:6824 ../fish/guestfish-actions.pod:6843 ../fish/guestfish-actions.pod:7055 ../fish/guestfish-actions.pod:7213 ../fish/guestfish-actions.pod:7233 ../fish/guestfish-actions.pod:7252 ../fish/guestfish-actions.pod:7290 ../fish/guestfish-actions.pod:7357 ../fish/guestfish-actions.pod:7646 ../fish/guestfish-actions.pod:7662 ../fish/guestfish-actions.pod:7800 ../fish/guestfish-actions.pod:7816 ../fish/guestfish-actions.pod:8233 ../fish/guestfish-actions.pod:8309 ../fish/guestfish-actions.pod:8326 ../fish/guestfish-actions.pod:8401 ../fish/guestfish-actions.pod:8418 ../fish/guestfish-actions.pod:8437 ../fish/guestfish-actions.pod:8454 ../fish/guestfish-actions.pod:8471 ../src/guestfs-actions.pod:127 ../src/guestfs-actions.pod:614 ../src/guestfs-actions.pod:684 ../src/guestfs-actions.pod:1329 ../src/guestfs-actions.pod:2543 ../src/guestfs-actions.pod:2683 ../src/guestfs-actions.pod:3090 ../src/guestfs-actions.pod:3130 ../src/guestfs-actions.pod:3156 ../src/guestfs-actions.pod:3244 ../src/guestfs-actions.pod:3312 ../src/guestfs-actions.pod:3338 ../src/guestfs-actions.pod:3837 ../src/guestfs-actions.pod:4088 ../src/guestfs-actions.pod:4109 ../src/guestfs-actions.pod:4297 ../src/guestfs-actions.pod:4603 ../src/guestfs-actions.pod:5957 ../src/guestfs-actions.pod:6896 ../src/guestfs-actions.pod:7511 ../src/guestfs-actions.pod:7539 ../src/guestfs-actions.pod:8421 ../src/guestfs-actions.pod:8449 ../src/guestfs-actions.pod:8474 ../src/guestfs-actions.pod:8497 ../src/guestfs-actions.pod:8521 ../src/guestfs-actions.pod:8542 ../src/guestfs-actions.pod:8681 ../src/guestfs-actions.pod:8953 ../src/guestfs-actions.pod:8977 ../src/guestfs-actions.pod:9631 ../src/guestfs-actions.pod:10987 ../src/guestfs-actions.pod:11210 ../src/guestfs-actions.pod:11235 ../src/guestfs-actions.pod:11486 ../src/guestfs-actions.pod:11695 ../src/guestfs-actions.pod:11736 ../src/guestfs-actions.pod:11767 ../src/guestfs-actions.pod:11827 ../src/guestfs-actions.pod:11929 ../src/guestfs-actions.pod:12459 ../src/guestfs-actions.pod:12480 ../src/guestfs-actions.pod:12695 ../src/guestfs-actions.pod:12716 ../src/guestfs-actions.pod:13325 ../src/guestfs-actions.pod:13447 ../src/guestfs-actions.pod:13670 ../src/guestfs-actions.pod:13696 ../src/guestfs-actions.pod:13819 ../src/guestfs-actions.pod:13845 ../src/guestfs-actions.pod:13871 ../src/guestfs-actions.pod:13898 ../src/guestfs-actions.pod:13924
+#: ../fish/guestfish-actions.pod:108 ../fish/guestfish-actions.pod:488 ../fish/guestfish-actions.pod:518 ../fish/guestfish-actions.pod:961 ../fish/guestfish-actions.pod:1540 ../fish/guestfish-actions.pod:1616 ../fish/guestfish-actions.pod:1850 ../fish/guestfish-actions.pod:1878 ../fish/guestfish-actions.pod:1895 ../fish/guestfish-actions.pod:1957 ../fish/guestfish-actions.pod:2003 ../fish/guestfish-actions.pod:2020 ../fish/guestfish-actions.pod:2374 ../fish/guestfish-actions.pod:2568 ../fish/guestfish-actions.pod:2582 ../fish/guestfish-actions.pod:2702 ../fish/guestfish-actions.pod:2865 ../fish/guestfish-actions.pod:3881 ../fish/guestfish-actions.pod:4302 ../fish/guestfish-actions.pod:4670 ../fish/guestfish-actions.pod:4695 ../fish/guestfish-actions.pod:5218 ../fish/guestfish-actions.pod:5234 ../fish/guestfish-actions.pod:5250 ../fish/guestfish-actions.pod:5266 ../fish/guestfish-actions.pod:5279 ../fish/guestfish-actions.pod:5292 ../fish/guestfish-actions.pod:5370 ../fish/guestfish-actions.pod:5507 ../fish/guestfish-actions.pod:5520 ../fish/guestfish-actions.pod:5845 ../fish/guestfish-actions.pod:6679 ../fish/guestfish-actions.pod:6824 ../fish/guestfish-actions.pod:6843 ../fish/guestfish-actions.pod:7055 ../fish/guestfish-actions.pod:7213 ../fish/guestfish-actions.pod:7233 ../fish/guestfish-actions.pod:7252 ../fish/guestfish-actions.pod:7290 ../fish/guestfish-actions.pod:7357 ../fish/guestfish-actions.pod:7646 ../fish/guestfish-actions.pod:7662 ../fish/guestfish-actions.pod:7800 ../fish/guestfish-actions.pod:7816 ../fish/guestfish-actions.pod:8235 ../fish/guestfish-actions.pod:8311 ../fish/guestfish-actions.pod:8328 ../fish/guestfish-actions.pod:8403 ../fish/guestfish-actions.pod:8420 ../fish/guestfish-actions.pod:8439 ../fish/guestfish-actions.pod:8456 ../fish/guestfish-actions.pod:8473 ../src/guestfs-actions.pod:127 ../src/guestfs-actions.pod:614 ../src/guestfs-actions.pod:684 ../src/guestfs-actions.pod:1329 ../src/guestfs-actions.pod:2543 ../src/guestfs-actions.pod:2683 ../src/guestfs-actions.pod:3090 ../src/guestfs-actions.pod:3130 ../src/guestfs-actions.pod:3156 ../src/guestfs-actions.pod:3244 ../src/guestfs-actions.pod:3312 ../src/guestfs-actions.pod:3338 ../src/guestfs-actions.pod:3837 ../src/guestfs-actions.pod:4088 ../src/guestfs-actions.pod:4109 ../src/guestfs-actions.pod:4297 ../src/guestfs-actions.pod:4603 ../src/guestfs-actions.pod:5957 ../src/guestfs-actions.pod:6896 ../src/guestfs-actions.pod:7511 ../src/guestfs-actions.pod:7539 ../src/guestfs-actions.pod:8421 ../src/guestfs-actions.pod:8449 ../src/guestfs-actions.pod:8474 ../src/guestfs-actions.pod:8497 ../src/guestfs-actions.pod:8521 ../src/guestfs-actions.pod:8542 ../src/guestfs-actions.pod:8681 ../src/guestfs-actions.pod:8953 ../src/guestfs-actions.pod:8977 ../src/guestfs-actions.pod:9631 ../src/guestfs-actions.pod:10987 ../src/guestfs-actions.pod:11210 ../src/guestfs-actions.pod:11235 ../src/guestfs-actions.pod:11486 ../src/guestfs-actions.pod:11695 ../src/guestfs-actions.pod:11736 ../src/guestfs-actions.pod:11767 ../src/guestfs-actions.pod:11827 ../src/guestfs-actions.pod:11929 ../src/guestfs-actions.pod:12459 ../src/guestfs-actions.pod:12480 ../src/guestfs-actions.pod:12695 ../src/guestfs-actions.pod:12716 ../src/guestfs-actions.pod:13325 ../src/guestfs-actions.pod:13447 ../src/guestfs-actions.pod:13670 ../src/guestfs-actions.pod:13696 ../src/guestfs-actions.pod:13819 ../src/guestfs-actions.pod:13845 ../src/guestfs-actions.pod:13871 ../src/guestfs-actions.pod:13898 ../src/guestfs-actions.pod:13924
 msgid ""
 "Deprecated functions will not be removed from the API, but the fact that "
 "they are deprecated indicates that there are problems with correct use of "
@@ -15104,7 +15104,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:202 ../fish/guestfish-actions.pod:465 ../fish/guestfish-actions.pod:506 ../fish/guestfish-actions.pod:1033 ../fish/guestfish-actions.pod:1048 ../fish/guestfish-actions.pod:1068 ../fish/guestfish-actions.pod:1105 ../fish/guestfish-actions.pod:1390 ../fish/guestfish-actions.pod:1411 ../fish/guestfish-actions.pod:1462 ../fish/guestfish-actions.pod:1493 ../fish/guestfish-actions.pod:1502 ../fish/guestfish-actions.pod:1511 ../fish/guestfish-actions.pod:1525 ../fish/guestfish-actions.pod:1597 ../fish/guestfish-actions.pod:1703 ../fish/guestfish-actions.pod:1837 ../fish/guestfish-actions.pod:2352 ../fish/guestfish-actions.pod:2847 ../fish/guestfish-actions.pod:3051 ../fish/guestfish-actions.pod:3515 ../fish/guestfish-actions.pod:4038 ../fish/guestfish-actions.pod:4055 ../fish/guestfish-actions.pod:4082 ../fish/guestfish-actions.pod:4099 ../fish/guestfish-actions.pod:4117 ../fish/guestfish-actions.pod:4141 ../fish/guestfish-actions.pod:5050 ../fish/guestfish-actions.pod:5201 ../fish/guestfish-actions.pod:5353 ../fish/guestfish-actions.pod:5386 ../fish/guestfish-actions.pod:5492 ../fish/guestfish-actions.pod:5559 ../fish/guestfish-actions.pod:5607 ../fish/guestfish-actions.pod:5637 ../fish/guestfish-actions.pod:5781 ../fish/guestfish-actions.pod:5797 ../fish/guestfish-actions.pod:5833 ../fish/guestfish-actions.pod:6421 ../fish/guestfish-actions.pod:6558 ../fish/guestfish-actions.pod:6582 ../fish/guestfish-actions.pod:6613 ../fish/guestfish-actions.pod:6800 ../fish/guestfish-actions.pod:7552 ../fish/guestfish-actions.pod:7596 ../fish/guestfish-actions.pod:7632 ../fish/guestfish-actions.pod:7774 ../fish/guestfish-actions.pod:7853 ../fish/guestfish-actions.pod:7874 ../fish/guestfish-actions.pod:8251 ../fish/guestfish-actions.pod:8263 ../fish/guestfish-actions.pod:8294
+#: ../fish/guestfish-actions.pod:202 ../fish/guestfish-actions.pod:465 ../fish/guestfish-actions.pod:506 ../fish/guestfish-actions.pod:1033 ../fish/guestfish-actions.pod:1048 ../fish/guestfish-actions.pod:1068 ../fish/guestfish-actions.pod:1105 ../fish/guestfish-actions.pod:1390 ../fish/guestfish-actions.pod:1411 ../fish/guestfish-actions.pod:1462 ../fish/guestfish-actions.pod:1493 ../fish/guestfish-actions.pod:1502 ../fish/guestfish-actions.pod:1511 ../fish/guestfish-actions.pod:1525 ../fish/guestfish-actions.pod:1597 ../fish/guestfish-actions.pod:1703 ../fish/guestfish-actions.pod:1837 ../fish/guestfish-actions.pod:2352 ../fish/guestfish-actions.pod:2847 ../fish/guestfish-actions.pod:3051 ../fish/guestfish-actions.pod:3515 ../fish/guestfish-actions.pod:4038 ../fish/guestfish-actions.pod:4055 ../fish/guestfish-actions.pod:4082 ../fish/guestfish-actions.pod:4099 ../fish/guestfish-actions.pod:4117 ../fish/guestfish-actions.pod:4141 ../fish/guestfish-actions.pod:5050 ../fish/guestfish-actions.pod:5201 ../fish/guestfish-actions.pod:5353 ../fish/guestfish-actions.pod:5386 ../fish/guestfish-actions.pod:5492 ../fish/guestfish-actions.pod:5559 ../fish/guestfish-actions.pod:5607 ../fish/guestfish-actions.pod:5637 ../fish/guestfish-actions.pod:5781 ../fish/guestfish-actions.pod:5797 ../fish/guestfish-actions.pod:5833 ../fish/guestfish-actions.pod:6421 ../fish/guestfish-actions.pod:6558 ../fish/guestfish-actions.pod:6582 ../fish/guestfish-actions.pod:6613 ../fish/guestfish-actions.pod:6800 ../fish/guestfish-actions.pod:7552 ../fish/guestfish-actions.pod:7596 ../fish/guestfish-actions.pod:7632 ../fish/guestfish-actions.pod:7774 ../fish/guestfish-actions.pod:7853 ../fish/guestfish-actions.pod:7874 ../fish/guestfish-actions.pod:8253 ../fish/guestfish-actions.pod:8265 ../fish/guestfish-actions.pod:8296
 msgid ""
 "This command has one or more optional arguments.  See L</OPTIONAL "
 "ARGUMENTS>."
@@ -17601,7 +17601,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:1363 ../fish/guestfish-actions.pod:1375 ../fish/guestfish-actions.pod:1872 ../fish/guestfish-actions.pod:1889 ../fish/guestfish-actions.pod:1997 ../fish/guestfish-actions.pod:2014 ../fish/guestfish-actions.pod:2849 ../fish/guestfish-actions.pod:2859 ../fish/guestfish-actions.pod:2916 ../fish/guestfish-actions.pod:2931 ../fish/guestfish-actions.pod:2941 ../fish/guestfish-actions.pod:3117 ../fish/guestfish-actions.pod:6167 ../fish/guestfish-actions.pod:6182 ../fish/guestfish-actions.pod:6270 ../fish/guestfish-actions.pod:6287 ../fish/guestfish-actions.pod:6372 ../fish/guestfish-actions.pod:7390 ../fish/guestfish-actions.pod:7440 ../fish/guestfish-actions.pod:7561 ../fish/guestfish-actions.pod:7576 ../fish/guestfish-actions.pod:8227 ../fish/guestfish-actions.pod:8303 ../fish/guestfish-actions.pod:8320 ../fish/guestfish-actions.pod:8395 ../fish/guestfish-actions.pod:8412 ../fish/guestfish-actions.pod:8448 ../fish/guestfish-actions.pod:8465 ../src/guestfs-actions.pod:2055 ../src/guestfs-actions.pod:2075 ../src/guestfs-actions.pod:3141 ../src/guestfs-actions.pod:3167 ../src/guestfs-actions.pod:3323 ../src/guestfs-actions.pod:3349 ../src/guestfs-actions.pod:4564 ../src/guestfs-actions.pod:4614 ../src/guestfs-actions.pod:4679 ../src/guestfs-actions.pod:4703 ../src/guestfs-actions.pod:4720 ../src/guestfs-actions.pod:5053 ../src/guestfs-actions.pod:10105 ../src/guestfs-actions.pod:10131 ../src/guestfs-actions.pod:10285 ../src/guestfs-actions.pod:10311 ../src/guestfs-actions.pod:10421 ../src/guestfs-actions.pod:11994 ../src/guestfs-actions.pod:12053 ../src/guestfs-actions.pod:12269 ../src/guestfs-actions.pod:12293 ../src/guestfs-actions.pod:13464 ../src/guestfs-actions.pod:13681 ../src/guestfs-actions.pod:13707 ../src/guestfs-actions.pod:13830 ../src/guestfs-actions.pod:13856 ../src/guestfs-actions.pod:13909 ../src/guestfs-actions.pod:13935
+#: ../fish/guestfish-actions.pod:1363 ../fish/guestfish-actions.pod:1375 ../fish/guestfish-actions.pod:1872 ../fish/guestfish-actions.pod:1889 ../fish/guestfish-actions.pod:1997 ../fish/guestfish-actions.pod:2014 ../fish/guestfish-actions.pod:2849 ../fish/guestfish-actions.pod:2859 ../fish/guestfish-actions.pod:2916 ../fish/guestfish-actions.pod:2931 ../fish/guestfish-actions.pod:2941 ../fish/guestfish-actions.pod:3117 ../fish/guestfish-actions.pod:6167 ../fish/guestfish-actions.pod:6182 ../fish/guestfish-actions.pod:6270 ../fish/guestfish-actions.pod:6287 ../fish/guestfish-actions.pod:6372 ../fish/guestfish-actions.pod:7390 ../fish/guestfish-actions.pod:7440 ../fish/guestfish-actions.pod:7561 ../fish/guestfish-actions.pod:7576 ../fish/guestfish-actions.pod:8229 ../fish/guestfish-actions.pod:8305 ../fish/guestfish-actions.pod:8322 ../fish/guestfish-actions.pod:8397 ../fish/guestfish-actions.pod:8414 ../fish/guestfish-actions.pod:8450 ../fish/guestfish-actions.pod:8467 ../src/guestfs-actions.pod:2055 ../src/guestfs-actions.pod:2075 ../src/guestfs-actions.pod:3141 ../src/guestfs-actions.pod:3167 ../src/guestfs-actions.pod:3323 ../src/guestfs-actions.pod:3349 ../src/guestfs-actions.pod:4564 ../src/guestfs-actions.pod:4614 ../src/guestfs-actions.pod:4679 ../src/guestfs-actions.pod:4703 ../src/guestfs-actions.pod:4720 ../src/guestfs-actions.pod:5053 ../src/guestfs-actions.pod:10105 ../src/guestfs-actions.pod:10131 ../src/guestfs-actions.pod:10285 ../src/guestfs-actions.pod:10311 ../src/guestfs-actions.pod:10421 ../src/guestfs-actions.pod:11994 ../src/guestfs-actions.pod:12053 ../src/guestfs-actions.pod:12269 ../src/guestfs-actions.pod:12293 ../src/guestfs-actions.pod:13464 ../src/guestfs-actions.pod:13681 ../src/guestfs-actions.pod:13707 ../src/guestfs-actions.pod:13830 ../src/guestfs-actions.pod:13856 ../src/guestfs-actions.pod:13909 ../src/guestfs-actions.pod:13935
 msgid ""
 "Because of the message protocol, there is a transfer limit of somewhere "
 "between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
@@ -18633,7 +18633,7 @@ msgid "This calls the external C<egrep> program and returns the matching lines."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:1875 ../fish/guestfish-actions.pod:1892 ../fish/guestfish-actions.pod:2000 ../fish/guestfish-actions.pod:2017 ../fish/guestfish-actions.pod:2862 ../fish/guestfish-actions.pod:8306 ../fish/guestfish-actions.pod:8323 ../fish/guestfish-actions.pod:8398 ../fish/guestfish-actions.pod:8415 ../fish/guestfish-actions.pod:8451 ../fish/guestfish-actions.pod:8468
+#: ../fish/guestfish-actions.pod:1875 ../fish/guestfish-actions.pod:1892 ../fish/guestfish-actions.pod:2000 ../fish/guestfish-actions.pod:2017 ../fish/guestfish-actions.pod:2862 ../fish/guestfish-actions.pod:8308 ../fish/guestfish-actions.pod:8325 ../fish/guestfish-actions.pod:8400 ../fish/guestfish-actions.pod:8417 ../fish/guestfish-actions.pod:8453 ../fish/guestfish-actions.pod:8470
 msgid "I<This function is deprecated.> In new code, use the L</grep> call instead."
 msgstr ""
 
@@ -31416,8 +31416,13 @@ msgstr ""
 msgid "vfs-uuid"
 msgstr ""
 
-#. type: verbatim
+#. type: =head2
 #: ../fish/guestfish-actions.pod:8031
+msgid "get-uuid"
+msgstr ""
+
+#. type: verbatim
+#: ../fish/guestfish-actions.pod:8033
 #, no-wrap
 msgid ""
 " vfs-uuid mountable\n"
@@ -31425,27 +31430,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8033 ../src/guestfs-actions.pod:13090
+#: ../fish/guestfish-actions.pod:8035 ../src/guestfs-actions.pod:13090
 msgid "This returns the filesystem UUID of the filesystem on C<mountable>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8035 ../src/guestfs-actions.pod:13092
+#: ../fish/guestfish-actions.pod:8037 ../src/guestfs-actions.pod:13092
 msgid "If the filesystem does not have a UUID, this returns the empty string."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8037
+#: ../fish/guestfish-actions.pod:8039
 msgid "To find a filesystem from the UUID, use L</findfs-uuid>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8039
+#: ../fish/guestfish-actions.pod:8041
 msgid "vg-activate"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8041
+#: ../fish/guestfish-actions.pod:8043
 #, no-wrap
 msgid ""
 " vg-activate true|false 'volgroups ...'\n"
@@ -31453,31 +31458,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8043 ../src/guestfs-actions.pod:13108
+#: ../fish/guestfish-actions.pod:8045 ../src/guestfs-actions.pod:13108
 msgid ""
 "This command activates or (if C<activate> is false) deactivates all logical "
 "volumes in the listed volume groups C<volgroups>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8046 ../src/guestfs-actions.pod:13111
+#: ../fish/guestfish-actions.pod:8048 ../src/guestfs-actions.pod:13111
 msgid "This command is the same as running C<vgchange -a y|n volgroups...>"
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8048 ../src/guestfs-actions.pod:13113
+#: ../fish/guestfish-actions.pod:8050 ../src/guestfs-actions.pod:13113
 msgid ""
 "Note that if C<volgroups> is an empty list then B<all> volume groups are "
 "activated or deactivated."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8051
+#: ../fish/guestfish-actions.pod:8053
 msgid "vg-activate-all"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8053
+#: ../fish/guestfish-actions.pod:8055
 #, no-wrap
 msgid ""
 " vg-activate-all true|false\n"
@@ -31485,24 +31490,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8055 ../src/guestfs-actions.pod:13126
+#: ../fish/guestfish-actions.pod:8057 ../src/guestfs-actions.pod:13126
 msgid ""
 "This command activates or (if C<activate> is false) deactivates all logical "
 "volumes in all volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8058 ../src/guestfs-actions.pod:13129
+#: ../fish/guestfish-actions.pod:8060 ../src/guestfs-actions.pod:13129
 msgid "This command is the same as running C<vgchange -a y|n>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8060
+#: ../fish/guestfish-actions.pod:8062
 msgid "vgchange-uuid"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8062
+#: ../fish/guestfish-actions.pod:8064
 #, no-wrap
 msgid ""
 " vgchange-uuid vg\n"
@@ -31510,17 +31515,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8064 ../src/guestfs-actions.pod:13141
+#: ../fish/guestfish-actions.pod:8066 ../src/guestfs-actions.pod:13141
 msgid "Generate a new random UUID for the volume group C<vg>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8066
+#: ../fish/guestfish-actions.pod:8068
 msgid "vgchange-uuid-all"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8068
+#: ../fish/guestfish-actions.pod:8070
 #, no-wrap
 msgid ""
 " vgchange-uuid-all\n"
@@ -31528,17 +31533,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8070 ../src/guestfs-actions.pod:13152
+#: ../fish/guestfish-actions.pod:8072 ../src/guestfs-actions.pod:13152
 msgid "Generate new random UUIDs for all volume groups."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8072
+#: ../fish/guestfish-actions.pod:8074
 msgid "vgcreate"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8074
+#: ../fish/guestfish-actions.pod:8076
 #, no-wrap
 msgid ""
 " vgcreate volgroup 'physvols ...'\n"
@@ -31546,19 +31551,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8076 ../src/guestfs-actions.pod:13165
+#: ../fish/guestfish-actions.pod:8078 ../src/guestfs-actions.pod:13165
 msgid ""
 "This creates an LVM volume group called C<volgroup> from the non-empty list "
 "of physical volumes C<physvols>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8079
+#: ../fish/guestfish-actions.pod:8081
 msgid "vglvuuids"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8081
+#: ../fish/guestfish-actions.pod:8083
 #, no-wrap
 msgid ""
 " vglvuuids vgname\n"
@@ -31566,31 +31571,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8083 ../src/guestfs-actions.pod:13178
+#: ../fish/guestfish-actions.pod:8085 ../src/guestfs-actions.pod:13178
 msgid ""
 "Given a VG called C<vgname>, this returns the UUIDs of all the logical "
 "volumes created in this volume group."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8086
+#: ../fish/guestfish-actions.pod:8088
 msgid ""
 "You can use this along with L</lvs> and L</lvuuid> calls to associate "
 "logical volumes and volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8089
+#: ../fish/guestfish-actions.pod:8091
 msgid "See also L</vgpvuuids>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8091
+#: ../fish/guestfish-actions.pod:8093
 msgid "vgmeta"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8093
+#: ../fish/guestfish-actions.pod:8095
 #, no-wrap
 msgid ""
 " vgmeta vgname\n"
@@ -31598,26 +31603,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8095 ../src/guestfs-actions.pod:13199
+#: ../fish/guestfish-actions.pod:8097 ../src/guestfs-actions.pod:13199
 msgid ""
 "C<vgname> is an LVM volume group.  This command examines the volume group "
 "and returns its metadata."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8098 ../src/guestfs-actions.pod:13202
+#: ../fish/guestfish-actions.pod:8100 ../src/guestfs-actions.pod:13202
 msgid ""
 "Note that the metadata is an internal structure used by LVM, subject to "
 "change at any time, and is provided for information only."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8101
+#: ../fish/guestfish-actions.pod:8103
 msgid "vgpvuuids"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8103
+#: ../fish/guestfish-actions.pod:8105
 #, no-wrap
 msgid ""
 " vgpvuuids vgname\n"
@@ -31625,31 +31630,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8105 ../src/guestfs-actions.pod:13217
+#: ../fish/guestfish-actions.pod:8107 ../src/guestfs-actions.pod:13217
 msgid ""
 "Given a VG called C<vgname>, this returns the UUIDs of all the physical "
 "volumes that this volume group resides on."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8108
+#: ../fish/guestfish-actions.pod:8110
 msgid ""
 "You can use this along with L</pvs> and L</pvuuid> calls to associate "
 "physical volumes and volume groups."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8111
+#: ../fish/guestfish-actions.pod:8113
 msgid "See also L</vglvuuids>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8113
+#: ../fish/guestfish-actions.pod:8115
 msgid "vgremove"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8115
+#: ../fish/guestfish-actions.pod:8117
 #, no-wrap
 msgid ""
 " vgremove vgname\n"
@@ -31657,22 +31662,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8117 ../src/guestfs-actions.pod:13237
+#: ../fish/guestfish-actions.pod:8119 ../src/guestfs-actions.pod:13237
 msgid "Remove an LVM volume group C<vgname>, (for example C<VG>)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8119 ../src/guestfs-actions.pod:13239
+#: ../fish/guestfish-actions.pod:8121 ../src/guestfs-actions.pod:13239
 msgid "This also forcibly removes all logical volumes in the volume group (if any)."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8122
+#: ../fish/guestfish-actions.pod:8124
 msgid "vgrename"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8124
+#: ../fish/guestfish-actions.pod:8126
 #, no-wrap
 msgid ""
 " vgrename volgroup newvolgroup\n"
@@ -31680,17 +31685,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8126 ../src/guestfs-actions.pod:13253
+#: ../fish/guestfish-actions.pod:8128 ../src/guestfs-actions.pod:13253
 msgid "Rename a volume group C<volgroup> with the new name C<newvolgroup>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8128
+#: ../fish/guestfish-actions.pod:8130
 msgid "vgs"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8130
+#: ../fish/guestfish-actions.pod:8132
 #, no-wrap
 msgid ""
 " vgs\n"
@@ -31698,31 +31703,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8132 ../src/guestfs-actions.pod:13264
+#: ../fish/guestfish-actions.pod:8134 ../src/guestfs-actions.pod:13264
 msgid ""
 "List all the volumes groups detected.  This is the equivalent of the "
 "L<vgs(8)> command."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8135 ../src/guestfs-actions.pod:13267
+#: ../fish/guestfish-actions.pod:8137 ../src/guestfs-actions.pod:13267
 msgid ""
 "This returns a list of just the volume group names that were detected "
 "(eg. C<VolGroup00>)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8138
+#: ../fish/guestfish-actions.pod:8140
 msgid "See also L</vgs-full>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8140
+#: ../fish/guestfish-actions.pod:8142
 msgid "vgs-full"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8142
+#: ../fish/guestfish-actions.pod:8144
 #, no-wrap
 msgid ""
 " vgs-full\n"
@@ -31730,19 +31735,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8144 ../src/guestfs-actions.pod:13283
+#: ../fish/guestfish-actions.pod:8146 ../src/guestfs-actions.pod:13283
 msgid ""
 "List all the volumes groups detected.  This is the equivalent of the "
 "L<vgs(8)> command.  The \"full\" version includes all fields."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8147
+#: ../fish/guestfish-actions.pod:8149
 msgid "vgscan"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8149
+#: ../fish/guestfish-actions.pod:8151
 #, no-wrap
 msgid ""
 " vgscan\n"
@@ -31750,19 +31755,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8151 ../src/guestfs-actions.pod:13297
+#: ../fish/guestfish-actions.pod:8153 ../src/guestfs-actions.pod:13297
 msgid ""
 "This rescans all block devices and rebuilds the list of LVM physical "
 "volumes, volume groups and logical volumes."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8154
+#: ../fish/guestfish-actions.pod:8156
 msgid "vguuid"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8156
+#: ../fish/guestfish-actions.pod:8158
 #, no-wrap
 msgid ""
 " vguuid vgname\n"
@@ -31770,17 +31775,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8158 ../src/guestfs-actions.pod:13310
+#: ../fish/guestfish-actions.pod:8160 ../src/guestfs-actions.pod:13310
 msgid "This command returns the UUID of the LVM VG named C<vgname>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8160
+#: ../fish/guestfish-actions.pod:8162
 msgid "wc-c"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8162
+#: ../fish/guestfish-actions.pod:8164
 #, no-wrap
 msgid ""
 " wc-c path\n"
@@ -31788,19 +31793,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8164 ../src/guestfs-actions.pod:13350
+#: ../fish/guestfish-actions.pod:8166 ../src/guestfs-actions.pod:13350
 msgid ""
 "This command counts the characters in a file, using the C<wc -c> external "
 "command."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8167
+#: ../fish/guestfish-actions.pod:8169
 msgid "wc-l"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8169
+#: ../fish/guestfish-actions.pod:8171
 #, no-wrap
 msgid ""
 " wc-l path\n"
@@ -31808,19 +31813,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8171 ../src/guestfs-actions.pod:13363
+#: ../fish/guestfish-actions.pod:8173 ../src/guestfs-actions.pod:13363
 msgid ""
 "This command counts the lines in a file, using the C<wc -l> external "
 "command."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8174
+#: ../fish/guestfish-actions.pod:8176
 msgid "wc-w"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8176
+#: ../fish/guestfish-actions.pod:8178
 #, no-wrap
 msgid ""
 " wc-w path\n"
@@ -31828,19 +31833,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8178 ../src/guestfs-actions.pod:13376
+#: ../fish/guestfish-actions.pod:8180 ../src/guestfs-actions.pod:13376
 msgid ""
 "This command counts the words in a file, using the C<wc -w> external "
 "command."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8181
+#: ../fish/guestfish-actions.pod:8183
 msgid "wipefs"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8183
+#: ../fish/guestfish-actions.pod:8185
 #, no-wrap
 msgid ""
 " wipefs device\n"
@@ -31848,31 +31853,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8185 ../src/guestfs-actions.pod:13389
+#: ../fish/guestfish-actions.pod:8187 ../src/guestfs-actions.pod:13389
 msgid ""
 "This command erases filesystem or RAID signatures from the specified "
 "C<device> to make the filesystem invisible to libblkid."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8188 ../src/guestfs-actions.pod:13392
+#: ../fish/guestfish-actions.pod:8190 ../src/guestfs-actions.pod:13392
 msgid ""
 "This does not erase the filesystem itself nor any other data from the "
 "C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8191
+#: ../fish/guestfish-actions.pod:8193
 msgid "Compare with L</zero> which zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8194
+#: ../fish/guestfish-actions.pod:8196
 msgid "write"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8196
+#: ../fish/guestfish-actions.pod:8198
 #, no-wrap
 msgid ""
 " write path content\n"
@@ -31880,24 +31885,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8198 ../src/guestfs-actions.pod:13410
+#: ../fish/guestfish-actions.pod:8200 ../src/guestfs-actions.pod:13410
 msgid ""
 "This call creates a file called C<path>.  The content of the file is the "
 "string C<content> (which can contain any 8 bit data)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8201
+#: ../fish/guestfish-actions.pod:8203
 msgid "See also L</write-append>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8203
+#: ../fish/guestfish-actions.pod:8205
 msgid "write-append"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8205
+#: ../fish/guestfish-actions.pod:8207
 #, no-wrap
 msgid ""
 " write-append path content\n"
@@ -31905,24 +31910,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8207 ../src/guestfs-actions.pod:13427
+#: ../fish/guestfish-actions.pod:8209 ../src/guestfs-actions.pod:13427
 msgid ""
 "This call appends C<content> to the end of file C<path>.  If C<path> does "
 "not exist, then a new file is created."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8210
+#: ../fish/guestfish-actions.pod:8212
 msgid "See also L</write>."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8212
+#: ../fish/guestfish-actions.pod:8214
 msgid "write-file"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8214
+#: ../fish/guestfish-actions.pod:8216
 #, no-wrap
 msgid ""
 " write-file path content size\n"
@@ -31930,38 +31935,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8216 ../src/guestfs-actions.pod:13451
+#: ../fish/guestfish-actions.pod:8218 ../src/guestfs-actions.pod:13451
 msgid ""
 "This call creates a file called C<path>.  The contents of the file is the "
 "string C<content> (which can contain any 8 bit data), with length C<size>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8220 ../src/guestfs-actions.pod:13455
+#: ../fish/guestfish-actions.pod:8222 ../src/guestfs-actions.pod:13455
 msgid ""
 "As a special case, if C<size> is C<0> then the length is calculated using "
 "C<strlen> (so in this case the content cannot contain embedded ASCII NULs)."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8224 ../src/guestfs-actions.pod:13459
+#: ../fish/guestfish-actions.pod:8226 ../src/guestfs-actions.pod:13459
 msgid ""
 "I<NB.> Owing to a bug, writing content containing ASCII NUL characters does "
 "I<not> work, even if the length is specified."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8230
+#: ../fish/guestfish-actions.pod:8232
 msgid "I<This function is deprecated.> In new code, use the L</write> call instead."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8237
+#: ../fish/guestfish-actions.pod:8239
 msgid "xfs-admin"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8239
+#: ../fish/guestfish-actions.pod:8241
 #, no-wrap
 msgid ""
 " xfs-admin device [extunwritten:true|false] [imgfile:true|false] "
@@ -31971,31 +31976,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8241 ../src/guestfs-actions.pod:13489
+#: ../fish/guestfish-actions.pod:8243 ../src/guestfs-actions.pod:13489
 msgid "Change the parameters of the XFS filesystem on C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8243 ../src/guestfs-actions.pod:13491
+#: ../fish/guestfish-actions.pod:8245 ../src/guestfs-actions.pod:13491
 msgid ""
 "Devices that are mounted cannot be modified.  Administrators must unmount "
 "filesystems before this call can modify parameters."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8247
+#: ../fish/guestfish-actions.pod:8249
 msgid ""
 "Some of the parameters of a mounted filesystem can be examined and modified "
 "using the L</xfs-info> and L</xfs-growfs> calls."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8253
+#: ../fish/guestfish-actions.pod:8255
 msgid "xfs-growfs"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8255
+#: ../fish/guestfish-actions.pod:8257
 #, no-wrap
 msgid ""
 " xfs-growfs path [datasec:true|false] [logsec:true|false] [rtsec:true|false] "
@@ -32004,24 +32009,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8257 ../src/guestfs-actions.pod:13546
+#: ../fish/guestfish-actions.pod:8259 ../src/guestfs-actions.pod:13546
 msgid "Grow the XFS filesystem mounted at C<path>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8259 ../fish/guestfish-actions.pod:8272 ../src/guestfs-actions.pod:13548 ../src/guestfs-actions.pod:13587
+#: ../fish/guestfish-actions.pod:8261 ../fish/guestfish-actions.pod:8274 ../src/guestfs-actions.pod:13548 ../src/guestfs-actions.pod:13587
 msgid ""
 "The returned struct contains geometry information.  Missing fields are "
 "returned as C<-1> (for numeric fields) or empty string."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8265
+#: ../fish/guestfish-actions.pod:8267
 msgid "xfs-info"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8267
+#: ../fish/guestfish-actions.pod:8269
 #, no-wrap
 msgid ""
 " xfs-info pathordevice\n"
@@ -32029,19 +32034,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8269 ../src/guestfs-actions.pod:13584
+#: ../fish/guestfish-actions.pod:8271 ../src/guestfs-actions.pod:13584
 msgid ""
 "C<pathordevice> is a mounted XFS filesystem or a device containing an XFS "
 "filesystem.  This command returns the geometry of the filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8276
+#: ../fish/guestfish-actions.pod:8278
 msgid "xfs-repair"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8278
+#: ../fish/guestfish-actions.pod:8280
 #, no-wrap
 msgid ""
 " xfs-repair device [forcelogzero:true|false] [nomodify:true|false] "
@@ -32051,12 +32056,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8280 ../src/guestfs-actions.pod:13620
+#: ../fish/guestfish-actions.pod:8282 ../src/guestfs-actions.pod:13620
 msgid "Repair corrupt or damaged XFS filesystem on C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8282 ../src/guestfs-actions.pod:13622
+#: ../fish/guestfish-actions.pod:8284 ../src/guestfs-actions.pod:13622
 msgid ""
 "The filesystem is specified using the C<device> argument which should be the "
 "device name of the disk partition or volume containing the filesystem.  If "
@@ -32066,26 +32071,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8288 ../src/guestfs-actions.pod:13628
+#: ../fish/guestfish-actions.pod:8290 ../src/guestfs-actions.pod:13628
 msgid ""
 "Regardless, the filesystem to be repaired must be unmounted, otherwise, the "
 "resulting filesystem may be inconsistent or corrupt."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8291 ../src/guestfs-actions.pod:13631
+#: ../fish/guestfish-actions.pod:8293 ../src/guestfs-actions.pod:13631
 msgid ""
 "The returned status indicates whether filesystem corruption was detected "
 "(returns C<1>) or was not detected (returns C<0>)."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8296
+#: ../fish/guestfish-actions.pod:8298
 msgid "zegrep"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8298
+#: ../fish/guestfish-actions.pod:8300
 #, no-wrap
 msgid ""
 " zegrep regex path\n"
@@ -32093,17 +32098,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8300 ../src/guestfs-actions.pod:13674
+#: ../fish/guestfish-actions.pod:8302 ../src/guestfs-actions.pod:13674
 msgid "This calls the external C<zegrep> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8313
+#: ../fish/guestfish-actions.pod:8315
 msgid "zegrepi"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8315
+#: ../fish/guestfish-actions.pod:8317
 #, no-wrap
 msgid ""
 " zegrepi regex path\n"
@@ -32111,17 +32116,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8317 ../src/guestfs-actions.pod:13700
+#: ../fish/guestfish-actions.pod:8319 ../src/guestfs-actions.pod:13700
 msgid "This calls the external C<zegrep -i> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8330
+#: ../fish/guestfish-actions.pod:8332
 msgid "zero"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8332
+#: ../fish/guestfish-actions.pod:8334
 #, no-wrap
 msgid ""
 " zero device\n"
@@ -32129,12 +32134,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8334 ../src/guestfs-actions.pod:13718
+#: ../fish/guestfish-actions.pod:8336 ../src/guestfs-actions.pod:13718
 msgid "This command writes zeroes over the first few blocks of C<device>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8336 ../src/guestfs-actions.pod:13720
+#: ../fish/guestfish-actions.pod:8338 ../src/guestfs-actions.pod:13720
 msgid ""
 "How many blocks are zeroed isn't specified (but it's I<not> enough to "
 "securely wipe the device).  It should be sufficient to remove any partition "
@@ -32142,7 +32147,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8340 ../fish/guestfish-actions.pod:8355 ../src/guestfs-actions.pod:13724 ../src/guestfs-actions.pod:13750
+#: ../fish/guestfish-actions.pod:8342 ../fish/guestfish-actions.pod:8357 ../src/guestfs-actions.pod:13724 ../src/guestfs-actions.pod:13750
 msgid ""
 "If blocks are already zero, then this command avoids writing zeroes.  This "
 "prevents the underlying device from becoming non-sparse or growing "
@@ -32150,17 +32155,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8344
+#: ../fish/guestfish-actions.pod:8346
 msgid "See also: L</zero-device>, L</scrub-device>, L</is-zero-device>"
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8347
+#: ../fish/guestfish-actions.pod:8349
 msgid "zero-device"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8349
+#: ../fish/guestfish-actions.pod:8351
 #, no-wrap
 msgid ""
 " zero-device device\n"
@@ -32168,19 +32173,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8351
+#: ../fish/guestfish-actions.pod:8353
 msgid ""
 "This command writes zeroes over the entire C<device>.  Compare with L</zero> "
 "which just zeroes the first few blocks of a device."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8359
+#: ../fish/guestfish-actions.pod:8361
 msgid "zero-free-space"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8361
+#: ../fish/guestfish-actions.pod:8363
 #, no-wrap
 msgid ""
 " zero-free-space directory\n"
@@ -32188,33 +32193,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8363 ../src/guestfs-actions.pod:13769
+#: ../fish/guestfish-actions.pod:8365 ../src/guestfs-actions.pod:13769
 msgid ""
 "Zero the free space in the filesystem mounted on C<directory>.  The "
 "filesystem must be mounted read-write."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8366 ../src/guestfs-actions.pod:13772
+#: ../fish/guestfish-actions.pod:8368 ../src/guestfs-actions.pod:13772
 msgid ""
 "The filesystem contents are not affected, but any free space in the "
 "filesystem is freed."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8369
+#: ../fish/guestfish-actions.pod:8371
 msgid ""
 "Free space is not \"trimmed\".  You may want to call L</fstrim> either as an "
 "alternative to this, or after calling this, depending on your requirements."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8373
+#: ../fish/guestfish-actions.pod:8375
 msgid "zerofree"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8375
+#: ../fish/guestfish-actions.pod:8377
 #, no-wrap
 msgid ""
 " zerofree device\n"
@@ -32222,7 +32227,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8377 ../src/guestfs-actions.pod:13794
+#: ../fish/guestfish-actions.pod:8379 ../src/guestfs-actions.pod:13794
 msgid ""
 "This runs the I<zerofree> program on C<device>.  This program claims to zero "
 "unused inodes and disk blocks on an ext2/3 filesystem, thus making it "
@@ -32230,24 +32235,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8382 ../src/guestfs-actions.pod:13799
+#: ../fish/guestfish-actions.pod:8384 ../src/guestfs-actions.pod:13799
 msgid "You should B<not> run this program if the filesystem is mounted."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8385 ../src/guestfs-actions.pod:13802
+#: ../fish/guestfish-actions.pod:8387 ../src/guestfs-actions.pod:13802
 msgid ""
 "It is possible that using this program can damage the filesystem or data on "
 "the filesystem."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8388
+#: ../fish/guestfish-actions.pod:8390
 msgid "zfgrep"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8390
+#: ../fish/guestfish-actions.pod:8392
 #, no-wrap
 msgid ""
 " zfgrep pattern path\n"
@@ -32255,17 +32260,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8392 ../src/guestfs-actions.pod:13823
+#: ../fish/guestfish-actions.pod:8394 ../src/guestfs-actions.pod:13823
 msgid "This calls the external C<zfgrep> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8405
+#: ../fish/guestfish-actions.pod:8407
 msgid "zfgrepi"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8407
+#: ../fish/guestfish-actions.pod:8409
 #, no-wrap
 msgid ""
 " zfgrepi pattern path\n"
@@ -32273,17 +32278,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8409 ../src/guestfs-actions.pod:13849
+#: ../fish/guestfish-actions.pod:8411 ../src/guestfs-actions.pod:13849
 msgid "This calls the external C<zfgrep -i> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8422
+#: ../fish/guestfish-actions.pod:8424
 msgid "zfile"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8424
+#: ../fish/guestfish-actions.pod:8426
 #, no-wrap
 msgid ""
 " zfile meth path\n"
@@ -32291,32 +32296,32 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8426 ../src/guestfs-actions.pod:13875
+#: ../fish/guestfish-actions.pod:8428 ../src/guestfs-actions.pod:13875
 msgid "This command runs C<file> after first decompressing C<path> using C<method>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8429 ../src/guestfs-actions.pod:13878
+#: ../fish/guestfish-actions.pod:8431 ../src/guestfs-actions.pod:13878
 msgid "C<method> must be one of C<gzip>, C<compress> or C<bzip2>."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8431
+#: ../fish/guestfish-actions.pod:8433
 msgid "Since 1.0.63, use L</file> instead which can now process compressed files."
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8434
+#: ../fish/guestfish-actions.pod:8436
 msgid "I<This function is deprecated.> In new code, use the L</file> call instead."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8441
+#: ../fish/guestfish-actions.pod:8443
 msgid "zgrep"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8443
+#: ../fish/guestfish-actions.pod:8445
 #, no-wrap
 msgid ""
 " zgrep regex path\n"
@@ -32324,17 +32329,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8445 ../src/guestfs-actions.pod:13902
+#: ../fish/guestfish-actions.pod:8447 ../src/guestfs-actions.pod:13902
 msgid "This calls the external C<zgrep> program and returns the matching lines."
 msgstr ""
 
 #. type: =head2
-#: ../fish/guestfish-actions.pod:8458
+#: ../fish/guestfish-actions.pod:8460
 msgid "zgrepi"
 msgstr ""
 
 #. type: verbatim
-#: ../fish/guestfish-actions.pod:8460
+#: ../fish/guestfish-actions.pod:8462
 #, no-wrap
 msgid ""
 " zgrepi regex path\n"
@@ -32342,7 +32347,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../fish/guestfish-actions.pod:8462 ../src/guestfs-actions.pod:13928
+#: ../fish/guestfish-actions.pod:8464 ../src/guestfs-actions.pod:13928
 msgid "This calls the external C<zgrep -i> program and returns the matching lines."
 msgstr ""
 
