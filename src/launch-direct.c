@@ -48,39 +48,7 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-/* Compile all the regular expressions once when the shared library is
- * loaded.  PCRE is thread safe so we're supposedly OK here if
- * multiple threads call into the libguestfs API functions below
- * simultaneously.
- */
-static pcre *re_major_minor;
-
-static void compile_regexps (void) __attribute__((constructor));
-static void free_regexps (void) __attribute__((destructor));
-
-static void
-compile_regexps (void)
-{
-  const char *err;
-  int offset;
-
-#define COMPILE(re,pattern,options)                                     \
-  do {                                                                  \
-    re = pcre_compile ((pattern), (options), &err, &offset, NULL);      \
-    if (re == NULL) {                                                   \
-      ignore_value (write (2, err, strlen (err)));                      \
-      abort ();                                                         \
-    }                                                                   \
-  } while (0)
-
-  COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
-}
-
-static void
-free_regexps (void)
-{
-  pcre_free (re_major_minor);
-}
+COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 
 /* Per-handle data. */
 struct backend_direct_data {

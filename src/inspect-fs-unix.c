@@ -45,135 +45,41 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-/* Compile all the regular expressions once when the shared library is
- * loaded.  PCRE is thread safe so we're supposedly OK here if
- * multiple threads call into the libguestfs API functions below
- * simultaneously.
- */
-static pcre *re_fedora;
-static pcre *re_rhel_old;
-static pcre *re_rhel;
-static pcre *re_rhel_no_minor;
-static pcre *re_centos_old;
-static pcre *re_centos;
-static pcre *re_centos_no_minor;
-static pcre *re_scientific_linux_old;
-static pcre *re_scientific_linux;
-static pcre *re_scientific_linux_no_minor;
-static pcre *re_oracle_linux_old;
-static pcre *re_oracle_linux;
-static pcre *re_oracle_linux_no_minor;
-static pcre *re_major_minor;
-static pcre *re_xdev;
-static pcre *re_cciss;
-static pcre *re_mdN;
-static pcre *re_freebsd_mbr;
-static pcre *re_freebsd_gpt;
-static pcre *re_diskbyid;
-static pcre *re_netbsd;
-static pcre *re_opensuse;
-static pcre *re_sles;
-static pcre *re_nld;
-static pcre *re_opensuse_version;
-static pcre *re_sles_version;
-static pcre *re_sles_patchlevel;
-static pcre *re_minix;
-static pcre *re_hurd_dev;
-
-static void compile_regexps (void) __attribute__((constructor));
-static void free_regexps (void) __attribute__((destructor));
-
-static void
-compile_regexps (void)
-{
-  const char *err;
-  int offset;
-
-#define COMPILE(re,pattern,options)                                     \
-  do {                                                                  \
-    re = pcre_compile ((pattern), (options), &err, &offset, NULL);      \
-    if (re == NULL) {                                                   \
-      ignore_value (write (2, err, strlen (err)));                      \
-      abort ();                                                         \
-    }                                                                   \
-  } while (0)
-
-  COMPILE (re_fedora, "Fedora release (\\d+)", 0);
-  COMPILE (re_rhel_old,
-           "Red Hat.*release (\\d+).*Update (\\d+)", 0);
-  COMPILE (re_rhel,
-           "Red Hat.*release (\\d+)\\.(\\d+)", 0);
-  COMPILE (re_rhel_no_minor,
-           "Red Hat.*release (\\d+)", 0);
-  COMPILE (re_centos_old,
-           "CentOS.*release (\\d+).*Update (\\d+)", 0);
-  COMPILE (re_centos,
-           "CentOS.*release (\\d+)\\.(\\d+)", 0);
-  COMPILE (re_centos_no_minor,
-           "CentOS.*release (\\d+)", 0);
-  COMPILE (re_scientific_linux_old,
-           "Scientific Linux.*release (\\d+).*Update (\\d+)", 0);
-  COMPILE (re_scientific_linux,
-           "Scientific Linux.*release (\\d+)\\.(\\d+)", 0);
-  COMPILE (re_scientific_linux_no_minor,
-           "Scientific Linux.*release (\\d+)", 0);
-  COMPILE (re_oracle_linux_old,
-           "Oracle Linux.*release (\\d+).*Update (\\d+)", 0);
-  COMPILE (re_oracle_linux,
-           "Oracle Linux.*release (\\d+)\\.(\\d+)", 0);
-  COMPILE (re_oracle_linux_no_minor,
-           "Oracle Linux.*release (\\d+)", 0);
-  COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
-  COMPILE (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0);
-  COMPILE (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0);
-  COMPILE (re_mdN, "^(/dev/md\\d+)$", 0);
-  COMPILE (re_freebsd_mbr, "^/dev/(ada{0,1}|vtbd)(\\d+)s(\\d+)([a-z])$", 0);
-  COMPILE (re_freebsd_gpt, "^/dev/(ada{0,1}|vtbd)(\\d+)p(\\d+)$", 0);
-  COMPILE (re_diskbyid, "^/dev/disk/by-id/.*-part(\\d+)$", 0);
-  COMPILE (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0);
-  COMPILE (re_opensuse, "^(openSUSE|SuSE Linux|SUSE LINUX) ", 0);
-  COMPILE (re_sles, "^SUSE (Linux|LINUX) Enterprise ", 0);
-  COMPILE (re_nld, "^Novell Linux Desktop ", 0);
-  COMPILE (re_opensuse_version, "^VERSION = (\\d+)\\.(\\d+)", 0);
-  COMPILE (re_sles_version, "^VERSION = (\\d+)", 0);
-  COMPILE (re_sles_patchlevel, "^PATCHLEVEL = (\\d+)", 0);
-  COMPILE (re_minix, "^(\\d+)\\.(\\d+)(\\.(\\d+))?", 0);
-  COMPILE (re_hurd_dev, "^/dev/(h)d(\\d+)s(\\d+)$", 0);
-}
-
-static void
-free_regexps (void)
-{
-  pcre_free (re_fedora);
-  pcre_free (re_rhel_old);
-  pcre_free (re_rhel);
-  pcre_free (re_rhel_no_minor);
-  pcre_free (re_centos_old);
-  pcre_free (re_centos);
-  pcre_free (re_centos_no_minor);
-  pcre_free (re_scientific_linux_old);
-  pcre_free (re_scientific_linux);
-  pcre_free (re_scientific_linux_no_minor);
-  pcre_free (re_oracle_linux_old);
-  pcre_free (re_oracle_linux);
-  pcre_free (re_oracle_linux_no_minor);
-  pcre_free (re_major_minor);
-  pcre_free (re_xdev);
-  pcre_free (re_cciss);
-  pcre_free (re_mdN);
-  pcre_free (re_freebsd_mbr);
-  pcre_free (re_freebsd_gpt);
-  pcre_free (re_diskbyid);
-  pcre_free (re_netbsd);
-  pcre_free (re_opensuse);
-  pcre_free (re_sles);
-  pcre_free (re_nld);
-  pcre_free (re_opensuse_version);
-  pcre_free (re_sles_version);
-  pcre_free (re_sles_patchlevel);
-  pcre_free (re_minix);
-  pcre_free (re_hurd_dev);
-}
+COMPILE_REGEXP (re_fedora, "Fedora release (\\d+)", 0)
+COMPILE_REGEXP (re_rhel_old, "Red Hat.*release (\\d+).*Update (\\d+)", 0)
+COMPILE_REGEXP (re_rhel, "Red Hat.*release (\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_rhel_no_minor, "Red Hat.*release (\\d+)", 0)
+COMPILE_REGEXP (re_centos_old, "CentOS.*release (\\d+).*Update (\\d+)", 0)
+COMPILE_REGEXP (re_centos, "CentOS.*release (\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_centos_no_minor, "CentOS.*release (\\d+)", 0)
+COMPILE_REGEXP (re_scientific_linux_old,
+                "Scientific Linux.*release (\\d+).*Update (\\d+)", 0)
+COMPILE_REGEXP (re_scientific_linux,
+                "Scientific Linux.*release (\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_scientific_linux_no_minor,
+                "Scientific Linux.*release (\\d+)", 0)
+  COMPILE_REGEXP (re_oracle_linux_old,
+                  "Oracle Linux.*release (\\d+).*Update (\\d+)", 0)
+COMPILE_REGEXP (re_oracle_linux,
+                "Oracle Linux.*release (\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_oracle_linux_no_minor, "Oracle Linux.*release (\\d+)", 0)
+COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_xdev, "^/dev/(h|s|v|xv)d([a-z]+)(\\d*)$", 0)
+COMPILE_REGEXP (re_cciss, "^/dev/(cciss/c\\d+d\\d+)(?:p(\\d+))?$", 0)
+COMPILE_REGEXP (re_mdN, "^(/dev/md\\d+)$", 0)
+COMPILE_REGEXP (re_freebsd_mbr,
+                "^/dev/(ada{0,1}|vtbd)(\\d+)s(\\d+)([a-z])$", 0)
+COMPILE_REGEXP (re_freebsd_gpt, "^/dev/(ada{0,1}|vtbd)(\\d+)p(\\d+)$", 0)
+COMPILE_REGEXP (re_diskbyid, "^/dev/disk/by-id/.*-part(\\d+)$", 0)
+COMPILE_REGEXP (re_netbsd, "^NetBSD (\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_opensuse, "^(openSUSE|SuSE Linux|SUSE LINUX) ", 0)
+COMPILE_REGEXP (re_sles, "^SUSE (Linux|LINUX) Enterprise ", 0)
+COMPILE_REGEXP (re_nld, "^Novell Linux Desktop ", 0)
+COMPILE_REGEXP (re_opensuse_version, "^VERSION = (\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_sles_version, "^VERSION = (\\d+)", 0)
+COMPILE_REGEXP (re_sles_patchlevel, "^PATCHLEVEL = (\\d+)", 0)
+COMPILE_REGEXP (re_minix, "^(\\d+)\\.(\\d+)(\\.(\\d+))?", 0)
+COMPILE_REGEXP (re_hurd_dev, "^/dev/(h)d(\\d+)s(\\d+)$", 0)
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);

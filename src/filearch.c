@@ -42,38 +42,9 @@
 
 #if defined(HAVE_LIBMAGIC)
 
-static pcre *re_file_elf;
-static pcre *re_elf_ppc64;
-
-static void compile_regexps (void) __attribute__((constructor));
-static void free_regexps (void) __attribute__((destructor));
-
-static void
-compile_regexps (void)
-{
-  const char *err;
-  int offset;
-
-#define COMPILE(re,pattern,options)                                     \
-  do {                                                                  \
-    re = pcre_compile ((pattern), (options), &err, &offset, NULL);      \
-    if (re == NULL) {                                                   \
-      ignore_value (write (2, err, strlen (err)));                      \
-      abort ();                                                         \
-    }                                                                   \
-  } while (0)
-
-  COMPILE (re_file_elf,
-           "ELF.*(?:executable|shared object|relocatable), (.+?),", 0);
-  COMPILE (re_elf_ppc64, "64.*PowerPC", 0);
-}
-
-static void
-free_regexps (void)
-{
-  pcre_free (re_file_elf);
-  pcre_free (re_elf_ppc64);
-}
+COMPILE_REGEXP (re_file_elf,
+                "ELF.*(?:executable|shared object|relocatable), (.+?),", 0)
+COMPILE_REGEXP (re_elf_ppc64, "64.*PowerPC", 0)
 
 /* Convert output from 'file' command on ELF files to the canonical
  * architecture string.  Caller must free the result.

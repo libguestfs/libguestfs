@@ -65,39 +65,7 @@ struct drive_create_data {
   bool copyonread;
 };
 
-/* Compile all the regular expressions once when the shared library is
- * loaded.  PCRE is thread safe so we're supposedly OK here if
- * multiple threads call into the libguestfs API functions below
- * simultaneously.
- */
-static pcre *re_hostname_port;
-
-static void compile_regexps (void) __attribute__((constructor));
-static void free_regexps (void) __attribute__((destructor));
-
-static void
-compile_regexps (void)
-{
-  const char *err;
-  int offset;
-
-#define COMPILE(re,pattern,options)                                     \
-  do {                                                                  \
-    re = pcre_compile ((pattern), (options), &err, &offset, NULL);      \
-    if (re == NULL) {                                                   \
-      ignore_value (write (2, err, strlen (err)));                      \
-      abort ();                                                         \
-    }                                                                   \
-  } while (0)
-
-  COMPILE (re_hostname_port, "(.*):(\\d+)$", 0);
-}
-
-static void
-free_regexps (void)
-{
-  pcre_free (re_hostname_port);
-}
+COMPILE_REGEXP (re_hostname_port, "(.*):(\\d+)$", 0)
 
 static void free_drive_struct (struct drive *drv);
 static void free_drive_source (struct drive_source *src);

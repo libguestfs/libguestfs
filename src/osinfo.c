@@ -65,34 +65,7 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
-static pcre *re_major_minor;
-
-static void compile_regexps (void) __attribute__((constructor));
-static void free_regexps (void) __attribute__((destructor));
-
-static void
-compile_regexps (void)
-{
-  const char *err;
-  int offset;
-
-#define COMPILE(re,pattern,options)                                     \
-  do {                                                                  \
-    re = pcre_compile ((pattern), (options), &err, &offset, NULL);      \
-    if (re == NULL) {                                                   \
-      ignore_value (write (2, err, strlen (err)));                      \
-      abort ();                                                         \
-    }                                                                   \
-  } while (0)
-
-  COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
-}
-
-static void
-free_regexps (void)
-{
-  pcre_free (re_major_minor);
-}
+COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 
 gl_lock_define_initialized (static, osinfo_db_lock);
 static ssize_t osinfo_db_size = 0; /* 0 = unread, -1 = error, >= 1 = #records */
