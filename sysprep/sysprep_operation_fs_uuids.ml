@@ -29,8 +29,6 @@ let rec fs_uuids_perform ~verbose ~quiet g root side_effects =
   let fses = g#list_filesystems () in
   List.iter (function
   | _, "unknown" -> ()
-  | _, "swap" ->
-    (* XXX Not implemented *) ()
   | dev, typ ->
     let new_uuid = Common_utils.uuidgen ~prog () in
     try

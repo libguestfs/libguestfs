@@ -29,6 +29,7 @@
 
 GUESTFSD_EXT_CMD(str_tune2fs, tune2fs);
 GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
+GUESTFSD_EXT_CMD(str_swaplabel, swaplabel);
 
 static int
 e2uuid (const char *device, const char *uuid)
@@ -75,6 +76,21 @@ xfsuuid (const char *device, const char *uuid)
   return 0;
 }
 
+static int
+swapuuid (const char *device, const char *uuid)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  r = command (NULL, &err, str_swaplabel, "-U", uuid, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}
+
 int
 do_set_uuid (const char *device, const char *uuid)
 {
@@ -90,6 +106,9 @@ do_set_uuid (const char *device, const char *uuid)
 
   else if (STREQ (vfs_type, "xfs"))
     r = xfsuuid (device, uuid);
+
+  else if (STREQ (vfs_type, "swap"))
+    r = swapuuid (device, uuid);
 
   else {
     reply_with_error ("don't know how to set the UUID for '%s' filesystems",
