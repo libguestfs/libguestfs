@@ -53,7 +53,8 @@ during the conversion process.
 
 The reverse port forwarding feature of ssh (ie. C<ssh -R>) is required
 by virt-p2v, and it will not work if this is disabled on the
-conversion server.
+conversion server.  (C<AllowTcpForwarding> must be C<yes> in the
+L<sshd_config(5)> file on the conversion server).
 
 The conversion server does not need to be a physical machine.  It
 could be a virtual machine, as long as it has sufficient memory and
@@ -586,6 +587,8 @@ L<virt-p2v-make-kickstart(1)>,
 L<virt-v2v(1)>,
 L<qemu-nbd(1)>,
 L<ssh(1)>,
+L<sshd(8)>,
+L<sshd_config(5)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
