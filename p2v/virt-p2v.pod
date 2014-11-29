@@ -59,7 +59,8 @@ L<sshd_config(5)> file on the conversion server).
 The conversion server does not need to be a physical machine.  It
 could be a virtual machine, as long as it has sufficient memory and
 disk space to do the conversion, and as long as the physical machine
-can connect directly to its SSH port.
+can connect directly to its SSH port.  (See also
+L<virt-v2v(1)/RESOURCE REQUIREMENTS>).
 
 Because all of the data on the physical server's hard drive(s) has to
 be copied over the network, the speed of conversion is largely
