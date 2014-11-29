@@ -148,7 +148,7 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | sd-journal   |             | O | systemd journal library                 |
 +--------------+-------------+---+-----------------------------------------+
-| yajl         | 2           | O | JSON parser for parsing output of       |
+| yajl         | 2.0.4       | O | JSON parser for parsing output of       |
 |              |             |   | ldmtool and qemu-img info commands.     |
 +--------------+-------------+---+-----------------------------------------+
 | gdisk        |             | O | GPT disk support.                       |
