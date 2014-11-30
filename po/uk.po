@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-11-15 20:17+0000\n"
+"POT-Creation-Date: 2014-11-30 01:40+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -54,7 +54,7 @@ msgstr "%s"
 #. ../customize/customize_main.ml:238
 #. ../builder/get_kernel.ml:52
 #. ../builder/builder.ml:647
-#: ../v2v/v2v.ml:624 ../v2v/v2v.ml:507 ../sysprep/main.ml:266
+#: ../v2v/v2v.ml:632 ../v2v/v2v.ml:515 ../sysprep/main.ml:266
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -90,7 +90,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1323
+#: ../v2v/convert_linux.ml:1320
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -737,7 +737,7 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:181
+#: ../v2v/input_libvirtxml.ml:188
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
@@ -823,7 +823,7 @@ msgstr "Перевірити числові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../v2v/v2v.ml:238
+#: ../v2v/v2v.ml:245
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
@@ -835,7 +835,7 @@ msgstr ""
 "Спорожнюємо резервну пам’ять Linux на %s…\n"
 "%!"
 
-#: ../v2v/v2v.ml:286
+#: ../v2v/v2v.ml:293
 msgid "Closing the overlay"
 msgstr "Закриваємо оверлей"
 
@@ -851,11 +851,11 @@ msgstr "Стиснутий формат виведення даних"
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:253
+#: ../v2v/v2v.ml:260
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:251
+#: ../v2v/v2v.ml:258
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -875,7 +875,7 @@ msgstr "Копіювання"
 msgid "Copying %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:307
+#: ../v2v/v2v.ml:314
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
@@ -903,11 +903,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
-#: ../v2v/v2v.ml:125
+#: ../v2v/v2v.ml:130
 msgid "Creating an overlay to protect the source from being modified"
 msgstr "Створюємо оверлей для захисту джерела від внесення змін"
 
-#: ../v2v/v2v.ml:409
+#: ../v2v/v2v.ml:417
 msgid "Creating output metadata"
 msgstr "Створюємо метадані результатів"
 
@@ -1059,7 +1059,7 @@ msgstr "Розмір отриманого:"
 msgid "Downloading: %s"
 msgstr "Отримуємо: %s"
 
-#: ../v2v/v2v.ml:443
+#: ../v2v/v2v.ml:451
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1111,11 +1111,11 @@ msgstr "Увімкнути трасування викликів libguestfs"
 msgid "Enable/disable specific operations"
 msgstr "Увімкнути або вимкнути специфічні операції"
 
-#: ../v2v/v2v.ml:456
+#: ../v2v/v2v.ml:464
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:242
+#: ../v2v/v2v.ml:249
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1208,7 +1208,7 @@ msgstr "Відбиток чинного ключа підписування"
 msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
-#: ../v2v/v2v.ml:423 ../customize/customize_main.ml:248
+#: ../v2v/v2v.ml:431 ../customize/customize_main.ml:248
 #: ../builder/builder.ml:696
 msgid "Finishing off"
 msgstr "Завершуємо"
@@ -1317,7 +1317,7 @@ msgstr "Ігнорувати файлову систему"
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
-#: ../v2v/v2v.ml:183
+#: ../v2v/v2v.ml:190
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
@@ -1333,7 +1333,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
-#: ../v2v/v2v.ml:217
+#: ../v2v/v2v.ml:224
 msgid "Inspecting the overlay"
 msgstr "Вивчаємо оверлей"
 
@@ -1401,7 +1401,7 @@ msgstr "Відобразити місток «in» на «out»"
 msgid "Map network 'in' to 'out'"
 msgstr "Відобразити мережу «in» на «out»"
 
-#: ../v2v/v2v.ml:282
+#: ../v2v/v2v.ml:289
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 "Виконуємо прив’язку даних файлової системи для уникнення копіювання "
@@ -1473,7 +1473,7 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
-#: ../v2v/v2v.ml:153
+#: ../v2v/v2v.ml:158
 msgid "Opening the overlay"
 msgstr "Відкриваємо оверлей"
 
@@ -1509,7 +1509,7 @@ msgstr "Розмір виведення"
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
-#: ../v2v/v2v.ml:419
+#: ../v2v/v2v.ml:427
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr "Оверлей збережено як %s [--debug-overlays]\n"
 
@@ -1540,11 +1540,11 @@ msgstr "Нотатки POD для %s не повинні завершувати�
 msgid "Perform a dry run"
 msgstr "Виконати тестовий запуск"
 
-#: ../v2v/v2v.ml:483
+#: ../v2v/v2v.ml:491
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:474
+#: ../v2v/v2v.ml:482
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
@@ -2120,7 +2120,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1113
+#: ../v2v/convert_linux.ml:1114
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2286,11 +2286,11 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:272
+#: ../v2v/v2v.ml:279
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:270
+#: ../v2v/v2v.ml:277
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2562,11 +2562,11 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../v2v/v2v.ml:463
+#: ../v2v/v2v.ml:471
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
-#: ../v2v/convert_linux.ml:1043
+#: ../v2v/convert_linux.ml:1044
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -2608,7 +2608,7 @@ msgstr ""
 "не вдалося обробити параметр «-ic %s». Початкове повідомлення щодо помилки: "
 "%s"
 
-#: ../v2v/input_ova.ml:225
+#: ../v2v/input_ova.ml:242
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
@@ -2625,7 +2625,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1061
+#: ../v2v/convert_linux.ml:1062
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2639,7 +2639,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1045
+#: ../v2v/convert_linux.ml:1046
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -2695,7 +2695,7 @@ msgstr "заборонений символ (%c) у назві операції"
 msgid "discard/trim is not supported: %s"
 msgstr "підтримки відкидання або обрізання не передбачено: %s"
 
-#: ../v2v/v2v.ml:193
+#: ../v2v/v2v.ml:200
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2720,7 +2720,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/input_libvirtxml.ml:108
+#: ../v2v/input_libvirtxml.ml:110
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2746,7 +2746,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1168
+#: ../v2v/convert_linux.ml:1169
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -2766,11 +2766,11 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:193
+#: ../v2v/input_ova.ml:210
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:211
+#: ../v2v/input_ova.ml:228
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -2940,7 +2940,7 @@ msgstr ""
 "у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
 "значення"
 
-#: ../v2v/input_libvirtxml.ml:72
+#: ../v2v/input_libvirtxml.ml:74
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
@@ -2960,11 +2960,11 @@ msgstr "внутрішня помилка: помилка оцінки у %s, р
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
-#: ../v2v/v2v.ml:319
+#: ../v2v/v2v.ml:326
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
-#: ../v2v/v2v.ml:147
+#: ../v2v/v2v.ml:152
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
@@ -2992,7 +2992,7 @@ msgstr "ядро %s перебуває поза ієрархією grub %s"
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
-#: ../v2v/v2v.ml:490
+#: ../v2v/v2v.ml:498
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3025,7 +3025,7 @@ msgstr ""
 "того, можливо, вам слід повторно запустити virt-v2v від імені користувача "
 "root."
 
-#: ../v2v/v2v.ml:470
+#: ../v2v/v2v.ml:478
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3040,7 +3040,7 @@ msgid ""
 "twice"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:177
+#: ../v2v/input_libvirtxml.ml:184
 msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr "мережу <disk> з <source protocol='%s'> проігноровано"
 
@@ -3118,7 +3118,7 @@ msgid ""
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
 
-#: ../v2v/v2v.ml:436
+#: ../v2v/v2v.ml:444
 msgid "no root device found in this operating system image."
 msgstr "у цьому образі операційної системи не знайдено кореневого пристрою."
 
@@ -3130,7 +3130,7 @@ msgstr ""
 "немає підтримки віддалених з’єднань libvirt з «-ic %s». Перетворення може "
 "призвести до помилок під час спроб прочитати диски джерел даних."
 
-#: ../v2v/v2v.ml:569
+#: ../v2v/v2v.ml:577
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3188,7 +3188,7 @@ msgstr ""
 "виведенням «%s» не може бути символьний пристрій, виводити дані можна лише "
 "до звичайного файла"
 
-#: ../v2v/v2v.ml:203
+#: ../v2v/v2v.ml:210
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3210,6 +3210,18 @@ msgstr ""
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
+msgstr ""
+
+#: ../v2v/input_ova.ml:176
+msgid ""
+"ova disk has an unknown VMware controller type (%d), please report this as a "
+"bug supplying the *.ovf file extracted from the ova"
+msgstr ""
+
+#: ../v2v/input_ova.ml:173
+msgid ""
+"ova disk has no parent controller, please report this as a bug supplying the "
+"*.ovf file extracted from the ova"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:154
@@ -3259,7 +3271,7 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:360 ../v2v/v2v.ml:143
+#: ../v2v/v2v.ml:367 ../v2v/v2v.ml:148
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
@@ -3278,7 +3290,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr "resize2fs"
 
-#: ../v2v/v2v.ml:481
+#: ../v2v/v2v.ml:489
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 "не знайдено кореневого пристрою %s. Знайдено такі кореневі пристрої: %s"
@@ -3323,7 +3335,7 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:81
+#: ../v2v/v2v.ml:86
 msgid "source has no hard disks!"
 msgstr ""
 
@@ -3428,7 +3440,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/input_libvirtxml.ml:132
+#: ../v2v/input_libvirtxml.ml:134
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -3440,7 +3452,7 @@ msgstr "для цього типу гостьових систем не можн
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1212
+#: ../v2v/convert_linux.ml:1213
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3448,7 +3460,7 @@ msgstr ""
 "не вдалося знайти жодного коректного файла налаштувань modprobe, зокрема /"
 "etc/modprobe.conf"
 
-#: ../v2v/v2v.ml:502
+#: ../v2v/v2v.ml:510
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3463,7 +3475,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:910
+#: ../v2v/convert_linux.ml:911
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -3505,6 +3517,10 @@ msgstr "невідомий параметр -oa: %s"
 #: ../v2v/OVF.ml:148
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d (%s)"
+
+#: ../v2v/v2v.ml:78
+msgid "unknown source hypervisor ('%s') in metadata"
+msgstr ""
 
 #: ../resize/resize.ml:564
 msgid "unknown/unavailable method for expanding filesystem %s"
@@ -3624,13 +3640,13 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:105
+#: ../v2v/input_libvirtxml.ml:107
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:262
+#: ../v2v/v2v.ml:269
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -3706,7 +3722,7 @@ msgstr ""
 #: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:83
 #: df/main.c:66 diff/diff.c:92 edit/edit.c:63 fish/fish.c:105
 #: fuse/guestmount.c:100 fuse/guestunmount.c:52 inspector/inspector.c:67
-#: make-fs/make-fs.c:73 p2v/main.c:67 rescue/rescue.c:56
+#: make-fs/make-fs.c:73 p2v/main.c:65 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -3763,7 +3779,7 @@ msgstr "guestfs_create: не вдалося створити елемент ке
 #: cat/filesystems.c:239 cat/log.c:140 cat/ls.c:228 df/main.c:155
 #: diff/diff.c:261 edit/edit.c:155 fish/fish.c:291 format/format.c:181
 #: fuse/guestmount.c:249 fuse/guestunmount.c:124 inspector/inspector.c:149
-#: make-fs/make-fs.c:142 p2v/main.c:129 rescue/rescue.c:190
+#: make-fs/make-fs.c:142 p2v/main.c:126 rescue/rescue.c:190
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: невідомий довгий запис параметра: %s (%d)\n"
@@ -4652,12 +4668,12 @@ msgid "enable or disable the seeding feature of device"
 msgstr "увімкнути або вимкнути можливість поширення даних з пристрою"
 
 #: fish/cmds.c:3864
-msgid "create a btrfs snapshot"
-msgstr "створити знімок btrfs"
+msgid "create a btrfs subvolume"
+msgstr ""
 
 #: fish/cmds.c:3865
-msgid "delete a btrfs snapshot"
-msgstr "вилучити знімок btrfs"
+msgid "delete a btrfs subvolume or snapshot"
+msgstr ""
 
 #: fish/cmds.c:3866
 msgid "list btrfs snapshots and subvolumes"
@@ -8060,37 +8076,37 @@ msgstr "%s: xmlOutputBufferCreateFd: не вдалося відкрити stdout
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
 msgstr "%s: xmlNewTextWriter: не вдалося створити процес запису libxml2\n"
 
-#: inspector/inspector.c:769
+#: inspector/inspector.c:771
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
 msgstr "%s: не вдалося обробити код XML з stdin\n"
 
-#: inspector/inspector.c:775
+#: inspector/inspector.c:777
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr "%s: не вдалося створити контекст XPath\n"
 
-#: inspector/inspector.c:782
+#: inspector/inspector.c:784
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr "%s: не вдалося обробити вираз XPath\n"
 
-#: inspector/inspector.c:795
+#: inspector/inspector.c:797
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr "%s: помилка xmlSaveToFd\n"
 
-#: inspector/inspector.c:802
+#: inspector/inspector.c:804
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr "%s: помилка xmlNewDoc\n"
 
-#: inspector/inspector.c:807
+#: inspector/inspector.c:809
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr "%s: помилка xmlCopyNode\n"
 
-#: inspector/inspector.c:814
+#: inspector/inspector.c:816
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr "%s: помилка xmlSaveDoc\n"
@@ -8180,80 +8196,80 @@ msgstr "%s: %s: некоректний параметр розміру «%s» (%
 msgid "%s: subprocess failed\n"
 msgstr "%s: помилка підпроцесу\n"
 
-#: p2v/conversion.c:119
+#: p2v/conversion.c:121
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr "Відкриваємо з’єднання для обміну даними для %s…"
 
-#: p2v/conversion.c:197
+#: p2v/conversion.c:199
 msgid "Setting up the control connection ..."
 msgstr "Налаштовуємо контрольне з’єднання…"
 
-#: p2v/conversion.c:209
+#: p2v/conversion.c:211
 msgid "Doing conversion ..."
 msgstr "Виконуємо перетворення…"
 
-#: p2v/conversion.c:294
+#: p2v/conversion.c:301
 msgid "Control connection closed by remote."
 msgstr "З’єднання керування розірвано на віддаленому боці."
 
-#: p2v/gui.c:114
+#: p2v/gui.c:116
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 "Встановити з’єднання із сервером перетворення virt-v2v за допомогою SSH:"
 
-#: p2v/gui.c:119
+#: p2v/gui.c:121
 msgid "Conversion server:"
 msgstr "Сервер перетворення:"
 
-#: p2v/gui.c:129
+#: p2v/gui.c:131
 msgid "SSH port:"
 msgstr "Порт SSH:"
 
-#: p2v/gui.c:140
+#: p2v/gui.c:142
 msgid "User name:"
 msgstr "Користувач:"
 
-#: p2v/gui.c:152
+#: p2v/gui.c:154
 msgid "Password:"
 msgstr "Пароль:"
 
-#: p2v/gui.c:168
+#: p2v/gui.c:170
 msgid "Use sudo when running virt-v2v"
 msgstr "Використовувати sudo для запуску virt-v2v"
 
-#: p2v/gui.c:175
+#: p2v/gui.c:177
 msgid "Test connection"
 msgstr "Перевірка з'єднання"
 
-#: p2v/gui.c:198
+#: p2v/gui.c:200
 msgid "virt-p2v "
 msgstr "virt-p2v "
 
-#: p2v/gui.c:199
+#: p2v/gui.c:201
 msgid "Next"
 msgstr "Далі"
 
-#: p2v/gui.c:249
+#: p2v/gui.c:251
 msgid "error: No conversion server given."
 msgstr "помилка: не вказано сервер перетворення."
 
-#: p2v/gui.c:257
+#: p2v/gui.c:259
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 "помилка: некоректний номер порту. Якщо не знаєте, що вибрати, вкажіть «22»."
 
-#: p2v/gui.c:265
+#: p2v/gui.c:267
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 "помилка: не вказано імені користувача. Якщо не знаєте, що вказати, вкажіть "
 "«root»."
 
-#: p2v/gui.c:306
+#: p2v/gui.c:308
 msgid "Testing the connection to the conversion server ..."
 msgstr "Перевіряємо з’єднання із сервером перетворення…"
 
-#: p2v/gui.c:325
+#: p2v/gui.c:327
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
@@ -8261,31 +8277,31 @@ msgstr ""
 "Встановлено з’єднання із сервером перетворення.\n"
 "Натисніть кнопку «Далі», щоб налаштувати процедуру перетворення."
 
-#: p2v/gui.c:428
+#: p2v/gui.c:430
 msgid "Target properties"
 msgstr "Властивості цілі"
 
-#: p2v/gui.c:434
+#: p2v/gui.c:436
 msgid "Name:"
 msgstr "Назва:"
 
-#: p2v/gui.c:444
+#: p2v/gui.c:446
 msgid "# vCPUs:"
 msgstr "К-ть вірт. проц.:"
 
-#: p2v/gui.c:454
+#: p2v/gui.c:456
 msgid "Memory (MB):"
 msgstr "Пам’ять (МБ):"
 
-#: p2v/gui.c:468
+#: p2v/gui.c:470
 msgid "Virt-v2v output options"
 msgstr "Параметри виведення virt-v2v"
 
-#: p2v/gui.c:474
+#: p2v/gui.c:476
 msgid "Output to (-o):"
 msgstr "Виводити до (-o):"
 
-#: p2v/gui.c:479
+#: p2v/gui.c:481
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -8300,11 +8316,11 @@ msgstr ""
 "запису системи до OpenStack Glance. Див. сторінку підручника (man) virt-"
 "v2v(1), щоб дізнатися більше про параметри виведення даних."
 
-#: p2v/gui.c:484
+#: p2v/gui.c:486
 msgid "Output conn. (-oc):"
 msgstr "З’єднання виведення (-oc):"
 
-#: p2v/gui.c:489
+#: p2v/gui.c:491
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
@@ -8314,11 +8330,11 @@ msgstr ""
 "слід додати гостьову систему до типового екземпляра libvirt на сервері "
 "перетворення. Для інших варіантів це поле слід залишити порожнім."
 
-#: p2v/gui.c:495
+#: p2v/gui.c:497
 msgid "Output storage (-os):"
 msgstr "Сховище виведення (-os):"
 
-#: p2v/gui.c:500
+#: p2v/gui.c:502
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
@@ -8328,11 +8344,11 @@ msgstr ""
 "<b>rhev</b>, вказати домен сховища для експортування (сервер:/точка "
 "монтування). Для інших варіантів, не заповнюйте це поле."
 
-#: p2v/gui.c:506
+#: p2v/gui.c:508
 msgid "Output format (-of):"
 msgstr "Формат виведення (-of):"
 
-#: p2v/gui.c:511
+#: p2v/gui.c:513
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
@@ -8340,11 +8356,11 @@ msgstr ""
 "Формат диска виведення даних, типово <b>raw</b> або <b>qcow2</b>. Якщо "
 "порожнє, типовим значенням вважається <b>raw</b>."
 
-#: p2v/gui.c:517
+#: p2v/gui.c:519
 msgid "Output allocation (-oa):"
 msgstr "Розташовування виведення (-oa):"
 
-#: p2v/gui.c:536
+#: p2v/gui.c:538
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
@@ -8352,36 +8368,36 @@ msgstr ""
 "Увімкнути діагностику на боці сервера\n"
 "(Дані зберігаються у каталозі /tmp сервера перетворення)"
 
-#: p2v/gui.c:545
+#: p2v/gui.c:547
 msgid "Information"
 msgstr "Інформація"
 
-#: p2v/gui.c:553
+#: p2v/gui.c:555
 msgid "Fixed hard disks"
 msgstr "Стаціонарні жорсткі диски"
 
-#: p2v/gui.c:565
+#: p2v/gui.c:567
 msgid "Removable media"
 msgstr "Портативний носій"
 
-#: p2v/gui.c:577
+#: p2v/gui.c:579
 msgid "Network interfaces"
 msgstr "Мережеві інтерфейси"
 
-#: p2v/gui.c:605
+#: p2v/gui.c:607
 msgid "Back"
 msgstr "Назад"
 
-#: p2v/gui.c:606
+#: p2v/gui.c:608
 msgid "Start conversion"
 msgstr "Розпочати перетворення"
 
-#: p2v/gui.c:642
+#: p2v/gui.c:644
 #, c-format
 msgid "virt-p2v (client) %s"
 msgstr "virt-p2v (клієнт) %s"
 
-#: p2v/gui.c:645
+#: p2v/gui.c:647
 #, c-format
 msgid ""
 "virt-p2v (client) %s\n"
@@ -8390,31 +8406,35 @@ msgstr ""
 "virt-p2v (клієнт) %s\n"
 "virt-v2v (сервер перетворення) %d.%d.%d"
 
-#: p2v/gui.c:768 p2v/gui.c:823 p2v/gui.c:871
+#: p2v/gui.c:770 p2v/gui.c:825 p2v/gui.c:873
 msgid "Convert"
 msgstr "Перетворити"
 
-#: p2v/gui.c:775 p2v/gui.c:830 p2v/gui.c:878
+#: p2v/gui.c:777 p2v/gui.c:832 p2v/gui.c:880
 msgid "Device"
 msgstr "Пристрій"
 
-#: p2v/gui.c:782
+#: p2v/gui.c:784
 msgid "Size (GB)"
 msgstr "Розмір (ГБ)"
 
-#: p2v/gui.c:789
+#: p2v/gui.c:791
 msgid "Model"
 msgstr "Модель"
 
-#: p2v/gui.c:885
+#: p2v/gui.c:887
 msgid "Connect to virtual network"
 msgstr "Встановити з’єднання із віртуальною мережею"
 
-#: p2v/gui.c:1094
+#: p2v/gui.c:1098
 msgid "Cancel conversion"
 msgstr "Скасувати перетворення"
 
-#: p2v/gui.c:1122
+#: p2v/gui.c:1099
+msgid "Reboot"
+msgstr ""
+
+#: p2v/gui.c:1134
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -8425,15 +8445,15 @@ msgstr ""
 "цього каталогу:\n"
 "%s"
 
-#: p2v/gui.c:1183
+#: p2v/gui.c:1195
 msgid "The guest \"Name\" field is empty."
 msgstr "Порожнє поле «Назва» гостьової системи."
 
-#: p2v/gui.c:1184 p2v/gui.c:1217
+#: p2v/gui.c:1196 p2v/gui.c:1229
 msgid "Error"
 msgstr "Помилка"
 
-#: p2v/gui.c:1215
+#: p2v/gui.c:1227
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
@@ -8441,24 +8461,24 @@ msgstr ""
 "Не вказано дисків для перетворення.\n"
 "Слід вказати принаймні один стаціонарний жорсткий диск.\n"
 
-#: p2v/gui.c:1302
+#: p2v/gui.c:1314
 #, c-format
 msgid "Conversion failed: %s"
 msgstr "Помилка під час перетворення: %s"
 
-#: p2v/gui.c:1303
+#: p2v/gui.c:1315
 msgid "Conversion failed"
 msgstr "Перетворення не вдалося"
 
-#: p2v/gui.c:1312
+#: p2v/gui.c:1324
 msgid "The conversion was successful."
 msgstr "Перетворення виконано успішно."
 
-#: p2v/gui.c:1313
+#: p2v/gui.c:1325
 msgid "Conversion was successful"
 msgstr "Успішне перетворення"
 
-#: p2v/main.c:71
+#: p2v/main.c:69
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -8468,24 +8488,12 @@ msgid ""
 "Options:\n"
 "  --help                 Display brief help\n"
 " --cmdline=CMDLINE       Used to debug command line parsing\n"
-" --fullscreen            Run virt-p2v in full screen mode\n"
 "  -v|--verbose           Verbose messages\n"
 "  -V|--version           Display version and exit\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: перетворення фізичної машини для використання у KVM\n"
-"© Red Hat Inc., 2009–2014\n"
-"Користування:\n"
-"  %s [--параметри]\n"
-"Параметри:\n"
-"  --help                 вивести коротку довідку\n"
-" --cmdline=РЯДОК         скористатися засобом діагностики рядка команди\n"
-" --fullscreen            запустити virt-p2v у повноекранному режимі\n"
-"  -v|--verbose           режим докладних повідомлень\n"
-"  -V|--version           вивести дані щодо версії і завершити роботу\n"
-"Докладніший опис можна знайти на сторінці man %s(1).\n"
 
-#: p2v/main.c:152
+#: p2v/main.c:149
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr "%s: невикористані аргументи у командному рядку\n"
@@ -9296,7 +9304,7 @@ msgstr "розмір %s неймовірно великий (%<PRIi64> байт�
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:634
+#: src/inspect-icon.c:646
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
@@ -10164,6 +10172,37 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "create a btrfs snapshot"
+#~ msgstr "створити знімок btrfs"
+
+#~ msgid "delete a btrfs snapshot"
+#~ msgstr "вилучити знімок btrfs"
+
+#~ msgid ""
+#~ "%s: Convert a physical machine to use KVM\n"
+#~ "Copyright (C) 2009-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options]\n"
+#~ "Options:\n"
+#~ "  --help                 Display brief help\n"
+#~ " --cmdline=CMDLINE       Used to debug command line parsing\n"
+#~ " --fullscreen            Run virt-p2v in full screen mode\n"
+#~ "  -v|--verbose           Verbose messages\n"
+#~ "  -V|--version           Display version and exit\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: перетворення фізичної машини для використання у KVM\n"
+#~ "© Red Hat Inc., 2009–2014\n"
+#~ "Користування:\n"
+#~ "  %s [--параметри]\n"
+#~ "Параметри:\n"
+#~ "  --help                 вивести коротку довідку\n"
+#~ " --cmdline=РЯДОК         скористатися засобом діагностики рядка команди\n"
+#~ " --fullscreen            запустити virt-p2v у повноекранному режимі\n"
+#~ "  -v|--verbose           режим докладних повідомлень\n"
+#~ "  -V|--version           вивести дані щодо версії і завершити роботу\n"
+#~ "Докладніший опис можна знайти на сторінці man %s(1).\n"
 
 #~ msgid ""
 #~ "esx: URI (-ic parameter) contains no path, so we cannot determine the "

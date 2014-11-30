@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-11-15 20:17+0000\n"
+"POT-Creation-Date: 2014-11-30 01:40+0000\n"
 "PO-Revision-Date: 2014-10-18 08:01+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -397,7 +397,7 @@ msgstr ""
 #: ../fuse/guestmount.pod:159 ../fuse/guestunmount.pod:70
 #: ../inspector/virt-inspector.pod:52 ../make-fs/virt-make-fs.pod:117
 #: ../p2v/virt-p2v-make-disk.pod:49 ../p2v/virt-p2v-make-kickstart.pod:133
-#: ../p2v/virt-p2v.pod:433 ../rescue/virt-rescue.pod:113
+#: ../p2v/virt-p2v.pod:435 ../rescue/virt-rescue.pod:113
 #: ../resize/virt-resize.pod:266 ../sparsify/virt-sparsify.pod:114
 #: ../sysprep/virt-sysprep.pod:38 ../test-tool/libguestfs-test-tool.pod:34
 #: ../tools/virt-list-filesystems:52 ../tools/virt-list-partitions:53
@@ -417,7 +417,7 @@ msgstr "ПАРАМЕТРИ"
 #: ../fuse/guestmount.pod:240 ../fuse/guestunmount.pod:79
 #: ../inspector/virt-inspector.pod:56 ../make-fs/virt-make-fs.pod:121
 #: ../p2v/virt-p2v-make-disk.pod:53 ../p2v/virt-p2v-make-kickstart.pod:137
-#: ../p2v/virt-p2v.pod:437 ../rescue/virt-rescue.pod:117
+#: ../p2v/virt-p2v.pod:439 ../rescue/virt-rescue.pod:117
 #: ../resize/virt-resize.pod:270 ../sparsify/virt-sparsify.pod:118
 #: ../sysprep/virt-sysprep.pod:42 ../test-tool/libguestfs-test-tool.pod:38
 #: ../tools/virt-list-filesystems:60 ../tools/virt-list-partitions:61
@@ -792,7 +792,7 @@ msgstr ""
 #: ../df/virt-df.pod:183 ../diff/virt-diff.pod:197 ../edit/virt-edit.pod:203
 #: ../fish/guestfish.pod:419 ../format/virt-format.pod:153
 #: ../fuse/guestmount.pod:359 ../inspector/virt-inspector.pod:122
-#: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v.pod:446
+#: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v.pod:448
 #: ../rescue/virt-rescue.pod:238 ../resize/virt-resize.pod:581
 #: ../sparsify/virt-sparsify.pod:292 ../sysprep/virt-sysprep.pod:222
 #: ../v2v/virt-v2v.pod:613
@@ -807,7 +807,7 @@ msgstr "B<-v>"
 #: ../df/virt-df.pod:185 ../diff/virt-diff.pod:199 ../edit/virt-edit.pod:205
 #: ../fish/guestfish.pod:421 ../format/virt-format.pod:155
 #: ../fuse/guestmount.pod:361 ../inspector/virt-inspector.pod:124
-#: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v.pod:448
+#: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v.pod:450
 #: ../rescue/virt-rescue.pod:240 ../resize/virt-resize.pod:583
 #: ../sparsify/virt-sparsify.pod:294 ../sysprep/virt-sysprep.pod:224
 #: ../v2v/virt-v2v.pod:615
@@ -838,7 +838,7 @@ msgstr "Увімкнути докладний показ повідомлень 
 #: ../fuse/guestmount.pod:365 ../fuse/guestunmount.pod:105
 #: ../inspector/virt-inspector.pod:128 ../make-fs/virt-make-fs.pod:203
 #: ../p2v/virt-p2v-make-disk.pod:64 ../p2v/virt-p2v-make-kickstart.pod:152
-#: ../p2v/virt-p2v.pod:452 ../rescue/virt-rescue.pod:244
+#: ../p2v/virt-p2v.pod:454 ../rescue/virt-rescue.pod:244
 #: ../resize/virt-resize.pod:587 ../sparsify/virt-sparsify.pod:298
 #: ../sysprep/virt-sysprep.pod:228 ../test-tool/libguestfs-test-tool.pod:59
 #: ../v2v/virt-v2v.pod:619
@@ -857,7 +857,7 @@ msgstr "B<-V>"
 #: ../fuse/guestmount.pod:367 ../fuse/guestunmount.pod:107
 #: ../inspector/virt-inspector.pod:130 ../make-fs/virt-make-fs.pod:205
 #: ../p2v/virt-p2v-make-disk.pod:66 ../p2v/virt-p2v-make-kickstart.pod:154
-#: ../p2v/virt-p2v.pod:454 ../rescue/virt-rescue.pod:246
+#: ../p2v/virt-p2v.pod:456 ../rescue/virt-rescue.pod:246
 #: ../resize/virt-resize.pod:589 ../sparsify/virt-sparsify.pod:300
 #: ../sysprep/virt-sysprep.pod:230 ../test-tool/libguestfs-test-tool.pod:61
 #: ../tools/virt-list-filesystems:68 ../tools/virt-list-partitions:69
@@ -873,7 +873,7 @@ msgstr "B<--version>"
 #: ../df/virt-df.pod:193 ../diff/virt-diff.pod:207 ../edit/virt-edit.pod:213
 #: ../format/virt-format.pod:163 ../inspector/virt-inspector.pod:132
 #: ../make-fs/virt-make-fs.pod:207 ../p2v/virt-p2v-make-disk.pod:68
-#: ../p2v/virt-p2v-make-kickstart.pod:156 ../p2v/virt-p2v.pod:456
+#: ../p2v/virt-p2v-make-kickstart.pod:156 ../p2v/virt-p2v.pod:458
 #: ../rescue/virt-rescue.pod:248 ../resize/virt-resize.pod:591
 #: ../sparsify/virt-sparsify.pod:302 ../sysprep/virt-sysprep.pod:232
 #: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
@@ -1461,7 +1461,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:498 ../java/examples/guestfs-java.pod:156
 #: ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215
 #: ../ocaml/examples/guestfs-ocaml.pod:76 ../p2v/virt-p2v-make-disk.pod:103
-#: ../p2v/virt-p2v-make-kickstart.pod:187 ../p2v/virt-p2v.pod:582
+#: ../p2v/virt-p2v-make-kickstart.pod:187 ../p2v/virt-p2v.pod:584
 #: ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412
 #: ../resize/virt-resize.pod:755 ../ruby/examples/guestfs-ruby.pod:34
@@ -1504,7 +1504,7 @@ msgstr "АВТОР"
 #: ../edit/virt-edit.pod:402 ../format/virt-format.pod:197
 #: ../inspector/virt-inspector.pod:513 ../make-fs/virt-make-fs.pod:231
 #: ../p2v/virt-p2v-make-disk.pod:112 ../p2v/virt-p2v-make-kickstart.pod:198
-#: ../p2v/virt-p2v.pod:593 ../rescue/virt-rescue.pod:424
+#: ../p2v/virt-p2v.pod:597 ../rescue/virt-rescue.pod:424
 #: ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:454
 #: ../sysprep/virt-sysprep.pod:570 ../tools/virt-list-filesystems:195
 #: ../tools/virt-list-partitions:276 ../tools/virt-tar:308
@@ -1532,7 +1532,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:175
 #: ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:114
-#: ../p2v/virt-p2v-make-kickstart.pod:200 ../p2v/virt-p2v.pod:597
+#: ../p2v/virt-p2v-make-kickstart.pod:200 ../p2v/virt-p2v.pod:601
 #: ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426
 #: ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:52
@@ -1891,7 +1891,7 @@ msgstr ""
 #: ../inspector/virt-inspector.pod:507 ../java/examples/guestfs-java.pod:171
 #: ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:91
 #: ../p2v/virt-p2v-make-disk.pod:110 ../p2v/virt-p2v-make-kickstart.pod:196
-#: ../p2v/virt-p2v.pod:591 ../perl/examples/guestfs-perl.pod:53
+#: ../p2v/virt-p2v.pod:595 ../perl/examples/guestfs-perl.pod:53
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4857
 #: ../sysprep/virt-sysprep.pod:568 ../test-tool/libguestfs-test-tool.pod:186
@@ -1923,7 +1923,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../edit/virt-edit.pod:406 ../examples/guestfs-recipes.pod:680
 #: ../fish/guestfish.pod:1642 ../fuse/guestmount.pod:435
 #: ../guestfs-release-notes.pod:3522 ../p2v/virt-p2v-make-disk.pod:116
-#: ../p2v/virt-p2v-make-kickstart.pod:202 ../p2v/virt-p2v.pod:599
+#: ../p2v/virt-p2v-make-kickstart.pod:202 ../p2v/virt-p2v.pod:603
 #: ../rescue/virt-rescue.pod:428 ../src/guestfs.pod:4863
 #: ../test-tool/libguestfs-test-tool.pod:192 ../tools/virt-list-partitions:280
 #: ../v2v/virt-v2v.pod:1456
@@ -2428,7 +2428,7 @@ msgstr ""
 #. type: textblock
 #: ../builder/virt-builder.pod:182 ../builder/virt-index-validate.pod:64
 #: ../p2v/virt-p2v-make-disk.pod:55 ../p2v/virt-p2v-make-kickstart.pod:139
-#: ../p2v/virt-p2v.pod:439 ../resize/virt-resize.pod:272
+#: ../p2v/virt-p2v.pod:441 ../resize/virt-resize.pod:272
 #: ../sparsify/virt-sparsify.pod:120 ../v2v/virt-v2v.pod:239
 msgid "Display help."
 msgstr "Показати довідкове повідомлення."
@@ -7970,7 +7970,7 @@ msgstr ""
 #: ../guestfs-release-notes.pod:1071 ../guestfs-release-notes.pod:1075
 #: ../guestfs-release-notes.pod:1420 ../guestfs-release-notes.pod:1424
 #: ../guestfs-release-notes.pod:1976 ../guestfs-release-notes.pod:1980
-#: ../p2v/virt-p2v.pod:423 ../p2v/virt-p2v.pod:429
+#: ../p2v/virt-p2v.pod:425 ../p2v/virt-p2v.pod:431
 #: ../src/guestfs-actions.pod:1 ../src/guestfs-actions.pod:24
 #: ../src/guestfs-availability.pod:1 ../src/guestfs-availability.pod:24
 #: ../src/guestfs-structs.pod:1 ../src/guestfs-structs.pod:24
@@ -17272,7 +17272,7 @@ msgstr ""
 
 #. type: =item
 #: ../fish/guestfish-actions.pod:263 ../fish/guestfish-actions.pod:5056
-#: ../p2v/virt-p2v.pod:497 ../src/guestfs-actions.pod:361
+#: ../p2v/virt-p2v.pod:499 ../src/guestfs-actions.pod:361
 #: ../src/guestfs-actions.pod:8060
 msgid "C<name>"
 msgstr "C<name>"
@@ -19067,7 +19067,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1053 ../src/guestfs-actions.pod:1547
 msgid ""
 "Create a btrfs subvolume.  The C<dest> argument is the destination directory "
-"and the name of the snapshot, in the form C</path/to/dest/name>."
+"and the name of the subvolume, in the form C</path/to/dest/name>."
 msgstr ""
 
 #. type: =head2
@@ -19085,8 +19085,10 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1060 ../src/guestfs-actions.pod:1560
-msgid "Delete the named btrfs subvolume."
-msgstr ""
+#, fuzzy
+#| msgid "btrfs-subvolume-snapshot"
+msgid "Delete the named btrfs subvolume or snapshot."
+msgstr "btrfs-subvolume-snapshot"
 
 #. type: =head2
 #: ../fish/guestfish-actions.pod:1062
@@ -21785,8 +21787,8 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:2336 ../src/guestfs-actions.pod:3713
 msgid ""
-"Return the additional kernel options which are added to the guest kernel "
-"command line."
+"Return the additional kernel options which are added to the libguestfs "
+"appliance kernel command line."
 msgstr ""
 
 #. type: textblock
@@ -31325,10 +31327,12 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6634 ../src/guestfs-actions.pod:10860
+#, fuzzy
+#| msgid "Pass additional options to the guest kernel."
 msgid ""
-"This function is used to add additional options to the guest kernel command "
-"line."
-msgstr ""
+"This function is used to add additional options to the libguestfs appliance "
+"kernel command line."
+msgstr "Передати додаткові параметри ядру гостьової системи."
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6637 ../src/guestfs-actions.pod:10863
@@ -42307,7 +42311,7 @@ msgstr "L<https://bugzilla.redhat.com/1142004>"
 #. type: textblock
 #: ../guestfs-release-notes.pod:341
 msgid ""
-"virt-v2v prints waring:WARNING:/files/boot/grub/device.map references "
+"virt-v2v prints warning:WARNING:/files/boot/grub/device.map references "
 "unknown device \"xvda\""
 msgstr ""
 
@@ -52200,20 +52204,22 @@ msgstr ""
 #: ../p2v/virt-p2v.pod:54
 msgid ""
 "The reverse port forwarding feature of ssh (ie. C<ssh -R>) is required by "
-"virt-p2v, and it will not work if this is disabled on the conversion server."
+"virt-p2v, and it will not work if this is disabled on the conversion "
+"server.  (C<AllowTcpForwarding> must be C<yes> in the L<sshd_config(5)> file "
+"on the conversion server)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:58
+#: ../p2v/virt-p2v.pod:59
 msgid ""
 "The conversion server does not need to be a physical machine.  It could be a "
 "virtual machine, as long as it has sufficient memory and disk space to do "
 "the conversion, and as long as the physical machine can connect directly to "
-"its SSH port."
+"its SSH port.  (See also L<virt-v2v(1)/RESOURCE REQUIREMENTS>)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:63
+#: ../p2v/virt-p2v.pod:65
 msgid ""
 "Because all of the data on the physical server's hard drive(s) has to be "
 "copied over the network, the speed of conversion is largely determined by "
@@ -52221,12 +52227,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:67
+#: ../p2v/virt-p2v.pod:69
 msgid "GUI INTERACTIVE CONFIGURATION"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:69
+#: ../p2v/virt-p2v.pod:71
 msgid ""
 "When you start virt-p2v, you'll see a graphical configuration dialog that "
 "walks you through connection to the conversion server, asks for the "
@@ -52235,17 +52241,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../p2v/virt-p2v.pod:75
+#: ../p2v/virt-p2v.pod:77
 msgid "SSH CONFIGURATION DIALOG"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:77
+#: ../p2v/virt-p2v.pod:79
 msgid "When virt-p2v starts up in GUI mode, the first dialog looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:79
+#: ../p2v/virt-p2v.pod:81
 #, no-wrap
 msgid ""
 " ┌────────────────────────────────────────────────────────┐\n"
@@ -52263,7 +52269,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:91
+#: ../p2v/virt-p2v.pod:93
 msgid ""
 "In the fields above, you must enter the hostname, SSH port number, remote "
 "user name and password of the conversion server.  The conversion server must "
@@ -52271,14 +52277,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:95
+#: ../p2v/virt-p2v.pod:97
 msgid ""
 "Normally you must log in to the conversion server as root, but if you check "
 "the following box:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:98
+#: ../p2v/virt-p2v.pod:100
 #, no-wrap
 msgid ""
 " │                                                        │\n"
@@ -52288,7 +52294,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:102
+#: ../p2v/virt-p2v.pod:104
 msgid ""
 "then you can log in as another user, and virt-p2v will use the L<sudo(8)> "
 "command to elevate privileges to root.  Note that sudo must not require a "
@@ -52296,7 +52302,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:106
+#: ../p2v/virt-p2v.pod:108
 msgid ""
 "It is also possible to run virt-v2v on the conversion server entirely as non-"
 "root, but output modes may be limited.  Consult the L<virt-v2v(1)> manual "
@@ -52304,12 +52310,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:110
+#: ../p2v/virt-p2v.pod:112
 msgid "At the bottom of the dialog are these buttons:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:112
+#: ../p2v/virt-p2v.pod:114
 #, no-wrap
 msgid ""
 " │                                                        │\n"
@@ -52322,7 +52328,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:119
+#: ../p2v/virt-p2v.pod:121
 msgid ""
 "You must press the C<Test connection> button first to test the SSH "
 "connection to the conversion server.  If that is successful (ie. you have "
@@ -52332,19 +52338,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../p2v/virt-p2v.pod:125
+#: ../p2v/virt-p2v.pod:127
 msgid "DISK AND NETWORK CONFIGURATION DIALOG"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:127
+#: ../p2v/virt-p2v.pod:129
 msgid ""
 "The second configuration dialog lets you configure the details of "
 "conversion, including what to convert and where to send the guest."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:130
+#: ../p2v/virt-p2v.pod:132
 msgid ""
 "In the left hand column, starting at the top, the target properties let you "
 "select the name of the guest (ie. after conversion) and how many virtual "
@@ -52353,7 +52359,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:135
+#: ../p2v/virt-p2v.pod:137
 #, no-wrap
 msgid ""
 " ┌─────────────────────────────────────── ─ ─ ─ ─\n"
@@ -52369,7 +52375,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:145
+#: ../p2v/virt-p2v.pod:147
 msgid ""
 "The second panel on the left controls the virt-v2v output options.  To "
 "understand these options it is a really good idea to read the L<virt-v2v(1)> "
@@ -52379,7 +52385,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:152
+#: ../p2v/virt-p2v.pod:154
 #, no-wrap
 msgid ""
 " │\n"
@@ -52399,14 +52405,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:166
+#: ../p2v/virt-p2v.pod:168
 msgid ""
 "All output options and paths are relative to the conversion server (I<not> "
 "to the physical server)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:169
+#: ../p2v/virt-p2v.pod:171
 msgid ""
 "The final option in this panel enables server-side debugging.  This produces "
 "a lot of output, but is essential if you are tracking down virt-p2v or virt-"
@@ -52414,7 +52420,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:173
+#: ../p2v/virt-p2v.pod:175
 #, no-wrap
 msgid ""
 " │\n"
@@ -52424,7 +52430,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:177
+#: ../p2v/virt-p2v.pod:179
 msgid ""
 "Finally in the left hand column is an information box giving the version of "
 "virt-p2v (on the physical server) and virt-v2v (on the conversion server).  "
@@ -52432,7 +52438,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:182
+#: ../p2v/virt-p2v.pod:184
 msgid ""
 "In the right hand column are three panels which control what hard disks, "
 "removable media devices, and network interfaces, will be created in the "
@@ -52440,7 +52446,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:187
+#: ../p2v/virt-p2v.pod:189
 #, no-wrap
 msgid ""
 " ─ ─ ───────────────────────────────────────┐\n"
@@ -52454,7 +52460,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:195
+#: ../p2v/virt-p2v.pod:197
 msgid ""
 "Normally you would want to convert all hard disks.  If you want virt-p2v to "
 "completely ignore a local hard disk, uncheck it.  The hard disk that "
@@ -52464,7 +52470,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:201
+#: ../p2v/virt-p2v.pod:203
 #, no-wrap
 msgid ""
 "                                            │\n"
@@ -52477,7 +52483,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:208
+#: ../p2v/virt-p2v.pod:210
 msgid ""
 "If the physical machine has CD or DVD drives, then you can use the Removable "
 "media panel to create corresponding drives on the guest after conversion.  "
@@ -52486,7 +52492,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:213
+#: ../p2v/virt-p2v.pod:215
 #, no-wrap
 msgid ""
 "                                            │\n"
@@ -52500,7 +52506,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:221
+#: ../p2v/virt-p2v.pod:223
 msgid ""
 "In the Network interfaces panel, select the network interfaces that should "
 "be created in the guest after conversion.  You can also connect these to "
@@ -52509,14 +52515,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:226
+#: ../p2v/virt-p2v.pod:228
 msgid ""
 "When you are ready to begin the conversion, press the C<Start conversion> "
 "button:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:229
+#: ../p2v/virt-p2v.pod:231
 #, no-wrap
 msgid ""
 "                                            │\n"
@@ -52527,17 +52533,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../p2v/virt-p2v.pod:234
+#: ../p2v/virt-p2v.pod:236
 msgid "CONVERSION RUNNING DIALOG"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:236
+#: ../p2v/virt-p2v.pod:238
 msgid "When conversion is running you will see this dialog:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:238
+#: ../p2v/virt-p2v.pod:240
 #, no-wrap
 msgid ""
 " ┌────────────────────────────────────────────────────────┐\n"
@@ -52564,14 +52570,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:259
+#: ../p2v/virt-p2v.pod:261
 msgid ""
 "In the main scrolling area you will see log messages from the virt-v2v "
 "process."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:262
+#: ../p2v/virt-p2v.pod:264
 msgid ""
 "Below the main area, virt-p2v shows you the location of the directory on the "
 "conversion server that contains log files and other debugging information.  "
@@ -52579,19 +52585,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:267
+#: ../p2v/virt-p2v.pod:269
 msgid ""
 "Once conversion has finished, you should shut down the physical machine.  If "
 "conversion is successful, you should never reboot it."
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:270
+#: ../p2v/virt-p2v.pod:272
 msgid "KERNEL COMMAND LINE CONFIGURATION"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:272
+#: ../p2v/virt-p2v.pod:274
 msgid ""
 "If you don't want to configure things using the graphical UI, an alternative "
 "is to configure through the kernel command line.  This is especially "
@@ -52600,7 +52606,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:277
+#: ../p2v/virt-p2v.pod:279
 msgid ""
 "Where exactly you set command line arguments depends on your PXE "
 "implementation, but for pxelinux you put them in the C<APPEND> field in the "
@@ -52608,7 +52614,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:281
+#: ../p2v/virt-p2v.pod:283
 #, no-wrap
 msgid ""
 " DEFAULT p2v\n"
@@ -52628,22 +52634,22 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:288
+#: ../p2v/virt-p2v.pod:290
 msgid "You have to set some or all of the following command line arguments:"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:292
+#: ../p2v/virt-p2v.pod:294
 msgid "B<p2v.server=SERVER>"
 msgstr "B<p2v.server=СЕРВЕР>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:294
+#: ../p2v/virt-p2v.pod:296
 msgid "The name or IP address of the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:296
+#: ../p2v/virt-p2v.pod:298
 msgid ""
 "This is always required if you are using the kernel configuration method.  "
 "If virt-p2v does not find this on the kernel command line then it switches "
@@ -52651,58 +52657,58 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:300
+#: ../p2v/virt-p2v.pod:302
 msgid "B<p2v.port=NN>"
 msgstr "B<p2v.port=NN>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:302
+#: ../p2v/virt-p2v.pod:304
 msgid "The SSH port number on the conversion server (default: C<22>)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:304
+#: ../p2v/virt-p2v.pod:306
 msgid "B<p2v.username=USERNAME>"
 msgstr "B<p2v.username=КОРИСТУВАЧ>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:306
+#: ../p2v/virt-p2v.pod:308
 msgid ""
 "The SSH username that we log in as on the conversion server (default: "
 "C<root>)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:309
+#: ../p2v/virt-p2v.pod:311
 msgid "B<p2v.password=PASSWORD>"
 msgstr "B<p2v.password=ПАРОЛЬ>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:311
+#: ../p2v/virt-p2v.pod:313
 msgid "The SSH password that we use to log in to the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:313
+#: ../p2v/virt-p2v.pod:315
 msgid ""
 "The default is to try with no password.  If this fails then virt-p2v will "
 "ask the user to type the password (probably several times during conversion)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:317
+#: ../p2v/virt-p2v.pod:319
 msgid ""
 "Note that virt-p2v does not support authentication using key distribution at "
 "this time."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:320
+#: ../p2v/virt-p2v.pod:322
 msgid "B<p2v.sudo>"
 msgstr "B<p2v.sudo>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:322
+#: ../p2v/virt-p2v.pod:324
 msgid ""
 "Use C<p2v.sudo> to tell virt-p2v to use L<sudo(8)> to gain root privileges "
 "on the conversion server after logging in as a non-root user (default: do "
@@ -52710,12 +52716,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:326
+#: ../p2v/virt-p2v.pod:328
 msgid "B<p2v.name=GUESTNAME>"
 msgstr "B<p2v.name=НАЗВА_ГОСТЬОВОЇ_СИСТЕМИ>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:328
+#: ../p2v/virt-p2v.pod:330
 msgid ""
 "The name of the guest that is created.  The default is to try to derive a "
 "name from the physical machine's hostname (if possible) else use a randomly "
@@ -52723,24 +52729,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:332
+#: ../p2v/virt-p2v.pod:334
 msgid "B<p2v.vcpus=NN>"
 msgstr "B<p2v.vcpus=NN>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:334
+#: ../p2v/virt-p2v.pod:336
 msgid ""
 "The number of virtual CPUs to give to the guest.  The default is to use the "
 "same as the number of physical CPUs."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:337
+#: ../p2v/virt-p2v.pod:339
 msgid "B<p2v.memory=NN(M|G)>"
 msgstr "B<p2v.memory=NN(M|G)>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:339
+#: ../p2v/virt-p2v.pod:341
 msgid ""
 "The size of the guest memory.  You can specify this in megabytes or "
 "gigabytes by using (eg) C<p2v.memory=1024M> or C<p2v.memory=1G>.  The "
@@ -52748,17 +52754,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:343
+#: ../p2v/virt-p2v.pod:345
 msgid "B<p2v.debug>"
 msgstr "B<p2v.debug>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:345
+#: ../p2v/virt-p2v.pod:347
 msgid "Use this to enable full debugging of virt-v2v."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:347
+#: ../p2v/virt-p2v.pod:349
 msgid ""
 "If asked to diagnose a problem with virt-p2v, you should add C<p2v.debug> to "
 "the kernel command line, and examine the log file which is left in C</tmp> "
@@ -52766,17 +52772,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:351
+#: ../p2v/virt-p2v.pod:353
 msgid "B<p2v.disks=sdX,sdY,..>"
 msgstr "B<p2v.disks=sdX,sdY,..>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:353
+#: ../p2v/virt-p2v.pod:355
 msgid "A list of physical hard disks to convert, for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:355
+#: ../p2v/virt-p2v.pod:357
 #, no-wrap
 msgid ""
 " p2v.disks=sda,sdc\n"
@@ -52786,17 +52792,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:357
+#: ../p2v/virt-p2v.pod:359
 msgid "The default is to convert all local hard disks that are found."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:359
+#: ../p2v/virt-p2v.pod:361
 msgid "B<p2v.removable=srX,srY,..>"
 msgstr "B<p2v.removable=srX,srY,..>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:361
+#: ../p2v/virt-p2v.pod:363
 msgid ""
 "A list of removable media to convert.  The default is to create virtual "
 "removable devices for every physical removable device found.  Note that the "
@@ -52804,24 +52810,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:365
+#: ../p2v/virt-p2v.pod:367
 msgid "B<p2v.interfaces=em1,..>"
 msgstr "B<p2v.interfaces=em1,..>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:367
+#: ../p2v/virt-p2v.pod:369
 msgid ""
 "A list of network interfaces to convert.  The default is to create virtual "
 "network interfaces for every physical network interface found."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:370
+#: ../p2v/virt-p2v.pod:372
 msgid "B<p2v.network=interface:target,...>"
 msgstr "B<p2v.network=інтерфейс:призначення,...>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:372
+#: ../p2v/virt-p2v.pod:374
 msgid ""
 "Controls how network interfaces are connected to virtual networks on the "
 "target hypervisor.  The default is to connect all network interfaces to the "
@@ -52829,14 +52835,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:376
+#: ../p2v/virt-p2v.pod:378
 msgid ""
 "You give a comma-separated list of C<interface:target> pairs, plus "
 "optionally a default target.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:379
+#: ../p2v/virt-p2v.pod:381
 #, no-wrap
 msgid ""
 " p2v.network=em1:rhevm\n"
@@ -52846,12 +52852,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:381
+#: ../p2v/virt-p2v.pod:383
 msgid "maps interface C<em1> to target network C<rhevm>."
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:383
+#: ../p2v/virt-p2v.pod:385
 #, no-wrap
 msgid ""
 " p2v.network=em1:rhevm,em2:management,other\n"
@@ -52861,136 +52867,136 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:385
+#: ../p2v/virt-p2v.pod:387
 msgid ""
 "maps interface C<em1> to C<rhevm>, and C<em2> to C<management>, and any "
 "other interface that is found to C<other>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:388
+#: ../p2v/virt-p2v.pod:390
 msgid "B<p2v.o=[libvirt|local|...]>"
 msgstr "B<p2v.o=[libvirt|local|...]>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:390
+#: ../p2v/virt-p2v.pod:392
 msgid ""
 "Set the output mode.  This is the same as the virt-v2v I<-o> option.  See "
 "L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:393
+#: ../p2v/virt-p2v.pod:395
 msgid ""
 "If not specified, the default is C<local>, and the converted guest is "
 "written to C</var/tmp>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:396
+#: ../p2v/virt-p2v.pod:398
 msgid "B<p2v.oa=sparse|preallocated>"
 msgstr "B<p2v.oa=sparse|preallocated>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:398
+#: ../p2v/virt-p2v.pod:400
 msgid ""
 "Set the output allocation mode.  This is the same as the virt-v2v I<-oa> "
 "option.  See L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:401
+#: ../p2v/virt-p2v.pod:403
 msgid "B<p2v.oc=...>"
 msgstr "B<p2v.oc=...>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:403
+#: ../p2v/virt-p2v.pod:405
 msgid ""
 "Set the output connection libvirt URI.  This is the same as the virt-v2v I<-"
 "oc> option.  See L<virt-v2v(1)/OPTIONS> and L<http://libvirt.org/uri.html>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:407
+#: ../p2v/virt-p2v.pod:409
 msgid "B<p2v.of=raw|qcow2|...>"
 msgstr "B<p2v.of=raw|qcow2|...>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:409
+#: ../p2v/virt-p2v.pod:411
 msgid ""
 "Set the output format.  This is the same as the virt-v2v I<-of> option.  See "
 "L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:412
+#: ../p2v/virt-p2v.pod:414
 msgid "B<p2v.os=...>"
 msgstr "B<p2v.os=...>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:414
+#: ../p2v/virt-p2v.pod:416
 msgid ""
 "Set the output storage.  This is the same as the virt-v2v I<-os> option.  "
 "See L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:417
+#: ../p2v/virt-p2v.pod:419
 msgid ""
 "If not specified, the default is C</var/tmp> (on the conversion server)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:419
+#: ../p2v/virt-p2v.pod:421
 msgid "B<ip=dhcp>"
 msgstr "B<ip=dhcp>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:421
+#: ../p2v/virt-p2v.pod:423
 msgid "Use DHCP for configuring the network interface (this is the default)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:425
+#: ../p2v/virt-p2v.pod:427
 msgid "B<ip=ADDR:GATEWAY:NETMASK>"
 msgstr "B<ip=АДРЕСА:ШЛЮЗ:МАСКА_МЕРЕЖІ>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:427
+#: ../p2v/virt-p2v.pod:429
 msgid "Set up a static IPv4 network configuration."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:441
+#: ../p2v/virt-p2v.pod:443
 msgid "B<--cmdline=CMDLINE>"
 msgstr "B<--cmdline=РЯДОК_КОМАНДИ>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:443
+#: ../p2v/virt-p2v.pod:445
 msgid ""
 "This is used for debugging. Instead of parsing the kernel command line from "
 "C</proc/cmdline>, parse the string parameter C<CMDLINE>."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:450
+#: ../p2v/virt-p2v.pod:452
 msgid "Enable debugging (on the conversion server)."
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:460
+#: ../p2v/virt-p2v.pod:462
 msgid "HOW VIRT-P2V WORKS"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:462
+#: ../p2v/virt-p2v.pod:464
 msgid ""
 "B<Note this section is not normative.> We may change how virt-p2v works at "
 "any time in the future."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:465
+#: ../p2v/virt-p2v.pod:467
 msgid ""
 "As described above, virt-p2v runs on a physical machine, interrogates the "
 "user or the kernel command line for configuration, and then establishes one "
@@ -53002,7 +53008,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:473
+#: ../p2v/virt-p2v.pod:475
 msgid ""
 "It will first make one or more test connections, which are used to query the "
 "remote version of virt-v2v and its features.  The test connections are "
@@ -53010,7 +53016,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:477
+#: ../p2v/virt-p2v.pod:479
 #, no-wrap
 msgid ""
 " ┌──────────────┐                      ┌─────────────────┐\n"
@@ -53022,7 +53028,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:483
+#: ../p2v/virt-p2v.pod:485
 msgid ""
 "Once virt-p2v is ready to start conversion, it will open a single ssh "
 "control connection.  It first sends a mkdir command to create a temporary "
@@ -53031,7 +53037,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:488
+#: ../p2v/virt-p2v.pod:490
 #, no-wrap
 msgid ""
 " /tmp/virt-p2v-YYYYMMDD-XXXXXXXX\n"
@@ -53039,40 +53045,40 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:490
+#: ../p2v/virt-p2v.pod:492
 msgid ""
 "where C<YYYYMMDD> is the current date, and the X's are random characters."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:493
+#: ../p2v/virt-p2v.pod:495
 msgid "Into this directory are written various files which include:"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:499 ../p2v/virt-p2v.pod:505 ../p2v/virt-p2v.pod:524
+#: ../p2v/virt-p2v.pod:501 ../p2v/virt-p2v.pod:507 ../p2v/virt-p2v.pod:526
 msgid "I<before conversion>"
 msgstr "I<до перетворення>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:501
+#: ../p2v/virt-p2v.pod:503
 msgid "The name (usually the hostname) of the physical machine."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:503
+#: ../p2v/virt-p2v.pod:505
 msgid "C<physical.xml>"
 msgstr "C<physical.xml>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:507
+#: ../p2v/virt-p2v.pod:509
 msgid ""
 "Libvirt XML describing the physical machine.  It is used to pass data about "
 "the physical source host to L<virt-v2v(1)> via the I<-i libvirtxml> option."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:511
+#: ../p2v/virt-p2v.pod:513
 msgid ""
 "Note this is not \"real\" libvirt XML (and must B<never> be loaded into "
 "libvirt, which would reject it anyhow).  Also it is not the same as the "
@@ -53080,44 +53086,44 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:515
+#: ../p2v/virt-p2v.pod:517
 msgid "C<status>"
 msgstr "C<status>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:517
+#: ../p2v/virt-p2v.pod:519
 msgid "I<after conversion>"
 msgstr "I<після перетворення>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:519
+#: ../p2v/virt-p2v.pod:521
 msgid ""
 "The final status of the conversion.  C<0> if the conversion was successful.  "
 "Non-zero if the conversion failed."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:522
+#: ../p2v/virt-p2v.pod:524
 msgid "C<time>"
 msgstr "C<time>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:526
+#: ../p2v/virt-p2v.pod:528
 msgid "The start date/time of conversion."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:528
+#: ../p2v/virt-p2v.pod:530
 msgid "C<virt-v2v-conversion-log.txt>"
 msgstr "C<virt-v2v-conversion-log.txt>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:530
+#: ../p2v/virt-p2v.pod:532
 msgid "I<during/after conversion>"
 msgstr "I<підчас/після перетворення>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:532
+#: ../p2v/virt-p2v.pod:534
 msgid ""
 "The conversion log.  This is just the output of the virt-v2v command on the "
 "conversion server.  If conversion fails, you should examine this log file, "
@@ -53126,7 +53132,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:539
+#: ../p2v/virt-p2v.pod:541
 msgid ""
 "Before conversion actually begins, virt-p2v then makes one or more further "
 "ssh connections to the server for data transfer.  The transfer protocol used "
@@ -53137,7 +53143,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:546
+#: ../p2v/virt-p2v.pod:548
 #, no-wrap
 msgid ""
 " ┌──────────────┐                      ┌─────────────────┐\n"
@@ -53155,7 +53161,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:558
+#: ../p2v/virt-p2v.pod:560
 msgid ""
 "Although the ssh data connection is originated from the physical server and "
 "terminates on the conversion server, in fact NBD requests flow in the "
@@ -53168,7 +53174,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:567
+#: ../p2v/virt-p2v.pod:569
 msgid ""
 "Two layers of protection are used to ensure that there are no writes to the "
 "hard disks: Firstly, the qemu-nbd I<-r> (readonly) option is used.  Secondly "
@@ -53177,7 +53183,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:573
+#: ../p2v/virt-p2v.pod:575
 msgid ""
 "The final step is to send the S<C<virt-v2v -i libvirtxml physical.xml ...>> "
 "command to the conversion server over the control connection.  This "
@@ -53186,7 +53192,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:578
+#: ../p2v/virt-p2v.pod:580
 msgid ""
 "Output from the virt-v2v command (messages, debugging etc) is saved both in "
 "the log file on the conversion server, and sent over the control connection "
@@ -53194,14 +53200,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:584
+#: ../p2v/virt-p2v.pod:586
+#, fuzzy
+#| msgid ""
+#| "L<virt-p2v(1)>, L<virt-p2v-make-kickstart(1)>, L<virt-v2v(1)>, L<http://"
+#| "libguestfs.org/>."
 msgid ""
 "L<virt-p2v-make-disk(1)>, L<virt-p2v-make-kickstart(1)>, L<virt-v2v(1)>, "
-"L<qemu-nbd(1)>, L<ssh(1)>, L<http://libguestfs.org/>."
+"L<qemu-nbd(1)>, L<ssh(1)>, L<sshd(8)>, L<sshd_config(5)>, L<http://"
+"libguestfs.org/>."
 msgstr ""
+"L<virt-p2v(1)>, L<virt-p2v-make-kickstart(1)>, L<virt-v2v(1)>, L<http://"
+"libguestfs.org/>."
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:595 ../v2v/virt-v2v.pod:1446
+#: ../p2v/virt-p2v.pod:599 ../v2v/virt-v2v.pod:1446
 msgid "Matthew Booth"
 msgstr ""
 
