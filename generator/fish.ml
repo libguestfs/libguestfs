@@ -98,6 +98,10 @@ let generate_fish_cmds () =
   pr "/* Valid suffixes allowed for numbers.  See Gnulib xstrtol function. */\n";
   pr "static const char *xstrtol_suffixes = \"0kKMGTPEZY\";\n";
   pr "\n";
+  pr "/* Return these errors from run_* functions. */\n";
+  pr "#define RUN_ERROR -1\n";
+  pr "#define RUN_WRONG_ARGS -2\n";
+  pr "\n";
 
   List.iter (
     fun { name = name } ->
@@ -129,6 +133,7 @@ let generate_fish_cmds () =
       pr "struct command_entry %s_cmd_entry = {\n" name;
       pr "  .name = \"%s\",\n" name2;
       pr "  .help = \"%s\",\n" (c_quote text);
+      pr "  .synopsis = NULL,\n";
       pr "  .run = run_%s\n" name;
       pr "};\n";
       pr "\n";
@@ -190,6 +195,7 @@ Guestfish will prompt for these separately."
       pr "struct command_entry %s_cmd_entry = {\n" name;
       pr "  .name = \"%s\",\n" name2;
       pr "  .help = \"%s\",\n" (c_quote text);
+      pr "  .synopsis = \"%s\",\n" (c_quote synopsis);
       pr "  .run = run_%s\n" name;
       pr "};\n";
       pr "\n";
@@ -337,7 +343,7 @@ Guestfish will prompt for these separately."
       pr "static int\n";
       pr "run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
-      pr "  int ret = -1;\n";
+      pr "  int ret = RUN_ERROR;\n";
       (match ret with
        | RErr
        | RInt _
@@ -393,30 +399,14 @@ Guestfish will prompt for these separately."
 
       if argc_minimum = argc_maximum then (
         pr "  if (argc != %d) {\n" argc_minimum;
-        if argc_minimum = 0 then (
-          pr "    fprintf (stderr, _(\"%%s should have no parameters\\n\"), cmd);\n";
-        ) else (
-          pr "    fprintf (stderr, ngettext(\"%%s should have %%d parameter\\n\",\n";
-          pr "                              \"%%s should have %%d parameters\\n\",\n";
-          pr "                              %d),\n"
-            argc_minimum;
-          pr "                     cmd, %d);\n"
-            argc_minimum;
-        )
+          pr "    ret = RUN_WRONG_ARGS;\n";
       ) else if argc_minimum = 0 then (
         pr "  if (argc > %d) {\n" argc_maximum;
-        pr "    fprintf (stderr, ngettext(\"%%s should have at most %%d parameter\\n\",\n";
-        pr "                              \"%%s should have at most %%d parameters\\n\",\n";
-        pr "                              %d),\n"
-          argc_maximum;
-        pr "                     cmd, %d);\n"
-          argc_maximum;
+        pr "    ret = RUN_WRONG_ARGS;\n";
       ) else (
         pr "  if (argc < %d || argc > %d) {\n" argc_minimum argc_maximum;
-        pr "    fprintf (stderr, _(\"%%s should have %%d-%%d parameter(s)\\n\"), cmd, %d, %d);\n"
-          argc_minimum argc_maximum;
+        pr "    ret = RUN_WRONG_ARGS;\n";
       );
-      pr "    fprintf (stderr, _(\"type 'help %%s' for help on %%s\\n\"), cmd, cmd);\n";
       pr "    goto out_noargs;\n";
       pr "  }\n";
 
@@ -694,16 +684,28 @@ Guestfish will prompt for these separately."
   pr "run_action (const char *cmd, size_t argc, char *argv[])\n";
   pr "{\n";
   pr "  const struct command_table *ct;\n";
+  pr "  int ret = -1;\n";
   pr "\n";
   pr "  ct = lookup_fish_command (cmd, strlen (cmd));\n";
-  pr "  if (ct)\n";
-  pr "    return ct->entry->run (cmd, argc, argv);\n";
+  pr "  if (ct) {\n";
+  pr "    ret = ct->entry->run (cmd, argc, argv);\n";
+  pr "    /* run function may return magic value -2 (RUN_WRONG_ARGS) to indicate\n";
+  pr "     * that this function should print the command synopsis.\n";
+  pr "     */\n";
+  pr "    if (ret == RUN_WRONG_ARGS) {\n";
+  pr "      fprintf (stderr, _(\"error: incorrect number of arguments\\n\"));\n";
+  pr "      if (ct->entry->synopsis)\n";
+  pr "        fprintf (stderr, _(\"usage: %%s\\n\"), ct->entry->synopsis);\n";
+  pr "      fprintf (stderr, _(\"type 'help %%s' for more help on %%s\\n\"), cmd, cmd);\n";
+  pr "      ret = -1;\n";
+  pr "    }\n";
+  pr "  }\n";
   pr "  else {\n";
   pr "    fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);\n";
   pr "    if (command_num == 1)\n";
   pr "      extended_help_message ();\n";
-  pr "    return -1;\n";
   pr "  }\n";
+  pr "  return ret;\n";
   pr "}\n"
 
 and generate_fish_cmds_h () =

@@ -25,6 +25,7 @@
 struct command_entry {
   const char *name;             /* Short name. */
   const char *help;             /* Online help. */
+  const char *synopsis;         /* Synopsis. */
 
   /* The run_* function. */
   int (*run) (const char *cmd, size_t argc, char *argv[]);
