@@ -394,7 +394,7 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
            "          ;;\n"
            "    arm*) qemu=\"$qemudir/$host_cpu-softmmu/qemu-system-arm\"\n"
            "          ;;\n"
-           "    powerpc64|ppc64le)\n"
+           "    powerpc64|ppc64le|powerpc64le)\n"
            "          qemu=\"$qemudir/$host_cpu-softmmu/qemu-system-ppc64\"\n"
            "          ;;\n"
            "    *)    qemu=\"$qemudir/$host_cpu-softmmu/qemu-system-$host_cpu\"\n"
