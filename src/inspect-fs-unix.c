@@ -58,8 +58,8 @@ COMPILE_REGEXP (re_scientific_linux,
                 "Scientific Linux.*release (\\d+)\\.(\\d+)", 0)
 COMPILE_REGEXP (re_scientific_linux_no_minor,
                 "Scientific Linux.*release (\\d+)", 0)
-  COMPILE_REGEXP (re_oracle_linux_old,
-                  "Oracle Linux.*release (\\d+).*Update (\\d+)", 0)
+COMPILE_REGEXP (re_oracle_linux_old,
+                "Oracle Linux.*release (\\d+).*Update (\\d+)", 0)
 COMPILE_REGEXP (re_oracle_linux,
                 "Oracle Linux.*release (\\d+)\\.(\\d+)", 0)
 COMPILE_REGEXP (re_oracle_linux_no_minor, "Oracle Linux.*release (\\d+)", 0)
