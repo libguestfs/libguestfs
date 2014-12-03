@@ -177,6 +177,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
     if (guestfs___check_freebsd_root (g, fs) == -1)
       return -1;
   }
+  /* NetBSD root? */
   else if (is_dir_etc &&
            is_dir_bin &&
            guestfs_is_file (g, "/netbsd") > 0 &&
@@ -185,6 +186,17 @@ check_filesystem (guestfs_h *g, const char *mountable,
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs___check_netbsd_root (g, fs) == -1)
+      return -1;
+  }
+  /* OpenBSD root? */
+  else if (is_dir_etc &&
+           is_dir_bin &&
+           guestfs_is_file (g, "/bsd") > 0 &&
+           guestfs_is_file (g, "/etc/fstab") > 0 &&
+           guestfs_is_file (g, "/etc/motd") > 0) {
+    fs->is_root = 1;
+    fs->format = OS_FORMAT_INSTALLED;
+    if (guestfs___check_openbsd_root (g, fs) == -1)
       return -1;
   }
   /* Hurd root? */

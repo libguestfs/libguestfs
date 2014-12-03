@@ -80,6 +80,9 @@ COMPILE_REGEXP (re_sles_version, "^VERSION = (\\d+)", 0)
 COMPILE_REGEXP (re_sles_patchlevel, "^PATCHLEVEL = (\\d+)", 0)
 COMPILE_REGEXP (re_minix, "^(\\d+)\\.(\\d+)(\\.(\\d+))?", 0)
 COMPILE_REGEXP (re_hurd_dev, "^/dev/(h)d(\\d+)s(\\d+)$", 0)
+COMPILE_REGEXP (re_openbsd, "^OpenBSD (\\d+|\\?)\\.(\\d+|\\?)", 0)
+COMPILE_REGEXP (re_openbsd_duid, "^[0-9a-f]{16}\\.[a-z]", 0)
+COMPILE_REGEXP (re_openbsd_dev, "^/dev/(s|w)d([0-9])([a-z])$", 0)
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);
@@ -659,6 +662,55 @@ guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
+/* The currently mounted device may be an OpenBSD root. */
+int
+guestfs___check_openbsd_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  if (guestfs_is_file_opts (g, "/etc/motd",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    CLEANUP_FREE char *major = NULL, *minor = NULL;
+
+    /* The first line of this file gets automatically updated at boot. */
+    if (parse_release_file (g, fs, "/etc/motd") == -1)
+      return -1;
+
+    if (match2 (g, fs->product_name, re_openbsd, &major, &minor)) {
+      fs->type = OS_TYPE_OPENBSD;
+      fs->distro = OS_DISTRO_OPENBSD;
+
+      /* Before the first boot, the first line will look like this:
+       *
+       * OpenBSD ?.? (UNKNOWN)
+       */
+      if ((fs->product_name[8] != '?') && (fs->product_name[10] != '?')) {
+        fs->major_version = guestfs___parse_unsigned_int (g, major);
+        if (fs->major_version == -1)
+          return -1;
+
+        fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+        if (fs->minor_version == -1)
+          return -1;
+      }
+    }
+  } else {
+    return -1;
+  }
+
+  /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* We already know /etc/fstab exists because it's part of the test above. */
+  const char *configfiles[] = { "/etc/fstab", NULL };
+  if (inspect_with_augeas (g, fs, configfiles, check_fstab) == -1)
+    return -1;
+
+  /* Determine hostname. */
+  if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
+
 /* The currently mounted device may be a Hurd root.  Hurd has distros
  * just like Linux.
  */
@@ -821,6 +873,18 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
     }
     break;
 
+  case OS_TYPE_OPENBSD:
+    if (guestfs_is_file (g, "/etc/myname")) {
+      fs->hostname = guestfs___first_line_of_file (g, "/etc/myname");
+      if (fs->hostname == NULL)
+        return -1;
+      if (STREQ (fs->hostname, "")) {
+        free (fs->hostname);
+        fs->hostname = NULL;
+      }
+    }
+    break;
+
   case OS_TYPE_MINIX:
     if (guestfs_is_file (g, "/etc/hostname.file")) {
       fs->hostname = guestfs___first_line_of_file (g, "/etc/hostname.file");
@@ -835,7 +899,6 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
 
   case OS_TYPE_WINDOWS: /* not here, see check_windows_system_registry */
   case OS_TYPE_DOS:
-  case OS_TYPE_OPENBSD:
   case OS_TYPE_UNKNOWN:
     /* nothing */;
   }
@@ -921,6 +984,9 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
   char **entry;
   char augpath[256];
   CLEANUP_HASH_FREE Hash_table *md_map = NULL;
+  bool is_bsd = (fs->type == OS_TYPE_FREEBSD ||
+                 fs->type == OS_TYPE_NETBSD ||
+                 fs->type == OS_TYPE_OPENBSD);
 
   /* Generate a map of MD device paths listed in /etc/mdadm.conf to MD device
    * paths in the guestfs appliance */
@@ -975,12 +1041,31 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
     else if (STRPREFIX (spec, "LABEL="))
       mountable = guestfs_findfs_label (g, &spec[6]);
     /* Ignore "/.swap" (Pardus) and pseudo-devices like "tmpfs". */
-    else if (STREQ (spec, "/dev/root"))
-      /* Resolve /dev/root to the current device. */
+    else if (STREQ (spec, "/dev/root") || (is_bsd && STREQ (mp, "/")))
+      /* Resolve /dev/root to the current device.
+       * Do the same for the / partition of the *BSD systems, since the
+       * BSD -> Linux device translation is not straight forward.
+       */
       mountable = safe_strdup (g, fs->mountable);
     else if (STRPREFIX (spec, "/dev/"))
       /* Resolve guest block device names. */
       mountable = resolve_fstab_device (g, spec, md_map);
+    else if (match (g, spec, re_openbsd_duid)) {
+      /* In OpenBSD's fstab you can specify partitions on a disk by appending a
+       * period and a partition letter to a Disklable Unique Identifier. The
+       * DUID is a 16 hex digit field found in the OpenBSD's altered BSD
+       * disklabel. For more info see here:
+       * http://www.openbsd.org/faq/faq14.html#intro
+       */
+       char device[10]; /* /dev/sd[0-9][a-z] */
+       char part = spec[17];
+
+       /* We cannot peep into disklables, we can only assume that this is the
+        * first disk.
+        */
+       snprintf(device, 10, "%s%c", "/dev/sd0", part);
+       mountable = resolve_fstab_device (g, device, md_map);
+    }
 
     /* If we haven't resolved the device successfully by this point,
      * we don't care, just ignore it.
@@ -1541,6 +1626,21 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
         part_i >= 0 && part_i < 26) {
       device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
     }
+  }
+  else if (match3 (g, spec, re_openbsd_dev, &type, &disk, &part)) {
+    int disk_i = guestfs___parse_unsigned_int (g, disk);
+    int part_i = part[0] - 'a'; /* counting from 0 */
+    free (type);
+    free (disk);
+    free (part);
+
+    if (part_i > 2)
+      /* Partition 'c' is the hard disk itself. Not mapped under Linux */
+      part_i -= 1;
+
+    /* In OpenBSD MAXPARTITIONS is defined to 16 for all architectures */
+    if (disk_i != -1 && part_i >= 0 && part_i < 15)
+      device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
   }
   else if ((part = match1 (g, spec, re_diskbyid)) != NULL) {
     r = resolve_fstab_device_diskbyid (g, part, &device);

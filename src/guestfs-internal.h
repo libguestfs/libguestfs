@@ -782,6 +782,7 @@ extern void guestfs___check_package_management (guestfs_h *g, struct inspect_fs 
 extern int guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs___check_openbsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs___check_minix_root (guestfs_h *g, struct inspect_fs *fs);
 
