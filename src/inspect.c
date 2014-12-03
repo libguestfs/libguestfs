@@ -203,12 +203,14 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_CIRROS: ret = safe_strdup (g, "cirros"); break;
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
+  case OS_DISTRO_FREEBSD: ret = safe_strdup (g, "freebsd"); break;
   case OS_DISTRO_FREEDOS: ret = safe_strdup (g, "freedos"); break;
   case OS_DISTRO_GENTOO: ret = safe_strdup (g, "gentoo"); break;
   case OS_DISTRO_LINUX_MINT: ret = safe_strdup (g, "linuxmint"); break;
   case OS_DISTRO_MAGEIA: ret = safe_strdup (g, "mageia"); break;
   case OS_DISTRO_MANDRIVA: ret = safe_strdup (g, "mandriva"); break;
   case OS_DISTRO_MEEGO: ret = safe_strdup (g, "meego"); break;
+  case OS_DISTRO_NETBSD: ret = safe_strdup (g, "netbsd"); break;
   case OS_DISTRO_OPENBSD: ret = safe_strdup (g, "openbsd"); break;
   case OS_DISTRO_OPENSUSE: ret = safe_strdup (g, "opensuse"); break;
   case OS_DISTRO_ORACLE_LINUX: ret = safe_strdup (g, "oraclelinux"); break;

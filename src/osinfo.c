@@ -498,8 +498,12 @@ parse_distro (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
       osinfo->distro = OS_DISTRO_DEBIAN;
     else if (STREQ (content, "fedora"))
       osinfo->distro = OS_DISTRO_FEDORA;
+    else if (STREQ (content, "freebsd"))
+      osinfo->distro = OS_DISTRO_FREEBSD;
     else if (STREQ (content, "mandriva"))
       osinfo->distro = OS_DISTRO_MANDRIVA;
+    else if (STREQ (content, "netbsd"))
+      osinfo->distro = OS_DISTRO_NETBSD;
     else if (STREQ (content, "openbsd"))
       osinfo->distro = OS_DISTRO_OPENBSD;
     else if (STREQ (content, "opensuse"))

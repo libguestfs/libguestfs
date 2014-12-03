@@ -178,6 +178,8 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     case OS_DISTRO_SLACKWARE:
     case OS_DISTRO_TTYLINUX:
     case OS_DISTRO_WINDOWS:
+    case OS_DISTRO_FREEBSD:
+    case OS_DISTRO_NETBSD:
     case OS_DISTRO_OPENBSD:
     case OS_DISTRO_UNKNOWN:
       ; /* nothing */

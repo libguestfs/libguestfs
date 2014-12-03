@@ -543,6 +543,8 @@ enum inspect_os_distro {
   OS_DISTRO_SLES,
   OS_DISTRO_OPENBSD,
   OS_DISTRO_ORACLE_LINUX,
+  OS_DISTRO_FREEBSD,
+  OS_DISTRO_NETBSD,
 };
 
 enum inspect_os_package_format {

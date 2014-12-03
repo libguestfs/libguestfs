@@ -1065,6 +1065,10 @@ Debian.
 
 Fedora.
 
+=item \"freebsd\"
+
+FreeBSD.
+
 =item \"freedos\"
 
 FreeDOS.
@@ -1088,6 +1092,10 @@ Mandriva.
 =item \"meego\"
 
 MeeGo.
+
+=item \"netbsd\"
+
+NetBSD.
 
 =item \"openbsd\"
 

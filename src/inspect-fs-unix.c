@@ -591,6 +591,7 @@ int
 guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
 {
   fs->type = OS_TYPE_FREEBSD;
+  fs->distro = OS_DISTRO_FREEBSD;
 
   /* FreeBSD has no authoritative version file.  The version number is
    * in /etc/motd, which the system administrator might edit, but
@@ -634,6 +635,7 @@ guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
 
     if (match2 (g, fs->product_name, re_netbsd, &major, &minor)) {
       fs->type = OS_TYPE_NETBSD;
+      fs->distro = OS_DISTRO_NETBSD;
       fs->major_version = guestfs___parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
