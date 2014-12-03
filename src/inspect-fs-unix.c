@@ -1624,9 +1624,13 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
     free (slice);
     free (part);
 
+    if (part_i > 2)
+      /* Partition 'c' has the size of the enclosing slice. Not mapped under Linux. */
+      part_i -= 1;
+
     if (disk_i != -1 && disk_i <= 26 &&
         slice_i > 0 && slice_i <= 1 /* > 4 .. see comment above */ &&
-        part_i >= 0 && part_i < 26) {
+        part_i >= 0 && part_i < 25) {
       device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
     }
   }
