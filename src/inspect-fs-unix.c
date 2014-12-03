@@ -83,6 +83,7 @@ COMPILE_REGEXP (re_hurd_dev, "^/dev/(h)d(\\d+)s(\\d+)$", 0)
 COMPILE_REGEXP (re_openbsd, "^OpenBSD (\\d+|\\?)\\.(\\d+|\\?)", 0)
 COMPILE_REGEXP (re_openbsd_duid, "^[0-9a-f]{16}\\.[a-z]", 0)
 COMPILE_REGEXP (re_openbsd_dev, "^/dev/(s|w)d([0-9])([a-z])$", 0)
+COMPILE_REGEXP (re_netbsd_dev, "^/dev/(l|s)d([0-9])([a-z])$", 0)
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);
@@ -92,7 +93,8 @@ static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
                             const char *mountable, const char *mp);
 static char *resolve_fstab_device (guestfs_h *g, const char *spec,
-                                   Hash_table *md_map);
+                                   Hash_table *md_map,
+                                   enum inspect_os_type os_type);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char **configfiles, int (*f) (guestfs_h *, struct inspect_fs *));
 static int is_partition (guestfs_h *g, const char *partition);
 
@@ -1049,7 +1051,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       mountable = safe_strdup (g, fs->mountable);
     else if (STRPREFIX (spec, "/dev/"))
       /* Resolve guest block device names. */
-      mountable = resolve_fstab_device (g, spec, md_map);
+      mountable = resolve_fstab_device (g, spec, md_map, fs->type);
     else if (match (g, spec, re_openbsd_duid)) {
       /* In OpenBSD's fstab you can specify partitions on a disk by appending a
        * period and a partition letter to a Disklable Unique Identifier. The
@@ -1064,7 +1066,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
         * first disk.
         */
        snprintf(device, 10, "%s%c", "/dev/sd0", part);
-       mountable = resolve_fstab_device (g, device, md_map);
+       mountable = resolve_fstab_device (g, device, md_map, fs->type);
     }
 
     /* If we haven't resolved the device successfully by this point,
@@ -1548,7 +1550,8 @@ resolve_fstab_device_diskbyid (guestfs_h *g, const char *part,
  * anything we don't recognize unchanged.
  */
 static char *
-resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
+resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
+                      enum inspect_os_type os_type)
 {
   char *device = NULL;
   char *type, *slice, *disk, *part;
@@ -1627,7 +1630,25 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
       device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
     }
   }
-  else if (match3 (g, spec, re_openbsd_dev, &type, &disk, &part)) {
+  else if ((os_type == OS_TYPE_NETBSD) &&
+           match3 (g, spec, re_netbsd_dev, &type, &disk, &part)) {
+    int disk_i = guestfs___parse_unsigned_int (g, disk);
+    int part_i = part[0] - 'a'; /* counting from 0 */
+    free (type);
+    free (disk);
+    free (part);
+
+    if (part_i > 3)
+      /* Partition 'c' is the disklabel partition and 'd' the hard disk itself.
+       * Not mapped under Linux.
+       */
+      part_i -= 2;
+
+    if (disk_i != -1 && part_i >= 0 && part_i < 24)
+      device = safe_asprintf (g, "/dev/sd%c%d", disk_i + 'a', part_i + 5);
+  }
+  else if ((os_type == OS_TYPE_OPENBSD) &&
+           match3 (g, spec, re_openbsd_dev, &type, &disk, &part)) {
     int disk_i = guestfs___parse_unsigned_int (g, disk);
     int part_i = part[0] - 'a'; /* counting from 0 */
     free (type);
