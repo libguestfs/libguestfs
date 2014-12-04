@@ -191,6 +191,7 @@ echo uninstalling Xen PV driver
     if verbose then printf "current ControlSet is %s\n%!" current_cs;
 
     disable_services root current_cs;
+    disable_autoreboot root current_cs;
     install_virtio_drivers root current_cs
 
   and disable_services root current_cs =
@@ -211,6 +212,17 @@ echo uninstalling Xen PV driver
           g#hivex_node_delete_child node
         )
     ) disable
+
+  and disable_autoreboot root current_cs =
+    (* If the guest reboots after a crash, it's hard to see the original
+     * error (eg. the infamous 0x0000007B).  Turn off autoreboot.
+     *)
+    try
+      let crash_control =
+        get_node root [current_cs; "Control"; "CrashControl"] in
+      g#hivex_node_set_value crash_control "AutoReboot" 4_L (le32_of_int 0_L)
+    with
+      Not_found -> ()
 
   and install_virtio_drivers root current_cs =
     (* Copy the virtio drivers to the guest. *)
