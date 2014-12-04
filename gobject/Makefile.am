@@ -55,7 +55,7 @@ libguestfs_gobject_1_0_la_CFLAGS = -I$(top_srcdir)/src -I$(srcdir)/include \
                                    -DGUESTFS_PRIVATE=1 \
                                    $(GOBJECT_CFLAGS)
 libguestfs_gobject_1_0_la_LDFLAGS = $(LDFLAGS) -L$(top_builddir)/src
-libguestfs_gobject_1_0_la_LIBADD = -lguestfs $(GOBJECT_LIBS) $(GIO_LIBS)
+libguestfs_gobject_1_0_la_LIBADD = $(top_builddir)/src/libguestfs.la $(GOBJECT_LIBS) $(GIO_LIBS)
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libguestfs-gobject-1.0.pc
@@ -80,7 +80,7 @@ introspection_sources = \
 Guestfs-1.0.gir: $(libname)
 Guestfs_1_0_gir_INCLUDES = GObject-2.0 Gio-2.0
 Guestfs_1_0_gir_CFLAGS = $(INCLUDES) -I$(srcdir)/include
-Guestfs_1_0_gir_LIBS = $(libname)
+Guestfs_1_0_gir_LIBS = $(libname) $(top_builddir)/src/libguestfs.la
 Guestfs_1_0_gir_FILES = $(patsubst %,$(srcdir)/%,$(introspection_sources))
 INTROSPECTION_GIRS += Guestfs-1.0.gir
 
