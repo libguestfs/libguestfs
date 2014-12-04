@@ -78,3 +78,24 @@ let () =
   assert (human_size (-1363149_L) = "-1.3M");
   assert (human_size 3650722201_L = "3.4G");
   assert (human_size (-3650722201_L) = "-3.4G")
+
+(* Test Common_utils.string_prefix, string_suffix, string_find. *)
+let () =
+  assert (string_prefix "" "");
+  assert (string_prefix "foo" "");
+  assert (string_prefix "foo" "foo");
+  assert (string_prefix "foo123" "foo");
+  assert (not (string_prefix "" "foo"));
+
+  assert (string_suffix "" "");
+  assert (string_suffix "foo" "");
+  assert (string_suffix "foo" "foo");
+  assert (string_suffix "123foo" "foo");
+  assert (not (string_suffix "" "foo"));
+
+  assert (string_find "" "" = 0);
+  assert (string_find "foo" "" = 0);
+  assert (string_find "foo" "o" = 1);
+  assert (string_find "foobar" "bar" = 3);
+  assert (string_find "" "baz" = -1);
+  assert (string_find "foobar" "baz" = -1)
