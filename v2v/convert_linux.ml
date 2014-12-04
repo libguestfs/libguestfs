@@ -49,13 +49,14 @@ type kernel_info = {
   ki_modules : string list;        (* The list of module names. *)
   ki_supports_virtio : bool;       (* Kernel has virtio drivers? *)
   ki_is_xen_kernel : bool;         (* Is a Xen paravirt kernel? *)
+  ki_is_debug : bool;              (* Is debug kernel? *)
 }
 
 let string_of_kernel_info ki =
-  sprintf "(%s, %s, %s, %s, %s, virtio=%b, xen=%b)"
+  sprintf "(%s, %s, %s, %s, %s, virtio=%b, xen=%b, debug=%b)"
     ki.ki_name ki.ki_version ki.ki_arch ki.ki_vmlinuz
     (match ki.ki_initrd with None -> "None" | Some f -> f)
-    ki.ki_supports_virtio ki.ki_is_xen_kernel
+    ki.ki_supports_virtio ki.ki_is_xen_kernel ki.ki_is_debug
 
 (* The conversion function. *)
 let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
@@ -236,6 +237,13 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
            let supports_virtio = List.mem "virtio_net" modules in
            let is_xen_kernel = List.mem "xennet" modules in
 
+           (* If the package name is like "kernel-debug", then it's
+            * a debug kernel.
+            *)
+           let is_debug =
+             string_suffix app.G.app2_name "-debug" ||
+             string_suffix app.G.app2_name "-dbg" in
+
            Some {
              ki_app  = app;
              ki_name = name;
@@ -248,6 +256,7 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
              ki_modules = modules;
              ki_supports_virtio = supports_virtio;
              ki_is_xen_kernel = is_xen_kernel;
+             ki_is_debug = is_debug;
            }
 
          with Not_found -> None
@@ -739,7 +748,12 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       let compare_best_kernels k1 k2 =
         let i = compare k1.ki_supports_virtio k2.ki_supports_virtio in
         if i <> 0 then i
-        else compare_app2_versions k1.ki_app k2.ki_app
+        else (
+          let i = compare_app2_versions k1.ki_app k2.ki_app in
+          if i <> 0 then i
+          (* Favour non-debug kernels over debug kernels (RHBZ#1170073). *)
+          else compare k2.ki_is_debug k1.ki_is_debug
+        )
       in
       let kernels = grub_kernels in
       let kernels = List.filter (fun { ki_is_xen_kernel = is_xen_kernel } -> not is_xen_kernel) kernels in
