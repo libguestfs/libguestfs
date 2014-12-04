@@ -641,10 +641,12 @@ shell_script (void)
 
 #define FISH "><fs> "
 
+#ifdef HAVE_LIBREADLINE
 static char *ps1 = NULL;        /* GUESTFISH_PS1 */
 static char *ps_output = NULL;  /* GUESTFISH_OUTPUT */
-static char *ps_restore = NULL; /* GUESTFISH_RESTORE */
 static char *ps_init = NULL;    /* GUESTFISH_INIT */
+#endif /* HAVE_LIBREADLINE */
+static char *ps_restore = NULL; /* GUESTFISH_RESTORE */
 static char *line_read = NULL;
 
 static char *
@@ -698,10 +700,12 @@ script (int prompt)
   struct parsed_command pcmd;
 
   if (prompt) {
+#ifdef HAVE_LIBREADLINE
     if (ps_init) {              /* GUESTFISH_INIT */
       CLEANUP_FREE char *pi = decode_ps1 (ps_init);
       printf ("%s", pi);
     }
+#endif /* HAVE_LIBREADLINE */
 
     printf (_("\n"
               "Welcome to guestfish, the guest filesystem shell for\n"
@@ -739,6 +743,7 @@ script (int prompt)
     }
   }
 
+#ifdef HAVE_LIBREADLINE
   if (prompt) {
     printf ("\n");
     if (ps_restore) {           /* GUESTFISH_RESTORE */
@@ -746,6 +751,7 @@ script (int prompt)
       printf ("%s", pr);
     }
   }
+#endif /* HAVE_LIBREADLINE */
 }
 
 /* Parse a command string, splitting at whitespace, handling '!', '#' etc.
