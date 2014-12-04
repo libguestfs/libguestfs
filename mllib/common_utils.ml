@@ -98,6 +98,11 @@ let string_prefix str prefix =
   let n = String.length prefix in
   String.length str >= n && String.sub str 0 n = prefix
 
+let string_suffix str suffix =
+  let sufflen = String.length suffix
+  and len = String.length str in
+  len >= sufflen && String.sub str (len - sufflen) sufflen = suffix
+
 let rec string_find s sub =
   let len = String.length s in
   let sublen = String.length sub in

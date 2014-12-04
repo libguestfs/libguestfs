@@ -39,6 +39,7 @@ val output_spaces : out_channel -> int -> unit
 (** Write [n] spaces to [out_channel]. *)
 
 val string_prefix : string -> string -> bool
+val string_suffix : string -> string -> bool
 val string_find : string -> string -> int
 val replace_str : string -> string -> string -> string
 val string_nsplit : string -> string -> string list
