@@ -31,6 +31,8 @@
 #include <libintl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
 #include <glib.h>
 
@@ -38,6 +40,9 @@
 
 #include "miniexpect.h"
 #include "p2v.h"
+
+/* How long to wait for qemu-nbd to start (seconds). */
+#define WAIT_QEMU_NBD_TIMEOUT 10
 
 /* Data per NBD connection / physical disk. */
 struct data_conn {
@@ -49,6 +54,7 @@ struct data_conn {
 
 static int send_quoted (mexp_h *, const char *s);
 static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
+static int wait_qemu_nbd (int nbd_local_port, int timeout_seconds);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static char *generate_libvirt_xml (struct config *, struct data_conn *);
 static const char *map_interface_to_network (struct config *, const char *interface);
@@ -154,6 +160,11 @@ start_conversion (struct config *config,
     data_conns[i].nbd_pid =
       start_qemu_nbd (data_conns[i].nbd_local_port, device);
     if (data_conns[i].nbd_pid == 0)
+      goto out;
+
+    /* Wait for qemu-nbd to listen */
+    if (wait_qemu_nbd (data_conns[i].nbd_local_port,
+                       WAIT_QEMU_NBD_TIMEOUT) == -1)
       goto out;
 
 #if DEBUG_STDERR
@@ -369,6 +380,71 @@ start_qemu_nbd (int port, const char *device)
 
   /* Parent. */
   return pid;
+}
+
+static int
+wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
+{
+  int sockfd;
+  int result = -1;
+  struct sockaddr_in addr;
+  time_t start_t, now_t;
+  struct timeval timeout = { .tv_usec = 0 };
+  char magic[8]; /* NBDMAGIC */
+  size_t bytes_read = 0;
+  ssize_t recvd;
+
+  time (&start_t);
+
+  sockfd = socket (AF_INET, SOCK_STREAM, 0);
+  if (sockfd == -1) {
+    perror ("socket");
+    return -1;
+  }
+
+  memset (&addr, 0, sizeof addr);
+  addr.sin_family = AF_INET;
+  addr.sin_port = htons (nbd_local_port);
+  inet_pton (AF_INET, "localhost", &addr.sin_addr);
+
+  for (;;) {
+    time (&now_t);
+
+    if (now_t - start_t >= timeout_seconds) {
+      set_conversion_error ("waiting for qemu-nbd to start: connect: %m");
+      goto cleanup;
+    }
+
+    if (connect (sockfd, (struct sockaddr *) &addr, sizeof addr) == 0)
+      break;
+  }
+
+  time (&now_t);
+  timeout.tv_sec = (start_t + timeout_seconds) - now_t;
+  setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout);
+
+  do {
+    recvd = recv (sockfd, magic, sizeof magic - bytes_read, 0);
+
+    if (recvd == -1) {
+      set_conversion_error ("waiting for qemu-nbd to start: recv: %m");
+      goto cleanup;
+    }
+
+    bytes_read += recvd;
+  } while (bytes_read < sizeof magic);
+
+  if (memcmp (magic, "NBDMAGIC", sizeof magic) != 0) {
+    set_conversion_error ("waiting for qemu-nbd to start: "
+                          "'NBDMAGIC' was not received from qemu-nbd");
+    goto cleanup;
+  }
+
+  result = 0;
+cleanup:
+  close (sockfd);
+
+  return result;
 }
 
 static void
