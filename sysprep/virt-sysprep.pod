@@ -509,6 +509,14 @@ module:
  cp template.img newguest.img
  virt-sysprep --enable customize -a newguest.img
 
+=head1 SELINUX
+
+For guests which make use of SELinux, special handling for them might
+be needed when using operations which create new files or alter
+existing ones.
+
+For further details, see L<virt-builder(1)/SELINUX>.
+
 =head1 WINDOWS 8
 
 Windows 8 "fast startup" can prevent virt-sysprep from working.
