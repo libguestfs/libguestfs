@@ -129,9 +129,22 @@ let file_list_of_package verbose (g : Guestfs.guestfs) inspect app =
       sprintf "%s-%s-%s" app.G.app2_name
         app.G.app2_version app.G.app2_release in
     let pkg_name =
-      if app.G.app2_epoch > 0_l then
-        sprintf "%ld:%s" app.G.app2_epoch pkg_name
-      else
+      if app.G.app2_epoch > 0_l then (
+        (* RHEL 3/4 'rpm' does not support using the epoch prefix.
+         * (RHBZ#1170685).
+         *)
+        let is_rhel_lt_5 =
+          match inspect with
+          | { i_type = "linux";
+              i_distro = "rhel" | "centos" | "scientificlinux" |
+                  "redhat-based";
+              i_major_version = v } when v < 5 -> true
+          | _ -> false in
+        if is_rhel_lt_5 then
+          pkg_name
+        else
+          sprintf "%ld:%s" app.G.app2_epoch pkg_name
+      ) else
         pkg_name in
     let cmd = [| "rpm"; "-ql"; pkg_name |] in
     if verbose then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
