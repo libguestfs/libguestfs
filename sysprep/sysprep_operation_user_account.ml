@@ -27,6 +27,7 @@ module G = Guestfs
 
 let user_account_perform g root =
   let typ = g#inspect_get_type root in
+  let changed = ref false in
   if typ <> "windows" then (
     g#aug_init "/" 0;
     let uid_min = g#aug_get "/files/etc/login.defs/UID_MIN" in
@@ -40,6 +41,7 @@ let user_account_perform g root =
         let uid = g#aug_get uid in
         let uid = int_of_string uid in
         if uid >= uid_min && uid <= uid_max then (
+          changed := true;
           g#aug_rm userpath;
           let username =
             let i = String.rindex userpath '/' in
@@ -54,7 +56,7 @@ let user_account_perform g root =
         )
     ) users;
     g#aug_save ();
-    []
+    if !changed then [ `Created_files ] else []
   )
   else []
 
