@@ -55,6 +55,7 @@ let check_remove_user user =
 
 let user_account_perform ~verbose ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
+  let changed = ref false in
   if typ <> "windows" then (
     g#aug_init "/" 0;
     let uid_min = g#aug_get "/files/etc/login.defs/UID_MIN" in
@@ -72,6 +73,7 @@ let user_account_perform ~verbose ~quiet g root side_effects =
           String.sub userpath (i+1) (String.length userpath -i-1) in
         if uid >= uid_min && uid <= uid_max
            && check_remove_user username then (
+          changed := true;
           (* Get the home before removing the passwd entry. *)
           let home_dir =
             try Some (g#aug_get (userpath ^ "/home"))
@@ -90,7 +92,9 @@ let user_account_perform ~verbose ~quiet g root side_effects =
         )
     ) users;
     g#aug_save ();
-  )
+  );
+  if !changed then
+    side_effects#changed_file ()
 
 let op = {
   defaults with
