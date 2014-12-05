@@ -623,6 +623,62 @@ below.
  Windows        Drivers are installed from /usr/share/virtio-win
                 if present
 
+=head1 WINDOWS
+
+=head2 Boot failure: 0x0000007B
+
+This boot failure is caused by Windows being unable to find or load
+the right disk driver (eg. C<viostor.sys>).  If you experience this
+error, here are some things to check:
+
+=over 4
+
+=item *
+
+First ensure that the guest boots on the source hypervisor before
+conversion.
+
+=item *
+
+Check you have the Windows virtio drivers available in
+C</usr/share/virtio-win>, and that virt-v2v did not print any warning
+about not being able to install virtio drivers.
+
+On S<Red Hat Enterprise Linux 7>, you will need to install the signed
+drivers available in the C<virtio-win> package.  If you do not have
+access to the signed drivers, then you will probably need to disable
+driver signing in the boot menus.
+
+=item *
+
+Check that you are presenting a virtio-blk interface (B<not>
+virtio-scsi and B<not> ide) to the guest.  On the qemu/KVM command
+line you should see something similar to this:
+
+ ... -drive file=windows-sda,if=virtio ...
+
+In libvirt XML, you should see:
+
+ <target dev='vda' bus='virtio'/>
+
+=item *
+
+Check that Windows Group Policy does not prevent the driver from being
+installed or used.  Try deleting Windows Group Policy before
+conversion.
+
+=item *
+
+Check there is no anti-virus or other software which implements Group
+Policy-like prohibitions on installing or using new drivers.
+
+=item *
+
+Enable boot debugging and check the C<viostor.sys> driver is being
+loaded.
+
+=back
+
 =head1 NETWORKS AND BRIDGES
 
 Guests are usually connected to one or more networks, and when
