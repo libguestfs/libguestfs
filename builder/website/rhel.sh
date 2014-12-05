@@ -35,6 +35,26 @@ tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 guestroot=/dev/sda3
 
 case $version in
+    3.*)
+        major=3
+        minor=`echo $version | awk -F. '{print $2}'`
+        topurl=http://download.devel.redhat.com/released/RHEL-$major/U$minor/AS
+        tree=$topurl/x86_64/tree
+        srpms=$topurl/x86_64/tree/SRPMS
+        bootfs=ext2
+        rootfs=ext3
+        guestroot=/dev/sda2
+        ;;
+    4.*)
+        major=4
+        minor=`echo $version | awk -F. '{print $2}'`
+        topurl=http://download.devel.redhat.com/released/RHEL-$major/U$minor/AS
+        tree=$topurl/x86_64/tree
+        srpms=$topurl/x86_64/tree/SRPMS
+        bootfs=ext2
+        rootfs=ext3
+        guestroot=/dev/sda2
+        ;;
     5.*)
         major=5
         minor=`echo $version | awk -F. '{print $2}'`
@@ -82,9 +102,21 @@ keyboard us
 network --bootproto dhcp
 rootpw builder
 firewall --enabled --ssh
-selinux --enforcing
 timezone --utc America/New_York
 EOF
+
+if [ $major -le 4 ]; then
+cat >> $ks <<EOF
+langsupport en_US
+mouse generic
+EOF
+fi
+
+if [ $major -ge 4 ]; then
+cat >> $ks <<EOF
+selinux --enforcing
+EOF
+fi
 
 if [ $major -eq 5 ]; then
 cat >> $ks <<EOF
@@ -100,9 +132,17 @@ part /boot --fstype=$bootfs --size=512         --asprimary
 part swap                   --size=1024        --asprimary
 part /     --fstype=$rootfs --size=1024 --grow --asprimary
 
+EOF
+
+if [ $major -ge 4 ]; then
+cat >> $ks <<EOF
 # Halt the system once configuration has finished.
 poweroff
 
+EOF
+fi
+
+cat >> $ks <<EOF
 %packages
 @core
 EOF
@@ -173,9 +213,11 @@ virt-install \
     --nographics \
     --noreboot
 
+if [ $major -ge 5 ]; then
 # We have to replace yum config so it doesn't try to use RHN (it
 # won't be registered).
 guestfish --rw -a $output -m $guestroot \
   upload $yum /etc/yum.repos.d/download.devel.redhat.com.repo
+fi
 
 source $(dirname "$0")/compress.sh $output
