@@ -26,6 +26,8 @@ val info : ('a, unit, string, unit) format4 -> 'a
 class filesystem_side_effects : object
   method created_file : unit -> unit
   method get_created_file : bool
+  method changed_file : unit -> unit
+  method get_changed_file : bool
 end
 (** The callback should indicate if it has side effects by calling
     methods in this class. *)

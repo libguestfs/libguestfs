@@ -30,8 +30,11 @@ let info fs = info ~prog fs
 class filesystem_side_effects =
 object
   val mutable m_created_file = false
+  val mutable m_changed_file = false
   method created_file () = m_created_file <- true
   method get_created_file = m_created_file
+  method changed_file () = m_changed_file <- true
+  method get_changed_file = m_changed_file
 end
 
 class device_side_effects = object end
