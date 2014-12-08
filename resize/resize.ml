@@ -1152,9 +1152,15 @@ read the man page virt-resize(1).
             * source = "/dev/sda2", because the device name only covers
             * the first 1K of the partition.  Instead, copy the
             * source bytes from the parent disk (/dev/sda).
+            *
+            * You can't write directly to the extended partition,
+            * because the size of it reported by Linux is always 1024
+            * bytes. Instead, write to the offset of the extended
+            * partition in the destination disk (/dev/sdb).
             *)
            let srcoffset = p.p_part.G.part_start in
-           g#copy_device_to_device ~srcoffset ~size:copysize "/dev/sda" target
+           let destoffset = p.p_target_start *^ 512L in
+           g#copy_device_to_device ~srcoffset ~destoffset ~size:copysize "/dev/sda" "/dev/sdb"
         )
       | OpIgnore | OpDelete -> ()
   in
