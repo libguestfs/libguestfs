@@ -48,6 +48,7 @@ static int check_filesystem (guestfs_h *g, const char *mountable,
                              const struct guestfs_internal_mountable *m,
                              int whole_device);
 static int extend_fses (guestfs_h *g);
+static int get_partition_context (guestfs_h *g, const char *partition, int *partnum_ret, int *nr_partitions_ret);
 
 /* Find out if 'device' contains a filesystem.  If it does, add
  * another entry in g->fses.
@@ -140,17 +141,18 @@ check_filesystem (guestfs_h *g, const char *mountable,
                   const struct guestfs_internal_mountable *m,
                   int whole_device)
 {
+  int partnum = -1, nr_partitions = -1;
   /* Not CLEANUP_FREE, as it will be cleaned up with inspection info */
   char *windows_systemroot = NULL;
 
   if (extend_fses (g) == -1)
     return -1;
 
-  int partnum = -1;
-  if (!whole_device && m->im_type == MOUNTABLE_DEVICE) {
-    guestfs_push_error_handler (g, NULL, NULL);
-    partnum = guestfs_part_to_partnum (g, m->im_device);
-    guestfs_pop_error_handler (g);
+  if (!whole_device && m->im_type == MOUNTABLE_DEVICE &&
+      guestfs___is_partition (g, m->im_device)) {
+    if (get_partition_context (g, m->im_device,
+                               &partnum, &nr_partitions) == -1)
+      return -1;
   }
 
   struct inspect_fs *fs = &g->fses[g->nr_fses-1];
@@ -285,7 +287,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
    * Skip these checks if it's not a whole device (eg. CD) or the
    * first partition (eg. bootable USB key).
    */
-  else if ((whole_device || partnum == 1) &&
+  else if ((whole_device || (partnum == 1 && nr_partitions == 1)) &&
            (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0 ||
             guestfs_is_dir (g, "/EFI/BOOT") > 0 ||
             guestfs_is_file (g, "/images/install.img") > 0 ||
@@ -327,6 +329,36 @@ extend_fses (guestfs_h *g)
 
   memset (&g->fses[n-1], 0, sizeof (struct inspect_fs));
 
+  return 0;
+}
+
+/* Given a partition (eg. /dev/sda2) then return the partition number
+ * (eg. 2) and the total number of other partitions.
+ */
+static int
+get_partition_context (guestfs_h *g, const char *partition,
+                       int *partnum_ret, int *nr_partitions_ret)
+{
+  int partnum, nr_partitions;
+  CLEANUP_FREE char *device = NULL;
+  CLEANUP_FREE_PARTITION_LIST struct guestfs_partition_list *partitions = NULL;
+
+  partnum = guestfs_part_to_partnum (g, partition);
+  if (partnum == -1)
+    return -1;
+
+  device = guestfs_part_to_dev (g, partition);
+  if (device == NULL)
+    return -1;
+
+  partitions = guestfs_part_list (g, device);
+  if (partitions == NULL)
+    return -1;
+
+  nr_partitions = partitions->len;
+
+  *partnum_ret = partnum;
+  *nr_partitions_ret = nr_partitions;
   return 0;
 }
 

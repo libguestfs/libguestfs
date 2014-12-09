@@ -96,7 +96,6 @@ static char *resolve_fstab_device (guestfs_h *g, const char *spec,
                                    Hash_table *md_map,
                                    enum inspect_os_type os_type);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char **configfiles, int (*f) (guestfs_h *, struct inspect_fs *));
-static int is_partition (guestfs_h *g, const char *partition);
 
 /* Hash structure for uuid->path lookups */
 typedef struct md_uuid {
@@ -1431,7 +1430,7 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
   ITER_DRIVES (g, i, drv) {
     if (drv->name && STREQ (drv->name, name)) {
       device = safe_asprintf (g, "%s%s", devices[i], part);
-      if (!is_partition (g, device)) {
+      if (!guestfs___is_partition (g, device)) {
         free (device);
         return 0;
       }
@@ -1458,7 +1457,7 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
      */
     if (i < count) {
       device = safe_asprintf (g, "%s%s", devices[i], part);
-      if (!is_partition (g, device)) {
+      if (!guestfs___is_partition (g, device)) {
         free (device);
         return 0;
       }
@@ -1491,7 +1490,7 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
     if (drv->name && STREQ (drv->name, disk)) {
       if (part) {
         device = safe_asprintf (g, "%s%s", devices[i], part);
-        if (!is_partition (g, device)) {
+        if (!guestfs___is_partition (g, device)) {
           free (device);
           return 0;
         }
@@ -1536,7 +1535,7 @@ resolve_fstab_device_diskbyid (guestfs_h *g, const char *part,
 
   /* Make the partition name and check it exists. */
   device = safe_asprintf (g, "/dev/sda%s", part);
-  if (!is_partition (g, device)) {
+  if (!guestfs___is_partition (g, device)) {
     free (device);
     return 0;
   }
@@ -1785,26 +1784,4 @@ make_augeas_path_expression (guestfs_h *g, const char **configfiles)
   ret = safe_asprintf (g, "/augeas/load/*[ %s ]", subexpr);
   debug (g, "augeas pathexpr = %s", ret);
   return ret;
-}
-
-static int
-is_partition (guestfs_h *g, const char *partition)
-{
-  CLEANUP_FREE char *device = NULL;
-
-  guestfs_push_error_handler (g, NULL, NULL);
-
-  if ((device = guestfs_part_to_dev (g, partition)) == NULL) {
-    guestfs_pop_error_handler (g);
-    return 0;
-  }
-
-  if (guestfs_device_index (g, device) == -1) {
-    guestfs_pop_error_handler (g);
-    return 0;
-  }
-
-  guestfs_pop_error_handler (g);
-
-  return 1;
 }
