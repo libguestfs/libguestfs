@@ -400,7 +400,10 @@ const char *
 guestfs___get_cpu_model (int kvm)
 {
 #if defined(__arm__)            /* 32 bit ARM. */
-  return NULL;
+  if (kvm)
+    return "host";
+  else
+    return NULL;
 
 #elif defined(__aarch64__)
   /* With -M virt, the default -cpu is cortex-a15.  Stupid. */
