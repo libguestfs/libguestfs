@@ -747,6 +747,7 @@ extern int guestfs___set_backend (guestfs_h *g, const char *method);
 extern void guestfs___free_inspect_info (guestfs_h *g);
 extern char *guestfs___download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
 extern struct inspect_fs *guestfs___search_for_root (guestfs_h *g, const char *root);
+extern int guestfs___is_partition (guestfs_h *g, const char *partition);
 
 /* inspect-fs.c */
 extern int guestfs___is_file_nocase (guestfs_h *g, const char *);
