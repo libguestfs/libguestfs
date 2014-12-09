@@ -30,7 +30,11 @@ if [ $# -ne 1 ]; then
 fi
 
 version=$1
-tree=http://mirror.bytemark.co.uk/fedora/linux/releases/$version/Fedora/x86_64/os/
+if [ $version -lt 21 ]; then
+    tree=http://mirror.bytemark.co.uk/fedora/linux/releases/$version/Fedora/x86_64/os/
+else
+    tree=http://mirror.bytemark.co.uk/fedora/linux/releases/$version/Server/x86_64/os/
+fi
 output=fedora-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
