@@ -7264,10 +7264,7 @@ See also C<guestfs_mke2journal_U>." };
     ];
     shortdesc = "load a kernel module";
     longdesc = "\
-This loads a kernel module in the appliance.
-
-The kernel module must have been whitelisted when libguestfs
-was built (see C<appliance/kmod.whitelist.in> in the source)." };
+This loads a kernel module in the appliance." };
 
   { defaults with
     name = "echo_daemon";
