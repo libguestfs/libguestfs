@@ -12400,9 +12400,16 @@ let is_documented { visibility = v } = match v with
   | VPublic | VStateTest -> true
   | VBindTest | VDebug | VInternal -> false
 
-let is_fish { visibility = v } = match v with
-  | VPublic | VDebug -> true
+let is_fish { visibility = v; style = (_, args, _) } =
+  (* Internal functions are not exported to guestfish. *)
+  match v with
   | VStateTest | VBindTest | VInternal -> false
+  | VPublic | VDebug ->
+    (* Functions that take Pointer parameters cannot be used in
+     * guestfish, since there is no way the user could safely
+     * generate a pointer.
+     *)
+    not (List.exists (function Pointer _ -> true | _ -> false) args)
 
 let external_functions =
   List.filter is_external all_functions

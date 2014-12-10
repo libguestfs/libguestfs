@@ -148,7 +148,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
         pr "size_t %s_size" n
     | Pointer (t, n) ->
         next ();
-        pr "%s %s" t n
+        pr "void * /* really %s */ %s" t n
   ) args;
   if is_RBufferOut then (next (); pr "size_t *size_r");
   if optargs <> [] then (

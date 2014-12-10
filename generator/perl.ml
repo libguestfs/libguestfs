@@ -369,7 +369,7 @@ PREINIT:
           | Bool n -> pr "      int %s;\n" n
           | Int n -> pr "      int %s;\n" n
           | Int64 n -> pr "      int64_t %s;\n" n
-          | Pointer (t, n) -> pr "      %s %s;\n" t n
+          | Pointer (t, n) -> pr "      void * /* %s */ %s;\n" t n
       ) args;
 
       (* PREINIT section (local variable declarations). *)

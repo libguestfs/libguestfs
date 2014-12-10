@@ -87,6 +87,7 @@ and generate_php_c () =
 #include <php_guestfs_php.h>
 
 #include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
 
 static int res_guestfs_h;
 
@@ -202,8 +203,10 @@ PHP_FUNCTION (guestfs_last_error)
             pr "  char **%s;\n" n;
         | Bool n ->
             pr "  zend_bool %s;\n" n
-        | Int n | Int64 n | Pointer (_, n) ->
+        | Int n | Int64 n ->
             pr "  long %s;\n" n
+        | Pointer (t, n) ->
+            pr "  void * /* %s */ %s;\n" t n
         ) args;
 
       if optargs <> [] then (
@@ -241,7 +244,8 @@ PHP_FUNCTION (guestfs_last_error)
           | OptString n -> "s!"
           | StringList n | DeviceList n -> "a"
           | Bool n -> "b"
-          | Int n | Int64 n | Pointer (_, n) -> "l"
+          | Int n | Int64 n -> "l"
+          | Pointer _ -> ""
         ) args
       ) in
 
@@ -277,8 +281,9 @@ PHP_FUNCTION (guestfs_last_error)
             pr ", &z_%s" n
         | Bool n ->
             pr ", &%s" n
-        | Int n | Int64 n | Pointer (_, n) ->
+        | Int n | Int64 n ->
             pr ", &%s" n
+        | Pointer (_, n) -> ()
       ) args;
       List.iter (
         function
@@ -342,7 +347,9 @@ PHP_FUNCTION (guestfs_last_error)
             pr "    %s[c] = NULL;\n" n;
             pr "  }\n";
             pr "\n"
-        | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
+        | Bool _ | Int _ | Int64 _ -> ()
+        | Pointer (t, n) ->
+            pr "  %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" n t
         ) args;
 
       (* Optional arguments. *)

@@ -473,7 +473,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
         | Int64 n -> pr "  int64_t %s;\n" n
-        | Pointer (t, n) -> pr "  %s %s;\n" t n
+        | Pointer (t, n) -> pr "  void * /* %s */ %s;\n" t n
       ) args;
       if optargs <> [] then (
         pr "  struct %s optargs_s = { .bitmask = 0 };\n" c_function;
@@ -506,7 +506,8 @@ guestfs_lua_delete_event_callback (lua_State *L)
             pr "  %s = luaL_checkint (L, %d);\n" n i
           | Int64 n ->
             pr "  %s = get_int64 (L, %d);\n" n i
-          | Pointer (t, n) -> assert false
+          | Pointer (t, n) ->
+            pr "  %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" n t
       ) args;
 
       if optargs <> [] then (

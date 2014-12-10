@@ -898,7 +898,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         | Int64 n ->
             pr "  int64_t %s;\n" n
         | Pointer (t, n) ->
-            pr "  %s %s;\n" t n
+            pr "  void * /* %s */ %s;\n" t n
       ) args;
 
       if optargs <> [] then (
@@ -965,7 +965,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         | Int64 n ->
             pr "  %s = j%s;\n" n n
         | Pointer (t, n) ->
-            pr "  %s = (%s) j%s;\n" n t n
+            pr "  %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" n t
       ) args;
 
       if optargs <> [] then (

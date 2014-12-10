@@ -317,7 +317,7 @@ func return_hashtable (argv **C.char) map[string]string {
           | StringList n
           | DeviceList n -> pr "%s []string" n
           | BufferIn n -> pr "%s []byte" n
-          | Pointer _ -> assert false
+          | Pointer (_, n) -> pr "%s int64" n
       ) args;
       if optargs <> [] then (
         if !comma then pr ", ";
@@ -457,7 +457,7 @@ func return_hashtable (argv **C.char) map[string]string {
           | StringList n
           | DeviceList n -> pr "c_%s" n
           | BufferIn n -> pr "c_%s, C.size_t (len (%s))" n n
-          | Pointer _ -> assert false
+          | Pointer _ -> pr "nil"
       ) args;
       (match ret with
       | RBufferOut _ -> pr ", &size"

@@ -539,7 +539,7 @@ copy_table (char * const * argv)
         | Int64 n ->
             pr "  int64_t %s = Int64_val (%sv);\n" n n
         | Pointer (t, n) ->
-            pr "  %s %s = (%s) (intptr_t) Int64_val (%sv);\n" t n t n
+            pr "  void * /* %s */ %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" t n t
       ) args;
 
       (* Optional arguments. *)

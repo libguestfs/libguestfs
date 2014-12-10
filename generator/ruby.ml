@@ -612,7 +612,8 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         | Int64 n ->
           pr "  long long %s = NUM2LL (%sv);\n" n n
         | Pointer (t, n) ->
-          pr "  %s %s = (%s) (intptr_t) NUM2LL (%sv);\n" t n t n
+          pr "  (void) %sv;\n" n;
+          pr "  void * /* %s */ %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" t n t
       ) args;
       pr "\n";
 

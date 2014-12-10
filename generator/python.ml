@@ -295,7 +295,7 @@ put_table (char * const * const argv)
         | Int64 n -> pr "  long long %s;\n" n
         | Pointer (t, n) ->
             pr "  long long %s_int64;\n" n;
-            pr "  %s %s;\n" t n
+            pr "  void * /* %s */ %s;\n" t n
       ) args;
 
       (* Fetch the optional arguments as objects, so we can detect
@@ -370,7 +370,7 @@ put_table (char * const * const argv)
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) goto out;\n" n
         | Pointer (t, n) ->
-            pr "  %s = (%s) (intptr_t) %s_int64;\n" n t n
+            pr "  %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" n t
       ) args;
 
       pr "\n";

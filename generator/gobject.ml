@@ -89,8 +89,8 @@ let generate_gobject_proto name ?(single_line = true)
         pr "gchar *const *%s" n
       | BufferIn n ->
         pr "const guint8 *%s, gsize %s_size" n n
-      | Pointer _ ->
-        failwith "gobject bindings do not support Pointer arguments"
+      | Pointer (t, n) ->
+        pr "void * /* %s */ %s" t n
   ) args;
   if optargs <> [] then (
     pr ", %s *optargs" (camel_of_name f)
@@ -1056,7 +1056,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
             pr " (transfer none) (array length=%s_size) (element-type guint8): an array of binary data\n" n;
             pr " * @%s_size: The size of %s, in bytes" n n;
           | Pointer _ ->
-            failwith "gobject bindings do not support Pointer arguments"
+            pr "pointer (not implemented in gobject bindings)"
           );
           pr "\n";
       ) args;
@@ -1202,8 +1202,8 @@ guestfs_session_close (GuestfsSession *session, GError **err)
           | DeviceList n | Key n | FileIn n | FileOut n
           | GUID n ->
             pr "%s" n
-          | Pointer _ ->
-            failwith "gobject bindings do not support Pointer arguments"
+          | Pointer (_, n) ->
+            pr "%s" n
       ) args;
       if is_RBufferOut then pr ", size_r";
       if optargs <> [] then pr ", argvp";

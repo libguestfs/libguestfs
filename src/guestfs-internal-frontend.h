@@ -183,4 +183,15 @@ extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomain
     }                                                                   \
   } while (0)
 
+/* Not all language bindings know how to deal with Pointer arguments.
+ * Those that don't will use this macro which complains noisily and
+ * returns NULL.
+ */
+#define POINTER_NOT_IMPLEMENTED(type)                                   \
+  (                                                                     \
+   fprintf (stderr, "*** WARNING: this language binding does not support conversion of Pointer(%s), so the current function will always fail.  Patches to fix this should be sent to the libguestfs upstream mailing list.\n", \
+            type),                                                      \
+   NULL                                                                 \
+)
+
 #endif /* GUESTFS_INTERNAL_FRONTEND_H_ */

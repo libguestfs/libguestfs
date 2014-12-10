@@ -319,7 +319,7 @@ extern int64_t get_int64 (ETERM *term);
           | Int64 n ->
             pr "  int64_t %s = get_int64 (ARG (%d));\n" n i
           | Pointer (t, n) ->
-            assert false
+            pr "  void * /* %s */ %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" t n t
       ) args;
 
       (* Optional arguments. *)
