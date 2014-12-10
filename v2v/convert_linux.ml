@@ -792,12 +792,11 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       if paths = [] then
         error (f_"didn't find grub entry for kernel %s") kernel.ki_vmlinuz;
       let path = List.hd paths in
-      let rex = Str.regexp "/title\\[\\([1-9][0-9]*\\)\\]/kernel" in
-      let index =
-        if Str.string_match rex path 0 then
-          (int_of_string (Str.matched_group 1 path) - 1)
-        else
-          0 in
+      let rex = Str.regexp ".*/title\\[\\([1-9][0-9]*\\)\\]/kernel" in
+      if not (Str.string_match rex path 0) then
+        error (f_"internal error: regular expression did not match '%s'")
+          path;
+      let index = int_of_string (Str.matched_group 1 path) - 1 in
       g#aug_set (sprintf "/files%s/default" grub_config) (string_of_int index);
       g#aug_save ()
 
