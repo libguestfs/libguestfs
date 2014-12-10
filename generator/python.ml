@@ -294,8 +294,8 @@ put_table (char * const * const argv)
         | Int n -> pr "  int %s;\n" n
         | Int64 n -> pr "  long long %s;\n" n
         | Pointer (t, n) ->
-            pr "  long long %s_int64;\n" n;
-            pr "  void * /* %s */ %s;\n" t n
+            pr "  void * /* %s */ %s;\n" t n;
+            pr "  PyObject *%s_long;\n" n
       ) args;
 
       (* Fetch the optional arguments as objects, so we can detect
@@ -324,11 +324,12 @@ put_table (char * const * const argv)
         | StringList _ | DeviceList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
         | Int _ -> pr "i"
-        | Int64 _ | Pointer _ ->
+        | Int64 _ ->
             (* XXX Whoever thought it was a good idea to
              * emulate C's int/long/long long in Python?
              *)
             pr "L"
+        | Pointer _ -> pr "O"
         | BufferIn _ -> pr "s#"
       ) args;
 
@@ -347,7 +348,7 @@ put_table (char * const * const argv)
         | Bool n -> pr ", &%s" n
         | Int n -> pr ", &%s" n
         | Int64 n -> pr ", &%s" n
-        | Pointer (_, n) -> pr ", &%s_int64" n
+        | Pointer (_, n) -> pr ", &%s_long" n
         | BufferIn n -> pr ", &%s, &%s_size" n n
       ) args;
 
@@ -369,8 +370,8 @@ put_table (char * const * const argv)
         | StringList n | DeviceList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) goto out;\n" n
-        | Pointer (t, n) ->
-            pr "  %s = POINTER_NOT_IMPLEMENTED (\"%s\");\n" n t
+        | Pointer (_, n) ->
+            pr "  %s = PyLong_AsVoidPtr (%s_long);\n" n n
       ) args;
 
       pr "\n";
@@ -798,9 +799,11 @@ class GuestFS(object):
         | Pathname _ | Device _ | Mountable _
         | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | Pointer _ | GUID _ -> ()
+        | BufferIn _ | GUID _ -> ()
         | StringList n | DeviceList n ->
-            pr "        %s = list (%s)\n" n n
+          pr "        %s = list (%s)\n" n n
+        | Pointer (_, n) ->
+          pr "        %s = %s.c_pointer()\n" n n
       ) args;
       pr "        self._check_not_closed ()\n";
       pr "        r = libguestfsmod.%s (self._o" f.name;

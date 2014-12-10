@@ -18,6 +18,9 @@
 
 errors=0
 
+guestsdir="$(cd ../tests/guests && pwd)"
+export guestsdir
+
 for f in $srcdir/t/*.py; do
   $PYTHON $f
   r=$?
