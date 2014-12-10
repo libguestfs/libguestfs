@@ -1705,12 +1705,10 @@ Disks with the E<lt>readonly/E<gt> flag are skipped.
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>." };
 
-(*
-This interface is not quite baked yet. -- RWMJ 2010-11-11
   { defaults with
     name = "add_libvirt_dom";
-    style = RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [Bool "readonly"; String "iface"; Bool "live"; String "readonlydisk"; OString "cachemode"; OString "discard"; OBool "copyonread"];
-    in_fish = false;
+    style = RInt "nrdisks", [Pointer ("virDomainPtr", "dom")], [OBool "readonly"; OString "iface"; OBool "live"; OString "readonlydisk"; OString "cachemode"; OString "discard"; OBool "copyonread"];
+    config_only = true;
     shortdesc = "add the disk(s) from a libvirt domain";
     longdesc = "\
 This function adds the disk(s) attached to the libvirt domain C<dom>.
@@ -1745,7 +1743,6 @@ See C<guestfs_add_domain> for possible values.
 
 The other optional parameters are passed directly through to
 C<guestfs_add_drive_opts>." };
-*)
 
   { defaults with
     name = "inspect_get_package_format";

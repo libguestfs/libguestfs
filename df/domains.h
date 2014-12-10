@@ -21,6 +21,8 @@
 
 #if defined(HAVE_LIBVIRT)
 
+#include <libvirt/libvirt.h>
+
 /* The list of domains that we build up in get_all_libvirt_guests. */
 struct domain {
   virDomainPtr dom;

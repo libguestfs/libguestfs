@@ -85,6 +85,8 @@ df_on_handle (guestfs_h *g, const char *name, const char *uuid, FILE *fp)
 
 #if defined(HAVE_LIBVIRT)
 
+#include <libvirt/libvirt.h>
+
 /* The multi-threaded version.  This callback is called from the code
  * in "parallel.c".
  */
@@ -92,16 +94,16 @@ df_on_handle (guestfs_h *g, const char *name, const char *uuid, FILE *fp)
 int
 df_work (guestfs_h *g, size_t i, FILE *fp)
 {
-  struct guestfs___add_libvirt_dom_argv optargs;
+  struct guestfs_add_libvirt_dom_argv optargs;
 
   optargs.bitmask =
-    GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK |
-    GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
+    GUESTFS_ADD_LIBVIRT_DOM_READONLY_BITMASK |
+    GUESTFS_ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
   optargs.readonly = 1;
   optargs.readonlydisk = "read";
 
   /* Traditionally we have ignored errors from adding disks in virt-df. */
-  if (guestfs___add_libvirt_dom (g, domains[i].dom, &optargs) == -1)
+  if (guestfs_add_libvirt_dom_argv (g, domains[i].dom, &optargs) == -1)
     return 0;
 
   if (guestfs_launch (g) == -1)

@@ -67,7 +67,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   const char *cachemode;
   const char *discard;
   bool copyonread;
-  struct guestfs___add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
+  struct guestfs_add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
 
   libvirturi = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIBVIRTURI_BITMASK
                ? optargs->libvirturi : NULL;
@@ -124,35 +124,35 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   }
 
   if (readonly) {
-    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK;
+    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_READONLY_BITMASK;
     optargs2.readonly = readonly;
   }
   if (iface) {
-    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK;
+    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_IFACE_BITMASK;
     optargs2.iface = iface;
   }
   if (live) {
-    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK;
+    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_LIVE_BITMASK;
     optargs2.live = live;
   }
   if (readonlydisk) {
-    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
+    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
     optargs2.readonlydisk = readonlydisk;
   }
   if (cachemode) {
-    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_CACHEMODE_BITMASK;
+    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_CACHEMODE_BITMASK;
     optargs2.cachemode = cachemode;
   }
   if (discard) {
-    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_DISCARD_BITMASK;
+    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_DISCARD_BITMASK;
     optargs2.discard = discard;
   }
   if (copyonread) {
-    optargs2.bitmask |= GUESTFS___ADD_LIBVIRT_DOM_COPYONREAD_BITMASK;
+    optargs2.bitmask |= GUESTFS_ADD_LIBVIRT_DOM_COPYONREAD_BITMASK;
     optargs2.copyonread = copyonread;
   }
 
-  r = guestfs___add_libvirt_dom (g, dom, &optargs2);
+  r = guestfs_add_libvirt_dom_argv (g, dom, &optargs2);
 
  cleanup:
   if (dom) virDomainFree (dom);
@@ -179,9 +179,10 @@ struct add_disk_data {
 };
 
 GUESTFS_DLL_PUBLIC int
-guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
-                           const struct guestfs___add_libvirt_dom_argv *optargs)
+guestfs__add_libvirt_dom (guestfs_h *g, void *domvp,
+                          const struct guestfs_add_libvirt_dom_argv *optargs)
 {
+  virDomainPtr dom = domvp;
   ssize_t r;
   int readonly;
   const char *iface;
@@ -197,16 +198,16 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   CLEANUP_FREE char *label = NULL, *imagelabel = NULL;
 
   readonly =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK
+    optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_READONLY_BITMASK
     ? optargs->readonly : 0;
   iface =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_IFACE_BITMASK
+    optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_IFACE_BITMASK
     ? optargs->iface : NULL;
   live =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_LIVE_BITMASK
+    optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_LIVE_BITMASK
     ? optargs->live : 0;
 
-  if ((optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK)) {
+  if ((optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_READONLYDISK_BITMASK)) {
     if (STREQ (optargs->readonlydisk, "error"))
       readonlydisk = readonlydisk_error;
     else if (STREQ (optargs->readonlydisk, "read"))
@@ -222,15 +223,15 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   }
 
   cachemode =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_CACHEMODE_BITMASK
+    optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_CACHEMODE_BITMASK
     ? optargs->cachemode : NULL;
 
   discard =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_DISCARD_BITMASK
+    optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_DISCARD_BITMASK
     ? optargs->discard : NULL;
 
   copyonread =
-    optargs->bitmask & GUESTFS___ADD_LIBVIRT_DOM_COPYONREAD_BITMASK
+    optargs->bitmask & GUESTFS_ADD_LIBVIRT_DOM_COPYONREAD_BITMASK
     ? optargs->copyonread : false;
 
   if (live && readonly) {

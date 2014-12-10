@@ -3,6 +3,7 @@ char *		T_PV
 const char *	T_PV
 guestfs_h *	O_OBJECT_guestfs_h
 int64_t	  	O_OBJECT_int64
+void * /* virDomainPtr */ O_OBJECT_virDomainPtr
 
 INPUT
 O_OBJECT_guestfs_h
@@ -20,6 +21,9 @@ O_OBJECT_guestfs_h
 
 O_OBJECT_int64
     $var = my_SvIV64 ($arg);
+
+O_OBJECT_virDomainPtr
+    $var = POINTER_NOT_IMPLEMENTED (\"virDomainPtr\");
 
 OUTPUT
 O_OBJECT_guestfs_h

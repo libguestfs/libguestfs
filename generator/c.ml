@@ -2182,9 +2182,6 @@ and generate_linker_script () =
     "guestfs___safe_malloc";
     "guestfs___safe_strdup";
     "guestfs___safe_memdup";
-
-    (* Used only by virt-df and virt-alignment-scan. *)
-    "guestfs___add_libvirt_dom";
   ] in
   let functions =
     List.flatten (

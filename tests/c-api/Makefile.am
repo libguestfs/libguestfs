@@ -240,17 +240,17 @@ test_event_string_LDADD = \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
-#if HAVE_LIBVIRT
-#test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
-#test_add_libvirt_dom_CPPFLAGS = \
-#	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib
-#test_add_libvirt_dom_CFLAGS = \
-#	$(LIBVIRT_CFLAGS) \
-#	$(WARN_CFLAGS) $(WERROR_CFLAGS)
-#test_add_libvirt_dom_LDADD = \
-#	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
-#	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la
-#endif
+if HAVE_LIBVIRT
+test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
+test_add_libvirt_dom_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib
+test_add_libvirt_dom_CFLAGS = \
+	$(LIBVIRT_CFLAGS) \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_add_libvirt_dom_LDADD = \
+	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
+	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la
+endif
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check

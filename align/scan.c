@@ -353,15 +353,15 @@ scan (guestfs_h *g, const char *prefix, FILE *fp)
 static int
 scan_work (guestfs_h *g, size_t i, FILE *fp)
 {
-  struct guestfs___add_libvirt_dom_argv optargs;
+  struct guestfs_add_libvirt_dom_argv optargs;
 
   optargs.bitmask =
-    GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK |
-    GUESTFS___ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
+    GUESTFS_ADD_LIBVIRT_DOM_READONLY_BITMASK |
+    GUESTFS_ADD_LIBVIRT_DOM_READONLYDISK_BITMASK;
   optargs.readonly = 1;
   optargs.readonlydisk = "read";
 
-  if (guestfs___add_libvirt_dom (g, domains[i].dom, &optargs) == -1)
+  if (guestfs_add_libvirt_dom_argv (g, domains[i].dom, &optargs) == -1)
     return -1;
 
   if (guestfs_launch (g) == -1)
