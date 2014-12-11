@@ -217,6 +217,15 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
     return NULL;
 
 #if HAVE_LIBSELINUX
+  /* Since this function is called before launch, the field won't be
+   * initialized correctly, so we have to initialize it here.
+   */
+  guestfs_push_error_handler (g, NULL, NULL);
+  free (data->selinux_imagelabel);
+  data->selinux_imagelabel =
+    guestfs_get_backend_setting (g, "internal_libvirt_imagelabel");
+  guestfs_pop_error_handler (g);
+
   if (data->selinux_imagelabel) {
     debug (g, "setting SELinux label on %s to %s",
            overlay, data->selinux_imagelabel);
@@ -350,8 +359,10 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   /* Misc backend settings. */
   guestfs_push_error_handler (g, NULL, NULL);
+  free (data->selinux_label);
   data->selinux_label =
     guestfs_get_backend_setting (g, "internal_libvirt_label");
+  free (data->selinux_imagelabel);
   data->selinux_imagelabel =
     guestfs_get_backend_setting (g, "internal_libvirt_imagelabel");
   data->selinux_norelabel_disks =
