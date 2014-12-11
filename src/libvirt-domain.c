@@ -767,6 +767,8 @@ get_domain_xml (guestfs_h *g, virDomainPtr dom)
     return NULL;
   }
 
+  debug (g, "original domain XML:\n%s", xml);
+
   /* Parse the domain XML into an XML document. */
   doc = xmlReadMemory (xml, strlen (xml),
                        NULL, NULL, XML_PARSE_NONET);
