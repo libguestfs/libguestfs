@@ -100,6 +100,7 @@ start_conversion (struct config *config,
                   void (*notify_ui) (int type, const char *data))
 {
   int ret = -1;
+  int status;
   size_t i, len;
   size_t nr_disks = guestfs___count_strings (config->disks);
   struct data_conn data_conns[nr_disks];
@@ -276,7 +277,7 @@ start_conversion (struct config *config,
   if (mexp_printf (control_h, " ) | tee %s/virt-v2v-conversion-log.txt",
                    remote_dir) == -1)
     goto printf_fail;
-  if (mexp_printf (control_h, "; exit") == -1)
+  if (mexp_printf (control_h, "; exit $(< %s/status)", remote_dir) == -1)
     goto printf_fail;
   if (mexp_printf (control_h, "\n") == -1)
     goto printf_fail;
@@ -313,8 +314,18 @@ start_conversion (struct config *config,
 
   ret = 0;
  out:
-  if (control_h)
-    mexp_close (control_h);
+  if (control_h) {
+    if ((status = mexp_close (control_h)) == -1) {
+      set_conversion_error ("mexp_close: %m");
+      ret = -1;
+    } else if (ret == 0 &&
+               WIFEXITED (status) &&
+               WEXITSTATUS (status) != 0) {
+      set_conversion_error ("virt-v2v exited with status %d",
+                            WEXITSTATUS (status));
+      ret = -1;
+    }
+  }
   cleanup_data_conns (data_conns, nr_disks);
   return ret;
 }
