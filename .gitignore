@@ -415,6 +415,7 @@ Makefile.in
 /rescue/virt-rescue
 /rescue/virt-rescue.1
 /resize/.depend
+/resize/link.sh
 /resize/stamp-virt-resize.pod
 /resize/virt-resize
 /resize/virt-resize.1

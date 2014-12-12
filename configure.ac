@@ -1677,6 +1677,8 @@ AC_CONFIG_FILES([pick-guests.pl],
                 [chmod +x,-w pick-guests.pl])
 AC_CONFIG_FILES([podwrapper.pl],
                 [chmod +x,-w podwrapper.pl])
+AC_CONFIG_FILES([resize/link.sh],
+                [chmod +x,-w resize/link.sh])
 AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
 AC_CONFIG_FILES([sparsify/link.sh],

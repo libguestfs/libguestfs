@@ -18,40 +18,49 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES) \
+	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	virt-resize.pod \
 	test-virt-resize.pl
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-resize
 
-# Alphabetical order.
-SOURCES = \
+SOURCES_MLI =
+
+SOURCES_ML = \
 	resize.ml
+
+SOURCES_C = \
+	$(top_srcdir)/mllib/fsync-c.c \
+	$(top_srcdir)/fish/progress.c \
+	$(top_srcdir)/mllib/progress-c.c \
+	$(top_srcdir)/fish/uri.c \
+	$(top_srcdir)/mllib/uri-c.c
 
 if HAVE_OCAML
 
-# Note this list must be in dependency order.
-deps = \
-	$(top_builddir)/mllib/fsync-c.o \
-	$(top_builddir)/mllib/fsync.cmx \
-	$(top_builddir)/fish/guestfish-progress.o \
-	$(top_builddir)/mllib/progress-c.o \
-	$(top_builddir)/mllib/progress.cmx \
-	$(top_builddir)/fish/guestfish-uri.o \
-	$(top_builddir)/mllib/uri-c.o \
-	$(top_builddir)/mllib/uRI.cmx \
-	$(top_builddir)/mllib/common_gettext.cmx \
-	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/config.cmx \
-	resize.cmx
+bin_PROGRAMS = virt-resize
 
-if HAVE_OCAMLOPT
-OBJECTS = $(deps)
-else
-OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
-endif
+virt_resize_SOURCES = $(SOURCES_C)
+virt_resize_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/fish
+virt_resize_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
-bin_SCRIPTS = virt-resize
+BOBJECTS = \
+	$(top_builddir)/mllib/fsync.cmo \
+	$(top_builddir)/mllib/progress.cmo \
+	$(top_builddir)/mllib/uRI.cmo \
+	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/config.cmo \
+	$(SOURCES_ML:.ml=.cmo)
+XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
@@ -59,56 +68,39 @@ bin_SCRIPTS = virt-resize
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/src/.libs \
+	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
-OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) $(OCAMLPACKAGES)
-OCAMLOPTFLAGS = $(OCAMLCFLAGS)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
-OCAMLCLIBS  = \
-	$(LIBXML2_LIBS) $(LIBINTL) $(LIBTINFO_LIBS) \
-	-L../src/.libs -lutils \
-	-L../gnulib/lib/.libs -lgnu
-
-if HAVE_OCAMLOPT
-virt-resize: $(OBJECTS)
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
-	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -o $@
+if !HAVE_OCAMLOPT
+OBJECTS = $(BOBJECTS)
+BEST    = c
+OCAMLLINKFLAGS = mlguestfs.cma -custom
 else
-virt-resize: $(OBJECTS)
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
-	  mlguestfs.cma -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -custom \
-	  -o $@
+OBJECTS = $(XOBJECTS)
+BEST    = opt
+OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
+
+virt_resize_DEPENDENCIES = $(OBJECTS)
+virt_resize_LINK = \
+	./link.sh \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
+	  $(OBJECTS) -o $@
 
 .mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 if HAVE_OCAMLOPT
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif
-
-# automake will decide we don't need C support in this file.  Really
-# we do, so we have to provide it ourselves.
-
-DEFAULT_INCLUDES = \
-	-I. \
-	-I$(top_builddir) \
-	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish
-
-.c.o:
-	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
 
 # Manual pages and HTML files for the website.
 
