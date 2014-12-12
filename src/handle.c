@@ -380,6 +380,12 @@ guestfs_close (guestfs_h *g)
   free (g);
 }
 
+int64_t
+guestfs__c_pointer (guestfs_h *g)
+{
+  return (int64_t) g;
+}
+
 int
 guestfs__shutdown (guestfs_h *g)
 {

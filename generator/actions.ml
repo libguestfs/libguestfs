@@ -3296,6 +3296,19 @@ refers to.
 
 This is the same as the C<lstat(2)> system call." };
 
+  { defaults with
+    name = "c_pointer";
+    style = RInt64 "ptr", [], [];
+    tests = [
+      InitNone, Always, TestRun (
+        [["c_pointer"]]), []
+    ];
+    shortdesc = "return the C pointer to the guestfs_h handle";
+    longdesc = "\
+In non-C language bindings, this allows you to retrieve the underlying
+C pointer to the handle (ie. C<guestfs_h *>).  The purpose of this is
+to allow other libraries to interwork with libguestfs." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
