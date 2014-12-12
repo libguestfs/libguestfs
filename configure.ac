@@ -1689,6 +1689,8 @@ AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
 AC_CONFIG_FILES([sparsify/link.sh],
                 [chmod +x,-w sparsify/link.sh])
+AC_CONFIG_FILES([sysprep/link.sh],
+                [chmod +x,-w sysprep/link.sh])
 AC_CONFIG_FILES([v2v/link.sh],
                 [chmod +x,-w v2v/link.sh])
 

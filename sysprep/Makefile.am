@@ -18,7 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES) \
+	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	script1.sh script2.sh script3.sh script4.sh \
 	test-virt-sysprep.sh \
 	test-virt-sysprep-passwords.sh \
@@ -70,52 +70,59 @@ operations = \
 	user_account \
 	utmp yum_uuid
 
-# Alphabetical order.
-SOURCES = \
-	main.ml \
+SOURCES_MLI = \
+	sysprep_operation.mli
+
+SOURCES_ML = \
 	sysprep_operation.ml \
-	sysprep_operation.mli \
-	$(patsubst %,sysprep_operation_%.ml,$(operations))
+	$(patsubst %,sysprep_operation_%.ml,$(operations)) \
+	main.ml
+
+SOURCES_C = \
+	$(top_srcdir)/mllib/uri-c.c \
+	$(top_srcdir)/mllib/mkdtemp-c.c \
+	$(top_srcdir)/customize/crypt-c.c \
+	$(top_srcdir)/customize/perl_edit-c.c \
+	$(top_srcdir)/fish/uri.c \
+	$(top_srcdir)/fish/file-edit.c
 
 if HAVE_OCAML
 
-# Note this list must be in dependency order.
-deps = \
-	$(top_builddir)/mllib/common_gettext.cmx \
-	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/uri-c.o \
-	$(top_builddir)/mllib/uRI.cmx \
-	$(top_builddir)/mllib/config.cmx \
-	$(top_builddir)/mllib/mkdtemp-c.o \
-	$(top_builddir)/mllib/mkdtemp.cmx \
-	$(top_builddir)/mllib/regedit.cmx \
-	$(top_builddir)/customize/customize_utils.cmx \
-	$(top_builddir)/customize/crypt-c.o \
-	$(top_builddir)/customize/crypt.cmx \
-	$(top_builddir)/customize/urandom.cmx \
-	$(top_builddir)/customize/password.cmx \
-	$(top_builddir)/customize/random_seed.cmx \
-	$(top_builddir)/customize/hostname.cmx \
-	$(top_builddir)/customize/timezone.cmx \
-	$(top_builddir)/customize/firstboot.cmx \
-	$(top_builddir)/customize/perl_edit-c.o \
-	$(top_builddir)/customize/perl_edit.cmx \
-	$(top_builddir)/customize/ssh_key.cmx \
-	$(top_builddir)/customize/customize_cmdline.cmx \
-	$(top_builddir)/customize/customize_run.cmx \
-	$(top_builddir)/fish/guestfish-uri.o \
-	$(top_builddir)/fish/guestfish-file-edit.o \
-	sysprep_operation.cmx \
-	$(patsubst %,sysprep_operation_%.cmx,$(operations)) \
-	main.cmx
+bin_PROGRAMS = virt-sysprep
 
-if HAVE_OCAMLOPT
-OBJECTS = $(deps)
-else
-OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
-endif
+virt_sysprep_SOURCES = $(SOURCES_C)
+virt_sysprep_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/fish
+virt_sysprep_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
-bin_SCRIPTS = virt-sysprep
+BOBJECTS = \
+	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/uRI.cmo \
+	$(top_builddir)/mllib/config.cmo \
+	$(top_builddir)/mllib/mkdtemp.cmo \
+	$(top_builddir)/mllib/regedit.cmo \
+	$(top_builddir)/customize/customize_utils.cmo \
+	$(top_builddir)/customize/crypt.cmo \
+	$(top_builddir)/customize/urandom.cmo \
+	$(top_builddir)/customize/password.cmo \
+	$(top_builddir)/customize/random_seed.cmo \
+	$(top_builddir)/customize/hostname.cmo \
+	$(top_builddir)/customize/timezone.cmo \
+	$(top_builddir)/customize/firstboot.cmo \
+	$(top_builddir)/customize/perl_edit.cmo \
+	$(top_builddir)/customize/ssh_key.cmo \
+	$(top_builddir)/customize/customize_cmdline.cmo \
+	$(top_builddir)/customize/customize_run.cmo \
+	$(SOURCES_ML:.ml=.cmo)
+XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
@@ -123,6 +130,7 @@ bin_SCRIPTS = virt-sysprep
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/src/.libs \
+	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -130,50 +138,32 @@ if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
-OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) $(OCAMLPACKAGES)
-OCAMLOPTFLAGS = $(OCAMLCFLAGS)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
-OCAMLCLIBS  = \
-	$(LIBXML2_LIBS) $(LIBINTL) $(LIBTINFO_LIBS) -lcrypt \
-	-L../src/.libs -lutils \
-	-L../gnulib/lib/.libs -lgnu
-
-if HAVE_OCAMLOPT
-virt-sysprep: $(OBJECTS)
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
-	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -o $@
+if !HAVE_OCAMLOPT
+OBJECTS = $(BOBJECTS)
+BEST    = c
+OCAMLLINKFLAGS = mlguestfs.cma -custom
 else
-virt-sysprep: $(OBJECTS)
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
-	  mlguestfs.cma -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -custom \
-	  -o $@
+OBJECTS = $(XOBJECTS)
+BEST    = opt
+OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
+
+virt_sysprep_DEPENDENCIES = $(OBJECTS)
+virt_sysprep_LINK = \
+	./link.sh \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
+	  $(OBJECTS) -o $@
 
 .mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 if HAVE_OCAMLOPT
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif
-
-# automake will decide we don't need C support in this file.  Really
-# we do, so we have to provide it ourselves.
-
-DEFAULT_INCLUDES = \
-	-I. \
-	-I$(top_builddir) \
-	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish
-
-.c.o:
-	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-sysprep.1

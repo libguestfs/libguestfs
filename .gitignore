@@ -470,6 +470,7 @@ Makefile.in
 /stamp-guestfs-release-notes.pod
 /stamp-h1
 /sysprep/.depend
+/sysprep/link.sh
 /sysprep/stamp-script1.sh
 /sysprep/stamp-script2.sh
 /sysprep/stamp-script4.sh
