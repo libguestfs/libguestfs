@@ -12042,6 +12042,24 @@ Set readahead (in 512-byte sectors) for the device.
 
 This uses the L<blockdev(8)> command." };
 
+  { defaults with
+    name = "btrfs_subvolume_get_default";
+    style = RInt64 "id", [Mountable_or_Path "fs"], [];
+    proc_nr = Some 425;
+    optional = Some "btrfs"; camel_name = "BTRFSSubvolumeGetDefault";
+    tests = [
+      InitPartition, Always, TestResult (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_subvolume_get_default"; "/dev/sda1"]], "ret > 0"), [];
+      InitPartition, Always, TestResult (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_subvolume_get_default"; "/"]], "ret > 0"), []
+    ];
+    shortdesc = "get the default subvolume or snapshot of a filesystem";
+    longdesc = "\
+Get the default subvolume or snapshot of a filesystem mounted at C<mountpoint>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

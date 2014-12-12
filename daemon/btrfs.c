@@ -556,6 +556,45 @@ do_btrfs_subvolume_set_default (int64_t id, const char *fs)
   return 0;
 }
 
+int64_t
+do_btrfs_subvolume_get_default (const mountable_t *fs)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  char *fs_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  int r;
+  int64_t ret = -1;
+
+  fs_buf = mount (fs);
+  if (fs_buf == NULL)
+    goto error;
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "subvolume");
+  ADD_ARG (argv, i, "get-default");
+  ADD_ARG (argv, i, fs_buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", fs_buf, err);
+    goto error;
+  }
+  if (sscanf (out, "ID %" SCNi64, &ret) != 1) {
+    reply_with_error ("%s: could not parse subvolume id: %s.", argv[0], out);
+    ret = -1;
+    goto error;
+  }
+
+error:
+  if (fs_buf && umount (fs_buf, fs) != 0)
+    return -1;
+  return ret;
+}
+
 int
 do_btrfs_filesystem_sync (const char *fs)
 {
