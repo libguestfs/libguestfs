@@ -12110,6 +12110,27 @@ Return detailed information of the subvolume." };
     longdesc = "\
 Enable or disable subvolume quota support for filesystem which contains C<path>." };
 
+  { defaults with
+    name = "btrfs_quota_rescan";
+    style = RErr, [Mountable_or_Path "fs"], [];
+    proc_nr = Some 428;
+    optional = Some "btrfs"; camel_name = "BTRFSQuotaRescan";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_quota_enable"; "/dev/sda1"; "true"];
+         ["btrfs_quota_rescan"; "/dev/sda1"]]), [];
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"];
+         ["btrfs_quota_rescan"; "/"]]), [];
+    ];
+
+    shortdesc = "trash all qgroup numbers and scan the metadata again with the current config";
+    longdesc = "\
+Trash all qgroup numbers and scan the metadata again with the current config." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
