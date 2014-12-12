@@ -12060,6 +12060,31 @@ This uses the L<blockdev(8)> command." };
     longdesc = "\
 Get the default subvolume or snapshot of a filesystem mounted at C<mountpoint>." };
 
+  { defaults with
+    name = "btrfs_subvolume_show";
+    style = RHashtable "btrfssubvolumeinfo", [Pathname "subvolume"], [];
+    proc_nr = Some 426;
+    optional = Some "btrfs"; camel_name = "BTRFSSubvolumeShow";
+    tests = [
+      InitPartition, Always, TestLastFail (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_subvolume_show"; "/"]]), [];
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_subvolume_create"; "/sub1"; "NOARG"];
+         ["btrfs_subvolume_show"; "/sub1"]]), [];
+      InitPartition, Always, TestLastFail (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["mkdir"; "/dir1"];
+         ["btrfs_subvolume_show"; "/dir1"]]), [];
+    ];
+    shortdesc = "return detailed information of the subvolume";
+    longdesc = "\
+Return detailed information of the subvolume." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
