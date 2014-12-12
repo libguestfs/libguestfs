@@ -18,7 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES) \
+	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	test-virt-customize.sh \
 	virt-customize.pod
 
@@ -33,78 +33,68 @@ generator_built = \
 	customize-options.pod \
 	customize-synopsis.pod
 
-# Alphabetical order.
-SOURCES = \
-	crypt.ml \
+SOURCES_MLI = \
 	crypt.mli \
-	crypt-c.c \
-	customize_cmdline.ml \
 	customize_cmdline.mli \
-	customize_run.ml \
 	customize_run.mli \
-	customize_utils.ml \
-	firstboot.ml \
 	firstboot.mli \
-	hostname.ml \
 	hostname.mli \
-	customize_main.ml \
-	password.ml \
 	password.mli \
-	perl_edit-c.c \
-	perl_edit.ml \
 	perl_edit.mli \
-	random_seed.ml \
 	random_seed.mli \
-	ssh_key.ml \
 	ssh_key.mli \
-	timezone.ml \
 	timezone.mli \
-	urandom.ml \
 	urandom.mli
+
+# This list must be in dependency order.
+SOURCES_ML = \
+	customize_utils.ml \
+	crypt.ml \
+	firstboot.ml \
+	hostname.ml \
+	urandom.ml \
+	password.ml \
+	perl_edit.ml \
+	random_seed.ml \
+	ssh_key.ml \
+	timezone.ml \
+	customize_cmdline.ml \
+	customize_run.ml \
+	customize_main.ml
+
+SOURCES_C = \
+	$(top_srcdir)/fish/uri.c \
+	$(top_srcdir)/fish/file-edit.c \
+	$(top_srcdir)/fish/file-edit.h \
+	$(top_srcdir)/mllib/uri-c.c \
+	crypt-c.c \
+	perl_edit-c.c
 
 if HAVE_OCAML
 
-deps = \
-	$(top_builddir)/fish/guestfish-uri.o \
-	$(top_builddir)/fish/guestfish-file-edit.o \
-	$(top_builddir)/mllib/common_gettext.cmx \
-	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/config.cmx \
-	$(top_builddir)/mllib/regedit.cmx \
-	$(top_builddir)/mllib/uri-c.o \
-	$(top_builddir)/mllib/uRI.cmx \
-	crypt-c.o \
-	perl_edit-c.o
+bin_PROGRAMS = virt-customize
 
-if HAVE_OCAMLOPT
-OBJECTS = $(deps)
-else
-OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
-endif
+virt_customize_SOURCES = $(SOURCES_C)
+virt_customize_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/fish
+virt_customize_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBVIRT_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
-# This list must be in dependency order.
-ocaml_modules = \
-	customize_utils \
-	crypt \
-	firstboot \
-	hostname \
-	urandom \
-	password \
-	perl_edit \
-	random_seed \
-	ssh_key \
-	timezone \
-	customize_cmdline \
-	customize_run \
-	customize_main
-
-if HAVE_OCAMLOPT
-OBJECTS += $(patsubst %,%.cmx,$(ocaml_modules))
-else
-OBJECTS += $(patsubst %,%.cmo,$(ocaml_modules))
-endif
-
-bin_SCRIPTS = virt-customize
+BOBJECTS = \
+	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/config.cmo \
+	$(top_builddir)/mllib/regedit.cmo \
+	$(top_builddir)/mllib/uRI.cmo \
+	$(SOURCES_ML:.ml=.cmo)
+XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
@@ -112,56 +102,39 @@ bin_SCRIPTS = virt-customize
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/src/.libs \
+	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
-OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) $(OCAMLPACKAGES)
-OCAMLOPTFLAGS = $(OCAMLCFLAGS)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
-OCAMLCLIBS  = \
-	$(LIBXML2_LIBS) $(LIBINTL) $(LIBTINFO_LIBS) -lcrypt \
-	-L../src/.libs -lutils \
-	-L../gnulib/lib/.libs -lgnu
-
-virt-customize: $(OBJECTS)
-if HAVE_OCAMLOPT
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
-	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -o $@
+if !HAVE_OCAMLOPT
+OBJECTS = $(BOBJECTS)
+BEST    = c
+OCAMLLINKFLAGS = mlguestfs.cma -custom
 else
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
-	  mlguestfs.cma -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -custom \
-	  -o $@
+OBJECTS = $(XOBJECTS)
+BEST    = opt
+OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
+
+virt_customize_DEPENDENCIES = $(OBJECTS)
+virt_customize_LINK = \
+	./link.sh \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
+	  $(OBJECTS) -o $@
 
 .mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 if HAVE_OCAMLOPT
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif
-
-# automake will decide we don't need C support in this file.  Really
-# we do, so we have to provide it ourselves.
-
-DEFAULT_INCLUDES = \
-	$(LIBVIRT_CFLAGS) \
-	-I. \
-	-I$(top_builddir) \
-	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish
-
-.c.o:
-	$(CC) $(CFLAGS) $(PROF_CFLAGS) $(DEFAULT_INCLUDES) -c $< -o $@
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-customize.1

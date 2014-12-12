@@ -34,6 +34,8 @@
 #include "guestfs-internal-frontend.h"
 #include "uri.h"
 
+extern value virt_resize_parse_uri (value argv);
+
 value
 virt_resize_parse_uri (value argv /* arg value, not an array! */)
 {

@@ -94,6 +94,7 @@ Makefile.in
 /customize/customize_cmdline.mli
 /customize/customize-options.pod
 /customize/customize-synopsis.pod
+/customize/link.sh
 /customize/stamp-virt-customize.pod
 /customize/virt-customize
 /customize/virt-customize.1

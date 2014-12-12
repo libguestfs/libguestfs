@@ -105,9 +105,9 @@ deps = \
 	$(top_builddir)/customize/hostname.cmx \
 	$(top_builddir)/customize/timezone.cmx \
 	$(top_builddir)/customize/firstboot.cmx \
-	$(top_builddir)/customize/perl_edit-c.o \
+	$(top_builddir)/customize/virt_customize-perl_edit-c.o \
 	$(top_builddir)/customize/perl_edit.cmx \
-	$(top_builddir)/customize/crypt-c.o \
+	$(top_builddir)/customize/virt_customize-crypt-c.o \
 	$(top_builddir)/customize/crypt.cmx \
 	$(top_builddir)/customize/password.cmx \
 	$(top_builddir)/customize/ssh_key.cmx \

@@ -1665,6 +1665,8 @@ mkdir -p \
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
                 [chmod +x,-w appliance/libguestfs-make-fixed-appliance])
+AC_CONFIG_FILES([customize/link.sh],
+                [chmod +x,-w customize/link.sh])
 AC_CONFIG_FILES([inspector/test-xmllint.sh],
                 [chmod +x,-w inspector/test-xmllint.sh])
 AC_CONFIG_FILES([p2v/virt-p2v-make-disk],
