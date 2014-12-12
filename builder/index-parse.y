@@ -92,9 +92,7 @@ typedef void *yyscan_t;
 %parse-param { yyscan_t scanner }
 %parse-param { struct parse_context *context }
 
-%destructor { section_free ($$); } <sections>
 %destructor { section_free ($$); } <section>
-%destructor { field_free ($$); } <fields>
 %destructor { field_free ($$); } <field>
 
 %%
