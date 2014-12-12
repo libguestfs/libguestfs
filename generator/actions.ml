@@ -12085,6 +12085,31 @@ Get the default subvolume or snapshot of a filesystem mounted at C<mountpoint>."
     longdesc = "\
 Return detailed information of the subvolume." };
 
+  { defaults with
+    name = "btrfs_quota_enable";
+    style = RErr, [Mountable_or_Path "fs"; Bool "enable"], [];
+    proc_nr = Some 427;
+    optional = Some "btrfs"; camel_name = "BTRFSQuotaEnable";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_quota_enable"; "/dev/sda1"; "true"]]), [];
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"]]), [];
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_quota_enable"; "/dev/sda1"; "false"]]), [];
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "false"]]), [];
+    ];
+    shortdesc = "enable or disable subvolume quota support";
+    longdesc = "\
+Enable or disable subvolume quota support for filesystem which contains C<path>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

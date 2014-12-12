@@ -1016,3 +1016,39 @@ do_btrfs_subvolume_show (const char *subvolume)
 
   return ret.argv;
 }
+
+int
+do_btrfs_quota_enable (const mountable_t *fs, int enable)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  char *fs_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  int r = -1;
+
+  fs_buf = mount (fs);
+  if (fs_buf == NULL)
+    goto error;
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "quota");
+  if (enable)
+    ADD_ARG (argv, i, "enable");
+  else
+    ADD_ARG (argv, i, "disable");
+  ADD_ARG (argv, i, fs_buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", fs_buf, err);
+    goto error;
+  }
+
+error:
+  if (fs_buf && umount (fs_buf, fs) != 0)
+    return -1;
+  return r;
+}
