@@ -12170,6 +12170,24 @@ can have suffix of G, M, or K. " };
     longdesc = "\
 Create a quota group (qgroup) for subvolume at C<subvolume>." };
 
+  { defaults with
+    name = "btrfs_qgroup_destroy";
+    style = RErr, [String "qgroupid"; Pathname "subvolume"], [];
+    proc_nr = Some 431;
+    optional = Some "btrfs"; camel_name = "BTRFSQgroupDestroy";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"];
+         ["btrfs_subvolume_create"; "/sub1"; "NOARG"];
+         ["btrfs_qgroup_create"; "0/1000"; "/sub1"];
+         ["btrfs_qgroup_destroy"; "0/1000"; "/sub1"]]), [];
+    ];
+    shortdesc = "destroy a subvolume quota group";
+    longdesc = "\
+Destroy a quota group." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
