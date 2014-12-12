@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -33,6 +34,9 @@
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+
+#include "guestfs.h"
+#include "guestfs-internal-frontend.h"
 
 #include "ignore-value.h"
 
@@ -55,6 +59,8 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #define PARALLEL_XZCAT 0
 #endif
 
+extern value virt_builder_using_parallel_xzcat (value unitv);
+
 value
 virt_builder_using_parallel_xzcat (value unitv)
 {
@@ -64,6 +70,8 @@ virt_builder_using_parallel_xzcat (value unitv)
 #if PARALLEL_XZCAT
 static void pxzcat (value filenamev, value outputfilev, unsigned nr_threads);
 #endif /* PARALLEL_XZCAT */
+
+extern value virt_builder_pxzcat (value inputfilev, value outputfilev);
 
 value
 virt_builder_pxzcat (value inputfilev, value outputfilev)
@@ -98,13 +106,13 @@ virt_builder_pxzcat (value inputfilev, value outputfilev)
 
   fd = open (String_val (outputfilev), O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
   if (fd == -1)
-    unix_error (errno, "open", outputfilev);
+    unix_error (errno, (char *) "open", outputfilev);
 
   pid = fork ();
   if (pid == -1) {
     int err = errno;
     close (fd);
-    unix_error (err, "fork", Nothing);
+    unix_error (err, (char *) "fork", Nothing);
   }
 
   if (pid == 0) {               /* child - run xzcat */
@@ -117,7 +125,7 @@ virt_builder_pxzcat (value inputfilev, value outputfilev)
   close (fd);
 
   if (waitpid (pid, &status, 0) == -1)
-    unix_error (errno, "waitpid", Nothing);
+    unix_error (errno, (char *) "waitpid", Nothing);
   if (!WIFEXITED (status) || WEXITSTATUS (status) != 0)
     caml_failwith (XZCAT " program failed, see earlier error messages");
 
@@ -141,8 +149,6 @@ virt_builder_pxzcat (value inputfilev, value outputfilev)
 
 #define XZ_HEADER_MAGIC     "\xfd" "7zXZ\0"
 #define XZ_HEADER_MAGIC_LEN 6
-#define XZ_FOOTER_MAGIC     "YZ"
-#define XZ_FOOTER_MAGIC_LEN 2
 
 static int check_header_magic (int fd);
 static lzma_index *parse_indexes (value filenamev, int fd);
@@ -158,7 +164,7 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
   /* Open the file. */
   fd = open (String_val (filenamev), O_RDONLY);
   if (fd == -1)
-    unix_error (errno, "open", filenamev);
+    unix_error (errno, (char *) "open", filenamev);
 
   /* Check file magic. */
   if (!check_header_magic (fd)) {
@@ -181,31 +187,31 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
   if (ofd == -1) {
     int err = errno;
     close (fd);
-    unix_error (err, "open", outputfilev);
+    unix_error (err, (char *) "open", outputfilev);
   }
 
   if (ftruncate (ofd, 1) == -1) {
     int err = errno;
     close (fd);
-    unix_error (err, "ftruncate", outputfilev);
+    unix_error (err, (char *) "ftruncate", outputfilev);
   }
 
   if (lseek (ofd, 0, SEEK_SET) == -1) {
     int err = errno;
     close (fd);
-    unix_error (err, "lseek", outputfilev);
+    unix_error (err, (char *) "lseek", outputfilev);
   }
 
   if (write (ofd, "\0", 1) == -1) {
     int err = errno;
     close (fd);
-    unix_error (err, "write", outputfilev);
+    unix_error (err, (char *) "write", outputfilev);
   }
 
   if (ftruncate (ofd, size) == -1) {
     int err = errno;
     close (fd);
-    unix_error (err, "ftruncate", outputfilev);
+    unix_error (err, (char *) "ftruncate", outputfilev);
   }
 
   /* Tell the kernel we won't read the output file. */
@@ -217,7 +223,7 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
   lzma_index_end (idx, NULL);
 
   if (close (fd) == -1)
-    unix_error (errno, "close", filenamev);
+    unix_error (errno, (char *) "close", filenamev);
 }
 
 static int
@@ -256,7 +262,7 @@ parse_indexes (value filenamev, int fd)
   /* Check file size is a multiple of 4 bytes. */
   pos = lseek (fd, 0, SEEK_END);
   if (pos == (off_t) -1)
-    unix_error (errno, "lseek", filenamev);
+    unix_error (errno, (char *) "lseek", filenamev);
 
   if ((pos & 3) != 0)
     caml_invalid_argument ("input not an xz file: size is not a multiple of 4 bytes");
@@ -269,10 +275,10 @@ parse_indexes (value filenamev, int fd)
       caml_invalid_argument ("corrupted xz file");
 
     if (lseek (fd, -LZMA_STREAM_HEADER_SIZE, SEEK_CUR) == -1)
-      unix_error (errno, "lseek", filenamev);
+      unix_error (errno, (char *) "lseek", filenamev);
 
     if (read (fd, footer, LZMA_STREAM_HEADER_SIZE) != LZMA_STREAM_HEADER_SIZE)
-      unix_error (errno, "read", filenamev);
+      unix_error (errno, (char *) "read", filenamev);
 
     /* Skip stream padding. */
     if (footer[8] == 0 && footer[9] == 0 &&
@@ -304,7 +310,7 @@ parse_indexes (value filenamev, int fd)
 
     /* Seek backwards to the index of this stream. */
     if (lseek (fd, pos, SEEK_SET) == -1)
-      unix_error (errno, "lseek", filenamev);
+      unix_error (errno, (char *) "lseek", filenamev);
 
     /* Decode the index. */
     r = lzma_index_decoder (&strm, &this_index, UINT64_MAX);
@@ -322,7 +328,7 @@ parse_indexes (value filenamev, int fd)
 
       n = read (fd, &buf, strm.avail_in);
       if (n == -1)
-        unix_error (errno, "read", filenamev);
+        unix_error (errno, (char *) "read", filenamev);
 
       index_size -= strm.avail_in;
 
@@ -341,10 +347,10 @@ parse_indexes (value filenamev, int fd)
 
     /* Read and decode the stream header. */
     if (lseek (fd, pos, SEEK_SET) == -1)
-      unix_error (errno, "lseek", filenamev);
+      unix_error (errno, (char *) "lseek", filenamev);
 
     if (read (fd, header, LZMA_STREAM_HEADER_SIZE) != LZMA_STREAM_HEADER_SIZE)
-      unix_error (errno, "read stream header", filenamev);
+      unix_error (errno, (char *) "read stream header", filenamev);
 
     r = lzma_stream_header_decode (&header_flags, header);
     if (r != LZMA_OK) {
@@ -456,7 +462,7 @@ iter_blocks (lzma_index *idx, unsigned nr_threads,
   global.iter_finished = 0;
   err = pthread_mutex_init (&global.iter_mutex, NULL);
   if (err != 0)
-    unix_error (err, "pthread_mutex_init", Nothing);
+    unix_error (err, (char *) "pthread_mutex_init", Nothing);
 
   global.filename = String_val (filenamev);
   global.fd = fd;
@@ -472,7 +478,7 @@ iter_blocks (lzma_index *idx, unsigned nr_threads,
   for (u = 0; u < nr_threads; ++u) {
     err = pthread_create (&thread[u], NULL, worker_thread, &per_thread[u]);
     if (err != 0)
-      unix_error (err, "pthread_create", Nothing);
+      unix_error (err, (char *) "pthread_create", Nothing);
   }
 
   /* Wait for the threads to exit. */
@@ -491,6 +497,24 @@ iter_blocks (lzma_index *idx, unsigned nr_threads,
     caml_invalid_argument ("some threads failed, see earlier errors");
 }
 
+static int
+xpwrite (int fd, const void *bufvp, size_t count, off_t offset)
+{
+  const char *buf = bufvp;
+  ssize_t r;
+
+  while (count > 0) {
+    r = pwrite (fd, buf, count, offset);
+    if (r == -1)
+      return -1;
+    count -= r;
+    offset += r;
+    buf += r;
+  }
+
+  return 0;
+}
+
 /* Iterate over the blocks and uncompress. */
 static void *
 worker_thread (void *vp)
@@ -500,18 +524,28 @@ worker_thread (void *vp)
   lzma_index_iter iter;
   int err;
   off_t position, oposition;
-  uint8_t header[LZMA_BLOCK_HEADER_SIZE_MAX];
+  CLEANUP_FREE uint8_t *header = NULL;
   ssize_t n;
   lzma_block block;
-  lzma_filter filters[LZMA_FILTERS_MAX + 1];
+  CLEANUP_FREE lzma_filter *filters = NULL;
   lzma_ret r;
   lzma_stream strm = LZMA_STREAM_INIT;
-  uint8_t buf[BUFFER_SIZE];
-  unsigned char outbuf[BUFFER_SIZE];
+  CLEANUP_FREE uint8_t *buf = NULL;
+  CLEANUP_FREE uint8_t *outbuf = NULL;
   size_t i;
   lzma_bool iter_finished;
 
   state->status = -1;
+
+  header = malloc (sizeof (uint8_t) * LZMA_BLOCK_HEADER_SIZE_MAX);
+  filters = malloc (sizeof (lzma_filter) * (LZMA_FILTERS_MAX + 1));
+  buf = malloc (sizeof (uint8_t) * BUFFER_SIZE);
+  outbuf = malloc (sizeof (uint8_t) * BUFFER_SIZE);
+
+  if (header == NULL || filters == NULL || buf == NULL || outbuf == NULL) {
+    perror ("malloc");
+    return &state->status;
+  }
 
   for (;;) {
     /* Get the next block. */
@@ -633,8 +667,7 @@ worker_thread (void *vp)
          * sparseness.  However we have to update oposition.
          */
         if (!is_zero (outbuf, wsz)) {
-          if (pwrite (global->ofd, outbuf, wsz, oposition) != wsz) {
-            /* XXX Handle short writes. */
+          if (xpwrite (global->ofd, outbuf, wsz, oposition) == -1) {
             perror (global->filename);
             return &state->status;
           }

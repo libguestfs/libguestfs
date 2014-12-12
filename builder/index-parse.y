@@ -30,6 +30,8 @@
 
 extern void yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg);
 extern int yylex (YYSTYPE * yylval, YYLTYPE * yylloc, yyscan_t scanner);
+
+extern int do_parse (struct parse_context *context, FILE *in);
 extern void scanner_init (yyscan_t *scanner, struct parse_context *context, FILE *in);
 extern void scanner_destroy (yyscan_t scanner);
 

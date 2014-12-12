@@ -38,6 +38,9 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 
 /* OCaml doesn't bind any *sync* calls. */
 
+extern value virt_resize_sync (value unitv);
+extern value virt_resize_fsync_file (value filenamev);
+
 /* NB: This is a "noalloc" call. */
 value
 virt_resize_sync (value unitv)

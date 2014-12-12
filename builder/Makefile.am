@@ -1,5 +1,5 @@
 # libguestfs virt-builder tool
-# Copyright (C) 2013 Red Hat Inc.
+# Copyright (C) 2013-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,17 +18,9 @@
 include $(top_srcdir)/subdir-rules.mk
 
 AM_YFLAGS = -d
-AM_CFLAGS = \
-	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/gnulib/lib \
-	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish \
-	-pthread \
-	$(LIBLZMA_CFLAGS) \
-	$(LIBTINFO_CFLAGS)
 
 EXTRA_DIST = \
-	$(SOURCES) \
+	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	libguestfs.gpg \
 	test-index \
 	test-virt-builder.sh \
@@ -43,110 +35,105 @@ EXTRA_DIST = \
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 
-# Alphabetical order.
-SOURCES = \
-	architecture.ml \
-	builder.ml \
+SOURCES_MLI = \
 	cache.mli \
-	cache.ml \
-	cmdline.ml \
 	downloader.mli \
-	downloader.ml \
 	get_kernel.mli \
-	get_kernel.ml \
 	index_parser.mli \
-	index_parser.ml \
-	index-parser-c.c \
 	ini_reader.mli \
-	ini_reader.ml \
 	languages.mli \
-	languages.ml \
 	list_entries.mli \
-	list_entries.ml \
-	paths.ml \
-	pxzcat.ml \
 	pxzcat.mli \
-	pxzcat-c.c \
-	setlocale.ml \
 	setlocale.mli \
-	setlocale-c.c \
 	sigchecker.mli \
-	sigchecker.ml \
 	sources.mli \
-	sources.ml \
+	uname.mli
+
+SOURCES_ML = \
+	utils.ml \
+	pxzcat.ml \
+	setlocale.ml \
 	uname.ml \
-	uname.mli \
-	uname-c.c \
-	utils.ml
+	architecture.ml \
+	ini_reader.ml \
+	paths.ml \
+	languages.ml \
+	get_kernel.ml \
+	cache.ml \
+	sources.ml \
+	downloader.ml \
+	sigchecker.ml \
+	index_parser.ml \
+	list_entries.ml \
+	cmdline.ml \
+	builder.ml
+
+SOURCES_C = \
+	$(top_srcdir)/mllib/fsync-c.c \
+	$(top_srcdir)/mllib/uri-c.c \
+	$(top_srcdir)/mllib/mkdtemp-c.c \
+	$(top_srcdir)/customize/perl_edit-c.c \
+	$(top_srcdir)/customize/crypt-c.c \
+	$(top_srcdir)/fish/uri.c \
+	$(top_srcdir)/fish/file-edit.c \
+	index-scan.c \
+	index-struct.c \
+	index-parse.c \
+	index-parser-c.c \
+	pxzcat-c.c \
+	setlocale-c.c \
+	uname-c.c
 
 man_MANS =
 noinst_DATA =
+bin_PROGRAMS =
 
 if HAVE_OCAML
 
-# Note this list must be in dependency order.
-deps = \
-	$(top_builddir)/mllib/libdir.cmx \
-	$(top_builddir)/mllib/config.cmx \
-	$(top_builddir)/mllib/common_gettext.cmx \
-	$(top_builddir)/mllib/common_utils.cmx \
-	$(top_builddir)/mllib/fsync-c.o \
-	$(top_builddir)/mllib/fsync.cmx \
-	$(top_builddir)/mllib/planner.cmx \
-	$(top_builddir)/mllib/regedit.cmx \
-	$(top_builddir)/mllib/JSON.cmx \
-	$(top_builddir)/mllib/uri-c.o \
-	$(top_builddir)/mllib/uRI.cmx \
-	$(top_builddir)/mllib/mkdtemp-c.o \
-	$(top_builddir)/mllib/mkdtemp.cmx \
-	$(top_builddir)/customize/customize_utils.cmx \
-	$(top_builddir)/customize/urandom.cmx \
-	$(top_builddir)/customize/random_seed.cmx \
-	$(top_builddir)/customize/hostname.cmx \
-	$(top_builddir)/customize/timezone.cmx \
-	$(top_builddir)/customize/firstboot.cmx \
-	$(top_builddir)/customize/virt_customize-perl_edit-c.o \
-	$(top_builddir)/customize/perl_edit.cmx \
-	$(top_builddir)/customize/virt_customize-crypt-c.o \
-	$(top_builddir)/customize/crypt.cmx \
-	$(top_builddir)/customize/password.cmx \
-	$(top_builddir)/customize/ssh_key.cmx \
-	$(top_builddir)/customize/customize_cmdline.cmx \
-	$(top_builddir)/customize/customize_run.cmx \
-	$(top_builddir)/fish/guestfish-uri.o \
-	$(top_builddir)/fish/guestfish-file-edit.o \
-	utils.cmx \
-	index-scan.o \
-	index-struct.o \
-	index-parse.o \
-	index-parser-c.o \
-	pxzcat-c.o \
-	pxzcat.cmx \
-	setlocale-c.o \
-	setlocale.cmx \
-	uname-c.o \
-	uname.cmx \
-	architecture.cmx \
-	ini_reader.cmx \
-	paths.cmx \
-	languages.cmx \
-	get_kernel.cmx \
-	cache.cmx \
-	sources.cmx \
-	downloader.cmx \
-	sigchecker.cmx \
-	index_parser.cmx \
-	list_entries.cmx \
-	cmdline.cmx \
-	builder.cmx
+bin_PROGRAMS += virt-builder
 
-if HAVE_OCAMLOPT
-OBJECTS = $(deps)
-else
-OBJECTS = $(patsubst %.cmx,%.cmo,$(deps))
-endif
+virt_builder_SOURCES = $(SOURCES_C)
+virt_builder_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/fish
+virt_builder_CFLAGS = \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	-Wno-unused-macros \
+	$(LIBLZMA_CFLAGS) \
+	$(LIBTINFO_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
-bin_SCRIPTS = virt-builder
+BOBJECTS = \
+	$(top_builddir)/mllib/libdir.cmo \
+	$(top_builddir)/mllib/config.cmo \
+	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/fsync.cmo \
+	$(top_builddir)/mllib/planner.cmo \
+	$(top_builddir)/mllib/regedit.cmo \
+	$(top_builddir)/mllib/JSON.cmo \
+	$(top_builddir)/mllib/uRI.cmo \
+	$(top_builddir)/mllib/mkdtemp.cmo \
+	$(top_builddir)/customize/customize_utils.cmo \
+	$(top_builddir)/customize/urandom.cmo \
+	$(top_builddir)/customize/random_seed.cmo \
+	$(top_builddir)/customize/hostname.cmo \
+	$(top_builddir)/customize/timezone.cmo \
+	$(top_builddir)/customize/firstboot.cmo \
+	$(top_builddir)/customize/perl_edit.cmo \
+	$(top_builddir)/customize/crypt.cmo \
+	$(top_builddir)/customize/password.cmo \
+	$(top_builddir)/customize/ssh_key.cmo \
+	$(top_builddir)/customize/customize_cmdline.cmo \
+	$(top_builddir)/customize/customize_run.cmo \
+	$(SOURCES_ML:.ml=.cmo)
+XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 # -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
@@ -154,6 +141,7 @@ bin_SCRIPTS = virt-builder
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/src/.libs \
+	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -161,40 +149,31 @@ if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
-OCAMLCFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR) $(OCAMLPACKAGES)
-OCAMLOPTFLAGS = $(OCAMLCFLAGS)
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
-OCAMLCLIBS  = \
-	$(LIBLZMA_LIBS) \
-	$(LIBXML2_LIBS) \
-	$(LIBINTL) \
-	-L../src/.libs -lutils \
-	-L../gnulib/lib/.libs -lgnu \
-	-pthread -lpthread \
-	$(LIBTINFO_LIBS) -lcrypt
-
-if HAVE_OCAMLOPT
-virt-builder: $(OBJECTS)
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
-	  mlguestfs.cmxa -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -o $@
+if !HAVE_OCAMLOPT
+OBJECTS = $(BOBJECTS)
+BEST    = c
+OCAMLLINKFLAGS = mlguestfs.cma -custom
 else
-virt-builder: $(OBJECTS)
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
-	  mlguestfs.cma -linkpkg $^ \
-	  -cclib '$(OCAMLCLIBS)' \
-	  -custom \
-	  -o $@
+OBJECTS = $(XOBJECTS)
+BEST    = opt
+OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
 
+virt_builder_DEPENDENCIES = $(OBJECTS)
+virt_builder_LINK = \
+	./link.sh \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
+	  $(OBJECTS) -o $@
+
 .mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 if HAVE_OCAMLOPT
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -c $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif
 
 # Manual pages and HTML files for the website.
@@ -286,7 +265,7 @@ install-exec-hook:
 	$(LN_S) xdg/virt-builder $(DESTDIR)$(sysconfdir)/virt-builder
 
 # Build a small C index validator program.
-bin_PROGRAMS = virt-index-validate
+bin_PROGRAMS += virt-index-validate
 
 virt_index_validate_SOURCES = \
 	index-parse.y \
@@ -296,8 +275,14 @@ virt_index_validate_SOURCES = \
 	index-validate.c
 
 virt_index_validate_CPPFLAGS = \
-	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
-
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I. \
+	-I$(top_builddir) \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src
+virt_index_validate_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	-Wno-unused-macros
 virt_index_validate_LDADD = \
 	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la

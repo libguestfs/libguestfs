@@ -45,6 +45,8 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 
 extern int do_parse (struct parse_context *context, FILE *in);
 
+extern value virt_builder_parse_index (value progv, value error_suffixv, value filenamev);
+
 value
 virt_builder_parse_index (value progv, value error_suffixv, value filenamev)
 {

@@ -37,6 +37,8 @@ static const int lc_string_table[7] = {
 
 #define Val_none (Val_int (0))
 
+extern value virt_builder_setlocale (value val_category, value val_name);
+
 value
 virt_builder_setlocale (value val_category, value val_name)
 {

@@ -33,6 +33,8 @@
 extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #endif
 
+extern value virt_builder_uname (value unit);
+
 value
 virt_builder_uname (value unit)
 {
