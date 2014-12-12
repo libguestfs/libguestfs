@@ -1671,6 +1671,8 @@ AC_CONFIG_FILES([customize/link.sh],
                 [chmod +x,-w customize/link.sh])
 AC_CONFIG_FILES([inspector/test-xmllint.sh],
                 [chmod +x,-w inspector/test-xmllint.sh])
+AC_CONFIG_FILES([mllib/link.sh],
+                [chmod +x,-w mllib/link.sh])
 AC_CONFIG_FILES([p2v/virt-p2v-make-disk],
                 [chmod +x,-w p2v/virt-p2v-make-disk])
 AC_CONFIG_FILES([p2v/virt-p2v-make-kickstart],

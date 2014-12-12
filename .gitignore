@@ -309,6 +309,7 @@ Makefile.in
 /mllib/config.ml
 /mllib/dummy
 /mllib/libdir.ml
+/mllib/link.sh
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml
