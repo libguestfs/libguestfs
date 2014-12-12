@@ -23,10 +23,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "xgetcwd.h"
-
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
+
+#include "xgetcwd.h"
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -73,12 +73,28 @@ main (int argc, char *argv[])
   virDomainPtr dom;
   virErrorPtr err;
   int r;
-  const char *test_xml;
+  char *backend;
   char *cwd;
   FILE *fp;
   char libvirt_uri[1024];
 
   cwd = xgetcwd ();
+
+  /* Create the guestfs handle. */
+  g = guestfs_create ();
+  if (g == NULL) {
+    fprintf (stderr, "failed to create handle\n");
+    exit (EXIT_FAILURE);
+  }
+
+  backend = guestfs_get_backend (g);
+  if (STREQ (backend, "uml")) {
+    printf ("%s: test skipped because UML backend does not support qcow2\n",
+            argv[0]);
+    free (backend);
+    exit (77);
+  }
+  free (backend);
 
   /* Create the libvirt XML and test images in the current
    * directory.
@@ -91,41 +107,26 @@ main (int argc, char *argv[])
   make_test_xml (fp, cwd);
   fclose (fp);
 
-  fp = fopen ("test-add-libvirt-dom-1.img", "w");
-  if (fp == NULL) {
-    perror ("test-add-libvirt-dom-1.img");
+  if (guestfs_disk_create (g, "test-add-libvirt-dom-1.img", "raw",
+                           1024*1024, -1) == -1)
     exit (EXIT_FAILURE);
-  }
-  fclose (fp);
 
-  fp = fopen ("test-add-libvirt-dom-2.img", "w");
-  if (fp == NULL) {
-    perror ("test-add-libvirt-dom-2.img");
+  if (guestfs_disk_create (g, "test-add-libvirt-dom-2.img", "raw",
+                           1024*1024, -1) == -1)
     exit (EXIT_FAILURE);
-  }
-  fclose (fp);
 
-  fp = fopen ("test-add-libvirt-dom-3.img", "w");
-  if (fp == NULL) {
-    perror ("test-add-libvirt-dom-3.img");
+  if (guestfs_disk_create (g, "test-add-libvirt-dom-3.img", "qcow2",
+                           1024*1024, -1) == -1)
     exit (EXIT_FAILURE);
-  }
-  fclose (fp);
-
-  /* Create the guestfs handle. */
-  g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
 
   /* Create the libvirt connection. */
   snprintf (libvirt_uri, sizeof libvirt_uri, "test://%s/test-add-libvirt-dom.xml", cwd);
   conn = virConnectOpenReadOnly (libvirt_uri);
   if (!conn) {
     err = virGetLastError ();
-    fprintf (stderr, "could not connect to libvirt (code %d, domain %d): %s\n",
-             err->code, err->domain, err->message);
+    fprintf (stderr,
+             "%s: could not connect to libvirt (code %d, domain %d): %s\n",
+             argv[0], err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
 
@@ -133,7 +134,8 @@ main (int argc, char *argv[])
   if (!dom) {
     err = virGetLastError ();
     fprintf (stderr,
-             "no libvirt domain called '%s': %s\n", "guest", err->message);
+             "%s: no libvirt domain called '%s': %s\n",
+             argv[0], "guest", err->message);
     exit (EXIT_FAILURE);
   }
 
@@ -142,6 +144,13 @@ main (int argc, char *argv[])
                                -1);
   if (r == -1)
     exit (EXIT_FAILURE);
+
+  if (r != 3) {
+    fprintf (stderr,
+             "%s: incorrect number of disks added (%d, expected 3)\n",
+             argv[0], r);
+    exit (EXIT_FAILURE);
+  }
 
   guestfs_close (g);
 

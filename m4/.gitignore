@@ -180,6 +180,7 @@
 /readlink.m4
 /read.m4
 /realloc.m4
+/rewinddir.m4
 /rmdir.m4
 /safe-read.m4
 /safe-write.m4

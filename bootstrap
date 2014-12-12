@@ -96,6 +96,7 @@ vc-list-files
 warnings
 xalloc
 xalloc-die
+xgetcwd
 xstrtol
 xstrtoll
 xvasprintf

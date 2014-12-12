@@ -67,11 +67,10 @@ check_PROGRAMS += test-just-header-cxx
 TESTS += test-just-header-cxx
 endif
 
-# The API behind this test is not baked yet.
-#if HAVE_LIBVIRT
-#check_PROGRAMS += test-add-libvirt-dom
-#TESTS += test-add-libvirt-dom
-#endif
+if HAVE_LIBVIRT
+check_PROGRAMS += test-add-libvirt-dom
+TESTS += test-add-libvirt-dom
+endif
 EXTRA_DIST += test-add-libvirt-dom.c
 
 TESTS_ENVIRONMENT = \
@@ -243,7 +242,9 @@ test_event_string_LDADD = \
 if HAVE_LIBVIRT
 test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
 test_add_libvirt_dom_CPPFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/gnulib/lib
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib
 test_add_libvirt_dom_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
