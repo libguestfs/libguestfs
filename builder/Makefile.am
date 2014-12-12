@@ -323,12 +323,13 @@ CLEANFILES += \
 	stamp-virt-index-validate.pod
 
 if HAVE_OCAML
-# Automake-generated makefile has a rule ".l.c:" but lacks a rule ".l.h:".
+# Automake-generated makefile has a rule ".y.c" but lacks a rule ".y.h".
+index-parse.h: index-parse.y
+	touch index-parse.y
+	$(MAKE) index-parse.c
 # Also it doesn't generate dependencies for the C files that include
 # index-parse.h.
 index-parser-c.c index-scan.c index-validate.c: index-parse.h
-index-parse.h: index-parse.y
-	$(MAKE) index-parse.h
 endif
 
 # Apparently there's no clean way with Automake to not have them
