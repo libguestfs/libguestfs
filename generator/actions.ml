@@ -12207,6 +12207,25 @@ Destroy a quota group." };
 Show all subvolume quota groups in a btrfs filesystem, inclding their
 usages." };
 
+  { defaults with
+    name = "btrfs_qgroup_assign";
+    style = RErr, [String "src"; String "dst"; Pathname "path"], [];
+    proc_nr = Some 433;
+    optional = Some "btrfs"; camel_name = "BTRFSQgroupAssign";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"];
+         ["btrfs_qgroup_create"; "0/1000"; "/"];
+         ["btrfs_qgroup_create"; "1/1000"; "/"];
+         ["btrfs_qgroup_assign"; "0/1000"; "1/1000"; "/"]]), [];
+    ];
+    shortdesc = "add a qgroup to a parent qgroup";
+    longdesc = "\
+Add qgroup C<src> to parent qgroup C<dst>. This command can group
+several qgroups into a parent qgroup to share common limit." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
