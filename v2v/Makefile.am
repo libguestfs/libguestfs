@@ -148,7 +148,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/src/.libs \
-	-I ../gnulib/lib/.libs \
+	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
