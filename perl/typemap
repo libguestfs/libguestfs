@@ -23,7 +23,15 @@ O_OBJECT_int64
     $var = my_SvIV64 ($arg);
 
 O_OBJECT_virDomainPtr
-    $var = POINTER_NOT_IMPLEMENTED (\"virDomainPtr\");
+    /* This is copied directly from the Sys::Virt typemap.  Dan has assured
+     * me that he doesn't intend to change this implementation!
+     */
+    if (sv_isobject ($arg) && SvTYPE (SvRV ($arg)) == SVt_PVMG)
+        $var = INT2PTR (void *, SvIV ((SV*) SvRV ($arg)));
+    else {
+        warn (\"${Package}::$func_name() -- $var is not a blessed SV reference\");
+        XSRETURN_UNDEF;
+    }
 
 OUTPUT
 O_OBJECT_guestfs_h
