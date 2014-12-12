@@ -326,6 +326,59 @@ do_btrfs_subvolume_create (const char *dest, const char *qgroupid)
   return 0;
 }
 
+static char *
+mount (const mountable_t *fs)
+{
+  char *fs_buf;
+
+  if (fs->type == MOUNTABLE_PATH) {
+    fs_buf = sysroot_path (fs->device);
+    if (fs_buf == NULL)
+      reply_with_perror ("malloc");
+  } else {
+    fs_buf = strdup ("/tmp/btrfs.XXXXXX");
+    if (fs_buf == NULL) {
+      reply_with_perror ("strdup");
+      return NULL;
+    }
+
+    if (mkdtemp (fs_buf) == NULL) {
+      reply_with_perror ("mkdtemp");
+      free (fs_buf);
+      return NULL;
+    }
+
+    if (mount_vfs_nochroot ("", NULL, fs, fs_buf, "<internal>") == -1) {
+      if (rmdir (fs_buf) == -1 && errno != ENOENT)
+        perror ("rmdir");
+      free (fs_buf);
+      return NULL;
+    }
+  }
+
+  return fs_buf;
+}
+
+static int
+umount (char *fs_buf, const mountable_t *fs)
+{
+  if (fs->type != MOUNTABLE_PATH) {
+    CLEANUP_FREE char *err = NULL;
+
+    if (command (NULL, &err, str_umount, fs_buf, NULL) == -1) {
+      reply_with_error ("umount: %s", err);
+      return -1;
+    }
+
+    if (rmdir (fs_buf) == -1 && errno != ENOENT) {
+      reply_with_perror ("rmdir");
+      return -1;
+    }
+  }
+  free (fs_buf);
+  return 0;
+}
+
 guestfs_int_btrfssubvolume_list *
 do_btrfs_subvolume_list (const mountable_t *fs)
 {
@@ -336,42 +389,10 @@ do_btrfs_subvolume_list (const mountable_t *fs)
 
   /* Execute 'btrfs subvolume list <fs>', and split the output into lines */
   {
-    CLEANUP_FREE char *fs_buf = NULL;
+    char *fs_buf = mount (fs);
 
-    if (fs->type == MOUNTABLE_PATH) {
-      fs_buf = sysroot_path (fs->device);
-      if (fs_buf == NULL) {
-        reply_with_perror ("malloc");
-
-      cmderror:
-        if (fs->type != MOUNTABLE_PATH && fs_buf) {
-          CLEANUP_FREE char *err = NULL;
-          if (command (NULL, &err, str_umount, fs_buf, NULL) == -1)
-            fprintf (stderr, "%s\n", err);
-
-          if (rmdir (fs_buf) == -1 && errno != ENOENT)
-            fprintf (stderr, "rmdir: %m\n");
-        }
-        return NULL;
-      }
-    }
-
-    else {
-      fs_buf = strdup ("/tmp/btrfs.XXXXXX");
-      if (fs_buf == NULL) {
-        reply_with_perror ("strdup");
-        goto cmderror;
-      }
-
-      if (mkdtemp (fs_buf) == NULL) {
-        reply_with_perror ("mkdtemp");
-        goto cmderror;
-      }
-
-      if (mount_vfs_nochroot ("", NULL, fs, fs_buf, "<internal>") == -1) {
-        goto cmderror;
-      }
-    }
+    if (!fs_buf)
+      return NULL;
 
     ADD_ARG (argv, i, str_btrfs);
     ADD_ARG (argv, i, "subvolume");
@@ -382,18 +403,8 @@ do_btrfs_subvolume_list (const mountable_t *fs)
     CLEANUP_FREE char *out = NULL, *errout = NULL;
     int r = commandv (&out, &errout, argv);
 
-    if (fs->type != MOUNTABLE_PATH) {
-      CLEANUP_FREE char *err = NULL;
-      if (command (NULL, &err, str_umount, fs_buf, NULL) == -1) {
-        reply_with_error ("%s", err ? err : "malloc");
-        goto cmderror;
-      }
-
-      if (rmdir (fs_buf) == -1 && errno != ENOENT) {
-        reply_with_error ("rmdir: %m\n");
-        goto cmderror;
-      }
-    }
+    if (umount (fs_buf, fs) != 0)
+      return NULL;
 
     if (r == -1) {
       CLEANUP_FREE char *fs_desc = mountable_to_string (fs);
@@ -401,7 +412,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
         fprintf (stderr, "malloc: %m");
       }
       reply_with_error ("%s: %s", fs_desc ? fs_desc : "malloc", errout);
-      goto cmderror;
+      return NULL;
     }
 
     lines = split_lines (out);
