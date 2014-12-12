@@ -33,8 +33,8 @@ SOURCES_ML = \
 	sparsify.ml
 
 SOURCES_C = \
-	$(top_builddir)/fish/progress.c \
-	$(top_builddir)/mllib/progress-c.c \
+	$(top_srcdir)/fish/progress.c \
+	$(top_srcdir)/mllib/progress-c.c \
 	statvfs-c.c
 
 if HAVE_OCAML
