@@ -12188,6 +12188,25 @@ Create a quota group (qgroup) for subvolume at C<subvolume>." };
     longdesc = "\
 Destroy a quota group." };
 
+  { defaults with
+    name = "btrfs_qgroup_show";
+    style = RStructList ("qgroups", "btrfsqgroup"), [Pathname "path"], [];
+    proc_nr = Some 432;
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"];
+         ["btrfs_subvolume_create"; "/sub1"; "NOARG"];
+         ["btrfs_qgroup_create"; "0/1000"; "/sub1"];
+         ["btrfs_qgroup_show"; "/"]]), [];
+    ];
+    optional = Some "btrfs"; camel_name = "BTRFSQgroupShow";
+    shortdesc = "show subvolume quota groups";
+    longdesc = "\
+Show all subvolume quota groups in a btrfs filesystem, inclding their
+usages." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

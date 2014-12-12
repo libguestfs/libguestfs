@@ -1186,3 +1186,92 @@ do_btrfs_qgroup_destroy (const char *qgroupid, const char *subvolume)
 
   return 0;
 }
+
+guestfs_int_btrfsqgroup_list *
+do_btrfs_qgroup_show (const char *path)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *path_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  int r;
+  char **lines;
+
+  path_buf = sysroot_path (path);
+  if (path_buf == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "qgroup");
+  ADD_ARG (argv, i, "show");
+  ADD_ARG (argv, i, path_buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", path, err);
+    return NULL;
+  }
+
+  lines = split_lines (out);
+  if (!lines)
+    return NULL;
+
+  /* line 0 and 1 are:
+   *
+   * qgroupid rfer          excl
+   * -------- ----          ----
+   */
+  size_t nr_qgroups = count_strings (lines) - 2;
+  guestfs_int_btrfsqgroup_list *ret = NULL;
+  ret = malloc (sizeof *ret);
+  if (!ret) {
+    reply_with_perror ("malloc");
+    goto error;
+  }
+
+  ret->guestfs_int_btrfsqgroup_list_len = nr_qgroups;
+  ret->guestfs_int_btrfsqgroup_list_val =
+    calloc (nr_qgroups, sizeof (struct guestfs_int_btrfsqgroup));
+  if (ret->guestfs_int_btrfsqgroup_list_val == NULL) {
+    reply_with_perror ("malloc");
+    goto error;
+  }
+
+  for (i = 0; i < nr_qgroups; ++i) {
+    char *line = lines[i + 2];
+    struct guestfs_int_btrfsqgroup *this  =
+      &ret->guestfs_int_btrfsqgroup_list_val[i];
+    uint64_t dummy1, dummy2;
+    char *p;
+
+    if (sscanf (line, "%" SCNu64 "/%" SCNu64 " %" SCNu64 " %" SCNu64,
+                &dummy1, &dummy2, &this->btrfsqgroup_rfer,
+                &this->btrfsqgroup_excl) != 4) {
+      reply_with_perror ("sscanf");
+      goto error;
+    }
+    p = strchr(line, ' ');
+    if (!p) {
+      reply_with_error ("truncated line: %s", line);
+      goto error;
+    }
+    *p = '\0';
+    this->btrfsqgroup_id = line;
+  }
+
+  free (lines);
+  return ret;
+
+error:
+  free_stringslen (lines, nr_qgroups + 2);
+  if (ret)
+    free (ret->guestfs_int_btrfsqgroup_list_val);
+  free (ret);
+
+  return NULL;
+}

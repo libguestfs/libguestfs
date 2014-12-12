@@ -330,6 +330,16 @@ let structs = [
     ];
     s_camel_name = "BTRFSSubvolume" };
 
+  (* btrfs qgroup show output *)
+  { defaults with
+    s_name = "btrfsqgroup";
+    s_cols = [
+    "btrfsqgroup_id", FString;
+    "btrfsqgroup_rfer", FUInt64;
+    "btrfsqgroup_excl", FUInt64;
+    ];
+    s_camel_name = "BTRFSQgroup" };
+
   (* XFS info descriptor. *)
   { defaults with
     s_name = "xfsinfo";
