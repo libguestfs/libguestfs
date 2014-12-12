@@ -12226,6 +12226,25 @@ usages." };
 Add qgroup C<src> to parent qgroup C<dst>. This command can group
 several qgroups into a parent qgroup to share common limit." };
 
+  { defaults with
+    name = "btrfs_qgroup_remove";
+    style = RErr, [String "src"; String "dst"; Pathname "path"], [];
+    proc_nr = Some 434;
+    optional = Some "btrfs"; camel_name = "BTRFSQgroupRemove";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"];
+         ["btrfs_qgroup_create"; "0/1000"; "/"];
+         ["btrfs_qgroup_create"; "1/1000"; "/"];
+         ["btrfs_qgroup_assign"; "0/1000"; "1/1000"; "/"];
+         ["btrfs_qgroup_remove"; "0/1000"; "1/1000"; "/"]]), [];
+    ];
+    shortdesc = "remove a qgroup from its parent qgroup";
+    longdesc = "\
+Remove qgroup C<src> from the parent qgroup C<dst>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
