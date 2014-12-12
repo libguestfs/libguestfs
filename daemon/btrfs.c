@@ -1085,3 +1085,38 @@ error:
     return -1;
   return r;
 }
+
+int
+do_btrfs_qgroup_limit (const char *subvolume, int64_t size)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *subvolume_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  char size_str[32];
+  int r;
+
+  subvolume_buf = sysroot_path (subvolume);
+  if (subvolume_buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "qgroup");
+  ADD_ARG (argv, i, "limit");
+  snprintf (size_str, sizeof size_str, "%" PRIi64, size);
+  ADD_ARG (argv, i, size_str);
+  ADD_ARG (argv, i, subvolume_buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", subvolume, err);
+    return -1;
+  }
+
+  return 0;
+}

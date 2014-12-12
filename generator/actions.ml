@@ -12131,6 +12131,28 @@ Enable or disable subvolume quota support for filesystem which contains C<path>.
     longdesc = "\
 Trash all qgroup numbers and scan the metadata again with the current config." };
 
+  { defaults with
+    name = "btrfs_qgroup_limit";
+    style = RErr, [Pathname "subvolume"; Int64 "size"], [];
+    proc_nr = Some 429;
+    optional = Some "btrfs"; camel_name = "BTRFSQgroupLimit";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"];
+         ["btrfs_qgroup_limit"; "/"; "10737418240"]]), [];
+      InitPartition, Always, TestLastFail (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "false"];
+         ["btrfs_qgroup_limit"; "/"; "10737418240"]]), [];
+    ];
+    shortdesc = "limit the size of a subvolume";
+    longdesc = "\
+Limit the size of a subvolume which's path is C<subvolume>. C<size>
+can have suffix of G, M, or K. " };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
