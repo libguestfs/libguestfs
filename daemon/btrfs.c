@@ -1120,3 +1120,36 @@ do_btrfs_qgroup_limit (const char *subvolume, int64_t size)
 
   return 0;
 }
+
+int
+do_btrfs_qgroup_create (const char *qgroupid, const char *subvolume)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *subvolume_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  int r;
+
+  subvolume_buf = sysroot_path (subvolume);
+  if (subvolume_buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "qgroup");
+  ADD_ARG (argv, i, "create");
+  ADD_ARG (argv, i, qgroupid);
+  ADD_ARG (argv, i, subvolume_buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", subvolume, err);
+    return -1;
+  }
+
+  return 0;
+}

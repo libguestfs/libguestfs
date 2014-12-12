@@ -12153,6 +12153,23 @@ Trash all qgroup numbers and scan the metadata again with the current config." }
 Limit the size of a subvolume which's path is C<subvolume>. C<size>
 can have suffix of G, M, or K. " };
 
+  { defaults with
+    name = "btrfs_qgroup_create";
+    style = RErr, [String "qgroupid"; Pathname "subvolume"], [];
+    proc_nr = Some 430;
+    optional = Some "btrfs"; camel_name = "BTRFSQgroupCreate";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_quota_enable"; "/"; "true"];
+         ["btrfs_subvolume_create"; "/sub1"; "NOARG"];
+         ["btrfs_qgroup_create"; "0/1000"; "/sub1"]]), [];
+    ];
+    shortdesc = "create a subvolume quota group";
+    longdesc = "\
+Create a quota group (qgroup) for subvolume at C<subvolume>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
