@@ -93,13 +93,13 @@ SOURCES_ML = \
 	v2v.ml
 
 SOURCES_C = \
-	$(top_builddir)/fish/progress.c \
-	$(top_builddir)/fish/file-edit.c \
-	$(top_builddir)/mllib/tty-c.c \
-	$(top_builddir)/mllib/progress-c.c \
-	$(top_builddir)/mllib/mkdtemp-c.c \
-	$(top_builddir)/customize/crypt-c.c \
-	$(top_builddir)/customize/perl_edit-c.c \
+	$(top_srcdir)/fish/progress.c \
+	$(top_srcdir)/fish/file-edit.c \
+	$(top_srcdir)/mllib/tty-c.c \
+	$(top_srcdir)/mllib/progress-c.c \
+	$(top_srcdir)/mllib/mkdtemp-c.c \
+	$(top_srcdir)/customize/crypt-c.c \
+	$(top_srcdir)/customize/perl_edit-c.c \
 	domainxml-c.c \
 	kvmuid-c.c \
 	utils-c.c \
