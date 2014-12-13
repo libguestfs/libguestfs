@@ -256,10 +256,10 @@ mllib/tty-c.c
 mllib/uri-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c.c
-p2v/authors.c
+p2v/about-authors.c
+p2v/about-license.c
 p2v/config.c
 p2v/conversion.c
-p2v/copying.c
 p2v/gui.c
 p2v/kernel.c
 p2v/main.c

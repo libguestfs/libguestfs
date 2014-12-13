@@ -114,10 +114,10 @@ extern int v2v_release;
 extern char **input_drivers;
 extern char **output_drivers;
 
-/* authors.c */
+/* about-authors.c */
 extern const char *authors[];
 
-/* copying.c */
+/* about-license.c */
 extern const char *gplv2plus;
 
 #endif /* P2V_H */

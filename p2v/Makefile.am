@@ -44,10 +44,10 @@ libexec_PROGRAMS = virt-p2v
 # Note that miniexpect comes from here:
 # http://git.annexia.org/?p=miniexpect.git;a=summary
 virt_p2v_SOURCES = \
-	authors.c \
+	about-authors.c \
+	about-license.c \
 	config.c \
 	conversion.c \
-	copying.c \
 	gui.c \
 	kernel.c \
 	main.c \
