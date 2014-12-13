@@ -594,9 +594,17 @@ L<http://libguestfs.org/>.
 
 =head1 AUTHORS
 
+Matthew Booth
+
+John Eckersberg
+
 Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
-Matthew Booth
+Mike Latimer
+
+Pino Toscano
+
+Tingting Zheng
 
 =head1 COPYRIGHT
 

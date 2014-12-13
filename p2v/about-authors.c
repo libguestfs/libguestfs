@@ -24,7 +24,10 @@
 
 const char *authors[] = {
   "Matthew Booth",
+  "John Eckersberg",
   "Richard W.M. Jones",
   "Mike Latimer",
+  "Pino Toscano",
+  "Tingting Zheng",
   NULL
 };
