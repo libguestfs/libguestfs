@@ -427,14 +427,23 @@ This might give you a clue as to what program is running.
 
 =head1 Hex-dumping sectors from the guest
 
-Hex-dump the boot partition:
+Hex-dump the boot partition (Master Boot Record / first sector):
 
  guestfish --ro -a disk.img run : pread-device /dev/sda 0x200 0 |
    hexdump -C
 
+(C<0x200> = 512 bytes which is the size of traditional PC sectors)
+
+To hexdump the N'th partition, substitute a number for C<N> in the
+following command:
+
+ guestfish --ro -a disk.img \
+     run : pread-device /dev/sda 0x200 $((N*0x200)) |
+   hexdump -C
+
 =head1 Hex-editing sectors in the guest
 
-Hex-edit the first sector (boot partition):
+Hex-edit the boot partition (Master Boot Record / first sector):
 
  guestfish --rw -a disk.img run : hexedit /dev/sda 0x200
 
