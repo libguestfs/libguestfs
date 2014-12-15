@@ -211,6 +211,8 @@ And hence L<virsh(1)>, L<virt-manager(1)>, and similar tools.
 
 =item Scientific Linux 3, 4, 5, 6, 7
 
+=item Oracle Linux
+
 =item Fedora
 
 =item SLES 10 and up
