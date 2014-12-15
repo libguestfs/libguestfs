@@ -120,7 +120,8 @@ main (int argc, char *argv[])
   }
 
   /* Create the libvirt connection. */
-  snprintf (libvirt_uri, sizeof libvirt_uri, "test://%s/test-add-libvirt-dom.xml", cwd);
+  snprintf (libvirt_uri, sizeof libvirt_uri,
+            "test://%s/test-add-libvirt-dom.xml", cwd);
   conn = virConnectOpenReadOnly (libvirt_uri);
   if (!conn) {
     err = virGetLastError ();
@@ -144,6 +145,10 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   guestfs_close (g);
+
+  virDomainFree (dom);
+  virConnectClose (conn);
+  free (cwd);
 
   unlink ("test-add-libvirt-dom.xml");
   unlink ("test-add-libvirt-dom-1.img");
