@@ -229,7 +229,7 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
     | Some { s_keymap = Some km } -> append_attr ("keymap", km) graphics
     | _ -> ());
     (match source.s_display with
-    | Some { s_password = Some pw } -> append_attr ("password", pw) graphics
+    | Some { s_password = Some pw } -> append_attr ("passwd", pw) graphics
     | _ -> ());
 
     video, graphics in
