@@ -213,6 +213,14 @@ test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
 AM_PROG_CC_C_O
 
+# Provide a global place to set CFLAGS.  (Note that setting AM_CFLAGS
+# is no use because it doesn't override target_CFLAGS).
+#---
+# Kill -fstrict-overflow which is a license for the C compiler to make
+# dubious and often unsafe optimizations, in a time-wasting attempt to
+# deal with CPU architectures that do not exist.
+CFLAGS="$CFLAGS -fno-strict-overflow -Wno-strict-overflow"
+
 dnl Work out how to specify the linker script to the linker.
 VERSION_SCRIPT_FLAGS=-Wl,--version-script=
 `/usr/bin/ld --help 2>&1 | grep -- --version-script >/dev/null` || \
