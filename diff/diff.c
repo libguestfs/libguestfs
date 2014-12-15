@@ -605,7 +605,7 @@ static void
 deleted (guestfs_h *g, struct file *file)
 {
   output_start_line ();
-  output_string ("+");
+  output_string ("-");
   output_file (g, file);
   output_end_line ();
 }
@@ -666,7 +666,7 @@ changed (guestfs_h *g1, struct file *file1,
     output_end_line ();
     output_start_line ();
     output_string ("+");
-    output_file (g1, file1);
+    output_file (g2, file2);
     output_end_line ();
 
     /* Display stats fields that changed. */
