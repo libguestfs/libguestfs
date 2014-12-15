@@ -398,7 +398,8 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
 {
   int sockfd;
   int result = -1;
-  struct sockaddr_in addr;
+  int reuseaddr = 1;
+  struct sockaddr_in src_addr, dst_addr;
   time_t start_t, now_t;
   struct timeval timeout = { .tv_usec = 0 };
   char magic[8]; /* NBDMAGIC */
@@ -413,10 +414,40 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
     return -1;
   }
 
-  memset (&addr, 0, sizeof addr);
-  addr.sin_family = AF_INET;
-  addr.sin_port = htons (nbd_local_port);
-  inet_pton (AF_INET, "localhost", &addr.sin_addr);
+  memset (&src_addr, 0, sizeof src_addr);
+  src_addr.sin_family = AF_INET;
+  /* Source port for probing qemu-nbd should be one greater than
+   * nbd_local_port.  It's not guaranteed to always bind to this port,
+   * but it will hint the kernel to start there and try incrementally
+   * higher ports if needed.  This avoids the case where the kernel
+   * selects nbd_local_port as our source port, and we immediately
+   * connect to ourself.  See:
+   * https://bugzilla.redhat.com/show_bug.cgi?id=1167774#c9
+   */
+  src_addr.sin_port = htons (nbd_local_port+1);
+  inet_pton (AF_INET, "localhost", &src_addr.sin_addr);
+
+  memset (&dst_addr, 0, sizeof dst_addr);
+  dst_addr.sin_family = AF_INET;
+  dst_addr.sin_port = htons (nbd_local_port);
+  inet_pton (AF_INET, "localhost", &dst_addr.sin_addr);
+
+  /* If we run p2v repeatedly (say, running the tests in a loop),
+   * there's a decent chance we'll end up trying to bind() to a port
+   * that is in TIME_WAIT from a prior run.  Handle that gracefully
+   * with SO_REUSEADDR.
+   */
+  if (setsockopt (sockfd, SOL_SOCKET, SO_REUSEADDR,
+                  &reuseaddr, sizeof reuseaddr) == -1) {
+    set_conversion_error ("waiting for qemu-nbd to start: setsockopt: %m");
+    goto cleanup;
+  }
+
+  if (bind (sockfd, (struct sockaddr *) &src_addr, sizeof src_addr) == -1) {
+    set_conversion_error ("waiting for qemu-nbd to start: bind(%d): %m",
+                          ntohs (src_addr.sin_port));
+    goto cleanup;
+  }
 
   for (;;) {
     time (&now_t);
@@ -426,7 +457,7 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
       goto cleanup;
     }
 
-    if (connect (sockfd, (struct sockaddr *) &addr, sizeof addr) == 0)
+    if (connect (sockfd, (struct sockaddr *) &dst_addr, sizeof dst_addr) == 0)
       break;
   }
 
