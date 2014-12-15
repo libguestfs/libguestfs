@@ -230,7 +230,8 @@ v2v_pool_dumpxml (value connv, value poolnamev)
    * since it handles all the PolicyKit crap.  However it also makes
    * coding this simpler.
    */
-  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault, VIR_CONNECT_RO);
+  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault,
+                             VIR_CONNECT_RO);
   if (conn == NULL) {
     if (conn_uri)
       snprintf (errmsg, sizeof errmsg,
