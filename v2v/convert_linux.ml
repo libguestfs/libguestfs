@@ -74,7 +74,8 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   let family =
     match inspect.i_distro with
     | "fedora"
-    | "rhel" | "centos" | "scientificlinux" | "redhat-based" -> `RHEL_family
+    | "rhel" | "centos" | "scientificlinux" | "redhat-based"
+    | "oraclelinux" -> `RHEL_family
     | "sles" | "suse-based" | "opensuse" -> `SUSE_family
     | _ -> assert false in
 
@@ -1461,6 +1462,7 @@ let () =
     | { i_type = "linux";
         i_distro = ("fedora"
                        | "rhel" | "centos" | "scientificlinux" | "redhat-based"
+                       | "oraclelinux"
                        | "sles" | "suse-based" | "opensuse") } -> true
     | _ -> false
   in
