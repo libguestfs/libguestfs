@@ -493,9 +493,18 @@ void
 guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
 {
   switch (fs->distro) {
-  case OS_DISTRO_FEDORA:
   case OS_DISTRO_MEEGO:
     fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
+    break;
+
+  case OS_DISTRO_FEDORA:
+    /* If Fedora >= 22 and dnf is installed, say "dnf". */
+    if (fs->major_version >= 22 &&
+        guestfs_is_file_opts (g, "/usr/bin/dnf",
+                              GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0)
+      fs->package_management = OS_PACKAGE_MANAGEMENT_DNF;
+    else
+      fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
     break;
 
   case OS_DISTRO_REDHAT_BASED:

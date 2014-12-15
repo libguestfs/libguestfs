@@ -567,6 +567,7 @@ enum inspect_os_package_management {
   OS_PACKAGE_MANAGEMENT_PISI,
   OS_PACKAGE_MANAGEMENT_URPMI,
   OS_PACKAGE_MANAGEMENT_ZYPPER,
+  OS_PACKAGE_MANAGEMENT_DNF,
 };
 
 struct inspect_fs {
