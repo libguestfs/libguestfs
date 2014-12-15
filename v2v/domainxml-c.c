@@ -138,7 +138,10 @@ v2v_dumpxml (value passwordv, value connv, value domnamev)
   authdata.cb = libvirt_auth_default_wrapper;
   authdata.cbdata = (void *) password;
 
-  conn = virConnectOpenAuth (conn_uri, &authdata, VIR_CONNECT_RO);
+  /* Note this cannot be a read-only connection since we need to use
+   * the VIR_DOMAIN_XML_SECURE flag below.
+   */
+  conn = virConnectOpenAuth (conn_uri, &authdata, 0);
   if (conn == NULL) {
     if (conn_uri)
       snprintf (errmsg, sizeof errmsg,
@@ -188,7 +191,8 @@ v2v_dumpxml (value passwordv, value connv, value domnamev)
     }
   }
 
-  xml = virDomainGetXMLDesc (dom, 0);
+  /* Use VIR_DOMAIN_XML_SECURE to get passwords (RHBZ#1174123). */
+  xml = virDomainGetXMLDesc (dom, VIR_DOMAIN_XML_SECURE);
   if (xml == NULL) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
