@@ -442,13 +442,14 @@ guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
     return NULL;
 
   switch (fs->package_management) {
-  case OS_PACKAGE_MANAGEMENT_YUM: ret = safe_strdup (g, "yum"); break;
-  case OS_PACKAGE_MANAGEMENT_UP2DATE: ret = safe_strdup (g, "up2date"); break;
   case OS_PACKAGE_MANAGEMENT_APT: ret = safe_strdup (g, "apt"); break;
+  case OS_PACKAGE_MANAGEMENT_DNF: ret = safe_strdup (g, "dnf"); break;
   case OS_PACKAGE_MANAGEMENT_PACMAN: ret = safe_strdup (g, "pacman"); break;
-  case OS_PACKAGE_MANAGEMENT_PORTAGE: ret = safe_strdup (g, "portage"); break;
   case OS_PACKAGE_MANAGEMENT_PISI: ret = safe_strdup (g, "pisi"); break;
+  case OS_PACKAGE_MANAGEMENT_PORTAGE: ret = safe_strdup (g, "portage"); break;
+  case OS_PACKAGE_MANAGEMENT_UP2DATE: ret = safe_strdup (g, "up2date"); break;
   case OS_PACKAGE_MANAGEMENT_URPMI: ret = safe_strdup (g, "urpmi"); break;
+  case OS_PACKAGE_MANAGEMENT_YUM: ret = safe_strdup (g, "yum"); break;
   case OS_PACKAGE_MANAGEMENT_ZYPPER: ret = safe_strdup (g, "zypper"); break;
   case OS_PACKAGE_MANAGEMENT_UNKNOWN:
     ret = safe_strdup (g, "unknown");

@@ -93,6 +93,8 @@ exec >>%s 2>&1
         apt-get $apt_opts update
         apt-get $apt_opts install %s
       " quoted_args
+    | "dnf" ->
+      sprintf "dnf -y install %s" quoted_args
     | "pisi" ->
       sprintf "pisi it %s" quoted_args
     | "pacman" ->
@@ -119,6 +121,8 @@ exec >>%s 2>&1
         apt-get $apt_opts update
         apt-get $apt_opts upgrade
       "
+    | "dnf" ->
+      sprintf "dnf -y update"
     | "pisi" ->
       sprintf "pisi upgrade"
     | "pacman" ->

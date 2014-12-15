@@ -26,12 +26,14 @@ let package_manager_cache_perform ~verbose ~quiet g root side_effects =
   let packager = g#inspect_get_package_management root in
   let cache_dirs =
     match packager with
-    | "zypper" ->
-      Some (Array.to_list (g#glob_expand "/var/cache/zypp*"))
-    | "yum" ->
-      Some [ "/var/cache/yum/" ]
     | "apt" ->
       Some [ "/var/cache/apt/archives/" ]
+    | "dnf" ->
+      Some [ "/var/cache/dnf/" ]
+    | "yum" ->
+      Some [ "/var/cache/yum/" ]
+    | "zypper" ->
+      Some (Array.to_list (g#glob_expand "/var/cache/zypp*"))
     | _ -> None in
   match cache_dirs with
   | Some dirs -> List.iter (rm_rf_only_files g) dirs
