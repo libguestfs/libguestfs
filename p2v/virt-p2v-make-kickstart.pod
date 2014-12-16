@@ -95,7 +95,7 @@ Instead of C<rawhide> you can use any Koji target.
 
 =back
 
-=head1 BUILDING BOOTABLE USB KEY
+=head1 BUILDING A BOOTABLE USB KEY
 
 Use the L<livecd-iso-to-disk(8)> program to convert the ISO created
 above to a USB key:
@@ -171,7 +171,7 @@ Display version number and exit.
 
 =item C<$datadir/p2v.service>
 
-Various data files that used to make the kickstart.
+Various data files that are used to make the kickstart.
 
 =back
 
