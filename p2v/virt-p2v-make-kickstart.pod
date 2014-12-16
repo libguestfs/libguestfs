@@ -163,6 +163,10 @@ Display version number and exit.
 
 =over 4
 
+=item C<$libexecdir/virt-p2v>
+
+The L<virt-p2v(1)> binary which is copied into the kickstart file.
+
 =item C<$datadir/issue>
 
 =item C<$datadir/launch-virt-p2v.in>
@@ -181,8 +185,9 @@ Various data files that are used to make the kickstart.
 
 =item C<VIRT_P2V_DATA_DIR>
 
-The directory where virt-p2v-make-kickstart looks for data files (see
-L</FILES> above).  If not set, a compiled-in location is used.
+The directory where virt-p2v-make-kickstart looks for data files and
+the virt-p2v binary (see L</FILES> above).  If not set, a compiled-in
+location is used.
 
 =back
 
