@@ -466,6 +466,11 @@ I<--selinux-relabel> option.
 You can disable relabelling entirely by supplying the
 I<--no-selinux-relabel> option.
 
+Please note that if your guest uses SELinux, and you are doing operations
+on it which might create new files or change existing ones, you are
+recommended to use I<--selinux-relabel>.  This will help in making sure
+that files have the right SELinux labels.
+
 =head1 WINDOWS 8
 
 Windows 8 "fast startup" can prevent virt-sysprep from working.
