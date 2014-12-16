@@ -1603,6 +1603,11 @@ which is normal and harmless.
 
 =back
 
+Please note that if your guest uses SELinux, and you are doing operations
+on it which might create new files or change existing ones, you are
+recommended to use I<--selinux-relabel>.  This will help in making sure
+that files have the right SELinux labels.
+
 =head1 MACHINE READABLE OUTPUT
 
 The I<--machine-readable> option can be used to make the output more
