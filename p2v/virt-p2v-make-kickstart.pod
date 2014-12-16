@@ -34,7 +34,9 @@ called C<p2v.ks> and located in the current directory.
 
 The parameters are a list of one or more repositories.  Some built-in
 repositories are available: C<fedora>, C<rawhide> or C<koji>.  You can
-also use a URL as a parameter to point to a repository.
+also use a URL as a parameter to point to a repository, for example:
+
+ virt-p2v-make-kickstart https://dl.fedoraproject.org/pub/fedora/linux/releases/21/Everything/x86_64/os/
 
 To control the name of the output file, use the I<-o> parameter.  To
 tell kickstart to use a proxy server or web cache to download files,
