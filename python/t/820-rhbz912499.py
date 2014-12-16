@@ -56,7 +56,7 @@ domname = ''.join (random.choice (string.ascii_uppercase) for _ in range (8))
 domname = "tmp-" + domname
 
 xml = """
-<domain type='kvm'>
+<domain type='qemu'>
   <name>%s</name>
   <memory>1048576</memory>
   <vcpu>1</vcpu>
