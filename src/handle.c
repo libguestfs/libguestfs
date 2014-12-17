@@ -176,7 +176,7 @@ parse_environment (guestfs_h *g,
                    char *(*do_getenv) (const void *data, const char *),
                    const void *data)
 {
-  int memsize;
+  int memsize, b;
   char *str;
 
   /* Don't bother checking the return values of functions
@@ -184,12 +184,24 @@ parse_environment (guestfs_h *g,
    */
 
   str = do_getenv (data, "LIBGUESTFS_TRACE");
-  if (str != NULL && STREQ (str, "1"))
-    guestfs_set_trace (g, 1);
+  if (str) {
+    b = guestfs___is_true (str);
+    if (b == -1) {
+      error (g, _("%s=%s: non-boolean value"), "LIBGUESTFS_TRACE", str);
+      return -1;
+    }
+    guestfs_set_trace (g, b);
+  }
 
   str = do_getenv (data, "LIBGUESTFS_DEBUG");
-  if (str != NULL && STREQ (str, "1"))
-    guestfs_set_verbose (g, 1);
+  if (str) {
+    b = guestfs___is_true (str);
+    if (b == -1) {
+      error (g, _("%s=%s: non-boolean value"), "LIBGUESTFS_TRACE", str);
+      return -1;
+    }
+    guestfs_set_verbose (g, b);
+  }
 
   str = do_getenv (data, "LIBGUESTFS_TMPDIR");
   if (str && STRNEQ (str, "")) {
@@ -816,6 +828,7 @@ int
 guestfs___get_backend_setting_bool (guestfs_h *g, const char *name)
 {
   CLEANUP_FREE char *value = NULL;
+  int b;
 
   guestfs_push_error_handler (g, NULL, NULL);
   value = guestfs_get_backend_setting (g, name);
@@ -827,10 +840,11 @@ guestfs___get_backend_setting_bool (guestfs_h *g, const char *name)
   if (value == NULL)
     return -1;
 
-  if (STREQ (value, "1"))
-    return 1;
+  b = guestfs___is_true (value);
+  if (b == -1)
+    return -1;
 
-  return 0;
+  return b;
 }
 
 int

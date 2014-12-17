@@ -94,7 +94,7 @@ main (int argc, char *argv[])
 
   /* Allow the test to be skipped by setting an environment variable. */
   skip = getenv ("SKIP_TEST_PARALLEL_MOUNT_LOCAL");
-  if (skip && STREQ (skip, "1")) {
+  if (skip && guestfs___is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
              program_name);
     exit (77);

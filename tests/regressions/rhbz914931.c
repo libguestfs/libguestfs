@@ -41,7 +41,7 @@ main (int argc, char *argv[])
 
   /* Allow this test to be skipped. */
   str = getenv ("SKIP_TEST_RHBZ914931");
-  if (str && STREQ (str, "1")) {
+  if (str && guestfs___is_true (str) > 0) {
     printf ("%s: test skipped because environment variable is set.\n",
             program_name);
     exit (77);

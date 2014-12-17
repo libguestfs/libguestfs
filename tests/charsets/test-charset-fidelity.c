@@ -81,7 +81,7 @@ main (int argc, char *argv[])
 
   /* Allow this test to be skipped. */
   str = getenv (ourenvvar);
-  if (str && STREQ (str, "1")) {
+  if (str && guestfs___is_true (str) > 0) {
     printf ("%s: test skipped because environment variable is set.\n",
             program_name);
     exit (77);
@@ -126,7 +126,7 @@ test_filesystem (guestfs_h *g, const struct filesystem *fs)
 
   snprintf (envvar, sizeof envvar, "%s_%s", ourenvvar, fs->fs_name);
   str = getenv (envvar);
-  if (str && STREQ (str, "1")) {
+  if (str && guestfs___is_true (str) > 0) {
     printf ("skipped test of %s because environment variable is set\n",
             fs->fs_name);
     return;
