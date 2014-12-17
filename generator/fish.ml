@@ -84,12 +84,15 @@ let generate_fish_cmds () =
   pr "#include <string.h>\n";
   pr "#include <inttypes.h>\n";
   pr "#include <libintl.h>\n";
+  pr "#include <errno.h>\n";
   pr "\n";
   pr "#include \"c-ctype.h\"\n";
   pr "#include \"full-write.h\"\n";
   pr "#include \"xstrtol.h\"\n";
   pr "\n";
-  pr "#include <guestfs.h>\n";
+  pr "#include \"guestfs.h\"\n";
+  pr "#include \"guestfs-internal-frontend.h\"\n";
+  pr "\n";
   pr "#include \"fish.h\"\n";
   pr "#include \"fish-cmds.h\"\n";
   pr "#include \"options.h\"\n";
@@ -479,8 +482,12 @@ Guestfish will prompt for these separately."
             pr "    input_lineno++;\n";
             pr "  if (%s == NULL) goto out_%s;\n" name name
         | Bool name ->
-            pr "  switch (is_true (argv[i++])) {\n";
-            pr "    case -1: goto out_%s;\n" name;
+            pr "  switch (guestfs___is_true (argv[i++])) {\n";
+            pr "    case -1:\n";
+            pr "      fprintf (stderr,\n";
+            pr "               _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
+            pr "               program_name, argv[i-1]);\n";
+            pr "      goto out_%s;\n" name;
             pr "    case 0:  %s = 0; break;\n" name;
             pr "    default: %s = 1;\n" name;
             pr "  }\n"
@@ -518,8 +525,12 @@ Guestfish will prompt for these separately."
             pr "if (STRPREFIX (argv[i], \"%s:\")) {\n" n;
             (match argt with
              | OBool n ->
-                 pr "      switch (is_true (&argv[i][%d])) {\n" (len+1);
-                 pr "        case -1: goto out;\n";
+                 pr "      switch (guestfs___is_true (&argv[i][%d])) {\n" (len+1);
+                 pr "        case -1:\n";
+                 pr "          fprintf (stderr,\n";
+                 pr "                   _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
+                 pr "                   program_name, &argv[i][%d]);\n" (len+1);
+                 pr "          goto out;\n";
                  pr "        case 0:  optargs_s.%s = 0; break;\n" n;
                  pr "        default: optargs_s.%s = 1;\n" n;
                  pr "      }\n"
