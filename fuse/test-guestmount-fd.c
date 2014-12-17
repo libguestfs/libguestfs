@@ -50,7 +50,7 @@ main (int argc, char *argv[])
 
   /* Allow the test to be skipped. */
   skip = getenv ("SKIP_TEST_GUESTMOUNT_FD");
-  if (skip && STREQ (skip, "1")) {
+  if (skip && guestfs___is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
              program_name);
     exit (77);

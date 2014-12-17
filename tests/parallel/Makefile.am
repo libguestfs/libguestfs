@@ -34,6 +34,7 @@ test_parallel_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_parallel_LDADD = \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 

@@ -111,6 +111,7 @@ rhbz914931_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz914931_LDADD = \
+	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la
 
 rhbz1055452_SOURCES = rhbz1055452.c
