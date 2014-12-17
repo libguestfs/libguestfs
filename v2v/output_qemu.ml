@@ -78,7 +78,7 @@ object
       | Virtio_net -> "virtio-net-pci"
       | E1000 -> "e1000"
       | RTL8139 -> "rtl8139" in
-    List.iteri (
+    iteri (
       fun i nic ->
         fpf "%s-netdev user,id=net%d" nl i;
         fpf "%s-device %s,netdev=net%d%s" nl
