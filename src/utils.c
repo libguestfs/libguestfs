@@ -270,3 +270,26 @@ guestfs___drive_name (size_t index, char *ret)
   *ret = '\0';
   return ret;
 }
+
+/* Similar to Tcl_GetBoolean. */
+int
+guestfs___is_true (const char *str)
+{
+  if (STREQ (str, "1") ||
+      STRCASEEQ (str, "true") ||
+      STRCASEEQ (str, "t") ||
+      STRCASEEQ (str, "yes") ||
+      STRCASEEQ (str, "y") ||
+      STRCASEEQ (str, "on"))
+    return 1;
+
+  if (STREQ (str, "0") ||
+      STRCASEEQ (str, "false") ||
+      STRCASEEQ (str, "f") ||
+      STRCASEEQ (str, "no") ||
+      STRCASEEQ (str, "n") ||
+      STRCASEEQ (str, "off"))
+    return 0;
+
+  return -1;
+}
