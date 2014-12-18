@@ -114,7 +114,7 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
     let block_bus =
       match guestcaps.gcaps_block_bus with
       | Virtio_blk -> "virtio" | IDE -> "ide" in
-    List.mapi (
+    mapi (
       fun i t ->
         e "disk" [
           "type", if pool = None then "file" else "volume";
