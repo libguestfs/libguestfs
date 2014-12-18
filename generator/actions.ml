@@ -5273,7 +5273,7 @@ running the program." };
     shortdesc = "ping the guest daemon";
     longdesc = "\
 This is a test probe into the guestfs daemon running inside
-the hypervisor.  Calling this function checks that the
+the libguestfs appliance.  Calling this function checks that the
 daemon responds to the ping message, without affecting the daemon
 or attached block device(s) in any other way." };
 
