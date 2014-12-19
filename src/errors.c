@@ -270,6 +270,14 @@ guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size)
 
 /* Some standard error messages for common failures. */
 
+#define DEBUG_ADVICE                                                    \
+  "Do:\n"                                                               \
+  "  export LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1\n"                    \
+  "and run the command again.  For further information, read:\n"        \
+  "  http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"   \
+  "You can also run 'libguestfs-test-tool' and post the *complete* output\n" \
+  "into a bug report or message to the libguestfs mailing list."
+
 /* Launch failed.  Since this is the most common error seen by people
  * who have installation problems, buggy qemu, etc, and since no one
  * reads the FAQ, describe in this error message what resources are
@@ -284,9 +292,7 @@ guestfs___launch_failed_error (guestfs_h *g)
     error (g, _(
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"or run 'libguestfs-test-tool' and post the *complete* output into a\n"
-"bug report or message to the libguestfs mailing list."));
+DEBUG_ADVICE));
 }
 
 /* As above, but for crashes that occur after launch. */
@@ -299,8 +305,7 @@ guestfs___unexpected_close_error (guestfs_h *g)
     error (g, _(
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"for information about how to debug libguestfs and report bugs."));
+DEBUG_ADVICE));
 }
 
 /* As above, but for appliance kernel hanging. */
@@ -313,8 +318,7 @@ guestfs___launch_timeout (guestfs_h *g)
     error (g, _(
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs\n"
-"for information about how to debug libguestfs and report bugs."));
+DEBUG_ADVICE));
 }
 
 /* External command failed. */
@@ -339,13 +343,13 @@ guestfs___external_command_failed (guestfs_h *g, int status,
       error (g, _(
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"),
+DEBUG_ADVICE),
              status_string);
     else
       error (g, _(
 "%s: %s: %s.\n"
 "To see full error messages you may need to enable debugging.\n"
-"See http://libguestfs.org/guestfs-faq.1.html#debugging-libguestfs"),
+DEBUG_ADVICE),
              cmd_name, extra, status_string);
   }
 }
