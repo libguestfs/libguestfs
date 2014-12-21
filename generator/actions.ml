@@ -3294,6 +3294,7 @@ This is the same as the C<lstat(2)> system call." };
   { defaults with
     name = "c_pointer";
     style = RInt64 "ptr", [], [];
+    fish_output = Some FishOutputHexadecimal;
     tests = [
       InitNone, Always, TestRun (
         [["c_pointer"]]), []
