@@ -744,7 +744,12 @@ where:
 
 =item C<user@>
 
-is the (optional, but recommended) user to connect as
+is the (optional, but recommended) user to connect as.
+
+If the username contains a backslash (eg. C<DOMAIN\USER>) then you
+will need to URI-escape that character using C<%5c>: C<DOMAIN%5cUSER>
+(5c is the hexadecimal ASCII code for backslash.)  Other punctuation
+may also have to be escaped.
 
 =item C<server>
 
