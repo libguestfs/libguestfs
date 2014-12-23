@@ -25,10 +25,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Silence gcc moans about unused macros. */
+/* Silence gcc warnings from the generated code. */
 #if defined(__GNUC__)
 #pragma GCC diagnostic push
+/* flex creates macros that it doesn't use */
 #pragma GCC diagnostic ignored "-Wunused-macros"
+/* on aarch64, flex doesn't know that char is unsigned */
+#pragma GCC diagnostic ignored "-Wsign-compare"
 #endif
 
 #include "index-struct.h"
