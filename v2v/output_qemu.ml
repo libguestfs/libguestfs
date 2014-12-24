@@ -90,11 +90,11 @@ object
     | None -> ()
     | Some display ->
       (match display.s_display_type with
-      | `Window ->
+      | Window ->
         fpf "%s-display gtk" nl
-      | `VNC ->
+      | VNC ->
         fpf "%s-display vnc=:0" nl
-      | `Spice ->
+      | Spice ->
         fpf "%s-spice port=5900,addr=127.0.0.1" nl
       );
       fpf "%s-vga %s" nl
