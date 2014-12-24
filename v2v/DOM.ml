@@ -48,7 +48,9 @@ let e name attrs children =
  *)
 let rec node_to_chan ?(indent = 0) chan = function
   | PCData str -> output_string chan (xml_quote_pcdata str)
-  | Comment str -> output_spaces chan indent; fprintf chan "<!-- %s -->" str
+  | Comment str ->
+    output_spaces chan indent;
+    fprintf chan "<!-- %s -->" (xml_quote_pcdata str)
   | Element e -> element_to_chan ~indent chan e
 and element_to_chan ?(indent = 0) chan
     { e_name = name; e_attrs = attrs; e_children = children } =
