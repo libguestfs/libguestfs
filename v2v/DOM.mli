@@ -51,3 +51,15 @@ val find_node_by_attr : node list -> attr -> node
 (** Find the first DOM element which has a particular attribute
     name=value (not recursively).  If not found, raises
     [Not_found]. *)
+
+val append_attr : attr -> node -> unit
+(** [element] must be an [Element _] node.  [append_attr attr element]
+    appends [attr] to the attributes of [element].
+
+    This mutates [element]. *)
+
+val append_child : node -> node -> unit
+(** [element] must be an [Element _] node.  [append_child child
+    element] appends [child] to the children of [element].
+
+    This mutates [element]. *)
