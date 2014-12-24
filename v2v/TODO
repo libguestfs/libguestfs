@@ -12,10 +12,23 @@ p2v:
 
  - network dialog and network configuration
 
+p2v/conversion.c:            /* XXX Need to set bus to "ide" or "scsi" here. */
+p2v/gui.c:  /* XXX It would be nice not to have to set this explicitly, but
 p2v/main.c:/* XXX Copied from fish/options.c. */
-v2v/convert_linux.ml:           (* Get/construct the version.  XXX Read this fro
+v2v/OVF.ml:  (* Old virt-v2v ignored removable media. XXX *)
+v2v/convert_linux.ml:             (* Get/construct the version.  XXX Read this from kernel file. *)
 v2v/convert_linux.ml:          [ "sym53c8xx" (* XXX why not "ide"? *) ] in
-v2v/convert_linux.ml:         * XXX RHEL 3 unfortunately will give this error an
-v2v/convert_linux.ml:    XXX to do from original v2v:
 v2v/convert_windows.ml:      g#upload rhev_apt_exe "/rhev-apt.exe"; (* XXX *)
-v2v/input_libvirtxml.ml:             * XXX Quoting, although it's not needed for
+v2v/convert_windows.ml:     * guests.  Unclear if this is correct.  XXX
+v2v/input_libvirt_vcenter_https.ml: * XXX Old virt-v2v could also handle snapshots, ie:
+v2v/input_libvirt_vcenter_https.ml: * XXX Need to handle templates.  The file is called "-delta.vmdk" in
+v2v/input_libvirt_vcenter_https.ml:        (* XXX only works if the query string is not URI-quoted *)
+v2v/input_libvirtxml.ml:             * XXX Quoting, although it's not needed for virt-p2v.
+v2v/input_ova.ml:        (* XXX We assume the OVF lists these in order.
+v2v/input_ova.ml:        (* XXX We assume the OVF lists these in order.
+v2v/input_ova.ml:      s_features = []; (* XXX *)
+v2v/input_ova.ml:      s_display = None; (* XXX *)
+v2v/output_glance.ml:   * to write to a temporary file.  XXX
+v2v/output_qemu.ml:    (* XXX Missing:
+v2v/test-v2v-no-copy.sh:# $VG - XXX Disabled because the forking used to write files in -o rhev
+v2v/test-v2v-o-rhev.sh:# $VG - XXX Disabled because the forking used to write files in -o rhev
