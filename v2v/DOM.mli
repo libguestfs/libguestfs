@@ -18,17 +18,14 @@
 
 (** Poor man's XML DOM, mutable for ease of modification. *)
 
+type element
+type doc = element
+type attr = string * string
+
 type node =
   | PCData of string                    (** Text. *)
   | Comment of string                   (** <!-- comment --> *)
   | Element of element                  (** <element/> with attrs and children *)
-and element = {
-  e_name : string;                      (** Name of element. *)
-  mutable e_attrs : attr list;          (** Attributes. *)
-  mutable e_children : node list;       (** Child elements. *)
-}
-and attr = string * string
-and doc = element
 
 val doc : string -> attr list -> node list -> doc
 (** A quick way to create a document. *)
