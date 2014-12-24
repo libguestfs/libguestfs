@@ -298,10 +298,6 @@ let rec create_ovf verbose source targets guestcaps inspect
   (* Return the OVF document. *)
   ovf
 
-and append_child child = function
-  | PCData _ | Comment _ -> assert false
-  | Element e -> e.e_children <- e.e_children @ [child]
-
 (* This modifies the OVF DOM, adding a section for each disk. *)
 and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
   let references =

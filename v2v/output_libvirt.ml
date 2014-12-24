@@ -61,14 +61,6 @@ let target_features_of_capabilities_doc doc arch =
     !features
   )
 
-let append_child child = function
-  | PCData _ | Comment _  -> assert false
-  | Element e -> e.e_children <- e.e_children @ [child]
-
-let append_attr attr = function
-  | PCData _ | Comment _ -> assert false
-  | Element e -> e.e_attrs <- e.e_attrs @ [attr]
-
 let create_libvirt_xml ?pool source targets guestcaps target_features =
   let memory_k = source.s_memory /^ 1024L in
 

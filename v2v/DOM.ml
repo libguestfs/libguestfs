@@ -128,3 +128,11 @@ let find_node_by_attr nodes attr =
   match filter_node_list_by_attr nodes attr with
   | [] -> raise Not_found
   | x::_ -> x
+
+let append_attr attr = function
+  | PCData _ | Comment _ -> invalid_arg "append_attr"
+  | Element e -> e.e_attrs <- e.e_attrs @ [attr]
+
+let append_child child = function
+  | PCData _ | Comment _ -> invalid_arg "append_child"
+  | Element e -> e.e_children <- e.e_children @ [child]
