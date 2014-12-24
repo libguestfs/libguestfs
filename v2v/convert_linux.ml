@@ -1269,9 +1269,9 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         fun i disk ->
           let block_prefix_before_conversion =
             match disk.s_controller with
-            | Some `IDE -> ide_block_prefix
-            | Some `SCSI -> "sd"
-            | Some `Virtio_blk -> "vd"
+            | Some Source_IDE -> ide_block_prefix
+            | Some Source_SCSI -> "sd"
+            | Some Source_virtio_blk -> "vd"
             | None ->
               (* This is basically a guess.  It assumes the source used IDE. *)
               ide_block_prefix in

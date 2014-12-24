@@ -42,18 +42,20 @@ and source_disk = {
 }
 (** A source disk. *)
 
-and s_controller = [`IDE | `SCSI | `Virtio_blk]
+and s_controller = Source_IDE | Source_SCSI | Source_virtio_blk
 (** Source disk controller.
 
     For the purposes of this field, we can treat virtio-scsi as
-    [`SCSI].  However we don't support conversions from virtio in any
+    [SCSI].  However we don't support conversions from virtio in any
     case so virtio is here only to make it work for testing. *)
 
 and source_removable = {
-  s_removable_type : [`CDROM|`Floppy];  (** Type.  *)
+  s_removable_type : s_removable_type;  (** Type.  *)
   s_removable_controller : s_controller option; (** Controller, eg. IDE, SCSI.*)
 }
 (** Removable media. *)
+
+and s_removable_type = CDROM | Floppy
 
 and source_nic = {
   s_mac : string option;                (** MAC address. *)
@@ -65,11 +67,12 @@ and source_nic = {
 and vnet_type = Bridge | Network
 
 and source_display = {
-  s_display_type : [`Window|`VNC|`Spice]; (** Display type. *)
-  s_keymap : string option;               (** Guest keymap. *)
+  s_display_type : s_display_type; (** Display type. *)
+  s_keymap : string option;        (** Guest keymap. *)
   s_password : string option;      (** If required, password to access
                                        the display. *)
 }
+and s_display_type = Window | VNC | Spice
 
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string

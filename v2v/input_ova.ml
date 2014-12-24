@@ -167,8 +167,8 @@ object
 
       (* 6: iscsi controller, 5: ide *)
       match controller with
-      | 6 -> Some `SCSI
-      | 5 -> Some `IDE
+      | 6 -> Some Source_SCSI
+      | 5 -> Some Source_IDE
       | 0 ->
         warning ~prog (f_"ova disk has no parent controller, please report this as a bug supplying the *.ovf file extracted from the ova");
         None
@@ -272,8 +272,8 @@ object
 
         let typ =
           match id with
-            | 14 -> `Floppy
-            | 15 | 16 -> `CDROM
+            | 14 -> Floppy
+            | 15 | 16 -> CDROM
             | _ -> assert false in
         let disk = {
           s_removable_type = typ;

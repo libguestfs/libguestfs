@@ -96,10 +96,10 @@ let parse_libvirt_xml ~verbose xml =
       match xpath_to_string "@type" "" with
       | "" -> None
       | "vnc" ->
-        Some { s_display_type = `VNC;
+        Some { s_display_type = VNC;
                s_keymap = keymap; s_password = password }
       | "spice" ->
-        Some { s_display_type = `Spice;
+        Some { s_display_type = Spice;
                s_keymap = keymap; s_password = password }
       | "sdl"|"desktop" as t ->
         warning ~prog (f_"virt-v2v does not support local displays, so <graphics type='%s'> in the input libvirt XML was ignored") t;
@@ -138,9 +138,9 @@ let parse_libvirt_xml ~verbose xml =
         let target_bus = xpath_to_string "target/@bus" "" in
         match target_bus with
         | "" -> None
-        | "ide" -> Some `IDE
-        | "scsi" -> Some `SCSI
-        | "virtio" -> Some `Virtio_blk
+        | "ide" -> Some Source_IDE
+        | "scsi" -> Some Source_SCSI
+        | "virtio" -> Some Source_virtio_blk
         | _ -> None in
 
       let format =
@@ -202,15 +202,15 @@ let parse_libvirt_xml ~verbose xml =
         let target_bus = xpath_to_string "target/@bus" "" in
         match target_bus with
         | "" -> None
-        | "ide" -> Some `IDE
-        | "scsi" -> Some `SCSI
-        | "virtio" -> Some `Virtio_blk
+        | "ide" -> Some Source_IDE
+        | "scsi" -> Some Source_SCSI
+        | "virtio" -> Some Source_virtio_blk
         | _ -> None in
 
       let typ =
         match xpath_to_string "@device" "" with
-        | "cdrom" -> `CDROM
-        | "floppy" -> `Floppy
+        | "cdrom" -> CDROM
+        | "floppy" -> Floppy
         | _ -> assert false (* libxml2 error? *) in
 
       let disk =

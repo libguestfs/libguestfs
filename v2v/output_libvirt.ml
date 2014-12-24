@@ -164,7 +164,7 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
 
     List.map (
       function
-      | { s_removable_type = `CDROM } ->
+      | { s_removable_type = CDROM } ->
         let i = !cdrom_index in
         incr cdrom_index;
         let name = cdrom_block_prefix ^ drive_name i in
@@ -173,7 +173,7 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
           e "target" [ "dev", name; "bus", cdrom_bus ] []
         ]
 
-      | { s_removable_type = `Floppy } ->
+      | { s_removable_type = Floppy } ->
         let i = !fd_index in
         incr fd_index;
         let name = "fd" ^ drive_name i in

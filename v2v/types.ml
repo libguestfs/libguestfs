@@ -38,11 +38,12 @@ and source_disk = {
   s_format : string option;
   s_controller : s_controller option;
 }
-and s_controller = [`IDE | `SCSI | `Virtio_blk]
+and s_controller = Source_IDE | Source_SCSI | Source_virtio_blk
 and source_removable = {
-  s_removable_type : [`CDROM|`Floppy];
+  s_removable_type : s_removable_type;
   s_removable_controller : s_controller option;
 }
+and s_removable_type = CDROM | Floppy
 and source_nic = {
   s_mac : string option;
   s_vnet : string;
@@ -51,10 +52,11 @@ and source_nic = {
 }
 and vnet_type = Bridge | Network
 and source_display = {
-  s_display_type : [`Window|`VNC|`Spice];
+  s_display_type : s_display_type;
   s_keymap : string option;
   s_password : string option;
 }
+and s_display_type = Window | VNC | Spice
 
 let rec string_of_source s =
   sprintf "    source name: %s
@@ -94,14 +96,14 @@ and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
     | Some controller -> " [" ^ string_of_controller controller ^ "]")
 
 and string_of_controller = function
-  | `IDE -> "ide"
-  | `SCSI -> "scsi"
-  | `Virtio_blk -> "virtio"
+  | Source_IDE -> "ide"
+  | Source_SCSI -> "scsi"
+  | Source_virtio_blk -> "virtio"
 
 and string_of_source_removable { s_removable_type = typ;
                                  s_removable_controller = controller } =
   sprintf "\t%s%s"
-    (match typ with `CDROM -> "CD-ROM" | `Floppy -> "Floppy")
+    (match typ with CDROM -> "CD-ROM" | Floppy -> "Floppy")
     (match controller with
     | None -> ""
     | Some controller -> " [" ^ string_of_controller controller ^ "]")
@@ -117,7 +119,7 @@ and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
 and string_of_source_display { s_display_type = typ;
                                s_keymap = keymap; s_password = password } =
   sprintf "%s%s%s"
-    (match typ with `Window -> "window" | `VNC -> "vnc" | `Spice -> "spice")
+    (match typ with Window -> "window" | VNC -> "vnc" | Spice -> "spice")
     (match keymap with None -> "" | Some km -> " " ^ km)
     (match password with None -> "" | Some _ -> " with password")
 
