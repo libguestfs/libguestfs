@@ -23,7 +23,6 @@ v2v/convert_windows.ml:     * guests.  Unclear if this is correct.  XXX
 v2v/input_libvirt_vcenter_https.ml: * XXX Old virt-v2v could also handle snapshots, ie:
 v2v/input_libvirt_vcenter_https.ml: * XXX Need to handle templates.  The file is called "-delta.vmdk" in
 v2v/input_libvirt_vcenter_https.ml:        (* XXX only works if the query string is not URI-quoted *)
-v2v/input_libvirtxml.ml:             * XXX Quoting, although it's not needed for virt-p2v.
 v2v/input_ova.ml:        (* XXX We assume the OVF lists these in order.
 v2v/input_ova.ml:        (* XXX We assume the OVF lists these in order.
 v2v/input_ova.ml:      s_features = []; (* XXX *)
