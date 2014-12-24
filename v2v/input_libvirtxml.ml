@@ -165,23 +165,19 @@ let parse_libvirt_xml ~verbose xml =
           add_disk path format controller (P_source_file path)
       | "network" ->
         (* We only handle <source protocol="nbd"> here, and that is
-         * intended only for virt-p2v.  Any other network disk is
-         * currently ignored.
+         * intended only for virt-p2v.
          *)
-        (match xpath_to_string "source/@protocol" "" with
-        | "nbd" ->
-          let host = xpath_to_string "source/host/@name" "" in
-          let port = xpath_to_int "source/host/@port" 0 in
-          if host <> "" && port > 0 then (
-            (* Generate a qemu nbd URL.
-             * XXX Quoting, although it's not needed for virt-p2v.
-             *)
-            let path = sprintf "nbd:%s:%d" host port in
-            add_disk path format controller P_dont_rewrite
-          )
-        | "" -> ()
-        | protocol ->
-          warning (f_"network <disk> with <source protocol='%s'> was ignored")
+        (match (xpath_to_string "source/@protocol" "",
+                xpath_to_string "source/host/@name" "",
+                xpath_to_int "source/host/@port" 0) with
+        | "", _, _ ->
+          warning (f_"<disk type=network> was ignored")
+        | "nbd", ("localhost" as host), port when port > 0 ->
+          (* virt-p2v: Generate a qemu nbd URL. *)
+          let path = sprintf "nbd:%s:%d" host port in
+          add_disk path format controller P_dont_rewrite
+        | protocol, _, _ ->
+          warning (f_"<disk type='network'> with <source protocol='%s'> was ignored")
             protocol
         )
       | disk_type ->
