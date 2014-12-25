@@ -69,6 +69,7 @@ $VG virt-v2v --debug-gc \
     --vdsm-image-uuid IMAGE \
     --vdsm-vol-uuid VOL \
     --vdsm-vm-uuid VM \
+    --vdsm-ovf-output $d/12345678-1234-1234-1234-123456789abc/master/vms/VM \
 
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf

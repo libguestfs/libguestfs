@@ -30,6 +30,7 @@ type vdsm_params = {
   image_uuids : string list;
   vol_uuids : string list;
   vm_uuid : string;
+  ovf_output : string;
 }
 
 class output_vdsm verbose os vdsm_params vmtype output_alloc =
@@ -37,12 +38,13 @@ object
   inherit output verbose
 
   method as_options =
-    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s%s" os
+    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s" os
       (String.concat ""
          (List.map (sprintf " --vdsm-image-uuid %s") vdsm_params.image_uuids))
       (String.concat ""
          (List.map (sprintf " --vdsm-vol-uuid %s") vdsm_params.vol_uuids))
       vdsm_params.vm_uuid
+      vdsm_params.ovf_output
       (match vmtype with
       | None -> ""
       | Some `Server -> " --vmtype server"
@@ -56,9 +58,6 @@ object
   (* Data Domain mountpoint. *)
   val mutable dd_mp = ""
   val mutable dd_uuid = ""
-
-  (* Target metadata directory. *)
-  val mutable ovf_dir = ""
 
   (* This is called early on in the conversion and lets us choose the
    * name of the target files that eventually get written by the main
@@ -98,13 +97,12 @@ object
     ) vdsm_params.image_uuids;
 
     (* Note that VDSM has to create this directory too. *)
-    ovf_dir <- dd_mp // dd_uuid // "master" // "vms" // vdsm_params.vm_uuid;
-    if not (is_directory ovf_dir) then
+    if not (is_directory vdsm_params.ovf_output) then
       error (f_"OVF (metadata) directory (%s) does not exist or is not a directory")
-        ovf_dir;
+        vdsm_params.ovf_output;
 
     if verbose then
-      eprintf "VDSM: OVF (metadata) directory: %s\n%!" ovf_dir;
+      eprintf "VDSM: OVF (metadata) directory: %s\n%!" vdsm_params.ovf_output;
 
     (* The final directory structure should look like this:
      *   /<MP>/<ESD_UUID>/images/
@@ -164,7 +162,7 @@ object
       vdsm_params.vm_uuid in
 
     (* Write it to the metadata file. *)
-    let file = ovf_dir // vdsm_params.vm_uuid ^ ".ovf" in
+    let file = vdsm_params.ovf_output // vdsm_params.vm_uuid ^ ".ovf" in
     let chan = open_out file in
     doc_to_chan chan ovf;
     close_out chan
