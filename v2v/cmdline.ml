@@ -47,6 +47,7 @@ let parse_cmdline () =
   let qemu_boot = ref false in
   let quiet = ref false in
   let vdsm_vm_uuid = ref "" in
+  let vdsm_ovf_output = ref "." in
   let verbose = ref false in
   let trace = ref false in
   let vmtype = ref "" in
@@ -178,6 +179,8 @@ let parse_cmdline () =
     Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
     "--vdsm-vm-uuid",
     Arg.Set_string vdsm_vm_uuid, "uuid " ^ s_"Output VM UUID";
+    "--vdsm-ovf-output",
+    Arg.Set_string vdsm_ovf_output, " " ^ s_"Output OVF file";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
@@ -237,6 +240,7 @@ read the man page virt-v2v(1).
   let vdsm_image_uuids = List.rev !vdsm_image_uuids in
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
   let vdsm_vm_uuid = !vdsm_vm_uuid in
+  let vdsm_ovf_output = !vdsm_ovf_output in
   let verbose = !verbose in
   let trace = !trace in
   let vmtype =
@@ -386,6 +390,7 @@ read the man page virt-v2v(1).
         Output_vdsm.image_uuids = vdsm_image_uuids;
         vol_uuids = vdsm_vol_uuids;
         vm_uuid = vdsm_vm_uuid;
+        ovf_output = vdsm_ovf_output;
       } in
       Output_vdsm.output_vdsm verbose output_storage vdsm_params
         vmtype output_alloc in

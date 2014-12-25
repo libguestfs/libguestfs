@@ -483,6 +483,8 @@ OS which is not in the first VirtIO disk.
 
 =item B<--vdsm-vm-uuid> UUID
 
+=item B<--vdsm-ovf-output>
+
 Normally the RHEV output mode chooses random UUIDs for the target
 guest.  However VDSM needs to control the UUIDs and passes these
 parameters when virt-v2v runs under VDSM control.  The parameters
@@ -502,7 +504,11 @@ is passed once for each guest disk)
 
 =item *
 
-the VM and OVF file (I<--vdsm-vm-uuid>).
+the OVF file name (I<--vdsm-vm-uuid>).
+
+=item *
+
+the OVF output directory (default current directory) (I<--vdsm-ovf-output>).
 
 =back
 
