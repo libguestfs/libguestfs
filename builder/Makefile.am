@@ -325,7 +325,7 @@ CLEANFILES += \
 if HAVE_OCAML
 # Automake-generated makefile has a rule ".y.c" but lacks a rule ".y.h".
 index-parse.h: index-parse.y
-	touch index-parse.y
+	touch $(srcdir)/index-parse.y
 	$(MAKE) index-parse.c
 # Also it doesn't generate dependencies for the C files that include
 # index-parse.h.
