@@ -1,5 +1,5 @@
 # libguestfs OCaml examples
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2014 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	LICENSE \
 	create_disk.ml \
+	debug_logging.ml \
 	inspect_vm.ml \
 	guestfs-ocaml.pod
 
@@ -37,15 +38,16 @@ stamp-guestfs-ocaml.pod: guestfs-ocaml.pod create_disk.ml inspect_vm.ml
 	  --section 3 \
 	  --man guestfs-ocaml.3 \
 	  --html $(top_builddir)/html/guestfs-ocaml.3.html \
-	  --verbatim $(srcdir)/create_disk.ml:@EXAMPLE1@ \
-	  --verbatim $(srcdir)/inspect_vm.ml:@EXAMPLE2@ \
+	  --verbatim $(srcdir)/create_disk.ml:@CREATE_DISK@ \
+	  --verbatim $(srcdir)/inspect_vm.ml:@INSPECT_VM@ \
+	  --verbatim $(srcdir)/debug_logging.ml:@DEBUG_LOGGING@ \
 	  --license examples \
 	  $<
 	touch $@
 
 if HAVE_OCAML
 
-noinst_SCRIPTS = create_disk inspect_vm
+noinst_SCRIPTS = create_disk debug_logging inspect_vm
 
 OCAMLFINDFLAGS = -cclib -L$(top_builddir)/src/.libs
 
@@ -54,11 +56,19 @@ create_disk: create_disk.ml
 	$(OCAMLFIND) ocamlopt $(OCAMLFINDFLAGS) -package unix -linkpkg \
           -warn-error A -I .. mlguestfs.cmxa $< -o $@
 
+debug_logging: debug_logging.ml
+	$(OCAMLFIND) ocamlopt $(OCAMLFINDFLAGS) -package unix -linkpkg \
+          -warn-error A -I .. mlguestfs.cmxa $< -o $@
+
 inspect_vm: inspect_vm.ml
 	$(OCAMLFIND) ocamlopt $(OCAMLFINDFLAGS) -package unix -linkpkg \
           -warn-error A -I .. mlguestfs.cmxa $< -o $@
 else
 create_disk: create_disk.ml
+	$(OCAMLFIND) ocamlc $(OCAMLFINDFLAGS) -package unix -linkpkg \
+          -warn-error A -I .. mlguestfs.cma -custom $< -o $@
+
+debug_logging: debug_logging.ml
 	$(OCAMLFIND) ocamlc $(OCAMLFINDFLAGS) -package unix -linkpkg \
           -warn-error A -I .. mlguestfs.cma -custom $< -o $@
 

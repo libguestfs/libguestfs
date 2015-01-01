@@ -316,6 +316,7 @@ Makefile.in
 /ocaml/.depend
 /ocaml/dllmlguestfs.so
 /ocaml/examples/create_disk
+/ocaml/examples/debug_logging
 /ocaml/examples/guestfs-ocaml.3
 /ocaml/examples/inspect_vm
 /ocaml/examples/stamp-guestfs-ocaml.pod

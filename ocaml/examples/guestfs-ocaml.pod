@@ -65,13 +65,17 @@ Calling any function/method on a closed handle raises
 C<Guestfs.Handle_closed>.  The single parameter is the name of the
 function that you called.
 
-=head1 EXAMPLE 1: CREATE A DISK IMAGE
+=head1 EXAMPLE: CREATE A DISK IMAGE
 
-@EXAMPLE1@
+@CREATE_DISK@
 
-=head1 EXAMPLE 2: INSPECT A VIRTUAL MACHINE DISK IMAGE
+=head1 EXAMPLE: INSPECT A VIRTUAL MACHINE DISK IMAGE
 
-@EXAMPLE2@
+@INSPECT_VM@
+
+=head1 EXAMPLE: ENABLE DEBUGGING AND LOGGING
+
+@DEBUG_LOGGING@
 
 =head1 SEE ALSO
 
