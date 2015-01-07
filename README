@@ -86,6 +86,10 @@ The full requirements are described below.
 |              |             |   | Optional if compiling from tarball.     |
 |              |             |   | To build generated files and OCaml bindings.
 +--------------+-------------+---+-----------------------------------------+
+| findlib      |             |R/O| Required if compiling from git.         |
+|              |             |   | Optional if compiling from tarball.     |
+|              |             |   | To build generated files and OCaml bindings.
++--------------+-------------+---+-----------------------------------------+
 | autotools    |             |R/O| Required if compiling from git.         |
 |              |             |   | Optional if compiling from tarball.     |
 |              |             |   | Autotools-based build system.           |
@@ -183,8 +187,6 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | python-evtx  |             | O | Used by virt-log to parse Windows       |
 |              |             |   | Event Log files.                        |
-+--------------+-------------+---+-----------------------------------------+
-| findlib      |             | O | For the OCaml bindings.                 |
 +--------------+-------------+---+-----------------------------------------+
 | ocaml-gettext|             | O | For localizing OCaml virt-* tools.      |
 +--------------+-------------+---+-----------------------------------------+
