@@ -3324,7 +3324,7 @@ let daemon_functions = [
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents"), []
@@ -4138,12 +4138,12 @@ characters does I<not> work, even if the length is specified." };
     tests = [
       InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["mounts"]], "is_device_list (ret, 1, \"/dev/sda1\")"), [];
       InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["umount"; "/"; "false"; "false"];
          ["mounts"]], "is_string_list (ret, 0)"), []
@@ -4186,9 +4186,9 @@ See also: C<guestfs_mountpoints>" };
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
          ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
-         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
-         ["mkfs"; "ext2"; "/dev/sda2"; ""; "NOARG"; ""; ""];
-         ["mkfs"; "ext2"; "/dev/sda3"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
+         ["mkfs"; "ext2"; "/dev/sda2"; ""; "NOARG"; ""; ""; "NOARG"];
+         ["mkfs"; "ext2"; "/dev/sda3"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["mkdir"; "/mp1"];
          ["mount"; "/dev/sda2"; "/mp1"];
@@ -5478,7 +5478,7 @@ the human-readable, canonical hex dump of the file." };
     tests = [
       InitNone, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext3"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext3"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["write"; "/new"; "test file"];
          ["umount"; "/dev/sda1"; "false"; "false"];
@@ -5602,7 +5602,7 @@ are activated or deactivated." };
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV"; "VG"; "10"];
-         ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/VG/LV"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/VG/LV"; "/"];
          ["write"; "/new"; "test content"];
          ["umount"; "/"; "false"; "false"];
@@ -5669,11 +5669,11 @@ Sleep for C<secs> seconds." };
     tests = [
       InitNone, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["ntfs_3g_probe"; "true"; "/dev/sda1"]], "ret == 0"), [];
       InitNone, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["ntfs_3g_probe"; "true"; "/dev/sda1"]], "ret == 12"), []
     ];
     shortdesc = "probe NTFS volume";
@@ -8543,7 +8543,11 @@ a file in the host and attach it as a device." };
     tests = [
       InitBasicFS, Always, TestResultString (
         [["set_label"; "/dev/sda1"; "LTEST"];
-         ["vfs_label"; "/dev/sda1"]], "LTEST"), []
+         ["vfs_label"; "/dev/sda1"]], "LTEST"), [];
+      InitEmpty, Always, TestResultString (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "test-label"];
+         ["vfs_label"; "/dev/sda1"]], "test-label"), [];
     ];
     shortdesc = "get the filesystem label";
     longdesc = "\
@@ -9015,13 +9019,13 @@ See also C<guestfs_is_lv>, C<guestfs_canonical_device_name>." };
 
   { defaults with
     name = "mkfs";
-    style = RErr, [String "fstype"; Device "device"], [OInt "blocksize"; OString "features"; OInt "inode"; OInt "sectorsize"];
+    style = RErr, [String "fstype"; Device "device"], [OInt "blocksize"; OString "features"; OInt "inode"; OInt "sectorsize"; OString "label"];
     proc_nr = Some 278;
     once_had_no_optargs = true;
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["write"; "/new"; "new file contents"];
          ["cat"; "/new"]], "new file contents"), []
@@ -9761,7 +9765,7 @@ device." };
     optional = Some "ntfs3g";
     tests = [
       InitPartition, Always, TestRun (
-        [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+        [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["ntfsfix"; "/dev/sda1"; "false"]]), []
     ];
     shortdesc = "fix common errors and force Windows to check NTFS";
@@ -9820,7 +9824,7 @@ any existing contents of this device." };
         [["set_label"; "/dev/sda1"; "testlabel"];
          ["vfs_label"; "/dev/sda1"]], "testlabel"), [];
       InitPartition, IfAvailable "ntfs3g", TestResultString (
-        [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+        [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["set_label"; "/dev/sda1"; "testlabel2"];
          ["vfs_label"; "/dev/sda1"]], "testlabel2"), [];
       InitPartition, Always, TestLastFail (
@@ -10485,7 +10489,7 @@ call C<guestfs_max_disks>." };
     tests = [
       InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["xfs_info"; "/"]], "ret->xfs_blocksize == 4096"), []
     ];
@@ -10585,7 +10589,7 @@ in the returned structure is defined by the API." };
          ["pvcreate"; "/dev/sda1"];
          ["vgcreate"; "VG"; "/dev/sda1"];
          ["lvcreate"; "LV"; "VG"; "40"];
-         ["mkfs"; "xfs"; "/dev/VG/LV"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "xfs"; "/dev/VG/LV"; ""; "NOARG"; ""; ""; "NOARG"];
          ["lvresize"; "/dev/VG/LV"; "80"];
          ["mount"; "/dev/VG/LV"; "/"];
          ["xfs_growfs"; "/"; "true"; "false"; "false"; ""; ""; ""; ""; ""];
@@ -10722,7 +10726,7 @@ with zeroes)." };
     tests = [
       InitEmpty, Always, TestResult (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["xfs_info"; "/"]], "ret->xfs_lazycount == 0"), [];
@@ -10956,7 +10960,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
     tests = [
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""];
+         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["xfs_repair"; "/dev/sda1"; ""; "true"; ""; ""; ""; ""; ""; ""; "NOARG"; "NOARG"]
         ]), []
     ];

@@ -36,7 +36,7 @@ GUESTFSD_EXT_CMD(str_mkfs, mkfs);
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_mkfs (const char *fstype, const char *device, int blocksize,
-         const char *features, int inode, int sectorsize)
+         const char *features, int inode, int sectorsize, const char *label)
 {
   const char *argv[MAX_ARGS];
   size_t i = 0;
@@ -194,6 +194,47 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
     ADD_ARG (argv, i, sectorsize_str);
   }
 
+  if (optargs_bitmask & GUESTFS_MKFS_LABEL_BITMASK) {
+    if (extfs) {
+      if (strlen (label) > EXT2_LABEL_MAX) {
+        reply_with_error ("%s: ext2 labels are limited to %d bytes",
+                          label, EXT2_LABEL_MAX);
+        return -1;
+      }
+
+      ADD_ARG (argv, i, "-L");
+      ADD_ARG (argv, i, label);
+    }
+    else if (STREQ (fstype, "fat") || STREQ (fstype, "vfat") ||
+             STREQ (fstype, "msdos")) {
+      ADD_ARG (argv, i, "-n");
+      ADD_ARG (argv, i, label);
+    }
+    else if (STREQ (fstype, "ntfs")) {
+      ADD_ARG (argv, i, "-L");
+      ADD_ARG (argv, i, label);
+    }
+    else if (STREQ (fstype, "xfs")) {
+      if (strlen (label) > XFS_LABEL_MAX) {
+        reply_with_error ("%s: xfs labels are limited to %d bytes",
+                          label, XFS_LABEL_MAX);
+        return -1;
+      }
+
+      ADD_ARG (argv, i, "-L");
+      ADD_ARG (argv, i, label);
+    }
+    else if (STREQ (fstype, "btrfs")) {
+      ADD_ARG (argv, i, "-L");
+      ADD_ARG (argv, i, label);
+    }
+    else {
+      reply_with_error ("don't know how to set the label for '%s' filesystems",
+                        fstype);
+      return -1;
+    }
+  }
+
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
@@ -212,5 +253,5 @@ int
 do_mkfs_b (const char *fstype, int blocksize, const char *device)
 {
   optargs_bitmask = GUESTFS_MKFS_BLOCKSIZE_BITMASK;
-  return do_mkfs (fstype, device, blocksize, 0, 0, 0);
+  return do_mkfs (fstype, device, blocksize, 0, 0, 0, NULL);
 }
