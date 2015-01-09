@@ -118,6 +118,7 @@ and list_entries_json ~sources index =
                    compressed_size = compressed_size;
                    notes = notes;
                    aliases = aliases;
+                   osinfo = osinfo;
                    hidden = hidden }) ->
         let item = [ "os-version", JSON.String name ] in
         let item =
@@ -148,6 +149,10 @@ and list_entries_json ~sources index =
           | Some l ->
             let l = List.map (fun x -> JSON.String x) l in
             ("aliases", JSON.List l) :: item in
+        let item =
+          match osinfo with
+          | None -> item
+          | Some str -> ("osinfo", JSON.String str) :: item in
         let item = ("hidden", JSON.Bool hidden) :: item in
         JSON.Dict (List.rev item)
     ) index in
