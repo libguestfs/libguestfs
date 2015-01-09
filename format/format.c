@@ -434,13 +434,15 @@ do_format (void)
     }
 
     if (filesystem) {
-      if (guestfs_mkfs_opts (g, filesystem, dev, -1) == -1)
-        exit (EXIT_FAILURE);
+      struct guestfs_mkfs_opts_argv optargs = { .bitmask = 0 };
 
       if (label) {
-        if (guestfs_set_label (g, dev, label) == -1)
-          exit (EXIT_FAILURE);
+        optargs.label = label;
+        optargs.bitmask |= GUESTFS_MKFS_OPTS_LABEL_BITMASK;
       }
+
+      if (guestfs_mkfs_opts_argv (g, filesystem, dev, &optargs) == -1)
+        exit (EXIT_FAILURE);
     }
 
     if (free_dev)

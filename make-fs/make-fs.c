@@ -755,9 +755,15 @@ do_make_fs (const char *input, const char *output_str)
   /* Create the filesystem. */
   if (STRNEQ (type, "btrfs")) {
     int r;
+    struct guestfs_mkfs_opts_argv optargs = { .bitmask = 0 };
+
+    if (label) {
+      optargs.label = label;
+      optargs.bitmask |= GUESTFS_MKFS_OPTS_LABEL_BITMASK;
+    }
 
     guestfs_push_error_handler (g, NULL, NULL);
-    r = guestfs_mkfs (g, type, dev);
+    r = guestfs_mkfs_opts_argv (g, type, dev, &optargs);
     guestfs_pop_error_handler (g);
 
     if (r == -1) {
@@ -774,17 +780,17 @@ do_make_fs (const char *input, const char *output_str)
   }
   else {
     const char *devs[] = { dev, NULL };
+    struct guestfs_mkfs_btrfs_argv optargs = { .bitmask = 0 };
 
-    if (guestfs_mkfs_btrfs (g, (char **) devs,
-                            GUESTFS_MKFS_BTRFS_DATATYPE, "single",
-                            GUESTFS_MKFS_BTRFS_METADATA, "single",
-                            -1) == -1)
-      return -1;
-  }
+    optargs.datatype = "single";
+    optargs.metadata = "single";
+    optargs.bitmask |= GUESTFS_MKFS_BTRFS_DATATYPE_BITMASK | GUESTFS_MKFS_BTRFS_METADATA_BITMASK;
+    if (label) {
+      optargs.label = label;
+      optargs.bitmask |= GUESTFS_MKFS_BTRFS_LABEL_BITMASK;
+    }
 
-  /* Set label. */
-  if (label) {
-    if (guestfs_set_label (g, dev, label) == -1)
+    if (guestfs_mkfs_btrfs_argv (g, (char **) devs, &optargs) == -1)
       return -1;
   }
 
