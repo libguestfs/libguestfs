@@ -876,7 +876,9 @@ I<--os-variant> is highly recommended, because it will present optimum
 devices to enable the guest to run most efficiently.  To get a list
 of all variants, do:
 
- virt-install --os-variant list
+ osinfo-query os
+
+The above tool is provided by libosinfo package.
 
 =item 3.
 
