@@ -42,6 +42,30 @@ optgroup_btrfs_available (void)
   return prog_exists (str_btrfs) && filesystem_available ("btrfs") > 0;
 }
 
+char *
+btrfs_get_label (const char *device)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+  char *out = NULL;
+  size_t len;
+
+  r = command (&out, &err, str_btrfs, "filesystem", "label",
+               device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (out);
+    return NULL;
+  }
+
+  /* Trim trailing \n if present. */
+  len = strlen (out);
+  if (len > 0 && out[len-1] == '\n')
+    out[len-1] = '\0';
+
+  return out;
+}
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_btrfs_filesystem_resize (const char *filesystem, int64_t size)

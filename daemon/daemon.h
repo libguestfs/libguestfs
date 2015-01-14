@@ -257,6 +257,9 @@ extern int copy_xattrs (const char *src, const char *dest);
 /* Documented in xfs_admin(8). */
 #define XFS_LABEL_MAX 12
 
+/*-- in btrfs.c --*/
+extern char *btrfs_get_label (const char *device);
+
 /* ordinary daemon functions use these to indicate errors
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.
