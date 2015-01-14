@@ -260,6 +260,9 @@ extern int copy_xattrs (const char *src, const char *dest);
 /*-- in btrfs.c --*/
 extern char *btrfs_get_label (const char *device);
 
+/*-- in ntfs.c --*/
+extern char *ntfs_get_label (const char *device);
+
 /* ordinary daemon functions use these to indicate errors
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.

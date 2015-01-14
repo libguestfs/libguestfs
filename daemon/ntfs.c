@@ -33,6 +33,7 @@
 GUESTFSD_EXT_CMD(str_ntfs3g_probe, ntfs-3g.probe);
 GUESTFSD_EXT_CMD(str_ntfsresize, ntfsresize);
 GUESTFSD_EXT_CMD(str_ntfsfix, ntfsfix);
+GUESTFSD_EXT_CMD(str_ntfslabel, ntfslabel);
 
 int
 optgroup_ntfs3g_available (void)
@@ -44,6 +45,29 @@ int
 optgroup_ntfsprogs_available (void)
 {
   return prog_exists (str_ntfsresize);
+}
+
+char *
+ntfs_get_label (const char *device)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+  char *out = NULL;
+  size_t len;
+
+  r = command (&out, &err, str_ntfslabel, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (out);
+    return NULL;
+  }
+
+  /* Trim trailing \n if present. */
+  len = strlen (out);
+  if (len > 0 && out[len-1] == '\n')
+    out[len-1] = '\0';
+
+  return out;
 }
 
 int
