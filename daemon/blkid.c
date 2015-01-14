@@ -81,6 +81,8 @@ do_vfs_label (const char *device)
   if (type) {
     if (STREQ (type, "btrfs") && optgroup_btrfs_available ())
       return btrfs_get_label (device);
+    if (STREQ (type, "ntfs") && optgroup_ntfsprogs_available ())
+      return ntfs_get_label (device);
   }
 
   return get_blkid_tag (device, "LABEL");
