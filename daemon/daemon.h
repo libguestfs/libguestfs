@@ -262,6 +262,9 @@ extern char *debug_bmap (const char *subcmd, size_t argc, char *const *const arg
 extern char *debug_bmap_file (const char *subcmd, size_t argc, char *const *const argv);
 extern char *debug_bmap_device (const char *subcmd, size_t argc, char *const *const argv);
 
+/*-- in btrfs.c --*/
+extern char *btrfs_get_label (const char *device);
+
 /* ordinary daemon functions use these to indicate errors
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.
