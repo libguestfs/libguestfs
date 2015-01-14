@@ -26,6 +26,7 @@
 
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
 
 GUESTFSD_EXT_CMD(str_blkid, blkid);
 
@@ -75,6 +76,13 @@ do_vfs_type (const char *device)
 char *
 do_vfs_label (const char *device)
 {
+  CLEANUP_FREE char *type = do_vfs_type (device);
+
+  if (type) {
+    if (STREQ (type, "btrfs") && optgroup_btrfs_available ())
+      return btrfs_get_label (device);
+  }
+
   return get_blkid_tag (device, "LABEL");
 }
 
