@@ -82,6 +82,8 @@ do_vfs_label (const mountable_t *mountable)
   if (type) {
     if (STREQ (type, "btrfs") && optgroup_btrfs_available ())
       return btrfs_get_label (mountable->device);
+    if (STREQ (type, "ntfs") && optgroup_ntfsprogs_available ())
+      return ntfs_get_label (mountable->device);
   }
 
   return get_blkid_tag (mountable->device, "LABEL");
