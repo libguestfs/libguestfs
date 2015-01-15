@@ -6104,13 +6104,18 @@ The mode actually set is affected by the umask." };
       InitScratchFS, Always, TestResult (
         [["mkfifo"; "0o777"; "/mkfifo"];
          ["stat"; "/mkfifo"]],
-        "S_ISFIFO (ret->mode) && (ret->mode & 0777) == 0755"), []
+        "S_ISFIFO (ret->mode) && (ret->mode & 0777) == 0755"), [];
+      InitScratchFS, Always, TestLastFail (
+        [["mkfifo"; "0o20777"; "/mkfifo-2"]]), [];
     ];
     shortdesc = "make FIFO (named pipe)";
     longdesc = "\
 This call creates a FIFO (named pipe) called C<path> with
 mode C<mode>.  It is just a convenient wrapper around
 C<guestfs_mknod>.
+
+Unlike with C<guestfs_mknod>, C<mode> B<must> contain only permissions
+bits.
 
 The mode actually set is affected by the umask." };
 
@@ -6123,13 +6128,18 @@ The mode actually set is affected by the umask." };
       InitScratchFS, Always, TestResult (
         [["mknod_b"; "0o777"; "99"; "66"; "/mknod_b"];
          ["stat"; "/mknod_b"]],
-        "S_ISBLK (ret->mode) && (ret->mode & 0777) == 0755"), []
+        "S_ISBLK (ret->mode) && (ret->mode & 0777) == 0755"), [];
+      InitScratchFS, Always, TestLastFail (
+        [["mknod_b"; "0o10777"; "99"; "66"; "/mknod_b-2"]]), [];
     ];
     shortdesc = "make block device node";
     longdesc = "\
 This call creates a block device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.
+
+Unlike with C<guestfs_mknod>, C<mode> B<must> contain only permissions
+bits.
 
 The mode actually set is affected by the umask." };
 
@@ -6142,13 +6152,18 @@ The mode actually set is affected by the umask." };
       InitScratchFS, Always, TestResult (
         [["mknod_c"; "0o777"; "99"; "66"; "/mknod_c"];
          ["stat"; "/mknod_c"]],
-        "S_ISCHR (ret->mode) && (ret->mode & 0777) == 0755"), []
+        "S_ISCHR (ret->mode) && (ret->mode & 0777) == 0755"), [];
+      InitScratchFS, Always, TestLastFail (
+        [["mknod_c"; "0o20777"; "99"; "66"; "/mknod_c-2"]]), [];
     ];
     shortdesc = "make char device node";
     longdesc = "\
 This call creates a char device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.
+
+Unlike with C<guestfs_mknod>, C<mode> B<must> contain only permissions
+bits.
 
 The mode actually set is affected by the umask." };
 
