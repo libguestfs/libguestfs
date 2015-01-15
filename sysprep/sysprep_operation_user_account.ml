@@ -49,10 +49,6 @@ let user_account_perform g root =
             | None ->
               eprintf "virt-sysprep: user-accounts: missing '/' in %s\n" userpath;
               exit 1 in
-          (* XXX Augeas doesn't yet have a lens for /etc/shadow, so the
-           * next line currently does nothing, but should start to
-           * work in a future version.
-           *)
           g#aug_rm (sprintf "/files/etc/shadow/%s" username);
           g#aug_rm (sprintf "/files/etc/group/%s" username);
           g#rm_rf ("/home/" ^ username)
@@ -71,10 +67,6 @@ let op = {
     pod_description = Some (s_"\
 Remove all the user accounts and their home directories.
 The \"root\" account is not removed.");
-    pod_notes = Some (s_"\
-Currently this does not remove the user accounts from
-C</etc/shadow>.  This is because there is no lens for
-the shadow password file in Augeas.");
     perform_on_filesystems = Some user_account_perform;
 }
 
