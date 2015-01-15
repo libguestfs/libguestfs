@@ -38,6 +38,15 @@ optgroup_mknod_available (void)
   return 1;
 }
 
+#define CHECK_MODE \
+  do { \
+    if ((mode & ~07777) != 0) { \
+      reply_with_error ("%o: mode must specify only file permission bits", \
+                        (unsigned int) mode); \
+      return -1; \
+    } \
+  } while (0)
+
 int
 do_mknod (int mode, int devmajor, int devminor, const char *path)
 {
@@ -63,18 +72,24 @@ do_mknod (int mode, int devmajor, int devminor, const char *path)
 int
 do_mkfifo (int mode, const char *path)
 {
+  CHECK_MODE;
+
   return do_mknod (mode | S_IFIFO, 0, 0, path);
 }
 
 int
 do_mknod_b (int mode, int devmajor, int devminor, const char *path)
 {
+  CHECK_MODE;
+
   return do_mknod (mode | S_IFBLK, devmajor, devminor, path);
 }
 
 int
 do_mknod_c (int mode, int devmajor, int devminor, const char *path)
 {
+  CHECK_MODE;
+
   return do_mknod (mode | S_IFCHR, devmajor, devminor, path);
 }
 
