@@ -593,3 +593,16 @@ let is_directory path =
 let absolute_path path =
   if not (Filename.is_relative path) then path
   else Sys.getcwd () // path
+
+(* Sanitizes a filename for passing it safely to qemu/qemu-img.
+ *
+ * If the filename is something like "file:foo" then qemu-img will
+ * try to interpret that as "foo" in the file:/// protocol.  To
+ * avoid that, if the path is relative prefix it with "./" since
+ * qemu-img won't try to interpret such a path.
+ *)
+let qemu_input_filename filename =
+  if String.length filename > 0 && filename.[0] <> '/' then
+    "./" ^ filename
+  else
+    filename
