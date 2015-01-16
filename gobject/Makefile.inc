@@ -49,6 +49,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_drive_scratch.h \
   include/guestfs-gobject/optargs-add_libvirt_dom.h \
+  include/guestfs-gobject/optargs-btrfs_filesystem_defragment.h \
   include/guestfs-gobject/optargs-btrfs_filesystem_resize.h \
   include/guestfs-gobject/optargs-btrfs_fsck.h \
   include/guestfs-gobject/optargs-btrfs_subvolume_create.h \
@@ -131,6 +132,7 @@ guestfs_gobject_sources= \
   src/optargs-add_drive.c \
   src/optargs-add_drive_scratch.c \
   src/optargs-add_libvirt_dom.c \
+  src/optargs-btrfs_filesystem_defragment.c \
   src/optargs-btrfs_filesystem_resize.c \
   src/optargs-btrfs_fsck.c \
   src/optargs-btrfs_subvolume_create.c \

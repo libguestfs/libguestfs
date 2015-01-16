@@ -1558,3 +1558,52 @@ do_btrfs_balance_resume (const char *path)
 
   return 0;
 }
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_btrfs_filesystem_defragment (const char *path, int flush, const char *compress)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *path_buf = NULL;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  int r;
+
+  path_buf = sysroot_path (path);
+  if (path_buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "filesystem");
+  ADD_ARG (argv, i, "defragment");
+  ADD_ARG (argv, i, "-r");
+
+  /* Optional arguments. */
+  if ((optargs_bitmask & GUESTFS_BTRFS_FILESYSTEM_DEFRAGMENT_FLUSH_BITMASK) && flush)
+    ADD_ARG (argv, i, "-f");
+  if (optargs_bitmask & GUESTFS_BTRFS_FILESYSTEM_DEFRAGMENT_COMPRESS_BITMASK) {
+    if (STREQ(compress, "zlib"))
+      ADD_ARG (argv, i, "-czlib");
+    else if (STREQ(compress, "lzo"))
+      ADD_ARG (argv, i, "-clzo");
+    else {
+      reply_with_error ("unknown compress method: %s", compress);
+      return -1;
+    }
+  }
+
+  ADD_ARG (argv, i, path_buf);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", path, err);
+    return -1;
+  }
+
+  return 0;
+}

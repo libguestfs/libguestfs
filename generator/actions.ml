@@ -12336,6 +12336,27 @@ Cancel a running balance on a btrfs filesystem." };
     shortdesc = "resume a paused balance";
     longdesc = "\
 Resume a paused balance on a btrfs filesystem." };
+
+  { defaults with
+    name = "btrfs_filesystem_defragment";
+    style = RErr, [Pathname "path"], [OBool "flush"; OString "compress"];
+    proc_nr = Some 443;
+    optional = Some "btrfs"; camel_name = "BTRFSFilesystemDefragment";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_filesystem_defragment"; "/"; "true"; "lzo"]]), [];
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["touch"; "/hello"];
+         ["btrfs_filesystem_defragment"; "/hello"; ""; "zlib"]]), [];
+    ];
+    shortdesc = "defragment a file or directory";
+    longdesc = "\
+Defragment a file or directory on a btrfs filesystem. compress is one of zlib or lzo." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
