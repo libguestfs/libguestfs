@@ -12286,6 +12286,16 @@ Reads all the data and metadata on the filesystem, and uses checksums
 and the duplicate copies from RAID storage to identify and repair any
 corrupt data." };
 
+  { defaults with
+    name = "btrfs_scrub_cancel";
+    style = RErr, [Pathname "path"], [];
+    proc_nr = Some 436;
+    optional = Some "btrfs"; camel_name = "BTRFSScrubCancel";
+    test_excuse = "test disk isn't large enough that btrfs_scrub_start completes before we can cancel it";
+    shortdesc = "cancel a running scrub";
+    longdesc = "\
+Cancel a running scrub on a btrfs filesystem." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
