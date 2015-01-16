@@ -131,3 +131,11 @@ val is_directory : string -> bool
 
 val absolute_path : string -> string
 (** Convert any path to an absolute path. *)
+
+val qemu_input_filename : string -> string
+(** Sanitizes a filename for passing it safely to qemu/qemu-img.
+
+    If the filename is something like "file:foo" then qemu-img will
+    try to interpret that as "foo" in the file:/// protocol.  To
+    avoid that, if the path is relative prefix it with "./" since
+    qemu-img won't try to interpret such a path. *)
