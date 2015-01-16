@@ -419,3 +419,16 @@ let is_char_device file =
 let is_directory path =
   try Sys.is_directory path
   with Sys_error _ -> false
+
+(* Sanitizes a filename for passing it safely to qemu/qemu-img.
+ *
+ * If the filename is something like "file:foo" then qemu-img will
+ * try to interpret that as "foo" in the file:/// protocol.  To
+ * avoid that, if the path is relative prefix it with "./" since
+ * qemu-img won't try to interpret such a path.
+ *)
+let qemu_input_filename filename =
+  if String.length filename > 0 && filename.[0] <> '/' then
+    "./" ^ filename
+  else
+    filename
