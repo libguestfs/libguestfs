@@ -491,7 +491,7 @@ let () =
       (match option with
       | None -> ""
       | Some option -> " -o " ^ Filename.quote option)
-      (Filename.quote overlaydisk) (Filename.quote outdisk) in
+      (Filename.quote overlaydisk) (Filename.quote (qemu_input_filename outdisk)) in
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
