@@ -12296,6 +12296,16 @@ corrupt data." };
     longdesc = "\
 Cancel a running scrub on a btrfs filesystem." };
 
+  { defaults with
+    name = "btrfs_scrub_resume";
+    style = RErr, [Pathname "path"], [];
+    proc_nr = Some 437;
+    optional = Some "btrfs"; camel_name = "BTRFSScrubResume";
+    test_excuse = "test disk isn't large enough that btrfs_scrub_start completes before we can cancel and resume it";
+    shortdesc = "resume a previously canceled or interrupted scrub";
+    longdesc = "\
+Resume a previously canceled or interrupted scrub on a btrfs filesystem." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
