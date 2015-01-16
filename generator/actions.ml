@@ -12327,6 +12327,15 @@ Pause a running balance on a btrfs filesystem." };
     longdesc = "\
 Cancel a running balance on a btrfs filesystem." };
 
+{ defaults with
+    name = "btrfs_balance_resume";
+    style = RErr, [Pathname "path"], [];
+    proc_nr = Some 440;
+    optional = Some "btrfs"; camel_name = "BTRFSBalanceResume";
+    test_excuse = "test disk isn't large enough that btrfs_balance completes before we can pause and resume it";
+    shortdesc = "resume a paused balance";
+    longdesc = "\
+Resume a paused balance on a btrfs filesystem." };
 ]
 
 (* Non-API meta-commands available only in guestfish.
