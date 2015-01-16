@@ -311,7 +311,7 @@ You can ignore this warning or change it to a hard failure using the
       (match option with
       | None -> ""
       | Some option -> " -o " ^ quote option)
-      (quote overlaydisk) (quote outdisk) in
+      (quote overlaydisk) (quote (qemu_input_filename outdisk)) in
   if verbose then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
