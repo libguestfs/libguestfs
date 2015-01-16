@@ -12371,6 +12371,20 @@ Defragment a file or directory on a btrfs filesystem. compress is one of zlib or
     longdesc = "\
 Recover the chunk tree of btrfs filesystem by scannning the devices one by one." };
 
+  { defaults with
+    name = "btrfs_rescue_super_recover";
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 445;
+    optional = Some "btrfs"; camel_name = "BTRFSRescueSuperRecover";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_rescue_super_recover"; "/dev/sda1"]]), [];
+    ];
+    shortdesc = "recover bad superblocks from good copies";
+    longdesc = "\
+Recover bad superblocks from good copies." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
