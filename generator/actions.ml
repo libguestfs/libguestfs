@@ -12317,6 +12317,16 @@ Resume a previously canceled or interrupted scrub on a btrfs filesystem." };
     longdesc = "\
 Pause a running balance on a btrfs filesystem." };
 
+{ defaults with
+    name = "btrfs_balance_cancel";
+    style = RErr, [Pathname "path"], [];
+    proc_nr = Some 439;
+    optional = Some "btrfs"; camel_name = "BTRFSBalanceCancel";
+    test_excuse = "test disk isn't large enough that btrfs_balance completes before we can cancel it";
+    shortdesc = "cancel a running or paused balance";
+    longdesc = "\
+Cancel a running balance on a btrfs filesystem." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
