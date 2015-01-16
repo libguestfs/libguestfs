@@ -1007,6 +1007,7 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
   const char *iface;
 
   len += strlen (drv->path) * 2; /* every "," could become ",," */
+  len += 2; /* may need to prepend "./" to the path */
   if (drv->iface)
     len += strlen (drv->iface);
   if (drv->format)
@@ -1018,6 +1019,12 @@ qemu_drive_param (guestfs_h *g, const struct drive *drv, size_t index)
 
   strcpy (r, "file=");
   i = 5;
+
+  /* We might need to rewrite the path if it contains a ':' character. */
+  if (drv->path[0] != '/' && strchr (drv->path, ':') != NULL) {
+    r[i++] = '.';
+    r[i++] = '/';
+  }
 
   /* Copy the path in, escaping any "," as ",,". */
   for (p = drv->path; *p; p++) {

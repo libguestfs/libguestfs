@@ -276,12 +276,6 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
   const char *cachemode;
   struct drive *drv;
 
-  if (strchr (filename, ':') != NULL) {
-    error (g, _("filename cannot contain ':' (colon) character. "
-                "This is a limitation of qemu."));
-    return -1;
-  }
-
   readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
              ? optargs->readonly : false;
   format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
