@@ -10354,6 +10354,7 @@ Force sync on the btrfs filesystem mounted at C<fs>." };
   { defaults with
     name = "btrfs_filesystem_balance";
     style = RErr, [Pathname "fs"], [];
+    fish_alias = ["btrfs-balance"];
     proc_nr = Some 328;
     optional = Some "btrfs"; camel_name = "BTRFSFilesystemBalance";
     shortdesc = "balance a btrfs filesystem";
