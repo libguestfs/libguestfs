@@ -1607,3 +1607,29 @@ do_btrfs_filesystem_defragment (const char *path, int flush, const char *compres
 
   return 0;
 }
+
+int
+do_btrfs_rescue_chunk_recover (const char *device)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  int r;
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "rescue");
+  ADD_ARG (argv, i, "chunk-recover");
+  ADD_ARG (argv, i, "-y");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    return -1;
+  }
+
+  return 0;
+}

@@ -12357,6 +12357,20 @@ Resume a paused balance on a btrfs filesystem." };
     longdesc = "\
 Defragment a file or directory on a btrfs filesystem. compress is one of zlib or lzo." };
 
+  { defaults with
+    name = "btrfs_rescue_chunk_recover";
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 444;
+    optional = Some "btrfs"; camel_name = "BTRFSRescueChunkRecover";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_rescue_chunk_recover"; "/dev/sda1"]]), [];
+    ];
+    shortdesc = "recover the chunk tree of btrfs filesystem";
+    longdesc = "\
+Recover the chunk tree of btrfs filesystem by scannning the devices one by one." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
