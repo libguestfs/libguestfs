@@ -12269,6 +12269,23 @@ several qgroups into a parent qgroup to share common limit." };
     longdesc = "\
 Remove qgroup C<src> from the parent qgroup C<dst>." };
 
+  { defaults with
+    name = "btrfs_scrub_start";
+    style = RErr, [Pathname "path"], [];
+    proc_nr = Some 435;
+    optional = Some "btrfs"; camel_name = "BTRFSScrubStart";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_scrub_start"; "/"]]), [];
+    ];
+    shortdesc = "read all data from all disks and verify checksums";
+    longdesc = "\
+Reads all the data and metadata on the filesystem, and uses checksums
+and the duplicate copies from RAID storage to identify and repair any
+corrupt data." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
