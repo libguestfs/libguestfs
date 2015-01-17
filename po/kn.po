@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-12-23 15:17+0000\n"
+"POT-Creation-Date: 2015-01-17 09:35+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
-#: ../v2v/cmdline.ml:102 ../v2v/cmdline.ml:57
+#: ../v2v/cmdline.ml:103 ../v2v/cmdline.ml:58
 msgid "%s option used more than once on the command line"
 msgstr ""
 
@@ -200,7 +200,7 @@ msgstr ""
 msgid "%s: command exited with an error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:193
+#: ../v2v/cmdline.ml:196
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -452,19 +452,19 @@ msgstr ""
 msgid "--install is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:326
+#: ../v2v/cmdline.ml:330
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:338
+#: ../v2v/cmdline.ml:342
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:94
+#: ../v2v/cmdline.ml:95
 msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:92
+#: ../v2v/cmdline.ml:93
 msgid "--no-trim: empty parameter"
 msgstr ""
 
@@ -510,19 +510,19 @@ msgstr ""
 msgid "--update is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:324
+#: ../v2v/cmdline.ml:328
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:336
+#: ../v2v/cmdline.ml:340
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:350
+#: ../v2v/cmdline.ml:354
 msgid "--vmtype option cannot be used with '-o local'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:361
+#: ../v2v/cmdline.ml:365
 msgid "--vmtype option cannot be used with '-o null'"
 msgstr ""
 
@@ -530,83 +530,91 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:322
+#: ../v2v/cmdline.ml:326
 msgid "-o glance: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:318
+#: ../v2v/cmdline.ml:322
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:320
+#: ../v2v/cmdline.ml:324
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:334
+#: ../v2v/cmdline.ml:338
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:321
+#: ../v2v/output_libvirt.ml:313
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
 "section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:318
+#: ../v2v/output_libvirt.ml:310
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:348
+#: ../v2v/cmdline.ml:352
 msgid "-o local: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:343
+#: ../v2v/cmdline.ml:347
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:359
+#: ../v2v/cmdline.ml:363
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:355
+#: ../v2v/cmdline.ml:359
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:357
+#: ../v2v/cmdline.ml:361
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:374
+#: ../v2v/cmdline.ml:378
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:372
+#: ../v2v/cmdline.ml:376
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:381
+#: ../v2v/cmdline.ml:385
 msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:383
+#: ../v2v/cmdline.ml:387
 msgid ""
 "-o vdsm: either --vdsm-image-uuid, --vdsm-vol-uuid or --vdsm-vm-uuid was not "
 "specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:379
+#: ../v2v/cmdline.ml:383
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:366 ../v2v/cmdline.ml:345
+#: ../v2v/cmdline.ml:370 ../v2v/cmdline.ml:349
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:188
+#: ../v2v/input_libvirtxml.ml:184
 msgid "<disk type='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:180
+msgid "<disk type='network'> with <source protocol='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:174
+msgid "<disk type=network> was ignored"
 msgstr ""
 
 #. ../customize/customize_main.ml:82
@@ -643,7 +651,7 @@ msgstr ""
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
-#: ../v2v/cmdline.ml:172
+#: ../v2v/cmdline.ml:173
 msgid "Boot in qemu (-o qemu only)"
 msgstr ""
 
@@ -792,11 +800,11 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:83
+#: ../v2v/output_vdsm.ml:82
 msgid "Data Domain"
 msgstr ""
 
-#: ../v2v/cmdline.ml:148 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
+#: ../v2v/cmdline.ml:149 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
 msgid "Debug GC and memory allocations"
 msgstr ""
 
@@ -848,7 +856,7 @@ msgstr ""
 #. ../customize/customize_main.ml:106
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:184 ../sysprep/main.ml:153 ../sysprep/main.ml:152
+#: ../v2v/cmdline.ml:187 ../sysprep/main.ml:153 ../sysprep/main.ml:152
 msgid "Display version and exit"
 msgstr ""
 
@@ -886,7 +894,7 @@ msgstr ""
 msgid "Don't print the summary"
 msgstr ""
 
-#: ../v2v/cmdline.ml:163
+#: ../v2v/cmdline.ml:164
 msgid "Don't trim selected mounts"
 msgstr ""
 
@@ -935,7 +943,7 @@ msgstr ""
 #. ../customize/customize_main.ml:104
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:182 ../sysprep/main.ml:151 ../sysprep/main.ml:150
+#: ../v2v/cmdline.ml:185 ../sysprep/main.ml:151 ../sysprep/main.ml:150
 msgid "Enable debugging messages"
 msgstr ""
 
@@ -946,7 +954,7 @@ msgstr ""
 #. ../resize/resize.ml:219
 #. ../customize/customize_main.ml:108
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:187 ../sysprep/main.ml:154 ../sparsify/cmdline.ml:87
+#: ../v2v/cmdline.ml:190 ../sysprep/main.ml:154 ../sparsify/cmdline.ml:87
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1118,7 +1126,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:175
+#: ../v2v/cmdline.ml:176
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1152,7 +1160,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/cmdline.ml:156
+#: ../v2v/cmdline.ml:157
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1176,7 +1184,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:162
+#: ../v2v/cmdline.ml:163
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1184,7 +1192,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../v2v/cmdline.ml:166 ../v2v/cmdline.ml:154
+#: ../v2v/cmdline.ml:167 ../v2v/cmdline.ml:155
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1199,14 +1207,14 @@ msgstr ""
 #. ../resize/resize.ml:198
 #. ../customize/customize_main.ml:95
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:158 ../sysprep/main.ml:142 ../sparsify/cmdline.ml:77
+#: ../v2v/cmdline.ml:159 ../sysprep/main.ml:142 ../sparsify/cmdline.ml:77
 msgid "List long options"
 msgstr ""
 
 #. ../resize/resize.ml:197
 #. ../customize/customize_main.ml:96
 #. ../builder/cmdline.ml:138
-#: ../v2v/cmdline.ml:157 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
+#: ../v2v/cmdline.ml:158 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
 msgid "List short options"
 msgstr ""
 
@@ -1215,7 +1223,7 @@ msgid "List supported operations"
 msgstr ""
 
 #. ../builder/cmdline.ml:140
-#: ../v2v/cmdline.ml:159 ../sparsify/cmdline.ml:78 ../resize/resize.ml:203
+#: ../v2v/cmdline.ml:160 ../sparsify/cmdline.ml:78 ../resize/resize.ml:203
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1223,11 +1231,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:146
+#: ../v2v/cmdline.ml:147
 msgid "Map bridge 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:161
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
@@ -1262,7 +1270,7 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:103
+#: ../v2v/output_vdsm.ml:101
 msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
 msgstr ""
 
@@ -1298,7 +1306,11 @@ msgstr ""
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:181
+#: ../v2v/cmdline.ml:184
+msgid "Output OVF file"
+msgstr ""
+
+#: ../v2v/cmdline.ml:182
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1314,7 +1326,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:177
+#: ../v2v/cmdline.ml:178
 msgid "Output image UUID(s)"
 msgstr ""
 
@@ -1322,7 +1334,7 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:179
+#: ../v2v/cmdline.ml:180
 msgid "Output vol UUID(s)"
 msgstr ""
 
@@ -1373,15 +1385,15 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:171
+#: ../v2v/cmdline.ml:172
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/cmdline.ml:173 ../sparsify/cmdline.ml:80
+#: ../v2v/cmdline.ml:174 ../sparsify/cmdline.ml:80
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/OVF.ml:351 ../v2v/OVF.ml:174
+#: ../v2v/OVF.ml:347 ../v2v/OVF.ml:174
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -1560,7 +1572,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:168
+#: ../v2v/cmdline.ml:169
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -1636,7 +1648,7 @@ msgstr ""
 msgid "SSH key inject: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:150
+#: ../v2v/cmdline.ml:151
 msgid "Save overlay files"
 msgstr ""
 
@@ -1676,7 +1688,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:153
+#: ../v2v/cmdline.ml:154
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -1706,7 +1718,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:165
+#: ../v2v/cmdline.ml:166
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -1718,15 +1730,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:167
+#: ../v2v/cmdline.ml:168
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:164
+#: ../v2v/cmdline.ml:165
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:169
+#: ../v2v/cmdline.ml:170
 msgid "Set output storage location"
 msgstr ""
 
@@ -1774,7 +1786,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:186
+#: ../v2v/cmdline.ml:189
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -2061,7 +2073,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:170
+#: ../v2v/cmdline.ml:171
 msgid "Use password from file"
 msgstr ""
 
@@ -2234,7 +2246,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:371
+#: ../v2v/output_libvirt.ml:363
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2287,7 +2299,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:343
+#: ../v2v/output_libvirt.ml:335
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -2417,19 +2429,19 @@ msgstr ""
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:280
+#: ../v2v/cmdline.ml:284
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:301
+#: ../v2v/cmdline.ml:305
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:292
+#: ../v2v/cmdline.ml:296
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:310
+#: ../v2v/cmdline.ml:314
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -2544,7 +2556,7 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:96
+#: ../v2v/output_vdsm.ml:95
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
@@ -2590,7 +2602,7 @@ msgstr ""
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:71
+#: ../v2v/cmdline.ml:72
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
@@ -2652,10 +2664,6 @@ msgstr ""
 msgid ""
 "multiple --root-password/--password options set the password for user '%s' "
 "twice"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:184
-msgid "network <disk> with <source protocol='%s'> was ignored"
 msgstr ""
 
 #: ../resize/resize.ml:185
@@ -2950,7 +2958,7 @@ msgstr ""
 msgid "subprocess signalled or stopped by signal %d"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:79
+#: ../v2v/output_vdsm.ml:78
 msgid ""
 "the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on "
 "the command line has to match the number of guest disk images (for this "
@@ -3055,23 +3063,23 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:130
+#: ../v2v/cmdline.ml:131
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:249
+#: ../v2v/cmdline.ml:253
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:64
+#: ../v2v/cmdline.ml:65
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:112
+#: ../v2v/cmdline.ml:113
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:120
+#: ../v2v/cmdline.ml:121
 msgid "unknown -oa option: %s"
 msgstr ""
 
@@ -3452,7 +3460,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: display log files in a virtual machine\n"
-"Copyright (C) 2010-2014 Red Hat Inc.\n"
+"Copyright (C) 2010-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -3645,7 +3653,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
-"Copyright (C) 2010-2014 Red Hat Inc.\n"
+"Copyright (C) 2010-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domain1 -D domain2\n"
 "  %s [--options] -a disk1.img -A disk2.img [-a|-A ...]\n"
@@ -3702,7 +3710,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname file [file ...]\n"
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
@@ -6051,7 +6059,7 @@ msgstr ""
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "Options:\n"
@@ -6691,7 +6699,7 @@ msgstr ""
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] mountpoint\n"
 "Options:\n"
@@ -6891,7 +6899,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: make a filesystem from a tar archive or files\n"
-"Copyright (C) 2010-2014 Red Hat Inc.\n"
+"Copyright (C) 2010-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] input.tar output.img\n"
 "  %s [--options] input.tar.gz output.img\n"
@@ -7208,7 +7216,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options]\n"
 "Options:\n"
@@ -7228,7 +7236,7 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -8424,7 +8432,7 @@ msgstr ""
 #, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"

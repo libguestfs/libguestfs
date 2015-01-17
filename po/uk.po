@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-12-23 15:17+0000\n"
+"POT-Creation-Date: 2015-01-17 09:35+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -86,7 +86,7 @@ msgstr ""
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
-#: ../v2v/cmdline.ml:102 ../v2v/cmdline.ml:57
+#: ../v2v/cmdline.ml:103 ../v2v/cmdline.ml:58
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "%s: command exited with an error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:193
+#: ../v2v/cmdline.ml:196
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -557,19 +557,19 @@ msgstr "Параметр --format слід вказувати до параме�
 msgid "--install is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:326
+#: ../v2v/cmdline.ml:330
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr "Не можна одночасно використовувати --no-copy і «-o glance»"
 
-#: ../v2v/cmdline.ml:338
+#: ../v2v/cmdline.ml:342
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr "Не можна одночасно використовувати --no-copy і «-o libvirt»"
 
-#: ../v2v/cmdline.ml:94
+#: ../v2v/cmdline.ml:95
 msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:92
+#: ../v2v/cmdline.ml:93
 msgid "--no-trim: empty parameter"
 msgstr ""
 
@@ -617,19 +617,19 @@ msgstr "--tmp prebuilt:file: %s: форматом файла не є qcow2"
 msgid "--update is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:324
+#: ../v2v/cmdline.ml:328
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o glance»"
 
-#: ../v2v/cmdline.ml:336
+#: ../v2v/cmdline.ml:340
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o libvirt»"
 
-#: ../v2v/cmdline.ml:350
+#: ../v2v/cmdline.ml:354
 msgid "--vmtype option cannot be used with '-o local'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o local»"
 
-#: ../v2v/cmdline.ml:361
+#: ../v2v/cmdline.ml:365
 msgid "--vmtype option cannot be used with '-o null'"
 msgstr "Параметр --vmtype не можна використовувати разом з «-o null»"
 
@@ -637,31 +637,31 @@ msgstr "Параметр --vmtype не можна використовувати
 msgid "-i disk: invalid input filename (%s)"
 msgstr "-i диск: некоректна назва файла вхідних даних (%s)"
 
-#: ../v2v/cmdline.ml:322
+#: ../v2v/cmdline.ml:326
 msgid "-o glance: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o glance: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:318
+#: ../v2v/cmdline.ml:322
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 "-o glance: параметр -oc не можна використовувати у цьому режимі виведення "
 "даних"
 
-#: ../v2v/cmdline.ml:320
+#: ../v2v/cmdline.ml:324
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 "-o glance: параметр -os не можна використовувати у цьому режимі виведення "
 "даних"
 
-#: ../v2v/cmdline.ml:334
+#: ../v2v/cmdline.ml:338
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o libvirt: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/output_libvirt.ml:321
+#: ../v2v/output_libvirt.ml:313
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
@@ -671,7 +671,7 @@ msgstr ""
 "target/path або не існує або цей елемент не є локальним каталогом. Див. "
 "розділ «ВИВЕДЕННЯ ДО LIBVIRT» у підручнику virt-v2v(1)."
 
-#: ../v2v/output_libvirt.ml:318
+#: ../v2v/output_libvirt.ml:310
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -679,67 +679,75 @@ msgstr ""
 "-o libvirt: буфер виведення «%s» не є каталогом (type='dir'). Див. розділ "
 "«ВИВЕДЕННЯ ДО LIBVIRT» у підручнику virt-v2v(1)."
 
-#: ../v2v/cmdline.ml:348
+#: ../v2v/cmdline.ml:352
 msgid "-o local: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o local: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:343
+#: ../v2v/cmdline.ml:347
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o local: каталог виведення даних не вказано, скористайтеся параметром «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:359
+#: ../v2v/cmdline.ml:363
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o null: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:355
+#: ../v2v/cmdline.ml:359
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
 "-o null: параметр -oc не можна використовувати у цьому режимі виведення даних"
 
-#: ../v2v/cmdline.ml:357
+#: ../v2v/cmdline.ml:361
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
 "-o null: параметр -os не можна використовувати у цьому режимі виведення даних"
 
-#: ../v2v/cmdline.ml:374
+#: ../v2v/cmdline.ml:378
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o rhev: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:372
+#: ../v2v/cmdline.ml:376
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr "-o rhev: не вказано сховище виведення даних, скористайтеся «-os»"
 
-#: ../v2v/cmdline.ml:381
+#: ../v2v/cmdline.ml:385
 msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o vdsm: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/cmdline.ml:383
+#: ../v2v/cmdline.ml:387
 msgid ""
 "-o vdsm: either --vdsm-image-uuid, --vdsm-vol-uuid or --vdsm-vm-uuid was not "
 "specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:379
+#: ../v2v/cmdline.ml:383
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr "-o vdsm: не вказано сховище виведення даних, скористайтеся «-os»"
 
-#: ../v2v/cmdline.ml:366 ../v2v/cmdline.ml:345
+#: ../v2v/cmdline.ml:370 ../v2v/cmdline.ml:349
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:188
+#: ../v2v/input_libvirtxml.ml:184
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
+
+#: ../v2v/input_libvirtxml.ml:180
+msgid "<disk type='network'> with <source protocol='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:174
+msgid "<disk type=network> was ignored"
+msgstr ""
 
 #. ../customize/customize_main.ml:82
 #. ../customize/customize_main.ml:81
@@ -775,7 +783,7 @@ msgstr "Архітектура:"
 msgid "Attach data disk/ISO during install"
 msgstr "Долучити під час встановлення диск/ISO з даними"
 
-#: ../v2v/cmdline.ml:172
+#: ../v2v/cmdline.ml:173
 msgid "Boot in qemu (-o qemu only)"
 msgstr "Завантажитися у qemu (лише для -o qemu)"
 
@@ -947,11 +955,11 @@ msgstr ""
 msgid "DIR"
 msgstr "КАТАЛОГ"
 
-#: ../v2v/output_vdsm.ml:83
+#: ../v2v/output_vdsm.ml:82
 msgid "Data Domain"
 msgstr "Домен даних"
 
-#: ../v2v/cmdline.ml:148 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
+#: ../v2v/cmdline.ml:149 ../sparsify/cmdline.ml:71 ../resize/resize.ml:190
 msgid "Debug GC and memory allocations"
 msgstr "Діагностувати збиральник сміття та розподіл пам’яті"
 
@@ -1005,7 +1013,7 @@ msgstr "Показати нотатки щодо встановлення"
 #. ../customize/customize_main.ml:106
 #. ../builder/cmdline.ml:158
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:184 ../sysprep/main.ml:153 ../sysprep/main.ml:152
+#: ../v2v/cmdline.ml:187 ../sysprep/main.ml:153 ../sysprep/main.ml:152
 msgid "Display version and exit"
 msgstr "Вивести версію та вийти"
 
@@ -1043,7 +1051,7 @@ msgstr "Не виводити повідомлень до журналу"
 msgid "Don't print the summary"
 msgstr "Не виводити даних резюме"
 
-#: ../v2v/cmdline.ml:163
+#: ../v2v/cmdline.ml:164
 msgid "Don't trim selected mounts"
 msgstr "Не обрізати вибрані монтування"
 
@@ -1092,7 +1100,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 #. ../customize/customize_main.ml:104
 #. ../builder/cmdline.ml:156
 #. ../builder/cmdline.ml:155
-#: ../v2v/cmdline.ml:182 ../sysprep/main.ml:151 ../sysprep/main.ml:150
+#: ../v2v/cmdline.ml:185 ../sysprep/main.ml:151 ../sysprep/main.ml:150
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
@@ -1103,7 +1111,7 @@ msgstr "Увімкнути специфічні операції"
 #. ../resize/resize.ml:219
 #. ../customize/customize_main.ml:108
 #. ../builder/cmdline.ml:159
-#: ../v2v/cmdline.ml:187 ../sysprep/main.ml:154 ../sparsify/cmdline.ml:87
+#: ../v2v/cmdline.ml:190 ../sysprep/main.ml:154 ../sparsify/cmdline.ml:87
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -1293,7 +1301,7 @@ msgstr "Отримати ядро з образу"
 msgid "HOSTNAME"
 msgstr "НАЗВА_ВУЗЛА"
 
-#: ../v2v/cmdline.ml:175
+#: ../v2v/cmdline.ml:176
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
@@ -1333,7 +1341,7 @@ msgstr ""
 "Віртуальний розмір диска вхідних даних = %Ld байтів (%s)\n"
 "%!"
 
-#: ../v2v/cmdline.ml:156
+#: ../v2v/cmdline.ml:157
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
@@ -1357,7 +1365,7 @@ msgstr "Встановлюємо скрипт firstboot: [%d] %s"
 msgid "Installing packages: %s"
 msgstr "Встановлюємо пакунки: %s"
 
-#: ../v2v/cmdline.ml:162
+#: ../v2v/cmdline.ml:163
 msgid "Just write the metadata"
 msgstr "Просто записати метадані"
 
@@ -1365,7 +1373,7 @@ msgstr "Просто записати метадані"
 msgid "Key: %s\n"
 msgstr "Ключ: %s\n"
 
-#: ../v2v/cmdline.ml:166 ../v2v/cmdline.ml:154
+#: ../v2v/cmdline.ml:167 ../v2v/cmdline.ml:155
 msgid "Libvirt URI"
 msgstr "Адреса libvirt"
 
@@ -1380,14 +1388,14 @@ msgstr "Показати список доступних шаблонів"
 #. ../resize/resize.ml:198
 #. ../customize/customize_main.ml:95
 #. ../builder/cmdline.ml:139
-#: ../v2v/cmdline.ml:158 ../sysprep/main.ml:142 ../sparsify/cmdline.ml:77
+#: ../v2v/cmdline.ml:159 ../sysprep/main.ml:142 ../sparsify/cmdline.ml:77
 msgid "List long options"
 msgstr "Вивести список довгих версій параметрів"
 
 #. ../resize/resize.ml:197
 #. ../customize/customize_main.ml:96
 #. ../builder/cmdline.ml:138
-#: ../v2v/cmdline.ml:157 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
+#: ../v2v/cmdline.ml:158 ../sysprep/main.ml:141 ../sparsify/cmdline.ml:76
 msgid "List short options"
 msgstr ""
 
@@ -1396,7 +1404,7 @@ msgid "List supported operations"
 msgstr "Вивести список підтримуваних операцій"
 
 #. ../builder/cmdline.ml:140
-#: ../v2v/cmdline.ml:159 ../sparsify/cmdline.ml:78 ../resize/resize.ml:203
+#: ../v2v/cmdline.ml:160 ../sparsify/cmdline.ml:78 ../resize/resize.ml:203
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення придатною до читання"
 
@@ -1404,11 +1412,11 @@ msgstr "Зробити машину виведення придатною до �
 msgid "Making directory: %s"
 msgstr "Створюємо каталог: %s"
 
-#: ../v2v/cmdline.ml:146
+#: ../v2v/cmdline.ml:147
 msgid "Map bridge 'in' to 'out'"
 msgstr "Відобразити місток «in» на «out»"
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:161
 msgid "Map network 'in' to 'out'"
 msgstr "Відобразити мережу «in» на «out»"
 
@@ -1448,7 +1456,7 @@ msgstr ""
 "\n"
 "%s\n"
 
-#: ../v2v/output_vdsm.ml:103
+#: ../v2v/output_vdsm.ml:101
 msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
 msgstr "Каталогу OVF (метаданих) (%s) не існує або це не каталог"
 
@@ -1492,7 +1500,11 @@ msgstr "Відкриваємо оверлей"
 msgid "Opening the source %s"
 msgstr "Відкриваємо джерело %s"
 
-#: ../v2v/cmdline.ml:181
+#: ../v2v/cmdline.ml:184
+msgid "Output OVF file"
+msgstr ""
+
+#: ../v2v/cmdline.ml:182
 msgid "Output VM UUID"
 msgstr "Вивести UUID віртуальної машини"
 
@@ -1508,7 +1520,7 @@ msgstr "Формат виведення"
 msgid "Output format (default: raw)"
 msgstr "Формат виведення (типовий: raw)"
 
-#: ../v2v/cmdline.ml:177
+#: ../v2v/cmdline.ml:178
 msgid "Output image UUID(s)"
 msgstr ""
 
@@ -1516,7 +1528,7 @@ msgstr ""
 msgid "Output size"
 msgstr "Розмір виведення"
 
-#: ../v2v/cmdline.ml:179
+#: ../v2v/cmdline.ml:180
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
@@ -1567,15 +1579,15 @@ msgstr "Плануємо побудову цього образу"
 msgid "Print info about template cache"
 msgstr "Вивести дані щодо кешу шаблонів"
 
-#: ../v2v/cmdline.ml:171
+#: ../v2v/cmdline.ml:172
 msgid "Print source and stop"
 msgstr "Вивести джерело і припинити обробку"
 
-#: ../v2v/cmdline.ml:173 ../sparsify/cmdline.ml:80
+#: ../v2v/cmdline.ml:174 ../sparsify/cmdline.ml:80
 msgid "Quiet output"
 msgstr "Працювати без виведення повідомлень"
 
-#: ../v2v/OVF.ml:351 ../v2v/OVF.ml:174
+#: ../v2v/OVF.ml:347 ../v2v/OVF.ml:174
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 "У RHEV не передбачено формату виведення даних «%s», лише формати raw та qcow2"
@@ -1770,7 +1782,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr "Вилучити завдання at та cron користувачів"
 
-#: ../v2v/cmdline.ml:168
+#: ../v2v/cmdline.ml:169
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
@@ -1858,7 +1870,7 @@ msgstr ""
 msgid "SSH key inject: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:150
+#: ../v2v/cmdline.ml:151
 msgid "Save overlay files"
 msgstr "Зберегти файли оверлеїв"
 
@@ -1898,7 +1910,7 @@ msgstr "Встановити програму або виконуваний фа
 msgid "Set format (default: auto)"
 msgstr "Встановити формат (типовий: auto)"
 
-#: ../v2v/cmdline.ml:153
+#: ../v2v/cmdline.ml:154
 msgid "Set input mode (default: libvirt)"
 msgstr "Встановити режим введення даних (типовий: libvirt)"
 
@@ -1928,7 +1940,7 @@ msgstr "Встановити параметри монтування (напри
 msgid "Set number of vCPUs"
 msgstr "Встановити кількість віртуальних процесорів"
 
-#: ../v2v/cmdline.ml:165
+#: ../v2v/cmdline.ml:166
 msgid "Set output allocation mode"
 msgstr "Встановити режим отримання пам’яті для виведення даних"
 
@@ -1940,15 +1952,15 @@ msgstr "Встановити розмір диска для виведення �
 msgid "Set output filename"
 msgstr "Встановити назву файла для виведення даних"
 
-#: ../v2v/cmdline.ml:167
+#: ../v2v/cmdline.ml:168
 msgid "Set output format"
 msgstr "встановити формат виведення даних"
 
-#: ../v2v/cmdline.ml:164
+#: ../v2v/cmdline.ml:165
 msgid "Set output mode (default: libvirt)"
 msgstr "Встановити режим виведення (типовий: libvirt)"
 
-#: ../v2v/cmdline.ml:169
+#: ../v2v/cmdline.ml:170
 msgid "Set output storage location"
 msgstr "Встановити розташування сховища виведених даних"
 
@@ -1997,7 +2009,7 @@ msgstr "Встановити архітектуру для виведення д
 msgid "Set user password"
 msgstr "Встановити пароль користувача"
 
-#: ../v2v/cmdline.ml:186
+#: ../v2v/cmdline.ml:189
 msgid "Set vmtype (for RHEV)"
 msgstr "Встановити значення vmtype (для RHEV)"
 
@@ -2385,7 +2397,7 @@ msgstr "Вивантажити локальний файл у систему п�
 msgid "Uploading: %s to %s"
 msgstr "Вивантажуємо: %s до %s"
 
-#: ../v2v/cmdline.ml:170
+#: ../v2v/cmdline.ml:171
 msgid "Use password from file"
 msgstr ""
 
@@ -2593,7 +2605,7 @@ msgstr "з'єднання закрито"
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
-#: ../v2v/output_libvirt.ml:371
+#: ../v2v/output_libvirt.ml:363
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2658,7 +2670,7 @@ msgstr ""
 "виведені grub дані не буде надіслано до послідовного порту, але, окрім "
 "цього, не зашкодить. Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/output_libvirt.ml:343
+#: ../v2v/output_libvirt.ml:335
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
@@ -2809,19 +2821,19 @@ msgstr "виключення: %s"
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr "очікуємо, що вираз XML поверне ціле число (вираз: %s)"
 
-#: ../v2v/cmdline.ml:280
+#: ../v2v/cmdline.ml:284
 msgid "expecting a disk image (filename) on the command line"
 msgstr "у командному рядку очікувався образ диска (назва файла)"
 
-#: ../v2v/cmdline.ml:301
+#: ../v2v/cmdline.ml:305
 msgid "expecting a libvirt XML file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла XML libvirt"
 
-#: ../v2v/cmdline.ml:292
+#: ../v2v/cmdline.ml:296
 msgid "expecting a libvirt guest name on the command line"
 msgstr "у командному рядку мало бути вказано назву гостьової системи libvirt"
 
-#: ../v2v/cmdline.ml:310
+#: ../v2v/cmdline.ml:314
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
@@ -2947,7 +2959,7 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати назви вузла"
 
-#: ../v2v/output_vdsm.ml:96
+#: ../v2v/output_vdsm.ml:95
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr "каталогу образу (%s) не існує, або ж це не каталог"
 
@@ -2995,7 +3007,7 @@ msgstr "внутрішня помилка: qemu-img не створено ове
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:71
+#: ../v2v/cmdline.ml:72
 msgid "invalid --bridge or --network parameter"
 msgstr "некоректний параметр --bridge або --network"
 
@@ -3070,10 +3082,6 @@ msgid ""
 "multiple --root-password/--password options set the password for user '%s' "
 "twice"
 msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:184
-msgid "network <disk> with <source protocol='%s'> was ignored"
-msgstr "мережу <disk> з <source protocol='%s'> проігноровано"
 
 #: ../resize/resize.ml:185
 msgid "never|always|auto"
@@ -3407,7 +3415,7 @@ msgstr "підпроцес завершив роботу з ненульовим
 msgid "subprocess signalled or stopped by signal %d"
 msgstr "підпроцес надіслав сигнал або зупинив роботу внаслідок сигналу %d"
 
-#: ../v2v/output_vdsm.ml:79
+#: ../v2v/output_vdsm.ml:78
 msgid ""
 "the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on "
 "the command line has to match the number of guest disk images (for this "
@@ -3544,24 +3552,24 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: можливі варіанти — never|always|auto"
 
-#: ../v2v/cmdline.ml:130
+#: ../v2v/cmdline.ml:131
 msgid "unknown --root option: %s"
 msgstr "невідомий параметр --root: %s"
 
-#: ../v2v/cmdline.ml:249
+#: ../v2v/cmdline.ml:253
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 "невідомий параметр --vmtype, слід використовувати «server» або «desktop»"
 
-#: ../v2v/cmdline.ml:64
+#: ../v2v/cmdline.ml:65
 msgid "unknown -i option: %s"
 msgstr "невідомий параметр -i: %s"
 
-#: ../v2v/cmdline.ml:112
+#: ../v2v/cmdline.ml:113
 msgid "unknown -o option: %s"
 msgstr "невідомий параметр -o: %s"
 
-#: ../v2v/cmdline.ml:120
+#: ../v2v/cmdline.ml:121
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
@@ -4045,7 +4053,7 @@ msgstr "%s: не можна одночасно використовувати п
 #, c-format
 msgid ""
 "%s: display log files in a virtual machine\n"
-"Copyright (C) 2010-2014 Red Hat Inc.\n"
+"Copyright (C) 2010-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -4062,23 +4070,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: показ файлів журналу у віртуальній машині\n"
-"© Red Hat Inc., 2010-2014\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену\n"
-"  %s [--параметри] -a диск.img [-a диск.img ]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --echo-keys          Не вимикати показ введених символів паролів\n"
-"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
-"  --help               Показати короткі довідкові дані\n"
-"  --keys-from-stdin    Прочитати паролі зі stdin\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
-"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
 #: cat/log.c:246
 #, c-format
@@ -4325,7 +4316,7 @@ msgstr "% IВикористання"
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
-"Copyright (C) 2010-2014 Red Hat Inc.\n"
+"Copyright (C) 2010-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domain1 -D domain2\n"
 "  %s [--options] -a disk1.img -A disk2.img [-a|-A ...]\n"
@@ -4358,39 +4349,6 @@ msgid ""
 "  --xattrs             Display extended attributes\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: показ файлів у віртуальній машині\n"
-"© Red Hat Inc., 2010–2014\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену1 -D назва_домену2\n"
-"  %s [--параметри] -a диск1.img -A диск2.img [-a|-A ...]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  --all                Те саме, що і --extra-stats --times --uids --xattrs\n"
-"  --atime              Не ігнорувати зміни у часі доступу\n"
-"  -A образ             Додати образ з другої гостьової системи\n"
-"  --checksum[=...]     Використовувати контрольні суми файлів\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  --csv                Вивести значення, відокремлені комами\n"
-"  --dir-links          Не ігнорувати зміни у посиланнях на каталоги\n"
-"  --dir-times          Не ігнорувати зміни у часових позначках каталогів\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  -D гість             Додати диски з другої гостьової системи libvirt\n"
-"  --echo-keys          Не показувати символи паролів\n"
-"  --extra-stats        Показати додаткові статистичні дані\n"
-"  --format[=raw|..]    Примусово встановити формат диска для параметра -a\n"
-"  --help               Показати коротку довідку\n"
-"  -h|--human-readable  Зручний для читання вивід розмірів\n"
-"  --keys-from-stdin    Читати паролі з stdin\n"
-"  --times              Показувати час створення файлів\n"
-"  --time-days          Показувати час створення у днях до поточного\n"
-"  --time-relative      Показувати час створення у секундах до поточної\n"
-"  --time-t             Показувати час створення у форматі time_t\n"
-"  --uids               Показувати UID, GID\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики API libguestfs\n"
-"  --xattrs             Вивести розширені записи атрибутів\n"
-"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
 #: diff/diff.c:321
 #, c-format
@@ -4418,7 +4376,7 @@ msgstr "Кінець різниці"
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname file [file ...]\n"
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
@@ -4439,30 +4397,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: редагування файла у віртуальній машині\n"
-"© Red Hat Inc., 2009–2014\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену файл [файл ...]\n"
-"  %s [--параметри] -a образ.img [-a образ.img ...] файл [файл ...]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  -b|--backup .ext     Створити резервну копію початкового файла з назвою "
-"поч_файл.ext\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --echo-keys          Не вимикати показ символів паролів\n"
-"  -e|--expr вираз      Неінтерактивне редагування за допомогою формального "
-"виразу Perl\n"
-"  --format[=raw|..]    Примусово встановити формат диска для параметра -a\n"
-"  --help               Показати коротку довідку\n"
-"  --keys-from-stdin    Читати паролі з stdin\n"
-"  -m|--mount пристрій[:монт[:параметри[:тип_фс]]]\n"
-"                       Змонтувати пристрій до точки монтування (якщо не "
-"вказано, до /)\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики API libguestfs\n"
-"Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
 #: edit/edit.c:170
 #, c-format
@@ -6849,7 +6783,7 @@ msgstr ""
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "Options:\n"
@@ -6894,60 +6828,6 @@ msgid ""
 "\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: командна оболонка гостьової файлової системи\n"
-"%s надає вам змогу редагувати файлові системи віртуальної машини\n"
-"© Red Hat Inc., 2009–2014\n"
-"Використання:\n"
-"  %s [--параметри] команда [: команда : команда ...]\n"
-"Параметри:\n"
-"  -h|--cmd-help        Показати список доступних команд\n"
-"  -h|--cmd-help cmd    Показати докладну довіку з команди «cmd»\n"
-"  -a|--add образ       Додати образ\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  --csh                Використовувати --listen у режимі сумісності з csh\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --echo-keys          Не вимикати показ символів паролів\n"
-"  -f|--file файл       Прочитати команди з файла\n"
-"  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
-"  -i|--inspector       Автоматично монтувати файлові системи\n"
-"  --keys-from-stdin    Читати паролі зі stdin\n"
-"  --listen             Очікувати на віддалені команди\n"
-"  --live               З’єднатися з вже запущеною віртуальною машиною\n"
-"  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, "
-"до /)\n"
-"  --network            Увімкнути роботу у мережі\n"
-"  -N|--new [назва файла=]тип\n"
-"                       Створити приготований диск (test<N>.img або «назва "
-"файла»)\n"
-"  -n|--no-sync         Не виконувати автоматичної синхронізації\n"
-"  --no-dest-paths      Не виконувати доповнення шляхів за допомогою Tab у "
-"гостьовій ФС\n"
-"  --pipe-error         Команди послідовності обробки здатні виявляти помилки "
-"запису\n"
-"  --progress-bars      Увімкнути смужки поступу, навіть якщо режим "
-"неінтерактивний\n"
-"  --no-progress-bars   Вимкнути смужки поступу\n"
-"  --remote[=pid]       Надіслати команди до віддаленої %s\n"
-"  -r|--ro              Змонтувати у режимі лише читання\n"
-"  --selinux            Увімкнути підтримку SELinux\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -w|--rw              Змонтувати у режимі читання-запису\n"
-"  -x                   Показувати кожну команду до її виконання\n"
-"\n"
-"Для вивчення образу диска, ISO, жорсткого диска, файлової системи віддайте "
-"команду\n"
-"  %s [--ro|--rw] -i -a /шлях/до/диск.img\n"
-"або\n"
-"  %s [--ro|--rw] -i -d назва-домену-libvirt\n"
-"\n"
-"Рекомендуємо скористатися параметром --ro, щоб уникнути записів до образу "
-"диска.\n"
-"Якщо у разі використання параметра -i ви бачите повідомлення про помилку,\n"
-"віддайте команду без -i, а потім скористайтеся командами 'run' + 'list-"
-"filesystems' + 'mount'.\n"
-"\n"
-"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
 #: fish/fish.c:256
 #, c-format
@@ -7687,7 +7567,7 @@ msgstr "%s: не вдалося обробити параметр --lvm (%s)\n"
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] mountpoint\n"
 "Options:\n"
@@ -7715,39 +7595,6 @@ msgid ""
 "  -w|--rw              Mount read-write\n"
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
-"%s: модуль FUSE для libguestfs\n"
-"%s надає вам змогу монтувати файлові системі віртуальних машин\n"
-"© Red Hat Inc., 2009–2014\n"
-"Користування:\n"
-"  %s [--параметри] точка_монтування\n"
-"Параметри:\n"
-"  -a|--add image       додати образ\n"
-"  -c|--connect адреса  вказати адресу libvirt для параметра -d\n"
-"  --dir-cache-timeout  встановити час очікування на кеш readdir (типово 5 "
-"с)\n"
-"  -d|--domain гість    додати диски з гостьової системи libvirt\n"
-"  --echo-keys          не вимикати показ паролів\n"
-"  --fd=FD              записати до каналу FD, коли буде приготовано точку "
-"монтування\n"
-"  --format[=raw|..]    примусово вказати формат диска для параметра -a\n"
-"  --fuse-help          показати додаткові параметри FUSE\n"
-"  -i|--inspector       автоматично монтувати файлові системи\n"
-"  --help               показати довідкове повідомлення і завершити роботу\n"
-"  --keys-from-stdin    читати паролі зі stdin\n"
-"  --live               встановити інтерактивний зв’язок із запущеною "
-"віртуальною машиною\n"
-"  -m|--mount пристрій[:mnt[:парам]] змонтувати пристрій до mnt (якщо "
-"пропущено, до /)\n"
-"  --no-fork            не створювати фонової служби\n"
-"  -n|--no-sync         не виконувати автосинхронізації\n"
-"  -o|--option парам    передати додатковий параметр FUSE\n"
-"  --pid-file файл      записати PID до файла з вказаною назвою\n"
-"  -r|--ro              змонтувати у режимі лише читання\n"
-"  --selinux            увімкнути підтримку SELinux\n"
-"  -v|--verbose         режим докладних повідомлень\n"
-"  -V|--version         показати дані щодо версії і завершити роботу\n"
-"  -w|--rw              змонтувати у режимі читання-запису\n"
-"  -x|--trace           трасувати виклики API guestfs\n"
 
 #: fuse/guestmount.c:247
 #, c-format
@@ -7968,7 +7815,7 @@ msgstr "%s: помилка xmlSaveDoc\n"
 #, c-format
 msgid ""
 "%s: make a filesystem from a tar archive or files\n"
-"Copyright (C) 2010-2014 Red Hat Inc.\n"
+"Copyright (C) 2010-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] input.tar output.img\n"
 "  %s [--options] input.tar.gz output.img\n"
@@ -7986,24 +7833,6 @@ msgid ""
 "  -x                     Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: створення файлової системи на основі архіву tar або файлів\n"
-"© Red Hat Inc., 2010–2014\n"
-"Користування:\n"
-"  %s [--параметри] вхідний.tar результат.img\n"
-"  %s [--параметри] вхідний.tar.gz результат.img\n"
-"  %s [--параметри] каталог результат.img\n"
-"Параметри:\n"
-"  --floppy               Створити віртуальну дискету\n"
-"  --format[=raw|..]      Встановити формат диска для параметра -a\n"
-"  --help                 Показати коротку довідку\n"
-"  --label=мітка          Встановити мітку файлової системи\n"
-"  --partition=mbr|gpt..  Встановити тип розділу\n"
-"  --size=розмір|+розмір  Встановити розмір диска результатів\n"
-"  --type=ext4|..         Встановити тип файлової системи\n"
-"  -v|--verbose           Докладні повідомлення\n"
-"  -V|--version           Показати дані щодо версії і завершити роботу\n"
-"  -x                     Трасувати виклики інтерфейсу libguestfsЩоб "
-"дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
 #: make-fs/make-fs.c:185
 #, c-format
@@ -8335,7 +8164,7 @@ msgstr "Успішне перетворення"
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options]\n"
 "Options:\n"
@@ -8355,7 +8184,7 @@ msgstr "%s: невикористані аргументи у командном�
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -8379,29 +8208,6 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: запуск оболонки відновлення на віртуальній машині\n"
-"© Red Hat Inc., 2009–2014\n"
-"Використання:\n"
-"  %s [--параметри] -d назва-домену\n"
-"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  --append пар_ядра    Додати параметри запуску ядра\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
-"  --help               Показати коротку довідку\n"
-"  -m|--memsize МБ      Вказати розмір пам’яті у мегабайтах\n"
-"  --network            Увімкнути мережу\n"
-"  -r|--ro              Доступ у режимі лише читання\n"
-"  --selinux            Увімкнути SELinux\n"
-"  --smp N              Увімкнути SMP з N >= 2 віртуальних процесорів\n"
-"  --suggest            Пропонувати команди монтування для гостьової системи\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -w|--rw              Змонтувати у режимі читання-запису\n"
-"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
-"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
 #: rescue/rescue.c:162
 #, c-format
@@ -9742,7 +9548,7 @@ msgstr "Роботу %s завершено з невідомої причини 
 #, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009-2014 Red Hat Inc.\n"
+"Copyright (C) 2009-2015 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
@@ -9754,18 +9560,6 @@ msgid ""
 "  --version\n"
 "  -V             Display libguestfs version and exit\n"
 msgstr ""
-"libguestfs-test-tool: інтерактивний інструмент для тестування\n"
-"© Red Hat Inc., 2009–2014\n"
-"Використання:\n"
-"  libguestfs-test-tool [--параметри]\n"
-"Параметри:\n"
-"  --help         Довідка з використання\n"
-"  --qemudir dir  Вказати каталог коду QEMU\n"
-"  --qemu qemu    Вказати адресу виконуваного файла QEMU\n"
-"  --timeout n\n"
-"  -t n           Встановити час очікування запуску (типово %d секунд)\n"
-"  --version\n"
-"  -V             Показати дані щодо версії libguestfs і завершити роботу\n"
 
 #: test-tool/test-tool.c:114
 #, c-format
@@ -9995,6 +9789,457 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "%s: display log files in a virtual machine\n"
+#~ "Copyright (C) 2010-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: показ файлів журналу у віртуальній машині\n"
+#~ "© Red Hat Inc., 2010-2014\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену\n"
+#~ "  %s [--параметри] -a диск.img [-a диск.img ]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          Не вимикати показ введених символів паролів\n"
+#~ "  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+#~ "  --help               Показати короткі довідкові дані\n"
+#~ "  --keys-from-stdin    Прочитати паролі зі stdin\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики програмного інтерфейсу "
+#~ "libguestfs\n"
+#~ "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "%s: list differences between virtual machines\n"
+#~ "Copyright (C) 2010-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domain1 -D domain2\n"
+#~ "  %s [--options] -a disk1.img -A disk2.img [-a|-A ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image from first guest\n"
+#~ "  --all                Same as: --extra-stats --times --uids --xattrs\n"
+#~ "  --atime              Don't ignore access time changes\n"
+#~ "  -A image             Add image from second guest\n"
+#~ "  --checksum[=...]     Use checksum of file content\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --csv                Comma-Separated Values output\n"
+#~ "  --dir-links          Don't ignore directory nlink changes\n"
+#~ "  --dir-times          Don't ignore directory time changes\n"
+#~ "  -d|--domain guest    Add disks from first libvirt guest\n"
+#~ "  -D guest             Add disks from second libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  --extra-stats        Display extra stats\n"
+#~ "  --format[=raw|..]    Force disk format for -a or -A option\n"
+#~ "  --help               Display brief help\n"
+#~ "  -h|--human-readable  Human-readable sizes in output\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  --times              Display file times\n"
+#~ "  --time-days          Display file times as days before now\n"
+#~ "  --time-relative      Display file times as seconds before now\n"
+#~ "  --time-t             Display file times as time_t's\n"
+#~ "  --uids               Display UID, GID\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "  --xattrs             Display extended attributes\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: показ файлів у віртуальній машині\n"
+#~ "© Red Hat Inc., 2010–2014\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену1 -D назва_домену2\n"
+#~ "  %s [--параметри] -a диск1.img -A диск2.img [-a|-A ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  --all                Те саме, що і --extra-stats --times --uids --"
+#~ "xattrs\n"
+#~ "  --atime              Не ігнорувати зміни у часі доступу\n"
+#~ "  -A образ             Додати образ з другої гостьової системи\n"
+#~ "  --checksum[=...]     Використовувати контрольні суми файлів\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  --csv                Вивести значення, відокремлені комами\n"
+#~ "  --dir-links          Не ігнорувати зміни у посиланнях на каталоги\n"
+#~ "  --dir-times          Не ігнорувати зміни у часових позначках каталогів\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  -D гість             Додати диски з другої гостьової системи libvirt\n"
+#~ "  --echo-keys          Не показувати символи паролів\n"
+#~ "  --extra-stats        Показати додаткові статистичні дані\n"
+#~ "  --format[=raw|..]    Примусово встановити формат диска для параметра -"
+#~ "a\n"
+#~ "  --help               Показати коротку довідку\n"
+#~ "  -h|--human-readable  Зручний для читання вивід розмірів\n"
+#~ "  --keys-from-stdin    Читати паролі з stdin\n"
+#~ "  --times              Показувати час створення файлів\n"
+#~ "  --time-days          Показувати час створення у днях до поточного\n"
+#~ "  --time-relative      Показувати час створення у секундах до поточної\n"
+#~ "  --time-t             Показувати час створення у форматі time_t\n"
+#~ "  --uids               Показувати UID, GID\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики API libguestfs\n"
+#~ "  --xattrs             Вивести розширені записи атрибутів\n"
+#~ "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "%s: Edit a file in a virtual machine\n"
+#~ "Copyright (C) 2009-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname file [file ...]\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -b|--backup .ext     Backup original as original.ext\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  -e|--expr expr       Non-interactive editing using Perl expr\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+#~ "                       Mount dev on mnt (if omitted, /)\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: редагування файла у віртуальній машині\n"
+#~ "© Red Hat Inc., 2009–2014\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену файл [файл ...]\n"
+#~ "  %s [--параметри] -a образ.img [-a образ.img ...] файл [файл ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  -b|--backup .ext     Створити резервну копію початкового файла з назвою "
+#~ "поч_файл.ext\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          Не вимикати показ символів паролів\n"
+#~ "  -e|--expr вираз      Неінтерактивне редагування за допомогою "
+#~ "формального виразу Perl\n"
+#~ "  --format[=raw|..]    Примусово встановити формат диска для параметра -"
+#~ "a\n"
+#~ "  --help               Показати коротку довідку\n"
+#~ "  --keys-from-stdin    Читати паролі з stdin\n"
+#~ "  -m|--mount пристрій[:монт[:параметри[:тип_фс]]]\n"
+#~ "                       Змонтувати пристрій до точки монтування (якщо не "
+#~ "вказано, до /)\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики API libguestfs\n"
+#~ "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "%s: guest filesystem shell\n"
+#~ "%s lets you edit virtual machine filesystems\n"
+#~ "Copyright (C) 2009-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] cmd [: cmd : cmd ...]\n"
+#~ "Options:\n"
+#~ "  -h|--cmd-help        List available commands\n"
+#~ "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --csh                Make --listen csh-compatible\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  -f|--file file       Read commands from file\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  -i|--inspector       Automatically mount filesystems\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  --listen             Listen for remote commands\n"
+#~ "  --live               Connect to a live virtual machine\n"
+#~ "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+#~ "                       Mount dev on mnt (if omitted, /)\n"
+#~ "  --network            Enable network\n"
+#~ "  -N|--new [filename=]type\n"
+#~ "                       Create prepared disk (test<N>.img or filename)\n"
+#~ "  -n|--no-sync         Don't autosync\n"
+#~ "  --no-dest-paths      Don't tab-complete paths from guest fs\n"
+#~ "  --pipe-error         Pipe commands can detect write errors\n"
+#~ "  --progress-bars      Enable progress bars even when not interactive\n"
+#~ "  --no-progress-bars   Disable progress bars\n"
+#~ "  --remote[=pid]       Send commands to remote %s\n"
+#~ "  -r|--ro              Mount read-only\n"
+#~ "  --selinux            Enable SELinux support\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -w|--rw              Mount read-write\n"
+#~ "  -x                   Echo each command before executing it\n"
+#~ "\n"
+#~ "To examine a disk image, ISO, hard disk, filesystem etc:\n"
+#~ "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
+#~ "or\n"
+#~ "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
+#~ "\n"
+#~ "--ro recommended to avoid any writes to the disk image.  If -i option "
+#~ "fails\n"
+#~ "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
+#~ "\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: командна оболонка гостьової файлової системи\n"
+#~ "%s надає вам змогу редагувати файлові системи віртуальної машини\n"
+#~ "© Red Hat Inc., 2009–2014\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] команда [: команда : команда ...]\n"
+#~ "Параметри:\n"
+#~ "  -h|--cmd-help        Показати список доступних команд\n"
+#~ "  -h|--cmd-help cmd    Показати докладну довіку з команди «cmd»\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  --csh                Використовувати --listen у режимі сумісності з "
+#~ "csh\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          Не вимикати показ символів паролів\n"
+#~ "  -f|--file файл       Прочитати команди з файла\n"
+#~ "  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
+#~ "  -i|--inspector       Автоматично монтувати файлові системи\n"
+#~ "  --keys-from-stdin    Читати паролі зі stdin\n"
+#~ "  --listen             Очікувати на віддалені команди\n"
+#~ "  --live               З’єднатися з вже запущеною віртуальною машиною\n"
+#~ "  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, "
+#~ "до /)\n"
+#~ "  --network            Увімкнути роботу у мережі\n"
+#~ "  -N|--new [назва файла=]тип\n"
+#~ "                       Створити приготований диск (test<N>.img або «назва "
+#~ "файла»)\n"
+#~ "  -n|--no-sync         Не виконувати автоматичної синхронізації\n"
+#~ "  --no-dest-paths      Не виконувати доповнення шляхів за допомогою Tab у "
+#~ "гостьовій ФС\n"
+#~ "  --pipe-error         Команди послідовності обробки здатні виявляти "
+#~ "помилки запису\n"
+#~ "  --progress-bars      Увімкнути смужки поступу, навіть якщо режим "
+#~ "неінтерактивний\n"
+#~ "  --no-progress-bars   Вимкнути смужки поступу\n"
+#~ "  --remote[=pid]       Надіслати команди до віддаленої %s\n"
+#~ "  -r|--ro              Змонтувати у режимі лише читання\n"
+#~ "  --selinux            Увімкнути підтримку SELinux\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -w|--rw              Змонтувати у режимі читання-запису\n"
+#~ "  -x                   Показувати кожну команду до її виконання\n"
+#~ "\n"
+#~ "Для вивчення образу диска, ISO, жорсткого диска, файлової системи "
+#~ "віддайте команду\n"
+#~ "  %s [--ro|--rw] -i -a /шлях/до/диск.img\n"
+#~ "або\n"
+#~ "  %s [--ro|--rw] -i -d назва-домену-libvirt\n"
+#~ "\n"
+#~ "Рекомендуємо скористатися параметром --ro, щоб уникнути записів до образу "
+#~ "диска.\n"
+#~ "Якщо у разі використання параметра -i ви бачите повідомлення про "
+#~ "помилку,\n"
+#~ "віддайте команду без -i, а потім скористайтеся командами 'run' + 'list-"
+#~ "filesystems' + 'mount'.\n"
+#~ "\n"
+#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "%s: FUSE module for libguestfs\n"
+#~ "%s lets you mount a virtual machine filesystem\n"
+#~ "Copyright (C) 2009-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] mountpoint\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --echo-keys          Don't turn off echo for passphrases\n"
+#~ "  --fd=FD              Write to pipe FD when mountpoint is ready\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --fuse-help          Display extra FUSE options\n"
+#~ "  -i|--inspector       Automatically mount filesystems\n"
+#~ "  --help               Display help message and exit\n"
+#~ "  --keys-from-stdin    Read passphrases from stdin\n"
+#~ "  --live               Connect to a live virtual machine\n"
+#~ "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
+#~ "  --no-fork            Don't daemonize\n"
+#~ "  -n|--no-sync         Don't autosync\n"
+#~ "  -o|--option opt      Pass extra option to FUSE\n"
+#~ "  --pid-file filename  Write PID to filename\n"
+#~ "  -r|--ro              Mount read-only\n"
+#~ "  --selinux            Enable SELinux support\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -w|--rw              Mount read-write\n"
+#~ "  -x|--trace           Trace guestfs API calls\n"
+#~ msgstr ""
+#~ "%s: модуль FUSE для libguestfs\n"
+#~ "%s надає вам змогу монтувати файлові системі віртуальних машин\n"
+#~ "© Red Hat Inc., 2009–2014\n"
+#~ "Користування:\n"
+#~ "  %s [--параметри] точка_монтування\n"
+#~ "Параметри:\n"
+#~ "  -a|--add image       додати образ\n"
+#~ "  -c|--connect адреса  вказати адресу libvirt для параметра -d\n"
+#~ "  --dir-cache-timeout  встановити час очікування на кеш readdir (типово 5 "
+#~ "с)\n"
+#~ "  -d|--domain гість    додати диски з гостьової системи libvirt\n"
+#~ "  --echo-keys          не вимикати показ паролів\n"
+#~ "  --fd=FD              записати до каналу FD, коли буде приготовано точку "
+#~ "монтування\n"
+#~ "  --format[=raw|..]    примусово вказати формат диска для параметра -a\n"
+#~ "  --fuse-help          показати додаткові параметри FUSE\n"
+#~ "  -i|--inspector       автоматично монтувати файлові системи\n"
+#~ "  --help               показати довідкове повідомлення і завершити "
+#~ "роботу\n"
+#~ "  --keys-from-stdin    читати паролі зі stdin\n"
+#~ "  --live               встановити інтерактивний зв’язок із запущеною "
+#~ "віртуальною машиною\n"
+#~ "  -m|--mount пристрій[:mnt[:парам]] змонтувати пристрій до mnt (якщо "
+#~ "пропущено, до /)\n"
+#~ "  --no-fork            не створювати фонової служби\n"
+#~ "  -n|--no-sync         не виконувати автосинхронізації\n"
+#~ "  -o|--option парам    передати додатковий параметр FUSE\n"
+#~ "  --pid-file файл      записати PID до файла з вказаною назвою\n"
+#~ "  -r|--ro              змонтувати у режимі лише читання\n"
+#~ "  --selinux            увімкнути підтримку SELinux\n"
+#~ "  -v|--verbose         режим докладних повідомлень\n"
+#~ "  -V|--version         показати дані щодо версії і завершити роботу\n"
+#~ "  -w|--rw              змонтувати у режимі читання-запису\n"
+#~ "  -x|--trace           трасувати виклики API guestfs\n"
+
+#~ msgid ""
+#~ "%s: make a filesystem from a tar archive or files\n"
+#~ "Copyright (C) 2010-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] input.tar output.img\n"
+#~ "  %s [--options] input.tar.gz output.img\n"
+#~ "  %s [--options] directory output.img\n"
+#~ "Options:\n"
+#~ "  --floppy               Make a virtual floppy disk\n"
+#~ "  --format=raw|qcow2|..  Set output format\n"
+#~ "  --help                 Display brief help\n"
+#~ "  --label=label          Filesystem label\n"
+#~ "  --partition=mbr|gpt|.. Set partition type\n"
+#~ "  --size=size|+size      Set size of output disk\n"
+#~ "  --type=ext4|..         Set filesystem type\n"
+#~ "  -v|--verbose           Verbose messages\n"
+#~ "  -V|--version           Display version and exit\n"
+#~ "  -x                     Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: створення файлової системи на основі архіву tar або файлів\n"
+#~ "© Red Hat Inc., 2010–2014\n"
+#~ "Користування:\n"
+#~ "  %s [--параметри] вхідний.tar результат.img\n"
+#~ "  %s [--параметри] вхідний.tar.gz результат.img\n"
+#~ "  %s [--параметри] каталог результат.img\n"
+#~ "Параметри:\n"
+#~ "  --floppy               Створити віртуальну дискету\n"
+#~ "  --format[=raw|..]      Встановити формат диска для параметра -a\n"
+#~ "  --help                 Показати коротку довідку\n"
+#~ "  --label=мітка          Встановити мітку файлової системи\n"
+#~ "  --partition=mbr|gpt..  Встановити тип розділу\n"
+#~ "  --size=розмір|+розмір  Встановити розмір диска результатів\n"
+#~ "  --type=ext4|..         Встановити тип файлової системи\n"
+#~ "  -v|--verbose           Докладні повідомлення\n"
+#~ "  -V|--version           Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                     Трасувати виклики інтерфейсу libguestfsЩоб "
+#~ "дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "%s: Run a rescue shell on a virtual machine\n"
+#~ "Copyright (C) 2009-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  --append kernelopts  Append kernel options\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  -m|--memsize MB      Set memory size in megabytes\n"
+#~ "  --network            Enable network\n"
+#~ "  -r|--ro              Access read-only\n"
+#~ "  --scratch[=N]        Add scratch disk(s)\n"
+#~ "  --selinux            Enable SELinux\n"
+#~ "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
+#~ "  --suggest            Suggest mount commands for this guest\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -w|--rw              Mount read-write\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: запуск оболонки відновлення на віртуальній машині\n"
+#~ "© Red Hat Inc., 2009–2014\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва-домену\n"
+#~ "  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  --append пар_ядра    Додати параметри запуску ядра\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+#~ "  --help               Показати коротку довідку\n"
+#~ "  -m|--memsize МБ      Вказати розмір пам’яті у мегабайтах\n"
+#~ "  --network            Увімкнути мережу\n"
+#~ "  -r|--ro              Доступ у режимі лише читання\n"
+#~ "  --selinux            Увімкнути SELinux\n"
+#~ "  --smp N              Увімкнути SMP з N >= 2 віртуальних процесорів\n"
+#~ "  --suggest            Пропонувати команди монтування для гостьової "
+#~ "системи\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -w|--rw              Змонтувати у режимі читання-запису\n"
+#~ "  -x                   Трасувати виклики програмного інтерфейсу "
+#~ "libguestfs\n"
+#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
+
+#~ msgid ""
+#~ "libguestfs-test-tool: interactive test tool\n"
+#~ "Copyright (C) 2009-2014 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  libguestfs-test-tool [--options]\n"
+#~ "Options:\n"
+#~ "  --help         Display usage\n"
+#~ "  --qemudir dir  Specify QEMU source directory\n"
+#~ "  --qemu qemu    Specify QEMU binary\n"
+#~ "  --timeout n\n"
+#~ "  -t n           Set launch timeout (default: %d seconds)\n"
+#~ "  --version\n"
+#~ "  -V             Display libguestfs version and exit\n"
+#~ msgstr ""
+#~ "libguestfs-test-tool: інтерактивний інструмент для тестування\n"
+#~ "© Red Hat Inc., 2009–2014\n"
+#~ "Використання:\n"
+#~ "  libguestfs-test-tool [--параметри]\n"
+#~ "Параметри:\n"
+#~ "  --help         Довідка з використання\n"
+#~ "  --qemudir dir  Вказати каталог коду QEMU\n"
+#~ "  --qemu qemu    Вказати адресу виконуваного файла QEMU\n"
+#~ "  --timeout n\n"
+#~ "  -t n           Встановити час очікування запуску (типово %d секунд)\n"
+#~ "  --version\n"
+#~ "  -V             Показати дані щодо версії libguestfs і завершити роботу\n"
+
+#~ msgid "network <disk> with <source protocol='%s'> was ignored"
+#~ msgstr "мережу <disk> з <source protocol='%s'> проігноровано"
 
 #~ msgid ""
 #~ "guestfs_launch failed.\n"
