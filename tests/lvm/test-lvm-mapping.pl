@@ -22,6 +22,8 @@ use warnings;
 
 use Sys::Guestfs;
 
+exit 77 if $ENV{SKIP_TEST_LVM_MAPPING_PL};
+
 my $g = Sys::Guestfs->new ();
 
 $g->add_drive_scratch (256 * 1024 * 1024);
