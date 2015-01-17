@@ -1,5 +1,5 @@
 /* virt-log
- * Copyright (C) 2010-2014 Red Hat Inc.
+ * Copyright (C) 2010-2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ usage (int status)
   else {
     fprintf (stdout,
            _("%s: display log files in a virtual machine\n"
-             "Copyright (C) 2010-2014 Red Hat Inc.\n"
+             "Copyright (C) 2010-2015 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] -d domname\n"
              "  %s [--options] -a disk.img [-a disk.img ...]\n"

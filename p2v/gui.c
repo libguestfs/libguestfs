@@ -1,5 +1,5 @@
 /* virt-p2v
- * Copyright (C) 2009-2014 Red Hat Inc.
+ * Copyright (C) 2009-2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -345,7 +345,7 @@ about_button_clicked (GtkWidget *w, gpointer data)
   gtk_show_about_dialog (GTK_WINDOW (conn_dlg),
                          "program-name", program_name,
                          "version", PACKAGE_VERSION,
-                         "copyright", "\u00A9 2009-2014 Red Hat Inc.",
+                         "copyright", "\u00A9 2009-2015 Red Hat Inc.",
                          "comments", "Convert a physical machine to use KVM",
                          "license", gplv2plus,
                          "website", "http://libguestfs.org/",
