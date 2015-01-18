@@ -54,6 +54,12 @@ let generate_lua_c () =
 #endif
 #endif
 
+#if LUA_VERSION_NUM >= 503
+#ifndef luaL_checkint
+#define luaL_checkint(L,n) ((int)luaL_checkinteger(L, (n)))
+#endif
+#endif
+
 #include <guestfs.h>
 #include \"guestfs-internal-frontend.h\"
 
