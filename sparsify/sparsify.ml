@@ -161,16 +161,6 @@ read the man page virt-sparsify(1).
     else
       Sys.getcwd () // indisk in
 
-  let contains_colon filename =
-    try ignore (String.index filename ':'); true with Not_found -> false in
-
-  (* Check filenames don't contain a colon (limitation of qemu-img). *)
-  if contains_colon indisk then
-    error (f_"input filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") indisk;
-
-  if contains_colon outdisk then
-    error (f_"output filename '%s' contains a colon (':'); qemu-img command line syntax prevents us from using such an image") outdisk;
-
   (* Check the output is not a char special (RHBZ#1056290). *)
   if is_char_device outdisk then
     error (f_"output '%s' cannot be a character device, it must be a regular file")
