@@ -93,7 +93,7 @@ main (int argc, char *argv[])
   char **pp;
   guestfs_h *g;
   char *qemu = NULL;
-  int qemu_use_wrapper;
+  int qemu_use_wrapper = 0;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
