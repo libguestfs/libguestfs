@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-01-17 09:35+0000\n"
+"POT-Creation-Date: 2015-01-19 19:16+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -5898,18 +5898,18 @@ msgstr ""
 #: fish/cmds.c:16076 fish/cmds.c:16089 fish/cmds.c:16102 fish/cmds.c:16115
 #: fish/cmds.c:16128 fish/cmds.c:16141 fish/cmds.c:16154 fish/cmds.c:16167
 #: fish/cmds.c:16180 fish/cmds.c:16193 fish/cmds.c:16206 fish/cmds.c:16219
-#: fish/cmds.c:16232 fish/cmds.c:17498 fish/cmds.c:17539 fish/cmds.c:17796
-#: fish/cmds.c:17866 fish/cmds.c:17879 fish/cmds.c:17892 fish/cmds.c:17905
-#: fish/cmds.c:17918 fish/cmds.c:17975 fish/cmds.c:18047 fish/cmds.c:18554
-#: fish/cmds.c:19394 fish/cmds.c:19726 fish/cmds.c:19739 fish/cmds.c:19801
-#: fish/cmds.c:19814 fish/cmds.c:19874 fish/cmds.c:19887 fish/cmds.c:20047
-#: fish/cmds.c:20167 fish/cmds.c:20209 fish/cmds.c:20495 fish/cmds.c:20547
-#: fish/cmds.c:20620 fish/cmds.c:20650 fish/cmds.c:20742 fish/cmds.c:20795
-#: fish/cmds.c:21806 fish/cmds.c:22017 fish/cmds.c:22348 fish/cmds.c:22361
-#: fish/cmds.c:22434 fish/cmds.c:22765 fish/cmds.c:22799 fish/cmds.c:23303
-#: fish/cmds.c:23316 fish/cmds.c:23329 fish/cmds.c:23342 fish/cmds.c:23355
-#: fish/cmds.c:23421 fish/cmds.c:23434 fish/cmds.c:23447 fish/cmds.c:23622
-#: fish/cmds.c:23635 fish/cmds.c:23648 fish/cmds.c:23661
+#: fish/cmds.c:16232 fish/cmds.c:17503 fish/cmds.c:17544 fish/cmds.c:17801
+#: fish/cmds.c:17871 fish/cmds.c:17884 fish/cmds.c:17897 fish/cmds.c:17910
+#: fish/cmds.c:17923 fish/cmds.c:17980 fish/cmds.c:18052 fish/cmds.c:18559
+#: fish/cmds.c:19399 fish/cmds.c:19731 fish/cmds.c:19744 fish/cmds.c:19806
+#: fish/cmds.c:19819 fish/cmds.c:19879 fish/cmds.c:19892 fish/cmds.c:20052
+#: fish/cmds.c:20172 fish/cmds.c:20214 fish/cmds.c:20500 fish/cmds.c:20552
+#: fish/cmds.c:20625 fish/cmds.c:20655 fish/cmds.c:20747 fish/cmds.c:20800
+#: fish/cmds.c:21811 fish/cmds.c:22022 fish/cmds.c:22353 fish/cmds.c:22366
+#: fish/cmds.c:22439 fish/cmds.c:22770 fish/cmds.c:22804 fish/cmds.c:23308
+#: fish/cmds.c:23321 fish/cmds.c:23334 fish/cmds.c:23347 fish/cmds.c:23360
+#: fish/cmds.c:23426 fish/cmds.c:23439 fish/cmds.c:23452 fish/cmds.c:23627
+#: fish/cmds.c:23640 fish/cmds.c:23653 fish/cmds.c:23666
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
@@ -5921,12 +5921,12 @@ msgstr ""
 #: fish/cmds.c:9642 fish/cmds.c:10465 fish/cmds.c:11357 fish/cmds.c:11980
 #: fish/cmds.c:12599 fish/cmds.c:13041 fish/cmds.c:13100 fish/cmds.c:13178
 #: fish/cmds.c:13237 fish/cmds.c:13296 fish/cmds.c:13377 fish/cmds.c:15506
-#: fish/cmds.c:16242 fish/cmds.c:16673 fish/cmds.c:16878 fish/cmds.c:17238
-#: fish/cmds.c:17356 fish/cmds.c:17453 fish/cmds.c:17549 fish/cmds.c:17928
-#: fish/cmds.c:17985 fish/cmds.c:18057 fish/cmds.c:19404 fish/cmds.c:19749
-#: fish/cmds.c:19824 fish/cmds.c:19897 fish/cmds.c:20219 fish/cmds.c:21625
-#: fish/cmds.c:21749 fish/cmds.c:21822 fish/cmds.c:22180 fish/cmds.c:22371
-#: fish/cmds.c:22444 fish/cmds.c:23375 fish/cmds.c:23548 fish/cmds.c:23749
+#: fish/cmds.c:16242 fish/cmds.c:16678 fish/cmds.c:16883 fish/cmds.c:17243
+#: fish/cmds.c:17361 fish/cmds.c:17458 fish/cmds.c:17554 fish/cmds.c:17933
+#: fish/cmds.c:17990 fish/cmds.c:18062 fish/cmds.c:19409 fish/cmds.c:19754
+#: fish/cmds.c:19829 fish/cmds.c:19902 fish/cmds.c:20224 fish/cmds.c:21630
+#: fish/cmds.c:21754 fish/cmds.c:21827 fish/cmds.c:22185 fish/cmds.c:22376
+#: fish/cmds.c:22449 fish/cmds.c:23380 fish/cmds.c:23553 fish/cmds.c:23754
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: nieznany opcjonalny parametr \"%s\"\n"
@@ -5938,12 +5938,12 @@ msgstr "%s: nieznany opcjonalny parametr \"%s\"\n"
 #: fish/cmds.c:9648 fish/cmds.c:10471 fish/cmds.c:11363 fish/cmds.c:11986
 #: fish/cmds.c:12605 fish/cmds.c:13047 fish/cmds.c:13106 fish/cmds.c:13184
 #: fish/cmds.c:13243 fish/cmds.c:13302 fish/cmds.c:13383 fish/cmds.c:15512
-#: fish/cmds.c:16248 fish/cmds.c:16679 fish/cmds.c:16884 fish/cmds.c:17244
-#: fish/cmds.c:17362 fish/cmds.c:17459 fish/cmds.c:17555 fish/cmds.c:17934
-#: fish/cmds.c:17991 fish/cmds.c:18063 fish/cmds.c:19410 fish/cmds.c:19755
-#: fish/cmds.c:19830 fish/cmds.c:19903 fish/cmds.c:20225 fish/cmds.c:21631
-#: fish/cmds.c:21755 fish/cmds.c:21828 fish/cmds.c:22186 fish/cmds.c:22377
-#: fish/cmds.c:22450 fish/cmds.c:23381 fish/cmds.c:23554 fish/cmds.c:23755
+#: fish/cmds.c:16248 fish/cmds.c:16684 fish/cmds.c:16889 fish/cmds.c:17249
+#: fish/cmds.c:17367 fish/cmds.c:17464 fish/cmds.c:17560 fish/cmds.c:17939
+#: fish/cmds.c:17996 fish/cmds.c:18068 fish/cmds.c:19415 fish/cmds.c:19760
+#: fish/cmds.c:19835 fish/cmds.c:19908 fish/cmds.c:20230 fish/cmds.c:21636
+#: fish/cmds.c:21760 fish/cmds.c:21833 fish/cmds.c:22191 fish/cmds.c:22382
+#: fish/cmds.c:22455 fish/cmds.c:23386 fish/cmds.c:23559 fish/cmds.c:23760
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: opcjonalny parametr \"%s\" został podany dwa razy\n"
@@ -5974,25 +5974,25 @@ msgstr "%s: opcjonalny parametr \"%s\" został podany dwa razy\n"
 #: fish/cmds.c:15947 fish/cmds.c:15970 fish/cmds.c:16286 fish/cmds.c:16332
 #: fish/cmds.c:16378 fish/cmds.c:16421 fish/cmds.c:16464 fish/cmds.c:16508
 #: fish/cmds.c:16551 fish/cmds.c:16606 fish/cmds.c:16634 fish/cmds.c:16657
-#: fish/cmds.c:16716 fish/cmds.c:16767 fish/cmds.c:16784 fish/cmds.c:16806
-#: fish/cmds.c:16839 fish/cmds.c:16862 fish/cmds.c:16968 fish/cmds.c:16987
-#: fish/cmds.c:17006 fish/cmds.c:17055 fish/cmds.c:17074 fish/cmds.c:17093
-#: fish/cmds.c:17142 fish/cmds.c:17161 fish/cmds.c:17180 fish/cmds.c:17520
-#: fish/cmds.c:18034 fish/cmds.c:18099 fish/cmds.c:18180 fish/cmds.c:18193
-#: fish/cmds.c:18230 fish/cmds.c:18295 fish/cmds.c:18338 fish/cmds.c:18382
-#: fish/cmds.c:18425 fish/cmds.c:18539 fish/cmds.c:18592 fish/cmds.c:18636
-#: fish/cmds.c:18655 fish/cmds.c:18699 fish/cmds.c:18808 fish/cmds.c:18827
-#: fish/cmds.c:18874 fish/cmds.c:18893 fish/cmds.c:19038 fish/cmds.c:19143
-#: fish/cmds.c:19187 fish/cmds.c:19566 fish/cmds.c:20264 fish/cmds.c:20392
-#: fish/cmds.c:20459 fish/cmds.c:20684 fish/cmds.c:20855 fish/cmds.c:20904
-#: fish/cmds.c:20923 fish/cmds.c:20942 fish/cmds.c:21020 fish/cmds.c:21039
-#: fish/cmds.c:21058 fish/cmds.c:21077 fish/cmds.c:21254 fish/cmds.c:21692
-#: fish/cmds.c:21976 fish/cmds.c:22034 fish/cmds.c:22057 fish/cmds.c:22085
-#: fish/cmds.c:22102 fish/cmds.c:22125 fish/cmds.c:22153 fish/cmds.c:22170
-#: fish/cmds.c:22301 fish/cmds.c:22519 fish/cmds.c:22581 fish/cmds.c:22594
-#: fish/cmds.c:22607 fish/cmds.c:22620 fish/cmds.c:23256 fish/cmds.c:23464
-#: fish/cmds.c:23481 fish/cmds.c:23498 fish/cmds.c:23515 fish/cmds.c:23532
-#: fish/cmds.c:23678 fish/cmds.c:23695 fish/cmds.c:23712 fish/cmds.c:23729
+#: fish/cmds.c:16721 fish/cmds.c:16772 fish/cmds.c:16789 fish/cmds.c:16811
+#: fish/cmds.c:16844 fish/cmds.c:16867 fish/cmds.c:16973 fish/cmds.c:16992
+#: fish/cmds.c:17011 fish/cmds.c:17060 fish/cmds.c:17079 fish/cmds.c:17098
+#: fish/cmds.c:17147 fish/cmds.c:17166 fish/cmds.c:17185 fish/cmds.c:17525
+#: fish/cmds.c:18039 fish/cmds.c:18104 fish/cmds.c:18185 fish/cmds.c:18198
+#: fish/cmds.c:18235 fish/cmds.c:18300 fish/cmds.c:18343 fish/cmds.c:18387
+#: fish/cmds.c:18430 fish/cmds.c:18544 fish/cmds.c:18597 fish/cmds.c:18641
+#: fish/cmds.c:18660 fish/cmds.c:18704 fish/cmds.c:18813 fish/cmds.c:18832
+#: fish/cmds.c:18879 fish/cmds.c:18898 fish/cmds.c:19043 fish/cmds.c:19148
+#: fish/cmds.c:19192 fish/cmds.c:19571 fish/cmds.c:20269 fish/cmds.c:20397
+#: fish/cmds.c:20464 fish/cmds.c:20689 fish/cmds.c:20860 fish/cmds.c:20909
+#: fish/cmds.c:20928 fish/cmds.c:20947 fish/cmds.c:21025 fish/cmds.c:21044
+#: fish/cmds.c:21063 fish/cmds.c:21082 fish/cmds.c:21259 fish/cmds.c:21697
+#: fish/cmds.c:21981 fish/cmds.c:22039 fish/cmds.c:22062 fish/cmds.c:22090
+#: fish/cmds.c:22107 fish/cmds.c:22130 fish/cmds.c:22158 fish/cmds.c:22175
+#: fish/cmds.c:22306 fish/cmds.c:22524 fish/cmds.c:22586 fish/cmds.c:22599
+#: fish/cmds.c:22612 fish/cmds.c:22625 fish/cmds.c:23261 fish/cmds.c:23469
+#: fish/cmds.c:23486 fish/cmds.c:23503 fish/cmds.c:23520 fish/cmds.c:23537
+#: fish/cmds.c:23683 fish/cmds.c:23700 fish/cmds.c:23717 fish/cmds.c:23734
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: nieprawidłowy parametr liczby całkowitej (%s zwróciło %d)\n"
@@ -6009,38 +6009,38 @@ msgstr "%s: %s: nieprawidłowy parametr liczby całkowitej (%s zwróciło %d)\n"
 #: fish/cmds.c:15648 fish/cmds.c:15953 fish/cmds.c:15976 fish/cmds.c:16292
 #: fish/cmds.c:16338 fish/cmds.c:16384 fish/cmds.c:16427 fish/cmds.c:16470
 #: fish/cmds.c:16514 fish/cmds.c:16557 fish/cmds.c:16612 fish/cmds.c:16640
-#: fish/cmds.c:16663 fish/cmds.c:16722 fish/cmds.c:16812 fish/cmds.c:16845
-#: fish/cmds.c:16868 fish/cmds.c:16974 fish/cmds.c:16993 fish/cmds.c:17012
-#: fish/cmds.c:17061 fish/cmds.c:17080 fish/cmds.c:17099 fish/cmds.c:17148
-#: fish/cmds.c:17167 fish/cmds.c:17186 fish/cmds.c:17526 fish/cmds.c:18236
-#: fish/cmds.c:18301 fish/cmds.c:18344 fish/cmds.c:18388 fish/cmds.c:18431
-#: fish/cmds.c:18545 fish/cmds.c:18598 fish/cmds.c:18642 fish/cmds.c:18661
-#: fish/cmds.c:18705 fish/cmds.c:18814 fish/cmds.c:18880 fish/cmds.c:20398
-#: fish/cmds.c:20465 fish/cmds.c:20690 fish/cmds.c:20861 fish/cmds.c:20910
-#: fish/cmds.c:20929 fish/cmds.c:20948 fish/cmds.c:21026 fish/cmds.c:21045
-#: fish/cmds.c:21064 fish/cmds.c:21083 fish/cmds.c:21260 fish/cmds.c:21698
-#: fish/cmds.c:22040 fish/cmds.c:22063 fish/cmds.c:22108 fish/cmds.c:22131
-#: fish/cmds.c:22307 fish/cmds.c:23262 fish/cmds.c:23538
+#: fish/cmds.c:16663 fish/cmds.c:16727 fish/cmds.c:16817 fish/cmds.c:16850
+#: fish/cmds.c:16873 fish/cmds.c:16979 fish/cmds.c:16998 fish/cmds.c:17017
+#: fish/cmds.c:17066 fish/cmds.c:17085 fish/cmds.c:17104 fish/cmds.c:17153
+#: fish/cmds.c:17172 fish/cmds.c:17191 fish/cmds.c:17531 fish/cmds.c:18241
+#: fish/cmds.c:18306 fish/cmds.c:18349 fish/cmds.c:18393 fish/cmds.c:18436
+#: fish/cmds.c:18550 fish/cmds.c:18603 fish/cmds.c:18647 fish/cmds.c:18666
+#: fish/cmds.c:18710 fish/cmds.c:18819 fish/cmds.c:18885 fish/cmds.c:20403
+#: fish/cmds.c:20470 fish/cmds.c:20695 fish/cmds.c:20866 fish/cmds.c:20915
+#: fish/cmds.c:20934 fish/cmds.c:20953 fish/cmds.c:21031 fish/cmds.c:21050
+#: fish/cmds.c:21069 fish/cmds.c:21088 fish/cmds.c:21265 fish/cmds.c:21703
+#: fish/cmds.c:22045 fish/cmds.c:22068 fish/cmds.c:22113 fish/cmds.c:22136
+#: fish/cmds.c:22312 fish/cmds.c:23267 fish/cmds.c:23543
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: liczba całkowita spoza zakresu\n"
 
-#: fish/cmds.c:24069
+#: fish/cmds.c:24074
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: fish/cmds.c:24071
+#: fish/cmds.c:24076
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: fish/cmds.c:24072
+#: fish/cmds.c:24077
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: fish/cmds.c:24077
+#: fish/cmds.c:24082
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: nieznane polecenie\n"
@@ -7143,7 +7143,7 @@ msgstr ""
 msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:823
+#: make-fs/make-fs.c:829
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr ""
