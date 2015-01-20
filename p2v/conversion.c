@@ -157,6 +157,13 @@ start_conversion (struct config *config,
       exit (EXIT_FAILURE);
     }
 
+#if DEBUG_STDERR
+    fprintf (stderr,
+             "%s: data connection for %s: SSH remote port %d, local port %d\n",
+             program_name, device,
+             data_conns[i].nbd_remote_port, data_conns[i].nbd_local_port);
+#endif
+
     /* Start qemu-nbd listening on the given port number. */
     data_conns[i].nbd_pid =
       start_qemu_nbd (data_conns[i].nbd_local_port, device);
@@ -167,13 +174,6 @@ start_conversion (struct config *config,
     if (wait_qemu_nbd (data_conns[i].nbd_local_port,
                        WAIT_QEMU_NBD_TIMEOUT) == -1)
       goto out;
-
-#if DEBUG_STDERR
-    fprintf (stderr,
-             "%s: data connection for %s: SSH remote port %d, local port %d\n",
-             program_name, device,
-             data_conns[i].nbd_remote_port, data_conns[i].nbd_local_port);
-#endif
   }
 
   /* Create a remote directory name which will be used for libvirt
