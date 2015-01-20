@@ -661,8 +661,8 @@ rl_gets (int prompt)
       line_read = NULL;
     }
 
-    p = prompt && ps1 ? decode_ps1 (ps1) : NULL;
-    line_read = readline (prompt ? (ps1 ? p : FISH) : "");
+    p = ps1 ? decode_ps1 (ps1) : NULL;
+    line_read = readline (ps1 ? p : FISH);
 
     if (ps_output) {            /* GUESTFISH_OUTPUT */
       CLEANUP_FREE char *po = decode_ps1 (ps_output);
