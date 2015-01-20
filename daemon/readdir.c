@@ -27,6 +27,17 @@
 #include "daemon.h"
 #include "actions.h"
 
+static void
+free_int_dirent_list (guestfs_int_dirent *p, size_t len)
+{
+  size_t i;
+
+  for (i = 0; i < len; ++i) {
+    free (p[i].name);
+  }
+  free (p);
+}
+
 guestfs_int_dirent_list *
 do_readdir (const char *path)
 {
@@ -64,8 +75,11 @@ do_readdir (const char *path)
     v.name = strdup (d->d_name);
     if (!p || !v.name) {
       reply_with_perror ("allocate");
-      free (ret->guestfs_int_dirent_list_val);
-      free (p);
+      if (p) {
+        free_int_dirent_list (p, i);
+      } else {
+        free_int_dirent_list (ret->guestfs_int_dirent_list_val, i);
+      }
       free (v.name);
       free (ret);
       closedir (dir);
