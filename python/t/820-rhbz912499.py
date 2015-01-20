@@ -24,6 +24,7 @@ import random
 import string
 import re
 import os
+import platform
 import guestfs
 
 try:
@@ -34,9 +35,16 @@ except:
 
 # If the backend is not libvirt, skip the test.
 backend = guestfs.GuestFS().get_backend()
-re = re.compile ("^libvirt")
-if not re.match (backend):
+rex = re.compile ("^libvirt")
+if not rex.match (backend):
     print "skipping test: backend is not libvirt"
+    exit (77)
+
+# If the architecture doesn't support IDE, skip the test.
+machine = platform.machine ()
+rex = re.compile ("i.86")
+if machine != "x86_64" and not rex.match (machine):
+    print "skipping test: arch is not x86 and does not support IDE"
     exit (77)
 
 conn = libvirt.open (None)
