@@ -658,6 +658,7 @@ test_fuse (void)
       fprintf (stderr, "unexpected acl: %s\n", acl_text);
       return -1;
     }
+    acl_free (acl_text);
     acl_free (acl);
   }
 #endif
