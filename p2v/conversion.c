@@ -29,10 +29,9 @@
 #include <errno.h>
 #include <locale.h>
 #include <libintl.h>
+#include <netdb.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
 
 #include <glib.h>
 
@@ -393,14 +392,120 @@ start_qemu_nbd (int port, const char *device)
   return pid;
 }
 
+/* Connect to a host/port, resolving the address using getaddrinfo and
+ * setting the source port kernel hint.  This may involve multiple
+ * connections - to IPv4 and IPv6 for instance.
+ */
+static int bind_source_port (int sockfd, int family, int source_port);
+
+static int
+connect_with_source_port (const char *hostname, int dest_port, int source_port)
+{
+  struct addrinfo hints;
+  struct addrinfo *results, *rp;
+  char dest_port_str[16];
+  int r, sockfd = -1;
+  int reuseaddr = 1;
+
+  snprintf (dest_port_str, sizeof dest_port_str, "%d", dest_port);
+
+  memset (&hints, 0, sizeof hints);
+  hints.ai_family = AF_UNSPEC;     /* allow IPv4 or IPv6 */
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_flags = AI_NUMERICSERV; /* numeric dest port number */
+  hints.ai_protocol = 0;           /* any protocol */
+
+  r = getaddrinfo (hostname, dest_port_str, &hints, &results);
+  if (r != 0) {
+    set_conversion_error ("getaddrinfo: %s/%s: %s",
+                          hostname, dest_port_str, gai_strerror (r));
+    return -1;
+  }
+
+  for (rp = results; rp != NULL; rp = rp->ai_next) {
+    sockfd = socket (rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+    if (sockfd == -1)
+      continue;
+
+    /* If we run p2v repeatedly (say, running the tests in a loop),
+     * there's a decent chance we'll end up trying to bind() to a port
+     * that is in TIME_WAIT from a prior run.  Handle that gracefully
+     * with SO_REUSEADDR.
+     */
+    if (setsockopt (sockfd, SOL_SOCKET, SO_REUSEADDR,
+                    &reuseaddr, sizeof reuseaddr) == -1)
+      perror ("warning: setsockopt");
+
+    /* Need to bind the source port. */
+    if (bind_source_port (sockfd, rp->ai_family, source_port) == -1) {
+      close (sockfd);
+      sockfd = -1;
+      continue;
+    }
+
+    /* Connect. */
+    if (connect (sockfd, rp->ai_addr, rp->ai_addrlen) == -1) {
+      set_conversion_error ("waiting for qemu-nbd to start: "
+                            "connect to %s/%s: %m",
+                            hostname, dest_port_str);
+      close (sockfd);
+      sockfd = -1;
+      continue;
+    }
+
+    break;
+  }
+
+  freeaddrinfo (results);
+  return sockfd;
+}
+
+static int
+bind_source_port (int sockfd, int family, int source_port)
+{
+  struct addrinfo hints;
+  struct addrinfo *results, *rp;
+  char source_port_str[16];
+  int r;
+
+  snprintf (source_port_str, sizeof source_port_str, "%d", source_port);
+
+  memset (&hints, 0, sizeof (hints));
+  hints.ai_family = family;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_flags = AI_PASSIVE | AI_NUMERICSERV; /* numeric port number */
+  hints.ai_protocol = 0;                        /* any protocol */
+
+  r = getaddrinfo ("localhost", source_port_str, &hints, &results);
+  if (r != 0) {
+    set_conversion_error ("getaddrinfo (bind): localhost/%s: %s",
+                          source_port_str, gai_strerror (r));
+    return -1;
+  }
+
+  for (rp = results; rp != NULL; rp = rp->ai_next) {
+    if (bind (sockfd, rp->ai_addr, rp->ai_addrlen) == 0)
+      goto bound;
+  }
+
+  set_conversion_error ("waiting for qemu-nbd to start: "
+                        "bind to source port %d: %m",
+                        source_port);
+  freeaddrinfo (results);
+  return -1;
+
+ bound:
+  freeaddrinfo (results);
+  return 0;
+}
+
 static int
 wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
 {
-  int sockfd;
+  int sockfd = -1;
   int result = -1;
-  int reuseaddr = 1;
-  struct sockaddr_in src_addr, dst_addr;
   time_t start_t, now_t;
+  struct timespec half_sec = { .tv_sec = 0, .tv_nsec = 500000000 };
   struct timeval timeout = { .tv_usec = 0 };
   char magic[8]; /* NBDMAGIC */
   size_t bytes_read = 0;
@@ -408,57 +513,26 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
 
   time (&start_t);
 
-  sockfd = socket (AF_INET, SOCK_STREAM, 0);
-  if (sockfd == -1) {
-    perror ("socket");
-    return -1;
-  }
-
-  memset (&src_addr, 0, sizeof src_addr);
-  src_addr.sin_family = AF_INET;
-  /* Source port for probing qemu-nbd should be one greater than
-   * nbd_local_port.  It's not guaranteed to always bind to this port,
-   * but it will hint the kernel to start there and try incrementally
-   * higher ports if needed.  This avoids the case where the kernel
-   * selects nbd_local_port as our source port, and we immediately
-   * connect to ourself.  See:
-   * https://bugzilla.redhat.com/show_bug.cgi?id=1167774#c9
-   */
-  src_addr.sin_port = htons (nbd_local_port+1);
-  inet_pton (AF_INET, "localhost", &src_addr.sin_addr);
-
-  memset (&dst_addr, 0, sizeof dst_addr);
-  dst_addr.sin_family = AF_INET;
-  dst_addr.sin_port = htons (nbd_local_port);
-  inet_pton (AF_INET, "localhost", &dst_addr.sin_addr);
-
-  /* If we run p2v repeatedly (say, running the tests in a loop),
-   * there's a decent chance we'll end up trying to bind() to a port
-   * that is in TIME_WAIT from a prior run.  Handle that gracefully
-   * with SO_REUSEADDR.
-   */
-  if (setsockopt (sockfd, SOL_SOCKET, SO_REUSEADDR,
-                  &reuseaddr, sizeof reuseaddr) == -1) {
-    set_conversion_error ("waiting for qemu-nbd to start: setsockopt: %m");
-    goto cleanup;
-  }
-
-  if (bind (sockfd, (struct sockaddr *) &src_addr, sizeof src_addr) == -1) {
-    set_conversion_error ("waiting for qemu-nbd to start: bind(%d): %m",
-                          ntohs (src_addr.sin_port));
-    goto cleanup;
-  }
-
   for (;;) {
     time (&now_t);
 
-    if (now_t - start_t >= timeout_seconds) {
-      set_conversion_error ("waiting for qemu-nbd to start: connect: %m");
+    if (now_t - start_t >= timeout_seconds)
       goto cleanup;
-    }
 
-    if (connect (sockfd, (struct sockaddr *) &dst_addr, sizeof dst_addr) == 0)
+    /* Source port for probing qemu-nbd should be one greater than
+     * nbd_local_port.  It's not guaranteed to always bind to this port,
+     * but it will hint the kernel to start there and try incrementally
+     * higher ports if needed.  This avoids the case where the kernel
+     * selects nbd_local_port as our source port, and we immediately
+     * connect to ourself.  See:
+     * https://bugzilla.redhat.com/show_bug.cgi?id=1167774#c9
+     */
+    sockfd = connect_with_source_port ("localhost", nbd_local_port,
+                                       nbd_local_port+1);
+    if (sockfd >= 0)
       break;
+
+    nanosleep (&half_sec, NULL);
   }
 
   time (&now_t);
