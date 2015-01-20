@@ -719,6 +719,8 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
    * appliance VM.
    */
   if (!seen_qemu && !seen_kvm) {
+    CLEANUP_FREE char *backend = guestfs_get_backend (g);
+
     error (g,
            _("libvirt hypervisor doesn't support qemu or KVM,\n"
              "so we cannot create the libguestfs appliance.\n"
@@ -730,7 +732,7 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
              "Or: if you want to have libguestfs run qemu directly, try:\n"
              "  export LIBGUESTFS_BACKEND=direct\n"
              "For further help, read the guestfs(3) man page and libguestfs FAQ."),
-           guestfs_get_backend (g));
+           backend);
     return -1;
   }
 
