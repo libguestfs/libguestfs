@@ -1087,12 +1087,16 @@ construct_libvirt_xml_cpu (guestfs_h *g,
         } end_element ();
       }
       else {
-        /* XXX This does not work, see:
+        /* XXX This does not work on aarch64, see:
          * https://www.redhat.com/archives/libvirt-users/2014-August/msg00043.html
+	 * https://bugzilla.redhat.com/show_bug.cgi?id=1184411
+	 * Instead we hack around it using <qemu:commandline> below.
          */
+#ifndef __aarch64__
         start_element ("model") {
           string (cpu_model);
         } end_element ();
+#endif
       }
     } end_element ();
   }
@@ -1729,6 +1733,21 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
         } end_element ();
       }
     }
+
+#ifdef __aarch64__
+    /* This is a temporary hack until RHBZ#1184411 is resolved.
+     * See comments above about cpu model and aarch64.
+     */
+    const char *cpu_model = guestfs___get_cpu_model (params->data->is_kvm);
+    if (STRNEQ (cpu_model, "host")) {
+      start_element ("qemu:arg") {
+        attribute ("value", "-cpu");
+      } end_element ();
+      start_element ("qemu:arg") {
+        attribute ("value", cpu_model);
+      } end_element ();
+    }
+#endif
 
   } end_element (); /* </qemu:commandline> */
 
