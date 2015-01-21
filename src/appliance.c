@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2010-2012 Red Hat Inc.
+ * Copyright (C) 2010-2014 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -459,3 +459,67 @@ dir_contains_files (const char *dir, ...)
   va_end (args);
   return 1;
 }
+
+#ifdef __aarch64__
+
+#define AAVMF_DIR "/usr/share/AAVMF"
+
+/* Return the location of firmware needed to boot the appliance.  This
+ * is aarch64 only currently, since that's the only architecture where
+ * UEFI is mandatory (and that only for RHEL).
+ *
+ * '*code' is initialized with the path to the read-only UEFI code
+ * file.  '*vars' is initialized with the path to a copy of the UEFI
+ * vars file (which is cleaned up automatically on exit).
+ *
+ * If *code == *vars == NULL then no UEFI firmware is available.
+ *
+ * '*code' and '*vars' should be freed by the caller.
+ *
+ * If the function returns -1 then there was a real error which should
+ * cause appliance building to fail (no UEFI firmware is not an
+ * error).
+ */
+int
+guestfs___get_uefi (guestfs_h *g, char **code, char **vars)
+{
+  if (access (AAVMF_DIR "/AAVMF_CODE.fd", R_OK) == 0 &&
+      access (AAVMF_DIR "/AAVMF_VARS.fd", R_OK) == 0) {
+    CLEANUP_CMD_CLOSE struct command *copycmd = guestfs___new_command (g);
+    char *varst;
+    int r;
+
+    /* Make a copy of AAVMF_VARS.fd.  You can't just map it into the
+     * address space read-only as that triggers a different path
+     * inside UEFI.
+     */
+    varst = safe_asprintf (g, "%s/AAVMF_VARS.fd.%d", g->tmpdir, ++g->unique);
+    guestfs___cmd_add_arg (copycmd, "cp");
+    guestfs___cmd_add_arg (copycmd, AAVMF_DIR "/AAVMF_VARS.fd");
+    guestfs___cmd_add_arg (copycmd, varst);
+    r = guestfs___cmd_run (copycmd);
+    if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+      free (varst);
+      return -1;
+    }
+
+    /* Caller frees. */
+    *code = safe_strdup (g, AAVMF_DIR "/AAVMF_CODE.fd");
+    *vars = varst;
+    return 0;
+  }
+
+  *code = *vars = NULL;
+  return 0;
+}
+
+#else /* !__aarch64__ */
+
+int
+guestfs___get_uefi (guestfs_h *g, char **code, char **vars)
+{
+  *code = *vars = NULL;
+  return 0;
+}
+
+#endif /* !__aarch64__ */
