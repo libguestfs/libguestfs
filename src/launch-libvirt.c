@@ -109,6 +109,8 @@ struct backend_libvirt_data {
   char name[DOMAIN_NAME_LEN];   /* random name */
   bool is_kvm;                  /* false = qemu, true = kvm (from capabilities)*/
   unsigned long qemu_version;   /* qemu version (from libvirt) */
+  char *uefi_code;		/* UEFI (firmware) code and variables. */
+  char *uefi_vars;
 };
 
 /* Parameters passed to construct_libvirt_xml and subfunctions.  We
@@ -316,6 +318,10 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     guestfs___print_timestamped_message (g, "parsing capabilities XML");
 
   if (parse_capabilities (g, capabilities_xml, data) == -1)
+    goto cleanup;
+
+  /* UEFI code and variables, on architectures where that is required. */
+  if (guestfs___get_uefi (g, &data->uefi_code, &data->uefi_vars) == -1)
     goto cleanup;
 
   /* Misc backend settings. */
@@ -1095,6 +1101,20 @@ construct_libvirt_xml_boot (guestfs_h *g,
       string ("hvm");
     } end_element ();
 
+    if (params->data->uefi_code) {
+      start_element ("loader") {
+	attribute ("readonly", "yes");
+	attribute ("type", "pflash");
+	string (params->data->uefi_code);
+      } end_element ();
+
+      if (params->data->uefi_vars) {
+	start_element ("nvram") {
+	  string (params->data->uefi_vars);
+	} end_element ();
+      }
+    }
+
     start_element ("kernel") {
       string (params->kernel);
     } end_element ();
@@ -1708,6 +1728,11 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
 
   free (data->network_bridge);
   data->network_bridge = NULL;
+
+  free (data->uefi_code);
+  data->uefi_code = NULL;
+  free (data->uefi_vars);
+  data->uefi_vars = NULL;
 
   return ret;
 }
