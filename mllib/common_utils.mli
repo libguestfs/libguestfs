@@ -45,6 +45,7 @@ val replace_str : string -> string -> string -> string
 val string_nsplit : string -> string -> string list
 val string_split : string -> string -> string * string
 val string_random8 : unit -> string
+val string_lines_split : string -> string list
 (** Various string functions. *)
 
 val dropwhile : ('a -> bool) -> 'a list -> 'a list

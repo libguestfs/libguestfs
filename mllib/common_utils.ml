@@ -171,6 +171,37 @@ let string_random8 =
       ) [1;2;3;4;5;6;7;8]
     )
 
+(* Split a string into lines, keeping continuation characters
+ * (i.e. \ at the end of lines) into account. *)
+let rec string_lines_split str =
+  let buf = Buffer.create 16 in
+  let len = String.length str in
+  let rec loop start len =
+    try
+      let i = String.index_from str start '\n' in
+      if i > 0 && str.[i-1] = '\\' then (
+        Buffer.add_substring buf str start (i-start-1);
+        Buffer.add_char buf '\n';
+        loop (i+1) len
+      ) else (
+        Buffer.add_substring buf str start (i-start);
+        i+1
+      )
+    with Not_found ->
+      if len > 0 && str.[len-1] = '\\' then (
+        Buffer.add_substring buf str start (len-start-1);
+        Buffer.add_char buf '\n'
+      ) else
+        Buffer.add_substring buf str start (len-start);
+      len+1
+  in
+  let endi = loop 0 len in
+  let line = Buffer.contents buf in
+  if endi > len then
+    [line]
+  else
+    line :: string_lines_split (String.sub str endi (len-endi))
+
 (* Drop elements from a list while a predicate is true. *)
 let rec dropwhile f = function
   | [] -> []
