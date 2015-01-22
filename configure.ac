@@ -1120,6 +1120,7 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 ])
 
 OCAML_PKG_gettext=no
+OCAML_PKG_oUnit=no
 AS_IF([test "x$OCAMLC" != "xno"],[
     # Create mllib/common_gettext.ml, gettext functions or stubs.
 
@@ -1128,9 +1129,13 @@ AS_IF([test "x$OCAMLC" != "xno"],[
     mkdir -p mllib
 
     GUESTFS_CREATE_COMMON_GETTEXT_ML([mllib/common_gettext.ml])
+
+    AC_CHECK_OCAML_PKG(oUnit)
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
+AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
+    [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_oUnit" != "xno"])
 
 AC_CHECK_PROG([OCAML_GETTEXT],[ocaml-gettext],[ocaml-gettext],[no])
 AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
