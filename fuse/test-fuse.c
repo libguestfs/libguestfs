@@ -139,6 +139,8 @@ main (int argc, char *argv[])
     }
 
     res = test_fuse ();
+    printf ("test_fuse() returned %d\n", res);
+    fflush (stdout);
 
     /* Move out of the mountpoint (otherwise our cwd will prevent the
      * mountpoint from being unmounted below).
@@ -147,9 +149,14 @@ main (int argc, char *argv[])
 
     /* Who's using the mountpoint?  Should be no one. */
     snprintf (cmd, sizeof cmd, "/sbin/fuser %s", mountpoint);
+    printf ("%s\n", cmd);
+    fflush (stdout);
     ignore_value (system (cmd));
 
+    /* Unmount it. */
     snprintf (cmd, sizeof cmd, "guestunmount %s", mountpoint);
+    printf ("%s\n", cmd);
+    fflush (stdout);
     r = system (cmd);
     if (!WIFEXITED (r) || WEXITSTATUS (r) != EXIT_SUCCESS)
       fprintf (stderr, "%s: warning: guestunmount command failed\n", argv[0]);
