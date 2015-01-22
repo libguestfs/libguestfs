@@ -43,6 +43,7 @@ and op_type =
 | PasswordSelector of string            (* password selector *)
 | UserPasswordSelector of string        (* user:selector *)
 | SSHKeySelector of string              (* user:selector *)
+| StringFn of (string * string)         (* string, function name *)
 
 let ops = [
   { op_name = "chmod";
@@ -54,6 +55,34 @@ Change the permissions of C<FILE> to C<PERMISSIONS>.
 
 I<Note>: C<PERMISSIONS> by default would be decimal, unless you prefix
 it with C<0> to get octal, ie. use C<0700> not C<700>.";
+  };
+
+  { op_name = "commands-from-file";
+    op_type = StringFn ("FILENAME", "customize_read_from_file");
+    op_discrim = "`CommandsFromFile";
+    op_shortdesc = "Read customize commands from file";
+    op_pod_longdesc = "\
+Read the customize commands from a file, one (and its arguments)
+each line.
+
+Each line contains a single customization command and its arguments,
+for example:
+
+ delete /some/file
+ install some-package
+ password some-user:password:its-new-password
+
+Empty lines are ignored, and lines starting with C<#> are comments
+and are ignored as well.  Furthermore, arguments can be spread across
+multiple lines, by adding a C<\\> (continuation character) at the of
+a line, for example
+
+ edit /some/file:\\
+   s/^OPT=.*/OPT=ok/
+
+The commands are handled in the same order as they are in the file,
+as if they were specified as I<--delete /some/file> on the command
+line.";
   };
 
   { op_name = "delete";
@@ -474,7 +503,7 @@ let rec argspec () =
     | target :: lns -> target, lns
   in
 
-  let argspec = [
+  let rec argspec = [
 ";
 
   List.iter (
@@ -569,6 +598,18 @@ let rec argspec () =
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
+    | { op_type = StringFn (v, fn); op_name = name; op_discrim = discrim;
+        op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
+      pr "    (\n";
+      pr "      \"--%s\",\n" name;
+      pr "      Arg.String (\n";
+      pr "        fun s ->\n";
+      pr "          %s s;\n" fn;
+      pr "          ops := %s s :: !ops\n" discrim;
+      pr "      ),\n";
+      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "    ),\n";
+      pr "    Some %S, %S;\n" v longdesc
   ) ops;
 
   List.iter (
@@ -598,7 +639,57 @@ let rec argspec () =
       pr "    Some %S, %S;\n" v longdesc
   ) flags;
 
-  pr "  ] in
+  pr "  ]
+  and customize_read_from_file filename =
+    let forbidden_commands = [
+";
+
+  List.iter (
+    function
+    | { op_type = StringFn (_, _); op_name = name; } ->
+      pr "      \"%s\";\n" name
+    | { op_type = Unit; }
+    | { op_type = String _; }
+    | { op_type = StringPair _; }
+    | { op_type = StringList _; }
+    | { op_type = TargetLinks _; }
+    | { op_type = PasswordSelector _; }
+    | { op_type = UserPasswordSelector _; }
+    | { op_type = SSHKeySelector _; } -> ()
+  ) ops;
+
+pr "    ] in
+    let lines = read_whole_file filename in
+    let lines = string_lines_split lines in
+    let lines = List.filter (
+      fun line ->
+        String.length line > 0 && line.[0] <> '#'
+    ) lines in
+    let cmds = List.map (fun line -> string_split \" \" line) lines in
+    (* Check for commands not allowed in files containing commands. *)
+    List.iter (
+      fun (cmd, _) ->
+        if List.mem cmd forbidden_commands then
+          error (f_\"command '%%s' cannot be used in command files, see the man page\")
+            cmd
+    ) cmds;
+    List.iter (
+      fun (cmd, arg) ->
+        try
+          let ((_, spec, _), _, _) = List.find (
+            fun ((key, _, _), _, _) ->
+              key = \"--\" ^ cmd
+          ) argspec in
+          (match spec with
+          | Arg.Unit fn -> fn ()
+          | Arg.String fn -> fn arg
+          | _ -> error \"INTERNAL error: spec not handled for %%s\" cmd
+          )
+        with Not_found ->
+          error (f_\"command '%%s' not valid, see the man page\")
+            cmd
+    ) cmds
+  in
 
   argspec, get_ops
 "
@@ -640,6 +731,8 @@ type ops = {
         op_name = name } ->
       pr "  | %s of string * Ssh_key.ssh_key_selector\n      (* --%s %s *)\n"
         discrim name v
+    | { op_type = StringFn (v, _); op_discrim = discrim; op_name = name } ->
+      pr "  | %s of string\n      (* --%s %s *)\n" discrim name v
   ) ops;
   pr "]\n";
 
@@ -665,7 +758,8 @@ let generate_customize_synopsis_pod () =
       | { op_type = Unit; op_name = n } ->
         n, sprintf "[--%s]" n
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v;
+            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v
+            | StringFn (v, _);
           op_name = n } ->
         n, sprintf "[--%s %s]" n v
     ) ops @
@@ -705,7 +799,8 @@ let generate_customize_options_pod () =
       | { op_type = Unit; op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s>" n, ld
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
-            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v;
+            | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v
+            | StringFn (v, _);
           op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s> %s" n v, ld
     ) ops @

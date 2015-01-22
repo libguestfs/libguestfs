@@ -170,6 +170,11 @@ exec >>%s 2>&1
       msg (f_"Running: %s") cmd;
       do_run ~display:cmd cmd
 
+    | `CommandsFromFile _ ->
+      (* Nothing to do, the files with customize commands are already
+       * read when their arguments are met. *)
+      ()
+
     | `Delete path ->
       msg (f_"Deleting: %s") path;
       g#rm_rf path
