@@ -56,6 +56,9 @@ kernel
 # This is required in order for RHEL to set the root password.
 passwd
 
+# RHEL needs this in order to get networking.
+NetworkManager
+
 # Required to run firewall --enabled kickstart command:
 firewalld
 
