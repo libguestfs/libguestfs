@@ -21,7 +21,8 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) \
 	$(filter-out config.ml libdir.ml,$(SOURCES_ML)) \
 	$(SOURCES_C) \
-	common_utils_tests.ml
+	common_utils_tests.ml \
+	JSON_tests.ml
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o
 
@@ -139,9 +140,19 @@ common_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 common_utils_tests: common_gettext.cmx common_utils.cmx common_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -o $@
+
+JSON_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+JSON_tests: JSON.cmx JSON_tests.cmx
+	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
+	  mlguestfs.cmxa -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -o $@
 else
 common_utils_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 common_utils_tests: common_gettext.cmo common_utils.cmo common_utils_tests.cmo
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
+	  mlguestfs.cma -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -custom -o $@
+
+JSON_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+JSON_tests: JSON.cmo JSON_tests.cmo
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  mlguestfs.cma -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -custom -o $@
 endif
@@ -151,7 +162,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS =
 
 if HAVE_OCAML_PKG_OUNIT
-TESTS += common_utils_tests
+TESTS += common_utils_tests JSON_tests
 endif
 
 check-valgrind:

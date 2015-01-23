@@ -29,6 +29,7 @@ customize/ssh_key.ml
 customize/timezone.ml
 customize/urandom.ml
 mllib/JSON.ml
+mllib/JSON_tests.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
