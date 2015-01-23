@@ -469,7 +469,7 @@ let display_short_options () =
 let display_long_options () =
   List.iter (
     fun (arg, _, _) ->
-      if string_prefix arg "--" && arg <> "--long-options" then
+      if string_prefix arg "--" && arg <> "--long-options" && arg <> "--short-options" then
         printf "%s\n" arg
   ) !long_options;
   exit 0
