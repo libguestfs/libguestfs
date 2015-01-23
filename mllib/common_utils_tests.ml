@@ -27,6 +27,7 @@ let prog = "common_utils_tests"
 let assert_equal_string = assert_equal ~printer:(fun x -> x)
 let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
 let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
+let assert_equal_stringlist = assert_equal ~printer:(fun x -> "(" ^ (String.escaped (String.concat "," x)) ^ ")")
 
 (* Test Common_utils.int_of_le32 and Common_utils.le32_of_int. *)
 let test_le32 () =
@@ -110,6 +111,22 @@ let test_string_find () =
   assert_equal_int (-1) (string_find "" "baz");
   assert_equal_int (-1) (string_find "foobar" "baz")
 
+(* Test Common_utils.string_lines_split. *)
+let test_string_lines_split () =
+  assert_equal_stringlist [""] (string_lines_split "");
+  assert_equal_stringlist ["A"] (string_lines_split "A");
+  assert_equal_stringlist ["A"; ""] (string_lines_split "A\n");
+  assert_equal_stringlist ["A"; "B"] (string_lines_split "A\nB");
+  assert_equal_stringlist ["A"; "B"; "C"] (string_lines_split "A\nB\nC");
+  assert_equal_stringlist ["A"; "B"; "C"; "D"] (string_lines_split "A\nB\nC\nD");
+  assert_equal_stringlist ["A\n"] (string_lines_split "A\\");
+  assert_equal_stringlist ["A\nB"] (string_lines_split "A\\\nB");
+  assert_equal_stringlist ["A"; "B\nC"] (string_lines_split "A\nB\\\nC");
+  assert_equal_stringlist ["A"; "B\nC"; "D"] (string_lines_split "A\nB\\\nC\nD");
+  assert_equal_stringlist ["A"; "B\nC\nD"] (string_lines_split "A\nB\\\nC\\\nD");
+  assert_equal_stringlist ["A\nB"; ""] (string_lines_split "A\\\nB\n");
+  assert_equal_stringlist ["A\nB\n"] (string_lines_split "A\\\nB\\\n")
+
 (* Suites declaration. *)
 let suite =
   TestList ([
@@ -124,6 +141,7 @@ let suite =
       "prefix" >:: test_string_prefix;
       "suffix" >:: test_string_suffix;
       "find" >:: test_string_find;
+      "string_lines_split" >:: test_string_lines_split;
     ];
   ])
 
