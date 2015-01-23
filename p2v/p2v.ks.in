@@ -21,6 +21,8 @@ lang en_US.UTF-8
 keyboard us
 timezone --utc GMT
 
+rootpw --plaintext p2v
+
 selinux --enforcing
 firewall --enabled
 
@@ -50,6 +52,9 @@ rpm
 
 # Note you must have a kernel, else the boot menu won't work:
 kernel
+
+# This is required in order for RHEL to set the root password.
+passwd
 
 # Required to run firewall --enabled kickstart command:
 firewalld
