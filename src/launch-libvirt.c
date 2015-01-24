@@ -850,6 +850,7 @@ debug_appliance_permissions (guestfs_h *g)
   guestfs___cmd_add_arg (cmd, "ls");
   guestfs___cmd_add_arg (cmd, "-a");
   guestfs___cmd_add_arg (cmd, "-l");
+  guestfs___cmd_add_arg (cmd, "-R");
   guestfs___cmd_add_arg (cmd, "--lcontext");
   guestfs___cmd_add_arg (cmd, appliance);
   guestfs___cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
