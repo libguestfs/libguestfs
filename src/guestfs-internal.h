@@ -68,6 +68,16 @@
 #  define MIN_MEMSIZE 256
 #endif
 
+/* Kernel 3.19 is unable to uncompress the initramfs on aarch64 unless
+ * we have > 500 MB of space.  This looks like a kernel bug (earlier
+ * kernels have no problems).  However since 64 KB pages are also
+ * common on aarch64, treat this like the ppc case above.
+ */
+#ifdef __aarch64__
+#  define DEFAULT_MEMSIZE 768
+#  define MIN_MEMSIZE 256
+#endif
+
 /* Valgrind has a fairly hefty memory overhead.  Using the defaults
  * caused the C API tests to fail.
  */
