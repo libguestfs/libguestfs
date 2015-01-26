@@ -168,7 +168,7 @@ let test_builder () =
         "os-version", JSON.String "phony-debian";
         "full-name", JSON.String "Phony Debian";
         "arch", JSON.String "x86_64";
-        "size", JSON.Int64 (Int64.of_int 536870912);
+        "size", JSON.Int64 536870912_L;
         "notes", JSON.Dict [
           "C", JSON.String "Phony Debian look-alike used for testing.";
         ];
@@ -178,7 +178,7 @@ let test_builder () =
         "os-version", JSON.String "phony-fedora";
         "full-name", JSON.String "Phony Fedora";
         "arch", JSON.String "x86_64";
-        "size", JSON.Int64 (Int64.of_int 1073741824);
+        "size", JSON.Int64 1073741824_L;
         "notes", JSON.Dict [
           "C", JSON.String "Phony Fedora look-alike used for testing.";
         ];
