@@ -311,6 +311,7 @@ Makefile.in
 /mllib/JSON_tests
 /mllib/libdir.ml
 /mllib/link.sh
+/mllib/oUnit-anon.cache
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml
