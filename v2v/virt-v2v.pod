@@ -360,8 +360,10 @@ See L</OUTPUT TO RHEV> below.
 
 Set the output method to I<vdsm>.
 
-This mode is similar to I<-o rhev> but is only used by RHEV VDSM
-when it runs virt-v2v under VDSM control.
+This mode is similar to I<-o rhev>, but the full path to the
+data domain must be given:
+C</rhev/data-center/E<lt>data-center-uuidE<gt>/E<lt>data-domain-uuidE<gt>>.
+This mode is only used when virt-v2v runs under VDSM control.
 
 =item B<-oa sparse>
 
