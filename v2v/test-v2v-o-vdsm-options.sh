@@ -64,7 +64,7 @@ mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms/VM
 
 $VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
-    -o vdsm -os $d \
+    -o vdsm -os $d/12345678-1234-1234-1234-123456789abc \
     --vmtype desktop \
     --vdsm-image-uuid IMAGE \
     --vdsm-vol-uuid VOL \

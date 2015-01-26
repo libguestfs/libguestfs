@@ -63,9 +63,8 @@ object
    * name of the target files that eventually get written by the main
    * code.
    *
-   * 'os' is the output storage (-os nfs:/export).  'source' contains a
-   * few useful fields such as the guest name.  'targets' describes the
-   * destination files.  We modify and return this list.
+   * 'os' is the output storage domain (-os /rhev/data/<data center>/<data domain>)
+   * this is already mounted path.
    *
    * Note it's good to fail here (early) if there are any problems, since
    * the next time we are called (in {!create_metadata}) we have already
@@ -79,7 +78,18 @@ object
         (List.length targets);
 
     let mp, uuid =
-      Output_rhev.mount_and_check_storage_domain verbose (s_"Data Domain") os in
+      let fields = string_nsplit "/" os in (* ... "data-center" "UUID" *)
+      let fields = List.rev fields in      (* "UUID" "data-center" ... *)
+      match fields with
+      | "" :: uuid :: rest                 (* handles trailing "/" case *)
+      | uuid :: rest
+          when String.length uuid = 36 ->
+        let mp = String.concat "/" (List.rev rest) in
+        mp, uuid
+      | _ ->
+        error (f_"vdsm: invalid -os parameter does not contain a valid UUID: %s")
+          os in
+
     dd_mp <- mp;
     dd_uuid <- uuid;
     if verbose then
