@@ -683,6 +683,7 @@ pr "    ] in
           (match spec with
           | Arg.Unit fn -> fn ()
           | Arg.String fn -> fn arg
+          | Arg.Set varref -> varref := true
           | _ -> error \"INTERNAL error: spec not handled for %%s\" cmd
           )
         with Not_found ->
