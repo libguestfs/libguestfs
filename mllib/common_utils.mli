@@ -106,6 +106,9 @@ val display_long_options : unit -> 'a
 val compare_version : string -> string -> int
 (** Compare two version strings. *)
 
+val compare_lvm2_uuids : string -> string -> int
+(** Compare two LVM2 UUIDs, ignoring '-' characters. *)
+
 val external_command : prog:string -> string -> string list
 (** Run an external command, slurp up the output as a list of lines. *)
 

@@ -506,6 +506,27 @@ let compare_version v1 v2 =
   in
   compare (split_version v1) (split_version v2)
 
+(* Annoying LVM2 returns a differing UUID strings for different
+ * function calls (sometimes containing or not containing '-'
+ * characters), so we have to normalize each string before
+ * comparison.  c.f. 'compare_pvuuids' in virt-filesystem.
+ *)
+let compare_lvm2_uuids uuid1 uuid2 =
+  let n1 = String.length uuid1 and n2 = String.length uuid2 in
+  let rec loop i1 i2 =
+    if i1 = n1 && i2 = n2 then 0            (* matching *)
+    else if i1 >= n1 then 1                 (* different lengths *)
+    else if i2 >= n2 then -1
+    else if uuid1.[i1] = '-' then loop (i1+1) i2 (* ignore '-' characters *)
+    else if uuid2.[i2] = '-' then loop i1 (i2+1)
+    else (
+      let c = compare uuid1.[i1] uuid2.[i2] in
+      if c <> 0 then c                          (* not matching *)
+      else loop (i1+1) (i2+1)
+    )
+  in
+  loop 0 0
+
 (* Run an external command, slurp up the output as a list of lines. *)
 let external_command ~prog cmd =
   let chan = Unix.open_process_in cmd in
