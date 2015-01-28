@@ -216,9 +216,11 @@ You can ignore this warning or change it to a hard failure using the
     List.exists (fun fs' -> fs = g#canonical_device_name fs') ignores
   in
 
+  let is_read_only_lv = is_read_only_lv g in
+
   List.iter (
     fun fs ->
-      if not (is_ignored fs) then (
+      if not (is_ignored fs) && not (is_read_only_lv fs) then (
         if List.mem fs zeroes then (
           if not quiet then
             printf (f_"Zeroing %s ...\n%!") fs;
