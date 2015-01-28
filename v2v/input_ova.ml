@@ -63,7 +63,7 @@ object
             error (f_"error unpacking %s, see earlier error messages") ova;
           tmpdir
         | `GZip | `XZ | `Unknown ->
-          error (f_"%s: unsupported file format") ova
+          error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: uncompressed tar, zip") ova
       ) in
 
     (* Exploded path must be absolute (RHBZ#1155121). *)
