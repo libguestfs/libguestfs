@@ -230,8 +230,7 @@ read the man page virt-sysprep(1).
     let mount_opts = !mount_opts in
     let mount_opts =
       List.map (string_split ":") (string_nsplit ";" mount_opts) in
-    let mount_opts mp =
-      try List.assoc mp mount_opts with Not_found -> "" in
+    let mount_opts mp = assoc ~default:"" mp mount_opts in
 
     let msg fs = make_message_function ~quiet fs in
     msg (f_"Examining the guest ...");

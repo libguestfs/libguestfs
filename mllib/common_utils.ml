@@ -241,6 +241,11 @@ let rec combine3 xs ys zs =
   | x::xs, y::ys, z::zs -> (x, y, z) :: combine3 xs ys zs
   | _ -> invalid_arg "combine3"
 
+let rec assoc ?(cmp = compare) ~default x = function
+  | [] -> default
+  | (y, y') :: _ when cmp x y = 0 -> y'
+  | _ :: ys -> assoc ~cmp ~default x ys
+
 let istty chan =
   Unix.isatty (Unix.descr_of_out_channel chan)
 
