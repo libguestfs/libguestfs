@@ -57,6 +57,10 @@ val mapi : (int -> 'a -> 'b) -> 'a list -> 'b list
 val combine3 : 'a list -> 'b list -> 'c list -> ('a * 'b * 'c) list
 (** Like {!List.combine} but for triples.  All lists must be the same length. *)
 
+val assoc : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
+(** Like {!List.assoc} but with a user-defined comparison function, and
+    instead of raising [Not_found], it returns the [~default] value. *)
+
 val make_message_function : quiet:bool -> ('a, unit, string, unit) format4 -> 'a
 (** Timestamped progress messages.  Used for ordinary messages when
     not [--quiet]. *)
