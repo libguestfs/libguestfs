@@ -114,6 +114,7 @@ rhbz914931_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz914931_LDADD = \
 	$(top_builddir)/src/libutils.la \
+	$(LTLIBINTL) \
 	$(top_builddir)/src/libguestfs.la
 
 rhbz1055452_SOURCES = rhbz1055452.c

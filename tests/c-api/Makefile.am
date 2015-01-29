@@ -250,6 +250,7 @@ test_add_libvirt_dom_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_add_libvirt_dom_LDADD = \
 	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
 	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la
 endif
 
