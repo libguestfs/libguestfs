@@ -47,7 +47,6 @@ TESTS = \
 	tests \
 	test-just-header \
 	test-create-handle \
-	test-dlopen \
 	test-config \
 	test-add-drive-opts \
 	test-last-errno \
