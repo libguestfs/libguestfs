@@ -45,7 +45,7 @@ let hash_matches h { name = name } =
 type optarg_proto = Dots | VA | Argv
 
 let is_public { visibility = v } = match v with
-  | VPublic | VStateTest | VDebug -> true
+  | VPublic | VPublicNoFish | VStateTest | VDebug -> true
   | VBindTest | VInternal -> false
 
 let is_private f = not (is_public f)

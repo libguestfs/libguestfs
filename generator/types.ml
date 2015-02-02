@@ -322,6 +322,8 @@ and cmd = string list
 
 type visibility =
   | VPublic                       (* Part of the public API *)
+  | VPublicNoFish                 (* Like VPublic, but not exported in
+                                     guestfish *)
   | VStateTest                    (* A function which tests the state
                                      of the appliance *)
   | VBindTest                     (* Only used for testing language bindings *)

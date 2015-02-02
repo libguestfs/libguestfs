@@ -12744,19 +12744,19 @@ let non_daemon_functions, daemon_functions =
 let all_functions = non_daemon_functions @ daemon_functions
 
 let is_external { visibility = v } = match v with
-  | VPublic | VStateTest | VBindTest | VDebug -> true
+  | VPublic | VPublicNoFish | VStateTest | VBindTest | VDebug -> true
   | VInternal -> false
 
 let is_internal f = not (is_external f)
 
 let is_documented { visibility = v } = match v with
-  | VPublic | VStateTest -> true
+  | VPublic | VPublicNoFish | VStateTest -> true
   | VBindTest | VDebug | VInternal -> false
 
 let is_fish { visibility = v; style = (_, args, _) } =
   (* Internal functions are not exported to guestfish. *)
   match v with
-  | VStateTest | VBindTest | VInternal -> false
+  | VPublicNoFish | VStateTest | VBindTest | VInternal -> false
   | VPublic | VDebug ->
     (* Functions that take Pointer parameters cannot be used in
      * guestfish, since there is no way the user could safely
