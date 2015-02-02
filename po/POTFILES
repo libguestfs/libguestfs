@@ -297,6 +297,7 @@ src/canonical-name.c
 src/cleanup.c
 src/command.c
 src/conn-socket.c
+src/copy-in-out.c
 src/create.c
 src/dbdump.c
 src/drives.c

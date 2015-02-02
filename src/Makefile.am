@@ -90,6 +90,7 @@ libguestfs_la_SOURCES = \
 	canonical-name.c \
 	command.c \
 	conn-socket.c \
+	copy-in-out.c \
 	create.c \
 	dbdump.c \
 	drives.c \
