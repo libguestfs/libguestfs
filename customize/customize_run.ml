@@ -175,6 +175,10 @@ exec >>%s 2>&1
        * read when their arguments are met. *)
       ()
 
+    | `CopyIn (localpath, remotedir) ->
+      msg (f_"Copying: %s to %s") localpath remotedir;
+      g#copy_in localpath remotedir
+
     | `Delete path ->
       msg (f_"Deleting: %s") path;
       g#rm_rf path
