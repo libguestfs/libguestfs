@@ -208,6 +208,11 @@ You can ignore this warning or change it to a hard failure using the
    * and selected swap partitions.
    *)
   let filesystems = g#list_filesystems () in
+  let btrfs_filesystems = List.filter (
+    fun (fs, fstype) ->
+      fstype = "btrfs"
+  ) filesystems in
+  let btrfs_filesystems = List.map fst btrfs_filesystems in
   let filesystems = List.map fst filesystems in
   let filesystems = List.sort compare filesystems in
 
@@ -217,6 +222,18 @@ You can ignore this warning or change it to a hard failure using the
   in
 
   let is_read_only_lv = is_read_only_lv g in
+
+  let is_readonly_btrfs_snapshot fs mp =
+    try
+      let is_btrfs = List.mem fs btrfs_filesystems in
+      if is_btrfs then (
+        try
+          let vol_info = g#btrfs_subvolume_show mp in
+          string_find (List.assoc "Flags" vol_info) "readonly" <> -1
+        with G.Error _ -> false
+      ) else false
+    with Not_found -> false
+  in
 
   List.iter (
     fun fs ->
@@ -232,10 +249,15 @@ You can ignore this warning or change it to a hard failure using the
             with _ -> false in
 
           if mounted then (
-            if not quiet then
-              printf (f_"Fill free space in %s with zero ...\n%!") fs;
+            if is_readonly_btrfs_snapshot fs "/" then (
+              if not quiet then
+                printf (f_"Skipping %s, as it is a read-only btrfs snapshot.\n%!") fs;
+            ) else (
+              if not quiet then
+                printf (f_"Fill free space in %s with zero ...\n%!") fs;
 
-            g#zero_free_space "/"
+              g#zero_free_space "/"
+            )
           ) else (
             let is_linux_x86_swap =
               (* Look for the signature for Linux swap on i386.
