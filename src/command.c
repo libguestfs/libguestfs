@@ -134,6 +134,10 @@ struct command
 
   /* PID of subprocess (if > 0). */
   pid_t pid;
+
+  /* Optional child setup callback. */
+  cmd_child_callback child_callback;
+  void *child_callback_data;
 };
 
 /* Create a new command handle. */
@@ -308,6 +312,19 @@ guestfs___cmd_clear_close_files (struct command *cmd)
   cmd->close_files = false;
 }
 
+/* Set a function to be executed in the child, right before the
+ * execution.  Can be used to setup the child, for example changing
+ * its current directory.
+ */
+void
+guestfs___cmd_set_child_callback (struct command *cmd,
+                                  cmd_child_callback child_callback,
+                                  void *data)
+{
+  cmd->child_callback = child_callback;
+  cmd->child_callback_data = data;
+}
+
 /* Finish off the command by either NULL-terminating the argv array or
  * adding a terminating \0 to the string, or die with an internal
  * error if no command has been added.
@@ -460,6 +477,11 @@ run_command (struct command *cmd, bool get_stdout_fd, bool get_stderr_fd)
 
   /* Set the umask for all subcommands to something sensible (RHBZ#610880). */
   umask (022);
+
+  if (cmd->child_callback) {
+    if (cmd->child_callback (cmd->g, cmd->child_callback_data) == -1)
+      _exit (EXIT_FAILURE);
+  }
 
   /* Run the command. */
   switch (cmd->style) {

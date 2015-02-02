@@ -857,6 +857,7 @@ extern int guestfs___osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *iso
 /* command.c */
 struct command;
 typedef void (*cmd_stdout_callback) (guestfs_h *g, void *data, const char *line, size_t len);
+typedef int (*cmd_child_callback) (guestfs_h *g, void *data);
 extern struct command *guestfs___new_command (guestfs_h *g);
 extern void guestfs___cmd_add_arg (struct command *, const char *arg);
 extern void guestfs___cmd_add_arg_format (struct command *, const char *fs, ...)
@@ -870,6 +871,7 @@ extern void guestfs___cmd_set_stdout_callback (struct command *, cmd_stdout_call
 extern void guestfs___cmd_set_stderr_to_stdout (struct command *);
 extern void guestfs___cmd_clear_capture_errors (struct command *);
 extern void guestfs___cmd_clear_close_files (struct command *);
+extern void guestfs___cmd_set_child_callback (struct command *, cmd_child_callback child_callback, void *data);
 extern int guestfs___cmd_run (struct command *);
 extern int guestfs___cmd_run_async (struct command *, pid_t *pid, int *stdout_fd, int *stderr_fd);
 extern int guestfs___cmd_wait (struct command *);
