@@ -235,6 +235,13 @@ You can ignore this warning or change it to a hard failure using the
     with Not_found -> false
   in
 
+  let is_readonly_device mp =
+    let statvfs = g#statvfs mp in
+    let flags = statvfs.G.flag in
+    (* 0x01 is ST_RDONLY in Linux' GNU libc. *)
+    flags <> -1_L && (flags &^ 0x1_L) <> 0_L
+  in
+
   List.iter (
     fun fs ->
       if not (is_ignored fs) && not (is_read_only_lv fs) then (
@@ -252,6 +259,9 @@ You can ignore this warning or change it to a hard failure using the
             if is_readonly_btrfs_snapshot fs "/" then (
               if not quiet then
                 printf (f_"Skipping %s, as it is a read-only btrfs snapshot.\n%!") fs;
+            ) else if is_readonly_device "/" then (
+              if not quiet then
+                printf (f_"Skipping %s, as it is a read-only device.\n%!") fs;
             ) else (
               if not quiet then
                 printf (f_"Fill free space in %s with zero ...\n%!") fs;
