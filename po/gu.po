@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-01-26 17:12+0000\n"
+"POT-Creation-Date: 2015-02-02 19:47+0000\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -41,14 +41,14 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:323
+#: ../mllib/common_utils.ml:328
 msgid "%s"
 msgstr ""
 
 #. ../customize/customize_main.ml:239
 #. ../builder/get_kernel.ml:52
 #. ../builder/builder.ml:647
-#: ../v2v/v2v.ml:632 ../v2v/v2v.ml:515 ../sysprep/main.ml:267
+#: ../v2v/v2v.ml:632 ../v2v/v2v.ml:515 ../sysprep/main.ml:266
 msgid "%s (ignored)"
 msgstr ""
 
@@ -66,7 +66,7 @@ msgid ""
 "this out through the RHEV-M user interface."
 msgstr ""
 
-#: ../customize/customize_run.ml:186
+#: ../customize/customize_run.ml:190
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
@@ -80,15 +80,15 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:319 ../mllib/common_utils.ml:306
+#: ../mllib/common_utils.ml:324 ../mllib/common_utils.ml:311
 msgid "%s: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:334
+#: ../customize/customize_run.ml:338
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:321
+#: ../mllib/common_utils.ml:326
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgstr ""
 msgid "%s: empty --expand option"
 msgstr ""
 
-#: ../mllib/common_utils.ml:280
+#: ../mllib/common_utils.ml:285
 msgid "%s: error: %s"
 msgstr ""
 
@@ -383,10 +383,13 @@ msgid ""
 msgstr ""
 
 #: ../v2v/input_ova.ml:66
-msgid "%s: unsupported file format"
+msgid ""
+"%s: unsupported file format\n"
+"\n"
+"Formats which we currently understand for '-i ova' are: uncompressed tar, zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:296
+#: ../mllib/common_utils.ml:301
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -411,7 +414,7 @@ msgid ""
 "error: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:251 ../customize/customize_cmdline.ml:176
+#: ../customize/customize_cmdline.ml:263 ../customize/customize_cmdline.ml:188
 msgid "'CMD+ARGS'"
 msgstr ""
 
@@ -624,11 +627,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:202
+#: ../customize/customize_cmdline.ml:214
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:186
+#: ../customize/customize_cmdline.ml:198
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
@@ -677,7 +680,7 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:138
+#: ../customize/customize_cmdline.ml:140
 msgid "Change the permissions of a file"
 msgstr ""
 
@@ -697,7 +700,7 @@ msgstr ""
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../sparsify/in_place.ml:105 ../sparsify/copying.ml:250
+#: ../sparsify/in_place.ml:107 ../sparsify/copying.ml:284
 msgid ""
 "Clearing Linux swap on %s ...\n"
 "%!"
@@ -727,7 +730,11 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../sparsify/copying.ml:305
+#: ../customize/customize_cmdline.ml:160
+msgid "Copy local files or directories into image"
+msgstr ""
+
+#: ../sparsify/copying.ml:339
 msgid ""
 "Copy to destination and make sparse ...\n"
 "%!"
@@ -745,7 +752,11 @@ msgstr ""
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:218
+#: ../customize/customize_run.ml:179
+msgid "Copying: %s to %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:230
 msgid "Create a directory"
 msgstr ""
 
@@ -761,7 +772,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:212
+#: ../customize/customize_cmdline.ml:224
 msgid "Create symbolic links"
 msgstr ""
 
@@ -797,7 +808,7 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:218
+#: ../customize/customize_cmdline.ml:230
 msgid "DIR"
 msgstr ""
 
@@ -809,7 +820,7 @@ msgstr ""
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:154
+#: ../customize/customize_cmdline.ml:166
 msgid "Delete a file or directory"
 msgstr ""
 
@@ -821,7 +832,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../customize/customize_run.ml:179
+#: ../customize/customize_run.ml:183
 msgid "Deleting: %s"
 msgstr ""
 
@@ -837,7 +848,7 @@ msgstr ""
 msgid "Disable template cache"
 msgstr ""
 
-#: ../sparsify/in_place.ml:139
+#: ../sparsify/in_place.ml:141
 msgid ""
 "Discard space in volgroup %s ...\n"
 "%!"
@@ -921,11 +932,11 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:164
+#: ../customize/customize_cmdline.ml:176
 msgid "Edit file using Perl expression"
 msgstr ""
 
-#: ../customize/customize_run.ml:183
+#: ../customize/customize_run.ml:187
 msgid "Editing: %s"
 msgstr ""
 
@@ -977,7 +988,7 @@ msgstr ""
 msgid "Examining %s"
 msgstr ""
 
-#: ../sysprep/main.ml:237 ../customize/customize_main.ml:194
+#: ../sysprep/main.ml:236 ../customize/customize_main.ml:194
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -1001,23 +1012,23 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:257
+#: ../customize/customize_cmdline.ml:269
 msgid "FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:300
+#: ../customize/customize_cmdline.ml:312
 msgid "FILE:CONTENT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:290
+#: ../customize/customize_cmdline.ml:302
 msgid "FILE:DEST"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:164
+#: ../customize/customize_cmdline.ml:176
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:148
+#: ../customize/customize_cmdline.ml:150
 msgid "FILENAME"
 msgstr ""
 
@@ -1029,13 +1040,13 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
-#: ../sparsify/copying.ml:234
+#: ../sparsify/copying.ml:267
 msgid ""
 "Fill free space in %s with zero ...\n"
 "%!"
 msgstr ""
 
-#: ../sparsify/copying.ml:284
+#: ../sparsify/copying.ml:318
 msgid ""
 "Fill free space in volgroup %s with zero ...\n"
 "%!"
@@ -1123,7 +1134,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:192
+#: ../customize/customize_cmdline.ml:204
 msgid "HOSTNAME"
 msgstr ""
 
@@ -1131,7 +1142,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:284
+#: ../mllib/common_utils.ml:289
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1151,7 +1162,7 @@ msgstr ""
 msgid "Initializing the target %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:268
+#: ../customize/customize_cmdline.ml:280
 msgid "Inject a public key into the guest"
 msgstr ""
 
@@ -1169,19 +1180,19 @@ msgstr ""
 msgid "Inspecting the overlay"
 msgstr ""
 
-#: ../customize/customize_run.ml:192
+#: ../customize/customize_run.ml:196
 msgid "Installing firstboot command: [%d] %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:197
+#: ../customize/customize_run.ml:201
 msgid "Installing firstboot packages: [%d] %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:204
+#: ../customize/customize_run.ml:208
 msgid "Installing firstboot script: [%d] %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:214
+#: ../customize/customize_run.ml:218
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -1193,11 +1204,15 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:160
+msgid "LOCALPATH:REMOTEDIR"
+msgstr ""
+
 #: ../v2v/cmdline.ml:167 ../v2v/cmdline.ml:155
 msgid "Libvirt URI"
 msgstr ""
 
-#: ../customize/customize_run.ml:221
+#: ../customize/customize_run.ml:225
 msgid "Linking: %s -> %s"
 msgstr ""
 
@@ -1228,7 +1243,7 @@ msgstr ""
 msgid "Make output machine readable"
 msgstr ""
 
-#: ../customize/customize_run.ml:226
+#: ../customize/customize_run.ml:230
 msgid "Making directory: %s"
 msgstr ""
 
@@ -1343,15 +1358,15 @@ msgstr ""
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:154
+#: ../customize/customize_cmdline.ml:166
 msgid "PATH"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:138
+#: ../customize/customize_cmdline.ml:140
 msgid "PERMISSIONS:FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:202 ../customize/customize_cmdline.ml:186
+#: ../customize/customize_cmdline.ml:214 ../customize/customize_cmdline.ml:198
 msgid "PKG,PKG.."
 msgstr ""
 
@@ -1398,11 +1413,11 @@ msgstr ""
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:148
+#: ../customize/customize_cmdline.ml:150
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:321
+#: ../customize/customize_cmdline.ml:333
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
@@ -1603,19 +1618,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:176
+#: ../customize/customize_cmdline.ml:188
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:251
+#: ../customize/customize_cmdline.ml:263
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:170
+#: ../customize/customize_cmdline.ml:182
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:245
+#: ../customize/customize_cmdline.ml:257
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1629,27 +1644,27 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
-#: ../customize/customize_run.ml:236 ../customize/customize_run.ml:170
+#: ../customize/customize_run.ml:240 ../customize/customize_run.ml:170
 msgid "Running: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:245 ../customize/customize_cmdline.ml:170
+#: ../customize/customize_cmdline.ml:257 ../customize/customize_cmdline.ml:182
 msgid "SCRIPT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:239
+#: ../customize/customize_cmdline.ml:251
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:299
+#: ../customize/customize_run.ml:303
 msgid "SELinux relabelling"
 msgstr ""
 
-#: ../customize/customize_run.ml:250
+#: ../customize/customize_run.ml:254
 msgid "SSH key could be injected for this type of guest"
 msgstr ""
 
-#: ../customize/customize_run.ml:247
+#: ../customize/customize_run.ml:251
 msgid "SSH key inject: %s"
 msgstr ""
 
@@ -1661,19 +1676,19 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:257
+#: ../customize/customize_cmdline.ml:269
 msgid "Scrub a file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:306
+#: ../customize/customize_cmdline.ml:318
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:318
+#: ../customize/customize_run.ml:322
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:241
+#: ../customize/customize_run.ml:245
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -1751,11 +1766,11 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:315
+#: ../customize/customize_cmdline.ml:327
 msgid "Set password crypto"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:239
+#: ../customize/customize_cmdline.ml:251
 msgid "Set root password"
 msgstr ""
 
@@ -1771,7 +1786,7 @@ msgstr ""
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:274
+#: ../customize/customize_cmdline.ml:286
 msgid "Set the default timezone"
 msgstr ""
 
@@ -1779,7 +1794,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:192
+#: ../customize/customize_cmdline.ml:204
 msgid "Set the hostname"
 msgstr ""
 
@@ -1787,7 +1802,7 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:229
+#: ../customize/customize_cmdline.ml:241
 msgid "Set user password"
 msgstr ""
 
@@ -1799,7 +1814,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:290
+#: ../customize/customize_run.ml:294
 msgid "Setting passwords"
 msgstr ""
 
@@ -1807,11 +1822,11 @@ msgstr ""
 msgid "Setting random password of %s to %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:209
+#: ../customize/customize_run.ml:213
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:253
+#: ../customize/customize_run.ml:257
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -1827,6 +1842,18 @@ msgstr ""
 msgid "Shrink partition"
 msgstr ""
 
+#: ../sparsify/copying.ml:261
+msgid ""
+"Skipping %s, as it is a read-only btrfs snapshot.\n"
+"%!"
+msgstr ""
+
+#: ../sparsify/copying.ml:264
+msgid ""
+"Skipping %s, as it is a read-only device.\n"
+"%!"
+msgstr ""
+
 #: ../builder/list_entries.ml:51
 msgid "Source URI: %s\n"
 msgstr ""
@@ -1835,21 +1862,21 @@ msgstr ""
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
-#: ../sparsify/in_place.ml:154
+#: ../sparsify/in_place.ml:156
 msgid "Sparsify in-place operation completed with no errors.\n"
 msgstr ""
 
-#: ../sparsify/copying.ml:323
+#: ../sparsify/copying.ml:357
 msgid ""
 "Sparsify operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the target disk boots and works correctly.\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:212
+#: ../customize/customize_cmdline.ml:224
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:274
+#: ../customize/customize_cmdline.ml:286
 msgid "TIMEZONE"
 msgstr ""
 
@@ -2040,7 +2067,7 @@ msgstr ""
 msgid "Total usable space"
 msgstr ""
 
-#: ../sparsify/in_place.ml:89
+#: ../sparsify/in_place.ml:91
 msgid ""
 "Trimming %s ...\n"
 "%!"
@@ -2050,11 +2077,11 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:229
+#: ../customize/customize_cmdline.ml:241
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:268
+#: ../customize/customize_cmdline.ml:280
 msgid "USER[:SELECTOR]"
 msgstr ""
 
@@ -2062,19 +2089,19 @@ msgstr ""
 msgid "Uncompressing"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:280
+#: ../customize/customize_cmdline.ml:292
 msgid "Update core packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:258
+#: ../customize/customize_run.ml:262
 msgid "Updating core packages"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:290
+#: ../customize/customize_cmdline.ml:302
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:263
+#: ../customize/customize_run.ml:267
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -2108,11 +2135,11 @@ msgid ""
 "error message was: %s (ignored)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:300
+#: ../customize/customize_cmdline.ml:312
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:282
+#: ../customize/customize_run.ml:286
 msgid "Writing: %s"
 msgstr ""
 
@@ -2138,7 +2165,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/in_place.ml:77 ../sparsify/copying.ml:224
+#: ../sparsify/in_place.ml:79 ../sparsify/copying.ml:250
 msgid ""
 "Zeroing %s ...\n"
 "%!"
@@ -2243,11 +2270,11 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:340
+#: ../customize/customize_cmdline.ml:352
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:356
+#: ../customize/customize_cmdline.ml:369
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
@@ -2434,7 +2461,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:336
+#: ../mllib/common_utils.ml:341
 msgid "exception: %s"
 msgstr ""
 
@@ -2458,19 +2485,19 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:515
+#: ../mllib/common_utils.ml:541
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:517
+#: ../mllib/common_utils.ml:543
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:519
+#: ../mllib/common_utils.ml:545
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/copying.ml:318
+#: ../sparsify/copying.ml:352
 msgid "external command failed: %s"
 msgstr ""
 
@@ -2482,7 +2509,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:327
+#: ../mllib/common_utils.ml:332
 msgid "failure: %s"
 msgstr ""
 
@@ -2565,7 +2592,7 @@ msgstr ""
 msgid "heading for %s must not end with newline or period"
 msgstr ""
 
-#: ../customize/customize_run.ml:211
+#: ../customize/customize_run.ml:215
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
@@ -2591,15 +2618,15 @@ msgstr ""
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
-#: ../mllib/common_utils.ml:334
+#: ../mllib/common_utils.ml:339
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:331
+#: ../mllib/common_utils.ml:336
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:329
+#: ../mllib/common_utils.ml:334
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -2623,7 +2650,7 @@ msgstr ""
 msgid "invalid --list-format type '%s', see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:125 ../customize/customize_cmdline.ml:114
+#: ../customize/customize_cmdline.ml:127 ../customize/customize_cmdline.ml:116
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
@@ -2639,7 +2666,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:325
+#: ../mllib/common_utils.ml:330
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -2728,7 +2755,7 @@ msgid ""
 "of this guest."
 msgstr ""
 
-#: ../sysprep/main.ml:251 ../customize/customize_main.ml:226
+#: ../sysprep/main.ml:250 ../customize/customize_main.ml:226
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
@@ -2857,7 +2884,7 @@ msgid ""
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:295
+#: ../customize/customize_run.ml:299
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -2869,7 +2896,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:114 ../sparsify/copying.ml:259
+#: ../sparsify/in_place.ml:116 ../sparsify/copying.ml:293
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -3037,7 +3064,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr ""
 
-#: ../customize/customize_run.ml:255
+#: ../customize/customize_run.ml:259
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
@@ -6037,37 +6064,17 @@ msgstr "%s: અજ્ઞાત આદેશ\n"
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
 msgstr ""
 
-#: fish/copy.c:51
+#: fish/copy.c:37
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
-#: fish/copy.c:69
-#, c-format
-msgid "copy-in: target '%s' is not a directory\n"
-msgstr ""
-
-#: fish/copy.c:157
-#, c-format
-msgid "error: argument is zero length or longer than maximum permitted\n"
-msgstr ""
-
-#: fish/copy.c:202
+#: fish/copy.c:66
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
-msgstr ""
-
-#: fish/copy.c:213
-#, c-format
-msgid "copy-out: target '%s' is not a directory\n"
-msgstr ""
-
-#: fish/copy.c:255
-#, c-format
-msgid "copy-out: '%s' is not a file or directory\n"
 msgstr ""
 
 #: fish/display.c:43
@@ -7431,6 +7438,20 @@ msgstr ""
 
 #: src/conn-socket.c:339
 msgid "error reading console messages from the appliance"
+msgstr ""
+
+#: src/copy-in-out.c:54 src/copy-in-out.c:128
+#, c-format
+msgid "target '%s' is not a directory"
+msgstr ""
+
+#: src/copy-in-out.c:165
+#, c-format
+msgid "'%s' is not a file or directory"
+msgstr ""
+
+#: src/copy-in-out.c:224
+msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 
 #: src/create.c:60
