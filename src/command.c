@@ -360,7 +360,7 @@ debug_command (struct command *cmd)
 }
 
 static int
-run_command (struct command *cmd)
+run_command (struct command *cmd, bool get_stdout_fd, bool get_stderr_fd)
 {
   struct sigaction sa;
   int i, fd, max_fd, r;
@@ -368,8 +368,11 @@ run_command (struct command *cmd)
   int outfd[2] = { -1, -1 };
   char status_string[80];
 
+  get_stdout_fd = get_stdout_fd || cmd->stdout_callback != NULL;
+  get_stderr_fd = get_stderr_fd || cmd->capture_errors;
+
   /* Set up a pipe to capture command output and send it to the error log. */
-  if (cmd->capture_errors) {
+  if (get_stderr_fd) {
     if (pipe2 (errorfd, O_CLOEXEC) == -1) {
       perrorf (cmd->g, "pipe2");
       goto error;
@@ -377,7 +380,7 @@ run_command (struct command *cmd)
   }
 
   /* Set up a pipe to capture stdout for the callback. */
-  if (cmd->stdout_callback) {
+  if (get_stdout_fd) {
     if (pipe2 (outfd, O_CLOEXEC) == -1) {
       perrorf (cmd->g, "pipe2");
       goto error;
@@ -392,14 +395,14 @@ run_command (struct command *cmd)
 
   /* In parent, return to caller. */
   if (cmd->pid > 0) {
-    if (cmd->capture_errors) {
+    if (get_stderr_fd) {
       close (errorfd[1]);
       errorfd[1] = -1;
       cmd->errorfd = errorfd[0];
       errorfd[0] = -1;
     }
 
-    if (cmd->stdout_callback) {
+    if (get_stdout_fd) {
       close (outfd[1]);
       outfd[1] = -1;
       cmd->outfd = outfd[0];
@@ -410,15 +413,15 @@ run_command (struct command *cmd)
   }
 
   /* Child process. */
-  if (cmd->capture_errors) {
+  if (get_stderr_fd) {
     close (errorfd[0]);
-    if (!cmd->stdout_callback)
+    if (!get_stdout_fd)
       dup2 (errorfd[1], 1);
     dup2 (errorfd[1], 2);
     close (errorfd[1]);
   }
 
-  if (cmd->stdout_callback) {
+  if (get_stdout_fd) {
     close (outfd[0]);
     dup2 (outfd[1], 1);
     close (outfd[1]);
@@ -615,12 +618,55 @@ guestfs___cmd_run (struct command *cmd)
   if (cmd->g->verbose)
     debug_command (cmd);
 
-  if (run_command (cmd) == -1)
+  if (run_command (cmd, false, false) == -1)
     return -1;
 
   if (loop (cmd) == -1)
     return -1;
 
+  return wait_command (cmd);
+}
+
+/* Fork, run the command, and returns the pid of the command,
+ * and its stdout and stderr file descriptors.
+ *
+ * Returns the exit status.  Test it using WIF* macros.
+ *
+ * On error: Calls error(g) and returns -1.
+ */
+int
+guestfs___cmd_run_async (struct command *cmd, pid_t *pid,
+                         int *stdout_fd, int *stderr_fd)
+{
+  finish_command (cmd);
+
+  if (cmd->g->verbose)
+    debug_command (cmd);
+
+  if (run_command (cmd, stdout_fd != NULL, stderr_fd != NULL) == -1)
+    return -1;
+
+  if (pid)
+    *pid = cmd->pid;
+  if (stdout_fd)
+    *stdout_fd = cmd->outfd;
+  if (stderr_fd)
+    *stderr_fd = cmd->errorfd;
+
+  return 0;
+}
+
+/* Wait for the command to finish.
+ *
+ * The command MUST have been started with guestfs___cmd_run_async.
+ *
+ * Returns the exit status.  Test it using WIF* macros.
+ *
+ * On error: Calls error(g) and returns -1.
+ */
+int
+guestfs___cmd_wait (struct command *cmd)
+{
   return wait_command (cmd);
 }
 

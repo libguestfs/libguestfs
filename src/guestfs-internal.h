@@ -20,6 +20,7 @@
 #define GUESTFS_INTERNAL_H_
 
 #include <stdbool.h>
+#include <sys/types.h>
 
 #include <libintl.h>
 
@@ -870,6 +871,8 @@ extern void guestfs___cmd_set_stderr_to_stdout (struct command *);
 extern void guestfs___cmd_clear_capture_errors (struct command *);
 extern void guestfs___cmd_clear_close_files (struct command *);
 extern int guestfs___cmd_run (struct command *);
+extern int guestfs___cmd_run_async (struct command *, pid_t *pid, int *stdout_fd, int *stderr_fd);
+extern int guestfs___cmd_wait (struct command *);
 extern void guestfs___cmd_close (struct command *);
 
 #ifdef HAVE_ATTRIBUTE_CLEANUP
