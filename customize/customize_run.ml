@@ -104,8 +104,7 @@ exec >>%s 2>&1
     | "yum" ->
       sprintf "yum -y install %s" quoted_args
     | "zypper" ->
-      (* XXX Should we use -n option? *)
-      sprintf "zypper in %s" quoted_args
+      sprintf "zypper -n in %s" quoted_args
     | "unknown" ->
       error (f_"--install is not supported for this guest operating system")
     | pm ->
