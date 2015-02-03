@@ -1275,7 +1275,7 @@ do_btrfs_qgroup_show (const char *path)
     if (sscanf (line, "%" SCNu64 "/%" SCNu64 " %" SCNu64 " %" SCNu64,
                 &dummy1, &dummy2, &this->btrfsqgroup_rfer,
                 &this->btrfsqgroup_excl) != 4) {
-      reply_with_perror ("sscanf");
+      reply_with_error ("cannot parse output of qgroup show command: %s", line);
       goto error;
     }
     p = strchr(line, ' ');
