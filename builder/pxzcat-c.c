@@ -640,14 +640,14 @@ worker_thread (void *vp)
     strm.next_in = NULL;
     strm.avail_in = 0;
     strm.next_out = outbuf;
-    strm.avail_out = sizeof outbuf;
+    strm.avail_out = BUFFER_SIZE;
 
     for (;;) {
       lzma_action action = LZMA_RUN;
 
       if (strm.avail_in == 0) {
         strm.next_in = buf;
-        n = pread (global->fd, buf, sizeof buf, position);
+        n = pread (global->fd, buf, BUFFER_SIZE, position);
         if (n == -1) {
           perror (global->filename);
           return &state->status;
@@ -661,7 +661,7 @@ worker_thread (void *vp)
       r = lzma_code (&strm, action);
 
       if (strm.avail_out == 0 || r == LZMA_STREAM_END) {
-        size_t wsz = sizeof outbuf - strm.avail_out;
+        size_t wsz = BUFFER_SIZE - strm.avail_out;
 
         /* Don't write if the block is all zero, to preserve output file
          * sparseness.  However we have to update oposition.
@@ -675,7 +675,7 @@ worker_thread (void *vp)
         oposition += wsz;
 
         strm.next_out = outbuf;
-        strm.avail_out = sizeof outbuf;
+        strm.avail_out = BUFFER_SIZE;
       }
 
       if (r == LZMA_STREAM_END)
