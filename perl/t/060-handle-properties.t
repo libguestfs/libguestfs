@@ -17,7 +17,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 7;
+use Test::More tests => 9;
 
 use Sys::Guestfs;
 
@@ -33,13 +33,10 @@ ok ($g->get_autosync () == 1, "autosync not true");
 $g->set_autosync (0);
 ok ($g->get_autosync () == 0, "autosync not false");
 
-# This probably doesn't work at the moment because
-# the binding for set_path does not ensure the string
-# remains around for the lifetime of the handle.
-#$g->set_path (".");
-#ok ($g->get_path () eq ".", "path not dot");
-#$g->set_path (undef);
-#ok ($g->get_path () ne "", "path is empty");
+$g->set_path (".");
+ok ($g->get_path () eq ".", "path not dot");
+$g->set_path (undef);
+ok ($g->get_path () ne "", "path is empty");
 
 $g->add_drive ("/dev/null");
 ok (1, "add drive");
