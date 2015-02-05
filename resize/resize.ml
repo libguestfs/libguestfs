@@ -50,6 +50,7 @@ type partition = {
   p_id : partition_id;           (* Partition (MBR/GPT) ID. *)
   p_type : partition_content;    (* Content type and content size. *)
   p_label : string option;       (* Label/name. *)
+  p_guid : string option;        (* Partition GUID (GPT only). *)
 
   (* What we're going to do: *)
   mutable p_operation : partition_operation;
@@ -92,6 +93,11 @@ let rec debug_partition p =
   printf "\tlabel: %s\n"
     (match p.p_label with
     | Some label -> label
+    | None -> "(none)"
+    );
+  printf "\tGUID: %s\n"
+    (match p.p_guid with
+    | Some guid -> guid
     | None -> "(none)"
     )
 and string_of_partition_content = function
@@ -479,10 +485,16 @@ read the man page virt-resize(1).
           let label =
             try Some (g#part_get_name "/dev/sda" part_num)
             with G.Error _ -> None in
+          let guid =
+            match parttype with
+            | MBR -> None
+            | GPT ->
+              try Some (g#part_get_gpt_guid "/dev/sda" part_num)
+              with G.Error _ -> None in
 
           { p_name = name; p_part = part;
             p_bootable = bootable; p_id = id; p_type = typ;
-            p_label = label;
+            p_label = label; p_guid = guid;
             p_operation = OpCopy; p_target_partnum = 0;
             p_target_start = 0L; p_target_end = 0L }
       ) parts in
@@ -1068,7 +1080,7 @@ read the man page virt-resize(1).
           p_part = { G.part_num = 0l; part_start = 0L; part_end = 0L;
                      part_size = 0L };
           p_bootable = false; p_id = No_ID; p_type = ContentUnknown;
-          p_label = None;
+          p_label = None; p_guid = None;
 
           (* Target information is meaningful. *)
           p_operation = OpIgnore;
@@ -1164,6 +1176,12 @@ read the man page virt-resize(1).
       (match p.p_label with
       | Some label ->
         g#part_set_name "/dev/sdb" p.p_target_partnum label;
+      | None -> ()
+      );
+
+      (match p.p_guid with
+      | Some guid ->
+        g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum guid;
       | None -> ()
       );
 
