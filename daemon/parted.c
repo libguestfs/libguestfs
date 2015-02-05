@@ -784,6 +784,32 @@ do_part_set_gpt_type (const char *device, int partnum, const char *guid)
   return 0;
 }
 
+int
+do_part_set_gpt_guid (const char *device, int partnum, const char *guid)
+{
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
+  CLEANUP_FREE char *typecode = NULL;
+  if (asprintf (&typecode, "%i:%s", partnum, guid) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
+
+  CLEANUP_FREE char *err = NULL;
+  int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                    str_sgdisk, device, "-u", typecode, NULL);
+
+  if (r == -1) {
+    reply_with_error ("%s %s -u %s: %s", str_sgdisk, device, typecode, err);
+    return -1;
+  }
+
+  return 0;
+}
+
 static char *
 sgdisk_info_extract_field (const char *device, int partnum, const char *field,
                            char *(*extract) (const char *path))
@@ -891,6 +917,13 @@ do_part_get_gpt_type (const char *device, int partnum)
 {
   return sgdisk_info_extract_field (device, partnum,
                                     "Partition GUID code", extract_uuid);
+}
+
+char *
+do_part_get_gpt_guid (const char *device, int partnum)
+{
+  return sgdisk_info_extract_field (device, partnum,
+                                    "Partition unique GUID", extract_uuid);
 }
 
 char *
