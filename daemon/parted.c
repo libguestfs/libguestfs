@@ -759,7 +759,7 @@ optgroup_gdisk_available (void)
 }
 
 int
-do_part_set_gpt_type(const char *device, int partnum, const char *guid)
+do_part_set_gpt_type (const char *device, int partnum, const char *guid)
 {
   if (partnum <= 0) {
     reply_with_error ("partition number must be >= 1");
