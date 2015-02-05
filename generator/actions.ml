@@ -12413,6 +12413,42 @@ Recover the chunk tree of btrfs filesystem by scannning the devices one by one."
     longdesc = "\
 Recover bad superblocks from good copies." };
 
+  { defaults with
+    name = "part_set_gpt_guid";
+    style = RErr, [Device "device"; Int "partnum"; GUID "guid"], [];
+    proc_nr = Some 446;
+    optional = Some "gdisk";
+    tests = [
+      InitGPT, Always, TestLastFail (
+        [["part_set_gpt_guid"; "/dev/sda"; "1"; "f"]]), [];
+      InitGPT, Always, TestResultString (
+        [["part_set_gpt_guid"; "/dev/sda"; "1";
+          "01234567-89AB-CDEF-0123-456789ABCDEF"];
+         ["part_get_gpt_guid"; "/dev/sda"; "1"]],
+        "01234567-89AB-CDEF-0123-456789ABCDEF"), [];
+    ];
+    shortdesc = "set the GUID of a GPT partition";
+    longdesc = "\
+Set the GUID of numbered GPT partition C<partnum> to C<guid>.  Return an
+error if the partition table of C<device> isn't GPT, or if C<guid> is not a
+valid GUID." };
+
+  { defaults with
+    name = "part_get_gpt_guid";
+    style = RString "guid", [Device "device"; Int "partnum"], [];
+    proc_nr = Some 447;
+    optional = Some "gdisk";
+    tests = [
+      InitGPT, Always, TestResultString (
+        [["part_set_gpt_guid"; "/dev/sda"; "1";
+          "01234567-89AB-CDEF-0123-456789ABCDEF"];
+         ["part_get_gpt_guid"; "/dev/sda"; "1"]],
+        "01234567-89AB-CDEF-0123-456789ABCDEF"), [];
+    ];
+    shortdesc = "get the GUID of a GPT partition";
+    longdesc = "\
+Return the GUID of numbered GPT partition C<partnum>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
