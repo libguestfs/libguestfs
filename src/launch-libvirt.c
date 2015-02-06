@@ -57,6 +57,18 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+/* Fixes for Mac OS X */
+#if defined __APPLE__ && defined __MACH__
+#include <sys/un.h>
+#endif
+#ifndef SOCK_CLOEXEC
+# define SOCK_CLOEXEC O_CLOEXEC
+#endif
+#ifndef SOCK_NONBLOCK
+# define SOCK_NONBLOCK O_NONBLOCK
+#endif
+/* End of fixes for Mac OS X */
+
 /* Check minimum required version of libvirt.  The libvirt backend
  * is new and not the default, so we can get away with forcing
  * people who want to try it to have a reasonably new version of
