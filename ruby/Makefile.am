@@ -21,6 +21,8 @@ generator_built = \
 	ext/guestfs/_guestfs.c \
 	bindtests.rb
 
+DLEXT := $(shell $(RUBY) -rrbconfig -e "puts RbConfig::CONFIG['DLEXT']")
+
 EXTRA_DIST = \
 	$(generator_built) \
 	Rakefile.in \
@@ -38,7 +40,7 @@ CLEANFILES = \
 	ext/guestfs/*~ \
 	ext/guestfs/extconf.h \
 	ext/guestfs/_guestfs.o \
-	ext/guestfs/_guestfs.so \
+	ext/guestfs/_guestfs.$(DLEXT) \
 	ext/guestfs/mkmf.log \
 	ext/guestfs/Makefile
 
@@ -59,7 +61,7 @@ install:
 	$(MKDIR_P) $(DESTDIR)$(RUBY_LIBDIR)
 	$(MKDIR_P) $(DESTDIR)$(RUBY_ARCHDIR)
 	$(INSTALL) -p -m 0644 $(srcdir)/lib/guestfs.rb $(DESTDIR)$(RUBY_LIBDIR)
-	$(INSTALL) -p -m 0755 ext/guestfs/_guestfs.so $(DESTDIR)$(RUBY_ARCHDIR)
+	$(INSTALL) -p -m 0755 ext/guestfs/_guestfs.$(DLEXT) $(DESTDIR)$(RUBY_ARCHDIR)
 
 TESTS = run-bindtests run-ruby-tests
 
