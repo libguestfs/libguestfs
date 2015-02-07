@@ -104,7 +104,7 @@ mount_drive_letter (guestfs_h *g, char drive_letter, const char *root,
     guestfs_inspect_get_drive_mappings (g, root);
   if (drives == NULL || drives[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -118,7 +118,7 @@ mount_drive_letter (guestfs_h *g, char drive_letter, const char *root,
 
   if (device == NULL) {
     fprintf (stderr, _("%s: drive '%c:' not found.\n"),
-             program_name, drive_letter);
+             guestfs___program_name, drive_letter);
     exit (EXIT_FAILURE);
   }
 

@@ -72,7 +72,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: make a filesystem from a tar archive or files\n"
@@ -93,8 +93,8 @@ usage (int status)
              "  -V|--version           Display version and exit\n"
              "  -x                     Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             program_name, program_name, program_name, program_name,
-             program_name);
+             guestfs___program_name, guestfs___program_name, guestfs___program_name, guestfs___program_name,
+             guestfs___program_name);
   }
   exit (status);
 }
@@ -144,7 +144,7 @@ main (int argc, char *argv[])
           partition = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -183,7 +183,7 @@ main (int argc, char *argv[])
 
   if (optind + 2 != argc) {
     fprintf (stderr, _("%s: missing input and output arguments on the command line\n"),
-             program_name);
+             guestfs___program_name);
     usage (EXIT_FAILURE);
   }
 
@@ -201,7 +201,7 @@ check_ntfs_available (void)
   if (STREQ (type, "ntfs") &&
       guestfs_feature_available (g, (char **) ntfs_features) == 0) {
     fprintf (stderr, _("%s: NTFS support was disabled when libguestfs was compiled\n"),
-             program_name);
+             guestfs___program_name);
     return -1;
   }
 
@@ -250,7 +250,7 @@ exec_command (char **argv, const char *file)
       return -1;
     }
     if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      fprintf (stderr, _("%s: %s command failed\n"), program_name, argv[0]);
+      fprintf (stderr, _("%s: %s command failed\n"), guestfs___program_name, argv[0]);
       return -1;
     }
     return 0;
@@ -307,7 +307,7 @@ exec_command_count_output (char **argv, uint64_t *bytes_rtn)
       return -1;
     }
     if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      fprintf (stderr, _("%s: %s command failed\n"), program_name, argv[0]);
+      fprintf (stderr, _("%s: %s command failed\n"), guestfs___program_name, argv[0]);
       return -1;
     }
     return 0;
@@ -432,7 +432,7 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
 
     if (sscanf (line, "%" SCNu64, estimate_rtn) != 1) {
       fprintf (stderr, _("%s: cannot parse the output of 'du' command: %s\n"),
-               program_name, line);
+               guestfs___program_name, line);
       return -1;
     }
   }
@@ -467,7 +467,7 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
 
     if (strstr (line, "tar archive") == NULL) {
       fprintf (stderr, _("%s: %s: input is not a directory, tar archive or compressed tar archive\n"),
-               program_name, input);
+               guestfs___program_name, input);
       return -1;
     }
 
@@ -498,7 +498,7 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
       }
       else {
         fprintf (stderr, _("%s: %s: unknown compressed input format (%s)\n"),
-                 program_name, input, line);
+                 guestfs___program_name, input, line);
         return -1;
       }
 
@@ -621,7 +621,7 @@ parse_size (const char *str, uint64_t estimate, uint64_t *size_rtn)
   if (xerr != LONGINT_OK) {
     fprintf (stderr,
              _("%s: %s: invalid size parameter '%s' (%s returned %d)\n"),
-             program_name, "parse_size", str, "xstrtoull", xerr);
+             guestfs___program_name, "parse_size", str, "xstrtoull", xerr);
     return -1;
   }
 
@@ -769,7 +769,7 @@ do_make_fs (const char *input, const char *output_str)
     if (r == -1) {
       /* Provide more guidance in the error message (RHBZ#823883). */
       fprintf (stderr, "%s: 'mkfs' (create filesystem) operation failed.\n",
-               program_name);
+               guestfs___program_name);
       if (STREQ (type, "fat"))
         fprintf (stderr, "Instead of 'fat', try 'vfat' (long filenames) or 'msdos' (short filenames).\n");
       else
@@ -826,7 +826,7 @@ do_make_fs (const char *input, const char *output_str)
       return -1;
     }
     if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      fprintf (stderr, _("%s: subprocess failed\n"), program_name);
+      fprintf (stderr, _("%s: subprocess failed\n"), guestfs___program_name);
       return -1;
     }
   }

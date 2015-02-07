@@ -100,7 +100,7 @@ _visit (guestfs_h *g, int depth, const char *dir,
 
     if (xattrs->val[xattrp].attrval_len == 0) {
       fprintf (stderr, _("%s: error getting extended attrs for %s %s\n"),
-               program_name, dir, names[i]);
+               guestfs___program_name, dir, names[i]);
       return -1;
     }
     /* attrval is not \0-terminated. */
@@ -110,7 +110,7 @@ _visit (guestfs_h *g, int depth, const char *dir,
     attrval[xattrs->val[xattrp].attrval_len] = '\0';
     if (sscanf (attrval, "%zu", &nr_xattrs) != 1) {
       fprintf (stderr, _("%s: error: cannot parse xattr count for %s %s\n"),
-               program_name, dir, names[i]);
+               guestfs___program_name, dir, names[i]);
       return -1;
     }
 

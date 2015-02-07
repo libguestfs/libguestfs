@@ -83,7 +83,7 @@ main (int argc, char *argv[])
   str = getenv (ourenvvar);
   if (str && guestfs___is_true (str) > 0) {
     printf ("%s: test skipped because environment variable is set.\n",
-            program_name);
+            guestfs___program_name);
     exit (77);
   }
 

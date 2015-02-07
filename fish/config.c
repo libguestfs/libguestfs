@@ -57,13 +57,13 @@ read_config_from_file (const char *filename)
     /*
     if (verbose)
       fprintf (stderr, "%s: reading configuration from %s\n",
-               program_name, filename);
+               guestfs___program_name, filename);
     */
 
     if (config_read (&conf, fp) == CONFIG_FALSE) {
       fprintf (stderr,
                _("%s: %s: line %d: error parsing configuration file: %s\n"),
-               program_name, filename, config_error_line (&conf),
+               guestfs___program_name, filename, config_error_line (&conf),
                config_error_text (&conf));
       exit (EXIT_FAILURE);
     }
@@ -165,7 +165,7 @@ parse_config (void)
   if (verbose)
     fprintf (stderr,
              _("%s: compiled without libconfig, guestfish configuration file ignored\n"),
-             program_name);
+             guestfs___program_name);
   */
 }
 
