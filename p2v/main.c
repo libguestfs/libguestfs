@@ -63,7 +63,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: Convert a physical machine to use KVM\n"
@@ -76,7 +76,7 @@ usage (int status)
              "  -v|--verbose           Verbose messages\n"
              "  -V|--version           Display version and exit\n"
              "For more information, see the manpage %s(1).\n"),
-             program_name, program_name, program_name);
+             guestfs___program_name, guestfs___program_name, guestfs___program_name);
   }
   exit (status);
 }
@@ -124,7 +124,7 @@ main (int argc, char *argv[])
       }
       else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -134,7 +134,7 @@ main (int argc, char *argv[])
       break;
 
     case 'V':
-      printf ("%s %s\n", program_name, PACKAGE_VERSION);
+      printf ("%s %s\n", guestfs___program_name, PACKAGE_VERSION);
       exit (EXIT_SUCCESS);
 
     case HELP_OPTION:
@@ -147,7 +147,7 @@ main (int argc, char *argv[])
 
   if (optind != argc) {
     fprintf (stderr, _("%s: unused arguments on the command line\n"),
-             program_name);
+             guestfs___program_name);
     usage (EXIT_FAILURE);
   }
 
@@ -429,7 +429,7 @@ find_all_disks (void)
 
   if (all_disks == NULL) {
     fprintf (stderr, "%s: error: no non-removable disks were discovered on this machine.\n",
-             program_name);
+             guestfs___program_name);
     fprintf (stderr, "virt-p2v looked in /sys/block.\n");
     fprintf (stderr, "This is a fatal error and virt-p2v cannot continue.\n");
     exit (EXIT_FAILURE);

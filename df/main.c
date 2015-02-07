@@ -64,7 +64,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: display free space on virtual filesystems\n"
@@ -88,8 +88,8 @@ usage (int status)
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             program_name, program_name, program_name,
-             program_name);
+             guestfs___program_name, guestfs___program_name, guestfs___program_name,
+             guestfs___program_name);
   }
   exit (status);
 }
@@ -153,7 +153,7 @@ main (int argc, char *argv[])
         uuid = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -180,7 +180,7 @@ main (int argc, char *argv[])
 
     case 'P':
       if (sscanf (optarg, "%zu", &max_threads) != 1) {
-        fprintf (stderr, _("%s: -P option is not numeric\n"), program_name);
+        fprintf (stderr, _("%s: -P option is not numeric\n"), guestfs___program_name);
         exit (EXIT_FAILURE);
       }
       break;
@@ -260,7 +260,7 @@ main (int argc, char *argv[])
    */
   if (human && csv) {
     fprintf (stderr, _("%s: you cannot use -h and --csv options together.\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -277,7 +277,7 @@ main (int argc, char *argv[])
     free_domains ();
 #else
     fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
 #endif
   }

@@ -89,7 +89,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: list differences between virtual machines\n"
@@ -125,8 +125,8 @@ usage (int status)
              "  -x                   Trace libguestfs API calls\n"
              "  --xattrs             Display extended attributes\n"
              "For more information, see the manpage %s(1).\n"),
-             program_name, program_name, program_name,
-             program_name);
+             guestfs___program_name, guestfs___program_name, guestfs___program_name,
+             guestfs___program_name);
   }
   exit (status);
 }
@@ -258,7 +258,7 @@ main (int argc, char *argv[])
         enable_xattrs = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -315,7 +315,7 @@ main (int argc, char *argv[])
   if (drvs == NULL || drvs2 == NULL) {
     fprintf (stderr,
              _("%s: you must specify some -a|-A|-d|-D options, see %s(1)\n"),
-             program_name, program_name);
+             guestfs___program_name, guestfs___program_name);
     usage (EXIT_FAILURE);
   }
 
@@ -324,13 +324,13 @@ main (int argc, char *argv[])
    */
   if (human && csv) {
     fprintf (stderr, _("%s: you cannot use -h and --csv options together.\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
   if (optind != argc) {
     fprintf (stderr, _("%s: extra arguments on the command line\n"),
-             program_name);
+             guestfs___program_name);
     usage (EXIT_FAILURE);
   }
 
@@ -737,7 +737,7 @@ diff (struct file *file1, guestfs_h *g1, struct file *file2, guestfs_h *g2)
     fprintf (stderr, "%s\n", cmd);
   r = system (cmd);
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    fprintf (stderr, _("%s: external diff command failed\n"), program_name);
+    fprintf (stderr, _("%s: external diff command failed\n"), guestfs___program_name);
     goto out;
   }
 

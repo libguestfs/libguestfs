@@ -96,13 +96,13 @@ main (int argc, char *argv[])
   skip = getenv ("SKIP_TEST_PARALLEL_MOUNT_LOCAL");
   if (skip && guestfs___is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             program_name);
+             guestfs___program_name);
     exit (77);
   }
 
   if (access ("/dev/fuse", W_OK) == -1) {
     fprintf (stderr, "%s: test skipped because /dev/fuse is not writable.\n",
-             program_name);
+             guestfs___program_name);
     exit (77);
   }
 

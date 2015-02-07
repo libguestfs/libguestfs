@@ -50,7 +50,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: clean up a mounted filesystem\n"
@@ -66,7 +66,7 @@ usage (int status)
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
              ),
-             program_name, program_name);
+             guestfs___program_name, guestfs___program_name);
   }
   exit (status);
 }
@@ -109,7 +109,7 @@ main (int argc, char *argv[])
       if (STREQ (long_options[option_index].name, "fd")) {
         if (sscanf (optarg, "%d", &fd) != 1 || fd < 0) {
           fprintf (stderr, _("%s: cannot parse fd option '%s'\n"),
-                   program_name, optarg);
+                   guestfs___program_name, optarg);
           exit (EXIT_FAILURE);
         }
       } else if (STREQ (long_options[option_index].name, "no-retry")) {
@@ -117,12 +117,12 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "retry")) {
         if (sscanf (optarg, "%zu", &retries) != 1 || retries >= 64) {
           fprintf (stderr, _("%s: cannot parse retries option or value is too large '%s'\n"),
-                   program_name, optarg);
+                   guestfs___program_name, optarg);
           exit (EXIT_FAILURE);
         }
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -151,7 +151,7 @@ main (int argc, char *argv[])
   if (optind+1 != argc) {
     fprintf (stderr,
              _("%s: you must specify a mountpoint in the host filesystem\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -206,7 +206,7 @@ main (int argc, char *argv[])
   /* fusermount failed after N retries */
   if (!quiet) {
     fprintf (stderr, _("%s: failed to unmount %s: %s\n"),
-             program_name, mountpoint, error);
+             guestfs___program_name, mountpoint, error);
     do_fuser (mountpoint);
   }
   free (error);
@@ -217,7 +217,7 @@ main (int argc, char *argv[])
  not_mounted:
   if (!quiet)
     fprintf (stderr, _("%s: %s is not mounted: %s\n"),
-             program_name, mountpoint, error);
+             guestfs___program_name, mountpoint, error);
 
   free (error);
 

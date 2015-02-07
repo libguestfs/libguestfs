@@ -162,12 +162,12 @@ extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomain
 #endif /* HAVE_LIBVIRT */
 
 /* Current program name.  Note <errno.h> must be included in all files
- * that want to use 'program_name'.
+ * that want to use 'guestfs___program_name'.
  */
 #if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
-#  define program_name program_invocation_short_name
+#  define guestfs___program_name program_invocation_short_name
 #else
-#  define program_name "libguestfs"
+#  define guestfs___program_name "libguestfs"
 #endif
 
 /* Close all file descriptors matching the condition. */

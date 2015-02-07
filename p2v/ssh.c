@@ -372,7 +372,7 @@ test_connection (struct config *config)
       sscanf (release_str, "%d", &v2v_release);
 #if DEBUG_STDERR
       fprintf (stderr, "%s: remote virt-v2v version: %d.%d.%d\n",
-               program_name, v2v_major, v2v_minor, v2v_release);
+               guestfs___program_name, v2v_major, v2v_minor, v2v_release);
 #endif
       /* This is an internal error.  Need to check this here so we
        * don't confuse it with the no-version case below.
@@ -570,7 +570,7 @@ add_option (const char *type, char ***drivers, const char *name, size_t len)
 
 #if DEBUG_STDERR
   fprintf (stderr, "%s: remote virt-v2v supports %s driver %s\n",
-           program_name, type, (*drivers)[n-1]);
+           guestfs___program_name, type, (*drivers)[n-1]);
 #endif
 }
 

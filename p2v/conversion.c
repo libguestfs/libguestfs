@@ -171,7 +171,7 @@ start_conversion (struct config *config,
 #if DEBUG_STDERR
     fprintf (stderr,
              "%s: data connection for %s: SSH remote port %d, local port %d\n",
-             program_name, device,
+             guestfs_int_program_name, device,
              data_conns[i].nbd_remote_port, data_conns[i].nbd_local_port);
 #endif
   }
@@ -203,7 +203,7 @@ start_conversion (struct config *config,
     goto out;
 
 #if DEBUG_STDERR
-  fprintf (stderr, "%s: libvirt XML:\n%s", program_name, libvirt_xml);
+  fprintf (stderr, "%s: libvirt XML:\n%s", guestfs___program_name, libvirt_xml);
 #endif
 
   /* Open the control connection and start conversion */
