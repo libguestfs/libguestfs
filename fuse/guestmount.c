@@ -88,7 +88,7 @@ static void __attribute__((noreturn))
 fuse_help (void)
 {
   static struct fuse_operations null_operations;
-  const char *tmp_argv[] = { program_name, "--help", NULL };
+  const char *tmp_argv[] = { guestfs___program_name, "--help", NULL };
   fuse_main (2, (char **) tmp_argv, &null_operations, NULL);
   exit (EXIT_SUCCESS);
 }
@@ -98,7 +98,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: FUSE module for libguestfs\n"
@@ -131,7 +131,7 @@ usage (int status)
              "  -w|--rw              Mount read-write\n"
              "  -x|--trace           Trace guestfs API calls\n"
              ),
-             program_name, program_name, program_name);
+             guestfs___program_name, guestfs___program_name, guestfs___program_name);
   }
   exit (status);
 }
@@ -242,12 +242,12 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "fd")) {
         if (sscanf (optarg, "%d", &pipe_fd) != 1 || pipe_fd < 0) {
           fprintf (stderr, _("%s: unable to parse --fd option value: %s\n"),
-                   program_name, optarg);
+                   guestfs___program_name, optarg);
           exit (EXIT_FAILURE);
         }
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -317,7 +317,7 @@ main (int argc, char *argv[])
     if (!drvs || !(mps || inspector)) {
       fprintf (stderr,
                _("%s: must have at least one -a/-d and at least one -m/-i option\n"),
-               program_name);
+               guestfs___program_name);
       exit (EXIT_FAILURE);
     }
   } else {
@@ -327,14 +327,14 @@ main (int argc, char *argv[])
     if (read_only) {
       fprintf (stderr,
                _("%s: --live is not compatible with --ro option\n"),
-               program_name);
+               guestfs___program_name);
       exit (EXIT_FAILURE);
     }
 
     if (inspector) {
       fprintf (stderr,
                _("%s: --live is not compatible with -i option\n"),
-               program_name);
+               guestfs___program_name);
       exit (EXIT_FAILURE);
     }
 
@@ -349,14 +349,14 @@ main (int argc, char *argv[])
     if (count_d != 1) {
       fprintf (stderr,
                _("%s: with --live, you must use exactly one -d option\n"),
-               program_name);
+               guestfs___program_name);
       exit (EXIT_FAILURE);
     }
 
     if (count_other != 0) {
       fprintf (stderr,
                _("%s: --live is not compatible with -a option\n"),
-               program_name);
+               guestfs___program_name);
       exit (EXIT_FAILURE);
     }
   }
@@ -365,7 +365,7 @@ main (int argc, char *argv[])
   if (optind+1 != argc) {
     fprintf (stderr,
              _("%s: you must specify a mountpoint in the host filesystem\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 

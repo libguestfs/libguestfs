@@ -83,7 +83,7 @@ get_all_libvirt_domains (const char *libvirt_uri)
     err = virGetLastError ();
     fprintf (stderr,
              _("%s: could not connect to libvirt (code %d, domain %d): %s\n"),
-             program_name, err->code, err->domain, err->message);
+             guestfs___program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
 
@@ -92,7 +92,7 @@ get_all_libvirt_domains (const char *libvirt_uri)
     err = virGetLastError ();
     fprintf (stderr,
              _("%s: could not get number of running domains (code %d, domain %d): %s\n"),
-             program_name, err->code, err->domain, err->message);
+             guestfs___program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
 
@@ -102,7 +102,7 @@ get_all_libvirt_domains (const char *libvirt_uri)
     err = virGetLastError ();
     fprintf (stderr,
              _("%s: could not list running domains (code %d, domain %d): %s\n"),
-             program_name, err->code, err->domain, err->message);
+             guestfs___program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
 
@@ -113,7 +113,7 @@ get_all_libvirt_domains (const char *libvirt_uri)
     err = virGetLastError ();
     fprintf (stderr,
              _("%s: could not get number of inactive domains (code %d, domain %d): %s\n"),
-             program_name, err->code, err->domain, err->message);
+             guestfs___program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
 
@@ -123,7 +123,7 @@ get_all_libvirt_domains (const char *libvirt_uri)
     err = virGetLastError ();
     fprintf (stderr,
              _("%s: could not list inactive domains (code %d, domain %d): %s\n"),
-             program_name, err->code, err->domain, err->message);
+             guestfs___program_name, err->code, err->domain, err->message);
     exit (EXIT_FAILURE);
   }
 

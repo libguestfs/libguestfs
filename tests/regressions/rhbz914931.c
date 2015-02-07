@@ -43,7 +43,7 @@ main (int argc, char *argv[])
   str = getenv ("SKIP_TEST_RHBZ914931");
   if (str && STREQ (str, "1")) {
     printf ("%s: test skipped because environment variable is set.\n",
-            program_name);
+            guestfs___program_name);
     exit (77);
   }
 

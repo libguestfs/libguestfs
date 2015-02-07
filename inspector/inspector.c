@@ -65,7 +65,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: display information about a virtual machine\n"
@@ -86,8 +86,8 @@ usage (int status)
              "  -x                   Trace libguestfs API calls\n"
              "  --xpath query        Perform an XPath query\n"
              "For more information, see the manpage %s(1).\n"),
-             program_name, program_name, program_name,
-             program_name);
+             guestfs___program_name, guestfs___program_name, guestfs___program_name,
+             guestfs___program_name);
   }
   exit (status);
 }
@@ -147,7 +147,7 @@ main (int argc, char *argv[])
         xpath = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -240,7 +240,7 @@ main (int argc, char *argv[])
   if (xpath) {
     if (drvs != NULL) {
       fprintf (stderr, _("%s: cannot use --xpath together with other options.\n"),
-               program_name);
+               guestfs___program_name);
       exit (EXIT_FAILURE);
     }
 
@@ -274,7 +274,7 @@ main (int argc, char *argv[])
     CLEANUP_FREE_STRING_LIST char **roots = guestfs_inspect_os (g);
     if (roots == NULL) {
       fprintf (stderr, _("%s: no operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by libguestfs.\n\nNOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\ninstall the separate libguestfs-winsupport package.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n"),
-               program_name);
+               guestfs___program_name);
       exit (EXIT_FAILURE);
     }
 
@@ -289,7 +289,7 @@ main (int argc, char *argv[])
 #define XMLERROR(code,e) do {                                           \
     if ((e) == (code)) {                                                \
       fprintf (stderr, _("%s: XML write error at \"%s\": %m\n"),        \
-               #e, program_name);                                       \
+               #e, guestfs___program_name);                                       \
       exit (EXIT_FAILURE);                                              \
     }                                                                   \
   } while (0)
@@ -301,7 +301,7 @@ output (char **roots)
   if (ob == NULL) {
     fprintf (stderr,
              _("%s: xmlOutputBufferCreateFd: failed to open stdout\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -310,7 +310,7 @@ output (char **roots)
   if (xo == NULL) {
     fprintf (stderr,
              _("%s: xmlNewTextWriter: failed to create libxml2 writer\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -768,21 +768,21 @@ do_xpath (const char *query)
 
   doc = xmlReadFd (STDIN_FILENO, NULL, "utf8", 0);
   if (doc == NULL) {
-    fprintf (stderr, _("%s: unable to parse XML from stdin\n"), program_name);
+    fprintf (stderr, _("%s: unable to parse XML from stdin\n"), guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
     fprintf (stderr, _("%s: unable to create new XPath context\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
   xpathObj = xmlXPathEvalExpression (BAD_CAST query, xpathCtx);
   if (xpathObj == NULL) {
     fprintf (stderr, _("%s: unable to evaluate XPath expression\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -794,26 +794,26 @@ do_xpath (const char *query)
 
     saveCtx = xmlSaveToFd (STDOUT_FILENO, NULL, XML_SAVE_NO_DECL);
     if (saveCtx == NULL) {
-      fprintf (stderr, _("%s: xmlSaveToFd failed\n"), program_name);
+      fprintf (stderr, _("%s: xmlSaveToFd failed\n"), guestfs___program_name);
       exit (EXIT_FAILURE);
     }
 
     for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
       CLEANUP_XMLFREEDOC xmlDocPtr wrdoc = xmlNewDoc (BAD_CAST "1.0");
       if (wrdoc == NULL) {
-        fprintf (stderr, _("%s: xmlNewDoc failed\n"), program_name);
+        fprintf (stderr, _("%s: xmlNewDoc failed\n"), guestfs___program_name);
         exit (EXIT_FAILURE);
       }
       wrnode = xmlCopyNode (nodes->nodeTab[i], 1);
       if (wrnode == NULL) {
-        fprintf (stderr, _("%s: xmlCopyNode failed\n"), program_name);
+        fprintf (stderr, _("%s: xmlCopyNode failed\n"), guestfs___program_name);
         exit (EXIT_FAILURE);
       }
 
       xmlDocSetRootElement (wrdoc, wrnode);
 
       if (xmlSaveDoc (saveCtx, wrdoc) == -1) {
-        fprintf (stderr, _("%s: xmlSaveDoc failed\n"), program_name);
+        fprintf (stderr, _("%s: xmlSaveDoc failed\n"), guestfs___program_name);
         exit (EXIT_FAILURE);
       }
     }

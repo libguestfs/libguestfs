@@ -61,7 +61,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+             guestfs___program_name);
   else {
     fprintf (stdout,
            _("%s: Edit a file in a virtual machine\n"
@@ -85,8 +85,8 @@ usage (int status)
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             program_name, program_name, program_name,
-             program_name);
+             guestfs___program_name, guestfs___program_name, guestfs___program_name,
+             guestfs___program_name);
   }
   exit (status);
 }
@@ -153,7 +153,7 @@ main (int argc, char *argv[])
         OPTION_format;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 program_name, long_options[option_index].name, option_index);
+                 guestfs___program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -165,7 +165,7 @@ main (int argc, char *argv[])
     case 'b':
       if (backup_extension) {
         fprintf (stderr, _("%s: -b option given multiple times\n"),
-                 program_name);
+                 guestfs___program_name);
         exit (EXIT_FAILURE);
       }
       backup_extension = optarg;
@@ -182,7 +182,7 @@ main (int argc, char *argv[])
     case 'e':
       if (perl_expr) {
         fprintf (stderr, _("%s: -e option given multiple times\n"),
-                 program_name);
+                 guestfs___program_name);
         exit (EXIT_FAILURE);
       }
       perl_expr = optarg;

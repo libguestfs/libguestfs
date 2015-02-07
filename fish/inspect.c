@@ -60,7 +60,7 @@ inspect_mount_handle (guestfs_h *g)
 {
   if (live) {
     fprintf (stderr, _("%s: don't use --live and -i options together\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -86,7 +86,7 @@ inspect_mount_handle (guestfs_h *g)
         "If using other virt tools, this disk image won't work\n"
         "with these tools.  Use the guestfish equivalent commands\n"
         "(see the virt tool manual page).\n"),
-             program_name);
+             guestfs___program_name);
     guestfs___free_string_list (roots);
     exit (EXIT_FAILURE);
   }
@@ -107,7 +107,7 @@ inspect_mount_handle (guestfs_h *g)
         "If using other virt tools, multi-boot operating systems won't work\n"
         "with these tools.  Use the guestfish equivalent commands\n"
         "(see the virt tool manual page).\n"),
-             program_name);
+             guestfs___program_name);
     guestfs___free_string_list (roots);
     exit (EXIT_FAILURE);
   }
@@ -156,7 +156,7 @@ inspect_mount_root (guestfs_h *g, const char *root)
 
   if (mount_errors)
     fprintf (stderr, _("%s: some filesystems could not be mounted (ignored)\n"),
-             program_name);
+             guestfs___program_name);
 }
 
 /* This function is called only if the above function was called,

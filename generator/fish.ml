@@ -486,7 +486,7 @@ Guestfish will prompt for these separately."
             pr "    case -1:\n";
             pr "      fprintf (stderr,\n";
             pr "               _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
-            pr "               program_name, argv[i-1]);\n";
+            pr "               guestfs___program_name, argv[i-1]);\n";
             pr "      goto out_%s;\n" name;
             pr "    case 0:  %s = 0; break;\n" name;
             pr "    default: %s = 1;\n" name;
@@ -529,7 +529,7 @@ Guestfish will prompt for these separately."
                  pr "        case -1:\n";
                  pr "          fprintf (stderr,\n";
                  pr "                   _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
-                 pr "                   program_name, &argv[i][%d]);\n" (len+1);
+                 pr "                   guestfs___program_name, &argv[i][%d]);\n" (len+1);
                  pr "          goto out;\n";
                  pr "        case 0:  optargs_s.%s = 0; break;\n" n;
                  pr "        default: optargs_s.%s = 1;\n" n;

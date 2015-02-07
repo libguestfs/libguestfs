@@ -78,7 +78,7 @@ main (int argc, char *argv[])
   skip = getenv ("SKIP_TEST_PARALLEL");
   if (skip && STREQ (skip, "1")) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             program_name);
+             guestfs___program_name);
     exit (77);
   }
 

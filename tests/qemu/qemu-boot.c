@@ -102,7 +102,7 @@ main (int argc, char *argv[])
     case 0:
       /* Options which are long only. */
       fprintf (stderr, "%s: unknown long option: %s (%d)\n",
-               program_name, long_options[option_index].name, option_index);
+               guestfs___program_name, long_options[option_index].name, option_index);
       exit (EXIT_FAILURE);
 
     case 'i':
@@ -112,14 +112,14 @@ main (int argc, char *argv[])
     case 'n':
       if (sscanf (optarg, "%zu", &n) != 1 || n == 0) {
         fprintf (stderr, "%s: -n option not numeric and greater than 0\n",
-                 program_name);
+                 guestfs___program_name);
         exit (EXIT_FAILURE);
       }
       break;
 
     case 'P':
       if (sscanf (optarg, "%zu", &P) != 1) {
-        fprintf (stderr, "%s: -P option not numeric\n", program_name);
+        fprintf (stderr, "%s: -P option not numeric\n", guestfs___program_name);
         exit (EXIT_FAILURE);
       }
       break;
@@ -143,13 +143,13 @@ main (int argc, char *argv[])
   if (n == 0) {
     fprintf (stderr,
              "%s: must specify number of processes to run (-n option)\n",
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
   if (optind != argc) {
     fprintf (stderr, "%s: extra arguments found on the command line\n",
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -168,7 +168,7 @@ main (int argc, char *argv[])
     err = pthread_create (&threads[i], NULL, start_thread, &thread_data[i]);
     if (err != 0) {
       fprintf (stderr, "%s: pthread_create[%zu]: %s\n",
-               program_name, i, strerror (err));
+               guestfs___program_name, i, strerror (err));
       exit (EXIT_FAILURE);
     }
   }
@@ -179,7 +179,7 @@ main (int argc, char *argv[])
     err = pthread_join (threads[i], &status);
     if (err != 0) {
       fprintf (stderr, "%s: pthread_join[%zu]: %s\n",
-               program_name, i, strerror (err));
+               guestfs___program_name, i, strerror (err));
       errors++;
     }
     if (*(int *)status == -1)
@@ -205,7 +205,7 @@ start_thread (void *thread_data_vp)
     err = pthread_mutex_lock (&mutex);
     if (err != 0) {
       fprintf (stderr, "%s: pthread_mutex_lock: %s",
-               program_name, strerror (err));
+               guestfs___program_name, strerror (err));
       goto error;
     }
 
@@ -222,7 +222,7 @@ start_thread (void *thread_data_vp)
     err = pthread_mutex_unlock (&mutex);
     if (err != 0) {
       fprintf (stderr, "%s: pthread_mutex_unlock: %s",
-               program_name, strerror (err));
+               guestfs___program_name, strerror (err));
       goto error;
     }
 
@@ -263,7 +263,7 @@ start_thread (void *thread_data_vp)
 
   if (errors > 0) {
     fprintf (stderr, "%s: thread %d: %u errors were ignored\n",
-             program_name, thread_data->thread_num, errors);
+             guestfs___program_name, thread_data->thread_num, errors);
     goto error;
   }
 

@@ -105,7 +105,7 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
   if (next_drive > 'z') {
     fprintf (stderr,
              _("%s: too many drives added on the command line\n"),
-             program_name);
+             guestfs___program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -269,19 +269,19 @@ display_mountpoints_on_failure (const char *mp_device,
     return;
 
   fprintf (stderr, _("%s: '%s' could not be mounted.\n"),
-           program_name, mp_device);
+           guestfs___program_name, mp_device);
 
   if (user_supplied_options)
     fprintf (stderr, _("%s: Check mount(8) man page to ensure options '%s'\n"
                        "%s: are supported by the filesystem that is being mounted.\n"),
-             program_name, user_supplied_options, program_name);
+             guestfs___program_name, user_supplied_options, guestfs___program_name);
 
   fprintf (stderr, _("%s: Did you mean to mount one of these filesystems?\n"),
-           program_name);
+           guestfs___program_name);
 
   for (i = 0; fses[i] != NULL; i += 2) {
     CLEANUP_FREE char *p = guestfs_canonical_device_name (g, fses[i]);
-    fprintf (stderr, "%s: \t%s (%s)\n", program_name,
+    fprintf (stderr, "%s: \t%s (%s)\n", guestfs___program_name,
              p ? p : fses[i], fses[i+1]);
   }
 }
