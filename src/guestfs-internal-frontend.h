@@ -133,6 +133,8 @@ extern void guestfs___cleanup_pclose (void *ptr);
  */
 #if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
 #  define guestfs___program_name program_invocation_short_name
+#elif HAVE_GETPROGNAME
+#  define guestfs___program_name getprogname()
 #else
 #  define guestfs___program_name "libguestfs"
 #endif
