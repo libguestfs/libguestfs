@@ -68,7 +68,7 @@ clean-local:
 if HAVE_JAVA
 
 JAVAC_FLAGS = $(EXTRA_JAVAC_FLAGS) -encoding utf-8
-JAVADOC_FLAGS = -encoding utf-8
+JAVADOC_FLAGS = -encoding utf-8 -Xdoclint:none
 
 # Java source.
 
