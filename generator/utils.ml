@@ -360,4 +360,10 @@ let args_of_optargs optargs =
     | OInt64 n -> Int64 n
     | OString n -> String n
     | OStringList n -> StringList n
-  ) optargs;
+  ) optargs
+
+let html_escape text =
+  let text = replace_str text "&" "&amp;" in
+  let text = replace_str text "<" "&lt;" in
+  let text = replace_str text ">" "&gt;" in
+  text

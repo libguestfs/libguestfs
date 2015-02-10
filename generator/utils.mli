@@ -131,3 +131,6 @@ val spaces : int -> string
 
 val args_of_optargs : Types.optargs -> Types.args
 (** Convert a list of optargs into an equivalent list of args *)
+
+val html_escape : string -> string
+(** Escape a text for HTML display. *)
