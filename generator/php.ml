@@ -90,6 +90,45 @@ and generate_php_c () =
 
 static int res_guestfs_h;
 
+/* Convert array to list of strings.
+ * http://marc.info/?l=pecl-dev&m=112205192100631&w=2
+ */
+static char**
+get_stringlist (zval *val)
+{
+  char **ret;
+  HashTable *a;
+  int n;
+  HashPosition p;
+  zval **d;
+  size_t c = 0;
+
+  a = Z_ARRVAL_P (val);
+  n = zend_hash_num_elements (a);
+  ret = safe_emalloc (n + 1, sizeof (char *), 0);
+  for (zend_hash_internal_pointer_reset_ex (a, &p);
+       zend_hash_get_current_data_ex (a, (void **) &d, &p) == SUCCESS;
+       zend_hash_move_forward_ex (a, &p)) {
+    zval t = **d;
+    zval_copy_ctor (&t);
+    convert_to_string (&t);
+    ret[c] = Z_STRVAL (t);
+    c++;
+  }
+  ret[c] = NULL;
+  return ret;
+}
+
+static void
+guestfs_efree_stringlist (char **p)
+{
+  size_t c = 0;
+
+  for (c = 0; p[c] != NULL; ++c)
+    efree (p[c]);
+  efree (p);
+}
+
 static void
 guestfs_php_handle_dtor (zend_rsrc_list_entry *rsrc TSRMLS_DC)
 {
@@ -328,30 +367,7 @@ PHP_FUNCTION (guestfs_last_error)
         | BufferIn n -> ()
         | StringList n
         | DeviceList n ->
-            (* Convert array to list of strings.
-             * http://marc.info/?l=pecl-dev&m=112205192100631&w=2
-             *)
-            pr "  {\n";
-            pr "    HashTable *a;\n";
-            pr "    int n;\n";
-            pr "    HashPosition p;\n";
-            pr "    zval **d;\n";
-            pr "    size_t c = 0;\n";
-            pr "\n";
-            pr "    a = Z_ARRVAL_P (z_%s);\n" n;
-            pr "    n = zend_hash_num_elements (a);\n";
-            pr "    %s = safe_emalloc (n + 1, sizeof (char *), 0);\n" n;
-            pr "    for (zend_hash_internal_pointer_reset_ex (a, &p);\n";
-            pr "         zend_hash_get_current_data_ex (a, (void **) &d, &p) == SUCCESS;\n";
-            pr "         zend_hash_move_forward_ex (a, &p)) {\n";
-            pr "      zval t = **d;\n";
-            pr "      zval_copy_ctor (&t);\n";
-            pr "      convert_to_string (&t);\n";
-            pr "      %s[c] = Z_STRVAL (t);\n" n;
-            pr "      c++;\n";
-            pr "    }\n";
-            pr "    %s[c] = NULL;\n" n;
-            pr "  }\n";
+            pr "  %s = get_stringlist (z_%s);\n" n n;
             pr "\n"
         | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
         ) args;
@@ -384,28 +400,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr "   * positively check that it gave us an array, otherwise ignore it.\n";
             pr "   */\n";
             pr "  if (optargs_t_%s != NULL && Z_TYPE_P (optargs_t_%s) == IS_ARRAY) {\n" n n;
-            pr "    char **r;\n";
-            pr "    HashTable *a;\n";
-            pr "    int n;\n";
-            pr "    HashPosition p;\n";
-            pr "    zval **d;\n";
-            pr "    size_t c = 0;\n";
-            pr "\n";
-            pr "    a = Z_ARRVAL_P (optargs_t_%s);\n" n;
-            pr "    n = zend_hash_num_elements (a);\n";
-            pr "    r = safe_emalloc (n + 1, sizeof (char *), 0);\n";
-            pr "    for (zend_hash_internal_pointer_reset_ex (a, &p);\n";
-            pr "         zend_hash_get_current_data_ex (a, (void **) &d, &p) == SUCCESS;\n";
-            pr "         zend_hash_move_forward_ex (a, &p)) {\n";
-            pr "      zval t = **d;\n";
-            pr "      zval_copy_ctor (&t);\n";
-            pr "      convert_to_string (&t);\n";
-            pr "      r[c] = Z_STRVAL (t);\n";
-            pr "      c++;\n";
-            pr "    }\n";
-            pr "    r[c] = NULL;\n";
-            pr "\n";
-            pr "    optargs_s.%s = r;\n" n;
+            pr "    optargs_s.%s = get_stringlist (optargs_t_%s);\n" n n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             pr "  }\n";
         ) optargs;
@@ -451,13 +446,7 @@ PHP_FUNCTION (guestfs_last_error)
         | BufferIn n -> ()
         | StringList n
         | DeviceList n ->
-            pr "  {\n";
-            pr "    size_t c = 0;\n";
-            pr "\n";
-            pr "    for (c = 0; %s[c] != NULL; ++c)\n" n;
-            pr "      efree (%s[c]);\n" n;
-            pr "    efree (%s);\n" n;
-            pr "  }\n";
+            pr "  guestfs_efree_stringlist (%s);\n" n;
             pr "\n"
         | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
         ) args;
