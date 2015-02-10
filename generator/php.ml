@@ -451,6 +451,16 @@ PHP_FUNCTION (guestfs_last_error)
             pr "\n"
         | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
         ) args;
+      List.iter (
+        function
+        | OBool n | OInt n | OInt64 n | OString n -> ()
+        | OStringList n ->
+            let uc_n = String.uppercase n in
+            pr "  if ((optargs_s.bitmask & %s_%s_BITMASK) != 0)\n"
+              c_optarg_prefix uc_n;
+            pr "    guestfs_efree_stringlist ((char **) optargs_s.%s);\n" n;
+            pr "\n"
+      ) optargs;
 
       (* Check for errors. *)
       (match errcode_of_ret ret with
