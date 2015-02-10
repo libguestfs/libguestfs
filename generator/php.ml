@@ -112,7 +112,8 @@ get_stringlist (zval *val)
     zval t = **d;
     zval_copy_ctor (&t);
     convert_to_string (&t);
-    ret[c] = Z_STRVAL (t);
+    ret[c] = estrndup (Z_STRVAL(t), Z_STRLEN (t));
+    zval_dtor (&t);
     c++;
   }
   ret[c] = NULL;
