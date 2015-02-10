@@ -280,7 +280,11 @@ public class GuestFS {
         pr "   */\n";
       );
       pr "  ";
-      generate_java_prototype ~public:true ~semicolon:false f.name f.style;
+      let deprecated =
+        match f with
+        | { deprecated_by = None } -> false
+        | { deprecated_by = Some _ } -> true in
+      generate_java_prototype ~public:true ~semicolon:false ~deprecated f.name f.style;
       pr "\n";
       pr "  {\n";
       pr "    if (g == 0)\n";
@@ -421,7 +425,8 @@ and generate_java_call_args ~handle (_, args, optargs) =
   pr ")"
 
 and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
-    ?(semicolon=true) name (ret, args, optargs) =
+    ?(semicolon=true) ?(deprecated=false) name (ret, args, optargs) =
+  if deprecated then pr "@Deprecated ";
   if privat then pr "private ";
   if public then pr "public ";
   if native then pr "native ";
