@@ -387,6 +387,7 @@ Makefile.in
 /php/extension/php-for-tests.sh
 /php/extension/php_guestfs_php.h
 /php/extension/run-tests.php
+/php/extension/tests/guestfs_php_bindtests.phpt
 /php/extension/tmp-php.ini
 /pick-guests.pl
 /po-docs/*/*.1

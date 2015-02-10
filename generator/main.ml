@@ -160,6 +160,7 @@ Run it from the top source directory using the command
   output_to "csharp/Libguestfs.cs" generate_csharp;
   output_to "php/extension/php_guestfs_php.h" generate_php_h;
   output_to "php/extension/guestfs_php.c" generate_php_c;
+  output_to "php/extension/tests/guestfs_php_bindtests.phpt" generate_php_bindtests;
   output_to "erlang/guestfs.erl" generate_erlang_erl;
   output_to "erlang/erl-guestfs.c" generate_erlang_c;
   output_to ~perm:0o555 "erlang/bindtests.erl" generate_erlang_bindtests;

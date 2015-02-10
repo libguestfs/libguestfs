@@ -909,6 +909,69 @@ and generate_golang_bindtests () =
   pr "    return &s;\n";
   pr "}\n"
 
+and generate_php_bindtests () =
+  (* No header for this, as it is a .phpt file. *)
+
+  (* Unfortunately, due to the way optional arguments work in PHP,
+   * we cannot test arbitrary arguments skipping the previous ones
+   * in the function signatures.
+   *
+   * Hence, check only the non-optional arguments, and fix the
+   * baseline output to expect always "unset" optional arguments.
+   *)
+
+  pr "--TEST--\n";
+  pr "General PHP binding test.\n";
+  pr "--FILE--\n";
+  pr "<?php\n";
+  pr "$g = guestfs_create ();\n";
+
+  let mkargs args =
+    String.concat ", " (
+      List.map (
+        function
+        | CallString s -> "\"" ^ s ^ "\""
+        | CallOptString None -> "NULL"
+        | CallOptString (Some s) -> sprintf "\"%s\"" s
+        | CallStringList xs ->
+          sprintf "array(%s)"
+            (String.concat "," (List.map (sprintf "\"%s\"") xs))
+        | CallInt i -> string_of_int i
+        | CallInt64 i -> Int64.to_string i
+        | CallBool b -> if b then "1" else "0"
+        | CallBuffer s -> "\"" ^ c_quote s ^ "\""
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args optargs ->
+      pr "if (guestfs_%s ($g, %s) == false) {\n" f (mkargs args);
+      pr "  echo (\"Call failed: \" . guestfs_last_error ($g) . \"\\n\");\n";
+      pr "  exit;\n";
+      pr "}\n";
+  );
+
+  pr "echo (\"EOF\\n\");\n";
+  pr "?>\n";
+  pr "--EXPECT--\n";
+
+  let dump filename =
+    let chan = open_in filename in
+    let rec loop () =
+      let line = input_line chan in
+      (match string_split ":" line with
+      | ("obool"|"oint"|"oint64"|"ostring"|"ostringlist") as x :: _ ->
+        pr "%s: unset\n" x
+      | _ -> pr "%s\n" line
+      );
+      loop ()
+    in
+    (try loop () with End_of_file -> ());
+    close_in chan in
+
+  dump "bindtests"
+
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
  *)
