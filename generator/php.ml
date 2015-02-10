@@ -191,10 +191,12 @@ PHP_FUNCTION (guestfs_last_error)
         | String n | Device n | Mountable n | Pathname n
         | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
-        | OptString n
         | BufferIn n
         | GUID n ->
             pr "  char *%s;\n" n;
+            pr "  int %s_size;\n" n
+        | OptString n ->
+            pr "  char *%s = NULL;\n" n;
             pr "  int %s_size;\n" n
         | StringList n
         | DeviceList n ->
@@ -305,11 +307,20 @@ PHP_FUNCTION (guestfs_last_error)
         | String n | Device n | Mountable n | Pathname n
         | Dev_or_Path n | Mountable_or_Path n
         | FileIn n | FileOut n | Key n
-        | OptString n | GUID n ->
+        | GUID n ->
             (* Just need to check the string doesn't contain any ASCII
              * NUL characters, which won't be supported by the C API.
              *)
             pr "  if (strlen (%s) != %s_size) {\n" n n;
+            pr "    fprintf (stderr, \"libguestfs: %s: parameter '%s' contains embedded ASCII NUL.\\n\");\n" shortname n;
+            pr "    RETURN_FALSE;\n";
+            pr "  }\n";
+            pr "\n"
+        | OptString n ->
+            (* Just need to check the string doesn't contain any ASCII
+             * NUL characters, which won't be supported by the C API.
+             *)
+            pr "  if (%s != NULL && strlen (%s) != %s_size) {\n" n n n;
             pr "    fprintf (stderr, \"libguestfs: %s: parameter '%s' contains embedded ASCII NUL.\\n\");\n" shortname n;
             pr "    RETURN_FALSE;\n";
             pr "  }\n";
