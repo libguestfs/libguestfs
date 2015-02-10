@@ -41,19 +41,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * <p>
  * Libguestfs handle.
- * <p>
+ * </p><p>
  * The <code>GuestFS</code> object corresponds to a libguestfs handle.
- * <p>
+ * </p><p>
  * Note that the main documentation for the libguestfs API is in
  * the following man pages:
- * <p>
+ * </p><p>
  * <ol>
  * <li> <a href=\"http://libguestfs.org/guestfs-java.3.html\"><code>guestfs-java(3)</code></a> and </li>
  * <li> <a href=\"http://libguestfs.org/guestfs.3.html\"><code>guestfs(3)</code></a>. </li>
  * </ol>
- * <p>
+ * </p><p>
  * This javadoc is <b>not</b> a good introduction to using libguestfs.
+ * </p>
  *
  * @author rjones
  */
@@ -109,13 +111,15 @@ public class GuestFS {
   private native long _create (int flags) throws LibGuestFSException;
 
   /**
+   * <p>
    * Close a libguestfs handle.
-   *
+   * </p><p>
    * You can also leave handles to be collected by the garbage
    * collector, but this method ensures that the resources used
    * by the handle are freed up immediately.  If you call any
    * other methods after closing the handle, you will get an
    * exception.
+   * </p>
    *
    * @throws LibGuestFSException
    */
@@ -152,7 +156,12 @@ public class GuestFS {
   pr "\n";
 
   pr "\
-  /** Utility function to turn an event number or bitmask into a string. */
+  /**
+   * Utility function to turn an event number or bitmask into a string.
+   *
+   * @param events the event number to convert
+   * @return text representation of event
+   */
   public static String eventToString (long events)
   {
     return _event_to_string (events);
@@ -161,13 +170,14 @@ public class GuestFS {
   private static native String _event_to_string (long events);
 
   /**
-   * Set an event handler.
    * <p>
+   * Set an event handler.
+   * </p><p>
    * Set an event handler (<code>callback</code>) which is called when any
    * event from the set (<code>events</code>) is raised by the API.
    * <code>events</code> is one or more <code>EVENT_*</code> constants,
    * bitwise ORed together.
-   * <p>
+   * </p><p>
    * When an event happens, the callback object's <code>event</code> method
    * is invoked like this:
    * <pre>
@@ -180,14 +190,16 @@ public class GuestFS {
    * Note that you can pass arbitrary data from the main program to the
    * callback by putting it into your {@link EventCallback callback object},
    * then accessing it in the callback via <code>this</code>.
-   * <p>
+   * </p><p>
    * This function returns an event handle which may be used to delete
    * the event.  Note that event handlers are deleted automatically when
    * the libguestfs handle is closed.
+   * </p>
    *
    * @throws LibGuestFSException
-   * @see The section \"EVENTS\" in the guestfs(3) manual
+   * @see \"The section &quot;EVENTS&quot; in the guestfs(3) manual\"
    * @see #delete_event_callback
+   * @return handle for the event
    */
   public int set_event_callback (EventCallback callback, long events)
     throws LibGuestFSException
@@ -203,14 +215,16 @@ public class GuestFS {
     throws LibGuestFSException;
 
   /**
-   * Delete an event handler.
    * <p>
+   * Delete an event handler.
+   * </p><p>
    * Delete a previously registered event handler.  The 'eh' parameter is
    * the event handle returned from a previous call to
    * {@link #set_event_callback set_event_callback}.
-   * <p>
+   * </p><p>
    * Note that event handlers are deleted automatically when the
    * libguestfs handle is closed.
+   * </p>
    *
    * @throws LibGuestFSException
    * @see #set_event_callback
@@ -243,22 +257,25 @@ public class GuestFS {
           if f.protocol_limit_warning then
             doc ^ "\n\n" ^ protocol_limit_warning
           else doc in
-        let doc =
-          match deprecation_notice f with
-          | None -> doc
-          | Some txt -> doc ^ "\n\n" ^ txt in
         let doc = pod2text ~width:60 f.name doc in
         let doc = List.map (		(* RHBZ#501883 *)
           function
-          | "" -> "<p>"
-          | nonempty -> nonempty
+          | "" -> "</p><p>"
+          | nonempty -> html_escape nonempty
         ) doc in
         let doc = String.concat "\n   * " doc in
 
         pr "  /**\n";
-        pr "   * %s\n" f.shortdesc;
         pr "   * <p>\n";
+        pr "   * %s\n" f.shortdesc;
+        pr "   * </p><p>\n";
         pr "   * %s\n" doc;
+        pr "   * </p>\n";
+        (match f with
+        | { deprecated_by = None } -> ()
+        | { deprecated_by = Some alt } ->
+          pr "   * @deprecated In new code, use {@link #%s} instead\n" alt
+        );
         pr "   * @throws LibGuestFSException\n";
         pr "   */\n";
       );
