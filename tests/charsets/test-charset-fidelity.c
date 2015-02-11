@@ -217,9 +217,9 @@ test_ascii (guestfs_h *g, const struct filesystem *fs)
              "(instead of 3) were returned",
              __func__, fs->fs_name, count);
 
-    if (STRNEQ (files[0], "ABC") == -1 ||
-        STRNEQ (files[1], "abc") == -1 ||
-        STRNEQ (files[2], "def") == -1)
+    if (STRNEQ (files[0], "ABC") ||
+        STRNEQ (files[1], "abc") ||
+        STRNEQ (files[2], "def"))
       error (EXIT_FAILURE, 0,
              "error: %s: %s returned unexpected filenames '%s', '%s', '%s'",
              __func__, fs->fs_name, files[0], files[1], files[2]);
