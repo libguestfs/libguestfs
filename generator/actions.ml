@@ -2415,7 +2415,7 @@ the algorithm described in L<guestfs(3)/BLOCK DEVICE NAMING>.
 
 =item C</dev/dm-N>
 
-Converted to C</dev/VG/LV> form using C<guestfs_lvm_canonical_lvm_name>.
+Converted to C</dev/VG/LV> form using C<guestfs_lvm_canonical_lv_name>.
 
 =back
 
@@ -11801,7 +11801,7 @@ to read data.
 
 The returned boolean tells you if there are any more journal
 records to read.  C<true> means you can read the next record
-(eg. using C<guestfs_journal_get_data>), and C<false> means you
+(eg. using C<guestfs_journal_get>), and C<false> means you
 have reached the end of the journal." };
 
   { defaults with
