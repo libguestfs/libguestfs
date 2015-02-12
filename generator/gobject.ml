@@ -961,7 +961,8 @@ guestfs_session_close (GuestfsSession *session, GError **err)
     fun ({ name = name; style = (ret, args, optargs as style);
            cancellable = cancellable; c_function = c_function;
            c_optarg_prefix = c_optarg_prefix;
-           shortdesc = shortdesc; longdesc = longdesc } as f) ->
+           shortdesc = shortdesc; longdesc = longdesc;
+           deprecated_by = deprecated_by } as f) ->
       pr "\n";
 
       let longdesc = Str.global_substitute urls (
@@ -1103,6 +1104,11 @@ guestfs_session_close (GuestfsSession *session, GError **err)
          pr "(transfer full) (array zero-terminated=1) (element-type Guestfs%s): an array of %s objects, or NULL on error" name name
       );
       pr "\n";
+      (match deprecated_by with
+      | None -> ()
+      | Some alt ->
+        pr " * Deprecated: In new code, use guestfs_session_%s() instead\n" alt
+      );
       pr " */\n";
 
       (* The function body *)
