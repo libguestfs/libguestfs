@@ -77,13 +77,10 @@ fi
 PATH="$b/align:$b/builder:$b/cat:$b/customize:$b/df:$b/diff:$b/edit:$b/erlang:$b/fish:$b/format:$b/fuse:$b/inspector:$b/make-fs:$b/p2v:$b/rescue:$b/resize:$b/sparsify:$b/sysprep:$b/test-tool:$b/tools:$b/v2v:$PATH"
 export PATH
 
-# Set LD_LIBRARY_PATH to contain library.
-if [ -z "$LD_LIBRARY_PATH" ]; then
-    LD_LIBRARY_PATH="$b/src/.libs:$b/java/.libs:$b/gobject/.libs"
-else
-    LD_LIBRARY_PATH="$b/src/.libs:$b/java/.libs:$b/gobject/.libs:$LD_LIBRARY_PATH"
-fi
-export LD_LIBRARY_PATH
+# Set LD_LIBRARY_PATH and DYLD_LIBRARY_PATH to contain library.
+build_libs_path="$b/src/.libs:$b/java/.libs:$b/gobject/.libs"
+export LD_LIBRARY_PATH="$build_libs_path${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+export DYLD_LIBRARY_PATH="$build_libs_path${DYLD_LIBRARY_PATH:+:}$DYLD_LIBRARY_PATH"
 
 # Make virt-builder use the local website copy to avoid hitting
 # the network all the time.
@@ -131,7 +128,8 @@ else
     RUBYLIB="$b/ruby/lib:$b/ruby/ext/guestfs:$RUBYLIB"
 fi
 export RUBYLIB
-export LD_LIBRARY_PATH="$b/ruby/ext/guestfs:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$b/ruby/ext/guestfs${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+export DYLD_LIBRARY_PATH="$b/ruby/ext/guestfs${DYLD_LIBRARY_PATH:+:}$DYLD_LIBRARY_PATH"
 
 # For OCaml.
 if [ -z "$CAML_LD_LIBRARY_PATH" ]; then
