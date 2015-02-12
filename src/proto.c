@@ -252,7 +252,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
    * have no parameters.
    */
   if (xdrp) {
-    if (!(*xdrp) (&xdr, args)) {
+    if (!(*xdrp) (&xdr, args, 0)) {
       error (g, _("dispatch failed to marshal args"));
       return -1;
     }
@@ -681,7 +681,7 @@ guestfs___recv (guestfs_h *g, const char *fn,
       return -1;
     }
   } else {
-    if (xdrp && ret && !xdrp (&xdr, ret)) {
+    if (xdrp && ret && !xdrp (&xdr, ret, 0)) {
       error (g, "%s: failed to parse reply", fn);
       xdr_destroy (&xdr);
       return -1;
