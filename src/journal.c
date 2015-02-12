@@ -35,6 +35,11 @@
 #include <sys/endian.h>
 #endif
 
+#if defined __APPLE__ && defined __MACH__
+#include <libkern/OSByteOrder.h>
+#define be64toh(x) OSSwapBigToHostInt64(x)
+#endif
+
 #include "full-read.h"
 
 #include "guestfs.h"

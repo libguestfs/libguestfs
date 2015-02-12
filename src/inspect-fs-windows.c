@@ -36,6 +36,12 @@
 #include <sys/endian.h>
 #endif
 
+#if defined __APPLE__ && defined __MACH__
+#include <libkern/OSByteOrder.h>
+#define le32toh(x) OSSwapLittleToHostInt32(x)
+#define le64toh(x) OSSwapLittleToHostInt64(x)
+#endif
+
 #include <pcre.h>
 
 #include "c-ctype.h"
