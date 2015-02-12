@@ -208,8 +208,10 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
     unix_error (err, "ftruncate", outputfilev);
   }
 
+#if defined HAVE_POSIX_FADVISE
   /* Tell the kernel we won't read the output file. */
   ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_RANDOM|POSIX_FADV_DONTNEED));
+#endif
 
   /* Iterate over blocks. */
   iter_blocks (idx, nr_threads, filenamev, fd, outputfilev, ofd);
