@@ -590,6 +590,15 @@ AC_ARG_WITH([extra-packages],
     [EXTRA_PACKAGES=])
 AC_SUBST([EXTRA_PACKAGES])
 
+dnl Check if crypt() is provided by a separate library.
+old_LIBS="$LIBS"
+AC_SEARCH_LIBS([crypt],[crypt])
+LIBS="$old_LIBS"
+if test "$ac_cv_search_crypt" = "-lcrypt" ; then
+  LIBCRYPT_LIBS="-lcrypt"
+fi
+AC_SUBST([LIBCRYPT_LIBS])
+
 dnl Check for libdl/dlopen (optional - only used to test if the library
 dnl can be used with libdl).
 AC_CHECK_LIB([dl],[dlopen],[have_libdl=yes],[have_libdl=no])
