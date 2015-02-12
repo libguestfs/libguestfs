@@ -144,9 +144,14 @@ end
     fun ({ name = name; style = style; deprecated_by = deprecated_by;
           non_c_aliases = non_c_aliases;
           shortdesc = shortdesc } as f) ->
+      let need_doc = is_documented f in
+
+      if not need_doc then
+        pr "(**/**)\n";
+
       generate_ocaml_prototype name style;
 
-      if is_documented f then (
+      if need_doc then (
         pr "(** %s" shortdesc;
         (match deprecated_by with
          | None -> ()
@@ -155,14 +160,18 @@ end
         );
         pr " *)\n";
       );
-      pr "\n";
 
       (* Aliases. *)
       List.iter (
         fun alias ->
-          generate_ocaml_prototype alias style;
           pr "\n";
+          generate_ocaml_prototype alias style;
       ) non_c_aliases;
+
+      if not need_doc then
+        pr "(**/**)\n";
+
+      pr "\n";
   ) external_functions_sorted;
 
   pr "\
