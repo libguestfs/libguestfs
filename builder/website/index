@@ -214,6 +214,31 @@ notes=Fedora 21 Server.
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
 
+[fedora-21]
+name=Fedora® 21 Server (aarch64)
+osinfo=fedora21
+arch=aarch64
+file=fedora-21-aarch64.xz
+checksum=57026dd867cbc2e49894dd056ffdc1c397548f4f7e296f393a77ee55343a17f684ddcd3ff7661f514b54209c472f41fce809f2e36064fb66d4f92d8dce5e9b62
+format=raw
+size=4294967296
+compressed_size=186616612
+expand=/dev/sda3
+notes=Fedora 21 Server (aarch64)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-aarch64.sh
+ 
+ Please note you will need to use the associated EFI NVRAM variables:
+ http://libguestfs.org/download/builder/fedora-21-aarch64-nvram.xz
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
 [scientificlinux-6]
 name=Scientific Linux 6.5
 osinfo=centos6.5
