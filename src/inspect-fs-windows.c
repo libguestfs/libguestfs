@@ -107,7 +107,7 @@ guestfs_int_get_windows_systemroot (guestfs_h *g)
 {
   /* Check a predefined list of common windows system root locations */
   static const char *systemroots[] =
-    { "/windows", "/winnt", "/win32", "/win", NULL };
+    { "/windows", "/winnt", "/win32", "/win", "/reactos", NULL };
 
   for (size_t i = 0; i < sizeof systemroots / sizeof systemroots[0]; ++i) {
     char *systemroot =
