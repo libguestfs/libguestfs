@@ -922,6 +922,11 @@ and generate_php_bindtests () =
 
   pr "--TEST--\n";
   pr "General PHP binding test.\n";
+  pr "--SKIPIF--\n";
+  pr "<?php\n";
+  pr "if (PHP_INT_SIZE < 8)\n";
+  pr "  print 'skip 32bit platforms due to limited int in PHP';\n";
+  pr "?>\n";
   pr "--FILE--\n";
   pr "<?php\n";
   pr "$g = guestfs_create ();\n";
