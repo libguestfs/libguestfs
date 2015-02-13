@@ -610,7 +610,7 @@ do_btrfs_subvolume_get_default (const mountable_t *fs)
     goto error;
   }
   if (sscanf (out, "ID %" SCNi64, &ret) != 1) {
-    reply_with_error ("%s: could not parse subvolume id: %s.", argv[0], out);
+    reply_with_error ("%s: could not parse subvolume id: %s", argv[0], out);
     ret = -1;
     goto error;
   }
