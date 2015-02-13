@@ -257,7 +257,12 @@ do_fusermount (const char *mountpoint, char **error_rtn)
     /* We have to parse error messages from fusermount, so ... */
     setenv ("LC_ALL", "C", 1);
 
+#ifdef __linux__
     execlp ("fusermount", "fusermount", "-u", mountpoint, NULL);
+#else
+    /* use umount where fusermount is not available */
+    execlp ("umount", "umount", mountpoint, NULL);
+#endif
     perror ("exec");
     _exit (EXIT_FAILURE);
   }
@@ -334,7 +339,11 @@ do_fuser (const char *mountpoint)
   }
 
   if (pid == 0) {               /* Child - run /sbin/fuser. */
+#ifdef __linux__
     execlp ("/sbin/fuser", "fuser", "-v", "-m", mountpoint, NULL);
+#else
+    execlp ("/sbin/fuser", "fuser", "-c", mountpoint, NULL);
+#endif
     _exit (EXIT_FAILURE);
   }
 
