@@ -43,6 +43,13 @@ if [ "$1" = "--test" ]; then
     shift
 fi
 
+# Function to intelligently prepend a path to an environment variable.
+# See http://stackoverflow.com/a/9631350
+prepend()
+{
+    eval $1="$2\${$1:+:\$$1}"
+}
+
 # Source and build directories (absolute paths so this works from any
 # directory).
 s="$(cd @abs_srcdir@ && pwd)"
@@ -74,18 +81,43 @@ fi
 
 # Set the PATH to contain all the libguestfs binaries.  There are a
 # lot of binaries, so a lot of path entries.
-PATH="$b/align:$b/builder:$b/cat:$b/customize:$b/df:$b/diff:$b/edit:$b/erlang:$b/fish:$b/format:$b/fuse:$b/inspector:$b/make-fs:$b/p2v:$b/rescue:$b/resize:$b/sparsify:$b/sysprep:$b/test-tool:$b/tools:$b/v2v:$PATH"
+prepend PATH "$b/align"
+prepend PATH "$b/builder"
+prepend PATH "$b/cat"
+prepend PATH "$b/customize"
+prepend PATH "$b/df"
+prepend PATH "$b/diff"
+prepend PATH "$b/edit"
+prepend PATH "$b/erlang"
+prepend PATH "$b/fish"
+prepend PATH "$b/format"
+prepend PATH "$b/fuse"
+prepend PATH "$b/inspector"
+prepend PATH "$b/make-fs"
+prepend PATH "$b/p2v"
+prepend PATH "$b/rescue"
+prepend PATH "$b/resize"
+prepend PATH "$b/sparsify"
+prepend PATH "$b/sysprep"
+prepend PATH "$b/test-tool"
+prepend PATH "$b/tools"
+prepend PATH "$b/v2v"
 export PATH
 
 # Set LD_LIBRARY_PATH and DYLD_LIBRARY_PATH to contain library.
-build_libs_path="$b/src/.libs:$b/java/.libs:$b/gobject/.libs"
-export LD_LIBRARY_PATH="$build_libs_path${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-export DYLD_LIBRARY_PATH="$build_libs_path${DYLD_LIBRARY_PATH:+:}$DYLD_LIBRARY_PATH"
+prepend LD_LIBRARY_PATH "$b/gobject/.libs"
+prepend LD_LIBRARY_PATH "$b/java/.libs"
+prepend LD_LIBRARY_PATH "$b/src/.libs"
+prepend DYLD_LIBRARY_PATH "$b/gobject/.libs"
+prepend DYLD_LIBRARY_PATH "$b/java/.libs"
+prepend DYLD_LIBRARY_PATH "$b/src/.libs"
+export LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH
 
 # Make virt-builder use the local website copy to avoid hitting
 # the network all the time.
 if [ -z "$XDG_CONFIG_DIRS" ]; then
-    XDG_CONFIG_DIRS="$b/builder/test-website"
+    prepend XDG_CONFIG_DIRS "$b/builder/test-website"
     export XDG_CONFIG_DIRS
 fi
 
@@ -96,11 +128,8 @@ if [ -z "$VIRT_P2V_DATA_DIR" ]; then
 fi
 
 # For Perl.
-if [ -z "$PERL5LIB" ]; then
-    PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch"
-else
-    PERL5LIB="$b/perl/blib/lib:$b/perl/blib/arch:$PERL5LIB"
-fi
+prepend PERL5LIB "$b/perl/blib/arch"
+prepend PERL5LIB "$b/perl/blib/lib"
 export PERL5LIB
 
 # Enable Perl valgrinding.
@@ -112,52 +141,38 @@ export PERL_DESTRUCT_LEVEL=2
 
 # For Python.
 export PYTHON=@PYTHON@
-if [ -z "$PYTHONPATH" ]; then
-    PYTHONPATH="$s/python:$b/python:$b/python/.libs"
-else
-    PYTHONPATH="$s/python:$b/python:$b/python/.libs:$PYTHONPATH"
-fi
+prepend PYTHONPATH "$b/python/.libs"
+prepend PYTHONPATH "$b/python"
+prepend PYTHONPATH "$s/python"
 export PYTHONPATH
 
 # For Ruby.
 export RUBY=@RUBY@
 export RAKE=@RAKE@
-if [ -z "$RUBYLIB" ]; then
-    RUBYLIB="$b/ruby/lib:$b/ruby/ext/guestfs"
-else
-    RUBYLIB="$b/ruby/lib:$b/ruby/ext/guestfs:$RUBYLIB"
-fi
+prepend RUBYLIB "$b/ruby/ext/guestfs"
+prepend RUBYLIB "$b/ruby/lib"
 export RUBYLIB
-export LD_LIBRARY_PATH="$b/ruby/ext/guestfs${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-export DYLD_LIBRARY_PATH="$b/ruby/ext/guestfs${DYLD_LIBRARY_PATH:+:}$DYLD_LIBRARY_PATH"
+prepend LD_LIBRARY_PATH "$b/ruby/ext/guestfs"
+prepend DYLD_LIBRARY_PATH "$b/ruby/ext/guestfs"
 
 # For OCaml.
-if [ -z "$CAML_LD_LIBRARY_PATH" ]; then
-    CAML_LD_LIBRARY_PATH="$b/ocaml"
-else
-    CAML_LD_LIBRARY_PATH="$b/ocaml:$CAML_LD_LIBRARY_PATH"
-fi
+prepend CAML_LD_LIBRARY_PATH "$b/ocaml"
 export CAML_LD_LIBRARY_PATH
 
 # For Java.
 export JAVA_EXE=@JAVA_EXE@
-if [ -z "$CLASSPATH" ]; then
-    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar"
-else
-    CLASSPATH="$b/java:$b/java/t:$b/java/libguestfs-@VERSION@.jar:$CLASSPATH"
-fi
+prepend CLASSPATH "$b/java/libguestfs-@VERSION@.jar"
+prepend CLASSPATH "$b/java/t"
+prepend CLASSPATH "$b/java"
 export CLASSPATH
 
 # For Erlang (note $PATH is adjusted above to include erl-guestfs).
-if [ -z "$ERL_LIBS" ]; then
-    ERL_LIBS="$b/erlang"
-else
-    ERL_LIBS="$b/erlang:$ERL_LIBS"
-fi
+prepend ERL_LIBS "$b/erlang"
 export ERL_LIBS
 
 # For Lua.
 export LUA=@LUA@
+# Can't use 'prepend' here because Lua paths use semicolons.
 if [ -z "$LUA_CPATH" ]; then
     LUA_CPATH="$b/lua/?.so"
 else
@@ -167,11 +182,7 @@ export LUA_CPATH
 
 # For golang.
 export GOLANG=@GOLANG@
-if [ -z "$GOPATH" ]; then
-    GOPATH="$b/golang"
-else
-    GOPATH="$b/golang:$GOPATH"
-fi
+prepend GOPATH "$b/golang"
 export GOPATH
 if [ -z "$CGO_CFLAGS" ]; then
     CGO_CFLAGS="-I$s/src"
@@ -188,11 +199,7 @@ export CGO_LDFLAGS
 
 # For GObject, Javascript and friends.
 export GJS=@GJS@
-if [ -z "$GI_TYPELIB_PATH" ]; then
-    GI_TYPELIB_PATH="$b/gobject"
-else
-    GI_TYPELIB_PATH="$b/gobject:$GI_TYPELIB_PATH"
-fi
+prepend GI_TYPELIB_PATH "$b/gobject"
 export GI_TYPELIB_PATH
 # Be friendly to valgrind (https://live.gnome.org/Valgrind)
 export G_SLICE=always-malloc
