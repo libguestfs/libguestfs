@@ -12397,7 +12397,7 @@ Defragment a file or directory on a btrfs filesystem. compress is one of zlib or
     ];
     shortdesc = "recover the chunk tree of btrfs filesystem";
     longdesc = "\
-Recover the chunk tree of btrfs filesystem by scannning the devices one by one." };
+Recover the chunk tree of btrfs filesystem by scanning the devices one by one." };
 
   { defaults with
     name = "btrfs_rescue_super_recover";
