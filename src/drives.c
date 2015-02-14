@@ -734,7 +734,7 @@ parse_servers (guestfs_h *g, char *const *strs,
 }
 
 int
-guestfs__add_drive_opts (guestfs_h *g, const char *filename,
+guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
                          const struct guestfs_add_drive_opts_argv *optargs)
 {
   struct drive_create_data data;
@@ -948,7 +948,7 @@ guestfs__add_drive_opts (guestfs_h *g, const char *filename,
 }
 
 int
-guestfs__add_drive_ro (guestfs_h *g, const char *filename)
+guestfs_impl_add_drive_ro (guestfs_h *g, const char *filename)
 {
   const struct guestfs_add_drive_opts_argv optargs = {
     .bitmask = GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK,
@@ -959,7 +959,7 @@ guestfs__add_drive_ro (guestfs_h *g, const char *filename)
 }
 
 int
-guestfs__add_drive_with_if (guestfs_h *g, const char *filename,
+guestfs_impl_add_drive_with_if (guestfs_h *g, const char *filename,
                             const char *iface)
 {
   const struct guestfs_add_drive_opts_argv optargs = {
@@ -971,7 +971,7 @@ guestfs__add_drive_with_if (guestfs_h *g, const char *filename,
 }
 
 int
-guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
+guestfs_impl_add_drive_ro_with_if (guestfs_h *g, const char *filename,
                                const char *iface)
 {
   const struct guestfs_add_drive_opts_argv optargs = {
@@ -985,7 +985,7 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
 }
 
 int
-guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
+guestfs_impl_add_drive_scratch (guestfs_h *g, int64_t size,
                             const struct guestfs_add_drive_scratch_argv *optargs)
 {
   struct guestfs_add_drive_opts_argv add_drive_optargs = { .bitmask = 0 };
@@ -1024,9 +1024,9 @@ guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
 }
 
 int
-guestfs__add_cdrom (guestfs_h *g, const char *filename)
+guestfs_impl_add_cdrom (guestfs_h *g, const char *filename)
 {
-  return guestfs__add_drive_ro (g, filename);
+  return guestfs_impl_add_drive_ro (g, filename);
 }
 
 /* Depending on whether we are hotplugging or not, this function
@@ -1037,7 +1037,7 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
  * (NULL) slot in the g->drives vector.
  */
 int
-guestfs__remove_drive (guestfs_h *g, const char *label)
+guestfs_impl_remove_drive (guestfs_h *g, const char *label)
 {
   size_t i;
   struct drive *drv;
@@ -1106,7 +1106,7 @@ guestfs_int_rollback_drives (guestfs_h *g, size_t old_i)
 
 /* Internal command to return the list of drives. */
 char **
-guestfs__debug_drives (guestfs_h *g)
+guestfs_impl_debug_drives (guestfs_h *g)
 {
   size_t i;
   DECLARE_STRINGSBUF (ret);

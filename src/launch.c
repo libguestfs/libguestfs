@@ -46,7 +46,7 @@ static struct backend {
 static mode_t get_umask (guestfs_h *g);
 
 int
-guestfs__launch (guestfs_h *g)
+guestfs_impl_launch (guestfs_h *g)
 {
   /* Configured? */
   if (g->state != CONFIG) {
@@ -166,7 +166,7 @@ guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y)
 }
 
 int
-guestfs__get_pid (guestfs_h *g)
+guestfs_impl_get_pid (guestfs_h *g)
 {
   if (g->state != READY || g->backend_ops == NULL) {
     error (g, _("get-pid can only be called after launch"));
@@ -182,7 +182,7 @@ guestfs__get_pid (guestfs_h *g)
 
 /* Maximum number of disks. */
 int
-guestfs__max_disks (guestfs_h *g)
+guestfs_impl_max_disks (guestfs_h *g)
 {
   if (g->backend_ops->max_disks == NULL)
     NOT_SUPPORTED (g, -1,
@@ -195,7 +195,7 @@ guestfs__max_disks (guestfs_h *g)
  * but it is now a no-op.
  */
 int
-guestfs__wait_ready (guestfs_h *g)
+guestfs_impl_wait_ready (guestfs_h *g)
 {
   if (g->state != READY)  {
     error (g, _("qemu has not been launched yet"));
@@ -206,46 +206,46 @@ guestfs__wait_ready (guestfs_h *g)
 }
 
 int
-guestfs__kill_subprocess (guestfs_h *g)
+guestfs_impl_kill_subprocess (guestfs_h *g)
 {
   return guestfs_shutdown (g);
 }
 
 /* Access current state. */
 int
-guestfs__is_config (guestfs_h *g)
+guestfs_impl_is_config (guestfs_h *g)
 {
   return g->state == CONFIG;
 }
 
 int
-guestfs__is_launching (guestfs_h *g)
+guestfs_impl_is_launching (guestfs_h *g)
 {
   return g->state == LAUNCHING;
 }
 
 int
-guestfs__is_ready (guestfs_h *g)
+guestfs_impl_is_ready (guestfs_h *g)
 {
   return g->state == READY;
 }
 
 int
-guestfs__is_busy (guestfs_h *g)
+guestfs_impl_is_busy (guestfs_h *g)
 {
   /* There used to be a BUSY state but it was removed in 1.17.36. */
   return 0;
 }
 
 int
-guestfs__get_state (guestfs_h *g)
+guestfs_impl_get_state (guestfs_h *g)
 {
   return g->state;
 }
 
 /* Add arbitrary qemu parameters.  Useful for testing. */
 int
-guestfs__config (guestfs_h *g,
+guestfs_impl_config (guestfs_h *g,
                  const char *hv_param, const char *hv_value)
 {
   struct hv_param *hp;

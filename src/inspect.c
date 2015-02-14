@@ -45,7 +45,7 @@ static void check_for_duplicated_bsd_root (guestfs_h *g);
 
 /* The main inspection code. */
 char **
-guestfs__inspect_os (guestfs_h *g)
+guestfs_impl_inspect_os (guestfs_h *g)
 {
   CLEANUP_FREE_STRING_LIST char **fses = NULL;
   char **fs, **ret;
@@ -131,7 +131,7 @@ compare_strings (const void *vp1, const void *vp2)
 }
 
 char **
-guestfs__inspect_get_roots (guestfs_h *g)
+guestfs_impl_inspect_get_roots (guestfs_h *g)
 {
   size_t i;
   DECLARE_STRINGSBUF (ret);
@@ -151,7 +151,7 @@ guestfs__inspect_get_roots (guestfs_h *g)
 }
 
 char *
-guestfs__inspect_get_type (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_type (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   char *ret = NULL;
@@ -178,7 +178,7 @@ guestfs__inspect_get_type (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_arch (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_arch (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -188,7 +188,7 @@ guestfs__inspect_get_arch (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_distro (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_distro (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   char *ret = NULL;
@@ -234,7 +234,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
 }
 
 int
-guestfs__inspect_get_major_version (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_major_version (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -244,7 +244,7 @@ guestfs__inspect_get_major_version (guestfs_h *g, const char *root)
 }
 
 int
-guestfs__inspect_get_minor_version (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_minor_version (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -254,7 +254,7 @@ guestfs__inspect_get_minor_version (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_product_name (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_product_name (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -264,7 +264,7 @@ guestfs__inspect_get_product_name (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_product_variant (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_product_variant (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -274,7 +274,7 @@ guestfs__inspect_get_product_variant (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_windows_systemroot (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -289,7 +289,7 @@ guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_windows_current_control_set (guestfs_h *g,
+guestfs_impl_inspect_get_windows_current_control_set (guestfs_h *g,
                                                   const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
@@ -305,7 +305,7 @@ guestfs__inspect_get_windows_current_control_set (guestfs_h *g,
 }
 
 char *
-guestfs__inspect_get_format (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_format (guestfs_h *g, const char *root)
 {
   char *ret = NULL;
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
@@ -325,7 +325,7 @@ guestfs__inspect_get_format (guestfs_h *g, const char *root)
 }
 
 int
-guestfs__inspect_is_live (guestfs_h *g, const char *root)
+guestfs_impl_inspect_is_live (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -335,7 +335,7 @@ guestfs__inspect_is_live (guestfs_h *g, const char *root)
 }
 
 int
-guestfs__inspect_is_netinst (guestfs_h *g, const char *root)
+guestfs_impl_inspect_is_netinst (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -345,7 +345,7 @@ guestfs__inspect_is_netinst (guestfs_h *g, const char *root)
 }
 
 int
-guestfs__inspect_is_multipart (guestfs_h *g, const char *root)
+guestfs_impl_inspect_is_multipart (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -355,7 +355,7 @@ guestfs__inspect_is_multipart (guestfs_h *g, const char *root)
 }
 
 char **
-guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_mountpoints (guestfs_h *g, const char *root)
 {
   char **ret;
   size_t i, count, nr;
@@ -406,7 +406,7 @@ guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
 }
 
 char **
-guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_filesystems (guestfs_h *g, const char *root)
 {
   char **ret;
   size_t i, nr;
@@ -436,7 +436,7 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
 }
 
 char **
-guestfs__inspect_get_drive_mappings (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_drive_mappings (guestfs_h *g, const char *root)
 {
   DECLARE_STRINGSBUF (ret);
   size_t i;
@@ -456,7 +456,7 @@ guestfs__inspect_get_drive_mappings (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_package_format (guestfs_h *g, const char *root)
 {
   char *ret = NULL;
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
@@ -482,7 +482,7 @@ guestfs__inspect_get_package_format (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_package_management (guestfs_h *g, const char *root)
 {
   char *ret = NULL;
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
@@ -511,7 +511,7 @@ guestfs__inspect_get_package_management (guestfs_h *g, const char *root)
 }
 
 char *
-guestfs__inspect_get_hostname (guestfs_h *g, const char *root)
+guestfs_impl_inspect_get_hostname (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)

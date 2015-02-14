@@ -43,7 +43,7 @@ static int check_with_vfs_type (guestfs_h *g, const char *dev, struct stringsbuf
 static int is_mbr_partition_type_42 (guestfs_h *g, const char *partition);
 
 char **
-guestfs__list_filesystems (guestfs_h *g)
+guestfs_impl_list_filesystems (guestfs_h *g)
 {
   size_t i;
   DECLARE_STRINGSBUF (ret);

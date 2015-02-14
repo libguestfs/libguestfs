@@ -51,7 +51,7 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
 }
 
 int
-guestfs__add_domain (guestfs_h *g, const char *domain_name,
+guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
                      const struct guestfs_add_domain_argv *optargs)
 {
   virErrorPtr err;
@@ -179,7 +179,7 @@ struct add_disk_data {
 };
 
 GUESTFS_DLL_PUBLIC int
-guestfs__add_libvirt_dom (guestfs_h *g, void *domvp,
+guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
                           const struct guestfs_add_libvirt_dom_argv *optargs)
 {
   virDomainPtr dom = domvp;
@@ -787,7 +787,7 @@ get_domain_xml (guestfs_h *g, virDomainPtr dom)
   return r
 
 int
-guestfs__add_domain (guestfs_h *g, const char *dom,
+guestfs_impl_add_domain (guestfs_h *g, const char *dom,
                      const struct guestfs_add_domain_argv *optargs)
 {
   NOT_IMPL(-1);

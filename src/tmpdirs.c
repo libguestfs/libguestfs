@@ -78,14 +78,14 @@ guestfs_int_set_env_tmpdir (guestfs_h *g, const char *tmpdir)
 }
 
 int
-guestfs__set_tmpdir (guestfs_h *g, const char *tmpdir)
+guestfs_impl_set_tmpdir (guestfs_h *g, const char *tmpdir)
 {
   return set_abs_path (g, tmpdir, &g->int_tmpdir);
 }
 
 /* Note this actually calculates the tmpdir, so it never returns NULL. */
 char *
-guestfs__get_tmpdir (guestfs_h *g)
+guestfs_impl_get_tmpdir (guestfs_h *g)
 {
   const char *str;
 
@@ -100,14 +100,14 @@ guestfs__get_tmpdir (guestfs_h *g)
 }
 
 int
-guestfs__set_cachedir (guestfs_h *g, const char *cachedir)
+guestfs_impl_set_cachedir (guestfs_h *g, const char *cachedir)
 {
   return set_abs_path (g, cachedir, &g->int_cachedir);
 }
 
 /* Note this actually calculates the cachedir, so it never returns NULL. */
 char *
-guestfs__get_cachedir (guestfs_h *g)
+guestfs_impl_get_cachedir (guestfs_h *g)
 {
   const char *str;
 
