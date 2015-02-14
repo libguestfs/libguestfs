@@ -60,7 +60,7 @@ inspect_mount_handle (guestfs_h *g)
 {
   if (live) {
     fprintf (stderr, _("%s: don't use --live and -i options together\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -86,8 +86,8 @@ inspect_mount_handle (guestfs_h *g)
         "If using other virt tools, this disk image won't work\n"
         "with these tools.  Use the guestfish equivalent commands\n"
         "(see the virt tool manual page).\n"),
-             guestfs___program_name);
-    guestfs___free_string_list (roots);
+             guestfs_int_program_name);
+    guestfs_int_free_string_list (roots);
     exit (EXIT_FAILURE);
   }
 
@@ -107,8 +107,8 @@ inspect_mount_handle (guestfs_h *g)
         "If using other virt tools, multi-boot operating systems won't work\n"
         "with these tools.  Use the guestfish equivalent commands\n"
         "(see the virt tool manual page).\n"),
-             guestfs___program_name);
-    guestfs___free_string_list (roots);
+             guestfs_int_program_name);
+    guestfs_int_free_string_list (roots);
     exit (EXIT_FAILURE);
   }
 
@@ -132,7 +132,7 @@ inspect_mount_root (guestfs_h *g, const char *root)
   /* Sort by key length, shortest key first, so that we end up
    * mounting the filesystems in the correct order.
    */
-  qsort (mountpoints, guestfs___count_strings (mountpoints) / 2,
+  qsort (mountpoints, guestfs_int_count_strings (mountpoints) / 2,
          2 * sizeof (char *),
          compare_keys_len);
 
@@ -156,7 +156,7 @@ inspect_mount_root (guestfs_h *g, const char *root)
 
   if (mount_errors)
     fprintf (stderr, _("%s: some filesystems could not be mounted (ignored)\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
 }
 
 /* This function is called only if the above function was called,
@@ -178,7 +178,7 @@ print_inspect_prompt (void)
     return;
 
   /* Sort by key. */
-  qsort (mountpoints, guestfs___count_strings (mountpoints) / 2,
+  qsort (mountpoints, guestfs_int_count_strings (mountpoints) / 2,
          2 * sizeof (char *),
          compare_keys);
 

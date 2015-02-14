@@ -99,7 +99,7 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
  * subdirectory.
  */
 int
-guestfs___build_appliance (guestfs_h *g,
+guestfs_int_build_appliance (guestfs_h *g,
                            char **kernel_rtn,
                            char **dtb_rtn,
                            char **initrd_rtn,
@@ -261,17 +261,17 @@ build_supermin_appliance (guestfs_h *g,
 
   (void) utimes (cachedir, NULL);
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "begin building supermin appliance");
+    guestfs_int_print_timestamped_message (g, "begin building supermin appliance");
 
   /* Build the appliance if it needs to be built. */
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "run supermin");
+    guestfs_int_print_timestamped_message (g, "run supermin");
 
   if (run_supermin_build (g, lockfile, appliancedir, supermin_path) == -1)
     return -1;
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "finished building supermin appliance");
+    guestfs_int_print_timestamped_message (g, "finished building supermin appliance");
 
   /* Return the appliance filenames. */
   *kernel = safe_malloc (g, len);
@@ -323,7 +323,7 @@ run_supermin_build (guestfs_h *g,
                     const char *appliancedir,
                     const char *supermin_path)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
 #if 0                           /* not supported in supermin 5 yet XXX */
   uid_t uid = getuid ();
@@ -333,39 +333,39 @@ run_supermin_build (guestfs_h *g,
   int pass_u_g_args = uid != euid || gid != egid;
 #endif
 
-  guestfs___cmd_add_arg (cmd, SUPERMIN);
-  guestfs___cmd_add_arg (cmd, "--build");
+  guestfs_int_cmd_add_arg (cmd, SUPERMIN);
+  guestfs_int_cmd_add_arg (cmd, "--build");
   if (g->verbose)
-    guestfs___cmd_add_arg (cmd, "--verbose");
-  guestfs___cmd_add_arg (cmd, "--if-newer");
-  guestfs___cmd_add_arg (cmd, "--lock");
-  guestfs___cmd_add_arg (cmd, lockfile);
+    guestfs_int_cmd_add_arg (cmd, "--verbose");
+  guestfs_int_cmd_add_arg (cmd, "--if-newer");
+  guestfs_int_cmd_add_arg (cmd, "--lock");
+  guestfs_int_cmd_add_arg (cmd, lockfile);
 #if 0
   if (pass_u_g_args) {
-    guestfs___cmd_add_arg (cmd, "-u");
-    guestfs___cmd_add_arg_format (cmd, "%d", euid);
-    guestfs___cmd_add_arg (cmd, "-g");
-    guestfs___cmd_add_arg_format (cmd, "%d", egid);
+    guestfs_int_cmd_add_arg (cmd, "-u");
+    guestfs_int_cmd_add_arg_format (cmd, "%d", euid);
+    guestfs_int_cmd_add_arg (cmd, "-g");
+    guestfs_int_cmd_add_arg_format (cmd, "%d", egid);
   }
 #endif
-  guestfs___cmd_add_arg (cmd, "--copy-kernel");
-  guestfs___cmd_add_arg (cmd, "-f");
-  guestfs___cmd_add_arg (cmd, "ext2");
-  guestfs___cmd_add_arg (cmd, "--host-cpu");
-  guestfs___cmd_add_arg (cmd, host_cpu);
+  guestfs_int_cmd_add_arg (cmd, "--copy-kernel");
+  guestfs_int_cmd_add_arg (cmd, "-f");
+  guestfs_int_cmd_add_arg (cmd, "ext2");
+  guestfs_int_cmd_add_arg (cmd, "--host-cpu");
+  guestfs_int_cmd_add_arg (cmd, host_cpu);
 #ifdef DTB_WILDCARD
-  guestfs___cmd_add_arg (cmd, "--dtb");
-  guestfs___cmd_add_arg (cmd, DTB_WILDCARD);
+  guestfs_int_cmd_add_arg (cmd, "--dtb");
+  guestfs_int_cmd_add_arg (cmd, DTB_WILDCARD);
 #endif
-  guestfs___cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
-  guestfs___cmd_add_arg (cmd, "-o");
-  guestfs___cmd_add_arg (cmd, appliancedir);
+  guestfs_int_cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
+  guestfs_int_cmd_add_arg (cmd, "-o");
+  guestfs_int_cmd_add_arg (cmd, appliancedir);
 
-  r = guestfs___cmd_run (cmd);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, SUPERMIN, NULL);
+    guestfs_int_external_command_failed (g, r, SUPERMIN, NULL);
     return -1;
   }
 
@@ -481,11 +481,11 @@ dir_contains_files (const char *dir, ...)
  * error).
  */
 int
-guestfs___get_uefi (guestfs_h *g, char **code, char **vars)
+guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
 {
   if (access (AAVMF_DIR "/AAVMF_CODE.fd", R_OK) == 0 &&
       access (AAVMF_DIR "/AAVMF_VARS.fd", R_OK) == 0) {
-    CLEANUP_CMD_CLOSE struct command *copycmd = guestfs___new_command (g);
+    CLEANUP_CMD_CLOSE struct command *copycmd = guestfs_int_new_command (g);
     char *varst;
     int r;
 
@@ -494,10 +494,10 @@ guestfs___get_uefi (guestfs_h *g, char **code, char **vars)
      * inside UEFI.
      */
     varst = safe_asprintf (g, "%s/AAVMF_VARS.fd.%d", g->tmpdir, ++g->unique);
-    guestfs___cmd_add_arg (copycmd, "cp");
-    guestfs___cmd_add_arg (copycmd, AAVMF_DIR "/AAVMF_VARS.fd");
-    guestfs___cmd_add_arg (copycmd, varst);
-    r = guestfs___cmd_run (copycmd);
+    guestfs_int_cmd_add_arg (copycmd, "cp");
+    guestfs_int_cmd_add_arg (copycmd, AAVMF_DIR "/AAVMF_VARS.fd");
+    guestfs_int_cmd_add_arg (copycmd, varst);
+    r = guestfs_int_cmd_run (copycmd);
     if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
       free (varst);
       return -1;
@@ -516,7 +516,7 @@ guestfs___get_uefi (guestfs_h *g, char **code, char **vars)
 #else /* !__aarch64__ */
 
 int
-guestfs___get_uefi (guestfs_h *g, char **code, char **vars)
+guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
 {
   *code = *vars = NULL;
   return 0;

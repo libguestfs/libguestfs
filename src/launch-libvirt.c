@@ -193,7 +193,7 @@ make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
   char *overlay;
   struct guestfs_disk_create_argv optargs;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return NULL;
 
   overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
@@ -222,7 +222,7 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
   CLEANUP_FREE char *backing_drive = NULL;
   char *overlay;
 
-  backing_drive = guestfs___drive_source_qemu_param (g, &drv->src);
+  backing_drive = guestfs_int_drive_source_qemu_param (g, &drv->src);
   if (!backing_drive)
     return NULL;
 
@@ -299,21 +299,21 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     return -1;
   }
 
-  guestfs___launch_send_progress (g, 0);
+  guestfs_int_launch_send_progress (g, 0);
   TRACE0 (launch_libvirt_start);
 
   /* Create a random name for the guest. */
   memcpy (data->name, "guestfs-", 8);
   const size_t random_name_len =
     DOMAIN_NAME_LEN - 8 /* "guestfs-" */ - 1 /* \0 */;
-  if (guestfs___random_string (&data->name[8], random_name_len) == -1) {
-    perrorf (g, "guestfs___random_string");
+  if (guestfs_int_random_string (&data->name[8], random_name_len) == -1) {
+    perrorf (g, "guestfs_int_random_string");
     return -1;
   }
   debug (g, "guest random name = %s", data->name);
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "connect to libvirt");
+    guestfs_int_print_timestamped_message (g, "connect to libvirt");
 
   /* Decode the URI string. */
   if (!libvirt_uri) {           /* "libvirt" */
@@ -326,7 +326,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   } /* else nothing */
 
   /* Connect to libvirt, get capabilities. */
-  conn = guestfs___open_libvirt_connection (g, libvirt_uri, 0);
+  conn = guestfs_int_open_libvirt_connection (g, libvirt_uri, 0);
   if (!conn) {
     libvirt_error (g, _("could not connect to libvirt (URI = %s)"),
            libvirt_uri ? : "NULL");
@@ -353,7 +353,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "get libvirt capabilities");
+    guestfs_int_print_timestamped_message (g, "get libvirt capabilities");
 
   capabilities_xml = virConnectGetCapabilities (conn);
   if (!capabilities_xml) {
@@ -366,13 +366,13 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
    * run qemu guests (RHBZ#886915).
    */
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "parsing capabilities XML");
+    guestfs_int_print_timestamped_message (g, "parsing capabilities XML");
 
   if (parse_capabilities (g, capabilities_xml, data) == -1)
     goto cleanup;
 
   /* UEFI code and variables, on architectures where that is required. */
-  if (guestfs___get_uefi (g, &data->uefi_code, &data->uefi_vars) == -1)
+  if (guestfs_int_get_uefi (g, &data->uefi_code, &data->uefi_vars) == -1)
     goto cleanup;
 
   /* Misc backend settings. */
@@ -384,7 +384,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   data->selinux_imagelabel =
     guestfs_get_backend_setting (g, "internal_libvirt_imagelabel");
   data->selinux_norelabel_disks =
-    guestfs___get_backend_setting_bool (g, "internal_libvirt_norelabel_disks");
+    guestfs_int_get_backend_setting_bool (g, "internal_libvirt_norelabel_disks");
   if (g->enable_network) {
     data->network_bridge =
       guestfs_get_backend_setting (g, "network_bridge");
@@ -397,13 +397,13 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   TRACE0 (launch_build_libvirt_appliance_start);
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "build appliance");
+    guestfs_int_print_timestamped_message (g, "build appliance");
 
-  if (guestfs___build_appliance (g, &params.kernel, &params.dtb,
+  if (guestfs_int_build_appliance (g, &params.kernel, &params.dtb,
 				 &params.initrd, &appliance) == -1)
     goto cleanup;
 
-  guestfs___launch_send_progress (g, 3);
+  guestfs_int_launch_send_progress (g, 3);
   TRACE0 (launch_build_libvirt_appliance_end);
 
   /* Note that appliance can be NULL if using the old-style appliance. */
@@ -527,11 +527,11 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   /* Construct the libvirt XML. */
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "create libvirt XML");
+    guestfs_int_print_timestamped_message (g, "create libvirt XML");
 
   params.appliance_index = g->nr_drives;
   strcpy (params.appliance_dev, "/dev/sd");
-  guestfs___drive_name (params.appliance_index, &params.appliance_dev[7]);
+  guestfs_int_drive_name (params.appliance_index, &params.appliance_dev[7]);
   params.enable_svirt = ! is_custom_hv (g);
 
   xml = construct_libvirt_xml (g, &params);
@@ -546,7 +546,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   /* Launch the libvirt guest. */
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "launch libvirt guest");
+    guestfs_int_print_timestamped_message (g, "launch libvirt guest");
 
   dom = virDomainCreateXML (conn, (char *) xml, VIR_DOMAIN_START_AUTODESTROY);
   if (!dom) {
@@ -580,7 +580,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
    * virtio-serial and send the GUESTFS_LAUNCH_FLAG message.
    */
   g->conn =
-    guestfs___new_conn_socket_listening (g, daemon_accept_sock, console_sock);
+    guestfs_int_new_conn_socket_listening (g, daemon_accept_sock, console_sock);
   if (!g->conn)
     goto cleanup;
 
@@ -591,7 +591,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   if (r == -1)
     goto cleanup;
   if (r == 0) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup;
   }
 
@@ -602,20 +602,20 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
    * able to open a drive.
    */
 
-  r = guestfs___recv_from_daemon (g, &size, &buf);
+  r = guestfs_int_recv_from_daemon (g, &size, &buf);
 
   if (r == -1) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup;
   }
 
   if (size != GUESTFS_LAUNCH_FLAG) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup;
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "appliance is up");
+    guestfs_int_print_timestamped_message (g, "appliance is up");
 
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then qemu immediately exits.  Check for
@@ -628,11 +628,11 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   if (appliance)
-    guestfs___add_dummy_appliance_drive (g);
+    guestfs_int_add_dummy_appliance_drive (g);
 
   TRACE0 (launch_libvirt_end);
 
-  guestfs___launch_send_progress (g, 12);
+  guestfs_int_launch_send_progress (g, 12);
 
   data->conn = conn;
   data->dom = dom;
@@ -754,7 +754,7 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
     return -1;
   }
 
-  force_tcg = guestfs___get_backend_setting_bool (g, "force_tcg");
+  force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
   if (force_tcg == -1)
     return -1;
 
@@ -853,35 +853,35 @@ debug_permissions_cb (guestfs_h *g, void *data, const char *line, size_t len)
 static void
 debug_appliance_permissions (guestfs_h *g)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   CLEANUP_FREE char *cachedir = guestfs_get_cachedir (g);
   CLEANUP_FREE char *appliance = NULL;
 
   appliance = safe_asprintf (g, "%s/.guestfs-%d", cachedir, geteuid ());
 
-  guestfs___cmd_add_arg (cmd, "ls");
-  guestfs___cmd_add_arg (cmd, "-a");
-  guestfs___cmd_add_arg (cmd, "-l");
-  guestfs___cmd_add_arg (cmd, "-R");
-  guestfs___cmd_add_arg (cmd, "--lcontext");
-  guestfs___cmd_add_arg (cmd, appliance);
-  guestfs___cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
-  guestfs___cmd_run (cmd);
+  guestfs_int_cmd_add_arg (cmd, "ls");
+  guestfs_int_cmd_add_arg (cmd, "-a");
+  guestfs_int_cmd_add_arg (cmd, "-l");
+  guestfs_int_cmd_add_arg (cmd, "-R");
+  guestfs_int_cmd_add_arg (cmd, "--lcontext");
+  guestfs_int_cmd_add_arg (cmd, appliance);
+  guestfs_int_cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
+  guestfs_int_cmd_run (cmd);
 }
 
 static void
 debug_socket_permissions (guestfs_h *g)
 {
   if (g->tmpdir) {
-    CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+    CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
 
-    guestfs___cmd_add_arg (cmd, "ls");
-    guestfs___cmd_add_arg (cmd, "-a");
-    guestfs___cmd_add_arg (cmd, "-l");
-    guestfs___cmd_add_arg (cmd, "--lcontext");
-    guestfs___cmd_add_arg (cmd, g->tmpdir);
-    guestfs___cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
-    guestfs___cmd_run (cmd);
+    guestfs_int_cmd_add_arg (cmd, "ls");
+    guestfs_int_cmd_add_arg (cmd, "-a");
+    guestfs_int_cmd_add_arg (cmd, "-l");
+    guestfs_int_cmd_add_arg (cmd, "--lcontext");
+    guestfs_int_cmd_add_arg (cmd, g->tmpdir);
+    guestfs_int_cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
+    guestfs_int_cmd_run (cmd);
   }
 }
 
@@ -1090,7 +1090,7 @@ construct_libvirt_xml_cpu (guestfs_h *g,
     string_format ("%d", g->memsize);
   } end_element ();
 
-  cpu_model = guestfs___get_cpu_model (params->data->is_kvm);
+  cpu_model = guestfs_int_get_cpu_model (params->data->is_kvm);
   if (cpu_model) {
     start_element ("cpu") {
       if (STREQ (cpu_model, "host")) {
@@ -1160,7 +1160,7 @@ construct_libvirt_xml_boot (guestfs_h *g,
   flags = 0;
   if (!params->data->is_kvm)
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
-  cmdline = guestfs___appliance_command_line (g, params->appliance_dev, flags);
+  cmdline = guestfs_int_appliance_command_line (g, params->appliance_dev, flags);
 
   start_element ("os") {
     start_element ("type") {
@@ -1559,7 +1559,7 @@ construct_libvirt_xml_disk_target (guestfs_h *g, xmlTextWriterPtr xo,
 {
   char drive_name[64] = "sd";
 
-  guestfs___drive_name (drv_index, &drive_name[2]);
+  guestfs_int_drive_name (drv_index, &drive_name[2]);
 
   start_element ("target") {
     attribute ("dev", drive_name);
@@ -1593,7 +1593,7 @@ construct_libvirt_xml_disk_driver_qemu (guestfs_h *g,
      */
     break;
   case discard_enable:
-    if (!guestfs___discard_possible (g, drv, data->qemu_version))
+    if (!guestfs_int_discard_possible (g, drv, data->qemu_version))
       return -1;
     /*FALLTHROUGH*/
   case discard_besteffort:
@@ -1751,7 +1751,7 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
     /* This is a temporary hack until RHBZ#1184411 is resolved.
      * See comments above about cpu model and aarch64.
      */
-    const char *cpu_model = guestfs___get_cpu_model (params->data->is_kvm);
+    const char *cpu_model = guestfs_int_get_cpu_model (params->data->is_kvm);
     if (STRNEQ (cpu_model, "host")) {
       start_element ("qemu:arg") {
         attribute ("value", "-cpu");
@@ -2266,7 +2266,7 @@ static void init_backend (void) __attribute__((constructor));
 static void
 init_backend (void)
 {
-  guestfs___register_backend ("libvirt", &backend_libvirt_ops);
+  guestfs_int_register_backend ("libvirt", &backend_libvirt_ops);
 }
 
 #endif

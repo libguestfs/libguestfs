@@ -38,7 +38,7 @@
  */
 
 void
-guestfs___free_string_list (char **argv)
+guestfs_int_free_string_list (char **argv)
 {
   size_t i;
 
@@ -51,7 +51,7 @@ guestfs___free_string_list (char **argv)
 }
 
 size_t
-guestfs___count_strings (char *const *argv)
+guestfs_int_count_strings (char *const *argv)
 {
   size_t r;
 
@@ -62,9 +62,9 @@ guestfs___count_strings (char *const *argv)
 }
 
 char **
-guestfs___copy_string_list (char *const *argv)
+guestfs_int_copy_string_list (char *const *argv)
 {
-  size_t n = guestfs___count_strings (argv);
+  size_t n = guestfs_int_count_strings (argv);
   size_t i, j;
   char **ret;
 
@@ -88,13 +88,13 @@ guestfs___copy_string_list (char *const *argv)
 
 /* Note that near-identical functions exist in the daemon. */
 char *
-guestfs___concat_strings (char *const *argv)
+guestfs_int_concat_strings (char *const *argv)
 {
-  return guestfs___join_strings ("", argv);
+  return guestfs_int_join_strings ("", argv);
 }
 
 char *
-guestfs___join_strings (const char *sep, char *const *argv)
+guestfs_int_join_strings (const char *sep, char *const *argv)
 {
   size_t i, len, seplen, rlen;
   char *r;
@@ -138,7 +138,7 @@ guestfs___join_strings (const char *sep, char *const *argv)
  * str == ":"   => returns ["", ""]
  */
 char **
-guestfs___split_string (char sep, const char *str)
+guestfs_int_split_string (char sep, const char *str)
 {
   size_t i, n, c, len = strlen (str);
   char reject[2] = { sep, '\0' };
@@ -188,7 +188,7 @@ guestfs___split_string (char sep, const char *str)
  * string must be freed by the caller.
  */
 char *
-guestfs___exit_status_to_string (int status, const char *cmd_name,
+guestfs_int_exit_status_to_string (int status, const char *cmd_name,
                                  char *buffer, size_t buflen)
 {
   if (WIFEXITED (status)) {
@@ -224,7 +224,7 @@ guestfs___exit_status_to_string (int status, const char *cmd_name,
  * 5*len bits of randomness in the resulting string).
  */
 int
-guestfs___random_string (char *ret, size_t len)
+guestfs_int_random_string (char *ret, size_t len)
 {
   int fd;
   size_t i;
@@ -261,10 +261,10 @@ guestfs___random_string (char *ret, size_t len)
  * https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-drive-26-devsdz/
  */
 char *
-guestfs___drive_name (size_t index, char *ret)
+guestfs_int_drive_name (size_t index, char *ret)
 {
   if (index >= 26)
-    ret = guestfs___drive_name (index/26 - 1, ret);
+    ret = guestfs_int_drive_name (index/26 - 1, ret);
   index %= 26;
   *ret++ = 'a' + index;
   *ret = '\0';
@@ -273,7 +273,7 @@ guestfs___drive_name (size_t index, char *ret)
 
 /* Similar to Tcl_GetBoolean. */
 int
-guestfs___is_true (const char *str)
+guestfs_int_is_true (const char *str)
 {
   if (STREQ (str, "1") ||
       STRCASEEQ (str, "true") ||

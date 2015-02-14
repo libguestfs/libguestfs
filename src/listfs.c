@@ -125,11 +125,11 @@ guestfs__list_filesystems (guestfs_h *g)
   }
 
   /* Finish off the list and return it. */
-  guestfs___end_stringsbuf (g, &ret);
+  guestfs_int_end_stringsbuf (g, &ret);
   return ret.argv;
 
  error:
-  guestfs___free_stringsbuf (&ret);
+  guestfs_int_free_stringsbuf (&ret);
   return NULL;
 }
 
@@ -176,10 +176,10 @@ check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
 
     for (size_t i = 0; i < vols->len; i++) {
       struct guestfs_btrfssubvolume *this = &vols->val[i];
-      guestfs___add_sprintf (g, sb,
+      guestfs_int_add_sprintf (g, sb,
                              "btrfsvol:%s/%s",
                              device, this->btrfssubvolume_path);
-      guestfs___add_string (g, sb, "btrfs");
+      guestfs_int_add_string (g, sb, "btrfs");
     }
 
     v = vfs_type;
@@ -200,8 +200,8 @@ check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
     v = vfs_type;
   }
 
-  guestfs___add_string (g, sb, device);
-  guestfs___add_string (g, sb, v);
+  guestfs_int_add_string (g, sb, device);
+  guestfs_int_add_string (g, sb, v);
 
   return 0;
 }

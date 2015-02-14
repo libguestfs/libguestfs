@@ -81,9 +81,9 @@ main (int argc, char *argv[])
 
   /* Allow this test to be skipped. */
   str = getenv (ourenvvar);
-  if (str && guestfs___is_true (str) > 0) {
+  if (str && guestfs_int_is_true (str) > 0) {
     printf ("%s: test skipped because environment variable is set.\n",
-            guestfs___program_name);
+            guestfs_int_program_name);
     exit (77);
   }
 
@@ -126,7 +126,7 @@ test_filesystem (guestfs_h *g, const struct filesystem *fs)
 
   snprintf (envvar, sizeof envvar, "%s_%s", ourenvvar, fs->fs_name);
   str = getenv (envvar);
-  if (str && guestfs___is_true (str) > 0) {
+  if (str && guestfs_int_is_true (str) > 0) {
     printf ("skipped test of %s because environment variable is set\n",
             fs->fs_name);
     return;
@@ -195,7 +195,7 @@ test_ascii (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = guestfs___count_strings (files);
+  count = guestfs_int_count_strings (files);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 2)
@@ -260,7 +260,7 @@ test_latin1 (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = guestfs___count_strings (files);
+  count = guestfs_int_count_strings (files);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 1)
@@ -322,7 +322,7 @@ test_latin2 (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = guestfs___count_strings (files);
+  count = guestfs_int_count_strings (files);
 
   if (fs->fs_case_insensitive) { /* case insensitive */
     if (count != 1)
@@ -387,7 +387,7 @@ test_chinese (guestfs_h *g, const struct filesystem *fs)
   if (files == NULL)
     exit (EXIT_FAILURE);
   ignore_lost_and_found (files);
-  count = guestfs___count_strings (files);
+  count = guestfs_int_count_strings (files);
 
   if (count != nr_filenames)
     error (EXIT_FAILURE, 0,

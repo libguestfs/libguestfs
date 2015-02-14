@@ -50,9 +50,9 @@ main (int argc, char *argv[])
 
   /* Allow the test to be skipped. */
   skip = getenv ("SKIP_TEST_GUESTMOUNT_FD");
-  if (skip && guestfs___is_true (skip) > 0) {
+  if (skip && guestfs_int_is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (77);
   }
 
@@ -117,7 +117,7 @@ main (int argc, char *argv[])
   }
   if (r == 0) {
     fprintf (stderr, "%s: unexpected end of file on pipe fd.\n",
-             guestfs___program_name);
+             guestfs_int_program_name);
     ignore_value (rmdir (MOUNTPOINT));
     exit (EXIT_FAILURE);
   }
@@ -125,7 +125,7 @@ main (int argc, char *argv[])
   /* Check that the test image was mounted. */
   if (access (TEST_FILE, R_OK) == -1) {
     fprintf (stderr, "%s: test failed because test image is not mounted and ready.",
-             guestfs___program_name);
+             guestfs_int_program_name);
     ignore_value (rmdir (MOUNTPOINT));
     exit (EXIT_FAILURE);
   }
@@ -135,8 +135,8 @@ main (int argc, char *argv[])
   if (r != 0) {
     char status_string[80];
 
-    fprintf (stderr, "%s: test failed: %s\n", guestfs___program_name,
-             guestfs___exit_status_to_string (r, GUESTUNMOUNT_BINARY,
+    fprintf (stderr, "%s: test failed: %s\n", guestfs_int_program_name,
+             guestfs_int_exit_status_to_string (r, GUESTUNMOUNT_BINARY,
                                               status_string,
                                               sizeof status_string));
     ignore_value (rmdir (MOUNTPOINT));
@@ -156,8 +156,8 @@ main (int argc, char *argv[])
     char status_string[80];
 
     fprintf (stderr, "%s: test failed: %s\n",
-             guestfs___program_name,
-             guestfs___exit_status_to_string (status, GUESTMOUNT_BINARY,
+             guestfs_int_program_name,
+             guestfs_int_exit_status_to_string (status, GUESTMOUNT_BINARY,
                                               status_string,
                                               sizeof status_string));
     ignore_value (rmdir (MOUNTPOINT));

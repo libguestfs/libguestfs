@@ -176,7 +176,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   /* Copy them into the return array. */
-  r = guestfs___safe_malloc (g, sizeof (SV *) * (*len_rtn));
+  r = guestfs_int_safe_malloc (g, sizeof (SV *) * (*len_rtn));
 
   i = 0;
   cb = guestfs_first_private (g, &key);
@@ -476,7 +476,7 @@ PREINIT:
                pr "          /* Note av_len returns index of final element. */\n";
                pr "          len = av_len (av) + 1;\n";
                pr "\n";
-               pr "          r = guestfs___safe_malloc (g, (len+1) * sizeof (char *));\n";
+               pr "          r = guestfs_int_safe_malloc (g, (len+1) * sizeof (char *));\n";
                pr "          for (i = 0; i < len; ++i) {\n";
                pr "            svp = av_fetch (av, i, 0);\n";
                pr "            r[i] = SvPV_nolen (*svp);\n";

@@ -110,7 +110,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
   uri = xmlParseURI (arg);
   if (!uri) {
     fprintf (stderr, _("%s: --add: could not parse URI '%s'\n"),
-             guestfs___program_name, arg);
+             guestfs_int_program_name, arg);
     return -1;
   }
 
@@ -121,7 +121,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
   if (uri->scheme == NULL || STREQ (uri->scheme, "")) {
     /* Probably can never happen. */
     fprintf (stderr, _("%s: %s: scheme of URI is NULL or empty\n"),
-             guestfs___program_name, arg);
+             guestfs_int_program_name, arg);
     return -1;
   }
 
@@ -129,14 +129,14 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
 
   if (uri->server && STRNEQ (uri->server, "") && socket) {
     fprintf (stderr, _("%s: %s: cannot both a server name and a socket query parameter\n"),
-             guestfs___program_name, arg);
+             guestfs_int_program_name, arg);
     return -1;
   }
 
   /* Is this needed? XXX
   if (socket && socket[0] != '/') {
     fprintf (stderr, _("%s: --add %s: socket query parameter must be an absolute path\n"),
-             guestfs___program_name, arg);
+             guestfs_int_program_name, arg);
     return -1;
   }
   */
@@ -162,7 +162,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
         if (*password_ret == NULL) {
           perror ("strdup: password");
           free (*protocol_ret);
-          guestfs___free_string_list (*server_ret);
+          guestfs_int_free_string_list (*server_ret);
           return -1;
         }
       }
@@ -173,7 +173,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
       perror ("strdup: username");
       free (*password_ret);
       free (*protocol_ret);
-      guestfs___free_string_list (*server_ret);
+      guestfs_int_free_string_list (*server_ret);
       return -1;
     }
   }
@@ -195,7 +195,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
   if (*path_ret == NULL) {
     perror ("strdup: path");
     free (*protocol_ret);
-    guestfs___free_string_list (*server_ret);
+    guestfs_int_free_string_list (*server_ret);
     free (*username_ret);
     free (*password_ret);
     return -1;

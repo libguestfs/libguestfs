@@ -83,8 +83,8 @@ main (int argc, char *argv[])
   if (r != 0) {
     char status_string[80];
 
-    fprintf (stderr, "%s: test failed: %s\n", guestfs___program_name,
-             guestfs___exit_status_to_string (r, "guestunmount",
+    fprintf (stderr, "%s: test failed: %s\n", guestfs_int_program_name,
+             guestfs_int_exit_status_to_string (r, "guestunmount",
                                               status_string,
                                               sizeof status_string));
     exit (EXIT_FAILURE);
@@ -105,8 +105,8 @@ main (int argc, char *argv[])
     char status_string[80];
 
     fprintf (stderr, "%s: test failed: guestunmount didn't return status code 2; %s\n",
-             guestfs___program_name,
-             guestfs___exit_status_to_string (status, "guestunmount",
+             guestfs_int_program_name,
+             guestfs_int_exit_status_to_string (status, "guestunmount",
                                               status_string,
                                               sizeof status_string));
     exit (EXIT_FAILURE);

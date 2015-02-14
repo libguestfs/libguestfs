@@ -57,13 +57,13 @@ read_config_from_file (const char *filename)
     /*
     if (verbose)
       fprintf (stderr, "%s: reading configuration from %s\n",
-               guestfs___program_name, filename);
+               guestfs_int_program_name, filename);
     */
 
     if (config_read (&conf, fp) == CONFIG_FALSE) {
       fprintf (stderr,
                _("%s: %s: line %d: error parsing configuration file: %s\n"),
-               guestfs___program_name, filename, config_error_line (&conf),
+               guestfs_int_program_name, filename, config_error_line (&conf),
                config_error_text (&conf));
       exit (EXIT_FAILURE);
     }
@@ -95,8 +95,8 @@ parse_config (void)
 
     xdg_env = getenv ("XDG_CONFIG_DIRS");
     var = xdg_env != NULL && xdg_env[0] != 0 ? xdg_env : "/etc/xdg";
-    xdg_config_dirs = guestfs___split_string (':', var);
-    xdg_config_dirs_count = guestfs___count_strings (xdg_config_dirs);
+    xdg_config_dirs = guestfs_int_split_string (':', var);
+    xdg_config_dirs_count = guestfs_int_count_strings (xdg_config_dirs);
     for (size_t i = xdg_config_dirs_count; i > 0; --i) {
       CLEANUP_FREE char *path = NULL;
       const char *dir = xdg_config_dirs[i - 1];
@@ -165,7 +165,7 @@ parse_config (void)
   if (verbose)
     fprintf (stderr,
              _("%s: compiled without libconfig, guestfish configuration file ignored\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   */
 }
 

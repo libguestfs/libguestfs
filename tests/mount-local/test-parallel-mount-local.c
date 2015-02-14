@@ -94,15 +94,15 @@ main (int argc, char *argv[])
 
   /* Allow the test to be skipped by setting an environment variable. */
   skip = getenv ("SKIP_TEST_PARALLEL_MOUNT_LOCAL");
-  if (skip && guestfs___is_true (skip) > 0) {
+  if (skip && guestfs_int_is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (77);
   }
 
   if (access ("/dev/fuse", W_OK) == -1) {
     fprintf (stderr, "%s: test skipped because /dev/fuse is not writable.\n",
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (77);
   }
 
@@ -242,7 +242,7 @@ start_thread (void *statevp)
       char status_string[80];
 
       fprintf (stderr, "%s: %s\n", state->mp,
-               guestfs___exit_status_to_string (status, "test",
+               guestfs_int_exit_status_to_string (status, "test",
                                                 status_string,
                                                 sizeof status_string));
         goto error;

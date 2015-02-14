@@ -94,7 +94,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   }
 
   /* Connect to libvirt, find the domain. */
-  conn = guestfs___open_libvirt_connection (g, libvirturi, VIR_CONNECT_RO);
+  conn = guestfs_int_open_libvirt_connection (g, libvirturi, VIR_CONNECT_RO);
   if (!conn) {
     err = virGetLastError ();
     error (g, _("could not connect to libvirt (code %d, domain %d): %s"),
@@ -311,10 +311,10 @@ guestfs__add_libvirt_dom (guestfs_h *g, void *domvp,
   /* Checkpoint the command line around the operation so that either
    * all disks are added or none are added.
    */
-  ckp = guestfs___checkpoint_drives (g);
+  ckp = guestfs_int_checkpoint_drives (g);
   r = for_each_disk (g, doc, add_disk, &data);
   if (r == -1)
-    guestfs___rollback_drives (g, ckp);
+    guestfs_int_rollback_drives (g, ckp);
 
   return r;
 }

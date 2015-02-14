@@ -38,7 +38,7 @@ static int split_path (guestfs_h *g, char *buf, size_t buf_size, const char *pat
 int
 guestfs__copy_in (guestfs_h *g, const char *localpath, const char *remotedir)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int fd;
   int r;
   char fdbuf[64];
@@ -58,16 +58,16 @@ guestfs__copy_in (guestfs_h *g, const char *localpath, const char *remotedir)
   if (split_path (g, buf, buf_len, localpath, &dirname, &basename) == -1)
     return -1;
 
-  guestfs___cmd_add_arg (cmd, "tar");
+  guestfs_int_cmd_add_arg (cmd, "tar");
   if (dirname) {
-    guestfs___cmd_add_arg (cmd, "-C");
-    guestfs___cmd_add_arg (cmd, dirname);
+    guestfs_int_cmd_add_arg (cmd, "-C");
+    guestfs_int_cmd_add_arg (cmd, dirname);
   }
-  guestfs___cmd_add_arg (cmd, "-cf");
-  guestfs___cmd_add_arg (cmd, "-");
-  guestfs___cmd_add_arg (cmd, basename);
+  guestfs_int_cmd_add_arg (cmd, "-cf");
+  guestfs_int_cmd_add_arg (cmd, "-");
+  guestfs_int_cmd_add_arg (cmd, basename);
 
-  r = guestfs___cmd_run_async (cmd, NULL, NULL, &fd, NULL);
+  r = guestfs_int_cmd_run_async (cmd, NULL, NULL, &fd, NULL);
   if (r == -1)
     return -1;
 
@@ -80,7 +80,7 @@ guestfs__copy_in (guestfs_h *g, const char *localpath, const char *remotedir)
     return -1;
   }
 
-  r = guestfs___cmd_wait (cmd);
+  r = guestfs_int_cmd_wait (cmd);
   if (r == -1)
     return -1;
   if (!(WIFEXITED (r) && WEXITSTATUS (r) == 0))
@@ -152,7 +152,7 @@ guestfs__copy_out (guestfs_h *g, const char *remotepath, const char *localdir)
     if (guestfs_download (g, remotepath, filename) == -1)
       return -1;
   } else {                    /* not a regular file */
-    CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+    CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
     struct copy_out_child_data data;
     char fdbuf[64];
     int fd;
@@ -182,13 +182,13 @@ guestfs__copy_out (guestfs_h *g, const char *remotepath, const char *localdir)
     data.localdir = localdir;
     data.basename = basename;
 
-    guestfs___cmd_set_child_callback (cmd, &child_setup, &data);
+    guestfs_int_cmd_set_child_callback (cmd, &child_setup, &data);
 
-    guestfs___cmd_add_arg (cmd, "tar");
-    guestfs___cmd_add_arg (cmd, "-xf");
-    guestfs___cmd_add_arg (cmd, "-");
+    guestfs_int_cmd_add_arg (cmd, "tar");
+    guestfs_int_cmd_add_arg (cmd, "-xf");
+    guestfs_int_cmd_add_arg (cmd, "-");
 
-    r = guestfs___cmd_run_async (cmd, NULL, &fd, NULL, NULL);
+    r = guestfs_int_cmd_run_async (cmd, NULL, &fd, NULL, NULL);
     if (r == -1)
       return -1;
 
@@ -201,7 +201,7 @@ guestfs__copy_out (guestfs_h *g, const char *remotepath, const char *localdir)
       return -1;
     }
 
-    r = guestfs___cmd_wait (cmd);
+    r = guestfs_int_cmd_wait (cmd);
     if (r == -1)
       return -1;
     if (!(WIFEXITED (r) && WEXITSTATUS (r) == 0))

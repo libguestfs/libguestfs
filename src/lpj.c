@@ -59,7 +59,7 @@ static int read_lpj_from_files (guestfs_h *g);
 static int read_lpj_common (guestfs_h *g, const char *func, struct command *cmd);
 
 int
-guestfs___get_lpj (guestfs_h *g)
+guestfs_int_get_lpj (guestfs_h *g)
 {
   int r;
 
@@ -94,9 +94,9 @@ guestfs___get_lpj (guestfs_h *g)
 static int
 read_lpj_from_dmesg (guestfs_h *g)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
 
-  guestfs___cmd_add_string_unquoted (cmd, "dmesg | " GREP_CMD);
+  guestfs_int_cmd_add_string_unquoted (cmd, "dmesg | " GREP_CMD);
 
   return read_lpj_common (g, __func__, cmd);
 }
@@ -108,17 +108,17 @@ static int
 read_lpj_from_files (guestfs_h *g)
 {
   size_t files = 0;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
 
-  guestfs___cmd_add_arg (cmd, "grep");
-  guestfs___cmd_add_arg (cmd, GREP_FLAGS);
-  guestfs___cmd_add_arg (cmd, GREP_REGEX);
+  guestfs_int_cmd_add_arg (cmd, "grep");
+  guestfs_int_cmd_add_arg (cmd, GREP_FLAGS);
+  guestfs_int_cmd_add_arg (cmd, GREP_REGEX);
   if (access (FILE1, R_OK) == 0) {
-    guestfs___cmd_add_arg (cmd, FILE1);
+    guestfs_int_cmd_add_arg (cmd, FILE1);
     files++;
   }
   if (access (FILE2, R_OK) == 0) {
-    guestfs___cmd_add_arg (cmd, FILE2);
+    guestfs_int_cmd_add_arg (cmd, FILE2);
     files++;
   }
 
@@ -144,16 +144,16 @@ read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
   int r;
   CLEANUP_FREE char *buf = NULL;
 
-  guestfs___cmd_set_stdout_callback (cmd, read_all, &buf,
+  guestfs_int_cmd_set_stdout_callback (cmd, read_all, &buf,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
     char status_string[80];
 
     debug (g, "%s: %s", func,
-           guestfs___exit_status_to_string (r, "external command",
+           guestfs_int_exit_status_to_string (r, "external command",
                                             status_string,
                                             sizeof status_string));
     return -1;

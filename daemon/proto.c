@@ -309,7 +309,7 @@ send_error (int errnum, char *msg)
    * to (char *) because they are defined that way in the XDR structs.
    */
   err.errno_string =
-    (char *) (errnum > 0 ? guestfs___errno_to_string (errnum) : "");
+    (char *) (errnum > 0 ? guestfs_int_errno_to_string (errnum) : "");
   err.error_message = (char *) msg;
 
   if (!xdr_guestfs_message_error (&xdr, &err)) {

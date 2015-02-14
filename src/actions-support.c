@@ -33,7 +33,7 @@
 
 /* Check the return message from a call for validity. */
 int
-guestfs___check_reply_header (guestfs_h *g,
+guestfs_int_check_reply_header (guestfs_h *g,
                               const struct guestfs_message_header *hdr,
                               unsigned int proc_nr, unsigned int serial)
 {
@@ -65,7 +65,7 @@ guestfs___check_reply_header (guestfs_h *g,
 
 /* Check the appliance is up when running a daemon_function. */
 int
-guestfs___check_appliance_up (guestfs_h *g, const char *caller)
+guestfs_int_check_appliance_up (guestfs_h *g, const char *caller)
 {
   if (g->state == CONFIG || g->state == LAUNCHING) {
     error (g, "%s: call launch before using this function\n(in guestfish, don't forget to use the 'run' command)",
@@ -77,7 +77,7 @@ guestfs___check_appliance_up (guestfs_h *g, const char *caller)
 
 /* Convenience wrapper for tracing. */
 void
-guestfs___trace_open (struct trace_buffer *tb)
+guestfs_int_trace_open (struct trace_buffer *tb)
 {
   tb->buf = NULL;
   tb->len = 0;
@@ -94,12 +94,12 @@ guestfs___trace_open (struct trace_buffer *tb)
 }
 
 void
-guestfs___trace_send_line (guestfs_h *g, struct trace_buffer *tb)
+guestfs_int_trace_send_line (guestfs_h *g, struct trace_buffer *tb)
 {
   if (tb->opened) {
     fclose (tb->fp);
     tb->fp = NULL;
-    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, tb->buf, tb->len);
+    guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_TRACE, tb->buf, tb->len);
     free (tb->buf);
     tb->buf = NULL;
   }

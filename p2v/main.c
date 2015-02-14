@@ -64,7 +64,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   else {
     fprintf (stdout,
            _("%s: Convert a physical machine to use KVM\n"
@@ -77,7 +77,7 @@ usage (int status)
              "  -v|--verbose           Verbose messages\n"
              "  -V|--version           Display version and exit\n"
              "For more information, see the manpage %s(1).\n"),
-             guestfs___program_name, guestfs___program_name, guestfs___program_name);
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);
 }
@@ -139,7 +139,7 @@ main (int argc, char *argv[])
       }
       else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -149,7 +149,7 @@ main (int argc, char *argv[])
       break;
 
     case 'V':
-      printf ("%s %s\n", guestfs___program_name, PACKAGE_VERSION);
+      printf ("%s %s\n", guestfs_int_program_name, PACKAGE_VERSION);
       exit (EXIT_SUCCESS);
 
     case HELP_OPTION:
@@ -162,7 +162,7 @@ main (int argc, char *argv[])
 
   if (optind != argc) {
     fprintf (stderr, _("%s: unused arguments on the command line\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     usage (EXIT_FAILURE);
   }
 
@@ -212,7 +212,7 @@ set_config_defaults (struct config *config)
   if (gethostname (hostname, sizeof hostname) == -1) {
     perror ("gethostname");
     /* Generate a simple random name. */
-    if (guestfs___random_string (hostname, 8) == -1) {
+    if (guestfs_int_random_string (hostname, 8) == -1) {
       perror ("/dev/urandom");
       exit (EXIT_FAILURE);
     }
@@ -274,12 +274,12 @@ set_config_defaults (struct config *config)
     config->flags = 0;
 
   find_all_disks ();
-  config->disks = guestfs___copy_string_list (all_disks);
+  config->disks = guestfs_int_copy_string_list (all_disks);
   if (all_removable)
-    config->removable = guestfs___copy_string_list (all_removable);
+    config->removable = guestfs_int_copy_string_list (all_removable);
   find_all_interfaces ();
   if (all_interfaces)
-    config->interfaces = guestfs___copy_string_list (all_interfaces);
+    config->interfaces = guestfs_int_copy_string_list (all_interfaces);
 
   /* Default output drops the guest onto /var/tmp on the conversion
    * server, a hopefully safe default.
@@ -444,7 +444,7 @@ find_all_disks (void)
 
   if (all_disks == NULL) {
     fprintf (stderr, "%s: error: no non-removable disks were discovered on this machine.\n",
-             guestfs___program_name);
+             guestfs_int_program_name);
     fprintf (stderr, "virt-p2v looked in /sys/block.\n");
     fprintf (stderr, "This is a fatal error and virt-p2v cannot continue.\n");
     exit (EXIT_FAILURE);

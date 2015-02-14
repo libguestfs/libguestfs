@@ -108,7 +108,7 @@ complete_dest_paths_generator (const char *text, int state)
   do {									\
     if (strs) {								\
       size_t i;								\
-      size_t n = guestfs___count_strings (strs);                        \
+      size_t n = guestfs_int_count_strings (strs);                        \
                                                                         \
       if ( n > 0 && ! xalloc_oversized (nr_words + n, sizeof (struct word))) { \
         struct word *w;							\

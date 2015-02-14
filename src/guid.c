@@ -32,7 +32,7 @@
  * or '21EC2020-3AEA-1069-A2DD-08002B30309D'.
  */
 int
-guestfs___validate_guid (const char *str)
+guestfs_int_validate_guid (const char *str)
 {
   size_t i, len = strlen (str);
 

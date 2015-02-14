@@ -71,7 +71,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   else {
     fprintf (stdout,
            _("%s: check alignment of virtual machine partitions\n"
@@ -91,8 +91,8 @@ usage (int status)
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             guestfs___program_name, guestfs___program_name, guestfs___program_name,
-             guestfs___program_name);
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
+             guestfs_int_program_name);
   }
   exit (status);
 }
@@ -152,7 +152,7 @@ main (int argc, char *argv[])
         uuid = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -171,7 +171,7 @@ main (int argc, char *argv[])
 
     case 'P':
       if (sscanf (optarg, "%zu", &max_threads) != 1) {
-        fprintf (stderr, _("%s: -P option is not numeric\n"), guestfs___program_name);
+        fprintf (stderr, _("%s: -P option is not numeric\n"), guestfs_int_program_name);
         exit (EXIT_FAILURE);
       }
       break;
@@ -229,13 +229,13 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
 #else
     fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (EXIT_FAILURE);
 #endif
   } else {                      /* Single guest. */
     if (uuid) {
       fprintf (stderr, _("%s: --uuid option cannot be used with -a or -d\n"),
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
 

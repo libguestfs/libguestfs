@@ -24,13 +24,13 @@
  * (1) Create a new command handle:
  *
  *   struct command *cmd;
- *   cmd = guestfs___new_command (g);
+ *   cmd = guestfs_int_new_command (g);
  *
  * (2) EITHER add arguments:
  *
- *   guestfs___cmd_add_arg (cmd, "qemu-img");
- *   guestfs___cmd_add_arg (cmd, "info");
- *   guestfs___cmd_add_arg (cmd, filename);
+ *   guestfs_int_cmd_add_arg (cmd, "qemu-img");
+ *   guestfs_int_cmd_add_arg (cmd, "info");
+ *   guestfs_int_cmd_add_arg (cmd, filename);
  *
  * NB: You don't need to add a NULL argument at the end.
  *
@@ -39,8 +39,8 @@
  * commands, with the added safety of allowing args to be quoted
  * properly).
  *
- *   guestfs___cmd_add_string_unquoted (cmd, "qemu-img info ");
- *   guestfs___cmd_add_string_quoted (cmd, filename);
+ *   guestfs_int_cmd_add_string_unquoted (cmd, "qemu-img info ");
+ *   guestfs_int_cmd_add_string_quoted (cmd, filename);
  *
  * (4) Set various flags, such as whether you want to capture
  * errors in the regular libguestfs error log.
@@ -49,14 +49,14 @@
  * loops over the output, and then does a waitpid and returns the
  * exit status of the command.
  *
- *   r = guestfs___cmd_run (cmd);
+ *   r = guestfs_int_cmd_run (cmd);
  *   if (r == -1)
  *     // error
  *   // else test r using the WIF* functions
  *
  * (6) Close the handle:
  *
- *   guestfs___cmd_close (cmd);
+ *   guestfs_int_cmd_close (cmd);
  *
  * (or use CLEANUP_CMD_CLOSE).
  */
@@ -145,7 +145,7 @@ struct command
 
 /* Create a new command handle. */
 struct command *
-guestfs___new_command (guestfs_h *g)
+guestfs_int_new_command (guestfs_h *g)
 {
   struct command *cmd;
 
@@ -166,7 +166,7 @@ add_arg_no_strdup (struct command *cmd, char *arg)
   assert (cmd->style != COMMAND_STYLE_SYSTEM);
   cmd->style = COMMAND_STYLE_EXECV;
 
-  guestfs___add_string_nodup (cmd->g, &cmd->argv, arg);
+  guestfs_int_add_string_nodup (cmd->g, &cmd->argv, arg);
 }
 
 static void
@@ -177,13 +177,13 @@ add_arg (struct command *cmd, const char *arg)
 }
 
 void
-guestfs___cmd_add_arg (struct command *cmd, const char *arg)
+guestfs_int_cmd_add_arg (struct command *cmd, const char *arg)
 {
   add_arg (cmd, arg);
 }
 
 void
-guestfs___cmd_add_arg_format (struct command *cmd, const char *fs, ...)
+guestfs_int_cmd_add_arg_format (struct command *cmd, const char *fs, ...)
 {
   va_list args;
   char *arg;
@@ -219,7 +219,7 @@ add_string (struct command *cmd, const char *str, size_t len)
 }
 
 void
-guestfs___cmd_add_string_unquoted (struct command *cmd, const char *str)
+guestfs_int_cmd_add_string_unquoted (struct command *cmd, const char *str)
 {
   add_string (cmd, str, strlen (str));
 }
@@ -229,7 +229,7 @@ guestfs___cmd_add_string_unquoted (struct command *cmd, const char *str)
  * single argument to a system(3)-style command string.
  */
 void
-guestfs___cmd_add_string_quoted (struct command *cmd, const char *str)
+guestfs_int_cmd_add_string_quoted (struct command *cmd, const char *str)
 {
   add_string (cmd, "\"", 1);
 
@@ -263,7 +263,7 @@ guestfs___cmd_add_string_quoted (struct command *cmd, const char *str)
  * the length field in the callback.
  */
 void
-guestfs___cmd_set_stdout_callback (struct command *cmd,
+guestfs_int_cmd_set_stdout_callback (struct command *cmd,
                                    cmd_stdout_callback stdout_callback,
                                    void *stdout_data, unsigned flags)
 {
@@ -292,7 +292,7 @@ guestfs___cmd_set_stdout_callback (struct command *cmd,
  * sense to combine them.
  */
 void
-guestfs___cmd_set_stderr_to_stdout (struct command *cmd)
+guestfs_int_cmd_set_stderr_to_stdout (struct command *cmd)
 {
   cmd->stderr_to_stdout = true;
 }
@@ -302,7 +302,7 @@ guestfs___cmd_set_stderr_to_stdout (struct command *cmd)
  * usually undesirable.
  */
 void
-guestfs___cmd_clear_capture_errors (struct command *cmd)
+guestfs_int_cmd_clear_capture_errors (struct command *cmd)
 {
   cmd->capture_errors = false;
 }
@@ -311,7 +311,7 @@ guestfs___cmd_clear_capture_errors (struct command *cmd)
  * single fds to be sent to child process.
  */
 void
-guestfs___cmd_clear_close_files (struct command *cmd)
+guestfs_int_cmd_clear_close_files (struct command *cmd)
 {
   cmd->close_files = false;
 }
@@ -321,7 +321,7 @@ guestfs___cmd_clear_close_files (struct command *cmd)
  * its current directory.
  */
 void
-guestfs___cmd_set_child_callback (struct command *cmd,
+guestfs_int_cmd_set_child_callback (struct command *cmd,
                                   cmd_child_callback child_callback,
                                   void *data)
 {
@@ -338,7 +338,7 @@ finish_command (struct command *cmd)
 {
   switch (cmd->style) {
   case COMMAND_STYLE_EXECV:
-    guestfs___end_stringsbuf (cmd->g, &cmd->argv);
+    guestfs_int_end_stringsbuf (cmd->g, &cmd->argv);
     break;
 
   case COMMAND_STYLE_SYSTEM:
@@ -526,7 +526,7 @@ run_command (struct command *cmd, bool get_stdin_fd, bool get_stdout_fd,
     if (WIFEXITED (r))
       _exit (WEXITSTATUS (r));
     fprintf (stderr, "%s\n",
-             guestfs___exit_status_to_string (r, cmd->string.str,
+             guestfs_int_exit_status_to_string (r, cmd->string.str,
                                               status_string,
                                               sizeof status_string));
     _exit (EXIT_FAILURE);
@@ -589,7 +589,7 @@ loop (struct command *cmd)
       /* Read output and send it to the log. */
       n = read (cmd->errorfd, buf, sizeof buf);
       if (n > 0)
-        guestfs___call_callbacks_message (cmd->g, GUESTFS_EVENT_APPLIANCE,
+        guestfs_int_call_callbacks_message (cmd->g, GUESTFS_EVENT_APPLIANCE,
                                           buf, n);
       else if (n == 0) {
         if (close (cmd->errorfd) == -1)
@@ -660,7 +660,7 @@ wait_command (struct command *cmd)
  * On error: Calls error(g) and returns -1.
  */
 int
-guestfs___cmd_run (struct command *cmd)
+guestfs_int_cmd_run (struct command *cmd)
 {
   finish_command (cmd);
 
@@ -684,7 +684,7 @@ guestfs___cmd_run (struct command *cmd)
  * On error: Calls error(g) and returns -1.
  */
 int
-guestfs___cmd_run_async (struct command *cmd, pid_t *pid,
+guestfs_int_cmd_run_async (struct command *cmd, pid_t *pid,
                          int *stdin_fd, int *stdout_fd, int *stderr_fd)
 {
   finish_command (cmd);
@@ -710,20 +710,20 @@ guestfs___cmd_run_async (struct command *cmd, pid_t *pid,
 
 /* Wait for the command to finish.
  *
- * The command MUST have been started with guestfs___cmd_run_async.
+ * The command MUST have been started with guestfs_int_cmd_run_async.
  *
  * Returns the exit status.  Test it using WIF* macros.
  *
  * On error: Calls error(g) and returns -1.
  */
 int
-guestfs___cmd_wait (struct command *cmd)
+guestfs_int_cmd_wait (struct command *cmd)
 {
   return wait_command (cmd);
 }
 
 void
-guestfs___cmd_close (struct command *cmd)
+guestfs_int_cmd_close (struct command *cmd)
 {
   if (!cmd)
     return;
@@ -734,7 +734,7 @@ guestfs___cmd_close (struct command *cmd)
     break;
 
   case COMMAND_STYLE_EXECV:
-    guestfs___free_stringsbuf (&cmd->argv);
+    guestfs_int_free_stringsbuf (&cmd->argv);
     break;
 
   case COMMAND_STYLE_SYSTEM:
@@ -760,9 +760,9 @@ guestfs___cmd_close (struct command *cmd)
 }
 
 void
-guestfs___cleanup_cmd_close (struct command **ptr)
+guestfs_int_cleanup_cmd_close (struct command **ptr)
 {
-  guestfs___cmd_close (*ptr);
+  guestfs_int_cmd_close (*ptr);
 }
 
 /* Deal with buffering stdout for the callback. */

@@ -93,7 +93,7 @@ guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
   int favicon, highquality;
   size_t size;
 
-  fs = guestfs___search_for_root (g, root);
+  fs = guestfs_int_search_for_root (g, root);
   if (!fs)
     return NULL;
 
@@ -263,7 +263,7 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
   if (max_size == 0)
     max_size = 4 * w * h;
 
-  local = guestfs___download_to_tmp (g, fs, real, "icon", max_size);
+  local = guestfs_int_download_to_tmp (g, fs, real, "icon", max_size);
   if (!local)
     return NOT_FOUND;
 
@@ -284,7 +284,7 @@ icon_favicon (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   char *filename = safe_strdup (g, "/etc/favicon.png");
 
   if (fs->type == OS_TYPE_WINDOWS) {
-    char *f = guestfs___case_sensitive_path_silently (g, filename);
+    char *f = guestfs_int_case_sensitive_path_silently (g, filename);
     if (f) {
       free (filename);
       filename = f;
@@ -382,7 +382,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   CLEANUP_FREE char *type = NULL;
   CLEANUP_FREE char *local = NULL;
   CLEANUP_FREE char *pngfile = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
 
   r = guestfs_is_file_opts (g, CIRROS_LOGO,
@@ -400,18 +400,18 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (!STRPREFIX (type, "ASCII text"))
     return NOT_FOUND;
 
-  local = guestfs___download_to_tmp (g, fs, CIRROS_LOGO, "icon", 1024);
+  local = guestfs_int_download_to_tmp (g, fs, CIRROS_LOGO, "icon", 1024);
   if (!local)
     return NOT_FOUND;
 
   /* Use pbmtext to render it. */
   pngfile = safe_asprintf (g, "%s/cirros.png", g->tmpdir);
 
-  guestfs___cmd_add_string_unquoted (cmd, PBMTEXT " < ");
-  guestfs___cmd_add_string_quoted   (cmd, local);
-  guestfs___cmd_add_string_unquoted (cmd, " | " PNMTOPNG " > ");
-  guestfs___cmd_add_string_quoted   (cmd, pngfile);
-  r = guestfs___cmd_run (cmd);
+  guestfs_int_cmd_add_string_unquoted (cmd, PBMTEXT " < ");
+  guestfs_int_cmd_add_string_quoted   (cmd, local);
+  guestfs_int_cmd_add_string_unquoted (cmd, " | " PNMTOPNG " > ");
+  guestfs_int_cmd_add_string_quoted   (cmd, pngfile);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return NOT_FOUND;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -450,7 +450,7 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   CLEANUP_FREE char *filename_case = NULL;
   CLEANUP_FREE char *filename_downloaded = NULL;
   CLEANUP_FREE char *pngfile = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
   char *ret;
 
@@ -468,7 +468,7 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (r == 0)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
+  filename_downloaded = guestfs_int_download_to_tmp (g, fs, filename_case,
                                                    "explorer.exe",
                                                    MAX_WINDOWS_EXPLORER_SIZE);
   if (filename_downloaded == NULL)
@@ -476,12 +476,12 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
   pngfile = safe_asprintf (g, "%s/windows-xp-icon.png", g->tmpdir);
 
-  guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=143 ");
-  guestfs___cmd_add_string_quoted   (cmd, filename_downloaded);
-  guestfs___cmd_add_string_unquoted (cmd,
+  guestfs_int_cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=143 ");
+  guestfs_int_cmd_add_string_quoted   (cmd, filename_downloaded);
+  guestfs_int_cmd_add_string_unquoted (cmd,
                                      " | " BMPTOPNM " | " PNMTOPNG " > ");
-  guestfs___cmd_add_string_quoted   (cmd, pngfile);
-  r = guestfs___cmd_run (cmd);
+  guestfs_int_cmd_add_string_quoted   (cmd, pngfile);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -500,7 +500,7 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   CLEANUP_FREE char *filename_case = NULL;
   CLEANUP_FREE char *filename_downloaded = NULL;
   CLEANUP_FREE char *pngfile = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
   char *ret;
 
@@ -518,7 +518,7 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (r == 0)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
+  filename_downloaded = guestfs_int_download_to_tmp (g, fs, filename_case,
                                                    "explorer.exe",
                                                    MAX_WINDOWS_EXPLORER_SIZE);
   if (filename_downloaded == NULL)
@@ -526,14 +526,14 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 
   pngfile = safe_asprintf (g, "%s/windows-7-icon.png", g->tmpdir);
 
-  guestfs___cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=6801 ");
-  guestfs___cmd_add_string_quoted   (cmd, filename_downloaded);
-  guestfs___cmd_add_string_unquoted (cmd,
+  guestfs_int_cmd_add_string_unquoted (cmd, WRESTOOL " -x --type=2 --name=6801 ");
+  guestfs_int_cmd_add_string_quoted   (cmd, filename_downloaded);
+  guestfs_int_cmd_add_string_unquoted (cmd,
                                      " | " BMPTOPNM " | "
                                      PAMCUT " -bottom 54 | "
                                      PNMTOPNG " > ");
-  guestfs___cmd_add_string_quoted   (cmd, pngfile);
-  r = guestfs___cmd_run (cmd);
+  guestfs_int_cmd_add_string_quoted   (cmd, pngfile);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
@@ -558,7 +558,7 @@ icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   int r;
   char *ret;
 
-  filename_case = guestfs___case_sensitive_path_silently
+  filename_case = guestfs_int_case_sensitive_path_silently
     (g, "/ProgramData/Microsoft/Windows Live/WLive48x48.png");
   if (filename_case == NULL)
     return NOT_FOUND; /* Not an error since a parent dir might not exist. */
@@ -571,7 +571,7 @@ icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (r == 0)
     return NOT_FOUND;
 
-  filename_downloaded = guestfs___download_to_tmp (g, fs, filename_case,
+  filename_downloaded = guestfs_int_download_to_tmp (g, fs, filename_case,
                                                    "wlive48x48.png", 8192);
   if (filename_downloaded == NULL)
     return NOT_FOUND;

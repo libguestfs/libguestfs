@@ -38,7 +38,7 @@ v2v_utils_drive_name (value indexv)
   CAMLlocal1 (namev);
   char name[64];
 
-  guestfs___drive_name (Int_val (indexv), name);
+  guestfs_int_drive_name (Int_val (indexv), name);
   namev = caml_copy_string (name);
 
   CAMLreturn (namev);

@@ -187,7 +187,7 @@ and argt =
     (* const char * which represents a GUID string.
      *
      * It cannot be NULL, and it will be validated using
-     * guestfs___validate_guid.
+     * guestfs_int_validate_guid.
      *)
   | GUID of string
 
