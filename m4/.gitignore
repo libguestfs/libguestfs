@@ -107,6 +107,7 @@
 /i-ring.m4
 /isatty.m4
 /isc-posix.m4
+/langinfo_h.m4
 /largefile.m4
 /lchown.m4
 /lcmessage.m4
