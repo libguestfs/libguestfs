@@ -455,7 +455,8 @@ put_table (char * const * const argv)
            pr "  py_r = PyString_FromString (r);\n";
            pr "#else\n";
            pr "  py_r = PyUnicode_FromString (r);\n";
-           pr "#endif\n"
+           pr "#endif\n";
+           pr "  if (py_r == NULL) goto out;\n";
        | RConstOptString _ ->
            pr "  if (r) {\n";
            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
@@ -466,14 +467,16 @@ put_table (char * const * const argv)
            pr "  } else {\n";
            pr "    Py_INCREF (Py_None);\n";
            pr "    py_r = Py_None;\n";
-           pr "  }\n"
+           pr "  }\n";
+           pr "  if (py_r == NULL) goto out;\n";
        | RString _ ->
            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
            pr "  py_r = PyString_FromString (r);\n";
            pr "#else\n";
            pr "  py_r = PyUnicode_FromString (r);\n";
            pr "#endif\n";
-           pr "  free (r);\n"
+           pr "  free (r);\n";
+           pr "  if (py_r == NULL) goto out;\n";
        | RStringList _ ->
            pr "  py_r = put_string_list (r);\n";
            pr "  guestfs_int_free_string_list (r);\n"
@@ -492,10 +495,18 @@ put_table (char * const * const argv)
            pr "#else\n";
            pr "  py_r = PyBytes_FromStringAndSize (r, size);\n";
            pr "#endif\n";
-           pr "  free (r);\n"
+           pr "  free (r);\n";
+           pr "  if (py_r == NULL) goto out;\n";
       );
 
+      (* As this is the non-error path, clear the Python error
+       * indicator flag in case it was set accidentally somewhere in
+       * the function.  Since we are not returning an error indication
+       * to the caller, having it set would risk the error popping up
+       * at random later in the interpreter.
+       *)
       pr "\n";
+      pr "  PyErr_Clear ();\n";
       pr " out:\n";
 
       List.iter (
