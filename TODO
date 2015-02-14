@@ -501,12 +501,6 @@ this approach works, it doesn't solve the MBR problem, so likely we'd
 have to write a library for that (or perhaps go back to sfdisk but
 using a very abstracted interface over sfdisk).
 
-virt-sparsify should use discard
---------------------------------
-
-This requires some changes to qemu to make discard work properly
-throughout the entire stack.
-
 Reimplement some APIs to avoid protocol limits
 ----------------------------------------------
 
@@ -538,34 +532,18 @@ Ruby 1.8, and/or maintain volatile VALUEs on the stack.
 virt-builder
 ------------
 
- - set keyboard
-
- - set default timezone and language
-
- - set permissions on uploaded files & created directories
-
  - how can we give users a shell for debugging purposes?
-
- - allow non-xz-compressed templates (faster)
 
  - let notes etc be localized, ie. notes[en]=...
 
  - add a CLI option to print the in-built path/fingerprint(s)
 
- - allow public keys to come from local file paths
-
  - doing virt-builder then running (eg. via qemu, libvirt?) is common; is
    it possible to make this more automatic?
 
- - more common code between virt-sysprep & virt-builder:
-
-   * virt-sysprep should have --run, --run-command,
-     --firstboot-command options with common code from virt-builder
-
  - document:
 
-   * how to integrate with ansible, puppet, chef
-   * how to import to OpenStack / Glance
+   * how to integrate with ansible, chef [puppet documented already]
    * how to import to EC2
 
  - /etc/resolv.conf handling works but is best described as a hack:
