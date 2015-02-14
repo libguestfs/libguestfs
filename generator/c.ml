@@ -1537,7 +1537,7 @@ and generate_client_actions hash () =
     pr "%sif (trace_flag)\n" indent;
 
     pr "%s  guestfs_int_trace (g, \"%%s = %%s (error)\",\n" indent;
-    pr "%s                   \"%s\", \"%s\");\n"
+    pr "%s                     \"%s\", \"%s\");\n"
       indent name (string_of_errcode errcode)
   in
 
@@ -1730,7 +1730,7 @@ and generate_client_actions hash () =
     if args_passed_to_daemon = [] && optargs = [] then (
       pr "  serial = guestfs_int_send (g, GUESTFS_PROC_%s, progress_hint, 0,\n"
         (String.uppercase name);
-      pr "                           NULL, NULL);\n"
+      pr "                             NULL, NULL);\n"
     ) else (
       List.iter (
         function
@@ -1792,9 +1792,9 @@ and generate_client_actions hash () =
 
       pr "  serial = guestfs_int_send (g, GUESTFS_PROC_%s,\n"
         (String.uppercase name);
-      pr "                           progress_hint, %s,\n"
+      pr "                             progress_hint, %s,\n"
         (if optargs <> [] then "optargs->bitmask" else "0");
-      pr "                           (xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
+      pr "                             (xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
         name;
     );
     pr "  if (serial == -1) {\n";
@@ -1860,7 +1860,7 @@ and generate_client_actions hash () =
     pr "    else\n";
     pr "      guestfs_int_error_errno (g, errnum, \"%%s: %%s\", \"%s\",\n"
       name;
-    pr "                           err.error_message);\n";
+    pr "                               err.error_message);\n";
     pr "    free (err.error_message);\n";
     pr "    free (err.errno_string);\n";
     pr "    return %s;\n" (string_of_errcode errcode);
