@@ -791,7 +791,7 @@ and generate_internal_actions_h () =
   List.iter (
     fun { c_name = c_name; style = style } ->
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
-        ~prefix:"guestfs__" ~optarg_proto:Argv
+        ~prefix:"guestfs_impl_" ~optarg_proto:Argv
         c_name style
   ) non_daemon_functions;
 
@@ -1602,7 +1602,7 @@ and generate_client_actions hash () =
     reject_unknown_optargs c_name style;
     check_args_validity c_name style;
     trace_call name c_name style;
-    pr "  r = guestfs__%s " c_name;
+    pr "  r = guestfs_impl_%s " c_name;
     generate_c_call_args ~handle:"g" ~implicit_size_ptr:"size_r" style;
     pr ";\n";
     pr "\n";

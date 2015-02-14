@@ -3811,7 +3811,7 @@ Implement the action (in C):
 For daemon actions, implement the function C<do_E<lt>nameE<gt>> in the
 C<daemon/> directory.
 
-For library actions, implement the function C<guestfs__E<lt>nameE<gt>>
+For library actions, implement the function C<guestfs_impl_E<lt>nameE<gt>>
 (note: double underscore) in the C<src/> directory.
 
 In either case, use another function as an example of what to do.

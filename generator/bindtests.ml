@@ -46,7 +46,7 @@ let rec generate_bindtests () =
 #include \"guestfs_protocol.h\"
 
 int
-guestfs__internal_test_set_output (guestfs_h *g, const char *filename)
+guestfs_impl_internal_test_set_output (guestfs_h *g, const char *filename)
 {
   FILE *fp;
 
@@ -67,7 +67,7 @@ guestfs__internal_test_set_output (guestfs_h *g, const char *filename)
 }
 
 int
-guestfs__internal_test_close_output (guestfs_h *g)
+guestfs_impl_internal_test_close_output (guestfs_h *g)
 {
   if (g->test_fp != NULL) {
     if (fclose (g->test_fp) == EOF) {
@@ -141,7 +141,7 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
       pr " */\n";
 
       generate_prototype ~extern:false ~semicolon:false ~newline:true
-        ~handle:"g" ~prefix:"guestfs__" ~optarg_proto:Argv name style;
+        ~handle:"g" ~prefix:"guestfs_impl_" ~optarg_proto:Argv name style;
       pr "{\n";
       pr "  FILE *fp = get_fp (g);\n";
       pr "\n";
@@ -215,7 +215,7 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
       if String.sub name (String.length name - 3) 3 <> "err" then (
         pr "/* Test normal return. */\n";
         generate_prototype ~extern:false ~semicolon:false ~newline:true
-          ~handle:"g" ~prefix:"guestfs__" name style;
+          ~handle:"g" ~prefix:"guestfs_impl_" name style;
         pr "{\n";
         (match ret with
          | RErr ->
@@ -302,7 +302,7 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
       ) else (
         pr "/* Test error return. */\n";
         generate_prototype ~extern:false ~semicolon:false ~newline:true
-          ~handle:"g" ~prefix:"guestfs__" name style;
+          ~handle:"g" ~prefix:"guestfs_impl_" name style;
         pr "{\n";
         pr "  error (g, \"error\");\n";
         (match ret with

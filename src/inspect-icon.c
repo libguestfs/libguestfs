@@ -84,7 +84,7 @@ static char *NOT_FOUND = (char *) "not_found";
  * Check optargs for the optional argument.
  */
 char *
-guestfs__inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
+guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
                            const struct guestfs_inspect_get_icon_argv *optargs)
 {
   struct inspect_fs *fs;

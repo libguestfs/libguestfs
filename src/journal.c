@@ -49,7 +49,7 @@
  * hashtable entries from that.
  */
 struct guestfs_xattr_list *
-guestfs__journal_get (guestfs_h *g)
+guestfs_impl_journal_get (guestfs_h *g)
 {
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
   CLEANUP_FREE char *buf = NULL;

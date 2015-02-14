@@ -27,7 +27,7 @@
 #include "guestfs-internal-actions.h"
 
 char *
-guestfs__canonical_device_name (guestfs_h *g, const char *device)
+guestfs_impl_canonical_device_name (guestfs_h *g, const char *device)
 {
   char *ret;
   size_t len;

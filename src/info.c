@@ -51,7 +51,7 @@ static int64_t old_parser_disk_virtual_size (guestfs_h *g, const char *filename)
 static int old_parser_disk_has_backing_file (guestfs_h *g, const char *filename);
 
 char *
-guestfs__disk_format (guestfs_h *g, const char *filename)
+guestfs_impl_disk_format (guestfs_h *g, const char *filename)
 {
   switch (which_parser (g)) {
   case QEMU_IMG_INFO_NEW_PARSER:
@@ -66,7 +66,7 @@ guestfs__disk_format (guestfs_h *g, const char *filename)
 }
 
 int64_t
-guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
+guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
 {
   switch (which_parser (g)) {
   case QEMU_IMG_INFO_NEW_PARSER:
@@ -81,7 +81,7 @@ guestfs__disk_virtual_size (guestfs_h *g, const char *filename)
 }
 
 int
-guestfs__disk_has_backing_file (guestfs_h *g, const char *filename)
+guestfs_impl_disk_has_backing_file (guestfs_h *g, const char *filename)
 {
   switch (which_parser (g)) {
   case QEMU_IMG_INFO_NEW_PARSER:

@@ -50,7 +50,7 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
 }
 
 int
-guestfs__add_domain (guestfs_h *g, const char *domain_name,
+guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
                      const struct guestfs_add_domain_argv *optargs)
 {
   virErrorPtr err;
@@ -783,7 +783,7 @@ get_domain_xml (guestfs_h *g, virDomainPtr dom)
   return r
 
 int
-guestfs__add_domain (guestfs_h *g, const char *dom,
+guestfs_impl_add_domain (guestfs_h *g, const char *dom,
                      const struct guestfs_add_domain_argv *optargs)
 {
   NOT_IMPL(-1);

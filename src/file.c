@@ -72,7 +72,7 @@ take_strings (guestfs_h *g, char *const *names, size_t n, char *const **lastp)
 }
 
 char *
-guestfs__cat (guestfs_h *g, const char *path)
+guestfs_impl_cat (guestfs_h *g, const char *path)
 {
   size_t size;
 
@@ -80,7 +80,7 @@ guestfs__cat (guestfs_h *g, const char *path)
 }
 
 char *
-guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
+guestfs_impl_read_file (guestfs_h *g, const char *path, size_t *size_r)
 {
   int fd = -1;
   size_t size;
@@ -142,7 +142,7 @@ guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
 }
 
 char **
-guestfs__read_lines (guestfs_h *g, const char *file)
+guestfs_impl_read_lines (guestfs_h *g, const char *file)
 {
   size_t i, count, size, len;
   CLEANUP_FREE char *buf = NULL;
@@ -206,7 +206,7 @@ guestfs__read_lines (guestfs_h *g, const char *file)
 }
 
 char **
-guestfs__find (guestfs_h *g, const char *directory)
+guestfs_impl_find (guestfs_h *g, const char *directory)
 {
   int fd = -1;
   struct stat statbuf;
@@ -364,14 +364,14 @@ write_or_append (guestfs_h *g, const char *path,
 }
 
 int
-guestfs__write (guestfs_h *g, const char *path,
+guestfs_impl_write (guestfs_h *g, const char *path,
                 const char *content, size_t size)
 {
   return write_or_append (g, path, content, size, 0);
 }
 
 int
-guestfs__write_append (guestfs_h *g, const char *path,
+guestfs_impl_write_append (guestfs_h *g, const char *path,
                        const char *content, size_t size)
 {
   return write_or_append (g, path, content, size, 1);
@@ -380,7 +380,7 @@ guestfs__write_append (guestfs_h *g, const char *path,
 #define LSTATNSLIST_MAX 1000
 
 struct guestfs_statns_list *
-guestfs__lstatnslist (guestfs_h *g, const char *dir, char * const*names)
+guestfs_impl_lstatnslist (guestfs_h *g, const char *dir, char * const*names)
 {
   size_t len = guestfs_int_count_strings (names);
   size_t old_len;
@@ -422,7 +422,7 @@ guestfs__lstatnslist (guestfs_h *g, const char *dir, char * const*names)
 #define LXATTRLIST_MAX 1000
 
 struct guestfs_xattr_list *
-guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
+guestfs_impl_lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 {
   size_t len = guestfs_int_count_strings (names);
   size_t i, old_len;
@@ -470,7 +470,7 @@ guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 #define READLINK_MAX 1000
 
 char **
-guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
+guestfs_impl_readlinklist (guestfs_h *g, const char *dir, char *const *names)
 {
   size_t len = guestfs_int_count_strings (names);
   size_t old_len, ret_len = 0;
@@ -508,7 +508,7 @@ guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
 }
 
 char **
-guestfs__ls (guestfs_h *g, const char *directory)
+guestfs_impl_ls (guestfs_h *g, const char *directory)
 {
   int fd = -1;
   struct stat statbuf;
@@ -622,7 +622,7 @@ statns_to_old_stat (struct guestfs_statns *a, struct guestfs_stat *r)
 }
 
 struct guestfs_stat *
-guestfs__stat (guestfs_h *g, const char *path)
+guestfs_impl_stat (guestfs_h *g, const char *path)
 {
   CLEANUP_FREE_STATNS struct guestfs_statns *r;
   struct guestfs_stat *ret;
@@ -637,7 +637,7 @@ guestfs__stat (guestfs_h *g, const char *path)
 }
 
 struct guestfs_stat *
-guestfs__lstat (guestfs_h *g, const char *path)
+guestfs_impl_lstat (guestfs_h *g, const char *path)
 {
   CLEANUP_FREE_STATNS struct guestfs_statns *r;
   struct guestfs_stat *ret;
@@ -652,7 +652,7 @@ guestfs__lstat (guestfs_h *g, const char *path)
 }
 
 struct guestfs_stat_list *
-guestfs__lstatlist (guestfs_h *g, const char *dir, char * const*names)
+guestfs_impl_lstatlist (guestfs_h *g, const char *dir, char * const*names)
 {
   CLEANUP_FREE_STATNS_LIST struct guestfs_statns_list *r;
   struct guestfs_stat_list *ret;

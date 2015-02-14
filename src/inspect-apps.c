@@ -65,7 +65,7 @@ static void sort_applications (struct guestfs_application2_list *);
  * just a wrapper around guestfs_inspect_list_applications2.
  */
 struct guestfs_application_list *
-guestfs__inspect_list_applications (guestfs_h *g, const char *root)
+guestfs_impl_inspect_list_applications (guestfs_h *g, const char *root)
 {
   struct guestfs_application_list *ret;
   struct guestfs_application2_list *r;
@@ -112,7 +112,7 @@ guestfs__inspect_list_applications (guestfs_h *g, const char *root)
  * disks are mounted up, and reads files from the mounted disks.
  */
 struct guestfs_application2_list *
-guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
+guestfs_impl_inspect_list_applications2 (guestfs_h *g, const char *root)
 {
   struct guestfs_application2_list *ret = NULL;
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);

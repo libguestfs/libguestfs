@@ -952,7 +952,7 @@ static struct fuse_operations mount_local_operations = {
 };
 
 int
-guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
+guestfs_impl_mount_local (guestfs_h *g, const char *localmountpoint,
                       const struct guestfs_mount_local_argv *optargs)
 {
   const char *t;
@@ -1045,7 +1045,7 @@ guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
 }
 
 int
-guestfs__mount_local_run (guestfs_h *g)
+guestfs_impl_mount_local_run (guestfs_h *g)
 {
   int r, mounted;
 
@@ -1100,7 +1100,7 @@ guestfs_int_free_fuse (guestfs_h *g)
 }
 
 int
-guestfs__umount_local (guestfs_h *g,
+guestfs_impl_umount_local (guestfs_h *g,
                        const struct guestfs_umount_local_argv *optargs)
 {
   const char *retry;
@@ -1503,20 +1503,20 @@ dir_cache_invalidate (guestfs_h *g, const char *path)
                           "when libguestfs was compiled"))
 
 int
-guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
+guestfs_impl_mount_local (guestfs_h *g, const char *localmountpoint,
                       const struct guestfs_mount_local_argv *optargs)
 {
   FUSE_NOT_SUPPORTED ();
 }
 
 int
-guestfs__mount_local_run (guestfs_h *g)
+guestfs_impl_mount_local_run (guestfs_h *g)
 {
   FUSE_NOT_SUPPORTED ();
 }
 
 int
-guestfs__umount_local (guestfs_h *g,
+guestfs_impl_umount_local (guestfs_h *g,
                        const struct guestfs_umount_local_argv *optargs)
 {
   FUSE_NOT_SUPPORTED ();

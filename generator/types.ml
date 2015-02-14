@@ -361,7 +361,7 @@ type action = {
                                      machinery in various bindings. *)
   wrapper : bool;                 (* For non-daemon functions, generate a
                                      wrapper which calls the underlying
-                                     guestfs__<name> function.  The wrapper
+                                     guestfs_impl_<name> function.  The wrapper
                                      checks arguments and deals with trace
                                      messages.  Set this to false for functions
                                      that have to be thread-safe. *)

@@ -84270,7 +84270,7 @@ msgstr ""
 #. type: textblock
 #: ../src/guestfs.pod:3924
 msgid ""
-"For library actions, implement the function C<guestfs__E<lt>nameE<gt>> "
+"For library actions, implement the function C<guestfs_impl_E<lt>nameE<gt>> "
 "(note: double underscore) in the C<src/> directory."
 msgstr ""
 

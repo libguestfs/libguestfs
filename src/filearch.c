@@ -339,7 +339,7 @@ compressed_file_arch (guestfs_h *g, const char *path, const char *method)
 }
 
 char *
-guestfs__file_architecture (guestfs_h *g, const char *path)
+guestfs_impl_file_architecture (guestfs_h *g, const char *path)
 {
   CLEANUP_FREE char *file = NULL;
   CLEANUP_FREE char *elf_arch = NULL;
@@ -379,7 +379,7 @@ guestfs__file_architecture (guestfs_h *g, const char *path)
   return r
 
 char *
-guestfs__file_architecture (guestfs_h *g, const char *path)
+guestfs_impl_file_architecture (guestfs_h *g, const char *path)
 {
   NOT_IMPL(NULL);
 }

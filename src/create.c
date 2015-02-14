@@ -44,7 +44,7 @@ static int disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size, 
 static char *qemu_escape_param (guestfs_h *g, const char *param);
 
 int
-guestfs__disk_create (guestfs_h *g, const char *filename,
+guestfs_impl_disk_create (guestfs_h *g, const char *filename,
                       const char *format, int64_t size,
                       const struct guestfs_disk_create_argv *optargs)
 {

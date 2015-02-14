@@ -623,7 +623,7 @@ guestfs_int_case_sensitive_path_silently (guestfs_h *g, const char *path)
 static char *utf16_to_utf8 (/* const */ char *input, size_t len);
 
 char *
-guestfs__hivex_value_utf8 (guestfs_h *g, int64_t valueh)
+guestfs_impl_hivex_value_utf8 (guestfs_h *g, int64_t valueh)
 {
   char *ret;
   size_t buflen;
