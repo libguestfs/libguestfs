@@ -109,7 +109,7 @@ create_connection_dialog (struct config *config)
   char port_str[64];
 
   conn_dlg = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (conn_dlg), guestfs___program_name);
+  gtk_window_set_title (GTK_WINDOW (conn_dlg), guestfs_int_program_name);
   gtk_window_set_resizable (GTK_WINDOW (conn_dlg), FALSE);
 
   /* The main dialog area. */
@@ -343,7 +343,7 @@ static void
 about_button_clicked (GtkWidget *w, gpointer data)
 {
   gtk_show_about_dialog (GTK_WINDOW (conn_dlg),
-                         "program-name", guestfs___program_name,
+                         "program-name", guestfs_int_program_name,
                          "version", PACKAGE_VERSION,
                          "copyright", "\u00A9 2009-2014 Red Hat Inc.",
                          "comments", "Convert a physical machine to use KVM",
@@ -414,7 +414,7 @@ create_conversion_dialog (struct config *config)
   char memory_str[64];
 
   conv_dlg = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (conv_dlg), guestfs___program_name);
+  gtk_window_set_title (GTK_WINDOW (conv_dlg), guestfs_int_program_name);
   gtk_window_set_resizable (GTK_WINDOW (conv_dlg), FALSE);
   /* XXX It would be nice not to have to set this explicitly, but
    * if we don't then Gtk chooses a very small window.
@@ -940,15 +940,15 @@ set_from_ui_generic (char **all, char ***ret, GtkTreeView *list)
   size_t i, j;
 
   if (all == NULL) {
-    guestfs___free_string_list (*ret);
+    guestfs_int_free_string_list (*ret);
     *ret = NULL;
     return;
   }
 
   model = gtk_tree_view_get_model (list);
 
-  guestfs___free_string_list (*ret);
-  *ret = malloc ((1 + guestfs___count_strings (all)) * sizeof (char *));
+  guestfs_int_free_string_list (*ret);
+  *ret = malloc ((1 + guestfs_int_count_strings (all)) * sizeof (char *));
   if (*ret == NULL) {
     perror ("malloc");
     exit (EXIT_FAILURE);
@@ -1001,7 +1001,7 @@ set_network_map_from_ui (struct config *config)
   size_t i, j;
 
   if (all_interfaces == NULL) {
-    guestfs___free_string_list (config->network_map);
+    guestfs_int_free_string_list (config->network_map);
     config->network_map = NULL;
     return;
   }
@@ -1009,9 +1009,9 @@ set_network_map_from_ui (struct config *config)
   list = GTK_TREE_VIEW (interfaces_list);
   model = gtk_tree_view_get_model (list);
 
-  guestfs___free_string_list (config->network_map);
+  guestfs_int_free_string_list (config->network_map);
   config->network_map =
-    malloc ((1 + guestfs___count_strings (all_interfaces))
+    malloc ((1 + guestfs_int_count_strings (all_interfaces))
             * sizeof (char *));
   if (config->network_map == NULL) {
     perror ("malloc");
@@ -1065,7 +1065,7 @@ static void
 create_running_dialog (void)
 {
   run_dlg = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (run_dlg), guestfs___program_name);
+  gtk_window_set_title (GTK_WINDOW (run_dlg), guestfs_int_program_name);
   gtk_window_set_resizable (GTK_WINDOW (run_dlg), FALSE);
 
   /* The main dialog area. */
@@ -1219,7 +1219,7 @@ start_conversion_clicked (GtkWidget *w, gpointer data)
   set_disks_from_ui (config);
 
   /* The list of disks must be non-empty. */
-  if (config->disks == NULL || guestfs___count_strings (config->disks) == 0) {
+  if (config->disks == NULL || guestfs_int_count_strings (config->disks) == 0) {
     dlg = gtk_message_dialog_new (GTK_WINDOW (conv_dlg),
                                   GTK_DIALOG_DESTROY_WITH_PARENT,
                                   GTK_MESSAGE_ERROR,
@@ -1360,7 +1360,7 @@ notify_ui_callback (int type, const char *data)
   default:
     fprintf (stderr,
              "%s: unknown message during conversion: type=%d data=%s\n",
-             guestfs___program_name, type, data);
+             guestfs_int_program_name, type, data);
   }
 
   gdk_threads_leave ();

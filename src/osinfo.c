@@ -111,7 +111,7 @@ static void free_osinfo_db_entry (struct osinfo *);
  *   1  => matching OS found, the osinfo_ret pointer has been filled in
  */
 int
-guestfs___osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo,
+guestfs_int_osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo,
                       const struct osinfo **osinfo_ret)
 {
   size_t i;
@@ -470,10 +470,10 @@ parse_version (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
   content = (char *) xmlNodeGetContent (node);
   if (content) {
     if (match2 (g, content, re_major_minor, &major, &minor)) {
-      osinfo->major_version = guestfs___parse_unsigned_int (g, major);
+      osinfo->major_version = guestfs_int_parse_unsigned_int (g, major);
       if (osinfo->major_version == -1)
         return -1;
-      osinfo->minor_version = guestfs___parse_unsigned_int (g, minor);
+      osinfo->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       if (osinfo->minor_version == -1)
         return -1;
     }

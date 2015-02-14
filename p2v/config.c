@@ -67,13 +67,13 @@ copy_config (struct config *old)
   if (c->guestname)
     c->guestname = strdup (c->guestname);
   if (c->disks)
-    c->disks = guestfs___copy_string_list (c->disks);
+    c->disks = guestfs_int_copy_string_list (c->disks);
   if (c->removable)
-    c->removable = guestfs___copy_string_list (c->removable);
+    c->removable = guestfs_int_copy_string_list (c->removable);
   if (c->interfaces)
-    c->interfaces = guestfs___copy_string_list (c->interfaces);
+    c->interfaces = guestfs_int_copy_string_list (c->interfaces);
   if (c->network_map)
-    c->network_map = guestfs___copy_string_list (c->network_map);
+    c->network_map = guestfs_int_copy_string_list (c->network_map);
   if (c->output)
     c->output = strdup (c->output);
   if (c->output_connection)
@@ -93,10 +93,10 @@ free_config (struct config *c)
   free (c->username);
   free (c->password);
   free (c->guestname);
-  guestfs___free_string_list (c->disks);
-  guestfs___free_string_list (c->removable);
-  guestfs___free_string_list (c->interfaces);
-  guestfs___free_string_list (c->network_map);
+  guestfs_int_free_string_list (c->disks);
+  guestfs_int_free_string_list (c->removable);
+  guestfs_int_free_string_list (c->interfaces);
+  guestfs_int_free_string_list (c->network_map);
   free (c->output);
   free (c->output_connection);
   free (c->output_format);

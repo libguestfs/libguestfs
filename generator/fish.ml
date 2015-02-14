@@ -482,11 +482,11 @@ Guestfish will prompt for these separately."
             pr "    input_lineno++;\n";
             pr "  if (%s == NULL) goto out_%s;\n" name name
         | Bool name ->
-            pr "  switch (guestfs___is_true (argv[i++])) {\n";
+            pr "  switch (guestfs_int_is_true (argv[i++])) {\n";
             pr "    case -1:\n";
             pr "      fprintf (stderr,\n";
             pr "               _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
-            pr "               guestfs___program_name, argv[i-1]);\n";
+            pr "               guestfs_int_program_name, argv[i-1]);\n";
             pr "      goto out_%s;\n" name;
             pr "    case 0:  %s = 0; break;\n" name;
             pr "    default: %s = 1;\n" name;
@@ -525,11 +525,11 @@ Guestfish will prompt for these separately."
             pr "if (STRPREFIX (argv[i], \"%s:\")) {\n" n;
             (match argt with
              | OBool n ->
-                 pr "      switch (guestfs___is_true (&argv[i][%d])) {\n" (len+1);
+                 pr "      switch (guestfs_int_is_true (&argv[i][%d])) {\n" (len+1);
                  pr "        case -1:\n";
                  pr "          fprintf (stderr,\n";
                  pr "                   _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
-                 pr "                   guestfs___program_name, &argv[i][%d]);\n" (len+1);
+                 pr "                   guestfs_int_program_name, &argv[i][%d]);\n" (len+1);
                  pr "          goto out;\n";
                  pr "        case 0:  optargs_s.%s = 0; break;\n" n;
                  pr "        default: optargs_s.%s = 1;\n" n;
@@ -630,7 +630,7 @@ Guestfish will prompt for these separately."
            pr "  if (r == NULL) goto out;\n";
            pr "  ret = 0;\n";
            pr "  print_strings (r);\n";
-           pr "  guestfs___free_string_list (r);\n"
+           pr "  guestfs_int_free_string_list (r);\n"
        | RStruct (_, typ) ->
            pr "  if (r == NULL) goto out;\n";
            pr "  ret = 0;\n";
@@ -645,7 +645,7 @@ Guestfish will prompt for these separately."
            pr "  if (r == NULL) goto out;\n";
            pr "  ret = 0;\n";
            pr "  print_table (r);\n";
-           pr "  guestfs___free_string_list (r);\n"
+           pr "  guestfs_int_free_string_list (r);\n"
        | RBufferOut _ ->
            pr "  if (r == NULL) goto out;\n";
            pr "  if (full_write (1, r, size) != size) {\n";
@@ -668,7 +668,7 @@ Guestfish will prompt for these separately."
           pr "  if ((optargs_s.bitmask & %s_%s_BITMASK) &&\n"
             c_optarg_prefix uc_n;
           pr "      optargs_s.%s != NULL)\n" n;
-          pr "    guestfs___free_string_list ((char **) optargs_s.%s);\n" n
+          pr "    guestfs_int_free_string_list ((char **) optargs_s.%s);\n" n
         | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
       ) (List.rev optargs);
       List.iter (
@@ -688,7 +688,7 @@ Guestfish will prompt for these separately."
             pr "  free_file_in (%s);\n" name;
             pr " out_%s:\n" name
         | StringList name | DeviceList name ->
-            pr "  guestfs___free_string_list (%s);\n" name;
+            pr "  guestfs_int_free_string_list (%s);\n" name;
             pr " out_%s:\n" name
         | Pointer _ -> assert false
       ) (List.rev args);

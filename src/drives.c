@@ -459,7 +459,7 @@ create_drive_dev_null (guestfs_h *g,
     return NULL;
   }
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return NULL;
 
   /* Because we create a special file, there is no point forcing qemu
@@ -514,7 +514,7 @@ free_drive_struct (struct drive *drv)
 }
 
 const char *
-guestfs___drive_protocol_to_string (enum drive_protocol protocol)
+guestfs_int_drive_protocol_to_string (enum drive_protocol protocol)
 {
   switch (protocol) {
   case drive_protocol_file: return "file";
@@ -545,7 +545,7 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
      drv->readonly ? " readonly" : "",
      drv->src.format ? " format=" : "",
      drv->src.format ? : "",
-     guestfs___drive_protocol_to_string (drv->src.protocol),
+     guestfs_int_drive_protocol_to_string (drv->src.protocol),
      drv->iface ? " iface=" : "",
      drv->iface ? : "",
      drv->name ? " name=" : "",
@@ -586,7 +586,7 @@ add_drive_to_handle (guestfs_h *g, struct drive *d)
 
 /* Called during launch to add a dummy slot to g->drives. */
 void
-guestfs___add_dummy_appliance_drive (guestfs_h *g)
+guestfs_int_add_dummy_appliance_drive (guestfs_h *g)
 {
   struct drive *drv;
 
@@ -596,7 +596,7 @@ guestfs___add_dummy_appliance_drive (guestfs_h *g)
 
 /* Free up all the drives in the handle. */
 void
-guestfs___free_drives (guestfs_h *g)
+guestfs_int_free_drives (guestfs_h *g)
 {
   struct drive *drv;
   size_t i;
@@ -745,7 +745,7 @@ parse_servers (guestfs_h *g, char *const *strs,
                struct drive_server **servers_rtn)
 {
   size_t i;
-  size_t n = guestfs___count_strings (strs);
+  size_t n = guestfs_int_count_strings (strs);
   struct drive_server *servers;
 
   if (n == 0) {
@@ -1051,7 +1051,7 @@ guestfs__add_drive_scratch (guestfs_h *g, int64_t size,
    * because everything in g->tmpdir is 'rm -rf'd when the handle is
    * closed.
    */
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return -1;
   filename = safe_asprintf (g, "%s/scratch.%d", g->tmpdir, ++g->unique);
 
@@ -1127,13 +1127,13 @@ guestfs__remove_drive (guestfs_h *g, const char *label)
  * added atomicly.  Only used by guestfs_add_domain.
  */
 size_t
-guestfs___checkpoint_drives (guestfs_h *g)
+guestfs_int_checkpoint_drives (guestfs_h *g)
 {
   return g->nr_drives;
 }
 
 void
-guestfs___rollback_drives (guestfs_h *g, size_t old_i)
+guestfs_int_rollback_drives (guestfs_h *g, size_t old_i)
 {
   size_t i;
 
@@ -1153,10 +1153,10 @@ guestfs__debug_drives (guestfs_h *g)
   struct drive *drv;
 
   ITER_DRIVES (g, i, drv) {
-    guestfs___add_string_nodup (g, &ret, drive_to_string (g, drv));
+    guestfs_int_add_string_nodup (g, &ret, drive_to_string (g, drv));
   }
 
-  guestfs___end_stringsbuf (g, &ret);
+  guestfs_int_end_stringsbuf (g, &ret);
 
   return ret.argv;              /* caller frees */
 }

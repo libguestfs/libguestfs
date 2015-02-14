@@ -72,7 +72,7 @@ main (int argc, char *argv[])
   }
   if (STRNEQ (backend, "direct")) {
     fprintf (stderr, "%s: test skipped because backend isn't 'direct'.\n",
-             guestfs___program_name);
+             guestfs_int_program_name);
     free (backend);
     guestfs_close (g);
     exit (77);
@@ -177,7 +177,7 @@ start_thread (void *vi)
   }
 
   /* The error message should match the one printed by
-   * guestfs___launch_failed_error.  If not, it indicates a bug/race
+   * guestfs_int_launch_failed_error.  If not, it indicates a bug/race
    * in the appliance building code which is what this regression test
    * is designed to spot.
    */

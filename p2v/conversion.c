@@ -102,7 +102,7 @@ start_conversion (struct config *config,
   int ret = -1;
   int status;
   size_t i, len;
-  size_t nr_disks = guestfs___count_strings (config->disks);
+  size_t nr_disks = guestfs_int_count_strings (config->disks);
   struct data_conn data_conns[nr_disks];
   CLEANUP_FREE char *remote_dir = NULL, *libvirt_xml = NULL;
   time_t now;
@@ -193,7 +193,7 @@ start_conversion (struct config *config,
     exit (EXIT_FAILURE);
   }
   len = strlen (remote_dir);
-  guestfs___random_string (&remote_dir[len-8], 8);
+  guestfs_int_random_string (&remote_dir[len-8], 8);
   if (notify_ui)
     notify_ui (NOTIFY_LOG_DIR, remote_dir);
 
@@ -203,7 +203,7 @@ start_conversion (struct config *config,
     goto out;
 
 #if DEBUG_STDERR
-  fprintf (stderr, "%s: libvirt XML:\n%s", guestfs___program_name, libvirt_xml);
+  fprintf (stderr, "%s: libvirt XML:\n%s", guestfs_int_program_name, libvirt_xml);
 #endif
 
   /* Open the control connection and start conversion */
@@ -668,7 +668,7 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
         if (config->disks[i][0] == '/') {
         target_sd:
           memcpy (target_dev, "sd", 2);
-          guestfs___drive_name (i, &target_dev[2]);
+          guestfs_int_drive_name (i, &target_dev[2]);
         } else {
           if (strlen (config->disks[i]) <= sizeof (target_dev) - 1)
             strcpy (target_dev, config->disks[i]);

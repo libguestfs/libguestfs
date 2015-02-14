@@ -114,22 +114,22 @@ is_systemroot (guestfs_h *const g, const char *systemroot)
   char path[256];
 
   snprintf (path, sizeof path, "%s/system32", systemroot);
-  if (!guestfs___is_dir_nocase (g, path))
+  if (!guestfs_int_is_dir_nocase (g, path))
     return 0;
 
   snprintf (path, sizeof path, "%s/system32/config", systemroot);
-  if (!guestfs___is_dir_nocase (g, path))
+  if (!guestfs_int_is_dir_nocase (g, path))
     return 0;
 
   snprintf (path, sizeof path, "%s/system32/cmd.exe", systemroot);
-  if (!guestfs___is_file_nocase (g, path))
+  if (!guestfs_int_is_file_nocase (g, path))
     return 0;
 
   return 1;
 }
 
 char *
-guestfs___get_windows_systemroot (guestfs_h *g)
+guestfs_int_get_windows_systemroot (guestfs_h *g)
 {
   /* Check a predefined list of common windows system root locations */
   static const char *systemroots[] =
@@ -137,7 +137,7 @@ guestfs___get_windows_systemroot (guestfs_h *g)
 
   for (size_t i = 0; i < sizeof systemroots / sizeof systemroots[0]; ++i) {
     char *systemroot =
-      guestfs___case_sensitive_path_silently (g, systemroots[i]);
+      guestfs_int_case_sensitive_path_silently (g, systemroots[i]);
     if (!systemroot)
       continue;
 
@@ -153,7 +153,7 @@ guestfs___get_windows_systemroot (guestfs_h *g)
   /* If the fs contains boot.ini, check it for non-standard
    * systemroot locations */
   CLEANUP_FREE char *boot_ini_path =
-    guestfs___case_sensitive_path_silently (g, "/boot.ini");
+    guestfs_int_case_sensitive_path_silently (g, "/boot.ini");
   if (boot_ini_path && guestfs_is_file (g, boot_ini_path) > 0) {
     CLEANUP_FREE_STRING_LIST char **boot_ini =
       guestfs_read_lines (g, boot_ini_path);
@@ -218,7 +218,7 @@ guestfs___get_windows_systemroot (guestfs_h *g)
           if (*j == '\\') *j = '/';
         }
 
-        char *systemroot = guestfs___case_sensitive_path_silently (g, path);
+        char *systemroot = guestfs_int_case_sensitive_path_silently (g, path);
         if (systemroot && is_systemroot (g, systemroot)) {
           debug (g, "windows %%SYSTEMROOT%% = %s", systemroot);
 
@@ -234,13 +234,13 @@ guestfs___get_windows_systemroot (guestfs_h *g)
 }
 
 int
-guestfs___check_windows_root (guestfs_h *g, struct inspect_fs *fs,
+guestfs_int_check_windows_root (guestfs_h *g, struct inspect_fs *fs,
                               char *const systemroot)
 {
   fs->type = OS_TYPE_WINDOWS;
   fs->distro = OS_DISTRO_WINDOWS;
 
-  /* Freed by guestfs___free_inspect_info. */
+  /* Freed by guestfs_int_free_inspect_info. */
   fs->windows_systemroot = systemroot;
 
   if (check_windows_arch (g, fs) == -1)
@@ -272,7 +272,7 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
   char *arch = guestfs_file_architecture (g, cmd_exe_path);
 
   if (arch)
-    fs->arch = arch;        /* freed by guestfs___free_inspect_info */
+    fs->arch = arch;        /* freed by guestfs_int_free_inspect_info */
 
   return 0;
 }
@@ -346,13 +346,13 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
         goto out;
       char *major, *minor;
       if (match2 (g, version, re_windows_version, &major, &minor)) {
-        fs->major_version = guestfs___parse_unsigned_int (g, major);
+        fs->major_version = guestfs_int_parse_unsigned_int (g, major);
         free (major);
         if (fs->major_version == -1) {
           free (minor);
           goto out;
         }
-        fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+        fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
         free (minor);
         if (fs->minor_version == -1)
           goto out;
@@ -604,7 +604,7 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
  * You have to call guestfs_is_file{,_opts} etc.
  */
 char *
-guestfs___case_sensitive_path_silently (guestfs_h *g, const char *path)
+guestfs_int_case_sensitive_path_silently (guestfs_h *g, const char *path)
 {
   char *ret;
 

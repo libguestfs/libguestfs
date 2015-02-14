@@ -251,7 +251,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   /* Copy them into the return array. */
-  r = guestfs___safe_malloc (g, sizeof (PyObject *) * (*len_rtn));
+  r = guestfs_int_safe_malloc (g, sizeof (PyObject *) * (*len_rtn));
 
   i = 0;
   cb = guestfs_first_private (g, &key);

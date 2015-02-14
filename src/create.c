@@ -245,7 +245,7 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
   const char *compat = NULL;
   int clustersize = -1;
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (optionsv);
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
 
   /* If the filename is something like "file:foo" then qemu-img will
@@ -292,40 +292,40 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
   }
 
   /* Assemble the qemu-img command line. */
-  guestfs___cmd_add_arg (cmd, "qemu-img");
-  guestfs___cmd_add_arg (cmd, "create");
-  guestfs___cmd_add_arg (cmd, "-f");
-  guestfs___cmd_add_arg (cmd, "qcow2");
+  guestfs_int_cmd_add_arg (cmd, "qemu-img");
+  guestfs_int_cmd_add_arg (cmd, "create");
+  guestfs_int_cmd_add_arg (cmd, "-f");
+  guestfs_int_cmd_add_arg (cmd, "qcow2");
 
   /* -o parameter. */
   if (backingfile) {
     CLEANUP_FREE char *p = qemu_escape_param (g, backingfile);
-    guestfs___add_sprintf (g, &optionsv, "backing_file=%s", p);
+    guestfs_int_add_sprintf (g, &optionsv, "backing_file=%s", p);
   }
   if (backingformat)
-    guestfs___add_sprintf (g, &optionsv, "backing_fmt=%s", backingformat);
+    guestfs_int_add_sprintf (g, &optionsv, "backing_fmt=%s", backingformat);
   if (preallocation)
-    guestfs___add_sprintf (g, &optionsv, "preallocation=%s", preallocation);
+    guestfs_int_add_sprintf (g, &optionsv, "preallocation=%s", preallocation);
   if (compat)
-    guestfs___add_sprintf (g, &optionsv, "compat=%s", compat);
+    guestfs_int_add_sprintf (g, &optionsv, "compat=%s", compat);
   if (clustersize >= 0)
-    guestfs___add_sprintf (g, &optionsv, "cluster_size=%d", clustersize);
-  guestfs___end_stringsbuf (g, &optionsv);
+    guestfs_int_add_sprintf (g, &optionsv, "cluster_size=%d", clustersize);
+  guestfs_int_end_stringsbuf (g, &optionsv);
 
   if (optionsv.size > 1) {
-    CLEANUP_FREE char *options = guestfs___join_strings (",", optionsv.argv);
-    guestfs___cmd_add_arg (cmd, "-o");
-    guestfs___cmd_add_arg (cmd, options);
+    CLEANUP_FREE char *options = guestfs_int_join_strings (",", optionsv.argv);
+    guestfs_int_cmd_add_arg (cmd, "-o");
+    guestfs_int_cmd_add_arg (cmd, options);
   }
 
   /* Complete the command line. */
-  guestfs___cmd_add_arg (cmd, filename);
+  guestfs_int_cmd_add_arg (cmd, filename);
   if (size >= 0)
-    guestfs___cmd_add_arg_format (cmd, "%" PRIi64, size);
+    guestfs_int_cmd_add_arg_format (cmd, "%" PRIi64, size);
 
-  r = guestfs___cmd_run (cmd);
+  r = guestfs_int_cmd_run (cmd);
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "qemu-img", orig_filename);
+    guestfs_int_external_command_failed (g, r, "qemu-img", orig_filename);
     return -1;
   }
 

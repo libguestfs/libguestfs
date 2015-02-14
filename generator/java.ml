@@ -689,7 +689,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1set_1event_1callback
     return -1;
   }
 
-  data = guestfs___safe_malloc (g, sizeof *data);
+  data = guestfs_int_safe_malloc (g, sizeof *data);
   (*env)->GetJavaVM (env, &data->jvm);
   data->method = method;
 
@@ -768,7 +768,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   /* Copy them into the return array. */
-  r = guestfs___safe_malloc (g, sizeof (struct callback_data *) * (*len_rtn));
+  r = guestfs_int_safe_malloc (g, sizeof (struct callback_data *) * (*len_rtn));
 
   i = 0;
   data = guestfs_first_private (g, &key);
@@ -953,7 +953,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
             pr "  %s_size = (*env)->GetArrayLength (env, j%s);\n" n n
         | StringList n | DeviceList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-            pr "  %s = guestfs___safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  %s = guestfs_int_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;
@@ -979,7 +979,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
                 n n
           | OStringList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-            pr "  %s = guestfs___safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  %s = guestfs_int_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;

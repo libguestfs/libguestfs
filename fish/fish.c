@@ -103,7 +103,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   else {
     fprintf (stdout,
            _("%s: guest filesystem shell\n"
@@ -152,9 +152,9 @@ usage (int status)
              "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
              "\n"
              "For more information, see the manpage %s(1).\n"),
-             guestfs___program_name, guestfs___program_name, guestfs___program_name,
-             guestfs___program_name, guestfs___program_name, guestfs___program_name,
-             guestfs___program_name);
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
+             guestfs_int_program_name);
   }
   exit (status);
 }
@@ -251,7 +251,7 @@ main (int argc, char *argv[])
         if (optarg) {
           if (sscanf (optarg, "%d", &remote_control) != 1) {
             fprintf (stderr, _("%s: --listen=PID: PID was not a number: %s\n"),
-                     guestfs___program_name, optarg);
+                     guestfs_int_program_name, optarg);
             exit (EXIT_FAILURE);
           }
         } else {
@@ -259,7 +259,7 @@ main (int argc, char *argv[])
           if (!p || sscanf (p, "%d", &remote_control) != 1) {
             fprintf (stderr, _("%s: remote: $GUESTFISH_PID must be set"
                                " to the PID of the remote process\n"),
-                     guestfs___program_name);
+                     guestfs_int_program_name);
             exit (EXIT_FAILURE);
           }
         }
@@ -289,7 +289,7 @@ main (int argc, char *argv[])
         complete_dest_paths = 0;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -308,14 +308,14 @@ main (int argc, char *argv[])
 
     case 'D':
       fprintf (stderr, _("%s: warning: -D option is deprecated, use --no-dest-paths instead\n"),
-               guestfs___program_name);
+               guestfs_int_program_name);
       complete_dest_paths = 0;
       break;
 
     case 'f':
       if (file) {
         fprintf (stderr, _("%s: only one -f parameter can be given\n"),
-                 guestfs___program_name);
+                 guestfs_int_program_name);
         exit (EXIT_FAILURE);
       }
       file = optarg;
@@ -512,7 +512,7 @@ main (int argc, char *argv[])
   if (remote_control_listen && remote_control) {
     fprintf (stderr,
              _("%s: cannot use --listen and --remote options at the same time\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -520,13 +520,13 @@ main (int argc, char *argv[])
     if (optind < argc) {
       fprintf (stderr,
                _("%s: extra parameters on the command line with --listen flag\n"),
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
     if (file) {
       fprintf (stderr,
                _("%s: cannot use --listen and --file options at the same time\n"),
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
     rc_listen ();
@@ -859,7 +859,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
       if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
         fprintf (stderr,
                  _("%s: command arguments not separated by whitespace\n"),
-                 guestfs___program_name);
+                 guestfs_int_program_name);
         pcmd.status = -1;
         return pcmd;
       }
@@ -868,14 +868,14 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
       p++;
       len = strcspn (p, "'");
       if (p[len] == '\0') {
-        fprintf (stderr, _("%s: unterminated single quote\n"), guestfs___program_name);
+        fprintf (stderr, _("%s: unterminated single quote\n"), guestfs_int_program_name);
         pcmd.status = -1;
         return pcmd;
       }
       if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
         fprintf (stderr,
                  _("%s: command arguments not separated by whitespace\n"),
-                 guestfs___program_name);
+                 guestfs_int_program_name);
         pcmd.status = -1;
         return pcmd;
       }
@@ -899,7 +899,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
         pend = &p[len];
     } else {
       fprintf (stderr, _("%s: internal error parsing string at '%s'\n"),
-               guestfs___program_name, p);
+               guestfs_int_program_name, p);
       abort ();
     }
 
@@ -915,7 +915,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
   }
 
   if (i == argv_len) {
-    fprintf (stderr, _("%s: too many arguments\n"), guestfs___program_name);
+    fprintf (stderr, _("%s: too many arguments\n"), guestfs_int_program_name);
     pcmd.status = -1;
     return pcmd;
   }
@@ -991,7 +991,7 @@ parse_quoted_string (char *p)
       default:
       error:
         fprintf (stderr, _("%s: invalid escape sequence in string (starting at offset %d)\n"),
-                 guestfs___program_name, (int) (p - start));
+                 guestfs_int_program_name, (int) (p - start));
         return -1;
       }
       memmove (p+1, p+1+m, strlen (p+1+m) + 1);
@@ -999,7 +999,7 @@ parse_quoted_string (char *p)
   }
 
   if (!*p) {
-    fprintf (stderr, _("%s: unterminated double quote\n"), guestfs___program_name);
+    fprintf (stderr, _("%s: unterminated double quote\n"), guestfs_int_program_name);
     return -1;
   }
 
@@ -1062,7 +1062,7 @@ cmdline (char *argv[], size_t optind, size_t argc)
 
   cmd = argv[optind++];
   if (STREQ (cmd, ":")) {
-    fprintf (stderr, _("%s: empty command on command line\n"), guestfs___program_name);
+    fprintf (stderr, _("%s: empty command on command line\n"), guestfs_int_program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -1191,7 +1191,7 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd,
   }
   if (ferror (stdout)) {
     if (!pipecmd || pipe_error) {
-      fprintf (stderr, "%s: write error%s\n", guestfs___program_name,
+      fprintf (stderr, "%s: write error%s\n", guestfs_int_program_name,
                pipecmd ? " on pipe" : "");
       r = -1;
     }
@@ -1734,13 +1734,13 @@ win_prefix_drive_letter (char drive_letter, const char *path)
     return NULL;
   if (roots[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, you must inspect the guest (\"-i\" option or run \"inspect-os\" command)\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     return NULL;
   }
   drives = guestfs_inspect_get_drive_mappings (g, roots[0]);
   if (drives == NULL || drives[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     return NULL;
   }
 
@@ -1754,7 +1754,7 @@ win_prefix_drive_letter (char drive_letter, const char *path)
 
   if (device == NULL) {
     fprintf (stderr, _("%s: drive '%c:' not found.  To list available drives do:\n  inspect-get-drive-mappings %s\n"),
-             guestfs___program_name, drive_letter, roots[0]);
+             guestfs_int_program_name, drive_letter, roots[0]);
     return NULL;
   }
 
@@ -1773,7 +1773,7 @@ win_prefix_drive_letter (char drive_letter, const char *path)
 
   if (mountpoint == NULL) {
     fprintf (stderr, _("%s: to access '%c:', mount %s first.  One way to do this is:\n  umount-all\n  mount %s /\n"),
-             guestfs___program_name, drive_letter, device, device);
+             guestfs_int_program_name, drive_letter, device, device);
     return NULL;
   }
 
@@ -1810,7 +1810,7 @@ file_in (const char *arg)
     const char *endmarker = &arg[3];
     if (*endmarker == '\0') {
       fprintf (stderr, "%s: missing end marker in -<< expression\n",
-               guestfs___program_name);
+               guestfs_int_program_name);
       return NULL;
     }
     ret = file_in_heredoc (endmarker);
@@ -1875,7 +1875,7 @@ file_in_heredoc (const char *endmarker)
    * is likely to be an error.
    */
   fprintf (stderr, "%s: end of input reached without finding '%s'\n",
-           guestfs___program_name, endmarker);
+           guestfs_int_program_name, endmarker);
   goto error2;
 
  found_end:

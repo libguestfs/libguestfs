@@ -475,7 +475,7 @@ put_table (char * const * const argv)
            pr "  free (r);\n"
        | RStringList _ ->
            pr "  py_r = put_string_list (r);\n";
-           pr "  guestfs___free_string_list (r);\n"
+           pr "  guestfs_int_free_string_list (r);\n"
        | RStruct (_, typ) ->
            pr "  py_r = put_%s (r);\n" typ;
            pr "  guestfs_free_%s (r);\n" typ
@@ -484,7 +484,7 @@ put_table (char * const * const argv)
            pr "  guestfs_free_%s_list (r);\n" typ
        | RHashtable n ->
            pr "  py_r = put_table (r);\n";
-           pr "  guestfs___free_string_list (r);\n"
+           pr "  guestfs_int_free_string_list (r);\n"
        | RBufferOut _ ->
            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
            pr "  py_r = PyString_FromStringAndSize (r, size);\n";

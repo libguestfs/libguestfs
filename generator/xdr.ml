@@ -256,7 +256,7 @@ struct guestfs_chunk {
  *
  * Notes:
  *
- * (1) guestfs___recv_from_daemon assumes the XDR-encoded
+ * (1) guestfs_int_recv_from_daemon assumes the XDR-encoded
  * structure is 24 bytes long.
  *
  * (2) daemon/proto.c:async_safe_send_pulse assumes the progress

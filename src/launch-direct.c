@@ -111,11 +111,11 @@ create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
   CLEANUP_FREE char *backing_drive = NULL;
   struct guestfs_disk_create_argv optargs;
 
-  backing_drive = guestfs___drive_source_qemu_param (g, &drv->src);
+  backing_drive = guestfs_int_drive_source_qemu_param (g, &drv->src);
   if (!backing_drive)
     return NULL;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return NULL;
 
   overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, ++g->unique);
@@ -188,7 +188,7 @@ add_cmdline_shell_unquoted (guestfs_h *g, struct stringsbuf *sb,
     while (*nextp && *nextp == ' ')
       nextp++;
 
-    guestfs___add_string_nodup (g, sb,
+    guestfs_int_add_string_nodup (g, sb,
                                 safe_strndup (g, startp, endp-startp));
 
     options = nextp;
@@ -298,28 +298,28 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   has_kvm = is_openable (g, "/dev/kvm", O_RDWR|O_CLOEXEC);
 
-  force_tcg = guestfs___get_backend_setting_bool (g, "force_tcg");
+  force_tcg = guestfs_int_get_backend_setting_bool (g, "force_tcg");
   if (force_tcg == -1)
     return -1;
 
   if (!has_kvm && !force_tcg)
     debian_kvm_warning (g);
 
-  guestfs___launch_send_progress (g, 0);
+  guestfs_int_launch_send_progress (g, 0);
 
   TRACE0 (launch_build_appliance_start);
 
   /* Locate and/or build the appliance. */
-  if (guestfs___build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
+  if (guestfs_int_build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
     return -1;
   has_appliance_drive = appliance != NULL;
 
   TRACE0 (launch_build_appliance_end);
 
-  guestfs___launch_send_progress (g, 3);
+  guestfs_int_launch_send_progress (g, 3);
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "begin testing qemu features");
+    guestfs_int_print_timestamped_message (g, "begin testing qemu features");
 
   /* Get qemu help text and version. */
   if (qemu_supports (g, data, NULL) == -1)
@@ -359,18 +359,18 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "finished testing qemu features");
+    guestfs_int_print_timestamped_message (g, "finished testing qemu features");
 
   /* Construct the qemu command line.  We have to do this before
    * forking, because after fork we are not allowed to use
    * non-signal-safe functions such as malloc.
    */
 #define ADD_CMDLINE(str) \
-  guestfs___add_string (g, &cmdline, (str))
+  guestfs_int_add_string (g, &cmdline, (str))
 #define ADD_CMDLINE_STRING_NODUP(str) \
-  guestfs___add_string_nodup (g, &cmdline, (str))
+  guestfs_int_add_string_nodup (g, &cmdline, (str))
 #define ADD_CMDLINE_PRINTF(fs,...) \
-  guestfs___add_sprintf (g, &cmdline, (fs), ##__VA_ARGS__)
+  guestfs_int_add_sprintf (g, &cmdline, (fs), ##__VA_ARGS__)
 
   ADD_CMDLINE (g->hv);
 
@@ -414,13 +414,13 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 #endif
 
   /* See guestfs.pod / gdb */
-  if (guestfs___get_backend_setting_bool (g, "gdb") > 0) {
+  if (guestfs_int_get_backend_setting_bool (g, "gdb") > 0) {
     ADD_CMDLINE ("-S");
     ADD_CMDLINE ("-s");
     warning (g, "qemu debugging is enabled, connect gdb to tcp::1234 to begin");
   }
 
-  cpu_model = guestfs___get_cpu_model (has_kvm && !force_tcg);
+  cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);
   if (cpu_model) {
     ADD_CMDLINE ("-cpu");
     ADD_CMDLINE (cpu_model);
@@ -476,7 +476,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   /* UEFI (firmware) if required. */
-  if (guestfs___get_uefi (g, &uefi_code, &uefi_vars) == -1)
+  if (guestfs_int_get_uefi (g, &uefi_code, &uefi_vars) == -1)
     goto cleanup0;
   if (uefi_code) {
     ADD_CMDLINE ("-drive");
@@ -522,7 +522,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
          */
         break;
       case discard_enable:
-        if (!guestfs___discard_possible (g, drv, qemu_version))
+        if (!guestfs_int_discard_possible (g, drv, qemu_version))
           goto cleanup0;
         /*FALLTHROUGH*/
       case discard_besteffort:
@@ -535,7 +535,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       }
 
       /* Make the file= parameter. */
-      file = guestfs___drive_source_qemu_param (g, &drv->src);
+      file = guestfs_int_drive_source_qemu_param (g, &drv->src);
       escaped_file = qemu_escape_param (g, file);
 
       /* Make the first part of the -drive parameter, everything up to
@@ -660,7 +660,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   flags = 0;
   if (!has_kvm || force_tcg)
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
-  ADD_CMDLINE_STRING_NODUP (guestfs___appliance_command_line (g, appliance_dev,
+  ADD_CMDLINE_STRING_NODUP (guestfs_int_appliance_command_line (g, appliance_dev,
                                                               flags));
 
   /* Note: custom command line parameters must come last so that
@@ -683,7 +683,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   /* Finish off the command line. */
-  guestfs___end_stringsbuf (g, &cmdline);
+  guestfs_int_end_stringsbuf (g, &cmdline);
 
   r = fork ();
   if (r == -1) {
@@ -835,7 +835,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * virtio-serial and send the GUESTFS_LAUNCH_FLAG message.
    */
   g->conn =
-    guestfs___new_conn_socket_listening (g, daemon_accept_sock, console_sock);
+    guestfs_int_new_conn_socket_listening (g, daemon_accept_sock, console_sock);
   if (!g->conn)
     goto cleanup1;
 
@@ -846,7 +846,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (r == -1)
     goto cleanup1;
   if (r == 0) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup1;
   }
 
@@ -857,20 +857,20 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * able to open a drive.
    */
 
-  r = guestfs___recv_from_daemon (g, &size, &buf);
+  r = guestfs_int_recv_from_daemon (g, &size, &buf);
 
   if (r == -1) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup1;
   }
 
   if (size != GUESTFS_LAUNCH_FLAG) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup1;
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "appliance is up");
+    guestfs_int_print_timestamped_message (g, "appliance is up");
 
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then qemu immediately exits.  Check for
@@ -884,10 +884,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   TRACE0 (launch_end);
 
-  guestfs___launch_send_progress (g, 12);
+  guestfs_int_launch_send_progress (g, 12);
 
   if (has_appliance_drive)
-    guestfs___add_dummy_appliance_drive (g);
+    guestfs_int_add_dummy_appliance_drive (g);
 
   return 0;
 
@@ -944,7 +944,7 @@ make_appliance_dev (guestfs_h *g, int virtio_scsi)
   }
 
   dev[5] = virtio_scsi ? 's' : 'v';
-  guestfs___drive_name (index, &dev[7]);
+  guestfs_int_drive_name (index, &dev[7]);
 
   return safe_strdup (g, dev);  /* Caller frees. */
 }
@@ -962,7 +962,7 @@ print_qemu_command_line (guestfs_h *g, char **argv)
   struct timeval tv;
   gettimeofday (&tv, NULL);
   fprintf (stderr, "[%05" PRIi64 "ms] ",
-           guestfs___timeval_diff (&g->launch_t, &tv));
+           guestfs_int_timeval_diff (&g->launch_t, &tv));
 
   while (argv[i]) {
     if (argv[i][0] == '-') /* -option starts a new line */
@@ -992,9 +992,9 @@ static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 static int
 test_qemu (guestfs_h *g, struct backend_direct_data *data)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd1 = guestfs___new_command (g);
-  CLEANUP_CMD_CLOSE struct command *cmd2 = guestfs___new_command (g);
-  CLEANUP_CMD_CLOSE struct command *cmd3 = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd1 = guestfs_int_new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd2 = guestfs_int_new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd3 = guestfs_int_new_command (g);
   int r;
 
   free (data->qemu_help);
@@ -1004,44 +1004,44 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   free (data->qemu_devices);
   data->qemu_devices = NULL;
 
-  guestfs___cmd_add_arg (cmd1, g->hv);
-  guestfs___cmd_add_arg (cmd1, "-display");
-  guestfs___cmd_add_arg (cmd1, "none");
-  guestfs___cmd_add_arg (cmd1, "-help");
-  guestfs___cmd_set_stdout_callback (cmd1, read_all, &data->qemu_help,
+  guestfs_int_cmd_add_arg (cmd1, g->hv);
+  guestfs_int_cmd_add_arg (cmd1, "-display");
+  guestfs_int_cmd_add_arg (cmd1, "none");
+  guestfs_int_cmd_add_arg (cmd1, "-help");
+  guestfs_int_cmd_set_stdout_callback (cmd1, read_all, &data->qemu_help,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd1);
+  r = guestfs_int_cmd_run (cmd1);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
-  guestfs___cmd_add_arg (cmd2, g->hv);
-  guestfs___cmd_add_arg (cmd2, "-display");
-  guestfs___cmd_add_arg (cmd2, "none");
-  guestfs___cmd_add_arg (cmd2, "-version");
-  guestfs___cmd_set_stdout_callback (cmd2, read_all, &data->qemu_version,
+  guestfs_int_cmd_add_arg (cmd2, g->hv);
+  guestfs_int_cmd_add_arg (cmd2, "-display");
+  guestfs_int_cmd_add_arg (cmd2, "none");
+  guestfs_int_cmd_add_arg (cmd2, "-version");
+  guestfs_int_cmd_set_stdout_callback (cmd2, read_all, &data->qemu_version,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd2);
+  r = guestfs_int_cmd_run (cmd2);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
   parse_qemu_version (g, data);
 
-  guestfs___cmd_add_arg (cmd3, g->hv);
-  guestfs___cmd_add_arg (cmd3, "-display");
-  guestfs___cmd_add_arg (cmd3, "none");
+  guestfs_int_cmd_add_arg (cmd3, g->hv);
+  guestfs_int_cmd_add_arg (cmd3, "-display");
+  guestfs_int_cmd_add_arg (cmd3, "none");
 #ifdef MACHINE_TYPE
-  guestfs___cmd_add_arg (cmd3, "-M");
-  guestfs___cmd_add_arg (cmd3, MACHINE_TYPE);
+  guestfs_int_cmd_add_arg (cmd3, "-M");
+  guestfs_int_cmd_add_arg (cmd3, MACHINE_TYPE);
 #endif
-  guestfs___cmd_add_arg (cmd3, "-machine");
-  guestfs___cmd_add_arg (cmd3, "accel=kvm:tcg");
-  guestfs___cmd_add_arg (cmd3, "-device");
-  guestfs___cmd_add_arg (cmd3, "?");
-  guestfs___cmd_clear_capture_errors (cmd3);
-  guestfs___cmd_set_stderr_to_stdout (cmd3);
-  guestfs___cmd_set_stdout_callback (cmd3, read_all, &data->qemu_devices,
+  guestfs_int_cmd_add_arg (cmd3, "-machine");
+  guestfs_int_cmd_add_arg (cmd3, "accel=kvm:tcg");
+  guestfs_int_cmd_add_arg (cmd3, "-device");
+  guestfs_int_cmd_add_arg (cmd3, "?");
+  guestfs_int_cmd_clear_capture_errors (cmd3);
+  guestfs_int_cmd_set_stderr_to_stdout (cmd3);
+  guestfs_int_cmd_set_stdout_callback (cmd3, read_all, &data->qemu_devices,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd3);
+  r = guestfs_int_cmd_run (cmd3);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
@@ -1051,7 +1051,7 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   if (r == -1)
     return -1;
 
-  guestfs___external_command_failed (g, r, g->hv, NULL);
+  guestfs_int_external_command_failed (g, r, g->hv, NULL);
   return -1;
 }
 
@@ -1077,11 +1077,11 @@ parse_qemu_version (guestfs_h *g, struct backend_direct_data *data)
     return;
   }
 
-  major_i = guestfs___parse_unsigned_int (g, major_s);
+  major_i = guestfs_int_parse_unsigned_int (g, major_s);
   if (major_i == -1)
     goto parse_failed;
 
-  minor_i = guestfs___parse_unsigned_int (g, minor_s);
+  minor_i = guestfs_int_parse_unsigned_int (g, minor_s);
   if (minor_i == -1)
     goto parse_failed;
 
@@ -1265,7 +1265,7 @@ make_uri (guestfs_h *g, const char *scheme, const char *user,
  * part of a full -drive parameter (but not for qemu-img).
  */
 char *
-guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
+guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
 {
   char *path;
 
@@ -1424,7 +1424,7 @@ guestfs___drive_source_qemu_param (guestfs_h *g, const struct drive_source *src)
  * major * 1,000,000 + minor * 1,000 + release
  */
 bool
-guestfs___discard_possible (guestfs_h *g, struct drive *drv,
+guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
                             unsigned long qemu_version)
 {
   /* qemu >= 1.5.  This was the first version that supported the
@@ -1495,7 +1495,7 @@ guestfs___discard_possible (guestfs_h *g, struct drive *drv,
     NOT_SUPPORTED (g, -1,
                    _("discard cannot be enabled on this drive: "
                      "protocol '%s' does not support discard"),
-                   guestfs___drive_protocol_to_string (drv->src.protocol));
+                   guestfs_int_drive_protocol_to_string (drv->src.protocol));
   }
 
   return true;
@@ -1522,7 +1522,7 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
       ret = -1;
     }
     else if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      guestfs___external_command_failed (g, status, g->hv, NULL);
+      guestfs_int_external_command_failed (g, status, g->hv, NULL);
       ret = -1;
     }
   }
@@ -1578,5 +1578,5 @@ static void init_backend (void) __attribute__((constructor));
 static void
 init_backend (void)
 {
-  guestfs___register_backend ("direct", &backend_direct_ops);
+  guestfs_int_register_backend ("direct", &backend_direct_ops);
 }

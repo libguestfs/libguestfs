@@ -60,7 +60,7 @@ guestfs__journal_get (guestfs_h *g)
   size_t i, j, size;
   uint64_t len;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     goto err;
 
   tmpfile = safe_asprintf (g, "%s/journal%d", g->tmpdir, ++g->unique);

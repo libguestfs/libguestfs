@@ -38,19 +38,19 @@
  */
 
 void
-guestfs___cleanup_free (void *ptr)
+guestfs_int_cleanup_free (void *ptr)
 {
   free (* (void **) ptr);
 }
 
 void
-guestfs___cleanup_free_string_list (char ***ptr)
+guestfs_int_cleanup_free_string_list (char ***ptr)
 {
-  guestfs___free_string_list (*ptr);
+  guestfs_int_free_string_list (*ptr);
 }
 
 void
-guestfs___cleanup_hash_free (void *ptr)
+guestfs_int_cleanup_hash_free (void *ptr)
 {
   Hash_table *h = * (Hash_table **) ptr;
 
@@ -59,7 +59,7 @@ guestfs___cleanup_hash_free (void *ptr)
 }
 
 void
-guestfs___cleanup_unlink_free (char **ptr)
+guestfs_int_cleanup_unlink_free (char **ptr)
 {
   char *filename = *ptr;
 
@@ -70,7 +70,7 @@ guestfs___cleanup_unlink_free (char **ptr)
 }
 
 void
-guestfs___cleanup_xmlBufferFree (void *ptr)
+guestfs_int_cleanup_xmlBufferFree (void *ptr)
 {
   xmlBufferPtr xb = * (xmlBufferPtr *) ptr;
 
@@ -79,7 +79,7 @@ guestfs___cleanup_xmlBufferFree (void *ptr)
 }
 
 void
-guestfs___cleanup_xmlFreeDoc (void *ptr)
+guestfs_int_cleanup_xmlFreeDoc (void *ptr)
 {
   xmlDocPtr doc = * (xmlDocPtr *) ptr;
 
@@ -88,7 +88,7 @@ guestfs___cleanup_xmlFreeDoc (void *ptr)
 }
 
 void
-guestfs___cleanup_xmlFreeURI (void *ptr)
+guestfs_int_cleanup_xmlFreeURI (void *ptr)
 {
   xmlURIPtr uri = * (xmlURIPtr *) ptr;
 
@@ -97,7 +97,7 @@ guestfs___cleanup_xmlFreeURI (void *ptr)
 }
 
 void
-guestfs___cleanup_xmlFreeTextWriter (void *ptr)
+guestfs_int_cleanup_xmlFreeTextWriter (void *ptr)
 {
   xmlTextWriterPtr xo = * (xmlTextWriterPtr *) ptr;
 
@@ -106,7 +106,7 @@ guestfs___cleanup_xmlFreeTextWriter (void *ptr)
 }
 
 void
-guestfs___cleanup_xmlXPathFreeContext (void *ptr)
+guestfs_int_cleanup_xmlXPathFreeContext (void *ptr)
 {
   xmlXPathContextPtr ctx = * (xmlXPathContextPtr *) ptr;
 
@@ -115,7 +115,7 @@ guestfs___cleanup_xmlXPathFreeContext (void *ptr)
 }
 
 void
-guestfs___cleanup_xmlXPathFreeObject (void *ptr)
+guestfs_int_cleanup_xmlXPathFreeObject (void *ptr)
 {
   xmlXPathObjectPtr obj = * (xmlXPathObjectPtr *) ptr;
 
@@ -124,7 +124,7 @@ guestfs___cleanup_xmlXPathFreeObject (void *ptr)
 }
 
 void
-guestfs___cleanup_fclose (void *ptr)
+guestfs_int_cleanup_fclose (void *ptr)
 {
   FILE *f = * (FILE **) ptr;
 
@@ -133,7 +133,7 @@ guestfs___cleanup_fclose (void *ptr)
 }
 
 void
-guestfs___cleanup_pclose (void *ptr)
+guestfs_int_cleanup_pclose (void *ptr)
 {
   FILE *f = * (FILE **) ptr;
 

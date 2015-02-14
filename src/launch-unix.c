@@ -54,7 +54,7 @@ launch_unix (guestfs_h *g, void *datav, const char *sockpath)
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "connecting to %s", sockpath);
+    guestfs_int_print_timestamped_message (g, "connecting to %s", sockpath);
 
   daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (daemon_sock == -1) {
@@ -73,14 +73,14 @@ launch_unix (guestfs_h *g, void *datav, const char *sockpath)
     goto cleanup;
   }
 
-  g->conn = guestfs___new_conn_socket_connected (g, daemon_sock, -1);
+  g->conn = guestfs_int_new_conn_socket_connected (g, daemon_sock, -1);
   if (!g->conn)
     goto cleanup;
 
   /* g->conn now owns this socket. */
   daemon_sock = -1;
 
-  r = guestfs___recv_from_daemon (g, &size, &buf);
+  r = guestfs_int_recv_from_daemon (g, &size, &buf);
   free (buf);
 
   if (r == -1) goto cleanup;
@@ -91,7 +91,7 @@ launch_unix (guestfs_h *g, void *datav, const char *sockpath)
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "connected");
+    guestfs_int_print_timestamped_message (g, "connected");
 
   if (g->state != READY) {
     error (g, _("contacted guestfsd, but state != READY"));
@@ -130,5 +130,5 @@ static void init_backend (void) __attribute__((constructor));
 static void
 init_backend (void)
 {
-  guestfs___register_backend ("unix", &backend_unix_ops);
+  guestfs_int_register_backend ("unix", &backend_unix_ops);
 }

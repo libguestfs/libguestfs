@@ -85,7 +85,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   else {
     fprintf (stdout,
            _("%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -122,8 +122,8 @@ usage (int status)
              "                       Display LVM volume groups\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             guestfs___program_name, guestfs___program_name, guestfs___program_name,
-             guestfs___program_name);
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
+             guestfs_int_program_name);
   }
   exit (status);
 }
@@ -237,7 +237,7 @@ main (int argc, char *argv[])
         output |= OUTPUT_VGS;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -301,7 +301,7 @@ main (int argc, char *argv[])
    */
   if (human && csv) {
     fprintf (stderr, _("%s: you cannot use -h and --csv options together.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -808,7 +808,7 @@ parents_of_vg (char *vg)
   if (!pvuuids)
     exit (EXIT_FAILURE);
 
-  n = guestfs___count_strings (pvuuids);
+  n = guestfs_int_count_strings (pvuuids);
 
   ret = malloc ((n + 1) * sizeof (char *));
   if (!ret) {
@@ -889,7 +889,7 @@ write_row (const char *name, const char *type,
   }
   if ((columns & COLUMN_PARENTS)) {
     /* Internally comma-separated field. */
-    parents_str = guestfs___join_strings (",", parents);
+    parents_str = guestfs_int_join_strings (",", parents);
     strings[len++] = parents_str;
   }
   if ((columns & COLUMN_UUID))

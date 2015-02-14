@@ -60,7 +60,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   else {
     fprintf (stdout,
            _("%s: display log files in a virtual machine\n"
@@ -80,8 +80,8 @@ usage (int status)
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             guestfs___program_name, guestfs___program_name, guestfs___program_name,
-             guestfs___program_name);
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
+             guestfs_int_program_name);
   }
   exit (status);
 }
@@ -138,7 +138,7 @@ main (int argc, char *argv[])
         OPTION_format;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -241,7 +241,7 @@ do_log (void)
 
     fprintf (stderr,
              _("%s: Windows Event Log for pre-Vista guests is not supported.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     return -1;
   }
 
@@ -349,7 +349,7 @@ do_log_journal (void)
       if (strftime (buf, sizeof buf, "%b %d %H:%M:%S",
                     localtime_r (&t, &tm)) <= 0) {
         fprintf (stderr, _("%s: could not format journal entry timestamp\n"),
-                 guestfs___program_name);
+                 guestfs_int_program_name);
         errors++;
         continue;
       }
@@ -418,7 +418,7 @@ do_log_windows_evtx (void)
                        "in order to parse Windows Event Logs.  If you cannot install this, then\n"
                        "use virt-copy-out(1) to copy the contents of /Windows/System32/winevt/Logs\n"
                        "from this guest, and examine in a binary file viewer.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     return -1;
   }
 
@@ -434,7 +434,7 @@ do_log_windows_evtx (void)
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1,
                             -1) <= 0) {
     fprintf (stderr, _("%s: Windows Event Log file (%s) not found\n"),
-             guestfs___program_name, filename);
+             guestfs_int_program_name, filename);
     return -1;
   }
 
@@ -466,8 +466,8 @@ do_log_windows_evtx (void)
   if (status) {
     char buf[256];
     fprintf (stderr, "%s: %s\n",
-             guestfs___program_name,
-             guestfs___exit_status_to_string (status, "evtxdump.py",
+             guestfs_int_program_name,
+             guestfs_int_exit_status_to_string (status, "evtxdump.py",
                                               buf, sizeof buf));
     return -1;
   }

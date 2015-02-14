@@ -63,7 +63,7 @@ usage (int status)
 
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n%s\n"),
-             guestfs___program_name, warning);
+             guestfs_int_program_name, warning);
   else {
     fprintf (stdout,
            _("%s: erase and make a blank disk\n"
@@ -88,7 +88,7 @@ usage (int status)
              "For more information, see the manpage %s(1).\n"
              "\n"
              "%s\n\n"),
-             guestfs___program_name, warning, guestfs___program_name, guestfs___program_name,
+             guestfs_int_program_name, warning, guestfs_int_program_name, guestfs_int_program_name,
              warning);
   }
   exit (status);
@@ -146,7 +146,7 @@ main (int argc, char *argv[])
           filesystem = NULL;
         else if (optarg[0] == '-') { /* eg: --filesystem --lvm */
           fprintf (stderr, _("%s: no filesystem was specified\n"),
-                   guestfs___program_name);
+                   guestfs_int_program_name);
           exit (EXIT_FAILURE);
         } else
           filesystem = optarg;
@@ -154,7 +154,7 @@ main (int argc, char *argv[])
         if (vg || lv) {
           fprintf (stderr,
                    _("%s: --lvm option cannot be given multiple times\n"),
-                   guestfs___program_name);
+                   guestfs_int_program_name);
           exit (EXIT_FAILURE);
         }
         if (optarg == NULL) {
@@ -179,7 +179,7 @@ main (int argc, char *argv[])
         label = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -272,7 +272,7 @@ main (int argc, char *argv[])
                  "may mean there is some sort of partition table or disk\n"
                  "data which we are unable to remove.  If you think this\n"
                  "is a bug, please file a bug at http://libguestfs.org/\n"),
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
   }
@@ -310,7 +310,7 @@ parse_vg_lv (const char *lvm)
   } else {
   cannot_parse:
     fprintf (stderr, _("%s: cannot parse --lvm option (%s)\n"),
-             guestfs___program_name, lvm);
+             guestfs_int_program_name, lvm);
     exit (EXIT_FAILURE);
   }
 

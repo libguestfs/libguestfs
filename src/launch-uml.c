@@ -55,25 +55,25 @@ static void print_vmlinux_command_line (guestfs_h *g, char **argv);
 static char *
 make_cow_overlay (guestfs_h *g, const char *original)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   char *overlay;
   int r;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return NULL;
 
   overlay = safe_asprintf (g, "%s/overlay%d", g->tmpdir, g->unique++);
 
-  guestfs___cmd_add_arg (cmd, "uml_mkcow");
-  guestfs___cmd_add_arg (cmd, overlay);
-  guestfs___cmd_add_arg (cmd, original);
-  r = guestfs___cmd_run (cmd);
+  guestfs_int_cmd_add_arg (cmd, "uml_mkcow");
+  guestfs_int_cmd_add_arg (cmd, overlay);
+  guestfs_int_cmd_add_arg (cmd, original);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1) {
     free (overlay);
     return NULL;
   }
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "uml_mkcow", original);
+    guestfs_int_external_command_failed (g, r, "uml_mkcow", original);
     free (overlay);
     return NULL;
   }
@@ -171,13 +171,13 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   }
 
   /* Assign a random unique ID to this run. */
-  if (guestfs___random_string (data->umid, UML_UMID_LEN) == -1) {
-    perrorf (g, "guestfs___random_string");
+  if (guestfs_int_random_string (data->umid, UML_UMID_LEN) == -1) {
+    perrorf (g, "guestfs_int_random_string");
     return -1;
   }
 
   /* Locate and/or build the appliance. */
-  if (guestfs___build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
+  if (guestfs_int_build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
     return -1;
   has_appliance_drive = appliance != NULL;
 
@@ -213,9 +213,9 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
    * non-signal-safe functions such as malloc.
    */
 #define ADD_CMDLINE(str) \
-  guestfs___add_string (g, &cmdline, (str))
+  guestfs_int_add_string (g, &cmdline, (str))
 #define ADD_CMDLINE_PRINTF(fs,...) \
-  guestfs___add_sprintf (g, &cmdline, (fs), ##__VA_ARGS__)
+  guestfs_int_add_sprintf (g, &cmdline, (fs), ##__VA_ARGS__)
 
   ADD_CMDLINE (g->hv);
 
@@ -239,7 +239,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
    */
   ADD_CMDLINE ("rw");
 
-  /* See also guestfs___appliance_command_line. */
+  /* See also guestfs_int_appliance_command_line. */
   if (g->verbose)
     ADD_CMDLINE ("guestfs_verbose=1");
 
@@ -267,7 +267,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   /* Add the ext2 appliance drive (after all the drives). */
   if (has_appliance_drive) {
     char drv_name[64] = "ubd";
-    guestfs___drive_name (g->nr_drives, &drv_name[3]);
+    guestfs_int_drive_name (g->nr_drives, &drv_name[3]);
 
     ADD_CMDLINE_PRINTF ("ubd%zu=%s", g->nr_drives, appliance_cow);
     ADD_CMDLINE_PRINTF ("root=/dev/%s", drv_name);
@@ -296,7 +296,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
     }
 
   /* Finish off the command line. */
-  guestfs___end_stringsbuf (g, &cmdline);
+  guestfs_int_end_stringsbuf (g, &cmdline);
 
   r = fork ();
   if (r == -1) {
@@ -449,7 +449,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
    * virtio-serial and send the GUESTFS_LAUNCH_FLAG message.
    */
   g->conn =
-    guestfs___new_conn_socket_connected (g, daemon_sock, console_sock);
+    guestfs_int_new_conn_socket_connected (g, daemon_sock, console_sock);
   if (!g->conn)
     goto cleanup1;
 
@@ -459,20 +459,20 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   /* We now have to wait for vmlinux to start up, the daemon to start
    * running, and for it to send the GUESTFS_LAUNCH_FLAG to us.
    */
-  r = guestfs___recv_from_daemon (g, &size, &buf);
+  r = guestfs_int_recv_from_daemon (g, &size, &buf);
 
   if (r == -1) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup1;
   }
 
   if (size != GUESTFS_LAUNCH_FLAG) {
-    guestfs___launch_failed_error (g);
+    guestfs_int_launch_failed_error (g);
     goto cleanup1;
   }
 
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "appliance is up");
+    guestfs_int_print_timestamped_message (g, "appliance is up");
 
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then vmlinux immediately exits.  Check
@@ -485,7 +485,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   }
 
   if (has_appliance_drive)
-    guestfs___add_dummy_appliance_drive (g);
+    guestfs_int_add_dummy_appliance_drive (g);
 
   return 0;
 
@@ -530,7 +530,7 @@ print_vmlinux_command_line (guestfs_h *g, char **argv)
   struct timeval tv;
   gettimeofday (&tv, NULL);
   fprintf (stderr, "[%05" PRIi64 "ms] ",
-           guestfs___timeval_diff (&g->launch_t, &tv));
+           guestfs_int_timeval_diff (&g->launch_t, &tv));
 
   while (argv[i]) {
     if (i > 0) fputc (' ', stderr);
@@ -577,7 +577,7 @@ shutdown_uml (guestfs_h *g, void *datav, int check_for_errors)
     else if (!(WIFSIGNALED (status) && WTERMSIG (status) == SIGTERM) &&
              !(WIFEXITED (status) && WEXITSTATUS (status) == 0) &&
              !(WIFEXITED (status) && WEXITSTATUS (status) == 1)) {
-      guestfs___external_command_failed (g, status, g->hv, NULL);
+      guestfs_int_external_command_failed (g, status, g->hv, NULL);
       ret = -1;
     }
   }
@@ -626,5 +626,5 @@ static void init_backend (void) __attribute__((constructor));
 static void
 init_backend (void)
 {
-  guestfs___register_backend ("uml", &backend_uml_ops);
+  guestfs_int_register_backend ("uml", &backend_uml_ops);
 }

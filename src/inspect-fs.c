@@ -89,7 +89,7 @@ static int get_partition_context (guestfs_h *g, const char *partition, int *part
  * another entry in g->fses.
  */
 int
-guestfs___check_for_filesystem_on (guestfs_h *g, const char *mountable)
+guestfs_int_check_for_filesystem_on (guestfs_h *g, const char *mountable)
 {
   CLEANUP_FREE char *vfs_type = NULL;
   int is_swap, r;
@@ -134,7 +134,7 @@ guestfs___check_for_filesystem_on (guestfs_h *g, const char *mountable)
       return -1;
     fs = &g->fses[g->nr_fses-1];
 
-    r = guestfs___check_installer_iso (g, fs, m->im_device);
+    r = guestfs_int_check_installer_iso (g, fs, m->im_device);
     if (r == -1) {              /* Fatal error. */
       g->nr_fses--;
       return -1;
@@ -184,7 +184,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
     return -1;
 
   if (!whole_device && m->im_type == MOUNTABLE_DEVICE &&
-      guestfs___is_partition (g, m->im_device)) {
+      guestfs_int_is_partition (g, m->im_device)) {
     if (get_partition_context (g, m->im_device,
                                &partnum, &nr_partitions) == -1)
       return -1;
@@ -219,7 +219,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
 
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
-    if (guestfs___check_freebsd_root (g, fs) == -1)
+    if (guestfs_int_check_freebsd_root (g, fs) == -1)
       return -1;
   }
   else if (is_dir_etc &&
@@ -237,7 +237,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
 
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
-    if (guestfs___check_netbsd_root (g, fs) == -1)
+    if (guestfs_int_check_netbsd_root (g, fs) == -1)
       return -1;
   }
   /* Hurd root? */
@@ -246,7 +246,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_file (g, "/hurd/null") > 0) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED; /* XXX could be more specific */
-    if (guestfs___check_hurd_root (g, fs) == -1)
+    if (guestfs_int_check_hurd_root (g, fs) == -1)
       return -1;
   }
   /* Minix root? */
@@ -257,7 +257,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_file (g, "/etc/version") > 0) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
-    if (guestfs___check_minix_root (g, fs) == -1)
+    if (guestfs_int_check_minix_root (g, fs) == -1)
       return -1;
   }
   /* Linux root? */
@@ -268,7 +268,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_file (g, "/etc/fstab") > 0) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
-    if (guestfs___check_linux_root (g, fs) == -1)
+    if (guestfs_int_check_linux_root (g, fs) == -1)
       return -1;
   }
   /* Linux /usr/local? */
@@ -291,23 +291,23 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_dir (g, "/spool") > 0)
     ;
   /* Windows root? */
-  else if ((windows_systemroot = guestfs___get_windows_systemroot (g)) != NULL)
+  else if ((windows_systemroot = guestfs_int_get_windows_systemroot (g)) != NULL)
   {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
-    if (guestfs___check_windows_root (g, fs, windows_systemroot) == -1)
+    if (guestfs_int_check_windows_root (g, fs, windows_systemroot) == -1)
       return -1;
   }
   /* Windows volume with installed applications (but not root)? */
-  else if (guestfs___is_dir_nocase (g, "/System Volume Information") > 0 &&
-           guestfs___is_dir_nocase (g, "/Program Files") > 0)
+  else if (guestfs_int_is_dir_nocase (g, "/System Volume Information") > 0 &&
+           guestfs_int_is_dir_nocase (g, "/Program Files") > 0)
     ;
   /* Windows volume (but not root)? */
-  else if (guestfs___is_dir_nocase (g, "/System Volume Information") > 0)
+  else if (guestfs_int_is_dir_nocase (g, "/System Volume Information") > 0)
     ;
   /* FreeDOS? */
-  else if (guestfs___is_dir_nocase (g, "/FDOS") > 0 &&
-           guestfs___is_file_nocase (g, "/FDOS/FREEDOS.BSS") > 0) {
+  else if (guestfs_int_is_dir_nocase (g, "/FDOS") > 0 &&
+           guestfs_int_is_file_nocase (g, "/FDOS/FREEDOS.BSS") > 0) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
     fs->type = OS_TYPE_DOS;
@@ -338,15 +338,15 @@ check_filesystem (guestfs_h *g, const char *mountable,
             guestfs_is_file (g, "/boot/loader.rc") > 0)) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLER;
-    if (guestfs___check_installer_root (g, fs) == -1)
+    if (guestfs_int_check_installer_root (g, fs) == -1)
       return -1;
   }
 
   /* The above code should have set fs->type and fs->distro fields, so
    * we can now guess the package management system.
    */
-  guestfs___check_package_format (g, fs);
-  guestfs___check_package_management (g, fs);
+  guestfs_int_check_package_format (g, fs);
+  guestfs_int_check_package_management (g, fs);
 
   return 0;
 }
@@ -402,12 +402,12 @@ get_partition_context (guestfs_h *g, const char *partition,
 }
 
 int
-guestfs___is_file_nocase (guestfs_h *g, const char *path)
+guestfs_int_is_file_nocase (guestfs_h *g, const char *path)
 {
   CLEANUP_FREE char *p = NULL;
   int r;
 
-  p = guestfs___case_sensitive_path_silently (g, path);
+  p = guestfs_int_case_sensitive_path_silently (g, path);
   if (!p)
     return 0;
   r = guestfs_is_file (g, p);
@@ -415,12 +415,12 @@ guestfs___is_file_nocase (guestfs_h *g, const char *path)
 }
 
 int
-guestfs___is_dir_nocase (guestfs_h *g, const char *path)
+guestfs_int_is_dir_nocase (guestfs_h *g, const char *path)
 {
   CLEANUP_FREE char *p = NULL;
   int r;
 
-  p = guestfs___case_sensitive_path_silently (g, path);
+  p = guestfs_int_case_sensitive_path_silently (g, path);
   if (!p)
     return 0;
   r = guestfs_is_dir (g, p);
@@ -429,7 +429,7 @@ guestfs___is_dir_nocase (guestfs_h *g, const char *path)
 
 /* Parse small, unsigned ints, as used in version numbers. */
 int
-guestfs___parse_unsigned_int (guestfs_h *g, const char *str)
+guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str)
 {
   long ret;
   int r = xstrtol (str, NULL, 10, &ret, "");
@@ -442,7 +442,7 @@ guestfs___parse_unsigned_int (guestfs_h *g, const char *str)
 
 /* Like parse_unsigned_int, but ignore trailing stuff. */
 int
-guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
+guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
 {
   long ret;
   int r = xstrtol (str, NULL, 10, &ret, NULL);
@@ -455,18 +455,18 @@ guestfs___parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
 
 /* Parse generic MAJOR.MINOR from the fs->product_name string. */
 int
-guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
 {
   char *major, *minor;
 
   if (match2 (g, fs->product_name, re_major_minor, &major, &minor)) {
-    fs->major_version = guestfs___parse_unsigned_int (g, major);
+    fs->major_version = guestfs_int_parse_unsigned_int (g, major);
     free (major);
     if (fs->major_version == -1) {
       free (minor);
       return -1;
     }
-    fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+    fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
     free (minor);
     if (fs->minor_version == -1)
       return -1;
@@ -479,7 +479,7 @@ guestfs___parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
  * can never return an error.  We might be cleverer in future.
  */
 void
-guestfs___check_package_format (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_package_format (guestfs_h *g, struct inspect_fs *fs)
 {
   switch (fs->distro) {
   case OS_DISTRO_FEDORA:
@@ -527,7 +527,7 @@ guestfs___check_package_format (guestfs_h *g, struct inspect_fs *fs)
 }
 
 void
-guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs)
 {
   switch (fs->distro) {
   case OS_DISTRO_FEDORA:
@@ -593,7 +593,7 @@ guestfs___check_package_management (guestfs_h *g, struct inspect_fs *fs)
  * will usually need to check for this case.
  */
 char *
-guestfs___first_line_of_file (guestfs_h *g, const char *filename)
+guestfs_int_first_line_of_file (guestfs_h *g, const char *filename)
 {
   char **lines = NULL; /* sic: not CLEANUP_FREE_STRING_LIST */
   int64_t size;
@@ -616,7 +616,7 @@ guestfs___first_line_of_file (guestfs_h *g, const char *filename)
   if (lines == NULL)
     return NULL;
   if (lines[0] == NULL) {
-    guestfs___free_string_list (lines);
+    guestfs_int_free_string_list (lines);
     /* Empty file: Return an empty string as explained above. */
     return safe_strdup (g, "");
   }
@@ -637,7 +637,7 @@ guestfs___first_line_of_file (guestfs_h *g, const char *filename)
  *          -1 = error
  */
 int
-guestfs___first_egrep_of_file (guestfs_h *g, const char *filename,
+guestfs_int_first_egrep_of_file (guestfs_h *g, const char *filename,
                                const char *eregex, int iflag, char **ret)
 {
   char **lines;
@@ -668,7 +668,7 @@ guestfs___first_egrep_of_file (guestfs_h *g, const char *filename,
   if (lines == NULL)
     return -1;
   if (lines[0] == NULL) {
-    guestfs___free_string_list (lines);
+    guestfs_int_free_string_list (lines);
     return 0;
   }
 

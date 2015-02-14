@@ -43,7 +43,7 @@ static void read_db_dump_line (guestfs_h *g, void *datav, const char *line, size
 static unsigned char *convert_hex_to_binary (guestfs_h *g, const char *hex, size_t hexlen, size_t *binlen_rtn);
 
 struct cb_data {
-  guestfs___db_dump_callback callback;
+  guestfs_int_db_dump_callback callback;
   void *opaque;
   enum { reading_header,
          reading_key, reading_value,
@@ -58,12 +58,12 @@ struct cb_data {
  * database format.
  */
 int
-guestfs___read_db_dump (guestfs_h *g,
+guestfs_int_read_db_dump (guestfs_h *g,
                         const char *dumpfile, void *opaque,
-                        guestfs___db_dump_callback callback)
+                        guestfs_int_db_dump_callback callback)
 {
   struct cb_data data;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
 
   data.callback = callback;
@@ -71,18 +71,18 @@ guestfs___read_db_dump (guestfs_h *g,
   data.state = reading_header;
   data.key = NULL;
 
-  guestfs___cmd_add_arg (cmd, DB_DUMP);
-  guestfs___cmd_add_arg (cmd, "-k");
-  guestfs___cmd_add_arg (cmd, dumpfile);
-  guestfs___cmd_set_stdout_callback (cmd, read_db_dump_line, &data, 0);
+  guestfs_int_cmd_add_arg (cmd, DB_DUMP);
+  guestfs_int_cmd_add_arg (cmd, "-k");
+  guestfs_int_cmd_add_arg (cmd, dumpfile);
+  guestfs_int_cmd_set_stdout_callback (cmd, read_db_dump_line, &data, 0);
 
-  r = guestfs___cmd_run (cmd);
+  r = guestfs_int_cmd_run (cmd);
   free (data.key);
 
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, DB_DUMP, NULL);
+    guestfs_int_external_command_failed (g, r, DB_DUMP, NULL);
     return -1;
   }
   if (data.state != reading_finished) {

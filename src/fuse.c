@@ -992,7 +992,7 @@ guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
   arg_error:
     perrorf (g, _("fuse_opt_add_arg: %s"), localmountpoint);
     fuse_opt_free_args (&args);
-    guestfs___free_fuse (g);
+    guestfs_int_free_fuse (g);
     return -1;
   }
 
@@ -1009,7 +1009,7 @@ guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
   if (ch == NULL) {
     perrorf (g, _("fuse_mount: %s"), localmountpoint);
     fuse_opt_free_args (&args);
-    guestfs___free_fuse (g);
+    guestfs_int_free_fuse (g);
     return -1;
   }
 
@@ -1028,7 +1028,7 @@ guestfs__mount_local (guestfs_h *g, const char *localmountpoint,
     perrorf (g, _("fuse_new: %s"), localmountpoint);
     fuse_unmount (localmountpoint, ch);
     fuse_opt_free_args (&args);
-    guestfs___free_fuse (g);
+    guestfs_int_free_fuse (g);
     return -1;
   }
 
@@ -1079,7 +1079,7 @@ guestfs__mount_local_run (guestfs_h *g)
 
   debug (g, "%s: leaving fuse_loop", __func__);
 
-  guestfs___free_fuse (g);
+  guestfs_int_free_fuse (g);
   gl_lock_lock (mount_local_lock);
   g->localmountpoint = NULL;
   gl_lock_unlock (mount_local_lock);
@@ -1091,7 +1091,7 @@ guestfs__mount_local_run (guestfs_h *g)
 }
 
 void
-guestfs___free_fuse (guestfs_h *g)
+guestfs_int_free_fuse (guestfs_h *g)
 {
   if (g->fuse)
     fuse_destroy (g->fuse);     /* also closes the channel */
@@ -1130,11 +1130,11 @@ guestfs__umount_local (guestfs_h *g,
   }
 
   /* Run guestunmount --retry=... localmountpoint. */
-  cmd = guestfs___new_command (g);
-  guestfs___cmd_add_arg (cmd, "guestunmount");
-  guestfs___cmd_add_arg (cmd, retry);
-  guestfs___cmd_add_arg (cmd, localmountpoint);
-  r = guestfs___cmd_run (cmd);
+  cmd = guestfs_int_new_command (g);
+  guestfs_int_cmd_add_arg (cmd, "guestunmount");
+  guestfs_int_cmd_add_arg (cmd, retry);
+  guestfs_int_cmd_add_arg (cmd, localmountpoint);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return -1;
   if (WIFEXITED (r) && WEXITSTATUS (r) == EXIT_SUCCESS)

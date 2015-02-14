@@ -53,7 +53,7 @@ main (int argc, char *argv[])
   strs = guestfs_get_backend_settings (g);
   assert (strs != NULL);
   assert (strs[0] == NULL);
-  guestfs___free_string_list (strs);
+  guestfs_int_free_string_list (strs);
 
   guestfs_push_error_handler (g, NULL, NULL);
   str = guestfs_get_backend_setting (g, "foo");
@@ -97,7 +97,7 @@ main (int argc, char *argv[])
     assert (STREQ (strs[3], "bar"));
     assert (STREQ (strs[4], "baz=value"));
     assert (strs[5] == NULL);
-    guestfs___free_string_list (strs);
+    guestfs_int_free_string_list (strs);
 
     str = guestfs_get_backend_setting (g, "bar");
     assert (str != NULL);
@@ -140,7 +140,7 @@ main (int argc, char *argv[])
     strs = guestfs_get_backend_settings (g);
     assert (strs != NULL);
     assert (strs[0] == NULL);
-    guestfs___free_string_list (strs);
+    guestfs_int_free_string_list (strs);
   }
 
   guestfs_close (g);

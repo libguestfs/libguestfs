@@ -66,7 +66,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   const char *cachemode;
   const char *discard;
   bool copyonread;
-  struct guestfs___add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
+  struct guestfs_int_add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
 
   libvirturi = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIBVIRTURI_BITMASK
                ? optargs->libvirturi : NULL;
@@ -93,7 +93,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
   }
 
   /* Connect to libvirt, find the domain. */
-  conn = guestfs___open_libvirt_connection (g, libvirturi, VIR_CONNECT_RO);
+  conn = guestfs_int_open_libvirt_connection (g, libvirturi, VIR_CONNECT_RO);
   if (!conn) {
     err = virGetLastError ();
     error (g, _("could not connect to libvirt (code %d, domain %d): %s"),
@@ -151,7 +151,7 @@ guestfs__add_domain (guestfs_h *g, const char *domain_name,
     optargs2.copyonread = copyonread;
   }
 
-  r = guestfs___add_libvirt_dom (g, dom, &optargs2);
+  r = guestfs_int_add_libvirt_dom (g, dom, &optargs2);
 
  cleanup:
   if (dom) virDomainFree (dom);
@@ -178,8 +178,8 @@ struct add_disk_data {
 };
 
 GUESTFS_DLL_PUBLIC int
-guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
-                           const struct guestfs___add_libvirt_dom_argv *optargs)
+guestfs_int_add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
+                           const struct guestfs_int_add_libvirt_dom_argv *optargs)
 {
   ssize_t r;
   int readonly;
@@ -309,10 +309,10 @@ guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom,
   /* Checkpoint the command line around the operation so that either
    * all disks are added or none are added.
    */
-  ckp = guestfs___checkpoint_drives (g);
+  ckp = guestfs_int_checkpoint_drives (g);
   r = for_each_disk (g, doc, add_disk, &data);
   if (r == -1)
-    guestfs___rollback_drives (g, ckp);
+    guestfs_int_rollback_drives (g, ckp);
 
   return r;
 }

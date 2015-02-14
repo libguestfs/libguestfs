@@ -115,7 +115,7 @@ struct guestfs_application2_list *
 guestfs__inspect_list_applications2 (guestfs_h *g, const char *root)
 {
   struct guestfs_application2_list *ret = NULL;
-  struct inspect_fs *fs = guestfs___search_for_root (g, root);
+  struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
     return NULL;
 
@@ -353,20 +353,20 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   struct guestfs_application2_list *apps = NULL;
   struct read_package_data data;
 
-  Name = guestfs___download_to_tmp (g, fs,
+  Name = guestfs_int_download_to_tmp (g, fs,
                                     "/var/lib/rpm/Name", "rpm_Name",
                                     MAX_PKG_DB_SIZE);
   if (Name == NULL)
     goto error;
 
-  Packages = guestfs___download_to_tmp (g, fs,
+  Packages = guestfs_int_download_to_tmp (g, fs,
                                         "/var/lib/rpm/Packages", "rpm_Packages",
                                         MAX_PKG_DB_SIZE);
   if (Packages == NULL)
     goto error;
 
   /* Read Name database. */
-  if (guestfs___read_db_dump (g, Name, &list, read_rpm_name) == -1)
+  if (guestfs_int_read_db_dump (g, Name, &list, read_rpm_name) == -1)
     goto error;
 
   /* Sort the names by link field for fast searching. */
@@ -380,7 +380,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   /* Read Packages database. */
   data.list = &list;
   data.apps = apps;
-  if (guestfs___read_db_dump (g, Packages, &data, read_package) == -1)
+  if (guestfs_int_read_db_dump (g, Packages, &data, read_package) == -1)
     goto error;
 
   free_rpm_names_list (&list);
@@ -407,7 +407,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   CLEANUP_FREE char *name = NULL, *version = NULL, *release = NULL, *arch = NULL;
   int installed_flag = 0;
 
-  status = guestfs___download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
+  status = guestfs_int_download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
                                       MAX_PKG_DB_SIZE);
   if (status == NULL)
     return NULL;

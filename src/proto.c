@@ -60,24 +60,24 @@
  * (2) A simple RPC (eg. "mount").  We write the request, then read
  * the reply.  The sequence of calls is:
  *
- *   guestfs___send
- *   guestfs___recv
+ *   guestfs_int_send
+ *   guestfs_int_recv
  *
  * (3) An RPC with FileOut parameters (eg. "upload").  We write the
  * request, then write the file(s), then read the reply.  The sequence
  * of calls is:
  *
- *   guestfs___send
- *   guestfs___send_file  (possibly multiple times)
- *   guestfs___recv
+ *   guestfs_int_send
+ *   guestfs_int_send_file  (possibly multiple times)
+ *   guestfs_int_recv
  *
  * (4) An RPC with FileIn parameters (eg. "download").  We write the
  * request, then read the reply, then read the file(s).  The sequence
  * of calls is:
  *
- *   guestfs___send
- *   guestfs___recv
- *   guestfs___recv_file  (possibly multiple times)
+ *   guestfs_int_send
+ *   guestfs_int_recv
+ *   guestfs_int_recv_file  (possibly multiple times)
  *
  * (5) Both FileOut and FileIn parameters.  There are no calls like
  * this in the current API, but they would be implemented as a
@@ -101,14 +101,14 @@ child_cleanup (guestfs_h *g)
     g->conn = NULL;
   }
   memset (&g->launch_t, 0, sizeof g->launch_t);
-  guestfs___free_drives (g);
+  guestfs_int_free_drives (g);
   g->state = CONFIG;
-  guestfs___call_callbacks_void (g, GUESTFS_EVENT_SUBPROCESS_QUIT);
+  guestfs_int_call_callbacks_void (g, GUESTFS_EVENT_SUBPROCESS_QUIT);
 }
 
 /* Convenient wrapper to generate a progress message callback. */
 void
-guestfs___progress_message_callback (guestfs_h *g,
+guestfs_int_progress_message_callback (guestfs_h *g,
                                      const guestfs_progress *message)
 {
   uint64_t array[4];
@@ -118,19 +118,19 @@ guestfs___progress_message_callback (guestfs_h *g,
   array[2] = message->position;
   array[3] = message->total;
 
-  guestfs___call_callbacks_array (g, GUESTFS_EVENT_PROGRESS,
+  guestfs_int_call_callbacks_array (g, GUESTFS_EVENT_PROGRESS,
                                   array, sizeof array / sizeof array[0]);
 }
 
 /* Connection modules call us back here when they get a log message. */
 void
-guestfs___log_message_callback (guestfs_h *g, const char *buf, size_t len)
+guestfs_int_log_message_callback (guestfs_h *g, const char *buf, size_t len)
 {
   /* Send the log message upwards to anyone who is listening. */
-  guestfs___call_callbacks_message (g, GUESTFS_EVENT_APPLIANCE, buf, len);
+  guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_APPLIANCE, buf, len);
 
   /* This is used to generate launch progress messages.  See comment
-   * above guestfs___launch_send_progress.
+   * above guestfs_int_launch_send_progress.
    */
   if (g->state == LAUNCHING) {
     const char *sentinel;
@@ -139,12 +139,12 @@ guestfs___log_message_callback (guestfs_h *g, const char *buf, size_t len)
     sentinel = "Linux version"; /* kernel up */
     slen = strlen (sentinel);
     if (memmem (buf, len, sentinel, slen) != NULL)
-      guestfs___launch_send_progress (g, 6);
+      guestfs_int_launch_send_progress (g, 6);
 
     sentinel = "Starting /init script"; /* /init running */
     slen = strlen (sentinel);
     if (memmem (buf, len, sentinel, slen) != NULL)
-      guestfs___launch_send_progress (g, 9);
+      guestfs_int_launch_send_progress (g, 9);
   }
 }
 
@@ -192,7 +192,7 @@ check_daemon_socket (guestfs_h *g)
     xdr_guestfs_progress (&xdr, &message);
     xdr_destroy (&xdr);
 
-    guestfs___progress_message_callback (g, &message);
+    guestfs_int_progress_message_callback (g, &message);
 
     goto again;
   }
@@ -207,7 +207,7 @@ check_daemon_socket (guestfs_h *g)
 }
 
 int
-guestfs___send (guestfs_h *g, int proc_nr,
+guestfs_int_send (guestfs_h *g, int proc_nr,
                 uint64_t progress_hint, uint64_t optargs_bitmask,
                 xdrproc_t xdrp, char *args)
 {
@@ -220,7 +220,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
   size_t msg_out_size;
 
   if (!g->conn) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     return -1;
   }
 
@@ -278,7 +278,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
   if (r == -1)
     return -1;
   if (r == 0) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     child_cleanup (g);
     return -1;
   }
@@ -288,7 +288,7 @@ guestfs___send (guestfs_h *g, int proc_nr,
   if (r == -1)
     return -1;
   if (r == 0) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     child_cleanup (g);
     return -1;
   }
@@ -321,7 +321,7 @@ static int send_file_complete (guestfs_h *g);
  *   -2 daemon cancelled (we must read the error message)
  */
 int
-guestfs___send_file (guestfs_h *g, const char *filename)
+guestfs_int_send_file (guestfs_h *g, const char *filename)
 {
   char buf[GUESTFS_MAX_CHUNK_SIZE];
   int fd, r = 0, err;
@@ -455,7 +455,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   if (r == -1)
     return -1;
   if (r == 0) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     child_cleanup (g);
     return -1;
   }
@@ -465,7 +465,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   if (r == -1)
     return -1;
   if (r == 0) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     child_cleanup (g);
     return -1;
   }
@@ -473,7 +473,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   return 0;
 }
 
-/* guestfs___recv_from_daemon: This reads a single message, file
+/* guestfs_int_recv_from_daemon: This reads a single message, file
  * chunk, launch flag or cancellation flag from the daemon.  If
  * something was read, it returns 0, otherwise -1.
  *
@@ -507,7 +507,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
    * return an error if this happens.
    */
   if (!g->conn) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     return -1;
   }
 
@@ -516,7 +516,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
   if (n == -1)
     return -1;
   if (n == 0) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     child_cleanup (g);
     return -1;
   }
@@ -531,7 +531,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
              g->state);
     else {
       g->state = READY;
-      guestfs___call_callbacks_void (g, GUESTFS_EVENT_LAUNCH_DONE);
+      guestfs_int_call_callbacks_void (g, GUESTFS_EVENT_LAUNCH_DONE);
     }
     debug (g, "recv_from_daemon: received GUESTFS_LAUNCH_FLAG");
     return 0;
@@ -566,7 +566,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     return -1;
   }
   if (n == 0) {
-    guestfs___unexpected_close_error (g);
+    guestfs_int_unexpected_close_error (g);
     child_cleanup (g);
     free (*buf_rtn);
     *buf_rtn = NULL;
@@ -603,7 +603,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 }
 
 int
-guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
+guestfs_int_recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
   int r;
 
@@ -620,7 +620,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     xdr_guestfs_progress (&xdr, &message);
     xdr_destroy (&xdr);
 
-    guestfs___progress_message_callback (g, &message);
+    guestfs_int_progress_message_callback (g, &message);
 
     free (*buf_rtn);
     *buf_rtn = NULL;
@@ -640,7 +640,7 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 
 /* Receive a reply. */
 int
-guestfs___recv (guestfs_h *g, const char *fn,
+guestfs_int_recv (guestfs_h *g, const char *fn,
                 guestfs_message_header *hdr,
                 guestfs_message_error *err,
                 xdrproc_t xdrp, char *ret)
@@ -651,7 +651,7 @@ guestfs___recv (guestfs_h *g, const char *fn,
   int r;
 
  again:
-  r = guestfs___recv_from_daemon (g, &size, &buf);
+  r = guestfs_int_recv_from_daemon (g, &size, &buf);
   if (r == -1)
     return -1;
 
@@ -692,21 +692,21 @@ guestfs___recv (guestfs_h *g, const char *fn,
   return 0;
 }
 
-/* Same as guestfs___recv, but it discards the reply message.
+/* Same as guestfs_int_recv, but it discards the reply message.
  *
  * Notes (XXX):
  * (1) This returns an int, but all current callers ignore it.
  * (2) The error string may end up being set twice on error paths.
  */
 int
-guestfs___recv_discard (guestfs_h *g, const char *fn)
+guestfs_int_recv_discard (guestfs_h *g, const char *fn)
 {
   CLEANUP_FREE void *buf = NULL;
   uint32_t size;
   int r;
 
  again:
-  r = guestfs___recv_from_daemon (g, &size, &buf);
+  r = guestfs_int_recv_from_daemon (g, &size, &buf);
   if (r == -1)
     return -1;
 
@@ -749,7 +749,7 @@ static ssize_t receive_file_data (guestfs_h *g, void **buf);
 
 /* Returns -1 = error, 0 = EOF, > 0 = more data */
 int
-guestfs___recv_file (guestfs_h *g, const char *filename)
+guestfs_int_recv_file (guestfs_h *g, const char *filename)
 {
   void *buf;
   int fd, r;
@@ -829,7 +829,7 @@ receive_file_data (guestfs_h *g, void **buf_r)
   XDR xdr;
   guestfs_chunk chunk;
 
-  r = guestfs___recv_from_daemon (g, &len, &buf);
+  r = guestfs_int_recv_from_daemon (g, &len, &buf);
   if (r == -1)
     return -1;
 

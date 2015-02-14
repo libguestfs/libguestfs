@@ -92,7 +92,7 @@ accept_connection (guestfs_h *g, struct connection *connv)
     }
 
     if (r == 0) {               /* timeout reached */
-      guestfs___launch_timeout (g);
+      guestfs_int_launch_timeout (g);
       return -1;
     }
 
@@ -341,7 +341,7 @@ handle_log_message (guestfs_h *g,
   }
 
   /* It's an actual log message, send it upwards. */
-  guestfs___log_message_callback (g, buf, n);
+  guestfs_int_log_message_callback (g, buf, n);
 
 #ifdef VALGRIND_DAEMON
   /* Find the canary printed by appliance/init if valgrinding of the
@@ -399,7 +399,7 @@ static struct connection_ops ops = {
  * free_connection.
  */
 struct connection *
-guestfs___new_conn_socket_listening (guestfs_h *g,
+guestfs_int_new_conn_socket_listening (guestfs_h *g,
                                      int daemon_accept_sock,
                                      int console_sock)
 {
@@ -438,7 +438,7 @@ guestfs___new_conn_socket_listening (guestfs_h *g,
  * and promises not to call accept_connection.
  */
 struct connection *
-guestfs___new_conn_socket_connected (guestfs_h *g,
+guestfs_int_new_conn_socket_connected (guestfs_h *g,
                                      int daemon_sock,
                                      int console_sock)
 {

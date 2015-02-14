@@ -203,7 +203,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *dir = NULL;
   CLEANUP_FREE char *initrd = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   char *ret = NULL;
   const char *method;
   int64_t size;
@@ -240,21 +240,21 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
     goto out;
 
   /* Construct a command to extract named binaries from the initrd file. */
-  guestfs___cmd_add_string_unquoted (cmd, "cd ");
-  guestfs___cmd_add_string_quoted   (cmd, dir);
-  guestfs___cmd_add_string_unquoted (cmd, " && ");
-  guestfs___cmd_add_string_unquoted (cmd, method);
-  guestfs___cmd_add_string_unquoted (cmd, " initrd | cpio --quiet -id");
+  guestfs_int_cmd_add_string_unquoted (cmd, "cd ");
+  guestfs_int_cmd_add_string_quoted   (cmd, dir);
+  guestfs_int_cmd_add_string_unquoted (cmd, " && ");
+  guestfs_int_cmd_add_string_unquoted (cmd, method);
+  guestfs_int_cmd_add_string_unquoted (cmd, " initrd | cpio --quiet -id");
   for (i = 0; initrd_binaries[i] != NULL; ++i) {
-    guestfs___cmd_add_string_unquoted (cmd, " ");
-    guestfs___cmd_add_string_quoted (cmd, initrd_binaries[i]);
+    guestfs_int_cmd_add_string_unquoted (cmd, " ");
+    guestfs_int_cmd_add_string_quoted (cmd, initrd_binaries[i]);
   }
 
-  r = guestfs___cmd_run (cmd);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     goto out;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "cpio", path);
+    guestfs_int_external_command_failed (g, r, "cpio", path);
     goto out;
   }
 
@@ -273,7 +273,7 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   error (g, "file_architecture: could not determine architecture of cpio archive");
 
  out:
-  guestfs___recursive_remove_dir (g, dir);
+  guestfs_int_recursive_remove_dir (g, dir);
 
   return ret;
 }

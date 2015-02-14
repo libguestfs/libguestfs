@@ -597,10 +597,10 @@ guestfs_lua_delete_event_callback (lua_State *L)
         pr "  free (r);\n"
       | RStringList _ ->
         pr "  push_string_list (L, r);\n";
-        pr "  guestfs___free_string_list (r);\n"
+        pr "  guestfs_int_free_string_list (r);\n"
       | RHashtable _ ->
         pr "  push_table (L, r);\n";
-        pr "  guestfs___free_string_list (r);\n"
+        pr "  guestfs_int_free_string_list (r);\n"
       | RStruct (_, typ) ->
         pr "  push_%s (L, r);\n" typ;
         pr "  guestfs_free_%s (r);\n" typ

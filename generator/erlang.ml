@@ -397,7 +397,7 @@ extern int64_t get_int64 (ETERM *term);
             let uc_n = String.uppercase n in
             pr "  if ((optargs_s.bitmask & %s_%s_BITMASK))\n"
               c_optarg_prefix uc_n;
-            pr "    guestfs___free_string_list ((char **) optargs_s.%s);\n" n
+            pr "    guestfs_int_free_string_list ((char **) optargs_s.%s);\n" n
       ) optargs;
 
       (match errcode_of_ret ret with
@@ -430,7 +430,7 @@ extern int64_t get_int64 (ETERM *term);
            pr "  return rt;\n"
        | RStringList _ ->
            pr "  ETERM *rt = make_string_list (r);\n";
-           pr "  guestfs___free_string_list (r);\n\n";
+           pr "  guestfs_int_free_string_list (r);\n\n";
            pr "  return rt;\n"
        | RStruct (_, typ) ->
            pr "  ETERM *rt = make_%s (r);\n" typ;
@@ -442,7 +442,7 @@ extern int64_t get_int64 (ETERM *term);
            pr "  return rt;\n"
        | RHashtable _ ->
            pr "  ETERM *rt = make_table (r);\n";
-           pr "  guestfs___free_string_list (r);\n";
+           pr "  guestfs_int_free_string_list (r);\n";
            pr "  return rt;\n"
        | RBufferOut _ ->
            pr "  ETERM *rt = erl_mk_estring (r, size);\n";

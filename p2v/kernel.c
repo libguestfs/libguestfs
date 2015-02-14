@@ -52,7 +52,7 @@ kernel_configuration (struct config *config, const char *cmdline)
     r += 5+4;
     if (sscanf (r, "%d", &config->port) != 1) {
       fprintf (stderr, "%s: cannot parse p2v.port from kernel command line",
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
   }
@@ -84,7 +84,7 @@ kernel_configuration (struct config *config, const char *cmdline)
     const char *err = get_ssh_error ();
 
     fprintf (stderr, "%s: error opening control connection to %s:%d: %s\n",
-             guestfs___program_name, config->server, config->port, err);
+             guestfs_int_program_name, config->server, config->port, err);
     exit (EXIT_FAILURE);
   }
 
@@ -101,7 +101,7 @@ kernel_configuration (struct config *config, const char *cmdline)
     r += 5+5;
     if (sscanf (r, "%d", &config->vcpus) != 1) {
       fprintf (stderr, "%s: cannot parse p2v.vcpus from kernel command line\n",
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
   }
@@ -113,7 +113,7 @@ kernel_configuration (struct config *config, const char *cmdline)
     r += 5+6;
     if (sscanf (r, "%" SCNu64 "%c", &config->memory, mem_code) != 1) {
       fprintf (stderr, "%s: cannot parse p2v.memory from kernel command line\n",
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
     config->memory *= 1024;
@@ -123,7 +123,7 @@ kernel_configuration (struct config *config, const char *cmdline)
       config->memory *= 1024;
     if (mem_code[0] != 'M' && mem_code[0] != 'G') {
       fprintf (stderr, "%s: p2v.memory on kernel command line must be followed by 'G' or 'M'\n",
-               guestfs___program_name);
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
   }
@@ -135,8 +135,8 @@ kernel_configuration (struct config *config, const char *cmdline)
     r += 5+5;
     len = strcspn (r, " ");
     t = strndup (r, len);
-    guestfs___free_string_list (config->disks);
-    config->disks = guestfs___split_string (',', t);
+    guestfs_int_free_string_list (config->disks);
+    config->disks = guestfs_int_split_string (',', t);
   }
 
   r = strstr (cmdline, "p2v.removable=");
@@ -146,8 +146,8 @@ kernel_configuration (struct config *config, const char *cmdline)
     r += 5+9;
     len = strcspn (r, " ");
     t = strndup (r, len);
-    guestfs___free_string_list (config->removable);
-    config->removable = guestfs___split_string (',', t);
+    guestfs_int_free_string_list (config->removable);
+    config->removable = guestfs_int_split_string (',', t);
   }
 
   r = strstr (cmdline, "p2v.interfaces=");
@@ -157,8 +157,8 @@ kernel_configuration (struct config *config, const char *cmdline)
     r += 5+10;
     len = strcspn (r, " ");
     t = strndup (r, len);
-    guestfs___free_string_list (config->interfaces);
-    config->interfaces = guestfs___split_string (',', t);
+    guestfs_int_free_string_list (config->interfaces);
+    config->interfaces = guestfs_int_split_string (',', t);
   }
 
   r = strstr (cmdline, "p2v.network=");
@@ -168,8 +168,8 @@ kernel_configuration (struct config *config, const char *cmdline)
     r += 5+7;
     len = strcspn (r, " ");
     t = strndup (r, len);
-    guestfs___free_string_list (config->network_map);
-    config->network_map = guestfs___split_string (',', t);
+    guestfs_int_free_string_list (config->network_map);
+    config->network_map = guestfs_int_split_string (',', t);
   }
 
   r = strstr (cmdline, "p2v.o=");
@@ -217,7 +217,7 @@ kernel_configuration (struct config *config, const char *cmdline)
     const char *err = get_conversion_error ();
 
     fprintf (stderr, "%s: error during conversion: %s\n",
-             guestfs___program_name, err);
+             guestfs_int_program_name, err);
     exit (EXIT_FAILURE);
   }
 }
@@ -227,7 +227,7 @@ notify_ui_callback (int type, const char *data)
 {
   switch (type) {
   case NOTIFY_LOG_DIR:
-    printf ("%s: remote log directory location: %s\n", guestfs___program_name, data);
+    printf ("%s: remote log directory location: %s\n", guestfs_int_program_name, data);
     break;
 
   case NOTIFY_REMOTE_MESSAGE:
@@ -235,11 +235,11 @@ notify_ui_callback (int type, const char *data)
     break;
 
   case NOTIFY_STATUS:
-    printf ("%s: %s\n", guestfs___program_name, data);
+    printf ("%s: %s\n", guestfs_int_program_name, data);
     break;
 
   default:
     printf ("%s: unknown message during conversion: type=%d data=%s\n",
-            guestfs___program_name, type, data);
+            guestfs_int_program_name, type, data);
   }
 }

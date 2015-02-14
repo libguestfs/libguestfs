@@ -88,7 +88,7 @@ guestfs__read_file (guestfs_h *g, const char *path, size_t *size_r)
   char *ret = NULL;
   struct stat statbuf;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     goto err;
 
   tmpfile = safe_asprintf (g, "%s/cat%d", g->tmpdir, ++g->unique);
@@ -215,7 +215,7 @@ guestfs__find (guestfs_h *g, const char *directory)
   char **ret = NULL;
   size_t i, count, size;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     goto err;
 
   tmpfile = safe_asprintf (g, "%s/find%d", g->tmpdir, ++g->unique);
@@ -319,7 +319,7 @@ write_or_append (guestfs_h *g, const char *path,
       (!append ? guestfs_internal_write : guestfs_internal_write_append)
       (g, path, content, size);
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     goto err;
 
   /* Write the content out to a temporary file. */
@@ -382,7 +382,7 @@ guestfs__write_append (guestfs_h *g, const char *path,
 struct guestfs_statns_list *
 guestfs__lstatnslist (guestfs_h *g, const char *dir, char * const*names)
 {
-  size_t len = guestfs___count_strings (names);
+  size_t len = guestfs_int_count_strings (names);
   size_t old_len;
   struct guestfs_statns_list *ret;
 
@@ -424,7 +424,7 @@ guestfs__lstatnslist (guestfs_h *g, const char *dir, char * const*names)
 struct guestfs_xattr_list *
 guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 {
-  size_t len = guestfs___count_strings (names);
+  size_t len = guestfs_int_count_strings (names);
   size_t i, old_len;
   struct guestfs_xattr_list *ret;
 
@@ -472,7 +472,7 @@ guestfs__lxattrlist (guestfs_h *g, const char *dir, char *const *names)
 char **
 guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
 {
-  size_t len = guestfs___count_strings (names);
+  size_t len = guestfs_int_count_strings (names);
   size_t old_len, ret_len = 0;
   char **ret = NULL;
 
@@ -489,13 +489,13 @@ guestfs__readlinklist (guestfs_h *g, const char *dir, char *const *names)
 
     if (links == NULL) {
       if (ret)
-        guestfs___free_string_list (ret);
+        guestfs_int_free_string_list (ret);
       return NULL;
     }
 
     /* Append links to ret. */
     old_len = ret_len;
-    ret_len += guestfs___count_strings (links);
+    ret_len += guestfs_int_count_strings (links);
     ret = safe_realloc (g, ret, ret_len * sizeof (char *));
     memcpy (&ret[old_len], links, (ret_len-old_len) * sizeof (char *));
   }
@@ -517,7 +517,7 @@ guestfs__ls (guestfs_h *g, const char *directory)
   char **ret = NULL;
   size_t i, count, size;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     goto err;
 
   tmpfile = safe_asprintf (g, "%s/ls%d", g->tmpdir, ++g->unique);

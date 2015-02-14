@@ -819,9 +819,9 @@ and generate_internal_frontend_cleanups_h () =
   List.iter (
     fun { s_name = name } ->
       pr "#define CLEANUP_FREE_%s \\\n" (String.uppercase name);
-      pr "  __attribute__((cleanup(guestfs___cleanup_free_%s)))\n" name;
+      pr "  __attribute__((cleanup(guestfs_int_cleanup_free_%s)))\n" name;
       pr "#define CLEANUP_FREE_%s_LIST \\\n" (String.uppercase name);
-      pr "  __attribute__((cleanup(guestfs___cleanup_free_%s_list)))\n" name
+      pr "  __attribute__((cleanup(guestfs_int_cleanup_free_%s_list)))\n" name
   ) structs;
 
   pr "#else /* !HAVE_ATTRIBUTE_CLEANUP */\n";
@@ -843,9 +843,9 @@ and generate_internal_frontend_cleanups_h () =
 
   List.iter (
     fun { s_name = name } ->
-      pr "extern void guestfs___cleanup_free_%s (void *ptr);\n"
+      pr "extern void guestfs_int_cleanup_free_%s (void *ptr);\n"
         name;
-      pr "extern void guestfs___cleanup_free_%s_list (void *ptr);\n"
+      pr "extern void guestfs_int_cleanup_free_%s_list (void *ptr);\n"
         name
   ) structs;
 
@@ -1192,14 +1192,14 @@ and generate_client_structs_cleanup () =
   List.iter (
     fun { s_name = typ } ->
       pr "void\n";
-      pr "guestfs___cleanup_free_%s (void *ptr)\n" typ;
+      pr "guestfs_int_cleanup_free_%s (void *ptr)\n" typ;
       pr "{\n";
       pr "  guestfs_free_%s (* (struct guestfs_%s **) ptr);\n" typ typ;
       pr "}\n";
       pr "\n";
 
       pr "void\n";
-      pr "guestfs___cleanup_free_%s_list (void *ptr)\n" typ;
+      pr "guestfs_int_cleanup_free_%s_list (void *ptr)\n" typ;
       pr "{\n";
       pr "  guestfs_free_%s_list (* (struct guestfs_%s_list **) ptr);\n"
         typ typ;
@@ -1232,7 +1232,7 @@ and generate_client_actions hash () =
 
   (* Generate code for enter events. *)
   let enter_event shortname =
-    pr "  guestfs___call_callbacks_message (g, GUESTFS_EVENT_ENTER,\n";
+    pr "  guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_ENTER,\n";
     pr "                                    \"%s\", %d);\n"
       shortname (String.length shortname)
   in
@@ -1349,7 +1349,7 @@ and generate_client_actions hash () =
     List.iter (
       function
       | GUID n ->
-          pr "  if (!guestfs___validate_guid (%s)) {\n" n;
+          pr "  if (!guestfs_int_validate_guid (%s)) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter is not a valid GUID\",\n";
           pr "           \"%s\", \"%s\");\n" c_name n;
           let errcode =
@@ -1398,7 +1398,7 @@ and generate_client_actions hash () =
       pr "\n"
     );
 
-    pr "    guestfs___trace_open (&trace_buffer);\n";
+    pr "    guestfs_int_trace_open (&trace_buffer);\n";
 
     pr "    fprintf (trace_buffer.fp, \"%%s\", \"%s\");\n" name;
 
@@ -1440,7 +1440,7 @@ and generate_client_actions hash () =
           pr "    fprintf (trace_buffer.fp, \" %%\" PRIi64, %s);\n" n
       | BufferIn n ->                   (* RHBZ#646822 *)
           pr "    fputc (' ', trace_buffer.fp);\n";
-          pr "    guestfs___print_BufferIn (trace_buffer.fp, %s, %s_size);\n" n n
+          pr "    guestfs_int_print_BufferIn (trace_buffer.fp, %s, %s_size);\n" n n
       | Pointer (t, n) ->
           pr "    fprintf (trace_buffer.fp, \" (%s)%%p\", %s);\n" t n
     ) args;
@@ -1471,7 +1471,7 @@ and generate_client_actions hash () =
         pr "    }\n"
     ) optargs;
 
-    pr "    guestfs___trace_send_line (g, &trace_buffer);\n";
+    pr "    guestfs_int_trace_send_line (g, &trace_buffer);\n";
     pr "  }\n";
     pr "\n";
   in
@@ -1490,7 +1490,7 @@ and generate_client_actions hash () =
       pr "\n"
     );
 
-    pr "%s  guestfs___trace_open (&trace_buffer);\n" indent;
+    pr "%s  guestfs_int_trace_open (&trace_buffer);\n" indent;
 
     pr "%s  fprintf (trace_buffer.fp, \"%%s = \", \"%s\");\n" indent name;
 
@@ -1505,7 +1505,7 @@ and generate_client_actions hash () =
          pr "%s  fprintf (trace_buffer.fp, \"\\\"%%s\\\"\", %s != NULL ? %s : \"NULL\");\n"
            indent rv rv
      | RBufferOut _ ->
-         pr "%s  guestfs___print_BufferOut (trace_buffer.fp, %s, *size_r);\n" indent rv
+         pr "%s  guestfs_int_print_BufferOut (trace_buffer.fp, %s, *size_r);\n" indent rv
      | RStringList _ | RHashtable _ ->
          pr "%s  fputs (\"[\", trace_buffer.fp);\n" indent;
          pr "%s  for (i = 0; %s[i]; ++i) {\n" indent rv;
@@ -1526,7 +1526,7 @@ and generate_client_actions hash () =
          pr "%s  fprintf (trace_buffer.fp, \"<struct guestfs_%s_list *>\");\n"
            indent typ (* XXX *)
     );
-    pr "%s  guestfs___trace_send_line (g, &trace_buffer);\n" indent;
+    pr "%s  guestfs_int_trace_send_line (g, &trace_buffer);\n" indent;
     pr "%s}\n" indent;
     pr "\n";
   in
@@ -1536,7 +1536,7 @@ and generate_client_actions hash () =
 
     pr "%sif (trace_flag)\n" indent;
 
-    pr "%s  guestfs___trace (g, \"%%s = %%s (error)\",\n" indent;
+    pr "%s  guestfs_int_trace (g, \"%%s = %%s (error)\",\n" indent;
     pr "%s                   \"%s\", \"%s\");\n"
       indent name (string_of_errcode errcode)
   in
@@ -1720,7 +1720,7 @@ and generate_client_actions hash () =
     ) args;
 
     (* This is a daemon_function so check the appliance is up. *)
-    pr "  if (guestfs___check_appliance_up (g, \"%s\") == -1) {\n" name;
+    pr "  if (guestfs_int_check_appliance_up (g, \"%s\") == -1) {\n" name;
     trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);
     pr "  }\n";
@@ -1728,7 +1728,7 @@ and generate_client_actions hash () =
 
     (* Send the main header and arguments. *)
     if args_passed_to_daemon = [] && optargs = [] then (
-      pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, progress_hint, 0,\n"
+      pr "  serial = guestfs_int_send (g, GUESTFS_PROC_%s, progress_hint, 0,\n"
         (String.uppercase name);
       pr "                           NULL, NULL);\n"
     ) else (
@@ -1790,7 +1790,7 @@ and generate_client_actions hash () =
           )
       ) optargs;
 
-      pr "  serial = guestfs___send (g, GUESTFS_PROC_%s,\n"
+      pr "  serial = guestfs_int_send (g, GUESTFS_PROC_%s,\n"
         (String.uppercase name);
       pr "                           progress_hint, %s,\n"
         (if optargs <> [] then "optargs->bitmask" else "0");
@@ -1808,11 +1808,11 @@ and generate_client_actions hash () =
     List.iter (
       function
       | FileIn n ->
-        pr "  r = guestfs___send_file (g, %s);\n" n;
+        pr "  r = guestfs_int_send_file (g, %s);\n" n;
         pr "  if (r == -1) {\n";
         trace_return_error ~indent:4 name style errcode;
         pr "    /* daemon will send an error reply which we discard */\n";
-        pr "    guestfs___recv_discard (g, \"%s\");\n" name;
+        pr "    guestfs_int_recv_discard (g, \"%s\");\n" name;
         pr "    return %s;\n" (string_of_errcode errcode);
         pr "  }\n";
         pr "  if (r == -2) /* daemon cancelled */\n";
@@ -1828,7 +1828,7 @@ and generate_client_actions hash () =
     pr "  memset (&err, 0, sizeof err);\n";
     if has_ret then pr "  memset (&ret, 0, sizeof ret);\n";
     pr "\n";
-    pr "  r = guestfs___recv (g, \"%s\", &hdr, &err,\n        " name;
+    pr "  r = guestfs_int_recv (g, \"%s\", &hdr, &err,\n        " name;
     if not has_ret then
       pr "NULL, NULL"
     else
@@ -1841,7 +1841,7 @@ and generate_client_actions hash () =
     pr "  }\n";
     pr "\n";
 
-    pr "  if (guestfs___check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
+    pr "  if (guestfs_int_check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
       (String.uppercase name);
     trace_return_error ~indent:4 name style errcode;
     pr "    return %s;\n" (string_of_errcode errcode);
@@ -1853,12 +1853,12 @@ and generate_client_actions hash () =
     pr "\n";
     trace_return_error ~indent:4 name style errcode;
     pr "    if (err.errno_string[0] != '\\0')\n";
-    pr "      errnum = guestfs___string_to_errno (err.errno_string);\n";
+    pr "      errnum = guestfs_int_string_to_errno (err.errno_string);\n";
     pr "    if (errnum <= 0)\n";
     pr "      error (g, \"%%s: %%s\", \"%s\", err.error_message);\n"
       name;
     pr "    else\n";
-    pr "      guestfs___error_errno (g, errnum, \"%%s: %%s\", \"%s\",\n"
+    pr "      guestfs_int_error_errno (g, errnum, \"%%s: %%s\", \"%s\",\n"
       name;
     pr "                           err.error_message);\n";
     pr "    free (err.error_message);\n";
@@ -1871,7 +1871,7 @@ and generate_client_actions hash () =
     List.iter (
       function
       | FileOut n ->
-        pr "  if (guestfs___recv_file (g, %s) == -1) {\n" n;
+        pr "  if (guestfs_int_recv_file (g, %s) == -1) {\n" n;
         trace_return_error ~indent:4 name style errcode;
         pr "    return %s;\n" (string_of_errcode errcode);
         pr "  }\n";
@@ -2177,13 +2177,13 @@ and generate_linker_script () =
     (* Unofficial parts of the API: the bindings code use these
      * functions, so it is useful to export them.
      *)
-    "guestfs___safe_calloc";
-    "guestfs___safe_malloc";
-    "guestfs___safe_strdup";
-    "guestfs___safe_memdup";
+    "guestfs_int_safe_calloc";
+    "guestfs_int_safe_malloc";
+    "guestfs_int_safe_strdup";
+    "guestfs_int_safe_memdup";
 
     (* Used only by virt-df and virt-alignment-scan. *)
-    "guestfs___add_libvirt_dom";
+    "guestfs_int_add_libvirt_dom";
   ] in
   let functions =
     List.flatten (

@@ -496,9 +496,9 @@ example:
  xxxx (+0):	guestfs_create 
  xxxx (+29):	guestfs_set_pgroup g=0x17a9de0 pgroup=0x1
  xxxx (+9):	guestfs_add_drive_opts_argv g=0x17a9de0 [...]
- xxxx (+8):	guestfs___safe_strdup g=0x17a9de0 str=0x7f8a153bed5d
- xxxx (+19):	guestfs___safe_malloc g=0x17a9de0 nbytes=0x38
- xxxx (+5):	guestfs___safe_strdup g=0x17a9de0 str=0x17a9f60
+ xxxx (+8):	guestfs_int_safe_strdup g=0x17a9de0 str=0x7f8a153bed5d
+ xxxx (+19):	guestfs_int_safe_malloc g=0x17a9de0 nbytes=0x38
+ xxxx (+5):	guestfs_int_safe_strdup g=0x17a9de0 str=0x17a9f60
  xxxx (+10):	guestfs_launch g=0x17a9de0
  xxxx (+4):	launch_start 
  [etc]

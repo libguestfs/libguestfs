@@ -216,7 +216,7 @@ static int
 parse_release_file (guestfs_h *g, struct inspect_fs *fs,
                     const char *release_filename)
 {
-  fs->product_name = guestfs___first_line_of_file (g, release_filename);
+  fs->product_name = guestfs_int_first_line_of_file (g, release_filename);
   if (fs->product_name == NULL)
     return -1;
   if (STREQ (fs->product_name, "")) {
@@ -300,13 +300,13 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
     else if (STRPREFIX (lines[i], "DISTRIB_RELEASE=")) {
       char *major, *minor;
       if (match2 (g, &lines[i][16], re_major_minor, &major, &minor)) {
-        fs->major_version = guestfs___parse_unsigned_int (g, major);
+        fs->major_version = guestfs_int_parse_unsigned_int (g, major);
         free (major);
         if (fs->major_version == -1) {
           free (minor);
           return -1;
         }
-        fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+        fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
         free (minor);
         if (fs->minor_version == -1)
           return -1;
@@ -374,7 +374,7 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
     major = match1 (g, lines[1], re_sles_version);
     if (major == NULL)
       goto out;
-    fs->major_version = guestfs___parse_unsigned_int (g, major);
+    fs->major_version = guestfs_int_parse_unsigned_int (g, major);
     free (major);
     if (fs->major_version == -1)
       goto out;
@@ -385,7 +385,7 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
     minor = match1 (g, lines[2], re_sles_patchlevel);
     if (minor == NULL)
       goto out;
-    fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+    fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
     free (minor);
     if (fs->minor_version == -1)
       goto out;
@@ -397,8 +397,8 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
     if (lines[1] == NULL)
       goto out;
     if (match2 (g, lines[1], re_opensuse_version, &major, &minor)) {
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
-      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       free (major);
       free (minor);
       if (fs->major_version == -1 || fs->minor_version == -1)
@@ -418,7 +418,7 @@ out:
  * associated devices.
  */
 int
-guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 {
   int r;
   char *major, *minor;
@@ -447,18 +447,18 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
     if (match2 (g, fs->product_name, re_oracle_linux_old, &major, &minor) ||
         match2 (g, fs->product_name, re_oracle_linux, &major, &minor)) {
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
         free (minor);
         return -1;
       }
-      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       free (minor);
       if (fs->minor_version == -1)
         return -1;
     } else if ((major = match1 (g, fs->product_name, re_oracle_linux_no_minor)) != NULL) {
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1)
         return -1;
@@ -474,7 +474,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
     if ((major = match1 (g, fs->product_name, re_fedora)) != NULL) {
       fs->distro = OS_DISTRO_FEDORA;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1)
         return -1;
@@ -482,20 +482,20 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     else if (match2 (g, fs->product_name, re_rhel_old, &major, &minor) ||
              match2 (g, fs->product_name, re_rhel, &major, &minor)) {
       fs->distro = OS_DISTRO_RHEL;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
         free (minor);
         return -1;
       }
-      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       free (minor);
       if (fs->minor_version == -1)
         return -1;
     }
     else if ((major = match1 (g, fs->product_name, re_rhel_no_minor)) != NULL) {
       fs->distro = OS_DISTRO_RHEL;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1)
         return -1;
@@ -504,20 +504,20 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     else if (match2 (g, fs->product_name, re_centos_old, &major, &minor) ||
              match2 (g, fs->product_name, re_centos, &major, &minor)) {
       fs->distro = OS_DISTRO_CENTOS;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
         free (minor);
         return -1;
       }
-      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       free (minor);
       if (fs->minor_version == -1)
         return -1;
     }
     else if ((major = match1 (g, fs->product_name, re_centos_no_minor)) != NULL) {
       fs->distro = OS_DISTRO_CENTOS;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1)
         return -1;
@@ -526,20 +526,20 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     else if (match2 (g, fs->product_name, re_scientific_linux_old, &major, &minor) ||
              match2 (g, fs->product_name, re_scientific_linux, &major, &minor)) {
       fs->distro = OS_DISTRO_SCIENTIFIC_LINUX;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
         free (minor);
         return -1;
       }
-      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       free (minor);
       if (fs->minor_version == -1)
         return -1;
     }
     else if ((major = match1 (g, fs->product_name, re_scientific_linux_no_minor)) != NULL) {
       fs->distro = OS_DISTRO_SCIENTIFIC_LINUX;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1)
         return -1;
@@ -553,7 +553,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/debian_version") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
   else if (guestfs_is_file_opts (g, "/etc/pardus-release",
@@ -563,7 +563,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/pardus-release") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
   else if (guestfs_is_file_opts (g, "/etc/arch-release",
@@ -581,7 +581,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/gentoo-release") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
   else if (guestfs_is_file_opts (g, "/etc/meego-release",
@@ -591,7 +591,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/meego-release") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
   else if (guestfs_is_file_opts (g, "/etc/slackware-version",
@@ -601,7 +601,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/slackware-version") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
   else if (guestfs_is_file_opts (g, "/etc/ttylinux-target",
@@ -611,7 +611,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/ttylinux-target") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
   else if (guestfs_is_file_opts (g, "/etc/SuSE-release",
@@ -631,7 +631,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/cirros/version") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
   /* Buildroot (http://buildroot.net) is an embedded Linux distro
@@ -649,7 +649,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/br-version") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
 
@@ -676,7 +676,7 @@ guestfs___check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
 /* The currently mounted device is known to be a FreeBSD root. */
 int
-guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
 {
   fs->type = OS_TYPE_FREEBSD;
 
@@ -690,7 +690,7 @@ guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/motd") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
 
@@ -711,7 +711,7 @@ guestfs___check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
 
 /* The currently mounted device is maybe to be a *BSD root. */
 int
-guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
 {
 
   if (guestfs_is_file_opts (g, "/etc/release",
@@ -722,13 +722,13 @@ guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
 
     if (match2 (g, fs->product_name, re_netbsd, &major, &minor)) {
       fs->type = OS_TYPE_NETBSD;
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
         free (minor);
         return -1;
       }
-      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       free (minor);
       if (fs->minor_version == -1)
         return -1;
@@ -756,7 +756,7 @@ guestfs___check_netbsd_root (guestfs_h *g, struct inspect_fs *fs)
  * just like Linux.
  */
 int
-guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
 {
   fs->type = OS_TYPE_HURD;
 
@@ -767,7 +767,7 @@ guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/debian_version") == -1)
       return -1;
 
-    if (guestfs___parse_major_minor (g, fs) == -1)
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
 
@@ -793,7 +793,7 @@ guestfs___check_hurd_root (guestfs_h *g, struct inspect_fs *fs)
 
 /* The currently mounted device is maybe to be a Minix root. */
 int
-guestfs___check_minix_root (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_minix_root (guestfs_h *g, struct inspect_fs *fs)
 {
   fs->type = OS_TYPE_MINIX;
 
@@ -804,13 +804,13 @@ guestfs___check_minix_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
 
     if (match2 (g, fs->product_name, re_minix, &major, &minor)) {
-      fs->major_version = guestfs___parse_unsigned_int (g, major);
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
         free (minor);
         return -1;
       }
-      fs->minor_version = guestfs___parse_unsigned_int (g, minor);
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
       free (minor);
       if (fs->minor_version == -1)
         return -1;
@@ -850,7 +850,7 @@ check_architecture (guestfs_h *g, struct inspect_fs *fs)
 
       if (arch) {
         /* String will be owned by handle, freed by
-         * guestfs___free_inspect_info.
+         * guestfs_int_free_inspect_info.
          */
         fs->arch = arch;
         break;
@@ -876,7 +876,7 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
      * than try anything clever based on distro.
      */
     if (guestfs_is_file (g, "/etc/HOSTNAME")) {
-      fs->hostname = guestfs___first_line_of_file (g, "/etc/HOSTNAME");
+      fs->hostname = guestfs_int_first_line_of_file (g, "/etc/HOSTNAME");
       if (fs->hostname == NULL)
         return -1;
       if (STREQ (fs->hostname, "")) {
@@ -886,7 +886,7 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
     }
 
     if (!fs->hostname && guestfs_is_file (g, "/etc/hostname")) {
-      fs->hostname = guestfs___first_line_of_file (g, "/etc/hostname");
+      fs->hostname = guestfs_int_first_line_of_file (g, "/etc/hostname");
       if (fs->hostname == NULL)
         return -1;
       if (STREQ (fs->hostname, "")) {
@@ -916,7 +916,7 @@ check_hostname_unix (guestfs_h *g, struct inspect_fs *fs)
 
   case OS_TYPE_MINIX:
     if (guestfs_is_file (g, "/etc/hostname.file")) {
-      fs->hostname = guestfs___first_line_of_file (g, "/etc/hostname.file");
+      fs->hostname = guestfs_int_first_line_of_file (g, "/etc/hostname.file");
       if (fs->hostname == NULL)
         return -1;
       if (STREQ (fs->hostname, "")) {
@@ -952,7 +952,7 @@ check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs)
   hostname = guestfs_aug_get (g, "/files/etc/sysconfig/network/HOSTNAME");
   guestfs_pop_error_handler (g);
 
-  /* This is freed by guestfs___free_inspect_info.  Note that hostname
+  /* This is freed by guestfs_int_free_inspect_info.  Note that hostname
    * could be NULL because we ignored errors above.
    */
   fs->hostname = hostname;
@@ -1145,7 +1145,7 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   fs->fstab = p;
   fs->nr_fstab = n;
 
-  /* These are owned by the handle and freed by guestfs___free_inspect_info. */
+  /* These are owned by the handle and freed by guestfs_int_free_inspect_info. */
   fs->fstab[n-1].mountable = safe_strdup (g, mountable);
   fs->fstab[n-1].mountpoint = safe_strdup (g, mountpoint);
 
@@ -1435,7 +1435,7 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
   ITER_DRIVES (g, i, drv) {
     if (drv->name && STREQ (drv->name, name)) {
       device = safe_asprintf (g, "%s%s", devices[i], part);
-      if (!guestfs___is_partition (g, device)) {
+      if (!guestfs_int_is_partition (g, device)) {
         free (device);
         return 0;
       }
@@ -1462,7 +1462,7 @@ resolve_fstab_device_xdev (guestfs_h *g, const char *type, const char *disk,
      */
     if (i < count) {
       device = safe_asprintf (g, "%s%s", devices[i], part);
-      if (!guestfs___is_partition (g, device)) {
+      if (!guestfs_int_is_partition (g, device)) {
         free (device);
         return 0;
       }
@@ -1495,7 +1495,7 @@ resolve_fstab_device_cciss (guestfs_h *g, const char *disk, const char *part,
     if (drv->name && STREQ (drv->name, disk)) {
       if (part) {
         device = safe_asprintf (g, "%s%s", devices[i], part);
-        if (!guestfs___is_partition (g, device)) {
+        if (!guestfs_int_is_partition (g, device)) {
           free (device);
           return 0;
         }
@@ -1540,7 +1540,7 @@ resolve_fstab_device_diskbyid (guestfs_h *g, const char *part,
 
   /* Make the partition name and check it exists. */
   device = safe_asprintf (g, "/dev/sda%s", part);
-  if (!guestfs___is_partition (g, device)) {
+  if (!guestfs_int_is_partition (g, device)) {
     free (device);
     return 0;
   }
@@ -1605,8 +1605,8 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
      * prefixed with vtbd. IDE hard drives used to be prefixed with ad and now
      * are with ada.
      */
-    int disk_i = guestfs___parse_unsigned_int (g, disk);
-    int part_i = guestfs___parse_unsigned_int (g, part);
+    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
+    int part_i = guestfs_int_parse_unsigned_int (g, part);
     free (type);
     free (disk);
     free (part);
@@ -1621,8 +1621,8 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
      * numbered from 5 in Linux.  I have no idea what happens when you
      * have multiple "slices" (the FreeBSD term for MBR partitions).
      */
-    int disk_i = guestfs___parse_unsigned_int (g, disk);
-    int slice_i = guestfs___parse_unsigned_int (g, slice);
+    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
+    int slice_i = guestfs_int_parse_unsigned_int (g, slice);
     int part_i = part[0] - 'a' /* counting from 0 */;
     free (type);
     free (disk);
@@ -1647,7 +1647,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map)
      * Turn the disk number into a letter-based identifier, so
      * we can resolve it easily.
      */
-    int disk_i = guestfs___parse_unsigned_int (g, disk);
+    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
     const char disk_as_letter[2] = { disk_i + 'a', 0 };
     r = resolve_fstab_device_xdev (g, type, disk_as_letter, part, &device);
     free (type);
@@ -1734,7 +1734,7 @@ make_augeas_path_expression (guestfs_h *g, const char **configfiles)
   CLEANUP_FREE char *subexpr = NULL;
   char *ret;
 
-  nr_files = guestfs___count_strings ((char **) configfiles);
+  nr_files = guestfs_int_count_strings ((char **) configfiles);
   subexprs = safe_malloc (g, sizeof (char *) * (nr_files + 1));
 
   for (i = 0; i < nr_files; ++i) {
@@ -1744,7 +1744,7 @@ make_augeas_path_expression (guestfs_h *g, const char **configfiles)
   }
   subexprs[nr_files] = NULL;
 
-  subexpr = guestfs___join_strings (" and ", subexprs);
+  subexpr = guestfs_int_join_strings (" and ", subexprs);
   if (subexpr == NULL)
     g->abort_cb ();
 

@@ -56,7 +56,7 @@
 static int
 check_debian_installer_root (guestfs_h *g, struct inspect_fs *fs)
 {
-  fs->product_name = guestfs___first_line_of_file (g, "/.disk/info");
+  fs->product_name = guestfs_int_first_line_of_file (g, "/.disk/info");
   if (!fs->product_name)
     return -1;
 
@@ -66,11 +66,11 @@ check_debian_installer_root (guestfs_h *g, struct inspect_fs *fs)
   else if (STRPREFIX (fs->product_name, "Debian"))
     fs->distro = OS_DISTRO_DEBIAN;
 
-  (void) guestfs___parse_major_minor (g, fs);
+  (void) guestfs_int_parse_major_minor (g, fs);
 
   if (guestfs_is_file (g, "/.disk/cd_type") > 0) {
     CLEANUP_FREE char *cd_type =
-      guestfs___first_line_of_file (g, "/.disk/cd_type");
+      guestfs_int_first_line_of_file (g, "/.disk/cd_type");
     if (!cd_type)
       return -1;
 
@@ -192,7 +192,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
 
   fs->type = OS_TYPE_LINUX;
 
-  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+  r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
                                      "^family = Fedora$", 0, &str);
   if (r == -1)
     return -1;
@@ -201,7 +201,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
     free (str);
   }
 
-  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+  r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
                                      "^family = Red Hat Enterprise Linux$",
                                      0, &str);
   if (r == -1)
@@ -211,7 +211,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
     free (str);
   }
 
-  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+  r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
                                      "^family = Oracle Linux Server$",
                                      0, &str);
   if (r == -1)
@@ -222,19 +222,19 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
   }
 
   /* XXX should do major.minor before this */
-  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+  r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
                                      "^version = [[:digit:]]+", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
     v = find_value (str);
-    fs->major_version = guestfs___parse_unsigned_int_ignore_trailing (g, v);
+    fs->major_version = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
     free (str);
     if (fs->major_version == -1)
       return -1;
   }
 
-  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+  r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
                                      "^arch = [-_[:alnum:]]+$", 0, &str);
   if (r == -1)
     return -1;
@@ -244,25 +244,25 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
     free (str);
   }
 
-  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+  r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
                                      "^discnum = [[:digit:]]+$", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
     v = find_value (str);
-    discnum = guestfs___parse_unsigned_int (g, v);
+    discnum = guestfs_int_parse_unsigned_int (g, v);
     free (str);
     if (discnum == -1)
       return -1;
   }
 
-  r = guestfs___first_egrep_of_file (g, "/.treeinfo",
+  r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
                                      "^totaldiscs = [[:digit:]]+$", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
     v = find_value (str);
-    totaldiscs = guestfs___parse_unsigned_int (g, v);
+    totaldiscs = guestfs_int_parse_unsigned_int (g, v);
     free (str);
     if (totaldiscs == -1)
       return -1;
@@ -290,7 +290,7 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
 
   fs->type = OS_TYPE_LINUX;
 
-  r = guestfs___first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+  r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
                                      "^menu title Welcome to Fedora [[:digit:]]+",
                                      0, &str);
   if (r == -1)
@@ -298,14 +298,14 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
   if (r > 0) {
     fs->distro = OS_DISTRO_FEDORA;
     fs->major_version =
-      guestfs___parse_unsigned_int_ignore_trailing (g, &str[29]);
+      guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[29]);
     free (str);
     if (fs->major_version == -1)
       return -1;
   }
 
   /* XXX parse major.minor */
-  r = guestfs___first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+  r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
                                      "^menu title Welcome to Red Hat Enterprise Linux [[:digit:]]+",
                            0, &str);
   if (r == -1)
@@ -313,14 +313,14 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
   if (r > 0) {
     fs->distro = OS_DISTRO_RHEL;
     fs->major_version =
-      guestfs___parse_unsigned_int_ignore_trailing (g, &str[47]);
+      guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[47]);
     free (str);
     if (fs->major_version == -1)
       return -1;
   }
 
   /* XXX parse major.minor */
-  r = guestfs___first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+  r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
                                      "^menu title Welcome to RHEL[[:digit:]]+",
                            0, &str);
   if (r == -1)
@@ -328,14 +328,14 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
   if (r > 0) {
     fs->distro = OS_DISTRO_RHEL;
     fs->major_version =
-      guestfs___parse_unsigned_int_ignore_trailing (g, &str[26]);
+      guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[26]);
     free (str);
     if (fs->major_version == -1)
       return -1;
   }
 
   /* XXX parse major.minor */
-  r = guestfs___first_egrep_of_file (g, "/isolinux/isolinux.cfg",
+  r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
                                      "^menu title Welcome to Oracle Linux Server [[:digit:]]+",
                            0, &str);
   if (r == -1)
@@ -343,7 +343,7 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
   if (r > 0) {
     fs->distro = OS_DISTRO_ORACLE_LINUX;
     fs->major_version =
-      guestfs___parse_unsigned_int_ignore_trailing (g, &str[42]);
+      guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[42]);
     free (str);
     if (fs->major_version == -1)
       return -1;
@@ -384,7 +384,7 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   fs->type = OS_TYPE_WINDOWS;
   fs->distro = OS_DISTRO_WINDOWS;
 
-  r = guestfs___first_egrep_of_file (g, txtsetup,
+  r = guestfs_int_first_egrep_of_file (g, txtsetup,
                                      "^productname[[:space:]]*=[[:space:]]*\"", 1, &str);
   if (r == -1)
     return -1;
@@ -396,7 +396,7 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
     free (str);
   }
 
-  r = guestfs___first_egrep_of_file (g, txtsetup,
+  r = guestfs_int_first_egrep_of_file (g, txtsetup,
                                      "^majorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
                                      1, &str);
   if (r == -1)
@@ -404,13 +404,13 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   if (r > 0) {
     trim_cr (str);
     v = find_value (str);
-    fs->major_version = guestfs___parse_unsigned_int_ignore_trailing (g, v);
+    fs->major_version = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
     free (str);
     if (fs->major_version == -1)
       return -1;
   }
 
-  r = guestfs___first_egrep_of_file (g, txtsetup,
+  r = guestfs_int_first_egrep_of_file (g, txtsetup,
                                      "^minorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
                                      1, &str);
   if (r == -1)
@@ -418,7 +418,7 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   if (r > 0) {
     trim_cr (str);
     v = find_value (str);
-    fs->minor_version = guestfs___parse_unsigned_int_ignore_trailing (g, v);
+    fs->minor_version = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
     free (str);
     if (fs->minor_version == -1)
       return -1;
@@ -428,7 +428,7 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
    * installation by default, although not necessarily the one that
    * the user will finally choose.
    */
-  r = guestfs___first_egrep_of_file (g, txtsetup,
+  r = guestfs_int_first_egrep_of_file (g, txtsetup,
                                      "^defaultpath[[:space:]]*=[[:space:]]*",
                                      1, &str);
   if (r == -1)
@@ -445,7 +445,7 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
 
 /* The currently mounted device is very likely to be an installer. */
 int
-guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
+guestfs_int_check_installer_root (guestfs_h *g, struct inspect_fs *fs)
 {
   /* The presence of certain files indicates a live CD.
    *
@@ -515,7 +515,7 @@ guestfs___check_installer_root (guestfs_h *g, struct inspect_fs *fs)
  * directly to the operating system type.
  */
 int
-guestfs___check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
+guestfs_int_check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
                                const char *device)
 {
   CLEANUP_FREE_ISOINFO struct guestfs_isoinfo *isoinfo = NULL;
@@ -528,7 +528,7 @@ guestfs___check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
   if (!isoinfo)
     return 0;
 
-  r = guestfs___osinfo_map (g, isoinfo, &osinfo);
+  r = guestfs_int_osinfo_map (g, isoinfo, &osinfo);
   if (r == -1)                  /* Fatal error. */
     return -1;
   if (r == 0)                   /* Could not locate any matching ISO. */
@@ -547,8 +547,8 @@ guestfs___check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
   fs->arch = osinfo->arch ? safe_strdup (g, osinfo->arch) : NULL;
   fs->is_live_disk = osinfo->is_live_disk;
 
-  guestfs___check_package_format (g, fs);
-  guestfs___check_package_management (g, fs);
+  guestfs_int_check_package_format (g, fs);
+  guestfs_int_check_package_management (g, fs);
 
   return 1;
 }

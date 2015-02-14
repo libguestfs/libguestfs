@@ -236,7 +236,7 @@ static void parse_json (guestfs_h *g, void *treevp, const char *input, size_t le
 static yajl_val
 get_json_output (guestfs_h *g, const char *filename)
 {
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int fd, r;
   char fdpath[64];
   yajl_val tree = NULL;
@@ -260,21 +260,21 @@ get_json_output (guestfs_h *g, const char *filename)
   }
 
   snprintf (fdpath, sizeof fdpath, "/dev/fd/%d", fd);
-  guestfs___cmd_clear_close_files (cmd);
+  guestfs_int_cmd_clear_close_files (cmd);
 
-  guestfs___cmd_add_arg (cmd, "qemu-img");
-  guestfs___cmd_add_arg (cmd, "info");
-  guestfs___cmd_add_arg (cmd, "--output");
-  guestfs___cmd_add_arg (cmd, "json");
-  guestfs___cmd_add_arg (cmd, fdpath);
-  guestfs___cmd_set_stdout_callback (cmd, parse_json, &tree,
+  guestfs_int_cmd_add_arg (cmd, "qemu-img");
+  guestfs_int_cmd_add_arg (cmd, "info");
+  guestfs_int_cmd_add_arg (cmd, "--output");
+  guestfs_int_cmd_add_arg (cmd, "json");
+  guestfs_int_cmd_add_arg (cmd, fdpath);
+  guestfs_int_cmd_set_stdout_callback (cmd, parse_json, &tree,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
-  r = guestfs___cmd_run (cmd);
+  r = guestfs_int_cmd_run (cmd);
   close (fd);
   if (r == -1)
     return NULL;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "qemu-img info", filename);
+    guestfs_int_external_command_failed (g, r, "qemu-img info", filename);
     return NULL;
   }
 
@@ -331,14 +331,14 @@ which_parser (guestfs_h *g)
 {
   if (g->qemu_img_info_parser == QEMU_IMG_INFO_UNKNOWN_PARSER) {
     int qemu_img_supports_json = 0;
-    CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+    CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
 
-    guestfs___cmd_add_arg (cmd, "qemu-img");
-    guestfs___cmd_add_arg (cmd, "--help");
-    guestfs___cmd_set_stdout_callback (cmd,
+    guestfs_int_cmd_add_arg (cmd, "qemu-img");
+    guestfs_int_cmd_add_arg (cmd, "--help");
+    guestfs_int_cmd_set_stdout_callback (cmd,
                                        help_contains_output_json,
                                        &qemu_img_supports_json, 0);
-    guestfs___cmd_run (cmd);
+    guestfs_int_cmd_run (cmd);
     /* ignore return code, which would usually be 1 */
 
     if (qemu_img_supports_json)
@@ -523,10 +523,10 @@ old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
 {
   CLEANUP_FREE char *abs_filename = NULL;
   CLEANUP_FREE char *safe_filename = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs___new_command (g);
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int r;
 
-  if (guestfs___lazy_make_tmpdir (g) == -1)
+  if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return -1;
 
   safe_filename = safe_asprintf (g, "%s/format.%d", g->tmpdir, ++g->unique);
@@ -543,15 +543,15 @@ old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
     return -1;
   }
 
-  guestfs___cmd_add_arg (cmd, "qemu-img");
-  guestfs___cmd_add_arg (cmd, "info");
-  guestfs___cmd_add_arg (cmd, safe_filename);
-  guestfs___cmd_set_stdout_callback (cmd, fn, data, 0);
-  r = guestfs___cmd_run (cmd);
+  guestfs_int_cmd_add_arg (cmd, "qemu-img");
+  guestfs_int_cmd_add_arg (cmd, "info");
+  guestfs_int_cmd_add_arg (cmd, safe_filename);
+  guestfs_int_cmd_set_stdout_callback (cmd, fn, data, 0);
+  r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return -1;
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs___external_command_failed (g, r, "qemu-img info", filename);
+    guestfs_int_external_command_failed (g, r, "qemu-img info", filename);
     return -1;
   }
 

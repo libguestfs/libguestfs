@@ -274,7 +274,7 @@ ruby_set_event_callback (VALUE gv, VALUE cbv, VALUE event_bitmaskv)
 
   event_bitmask = NUM2ULL (event_bitmaskv);
 
-  root = guestfs___safe_malloc (g, sizeof *root);
+  root = guestfs_int_safe_malloc (g, sizeof *root);
   *root = cbv;
 
   eh = guestfs_set_event_callback (g, ruby_event_callback_wrapper,
@@ -445,7 +445,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   /* Copy them into the return array. */
-  r = guestfs___safe_malloc (g, sizeof (VALUE *) * (*len_rtn));
+  r = guestfs_int_safe_malloc (g, sizeof (VALUE *) * (*len_rtn));
 
   i = 0;
   root = guestfs_first_private (g, &key);

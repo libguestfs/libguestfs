@@ -162,7 +162,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   /* Create the ssh argument array. */
   nr_args = 0;
   if (extra_args != NULL)
-    nr_args = guestfs___count_strings (extra_args);
+    nr_args = guestfs_int_count_strings (extra_args);
 
   nr_args += 11;
   args = malloc (sizeof (char *) * nr_args);
@@ -248,7 +248,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
     const char *matched;
     int r;
 
-    if (guestfs___random_string (magic, 8) == -1) {
+    if (guestfs_int_random_string (magic, 8) == -1) {
       set_ssh_error ("random_string: %m");
       mexp_close (h);
       return NULL;
@@ -372,7 +372,7 @@ test_connection (struct config *config)
       sscanf (release_str, "%d", &v2v_release);
 #if DEBUG_STDERR
       fprintf (stderr, "%s: remote virt-v2v version: %d.%d.%d\n",
-               guestfs___program_name, v2v_major, v2v_minor, v2v_release);
+               guestfs_int_program_name, v2v_major, v2v_minor, v2v_release);
 #endif
       /* This is an internal error.  Need to check this here so we
        * don't confuse it with the no-version case below.
@@ -551,7 +551,7 @@ add_option (const char *type, char ***drivers, const char *name, size_t len)
   if (*drivers == NULL)
     n = 0;
   else
-    n = guestfs___count_strings (*drivers);
+    n = guestfs_int_count_strings (*drivers);
 
   n++;
 
@@ -570,7 +570,7 @@ add_option (const char *type, char ***drivers, const char *name, size_t len)
 
 #if DEBUG_STDERR
   fprintf (stderr, "%s: remote virt-v2v supports %s driver %s\n",
-           guestfs___program_name, type, (*drivers)[n-1]);
+           guestfs_int_program_name, type, (*drivers)[n-1]);
 #endif
 }
 
@@ -696,7 +696,7 @@ start_remote_connection (struct config *config,
   mexp_h *h;
   char magic[9];
 
-  if (guestfs___random_string (magic, 8) == -1) {
+  if (guestfs_int_random_string (magic, 8) == -1) {
     perror ("random_string");
     return NULL;
   }

@@ -54,7 +54,7 @@ set_last_error (guestfs_h *g, int errnum, const char *msg)
  * not important for end users then it should be a debug message.
  */
 void
-guestfs___warning (guestfs_h *g, const char *fs, ...)
+guestfs_int_warning (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
@@ -66,12 +66,12 @@ guestfs___warning (guestfs_h *g, const char *fs, ...)
 
   if (len < 0) return;
 
-  guestfs___call_callbacks_message (g, GUESTFS_EVENT_WARNING, msg, len);
+  guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_WARNING, msg, len);
 }
 
 /* Debug messages. */
 void
-guestfs___debug (guestfs_h *g, const char *fs, ...)
+guestfs_int_debug (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
@@ -90,7 +90,7 @@ guestfs___debug (guestfs_h *g, const char *fs, ...)
 
   if (len < 0) return;
 
-  guestfs___call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg, len);
+  guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg, len);
 }
 
 /* Call trace messages.  These are enabled by setting g->trace, and
@@ -98,7 +98,7 @@ guestfs___debug (guestfs_h *g, const char *fs, ...)
  * in src/actions.c
  */
 void
-guestfs___trace (guestfs_h *g, const char *fs, ...)
+guestfs_int_trace (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
@@ -110,11 +110,11 @@ guestfs___trace (guestfs_h *g, const char *fs, ...)
 
   if (len < 0) return;
 
-  guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE, msg, len);
+  guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_TRACE, msg, len);
 }
 
 void
-guestfs___error_errno (guestfs_h *g, int errnum, const char *fs, ...)
+guestfs_int_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
@@ -134,7 +134,7 @@ guestfs___error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 }
 
 void
-guestfs___perrorf (guestfs_h *g, const char *fs, ...)
+guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
@@ -216,13 +216,13 @@ guestfs_pop_error_handler (guestfs_h *g)
     g->error_cb_stack = next_stack;
   }
   else
-    guestfs___init_error_handler (g);
+    guestfs_int_init_error_handler (g);
 }
 
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
 
 void
-guestfs___init_error_handler (guestfs_h *g)
+guestfs_int_init_error_handler (guestfs_h *g)
 {
   g->error_cb = default_error_cb;
   g->error_cb_data = NULL;
@@ -238,7 +238,7 @@ default_error_cb (guestfs_h *g, void *data, const char *msg)
  * usually contain large amounts of binary data (RHBZ#646822).
  */
 void
-guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size)
+guestfs_int_print_BufferIn (FILE *out, const char *buf, size_t buf_size)
 {
   size_t i;
   size_t orig_size = buf_size;
@@ -263,9 +263,9 @@ guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size)
 }
 
 void
-guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size)
+guestfs_int_print_BufferOut (FILE *out, const char *buf, size_t buf_size)
 {
-  guestfs___print_BufferIn (out, buf, buf_size);
+  guestfs_int_print_BufferIn (out, buf, buf_size);
 }
 
 /* Some standard error messages for common failures. */
@@ -276,7 +276,7 @@ guestfs___print_BufferOut (FILE *out, const char *buf, size_t buf_size)
  * available to debug launch problems.
  */
 void
-guestfs___launch_failed_error (guestfs_h *g)
+guestfs_int_launch_failed_error (guestfs_h *g)
 {
   if (g->verbose)
     error (g, _("guestfs_launch failed, see earlier error messages"));
@@ -291,7 +291,7 @@ guestfs___launch_failed_error (guestfs_h *g)
 
 /* As above, but for crashes that occur after launch. */
 void
-guestfs___unexpected_close_error (guestfs_h *g)
+guestfs_int_unexpected_close_error (guestfs_h *g)
 {
   if (g->verbose)
     error (g, _("appliance closed the connection unexpectedly, see earlier error messages"));
@@ -305,7 +305,7 @@ guestfs___unexpected_close_error (guestfs_h *g)
 
 /* As above, but for appliance kernel hanging. */
 void
-guestfs___launch_timeout (guestfs_h *g)
+guestfs_int_launch_timeout (guestfs_h *g)
 {
   if (g->verbose)
     error (g, _("appliance launch timed out, see earlier error messages"));
@@ -319,13 +319,13 @@ guestfs___launch_timeout (guestfs_h *g)
 
 /* External command failed. */
 void
-guestfs___external_command_failed (guestfs_h *g, int status,
+guestfs_int_external_command_failed (guestfs_h *g, int status,
                                    const char *cmd_name, const char *extra)
 {
   size_t len = 80 + strlen (cmd_name);
   char status_string[len];
 
-  guestfs___exit_status_to_string (status, cmd_name, status_string, len);
+  guestfs_int_exit_status_to_string (status, cmd_name, status_string, len);
 
   if (g->verbose) {
     if (!extra)

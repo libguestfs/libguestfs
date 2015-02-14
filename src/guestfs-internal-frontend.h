@@ -36,27 +36,27 @@
 #define N_(str) dgettext(PACKAGE, (str))
 
 #ifdef HAVE_ATTRIBUTE_CLEANUP
-#define CLEANUP_FREE __attribute__((cleanup(guestfs___cleanup_free)))
+#define CLEANUP_FREE __attribute__((cleanup(guestfs_int_cleanup_free)))
 #define CLEANUP_FREE_STRING_LIST                                \
-  __attribute__((cleanup(guestfs___cleanup_free_string_list)))
+  __attribute__((cleanup(guestfs_int_cleanup_free_string_list)))
 #define CLEANUP_HASH_FREE                               \
-  __attribute__((cleanup(guestfs___cleanup_hash_free)))
+  __attribute__((cleanup(guestfs_int_cleanup_hash_free)))
 #define CLEANUP_UNLINK_FREE                                     \
-  __attribute__((cleanup(guestfs___cleanup_unlink_free)))
+  __attribute__((cleanup(guestfs_int_cleanup_unlink_free)))
 #define CLEANUP_XMLBUFFERFREE                                   \
-  __attribute__((cleanup(guestfs___cleanup_xmlBufferFree)))
+  __attribute__((cleanup(guestfs_int_cleanup_xmlBufferFree)))
 #define CLEANUP_XMLFREEDOC                                      \
-  __attribute__((cleanup(guestfs___cleanup_xmlFreeDoc)))
+  __attribute__((cleanup(guestfs_int_cleanup_xmlFreeDoc)))
 #define CLEANUP_XMLFREEURI                                              \
-  __attribute__((cleanup(guestfs___cleanup_xmlFreeURI)))
+  __attribute__((cleanup(guestfs_int_cleanup_xmlFreeURI)))
 #define CLEANUP_XMLFREETEXTWRITER                               \
-  __attribute__((cleanup(guestfs___cleanup_xmlFreeTextWriter)))
+  __attribute__((cleanup(guestfs_int_cleanup_xmlFreeTextWriter)))
 #define CLEANUP_XMLXPATHFREECONTEXT                                     \
-  __attribute__((cleanup(guestfs___cleanup_xmlXPathFreeContext)))
+  __attribute__((cleanup(guestfs_int_cleanup_xmlXPathFreeContext)))
 #define CLEANUP_XMLXPATHFREEOBJECT                                      \
-  __attribute__((cleanup(guestfs___cleanup_xmlXPathFreeObject)))
-#define CLEANUP_FCLOSE __attribute__((cleanup(guestfs___cleanup_fclose)))
-#define CLEANUP_PCLOSE __attribute__((cleanup(guestfs___cleanup_pclose)))
+  __attribute__((cleanup(guestfs_int_cleanup_xmlXPathFreeObject)))
+#define CLEANUP_FCLOSE __attribute__((cleanup(guestfs_int_cleanup_fclose)))
+#define CLEANUP_PCLOSE __attribute__((cleanup(guestfs_int_cleanup_pclose)))
 #else
 #define CLEANUP_FREE
 #define CLEANUP_FREE_STRING_LIST
@@ -76,52 +76,52 @@
  * functions outside the library, so don't use them in new tools or
  * bindings code.
  */
-extern GUESTFS_DLL_PUBLIC void *guestfs___safe_malloc (guestfs_h *g, size_t nbytes);
-extern GUESTFS_DLL_PUBLIC void *guestfs___safe_calloc (guestfs_h *g, size_t n, size_t s);
-extern GUESTFS_DLL_PUBLIC char *guestfs___safe_strdup (guestfs_h *g, const char *str);
-extern GUESTFS_DLL_PUBLIC void *guestfs___safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-extern void *guestfs___safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
-extern char *guestfs___safe_strdup (guestfs_h *g, const char *str);
-extern char *guestfs___safe_strndup (guestfs_h *g, const char *str, size_t n);
-extern void *guestfs___safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-extern char *guestfs___safe_asprintf (guestfs_h *g, const char *fs, ...)
+extern GUESTFS_DLL_PUBLIC void *guestfs_int_safe_malloc (guestfs_h *g, size_t nbytes);
+extern GUESTFS_DLL_PUBLIC void *guestfs_int_safe_calloc (guestfs_h *g, size_t n, size_t s);
+extern GUESTFS_DLL_PUBLIC char *guestfs_int_safe_strdup (guestfs_h *g, const char *str);
+extern GUESTFS_DLL_PUBLIC void *guestfs_int_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
+extern void *guestfs_int_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
+extern char *guestfs_int_safe_strdup (guestfs_h *g, const char *str);
+extern char *guestfs_int_safe_strndup (guestfs_h *g, const char *str, size_t n);
+extern void *guestfs_int_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
+extern char *guestfs_int_safe_asprintf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 
-#define safe_calloc guestfs___safe_calloc
-#define safe_malloc guestfs___safe_malloc
-#define safe_realloc guestfs___safe_realloc
-#define safe_strdup guestfs___safe_strdup
-#define safe_strndup guestfs___safe_strndup
-#define safe_memdup guestfs___safe_memdup
-#define safe_asprintf guestfs___safe_asprintf
+#define safe_calloc guestfs_int_safe_calloc
+#define safe_malloc guestfs_int_safe_malloc
+#define safe_realloc guestfs_int_safe_realloc
+#define safe_strdup guestfs_int_safe_strdup
+#define safe_strndup guestfs_int_safe_strndup
+#define safe_memdup guestfs_int_safe_memdup
+#define safe_asprintf guestfs_int_safe_asprintf
 
 /* utils.c */
-extern void guestfs___free_string_list (char **);
-extern size_t guestfs___count_strings (char *const *);
-extern char *guestfs___concat_strings (char *const *);
-extern char **guestfs___copy_string_list (char *const *);
-extern char *guestfs___join_strings (const char *sep, char *const *);
-extern char **guestfs___split_string (char sep, const char *);
-extern char *guestfs___exit_status_to_string (int status, const char *cmd_name, char *buffer, size_t buflen);
-extern int guestfs___random_string (char *ret, size_t len);
-extern char *guestfs___drive_name (size_t index, char *ret);
-extern int guestfs___is_true (const char *str);
+extern void guestfs_int_free_string_list (char **);
+extern size_t guestfs_int_count_strings (char *const *);
+extern char *guestfs_int_concat_strings (char *const *);
+extern char **guestfs_int_copy_string_list (char *const *);
+extern char *guestfs_int_join_strings (const char *sep, char *const *);
+extern char **guestfs_int_split_string (char sep, const char *);
+extern char *guestfs_int_exit_status_to_string (int status, const char *cmd_name, char *buffer, size_t buflen);
+extern int guestfs_int_random_string (char *ret, size_t len);
+extern char *guestfs_int_drive_name (size_t index, char *ret);
+extern int guestfs_int_is_true (const char *str);
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
  */
-extern void guestfs___cleanup_free (void *ptr);
-extern void guestfs___cleanup_free_string_list (char ***ptr);
-extern void guestfs___cleanup_hash_free (void *ptr);
-extern void guestfs___cleanup_unlink_free (char **ptr);
-extern void guestfs___cleanup_xmlBufferFree (void *ptr);
-extern void guestfs___cleanup_xmlFreeDoc (void *ptr);
-extern void guestfs___cleanup_xmlFreeURI (void *ptr);
-extern void guestfs___cleanup_xmlFreeTextWriter (void *ptr);
-extern void guestfs___cleanup_xmlXPathFreeContext (void *ptr);
-extern void guestfs___cleanup_xmlXPathFreeObject (void *ptr);
-extern void guestfs___cleanup_fclose (void *ptr);
-extern void guestfs___cleanup_pclose (void *ptr);
+extern void guestfs_int_cleanup_free (void *ptr);
+extern void guestfs_int_cleanup_free_string_list (char ***ptr);
+extern void guestfs_int_cleanup_hash_free (void *ptr);
+extern void guestfs_int_cleanup_unlink_free (char **ptr);
+extern void guestfs_int_cleanup_xmlBufferFree (void *ptr);
+extern void guestfs_int_cleanup_xmlFreeDoc (void *ptr);
+extern void guestfs_int_cleanup_xmlFreeURI (void *ptr);
+extern void guestfs_int_cleanup_xmlFreeTextWriter (void *ptr);
+extern void guestfs_int_cleanup_xmlXPathFreeContext (void *ptr);
+extern void guestfs_int_cleanup_xmlXPathFreeObject (void *ptr);
+extern void guestfs_int_cleanup_fclose (void *ptr);
+extern void guestfs_int_cleanup_pclose (void *ptr);
 
 /* These are in a separate header so the header can be generated.
  * Don't include the following file directly:
@@ -139,7 +139,7 @@ extern void guestfs___cleanup_pclose (void *ptr);
  * internally within the libguestfs code, not to external users.
  */
 
-struct guestfs___add_libvirt_dom_argv {
+struct guestfs_int_add_libvirt_dom_argv {
   uint64_t bitmask;
 #define GUESTFS___ADD_LIBVIRT_DOM_READONLY_BITMASK (UINT64_C(1)<<0)
   int readonly;
@@ -157,17 +157,17 @@ struct guestfs___add_libvirt_dom_argv {
   int copyonread;
 };
 
-extern GUESTFS_DLL_PUBLIC int guestfs___add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs___add_libvirt_dom_argv *optargs);
+extern GUESTFS_DLL_PUBLIC int guestfs_int_add_libvirt_dom (guestfs_h *g, virDomainPtr dom, const struct guestfs_int_add_libvirt_dom_argv *optargs);
 
 #endif /* HAVE_LIBVIRT */
 
 /* Current program name.  Note <errno.h> must be included in all files
- * that want to use 'guestfs___program_name'.
+ * that want to use 'guestfs_int_program_name'.
  */
 #if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
-#  define guestfs___program_name program_invocation_short_name
+#  define guestfs_int_program_name program_invocation_short_name
 #else
-#  define guestfs___program_name "libguestfs"
+#  define guestfs_int_program_name "libguestfs"
 #endif
 
 /* Close all file descriptors matching the condition. */

@@ -81,7 +81,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   else {
     fprintf (stdout,
            _("%s: list files in a virtual machine\n"
@@ -114,8 +114,8 @@ usage (int status)
              "  -V|--version         Display version and exit\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             guestfs___program_name, guestfs___program_name, guestfs___program_name,
-             guestfs___program_name);
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
+             guestfs_int_program_name);
   }
   exit (status);
 }
@@ -226,7 +226,7 @@ main (int argc, char *argv[])
         enable_uids = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -332,7 +332,7 @@ main (int argc, char *argv[])
       (csv || human || enable_uids || enable_times || enable_extra_stats ||
        checksum)) {
     fprintf (stderr, _("%s: used a flag which can only be combined with -lR mode\nFor more information, read the virt-ls(1) man page.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -341,7 +341,7 @@ main (int argc, char *argv[])
    */
   if (human && csv) {
     fprintf (stderr, _("%s: you cannot use -h and --csv options together.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
     exit (EXIT_FAILURE);
   }
 

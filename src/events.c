@@ -94,7 +94,7 @@ guestfs_delete_event_callback (guestfs_h *g, int event_handle)
 /* Functions to generate an event with various payloads. */
 
 void
-guestfs___call_callbacks_void (guestfs_h *g, uint64_t event)
+guestfs_int_call_callbacks_void (guestfs_h *g, uint64_t event)
 {
   size_t i;
 
@@ -108,7 +108,7 @@ guestfs___call_callbacks_void (guestfs_h *g, uint64_t event)
 }
 
 void
-guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
+guestfs_int_call_callbacks_message (guestfs_h *g, uint64_t event,
                                   const char *buf, size_t buf_len)
 {
   size_t i, count = 0;
@@ -208,7 +208,7 @@ guestfs___call_callbacks_message (guestfs_h *g, uint64_t event,
 }
 
 void
-guestfs___call_callbacks_array (guestfs_h *g, uint64_t event,
+guestfs_int_call_callbacks_array (guestfs_h *g, uint64_t event,
                                 const uint64_t *array, size_t array_len)
 {
   size_t i;

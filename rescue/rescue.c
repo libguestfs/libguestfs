@@ -54,7 +54,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs___program_name);
+             guestfs_int_program_name);
   else {
     fprintf (stdout,
            _("%s: Run a rescue shell on a virtual machine\n"
@@ -81,8 +81,8 @@ usage (int status)
              "  -w|--rw              Mount read-write\n"
              "  -x                   Trace libguestfs API calls\n"
              "For more information, see the manpage %s(1).\n"),
-             guestfs___program_name, guestfs___program_name, guestfs___program_name,
-             guestfs___program_name);
+             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
+             guestfs_int_program_name);
   }
   exit (status);
 }
@@ -157,12 +157,12 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "smp")) {
         if (sscanf (optarg, "%d", &smp) != 1) {
           fprintf (stderr, _("%s: could not parse --smp parameter '%s'\n"),
-                   guestfs___program_name, optarg);
+                   guestfs_int_program_name, optarg);
           exit (EXIT_FAILURE);
         }
         if (smp < 1) {
           fprintf (stderr, _("%s: --smp parameter '%s' should be >= 1\n"),
-                   guestfs___program_name, optarg);
+                   guestfs_int_program_name, optarg);
           exit (EXIT_FAILURE);
         }
       } else if (STREQ (long_options[option_index].name, "suggest")) {
@@ -175,20 +175,20 @@ main (int argc, char *argv[])
           if (sscanf (optarg, "%d", &n) != 1) {
             fprintf (stderr,
                      _("%s: could not parse --scratch parameter '%s'\n"),
-                     guestfs___program_name, optarg);
+                     guestfs_int_program_name, optarg);
             exit (EXIT_FAILURE);
           }
           if (n < 1) {
             fprintf (stderr,
                      _("%s: --scratch parameter '%s' should be >= 1\n"),
-                     guestfs___program_name, optarg);
+                     guestfs_int_program_name, optarg);
             exit (EXIT_FAILURE);
           }
           add_scratch_disks (n, &drvs);
         }
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs___program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -208,7 +208,7 @@ main (int argc, char *argv[])
     case 'm':
       if (sscanf (optarg, "%d", &memsize) != 1) {
         fprintf (stderr, _("%s: could not parse memory size '%s'\n"),
-                 guestfs___program_name, optarg);
+                 guestfs_int_program_name, optarg);
         exit (EXIT_FAILURE);
       }
       break;
@@ -316,7 +316,7 @@ main (int argc, char *argv[])
           STRPREFIX (backend, "libvirt:")) {
         fprintf (stderr, _("%s: warning: virt-rescue doesn't work with the libvirt backend\n"
                            "at the moment.  As a workaround, forcing backend = 'direct'.\n"),
-                 guestfs___program_name);
+                 guestfs_int_program_name);
         if (guestfs_set_backend (g, "direct") == -1)
           exit (EXIT_FAILURE);
       }
@@ -443,7 +443,7 @@ do_suggestion (struct drv *drvs)
     /* Sort by key length, shortest key first, so that we end up
      * mounting the filesystems in the correct order.
      */
-    qsort (mps, guestfs___count_strings (mps) / 2, 2 * sizeof (char *),
+    qsort (mps, guestfs_int_count_strings (mps) / 2, 2 * sizeof (char *),
            compare_keys_len);
 
     for (j = 0; mps[j] != NULL; j += 2)

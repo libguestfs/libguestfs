@@ -62,7 +62,7 @@ virt_resize_parse_uri (value argv /* arg value, not an array! */)
   /* server : string array option */
   if (uri.server) {
     ssv = caml_copy_string_array ((const char **) uri.server);
-    guestfs___free_string_list (uri.server);
+    guestfs_int_free_string_list (uri.server);
     ov = caml_alloc (1, 0);
     Store_field (ov, 0, ssv);
   }

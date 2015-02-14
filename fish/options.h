@@ -218,7 +218,7 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
   {                                                                     \
     struct guestfs_version *v = guestfs_version (g);                    \
     printf ("%s %"PRIi64".%"PRIi64".%"PRIi64"%s\n",                     \
-            guestfs___program_name,                                               \
+            guestfs_int_program_name,                                               \
             v->major, v->minor, v->release, v->extra);                  \
     exit (EXIT_SUCCESS);                                                \
   }
@@ -226,7 +226,7 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
 #define OPTION_w                                                        \
   if (read_only) {                                                      \
     fprintf (stderr, _("%s: cannot mix --ro and --rw options\n"),       \
-             guestfs___program_name);                                             \
+             guestfs_int_program_name);                                             \
     exit (EXIT_FAILURE);                                                \
   }
 
@@ -238,7 +238,7 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
     if (!format_consumed) {                                             \
       fprintf (stderr,                                                  \
                _("%s: --format parameter must appear before -a parameter\n"), \
-               guestfs___program_name);                                           \
+               guestfs_int_program_name);                                           \
       exit (EXIT_FAILURE);                                              \
     }                                                                   \
   } while (0)

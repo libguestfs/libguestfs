@@ -29,7 +29,7 @@
 #include "guestfs-internal.h"
 
 void
-guestfs___add_string_nodup (guestfs_h *g, struct stringsbuf *sb, char *str)
+guestfs_int_add_string_nodup (guestfs_h *g, struct stringsbuf *sb, char *str)
 {
   if (sb->size >= sb->alloc) {
     sb->alloc += 64;
@@ -41,13 +41,13 @@ guestfs___add_string_nodup (guestfs_h *g, struct stringsbuf *sb, char *str)
 }
 
 void
-guestfs___add_string (guestfs_h *g, struct stringsbuf *sb, const char *str)
+guestfs_int_add_string (guestfs_h *g, struct stringsbuf *sb, const char *str)
 {
-  guestfs___add_string_nodup (g, sb, safe_strdup (g, str));
+  guestfs_int_add_string_nodup (g, sb, safe_strdup (g, str));
 }
 
 void
-guestfs___add_sprintf (guestfs_h *g, struct stringsbuf *sb,
+guestfs_int_add_sprintf (guestfs_h *g, struct stringsbuf *sb,
                        const char *fs, ...)
 {
   va_list args;
@@ -60,17 +60,17 @@ guestfs___add_sprintf (guestfs_h *g, struct stringsbuf *sb,
   if (r == -1)
     g->abort_cb ();
 
-  guestfs___add_string_nodup (g, sb, str);
+  guestfs_int_add_string_nodup (g, sb, str);
 }
 
 void
-guestfs___end_stringsbuf (guestfs_h *g, struct stringsbuf *sb)
+guestfs_int_end_stringsbuf (guestfs_h *g, struct stringsbuf *sb)
 {
-  guestfs___add_string_nodup (g, sb, NULL);
+  guestfs_int_add_string_nodup (g, sb, NULL);
 }
 
 void
-guestfs___free_stringsbuf (struct stringsbuf *sb)
+guestfs_int_free_stringsbuf (struct stringsbuf *sb)
 {
   size_t i;
 
@@ -82,7 +82,7 @@ guestfs___free_stringsbuf (struct stringsbuf *sb)
 }
 
 void
-guestfs___cleanup_free_stringsbuf (struct stringsbuf *sb)
+guestfs_int_cleanup_free_stringsbuf (struct stringsbuf *sb)
 {
-  guestfs___free_stringsbuf (sb);
+  guestfs_int_free_stringsbuf (sb);
 }

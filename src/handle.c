@@ -88,7 +88,7 @@ guestfs_create_flags (unsigned flags, ...)
 
   g->conn = NULL;
 
-  guestfs___init_error_handler (g);
+  guestfs_int_init_error_handler (g);
   g->abort_cb = abort;
 
   g->recovery_proc = 1;
@@ -130,9 +130,9 @@ guestfs_create_flags (unsigned flags, ...)
 #endif
   if (!g->program) goto error;
 
-  if (guestfs___set_backend (g, DEFAULT_BACKEND) == -1) {
+  if (guestfs_int_set_backend (g, DEFAULT_BACKEND) == -1) {
     warning (g, _("libguestfs was built with an invalid default backend, using 'direct' instead"));
-    if (guestfs___set_backend (g, "direct") == -1) {
+    if (guestfs_int_set_backend (g, "direct") == -1) {
       warning (g, _("'direct' backend does not work"));
       goto error;
     }
@@ -161,7 +161,7 @@ guestfs_create_flags (unsigned flags, ...)
   return g;
 
  error:
-  guestfs___free_string_list (g->backend_settings);
+  guestfs_int_free_string_list (g->backend_settings);
   free (g->backend);
   free (g->program);
   free (g->path);
@@ -185,7 +185,7 @@ parse_environment (guestfs_h *g,
 
   str = do_getenv (data, "LIBGUESTFS_TRACE");
   if (str) {
-    b = guestfs___is_true (str);
+    b = guestfs_int_is_true (str);
     if (b == -1) {
       error (g, _("%s=%s: non-boolean value"), "LIBGUESTFS_TRACE", str);
       return -1;
@@ -195,7 +195,7 @@ parse_environment (guestfs_h *g,
 
   str = do_getenv (data, "LIBGUESTFS_DEBUG");
   if (str) {
-    b = guestfs___is_true (str);
+    b = guestfs_int_is_true (str);
     if (b == -1) {
       error (g, _("%s=%s: non-boolean value"), "LIBGUESTFS_TRACE", str);
       return -1;
@@ -216,7 +216,7 @@ parse_environment (guestfs_h *g,
   }
 
   str = do_getenv (data, "TMPDIR");
-  if (guestfs___set_env_tmpdir (g, str) == -1)
+  if (guestfs_int_set_env_tmpdir (g, str) == -1)
     return -1;
 
   str = do_getenv (data, "LIBGUESTFS_PATH");
@@ -263,7 +263,7 @@ parse_environment (guestfs_h *g,
 
   str = do_getenv (data, "LIBGUESTFS_BACKEND_SETTINGS");
   if (str) {
-    CLEANUP_FREE_STRING_LIST char **settings = guestfs___split_string (':', str);
+    CLEANUP_FREE_STRING_LIST char **settings = guestfs_int_split_string (':', str);
 
     if (settings == NULL) {
       perrorf (g, "split_string: malloc");
@@ -332,7 +332,7 @@ guestfs_close (guestfs_h *g)
   if (g->trace) {
     const char trace_msg[] = "close";
 
-    guestfs___call_callbacks_message (g, GUESTFS_EVENT_TRACE,
+    guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_TRACE,
                                       trace_msg, strlen (trace_msg));
   }
 
@@ -342,14 +342,14 @@ guestfs_close (guestfs_h *g)
     shutdown_backend (g, 0);
 
   /* Run user close callbacks. */
-  guestfs___call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
+  guestfs_int_call_callbacks_void (g, GUESTFS_EVENT_CLOSE);
 
   /* Test output file used by bindtests. */
   if (g->test_fp != NULL)
     fclose (g->test_fp);
 
   /* Remove temporary directory. */
-  guestfs___remove_tmpdir (g);
+  guestfs_int_remove_tmpdir (g);
 
   /* Mark the handle as dead and then free up all memory. */
   g->state = NO_HANDLE;
@@ -359,11 +359,11 @@ guestfs_close (guestfs_h *g)
   g->events = NULL;
 
 #if HAVE_FUSE
-  guestfs___free_fuse (g);
+  guestfs_int_free_fuse (g);
 #endif
 
-  guestfs___free_inspect_info (g);
-  guestfs___free_drives (g);
+  guestfs_int_free_inspect_info (g);
+  guestfs_int_free_drives (g);
 
   for (hp = g->hv_params; hp; hp = hp_next) {
     free (hp->hv_param);
@@ -387,7 +387,7 @@ guestfs_close (guestfs_h *g)
   free (g->hv);
   free (g->backend);
   free (g->backend_data);
-  guestfs___free_string_list (g->backend_settings);
+  guestfs_int_free_string_list (g->backend_settings);
   free (g->append);
   free (g);
 }
@@ -444,7 +444,7 @@ shutdown_backend (guestfs_h *g, int check_for_errors)
     g->conn = NULL;
   }
 
-  guestfs___free_drives (g);
+  guestfs_int_free_drives (g);
 
   g->state = CONFIG;
 
@@ -677,7 +677,7 @@ guestfs__get_program (guestfs_h *g)
 int
 guestfs__set_backend (guestfs_h *g, const char *method)
 {
-  if (guestfs___set_backend (g, method) == -1) {
+  if (guestfs_int_set_backend (g, method) == -1) {
     error (g, "invalid backend: %s", method);
     return -1;
   }
@@ -712,13 +712,13 @@ guestfs__set_backend_settings (guestfs_h *g, char *const *settings)
 {
   char **copy;
 
-  copy = guestfs___copy_string_list (settings);
+  copy = guestfs_int_copy_string_list (settings);
   if (copy == NULL) {
     perrorf (g, "copy: malloc");
     return -1;
   }
 
-  guestfs___free_string_list (g->backend_settings);
+  guestfs_int_free_string_list (g->backend_settings);
   g->backend_settings = copy;
 
   return 0;
@@ -731,9 +731,9 @@ guestfs__get_backend_settings (guestfs_h *g)
   char **ret;
 
   if (g->backend_settings == NULL)
-    ret = guestfs___copy_string_list (empty_list);
+    ret = guestfs_int_copy_string_list (empty_list);
   else
-    ret = guestfs___copy_string_list (g->backend_settings);
+    ret = guestfs_int_copy_string_list (g->backend_settings);
 
   if (ret == NULL) {
     perrorf (g, "copy: malloc");
@@ -763,7 +763,7 @@ guestfs__get_backend_setting (guestfs_h *g, const char *name)
   }
 
  not_found:
-  guestfs___error_errno (g, ESRCH, _("setting not found"));
+  guestfs_int_error_errno (g, ESRCH, _("setting not found"));
   return NULL;
 }
 
@@ -810,7 +810,7 @@ guestfs__set_backend_setting (guestfs_h *g, const char *name, const char *value)
   }
   else {
     ignore_value (guestfs_clear_backend_setting (g, name));
-    len = guestfs___count_strings (g->backend_settings);
+    len = guestfs_int_count_strings (g->backend_settings);
   }
 
   g->backend_settings =
@@ -825,7 +825,7 @@ guestfs__set_backend_setting (guestfs_h *g, const char *name, const char *value)
  * it as an API in future.
  */
 int
-guestfs___get_backend_setting_bool (guestfs_h *g, const char *name)
+guestfs_int_get_backend_setting_bool (guestfs_h *g, const char *name)
 {
   CLEANUP_FREE char *value = NULL;
   int b;
@@ -840,7 +840,7 @@ guestfs___get_backend_setting_bool (guestfs_h *g, const char *name)
   if (value == NULL)
     return -1;
 
-  b = guestfs___is_true (value);
+  b = guestfs_int_is_true (value);
   if (b == -1)
     return -1;
 
