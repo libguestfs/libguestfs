@@ -340,6 +340,18 @@ let structs = [
     ];
     s_camel_name = "BTRFSQgroup" };
 
+  (* btrfs balance status output *)
+  { defaults with
+    s_name = "btrfsbalance";
+    s_cols = [
+      "btrfsbalance_status", FString;
+      "btrfsbalance_total", FUInt64;
+      "btrfsbalance_balanced", FUInt64;
+      "btrfsbalance_considered", FUInt64;
+      "btrfsbalance_left", FUInt64;
+    ];
+    s_camel_name = "BTRFSBalance" };
+
   (* XFS info descriptor. *)
   { defaults with
     s_name = "xfsinfo";

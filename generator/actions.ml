@@ -12449,6 +12449,16 @@ valid GUID." };
     longdesc = "\
 Return the GUID of numbered GPT partition C<partnum>." };
 
+{ defaults with
+    name = "btrfs_balance_status";
+    style = RStruct ("status", "btrfsbalance"), [Pathname "path"], [];
+    proc_nr = Some 448;
+    optional = Some "btrfs"; camel_name = "BTRFSBalanceStatus";
+    test_excuse = "test disk isn't large enough that btrfs_balance completes before we can get its status";
+    shortdesc = "show the status of a running or paused balance";
+    longdesc = "\
+Show the status of a running or paused balance on a btrfs filesystem." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

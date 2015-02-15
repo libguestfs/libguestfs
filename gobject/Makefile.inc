@@ -25,6 +25,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/tristate.h \
   include/guestfs-gobject/struct-application.h \
   include/guestfs-gobject/struct-application2.h \
+  include/guestfs-gobject/struct-btrfsbalance.h \
   include/guestfs-gobject/struct-btrfsqgroup.h \
   include/guestfs-gobject/struct-btrfssubvolume.h \
   include/guestfs-gobject/struct-dirent.h \
@@ -108,6 +109,7 @@ guestfs_gobject_sources= \
   src/tristate.c \
   src/struct-application.c \
   src/struct-application2.c \
+  src/struct-btrfsbalance.c \
   src/struct-btrfsqgroup.c \
   src/struct-btrfssubvolume.c \
   src/struct-dirent.c \
