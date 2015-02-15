@@ -352,6 +352,28 @@ let structs = [
     ];
     s_camel_name = "BTRFSBalance" };
 
+  (* btrfs scrub status output *)
+  { defaults with
+    s_name = "btrfsscrub";
+    s_cols = [
+      "btrfsscrub_data_extents_scrubbed", FUInt64;
+      "btrfsscrub_tree_extents_scrubbed", FUInt64;
+      "btrfsscrub_data_bytes_scrubbed", FUInt64;
+      "btrfsscrub_tree_bytes_scrubbed", FUInt64;
+      "btrfsscrub_read_errors", FUInt64;
+      "btrfsscrub_csum_errors", FUInt64;
+      "btrfsscrub_verify_errors", FUInt64;
+      "btrfsscrub_no_csum", FUInt64;
+      "btrfsscrub_csum_discards", FUInt64;
+      "btrfsscrub_super_errors", FUInt64;
+      "btrfsscrub_malloc_errors", FUInt64;
+      "btrfsscrub_uncorrectable_errors", FUInt64;
+      "btrfsscrub_unverified_errors", FUInt64;
+      "btrfsscrub_corrected_errors", FUInt64;
+      "btrfsscrub_last_physical", FUInt64;
+    ];
+    s_camel_name = "BTRFSScrub" };
+
   (* XFS info descriptor. *)
   { defaults with
     s_name = "xfsinfo";

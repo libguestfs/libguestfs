@@ -2,6 +2,7 @@ Application.java
 Application2.java
 BTRFSBalance.java
 BTRFSQgroup.java
+BTRFSScrub.java
 BTRFSSubvolume.java
 Dirent.java
 HivexNode.java

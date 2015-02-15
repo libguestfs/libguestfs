@@ -12459,6 +12459,22 @@ Return the GUID of numbered GPT partition C<partnum>." };
     longdesc = "\
 Show the status of a running or paused balance on a btrfs filesystem." };
 
+  { defaults with
+    name = "btrfs_scrub_status";
+    style = RStruct ("status", "btrfsscrub"), [Pathname "path"], [];
+    proc_nr = Some 449;
+    optional = Some "btrfs"; camel_name = "BTRFSScrubStatus";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_scrub_start"; "/"];
+         ["btrfs_scrub_status"; "/"]]), [];
+    ];
+    shortdesc = "show status of running or finished scrub";
+    longdesc = "\
+Show status of running or finished scrub on a btrfs filesystem." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

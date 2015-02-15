@@ -232,6 +232,7 @@ gobject/src/struct-application.c
 gobject/src/struct-application2.c
 gobject/src/struct-btrfsbalance.c
 gobject/src/struct-btrfsqgroup.c
+gobject/src/struct-btrfsscrub.c
 gobject/src/struct-btrfssubvolume.c
 gobject/src/struct-dirent.c
 gobject/src/struct-hivex_node.c

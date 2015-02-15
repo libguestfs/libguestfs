@@ -24,6 +24,7 @@ java_built_sources = \
 	com/redhat/et/libguestfs/Application2.java \
 	com/redhat/et/libguestfs/BTRFSBalance.java \
 	com/redhat/et/libguestfs/BTRFSQgroup.java \
+	com/redhat/et/libguestfs/BTRFSScrub.java \
 	com/redhat/et/libguestfs/BTRFSSubvolume.java \
 	com/redhat/et/libguestfs/Dirent.java \
 	com/redhat/et/libguestfs/HivexNode.java \
