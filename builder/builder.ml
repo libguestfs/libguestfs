@@ -158,7 +158,7 @@ let main () =
         proxy = Downloader.SystemProxy;
       }
   ) sources in
-  let sources = List.append repos sources in
+  let sources = List.append sources repos in
   let index : Index_parser.index =
     List.concat (
       List.map (
