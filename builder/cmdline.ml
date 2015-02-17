@@ -280,13 +280,18 @@ read the man page virt-builder(1).
 
     let nr_sources = List.length sources in
     let fingerprints =
-      match fingerprints with
-      | [fingerprint] ->
-        (* You're allowed to have multiple sources and one fingerprint: it
-         * means that the same fingerprint is used for all sources.
-         *)
-        repeat fingerprint nr_sources
-      | xs -> xs in
+      if check_signature then (
+        match fingerprints with
+        | [fingerprint] ->
+          (* You're allowed to have multiple sources and one fingerprint: it
+           * means that the same fingerprint is used for all sources.
+           *)
+          repeat fingerprint nr_sources
+        | xs -> xs
+      ) else
+        (* We are not checking signatures, so just ignore any fingerprint
+         * specified. *)
+        repeat "" nr_sources in
 
     if List.length fingerprints <> nr_sources then
       error (f_"source and fingerprint lists are not the same length");
