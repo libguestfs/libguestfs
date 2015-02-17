@@ -29,6 +29,7 @@ EXTRA_DIST = \
 	debian.preseed \
 	debian.sh \
 	fedora.sh \
+	fedora-aarch64.sh \
 	rhel.sh \
 	scientificlinux.sh \
 	ubuntu.preseed \
