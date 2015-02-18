@@ -296,9 +296,9 @@ do_e2fsck (const char *device,
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandvf (NULL, &err,
-                 COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                 argv);
+  r = commandrvf (NULL, &err,
+                  COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                  argv);
   /* 0 = no errors, 1 = errors corrected.
    *
    * >= 4 means uncorrected or other errors.
