@@ -4528,15 +4528,15 @@ Run C<src/api-support/update-from-tarballs.sh>.
 
 =item *
 
-Push and pull from Transifex.
+Push and pull from Zanata.
 
 Run:
 
- tx push -s
+ zanata push
 
-to push the latest POT files to Transifex.  Then run:
+to push the latest POT files to Zanata.  Then run:
 
- ./tx-pull.sh
+ ./zanata-pull.sh
 
 which is a wrapper to pull the latest translated C<*.po> files.
 
