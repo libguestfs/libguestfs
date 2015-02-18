@@ -159,7 +159,6 @@ EXTRA_DIST = \
 	.gitignore \
 	.lvimrc \
 	.mailmap \
-	.tx/config \
 	bootstrap \
 	bugs-in-changelog.sh \
 	autogen.sh \
