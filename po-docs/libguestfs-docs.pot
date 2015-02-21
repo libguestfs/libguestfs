@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.26.9\n"
+"Project-Id-Version: libguestfs 1.26.10\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-09-04 16:15+0200\n"
+"POT-Creation-Date: 2015-02-21 13:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6387,7 +6387,7 @@ msgstr ""
 #: ../customize/customize-options.pod:8 ../fish/guestfish-actions.pod:8 ../fish/guestfish-commands.pod:8 ../fish/guestfish-prepopts.pod:8 ../src/guestfs-actions.pod:8 ../src/guestfs-availability.pod:8 ../src/guestfs-structs.pod:8
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2014 Red Hat Inc.\n"
+" Copyright (C) 2009-2015 Red Hat Inc.\n"
 "\n"
 msgstr ""
 

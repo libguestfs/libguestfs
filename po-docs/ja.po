@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2014-08-24 22:57+0200\n"
+"POT-Creation-Date: 2015-02-21 13:46+0000\n"
 "PO-Revision-Date: 2014-03-26 16:50+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/fedora/language/"
@@ -7518,11 +7518,12 @@ msgstr ""
 #: ../fish/guestfish-commands.pod:8 ../fish/guestfish-prepopts.pod:8
 #: ../src/guestfs-actions.pod:8 ../src/guestfs-availability.pod:8
 #: ../src/guestfs-structs.pod:8
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgid ""
-" Copyright (C) 2009-2014 Red Hat Inc.\n"
+" Copyright (C) 2009-2015 Red Hat Inc.\n"
 "\n"
-msgstr ""
+msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
 #. type: verbatim
 #: ../customize/customize-options.pod:10 ../fish/guestfish-actions.pod:10
