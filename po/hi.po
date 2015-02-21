@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2014-03-08 16:39+0000\n"
+"POT-Creation-Date: 2015-02-21 14:33+0000\n"
 "PO-Revision-Date: 2013-08-06 13:32+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
@@ -4257,21 +4257,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:545
+#: src/launch-libvirt.c:546
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:551 src/libvirt-domain.c:352 src/libvirt-domain.c:435
+#: src/launch-libvirt.c:552 src/libvirt-domain.c:352 src/libvirt-domain.c:435
 #: src/libvirt-domain.c:640
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:561
+#: src/launch-libvirt.c:562
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:594
+#: src/launch-libvirt.c:595
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -4286,54 +4286,54 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:745
+#: src/launch-libvirt.c:746
 #, c-format
 msgid "error constructing libvirt XML at \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1126
+#: src/launch-libvirt.c:1127
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1237
+#: src/launch-libvirt.c:1238
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1275
+#: src/launch-libvirt.c:1276
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1286
+#: src/launch-libvirt.c:1287
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1641
+#: src/launch-libvirt.c:1642
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-libvirt.c:1723
+#: src/launch-libvirt.c:1724
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1760
+#: src/launch-libvirt.c:1761
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:1822
+#: src/launch-libvirt.c:1823
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:1853
+#: src/launch-libvirt.c:1854
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -4522,11 +4522,11 @@ msgstr ""
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:711
+#: src/libvirt-domain.c:712
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/libvirt-domain.c:721
+#: src/libvirt-domain.c:722
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
@@ -6736,23 +6736,23 @@ msgstr ""
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../builder/index_parser.ml:321
+#: ../builder/index_parser.ml:334
 msgid "virt-builder: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:335
+#: ../builder/index_parser.ml:348
 msgid "virt-builder: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:300
+#: ../builder/index_parser.ml:313
 msgid "virt-builder: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:312
+#: ../builder/index_parser.ml:325
 msgid "virt-builder: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:369
+#: ../builder/index_parser.ml:382
 msgid "virt-builder: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
@@ -6823,12 +6823,12 @@ msgstr ""
 msgid "virt-builder: get-kernel: no operating system found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:267
+#: ../builder/index_parser.ml:280
 msgid ""
 "virt-builder: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:254
+#: ../builder/index_parser.ml:267
 msgid ""
 "virt-builder: index is corrupt: os-version '%s' appears two or more times\n"
 msgstr ""
@@ -6837,11 +6837,11 @@ msgstr ""
 msgid "virt-builder: index page '%s' is too large (size %d bytes)\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:285
+#: ../builder/index_parser.ml:298
 msgid "virt-builder: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:309
+#: ../builder/index_parser.ml:322
 msgid "virt-builder: no 'size' field for '%s'\n"
 msgstr ""
 
@@ -6849,12 +6849,12 @@ msgstr ""
 msgid "virt-builder: no kernel found\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:374
+#: ../builder/index_parser.ml:387
 msgid ""
 "virt-builder: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:365
+#: ../builder/index_parser.ml:378
 msgid "virt-builder: zero length path in the index file\n"
 msgstr ""
 
