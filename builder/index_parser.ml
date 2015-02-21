@@ -246,6 +246,19 @@ let get_index ~prog ~debug ~downloader ~sigchecker source =
         (n, fields)
     ) sections in
 
+    (* Drop !x86_64 architectures (RHBZ#1194472).
+     * 
+     * virt-builder > 1.24 supports multiple architectures, allowing
+     * duplicate os-version (with different arch field).  This version
+     * of virt-builder only works for x86_64 guests.  Thus we should
+     * ignore any other type of guest here, which also avoids the error
+     * when we see duplicate os-version below.
+     *)
+    let sections = List.filter (
+      fun (n, fields) ->
+        try List.assoc "arch" fields = "x86_64" with Not_found -> true
+    ) sections in
+
     (* Check for repeated os-version names. *)
     let nseen = Hashtbl.create 13 in
     List.iter (
