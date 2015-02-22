@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Rajesh Ranjan <rranjan@redhat.com>, 2011
-# rjones <rjones@redhat.com>, 2011
+# Hajime Taira <htaira@redhat.com>, 2011
+# Tomoyuki KATO <tomo@dream.daynight.jp>, 2011-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
@@ -12,12 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2015-02-17 12:06+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/language/hi/)\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hi\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Zanata 3.5.1\n"
 
 #: ../resize/resize.ml:893
@@ -3293,7 +3293,7 @@ msgstr ""
 #: make-fs/make-fs.c:74 p2v/main.c:66 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "अधिक सूचना के लिए `%s --help' आजमाएँ.\n"
+msgstr "詳細は `%s --help' を確認してください。\n"
 
 #: align/scan.c:77
 #, c-format
@@ -3316,6 +3316,23 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: 仮想マシンのパーティションのアライメントを確認します\n"
+"Copyright (C) 2011 Red Hat Inc.\n"
+"使用法:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"オプション:\n"
+"  -a|--add image       イメージを追加します\n"
+"  -c|--connect uri     -d オプションの libvirt URI を指定します\n"
+"  -d|--domain guest    libvirt 仮想マシンからディスクを追加します\n"
+"  --format[=raw|..]    -a オプションのディスクフォーマットを強制指定します\n"
+"  --help               簡単なヘルプを表示します\n"
+"  -P nr_threads        多くとも nr_threads を使用します\n"
+"  -q|--quiet           何も出力しません、終了コードのみです\n"
+"  -v|--verbose         冗長なメッセージ\n"
+"  -V|--version         バージョンの表示して、終了します\n"
+"  -x                   libguestfs API 呼び出しをトレースします\n"
+"詳細はマニュアルページ %s(1) を参照してください。\n"
 
 #: align/scan.c:135 cat/cat.c:120 cat/filesystems.c:189 cat/log.c:122
 #: cat/ls.c:182 df/main.c:135 diff/diff.c:194 diff/diff.c:200 edit/edit.c:137
@@ -3323,7 +3340,7 @@ msgstr ""
 #: inspector/inspector.c:129 make-fs/make-fs.c:116 rescue/rescue.c:137
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: नियंत्रण बनाने में विफल\n"
+msgstr "guestfs_create: ハンドルの作成に失敗しました\n"
 
 #: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:141
 #: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:231 df/main.c:158
@@ -3332,30 +3349,30 @@ msgstr "guestfs_create: नियंत्रण बनाने में व�
 #: make-fs/make-fs.c:146 p2v/main.c:141 rescue/rescue.c:193
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
-msgstr "%s: unknown long option: %s (%d)\n"
+msgstr "%s: 未知のロングオプション: %s (%d)\n"
 
 #: align/scan.c:174 df/main.c:186
 #, c-format
 msgid "%s: -P option is not numeric\n"
-msgstr ""
+msgstr "%s: -P オプションは数値ではありません\n"
 
 #: align/scan.c:231 df/main.c:282
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
-msgstr ""
+msgstr "%s: libvirt のサポートなしでコンパイルされています\n"
 
 #: align/scan.c:237
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
-msgstr ""
+msgstr "%s: --uuid オプションは -a または -d と同時に使用できません\n"
 
 #: align/scan.c:333
 msgid "alignment < 4K"
-msgstr ""
+msgstr "アライメント < 4K"
 
 #: align/scan.c:336
 msgid "alignment < 64K"
-msgstr ""
+msgstr "アライメント < 64K"
 
 #: builder/index-validate.c:117
 #, c-format
@@ -3462,11 +3479,45 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: 仮想マシン内のファイルシステム、パーティション、ブロックデバイス、LVMの一覧を表示します。\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"使い方:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"Options:\n"
+"  -a|--add image       ディスクイメージの追加します。\n"
+"  --all                すべて表示します。\n"
+"  --blkdevs|--block-devices\n"
+"                       ブロックデバイスの一覧を表示します。\n"
+"  -c|--connect uri     -d オプションのための任意のlibvirt URI\n"
+"  --csv                出力結果をカンマ区切りの値(CSV形式)で表示します。\n"
+"  -d|--domain guest    libvirtゲストからディスクイメージを追加します。\n"
+"  --echo-keys          パスフレーズのエコーバックをオフにしません。\n"
+"  --extra              スワップとデータのファイルシステムの一覧を表示します。\n"
+"  --filesystems        マウント可能なファイルシステムの一覧を表示します。\n"
+"  --format[=raw|..]    -a オプションのディスク形式を強制します。\n"
+"  -h|--human-readable  --long の出力結果を人間が読みやすいサイズに合わせます。\n"
+"  --help               簡易ヘルプを表示します。\n"
+"  --keys-from-stdin    標準入力からパスフレーズを読み込みます。\n"
+"  -l|--long            長い結果を表示します。\n"
+"  --lvs|--logvols|--logical-volumes\n"
+"                       LVMの論理ボリュームを表示します。\n"
+"  --no-title           --long の出力結果にタイトルを表示しません。\n"
+"  --parts|--partitions パーティションの一覧を表示します。\n"
+"  --pvs|--physvols|--physical-volumes\n"
+"                       LVMの物理ボリュームの一覧を表示します。\n"
+"  --uuid|--uuids       --long の出力結果に UUID を追加します。\n"
+"  -v|--verbose         詳細なメッセージ\n"
+"  -V|--version         バージョンを表示し終了します。\n"
+"  --vgs|--volgroups|--volume-groups\n"
+"                       LVMのボリュームグループの一覧を表示します。\n"
+"  -x                   libguestfs APIの呼び出しをトレースします。\n"
+"より詳しい情報は manpage %s(1) をご覧ください。\n"
 
 #: cat/filesystems.c:306 cat/ls.c:346 df/main.c:265 diff/diff.c:330
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
-msgstr ""
+msgstr "%s: -h オプションと --csv オプションは同時に指定することはできません。\n"
 
 #: cat/log.c:66
 #, c-format
@@ -3555,41 +3606,43 @@ msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
 "For more information, read the virt-ls(1) man page.\n"
 msgstr ""
+"%s: -lR モードでのみ組み合わせられるフラグを使用しました\n"
+"詳細は virt-ls(1) マニュアルページを参照してください。\n"
 
 #: cat/visit.c:102
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
-msgstr ""
+msgstr "%s: %s %s に対する拡張属性を取得中にエラーが発生しました\n"
 
 #: cat/visit.c:112
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
-msgstr ""
+msgstr "%s: error: %s %s に対する xattr カウントを構文解析中にエラーが発生しました\n"
 
 #: df/domains.c:85
 #, c-format
 msgid "%s: could not connect to libvirt (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: libvirt に接続できませんでした (コード %d, ドメイン %d): %s\n"
 
 #: df/domains.c:94
 #, c-format
 msgid "%s: could not get number of running domains (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: 稼働中の仮想マシンの数を取得できませんでした (コード %d, ドメイン %d): %s\n"
 
 #: df/domains.c:104
 #, c-format
 msgid "%s: could not list running domains (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: 稼働中の仮想マシンを一覧表示できませんでした (コード %d, ドメイン %d): %s\n"
 
 #: df/domains.c:115
 #, c-format
 msgid "%s: could not get number of inactive domains (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: 停止中の仮想マシンの数を取得できませんでした (コード %d, ドメイン %d): %s\n"
 
 #: df/domains.c:125
 #, c-format
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
-msgstr ""
+msgstr "%s: 停止中の仮想マシンを一覧表示できませんでした (コード %d, ドメイン %d): %s\n"
 
 #: df/main.c:70
 #, c-format
@@ -3616,50 +3669,68 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: 仮想マシンのパーティションのアライメントの確認\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"使用法:\n"
+"  %s [--options] -d domname\n"
+"  %s [--options] -a disk.img [-a disk.img ...]\n"
+"オプション:\n"
+"  -a|--add image       イメージの追加\n"
+"  -c|--connect uri     -d オプションに対する libvirt URI の指定\n"
+"  --csv カンマ区切り値の出力\n"
+"  -d|--domain guest    libvirt 仮想マシンからディスクの追加\n"
+"  --format[=raw|..]    -a オプションに対するディスクの強制的なフォーマット\n"
+"  --help               簡単なヘルプの表示\n"
+"  -i|--inodes i ノードの表示\n"
+"  --one-per-guest 仮想マシンごとにアプライアンスの分離\n"
+"  -v|--verbose         メッセージの冗長化\n"
+"  -V|--version         バージョンの表示および終了\n"
+"  -x                   libguestfs API 呼び出しのトレース\n"
+"詳細はマニュアルページ %s(1) を参照してください。\n"
 
 #: df/output.c:49
 msgid "VirtualMachine"
-msgstr ""
+msgstr "仮想マシン"
 
 #: df/output.c:50
 msgid "Filesystem"
-msgstr "फ़ाइलसिस्टम"
+msgstr "ファイルシステム"
 
 #: df/output.c:53
 msgid "1K-blocks"
-msgstr ""
+msgstr "1K-ブロック"
 
 #: df/output.c:55
 msgid "Size"
-msgstr "आकार"
+msgstr "容量"
 
 #: df/output.c:56
 msgid "Used"
-msgstr "उपयोग में"
+msgstr "使用"
 
 #: df/output.c:57
 msgid "Available"
-msgstr "उपलब्ध"
+msgstr "使用可能"
 
 #: df/output.c:58
 msgid "Use%"
-msgstr ""
+msgstr "使用%"
 
 #: df/output.c:60
 msgid "Inodes"
-msgstr "आइनोड"
+msgstr "Iノード"
 
 #: df/output.c:61
 msgid "IUsed"
-msgstr ""
+msgstr "I使用"
 
 #: df/output.c:62
 msgid "IFree"
-msgstr ""
+msgstr "I残り"
 
 #: df/output.c:63
 msgid "IUse%"
-msgstr ""
+msgstr "I使用%"
 
 #: diff/diff.c:96
 #, c-format
@@ -3747,47 +3818,47 @@ msgstr ""
 #: edit/edit.c:170
 #, c-format
 msgid "%s: -b option given multiple times\n"
-msgstr ""
+msgstr "%s: -b オプションが複数回指定されました\n"
 
 #: edit/edit.c:187
 #, c-format
 msgid "%s: -e option given multiple times\n"
-msgstr ""
+msgstr "%s: -e オプションが複数回指定されました\n"
 
 #: fish/alloc.c:38
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr "छवि के रूप में 'alloc file size' का उपयोग करें\n"
+msgstr "イメージを作成するには 'alloc file size' を使用します\n"
 
 #: fish/alloc.c:52
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "छवि कम घना करने के लिए 'sparse file size' का उपयोग करें\n"
+msgstr "スパースなイメージを作成するには 'sparse file size' を使用します\n"
 
 #: fish/alloc.c:100
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %d)\n"
-msgstr ""
+msgstr "%s: 無効な整数パラメーター (%s が %d を返しました)\n"
 
 #: fish/cmds.c:4534
 msgid "Command"
-msgstr "कमांड"
+msgstr "コマンド"
 
 #: fish/cmds.c:4534
 msgid "Description"
-msgstr "वर्णन"
+msgstr "説明"
 
 #: fish/cmds.c:4536
 msgid "delete the default POSIX ACL of a directory"
-msgstr ""
+msgstr "ディレクトリーの標準 POSIX ACL を削除する"
 
 #: fish/cmds.c:4537
 msgid "get the POSIX ACL attached to a file"
-msgstr ""
+msgstr "ファイルに接続する POSIX ACL を取得する"
 
 #: fish/cmds.c:4538
 msgid "set the POSIX ACL attached to a file"
-msgstr ""
+msgstr "ファイルに接続する POSIX ACL を設定する"
 
 #: fish/cmds.c:4540 fish/cmds.c:4543 fish/cmds.c:4554 fish/cmds.c:4557
 #: fish/cmds.c:4560 fish/cmds.c:4579 fish/cmds.c:4584 fish/cmds.c:4603
@@ -3804,116 +3875,115 @@ msgstr ""
 
 #: fish/cmds.c:4545
 msgid "add a CD-ROM disk image to examine"
-msgstr "परीक्षा के लिए CD-ROM डिस्क छवि जोड़ें"
+msgstr "調査するために CD-ROM ディスクイメージを追加する"
 
 #: fish/cmds.c:4546
 msgid "add the disk(s) from a named libvirt domain"
-msgstr ""
+msgstr "名前付き libvirt ドメインからディスクを追加する"
 
 #: fish/cmds.c:4547
 msgid "add an image to examine or modify"
-msgstr "जाँचने या बदलने के लिए कोई छवि जोड़ें"
+msgstr "調査または修正するためにイメージを追加する"
 
 #: fish/cmds.c:4548
 msgid "add a drive in snapshot mode (read-only)"
-msgstr "स्नैप शॉट मोड में ड्राइव जोड़ें (केवल पठनीय)"
+msgstr "スナップショットモード（読み込み専用）でドライブを追加する"
 
 #: fish/cmds.c:4549
 msgid "add a drive read-only specifying the QEMU block emulation to use"
-msgstr ""
-"केवल पठनीय ड्राइव जोड़ें जो QEMU खंड को एमुलेशन को उपयोग के लिए रोकता है"
+msgstr "QEMU ブロックエミュレーションを使用するよう指定されたドライブを読み込み専用で追加する"
 
 #: fish/cmds.c:4550
 msgid "add a temporary scratch drive"
-msgstr ""
+msgstr "空の一時的なディスクを追加する"
 
 #: fish/cmds.c:4551
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr "QEMU खंड एमुलेशन को उपयोग के लिए निर्दिष्ट करने के लिए ड्राइव जोड़ें"
+msgstr "QEMU ブロックエミュレーションを使用するよう指定されたドライブを追加する"
 
 #: fish/cmds.c:4552
 msgid "allocate and add a disk file"
-msgstr ""
+msgstr "ディスクイメージのファイルを割り当てて追加する"
 
 #: fish/cmds.c:4562
 msgid "clear Augeas path"
-msgstr ""
+msgstr "Augeas パスを消去する"
 
 #: fish/cmds.c:4563
 msgid "close the current Augeas handle"
-msgstr "मौजूदा Augeas नियंत्रण बंद करें"
+msgstr "現在の Augeas ハンドルを閉じる"
 
 #: fish/cmds.c:4564
 msgid "define an Augeas node"
-msgstr "कोई Augeas नोड परिभाषित करें"
+msgstr "Augeas ノードを定義する"
 
 #: fish/cmds.c:4565
 msgid "define an Augeas variable"
-msgstr "कोई Augeas चर परिभाषित करें"
+msgstr "Augeas 変数を定義する"
 
 #: fish/cmds.c:4566
 msgid "look up the value of an Augeas path"
-msgstr "Augeas पथ के मान के लिए देखें"
+msgstr "Augeas パスの値を検索する"
 
 #: fish/cmds.c:4567
 msgid "create a new Augeas handle"
-msgstr "नया Augeas नियंत्रण बनाएँ"
+msgstr "新しい Augeas ハンドルを作成する"
 
 #: fish/cmds.c:4568
 msgid "insert a sibling Augeas node"
-msgstr "सहोदर Augeas नोड घुसाएँ"
+msgstr "兄弟関係の Augeas ノードを挿入する"
 
 #: fish/cmds.c:4569
 msgid "return the label from an Augeas path expression"
-msgstr ""
+msgstr "Augeas パス表現からラベルを返す"
 
 #: fish/cmds.c:4570
 msgid "load files into the tree"
-msgstr "तरू में फाइल लोड करें"
+msgstr "ツリーにファイルを読み込む"
 
 #: fish/cmds.c:4571
 msgid "list Augeas nodes under augpath"
-msgstr "Augeas नोड को augpath के अंतर्गत सूचीबद्ध करें"
+msgstr "augpath 下の Augeas ノードを一覧表示する"
 
 #: fish/cmds.c:4572
 msgid "return Augeas nodes which match augpath"
-msgstr "Augeas नोड को वापस करें जो augpath से मेल खाता है"
+msgstr "augpath に一致する Augeas ノードを返す"
 
 #: fish/cmds.c:4573
 msgid "move Augeas node"
-msgstr "Augeas नोड खिसकाएँ"
+msgstr "Augeas ノードを移動する"
 
 #: fish/cmds.c:4574
 msgid "remove an Augeas path"
-msgstr "Augeas पथ हटाएँ"
+msgstr "Augeas パスを削除する"
 
 #: fish/cmds.c:4575
 msgid "write all pending Augeas changes to disk"
-msgstr "सभी स्थगित Augeas परिवर्तनों को डिस्क में लिखें"
+msgstr "保留になっているすべての Augeas の変更をディスクに書き込む"
 
 #: fish/cmds.c:4576
 msgid "set Augeas path to value"
-msgstr "Augeas पथ को वाल्व में सेट करें"
+msgstr "Augeas パスを値に設定する"
 
 #: fish/cmds.c:4577
 msgid "set multiple Augeas nodes"
-msgstr ""
+msgstr "複数の Augeas ノードを設定する"
 
 #: fish/cmds.c:4581 fish/cmds.c:4710
 msgid "test availability of some parts of the API"
-msgstr "API के कुछ हिस्से की उपलब्धता जाँचें"
+msgstr "API のいくつかの部分が利用可能かを確認する"
 
 #: fish/cmds.c:4582
 msgid "return a list of all optional groups"
-msgstr ""
+msgstr "すべてのオプショングループの一覧を返す"
 
 #: fish/cmds.c:4586
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "base64 エンコードされたデータをファイルへアップロードする"
 
 #: fish/cmds.c:4587
 msgid "download file and encode as base64"
-msgstr ""
+msgstr "ファイルをダウンロードして base64 エンコードする"
 
 #: fish/cmds.c:4588
 msgid "discard all blocks on a device"
@@ -3925,39 +3995,39 @@ msgstr ""
 
 #: fish/cmds.c:4590
 msgid "print block device attributes"
-msgstr ""
+msgstr "ブロックデバイス属性を出力する"
 
 #: fish/cmds.c:4591
 msgid "flush device buffers"
-msgstr "फ्लश युक्ति बफर"
+msgstr "デバイスのバッファーをフラッシュする"
 
 #: fish/cmds.c:4592
 msgid "get blocksize of block device"
-msgstr "ब्लॉक युक्ति का ब्लॉक आकार पाएँ"
+msgstr "ブロックデバイスのブロック容量を取得する"
 
 #: fish/cmds.c:4593
 msgid "is block device set to read-only"
-msgstr "क्या ब्लॉक युक्ति केवल पठनीय है"
+msgstr "ブロックデバイスが読み込み専用に設定されているかを確認する"
 
 #: fish/cmds.c:4594
 msgid "get total size of device in bytes"
-msgstr "बाइट में युक्ति के कुल आकार को पाएँ"
+msgstr "デバイスの合計容量をバイト単位で取得する"
 
 #: fish/cmds.c:4595
 msgid "get sectorsize of block device"
-msgstr "खंड युक्ति का सेक्टरवाइज पाएँ"
+msgstr "ブロックデバイスのセクター容量を取得する"
 
 #: fish/cmds.c:4596
 msgid "get total size of device in 512-byte sectors"
-msgstr "512-बाइट सेक्टर में युक्ति का कुल आकार पाएँ"
+msgstr "デバイスの合計容量を 512 バイトセクターで取得する"
 
 #: fish/cmds.c:4597
 msgid "reread partition table"
-msgstr "विभाजन सारणी फिर पढ़ें"
+msgstr "パーティションテーブルを再読み込みする"
 
 #: fish/cmds.c:4598
 msgid "set blocksize of block device"
-msgstr "खंड युक्ति का खंड आकार सेट करें"
+msgstr "ブロックデバイスのブロック容量を設定する"
 
 #: fish/cmds.c:4599
 msgid "set readahead"
@@ -3965,11 +4035,11 @@ msgstr ""
 
 #: fish/cmds.c:4600
 msgid "set block device to read-only"
-msgstr "खंड युक्ति को केवल पठनीय सेट करें"
+msgstr "ブロックデバイスを読み込み専用に設定する"
 
 #: fish/cmds.c:4601
 msgid "set block device to read-write"
-msgstr "खंड युक्ति को पठनीय-लेखन योग्य सेट करें"
+msgstr "ブロックデバイスを読み書き可能に設定する"
 
 #: fish/cmds.c:4605
 msgid "cancel a running or paused balance"
@@ -3989,15 +4059,15 @@ msgstr ""
 
 #: fish/cmds.c:4609
 msgid "add devices to a btrfs filesystem"
-msgstr ""
+msgstr "デバイスを btrfs ファイルシステムに追加する"
 
 #: fish/cmds.c:4610
 msgid "remove devices from a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ファイルシステムからデバイスを削除する"
 
 #: fish/cmds.c:4611
 msgid "balance a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ファイルシステムを再バランスする"
 
 #: fish/cmds.c:4612
 msgid "defragment a file or directory"
@@ -4005,15 +4075,15 @@ msgstr ""
 
 #: fish/cmds.c:4613
 msgid "resize a btrfs filesystem"
-msgstr ""
+msgstr "Btrfs ファイルシステムの容量を変更する"
 
 #: fish/cmds.c:4614
 msgid "sync a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ファイルシステムを同期する"
 
 #: fish/cmds.c:4615
 msgid "check a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ファイルシステムを確認する"
 
 #: fish/cmds.c:4616
 msgid "add a qgroup to a parent qgroup"
@@ -4074,7 +4144,7 @@ msgstr ""
 
 #: fish/cmds.c:4630
 msgid "enable or disable the seeding feature of device"
-msgstr ""
+msgstr "デバイスのシード機能を有効化または無効化する"
 
 #: fish/cmds.c:4631
 msgid "create a btrfs subvolume"
@@ -4090,11 +4160,11 @@ msgstr ""
 
 #: fish/cmds.c:4634
 msgid "list btrfs snapshots and subvolumes"
-msgstr ""
+msgstr "btrfs のスナップショットとサブボリュームを表示する"
 
 #: fish/cmds.c:4635
 msgid "set default btrfs subvolume"
-msgstr ""
+msgstr "初期状態の btrfs サブボリュームを設定する"
 
 #: fish/cmds.c:4636
 msgid "return detailed information of the subvolume"
@@ -4102,7 +4172,7 @@ msgstr ""
 
 #: fish/cmds.c:4637
 msgid "create a btrfs snapshot"
-msgstr ""
+msgstr "btrfs スナップショットを作成する"
 
 #: fish/cmds.c:4638
 msgid "return the C pointer to the guestfs_h handle"
@@ -4110,43 +4180,43 @@ msgstr ""
 
 #: fish/cmds.c:4642
 msgid "return canonical device name"
-msgstr ""
+msgstr "正規デバイス名を返す"
 
 #: fish/cmds.c:4643
 msgid "get the Linux capabilities attached to a file"
-msgstr ""
+msgstr "ファイルに接続する Linux ケイパビリティを取得する"
 
 #: fish/cmds.c:4644
 msgid "set the Linux capabilities attached to a file"
-msgstr ""
+msgstr "ファイルに接続する Linux ケイパビリティを設定する"
 
 #: fish/cmds.c:4645
 msgid "return true path on case-insensitive filesystem"
-msgstr "स्थिति के प्रति संवेद्य फाइल सिस्टम का सही पथ लाएँ"
+msgstr "大文字小文字を区別しないファイルシステムの実パスを返す"
 
 #: fish/cmds.c:4646
 msgid "list the contents of a file"
-msgstr "फाइल की सामग्री सूचीबद्ध करें"
+msgstr "ファイルの内容を表示する"
 
 #: fish/cmds.c:4647
 msgid "compute MD5, SHAx or CRC checksum of file"
-msgstr "फाइल MD5, SHAx या CRC चेकसम गणना करें"
+msgstr "ファイルの MD5, SHAx または CRC チェックサムを計算する"
 
 #: fish/cmds.c:4648
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
-msgstr ""
+msgstr "デバイスの内容の MD5, SHAx または CRC チェックサムを計算する"
 
 #: fish/cmds.c:4649
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr ""
+msgstr "ディレクトリにあるファイルの MD5, SHAx または CRC チェックサムを計算する"
 
 #: fish/cmds.c:4650
 msgid "change file mode"
-msgstr "फाइल नोड बदलें"
+msgstr "ファイルのモードを変更する"
 
 #: fish/cmds.c:4651 fish/cmds.c:4849
 msgid "change file owner and group"
-msgstr "फाइल स्वामी और समूह बदलें"
+msgstr "ファイルの所有者とグループを変更する"
 
 #: fish/cmds.c:4652
 msgid "remove a single per-backend settings string"
@@ -4154,23 +4224,23 @@ msgstr ""
 
 #: fish/cmds.c:4653
 msgid "run a command from the guest filesystem"
-msgstr "अतिथि फाइल सिस्टम से कमांड चलाएँ"
+msgstr "ゲストのファイルシステムからコマンドを実行する"
 
 #: fish/cmds.c:4654
 msgid "run a command, returning lines"
-msgstr "कमांड चलाएँ, पंक्ति वापस कर रहा है"
+msgstr "コマンドを実行して行を返す"
 
 #: fish/cmds.c:4655
 msgid "output compressed device"
-msgstr ""
+msgstr "圧縮されたデバイスを出力する"
 
 #: fish/cmds.c:4656
 msgid "output compressed file"
-msgstr ""
+msgstr "圧縮されたファイルを出力する"
 
 #: fish/cmds.c:4657
 msgid "add hypervisor parameters"
-msgstr ""
+msgstr "ハイパーバイザーのパラメーターを追加する"
 
 #: fish/cmds.c:4658
 msgid "copy the attributes of a path (file/directory) to another"
@@ -4178,39 +4248,39 @@ msgstr ""
 
 #: fish/cmds.c:4659
 msgid "copy from source device to destination device"
-msgstr ""
+msgstr "ソースデバイスから宛先デバイスにコピーする"
 
 #: fish/cmds.c:4660
 msgid "copy from source device to destination file"
-msgstr ""
+msgstr "ソースデバイスから宛先ファイルにコピーする"
 
 #: fish/cmds.c:4661
 msgid "copy from source file to destination device"
-msgstr ""
+msgstr "ソースファイルから宛先デバイスにコピーする"
 
 #: fish/cmds.c:4662
 msgid "copy from source file to destination file"
-msgstr ""
+msgstr "ソースファイルから宛先ファイルにコピーする"
 
 #: fish/cmds.c:4663
 msgid "copy local files or directories into an image"
-msgstr ""
+msgstr "ローカルファイルまたはディレクトリをイメージの中にコピーする"
 
 #: fish/cmds.c:4664
 msgid "copy remote files or directories out of an image"
-msgstr ""
+msgstr "リモートファイルまたはディレクトリをイメージの外にコピーする"
 
 #: fish/cmds.c:4665
 msgid "copy size bytes from source to destination using dd"
-msgstr ""
+msgstr "dd を使用して size バイトをソースからターゲットにコピーする"
 
 #: fish/cmds.c:4666
 msgid "copy a file"
-msgstr "कोई फाइल कॉपी करें"
+msgstr "ファイルをコピーする"
 
 #: fish/cmds.c:4667 fish/cmds.c:4668
 msgid "copy a file or directory recursively"
-msgstr "कोई फाइल कॉपी करें या कोई निर्देशिका को बारी बारी से"
+msgstr "ファイルもしくはディレクトリーを再帰的にコピーする"
 
 #: fish/cmds.c:4669
 msgid "pack directory into cpio file"
@@ -4218,35 +4288,35 @@ msgstr ""
 
 #: fish/cmds.c:4670
 msgid "copy from source to destination using dd"
-msgstr "dd के उपयोग से स्रोत से गंतव्य में कॉपी करें"
+msgstr "dd コマンドを使用して転送元から転送先へコピーする"
 
 #: fish/cmds.c:4671
 msgid "debugging and internals"
-msgstr "डिबगिंग और आंतरिक"
+msgstr "デバッグおよび内部情報"
 
 #: fish/cmds.c:4672
 msgid "debug the drives (internal use only)"
-msgstr ""
+msgstr "ドライブをデバッグする（内部利用専用）"
 
 #: fish/cmds.c:4673
 msgid "upload a file to the appliance (internal use only)"
-msgstr ""
+msgstr "ファイルをアプライアンスにアップロードする（内部利用専用）"
 
 #: fish/cmds.c:4674
 msgid "delete a previously registered event handler"
-msgstr ""
+msgstr "前に登録したイベントハンドラーを削除する"
 
 #: fish/cmds.c:4675
 msgid "convert device to index"
-msgstr ""
+msgstr "デバイスをインデックスに変換する"
 
 #: fish/cmds.c:4676
 msgid "report file system disk space usage"
-msgstr "फाइल सिस्टम डिस्क स्पेस प्रयोग"
+msgstr "ファイルシステムのディスク使用量を報告する"
 
 #: fish/cmds.c:4677
 msgid "report file system disk space usage (human readable)"
-msgstr "फाइल सिस्टम डिस्क स्पेस प्रयोग का रिपोर्ट करें (मानव पठनीय)"
+msgstr "ファイルシステムのディスク使用量を（読みやすく）報告する"
 
 #: fish/cmds.c:4681
 msgid "create a blank disk image"
@@ -4254,145 +4324,145 @@ msgstr ""
 
 #: fish/cmds.c:4682
 msgid "detect the disk format of a disk image"
-msgstr ""
+msgstr "ディスクイメージのディスク形式を検知する"
 
 #: fish/cmds.c:4683
 msgid "return whether disk has a backing file"
-msgstr ""
+msgstr "ディスクがバッキングファイルを持つかどうかを返す"
 
 #: fish/cmds.c:4684
 msgid "return virtual size of a disk"
-msgstr ""
+msgstr "ディスクの仮想容量を返す"
 
 #: fish/cmds.c:4685
 msgid "display an image"
-msgstr ""
+msgstr "イメージを表示する"
 
 #: fish/cmds.c:4686
 msgid "return kernel messages"
-msgstr "कर्नेल संदेश लौटाएँ"
+msgstr "カーネルメッセージを戻す"
 
 #: fish/cmds.c:4690
 msgid "download a file to the local machine"
-msgstr "किसी स्थानीय मशीन में कोई फाइल डाउनलोड करें"
+msgstr "ローカルマシンにファイルをダウンロードする"
 
 #: fish/cmds.c:4691
 msgid "download a file to the local machine with offset and size"
-msgstr ""
+msgstr "オフセットと容量を用いてファイルをローカルマシンにダウンロードする"
 
 #: fish/cmds.c:4692
 msgid "drop kernel page cache, dentries and inodes"
-msgstr "कर्नेल पेज कैश, dentries और inodes छोड़ें, "
+msgstr "カーネルのページキャッシュ、dentry および inode を破棄する"
 
 #: fish/cmds.c:4693
 msgid "estimate file space usage"
-msgstr "फाइल स्थान प्रयोग का अनुमान करें"
+msgstr "ファイル使用量を見積もる"
 
 #: fish/cmds.c:4694 fish/cmds.c:4695
 msgid "check an ext2/ext3 filesystem"
-msgstr "कोई ext2/ext3 फाइलसिस्टम जाँचें"
+msgstr "ext2/ext3 ファイルシステムを確認する"
 
 #: fish/cmds.c:4696
 msgid "display a line of text"
-msgstr "पाठ पंक्ति दिखाएँ"
+msgstr "一連のテキストを表示する"
 
 #: fish/cmds.c:4697
 msgid "echo arguments back to the client"
-msgstr "इको तर्क क्लाइंट को वापस"
+msgstr "引数をクライアントにエコーバックする"
 
 #: fish/cmds.c:4698
 msgid "edit a file"
-msgstr ""
+msgstr "ファイルを編集する"
 
 #: fish/cmds.c:4699 fish/cmds.c:4700 fish/cmds.c:4711 fish/cmds.c:4712
 #: fish/cmds.c:4765 fish/cmds.c:4766 fish/cmds.c:5189 fish/cmds.c:5190
 #: fish/cmds.c:5195 fish/cmds.c:5196 fish/cmds.c:5198 fish/cmds.c:5199
 msgid "return lines matching a pattern"
-msgstr "किसी प्रारूप से मेल खाता पंक्ति"
+msgstr "パターンに一致する行を返す"
 
 #: fish/cmds.c:4704
 msgid "test if two files have equal contents"
-msgstr "सूची बनाएँ यदि दो फाइल के पास बराबर सामग्री है"
+msgstr "2つのファイルが同じ内容かを確認する"
 
 #: fish/cmds.c:4705
 msgid "register a handler for an event or events"
-msgstr ""
+msgstr "イベント用のハンドラーを登録する"
 
 #: fish/cmds.c:4706
 msgid "test if file or directory exists"
-msgstr "जाँचें यदि फाइल या निर्देशिका मौजूद है"
+msgstr "ファイルまたはディレクトリが存在するかを確認する"
 
 #: fish/cmds.c:4707
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
-msgstr ""
+msgstr "ext2/3/4 または btrfs ファイルシステムに SYSLINUX ブートローダーをインストールします"
 
 #: fish/cmds.c:4708 fish/cmds.c:4709
 msgid "preallocate a file in the guest filesystem"
-msgstr "गेस्ट फाइल सिस्टम में कोई फाइल पहले से आबंटित करें"
+msgstr "仮想マシンのファイルシステムにファイルを事前に割り当てる"
 
 #: fish/cmds.c:4713
 msgid "determine file type"
-msgstr "फाइल प्रकार निर्धारित करें"
+msgstr "ファイル形式を決定する"
 
 #: fish/cmds.c:4714
 msgid "detect the architecture of a binary file"
-msgstr ""
+msgstr "バイナリファイルのアーキテクチャーを検知する"
 
 #: fish/cmds.c:4715
 msgid "return the size of the file in bytes"
-msgstr "बाइट में फाइल का आकार वापस करें"
+msgstr "ファイル容量をバイト単位で返す"
 
 #: fish/cmds.c:4716
 msgid "check if filesystem is available"
-msgstr ""
+msgstr "ファイルシステムが利用可能ならばチェックする"
 
 #: fish/cmds.c:4717
 msgid "fill a file with octets"
-msgstr "ऑक्टेट के साथ फाइल भरें"
+msgstr "8 進値でファイルを埋める"
 
 #: fish/cmds.c:4718
 msgid "fill a directory with empty files"
-msgstr ""
+msgstr "ディレクトリーを空のファイルで埋める"
 
 #: fish/cmds.c:4719
 msgid "fill a file with a repeating pattern of bytes"
-msgstr ""
+msgstr "バイトのパターンの繰り返しでファイルを埋める"
 
 #: fish/cmds.c:4720
 msgid "find all files and directories"
-msgstr "सभी फाइल और निर्देशिका ढूँढ़ें"
+msgstr "すべてのファイルおよびディレクトリーを検索する"
 
 #: fish/cmds.c:4721
 msgid "find all files and directories, returning NUL-separated list"
-msgstr "सभी फाइलें और निर्देशिका ढूँढ़ें, NUL-अलग सूची वापस कर रहा है"
+msgstr "すべてのファイルおよびディレクトリーを検索して NULL 区切り一覧を返す"
 
 #: fish/cmds.c:4722
 msgid "find a filesystem by label"
-msgstr ""
+msgstr "ファイルシステムをラベルにより検索する"
 
 #: fish/cmds.c:4723
 msgid "find a filesystem by UUID"
-msgstr ""
+msgstr "ファイルシステムを UUID により検索する"
 
 #: fish/cmds.c:4724
 msgid "run the filesystem checker"
-msgstr "फाइल सिस्टम जाँचकर्ता चलाएँ"
+msgstr "ファイルシステムのチェッカーを実行する"
 
 #: fish/cmds.c:4725
 msgid "trim free space in a filesystem"
-msgstr ""
+msgstr "ファイルシステムにある空き領域を取り除く"
 
 #: fish/cmds.c:4729
 msgid "get the additional kernel options"
-msgstr "अतिरिक्त कर्नेल विकल्प पाएँ"
+msgstr "追加のカーネルオプションを取得する"
 
 #: fish/cmds.c:4730 fish/cmds.c:4732
 msgid "get the backend"
-msgstr ""
+msgstr "バックエンドを取得する"
 
 #: fish/cmds.c:4731
 msgid "get autosync mode"
-msgstr "autosync विधि पाएँ"
+msgstr "自動同期モードを取得する"
 
 #: fish/cmds.c:4733
 msgid "get a single per-backend settings string"
@@ -4404,399 +4474,399 @@ msgstr ""
 
 #: fish/cmds.c:4735
 msgid "get the appliance cache directory"
-msgstr ""
+msgstr "アプライアンスのキャッシュディレクトリーを取得する"
 
 #: fish/cmds.c:4736
 msgid "get direct appliance mode flag"
-msgstr "सीधा एप्लायंस विधि फ्लैग पाएँ"
+msgstr "直接アプライアンスモードのフラグを取得する"
 
 #: fish/cmds.c:4737
 msgid "get ext2 file attributes of a file"
-msgstr ""
+msgstr "ファイルの ext2 ファイル属性を取得する"
 
 #: fish/cmds.c:4738
 msgid "get ext2 file generation of a file"
-msgstr ""
+msgstr "ファイルの ext2 ファイル世代を取得する"
 
 #: fish/cmds.c:4739
 msgid "get the ext2/3/4 filesystem label"
-msgstr "ext2/3/4 फाइलसिस्टम लेबल पाएँ"
+msgstr "ext2/3/4 ファイルシステムのラベルを取得する"
 
 #: fish/cmds.c:4740
 msgid "get the ext2/3/4 filesystem UUID"
-msgstr "ext2/3/4 फाइलसिस्टम UUID पाएँ"
+msgstr "ext2/3/4 ファイルシステムの UUID を取得する"
 
 #: fish/cmds.c:4741
 msgid "get the hypervisor binary"
-msgstr ""
+msgstr "ハイパーバイザーのバイナリを取得する"
 
 #: fish/cmds.c:4742
 msgid "challenge of i'th requested credential"
-msgstr ""
+msgstr "i 番目の要求されたクレディンシャルのチャレンジ"
 
 #: fish/cmds.c:4743
 msgid "default result of i'th requested credential"
-msgstr ""
+msgstr "i 番目の要求されたクレディンシャルの標準の結果"
 
 #: fish/cmds.c:4744
 msgid "prompt of i'th requested credential"
-msgstr ""
+msgstr "i 番目の要求されたクレディンシャルのプロンプト"
 
 #: fish/cmds.c:4745
 msgid "get list of credentials requested by libvirt"
-msgstr ""
+msgstr "libvirt により要求されたクレディンシャルの一覧を取得する"
 
 #: fish/cmds.c:4746
 msgid "get memory allocated to the hypervisor"
-msgstr ""
+msgstr "ハイパーバイザーに割り当てられたメモリを取得する"
 
 #: fish/cmds.c:4747
 msgid "get enable network flag"
-msgstr ""
+msgstr "有効なネットワークフラグを取得する"
 
 #: fish/cmds.c:4748
 msgid "get the search path"
-msgstr "खोज पथ पाएँ"
+msgstr "検索パスを取得する"
 
 #: fish/cmds.c:4749
 msgid "get process group flag"
-msgstr ""
+msgstr "プロセスグループのフラグを取得する"
 
 #: fish/cmds.c:4750
 msgid "get PID of hypervisor"
-msgstr ""
+msgstr "ハイパーバイザーの PID を取得する"
 
 #: fish/cmds.c:4751
 msgid "get the program name"
-msgstr ""
+msgstr "プログラム名を取得する"
 
 #: fish/cmds.c:4752
 msgid "get the hypervisor binary (usually qemu)"
-msgstr ""
+msgstr "ハイパーバイザーのバイナリ (通常は QEMU) を取得する"
 
 #: fish/cmds.c:4753
 msgid "get recovery process enabled flag"
-msgstr "पुनर्प्राप्ति प्रक्रिया सक्रिय फ्लैग पाएँ"
+msgstr "リカバリープロセス有効化のフラグを取得する"
 
 #: fish/cmds.c:4754
 msgid "get SELinux enabled flag"
-msgstr "SELinux सक्रिय फ्लैग पाएँ"
+msgstr "SELinux 有効化フラグを取得する"
 
 #: fish/cmds.c:4755
 msgid "get number of virtual CPUs in appliance"
-msgstr ""
+msgstr "アプライアンスの仮想 CPU 数を取得する"
 
 #: fish/cmds.c:4756
 msgid "get the temporary directory"
-msgstr ""
+msgstr "一時的なディレクトリーを取得する"
 
 #: fish/cmds.c:4757
 msgid "get command trace enabled flag"
-msgstr "कमांड ट्रैस सक्रिय फ्लैग पाएँ"
+msgstr "コマンドトレースの有効化フラグを取得する"
 
 #: fish/cmds.c:4758
 msgid "get the current umask"
-msgstr ""
+msgstr "現在の umask を取得する"
 
 #: fish/cmds.c:4759
 msgid "get verbose mode"
-msgstr "वर्बोस विधि पाएँ"
+msgstr "冗長化のモードを取得する"
 
 #: fish/cmds.c:4760
 msgid "get SELinux security context"
-msgstr "SELinux सुरक्षा संदर्भ पाएँ"
+msgstr "SELinux のセキュリティコンテキストを取得する"
 
 #: fish/cmds.c:4761 fish/cmds.c:4863
 msgid "get a single extended attribute"
-msgstr ""
+msgstr "単一の拡張属性を取得する"
 
 #: fish/cmds.c:4762 fish/cmds.c:4864
 msgid "list extended attributes of a file or directory"
-msgstr "किसी फाइल या निर्देशिका का विस्तृत विशेषता सूचीबद्ध करें"
+msgstr "ファイルまたはディレクトリの拡張属性を一覧表示する"
 
 #: fish/cmds.c:4763
 msgid "expand wildcards in command"
-msgstr "कमांड में कमांड वाइल्डकार्ड"
+msgstr "コマンドにあるワイルドカードを展開する"
 
 #: fish/cmds.c:4764
 msgid "expand a wildcard path"
-msgstr "वाइल्डकार्ड पथ फैलाएँ"
+msgstr "ワイルドカードのあるパスを展開する"
 
 #: fish/cmds.c:4767
 msgid "install GRUB 1"
-msgstr ""
+msgstr "GRUB 1 をインストールする"
 
 #: fish/cmds.c:4768
 msgid "return first 10 lines of a file"
-msgstr "फाइल का 10 पंक्ति वापस करें"
+msgstr "ファイルの先頭 10 行を返す"
 
 #: fish/cmds.c:4769
 msgid "return first N lines of a file"
-msgstr "फाइल का पहला N पंक्ति वापस करें"
+msgstr "ファイルの先頭 N 行を返す"
 
 #: fish/cmds.c:4770
 msgid "dump a file in hexadecimal"
-msgstr "हेक्सा डेसीमल में फाइल डंप करें"
+msgstr "ファイルを 16 進でダンプする"
 
 #: fish/cmds.c:4771
 msgid "edit with a hex editor"
-msgstr ""
+msgstr "16 進エディターで編集する"
 
 #: fish/cmds.c:4772
 msgid "close the current hivex handle"
-msgstr ""
+msgstr "現在の hivex ハンドルを閉じる"
 
 #: fish/cmds.c:4773
 msgid "commit (write) changes back to the hive"
-msgstr ""
+msgstr "ハイブに変更を (書き込み) コミットする"
 
 #: fish/cmds.c:4774
 msgid "add a child node"
-msgstr ""
+msgstr "子ノードを追加する"
 
 #: fish/cmds.c:4775
 msgid "return list of nodes which are subkeys of node"
-msgstr ""
+msgstr "ノードのサブキーであるノードの一覧を返す"
 
 #: fish/cmds.c:4776
 msgid "delete a node (recursively)"
-msgstr ""
+msgstr "ノードを削除する (再帰的)"
 
 #: fish/cmds.c:4777
 msgid "return the named child of node"
-msgstr ""
+msgstr "ノードの名前つき子ノードを返す"
 
 #: fish/cmds.c:4778
 msgid "return the named value"
-msgstr ""
+msgstr "名前つき値を返す"
 
 #: fish/cmds.c:4779
 msgid "return the name of the node"
-msgstr ""
+msgstr "ノードの名前を返す"
 
 #: fish/cmds.c:4780
 msgid "return the parent of node"
-msgstr ""
+msgstr "ノードの親を返す"
 
 #: fish/cmds.c:4781
 msgid "set or replace a single value in a node"
-msgstr ""
+msgstr "ノードにおいて単一の値を設定または置換する"
 
 #: fish/cmds.c:4782
 msgid "return list of values attached to node"
-msgstr ""
+msgstr "ノードに接続されている値の一覧を返す"
 
 #: fish/cmds.c:4783
 msgid "open a Windows Registry hive file"
-msgstr ""
+msgstr "Windows レジストリのハイブファイルを開く"
 
 #: fish/cmds.c:4784
 msgid "return the root node of the hive"
-msgstr ""
+msgstr "ハイブのルートノードを返す"
 
 #: fish/cmds.c:4785
 msgid "return the key field from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "(キー、データ形式、データ) の組からキーの項目を返す"
 
 #: fish/cmds.c:4786
 msgid "return the data type from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "(キー、データ形式、データ) の組からデータ形式の項目を返す"
 
 #: fish/cmds.c:4787 fish/cmds.c:4788
 msgid "return the data field from the (key, datatype, data) tuple"
-msgstr ""
+msgstr "(キー、データ形式、データ) の組からデータの項目を返す"
 
 #: fish/cmds.c:4792
 msgid "list the contents of a single file in an initrd"
-msgstr "initrd में एक एकल फाइल की सामग्री सूचीबद्ध करें"
+msgstr "initrd にある一つのファイルの内容を表示する"
 
 #: fish/cmds.c:4793
 msgid "list files in an initrd"
-msgstr "किसी initrd में फाइल सूचीबद्ध करता है"
+msgstr "initrd にあるファイルを一覧表示する"
 
 #: fish/cmds.c:4794
 msgid "add an inotify watch"
-msgstr "inotify वाच जोड़ें"
+msgstr "inotify watch を追加する"
 
 #: fish/cmds.c:4795
 msgid "close the inotify handle"
-msgstr "inotify नियंत्रण बंद करें"
+msgstr "inotify ハンドルを閉じる"
 
 #: fish/cmds.c:4796
 msgid "return list of watched files that had events"
-msgstr "नहीं देखे गए फाइल की सूची देता है जो घटना रखती है"
+msgstr "イベントのあったウォッチ中のファイルの一覧を返す"
 
 #: fish/cmds.c:4797
 msgid "create an inotify handle"
-msgstr "inotify नियंत्रण बनाएँ"
+msgstr "inotify ハンドルを作成する"
 
 #: fish/cmds.c:4798
 msgid "return list of inotify events"
-msgstr "inotify घटना की सूची वापस करता है"
+msgstr "inotify イベントの一覧を返す"
 
 #: fish/cmds.c:4799
 msgid "remove an inotify watch"
-msgstr "inotify जाँच का हटाएँ"
+msgstr "inotify watch を削除する"
 
 #: fish/cmds.c:4800
 msgid "get architecture of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムのアーキテクチャーを取得する"
 
 #: fish/cmds.c:4801
 msgid "get distro of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムのディストリビューションを取得する"
 
 #: fish/cmds.c:4802
 msgid "get drive letter mappings"
-msgstr ""
+msgstr "ドライブレターのマッピングを取得する"
 
 #: fish/cmds.c:4803
 msgid "get filesystems associated with inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムに関連するファイルシステムを取得する"
 
 #: fish/cmds.c:4804
 msgid "get format of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムのフォーマットを取得する"
 
 #: fish/cmds.c:4805
 msgid "get hostname of the operating system"
-msgstr ""
+msgstr "オペレーティングシステムのホスト名を取得する"
 
 #: fish/cmds.c:4806
 msgid "get the icon corresponding to this operating system"
-msgstr ""
+msgstr "このオペレーティングシステムに対応するアイコンを取得する"
 
 #: fish/cmds.c:4807
 msgid "get major version of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムのメジャーバージョンを取得する"
 
 #: fish/cmds.c:4808
 msgid "get minor version of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムのマイナーバージョンを取得する"
 
 #: fish/cmds.c:4809
 msgid "get mountpoints of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムのマウントポイントを取得する"
 
 #: fish/cmds.c:4810
 msgid "get package format used by the operating system"
-msgstr ""
+msgstr "オペレーティングシステムにより使用されるパッケージ形式を取得する"
 
 #: fish/cmds.c:4811
 msgid "get package management tool used by the operating system"
-msgstr ""
+msgstr "オペレーティングシステムにより使用されるパッケージ管理ツールを取得する"
 
 #: fish/cmds.c:4812
 msgid "get product name of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムの製品名を取得する"
 
 #: fish/cmds.c:4813
 msgid "get product variant of inspected operating system"
-msgstr ""
+msgstr "検査するオペレーティングシステムの製品種別を取得する"
 
 #: fish/cmds.c:4814
 msgid "return list of operating systems found by last inspection"
-msgstr ""
+msgstr "最後の検査により見つかったオペレーティングシステムの一覧を返す"
 
 #: fish/cmds.c:4815
 msgid "get type of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムの種類を取得する"
 
 #: fish/cmds.c:4816
 msgid "get Windows CurrentControlSet of inspected operating system"
-msgstr ""
+msgstr "検出されたオペレーティングシステムの Windows CurrentControlSet を取得する"
 
 #: fish/cmds.c:4817
 msgid "get Windows systemroot of inspected operating system"
-msgstr ""
+msgstr "検査したオペレーティングシステムの Windows システムルートを取得する"
 
 #: fish/cmds.c:4818
 msgid "get live flag for install disk"
-msgstr ""
+msgstr "インストールディスクの live フラグを取得する"
 
 #: fish/cmds.c:4819
 msgid "get multipart flag for install disk"
-msgstr ""
+msgstr "インストールディスクの multipart フラグを取得する"
 
 #: fish/cmds.c:4820
 msgid "get netinst (network installer) flag for install disk"
-msgstr ""
+msgstr "インストールディスクの netinst (ネットワークインストーラー) フラグを取得する"
 
 #: fish/cmds.c:4821 fish/cmds.c:4822
 msgid "get list of applications installed in the operating system"
-msgstr ""
+msgstr "オペレーティングシステムにインストールされているアプリケーションの一覧を取得する"
 
 #: fish/cmds.c:4823
 msgid "inspect disk and return list of operating systems found"
-msgstr ""
+msgstr "ディスクを検査して、見つかったオペレーティングシステムの一覧を返す"
 
 #: fish/cmds.c:4824
 msgid "test if block device"
-msgstr ""
+msgstr "ブロックデバイスかを確認する"
 
 #: fish/cmds.c:4825
 msgid "test if character device"
-msgstr ""
+msgstr "キャラクターデバイスかを確認する"
 
 #: fish/cmds.c:4826
 msgid "is in configuration state"
-msgstr "विन्यास स्थिति में है"
+msgstr "設定状態にあるかを確認する"
 
 #: fish/cmds.c:4827
 msgid "test if a directory"
-msgstr ""
+msgstr "ディレクトリーかを確認する"
 
 #: fish/cmds.c:4828
 msgid "test if FIFO (named pipe)"
-msgstr ""
+msgstr "FIFO (名前付きパイプ) かを確認する"
 
 #: fish/cmds.c:4829
 msgid "test if a regular file"
-msgstr ""
+msgstr "通常のファイルかを確認する"
 
 #: fish/cmds.c:4830
 msgid "test if device is a logical volume"
-msgstr ""
+msgstr "デバイスが論理ボリュームかを確認する"
 
 #: fish/cmds.c:4831
 msgid "test if socket"
-msgstr ""
+msgstr "ソケットかを確認する"
 
 #: fish/cmds.c:4832
 msgid "test if symbolic link"
-msgstr ""
+msgstr "シンボリックリンクかを確認する"
 
 #: fish/cmds.c:4833
 msgid "test if a device is a whole device"
-msgstr ""
+msgstr "デバイスがデバイス全体かを確認する"
 
 #: fish/cmds.c:4834
 msgid "test if a file contains all zero bytes"
-msgstr ""
+msgstr "ファイルがすべて 0 のバイトを含むかを確認する"
 
 #: fish/cmds.c:4835
 msgid "test if a device contains all zero bytes"
-msgstr ""
+msgstr "デバイスがすべて 0 のバイトであるかを確認する"
 
 #: fish/cmds.c:4836
 msgid "get ISO information from primary volume descriptor of ISO file"
-msgstr ""
+msgstr "ISO ファイルの主ボリューム記述子から ISO の情報を取得する"
 
 #: fish/cmds.c:4837
 msgid "get ISO information from primary volume descriptor of device"
-msgstr ""
+msgstr "デバイスの主ボリューム記述子から ISO の情報を取得する"
 
 #: fish/cmds.c:4838
 msgid "close the systemd journal"
-msgstr ""
+msgstr "systemd ジャーナルを閉じる"
 
 #: fish/cmds.c:4839
 msgid "read the current journal entry"
-msgstr ""
+msgstr "現在のジャーナル項目を読み込む"
 
 #: fish/cmds.c:4840
 msgid "get the data threshold for reading journal entries"
-msgstr ""
+msgstr "ジャーナル項目の読み込み用のデータ閾値を取得する"
 
 #: fish/cmds.c:4841
 msgid "get the timestamp of the current journal entry"
@@ -4804,439 +4874,439 @@ msgstr ""
 
 #: fish/cmds.c:4842
 msgid "move to the next journal entry"
-msgstr ""
+msgstr "次のジャーナル項目に移動する"
 
 #: fish/cmds.c:4843
 msgid "open the systemd journal"
-msgstr ""
+msgstr "systemd ジャーナルを開く"
 
 #: fish/cmds.c:4844
 msgid "set the data threshold for reading journal entries"
-msgstr ""
+msgstr "ジャーナル項目の読み込み用のデータ閾値を設定する"
 
 #: fish/cmds.c:4845
 msgid "skip forwards or backwards in the journal"
-msgstr ""
+msgstr "ジャーナルで前または後へスキップする"
 
 #: fish/cmds.c:4846
 msgid "kill the hypervisor"
-msgstr ""
+msgstr "ハイパーバイザーを強制停止する"
 
 #: fish/cmds.c:4847
 msgid "launch the backend"
-msgstr ""
+msgstr "バックエンドを起動する"
 
 #: fish/cmds.c:4848
 msgid "change working directory"
-msgstr "कार्यशील निर्देशिका बदलें"
+msgstr "作業ディレクトリを変更する"
 
 #: fish/cmds.c:4850
 msgid "scan and create Windows dynamic disk volumes"
-msgstr ""
+msgstr "Windows ダイナミックディスクのボリュームをスキャンおよび作成する"
 
 #: fish/cmds.c:4851
 msgid "return the disks in a Windows dynamic disk group"
-msgstr ""
+msgstr "Windows ダイナミックディスクのグループにあるディスクを返す"
 
 #: fish/cmds.c:4852
 msgid "return the name of a Windows dynamic disk group"
-msgstr ""
+msgstr "Windows ダイナミックディスクのグループの名前を返す"
 
 #: fish/cmds.c:4853
 msgid "return the volumes in a Windows dynamic disk group"
-msgstr ""
+msgstr "Windows ダイナミックディスクのグループにあるボリュームを返す"
 
 #: fish/cmds.c:4854
 msgid "remove all Windows dynamic disk volumes"
-msgstr ""
+msgstr "すべての Windows ダイナミックディスクのボリュームを削除する"
 
 #: fish/cmds.c:4855 fish/cmds.c:4856
 msgid "scan for Windows dynamic disks"
-msgstr ""
+msgstr "Windows ダイナミックディスクをスキャンする"
 
 #: fish/cmds.c:4857
 msgid "return the hint field of a Windows dynamic disk volume"
-msgstr ""
+msgstr "Windows ダイナミックディスクのボリュームのヒント項目を返す"
 
 #: fish/cmds.c:4858
 msgid "return the partitions in a Windows dynamic disk volume"
-msgstr ""
+msgstr "Windows ダイナミックディスクのボリュームにあるパーティションを返す"
 
 #: fish/cmds.c:4859
 msgid "return the type of a Windows dynamic disk volume"
-msgstr ""
+msgstr "Windows ダイナミックディスクのボリュームの形式を返す"
 
 #: fish/cmds.c:4865
 msgid "list 9p filesystems"
-msgstr ""
+msgstr "9p ファイルシステムを一覧表示する"
 
 #: fish/cmds.c:4866
 msgid "list the block devices"
-msgstr "खंड युक्ति को सूचीबद्ध करता है"
+msgstr "ブロックデバイスを一覧表示する"
 
 #: fish/cmds.c:4867
 msgid "mapping of disk labels to devices"
-msgstr ""
+msgstr "ディスクラベルからデバイスにマッピングする"
 
 #: fish/cmds.c:4868
 msgid "list device mapper devices"
-msgstr ""
+msgstr "デバイスマッパーデバイスを一覧表示する"
 
 #: fish/cmds.c:4869
 msgid "list event handlers"
-msgstr ""
+msgstr "イベントハンドラーを一覧表示する"
 
 #: fish/cmds.c:4870
 msgid "list filesystems"
-msgstr ""
+msgstr "ファイルシステムを一覧表示する"
 
 #: fish/cmds.c:4871
 msgid "list all Windows dynamic disk partitions"
-msgstr ""
+msgstr "すべての Windows ダイナミックディスクのパーティションを一覧表示する"
 
 #: fish/cmds.c:4872
 msgid "list all Windows dynamic disk volumes"
-msgstr ""
+msgstr "すべての Windows ダイナミックディスクのボリュームを一覧表示する"
 
 #: fish/cmds.c:4873
 msgid "list Linux md (RAID) devices"
-msgstr ""
+msgstr "Linux md (RAID) デバイスを一覧表示する"
 
 #: fish/cmds.c:4874
 msgid "list the partitions"
-msgstr "विभाजन सूचीबद्ध करें"
+msgstr "パーティションを一覧表示する"
 
 #: fish/cmds.c:4875
 msgid "list the files in a directory (long format)"
-msgstr "निर्देशिका में फाइल की सूची बनाएँ (लंबा प्रारूप)"
+msgstr "ディレクトリにあるファイルを一覧表示する（ロング形式）"
 
 #: fish/cmds.c:4876
 msgid "list the files in a directory (long format with SELinux contexts)"
-msgstr ""
+msgstr "ディレクトリーにあるファイルを（SELinux コンテキストを用いたロング形式で）一覧表示する"
 
 #: fish/cmds.c:4877 fish/cmds.c:4878
 msgid "create a hard link"
-msgstr "कोई हार्ड लिंक बनाएँ"
+msgstr "ハードリンクを作成する"
 
 #: fish/cmds.c:4879 fish/cmds.c:4880
 msgid "create a symbolic link"
-msgstr "सांकेतिक लिंक बनाएँ"
+msgstr "シンボリックリンクを作成する"
 
 #: fish/cmds.c:4881 fish/cmds.c:5030
 msgid "remove extended attribute of a file or directory"
-msgstr "किसी फाइल या निर्देशिका की विस्तारित विशेषता हटाएँ"
+msgstr "ファイルまたはディレクトリの拡張属性を削除する"
 
 #: fish/cmds.c:4882
 msgid "list the files in a directory"
-msgstr "किसी निर्देशिका में फाइल सूचीबद्ध करें"
+msgstr "ディレクトリにあるファイルを一覧表示する"
 
 #: fish/cmds.c:4883
 msgid "get list of files in a directory"
-msgstr ""
+msgstr "ディレクトリーにあるファイルの一覧を取得する"
 
 #: fish/cmds.c:4884 fish/cmds.c:5087
 msgid "set extended attribute of a file or directory"
-msgstr "किसी फाइल या निर्देशिका का विस्तारित विशेषता सेट करें"
+msgstr "ファイルまたはディレクトリの拡張属性を取得する"
 
 #: fish/cmds.c:4885 fish/cmds.c:4887
 msgid "get file information for a symbolic link"
-msgstr "किसी सांकेतिक लिंक के लिए फाइल सूचना पाएँ"
+msgstr "シンボリックリンクのファイル情報を取得する"
 
 #: fish/cmds.c:4886 fish/cmds.c:4888
 msgid "lstat on multiple files"
-msgstr "lstat विविध फाइल पर"
+msgstr "複数のファイルにおいて lstat する"
 
 #: fish/cmds.c:4889
 msgid "add a key on a LUKS encrypted device"
-msgstr ""
+msgstr "LUKS 暗号デバイスにキーを追加する"
 
 #: fish/cmds.c:4890
 msgid "close a LUKS device"
-msgstr ""
+msgstr "LUKS デバイスを閉じる"
 
 #: fish/cmds.c:4891 fish/cmds.c:4892
 msgid "format a block device as a LUKS encrypted device"
-msgstr ""
+msgstr "ブロックデバイスを LUKS 暗号化デバイスとしてフォーマットする"
 
 #: fish/cmds.c:4893
 msgid "remove a key from a LUKS encrypted device"
-msgstr ""
+msgstr "LUKS 暗号化デバイスからキーを削除する"
 
 #: fish/cmds.c:4894
 msgid "open a LUKS-encrypted block device"
-msgstr ""
+msgstr "LUKS 暗号化ブロックデバイスを開く"
 
 #: fish/cmds.c:4895
 msgid "open a LUKS-encrypted block device read-only"
-msgstr ""
+msgstr "LUKS 暗号化ブロックデバイスを読み込み専用で開く"
 
 #: fish/cmds.c:4896
 msgid "create an LVM logical volume"
-msgstr ""
+msgstr "LVM 論理ボリュームを作成する"
 
 #: fish/cmds.c:4897
 msgid "create an LVM logical volume in % remaining free space"
-msgstr ""
+msgstr "% 残り空き領域 に LVM 論理ボリュームを作成する"
 
 #: fish/cmds.c:4898
 msgid "get canonical name of an LV"
-msgstr ""
+msgstr "論理ボリュームの正規名を取得する"
 
 #: fish/cmds.c:4899
 msgid "clear LVM device filter"
-msgstr ""
+msgstr "LVM デバイスフィルターを解除する"
 
 #: fish/cmds.c:4900
 msgid "remove all LVM LVs, VGs and PVs"
-msgstr "सभी LVM LV, VG और PV हटाएँ"
+msgstr "LVM のすべての LV, VG および PV を削除する"
 
 #: fish/cmds.c:4901
 msgid "set LVM device filter"
-msgstr ""
+msgstr "LVM デバイスフィルターを設定する"
 
 #: fish/cmds.c:4902
 msgid "remove an LVM logical volume"
-msgstr "LVM लॉजिकल वाल्यूम हटाएँ"
+msgstr "LVM 論理ボリュームを削除する"
 
 #: fish/cmds.c:4903
 msgid "rename an LVM logical volume"
-msgstr "LVM लॉजिकल वाल्यूम का नाम बदलें"
+msgstr "LVM 論理ボリュームの名前を変更する"
 
 #: fish/cmds.c:4904
 msgid "resize an LVM logical volume"
-msgstr "LVM लॉजिकल वाल्यूम का आकार बदलें"
+msgstr "LVM 論理ボリュームの容量を変更する"
 
 #: fish/cmds.c:4905
 msgid "expand an LV to fill free space"
-msgstr ""
+msgstr "LV を空き領域を埋めるよう拡張する"
 
 #: fish/cmds.c:4906 fish/cmds.c:4907
 msgid "list the LVM logical volumes (LVs)"
-msgstr "LVM लॉजिकल वाल्यूम (LVs) की सूची दें"
+msgstr "LVM 論理ボリューム (LV) を一覧表示する"
 
 #: fish/cmds.c:4908
 msgid "get the UUID of a logical volume"
-msgstr ""
+msgstr "論理ボリュームの UUID を取得する"
 
 #: fish/cmds.c:4909
 msgid "lgetxattr on multiple files"
-msgstr "विविध फाइल पर lgetxattr करें"
+msgstr "複数のファイルにおいて lgetxattr する"
 
 #: fish/cmds.c:4910
 msgid "open the manual"
-msgstr ""
+msgstr "マニュアルを開く"
 
 #: fish/cmds.c:4914
 msgid "maximum number of disks that may be added"
-msgstr ""
+msgstr "追加されるディスクの最大数"
 
 #: fish/cmds.c:4915
 msgid "create a Linux md (RAID) device"
-msgstr ""
+msgstr "Linux MD (RAID) デバイスを作成する"
 
 #: fish/cmds.c:4916
 msgid "obtain metadata for an MD device"
-msgstr ""
+msgstr "MD デバイスのメタ情報を取得する"
 
 #: fish/cmds.c:4917
 msgid "get underlying devices from an MD device"
-msgstr ""
+msgstr "MD デバイスから基礎となるデバイスを取得する"
 
 #: fish/cmds.c:4918
 msgid "stop a Linux md (RAID) device"
-msgstr ""
+msgstr "Linux MD (RAID) デバイスを停止する"
 
 #: fish/cmds.c:4922
 msgid "create a directory"
-msgstr "निर्देशिका बनाएँ"
+msgstr "ディレクトリーを作成する"
 
 #: fish/cmds.c:4923
 msgid "create a directory with a particular mode"
-msgstr "खास विधि से निर्देशिका बनाएँ"
+msgstr "特定モードでディレクトリーを作成する"
 
 #: fish/cmds.c:4924
 msgid "create a directory and parents"
-msgstr "जनक और निर्देशिका बनाएँ"
+msgstr "ディレクトリーとその親ディレクトリーを作成する"
 
 #: fish/cmds.c:4925
 msgid "create a temporary directory"
-msgstr "एक अस्थायी निर्देशिका बनाएँ"
+msgstr "作業用ディレクトリーを作成する"
 
 #: fish/cmds.c:4926
 msgid "create an ext2/ext3/ext4 filesystem on device"
-msgstr ""
+msgstr "デバイスに ext2/ext3/ext4 ファイルシステムを作成する"
 
 #: fish/cmds.c:4927 fish/cmds.c:4928 fish/cmds.c:4929
 msgid "make ext2/3/4 filesystem with external journal"
-msgstr "बाहरी जर्नल के साथ ext2/3/4 फाइल सिस्टम बनाएँ"
+msgstr "外部ジャーナルとともに ext2/3/4 ファイルシステムを作成する"
 
 #: fish/cmds.c:4930
 msgid "make ext2/3/4 external journal"
-msgstr "ext2/3/4 बाहरी जर्नल बनाएँ"
+msgstr "ext2/3/4 の外部ジャーナルを作成する"
 
 #: fish/cmds.c:4931
 msgid "make ext2/3/4 external journal with label"
-msgstr "लेबल के साथ ext2/3/4 बाहरी जर्नल बनाएँ"
+msgstr "ext2/3/4 の外部ジャーナルをラベル付きで作成する"
 
 #: fish/cmds.c:4932
 msgid "make ext2/3/4 external journal with UUID"
-msgstr "UUID ext2/3/4 बाहरी जर्नल बनाएँ"
+msgstr "UUID を指定して ext2/3/4 の外部ジャーナルを作成する"
 
 #: fish/cmds.c:4933
 msgid "make FIFO (named pipe)"
-msgstr "FIFO (named पाइप) बनाएँ"
+msgstr "FIFO (名前付きパイプ) を作成する"
 
 #: fish/cmds.c:4934
 msgid "make a filesystem"
-msgstr "फाइलसिस्टम बनाएँ"
+msgstr "ファイルシステムを作成する"
 
 #: fish/cmds.c:4935
 msgid "make a filesystem with block size"
-msgstr "खंड आकार के साथ फाइलसिस्टम बनाएँ"
+msgstr "ブロックサイズを指定してファイルシステムを作成する"
 
 #: fish/cmds.c:4936
 msgid "create a btrfs filesystem"
-msgstr ""
+msgstr "btrfs ファイルシステムを作成する"
 
 #: fish/cmds.c:4937
 msgid "make lost+found directory on an ext2/3/4 filesystem"
-msgstr ""
+msgstr "ext2/3/4 ファイルシステムに lost+found ディレクトリーを作成する"
 
 #: fish/cmds.c:4938
 msgid "create a mountpoint"
-msgstr "आरोहबिंदु बनाएँ"
+msgstr "マウントポイントを作成する"
 
 #: fish/cmds.c:4939
 msgid "make block, character or FIFO devices"
-msgstr "खंड, वर्ण FIFO युक्ति बनाएँ"
+msgstr "ブロック、キャラクター、FIFO デバイスを作成する"
 
 #: fish/cmds.c:4940
 msgid "make block device node"
-msgstr "खंड युक्ति नोड बनाएँ"
+msgstr "ブロックデバイスのノードを作成する"
 
 #: fish/cmds.c:4941
 msgid "make char device node"
-msgstr "चार युक्ति नोड बनाएँ"
+msgstr "キャラクターデバイスのノードを作成する"
 
 #: fish/cmds.c:4942
 msgid "create a swap partition"
-msgstr "कोई स्वैप विभाजन बनाएँ"
+msgstr "スワップパーティションを作成する"
 
 #: fish/cmds.c:4943
 msgid "create a swap partition with a label"
-msgstr "लेबल के साथ कोई स्वैप विभाजन बनाएँ"
+msgstr "スワップパーティションをラベル付きで作成する"
 
 #: fish/cmds.c:4944
 msgid "create a swap partition with an explicit UUID"
-msgstr "विशेष UUID के साथ कोई स्वैप विभाजन बनाएँ"
+msgstr "UUID を指定してスワップパーティションを作成する"
 
 #: fish/cmds.c:4945
 msgid "create a swap file"
-msgstr "कोई स्वैप फाइल बनाएँ"
+msgstr "スワップファイルを作成する"
 
 #: fish/cmds.c:4946
 msgid "create a temporary file"
-msgstr ""
+msgstr "一時的なファイルを作成する"
 
 #: fish/cmds.c:4947
 msgid "load a kernel module"
-msgstr "कर्नेल मॉड्यूल लोड करें"
+msgstr "カーネルモジュールを読み込む"
 
 #: fish/cmds.c:4948
 msgid "view a file"
-msgstr ""
+msgstr "ファイルを表示する"
 
 #: fish/cmds.c:4949
 msgid "mount a guest disk at a position in the filesystem"
-msgstr "फाइलसिस्टम में स्थिति पर कोई गेस्ट अतिथि आरोहित करें"
+msgstr "ファイルシステムのポジションにおいて仮想マシンのディスクをマウントする"
 
 #: fish/cmds.c:4950
 msgid "mount 9p filesystem"
-msgstr ""
+msgstr "9p ファイルシステムをマウントする"
 
 #: fish/cmds.c:4951
 msgid "mount on the local filesystem"
-msgstr ""
+msgstr "ローカルファイルシステムにマウントする"
 
 #: fish/cmds.c:4952
 msgid "run main loop of mount on the local filesystem"
-msgstr ""
+msgstr "ローカルファイルシステムにマウントのメインループを実行する"
 
 #: fish/cmds.c:4953
 msgid "mount a file using the loop device"
-msgstr "लूप युक्ति के उपयोग से कोई फाइल आरोहित करें"
+msgstr "ループデバイスを使用してファイルをマウントする"
 
 #: fish/cmds.c:4954
 msgid "mount a guest disk with mount options"
-msgstr "आरोह विकल्प के साथ कोई अतिथि डिस्क आरोहित करें"
+msgstr "マウントオプションでゲストディスクをマウントする"
 
 #: fish/cmds.c:4955
 msgid "mount a guest disk, read-only"
-msgstr "कोई अतिथि डिस्क केवल पठनीय आरोहित करें"
+msgstr "ゲストのディスクを読み込み専用でマウントする"
 
 #: fish/cmds.c:4956
 msgid "mount a guest disk with mount options and vfstype"
-msgstr "कोई अतिथि डिस्क आरोहित करें आरोह विकल्प और vfstype के साथ"
+msgstr "マウントオプションと仮想ファイルシステムでゲストディスクをマウントする"
 
 #: fish/cmds.c:4957
 msgid "show mountpoints"
-msgstr "आरोहबिंदु दिखाएँ"
+msgstr "マウントポイントの一覧を表示する"
 
 #: fish/cmds.c:4958
 msgid "show mounted filesystems"
-msgstr "आरोहित फाइलसिस्टम दिखाएँ"
+msgstr "マウントされたファイルシステムの一覧を表示する"
 
 #: fish/cmds.c:4959
 msgid "move a file"
-msgstr "कोई फाइल खिसकाएँ"
+msgstr "ファイルを移動する"
 
 #: fish/cmds.c:4963
 msgid "return number of whole block devices (disks) added"
-msgstr ""
+msgstr "追加されたブロックデバイス (ディスク) の全体数を返す"
 
 #: fish/cmds.c:4964
 msgid "probe NTFS volume"
-msgstr "NTFS वॉल्यूम जाँचें"
+msgstr "NTFS ボリュームを検出する"
 
 #: fish/cmds.c:4965
 msgid "restore NTFS from backup file"
-msgstr ""
+msgstr "バックアップファイルから NTFS を復元する"
 
 #: fish/cmds.c:4966
 msgid "save NTFS to backup file"
-msgstr ""
+msgstr "バックアップファイルに NTFS を保存する"
 
 #: fish/cmds.c:4967
 msgid "fix common errors and force Windows to check NTFS"
-msgstr ""
+msgstr "一般的なエラーを修正する、また強制的に Windows に NTFS をチェックさせる"
 
 #: fish/cmds.c:4968
 msgid "resize an NTFS filesystem"
-msgstr ""
+msgstr "NTFS ファイルシステムを容量を変更する"
 
 #: fish/cmds.c:4969
 msgid "resize an NTFS filesystem (with size)"
-msgstr ""
+msgstr "NTFS ファイルシステムをサイズを指定して容量を変更する"
 
 #: fish/cmds.c:4970 fish/cmds.c:4971
 msgid "parse the environment and set handle flags accordingly"
-msgstr ""
+msgstr "環境を解析し、それに応じたハンドルフラグを設定する"
 
 #: fish/cmds.c:4972
 msgid "add a partition to the device"
-msgstr "युक्ति में कोई विभाजन जोड़ें"
+msgstr "デバイスにパーティションを追加する"
 
 #: fish/cmds.c:4973
 msgid "delete a partition"
-msgstr ""
+msgstr "パーティションを削除する"
 
 #: fish/cmds.c:4974
 msgid "partition whole disk with a single primary partition"
-msgstr "एकल प्राथमिक विभाजन से पूरे जिस्क को विभाजित करें"
+msgstr "ディスク全体を単一のパーティションにする"
 
 #: fish/cmds.c:4975
 msgid "return true if a partition is bootable"
-msgstr ""
+msgstr "パーティションがブート可能ならば真を返す"
 
 #: fish/cmds.c:4976
 msgid "get the GUID of a GPT partition"
@@ -5244,11 +5314,11 @@ msgstr ""
 
 #: fish/cmds.c:4977
 msgid "get the type GUID of a GPT partition"
-msgstr ""
+msgstr "GPT パーティションの種別 GUID を取得する"
 
 #: fish/cmds.c:4978
 msgid "get the MBR type byte (ID byte) from a partition"
-msgstr ""
+msgstr "パーティションから MBR 形式バイト（ID バイト）を取得する"
 
 #: fish/cmds.c:4979
 msgid "get partition name"
@@ -5256,19 +5326,19 @@ msgstr ""
 
 #: fish/cmds.c:4980
 msgid "get the partition table type"
-msgstr "विभाजन सारणी प्रकार पाएँ"
+msgstr "パーティションテーブル形式を取得する"
 
 #: fish/cmds.c:4981
 msgid "create an empty partition table"
-msgstr "कोई रिक्त विभाजन सारणी बनाएँ"
+msgstr "空のパーティションテーブルを作成する"
 
 #: fish/cmds.c:4982
 msgid "list partitions on a device"
-msgstr "किसी युक्ति पर विभाजन सूचीबद्ध करें"
+msgstr "デバイスにあるパーティションを一覧表示する"
 
 #: fish/cmds.c:4983
 msgid "make a partition bootable"
-msgstr "विभाजन को बूट योग्य बनाएँ"
+msgstr "パーティションをブート可能にする"
 
 #: fish/cmds.c:4984
 msgid "set the GUID of a GPT partition"
@@ -5276,183 +5346,183 @@ msgstr ""
 
 #: fish/cmds.c:4985
 msgid "set the type GUID of a GPT partition"
-msgstr ""
+msgstr "GPT パーティションの種別 GUID を設定する"
 
 #: fish/cmds.c:4986
 msgid "set the MBR type byte (ID byte) of a partition"
-msgstr ""
+msgstr "パーティションの MBR 形式バイト（ID バイト）を設定する"
 
 #: fish/cmds.c:4987
 msgid "set partition name"
-msgstr "विभाजन नाम सेट करें"
+msgstr "パーティション名を設定する"
 
 #: fish/cmds.c:4988
 msgid "convert partition name to device name"
-msgstr ""
+msgstr "パーティション名をデバイス名に変換する"
 
 #: fish/cmds.c:4989
 msgid "convert partition name to partition number"
-msgstr ""
+msgstr "パーティション名をパーティション番号に変換する"
 
 #: fish/cmds.c:4999
 msgid "ping the guest daemon"
-msgstr "अतिथि डेमॉन पिंग करें"
+msgstr "ゲストデーモンに ping する"
 
 #: fish/cmds.c:5000
 msgid "read part of a file"
-msgstr "किसी फाइल का हिस्सा पढ़ें"
+msgstr "ファイルの中の一部を読み込む"
 
 #: fish/cmds.c:5001
 msgid "read part of a device"
-msgstr ""
+msgstr "デバイスの中の一部を読み込む"
 
 #: fish/cmds.c:5005
 msgid "generate a new random UUID for a physical volume"
-msgstr ""
+msgstr "物理ボリュームに対する新しいランダムな UUID を生成する"
 
 #: fish/cmds.c:5006
 msgid "generate new random UUIDs for all physical volumes"
-msgstr ""
+msgstr "すべての物理ボリュームに対する新しいランダムな UUID を生成する"
 
 #: fish/cmds.c:5007
 msgid "create an LVM physical volume"
-msgstr "कोई LVM भोतिक वॉल्यूम बनाएँ"
+msgstr "LVM 物理ボリュームを作成する"
 
 #: fish/cmds.c:5008
 msgid "remove an LVM physical volume"
-msgstr "LVM भौतिक वाल्यूम हटाएँ"
+msgstr "LVM 物理ボリュームを削除する"
 
 #: fish/cmds.c:5009
 msgid "resize an LVM physical volume"
-msgstr "LVM भौतिक वाल्यूम का आकार बदलें"
+msgstr "LVM 物理ボリュームの容量を変更する"
 
 #: fish/cmds.c:5010
 msgid "resize an LVM physical volume (with size)"
-msgstr ""
+msgstr "LVM 物理ボリュームの容量を（指定した容量に）変更する"
 
 #: fish/cmds.c:5011 fish/cmds.c:5012
 msgid "list the LVM physical volumes (PVs)"
-msgstr "LVM भौतिक वाल्यूम (PVs) सूची दें"
+msgstr "LVM 物理ボリューム (PV) を一覧表示する"
 
 #: fish/cmds.c:5013
 msgid "get the UUID of a physical volume"
-msgstr ""
+msgstr "物理ボリュームの UUID を取得する"
 
 #: fish/cmds.c:5014
 msgid "write to part of a file"
-msgstr ""
+msgstr "ファイルの一部に書き込む"
 
 #: fish/cmds.c:5015
 msgid "write to part of a device"
-msgstr ""
+msgstr "デバイスの一部に書き込む"
 
 #: fish/cmds.c:5019
 msgid "read a file"
-msgstr "फाइल पढ़ें"
+msgstr "ファイルを読み込む"
 
 #: fish/cmds.c:5020
 msgid "read file as lines"
-msgstr "फाइल पंक्ति बार पढ़ें"
+msgstr "ファイルを行として読み込む"
 
 #: fish/cmds.c:5021
 msgid "read directories entries"
-msgstr "निर्देशिका प्रविष्टि पढें"
+msgstr "ディレクトリのエントリーを読み込む"
 
 #: fish/cmds.c:5022
 msgid "read the target of a symbolic link"
-msgstr "सांकेतिक लिंक के लक्ष्य को पढ़ें"
+msgstr "シンボリックリンクのターゲットを読み込む"
 
 #: fish/cmds.c:5023
 msgid "readlink on multiple files"
-msgstr "मल्टीपल फाइल पर रीडलिंक"
+msgstr "複数のファイルにおいて readlink する"
 
 #: fish/cmds.c:5024
 msgid "canonicalized absolute pathname"
-msgstr "निरपेक्ष पथनाम कैनोकनिलाइज करें"
+msgstr "正規化された絶対パス名"
 
 #: fish/cmds.c:5028
 msgid "remount a filesystem with different options"
-msgstr ""
+msgstr "ファイルシステムを他のオプションで再マウントする"
 
 #: fish/cmds.c:5029
 msgid "remove a disk image"
-msgstr ""
+msgstr "ディスクイメージを削除する"
 
 #: fish/cmds.c:5031
 msgid "rename a file on the same filesystem"
-msgstr ""
+msgstr "同じファイルシステムにあるファイルの名前を変更する"
 
 #: fish/cmds.c:5032
 msgid "close and reopen libguestfs handle"
-msgstr "libguestfs नियंत्रण बंद करें और खोलें"
+msgstr "libguestfs ハンドルを閉じて開きなおす"
 
 #: fish/cmds.c:5033
 msgid "resize an ext2, ext3 or ext4 filesystem"
-msgstr ""
+msgstr "ext2, ext3 または ext4 ファイルシステムの容量を変更する"
 
 #: fish/cmds.c:5034
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
-msgstr ""
+msgstr "ext2, ext3 または ext4 ファイルシステムの容量を最小容量に変更する"
 
 #: fish/cmds.c:5035
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
-msgstr ""
+msgstr "ext2, ext3 または ext4 ファイルシステムの容量を（指定した容量に）変更する"
 
 #: fish/cmds.c:5036
 msgid "remove a file"
-msgstr "फाइल हटाएँ"
+msgstr "ファイルを削除する"
 
 #: fish/cmds.c:5037
 msgid "remove a file ignoring errors"
-msgstr ""
+msgstr "エラーを無視してファイルを削除する"
 
 #: fish/cmds.c:5038
 msgid "remove a file or directory recursively"
-msgstr "फाइल या निर्देशिका बारी बारी से हटाएँ"
+msgstr "ファイルまたはディレクトリを再帰的に削除する"
 
 #: fish/cmds.c:5039
 msgid "remove a directory"
-msgstr "निर्देशिका हटाएँ"
+msgstr "ディレクトリを削除する"
 
 #: fish/cmds.c:5040
 msgid "remove a mountpoint"
-msgstr "माउंट प्वाइंट हटाएँ"
+msgstr "マウントポイントを削除する"
 
 #: fish/cmds.c:5041
 msgid "synchronize the contents of two directories"
-msgstr ""
+msgstr "二つのディレクトリーの内容を同期する"
 
 #: fish/cmds.c:5042
 msgid "synchronize host or remote filesystem with filesystem"
-msgstr ""
+msgstr "ホストまたはリモートのファイルシステムをファイルシステムと同期する"
 
 #: fish/cmds.c:5043
 msgid "synchronize filesystem with host or remote filesystem"
-msgstr ""
+msgstr "ホストまたはリモートのファイルシステムと同期する"
 
 #: fish/cmds.c:5050
 msgid "scrub (securely wipe) a device"
-msgstr "scrub (securely wipe) युक्ति"
+msgstr "デバイスを（セキュアに）完全消去する"
 
 #: fish/cmds.c:5051
 msgid "scrub (securely wipe) a file"
-msgstr "फाइल स्क्रब करें"
+msgstr "ファイルを（セキュアに）完全消去する"
 
 #: fish/cmds.c:5052
 msgid "scrub (securely wipe) free space"
-msgstr "मुक्त स्थान को साफ करें"
+msgstr "空き領域を（セキュアに）完全消去する"
 
 #: fish/cmds.c:5056
 msgid "add options to kernel command line"
-msgstr "कर्नेल कमांड लाइन में विकल्प जोड़ें"
+msgstr "カーネルのコマンド行にオプションを追加する"
 
 #: fish/cmds.c:5057 fish/cmds.c:5059
 msgid "set the backend"
-msgstr ""
+msgstr "バックエンドを設定する"
 
 #: fish/cmds.c:5058
 msgid "set autosync mode"
-msgstr "autosync विधि सेट करें"
+msgstr "自動同期モードを設定する"
 
 #: fish/cmds.c:5060
 msgid "set a single per-backend settings string"
@@ -5464,424 +5534,423 @@ msgstr ""
 
 #: fish/cmds.c:5062
 msgid "set the appliance cache directory"
-msgstr ""
+msgstr "アプライアンスのキャッシュディレクトリーを設定する"
 
 #: fish/cmds.c:5063
 msgid "enable or disable direct appliance mode"
-msgstr "सीधा एप्लायंस विधि को सक्रिय या निष्क्रय करें"
+msgstr "直接アプライアンスモードを有効化または無効化する"
 
 #: fish/cmds.c:5064
 msgid "set ext2 file attributes of a file"
-msgstr ""
+msgstr "ファイルの ext2 ファイル属性を設定する"
 
 #: fish/cmds.c:5065
 msgid "set ext2 file generation of a file"
-msgstr ""
+msgstr "ファイルの ext2 ファイル世代を設定する"
 
 #: fish/cmds.c:5066
 msgid "set the ext2/3/4 filesystem label"
-msgstr "ext2/3/4 फाइल सिस्टम ਲੇਬਲ सेट करें"
+msgstr "ext2/3/4 ファイルシステムのラベルを設定する"
 
 #: fish/cmds.c:5067
 msgid "set the ext2/3/4 filesystem UUID"
-msgstr "ext2/3/4 फाइल सिस्टम UUID सेट करें"
+msgstr "ext2/3/4 ファイルシステムの UUID を設定する"
 
 #: fish/cmds.c:5068
 msgid "set the hypervisor binary"
-msgstr ""
+msgstr "ハイパーバイザーのバイナリを設定する"
 
 #: fish/cmds.c:5069
 msgid "set filesystem label"
-msgstr ""
+msgstr "ファイルシステムのラベルを設定する"
 
 #: fish/cmds.c:5070
 msgid "pass requested credential back to libvirt"
-msgstr ""
+msgstr "要求されたクレディンシャルを libvirt に渡す"
 
 #: fish/cmds.c:5071
 msgid "set libvirt credentials supported by calling program"
-msgstr ""
+msgstr "呼び出されたプログラムによりサポートされる libvirt クレディンシャルを設定する"
 
 #: fish/cmds.c:5072
 msgid "set memory allocated to the hypervisor"
-msgstr ""
+msgstr "ハイパーバイザーに割り当てるメモリを設定する"
 
 #: fish/cmds.c:5073
 msgid "set enable network flag"
-msgstr ""
+msgstr "network フラグを有効に設定する"
 
 #: fish/cmds.c:5074
 msgid "set the search path"
-msgstr "खोज पथ सेट करें"
+msgstr "検索パスを設定する"
 
 #: fish/cmds.c:5075
 msgid "set process group flag"
-msgstr ""
+msgstr "プロセスグループのフラグを設定する"
 
 #: fish/cmds.c:5076
 msgid "set the program name"
-msgstr ""
+msgstr "プログラム名を設定する"
 
 #: fish/cmds.c:5077
 msgid "set the hypervisor binary (usually qemu)"
-msgstr ""
+msgstr "ハイパーバイザーのバイナリ (通常は QEMU) を設定する"
 
 #: fish/cmds.c:5078
 msgid "enable or disable the recovery process"
-msgstr "प्राप्ति प्रक्रिया को सक्रिय या निष्क्रिय करें"
+msgstr "リカバリープロセスを有効化または無効化する"
 
 #: fish/cmds.c:5079
 msgid "set SELinux enabled or disabled at appliance boot"
-msgstr "SELinux को एप्लायंस बूट पर सक्रिय या निष्क्रिय करें"
+msgstr "アプライアンスの起動時に SELinux を有効または無効に設定する"
 
 #: fish/cmds.c:5080
 msgid "set number of virtual CPUs in appliance"
-msgstr ""
+msgstr "アプライアンスの仮想 CPU 数を設定する"
 
 #: fish/cmds.c:5081
 msgid "set the temporary directory"
-msgstr ""
+msgstr "一時的なディレクトリーを設定する"
 
 #: fish/cmds.c:5082
 msgid "enable or disable command traces"
-msgstr "कमांड ट्रैस को सक्रिय या निष्क्रिय करें"
+msgstr "コマンドのトレースを有効化または無効化する"
 
 #: fish/cmds.c:5083
 msgid "set the filesystem UUID"
-msgstr ""
+msgstr "ファイルシステム UUID を設定する"
 
 #: fish/cmds.c:5084
 msgid "set verbose mode"
-msgstr "वर्बोस विधि सेट करें"
+msgstr "冗長モードを設定する"
 
 #: fish/cmds.c:5085
 msgid "set SELinux security context"
-msgstr "SELinux सुरक्षा संदर्भ सेट करें"
+msgstr "SELinux セキュリティコンテキストを設定する"
 
 #: fish/cmds.c:5086
 msgid "set an environment variable"
-msgstr ""
+msgstr "環境変数を設定する"
 
 #: fish/cmds.c:5088 fish/cmds.c:5089
 msgid "create partitions on a block device"
-msgstr "खंड युक्ति पर विभाजन बनाएँ"
+msgstr "ブロックデバイスにパーティションを作成する"
 
 #: fish/cmds.c:5090
 msgid "modify a single partition on a block device"
-msgstr "खंड युक्ति पर एक विभाजन रूपांतरित करें"
+msgstr "ブロックデバイスの単一パーティションを変更する"
 
 #: fish/cmds.c:5091
 msgid "display the disk geometry from the partition table"
-msgstr "डिस्क ज्यामिती को विभाजन सारणी से दिखाएँ"
+msgstr "パーティションテーブルからディスク配置を表示する"
 
 #: fish/cmds.c:5092
 msgid "display the kernel geometry"
-msgstr "कर्नेल ज्यामिति को दिखाएँ"
+msgstr "カーネル配置を表示する"
 
 #: fish/cmds.c:5093
 msgid "display the partition table"
-msgstr "विभाजन सारणी को दिखाएँ"
+msgstr "パーティションテーブルを表示する"
 
 #: fish/cmds.c:5094
 msgid "run a command via the shell"
-msgstr "शेल से होकर कमांड चलाएँ"
+msgstr "シェル経由でコマンドを実行する"
 
 #: fish/cmds.c:5095
 msgid "run a command via the shell returning lines"
-msgstr "शेल वापसी पंक्ति से कमांड चलाएँ"
+msgstr "シェル経由でコマンドを実行して行を返す"
 
 #: fish/cmds.c:5096
 msgid "shutdown the hypervisor"
-msgstr ""
+msgstr "ハイパーバイザーをシャットダウンする"
 
 #: fish/cmds.c:5097
 msgid "sleep for some seconds"
-msgstr "कुछ सेकेंड के लिए स्लीप करें"
+msgstr "数秒間スリープする"
 
 #: fish/cmds.c:5101
 msgid "create a sparse disk image and add"
-msgstr ""
+msgstr "スパースなディスクイメージを作成して追加する"
 
 #: fish/cmds.c:5102 fish/cmds.c:5103
 msgid "get file information"
-msgstr "फाइल सूचना पाएँ"
+msgstr "ファイルの情報を取得する"
 
 #: fish/cmds.c:5104
 msgid "get file system statistics"
-msgstr "फाइल सिस्टम सांख्यिकी पाएँ"
+msgstr "ファイルシステムの統計情報を取得する"
 
 #: fish/cmds.c:5105 fish/cmds.c:5106
 msgid "print the printable strings in a file"
-msgstr "फाइल में छपने योग्य स्ट्रिंग छापें"
+msgstr "ファイルにある表示可能な文字を表示する"
 
 #: fish/cmds.c:5107
 msgid "list supported groups of commands"
-msgstr ""
+msgstr "サポートされるコマンドのグループを一覧表示する"
 
 #: fish/cmds.c:5108
 msgid "disable swap on device"
-msgstr "युक्ति पर स्वैप निष्क्रिय करें"
+msgstr "デバイスにおけるスワップを無効にする"
 
 #: fish/cmds.c:5109
 msgid "disable swap on file"
-msgstr "फाइल पर स्वैप निष्क्रिय करें"
+msgstr "ファイルにおけるスワップを無効にする"
 
 #: fish/cmds.c:5110
 msgid "disable swap on labeled swap partition"
-msgstr "लेबल स्वैप विभाजन पर स्वैप निष्क्रिय करें"
+msgstr "ラベル付き swap パーティションにおけるスワップを無効にする"
 
 #: fish/cmds.c:5111
 msgid "disable swap on swap partition by UUID"
-msgstr "UUID के द्वारा स्वैप विभाजन पर स्वैप निष्क्रिय करें"
+msgstr "UUID による swap パーティションにおけるスワップを無効にする"
 
 #: fish/cmds.c:5112
 msgid "enable swap on device"
-msgstr "युक्ति पर स्वैप सक्रिय करें"
+msgstr "デバイスにおけるスワップを有効にする"
 
 #: fish/cmds.c:5113
 msgid "enable swap on file"
-msgstr "फाइल पर स्वैप सक्रिय करें"
+msgstr "ファイルにおけるスワップを有効にする"
 
 #: fish/cmds.c:5114
 msgid "enable swap on labeled swap partition"
-msgstr "लेबल स्वैप विभाजन पर स्वैप सक्रिय करें"
+msgstr "ラベル付き swap パーティションにおけるスワップを有効にする"
 
 #: fish/cmds.c:5115
 msgid "enable swap on swap partition by UUID"
-msgstr "UUID के द्वारा स्वैप विभाजन पर स्वैप सक्रिय करें"
+msgstr "UUID による swap パーティションにおけるスワップを有効にする"
 
 #: fish/cmds.c:5116
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr "डिस्क तुल्यकालित करें, डिस्क छवि में फ्लश किया जाता है"
+msgstr "ディスクを同期する、書き込みをディスクイメージにフラッシュする"
 
 #: fish/cmds.c:5117
 msgid "install the SYSLINUX bootloader"
-msgstr ""
+msgstr "SYSLINUX ブートローダーをインストールする"
 
 #: fish/cmds.c:5118
 msgid "return last 10 lines of a file"
-msgstr "फाइल का अंतिम 10 पंक्ति वापस करें"
+msgstr "ファイルの末尾 10 行を返す"
 
 #: fish/cmds.c:5119
 msgid "return last N lines of a file"
-msgstr "फाइल अंतिम N पंक्ति वापस करें"
+msgstr "ファイルの末尾 N 行を返す"
 
 #: fish/cmds.c:5120
 msgid "unpack tarfile to directory"
-msgstr "tarfile को निर्देशिका में खोलें"
+msgstr "tar ファイルをディレクトリに展開する"
 
 #: fish/cmds.c:5121
 msgid "pack directory into tarfile"
-msgstr "निर्देशिका को tarfile में पैक करें"
+msgstr "ディレクトリを tar ファイルに圧縮する"
 
 #: fish/cmds.c:5122 fish/cmds.c:5136
 msgid "unpack compressed tarball to directory"
-msgstr "संकुचित tarball को निर्देशिका में खोलें"
+msgstr "圧縮 tar ファイルをディレクトリに展開する"
 
 #: fish/cmds.c:5123 fish/cmds.c:5137
 msgid "pack directory into compressed tarball"
-msgstr "निर्देशिका को संकुचित tarball में पैक करें"
+msgstr "ディレクトリを圧縮 tar ファイルに圧縮する"
 
 #: fish/cmds.c:5124
 msgid "print elapsed time taken to run a command"
-msgstr ""
+msgstr "コマンドの実行にかかった経過時間を表示する"
 
 #: fish/cmds.c:5128
 msgid "update file timestamps or create a new file"
-msgstr "फाइल टाइमस्टैंप अपडेट करें या नया फाइल बनाएँ"
+msgstr "ファイルのタイムスタンプを更新する、または新しいファイルを作成する"
 
 #: fish/cmds.c:5132
 msgid "truncate a file to zero size"
-msgstr "फाइल को शून्य आकार में काटें"
+msgstr "ファイルをゼロまで切り詰める"
 
 #: fish/cmds.c:5133
 msgid "truncate a file to a particular size"
-msgstr "फाइल को किसी खास आकार में काटें"
+msgstr "ファイルを特定の容量まで切り詰める"
 
 #: fish/cmds.c:5134
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
-msgstr ""
+msgstr "ext2/ext3/ext4 ファイルシステムのパラメーターを調整する"
 
 #: fish/cmds.c:5135
 msgid "get ext2/ext3/ext4 superblock details"
-msgstr "ext2/ext3/ext4 सुपरब्लॉक विवरण"
+msgstr "ext2/ext3/ext4 スーパーブロックの詳細を取得する"
 
 #: fish/cmds.c:5138
 msgid "set file mode creation mask (umask)"
-msgstr "फाइल मोड निर्माण मास्क (umask) सेट करें"
+msgstr "ファイルモードの作成マスク（umask）を設定する"
 
 #: fish/cmds.c:5139
 msgid "unmount a filesystem"
-msgstr "किसी फाइल सिस्टम अनारोहित करें"
+msgstr "ファイルシステムをアンマウントする"
 
 #: fish/cmds.c:5140
 msgid "unmount all filesystems"
-msgstr "सभी फाइल सिस्टम अनारोहित करें"
+msgstr "すべてのファイルシステムをアンマウントする"
 
 #: fish/cmds.c:5141
 msgid "unmount a locally mounted filesystem"
-msgstr ""
+msgstr "ローカルにマウントされたファイルシステムをアンマウントする"
 
 #: fish/cmds.c:5148
 msgid "unset an environment variable"
-msgstr ""
+msgstr "環境変数を設定解除する"
 
 #: fish/cmds.c:5149
 msgid "upload a file from the local machine"
-msgstr "स्थानीय मशीन मसे फाइल अपलोड करें"
+msgstr "ローカルマシンからファイルをアップロードする"
 
 #: fish/cmds.c:5150
 msgid "upload a file from the local machine with offset"
-msgstr ""
+msgstr "ローカルマシンからファイルをオフセット付きでアップロードする"
 
 #: fish/cmds.c:5151
 msgid "cancel the current upload or download operation"
-msgstr ""
+msgstr "現在のアップロードまたはダウンロード操作を取り消す"
 
 #: fish/cmds.c:5152
 msgid "set timestamp of a file with nanosecond precision"
-msgstr "फाइल का टाइमस्टैंप को nanosecond शुद्धता से सेट करें"
+msgstr "ファイルのタイムスタンプをナノ秒単位で設定する"
 
 #: fish/cmds.c:5153
 msgid "appliance kernel version"
-msgstr ""
+msgstr "アプライアンスのカーネルバージョン"
 
 #: fish/cmds.c:5157
 msgid "get the library version number"
-msgstr "लाइब्रेरी संस्करण संख्या पाएँ"
+msgstr "ライブラリのバージョン番号を取得する"
 
 #: fish/cmds.c:5158
 msgid "get the filesystem label"
-msgstr ""
+msgstr "ファイルシステムのラベルを取得する"
 
 #: fish/cmds.c:5159
 msgid "get the Linux VFS type corresponding to a mounted device"
-msgstr "Linux VFS प्रकार किसी आरोहित युक्ति के अऩुरूप पाएँ"
+msgstr "マウント済みデバイスに対応する Linux VFS 形式を取得する"
 
 #: fish/cmds.c:5160
 msgid "get the filesystem UUID"
-msgstr ""
+msgstr "ファイルシステムの UUID を取得する"
 
 #: fish/cmds.c:5161
 msgid "activate or deactivate some volume groups"
-msgstr "कुछ वाल्यूम समूह सक्रिय या निष्क्रिय करें"
+msgstr "いくつかのボリュームグループを活性化または非活性化する"
 
 #: fish/cmds.c:5162
 msgid "activate or deactivate all volume groups"
-msgstr "सभी वाल्यूम समूह सक्रिय या निष्क्रिय करें"
+msgstr "すべてのボリュームグループを活性化または非活性化する"
 
 #: fish/cmds.c:5163
 msgid "generate a new random UUID for a volume group"
-msgstr ""
+msgstr "ボリュームグループに対するランダムな新規 UUID を生成する"
 
 #: fish/cmds.c:5164
 msgid "generate new random UUIDs for all volume groups"
-msgstr ""
+msgstr "すべてのボリュームグループに対するランダムな新規 UUID を生成する"
 
 #: fish/cmds.c:5165
 msgid "create an LVM volume group"
-msgstr "LVM वॉल्यूम समूह बनाएँ"
+msgstr "LVM ボリュームグループを作成する"
 
 #: fish/cmds.c:5166
 msgid "get the LV UUIDs of all LVs in the volume group"
-msgstr ""
+msgstr "ボリュームグループにあるすべての論理ボリュームの UUID を取得する"
 
 #: fish/cmds.c:5167
 msgid "get volume group metadata"
-msgstr ""
+msgstr "ボリュームグループのメタ情報を取得する"
 
 #: fish/cmds.c:5168
 msgid "get the PV UUIDs containing the volume group"
-msgstr ""
+msgstr "ボリュームグループを含む物理ボリュームの UUID を取得する"
 
 #: fish/cmds.c:5169
 msgid "remove an LVM volume group"
-msgstr "LVM वाल्यूम समूह हटाएँ"
+msgstr "LVM ボリュームグループを削除する"
 
 #: fish/cmds.c:5170
 msgid "rename an LVM volume group"
-msgstr "LVM वॉल्यूम समूह का नाम बदलें"
+msgstr "LVM ボリュームグループの名前を変更する"
 
 #: fish/cmds.c:5171 fish/cmds.c:5172
 msgid "list the LVM volume groups (VGs)"
-msgstr "LVM वाल्यूम समूह (VGs) सूचीबद्ध करें"
+msgstr "LVM ボリュームグループ (VG) を一覧表示する"
 
 #: fish/cmds.c:5173
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
-msgstr ""
+msgstr "LVM 物理ボリューム、ボリュームグループおよび論理ボリュームを再スキャンする"
 
 #: fish/cmds.c:5174
 msgid "get the UUID of a volume group"
-msgstr ""
+msgstr "ボリュームグループの UUID を取得する"
 
 #: fish/cmds.c:5178
 msgid "count characters in a file"
-msgstr "फाइल में वर्ण गिनती करें"
+msgstr "ファイルにある文字数を数える"
 
 #: fish/cmds.c:5179
 msgid "count lines in a file"
-msgstr "फाइल में पंक्ति गिनती करें"
+msgstr "ファイルにある行数を数える"
 
 #: fish/cmds.c:5180
 msgid "count words in a file"
-msgstr "फाइल में शब्द गिनती करें"
+msgstr "ファイルにある単語数を数える"
 
 #: fish/cmds.c:5181
 msgid "wipe a filesystem signature from a device"
-msgstr ""
+msgstr "デバイスからファイルシステムのシグネチャーを完全消去する"
 
 #: fish/cmds.c:5182
 msgid "create a new file"
-msgstr ""
+msgstr "新規ファイルを作成する"
 
 #: fish/cmds.c:5183
 msgid "append content to end of file"
-msgstr ""
+msgstr "コンテンツをファイルの最後に追加する"
 
 #: fish/cmds.c:5184
 msgid "create a file"
-msgstr "फाइल बनाएँ"
+msgstr "ファイルを作成する"
 
 #: fish/cmds.c:5185
 msgid "change parameters of an XFS filesystem"
-msgstr ""
+msgstr "XFS ファイルシステムのパラメーターを変更する"
 
 #: fish/cmds.c:5186
 msgid "expand an existing XFS filesystem"
-msgstr ""
+msgstr "既存の XFS ファイルシステムを拡張する"
 
 #: fish/cmds.c:5187
 msgid "get geometry of XFS filesystem"
-msgstr ""
+msgstr "XFS ファイルシステムのジオメトリーを取得する"
 
 #: fish/cmds.c:5188
 msgid "repair an XFS filesystem"
-msgstr ""
+msgstr "XFS ファイルシステムを修復する"
 
 #: fish/cmds.c:5191
 msgid "write zeroes to the device"
-msgstr "युक्ति में शून्य लिखें"
+msgstr "デバイスにゼロを書き込む"
 
 #: fish/cmds.c:5192
 msgid "write zeroes to an entire device"
-msgstr ""
+msgstr "デバイス全体にゼロを書き込む"
 
 #: fish/cmds.c:5193
 msgid "zero free space in a filesystem"
-msgstr ""
+msgstr "ファイルシステムの空き領域をゼロで埋める"
 
 #: fish/cmds.c:5194
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr "ext2/3 फाइल सिस्टम पर अप्रयुक्त inodes और डिस्क खंड शून्य करें"
+msgstr "ext2/3 ファイルシステムにある未使用の inode およびディスクブロックをゼロで埋める"
 
 #: fish/cmds.c:5197
 msgid "determine file type inside a compressed file"
-msgstr "संकुचित फाइल अंदर फाइल प्रकार निर्धारित करें"
+msgstr "圧縮ファイルの中にあるファイルの形式を決定する"
 
 #: fish/cmds.c:5200
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr ""
-"-h <cmd> / help <cmd> का उपयोग कमांड के लिए विस्तृत मदद दिखाने के लिए करें."
+msgstr "コマンドの詳細なヘルプを表示するには -h <cmd> / help <cmd> を使用します。"
 
 #: fish/cmds.c:5968 fish/cmds.c:5986 fish/cmds.c:5999 fish/cmds.c:6027
 #: fish/cmds.c:6083 fish/cmds.c:6147 fish/cmds.c:6491 fish/cmds.c:7357
@@ -5910,7 +5979,7 @@ msgstr ""
 #: fish/cmds.c:24178 fish/cmds.c:24191 fish/cmds.c:24204 fish/cmds.c:24217
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
-msgstr ""
+msgstr "%s: '%s': 無効な論理値、'true' または 'false' を使用してください\n"
 
 #: fish/cmds.c:6037 fish/cmds.c:6157 fish/cmds.c:6268 fish/cmds.c:7372
 #: fish/cmds.c:7434 fish/cmds.c:7532 fish/cmds.c:7984 fish/cmds.c:8190
@@ -5928,7 +5997,7 @@ msgstr ""
 #: fish/cmds.c:24305
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr ""
+msgstr "%s: 未知のオプション引数 \"%s\"\n"
 
 #: fish/cmds.c:6043 fish/cmds.c:6163 fish/cmds.c:6274 fish/cmds.c:7378
 #: fish/cmds.c:7440 fish/cmds.c:7538 fish/cmds.c:7990 fish/cmds.c:8196
@@ -5946,7 +6015,7 @@ msgstr ""
 #: fish/cmds.c:24311
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
-msgstr ""
+msgstr "%s: オプション引数 \"%s\" が２回指定されています。\n"
 
 #: fish/cmds.c:6246 fish/cmds.c:6449 fish/cmds.c:7047 fish/cmds.c:7089
 #: fish/cmds.c:7424 fish/cmds.c:7509 fish/cmds.c:7655 fish/cmds.c:8102
@@ -5996,7 +6065,7 @@ msgstr ""
 #: fish/cmds.c:24268 fish/cmds.c:24285
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: %s: अवैध पूर्णांक पैरामीटर (%s ने %d लौटाया)\n"
+msgstr "%s: %s: 無効な整数パラメーター (%s が %d を返しました)\n"
 
 #: fish/cmds.c:6455 fish/cmds.c:7053 fish/cmds.c:7095 fish/cmds.c:8471
 #: fish/cmds.c:8517 fish/cmds.c:8536 fish/cmds.c:8669 fish/cmds.c:8742
@@ -6025,7 +6094,7 @@ msgstr "%s: %s: अवैध पूर्णांक पैरामीटर (
 #: fish/cmds.c:24094
 #, c-format
 msgid "%s: %s: integer out of range\n"
-msgstr "%s: %s: परिसर के बाहर पूर्णांक\n"
+msgstr "%s: %s: 範囲外の整数\n"
 
 #: fish/cmds.c:24625
 #, c-format
@@ -6045,12 +6114,12 @@ msgstr ""
 #: fish/cmds.c:24633
 #, c-format
 msgid "%s: unknown command\n"
-msgstr "%s: अज्ञात कमांड\n"
+msgstr "%s: 未知のコマンド\n"
 
 #: fish/config.c:65
 #, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
-msgstr ""
+msgstr "%s: %s: %d 行目: 設定ファイルの構文解析中にエラーが発生しまし: %s\n"
 
 #: fish/copy.c:37
 #, c-format
@@ -6058,6 +6127,7 @@ msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
 "image\n"
 msgstr ""
+"ファイルをイメージの中にコピーするには 'copy-in <local> [<local>...] <remotedir>' を使用します。\n"
 
 #: fish/copy.c:66
 #, c-format
@@ -6065,41 +6135,42 @@ msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
+"ファイルをイメージの外にコピーするには 'copy-out <remote> [<remote>...] <localdir>' を使用します\n"
 
 #: fish/display.c:43
 #, c-format
 msgid "display filename\n"
-msgstr ""
+msgstr "ファイル名の表示\n"
 
 #: fish/edit.c:41
 #, c-format
 msgid "use '%s filename' to edit a file\n"
-msgstr "किसी फाइल के संपादन के लिए '%s filename' का प्रयोग करें\n"
+msgstr "ファイルを編集するには '%s filename' を使用します\n"
 
 #: fish/event-names.c:68
 #, c-format
 msgid "unknown event name: %s\n"
-msgstr ""
+msgstr "未知のイベント名: %s\n"
 
 #: fish/events.c:166
 #, c-format
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
-msgstr ""
+msgstr "イベントハンドラーを登録するには 'event <name> <eventset> <script>' を使用します\n"
 
 #: fish/events.c:225
 #, c-format
 msgid "use 'delete-event <name>' to delete an event handler\n"
-msgstr ""
+msgstr "イベントハンドラーを削除するには 'delete-event <name>' を使用します\n"
 
 #: fish/events.c:234
 #, c-format
 msgid "delete-event: %s: no such event handler\n"
-msgstr ""
+msgstr "delete-event: %s: そのようなイベントハンドラーはありません\n"
 
 #: fish/events.c:286
 #, c-format
 msgid "use 'list-events' to list event handlers\n"
-msgstr ""
+msgstr "イベントハンドラーを一覧表示するには 'list-events' を使用します\n"
 
 #: fish/fish.c:109
 #, c-format
@@ -6155,14 +6226,13 @@ msgstr ""
 #: fish/fish.c:256
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
-msgstr "%s: --listen=PID: PID was not a number: %s\n"
+msgstr "%s: --listen=PID: PID が数値ではありません: %s\n"
 
 #: fish/fish.c:263
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr ""
-"%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
+msgstr "%s: remote: $GUESTFISH_PID は remote プロセスの PID を設定する必要があります\n"
 
 #: fish/fish.c:313
 #, c-format
@@ -6172,22 +6242,22 @@ msgstr ""
 #: fish/fish.c:320
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
-msgstr "%s: only one -f parameter can be given\n"
+msgstr "%s: -f パラメーターは 1 つだけ指定できます\n"
 
 #: fish/fish.c:517
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
-msgstr "%s: cannot use --listen and --remote options at the same time\n"
+msgstr "%s: --listen と --remote オプションを同時に使用できません\n"
 
 #: fish/fish.c:525
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
-msgstr "%s: extra parameters on the command line with --listen flag\n"
+msgstr "%s: コマンドラインにおいて --listen フラグを持つ余計なパラメーターがあります\n"
 
 #: fish/fish.c:531
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr "%s: cannot use --listen and --file options at the same time\n"
+msgstr "%s: --listen と --file オプションを同時に使用できません\n"
 
 #: fish/fish.c:710
 #, c-format
@@ -6201,49 +6271,57 @@ msgid ""
 "      'quit' to quit the shell\n"
 "\n"
 msgstr ""
+"\n"
+"guestfish へようこそ。仮想マシンのファイルシステムおよび\n"
+"ディスクイメージを編集するためのゲストファイルシステムシェルです。\n"
+"\n"
+"入力: コマンドのヘルプには 'help'\n"
+"      マニュアルを読むには 'man'\n"
+"      シェルを終了するには 'quit'\n"
+"\n"
 
 #: fish/fish.c:870 fish/fish.c:886
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr "%s: कमांड तर्क खाली स्थान से अलग नहीं\n"
+msgstr "%s: コマンド引数が空白により分離されていません\n"
 
 #: fish/fish.c:880
 #, c-format
 msgid "%s: unterminated single quote\n"
-msgstr "%s: unterminated single quote\n"
+msgstr "%s: 終了していない引用符\n"
 
 #: fish/fish.c:910
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
-msgstr "%s: internal error parsing string at '%s'\n"
+msgstr "%s: '%s' にある文字列を構文解析中に内部エラーが発生しました\n"
 
 #: fish/fish.c:927
 #, c-format
 msgid "%s: too many arguments\n"
-msgstr "%s: too many arguments\n"
+msgstr "%s: 引数が多すぎます\n"
 
 #: fish/fish.c:1002
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
-msgstr ""
+msgstr "%s: 文字列に無効なエスケープシーケンス（オフセット %d から始まります）\n"
 
 #: fish/fish.c:1011
 #, c-format
 msgid "%s: unterminated double quote\n"
-msgstr "%s: unterminated double quote\n"
+msgstr "%s: 二重引用符が終了していません\n"
 
 #: fish/fish.c:1074
 #, c-format
 msgid "%s: empty command on command line\n"
-msgstr "%s: empty command on command line\n"
+msgstr "%s: コマンドラインにおいて空のコマンドです\n"
 
 #: fish/fish.c:1232
 msgid "display a list of commands or help on a command"
-msgstr "कमांड पर मदद या कमांड की सूची दिखाएँ"
+msgstr "コマンドの一覧またはコマンドのヘルプを表示します"
 
 #: fish/fish.c:1234
 msgid "quit guestfish"
-msgstr "quit guestfish"
+msgstr "guestfish を終了する"
 
 #: fish/fish.c:1245
 #, c-format
@@ -6252,7 +6330,7 @@ msgid ""
 "     help cmd\n"
 "     help\n"
 msgstr ""
-"help - display a list of commands or help on a command\n"
+"help - コマンド一覧の表示またはコマンドのヘルプの表示\n"
 "     help cmd\n"
 "     help\n"
 
@@ -6262,13 +6340,13 @@ msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
-"quit - quit guestfish\n"
+"quit - guestfishを終了します。\n"
 "     quit\n"
 
 #: fish/fish.c:1258
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
-msgstr "%s: command not known, use -h to list all commands\n"
+msgstr "%s: 未知のコマンド、すべてのコマンドを一覧表示するには -h を使用します\n"
 
 #: fish/fish.c:1274
 #, c-format
@@ -6277,16 +6355,21 @@ msgid ""
 "For a list of commands:             guestfish -h\n"
 "For complete documentation:         man guestfish\n"
 msgstr ""
+"ディスクイメージを開きたいですか？  guestfish -a disk.img\n"
+"コマンドの一覧には:                 guestfish -h\n"
+"完全なドキュメントには:             man guestfish\n"
 
 #: fish/fish.c:1283
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
-msgstr ""
+msgstr "%s:%d: libguestfs: エラー: %s\n"
 
 #: fish/fish.c:1408
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
-msgstr "स्ट्रिंग में \"%s\" रवअवे उद्धरण\n"
+msgstr ""
+"文字列 \"%s\"\n"
+" にある引用符を取り外します\n"
 
 #: fish/fish.c:1745
 #, c-format
@@ -6294,11 +6377,13 @@ msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
+"%s: Windows ドライブレターを使用するには、仮想マシンを検査する必要があります (\"-i\" オプションの使用または \"inspect-"
+"os\" コマンドの実行)\n"
 
 #: fish/fish.c:1751 fish/windows.c:106
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
-msgstr ""
+msgstr "%s: Windows ドライブレターを使用するには、Windows ゲストでなければいけません\n"
 
 #: fish/fish.c:1765
 #, c-format
@@ -6306,6 +6391,8 @@ msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
+"%s: ドライブ '%c:' がありません。利用可能なドライブを一覧表示するには:\n"
+"  inspect-get-drive-mappings %s\n"
 
 #: fish/fish.c:1784
 #, c-format
@@ -6314,16 +6401,19 @@ msgid ""
 "  umount-all\n"
 "  mount %s /\n"
 msgstr ""
+"%s: '%c:' にアクセスするには、まず %s をマウントします。このための方法の一つは:\n"
+"  umount-all\n"
+"  mount %s /\n"
 
 #: fish/glob.c:62
 #, c-format
 msgid "use 'glob command [args...]'\n"
-msgstr "use 'glob command [args...]'\n"
+msgstr "'glob command [args...]' を使用します\n"
 
 #: fish/glob.c:127
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
-msgstr "glob: guestfs_glob_expand call failed: %s\n"
+msgstr "glob: guestfs_glob_expand の呼び出しに失敗しました: %s\n"
 
 #: fish/help.c:39
 #, c-format
@@ -6332,6 +6422,9 @@ msgid ""
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
+"-a または -d オプションを使用して検査するには、ディスクイメージを追加します、または 'add' コマンドを使用します。\n"
+"もしくは -N を使用して新しいディスクイメージを作成します、または 'alloc' や 'sparse' コマンドを使用します。\n"
+"一度これを実行すると、 'run' コマンドを使用します。\n"
 
 #: fish/help.c:45
 #, c-format
@@ -6340,6 +6433,9 @@ msgid ""
 "mount them to examine or modify the contents using 'mount-ro' or\n"
 "'mount'.\n"
 msgstr ""
+"'list-filesystems' を使用して利用可能なファイルシステムを検索して、\n"
+"内容を検査または変更するために 'mount-ro' または 'mount' を\n"
+"使用してそれらをマウントします。\n"
 
 #: fish/help.c:53
 #, c-format
@@ -6348,16 +6444,19 @@ msgid ""
 "\n"
 "To read the manual, type 'man'.\n"
 msgstr ""
+"コマンドの詳細は 'help cmd' を使用します。\n"
+"\n"
+"マニュアルを参照するには 'man' と入力します。\n"
 
 #: fish/hexedit.c:42
 #, c-format
 msgid "hexedit (device|filename) [max | start max]\n"
-msgstr ""
+msgstr "hexedit (デバイス|ファイル名) [max | start max]\n"
 
 #: fish/hexedit.c:53
 #, c-format
 msgid "hexedit: %s is a zero length file or device\n"
-msgstr ""
+msgstr "hexedit: %s は長さが 0 のファイルまたはデバイスです\n"
 
 #: fish/hexedit.c:64
 #, c-format
@@ -6366,16 +6465,19 @@ msgid ""
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
 "  'hexedit %s <start> <max>'.\n"
 msgstr ""
+"hexedit: %s が %s よりも大きいです。以下を指定する必要があります。\n"
+"  'hexedit %s <max>' (例: 'hexedit %s 1M') を使用して制限、\n"
+"  または 'hexedit %s <start> <max>' を使用して範囲\n"
 
 #: fish/hexedit.c:93
 #, c-format
 msgid "hexedit: invalid range\n"
-msgstr ""
+msgstr "hexedit: 無効な範囲\n"
 
 #: fish/inspect.c:62
 #, c-format
 msgid "%s: don't use --live and -i options together\n"
-msgstr ""
+msgstr "%s: --live と -i オプションを一緒に使用しないでください\n"
 
 #: fish/inspect.c:75
 #, c-format
@@ -6395,6 +6497,22 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: このディスクにオペレーティングシステムが見つかりませんでした\n"
+"\n"
+"guestfish の '-i' オプションを使用しているならば、このオプションを\n"
+"削除して、代わりに 'run' コマンドに 'list-filesystems' をつけて\n"
+"使用してください。\n"
+"そして手動で 'mount' または 'mount-ro' コマンドを使用して、\n"
+"希望するファイルシステムをマウントできます。\n"
+"\n"
+"guestmount の '-i' を使用しているならば、このオプションを削除して、\n"
+"手動で '-m' オプションを追加することにより参照したいファイルシステム\n"
+"を選択してください。利用可能なファイルシステムを参照するには \n"
+"'virt-filesystems' を使用してください。\n"
+"\n"
+"他の仮想化ツールを使用しているならば、このディスクはこれらの仮想化\n"
+"ツールを用いてうまく機能しません。同等の guestfish コマンドを使用\n"
+"してください（仮想化ツールのマニュアルページを参照してください）。\n"
 
 #: fish/inspect.c:96
 #, c-format
@@ -6414,51 +6532,67 @@ msgid ""
 "with these tools.  Use the guestfish equivalent commands\n"
 "(see the virt tool manual page).\n"
 msgstr ""
+"%s: 複数ブートのオペレーティングシステムはサポートされません\n"
+"\n"
+"guestfish の '-i' オプションを使用しているならば、このオプションを\n"
+"削除して、代わりに 'run' コマンドに 'list-filesystems' をつけて\n"
+"使用してください。\n"
+"そして手動で 'mount' または 'mount-ro' コマンドを使用して、\n"
+"希望するファイルシステムをマウントできます。\n"
+"\n"
+"guestmount の '-i' を使用しているならば、このオプションを削除して、\n"
+"手動で '-m' オプションを追加することにより参照したいファイルシステム\n"
+"を選択してください。利用可能なファイルシステムを参照するには \n"
+"'virt-filesystems' を使用してください。\n"
+"\n"
+"他の仮想化ツールを使用しているならば、このディスクはこれらの仮想化\n"
+"ツールを用いてうまく機能しません。同等の guestfish コマンドを使用\n"
+"してください（仮想化ツールのマニュアルページを参照してください）。\n"
 
 #: fish/inspect.c:158
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
+msgstr "%s: いくつかのファイルシステムがマウントできませんでした（無視されました）\n"
 
 #: fish/inspect.c:174
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "オペレーティングシステム: %s\n"
 
 #: fish/inspect.c:192
 #, c-format
 msgid "%s mounted on %s\n"
-msgstr ""
+msgstr "%s を %s にマウントしました\n"
 
 #: fish/keys.c:57
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
-msgstr ""
+msgstr "キーかパスフレーズを入力してください。(\"%s\"): "
 
 #: fish/lcd.c:35
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr "'lcd directory' का उपयोग स्थानीय निर्देशिका में बदलने के लिए करें\n"
+msgstr "ローカルディレクトリを変更するには 'lcd directory' を使用してください\n"
 
 #: fish/man.c:36
 #, c-format
 msgid "use 'man' without parameters to open the manual\n"
-msgstr ""
+msgstr "マニュアルを開くにはパラメーターなしで 'man' を使用してください\n"
 
 #: fish/more.c:42
 #, c-format
 msgid "use '%s filename' to page a file\n"
-msgstr "फाइल पेज करने के लिए '%s filename' का उपयोग करें\n"
+msgstr "ファイルを表示するには '%s filename' を使用します\n"
 
 #: fish/options.c:107
 #, c-format
 msgid "%s: too many drives added on the command line\n"
-msgstr ""
+msgstr "%s: コマンドラインにおいて追加されたドライブが多すぎます\n"
 
 #: fish/options.c:271
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
-msgstr ""
+msgstr "%s: '%s' をマウントできませんでした。\n"
 
 #: fish/options.c:275
 #, c-format
@@ -6466,76 +6600,78 @@ msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
+"%s: オプション '%s' を確認するには mount(8) マニュアルページを参照してください。\n"
+"%s: これはマウントされているファイルシステムによりサポートされます。\n"
 
 #: fish/options.c:279
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
+msgstr "%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
 
 #: fish/prep-boot.c:35 fish/prep-boot.c:89 fish/prep-disk.c:35
 #: fish/prep-fs.c:35 fish/prep-lv.c:70 fish/prep-lv.c:113 fish/prep-part.c:35
 msgid "failed to allocate disk"
-msgstr ""
+msgstr "ディスクの割り当てに失敗しました"
 
 #: fish/prep-boot.c:43 fish/prep-boot.c:97
 msgid "could not parse boot size"
-msgstr ""
+msgstr "ブートサイズを解析できません"
 
 #: fish/prep-boot.c:47 fish/prep-boot.c:101
 #, c-format
 msgid "failed to get sector size of disk: %s"
-msgstr ""
+msgstr "ディスクのセクターサイズの取得に失敗しました: %s"
 
 #: fish/prep-boot.c:51 fish/prep-boot.c:105 fish/prep-fs.c:42
 #: fish/prep-lv.c:77 fish/prep-lv.c:120 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
-msgstr ""
+msgstr "ディスクのパーティションに失敗しました: %s"
 
 #: fish/prep-boot.c:56 fish/prep-boot.c:110
 #, c-format
 msgid "failed to add boot partition: %s"
-msgstr ""
+msgstr "ブートパーティションの追加に失敗しました: %s"
 
 #: fish/prep-boot.c:60 fish/prep-boot.c:114
 #, c-format
 msgid "failed to add root partition: %s"
-msgstr ""
+msgstr "ルートパーティションの追加に失敗しました: %s"
 
 #: fish/prep-boot.c:69 fish/prep-boot.c:128
 #, c-format
 msgid "failed to create boot filesystem: %s"
-msgstr ""
+msgstr "ブートファイルシステムの作成に失敗しました: %s"
 
 #: fish/prep-boot.c:78 fish/prep-boot.c:151
 #, c-format
 msgid "failed to create root filesystem: %s"
-msgstr ""
+msgstr "ルートファイルシステムの作成に失敗しました: %s"
 
 #: fish/prep-boot.c:86 fish/prep-boot.c:120 fish/prep-lv.c:67
 #: fish/prep-lv.c:83 fish/prep-lv.c:110 fish/prep-lv.c:126
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
-msgstr ""
+msgstr "不正な形式の論理ボリューム名です、'/dev/VG/LV' を使用してください"
 
 #: fish/prep-boot.c:137 fish/prep-lv.c:92 fish/prep-lv.c:135
 #, c-format
 msgid "failed to create PV: %s: %s"
-msgstr ""
+msgstr "物理ボリュームの作成に失敗しました: %s: %s"
 
 #: fish/prep-boot.c:142 fish/prep-lv.c:97 fish/prep-lv.c:140
 #, c-format
 msgid "failed to create VG: %s: %s"
-msgstr ""
+msgstr "ボリュームグループの作成に失敗しました: %s: %s"
 
 #: fish/prep-boot.c:147 fish/prep-lv.c:102 fish/prep-lv.c:145
 #, c-format
 msgid "failed to create LV: /dev/%s/%s: %s"
-msgstr ""
+msgstr "論理ボリュームの作成に失敗しました: /dev/%s/%s: %s"
 
 #: fish/prep-fs.c:52 fish/prep-lv.c:150
 #, c-format
 msgid "failed to create filesystem (%s): %s"
-msgstr ""
+msgstr "ファイルシステムの作成に失敗しました (%s): %s"
 
 #: fish/prep.c:38
 #, c-format
@@ -6543,6 +6679,8 @@ msgid ""
 "List of available prepared disk images:\n"
 "\n"
 msgstr ""
+"利用可能な準備済みディスクイメージの一覧:\n"
+"\n"
 
 #: fish/prep.c:41
 #, c-format
@@ -6551,16 +6689,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
 
 #: fish/prep.c:49
 #, c-format
 msgid "  Optional parameters:\n"
-msgstr ""
+msgstr "  オプションのパラメーター:\n"
 
 #: fish/prep.c:56
 #, c-format
 msgid "<%s> %s (default: %s)\n"
-msgstr ""
+msgstr "<%s> %s (デフォルト: %s)\n"
 
 #: fish/prep.c:66
 #, c-format
@@ -6573,6 +6714,13 @@ msgid ""
 "\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
+"準備済みのディスクイメージがローカルディレクトリの \"test1.img\" に書き込まれます。\n"
+" (-N オプションが複数指定されていると、\"test2.img\" などに書き込まれます)。\n"
+"タイプの前にファイル名を指定することにより、名前を上書きできます。例:\n"
+"\n"
+"  guestfish -N blank.img=fs\n"
+"\n"
+"詳細は guestfish(1) マニュアルを参照してください。\n"
 
 #: fish/prep.c:101
 #, c-format
@@ -6580,22 +6728,24 @@ msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter.\n"
 msgstr ""
+"guestfish: -N パラメーター '%s': そのような既知の準備済みディスクイメージがありません。\n"
+"-N パラメーターに対して利用可能な値を一覧表示するには 'guestfish -N help' を使用します。\n"
 
 #: fish/prep.c:163
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
-msgstr ""
+msgstr "guestfish: 事前割り当て済みディスクイメージ '%s' を '%s' に作成中にエラーが発生しました: "
 
 #: fish/rc.c:68
 #, c-format
 msgid ""
 "guestfish: '%s' is not a directory or has insecure owner or permissions\n"
-msgstr ""
+msgstr "guestfish: '%s' がディレクトリではありません。または、安全ではない所有者とパーミッションでありません。\n"
 
 #: fish/rc.c:295
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
-msgstr "guestfish: protocol error: could not read 'hello' message\n"
+msgstr "guestfish: プロトコルエラー: 'hello' メッセージを読み込めませんでした\n"
 
 #: fish/rc.c:300
 #, c-format
@@ -6603,80 +6753,80 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: protocol error: version mismatch, server version '%s' does not "
-"match client version '%s'.  The two versions must match exactly.\n"
+"guestfish: プロトコルエラー: バージョンが一致しません、サーバーのバージョン '%s' がクライアントのバージョン '%s' "
+"と一致しません。  バージョンが正確に一致しなければいけません。\n"
 
 #: fish/rc.c:385 fish/rc.c:399
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
-msgstr "guestfish: रिमोट: लगता है कि सर्वर नहीं चल रहा है\n"
+msgstr "guestfish: remote: サーバーが稼働していないように思われます。\n"
 
 #: fish/rc.c:411 fish/rc.c:425
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटि: सर्वर को आरंभिक अभिवादन नहीं भेज सका\n"
+msgstr "guestfish: プロトコルエラー: 初期メッセージをサーバーに送信できませんでした\n"
 
 #: fish/rc.c:436
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटि: सर्वर से जवाब डिकोड नहीं कर सका\n"
+msgstr "guestfish: プロトコルエラー: サーバーからの応答を解読できませんでした\n"
 
 #: fish/reopen.c:39
 #, c-format
 msgid "'reopen' command takes no parameters\n"
-msgstr "'reopen' कमांड कोई पैरामीटर नहीं लेता है\n"
+msgstr "'reopen' コマンドはパラメーターをとりません\n"
 
 #: fish/reopen.c:52
 #, c-format
 msgid "reopen: guestfs_create: failed to create handle\n"
-msgstr "reopen: guestfs_create: failed to create handle\n"
+msgstr "reopen: guestfs_create: ハンドルの作成に失敗しました\n"
 
 #: fish/setenv.c:35
 #, c-format
 msgid "use '%s VAR value' to set an environment variable\n"
-msgstr ""
+msgstr "環境変数を設定するには '%s VAR value' を使用します\n"
 
 #: fish/setenv.c:57
 #, c-format
 msgid "use '%s VAR' to unset an environment variable\n"
-msgstr ""
+msgstr "環境変数を設定解除するには '%s VAR' を使用します\n"
 
 #: fish/supported.c:54
 msgid "yes"
-msgstr "हाँ"
+msgstr "はい"
 
 #: fish/supported.c:54
 msgid "no"
-msgstr "नहीं"
+msgstr "いいえ"
 
 #: fish/time.c:37
 #, c-format
 msgid "use 'time command [args...]'\n"
-msgstr "use 'time command [args...]'\n"
+msgstr "'time command [args...]' を使用します\n"
 
 #: fish/uri.c:112
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
-msgstr ""
+msgstr "%s: --add: URI '%s' を構文解析できませんでした\n"
 
 #: fish/uri.c:123
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
-msgstr ""
+msgstr "%s: %s: URI のスキーマが NULL または空です\n"
 
 #: fish/uri.c:131
 #, c-format
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
-msgstr ""
+msgstr "%s: %s: サーバー名とソケットクエリーパラメーターをどちらも指定することはできません \n"
 
 #: fish/windows.c:120
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
-msgstr ""
+msgstr "%s: ドライブ '%c:' がありません。\n"
 
 #: format/format.c:62
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
-msgstr ""
+msgstr "重要: このプログラムはディスクにある「すべてのデータを削除」します。"
 
 #: format/format.c:65
 #, c-format
@@ -6684,6 +6834,8 @@ msgid ""
 "Try `%s --help' for more information.\n"
 "%s\n"
 msgstr ""
+"詳細は `%s --help' を試してください。\n"
+"%s\n"
 
 #: format/format.c:69
 #, c-format
@@ -6716,12 +6868,12 @@ msgstr ""
 #: format/format.c:151
 #, c-format
 msgid "%s: no filesystem was specified\n"
-msgstr ""
+msgstr "%s: ファイルシステムが指定されていません\n"
 
 #: format/format.c:159
 #, c-format
 msgid "%s: --lvm option cannot be given multiple times\n"
-msgstr ""
+msgstr "%s: --lvm オプションは複数回指定できません\n"
 
 #: format/format.c:274
 #, c-format
@@ -6731,11 +6883,15 @@ msgid ""
 "data which we are unable to remove.  If you think this\n"
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
+"%s: 2 つの試行後にディスクの再スキャンに失敗しました。\n"
+"数種類のパーティションテーブルがある、もしくは削除できない\n"
+"ディスクデータがあることを意味します。これをバグであると\n"
+"考えるならば、 http://libguestfs.org/ にバグを提出してください。\n"
 
 #: format/format.c:315
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
-msgstr ""
+msgstr "%s: --lvm オプション (%s) を構文解析できません\n"
 
 #: fuse/guestmount.c:104
 #, c-format
@@ -6779,34 +6935,32 @@ msgstr ""
 #: fuse/guestmount.c:322
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
-msgstr ""
+msgstr "%s: 少なくとも 1 つの -a/-d および少なくとも 1 つの -m/-i オプションが必要です。\n"
 
 #: fuse/guestmount.c:332
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
-msgstr ""
+msgstr "%s: --live は --ro オプションと互換性がありません\n"
 
 #: fuse/guestmount.c:339
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
-msgstr ""
+msgstr "%s: --live は --i オプションと互換性がありません\n"
 
 #: fuse/guestmount.c:354
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
-msgstr ""
+msgstr "%s: --live を用いると、ちょうど一つだけ -d オプションを使用する必要があります\n"
 
 #: fuse/guestmount.c:361
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
-msgstr ""
+msgstr "%s: --live は -a オプションと互換性がありません\n"
 
 #: fuse/guestmount.c:370 fuse/guestunmount.c:153
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
-msgstr ""
-"%s: तुम्हें मेजबान फाइल सिस्टम में कोई माउंटप्वाइंट को जरूर निर्दिष्ट करना "
-"चाहिए\n"
+msgstr "%s: ホストのファイルシステムにおいてマウントポイントを指定する必要があります\n"
 
 #: fuse/guestunmount.c:56
 #, c-format
@@ -6824,26 +6978,38 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 msgstr ""
+"%s: マウント済みファイルシステムのクリーンアップ\n"
+"Copyright (C) 2013 Red Hat Inc.\n"
+"使用法:\n"
+"  %s [--fd=FD] mountpoint\n"
+"オプション:\n"
+"  --fd=FD              モニターするパイプファイル記述子\n"
+"  --help               ヘルプメッセージの表示および終了\n"
+"  -q|--quiet           fusermount エラーを表示しない\n"
+"  --no-retry           fusermount を再試行しない\n"
+"  --retry=N            fusermount を N 回試行する (初期値: 5)\n"
+"  -v|--verbose         メッセージの冗長化\n"
+"  -V|--version         バージョンの表示および終了\n"
 
 #: fuse/guestunmount.c:111
 #, c-format
 msgid "%s: cannot parse fd option '%s'\n"
-msgstr ""
+msgstr "%s: fd オプション '%s' を構文解析できません\n"
 
 #: fuse/guestunmount.c:119
 #, c-format
 msgid "%s: cannot parse retries option or value is too large '%s'\n"
-msgstr ""
+msgstr "%s: retries オプションを構文解析できません、または値が大きすぎます '%s'\n"
 
 #: fuse/guestunmount.c:208
 #, c-format
 msgid "%s: failed to unmount %s: %s\n"
-msgstr ""
+msgstr "%s: %s のアンマウントに失敗しました: %s\n"
 
 #: fuse/guestunmount.c:219
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
-msgstr ""
+msgstr "%s: %s がマウントされていません: %s\n"
 
 #: inspector/inspector.c:71
 #, c-format
@@ -6867,11 +7033,29 @@ msgid ""
 "  --xpath query        Perform an XPath query\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
+"%s: 仮想マシンの情報の表示\n"
+"Copyright (C) 2010 Red Hat Inc.\n"
+"使用法:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"オプション:\n"
+"  -a|--add image       イメージの追加\n"
+"  -c|--connect uri     -d オプションに対する libvirt URI の指定\n"
+"  -d|--domain guest    libvirt 仮想マシンからディスクの追加\n"
+"  --echo-keys          パスフレーズのエコーの有効化\n"
+"  --format[=raw|..]    -a オプションに対するディスクの強制的なフォーマット\n"
+"  --help               簡単なヘルプの表示\n"
+"  --keys-from-stdin    標準入力からのパスフレーズの読み込み\n"
+"  -v|--verbose         メッセージの冗長化\n"
+"  -V|--version         バージョンの表示および終了\n"
+"  -x                   libguestfs API 呼び出しのトレース\n"
+"  --xpath query        XPath クエリーの実行\n"
+"詳細はマニュアルページ %s(1) を参照してください。\n"
 
 #: inspector/inspector.c:245
 #, c-format
 msgid "%s: cannot use --xpath together with other options.\n"
-msgstr ""
+msgstr "%s: 他のオプションと一緒に --xpath を使用できません。\n"
 
 #: inspector/inspector.c:279
 #, c-format
@@ -6887,56 +7071,67 @@ msgid ""
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
+"%s: オペレーティングシステムをこのディスクイメージに検出できませんでした。\n"
+"\n"
+"ファイルがディスクイメージではない、仮想マシンイメージではない、\n"
+"もしくは、OS の種類が libguestfs により認識できないことを意味します。\n"
+"\n"
+"Red Hat Enterprise Linux 6 ユーザーに対する注記:\n"
+"Windows 仮想マシンをサポートするには、個別の\n"
+"libguestfs-winsupport パッケージをインストールする必要があります。\n"
+"\n"
+"これがエラーだと思うならば、できる限りディスクイメージに関する\n"
+"情報を含めて、バグ報告を提出してください。\n"
 
 #: inspector/inspector.c:294
 #, c-format
 msgid "%s: XML write error at \"%s\": %m\n"
-msgstr ""
+msgstr "%s: \"%s\" に XML 書き込みエラー: %m\n"
 
 #: inspector/inspector.c:306
 #, c-format
 msgid "%s: xmlOutputBufferCreateFd: failed to open stdout\n"
-msgstr ""
+msgstr "%s: xmlOutputBufferCreateFd: 標準出力のオープンに失敗しました\n"
 
 #: inspector/inspector.c:315
 #, c-format
 msgid "%s: xmlNewTextWriter: failed to create libxml2 writer\n"
-msgstr ""
+msgstr "%s: xmlNewTextWriter: libxml2 ライターの作成に失敗しました\n"
 
 #: inspector/inspector.c:774
 #, c-format
 msgid "%s: unable to parse XML from stdin\n"
-msgstr ""
+msgstr "%s: 標準入力から XML を構文解析できません\n"
 
 #: inspector/inspector.c:780
 #, c-format
 msgid "%s: unable to create new XPath context\n"
-msgstr ""
+msgstr "%s: 新規 XPath コンテキストを作成できません\n"
 
 #: inspector/inspector.c:787
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
-msgstr ""
+msgstr "%s: XPath 表現を評価できません\n"
 
 #: inspector/inspector.c:800
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
-msgstr ""
+msgstr "%s: xmlSaveToFd に失敗しました\n"
 
 #: inspector/inspector.c:807
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
-msgstr ""
+msgstr "%s: xmlNewDoc に失敗しました\n"
 
 #: inspector/inspector.c:812
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
-msgstr ""
+msgstr "%s: xmlCopyNode に失敗しました\n"
 
 #: inspector/inspector.c:819
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
-msgstr ""
+msgstr "%s: xmlSaveDoc に失敗しました\n"
 
 #: make-fs/make-fs.c:78
 #, c-format
@@ -7306,27 +7501,27 @@ msgstr ""
 #: rescue/rescue.c:162
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
-msgstr ""
+msgstr "%s: --smp パラメーター '%s' を構文解析できません\n"
 
 #: rescue/rescue.c:167
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
-msgstr ""
+msgstr "%s: --smp パラメーター '%s' は >= 1 でなければいけません\n"
 
 #: rescue/rescue.c:180
 #, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
-msgstr ""
+msgstr "%s: --scratch パラメーター '%s' を構文解析できませんでした\n"
 
 #: rescue/rescue.c:186
 #, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
-msgstr ""
+msgstr "%s: --scratch パラメーター '%s' は >= 1 でなければいけません\n"
 
 #: rescue/rescue.c:213
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
-msgstr ""
+msgstr "%s: メモリー容量 '%s' を構文解析できませんでした\n"
 
 #: rescue/rescue.c:320
 #, c-format
@@ -7334,6 +7529,8 @@ msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
 "at the moment.  As a workaround, forcing backend = 'direct'.\n"
 msgstr ""
+"%s: 警告: virt-rescue が libvirt バックエンドと同時に動作しません。\n"
+"回避策として forcing backend = 'direct' とします。\n"
 
 #: rescue/rescue.c:401
 #, c-format
@@ -7341,6 +7538,8 @@ msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
+"仮想マシンまたはディスクイメージを検査しています ...\n"
+"\n"
 
 #: rescue/rescue.c:420
 #, c-format
@@ -7349,6 +7548,10 @@ msgid ""
 "commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n"
 "\n"
 msgstr ""
+"このディスクは複数のオペレーティングシステムを含んでいます。\n"
+"ファイルシステムをマウントするために、 virt-rescue (の ><rescue> \n"
+"プロンプト) においてこれらのマウントのコマンドを使用できます。\n"
+"\n"
 
 #: rescue/rescue.c:435
 #, c-format
@@ -7358,6 +7561,10 @@ msgid ""
 "# %s\n"
 "\n"
 msgstr ""
+"# %s は %s オペレーティングシステムのルートです\n"
+"# 種別: %s, ディストリビューション: %s, バージョン: %d.%d\n"
+"# %s\n"
+"\n"
 
 #: rescue/rescue.c:492
 #, c-format
@@ -7368,6 +7575,11 @@ msgid ""
 "filesystems that are not recognized by libguestfs, or to create partitions,\n"
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
+"このディスクは認識できるマウント可能なファイルシステムを含んでいません。\n"
+"\n"
+"しかしながら、libguestfs により認識できないファイルシステムのマウントを試行\n"
+"するため、または空のディスクにパーティション、論理ボリュームおよびファイル\n"
+"システムを作成するために、ディスクイメージにおいて virt-rescue を使用できます。\n"
 
 #: rescue/rescue.c:499
 #, c-format
@@ -7377,11 +7589,17 @@ msgid ""
 "><rescue> prompt) to mount these filesystems.\n"
 "\n"
 msgstr ""
+"このディスクは複数のファイルシステムを含みますが、オペレーティング\n"
+"システムを何も認識できません。 virt-rescue (の ><rescue> プロンプト) \n"
+"において、これらのマウントのコマンドを使用できます。\n"
+"\n"
+"\n"
+"\n"
 
 #: rescue/rescue.c:504
 #, c-format
 msgid "# %s has type '%s'\n"
-msgstr ""
+msgstr "# %s が形式 '%s' を持ちます\n"
 
 #: src/appliance.c:185
 #, c-format
@@ -7389,41 +7607,43 @@ msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
+"LIBGUESTFS_PATH (検索パス: %s) において適切な libguestfs "
+"supermin、修正されたまたは旧形式のアプライアンスを検索できません"
 
 #: src/appliance.c:247
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %d"
-msgstr ""
+msgstr "security: キャッシュされたアプライアンス %s が UID %d により所有されていません"
 
 #: src/appliance.c:252
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
-msgstr ""
+msgstr "security: キャッシュされたアプライアンス %s がディレクトリではありません（モード %o）"
 
 #: src/appliance.c:257
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr ""
+msgstr "security: キャッシュされたアプライアンス %s がグループまたは全体に対して書き込み可能ではありません（モード %o）"
 
 #: src/conn-socket.c:63
 msgid "accept_connection called twice"
-msgstr ""
+msgstr "accept_connection が 2 回呼び出されました"
 
 #: src/conn-socket.c:142
 msgid "read_data: socket not connected"
-msgstr ""
+msgstr "read_data: ソケットに接続されていません"
 
 #: src/conn-socket.c:217
 msgid "can_read_data: socket not connected"
-msgstr ""
+msgstr "can_read_data: ソケットに接続されていません"
 
 #: src/conn-socket.c:246
 msgid "write_data: socket not connected"
-msgstr ""
+msgstr "write_data: "
 
 #: src/conn-socket.c:339
 msgid "error reading console messages from the appliance"
-msgstr ""
+msgstr "アプライアンスからコンソールメッセージを読み込み中にエラーが発生しました"
 
 #: src/copy-in-out.c:54 src/copy-in-out.c:128
 #, c-format
@@ -7527,15 +7747,15 @@ msgstr ""
 #: src/dbdump.c:90
 #, c-format
 msgid "%s: unexpected error or end of output"
-msgstr ""
+msgstr "%s: 予期しないエラーまたは出力の終了"
 
 #: src/dbdump.c:125 src/dbdump.c:144
 msgid "unexpected line from db_dump command, no space prefix"
-msgstr ""
+msgstr "db_dump コマンドからの予期しない行です、スペース接頭辞がありません"
 
 #: src/dbdump.c:226
 msgid "unexpected non-hex digits in output of db_dump command"
-msgstr ""
+msgstr "db_dump コマンドの出力において予期しない非 16 進値がありました"
 
 #: src/drives.c:86
 msgid "this backend does not support adding read-only drives"
@@ -7543,35 +7763,35 @@ msgstr ""
 
 #: src/drives.c:175
 msgid "curl: you must specify exactly one server"
-msgstr ""
+msgstr "curl: サーバーを一つだけ指定する必要があります"
 
 #: src/drives.c:181
 msgid "curl: only tcp transport is supported"
-msgstr ""
+msgstr "curl: TCP 転送のみがサポートされます"
 
 #: src/drives.c:186
 msgid "curl: pathname should not be an empty string"
-msgstr ""
+msgstr "curl: パス名を空文字列にできません"
 
 #: src/drives.c:191
 msgid "curl: pathname must begin with a '/'"
-msgstr ""
+msgstr "curl: パス名を '/' で始める必要があります"
 
 #: src/drives.c:203
 msgid "gluster: you cannot specify a username with this protocol"
-msgstr ""
+msgstr "gluster: このプロトコルでユーザー名を指定できません"
 
 #: src/drives.c:207
 msgid "gluster: you cannot specify a secret with this protocol"
-msgstr ""
+msgstr "gluster: このプロトコルでシークレットを指定できません"
 
 #: src/drives.c:212
 msgid "gluster: you must specify exactly one server"
-msgstr ""
+msgstr "gluster: ちょうど 1 つのサーバーを指定する必要があります"
 
 #: src/drives.c:217
 msgid "gluster: volume name parameter should not be an empty string"
-msgstr ""
+msgstr "gluster: ボリューム名パラメーターを空文字列にできません"
 
 #: src/drives.c:222
 msgid "gluster: volume/image must not begin with a '/'"
@@ -7579,27 +7799,27 @@ msgstr ""
 
 #: src/drives.c:246
 msgid "nbd: you cannot specify a username with this protocol"
-msgstr ""
+msgstr "nbd: このプロトコルでユーザー名を指定できません"
 
 #: src/drives.c:250
 msgid "nbd: you cannot specify a secret with this protocol"
-msgstr ""
+msgstr "nbd: このプロトコルでシークレットを指定できません"
 
 #: src/drives.c:255
 msgid "nbd: you must specify exactly one server"
-msgstr ""
+msgstr "nbd: ちょうど 1 つのサーバーを指定する必要があります"
 
 #: src/drives.c:274
 msgid "rbd: only tcp transport is supported"
-msgstr ""
+msgstr "rbd: TCP 転送のみがサポートされます"
 
 #: src/drives.c:278
 msgid "rbd: port number must be specified"
-msgstr ""
+msgstr "rbd: ポート番号を指定する必要があります"
 
 #: src/drives.c:284
 msgid "rbd: image name parameter should not be an empty string"
-msgstr ""
+msgstr "rbd: イメージ名のパラメーターを空文字列にできません"
 
 #: src/drives.c:289
 msgid "rbd: image name must not begin with a '/'"
@@ -7607,23 +7827,23 @@ msgstr ""
 
 #: src/drives.c:303
 msgid "sheepdog: you cannot specify a username with this protocol"
-msgstr ""
+msgstr "sheepdog: このプロトコルでユーザー名を指定できません"
 
 #: src/drives.c:307
 msgid "sheepdog: you cannot specify a secret with this protocol"
-msgstr ""
+msgstr "sheepdog: このプロトコルでシークレットを指定できません"
 
 #: src/drives.c:314
 msgid "sheepdog: only tcp transport is supported"
-msgstr ""
+msgstr "sheepdog: TCP 転送のみがサポートされます"
 
 #: src/drives.c:318
 msgid "sheepdog: port number must be specified"
-msgstr ""
+msgstr "sheepdog: ポート番号を指定する必要があります"
 
 #: src/drives.c:324
 msgid "sheepdog: volume parameter should not be an empty string"
-msgstr ""
+msgstr "sheepdog: ボリュームパラメーターを空文字列にできません"
 
 #: src/drives.c:329
 msgid "sheepdog: volume parameter must not begin with a '/'"
@@ -7631,43 +7851,43 @@ msgstr ""
 
 #: src/drives.c:341
 msgid "ssh: you must specify exactly one server"
-msgstr ""
+msgstr "ssh: ちょうど一つのサーバーを指定する必要があります"
 
 #: src/drives.c:347
 msgid "ssh: only tcp transport is supported"
-msgstr ""
+msgstr "ssh: TCP 転送のみがサポートされます"
 
 #: src/drives.c:352
 msgid "ssh: pathname should not be an empty string"
-msgstr ""
+msgstr "ssh: パス名を空文字列にできません"
 
 #: src/drives.c:357
 msgid "ssh: pathname must begin with a '/'"
-msgstr ""
+msgstr "ssh: パス名は '/' から始まる必要があります"
 
 #: src/drives.c:362
 msgid "ssh: username should not be an empty string"
-msgstr ""
+msgstr "ssh: ユーザー名を空文字列にできません"
 
 #: src/drives.c:374
 msgid "iscsi: you cannot specify a username with this protocol"
-msgstr ""
+msgstr "iscsi: このプロトコルでユーザー名を指定できません"
 
 #: src/drives.c:379
 msgid "iscsi: you cannot specify a secret with this protocol"
-msgstr ""
+msgstr "iscsi: このプロトコルでシークレットを指定できません"
 
 #: src/drives.c:384
 msgid "iscsi: you must specify exactly one server"
-msgstr ""
+msgstr "iscsi: ちょうど一つのサーバーを指定する必要があります"
 
 #: src/drives.c:390
 msgid "iscsi: only tcp transport is supported"
-msgstr ""
+msgstr "iscsi: TCP 転送のみがサポートされます"
 
 #: src/drives.c:395
 msgid "iscsi: target name should not be an empty string"
-msgstr ""
+msgstr "iscsi: ターゲット名を空文字列にできません"
 
 #: src/drives.c:400
 msgid "iscsi: target string must not begin with a '/'"
@@ -7675,26 +7895,26 @@ msgstr ""
 
 #: src/drives.c:422
 msgid "for device '/dev/null', format must be 'raw'"
-msgstr ""
+msgstr "デバイス '/dev/null' に対して、形式は 'raw' は必須です"
 
 #: src/drives.c:668
 msgid "missing Unix domain socket path"
-msgstr ""
+msgstr "Unix ドメインのソケットパスがありません"
 
 #: src/drives.c:680
 #, c-format
 msgid "invalid port number '%s'"
-msgstr ""
+msgstr "無効なポート番号 '%s'"
 
 #: src/drives.c:687
 #, c-format
 msgid "invalid hostname '%s'"
-msgstr ""
+msgstr "無効なホスト名 '%s'"
 
 #: src/drives.c:698
 #, c-format
 msgid "invalid hostname or server string '%s'"
-msgstr ""
+msgstr "無効なホスト名またはサーバー文字列 '%s'"
 
 #: src/drives.c:782
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
@@ -7707,59 +7927,59 @@ msgstr ""
 #: src/drives.c:801 src/drives.c:807
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
-msgstr ""
+msgstr "%s パラメーターが空です。もしくは、許可できない文字を含んでいます。"
 
 #: src/drives.c:813
 msgid "label parameter is empty, too long, or contains disallowed characters"
-msgstr ""
+msgstr "ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
 
 #: src/drives.c:819
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
-msgstr ""
+msgstr "cachemode パラメーターは 'writeback' (標準値) または 'unsafe' にする必要があります"
 
 #: src/drives.c:826
 msgid "you cannot specify a server with file-backed disks"
-msgstr ""
+msgstr "ファイル形式のディスクと同時にサーバーを指定できません"
 
 #: src/drives.c:831
 msgid "you cannot specify a username with file-backed disks"
-msgstr ""
+msgstr "ファイル形式のディスクと同時にユーザー名を指定できません"
 
 #: src/drives.c:835
 msgid "you cannot specify a secret with file-backed disks"
-msgstr ""
+msgstr "ファイル形式のディスクと同時にシークレットを指定できません"
 
 #: src/drives.c:898
 #, c-format
 msgid "unknown protocol '%s'"
-msgstr ""
+msgstr "未知のプロトコル '%s'"
 
 #: src/drives.c:916 src/drives.c:1064
 msgid "the current backend does not support hotplugging drives"
-msgstr ""
+msgstr "現在のバックエンドはホットプラグドライブをサポートしません"
 
 #: src/drives.c:922
 msgid "'label' is required when hotplugging drives"
-msgstr ""
+msgstr "ドライブを活性挿入するとき 'label' が必要です"
 
 #: src/drives.c:1049
 #, c-format
 msgid "disk with label '%s' not found"
-msgstr ""
+msgstr "ラベル '%s' を持つディスクがありませんでした"
 
 #: src/errors.c:234
 #, c-format
 msgid "libguestfs: error: %s\n"
-msgstr "libguestfs: error: %s\n"
+msgstr "libguestfs: エラー: %s\n"
 
 #: src/errors.c:262
 #, c-format
 msgid "<truncated, original size %zu bytes>"
-msgstr ""
+msgstr "<切り詰められました、元の容量は %zu バイトです>"
 
 #: src/errors.c:290
 msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr "guestfs_launch に失敗しました、前のエラーメッセージを参照してください"
 
 #: src/errors.c:293
 msgid ""
@@ -7770,7 +7990,7 @@ msgstr ""
 #: src/errors.c:303
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
-msgstr ""
+msgstr "アプライアンスが予期せず接続を閉じました。これまでのエラーメッセージを参照してください。"
 
 #: src/errors.c:306
 msgid ""
@@ -7780,7 +8000,7 @@ msgstr ""
 
 #: src/errors.c:316
 msgid "appliance launch timed out, see earlier error messages"
-msgstr ""
+msgstr "アプライアンスの起動がタイムアウトしました。以前のエラーメッセージを参照してください。"
 
 #: src/errors.c:319
 msgid ""
@@ -7791,12 +8011,12 @@ msgstr ""
 #: src/errors.c:336
 #, c-format
 msgid "%s, see debug messages above"
-msgstr ""
+msgstr "%s, 上のデバッグメッセージを確認してください"
 
 #: src/errors.c:338
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
-msgstr ""
+msgstr "%s: %s: %s, 上のデバッグメッセージを確認してください"
 
 #: src/errors.c:344
 #, c-format
@@ -7815,36 +8035,37 @@ msgstr ""
 #: src/filearch.c:135
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
-msgstr ""
+msgstr "%s の容量が不当です (%<PRIi64> バイト)"
 
 #: src/filearch.c:250
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
 msgstr ""
+"このバージョンの libguestfs が libmagic ライブラリなしでコンパイルされたので、ファイル構造 API は利用可能ではありません"
 
 #: src/fuse.c:969
 msgid "filesystem is already mounted in another thread"
-msgstr ""
+msgstr "ファイルシステムがすでに他のスレッドにおいてマウントされています"
 
 #: src/fuse.c:994
 #, c-format
 msgid "fuse_opt_add_arg: %s"
-msgstr ""
+msgstr "fuse_opt_add_arg: %s"
 
 #: src/fuse.c:1011
 #, c-format
 msgid "fuse_mount: %s"
-msgstr ""
+msgstr "fuse_mount: %s"
 
 #: src/fuse.c:1029
 #, c-format
 msgid "fuse_new: %s"
-msgstr ""
+msgstr "fuse_new: %s"
 
 #: src/fuse.c:1058
 msgid "you must call guestfs_mount_local first"
-msgstr ""
+msgstr "まず guestfs_mount_local を呼び出す必要があります"
 
 #: src/fuse.c:1069
 #, c-format
@@ -7856,30 +8077,32 @@ msgstr ""
 #: src/fuse.c:1079
 #, c-format
 msgid "fuse_loop: %s"
-msgstr ""
+msgstr "fuse_loop: %s"
 
 #: src/fuse.c:1129
 msgid "no filesystem is mounted"
-msgstr ""
+msgstr "ファイルシステムがマウントされていません"
 
 #: src/fuse.c:1247
 msgid "could not initialize dir cache hashtables"
-msgstr ""
+msgstr "ディレクトリーキャッシュのハッシュ表を初期化できませんでした"
 
 #: src/fuse.c:1502
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
 msgstr ""
+"libguestfs がコンパイルされたときに、libfuse が見当たらなかったため、FUSE がこのビルドの libguestfs "
+"においてサポートされません。"
 
 #: src/handle.c:134
 msgid ""
 "libguestfs was built with an invalid default backend, using 'direct' instead"
-msgstr ""
+msgstr "libguestfs は 'direct' を使用する代わりに無効なデフォルトのバックエンドで構築されました。"
 
 #: src/handle.c:136
 msgid "'direct' backend does not work"
-msgstr ""
+msgstr "'direct' バックエンドが動作しません"
 
 #: src/handle.c:190 src/handle.c:200
 #, c-format
@@ -7893,7 +8116,7 @@ msgstr ""
 #: src/handle.c:319
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
-msgstr "guestfs_close: called twice on the same handle\n"
+msgstr "guestfs_close: 同じハンドルにおいて 2 回呼び出されました\n"
 
 #: src/handle.c:524
 msgid ""
@@ -7912,73 +8135,73 @@ msgstr ""
 
 #: src/info.c:144
 msgid "qemu-img info: JSON output did not contain 'format' key"
-msgstr ""
+msgstr "qemu-img info: JSON 出力に 'format' キーが含まれていません"
 
 #: src/info.c:175
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
-msgstr ""
+msgstr "qemu-img info: 'virtual-size' が 64 ビット長として表現されていません"
 
 #: src/info.c:183
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
-msgstr ""
+msgstr "qemu-img info: JSON 出力に 'virtual-size' キーが含まれません"
 
 #: src/info.c:221
 msgid "qemu-img info: JSON output was not an object"
-msgstr ""
+msgstr "qemu-img info: JSON 出力がオブジェクトではありませんでした"
 
 #: src/info.c:287
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
-msgstr ""
+msgstr "qemu-img info コマンドが何も出力しませんでしたが、エラー状態コードを返しませんでした"
 
 #: src/info.c:321
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
-msgstr ""
+msgstr "qemu-img info: JSON 構文解析エラー: %s"
 
 #: src/info.c:323
 msgid "qemu-img info: unknown JSON parse error"
-msgstr ""
+msgstr "qemu-img info: 未知の JSON 構文解析エラー"
 
 #: src/info.c:461
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
-msgstr ""
+msgstr "%s: ディスクイメージの仮想容量を検知できません"
 
 #: src/inspect-fs-unix.c:136
 #, c-format
 msgid "release file %s is empty or malformed"
-msgstr ""
+msgstr "リリースファイル %s が空または不正な形式です"
 
 #: src/inspect-fs-unix.c:181 src/inspect-fs-unix.c:263
 #: src/inspect-fs-unix.c:958 src/inspect-fs-unix.c:1728 src/inspect-fs.c:584
 #: src/inspect-fs.c:630 src/inspect.c:590
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
-msgstr ""
+msgstr "%s の容量が不当に大きいです (%<PRIi64> バイト)"
 
 #: src/inspect-fs.c:398 src/inspect-fs.c:411
 #, c-format
 msgid "could not parse integer in version number: %s"
-msgstr ""
+msgstr "バージョン番号のいて整数を構文解析できませんでした: %s"
 
 #: src/inspect-icon.c:648
 #, c-format
 msgid "read: %s: unexpected end of file"
-msgstr ""
+msgstr "read: %s: 予期しない EOF がありました"
 
 #: src/inspect.c:284
 msgid "not a Windows guest, or systemroot could not be determined"
-msgstr ""
+msgstr "Windows ゲストではありません、またはシステムルートが決められませんでした"
 
 #: src/inspect.c:300
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
-msgstr ""
+msgstr "Windows ゲストではありません、または CurrentControlSet を決定できませんでした"
 
 #: src/inspect.c:628
 msgid "no inspection data: call guestfs_inspect_os first"
-msgstr ""
+msgstr "検査データがありません: まず guestfs_inspect_os を呼び出します"
 
 #: src/inspect.c:638
 #, c-format
@@ -7986,16 +8209,18 @@ msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
+"%s: ルートデバイスが見つかりませんでした: 前に guestfs_inspect_os "
+"により返されたルートデバイスとともにこの関数を呼び出してください。"
 
 #: src/launch-direct.c:134
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
-msgstr ""
+msgstr "引用が終了していない文字 (%c) が次のコマンドライン行近くにあります: %s"
 
 #: src/launch-direct.c:153
 #, c-format
 msgid "cannot parse quoted string near: %s"
-msgstr ""
+msgstr "次の近くにあるクォートされた文字列を構文解析できません: %s"
 
 #: src/launch-direct.c:220
 #, c-format
@@ -8008,16 +8233,16 @@ msgstr ""
 
 #: src/launch-direct.c:258 src/launch-uml.c:159
 msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "you must call guestfs_add_drive before guestfs_launch"
+msgstr "guestfs_launch の前に guestfs_add_drive を呼び出す必要があります"
 
 #: src/launch-direct.c:851 src/launch-libvirt.c:626
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "qemu launched and contacted daemon, but state != READY"
+msgstr "QEMU が起動され、デーモンに接続されましたが、state != READY です"
 
 #: src/launch-direct.c:1253 src/launch-libvirt.c:1414
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
-msgstr ""
+msgstr "realpath: '%s' を絶対パスに変換できませんでした"
 
 #: src/launch-direct.c:1411
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
@@ -8056,21 +8281,21 @@ msgstr ""
 
 #: src/launch-libvirt.c:287
 msgid "direct mode flag is not supported yet for libvirt backend"
-msgstr ""
+msgstr "ダイレクトモードフラグは libvirt バックエンドに対してまだサポートされていません"
 
 #: src/launch-libvirt.c:296
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
-msgstr ""
+msgstr "'libvirt' バックエンドを使用するには libvirt >= %d.%d.%d が必要となります"
 
 #: src/launch-libvirt.c:331
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
-msgstr ""
+msgstr "libvirt (URI = %s) に接続できませんでした"
 
 #: src/launch-libvirt.c:360
 msgid "could not get libvirt capabilities"
-msgstr ""
+msgstr "libvirt ケイパビリティを取得できませんでした"
 
 #: src/launch-libvirt.c:554
 msgid ""
@@ -8084,17 +8309,17 @@ msgstr ""
 
 #: src/launch-libvirt.c:692
 msgid "unable to parse capabilities XML returned by libvirt"
-msgstr ""
+msgstr "libvirt により返されたケイパビリティ XML を構文解析できません"
 
 #: src/launch-libvirt.c:698 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
-msgstr ""
+msgstr "新規 XPath コンテキストを作成できません"
 
 #: src/launch-libvirt.c:708
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
-msgstr ""
+msgstr "XPath 表現を評価できません: %s"
 
 #: src/launch-libvirt.c:743
 #, c-format
@@ -8110,6 +8335,16 @@ msgid ""
 "  export LIBGUESTFS_BACKEND=direct\n"
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
+"libvirt ハイパーバイザーが QEMU または KVM をサポートしません。\n"
+"そのため、libguestfs アプライアンスを作成できません。\n"
+"現在のバックエンドは '%s' です。\n"
+"PATH 環境変数が設定され、QEMU ('qemu-system-*') または \n"
+"KVM ('qemu-kvm', 'kvm' など) へのパスを含むことを確認してください。\n"
+"もしくは: 次の設定を試してください:\n"
+"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
+"もしくは: libguestfs に直接 QEMU を実行させたければ、次を試してください:\n"
+"  export LIBGUESTFS_BACKEND=direct\n"
+"さらなるヘルプは、guestfs(3) マニュアルページおよび libguestfs FAQ を参照ください。"
 
 #: src/launch-libvirt.c:978
 #, c-format
@@ -8118,13 +8353,15 @@ msgstr ""
 
 #: src/launch-libvirt.c:1368
 msgid "'iface' parameter is not supported by the libvirt backend"
-msgstr ""
+msgstr "'iface' パラメーターが libvirt バックエンドによりサポートされません"
 
 #: src/launch-libvirt.c:1497
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
+"libvirt が qemu curl ドライバープロトコル (ftp, http など) をサポートしません; "
+"LIBGUESTFS_BACKEND=direct の設定を試してください"
 
 #: src/launch-libvirt.c:1522
 msgid ""
@@ -8132,6 +8369,9 @@ msgid ""
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
+"形式を自動検出できませんでした。\n"
+"形式がわかっているならば、形式を libguestfs に渡してください。\n"
+"例: '--format' オプション、または 'add-drive' の 'format' 引数オプション"
 
 #: src/launch-libvirt.c:1529
 msgid ""
@@ -8139,6 +8379,9 @@ msgid ""
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
+"非ファイルプロトコルを使用するとき、形式を自動検出できませんでした。\n"
+"形式がわかっているならば、形式を libguestfs に渡してください。\n"
+"例: '--format' オプション、または 'add-drive' の 'format' 引数オプション"
 
 #: src/launch-libvirt.c:1859
 msgid "could not define libvirt secret"
@@ -8163,44 +8406,44 @@ msgstr ""
 
 #: src/launch-libvirt.c:2015
 msgid "could not destroy libvirt domain"
-msgstr ""
+msgstr "libvirt 仮想マシンを強制停止できませんでした"
 
 #: src/launch-libvirt.c:2066 src/launch-libvirt.c:2099
 #, c-format
 msgid "%s: internal error forming error message"
-msgstr ""
+msgstr "%s: エラーメッセージを形成している内部エラー"
 
 #: src/launch-libvirt.c:2162
 msgid "could not attach disk to libvirt domain"
-msgstr ""
+msgstr "libvirt 仮想マシンにディスクを接続できませんでした"
 
 #: src/launch-libvirt.c:2193
 msgid "could not detach disk from libvirt domain"
-msgstr ""
+msgstr "libvirt 仮想マシンからディスクを切断できませんでした"
 
 #: src/launch-uml.c:98
 msgid "uml backend does not support networking"
-msgstr ""
+msgstr "uml バックエンドはネットワークをサポートしません"
 
 #: src/launch-uml.c:102
 msgid "uml backend does not support SMP"
-msgstr ""
+msgstr "uml バックエンドは SMP をサポートしません"
 
 #: src/launch-uml.c:108
 msgid "uml backend does not support remote drives"
-msgstr ""
+msgstr "uml バックエンドはリモートドライブをサポートしません"
 
 #: src/launch-uml.c:112
 msgid "uml backend does not support non-raw-format drives"
-msgstr ""
+msgstr "uml バックエンドは raw 形式以外のドライブをサポートしません"
 
 #: src/launch-uml.c:117
 msgid "uml backend does not support drives with 'iface' parameter"
-msgstr ""
+msgstr "uml バックエンドは 'iface' パラメーターを持つドライブをサポートしません"
 
 #: src/launch-uml.c:122
 msgid "uml backend does not support drives with 'label' parameter"
-msgstr ""
+msgstr "uml バックエンドは 'label' パラメーターを持つドライブをサポートしません"
 
 #: src/launch-uml.c:128
 msgid ""
@@ -8217,45 +8460,45 @@ msgstr ""
 
 #: src/launch-unix.c:84
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr ""
+msgstr "guestfs_launch に失敗しました、guestfsd から予期しない初期メッセージ"
 
 #: src/launch-unix.c:92
 msgid "contacted guestfsd, but state != READY"
-msgstr ""
+msgstr "guestfsd に接続しましたが、state != READY です"
 
 #: src/launch.c:53
 msgid "the libguestfs handle has already been launched"
-msgstr ""
+msgstr "libguestfs ハンドルがすでに開始されています"
 
 #: src/launch.c:172
 msgid "get-pid can only be called after launch"
-msgstr ""
+msgstr "get-pid は launch 後にのみ呼び出せます"
 
 #: src/launch.c:178
 msgid "the current backend does not support 'get-pid'"
-msgstr ""
+msgstr "現在のバックエンドが 'get-pid' をサポートしません"
 
 #: src/launch.c:189
 msgid "the current backend does not allow max disks to be queried"
-msgstr ""
+msgstr "現在のバックエンドが最大ディスクを問い合わせできません"
 
 #: src/launch.c:201
 msgid "qemu has not been launched yet"
-msgstr "qemu को अबतक लॉन्च नहीं किया गया है"
+msgstr "QEMU がまだ開始されていません"
 
 #: src/launch.c:272
 #, c-format
 msgid "parameter '%s' isn't allowed"
-msgstr ""
+msgstr "パラメーター '%s' は許可されていません"
 
 #: src/libvirt-auth.c:100
 #, c-format
 msgid "unknown credential type '%s'"
-msgstr ""
+msgstr "未知のクレディンシャル形式 '%s'"
 
 #: src/libvirt-auth.c:105
 msgid "list of supported credentials is too long"
-msgstr ""
+msgstr "サポートされるクレディンシャルの一覧が長すぎます"
 
 #: src/libvirt-auth.c:170
 #, c-format
@@ -8269,41 +8512,41 @@ msgstr ""
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
-msgstr ""
+msgstr "%s は GUESTFS_EVENT_LIBVIRT_AUTH イベントハンドラーに中からのみ呼び出されます"
 
 #: src/libvirt-auth.c:278 src/libvirt-auth.c:298 src/libvirt-auth.c:318
 #: src/libvirt-auth.c:339
 msgid "credential index out of range"
-msgstr ""
+msgstr "クレディンシャルのインデックスが範囲外です"
 
 #: src/libvirt-auth.c:359
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
-msgstr ""
+msgstr "このバージョンの libguestfs が libvirt なしでコンパイルされたため、libvirt 認証 API を利用できません"
 
 #: src/libvirt-domain.c:92 src/libvirt-domain.c:238
 msgid "you cannot set both live and readonly flags"
-msgstr ""
+msgstr "live と readonly フラグをどちらも設定することはできません"
 
 #: src/libvirt-domain.c:100
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr ""
+msgstr "libvirt に接続できませんでした (コード %d, ドメイン %d): %s"
 
 #: src/libvirt-domain.c:121
 #, c-format
 msgid "no libvirt domain called '%s': %s"
-msgstr ""
+msgstr "'%s' という libvirt ドメインがありません: %s"
 
 #: src/libvirt-domain.c:220
 msgid "unknown readonlydisk parameter"
-msgstr ""
+msgstr "読み込み専用ディスクに未知のパラメーターがあります"
 
 #: src/libvirt-domain.c:249
 #, c-format
 msgid "error getting domain info: %s"
-msgstr ""
+msgstr "ドメイン情報の取得中にエラーが発生しました: %s"
 
 #: src/libvirt-domain.c:263
 msgid ""
@@ -8313,6 +8556,13 @@ msgid ""
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
+"エラー: 仮想マシンが実行中です。\n"
+"実行中の仮想マシンのディスクに書き込むことは、ディスク破損を\n"
+"引き起こす可能性があります。読み込み専用アクセスを使用する、\n"
+"もしくは、仮想マシンが実行中ならば guestfsd デーモンが live \n"
+"アクセスを指定します。多くの libguestfs ツールにおいて、これらの\n"
+"オプションはそれぞれ --ro または --live です。\n"
+"詳細はドキュメントを参照してください。"
 
 #: src/libvirt-domain.c:356
 #, c-format
@@ -8320,78 +8570,82 @@ msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
+"%s: ディスクが libvirt XML において <readonly/> にされています、読み込み専用ディスクは \"error\" "
+"に設定されました"
 
 #: src/libvirt-domain.c:424 src/libvirt-domain.c:496 src/libvirt-domain.c:717
 msgid "unable to evaluate XPath expression"
-msgstr ""
+msgstr "XPath 表現を評価できません"
 
 #: src/libvirt-domain.c:437
 #, c-format
 msgid "ignoring %zu nodes matching '%s'"
-msgstr ""
+msgstr "%zu ノード ('%s' と一致) を無視します"
 
 #: src/libvirt-domain.c:443
 msgid "expected <seclabel/> to be an XML element"
-msgstr ""
+msgstr "XML 要素となることが期待される <seclabel/>"
 
 #: src/libvirt-domain.c:556
 #, c-format
 msgid "disk[%zu]: network device"
-msgstr ""
+msgstr "disk[%zu]: ネットワークデバイス"
 
 #: src/libvirt-domain.c:571
 #, c-format
 msgid "disk[%zu]: protocol: %s"
-msgstr ""
+msgstr "disk[%zu]: プロトコル: %s"
 
 #: src/libvirt-domain.c:590
 #, c-format
 msgid "disk[%zu]: username: %s"
-msgstr ""
+msgstr "disk[%zu]: ユーザー名: %s"
 
 #: src/libvirt-domain.c:615
 #, c-format
 msgid "disk[%zu]: host: %s:%s"
-msgstr ""
+msgstr "disk[%zu]: ホスト: %s:%s"
 
 #: src/libvirt-domain.c:638
 #, c-format
 msgid "disk[%zu]: filename: %s"
-msgstr ""
+msgstr "disk[%zu]: ファイル名: %s"
 
 #: src/libvirt-domain.c:678
 msgid "libvirt domain has no disks"
-msgstr ""
+msgstr "libvirt ドメインにディスクがありません"
 
 #: src/libvirt-domain.c:747
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
+"この仮想マシンは guestfsd に対する libvirt <channel> 定義がありません\n"
+"詳細は guestfs(3) の 実行中のデーモンへの接続方法 を参照してください。"
 
 #: src/libvirt-domain.c:766
 #, c-format
 msgid "error reading libvirt XML information: %s"
-msgstr ""
+msgstr "libvirt XML 情報の読み込み中にエラーが発生しました: %s"
 
 #: src/libvirt-domain.c:776
 msgid "unable to parse XML information returned by libvirt"
-msgstr ""
+msgstr "libvirt により返された XML 情報を構文解析できません"
 
 #: src/libvirt-domain.c:786
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
-msgstr ""
+msgstr "このバージョンの libguestfs が libvirt なしでコンパイルされたため、add-domain API を利用できません"
 
 #: src/osinfo.c:253
 msgid "osinfo: unable to create new XPath context"
-msgstr ""
+msgstr "osinfo: 新しい XPath コンテキストを作成できません"
 
 #: src/osinfo.c:263
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
-msgstr ""
+msgstr "osinfo: %s: XPath 表現を評価できません"
 
 #: src/proto.c:201
 #, c-format
@@ -8399,89 +8653,91 @@ msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
 "synchronization (bad!)\n"
 msgstr ""
+"check_daemon_socket: デーモンから 0x%x を読み込みましたが、0x%x を期待されます。プロトコルの同期が失われました "
+"(不良!)\n"
 
 #: src/proto.c:247
 msgid "xdr_guestfs_message_header failed"
-msgstr "xdr_guestfs_message_header failed"
+msgstr "xdr_guestfs_message_header に失敗しました"
 
 #: src/proto.c:256
 msgid "dispatch failed to marshal args"
-msgstr "dispatch failed to marshal args"
+msgstr "マーシャル引数の割り当てに失敗しました"
 
 #: src/proto.c:363 src/proto.c:852
 msgid "operation cancelled by user"
-msgstr ""
+msgstr "操作がユーザーにより取り消されました"
 
 #: src/proto.c:433
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
-msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr "xdr_guestfs_chunk に失敗しました (buf = %p, buflen = %zu)"
 
 #: src/proto.c:530
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
-msgstr "guestfsd से जादुई हस्ताक्षर पाया , लेकिन %d स्थिति में"
+msgstr "guestfsd からマジックシグネチャーを受け取りましたが、状態は %d です。"
 
 #: src/proto.c:549
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
-msgstr "message length (%u) > maximum possible size (%d)"
+msgstr "メッセージの長さ (%u) > 最大許容サイズ (%d)"
 
 #: src/proto.c:811
 msgid "write to daemon socket"
-msgstr "डेमॉन सॉकेट में लिखें"
+msgstr "デーモンのソケットに書き込みます"
 
 #: src/proto.c:837
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr "receive_file_data: unexpected flag received when reading file chunks"
+msgstr "receive_file_data: ファイルのチャンクの読み込み中に予期しないフラグを受信しました"
 
 #: src/proto.c:845
 msgid "failed to parse file chunk"
-msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
+msgstr "ファイルのチャンクの解析に失敗しました"
 
 #: src/proto.c:856
 msgid "file receive cancelled by daemon"
-msgstr "फाइल प्राप्ति को डेमॉन के द्वारा रद्द किया गया"
+msgstr "ファイルの受信がデーモンにより取り消されました"
 
 #: src/tmpdirs.c:56 src/tmpdirs.c:61
 #, c-format
 msgid "failed to set temporary directory: %s"
-msgstr ""
+msgstr "一時ディレクトリーの設定に失敗しました: %s"
 
 #: src/tmpdirs.c:66
 #, c-format
 msgid "temporary directory '%s' is not a directory"
-msgstr ""
+msgstr "一時ディレクトリー '%s' がディレクトリーではありません"
 
 #: src/tmpdirs.c:135
 #, c-format
 msgid "%s: cannot create temporary directory"
-msgstr "%s: को अस्थायी निर्देशिका नहीं बना सकता है"
+msgstr "%s: 一時ディレクトリを作成できません"
 
 #: src/utils.c:196
 #, c-format
 msgid "%s exited successfully"
-msgstr ""
+msgstr "%s が正常に終了しました"
 
 #: src/utils.c:199
 #, c-format
 msgid "%s exited with error status %d"
-msgstr ""
+msgstr "%s がエラーステータス %d で終了しました"
 
 #: src/utils.c:203
 #, c-format
 msgid "%s killed by signal %d (%s)"
-msgstr ""
+msgstr "%s がシグナル %d (%s) によりキルされました"
 
 #: src/utils.c:207
 #, c-format
 msgid "%s stopped by signal %d (%s)"
-msgstr ""
+msgstr "%s がシグナル %d (%s) により停止しました"
 
 #: src/utils.c:211
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
-msgstr ""
+msgstr "%s が未知の理由で終了しました (ステータス %d)"
 
 #: test-tool/test-tool.c:54
 #, c-format
@@ -8503,32 +8759,32 @@ msgstr ""
 #: test-tool/test-tool.c:114
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: 未知のロングオプション: %s (%d)\n"
 
 #: test-tool/test-tool.c:123
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: 無効なタイムアウト: %s\n"
 
 #: test-tool/test-tool.c:133 test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
-msgstr "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr "libguestfs-test-tool: libguestfs ハンドルの作成に失敗しました\n"
 
 #: test-tool/test-tool.c:138
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
-msgstr "libguestfs-test-tool: guestfs_version failed\n"
+msgstr "libguestfs-test-tool: guestfs_version に失敗しました\n"
 
 #: test-tool/test-tool.c:154
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: 予期しないコマンドラインのオプション 0x%x\n"
 
 #: test-tool/test-tool.c:161
 #, c-format
 msgid "libguestfs-test-tool: extra arguments on the command line\n"
-msgstr ""
+msgstr "libguestfs-test-tool: コマンドラインに余計な引数があります\n"
 
 #: test-tool/test-tool.c:185
 #, c-format
@@ -8536,41 +8792,43 @@ msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
+"libguestfs-test-tool: 環境変数の構文解析に失敗しました。\n"
+"これまでのメッセージ、および 'printenv' コマンドの出力を確認してください。\n"
 
 #: test-tool/test-tool.c:224
 #, c-format
 msgid "libguestfs-test-tool: failed to add scratch drive\n"
-msgstr ""
+msgstr "libguestfs-test-tool: 空のドライブの追加に失敗しました\n"
 
 #: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
-msgstr "libguestfs-test-tool: failed to launch appliance\n"
+msgstr "libguestfs-test-tool: アプライアンスの起動に失敗しました\n"
 
 #: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
-msgstr ""
+msgstr "libguestfs-test-tool: part-disk の実行に失敗しました\n"
 
 #: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
-msgstr "libguestfs-test-tool: failed to mkfs.ext2\n"
+msgstr "libguestfs-test-tool: mkfs.ext2 に失敗しました\n"
 
 #: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
-msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
+msgstr "libguestfs-test-tool: / に /dev/sda1 のマウントに失敗しました\n"
 
 #: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
-msgstr ""
+msgstr "libguestfs-test-tool: ファイルのタッチに失敗しました\n"
 
 #: test-tool/test-tool.c:311
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
-msgstr ""
+msgstr "libguestfs-test-tool: シャットダウンに失敗しました\n"
 
 #: test-tool/test-tool.c:345
 #, c-format
@@ -8582,12 +8840,12 @@ msgstr ""
 #: test-tool/test-tool.c:353
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
-msgstr "द्विपदीय '%s' मौजूद नहीं है या निष्पादनीय नहीं है\n"
+msgstr "バイナリ '%s' が存在しないか、実行可能ではありません\n"
 
 #: test-tool/test-tool.c:370
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
-msgstr "%s: qemu स्रोत निर्देशिका की तरह नहीं दिखता है\n"
+msgstr "%s: QEMU ソースディレクトリとは違うようです\n"
 
 #: v2v/domainxml-c.c:148 v2v/domainxml-c.c:242
 #, c-format
@@ -8628,33 +8886,33 @@ msgstr ""
 
 #: tools/virt-list-filesystems:147
 msgid "virt-list-filesystems: no image or VM name given"
-msgstr ""
+msgstr "virt-list-filesystems: イメージまたは仮想マシン名が与えられていません"
 
 #: tools/virt-list-partitions:159
 msgid "virt-list-partitions: no image or VM name given"
-msgstr ""
+msgstr "virt-list-partitions: イメージまたは仮想マシン名が与えられていません"
 
 #: tools/virt-tar:190 tools/virt-tar:197
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-msgstr ""
+msgstr "virt-tar: コマンドラインにおいて extract/upload モードが複数指定されています\n"
 
 #: tools/virt-tar:219
 msgid "virt-tar: no image, VM names, directory or filename given"
-msgstr ""
+msgstr "virt-tar: イメージ、仮想マシン名、ディレクトリまたはファイル名が与えられていません"
 
 #: tools/virt-tar:222
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
-msgstr ""
+msgstr "virt-tar: コマンドラインにおいて -x または -u が指定されなければいけません\n"
 
 #: tools/virt-tar:233
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
-msgstr ""
+msgstr "virt-tar: {tarball}: ファイルが見つかりません\n"
 
 #: tools/virt-tar:236
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
-msgstr ""
+msgstr "virt-tar: {dir}: ディレクトリ名は '/' 記号で始まらなければいけません\n"
 
 #: tools/virt-tar:258 tools/virt-win-reg:298
 #, perl-brace-format
@@ -8667,38 +8925,45 @@ msgid ""
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
+"{prog}: オペレーティングシステムがこのディスクイメージの中に検知できませんでした。\n"
+"\n"
+"ファイルシステムがディスクイメージではない、または仮想マシンイメージではない\n"
+"ことが理由です。もしくは OS 種別が libguesfs により認識できないためです。\n"
+"\n"
+"これがエラーであると思うならば、ディスクイメージに関する情報できる限り\n"
+"含めてバグ報告を提出してください。\n"
 
 #: tools/virt-tar:262 tools/virt-win-reg:302
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
-msgstr ""
+msgstr "{prog}: 複数ブートのオペレーティングシステムはサポートされません。\n"
 
 #: tools/virt-win-reg:242
 msgid "no libvirt domain name or disk image given\n"
-msgstr ""
+msgstr "与えられた libvirt ドメイン名またはディスクイメージがありません\n"
 
 #: tools/virt-win-reg:324
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
-msgstr ""
+msgstr "1 か 2 つ以上のパラメーター、サブキーのパス、およびオプションのエクスポートする値が期待されます\n"
 
 #: tools/virt-win-reg:483
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: ユーザー・ディレクトリを見つけられません\n"
 
 #: tools/virt-win-reg:488
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: サポートされる Windows レジストリのパスではありません\n"
 
 #: tools/virt-win-reg:561
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: レジストリ・ファイルをダウンロードできませんでした: {err}\n"
 
 #: tools/virt-win-reg:578
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: レジストリ・ファイルをアップロードできませんでした: {err}\n"

@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Rajesh Ranjan <rranjan@redhat.com>, 2011
-# rjones <rjones@redhat.com>, 2011
+# Fabian Affolter <fab@fedoraproject.org>, 2011
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2011
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2015-02-17 12:06+0000\n"
-"PO-Revision-Date: 2014-10-18 04:00-0400\n"
-"Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/language/hi/)\n"
+"PO-Revision-Date: 2015-01-10 08:39-0500\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/libguestfs/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hi\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.5.1\n"
 
@@ -42,14 +43,14 @@ msgstr ""
 
 #: ../mllib/common_utils.ml:328
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #. ../customize/customize_main.ml:239
 #. ../builder/get_kernel.ml:52
 #. ../builder/builder.ml:647
 #: ../v2v/v2v.ml:632 ../v2v/v2v.ml:515 ../sysprep/main.ml:266
 msgid "%s (ignored)"
-msgstr ""
+msgstr "%s (ignoriert)"
 
 #: ../v2v/output_rhev.ml:95
 msgid ""
@@ -78,15 +79,15 @@ msgstr ""
 
 #: ../mllib/common_utils.ml:324 ../mllib/common_utils.ml:311
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../customize/customize_run.ml:337
 msgid "%s: %s (ignored)\n"
-msgstr ""
+msgstr "%s: %s (ignoriert)\n"
 
 #: ../mllib/common_utils.ml:326
 msgid "%s: %s: %s"
-msgstr ""
+msgstr "%s: %s: %s"
 
 #: ../builder/sources.ml:55
 msgid "%s: '%s' has invalid gpgkey URI\n"
@@ -138,6 +139,11 @@ msgid ""
 "force' option, but that could destroy any data on this partition.  (This "
 "error came from '%s' option on the command line.)"
 msgstr ""
+"%s: Der Inhalt dieser Partition ist unbekannt und könnte durch Verkleinerung"
+" beschädigt werden. Wenn Sie diese Partition verkleinern wollen, müssen Sie "
+"die Option »--resize-force« verwenden, aber dadurch könnten jegliche Daten "
+"auf dieser Partition zerstört werden (diese Fehlermeldung wird durch die "
+"Angabe der Option »%s« in der Befehlszeile verursacht)."
 
 #: ../resize/resize.ml:851
 msgid ""
@@ -147,7 +153,7 @@ msgstr ""
 
 #: ../resize/resize.ml:853
 msgid "%s: This partition will be deleted."
-msgstr ""
+msgstr "%s: Diese Partition wird gelöscht."
 
 #: ../resize/resize.ml:849
 msgid "%s: This partition will be left alone."
@@ -155,7 +161,7 @@ msgstr ""
 
 #: ../resize/resize.ml:855
 msgid "%s: This partition will be resized from %s to %s."
-msgstr ""
+msgstr "%s: Die Größe dieser Partition wird von %s auf %s geändert."
 
 #: ../builder/cmdline.ml:177
 msgid ""
@@ -232,15 +238,15 @@ msgstr ""
 
 #: ../resize/resize.ml:164
 msgid "%s: empty --expand option"
-msgstr ""
+msgstr "%s: Option --expand ist leer"
 
 #: ../mllib/common_utils.ml:285
 msgid "%s: error: %s"
-msgstr ""
+msgstr "%s: Fehler: %s"
 
 #: ../builder/sources.ml:130
 msgid "%s: file error: %s: %s\n"
-msgstr ""
+msgstr "%s: Dateifehler: %s: %s\n"
 
 #: ../resize/resize.ml:407 ../resize/resize.ml:404
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
@@ -262,7 +268,7 @@ msgstr ""
 
 #: ../builder/sources.ml:135
 msgid "%s: internal error: invalid argument: %s\n"
-msgstr ""
+msgstr "%s: interner Fehler: ungültiges Argument: %s\n"
 
 #: ../resize/resize.ml:833
 msgid ""
@@ -277,7 +283,7 @@ msgstr ""
 
 #: ../resize/resize.ml:713
 msgid "%s: new partition size is zero or negative"
-msgstr ""
+msgstr "%s: Größe der neuen Partition ist Null oder negativ"
 
 #: ../builder/index_parser.ml:191
 msgid "%s: no 'arch' entry for '%s'\n"
@@ -368,7 +374,7 @@ msgstr ""
 
 #: ../builder/sources.ml:36
 msgid "%s: trying to read %s\n"
-msgstr ""
+msgstr "%s: Es wird versucht, %s zu lesen\n"
 
 #: ../resize/resize.ml:419
 msgid ""
@@ -385,7 +391,7 @@ msgstr ""
 
 #: ../mllib/common_utils.ml:301
 msgid "%s: warning: %s"
-msgstr ""
+msgstr "%s: Warnung: %s"
 
 #: ../builder/index_parser.ml:299
 msgid "%s: you must use relative paths (not '%s') in the index file\n"
@@ -440,7 +446,7 @@ msgstr ""
 
 #: ../resize/resize.ml:165
 msgid "--expand option given twice"
-msgstr ""
+msgstr "Option --expand wurde zwei Mal angegeben"
 
 #: ../sysprep/main.ml:177 ../customize/customize_main.ml:140
 msgid "--format parameter must appear before -a parameter"
@@ -464,7 +470,7 @@ msgstr ""
 
 #: ../v2v/cmdline.ml:93
 msgid "--no-trim: empty parameter"
-msgstr ""
+msgstr "--no-trim: leerer Parameter"
 
 #: ../sysprep/main.ml:117
 msgid "--operations: '%s' is not a known operation"
@@ -601,11 +607,11 @@ msgstr ""
 
 #: ../v2v/cmdline.ml:370 ../v2v/cmdline.ml:349
 msgid "-os %s: output directory does not exist or is not a directory"
-msgstr ""
+msgstr "-os %s: Ausgabeverzeichnis existiert nicht oder ist kein Verzeichnis"
 
 #: ../v2v/input_libvirtxml.ml:184
 msgid "<disk type='%s'> was ignored"
-msgstr ""
+msgstr "<disk type='%s'> wurde ignoriert"
 
 #: ../v2v/input_libvirtxml.ml:180
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
@@ -623,7 +629,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:214
 msgid "Add package(s) to install"
-msgstr ""
+msgstr "Zu installierende(s) Paket(e) hinzufügen"
 
 #: ../customize/customize_cmdline.ml:198
 msgid "Add package(s) to install at first boot"
@@ -635,7 +641,7 @@ msgstr ""
 
 #: ../builder/list_entries.ml:85
 msgid "Aliases:"
-msgstr ""
+msgstr "Aliase:"
 
 #: ../resize/resize.ml:191
 msgid "Align first partition (default: auto)"
@@ -643,7 +649,7 @@ msgstr ""
 
 #: ../builder/list_entries.ml:76
 msgid "Architecture:"
-msgstr ""
+msgstr "Architektur:"
 
 #: ../customize/customize_main.ml:83 ../builder/cmdline.ml:107
 msgid "Attach data disk/ISO during install"
@@ -672,11 +678,11 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_fs_uuids.ml:46
 msgid "Change filesystem UUIDs"
-msgstr ""
+msgstr "Dateisystem-UUIDs überprüfen"
 
 #: ../customize/customize_cmdline.ml:140
 msgid "Change the permissions of a file"
-msgstr ""
+msgstr "Zugriffsrechte einer Datei ändern"
 
 #: ../customize/customize_run.ml:161
 msgid "Changing permissions of %s to %s"
@@ -684,7 +690,7 @@ msgstr ""
 
 #: ../builder/cmdline.ml:117 ../builder/cmdline.ml:115
 msgid "Check digital signatures"
-msgstr ""
+msgstr "Digitale Signaturen überprüfen"
 
 #: ../sparsify/cmdline.ml:68
 msgid "Check there is enough space in $TMPDIR"
@@ -752,7 +758,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:230
 msgid "Create a directory"
-msgstr ""
+msgstr "Ein Verzeichnis erstellen"
 
 #: ../sparsify/copying.ml:152
 msgid ""
@@ -804,7 +810,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:230
 msgid "DIR"
-msgstr ""
+msgstr "VERZ"
 
 #: ../v2v/cmdline.ml:149 ../sparsify/cmdline.ml:71 ../resize/resize.ml:196
 msgid "Debug GC and memory allocations"
@@ -816,11 +822,11 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:166
 msgid "Delete a file or directory"
-msgstr ""
+msgstr "Eine Datei oder ein Verzeichnis löschen"
 
 #: ../resize/resize.ml:197
 msgid "Delete partition"
-msgstr ""
+msgstr "Partition löschen"
 
 #: ../builder/cmdline.ml:124
 msgid "Delete the template cache"
@@ -828,7 +834,7 @@ msgstr ""
 
 #: ../customize/customize_run.ml:182
 msgid "Deleting: %s"
-msgstr ""
+msgstr "Löschvorgang läuft: %s"
 
 #: ../customize/customize_main.ml:100 ../builder/cmdline.ml:144
 msgid "Disable appliance network"
@@ -836,7 +842,7 @@ msgstr ""
 
 #: ../builder/cmdline.ml:121 ../builder/cmdline.ml:119
 msgid "Disable digital signatures"
-msgstr ""
+msgstr "Digitale Signaturen deaktivieren"
 
 #: ../builder/cmdline.ml:111
 msgid "Disable template cache"
@@ -850,7 +856,7 @@ msgstr ""
 
 #: ../builder/cmdline.ml:145
 msgid "Display installation notes"
-msgstr ""
+msgstr "Installationshinweise anzeigen"
 
 #. ../sparsify/cmdline.ml:85
 #. ../resize/resize.ml:223
@@ -860,7 +866,7 @@ msgstr ""
 #. ../builder/cmdline.ml:157
 #: ../v2v/cmdline.ml:187 ../sysprep/main.ml:153 ../sysprep/main.ml:152
 msgid "Display version and exit"
-msgstr ""
+msgstr "Versionsnummer anzeigen und beenden"
 
 #: ../builder/cmdline.ml:154
 msgid "Do not fsync output file on exit"
@@ -868,15 +874,15 @@ msgstr ""
 
 #: ../resize/resize.ml:193
 msgid "Don't copy boot loader"
-msgstr ""
+msgstr "Bootloader nicht kopieren"
 
 #: ../resize/resize.ml:200
 msgid "Don't create extra partition"
-msgstr ""
+msgstr "Keine zusätzliche Partition erstellen"
 
 #: ../builder/cmdline.ml:126
 msgid "Don't delete output file on failure"
-msgstr ""
+msgstr "Ausgabedatei bei Fehlschlag nicht löschen"
 
 #: ../resize/resize.ml:199
 msgid "Don't expand content"
@@ -884,17 +890,17 @@ msgstr ""
 
 #: ../resize/resize.ml:210
 msgid "Don't perform changes"
-msgstr ""
+msgstr "Änderungen nicht anwenden"
 
 #. ../customize/customize_main.ml:102
 #. ../customize/customize_main.ml:101
 #: ../sysprep/main.ml:149 ../sysprep/main.ml:148
 msgid "Don't print log messages"
-msgstr ""
+msgstr "Keine Protokollmeldungen ausgeben"
 
 #: ../resize/resize.ml:215
 msgid "Don't print the summary"
-msgstr ""
+msgstr "Keine Zusammenfassung ausgeben"
 
 #: ../v2v/cmdline.ml:164
 msgid "Don't trim selected mounts"
@@ -906,11 +912,11 @@ msgstr ""
 
 #: ../builder/list_entries.ml:81
 msgid "Download size:"
-msgstr ""
+msgstr "Downloadgröße:"
 
 #: ../builder/builder.ml:265 ../builder/builder.ml:207
 msgid "Downloading: %s"
-msgstr ""
+msgstr "Download läuft: %s"
 
 #: ../v2v/v2v.ml:451
 msgid ""
@@ -1008,19 +1014,19 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:269
 msgid "FILE"
-msgstr ""
+msgstr "DATEI"
 
 #: ../customize/customize_cmdline.ml:312
 msgid "FILE:CONTENT"
-msgstr ""
+msgstr "DATEI:INHALT"
 
 #: ../customize/customize_cmdline.ml:302
 msgid "FILE:DEST"
-msgstr ""
+msgstr "DATEI:ZIEL"
 
 #: ../customize/customize_cmdline.ml:176
 msgid "FILE:EXPR"
-msgstr ""
+msgstr "DATEI:AUSDRUCK"
 
 #: ../customize/customize_cmdline.ml:150
 msgid "FILENAME"
@@ -1051,7 +1057,7 @@ msgstr ""
 
 #: ../builder/list_entries.ml:55
 msgid "Fingerprint: %s\n"
-msgstr ""
+msgstr "Fingerabdruck: %s\n"
 
 #: ../v2v/v2v.ml:431 ../customize/customize_main.ml:249
 #: ../builder/builder.ml:696
@@ -1102,11 +1108,11 @@ msgstr ""
 
 #: ../builder/builder.ml:686
 msgid "Free space"
-msgstr ""
+msgstr "Freier Platz"
 
 #: ../builder/list_entries.ml:74
 msgid "Full name:"
-msgstr ""
+msgstr "Voller Name:"
 
 #: ../builder/sigchecker.ml:67
 msgid ""
@@ -1129,7 +1135,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:204
 msgid "HOSTNAME"
-msgstr ""
+msgstr "RECHNERNAME"
 
 #: ../v2v/cmdline.ml:176
 msgid "How to choose root filesystem"
@@ -1144,11 +1150,11 @@ msgstr ""
 
 #: ../sparsify/cmdline.ml:73
 msgid "Ignore filesystem"
-msgstr ""
+msgstr "Dateisystem ignorieren"
 
 #: ../resize/resize.ml:202
 msgid "Ignore partition"
-msgstr ""
+msgstr "Partition ignorieren"
 
 #: ../v2v/v2v.ml:190
 msgid "Initializing the target %s"
@@ -1186,15 +1192,15 @@ msgstr ""
 
 #: ../customize/customize_run.ml:217
 msgid "Installing packages: %s"
-msgstr ""
+msgstr "Pakete werden installiert: %s"
 
 #: ../v2v/cmdline.ml:163
 msgid "Just write the metadata"
-msgstr ""
+msgstr "Nur die Metadaten schreiben"
 
 #: ../builder/list_entries.ml:57
 msgid "Key: %s\n"
-msgstr ""
+msgstr "Schlüssel: %s\n"
 
 #: ../customize/customize_cmdline.ml:160
 msgid "LOCALPATH:REMOTEDIR"
@@ -1210,14 +1216,14 @@ msgstr ""
 
 #: ../builder/cmdline.ml:134 ../builder/cmdline.ml:133
 msgid "List available templates"
-msgstr ""
+msgstr "Verfügbare Vorlagen auflisten"
 
 #. ../resize/resize.ml:204
 #. ../customize/customize_main.ml:95
 #. ../builder/cmdline.ml:139
 #: ../v2v/cmdline.ml:159 ../sysprep/main.ml:142 ../sparsify/cmdline.ml:77
 msgid "List long options"
-msgstr ""
+msgstr "Lange Optionen auflisten"
 
 #. ../resize/resize.ml:203
 #. ../customize/customize_main.ml:96
@@ -1228,7 +1234,7 @@ msgstr ""
 
 #: ../sysprep/main.ml:140
 msgid "List supported operations"
-msgstr ""
+msgstr "Unterstützte Operationen auflisten"
 
 #. ../builder/cmdline.ml:140
 #: ../v2v/cmdline.ml:160 ../sparsify/cmdline.ml:78 ../resize/resize.ml:209
@@ -1237,7 +1243,7 @@ msgstr ""
 
 #: ../customize/customize_run.ml:229
 msgid "Making directory: %s"
-msgstr ""
+msgstr "Verzeichnis wird erstellt: %s"
 
 #: ../v2v/cmdline.ml:147
 msgid "Map bridge 'in' to 'out'"
@@ -1265,11 +1271,11 @@ msgstr ""
 
 #: ../builder/cmdline.ml:150
 msgid "No progress messages"
-msgstr ""
+msgstr "Keine Fortschrittsmeldungen"
 
 #: ../sysprep/sysprep_operation.ml:202
 msgid "Notes on %s"
-msgstr ""
+msgstr "Hinweise zu %s"
 
 #: ../builder/list_entries.ml:92
 msgid ""
@@ -1277,6 +1283,9 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Hinweise:\n"
+"\n"
+"%s\n"
 
 #: ../v2v/output_vdsm.ml:111
 msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
@@ -1323,11 +1332,11 @@ msgstr ""
 
 #: ../builder/builder.ml:681
 msgid "Output file"
-msgstr ""
+msgstr "Ausgabedatei"
 
 #: ../builder/builder.ml:683
 msgid "Output format"
-msgstr ""
+msgstr "Ausgabeformat"
 
 #: ../builder/cmdline.ml:129
 msgid "Output format (default: raw)"
@@ -1339,7 +1348,7 @@ msgstr ""
 
 #: ../builder/builder.ml:682
 msgid "Output size"
-msgstr ""
+msgstr "Ausgabegröße"
 
 #: ../v2v/cmdline.ml:180
 msgid "Output vol UUID(s)"
@@ -1351,7 +1360,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:166
 msgid "PATH"
-msgstr ""
+msgstr "PFAD"
 
 #: ../customize/customize_cmdline.ml:140
 msgid "PERMISSIONS:FILE"
@@ -1398,7 +1407,7 @@ msgstr ""
 
 #: ../v2v/cmdline.ml:174 ../sparsify/cmdline.ml:80
 msgid "Quiet output"
-msgstr ""
+msgstr "stiller Modus"
 
 #: ../v2v/OVF.ml:347 ../v2v/OVF.ml:174
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
@@ -1472,7 +1481,7 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_tmp_files.ml:50
 msgid "Remove temporary files"
-msgstr ""
+msgstr "Temporäre Dateien entfernen"
 
 #: ../sysprep/sysprep_operation_ssh_userdir.ml:39
 msgid ""
@@ -1522,27 +1531,27 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_abrt_data.ml:37
 msgid "Remove the crash data generated by ABRT"
-msgstr ""
+msgstr "Von ABRT erzeugte Absturzdaten entfernen"
 
 #: ../sysprep/sysprep_operation_crash_data.ml:39
 msgid "Remove the crash data generated by kexec-tools"
-msgstr ""
+msgstr "Von kexec-tools erzeugte Absturzdaten entfernen"
 
 #: ../sysprep/sysprep_operation_puppet_data_log.ml:44
 msgid "Remove the data and log files of puppet"
-msgstr ""
+msgstr "Puppet-Protokolldateien und -Datenbank entfernen"
 
 #: ../sysprep/sysprep_operation_samba_db_log.ml:45
 msgid "Remove the database and log files of Samba"
-msgstr ""
+msgstr "Samba-Protokolldateien und -Datenbank entfernen"
 
 #: ../sysprep/sysprep_operation_sssd_db_log.ml:43
 msgid "Remove the database and log files of sssd"
-msgstr ""
+msgstr "SSSD-Protokolldateien und -Datenbank entfernen"
 
 #: ../sysprep/sysprep_operation_firewall_rules.ml:44
 msgid "Remove the firewall rules"
-msgstr ""
+msgstr "Firewall-Regeln entfernen"
 
 #: ../sysprep/sysprep_operation_machine_id.ml:39
 msgid "Remove the local machine ID"
@@ -1595,7 +1604,7 @@ msgstr ""
 
 #: ../resize/resize.ml:217
 msgid "Resize partition"
-msgstr ""
+msgstr "Partitionsgröße ändern"
 
 #: ../builder/builder.ml:553
 msgid "Resizing (using virt-resize) to expand the disk to %s"
@@ -1641,7 +1650,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:257 ../customize/customize_cmdline.ml:182
 msgid "SCRIPT"
-msgstr ""
+msgstr "SKRIPT"
 
 #: ../customize/customize_cmdline.ml:251
 msgid "SELECTOR"
@@ -1763,7 +1772,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:251
 msgid "Set root password"
-msgstr ""
+msgstr "Root-Passwort festlegen"
 
 #: ../builder/cmdline.ml:153
 msgid "Set source URL"
@@ -1795,7 +1804,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:241
 msgid "Set user password"
-msgstr ""
+msgstr "Benutzerpasswort festlegen"
 
 #: ../v2v/cmdline.ml:189
 msgid "Set vmtype (for RHEV)"
@@ -1807,7 +1816,7 @@ msgstr ""
 
 #: ../customize/customize_run.ml:293
 msgid "Setting passwords"
-msgstr ""
+msgstr "Passwörter werden gesetzt"
 
 #: ../customize/password.ml:116
 msgid "Setting random password of %s to %s"
@@ -1815,11 +1824,11 @@ msgstr ""
 
 #: ../customize/customize_run.ml:212
 msgid "Setting the hostname: %s"
-msgstr ""
+msgstr "Rechnername wird gesetzt: %s"
 
 #: ../customize/customize_run.ml:256
 msgid "Setting the timezone: %s"
-msgstr ""
+msgstr "Zeitzone wird gesetzt: %s"
 
 #: ../resize/resize.ml:930
 msgid "Setting up initial partition table on %s"
@@ -1831,7 +1840,7 @@ msgstr ""
 
 #: ../resize/resize.ml:219
 msgid "Shrink partition"
-msgstr ""
+msgstr "Partition verkleinern"
 
 #: ../sparsify/copying.ml:261
 msgid ""
@@ -1869,7 +1878,7 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:286
 msgid "TIMEZONE"
-msgstr ""
+msgstr "ZEITZONE"
 
 #: ../sysprep/sysprep_operation_script.ml:108
 msgid ""
@@ -2888,7 +2897,7 @@ msgstr ""
 
 #: ../resize/resize.ml:137
 msgid "resize2fs"
-msgstr ""
+msgstr "resize2fs"
 
 #: ../v2v/v2v.ml:489
 msgid "root device %s not found.  Roots found were: %s"
@@ -3293,7 +3302,7 @@ msgstr ""
 #: make-fs/make-fs.c:74 p2v/main.c:66 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "अधिक सूचना के लिए `%s --help' आजमाएँ.\n"
+msgstr "Versuchen Sie `%s --help' für mehr Information.\n"
 
 #: align/scan.c:77
 #, c-format
@@ -3323,7 +3332,7 @@ msgstr ""
 #: inspector/inspector.c:129 make-fs/make-fs.c:116 rescue/rescue.c:137
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: नियंत्रण बनाने में विफल\n"
+msgstr ""
 
 #: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:141
 #: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:231 df/main.c:158
@@ -3332,7 +3341,7 @@ msgstr "guestfs_create: नियंत्रण बनाने में व�
 #: make-fs/make-fs.c:146 p2v/main.c:141 rescue/rescue.c:193
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
-msgstr "%s: unknown long option: %s (%d)\n"
+msgstr "%s: Unbekannte lange Option: %s (%d)\n"
 
 #: align/scan.c:174 df/main.c:186
 #, c-format
@@ -3466,7 +3475,7 @@ msgstr ""
 #: cat/filesystems.c:306 cat/ls.c:346 df/main.c:265 diff/diff.c:330
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
-msgstr ""
+msgstr "%s: Sie können die Optionen -h und --csv nicht zusammen verwenden.\n"
 
 #: cat/log.c:66
 #, c-format
@@ -3619,47 +3628,47 @@ msgstr ""
 
 #: df/output.c:49
 msgid "VirtualMachine"
-msgstr ""
+msgstr "Virtuelle Maschine"
 
 #: df/output.c:50
 msgid "Filesystem"
-msgstr "फ़ाइलसिस्टम"
+msgstr "Dateisystem"
 
 #: df/output.c:53
 msgid "1K-blocks"
-msgstr ""
+msgstr "1K-Blöcke"
 
 #: df/output.c:55
 msgid "Size"
-msgstr "आकार"
+msgstr "Größe"
 
 #: df/output.c:56
 msgid "Used"
-msgstr "उपयोग में"
+msgstr "Benutzt"
 
 #: df/output.c:57
 msgid "Available"
-msgstr "उपलब्ध"
+msgstr "Verfügbar"
 
 #: df/output.c:58
 msgid "Use%"
-msgstr ""
+msgstr "% verwendet"
 
 #: df/output.c:60
 msgid "Inodes"
-msgstr "आइनोड"
+msgstr "Inodes"
 
 #: df/output.c:61
 msgid "IUsed"
-msgstr ""
+msgstr "IUsed"
 
 #: df/output.c:62
 msgid "IFree"
-msgstr ""
+msgstr "IFree"
 
 #: df/output.c:63
 msgid "IUse%"
-msgstr ""
+msgstr "IUse%"
 
 #: diff/diff.c:96
 #, c-format
@@ -3747,22 +3756,22 @@ msgstr ""
 #: edit/edit.c:170
 #, c-format
 msgid "%s: -b option given multiple times\n"
-msgstr ""
+msgstr "%s: Option -b wurde nehrfach angegeben\n"
 
 #: edit/edit.c:187
 #, c-format
 msgid "%s: -e option given multiple times\n"
-msgstr ""
+msgstr "%s: Option -e wurde nehrfach angegeben\n"
 
 #: fish/alloc.c:38
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr "छवि के रूप में 'alloc file size' का उपयोग करें\n"
+msgstr ""
 
 #: fish/alloc.c:52
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "छवि कम घना करने के लिए 'sparse file size' का उपयोग करें\n"
+msgstr ""
 
 #: fish/alloc.c:100
 #, c-format
@@ -3771,11 +3780,11 @@ msgstr ""
 
 #: fish/cmds.c:4534
 msgid "Command"
-msgstr "कमांड"
+msgstr "Befehl"
 
 #: fish/cmds.c:4534
 msgid "Description"
-msgstr "वर्णन"
+msgstr "Beschreibung"
 
 #: fish/cmds.c:4536
 msgid "delete the default POSIX ACL of a directory"
@@ -3804,7 +3813,7 @@ msgstr ""
 
 #: fish/cmds.c:4545
 msgid "add a CD-ROM disk image to examine"
-msgstr "परीक्षा के लिए CD-ROM डिस्क छवि जोड़ें"
+msgstr "Ein CD-ROM-Abbild zur Untersuchung hinzufügen"
 
 #: fish/cmds.c:4546
 msgid "add the disk(s) from a named libvirt domain"
@@ -3812,16 +3821,15 @@ msgstr ""
 
 #: fish/cmds.c:4547
 msgid "add an image to examine or modify"
-msgstr "जाँचने या बदलने के लिए कोई छवि जोड़ें"
+msgstr "Ein Abbild zur Untersuchung oder Bearbeitung hinzufügen"
 
 #: fish/cmds.c:4548
 msgid "add a drive in snapshot mode (read-only)"
-msgstr "स्नैप शॉट मोड में ड्राइव जोड़ें (केवल पठनीय)"
+msgstr "Ein Laufwerk im Schnappschussmodus hinzufügen (schreibgeschützt)"
 
 #: fish/cmds.c:4549
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
-"केवल पठनीय ड्राइव जोड़ें जो QEMU खंड को एमुलेशन को उपयोग के लिए रोकता है"
 
 #: fish/cmds.c:4550
 msgid "add a temporary scratch drive"
@@ -3829,7 +3837,7 @@ msgstr ""
 
 #: fish/cmds.c:4551
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr "QEMU खंड एमुलेशन को उपयोग के लिए निर्दिष्ट करने के लिए ड्राइव जोड़ें"
+msgstr ""
 
 #: fish/cmds.c:4552
 msgid "allocate and add a disk file"
@@ -3837,31 +3845,31 @@ msgstr ""
 
 #: fish/cmds.c:4562
 msgid "clear Augeas path"
-msgstr ""
+msgstr "Augeas-Pfad leeren"
 
 #: fish/cmds.c:4563
 msgid "close the current Augeas handle"
-msgstr "मौजूदा Augeas नियंत्रण बंद करें"
+msgstr ""
 
 #: fish/cmds.c:4564
 msgid "define an Augeas node"
-msgstr "कोई Augeas नोड परिभाषित करें"
+msgstr ""
 
 #: fish/cmds.c:4565
 msgid "define an Augeas variable"
-msgstr "कोई Augeas चर परिभाषित करें"
+msgstr ""
 
 #: fish/cmds.c:4566
 msgid "look up the value of an Augeas path"
-msgstr "Augeas पथ के मान के लिए देखें"
+msgstr ""
 
 #: fish/cmds.c:4567
 msgid "create a new Augeas handle"
-msgstr "नया Augeas नियंत्रण बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4568
 msgid "insert a sibling Augeas node"
-msgstr "सहोदर Augeas नोड घुसाएँ"
+msgstr ""
 
 #: fish/cmds.c:4569
 msgid "return the label from an Augeas path expression"
@@ -3869,31 +3877,31 @@ msgstr ""
 
 #: fish/cmds.c:4570
 msgid "load files into the tree"
-msgstr "तरू में फाइल लोड करें"
+msgstr "Dateien in den Baum laden"
 
 #: fish/cmds.c:4571
 msgid "list Augeas nodes under augpath"
-msgstr "Augeas नोड को augpath के अंतर्गत सूचीबद्ध करें"
+msgstr ""
 
 #: fish/cmds.c:4572
 msgid "return Augeas nodes which match augpath"
-msgstr "Augeas नोड को वापस करें जो augpath से मेल खाता है"
+msgstr ""
 
 #: fish/cmds.c:4573
 msgid "move Augeas node"
-msgstr "Augeas नोड खिसकाएँ"
+msgstr ""
 
 #: fish/cmds.c:4574
 msgid "remove an Augeas path"
-msgstr "Augeas पथ हटाएँ"
+msgstr "Einen augeas-Pfad entfernen"
 
 #: fish/cmds.c:4575
 msgid "write all pending Augeas changes to disk"
-msgstr "सभी स्थगित Augeas परिवर्तनों को डिस्क में लिखें"
+msgstr "Alle ausstehenden Augeas-Änderungen auf Festplatte schreiben"
 
 #: fish/cmds.c:4576
 msgid "set Augeas path to value"
-msgstr "Augeas पथ को वाल्व में सेट करें"
+msgstr ""
 
 #: fish/cmds.c:4577
 msgid "set multiple Augeas nodes"
@@ -3901,19 +3909,19 @@ msgstr ""
 
 #: fish/cmds.c:4581 fish/cmds.c:4710
 msgid "test availability of some parts of the API"
-msgstr "API के कुछ हिस्से की उपलब्धता जाँचें"
+msgstr "Die Verfügbarkeit einiger Teile der API überprüfen"
 
 #: fish/cmds.c:4582
 msgid "return a list of all optional groups"
-msgstr ""
+msgstr "Eine Liste aller optionalen Gruppen zurückgeben"
 
 #: fish/cmds.c:4586
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "Mit base64 enkodierte Daten in Datei hochladen"
 
 #: fish/cmds.c:4587
 msgid "download file and encode as base64"
-msgstr ""
+msgstr "Datei herunterladen und mit base64 enkodieren"
 
 #: fish/cmds.c:4588
 msgid "discard all blocks on a device"
@@ -3929,35 +3937,35 @@ msgstr ""
 
 #: fish/cmds.c:4591
 msgid "flush device buffers"
-msgstr "फ्लश युक्ति बफर"
+msgstr "Gerätepuffer leeren"
 
 #: fish/cmds.c:4592
 msgid "get blocksize of block device"
-msgstr "ब्लॉक युक्ति का ब्लॉक आकार पाएँ"
+msgstr "Blockgröße des blockorientierten Gerätes ermitteln"
 
 #: fish/cmds.c:4593
 msgid "is block device set to read-only"
-msgstr "क्या ब्लॉक युक्ति केवल पठनीय है"
+msgstr ""
 
 #: fish/cmds.c:4594
 msgid "get total size of device in bytes"
-msgstr "बाइट में युक्ति के कुल आकार को पाएँ"
+msgstr "Gesamtgröße des Gerätes in Bytes ermitteln"
 
 #: fish/cmds.c:4595
 msgid "get sectorsize of block device"
-msgstr "खंड युक्ति का सेक्टरवाइज पाएँ"
+msgstr "Sektorengröße des blockorientierten Gerätes ermitteln"
 
 #: fish/cmds.c:4596
 msgid "get total size of device in 512-byte sectors"
-msgstr "512-बाइट सेक्टर में युक्ति का कुल आकार पाएँ"
+msgstr "Gesamtgröße des Gerätes in 512 Bytes großen Sektoren ermitteln"
 
 #: fish/cmds.c:4597
 msgid "reread partition table"
-msgstr "विभाजन सारणी फिर पढ़ें"
+msgstr "Partitionstabelle erneut einlesen"
 
 #: fish/cmds.c:4598
 msgid "set blocksize of block device"
-msgstr "खंड युक्ति का खंड आकार सेट करें"
+msgstr "Blockgröße des blockorientierten Gerätes festlegen"
 
 #: fish/cmds.c:4599
 msgid "set readahead"
@@ -3965,11 +3973,11 @@ msgstr ""
 
 #: fish/cmds.c:4600
 msgid "set block device to read-only"
-msgstr "खंड युक्ति को केवल पठनीय सेट करें"
+msgstr "Blockorientiertes Gerät als schreibgeschützt festlegen"
 
 #: fish/cmds.c:4601
 msgid "set block device to read-write"
-msgstr "खंड युक्ति को पठनीय-लेखन योग्य सेट करें"
+msgstr ""
 
 #: fish/cmds.c:4605
 msgid "cancel a running or paused balance"
@@ -4005,7 +4013,7 @@ msgstr ""
 
 #: fish/cmds.c:4613
 msgid "resize a btrfs filesystem"
-msgstr ""
+msgstr "Größe eines btrfs-Dateisystems ändern"
 
 #: fish/cmds.c:4614
 msgid "sync a btrfs filesystem"
@@ -4122,31 +4130,31 @@ msgstr ""
 
 #: fish/cmds.c:4645
 msgid "return true path on case-insensitive filesystem"
-msgstr "स्थिति के प्रति संवेद्य फाइल सिस्टम का सही पथ लाएँ"
+msgstr ""
 
 #: fish/cmds.c:4646
 msgid "list the contents of a file"
-msgstr "फाइल की सामग्री सूचीबद्ध करें"
+msgstr "Den Inhalt einer Datei auflisten"
 
 #: fish/cmds.c:4647
 msgid "compute MD5, SHAx or CRC checksum of file"
-msgstr "फाइल MD5, SHAx या CRC चेकसम गणना करें"
+msgstr "MD5-, SHAx- oder CRC-Prüfsumme einer Datei ermitteln"
 
 #: fish/cmds.c:4648
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
-msgstr ""
+msgstr "MD5-, SHAx- oder CRC-Prüfsumme des Inhalts eines Gerätes ermitteln"
 
 #: fish/cmds.c:4649
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr ""
+msgstr "MD5-, SHAx- oder CRC-Prüfsumme der Dateien in einem Ordner ermitteln"
 
 #: fish/cmds.c:4650
 msgid "change file mode"
-msgstr "फाइल नोड बदलें"
+msgstr "Dateimodus ändern"
 
 #: fish/cmds.c:4651 fish/cmds.c:4849
 msgid "change file owner and group"
-msgstr "फाइल स्वामी और समूह बदलें"
+msgstr "Dateibesitzer und -gruppe ändern"
 
 #: fish/cmds.c:4652
 msgid "remove a single per-backend settings string"
@@ -4154,11 +4162,11 @@ msgstr ""
 
 #: fish/cmds.c:4653
 msgid "run a command from the guest filesystem"
-msgstr "अतिथि फाइल सिस्टम से कमांड चलाएँ"
+msgstr ""
 
 #: fish/cmds.c:4654
 msgid "run a command, returning lines"
-msgstr "कमांड चलाएँ, पंक्ति वापस कर रहा है"
+msgstr ""
 
 #: fish/cmds.c:4655
 msgid "output compressed device"
@@ -4194,11 +4202,11 @@ msgstr ""
 
 #: fish/cmds.c:4663
 msgid "copy local files or directories into an image"
-msgstr ""
+msgstr "Lokale Dateien oder Ordner in ein Abbild kopieren"
 
 #: fish/cmds.c:4664
 msgid "copy remote files or directories out of an image"
-msgstr ""
+msgstr "Entfernte Dateien oder Ordner aus einem Abbild kopieren"
 
 #: fish/cmds.c:4665
 msgid "copy size bytes from source to destination using dd"
@@ -4206,11 +4214,11 @@ msgstr ""
 
 #: fish/cmds.c:4666
 msgid "copy a file"
-msgstr "कोई फाइल कॉपी करें"
+msgstr "Eine Datei kopieren"
 
 #: fish/cmds.c:4667 fish/cmds.c:4668
 msgid "copy a file or directory recursively"
-msgstr "कोई फाइल कॉपी करें या कोई निर्देशिका को बारी बारी से"
+msgstr "Eine Datei oder einen Ordner rekursiv kopieren"
 
 #: fish/cmds.c:4669
 msgid "pack directory into cpio file"
@@ -4218,11 +4226,11 @@ msgstr ""
 
 #: fish/cmds.c:4670
 msgid "copy from source to destination using dd"
-msgstr "dd के उपयोग से स्रोत से गंतव्य में कॉपी करें"
+msgstr "Mit dd von Quelle nach Ziel kopieren"
 
 #: fish/cmds.c:4671
 msgid "debugging and internals"
-msgstr "डिबगिंग और आंतरिक"
+msgstr ""
 
 #: fish/cmds.c:4672
 msgid "debug the drives (internal use only)"
@@ -4242,11 +4250,11 @@ msgstr ""
 
 #: fish/cmds.c:4676
 msgid "report file system disk space usage"
-msgstr "फाइल सिस्टम डिस्क स्पेस प्रयोग"
+msgstr ""
 
 #: fish/cmds.c:4677
 msgid "report file system disk space usage (human readable)"
-msgstr "फाइल सिस्टम डिस्क स्पेस प्रयोग का रिपोर्ट करें (मानव पठनीय)"
+msgstr ""
 
 #: fish/cmds.c:4681
 msgid "create a blank disk image"
@@ -4266,15 +4274,15 @@ msgstr ""
 
 #: fish/cmds.c:4685
 msgid "display an image"
-msgstr ""
+msgstr "Ein Abbild anzeigen"
 
 #: fish/cmds.c:4686
 msgid "return kernel messages"
-msgstr "कर्नेल संदेश लौटाएँ"
+msgstr "Kernel-Meldungen zurückgeben"
 
 #: fish/cmds.c:4690
 msgid "download a file to the local machine"
-msgstr "किसी स्थानीय मशीन में कोई फाइल डाउनलोड करें"
+msgstr "Eine Datei auf den lokalen Rechner herunterladen"
 
 #: fish/cmds.c:4691
 msgid "download a file to the local machine with offset and size"
@@ -4282,37 +4290,37 @@ msgstr ""
 
 #: fish/cmds.c:4692
 msgid "drop kernel page cache, dentries and inodes"
-msgstr "कर्नेल पेज कैश, dentries और inodes छोड़ें, "
+msgstr ""
 
 #: fish/cmds.c:4693
 msgid "estimate file space usage"
-msgstr "फाइल स्थान प्रयोग का अनुमान करें"
+msgstr "Nutzung des Dateisystems schätzen"
 
 #: fish/cmds.c:4694 fish/cmds.c:4695
 msgid "check an ext2/ext3 filesystem"
-msgstr "कोई ext2/ext3 फाइलसिस्टम जाँचें"
+msgstr "Ein ext2/ext3-Dateisystem überprüfen"
 
 #: fish/cmds.c:4696
 msgid "display a line of text"
-msgstr "पाठ पंक्ति दिखाएँ"
+msgstr "Eine Textzeile anzeigen"
 
 #: fish/cmds.c:4697
 msgid "echo arguments back to the client"
-msgstr "इको तर्क क्लाइंट को वापस"
+msgstr "Argumente an den Client zurückgeben"
 
 #: fish/cmds.c:4698
 msgid "edit a file"
-msgstr ""
+msgstr "Eine Datei bearbeiten"
 
 #: fish/cmds.c:4699 fish/cmds.c:4700 fish/cmds.c:4711 fish/cmds.c:4712
 #: fish/cmds.c:4765 fish/cmds.c:4766 fish/cmds.c:5189 fish/cmds.c:5190
 #: fish/cmds.c:5195 fish/cmds.c:5196 fish/cmds.c:5198 fish/cmds.c:5199
 msgid "return lines matching a pattern"
-msgstr "किसी प्रारूप से मेल खाता पंक्ति"
+msgstr "Zeilen zurückgeben, die auf ein Muster passen"
 
 #: fish/cmds.c:4704
 msgid "test if two files have equal contents"
-msgstr "सूची बनाएँ यदि दो फाइल के पास बराबर सामग्री है"
+msgstr "Überprüfen, ob zwei Dateien den gleichen Inhalt haben"
 
 #: fish/cmds.c:4705
 msgid "register a handler for an event or events"
@@ -4320,7 +4328,7 @@ msgstr ""
 
 #: fish/cmds.c:4706
 msgid "test if file or directory exists"
-msgstr "जाँचें यदि फाइल या निर्देशिका मौजूद है"
+msgstr "Überprüfen, ob Datei oder Ordner existiert"
 
 #: fish/cmds.c:4707
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
@@ -4328,19 +4336,19 @@ msgstr ""
 
 #: fish/cmds.c:4708 fish/cmds.c:4709
 msgid "preallocate a file in the guest filesystem"
-msgstr "गेस्ट फाइल सिस्टम में कोई फाइल पहले से आबंटित करें"
+msgstr ""
 
 #: fish/cmds.c:4713
 msgid "determine file type"
-msgstr "फाइल प्रकार निर्धारित करें"
+msgstr "Den Dateityp bestimmen"
 
 #: fish/cmds.c:4714
 msgid "detect the architecture of a binary file"
-msgstr ""
+msgstr "Die Architektur einer Binärdatei bestimmen"
 
 #: fish/cmds.c:4715
 msgid "return the size of the file in bytes"
-msgstr "बाइट में फाइल का आकार वापस करें"
+msgstr "Die Größe einer Datei in Bytes zurückgeben"
 
 #: fish/cmds.c:4716
 msgid "check if filesystem is available"
@@ -4348,7 +4356,7 @@ msgstr ""
 
 #: fish/cmds.c:4717
 msgid "fill a file with octets"
-msgstr "ऑक्टेट के साथ फाइल भरें"
+msgstr ""
 
 #: fish/cmds.c:4718
 msgid "fill a directory with empty files"
@@ -4356,27 +4364,27 @@ msgstr ""
 
 #: fish/cmds.c:4719
 msgid "fill a file with a repeating pattern of bytes"
-msgstr ""
+msgstr "Eine Datei mit einem wiederkehrenden Byte-Muster füllen"
 
 #: fish/cmds.c:4720
 msgid "find all files and directories"
-msgstr "सभी फाइल और निर्देशिका ढूँढ़ें"
+msgstr "Alle Dateien und Ordner suchen"
 
 #: fish/cmds.c:4721
 msgid "find all files and directories, returning NUL-separated list"
-msgstr "सभी फाइलें और निर्देशिका ढूँढ़ें, NUL-अलग सूची वापस कर रहा है"
+msgstr ""
 
 #: fish/cmds.c:4722
 msgid "find a filesystem by label"
-msgstr ""
+msgstr "Ein Dateisystem nach Bezeichnung suchen"
 
 #: fish/cmds.c:4723
 msgid "find a filesystem by UUID"
-msgstr ""
+msgstr "Ein Dateisystem nach UUID suchen"
 
 #: fish/cmds.c:4724
 msgid "run the filesystem checker"
-msgstr "फाइल सिस्टम जाँचकर्ता चलाएँ"
+msgstr "Die Dateisystemüberprüfung ausführen"
 
 #: fish/cmds.c:4725
 msgid "trim free space in a filesystem"
@@ -4384,7 +4392,7 @@ msgstr ""
 
 #: fish/cmds.c:4729
 msgid "get the additional kernel options"
-msgstr "अतिरिक्त कर्नेल विकल्प पाएँ"
+msgstr "Zusätzliche Kernel-Optionen ermitteln"
 
 #: fish/cmds.c:4730 fish/cmds.c:4732
 msgid "get the backend"
@@ -4392,7 +4400,7 @@ msgstr ""
 
 #: fish/cmds.c:4731
 msgid "get autosync mode"
-msgstr "autosync विधि पाएँ"
+msgstr "Autosync-Modus ermitteln"
 
 #: fish/cmds.c:4733
 msgid "get a single per-backend settings string"
@@ -4408,7 +4416,7 @@ msgstr ""
 
 #: fish/cmds.c:4736
 msgid "get direct appliance mode flag"
-msgstr "सीधा एप्लायंस विधि फ्लैग पाएँ"
+msgstr ""
 
 #: fish/cmds.c:4737
 msgid "get ext2 file attributes of a file"
@@ -4420,11 +4428,11 @@ msgstr ""
 
 #: fish/cmds.c:4739
 msgid "get the ext2/3/4 filesystem label"
-msgstr "ext2/3/4 फाइलसिस्टम लेबल पाएँ"
+msgstr "Die ext2/3/4-Dateisystembezeichnung ermitteln"
 
 #: fish/cmds.c:4740
 msgid "get the ext2/3/4 filesystem UUID"
-msgstr "ext2/3/4 फाइलसिस्टम UUID पाएँ"
+msgstr "Die ext2/3/4-Dateisystem-UUID ermitteln"
 
 #: fish/cmds.c:4741
 msgid "get the hypervisor binary"
@@ -4456,7 +4464,7 @@ msgstr ""
 
 #: fish/cmds.c:4748
 msgid "get the search path"
-msgstr "खोज पथ पाएँ"
+msgstr ""
 
 #: fish/cmds.c:4749
 msgid "get process group flag"
@@ -4476,11 +4484,11 @@ msgstr ""
 
 #: fish/cmds.c:4753
 msgid "get recovery process enabled flag"
-msgstr "पुनर्प्राप्ति प्रक्रिया सक्रिय फ्लैग पाएँ"
+msgstr ""
 
 #: fish/cmds.c:4754
 msgid "get SELinux enabled flag"
-msgstr "SELinux सक्रिय फ्लैग पाएँ"
+msgstr ""
 
 #: fish/cmds.c:4755
 msgid "get number of virtual CPUs in appliance"
@@ -4492,7 +4500,7 @@ msgstr ""
 
 #: fish/cmds.c:4757
 msgid "get command trace enabled flag"
-msgstr "कमांड ट्रैस सक्रिय फ्लैग पाएँ"
+msgstr ""
 
 #: fish/cmds.c:4758
 msgid "get the current umask"
@@ -4500,27 +4508,27 @@ msgstr ""
 
 #: fish/cmds.c:4759
 msgid "get verbose mode"
-msgstr "वर्बोस विधि पाएँ"
+msgstr "Den ausführlichkeitsmodus ermitteln"
 
 #: fish/cmds.c:4760
 msgid "get SELinux security context"
-msgstr "SELinux सुरक्षा संदर्भ पाएँ"
+msgstr "Den SELinux-Sicherheitskontext ermitteln"
 
 #: fish/cmds.c:4761 fish/cmds.c:4863
 msgid "get a single extended attribute"
-msgstr ""
+msgstr "Ein einzelnes erweitertes Attribut ermitteln"
 
 #: fish/cmds.c:4762 fish/cmds.c:4864
 msgid "list extended attributes of a file or directory"
-msgstr "किसी फाइल या निर्देशिका का विस्तृत विशेषता सूचीबद्ध करें"
+msgstr "Erweiterte Attribute einer Datei oder eines Ordners auflisten"
 
 #: fish/cmds.c:4763
 msgid "expand wildcards in command"
-msgstr "कमांड में कमांड वाइल्डकार्ड"
+msgstr "Platzhalter in Befehle expandieren"
 
 #: fish/cmds.c:4764
 msgid "expand a wildcard path"
-msgstr "वाइल्डकार्ड पथ फैलाएँ"
+msgstr "Einen Platzhalter-Pfad expandieren"
 
 #: fish/cmds.c:4767
 msgid "install GRUB 1"
@@ -4528,15 +4536,15 @@ msgstr ""
 
 #: fish/cmds.c:4768
 msgid "return first 10 lines of a file"
-msgstr "फाइल का 10 पंक्ति वापस करें"
+msgstr ""
 
 #: fish/cmds.c:4769
 msgid "return first N lines of a file"
-msgstr "फाइल का पहला N पंक्ति वापस करें"
+msgstr ""
 
 #: fish/cmds.c:4770
 msgid "dump a file in hexadecimal"
-msgstr "हेक्सा डेसीमल में फाइल डंप करें"
+msgstr ""
 
 #: fish/cmds.c:4771
 msgid "edit with a hex editor"
@@ -4608,99 +4616,101 @@ msgstr ""
 
 #: fish/cmds.c:4792
 msgid "list the contents of a single file in an initrd"
-msgstr "initrd में एक एकल फाइल की सामग्री सूचीबद्ध करें"
+msgstr ""
 
 #: fish/cmds.c:4793
 msgid "list files in an initrd"
-msgstr "किसी initrd में फाइल सूचीबद्ध करता है"
+msgstr ""
 
 #: fish/cmds.c:4794
 msgid "add an inotify watch"
-msgstr "inotify वाच जोड़ें"
+msgstr ""
 
 #: fish/cmds.c:4795
 msgid "close the inotify handle"
-msgstr "inotify नियंत्रण बंद करें"
+msgstr ""
 
 #: fish/cmds.c:4796
 msgid "return list of watched files that had events"
-msgstr "नहीं देखे गए फाइल की सूची देता है जो घटना रखती है"
+msgstr ""
 
 #: fish/cmds.c:4797
 msgid "create an inotify handle"
-msgstr "inotify नियंत्रण बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4798
 msgid "return list of inotify events"
-msgstr "inotify घटना की सूची वापस करता है"
+msgstr ""
 
 #: fish/cmds.c:4799
 msgid "remove an inotify watch"
-msgstr "inotify जाँच का हटाएँ"
+msgstr ""
 
 #: fish/cmds.c:4800
 msgid "get architecture of inspected operating system"
-msgstr ""
+msgstr "Die Architektur des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4801
 msgid "get distro of inspected operating system"
-msgstr ""
+msgstr "Die Distribution des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4802
 msgid "get drive letter mappings"
-msgstr ""
+msgstr "Zuordnung der Laufwerksbuchstaben ermitteln"
 
 #: fish/cmds.c:4803
 msgid "get filesystems associated with inspected operating system"
-msgstr ""
+msgstr "Die zum untersuchten Betriebssystem gehörenden Dateisysteme ermitteln"
 
 #: fish/cmds.c:4804
 msgid "get format of inspected operating system"
-msgstr ""
+msgstr "Das Format des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4805
 msgid "get hostname of the operating system"
-msgstr ""
+msgstr "Den Rechnernamen des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4806
 msgid "get the icon corresponding to this operating system"
-msgstr ""
+msgstr "Das zum Betriebssystem gehörende Symbol ermitteln"
 
 #: fish/cmds.c:4807
 msgid "get major version of inspected operating system"
-msgstr ""
+msgstr "Die Hauptversion des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4808
 msgid "get minor version of inspected operating system"
-msgstr ""
+msgstr "Die Unterversion des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4809
 msgid "get mountpoints of inspected operating system"
-msgstr ""
+msgstr "Die Einhängepunkte des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4810
 msgid "get package format used by the operating system"
-msgstr ""
+msgstr "Die vom Betriebssystem verwendete Paketformat ermitteln"
 
 #: fish/cmds.c:4811
 msgid "get package management tool used by the operating system"
-msgstr ""
+msgstr "Die vom Betriebssystem verwendete Paketverwaltung ermitteln"
 
 #: fish/cmds.c:4812
 msgid "get product name of inspected operating system"
-msgstr ""
+msgstr "Den Produktnamen des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4813
 msgid "get product variant of inspected operating system"
-msgstr ""
+msgstr "Die Produktvariante des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4814
 msgid "return list of operating systems found by last inspection"
 msgstr ""
+"Eine Liste der bei der letzten Untersuchung gefundenen Betriebssysteme "
+"zurückgeben"
 
 #: fish/cmds.c:4815
 msgid "get type of inspected operating system"
-msgstr ""
+msgstr "Den Typ des untersuchten Betriebssystems ermitteln"
 
 #: fish/cmds.c:4816
 msgid "get Windows CurrentControlSet of inspected operating system"
@@ -4724,47 +4734,49 @@ msgstr ""
 
 #: fish/cmds.c:4821 fish/cmds.c:4822
 msgid "get list of applications installed in the operating system"
-msgstr ""
+msgstr "Liste der im Betriebssystem installierten Anwendungen ermitteln"
 
 #: fish/cmds.c:4823
 msgid "inspect disk and return list of operating systems found"
 msgstr ""
+"Laufwerk untersuchen und eine Liste der gefundenen Betriebssysteme "
+"zurückgeben"
 
 #: fish/cmds.c:4824
 msgid "test if block device"
-msgstr ""
+msgstr "Überprüfen, ob es ein blockorientiertes Gerät ist"
 
 #: fish/cmds.c:4825
 msgid "test if character device"
-msgstr ""
+msgstr "Überprüfen, ob es ein zeichenorientiertes Gerät ist"
 
 #: fish/cmds.c:4826
 msgid "is in configuration state"
-msgstr "विन्यास स्थिति में है"
+msgstr "Im Konfigurationszustand"
 
 #: fish/cmds.c:4827
 msgid "test if a directory"
-msgstr ""
+msgstr "Überprüfen, ob es ein Ordner ist"
 
 #: fish/cmds.c:4828
 msgid "test if FIFO (named pipe)"
-msgstr ""
+msgstr "Überprüfen, ob es eine FIFO (benannte Weiterleitung) ist"
 
 #: fish/cmds.c:4829
 msgid "test if a regular file"
-msgstr ""
+msgstr "Überprüfen, ob es eine reguläre Datei ist"
 
 #: fish/cmds.c:4830
 msgid "test if device is a logical volume"
-msgstr ""
+msgstr "Überprüfen, ob es ein logischer Datenträger ist"
 
 #: fish/cmds.c:4831
 msgid "test if socket"
-msgstr ""
+msgstr "Überprüfen, ob es ein Socket ist"
 
 #: fish/cmds.c:4832
 msgid "test if symbolic link"
-msgstr ""
+msgstr "Überprüfen, ob es eine symbolische Verknüpfung ist"
 
 #: fish/cmds.c:4833
 msgid "test if a device is a whole device"
@@ -4828,7 +4840,7 @@ msgstr ""
 
 #: fish/cmds.c:4848
 msgid "change working directory"
-msgstr "कार्यशील निर्देशिका बदलें"
+msgstr "Arbeitsordner ändern"
 
 #: fish/cmds.c:4850
 msgid "scan and create Windows dynamic disk volumes"
@@ -4868,11 +4880,11 @@ msgstr ""
 
 #: fish/cmds.c:4865
 msgid "list 9p filesystems"
-msgstr ""
+msgstr "9p-Dateisysteme auflisten"
 
 #: fish/cmds.c:4866
 msgid "list the block devices"
-msgstr "खंड युक्ति को सूचीबद्ध करता है"
+msgstr "Blockgeräte auflisten"
 
 #: fish/cmds.c:4867
 msgid "mapping of disk labels to devices"
@@ -4880,7 +4892,7 @@ msgstr ""
 
 #: fish/cmds.c:4868
 msgid "list device mapper devices"
-msgstr ""
+msgstr "Gerätedateien auflisten"
 
 #: fish/cmds.c:4869
 msgid "list event handlers"
@@ -4888,7 +4900,7 @@ msgstr ""
 
 #: fish/cmds.c:4870
 msgid "list filesystems"
-msgstr ""
+msgstr "Dateisysteme auflisten"
 
 #: fish/cmds.c:4871
 msgid "list all Windows dynamic disk partitions"
@@ -4904,11 +4916,11 @@ msgstr ""
 
 #: fish/cmds.c:4874
 msgid "list the partitions"
-msgstr "विभाजन सूचीबद्ध करें"
+msgstr "Partitionen auflisten"
 
 #: fish/cmds.c:4875
 msgid "list the files in a directory (long format)"
-msgstr "निर्देशिका में फाइल की सूची बनाएँ (लंबा प्रारूप)"
+msgstr "Dateien in einem Ordner auflisten (Langformat)"
 
 #: fish/cmds.c:4876
 msgid "list the files in a directory (long format with SELinux contexts)"
@@ -4916,19 +4928,19 @@ msgstr ""
 
 #: fish/cmds.c:4877 fish/cmds.c:4878
 msgid "create a hard link"
-msgstr "कोई हार्ड लिंक बनाएँ"
+msgstr "Eine harte Verknüpfung erstellen"
 
 #: fish/cmds.c:4879 fish/cmds.c:4880
 msgid "create a symbolic link"
-msgstr "सांकेतिक लिंक बनाएँ"
+msgstr "Eine symbolische Verknüpfung erstellen"
 
 #: fish/cmds.c:4881 fish/cmds.c:5030
 msgid "remove extended attribute of a file or directory"
-msgstr "किसी फाइल या निर्देशिका की विस्तारित विशेषता हटाएँ"
+msgstr "Erweitertes Attribut einer Datei oder eines Ordners entfernen"
 
 #: fish/cmds.c:4882
 msgid "list the files in a directory"
-msgstr "किसी निर्देशिका में फाइल सूचीबद्ध करें"
+msgstr "Die Dateien in einem Ordner auflisten"
 
 #: fish/cmds.c:4883
 msgid "get list of files in a directory"
@@ -4936,43 +4948,43 @@ msgstr ""
 
 #: fish/cmds.c:4884 fish/cmds.c:5087
 msgid "set extended attribute of a file or directory"
-msgstr "किसी फाइल या निर्देशिका का विस्तारित विशेषता सेट करें"
+msgstr "Erweitertes Attribut einer Datei oder eines Ordners festlegen"
 
 #: fish/cmds.c:4885 fish/cmds.c:4887
 msgid "get file information for a symbolic link"
-msgstr "किसी सांकेतिक लिंक के लिए फाइल सूचना पाएँ"
+msgstr "Dateiinformation für eine symbolische Verknüpfung ermitteln"
 
 #: fish/cmds.c:4886 fish/cmds.c:4888
 msgid "lstat on multiple files"
-msgstr "lstat विविध फाइल पर"
+msgstr ""
 
 #: fish/cmds.c:4889
 msgid "add a key on a LUKS encrypted device"
-msgstr ""
+msgstr "Schlüssel zu einem LUKS-verschlüsselten Gerät hinzufügen"
 
 #: fish/cmds.c:4890
 msgid "close a LUKS device"
-msgstr ""
+msgstr "Ein LUKS-Gerät schließen"
 
 #: fish/cmds.c:4891 fish/cmds.c:4892
 msgid "format a block device as a LUKS encrypted device"
-msgstr ""
+msgstr "Ein Blockgerät als LUKS-verschlüsseltes Gerät formatieren"
 
 #: fish/cmds.c:4893
 msgid "remove a key from a LUKS encrypted device"
-msgstr ""
+msgstr "Schlüssel von einem LUKS-verschlüsselten Gerät entfernen"
 
 #: fish/cmds.c:4894
 msgid "open a LUKS-encrypted block device"
-msgstr ""
+msgstr "Ein LUKS-verschlüsseltes Gerät öffnen"
 
 #: fish/cmds.c:4895
 msgid "open a LUKS-encrypted block device read-only"
-msgstr ""
+msgstr "Ein LUKS-verschlüsseltes Blockgerät schreibgeschützt öffnen"
 
 #: fish/cmds.c:4896
 msgid "create an LVM logical volume"
-msgstr ""
+msgstr "Einen LVM-verwalteten logischen Datenträger erstellen"
 
 #: fish/cmds.c:4897
 msgid "create an LVM logical volume in % remaining free space"
@@ -4984,47 +4996,48 @@ msgstr ""
 
 #: fish/cmds.c:4899
 msgid "clear LVM device filter"
-msgstr ""
+msgstr "LVM-Gerätefilter leeren"
 
 #: fish/cmds.c:4900
 msgid "remove all LVM LVs, VGs and PVs"
-msgstr "सभी LVM LV, VG और PV हटाएँ"
+msgstr ""
+"Alle LVM-verwalteten logischen Datenträger, -gruppen und PVs entfernen"
 
 #: fish/cmds.c:4901
 msgid "set LVM device filter"
-msgstr ""
+msgstr "LVM-Gerätefilter setzen"
 
 #: fish/cmds.c:4902
 msgid "remove an LVM logical volume"
-msgstr "LVM लॉजिकल वाल्यूम हटाएँ"
+msgstr "Einen LVM-verwalteten logischen Datenträger entfernen"
 
 #: fish/cmds.c:4903
 msgid "rename an LVM logical volume"
-msgstr "LVM लॉजिकल वाल्यूम का नाम बदलें"
+msgstr "Einen LVM-verwalteten logischen Datenträger umbenennen"
 
 #: fish/cmds.c:4904
 msgid "resize an LVM logical volume"
-msgstr "LVM लॉजिकल वाल्यूम का आकार बदलें"
+msgstr "Größe eines LVM-verwalteten logischen Datenträgers ändern"
 
 #: fish/cmds.c:4905
 msgid "expand an LV to fill free space"
-msgstr ""
+msgstr "Einen logischen Datenträger erweitern, um freien Platz zu füllen"
 
 #: fish/cmds.c:4906 fish/cmds.c:4907
 msgid "list the LVM logical volumes (LVs)"
-msgstr "LVM लॉजिकल वाल्यूम (LVs) की सूची दें"
+msgstr "LVM-verwaltete logische Datenträger auflisten (LVs)"
 
 #: fish/cmds.c:4908
 msgid "get the UUID of a logical volume"
-msgstr ""
+msgstr "Die UUID eines LVM-verwalteten logischen Datenträgers ermitteln"
 
 #: fish/cmds.c:4909
 msgid "lgetxattr on multiple files"
-msgstr "विविध फाइल पर lgetxattr करें"
+msgstr "lgetxattr mit mehreren Dateinen ausführen"
 
 #: fish/cmds.c:4910
 msgid "open the manual"
-msgstr ""
+msgstr "Das Handbuch öffnen"
 
 #: fish/cmds.c:4914
 msgid "maximum number of disks that may be added"
@@ -5048,19 +5061,19 @@ msgstr ""
 
 #: fish/cmds.c:4922
 msgid "create a directory"
-msgstr "निर्देशिका बनाएँ"
+msgstr "Einen Ordner erstellen"
 
 #: fish/cmds.c:4923
 msgid "create a directory with a particular mode"
-msgstr "खास विधि से निर्देशिका बनाएँ"
+msgstr "Einen Ordner mit einem speziellen Modus erstellen"
 
 #: fish/cmds.c:4924
 msgid "create a directory and parents"
-msgstr "जनक और निर्देशिका बनाएँ"
+msgstr "Einen Ordner und dessen Elternordner erstellen"
 
 #: fish/cmds.c:4925
 msgid "create a temporary directory"
-msgstr "एक अस्थायी निर्देशिका बनाएँ"
+msgstr "Einen temporären Ordner erstellen"
 
 #: fish/cmds.c:4926
 msgid "create an ext2/ext3/ext4 filesystem on device"
@@ -5068,31 +5081,31 @@ msgstr ""
 
 #: fish/cmds.c:4927 fish/cmds.c:4928 fish/cmds.c:4929
 msgid "make ext2/3/4 filesystem with external journal"
-msgstr "बाहरी जर्नल के साथ ext2/3/4 फाइल सिस्टम बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4930
 msgid "make ext2/3/4 external journal"
-msgstr "ext2/3/4 बाहरी जर्नल बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4931
 msgid "make ext2/3/4 external journal with label"
-msgstr "लेबल के साथ ext2/3/4 बाहरी जर्नल बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4932
 msgid "make ext2/3/4 external journal with UUID"
-msgstr "UUID ext2/3/4 बाहरी जर्नल बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4933
 msgid "make FIFO (named pipe)"
-msgstr "FIFO (named पाइप) बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4934
 msgid "make a filesystem"
-msgstr "फाइलसिस्टम बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4935
 msgid "make a filesystem with block size"
-msgstr "खंड आकार के साथ फाइलसिस्टम बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4936
 msgid "create a btrfs filesystem"
@@ -5104,35 +5117,35 @@ msgstr ""
 
 #: fish/cmds.c:4938
 msgid "create a mountpoint"
-msgstr "आरोहबिंदु बनाएँ"
+msgstr "Einen Einängepunkt erstellen"
 
 #: fish/cmds.c:4939
 msgid "make block, character or FIFO devices"
-msgstr "खंड, वर्ण FIFO युक्ति बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4940
 msgid "make block device node"
-msgstr "खंड युक्ति नोड बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4941
 msgid "make char device node"
-msgstr "चार युक्ति नोड बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:4942
 msgid "create a swap partition"
-msgstr "कोई स्वैप विभाजन बनाएँ"
+msgstr "Eine Auslagerungspartition erstellen"
 
 #: fish/cmds.c:4943
 msgid "create a swap partition with a label"
-msgstr "लेबल के साथ कोई स्वैप विभाजन बनाएँ"
+msgstr "Eine Auslagerungspartition mit Bezeichnung erstellen"
 
 #: fish/cmds.c:4944
 msgid "create a swap partition with an explicit UUID"
-msgstr "विशेष UUID के साथ कोई स्वैप विभाजन बनाएँ"
+msgstr "Eine Auslagerungspartition mit einer expliziten UUID erstellen"
 
 #: fish/cmds.c:4945
 msgid "create a swap file"
-msgstr "कोई स्वैप फाइल बनाएँ"
+msgstr "Eine Auslagerungsdatei erstellen"
 
 #: fish/cmds.c:4946
 msgid "create a temporary file"
@@ -5140,15 +5153,15 @@ msgstr ""
 
 #: fish/cmds.c:4947
 msgid "load a kernel module"
-msgstr "कर्नेल मॉड्यूल लोड करें"
+msgstr "Ein Kernelmodul laden"
 
 #: fish/cmds.c:4948
 msgid "view a file"
-msgstr ""
+msgstr "Eine Datei betrachten"
 
 #: fish/cmds.c:4949
 msgid "mount a guest disk at a position in the filesystem"
-msgstr "फाइलसिस्टम में स्थिति पर कोई गेस्ट अतिथि आरोहित करें"
+msgstr ""
 
 #: fish/cmds.c:4950
 msgid "mount 9p filesystem"
@@ -5164,31 +5177,31 @@ msgstr ""
 
 #: fish/cmds.c:4953
 msgid "mount a file using the loop device"
-msgstr "लूप युक्ति के उपयोग से कोई फाइल आरोहित करें"
+msgstr ""
 
 #: fish/cmds.c:4954
 msgid "mount a guest disk with mount options"
-msgstr "आरोह विकल्प के साथ कोई अतिथि डिस्क आरोहित करें"
+msgstr ""
 
 #: fish/cmds.c:4955
 msgid "mount a guest disk, read-only"
-msgstr "कोई अतिथि डिस्क केवल पठनीय आरोहित करें"
+msgstr ""
 
 #: fish/cmds.c:4956
 msgid "mount a guest disk with mount options and vfstype"
-msgstr "कोई अतिथि डिस्क आरोहित करें आरोह विकल्प और vfstype के साथ"
+msgstr ""
 
 #: fish/cmds.c:4957
 msgid "show mountpoints"
-msgstr "आरोहबिंदु दिखाएँ"
+msgstr "Einhängepunkte anzeigen"
 
 #: fish/cmds.c:4958
 msgid "show mounted filesystems"
-msgstr "आरोहित फाइलसिस्टम दिखाएँ"
+msgstr "Eingehängte Dateisysteme anzeigen"
 
 #: fish/cmds.c:4959
 msgid "move a file"
-msgstr "कोई फाइल खिसकाएँ"
+msgstr "Eine Datei verschieben"
 
 #: fish/cmds.c:4963
 msgid "return number of whole block devices (disks) added"
@@ -5196,7 +5209,7 @@ msgstr ""
 
 #: fish/cmds.c:4964
 msgid "probe NTFS volume"
-msgstr "NTFS वॉल्यूम जाँचें"
+msgstr ""
 
 #: fish/cmds.c:4965
 msgid "restore NTFS from backup file"
@@ -5212,7 +5225,7 @@ msgstr ""
 
 #: fish/cmds.c:4968
 msgid "resize an NTFS filesystem"
-msgstr ""
+msgstr "Größe eines NTFS-Dateisystems ändern"
 
 #: fish/cmds.c:4969
 msgid "resize an NTFS filesystem (with size)"
@@ -5224,15 +5237,15 @@ msgstr ""
 
 #: fish/cmds.c:4972
 msgid "add a partition to the device"
-msgstr "युक्ति में कोई विभाजन जोड़ें"
+msgstr "Eine Partition zu einem Gerät hinzufügen"
 
 #: fish/cmds.c:4973
 msgid "delete a partition"
-msgstr ""
+msgstr "Eine Partition löschen"
 
 #: fish/cmds.c:4974
 msgid "partition whole disk with a single primary partition"
-msgstr "एकल प्राथमिक विभाजन से पूरे जिस्क को विभाजित करें"
+msgstr ""
 
 #: fish/cmds.c:4975
 msgid "return true if a partition is bootable"
@@ -5256,19 +5269,19 @@ msgstr ""
 
 #: fish/cmds.c:4980
 msgid "get the partition table type"
-msgstr "विभाजन सारणी प्रकार पाएँ"
+msgstr "Typ der Partitionstabelle ermitteln"
 
 #: fish/cmds.c:4981
 msgid "create an empty partition table"
-msgstr "कोई रिक्त विभाजन सारणी बनाएँ"
+msgstr "Eine leere Partitionstabelle erstellen"
 
 #: fish/cmds.c:4982
 msgid "list partitions on a device"
-msgstr "किसी युक्ति पर विभाजन सूचीबद्ध करें"
+msgstr "Partitionen auf einem Gerät auflisten"
 
 #: fish/cmds.c:4983
 msgid "make a partition bootable"
-msgstr "विभाजन को बूट योग्य बनाएँ"
+msgstr "Eine Partition bootfähig machen"
 
 #: fish/cmds.c:4984
 msgid "set the GUID of a GPT partition"
@@ -5284,11 +5297,11 @@ msgstr ""
 
 #: fish/cmds.c:4987
 msgid "set partition name"
-msgstr "विभाजन नाम सेट करें"
+msgstr "Partitionsname festlegen"
 
 #: fish/cmds.c:4988
 msgid "convert partition name to device name"
-msgstr ""
+msgstr "Partitionsname in Gerätename umwandeln"
 
 #: fish/cmds.c:4989
 msgid "convert partition name to partition number"
@@ -5296,11 +5309,11 @@ msgstr ""
 
 #: fish/cmds.c:4999
 msgid "ping the guest daemon"
-msgstr "अतिथि डेमॉन पिंग करें"
+msgstr ""
 
 #: fish/cmds.c:5000
 msgid "read part of a file"
-msgstr "किसी फाइल का हिस्सा पढ़ें"
+msgstr ""
 
 #: fish/cmds.c:5001
 msgid "read part of a device"
@@ -5316,15 +5329,15 @@ msgstr ""
 
 #: fish/cmds.c:5007
 msgid "create an LVM physical volume"
-msgstr "कोई LVM भोतिक वॉल्यूम बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:5008
 msgid "remove an LVM physical volume"
-msgstr "LVM भौतिक वाल्यूम हटाएँ"
+msgstr ""
 
 #: fish/cmds.c:5009
 msgid "resize an LVM physical volume"
-msgstr "LVM भौतिक वाल्यूम का आकार बदलें"
+msgstr ""
 
 #: fish/cmds.c:5010
 msgid "resize an LVM physical volume (with size)"
@@ -5332,11 +5345,11 @@ msgstr ""
 
 #: fish/cmds.c:5011 fish/cmds.c:5012
 msgid "list the LVM physical volumes (PVs)"
-msgstr "LVM भौतिक वाल्यूम (PVs) सूची दें"
+msgstr ""
 
 #: fish/cmds.c:5013
 msgid "get the UUID of a physical volume"
-msgstr ""
+msgstr "Die UUID eines physischen Datenträgers ermitteln"
 
 #: fish/cmds.c:5014
 msgid "write to part of a file"
@@ -5348,27 +5361,27 @@ msgstr ""
 
 #: fish/cmds.c:5019
 msgid "read a file"
-msgstr "फाइल पढ़ें"
+msgstr "Eine Datei lesen"
 
 #: fish/cmds.c:5020
 msgid "read file as lines"
-msgstr "फाइल पंक्ति बार पढ़ें"
+msgstr "Datei zeilenweise lesen"
 
 #: fish/cmds.c:5021
 msgid "read directories entries"
-msgstr "निर्देशिका प्रविष्टि पढें"
+msgstr "Einträge eines Ordners lesen"
 
 #: fish/cmds.c:5022
 msgid "read the target of a symbolic link"
-msgstr "सांकेतिक लिंक के लक्ष्य को पढ़ें"
+msgstr "Das Ziel einer symbolischen Verknüpfung ermitteln"
 
 #: fish/cmds.c:5023
 msgid "readlink on multiple files"
-msgstr "मल्टीपल फाइल पर रीडलिंक"
+msgstr ""
 
 #: fish/cmds.c:5024
 msgid "canonicalized absolute pathname"
-msgstr "निरपेक्ष पथनाम कैनोकनिलाइज करें"
+msgstr ""
 
 #: fish/cmds.c:5028
 msgid "remount a filesystem with different options"
@@ -5384,23 +5397,25 @@ msgstr ""
 
 #: fish/cmds.c:5032
 msgid "close and reopen libguestfs handle"
-msgstr "libguestfs नियंत्रण बंद करें और खोलें"
+msgstr ""
 
 #: fish/cmds.c:5033
 msgid "resize an ext2, ext3 or ext4 filesystem"
-msgstr ""
+msgstr "Größe eines ext2-, ext3- oder ext4-Dateisystems ändern"
 
 #: fish/cmds.c:5034
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
+"Ein ext2-, ext3- oder ext4-Dateisystem so weit wie möglich verkleinern"
 
 #: fish/cmds.c:5035
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
+"Größe eines ext2-, ext3- oder ext4-Dateisystems ändern (mit Größenangabe)"
 
 #: fish/cmds.c:5036
 msgid "remove a file"
-msgstr "फाइल हटाएँ"
+msgstr "Eine Datei entfernen"
 
 #: fish/cmds.c:5037
 msgid "remove a file ignoring errors"
@@ -5408,15 +5423,15 @@ msgstr ""
 
 #: fish/cmds.c:5038
 msgid "remove a file or directory recursively"
-msgstr "फाइल या निर्देशिका बारी बारी से हटाएँ"
+msgstr "Eine Datei oder einen Ordner rekursiv entfernen"
 
 #: fish/cmds.c:5039
 msgid "remove a directory"
-msgstr "निर्देशिका हटाएँ"
+msgstr "Einen Ordner entfernen"
 
 #: fish/cmds.c:5040
 msgid "remove a mountpoint"
-msgstr "माउंट प्वाइंट हटाएँ"
+msgstr "Einen Einhängepunkt entfernen"
 
 #: fish/cmds.c:5041
 msgid "synchronize the contents of two directories"
@@ -5432,19 +5447,19 @@ msgstr ""
 
 #: fish/cmds.c:5050
 msgid "scrub (securely wipe) a device"
-msgstr "scrub (securely wipe) युक्ति"
+msgstr ""
 
 #: fish/cmds.c:5051
 msgid "scrub (securely wipe) a file"
-msgstr "फाइल स्क्रब करें"
+msgstr ""
 
 #: fish/cmds.c:5052
 msgid "scrub (securely wipe) free space"
-msgstr "मुक्त स्थान को साफ करें"
+msgstr ""
 
 #: fish/cmds.c:5056
 msgid "add options to kernel command line"
-msgstr "कर्नेल कमांड लाइन में विकल्प जोड़ें"
+msgstr "Optionen zur Kernel-Befehlszeile hinzufügen"
 
 #: fish/cmds.c:5057 fish/cmds.c:5059
 msgid "set the backend"
@@ -5452,7 +5467,7 @@ msgstr ""
 
 #: fish/cmds.c:5058
 msgid "set autosync mode"
-msgstr "autosync विधि सेट करें"
+msgstr "Autosync-Modus festlegen"
 
 #: fish/cmds.c:5060
 msgid "set a single per-backend settings string"
@@ -5468,7 +5483,7 @@ msgstr ""
 
 #: fish/cmds.c:5063
 msgid "enable or disable direct appliance mode"
-msgstr "सीधा एप्लायंस विधि को सक्रिय या निष्क्रय करें"
+msgstr ""
 
 #: fish/cmds.c:5064
 msgid "set ext2 file attributes of a file"
@@ -5480,11 +5495,11 @@ msgstr ""
 
 #: fish/cmds.c:5066
 msgid "set the ext2/3/4 filesystem label"
-msgstr "ext2/3/4 फाइल सिस्टम ਲੇਬਲ सेट करें"
+msgstr ""
 
 #: fish/cmds.c:5067
 msgid "set the ext2/3/4 filesystem UUID"
-msgstr "ext2/3/4 फाइल सिस्टम UUID सेट करें"
+msgstr ""
 
 #: fish/cmds.c:5068
 msgid "set the hypervisor binary"
@@ -5512,7 +5527,7 @@ msgstr ""
 
 #: fish/cmds.c:5074
 msgid "set the search path"
-msgstr "खोज पथ सेट करें"
+msgstr ""
 
 #: fish/cmds.c:5075
 msgid "set process group flag"
@@ -5528,11 +5543,11 @@ msgstr ""
 
 #: fish/cmds.c:5078
 msgid "enable or disable the recovery process"
-msgstr "प्राप्ति प्रक्रिया को सक्रिय या निष्क्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5079
 msgid "set SELinux enabled or disabled at appliance boot"
-msgstr "SELinux को एप्लायंस बूट पर सक्रिय या निष्क्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5080
 msgid "set number of virtual CPUs in appliance"
@@ -5544,7 +5559,7 @@ msgstr ""
 
 #: fish/cmds.c:5082
 msgid "enable or disable command traces"
-msgstr "कमांड ट्रैस को सक्रिय या निष्क्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5083
 msgid "set the filesystem UUID"
@@ -5552,11 +5567,11 @@ msgstr ""
 
 #: fish/cmds.c:5084
 msgid "set verbose mode"
-msgstr "वर्बोस विधि सेट करें"
+msgstr ""
 
 #: fish/cmds.c:5085
 msgid "set SELinux security context"
-msgstr "SELinux सुरक्षा संदर्भ सेट करें"
+msgstr ""
 
 #: fish/cmds.c:5086
 msgid "set an environment variable"
@@ -5564,31 +5579,31 @@ msgstr ""
 
 #: fish/cmds.c:5088 fish/cmds.c:5089
 msgid "create partitions on a block device"
-msgstr "खंड युक्ति पर विभाजन बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:5090
 msgid "modify a single partition on a block device"
-msgstr "खंड युक्ति पर एक विभाजन रूपांतरित करें"
+msgstr ""
 
 #: fish/cmds.c:5091
 msgid "display the disk geometry from the partition table"
-msgstr "डिस्क ज्यामिती को विभाजन सारणी से दिखाएँ"
+msgstr ""
 
 #: fish/cmds.c:5092
 msgid "display the kernel geometry"
-msgstr "कर्नेल ज्यामिति को दिखाएँ"
+msgstr ""
 
 #: fish/cmds.c:5093
 msgid "display the partition table"
-msgstr "विभाजन सारणी को दिखाएँ"
+msgstr ""
 
 #: fish/cmds.c:5094
 msgid "run a command via the shell"
-msgstr "शेल से होकर कमांड चलाएँ"
+msgstr ""
 
 #: fish/cmds.c:5095
 msgid "run a command via the shell returning lines"
-msgstr "शेल वापसी पंक्ति से कमांड चलाएँ"
+msgstr ""
 
 #: fish/cmds.c:5096
 msgid "shutdown the hypervisor"
@@ -5596,7 +5611,7 @@ msgstr ""
 
 #: fish/cmds.c:5097
 msgid "sleep for some seconds"
-msgstr "कुछ सेकेंड के लिए स्लीप करें"
+msgstr ""
 
 #: fish/cmds.c:5101
 msgid "create a sparse disk image and add"
@@ -5604,15 +5619,15 @@ msgstr ""
 
 #: fish/cmds.c:5102 fish/cmds.c:5103
 msgid "get file information"
-msgstr "फाइल सूचना पाएँ"
+msgstr "Informationen zur Datei ermitteln"
 
 #: fish/cmds.c:5104
 msgid "get file system statistics"
-msgstr "फाइल सिस्टम सांख्यिकी पाएँ"
+msgstr ""
 
 #: fish/cmds.c:5105 fish/cmds.c:5106
 msgid "print the printable strings in a file"
-msgstr "फाइल में छपने योग्य स्ट्रिंग छापें"
+msgstr ""
 
 #: fish/cmds.c:5107
 msgid "list supported groups of commands"
@@ -5620,39 +5635,39 @@ msgstr ""
 
 #: fish/cmds.c:5108
 msgid "disable swap on device"
-msgstr "युक्ति पर स्वैप निष्क्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5109
 msgid "disable swap on file"
-msgstr "फाइल पर स्वैप निष्क्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5110
 msgid "disable swap on labeled swap partition"
-msgstr "लेबल स्वैप विभाजन पर स्वैप निष्क्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5111
 msgid "disable swap on swap partition by UUID"
-msgstr "UUID के द्वारा स्वैप विभाजन पर स्वैप निष्क्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5112
 msgid "enable swap on device"
-msgstr "युक्ति पर स्वैप सक्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5113
 msgid "enable swap on file"
-msgstr "फाइल पर स्वैप सक्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5114
 msgid "enable swap on labeled swap partition"
-msgstr "लेबल स्वैप विभाजन पर स्वैप सक्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5115
 msgid "enable swap on swap partition by UUID"
-msgstr "UUID के द्वारा स्वैप विभाजन पर स्वैप सक्रिय करें"
+msgstr ""
 
 #: fish/cmds.c:5116
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr "डिस्क तुल्यकालित करें, डिस्क छवि में फ्लश किया जाता है"
+msgstr ""
 
 #: fish/cmds.c:5117
 msgid "install the SYSLINUX bootloader"
@@ -5660,27 +5675,27 @@ msgstr ""
 
 #: fish/cmds.c:5118
 msgid "return last 10 lines of a file"
-msgstr "फाइल का अंतिम 10 पंक्ति वापस करें"
+msgstr "Die letzten 10 Zeilen einer Datei zurückgeben"
 
 #: fish/cmds.c:5119
 msgid "return last N lines of a file"
-msgstr "फाइल अंतिम N पंक्ति वापस करें"
+msgstr "Die letzten N Zeilen einer Datei zurückgeben"
 
 #: fish/cmds.c:5120
 msgid "unpack tarfile to directory"
-msgstr "tarfile को निर्देशिका में खोलें"
+msgstr "Tar-Datei zu einem Ordner entpacken"
 
 #: fish/cmds.c:5121
 msgid "pack directory into tarfile"
-msgstr "निर्देशिका को tarfile में पैक करें"
+msgstr "Ordner in eine Tar-Datei packen"
 
 #: fish/cmds.c:5122 fish/cmds.c:5136
 msgid "unpack compressed tarball to directory"
-msgstr "संकुचित tarball को निर्देशिका में खोलें"
+msgstr "Komprimiertes Tar-Archiv in einen Ordner entpacken"
 
 #: fish/cmds.c:5123 fish/cmds.c:5137
 msgid "pack directory into compressed tarball"
-msgstr "निर्देशिका को संकुचित tarball में पैक करें"
+msgstr "Ordner in ein komprimiertes Tar-Archiv packen"
 
 #: fish/cmds.c:5124
 msgid "print elapsed time taken to run a command"
@@ -5688,15 +5703,15 @@ msgstr ""
 
 #: fish/cmds.c:5128
 msgid "update file timestamps or create a new file"
-msgstr "फाइल टाइमस्टैंप अपडेट करें या नया फाइल बनाएँ"
+msgstr "Zeitstempel einer Datei aktualisieren oder neue Datei erstellen"
 
 #: fish/cmds.c:5132
 msgid "truncate a file to zero size"
-msgstr "फाइल को शून्य आकार में काटें"
+msgstr "Eine Datei auf Größe Null beschneiden"
 
 #: fish/cmds.c:5133
 msgid "truncate a file to a particular size"
-msgstr "फाइल को किसी खास आकार में काटें"
+msgstr "Eine Datei auf eine bestimmte Größe beschneiden"
 
 #: fish/cmds.c:5134
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
@@ -5704,71 +5719,71 @@ msgstr ""
 
 #: fish/cmds.c:5135
 msgid "get ext2/ext3/ext4 superblock details"
-msgstr "ext2/ext3/ext4 सुपरब्लॉक विवरण"
+msgstr ""
 
 #: fish/cmds.c:5138
 msgid "set file mode creation mask (umask)"
-msgstr "फाइल मोड निर्माण मास्क (umask) सेट करें"
+msgstr ""
 
 #: fish/cmds.c:5139
 msgid "unmount a filesystem"
-msgstr "किसी फाइल सिस्टम अनारोहित करें"
+msgstr "Ein Dateisystem aushängen"
 
 #: fish/cmds.c:5140
 msgid "unmount all filesystems"
-msgstr "सभी फाइल सिस्टम अनारोहित करें"
+msgstr "Alle Dateisysteme aushängen"
 
 #: fish/cmds.c:5141
 msgid "unmount a locally mounted filesystem"
-msgstr ""
+msgstr "ein lokal eingehängtes Dateisystem aushängen"
 
 #: fish/cmds.c:5148
 msgid "unset an environment variable"
-msgstr ""
+msgstr "eine Umgebungsvariable außer Kraft setzen"
 
 #: fish/cmds.c:5149
 msgid "upload a file from the local machine"
-msgstr "स्थानीय मशीन मसे फाइल अपलोड करें"
+msgstr "Eine Datei vom lokalen Rechner hochladen"
 
 #: fish/cmds.c:5150
 msgid "upload a file from the local machine with offset"
-msgstr ""
+msgstr "Eine Datei vom lokalen Rechner mit Verzögerung hochladen"
 
 #: fish/cmds.c:5151
 msgid "cancel the current upload or download operation"
-msgstr ""
+msgstr "die aktuelle Dateiübertragung abbrechen"
 
 #: fish/cmds.c:5152
 msgid "set timestamp of a file with nanosecond precision"
-msgstr "फाइल का टाइमस्टैंप को nanosecond शुद्धता से सेट करें"
+msgstr "Zeitstempel einer Datei mit Nanosekunden-Präzision setzen"
 
 #: fish/cmds.c:5153
 msgid "appliance kernel version"
-msgstr ""
+msgstr "Kernelversion der Appliance"
 
 #: fish/cmds.c:5157
 msgid "get the library version number"
-msgstr "लाइब्रेरी संस्करण संख्या पाएँ"
+msgstr "Versionsnummer der Bibliothek ermitteln"
 
 #: fish/cmds.c:5158
 msgid "get the filesystem label"
-msgstr ""
+msgstr "Dateisystembezeichnung ermitteln"
 
 #: fish/cmds.c:5159
 msgid "get the Linux VFS type corresponding to a mounted device"
-msgstr "Linux VFS प्रकार किसी आरोहित युक्ति के अऩुरूप पाएँ"
+msgstr ""
 
 #: fish/cmds.c:5160
 msgid "get the filesystem UUID"
-msgstr ""
+msgstr "Dateisystem-UUID ermitteln"
 
 #: fish/cmds.c:5161
 msgid "activate or deactivate some volume groups"
-msgstr "कुछ वाल्यूम समूह सक्रिय या निष्क्रिय करें"
+msgstr "einige Datenträgergruppen aktivieren oder deaktivieren"
 
 #: fish/cmds.c:5162
 msgid "activate or deactivate all volume groups"
-msgstr "सभी वाल्यूम समूह सक्रिय या निष्क्रिय करें"
+msgstr "alle Datenträgergruppen aktivieren oder deaktivieren"
 
 #: fish/cmds.c:5163
 msgid "generate a new random UUID for a volume group"
@@ -5780,7 +5795,7 @@ msgstr ""
 
 #: fish/cmds.c:5165
 msgid "create an LVM volume group"
-msgstr "LVM वॉल्यूम समूह बनाएँ"
+msgstr ""
 
 #: fish/cmds.c:5166
 msgid "get the LV UUIDs of all LVs in the volume group"
@@ -5796,15 +5811,15 @@ msgstr ""
 
 #: fish/cmds.c:5169
 msgid "remove an LVM volume group"
-msgstr "LVM वाल्यूम समूह हटाएँ"
+msgstr ""
 
 #: fish/cmds.c:5170
 msgid "rename an LVM volume group"
-msgstr "LVM वॉल्यूम समूह का नाम बदलें"
+msgstr ""
 
 #: fish/cmds.c:5171 fish/cmds.c:5172
 msgid "list the LVM volume groups (VGs)"
-msgstr "LVM वाल्यूम समूह (VGs) सूचीबद्ध करें"
+msgstr ""
 
 #: fish/cmds.c:5173
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
@@ -5812,19 +5827,19 @@ msgstr ""
 
 #: fish/cmds.c:5174
 msgid "get the UUID of a volume group"
-msgstr ""
+msgstr "UUID einer Datenträgergruppe ermitteln"
 
 #: fish/cmds.c:5178
 msgid "count characters in a file"
-msgstr "फाइल में वर्ण गिनती करें"
+msgstr "Zeichen in einer Datei zählen"
 
 #: fish/cmds.c:5179
 msgid "count lines in a file"
-msgstr "फाइल में पंक्ति गिनती करें"
+msgstr "Zeilen in einer Datei zählen"
 
 #: fish/cmds.c:5180
 msgid "count words in a file"
-msgstr "फाइल में शब्द गिनती करें"
+msgstr "Wörter in einer Datei zählen"
 
 #: fish/cmds.c:5181
 msgid "wipe a filesystem signature from a device"
@@ -5832,15 +5847,15 @@ msgstr ""
 
 #: fish/cmds.c:5182
 msgid "create a new file"
-msgstr ""
+msgstr "Eine neue Datei anlegen"
 
 #: fish/cmds.c:5183
 msgid "append content to end of file"
-msgstr ""
+msgstr "Inhalt ans Ende einer Datei anhängen"
 
 #: fish/cmds.c:5184
 msgid "create a file"
-msgstr "फाइल बनाएँ"
+msgstr "Eine Datei anlegen"
 
 #: fish/cmds.c:5185
 msgid "change parameters of an XFS filesystem"
@@ -5860,11 +5875,11 @@ msgstr ""
 
 #: fish/cmds.c:5191
 msgid "write zeroes to the device"
-msgstr "युक्ति में शून्य लिखें"
+msgstr "Das Gerät mit Nullen überschreiben"
 
 #: fish/cmds.c:5192
 msgid "write zeroes to an entire device"
-msgstr ""
+msgstr "Das komplette Gerät mit Nullen überschreiben"
 
 #: fish/cmds.c:5193
 msgid "zero free space in a filesystem"
@@ -5872,16 +5887,15 @@ msgstr ""
 
 #: fish/cmds.c:5194
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr "ext2/3 फाइल सिस्टम पर अप्रयुक्त inodes और डिस्क खंड शून्य करें"
+msgstr ""
 
 #: fish/cmds.c:5197
 msgid "determine file type inside a compressed file"
-msgstr "संकुचित फाइल अंदर फाइल प्रकार निर्धारित करें"
+msgstr "Dateityp innerhalb einer komprimierten Datei ermitteln"
 
 #: fish/cmds.c:5200
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
-"-h <cmd> / help <cmd> का उपयोग कमांड के लिए विस्तृत मदद दिखाने के लिए करें."
 
 #: fish/cmds.c:5968 fish/cmds.c:5986 fish/cmds.c:5999 fish/cmds.c:6027
 #: fish/cmds.c:6083 fish/cmds.c:6147 fish/cmds.c:6491 fish/cmds.c:7357
@@ -5928,7 +5942,7 @@ msgstr ""
 #: fish/cmds.c:24305
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
-msgstr ""
+msgstr "%s: Unbekanntes optionales Argument »%s«\n"
 
 #: fish/cmds.c:6043 fish/cmds.c:6163 fish/cmds.c:6274 fish/cmds.c:7378
 #: fish/cmds.c:7440 fish/cmds.c:7538 fish/cmds.c:7990 fish/cmds.c:8196
@@ -5946,7 +5960,7 @@ msgstr ""
 #: fish/cmds.c:24311
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
-msgstr ""
+msgstr "%s: Optionales Argument »%s« wurde zweimal angegeben\n"
 
 #: fish/cmds.c:6246 fish/cmds.c:6449 fish/cmds.c:7047 fish/cmds.c:7089
 #: fish/cmds.c:7424 fish/cmds.c:7509 fish/cmds.c:7655 fish/cmds.c:8102
@@ -5996,7 +6010,7 @@ msgstr ""
 #: fish/cmds.c:24268 fish/cmds.c:24285
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: %s: अवैध पूर्णांक पैरामीटर (%s ने %d लौटाया)\n"
+msgstr ""
 
 #: fish/cmds.c:6455 fish/cmds.c:7053 fish/cmds.c:7095 fish/cmds.c:8471
 #: fish/cmds.c:8517 fish/cmds.c:8536 fish/cmds.c:8669 fish/cmds.c:8742
@@ -6025,7 +6039,7 @@ msgstr "%s: %s: अवैध पूर्णांक पैरामीटर (
 #: fish/cmds.c:24094
 #, c-format
 msgid "%s: %s: integer out of range\n"
-msgstr "%s: %s: परिसर के बाहर पूर्णांक\n"
+msgstr "%s: %s: Ganzzahl außerhalb des Bereichs\n"
 
 #: fish/cmds.c:24625
 #, c-format
@@ -6045,12 +6059,12 @@ msgstr ""
 #: fish/cmds.c:24633
 #, c-format
 msgid "%s: unknown command\n"
-msgstr "%s: अज्ञात कमांड\n"
+msgstr "%s: Unbekannter Befehl\n"
 
 #: fish/config.c:65
 #, c-format
 msgid "%s: %s: line %d: error parsing configuration file: %s\n"
-msgstr ""
+msgstr "%s: %s: Zeile %d: Fehler beim Auswerten der Konfigurationsdatei: %s\n"
 
 #: fish/copy.c:37
 #, c-format
@@ -6069,12 +6083,12 @@ msgstr ""
 #: fish/display.c:43
 #, c-format
 msgid "display filename\n"
-msgstr ""
+msgstr "Dateiname anzeigen\n"
 
 #: fish/edit.c:41
 #, c-format
 msgid "use '%s filename' to edit a file\n"
-msgstr "किसी फाइल के संपादन के लिए '%s filename' का प्रयोग करें\n"
+msgstr ""
 
 #: fish/event-names.c:68
 #, c-format
@@ -6155,14 +6169,13 @@ msgstr ""
 #: fish/fish.c:256
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
-msgstr "%s: --listen=PID: PID was not a number: %s\n"
+msgstr ""
 
 #: fish/fish.c:263
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
-"%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 
 #: fish/fish.c:313
 #, c-format
@@ -6172,22 +6185,22 @@ msgstr ""
 #: fish/fish.c:320
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
-msgstr "%s: only one -f parameter can be given\n"
+msgstr "%s: der Parameter -f darf nicht mehrmals angegeben werden\n"
 
 #: fish/fish.c:517
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
-msgstr "%s: cannot use --listen and --remote options at the same time\n"
+msgstr ""
 
 #: fish/fish.c:525
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
-msgstr "%s: extra parameters on the command line with --listen flag\n"
+msgstr ""
 
 #: fish/fish.c:531
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr "%s: cannot use --listen and --file options at the same time\n"
+msgstr ""
 
 #: fish/fish.c:710
 #, c-format
@@ -6205,45 +6218,46 @@ msgstr ""
 #: fish/fish.c:870 fish/fish.c:886
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr "%s: कमांड तर्क खाली स्थान से अलग नहीं\n"
+msgstr ""
 
 #: fish/fish.c:880
 #, c-format
 msgid "%s: unterminated single quote\n"
-msgstr "%s: unterminated single quote\n"
+msgstr "%s: unpaariges einfaches Anführungszeichen\n"
 
 #: fish/fish.c:910
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
-msgstr "%s: internal error parsing string at '%s'\n"
+msgstr "%s: interner Fehler beim Auswerten der Zeichenkette bei »%s«\n"
 
 #: fish/fish.c:927
 #, c-format
 msgid "%s: too many arguments\n"
-msgstr "%s: too many arguments\n"
+msgstr "%s: Zu viele Argumente\n"
 
 #: fish/fish.c:1002
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
+"%s: unzulässige Escape-Sequenz in Zeichenkette (beginnend bei Position %d)\n"
 
 #: fish/fish.c:1011
 #, c-format
 msgid "%s: unterminated double quote\n"
-msgstr "%s: unterminated double quote\n"
+msgstr "%s: unpaariges doppeltes Anführungszeichen\n"
 
 #: fish/fish.c:1074
 #, c-format
 msgid "%s: empty command on command line\n"
-msgstr "%s: empty command on command line\n"
+msgstr "%s: Leerer Befehl in Befehlszeile\n"
 
 #: fish/fish.c:1232
 msgid "display a list of commands or help on a command"
-msgstr "कमांड पर मदद या कमांड की सूची दिखाएँ"
+msgstr ""
 
 #: fish/fish.c:1234
 msgid "quit guestfish"
-msgstr "quit guestfish"
+msgstr "Guestfish beenden"
 
 #: fish/fish.c:1245
 #, c-format
@@ -6252,9 +6266,6 @@ msgid ""
 "     help cmd\n"
 "     help\n"
 msgstr ""
-"help - display a list of commands or help on a command\n"
-"     help cmd\n"
-"     help\n"
 
 #: fish/fish.c:1253
 #, c-format
@@ -6262,13 +6273,11 @@ msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
-"quit - quit guestfish\n"
-"     quit\n"
 
 #: fish/fish.c:1258
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
-msgstr "%s: command not known, use -h to list all commands\n"
+msgstr ""
 
 #: fish/fish.c:1274
 #, c-format
@@ -6281,12 +6290,12 @@ msgstr ""
 #: fish/fish.c:1283
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
-msgstr ""
+msgstr "%s:%d: libguestfs: Fehler: %s\n"
 
 #: fish/fish.c:1408
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
-msgstr "स्ट्रिंग में \"%s\" रवअवे उद्धरण\n"
+msgstr ""
 
 #: fish/fish.c:1745
 #, c-format
@@ -6318,12 +6327,12 @@ msgstr ""
 #: fish/glob.c:62
 #, c-format
 msgid "use 'glob command [args...]'\n"
-msgstr "use 'glob command [args...]'\n"
+msgstr ""
 
 #: fish/glob.c:127
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
-msgstr "glob: guestfs_glob_expand call failed: %s\n"
+msgstr ""
 
 #: fish/help.c:39
 #, c-format
@@ -6357,7 +6366,7 @@ msgstr ""
 #: fish/hexedit.c:53
 #, c-format
 msgid "hexedit: %s is a zero length file or device\n"
-msgstr ""
+msgstr "hexedit: %s ist ein Gerät oder eine Datei der Größe Null\n"
 
 #: fish/hexedit.c:64
 #, c-format
@@ -6370,7 +6379,7 @@ msgstr ""
 #: fish/hexedit.c:93
 #, c-format
 msgid "hexedit: invalid range\n"
-msgstr ""
+msgstr "hexedit: Ungültiger Bereich\n"
 
 #: fish/inspect.c:62
 #, c-format
@@ -6423,12 +6432,12 @@ msgstr ""
 #: fish/inspect.c:174
 #, c-format
 msgid "Operating system: %s\n"
-msgstr ""
+msgstr "Betriebssystem: %s\n"
 
 #: fish/inspect.c:192
 #, c-format
 msgid "%s mounted on %s\n"
-msgstr ""
+msgstr "%s eingehängt auf %s\n"
 
 #: fish/keys.c:57
 #, c-format
@@ -6438,7 +6447,7 @@ msgstr ""
 #: fish/lcd.c:35
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr "'lcd directory' का उपयोग स्थानीय निर्देशिका में बदलने के लिए करें\n"
+msgstr ""
 
 #: fish/man.c:36
 #, c-format
@@ -6448,7 +6457,7 @@ msgstr ""
 #: fish/more.c:42
 #, c-format
 msgid "use '%s filename' to page a file\n"
-msgstr "फाइल पेज करने के लिए '%s filename' का उपयोग करें\n"
+msgstr ""
 
 #: fish/options.c:107
 #, c-format
@@ -6458,7 +6467,7 @@ msgstr ""
 #: fish/options.c:271
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
-msgstr ""
+msgstr "%s: »%s« konnte nicht eingehängt werden.\n"
 
 #: fish/options.c:275
 #, c-format
@@ -6495,12 +6504,12 @@ msgstr ""
 #: fish/prep-boot.c:56 fish/prep-boot.c:110
 #, c-format
 msgid "failed to add boot partition: %s"
-msgstr ""
+msgstr "Boot-Partition konnte nicht hinzugefügt werden: %s"
 
 #: fish/prep-boot.c:60 fish/prep-boot.c:114
 #, c-format
 msgid "failed to add root partition: %s"
-msgstr ""
+msgstr "Root-Partition konnte nicht hinzugefügt werden: %s"
 
 #: fish/prep-boot.c:69 fish/prep-boot.c:128
 #, c-format
@@ -6551,16 +6560,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"guestfish -N %-8s - %s\n"
+"\n"
+"%s\n"
 
 #: fish/prep.c:49
 #, c-format
 msgid "  Optional parameters:\n"
-msgstr ""
+msgstr "  Optionale Parameter:\n"
 
 #: fish/prep.c:56
 #, c-format
 msgid "<%s> %s (default: %s)\n"
-msgstr ""
+msgstr "<%s> %s (Vorgabe: %s)\n"
 
 #: fish/prep.c:66
 #, c-format
@@ -6595,7 +6607,7 @@ msgstr ""
 #: fish/rc.c:295
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
-msgstr "guestfish: protocol error: could not read 'hello' message\n"
+msgstr ""
 
 #: fish/rc.c:300
 #, c-format
@@ -6603,33 +6615,31 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: protocol error: version mismatch, server version '%s' does not "
-"match client version '%s'.  The two versions must match exactly.\n"
 
 #: fish/rc.c:385 fish/rc.c:399
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
-msgstr "guestfish: रिमोट: लगता है कि सर्वर नहीं चल रहा है\n"
+msgstr ""
 
 #: fish/rc.c:411 fish/rc.c:425
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटि: सर्वर को आरंभिक अभिवादन नहीं भेज सका\n"
+msgstr ""
 
 #: fish/rc.c:436
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr "guestfish: प्रोटोकॉल त्रुटि: सर्वर से जवाब डिकोड नहीं कर सका\n"
+msgstr ""
 
 #: fish/reopen.c:39
 #, c-format
 msgid "'reopen' command takes no parameters\n"
-msgstr "'reopen' कमांड कोई पैरामीटर नहीं लेता है\n"
+msgstr "Der Befehl »reopen« akzeptiert keine Parameter.\n"
 
 #: fish/reopen.c:52
 #, c-format
 msgid "reopen: guestfs_create: failed to create handle\n"
-msgstr "reopen: guestfs_create: failed to create handle\n"
+msgstr ""
 
 #: fish/setenv.c:35
 #, c-format
@@ -6643,16 +6653,16 @@ msgstr ""
 
 #: fish/supported.c:54
 msgid "yes"
-msgstr "हाँ"
+msgstr "Ja"
 
 #: fish/supported.c:54
 msgid "no"
-msgstr "नहीं"
+msgstr "Nein"
 
 #: fish/time.c:37
 #, c-format
 msgid "use 'time command [args...]'\n"
-msgstr "use 'time command [args...]'\n"
+msgstr ""
 
 #: fish/uri.c:112
 #, c-format
@@ -6672,7 +6682,7 @@ msgstr ""
 #: fish/windows.c:120
 #, c-format
 msgid "%s: drive '%c:' not found.\n"
-msgstr ""
+msgstr "%s: Laufwerk »%c:« wurde nicht gefunden.\n"
 
 #: format/format.c:62
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
@@ -6805,8 +6815,6 @@ msgstr ""
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
-"%s: तुम्हें मेजबान फाइल सिस्टम में कोई माउंटप्वाइंट को जरूर निर्दिष्ट करना "
-"चाहिए\n"
 
 #: fuse/guestunmount.c:56
 #, c-format
@@ -6843,7 +6851,7 @@ msgstr ""
 #: fuse/guestunmount.c:219
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
-msgstr ""
+msgstr "%s: %s ist nicht eingehängt: %s\n"
 
 #: inspector/inspector.c:71
 #, c-format
@@ -6921,22 +6929,22 @@ msgstr ""
 #: inspector/inspector.c:800
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
-msgstr ""
+msgstr "%s: xmlSaveToFd fehlgeschlagen\n"
 
 #: inspector/inspector.c:807
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
-msgstr ""
+msgstr "%s: xmlNewDoc fehlgeschlagen\n"
 
 #: inspector/inspector.c:812
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
-msgstr ""
+msgstr "%s: xmlCopyNode fehlgeschlagen\n"
 
 #: inspector/inspector.c:819
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
-msgstr ""
+msgstr "%s: xmlSaveDoc fehlgeschlagen\n"
 
 #: make-fs/make-fs.c:78
 #, c-format
@@ -6974,7 +6982,7 @@ msgstr ""
 #: make-fs/make-fs.c:253 make-fs/make-fs.c:310
 #, c-format
 msgid "%s: %s command failed\n"
-msgstr ""
+msgstr "%s: %s-Befehl fehlgeschlagen\n"
 
 #: make-fs/make-fs.c:434
 #, c-format
@@ -7013,7 +7021,7 @@ msgstr ""
 
 #: p2v/conversion.c:222
 msgid "Doing conversion ..."
-msgstr ""
+msgstr "Umwandlung wird ausgeführt …"
 
 #: p2v/conversion.c:312
 msgid "Control connection closed by remote."
@@ -7025,19 +7033,19 @@ msgstr ""
 
 #: p2v/gui.c:121
 msgid "Conversion server:"
-msgstr ""
+msgstr "Umwandlungsserver:"
 
 #: p2v/gui.c:131
 msgid "SSH port:"
-msgstr ""
+msgstr "SSH-Port:"
 
 #: p2v/gui.c:142
 msgid "User name:"
-msgstr ""
+msgstr "Benutzername:"
 
 #: p2v/gui.c:154
 msgid "Password:"
-msgstr ""
+msgstr "Passwort:"
 
 #: p2v/gui.c:170
 msgid "Use sudo when running virt-v2v"
@@ -7049,7 +7057,7 @@ msgstr ""
 
 #: p2v/gui.c:200
 msgid "virt-p2v "
-msgstr ""
+msgstr "virt-p2v "
 
 #: p2v/gui.c:201
 msgid "Next"
@@ -7057,7 +7065,7 @@ msgstr ""
 
 #: p2v/gui.c:251
 msgid "error: No conversion server given."
-msgstr ""
+msgstr "Fehler: Kein Umwandlungsserver angegeben."
 
 #: p2v/gui.c:259
 msgid "error: Invalid port number. If in doubt, use \"22\"."
@@ -7083,7 +7091,7 @@ msgstr ""
 
 #: p2v/gui.c:436
 msgid "Name:"
-msgstr ""
+msgstr "Name:"
 
 #: p2v/gui.c:446
 msgid "# vCPUs:"
@@ -7091,7 +7099,7 @@ msgstr ""
 
 #: p2v/gui.c:456
 msgid "Memory (MB):"
-msgstr ""
+msgstr "Speicher (MB):"
 
 #: p2v/gui.c:470
 msgid "Virt-v2v output options"
@@ -7134,7 +7142,7 @@ msgstr ""
 
 #: p2v/gui.c:508
 msgid "Output format (-of):"
-msgstr ""
+msgstr "Ausgabeformat (-of):"
 
 #: p2v/gui.c:513
 msgid ""
@@ -7154,7 +7162,7 @@ msgstr ""
 
 #: p2v/gui.c:547
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #: p2v/gui.c:555
 msgid "Fixed hard disks"
@@ -7162,11 +7170,11 @@ msgstr ""
 
 #: p2v/gui.c:567
 msgid "Removable media"
-msgstr ""
+msgstr "Wechseldatenträger"
 
 #: p2v/gui.c:579
 msgid "Network interfaces"
-msgstr ""
+msgstr "Netzwerkschnittstellen"
 
 #: p2v/gui.c:607
 msgid "Back"
@@ -7174,12 +7182,12 @@ msgstr ""
 
 #: p2v/gui.c:608
 msgid "Start conversion"
-msgstr ""
+msgstr "Umwandlung starten"
 
 #: p2v/gui.c:644
 #, c-format
 msgid "virt-p2v (client) %s"
-msgstr ""
+msgstr "virt-p2v (Client) %s"
 
 #: p2v/gui.c:647
 #, c-format
@@ -7187,6 +7195,8 @@ msgid ""
 "virt-p2v (client) %s\n"
 "virt-v2v (conversion server) %d.%d.%d"
 msgstr ""
+"virt-p2v (Client) %s\n"
+"virt-v2v (Umwandlungsserver) %d.%d.%d"
 
 #: p2v/gui.c:770 p2v/gui.c:825 p2v/gui.c:873
 msgid "Convert"
@@ -7194,15 +7204,15 @@ msgstr ""
 
 #: p2v/gui.c:777 p2v/gui.c:832 p2v/gui.c:880
 msgid "Device"
-msgstr ""
+msgstr "Gerät"
 
 #: p2v/gui.c:784
 msgid "Size (GB)"
-msgstr ""
+msgstr " Größe (GB)"
 
 #: p2v/gui.c:791
 msgid "Model"
-msgstr ""
+msgstr "Modell"
 
 #: p2v/gui.c:887
 msgid "Connect to virtual network"
@@ -7229,7 +7239,7 @@ msgstr ""
 
 #: p2v/gui.c:1196 p2v/gui.c:1229
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: p2v/gui.c:1227
 msgid ""
@@ -7240,19 +7250,19 @@ msgstr ""
 #: p2v/gui.c:1314
 #, c-format
 msgid "Conversion failed: %s"
-msgstr ""
+msgstr "Umwandlung fehlgeschlagen: %s"
 
 #: p2v/gui.c:1315
 msgid "Conversion failed"
-msgstr ""
+msgstr "Umwandlung fehlgeschlagen"
 
 #: p2v/gui.c:1324
 msgid "The conversion was successful."
-msgstr ""
+msgstr "Die Umwandlung war erfolgreich."
 
 #: p2v/gui.c:1325
 msgid "Conversion was successful"
-msgstr ""
+msgstr "Die Umwandlung war erfolgreich"
 
 #: p2v/main.c:70
 #, c-format
@@ -7407,19 +7417,19 @@ msgstr ""
 
 #: src/conn-socket.c:63
 msgid "accept_connection called twice"
-msgstr ""
+msgstr "accept_connection wurde zwei Mal aufgerufen"
 
 #: src/conn-socket.c:142
 msgid "read_data: socket not connected"
-msgstr ""
+msgstr "read_data: Socket nicht verbunden"
 
 #: src/conn-socket.c:217
 msgid "can_read_data: socket not connected"
-msgstr ""
+msgstr "can_read_data: Socket nicht verbunden"
 
 #: src/conn-socket.c:246
 msgid "write_data: socket not connected"
-msgstr ""
+msgstr "write_data: Socket nicht verbunden"
 
 #: src/conn-socket.c:339
 msgid "error reading console messages from the appliance"
@@ -7446,7 +7456,7 @@ msgstr ""
 #: src/create.c:68
 #, c-format
 msgid "invalid size: %<PRIi64>"
-msgstr ""
+msgstr "Ungültige Größe: %<PRIi64>"
 
 #: src/create.c:76
 msgid "backingfile cannot be used for raw format disks"
@@ -7455,12 +7465,12 @@ msgstr ""
 #: src/create.c:91
 #, c-format
 msgid "unsupported format '%s'"
-msgstr ""
+msgstr "Nicht unterstütztes Format »%s«"
 
 #: src/create.c:105
 #, c-format
 msgid "cannot open block device: %s"
-msgstr ""
+msgstr "Blockorientiertes Gerät kann nicht geöffnet werden: %s"
 
 #: src/create.c:139
 msgid "backingformat parameter cannot be used with raw format"
@@ -7595,7 +7605,7 @@ msgstr ""
 
 #: src/drives.c:278
 msgid "rbd: port number must be specified"
-msgstr ""
+msgstr "rbd: Portnummer muss angegeben werden"
 
 #: src/drives.c:284
 msgid "rbd: image name parameter should not be an empty string"
@@ -7619,7 +7629,7 @@ msgstr ""
 
 #: src/drives.c:318
 msgid "sheepdog: port number must be specified"
-msgstr ""
+msgstr "sheepdog: Portnummer muss angegeben werden"
 
 #: src/drives.c:324
 msgid "sheepdog: volume parameter should not be an empty string"
@@ -7631,7 +7641,7 @@ msgstr ""
 
 #: src/drives.c:341
 msgid "ssh: you must specify exactly one server"
-msgstr ""
+msgstr "ssh: Sie müssen genau einen Server angeben"
 
 #: src/drives.c:347
 msgid "ssh: only tcp transport is supported"
@@ -7639,11 +7649,11 @@ msgstr ""
 
 #: src/drives.c:352
 msgid "ssh: pathname should not be an empty string"
-msgstr ""
+msgstr "ssh: Pfadname sollte keine leere Zeichenkette sein"
 
 #: src/drives.c:357
 msgid "ssh: pathname must begin with a '/'"
-msgstr ""
+msgstr "ssh: Pfadname muss mit einem »/« beginnen"
 
 #: src/drives.c:362
 msgid "ssh: username should not be an empty string"
@@ -7689,7 +7699,7 @@ msgstr ""
 #: src/drives.c:687
 #, c-format
 msgid "invalid hostname '%s'"
-msgstr ""
+msgstr "Ungültiger Rechnername »%s«"
 
 #: src/drives.c:698
 #, c-format
@@ -7707,7 +7717,7 @@ msgstr ""
 #: src/drives.c:801 src/drives.c:807
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
-msgstr ""
+msgstr "Parameter %s ist leer oder enthält unzulässige Zeichen"
 
 #: src/drives.c:813
 msgid "label parameter is empty, too long, or contains disallowed characters"
@@ -7732,7 +7742,7 @@ msgstr ""
 #: src/drives.c:898
 #, c-format
 msgid "unknown protocol '%s'"
-msgstr ""
+msgstr "unbekanntes Protokoll »%s«"
 
 #: src/drives.c:916 src/drives.c:1064
 msgid "the current backend does not support hotplugging drives"
@@ -7750,16 +7760,16 @@ msgstr ""
 #: src/errors.c:234
 #, c-format
 msgid "libguestfs: error: %s\n"
-msgstr "libguestfs: error: %s\n"
+msgstr "libguestfs: Fehler: %s\n"
 
 #: src/errors.c:262
 #, c-format
 msgid "<truncated, original size %zu bytes>"
-msgstr ""
+msgstr "<abgeschnitten, Originalgröße %zu Bytes>"
 
 #: src/errors.c:290
 msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
+msgstr ""
 
 #: src/errors.c:293
 msgid ""
@@ -7893,7 +7903,7 @@ msgstr ""
 #: src/handle.c:319
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
-msgstr "guestfs_close: called twice on the same handle\n"
+msgstr ""
 
 #: src/handle.c:524
 msgid ""
@@ -7966,7 +7976,7 @@ msgstr ""
 #: src/inspect-icon.c:648
 #, c-format
 msgid "read: %s: unexpected end of file"
-msgstr ""
+msgstr "read: %s: Unerwartetes Dateiende"
 
 #: src/inspect.c:284
 msgid "not a Windows guest, or systemroot could not be determined"
@@ -8008,11 +8018,11 @@ msgstr ""
 
 #: src/launch-direct.c:258 src/launch-uml.c:159
 msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "you must call guestfs_add_drive before guestfs_launch"
+msgstr "Sie müssen guestfs_add_drive vor guestfs_launch aufrufen"
 
 #: src/launch-direct.c:851 src/launch-libvirt.c:626
 msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "qemu launched and contacted daemon, but state != READY"
+msgstr ""
 
 #: src/launch-direct.c:1253 src/launch-libvirt.c:1414
 #, c-format
@@ -8118,7 +8128,7 @@ msgstr ""
 
 #: src/launch-libvirt.c:1368
 msgid "'iface' parameter is not supported by the libvirt backend"
-msgstr ""
+msgstr "Der Parameter »iface« wird vom libvirt-Backend nicht unterstützt."
 
 #: src/launch-libvirt.c:1497
 msgid ""
@@ -8241,17 +8251,17 @@ msgstr ""
 
 #: src/launch.c:201
 msgid "qemu has not been launched yet"
-msgstr "qemu को अबतक लॉन्च नहीं किया गया है"
+msgstr "qemu wurde noch nicht gestartet"
 
 #: src/launch.c:272
 #, c-format
 msgid "parameter '%s' isn't allowed"
-msgstr ""
+msgstr "Parameter »%s« ist nicht erlaubt"
 
 #: src/libvirt-auth.c:100
 #, c-format
 msgid "unknown credential type '%s'"
-msgstr ""
+msgstr "unbekannter Anmeldedatentyp »%s«"
 
 #: src/libvirt-auth.c:105
 msgid "list of supported credentials is too long"
@@ -8298,7 +8308,7 @@ msgstr ""
 
 #: src/libvirt-domain.c:220
 msgid "unknown readonlydisk parameter"
-msgstr ""
+msgstr "unbekannter readonlydisk-Parameter"
 
 #: src/libvirt-domain.c:249
 #, c-format
@@ -8337,27 +8347,27 @@ msgstr ""
 #: src/libvirt-domain.c:556
 #, c-format
 msgid "disk[%zu]: network device"
-msgstr ""
+msgstr "Platte[%zu]: Netzwerkgerät"
 
 #: src/libvirt-domain.c:571
 #, c-format
 msgid "disk[%zu]: protocol: %s"
-msgstr ""
+msgstr "Platte[%zu]: Protokoll: %s"
 
 #: src/libvirt-domain.c:590
 #, c-format
 msgid "disk[%zu]: username: %s"
-msgstr ""
+msgstr "Platte[%zu]: Benutzername: %s"
 
 #: src/libvirt-domain.c:615
 #, c-format
 msgid "disk[%zu]: host: %s:%s"
-msgstr ""
+msgstr "Platte[%zu]: Rechner: %s:%s"
 
 #: src/libvirt-domain.c:638
 #, c-format
 msgid "disk[%zu]: filename: %s"
-msgstr ""
+msgstr "Platte[%zu]: Dateiname: %s"
 
 #: src/libvirt-domain.c:678
 msgid "libvirt domain has no disks"
@@ -8372,11 +8382,13 @@ msgstr ""
 #: src/libvirt-domain.c:766
 #, c-format
 msgid "error reading libvirt XML information: %s"
-msgstr ""
+msgstr "Fehler beim Lesen der XML-Information von libvirt: %s"
 
 #: src/libvirt-domain.c:776
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
+"Die von libvirt zurückgegebenen XML-Informationen konnten nicht ausgewertet "
+"werden."
 
 #: src/libvirt-domain.c:786
 msgid ""
@@ -8386,12 +8398,12 @@ msgstr ""
 
 #: src/osinfo.c:253
 msgid "osinfo: unable to create new XPath context"
-msgstr ""
+msgstr "osinfo: Der neue XPath-Kontext konnte nicht erzeugt werden."
 
 #: src/osinfo.c:263
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
-msgstr ""
+msgstr "osinfo: %s: Der XPath-Ausdruck konnte nicht aufgelöst werden."
 
 #: src/proto.c:201
 #, c-format
@@ -8402,86 +8414,86 @@ msgstr ""
 
 #: src/proto.c:247
 msgid "xdr_guestfs_message_header failed"
-msgstr "xdr_guestfs_message_header failed"
+msgstr "xdr_guestfs_message_header ist gescheitert"
 
 #: src/proto.c:256
 msgid "dispatch failed to marshal args"
-msgstr "dispatch failed to marshal args"
+msgstr ""
 
 #: src/proto.c:363 src/proto.c:852
 msgid "operation cancelled by user"
-msgstr ""
+msgstr "Vorgang wurde vom Benutzer abgebrochen"
 
 #: src/proto.c:433
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
-msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr "xdr_guestfs_chunk fehlgeschlagen (Puffer = %p, Puffergröße = %zu)"
 
 #: src/proto.c:530
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
-msgstr "guestfsd से जादुई हस्ताक्षर पाया , लेकिन %d स्थिति में"
+msgstr ""
 
 #: src/proto.c:549
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
-msgstr "message length (%u) > maximum possible size (%d)"
+msgstr ""
 
 #: src/proto.c:811
 msgid "write to daemon socket"
-msgstr "डेमॉन सॉकेट में लिखें"
+msgstr ""
 
 #: src/proto.c:837
 msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr "receive_file_data: unexpected flag received when reading file chunks"
+msgstr ""
 
 #: src/proto.c:845
 msgid "failed to parse file chunk"
-msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
+msgstr ""
 
 #: src/proto.c:856
 msgid "file receive cancelled by daemon"
-msgstr "फाइल प्राप्ति को डेमॉन के द्वारा रद्द किया गया"
+msgstr "Dateiempfang wurde vom Hintergrunddienst abgebrochen"
 
 #: src/tmpdirs.c:56 src/tmpdirs.c:61
 #, c-format
 msgid "failed to set temporary directory: %s"
-msgstr ""
+msgstr "Das temporäre Verzeichnis konnte nicht festgelegt werden: %s"
 
 #: src/tmpdirs.c:66
 #, c-format
 msgid "temporary directory '%s' is not a directory"
-msgstr ""
+msgstr "Das temporäre Verzeichnis »%s« ist kein Verzeichnis."
 
 #: src/tmpdirs.c:135
 #, c-format
 msgid "%s: cannot create temporary directory"
-msgstr "%s: को अस्थायी निर्देशिका नहीं बना सकता है"
+msgstr "%s: Temporärer Ordner konnte nicht angelegt werden"
 
 #: src/utils.c:196
 #, c-format
 msgid "%s exited successfully"
-msgstr ""
+msgstr "%s erfolgreich beendet"
 
 #: src/utils.c:199
 #, c-format
 msgid "%s exited with error status %d"
-msgstr ""
+msgstr "%s beendet mit Fehlerstatus %d"
 
 #: src/utils.c:203
 #, c-format
 msgid "%s killed by signal %d (%s)"
-msgstr ""
+msgstr "%s abgewürgt durch Signal %d (%s)"
 
 #: src/utils.c:207
 #, c-format
 msgid "%s stopped by signal %d (%s)"
-msgstr ""
+msgstr "%s gestoppt durch Signal %d (%s)"
 
 #: src/utils.c:211
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
-msgstr ""
+msgstr "%s beendet aus unbekanntem Grund (Status %d)"
 
 #: test-tool/test-tool.c:54
 #, c-format
@@ -8503,32 +8515,32 @@ msgstr ""
 #: test-tool/test-tool.c:114
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: unbekannte lange Option: %s (%d)\n"
 
 #: test-tool/test-tool.c:123
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: unzulässige Zeitüberschreitung: %s\n"
 
 #: test-tool/test-tool.c:133 test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
-msgstr "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr "libguestfs-test-tool: libguestfs-Handle konnte nicht erstellt werden\n"
 
 #: test-tool/test-tool.c:138
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
-msgstr "libguestfs-test-tool: guestfs_version failed\n"
+msgstr "libguestfs-test-tool: guestfs_version fehlgeschlagen\n"
 
 #: test-tool/test-tool.c:154
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: unerwartete Befehlszeilenoption 0x%x\n"
 
 #: test-tool/test-tool.c:161
 #, c-format
 msgid "libguestfs-test-tool: extra arguments on the command line\n"
-msgstr ""
+msgstr "libguestfs-test-tool: zusätzliche Argumente in der Befehlszeile\n"
 
 #: test-tool/test-tool.c:185
 #, c-format
@@ -8536,6 +8548,8 @@ msgid ""
 "libguestfs-test-tool: failed parsing environment variables.\n"
 "Check earlier messages, and the output of the 'printenv' command.\n"
 msgstr ""
+"libguestfs-test-tool: Die Umgebungsvariablen konnten nicht ausgewertet werden.\n"
+"Prüfen Sie frühere Meldungen und die Ausgabe des Befehls »printenv«.\n"
 
 #: test-tool/test-tool.c:224
 #, c-format
@@ -8545,32 +8559,32 @@ msgstr ""
 #: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
-msgstr "libguestfs-test-tool: failed to launch appliance\n"
+msgstr ""
 
 #: test-tool/test-tool.c:286
 #, c-format
 msgid "libguestfs-test-tool: failed to run part-disk\n"
-msgstr ""
+msgstr "libguestfs-test-tool: part-disk konnte nicht ausgeführt werden\n"
 
 #: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
-msgstr "libguestfs-test-tool: failed to mkfs.ext2\n"
+msgstr "libguestfs-test-tool: mkfs.ext2 konnte nicht ausgeführt werden\n"
 
 #: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
-msgstr "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
+msgstr "libguestfs-test-tool: /dev/sda1 konnte nicht in / eingehängt werden\n"
 
 #: test-tool/test-tool.c:305
 #, c-format
 msgid "libguestfs-test-tool: failed to touch file\n"
-msgstr ""
+msgstr "libguestfs-test-tool: Datei konnte nicht angelegt werden\n"
 
 #: test-tool/test-tool.c:311
 #, c-format
 msgid "libguestfs-test-tool: shutdown failed\n"
-msgstr ""
+msgstr "libguestfs-test-tool: Herunterfahren ist fehlgeschlagen\n"
 
 #: test-tool/test-tool.c:345
 #, c-format
@@ -8578,31 +8592,33 @@ msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
+"Die Umgebungsvariable LIBGUESTFS_HV/LIBGUESTFS_QEMU ist bereits gesetzt,\n"
+"daher können die Optionen --qemu und --qemudir nicht verwendet werden.\n"
 
 #: test-tool/test-tool.c:353
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
-msgstr "द्विपदीय '%s' मौजूद नहीं है या निष्पादनीय नहीं है\n"
+msgstr "Das Binary »%s« existiert nicht oder ist nicht ausführbar\n"
 
 #: test-tool/test-tool.c:370
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
-msgstr "%s: qemu स्रोत निर्देशिका की तरह नहीं दिखता है\n"
+msgstr "%s: scheint kein qemu-Quellverzeichnis zu sein\n"
 
 #: v2v/domainxml-c.c:148 v2v/domainxml-c.c:242
 #, c-format
 msgid "cannot open libvirt connection '%s'"
-msgstr ""
+msgstr "libvirt-Verbindung »%s« konnte nicht geöffnet werden"
 
 #: v2v/domainxml-c.c:150 v2v/domainxml-c.c:244
 #, c-format
 msgid "cannot open libvirt connection"
-msgstr ""
+msgstr "libvirt-Verbindung konnte nicht geöffnet werden"
 
 #: v2v/domainxml-c.c:171
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
-msgstr ""
+msgstr "libvirt-Domain »%s« konnte nicht gefunden werden: %s"
 
 #: v2v/domainxml-c.c:186
 #, c-format
@@ -8610,29 +8626,31 @@ msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
+"Die libvirt-Domain »%s« läuft entweder oder pausiert. Sie muss "
+"heruntergefahren werden, um die Umwandlung mit virt-v2v ausführen zu können."
 
 #: v2v/domainxml-c.c:199
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
-msgstr ""
+msgstr "XML-Beschreibung des Gasts »%s« konnte nicht geholt werden: %s"
 
 #: v2v/domainxml-c.c:265
 #, c-format
 msgid "cannot find libvirt pool '%s': %s"
-msgstr ""
+msgstr "libvirt-Pool »%s« konnte nicht gefunden werden: %s"
 
 #: v2v/domainxml-c.c:274
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
-msgstr ""
+msgstr "XML-Beschreibung des Pools »%s« konnte nicht geholt werden: %s"
 
 #: tools/virt-list-filesystems:147
 msgid "virt-list-filesystems: no image or VM name given"
-msgstr ""
+msgstr "virt-list-filesystems: kein Image oder VM-Name angegeben"
 
 #: tools/virt-list-partitions:159
 msgid "virt-list-partitions: no image or VM name given"
-msgstr ""
+msgstr "virt-list-partitions: kein Image oder VM-Name angegeben"
 
 #: tools/virt-tar:190 tools/virt-tar:197
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
@@ -8645,16 +8663,17 @@ msgstr ""
 #: tools/virt-tar:222
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr ""
+"virt-tar: enweder -x oder -u müssen in der Befehlszeile angegeben werden\n"
 
 #: tools/virt-tar:233
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
-msgstr ""
+msgstr "virt-tar: {tarball}: Datei nicht gefunden\n"
 
 #: tools/virt-tar:236
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
-msgstr ""
+msgstr "virt-tar: {dir}: Verzeichnisname muss mit dem Zeichen »/« beginnen\n"
 
 #: tools/virt-tar:258 tools/virt-win-reg:298
 #, perl-brace-format
@@ -8671,7 +8690,7 @@ msgstr ""
 #: tools/virt-tar:262 tools/virt-win-reg:302
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
-msgstr ""
+msgstr "{prog}: Multiboot-Betriebssysteme werden nicht unterstützt.\n"
 
 #: tools/virt-win-reg:242
 msgid "no libvirt domain name or disk image given\n"
@@ -8686,19 +8705,22 @@ msgstr ""
 #: tools/virt-win-reg:483
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: Benutzerverzeichnis konnte nicht gefunden werden\n"
 
 #: tools/virt-win-reg:488
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: kein unterstützter Windows-Registry-Pfad\n"
 
 #: tools/virt-win-reg:561
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
+"virt-win-reg: {p}: Registry-Datei konnte nicht heruntergeladen werden: "
+"{err}\n"
 
 #: tools/virt-win-reg:578
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
+"virt-win-reg: {p}: Registry-Datei konnte nicht hochgeladen werden: {err}\n"
