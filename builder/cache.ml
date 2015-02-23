@@ -35,7 +35,7 @@ type t = {
 
 let create ~verbose ~directory =
   if not (is_directory directory) then
-    mkdir directory 0o755;
+    mkdir_p directory 0o755;
   {
     verbose = verbose;
     directory = directory;
