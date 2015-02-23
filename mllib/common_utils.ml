@@ -673,3 +673,14 @@ let qemu_input_filename filename =
     "./" ^ filename
   else
     filename
+
+let rec mkdir_p path permissions =
+  try Unix.mkdir path permissions
+  with
+  | Unix.Unix_error (Unix.EEXIST, _, _) -> ()
+  | Unix.Unix_error (Unix.ENOENT, _, _) ->
+    (* A component in the path does not exist, so first try
+     * creating the parent directory, and then again the requested
+     * directory. *)
+    mkdir_p (Filename.dirname path) permissions;
+    Unix.mkdir path permissions
