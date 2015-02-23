@@ -141,3 +141,6 @@ val qemu_input_filename : string -> string
     try to interpret that as "foo" in the file:/// protocol.  To
     avoid that, if the path is relative prefix it with "./" since
     qemu-img won't try to interpret such a path. *)
+
+val mkdir_p : string -> int -> unit
+(** Creates a directory, and its parents if missing. *)
