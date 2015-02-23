@@ -203,9 +203,10 @@ EXTRA_DIST = \
 	tests/run-xml-to-junit.sh \
 	tests/run-xml-to-junit.xsl \
 	tmp/.gitignore \
-	tx-pull.sh \
 	update-bugs.sh \
 	valgrind-suppressions \
+	zanata.xml \
+	zanata-pull.sh \
 	.x-sc_avoid_ctype_macros \
 	.x-sc_prohibit_have_config_h \
 	.x-sc_prohibit_magic_number_exit \
