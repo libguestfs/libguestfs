@@ -555,7 +555,8 @@ let main () =
       let preallocation = if oformat = "qcow2" then Some "metadata" else None in
       let () =
         let g = new G.guestfs () in
-        if verbose then ( g#set_trace true; g#set_verbose true );
+        if trace then g#set_trace true;
+        if verbose then g#set_verbose true;
         g#disk_create ?preallocation ofile oformat osize in
       let cmd =
         sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
@@ -608,7 +609,8 @@ let main () =
   msg (f_"Opening the new disk");
   let g =
     let g = new G.guestfs () in
-    if verbose then g#set_trace true;
+    if trace then g#set_trace true;
+    if verbose then g#set_verbose true;
 
     (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
     (match smp with None -> () | Some smp -> g#set_smp smp);
