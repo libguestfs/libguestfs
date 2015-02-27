@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.26\n"
+"Project-Id-Version: libguestfs 1.29.27\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-02-17 12:06+0000\n"
+"POT-Creation-Date: 2015-02-27 14:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78970,27 +78970,27 @@ msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:4531
-msgid "Push and pull from Transifex."
+msgid "Push and pull from Zanata."
 msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:4535
 #, no-wrap
 msgid ""
-" tx push -s\n"
+" zanata push\n"
 "\n"
 msgstr ""
 
 #. type: textblock
 #: ../src/guestfs.pod:4537
-msgid "to push the latest POT files to Transifex.  Then run:"
+msgid "to push the latest POT files to Zanata.  Then run:"
 msgstr ""
 
 #. type: verbatim
 #: ../src/guestfs.pod:4539
 #, no-wrap
 msgid ""
-" ./tx-pull.sh\n"
+" ./zanata-pull.sh\n"
 "\n"
 msgstr ""
 
