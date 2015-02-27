@@ -143,9 +143,6 @@ exec >>%s 2>&1
   if not (Random_seed.set_random_seed g root) then
     warning (f_"random seed could not be set for this type of guest");
 
-  (* Used for numbering firstboot commands. *)
-  let i = ref 0 in
-
   (* Store the passwords and set them all at the end. *)
   let passwords = Hashtbl.create 13 in
   let set_password user pw =
@@ -191,22 +188,20 @@ exec >>%s 2>&1
       Perl_edit.edit_file ~verbose g#ocaml_handle path expr
 
     | `FirstbootCommand cmd ->
-      incr i;
-      msg (f_"Installing firstboot command: [%d] %s") !i cmd;
-      Firstboot.add_firstboot_script g root !i cmd
+      msg (f_"Installing firstboot command: %s") cmd;
+      Firstboot.add_firstboot_script g root cmd cmd
 
     | `FirstbootPackages pkgs ->
-      incr i;
-      msg (f_"Installing firstboot packages: [%d] %s") !i
+      msg (f_"Installing firstboot packages: %s")
         (String.concat " " pkgs);
       let cmd = guest_install_command pkgs in
-      Firstboot.add_firstboot_script g root !i cmd
+      let name = String.concat " " ("install" :: pkgs) in
+      Firstboot.add_firstboot_script g root name cmd
 
     | `FirstbootScript script ->
-      incr i;
-      msg (f_"Installing firstboot script: [%d] %s") !i script;
+      msg (f_"Installing firstboot script: %s") script;
       let cmd = read_whole_file script in
-      Firstboot.add_firstboot_script g root !i cmd
+      Firstboot.add_firstboot_script g root script cmd
 
     | `Hostname hostname ->
       msg (f_"Setting the hostname: %s") hostname;

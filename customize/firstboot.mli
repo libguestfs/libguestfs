@@ -16,13 +16,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val add_firstboot_script : Guestfs.guestfs -> string -> int -> string -> unit
-  (** [add_firstboot_script g root idx content] adds a firstboot
-      script called [shortname] containing [content].
+val add_firstboot_script : Guestfs.guestfs -> string -> string -> string -> unit
+  (** [add_firstboot_script g root name content] adds a firstboot
+      script called [name] containing [content].
 
-      NB. [content] is the contents of the script, {b not} a filename.
+      [content] is the contents of the script, {b not} a filename.
 
-      The scripts run in index ([idx]) order.
+      The actual name of the script on the guest filesystem is made of [name]
+      with all characters but alphanumeric replaced with dashes.
+
+      The scripts are run in the order they are registered.
 
       For Linux guests using SELinux you should make sure the
       filesystem is relabelled after calling this. *)
