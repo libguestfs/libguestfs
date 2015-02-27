@@ -140,17 +140,10 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   (* Perform the conversion of the Windows guest. *)
 
   let rec configure_firstboot () =
-    let fb = Buffer.create 1024 in
-    bprintf fb "@echo off\n";
+    configure_rhev_apt ();
+    unconfigure_xenpv ()
 
-    configure_rhev_apt fb;
-    unconfigure_xenpv fb;
-
-    (* Write the completed script to the guest. *)
-    let firstboot_script = Buffer.contents fb in
-    Firstboot.add_firstboot_script g inspect.i_root "firstboot" firstboot_script
-
-  and configure_rhev_apt fb =
+  and configure_rhev_apt () =
     (* Configure RHEV-APT (the RHEV guest agent).  However if it doesn't
      * exist just warn about it and continue.
      *)
@@ -159,22 +152,30 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     | Some rhev_apt_exe ->
       g#upload rhev_apt_exe "/rhev-apt.exe"; (* XXX *)
 
-      bprintf fb "\
+      let fb_script = "\
+@echo off
+
 echo installing rhev-apt
 \"\\rhev-apt.exe\" /S /v /qn
 
 echo starting rhev-apt
 net start rhev-apt
-"
+" in
+      Firstboot.add_firstboot_script g inspect.i_root
+        "configure rhev-apt" fb_script
 
-  and unconfigure_xenpv fb =
+  and unconfigure_xenpv () =
     match xenpv_uninst with
     | None -> () (* nothing to be uninstalled *)
     | Some uninst ->
-      bprintf fb "\
+      let fb_script = sprintf "\
+@echo off
+
 echo uninstalling Xen PV driver
 \"%s\"
-" uninst
+" uninst in
+      Firstboot.add_firstboot_script g inspect.i_root
+        "uninstall Xen PV" fb_script
   in
 
   let rec update_system_hive root =
