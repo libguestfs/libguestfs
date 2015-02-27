@@ -21,13 +21,18 @@ include $(top_srcdir)/subdir-rules.mk
 # into the po/ directory and the translations into the usual
 # libguestfs.pot file.
 
-# Languages.
+# Languages that we translate.
 # Don't use LINGUAS (uppercase) as Gentoo defines it (RHBZ#804464).
 linguas = ja uk
+
+# Languages that we have PO files for, but we don't translate
+# because there is insufficient coverage.
+linguas_not_translated = de en_GB es eu fr nl tg zh_CN
 
 EXTRA_DIST = \
 	libguestfs-docs.pot \
 	$(linguas:%=%.po) \
+	$(linguas_not_translated:%=%.po) \
 	podfiles
 
 CLEANFILES = po4a.conf
