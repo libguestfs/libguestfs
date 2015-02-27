@@ -210,16 +210,39 @@ module Windows = struct
      * scripts in the directory.  Note we need to use CRLF line endings
      * in this script.
      *)
-    let firstboot_script = "\
+    let firstboot_script = sprintf "\
 @echo off
 
-echo starting firstboot service >>log.txt
+setlocal EnableDelayedExpansion
+set firstboot=%s
+set log=%%firstboot%%\\log.txt
 
-for /f %%f in ('dir /b scripts') do call \"scripts\\%%f\" >>log.txt
+set scripts=%%firstboot%%\\scripts
+set scripts_done=%%firstboot%%\\scripts-done
 
-echo uninstalling firstboot service >>log.txt
-rhsrvany.exe -s firstboot uninstall >>log.txt
-" in
+call :main > \"%%log%%\" 2>&1
+exit /b
+
+:main
+echo starting firstboot service
+
+if not exist \"%%scripts_done%%\" (
+  mkdir \"%%scripts_done%%\"
+)
+
+for %%%%f in (\"%%scripts%%\"\\*.bat) do (
+  echo running \"%%%%f\"
+  call \"%%%%f\"
+  set elvl=!errorlevel!
+  echo .... exit code !elvl!
+  if !elvl! equ 0 (
+    move \"%%%%f\" \"%%scripts_done%%\"
+  )
+)
+
+echo uninstalling firstboot service
+rhsrvany.exe -s firstboot uninstall
+" firstboot_dir_win in
 
     g#write (firstboot_dir // "firstboot.bat") (unix2dos firstboot_script);
 
