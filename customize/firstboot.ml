@@ -24,6 +24,9 @@ open Common_gettext.Gettext
 open Customize_utils
 open Regedit
 
+let unix2dos s =
+  String.concat "\r\n" (Str.split_delim (Str.regexp_string "\n") s)
+
 (* For Linux guests. *)
 module Linux = struct
   let firstboot_dir = "/usr/lib/virt-sysprep"
@@ -207,22 +210,18 @@ module Windows = struct
      * scripts in the directory.  Note we need to use CRLF line endings
      * in this script.
      *)
-    let firstboot_script = [
-      "@echo off";
-      "echo starting firstboot service >>log.txt";
-      (* Notes:
-       * - You have to use double %% inside the batch file, but NOT
-       * when typing the same commands on the command line.
-       * - You have to use 'call' in front of every external command
-       * else it basically exec's the command and never returns.
-       * FFS.
-       *)
-      "for /f %%f in ('dir /b scripts') do call \"scripts\\%%f\" >>log.txt";
-      "echo uninstalling firstboot service >>log.txt";
-      "rhsrvany.exe -s firstboot uninstall >>log.txt";
-    ] in
-    let firstboot_script = String.concat "\r\n" firstboot_script ^ "\r\n" in
-    g#write (firstboot_dir // "firstboot.bat") firstboot_script;
+    let firstboot_script = "\
+@echo off
+
+echo starting firstboot service >>log.txt
+
+for /f %%f in ('dir /b scripts') do call \"scripts\\%%f\" >>log.txt
+
+echo uninstalling firstboot service >>log.txt
+rhsrvany.exe -s firstboot uninstall >>log.txt
+" in
+
+    g#write (firstboot_dir // "firstboot.bat") (unix2dos firstboot_script);
 
     (* Open the SYSTEM hive. *)
     let systemroot = g#inspect_get_windows_systemroot root in
@@ -284,7 +283,7 @@ let add_firstboot_script (g : Guestfs.guestfs) root i content =
     let t = Int64.of_float (Unix.time ()) in
     let r = string_random8 () in
     let filename = sprintf "%s/scripts/%04d-%Ld-%s.bat" firstboot_dir i t r in
-    g#write filename content
+    g#write filename (unix2dos content)
 
   | _ ->
     error (f_"guest type %s/%s is not supported") typ distro
