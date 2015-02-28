@@ -38,6 +38,10 @@ mount -t tmpfs -o "nosuid,size=20%,mode=0755" tmpfs /run
 mkdir -p /run/lock
 ln -s ../run/lock /var/lock
 
+# On Fedora 23, util-linux creates /etc/mtab in %post .. stupid
+# and e2fsprogs fails if the link doesn't exist .. stupid stupid
+ln -s /proc/mounts /etc/mtab
+
 # devtmpfs is required since udev 176
 mount -t devtmpfs /dev /dev
 
