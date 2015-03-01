@@ -12507,6 +12507,21 @@ so that you can use it tto build other filesystems." };
     longdesc = "\
 This will Enable extended inode refs." };
 
+  { defaults with
+    name = "btrfstune_enable_skinny_metadata_extent_refs";
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 452;
+    optional = Some "btrfs"; camel_name = "BTRFSTuneEnableSkinnyMetadataExtentRefs";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfstune_enable_skinny_metadata_extent_refs"; "/dev/sda1"]]), []
+    ];
+
+    shortdesc = "enable skinny metadata extent refs";
+    longdesc = "\
+This enable skinny metadata extent refs." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
