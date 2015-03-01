@@ -12475,6 +12475,23 @@ Show the status of a running or paused balance on a btrfs filesystem." };
     longdesc = "\
 Show status of running or finished scrub on a btrfs filesystem." };
 
+  { defaults with
+    name = "btrfstune_seeding";
+    style = RErr, [Device "device"; Bool "seeding"], [];
+    proc_nr = Some 450;
+    optional = Some "btrfs"; camel_name = "BTRFSTuneSeeding";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfstune_seeding"; "/dev/sda1"; "true"];
+         ["btrfstune_seeding"; "/dev/sda1"; "false"]]), []
+    ];
+
+    shortdesc = "enable or disable seeding of a btrfs device";
+    longdesc = "\
+Enable seeding of a btrfs device, this will force a fs readonly
+so that you can use it tto build other filesystems." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
