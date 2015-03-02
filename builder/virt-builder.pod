@@ -1440,7 +1440,7 @@ instead of I<--install>.
 
 To install a Fedora guest using a local mirror:
 
- virt-builder fedora 20 \
+ virt-builder fedora-20 \
    --edit '/etc/yum.repos.d/fedora.repo:
        s{.*baseurl=.*}{baseurl=http://example.com/mirror/};
        s{.*metalink=.*}{};
@@ -1458,7 +1458,7 @@ Assuming that you are using C<apt-proxy> to mirror the repository, you
 should create a new C<sources.list> file to point to your proxy (see
 L<https://help.ubuntu.com/community/AptProxy>) and then do:
 
- virt-builder debian 7 \
+ virt-builder debian-7 \
    --upload sources.list:/etc/apt/sources.list \
    --run-command 'apt-get -y update' \
    --run-command 'apt-get -y install pkg1 pkg2 ...'
