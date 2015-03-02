@@ -550,8 +550,12 @@ maintainer-check-extra-dist:
 	zcat $(PACKAGE_NAME)-$(VERSION).tar.gz | tar tf - | sort | \
 	  sed 's,^$(PACKAGE_NAME)-$(VERSION)/,,' > tmp/tarfiles
 	git ls-files | sort > tmp/gitfiles
-	diff -ur tmp/tarfiles tmp/gitfiles | grep '^\+' | \
-	  grep -v src/api-support/[0-9]
+	diff -ur tmp/tarfiles tmp/gitfiles | \
+	  grep '^\+' | \
+	  grep -v '^\+src/api-support/[0-9]' | \
+	  grep -v '^\+intltool-.*\.in' | \
+	  grep -v '^\+.gitmodules' | \
+	  grep -v '^\+.gnulib' ||:
 	rm tmp/tarfiles tmp/gitfiles
 
 # Provide help on common Makefile targets.
