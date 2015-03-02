@@ -155,7 +155,7 @@ if HAVE_OCAMLOPT
 endif
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="$(top_builddir)/run @VG@" TESTS="$(test_progs_all)" check
 
 # Dependencies.
 %.cmi: %.mli
