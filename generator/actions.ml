@@ -683,7 +683,7 @@ calls, parameters and return values are traced.
 
 If you want to trace C API calls into libguestfs (and
 other libraries) then possibly a better way is to use
-the external ltrace(1) command.
+the external L<ltrace(1)> command.
 
 Command traces are disabled unless the environment variable
 C<LIBGUESTFS_TRACE> is defined and set to C<1>.
@@ -2700,10 +2700,10 @@ On return you get a list of strings, with a one-to-one
 correspondence to the C<names> list.  Each string is the
 value of the symbolic link.
 
-If the C<readlink(2)> operation fails on any name, then
+If the L<readlink(2)> operation fails on any name, then
 the corresponding result string is the empty string C<\"\">.
 However the whole operation is completed even if there
-were C<readlink(2)> errors, and so you can call this
+were L<readlink(2)> errors, and so you can call this
 function with names where you don't know if they are
 symbolic links already (albeit slightly less efficient).
 
@@ -3276,7 +3276,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
     longdesc = "\
 Returns file information for the given C<path>.
 
-This is the same as the C<stat(2)> system call." };
+This is the same as the L<stat(2)> system call." };
 
   { defaults with
     name = "lstat";
@@ -3294,7 +3294,7 @@ This is the same as C<guestfs_stat> except that if C<path>
 is a symbolic link, then the link is stat-ed, not the file it
 refers to.
 
-This is the same as the C<lstat(2)> system call." };
+This is the same as the L<lstat(2)> system call." };
 
   { defaults with
     name = "c_pointer";
@@ -4475,7 +4475,7 @@ Returns file system statistics for any mounted file system.
 C<path> should be a file or directory in the mounted file system
 (typically it is the mount point itself, but it doesn't need to be).
 
-This is the same as the C<statvfs(2)> system call." };
+This is the same as the L<statvfs(2)> system call." };
 
   { defaults with
     name = "tune2fs_l";
@@ -7640,10 +7640,10 @@ On return you get a list of strings, with a one-to-one
 correspondence to the C<names> list.  Each string is the
 value of the symbolic link.
 
-If the C<readlink(2)> operation fails on any name, then
+If the L<readlink(2)> operation fails on any name, then
 the corresponding result string is the empty string C<\"\">.
 However the whole operation is completed even if there
-were C<readlink(2)> errors, and so you can call this
+were L<readlink(2)> errors, and so you can call this
 function with names where you don't know if they are
 symbolic links already (albeit slightly less efficient).
 
@@ -12052,7 +12052,7 @@ Get the realtime (wallclock) timestamp of the current journal entry." };
     longdesc = "\
 Returns file information for the given C<path>.
 
-This is the same as the C<stat(2)> system call." };
+This is the same as the L<stat(2)> system call." };
 
   { defaults with
     name = "lstatns";
@@ -12070,7 +12070,7 @@ This is the same as C<guestfs_statns> except that if C<path>
 is a symbolic link, then the link is stat-ed, not the file it
 refers to.
 
-This is the same as the C<lstat(2)> system call." };
+This is the same as the L<lstat(2)> system call." };
 
   { defaults with
     name = "internal_lstatnslist";
