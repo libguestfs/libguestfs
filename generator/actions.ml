@@ -12490,7 +12490,7 @@ Show status of running or finished scrub on a btrfs filesystem." };
     shortdesc = "enable or disable seeding of a btrfs device";
     longdesc = "\
 Enable seeding of a btrfs device, this will force a fs readonly
-so that you can use it tto build other filesystems." };
+so that you can use it to build other filesystems." };
 
   { defaults with
     name = "btrfstune_enable_extended_inode_refs";
