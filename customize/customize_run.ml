@@ -247,6 +247,10 @@ exec >>%s 2>&1
       | _ ->
         warning (f_"SSH key could be injected for this type of guest"))
 
+    | `Truncate path ->
+      msg (f_"Truncating: %s") path;
+      g#truncate path
+
     | `Timezone tz ->
       msg (f_"Setting the timezone: %s") tz;
       if not (Timezone.set_timezone g root tz) then

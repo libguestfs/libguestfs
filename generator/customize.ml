@@ -317,6 +317,15 @@ You can have multiple I<--ssh-inject> options, for different users
 and also for more keys for each user."
   };
 
+  { op_name = "truncate";
+    op_type = String "FILE";
+    op_discrim = "`Truncate";
+    op_shortdesc = "Truncate a file to zero size";
+    op_pod_longdesc = "\
+This command truncates \"path\" to a zero-length file. The file must exist
+already.";
+  };
+
   { op_name = "timezone";
     op_type = String "TIMEZONE";
     op_discrim = "`Timezone";
