@@ -383,7 +383,10 @@ guestfs_close (guestfs_h *g)
 int64_t
 guestfs__c_pointer (guestfs_h *g)
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
   return (int64_t) g;
+#pragma GCC diagnostic pop
 }
 
 int
