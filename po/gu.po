@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-03-02 13:43+0000\n"
+"POT-Creation-Date: 2015-03-05 13:35+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:332
+#: ../customize/customize_run.ml:336
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -415,7 +415,7 @@ msgid ""
 "error: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:263 ../customize/customize_cmdline.ml:188
+#: ../customize/customize_cmdline.ml:265 ../customize/customize_cmdline.ml:190
 msgid "'CMD+ARGS'"
 msgstr ""
 
@@ -628,11 +628,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:214
+#: ../customize/customize_cmdline.ml:216
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:198
+#: ../customize/customize_cmdline.ml:200
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
@@ -681,7 +681,7 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:140
+#: ../customize/customize_cmdline.ml:142
 msgid "Change the permissions of a file"
 msgstr ""
 
@@ -731,7 +731,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:162
 msgid "Copy local files or directories into image"
 msgstr ""
 
@@ -757,7 +757,7 @@ msgstr ""
 msgid "Copying: %s to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:230
+#: ../customize/customize_cmdline.ml:232
 msgid "Create a directory"
 msgstr ""
 
@@ -773,7 +773,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:224
+#: ../customize/customize_cmdline.ml:226
 msgid "Create symbolic links"
 msgstr ""
 
@@ -809,7 +809,7 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:230
+#: ../customize/customize_cmdline.ml:232
 msgid "DIR"
 msgstr ""
 
@@ -821,7 +821,7 @@ msgstr ""
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:166
+#: ../customize/customize_cmdline.ml:168
 msgid "Delete a file or directory"
 msgstr ""
 
@@ -933,7 +933,7 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:176
+#: ../customize/customize_cmdline.ml:178
 msgid "Edit file using Perl expression"
 msgstr ""
 
@@ -1013,23 +1013,23 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:269
+#: ../customize/customize_cmdline.ml:288 ../customize/customize_cmdline.ml:271
 msgid "FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:312
+#: ../customize/customize_cmdline.ml:320
 msgid "FILE:CONTENT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:302
+#: ../customize/customize_cmdline.ml:310
 msgid "FILE:DEST"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:176
+#: ../customize/customize_cmdline.ml:178
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:152
 msgid "FILENAME"
 msgstr ""
 
@@ -1135,7 +1135,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:204
+#: ../customize/customize_cmdline.ml:206
 msgid "HOSTNAME"
 msgstr ""
 
@@ -1163,7 +1163,7 @@ msgstr ""
 msgid "Initializing the target %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:280
+#: ../customize/customize_cmdline.ml:282
 msgid "Inject a public key into the guest"
 msgstr ""
 
@@ -1205,7 +1205,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:162
 msgid "LOCALPATH:REMOTEDIR"
 msgstr ""
 
@@ -1359,15 +1359,15 @@ msgstr ""
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:166
+#: ../customize/customize_cmdline.ml:168
 msgid "PATH"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:140
+#: ../customize/customize_cmdline.ml:142
 msgid "PERMISSIONS:FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:214 ../customize/customize_cmdline.ml:198
+#: ../customize/customize_cmdline.ml:216 ../customize/customize_cmdline.ml:200
 msgid "PKG,PKG.."
 msgstr ""
 
@@ -1414,11 +1414,11 @@ msgstr ""
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:152
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:333
+#: ../customize/customize_cmdline.ml:341
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
@@ -1619,19 +1619,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:188
+#: ../customize/customize_cmdline.ml:190
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:263
+#: ../customize/customize_cmdline.ml:265
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:182
+#: ../customize/customize_cmdline.ml:184
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:257
+#: ../customize/customize_cmdline.ml:259
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1649,15 +1649,15 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:257 ../customize/customize_cmdline.ml:182
+#: ../customize/customize_cmdline.ml:259 ../customize/customize_cmdline.ml:184
 msgid "SCRIPT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:251
+#: ../customize/customize_cmdline.ml:253
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:297
+#: ../customize/customize_run.ml:301
 msgid "SELinux relabelling"
 msgstr ""
 
@@ -1677,15 +1677,15 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:269
+#: ../customize/customize_cmdline.ml:271
 msgid "Scrub a file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:318
+#: ../customize/customize_cmdline.ml:326
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:316
+#: ../customize/customize_run.ml:320
 msgid "Scrubbing the log file"
 msgstr ""
 
@@ -1767,11 +1767,11 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:327
+#: ../customize/customize_cmdline.ml:335
 msgid "Set password crypto"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:251
+#: ../customize/customize_cmdline.ml:253
 msgid "Set root password"
 msgstr ""
 
@@ -1787,7 +1787,7 @@ msgstr ""
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:286
+#: ../customize/customize_cmdline.ml:294
 msgid "Set the default timezone"
 msgstr ""
 
@@ -1795,7 +1795,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:204
+#: ../customize/customize_cmdline.ml:206
 msgid "Set the hostname"
 msgstr ""
 
@@ -1803,7 +1803,7 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:241
+#: ../customize/customize_cmdline.ml:243
 msgid "Set user password"
 msgstr ""
 
@@ -1815,7 +1815,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:288
+#: ../customize/customize_run.ml:292
 msgid "Setting passwords"
 msgstr ""
 
@@ -1827,7 +1827,7 @@ msgstr ""
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:251
+#: ../customize/customize_run.ml:255
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -1873,11 +1873,11 @@ msgid ""
 "carefully check that the target disk boots and works correctly.\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:224
+#: ../customize/customize_cmdline.ml:226
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:286
+#: ../customize/customize_cmdline.ml:294
 msgid "TIMEZONE"
 msgstr ""
 
@@ -2074,15 +2074,23 @@ msgid ""
 "%!"
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:288
+msgid "Truncate a file to zero size"
+msgstr ""
+
+#: ../customize/customize_run.ml:251
+msgid "Truncating: %s"
+msgstr ""
+
 #: ../resize/resize.ml:220
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:241
+#: ../customize/customize_cmdline.ml:243
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:280
+#: ../customize/customize_cmdline.ml:282
 msgid "USER[:SELECTOR]"
 msgstr ""
 
@@ -2090,19 +2098,19 @@ msgstr ""
 msgid "Uncompressing"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:292
+#: ../customize/customize_cmdline.ml:300
 msgid "Update core packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:256
+#: ../customize/customize_run.ml:260
 msgid "Updating core packages"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:302
+#: ../customize/customize_cmdline.ml:310
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:261
+#: ../customize/customize_run.ml:265
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -2136,11 +2144,11 @@ msgid ""
 "error message was: %s (ignored)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:312
+#: ../customize/customize_cmdline.ml:320
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:280
+#: ../customize/customize_run.ml:284
 msgid "Writing: %s"
 msgstr ""
 
@@ -2271,11 +2279,11 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:352
+#: ../customize/customize_cmdline.ml:360
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:369
+#: ../customize/customize_cmdline.ml:377
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
@@ -2651,7 +2659,7 @@ msgstr ""
 msgid "invalid --list-format type '%s', see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:127 ../customize/customize_cmdline.ml:116
+#: ../customize/customize_cmdline.ml:129 ../customize/customize_cmdline.ml:118
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
@@ -2885,7 +2893,7 @@ msgid ""
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:293
+#: ../customize/customize_run.ml:297
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -3065,7 +3073,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr ""
 
-#: ../customize/customize_run.ml:253
+#: ../customize/customize_run.ml:257
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
@@ -7942,18 +7950,18 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: એજ હેન્ડલ પર બે વાર બોલાવેલ છે\n"
 
-#: src/handle.c:524
+#: src/handle.c:527
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:577
+#: src/handle.c:580
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: src/handle.c:772
+#: src/handle.c:775
 msgid "setting not found"
 msgstr ""
 

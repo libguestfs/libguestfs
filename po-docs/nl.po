@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-03-02 13:43+0000\n"
+"POT-Creation-Date: 2015-03-05 13:35+0000\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -8112,12 +8112,25 @@ msgstr ""
 
 #. type: =item
 #: ../customize/customize-options.pod:268
-msgid "B<--update>"
+msgid "B<--truncate> FILE"
 msgstr ""
 
 #. type: textblock
 #: ../customize/customize-options.pod:270
 #: ../sysprep/sysprep-extra-options.pod:316
+msgid ""
+"This command truncates \"path\" to a zero-length file. The file must exist "
+"already."
+msgstr ""
+
+#. type: =item
+#: ../customize/customize-options.pod:273
+msgid "B<--update>"
+msgstr ""
+
+#. type: textblock
+#: ../customize/customize-options.pod:275
+#: ../sysprep/sysprep-extra-options.pod:322
 msgid ""
 "Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever command "
 "is required to update the packages already installed in the template to "
@@ -8125,19 +8138,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:274
-#: ../sysprep/sysprep-extra-options.pod:320
+#: ../customize/customize-options.pod:279
+#: ../sysprep/sysprep-extra-options.pod:326
 msgid "See also I<--install>."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:276
+#: ../customize/customize-options.pod:281
 msgid "B<--upload> FILE:DEST"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:278
-#: ../sysprep/sysprep-extra-options.pod:325
+#: ../customize/customize-options.pod:283
+#: ../sysprep/sysprep-extra-options.pod:331
 msgid ""
 "Upload local file C<FILE> to destination C<DEST> in the disk image.  File "
 "owner and permissions from the original are preserved, so you should set "
@@ -8145,16 +8158,16 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:282
-#: ../sysprep/sysprep-extra-options.pod:329
+#: ../customize/customize-options.pod:287
+#: ../sysprep/sysprep-extra-options.pod:335
 msgid ""
 "C<DEST> could be the final filename.  This can be used to rename the file on "
 "upload."
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:285
-#: ../sysprep/sysprep-extra-options.pod:332
+#: ../customize/customize-options.pod:290
+#: ../sysprep/sysprep-extra-options.pod:338
 msgid ""
 "If C<DEST> is a directory name (which must already exist in the guest)  then "
 "the file is uploaded into that directory, and it keeps the same name as on "
@@ -8162,19 +8175,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:289
-#: ../sysprep/sysprep-extra-options.pod:336
+#: ../customize/customize-options.pod:294
+#: ../sysprep/sysprep-extra-options.pod:342
 msgid "See also: I<--mkdir>, I<--delete>, I<--scrub>."
 msgstr ""
 
 #. type: =item
-#: ../customize/customize-options.pod:291
+#: ../customize/customize-options.pod:296
 msgid "B<--write> FILE:CONTENT"
 msgstr ""
 
 #. type: textblock
-#: ../customize/customize-options.pod:293
-#: ../sysprep/sysprep-extra-options.pod:341
+#: ../customize/customize-options.pod:298
+#: ../sysprep/sysprep-extra-options.pod:347
 msgid "Write C<CONTENT> to C<FILE>."
 msgstr ""
 
@@ -18669,7 +18682,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1258 ../src/guestfs-actions.pod:2084
 msgid ""
 "Enable seeding of a btrfs device, this will force a fs readonly so that you "
-"can use it tto build other filesystems."
+"can use it to build other filesystems."
 msgstr ""
 
 #. type: =head2
@@ -26165,7 +26178,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:4839 ../fish/guestfish-actions.pod:4883
 #: ../src/guestfs-actions.pod:7951 ../src/guestfs-actions.pod:8005
-msgid "This is the same as the C<lstat(2)> system call."
+msgid "This is the same as the L<lstat(2)> system call."
 msgstr ""
 
 #. type: textblock
@@ -29873,9 +29886,9 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:6587 ../src/guestfs-actions.pod:10917
 msgid ""
-"If the C<readlink(2)> operation fails on any name, then the corresponding "
+"If the L<readlink(2)> operation fails on any name, then the corresponding "
 "result string is the empty string C<\"\">.  However the whole operation is "
-"completed even if there were C<readlink(2)> errors, and so you can call this "
+"completed even if there were L<readlink(2)> errors, and so you can call this "
 "function with names where you don't know if they are symbolic links already "
 "(albeit slightly less efficient)."
 msgstr ""
@@ -31421,7 +31434,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:7322 ../src/guestfs-actions.pod:12060
 msgid ""
 "If you want to trace C API calls into libguestfs (and other libraries) then "
-"possibly a better way is to use the external ltrace(1) command."
+"possibly a better way is to use the external L<ltrace(1)> command."
 msgstr ""
 
 #. type: textblock
@@ -31904,7 +31917,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7546 ../fish/guestfish-actions.pod:7561
 #: ../src/guestfs-actions.pod:12398 ../src/guestfs-actions.pod:12414
-msgid "This is the same as the C<stat(2)> system call."
+msgid "This is the same as the L<stat(2)> system call."
 msgstr ""
 
 #. type: textblock
@@ -31949,7 +31962,7 @@ msgstr ""
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7571 ../src/guestfs-actions.pod:12432
-msgid "This is the same as the C<statvfs(2)> system call."
+msgid "This is the same as the L<statvfs(2)> system call."
 msgstr ""
 
 #. type: =head2
@@ -81308,16 +81321,21 @@ msgstr ""
 
 #. type: =item
 #: ../sysprep/sysprep-extra-options.pod:313
+msgid "B<--truncate> FILE (see C<customize> below)"
+msgstr ""
+
+#. type: =item
+#: ../sysprep/sysprep-extra-options.pod:319
 msgid "B<--update> (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:322
+#: ../sysprep/sysprep-extra-options.pod:328
 msgid "B<--upload> FILE:DEST (see C<customize> below)"
 msgstr ""
 
 #. type: =item
-#: ../sysprep/sysprep-extra-options.pod:338
+#: ../sysprep/sysprep-extra-options.pod:344
 msgid "B<--write> FILE:CONTENT (see C<customize> below)"
 msgstr ""
 

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-03-02 13:43+0000\n"
+"POT-Creation-Date: 2015-03-05 13:35+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -103,7 +103,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../customize/customize_run.ml:332
+#: ../customize/customize_run.ml:336
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (проігноровано)\n"
 
@@ -517,7 +517,7 @@ msgstr ""
 "Не виявлено «%s». Неможливо встановити RHEV-APT (агент гостьової системи "
 "RHEV). Початкове повідомлення про помилку: %s"
 
-#: ../customize/customize_cmdline.ml:263 ../customize/customize_cmdline.ml:188
+#: ../customize/customize_cmdline.ml:265 ../customize/customize_cmdline.ml:190
 msgid "'CMD+ARGS'"
 msgstr "'КОМАНДА+ПАРАМЕТРИ'"
 
@@ -759,11 +759,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr "Додати файл образу диска"
 
-#: ../customize/customize_cmdline.ml:214
+#: ../customize/customize_cmdline.ml:216
 msgid "Add package(s) to install"
 msgstr "Додати пакунки для встановлення"
 
-#: ../customize/customize_cmdline.ml:198
+#: ../customize/customize_cmdline.ml:200
 msgid "Add package(s) to install at first boot"
 msgstr "Додати пакунки для встановлення під час першого завантаження"
 
@@ -819,7 +819,7 @@ msgstr "Змінити UUID ФТ і ГТ LVM2"
 msgid "Change filesystem UUIDs"
 msgstr "Змінити UUID файлових систем"
 
-#: ../customize/customize_cmdline.ml:140
+#: ../customize/customize_cmdline.ml:142
 msgid "Change the permissions of a file"
 msgstr "Змінити права доступу до файла"
 
@@ -871,7 +871,7 @@ msgstr "Перетворюємо %s для уможливлення запуск
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
-#: ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:162
 msgid "Copy local files or directories into image"
 msgstr ""
 
@@ -899,7 +899,7 @@ msgstr "Копіювання диска %d з %d на %s (%s)"
 msgid "Copying: %s to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:230
+#: ../customize/customize_cmdline.ml:232
 msgid "Create a directory"
 msgstr "Створити каталог"
 
@@ -919,7 +919,7 @@ msgstr ""
 "Створити файл оверлею на %s для захисту диска джерела…\n"
 "%!"
 
-#: ../customize/customize_cmdline.ml:224
+#: ../customize/customize_cmdline.ml:226
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
@@ -963,7 +963,7 @@ msgstr ""
 "Налаштувати гостьову систему визначенням параметрів L<virt-customize(1)>\n"
 "для встановлення пакунків, редагування файлів тощо."
 
-#: ../customize/customize_cmdline.ml:230
+#: ../customize/customize_cmdline.ml:232
 msgid "DIR"
 msgstr "КАТАЛОГ"
 
@@ -975,7 +975,7 @@ msgstr "Діагностувати збиральник сміття та роз
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностувати збиральник сміття та розподіл пам’яті (внутрішньо)"
 
-#: ../customize/customize_cmdline.ml:166
+#: ../customize/customize_cmdline.ml:168
 msgid "Delete a file or directory"
 msgstr "Вилучити файл або каталог"
 
@@ -1089,7 +1089,7 @@ msgstr "Створити дамп POD (внутрішньо)"
 msgid "Dump POD for options (internal)"
 msgstr "Створити дамп POD для параметрів (внутрішньо)"
 
-#: ../customize/customize_cmdline.ml:176
+#: ../customize/customize_cmdline.ml:178
 msgid "Edit file using Perl expression"
 msgstr "Редагувати файл за допомогою виразу Perl"
 
@@ -1171,23 +1171,23 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr "Експортувати домен сховища"
 
-#: ../customize/customize_cmdline.ml:269
+#: ../customize/customize_cmdline.ml:288 ../customize/customize_cmdline.ml:271
 msgid "FILE"
 msgstr "ФАЙЛ"
 
-#: ../customize/customize_cmdline.ml:312
+#: ../customize/customize_cmdline.ml:320
 msgid "FILE:CONTENT"
 msgstr "ФАЙЛ:ВМІСТ"
 
-#: ../customize/customize_cmdline.ml:302
+#: ../customize/customize_cmdline.ml:310
 msgid "FILE:DEST"
 msgstr "ФАЙЛ:ПРИЗНАЧЕННЯ"
 
-#: ../customize/customize_cmdline.ml:176
+#: ../customize/customize_cmdline.ml:178
 msgid "FILE:EXPR"
 msgstr "ФАЙЛ:ВИРАЗ"
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:152
 msgid "FILENAME"
 msgstr ""
 
@@ -1309,7 +1309,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr "Отримати ядро з образу"
 
-#: ../customize/customize_cmdline.ml:204
+#: ../customize/customize_cmdline.ml:206
 msgid "HOSTNAME"
 msgstr "НАЗВА_ВУЗЛА"
 
@@ -1341,7 +1341,7 @@ msgstr "Ігнорувати розділ"
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
-#: ../customize/customize_cmdline.ml:280
+#: ../customize/customize_cmdline.ml:282
 msgid "Inject a public key into the guest"
 msgstr ""
 
@@ -1385,7 +1385,7 @@ msgstr "Просто записати метадані"
 msgid "Key: %s\n"
 msgstr "Ключ: %s\n"
 
-#: ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:162
 msgid "LOCALPATH:REMOTEDIR"
 msgstr ""
 
@@ -1552,15 +1552,15 @@ msgstr "UUID виведених томів"
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr "Оверлей збережено як %s [--debug-overlays]\n"
 
-#: ../customize/customize_cmdline.ml:166
+#: ../customize/customize_cmdline.ml:168
 msgid "PATH"
 msgstr "ШЛЯХ"
 
-#: ../customize/customize_cmdline.ml:140
+#: ../customize/customize_cmdline.ml:142
 msgid "PERMISSIONS:FILE"
 msgstr "ПРАВА_ДОСТУПУ:ФАЙЛ"
 
-#: ../customize/customize_cmdline.ml:214 ../customize/customize_cmdline.ml:198
+#: ../customize/customize_cmdline.ml:216 ../customize/customize_cmdline.ml:200
 msgid "PKG,PKG.."
 msgstr "ПАКУНОК,ПАКУНОК.."
 
@@ -1608,11 +1608,11 @@ msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 "У RHEV не передбачено формату виведення даних «%s», лише формати raw та qcow2"
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:152
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:333
+#: ../customize/customize_cmdline.ml:341
 msgid "Relabel files with correct SELinux labels"
 msgstr "Змінити мітки файлів на коректні мітки SELinux"
 
@@ -1833,19 +1833,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr "Запустити довільні скрипти дій над гостьовою системою"
 
-#: ../customize/customize_cmdline.ml:188
+#: ../customize/customize_cmdline.ml:190
 msgid "Run command at first guest boot"
 msgstr "Виконати команду під час першого завантаження гостьової системи"
 
-#: ../customize/customize_cmdline.ml:263
+#: ../customize/customize_cmdline.ml:265
 msgid "Run command in disk image"
 msgstr "Виконати команду у образі диска"
 
-#: ../customize/customize_cmdline.ml:182
+#: ../customize/customize_cmdline.ml:184
 msgid "Run script at first guest boot"
 msgstr "Виконати скрипт під час першого завантаження гостьової системи"
 
-#: ../customize/customize_cmdline.ml:257
+#: ../customize/customize_cmdline.ml:259
 msgid "Run script in disk image"
 msgstr "Виконати скрипт у образі диска"
 
@@ -1870,15 +1870,15 @@ msgstr ""
 msgid "Running: %s"
 msgstr "Виконуємо: %s"
 
-#: ../customize/customize_cmdline.ml:257 ../customize/customize_cmdline.ml:182
+#: ../customize/customize_cmdline.ml:259 ../customize/customize_cmdline.ml:184
 msgid "SCRIPT"
 msgstr "СКРИПТ"
 
-#: ../customize/customize_cmdline.ml:251
+#: ../customize/customize_cmdline.ml:253
 msgid "SELECTOR"
 msgstr "СЕЛЕКТОР"
 
-#: ../customize/customize_run.ml:297
+#: ../customize/customize_run.ml:301
 msgid "SELinux relabelling"
 msgstr "Зміна міток SELinux"
 
@@ -1898,15 +1898,15 @@ msgstr "Зберегти файли оверлеїв"
 msgid "Script or program to run on guest"
 msgstr "Скрипт або програма, яку слід виконати для обробки гостьової системи"
 
-#: ../customize/customize_cmdline.ml:269
+#: ../customize/customize_cmdline.ml:271
 msgid "Scrub a file"
 msgstr "Витерти файл"
 
-#: ../customize/customize_cmdline.ml:318
+#: ../customize/customize_cmdline.ml:326
 msgid "Scrub build log file"
 msgstr "Витерти файл журналу збирання"
 
-#: ../customize/customize_run.ml:316
+#: ../customize/customize_run.ml:320
 msgid "Scrubbing the log file"
 msgstr "Витираємо файл журналу"
 
@@ -1988,11 +1988,11 @@ msgstr "Встановити розташування сховища вивед�
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Встановити вирівнювання розділів (типове: 128 секторів)"
 
-#: ../customize/customize_cmdline.ml:327
+#: ../customize/customize_cmdline.ml:335
 msgid "Set password crypto"
 msgstr "Встановити алгоритм шифрування пароля"
 
-#: ../customize/customize_cmdline.ml:251
+#: ../customize/customize_cmdline.ml:253
 msgid "Set root password"
 msgstr "Встановлення пароля root"
 
@@ -2009,7 +2009,7 @@ msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 "Встановити тимчасовий блоковий пристрій, каталог або попередньо зібраний файл"
 
-#: ../customize/customize_cmdline.ml:286
+#: ../customize/customize_cmdline.ml:294
 msgid "Set the default timezone"
 msgstr "Встановити типовий часовий пояс"
 
@@ -2017,7 +2017,7 @@ msgstr "Встановити типовий часовий пояс"
 msgid "Set the format for --list (default: short)"
 msgstr "Встановити формат для --list (типовий: short)"
 
-#: ../customize/customize_cmdline.ml:204
+#: ../customize/customize_cmdline.ml:206
 msgid "Set the hostname"
 msgstr "Встановити назву вузла"
 
@@ -2025,7 +2025,7 @@ msgstr "Встановити назву вузла"
 msgid "Set the output architecture"
 msgstr "Встановити архітектуру для виведення даних"
 
-#: ../customize/customize_cmdline.ml:241
+#: ../customize/customize_cmdline.ml:243
 msgid "Set user password"
 msgstr "Встановити пароль користувача"
 
@@ -2037,7 +2037,7 @@ msgstr "Встановити значення vmtype (для RHEV)"
 msgid "Setting a random seed"
 msgstr "Встановлюємо базу випадковості"
 
-#: ../customize/customize_run.ml:288
+#: ../customize/customize_run.ml:292
 msgid "Setting passwords"
 msgstr "Встановлення паролів"
 
@@ -2049,7 +2049,7 @@ msgstr ""
 msgid "Setting the hostname: %s"
 msgstr "Встановлюємо назву вузла: %s"
 
-#: ../customize/customize_run.ml:251
+#: ../customize/customize_run.ml:255
 msgid "Setting the timezone: %s"
 msgstr "Встановлюємо часовий пояс: %s"
 
@@ -2098,11 +2098,11 @@ msgstr ""
 "старий диск, ретельно перевірте, чи може диск призначення завантажується і "
 "працює належним чином.\n"
 
-#: ../customize/customize_cmdline.ml:224
+#: ../customize/customize_cmdline.ml:226
 msgid "TARGET:LINK[:LINK..]"
 msgstr "ПРИЗНАЧЕННЯ:ПОСИЛАННЯ[:ПОСИЛАННЯ..]"
 
-#: ../customize/customize_cmdline.ml:286
+#: ../customize/customize_cmdline.ml:294
 msgid "TIMEZONE"
 msgstr "ЧАСОВИЙ_ПОЯС"
 
@@ -2397,15 +2397,23 @@ msgstr ""
 "Обрізаємо %s…\n"
 "%!"
 
+#: ../customize/customize_cmdline.ml:288
+msgid "Truncate a file to zero size"
+msgstr ""
+
+#: ../customize/customize_run.ml:251
+msgid "Truncating: %s"
+msgstr ""
+
 #: ../resize/resize.ml:220
 msgid "Turn off sparse copying"
 msgstr "Вимкнути розріджене копіювання"
 
-#: ../customize/customize_cmdline.ml:241
+#: ../customize/customize_cmdline.ml:243
 msgid "USER:SELECTOR"
 msgstr "КОРИСТУВАЧ:ВАРІАНТ"
 
-#: ../customize/customize_cmdline.ml:280
+#: ../customize/customize_cmdline.ml:282
 msgid "USER[:SELECTOR]"
 msgstr ""
 
@@ -2413,19 +2421,19 @@ msgstr ""
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
-#: ../customize/customize_cmdline.ml:292
+#: ../customize/customize_cmdline.ml:300
 msgid "Update core packages"
 msgstr "Оновити основні пакунки"
 
-#: ../customize/customize_run.ml:256
+#: ../customize/customize_run.ml:260
 msgid "Updating core packages"
 msgstr "Оновлюємо основні пакунки"
 
-#: ../customize/customize_cmdline.ml:302
+#: ../customize/customize_cmdline.ml:310
 msgid "Upload local file to destination"
 msgstr "Вивантажити локальний файл у систему призначення"
 
-#: ../customize/customize_run.ml:261
+#: ../customize/customize_run.ml:265
 msgid "Uploading: %s to %s"
 msgstr "Вивантажуємо: %s до %s"
 
@@ -2465,11 +2473,11 @@ msgstr ""
 "Виявлено VirtualBox Guest Additions, але спроба вилучення зазнала невдачі. "
 "Повідомлення щодо помилки: %s (проігноровано)"
 
-#: ../customize/customize_cmdline.ml:312
+#: ../customize/customize_cmdline.ml:320
 msgid "Write file"
 msgstr "Записати файл"
 
-#: ../customize/customize_run.ml:280
+#: ../customize/customize_run.ml:284
 msgid "Writing: %s"
 msgstr "Записуємо: %s"
 
@@ -2629,11 +2637,11 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:352
+#: ../customize/customize_cmdline.ml:360
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:369
+#: ../customize/customize_cmdline.ml:377
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
@@ -3055,7 +3063,7 @@ msgstr "некоректний параметр --bridge або --network"
 msgid "invalid --list-format type '%s', see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:127 ../customize/customize_cmdline.ml:116
+#: ../customize/customize_cmdline.ml:129 ../customize/customize_cmdline.ml:118
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
@@ -3332,7 +3340,7 @@ msgstr ""
 "Якщо це не так, скористайтеся параметром --password-crypto і створіть "
 "повідомлення щодо вади."
 
-#: ../customize/customize_run.ml:293
+#: ../customize/customize_run.ml:297
 msgid "passwords could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати паролі"
 
@@ -3543,7 +3551,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
-#: ../customize/customize_run.ml:253
+#: ../customize/customize_run.ml:257
 msgid "timezone could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати часовий пояс"
 
@@ -8963,7 +8971,7 @@ msgstr "нечислове значення LIBGUESTFS_MEMSIZE"
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/handle.c:524
+#: src/handle.c:527
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
@@ -8971,12 +8979,12 @@ msgstr ""
 "зібрано з --without-qemu, отже спроба виклику guestfs_set_qemu з qemu == "
 "NULL призводить до помилки"
 
-#: src/handle.c:577
+#: src/handle.c:580
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr "надто мале значення для розміру пам’яті (має бути принаймні %d)"
 
-#: src/handle.c:772
+#: src/handle.c:775
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
