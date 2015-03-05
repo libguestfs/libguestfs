@@ -82,8 +82,10 @@ When reporting a new bug, please check:
 lastclass=X
 count=0
 while read bugno status summary; do
-    # Ignore CLOSED bugs in this list.
-    if [ "$status" = "CLOSED" ]; then continue; fi
+    # Ignore RELEASE_PENDING or CLOSED bugs in this list.
+    if [ "$status" = "RELEASE_PENDING" -o "$status" = "CLOSED" ]; then
+        continue
+    fi
 
     # Treat ASSIGNED the same as NEW.
     # Treat MODIFIED, POST and ON_QA as the same.
