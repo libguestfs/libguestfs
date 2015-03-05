@@ -326,6 +326,14 @@ This command truncates \"path\" to a zero-length file. The file must exist
 already.";
   };
 
+  { op_name = "truncate-recursive";
+    op_type = String "PATH";
+    op_discrim = "`TruncateRecursive";
+    op_shortdesc = "Recursively truncate all files in directory";
+    op_pod_longdesc = "\
+This command recursively truncates all files under \"path\" to zero-length.";
+  };
+
   { op_name = "timezone";
     op_type = String "TIMEZONE";
     op_discrim = "`Timezone";

@@ -129,6 +129,8 @@ val rm_rf_only_files : Guestfs.guestfs -> string -> unit
 
     XXX Could be faster with a specific API for doing this. *)
 
+val truncate_recursive : Guestfs.guestfs -> string -> unit
+
 val detect_file_type : string -> [`GZip | `Tar | `XZ | `Zip | `Unknown]
 (** Detect type of a file. *)
 

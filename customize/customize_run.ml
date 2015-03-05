@@ -251,6 +251,10 @@ exec >>%s 2>&1
       msg (f_"Truncating: %s") path;
       g#truncate path
 
+    | `TruncateRecursive path ->
+      msg (f_"Recursively truncating: %s") path;
+      truncate_recursive g path
+
     | `Timezone tz ->
       msg (f_"Setting the timezone: %s") tz;
       if not (Timezone.set_timezone g root tz) then

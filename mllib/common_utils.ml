@@ -619,6 +619,14 @@ let rm_rf_only_files (g : Guestfs.guestfs) dir =
     List.iter g#rm files
   )
 
+let truncate_recursive (g : Guestfs.guestfs) dir =
+  if g#is_dir dir then (
+    let files = Array.map (Filename.concat dir) (g#find dir) in
+    let files = Array.to_list files in
+    let files = List.filter g#is_file files in
+    List.iter g#truncate files
+  )
+
 (* Detect type of a file. *)
 let detect_file_type filename =
   let chan = open_in filename in
