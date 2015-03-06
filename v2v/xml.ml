@@ -29,6 +29,10 @@ type xpathobj
 type node = doc * node_ptr
 
 external parse_memory : string -> doc = "v2v_xml_parse_memory"
+external copy_doc : doc -> recursive:bool -> doc = "v2v_xml_copy_doc"
+
+external to_string : doc -> format:bool -> string = "v2v_xml_to_string"
+
 external xpath_new_context : doc -> xpathctx = "v2v_xml_xpath_new_context"
 external xpath_eval_expression : xpathctx -> string -> xpathobj = "v2v_xml_xpath_eval_expression"
 external xpath_register_ns : xpathctx -> string -> string -> unit = "v2v_xml_xpath_register_ns"
@@ -49,6 +53,15 @@ let node_name (_, node) = node_ptr_name node
 external node_ptr_as_string : doc -> node_ptr -> string = "v2v_xml_node_ptr_as_string"
 let node_as_string (doc, node) =
   node_ptr_as_string doc node
+
+external node_ptr_set_content : node_ptr -> string -> unit = "v2v_xml_node_ptr_set_content"
+let node_set_content (doc, node) = node_ptr_set_content node
+
+external node_ptr_set_prop : node_ptr -> string -> string -> unit = "v2v_xml_node_ptr_set_prop"
+let set_prop (doc, node) = node_ptr_set_prop node
+
+external node_ptr_unlink_node : node_ptr -> unit = "v2v_xml_node_ptr_unlink_node"
+let unlink_node (doc, node) = node_ptr_unlink_node node
 
 type uri = {
   uri_scheme : string option;
