@@ -34,9 +34,6 @@
 #include <libxml/xpathInternals.h>
 #include <libxml/uri.h>
 
-#include "guestfs.h"
-#include "guestfs-internal-frontend.h"
-
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 /* xmlDocPtr type */
@@ -243,9 +240,10 @@ value
 v2v_xml_node_ptr_as_string (value docv, value nodev)
 {
   CAMLparam2 (docv, nodev);
+  CAMLlocal1 (strv);
   xmlDocPtr doc = Doc_val (docv);
   xmlNodePtr node = (xmlNodePtr) nodev;
-  CLEANUP_FREE char *str = NULL;
+  char *str;
 
   switch (node->type) {
   case XML_TEXT_NODE:
@@ -261,7 +259,9 @@ v2v_xml_node_ptr_as_string (value docv, value nodev)
     if (str == NULL)
       caml_invalid_argument ("node_as_string: xmlNodeListGetString cannot convert node to string");
 
-    CAMLreturn (caml_copy_string (str));
+    strv = caml_copy_string (str);
+    free (str);
+    CAMLreturn (strv);
 
   default:
     caml_invalid_argument ("node_as_string: don't know how to convert this node to a string");
