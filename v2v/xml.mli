@@ -25,6 +25,12 @@ type xpathobj                           (** xmlXPathObjectPtr *)
 
 val parse_memory : string -> doc
 (** xmlParseMemory (for security reasons it actually calls xmlReadMemory) *)
+val copy_doc : doc -> recursive:bool -> doc
+(** xmlCopyDoc *)
+
+val to_string : doc -> format:bool -> string
+(** xmlDocDumpFormatMemory *)
+
 val xpath_new_context : doc -> xpathctx
 (** xmlXPathNewContext *)
 val xpath_eval_expression : xpathctx -> string -> xpathobj
@@ -57,6 +63,16 @@ val node_name : node -> string
 
 val node_as_string : node -> string
 (** Converter to turn a node into a string *)
+
+val node_set_content : node -> string -> unit
+(** xmlNodeSetContent *)
+
+val set_prop : node -> string -> string -> unit
+(** xmlSetProp *)
+
+val unlink_node : node -> unit
+(** xmlUnlinkNode
+    {b NB:} This frees the [node], do not use it afterwards. *)
 
 type uri = {
   uri_scheme : string option;
