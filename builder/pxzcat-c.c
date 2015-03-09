@@ -599,7 +599,7 @@ worker_thread (void *vp)
 
     /* Now read and decode the block header. */
     n = pread (global->fd, &header[1], block.header_size-1, position);
-    if (n >= 0 && n != block.header_size-1) {
+    if (n >= 0 && n != (ssize_t) block.header_size-1) {
       fprintf (stderr,
                "%s: read: unexpected end of file reading block header\n",
                global->filename);
