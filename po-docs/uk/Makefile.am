@@ -56,7 +56,9 @@ MANPAGES = \
 	virt-cat.1 \
 	virt-copy-in.1 \
 	virt-copy-out.1 \
+	virt-customize.1 \
 	virt-df.1 \
+	virt-diff.1 \
 	virt-edit.1 \
 	virt-filesystems.1 \
 	virt-format.1 \
@@ -67,6 +69,9 @@ MANPAGES = \
 	virt-log.1 \
 	virt-ls.1 \
 	virt-make-fs.1 \
+	virt-p2v.1 \
+	virt-p2v-make-disk.1 \
+	virt-p2v-make-kickstart.1 \
 	virt-rescue.1 \
 	virt-resize.1 \
 	virt-sparsify.1 \
@@ -74,6 +79,7 @@ MANPAGES = \
 	virt-tar.1 \
 	virt-tar-in.1 \
 	virt-tar-out.1 \
+	virt-v2v.1 \
 	virt-win-reg.1
 
 podfiles := $(shell for f in `cat $(top_srcdir)/po-docs/podfiles`; do echo `basename $$f .pod`.pod; done)
