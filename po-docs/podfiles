@@ -59,4 +59,5 @@
 ../tools/virt-list-partitions
 ../tools/virt-tar
 ../tools/virt-win-reg
+../v2v/test-harness/virt-v2v-test-harness.pod
 ../v2v/virt-v2v.pod

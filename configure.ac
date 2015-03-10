@@ -1130,6 +1130,7 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 ])
 
 OCAML_PKG_gettext=no
+OCAML_PKG_libvirt=no
 OCAML_PKG_oUnit=no
 AS_IF([test "x$OCAMLC" != "xno"],[
     # Create mllib/common_gettext.ml, gettext functions or stubs.
@@ -1140,10 +1141,13 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 
     GUESTFS_CREATE_COMMON_GETTEXT_ML([mllib/common_gettext.ml])
 
+    AC_CHECK_OCAML_PKG(libvirt)
     AC_CHECK_OCAML_PKG(oUnit)
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
+AM_CONDITIONAL([HAVE_OCAML_PKG_LIBVIRT],
+    [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_libvirt" != "xno"])
 AM_CONDITIONAL([HAVE_OCAML_PKG_OUNIT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_oUnit" != "xno"])
 
@@ -1829,7 +1833,9 @@ AC_CONFIG_FILES([Makefile
                  tests/xml/Makefile
                  tools/Makefile
                  v2v/Makefile
-                 v2v/test-v2v-networks-and-bridges.xml])
+                 v2v/test-v2v-networks-and-bridges.xml
+                 v2v/test-harness/Makefile
+                 v2v/test-harness/META])
 AC_OUTPUT
 
 dnl Produce summary.

@@ -137,6 +137,9 @@ SUBDIRS += \
 	sparsify \
 	sysprep \
 	v2v
+if HAVE_OCAML_PKG_LIBVIRT
+SUBDIRS += v2v/test-harness
+endif
 endif
 
 # Perl tools.

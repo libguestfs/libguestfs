@@ -1,0 +1,170 @@
+=head1 NAME
+
+virt-v2v-test-harness - Used to test virt-v2v against real test cases
+
+=head1 SYNOPSIS
+
+ open V2v_test_harness
+ 
+ let test = "rhel45-i386-fv"
+ let test_plan = {
+   default_plan with
+     boot_plan = Boot_to_screenshot (test ^ ".ppm")
+ }
+ 
+ let () = run ~test ~test_plan ()
+
+=head1 DESCRIPTION
+
+L<virt-v2v(1)> converts guests from a foreign hypervisor to run on
+KVM, managed by libvirt, OpenStack, oVirt, Red Hat Enterprise
+Virtualisation (RHEV) or several other targets.
+
+Virt-v2v-test-harness is a small library (module name:
+C<V2v_test_harness>) used to run virt-v2v against a set of test cases
+consisting of real virtual machines.
+
+It acts as a test harness, taking a test case, running virt-v2v on it
+(non-destructively), then test-booting the result.  It can ensure that
+the test case converts successfully, boots successfully, and reaches a
+milestone (such as a particular screenshot).  It can also test that
+the conversion created, modified or deleted the expected files from
+within the guest.
+
+=head2 GETTING THE TEST CASES
+
+Because the test cases are actual virtual machines, we split them into
+two groups: test cases which are freely redistributable and those
+which are proprietary.  The former are things like Fedora or CentOS
+images, which are free software.  The latter are things like Windows
+or Red Hat Enterprise Linux.
+
+The freely redistributable test cases can be downloaded from:
+I<B<Download location TBD>>
+
+The proprietary test cases are not made available to the public, for
+obvious licensing reasons.
+
+The test cases consist of disk images which are very large, from 250
+MB through to tens of gigabytes I<each>.  This means that distributing
+test cases can be very time-consuming and expensive.
+
+=head2 RUNNING THE TEST CASES
+
+To run the test cases you must install the virt-v2v test harness (the
+OCaml module: C<V2v_test_harness>, source in
+C<libguestfs.git/v2v/test-harness>).  In Fedora, install the
+C<virt-v2v-test-harness> package.
+
+Once you have checked out the freely redistributed test cases from the
+repository, do:
+
+ ./configure
+ make
+ make check
+
+=head1 WRITING NEW TEST CASES
+
+If you are interested in writing test cases, it is suggested that you
+start by downloading the freely redistributable test cases, or at
+least look at them online.
+
+Also you must install the virt-v2v test harness (the OCaml module:
+C<V2v_test_harness>, source in C<libguestfs.git/v2v/test-harness>).
+In Fedora, install the C<virt-v2v-test-harness> package.
+
+Each test case consists of:
+
+=over 4
+
+=item I<test>.img.xz
+
+The disk image of the virtual machine before conversion.  Usually this
+should be converted to raw format and xz-compressed.
+
+=item I<test>.xml
+
+The libvirt XML used as input to virt-v2v.  See the discussion of
+I<-i libvirtxml> in L<virt-v2v(1)>.
+
+=item I<test>.ppm
+
+An optional screenshot or screenshots.
+
+You can supply zero or more "known good" screenshots which represent
+intermediate steps where the guest is booting.  This is useful where a
+guest sits for some time doing something, and lets the test harness
+know that it should allow the guest to continue to boot.
+
+You can supply zero or one "final" screenshot.  This is often a
+screenshot of the login page which indicates that the guest booted
+successfully.
+
+=item I<test>.ml
+
+The test itself - see below.
+
+=back
+
+The test file (C<*.ml>) is used to control the test harness, and
+minimally it would look something like this:
+
+ open V2v_test_harness
+ 
+ let test = "short-name"
+ 
+ let () = run ~test ()
+
+That would instruct the test harness to:
+
+=over 4
+
+=item *
+
+Uncompress C<I<short-name>.img.xz>
+
+=item *
+
+Run C<virt-v2v -i libvirtxml I<short-name>.xml [...]>
+
+=item *
+
+Boot the resulting guest and check that it writes to its disk and then
+the disk becomes idle.
+
+=back
+
+The above is a rather simplistic test.  A more realistic test is to
+ensure the guest reaches a final milestone (screenshot), eg. a login
+page.  To do that you have to supply a C<~test_plan> parameter:
+
+ open V2v_test_harness
+ 
+ let test = "short-name"
+ let test_plan = {
+   default_plan with
+     boot_plan = Boot_to_screenshot (test ^ ".ppm")
+ }
+ 
+ let () = run ~test ~test_plan ()
+
+For an even better test, you can supply post-conversion and post-boot
+test cases which examine the disk image (using libguestfs) to verify
+that files have been created, modified or deleted as expected within
+the disk image.  See C<V2v_test_harness.mli> for more information on
+how to do that.
+
+=head1 SEE ALSO
+
+L<virt-v2v(1)>,
+L<virt-p2v(1)>,
+L<guestfs(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2014-2015 Red Hat Inc.

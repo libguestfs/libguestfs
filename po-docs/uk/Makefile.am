@@ -80,6 +80,7 @@ MANPAGES = \
 	virt-tar-in.1 \
 	virt-tar-out.1 \
 	virt-v2v.1 \
+	virt-v2v-test-harness.1 \
 	virt-win-reg.1
 
 podfiles := $(shell for f in `cat $(top_srcdir)/po-docs/podfiles`; do echo `basename $$f .pod`.pod; done)

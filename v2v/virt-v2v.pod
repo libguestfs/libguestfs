@@ -1493,6 +1493,7 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<qemu-img(1)>,
 L<fstrim(8)>,
+L<virt-v2v-test-harness(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS

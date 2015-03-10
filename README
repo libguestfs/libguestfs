@@ -244,6 +244,8 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | ocaml-ounit  |             | O | For the tests of the common OCaml       |
 |              |             |   | modules.                                |
++--------------+-------------+---+-----------------------------------------+
+| ocaml-libvirt| 0.6.1.5     | O | For building the virt-v2v test harness. |
 +==============+=============+===+=========================================+
                                R = Required
                                O = Optional

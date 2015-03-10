@@ -265,6 +265,7 @@ Makefile.in
 /html/virt-tar-in.1.html
 /html/virt-tar-out.1.html
 /html/virt-v2v.1.html
+/html/virt-v2v-test-harness.1.html
 /html/virt-win-reg.1.html
 /inspector/actual-*.xml
 /inspector/stamp-virt-inspector.pod
@@ -567,6 +568,11 @@ Makefile.in
 /v2v/rhel-6.5.img
 /v2v/rhel-7.0.img
 /v2v/stamp-virt-v2v.pod
+/v2v/test-harness/.depend
+/v2v/test-harness/META
+/v2v/test-harness/dllv2v_test_harness.so
+/v2v/test-harness/stamp-virt-v2v-test-harness.pod
+/v2v/test-harness/virt-v2v-test-harness.1
 /v2v/test-v2v-networks-and-bridges.xml
 /v2v/virt-v2v
 /v2v/virt-v2v.1
