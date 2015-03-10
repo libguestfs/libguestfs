@@ -70,7 +70,7 @@ static GtkWidget *run_dlg,
   *cancel_button, *reboot_button;
 
 /* The entry point from the main program.
- * Note that gtk_init etc have already been called in main().
+ * Note that gtk_init etc have already been called in main.
  */
 void
 gui_application (struct config *config)
