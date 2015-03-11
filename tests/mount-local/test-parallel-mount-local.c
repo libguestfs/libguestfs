@@ -368,12 +368,16 @@ guestunmount (const char *mp, unsigned flags)
 
   status = system (cmd);
   if (!WIFEXITED (status) ||
-      (WEXITSTATUS (status) != 0 && WEXITSTATUS (status) != 2))
+      (WEXITSTATUS (status) != 0 && WEXITSTATUS (status) != 2)) {
+    fprintf (stderr, "guestunmount exited with bad status (%d)\n", status);
     return -1;
+  }
 
   if (flags & GUESTUNMOUNT_RMDIR) {
-    if (rmdir (mp) == -1)
+    if (rmdir (mp) == -1) {
+      perror ("rmdir");
       return -1;
+    }
   }
 
   return 0;
