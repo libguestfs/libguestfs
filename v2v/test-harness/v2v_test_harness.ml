@@ -280,30 +280,34 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       if active then (
         printf "%s: disk activity detected\n" (timestamp t);
         loop start t stats
-      ) else if t -. last_activity <= float test_plan.boot_idle_time then (
-        let screenshot = take_screenshot t in
-        (* Reached the final screenshot? *)
-        let done_ =
-          match test_plan.boot_plan with
-          | Boot_to_screenshot final_screenshot ->
-            if display_matches_screenshot screenshot final_screenshot then (
-              printf "%s: guest reached final screenshot\n" (timestamp t);
-              true
-            ) else false
-          | _ -> false in
-        if not done_ then (
-          (* A screenshot matching one of the screenshots in the set
-           * resets the timeout.
-           *)
-          let waiting_in_known_good_state =
-            List.exists (display_matches_screenshot screenshot)
-              test_plan.boot_known_good_screenshots in
-          if waiting_in_known_good_state then (
-            printf "%s: guest at known-good screenshot\n" (timestamp t);
-            loop t last_activity stats
-          ) else
-            loop start last_activity stats
+      ) else (
+        if t -. last_activity <= float test_plan.boot_idle_time then (
+          let screenshot = take_screenshot t in
+          (* Reached the final screenshot? *)
+          let done_ =
+            match test_plan.boot_plan with
+            | Boot_to_screenshot final_screenshot ->
+              if display_matches_screenshot screenshot final_screenshot then (
+                printf "%s: guest reached final screenshot\n" (timestamp t);
+                true
+              ) else false
+            | _ -> false in
+          if not done_ then (
+            (* A screenshot matching one of the screenshots in the set
+             * resets the timeouts.
+             *)
+            let waiting_in_known_good_state =
+              List.exists (display_matches_screenshot screenshot)
+                test_plan.boot_known_good_screenshots in
+            if waiting_in_known_good_state then (
+              printf "%s: guest at known-good screenshot\n" (timestamp t);
+              loop t t stats
+            ) else
+              loop start last_activity stats
+          )
         )
+        else
+          bootfail t "guest timed out with no disk activity before reaching final state"
       )
     in
     loop start last_activity stats;
