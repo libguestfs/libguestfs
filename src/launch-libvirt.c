@@ -863,7 +863,7 @@ debug_appliance_permissions (guestfs_h *g)
   guestfs_int_cmd_add_arg (cmd, "-a");
   guestfs_int_cmd_add_arg (cmd, "-l");
   guestfs_int_cmd_add_arg (cmd, "-R");
-  guestfs_int_cmd_add_arg (cmd, "--lcontext");
+  guestfs_int_cmd_add_arg (cmd, "-Z");
   guestfs_int_cmd_add_arg (cmd, appliance);
   guestfs_int_cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
   guestfs_int_cmd_run (cmd);
@@ -878,7 +878,7 @@ debug_socket_permissions (guestfs_h *g)
     guestfs_int_cmd_add_arg (cmd, "ls");
     guestfs_int_cmd_add_arg (cmd, "-a");
     guestfs_int_cmd_add_arg (cmd, "-l");
-    guestfs_int_cmd_add_arg (cmd, "--lcontext");
+    guestfs_int_cmd_add_arg (cmd, "-Z");
     guestfs_int_cmd_add_arg (cmd, g->tmpdir);
     guestfs_int_cmd_set_stdout_callback (cmd, debug_permissions_cb, NULL, 0);
     guestfs_int_cmd_run (cmd);
