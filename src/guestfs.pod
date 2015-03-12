@@ -2461,7 +2461,7 @@ indicates a bug in libguestfs.
 
 =back
 
-Libguestfs tries to convert the errno from inside the applicance into
+Libguestfs tries to convert the errno from inside the appliance into
 a corresponding errno for the caller (not entirely trivial: the
 appliance might be running a completely different operating system
 from the library and error numbers are not standardized across
