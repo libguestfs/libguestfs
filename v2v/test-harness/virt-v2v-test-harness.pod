@@ -154,6 +154,26 @@ that files have been created, modified or deleted as expected within
 the disk image.  See C<V2v_test_harness.mli> for more information on
 how to do that.
 
+=head1 FILES
+
+Note: To find the value of C<$ocamllibdir>, run:
+
+ ocamlc -where
+
+=over 4
+
+=item C<$ocamllibdir/v2v_test_harness/v2v_test_harness.mli>
+
+The test library interface.  Read this for detailed programming
+documentation.
+
+=item C<$ocamllibdir/v2v_test_harness/META>
+
+The findlib META file allowing you to use the library from
+L<ocamlfind(1)>.
+
+=back
+
 =head1 SEE ALSO
 
 L<virt-v2v(1)>,
