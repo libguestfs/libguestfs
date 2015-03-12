@@ -291,10 +291,22 @@ let pod2text_memo : (memo_key, memo_value) Hashtbl.t =
     v
   with
     _ -> Hashtbl.create 13
-let pod2text_memo_updated () =
+let pod2text_memo_unsaved_count = ref 0
+let pod2text_memo_atexit = ref false
+let pod2text_memo_save () =
   let chan = open_out pod2text_memo_filename in
   output_value chan pod2text_memo;
   close_out chan
+let pod2text_memo_updated () =
+  if not (!pod2text_memo_atexit) then (
+    at_exit pod2text_memo_save;
+    pod2text_memo_atexit := true;
+  );
+  pod2text_memo_unsaved_count := !pod2text_memo_unsaved_count + 1;
+  if !pod2text_memo_unsaved_count >= 100 then (
+    pod2text_memo_save ();
+    pod2text_memo_unsaved_count := 0;
+  )
 
 (* Useful if you need the longdesc POD text as plain text.  Returns a
  * list of lines.
