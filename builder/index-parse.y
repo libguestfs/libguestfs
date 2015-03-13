@@ -104,10 +104,10 @@ index:
         { context->parsed_index = $2; }
 
 sections:
-      section emptylines
-        { $$ = $1; }
-    | section EMPTY_LINE emptylines sections
-        { $$ = $1; $$->next = $4; }
+      emptylines section emptylines
+        { $$ = $2; }
+    | emptylines section EMPTY_LINE emptylines sections
+        { $$ = $2; $$->next = $5; }
     | emptylines
         { $$ = NULL; }
 
