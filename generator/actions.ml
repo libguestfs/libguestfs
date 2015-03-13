@@ -8591,6 +8591,11 @@ a file in the host and attach it as a device." };
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkfs"; "ext2"; "/dev/sda1"; ""; "NOARG"; ""; ""; "test-label"];
          ["vfs_label"; "/dev/sda1"]], "test-label"), [];
+      InitEmpty, IfAvailable "btrfs", TestResultString (
+        [["part_disk"; "/dev/sda"; "mbr"];
+         ["mkfs"; "btrfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; ""];
+         ["set_label"; "/dev/sda1"; "test-label-btrfs"];
+         ["vfs_label"; "/dev/sda1"]], "test-label-btrfs"), [];
     ];
     shortdesc = "get the filesystem label";
     longdesc = "\
