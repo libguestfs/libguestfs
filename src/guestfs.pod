@@ -4158,10 +4158,6 @@ Runs the regular test suite.
 This is implemented using the regular automake C<TESTS> target.  See
 the automake documentation for details.
 
-=item C<make syntax-check -j1 -k>
-
-Checks for various syntax and style problems in the code.
-
 =item C<make check-valgrind>
 
 Runs a subset of the test suite under valgrind.
