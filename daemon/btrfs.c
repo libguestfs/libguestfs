@@ -1210,12 +1210,45 @@ do_btrfs_qgroup_destroy (const char *qgroupid, const char *subvolume)
   return 0;
 }
 
+/* btrfs qgroup show command change default output to
+ * binary prefix since v3.18.2, such as KiB;
+ * also introduced '--raw' to keep traditional behaviour.
+ * We could check wheter 'btrfs qgroup show' support '--raw'
+ * option by checking the output of
+ * 'btrfs qgroup show' support --help' command.
+ */
+static int
+test_btrfs_qgroup_show_raw_opt (void)
+{
+  static int result = -1;
+  if (result != -1)
+    return result;
+
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+
+  int r = commandr (&out, &err, str_btrfs, "qgroup", "show", "--help", NULL);
+
+  if (r == -1) {
+    reply_with_error ("btrfs qgroup show --help: %s", err);
+    return -1;
+  }
+
+  if (strstr (out, "--raw") == NULL)
+    result = 0;
+  else
+    result = 1;
+
+  return result;
+}
+
 guestfs_int_btrfsqgroup_list *
 do_btrfs_qgroup_show (const char *path)
 {
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
+  int has_raw_opt = test_btrfs_qgroup_show_raw_opt ();
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
   CLEANUP_FREE char *out = NULL;
@@ -1231,6 +1264,8 @@ do_btrfs_qgroup_show (const char *path)
   ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "qgroup");
   ADD_ARG (argv, i, "show");
+  if (has_raw_opt > 0)
+    ADD_ARG (argv, i, "--raw");
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
