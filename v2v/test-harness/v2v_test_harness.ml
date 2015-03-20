@@ -62,10 +62,6 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     match input_disk with
     | None -> test ^ ".img.xz"
     | Some input_disk -> input_disk in
-  let input_xml =
-    match input_xml with
-    | None -> test ^ ".xml"
-    | Some input_xml -> input_xml in
 
   let inspect_and_mount_disk filename =
     let g = new G.guestfs () in
@@ -332,31 +328,49 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
 
   printf "v2v_test_harness: starting test: %s\n%!" test;
 
-  (* Check we are started in the correct directory, ie. the input_disk
-   * and input_xml files should exist, and they should be local files.
+  (* Check we are started in the correct directory.
    *)
-  if not (Sys.file_exists input_disk) || not (Sys.file_exists input_xml) then
-    failwithf "cannot find input files: %s, %s: you are probably running the test script from the wrong directory" input_disk input_xml;
+  if not (Sys.file_exists input_disk) then
+    failwith "cannot find input files: you are probably running the test script from the wrong directory";
 
-  (* Uncompress the input, if it doesn't exist already. *)
-  let input_disk =
-    if Filename.check_suffix input_disk ".xz" then (
-      let input_disk_uncomp = Filename.chop_suffix input_disk ".xz" in
-      if not (Sys.file_exists input_disk_uncomp) then (
-        let cmd = sprintf "unxz --keep %s" (quote input_disk) in
-        printf "%s\n%!" cmd;
-        if Sys.command cmd <> 0 then
-          failwith "unxz command failed"
-      );
-      input_disk_uncomp
+  (* How we run virt-v2v depends on the extension of the input_disk. *)
+  let v2v_method =
+    (* Uncompress the input, if the uncompressed file doesn't exist already. *)
+    let input_disk =
+      if Filename.check_suffix input_disk ".xz" then (
+        let input_disk_uncomp = Filename.chop_suffix input_disk ".xz" in
+        if not (Sys.file_exists input_disk_uncomp) then (
+          let cmd = sprintf "unxz --keep %s" (quote input_disk) in
+          printf "%s\n%!" cmd;
+          if Sys.command cmd <> 0 then
+            failwith "unxz command failed"
+        );
+        input_disk_uncomp
+      )
+      else input_disk in
+
+    if Filename.check_suffix input_disk ".img" then (
+      let input_xml =
+        match input_xml with
+        | None -> test ^ ".xml"
+        | Some input_xml -> input_xml in
+      `V2v_method_libvirtxml input_xml
     )
-    else input_disk in
-  ignore input_disk;
+    else if Filename.check_suffix input_disk ".ova" then
+      `V2v_method_ova input_disk
+    else
+      failwithf "don't know what to do with input disk '%s'" input_disk in
 
   (* Run virt-v2v. *)
-  let cmd = sprintf
-    "virt-v2v -i libvirtxml %s -o local -of qcow2 -os . -on %s"
-    (quote input_xml) (quote (test ^ "-converted")) in
+  let cmd_input =
+    match v2v_method with
+    | `V2v_method_libvirtxml input_xml ->
+      sprintf "-i libvirtxml %s" (quote input_xml)
+    | `V2v_method_ova input_disk ->
+      sprintf "-i ova %s" (quote input_disk) in
+  let cmd =
+    sprintf "virt-v2v %s -o local -of qcow2 -os . -on %s"
+      cmd_input (quote (test ^ "-converted")) in
   printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
     failwith "virt-v2v command failed";
