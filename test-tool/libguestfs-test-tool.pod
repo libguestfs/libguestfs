@@ -80,8 +80,8 @@ libguestfs-test-tool writes a wrapper script for you if one is needed.
 =head1 TRYING OUT A DIFFERENT KERNEL
 
 You can tell supermin to try a different kernel.  You do this by
-setting the environment variables C<SUPERMIN_KERNEL> and/or
-C<SUPERMIN_MODULES>.
+setting the environment variables C<SUPERMIN_KERNEL>,
+C<SUPERMIN_KERNEL_VERSION> and/or C<SUPERMIN_MODULES>.
 
 Refer to L<supermin(1)/ENVIRONMENT VARIABLES> for further information.
 

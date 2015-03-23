@@ -413,8 +413,8 @@ C<localenv> should contain:
  #export SUPERMIN=/tmp/supermin/src/supermin
  #export LIBGUESTFS_HV=/tmp/qemu/x86_64-softmmu/qemu-system-x86_64
  #export SUPERMIN_KERNEL=/tmp/linux/arch/x86/boot/bzImage
- #export SUPERMIN_KERNEL_VERSION=3.XX.0
- #export SUPERMIN_MODULES=/tmp/lib/modules/3.XX.0
+ #export SUPERMIN_KERNEL_VERSION=4.XX.0
+ #export SUPERMIN_MODULES=/tmp/lib/modules/4.XX.0
 
 Uncomment and adjust these lines as required to use the alternate
 programs you have compiled.

@@ -1513,11 +1513,13 @@ the path of qemu/KVM.
 
 =item SUPERMIN_KERNEL
 
+=item SUPERMIN_KERNEL_VERSION
+
 =item SUPERMIN_MODULES
 
-These two environment variables allow the kernel that libguestfs uses
-in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not set,
-then the most recent host kernel is chosen.  For more information
+These three environment variables allow the kernel that libguestfs
+uses in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not
+set, then the most recent host kernel is chosen.  For more information
 about kernel selection, see L<supermin(1)>.
 
 =item TMPDIR
