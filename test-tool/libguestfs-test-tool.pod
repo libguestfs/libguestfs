@@ -79,11 +79,9 @@ libguestfs-test-tool writes a wrapper script for you if one is needed.
 
 =head1 TRYING OUT A DIFFERENT KERNEL
 
-If you are using supermin / febootstrap E<ge> 3.8 then you can select
-which kernel libguestfs tries.  You do this by setting the environment
-variables C<SUPERMIN_KERNEL> and/or C<SUPERMIN_MODULES>
-(C<FEBOOTSTRAP_KERNEL> and C<FEBOOTSTRAP_MODULES> if still using the
-old febootstrap 3.21 program).
+You can tell supermin to try a different kernel.  You do this by
+setting the environment variables C<SUPERMIN_KERNEL> and/or
+C<SUPERMIN_MODULES>.
 
 Refer to L<supermin(1)/ENVIRONMENT VARIABLES> for further information.
 

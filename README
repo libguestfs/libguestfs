@@ -387,8 +387,8 @@ distributions.  Non-Linux ports are trickier, but we will accept
 patches if they aren't too invasive.
 
 The main porting issues are with the dependencies needed to build the
-appliance.  You will need to port febootstrap first
-(http://people.redhat.com/~rjones/febootstrap/).
+appliance.  You will need to port supermin first
+(http://people.redhat.com/~rjones/supermin/).
 
 
 Note on using clang (from LLVM) instead of GCC

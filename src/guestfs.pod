@@ -4690,13 +4690,6 @@ be reached in practice.  See the source code for more information.
 
 =over 4
 
-=item FEBOOTSTRAP_KERNEL
-
-=item FEBOOTSTRAP_MODULES
-
-When using supermin E<ge> 4.1.0, these have been renamed
-L</SUPERMIN_KERNEL> and L</SUPERMIN_MODULES>.
-
 =item LIBGUESTFS_APPEND
 
 Pass additional options to the guest kernel.
@@ -4785,8 +4778,7 @@ environment which tends to break everything.
 These two environment variables allow the kernel that libguestfs uses
 in the appliance to be selected.  If C<$SUPERMIN_KERNEL> is not
 set, then the most recent host kernel is chosen.  For more information
-about kernel selection, see L<supermin(1)>.  This
-feature is only available in supermin / febootstrap E<ge> 3.8.
+about kernel selection, see L<supermin(1)>.
 
 =item TMPDIR
 
