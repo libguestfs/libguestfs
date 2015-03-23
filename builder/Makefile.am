@@ -30,6 +30,7 @@ EXTRA_DIST = \
 	test-virt-index-validate-bad-1 \
 	test-virt-index-validate-good-1 \
 	test-virt-index-validate-good-2 \
+	test-virt-index-validate-good-3 \
 	virt-builder.pod \
 	virt-index-validate.pod
 
