@@ -171,6 +171,10 @@ exec >>%s 2>&1
        * read when their arguments are met. *)
       ()
 
+    | `Copy (src, dest) ->
+      msg (f_"Copying (in image): %s to %s") src dest;
+      g#cp_a src dest
+
     | `CopyIn (localpath, remotedir) ->
       msg (f_"Copying: %s to %s") localpath remotedir;
       g#copy_in localpath remotedir

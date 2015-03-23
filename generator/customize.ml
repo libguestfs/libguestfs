@@ -85,6 +85,16 @@ as if they were specified as I<--delete /some/file> on the command
 line.";
   };
 
+  { op_name = "copy";
+    op_type = StringPair "SOURCE:DEST";
+    op_discrim = "`Copy";
+    op_shortdesc = "Copy files in disk image";
+    op_pod_longdesc = "\
+Copy files or directories recursively inside the guest.
+
+Wildcards cannot be used.";
+  };
+
   { op_name = "copy-in";
     op_type = StringPair "LOCALPATH:REMOTEDIR";
     op_discrim = "`CopyIn";
