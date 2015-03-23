@@ -315,7 +315,7 @@ read the man page virt-builder(1).
           | `Password _ | `RootPassword _ | `Scrub _ | `SSHInject _
           | `Timezone _ | `Truncate _ | `TruncateRecursive _
           | `Upload _ | `Write _ | `Chmod _
-          | `CommandsFromFile _ | `CopyIn _ | `Copy _ -> false
+          | `CommandsFromFile _ | `CopyIn _ | `Copy _ | `Move _ -> false
         ) ops.ops in
         if requires_execute_on_guest then
           error (f_"sorry, cannot run commands on a guest with a different architecture");

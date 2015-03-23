@@ -222,6 +222,16 @@ This uses S<C<mkdir -p>> so any intermediate directories are created,
 and it also works if the directory already exists.";
   };
 
+  { op_name = "move";
+    op_type = StringPair "SOURCE:DEST";
+    op_discrim = "`Move";
+    op_shortdesc = "Move files in disk image";
+    op_pod_longdesc = "\
+Move files or directories inside the guest.
+
+Wildcards cannot be used.";
+  };
+
   { op_name = "password";
     op_type = UserPasswordSelector "USER:SELECTOR";
     op_discrim = "`Password";
