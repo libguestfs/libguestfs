@@ -37,6 +37,7 @@ GUESTFSD_EXT_CMD(str_btrfstune, btrfstune);
 GUESTFSD_EXT_CMD(str_btrfsck, btrfsck);
 GUESTFSD_EXT_CMD(str_mkfs_btrfs, mkfs.btrfs);
 GUESTFSD_EXT_CMD(str_umount, umount);
+GUESTFSD_EXT_CMD(str_btrfsimage, btrfs-image);
 
 int
 optgroup_btrfs_available (void)
@@ -2035,6 +2036,48 @@ do_btrfstune_enable_skinny_metadata_extent_refs (const char *device)
   r = commandv (&out, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_btrfs_image (char *const *sources, const char *image,
+	int compresslevel)
+{
+  size_t nr_sources =  count_strings (sources);
+  const size_t MAX_ARGS = 64 + nr_sources;
+  const char *argv[MAX_ARGS];
+  size_t i = 0, j;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *out = NULL;
+  char compresslevel_s[64];
+  int r;
+
+  if (nr_sources == 0) {
+      reply_with_error ("list of sources must be non-empty");
+      return -1;
+  }
+
+  ADD_ARG (argv, i, str_btrfsimage);
+
+  if ((optargs_bitmask & GUESTFS_BTRFS_IMAGE_COMPRESSLEVEL_BITMASK)
+    && compresslevel >= 0) {
+    snprintf (compresslevel_s, sizeof compresslevel_s, "%d", compresslevel);
+    ADD_ARG (argv, i, "-c");
+    ADD_ARG (argv, i, compresslevel_s);
+  }
+
+  for (j = 0; j < nr_sources; ++j)
+    ADD_ARG (argv, i, sources[j]);
+
+  ADD_ARG (argv, i, image);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s %s: %s", sources[0], image, err);
     return -1;
   }
 

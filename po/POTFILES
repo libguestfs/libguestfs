@@ -177,6 +177,7 @@ gobject/src/optargs-add_libvirt_dom.c
 gobject/src/optargs-btrfs_filesystem_defragment.c
 gobject/src/optargs-btrfs_filesystem_resize.c
 gobject/src/optargs-btrfs_fsck.c
+gobject/src/optargs-btrfs_image.c
 gobject/src/optargs-btrfs_subvolume_create.c
 gobject/src/optargs-btrfs_subvolume_snapshot.c
 gobject/src/optargs-compress_device_out.c

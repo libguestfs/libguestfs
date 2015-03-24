@@ -12527,6 +12527,28 @@ This will Enable extended inode refs." };
     longdesc = "\
 This enable skinny metadata extent refs." };
 
+  { defaults with
+    name = "btrfs_image";
+    style = RErr, [DeviceList "source"; Pathname "image"], [OInt "compresslevel"];
+    proc_nr = Some 453;
+    optional = Some "btrfs"; camel_name = "BTRFSImage";
+    tests = [
+      InitPartition, Always, TestRun (
+        [["part_init"; "/dev/sda"; "mbr"];
+         ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+         ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+         ["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mkfs_btrfs"; "/dev/sda2"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["mount"; "/dev/sda1"; "/"];
+         ["btrfs_image"; "/dev/sda2"; "/1.img"; ""];
+         ["btrfs_image"; "/dev/sda2"; "/2.img"; "2"]]), []
+    ];
+
+    shortdesc = "create an image of a btrfs filesystem";
+    longdesc = "\
+This is used to create an image of a btrfs filesystem.
+All data will be zeroed, but metadata and the like is preserved." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
