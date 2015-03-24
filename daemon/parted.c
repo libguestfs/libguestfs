@@ -33,6 +33,13 @@ GUESTFSD_EXT_CMD(str_parted, parted);
 GUESTFSD_EXT_CMD(str_sfdisk, sfdisk);
 GUESTFSD_EXT_CMD(str_sgdisk, sgdisk);
 
+enum parted_has_m_opt {
+  PARTED_INVALID = -1,
+  /* parted do not support -m option */
+  PARTED_OPT_NO_M = 0,
+  PARTED_OPT_HAS_M = 1,
+};
+
 /* Notes:
  *
  * Parted 1.9 sends error messages to stdout, hence use of the
@@ -317,10 +324,10 @@ get_table_field (const char *line, int n)
  * print_partition_table below.  Test for this option the first time
  * this function is called.
  */
-static int
+static enum parted_has_m_opt
 test_parted_m_opt (void)
 {
-  static int result = -1;
+  static enum parted_has_m_opt result = PARTED_INVALID;
 
   if (result >= 0)
     return result;
@@ -334,20 +341,21 @@ test_parted_m_opt (void)
   }
 
   if (err && strstr (err, "invalid option -- m"))
-    result = 0;
+    result = PARTED_OPT_NO_M;
   else
-    result = 1;
+    result = PARTED_OPT_HAS_M;
   return result;
 }
 
 static char *
-print_partition_table (const char *device, int parted_has_m_opt)
+print_partition_table (const char *device,
+                       enum parted_has_m_opt parted_has_m_opt)
 {
   char *out;
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  if (parted_has_m_opt)
+  if (PARTED_OPT_HAS_M == parted_has_m_opt)
     r = command (&out, &err, str_parted, "-m", "--", device,
                  "unit", "b",
                  "print", NULL);
@@ -369,15 +377,15 @@ print_partition_table (const char *device, int parted_has_m_opt)
 char *
 do_part_get_parttype (const char *device)
 {
-  int parted_has_m_opt = test_parted_m_opt ();
-  if (parted_has_m_opt == -1)
+  enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
+  if (parted_has_m_opt == PARTED_INVALID)
     return NULL;
 
   CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
   if (!out)
     return NULL;
 
-  if (parted_has_m_opt) {
+  if (PARTED_OPT_HAS_M == parted_has_m_opt) {
     /* New-style parsing using the "machine-readable" format from
      * 'parted -m'.
      */
@@ -451,8 +459,8 @@ do_part_get_parttype (const char *device)
 guestfs_int_partition_list *
 do_part_list (const char *device)
 {
-  int parted_has_m_opt = test_parted_m_opt ();
-  if (parted_has_m_opt == -1)
+  enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
+  if (parted_has_m_opt == PARTED_INVALID)
     return NULL;
 
   CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
@@ -466,7 +474,7 @@ do_part_list (const char *device)
 
   guestfs_int_partition_list *r;
 
-  if (parted_has_m_opt) {
+  if (PARTED_OPT_HAS_M == parted_has_m_opt) {
     /* New-style parsing using the "machine-readable" format from
      * 'parted -m'.
      *
@@ -577,8 +585,8 @@ do_part_get_bootable (const char *device, int partnum)
     return -1;
   }
 
-  int parted_has_m_opt = test_parted_m_opt ();
-  if (parted_has_m_opt == -1)
+  enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
+  if (parted_has_m_opt == PARTED_INVALID)
     return -1;
 
   CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
@@ -590,7 +598,7 @@ do_part_get_bootable (const char *device, int partnum)
   if (!lines)
     return -1;
 
-  if (parted_has_m_opt) {
+  if (PARTED_OPT_HAS_M == parted_has_m_opt) {
     /* New-style parsing using the "machine-readable" format from
      * 'parted -m'.
      *
@@ -964,15 +972,15 @@ do_part_get_name (const char *device, int partnum)
     return NULL;
 
   if (STREQ (parttype, "gpt")) {
-    int parted_has_m_opt = test_parted_m_opt ();
-    if (parted_has_m_opt == -1)
+    enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
+    if (parted_has_m_opt == PARTED_INVALID)
       return NULL;
 
     CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
     if (!out)
       return NULL;
 
-    if (parted_has_m_opt) {
+    if (PARTED_OPT_HAS_M == parted_has_m_opt) {
       /* New-style parsing using the "machine-readable" format from
        * 'parted -m'.
        */
