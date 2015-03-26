@@ -1,6 +1,6 @@
 #!/bin/bash -
 # virt-builder
-# Copyright (C) 2013 Red Hat Inc.
+# Copyright (C) 2013-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ case $version in
         minor=`echo $version | awk -F. '{print $2}'`
         topurl=http://download.devel.redhat.com/released/RHEL-$major/U$minor/AS
         tree=$topurl/x86_64/tree
+        baseurl=$tree
         srpms=$topurl/x86_64/tree/SRPMS
         bootfs=ext2
         rootfs=ext3
@@ -50,6 +51,7 @@ case $version in
         minor=`echo $version | awk -F. '{print $2}'`
         topurl=http://download.devel.redhat.com/released/RHEL-$major/U$minor/AS
         tree=$topurl/x86_64/tree
+        baseurl=$tree
         srpms=$topurl/x86_64/tree/SRPMS
         bootfs=ext2
         rootfs=ext3
@@ -60,6 +62,7 @@ case $version in
         minor=`echo $version | awk -F. '{print $2}'`
         topurl=http://download.devel.redhat.com/released/RHEL-$major-Server/U$minor
         tree=$topurl/x86_64/os
+        baseurl=$tree/Server
         srpms=$topurl/source/SRPMS
         bootfs=ext2
         rootfs=ext4
@@ -69,6 +72,7 @@ case $version in
         major=6
         topurl=http://download.devel.redhat.com/released/RHEL-$major/$version
         tree=$topurl/Server/x86_64/os
+        baseurl=$tree
         srpms=$topurl/source/SRPMS
         optional=$topurl/Server/optional/x86_64/os
         optionalsrpms=$topurl/Server/optional/source/SRPMS
@@ -79,6 +83,7 @@ case $version in
         major=7
         topurl=http://download.devel.redhat.com/released/RHEL-$major/$version
         tree=$topurl/Server/x86_64/os
+        baseurl=$tree
         srpms=$topurl/Server/source/tree
         optional=$topurl/Server-optional/x86_64/os
         optionalsrpms=$topurl/Server-optional/source/tree
@@ -160,7 +165,7 @@ yum=$(mktemp)
 cat > $yum <<EOF
 [rhel$major]
 name=RHEL $major Server
-baseurl=$tree
+baseurl=$baseurl
 enabled=1
 gpgcheck=0
 keepcache=0
