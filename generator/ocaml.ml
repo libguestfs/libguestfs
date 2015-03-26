@@ -133,6 +133,7 @@ val last_errno : t -> int
 
 module Errno : sig
   val errno_ENOTSUP : int
+  val errno_EPERM : int
   val errno_ESRCH : int
 end
 
@@ -276,6 +277,8 @@ external last_errno : t -> int = \"ocaml_guestfs_last_errno\"
 module Errno = struct
   external enotsup : unit -> int = \"ocaml_guestfs_get_ENOTSUP\" \"noalloc\"
   let errno_ENOTSUP = enotsup ()
+  external eperm : unit -> int = \"ocaml_guestfs_get_EPERM\" \"noalloc\"
+  let errno_EPERM = eperm ()
   external esrch : unit -> int = \"ocaml_guestfs_get_ESRCH\" \"noalloc\"
   let errno_ESRCH = esrch ()
 end

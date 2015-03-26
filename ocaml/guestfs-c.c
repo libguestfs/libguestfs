@@ -64,6 +64,7 @@ value ocaml_guestfs_delete_event_callback (value gv, value eh);
 value ocaml_guestfs_event_to_string (value events);
 value ocaml_guestfs_last_errno (value gv);
 value ocaml_guestfs_get_ENOTSUP (value unitv);
+value ocaml_guestfs_get_EPERM (value unitv);
 value ocaml_guestfs_get_ESRCH (value unitv);
 
 /* Allocate handles and deal with finalization. */
@@ -446,6 +447,13 @@ value
 ocaml_guestfs_get_ENOTSUP (value unitv)
 {
   return Val_int (ENOTSUP);
+}
+
+/* NB: "noalloc" function. */
+value
+ocaml_guestfs_get_EPERM (value unitv)
+{
+  return Val_int (EPERM);
 }
 
 /* NB: "noalloc" function. */
