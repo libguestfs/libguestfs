@@ -257,7 +257,13 @@ exec >>%s 2>&1
       let perms = statbuf.st_perm land 0o7777 (* sticky & set*id *) in
       g#chmod perms dest;
       let uid, gid = statbuf.st_uid, statbuf.st_gid in
-      g#chown uid gid dest
+      let chown () =
+        try g#chown uid gid dest
+        with Guestfs.Error m as e ->
+          if g#last_errno () = Guestfs.Errno.errno_EPERM
+          then warning "%s" m
+          else raise e in
+      chown ()
 
     | `Write (path, content) ->
       msg (f_"Writing: %s") path;
