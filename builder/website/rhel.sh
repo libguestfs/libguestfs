@@ -59,7 +59,7 @@ case $version in
         major=5
         minor=`echo $version | awk -F. '{print $2}'`
         topurl=http://download.devel.redhat.com/released/RHEL-$major-Server/U$minor
-        tree=$topurl/x86_64/os/Server
+        tree=$topurl/x86_64/os
         srpms=$topurl/source/SRPMS
         bootfs=ext2
         rootfs=ext4
