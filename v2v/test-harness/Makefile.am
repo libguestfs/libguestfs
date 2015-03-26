@@ -97,6 +97,8 @@ if HAVE_OCAMLOPT
 	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif
 
+v2v_test_harness.cmi: $(top_builddir)/ocaml/guestfs.cmi
+
 # Do the installation by hand, because we want to run ocamlfind.
 data_hook_files = META *.so *.a *.cmi $(srcdir)/*.mli
 if !HAVE_OCAMLOPT
