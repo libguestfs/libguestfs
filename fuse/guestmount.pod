@@ -332,6 +332,19 @@ a good idea if you can afford the extra memory usage.
 Use these options to map all UIDs and GIDs inside the guest filesystem
 to the chosen values.
 
+=item B<-o use_ino>
+
+Preserve inode numbers from the underlying filesystem.
+
+Without this option, FUSE makes up its own inode numbers.  The inode
+numbers you see in L<stat(2)>, C<ls -i> etc aren't the inode numbers
+of the underlying filesystem.
+
+B<Note> this option is potentially dangerous if the underlying
+filesystem consists of multiple mountpoints, as you may see duplicate
+inode numbers appearing through FUSE.  Use of this option can confuse
+some software.
+
 =back
 
 =item B<--pid-file filename>
