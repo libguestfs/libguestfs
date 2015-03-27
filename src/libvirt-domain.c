@@ -793,4 +793,11 @@ guestfs_impl_add_domain (guestfs_h *g, const char *dom,
   NOT_IMPL(-1);
 }
 
+int
+guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
+                          const struct guestfs_add_libvirt_dom_argv *optargs)
+{
+  NOT_IMPL(-1);
+}
+
 #endif /* no libvirt at compile time */
