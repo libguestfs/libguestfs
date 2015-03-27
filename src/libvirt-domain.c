@@ -178,7 +178,7 @@ struct add_disk_data {
   struct guestfs_add_drive_opts_argv optargs;
 };
 
-GUESTFS_DLL_PUBLIC int
+int
 guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
                           const struct guestfs_add_libvirt_dom_argv *optargs)
 {
