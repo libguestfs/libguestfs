@@ -30,6 +30,7 @@ EXTRA_DIST = \
 	debian.sh \
 	fedora.sh \
 	fedora-aarch64.sh \
+	fedora-armv7l.sh \
 	fedora-ppc64.sh \
 	rhel.sh \
 	scientificlinux.sh \
