@@ -44,9 +44,16 @@ CLEANFILES = \
 
 if HAVE_RUBY
 
-all: $(generator_built)
+all: $(generator_built) doc/site/index.html
 	$(RAKE) build
+
+# Rebuilding the documentation takes forever, so be careful to only do
+# it when the ruby bindings change.
+doc/site/index.html doc/site/api/table_of_contents.html: stamp-rdoc
+
+stamp-rdoc: ext/guestfs/_guestfs.c
 	$(RAKE) rdoc
+	touch $@
 
 # Packagers can override this by doing: make INSTALLDIRS=vendor install
 # INSTALLDIRS also affects where Perl bindings are installed.

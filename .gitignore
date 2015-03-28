@@ -429,6 +429,7 @@ Makefile.in
 /ruby/ext/guestfs/_guestfs.so
 /ruby/ext/guestfs/mkmf.log
 /ruby/Rakefile
+/ruby/stamp-rdoc
 /run
 /sparsify/.depend
 /sparsify/link.sh
