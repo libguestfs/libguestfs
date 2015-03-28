@@ -2262,9 +2262,8 @@ static struct backend_ops backend_libvirt_ops = {
   .hot_remove_drive = hot_remove_drive_libvirt,
 };
 
-static void init_backend (void) __attribute__((constructor));
-static void
-init_backend (void)
+void
+guestfs_int_init_libvirt_backend (void)
 {
   guestfs_int_register_backend ("libvirt", &backend_libvirt_ops);
 }

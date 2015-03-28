@@ -120,9 +120,8 @@ static struct backend_ops backend_unix_ops = {
   .shutdown = shutdown_unix,
 };
 
-static void init_backend (void) __attribute__((constructor));
-static void
-init_backend (void)
+void
+guestfs_int_init_unix_backend (void)
 {
   guestfs_int_register_backend ("unix", &backend_unix_ops);
 }

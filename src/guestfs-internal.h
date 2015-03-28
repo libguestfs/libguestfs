@@ -883,6 +883,14 @@ extern void guestfs_int_cleanup_cmd_close (struct command **);
 extern char *guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, unsigned long qemu_version);
 
+/* launch-*.c constructors */
+void guestfs_int_init_direct_backend (void) __attribute__((constructor));
+#ifdef HAVE_LIBVIRT
+void guestfs_int_init_libvirt_backend (void) __attribute__((constructor));
+#endif
+void guestfs_int_init_uml_backend (void) __attribute__((constructor));
+void guestfs_int_init_unix_backend (void) __attribute__((constructor));
+
 /* guid.c */
 extern int guestfs_int_validate_guid (const char *);
 

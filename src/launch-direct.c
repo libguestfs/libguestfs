@@ -1544,9 +1544,8 @@ static struct backend_ops backend_direct_ops = {
   .max_disks = max_disks_direct,
 };
 
-static void init_backend (void) __attribute__((constructor));
-static void
-init_backend (void)
+void
+guestfs_int_init_direct_backend (void)
 {
   guestfs_int_register_backend ("direct", &backend_direct_ops);
 }

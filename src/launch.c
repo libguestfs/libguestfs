@@ -527,3 +527,16 @@ guestfs_int_set_backend (guestfs_h *g, const char *method)
 
   return 0;
 }
+
+/* This hack is only required to make static linking work.  See:
+ * https://stackoverflow.com/questions/1202494/why-doesnt-attribute-constructor-work-in-a-static-library
+ */
+void *
+guestfs_int_force_load_backends[] = {
+  guestfs_int_init_direct_backend,
+#ifdef HAVE_LIBVIRT
+  guestfs_int_init_libvirt_backend,
+#endif
+  guestfs_int_init_uml_backend,
+  guestfs_int_init_unix_backend,
+};

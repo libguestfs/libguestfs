@@ -609,9 +609,8 @@ static struct backend_ops backend_uml_ops = {
   .max_disks = max_disks_uml,
 };
 
-static void init_backend (void) __attribute__((constructor));
-static void
-init_backend (void)
+void
+guestfs_int_init_uml_backend (void)
 {
   guestfs_int_register_backend ("uml", &backend_uml_ops);
 }
