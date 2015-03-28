@@ -423,22 +423,26 @@ Avoid processors that don't have hardware virtualization, and some
 processors which are simply very slow (AMD Geode being a great
 example).
 
-=head1 DETAILED TIMINGS USING ANNOTATE
+=head1 DETAILED TIMINGS USING TS
 
-Use the L<annotate(1)>/L<annotate-output(1)> command to show detailed
+Use the L<ts(1)> command (from moreutils) to show detailed
 timings:
 
- $ annotate-output +'%T.%N' guestfish -a /dev/null run -v
- 22:17:53.215784625 I: Started guestfish -a /dev/null run -v
- 22:17:53.240335409 E: libguestfs: [00000ms] supermin-helper --verbose -f checksum '/usr/lib64/guestfs/supermin.d' x86_64
- 22:17:53.266857866 E: supermin helper [00000ms] whitelist = (not specified), host_cpu = x86_64, kernel = (null), initrd = (null), appliance = (null)
- 22:17:53.272704072 E: supermin helper [00000ms] inputs[0] = /usr/lib64/guestfs/supermin.d
- 22:17:53.276528651 E: checking modpath /lib/modules/3.4.0-1.fc17.x86_64.debug is a directory
+ $ guestfish -a /dev/null run -v |& ts -i '%.s'
+ 0.000022 libguestfs: launch: program=guestfish
+ 0.000134 libguestfs: launch: version=1.29.31fedora=23,release=2.fc23,libvirt
+ 0.000044 libguestfs: launch: backend registered: unix
+ 0.000035 libguestfs: launch: backend registered: uml
+ 0.000035 libguestfs: launch: backend registered: libvirt
+ 0.000032 libguestfs: launch: backend registered: direct
+ 0.000030 libguestfs: launch: backend=libvirt
+ 0.000031 libguestfs: launch: tmpdir=/tmp/libguestfsw18rBQ
+ 0.000029 libguestfs: launch: umask=0002
+ 0.000031 libguestfs: launch: euid=1000
+ 0.000030 libguestfs: libvirt version = 1002012 (1.2.12)
  [etc]
 
-The timestamps are C<hours:minutes:seconds.nanoseconds>.  By comparing
-the timestamps you can see exactly how long each operation in the boot
-sequence takes.
+The timestamps are seconds (incrementally since the previous line).
 
 =head1 DETAILED TIMINGS USING SYSTEMTAP
 
