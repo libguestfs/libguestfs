@@ -177,6 +177,12 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     in
 
     let take_screenshot t =
+      (* Send a left shift key to wake up the screen from blanking. *)
+      let cmd = sprintf "virsh send-key %s KEY_LEFTSHIFT" (quote domname) in
+      printf "%s\n%!" cmd;
+      ignore (Sys.command cmd);
+      sleep 2;
+
       (* Use 'virsh screenshot' command because our libvirt bindings
        * don't include virDomainScreenshot, and in any case that API
        * is complicated to use.  Returns the filename.
