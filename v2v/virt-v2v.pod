@@ -618,6 +618,25 @@ below.
  Windows        Drivers are installed from /usr/share/virtio-win
                 if present
 
+=head1 RHEL 4
+
+=head2 SELinux relabel appears to hang forever
+
+In RHEL E<le> 4.7 there was a bug which causes SELinux relabelling
+to appear to hang forever at:
+
+ *** Warning -- SELinux relabel is required. ***
+ *** Disabling security enforcement.         ***
+ *** Relabeling could take a very long time, ***
+ *** depending on file system size.          ***
+
+In reality it is waiting for you to press a key (but there is no
+visual indication of this).  You can either hit the C<[Return]> key,
+at which point the guest will finish relabelling and reboot, or you
+can install policycoreutils E<ge> 1.18.1-4.13 before starting the v2v
+conversion.  See also
+L<https://bugzilla.redhat.com/show_bug.cgi?id=244636>
+
 =head1 WINDOWS
 
 =head2 Boot failure: 0x0000007B
