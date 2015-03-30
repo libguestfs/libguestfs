@@ -202,22 +202,22 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
         sprintf "compare -metric MAE %s %s null: 2>&1"
           (quote screenshot1) (quote screenshot2) in
       printf "%s\n%!" cmd;
-      let chan = Unix.open_process_in cmd in
+      let chan = open_process_in cmd in
       let lines = ref [] in
       (try while true do lines := input_line chan :: !lines done
        with End_of_file -> ());
       let lines = List.rev !lines in
-      let stat = Unix.close_process_in chan in
+      let stat = close_process_in chan in
       let similarity =
         match stat with
-        | Unix.WEXITED 0 -> 0.0 (* exact match *)
-        | Unix.WEXITED 1 ->
+        | WEXITED 0 -> 0.0              (* exact match *)
+        | WEXITED 1 ->
           Scanf.sscanf (List.hd lines) "%f" (fun f -> f)
-        | Unix.WEXITED i ->
+        | WEXITED i ->
           failwithf "external command '%s' exited with error %d" cmd i
-        | Unix.WSIGNALED i ->
+        | WSIGNALED i ->
           failwithf "external command '%s' killed by signal %d" cmd i
-        | Unix.WSTOPPED i ->
+        | WSTOPPED i ->
           failwithf "external command '%s' stopped by signal %d" cmd i in
       printf "%s %s have similarity %f\n" screenshot1 screenshot2 similarity;
       similarity <= 60.0
