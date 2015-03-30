@@ -57,6 +57,7 @@ type partition = {
   p_target_partnum : int;        (* TARGET partition number. *)
   p_target_start : int64;        (* TARGET partition start (sector num). *)
   p_target_end : int64;          (* TARGET partition end (sector num). *)
+  p_mbr_p_type : partition_type  (* Partiton Type (master/extended/logical) *)
 }
 and partition_content =
   | ContentUnknown               (* undetermined *)
@@ -73,9 +74,11 @@ and partition_id =
   | No_ID                        (* No identifier. *)
   | MBR_ID of int                (* MBR ID. *)
   | GPT_Type of string           (* GPT UUID. *)
-
-type partition_type =
+and partition_type =
   | PrimaryPartition
+  | ExtendedPartition
+  | LogicalPartition
+  | NoTypePartition
 
 let rec debug_partition p =
   printf "%s:\n" p.p_name;
@@ -99,7 +102,8 @@ let rec debug_partition p =
     (match p.p_guid with
     | Some guid -> guid
     | None -> "(none)"
-    )
+    );
+  printf "\tpartition type: %s\n" (string_of_partition_type p.p_mbr_p_type)
 and string_of_partition_content = function
   | ContentUnknown -> "unknown data"
   | ContentPV sz -> sprintf "LVM PV (%Ld bytes)" sz
@@ -110,6 +114,11 @@ and string_of_partition_content_no_size = function
   | ContentPV _ -> "LVM PV"
   | ContentFS (fs, _) -> sprintf "filesystem %s" fs
   | ContentExtendedPartition -> "extended partition"
+and string_of_partition_type = function
+  | PrimaryPartition -> "primary"
+  | ExtendedPartition -> "extended"
+  | LogicalPartition -> "logical"
+  | NoTypePartition -> "none"
 
 (* Data structure describing LVs on the source disk.  This is only
  * used if the user gave the --lv-expand option.
@@ -453,17 +462,8 @@ read the man page virt-resize(1).
     | MBR_ID _ | GPT_Type _ | No_ID -> false
   in
 
-  let find_partitions part_type =
+  let find_partitions () =
     let parts = Array.to_list (g#part_list "/dev/sda") in
-
-    (* Filter out logical partitions.  See note above. *)
-    let parts =
-      match part_type with
-      (* for GPT, all partitions are regarded as Primary Partition,
-       * e.g. there is no Extended Partition or Logical Partition. *)
-      | PrimaryPartition ->
-        List.filter (fun p -> parttype <> MBR || p.G.part_num <= 4_l)
-        parts in
 
     let partitions =
       List.map (
@@ -491,13 +491,27 @@ read the man page virt-resize(1).
             | GPT ->
               try Some (g#part_get_gpt_guid "/dev/sda" part_num)
               with G.Error _ -> None in
+          let mbr_part_type =
+            let mbr_part_type_str = g#part_get_mbr_part_type "/dev/sda" part_num in
+            match mbr_part_type_str with
+            | "primary" -> PrimaryPartition
+            | "extended" -> ExtendedPartition
+            | "logical" -> LogicalPartition
+            | str -> NoTypePartition
+          in
 
           { p_name = name; p_part = part;
             p_bootable = bootable; p_id = id; p_type = typ;
-            p_label = label; p_guid = guid;
+            p_label = label; p_guid = guid; p_mbr_p_type = mbr_part_type;
             p_operation = OpCopy; p_target_partnum = 0;
             p_target_start = 0L; p_target_end = 0L }
       ) parts in
+
+    (* Filter out logical partitions.  See note above. *)
+    let partitions =
+      (* for GPT, all partitions are regarded as Primary Partition,
+       * e.g. there is no Extended Partition or Logical Partition. *)
+      List.filter (fun p -> parttype <> MBR || p.p_mbr_p_type <> LogicalPartition) partitions in
 
     (* Check content isn't larger than partitions.  If it is then
      * something has gone wrong and we shouldn't continue.  Old
@@ -530,7 +544,7 @@ read the man page virt-resize(1).
 
     partitions in
 
-  let partitions = find_partitions PrimaryPartition in
+  let partitions = find_partitions () in
 
   if verbose then (
     printf "%d partitions found\n" (List.length partitions);
@@ -1085,7 +1099,8 @@ read the man page virt-resize(1).
           (* Target information is meaningful. *)
           p_operation = OpIgnore;
           p_target_partnum = partnum;
-          p_target_start = start; p_target_end = ~^ 64L
+          p_target_start = start; p_target_end = ~^ 64L;
+          p_mbr_p_type = NoTypePartition
         } ]
       )
       else
