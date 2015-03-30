@@ -598,6 +598,10 @@ below.
  RHEL 3         No virtio drivers are available
  
  RHEL 4         kernel >= 2.5.9-89.EL
+                lvm2 >= 2.02.42-5.el4
+                device-mapper >= 1.02.28-2.el4
+                selinux-policy-targeted >= 1.17.30-2.152.el4
+                policycoreutils >= 1.18.1-4.13
  
  RHEL 5         kernel >= 2.6.18-128.el5
                 lvm2 >= 2.02.40-6.el5
