@@ -242,7 +242,7 @@ notes=Fedora 21 Server (aarch64)
 [fedora-21]
 name=Fedora® 21 Server (armv7l)
 osinfo=fedora21
-arch=aarch64
+arch=armv7l
 file=fedora-21-armv7l.xz
 checksum=eb44c66f04781064850380fa1747cadc8645c2f3fd8f2dc1b45cbf5b3f31b91383fa9b7b8b2c951556de2ca499a9251487845208aa1a3881ada6d15e49d24300
 format=raw
