@@ -12262,7 +12262,7 @@ Destroy a quota group." };
     optional = Some "btrfs"; camel_name = "BTRFSQgroupShow";
     shortdesc = "show subvolume quota groups";
     longdesc = "\
-Show all subvolume quota groups in a btrfs filesystem, inclding their
+Show all subvolume quota groups in a btrfs filesystem, including their
 usages." };
 
   { defaults with
