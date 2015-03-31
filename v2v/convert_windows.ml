@@ -47,7 +47,9 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
     with Not_found -> Config.datadir // "virt-tools" in
 
-  let virtio_win_dir = "/usr/share/virtio-win" in
+  let virtio_win_dir =
+    try Sys.getenv "VIRTIO_WIN_DIR"
+    with Not_found -> Config.datadir // "virtio-win" in
 
   (* Check if RHEV-APT exists.  This is optional. *)
   let rhev_apt_exe = virt_tools_data_dir // "rhev-apt.exe" in
