@@ -176,9 +176,19 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       sprintf "%04d%02d%02d-%02d%02d%02d" y mo d h m s
     in
 
+    let keys = [| "KEY_LEFTSHIFT"; "KEY_LEFTALT"; "KEY_LEFTCTRL" |] in
+    let next_key = ref 0 in
+
     let take_screenshot t =
-      (* Send a left shift key to wake up the screen from blanking. *)
-      let cmd = sprintf "virsh send-key %s KEY_LEFTSHIFT" (quote domname) in
+      (* Send a key to wake up the screen from blanking.  But don't
+       * keep on hitting the shift key as that causes Windows to get in
+       * a muddle.
+       * https://rwmj.wordpress.com/2015/03/30/tip-wake-up-a-guest-from-screen-blank/ *)
+      let key = keys.(!next_key) in
+      next_key := !next_key+1;
+      if !next_key >= Array.length keys then next_key := 0;
+
+      let cmd = sprintf "virsh send-key %s %s" (quote domname) key in
       printf "%s\n%!" cmd;
       ignore (Sys.command cmd);
       sleep 2;
