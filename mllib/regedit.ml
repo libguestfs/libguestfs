@@ -30,6 +30,7 @@ and regtype =
 | REG_EXPAND_SZ of string
 | REG_BINARY of string
 | REG_DWORD of int32
+| REG_MULTI_SZ of string list
 
 (* Take a 7 bit ASCII string and encode it as UTF16LE. *)
 let encode_utf16le str =
@@ -97,5 +98,12 @@ and import_value g node = function
     g#hivex_node_set_value node key 3L bin
   | key, REG_DWORD dw ->
     g#hivex_node_set_value node key 4L (le32_of_int (Int64.of_int32 dw))
+  | key, REG_MULTI_SZ ss ->
+    (* http://blogs.msdn.com/oldnewthing/archive/2009/10/08/9904646.aspx *)
+    List.iter (fun s -> assert (s <> "")) ss;
+    let ss = ss @ [""] in
+    let ss = List.map (fun s -> encode_utf16le s ^ "\000\000") ss in
+    let ss = String.concat "" ss in
+    g#hivex_node_set_value node key 7L ss
 
 let reg_import g root = List.iter (import_key g root)

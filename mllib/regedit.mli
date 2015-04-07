@@ -47,6 +47,7 @@ and regtype =
 | REG_EXPAND_SZ of string               (** String with %env% *)
 | REG_BINARY of string                  (** Blob of binary data *)
 | REG_DWORD of int32                    (** Little endian 32 bit integer *)
+| REG_MULTI_SZ of string list           (** List of strings *)
 (* There are more types in the Registry, but we don't support them here... *)
 (** Registry value type and data.
 
