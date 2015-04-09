@@ -356,10 +356,12 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       if Filename.check_suffix input_disk ".xz" then (
         let input_disk_uncomp = Filename.chop_suffix input_disk ".xz" in
         if not (Sys.file_exists input_disk_uncomp) then (
-          let cmd = sprintf "unxz --keep %s" (quote input_disk) in
+          let cmd =
+            sprintf "xzcat %s > %s"
+                    (quote input_disk) (quote input_disk_uncomp) in
           printf "%s\n%!" cmd;
           if Sys.command cmd <> 0 then
-            failwith "unxz command failed"
+            failwith "xzcat command failed"
         );
         input_disk_uncomp
       )
