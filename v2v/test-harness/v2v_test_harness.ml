@@ -253,7 +253,8 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
     let bootfail t fs =
       let screenshot = take_screenshot t in
       eprintf "boot failed: see screenshot in %s\n%!" screenshot;
-      ksprintf failwith fs in
+      ksprintf failwith fs
+    in
 
     (* The guest is booting.  We expect it to write to the disk within
      * the first boot_wait_to_write seconds.
