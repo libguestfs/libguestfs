@@ -40,14 +40,18 @@ images, which are free software.  The latter are things like Windows
 or Red Hat Enterprise Linux.
 
 The freely redistributable test cases can be downloaded from:
-I<B<Download location TBD>>
+L<http://git.annexia.org/?p=virt-v2v-test-cases-free.git>
+I<B<not available yet>>
 
-The proprietary test cases are not made available to the public, for
-licensing reasons.  Red Hat associates may find them in Engineering Git.
+The proprietary test cases are available at
+L<http://git.annexia.org/?p=virt-v2v-test-cases-nonfree.git> This
+I<does not> contain the proprietary images themselves, which are not
+made available to the public for licensing reasons.
 
 The test cases consist of disk images which are very large, from 250
 MB through to tens of gigabytes I<each>.  This means that distributing
-test cases can be very time-consuming and expensive.
+test cases can be very time-consuming and expensive.  We use
+L<git-annex(1)> to distribute the test images.
 
 =head2 REQUIREMENTS
 
@@ -254,6 +258,7 @@ L<virt-p2v(1)>,
 L<guestfs(3)>,
 L<virsh(1)>,
 L<compare(1)>,
+L<git-annex(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
