@@ -41,8 +41,9 @@ type test_plan = {
   (** For Boot_to_idle, no disk activity counts as idle (default: 60). *)
 
   boot_known_good_screenshots : string list;
-  (** List of known-good screenshots.  If the guest screen looks like
-      one of these, we will keep waiting regardless of timeouts. *)
+  (** List of known-good screenshots (subimages).  If the guest
+      display contains any of these subimages, we will keep waiting
+      regardless of timeouts. *)
 
   boot_graceful_shutdown : int;
   (** When gracefully shutting down the guest, max time we will wait
@@ -55,7 +56,7 @@ type test_plan = {
 and boot_plan =
 | No_boot                      (** Don't do the boot test at all. *)
 | Boot_to_idle                 (** Boot until VM is idle. *)
-| Boot_to_screenshot of string (** Boot until screenshot is displayed. *)
+| Boot_to_screenshot of string (** Boot until screenshot (subimage) is displayed. *)
 
 val default_plan : test_plan
 

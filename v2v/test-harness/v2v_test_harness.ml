@@ -206,11 +206,15 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       filename
     in
 
-    let display_matches_screenshot screenshot1 screenshot2 =
+    (* Find subimage within display.  There must be a near-exact
+     * match.  By editing images (eg. removing dates/times) you can
+      ensure this.
+     *)
+    let display_matches_subimage display subimage =
+      (* Grrr compare sends its normal output to stderr. *)
       let cmd =
-        (* Grrr compare sends its normal output to stderr. *)
-        sprintf "compare -metric MAE %s %s null: 2>&1"
-          (quote screenshot1) (quote screenshot2) in
+        sprintf "compare -subimage-search -metric MAE %s %s null: 2>&1"
+                (quote display) (quote subimage) in
       printf "%s\n%!" cmd;
       let chan = open_process_in cmd in
       let lines = ref [] in
@@ -218,19 +222,31 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
        with End_of_file -> ());
       let lines = List.rev !lines in
       let stat = close_process_in chan in
-      let similarity =
-        match stat with
-        | WEXITED 0 -> 0.0              (* exact match *)
-        | WEXITED 1 ->
-          Scanf.sscanf (List.hd lines) "%f" (fun f -> f)
-        | WEXITED i ->
-          failwithf "external command '%s' exited with error %d" cmd i
-        | WSIGNALED i ->
-          failwithf "external command '%s' killed by signal %d" cmd i
-        | WSTOPPED i ->
-          failwithf "external command '%s' stopped by signal %d" cmd i in
-      printf "%s %s have similarity %f\n" screenshot1 screenshot2 similarity;
-      similarity <= 60.0
+      match stat with
+      | WEXITED 0 -> true       (* exact match *)
+      | WEXITED 1 ->            (* not exact match *)
+         let similarity = Scanf.sscanf (List.hd lines) "%f" (fun f -> f) in
+         similarity <= 60.0
+      | WEXITED 2 ->            (* error *)
+         (* We need to ignore the annoying 'compare: images too dissimilar'
+          * message.  Why?
+          *)
+         let rec loop = function
+           | [] ->              (* error *)
+              failwithf "external command '%s' exited with error %d" cmd 2;
+           | line::lines ->
+              if string_prefix line "compare: images too dissimilar" then
+                false           (* no match *)
+              else
+                loop lines
+         in
+         loop lines
+      | WEXITED i ->
+         failwithf "external command '%s' exited with error %d" cmd i
+      | WSIGNALED i ->
+         failwithf "external command '%s' killed by signal %d" cmd i
+      | WSTOPPED i ->
+         failwithf "external command '%s' stopped by signal %d" cmd i
     in
 
     let dom_is_alive () =
@@ -293,7 +309,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       (* Make sure we take a screenshot on every iteration, as they
        * are incredibly useful for debugging.
        *)
-      let screenshot = take_screenshot t in
+      let display = take_screenshot t in
 
       (* Reached the final screenshot?  Reaching this state
        * terminates the boot immediately.
@@ -301,7 +317,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       let reached_final_screenshot =
         match test_plan.boot_plan with
         | Boot_to_screenshot final_screenshot ->
-           if display_matches_screenshot screenshot final_screenshot then (
+           if display_matches_subimage display final_screenshot then (
              printf "%s: guest reached final screenshot\n" (timestamp t);
              true
            ) else false
@@ -324,8 +340,8 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
              * resets the timeouts.
              *)
             let waiting_in_known_good_state =
-              List.exists (display_matches_screenshot screenshot)
-                test_plan.boot_known_good_screenshots in
+              List.exists (display_matches_subimage display)
+                          test_plan.boot_known_good_screenshots in
             if waiting_in_known_good_state then (
               printf "%s: guest at known-good screenshot\n" (timestamp t);
               loop t t stats
