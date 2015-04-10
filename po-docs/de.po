@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-04-01 10:05+0100\n"
+"POT-Creation-Date: 2015-04-10 13:46+0100\n"
 "PO-Revision-Date: 2015-01-04 11:17-0500\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -1264,9 +1264,9 @@ msgstr "Dieses Programm gibt Folgendes zurück:"
 #: ../sysprep/virt-sysprep.pod:414 ../tools/virt-win-reg:194
 #: ../tools/virt-win-reg:199 ../tools/virt-win-reg:205
 #: ../tools/virt-win-reg:754 ../tools/virt-win-reg:760
-#: ../tools/virt-win-reg:766 ../v2v/test-harness/virt-v2v-test-harness.pod:122
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:126
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:130 ../v2v/virt-v2v.pod:598
+#: ../tools/virt-win-reg:766 ../v2v/test-harness/virt-v2v-test-harness.pod:172
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:176
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:180 ../v2v/virt-v2v.pod:598
 #: ../v2v/virt-v2v.pod:603 ../v2v/virt-v2v.pod:608 ../v2v/virt-v2v.pod:612
 #: ../v2v/virt-v2v.pod:756 ../v2v/virt-v2v.pod:761 ../v2v/virt-v2v.pod:772
 #: ../v2v/virt-v2v.pod:784 ../v2v/virt-v2v.pod:790 ../v2v/virt-v2v.pod:795
@@ -1351,7 +1351,7 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:178
 #: ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263
 #: ../tools/virt-tar:292 ../tools/virt-win-reg:785
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:177 ../v2v/virt-v2v.pod:1513
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:260 ../v2v/virt-v2v.pod:1513
 msgid "SEE ALSO"
 msgstr "SIEHE AUCH"
 
@@ -1391,7 +1391,7 @@ msgstr "AUTOR"
 #: ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:454
 #: ../sysprep/virt-sysprep.pod:578 ../tools/virt-list-filesystems:195
 #: ../tools/virt-list-partitions:276 ../tools/virt-tar:308
-#: ../tools/virt-win-reg:801 ../v2v/test-harness/virt-v2v-test-harness.pod:186
+#: ../tools/virt-win-reg:801 ../v2v/test-harness/virt-v2v-test-harness.pod:272
 #: ../v2v/virt-v2v.pod:1530
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
@@ -1424,7 +1424,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../sysprep/virt-sysprep.pod:582 ../test-tool/libguestfs-test-tool.pod:188
 #: ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278
 #: ../tools/virt-tar:310 ../tools/virt-win-reg:803
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:188 ../v2v/virt-v2v.pod:1540
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:274 ../v2v/virt-v2v.pod:1540
 msgid "COPYRIGHT"
 msgstr "COPYRIGHT"
 
@@ -1758,7 +1758,7 @@ msgstr ""
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4847
 #: ../sysprep/virt-sysprep.pod:576 ../test-tool/libguestfs-test-tool.pod:184
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:184 ../v2v/virt-v2v.pod:1528
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:270 ../v2v/virt-v2v.pod:1528
 msgid "AUTHORS"
 msgstr "AUTOREN"
 
@@ -8724,7 +8724,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:76 ../fish/guestfish.pod:1531
 #: ../fuse/guestmount.pod:404 ../p2v/virt-p2v-make-disk.pod:72
 #: ../p2v/virt-p2v-make-kickstart.pod:162 ../rescue/virt-rescue.pod:393
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:157 ../v2v/virt-v2v.pod:1443
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:242 ../v2v/virt-v2v.pod:1443
 msgid "FILES"
 msgstr "DATEIEN"
 
@@ -85454,8 +85454,8 @@ msgstr ""
 
 #. type: verbatim
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:7
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:112
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:141
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:162
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:191
 #, no-wrap
 msgid ""
 " open V2v_test_harness\n"
@@ -85466,17 +85466,17 @@ msgstr ""
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:9
 #, no-wrap
 msgid ""
-" let test = \"rhel45-i386-fv\"\n"
+" let test = \"rhel_45_i386_fv\"\n"
 " let test_plan = {\n"
 "   default_plan with\n"
-"     boot_plan = Boot_to_screenshot (test ^ \".ppm\")\n"
+"     boot_plan = Boot_to_screenshot (test ^ \"-login.ppm\")\n"
 " }\n"
 " \n"
 msgstr ""
 
 #. type: verbatim
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:15
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:149
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:199
 #, no-wrap
 msgid ""
 " let () = run ~test ~test_plan ()\n"
@@ -85527,62 +85527,149 @@ msgstr ""
 #. type: textblock
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:42
 msgid ""
-"The freely redistributable test cases can be downloaded from: I<B<Download "
-"location TBD>>"
+"The freely redistributable test cases can be downloaded from: L<http://git."
+"annexia.org/?p=virt-v2v-test-cases-free.git> I<B<not available yet>>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:45
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:46
 msgid ""
-"The proprietary test cases are not made available to the public, for obvious "
-"licensing reasons."
+"The proprietary test cases are available at L<http://git.annexia.org/?p=virt-"
+"v2v-test-cases-nonfree.git> This I<does not> contain the proprietary images "
+"themselves, which are not made available to the public for licensing reasons."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:48
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:51
 msgid ""
 "The test cases consist of disk images which are very large, from 250 MB "
 "through to tens of gigabytes I<each>.  This means that distributing test "
-"cases can be very time-consuming and expensive."
+"cases can be very time-consuming and expensive.  We use L<git-annex(1)> to "
+"distribute the test images."
 msgstr ""
 
 #. type: =head2
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:52
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:56
+msgid "REQUIREMENTS"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:58
+msgid ""
+"It's recommended to use an idle machine for testing.  You will need B<a lot "
+"of disk space> to run the tests, in excess of S<100 GB>.  You should also "
+"ensure the test machine has plenty of RAM, at least S<16 GB>."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:63
+msgid "GETTING THE TEST HARNESS"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:65
+msgid "To run the test cases you must have the virt-v2v test harness."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:67
+msgid "The OCaml module is C<V2v_test_harness>."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:69
+msgid ""
+"The easiest way is to compile libguestfs from source (I<note> do not install "
+"it).  The test harness will be in C<libguestfs/v2v/test-harness>"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:73
+msgid "It is also possible to install test harness as an OCaml module."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:75
 msgid "RUNNING THE TEST CASES"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:54
-msgid ""
-"To run the test cases you must install the virt-v2v test harness (the OCaml "
-"module: C<V2v_test_harness>, source in C<libguestfs.git/v2v/test-harness>).  "
-"In Fedora, install the C<virt-v2v-test-harness> package."
-msgstr ""
-
-#. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:59
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:77
 msgid ""
 "Once you have checked out the freely redistributed test cases from the "
 "repository, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:62
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:80
 #, no-wrap
 msgid ""
-" ./configure\n"
+" ./configure [--with-test-harness=/path/to/libguestfs/v2v/test-harness]\n"
 " make\n"
 " make check\n"
 "\n"
 msgstr ""
 
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:84
+msgid "PARALLEL TESTS"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:86
+msgid "You can run test cases in parallel by doing:"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:88
+#, no-wrap
+msgid ""
+" make check -j<N>\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:90
+msgid ""
+"(eg. C<-j2> for running up to 2 tests in parallel).  Be careful about "
+"running too many parallel tests, as it can slow down each test enough to "
+"cause false failures."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:94
+msgid "RUNNING TEST CASES AGAINST UPSTREAM VIRT-V2V"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:96
+msgid ""
+"Using C<make check> picks up whatever C<virt-v2v> binary is on your C<$PATH>."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:99
+msgid ""
+"If you have compiled libguestfs from source and want to test that version of "
+"virt-v2v, use the libguestfs C<run> script (in the top-level build directory "
+"of the libguestfs sources).  eg:"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:103
+#, no-wrap
+msgid ""
+" ../libguestfs/run make check\n"
+"\n"
+msgstr ""
+
 #. type: =head1
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:66
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:105
 msgid "WRITING NEW TEST CASES"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:68
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:107
 msgid ""
 "If you are interested in writing test cases, it is suggested that you start "
 "by downloading the freely redistributable test cases, or at least look at "
@@ -85590,54 +85677,68 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:72
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:111
 msgid ""
-"Also you must install the virt-v2v test harness (the OCaml module: "
-"C<V2v_test_harness>, source in C<libguestfs.git/v2v/test-harness>).  In "
-"Fedora, install the C<virt-v2v-test-harness> package."
+"Also you must have the virt-v2v test harness - see L</GETTING THE TEST "
+"HARNESS> above."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:114
+msgid "FILES IN EACH TEST CASE"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:76
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:116
 msgid "Each test case consists of:"
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:80
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:120
 msgid "I<test>.img.xz"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:82
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:122
 msgid ""
 "The disk image of the virtual machine before conversion.  Usually this "
 "should be converted to raw format and xz-compressed."
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:85
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:125
+msgid "I<test>.ova"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:127
+msgid "Alternatively, an OVA, exported from VMware, may be used."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:129
 msgid "I<test>.xml"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:87
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:131
 msgid ""
 "The libvirt XML used as input to virt-v2v.  See the discussion of I<-i "
 "libvirtxml> in L<virt-v2v(1)>."
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:90
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:134
 msgid "I<test>.ppm"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:92
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:136
 msgid "An optional screenshot or screenshots."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:94
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:138
 msgid ""
 "You can supply zero or more \"known good\" screenshots which represent "
 "intermediate steps where the guest is booting.  This is useful where a guest "
@@ -85646,39 +85747,51 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:99
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:143
 msgid ""
 "You can supply zero or one \"final\" screenshot.  This is often a screenshot "
 "of the login page which indicates that the guest booted successfully."
 msgstr ""
 
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:147
+msgid ""
+"The screenshots are captured using L<virsh(1)>.  Comparison of screenshots "
+"against the test images is done using the ImageMagick L<compare(1)> program."
+msgstr ""
+
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:103
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:151
 msgid "I<test>.ml"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:105
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:153
 msgid "The test itself - see below."
 msgstr ""
 
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:157
+msgid "WRITING THE TEST"
+msgstr ""
+
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:109
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:159
 msgid ""
 "The test file (C<*.ml>) is used to control the test harness, and minimally "
 "it would look something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:114
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:164
 #, no-wrap
 msgid ""
-" let test = \"short-name\"\n"
+" let test = \"short_name\"\n"
 " \n"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:116
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:166
 #, no-wrap
 msgid ""
 " let () = run ~test ()\n"
@@ -85686,29 +85799,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:118
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:168
 msgid "That would instruct the test harness to:"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:124
-msgid "Uncompress C<I<short-name>.img.xz>"
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:174
+msgid "Uncompress C<I<short_name>.img.xz>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:128
-msgid "Run C<virt-v2v -i libvirtxml I<short-name>.xml [...]>"
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:178
+msgid "Run C<virt-v2v -i libvirtxml I<short_name>.xml [...]>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:132
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:182
 msgid ""
 "Boot the resulting guest and check that it writes to its disk and then the "
 "disk becomes idle."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:137
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:187
 msgid ""
 "The above is a rather simplistic test.  A more realistic test is to ensure "
 "the guest reaches a final milestone (screenshot), eg. a login page.  To do "
@@ -85716,10 +85829,10 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:143
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:193
 #, no-wrap
 msgid ""
-" let test = \"short-name\"\n"
+" let test = \"short_name\"\n"
 " let test_plan = {\n"
 "   default_plan with\n"
 "     boot_plan = Boot_to_screenshot (test ^ \".ppm\")\n"
@@ -85728,7 +85841,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:151
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:201
 msgid ""
 "For an even better test, you can supply post-conversion and post-boot test "
 "cases which examine the disk image (using libguestfs) to verify that files "
@@ -85736,52 +85849,116 @@ msgid ""
 "See C<V2v_test_harness.mli> for more information on how to do that."
 msgstr ""
 
-#. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:159
-msgid "Note: To find the value of C<$ocamllibdir>, run:"
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:207
+msgid "FILES GENERATED BY RUNNING THE TEST"
 msgstr ""
 
-#. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:161
-#, no-wrap
-msgid ""
-" ocamlc -where\n"
-"\n"
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:209
+msgid "When you run each test, the following files can be created:"
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:165
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:213
+msgid "I<test>-I<yyyymmdd-hhmmss>.scrn"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:215
+msgid ""
+"Screenshot(s) of the guest's graphical console.  These are helpful when "
+"writing tests or debugging test failures."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:218
+msgid "The screenshot format is Portable Pixmap (PPM)."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:220
+msgid "I<test>.img"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:222
+msgid "The uncompressed original disk image (before conversion)."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:224
+msgid "I<test>-converted-sda"
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:226
+msgid "I<test>-converted.xml"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:228
+msgid ""
+"The result of conversion, ie. after running virt-v2v but before test-booting "
+"the guest.  See the L<virt-v2v(1)> manual page description of I<-o local>."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:232
+msgid "The disk image format is qcow2."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:234
+msgid "I<test>-booted-sda"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:236
+msgid ""
+"The disk image after test-booting.  This is a qcow2 file which uses the "
+"I<test>-converted-sda file as a backing disk, in order to save disk space."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:246
 msgid "C<$ocamllibdir/v2v_test_harness/v2v_test_harness.mli>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:167
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:248
 msgid ""
 "The test library interface.  Read this for detailed programming "
 "documentation."
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:170
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:251
 msgid "C<$ocamllibdir/v2v_test_harness/META>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:172
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:253
 msgid ""
 "The findlib META file allowing you to use the library from L<ocamlfind(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:179
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:258
+msgid "NB: To find the value of C<$ocamllibdir>, run C<ocamlc -where>"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:262
 #, fuzzy
 #| msgid "L<guestfs(3)>, L<http://libguestfs.org/>."
 msgid ""
-"L<virt-v2v(1)>, L<virt-p2v(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
+"L<virt-v2v(1)>, L<virt-p2v(1)>, L<guestfs(3)>, L<virsh(1)>, L<compare(1)>, "
+"L<git-annex(1)>, L<http://libguestfs.org/>."
 msgstr "L<guestfs(3)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:190
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:276
 #, fuzzy
 #| msgid "Copyright (C) 2010-2012 Red Hat Inc."
 msgid "Copyright (C) 2014-2015 Red Hat Inc."

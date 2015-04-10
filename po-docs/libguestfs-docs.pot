@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.33\n"
+"Project-Id-Version: libguestfs 1.29.34\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-04-01 10:05+0100\n"
+"POT-Creation-Date: 2015-04-10 13:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -774,7 +774,7 @@ msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:356 ../align/virt-alignment-scan.pod:362 ../align/virt-alignment-scan.pod:368 ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:814 ../builder/virt-builder.pod:821 ../builder/virt-builder.pod:825 ../builder/virt-builder.pod:829 ../builder/virt-builder.pod:834 ../builder/virt-builder.pod:838 ../builder/virt-builder.pod:842 ../builder/virt-builder.pod:847 ../builder/virt-builder.pod:1022 ../builder/virt-builder.pod:1027 ../builder/virt-builder.pod:1575 ../builder/virt-builder.pod:1579 ../builder/virt-builder.pod:1583 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:214 ../cat/virt-cat.pod:219 ../cat/virt-cat.pod:224 ../cat/virt-cat.pod:235 ../cat/virt-cat.pod:239 ../customize/customize-options.pod:247 ../customize/customize-options.pod:251 ../edit/virt-edit.pod:308 ../edit/virt-edit.pod:313 ../edit/virt-edit.pod:318 ../edit/virt-edit.pod:329 ../edit/virt-edit.pod:333 ../examples/guestfs-faq.pod:188 ../examples/guestfs-faq.pod:194 ../examples/guestfs-faq.pod:198 ../examples/guestfs-faq.pod:203 ../examples/guestfs-faq.pod:759 ../examples/guestfs-faq.pod:765 ../examples/guestfs-faq.pod:804 ../examples/guestfs-faq.pod:810 ../examples/guestfs-faq.pod:875 ../examples/guestfs-faq.pod:879 ../examples/guestfs-faq.pod:883 ../examples/guestfs-faq.pod:887 ../examples/guestfs-faq.pod:895 ../examples/guestfs-faq.pod:900 ../examples/guestfs-performance.pod:105 ../examples/guestfs-performance.pod:111 ../examples/guestfs-performance.pod:116 ../examples/guestfs-performance.pod:243 ../examples/guestfs-performance.pod:248 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:372 ../examples/guestfs-performance.pod:376 ../examples/guestfs-performance.pod:382 ../examples/guestfs-performance.pod:388 ../examples/guestfs-recipes.pod:229 ../examples/guestfs-recipes.pod:233 ../examples/guestfs-recipes.pod:237 ../examples/guestfs-recipes.pod:263 ../examples/guestfs-recipes.pod:268 ../examples/guestfs-recipes.pod:375 ../examples/guestfs-recipes.pod:379 ../examples/guestfs-recipes.pod:383 ../examples/guestfs-recipes.pod:387 ../examples/guestfs-recipes.pod:391 ../examples/guestfs-testing.pod:67 ../examples/guestfs-testing.pod:74 ../examples/guestfs-testing.pod:85 ../examples/guestfs-testing.pod:94 ../examples/guestfs-testing.pod:203 ../examples/guestfs-testing.pod:207 ../examples/guestfs-testing.pod:211 ../fish/guestfish-actions.pod:748 ../fish/guestfish-actions.pod:754 ../fish/guestfish-actions.pod:762 ../fish/guestfish-actions.pod:769 ../fish/guestfish-actions.pod:776 ../fish/guestfish-actions.pod:2272 ../fish/guestfish-actions.pod:2276 ../fish/guestfish-actions.pod:2280 ../fish/guestfish-actions.pod:2284 ../fish/guestfish-actions.pod:2292 ../fish/guestfish-actions.pod:2296 ../fish/guestfish-actions.pod:2300 ../fish/guestfish-actions.pod:2310 ../fish/guestfish-actions.pod:2314 ../fish/guestfish-actions.pod:2318 ../fish/guestfish-actions.pod:2432 ../fish/guestfish-actions.pod:2436 ../fish/guestfish-actions.pod:2441 ../fish/guestfish-actions.pod:2483 ../fish/guestfish-actions.pod:2487 ../fish/guestfish-actions.pod:2492 ../fish/guestfish-actions.pod:3051 ../fish/guestfish-actions.pod:3058 ../fish/guestfish-actions.pod:3065 ../fish/guestfish-actions.pod:3659 ../fish/guestfish-actions.pod:3665 ../fish/guestfish-actions.pod:3673 ../fish/guestfish-actions.pod:3680 ../fish/guestfish-actions.pod:3687 ../fish/guestfish.pod:474 ../fish/guestfish.pod:478 ../fish/guestfish.pod:482 ../fish/guestfish.pod:486 ../fish/guestfish.pod:1330 ../fish/guestfish.pod:1336 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../guestfs-release-notes.pod:737 ../guestfs-release-notes.pod:742 ../guestfs-release-notes.pod:1213 ../guestfs-release-notes.pod:1217 ../guestfs-release-notes.pod:1221 ../guestfs-release-notes.pod:1225 ../guestfs-release-notes.pod:1229 ../guestfs-release-notes.pod:1233 ../guestfs-release-notes.pod:1237 ../guestfs-release-notes.pod:1242 ../guestfs-release-notes.pod:1246 ../guestfs-release-notes.pod:1571 ../guestfs-release-notes.pod:1575 ../guestfs-release-notes.pod:1579 ../guestfs-release-notes.pod:1641 ../guestfs-release-notes.pod:1645 ../guestfs-release-notes.pod:1649 ../guestfs-release-notes.pod:1653 ../guestfs-release-notes.pod:1657 ../guestfs-release-notes.pod:1661 ../guestfs-release-notes.pod:1666 ../guestfs-release-notes.pod:1670 ../guestfs-release-notes.pod:1674 ../guestfs-release-notes.pod:1678 ../guestfs-release-notes.pod:1874 ../guestfs-release-notes.pod:1879 ../guestfs-release-notes.pod:1884 ../inspector/virt-inspector.pod:511 ../inspector/virt-inspector.pod:515 ../p2v/virt-p2v-make-kickstart.pod:57 ../p2v/virt-p2v-make-kickstart.pod:61 ../p2v/virt-p2v-make-kickstart.pod:65 ../p2v/virt-p2v-make-kickstart.pod:83 ../p2v/virt-p2v-make-kickstart.pod:88 ../p2v/virt-p2v-make-kickstart.pod:92 ../resize/virt-resize.pod:371 ../resize/virt-resize.pod:375 ../resize/virt-resize.pod:384 ../resize/virt-resize.pod:390 ../resize/virt-resize.pod:394 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:273 ../sparsify/virt-sparsify.pod:278 ../sparsify/virt-sparsify.pod:283 ../src/guestfs-actions.pod:1111 ../src/guestfs-actions.pod:1117 ../src/guestfs-actions.pod:1125 ../src/guestfs-actions.pod:1132 ../src/guestfs-actions.pod:1139 ../src/guestfs-actions.pod:3902 ../src/guestfs-actions.pod:3906 ../src/guestfs-actions.pod:3910 ../src/guestfs-actions.pod:3914 ../src/guestfs-actions.pod:3922 ../src/guestfs-actions.pod:3926 ../src/guestfs-actions.pod:3930 ../src/guestfs-actions.pod:3940 ../src/guestfs-actions.pod:3944 ../src/guestfs-actions.pod:3948 ../src/guestfs-actions.pod:4123 ../src/guestfs-actions.pod:4127 ../src/guestfs-actions.pod:4132 ../src/guestfs-actions.pod:4193 ../src/guestfs-actions.pod:4197 ../src/guestfs-actions.pod:4202 ../src/guestfs-actions.pod:5095 ../src/guestfs-actions.pod:5102 ../src/guestfs-actions.pod:5109 ../src/guestfs-actions.pod:5992 ../src/guestfs-actions.pod:5998 ../src/guestfs-actions.pod:6006 ../src/guestfs-actions.pod:6013 ../src/guestfs-actions.pod:6020 ../src/guestfs.pod:396 ../src/guestfs.pod:401 ../src/guestfs.pod:406 ../src/guestfs.pod:410 ../src/guestfs.pod:415 ../src/guestfs.pod:419 ../src/guestfs.pod:424 ../src/guestfs.pod:429 ../src/guestfs.pod:780 ../src/guestfs.pod:787 ../src/guestfs.pod:793 ../src/guestfs.pod:799 ../src/guestfs.pod:805 ../src/guestfs.pod:810 ../src/guestfs.pod:816 ../src/guestfs.pod:1044 ../src/guestfs.pod:1048 ../src/guestfs.pod:1054 ../src/guestfs.pod:1137 ../src/guestfs.pod:1142 ../src/guestfs.pod:1146 ../src/guestfs.pod:1152 ../src/guestfs.pod:1156 ../src/guestfs.pod:1160 ../src/guestfs.pod:1165 ../src/guestfs.pod:1744 ../src/guestfs.pod:1748 ../src/guestfs.pod:1752 ../src/guestfs.pod:1757 ../src/guestfs.pod:1765 ../src/guestfs.pod:1784 ../src/guestfs.pod:1792 ../src/guestfs.pod:1809 ../src/guestfs.pod:1814 ../src/guestfs.pod:1818 ../src/guestfs.pod:2007 ../src/guestfs.pod:2011 ../src/guestfs.pod:2015 ../src/guestfs.pod:2019 ../src/guestfs.pod:2023 ../src/guestfs.pod:2027 ../src/guestfs.pod:2730 ../src/guestfs.pod:2735 ../src/guestfs.pod:2739 ../src/guestfs.pod:2843 ../src/guestfs.pod:2848 ../src/guestfs.pod:2852 ../src/guestfs.pod:2862 ../src/guestfs.pod:3293 ../src/guestfs.pod:3298 ../src/guestfs.pod:3304 ../src/guestfs.pod:3312 ../src/guestfs.pod:3828 ../src/guestfs.pod:3834 ../src/guestfs.pod:3839 ../src/guestfs.pod:3845 ../src/guestfs.pod:4236 ../src/guestfs.pod:4240 ../src/guestfs.pod:4244 ../src/guestfs.pod:4248 ../src/guestfs.pod:4252 ../src/guestfs.pod:4512 ../src/guestfs.pod:4517 ../src/guestfs.pod:4521 ../src/guestfs.pod:4525 ../src/guestfs.pod:4539 ../src/guestfs.pod:4543 ../src/guestfs.pod:4548 ../src/guestfs.pod:4552 ../sysprep/sysprep-extra-options.pod:291 ../sysprep/sysprep-extra-options.pod:295 ../sysprep/virt-sysprep.pod:288 ../sysprep/virt-sysprep.pod:292 ../sysprep/virt-sysprep.pod:296 ../sysprep/virt-sysprep.pod:300 ../sysprep/virt-sysprep.pod:315 ../sysprep/virt-sysprep.pod:319 ../sysprep/virt-sysprep.pod:323 ../sysprep/virt-sysprep.pod:327 ../sysprep/virt-sysprep.pod:331 ../sysprep/virt-sysprep.pod:384 ../sysprep/virt-sysprep.pod:396 ../sysprep/virt-sysprep.pod:400 ../sysprep/virt-sysprep.pod:408 ../sysprep/virt-sysprep.pod:414 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:754 ../tools/virt-win-reg:760 ../tools/virt-win-reg:766 ../v2v/test-harness/virt-v2v-test-harness.pod:122 ../v2v/test-harness/virt-v2v-test-harness.pod:126 ../v2v/test-harness/virt-v2v-test-harness.pod:130 ../v2v/virt-v2v.pod:598 ../v2v/virt-v2v.pod:603 ../v2v/virt-v2v.pod:608 ../v2v/virt-v2v.pod:612 ../v2v/virt-v2v.pod:756 ../v2v/virt-v2v.pod:761 ../v2v/virt-v2v.pod:772 ../v2v/virt-v2v.pod:784 ../v2v/virt-v2v.pod:790 ../v2v/virt-v2v.pod:795 ../v2v/virt-v2v.pod:912 ../v2v/virt-v2v.pod:916 ../v2v/virt-v2v.pod:920 ../v2v/virt-v2v.pod:924 ../v2v/virt-v2v.pod:928 ../v2v/virt-v2v.pod:1058 ../v2v/virt-v2v.pod:1063 ../v2v/virt-v2v.pod:1068
+#: ../align/virt-alignment-scan.pod:356 ../align/virt-alignment-scan.pod:362 ../align/virt-alignment-scan.pod:368 ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:814 ../builder/virt-builder.pod:821 ../builder/virt-builder.pod:825 ../builder/virt-builder.pod:829 ../builder/virt-builder.pod:834 ../builder/virt-builder.pod:838 ../builder/virt-builder.pod:842 ../builder/virt-builder.pod:847 ../builder/virt-builder.pod:1022 ../builder/virt-builder.pod:1027 ../builder/virt-builder.pod:1575 ../builder/virt-builder.pod:1579 ../builder/virt-builder.pod:1583 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:214 ../cat/virt-cat.pod:219 ../cat/virt-cat.pod:224 ../cat/virt-cat.pod:235 ../cat/virt-cat.pod:239 ../customize/customize-options.pod:247 ../customize/customize-options.pod:251 ../edit/virt-edit.pod:308 ../edit/virt-edit.pod:313 ../edit/virt-edit.pod:318 ../edit/virt-edit.pod:329 ../edit/virt-edit.pod:333 ../examples/guestfs-faq.pod:188 ../examples/guestfs-faq.pod:194 ../examples/guestfs-faq.pod:198 ../examples/guestfs-faq.pod:203 ../examples/guestfs-faq.pod:759 ../examples/guestfs-faq.pod:765 ../examples/guestfs-faq.pod:804 ../examples/guestfs-faq.pod:810 ../examples/guestfs-faq.pod:875 ../examples/guestfs-faq.pod:879 ../examples/guestfs-faq.pod:883 ../examples/guestfs-faq.pod:887 ../examples/guestfs-faq.pod:895 ../examples/guestfs-faq.pod:900 ../examples/guestfs-performance.pod:105 ../examples/guestfs-performance.pod:111 ../examples/guestfs-performance.pod:116 ../examples/guestfs-performance.pod:243 ../examples/guestfs-performance.pod:248 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:372 ../examples/guestfs-performance.pod:376 ../examples/guestfs-performance.pod:382 ../examples/guestfs-performance.pod:388 ../examples/guestfs-recipes.pod:229 ../examples/guestfs-recipes.pod:233 ../examples/guestfs-recipes.pod:237 ../examples/guestfs-recipes.pod:263 ../examples/guestfs-recipes.pod:268 ../examples/guestfs-recipes.pod:375 ../examples/guestfs-recipes.pod:379 ../examples/guestfs-recipes.pod:383 ../examples/guestfs-recipes.pod:387 ../examples/guestfs-recipes.pod:391 ../examples/guestfs-testing.pod:67 ../examples/guestfs-testing.pod:74 ../examples/guestfs-testing.pod:85 ../examples/guestfs-testing.pod:94 ../examples/guestfs-testing.pod:203 ../examples/guestfs-testing.pod:207 ../examples/guestfs-testing.pod:211 ../fish/guestfish-actions.pod:748 ../fish/guestfish-actions.pod:754 ../fish/guestfish-actions.pod:762 ../fish/guestfish-actions.pod:769 ../fish/guestfish-actions.pod:776 ../fish/guestfish-actions.pod:2272 ../fish/guestfish-actions.pod:2276 ../fish/guestfish-actions.pod:2280 ../fish/guestfish-actions.pod:2284 ../fish/guestfish-actions.pod:2292 ../fish/guestfish-actions.pod:2296 ../fish/guestfish-actions.pod:2300 ../fish/guestfish-actions.pod:2310 ../fish/guestfish-actions.pod:2314 ../fish/guestfish-actions.pod:2318 ../fish/guestfish-actions.pod:2432 ../fish/guestfish-actions.pod:2436 ../fish/guestfish-actions.pod:2441 ../fish/guestfish-actions.pod:2483 ../fish/guestfish-actions.pod:2487 ../fish/guestfish-actions.pod:2492 ../fish/guestfish-actions.pod:3051 ../fish/guestfish-actions.pod:3058 ../fish/guestfish-actions.pod:3065 ../fish/guestfish-actions.pod:3659 ../fish/guestfish-actions.pod:3665 ../fish/guestfish-actions.pod:3673 ../fish/guestfish-actions.pod:3680 ../fish/guestfish-actions.pod:3687 ../fish/guestfish.pod:474 ../fish/guestfish.pod:478 ../fish/guestfish.pod:482 ../fish/guestfish.pod:486 ../fish/guestfish.pod:1330 ../fish/guestfish.pod:1336 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../guestfs-release-notes.pod:737 ../guestfs-release-notes.pod:742 ../guestfs-release-notes.pod:1213 ../guestfs-release-notes.pod:1217 ../guestfs-release-notes.pod:1221 ../guestfs-release-notes.pod:1225 ../guestfs-release-notes.pod:1229 ../guestfs-release-notes.pod:1233 ../guestfs-release-notes.pod:1237 ../guestfs-release-notes.pod:1242 ../guestfs-release-notes.pod:1246 ../guestfs-release-notes.pod:1571 ../guestfs-release-notes.pod:1575 ../guestfs-release-notes.pod:1579 ../guestfs-release-notes.pod:1641 ../guestfs-release-notes.pod:1645 ../guestfs-release-notes.pod:1649 ../guestfs-release-notes.pod:1653 ../guestfs-release-notes.pod:1657 ../guestfs-release-notes.pod:1661 ../guestfs-release-notes.pod:1666 ../guestfs-release-notes.pod:1670 ../guestfs-release-notes.pod:1674 ../guestfs-release-notes.pod:1678 ../guestfs-release-notes.pod:1874 ../guestfs-release-notes.pod:1879 ../guestfs-release-notes.pod:1884 ../inspector/virt-inspector.pod:511 ../inspector/virt-inspector.pod:515 ../p2v/virt-p2v-make-kickstart.pod:57 ../p2v/virt-p2v-make-kickstart.pod:61 ../p2v/virt-p2v-make-kickstart.pod:65 ../p2v/virt-p2v-make-kickstart.pod:83 ../p2v/virt-p2v-make-kickstart.pod:88 ../p2v/virt-p2v-make-kickstart.pod:92 ../resize/virt-resize.pod:371 ../resize/virt-resize.pod:375 ../resize/virt-resize.pod:384 ../resize/virt-resize.pod:390 ../resize/virt-resize.pod:394 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:273 ../sparsify/virt-sparsify.pod:278 ../sparsify/virt-sparsify.pod:283 ../src/guestfs-actions.pod:1111 ../src/guestfs-actions.pod:1117 ../src/guestfs-actions.pod:1125 ../src/guestfs-actions.pod:1132 ../src/guestfs-actions.pod:1139 ../src/guestfs-actions.pod:3902 ../src/guestfs-actions.pod:3906 ../src/guestfs-actions.pod:3910 ../src/guestfs-actions.pod:3914 ../src/guestfs-actions.pod:3922 ../src/guestfs-actions.pod:3926 ../src/guestfs-actions.pod:3930 ../src/guestfs-actions.pod:3940 ../src/guestfs-actions.pod:3944 ../src/guestfs-actions.pod:3948 ../src/guestfs-actions.pod:4123 ../src/guestfs-actions.pod:4127 ../src/guestfs-actions.pod:4132 ../src/guestfs-actions.pod:4193 ../src/guestfs-actions.pod:4197 ../src/guestfs-actions.pod:4202 ../src/guestfs-actions.pod:5095 ../src/guestfs-actions.pod:5102 ../src/guestfs-actions.pod:5109 ../src/guestfs-actions.pod:5992 ../src/guestfs-actions.pod:5998 ../src/guestfs-actions.pod:6006 ../src/guestfs-actions.pod:6013 ../src/guestfs-actions.pod:6020 ../src/guestfs.pod:396 ../src/guestfs.pod:401 ../src/guestfs.pod:406 ../src/guestfs.pod:410 ../src/guestfs.pod:415 ../src/guestfs.pod:419 ../src/guestfs.pod:424 ../src/guestfs.pod:429 ../src/guestfs.pod:780 ../src/guestfs.pod:787 ../src/guestfs.pod:793 ../src/guestfs.pod:799 ../src/guestfs.pod:805 ../src/guestfs.pod:810 ../src/guestfs.pod:816 ../src/guestfs.pod:1044 ../src/guestfs.pod:1048 ../src/guestfs.pod:1054 ../src/guestfs.pod:1137 ../src/guestfs.pod:1142 ../src/guestfs.pod:1146 ../src/guestfs.pod:1152 ../src/guestfs.pod:1156 ../src/guestfs.pod:1160 ../src/guestfs.pod:1165 ../src/guestfs.pod:1744 ../src/guestfs.pod:1748 ../src/guestfs.pod:1752 ../src/guestfs.pod:1757 ../src/guestfs.pod:1765 ../src/guestfs.pod:1784 ../src/guestfs.pod:1792 ../src/guestfs.pod:1809 ../src/guestfs.pod:1814 ../src/guestfs.pod:1818 ../src/guestfs.pod:2007 ../src/guestfs.pod:2011 ../src/guestfs.pod:2015 ../src/guestfs.pod:2019 ../src/guestfs.pod:2023 ../src/guestfs.pod:2027 ../src/guestfs.pod:2730 ../src/guestfs.pod:2735 ../src/guestfs.pod:2739 ../src/guestfs.pod:2843 ../src/guestfs.pod:2848 ../src/guestfs.pod:2852 ../src/guestfs.pod:2862 ../src/guestfs.pod:3293 ../src/guestfs.pod:3298 ../src/guestfs.pod:3304 ../src/guestfs.pod:3312 ../src/guestfs.pod:3828 ../src/guestfs.pod:3834 ../src/guestfs.pod:3839 ../src/guestfs.pod:3845 ../src/guestfs.pod:4236 ../src/guestfs.pod:4240 ../src/guestfs.pod:4244 ../src/guestfs.pod:4248 ../src/guestfs.pod:4252 ../src/guestfs.pod:4512 ../src/guestfs.pod:4517 ../src/guestfs.pod:4521 ../src/guestfs.pod:4525 ../src/guestfs.pod:4539 ../src/guestfs.pod:4543 ../src/guestfs.pod:4548 ../src/guestfs.pod:4552 ../sysprep/sysprep-extra-options.pod:291 ../sysprep/sysprep-extra-options.pod:295 ../sysprep/virt-sysprep.pod:288 ../sysprep/virt-sysprep.pod:292 ../sysprep/virt-sysprep.pod:296 ../sysprep/virt-sysprep.pod:300 ../sysprep/virt-sysprep.pod:315 ../sysprep/virt-sysprep.pod:319 ../sysprep/virt-sysprep.pod:323 ../sysprep/virt-sysprep.pod:327 ../sysprep/virt-sysprep.pod:331 ../sysprep/virt-sysprep.pod:384 ../sysprep/virt-sysprep.pod:396 ../sysprep/virt-sysprep.pod:400 ../sysprep/virt-sysprep.pod:408 ../sysprep/virt-sysprep.pod:414 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:754 ../tools/virt-win-reg:760 ../tools/virt-win-reg:766 ../v2v/test-harness/virt-v2v-test-harness.pod:172 ../v2v/test-harness/virt-v2v-test-harness.pod:176 ../v2v/test-harness/virt-v2v-test-harness.pod:180 ../v2v/virt-v2v.pod:598 ../v2v/virt-v2v.pod:603 ../v2v/virt-v2v.pod:608 ../v2v/virt-v2v.pod:612 ../v2v/virt-v2v.pod:756 ../v2v/virt-v2v.pod:761 ../v2v/virt-v2v.pod:772 ../v2v/virt-v2v.pod:784 ../v2v/virt-v2v.pod:790 ../v2v/virt-v2v.pod:795 ../v2v/virt-v2v.pod:912 ../v2v/virt-v2v.pod:916 ../v2v/virt-v2v.pod:920 ../v2v/virt-v2v.pod:924 ../v2v/virt-v2v.pod:928 ../v2v/virt-v2v.pod:1058 ../v2v/virt-v2v.pod:1063 ../v2v/virt-v2v.pod:1068
 msgid "*"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:164 ../builder/virt-builder.pod:1728 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518 ../customize/virt-customize.pod:254 ../daemon/guestfsd.pod:115 ../df/virt-df.pod:256 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1262 ../examples/guestfs-performance.pod:561 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1595 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:428 ../fuse/guestunmount.pod:147 ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:3505 ../inspector/virt-inspector.pod:498 ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80 ../p2v/virt-p2v-make-disk.pod:103 ../p2v/virt-p2v-make-kickstart.pod:194 ../p2v/virt-p2v.pod:584 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412 ../resize/virt-resize.pod:755 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4787 ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/test-harness/virt-v2v-test-harness.pod:177 ../v2v/virt-v2v.pod:1513
+#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:164 ../builder/virt-builder.pod:1728 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518 ../customize/virt-customize.pod:254 ../daemon/guestfsd.pod:115 ../df/virt-df.pod:256 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1262 ../examples/guestfs-performance.pod:561 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1595 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:428 ../fuse/guestunmount.pod:147 ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:3505 ../inspector/virt-inspector.pod:498 ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80 ../p2v/virt-p2v-make-disk.pod:103 ../p2v/virt-p2v-make-kickstart.pod:194 ../p2v/virt-p2v.pod:584 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412 ../resize/virt-resize.pod:755 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4787 ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/test-harness/virt-v2v-test-harness.pod:260 ../v2v/virt-v2v.pod:1513
 msgid "SEE ALSO"
 msgstr ""
 
@@ -840,12 +840,12 @@ msgid "AUTHOR"
 msgstr ""
 
 #. type: textblock
-#: ../align/virt-alignment-scan.pod:395 ../builder/virt-builder.pod:1749 ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:285 ../cat/virt-filesystems.pod:399 ../cat/virt-log.pod:147 ../cat/virt-ls.pod:530 ../customize/virt-customize.pod:273 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:266 ../diff/virt-diff.pod:260 ../edit/virt-edit.pod:402 ../format/virt-format.pod:197 ../inspector/virt-inspector.pod:513 ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v-make-disk.pod:112 ../p2v/virt-p2v-make-kickstart.pod:205 ../p2v/virt-p2v.pod:601 ../rescue/virt-rescue.pod:424 ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:454 ../sysprep/virt-sysprep.pod:578 ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276 ../tools/virt-tar:308 ../tools/virt-win-reg:801 ../v2v/test-harness/virt-v2v-test-harness.pod:186 ../v2v/virt-v2v.pod:1530
+#: ../align/virt-alignment-scan.pod:395 ../builder/virt-builder.pod:1749 ../builder/virt-index-validate.pod:86 ../cat/virt-cat.pod:285 ../cat/virt-filesystems.pod:399 ../cat/virt-log.pod:147 ../cat/virt-ls.pod:530 ../customize/virt-customize.pod:273 ../daemon/guestfsd.pod:122 ../df/virt-df.pod:266 ../diff/virt-diff.pod:260 ../edit/virt-edit.pod:402 ../format/virt-format.pod:197 ../inspector/virt-inspector.pod:513 ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v-make-disk.pod:112 ../p2v/virt-p2v-make-kickstart.pod:205 ../p2v/virt-p2v.pod:601 ../rescue/virt-rescue.pod:424 ../resize/virt-resize.pod:781 ../sparsify/virt-sparsify.pod:454 ../sysprep/virt-sysprep.pod:578 ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276 ../tools/virt-tar:308 ../tools/virt-win-reg:801 ../v2v/test-harness/virt-v2v-test-harness.pod:272 ../v2v/virt-v2v.pod:1530
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:176 ../builder/virt-builder.pod:1751 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532 ../customize/virt-customize.pod:275 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:268 ../diff/virt-diff.pod:262 ../edit/virt-edit.pod:404 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1272 ../examples/guestfs-performance.pod:577 ../examples/guestfs-recipes.pod:687 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1634 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:446 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:3520 ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99 ../p2v/virt-p2v-make-disk.pod:114 ../p2v/virt-p2v-make-kickstart.pod:207 ../p2v/virt-p2v.pod:609 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4851 ../sysprep/virt-sysprep.pod:582 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/test-harness/virt-v2v-test-harness.pod:188 ../v2v/virt-v2v.pod:1540
+#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:176 ../builder/virt-builder.pod:1751 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532 ../customize/virt-customize.pod:275 ../daemon/guestfsd.pod:124 ../df/virt-df.pod:268 ../diff/virt-diff.pod:262 ../edit/virt-edit.pod:404 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1272 ../examples/guestfs-performance.pod:577 ../examples/guestfs-recipes.pod:687 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1634 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:446 ../fuse/guestunmount.pod:160 ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:3520 ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99 ../p2v/virt-p2v-make-disk.pod:114 ../p2v/virt-p2v-make-kickstart.pod:207 ../p2v/virt-p2v.pod:609 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:783 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4851 ../sysprep/virt-sysprep.pod:582 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/test-harness/virt-v2v-test-harness.pod:274 ../v2v/virt-v2v.pod:1540
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1148,7 +1148,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:172 ../customize/virt-customize.pod:271 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1268 ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:683 ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1630 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:442 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:507 ../java/examples/guestfs-java.pod:171 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:110 ../p2v/virt-p2v-make-kickstart.pod:203 ../p2v/virt-p2v.pod:595 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:65 ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4847 ../sysprep/virt-sysprep.pod:576 ../test-tool/libguestfs-test-tool.pod:184 ../v2v/test-harness/virt-v2v-test-harness.pod:184 ../v2v/virt-v2v.pod:1528
+#: ../appliance/libguestfs-make-fixed-appliance.pod:172 ../customize/virt-customize.pod:271 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1268 ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:683 ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1630 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:442 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:507 ../java/examples/guestfs-java.pod:171 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:110 ../p2v/virt-p2v-make-kickstart.pod:203 ../p2v/virt-p2v.pod:595 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:65 ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4847 ../sysprep/virt-sysprep.pod:576 ../test-tool/libguestfs-test-tool.pod:184 ../v2v/test-harness/virt-v2v-test-harness.pod:270 ../v2v/virt-v2v.pod:1528
 msgid "AUTHORS"
 msgstr ""
 
@@ -7693,7 +7693,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../daemon/guestfsd.pod:76 ../fish/guestfish.pod:1531 ../fuse/guestmount.pod:404 ../p2v/virt-p2v-make-disk.pod:72 ../p2v/virt-p2v-make-kickstart.pod:162 ../rescue/virt-rescue.pod:393 ../v2v/test-harness/virt-v2v-test-harness.pod:157 ../v2v/virt-v2v.pod:1443
+#: ../daemon/guestfsd.pod:76 ../fish/guestfish.pod:1531 ../fuse/guestmount.pod:404 ../p2v/virt-p2v-make-disk.pod:72 ../p2v/virt-p2v-make-kickstart.pod:162 ../rescue/virt-rescue.pod:393 ../v2v/test-harness/virt-v2v-test-harness.pod:242 ../v2v/virt-v2v.pod:1443
 msgid "FILES"
 msgstr ""
 
@@ -82760,7 +82760,7 @@ msgid "virt-v2v-test-harness - Used to test virt-v2v against real test cases"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:7 ../v2v/test-harness/virt-v2v-test-harness.pod:112 ../v2v/test-harness/virt-v2v-test-harness.pod:141
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:7 ../v2v/test-harness/virt-v2v-test-harness.pod:162 ../v2v/test-harness/virt-v2v-test-harness.pod:191
 #, no-wrap
 msgid ""
 " open V2v_test_harness\n"
@@ -82771,16 +82771,16 @@ msgstr ""
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:9
 #, no-wrap
 msgid ""
-" let test = \"rhel45-i386-fv\"\n"
+" let test = \"rhel_45_i386_fv\"\n"
 " let test_plan = {\n"
 "   default_plan with\n"
-"     boot_plan = Boot_to_screenshot (test ^ \".ppm\")\n"
+"     boot_plan = Boot_to_screenshot (test ^ \"-login.ppm\")\n"
 " }\n"
 " \n"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:15 ../v2v/test-harness/virt-v2v-test-harness.pod:149
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:15 ../v2v/test-harness/virt-v2v-test-harness.pod:199
 #, no-wrap
 msgid ""
 " let () = run ~test ~test_plan ()\n"
@@ -82831,62 +82831,152 @@ msgstr ""
 #. type: textblock
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:42
 msgid ""
-"The freely redistributable test cases can be downloaded from: I<B<Download "
-"location TBD>>"
+"The freely redistributable test cases can be downloaded from: "
+"L<http://git.annexia.org/?p=virt-v2v-test-cases-free.git> I<B<not available "
+"yet>>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:45
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:46
 msgid ""
-"The proprietary test cases are not made available to the public, for obvious "
-"licensing reasons."
+"The proprietary test cases are available at "
+"L<http://git.annexia.org/?p=virt-v2v-test-cases-nonfree.git> This I<does "
+"not> contain the proprietary images themselves, which are not made available "
+"to the public for licensing reasons."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:48
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:51
 msgid ""
 "The test cases consist of disk images which are very large, from 250 MB "
 "through to tens of gigabytes I<each>.  This means that distributing test "
-"cases can be very time-consuming and expensive."
+"cases can be very time-consuming and expensive.  We use L<git-annex(1)> to "
+"distribute the test images."
 msgstr ""
 
 #. type: =head2
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:52
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:56
+msgid "REQUIREMENTS"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:58
+msgid ""
+"It's recommended to use an idle machine for testing.  You will need B<a lot "
+"of disk space> to run the tests, in excess of S<100 GB>.  You should also "
+"ensure the test machine has plenty of RAM, at least S<16 GB>."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:63
+msgid "GETTING THE TEST HARNESS"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:65
+msgid "To run the test cases you must have the virt-v2v test harness."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:67
+msgid "The OCaml module is C<V2v_test_harness>."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:69
+msgid ""
+"The easiest way is to compile libguestfs from source (I<note> do not install "
+"it).  The test harness will be in C<libguestfs/v2v/test-harness>"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:73
+msgid "It is also possible to install test harness as an OCaml module."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:75
 msgid "RUNNING THE TEST CASES"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:54
-msgid ""
-"To run the test cases you must install the virt-v2v test harness (the OCaml "
-"module: C<V2v_test_harness>, source in C<libguestfs.git/v2v/test-harness>).  "
-"In Fedora, install the C<virt-v2v-test-harness> package."
-msgstr ""
-
-#. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:59
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:77
 msgid ""
 "Once you have checked out the freely redistributed test cases from the "
 "repository, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:62
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:80
 #, no-wrap
 msgid ""
-" ./configure\n"
+" ./configure [--with-test-harness=/path/to/libguestfs/v2v/test-harness]\n"
 " make\n"
 " make check\n"
 "\n"
 msgstr ""
 
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:84
+msgid "PARALLEL TESTS"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:86
+msgid "You can run test cases in parallel by doing:"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:88
+#, no-wrap
+msgid ""
+" make check -j<N>\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:90
+msgid ""
+"(eg. C<-j2> for running up to 2 tests in parallel).  Be careful about "
+"running too many parallel tests, as it can slow down each test enough to "
+"cause false failures."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:94
+msgid "RUNNING TEST CASES AGAINST UPSTREAM VIRT-V2V"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:96
+msgid ""
+"Using C<make check> picks up whatever C<virt-v2v> binary is on your "
+"C<$PATH>."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:99
+msgid ""
+"If you have compiled libguestfs from source and want to test that version of "
+"virt-v2v, use the libguestfs C<run> script (in the top-level build directory "
+"of the libguestfs sources).  eg:"
+msgstr ""
+
+#. type: verbatim
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:103
+#, no-wrap
+msgid ""
+" ../libguestfs/run make check\n"
+"\n"
+msgstr ""
+
 #. type: =head1
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:66
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:105
 msgid "WRITING NEW TEST CASES"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:68
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:107
 msgid ""
 "If you are interested in writing test cases, it is suggested that you start "
 "by downloading the freely redistributable test cases, or at least look at "
@@ -82894,54 +82984,68 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:72
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:111
 msgid ""
-"Also you must install the virt-v2v test harness (the OCaml module: "
-"C<V2v_test_harness>, source in C<libguestfs.git/v2v/test-harness>).  In "
-"Fedora, install the C<virt-v2v-test-harness> package."
+"Also you must have the virt-v2v test harness - see L</GETTING THE TEST "
+"HARNESS> above."
+msgstr ""
+
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:114
+msgid "FILES IN EACH TEST CASE"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:76
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:116
 msgid "Each test case consists of:"
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:80
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:120
 msgid "I<test>.img.xz"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:82
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:122
 msgid ""
 "The disk image of the virtual machine before conversion.  Usually this "
 "should be converted to raw format and xz-compressed."
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:85
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:125
+msgid "I<test>.ova"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:127
+msgid "Alternatively, an OVA, exported from VMware, may be used."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:129
 msgid "I<test>.xml"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:87
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:131
 msgid ""
 "The libvirt XML used as input to virt-v2v.  See the discussion of I<-i "
 "libvirtxml> in L<virt-v2v(1)>."
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:90
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:134
 msgid "I<test>.ppm"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:92
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:136
 msgid "An optional screenshot or screenshots."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:94
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:138
 msgid ""
 "You can supply zero or more \"known good\" screenshots which represent "
 "intermediate steps where the guest is booting.  This is useful where a guest "
@@ -82950,39 +83054,51 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:99
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:143
 msgid ""
 "You can supply zero or one \"final\" screenshot.  This is often a screenshot "
 "of the login page which indicates that the guest booted successfully."
 msgstr ""
 
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:147
+msgid ""
+"The screenshots are captured using L<virsh(1)>.  Comparison of screenshots "
+"against the test images is done using the ImageMagick L<compare(1)> program."
+msgstr ""
+
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:103
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:151
 msgid "I<test>.ml"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:105
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:153
 msgid "The test itself - see below."
 msgstr ""
 
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:157
+msgid "WRITING THE TEST"
+msgstr ""
+
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:109
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:159
 msgid ""
 "The test file (C<*.ml>) is used to control the test harness, and minimally "
 "it would look something like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:114
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:164
 #, no-wrap
 msgid ""
-" let test = \"short-name\"\n"
+" let test = \"short_name\"\n"
 " \n"
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:116
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:166
 #, no-wrap
 msgid ""
 " let () = run ~test ()\n"
@@ -82990,29 +83106,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:118
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:168
 msgid "That would instruct the test harness to:"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:124
-msgid "Uncompress C<I<short-name>.img.xz>"
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:174
+msgid "Uncompress C<I<short_name>.img.xz>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:128
-msgid "Run C<virt-v2v -i libvirtxml I<short-name>.xml [...]>"
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:178
+msgid "Run C<virt-v2v -i libvirtxml I<short_name>.xml [...]>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:132
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:182
 msgid ""
 "Boot the resulting guest and check that it writes to its disk and then the "
 "disk becomes idle."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:137
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:187
 msgid ""
 "The above is a rather simplistic test.  A more realistic test is to ensure "
 "the guest reaches a final milestone (screenshot), eg. a login page.  To do "
@@ -83020,10 +83136,10 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:143
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:193
 #, no-wrap
 msgid ""
-" let test = \"short-name\"\n"
+" let test = \"short_name\"\n"
 " let test_plan = {\n"
 "   default_plan with\n"
 "     boot_plan = Boot_to_screenshot (test ^ \".ppm\")\n"
@@ -83032,7 +83148,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:151
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:201
 msgid ""
 "For an even better test, you can supply post-conversion and post-boot test "
 "cases which examine the disk image (using libguestfs) to verify that files "
@@ -83040,48 +83156,113 @@ msgid ""
 "See C<V2v_test_harness.mli> for more information on how to do that."
 msgstr ""
 
-#. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:159
-msgid "Note: To find the value of C<$ocamllibdir>, run:"
+#. type: =head2
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:207
+msgid "FILES GENERATED BY RUNNING THE TEST"
 msgstr ""
 
-#. type: verbatim
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:161
-#, no-wrap
-msgid ""
-" ocamlc -where\n"
-"\n"
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:209
+msgid "When you run each test, the following files can be created:"
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:165
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:213
+msgid "I<test>-I<yyyymmdd-hhmmss>.scrn"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:215
+msgid ""
+"Screenshot(s) of the guest's graphical console.  These are helpful when "
+"writing tests or debugging test failures."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:218
+msgid "The screenshot format is Portable Pixmap (PPM)."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:220
+msgid "I<test>.img"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:222
+msgid "The uncompressed original disk image (before conversion)."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:224
+msgid "I<test>-converted-sda"
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:226
+msgid "I<test>-converted.xml"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:228
+msgid ""
+"The result of conversion, ie. after running virt-v2v but before test-booting "
+"the guest.  See the L<virt-v2v(1)> manual page description of I<-o local>."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:232
+msgid "The disk image format is qcow2."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:234
+msgid "I<test>-booted-sda"
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:236
+msgid ""
+"The disk image after test-booting.  This is a qcow2 file which uses the "
+"I<test>-converted-sda file as a backing disk, in order to save disk space."
+msgstr ""
+
+#. type: =item
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:246
 msgid "C<$ocamllibdir/v2v_test_harness/v2v_test_harness.mli>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:167
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:248
 msgid ""
 "The test library interface.  Read this for detailed programming "
 "documentation."
 msgstr ""
 
 #. type: =item
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:170
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:251
 msgid "C<$ocamllibdir/v2v_test_harness/META>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:172
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:253
 msgid "The findlib META file allowing you to use the library from L<ocamlfind(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:179
-msgid "L<virt-v2v(1)>, L<virt-p2v(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:258
+msgid "NB: To find the value of C<$ocamllibdir>, run C<ocamlc -where>"
 msgstr ""
 
 #. type: textblock
-#: ../v2v/test-harness/virt-v2v-test-harness.pod:190
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:262
+msgid ""
+"L<virt-v2v(1)>, L<virt-p2v(1)>, L<guestfs(3)>, L<virsh(1)>, L<compare(1)>, "
+"L<git-annex(1)>, L<http://libguestfs.org/>."
+msgstr ""
+
+#. type: textblock
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:276
 msgid "Copyright (C) 2014-2015 Red Hat Inc."
 msgstr ""
 

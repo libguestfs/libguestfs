@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.33\n"
+"Project-Id-Version: libguestfs 1.29.34\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-04-01 10:05+0100\n"
+"POT-Creation-Date: 2015-04-10 13:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2246,6 +2246,15 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
+#: ../v2v/convert_windows.ml:436
+msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:422
+msgid ""
+"cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
+msgstr ""
+
 #: ../builder/builder.ml:236
 msgid ""
 "cannot find os-version '%s' with architecture '%s'.\n"
@@ -2335,7 +2344,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:430
+#: ../v2v/convert_windows.ml:629
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2396,13 +2405,13 @@ msgstr ""
 msgid "curl is not installed (or does not work)"
 msgstr ""
 
-#: ../mllib/regedit.ml:55
+#: ../mllib/regedit.ml:56
 msgid ""
 "decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This "
 "is a bug in %s, please report it."
 msgstr ""
 
-#: ../mllib/regedit.ml:49
+#: ../mllib/regedit.ml:50
 msgid ""
 "decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  "
 "This could be a bug in %s."
@@ -3290,6 +3299,10 @@ msgstr ""
 
 #: ../v2v/v2v.ml:269
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:404
+msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
 #: ../resize/resize.ml:149
