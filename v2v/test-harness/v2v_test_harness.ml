@@ -176,33 +176,70 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       sprintf "%04d%02d%02d-%02d%02d%02d" y mo d h m s
     in
 
+    let display_is_black display =
+      let cmd =
+        sprintf "convert %s -format '%%[mean]' info:" (quote display) in
+      printf "%s\n%!" cmd;
+      let chan = open_process_in cmd in
+      let lines = ref [] in
+      (try while true do lines := input_line chan :: !lines done
+       with End_of_file -> ());
+      let lines = List.rev !lines in
+      let stat = close_process_in chan in
+      match stat with
+      | WEXITED 0 ->
+         let mean = Scanf.sscanf (List.hd lines) "%f" (fun f -> f) in
+         mean < 60.0            (* mostly or completely black *)
+      | WEXITED i ->
+         failwithf "external command '%s' exited with error %d" cmd 2;
+      | WSIGNALED i ->
+         failwithf "external command '%s' killed by signal %d" cmd i
+      | WSTOPPED i ->
+         failwithf "external command '%s' stopped by signal %d" cmd i
+    in
+
     let keys = [| "KEY_LEFTSHIFT"; "KEY_LEFTALT"; "KEY_LEFTCTRL" |] in
     let next_key = ref 0 in
 
     let take_screenshot t =
-      (* Send a key to wake up the screen from blanking.  But don't
-       * keep on hitting the shift key as that causes Windows to get in
-       * a muddle.
-       * https://rwmj.wordpress.com/2015/03/30/tip-wake-up-a-guest-from-screen-blank/ *)
-      let key = keys.(!next_key) in
-      next_key := !next_key+1;
-      if !next_key >= Array.length keys then next_key := 0;
-
-      let cmd = sprintf "virsh send-key %s %s" (quote domname) key in
-      printf "%s\n%!" cmd;
-      ignore (Sys.command cmd);
-      sleep 2;
-
-      (* Use 'virsh screenshot' command because our libvirt bindings
-       * don't include virDomainScreenshot, and in any case that API
-       * is complicated to use.  Returns the filename.
-       *)
       let filename = sprintf "%s-%s.scrn" test (timestamp t) in
       let cmd =
         sprintf "virsh screenshot %s %s" (quote domname) (quote filename) in
       printf "%s\n%!" cmd;
+
+      let do_virsh_screenshot () =
+        (* Use 'virsh screenshot' command because our libvirt bindings
+         * don't include virDomainScreenshot, and in any case that API
+         * is complicated to use.
+         *)
       if Sys.command cmd <> 0 then
         failwith "virsh screenshot command failed";
+      in
+
+      (* Take a screenshot. *)
+      do_virsh_screenshot ();
+
+      (* If the screenshot is completely black, send a key to wake up
+       * the screen from blanking.  But don't keep on hitting the shift
+       * key as that causes Windows to get in a muddle.  And don't send
+       * a key unnecessarily since grub responds to shift keys by going
+       * into a menu(!)
+       * https://rwmj.wordpress.com/2015/03/30/tip-wake-up-a-guest-from-screen-blank/
+       *)
+      if display_is_black filename then (
+        let key = keys.(!next_key) in
+        next_key := !next_key+1;
+        if !next_key >= Array.length keys then next_key := 0;
+
+        let cmd = sprintf "virsh send-key %s %s" (quote domname) key in
+        printf "%s\n%!" cmd;
+        ignore (Sys.command cmd);
+        sleep 2;
+
+        do_virsh_screenshot ()
+      );
+
+      (* Return the screenshot filename. *)
       filename
     in
 
