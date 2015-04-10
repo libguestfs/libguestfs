@@ -68,6 +68,11 @@ TESTS = run-php-tests.sh
 # rule.  Therefore, don't die if this fails.
 clean-local:
 	-$(MAKE) -C extension clean
+	rm -f extension/tests/*.exp
+	rm -f extension/tests/*.log
+	rm -f extension/tests/*.out
+	rm -f extension/tests/*.php
+	rm -f extension/tests/*.sh
 
 install-data-hook:
 	$(MAKE) -C extension INSTALL_ROOT=$(DESTDIR) install
