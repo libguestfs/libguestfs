@@ -60,17 +60,24 @@ B<a lot of disk space> to run the tests, in excess of S<100 GB>.  You
 should also ensure the test machine has plenty of RAM, at least
 S<16 GB>.
 
-=head2 RUNNING THE TEST CASES
+=head2 GETTING THE TEST HARNESS
 
-To run the test cases you must install the virt-v2v test harness (the
-OCaml module: C<V2v_test_harness>, source in
-C<libguestfs.git/v2v/test-harness>).  In Fedora, install the
-C<virt-v2v-test-harness> package.
+To run the test cases you must have the virt-v2v test harness.
+
+The OCaml module is C<V2v_test_harness>.
+
+The easiest way is to compile libguestfs from source (I<note> do not
+install it).  The test harness will be in
+C<libguestfs/v2v/test-harness>
+
+It is also possible to install test harness as an OCaml module.
+
+=head2 RUNNING THE TEST CASES
 
 Once you have checked out the freely redistributed test cases from the
 repository, do:
 
- ./configure
+ ./configure [--with-test-harness=/path/to/libguestfs/v2v/test-harness]
  make
  make check
 
@@ -101,9 +108,8 @@ If you are interested in writing test cases, it is suggested that you
 start by downloading the freely redistributable test cases, or at
 least look at them online.
 
-Also you must install the virt-v2v test harness (the OCaml module:
-C<V2v_test_harness>, source in C<libguestfs.git/v2v/test-harness>).
-In Fedora, install the C<virt-v2v-test-harness> package.
+Also you must have the virt-v2v test harness - see
+L</GETTING THE TEST HARNESS> above.
 
 =head2 FILES IN EACH TEST CASE
 
