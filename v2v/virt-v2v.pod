@@ -219,13 +219,12 @@ And hence L<virsh(1)>, L<virt-manager(1)>, and similar tools.
 
 =item OpenSUSE 10 and up
 
-=item Windows XP to Windows 7 / Windows Server 2008 R2
+=item Windows XP to Windows 8.1 / Windows Server 2012 R2
 
 We use Windows internal version numbers, see
 L<https://en.wikipedia.org/wiki/List_of_Microsoft_Windows_versions>
 
-Currently only NT 5.2 to NT 6.1 are supported, with support for later
-versions planned soon.
+Currently NT 5.2 to NT 6.3 are supported.
 
 See L</WINDOWS> below for additional notes on converting Windows
 guests.
