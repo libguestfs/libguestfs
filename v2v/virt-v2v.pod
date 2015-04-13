@@ -152,8 +152,8 @@ qemu, do:
 
 =item VMware ESXi
 
-Must be managed by VMware vCenter.  Unmanaged, direct input from ESXi
-is not supported.
+Must be managed by VMware vCenter E<ge> 5.0.  Unmanaged, direct input
+from ESXi is not supported.
 
 =item OVA exported from VMware
 
@@ -844,6 +844,8 @@ I<--bridge> option instead.  For example:
 =head1 INPUT FROM VMWARE VCENTER SERVER
 
 Virt-v2v is able to import guests from VMware vCenter Server.
+
+vCenter E<ge> 5.0 is required.
 
 Note that virt-v2v B<cannot> import guests directly from an ESXi
 hypervisor.
