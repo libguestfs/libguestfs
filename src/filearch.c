@@ -74,6 +74,22 @@ free_regexps (void)
   pcre_free (re_elf_ppc64);
 }
 
+# ifdef HAVE_ATTRIBUTE_CLEANUP
+# define CLEANUP_MAGIC_T_FREE __attribute__((cleanup(cleanup_magic_t_free)))
+
+static void
+cleanup_magic_t_free (void *ptr)
+{
+  magic_t m = *(magic_t *) ptr;
+
+  if (m)
+    magic_close (m);
+}
+
+# else
+# define CLEANUP_MAGIC_T_FREE
+# endif
+
 /* Convert output from 'file' command on ELF files to the canonical
  * architecture string.  Caller must free the result.
  */
@@ -118,6 +134,55 @@ is_regular_file (const char *filename)
   struct stat statbuf;
 
   return lstat (filename, &statbuf) == 0 && S_ISREG (statbuf.st_mode);
+}
+
+static char *
+magic_for_file (guestfs_h *g, const char *filename, bool *loading_ok,
+                bool *matched)
+{
+  int flags;
+  CLEANUP_MAGIC_T_FREE magic_t m = NULL;
+  const char *line;
+  char *elf_arch;
+
+  flags = g->verbose ? MAGIC_DEBUG : 0;
+  flags |= MAGIC_ERROR | MAGIC_RAW;
+
+  if (loading_ok)
+    *loading_ok = false;
+  if (matched)
+    *matched = false;
+
+  m = magic_open (flags);
+  if (m == NULL) {
+    perrorf (g, "magic_open");
+    return NULL;
+  }
+
+  if (magic_load (m, NULL) == -1) {
+    perrorf (g, "magic_load: default magic database file");
+    return NULL;
+  }
+
+  line = magic_file (m, filename);
+  if (line == NULL) {
+    perrorf (g, "magic_file: %s", filename);
+    return NULL;
+  }
+
+  if (loading_ok)
+    *loading_ok = true;
+
+  elf_arch = match1 (g, line, re_file_elf);
+  if (elf_arch == NULL) {
+    error (g, "no re_file_elf match in '%s'", line);
+    return NULL;
+  }
+
+  if (matched)
+    *matched = true;
+
+  return canonical_elf_arch (g, elf_arch);
 }
 
 /* Download and uncompress the cpio file to find binaries within. */
@@ -198,40 +263,11 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
       safe_asprintf (g, "%s/%s", dir, initrd_binaries[i]);
 
     if (is_regular_file (bin)) {
-      int flags;
-      magic_t m;
-      const char *line;
-      CLEANUP_FREE char *elf_arch = NULL;
+      bool loading_ok, matched;
 
-      flags = g->verbose ? MAGIC_DEBUG : 0;
-      flags |= MAGIC_ERROR | MAGIC_RAW;
-
-      m = magic_open (flags);
-      if (m == NULL) {
-        perrorf (g, "magic_open");
+      ret = magic_for_file (g, bin, &loading_ok, &matched);
+      if (!loading_ok || matched)
         goto out;
-      }
-
-      if (magic_load (m, NULL) == -1) {
-        perrorf (g, "magic_load: default magic database file");
-        magic_close (m);
-        goto out;
-      }
-
-      line = magic_file (m, bin);
-      if (line == NULL) {
-        perrorf (g, "magic_file: %s", bin);
-        magic_close (m);
-        goto out;
-      }
-
-      elf_arch = match1 (g, line, re_file_elf);
-      if (elf_arch != NULL) {
-        ret = canonical_elf_arch (g, elf_arch);
-        magic_close (m);
-        goto out;
-      }
-      magic_close (m);
     }
   }
   error (g, "file_architecture: could not determine architecture of cpio archive");
