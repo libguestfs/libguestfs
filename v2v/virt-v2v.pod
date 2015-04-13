@@ -744,6 +744,8 @@ I<--bridge> option instead.  For example:
 
 Virt-v2v is able to import guests from VMware vCenter Server.
 
+vCenter E<ge> 5.0 is required.
+
 Note that virt-v2v B<cannot> import guests directly from an ESXi
 hypervisor.
 
