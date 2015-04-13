@@ -202,7 +202,8 @@ Set the input method to I<ova>.
 
 In this mode you can read a VMware ova file.  Virt-v2v will read the
 ova manifest file and check the vmdk volumes for validity (checksums)
-as well as analyzing the ovf file, and then convert the guest.
+as well as analyzing the ovf file, and then convert the guest.  See
+L</INPUT FROM VMWARE OVA> below
 
 =item B<-ic> libvirtURI
 
@@ -744,10 +745,9 @@ I<--bridge> option instead.  For example:
 
 Virt-v2v is able to import guests from VMware vCenter Server.
 
-vCenter E<ge> 5.0 is required.
-
-Note that virt-v2v B<cannot> import guests directly from an ESXi
-hypervisor.
+vCenter E<ge> 5.0 is required.  Virt-v2v B<cannot> import guests
+directly from an ESXi hypervisor.  If you don't have vCenter, using
+OVA is recommended instead (see L</INPUT FROM VMWARE OVA> below).
 
 Virt-v2v uses libvirt for access to vCenter, and therefore the input
 mode should be I<-i libvirt>.  As this is the default, you don't need
@@ -883,6 +883,45 @@ I<--password-file> to supply a password via a file.
 In this case the output flags are set to write the converted guest to
 a temporary directory as this is just an example, but you can also
 write to libvirt or any other supported target.
+
+=head1 INPUT FROM VMWARE OVA
+
+Virt-v2v is able to import guests from VMware's OVA (Open
+Virtualization Appliance) files.  Only OVAs exported from VMware
+vSphere will work.
+
+=head2 OVA: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
+
+For Windows guests, you should remove VMware tools before conversion.
+Although this is not strictly necessary, and the guest will still be
+able to run, if you don't do this then the converted guest will
+complain on every boot.  The tools cannot be removed after conversion
+because the uninstaller checks if it is running on VMware and refuses
+to start (which is also the reason that virt-v2v cannot remove them).
+
+This is not necessary for Linux guests, as virt-v2v is able to remove
+VMware tools.
+
+=head2 OVA: CREATE OVA
+
+To create an OVA in vSphere, use the "Export OVF Template" option
+(from the VM context menu, or from the File menu).  Either "Folder of
+files" (OVF) or "Single file" (OVA) will work, but OVA is probably
+easier to deal with.  OVA files are really just uncompressed tar
+files, so you can use commands like C<tar tf VM.ova> to view their
+contents.
+
+=head2 OVA: IMPORTING A GUEST
+
+To import an OVA file called C<VM.ova>, do;
+
+ $ virt-v2v -i ova VM.ova -o local -os /var/tmp
+
+If you exported the guest as a "Folder of files", I<or> if you
+unpacked the OVA tarball yourself, then you can point virt-v2v at the
+directory containing the files:
+
+ $ virt-v2v -i ova /path/to/files -o local -os /var/tmp
 
 =head1 INPUT FROM RHEL 5 XEN
 
