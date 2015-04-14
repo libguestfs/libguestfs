@@ -71,8 +71,13 @@ and source_display = {
   s_keymap : string option;        (** Guest keymap. *)
   s_password : string option;      (** If required, password to access
                                        the display. *)
+  s_listen : s_display_listen;     (** Listen address. *)
 }
 and s_display_type = Window | VNC | Spice
+and s_display_listen =
+  | LNone
+  | LAddress of string             (** Listen address. *)
+  | LNetwork of string             (** Listen network. *)
 
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string

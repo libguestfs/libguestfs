@@ -93,14 +93,36 @@ let parse_libvirt_xml ~verbose xml =
         match xpath_to_string "@keymap" "" with "" -> None | k -> Some k in
       let password =
         match xpath_to_string "@passwd" "" with "" -> None | pw -> Some pw in
+      let listen =
+        let obj = Xml.xpath_eval_expression xpathctx "listen" in
+        let nr_nodes = Xml.xpathobj_nr_nodes obj in
+        if nr_nodes < 1 then LNone
+        else (
+          (* Use only the first <listen> configuration. *)
+          match xpath_to_string "listen[1]/@type" "" with
+          | "" -> LNone
+          | "address" ->
+            (match xpath_to_string "listen[1]/@address" "" with
+            | "" -> LNone
+            | a -> LAddress a
+            )
+          | "network" ->
+            (match xpath_to_string "listen[1]/@network" "" with
+            | "" -> LNone
+            | n -> LNetwork n
+            )
+          | t ->
+            warning ~prog (f_"<listen type='%s'> in the input libvirt XML was ignored") t;
+            LNone
+        ) in
       match xpath_to_string "@type" "" with
       | "" -> None
       | "vnc" ->
         Some { s_display_type = VNC;
-               s_keymap = keymap; s_password = password }
+               s_keymap = keymap; s_password = password; s_listen = listen }
       | "spice" ->
         Some { s_display_type = Spice;
-               s_keymap = keymap; s_password = password }
+               s_keymap = keymap; s_password = password; s_listen = listen }
       | "sdl"|"desktop" as t ->
         warning ~prog (f_"virt-v2v does not support local displays, so <graphics type='%s'> in the input libvirt XML was ignored") t;
         None

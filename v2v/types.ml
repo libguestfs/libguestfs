@@ -55,8 +55,13 @@ and source_display = {
   s_display_type : s_display_type;
   s_keymap : string option;
   s_password : string option;
+  s_listen : s_display_listen;
 }
 and s_display_type = Window | VNC | Spice
+and s_display_listen =
+  | LNone
+  | LAddress of string
+  | LNetwork of string
 
 let rec string_of_source s =
   sprintf "    source name: %s
@@ -117,11 +122,17 @@ and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
     | Some mac -> " mac: " ^ mac)
 
 and string_of_source_display { s_display_type = typ;
-                               s_keymap = keymap; s_password = password } =
-  sprintf "%s%s%s"
+                               s_keymap = keymap; s_password = password;
+                               s_listen = listen } =
+  sprintf "%s%s%s%s"
     (match typ with Window -> "window" | VNC -> "vnc" | Spice -> "spice")
     (match keymap with None -> "" | Some km -> " " ^ km)
     (match password with None -> "" | Some _ -> " with password")
+    (match listen with
+    | LNone -> ""
+    | LAddress a -> sprintf " listening on address %s" a
+    | LNetwork n -> sprintf " listening on network %s" n
+    )
 
 type overlay = {
   ov_overlay_file : string;

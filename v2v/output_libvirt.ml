@@ -237,6 +237,17 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
     (match source.s_display with
     | Some { s_password = Some pw } -> append_attr ("passwd", pw) graphics
     | _ -> ());
+    (match source.s_display with
+    | Some { s_listen = listen } ->
+      (match listen with
+      | LAddress a ->
+        let sub = e "listen" [ "type", "address"; "address", a ] [] in
+        append_child sub graphics
+      | LNetwork n ->
+        let sub = e "listen" [ "type", "network"; "network", n ] [] in
+        append_child sub graphics
+      | LNone -> ())
+    | _ -> ());
 
     video, graphics in
 
