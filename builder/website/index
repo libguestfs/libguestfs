@@ -153,7 +153,7 @@ file=fedora-19.xz
 revision=2
 checksum=acecd8d4bca0d6a3f937e0c9386f3185c916df3eaf5f825988c73d41e946a6dc4fda06cdd74a12bc60932edd65846097547b11aca2309a61dd6d0e91ab9d16f3
 format=raw
-size=4294967296
+size=6442450944
 compressed_size=169531628
 expand=/dev/sda3
 notes=Fedora 19.
@@ -176,7 +176,7 @@ file=fedora-20.xz
 revision=2
 checksum=983a1b33c34cb311ea3a283f06312d24dc81041b64ebc90e40ef2fd7587362acd1a5654b13252f9f57001870aa95495065537e730d5225b49389c1a0478cb028
 format=raw
-size=4294967296
+size=6442450944
 compressed_size=181164220
 expand=/dev/sda3
 notes=Fedora 20.
@@ -199,7 +199,7 @@ file=fedora-21.xz
 revision=1
 checksum=4dc92cbf540d3a0745ffe1fa01ffae15f17e7a8aa45c70ad975a1dda82b7f1ebe42f912be74d91a5866a91ee2ca3be3c2be274b5da29db930fe1ec8c2286575b
 format=raw
-size=4294967296
+size=6442450944
 compressed_size=209059864
 expand=/dev/sda3
 notes=Fedora 21 Server.
@@ -221,7 +221,7 @@ arch=aarch64
 file=fedora-21-aarch64.xz
 checksum=57026dd867cbc2e49894dd056ffdc1c397548f4f7e296f393a77ee55343a17f684ddcd3ff7661f514b54209c472f41fce809f2e36064fb66d4f92d8dce5e9b62
 format=raw
-size=4294967296
+size=6442450944
 compressed_size=186616612
 expand=/dev/sda4
 notes=Fedora 21 Server (aarch64)
@@ -246,7 +246,7 @@ arch=armv7l
 file=fedora-21-armv7l.xz
 checksum=eb44c66f04781064850380fa1747cadc8645c2f3fd8f2dc1b45cbf5b3f31b91383fa9b7b8b2c951556de2ca499a9251487845208aa1a3881ada6d15e49d24300
 format=raw
-size=4294967296
+size=6442450944
 compressed_size=199232964
 expand=/dev/sda4
 notes=Fedora 21 Server (armv7l)
@@ -257,6 +257,48 @@ notes=Fedora 21 Server (armv7l)
  found in the libguestfs source tree:
  
  builder/website/fedora-armv7l.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-21]
+name=Fedora® 21 Server (ppc64)
+osinfo=fedora21
+arch=ppc64
+file=fedora-21-ppc64.xz
+checksum=6a1ef8c8a2d099e1a01475abf46b74f5b2a3b85c2b708b45b539d7e7a33c46a982cf54e4648749d6819102d32f9aa7a985ebbc7ec65185027fccb073ff2eba98
+format=raw
+size=6442450944
+compressed_size=226236232
+notes=Fedora 21 Server (ppc64 big endian)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-ppc64.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-21]
+name=Fedora® 21 Server (ppc64le)
+osinfo=fedora21
+arch=ppc64le
+file=fedora-21-ppc64le.xz
+checksum=6d7bf10152b2d486ae2a40e04c6f6039a1d2c8ffa6d17c1965a83857f26b64628a6894e01a20e58dfccc7e006af890e097f5fe6ba9c9283ae5c26c1f4ab4db67
+format=raw
+size=6442450944
+compressed_size=227039604
+notes=Fedora 21 Server (ppc64le)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-ppc64le.sh
  
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
