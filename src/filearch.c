@@ -278,6 +278,66 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   return ret;
 }
 
+static char *
+compressed_file_arch (guestfs_h *g, const char *path, const char *method)
+{
+  CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *dir = NULL;
+  CLEANUP_FREE char *tempfile = NULL, *tempfile_extracted = NULL;
+  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
+  char *ret = NULL;
+  int64_t size;
+  int r;
+  bool matched;
+
+  if (asprintf (&dir, "%s/libguestfsXXXXXX", tmpdir) == -1) {
+    perrorf (g, "asprintf");
+    return NULL;
+  }
+
+  /* Security: Refuse to download file if it is huge. */
+  size = guestfs_filesize (g, path);
+  if (size == -1 || size > 10000000) {
+    error (g, _("size of %s unreasonable (%" PRIi64 " bytes)"),
+           path, size);
+    goto out;
+  }
+
+  if (mkdtemp (dir) == NULL) {
+    perrorf (g, "mkdtemp");
+    goto out;
+  }
+
+  tempfile = safe_asprintf (g, "%s/file", dir);
+  if (guestfs_download (g, path, tempfile) == -1)
+    goto out;
+
+  tempfile_extracted = safe_asprintf (g, "%s/file_extracted", dir);
+
+  /* Construct a command to extract named binaries from the initrd file. */
+  guestfs_int_cmd_add_string_unquoted (cmd, method);
+  guestfs_int_cmd_add_string_unquoted (cmd, " ");
+  guestfs_int_cmd_add_string_quoted (cmd, tempfile);
+  guestfs_int_cmd_add_string_unquoted (cmd, " > ");
+  guestfs_int_cmd_add_string_quoted (cmd, tempfile_extracted);
+
+  r = guestfs_int_cmd_run (cmd);
+  if (r == -1)
+    goto out;
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    guestfs_int_external_command_failed (g, r, method, path);
+    goto out;
+  }
+
+  ret = magic_for_file (g, tempfile_extracted, NULL, &matched);
+  if (!matched)
+    error (g, "file_architecture: could not determine architecture of compressed file");
+
+ out:
+  guestfs_int_recursive_remove_dir (g, dir);
+
+  return ret;
+}
+
 char *
 guestfs__file_architecture (guestfs_h *g, const char *path)
 {
@@ -300,6 +360,10 @@ guestfs__file_architecture (guestfs_h *g, const char *path)
     ret = safe_strdup (g, "x86_64");
   else if (strstr (file, "cpio archive"))
     ret = cpio_arch (g, file, path);
+  else if (strstr (file, "gzip compressed data"))
+    ret = compressed_file_arch (g, path, "zcat");
+  else if (strstr (file, "XZ compressed data"))
+    ret = compressed_file_arch (g, path, "xzcat");
   else
     error (g, "file_architecture: unknown architecture: %s", path);
 

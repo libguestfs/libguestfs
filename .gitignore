@@ -502,12 +502,14 @@ Makefile.in
 /tests/data/100krandom
 /tests/data/10klines
 /tests/data/abssymlink
+/tests/data/bin-x86_64-dynamic.gz
 /tests/data/blank-disk-*
 /tests/data/blank-disk-*
 /tests/data/hello.b64
 /tests/data/initrd
 /tests/data/initrd-x86_64.img
 /tests/data/initrd-x86_64.img.gz
+/tests/data/lib-i586.so.xz
 /tests/data/test-grep.txt.gz
 /tests/data/test.iso
 /tests/disks/test-qemu-drive-libvirt.xml

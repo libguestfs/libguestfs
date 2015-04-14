@@ -76,6 +76,7 @@ images_files_build = \
 	100kallspaces \
 	100krandom \
 	10klines \
+	bin-x86_64-dynamic.gz \
 	blank-disk-1s.raw \
 	blank-disk-1s.qcow2 \
 	blank-disk-1K.raw \
@@ -87,6 +88,7 @@ images_files_build = \
 	initrd \
 	initrd-x86_64.img \
 	initrd-x86_64.img.gz \
+	lib-i586.so.xz \
 	test-grep.txt.gz
 
 check_DATA = $(images_files_build) test.iso
@@ -192,4 +194,14 @@ initrd-x86_64.img.gz: initrd-x86_64.img
 test-grep.txt.gz: test-grep.txt
 	rm -f $@ $@-t
 	gzip --best -c $< > $@-t
+	mv $@-t $@
+
+bin-x86_64-dynamic.gz: bin-x86_64-dynamic
+	rm -f $@ $@-t
+	gzip --best -c $< > $@-t
+	mv $@-t $@
+
+lib-i586.so.xz: lib-i586.so
+	rm -f $@ $@-t
+	xz -c $< > $@-t
 	mv $@-t $@
