@@ -1,6 +1,6 @@
 #!/bin/bash -
 # virt-builder
-# Copyright (C) 2015 Red Hat Inc.
+# Copyright (C) 2013-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,8 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# This script was used to create the Fedora templates used by
-# virt-builder.
+# Build Fedora images for ppc64 big endian (secondary arch).
 
 unset CDPATH
 export LANG=C
@@ -30,7 +29,7 @@ if [ $# -ne 1 ]; then
 fi
 
 version=$1
-tree=http://mirrors.nic.cz/fedora-secondary/releases/$version/Server/ppc64/os/
+tree=https://download.fedoraproject.org/pub/fedora-secondary/releases/21/Server/ppc64/os/
 output=fedora-$version-ppc64
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
@@ -62,10 +61,6 @@ poweroff
 %end
 
 %post
-# Enable Xen domU support:
-pushd /etc/dracut.conf.d
-echo 'add_drivers+="xen:vbd xen:vif"' > virt-builder-xen-drivers.conf
-popd
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%{version}-%{release}.%{arch}\n')
 dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
@@ -82,11 +77,11 @@ trap cleanup INT QUIT TERM EXIT ERR
 
 virt-install \
     --name=$tmpname \
-    --ram=2048 \
+    --ram=4096 \
     --vcpus=2 \
-    --os-type=linux --os-variant=fedora18 \
-    --initrd-inject=$ks \
+    --os-type=linux --os-variant=fedora21 \
     --arch ppc64 --machine pseries \
+    --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=ttyS0,115200 proxy=$http_proxy" \
     --disk $(pwd)/$output,size=6 \
     --serial pty \
