@@ -298,7 +298,7 @@ object
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
-    let source, disks = parse_libvirt_xml ~verbose xml in
+    let source, disks = parse_libvirt_xml ?conn:libvirt_uri ~verbose xml in
 
     (* Save the original source paths, so that we can remap them again
      * in [#adjust_overlay_parameters].
