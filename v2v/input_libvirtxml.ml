@@ -180,8 +180,8 @@ let parse_libvirt_xml ?conn ~verbose xml =
         | "" -> None
         | format -> Some format in
 
-      (* The <disk type='...'> attribute may be 'block', 'file' or
-       * 'network'.  We ignore any other types.
+      (* The <disk type='...'> attribute may be 'block', 'file',
+       * 'network' or 'volume'.  We ignore any other types.
        *)
       match xpath_to_string "@type" "" with
       | "block" ->
@@ -212,6 +212,36 @@ let parse_libvirt_xml ?conn ~verbose xml =
         | protocol ->
           warning ~prog (f_"network <disk> with <source protocol='%s'> was ignored")
             protocol
+        )
+      | "volume" ->
+        let pool = xpath_to_string "source/@pool" "" in
+        let vol = xpath_to_string "source/@volume" "" in
+        if pool <> "" && vol <> "" then (
+          let xml = Domainxml.vol_dumpxml ?conn pool vol in
+          let doc = Xml.parse_memory xml in
+          let xpathctx = Xml.xpath_new_context doc in
+
+          let xpath_to_string expr default =
+            let obj = Xml.xpath_eval_expression xpathctx expr in
+            if Xml.xpathobj_nr_nodes obj < 1 then default
+            else (
+              let node = Xml.xpathobj_node doc obj 0 in
+              Xml.node_as_string node
+            ) in
+
+          (* Use the format specified in the volume itself. *)
+          let format =
+            match xpath_to_string "/volume/target/format/@type" "" with
+            | "" -> None
+            | format -> Some format in
+
+          match xpath_to_string "/volume/@type" "" with
+          | "" | "file" ->
+            let path = xpath_to_string "/volume/target/path/text()" "" in
+            if path <> "" then
+              add_disk path format controller (P_source_file path)
+          | vol_type ->
+            warning ~prog (f_"<disk type='volume'> with <volume type='%s'> was ignored") vol_type
         )
       | disk_type ->
         warning ~prog (f_"<disk type='%s'> was ignored") disk_type
