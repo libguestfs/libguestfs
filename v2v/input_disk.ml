@@ -87,7 +87,7 @@ class input_disk verbose input_format disk = object
       s_features = [ "acpi"; "apic"; "pae" ];
       s_display =
         Some { s_display_type = Window; s_keymap = None; s_password = None;
-               s_listen = LNone };
+               s_listen = LNone; s_port = None };
       s_disks = [disk];
       s_removables = [];
       s_nics = [network];

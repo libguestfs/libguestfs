@@ -72,6 +72,7 @@ and source_display = {
   s_password : string option;      (** If required, password to access
                                        the display. *)
   s_listen : s_display_listen;     (** Listen address. *)
+  s_port : int option;             (** Display port. *)
 }
 and s_display_type = Window | VNC | Spice
 and s_display_listen =

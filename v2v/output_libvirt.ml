@@ -230,7 +230,6 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
 
     append_attr ("heads", "1") video;
 
-    append_attr ("autoport", "yes") graphics;
     (match source.s_display with
     | Some { s_keymap = Some km } -> append_attr ("keymap", km) graphics
     | _ -> ());
@@ -248,6 +247,13 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
         append_child sub graphics
       | LNone -> ())
     | _ -> ());
+    (match source.s_display with
+    | Some { s_port = Some p } ->
+      append_attr ("autoport", "no") graphics;
+      append_attr ("port", string_of_int p) graphics
+    | _ ->
+      append_attr ("autoport", "yes") graphics;
+      append_attr ("port", "-1") graphics);
 
     video, graphics in
 

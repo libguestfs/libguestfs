@@ -56,6 +56,7 @@ and source_display = {
   s_keymap : string option;
   s_password : string option;
   s_listen : s_display_listen;
+  s_port : int option;
 }
 and s_display_type = Window | VNC | Spice
 and s_display_listen =

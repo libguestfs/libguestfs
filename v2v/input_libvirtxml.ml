@@ -115,14 +115,23 @@ let parse_libvirt_xml ~verbose xml =
             warning ~prog (f_"<listen type='%s'> in the input libvirt XML was ignored") t;
             LNone
         ) in
+      let port =
+        match xpath_to_string "@autoport" "yes" with
+        | "no" ->
+          let port = xpath_to_int "@port" (-1) in
+          if port >= 0 then Some port
+          else None
+        | _ -> None in
       match xpath_to_string "@type" "" with
       | "" -> None
       | "vnc" ->
         Some { s_display_type = VNC;
-               s_keymap = keymap; s_password = password; s_listen = listen }
+               s_keymap = keymap; s_password = password; s_listen = listen;
+               s_port = port }
       | "spice" ->
         Some { s_display_type = Spice;
-               s_keymap = keymap; s_password = password; s_listen = listen }
+               s_keymap = keymap; s_password = password; s_listen = listen;
+               s_port = port }
       | "sdl"|"desktop" as t ->
         warning ~prog (f_"virt-v2v does not support local displays, so <graphics type='%s'> in the input libvirt XML was ignored") t;
         None
