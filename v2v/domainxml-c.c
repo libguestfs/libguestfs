@@ -106,6 +106,63 @@ libvirt_auth_default_wrapper (virConnectCredentialPtr cred,
   }
 }
 
+virStoragePoolPtr
+connect_and_load_pool (value connv, value poolnamev)
+{
+  CAMLparam2 (connv, poolnamev);
+  const char *conn_uri = NULL;
+  const char *poolname;
+  /* We have to assemble the error on the stack because a dynamic
+   * string couldn't be freed.
+   */
+  char errmsg[256];
+  virErrorPtr err;
+  virConnectPtr conn;
+  virStoragePoolPtr pool;
+
+  if (connv != Val_int (0))
+    conn_uri = String_val (Field (connv, 0)); /* Some conn */
+
+  /* We have to call the default authentication handler, not least
+   * since it handles all the PolicyKit crap.  However it also makes
+   * coding this simpler.
+   */
+  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault,
+                             VIR_CONNECT_RO);
+  if (conn == NULL) {
+    if (conn_uri)
+      snprintf (errmsg, sizeof errmsg,
+                _("cannot open libvirt connection '%s'"), conn_uri);
+    else
+      snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
+    caml_invalid_argument (errmsg);
+  }
+
+  /* Suppress default behaviour of printing errors to stderr.  Note
+   * you can't set this to NULL to ignore errors; setting it to NULL
+   * restores the default error handler ...
+   */
+  virConnSetErrorFunc (conn, NULL, ignore_errors);
+
+  /* Look up the pool. */
+  poolname = String_val (poolnamev);
+
+  pool = virStoragePoolLookupByUUIDString (conn, poolname);
+
+  if (!pool)
+    pool = virStoragePoolLookupByName (conn, poolname);
+
+  if (!pool) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot find libvirt pool '%s': %s"), poolname, err->message);
+    virConnectClose (conn);
+    caml_invalid_argument (errmsg);
+  }
+
+  CAMLreturnT (virStoragePoolPtr, pool);
+}
+
 value
 v2v_dumpxml (value passwordv, value connv, value domnamev)
 {
@@ -216,8 +273,6 @@ v2v_pool_dumpxml (value connv, value poolnamev)
 {
   CAMLparam2 (connv, poolnamev);
   CAMLlocal1 (retv);
-  const char *conn_uri = NULL;
-  const char *poolname;
   /* We have to assemble the error on the stack because a dynamic
    * string couldn't be freed.
    */
@@ -227,52 +282,16 @@ v2v_pool_dumpxml (value connv, value poolnamev)
   virStoragePoolPtr pool;
   char *xml;
 
-  if (connv != Val_int (0))
-    conn_uri = String_val (Field (connv, 0)); /* Some conn */
-
-  /* We have to call the default authentication handler, not least
-   * since it handles all the PolicyKit crap.  However it also makes
-   * coding this simpler.
-   */
-  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault,
-                             VIR_CONNECT_RO);
-  if (conn == NULL) {
-    if (conn_uri)
-      snprintf (errmsg, sizeof errmsg,
-                _("cannot open libvirt connection '%s'"), conn_uri);
-    else
-      snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
-    caml_invalid_argument (errmsg);
-  }
-
-  /* Suppress default behaviour of printing errors to stderr.  Note
-   * you can't set this to NULL to ignore errors; setting it to NULL
-   * restores the default error handler ...
-   */
-  virConnSetErrorFunc (conn, NULL, ignore_errors);
-
   /* Look up the pool. */
-  poolname = String_val (poolnamev);
-
-  pool = virStoragePoolLookupByUUIDString (conn, poolname);
-
-  if (!pool)
-    pool = virStoragePoolLookupByName (conn, poolname);
-
-  if (!pool) {
-    err = virGetLastError ();
-    snprintf (errmsg, sizeof errmsg,
-              _("cannot find libvirt pool '%s': %s"), poolname, err->message);
-    virConnectClose (conn);
-    caml_invalid_argument (errmsg);
-  }
+  pool = connect_and_load_pool (connv, poolnamev);
+  conn = virStoragePoolGetConnect (pool);
 
   xml = virStoragePoolGetXMLDesc (pool, 0);
   if (xml == NULL) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
               _("cannot fetch XML description of pool '%s': %s"),
-              poolname, err->message);
+              String_val (poolnamev), err->message);
     virStoragePoolFree (pool);
     virConnectClose (conn);
     caml_invalid_argument (errmsg);
