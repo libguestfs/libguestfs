@@ -20,3 +20,4 @@
 
 external dumpxml : ?password:string -> ?conn:string -> string -> string = "v2v_dumpxml"
 external pool_dumpxml : ?conn:string -> string -> string = "v2v_pool_dumpxml"
+external vol_dumpxml : ?conn:string -> string -> string -> string = "v2v_vol_dumpxml"

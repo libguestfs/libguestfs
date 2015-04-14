@@ -305,6 +305,61 @@ v2v_pool_dumpxml (value connv, value poolnamev)
   CAMLreturn (retv);
 }
 
+value
+v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
+{
+  CAMLparam3 (connv, poolnamev, volnamev);
+  CAMLlocal1 (retv);
+  const char *volname;
+  /* We have to assemble the error on the stack because a dynamic
+   * string couldn't be freed.
+   */
+  char errmsg[256];
+  virErrorPtr err;
+  virConnectPtr conn;
+  virStoragePoolPtr pool;
+  virStorageVolPtr vol;
+  char *xml;
+
+  /* Look up the pool. */
+  pool = connect_and_load_pool (connv, poolnamev);
+  conn = virStoragePoolGetConnect (pool);
+
+  /* Look up the volume. */
+  volname = String_val (volnamev);
+
+  vol = virStorageVolLookupByName (pool, volname);
+
+  if (!vol) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot find libvirt volume '%s': %s"), volname, err->message);
+    virStoragePoolFree (pool);
+    virConnectClose (conn);
+    caml_invalid_argument (errmsg);
+  }
+
+  xml = virStorageVolGetXMLDesc (vol, 0);
+  if (xml == NULL) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot fetch XML description of volume '%s': %s"),
+              volname, err->message);
+    virStorageVolFree (vol);
+    virStoragePoolFree (pool);
+    virConnectClose (conn);
+    caml_invalid_argument (errmsg);
+  }
+  virStorageVolFree (vol);
+  virStoragePoolFree (pool);
+  virConnectClose (conn);
+
+  retv = caml_copy_string (xml);
+  free (xml);
+
+  CAMLreturn (retv);
+}
+
 #else /* !HAVE_LIBVIRT */
 
 value
@@ -315,6 +370,12 @@ v2v_dumpxml (value connv, value domv)
 
 value
 v2v_pool_dumpxml (value connv, value poolv)
+{
+  caml_invalid_argument ("virt-v2v was compiled without libvirt support");
+}
+
+value
+v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
 {
   caml_invalid_argument ("virt-v2v was compiled without libvirt support");
 }
