@@ -813,6 +813,10 @@ to specify the QEMU interface emulation to use at run time." };
         [["file_architecture"; "/initrd-x86_64.img"]], "x86_64"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/initrd-x86_64.img.gz"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-x86_64-dynamic.gz"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-i586.so.xz"]], "i386"), [];
     ];
     shortdesc = "detect the architecture of a binary file";
     longdesc = "\
