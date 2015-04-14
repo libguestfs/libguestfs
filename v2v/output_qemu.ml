@@ -95,7 +95,8 @@ object
       | VNC ->
         fpf "%s-display vnc=:0" nl
       | Spice ->
-        fpf "%s-spice port=5900,addr=127.0.0.1" nl
+        fpf "%s-spice port=%d,addr=127.0.0.1" nl
+        (match display.s_port with None -> 5900 | Some p -> p)
       );
       fpf "%s-vga %s" nl
         (match guestcaps.gcaps_video with Cirrus -> "cirrus" | QXL -> "qxl")
