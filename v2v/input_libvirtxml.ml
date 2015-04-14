@@ -33,7 +33,7 @@ and parsed_source =
 | P_source_file of string
 | P_dont_rewrite
 
-let parse_libvirt_xml ~verbose xml =
+let parse_libvirt_xml ?conn ~verbose xml =
   if verbose then
     printf "libvirt xml is:\n%s\n" xml;
 
