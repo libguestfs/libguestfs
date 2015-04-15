@@ -22,7 +22,7 @@ unset CDPATH
 export LANG=C
 set -e
 
-formats="tar zip"
+formats="tar zip tar-gz tar-xz"
 
 if [ -n "$SKIP_TEST_V2V_I_OVA_FORMATS_SH" ]; then
     echo "$0: test skipped because environment variable is set"
@@ -70,6 +70,12 @@ for format in $formats; do
         zip)
             zip -r test ../test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
             mv test.zip test-$format.ova
+            ;;
+        tar-gz)
+            tar -czf test-$format.ova ../test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
+            ;;
+        tar-xz)
+            tar -cJf test-$format.ova ../test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
             ;;
         *)
             echo "Unhandled format '$format'"
