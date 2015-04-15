@@ -43,13 +43,32 @@ object
        *)
       if is_directory ova then ova
       else (
+        let uncompress_head zcat file =
+          let cmd = sprintf "%s %s" zcat (quote file) in
+          let chan_out, chan_in, chan_err = Unix.open_process_full cmd [||] in
+          let buf = String.create 512 in
+          let len = input chan_out buf 0 (String.length buf) in
+          (* We're expecting the subprocess to fail because we close
+           * the pipe early, so:
+           *)
+          ignore (Unix.close_process_full (chan_out, chan_in, chan_err));
+
+          let tmpfile, chan = Filename.open_temp_file ~temp_dir:tmpdir "ova.file." "" in
+          output chan buf 0 len;
+          close_out chan;
+
+          tmpfile in
+
+        let untar ?(format = "") file outdir =
+          let cmd = sprintf "tar -x%sf %s -C %s" format (quote file) (quote outdir) in
+          if verbose then printf "%s\n%!" cmd;
+          if Sys.command cmd <> 0 then
+            error (f_"error unpacking %s, see earlier error messages") ova in
+
         match detect_file_type ova with
         | `Tar ->
           (* Normal ovas are tar file (not compressed). *)
-          let cmd = sprintf "tar -xf %s -C %s" (quote ova) (quote tmpdir) in
-          if verbose then printf "%s\n%!" cmd;
-          if Sys.command cmd <> 0 then
-            error (f_"error unpacking %s, see earlier error messages") ova;
+          untar ova tmpdir;
           tmpdir
         | `Zip ->
           (* However, although not permitted by the spec, people ship
@@ -62,8 +81,25 @@ object
           if Sys.command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova;
           tmpdir
-        | `GZip | `XZ | `Unknown ->
-          error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: uncompressed tar, zip") ova
+        | (`GZip|`XZ) as format ->
+          let zcat, tar_fmt =
+            match format with
+            | `GZip -> "zcat", "z"
+            | `XZ -> "xzcat", "J"
+            | _ -> assert false in
+          let tmpfile = uncompress_head zcat ova in
+          let tmpfiletype = detect_file_type tmpfile in
+          (* Remove tmpfile from tmpdir, to leave it empty. *)
+          Sys.remove tmpfile;
+          (match tmpfiletype with
+          | `Tar ->
+            untar ~format:tar_fmt ova tmpdir;
+            tmpdir
+          | `Zip | `GZip | `XZ | `Unknown ->
+            error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip") ova
+          )
+        | `Unknown ->
+          error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip") ova
       ) in
 
     (* Exploded path must be absolute (RHBZ#1155121). *)
