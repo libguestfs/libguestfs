@@ -33,7 +33,7 @@
       <model type='virtio'/>
     </interface>
     <video type='qxl' ram='65536' heads='1'/>
-    <graphics type='vnc' autoport='yes'/>
+    <graphics type='vnc' autoport='yes' port='-1'/>
     <input type='tablet' bus='usb'/>
     <input type='mouse' bus='ps2'/>
     <console type='pty'/>
