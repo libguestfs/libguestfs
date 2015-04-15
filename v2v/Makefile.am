@@ -23,12 +23,12 @@ EXTRA_DIST = \
 	HACKING README.RHEV-M \
 	test-v2v-i-ova.ovf \
 	test-v2v-i-ova.xml \
+	test-v2v-i-ova-formats.expected \
+	test-v2v-i-ova-formats.ovf \
 	test-v2v-i-ova-gz.expected \
 	test-v2v-i-ova-gz.ovf \
 	test-v2v-i-ova-two-disks.expected \
 	test-v2v-i-ova-two-disks.ovf \
-	test-v2v-i-ova-zip.expected \
-	test-v2v-i-ova-zip.ovf \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.xml.in \
 	virt-v2v.pod
@@ -224,9 +224,9 @@ CLEANFILES += stamp-virt-v2v.pod
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
+	test-v2v-i-ova-formats.sh \
 	test-v2v-i-ova-gz.sh \
-	test-v2v-i-ova-two-disks.sh \
-	test-v2v-i-ova-zip.sh
+	test-v2v-i-ova-two-disks.sh
 
 if ENABLE_APPLIANCE
 TESTS += \
