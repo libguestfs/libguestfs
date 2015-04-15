@@ -266,10 +266,11 @@ name=Fedora® 21 Server (ppc64)
 osinfo=fedora21
 arch=ppc64
 file=fedora-21-ppc64.xz
-checksum=6a1ef8c8a2d099e1a01475abf46b74f5b2a3b85c2b708b45b539d7e7a33c46a982cf54e4648749d6819102d32f9aa7a985ebbc7ec65185027fccb073ff2eba98
+revision=2
+checksum=7160d58954aef54d4ebfdd740a2750446cae2ed98efa87474597cfe38ad53d5cc380feaa7e52b47604288d58af6dde782a086f45af1c8eae318d7be721300f34
 format=raw
 size=6442450944
-compressed_size=226236232
+compressed_size=223009896
 notes=Fedora 21 Server (ppc64 big endian)
  
  This Fedora image contains only unmodified @Core group packages.
@@ -287,10 +288,11 @@ name=Fedora® 21 Server (ppc64le)
 osinfo=fedora21
 arch=ppc64le
 file=fedora-21-ppc64le.xz
-checksum=6d7bf10152b2d486ae2a40e04c6f6039a1d2c8ffa6d17c1965a83857f26b64628a6894e01a20e58dfccc7e006af890e097f5fe6ba9c9283ae5c26c1f4ab4db67
+revision=2
+checksum=6dd656cfea21049462c245b7eb828a189bf4e44b3205d991dced5c371acecb546b48abf976672c014db05bf6c6f99beb2a3915aa66dfb8d1582cb635019a3ad9
 format=raw
 size=6442450944
-compressed_size=227039604
+compressed_size=223885744
 notes=Fedora 21 Server (ppc64le)
  
  This Fedora image contains only unmodified @Core group packages.
