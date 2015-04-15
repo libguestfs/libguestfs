@@ -107,51 +107,66 @@ object
       if not (Filename.is_relative exploded) then exploded
       else Sys.getcwd () // exploded in
 
-    let files = Sys.readdir exploded in
-    let ovf = ref "" in
+    (* Find files in [dir] ending with [ext]. *)
+    let find_files dir ext =
+      let rec loop = function
+        | [] -> []
+        | dir :: rest ->
+          let files = Array.to_list (Sys.readdir dir) in
+          let files = List.map (Filename.concat dir) files in
+          let dirs, files = List.partition Sys.is_directory files in
+          let files = List.filter (
+            fun x ->
+              Filename.check_suffix x ext
+          ) files in
+          files @ loop (rest @ dirs)
+      in
+      loop [dir]
+    in
+
     (* Search for the ovf file. *)
-    Array.iter (
-      fun file ->
-        if Filename.check_suffix file ".ovf" then ovf := file
-    ) files;
-    let ovf = !ovf in
-    if ovf = "" then
-      error (f_"no .ovf file was found in %s") ova;
+    let ovf = find_files exploded ".ovf" in
+    let ovf =
+      match ovf with
+      | [] ->
+        error (f_"no .ovf file was found in %s") ova
+      | [x] -> x
+      | _ :: _ ->
+        error (f_"more than one .ovf file was found in %s") ova in
 
     (* Read any .mf (manifest) files and verify sha1. *)
+    let mf = find_files exploded ".mf" in
     let rex = Str.regexp "SHA1(\\(.*\\))=\\([0-9a-fA-F]+\\)\r?" in
-    Array.iter (
+    List.iter (
       fun mf ->
-        if Filename.check_suffix mf ".mf" then (
-          let chan = open_in (exploded // mf) in
-          let rec loop () =
-            let line = input_line chan in
-            if Str.string_match rex line 0 then (
-              let disk = Str.matched_group 1 line in
-              let expected = Str.matched_group 2 line in
-              let cmd = sprintf "sha1sum %s" (quote (exploded // disk)) in
-              let out = external_command ~prog cmd in
-              match out with
-              | [] ->
-                error (f_"no output from sha1sum command, see previous errors")
-              | [line] ->
-                let actual, _ = string_split " " line in
-                if actual <> expected then
-                  error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
-                    disk mf disk actual disk expected;
-                if verbose then
-                  printf "sha1 of %s matches expected checksum %s\n%!"
-                    disk expected
-              | _::_ -> error (f_"cannot parse output of sha1sum command")
-            )
-          in
-          (try loop () with End_of_file -> ());
-          close_in chan
-        )
-    ) files;
+        let chan = open_in mf in
+        let rec loop () =
+          let line = input_line chan in
+          if Str.string_match rex line 0 then (
+            let disk = Str.matched_group 1 line in
+            let expected = Str.matched_group 2 line in
+            let cmd = sprintf "sha1sum %s" (quote (exploded // disk)) in
+            let out = external_command ~prog cmd in
+            match out with
+            | [] ->
+              error (f_"no output from sha1sum command, see previous errors")
+            | [line] ->
+              let actual, _ = string_split " " line in
+              if actual <> expected then
+                error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
+                  disk mf disk actual disk expected;
+              if verbose then
+                printf "sha1 of %s matches expected checksum %s\n%!"
+                  disk expected
+            | _::_ -> error (f_"cannot parse output of sha1sum command")
+          )
+        in
+        (try loop () with End_of_file -> ());
+        close_in chan
+    ) mf;
 
     (* Parse the ovf file. *)
-    let xml = read_whole_file (exploded // ovf) in
+    let xml = read_whole_file ovf in
     let doc = Xml.parse_memory xml in
 
     (* Handle namespaces. *)
