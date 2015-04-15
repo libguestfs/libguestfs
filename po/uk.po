@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-04-10 13:46+0100\n"
+"POT-Creation-Date: 2015-04-15 22:25+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -480,11 +480,12 @@ msgstr ""
 "%s: невідомий тип таблиці розділів.\n"
 "У virt-resize передбачено підтримку лише таблиць розділів MBR (DOS) та GPT."
 
-#: ../v2v/input_ova.ml:66
+#: ../v2v/input_ova.ml:102 ../v2v/input_ova.ml:99
 msgid ""
 "%s: unsupported file format\n"
 "\n"
-"Formats which we currently understand for '-i ova' are: uncompressed tar, zip"
+"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
+"compress with gzip or xz), zip"
 msgstr ""
 
 #: ../mllib/common_utils.ml:301
@@ -665,7 +666,7 @@ msgstr ""
 "-o libvirt: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/output_libvirt.ml:319
+#: ../v2v/output_libvirt.ml:336
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
@@ -675,7 +676,7 @@ msgstr ""
 "target/path або не існує або цей елемент не є локальним каталогом. Див. "
 "розділ «ВИВЕДЕННЯ ДО LIBVIRT» у підручнику virt-v2v(1)."
 
-#: ../v2v/output_libvirt.ml:316
+#: ../v2v/output_libvirt.ml:333
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -741,16 +742,24 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:184
+#: ../v2v/input_libvirtxml.ml:245
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:180
+#: ../v2v/input_libvirtxml.ml:211
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:174
+#: ../v2v/input_libvirtxml.ml:242
+msgid "<disk type='volume'> with <volume type='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:205
 msgid "<disk type=network> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:117
+msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
 #. ../customize/customize_main.ml:82
@@ -2615,7 +2624,7 @@ msgstr ""
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
-#: ../v2v/input_ova.ml:109
+#: ../v2v/input_ova.ml:161
 msgid "cannot parse output of sha1sum command"
 msgstr "не вдалося обробити дані, виведені програмою sha1sum"
 
@@ -2657,7 +2666,7 @@ msgstr ""
 "роботу virt-v2v (^C), а потім повторно запустити програму від імені "
 "користувача root."
 
-#: ../v2v/input_ova.ml:104
+#: ../v2v/input_ova.ml:156
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
@@ -2690,7 +2699,7 @@ msgstr "з'єднання закрито"
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
-#: ../v2v/output_libvirt.ml:369
+#: ../v2v/output_libvirt.ml:386
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2728,11 +2737,11 @@ msgstr ""
 "не вдалося обробити параметр «-ic %s». Початкове повідомлення щодо помилки: "
 "%s"
 
-#: ../v2v/input_ova.ml:242
+#: ../v2v/input_ova.ml:293
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:154
+#: ../v2v/input_ova.ml:205
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -2755,7 +2764,7 @@ msgstr ""
 "виведені grub дані не буде надіслано до послідовного порту, але, окрім "
 "цього, не зашкодить. Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/output_libvirt.ml:341
+#: ../v2v/output_libvirt.ml:358
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
@@ -2840,7 +2849,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/input_libvirtxml.ml:110
+#: ../v2v/input_libvirtxml.ml:141
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2886,15 +2895,15 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:210
+#: ../v2v/input_ova.ml:261
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:228
+#: ../v2v/input_ova.ml:279
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:63 ../v2v/input_ova.ml:52
+#: ../v2v/input_ova.ml:82 ../v2v/input_ova.ml:66
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -2902,7 +2911,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr "виключення: %s"
 
-#: ../v2v/input_ova.ml:145 ../v2v/input_libvirtxml.ml:58
+#: ../v2v/input_ova.ml:196 ../v2v/input_libvirtxml.ml:58
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr "очікуємо, що вираз XML поверне ціле число (вираз: %s)"
 
@@ -3140,6 +3149,10 @@ msgstr ""
 msgid "lv"
 msgstr "lv"
 
+#: ../v2v/input_ova.ml:135
+msgid "more than one .ovf file was found in %s"
+msgstr ""
+
 #: ../v2v/output_rhev.ml:50
 msgid ""
 "mount command failed, see earlier errors.\n"
@@ -3172,7 +3185,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/input_ova.ml:83
+#: ../v2v/input_ova.ml:132
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3229,7 +3242,7 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
 
-#: ../v2v/input_ova.ml:100
+#: ../v2v/input_ova.ml:152
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 "немає даних, виведених програмою sha1sum, див. попередні повідомлення щодо "
@@ -3336,13 +3349,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:176
+#: ../v2v/input_ova.ml:227
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:173
+#: ../v2v/input_ova.ml:224
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3584,7 +3597,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/input_libvirtxml.ml:134
+#: ../v2v/input_libvirtxml.ml:165
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -3788,7 +3801,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:107
+#: ../v2v/input_libvirtxml.ml:138
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -8927,12 +8940,12 @@ msgid ""
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: src/filearch.c:135
+#: src/filearch.c:200 src/filearch.c:272
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
-#: src/filearch.c:250
+#: src/filearch.c:350
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -9820,22 +9833,27 @@ msgstr "Виконуваного файла «%s» не існує або вка
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: не є каталогом початкових кодів qemu\n"
 
-#: v2v/domainxml-c.c:148 v2v/domainxml-c.c:242
+#: v2v/domainxml-c.c:135 v2v/domainxml-c.c:205
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr "не вдалося відкрити з’єднання libvirt «%s»"
 
-#: v2v/domainxml-c.c:150 v2v/domainxml-c.c:244
+#: v2v/domainxml-c.c:137 v2v/domainxml-c.c:207
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr "не вдалося відкрити з’єднання libvirt"
 
-#: v2v/domainxml-c.c:171
+#: v2v/domainxml-c.c:158
+#, c-format
+msgid "cannot find libvirt pool '%s': %s"
+msgstr "не вдалося знайти буфер libvirt «%s»: %s"
+
+#: v2v/domainxml-c.c:228
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr "не вдалося знайти домен libvirt «%s»: %s"
 
-#: v2v/domainxml-c.c:186
+#: v2v/domainxml-c.c:243
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
@@ -9844,20 +9862,25 @@ msgstr ""
 "Домен libvirt «%s» працює або його призупинено. Роботу домену слід завершити "
 "для виконання перетворення virt-v2v"
 
-#: v2v/domainxml-c.c:199
+#: v2v/domainxml-c.c:256
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr "не вдалося отримати опис XML гостьової системи «%s»: %s"
 
-#: v2v/domainxml-c.c:265
-#, c-format
-msgid "cannot find libvirt pool '%s': %s"
-msgstr "не вдалося знайти буфер libvirt «%s»: %s"
-
-#: v2v/domainxml-c.c:274
+#: v2v/domainxml-c.c:293
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr "не вдалося отримати опис XML буфера «%s»: %s"
+
+#: v2v/domainxml-c.c:336
+#, c-format
+msgid "cannot find libvirt volume '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:346
+#, c-format
+msgid "cannot fetch XML description of volume '%s': %s"
+msgstr ""
 
 #: tools/virt-list-filesystems:147
 msgid "virt-list-filesystems: no image or VM name given"

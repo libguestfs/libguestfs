@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-04-10 13:46+0100\n"
+"POT-Creation-Date: 2015-04-15 22:25+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -386,11 +386,12 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../v2v/input_ova.ml:66
+#: ../v2v/input_ova.ml:102 ../v2v/input_ova.ml:99
 msgid ""
 "%s: unsupported file format\n"
 "\n"
-"Formats which we currently understand for '-i ova' are: uncompressed tar, zip"
+"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
+"compress with gzip or xz), zip"
 msgstr ""
 
 #: ../mllib/common_utils.ml:301
@@ -554,14 +555,14 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:319
+#: ../v2v/output_libvirt.ml:336
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
 "section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:316
+#: ../v2v/output_libvirt.ml:333
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -613,16 +614,24 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:184
+#: ../v2v/input_libvirtxml.ml:245
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:180
+#: ../v2v/input_libvirtxml.ml:211
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:174
+#: ../v2v/input_libvirtxml.ml:242
+msgid "<disk type='volume'> with <volume type='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:205
 msgid "<disk type=network> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:117
+msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
 #. ../customize/customize_main.ml:82
@@ -2272,7 +2281,7 @@ msgstr ""
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
-#: ../v2v/input_ova.ml:109
+#: ../v2v/input_ova.ml:161
 msgid "cannot parse output of sha1sum command"
 msgstr ""
 
@@ -2302,7 +2311,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:104
+#: ../v2v/input_ova.ml:156
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
@@ -2335,7 +2344,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:369
+#: ../v2v/output_libvirt.ml:386
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2367,11 +2376,11 @@ msgstr ""
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:242
+#: ../v2v/input_ova.ml:293
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:154
+#: ../v2v/input_ova.ml:205
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2388,7 +2397,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:341
+#: ../v2v/output_libvirt.ml:358
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -2458,7 +2467,7 @@ msgid ""
 "format"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:110
+#: ../v2v/input_libvirtxml.ml:141
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2498,15 +2507,15 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:210
+#: ../v2v/input_ova.ml:261
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:228
+#: ../v2v/input_ova.ml:279
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:63 ../v2v/input_ova.ml:52
+#: ../v2v/input_ova.ml:82 ../v2v/input_ova.ml:66
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -2514,7 +2523,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:145 ../v2v/input_libvirtxml.ml:58
+#: ../v2v/input_ova.ml:196 ../v2v/input_libvirtxml.ml:58
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
@@ -2735,6 +2744,10 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
+#: ../v2v/input_ova.ml:135
+msgid "more than one .ovf file was found in %s"
+msgstr ""
+
 #: ../v2v/output_rhev.ml:50
 msgid ""
 "mount command failed, see earlier errors.\n"
@@ -2759,7 +2772,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:83
+#: ../v2v/input_ova.ml:132
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -2808,7 +2821,7 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
-#: ../v2v/input_ova.ml:100
+#: ../v2v/input_ova.ml:152
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
@@ -2896,13 +2909,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:176
+#: ../v2v/input_ova.ml:227
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:173
+#: ../v2v/input_ova.ml:224
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3109,7 +3122,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:134
+#: ../v2v/input_libvirtxml.ml:165
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3298,7 +3311,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:107
+#: ../v2v/input_libvirtxml.ml:138
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -8133,12 +8146,12 @@ msgid ""
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: src/filearch.c:135
+#: src/filearch.c:200 src/filearch.c:272
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr "rozmiar %s jest nierozsądny (%<PRIi64> bajtów)"
 
-#: src/filearch.c:250
+#: src/filearch.c:350
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -8938,41 +8951,51 @@ msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"
 
-#: v2v/domainxml-c.c:148 v2v/domainxml-c.c:242
+#: v2v/domainxml-c.c:135 v2v/domainxml-c.c:205
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
-#: v2v/domainxml-c.c:150 v2v/domainxml-c.c:244
+#: v2v/domainxml-c.c:137 v2v/domainxml-c.c:207
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
 
-#: v2v/domainxml-c.c:171
+#: v2v/domainxml-c.c:158
+#, c-format
+msgid "cannot find libvirt pool '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:228
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:186
+#: v2v/domainxml-c.c:243
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
 
-#: v2v/domainxml-c.c:199
+#: v2v/domainxml-c.c:256
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:265
-#, c-format
-msgid "cannot find libvirt pool '%s': %s"
-msgstr ""
-
-#: v2v/domainxml-c.c:274
+#: v2v/domainxml-c.c:293
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:336
+#, c-format
+msgid "cannot find libvirt volume '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:346
+#, c-format
+msgid "cannot fetch XML description of volume '%s': %s"
 msgstr ""
 
 #: tools/virt-list-filesystems:147
