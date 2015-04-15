@@ -32,6 +32,7 @@ EXTRA_DIST = \
 	fedora-aarch64.sh \
 	fedora-armv7l.sh \
 	fedora-ppc64.sh \
+	fedora-ppc64le.sh \
 	rhel.sh \
 	scientificlinux.sh \
 	ubuntu.preseed \
