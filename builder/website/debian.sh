@@ -63,7 +63,7 @@ virt-install \
     --os-type=linux --os-variant=debian$dist \
     --initrd-inject=$(pwd)/preseed.cfg \
     --extra-args="auto console=tty0 console=ttyS0,115200" \
-    --disk=$(pwd)/$output,size=4 \
+    --disk=$(pwd)/$output,size=4,format=raw \
     --serial pty \
     --location=$location \
     --nographics \

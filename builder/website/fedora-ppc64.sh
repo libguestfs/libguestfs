@@ -83,7 +83,7 @@ virt-install \
     --arch ppc64 --machine pseries \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=ttyS0,115200 proxy=$http_proxy" \
-    --disk $(pwd)/$output,size=6 \
+    --disk $(pwd)/$output,size=6,format=raw \
     --serial pty \
     --location=$tree \
     --nographics \

@@ -89,7 +89,7 @@ virt-install \
     --boot loader=/usr/share/AAVMF/AAVMF_CODE.fd,loader_ro=yes,loader_type=pflash,nvram=$vars \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` earlyprintk=pl011,0x9000000 ignore_loglevel console=ttyAMA0 no_timer_check printk.time=1 proxy=$http_proxy" \
-    --disk $(pwd)/$output,size=6 \
+    --disk $(pwd)/$output,size=6,format=raw \
     --serial pty \
     --location=$tree \
     --nographics \

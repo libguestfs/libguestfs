@@ -212,7 +212,7 @@ virt-install \
     --os-type=linux --os-variant=rhel$major \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=ttyS0,115200" \
-    --disk $(pwd)/$output,size=6 \
+    --disk $(pwd)/$output,size=6,format=raw \
     --serial pty \
     --location=$tree \
     --nographics \
