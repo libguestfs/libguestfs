@@ -143,7 +143,7 @@ magic_for_file (guestfs_h *g, const char *filename, bool *loading_ok,
   int flags;
   CLEANUP_MAGIC_T_FREE magic_t m = NULL;
   const char *line;
-  char *elf_arch;
+  CLEANUP_FREE char *elf_arch = NULL;
 
   flags = g->verbose ? MAGIC_DEBUG : 0;
   flags |= MAGIC_ERROR | MAGIC_RAW;
