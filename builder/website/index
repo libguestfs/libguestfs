@@ -271,6 +271,7 @@ checksum=acdd9bbd2a434cae48b8f8cf715b00a0cedbb8d276d76a9d4a4f1d469c9522755e82dd0
 format=raw
 size=6442450944
 compressed_size=233099788
+expand=/dev/sda3
 notes=Fedora 21 Server (ppc64 big endian)
  
  This Fedora image contains only unmodified @Core group packages.
@@ -293,6 +294,7 @@ checksum=490aeb5f1bd8754a3c2ed705d3ca84ccec26f839492c6955f40289c4ce9754ad40f2271
 format=raw
 size=6442450944
 compressed_size=233706980
+expand=/dev/sda3
 notes=Fedora 21 Server (ppc64le)
  
  This Fedora image contains only unmodified @Core group packages.
