@@ -78,7 +78,7 @@ trap cleanup INT QUIT TERM EXIT ERR
 virt-install \
     --name=$tmpname \
     --ram=4096 \
-    --vcpus=2 \
+    --vcpus=1 \
     --os-type=linux --os-variant=fedora21 \
     --arch ppc64le --machine pseries \
     --initrd-inject=$ks \
