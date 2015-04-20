@@ -6,6 +6,7 @@ hypervisor type: vmware
        nr vCPUs: 1
    CPU features: 
         display: 
+          sound: 
 disks:
 	disk1.vmdk (vmdk) [scsi]
 	disk2.vmdk (vmdk) [scsi]

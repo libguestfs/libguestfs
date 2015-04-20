@@ -359,6 +359,7 @@ object
       s_vcpu = vcpu;
       s_features = []; (* XXX *)
       s_display = None; (* XXX *)
+      s_sound = None;
       s_disks = disks;
       s_removables = removables;
       s_nics = List.rev !nics;
