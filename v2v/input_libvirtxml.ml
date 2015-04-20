@@ -140,6 +140,30 @@ let parse_libvirt_xml ?conn ~verbose xml =
         None
     ) in
 
+  (* Sound card. *)
+  let sound =
+    let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/sound" in
+    let nr_nodes = Xml.xpathobj_nr_nodes obj in
+    if nr_nodes < 1 then None
+    else (
+      (* Ignore everything except the first <sound> device. *)
+      let node = Xml.xpathobj_node doc obj 0 in
+
+      Xml.xpathctx_set_current_context xpathctx node;
+      match xpath_to_string "@model" "" with
+      | "" -> None
+      | "ac97"   -> Some { s_sound_model = AC97 }
+      | "es1370" -> Some { s_sound_model = ES1370 }
+      | "ich6"   -> Some { s_sound_model = ICH6 }
+      | "ich9"   -> Some { s_sound_model = ICH9 }
+      | "pcspk"  -> Some { s_sound_model = PCSpeaker }
+      | "sb16"   -> Some { s_sound_model = SB16 }
+      | "usb"    -> Some { s_sound_model = USBAudio }
+      | model ->
+         warning ~prog (f_"unknown sound model %s ignored") model;
+         None
+    ) in
+
   (* Non-removable disk devices. *)
   let disks =
     let get_disks, add_disk =
@@ -324,6 +348,7 @@ let parse_libvirt_xml ?conn ~verbose xml =
     s_vcpu = vcpu;
     s_features = features;
     s_display = display;
+    s_sound = sound;
     s_disks = [];
     s_removables = removables;
     s_nics = nics;

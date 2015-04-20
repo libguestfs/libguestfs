@@ -257,7 +257,16 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
 
     video, graphics in
 
-  let devices = disks @ removables @ nics @ [video] @ [graphics] @
+  let sound =
+    match source.s_sound with
+    | None -> []
+    | Some { s_sound_model = model } ->
+       if qemu_supports_sound_card model then
+         [ e "sound" [ "model", string_of_source_sound_model model ] [] ]
+       else
+         [] in
+
+  let devices = disks @ removables @ nics @ [video] @ [graphics] @ sound @
   (* Standard devices added to every guest. *) [
     e "input" ["type", "tablet"; "bus", "usb"] [];
     e "input" ["type", "mouse"; "bus", "ps2"] [];

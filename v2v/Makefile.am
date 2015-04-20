@@ -31,6 +31,7 @@ EXTRA_DIST = \
 	test-v2v-i-ova-two-disks.ovf \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.xml \
+	test-v2v-sound.xml \
 	virt-v2v.pod
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
@@ -244,6 +245,7 @@ TESTS += \
 	test-v2v-of-option.sh \
 	test-v2v-on-option.sh \
 	test-v2v-print-source.sh \
+	test-v2v-sound.sh \
 	test-v2v-windows-conversion.sh
 endif ENABLE_APPLIANCE
 

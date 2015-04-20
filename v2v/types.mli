@@ -28,6 +28,7 @@ type source = {
   s_vcpu : int;                         (** Number of CPUs. *)
   s_features : string list;             (** Machine features. *)
   s_display : source_display option;    (** Guest display. *)
+  s_sound : source_sound option;        (** Sound card. *)
   s_disks : source_disk list;           (** Disk images. *)
   s_removables : source_removable list; (** CDROMs etc. *)
   s_nics : source_nic list;             (** NICs. *)
@@ -80,8 +81,16 @@ and s_display_listen =
   | LAddress of string             (** Listen address. *)
   | LNetwork of string             (** Listen network. *)
 
+and source_sound = {
+  s_sound_model : source_sound_model; (** Sound model. *)
+}
+and source_sound_model =
+  AC97 | ES1370 | ICH6 | ICH9 | PCSpeaker | SB16 | USBAudio
+
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
+
+val string_of_source_sound_model : source_sound_model -> string
 
 type overlay = {
   ov_overlay_file : string;  (** Local overlay file (qcow2 format). *)

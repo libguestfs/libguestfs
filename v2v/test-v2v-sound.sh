@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs virt-v2v test script
-# Copyright (C) 2014 Red Hat Inc.
+# Copyright (C) 2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,19 +16,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test --print-source option.
+# Test <sound> is transferred to destination domain.
 
 unset CDPATH
 export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_PRINT_SOURCE_SH" ]; then
+if [ -n "$SKIP_TEST_V2V_SOUND_SH" ]; then
     echo "$0: test skipped because environment variable is set"
     exit 77
 fi
 
-abs_top_builddir="$(cd ..; pwd)"
-libvirt_uri="test://$abs_top_builddir/tests/guests/guests.xml"
+if [ "$(guestfish get-backend)" = "uml" ]; then
+    echo "$0: test skipped because UML backend does not support network"
+    exit 77
+fi
+
+abs_builddir="$(pwd)"
+libvirt_uri="test://$abs_builddir/test-v2v-sound.xml"
 
 f=../tests/guests/windows.img
 if ! test -f $f || ! test -s $f; then
@@ -36,37 +41,24 @@ if ! test -f $f || ! test -s $f; then
     exit 77
 fi
 
-d=test-v2v-print-source.d
+virt_tools_data_dir=${VIRT_TOOLS_DATA_DIR:-/usr/share/virt-tools}
+if ! test -r $virt_tools_data_dir/rhsrvany.exe; then
+    echo "$0: test skipped because rhsrvany.exe is not installed"
+    exit 77
+fi
+
+d=test-v2v-sound.d
 rm -rf $d
 mkdir $d
 
 $VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
-    -o local -os $d \
-    --print-source > $d/output
+    -o local -os $d --no-copy
 
-mv $d/output $d/output.orig
-< $d/output.orig \
-grep -v 'Opening the source' |
-grep -v 'Source guest information' |
-sed -e 's,/.*/,/,' |
-grep -v '^$' \
-> $d/output
+# Test the libvirt XML metadata was created.
+test -f $d/windows.xml
 
-if [ "$(cat $d/output)" != "    source name: windows
-hypervisor type: test
-         memory: 1073741824 (bytes)
-       nr vCPUs: 1
-   CPU features: 
-        display: 
-          sound: 
-disks:
-	/windows.img (raw) [virtio]
-removable media:
-NICs:" ]; then
-    echo "$0: unexpected output from test:"
-    cat $d/output.orig
-    exit 1
-fi
+# Check the <sound> element exists in the output.
+grep 'sound model=.ich9' $d/windows.xml
 
 rm -r $d

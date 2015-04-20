@@ -102,6 +102,22 @@ object
         (match guestcaps.gcaps_video with Cirrus -> "cirrus" | QXL -> "qxl")
     );
 
+    (* Add a sound card. *)
+    (match source.s_sound with
+     | None -> ()
+     | Some { s_sound_model = model } ->
+        if qemu_supports_sound_card model then (
+          match model with
+          | AC97      -> fpf "%s-device AC97" nl
+          | ES1370    -> fpf "%s-device ES1370" nl
+          | ICH6      -> fpf "%s-device intel-hda -device hda-duplex" nl
+          | ICH9      -> fpf "%s-device ich9-intel-hda" nl
+          | PCSpeaker -> fpf "%s-soundhw pcspk" nl (* not qdev-ified *)
+          | SB16      -> fpf "%s-device sb16" nl
+          | USBAudio  -> fpf "%s-device usb-audio" nl
+        )
+    );
+
     (* Add a serial console to Linux guests. *)
     if inspect.i_type = "linux" then
       fpf "%s-serial stdio" nl;

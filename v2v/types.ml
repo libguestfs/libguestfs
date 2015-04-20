@@ -28,6 +28,7 @@ type source = {
   s_vcpu : int;
   s_features : string list;
   s_display : source_display option;
+  s_sound : source_sound option;
   s_disks : source_disk list;
   s_removables : source_removable list;
   s_nics : source_nic list;
@@ -64,6 +65,12 @@ and s_display_listen =
   | LAddress of string
   | LNetwork of string
 
+and source_sound = {
+  s_sound_model : source_sound_model;
+}
+and source_sound_model =
+  AC97 | ES1370 | ICH6 | ICH9 | PCSpeaker | SB16 | USBAudio
+
 let rec string_of_source s =
   sprintf "    source name: %s
 hypervisor type: %s
@@ -71,6 +78,7 @@ hypervisor type: %s
        nr vCPUs: %d
    CPU features: %s
         display: %s
+          sound: %s
 disks:
 %s
 removable media:
@@ -86,6 +94,9 @@ NICs:
     (match s.s_display with
     | None -> ""
     | Some display -> string_of_source_display display)
+    (match s.s_sound with
+    | None -> ""
+    | Some sound -> string_of_source_sound sound)
     (String.concat "\n" (List.map string_of_source_disk s.s_disks))
     (String.concat "\n" (List.map string_of_source_removable s.s_removables))
     (String.concat "\n" (List.map string_of_source_nic s.s_nics))
@@ -134,6 +145,22 @@ and string_of_source_display { s_display_type = typ;
     | LAddress a -> sprintf " listening on address %s" a
     | LNetwork n -> sprintf " listening on network %s" n
     )
+
+and string_of_source_sound { s_sound_model = model } =
+  string_of_source_sound_model model
+
+(* NB: This function must produce names compatible with libvirt.  The
+ * documentation for libvirt is incomplete, look instead at the
+ * sources.
+ *)
+and string_of_source_sound_model = function
+  | AC97      -> "ac97"
+  | ES1370    -> "es1370"
+  | ICH6      -> "ich6"
+  | ICH9      -> "ich9"
+  | PCSpeaker -> "pcspk"
+  | SB16      -> "sb16"
+  | USBAudio  -> "usb"
 
 type overlay = {
   ov_overlay_file : string;
