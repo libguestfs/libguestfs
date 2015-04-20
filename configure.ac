@@ -1748,8 +1748,7 @@ AC_CONFIG_FILES([Makefile
                  tests/xfs/Makefile
                  tests/xml/Makefile
                  tools/Makefile
-                 v2v/Makefile
-                 v2v/test-v2v-networks-and-bridges.xml])
+                 v2v/Makefile])
 AC_OUTPUT
 
 dnl Produce summary.
