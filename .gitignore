@@ -576,6 +576,5 @@ Makefile.in
 /v2v/test-harness/dllv2v_test_harness.so
 /v2v/test-harness/stamp-virt-v2v-test-harness.pod
 /v2v/test-harness/virt-v2v-test-harness.1
-/v2v/test-v2v-networks-and-bridges.xml
 /v2v/virt-v2v
 /v2v/virt-v2v.1

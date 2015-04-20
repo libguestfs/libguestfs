@@ -1836,7 +1836,6 @@ AC_CONFIG_FILES([Makefile
                  tests/xml/Makefile
                  tools/Makefile
                  v2v/Makefile
-                 v2v/test-v2v-networks-and-bridges.xml
                  v2v/test-harness/Makefile
                  v2v/test-harness/META])
 AC_OUTPUT

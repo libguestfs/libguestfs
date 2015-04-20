@@ -15,8 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-
-@configure_input@
 -->
 <node>
   <domain type='test'>
@@ -29,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
     <devices>
       <disk type='file' device='disk'>
         <driver name='qemu' type='raw'/>
-        <source file='@abs_top_builddir@/tests/guests/windows.img'/>
+        <source file='../tests/guests/windows.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
 
