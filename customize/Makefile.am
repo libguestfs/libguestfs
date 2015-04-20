@@ -88,9 +88,9 @@ virt_customize_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 BOBJECTS = \
+	$(top_builddir)/mllib/config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
-	$(top_builddir)/mllib/config.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
 	$(top_builddir)/mllib/uRI.cmo \
 	$(SOURCES_ML:.ml=.cmo)

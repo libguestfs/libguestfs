@@ -103,10 +103,10 @@ virt_sysprep_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 BOBJECTS = \
+	$(top_builddir)/mllib/config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/uRI.cmo \
-	$(top_builddir)/mllib/config.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
