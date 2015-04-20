@@ -344,11 +344,7 @@ let run_main_and_handle_errors ~prog main =
  * the OCaml tools.
  *)
 let print_version_and_exit ~prog () =
-  let g = G.create () in
-  let { G.major = major; minor = minor;
-        release = release; extra = extra } = G.version g in
-  G.close g;
-  printf "%s %Ld.%Ld.%Ld%s\n%!" prog major minor release extra;
+  printf "%s %s\n%!" prog Config.package_version_full;
   exit 0
 
 let read_whole_file path =

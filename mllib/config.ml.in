@@ -19,6 +19,7 @@
 
 let package_name = "@PACKAGE_NAME@"
 let package_version = "@PACKAGE_VERSION@"
+let package_version_full = "@PACKAGE_VERSION_FULL@"
 let prefix = "@prefix@"
 let datadir = prefix ^ "/share"
 let host_cpu = "@host_cpu@"

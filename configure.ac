@@ -90,6 +90,9 @@ AC_DEFINE([PACKAGE_VERSION_MAJOR],[libguestfs_major],[Major version number.])
 AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number.])
 AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number.])
 AC_DEFINE_UNQUOTED([PACKAGE_VERSION_EXTRA],["$libguestfs_extra"],[Extra version string.])
+PACKAGE_VERSION_FULL="libguestfs_major.libguestfs_minor.libguestfs_release${libguestfs_extra}"
+AC_DEFINE_UNQUOTED([PACKAGE_VERSION_FULL],["$PACKAGE_VERSION_FULL"],[Full version string.])
+AC_SUBST([PACKAGE_VERSION_FULL])
 
 # Define $(SED).
 m4_ifdef([AC_PROG_SED],[
