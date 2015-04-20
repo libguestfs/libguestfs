@@ -78,6 +78,10 @@ val info : prog:string -> ('a, unit, string, unit) format4 -> 'a
 val run_main_and_handle_errors : prog:string -> (unit -> unit) -> unit
 (** Common function for handling pretty-printing exceptions. *)
 
+val print_version_and_exit : prog:string -> unit -> unit
+(** Print the version number and exit.  Implements [--version] flag in
+    the OCaml tools. *)
+
 val read_whole_file : string -> string
 (** Read in the whole file as a string. *)
 

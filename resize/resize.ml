@@ -155,10 +155,6 @@ let main () =
     dryrun, expand, expand_content, extra_partition, format, ignores,
     lv_expands, machine_readable, ntfsresize_force, output_format,
     quiet, resizes, resizes_force, shrink, sparse, trace, verbose =
-    let display_version () =
-      printf "virt-resize %s\n" Config.package_version;
-      exit 0
-    in
 
     let add xs s = xs := s :: !xs in
 
@@ -229,8 +225,9 @@ let main () =
       "--no-sparse", Arg.Clear sparse,        " " ^ s_"Turn off sparse copying";
       "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
       "--verbose", Arg.Set verbose,           ditto;
-      "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
-      "--version", Arg.Unit display_version,  ditto;
+      "-V",        Arg.Unit (print_version_and_exit ~prog),
+                                              " " ^ s_"Display version and exit";
+      "--version", Arg.Unit (print_version_and_exit ~prog),  ditto;
       "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
     ] in
     long_options := argspec;

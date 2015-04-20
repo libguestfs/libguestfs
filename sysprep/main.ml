@@ -53,10 +53,7 @@ let main () =
       format_consumed := false
     in
 
-    let display_version () =
-      printf "virt-sysprep %s\n" Config.package_version;
-      exit 0
-    and add_file arg =
+    let add_file arg =
       let uri =
         try URI.parse_uri arg
         with Invalid_argument "URI.parse_uri" ->
@@ -149,8 +146,10 @@ let main () =
       "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
       "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
       "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-      "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
-      "--version", Arg.Unit display_version,  " " ^ s_"Display version and exit";
+      "-V",        Arg.Unit (print_version_and_exit ~prog),
+                                              " " ^ s_"Display version and exit";
+      "--version", Arg.Unit (print_version_and_exit ~prog),
+                                              " " ^ s_"Display version and exit";
       "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
     ] in
     let args = basic_args @ Sysprep_operation.extra_args () in

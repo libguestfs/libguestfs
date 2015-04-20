@@ -340,6 +340,17 @@ let run_main_and_handle_errors ~prog main =
   | exn ->                              (* something not matched above *)
     error ~prog (f_"exception: %s") (Printexc.to_string exn)
 
+(* Print the version number and exit.  Used to implement --version in
+ * the OCaml tools.
+ *)
+let print_version_and_exit ~prog () =
+  let g = G.create () in
+  let { G.major = major; minor = minor;
+        release = release; extra = extra } = G.version g in
+  G.close g;
+  printf "%s %Ld.%Ld.%Ld%s\n%!" prog major minor release extra;
+  exit 0
+
 let read_whole_file path =
   let buf = Buffer.create 16384 in
   let chan = open_in path in

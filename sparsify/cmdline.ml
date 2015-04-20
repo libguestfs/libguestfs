@@ -32,11 +32,6 @@ type mode_t =
 and check_t = [`Ignore|`Continue|`Warn|`Fail]
 
 let parse_cmdline () =
-  let display_version () =
-    printf "virt-sparsify %s\n" Config.package_version;
-    exit 0
-  in
-
   let add xs s = xs := s :: !xs in
 
   let check_tmpdir = ref `Warn in
@@ -82,8 +77,9 @@ let parse_cmdline () =
     "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device, directory or prebuilt file";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
-    "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
-    "--version", Arg.Unit display_version,  ditto;
+    "-V",        Arg.Unit (print_version_and_exit ~prog),
+                                            " " ^ s_"Display version and exit";
+    "--version", Arg.Unit (print_version_and_exit ~prog),  ditto;
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
     "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
   ] in

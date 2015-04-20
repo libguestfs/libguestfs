@@ -31,11 +31,6 @@ open Unix
 open Printf
 
 let parse_cmdline () =
-  let display_version () =
-    printf "virt-builder %s\n" Config.package_version;
-    exit 0
-  in
-
   let mode = ref `Install in
   let list_mode () = mode := `List in
   let notes_mode () = mode := `Notes in
@@ -154,8 +149,10 @@ let parse_cmdline () =
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-    "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
-    "--version", Arg.Unit display_version,  " " ^ s_"Display version and exit";
+    "-V",        Arg.Unit (print_version_and_exit ~prog),
+                                            " " ^ s_"Display version and exit";
+    "--version", Arg.Unit (print_version_and_exit ~prog),
+                                            " " ^ s_"Display version and exit";
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   let customize_argspec, get_customize_ops = Customize_cmdline.argspec () in
