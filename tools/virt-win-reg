@@ -234,7 +234,7 @@ pod2usage (1) if $help;
 if ($version) {
     my $g = Sys::Guestfs->new ();
     my %h = $g->version ();
-    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
+    print "virt-win-reg $h{major}.$h{minor}.$h{release}$h{extra}\n";
     exit
 }
 
