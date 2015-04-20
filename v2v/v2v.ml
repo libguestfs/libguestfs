@@ -621,7 +621,12 @@ and do_fstrim ~verbose g no_trim inspect =
       let mounted = try g#mount dev "/"; true with G.Error _ -> false in
       if mounted then (
         try g#fstrim "/"
-        with G.Error msg -> warning ~prog (f_"%s (ignored)") msg
+        with G.Error msg ->
+          (* Only emit this warning when debugging, because otherwise
+           * it causes distress (RHBZ#1168144).
+           *)
+          if verbose then
+            warning ~prog (f_"%s (ignored)") msg
       )
   ) fses
 
