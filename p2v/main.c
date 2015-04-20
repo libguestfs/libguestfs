@@ -149,7 +149,9 @@ main (int argc, char *argv[])
       break;
 
     case 'V':
-      printf ("%s %s\n", guestfs_int_program_name, PACKAGE_VERSION);
+      printf ("%s %s%s\n",
+              guestfs_int_program_name,
+              PACKAGE_VERSION, PACKAGE_VERSION_EXTRA);
       exit (EXIT_SUCCESS);
 
     case HELP_OPTION:
