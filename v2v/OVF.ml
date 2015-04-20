@@ -95,7 +95,10 @@ let get_vmtype = function
 
   | _ -> `Server
 
-(* Determine the ovf:OperatingSystemSection_Type from libguestfs inspection. *)
+(* Determine the ovf:OperatingSystemSection_Type from libguestfs
+ * inspection.  See ovirt-engine sources, file:
+ * frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/Enums.properties
+ *)
 and get_ostype = function
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = v;
       i_arch = "i386" } ->
@@ -141,6 +144,22 @@ and get_ostype = function
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
       i_arch = "x86_64" } ->
     "Windows2008R2x64"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
+      i_arch = "i386" } ->
+    "Windows8"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
+      i_arch = "x86_64"; i_product_variant = "Client" } ->
+    "Windows8x64"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
+      i_arch = "x86_64" } ->
+    "Windows2012x64"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
+      i_arch = "x86_64" } ->
+    "Windows2012R2x64"
 
   | { i_type = typ; i_distro = distro;
       i_major_version = major; i_minor_version = minor;
