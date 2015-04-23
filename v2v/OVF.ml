@@ -314,6 +314,11 @@ let rec create_ovf verbose source targets guestcaps inspect
     warning (f_"This guest required a password for connection to its display, but this is not supported by RHEV.  Therefore the converted guest's display will not require a separate password to connect.");
     | _ -> ());
 
+  if verbose then (
+    eprintf "OVF:\n";
+    doc_to_chan Pervasives.stderr ovf
+  );
+
   (* Return the OVF document. *)
   ovf
 
