@@ -34,6 +34,8 @@ EXTRA_DIST = \
 	fedora-ppc64.sh \
 	fedora-ppc64le.sh \
 	rhel.sh \
+	rhel-ppc64.sh \
+	rhel-ppc64le.sh \
 	scientificlinux.sh \
 	ubuntu.preseed \
 	ubuntu.sh
