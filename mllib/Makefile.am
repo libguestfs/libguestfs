@@ -137,7 +137,7 @@ check_SCRIPTS = \
 
 if HAVE_OCAMLOPT
 common_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-common_utils_tests: common_gettext.cmx common_utils.cmx common_utils_tests.cmx
+common_utils_tests: config.cmx common_gettext.cmx common_utils.cmx common_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -o $@
 
@@ -147,7 +147,7 @@ JSON_tests: JSON.cmx JSON_tests.cmx
 	  mlguestfs.cmxa -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -o $@
 else
 common_utils_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-common_utils_tests: common_gettext.cmo common_utils.cmo common_utils_tests.cmo
+common_utils_tests: config.cmo common_gettext.cmo common_utils.cmo common_utils_tests.cmo
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  mlguestfs.cma -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -custom -o $@
 
