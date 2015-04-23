@@ -61,7 +61,7 @@ pid="$(cat test.pid)"
 timeout=10
 
 # Unmount the mountpoint.
-./guestunmount mp
+./guestunmount -v mp
 
 # Wait for guestmount to exit.
 count=$timeout
