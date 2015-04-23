@@ -242,6 +242,10 @@ do_fusermount (const char *mountpoint, char **error_rtn)
     exit (EXIT_FAILURE);
   }
 
+  if (verbose)
+    fprintf (stderr, "%s: running: fusermount -u %s\n",
+             guestfs_int_program_name, mountpoint);
+
   pid = fork ();
   if (pid == -1) {
     perror ("fork");
@@ -316,9 +320,16 @@ do_fusermount (const char *mountpoint, char **error_rtn)
   }
 
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    if (verbose)
+      fprintf (stderr, "%s\n", buf);
+
     *error_rtn = buf;
     return 1;                   /* fusermount or exec failed */
   }
+
+  if (verbose)
+    fprintf (stderr, "%s: fusermount successful\n",
+             guestfs_int_program_name);
 
   free (buf);
   return 0;                     /* fusermount successful */
