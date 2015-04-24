@@ -251,6 +251,14 @@
    fun:selabel_close
    fun:virSecuritySELinuxSecurityDriverClose
 }
+# RHBZ#1215042
+{
+   libvirt_leak_8
+   Memcheck:Leak
+   ...
+   fun:virGetUserRuntimeDirectory
+   fun:virNetSocketNewConnectUNIX
+}
 
 # FUSE leaks the per-thread context (although the code looks
 # like it attempts to clean it up).  In older fuse, it uses
