@@ -30,7 +30,9 @@ module StringSet = Set.Make (String)
 let string_set_of_list =
   List.fold_left (fun set x -> StringSet.add x set) StringSet.empty
 
-let arch_sanity_re = Str.regexp "^[-_A-Za-z0-9]+$"
+let arch_is_sane_or_die =
+  let rex = Str.regexp "^[-_A-Za-z0-9]+$" in
+  fun arch -> assert (Str.string_match rex arch 0)
 
 let target_features_of_capabilities_doc doc arch =
   let xpathctx = Xml.xpath_new_context doc in
@@ -38,7 +40,7 @@ let target_features_of_capabilities_doc doc arch =
     (* Check the arch is sane.  It comes from untrusted input.  This
      * avoids XPath injection below.
      *)
-    assert (Str.string_match arch_sanity_re arch 0);
+    arch_is_sane_or_die arch;
     (* NB: Pay attention to the square brackets.  This returns the
      * <guest> nodes!
      *)
