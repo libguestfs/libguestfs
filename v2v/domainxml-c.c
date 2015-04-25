@@ -362,17 +362,23 @@ v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
 
 #else /* !HAVE_LIBVIRT */
 
+value v2v_dumpxml (value connv, value domv) __attribute__((noreturn));
+
 value
 v2v_dumpxml (value connv, value domv)
 {
   caml_invalid_argument ("virt-v2v was compiled without libvirt support");
 }
 
+value v2v_pool_dumpxml (value connv, value poolv) __attribute__((noreturn));
+
 value
 v2v_pool_dumpxml (value connv, value poolv)
 {
   caml_invalid_argument ("virt-v2v was compiled without libvirt support");
 }
+
+value v2v_vol_dumpxml (value connv, value poolnamev, value volnamev) __attribute__((noreturn));
 
 value
 v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
