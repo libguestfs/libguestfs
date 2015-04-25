@@ -21,7 +21,7 @@
 val mount_and_check_storage_domain : bool -> string -> string -> (string * string)
 (** This helper function is also used by the VDSM target. *)
 
-val output_rhev : bool -> string -> [`Server|`Desktop] option -> [`Sparse|`Preallocated] -> Types.output
+val output_rhev : bool -> string -> Types.vmtype option -> Types.output_allocation -> Types.output
 (** [output_rhev verbose os vmtype output_alloc] creates and
     returns a new {!Types.output} object specialized for writing
     output to RHEV-M or oVirt Export Storage Domain. *)

@@ -297,3 +297,7 @@ class virtual output verbose = object
   method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
   method keep_serial_console = true
 end
+
+type output_allocation = Sparse | Preallocated
+
+type vmtype = Desktop | Server

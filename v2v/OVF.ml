@@ -47,53 +47,53 @@ let get_vmtype = function
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
       i_product_name = product }
       when major >= 5 && string_find product "Server" >= 0 ->
-    `Server
+    Server
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major }
       when major >= 5 ->
-    `Desktop
+    Desktop
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
       i_product_name = product }
       when major >= 3 && string_find product "ES" >= 0 ->
-    `Server
+    Server
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
       i_product_name = product }
       when major >= 3 && string_find product "AS" >= 0 ->
-    `Server
+    Server
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major }
       when major >= 3 ->
-    `Desktop
+    Desktop
 
-  | { i_type = "linux"; i_distro = "fedora" } -> `Desktop
+  | { i_type = "linux"; i_distro = "fedora" } -> Desktop
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 1 } ->
-    `Desktop                            (* Windows XP *)
+    Desktop                            (* Windows XP *)
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
       i_product_name = product } when string_find product "XP" >= 0 ->
-    `Desktop                            (* Windows XP *)
+    Desktop                            (* Windows XP *)
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 2 } ->
-    `Server                             (* Windows 2003 *)
+    Server                             (* Windows 2003 *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 0;
       i_product_name = product } when string_find product "Server" >= 0 ->
-    `Server                             (* Windows 2008 *)
+    Server                             (* Windows 2008 *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 0 } ->
-    `Desktop                            (* Vista *)
+    Desktop                            (* Vista *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
       i_product_name = product } when string_find product "Server" >= 0 ->
-    `Server                             (* Windows 2008R2 *)
+    Server                             (* Windows 2008R2 *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 1 } ->
-    `Server                             (* Windows 7 *)
+    Server                             (* Windows 7 *)
 
-  | _ -> `Server
+  | _ -> Server
 
 (* Determine the ovf:OperatingSystemSection_Type from libguestfs
  * inspection.  See ovirt-engine sources, file:
@@ -173,8 +173,8 @@ let create_meta_files verbose output_alloc sd_uuid image_uuids targets =
   (* Note: Upper case in the .meta, mixed case in the OVF. *)
   let output_alloc_for_rhev =
     match output_alloc with
-    | `Sparse -> "SPARSE"
-    | `Preallocated -> "PREALLOCATED" in
+    | Sparse -> "SPARSE"
+    | Preallocated -> "PREALLOCATED" in
 
   List.map (
     fun ({ target_overlay = ov } as t, image_uuid) ->
@@ -222,7 +222,7 @@ let rec create_ovf verbose source targets guestcaps inspect
     match vmtype with
       | Some vmtype -> vmtype
       | None -> get_vmtype inspect in
-  let vmtype = match vmtype with `Desktop -> "0" | `Server -> "1" in
+  let vmtype = match vmtype with Desktop -> "0" | Server -> "1" in
   let ostype = get_ostype inspect in
 
   let ovf : doc =
@@ -373,8 +373,8 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
       (* Note: Upper case in the .meta, mixed case in the OVF. *)
       let output_alloc_for_rhev =
         match output_alloc with
-        | `Sparse -> "Sparse"
-        | `Preallocated -> "Preallocated" in
+        | Sparse -> "Sparse"
+        | Preallocated -> "Preallocated" in
 
       (* Add disk to <References/> node. *)
       let disk =

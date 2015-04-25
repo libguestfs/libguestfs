@@ -119,8 +119,8 @@ object
     sprintf "-o rhev -os %s%s" os
       (match vmtype with
       | None -> ""
-      | Some `Server -> " --vmtype server"
-      | Some `Desktop -> " --vmtype desktop")
+      | Some Server -> " --vmtype server"
+      | Some Desktop -> " --vmtype desktop")
 
   (* RHEV doesn't support serial consoles.  This causes the conversion
    * step to remove it.

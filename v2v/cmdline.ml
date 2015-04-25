@@ -108,10 +108,10 @@ let parse_cmdline () =
       error (f_"unknown -o option: %s") s
   in
 
-  let output_alloc = ref `Sparse in
+  let output_alloc = ref Sparse in
   let set_output_alloc = function
-    | "sparse" -> output_alloc := `Sparse
-    | "preallocated" -> output_alloc := `Preallocated
+    | "sparse" -> output_alloc := Sparse
+    | "preallocated" -> output_alloc := Preallocated
     | s ->
       error (f_"unknown -oa option: %s") s
   in
@@ -242,8 +242,8 @@ read the man page virt-v2v(1).
   let trace = !trace in
   let vmtype =
     match !vmtype with
-    | "server" -> Some `Server
-    | "desktop" -> Some `Desktop
+    | "server" -> Some Server
+    | "desktop" -> Some Desktop
     | "" -> None
     | _ ->
       error (f_"unknown --vmtype option, must be \"server\" or \"desktop\"") in

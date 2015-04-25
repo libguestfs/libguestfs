@@ -206,3 +206,9 @@ class virtual output : bool -> object
   (** Whether this output supports serial consoles (RHEV does not). *)
 end
 (** Encapsulates all [-o], etc output arguments as an object. *)
+
+type output_allocation = Sparse | Preallocated
+(** Type of [-oa] (output allocation) option. *)
+
+type vmtype = Desktop | Server
+(** Type of [--vmtype] option. *)
