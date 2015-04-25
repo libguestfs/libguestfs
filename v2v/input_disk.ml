@@ -80,7 +80,7 @@ class input_disk verbose input_format disk = object
     } in
 
     let source = {
-      s_hypervisor = `UnknownHV;
+      s_hypervisor = UnknownHV;
       s_name = name; s_orig_name = name;
       s_memory = 2048L *^ 1024L *^ 1024L; (* 2048 MB *)
       s_vcpu = 1;                         (* 1 vCPU is a safe default *)

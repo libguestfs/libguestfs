@@ -36,12 +36,12 @@ type source = {
 (** The source: metadata, disk images. *)
 
 and source_hypervisor =
-[ `QEmu | `KQemu | `KVM | `Xen | `LXC | `UML | `OpenVZ
-| `Test | `VMware | `HyperV | `VBox | `Phyp | `Parallels
-| `Bhyve
-| `Physical (** used by virt-p2v *)
-| `UnknownHV (** used by -i disk *)
-| `OtherHV of string ]
+  | QEmu | KQemu | KVM | Xen | LXC | UML | OpenVZ
+  | Test | VMware | HyperV | VBox | Phyp | Parallels
+  | Bhyve
+  | Physical (** used by virt-p2v *)
+  | UnknownHV (** used by -i disk *)
+  | OtherHV of string
 (** Possible source hypervisors.  See
     [libvirt.git/docs/schemas/domaincommon.rng] for the list supported
     by libvirt. *)

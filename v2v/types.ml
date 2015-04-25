@@ -34,12 +34,12 @@ type source = {
   s_nics : source_nic list;
 }
 and source_hypervisor =
-[ `QEmu | `KQemu | `KVM | `Xen | `LXC | `UML | `OpenVZ
-| `Test | `VMware | `HyperV | `VBox | `Phyp | `Parallels
-| `Bhyve
-| `Physical (* used by virt-p2v *)
-| `UnknownHV (* used by -i disk *)
-| `OtherHV of string ]
+  | QEmu | KQemu | KVM | Xen | LXC | UML | OpenVZ
+  | Test | VMware | HyperV | VBox | Phyp | Parallels
+  | Bhyve
+  | Physical (* used by virt-p2v *)
+  | UnknownHV (* used by -i disk *)
+  | OtherHV of string
 and source_disk = {
   s_disk_id : int;
   s_qemu_uri : string;
@@ -109,42 +109,42 @@ NICs:
     (String.concat "\n" (List.map string_of_source_nic s.s_nics))
 
 and string_of_source_hypervisor = function
-  | `QEmu -> "qemu"
-  | `KQemu -> "kqemu"
-  | `KVM -> "kvm"
-  | `Xen -> "xen"
-  | `LXC -> "lxc"
-  | `UML -> "uml"
-  | `OpenVZ -> "openvz"
-  | `Test -> "test"
-  | `VMware -> "vmware"
-  | `HyperV -> "hyperv"
-  | `VBox -> "vbox"
-  | `Phyp -> "phyp"
-  | `Parallels -> "parallels"
-  | `Bhyve -> "bhyve"
-  | `Physical -> "physical"
-  | `UnknownHV -> "unknown"
-  | `OtherHV s -> s
+  | QEmu -> "qemu"
+  | KQemu -> "kqemu"
+  | KVM -> "kvm"
+  | Xen -> "xen"
+  | LXC -> "lxc"
+  | UML -> "uml"
+  | OpenVZ -> "openvz"
+  | Test -> "test"
+  | VMware -> "vmware"
+  | HyperV -> "hyperv"
+  | VBox -> "vbox"
+  | Phyp -> "phyp"
+  | Parallels -> "parallels"
+  | Bhyve -> "bhyve"
+  | Physical -> "physical"
+  | UnknownHV -> "unknown"
+  | OtherHV s -> s
 
 and source_hypervisor_of_string = function
-  | "qemu" -> `QEmu
-  | "kqemu" -> `KQemu
-  | "kvm" -> `KVM
-  | "xen" -> `Xen
-  | "lxc" -> `LXC
-  | "uml" -> `UML
-  | "openvz" -> `OpenVZ
-  | "test" -> `Test
-  | "vmware" -> `VMware
-  | "hyperv" -> `HyperV
-  | "vbox" -> `VBox
-  | "phyp" -> `Phyp
-  | "parallels" -> `Parallels
-  | "bhyve" -> `Bhyve
-  | "physical" -> `Physical
-  | "unknown" -> `OtherHV "unknown" (* because `UnknownHV is for internal use *)
-  | s -> `OtherHV s
+  | "qemu" -> QEmu
+  | "kqemu" -> KQemu
+  | "kvm" -> KVM
+  | "xen" -> Xen
+  | "lxc" -> LXC
+  | "uml" -> UML
+  | "openvz" -> OpenVZ
+  | "test" -> Test
+  | "vmware" -> VMware
+  | "hyperv" -> HyperV
+  | "vbox" -> VBox
+  | "phyp" -> Phyp
+  | "parallels" -> Parallels
+  | "bhyve" -> Bhyve
+  | "physical" -> Physical
+  | "unknown" -> OtherHV "unknown" (* because `UnknownHV is for internal use *)
+  | s -> OtherHV s
 
 and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
                             s_controller = controller } =

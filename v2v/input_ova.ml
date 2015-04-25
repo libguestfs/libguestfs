@@ -352,7 +352,7 @@ object
     done;
 
     let source = {
-      s_hypervisor = `VMware;
+      s_hypervisor = VMware;
       s_name = name;
       s_orig_name = name;
       s_memory = memory;

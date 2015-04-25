@@ -74,7 +74,7 @@ let rec main () =
   if verbose then printf "%s%!" (string_of_source source);
 
   (match source.s_hypervisor with
-  | `OtherHV hv ->
+  | OtherHV hv ->
     warning (f_"unknown source hypervisor ('%s') in metadata") hv
   | _ -> ()
   );
