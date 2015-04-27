@@ -30,7 +30,9 @@ let unix2dos s =
 let sanitize_name =
   let rex = Str.regexp "[^A-Za-z0-9_]" in
   fun n ->
-    Str.global_replace rex "-" n
+    let n = Str.global_replace rex "-" n in
+    let len = String.length n and max = 60 in
+    if len >= max then String.sub n 0 max else n
 
 (* For Linux guests. *)
 module Linux = struct
