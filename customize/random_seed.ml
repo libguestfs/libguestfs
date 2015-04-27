@@ -56,8 +56,13 @@ let rec set_random_seed (g : Guestfs.guestfs) root =
         None in
     match file with
     | Some file ->
-      make_random_seed_file g file;
-      created := true
+      let dir =
+        let i = String.rindex file '/' in
+        String.sub file 0 i in
+      if g#is_dir dir then (
+        make_random_seed_file g file;
+        created := true
+      )
     | None -> ()
   );
 
