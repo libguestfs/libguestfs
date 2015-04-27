@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-04-23 19:54+0100\n"
+"POT-Creation-Date: 2015-04-27 20:21+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libguestfs/"
@@ -403,7 +403,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/firstboot.ml:189
+#: ../customize/firstboot.ml:193
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -552,14 +552,14 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:345
+#: ../v2v/output_libvirt.ml:347
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
 "section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:342
+#: ../v2v/output_libvirt.ml:344
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -611,23 +611,23 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:269
+#: ../v2v/input_libvirtxml.ml:270
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:235
+#: ../v2v/input_libvirtxml.ml:236
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:266
+#: ../v2v/input_libvirtxml.ml:267
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:229
+#: ../v2v/input_libvirtxml.ml:230
 msgid "<disk type=network> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:117
+#: ../v2v/input_libvirtxml.ml:118
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2341,7 +2341,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:395
+#: ../v2v/output_libvirt.ml:397
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2394,7 +2394,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:367
+#: ../v2v/output_libvirt.ml:369
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -2464,7 +2464,7 @@ msgid ""
 "format"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:141
+#: ../v2v/input_libvirtxml.ml:142
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2635,11 +2635,11 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../customize/firstboot.ml:129
+#: ../customize/firstboot.ml:133
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:315
+#: ../customize/firstboot.ml:319
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3064,7 +3064,7 @@ msgid ""
 "guest: %d)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:52
+#: ../v2v/output_libvirt.ml:54
 msgid "the target hypervisor does not support a %s KVM guest"
 msgstr ""
 
@@ -3119,7 +3119,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:189
+#: ../v2v/input_libvirtxml.ml:190
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3186,7 +3186,7 @@ msgstr ""
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:165
+#: ../v2v/input_libvirtxml.ml:166
 msgid "unknown sound model %s ignored"
 msgstr ""
 
@@ -3312,7 +3312,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:138
+#: ../v2v/input_libvirtxml.ml:139
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
