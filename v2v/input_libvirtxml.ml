@@ -96,8 +96,9 @@ let parse_libvirt_xml ?conn ~verbose xml =
       let listen =
         let obj = Xml.xpath_eval_expression xpathctx "listen" in
         let nr_nodes = Xml.xpathobj_nr_nodes obj in
-        if nr_nodes < 1 then LNone
-        else (
+        if nr_nodes < 1 then (
+          match xpath_to_string "@listen" "" with "" -> LNone | a -> LAddress a
+        ) else (
           (* Use only the first <listen> configuration. *)
           match xpath_to_string "listen[1]/@type" "" with
           | "" -> LNone
