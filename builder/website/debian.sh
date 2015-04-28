@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2013 Red Hat Inc.
+# Copyright (C) 2013-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,6 +33,12 @@ fi
 # Some configuration.
 version=$1
 dist=$2
+if [ "$dist" = "jessie" ]; then
+    # Until virt-install learns about debianjessie.
+    osvariant=debianwheezy
+else
+    osvariant=debian$dist
+fi
 location=http://ftp.uk.debian.org/debian/dists/$dist/main/installer-amd64
 output=debian-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
@@ -60,7 +66,7 @@ trap cleanup INT QUIT TERM EXIT ERR
 virt-install \
     --name=$tmpname \
     --ram=1024 \
-    --os-type=linux --os-variant=debian$dist \
+    --os-type=linux --os-variant=$osvariant \
     --initrd-inject=$(pwd)/preseed.cfg \
     --extra-args="auto console=tty0 console=ttyS0,115200" \
     --disk=$(pwd)/$output,size=4,format=raw \
