@@ -162,13 +162,6 @@ notes=Debian 8 (Jessie).
  builder/website/debian.preseed
  builder/website/debian.sh
  
- This image is so very minimal that it only includes an ssh
- server and no virtual consoles.  To enable virtual consoles
- use this virt-builder option:
- 
- virt-builder debian-8 \
-     --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'
- 
  This image does not contain SSH host keys.  To regenerate them use:
  
  --firstboot-command "dpkg-reconfigure openssh-server"
