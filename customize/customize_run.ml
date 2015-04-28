@@ -268,6 +268,10 @@ exec >>%s 2>&1
       if not (Timezone.set_timezone g root tz) then
         warning (f_"timezone could not be set for this type of guest")
 
+    | `Touch path ->
+      msg (f_"Running touch: %s") path;
+      g#touch path
+
     | `Update ->
       msg (f_"Updating core packages");
       let cmd = guest_update_command () in

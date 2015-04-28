@@ -363,6 +363,14 @@ Set the default timezone of the guest to C<TIMEZONE>.  Use a location
 string like C<Europe/London>";
   };
 
+  { op_name = "touch";
+    op_type = String "FILE";
+    op_discrim = "`Touch";
+    op_shortdesc = "Run touch on a file";
+    op_pod_longdesc = "\
+This command performs a L<touch(1)>-like operation on C<FILE>.";
+  };
+
   { op_name = "update";
     op_type = Unit;
     op_discrim = "`Update";
