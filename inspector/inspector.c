@@ -766,7 +766,7 @@ do_xpath (const char *query)
   xmlSaveCtxtPtr saveCtx;
   xmlNodePtr wrnode;
 
-  doc = xmlReadFd (STDIN_FILENO, NULL, "utf8", 0);
+  doc = xmlReadFd (STDIN_FILENO, NULL, "utf8", XML_PARSE_NOBLANKS);
   if (doc == NULL) {
     fprintf (stderr, _("%s: unable to parse XML from stdin\n"), guestfs___program_name);
     exit (EXIT_FAILURE);
@@ -792,7 +792,7 @@ do_xpath (const char *query)
     if (nodes == NULL)
       break;
 
-    saveCtx = xmlSaveToFd (STDOUT_FILENO, NULL, XML_SAVE_NO_DECL);
+    saveCtx = xmlSaveToFd (STDOUT_FILENO, NULL, XML_SAVE_NO_DECL | XML_SAVE_FORMAT);
     if (saveCtx == NULL) {
       fprintf (stderr, _("%s: xmlSaveToFd failed\n"), guestfs___program_name);
       exit (EXIT_FAILURE);
