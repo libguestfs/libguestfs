@@ -88,25 +88,18 @@ let qemu_supports_sound_card = function
 let find_uefi_firmware guest_arch =
   let files =
     match guest_arch with
-    | "i386" | "i486" | "i586" | "i686" ->
-       [ "/usr/share/edk2.git/ovmf-ia32/OVMF_CODE-pure-efi.fd",
-         "/usr/share/edk2.git/ovmf-ia32/OVMF_VARS-pure-efi.fd" ]
     | "x86_64" ->
        [ "/usr/share/OVMF/OVMF_CODE.fd",
-         "/usr/share/OVMF/OVMF_VARS.fd";
-         "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd",
-         "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd" ]
+         "/usr/share/OVMF/OVMF_VARS.fd" ]
     | "aarch64" ->
        [ "/usr/share/AAVMF/AAVMF_CODE.fd",
-         "/usr/share/AAVMF/AAVMF_VARS.fd";
-         "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
-         "/usr/share/edk2.git/aarch64/vars-template-pflash.raw" ]
+         "/usr/share/AAVMF/AAVMF_VARS.fd" ]
     | arch ->
        error (f_"don't know how to convert UEFI guests for architecture %s")
              guest_arch in
   let rec loop = function
     | [] ->
-       error (f_"cannot find firmware for UEFI guests.\n\nYou probably need to install OVMF, or Gerd's firmware repo (https://www.kraxel.org/repos/), or AAVMF (if using aarch64)")
+       error (f_"cannot find firmware for UEFI guests.\n\nYou probably need to install OVMF, or AAVMF (if using aarch64)")
     | ((code, vars_template) as ret) :: rest ->
        if Sys.file_exists code && Sys.file_exists vars_template then ret
        else loop rest
