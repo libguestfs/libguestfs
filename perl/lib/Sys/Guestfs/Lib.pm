@@ -459,14 +459,16 @@ sub inspect_partition
 
         # Grub /boot?
         if ($g->is_file ("/grub/menu.lst") ||
-            $g->is_file ("/grub/grub.conf")) {
+            $g->is_file ("/grub/grub.conf") ||
+            $g->is_file ("/grub2/grub.cfg")) {
             $r{content} = "linux-grub";
             _check_grub ($g, \%r);
             goto OUT;
         }
 
         # Linux root?
-        if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
+        if ($g->is_dir ("/etc") &&
+            ($g->is_dir ("/bin") || ($g->is_symlink ("/bin") && $g->is_dir ("/usr/bin"))) &&
             $g->is_file ("/etc/fstab")) {
             $r{content} = "linux-root";
             $r{is_root} = 1;
