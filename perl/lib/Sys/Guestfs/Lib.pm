@@ -434,6 +434,9 @@ sub inspect_partition
     } elsif ($file =~ /ext4 filesystem data/) {
         $r{fstype} = "ext4";
         $r{fsos} = "linux";
+    } elsif ($file =~ /XFS filesystem data/) {
+        $r{fstype} = "xfs";
+        $r{fsos} = "linux";
     } elsif ($file =~ m{Linux/i386 swap file}) {
         $r{fstype} = "swap";
         $r{fsos} = "linux";
