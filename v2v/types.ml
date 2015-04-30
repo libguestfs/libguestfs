@@ -230,6 +230,7 @@ type inspect = {
   i_mountpoints : (string * string) list;
   i_apps : Guestfs.application2 list;
   i_apps_map : Guestfs.application2 list StringMap.t;
+  i_uefi : bool;
 }
 
 type mpstat = {

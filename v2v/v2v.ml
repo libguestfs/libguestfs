@@ -522,6 +522,22 @@ and inspect_source g root_choice =
       StringMap.add name (app :: vs) map
   ) StringMap.empty apps in
 
+  (* See if this guest could use UEFI to boot.  It should use GPT and
+   * it should have an EFI System Partition (ESP).
+   *)
+  let uefi =
+    let rec uefi_ESP_guid = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
+    and is_uefi_ESP dev { G.part_num = partnum } =
+      g#part_get_gpt_type dev (Int32.to_int partnum) = uefi_ESP_guid
+    and is_uefi_bootable_device dev =
+      g#part_get_parttype dev = "gpt" && (
+        let partitions = Array.to_list (g#part_list dev) in
+        List.exists (is_uefi_ESP dev) partitions
+      )
+    in
+    let devices = Array.to_list (g#list_devices ()) in
+    List.exists is_uefi_bootable_device devices in
+
   { i_root = root;
     i_type = g#inspect_get_type root;
     i_distro = g#inspect_get_distro root;
@@ -534,7 +550,8 @@ and inspect_source g root_choice =
     i_product_variant = g#inspect_get_product_variant root;
     i_mountpoints = mps;
     i_apps = apps;
-    i_apps_map = apps_map; }
+    i_apps_map = apps_map;
+    i_uefi = uefi; }
 
 (* Conversion can fail if there is no space on the guest filesystems
  * (RHBZ#1139543).  To avoid this situation, check there is some

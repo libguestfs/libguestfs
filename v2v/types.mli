@@ -150,6 +150,7 @@ type inspect = {
     (** This is a map from the app name to the application object.
         Since RPM allows multiple packages with the same name to be
         installed, the value is a list. *)
+  i_uefi : bool;        (** True if the guest could boot with UEFI. *)
 }
 (** Inspection information. *)
 
