@@ -32,6 +32,8 @@
 #pragma GCC diagnostic ignored "-Wunused-macros"
 /* on aarch64, flex doesn't know that char is unsigned */
 #pragma GCC diagnostic ignored "-Wsign-compare"
+/* on debian-mipsel, flex doesn't create prototypes for all functions */
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #endif
 
 #include "index-struct.h"
