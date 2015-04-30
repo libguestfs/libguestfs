@@ -176,6 +176,8 @@ object
     Xml.xpath_register_ns xpathctx
       "rasd" "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData";
     Xml.xpath_register_ns xpathctx
+      "vmw" "http://www.vmware.com/schema/ovf";
+    Xml.xpath_register_ns xpathctx
       "vssd" "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData";
 
     let xpath_to_string expr default =
@@ -210,6 +212,15 @@ object
 
     (* Search for number of vCPUs. *)
     let vcpu = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
+
+    (* BIOS or EFI firmware? *)
+    let firmware = xpath_to_string "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/vmw:Config[@vmw:key=\"firmware\"]/@vmw:value" "bios" in
+    let firmware =
+      match firmware with
+      | "bios" -> BIOS
+      | "efi" -> UEFI
+      | s ->
+         error (f_"unknown Config:firmware value %s (expected \"bios\" or \"efi\")") s in
 
     (* Helper function to return the parent controller of a disk. *)
     let parent_controller id =
@@ -358,6 +369,7 @@ object
       s_memory = memory;
       s_vcpu = vcpu;
       s_features = []; (* XXX *)
+      s_firmware = firmware;
       s_display = None; (* XXX *)
       s_sound = None;
       s_disks = disks;

@@ -27,6 +27,7 @@ type source = {
   s_memory : int64;                     (** Memory size (bytes). *)
   s_vcpu : int;                         (** Number of CPUs. *)
   s_features : string list;             (** Machine features. *)
+  s_firmware : source_firmware;         (** Firmware (BIOS or EFI). *)
   s_display : source_display option;    (** Guest display. *)
   s_sound : source_sound option;        (** Sound card. *)
   s_disks : source_disk list;           (** Disk images. *)
@@ -45,6 +46,15 @@ and source_hypervisor =
 (** Possible source hypervisors.  See
     [libvirt.git/docs/schemas/domaincommon.rng] for the list supported
     by libvirt. *)
+
+and source_firmware =
+  | BIOS                                (** PC BIOS or default firmware *)
+  | UEFI                                (** UEFI *)
+  | UnknownFirmware                     (** Unknown: try to autodetect. *)
+(** The firmware from the source metadata.  Note that
+    [UnknownFirmware] state corresponds to disks (where we have no
+    metadata) and temporarily also to libvirt because of
+    RHBZ#1217444. *)
 
 and source_disk = {
   s_disk_id : int;                      (** A unique ID for each source disk. *)
