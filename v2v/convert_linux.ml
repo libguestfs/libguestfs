@@ -114,30 +114,6 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         ) [ "/boot/grub"; "/boot" ]
       with Not_found -> "" in
 
-  (* EFI? *)
-  let efi =
-    if Array.length (g#glob_expand "/boot/efi/EFI/*/grub.cfg") < 1 then
-      None
-    else (
-      (* Check the first partition of each device looking for an EFI
-       * boot partition. We can't be sure which device is the boot
-       * device, so we just check them all.
-       *)
-      let devs = g#list_devices () in
-      let devs = Array.to_list devs in
-      try
-        Some (
-          List.find (
-            fun dev ->
-              try
-                g#part_get_gpt_type dev 1
-                = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
-              with G.Error _ -> false
-          ) devs
-        )
-      with Not_found -> None
-    ) in
-
   (* What kernel/kernel-like packages are installed on the current guest? *)
   let installed_kernels : kernel_info list =
     let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
@@ -680,43 +656,6 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
       loop ();
       if !updated then g#aug_save ();
     )
-
-  and unconfigure_efi () =
-    match efi with
-    | None -> ()
-    | Some dev ->
-      match grub with
-      | `Grub1 ->
-        g#cp "/etc/grub.conf" "/boot/grub/grub.conf";
-        g#ln_sf "/boot/grub/grub.conf" "/etc/grub.conf";
-
-        (* Reload Augeas to pick up new location of grub.conf. *)
-        Linux.augeas_reload verbose g;
-
-        ignore (g#command [| "grub-install"; dev |])
-
-      | `Grub2 ->
-        (* EFI systems boot using grub2-efi, and probably don't have the
-         * base grub2 package installed.
-         *)
-        Linux.install verbose g inspect ["grub2"];
-
-        (* Relabel the EFI boot partition as a BIOS boot partition. *)
-        g#part_set_gpt_type dev 1 "21686148-6449-6E6F-744E-656564454649";
-
-        (* Delete the fstab entry for the EFI boot partition. *)
-        let nodes = g#aug_match "/files/etc/fstab/*[file = '/boot/efi']" in
-        let nodes = Array.to_list nodes in
-        List.iter (fun node -> ignore (g#aug_rm node)) nodes;
-        g#aug_save ();
-
-        (* Install grub2 in the BIOS boot partition. This overwrites the
-         * previous contents of the EFI boot partition.
-         *)
-        ignore (g#command [| "grub2-install"; dev |]);
-
-        (* Re-generate the grub2 config, and put it in the correct place *)
-        ignore (g#command [| "grub2-mkconfig"; "-o"; "/boot/grub2/grub.cfg" |])
 
   and unconfigure_kudzu () =
     (* Disable kudzu in the guest
@@ -1421,7 +1360,6 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   unconfigure_vbox ();
   (*unconfigure_vmware ();*)
   unconfigure_citrix ();
-  unconfigure_efi ();
   unconfigure_kudzu ();
 
   let kernel, virtio = configure_kernel () in
