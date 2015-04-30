@@ -90,14 +90,20 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
 
   (* What grub is installed? *)
   let grub_config, grub =
+    let locations = [
+      "/boot/grub2/grub.cfg", `Grub2;
+      "/boot/grub/menu.lst", `Grub1;
+      "/boot/grub/grub.conf", `Grub1;
+    ] in
+    let locations =
+      if inspect.i_uefi then
+        ("/boot/efi/EFI/redhat/grub.cfg", `Grub2) :: locations
+      else
+        locations in
     try
       List.find (
         fun (grub_config, _) -> g#is_file ~followsymlinks:true grub_config
-      ) [
-        "/boot/grub2/grub.cfg", `Grub2;
-        "/boot/grub/menu.lst", `Grub1;
-        "/boot/grub/grub.conf", `Grub1;
-      ]
+      ) locations
     with
       Not_found ->
         error (f_"no grub1/grub-legacy or grub2 configuration file was found") in
