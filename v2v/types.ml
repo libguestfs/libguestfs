@@ -233,6 +233,31 @@ type inspect = {
   i_uefi : bool;
 }
 
+let string_of_inspect inspect =
+  sprintf "\
+i_root = %s
+i_type = %s
+i_distro = %s
+i_arch = %s
+i_major_version = %d
+i_minor_version = %d
+i_package_format = %s
+i_package_management = %s
+i_product_name = %s
+i_product_variant = %s
+i_uefi = %b
+" inspect.i_root
+  inspect.i_type
+  inspect.i_distro
+  inspect.i_arch
+  inspect.i_major_version
+  inspect.i_minor_version
+  inspect.i_package_format
+  inspect.i_package_management
+  inspect.i_product_name
+  inspect.i_product_variant
+  inspect.i_uefi
+
 type mpstat = {
   mp_dev : string;
   mp_path : string;
@@ -250,6 +275,26 @@ type guestcaps = {
 and guestcaps_block_type = Virtio_blk | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
+
+let string_of_guestcaps gcaps =
+  sprintf "\
+gcaps_block_bus = %s
+gcaps_net_bus = %s
+gcaps_video = %s
+gcaps_arch = %s
+gcaps_acpi = %b
+" (match gcaps.gcaps_block_bus with
+   | Virtio_blk -> "virtio"
+   | IDE -> "ide")
+  (match gcaps.gcaps_net_bus with
+   | Virtio_net -> "virtio-net"
+   | E1000 -> "e1000"
+   | RTL8139 -> "rtl8139")
+  (match gcaps.gcaps_video with
+   | QXL -> "qxl"
+   | Cirrus -> "cirrus")
+  gcaps.gcaps_arch
+  gcaps.gcaps_acpi
 
 class virtual input verbose = object
   method virtual as_options : string

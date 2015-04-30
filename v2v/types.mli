@@ -154,6 +154,8 @@ type inspect = {
 }
 (** Inspection information. *)
 
+val string_of_inspect : inspect -> string
+
 type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;
@@ -172,6 +174,8 @@ type guestcaps = {
 and guestcaps_block_type = Virtio_blk | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
+
+val string_of_guestcaps : guestcaps -> string
 
 class virtual input : bool -> object
   method virtual as_options : string

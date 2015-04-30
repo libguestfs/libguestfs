@@ -215,7 +215,7 @@ let rec main () =
 
   (* Inspection - this also mounts up the filesystems. *)
   msg (f_"Inspecting the overlay");
-  let inspect = inspect_source g root_choice in
+  let inspect = inspect_source ~verbose g root_choice in
 
   (* The guest free disk space check and the target free space
    * estimation both require statvfs information from mountpoints, so
@@ -262,7 +262,9 @@ let rec main () =
         error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
           inspect.i_type inspect.i_distro in
     if verbose then printf "picked conversion module %s\n%!" conversion_name;
-    convert ~verbose ~keep_serial_console g inspect source in
+    let guestcaps = convert ~verbose ~keep_serial_console g inspect source in
+    if verbose then printf "%s%!" (string_of_guestcaps guestcaps);
+    guestcaps in
 
   (* Did we manage to install virtio drivers? *)
   if not quiet then (
@@ -426,7 +428,7 @@ let rec main () =
   if debug_gc then
     Gc.compact ()
 
-and inspect_source g root_choice =
+and inspect_source ~verbose g root_choice =
   let roots = g#inspect_os () in
   let roots = Array.to_list roots in
 
@@ -538,7 +540,8 @@ and inspect_source g root_choice =
     let devices = Array.to_list (g#list_devices ()) in
     List.exists is_uefi_bootable_device devices in
 
-  { i_root = root;
+  let inspect = {
+    i_root = root;
     i_type = g#inspect_get_type root;
     i_distro = g#inspect_get_distro root;
     i_arch = g#inspect_get_arch root;
@@ -551,7 +554,10 @@ and inspect_source g root_choice =
     i_mountpoints = mps;
     i_apps = apps;
     i_apps_map = apps_map;
-    i_uefi = uefi; }
+    i_uefi = uefi
+  } in
+  if verbose then printf "%s%!" (string_of_inspect inspect);
+  inspect
 
 (* Conversion can fail if there is no space on the guest filesystems
  * (RHBZ#1139543).  To avoid this situation, check there is some
