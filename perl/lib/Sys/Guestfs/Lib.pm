@@ -443,8 +443,8 @@ sub inspect_partition
         $r{is_swap} = 1;
     }
 
-    # If it's ext2/3/4, then we want the UUID and label.
-    if (exists $r{fstype} && $r{fstype} =~ /^ext/) {
+    # If it's ext2/3/4 or xfs, then we want the UUID and label.
+    if (exists $r{fstype} && ($r{fstype} =~ /^ext/ || $r{fstype} eq 'xfs')) {
         $r{uuid} = $g->get_e2uuid ($dev);
         $r{label} = $g->get_e2label ($dev);
     }
