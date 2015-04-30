@@ -39,6 +39,8 @@ object
 
   method as_options = "-o null"
 
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
+
   method prepare_targets source targets =
     List.map (
       fun t ->
@@ -46,7 +48,7 @@ object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata _ _ _ _ = ()
+  method create_metadata _ _ _ _ _ = ()
 end
 
 let output_null = new output_null

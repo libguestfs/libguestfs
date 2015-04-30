@@ -23,5 +23,5 @@ val output_libvirt : bool -> string option -> string -> Types.output
     {!Types.output} object specialized for writing output to
     libvirt. *)
 
-val create_libvirt_xml : ?pool:string -> Types.source -> Types.target list -> Types.guestcaps -> string list -> DOM.doc
+val create_libvirt_xml : ?pool:string -> Types.source -> Types.target list -> Types.guestcaps -> string list -> Types.target_firmware -> DOM.doc
 (** This is called from {!Output_local} to generate the libvirt XML. *)

@@ -29,6 +29,8 @@ class output_local verbose dir = object
 
   method as_options = sprintf "-o local -os %s" dir
 
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
+
   method prepare_targets source targets =
     List.map (
       fun t ->
@@ -36,7 +38,7 @@ class output_local verbose dir = object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata source targets guestcaps _ =
+  method create_metadata source targets guestcaps _ target_firmware =
     (* We don't know what target features the hypervisor supports, but
      * assume a common set that libvirt supports.
      *)
@@ -48,7 +50,7 @@ class output_local verbose dir = object
 
     let doc =
       Output_libvirt.create_libvirt_xml source targets
-        guestcaps target_features in
+        guestcaps target_features target_firmware in
 
     let name = source.s_name in
     let file = dir // name ^ ".xml" in

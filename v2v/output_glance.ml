@@ -40,6 +40,8 @@ object
 
   method as_options = "-o glance"
 
+  method supported_firmware = [ TargetBIOS ]
+
   method prepare_targets source targets =
     (* This does nothing useful except to check that the user has
      * supplied all the correct auth environment variables to make
@@ -60,7 +62,10 @@ object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata source targets guestcaps inspect =
+  method create_metadata source targets guestcaps inspect target_firmware =
+    (* See #supported_firmware above. *)
+    assert (target_firmware = TargetBIOS);
+
     (* Upload the disk image (there should only be one - see above). *)
     let { target_file = target_file; target_format = target_format } =
       List.hd targets in
