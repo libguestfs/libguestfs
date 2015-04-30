@@ -54,7 +54,6 @@ let find_uefi_firmware guest_arch =
   let files =
     (* The lists of firmware are actually defined in common/utils/uefi.c. *)
     match guest_arch with
-    | "i386" | "i486" | "i586" | "i686" -> Uefi.uefi_i386_firmware
     | "x86_64" -> Uefi.uefi_x86_64_firmware
     | "aarch64" -> Uefi.uefi_aarch64_firmware
     | arch ->
