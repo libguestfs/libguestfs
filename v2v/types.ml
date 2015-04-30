@@ -27,12 +27,17 @@ type source = {
   s_memory : int64;
   s_vcpu : int;
   s_features : string list;
+  s_firmware : source_firmware;
   s_display : source_display option;
   s_sound : source_sound option;
   s_disks : source_disk list;
   s_removables : source_removable list;
   s_nics : source_nic list;
 }
+and source_firmware =
+  | BIOS
+  | UEFI
+  | UnknownFirmware
 and source_disk = {
   s_disk_id : int;
   s_qemu_uri : string;
@@ -77,6 +82,7 @@ hypervisor type: %s
          memory: %Ld (bytes)
        nr vCPUs: %d
    CPU features: %s
+       firmware: %s
         display: %s
           sound: %s
 disks:
@@ -91,6 +97,7 @@ NICs:
     s.s_memory
     s.s_vcpu
     (String.concat "," s.s_features)
+    (string_of_source_firmware s.s_firmware)
     (match s.s_display with
     | None -> ""
     | Some display -> string_of_source_display display)
@@ -100,6 +107,11 @@ NICs:
     (String.concat "\n" (List.map string_of_source_disk s.s_disks))
     (String.concat "\n" (List.map string_of_source_removable s.s_removables))
     (String.concat "\n" (List.map string_of_source_nic s.s_nics))
+
+and string_of_source_firmware = function
+  | BIOS -> "bios"
+  | UEFI -> "uefi"
+  | UnknownFirmware -> "unknown"
 
 and string_of_source_disk { s_qemu_uri = qemu_uri; s_format = format;
                             s_controller = controller } =

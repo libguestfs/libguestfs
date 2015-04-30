@@ -348,6 +348,7 @@ let parse_libvirt_xml ?conn ~verbose xml =
     s_memory = memory;
     s_vcpu = vcpu;
     s_features = features;
+    s_firmware = UnknownFirmware; (* XXX until RHBZ#1217444 is fixed *)
     s_display = display;
     s_sound = sound;
     s_disks = [];

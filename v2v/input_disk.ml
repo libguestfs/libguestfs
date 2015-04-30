@@ -85,6 +85,7 @@ class input_disk verbose input_format disk = object
       s_memory = 2048L *^ 1024L *^ 1024L; (* 2048 MB *)
       s_vcpu = 1;                         (* 1 vCPU is a safe default *)
       s_features = [ "acpi"; "apic"; "pae" ];
+      s_firmware = UnknownFirmware;       (* causes virt-v2v to autodetect *)
       s_display =
         Some { s_display_type = Window; s_keymap = None; s_password = None;
                s_listen = LNone; s_port = None };

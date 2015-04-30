@@ -58,6 +58,7 @@ hypervisor type: test
          memory: 1073741824 (bytes)
        nr vCPUs: 1
    CPU features: 
+       firmware: unknown
         display: 
           sound: 
 disks:

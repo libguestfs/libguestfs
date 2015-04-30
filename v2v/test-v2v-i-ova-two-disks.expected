@@ -5,6 +5,7 @@ hypervisor type: vmware
          memory: 1073741824 (bytes)
        nr vCPUs: 1
    CPU features: 
+       firmware: bios
         display: 
           sound: 
 disks:
