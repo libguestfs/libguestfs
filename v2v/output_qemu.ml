@@ -31,6 +31,8 @@ object
   method as_options =
     sprintf "-o qemu -os %s%s" dir (if qemu_boot then " --qemu-boot" else "")
 
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
+
   method prepare_targets source targets =
     List.map (
       fun t ->
@@ -38,9 +40,15 @@ object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata source targets guestcaps inspect =
+  method create_metadata source targets guestcaps inspect target_firmware =
     let name = source.s_name in
     let file = dir // name ^ ".sh" in
+
+    let uefi_firmware =
+      match target_firmware with
+      | TargetBIOS -> None
+      | TargetUEFI ->
+         Some (find_uefi_firmware guestcaps.gcaps_arch) in
 
     let chan = open_out file in
 
@@ -48,10 +56,28 @@ object
     let nl = " \\\n\t" in
     fpf "#!/bin/sh -\n";
     fpf "\n";
+
+    (match uefi_firmware with
+     | None -> ()
+     | Some (_, vars_template) ->
+        fpf "# Make a copy of the UEFI variables template\n";
+        fpf "uefi_vars=\"$(mktemp)\"\n";
+        fpf "cp %s \"$uefi_vars\"\n" (quote vars_template);
+        fpf "\n"
+    );
+
     fpf "/usr/libexec/qemu-kvm";
     fpf "%s-no-user-config -nodefaults" nl;
     fpf "%s-name %s" nl (quote source.s_name);
     fpf "%s-machine accel=kvm:tcg" nl;
+
+    (match uefi_firmware with
+     | None -> ()
+     | Some (code, _) ->
+        fpf "%s-drive if=pflash,format=raw,file=%s,readonly" nl (quote code);
+        fpf "%s-drive if=pflash,format=raw,file=\"$uefi_vars\"" nl
+    );
+
     fpf "%s-m %Ld" nl (source.s_memory /^ 1024L /^ 1024L);
     if source.s_vcpu > 1 then
       fpf "%s-smp %d" nl source.s_vcpu;

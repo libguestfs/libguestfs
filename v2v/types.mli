@@ -133,6 +133,10 @@ type target = {
 
 val string_of_target : target -> string
 
+type target_firmware = TargetBIOS | TargetUEFI
+
+val string_of_target_firmware : target_firmware -> string
+
 type inspect = {
   i_root : string;                      (** Root device. *)
   i_type : string;                      (** Usual inspection fields. *)
@@ -195,10 +199,13 @@ class virtual output : bool -> object
       This is just used for pretty-printing log messages. *)
   method virtual prepare_targets : source -> target list -> target list
   (** Called before conversion to prepare the output. *)
+  method virtual supported_firmware : target_firmware list
+  (** Does this output method support UEFI?  Allows us to abort early if
+      conversion is impossible. *)
   method check_target_free_space : source -> target list -> unit
   (** Called before conversion.  Can be used to check there is enough space
       on the target, using the [target.target_estimated_size] field. *)
-  method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
+  method virtual create_metadata : source -> target list -> guestcaps -> inspect -> target_firmware -> unit
   (** Called after conversion to finish off and create metadata. *)
   method disk_create : ?backingfile:string -> ?backingformat:string -> ?preallocation:string -> ?compat:string -> ?clustersize:int -> string -> string -> int64 -> unit
   (** Called in order to create disks on the target.  The method has the

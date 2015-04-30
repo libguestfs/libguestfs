@@ -217,6 +217,24 @@ let rec main () =
   msg (f_"Inspecting the overlay");
   let inspect = inspect_source ~verbose g root_choice in
 
+  (* Does the guest require UEFI on the target? *)
+  let target_firmware =
+    match source.s_firmware with
+    | BIOS -> TargetBIOS
+    | UEFI -> TargetUEFI
+    | UnknownFirmware ->
+       if inspect.i_uefi then TargetUEFI else TargetBIOS in
+  let supported_firmware = output#supported_firmware in
+  if not (List.mem target_firmware supported_firmware) then
+    error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")
+          (string_of_target_firmware target_firmware)
+          (String.concat " "
+            (List.map string_of_target_firmware supported_firmware));
+  (match target_firmware with
+   | TargetBIOS -> ()
+   | TargetUEFI ->
+       info ~prog (f_"This guest requires UEFI on the target to boot."));
+
   (* The guest free disk space check and the target free space
    * estimation both require statvfs information from mountpoints, so
    * get that information first.
@@ -409,7 +427,7 @@ let rec main () =
 
   (* Create output metadata. *)
   msg (f_"Creating output metadata");
-  output#create_metadata source targets guestcaps inspect;
+  output#create_metadata source targets guestcaps inspect target_firmware;
 
   (* Save overlays if --debug-overlays option was used. *)
   if debug_overlays then (

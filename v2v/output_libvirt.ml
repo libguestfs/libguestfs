@@ -75,7 +75,8 @@ let append_attr attr = function
   | PCData _ | Comment _ -> assert false
   | Element e -> e.e_attrs <- e.e_attrs @ [attr]
 
-let create_libvirt_xml ?pool source targets guestcaps target_features =
+let create_libvirt_xml ?pool source targets guestcaps
+                       target_features target_firmware =
   let memory_k = source.s_memory /^ 1024L in
 
   (* We have the machine features of the guest when it was on the
@@ -113,6 +114,23 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
 
   let features = List.sort compare (StringSet.elements features) in
 
+  (* The <os> section subelements. *)
+  let os_section =
+    let loader =
+      match target_firmware with
+      | TargetBIOS -> []
+      | TargetUEFI ->
+         (* danpb is proposing that libvirt supports <loader type="efi"/>,
+          * (https://bugzilla.redhat.com/show_bug.cgi?id=1217444#c6) but
+          * until that day we have to use a bunch of heuristics. XXX
+          *)
+         let code, vars_template = find_uefi_firmware guestcaps.gcaps_arch in
+         [ e "loader" ["type", "pflash"] [ PCData code ];
+           e "nvram" ["template", vars_template] [] ] in
+
+    (e "type" ["arch", guestcaps.gcaps_arch] [PCData "hvm"]) :: loader in
+
+  (* Disks. *)
   let disks =
     let block_prefix =
       match guestcaps.gcaps_block_bus with
@@ -281,9 +299,7 @@ let create_libvirt_xml ?pool source targets guestcaps target_features =
       e "memory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
       e "currentMemory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
       e "vcpu" [] [PCData (string_of_int source.s_vcpu)];
-      e "os" [] [
-        e "type" ["arch", guestcaps.gcaps_arch] [PCData "hvm"];
-      ];
+      e "os" [] os_section;
       e "features" [] (List.map (fun s -> e s [] []) features);
 
       e "on_poweroff" [] [PCData "destroy"];
@@ -304,6 +320,8 @@ class output_libvirt verbose oc output_pool = object
     match oc with
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
+
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method prepare_targets source targets =
     (* Get the capabilities from libvirt. *)
@@ -360,7 +378,7 @@ class output_libvirt verbose oc output_pool = object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata source targets guestcaps _ =
+  method create_metadata source targets guestcaps _ target_firmware =
     (* We copied directly into the final pool directory.  However we
      * have to tell libvirt.
      *)
@@ -385,7 +403,7 @@ class output_libvirt verbose oc output_pool = object
     (* Create the metadata. *)
     let doc =
       create_libvirt_xml ~pool:output_pool source targets
-        guestcaps target_features in
+        guestcaps target_features target_firmware in
 
     let tmpfile, chan = Filename.open_temp_file "v2vlibvirt" ".xml" in
     DOM.doc_to_chan chan doc;

@@ -50,6 +50,8 @@ object
       | Some `Server -> " --vmtype server"
       | Some `Desktop -> " --vmtype desktop")
 
+  method supported_firmware = [ TargetBIOS ]
+
   (* RHEV doesn't support serial consoles.  This causes the conversion
    * step to remove it.
    *)
@@ -163,7 +165,10 @@ object
       ?clustersize path format size
 
   (* This is called after conversion to write the OVF metadata. *)
-  method create_metadata source targets guestcaps inspect =
+  method create_metadata source targets guestcaps inspect target_firmware =
+    (* See #supported_firmware above. *)
+    assert (target_firmware = TargetBIOS);
+
     (* Create the metadata. *)
     let ovf = OVF.create_ovf verbose source targets guestcaps inspect
       output_alloc vmtype dd_uuid

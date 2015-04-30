@@ -216,6 +216,12 @@ target_overlay.ov_source = %s
     t.target_overlay.ov_overlay_file
     t.target_overlay.ov_source.s_qemu_uri
 
+type target_firmware = TargetBIOS | TargetUEFI
+
+let string_of_target_firmware = function
+  | TargetBIOS -> "bios"
+  | TargetUEFI -> "uefi"
+
 type inspect = {
   i_root : string;
   i_type : string;
@@ -305,8 +311,9 @@ end
 class virtual output verbose = object
   method virtual as_options : string
   method virtual prepare_targets : source -> target list -> target list
+  method virtual supported_firmware : target_firmware list
   method check_target_free_space (_ : source) (_ : target list) = ()
   method disk_create = (new Guestfs.guestfs ())#disk_create
-  method virtual create_metadata : source -> target list -> guestcaps -> inspect -> unit
+  method virtual create_metadata : source -> target list -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
 end
