@@ -63,6 +63,8 @@ images_files_src = \
 	$(srcdir)/bin-armv7-dynamic \
 	$(srcdir)/bin-i586-dynamic \
 	$(srcdir)/bin-mipsel-dynamic \
+	$(srcdir)/bin-ppc64-dynamic \
+	$(srcdir)/bin-ppc64le-dynamic \
 	$(srcdir)/bin-sparc-dynamic \
 	$(srcdir)/bin-win32.exe \
 	$(srcdir)/bin-win64.exe \
@@ -71,6 +73,8 @@ images_files_src = \
 	$(srcdir)/lib-armv7.so \
 	$(srcdir)/lib-i586.so \
 	$(srcdir)/lib-mipsel.so \
+	$(srcdir)/lib-ppc64.so \
+	$(srcdir)/lib-ppc64le.so \
 	$(srcdir)/lib-sparc.so \
 	$(srcdir)/lib-win32.dll \
 	$(srcdir)/lib-win64.dll \
