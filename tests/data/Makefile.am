@@ -29,6 +29,7 @@ EXTRA_DIST = \
 	bin-aarch64-dynamic \
 	bin-armv7-dynamic \
 	bin-i586-dynamic \
+	bin-mipsel-dynamic \
 	bin-ppc64-dynamic \
 	bin-ppc64le-dynamic \
 	bin-sparc-dynamic \
@@ -40,6 +41,7 @@ EXTRA_DIST = \
 	lib-i586.so \
 	lib-ppc64.so \
 	lib-ppc64le.so \
+	lib-mipsel.so \
 	lib-sparc.so \
 	lib-win32.dll \
 	lib-win64.dll \
@@ -60,6 +62,7 @@ images_files_src = \
 	$(srcdir)/bin-aarch64-dynamic \
 	$(srcdir)/bin-armv7-dynamic \
 	$(srcdir)/bin-i586-dynamic \
+	$(srcdir)/bin-mipsel-dynamic \
 	$(srcdir)/bin-sparc-dynamic \
 	$(srcdir)/bin-win32.exe \
 	$(srcdir)/bin-win64.exe \
@@ -67,6 +70,7 @@ images_files_src = \
 	$(srcdir)/lib-aarch64.so \
 	$(srcdir)/lib-armv7.so \
 	$(srcdir)/lib-i586.so \
+	$(srcdir)/lib-mipsel.so \
 	$(srcdir)/lib-sparc.so \
 	$(srcdir)/lib-win32.dll \
 	$(srcdir)/lib-win64.dll \
