@@ -17,14 +17,15 @@ virt-v2v - Convert a guest to use KVM
 
 =head1 DESCRIPTION
 
-Virt-v2v converts guests from a foreign hypervisor to run on KVM,
-managed by libvirt, OpenStack, oVirt, Red Hat Enterprise
-Virtualisation (RHEV) or several other targets.  It can currently
-convert Red Hat Enterprise Linux and Windows guests running on Xen and
-VMware.
+Virt-v2v converts guests from a foreign hypervisor to run on KVM.  It
+can read Linux and Windows guests running on VMware, Xen, Hyper-V and
+some other hypervisors, and convert them to KVM managed by libvirt,
+OpenStack, oVirt, Red Hat Enterprise Virtualisation (RHEV) or several
+other targets.
 
 There is also a companion front-end called L<virt-p2v(1)> which comes
-as an ISO or CD image that can be booted on physical machines.
+as an ISO, CD or PXE image that can be booted on physical machines to
+virtualize those machines (physical to virtual, or p2v).
 
 This manual page documents the rewritten virt-v2v included in
 libguestfs E<ge> 1.28.
@@ -46,18 +47,18 @@ Virt-v2v has a number of possible input and output modes, selected
 using the I<-i> and I<-o> options.  Only one input and output mode can
 be selected for each run of virt-v2v.
 
+I<-i disk> is used for reading from local disk images (mainly for
+testing).
+
 I<-i libvirt> is used for reading from any libvirt source.  Since
 libvirt can connect to many different hypervisors, it is used for
 reading guests from VMware, RHEL 5 Xen and more.  The I<-ic>
 option selects the precise libvirt source.
 
-I<-i disk> is used for reading from local disk images (mainly for
-testing).
-
-I<-i ova> is used for reading from a VMware ova source file.
-
 I<-i libvirtxml> is used to read from libvirt XML files.  This is the
 method used by L<virt-p2v(1)> behind the scenes.
+
+I<-i ova> is used for reading from a VMware ova source file.
 
 I<-o glance> is used for writing to OpenStack Glance.
 
@@ -1281,14 +1282,14 @@ This temporarily places a full copy of the output disks in C<$TMPDIR>.
 
 Copying from VMware vCenter is currently quite slow, but we believe
 this to be an issue with VMware.  Ensuring the VMware ESXi hypervisor
-and vCenter guest are running on fast hardware with plenty of memory
-should alleviate this.
+and vCenter are running on fast hardware with plenty of memory should
+alleviate this.
 
 =head2 Compute power and RAM
 
 Virt-v2v is not especially compute or RAM intensive.  If you are
 running many parallel conversions, then you may consider allocating
-one CPU core and 512 MB - 1 GB of RAM per running instance.
+one CPU core and between 512 MB and 1 GB of RAM per running instance.
 
 Virt-v2v can be run in a virtual machine.
 
@@ -1333,11 +1334,11 @@ to perform the conversion.  Currently it checks:
 
 =over 4
 
-=item Root filesystem or C<C:\>
+=item Linux root filesystem or Windows C<C:> drive
 
 Minimum free space: 20 MB
 
-=item C</boot>
+=item Linux C</boot>
 
 Minimum free space: 50 MB
 
@@ -1607,6 +1608,8 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 Matthew Booth
 
 Mike Latimer
+
+Pino Toscano
 
 Shahar Havivi
 
