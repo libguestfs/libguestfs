@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-04-27 20:21+0100\n"
+"POT-Creation-Date: 2015-05-02 09:19+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -48,7 +48,7 @@ msgstr ""
 #. ../customize/customize_main.ml:238
 #. ../builder/get_kernel.ml:52
 #. ../builder/builder.ml:649
-#: ../v2v/v2v.ml:637 ../v2v/v2v.ml:515 ../sysprep/main.ml:265
+#: ../v2v/v2v.ml:677 ../v2v/v2v.ml:534 ../sysprep/main.ml:265
 msgid "%s (ignored)"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1350
+#: ../v2v/convert_linux.ml:1295
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -84,7 +84,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:354
+#: ../customize/customize_run.ml:358
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -415,7 +415,7 @@ msgid ""
 "error: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:291 ../customize/customize_cmdline.ml:206
+#: ../customize/customize_cmdline.ml:293 ../customize/customize_cmdline.ml:208
 msgid "'CMD+ARGS'"
 msgstr ""
 
@@ -551,14 +551,14 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:347
+#: ../v2v/output_libvirt.ml:365
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
 "section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:344
+#: ../v2v/output_libvirt.ml:362
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -636,11 +636,11 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:232
+#: ../customize/customize_cmdline.ml:234
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:216
+#: ../customize/customize_cmdline.ml:218
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
@@ -689,7 +689,7 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:148
+#: ../customize/customize_cmdline.ml:150
 msgid "Change the permissions of a file"
 msgstr ""
 
@@ -705,7 +705,7 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:245
+#: ../v2v/v2v.ml:262
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
@@ -715,7 +715,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/v2v.ml:293
+#: ../v2v/v2v.ml:312
 msgid "Closing the overlay"
 msgstr ""
 
@@ -731,19 +731,19 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:260
+#: ../v2v/v2v.ml:277
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:258
+#: ../v2v/v2v.ml:275
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:168
+#: ../customize/customize_cmdline.ml:170
 msgid "Copy files in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:178
+#: ../customize/customize_cmdline.ml:180
 msgid "Copy local files or directories into image"
 msgstr ""
 
@@ -765,7 +765,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:314
+#: ../v2v/v2v.ml:333
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -773,7 +773,7 @@ msgstr ""
 msgid "Copying: %s to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:248
+#: ../customize/customize_cmdline.ml:250
 msgid "Create a directory"
 msgstr ""
 
@@ -789,7 +789,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:242
+#: ../customize/customize_cmdline.ml:244
 msgid "Create symbolic links"
 msgstr ""
 
@@ -797,7 +797,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:417
+#: ../v2v/v2v.ml:436
 msgid "Creating output metadata"
 msgstr ""
 
@@ -825,7 +825,7 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:248
+#: ../customize/customize_cmdline.ml:250
 msgid "DIR"
 msgstr ""
 
@@ -837,7 +837,7 @@ msgstr ""
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:184
+#: ../customize/customize_cmdline.ml:186
 msgid "Delete a file or directory"
 msgstr ""
 
@@ -935,7 +935,7 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:451
+#: ../v2v/v2v.ml:470
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -949,7 +949,7 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:194
+#: ../customize/customize_cmdline.ml:196
 msgid "Edit file using Perl expression"
 msgstr ""
 
@@ -987,11 +987,11 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:464
+#: ../v2v/v2v.ml:483
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:249
+#: ../v2v/v2v.ml:266
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1025,27 +1025,28 @@ msgstr ""
 msgid "Expanding %s%s using the '%s' method"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:164
+#: ../v2v/output_rhev.ml:166
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:314 ../customize/customize_cmdline.ml:297
+#. ../customize/customize_cmdline.ml:299
+#: ../customize/customize_cmdline.ml:334 ../customize/customize_cmdline.ml:316
 msgid "FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:352
+#: ../customize/customize_cmdline.ml:360
 msgid "FILE:CONTENT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:342
+#: ../customize/customize_cmdline.ml:350
 msgid "FILE:DEST"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:194
+#: ../customize/customize_cmdline.ml:196
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:158
+#: ../customize/customize_cmdline.ml:160
 msgid "FILENAME"
 msgstr ""
 
@@ -1077,7 +1078,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:431 ../customize/customize_main.ml:248
+#: ../v2v/v2v.ml:450 ../customize/customize_main.ml:248
 #: ../builder/builder.ml:698
 msgid "Finishing off"
 msgstr ""
@@ -1151,7 +1152,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:222
+#: ../customize/customize_cmdline.ml:224
 msgid "HOSTNAME"
 msgstr ""
 
@@ -1179,7 +1180,7 @@ msgstr ""
 msgid "Initializing the target %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:308
+#: ../customize/customize_cmdline.ml:310
 msgid "Inject a public key into the guest"
 msgstr ""
 
@@ -1221,7 +1222,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:178
+#: ../customize/customize_cmdline.ml:180
 msgid "LOCALPATH:REMOTEDIR"
 msgstr ""
 
@@ -1272,7 +1273,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:289
+#: ../v2v/v2v.ml:308
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1288,7 +1289,7 @@ msgstr ""
 msgid "Mount point on host"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:258
+#: ../customize/customize_cmdline.ml:260
 msgid "Move files in disk image"
 msgstr ""
 
@@ -1311,7 +1312,7 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:111
+#: ../v2v/output_vdsm.ml:113
 msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
 msgstr ""
 
@@ -1379,19 +1380,19 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:427
+#: ../v2v/v2v.ml:446
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:320 ../customize/customize_cmdline.ml:184
+#: ../customize/customize_cmdline.ml:322 ../customize/customize_cmdline.ml:186
 msgid "PATH"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:148
+#: ../customize/customize_cmdline.ml:150
 msgid "PERMISSIONS:FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:232 ../customize/customize_cmdline.ml:216
+#: ../customize/customize_cmdline.ml:234 ../customize/customize_cmdline.ml:218
 msgid "PKG,PKG.."
 msgstr ""
 
@@ -1410,11 +1411,11 @@ msgstr ""
 msgid "Perform a dry run"
 msgstr ""
 
-#: ../v2v/v2v.ml:491
+#: ../v2v/v2v.ml:510
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:482
+#: ../v2v/v2v.ml:501
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
@@ -1438,11 +1439,11 @@ msgstr ""
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:158
+#: ../customize/customize_cmdline.ml:160
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:320
+#: ../customize/customize_cmdline.ml:322
 msgid "Recursively truncate all files in directory"
 msgstr ""
 
@@ -1450,7 +1451,7 @@ msgstr ""
 msgid "Recursively truncating: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:373
+#: ../customize/customize_cmdline.ml:381
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
@@ -1651,19 +1652,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:206
+#: ../customize/customize_cmdline.ml:208
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:291
+#: ../customize/customize_cmdline.ml:293
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:200
+#: ../customize/customize_cmdline.ml:202
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:285
+#: ../customize/customize_cmdline.ml:287
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1677,23 +1678,31 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
+#: ../customize/customize_cmdline.ml:334
+msgid "Run touch on a file"
+msgstr ""
+
+#: ../customize/customize_run.ml:272
+msgid "Running touch: %s"
+msgstr ""
+
 #: ../customize/customize_run.ml:242 ../customize/customize_run.ml:166
 msgid "Running: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:285 ../customize/customize_cmdline.ml:200
+#: ../customize/customize_cmdline.ml:287 ../customize/customize_cmdline.ml:202
 msgid "SCRIPT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:279
+#: ../customize/customize_cmdline.ml:281
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:319
+#: ../customize/customize_run.ml:323
 msgid "SELinux relabelling"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:258 ../customize/customize_cmdline.ml:168
+#: ../customize/customize_cmdline.ml:260 ../customize/customize_cmdline.ml:170
 msgid "SOURCE:DEST"
 msgstr ""
 
@@ -1713,15 +1722,15 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:297
+#: ../customize/customize_cmdline.ml:299
 msgid "Scrub a file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:358
+#: ../customize/customize_cmdline.ml:366
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:338
+#: ../customize/customize_run.ml:342
 msgid "Scrubbing the log file"
 msgstr ""
 
@@ -1803,11 +1812,11 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:367
+#: ../customize/customize_cmdline.ml:375
 msgid "Set password crypto"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:279
+#: ../customize/customize_cmdline.ml:281
 msgid "Set root password"
 msgstr ""
 
@@ -1823,7 +1832,7 @@ msgstr ""
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:326
+#: ../customize/customize_cmdline.ml:328
 msgid "Set the default timezone"
 msgstr ""
 
@@ -1831,7 +1840,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:222
+#: ../customize/customize_cmdline.ml:224
 msgid "Set the hostname"
 msgstr ""
 
@@ -1839,7 +1848,7 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:269
+#: ../customize/customize_cmdline.ml:271
 msgid "Set user password"
 msgstr ""
 
@@ -1851,7 +1860,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:310
+#: ../customize/customize_run.ml:314
 msgid "Setting passwords"
 msgstr ""
 
@@ -1909,11 +1918,11 @@ msgid ""
 "carefully check that the target disk boots and works correctly.\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:242
+#: ../customize/customize_cmdline.ml:244
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:326
+#: ../customize/customize_cmdline.ml:328
 msgid "TIMEZONE"
 msgstr ""
 
@@ -1957,7 +1966,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1144
+#: ../v2v/convert_linux.ml:1089
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2072,11 +2081,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:279
+#: ../v2v/v2v.ml:298
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:277
+#: ../v2v/v2v.ml:296
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2085,6 +2094,10 @@ msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
 "require a separate password to connect."
+msgstr ""
+
+#: ../v2v/v2v.ml:242
+msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
 #: ../sysprep/sysprep_operation_firewall_rules.ml:45
@@ -2110,7 +2123,7 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:314
+#: ../customize/customize_cmdline.ml:316
 msgid "Truncate a file to zero size"
 msgstr ""
 
@@ -2122,11 +2135,11 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:269
+#: ../customize/customize_cmdline.ml:271
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:308
+#: ../customize/customize_cmdline.ml:310
 msgid "USER[:SELECTOR]"
 msgstr ""
 
@@ -2134,19 +2147,19 @@ msgstr ""
 msgid "Uncompressing"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:332
+#: ../customize/customize_cmdline.ml:340
 msgid "Update core packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:272
+#: ../customize/customize_run.ml:276
 msgid "Updating core packages"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:342
+#: ../customize/customize_cmdline.ml:350
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:277
+#: ../customize/customize_run.ml:281
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -2168,23 +2181,23 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:634
+#: ../v2v/convert_linux.ml:616
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:543
+#: ../v2v/convert_linux.ml:525
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:352
+#: ../customize/customize_cmdline.ml:360
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:302
+#: ../customize/customize_run.ml:306
 msgid "Writing: %s"
 msgstr ""
 
@@ -2267,6 +2280,14 @@ msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
 
+#: ../v2v/utils.ml:110
+msgid ""
+"cannot find firmware for UEFI guests.\n"
+"\n"
+"You probably need to install OVMF, or Gerd's firmware repo (https://www."
+"kraxel.org/repos/), or AAVMF (if using aarch64)"
+msgstr ""
+
 #: ../builder/builder.ml:236
 msgid ""
 "cannot find os-version '%s' with architecture '%s'.\n"
@@ -2291,7 +2312,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../v2v/output_rhev.ml:183
+#: ../v2v/output_rhev.ml:185
 msgid ""
 "cannot write files to the NFS server as %d:%d, even though we appear to be "
 "running as root. This probably means the NFS client or idmapd is not "
@@ -2301,7 +2322,7 @@ msgid ""
 "otherwise RHEV-M will not be able to import the VM."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:185
+#: ../v2v/output_rhev.ml:187
 msgid ""
 "cannot write files to the NFS server as %d:%d. You might want to stop virt-"
 "v2v (^C) and rerun it as root."
@@ -2324,23 +2345,23 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:392
+#: ../customize/customize_cmdline.ml:400
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:409
+#: ../customize/customize_cmdline.ml:417
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
-#: ../v2v/v2v.ml:471
+#: ../v2v/v2v.ml:490
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1074
+#: ../v2v/convert_linux.ml:1019
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:397
+#: ../v2v/output_libvirt.ml:415
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2372,11 +2393,11 @@ msgstr ""
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:293
+#: ../v2v/input_ova.ml:304
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:205
+#: ../v2v/input_ova.ml:207
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2386,18 +2407,18 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1092
+#: ../v2v/convert_linux.ml:1037
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:369
+#: ../v2v/output_libvirt.ml:387
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1076
+#: ../v2v/convert_linux.ml:1021
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2429,7 +2450,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:794
+#: ../v2v/convert_linux.ml:739
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -2473,6 +2494,10 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
+#: ../v2v/utils.ml:106
+msgid "don't know how to convert UEFI guests for architecture %s"
+msgstr ""
+
 #: ../v2v/linux.ml:176
 msgid "don't know how to find file owner using %s"
 msgstr ""
@@ -2485,7 +2510,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1199
+#: ../v2v/convert_linux.ml:1144
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2503,11 +2528,11 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:261
+#: ../v2v/input_ova.ml:272
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:279
+#: ../v2v/input_ova.ml:290
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -2519,7 +2544,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:196 ../v2v/input_libvirtxml.ml:58
+#: ../v2v/input_ova.ml:198 ../v2v/input_libvirtxml.ml:58
 msgid "expecting XML expression to return an integer (expression: %s)"
 msgstr ""
 
@@ -2603,24 +2628,24 @@ msgstr ""
 msgid "get-kernel: no operating system found"
 msgstr ""
 
-#: ../v2v/output_glance.ml:55
+#: ../v2v/output_glance.ml:57
 msgid ""
 "glance: OpenStack conversion only supports virtual machines with a single "
 "disk image.  This VM has %d"
 msgstr ""
 
-#: ../v2v/output_glance.ml:117
+#: ../v2v/output_glance.ml:122
 msgid "glance: failed to set image properties (ignored)"
 msgstr ""
 
-#: ../v2v/output_glance.ml:50
+#: ../v2v/output_glance.ml:52
 msgid ""
 "glance: glance client is not installed or set up correctly.  You may need to "
 "set environment variables or source a script to enable authentication.  See "
 "preceding messages for details."
 msgstr ""
 
-#: ../v2v/output_glance.ml:72
+#: ../v2v/output_glance.ml:77
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
@@ -2650,7 +2675,7 @@ msgstr ""
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:105
+#: ../v2v/output_vdsm.ml:107
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
@@ -2684,7 +2709,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:326
+#: ../v2v/v2v.ml:345
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -2692,7 +2717,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:798
+#: ../v2v/convert_linux.ml:743
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
@@ -2704,7 +2729,7 @@ msgstr ""
 msgid "invalid --list-format type '%s', see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:135 ../customize/customize_cmdline.ml:124
+#: ../customize/customize_cmdline.ml:137 ../customize/customize_cmdline.ml:126
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
@@ -2716,7 +2741,7 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:782
+#: ../v2v/convert_linux.ml:727
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
@@ -2724,7 +2749,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:498
+#: ../v2v/v2v.ml:517
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -2752,7 +2777,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:478
+#: ../v2v/v2v.ml:497
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -2780,7 +2805,7 @@ msgstr ""
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:104
+#: ../v2v/convert_linux.ml:110
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
@@ -2790,11 +2815,11 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:212
+#: ../v2v/convert_linux.ml:194
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:284
+#: ../v2v/convert_linux.ml:266
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
@@ -2805,7 +2830,7 @@ msgstr ""
 msgid "no kernel found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:395
+#: ../v2v/convert_linux.ml:377
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -2828,7 +2853,7 @@ msgid ""
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
 
-#: ../v2v/v2v.ml:444
+#: ../v2v/v2v.ml:463
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -2838,7 +2863,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:577
+#: ../v2v/v2v.ml:617
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -2848,7 +2873,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:749
+#: ../v2v/convert_linux.ml:694
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2905,19 +2930,19 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:227
+#: ../v2v/input_ova.ml:238
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:224
+#: ../v2v/input_ova.ml:235
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:156
+#: ../v2v/convert_linux.ml:138
 msgid "package '%s' contains no files"
 msgstr ""
 
@@ -2942,7 +2967,7 @@ msgid ""
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:315
+#: ../customize/customize_run.ml:319
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -2958,7 +2983,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:367 ../v2v/v2v.ml:148
+#: ../v2v/v2v.ml:386 ../v2v/v2v.ml:148
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -2974,7 +2999,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:489
+#: ../v2v/v2v.ml:508
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -2998,7 +3023,7 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../builder/cmdline.ml:318
+#: ../builder/cmdline.ml:319
 msgid "sorry, cannot run commands on a guest with a different architecture"
 msgstr ""
 
@@ -3056,7 +3081,7 @@ msgstr ""
 msgid "subprocess signalled or stopped by signal %d"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:77
+#: ../v2v/output_vdsm.ml:79
 msgid ""
 "the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on "
 "the command line has to match the number of guest disk images (for this "
@@ -3118,6 +3143,12 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
+#: ../v2v/v2v.ml:236
+msgid ""
+"this guest cannot run on the target, because the target does not support %s "
+"firmware (supported firmware on target: %s)"
+msgstr ""
+
 #: ../v2v/input_libvirtxml.ml:190
 msgid "this guest has no non-removable disks"
 msgstr ""
@@ -3130,13 +3161,13 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1243
+#: ../v2v/convert_linux.ml:1188
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:510
+#: ../v2v/v2v.ml:529
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3145,7 +3176,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:941
+#: ../v2v/convert_linux.ml:886
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -3179,6 +3210,10 @@ msgstr ""
 
 #: ../v2v/cmdline.ml:116
 msgid "unknown -oa option: %s"
+msgstr ""
+
+#: ../v2v/input_ova.ml:223
+msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
 #: ../v2v/OVF.ml:167
@@ -3263,7 +3298,7 @@ msgid ""
 "vcenter: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:90
+#: ../v2v/output_vdsm.ml:92
 msgid "vdsm: invalid -os parameter does not contain a valid UUID: %s"
 msgstr ""
 
@@ -3317,7 +3352,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:269
+#: ../v2v/v2v.ml:286
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
