@@ -29,6 +29,7 @@ EXTRA_DIST = \
 	bin-aarch64-dynamic \
 	bin-armv7-dynamic \
 	bin-i586-dynamic \
+	bin-ia64-dynamic \
 	bin-mipsel-dynamic \
 	bin-ppc64-dynamic \
 	bin-ppc64le-dynamic \
@@ -39,6 +40,7 @@ EXTRA_DIST = \
 	lib-aarch64.so \
 	lib-armv7.so \
 	lib-i586.so \
+	lib-ia64.so \
 	lib-ppc64.so \
 	lib-ppc64le.so \
 	lib-mipsel.so \
@@ -62,6 +64,7 @@ images_files_src = \
 	$(srcdir)/bin-aarch64-dynamic \
 	$(srcdir)/bin-armv7-dynamic \
 	$(srcdir)/bin-i586-dynamic \
+	$(srcdir)/bin-ia64-dynamic \
 	$(srcdir)/bin-mipsel-dynamic \
 	$(srcdir)/bin-ppc64-dynamic \
 	$(srcdir)/bin-ppc64le-dynamic \
@@ -72,6 +75,7 @@ images_files_src = \
 	$(srcdir)/lib-aarch64.so \
 	$(srcdir)/lib-armv7.so \
 	$(srcdir)/lib-i586.so \
+	$(srcdir)/lib-ia64.so \
 	$(srcdir)/lib-mipsel.so \
 	$(srcdir)/lib-ppc64.so \
 	$(srcdir)/lib-ppc64le.so \
