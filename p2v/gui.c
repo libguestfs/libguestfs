@@ -375,6 +375,8 @@ static void set_interfaces_from_ui (struct config *);
 static void conversion_back_clicked (GtkWidget *w, gpointer data);
 static void start_conversion_clicked (GtkWidget *w, gpointer data);
 static void notify_ui_callback (int type, const char *data);
+static int get_vcpus_from_conv_dlg (void);
+static uint64_t get_memory_from_conv_dlg (void);
 
 enum {
   DISKS_COL_CONVERT = 0,
@@ -1051,6 +1053,32 @@ conversion_back_clicked (GtkWidget *w, gpointer data)
   gtk_widget_set_sensitive (next_button, FALSE);
 }
 
+static int
+get_vcpus_from_conv_dlg (void)
+{
+  const char *str;
+  int i;
+
+  str = gtk_entry_get_text (GTK_ENTRY (vcpus_entry));
+  if (sscanf (str, "%d", &i) == 1 && i > 0)
+    return i;
+  else
+    return 1;
+}
+
+static uint64_t
+get_memory_from_conv_dlg (void)
+{
+  const char *str;
+  uint64_t i;
+
+  str = gtk_entry_get_text (GTK_ENTRY (memory_entry));
+  if (sscanf (str, "%" SCNu64, &i) == 1 && i >= 256)
+    return i * 1024 * 1024;
+  else
+    return UINT64_C (1024) * 1024 * 1024;
+}
+
 /*----------------------------------------------------------------------*/
 /* Running dialog. */
 
@@ -1174,7 +1202,6 @@ static void
 start_conversion_clicked (GtkWidget *w, gpointer data)
 {
   struct config *config = data;
-  int i;
   const char *str;
   char *str2;
   GtkWidget *dlg;
@@ -1200,17 +1227,8 @@ start_conversion_clicked (GtkWidget *w, gpointer data)
     return;
   }
 
-  str = gtk_entry_get_text (GTK_ENTRY (vcpus_entry));
-  if (sscanf (str, "%d", &i) == 1 && i > 0)
-    config->vcpus = i;
-  else
-    config->vcpus = 1;
-
-  str = gtk_entry_get_text (GTK_ENTRY (memory_entry));
-  if (sscanf (str, "%d", &i) == 1 && i >= 256)
-    config->memory = (uint64_t) i * 1024 * 1024;
-  else
-    config->memory = 1024 * 1024 * 1024;
+  config->vcpus = get_vcpus_from_conv_dlg ();
+  config->memory = get_memory_from_conv_dlg ();
 
   config->verbose =
     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (debug_button));
