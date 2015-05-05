@@ -199,7 +199,7 @@ create_connection_dialog (struct config *config)
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conn_dlg),
                           /* _("Configure network ..."), 1, */
-                          _("virt-p2v " PACKAGE_VERSION " ..."), 2,
+                          _("About virt-p2v " PACKAGE_VERSION " ..."), 2,
                           _("Next"), 3,
                           NULL);
 
