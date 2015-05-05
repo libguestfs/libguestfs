@@ -339,6 +339,11 @@ class output_libvirt verbose oc output_pool = object
      *)
     capabilities_doc <- Some doc;
 
+    (* Does the domain already exist on the target?  (RHBZ#889082) *)
+    if Domainxml.domain_exists ?conn:oc source.s_name then
+      error (f_"a libvirt domain called '%s' already exists on the target.\n\nIf using virt-v2v directly, use the '-on' option to select a different name. If using virt-p2v, select a different 'Name' in the 'Target properties'. Or delete the existing domain on the target using the 'virsh undefine' command.")
+            source.s_name;
+
     (* Connect to output libvirt instance and check that the pool exists
      * and dump out its XML.
      *)

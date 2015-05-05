@@ -24,3 +24,5 @@ external pool_dumpxml : ?conn:string -> string -> string = "v2v_pool_dumpxml"
 external vol_dumpxml : ?conn:string -> string -> string -> string = "v2v_vol_dumpxml"
 
 external capabilities : ?conn:string -> unit -> string = "v2v_capabilities"
+
+external domain_exists : ?conn:string -> string -> bool = "v2v_domain_exists"

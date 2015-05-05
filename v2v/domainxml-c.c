@@ -416,6 +416,71 @@ v2v_capabilities (value connv, value unitv)
   CAMLreturn (capabilitiesv);
 }
 
+value
+v2v_domain_exists (value connv, value domnamev)
+{
+  CAMLparam2 (connv, domnamev);
+  const char *conn_uri = NULL;
+  const char *domname;
+  /* We have to assemble the error on the stack because a dynamic
+   * string couldn't be freed.
+   */
+  char errmsg[256];
+  virErrorPtr err;
+  virConnectPtr conn;
+  virDomainPtr dom;
+  int domain_exists;
+
+  if (connv != Val_int (0))
+    conn_uri = String_val (Field (connv, 0)); /* Some conn */
+
+  /* We have to call the default authentication handler, not least
+   * since it handles all the PolicyKit crap.  However it also makes
+   * coding this simpler.
+   */
+  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault,
+                             VIR_CONNECT_RO);
+  if (conn == NULL) {
+    if (conn_uri)
+      snprintf (errmsg, sizeof errmsg,
+                _("cannot open libvirt connection '%s'"), conn_uri);
+    else
+      snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
+    caml_invalid_argument (errmsg);
+  }
+
+  /* Suppress default behaviour of printing errors to stderr.  Note
+   * you can't set this to NULL to ignore errors; setting it to NULL
+   * restores the default error handler ...
+   */
+  virConnSetErrorFunc (conn, NULL, ignore_errors);
+
+  /* Look up the domain. */
+  domname = String_val (domnamev);
+  dom = virDomainLookupByName (conn, domname);
+
+  if (dom) {
+    domain_exists = 1;
+    virDomainFree (dom);
+  }
+  else {
+    err = virGetLastError ();
+    if (err->code == VIR_ERR_NO_DOMAIN)
+      domain_exists = 0;
+    else {
+      snprintf (errmsg, sizeof errmsg,
+                _("cannot find libvirt domain '%s': %s"),
+                domname, err->message);
+      virConnectClose (conn);
+      caml_invalid_argument (errmsg);
+    }
+  }
+
+  virConnectClose (conn);
+
+  CAMLreturn (Val_bool (domain_exists));
+}
+
 #else /* !HAVE_LIBVIRT */
 
 value

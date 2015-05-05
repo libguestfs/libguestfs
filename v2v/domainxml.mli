@@ -43,3 +43,9 @@ val vol_dumpxml : ?conn:string -> string -> string -> string
 val capabilities : ?conn:string -> unit -> string
 (** [capabilities ?conn ()] returns the libvirt capabilities XML.
     The optional [?conn] parameter is the libvirt connection URI. *)
+
+val domain_exists : ?conn:string -> string -> bool
+(** [domain_exists ?conn dom] returns a boolean indicating if the
+    the libvirt XML domain [dom] exists.
+    The optional [?conn] parameter is the libvirt connection URI.
+    [dom] may be a guest name, but not a UUID. *)
