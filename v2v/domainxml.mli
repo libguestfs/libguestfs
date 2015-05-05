@@ -16,7 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** [virsh dumpxml] but with non-broken authentication handling.
+(** This module implements various [virsh]-like commands, but with
+    non-broken authentication handling.
 
     If you do [virsh dumpxml foo] and if the libvirt source (eg. ESX)
     requires an interactive password, then virsh unhelpfully sends the
@@ -38,3 +39,7 @@ val vol_dumpxml : ?conn:string -> string -> string -> string
     which is part of the pool [pool].
     The optional [?conn] parameter is the libvirt connection URI.
     [pool] may be a pool name or UUID. *)
+
+val capabilities : ?conn:string -> unit -> string
+(** [capabilities ?conn ()] returns the libvirt capabilities XML.
+    The optional [?conn] parameter is the libvirt connection URI. *)

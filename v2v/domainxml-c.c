@@ -16,7 +16,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* [virsh dumpxml] but with non-broken authentication handling. */
+/* This module implements various [virsh]-like commands, but with
+ * non-broken authentication handling.
+ */
 
 #include <config.h>
 
@@ -360,6 +362,60 @@ v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
   CAMLreturn (retv);
 }
 
+value
+v2v_capabilities (value connv, value unitv)
+{
+  CAMLparam2 (connv, unitv);
+  CAMLlocal1 (capabilitiesv);
+  const char *conn_uri = NULL;
+  char *capabilities;
+  /* We have to assemble the error on the stack because a dynamic
+   * string couldn't be freed.
+   */
+  char errmsg[256];
+  virErrorPtr err;
+  virConnectPtr conn;
+
+  if (connv != Val_int (0))
+    conn_uri = String_val (Field (connv, 0)); /* Some conn */
+
+  /* We have to call the default authentication handler, not least
+   * since it handles all the PolicyKit crap.  However it also makes
+   * coding this simpler.
+   */
+  conn = virConnectOpenAuth (conn_uri, virConnectAuthPtrDefault,
+                             VIR_CONNECT_RO);
+  if (conn == NULL) {
+    if (conn_uri)
+      snprintf (errmsg, sizeof errmsg,
+                _("cannot open libvirt connection '%s'"), conn_uri);
+    else
+      snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
+    caml_invalid_argument (errmsg);
+  }
+
+  /* Suppress default behaviour of printing errors to stderr.  Note
+   * you can't set this to NULL to ignore errors; setting it to NULL
+   * restores the default error handler ...
+   */
+  virConnSetErrorFunc (conn, NULL, ignore_errors);
+
+  capabilities = virConnectGetCapabilities (conn);
+  if (!capabilities) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot get libvirt hypervisor capabilities: %s"),
+              err->message);
+    virConnectClose (conn);
+    caml_invalid_argument (errmsg);
+  }
+
+  capabilitiesv = caml_copy_string (capabilities);
+  free (capabilities);
+
+  CAMLreturn (capabilitiesv);
+}
+
 #else /* !HAVE_LIBVIRT */
 
 value
@@ -376,6 +432,12 @@ v2v_pool_dumpxml (value connv, value poolv)
 
 value
 v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
+{
+  caml_invalid_argument ("virt-v2v was compiled without libvirt support");
+}
+
+value
+v2v_capabilities (value connv, value unitv)
 {
   caml_invalid_argument ("virt-v2v was compiled without libvirt support");
 }

@@ -325,14 +325,7 @@ class output_libvirt verbose oc output_pool = object
 
   method prepare_targets source targets =
     (* Get the capabilities from libvirt. *)
-    let cmd =
-      match oc with
-      | None -> "virsh capabilities"
-      | Some uri -> sprintf "virsh -c %s capabilities" (quote uri) in
-    if verbose then printf "%s\n%!" cmd;
-    let xml = external_command ~prog cmd in
-    let xml = String.concat "\n" xml in
-
+    let xml = Domainxml.capabilities ?conn:oc () in
     if verbose then printf "libvirt capabilities XML:\n%s\n%!" xml;
 
     (* This just checks that the capabilities XML is well-formed,

@@ -16,8 +16,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* [virsh dumpxml] but with non-broken authentication handling. *)
+(* This module implements various [virsh]-like commands, but with
+    non-broken authentication handling. *)
 
 external dumpxml : ?password:string -> ?conn:string -> string -> string = "v2v_dumpxml"
 external pool_dumpxml : ?conn:string -> string -> string = "v2v_pool_dumpxml"
 external vol_dumpxml : ?conn:string -> string -> string -> string = "v2v_vol_dumpxml"
+
+external capabilities : ?conn:string -> unit -> string = "v2v_capabilities"
