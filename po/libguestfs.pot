@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.39\n"
+"Project-Id-Version: libguestfs 1.29.40\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-05-02 09:19+0100\n"
+"POT-Creation-Date: 2015-05-06 17:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -548,14 +548,14 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:365
+#: ../v2v/output_libvirt.ml:368
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element either does not exist or is not a local directory.  See virt-v2v(1) "
 "section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:362
+#: ../v2v/output_libvirt.ml:365
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -2226,6 +2226,23 @@ msgid ""
 "%!"
 msgstr ""
 
+#: ../v2v/output_libvirt.ml:339
+msgid ""
+"a libvirt domain called '%s' already exists on the target.\n"
+"\n"
+"If using virt-p2v, select a different 'Name' in the 'Target properties'. Or "
+"delete the existing domain on the target using the 'virsh undefine' command."
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:342
+msgid ""
+"a libvirt domain called '%s' already exists on the target.\n"
+"\n"
+"If using virt-v2v directly, use the '-on' option to select a different name. "
+"Or delete the existing domain on the target using the 'virsh undefine' "
+"command."
+msgstr ""
+
 #: ../resize/resize.ml:276
 msgid "alignment cannot be < 1"
 msgstr ""
@@ -2358,7 +2375,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:415
+#: ../v2v/output_libvirt.ml:418
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2411,7 +2428,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:387
+#: ../v2v/output_libvirt.ml:390
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -7160,89 +7177,93 @@ msgstr ""
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:116
+#: p2v/gui.c:120
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:121
+#: p2v/gui.c:125
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:131
+#: p2v/gui.c:135
 msgid "SSH port:"
 msgstr ""
 
-#: p2v/gui.c:142
+#: p2v/gui.c:146
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:154
+#: p2v/gui.c:158
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:170
+#: p2v/gui.c:174
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:177
+#: p2v/gui.c:181
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:200
-msgid "virt-p2v "
+#: p2v/gui.c:203
+msgid "Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:201
+#: p2v/gui.c:204
+msgid "About virt-p2v "
+msgstr ""
+
+#: p2v/gui.c:205
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:251
+#: p2v/gui.c:259
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:259
+#: p2v/gui.c:267
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:267
+#: p2v/gui.c:275
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:308
+#: p2v/gui.c:316
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:327
+#: p2v/gui.c:335
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:430
+#: p2v/gui.c:447
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:436
+#: p2v/gui.c:453
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:446
+#: p2v/gui.c:463
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:456
+#: p2v/gui.c:477
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:470
+#: p2v/gui.c:503
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:476
+#: p2v/gui.c:509
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:481
+#: p2v/gui.c:514
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -7251,113 +7272,130 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:486
+#: p2v/gui.c:519
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:491
+#: p2v/gui.c:524
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:497
+#: p2v/gui.c:530
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:502
+#: p2v/gui.c:535
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:508
+#: p2v/gui.c:541
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:513
+#: p2v/gui.c:546
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:519
+#: p2v/gui.c:552
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:538
+#: p2v/gui.c:571
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
 msgstr ""
 
-#: p2v/gui.c:547
+#: p2v/gui.c:580
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:555
+#: p2v/gui.c:588
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:567
+#: p2v/gui.c:600
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:579
+#: p2v/gui.c:612
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:607
+#: p2v/gui.c:640
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:608
+#: p2v/gui.c:641
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:644
+#: p2v/gui.c:683
 #, c-format
 msgid "virt-p2v (client) %s"
 msgstr ""
 
-#: p2v/gui.c:647
+#: p2v/gui.c:686
 #, c-format
 msgid ""
 "virt-p2v (client) %s\n"
 "virt-v2v (conversion server) %d.%d.%d"
 msgstr ""
 
-#: p2v/gui.c:770 p2v/gui.c:825 p2v/gui.c:873
+#: p2v/gui.c:809 p2v/gui.c:864 p2v/gui.c:912
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:777 p2v/gui.c:832 p2v/gui.c:880
+#: p2v/gui.c:816 p2v/gui.c:871 p2v/gui.c:919
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:784
+#: p2v/gui.c:823
 msgid "Size (GB)"
 msgstr ""
 
-#: p2v/gui.c:791
+#: p2v/gui.c:830
 msgid "Model"
 msgstr ""
 
-#: p2v/gui.c:887
+#: p2v/gui.c:926
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1098
+#: p2v/gui.c:1154
+#, c-format
+msgid ""
+"Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
+msgstr ""
+
+#: p2v/gui.c:1164
+#, c-format
+msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
+msgstr ""
+
+#: p2v/gui.c:1172
+msgid ""
+"If you ignore this warning, conversion can still succeed, but the guest may "
+"not work or may not be supported on the target."
+msgstr ""
+
+#: p2v/gui.c:1249
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:1099
+#: p2v/gui.c:1250
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1134
+#: p2v/gui.c:1285
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -7365,34 +7403,34 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1195
+#: p2v/gui.c:1345
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1196 p2v/gui.c:1229
+#: p2v/gui.c:1346 p2v/gui.c:1370
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1227
+#: p2v/gui.c:1368
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1314
+#: p2v/gui.c:1455
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1315
+#: p2v/gui.c:1456
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1324
+#: p2v/gui.c:1465
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1325
+#: p2v/gui.c:1466
 msgid "Conversion was successful"
 msgstr ""
 
@@ -8732,51 +8770,58 @@ msgstr ""
 msgid "%s: does not look like a qemu source directory\n"
 msgstr ""
 
-#: v2v/domainxml-c.c:135 v2v/domainxml-c.c:205
+#: v2v/domainxml-c.c:137 v2v/domainxml-c.c:207 v2v/domainxml-c.c:391
+#: v2v/domainxml-c.c:446
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
-#: v2v/domainxml-c.c:137 v2v/domainxml-c.c:207
+#: v2v/domainxml-c.c:139 v2v/domainxml-c.c:209 v2v/domainxml-c.c:393
+#: v2v/domainxml-c.c:448
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
 
-#: v2v/domainxml-c.c:158
+#: v2v/domainxml-c.c:160
 #, c-format
 msgid "cannot find libvirt pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:228
+#: v2v/domainxml-c.c:230 v2v/domainxml-c.c:472
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:243
+#: v2v/domainxml-c.c:245
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
 
-#: v2v/domainxml-c.c:256
+#: v2v/domainxml-c.c:258
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:293
+#: v2v/domainxml-c.c:295
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:336
+#: v2v/domainxml-c.c:338
 #, c-format
 msgid "cannot find libvirt volume '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:346
+#: v2v/domainxml-c.c:348
 #, c-format
 msgid "cannot fetch XML description of volume '%s': %s"
+msgstr ""
+
+#: v2v/domainxml-c.c:407
+#, c-format
+msgid "cannot get libvirt hypervisor capabilities: %s"
 msgstr ""
 
 #: tools/virt-list-filesystems:147
