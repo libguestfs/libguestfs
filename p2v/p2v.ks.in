@@ -69,6 +69,8 @@ metacity
 pcre
 libxml2
 gtk2
+network-manager-applet
+dbus-x11
 @hardware-support --optional
 
 %end
