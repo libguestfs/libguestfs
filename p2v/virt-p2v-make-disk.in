@@ -94,12 +94,12 @@ trap cleanup INT QUIT TERM EXIT ERR
 #   - Xorg drivers
 #   - some fonts
 #   - hardware support (firmware etc, RHBZ#1157679)
-#   - matchbox (window manager, another could be used)
+#   - metacity (window manager, another could be used)
 #
 # Note that libguestfs is NOT a dependency.
 case "$osversion" in
     centos-*|fedora-*|rhel-*|scientificlinux-*)
-        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1,matchbox-window-manager,@hardware-support
+        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1,metacity,@hardware-support
         cat > $tmpdir/p2v.conf <<'EOF'
 add_drivers+=" usb-storage "
 EOF
@@ -117,13 +117,13 @@ EOF
         "
         ;;
     debian-*|ubuntu-*)
-        deps=libpcre3,libxml2,libgtk2.0-0,openssh-client,qemu-utils,xorg,xserver-xorg-video-all,matchbox-window-manager
+        deps=libpcre3,libxml2,libgtk2.0-0,openssh-client,qemu-utils,xorg,xserver-xorg-video-all,metacity
         ;;
     archlinux-*)
-        deps=pcre,libxml2,gtk2,openssh,qemu,xorg-xinit,xorg-server,xf86-video-*,matchbox-window-manager
+        deps=pcre,libxml2,gtk2,openssh,qemu,xorg-xinit,xorg-server,xf86-video-*,metacity
         ;;
     opensuse-*|suse-*)
-        deps=pcre,libxml2,gtk2,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/xinit,/usr/bin/Xorg,xf86-video-*,matchbox-window-manager
+        deps=pcre,libxml2,gtk2,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/xinit,/usr/bin/Xorg,xf86-video-*,metacity
         ;;
     *)
         echo "$program: internal error: could not work out the Linux distro from '$osversion'"
