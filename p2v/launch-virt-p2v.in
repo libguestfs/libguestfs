@@ -22,7 +22,7 @@
 # and virt-p2v.
 if [ "$1" = "run" ]; then
     cd /
-    matchbox-window-manager &
+    metacity &
     exec @libexecdir@/virt-p2v
 else
     xinit "$0" run

@@ -65,7 +65,7 @@ firewalld
 /usr/bin/Xorg
 xorg-x11-drivers
 xorg-x11-fonts-Type1
-matchbox-window-manager
+metacity
 pcre
 libxml2
 gtk2
