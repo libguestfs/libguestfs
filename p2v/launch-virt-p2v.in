@@ -23,6 +23,7 @@
 if [ "$1" = "run" ]; then
     cd /
     metacity &
+    nm-applet &
     exec @libexecdir@/virt-p2v
 else
     xinit "$0" run

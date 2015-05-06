@@ -94,6 +94,7 @@ gui_application (struct config *config)
 
 static void test_connection_clicked (GtkWidget *w, gpointer data);
 static void *test_connection_thread (void *data);
+static void configure_network_button_clicked (GtkWidget *w, gpointer data);
 static void about_button_clicked (GtkWidget *w, gpointer data);
 static void connection_next_clicked (GtkWidget *w, gpointer data);
 static void repopulate_output_combo (struct config *config);
@@ -108,6 +109,7 @@ create_connection_dialog (struct config *config)
   GtkWidget *password_label;
   GtkWidget *test_hbox, *test;
   GtkWidget *about;
+  GtkWidget *configure_network;
   char port_str[64];
 
   conn_dlg = gtk_dialog_new ();
@@ -198,7 +200,7 @@ create_connection_dialog (struct config *config)
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conn_dlg),
-                          /* _("Configure network ..."), 1, */
+                          _("Configure network ..."), 1,
                           _("About virt-p2v " PACKAGE_VERSION " ..."), 2,
                           _("Next"), 3,
                           NULL);
@@ -206,6 +208,8 @@ create_connection_dialog (struct config *config)
   next_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 3);
   gtk_widget_set_sensitive (next_button, FALSE);
 
+  configure_network =
+    gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 1);
   about = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 2);
 
   /* Signals. */
@@ -213,6 +217,8 @@ create_connection_dialog (struct config *config)
                             G_CALLBACK (gtk_main_quit), NULL);
   g_signal_connect (G_OBJECT (test), "clicked",
                     G_CALLBACK (test_connection_clicked), config);
+  g_signal_connect (G_OBJECT (configure_network), "clicked",
+                    G_CALLBACK (configure_network_button_clicked), NULL);
   g_signal_connect (G_OBJECT (about), "clicked",
                     G_CALLBACK (about_button_clicked), NULL);
   g_signal_connect (G_OBJECT (next_button), "clicked",
@@ -339,6 +345,12 @@ test_connection_thread (void *data)
 
   /* Thread is detached anyway, so no one is waiting for the status. */
   return NULL;
+}
+
+static void
+configure_network_button_clicked (GtkWidget *w, gpointer data)
+{
+  ignore_value (system ("nm-connection-editor &"));
 }
 
 static void
