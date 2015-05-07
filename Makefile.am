@@ -355,6 +355,21 @@ all-local:
 	find builder customize mllib resize sparsify sysprep v2v -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
 
+# Try to stop people using 'make install' without 'DESTDIR'.
+install:
+	@if test "x$(DESTDIR)" != "x" || test "x$(REALLY_INSTALL)" = "xyes"; \
+	then \
+	    $(MAKE) install-recursive; \
+	else \
+	    echo "***"; \
+	    echo "*** Using 'make install' is usually a very bad idea."; \
+	    echo "*** Use the './run' script instead - see the README."; \
+	    echo "***"; \
+	    echo "*** You can override this by setting REALLY_INSTALL=yes, but don't do that."; \
+	    echo "***"; \
+	    exit 1; \
+	fi
+
 # Manual pages in top level directory.
 
 man_MANS = \
