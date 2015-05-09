@@ -21,6 +21,8 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	$(TESTS) $(SLOW_TESTS) \
 	HACKING README.RHEV-M \
+	rhel-7-virt-v2v-conversion-server.config \
+	rhel-7-virt-v2v-conversion-server.ks \
 	test-v2v-i-ova.ovf \
 	test-v2v-i-ova.xml \
 	test-v2v-i-ova-formats.expected \
