@@ -20,7 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	$(TESTS) $(SLOW_TESTS) \
-	HACKING README.RHEV-M \
+	HACKING \
 	rhel-7-virt-v2v-conversion-server.config \
 	rhel-7-virt-v2v-conversion-server.ks \
 	test-v2v-i-ova.ovf \
