@@ -107,6 +107,7 @@ create_connection_dialog (struct config *config)
   GtkWidget *port_label;
   GtkWidget *username_label;
   GtkWidget *password_label;
+  GtkWidget *password_tip_label;
   GtkWidget *test_hbox, *test;
   GtkWidget *about;
   GtkWidget *configure_network;
@@ -121,7 +122,7 @@ create_connection_dialog (struct config *config)
   gtk_label_set_line_wrap (GTK_LABEL (intro), TRUE);
   gtk_misc_set_padding (GTK_MISC (intro), 10, 10);
 
-  table = gtk_table_new (5, 2, FALSE);
+  table = gtk_table_new (6, 2, FALSE);
   server_label = gtk_label_new (_("Conversion server:"));
   gtk_misc_set_alignment (GTK_MISC (server_label), 1., 0.5);
   gtk_table_attach (GTK_TABLE (table), server_label,
@@ -170,12 +171,19 @@ create_connection_dialog (struct config *config)
   gtk_table_attach (GTK_TABLE (table), password_entry,
                     1, 2, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
 
+  password_tip_label = gtk_label_new (NULL);
+  gtk_label_set_markup (GTK_LABEL (password_tip_label),
+                        _("<i>Tip: If you are using the RHEL virt-v2v conversion server virtual appliance, then the root password is</i> <tt>v2v</tt>"));
+  gtk_label_set_line_wrap (GTK_LABEL (password_tip_label), TRUE);
+  gtk_table_attach (GTK_TABLE (table), password_tip_label,
+                    1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
+
   sudo_button =
     gtk_check_button_new_with_label (_("Use sudo when running virt-v2v"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sudo_button),
                                 config->sudo);
   gtk_table_attach (GTK_TABLE (table), sudo_button,
-                    1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
+                    1, 2, 5, 6, GTK_FILL, GTK_FILL, 4, 4);
 
   test_hbox = gtk_hbox_new (FALSE, 0);
   test = gtk_button_new_with_label (_("Test connection"));
