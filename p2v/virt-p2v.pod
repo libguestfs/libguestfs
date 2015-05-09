@@ -114,7 +114,7 @@ At the bottom of the dialog are these buttons:
  │                                                        │
  │                [ Test connection ]                     │
  │                                                        │
- │                [ About           ]  [ Next           ] │
+ │ [ Configure network ] [ About virt-p2v  ] [ Next     ] │
  │                                                        │
  └────────────────────────────────────────────────────────┘
 
@@ -123,6 +123,10 @@ connection to the conversion server.  If that is successful (ie. you
 have supplied the correct server name, user name, password, etc., and
 a suitable version of virt-v2v is available remotely) then press the
 C<Next> button to move to the next dialog.
+
+You can use the C<Configure network> button if you need to assign a
+static IP address to the physical machine, or use Wifi, bonding or
+other network features.
 
 =head2 DISK AND NETWORK CONFIGURATION DIALOG
 
