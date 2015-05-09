@@ -20,7 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	$(TESTS) $(SLOW_TESTS) \
-	HACKING README.RHEV-M \
+	HACKING \
 	test-v2v-i-ova.ovf \
 	test-v2v-i-ova.xml \
 	test-v2v-i-ova-gz.expected \
