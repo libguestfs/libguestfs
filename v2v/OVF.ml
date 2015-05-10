@@ -97,16 +97,34 @@ let get_vmtype = function
 
 (* Determine the ovf:OperatingSystemSection_Type from libguestfs
  * inspection.  See ovirt-engine sources, file:
- * frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/Enums.properties
+ *   packaging/conf/osinfo-defaults.properties
+ * and also:
+ *   https://bugzilla.redhat.com/show_bug.cgi?id=1219857#c9
  *)
 and get_ostype = function
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = v;
-      i_arch = "i386" } ->
+      i_arch = "i386" } when v <= 6 ->
     sprintf "RHEL%d" v
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = v;
-      i_arch = "x86_64" } ->
+      i_arch = "x86_64" } when v <= 6 ->
     sprintf "RHEL%dx64" v
+
+  | { i_type = "linux"; i_distro = "rhel"; i_major_version = v;
+      i_arch = "x86_64" } (* when v >= 7 *) ->
+    sprintf "rhel_%dx64" v
+
+  | { i_type = "linux"; i_distro = "rhel"; i_major_version = 7;
+      i_arch = "ppc64" | "ppc64le" } ->
+    "rhel_7_ppc64"
+
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = 11;
+      i_arch = "x86_64" } ->
+    "sles_11"
+
+  | { i_type = "linux"; i_distro = "sles"; i_major_version = 11;
+      i_arch = "ppc64" | "ppc64le" } ->
+    "sles_11_ppc64"
 
   | { i_type = "linux" } -> "OtherLinux"
 
@@ -147,19 +165,19 @@ and get_ostype = function
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
       i_arch = "i386" } ->
-    "Windows8"
+    "windows_8"
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
       i_arch = "x86_64"; i_product_variant = "Client" } ->
-    "Windows8x64"
+    "windows_8x64"
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 2;
       i_arch = "x86_64" } ->
-    "Windows2012x64"
+    "windows_2012x64"
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
       i_arch = "x86_64" } ->
-    "Windows2012R2x64"
+    "windows_2012R2x64"
 
   | { i_type = typ; i_distro = distro;
       i_major_version = major; i_minor_version = minor;
